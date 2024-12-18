@@ -31534,6 +31534,15 @@ export type RedirectFragment = {
   id: string
   targetType: RedirectTargetType
   targetUrl?: string | null
+  authGuard: AuthGuardFragment
+  source: { id: string }
+  targetPage?: PagePreviewFragment | null
+}
+
+export type RedirectPreviewFragment = {
+  id: string
+  targetType: RedirectTargetType
+  targetUrl?: string | null
   authGuard: { id: string }
   source: { id: string }
   targetPage?: { id: string } | null
@@ -31862,6 +31871,7 @@ export type UserFragment = {
 export type GetAppBuilderQueryVariables = Exact<{
   appId: Scalars['ID']['input']
   pageIds?: InputMaybe<Array<Scalars['ID']['input']> | Scalars['ID']['input']>
+  preview?: InputMaybe<Scalars['Boolean']['input']>
 }>
 
 export type GetAppBuilderQuery = {
@@ -32330,6 +32340,16 @@ export type GetRedirectsQueryVariables = Exact<{
 export type GetRedirectsQuery = {
   aggregate: { count: number }
   items: Array<RedirectFragment>
+}
+
+export type GetRedirectsPreviewQueryVariables = Exact<{
+  options?: InputMaybe<RedirectOptions>
+  where?: InputMaybe<RedirectWhere>
+}>
+
+export type GetRedirectsPreviewQuery = {
+  aggregate: { count: number }
+  items: Array<RedirectPreviewFragment>
 }
 
 export type ResourceListQueryVariables = Exact<{
@@ -36473,39 +36493,6 @@ fragment InterfaceType on InterfaceType {
 }`,
   { fragmentName: 'Atom' },
 ) as unknown as TypedDocumentString<AtomFragment, unknown>
-export const AuthGuardFragmentDoc = new TypedDocumentString(
-  `
-    fragment AuthGuard on AuthGuard {
-  config {
-    ...Prop
-  }
-  id
-  name
-  resource {
-    ...Resource
-  }
-  responseTransformer
-  owner {
-    id
-  }
-}
-    fragment Prop on Prop {
-  data
-  id
-}
-fragment Resource on Resource {
-  config {
-    ...Prop
-  }
-  id
-  name
-  type
-  owner {
-    id
-  }
-}`,
-  { fragmentName: 'AuthGuard' },
-) as unknown as TypedDocumentString<AuthGuardFragment, unknown>
 export const ComponentFragmentDoc = new TypedDocumentString(
   `
     fragment Component on Component {
@@ -37109,9 +37096,107 @@ export const HookFragmentDoc = new TypedDocumentString(
 }`,
   { fragmentName: 'Hook' },
 ) as unknown as TypedDocumentString<HookFragment, unknown>
+export const AuthGuardFragmentDoc = new TypedDocumentString(
+  `
+    fragment AuthGuard on AuthGuard {
+  config {
+    ...Prop
+  }
+  id
+  name
+  resource {
+    ...Resource
+  }
+  responseTransformer
+  owner {
+    id
+  }
+}
+    fragment Prop on Prop {
+  data
+  id
+}
+fragment Resource on Resource {
+  config {
+    ...Prop
+  }
+  id
+  name
+  type
+  owner {
+    id
+  }
+}`,
+  { fragmentName: 'AuthGuard' },
+) as unknown as TypedDocumentString<AuthGuardFragment, unknown>
 export const RedirectFragmentDoc = new TypedDocumentString(
   `
     fragment Redirect on Redirect {
+  authGuard {
+    ...AuthGuard
+  }
+  id
+  source {
+    id
+  }
+  targetPage {
+    ...PagePreview
+  }
+  targetType
+  targetUrl
+}
+    fragment AuthGuard on AuthGuard {
+  config {
+    ...Prop
+  }
+  id
+  name
+  resource {
+    ...Resource
+  }
+  responseTransformer
+  owner {
+    id
+  }
+}
+fragment PagePreview on Page {
+  app {
+    id
+  }
+  id
+  kind
+  name
+  rootElement {
+    id
+  }
+  elements {
+    id
+  }
+  store {
+    id
+  }
+  urlPattern
+}
+fragment Prop on Prop {
+  data
+  id
+}
+fragment Resource on Resource {
+  config {
+    ...Prop
+  }
+  id
+  name
+  type
+  owner {
+    id
+  }
+}`,
+  { fragmentName: 'Redirect' },
+) as unknown as TypedDocumentString<RedirectFragment, unknown>
+export const RedirectPreviewFragmentDoc = new TypedDocumentString(
+  `
+    fragment RedirectPreview on Redirect {
   authGuard {
     id
   }
@@ -37126,8 +37211,8 @@ export const RedirectFragmentDoc = new TypedDocumentString(
   targetUrl
 }
     `,
-  { fragmentName: 'Redirect' },
-) as unknown as TypedDocumentString<RedirectFragment, unknown>
+  { fragmentName: 'RedirectPreview' },
+) as unknown as TypedDocumentString<RedirectPreviewFragment, unknown>
 export const ProductionStoreFragmentDoc = new TypedDocumentString(
   `
     fragment ProductionStore on Store {
@@ -37304,7 +37389,7 @@ export const DomainDeletedDocument = new TypedDocumentString(`
   DomainDeletedSubscriptionVariables
 >
 export const GetAppBuilderDocument = new TypedDocumentString(`
-    query GetAppBuilder($appId: ID!, $pageIds: [ID!]) {
+    query GetAppBuilder($appId: ID!, $pageIds: [ID!], $preview: Boolean = true) {
   actionTypes {
     ...ActionType
   }
@@ -37519,6 +37604,24 @@ fragment Element on Element {
   tailwindClassNames
   expanded
 }
+fragment PagePreview on Page {
+  app {
+    id
+  }
+  id
+  kind
+  name
+  rootElement {
+    id
+  }
+  elements {
+    id
+  }
+  store {
+    id
+  }
+  urlPattern
+}
 fragment PageDevelopment on Page {
   app {
     id
@@ -37549,14 +37652,14 @@ fragment Prop on Prop {
 }
 fragment Redirect on Redirect {
   authGuard {
-    id
+    ...AuthGuard
   }
   id
   source {
     id
   }
   targetPage {
-    id
+    ...PagePreview
   }
   targetType
   targetUrl
@@ -40423,7 +40526,80 @@ export const GetRedirectsDocument = new TypedDocumentString(`
     ...Redirect
   }
 }
-    fragment Redirect on Redirect {
+    fragment AuthGuard on AuthGuard {
+  config {
+    ...Prop
+  }
+  id
+  name
+  resource {
+    ...Resource
+  }
+  responseTransformer
+  owner {
+    id
+  }
+}
+fragment PagePreview on Page {
+  app {
+    id
+  }
+  id
+  kind
+  name
+  rootElement {
+    id
+  }
+  elements {
+    id
+  }
+  store {
+    id
+  }
+  urlPattern
+}
+fragment Prop on Prop {
+  data
+  id
+}
+fragment Redirect on Redirect {
+  authGuard {
+    ...AuthGuard
+  }
+  id
+  source {
+    id
+  }
+  targetPage {
+    ...PagePreview
+  }
+  targetType
+  targetUrl
+}
+fragment Resource on Resource {
+  config {
+    ...Prop
+  }
+  id
+  name
+  type
+  owner {
+    id
+  }
+}`) as unknown as TypedDocumentString<
+  GetRedirectsQuery,
+  GetRedirectsQueryVariables
+>
+export const GetRedirectsPreviewDocument = new TypedDocumentString(`
+    query GetRedirectsPreview($options: RedirectOptions, $where: RedirectWhere) {
+  aggregate: redirectsAggregate(where: $where) {
+    count
+  }
+  items: redirects(options: $options, where: $where) {
+    ...RedirectPreview
+  }
+}
+    fragment RedirectPreview on Redirect {
   authGuard {
     id
   }
@@ -40437,8 +40613,8 @@ export const GetRedirectsDocument = new TypedDocumentString(`
   targetType
   targetUrl
 }`) as unknown as TypedDocumentString<
-  GetRedirectsQuery,
-  GetRedirectsQueryVariables
+  GetRedirectsPreviewQuery,
+  GetRedirectsPreviewQueryVariables
 >
 export const ResourceListDocument = new TypedDocumentString(`
     query ResourceList($options: ResourceOptions, $where: ResourceWhere) {

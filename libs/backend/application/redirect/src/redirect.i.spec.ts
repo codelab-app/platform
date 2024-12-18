@@ -5,7 +5,10 @@ import type {
 } from '@codelab/shared/abstract/core'
 
 import { Redirect, RedirectRepository } from '@codelab/backend/domain/redirect'
+import { HealthcheckController } from '@codelab/backend/domain/shared/modules'
+import { GraphqlModule } from '@codelab/backend/infra/adapter/graphql'
 import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
+import { startServer } from '@codelab/backend/test'
 import {
   HttpMethod,
   HttpResponseType,
@@ -28,11 +31,16 @@ describe('Redirect', () => {
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [RedirectApplicationModule, CodelabLoggerModule],
+      controllers: [HealthcheckController],
+      imports: [GraphqlModule, RedirectApplicationModule, CodelabLoggerModule],
     }).compile()
+
+    const nestApp = module.createNestApplication()
 
     redirectController = module.get<RedirectController>(RedirectController)
     redirectRepository = module.get<RedirectRepository>(RedirectRepository)
+
+    await startServer(nestApp)
   })
 
   it('should authorize page access when no redirect found', async () => {

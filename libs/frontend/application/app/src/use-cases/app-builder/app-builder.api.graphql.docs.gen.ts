@@ -15,10 +15,11 @@ import {
   AuthGuardFragmentDoc,
   ComponentBuilderFragmentDoc,
   RedirectFragmentDoc,
+  RedirectPreviewFragmentDoc,
 } from '@codelab/shared/infra/gql'
 
 export const GetAppBuilderDocument = graphql(`
-  query GetAppBuilder($appId: ID!, $pageIds: [ID!]) {
+  query GetAppBuilder($appId: ID!, $pageIds: [ID!], $preview: Boolean = true) {
     actionTypes {
       ...ActionType
     }

@@ -69,8 +69,10 @@ const documents = {
   '\n  fragment Preference on Preference {\n    id\n    builderBreakpointType\n    builderWidth\n    owner {\n      id\n    }\n  }\n':
     types.PreferenceFragmentDoc,
   '\n  fragment Prop on Prop {\n    data\n    id\n  }\n': types.PropFragmentDoc,
-  '\n  fragment Redirect on Redirect {\n    authGuard {\n      id\n    }\n    id\n    source {\n      id\n    }\n    targetPage {\n      id\n    }\n    targetType\n    targetUrl\n  }\n':
+  '\n  fragment Redirect on Redirect {\n    authGuard {\n      ...AuthGuard\n    }\n    id\n    source {\n      id\n    }\n    targetPage {\n      ...PagePreview\n    }\n    targetType\n    targetUrl\n  }\n':
     types.RedirectFragmentDoc,
+  '\n  fragment RedirectPreview on Redirect {\n    authGuard {\n      id\n    }\n    id\n    source {\n      id\n    }\n    targetPage {\n      id\n    }\n    targetType\n    targetUrl\n  }\n':
+    types.RedirectPreviewFragmentDoc,
   '\n  fragment Resource on Resource {\n    config {\n      ...Prop\n    }\n    id\n    name\n    type\n    owner {\n      id\n    }\n  }\n':
     types.ResourceFragmentDoc,
   '\n  fragment Store on Store {\n    actions {\n      ...Action\n    }\n    api {\n      ...InterfaceType\n    }\n    id\n    name\n  }\n':
@@ -120,7 +122,7 @@ const documents = {
   '\n  fragment Owner on User {\n    id\n  }\n': types.OwnerFragmentDoc,
   '\n  fragment User on User {\n    apps {\n      id\n    }\n    auth0Id\n    email\n    id\n    preferences {\n      ...Preference\n    }\n    roles\n    username\n  }\n':
     types.UserFragmentDoc,
-  '\n  query GetAppBuilder($appId: ID!, $pageIds: [ID!]) {\n    actionTypes {\n      ...ActionType\n    }\n    apps(where: { id: $appId }) {\n      ...AppBuilder\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomBuilder\n    }\n    authGuards {\n      ...AuthGuard\n    }\n    codeMirrorTypes {\n      ...CodeMirrorType\n    }\n    components {\n      ...ComponentBuilder\n    }\n    primitiveTypes {\n      ...PrimitiveType\n    }\n    reactNodeTypes {\n      ...ReactNodeType\n    }\n    redirects(where: { source: { app: { id: $appId } } }) {\n      ...Redirect\n    }\n    renderPropTypes {\n      ...RenderPropType\n    }\n    resources {\n      ...Resource\n    }\n    richTextTypes {\n      ...RichTextType\n    }\n  }\n':
+  '\n  query GetAppBuilder($appId: ID!, $pageIds: [ID!], $preview: Boolean = true) {\n    actionTypes {\n      ...ActionType\n    }\n    apps(where: { id: $appId }) {\n      ...AppBuilder\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomBuilder\n    }\n    authGuards {\n      ...AuthGuard\n    }\n    codeMirrorTypes {\n      ...CodeMirrorType\n    }\n    components {\n      ...ComponentBuilder\n    }\n    primitiveTypes {\n      ...PrimitiveType\n    }\n    reactNodeTypes {\n      ...ReactNodeType\n    }\n    redirects(where: { source: { app: { id: $appId } } }) {\n      ...Redirect\n    }\n    renderPropTypes {\n      ...RenderPropType\n    }\n    resources {\n      ...Resource\n    }\n    richTextTypes {\n      ...RichTextType\n    }\n  }\n':
     types.GetAppBuilderDocument,
   '\n  query GetSelectAtomOptions {\n    atoms {\n      __typename\n      id\n      name\n      requiredParents {\n        id\n        type\n      }\n      type\n    }\n  }\n':
     types.GetSelectAtomOptionsDocument,
@@ -224,6 +226,8 @@ const documents = {
     types.UpdateRedirectsDocument,
   '\n  query GetRedirects($options: RedirectOptions, $where: RedirectWhere) {\n    aggregate: redirectsAggregate(where: $where) {\n      count\n    }\n    items: redirects(options: $options, where: $where) {\n      ...Redirect\n    }\n  }\n':
     types.GetRedirectsDocument,
+  '\n  query GetRedirectsPreview($options: RedirectOptions, $where: RedirectWhere) {\n    aggregate: redirectsAggregate(where: $where) {\n      count\n    }\n    items: redirects(options: $options, where: $where) {\n      ...RedirectPreview\n    }\n  }\n':
+    types.GetRedirectsPreviewDocument,
   '\n  query ResourceList($options: ResourceOptions, $where: ResourceWhere) {\n    aggregate: resourcesAggregate(where: $where) {\n      count\n    }\n    items: resources(options: $options, where: $where) {\n      ...Resource\n    }\n  }\n':
     types.ResourceListDocument,
   '\n  mutation CreateResources($input: [ResourceCreateInput!]!) {\n    createResources(input: $input) {\n      resources {\n        id\n      }\n    }\n  }\n':
@@ -584,8 +588,14 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  fragment Redirect on Redirect {\n    authGuard {\n      id\n    }\n    id\n    source {\n      id\n    }\n    targetPage {\n      id\n    }\n    targetType\n    targetUrl\n  }\n',
-): (typeof documents)['\n  fragment Redirect on Redirect {\n    authGuard {\n      id\n    }\n    id\n    source {\n      id\n    }\n    targetPage {\n      id\n    }\n    targetType\n    targetUrl\n  }\n']
+  source: '\n  fragment Redirect on Redirect {\n    authGuard {\n      ...AuthGuard\n    }\n    id\n    source {\n      id\n    }\n    targetPage {\n      ...PagePreview\n    }\n    targetType\n    targetUrl\n  }\n',
+): (typeof documents)['\n  fragment Redirect on Redirect {\n    authGuard {\n      ...AuthGuard\n    }\n    id\n    source {\n      id\n    }\n    targetPage {\n      ...PagePreview\n    }\n    targetType\n    targetUrl\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  fragment RedirectPreview on Redirect {\n    authGuard {\n      id\n    }\n    id\n    source {\n      id\n    }\n    targetPage {\n      id\n    }\n    targetType\n    targetUrl\n  }\n',
+): (typeof documents)['\n  fragment RedirectPreview on Redirect {\n    authGuard {\n      id\n    }\n    id\n    source {\n      id\n    }\n    targetPage {\n      id\n    }\n    targetType\n    targetUrl\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -740,8 +750,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  query GetAppBuilder($appId: ID!, $pageIds: [ID!]) {\n    actionTypes {\n      ...ActionType\n    }\n    apps(where: { id: $appId }) {\n      ...AppBuilder\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomBuilder\n    }\n    authGuards {\n      ...AuthGuard\n    }\n    codeMirrorTypes {\n      ...CodeMirrorType\n    }\n    components {\n      ...ComponentBuilder\n    }\n    primitiveTypes {\n      ...PrimitiveType\n    }\n    reactNodeTypes {\n      ...ReactNodeType\n    }\n    redirects(where: { source: { app: { id: $appId } } }) {\n      ...Redirect\n    }\n    renderPropTypes {\n      ...RenderPropType\n    }\n    resources {\n      ...Resource\n    }\n    richTextTypes {\n      ...RichTextType\n    }\n  }\n',
-): (typeof documents)['\n  query GetAppBuilder($appId: ID!, $pageIds: [ID!]) {\n    actionTypes {\n      ...ActionType\n    }\n    apps(where: { id: $appId }) {\n      ...AppBuilder\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomBuilder\n    }\n    authGuards {\n      ...AuthGuard\n    }\n    codeMirrorTypes {\n      ...CodeMirrorType\n    }\n    components {\n      ...ComponentBuilder\n    }\n    primitiveTypes {\n      ...PrimitiveType\n    }\n    reactNodeTypes {\n      ...ReactNodeType\n    }\n    redirects(where: { source: { app: { id: $appId } } }) {\n      ...Redirect\n    }\n    renderPropTypes {\n      ...RenderPropType\n    }\n    resources {\n      ...Resource\n    }\n    richTextTypes {\n      ...RichTextType\n    }\n  }\n']
+  source: '\n  query GetAppBuilder($appId: ID!, $pageIds: [ID!], $preview: Boolean = true) {\n    actionTypes {\n      ...ActionType\n    }\n    apps(where: { id: $appId }) {\n      ...AppBuilder\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomBuilder\n    }\n    authGuards {\n      ...AuthGuard\n    }\n    codeMirrorTypes {\n      ...CodeMirrorType\n    }\n    components {\n      ...ComponentBuilder\n    }\n    primitiveTypes {\n      ...PrimitiveType\n    }\n    reactNodeTypes {\n      ...ReactNodeType\n    }\n    redirects(where: { source: { app: { id: $appId } } }) {\n      ...Redirect\n    }\n    renderPropTypes {\n      ...RenderPropType\n    }\n    resources {\n      ...Resource\n    }\n    richTextTypes {\n      ...RichTextType\n    }\n  }\n',
+): (typeof documents)['\n  query GetAppBuilder($appId: ID!, $pageIds: [ID!], $preview: Boolean = true) {\n    actionTypes {\n      ...ActionType\n    }\n    apps(where: { id: $appId }) {\n      ...AppBuilder\n    }\n    atoms(where: { type: ReactFragment }) {\n      ...AtomBuilder\n    }\n    authGuards {\n      ...AuthGuard\n    }\n    codeMirrorTypes {\n      ...CodeMirrorType\n    }\n    components {\n      ...ComponentBuilder\n    }\n    primitiveTypes {\n      ...PrimitiveType\n    }\n    reactNodeTypes {\n      ...ReactNodeType\n    }\n    redirects(where: { source: { app: { id: $appId } } }) {\n      ...Redirect\n    }\n    renderPropTypes {\n      ...RenderPropType\n    }\n    resources {\n      ...Resource\n    }\n    richTextTypes {\n      ...RichTextType\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -1048,6 +1058,12 @@ export function graphql(
 export function graphql(
   source: '\n  query GetRedirects($options: RedirectOptions, $where: RedirectWhere) {\n    aggregate: redirectsAggregate(where: $where) {\n      count\n    }\n    items: redirects(options: $options, where: $where) {\n      ...Redirect\n    }\n  }\n',
 ): (typeof documents)['\n  query GetRedirects($options: RedirectOptions, $where: RedirectWhere) {\n    aggregate: redirectsAggregate(where: $where) {\n      count\n    }\n    items: redirects(options: $options, where: $where) {\n      ...Redirect\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetRedirectsPreview($options: RedirectOptions, $where: RedirectWhere) {\n    aggregate: redirectsAggregate(where: $where) {\n      count\n    }\n    items: redirects(options: $options, where: $where) {\n      ...RedirectPreview\n    }\n  }\n',
+): (typeof documents)['\n  query GetRedirectsPreview($options: RedirectOptions, $where: RedirectWhere) {\n    aggregate: redirectsAggregate(where: $where) {\n      count\n    }\n    items: redirects(options: $options, where: $where) {\n      ...RedirectPreview\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

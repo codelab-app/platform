@@ -556,7 +556,7 @@ class EndpointEnvVars {
         };
     }
     /**
-     * http://127.0.0.1:4000/api/graphql
+     * http://127.0.0.1:4000/api/v1/graphql
      */
     get apiGraphqlUrl() {
         return new URL(`${this.baseApiPath}/graphql`, this.apiHost).toString();

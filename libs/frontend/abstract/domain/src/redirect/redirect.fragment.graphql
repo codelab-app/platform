@@ -1,5 +1,20 @@
 fragment Redirect on Redirect {
   authGuard {
+    ...AuthGuard
+  }
+  id
+  source {
+    id
+  }
+  targetPage {
+    ...PagePreview
+  }
+  targetType
+  targetUrl
+}
+
+fragment RedirectPreview on Redirect {
+  authGuard {
     id
   }
   id
