@@ -3,8 +3,8 @@ import type { IResolvers } from '@graphql-tools/utils'
 import type { FactoryProvider } from '@nestjs/common'
 import type { GraphQLRequestContext } from 'graphql-request/build/cjs/types'
 
-import { getElementDescendants } from '../../../cypher'
-import { Neo4jService } from '../../../infra'
+import { getElementDescendants } from '../../cypher'
+import { Neo4jService } from '../../infra'
 import { name } from './field/element-name'
 import { slug } from './field/element-slug'
 
