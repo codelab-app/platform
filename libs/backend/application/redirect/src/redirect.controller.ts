@@ -32,6 +32,8 @@ export class RedirectController {
       },
     })
 
+    console.log('Redirect', redirect, { authorization, domain, pageUrlPattern })
+
     // either a regular page with no redirect attached to or a system page
     if (!redirect) {
       return { canActivate: true, message: 'No redirect found!', status: 200 }
@@ -66,6 +68,8 @@ export class RedirectController {
       cookie: authorization,
     }) as IResourceFetchConfig
 
+    console.log(evaluatedConfig)
+
     let response
 
     try {
@@ -80,7 +84,11 @@ export class RedirectController {
     }
 
     try {
+      console.log({ response, responseTransformer })
+
       const canActivate = await safeEval(responseTransformer, response)
+
+      console.log('Can activate', canActivate)
 
       return {
         canActivate,

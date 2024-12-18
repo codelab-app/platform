@@ -3,6 +3,7 @@ import type {
   IResourceConfigData,
   IRestFetchConfigData,
 } from '@codelab/shared/abstract/core'
+import type { INestApplication } from '@nestjs/common'
 
 import { Redirect, RedirectRepository } from '@codelab/backend/domain/redirect'
 import { HealthcheckController } from '@codelab/backend/domain/shared/modules'
@@ -28,14 +29,16 @@ import { RedirectController } from './redirect.controller'
 describe('Redirect', () => {
   let redirectController: RedirectController
   let redirectRepository: RedirectRepository
+  let module: TestingModule
+  let nestApp: INestApplication
 
   beforeAll(async () => {
-    const module: TestingModule = await Test.createTestingModule({
+    module = await Test.createTestingModule({
       controllers: [HealthcheckController],
       imports: [GraphqlModule, RedirectApplicationModule, CodelabLoggerModule],
     }).compile()
 
-    const nestApp = module.createNestApplication()
+    nestApp = module.createNestApplication()
 
     redirectController = module.get<RedirectController>(RedirectController)
     redirectRepository = module.get<RedirectRepository>(RedirectRepository)
@@ -43,11 +46,17 @@ describe('Redirect', () => {
     await startServer(nestApp)
   })
 
+  afterAll(async () => {
+    await nestApp.close()
+  })
+
   it('should authorize page access when no redirect found', async () => {
     const response = await redirectController.canActivate({
       domain: 'test.com',
       pageUrlPattern: '/some-url',
     })
+
+    console.log(response)
 
     expect(response).toMatchObject({
       canActivate: true,

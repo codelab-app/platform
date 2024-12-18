@@ -7,6 +7,6 @@ import { RedirectController } from './redirect.controller'
 
 @Module({
   controllers: [RedirectController],
-  imports: [RedirectDomainModule, PageDomainModule, AuthGuardDomainModule],
+  imports: [RedirectDomainModule],
 })
 export class RedirectApplicationModule {}
