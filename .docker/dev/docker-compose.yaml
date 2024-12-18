@@ -50,6 +50,7 @@ services:
       - codelab-neo4j-test:/plugins
       - codelab-neo4j-test:/import
       - codelab-neo4j-test:/logs
+      - ./../cypher/scripts:/scripts
     ports:
       - '7475:7474'
       - '7688:7687'
