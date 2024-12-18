@@ -5,7 +5,6 @@ import type {
 import type { INestApplication } from '@nestjs/common'
 
 import {
-  graphqlClient,
   GraphqlModule,
   GraphqlService,
 } from '@codelab/backend/infra/adapter/graphql'
@@ -31,6 +30,7 @@ import {
   TestDeleteDomainsDocument,
   TestUpdateDomainsDocument,
 } from './domain.spec.graphql.api.gen'
+import { graphqlClient } from '@codelab/shared/infra/gql-client'
 
 const apiPort = env.get('NEXT_PUBLIC_API_PORT').required().asPortNumber()
 

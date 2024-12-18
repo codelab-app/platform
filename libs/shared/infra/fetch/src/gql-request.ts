@@ -5,33 +5,33 @@ import type { GraphQLClient } from 'graphql-request'
 import { getEnv } from '@codelab/shared/config/env'
 import { cLog } from '@codelab/shared/utils'
 
-import { fetchWithAuth } from './fetch-with-auth'
-
 export const gqlRequest = async <TResult, TVariables extends ObjectLike>(
   client: GraphQLClient,
   // use `.toString()` version of `TypedDocumentString`
   document: DocumentTypeDecoration<TResult, TVariables>,
   variables: TVariables,
 ) => {
-  const response = fetchWithAuth(getEnv().endpoint.apiGraphqlUrl, {
-    body: JSON.stringify({
-      query: document,
-      variables,
-    }),
-    headers: {
-      Accept: 'application/graphql-response+json',
-      'Content-Type': 'application/json',
-    },
-    method: 'POST',
+  client.setHeaders({
+    Accept: 'application/graphql-response+json',
+    'Content-Type': 'application/json',
   })
 
-  const { data, errors } = await (await response).json()
+  try {
+    const data = await client.request<TResult>(document.toString(), variables)
 
-  if (errors && errors.length) {
-    cLog(document, variables, errors)
+    return data
+  } catch (error: unknown) {
+    if (typeof error === 'object' && error !== null && 'response' in error) {
+      const gqlError = error as {
+        response: { errors?: Array<{ message: string }> }
+      }
 
-    throw new Error(errors[0]?.message)
+      if (gqlError.response.errors) {
+        cLog(document, variables, gqlError.response.errors)
+        throw new Error(gqlError.response.errors[0]?.message)
+      }
+    }
+
+    throw error
   }
-
-  return data as TResult
 }

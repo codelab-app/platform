@@ -13,6 +13,7 @@ import { endpointConfig } from '@codelab/backend/infra/core'
 import { ApolloDriver } from '@nestjs/apollo'
 import { Module } from '@nestjs/common'
 import { ConfigModule, type ConfigType } from '@nestjs/config'
+import { EventEmitterModule } from '@nestjs/event-emitter'
 import { GraphQLModule } from '@nestjs/graphql'
 
 import { GraphqlService } from './graphql.service'
@@ -28,6 +29,7 @@ import { GraphqlService } from './graphql.service'
     //   http: process.env.NODE_ENV !== 'production',
     //   port: 4000,
     // }),
+    EventEmitterModule.forRoot(),
     RequestContextModule,
     ConfigModule.forRoot({
       ignoreEnvVars: true,
