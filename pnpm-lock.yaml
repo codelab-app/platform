@@ -440,8 +440,8 @@ importers:
         specifier: ^1.2.4
         version: 1.4.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       isolated-vm:
-        specifier: 5.0.1
-        version: 5.0.1
+        specifier: 5.0.3
+        version: 5.0.3
       jest-text-transformer:
         specifier: 1.0.4
         version: 1.0.4
@@ -11721,8 +11721,8 @@ packages:
     resolution: {integrity: sha512-WhB9zCku7EGTj/HQQRz5aUQEUeoQZH2bWcltRErOpymJ4boYE6wL9Tbr23krRPSZ+C5zqNSrSw+Cc7sZZ4b7vg==}
     engines: {node: '>=0.10.0'}
 
-  isolated-vm@5.0.1:
-    resolution: {integrity: sha512-hs7+ff59Z2zDvavfcjuot/r1gm6Bmpt+GoZxmVfxUmXaX5scOvUq/Rnme+mUtSh5lW41hH8gAuvk/yTJDYO8Fg==}
+  isolated-vm@5.0.3:
+    resolution: {integrity: sha512-GNqX0j7dkwdaNQfFogLLb/tSuPZbXtKlk5ldaJ084ngjaW9/bn34x9FQFL856p20KSZoubIIummmiJf+2hzhCw==}
     engines: {node: '>=18.0.0'}
 
   isomorphic-rslog@0.0.6:
@@ -31399,7 +31399,7 @@ snapshots:
 
   isobject@3.0.1: {}
 
-  isolated-vm@5.0.1:
+  isolated-vm@5.0.3:
     dependencies:
       prebuild-install: 7.1.2
 
