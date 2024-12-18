@@ -2,19 +2,24 @@ import * as Types from '@codelab/shared/infra/gql'
 
 import { graphql } from '@codelab/shared/infra/gql'
 import { gqlRequest } from '@codelab/shared/infra/fetch'
-import { RedirectFragmentDoc } from '@codelab/shared/infra/gql'
+import {
+  RedirectFragmentDoc,
+  RedirectPreviewFragmentDoc,
+} from '@codelab/shared/infra/gql'
 
 import {
   type CreateRedirectsMutationVariables,
   type DeleteRedirectsMutationVariables,
   type UpdateRedirectsMutationVariables,
   type GetRedirectsQueryVariables,
+  type GetRedirectsPreviewQueryVariables,
 } from '@codelab/shared/infra/gql'
 import {
   CreateRedirectsDocument,
   DeleteRedirectsDocument,
   UpdateRedirectsDocument,
   GetRedirectsDocument,
+  GetRedirectsPreviewDocument,
 } from './redirect.api.graphql.docs.gen'
 import { GraphQLClient } from 'graphql-request'
 
@@ -27,4 +32,6 @@ export const getSdk = (client: GraphQLClient) => ({
     gqlRequest(client, UpdateRedirectsDocument.toString(), variables),
   GetRedirects: (variables: GetRedirectsQueryVariables) =>
     gqlRequest(client, GetRedirectsDocument.toString(), variables),
+  GetRedirectsPreview: (variables: GetRedirectsPreviewQueryVariables) =>
+    gqlRequest(client, GetRedirectsPreviewDocument.toString(), variables),
 })

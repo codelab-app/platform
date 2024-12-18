@@ -11,7 +11,13 @@ import {
   redirectServerActions,
 } from '@codelab/shared-domain-module/redirect'
 
-const { CreateRedirects, DeleteRedirects, GetRedirects, UpdateRedirects } = redirectServerActions
+const {
+  CreateRedirects,
+  DeleteRedirects,
+  GetRedirects,
+  GetRedirectsPreview,
+  UpdateRedirects,
+} = redirectServerActions
 
 export const redirectRepository: IRedirectRepository = {
   add: async (redirect: IRedirectDto) => {
@@ -37,7 +43,7 @@ export const redirectRepository: IRedirectRepository = {
   },
 
   find: async (where?: RedirectWhere, options?: RedirectOptions) => {
-    return GetRedirects({ options, where })
+    return GetRedirectsPreview({ options, where })
   },
 
   findOne: async (where: RedirectWhere) => {

@@ -16,6 +16,7 @@ import {
   AuthGuardFragmentDoc,
   ComponentBuilderFragmentDoc,
   RedirectFragmentDoc,
+  RedirectPreviewFragmentDoc,
 } from '@codelab/shared/infra/gql'
 
 import { type GetAppBuilderQueryVariables } from '@codelab/shared/infra/gql'

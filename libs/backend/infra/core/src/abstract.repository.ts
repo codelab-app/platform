@@ -141,8 +141,6 @@ export abstract class AbstractRepository<
       return this.validationService.validateAndClean(schema, results)
     }
 
-    console.log('Returning results...')
-
     return results
   }
 
@@ -248,7 +246,7 @@ export abstract class AbstractRepository<
     existing?: Model,
   ): Promise<IRef | undefined>
 
-  private DEBUG = true
+  private DEBUG = false
 
   /**
    * Specifying a `where` clause overrides the  id

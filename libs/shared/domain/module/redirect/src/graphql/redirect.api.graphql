@@ -28,3 +28,12 @@ query GetRedirects($options: RedirectOptions, $where: RedirectWhere) {
     ...Redirect
   }
 }
+
+query GetRedirectsPreview($options: RedirectOptions, $where: RedirectWhere) {
+  aggregate: redirectsAggregate(where: $where) {
+    count
+  }
+  items: redirects(options: $options, where: $where) {
+    ...RedirectPreview
+  }
+}

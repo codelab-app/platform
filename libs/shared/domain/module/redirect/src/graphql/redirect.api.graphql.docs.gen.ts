@@ -1,7 +1,10 @@
 import * as Types from '@codelab/shared/infra/gql'
 
 import { graphql } from '@codelab/shared/infra/gql'
-import { RedirectFragmentDoc } from '@codelab/shared/infra/gql'
+import {
+  RedirectFragmentDoc,
+  RedirectPreviewFragmentDoc,
+} from '@codelab/shared/infra/gql'
 
 export const CreateRedirectsDocument = graphql(`
   mutation CreateRedirects($input: [RedirectCreateInput!]!) {
@@ -44,6 +47,17 @@ export const GetRedirectsDocument = graphql(`
     }
     items: redirects(options: $options, where: $where) {
       ...Redirect
+    }
+  }
+`)
+
+export const GetRedirectsPreviewDocument = graphql(`
+  query GetRedirectsPreview($options: RedirectOptions, $where: RedirectWhere) {
+    aggregate: redirectsAggregate(where: $where) {
+      count
+    }
+    items: redirects(options: $options, where: $where) {
+      ...RedirectPreview
     }
   }
 `)

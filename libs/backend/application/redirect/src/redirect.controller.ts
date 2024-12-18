@@ -1,5 +1,3 @@
-import { AuthGuardRepository } from '@codelab/backend/domain/auth-guard'
-import { PageRepository } from '@codelab/backend/domain/page'
 import { RedirectRepository } from '@codelab/backend/domain/redirect'
 import { safeEval } from '@codelab/backend/shared/eval'
 import {
@@ -15,11 +13,7 @@ import { Body, Controller, Post } from '@nestjs/common'
 
 @Controller()
 export class RedirectController {
-  constructor(
-    private redirectRepository: RedirectRepository,
-    private pageRepository: PageRepository,
-    private authGuardRepository: AuthGuardRepository,
-  ) {}
+  constructor(private redirectRepository: RedirectRepository) {}
 
   @Post('can-activate')
   async canActivate(
@@ -43,19 +37,7 @@ export class RedirectController {
       return { canActivate: true, message: 'No redirect found!', status: 200 }
     }
 
-    const {
-      authGuard: authGuardId,
-      targetPage: targetPageId,
-      targetType,
-    } = redirect
-
-    const targetPage = await this.pageRepository.findOne({
-      where: { id: targetPageId?.id },
-    })
-
-    const authGuard = await this.authGuardRepository.findOneOrFail({
-      where: { id: authGuardId.id },
-    })
+    const { authGuard, targetPage, targetType } = redirect
 
     const isPage =
       targetType === IRedirectTargetType.Page && targetPage?.urlPattern
