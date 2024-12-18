@@ -3,8 +3,9 @@ import { Module } from '@nestjs/common'
 
 import { Neo4jModule } from './infra/neo4j.module'
 import { ResolverProvider } from './resolver'
-import { ElementResolverProvider } from './resolver/pure-resolver/element'
-import { TypeResolverProvider } from './resolver/pure-resolver/type'
+import { ElementResolverProvider } from './resolver/element'
+import { TagResolverProvider } from './resolver/tag'
+import { TypeResolverProvider } from './resolver/type'
 import { GRAPHQL_SCHEMA_PROVIDER, GraphQLSchemaProvider } from './schema'
 
 @Module({
@@ -14,6 +15,7 @@ import { GRAPHQL_SCHEMA_PROVIDER, GraphQLSchemaProvider } from './schema'
     // Added here to inject into `ResolverProvider`
     TypeResolverProvider,
     ElementResolverProvider,
+    TagResolverProvider,
     // Merges providers above
     ResolverProvider,
     // Exports this

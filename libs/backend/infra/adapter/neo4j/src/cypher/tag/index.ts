@@ -1,5 +1,11 @@
-import getTagGraphs from './getTagGraphs.cypher'
-import tagDescendants from './tagDescendants.cypher'
+import getAllTagsWithDescendants from './getAllTagsWithDescendants.cypher'
+import getTagDescendantIds from './getTagDescendantIds.cypher'
+import getTagWithDescendantsById from './getTagWithDescendantsById.cypher'
 import tagIsRoot from './tagIsRoot.cypher'
 
-export { getTagGraphs, tagDescendants, tagIsRoot }
+export {
+  getAllTagsWithDescendants,
+  getTagDescendantIds,
+  getTagWithDescendantsById,
+  tagIsRoot,
+}
