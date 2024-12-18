@@ -1,5 +1,6 @@
 fragment Element on Element {
   __typename
+  compositeKey
   childMapperComponent {
     id
     name

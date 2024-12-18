@@ -19025,37 +19025,7 @@ type Page {
     where: PageAppConnectionWhere
   ): PageAppConnection!
   compositeKey: String!
-  elements(
-    directed: Boolean = true
-      @deprecated(
-        reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"
-      )
-    limit: Int
-    offset: Int
-    options: ElementOptions
-      @deprecated(
-        reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."
-      )
-    sort: [ElementSort!]
-    where: ElementWhere
-  ): [Element!]!
-  elementsAggregate(
-    directed: Boolean = true
-      @deprecated(
-        reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"
-      )
-    where: ElementWhere
-  ): PageElementElementsAggregationSelection
-  elementsConnection(
-    after: String
-    directed: Boolean = true
-      @deprecated(
-        reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"
-      )
-    first: Int
-    sort: [PageElementsConnectionSort!]
-    where: PageElementsConnectionWhere
-  ): PageElementsConnection!
+  elements: [Element!]!
   id: ID!
   kind: PageKind!
   name: String!
@@ -19331,7 +19301,6 @@ input PageAppUpdateFieldInput {
 
 input PageConnectInput {
   app: PageAppConnectFieldInput
-  elements: [PageElementsConnectFieldInput!]
   pageContentContainer: PagePageContentContainerConnectFieldInput
   redirect: PageRedirectConnectFieldInput
   rootElement: PageRootElementConnectFieldInput
@@ -19349,7 +19318,6 @@ input PageConnectWhere {
 input PageCreateInput {
   app: PageAppFieldInput
   compositeKey: String!
-  elements: PageElementsFieldInput
   id: ID!
   kind: PageKind!
   pageContentContainer: PagePageContentContainerFieldInput
@@ -19367,7 +19335,6 @@ type PageCreatedEvent {
 
 input PageDeleteInput {
   app: PageAppDeleteFieldInput
-  elements: [PageElementsDeleteFieldInput!]
   pageContentContainer: PagePageContentContainerDeleteFieldInput
   redirect: PageRedirectDeleteFieldInput
   rootElement: PageRootElementDeleteFieldInput
@@ -19382,7 +19349,6 @@ type PageDeletedEvent {
 
 input PageDisconnectInput {
   app: PageAppDisconnectFieldInput
-  elements: [PageElementsDisconnectFieldInput!]
   pageContentContainer: PagePageContentContainerDisconnectFieldInput
   redirect: PageRedirectDisconnectFieldInput
   rootElement: PageRootElementDisconnectFieldInput
@@ -19392,20 +19358,6 @@ input PageDisconnectInput {
 type PageEdge {
   cursor: String!
   node: Page!
-}
-
-type PageElementElementsAggregationSelection {
-  count: Int!
-  node: PageElementElementsNodeAggregateSelection
-}
-
-type PageElementElementsNodeAggregateSelection {
-  childMapperPropKey: StringAggregateSelection!
-  compositeKey: StringAggregateSelection!
-  id: IDAggregateSelection!
-  renderForEachPropKey: StringAggregateSelection!
-  renderIfExpression: StringAggregateSelection!
-  style: StringAggregateSelection!
 }
 
 type PageElementPageContentContainerAggregationSelection {
@@ -19434,191 +19386,6 @@ type PageElementRootElementNodeAggregateSelection {
   renderForEachPropKey: StringAggregateSelection!
   renderIfExpression: StringAggregateSelection!
   style: StringAggregateSelection!
-}
-
-input PageElementsAggregateInput {
-  AND: [PageElementsAggregateInput!]
-  NOT: PageElementsAggregateInput
-  OR: [PageElementsAggregateInput!]
-  count: Int @deprecated(reason: "Please use the explicit _EQ version")
-  count_EQ: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: PageElementsNodeAggregationWhereInput
-}
-
-input PageElementsConnectFieldInput {
-  connect: [ElementConnectInput!]
-
-  """
-  Whether or not to overwrite any matching relationship with the new properties.
-  """
-  overwrite: Boolean! = true
-    @deprecated(
-      reason: "The overwrite argument is deprecated and will be removed"
-    )
-  where: ElementConnectWhere
-}
-
-input PageElementsConnectOrCreateFieldInput {
-  onCreate: PageElementsConnectOrCreateFieldInputOnCreate!
-  where: ElementConnectOrCreateWhere!
-}
-
-input PageElementsConnectOrCreateFieldInputOnCreate {
-  node: ElementOnCreateInput!
-}
-
-type PageElementsConnection {
-  edges: [PageElementsRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input PageElementsConnectionSort {
-  node: ElementSort
-}
-
-input PageElementsConnectionWhere {
-  AND: [PageElementsConnectionWhere!]
-  NOT: PageElementsConnectionWhere
-  OR: [PageElementsConnectionWhere!]
-  node: ElementWhere
-}
-
-input PageElementsCreateFieldInput {
-  node: ElementCreateInput!
-}
-
-input PageElementsDeleteFieldInput {
-  delete: ElementDeleteInput
-  where: PageElementsConnectionWhere
-}
-
-input PageElementsDisconnectFieldInput {
-  disconnect: ElementDisconnectInput
-  where: PageElementsConnectionWhere
-}
-
-input PageElementsFieldInput {
-  connect: [PageElementsConnectFieldInput!]
-  connectOrCreate: [PageElementsConnectOrCreateFieldInput!]
-    @deprecated(
-      reason: "The connectOrCreate operation is deprecated and will be removed"
-    )
-  create: [PageElementsCreateFieldInput!]
-}
-
-input PageElementsNodeAggregationWhereInput {
-  AND: [PageElementsNodeAggregationWhereInput!]
-  NOT: PageElementsNodeAggregationWhereInput
-  OR: [PageElementsNodeAggregationWhereInput!]
-  childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
-  childMapperPropKey_AVERAGE_LENGTH_GT: Float
-  childMapperPropKey_AVERAGE_LENGTH_GTE: Float
-  childMapperPropKey_AVERAGE_LENGTH_LT: Float
-  childMapperPropKey_AVERAGE_LENGTH_LTE: Float
-  childMapperPropKey_LONGEST_LENGTH_EQUAL: Int
-  childMapperPropKey_LONGEST_LENGTH_GT: Int
-  childMapperPropKey_LONGEST_LENGTH_GTE: Int
-  childMapperPropKey_LONGEST_LENGTH_LT: Int
-  childMapperPropKey_LONGEST_LENGTH_LTE: Int
-  childMapperPropKey_SHORTEST_LENGTH_EQUAL: Int
-  childMapperPropKey_SHORTEST_LENGTH_GT: Int
-  childMapperPropKey_SHORTEST_LENGTH_GTE: Int
-  childMapperPropKey_SHORTEST_LENGTH_LT: Int
-  childMapperPropKey_SHORTEST_LENGTH_LTE: Int
-  compositeKey_AVERAGE_LENGTH_EQUAL: Float
-  compositeKey_AVERAGE_LENGTH_GT: Float
-  compositeKey_AVERAGE_LENGTH_GTE: Float
-  compositeKey_AVERAGE_LENGTH_LT: Float
-  compositeKey_AVERAGE_LENGTH_LTE: Float
-  compositeKey_LONGEST_LENGTH_EQUAL: Int
-  compositeKey_LONGEST_LENGTH_GT: Int
-  compositeKey_LONGEST_LENGTH_GTE: Int
-  compositeKey_LONGEST_LENGTH_LT: Int
-  compositeKey_LONGEST_LENGTH_LTE: Int
-  compositeKey_SHORTEST_LENGTH_EQUAL: Int
-  compositeKey_SHORTEST_LENGTH_GT: Int
-  compositeKey_SHORTEST_LENGTH_GTE: Int
-  compositeKey_SHORTEST_LENGTH_LT: Int
-  compositeKey_SHORTEST_LENGTH_LTE: Int
-  id_MAX_EQUAL: ID
-  id_MAX_GT: ID
-  id_MAX_GTE: ID
-  id_MAX_LT: ID
-  id_MAX_LTE: ID
-  id_MIN_EQUAL: ID
-  id_MIN_GT: ID
-  id_MIN_GTE: ID
-  id_MIN_LT: ID
-  id_MIN_LTE: ID
-  renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
-  renderForEachPropKey_AVERAGE_LENGTH_GT: Float
-  renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
-  renderForEachPropKey_AVERAGE_LENGTH_LT: Float
-  renderForEachPropKey_AVERAGE_LENGTH_LTE: Float
-  renderForEachPropKey_LONGEST_LENGTH_EQUAL: Int
-  renderForEachPropKey_LONGEST_LENGTH_GT: Int
-  renderForEachPropKey_LONGEST_LENGTH_GTE: Int
-  renderForEachPropKey_LONGEST_LENGTH_LT: Int
-  renderForEachPropKey_LONGEST_LENGTH_LTE: Int
-  renderForEachPropKey_SHORTEST_LENGTH_EQUAL: Int
-  renderForEachPropKey_SHORTEST_LENGTH_GT: Int
-  renderForEachPropKey_SHORTEST_LENGTH_GTE: Int
-  renderForEachPropKey_SHORTEST_LENGTH_LT: Int
-  renderForEachPropKey_SHORTEST_LENGTH_LTE: Int
-  renderIfExpression_AVERAGE_LENGTH_EQUAL: Float
-  renderIfExpression_AVERAGE_LENGTH_GT: Float
-  renderIfExpression_AVERAGE_LENGTH_GTE: Float
-  renderIfExpression_AVERAGE_LENGTH_LT: Float
-  renderIfExpression_AVERAGE_LENGTH_LTE: Float
-  renderIfExpression_LONGEST_LENGTH_EQUAL: Int
-  renderIfExpression_LONGEST_LENGTH_GT: Int
-  renderIfExpression_LONGEST_LENGTH_GTE: Int
-  renderIfExpression_LONGEST_LENGTH_LT: Int
-  renderIfExpression_LONGEST_LENGTH_LTE: Int
-  renderIfExpression_SHORTEST_LENGTH_EQUAL: Int
-  renderIfExpression_SHORTEST_LENGTH_GT: Int
-  renderIfExpression_SHORTEST_LENGTH_GTE: Int
-  renderIfExpression_SHORTEST_LENGTH_LT: Int
-  renderIfExpression_SHORTEST_LENGTH_LTE: Int
-  style_AVERAGE_LENGTH_EQUAL: Float
-  style_AVERAGE_LENGTH_GT: Float
-  style_AVERAGE_LENGTH_GTE: Float
-  style_AVERAGE_LENGTH_LT: Float
-  style_AVERAGE_LENGTH_LTE: Float
-  style_LONGEST_LENGTH_EQUAL: Int
-  style_LONGEST_LENGTH_GT: Int
-  style_LONGEST_LENGTH_GTE: Int
-  style_LONGEST_LENGTH_LT: Int
-  style_LONGEST_LENGTH_LTE: Int
-  style_SHORTEST_LENGTH_EQUAL: Int
-  style_SHORTEST_LENGTH_GT: Int
-  style_SHORTEST_LENGTH_GTE: Int
-  style_SHORTEST_LENGTH_LT: Int
-  style_SHORTEST_LENGTH_LTE: Int
-}
-
-type PageElementsRelationship {
-  cursor: String!
-  node: Element!
-}
-
-input PageElementsUpdateConnectionInput {
-  node: ElementUpdateInput
-}
-
-input PageElementsUpdateFieldInput {
-  connect: [PageElementsConnectFieldInput!]
-  connectOrCreate: [PageElementsConnectOrCreateFieldInput!]
-  create: [PageElementsCreateFieldInput!]
-  delete: [PageElementsDeleteFieldInput!]
-  disconnect: [PageElementsDisconnectFieldInput!]
-  update: PageElementsUpdateConnectionInput
-  where: PageElementsConnectionWhere
 }
 
 type PageEventPayload {
@@ -20914,7 +20681,6 @@ input PageUpdateInput {
   app: PageAppUpdateFieldInput
   compositeKey: String @deprecated(reason: "Please use the explicit _SET field")
   compositeKey_SET: String
-  elements: [PageElementsUpdateFieldInput!]
   kind: PageKind @deprecated(reason: "Please use the explicit _SET field")
   kind_SET: PageKind
   pageContentContainer: PagePageContentContainerUpdateFieldInput
@@ -20947,47 +20713,6 @@ input PageWhere {
   compositeKey_IN: [String!]
   compositeKey_MATCHES: String
   compositeKey_STARTS_WITH: String
-  elementsAggregate: PageElementsAggregateInput
-
-  """
-  Return Pages where all of the related PageElementsConnections match this filter
-  """
-  elementsConnection_ALL: PageElementsConnectionWhere
-
-  """
-  Return Pages where none of the related PageElementsConnections match this filter
-  """
-  elementsConnection_NONE: PageElementsConnectionWhere
-
-  """
-  Return Pages where one of the related PageElementsConnections match this filter
-  """
-  elementsConnection_SINGLE: PageElementsConnectionWhere
-
-  """
-  Return Pages where some of the related PageElementsConnections match this filter
-  """
-  elementsConnection_SOME: PageElementsConnectionWhere
-
-  """
-  Return Pages where all of the related Elements match this filter
-  """
-  elements_ALL: ElementWhere
-
-  """
-  Return Pages where none of the related Elements match this filter
-  """
-  elements_NONE: ElementWhere
-
-  """
-  Return Pages where one of the related Elements match this filter
-  """
-  elements_SINGLE: ElementWhere
-
-  """
-  Return Pages where some of the related Elements match this filter
-  """
-  elements_SOME: ElementWhere
   id: ID @deprecated(reason: "Please use the explicit _EQ version")
   id_CONTAINS: ID
   id_ENDS_WITH: ID

@@ -13,5 +13,4 @@ CALL apoc.path.subgraphAll(
 // }
 
 // Need to filter out root node by getting disjunction
-RETURN element {.*},
-  apoc.coll.disjunction([node IN descendants | node.id], [element.id])
+RETURN apoc.coll.disjunction([node IN descendants | node.id], [element.id])

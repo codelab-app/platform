@@ -9,7 +9,7 @@ import { atomResolver } from './atom/atom.resolver'
 import { componentResolver } from './component'
 import { domainResolver } from './domain'
 import { ELEMENT_RESOLVER_PROVIDER } from './element'
-import { pageResolver } from './page'
+import { PAGE_RESOLVER_PROVIDER } from './page'
 import { TAG_RESOLVER_PROVIDER } from './tag/tag.resolver'
 import { TYPE_RESOLVER_PROVIDER } from './type'
 
@@ -20,12 +20,14 @@ export const ResolverProvider: FactoryProvider<Promise<IResolvers>> = {
     TYPE_RESOLVER_PROVIDER,
     ELEMENT_RESOLVER_PROVIDER,
     TAG_RESOLVER_PROVIDER,
+    PAGE_RESOLVER_PROVIDER,
   ],
   provide: RESOLVER_PROVIDER,
   useFactory: async (
     typeResolver: IResolvers,
     elementResolver: IResolvers,
     tagResolver: IResolvers,
+    pageResolver: IResolvers,
   ) => {
     const pureResolvers: IResolvers = mergeResolvers([
       appResolver,
@@ -33,8 +35,8 @@ export const ResolverProvider: FactoryProvider<Promise<IResolvers>> = {
       atomResolver,
       actionResolver,
       domainResolver,
-      elementResolver,
       pageResolver,
+      elementResolver,
       typeResolver,
       tagResolver,
     ])
