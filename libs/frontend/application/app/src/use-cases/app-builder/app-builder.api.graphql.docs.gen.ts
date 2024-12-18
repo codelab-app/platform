@@ -19,7 +19,7 @@ import {
 } from '@codelab/shared/infra/gql'
 
 export const GetAppBuilderDocument = graphql(`
-  query GetAppBuilder($appId: ID!, $pageIds: [ID!], $preview: Boolean = true) {
+  query GetAppBuilder($appId: ID!, $pageIds: [ID!]) {
     actionTypes {
       ...ActionType
     }
