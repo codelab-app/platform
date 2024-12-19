@@ -10,10 +10,7 @@ import { TypeResolverProvider } from './type'
 
 @Module({
   exports: [ResolverService],
-  imports: [
-    ElementDomainModule,
-    Neo4jModule,
-  ],
+  imports: [ElementDomainModule, Neo4jModule],
   providers: [
     TypeResolverProvider,
     ElementResolverProvider,

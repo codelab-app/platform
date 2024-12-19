@@ -1,6 +1,7 @@
 import type { IResolvers } from '@graphql-tools/utils'
-import { Injectable } from '@nestjs/common'
+
 import { mergeResolvers } from '@graphql-tools/merge'
+import { Injectable } from '@nestjs/common'
 
 import { actionResolver } from './action'
 import { appResolver } from './app'
