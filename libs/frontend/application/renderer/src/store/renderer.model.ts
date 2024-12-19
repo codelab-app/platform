@@ -53,8 +53,10 @@ const create = ({ containerNode, id, rendererType }: IRendererDto) => {
       : componentRef(containerNode),
     /**
      * Renderer uses an ID based on container node, but can't be the same, so we prefix it with the renderer type
+     *
+     * Our renderer ref prefixes it
      */
-    id: `${rendererType}-${id}`,
+    id,
     rendererType,
   })
 }
