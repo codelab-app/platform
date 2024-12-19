@@ -12,11 +12,12 @@ import { TypeResolverProvider } from './type'
   exports: [ResolverService],
   imports: [ElementDomainModule, Neo4jModule],
   providers: [
+    ResolverService,
+    // These providers are still needed as dependencies for ResolverService
     TypeResolverProvider,
     ElementResolverProvider,
     TagResolverProvider,
     PageResolverProvider,
-    ResolverService,
   ],
 })
 export class ResolverModule {}
