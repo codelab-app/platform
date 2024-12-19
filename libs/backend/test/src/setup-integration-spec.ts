@@ -1,7 +1,3 @@
-import { GraphqlModule } from '@codelab/backend/infra/adapter/graphql'
-import { userDto } from '@codelab/shared/data/test'
-/// <reference types="jest" />
-
 import type { endpointConfig } from '@codelab/backend/infra/core'
 import type { INestApplication, ModuleMetadata } from '@nestjs/common'
 import type { ConfigType } from '@nestjs/config'
@@ -16,6 +12,8 @@ import {
   UserDomainService,
   UserRepository,
 } from '@codelab/backend/domain/user'
+/// <reference types="jest" />
+import { GraphqlModule } from '@codelab/backend/infra/adapter/graphql'
 import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
 import {
   RequestContextMiddleware,
@@ -23,12 +21,7 @@ import {
 } from '@codelab/backend/infra/adapter/request-context'
 import { ValidationModule } from '@codelab/backend/infra/adapter/typebox'
 import { ENDPOINT_CONFIG_KEY } from '@codelab/backend/infra/core'
-import {
-  DatabaseService,
-  GraphQLSchemaModule,
-  neo4jConfig,
-  Neo4jService,
-} from '@codelab/backend-infra-adapter/neo4j-schema'
+import { userDto } from '@codelab/shared/data/test'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { CommandBus, CqrsModule } from '@nestjs/cqrs'
 import { Test, type TestingModule } from '@nestjs/testing'

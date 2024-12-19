@@ -53,9 +53,7 @@ describe('ImportApiCommand', () => {
       throw new Error('Not found!')
     }
 
-    const importApiCommand = new ImportApiCommand(buttonAtom.api)
-
-    await commandBus.execute(importApiCommand)
+    await commandBus.execute(new ImportApiCommand(buttonAtom.api))
 
     const api = await typeApplicationService.getApiByAtomName(
       IAtomType.AntDesignButton,
@@ -65,6 +63,8 @@ describe('ImportApiCommand', () => {
       ...api,
       fields: sortBy(api?.fields ?? [], (field) => field.key),
     }
+
+    console.log(sortedApi)
 
     expect(sortedApi).toEqual(
       expect.objectContaining({

@@ -14,9 +14,6 @@ export const startServer = async (app: INestApplication) => {
   const baseApiPath = config.baseApiPath
   const port = config.apiPort
 
-  console.log('baseApiPath', baseApiPath)
-  console.log('port', port)
-
   app.setGlobalPrefix(baseApiPath)
 
   /**

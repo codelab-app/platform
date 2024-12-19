@@ -6,6 +6,7 @@ import type {
 } from '@codelab/shared/infra/gql'
 
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/orm'
+import { isValidJson } from '@codelab/shared/utils'
 
 export const fieldMapper: IMapper<
   IFieldDto,
@@ -25,19 +26,17 @@ export const fieldMapper: IMapper<
   }: IFieldDto): FieldCreateInput => {
     return {
       api: connectNodeId(api.id),
-      defaultValues:
-        typeof defaultValues === 'string'
-          ? defaultValues
-          : JSON.stringify(defaultValues),
+      defaultValues: isValidJson(defaultValues)
+        ? defaultValues
+        : JSON.stringify(defaultValues),
       description,
       fieldType: connectNodeId(fieldType.id),
       id,
       key,
       name,
-      validationRules:
-        typeof validationRules === 'string'
-          ? validationRules
-          : JSON.stringify(validationRules),
+      validationRules: isValidJson(validationRules)
+        ? validationRules
+        : JSON.stringify(validationRules),
     }
   },
 
@@ -57,18 +56,16 @@ export const fieldMapper: IMapper<
     validationRules,
   }: IFieldDto): FieldUpdateInput => {
     return {
-      defaultValues:
-        typeof defaultValues === 'string'
-          ? defaultValues
-          : JSON.stringify(defaultValues),
+      defaultValues: isValidJson(defaultValues)
+        ? defaultValues
+        : JSON.stringify(defaultValues),
       description,
       // fieldType: reconnectNodeId(fieldType.id),
       key,
       name,
-      validationRules:
-        typeof validationRules === 'string'
-          ? validationRules
-          : JSON.stringify(validationRules),
+      validationRules: isValidJson(validationRules)
+        ? validationRules
+        : JSON.stringify(validationRules),
     }
   },
 }

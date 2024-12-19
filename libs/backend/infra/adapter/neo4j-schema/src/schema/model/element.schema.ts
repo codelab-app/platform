@@ -50,8 +50,6 @@ export const elementSchema = gql`
     closestContainerNode: ContainerNode!
     expanded: Boolean
 
-    # Moved from OGM to resolvers here, get all descendant elements of the current element
-    descendants: [Element!]! @customResolver(requires: "id")
     dependantTypes: [AnyType!]! @customResolver(requires: "id")
   }
 `
