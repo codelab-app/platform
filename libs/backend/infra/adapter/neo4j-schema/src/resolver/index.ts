@@ -1,1 +1,2 @@
-export * from './resolvers'
+export * from './resolver.module'
+export * from './resolver.provider'

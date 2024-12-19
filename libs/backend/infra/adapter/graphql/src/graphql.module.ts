@@ -6,15 +6,13 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
 import { RequestContextModule } from '@codelab/backend/infra/adapter/request-context'
 import { endpointConfig } from '@codelab/backend/infra/core'
 import { neo4jConfig } from '@codelab/backend-infra-adapter/neo4j-driver'
-import {
-  GRAPHQL_SCHEMA_PROVIDER,
-  GraphQLSchemaModule,
-} from '@codelab/backend-infra-adapter/neo4j-schema'
+import { GRAPHQL_SCHEMA_PROVIDER } from '@codelab/backend-infra-adapter/neo4j-schema'
 import { ApolloDriver } from '@nestjs/apollo'
 import { Module } from '@nestjs/common'
 import { ConfigModule, type ConfigType } from '@nestjs/config'
 import { EventEmitterModule } from '@nestjs/event-emitter'
 import { GraphQLModule } from '@nestjs/graphql'
+import { GraphQLSchemaModule } from '@codelab/backend-infra-adapter/neo4j-schema'
 
 import { GraphqlService } from './graphql.service'
 

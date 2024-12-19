@@ -8,6 +8,8 @@ import { getEnv } from '@codelab/shared/config/env'
 import { mergeResolvers } from '@graphql-tools/merge'
 import { Neo4jGraphQL } from '@neo4j/graphql'
 
+import type { ResolverProvider } from '../resolver'
+
 import { RESOLVER_PROVIDER } from '../resolver'
 import { GRAPHQL_SCHEMA_PROVIDER } from './schema.constant'
 import { typeDefs } from './type-defs'
@@ -26,7 +28,7 @@ import { typeDefs } from './type-defs'
 export const GraphQLSchemaProvider: FactoryProvider<Promise<GraphQLSchema>> = {
   inject: [NEO4J_DRIVER_PROVIDER, RESOLVER_PROVIDER],
   provide: GRAPHQL_SCHEMA_PROVIDER,
-  useFactory: async (driver: Driver, resolvers: IResolvers) => {
+  useFactory: async (driver: Driver, resolverProvider: ResolverProvider) => {
     try {
       const neo4jGraphQL = new Neo4jGraphQL({
         driver,
@@ -55,7 +57,7 @@ export const GraphQLSchemaProvider: FactoryProvider<Promise<GraphQLSchema>> = {
           },
           subscriptions: true,
         },
-        resolvers: mergeResolvers([resolvers]),
+        resolvers: resolverProvider.provide(),
         typeDefs,
       })
 

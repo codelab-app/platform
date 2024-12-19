@@ -12,8 +12,8 @@ import { GraphQLModule } from '@nestjs/graphql'
 import { AuthGuard } from '@nestjs/passport'
 import { Test, type TestingModule } from '@nestjs/testing'
 
-import { GraphQLSchemaModule } from '../graphql-schema.module'
 import { GRAPHQL_SCHEMA_PROVIDER } from '../schema'
+import { GraphQLSchemaModule } from '../schema/graphql-schema.module'
 
 export const nestNeo4jGraphqlModule =
   GraphQLModule.forRootAsync<ApolloDriverConfig>({

@@ -5,9 +5,10 @@ import type {
   ITypeRef,
 } from '@codelab/shared/abstract/core'
 
-import { NEO4J_DRIVER_PROVIDER } from '@codelab/backend-infra-adapter/neo4j-driver'
-// TODO: Remove this circular dependency
-import { getTypeDescendants } from '@codelab/backend-infra-adapter/neo4j-schema'
+import {
+  getTypeDescendants,
+  NEO4J_DRIVER_PROVIDER,
+} from '@codelab/backend-infra-adapter/neo4j-driver'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { ITypeWhere, TypeCreateMap } from '@codelab/shared-domain-module/type'
 import { Inject, Injectable } from '@nestjs/common'

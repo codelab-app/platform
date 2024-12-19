@@ -12,8 +12,10 @@ import type { Static, TAnySchema } from '@sinclair/typebox'
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import { Neo4jService } from '@codelab/backend-infra-adapter/neo4j-driver'
-import { getDependentTypes } from '@codelab/backend-infra-adapter/neo4j-schema'
+import {
+  getDependentTypes,
+  Neo4jService,
+} from '@codelab/backend-infra-adapter/neo4j-driver'
 import { InterfaceTypeFragment } from '@codelab/shared/infra/gql'
 import {
   createTypeApi,

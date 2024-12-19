@@ -1,5 +1,3 @@
-export * from './cypher'
-export * from './graphql-schema.module'
 export * from './resolver'
 export * from './schema'
 export * from './test/setup'

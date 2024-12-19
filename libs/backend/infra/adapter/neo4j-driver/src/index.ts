@@ -1,3 +1,4 @@
+export * from './cypher'
 export * from './driver'
 export * from './neo4j.config'
 export * from './neo4j.module'

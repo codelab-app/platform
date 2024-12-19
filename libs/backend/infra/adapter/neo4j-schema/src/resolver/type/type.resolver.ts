@@ -3,9 +3,10 @@ import type { IResolvers } from '@graphql-tools/utils'
 import type { FactoryProvider } from '@nestjs/common'
 import type { GraphQLRequestContext } from 'graphql-request/build/cjs/types'
 
-import { Neo4jService } from '@codelab/backend-infra-adapter/neo4j-driver'
-
-import { getTypeDescendants } from '../../cypher'
+import {
+  getTypeDescendants,
+  Neo4jService,
+} from '@codelab/backend-infra-adapter/neo4j-driver'
 
 export const TYPE_RESOLVER_PROVIDER = 'TYPE_RESOLVER_PROVIDER'
 
