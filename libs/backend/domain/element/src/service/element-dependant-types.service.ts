@@ -20,8 +20,11 @@ import { Injectable } from '@nestjs/common'
 
 import { ElementRepository } from '../repository/element.repo.service'
 
+/**
+ * Get dependant types for an element
+ */
 @Injectable()
-export class GetDependantTypesService {
+export class ElementDependantTypesService {
   constructor(
     private neo4jService: Neo4jService,
     private elementRepository: ElementRepository,
@@ -54,7 +57,7 @@ export class GetDependantTypesService {
         id: apiId,
       })
 
-      const allTypes = records.map((rec: any) => ({
+      const allTypes = records.map((rec) => ({
         id: rec.get(0).id,
         typeName: rec.get(0).__typename,
       }))

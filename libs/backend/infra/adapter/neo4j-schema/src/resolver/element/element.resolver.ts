@@ -1,14 +1,11 @@
+import type { Neo4jService } from '@codelab/backend-infra-adapter/neo4j-driver'
 import type { IRef } from '@codelab/shared/abstract/core'
 import type { Element } from '@codelab/shared/infra/gql'
 import type { IFieldResolver, IResolvers } from '@graphql-tools/utils'
 import type { FactoryProvider } from '@nestjs/common'
 import type { GraphQLRequestContext } from 'graphql-request/build/cjs/types'
 
-import { ElementRepository } from '@codelab/backend/domain/element'
-import {
-  getElementDescendants,
-  Neo4jService,
-} from '@codelab/backend-infra-adapter/neo4j-driver'
+import { ElementDependantTypesService } from '@codelab/backend/domain/element'
 
 import { name } from './field/element-name'
 import { slug } from './field/element-slug'
@@ -18,15 +15,13 @@ export const ELEMENT_RESOLVER_PROVIDER = 'ELEMENT_RESOLVER_PROVIDER'
 export const ElementResolverProvider: FactoryProvider<
   Promise<IResolvers<GraphQLRequestContext, unknown>>
 > = {
-  inject: [Neo4jService, ElementRepository],
+  inject: [ElementDependantTypesService],
   provide: ELEMENT_RESOLVER_PROVIDER,
   useFactory: async (
-    neo4jService: Neo4jService,
-    elementRepository: ElementRepository,
+    elementDependantTypesService: ElementDependantTypesService,
   ) => {
-    // TODO: Implement this
-    const dependantTypes: IFieldResolver<IRef, unknown> = (parent) => []
-    // getDependantTypes(neo4jService, parent)
+    const dependantTypes: IFieldResolver<IRef, unknown> = (parent) =>
+      elementDependantTypesService.getDependantTypes(parent)
 
     return {
       Element: {

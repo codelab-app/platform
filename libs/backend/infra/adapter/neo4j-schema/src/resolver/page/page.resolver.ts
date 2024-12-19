@@ -1,13 +1,9 @@
 import type { Page } from '@codelab/shared/infra/gql'
-import type { IResolvers } from '@graphql-tools/utils'
+import type { IFieldResolver, IResolvers } from '@graphql-tools/utils'
 import type { FactoryProvider } from '@nestjs/common'
 import type { GraphQLRequestContext } from 'graphql-request/build/cjs/types'
 
-import {
-  ElementDescendantsService,
-  ElementRepository,
-} from '@codelab/backend/domain/element'
-import { Neo4jService } from '@codelab/backend-infra-adapter/neo4j-driver'
+import { ElementDescendantsService } from '@codelab/backend/domain/element'
 
 import { pageName } from './field/page-name'
 import { pageSlug } from './field/page-slug'
@@ -20,12 +16,13 @@ export const PageResolverProvider: FactoryProvider<
   inject: [ElementDescendantsService],
   provide: PAGE_RESOLVER_PROVIDER,
   useFactory: async (elementDescendantsService: ElementDescendantsService) => {
+    const elements: IFieldResolver<Page, unknown> = (parent) =>
+      elementDescendantsService.getDescendants(parent.rootElement)
+
     return {
       Mutation: {},
       Page: {
-        elements: (node: Page) => {
-          return elementDescendantsService.getDescendants(node.rootElement)
-        },
+        elements,
         name: pageName,
         slug: pageSlug,
       },
