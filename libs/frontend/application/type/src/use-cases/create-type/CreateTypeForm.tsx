@@ -43,6 +43,7 @@ export const CreateTypeForm = observer<IFormController>(
         onSubmitSuccess={onSubmitSuccess}
         schema={createTypeSchema}
         submitRef={submitRef}
+        successMessage="Type created successfully"
         uiKey={UiKey.TypeFormCreate}
       >
         <AutoFields fields={['name']} />
@@ -61,7 +62,7 @@ export const CreateTypeForm = observer<IFormController>(
         </DisplayIfKind>
 
         <DisplayIfKind kind={ITypeKind.ArrayType}>
-          <TypeSelect label="Array item type" name="arrayTypeId" />
+          <TypeSelect label="Array item type" name="arrayItemTypeId" />
         </DisplayIfKind>
 
         <DisplayIfKind kind={ITypeKind.ElementType}>

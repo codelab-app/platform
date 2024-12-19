@@ -114,7 +114,7 @@ export const CuiTree = observer(
 
     useEffect(() => {
       cuiTreeStore.setTreeData(treeData ?? [])
-      cuiTreeStore.setExpandedKeys(expandedKeys ?? [])
+      cuiTreeStore.setExpandedKeys(expandedKeys ?? cuiTreeStore.expandedKeys)
       cuiTreeStore.updateFilterOptions(searcheable, searchKeyword)
     }, [treeData, expandedKeys, searcheable, searchKeyword, cuiTreeStore])
 

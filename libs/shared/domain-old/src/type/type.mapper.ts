@@ -1,4 +1,4 @@
-import type { IMapper, ITypeDto, IUserDto } from '@codelab/shared/abstract/core'
+import type { IMapper, ITypeDto } from '@codelab/shared/abstract/core'
 
 import { ITypeKind } from '@codelab/shared/abstract/core'
 
@@ -145,6 +145,7 @@ export const typeMapper: IMapper<
         return {
           update: dto.itemType?.id
             ? {
+                ...baseType,
                 itemType: {
                   ...connectNodeId(dto.itemType.id),
                   disconnect: dto.itemType.id
@@ -160,7 +161,7 @@ export const typeMapper: IMapper<
                     : undefined,
                 },
               }
-            : undefined,
+            : baseType,
         }
       case ITypeKind.CodeMirrorType:
         return {
@@ -179,6 +180,7 @@ export const typeMapper: IMapper<
       case ITypeKind.EnumType:
         return {
           update: {
+            ...baseType,
             allowedValues: [
               {
                 // For some reason if the disconnect and delete are in the update section it throws an error
@@ -209,12 +211,14 @@ export const typeMapper: IMapper<
       case ITypeKind.PrimitiveType:
         return {
           update: {
+            ...baseType,
             primitiveKind: dto.primitiveKind,
           },
         }
       case ITypeKind.UnionType:
         return {
           update: {
+            ...baseType,
             typesOfUnionType: makeAllTypes({
               connect: dto.typesOfUnionType.map(({ id }) => ({
                 where: { node: { id } },

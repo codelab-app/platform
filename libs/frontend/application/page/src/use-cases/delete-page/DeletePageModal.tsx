@@ -1,39 +1,35 @@
 'use client'
 
-import type { IPageModel } from '@codelab/frontend/abstract/domain'
-
 import { UiKey } from '@codelab/frontend/abstract/types'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/navigation'
 import { AutoFields } from 'uniforms-antd'
 
 import { usePageService } from '../../services'
-import { useDeletePageModal } from './delete-page.state'
 
-export const DeletePageModal = observer(({ page }: { page: IPageModel }) => {
-  const deletePageModal = useDeletePageModal()
+export const DeletePageModal = observer(({ id }: { id: string }) => {
   const pageService = usePageService()
-  const closeModal = () => deletePageModal.close()
+  const router = useRouter()
+  const closeModal = () => pageService.deletePopover.close(router)
+  const page = pageService.getOneFromCache({ id })
 
   return (
     <ModalForm.Modal
       okText="Delete Page"
       onCancel={closeModal}
-      open={deletePageModal.isOpen}
+      open={true}
       uiKey={UiKey.PageModalDelete}
     >
       <ModalForm.Form
+        errorMessage="Error while deleting page"
         model={{}}
-        onSubmit={() => pageService.removeMany([page])}
-        onSubmitError={createFormErrorNotificationHandler({
-          title: 'Error while deleting page',
-        })}
+        onSubmit={() => pageService.removeMany(page ? [page] : [])}
         onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}
       >
-        <h4>Are you sure you want to delete page "{page.name}"?</h4>
+        <h4>Are you sure you want to delete page "{page?.name}"?</h4>
         <AutoFields />
       </ModalForm.Form>
     </ModalForm.Modal>

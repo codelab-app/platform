@@ -89,6 +89,7 @@ export const UpdateTypeForm = observer<UpdateAtomFormProps>((props) => {
       onSubmitSuccess={props.onSubmitSuccess}
       schema={updateTypeSchema}
       submitRef={props.submitRef}
+      successMessage="Type updated successfully"
       uiKey={UiKey.TypeFormUpdate}
     >
       <AutoFields fields={['name']} />

@@ -17,12 +17,12 @@ export const panelBreakpoints = {
   //   min: 10,
   // },
   xl: {
-    default: 16,
+    default: 20,
     max: 21,
     min: 13,
   },
   '2xl': {
-    default: 15,
+    default: 18,
     max: 20,
     min: 12,
   },

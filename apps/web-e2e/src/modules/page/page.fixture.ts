@@ -1,6 +1,8 @@
+import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import { IPageKindName } from '@codelab/shared/abstract/core'
 import { test as base, expect } from '@playwright/test'
 
+import { getCuiTree } from '../../commands'
 import { BasePage } from '../../locators/pages'
 
 export class PageListPage extends BasePage {
@@ -8,26 +10,59 @@ export class PageListPage extends BasePage {
 
   readonly updatedPageName = 'Updated Page'
 
+  async createPage() {
+    await this.getSidebar(UiKey.PageSidebar)
+      .getToolbarItem(UiKey.PageToolbarItemCreate)
+      .click()
+
+    const form = await this.getForm(UiKey.PageFormCreate)
+
+    await form.fillInputText({ label: 'Name' }, this.pageName)
+    await form.getButton({ text: 'Create' }).click()
+    await this.expectGlobalProgressBarToBeHidden()
+  }
+
+  async deletePage() {
+    await this.getTreeItemByPrimaryTitle$(this.updatedPageName).hover()
+    await this.getTreeItemByPrimaryTitle(this.updatedPageName)
+      .getToolbarItem(UiKey.PageToolbarItemDelete)
+      .click()
+
+    const form = await this.getForm(UiKey.PageModalDelete)
+
+    await form.getButton({ label: 'Confirmation Button' }).click()
+    await this.expectGlobalProgressBarToBeHidden()
+  }
+
   async expectNoPreexistingPage() {
     await expect(this.getByExactText(this.pageName)).toBeHidden()
   }
 
   async expectSystemPagesToExist() {
-    await expect(this.page.getByText(IPageKindName.Provider)).toBeVisible()
-    await expect(this.page.getByText(IPageKindName.NotFound)).toBeVisible()
+    const cuiTree = getCuiTree(this.page)
+
+    await expect(cuiTree.getByText(IPageKindName.Provider)).toBeVisible()
+    await expect(cuiTree.getByText(IPageKindName.NotFound)).toBeVisible()
     await expect(
-      this.page.getByText(IPageKindName.InternalServerError),
+      cuiTree.getByText(IPageKindName.InternalServerError),
     ).toBeVisible()
   }
 
-  async seedApp() {
-    await this.page.request.post('./app/seed-cypress-app')
+  async goto(appId: string, pageId: string) {
+    await this.page.goto(PageType.PageList({ appId, pageId }))
   }
 
-  async visitPageList(appSlug: string) {
-    await this.page.goto(
-      `/apps/cypress/${appSlug}/pages/_app/builder?primarySidebarKey=pageList`,
-    )
+  async updatePage() {
+    await this.getTreeItemByPrimaryTitle$(this.pageName).hover()
+    await this.getTreeItemByPrimaryTitle(this.pageName)
+      .getToolbarItem(UiKey.PageToolbarItemUpdate)
+      .click()
+
+    const form = await this.getForm(UiKey.PageFormUpdate)
+
+    await form.fillInputText({ label: 'Name' }, this.updatedPageName)
+    await form.getButton({ text: 'Update' }).click()
+    await this.expectGlobalProgressBarToBeHidden()
   }
 }
 

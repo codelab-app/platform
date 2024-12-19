@@ -8,25 +8,20 @@ import type { Maybe } from '@codelab/shared/abstract/types'
 
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
-import { PageType, UiKey } from '@codelab/frontend/abstract/types'
-import {
-  CuiSidebarSecondary,
-  useCui,
-} from '@codelab/frontend/presentation/codelab-ui'
+import { UiKey } from '@codelab/frontend/abstract/types'
+import { CuiSidebarSecondary } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import { useRef } from 'react'
 
+import { usePageService } from '../../services/page.service'
 import { CreatePageForm } from './CreatePageForm'
 
 export const CreatePagePopover = observer<PageContextParams>(
   ({ appId, pageId }) => {
     const submitRef = useRef<Maybe<SubmitController>>()
     const router = useRouter()
-
-    const goToPageList = () => {
-      router.push(PageType.PageList({ appId, pageId }))
-    }
+    const { createPopover } = usePageService()
 
     return (
       <CuiSidebarSecondary
@@ -37,26 +32,20 @@ export const CreatePagePopover = observer<PageContextParams>(
               cuiKey: UiKey.PageToolbarItemCreate,
               icon: <SaveOutlined />,
               label: 'Create',
-              onClick: () => {
-                submitRef.current?.submit()
-              },
-              title: 'Create',
+              onClick: () => submitRef.current?.submit(),
             },
             {
               cuiKey: UiKey.PageToolbarItemCreateCancel,
               icon: <CloseOutlined />,
               label: 'Cancel',
-              onClick: () => {
-                goToPageList()
-              },
-              title: 'Cancel',
+              onClick: () => createPopover.close(router),
             },
           ],
           title: 'Create Page toolbar',
         }}
       >
         <CreatePageForm
-          onSubmitSuccess={() => goToPageList()}
+          onSubmitSuccess={() => createPopover.close(router)}
           showFormControl={false}
           submitRef={submitRef}
         />

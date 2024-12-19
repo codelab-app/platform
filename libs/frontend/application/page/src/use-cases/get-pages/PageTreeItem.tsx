@@ -34,9 +34,8 @@ import { IPageKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 
-import { useDeletePageModal } from '../delete-page/delete-page.state'
+import { usePageService } from '../../services/page.service'
 import { useRegeneratePages } from '../generate-pages'
-import { useUpdatePageForm } from '../update-page/update-page.state'
 
 interface PageTreeItemProps {
   app: IAppModel
@@ -54,11 +53,10 @@ export const PageTreeItem = observer(
     const updateRedirectForm = useUpdateRedirectForm()
     const createRedirectForm = useCreateRedirectForm()
     const { isRegenerating, regenerate } = useRegeneratePages()
-    const deletePageModal = useDeletePageModal()
-    const updatePageForm = useUpdatePageForm()
     const { popover } = useCui()
     const router = useRouter()
-    const { appId } = useUrlPathParams()
+    const { deletePopover, updatePopover } = usePageService()
+    const { appId, pageId } = useUrlPathParams()
 
     const commonToolbarItems: Array<ToolbarItem> = [
       {
@@ -83,7 +81,7 @@ export const PageTreeItem = observer(
       {
         cuiKey: UiKey.PageToolbarItemDelete,
         icon: <DeleteOutlined />,
-        onClick: () => deletePageModal.open(pageRef(page)),
+        onClick: () => deletePopover.open(router, appId, pageId, page.id),
         title: 'Delete',
       },
       {
@@ -111,10 +109,7 @@ export const PageTreeItem = observer(
       {
         cuiKey: UiKey.PageToolbarItemUpdate,
         icon: <EditOutlined />,
-        onClick: () => {
-          updatePageForm.open(pageRef(page))
-          popover.open(UiKey.PagePopoverUpdate)
-        },
+        onClick: () => updatePopover.open(router, appId, pageId, page.id),
         title: 'Edit',
       },
     ]

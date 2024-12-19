@@ -36,6 +36,7 @@ export const DeleteFieldModal = observer<{ id: string }>(({ id }) => {
         onSubmit={() => fieldService.removeMany([field])}
         onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}
+        successMessage="Field deleted successfully"
       >
         <h4>
           Are you sure you want to delete field "{field.name ?? field.key}"?

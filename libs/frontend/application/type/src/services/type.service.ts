@@ -9,6 +9,7 @@ import type {
   ITypeUpdateDto,
 } from '@codelab/frontend/abstract/domain'
 import type { IRef } from '@codelab/shared/abstract/core'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import { typeRef } from '@codelab/frontend/abstract/domain'
@@ -123,9 +124,10 @@ export const useTypeService = (): ITypeService => {
       return interfaceFromStore
     }
 
-    const fieldTypeIds = (interfaceFromStore as IInterfaceTypeModel).fields.map(
-      (field) => field.type.id,
-    )
+    const fieldTypeIds =
+      (interfaceFromStore as Maybe<IInterfaceTypeModel>)?.fields.map(
+        (field) => field.type.id,
+      ) ?? []
 
     const loadedTypes = await getAll([interfaceTypeId, ...fieldTypeIds])
     const interfaceType = loadedTypes.find(({ id }) => id === interfaceTypeId)
