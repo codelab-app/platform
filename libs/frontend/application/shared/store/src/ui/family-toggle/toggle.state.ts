@@ -35,7 +35,6 @@ export const useToggleState = <TData = undefined, TOutput = TData>(
   const [toggleState, setToggleState] = useAtom(toggleAtomFamily(key))
 
   const open = (data?: TData) => {
-    console.log('open', data)
     setToggleState({ data, isOpen: true })
   }
 
