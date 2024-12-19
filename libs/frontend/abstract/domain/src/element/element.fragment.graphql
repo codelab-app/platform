@@ -53,6 +53,10 @@ fragment Element on Element {
     ... on Component {
       __typename
       id
+      # Used for getting dependant types
+      api {
+        id
+      }
     }
   }
   style

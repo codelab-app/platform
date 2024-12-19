@@ -15,22 +15,6 @@ import { slug } from './field/element-slug'
 
 export const ELEMENT_RESOLVER_PROVIDER = 'ELEMENT_RESOLVER_PROVIDER'
 
-export const elementDescendants =
-  (neo4jService: Neo4jService, elementRepository: ElementRepository) =>
-  (element: Element) => {
-    return neo4jService.withReadTransaction(async (txn) => {
-      const { records } = await txn.run(getElementDescendants, {
-        rootId: element.id,
-      })
-
-      const descendantIds = records[0]?.get(0) || []
-
-      return elementRepository.find({
-        where: { id_IN: [element.id].concat(descendantIds) },
-      })
-    })
-  }
-
 export const ElementResolverProvider: FactoryProvider<
   Promise<IResolvers<GraphQLRequestContext, unknown>>
 > = {

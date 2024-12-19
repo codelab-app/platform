@@ -11,7 +11,10 @@ import {
   RichTextTypeRepository,
   UnionTypeRepository,
 } from '@codelab/backend/domain/type'
-import { Neo4jService } from '@codelab/backend-infra-adapter/neo4j-driver'
+import {
+  getElementDependantTypes,
+  Neo4jService,
+} from '@codelab/backend-infra-adapter/neo4j-driver'
 import { type IRef, ITypeKind } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 
@@ -39,7 +42,7 @@ export class GetDependantTypesService {
    * This attempts to get all dependent types for an element
    */
   async getDependantTypes(elementRef: IRef) {
-    return this.neo4jService.withReadTransaction(async (txn: any) => {
+    return this.neo4jService.withReadTransaction(async (txn) => {
       const elements = await this.elementRepository.find({
         where: { id: elementRef.id },
       })

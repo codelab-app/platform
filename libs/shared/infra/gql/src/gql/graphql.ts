@@ -31159,7 +31159,7 @@ export type ElementFragment = {
   props: PropFragment
   renderType:
     | ({ __typename: 'Atom' } & AtomBuilderFragment)
-    | { __typename: 'Component'; id: string }
+    | { __typename: 'Component'; id: string; api: { id: string } }
 }
 
 export type ElementProductionFragment = {
@@ -33634,6 +33634,9 @@ export const ElementFragmentDoc = new TypedDocumentString(
     ... on Component {
       __typename
       id
+      api {
+        id
+      }
     }
   }
   style
@@ -34210,6 +34213,9 @@ fragment Element on Element {
     ... on Component {
       __typename
       id
+      api {
+        id
+      }
     }
   }
   style
@@ -34516,6 +34522,9 @@ fragment Element on Element {
     ... on Component {
       __typename
       id
+      api {
+        id
+      }
     }
   }
   style
@@ -34849,6 +34858,9 @@ fragment Element on Element {
     ... on Component {
       __typename
       id
+      api {
+        id
+      }
     }
   }
   style
@@ -35144,6 +35156,9 @@ fragment Element on Element {
     ... on Component {
       __typename
       id
+      api {
+        id
+      }
     }
   }
   style
@@ -36525,6 +36540,9 @@ fragment Element on Element {
     ... on Component {
       __typename
       id
+      api {
+        id
+      }
     }
   }
   style
@@ -37350,6 +37368,9 @@ fragment Element on Element {
     ... on Component {
       __typename
       id
+      api {
+        id
+      }
     }
   }
   style
@@ -37762,6 +37783,9 @@ fragment Element on Element {
     ... on Component {
       __typename
       id
+      api {
+        id
+      }
     }
   }
   style
@@ -38173,6 +38197,9 @@ fragment Element on Element {
     ... on Component {
       __typename
       id
+      api {
+        id
+      }
     }
   }
   style
@@ -39233,6 +39260,9 @@ fragment Element on Element {
     ... on Component {
       __typename
       id
+      api {
+        id
+      }
     }
   }
   style
@@ -39642,6 +39672,9 @@ fragment Element on Element {
     ... on Component {
       __typename
       id
+      api {
+        id
+      }
     }
   }
   style
@@ -39950,6 +39983,9 @@ fragment Element on Element {
     ... on Component {
       __typename
       id
+      api {
+        id
+      }
     }
   }
   style
