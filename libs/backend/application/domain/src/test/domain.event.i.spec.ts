@@ -42,9 +42,6 @@ describe('Domain subscriptions', () => {
   let domainCreatedSpy: jest.SpyInstance
   let domainUpdatedSpy: jest.SpyInstance
   let domainDeletedSpy: jest.SpyInstance
-  let registerCreatedSubscriptionsSpy: jest.SpyInstance
-  let registerDeletedSubscriptionsSpy: jest.SpyInstance
-  let registerUpdatedSubscriptionsSpy: jest.SpyInstance
 
   const context = initUserContext({
     imports: [
@@ -67,13 +64,12 @@ describe('Domain subscriptions', () => {
     graphqlService = module.get(GraphqlService)
 
     await ctx.beforeAll()
-    await app.listen(apiPort).then(() => {
-      domainCreatedSpy = jest.spyOn(domainListener, 'domainCreated')
-      domainUpdatedSpy = jest.spyOn(domainListener, 'domainUpdated')
-      domainDeletedSpy = jest.spyOn(domainListener, 'domainDeleted')
 
-      graphqlService.serverReadyHook()
-    })
+    domainCreatedSpy = jest.spyOn(domainListener, 'domainCreated')
+    domainUpdatedSpy = jest.spyOn(domainListener, 'domainUpdated')
+    domainDeletedSpy = jest.spyOn(domainListener, 'domainDeleted')
+
+    graphqlService.serverReadyHook()
   })
 
   afterAll(async () => {
@@ -86,8 +82,6 @@ describe('Domain subscriptions', () => {
   const domainId = v4()
 
   it('should call the domain created subscription handler', async () => {
-    await sleep(1000)
-
     const appInput: Array<AppCreateInput> = [
       {
         compositeKey: `${userDto.id}-demo-app`,
