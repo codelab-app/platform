@@ -1,3 +1,4 @@
+import type { PageContextParams } from '@codelab/frontend/abstract/types'
 import type {
   IElementDto,
   IPageCreateFormData,
@@ -146,8 +147,8 @@ export const usePageService = (): IPageService => {
     close: (router: AppRouterInstance) => {
       router.back()
     },
-    open: (router: AppRouterInstance, appId: string, pageId: string) => {
-      router.push(PageType.PageCreate({ appId, pageId }))
+    open: (router: AppRouterInstance, params: PageContextParams) => {
+      router.push(PageType.PageCreate(params))
     },
   }
 
@@ -157,13 +158,11 @@ export const usePageService = (): IPageService => {
     },
     open: (
       router: AppRouterInstance,
-      appId: string,
-      pageId: string,
-      id: string,
+      params: PageContextParams & { elementId: string },
     ) => {
-      const baseUrl = PageType.PageUpdate({ appId, pageId })
+      const baseUrl = PageType.PageUpdate(params)
 
-      router.push(`${baseUrl}/${id}`)
+      router.push(`${baseUrl}/${params.elementId}`)
     },
   }
 
@@ -171,15 +170,10 @@ export const usePageService = (): IPageService => {
     close: (router: AppRouterInstance) => {
       router.back()
     },
-    open: (
-      router: AppRouterInstance,
-      appId: string,
-      pageId: string,
-      id: string,
-    ) => {
-      const baseUrl = PageType.PageDelete({ appId, pageId })
+    open: (router: AppRouterInstance, params: PageContextParams) => {
+      const baseUrl = PageType.PageDelete(params)
 
-      router.push(`${baseUrl}/${id}`)
+      router.push(`${baseUrl}`)
     },
   }
 

@@ -43,7 +43,7 @@ export const PagesPrimarySidebar = observer<PageContextParams>(
                 {
                   cuiKey: UiKey.PageToolbarItemCreate,
                   icon: <PlusOutlined />,
-                  onClick: () => createPopover.open(router, appId, pageId),
+                  onClick: () => createPopover.open(router, { appId, pageId }),
                   title: 'Create Page',
                 },
               ],

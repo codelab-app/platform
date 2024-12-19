@@ -5,6 +5,10 @@ import type {
   PageWhere,
 } from '@codelab/shared/infra/gql'
 
+import {
+  CACHE_TAGS,
+  type IPageRepository,
+} from '@codelab/frontend/abstract/domain'
 import { Validator } from '@codelab/shared/infra/schema'
 import {
   pageMapper,

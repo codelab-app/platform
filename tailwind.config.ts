@@ -37,11 +37,11 @@ const config: Config = {
       //   //   ...theme('colors'),
       //   // }
       // },
-      screens: {
-        laptop: '768px',
-        tablet: '0px',
-        desktop: '1200px',
-      },
+      // screens: {
+      //   laptop: '768px',
+      //   tablet: '0px',
+      //   desktop: '1200px',
+      // },
     },
     fontFamily: {
       body: ['Nunito'],

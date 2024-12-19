@@ -56,7 +56,7 @@ export const PageTreeItem = observer(
     const { popover } = useCui()
     const router = useRouter()
     const { deletePopover, updatePopover } = usePageService()
-    const { appId, pageId } = useUrlPathParams()
+    const { appId } = useUrlPathParams()
 
     const commonToolbarItems: Array<ToolbarItem> = [
       {
@@ -81,7 +81,7 @@ export const PageTreeItem = observer(
       {
         cuiKey: UiKey.PageToolbarItemDelete,
         icon: <DeleteOutlined />,
-        onClick: () => deletePopover.open(router, appId, pageId, page.id),
+        onClick: () => deletePopover.open(router, { appId, pageId: page.id }),
         title: 'Delete',
       },
       {
@@ -109,7 +109,7 @@ export const PageTreeItem = observer(
       {
         cuiKey: UiKey.PageToolbarItemUpdate,
         icon: <EditOutlined />,
-        onClick: () => updatePopover.open(router, appId, pageId, page.id),
+        onClick: () => updatePopover.open(router, { appId, pageId: page.id }),
         title: 'Edit',
       },
     ]
