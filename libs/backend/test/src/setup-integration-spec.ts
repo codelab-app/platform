@@ -18,17 +18,17 @@ import {
 } from '@codelab/backend/domain/user'
 import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
 import {
-  DatabaseService,
-  GraphQLSchemaModule,
-  neo4jConfig,
-  Neo4jService,
-} from '@codelab/backend-infra-adapter/neo4j-schema'
-import {
   RequestContextMiddleware,
   RequestContextModule,
 } from '@codelab/backend/infra/adapter/request-context'
 import { ValidationModule } from '@codelab/backend/infra/adapter/typebox'
 import { ENDPOINT_CONFIG_KEY } from '@codelab/backend/infra/core'
+import {
+  DatabaseService,
+  GraphQLSchemaModule,
+  neo4jConfig,
+  Neo4jService,
+} from '@codelab/backend-infra-adapter/neo4j-schema'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { CommandBus, CqrsModule } from '@nestjs/cqrs'
 import { Test, type TestingModule } from '@nestjs/testing'

@@ -14,12 +14,12 @@ import {
   TypeDomainModule,
 } from '@codelab/backend/domain/type'
 import { UserRepository } from '@codelab/backend/domain/user'
+import { initUserContext } from '@codelab/backend/test'
 import {
   GRAPHQL_SCHEMA_PROVIDER,
   GraphQLSchemaModule,
   Neo4jModule,
 } from '@codelab/backend-infra-adapter/neo4j-schema'
-import { initUserContext } from '@codelab/backend/test'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { ApolloDriver } from '@nestjs/apollo'
 import { GraphQLModule } from '@nestjs/graphql'

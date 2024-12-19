@@ -16,7 +16,8 @@ import {
   elementServerActions,
 } from '@codelab/shared-domain-module/element'
 
-const { CreateElements, DeleteElements, ElementList, UpdateElements } = elementServerActions
+const { CreateElements, DeleteElements, ElementList, UpdateElements } =
+  elementServerActions
 
 export const elementRepository: IElementRepository = {
   add: async (element: IElementDto) => {

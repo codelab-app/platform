@@ -1,15 +1,14 @@
 import { graphqlClient } from '@codelab/shared/infra/gql-client'
 
 import { getSdk } from './tag.api.graphql.api.gen'
-
-export const tagApi = () => getSdk(graphqlClient)
-
 import {
   CreateTags,
   DeleteTags,
   GetTags,
   UpdateTags,
 } from './tag.api.graphql.web.gen'
+
+export const tagApi = () => getSdk(graphqlClient)
 
 export const tagServerActions = {
   CreateTags,

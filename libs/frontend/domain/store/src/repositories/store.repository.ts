@@ -17,7 +17,8 @@ import {
 import { withTracingMethods } from '@codelab/shared-infra-sentry'
 import { revalidateTag } from 'next/cache'
 
-const { CreateStores, DeleteStores, GetStores, UpdateStores } = storeServerActions
+const { CreateStores, DeleteStores, GetStores, UpdateStores } =
+  storeServerActions
 
 export const storeRepository: IStoreRepository = withTracingMethods('store', {
   add: async (input: IStoreDto) => {

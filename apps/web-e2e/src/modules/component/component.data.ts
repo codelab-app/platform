@@ -1,7 +1,7 @@
 import type { ICreateCypressElementData } from '@codelab/shared/abstract/core'
 
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
+import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
 
 export const COMPONENT_PROP_VALUE = 'component_prop_value'
 export const COMPONENT_INSTANCE_TEXT = 'component_instance_text'

@@ -11,6 +11,7 @@ import {
 import { initUserContext } from '@codelab/backend/test'
 import { userDto } from '@codelab/shared/data/test'
 import { connectNodeId } from '@codelab/shared/domain/orm'
+import { graphqlClient } from '@codelab/shared/infra/gql-client'
 import { EventEmitterModule } from '@nestjs/event-emitter'
 import * as env from 'env-var'
 import { sleep } from 'radash'
@@ -30,7 +31,6 @@ import {
   TestDeleteDomainsDocument,
   TestUpdateDomainsDocument,
 } from './domain.spec.graphql.api.gen'
-import { graphqlClient } from '@codelab/shared/infra/gql-client'
 
 const apiPort = env.get('NEXT_PUBLIC_API_PORT').required().asPortNumber()
 

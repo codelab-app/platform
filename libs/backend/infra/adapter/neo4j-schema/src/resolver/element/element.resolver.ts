@@ -5,9 +5,11 @@ import type { FactoryProvider } from '@nestjs/common'
 import type { GraphQLRequestContext } from 'graphql-request/build/cjs/types'
 
 import { ElementRepository } from '@codelab/backend/domain/element'
-import { Neo4jService } from '@codelab/backend-infra-adapter/neo4j-driver'
+import {
+  getElementDescendants,
+  Neo4jService,
+} from '@codelab/backend-infra-adapter/neo4j-driver'
 
-import { getElementDescendants } from '../../../../neo4j-driver/src/cypher'
 import { name } from './field/element-name'
 import { slug } from './field/element-slug'
 

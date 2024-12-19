@@ -1,6 +1,5 @@
 import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import { IPageKindName } from '@codelab/shared/abstract/core'
-import { appId } from '@codelab/shared/data/test'
 import { test as base, expect, request } from '@playwright/test'
 
 import { getCuiTree } from '../../commands'

@@ -11,11 +11,11 @@ import {
 } from '@codelab/backend/application/type'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import { InterfaceTypeRepository } from '@codelab/backend/domain/type'
+import { initUserContext } from '@codelab/backend/test'
 import {
   DatabaseService,
   Neo4jModule,
 } from '@codelab/backend-infra-adapter/neo4j-schema'
-import { initUserContext } from '@codelab/backend/test'
 import { CommandBus } from '@nestjs/cqrs'
 
 jest.setTimeout(60000)
