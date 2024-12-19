@@ -1,10 +1,10 @@
 'use server'
 
 import { getEnv } from '@codelab/shared/config/env'
-import { fetchWithAuth } from '@codelab/shared/infra/fetch'
+import { serverFetchWithAuth } from '@codelab/shared/infra/fetch-server'
 
 export const importAdminDataService = async () => {
-  const result = await fetchWithAuth(getEnv().endpoint.admin.import, {
+  const result = await serverFetchWithAuth(getEnv().endpoint.admin.import, {
     body: JSON.stringify({}),
     headers: { 'Content-Type': 'application/json' },
     method: 'POST',

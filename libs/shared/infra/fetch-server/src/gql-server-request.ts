@@ -21,7 +21,7 @@ export const gqlServerRequest = async <TResult, TVariables extends ObjectLike>(
   /**
    * Dynamic import here since nested auth0 requires Request to work
    */
-  const { serverFetchWithAuth } = await import('./fetch-with-auth')
+  const { serverFetchWithAuth } = await import('./server-fetch-with-auth')
 
   const response = await serverFetchWithAuth(getEnv().endpoint.webGraphqlUrl, {
     body: JSON.stringify({
