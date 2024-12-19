@@ -1,7 +1,9 @@
-import type { ContainerNode } from '@codelab/shared/infra/gql'
+import type { Element } from '@codelab/shared/infra/gql'
 import type { IResolvers } from '@graphql-tools/utils'
 import type { FactoryProvider } from '@nestjs/common'
 import type { GraphQLRequestContext } from 'graphql-request/build/cjs/types'
+
+import { ElementRepository } from '@codelab/backend/domain/element'
 
 import { getElementDescendants } from '../../cypher'
 import { Neo4jService } from '../../infra'
@@ -11,22 +13,30 @@ import { slug } from './field/element-slug'
 export const ELEMENT_RESOLVER_PROVIDER = 'ELEMENT_RESOLVER_PROVIDER'
 
 export const descendants =
-  (neo4jService: Neo4jService) => (node: ContainerNode) => {
+  (neo4jService: Neo4jService, elementRepository: ElementRepository) =>
+  (element: Element) => {
     return neo4jService.withReadTransaction(async (txn) => {
       const { records } = await txn.run(getElementDescendants, {
-        this: node.id,
+        rootId: element.id,
       })
 
-      return records[0]?.get(0) ?? []
+      const descendantIds = records[0]?.get(0) || []
+
+      return elementRepository.find({
+        where: { id_IN: [element.id].concat(descendantIds) },
+      })
     })
   }
 
 export const ElementResolverProvider: FactoryProvider<
   Promise<IResolvers<GraphQLRequestContext, unknown>>
 > = {
-  inject: [Neo4jService],
+  inject: [Neo4jService, ElementRepository],
   provide: ELEMENT_RESOLVER_PROVIDER,
-  useFactory: async (neo4jService: Neo4jService) => {
+  useFactory: async (
+    neo4jService: Neo4jService,
+    elementRepository: ElementRepository,
+  ) => {
     return {
       Element: {
         __typename: 'Element',
@@ -39,13 +49,13 @@ export const ElementResolverProvider: FactoryProvider<
 
           return []
         },
-        descendants: descendants(neo4jService),
+        descendants: descendants(neo4jService, elementRepository),
         name,
         // renderType,
         slug,
       },
       ElementRenderType: {
-        __resolveType: (node: ContainerNode) => {
+        __resolveType: (node: Element) => {
           /**
            * `__resolveType` is there by default, for ones that don't exist, we have __typename
            */

@@ -1,12 +1,10 @@
 import type {
-  ContainerNode,
   ElementFragment,
   ElementOptions,
   ElementWhere,
 } from '@codelab/shared/infra/gql'
 
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { Neo4jService } from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import { IElementDto } from '@codelab/shared/abstract/core'
