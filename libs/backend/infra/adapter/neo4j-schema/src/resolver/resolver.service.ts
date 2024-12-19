@@ -1,6 +1,7 @@
 import type { IResolvers } from '@graphql-tools/utils'
-import { Inject, Injectable } from '@nestjs/common'
+
 import { mergeResolvers } from '@graphql-tools/merge'
+import { Inject, Injectable } from '@nestjs/common'
 
 import { actionResolver } from './action'
 import { appResolver } from './app'
@@ -25,8 +26,8 @@ export class ResolverService {
     private readonly pageResolverProvider: IResolvers,
   ) {}
 
-  getResolvers(): IResolvers {
-    const pureResolvers: IResolvers = mergeResolvers([
+  getMergedResolvers(): IResolvers {
+    const resolvers: IResolvers = mergeResolvers([
       appResolver,
       componentResolver,
       atomResolver,
@@ -38,6 +39,6 @@ export class ResolverService {
       this.pageResolverProvider,
     ])
 
-    return pureResolvers
+    return resolvers
   }
 }

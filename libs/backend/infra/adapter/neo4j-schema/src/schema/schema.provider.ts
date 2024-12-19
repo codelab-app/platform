@@ -55,7 +55,7 @@ export const GraphQLSchemaProvider: FactoryProvider<Promise<GraphQLSchema>> = {
           },
           subscriptions: true,
         },
-        resolvers: resolverService.getResolvers(),
+        resolvers: resolverService.getMergedResolvers(),
         typeDefs,
       })
 
