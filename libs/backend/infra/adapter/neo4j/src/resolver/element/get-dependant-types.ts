@@ -1,173 +1,168 @@
 import { type IRef, ITypeKind } from '@codelab/shared/abstract/core'
+import { Injectable } from '@nestjs/common'
+import { ElementRepository } from '@codelab/backend/domain/element'
+import { FieldRepository } from '@codelab/backend/domain/type'
+import { ArrayTypeRepository } from '@codelab/backend/domain/type'
+import { EnumTypeRepository } from '@codelab/backend/domain/type'
+import { InterfaceTypeRepository } from '@codelab/backend/domain/type'
+import { UnionTypeRepository } from '@codelab/backend/domain/type'
+import { PrimitiveTypeRepository } from '@codelab/backend/domain/type'
+import { ReactNodeTypeRepository } from '@codelab/backend/domain/type'
+import { RichTextTypeRepository } from '@codelab/backend/domain/type'
+import { CodeMirrorTypeRepository } from '@codelab/backend/domain/type'
+import { RenderPropTypeRepository } from '@codelab/backend/domain/type'
+import { ActionTypeRepository } from '@codelab/backend/domain/type'
+import { Neo4jService } from '../../infra'
+import { getElementDependantTypes } from '../../cypher'
 
-import type { Neo4jService, OgmService } from '../../../../infra'
+@Injectable()
+export class DependantTypesService {
+  constructor(
+    private neo4jService: Neo4jService,
+    private elementRepository: ElementRepository,
+    private fieldRepository: FieldRepository,
+    private arrayTypeRepository: ArrayTypeRepository,
+    private enumTypeRepository: EnumTypeRepository,
+    private interfaceTypeRepository: InterfaceTypeRepository,
+    private unionTypeRepository: UnionTypeRepository,
+    private primitiveTypeRepository: PrimitiveTypeRepository,
+    private reactNodeTypeRepository: ReactNodeTypeRepository,
+    private richTextTypeRepository: RichTextTypeRepository,
+    private codeMirrorTypeRepository: CodeMirrorTypeRepository,
+    private renderPropTypeRepository: RenderPropTypeRepository,
+    private actionTypeRepository: ActionTypeRepository,
+  ) {}
 
-import { getElementDependantTypes } from '../../../../cypher'
-import {
-  arrayTypeSelectionSet,
-  baseTypeSelection,
-  codeMirrorTypeSelectionSet,
-  elementSelectionSet,
-  enumTypeSelectionSet,
-  fieldSelectionSet,
-  interfaceTypeSelectionSet,
-  primitiveTypeSelectionSet,
-  unionTypeSelectionSet,
-} from '../../../../selectionSet'
+  async getDependantTypes(elementRef: IRef) {
+    return this.neo4jService.withReadTransaction(async (txn) => {
+      const element = await this.elementRepository.findOne({ where: { id: elementRef.id } })
+      const apiId = element?.renderType.api.id
 
-/**
- * This attempts to get all dependent types for an element
- */
-export const getDependantTypes = (
-  neo4jService: Neo4jService,
-  ogmService: OgmService,
-  elementRef: IRef,
-) => {
-  return neo4jService.withReadTransaction(async (txn) => {
-    const elements = await ogmService.Element.find({
-      selectionSet: `{ ${elementSelectionSet} }`,
-      where: { id: elementRef.id },
+      const { records } = await txn.run(getElementDependantTypes, {
+        id: apiId,
+      })
+
+      const allTypes = records.map((rec) => ({
+        id: rec.get(0).id,
+        typeName: rec.get(0).__typename,
+      }))
+
+      // UnionType, ArrayType, EnumType, InterfaceType
+      const types = allTypes.filter((type) => type.typeName !== 'Field')
+
+      const typesToFetch = [
+        ...types,
+        // Types used in fields
+        ...(await this.getFieldTypesToFetch(allTypes)),
+      ]
+
+      const dependantTypes = await this.fetchTypes(typesToFetch)
+
+      return dependantTypes.flat()
     })
+  }
 
-    const element = elements[0]
-    const apiId = element?.renderType.api.id
+  private async fetchTypes(types: Array<{ id: string; typeName: string }>) {
+    const promises = []
 
-    const { records } = await txn.run(getElementDependantTypes, {
-      id: apiId,
-    })
-
-    const allTypes = records.map((rec) => ({
-      id: rec.get(0).id,
-      typeName: rec.get(0).__typename,
-    }))
-
-    // UnionType, ArrayType, EnumType, InterfaceType
-    const types = allTypes.filter((type) => type.typeName !== 'Field')
-
-    const typesToFetch = [
-      ...types,
-      // Types used in fields
-      ...(await getFieldTypesToFetch(ogmService, allTypes)),
-    ]
-
-    const dependantTypes = await fetchTypes(ogmService, typesToFetch)
-
-    return dependantTypes.flat()
-  })
-}
-
-const fetchTypes = async (
-  ogmService: OgmService,
-  types: Array<{ id: string; typeName: string }>,
-) => {
-  const promises = []
-
-  promises.push(
-    ogmService.ArrayType.find({
-      selectionSet: `{ ${arrayTypeSelectionSet} }`,
-      where: { id_IN: filterByType(ITypeKind.ArrayType, types) },
-    }),
-  )
-
-  promises.push(
-    ogmService.EnumType.find({
-      selectionSet: `{ ${enumTypeSelectionSet} }`,
-      where: { id_IN: filterByType(ITypeKind.EnumType, types) },
-    }),
-  )
-
-  promises.push(
-    ogmService.InterfaceType.find({
-      selectionSet: `{ ${interfaceTypeSelectionSet} }`,
-      where: { id_IN: filterByType(ITypeKind.InterfaceType, types) },
-    }),
-  )
-
-  promises.push(
-    ogmService.UnionType.find({
-      selectionSet: `{ ${unionTypeSelectionSet} }`,
-      where: { id_IN: filterByType(ITypeKind.UnionType, types) },
-    }),
-  )
-
-  promises.push(
-    ogmService.PrimitiveType.find({
-      selectionSet: `{ ${primitiveTypeSelectionSet} }`,
-      where: { id_IN: filterByType(ITypeKind.PrimitiveType, types) },
-    }),
-  )
-
-  promises.push(
-    ogmService.ReactNodeType.find({
-      selectionSet: `{ ${baseTypeSelection} }`,
-      where: { id_IN: filterByType(ITypeKind.ReactNodeType, types) },
-    }),
-  )
-
-  promises.push(
-    ogmService.RichTextType.find({
-      selectionSet: `{ ${baseTypeSelection} }`,
-      where: { id_IN: filterByType(ITypeKind.RichTextType, types) },
-    }),
-  )
-
-  promises.push(
-    ogmService.CodeMirrorType.find({
-      selectionSet: `{ ${codeMirrorTypeSelectionSet} }`,
-      where: { id_IN: filterByType(ITypeKind.CodeMirrorType, types) },
-    }),
-  )
-
-  promises.push(
-    ogmService.RenderPropType.find({
-      selectionSet: `{ ${baseTypeSelection} }`,
-      where: { id_IN: filterByType(ITypeKind.RenderPropType, types) },
-    }),
-  )
-
-  promises.push(
-    ogmService.ActionType.find({
-      selectionSet: `{ ${baseTypeSelection} }`,
-      where: { id_IN: filterByType(ITypeKind.ActionType, types) },
-    }),
-  )
-
-  return await Promise.all(promises)
-}
-
-const filterByType = (
-  typeName: string,
-  allTypes: Array<{ id: string; typeName: string }>,
-) =>
-  allTypes.filter((type) => type.typeName === typeName).map((type) => type.id)
-
-const getFieldTypesToFetch = async (
-  ogmService: OgmService,
-  allTypes: Array<{ id: string; typeName: string }>,
-) => {
-  const fieldsList = allTypes.filter((type) => type.typeName === 'Field')
-
-  const fields = await ogmService.Field.find({
-    selectionSet: `{ ${fieldSelectionSet} }`,
-    where: { id_IN: fieldsList.map((field) => field.id) },
-  })
-
-  // Filtered types are already fetched in App query
-  // this is to avoid getting the same type multiple times
-  // when used in multiple fields
-  return fields
-    .filter(
-      (field) =>
-        ![
-          ITypeKind.ActionType,
-          ITypeKind.PrimitiveType,
-          ITypeKind.ReactNodeType,
-          ITypeKind.RenderPropType,
-          ITypeKind.RichTextType,
-        ].includes(field.fieldType.kind),
+    promises.push(
+      this.arrayTypeRepository.find({
+        where: { id_IN: this.filterByType(ITypeKind.ArrayType, types) },
+      }),
     )
-    .map((field) => ({
-      id: field.fieldType.id,
-      typeName: field.fieldType.kind,
-    }))
+
+    promises.push(
+      this.enumTypeRepository.find({
+        where: { id_IN: this.filterByType(ITypeKind.EnumType, types) },
+      }),
+    )
+
+    promises.push(
+      this.interfaceTypeRepository.find({
+        where: { id_IN: this.filterByType(ITypeKind.InterfaceType, types) },
+      }),
+    )
+
+    promises.push(
+      this.unionTypeRepository.find({
+        where: { id_IN: this.filterByType(ITypeKind.UnionType, types) },
+      }),
+    )
+
+    promises.push(
+      this.primitiveTypeRepository.find({
+        where: { id_IN: this.filterByType(ITypeKind.PrimitiveType, types) },
+      }),
+    )
+
+    promises.push(
+      this.reactNodeTypeRepository.find({
+        where: { id_IN: this.filterByType(ITypeKind.ReactNodeType, types) },
+      }),
+    )
+
+    promises.push(
+      this.richTextTypeRepository.find({
+        where: { id_IN: this.filterByType(ITypeKind.RichTextType, types) },
+      }),
+    )
+
+    promises.push(
+      this.codeMirrorTypeRepository.find({
+        where: { id_IN: this.filterByType(ITypeKind.CodeMirrorType, types) },
+      }),
+    )
+
+    promises.push(
+      this.renderPropTypeRepository.find({
+        where: { id_IN: this.filterByType(ITypeKind.RenderPropType, types) },
+      }),
+    )
+
+    promises.push(
+      this.actionTypeRepository.find({
+        where: { id_IN: this.filterByType(ITypeKind.ActionType, types) },
+      }),
+    )
+
+    return Promise.all(promises)
+  }
+
+  private filterByType(
+    typeName: string,
+    allTypes: Array<{ id: string; typeName: string }>,
+  ) {
+    return allTypes
+      .filter((type) => type.typeName === typeName)
+      .map((type) => type.id)
+  }
+
+  private async getFieldTypesToFetch(
+    allTypes: Array<{ id: string; typeName: string }>,
+  ) {
+    const fieldsList = allTypes.filter((type) => type.typeName === 'Field')
+
+    const fields = await this.fieldRepository.find({
+      where: { id_IN: fieldsList.map((field) => field.id) },
+    })
+
+    // Filtered types are already fetched in App query
+    // this is to avoid getting the same type multiple times
+    // when used in multiple fields
+    return fields
+      .filter(
+        (field) =>
+          ![
+            ITypeKind.ActionType,
+            ITypeKind.PrimitiveType,
+            ITypeKind.ReactNodeType,
+            ITypeKind.RenderPropType,
+            ITypeKind.RichTextType,
+          ].includes(field.fieldType.kind),
+      )
+      .map((field) => ({
+        id: field.fieldType.id,
+        typeName: field.fieldType.kind,
+      }))
+  }
 }
