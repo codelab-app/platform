@@ -51,7 +51,10 @@ const create = ({ containerNode, id, rendererType }: IRendererDto) => {
     containerNode: isPage(containerNode)
       ? pageRef(containerNode)
       : componentRef(containerNode),
-    id,
+    /**
+     * Renderer uses an ID based on container node, but can't be the same, so we prefix it with the renderer type
+     */
+    id: `${rendererType}-${id}`,
     rendererType,
   })
 }
