@@ -1,37 +1,44 @@
 import { Injectable } from '@nestjs/common'
 import { type IRef, ITypeKind } from '@codelab/shared/abstract/core'
-import type { Neo4jService, OgmService } from '../../../../infra'
+import type { Neo4jService } from '../../../../infra'
 import { getElementDependantTypes } from '../../../../cypher'
-import {
-  arrayTypeSelectionSet,
-  baseTypeSelection,
-  codeMirrorTypeSelectionSet,
-  elementSelectionSet,
-  enumTypeSelectionSet,
-  fieldSelectionSet,
-  interfaceTypeSelectionSet,
-  primitiveTypeSelectionSet,
-  unionTypeSelectionSet,
-} from '../../../../selectionSet'
 import { ElementRepository } from '../repository/element.repo.service'
 import { FieldRepository } from '../../type/src/repository/field.repo.service'
+import { ArrayTypeRepository } from '../../type/src/repository/array-type.repo.service'
+import { EnumTypeRepository } from '../../type/src/repository/enum-type.repo.service'
+import { InterfaceTypeRepository } from '../../type/src/repository/interface-type.repo.service'
+import { UnionTypeRepository } from '../../type/src/repository/union-type.repo.service'
+import { PrimitiveTypeRepository } from '../../type/src/repository/primitive-type.repo.service'
+import { ReactNodeTypeRepository } from '../../type/src/repository/react-node-type.repo.service'
+import { RichTextTypeRepository } from '../../type/src/repository/rich-text-type.repo.service'
+import { CodeMirrorTypeRepository } from '../../type/src/repository/code-mirror-type.repo.service'
+import { RenderPropTypeRepository } from '../../type/src/repository/render-prop-type.repo.service'
+import { ActionTypeRepository } from '../../type/src/repository/action-type.repo.service'
 
 @Injectable()
 export class GetDependantTypesService {
   constructor(
     private neo4jService: Neo4jService,
-    private ogmService: OgmService,
     private elementRepository: ElementRepository,
     private fieldRepository: FieldRepository,
+    private arrayTypeRepository: ArrayTypeRepository,
+    private enumTypeRepository: EnumTypeRepository,
+    private interfaceTypeRepository: InterfaceTypeRepository,
+    private unionTypeRepository: UnionTypeRepository,
+    private primitiveTypeRepository: PrimitiveTypeRepository,
+    private reactNodeTypeRepository: ReactNodeTypeRepository,
+    private richTextTypeRepository: RichTextTypeRepository,
+    private codeMirrorTypeRepository: CodeMirrorTypeRepository,
+    private renderPropTypeRepository: RenderPropTypeRepository,
+    private actionTypeRepository: ActionTypeRepository,
   ) {}
 
   /**
    * This attempts to get all dependent types for an element
    */
   async getDependantTypes(elementRef: IRef) {
-  return neo4jService.withReadTransaction(async (txn) => {
-    const elements = await ogmService.Element.find({
-      selectionSet: `{ ${elementSelectionSet} }`,
+  return this.neo4jService.withReadTransaction(async (txn) => {
+    const elements = await this.elementRepository.find({
       where: { id: elementRef.id },
     })
 
@@ -68,71 +75,61 @@ private async fetchTypes(
   const promises = []
 
   promises.push(
-    this.ogmService.ArrayType.find({
-      selectionSet: `{ ${arrayTypeSelectionSet} }`,
+    this.arrayTypeRepository.find({
       where: { id_IN: filterByType(ITypeKind.ArrayType, types) },
     }),
   )
 
   promises.push(
-    ogmService.EnumType.find({
-      selectionSet: `{ ${enumTypeSelectionSet} }`,
+    this.enumTypeRepository.find({
       where: { id_IN: filterByType(ITypeKind.EnumType, types) },
     }),
   )
 
   promises.push(
-    ogmService.InterfaceType.find({
-      selectionSet: `{ ${interfaceTypeSelectionSet} }`,
+    this.interfaceTypeRepository.find({
       where: { id_IN: filterByType(ITypeKind.InterfaceType, types) },
     }),
   )
 
   promises.push(
-    ogmService.UnionType.find({
-      selectionSet: `{ ${unionTypeSelectionSet} }`,
+    this.unionTypeRepository.find({
       where: { id_IN: filterByType(ITypeKind.UnionType, types) },
     }),
   )
 
   promises.push(
-    ogmService.PrimitiveType.find({
-      selectionSet: `{ ${primitiveTypeSelectionSet} }`,
+    this.primitiveTypeRepository.find({
       where: { id_IN: filterByType(ITypeKind.PrimitiveType, types) },
     }),
   )
 
   promises.push(
-    ogmService.ReactNodeType.find({
-      selectionSet: `{ ${baseTypeSelection} }`,
+    this.reactNodeTypeRepository.find({
       where: { id_IN: filterByType(ITypeKind.ReactNodeType, types) },
     }),
   )
 
   promises.push(
-    ogmService.RichTextType.find({
-      selectionSet: `{ ${baseTypeSelection} }`,
+    this.richTextTypeRepository.find({
       where: { id_IN: filterByType(ITypeKind.RichTextType, types) },
     }),
   )
 
   promises.push(
-    ogmService.CodeMirrorType.find({
-      selectionSet: `{ ${codeMirrorTypeSelectionSet} }`,
+    this.codeMirrorTypeRepository.find({
       where: { id_IN: filterByType(ITypeKind.CodeMirrorType, types) },
     }),
   )
 
   promises.push(
-    ogmService.RenderPropType.find({
-      selectionSet: `{ ${baseTypeSelection} }`,
+    this.renderPropTypeRepository.find({
       where: { id_IN: filterByType(ITypeKind.RenderPropType, types) },
     }),
   )
 
   promises.push(
-    ogmService.ActionType.find({
-      selectionSet: `{ ${baseTypeSelection} }`,
+    this.actionTypeRepository.find({
       where: { id_IN: filterByType(ITypeKind.ActionType, types) },
     }),
   )
