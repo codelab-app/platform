@@ -17,7 +17,12 @@ import {
 
 import { Preference } from '../store/preference.model'
 
-const { CreatePreferences, DeletePreferences, GetPreferences, UpdatePreferences } = preferenceServerActions
+const {
+  CreatePreferences,
+  DeletePreferences,
+  GetPreferences,
+  UpdatePreferences,
+} = preferenceServerActions
 
 export const preferenceRepository: IPreferenceRepository = {
   add: async (preference: IPreferenceDto) => {
