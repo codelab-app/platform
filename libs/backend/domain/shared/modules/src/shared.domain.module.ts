@@ -1,6 +1,6 @@
 import { AuthDomainModule } from '@codelab/backend/domain/shared/auth'
-import { Neo4jModule } from '@codelab/backend/infra/adapter/neo4j'
 import { ValidationModule } from '@codelab/backend/infra/adapter/typebox'
+import { Neo4jModule } from '@codelab/backend-infra-adapter/neo4j-driver'
 import { Module } from '@nestjs/common'
 
 @Module({

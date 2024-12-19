@@ -1,13 +1,14 @@
 {
-  "name": "shared-domain-module-auth-guard",
+  "name": "backend-infra-adapter-neo4j-driver",
   "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/shared/domain/module/auth-guard/src",
+  "sourceRoot": "libs/backend/infra/adapter/neo4j-driver/src",
   "projectType": "library",
   "tags": [
-    "projectName:shared-domain-module-auth-guard",
+    "projectName:backend-infra-adapter-neo4j-driver",
     "projectType:library",
     "type:concrete",
-    "scope:shared"
+    "layer:infra",
+    "scope:backend"
   ],
   "targets": {
     "lint": {

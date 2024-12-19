@@ -36,6 +36,12 @@
       "@codelab-codegen/typescript-server-fetch": [
         "libs/external/codelab-codegen/typescript-server-fetch/src/index.ts"
       ],
+      "@codelab/backend-infra-adapter/neo4j-driver": [
+        "libs/backend/infra/adapter/neo4j-driver/src/index.ts"
+      ],
+      "@codelab/backend-infra-adapter/neo4j-schema": [
+        "libs/backend/infra/adapter/neo4j-schema/src/index.ts"
+      ],
       "@codelab/backend/abstract/core": [
         "libs/backend/abstract/core/src/index.ts"
       ],
@@ -163,9 +169,6 @@
       ],
       "@codelab/backend/infra/adapter/middleware": [
         "libs/backend/infra/adapter/middleware/src/index.ts"
-      ],
-      "@codelab/backend/infra/adapter/neo4j": [
-        "libs/backend/infra/adapter/neo4j/src/index.ts"
       ],
       "@codelab/backend/infra/adapter/queue": [
         "libs/backend/infra/adapter/queue/src/index.ts"

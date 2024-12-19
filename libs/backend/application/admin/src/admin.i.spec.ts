@@ -18,7 +18,7 @@ import {
   GRAPHQL_SCHEMA_PROVIDER,
   GraphQLSchemaModule,
   Neo4jModule,
-} from '@codelab/backend/infra/adapter/neo4j'
+} from '@codelab/backend-infra-adapter/neo4j-schema'
 import { initUserContext } from '@codelab/backend/test'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { ApolloDriver } from '@nestjs/apollo'

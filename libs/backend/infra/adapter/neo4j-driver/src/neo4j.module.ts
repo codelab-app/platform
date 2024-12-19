@@ -3,11 +3,11 @@ import type { OnModuleDestroy } from '@nestjs/common'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 
-import { neo4jConfig } from '../neo4j.config'
-import { DatabaseService } from './database.service'
-import { NEO4J_DRIVER_PROVIDER } from './neo4j.constant'
-import { Neo4jDriverProvider } from './neo4j.provider'
-import { Neo4jService } from './neo4j.service'
+import { NEO4J_DRIVER_PROVIDER } from './driver/neo4j-driver.constant'
+import { Neo4jDriverProvider } from './driver/neo4j-driver.provider'
+import { neo4jConfig } from './neo4j.config'
+import { DatabaseService } from './services/database.service'
+import { Neo4jService } from './services/neo4j.service'
 
 @Module({
   exports: [NEO4J_DRIVER_PROVIDER, Neo4jService, DatabaseService],

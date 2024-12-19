@@ -4,9 +4,9 @@ import type { FactoryProvider } from '@nestjs/common'
 import type { GraphQLRequestContext } from 'graphql-request/build/cjs/types'
 
 import { ElementRepository } from '@codelab/backend/domain/element'
+import { Neo4jService } from '@codelab/backend-infra-adapter/neo4j-driver'
 
-import { Neo4jService } from '../../infra'
-import { descendants } from '../element'
+import { elementDescendants } from '../element'
 import { pageName } from './field/page-name'
 import { pageSlug } from './field/page-slug'
 
@@ -15,7 +15,7 @@ export const PAGE_RESOLVER_PROVIDER = 'PAGE_RESOLVER_PROVIDER'
 export const elements =
   (neo4jService: Neo4jService, elementRepository: ElementRepository) =>
   (node: Page) =>
-    descendants(neo4jService, elementRepository)(node.rootElement)
+    elementDescendants(neo4jService, elementRepository)(node.rootElement)
 
 export const PageResolverProvider: FactoryProvider<
   Promise<IResolvers<GraphQLRequestContext, unknown>>

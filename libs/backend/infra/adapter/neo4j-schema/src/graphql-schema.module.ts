@@ -1,8 +1,8 @@
 import { ElementDomainModule } from '@codelab/backend/domain/element'
 import { DigitaloceanModule } from '@codelab/backend/infra/adapter/digitalocean'
+import { Neo4jModule } from '@codelab/backend-infra-adapter/neo4j-driver'
 import { Module } from '@nestjs/common'
 
-import { Neo4jModule } from './infra/neo4j.module'
 import { ResolverProvider } from './resolver'
 import { ElementResolverProvider } from './resolver/element'
 import { PageResolverProvider } from './resolver/page'

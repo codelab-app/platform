@@ -4,8 +4,9 @@ import type { FactoryProvider } from '@nestjs/common'
 import type { GraphQLRequestContext } from 'graphql-request/build/cjs/types'
 import type { Node } from 'neo4j-driver'
 
+import { Neo4jService } from '@codelab/backend-infra-adapter/neo4j-driver'
+
 import { getTagWithDescendantsById } from '../../cypher'
-import { Neo4jService } from '../../infra'
 
 export const TAG_RESOLVER_PROVIDER = 'TAG_RESOLVER_PROVIDER'
 

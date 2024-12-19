@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'backend-infra-adapter-neo4j',
+  displayName: 'backend-infra-adapter-neo4j-schema',
   preset: '../../../../../jest.preset.js',
   globals: {},
   testEnvironment: 'node',
@@ -19,7 +19,8 @@ export default {
     ],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../../../../coverage/libs/backend/infra/adapter/neo4j',
+  coverageDirectory:
+    '../../../../../coverage/libs/backend/infra/adapter/neo4j-schema',
   reporters: [
     'default',
     [

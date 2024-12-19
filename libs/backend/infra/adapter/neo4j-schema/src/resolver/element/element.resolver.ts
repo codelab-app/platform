@@ -5,14 +5,29 @@ import type { FactoryProvider } from '@nestjs/common'
 import type { GraphQLRequestContext } from 'graphql-request/build/cjs/types'
 
 import { ElementRepository } from '@codelab/backend/domain/element'
+import { Neo4jService } from '@codelab/backend-infra-adapter/neo4j-driver'
 
 import { getElementDescendants } from '../../cypher'
-import { Neo4jService } from '../../infra'
 import { name } from './field/element-name'
 import { slug } from './field/element-slug'
-import { getDependantTypes } from './get-dependant-types'
 
 export const ELEMENT_RESOLVER_PROVIDER = 'ELEMENT_RESOLVER_PROVIDER'
+
+export const elementDescendants =
+  (neo4jService: Neo4jService, elementRepository: ElementRepository) =>
+  (element: Element) => {
+    return neo4jService.withReadTransaction(async (txn) => {
+      const { records } = await txn.run(getElementDescendants, {
+        rootId: element.id,
+      })
+
+      const descendantIds = records[0]?.get(0) || []
+
+      return elementRepository.find({
+        where: { id_IN: [element.id].concat(descendantIds) },
+      })
+    })
+  }
 
 export const ElementResolverProvider: FactoryProvider<
   Promise<IResolvers<GraphQLRequestContext, unknown>>
@@ -23,8 +38,9 @@ export const ElementResolverProvider: FactoryProvider<
     neo4jService: Neo4jService,
     elementRepository: ElementRepository,
   ) => {
-    const dependantTypes: IFieldResolver<IRef, unknown> = (parent) =>
-      getDependantTypes(neo4jService, parent)
+    // TODO: Implement this
+    const dependantTypes: IFieldResolver<IRef, unknown> = (parent) => []
+    // getDependantTypes(neo4jService, parent)
 
     return {
       Element: {

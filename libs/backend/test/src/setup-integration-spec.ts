@@ -22,7 +22,7 @@ import {
   GraphQLSchemaModule,
   neo4jConfig,
   Neo4jService,
-} from '@codelab/backend/infra/adapter/neo4j'
+} from '@codelab/backend-infra-adapter/neo4j-schema'
 import {
   RequestContextMiddleware,
   RequestContextModule,

@@ -1,5 +1,5 @@
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { DatabaseService } from '@codelab/backend/infra/adapter/neo4j'
+import { DatabaseService } from '@codelab/backend-infra-adapter/neo4j-driver'
 import { type IExportDto, type IImportDto } from '@codelab/shared/abstract/core'
 import { Body, Controller, Post } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'

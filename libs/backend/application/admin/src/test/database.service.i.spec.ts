@@ -14,7 +14,7 @@ import { InterfaceTypeRepository } from '@codelab/backend/domain/type'
 import {
   DatabaseService,
   Neo4jModule,
-} from '@codelab/backend/infra/adapter/neo4j'
+} from '@codelab/backend-infra-adapter/neo4j-schema'
 import { initUserContext } from '@codelab/backend/test'
 import { CommandBus } from '@nestjs/cqrs'
 

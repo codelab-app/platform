@@ -2,7 +2,7 @@ import type { IApp, IAppAggregateExport } from '@codelab/shared/abstract/core'
 
 import { ImportCypressAtomsCommand } from '@codelab/backend/application/atom'
 import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
-import { DatabaseService } from '@codelab/backend/infra/adapter/neo4j'
+import { DatabaseService } from '@codelab/backend-infra-adapter/neo4j-driver'
 import {
   ClassSerializerInterceptor,
   Controller,

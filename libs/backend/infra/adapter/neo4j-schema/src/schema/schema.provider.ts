@@ -3,11 +3,11 @@ import type { FactoryProvider } from '@nestjs/common'
 import type { GraphQLSchema } from 'graphql'
 import type { Driver } from 'neo4j-driver'
 
+import { NEO4J_DRIVER_PROVIDER } from '@codelab/backend-infra-adapter/neo4j-driver'
 import { getEnv } from '@codelab/shared/config/env'
 import { mergeResolvers } from '@graphql-tools/merge'
 import { Neo4jGraphQL } from '@neo4j/graphql'
 
-import { NEO4J_DRIVER_PROVIDER } from '../infra/neo4j.constant'
 import { RESOLVER_PROVIDER } from '../resolver'
 import { GRAPHQL_SCHEMA_PROVIDER } from './schema.constant'
 import { typeDefs } from './type-defs'
