@@ -8,9 +8,7 @@ import { getEnv } from '@codelab/shared/config/env'
 import { mergeResolvers } from '@graphql-tools/merge'
 import { Neo4jGraphQL } from '@neo4j/graphql'
 
-import type { ResolverProvider } from '../resolver'
-
-import { RESOLVER_PROVIDER } from '../resolver'
+import { ResolverService } from '../resolver/resolver.service'
 import { GRAPHQL_SCHEMA_PROVIDER } from './schema.constant'
 import { typeDefs } from './type-defs'
 
@@ -26,9 +24,9 @@ import { typeDefs } from './type-defs'
  * https://community.auth0.com/t/authenticating-users-and-m2m-with-same-middleware/77369/5
  */
 export const GraphQLSchemaProvider: FactoryProvider<Promise<GraphQLSchema>> = {
-  inject: [NEO4J_DRIVER_PROVIDER, RESOLVER_PROVIDER],
+  inject: [NEO4J_DRIVER_PROVIDER, ResolverService],
   provide: GRAPHQL_SCHEMA_PROVIDER,
-  useFactory: async (driver: Driver, resolverProvider: ResolverProvider) => {
+  useFactory: async (driver: Driver, resolverService: ResolverService) => {
     try {
       const neo4jGraphQL = new Neo4jGraphQL({
         driver,
@@ -57,7 +55,7 @@ export const GraphQLSchemaProvider: FactoryProvider<Promise<GraphQLSchema>> = {
           },
           subscriptions: true,
         },
-        resolvers: resolverProvider.provide(),
+        resolvers: resolverService.getResolvers(),
         typeDefs,
       })
 

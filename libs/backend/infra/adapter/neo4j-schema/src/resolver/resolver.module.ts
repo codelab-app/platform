@@ -4,24 +4,22 @@ import { Module } from '@nestjs/common'
 
 import { ElementResolverProvider } from './element'
 import { PageResolverProvider } from './page'
-import { RESOLVER_PROVIDER, ResolverProvider } from './resolver.provider'
+import { ResolverService } from './resolver.service'
 import { TagResolverProvider } from './tag'
 import { TypeResolverProvider } from './type'
 
 @Module({
-  exports: [RESOLVER_PROVIDER],
-  imports: [ElementDomainModule, Neo4jModule],
+  exports: [ResolverService],
+  imports: [
+    ElementDomainModule,
+    Neo4jModule,
+  ],
   providers: [
-    // Added here to inject into `ResolverProvider`
     TypeResolverProvider,
     ElementResolverProvider,
     TagResolverProvider,
     PageResolverProvider,
-    // Merges providers above
-    {
-      provide: RESOLVER_PROVIDER,
-      useClass: ResolverProvider,
-    },
+    ResolverService,
   ],
 })
 export class ResolverModule {}
