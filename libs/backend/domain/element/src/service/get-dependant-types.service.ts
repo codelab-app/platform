@@ -1,7 +1,6 @@
+import { Injectable } from '@nestjs/common'
 import { type IRef, ITypeKind } from '@codelab/shared/abstract/core'
-
 import type { Neo4jService, OgmService } from '../../../../infra'
-
 import { getElementDependantTypes } from '../../../../cypher'
 import {
   arrayTypeSelectionSet,
@@ -14,15 +13,22 @@ import {
   primitiveTypeSelectionSet,
   unionTypeSelectionSet,
 } from '../../../../selectionSet'
+import { ElementRepository } from '../repository/element.repo.service'
+import { FieldRepository } from '../../type/src/repository/field.repo.service'
 
-/**
- * This attempts to get all dependent types for an element
- */
-export const getDependantTypes = (
-  neo4jService: Neo4jService,
-  ogmService: OgmService,
-  elementRef: IRef,
-) => {
+@Injectable()
+export class GetDependantTypesService {
+  constructor(
+    private neo4jService: Neo4jService,
+    private ogmService: OgmService,
+    private elementRepository: ElementRepository,
+    private fieldRepository: FieldRepository,
+  ) {}
+
+  /**
+   * This attempts to get all dependent types for an element
+   */
+  async getDependantTypes(elementRef: IRef) {
   return neo4jService.withReadTransaction(async (txn) => {
     const elements = await ogmService.Element.find({
       selectionSet: `{ ${elementSelectionSet} }`,
@@ -56,14 +62,13 @@ export const getDependantTypes = (
   })
 }
 
-const fetchTypes = async (
-  ogmService: OgmService,
+private async fetchTypes(
   types: Array<{ id: string; typeName: string }>,
-) => {
+) {
   const promises = []
 
   promises.push(
-    ogmService.ArrayType.find({
+    this.ogmService.ArrayType.find({
       selectionSet: `{ ${arrayTypeSelectionSet} }`,
       where: { id_IN: filterByType(ITypeKind.ArrayType, types) },
     }),
@@ -141,14 +146,12 @@ const filterByType = (
 ) =>
   allTypes.filter((type) => type.typeName === typeName).map((type) => type.id)
 
-const getFieldTypesToFetch = async (
-  ogmService: OgmService,
+private async getFieldTypesToFetch(
   allTypes: Array<{ id: string; typeName: string }>,
-) => {
+) {
   const fieldsList = allTypes.filter((type) => type.typeName === 'Field')
 
-  const fields = await ogmService.Field.find({
-    selectionSet: `{ ${fieldSelectionSet} }`,
+  const fields = await this.fieldRepository.find({
     where: { id_IN: fieldsList.map((field) => field.id) },
   })
 
