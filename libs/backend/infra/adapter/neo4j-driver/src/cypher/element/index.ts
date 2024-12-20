@@ -11,6 +11,3 @@ export {
   getElementDependantTypes,
   getElementDescendants,
 }
-export * from './getElementDependantTypes'
-export * from './getElementDescendants'
-export * from './getElementRenderTypeApi'

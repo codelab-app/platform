@@ -13,13 +13,11 @@ import {
 } from '@codelab/backend/domain/type'
 import {
   getElementDependantTypes,
-  getElementRenderTypeApi,
   Neo4jService,
 } from '@codelab/backend-infra-adapter/neo4j-driver'
 import { type IRef, ITypeKind } from '@codelab/shared/abstract/core'
+import { Element, ElementFragment } from '@codelab/shared/infra/gql'
 import { Injectable } from '@nestjs/common'
-
-import { ElementRepository } from '../repository/element.repo.service'
 
 /**
  * Get dependant types for an element
@@ -44,17 +42,9 @@ export class ElementDependantTypesService {
   /**
    * This attempts to get all dependent types for an element
    */
-  async getDependantTypes(elementRef: IRef) {
+  async getDependantTypes(element: Element) {
     return this.neo4jService.withReadTransaction(async (txn) => {
-      const { records } = await txn.run(getElementRenderTypeApi, {
-        elementId: elementRef.id,
-      })
-
-      if (!records.length) {
-        return []
-      }
-
-      const apiId = records[0].get('apiId')
+      const apiId = element.renderType.api.id
 
       const { records } = await txn.run(getElementDependantTypes, {
         id: apiId,

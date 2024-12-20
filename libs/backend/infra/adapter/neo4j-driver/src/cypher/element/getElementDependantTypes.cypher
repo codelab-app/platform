@@ -1,15 +1,15 @@
-// Query searches for nodes that are descendants of node with 'id'
-// Returns related nodes found within a depth range of 1 to 10 hops away from the starting node
-MATCH (element: Element {id: $id})
--[
-  :ARRAY_ITEM_TYPE |
-  :INTERFACE_FIELD |
-  :FIELD_TYPE |
-  :UNION_TYPE_CHILD
-  *1..2
-]->(type)
+// Find all dependent type nodes that are connected to the starting node
+// through various type relationships (array items, interface fields, etc.)
+// The search goes up to 10 levels deep in the graph.
 
-// Exclude the starting node and certain type nodes
+// Start from node with given ID
+MATCH (element:Element {id: $id})
+// Follow type relationships to find dependent types
+-[:ARRAY_ITEM_TYPE|INTERFACE_FIELD|FIELD_TYPE|UNION_TYPE_CHILD*1..10]->(type)
+
+// Exclude:
+// - The starting node itself
+// - Basic/primitive types that don't need to be included
 WHERE
   NOT type.id = $id
   AND NOT (
@@ -21,7 +21,7 @@ WHERE
     type:RenderPropType
   )
 
-// Return unique nodes with their id and type
+// Return unique type nodes with their ID and type name
 RETURN DISTINCT {
   id: type.id,
   __typename: LAST(labels(type))

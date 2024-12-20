@@ -23,15 +23,7 @@ export const ElementResolverProvider: FactoryProvider<
     const dependantTypes: IFieldResolver<Element, unknown> = async (
       element,
     ) => {
-      console.warn('Element.dependantTypes not yet implemented')
-      /**
-       * Below causes a circular dependency
-       */
-      // const types = await elementDependantTypesService.getDependantTypes(
-      //   element,
-      // )
-
-      return []
+      return await elementDependantTypesService.getDependantTypes(element)
     }
 
     return {
