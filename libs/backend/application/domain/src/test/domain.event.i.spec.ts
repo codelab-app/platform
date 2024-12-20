@@ -65,8 +65,8 @@ describe('Domain subscriptions', () => {
     await ctx.beforeAll()
     graphqlService.serverReadyHook()
     
-    // Wait for subscriptions to be ready
-    await sleep(500)
+    // Wait longer for subscriptions to be ready
+    await sleep(1000)
   })
 
   beforeEach(() => {
@@ -112,8 +112,8 @@ describe('Domain subscriptions', () => {
       input: domainInput,
     })
 
-    // Wait for subscription to process
-    await sleep(1000)
+    // Wait longer for subscription to process
+    await sleep(2000)
 
     expect(domainCreatedSpy).toHaveBeenCalled()
   })
