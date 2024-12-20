@@ -22,7 +22,7 @@ export const UpdateDomainModal = observer(() => {
   const isOpen = updateDomainModal.isOpen
   const app = useCurrentApp()
 
-  if (!domain) {
+  if (!domain?.maybeCurrent) {
     return null
   }
 
@@ -44,7 +44,7 @@ export const UpdateDomainModal = observer(() => {
   }
 
   const model = {
-    app: { id: app.id },
+    app: { id: app?.id },
     id: domain.id,
     name: domain.current.name,
   }
