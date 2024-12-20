@@ -13,10 +13,15 @@ subscription DomainUpdated {
   domainUpdated {
     event
     timestamp
-    updatedDomain {
-      id
-      name
-    }
+    # After upgrading @neo4j/graphql, `Uncaught ApolloError: Cannot return null for non-nullable field DomainEventPayload.id` if we try to access payload data
+    # updatedDomain {
+    #   id
+    #   name
+    # }
+    # previousState {
+    #   id
+    #   name
+    # }
   }
 }
 

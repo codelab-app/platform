@@ -1,7 +1,3 @@
-const Page = () => {
-  console.log('header default')
-
-  return null
-}
+import Page from './page'
 
 export default Page

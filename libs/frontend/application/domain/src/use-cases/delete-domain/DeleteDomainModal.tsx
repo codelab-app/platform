@@ -1,55 +1,56 @@
 'use client'
 
-import { UiKey } from '@codelab/frontend/abstract/types'
+import type { IDomainModel } from '@codelab/frontend/abstract/domain'
+
+import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/navigation'
 import { AutoFields } from 'uniforms-antd'
 
 import { useDomainService } from '../../services'
-import { useDeleteDomainModal } from './delete-domain.state'
 
-export const DeleteDomainModal = observer(() => {
-  const deleteDomainModal = useDeleteDomainModal()
-  const closeModal = () => deleteDomainModal.close()
-  const domainService = useDomainService()
-  const domain = deleteDomainModal.data
+export const DeleteDomainModal = observer<{ domain: IDomainModel }>(
+  ({ domain }) => {
+    const domainService = useDomainService()
+    const app = domain.app
+    const router = useRouter()
 
-  const onSubmit = () => {
-    if (!domain) {
-      return Promise.reject()
+    const onSubmit = () => {
+      return domainService.removeMany([domain])
     }
 
-    return domainService.removeMany([domain.current])
-  }
+    const model = {
+      id: domain.id,
+    }
 
-  const model = {
-    id: deleteDomainModal.data?.id,
-  }
+    const goBack = () => {
+      router.push(PageType.DomainList({ appId: app.id }))
+    }
 
-  return (
-    <ModalForm.Modal
-      okText="Delete"
-      onCancel={closeModal}
-      open={deleteDomainModal.isOpen}
-      title={<span className="font-semibold">Delete domain</span>}
-      uiKey={UiKey.DomainModalDelete}
-    >
-      <ModalForm.Form
-        model={model}
-        onSubmit={onSubmit}
-        onSubmitError={createFormErrorNotificationHandler({
-          title: 'Error while deleting domain',
-        })}
-        onSubmitSuccess={closeModal}
-        schema={emptyJsonSchema}
+    return (
+      <ModalForm.Modal
+        okText="Delete"
+        onCancel={goBack}
+        open={true}
+        title={<span className="font-semibold">Delete domain</span>}
+        uiKey={UiKey.DomainModalDelete}
       >
-        <h4>
-          Are you sure you want to delete the domain "{domain?.current.name}"?
-        </h4>
-        <AutoFields />
-      </ModalForm.Form>
-    </ModalForm.Modal>
-  )
-})
+        <ModalForm.Form
+          model={model}
+          onSubmit={onSubmit}
+          onSubmitError={createFormErrorNotificationHandler({
+            title: 'Error while deleting domain',
+          })}
+          onSubmitSuccess={goBack}
+          schema={emptyJsonSchema}
+        >
+          <h4>Are you sure you want to delete the domain "{domain.name}"?</h4>
+          <AutoFields />
+        </ModalForm.Form>
+      </ModalForm.Modal>
+    )
+  },
+)

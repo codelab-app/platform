@@ -7,7 +7,7 @@ export const domainSchema = gql`
     misconfigured: Boolean!
   }
 
-  type Domain {
+  type Domain @node {
     id: ID! @unique @settable(onUpdate: false)
     # appId-name format to make it unique across apps
     # compositeKey: String! @unique

@@ -75,7 +75,6 @@ const config: Types.Config = {
     'libs/shared/infra/gql/src/gql/': {
       documents: [
         '**/*.fragment.graphql',
-        '**/*.subscription.graphql',
         '**/*.api.graphql',
         // 'libs/frontend/application/**/*.{repository,document}.ts',
         // 'libs/frontend/domain/**/*.{repository,document}.ts',
@@ -200,11 +199,11 @@ const config: Types.Config = {
         // dedupeFragments: true, // Uncomment to deduplicate fragments
       },
     },
-    './libs/backend': {
-      documents: ['libs/backend/**/*.{subscription,spec}.graphql'],
+    './libs/shared/domain': {
+      documents: ['libs/shared/domain/**/*.{subscription,spec}.graphql'],
       preset: 'near-operation-file',
       presetConfig: {
-        extension: '.graphql.api.gen.ts',
+        extension: '.graphql.gen.ts',
         baseTypesPath: '~@codelab/shared/infra/gql',
         // Uncomment to force export of fragment types
         // importAllFragmentsFrom: '~@codelab/frontend/abstract/core',

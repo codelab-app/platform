@@ -12,6 +12,7 @@ import {
 } from '@codelab/shared-domain-module/domain'
 import { Injectable } from '@nestjs/common'
 import { EventEmitter2, OnEvent } from '@nestjs/event-emitter'
+import gql from 'graphql-tag'
 
 import {
   DOMAIN_CREATED_EVENT,
@@ -32,12 +33,16 @@ export class RegisterDomainListener implements BeforeApplicationShutdown {
 
   @OnEvent('server.ready')
   registerCreatedSubscriptions() {
+    console.log('Registering created subscriptions')
+
     const subscription = nodeApolloClient()
       .subscribe<DomainCreatedSubscription>({
         query: DomainCreatedDocument,
       })
       .subscribe({
         next: async ({ data }) => {
+          console.log('Domain Created Event received:', data)
+
           if (!data) {
             throw new Error('Invalid subscription data')
           }
@@ -60,6 +65,8 @@ export class RegisterDomainListener implements BeforeApplicationShutdown {
       })
       .subscribe({
         next: async ({ data }) => {
+          console.log('Domain Deleted Event received:', data)
+
           if (!data) {
             throw new Error('Invalid subscription data')
           }

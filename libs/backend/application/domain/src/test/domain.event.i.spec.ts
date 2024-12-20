@@ -32,8 +32,6 @@ import {
   TestUpdateDomainsDocument,
 } from './domain.spec.graphql.api.gen'
 
-const apiPort = env.get('NEXT_PUBLIC_API_PORT').required().asPortNumber()
-
 describe('Domain subscriptions', () => {
   let app: INestApplication
   let graphqlService: GraphqlService
@@ -44,41 +42,36 @@ describe('Domain subscriptions', () => {
   let domainDeletedSpy: jest.SpyInstance
 
   const context = initUserContext({
-    imports: [
-      EventEmitterModule.forRoot(),
-      GraphqlModule,
-      DomainApplicationModule,
-    ],
+    imports: [EventEmitterModule.forRoot(), DomainApplicationModule],
     providers: [GraphqlService],
   })
 
-  let ctx: Awaited<ReturnType<typeof initUserContext>>
+  const SLEEP_TIMEOUT = 1000
 
   beforeAll(async () => {
-    ctx = await context
+    const ctx = await context
+    const module = ctx.module
+
+    domainListener = module.get(DomainListener)
+    registerDomainListener = module.get(RegisterDomainListener)
+
     app = ctx.nestApp
     app.enableShutdownHooks()
-    graphqlService = ctx.module.get(GraphqlService)
-    domainListener = ctx.module.get(DomainListener)
-    registerDomainListener = ctx.module.get(RegisterDomainListener)
+    graphqlService = module.get(GraphqlService)
 
     await ctx.beforeAll()
-    graphqlService.serverReadyHook()
-    
-    // Wait longer for subscriptions to be ready
-    await sleep(1000)
-  })
 
-  beforeEach(() => {
-    domainCreatedSpy = jest.spyOn(domainListener, 'domainCreated').mockClear()
-    domainUpdatedSpy = jest.spyOn(domainListener, 'domainUpdated').mockClear() 
-    domainDeletedSpy = jest.spyOn(domainListener, 'domainDeleted').mockClear()
+    domainCreatedSpy = jest.spyOn(domainListener, 'domainCreated')
+    domainUpdatedSpy = jest.spyOn(domainListener, 'domainUpdated')
+    domainDeletedSpy = jest.spyOn(domainListener, 'domainDeleted')
+
+    graphqlService.serverReadyHook()
   })
 
   afterAll(async () => {
-    if (ctx) {
-      await ctx.afterAll()
-    }
+    const ctx = await context
+
+    await ctx.afterAll()
   })
 
   const appId = v4()
@@ -108,12 +101,14 @@ describe('Domain subscriptions', () => {
       },
     )
 
-    await graphqlClient.request(TestCreateDomainsDocument, {
+    const data = await graphqlClient.request(TestCreateDomainsDocument, {
       input: domainInput,
     })
 
+    console.log(data)
+
     // Wait longer for subscription to process
-    await sleep(2000)
+    await sleep(SLEEP_TIMEOUT)
 
     expect(domainCreatedSpy).toHaveBeenCalled()
   })
@@ -131,8 +126,8 @@ describe('Domain subscriptions', () => {
       },
     )
 
-    // Wait for subscription to process
-    await sleep(1000)
+    // Wait longer for subscription to process
+    await sleep(SLEEP_TIMEOUT)
 
     expect(domainUpdatedSpy).toHaveBeenCalled()
   })
@@ -144,8 +139,8 @@ describe('Domain subscriptions', () => {
       },
     })
 
-    // Wait for subscription to process
-    await sleep(1000)
+    // Wait longer for subscription to process
+    await sleep(SLEEP_TIMEOUT)
 
     expect(domainDeletedSpy).toHaveBeenCalled()
   })

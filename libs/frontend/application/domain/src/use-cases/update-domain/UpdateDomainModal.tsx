@@ -22,8 +22,8 @@ interface UpdateDomainModalProps {
   domain: IDomainModel
 }
 
-export const UpdateDomainModal = observer(
-  ({ domain }: UpdateDomainModalProps) => {
+export const UpdateDomainModal = observer<UpdateDomainModalProps>(
+  ({ domain }) => {
     const app = domain.app
     const domainService = useDomainService()
     const router = useRouter()

@@ -58,10 +58,12 @@ export const PageType = {
   ComponentPreview: ({ componentId }: Pick<UrlPathParams, 'componentId'>) =>
     `/components/${componentId}`,
   Components: () => '/components' as const,
+  DomainDelete: ({ appId, domainId }: { appId: string; domainId: string }) =>
+    `/apps/${appId}/domains/${domainId}/delete`,
   DomainList: ({ appId }: Pick<UrlPathParams, 'appId'>) =>
     `/apps/${appId}/domains`,
   DomainUpdate: ({ appId, domainId }: { appId: string; domainId: string }) =>
-    `/apps/${appId}/domains/update/${domainId}`,
+    `/apps/${appId}/domains/${domainId}/update`,
   FieldUpdate: () => {
     return `${PageType.Atoms()}/update/field`
   },

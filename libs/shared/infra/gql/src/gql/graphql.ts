@@ -10155,7 +10155,6 @@ export type Element = {
   closestContainerNode: ContainerNode
   compositeKey: Scalars['String']['output']
   dependantTypes: Array<AnyType>
-  descendants: Array<Element>
   expanded?: Maybe<Scalars['Boolean']['output']>
   firstChild?: Maybe<Element>
   firstChildAggregate?: Maybe<ElementElementFirstChildAggregationSelection>
@@ -30911,36 +30910,6 @@ export type WithOwnersConnection = {
   totalCount: Scalars['Int']['output']
 }
 
-export type DomainCreatedSubscriptionVariables = Exact<{ [key: string]: never }>
-
-export type DomainCreatedSubscription = {
-  domainCreated: {
-    event: EventType
-    timestamp: number
-    createdDomain: { id: string; name: string }
-  }
-}
-
-export type DomainUpdatedSubscriptionVariables = Exact<{ [key: string]: never }>
-
-export type DomainUpdatedSubscription = {
-  domainUpdated: {
-    event: EventType
-    timestamp: number
-    updatedDomain: { id: string; name: string }
-  }
-}
-
-export type DomainDeletedSubscriptionVariables = Exact<{ [key: string]: never }>
-
-export type DomainDeletedSubscription = {
-  domainDeleted: {
-    event: EventType
-    timestamp: number
-    deletedDomain: { id: string; name: string }
-  }
-}
-
 type BaseAction_ApiAction_Fragment = {
   __typename: 'ApiAction'
   id: string
@@ -37112,51 +37081,6 @@ export const UserFragmentDoc = new TypedDocumentString(
 }`,
   { fragmentName: 'User' },
 ) as unknown as TypedDocumentString<UserFragment, unknown>
-export const DomainCreatedDocument = new TypedDocumentString(`
-    subscription DomainCreated {
-  domainCreated {
-    createdDomain {
-      id
-      name
-    }
-    event
-    timestamp
-  }
-}
-    `) as unknown as TypedDocumentString<
-  DomainCreatedSubscription,
-  DomainCreatedSubscriptionVariables
->
-export const DomainUpdatedDocument = new TypedDocumentString(`
-    subscription DomainUpdated {
-  domainUpdated {
-    event
-    timestamp
-    updatedDomain {
-      id
-      name
-    }
-  }
-}
-    `) as unknown as TypedDocumentString<
-  DomainUpdatedSubscription,
-  DomainUpdatedSubscriptionVariables
->
-export const DomainDeletedDocument = new TypedDocumentString(`
-    subscription DomainDeleted {
-  domainDeleted {
-    deletedDomain {
-      id
-      name
-    }
-    event
-    timestamp
-  }
-}
-    `) as unknown as TypedDocumentString<
-  DomainDeletedSubscription,
-  DomainDeletedSubscriptionVariables
->
 export const GetAppBuilderDocument = new TypedDocumentString(`
     query GetAppBuilder($appId: ID!, $pageIds: [ID!]) {
   actionTypes {

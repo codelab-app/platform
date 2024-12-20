@@ -1,19 +1,25 @@
 'use client'
 
+import type {
+  DomainCreatedSubscription,
+  DomainUpdatedSubscription,
+} from '@codelab/shared-domain-module/domain'
+
 import {
   browserApolloClient,
   nodeApolloClient,
 } from '@codelab/shared/infra/gql-client'
 import {
   DomainCreatedDocument,
-  type DomainCreatedSubscription,
   DomainUpdatedDocument,
-  type DomainUpdatedSubscription,
 } from '@codelab/shared-domain-module/domain'
+import { gql } from 'graphql-tag'
 import { useEffect } from 'react'
 
 export const Subscriptions = () => {
   useEffect(() => {
+    console.log('Subscriptions component mounted')
+
     const domainCreatedSubscription = browserApolloClient()
       .subscribe<DomainCreatedSubscription>({
         query: DomainCreatedDocument,

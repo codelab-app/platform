@@ -5,9 +5,9 @@ import { PageType } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { Fragment } from 'react'
 
-import { useDeleteDomainModal } from '../../delete-domain/delete-domain.state'
 import { RefreshDomainButton } from './RefreshDomainButton'
 
 export interface ItemToolsProps {
@@ -16,8 +16,12 @@ export interface ItemToolsProps {
 
 export const ItemTools = observer<ItemToolsProps>(
   ({ domain }: ItemToolsProps) => {
-    const deleteDomainModal = useDeleteDomainModal()
-    const onDeleteClick = () => deleteDomainModal.open(domainRef(domain))
+    const router = useRouter()
+
+    const onDeleteClick = () =>
+      router.push(
+        PageType.DomainDelete({ appId: domain.app.id, domainId: domain.id }),
+      )
 
     return (
       <Fragment>

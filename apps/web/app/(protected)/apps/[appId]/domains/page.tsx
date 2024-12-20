@@ -26,7 +26,6 @@ const DomainsPage = async ({
   return (
     <>
       <CreateDomainModal />
-      <DeleteDomainModal />
       <ContentSection>
         <DomainStoreHydrator
           appsDto={appsDto}

@@ -20,11 +20,7 @@ export type DomainUpdatedSubscriptionVariables = Types.Exact<{
 }>
 
 export type DomainUpdatedSubscription = {
-  domainUpdated: {
-    event: Types.EventType
-    timestamp: number
-    updatedDomain: { id: string; name: string }
-  }
+  domainUpdated: { event: Types.EventType; timestamp: number }
 }
 
 export type DomainDeletedSubscriptionVariables = Types.Exact<{
@@ -56,10 +52,6 @@ export const DomainUpdatedDocument = gql`
     domainUpdated {
       event
       timestamp
-      updatedDomain {
-        id
-        name
-      }
     }
   }
 `
