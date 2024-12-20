@@ -52,7 +52,7 @@ describe('Domain subscriptions', () => {
     providers: [GraphqlService],
   })
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     const ctx = await context
     const module = ctx.module
 
@@ -65,11 +65,14 @@ describe('Domain subscriptions', () => {
 
     await ctx.beforeAll()
 
-    domainCreatedSpy = jest.spyOn(domainListener, 'domainCreated')
-    domainUpdatedSpy = jest.spyOn(domainListener, 'domainUpdated')
-    domainDeletedSpy = jest.spyOn(domainListener, 'domainDeleted')
+    domainCreatedSpy = jest.spyOn(domainListener, 'domainCreated').mockClear()
+    domainUpdatedSpy = jest.spyOn(domainListener, 'domainUpdated').mockClear()
+    domainDeletedSpy = jest.spyOn(domainListener, 'domainDeleted').mockClear()
 
     graphqlService.serverReadyHook()
+    
+    // Wait for subscriptions to be ready
+    await sleep(500)
   })
 
   afterAll(async () => {
@@ -109,6 +112,9 @@ describe('Domain subscriptions', () => {
       input: domainInput,
     })
 
+    // Wait for subscription to process
+    await sleep(1000)
+
     expect(domainCreatedSpy).toHaveBeenCalled()
   })
 
@@ -125,6 +131,9 @@ describe('Domain subscriptions', () => {
       },
     )
 
+    // Wait for subscription to process
+    await sleep(1000)
+
     expect(domainUpdatedSpy).toHaveBeenCalled()
   })
 
@@ -134,6 +143,9 @@ describe('Domain subscriptions', () => {
         id: domainId,
       },
     })
+
+    // Wait for subscription to process
+    await sleep(1000)
 
     expect(domainDeletedSpy).toHaveBeenCalled()
   })
