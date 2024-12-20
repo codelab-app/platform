@@ -12,12 +12,6 @@ import * as types from './graphql'
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-  '\n  subscription DomainCreated {\n    domainCreated {\n      createdDomain {\n        id\n        name\n      }\n      event\n      timestamp\n    }\n  }\n':
-    types.DomainCreatedDocument,
-  '\n  subscription DomainUpdated {\n    domainUpdated {\n      event\n      timestamp\n      updatedDomain {\n        id\n        name\n      }\n    }\n  }\n':
-    types.DomainUpdatedDocument,
-  '\n  subscription DomainDeleted {\n    domainDeleted {\n      deletedDomain {\n        id\n        name\n      }\n      event\n      timestamp\n    }\n  }\n':
-    types.DomainDeletedDocument,
   '\n  fragment BaseAction on BaseAction {\n    __typename\n    id\n    name\n    type\n    store {\n      id\n      name\n    }\n  }\n':
     types.BaseActionFragmentDoc,
   '\n  fragment Action on BaseAction {\n    ...BaseAction\n    ... on CodeAction {\n      ...CodeAction\n    }\n    ... on ApiAction {\n      ...ApiAction\n    }\n  }\n':
@@ -50,7 +44,7 @@ const documents = {
     types.ComponentProductionFragmentDoc,
   '\n  fragment Domain on Domain {\n    app {\n      id\n    }\n    domainConfig {\n      misconfigured\n    }\n    id\n    name\n  }\n':
     types.DomainFragmentDoc,
-  '\n  fragment Element on Element {\n    __typename\n    compositeKey\n    childMapperComponent {\n      id\n      name\n    }\n    childMapperPreviousSibling {\n      id\n    }\n    childMapperPropKey\n    dependantTypes {\n      ...Type\n    }\n    firstChild {\n      id\n    }\n    id\n    name\n    nextSibling {\n      id\n    }\n    page {\n      id\n    }\n    parentComponent {\n      id\n    }\n    parentElement {\n      id\n    }\n    postRenderActions {\n      id\n      type\n    }\n    preRenderActions {\n      id\n      type\n    }\n    prevSibling {\n      id\n    }\n    props {\n      ...Prop\n    }\n    renderForEachPropKey\n    renderIfExpression\n    renderType {\n      ... on Atom {\n        __typename\n        ...AtomBuilder\n      }\n      ... on Component {\n        __typename\n        id\n        api {\n          id\n        }\n      }\n    }\n    style\n    tailwindClassNames\n    expanded\n  }\n':
+  '\n  fragment Element on Element {\n    __typename\n    compositeKey\n    childMapperComponent {\n      id\n      name\n      compositeKey\n    }\n    childMapperPreviousSibling {\n      id\n    }\n    childMapperPropKey\n    dependantTypes {\n      ...Type\n    }\n    firstChild {\n      id\n    }\n    id\n    name\n    slug\n    nextSibling {\n      id\n    }\n    page {\n      id\n    }\n    parentComponent {\n      id\n    }\n    parentElement {\n      id\n    }\n    postRenderActions {\n      id\n      type\n    }\n    preRenderActions {\n      id\n      type\n    }\n    prevSibling {\n      id\n    }\n    props {\n      ...Prop\n    }\n    renderForEachPropKey\n    renderIfExpression\n    renderType {\n      ... on Atom {\n        __typename\n        ...AtomBuilder\n      }\n      ... on Component {\n        __typename\n        id\n        api {\n          id\n        }\n      }\n    }\n    style\n    tailwindClassNames\n    expanded\n  }\n':
     types.ElementFragmentDoc,
   '\n  fragment ElementProduction on Element {\n    __typename\n    childMapperComponent {\n      id\n      name\n    }\n    childMapperPreviousSibling {\n      id\n    }\n    childMapperPropKey\n    dependantTypes {\n      ...Type\n    }\n    firstChild {\n      id\n    }\n    id\n    name\n    nextSibling {\n      id\n    }\n    page {\n      id\n    }\n    parentComponent {\n      id\n    }\n    parentElement {\n      id\n    }\n    postRenderActions {\n      id\n      type\n    }\n    preRenderActions {\n      id\n      type\n    }\n    prevSibling {\n      id\n    }\n    props {\n      ...Prop\n    }\n    renderForEachPropKey\n    renderIfExpression\n    renderType {\n      ... on Atom {\n        __typename\n        ...AtomProduction\n      }\n      ... on Component {\n        __typename\n        id\n      }\n    }\n    style\n    tailwindClassNames\n  }\n':
     types.ElementProductionFragmentDoc,
@@ -172,6 +166,12 @@ const documents = {
     types.UpdateDomainsDocument,
   '\n  mutation DeleteDomains($where: DomainWhere!) {\n    deleteDomains(where: $where) {\n      nodesDeleted\n    }\n  }\n':
     types.DeleteDomainsDocument,
+  '\n  subscription DomainCreated {\n    domainCreated {\n      createdDomain {\n        id\n        name\n      }\n      event\n      timestamp\n    }\n  }\n':
+    types.DomainCreatedDocument,
+  '\n  subscription DomainUpdated {\n    domainUpdated {\n      event\n      timestamp\n      updatedDomain {\n        id\n        name\n      }\n    }\n  }\n':
+    types.DomainUpdatedDocument,
+  '\n  subscription DomainDeleted {\n    domainDeleted {\n      deletedDomain {\n        id\n        name\n      }\n      event\n      timestamp\n    }\n  }\n':
+    types.DomainDeletedDocument,
   '\n  mutation CreateElements($input: [ElementCreateInput!]!) {\n    createElements(input: $input) {\n      elements {\n        id\n      }\n    }\n  }\n':
     types.CreateElementsDocument,
   '\n  mutation DeleteElements($where: ElementWhere!, $delete: ElementDeleteInput) {\n    deleteElements(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n':
@@ -414,24 +414,6 @@ const documents = {
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  subscription DomainCreated {\n    domainCreated {\n      createdDomain {\n        id\n        name\n      }\n      event\n      timestamp\n    }\n  }\n',
-): (typeof documents)['\n  subscription DomainCreated {\n    domainCreated {\n      createdDomain {\n        id\n        name\n      }\n      event\n      timestamp\n    }\n  }\n']
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(
-  source: '\n  subscription DomainUpdated {\n    domainUpdated {\n      event\n      timestamp\n      updatedDomain {\n        id\n        name\n      }\n    }\n  }\n',
-): (typeof documents)['\n  subscription DomainUpdated {\n    domainUpdated {\n      event\n      timestamp\n      updatedDomain {\n        id\n        name\n      }\n    }\n  }\n']
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(
-  source: '\n  subscription DomainDeleted {\n    domainDeleted {\n      deletedDomain {\n        id\n        name\n      }\n      event\n      timestamp\n    }\n  }\n',
-): (typeof documents)['\n  subscription DomainDeleted {\n    domainDeleted {\n      deletedDomain {\n        id\n        name\n      }\n      event\n      timestamp\n    }\n  }\n']
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(
   source: '\n  fragment BaseAction on BaseAction {\n    __typename\n    id\n    name\n    type\n    store {\n      id\n      name\n    }\n  }\n',
 ): (typeof documents)['\n  fragment BaseAction on BaseAction {\n    __typename\n    id\n    name\n    type\n    store {\n      id\n      name\n    }\n  }\n']
 /**
@@ -528,8 +510,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  fragment Element on Element {\n    __typename\n    compositeKey\n    childMapperComponent {\n      id\n      name\n    }\n    childMapperPreviousSibling {\n      id\n    }\n    childMapperPropKey\n    dependantTypes {\n      ...Type\n    }\n    firstChild {\n      id\n    }\n    id\n    name\n    nextSibling {\n      id\n    }\n    page {\n      id\n    }\n    parentComponent {\n      id\n    }\n    parentElement {\n      id\n    }\n    postRenderActions {\n      id\n      type\n    }\n    preRenderActions {\n      id\n      type\n    }\n    prevSibling {\n      id\n    }\n    props {\n      ...Prop\n    }\n    renderForEachPropKey\n    renderIfExpression\n    renderType {\n      ... on Atom {\n        __typename\n        ...AtomBuilder\n      }\n      ... on Component {\n        __typename\n        id\n        api {\n          id\n        }\n      }\n    }\n    style\n    tailwindClassNames\n    expanded\n  }\n',
-): (typeof documents)['\n  fragment Element on Element {\n    __typename\n    compositeKey\n    childMapperComponent {\n      id\n      name\n    }\n    childMapperPreviousSibling {\n      id\n    }\n    childMapperPropKey\n    dependantTypes {\n      ...Type\n    }\n    firstChild {\n      id\n    }\n    id\n    name\n    nextSibling {\n      id\n    }\n    page {\n      id\n    }\n    parentComponent {\n      id\n    }\n    parentElement {\n      id\n    }\n    postRenderActions {\n      id\n      type\n    }\n    preRenderActions {\n      id\n      type\n    }\n    prevSibling {\n      id\n    }\n    props {\n      ...Prop\n    }\n    renderForEachPropKey\n    renderIfExpression\n    renderType {\n      ... on Atom {\n        __typename\n        ...AtomBuilder\n      }\n      ... on Component {\n        __typename\n        id\n        api {\n          id\n        }\n      }\n    }\n    style\n    tailwindClassNames\n    expanded\n  }\n']
+  source: '\n  fragment Element on Element {\n    __typename\n    compositeKey\n    childMapperComponent {\n      id\n      name\n      compositeKey\n    }\n    childMapperPreviousSibling {\n      id\n    }\n    childMapperPropKey\n    dependantTypes {\n      ...Type\n    }\n    firstChild {\n      id\n    }\n    id\n    name\n    slug\n    nextSibling {\n      id\n    }\n    page {\n      id\n    }\n    parentComponent {\n      id\n    }\n    parentElement {\n      id\n    }\n    postRenderActions {\n      id\n      type\n    }\n    preRenderActions {\n      id\n      type\n    }\n    prevSibling {\n      id\n    }\n    props {\n      ...Prop\n    }\n    renderForEachPropKey\n    renderIfExpression\n    renderType {\n      ... on Atom {\n        __typename\n        ...AtomBuilder\n      }\n      ... on Component {\n        __typename\n        id\n        api {\n          id\n        }\n      }\n    }\n    style\n    tailwindClassNames\n    expanded\n  }\n',
+): (typeof documents)['\n  fragment Element on Element {\n    __typename\n    compositeKey\n    childMapperComponent {\n      id\n      name\n      compositeKey\n    }\n    childMapperPreviousSibling {\n      id\n    }\n    childMapperPropKey\n    dependantTypes {\n      ...Type\n    }\n    firstChild {\n      id\n    }\n    id\n    name\n    slug\n    nextSibling {\n      id\n    }\n    page {\n      id\n    }\n    parentComponent {\n      id\n    }\n    parentElement {\n      id\n    }\n    postRenderActions {\n      id\n      type\n    }\n    preRenderActions {\n      id\n      type\n    }\n    prevSibling {\n      id\n    }\n    props {\n      ...Prop\n    }\n    renderForEachPropKey\n    renderIfExpression\n    renderType {\n      ... on Atom {\n        __typename\n        ...AtomBuilder\n      }\n      ... on Component {\n        __typename\n        id\n        api {\n          id\n        }\n      }\n    }\n    style\n    tailwindClassNames\n    expanded\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -896,6 +878,24 @@ export function graphql(
 export function graphql(
   source: '\n  mutation DeleteDomains($where: DomainWhere!) {\n    deleteDomains(where: $where) {\n      nodesDeleted\n    }\n  }\n',
 ): (typeof documents)['\n  mutation DeleteDomains($where: DomainWhere!) {\n    deleteDomains(where: $where) {\n      nodesDeleted\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  subscription DomainCreated {\n    domainCreated {\n      createdDomain {\n        id\n        name\n      }\n      event\n      timestamp\n    }\n  }\n',
+): (typeof documents)['\n  subscription DomainCreated {\n    domainCreated {\n      createdDomain {\n        id\n        name\n      }\n      event\n      timestamp\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  subscription DomainUpdated {\n    domainUpdated {\n      event\n      timestamp\n      updatedDomain {\n        id\n        name\n      }\n    }\n  }\n',
+): (typeof documents)['\n  subscription DomainUpdated {\n    domainUpdated {\n      event\n      timestamp\n      updatedDomain {\n        id\n        name\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  subscription DomainDeleted {\n    domainDeleted {\n      deletedDomain {\n        id\n        name\n      }\n      event\n      timestamp\n    }\n  }\n',
+): (typeof documents)['\n  subscription DomainDeleted {\n    domainDeleted {\n      deletedDomain {\n        id\n        name\n      }\n      event\n      timestamp\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

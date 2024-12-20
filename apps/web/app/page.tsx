@@ -1,4 +1,14 @@
+import type {
+  DomainCreatedSubscription,
+  DomainUpdatedSubscription,
+} from '@codelab/shared-domain-module/domain'
+
 import { getMaybeServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
+import { apolloClient } from '@codelab/shared/infra/gql-client'
+import {
+  DomainCreatedDocument,
+  DomainUpdatedDocument,
+} from '@codelab/shared-domain-module/domain'
 import { auth0ServerInstance } from '@codelab/shared-infra-auth0/server'
 import Button from 'antd/lib/button'
 import Link from 'next/link'
@@ -7,11 +17,39 @@ const HomeView = async () => {
   const maybeUser = await getMaybeServerUser()
   const session = await auth0ServerInstance.getSession()
 
+  apolloClient
+    .subscribe<DomainCreatedSubscription>({
+      query: DomainCreatedDocument,
+    })
+    .subscribe({
+      next: async ({ data }) => {
+        console.log('Domain Created Event received frontend:', data)
+
+        if (!data) {
+          throw new Error('Invalid subscription data')
+        }
+      },
+    })
+
+  apolloClient
+    .subscribe<DomainUpdatedSubscription>({
+      query: DomainUpdatedDocument,
+    })
+    .subscribe({
+      next: async ({ data }) => {
+        console.log('Domain Updated Event received:', data)
+
+        if (!data) {
+          throw new Error('Invalid subscription data')
+        }
+      },
+    })
+
   /**
    * This is called on server side, useful for getting tokens for playground testing
    */
-  console.log('accessToken', session?.accessToken)
-  console.log('idToken', session?.idToken)
+  // console.log('accessToken', session?.accessToken)
+  // console.log('idToken', session?.idToken)
 
   return (
     <div>

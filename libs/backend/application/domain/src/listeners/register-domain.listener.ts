@@ -1,15 +1,17 @@
 import type { BeforeApplicationShutdown } from '@nestjs/common'
 import type { Subscription } from 'zen-observable-ts'
 
-import { apolloClient } from '@codelab/backend/infra/adapter/graphql'
+import { apolloClient } from '@codelab/shared/infra/gql-client'
+import {
+  DomainCreatedDocument,
+  DomainCreatedSubscription,
+  DomainDeletedDocument,
+  DomainDeletedSubscription,
+  DomainUpdatedDocument,
+  DomainUpdatedSubscription,
+} from '@codelab/shared-domain-module/domain'
 import { Injectable } from '@nestjs/common'
 import { EventEmitter2, OnEvent } from '@nestjs/event-emitter'
-
-import type {
-  DomainCreatedSubscription,
-  DomainDeletedSubscription,
-  DomainUpdatedSubscription,
-} from '../graphql/domain.subscription.graphql.api.gen'
 
 import {
   DOMAIN_CREATED_EVENT,
@@ -23,11 +25,6 @@ import {
   DOMAIN_UPDATED_EVENT,
   DomainUpdatedEvent,
 } from '../events/domain-updated.event'
-import {
-  DomainCreatedDocument,
-  DomainDeletedDocument,
-  DomainUpdatedDocument,
-} from '../graphql/domain.subscription.graphql.api.gen'
 
 @Injectable()
 export class RegisterDomainListener implements BeforeApplicationShutdown {
@@ -85,6 +82,8 @@ export class RegisterDomainListener implements BeforeApplicationShutdown {
       })
       .subscribe({
         next: async ({ data }) => {
+          console.log('Domain Updated Event received:', data)
+
           if (!data) {
             throw new Error('Invalid subscription data')
           }

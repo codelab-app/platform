@@ -1,4 +1,4 @@
-import type { DomainDeletedSubscription } from '../graphql/domain.subscription.graphql.api.gen'
+import type { DomainDeletedSubscription } from '@codelab/shared-domain-module/domain'
 
 export const DOMAIN_DELETED_EVENT = 'domain.deleted'
 

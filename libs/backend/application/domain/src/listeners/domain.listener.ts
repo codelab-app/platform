@@ -1,3 +1,9 @@
+import type {
+  DomainCreatedSubscription,
+  DomainDeletedSubscription,
+  DomainUpdatedSubscription,
+} from '@codelab/shared-domain-module/domain'
+
 import { DigitaloceanService } from '@codelab/backend/infra/adapter/digitalocean'
 import { DnsService } from '@codelab/backend/infra/adapter/dns'
 import { Injectable } from '@nestjs/common'
@@ -6,11 +12,6 @@ import { OnEvent } from '@nestjs/event-emitter'
 import { DOMAIN_CREATED_EVENT } from '../events/domain-created.event'
 import { DOMAIN_DELETED_EVENT } from '../events/domain-deleted.event'
 import { DOMAIN_UPDATED_EVENT } from '../events/domain-updated.event'
-import {
-  type DomainCreatedSubscription,
-  type DomainDeletedSubscription,
-  type DomainUpdatedSubscription,
-} from '../graphql/domain.subscription.graphql.api.gen'
 
 @Injectable()
 export class DomainListener {
