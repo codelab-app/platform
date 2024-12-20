@@ -24,11 +24,10 @@ export const startServer = async (app: INestApplication) => {
 
   await app.init()
 
-  /**
-   * Need to start server
-   */
-
-  await app.listen(port)
+  // Only listen if not already listening
+  if (!app.getHttpServer().listening) {
+    await app.listen(port)
+  }
 
   // Test if port is working by trying to connect
   try {

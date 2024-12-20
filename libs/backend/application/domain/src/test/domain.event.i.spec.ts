@@ -52,33 +52,33 @@ describe('Domain subscriptions', () => {
     providers: [GraphqlService],
   })
 
-  beforeEach(async () => {
-    const ctx = await context
-    const module = ctx.module
+  let ctx: Awaited<ReturnType<typeof initUserContext>>
 
-    domainListener = module.get(DomainListener)
-    registerDomainListener = module.get(RegisterDomainListener)
-
+  beforeAll(async () => {
+    ctx = await context
     app = ctx.nestApp
     app.enableShutdownHooks()
-    graphqlService = module.get(GraphqlService)
+    graphqlService = ctx.module.get(GraphqlService)
+    domainListener = ctx.module.get(DomainListener)
+    registerDomainListener = ctx.module.get(RegisterDomainListener)
 
     await ctx.beforeAll()
-
-    domainCreatedSpy = jest.spyOn(domainListener, 'domainCreated').mockClear()
-    domainUpdatedSpy = jest.spyOn(domainListener, 'domainUpdated').mockClear()
-    domainDeletedSpy = jest.spyOn(domainListener, 'domainDeleted').mockClear()
-
     graphqlService.serverReadyHook()
     
     // Wait for subscriptions to be ready
     await sleep(500)
   })
 
-  afterAll(async () => {
-    const ctx = await context
+  beforeEach(() => {
+    domainCreatedSpy = jest.spyOn(domainListener, 'domainCreated').mockClear()
+    domainUpdatedSpy = jest.spyOn(domainListener, 'domainUpdated').mockClear() 
+    domainDeletedSpy = jest.spyOn(domainListener, 'domainDeleted').mockClear()
+  })
 
-    await ctx.afterAll()
+  afterAll(async () => {
+    if (ctx) {
+      await ctx.afterAll()
+    }
   })
 
   const appId = v4()
