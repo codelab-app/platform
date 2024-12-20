@@ -5,8 +5,6 @@ import { UpdateDomainModal } from '@codelab/frontend-application-domain/use-case
 import { observer } from 'mobx-react-lite'
 
 export const DomainUpdateContainer = observer(({ id }: { id: string }) => {
-  console.log(id)
-
   const domain = useDomainService().getOneFromCache({ id })
 
   if (!domain) {
