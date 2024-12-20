@@ -5,14 +5,13 @@ import { Neo4jModule } from '@codelab/backend-infra-adapter/neo4j-driver'
 import { Module } from '@nestjs/common'
 
 import { ElementRepository } from './repository'
-import { ElementDescendantsService, ElementDomainService } from './service'
+import { ElementDomainService } from './service'
 import { ElementDependantTypesService } from './service/element-dependant-types.service'
 
 @Module({
   exports: [
     ElementRepository,
     ElementDomainService,
-    ElementDescendantsService,
     ElementDependantTypesService,
   ],
   imports: [
@@ -24,7 +23,6 @@ import { ElementDependantTypesService } from './service/element-dependant-types.
   providers: [
     ElementRepository,
     ElementDomainService,
-    ElementDescendantsService,
     ElementDependantTypesService,
   ],
 })

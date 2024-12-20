@@ -1,4 +1,5 @@
 import { ElementDomainModule } from '@codelab/backend/domain/element'
+import { PageDomainModule } from '@codelab/backend/domain/page'
 import { Neo4jModule } from '@codelab/backend-infra-adapter/neo4j-driver'
 import { Module } from '@nestjs/common'
 
@@ -10,7 +11,7 @@ import { TypeResolverProvider } from './type'
 
 @Module({
   exports: [ResolverService],
-  imports: [ElementDomainModule, Neo4jModule],
+  imports: [PageDomainModule, ElementDomainModule, Neo4jModule],
   providers: [
     ResolverService,
     // These providers are still needed as dependencies for ResolverService
