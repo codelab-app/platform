@@ -51,7 +51,7 @@ export class ElementDependantTypesService {
       })
 
       const element = elements[0]
-      const apiId = element?.renderType.api?.id
+      const apiId = element?.renderType.api.id
 
       const { records } = await txn.run(getElementDependantTypes, {
         id: apiId,
