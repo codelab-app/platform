@@ -13,6 +13,7 @@ import {
 } from '@codelab/backend/domain/type'
 import {
   getElementDependantTypes,
+  getElementRenderTypeApi,
   Neo4jService,
 } from '@codelab/backend-infra-adapter/neo4j-driver'
 import { type IRef, ITypeKind } from '@codelab/shared/abstract/core'
@@ -27,7 +28,6 @@ import { ElementRepository } from '../repository/element.repo.service'
 export class ElementDependantTypesService {
   constructor(
     private neo4jService: Neo4jService,
-    private elementRepository: ElementRepository,
     private fieldRepository: FieldRepository,
     private arrayTypeRepository: ArrayTypeRepository,
     private enumTypeRepository: EnumTypeRepository,
@@ -46,12 +46,15 @@ export class ElementDependantTypesService {
    */
   async getDependantTypes(elementRef: IRef) {
     return this.neo4jService.withReadTransaction(async (txn) => {
-      const elements = await this.elementRepository.find({
-        where: { id: elementRef.id },
+      const { records } = await txn.run(getElementRenderTypeApi, {
+        elementId: elementRef.id,
       })
 
-      const element = elements[0]
-      const apiId = element?.renderType.api.id
+      if (!records.length) {
+        return []
+      }
+
+      const apiId = records[0].get('apiId')
 
       const { records } = await txn.run(getElementDependantTypes, {
         id: apiId,
