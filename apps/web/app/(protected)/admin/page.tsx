@@ -24,7 +24,7 @@ const AdminView = async () => {
   const { items: users } = await userRepository.find()
 
   return (
-    <Dashboard Header={<AdminViewHeader />}>
+    <Dashboard header={<AdminViewHeader />}>
       <ContentSection>
         <Space className="w-full" direction="vertical" size="large">
           <Space>

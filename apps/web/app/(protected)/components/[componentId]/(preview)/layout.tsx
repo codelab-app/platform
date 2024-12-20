@@ -13,7 +13,7 @@ const ComponentPreviewLayout = ({
 }) => {
   return (
     <Dashboard
-      Header={
+      header={
         <ComponentDetailHeader
           BuilderResizeMenu={<BuilderResizeMenu />}
           componentId={componentId}

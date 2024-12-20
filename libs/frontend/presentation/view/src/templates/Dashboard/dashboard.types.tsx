@@ -14,18 +14,25 @@ export type DashboardProps<T = unknown> = T & {
   /**
    * The right panel used for configuration element settings
    */
-  ConfigPane?: React.ReactNode
+  configPane?: React.ReactNode
   /**
    * The left panel used for navigating tree data, naming taken from VSCode's explorer pane
    */
-  PrimarySidebar?: React.ReactNode
-  // PrimarySidebar?: PrimarySidebar
+  primarySidebar?: React.ReactNode
   primarySidebarKey?: string
-  Header?: React.ReactNode
-  Main?: React.ReactNode
+  header?: React.ReactNode
+  /**
+   * Main area of the dashboard
+   */
+  main?: React.ReactNode
   contentStyles?: React.CSSProperties
-  SecondaryPopover?: React.ReactNode
+  secondaryPopover?: React.ReactNode
   appId?: string
   componentId?: string
   pageId?: string
+
+  /**
+   * Optional modal to display
+   */
+  modal?: React.ReactNode
 }

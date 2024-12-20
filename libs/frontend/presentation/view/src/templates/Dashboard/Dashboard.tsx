@@ -12,7 +12,7 @@ import Layout from 'antd/es/layout'
 import Sider from 'antd/es/layout/Sider'
 import { useMemo } from 'react'
 
-import type { DashboardProps } from './Types'
+import type { DashboardProps } from './dashboard.types'
 
 import { ProgressBar } from '../../components/progressBar/ProgressBar'
 import { sidebarWidth } from './constants'
@@ -25,13 +25,14 @@ export const Dashboard = ({
   appId,
   children,
   componentId,
-  ConfigPane,
+  configPane,
   contentStyles,
-  Header,
+  header,
+  modal,
   pageId,
-  PrimarySidebar,
+  primarySidebar,
   primarySidebarKey,
-  SecondaryPopover,
+  secondaryPopover,
 }: React.PropsWithChildren<DashboardProps>) => {
   const navigationBarItems = useMemo(
     () =>
@@ -45,7 +46,8 @@ export const Dashboard = ({
 
   return (
     <Layout className="h-full">
-      {Header}
+      {modal}
+      {header}
       {/*
           Need explicitly set `hasSider` prop to avoid flickering
           see AntD documentation or https://github.com/ant-design/ant-design/issues/8937
@@ -60,7 +62,7 @@ export const Dashboard = ({
 
         <Layout style={contentStyles}>
           <CuiPanelGroup direction="horizontal">
-            {PrimarySidebar && (
+            {primarySidebar && (
               <CuiResizablePanel
                 breakpoints={panelBreakpoints}
                 // Close the pane if main area is too crammed
@@ -76,7 +78,7 @@ export const Dashboard = ({
                   className="relative size-full"
                   data-testid="temp-primary-panel-wrapper"
                 >
-                  {PrimarySidebar}
+                  {primarySidebar}
                 </div>
               </CuiResizablePanel>
             )}
@@ -84,7 +86,7 @@ export const Dashboard = ({
             <CuiPanel
               className="relative"
               defaultSize={
-                60 + (PrimarySidebar ? 0 : 20) + (ConfigPane ? 0 : 20)
+                60 + (primarySidebar ? 0 : 20) + (configPane ? 0 : 20)
               }
               id={PaneSection.Builder}
               // defaultSize={mainWidthPercent}
@@ -92,11 +94,11 @@ export const Dashboard = ({
             >
               <ProgressBar />
               {/* We want the popover to overlay on top of the main, so we put it inside here */}
-              {SecondaryPopover}
+              {secondaryPopover}
               <div className="size-full p-3">{children}</div>
             </CuiPanel>
 
-            {ConfigPane && (
+            {configPane && (
               <CuiResizablePanel
                 breakpoints={panelBreakpoints}
                 // Close the pane if main area is too crammed
@@ -107,7 +109,7 @@ export const Dashboard = ({
                 showCollapseButton={true}
               >
                 <div className="relative size-full overflow-y-auto bg-white">
-                  {ConfigPane}
+                  {configPane}
                 </div>
               </CuiResizablePanel>
             )}

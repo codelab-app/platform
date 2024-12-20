@@ -60,6 +60,8 @@ export const PageType = {
   Components: () => '/components' as const,
   DomainList: ({ appId }: Pick<UrlPathParams, 'appId'>) =>
     `/apps/${appId}/domains`,
+  DomainUpdate: ({ appId, domainId }: { appId: string; domainId: string }) =>
+    `/apps/${appId}/domains/update/${domainId}`,
   FieldUpdate: () => {
     return `${PageType.Atoms()}/update/field`
   },

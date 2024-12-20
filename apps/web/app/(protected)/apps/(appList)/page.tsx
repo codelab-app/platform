@@ -20,7 +20,6 @@ export const metadata: Metadata = {
 
 // export const dynamic = 'force-dynamic'
 
-//
 const AppsRoute = async () => {
   const user = await getServerUser()
 
@@ -29,11 +28,14 @@ const AppsRoute = async () => {
     defaultAtomQuery(),
   ])
 
+  const domainsDto = appsDto.flatMap((app) => app.domains)
+
   return (
     <ContentSection>
       <DomainStoreHydrator
         appsDto={appsDto}
         atomsDto={atomsDto}
+        domainsDto={domainsDto}
         fallback={<Spinner />}
         pagesDto={appsDto.flatMap((app) => app.pages)}
       >

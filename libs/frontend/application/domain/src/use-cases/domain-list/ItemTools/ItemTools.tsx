@@ -1,12 +1,13 @@
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import EditOutlined from '@ant-design/icons/EditOutlined'
 import { domainRef, type IDomainModel } from '@codelab/frontend/abstract/domain'
+import { PageType } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
+import Link from 'next/link'
 import { Fragment } from 'react'
 
 import { useDeleteDomainModal } from '../../delete-domain/delete-domain.state'
-import { useUpdateDomainModal } from '../../update-domain/update-domain.state'
 import { RefreshDomainButton } from './RefreshDomainButton'
 
 export interface ItemToolsProps {
@@ -15,24 +16,20 @@ export interface ItemToolsProps {
 
 export const ItemTools = observer<ItemToolsProps>(
   ({ domain }: ItemToolsProps) => {
-    const updateDomainModal = useUpdateDomainModal()
     const deleteDomainModal = useDeleteDomainModal()
-
-    const onEditClick = () => {
-      updateDomainModal.open(domainRef(domain))
-    }
-
     const onDeleteClick = () => deleteDomainModal.open(domainRef(domain))
 
     return (
       <Fragment>
         <RefreshDomainButton domain={domain} />
-        <Button
-          icon={<EditOutlined />}
-          onClick={onEditClick}
-          shape="circle"
-          type="text"
-        />
+        <Link
+          href={PageType.DomainUpdate({
+            appId: domain.app.id,
+            domainId: domain.id,
+          })}
+        >
+          <Button icon={<EditOutlined />} shape="circle" type="text" />
+        </Link>
         <Button
           icon={<DeleteOutlined />}
           onClick={onDeleteClick}

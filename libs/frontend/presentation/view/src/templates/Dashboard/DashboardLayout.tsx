@@ -3,19 +3,23 @@ import type { ReactNode } from 'react'
 
 import { Dashboard } from './Dashboard'
 
-export interface DashboardSections {
+/**
+ * This declares all the possible parallel routes, but not all is required. The Next.js compiler will type check which is required
+ */
+type DashboardSections = Partial<{
   configPane: ReactNode
   header: ReactNode
+  modal: ReactNode
   primarySidebar: ReactNode
   secondaryPopover: ReactNode
-}
+}>
 
-type DashboardLayoutProps<T extends Partial<DashboardSections> = never> =
-  Partial<UrlPathParams> & {
-    [K in keyof DashboardSections]: K extends keyof T ? T[K] : never
-  } & {
-    children: ReactNode
-  }
+type DashboardLayoutProps<T extends DashboardSections = never> = {
+  [K in keyof DashboardSections]: K extends keyof T ? T[K] : never
+} & {
+  params: Partial<UrlPathParams>
+  children: ReactNode
+}
 
 /**
  * @deprecated Example only
@@ -27,24 +31,27 @@ type _OnlyHeader = DashboardLayoutProps<{ header: ReactNode }>
  */
 type _All = DashboardLayoutProps
 
-export const DashboardLayout = <T extends Partial<DashboardSections> = never>({
-  appId,
+export const DashboardLayout = <T extends DashboardSections = never>({
   children,
   configPane,
   header,
-  pageId,
+  modal,
+  params,
   primarySidebar,
   secondaryPopover,
 }: DashboardLayoutProps<T>) => {
+  const { appId, pageId } = params
+
   return (
     <Dashboard
-      ConfigPane={configPane}
-      Header={header}
-      PrimarySidebar={primarySidebar}
-      SecondaryPopover={secondaryPopover}
       appId={appId}
+      configPane={configPane}
       contentStyles={{ paddingTop: '0rem' }}
+      header={header}
+      modal={modal}
       pageId={pageId}
+      primarySidebar={primarySidebar}
+      secondaryPopover={secondaryPopover}
     >
       {children}
     </Dashboard>
