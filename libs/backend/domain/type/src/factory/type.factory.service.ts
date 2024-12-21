@@ -7,7 +7,7 @@ import type {
 
 import {
   getTypeDescendants,
-  Neo4jDriverService,
+  Neo4jService,
 } from '@codelab/backend-infra-adapter/neo4j-driver'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { ITypeWhere, TypeCreateMap } from '@codelab/shared-domain-module/type'
@@ -56,11 +56,11 @@ export class TypeFactory {
     private readonly unionTypeRepository: UnionTypeRepository,
     private readonly arrayTypeRepository: ArrayTypeRepository,
     private readonly codeMirrorRepository: CodeMirrorTypeRepository,
-    private readonly neo4jDriverService: Neo4jDriverService,
+    private readonly neo4jService: Neo4jService,
   ) {}
 
   async descendantEntities(typeId: string) {
-    const session = this.neo4jDriverService.driver.session()
+    const session = this.neo4jService.driver.session()
 
     const results = await session.run(getTypeDescendants, {
       id: typeId,

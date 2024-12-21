@@ -2,7 +2,7 @@ import type { IResolvers } from '@graphql-tools/utils'
 import type { GraphQLSchema } from 'graphql'
 import type { Driver } from 'neo4j-driver'
 
-import { Neo4jDriverService } from '@codelab/backend-infra-adapter/neo4j-driver'
+import { Neo4jService } from '@codelab/backend-infra-adapter/neo4j-driver'
 import { getEnv } from '@codelab/shared/config/env'
 import { mergeResolvers } from '@graphql-tools/merge'
 import {
@@ -28,19 +28,19 @@ import { typeDefs } from './type-defs'
 @Injectable()
 export class SchemaService {
   constructor(
-    private readonly neo4jDriverService: Neo4jDriverService,
+    private readonly neo4jService: Neo4jService,
     private readonly resolverService: ResolverService,
   ) {}
 
   async createSchema(): Promise<GraphQLSchema> {
     try {
       const engine = new Neo4jGraphQLSubscriptionsCDCEngine({
-        driver: this.neo4jDriverService.driver,
+        driver: this.neo4jService.driver,
         onlyGraphQLEvents: true,
       })
 
       const neo4jGraphQL = new Neo4jGraphQL({
-        driver: this.neo4jDriverService.driver,
+        driver: this.neo4jService.driver,
         features: {
           authorization: {
             key: {
@@ -73,11 +73,11 @@ export class SchemaService {
       const schema = await neo4jGraphQL.getSchema()
 
       await neo4jGraphQL.checkNeo4jCompat({
-        driver: this.neo4jDriverService.driver,
+        driver: this.neo4jService.driver,
       })
 
       await neo4jGraphQL.assertIndexesAndConstraints({
-        driver: this.neo4jDriverService.driver,
+        driver: this.neo4jService.driver,
       })
 
       return schema

@@ -9,7 +9,7 @@ import { neo4jConfig } from '../neo4j.config'
 type ManagedTransactionWork<T> = (tx: ManagedTransaction) => Promise<T> | T
 
 @Injectable()
-export class Neo4jDriverService {
+export class Neo4jService {
   readonly driver: Driver
 
   constructor(

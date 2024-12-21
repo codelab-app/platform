@@ -3,14 +3,14 @@ import type { Element, Page } from '@codelab/shared/infra/gql'
 import { ElementRepository } from '@codelab/backend/domain/element'
 import {
   getElementDescendants,
-  Neo4jDriverService,
+  Neo4jService,
 } from '@codelab/backend-infra-adapter/neo4j-driver'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class PageElementsService {
   constructor(
-    private readonly neo4jDriverService: Neo4jDriverService,
+    private readonly neo4jService: Neo4jService,
     private readonly elementRepository: ElementRepository,
   ) {}
 
@@ -20,7 +20,7 @@ export class PageElementsService {
   async getElements(page: Page) {
     const rootElementId = page.rootElement.id
 
-    return this.neo4jDriverService.withReadTransaction(async (txn) => {
+    return this.neo4jService.withReadTransaction(async (txn) => {
       const { records } = await txn.run(getElementDescendants, {
         rootId: rootElementId,
       })

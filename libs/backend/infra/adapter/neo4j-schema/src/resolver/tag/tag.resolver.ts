@@ -6,15 +6,15 @@ import type { Node } from 'neo4j-driver'
 
 import {
   getTagWithDescendantsById,
-  Neo4jDriverService,
+  Neo4jService,
 } from '@codelab/backend-infra-adapter/neo4j-driver'
 
 export const TAG_RESOLVER_PROVIDER = 'TAG_RESOLVER_PROVIDER'
 
 export const descendants =
-  (neo4jDriverService: Neo4jDriverService) =>
+  (neo4jService: Neo4jService) =>
   ({ id }: Tag) => {
-    return neo4jDriverService.withReadTransaction(async (txn) => {
+    return neo4jService.withReadTransaction(async (txn) => {
       const { records } = await txn.run<TagFragment>(
         getTagWithDescendantsById,
         {
@@ -31,14 +31,14 @@ export const descendants =
 export const TagResolverProvider: FactoryProvider<
   Promise<IResolvers<GraphQLRequestContext, unknown>>
 > = {
-  inject: [Neo4jDriverService],
+  inject: [Neo4jService],
   provide: TAG_RESOLVER_PROVIDER,
-  useFactory: async (neo4jDriverService: Neo4jDriverService) => {
+  useFactory: async (neo4jService: Neo4jService) => {
     return {
       Mutation: {},
       Query: {},
       Tag: {
-        descendants: descendants(neo4jDriverService),
+        descendants: descendants(neo4jService),
       },
     }
   },
