@@ -44,6 +44,35 @@ export const disconnectTypesOfUnionType = (typeRefs?: Array<ITypeRef>) => {
   )
 }
 
+export const reconnectTypesOfUnionType = (typeRefs?: Array<ITypeRef>) => {
+  return Object.values(ITypeKind).reduce<UnionTypeTypesOfUnionTypeUpdateInput>(
+    (acc, kind) => ({
+      ...acc,
+      [kind]: [
+        {
+          connect: typeRefs
+            ?.filter((type) => type.__typename === kind)
+            .map((type) => ({
+              where: { node: { id: type.id } },
+            })),
+          disconnect: [
+            {
+              where: {
+                node: {
+                  NOT: {
+                    id_IN: typeRefs?.map(({ id }) => id),
+                  },
+                },
+              },
+            },
+          ],
+        },
+      ],
+    }),
+    {},
+  )
+}
+
 export const getApiName = (name: string) => {
   return `${name} API`
 }

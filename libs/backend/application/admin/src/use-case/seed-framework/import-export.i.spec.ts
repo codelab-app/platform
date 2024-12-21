@@ -10,9 +10,9 @@ import path from 'path'
 import { AdminApplicationModule } from '../../admin.application.module'
 import { ExportAdminDataCommand } from '../export/export-admin-data.command.service'
 import { ImportAdminDataCommand } from '../import/import-admin-data.command.service'
-import { getPartialAtomsFromFiles, productionDataPath } from './utils'
+import { getAtomsFromFiles, productionDataPath } from './utils'
 
-jest.setTimeout(90000)
+jest.setTimeout(120000)
 
 // We copy actual data to new path
 const testDataPath = path.resolve('./tmp/data/import-v3')
@@ -44,10 +44,11 @@ describe('Seed, import, & export data', () => {
 
     await copy(productionDataPath, testDataPath)
 
-    const partialAtomType = getPartialAtomsFromFiles()
-    const pattern = `**/{${partialAtomType.join(',')}}.json`
+    const atoms = getAtomsFromFiles({
+      overrides: [IAtomType.ReactFragment],
+    })
 
-    deleteFilesSync(testDataPath, pattern)
+    deleteFilesSync(testDataPath, atoms)
   })
 
   afterAll(async () => {
@@ -68,44 +69,23 @@ describe('Seed, import, & export data', () => {
   })
 
   it('should import and export Ant Design data without changes', async () => {
-    console.log('Starting import of test data from:', testDataPath)
     await commandBus.execute(new ImportAdminDataCommand(testDataPath))
-    console.log('Import completed')
+    await commandBus.execute(new ExportAdminDataCommand(testExportDataPath))
 
-    console.log('Starting export of data to:', testExportDataPath)
-    // await commandBus.execute(new ExportAdminDataCommand(testExportDataPath))
-    // console.log('Export completed')
+    const sourceToExpectedFilePath = glob
+      .sync('**/*', { cwd: testExportDataPath, nodir: true })
+      .reduce((acc, file) => {
+        const sourcePath = path.resolve(testDataPath, file)
+        const exportedPath = path.resolve(testExportDataPath, file)
 
-    // const sourceToExpectedFilePath = glob
-    //   .sync('**/*', { cwd: testExportDataPath, nodir: true })
-    //   .reduce((acc, file) => {
-    //     const sourcePath = path.resolve(testDataPath, file)
-    //     const exportedPath = path.resolve(testExportDataPath, file)
+        return acc.set(sourcePath, exportedPath)
+      }, new Map())
 
-    //     console.log('Mapping file:', file)
-    //     console.log('Source path:', sourcePath)
-    //     console.log('Export path:', exportedPath)
+    for (const [sourceFile, exportedFile] of sourceToExpectedFilePath) {
+      const sourceContent = readFileSync(sourceFile, 'utf8')
+      const exportedContent = readFileSync(exportedFile, 'utf8')
 
-    //     return acc.set(sourcePath, exportedPath)
-    //   }, new Map())
-
-    // console.log('Total files to compare:', sourceToExpectedFilePath.size)
-
-    // for (const [sourceFile, exportedFile] of sourceToExpectedFilePath) {
-    //   console.log('\nComparing files:')
-    //   console.log('Source:', sourceFile)
-    //   console.log('Exported:', exportedFile)
-
-    //   const sourceContent = readFileSync(sourceFile, 'utf8')
-    //   const exportedContent = readFileSync(exportedFile, 'utf8')
-
-    //   if (sourceContent !== exportedContent) {
-    //     console.log('Content mismatch detected!')
-    //     console.log('Source content:', sourceContent)
-    //     console.log('Exported content:', exportedContent)
-    //   }
-
-    //   expect(exportedContent).toEqual(sourceContent)
-    expect(true).toBeTruthy()
+      expect(exportedContent).toEqual(sourceContent)
+    }
   })
 })

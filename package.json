@@ -133,7 +133,7 @@
     "@sentry/react": "8.35.0",
     "@shopify/network": "3.3.0",
     "@shopify/react-performance": "4.1.0",
-    "@sinclair/typebox": "0.33.7",
+    "@sinclair/typebox": "0.34.13",
     "@sotaproject/strikethrough": "1.0.1",
     "@supabase/supabase-js": "2.1.1",
     "@swc/helpers": "0.5.13",

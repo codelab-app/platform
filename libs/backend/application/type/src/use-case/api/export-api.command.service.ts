@@ -65,7 +65,11 @@ export class ExportApiHandler
     const dependentTypesIds =
       await this.interfaceTypeRepository.getDependentTypes(api)
 
-    const dependentTypes = await this.getTypeItemsFromIds(dependentTypesIds)
+    console.log('Exporting!!', api, dependentTypesIds)
+
+    const dependentTypes = await this.getTypeItems(dependentTypesIds)
+
+    console.log({ dependentTypes })
 
     this.sortUnionTypesBeforeExport(dependentTypes)
     this.sortEnumValuesBeforeExport(dependentTypes)
@@ -91,22 +95,32 @@ export class ExportApiHandler
 
     return {
       ...interfaceType,
+      /**
+       * These holds the refs of types only
+       */
       fields: [...fields, ...dependentFields],
+      /**
+       * This holds the full types from fields
+       */
       types: [apiInterfaceForExport, ...dependentTypes],
     }
   }
 
-  private async getTypeItemsFromIds(dependentTypesIds: Array<ITypeRef>) {
+  private async getTypeItems(dependentTypesIds: Array<ITypeRef>) {
     const dependentTypes: Array<ITypeExport> = []
 
     for (const dependentType of dependentTypesIds) {
+      console.log({ dependentType })
+
       if (
-        Object.values(ITypeKind).includes(dependentType.__typename as ITypeKind)
+        Object.values(ITypeKind).includes(ITypeKind[dependentType.__typename])
       ) {
         const type = await this.typeFactory.findOne(
           dependentType,
           TypeExportSchema,
         )
+
+        console.log(type)
 
         if (!type) {
           continue

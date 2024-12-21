@@ -4,20 +4,30 @@ import path from 'path'
 
 export const productionDataPath = path.resolve('./data/export-v3')
 
-export const getAtomsFromFiles = () => {
+export const getAtomsFromFiles = ({
+  /**
+   * If specified, only these atoms will be returned
+   */
+  overrides = [],
+  /**
+   * This is used to only get a subset of atoms
+   */
+  partial = false,
+}: { partial?: boolean; overrides?: Array<string> } = {}) => {
   const files = fs
     .readdirSync(path.resolve(productionDataPath, 'admin/atoms'))
     .map((file) => path.parse(file).name)
 
-  return files
-}
+  // If overrides specified, filter files to only include those atoms
+  if (overrides.length > 0) {
+    return overrides
+  }
 
-/**
- * We just test random 5 atoms to be more efficient
- */
-export const getPartialAtomsFromFiles = () => {
+  if (!partial) {
+    return files
+  }
+
   const totalCount = 4
-  const files = getAtomsFromFiles()
 
   return [
     // Always include button

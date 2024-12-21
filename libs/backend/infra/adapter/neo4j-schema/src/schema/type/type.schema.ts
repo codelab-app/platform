@@ -1,10 +1,10 @@
 import { gql } from '@apollo/client'
-import { __ElementTypeKind } from '@codelab/shared/abstract/core'
-
 import {
   getTypeReferences,
   isTypeDescendantOf,
-} from '../../../../neo4j-driver/src/cypher/type'
+} from '@codelab/backend-infra-adapter/neo4j-driver'
+import { __ElementTypeKind } from '@codelab/shared/abstract/core'
+
 import { authOwnerOrAdmin } from '../model/user.schema'
 
 const elementTypeTypeKindSchema = `enum ElementTypeKind {

@@ -11,11 +11,15 @@ export const validateAndClean = <T extends TAnySchema>(
 ) => {
   const validator = new StandardValidator(schema)
 
+  console.log('validateAndClean', schema, values)
+
   try {
     /**
      * Does additional check for discriminated union if is a union
      */
     if (IsUnion(schema)) {
+      console.log('IsUnion', schema)
+
       const discriminatedValidator = new DiscriminatedUnionValidator(
         schema as TUnion<Array<TObject>>,
       )

@@ -28,7 +28,10 @@ import {
   reconnectNodeId,
 } from '@codelab/shared/domain/orm'
 
-import { connectTypesOfUnionType } from './type-input.factory'
+import {
+  connectTypesOfUnionType,
+  reconnectTypesOfUnionType,
+} from './type-input.factory'
 
 const createOrUpdateActionType = (dto: IActionTypeDto) => ({
   id: dto.id,
@@ -314,11 +317,7 @@ export const unionTypeMapper: IMapper<
   cg.UnionTypeDeleteInput
 > = {
   toCreateInput: (dto) => {
-    const types = connectTypesOfUnionType({
-      connect: dto.typesOfUnionType.map(({ id }) => ({
-        where: { node: { id } },
-      })),
-    })
+    const types = connectTypesOfUnionType(dto.typesOfUnionType)
 
     console.log('typesOfUnionType:', types)
 
@@ -332,20 +331,7 @@ export const unionTypeMapper: IMapper<
   },
   toDeleteInput: () => ({}),
   toUpdateInput: (dto) => ({
-    typesOfUnionType: connectTypesOfUnionType({
-      connect: dto.typesOfUnionType.map(({ id }) => ({
-        where: { node: { id } },
-      })),
-      disconnect: Object.values(ITypeKind).map((kind) => ({
-        where: {
-          node: {
-            NOT: {
-              id_IN: dto.typesOfUnionType.map(({ id }) => id),
-            },
-          },
-        },
-      })),
-    }),
+    typesOfUnionType: reconnectTypesOfUnionType(dto.typesOfUnionType),
   }),
 }
 
