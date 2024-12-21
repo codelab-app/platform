@@ -1,0 +1,19 @@
+import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
+import { CreateDomainModal } from '@codelab/frontend-application-domain/use-cases/create-domain'
+import { appRepository } from '@codelab/frontend-domain-app/repositories'
+import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
+
+const Page = async ({ params: { appId } }: { params: { appId: string } }) => {
+  const appDto = await appRepository.findOne({ id: appId })
+
+  return (
+    <DomainStoreHydrator
+      appsDto={appDto ? [appDto] : []}
+      fallback={<Spinner />}
+    >
+      <CreateDomainModal appId={appId} />
+    </DomainStoreHydrator>
+  )
+}
+
+export default Page

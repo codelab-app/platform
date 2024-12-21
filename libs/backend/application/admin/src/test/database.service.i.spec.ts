@@ -28,7 +28,6 @@ describe('DatabaseService', () => {
       TypeApplicationModule,
       Neo4jModule,
     ],
-    providers: [],
   })
 
   let commandBus: CommandBus

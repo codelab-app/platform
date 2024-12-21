@@ -12,15 +12,15 @@ import { GraphQLModule } from '@nestjs/graphql'
 import { AuthGuard } from '@nestjs/passport'
 import { Test, type TestingModule } from '@nestjs/testing'
 
-import { GRAPHQL_SCHEMA_PROVIDER } from '../schema'
+import { SchemaService } from '../schema'
 import { GraphQLSchemaModule } from '../schema/graphql-schema.module'
 
 export const nestNeo4jGraphqlModule =
   GraphQLModule.forRootAsync<ApolloDriverConfig>({
     driver: ApolloDriver,
     imports: [GraphQLSchemaModule],
-    inject: [GRAPHQL_SCHEMA_PROVIDER],
-    useFactory: async (graphqlSchema: GraphQLSchema) => {
+    inject: [SchemaService],
+    useFactory: async (schemaService: SchemaService) => {
       return {
         context: (context: GqlContext) => {
           return {
@@ -31,7 +31,7 @@ export const nestNeo4jGraphqlModule =
             },
           }
         },
-        schema: graphqlSchema,
+        schema: await schemaService.createSchema(),
       }
     },
   })

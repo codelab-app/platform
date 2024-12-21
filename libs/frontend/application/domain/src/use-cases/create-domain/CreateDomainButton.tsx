@@ -1,18 +1,22 @@
 import type { PropsWithChildren } from 'react'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
+import { PageType } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/navigation'
 
-import { useCreateDomainModal } from './create-domain.state'
+interface CreateDomainButtonProps extends PropsWithChildren {
+  appId: string
+}
 
-export const CreateDomainButton = observer<PropsWithChildren>(
-  ({ children }) => {
-    const createDomainModal = useCreateDomainModal()
+export const CreateDomainButton = observer<CreateDomainButtonProps>(
+  ({ appId, children }) => {
+    const router = useRouter()
     const icon = !children && <PlusOutlined />
 
     const onClick = () => {
-      createDomainModal.open()
+      router.push(PageType.DomainCreate({ appId }))
     }
 
     return (

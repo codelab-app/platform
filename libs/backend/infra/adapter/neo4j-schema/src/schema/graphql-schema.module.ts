@@ -3,12 +3,11 @@ import { Neo4jModule } from '@codelab/backend-infra-adapter/neo4j-driver'
 import { Module } from '@nestjs/common'
 
 import { ResolverModule } from '../resolver/resolver.module'
-import { GRAPHQL_SCHEMA_PROVIDER } from './schema.constant'
-import { GraphQLSchemaProvider } from './schema.provider'
+import { SchemaService } from './schema.service'
 
 @Module({
-  exports: [GRAPHQL_SCHEMA_PROVIDER],
+  exports: [SchemaService],
   imports: [Neo4jModule, DigitaloceanModule, ResolverModule],
-  providers: [GraphQLSchemaProvider],
+  providers: [SchemaService],
 })
 export class GraphQLSchemaModule {}

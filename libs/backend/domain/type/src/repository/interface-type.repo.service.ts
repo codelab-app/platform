@@ -14,7 +14,7 @@ import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import {
   getDependentTypes,
-  Neo4jService,
+  Neo4jDriverService,
 } from '@codelab/backend-infra-adapter/neo4j-driver'
 import { InterfaceTypeFragment } from '@codelab/shared/infra/gql'
 import {
@@ -33,7 +33,7 @@ export class InterfaceTypeRepository extends AbstractRepository<
   InterfaceTypeOptions
 > {
   constructor(
-    private neo4jService: Neo4jService,
+    private neo4jDriverService: Neo4jDriverService,
     protected override validationService: ValidationService,
     protected override loggerService: CodelabLoggerService,
   ) {
@@ -44,7 +44,7 @@ export class InterfaceTypeRepository extends AbstractRepository<
     { id }: ITypeMaybeRef,
     schema?: T,
   ): Promise<Array<Static<T>>> {
-    return this.neo4jService.withReadTransaction(async (txn) => {
+    return this.neo4jDriverService.withReadTransaction(async (txn) => {
       const { records } = await txn.run(getDependentTypes, { id })
 
       const types = [...records.values()].flatMap((record) => [

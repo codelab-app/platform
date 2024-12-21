@@ -4,8 +4,14 @@ import { useDomainService } from '@codelab/frontend-application-domain/services'
 import { DomainList } from '@codelab/frontend-application-domain/use-cases/domain-list'
 import { observer } from 'mobx-react-lite'
 
-export const DomainListContainer = observer(() => {
-  const domains = useDomainService().getAllFromCache()
+interface DomainListContainerProps {
+  appId: string
+}
 
-  return <DomainList domains={domains} />
-})
+export const DomainListContainer = observer<DomainListContainerProps>(
+  ({ appId }) => {
+    const domains = useDomainService().getAllFromCache()
+
+    return <DomainList appId={appId} domains={domains} />
+  },
+)

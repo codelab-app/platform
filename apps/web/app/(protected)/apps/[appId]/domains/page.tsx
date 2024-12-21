@@ -24,18 +24,15 @@ const DomainsPage = async ({
   const domainsDto = appsDto.flatMap((app) => app.domains)
 
   return (
-    <>
-      <CreateDomainModal />
-      <ContentSection>
-        <DomainStoreHydrator
-          appsDto={appsDto}
-          domainsDto={domainsDto}
-          fallback={<Spinner />}
-        >
-          <DomainListContainer />
-        </DomainStoreHydrator>
-      </ContentSection>
-    </>
+    <ContentSection>
+      <DomainStoreHydrator
+        appsDto={appsDto}
+        domainsDto={domainsDto}
+        fallback={<Spinner />}
+      >
+        <DomainListContainer appId={appId} />
+      </DomainStoreHydrator>
+    </ContentSection>
   )
 }
 

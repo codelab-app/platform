@@ -15,6 +15,6 @@ export const domainConfig: IFieldResolver<Domain, unknown, unknown> = async ({
     console.error('Domain config error:', error)
 
     // For testing only
-    return { misconfigured: false }
+    return { misconfigured: true }
   }
 }

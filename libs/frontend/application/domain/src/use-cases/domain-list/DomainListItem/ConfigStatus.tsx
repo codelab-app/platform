@@ -3,12 +3,14 @@ import WarningOutlined from '@ant-design/icons/WarningOutlined'
 import classNames from 'classnames'
 import styled from 'styled-components'
 
-const Container = styled.div.attrs((props) => ({
-  className: classNames(
-    'text-sm text-green-300 flex items-center',
-    props.className,
-  ),
-}))``
+const Container = styled.div.attrs((props) => {
+  return {
+    className: classNames(
+      'text-sm text-green-300 flex items-center',
+      props.className,
+    ),
+  }
+})``
 
 export interface ConfigStatusProps {
   misconfigured?: boolean

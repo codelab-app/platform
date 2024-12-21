@@ -27,6 +27,7 @@ export const serverFetchWithAuth = async (
   })
 
   if (!response.ok) {
+    console.error(await response.text())
     throw new Error(await response.text())
   }
 

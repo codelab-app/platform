@@ -5,7 +5,7 @@ import type { GraphQLRequestContext } from 'graphql-request/build/cjs/types'
 
 import {
   getTypeDescendants,
-  Neo4jService,
+  Neo4jDriverService,
 } from '@codelab/backend-infra-adapter/neo4j-driver'
 
 export const TYPE_RESOLVER_PROVIDER = 'TYPE_RESOLVER_PROVIDER'
@@ -13,11 +13,11 @@ export const TYPE_RESOLVER_PROVIDER = 'TYPE_RESOLVER_PROVIDER'
 export const TypeResolverProvider: FactoryProvider<
   Promise<IResolvers<GraphQLRequestContext, unknown>>
 > = {
-  inject: [Neo4jService],
+  inject: [Neo4jDriverService],
   provide: TYPE_RESOLVER_PROVIDER,
-  useFactory: async (neo4jService: Neo4jService) => {
+  useFactory: async (neo4jDriverService: Neo4jDriverService) => {
     const descendantTypesIds = (node: IBaseType) => {
-      return neo4jService.withReadTransaction(async (txn) => {
+      return neo4jDriverService.withReadTransaction(async (txn) => {
         const { records } = await txn.run(getTypeDescendants, {
           this: node.id,
         })

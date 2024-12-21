@@ -15,14 +15,8 @@ import {
 } from '@codelab/backend/domain/type'
 import { UserRepository } from '@codelab/backend/domain/user'
 import { initUserContext } from '@codelab/backend/test'
-import {
-  GRAPHQL_SCHEMA_PROVIDER,
-  GraphQLSchemaModule,
-  Neo4jModule,
-} from '@codelab/backend-infra-adapter/neo4j-schema'
+import { Neo4jModule } from '@codelab/backend-infra-adapter/neo4j-driver'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { ApolloDriver } from '@nestjs/apollo'
-import { GraphQLModule } from '@nestjs/graphql'
 
 import { AdminApplicationModule } from './admin.application.module'
 import { SeederApplicationService } from './use-case'
@@ -38,16 +32,6 @@ describe('Admin', () => {
 
   const context = initUserContext({
     imports: [
-      GraphQLModule.forRootAsync<ApolloDriverConfig>({
-        driver: ApolloDriver,
-        imports: [GraphQLSchemaModule],
-        inject: [GRAPHQL_SCHEMA_PROVIDER],
-        useFactory: async (graphqlSchema: GraphQLSchema) => {
-          return {
-            schema: graphqlSchema,
-          }
-        },
-      }),
       AdminApplicationModule,
       DataModule,
       SharedApplicationModule,

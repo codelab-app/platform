@@ -1,3 +1,5 @@
+/// <reference types="jest" />
+
 import type { endpointConfig } from '@codelab/backend/infra/core'
 import type { INestApplication, ModuleMetadata } from '@nestjs/common'
 import type { ConfigType } from '@nestjs/config'
@@ -12,7 +14,6 @@ import {
   UserDomainService,
   UserRepository,
 } from '@codelab/backend/domain/user'
-/// <reference types="jest" />
 import { GraphqlModule } from '@codelab/backend/infra/adapter/graphql'
 import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
 import {

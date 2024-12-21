@@ -39,10 +39,11 @@ export const useAppService = (): IAppService => {
   const user = userDomainService.user.toJson
   const owner = user
   const appFactory = new AppFactory(pageFactory)
-  const defaultRenderType = atomDomainService.defaultRenderType
   const hydrate = useHydrateStore()
 
   const create = async (data: IAppCreateFormData) => {
+    const defaultRenderType = atomDomainService.defaultRenderType
+
     try {
       // render type should be plain object, not MobX model,
       // otherwise would fail to be passed to server action.

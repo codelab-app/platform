@@ -1,5 +1,3 @@
-import type { Neo4jService } from '@codelab/backend-infra-adapter/neo4j-driver'
-import type { IRef } from '@codelab/shared/abstract/core'
 import type { Element } from '@codelab/shared/infra/gql'
 import type { IFieldResolver, IResolvers } from '@graphql-tools/utils'
 import type { FactoryProvider } from '@nestjs/common'

@@ -24,9 +24,14 @@ export const domainRepository: IDomainRepository = {
   add: async (domain: IDomainDto) => {
     const {
       createDomains: { domains },
-    } = await CreateDomains({
-      input: domainMapper.toCreateInput(domain),
-    })
+    } = await CreateDomains(
+      {
+        input: domainMapper.toCreateInput(domain),
+      },
+      {
+        tags: [CACHE_TAGS.DOMAIN_LIST],
+      },
+    )
 
     const createdDomain = domains[0]
 
@@ -48,7 +53,7 @@ export const domainRepository: IDomainRepository = {
   },
 
   find: async (where: DomainWhere = {}, options?: DomainOptions) => {
-    return DomainList({ options, where })
+    return DomainList({ options, where }, { tags: [CACHE_TAGS.DOMAIN_LIST] })
   },
 
   findOne: async (where: DomainUniqueWhere) => {

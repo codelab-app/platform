@@ -7,7 +7,10 @@ import type { IRef } from '@codelab/shared/abstract/core'
 import type { DomainWhere } from '@codelab/shared/infra/gql'
 
 import { type IDomainService } from '@codelab/frontend/abstract/application'
-import { domainRepository } from '@codelab/frontend-domain-domain/repositories'
+import {
+  domainRepository,
+  invalidateDomainListQuery,
+} from '@codelab/frontend-domain-domain/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 
 export const useDomainService = (): IDomainService => {
@@ -22,7 +25,7 @@ export const useDomainService = (): IDomainService => {
     await domainRepository.add(domain)
 
     // Fetching again to get the backend-generated domainConfig
-    // invalidateDomainListQuery()
+    invalidateDomainListQuery()
 
     return domain
   }

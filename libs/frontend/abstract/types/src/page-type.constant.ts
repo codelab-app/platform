@@ -58,6 +58,8 @@ export const PageType = {
   ComponentPreview: ({ componentId }: Pick<UrlPathParams, 'componentId'>) =>
     `/components/${componentId}`,
   Components: () => '/components' as const,
+  DomainCreate: ({ appId }: Pick<UrlPathParams, 'appId'>) =>
+    `/apps/${appId}/domains/create`,
   DomainDelete: ({ appId, domainId }: { appId: string; domainId: string }) =>
     `/apps/${appId}/domains/${domainId}/delete`,
   DomainList: ({ appId }: Pick<UrlPathParams, 'appId'>) =>

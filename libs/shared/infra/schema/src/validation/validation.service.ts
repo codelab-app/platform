@@ -57,6 +57,8 @@ export class ValidationService implements IValidationService {
    * https://github.com/sinclairzx81/typebox?tab=readme-ov-file#parse
    */
   parseDefined<T>(data: T) {
+    console.log('parseDefined', data)
+
     const validated = Value.Check(DefinedSchema, data)
 
     if (!validated) {

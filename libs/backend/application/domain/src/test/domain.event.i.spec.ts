@@ -105,9 +105,6 @@ describe('Domain subscriptions', () => {
       input: domainInput,
     })
 
-    console.log(data)
-
-    // Wait longer for subscription to process
     await sleep(SLEEP_TIMEOUT)
 
     expect(domainCreatedSpy).toHaveBeenCalled()
@@ -126,7 +123,6 @@ describe('Domain subscriptions', () => {
       },
     )
 
-    // Wait longer for subscription to process
     await sleep(SLEEP_TIMEOUT)
 
     expect(domainUpdatedSpy).toHaveBeenCalled()
@@ -139,7 +135,6 @@ describe('Domain subscriptions', () => {
       },
     })
 
-    // Wait longer for subscription to process
     await sleep(SLEEP_TIMEOUT)
 
     expect(domainDeletedSpy).toHaveBeenCalled()

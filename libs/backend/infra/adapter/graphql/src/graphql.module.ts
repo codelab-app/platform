@@ -1,5 +1,6 @@
 import type { GqlContext } from '@codelab/backend/abstract/types'
 import type { ApolloDriverConfig } from '@nestjs/apollo'
+import type { OnModuleDestroy } from '@nestjs/common'
 import type { GraphQLFormattedError, GraphQLSchema } from 'graphql'
 
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default'
@@ -7,8 +8,8 @@ import { RequestContextModule } from '@codelab/backend/infra/adapter/request-con
 import { endpointConfig } from '@codelab/backend/infra/core'
 import { neo4jConfig } from '@codelab/backend-infra-adapter/neo4j-driver'
 import {
-  GRAPHQL_SCHEMA_PROVIDER,
   GraphQLSchemaModule,
+  SchemaService,
 } from '@codelab/backend-infra-adapter/neo4j-schema'
 import { ApolloDriver } from '@nestjs/apollo'
 import { Module } from '@nestjs/common'
@@ -39,9 +40,9 @@ import { GraphqlService } from './graphql.service'
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
       driver: ApolloDriver,
       imports: [GraphQLSchemaModule],
-      inject: [GRAPHQL_SCHEMA_PROVIDER, endpointConfig.KEY],
+      inject: [SchemaService, endpointConfig.KEY],
       useFactory: async (
-        graphqlSchema: GraphQLSchema,
+        schemaService: SchemaService,
         endpoint: ConfigType<typeof endpointConfig>,
       ) => {
         return {
@@ -79,7 +80,7 @@ import { GraphqlService } from './graphql.service'
             //   usage: true,
             // }),
           ],
-          schema: graphqlSchema,
+          schema: await schemaService.createSchema(),
           subscriptions: {
             'graphql-ws': true,
           },
@@ -89,4 +90,8 @@ import { GraphqlService } from './graphql.service'
   ],
   providers: [GraphqlService],
 })
-export class GraphqlModule {}
+export class GraphqlModule implements OnModuleDestroy {
+  onModuleDestroy() {
+    //
+  }
+}

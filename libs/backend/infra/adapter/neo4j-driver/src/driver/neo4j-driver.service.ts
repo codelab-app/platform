@@ -1,15 +1,31 @@
-import type { ManagedTransaction } from 'neo4j-driver'
+import type { ConfigType } from '@nestjs/config'
+import type { Driver, ManagedTransaction } from 'neo4j-driver'
 
 import { Inject, Injectable } from '@nestjs/common'
-import { Driver } from 'neo4j-driver'
+import neo4j from 'neo4j-driver'
 
-import { NEO4J_DRIVER_PROVIDER } from '../driver'
+import { neo4jConfig } from '../neo4j.config'
 
 type ManagedTransactionWork<T> = (tx: ManagedTransaction) => Promise<T> | T
 
 @Injectable()
-export class Neo4jService {
-  constructor(@Inject(NEO4J_DRIVER_PROVIDER) public driver: Driver) {}
+export class Neo4jDriverService {
+  readonly driver: Driver
+
+  constructor(
+    @Inject(neo4jConfig.KEY)
+    private readonly config: ConfigType<typeof neo4jConfig>,
+  ) {
+    const password = this.config.password
+    const uri = this.config.uri.toString()
+    const username = this.config.user
+
+    this.driver = neo4j.driver(uri, neo4j.auth.basic(username, password))
+  }
+
+  async close(): Promise<void> {
+    await this.driver.close()
+  }
 
   async withReadTransaction<T>(
     readTransaction: ManagedTransactionWork<T>,
@@ -18,8 +34,8 @@ export class Neo4jService {
     const session = this.driver.session()
 
     return session
-      .executeRead((txn) => readTransaction(txn))
-      .catch((error) => {
+      .executeRead((txn: ManagedTransaction) => readTransaction(txn))
+      .catch((error: Error) => {
         console.error(error)
         throw error
       })
@@ -42,8 +58,8 @@ export class Neo4jService {
     const session = this.driver.session()
 
     return session
-      .executeWrite((txn) => writeTransaction(txn))
-      .catch((error) => {
+      .executeWrite((txn: ManagedTransaction) => writeTransaction(txn))
+      .catch((error: Error) => {
         console.error(error)
         throw error
       })

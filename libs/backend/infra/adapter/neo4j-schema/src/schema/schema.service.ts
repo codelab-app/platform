@@ -1,35 +1,46 @@
 import type { IResolvers } from '@graphql-tools/utils'
-import type { FactoryProvider } from '@nestjs/common'
 import type { GraphQLSchema } from 'graphql'
 import type { Driver } from 'neo4j-driver'
 
-import { NEO4J_DRIVER_PROVIDER } from '@codelab/backend-infra-adapter/neo4j-driver'
+import { Neo4jDriverService } from '@codelab/backend-infra-adapter/neo4j-driver'
 import { getEnv } from '@codelab/shared/config/env'
 import { mergeResolvers } from '@graphql-tools/merge'
-import { Neo4jGraphQL } from '@neo4j/graphql'
+import {
+  Neo4jGraphQL,
+  Neo4jGraphQLSubscriptionsCDCEngine,
+} from '@neo4j/graphql'
+import { Inject, Injectable } from '@nestjs/common'
 
 import { ResolverService } from '../resolver/resolver.service'
-import { GRAPHQL_SCHEMA_PROVIDER } from './schema.constant'
 import { typeDefs } from './type-defs'
 
 /**
- * Your web app has a session (that’s the cookie) used to verify the user.
+ * Your web app has a session (that's the cookie) used to verify the user.
  *
  * Your M2M app is using a M2M cookie, since there is no session or user.
  *
- * This is kind of a fuzzy case: the “backend” serves as both a backend to your web app AND an API for your M2M app.
+ * This is kind of a fuzzy case: the "backend" serves as both a backend to your web app AND an API for your M2M app.
  *
  * You can configure your middleware to respect both the session and the token
  *
  * https://community.auth0.com/t/authenticating-users-and-m2m-with-same-middleware/77369/5
  */
-export const GraphQLSchemaProvider: FactoryProvider<Promise<GraphQLSchema>> = {
-  inject: [NEO4J_DRIVER_PROVIDER, ResolverService],
-  provide: GRAPHQL_SCHEMA_PROVIDER,
-  useFactory: async (driver: Driver, resolverService: ResolverService) => {
+@Injectable()
+export class SchemaService {
+  constructor(
+    private readonly neo4jDriverService: Neo4jDriverService,
+    private readonly resolverService: ResolverService,
+  ) {}
+
+  async createSchema(): Promise<GraphQLSchema> {
     try {
+      const engine = new Neo4jGraphQLSubscriptionsCDCEngine({
+        driver: this.neo4jDriverService.driver,
+        onlyGraphQLEvents: true,
+      })
+
       const neo4jGraphQL = new Neo4jGraphQL({
-        driver,
+        driver: this.neo4jDriverService.driver,
         features: {
           authorization: {
             key: {
@@ -55,16 +66,18 @@ export const GraphQLSchemaProvider: FactoryProvider<Promise<GraphQLSchema>> = {
           },
           subscriptions: true,
         },
-        resolvers: resolverService.getMergedResolvers(),
+        resolvers: this.resolverService.getMergedResolvers(),
         typeDefs,
       })
 
       const schema = await neo4jGraphQL.getSchema()
 
-      await neo4jGraphQL.checkNeo4jCompat({ driver })
+      await neo4jGraphQL.checkNeo4jCompat({
+        driver: this.neo4jDriverService.driver,
+      })
 
       await neo4jGraphQL.assertIndexesAndConstraints({
-        driver,
+        driver: this.neo4jDriverService.driver,
       })
 
       return schema
@@ -72,5 +85,5 @@ export const GraphQLSchemaProvider: FactoryProvider<Promise<GraphQLSchema>> = {
       console.error('Error initializing GraphQL Schema:', error)
       throw error
     }
-  },
+  }
 }

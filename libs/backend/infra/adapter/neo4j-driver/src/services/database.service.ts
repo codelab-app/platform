@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common'
 
-import { Neo4jService } from './neo4j.service'
+import { Neo4jDriverService } from '../driver'
 
 /**
  * This class is tested in application layer, since it requires application seeders to create the data
  */
 @Injectable()
 export class DatabaseService {
-  constructor(private readonly neo4jService: Neo4jService) {}
+  constructor(private readonly neo4jDriverService: Neo4jDriverService) {}
 
   async atomTypes() {
     const query = `
@@ -21,7 +21,9 @@ export class DatabaseService {
       DETACH DELETE n
     `
 
-    return await this.neo4jService.withReadTransaction((txn) => txn.run(query))
+    return await this.neo4jDriverService.withReadTransaction((txn) =>
+      txn.run(query),
+    )
   }
 
   /**
@@ -39,7 +41,7 @@ export class DatabaseService {
       DETACH DELETE n
     `
 
-    return this.neo4jService.withWriteTransaction(
+    return this.neo4jDriverService.withWriteTransaction(
       (txn) => txn.run(query),
       close,
     )
@@ -52,7 +54,7 @@ export class DatabaseService {
       DETACH DELETE n
     `
 
-    return this.neo4jService.withWriteTransaction(
+    return this.neo4jDriverService.withWriteTransaction(
       (txn) => txn.run(query),
       close,
     )
@@ -93,7 +95,7 @@ export class DatabaseService {
       DETACH DELETE n
     `
 
-    return await this.neo4jService.withWriteTransaction(
+    return await this.neo4jDriverService.withWriteTransaction(
       (txn) => txn.run(query),
       close,
     )
