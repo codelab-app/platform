@@ -15,7 +15,7 @@ import { initUserContext } from '@codelab/backend/test'
 import {
   DatabaseService,
   Neo4jModule,
-} from '@codelab/backend-infra-adapter/neo4j-schema'
+} from '@codelab/backend-infra-adapter/neo4j-driver'
 import { CommandBus } from '@nestjs/cqrs'
 
 jest.setTimeout(60000)
