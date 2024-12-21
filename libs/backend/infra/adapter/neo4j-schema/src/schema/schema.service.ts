@@ -30,15 +30,19 @@ export class SchemaService {
   constructor(
     private readonly neo4jService: Neo4jService,
     private readonly resolverService: ResolverService,
-  ) {}
+  ) {
+    this.engine = new Neo4jGraphQLSubscriptionsCDCEngine({
+      driver: this.neo4jService.driver,
+      onlyGraphQLEvents: true,
+    })
+  }
+
+  closeEngine() {
+    this.engine.close()
+  }
 
   async createSchema(): Promise<GraphQLSchema> {
     try {
-      const engine = new Neo4jGraphQLSubscriptionsCDCEngine({
-        driver: this.neo4jService.driver,
-        onlyGraphQLEvents: true,
-      })
-
       const neo4jGraphQL = new Neo4jGraphQL({
         driver: this.neo4jService.driver,
         features: {
@@ -64,7 +68,7 @@ export class SchemaService {
               MATCHES: true,
             },
           },
-          subscriptions: true,
+          subscriptions: this.engine,
         },
         resolvers: this.resolverService.getMergedResolvers(),
         typeDefs,
@@ -86,4 +90,6 @@ export class SchemaService {
       throw error
     }
   }
+
+  private engine: Neo4jGraphQLSubscriptionsCDCEngine
 }

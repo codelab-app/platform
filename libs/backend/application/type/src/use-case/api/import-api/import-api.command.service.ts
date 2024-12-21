@@ -22,7 +22,7 @@ export class ImportApiHandler
     } = command
 
     for (const type of types) {
-      console.log(`Importing type ${type.name}`)
+      console.log(`Importing type ${type.name}`, type)
       await this.typeFactory.save(type)
       console.log('Type saved')
     }

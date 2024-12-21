@@ -24,7 +24,6 @@ export class ImportAdminDataHandler
   constructor(
     private readonly commandBus: CommandBus,
     private readonly readAdminDataService: ReadAdminDataService,
-    private readonly authDomainService: AuthDomainService,
   ) {}
 
   async execute({ baseDataPaths }: ImportAdminDataCommand) {

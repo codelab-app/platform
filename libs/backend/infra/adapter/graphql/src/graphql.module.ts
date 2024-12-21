@@ -6,7 +6,10 @@ import type { GraphQLFormattedError, GraphQLSchema } from 'graphql'
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default'
 import { RequestContextModule } from '@codelab/backend/infra/adapter/request-context'
 import { endpointConfig } from '@codelab/backend/infra/core'
-import { neo4jConfig } from '@codelab/backend-infra-adapter/neo4j-driver'
+import {
+  neo4jConfig,
+  Neo4jModule,
+} from '@codelab/backend-infra-adapter/neo4j-driver'
 import {
   GraphQLSchemaModule,
   SchemaService,
@@ -25,11 +28,14 @@ import { GraphqlService } from './graphql.service'
  * https://github.com/nestjs/graphql/issues/3024
  */
 @Module({
+  exports: [],
   imports: [
     // DevtoolsModule.register({
     //   http: process.env.NODE_ENV !== 'production',
     //   port: 4000,
     // }),
+    Neo4jModule,
+    GraphQLSchemaModule,
     EventEmitterModule.forRoot(),
     RequestContextModule,
     ConfigModule.forRoot({
@@ -91,7 +97,12 @@ import { GraphqlService } from './graphql.service'
   providers: [GraphqlService],
 })
 export class GraphqlModule implements OnModuleDestroy {
+  constructor(private readonly schemaService: SchemaService) {}
+
+  /**
+   * Close the Neo4j CDC subscription engine before shutdown
+   */
   onModuleDestroy() {
-    //
+    this.schemaService.closeEngine()
   }
 }

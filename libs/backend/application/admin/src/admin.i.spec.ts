@@ -1,6 +1,3 @@
-import type { ApolloDriverConfig } from '@nestjs/apollo'
-import type { GraphQLSchema } from 'graphql'
-
 import { DataModule } from '@codelab/backend/application/data'
 import { SharedApplicationModule } from '@codelab/backend/application/shared'
 import {
