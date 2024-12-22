@@ -112,3 +112,111 @@ describe('with nested discriminated unions', () => {
     expect(() => validateAndClean(schema, input)).toThrow()
   })
 })
+
+describe('with nested objects in top-level union', () => {
+  const schema = Type.Union(
+    [
+      Type.Object({
+        metadata: Type.Object({
+          author: Type.String(),
+          tags: Type.Array(Type.String()),
+        }),
+        settings: Type.Object({
+          color: Type.String(),
+          fontSize: Type.Number(),
+        }),
+        type: Type.Literal('article'),
+      }),
+      Type.Object({
+        metadata: Type.Object({
+          duration: Type.Number(),
+          resolution: Type.String(),
+        }),
+        settings: Type.Object({
+          autoplay: Type.Boolean(),
+          volume: Type.Number(),
+        }),
+        type: Type.Literal('video'),
+      }),
+    ],
+    { discriminantKey: 'type' },
+  )
+
+  it('should clean nested objects in article type', () => {
+    const input = {
+      metadata: {
+        author: 'John Doe',
+        extraField: 'should be removed',
+        tags: ['tech', 'programming'],
+      },
+      settings: {
+        color: '#000000',
+        extraSetting: 'remove this',
+        fontSize: 16,
+      },
+      type: 'article',
+    }
+
+    const result = validateAndClean(schema, input)
+
+    expect(result).toEqual({
+      metadata: {
+        author: 'John Doe',
+        tags: ['tech', 'programming'],
+      },
+      settings: {
+        color: '#000000',
+        fontSize: 16,
+      },
+      type: 'article',
+    })
+  })
+
+  it('should clean nested objects in video type', () => {
+    const input = {
+      metadata: {
+        duration: 120,
+        extraMetadata: 'should be removed',
+        resolution: '1080p',
+      },
+      settings: {
+        autoplay: true,
+        extraSetting: 'remove this too',
+        volume: 0.8,
+      },
+      type: 'video',
+    }
+
+    const result = validateAndClean(schema, input)
+
+    expect(result).toEqual({
+      metadata: {
+        duration: 120,
+        resolution: '1080p',
+      },
+      settings: {
+        autoplay: true,
+        volume: 0.8,
+      },
+      type: 'video',
+    })
+  })
+
+  it('should throw error when nested object properties are invalid', () => {
+    const input = {
+      metadata: {
+        // should be string
+        author: 123,
+        // should be array of strings
+        tags: ['tech', 456],
+      },
+      settings: {
+        color: '#000000',
+        fontSize: 16,
+      },
+      type: 'article',
+    }
+
+    expect(() => validateAndClean(schema, input)).toThrow()
+  })
+})

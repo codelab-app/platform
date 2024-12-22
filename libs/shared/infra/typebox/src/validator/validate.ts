@@ -14,19 +14,6 @@ export const validateAndClean = <T extends TAnySchema>(
   const validator = new NestedValidator(schema)
 
   try {
-    /**
-     * Does additional check for discriminated union if is a union
-     */
-    if (IsUnion(schema)) {
-      const discriminatedValidator = new DiscriminatedUnionValidator(
-        schema as TUnion<Array<TObject>>,
-      )
-
-      return discriminatedValidator.validateAndCleanCopy(
-        values as Readonly<unknown>,
-      )
-    }
-
     return validator.validateAndCleanCopy(values as Readonly<unknown>)
   } catch (error) {
     const validationException = error as ValidationException
