@@ -5,7 +5,7 @@ import { OmitOwner } from './types/omit-owner'
 import { Overwrite } from './types/overwrite'
 import { Serialized } from './types/serialized'
 import { NestedValidator } from './validator/nested-validator'
-import { validateAndClean } from './validator/validate'
+import { validateAndClean } from './validator/validator'
 
 const Typebox = {
   DiscriminatedRef,

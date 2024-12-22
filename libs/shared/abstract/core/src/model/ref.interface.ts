@@ -1,4 +1,4 @@
-import type { Typebox } from '@codelab/shared/abstract/typebox'
+import type { Typebox } from '@codelab/shared/infra/typebox'
 
 import { type Static } from '@sinclair/typebox'
 

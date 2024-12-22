@@ -1,4 +1,4 @@
-import { Typebox } from '@codelab/shared/abstract/typebox'
+import { Typebox } from '@codelab/shared/infra/typebox'
 import { v4 } from 'uuid'
 
 import { Validator } from './validator'

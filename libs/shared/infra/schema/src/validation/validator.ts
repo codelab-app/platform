@@ -1,6 +1,6 @@
 import type { IValidationService } from '@codelab/shared/abstract/infra'
 
-import { Typebox } from '@codelab/shared/abstract/typebox'
+import { Typebox } from '@codelab/shared/infra/typebox'
 import { FormatRegistry } from '@sinclair/typebox'
 
 import {

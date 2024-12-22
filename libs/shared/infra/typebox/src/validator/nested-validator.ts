@@ -20,6 +20,8 @@ export class NestedValidator<S extends TSchema> extends StandardValidator<S> {
       const cleanedValue: ObjectLike = {}
 
       Object.keys(schema['properties']).forEach((key) => {
+        console.log(schema['properties'], key)
+
         if (!schema['properties']) {
           return
         }
