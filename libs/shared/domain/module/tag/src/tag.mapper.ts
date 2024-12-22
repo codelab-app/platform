@@ -42,7 +42,6 @@ export const tagMapper: IMapper<
     children,
     descendants,
     id,
-    isRoot,
     name,
     owner,
     parent,

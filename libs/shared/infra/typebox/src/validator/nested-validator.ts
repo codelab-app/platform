@@ -28,7 +28,7 @@ export class NestedValidator<S extends TSchema> extends StandardValidator<S> {
     if (IsUnion(schema)) {
       const unionSchema = schema as TUnion<Array<TObject>>
 
-      if (unionSchema.discriminantKey) {
+      if (unionSchema['discriminantKey']) {
         const discriminatedValidator = new DiscriminatedUnionValidator(
           unionSchema,
         )
@@ -40,8 +40,8 @@ export class NestedValidator<S extends TSchema> extends StandardValidator<S> {
         // Find the matching schema from the union
         const matchedSchema = unionSchema.anyOf.find(
           (subSchema: TObject) =>
-            subSchema.properties[unionSchema.discriminantKey]?.['const'] ===
-            cleanedValue[unionSchema.discriminantKey],
+            subSchema.properties[unionSchema['discriminantKey']]?.['const'] ===
+            cleanedValue[unionSchema['discriminantKey']],
         )
 
         if (matchedSchema) {
