@@ -96,7 +96,7 @@ export class ImportAdminDataHandler
     const { tags } = this.readAdminDataService
 
     return this.commandBus.execute<ImportTagsCommand>(
-      new ImportTagsCommand(tags.map((tag) => tag)),
+      new ImportTagsCommand(tags),
     )
   }
 }

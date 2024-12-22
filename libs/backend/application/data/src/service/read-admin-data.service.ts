@@ -159,7 +159,7 @@ export class ReadAdminDataService implements IReadAdminDataService {
       fs.readFileSync(this.migrationDataService.tagsFilePath, 'utf8'),
     ) as Array<ITagExport>
 
-    return tags.map((tag: unknown) => {
+    return tags.map((tag: ITagExport) => {
       const tagExport: ITagExport = this.validationService.validateAndClean(
         TagExportSchema,
         tag,

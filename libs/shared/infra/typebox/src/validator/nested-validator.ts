@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { ObjectLike } from '@codelab/shared/abstract/types'
 
+import { cLog } from '@codelab/shared/utils'
 import {
   type Static,
   type TObject,
@@ -20,42 +21,49 @@ export class NestedValidator<S extends TSchema> extends StandardValidator<S> {
     schema: Readonly<VS>,
     value: unknown,
   ): Static<VS> {
-    // Handle discriminated unions first
+    // console.log(value)
+    // cLog(schema)
+
+    // Handle unions first
     if (IsUnion(schema)) {
       const unionSchema = schema as TUnion<Array<TObject>>
 
-      const discriminatedValidator = new DiscriminatedUnionValidator(
-        unionSchema,
-      )
+      if (unionSchema.discriminantKey) {
+        const discriminatedValidator = new DiscriminatedUnionValidator(
+          unionSchema,
+        )
 
-      const cleanedUnion = discriminatedValidator.validateAndCleanCopy(
-        value as Readonly<unknown>,
-      )
+        const cleanedValue = discriminatedValidator.validateAndCleanCopy(
+          value as Readonly<unknown>,
+        )
 
-      // Find the matching schema from the union
-      const discriminantKey = unionSchema['discriminantKey'] ?? 'type'
-      const discriminantValue = cleanedUnion[discriminantKey]
+        // Find the matching schema from the union
+        const matchedSchema = unionSchema.anyOf.find(
+          (subSchema: TObject) =>
+            subSchema.properties[unionSchema.discriminantKey]?.['const'] ===
+            cleanedValue[unionSchema.discriminantKey],
+        )
 
-      const matchedSchema = unionSchema.anyOf.find(
-        (subSchema: TObject) =>
-          subSchema.properties[discriminantKey]?.['const'] ===
-          discriminantValue,
-      )
+        if (matchedSchema) {
+          return this.cleanNestedObject(
+            matchedSchema,
+            cleanedValue,
+          ) as Static<VS>
+        }
 
-      // After cleaning the union, we need to clean any nested objects within it using the matched schema
-      if (matchedSchema) {
-        return this.cleanNestedObject(matchedSchema, cleanedUnion) as Static<VS>
+        return cleanedValue as Static<VS>
+      } else {
+        // Fallback to handling union with the standard validator
+        const standardUnionValidator = new StandardValidator(unionSchema)
+
+        return standardUnionValidator.validateAndCleanCopy(
+          value as Readonly<unknown>,
+        ) as Static<VS>
       }
-
-      return cleanedUnion as Static<VS>
     }
 
     // Handle objects
     if (schema['type'] === 'object' && typeof value === 'object') {
-      if (!schema['properties']) {
-        return value as Static<VS>
-      }
-
       return this.cleanNestedObject(schema, value) as Static<VS>
     }
 
@@ -81,13 +89,9 @@ export class NestedValidator<S extends TSchema> extends StandardValidator<S> {
 
     const cleanedValue: ObjectLike = {}
 
-    // Only include properties that are defined in the schema
+    // Only include properties defined in the schema
     Object.keys(schema['properties']).forEach((key) => {
-      if (!schema['properties']) {
-        return
-      }
-
-      const propertySchema = schema['properties'][key] as TSchema
+      const propertySchema = schema['properties']?.[key] as TSchema
       const propertyValue = (value as ObjectLike)[key]
 
       cleanedValue[key] = this.cleanCopyOfValue(propertySchema, propertyValue)

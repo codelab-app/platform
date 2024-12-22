@@ -83,8 +83,6 @@ export abstract class AbstractRepository<
   } = {}): Promise<Array<Model> | Array<Static<T>>> {
     const results = await this._find({ options, selectionSet, where })
 
-    console.log('Schema!', { where }, schema)
-
     if (schema) {
       const data = results.map((result) => {
         return this.validationService.validateAndClean(schema, result)

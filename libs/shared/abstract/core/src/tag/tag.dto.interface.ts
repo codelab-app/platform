@@ -8,7 +8,6 @@ export const TagDtoSchema = Type.Object({
   // This is computed property
   descendants: Type.Optional(Type.Array(Typebox.Ref)),
   id: Type.String(),
-  isRoot: Typebox.Nullish(Type.Boolean()),
   name: Type.String(),
   owner: Typebox.Ref,
   parent: Typebox.Nullish(Typebox.Ref),

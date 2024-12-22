@@ -1,6 +1,7 @@
 import type { Static, TAnySchema, TObject, TUnion } from '@sinclair/typebox'
 import type { ValidationException } from 'typebox-validators'
 
+import { cLog } from '@codelab/shared/utils'
 import { DiscriminatedUnionValidator } from 'typebox-validators/discriminated'
 import { StandardValidator } from 'typebox-validators/standard'
 
@@ -16,6 +17,8 @@ export const validateAndClean = <T extends TAnySchema>(
   try {
     return validator.validateAndCleanCopy(values as Readonly<unknown>)
   } catch (error) {
+    cLog(error)
+
     const validationException = error as ValidationException
 
     /**
