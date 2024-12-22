@@ -28,11 +28,19 @@ export const validateAndClean = <T extends TAnySchema>(
       ),
     }
 
-    console.error('Validation Error:', {
-      errors: cleanedErrors,
-      schema,
-      values,
-    })
+    console.error(
+      'Validation Error:',
+      JSON.stringify(
+        {
+          errors: cleanedErrors,
+          schema,
+        },
+        null,
+        2,
+      ),
+    )
+
+    console.error(values)
 
     throw error
   }

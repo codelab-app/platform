@@ -146,11 +146,13 @@ describe('with nested objects in top-level union', () => {
     const input = {
       metadata: {
         author: 'John Doe',
+        // Should be removed
         extraField: 'should be removed',
         tags: ['tech', 'programming'],
       },
       settings: {
         color: '#000000',
+        // Should be removed
         extraSetting: 'remove this',
         fontSize: 16,
       },

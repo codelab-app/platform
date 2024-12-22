@@ -2,6 +2,7 @@ import type {
   IApiImport,
   IAtomExport,
   IAtomImport,
+  IComponentAggregateExport,
   IComponentAggregateImport,
   ITagDto,
   ITagExport,
@@ -87,18 +88,14 @@ export class ReadAdminDataService implements IReadAdminDataService {
       : []
 
     return componentFilenames.map((filename) => {
-      const componentExport = JSON.parse(
+      const componentExport: IComponentAggregateExport = JSON.parse(
         fs.readFileSync(
           path.resolve(this.migrationDataService.componentsPath, filename),
           'utf8',
         ),
       )
 
-      const { api, component, elements, store } =
-        this.validationService.validateAndClean(
-          ComponentAggregateExportSchema,
-          componentExport,
-        )
+      const { api, component, elements, store } = componentExport
 
       const apiImport: IApiImport = {
         ...api,

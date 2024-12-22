@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { ObjectLike } from '@codelab/shared/abstract/types'
 
-import { cLog } from '@codelab/shared/utils'
 import {
   type Static,
   type TObject,
@@ -29,6 +28,9 @@ export class NestedValidator<S extends TSchema> extends StandardValidator<S> {
       const unionSchema = schema as TUnion<Array<TObject>>
 
       if (unionSchema['discriminantKey']) {
+        /**
+         * This doesn't remove the extra properties, so we have to do it
+         */
         const discriminatedValidator = new DiscriminatedUnionValidator(
           unionSchema,
         )

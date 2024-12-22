@@ -45,7 +45,7 @@ describe('Seed, import, & export data', () => {
     await copy(productionDataPath, testDataPath)
 
     const atoms = getAtomsFromFiles({
-      overrides: [IAtomType.ReactFragment],
+      // overrides: [IAtomType.ReactFragment],
     })
 
     deleteFilesSync(testDataPath, atoms)

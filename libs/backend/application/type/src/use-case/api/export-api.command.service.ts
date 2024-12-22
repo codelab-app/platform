@@ -121,8 +121,6 @@ export class ExportApiHandler
           TypeExportSchema,
         )
 
-        console.log(type)
-
         if (!type) {
           continue
         }

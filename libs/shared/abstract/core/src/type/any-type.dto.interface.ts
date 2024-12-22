@@ -25,40 +25,46 @@ export const AnyBaseTypeSchema = Type.Union([
 
 export type IAnyBaseType = Static<typeof AnyBaseTypeSchema>
 
-export const TypeRefSchema = Type.Union([
-  Typebox.DiscriminatedRef(`${ITypeKind.ActionType}`),
-  Typebox.DiscriminatedRef(`${ITypeKind.AppType}`),
-  Typebox.DiscriminatedRef(`${ITypeKind.ArrayType}`),
-  Typebox.DiscriminatedRef(`${ITypeKind.CodeMirrorType}`),
-  Typebox.DiscriminatedRef(`${ITypeKind.ElementType}`),
-  Typebox.DiscriminatedRef(`${ITypeKind.EnumType}`),
-  Typebox.DiscriminatedRef(`${ITypeKind.InterfaceType}`),
-  Typebox.DiscriminatedRef(`${ITypeKind.LambdaType}`),
-  Typebox.DiscriminatedRef(`${ITypeKind.PageType}`),
-  Typebox.DiscriminatedRef(`${ITypeKind.PrimitiveType}`),
-  Typebox.DiscriminatedRef(`${ITypeKind.ReactNodeType}`),
-  Typebox.DiscriminatedRef(`${ITypeKind.RenderPropType}`),
-  Typebox.DiscriminatedRef(`${ITypeKind.RichTextType}`),
-  Typebox.DiscriminatedRef(`${ITypeKind.UnionType}`),
-])
+export const TypeRefSchema = Type.Union(
+  [
+    Typebox.DiscriminatedRef(`${ITypeKind.ActionType}`),
+    Typebox.DiscriminatedRef(`${ITypeKind.AppType}`),
+    Typebox.DiscriminatedRef(`${ITypeKind.ArrayType}`),
+    Typebox.DiscriminatedRef(`${ITypeKind.CodeMirrorType}`),
+    Typebox.DiscriminatedRef(`${ITypeKind.ElementType}`),
+    Typebox.DiscriminatedRef(`${ITypeKind.EnumType}`),
+    Typebox.DiscriminatedRef(`${ITypeKind.InterfaceType}`),
+    Typebox.DiscriminatedRef(`${ITypeKind.LambdaType}`),
+    Typebox.DiscriminatedRef(`${ITypeKind.PageType}`),
+    Typebox.DiscriminatedRef(`${ITypeKind.PrimitiveType}`),
+    Typebox.DiscriminatedRef(`${ITypeKind.ReactNodeType}`),
+    Typebox.DiscriminatedRef(`${ITypeKind.RenderPropType}`),
+    Typebox.DiscriminatedRef(`${ITypeKind.RichTextType}`),
+    Typebox.DiscriminatedRef(`${ITypeKind.UnionType}`),
+  ],
+  { discriminantKey: '__typename', errorMessage: 'Unknown type' },
+)
 
 export type ITypeRef = Static<typeof TypeRefSchema>
 
-export const TypeMaybeRefSchema = Type.Union([
-  Typebox.DiscriminatedRef(ITypeKind.ActionType),
-  Typebox.DiscriminatedRef(ITypeKind.AppType),
-  Typebox.DiscriminatedRef(ITypeKind.ArrayType),
-  Typebox.DiscriminatedRef(ITypeKind.CodeMirrorType),
-  Typebox.DiscriminatedRef(ITypeKind.ElementType),
-  Typebox.DiscriminatedRef(ITypeKind.EnumType),
-  Typebox.DiscriminatedRef(ITypeKind.InterfaceType),
-  Typebox.DiscriminatedRef(ITypeKind.LambdaType),
-  Typebox.DiscriminatedRef(ITypeKind.PageType),
-  Typebox.DiscriminatedRef(ITypeKind.PrimitiveType),
-  Typebox.DiscriminatedRef(ITypeKind.ReactNodeType),
-  Typebox.DiscriminatedRef(ITypeKind.RenderPropType),
-  Typebox.DiscriminatedRef(ITypeKind.RichTextType),
-  Typebox.DiscriminatedRef(ITypeKind.UnionType),
-])
+export const TypeMaybeRefSchema = Type.Union(
+  [
+    Typebox.DiscriminatedRef(ITypeKind.ActionType),
+    Typebox.DiscriminatedRef(ITypeKind.AppType),
+    Typebox.DiscriminatedRef(ITypeKind.ArrayType),
+    Typebox.DiscriminatedRef(ITypeKind.CodeMirrorType),
+    Typebox.DiscriminatedRef(ITypeKind.ElementType),
+    Typebox.DiscriminatedRef(ITypeKind.EnumType),
+    Typebox.DiscriminatedRef(ITypeKind.InterfaceType),
+    Typebox.DiscriminatedRef(ITypeKind.LambdaType),
+    Typebox.DiscriminatedRef(ITypeKind.PageType),
+    Typebox.DiscriminatedRef(ITypeKind.PrimitiveType),
+    Typebox.DiscriminatedRef(ITypeKind.ReactNodeType),
+    Typebox.DiscriminatedRef(ITypeKind.RenderPropType),
+    Typebox.DiscriminatedRef(ITypeKind.RichTextType),
+    Typebox.DiscriminatedRef(ITypeKind.UnionType),
+  ],
+  { discriminantKey: '__typename', errorMessage: 'Unknown type' },
+)
 
 export type ITypeMaybeRef = Static<typeof TypeMaybeRefSchema>
