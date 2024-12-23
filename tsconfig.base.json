@@ -930,14 +930,8 @@
       "@codelab/shared-domain-module-app": [
         "libs/shared/domain/module/app/src/index.ts"
       ],
-      "@codelab/shared-domain-module-app/server": [
-        "libs/shared/domain/module/app/src/server/index.ts"
-      ],
       "@codelab/shared-domain-module-atom": [
         "libs/shared/domain/module/atom/src/index.ts"
-      ],
-      "@codelab/shared-domain-module-atom/server": [
-        "libs/shared/domain/module/atom/src/server/index.ts"
       ],
       "@codelab/shared-domain-module/action": [
         "libs/shared/domain/module/action/src/index.ts"

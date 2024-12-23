@@ -32,7 +32,7 @@ export const TypeDtoSchema = Type.Union(
     ReactNodeTypeDtoSchema,
     RenderPropTypeDtoSchema,
     RichTextTypeDtoSchema,
-    UnionTypeDtoSchema,
+    UnionTypeDtoSchema(),
   ],
   { discriminantKey: '__typename', errorMessage: 'Unknown type' },
 )

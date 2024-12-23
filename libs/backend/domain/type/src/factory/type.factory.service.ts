@@ -1,9 +1,4 @@
-import type {
-  IRef,
-  ITypeDto,
-  ITypeMaybeRef,
-  ITypeRef,
-} from '@codelab/shared/abstract/core'
+import type { IRef, ITypeDto, ITypeRef } from '@codelab/shared/abstract/core'
 
 import {
   getTypeDescendants,
@@ -69,7 +64,7 @@ export class TypeFactory {
     // We pass in a single id, so only get 1 record, for each record, we want the first column
     const descendants = [
       ...(results.records[0]?.values() ?? []),
-    ][0] as Array<ITypeMaybeRef>
+    ][0] as Array<ITypeRef>
 
     // We only get interface type descendants, since other types are pushed in front of interfaces
     const sortedDescendants = descendants.sort((a, b) =>
@@ -79,7 +74,7 @@ export class TypeFactory {
     return sortedDescendants
   }
 
-  async findOne({ __typename, id }: ITypeMaybeRef, schema?: TAnySchema) {
+  async findOne({ __typename, id }: ITypeRef, schema?: TAnySchema) {
     switch (__typename) {
       case ITypeKind.ActionType: {
         return (await this.actionTypeRepository).findOne({

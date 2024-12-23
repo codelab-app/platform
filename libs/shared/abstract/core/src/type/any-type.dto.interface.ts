@@ -1,70 +1,31 @@
-import type { Static } from '@sinclair/typebox'
+import type { Static, TSchema } from '@sinclair/typebox'
 
 import { Typebox } from '@codelab/shared/infra/typebox'
 import { Type } from '@sinclair/typebox'
 
-import { BaseTypeDtoSchema } from './base-type.dto.interface'
 import { ITypeKind } from './type-kind.enum'
 
-export const AnyBaseTypeSchema = Type.Union([
-  BaseTypeDtoSchema(`${ITypeKind.ActionType}`),
-  BaseTypeDtoSchema(`${ITypeKind.AppType}`),
-  BaseTypeDtoSchema(`${ITypeKind.ArrayType}`),
-  BaseTypeDtoSchema(`${ITypeKind.CodeMirrorType}`),
-  BaseTypeDtoSchema(`${ITypeKind.ElementType}`),
-  BaseTypeDtoSchema(`${ITypeKind.EnumType}`),
-  BaseTypeDtoSchema(`${ITypeKind.InterfaceType}`),
-  BaseTypeDtoSchema(`${ITypeKind.LambdaType}`),
-  BaseTypeDtoSchema(`${ITypeKind.PageType}`),
-  BaseTypeDtoSchema(`${ITypeKind.PrimitiveType}`),
-  BaseTypeDtoSchema(`${ITypeKind.ReactNodeType}`),
-  BaseTypeDtoSchema(`${ITypeKind.RenderPropType}`),
-  BaseTypeDtoSchema(`${ITypeKind.RichTextType}`),
-  BaseTypeDtoSchema(`${ITypeKind.UnionType}`),
-])
+export const TypeRefSchema = <T extends TSchema>(schema?: T) =>
+  Type.Union(
+    [
+      Typebox.DiscriminatedRef(ITypeKind.ActionType, schema),
+      Typebox.DiscriminatedRef(ITypeKind.AppType, schema),
+      Typebox.DiscriminatedRef(ITypeKind.ArrayType, schema),
+      Typebox.DiscriminatedRef(ITypeKind.CodeMirrorType, schema),
+      Typebox.DiscriminatedRef(ITypeKind.ElementType, schema),
+      Typebox.DiscriminatedRef(ITypeKind.EnumType, schema),
+      Typebox.DiscriminatedRef(ITypeKind.InterfaceType, schema),
+      Typebox.DiscriminatedRef(ITypeKind.LambdaType, schema),
+      Typebox.DiscriminatedRef(ITypeKind.PageType, schema),
+      Typebox.DiscriminatedRef(ITypeKind.PrimitiveType, schema),
+      Typebox.DiscriminatedRef(ITypeKind.ReactNodeType, schema),
+      Typebox.DiscriminatedRef(ITypeKind.RenderPropType, schema),
+      Typebox.DiscriminatedRef(ITypeKind.RichTextType, schema),
+      Typebox.DiscriminatedRef(ITypeKind.UnionType, schema),
+    ],
+    { discriminantKey: '__typename', errorMessage: 'Unknown type' },
+  )
 
-export type IAnyBaseType = Static<typeof AnyBaseTypeSchema>
-
-export const TypeRefSchema = Type.Union(
-  [
-    Typebox.DiscriminatedRef(`${ITypeKind.ActionType}`),
-    Typebox.DiscriminatedRef(`${ITypeKind.AppType}`),
-    Typebox.DiscriminatedRef(`${ITypeKind.ArrayType}`),
-    Typebox.DiscriminatedRef(`${ITypeKind.CodeMirrorType}`),
-    Typebox.DiscriminatedRef(`${ITypeKind.ElementType}`),
-    Typebox.DiscriminatedRef(`${ITypeKind.EnumType}`),
-    Typebox.DiscriminatedRef(`${ITypeKind.InterfaceType}`),
-    Typebox.DiscriminatedRef(`${ITypeKind.LambdaType}`),
-    Typebox.DiscriminatedRef(`${ITypeKind.PageType}`),
-    Typebox.DiscriminatedRef(`${ITypeKind.PrimitiveType}`),
-    Typebox.DiscriminatedRef(`${ITypeKind.ReactNodeType}`),
-    Typebox.DiscriminatedRef(`${ITypeKind.RenderPropType}`),
-    Typebox.DiscriminatedRef(`${ITypeKind.RichTextType}`),
-    Typebox.DiscriminatedRef(`${ITypeKind.UnionType}`),
-  ],
-  { discriminantKey: '__typename', errorMessage: 'Unknown type' },
-)
-
-export type ITypeRef = Static<typeof TypeRefSchema>
-
-export const TypeMaybeRefSchema = Type.Union(
-  [
-    Typebox.DiscriminatedRef(ITypeKind.ActionType),
-    Typebox.DiscriminatedRef(ITypeKind.AppType),
-    Typebox.DiscriminatedRef(ITypeKind.ArrayType),
-    Typebox.DiscriminatedRef(ITypeKind.CodeMirrorType),
-    Typebox.DiscriminatedRef(ITypeKind.ElementType),
-    Typebox.DiscriminatedRef(ITypeKind.EnumType),
-    Typebox.DiscriminatedRef(ITypeKind.InterfaceType),
-    Typebox.DiscriminatedRef(ITypeKind.LambdaType),
-    Typebox.DiscriminatedRef(ITypeKind.PageType),
-    Typebox.DiscriminatedRef(ITypeKind.PrimitiveType),
-    Typebox.DiscriminatedRef(ITypeKind.ReactNodeType),
-    Typebox.DiscriminatedRef(ITypeKind.RenderPropType),
-    Typebox.DiscriminatedRef(ITypeKind.RichTextType),
-    Typebox.DiscriminatedRef(ITypeKind.UnionType),
-  ],
-  { discriminantKey: '__typename', errorMessage: 'Unknown type' },
-)
-
-export type ITypeMaybeRef = Static<typeof TypeMaybeRefSchema>
+export type ITypeRef<T extends TSchema = never> = Static<
+  ReturnType<typeof TypeRefSchema<T>>
+>

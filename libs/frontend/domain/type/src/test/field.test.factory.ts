@@ -1,5 +1,5 @@
 import type { IFieldDomainService } from '@codelab/frontend/abstract/domain'
-import type { IFieldDto, ITypeMaybeRef } from '@codelab/shared/abstract/core'
+import type { IFieldDto, ITypeRef } from '@codelab/shared/abstract/core'
 
 import { chance } from '@codelab/frontend-domain-shared'
 import { ITypeKind } from '@codelab/shared/abstract/core'
@@ -14,7 +14,7 @@ export const fieldFactory =
       fieldType: (dto.fieldType ?? {
         __typename: ITypeKind.PrimitiveType,
         id: v4(),
-      }) as ITypeMaybeRef,
+      }) as ITypeRef,
       id: dto.id ?? v4(),
       key: dto.key ?? chance.word(),
       name: dto.name ?? null,

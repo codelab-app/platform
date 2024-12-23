@@ -1,5 +1,5 @@
 import type {
-  ITypeMaybeRef,
+  ITypeRef,
   IUnionTypeDto,
 } from '@codelab/shared/abstract/core'
 import type {
@@ -22,14 +22,14 @@ import {
 import { Injectable } from '@nestjs/common'
 
 const filterTypeIds = (
-  typesOfUnionType: Array<ITypeMaybeRef>,
+  typesOfUnionType: Array<ITypeRef>,
   kind: ITypeKind,
 ): Array<string> =>
   typesOfUnionType
     .filter((_type) => _type.__typename === kind)
     .map(({ id }) => id)
 
-const getFilteredTypes = (typesOfUnionType: Array<ITypeMaybeRef>) => ({
+const getFilteredTypes = (typesOfUnionType: Array<ITypeRef>) => ({
   arrayTypeIds: filterTypeIds(typesOfUnionType, ITypeKind.ArrayType),
   codeMirrorTypeIds: filterTypeIds(typesOfUnionType, ITypeKind.CodeMirrorType),
   enumTypeIds: filterTypeIds(typesOfUnionType, ITypeKind.EnumType),

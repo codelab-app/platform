@@ -32,7 +32,9 @@ export const TypeExportSchema = Type.Union(
     Type.Omit(ReactNodeTypeDtoSchema, ['owner']),
     Type.Omit(RenderPropTypeDtoSchema, ['owner']),
     Type.Omit(RichTextTypeDtoSchema, ['owner']),
-    Type.Omit(UnionTypeDtoSchema, ['owner']),
+    Type.Omit(UnionTypeDtoSchema(Type.Object({ name: Type.String() })), [
+      'owner',
+    ]),
   ],
   { discriminantKey: '__typename', errorMessage: 'Unknown type' },
 )

@@ -1,6 +1,6 @@
 import type {
   IInterfaceTypeDto,
-  ITypeMaybeRef,
+  ITypeRef,
 } from '@codelab/shared/abstract/core'
 import type {
   InterfaceType,
@@ -41,7 +41,7 @@ export class InterfaceTypeRepository extends AbstractRepository<
   }
 
   async getDependentTypes<T extends TAnySchema>(
-    { id }: ITypeMaybeRef,
+    { id }: ITypeRef,
     schema?: T,
   ): Promise<Array<Static<T>>> {
     return this.neo4jService.withReadTransaction(async (txn) => {
