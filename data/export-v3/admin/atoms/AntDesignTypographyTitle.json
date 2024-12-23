@@ -215,13 +215,11 @@
           {
             "__typename": "CodeMirrorType",
             "id": "010c4f5a-434b-4c3e-a0ed-01eb1f78172a",
-            "kind": "CodeMirrorType",
             "name": "Typescript Code"
           },
           {
             "__typename": "RichTextType",
             "id": "e7558508-3bb7-4f57-8f8c-6ac989911765",
-            "kind": "RichTextType",
             "name": "RichTextType"
           }
         ]

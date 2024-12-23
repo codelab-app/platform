@@ -57,10 +57,7 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
         },
         "id": "11c758f0-9c6d-4361-9df8-6b61c742025b",
         "key": "className",
@@ -76,10 +73,7 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
         },
         "id": "a5d8e396-0987-4cc7-a091-e933f5af0d48",
         "key": "href",
@@ -95,10 +89,7 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "__typename": "ActionType",
-          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
-          "kind": "ActionType",
-          "name": "ActionType"
+          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f"
         },
         "id": "96a23f61-6652-4167-b252-426e2272cd10",
         "key": "onClick",
@@ -114,10 +105,7 @@
         "defaultValues": "null",
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
         },
         "id": "f894db32-ccdc-460f-8d74-2f69b049a09d",
         "key": "title",
@@ -142,80 +130,16 @@
         "__typename": "InterfaceType",
         "fields": [
           {
-            "api": {
-              "id": "c7fe3eaa-2c22-46ac-b72b-2d6127f00396"
-            },
-            "defaultValues": "null",
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "f894db32-ccdc-460f-8d74-2f69b049a09d",
-            "key": "title",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{\"general\":{\"nullable\":true}}"
+            "id": "11c758f0-9c6d-4361-9df8-6b61c742025b"
           },
           {
-            "api": {
-              "id": "c7fe3eaa-2c22-46ac-b72b-2d6127f00396"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "ActionType",
-              "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
-              "kind": "ActionType",
-              "name": "ActionType"
-            },
-            "id": "96a23f61-6652-4167-b252-426e2272cd10",
-            "key": "onClick",
-            "name": "On Click",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
+            "id": "a5d8e396-0987-4cc7-a091-e933f5af0d48"
           },
           {
-            "api": {
-              "id": "c7fe3eaa-2c22-46ac-b72b-2d6127f00396"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "a5d8e396-0987-4cc7-a091-e933f5af0d48",
-            "key": "href",
-            "name": "Href",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
+            "id": "96a23f61-6652-4167-b252-426e2272cd10"
           },
           {
-            "api": {
-              "id": "c7fe3eaa-2c22-46ac-b72b-2d6127f00396"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "11c758f0-9c6d-4361-9df8-6b61c742025b",
-            "key": "className",
-            "name": "Class Name",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
+            "id": "f894db32-ccdc-460f-8d74-2f69b049a09d"
           }
         ],
         "id": "c7fe3eaa-2c22-46ac-b72b-2d6127f00396",
@@ -228,7 +152,6 @@
         "itemType": {
           "__typename": "InterfaceType",
           "id": "c7fe3eaa-2c22-46ac-b72b-2d6127f00396",
-          "kind": "InterfaceType",
           "name": "AntDesignBreadcrumbItem API"
         },
         "kind": "ArrayType",

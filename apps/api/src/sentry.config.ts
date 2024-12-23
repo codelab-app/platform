@@ -3,7 +3,7 @@ import { nodeProfilingIntegration } from '@sentry/profiling-node'
 import env from 'env-var'
 
 Sentry.init({
-  dsn: env.get('SENTRY_DSN').required().asString(),
+  dsn: env.get('SENTRY_DSN').asString(),
   integrations: [
     // Add our Profiling integration
     // nodeProfilingIntegration(),

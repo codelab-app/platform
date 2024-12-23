@@ -1,1 +1,1 @@
-export * from './valid-json'
+export * from './encode-json'

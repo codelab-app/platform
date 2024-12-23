@@ -22,7 +22,7 @@
         "api": {
           "id": "a1b9b3a8-b09a-471e-b871-0ebfa40a7a20"
         },
-        "defaultValues": "\"Roboto\"",
+        "defaultValues": "Roboto",
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
@@ -41,7 +41,7 @@
         "api": {
           "id": "57ccc2be-619b-4e27-8ad2-8d11cefb61eb"
         },
-        "defaultValues": "\"Open Sans\"",
+        "defaultValues": "Open Sans",
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
@@ -60,7 +60,7 @@
         "api": {
           "id": "e50c1ff7-28df-40a9-97b9-62ddc5ef927e"
         },
-        "defaultValues": "\"Noto Sans JP\"",
+        "defaultValues": "Noto Sans JP",
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
@@ -79,7 +79,7 @@
         "api": {
           "id": "10883ab5-c70c-4ce0-ab73-59935a806b05"
         },
-        "defaultValues": "\"Montserrat\"",
+        "defaultValues": "Montserrat",
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
@@ -98,7 +98,7 @@
         "api": {
           "id": "11e2bb7c-f3c1-412a-8d25-dc212d4dd169"
         },
-        "defaultValues": "\"Lato\"",
+        "defaultValues": "Lato",
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
@@ -117,7 +117,7 @@
         "api": {
           "id": "22451e71-275f-4a03-a1e5-1576f1ce9fe3"
         },
-        "defaultValues": "\"Poppins\"",
+        "defaultValues": "Poppins",
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
@@ -136,7 +136,7 @@
         "api": {
           "id": "719fc1d2-2289-4e4d-a8b9-e0ab1da83bb6"
         },
-        "defaultValues": "\"Roboto Condensed\"",
+        "defaultValues": "Roboto Condensed",
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
@@ -155,7 +155,7 @@
         "api": {
           "id": "de8f4c80-35e8-4b87-a232-d99983248f1a"
         },
-        "defaultValues": "\"Inter\"",
+        "defaultValues": "Inter",
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
@@ -174,7 +174,7 @@
         "api": {
           "id": "d6a6104d-b710-4ae3-8b7b-6e704a2c4b36"
         },
-        "defaultValues": "\"Roboto Mono\"",
+        "defaultValues": "Roboto Mono",
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
@@ -193,7 +193,7 @@
         "api": {
           "id": "ba311b82-869e-407d-9c8f-137138ab0868"
         },
-        "defaultValues": "\"Oswald\"",
+        "defaultValues": "Oswald",
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
@@ -212,7 +212,7 @@
         "api": {
           "id": "e1f583a4-5bc3-4b47-9b41-6a916bd2dc53"
         },
-        "defaultValues": "\"Raleway\"",
+        "defaultValues": "Raleway",
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
@@ -231,7 +231,7 @@
         "api": {
           "id": "bbb47052-87b6-4900-b5d9-c6697d072fc0"
         },
-        "defaultValues": "\"Noto Sans\"",
+        "defaultValues": "Noto Sans",
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
@@ -250,7 +250,7 @@
         "api": {
           "id": "a50f5d2f-6ad8-4302-a88a-a43eaa63f2c6"
         },
-        "defaultValues": "\"Nunito Sans\"",
+        "defaultValues": "Nunito Sans",
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
@@ -269,7 +269,7 @@
         "api": {
           "id": "d6921cd9-a8a4-4a2b-b025-1a54311030cb"
         },
-        "defaultValues": "\"Roboto Slab\"",
+        "defaultValues": "Roboto Slab",
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
@@ -288,7 +288,7 @@
         "api": {
           "id": "e08ce6a1-7057-46e4-8ad1-2ce48789f63d"
         },
-        "defaultValues": "\"Playfair Display\"",
+        "defaultValues": "Playfair Display",
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
@@ -307,7 +307,7 @@
         "api": {
           "id": "b9b379e6-afd4-47eb-a14b-ac0eaa019c2e"
         },
-        "defaultValues": "\"Rubik\"",
+        "defaultValues": "Rubik",
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
@@ -326,7 +326,7 @@
         "api": {
           "id": "c13c6711-6c69-41c1-bb4f-6d20727eca51"
         },
-        "defaultValues": "\"Nunito\"",
+        "defaultValues": "Nunito",
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
@@ -345,7 +345,7 @@
         "api": {
           "id": "63be0022-34ca-41b5-bdd5-66d3344fa537"
         },
-        "defaultValues": "\"Ubuntu\"",
+        "defaultValues": "Ubuntu",
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
@@ -364,7 +364,7 @@
         "api": {
           "id": "6babdef9-12fd-4114-8bb6-391a089bc801"
         },
-        "defaultValues": "\"Nanum Gothic\"",
+        "defaultValues": "Nanum Gothic",
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
@@ -383,7 +383,7 @@
         "api": {
           "id": "8d18d110-1e69-4dbe-b02c-5553e96f4656"
         },
-        "defaultValues": "\"Josefin Sans\"",
+        "defaultValues": "Josefin Sans",
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
@@ -402,7 +402,7 @@
         "api": {
           "id": "b5de478b-8d16-477b-be8f-301379ab26d9"
         },
-        "defaultValues": "\"Inconsolata\"",
+        "defaultValues": "Inconsolata",
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
@@ -421,7 +421,7 @@
         "api": {
           "id": "3e20a519-4968-49ce-9663-6b5380707055"
         },
-        "defaultValues": "\"Dosis\"",
+        "defaultValues": "Dosis",
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
@@ -440,7 +440,7 @@
         "api": {
           "id": "e79af94e-ee1b-4023-b25a-25f33ee0e903"
         },
-        "defaultValues": "\"Pacifico\"",
+        "defaultValues": "Pacifico",
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
@@ -459,7 +459,7 @@
         "api": {
           "id": "5cc64ee4-3a00-4643-9b14-8613e0e98d04"
         },
-        "defaultValues": "\"Bruno Ace SC\"",
+        "defaultValues": "Bruno Ace SC",
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
@@ -478,7 +478,7 @@
         "api": {
           "id": "65dce128-d88c-4eba-b41c-5d4ead345fbf"
         },
-        "defaultValues": "\"Gloria Hallelujah\"",
+        "defaultValues": "Gloria Hallelujah",
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
@@ -497,7 +497,7 @@
         "api": {
           "id": "a1b9b3a8-b09a-471e-b871-0ebfa40a7a20"
         },
-        "defaultValues": "\"400\"",
+        "defaultValues": "400",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -516,7 +516,7 @@
         "api": {
           "id": "57ccc2be-619b-4e27-8ad2-8d11cefb61eb"
         },
-        "defaultValues": "\"400\"",
+        "defaultValues": "400",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -535,7 +535,7 @@
         "api": {
           "id": "e50c1ff7-28df-40a9-97b9-62ddc5ef927e"
         },
-        "defaultValues": "\"400\"",
+        "defaultValues": "400",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -554,7 +554,7 @@
         "api": {
           "id": "10883ab5-c70c-4ce0-ab73-59935a806b05"
         },
-        "defaultValues": "\"400\"",
+        "defaultValues": "400",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -573,7 +573,7 @@
         "api": {
           "id": "11e2bb7c-f3c1-412a-8d25-dc212d4dd169"
         },
-        "defaultValues": "\"400\"",
+        "defaultValues": "400",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -592,7 +592,7 @@
         "api": {
           "id": "22451e71-275f-4a03-a1e5-1576f1ce9fe3"
         },
-        "defaultValues": "\"400\"",
+        "defaultValues": "400",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -611,7 +611,7 @@
         "api": {
           "id": "719fc1d2-2289-4e4d-a8b9-e0ab1da83bb6"
         },
-        "defaultValues": "\"400\"",
+        "defaultValues": "400",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -630,7 +630,7 @@
         "api": {
           "id": "de8f4c80-35e8-4b87-a232-d99983248f1a"
         },
-        "defaultValues": "\"400\"",
+        "defaultValues": "400",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -649,7 +649,7 @@
         "api": {
           "id": "d6a6104d-b710-4ae3-8b7b-6e704a2c4b36"
         },
-        "defaultValues": "\"400\"",
+        "defaultValues": "400",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -668,7 +668,7 @@
         "api": {
           "id": "ba311b82-869e-407d-9c8f-137138ab0868"
         },
-        "defaultValues": "\"400\"",
+        "defaultValues": "400",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -687,7 +687,7 @@
         "api": {
           "id": "e1f583a4-5bc3-4b47-9b41-6a916bd2dc53"
         },
-        "defaultValues": "\"400\"",
+        "defaultValues": "400",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -706,7 +706,7 @@
         "api": {
           "id": "bbb47052-87b6-4900-b5d9-c6697d072fc0"
         },
-        "defaultValues": "\"400\"",
+        "defaultValues": "400",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -725,7 +725,7 @@
         "api": {
           "id": "a50f5d2f-6ad8-4302-a88a-a43eaa63f2c6"
         },
-        "defaultValues": "\"400\"",
+        "defaultValues": "400",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -744,7 +744,7 @@
         "api": {
           "id": "d6921cd9-a8a4-4a2b-b025-1a54311030cb"
         },
-        "defaultValues": "\"400\"",
+        "defaultValues": "400",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -763,7 +763,7 @@
         "api": {
           "id": "e08ce6a1-7057-46e4-8ad1-2ce48789f63d"
         },
-        "defaultValues": "\"400\"",
+        "defaultValues": "400",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -782,7 +782,7 @@
         "api": {
           "id": "b9b379e6-afd4-47eb-a14b-ac0eaa019c2e"
         },
-        "defaultValues": "\"400\"",
+        "defaultValues": "400",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -801,7 +801,7 @@
         "api": {
           "id": "c13c6711-6c69-41c1-bb4f-6d20727eca51"
         },
-        "defaultValues": "\"400\"",
+        "defaultValues": "400",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -820,7 +820,7 @@
         "api": {
           "id": "63be0022-34ca-41b5-bdd5-66d3344fa537"
         },
-        "defaultValues": "\"400\"",
+        "defaultValues": "400",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -839,7 +839,7 @@
         "api": {
           "id": "6babdef9-12fd-4114-8bb6-391a089bc801"
         },
-        "defaultValues": "\"400\"",
+        "defaultValues": "400",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -858,7 +858,7 @@
         "api": {
           "id": "8d18d110-1e69-4dbe-b02c-5553e96f4656"
         },
-        "defaultValues": "\"400\"",
+        "defaultValues": "400",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -877,7 +877,7 @@
         "api": {
           "id": "b5de478b-8d16-477b-be8f-301379ab26d9"
         },
-        "defaultValues": "\"400\"",
+        "defaultValues": "400",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -896,7 +896,7 @@
         "api": {
           "id": "3e20a519-4968-49ce-9663-6b5380707055"
         },
-        "defaultValues": "\"400\"",
+        "defaultValues": "400",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -915,7 +915,7 @@
         "api": {
           "id": "e79af94e-ee1b-4023-b25a-25f33ee0e903"
         },
-        "defaultValues": "\"400\"",
+        "defaultValues": "400",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -934,7 +934,7 @@
         "api": {
           "id": "5cc64ee4-3a00-4643-9b14-8613e0e98d04"
         },
-        "defaultValues": "\"400\"",
+        "defaultValues": "400",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -953,7 +953,7 @@
         "api": {
           "id": "65dce128-d88c-4eba-b41c-5d4ead345fbf"
         },
-        "defaultValues": "\"400\"",
+        "defaultValues": "400",
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
@@ -987,7 +987,7 @@
             "api": {
               "id": "5cc64ee4-3a00-4643-9b14-8613e0e98d04"
             },
-            "defaultValues": "\"400\"",
+            "defaultValues": "400",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1006,7 +1006,7 @@
             "api": {
               "id": "5cc64ee4-3a00-4643-9b14-8613e0e98d04"
             },
-            "defaultValues": "\"Bruno Ace SC\"",
+            "defaultValues": "Bruno Ace SC",
             "description": null,
             "fieldType": {
               "__typename": "PrimitiveType",
@@ -1033,7 +1033,7 @@
             "api": {
               "id": "3e20a519-4968-49ce-9663-6b5380707055"
             },
-            "defaultValues": "\"400\"",
+            "defaultValues": "400",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1052,7 +1052,7 @@
             "api": {
               "id": "3e20a519-4968-49ce-9663-6b5380707055"
             },
-            "defaultValues": "\"Dosis\"",
+            "defaultValues": "Dosis",
             "description": null,
             "fieldType": {
               "__typename": "PrimitiveType",
@@ -1079,7 +1079,7 @@
             "api": {
               "id": "65dce128-d88c-4eba-b41c-5d4ead345fbf"
             },
-            "defaultValues": "\"400\"",
+            "defaultValues": "400",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1098,7 +1098,7 @@
             "api": {
               "id": "65dce128-d88c-4eba-b41c-5d4ead345fbf"
             },
-            "defaultValues": "\"Gloria Hallelujah\"",
+            "defaultValues": "Gloria Hallelujah",
             "description": null,
             "fieldType": {
               "__typename": "PrimitiveType",
@@ -1125,7 +1125,7 @@
             "api": {
               "id": "b5de478b-8d16-477b-be8f-301379ab26d9"
             },
-            "defaultValues": "\"400\"",
+            "defaultValues": "400",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1144,7 +1144,7 @@
             "api": {
               "id": "b5de478b-8d16-477b-be8f-301379ab26d9"
             },
-            "defaultValues": "\"Inconsolata\"",
+            "defaultValues": "Inconsolata",
             "description": null,
             "fieldType": {
               "__typename": "PrimitiveType",
@@ -1171,7 +1171,7 @@
             "api": {
               "id": "de8f4c80-35e8-4b87-a232-d99983248f1a"
             },
-            "defaultValues": "\"400\"",
+            "defaultValues": "400",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1190,7 +1190,7 @@
             "api": {
               "id": "de8f4c80-35e8-4b87-a232-d99983248f1a"
             },
-            "defaultValues": "\"Inter\"",
+            "defaultValues": "Inter",
             "description": null,
             "fieldType": {
               "__typename": "PrimitiveType",
@@ -1217,7 +1217,7 @@
             "api": {
               "id": "8d18d110-1e69-4dbe-b02c-5553e96f4656"
             },
-            "defaultValues": "\"400\"",
+            "defaultValues": "400",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1236,7 +1236,7 @@
             "api": {
               "id": "8d18d110-1e69-4dbe-b02c-5553e96f4656"
             },
-            "defaultValues": "\"Josefin Sans\"",
+            "defaultValues": "Josefin Sans",
             "description": null,
             "fieldType": {
               "__typename": "PrimitiveType",
@@ -1263,7 +1263,7 @@
             "api": {
               "id": "11e2bb7c-f3c1-412a-8d25-dc212d4dd169"
             },
-            "defaultValues": "\"400\"",
+            "defaultValues": "400",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1282,7 +1282,7 @@
             "api": {
               "id": "11e2bb7c-f3c1-412a-8d25-dc212d4dd169"
             },
-            "defaultValues": "\"Lato\"",
+            "defaultValues": "Lato",
             "description": null,
             "fieldType": {
               "__typename": "PrimitiveType",
@@ -1309,7 +1309,7 @@
             "api": {
               "id": "10883ab5-c70c-4ce0-ab73-59935a806b05"
             },
-            "defaultValues": "\"400\"",
+            "defaultValues": "400",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1328,7 +1328,7 @@
             "api": {
               "id": "10883ab5-c70c-4ce0-ab73-59935a806b05"
             },
-            "defaultValues": "\"Montserrat\"",
+            "defaultValues": "Montserrat",
             "description": null,
             "fieldType": {
               "__typename": "PrimitiveType",
@@ -1355,7 +1355,7 @@
             "api": {
               "id": "6babdef9-12fd-4114-8bb6-391a089bc801"
             },
-            "defaultValues": "\"400\"",
+            "defaultValues": "400",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1374,7 +1374,7 @@
             "api": {
               "id": "6babdef9-12fd-4114-8bb6-391a089bc801"
             },
-            "defaultValues": "\"Nanum Gothic\"",
+            "defaultValues": "Nanum Gothic",
             "description": null,
             "fieldType": {
               "__typename": "PrimitiveType",
@@ -1401,7 +1401,7 @@
             "api": {
               "id": "bbb47052-87b6-4900-b5d9-c6697d072fc0"
             },
-            "defaultValues": "\"400\"",
+            "defaultValues": "400",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1420,7 +1420,7 @@
             "api": {
               "id": "bbb47052-87b6-4900-b5d9-c6697d072fc0"
             },
-            "defaultValues": "\"Noto Sans\"",
+            "defaultValues": "Noto Sans",
             "description": null,
             "fieldType": {
               "__typename": "PrimitiveType",
@@ -1447,7 +1447,7 @@
             "api": {
               "id": "e50c1ff7-28df-40a9-97b9-62ddc5ef927e"
             },
-            "defaultValues": "\"400\"",
+            "defaultValues": "400",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1466,7 +1466,7 @@
             "api": {
               "id": "e50c1ff7-28df-40a9-97b9-62ddc5ef927e"
             },
-            "defaultValues": "\"Noto Sans JP\"",
+            "defaultValues": "Noto Sans JP",
             "description": null,
             "fieldType": {
               "__typename": "PrimitiveType",
@@ -1493,7 +1493,7 @@
             "api": {
               "id": "c13c6711-6c69-41c1-bb4f-6d20727eca51"
             },
-            "defaultValues": "\"400\"",
+            "defaultValues": "400",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1512,7 +1512,7 @@
             "api": {
               "id": "c13c6711-6c69-41c1-bb4f-6d20727eca51"
             },
-            "defaultValues": "\"Nunito\"",
+            "defaultValues": "Nunito",
             "description": null,
             "fieldType": {
               "__typename": "PrimitiveType",
@@ -1539,7 +1539,7 @@
             "api": {
               "id": "a50f5d2f-6ad8-4302-a88a-a43eaa63f2c6"
             },
-            "defaultValues": "\"400\"",
+            "defaultValues": "400",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1558,7 +1558,7 @@
             "api": {
               "id": "a50f5d2f-6ad8-4302-a88a-a43eaa63f2c6"
             },
-            "defaultValues": "\"Nunito Sans\"",
+            "defaultValues": "Nunito Sans",
             "description": null,
             "fieldType": {
               "__typename": "PrimitiveType",
@@ -1585,7 +1585,7 @@
             "api": {
               "id": "57ccc2be-619b-4e27-8ad2-8d11cefb61eb"
             },
-            "defaultValues": "\"400\"",
+            "defaultValues": "400",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1604,7 +1604,7 @@
             "api": {
               "id": "57ccc2be-619b-4e27-8ad2-8d11cefb61eb"
             },
-            "defaultValues": "\"Open Sans\"",
+            "defaultValues": "Open Sans",
             "description": null,
             "fieldType": {
               "__typename": "PrimitiveType",
@@ -1631,7 +1631,7 @@
             "api": {
               "id": "ba311b82-869e-407d-9c8f-137138ab0868"
             },
-            "defaultValues": "\"400\"",
+            "defaultValues": "400",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1650,7 +1650,7 @@
             "api": {
               "id": "ba311b82-869e-407d-9c8f-137138ab0868"
             },
-            "defaultValues": "\"Oswald\"",
+            "defaultValues": "Oswald",
             "description": null,
             "fieldType": {
               "__typename": "PrimitiveType",
@@ -1677,7 +1677,7 @@
             "api": {
               "id": "e79af94e-ee1b-4023-b25a-25f33ee0e903"
             },
-            "defaultValues": "\"400\"",
+            "defaultValues": "400",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1696,7 +1696,7 @@
             "api": {
               "id": "e79af94e-ee1b-4023-b25a-25f33ee0e903"
             },
-            "defaultValues": "\"Pacifico\"",
+            "defaultValues": "Pacifico",
             "description": null,
             "fieldType": {
               "__typename": "PrimitiveType",
@@ -1723,7 +1723,7 @@
             "api": {
               "id": "e08ce6a1-7057-46e4-8ad1-2ce48789f63d"
             },
-            "defaultValues": "\"400\"",
+            "defaultValues": "400",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1742,7 +1742,7 @@
             "api": {
               "id": "e08ce6a1-7057-46e4-8ad1-2ce48789f63d"
             },
-            "defaultValues": "\"Playfair Display\"",
+            "defaultValues": "Playfair Display",
             "description": null,
             "fieldType": {
               "__typename": "PrimitiveType",
@@ -1769,7 +1769,7 @@
             "api": {
               "id": "22451e71-275f-4a03-a1e5-1576f1ce9fe3"
             },
-            "defaultValues": "\"400\"",
+            "defaultValues": "400",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1788,7 +1788,7 @@
             "api": {
               "id": "22451e71-275f-4a03-a1e5-1576f1ce9fe3"
             },
-            "defaultValues": "\"Poppins\"",
+            "defaultValues": "Poppins",
             "description": null,
             "fieldType": {
               "__typename": "PrimitiveType",
@@ -1815,7 +1815,7 @@
             "api": {
               "id": "e1f583a4-5bc3-4b47-9b41-6a916bd2dc53"
             },
-            "defaultValues": "\"400\"",
+            "defaultValues": "400",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1834,7 +1834,7 @@
             "api": {
               "id": "e1f583a4-5bc3-4b47-9b41-6a916bd2dc53"
             },
-            "defaultValues": "\"Raleway\"",
+            "defaultValues": "Raleway",
             "description": null,
             "fieldType": {
               "__typename": "PrimitiveType",
@@ -1861,7 +1861,7 @@
             "api": {
               "id": "a1b9b3a8-b09a-471e-b871-0ebfa40a7a20"
             },
-            "defaultValues": "\"400\"",
+            "defaultValues": "400",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1880,7 +1880,7 @@
             "api": {
               "id": "a1b9b3a8-b09a-471e-b871-0ebfa40a7a20"
             },
-            "defaultValues": "\"Roboto\"",
+            "defaultValues": "Roboto",
             "description": null,
             "fieldType": {
               "__typename": "PrimitiveType",
@@ -1907,7 +1907,7 @@
             "api": {
               "id": "719fc1d2-2289-4e4d-a8b9-e0ab1da83bb6"
             },
-            "defaultValues": "\"400\"",
+            "defaultValues": "400",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1926,7 +1926,7 @@
             "api": {
               "id": "719fc1d2-2289-4e4d-a8b9-e0ab1da83bb6"
             },
-            "defaultValues": "\"Roboto Condensed\"",
+            "defaultValues": "Roboto Condensed",
             "description": null,
             "fieldType": {
               "__typename": "PrimitiveType",
@@ -1953,7 +1953,7 @@
             "api": {
               "id": "d6a6104d-b710-4ae3-8b7b-6e704a2c4b36"
             },
-            "defaultValues": "\"400\"",
+            "defaultValues": "400",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -1972,7 +1972,7 @@
             "api": {
               "id": "d6a6104d-b710-4ae3-8b7b-6e704a2c4b36"
             },
-            "defaultValues": "\"Roboto Mono\"",
+            "defaultValues": "Roboto Mono",
             "description": null,
             "fieldType": {
               "__typename": "PrimitiveType",
@@ -1999,7 +1999,7 @@
             "api": {
               "id": "d6921cd9-a8a4-4a2b-b025-1a54311030cb"
             },
-            "defaultValues": "\"400\"",
+            "defaultValues": "400",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -2018,7 +2018,7 @@
             "api": {
               "id": "d6921cd9-a8a4-4a2b-b025-1a54311030cb"
             },
-            "defaultValues": "\"Roboto Slab\"",
+            "defaultValues": "Roboto Slab",
             "description": null,
             "fieldType": {
               "__typename": "PrimitiveType",
@@ -2045,7 +2045,7 @@
             "api": {
               "id": "b9b379e6-afd4-47eb-a14b-ac0eaa019c2e"
             },
-            "defaultValues": "\"400\"",
+            "defaultValues": "400",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -2064,7 +2064,7 @@
             "api": {
               "id": "b9b379e6-afd4-47eb-a14b-ac0eaa019c2e"
             },
-            "defaultValues": "\"Rubik\"",
+            "defaultValues": "Rubik",
             "description": null,
             "fieldType": {
               "__typename": "PrimitiveType",
@@ -2091,7 +2091,7 @@
             "api": {
               "id": "63be0022-34ca-41b5-bdd5-66d3344fa537"
             },
-            "defaultValues": "\"400\"",
+            "defaultValues": "400",
             "description": null,
             "fieldType": {
               "__typename": "EnumType",
@@ -2110,7 +2110,7 @@
             "api": {
               "id": "63be0022-34ca-41b5-bdd5-66d3344fa537"
             },
-            "defaultValues": "\"Ubuntu\"",
+            "defaultValues": "Ubuntu",
             "description": null,
             "fieldType": {
               "__typename": "PrimitiveType",

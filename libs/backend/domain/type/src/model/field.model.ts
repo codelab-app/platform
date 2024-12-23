@@ -13,6 +13,7 @@ export class Field implements IFieldDto {
   static create({ api, fieldType, id, key }: IFieldDto) {
     return new Field({
       api,
+      defaultValues: null,
       fieldType,
       id,
       key,

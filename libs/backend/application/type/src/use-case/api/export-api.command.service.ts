@@ -15,6 +15,7 @@ import {
 } from '@codelab/backend/domain/type'
 import {
   FieldDtoSchema,
+  FieldExportSchema,
   InterfaceTypeSchema,
   ITypeKind,
   TypeExportSchema,
@@ -55,7 +56,7 @@ export class ExportApiHandler
       options: {
         sort: [{ key: SortDirection.Asc }],
       },
-      schema: FieldDtoSchema,
+      schema: FieldExportSchema,
       where: { id_IN: interfaceType.fields.map(({ id }) => id) },
     })
 
@@ -81,6 +82,7 @@ export class ExportApiHandler
     const interfacesIds = dependentInterfaceTypes.map(({ id }) => id)
 
     const dependentFields = await this.fieldRepository.find({
+      schema: FieldExportSchema,
       where: {
         api: {
           id_IN: interfacesIds,
