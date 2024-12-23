@@ -21,11 +21,15 @@ export const TypeExportSchema = Type.Union(
   [
     Type.Omit(ActionTypeDtoSchema, ['owner']),
     Type.Omit(AppTypeDtoSchema, ['owner']),
-    Type.Omit(ArrayTypeDtoSchema, ['owner']),
+    Type.Omit(ArrayTypeDtoSchema(Type.Object({ name: Type.String() })), [
+      'owner',
+    ]),
     Type.Omit(CodeMirrorTypeDtoSchema, ['owner']),
     Type.Omit(ElementTypeDtoSchema, ['owner']),
     Type.Omit(EnumTypeDtoSchema, ['owner']),
-    Type.Omit(InterfaceTypeDtoSchema, ['owner']),
+    Type.Omit(InterfaceTypeDtoSchema(Type.Object({ name: Type.String() })), [
+      'owner',
+    ]),
     Type.Omit(LambdaTypeDtoSchema, ['owner']),
     Type.Omit(PageTypeDtoSchema, ['owner']),
     Type.Omit(PrimitiveTypeDtoSchema, ['owner']),

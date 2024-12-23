@@ -3,13 +3,19 @@ import type { PinoMessage } from '@codelab/shared/infra/logging'
 import type { LoggerService } from '@nestjs/common'
 
 import { Inject, Injectable } from '@nestjs/common'
+import { ConfigType } from '@nestjs/config'
 import { Logger, Params, PARAMS_PROVIDER_TOKEN, PinoLogger } from 'nestjs-pino'
+import pino from 'pino'
+
+import { loggerConfig } from './logger.config'
 
 @Injectable()
-export class CodelabLoggerService extends Logger implements LoggerService {
+export class PinoLoggerService extends Logger implements LoggerService {
   constructor(
     protected override logger: PinoLogger,
     @Inject(PARAMS_PROVIDER_TOKEN) params: Params,
+    @Inject(loggerConfig.KEY)
+    private readonly loggerConf: ConfigType<typeof loggerConfig>,
   ) {
     super(logger, {
       ...params,
@@ -36,5 +42,29 @@ export class CodelabLoggerService extends Logger implements LoggerService {
     const message = JSON.stringify(pinoMessage)
 
     this.logger.info(message)
+  }
+
+  public logToFile(
+    object: ObjectLike | undefined = {},
+    filePath = 'tmp/logs/application.log',
+  ): void {
+    console.log('Logging to file...', filePath)
+
+    const childLogger = pino({
+      transport: {
+        options: {
+          destination: filePath,
+          mkdir: true,
+        },
+        target: 'pino/file',
+      },
+    })
+
+    const pinoMessage: PinoMessage = {
+      context: 'FileLogger',
+      object,
+    }
+
+    childLogger.info(pinoMessage)
   }
 }

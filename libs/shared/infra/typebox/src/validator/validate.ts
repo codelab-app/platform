@@ -13,35 +13,5 @@ export const validateAndClean = <T extends TAnySchema>(
 ): Static<T> => {
   const validator = new NestedValidator(schema)
 
-  try {
-    return validator.validateAndCleanCopy(values as Readonly<unknown>)
-  } catch (error) {
-    const validationException = error as ValidationException
-
-    /**
-     * Remove schema from error
-     */
-    const cleanedErrors = {
-      ...validationException,
-      details: validationException.details.map(
-        ({ schema: _, ...detail }) => detail,
-      ),
-    }
-
-    console.error(
-      'Validation Error:',
-      JSON.stringify(
-        {
-          errors: cleanedErrors,
-          schema,
-        },
-        null,
-        2,
-      ),
-    )
-
-    console.error(values)
-
-    throw error
-  }
+  return validator.validateAndCleanCopy(values as Readonly<unknown>)
 }

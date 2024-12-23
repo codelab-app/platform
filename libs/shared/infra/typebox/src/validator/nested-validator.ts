@@ -14,6 +14,8 @@ import { IsUnion } from '../schema/is-union'
 
 /**
  * The standard validator checks the top level object properties and handles nested discriminated unions
+ *
+ * @throws {ValidationException} When validation fails
  */
 export class NestedValidator<S extends TSchema> extends StandardValidator<S> {
   protected override cleanCopyOfValue<VS extends TSchema>(

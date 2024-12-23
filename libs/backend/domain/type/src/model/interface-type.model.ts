@@ -3,6 +3,7 @@ import type {
   IFieldDto,
   IInterfaceTypeDto,
   IRef,
+  ITypeRef,
 } from '@codelab/shared/abstract/core'
 
 import { ITypeKind } from '@codelab/shared/abstract/core'

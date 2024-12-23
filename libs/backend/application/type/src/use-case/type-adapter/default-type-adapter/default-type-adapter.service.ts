@@ -309,18 +309,14 @@ export class DefaultTypeAdapterService implements ITypeTransformer {
   ) {
     const typesOfUnionType = parseSeparators({ type })
 
-    const mappedTypesOfUnionType = (
-      await Promise.all(
-        typesOfUnionType.map(async (typeOfUnionType) => {
-          return await this.execute({
-            atom,
-            field,
-            type: typeOfUnionType,
-          })
-        }),
-      )
-    ).filter((typeOfUnionType): typeOfUnionType is ITypeFragment =>
-      Boolean(typeOfUnionType),
+    const mappedTypesOfUnionType = await Promise.all(
+      typesOfUnionType.map(async (typeOfUnionType) => {
+        return await this.execute({
+          atom,
+          field,
+          type: typeOfUnionType,
+        })
+      }),
     )
 
     // Create nested types
@@ -337,7 +333,16 @@ export class DefaultTypeAdapterService implements ITypeTransformer {
       name: UnionType.compositeName(atom, field),
       owner: this.authDomainService.currentUser,
       // These need to exist already
-      typesOfUnionType: mappedTypesOfUnionType,
+      typesOfUnionType: mappedTypesOfUnionType.map((mappedType) => {
+        if (!mappedType) {
+          throw new Error('Mapped type is undefined')
+        }
+
+        return {
+          __typename: mappedType.__typename,
+          id: mappedType.id,
+        }
+      }),
     }
 
     await this.typeFactory.save(unionType)

@@ -1,23 +1,69 @@
 import type { ArgumentsHost } from '@nestjs/common'
+import type { HttpServer } from '@nestjs/common/interfaces'
 import type { Request } from 'express'
 
-import { Catch } from '@nestjs/common'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
+import { Catch, HttpException, Injectable } from '@nestjs/common'
 import { BaseExceptionFilter } from '@nestjs/core'
+import * as Sentry from '@sentry/nestjs'
+import { SentryExceptionCaptured } from '@sentry/nestjs'
 import { TypeboxValidationException } from 'nestjs-typebox'
+import { ValidationException } from 'typebox-validators'
 
+@Injectable()
 @Catch()
 export class AllExceptionsFilter extends BaseExceptionFilter {
+  constructor(
+    applicationRef: HttpServer,
+    private readonly logger: PinoLoggerService,
+  ) {
+    super(applicationRef)
+  }
+
+  /**
+   * This will catch all uncaught exceptions and log them to Sentry
+   */
   catch(exception: unknown, host: ArgumentsHost) {
-    if (exception instanceof TypeboxValidationException) {
-      // console.error(exception, host)
+    const request = host.switchToHttp().getRequest<Request>()
 
-      const request = host.switchToHttp().getRequest<Request>()
+    if (exception instanceof ValidationException) {
+      const logData = {
+        error: 'ValidationException',
+        path: request.url,
+        timestamp: new Date().toISOString(),
+        validationErrors: exception.details.map((detail) => ({
+          message: detail.message,
+          path: detail.path,
+          type: detail.type,
+          value: detail.value,
+        })),
+      }
 
-      // console.log(params, body)
+      // Log to both Sentry and file
+      // this.logger.logToSentry(logData)
+      this.logger.logToFile(exception, 'tmp/logs/validation-errors.log')
+
+      // Create an HTTP exception with validation error details
+      const httpException = new HttpException(
+        {
+          error: 'Validation Failed',
+          message: exception.message,
+          statusCode: 400,
+        },
+        400,
+      )
+
+      console.log(JSON.stringify(exception, null, 2))
+      console.log(JSON.stringify(logData, null, 2))
+
+      Sentry.captureException(exception, {
+        // Not working, move to breadcrumb
+        // extra: logData,
+      })
+
+      return super.catch(httpException, host)
     }
 
-    console.log('AllExceptionsFilter', exception)
-
-    super.catch(exception, host)
+    return super.catch(exception, host)
   }
 }

@@ -1,7 +1,7 @@
 import type { ICreateActionData } from '@codelab/shared/abstract/core'
 
 import { ActionFactory } from '@codelab/backend/domain/action'
-import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { actionFactory } from '@codelab/shared-domain-module/action'
 import { Injectable } from '@nestjs/common'
 
@@ -9,7 +9,7 @@ import { Injectable } from '@nestjs/common'
 export class ActionApplicationService {
   constructor(
     private factory: ActionFactory,
-    private loggerService: CodelabLoggerService,
+    private loggerService: PinoLoggerService,
   ) {}
 
   async createAction(createActionData: ICreateActionData) {

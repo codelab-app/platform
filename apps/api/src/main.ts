@@ -2,6 +2,7 @@ import type { endpointConfig } from '@codelab/backend/infra/core'
 import type { ConfigType } from '@nestjs/config'
 
 import { GraphqlService } from '@codelab/backend/infra/adapter/graphql'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ENDPOINT_CONFIG_KEY } from '@codelab/backend/infra/core'
 import { Logger } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
@@ -21,6 +22,9 @@ configureNestJsTypebox({
 })
 
 const bootstrap = async () => {
+  // Instrument add this first
+  await import('./sentry.config')
+
   const app = await NestFactory.create(RootModule, {
     /**
      * Enables devtools https://docs.nestjs.com/devtools/overview
@@ -48,8 +52,9 @@ const bootstrap = async () => {
    * Add exceptions filter
    */
   const { httpAdapter } = app.get(HttpAdapterHost)
+  const logger = app.get(PinoLoggerService)
 
-  app.useGlobalFilters(new AllExceptionsFilter(httpAdapter))
+  app.useGlobalFilters(new AllExceptionsFilter(httpAdapter, logger))
 
   /**
    * Add swagger

@@ -17,13 +17,13 @@ import { useExportAdminDataModal } from './export-admin-data.state'
 export const ExportAdminDataModal = () => {
   const exportDataModal = useExportAdminDataModal()
 
-  const onSubmitHandler = useCallback(async (data: IExportDto) => {
-    const exportedData = await exportAdminDataService(data)
+  const onSubmitHandler = async ({ adminDataPath, download }: IExportDto) => {
+    const exportedData = await exportAdminDataService({ adminDataPath })
 
-    if (exportedData) {
+    if (download) {
       downloadJsonAsFile('export.json', exportedData)
     }
-  }, [])
+  }
 
   return (
     <ModalForm.Modal

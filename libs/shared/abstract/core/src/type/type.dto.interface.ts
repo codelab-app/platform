@@ -21,11 +21,11 @@ export const TypeDtoSchema = Type.Union(
   [
     ActionTypeDtoSchema,
     AppTypeDtoSchema,
-    ArrayTypeDtoSchema,
+    ArrayTypeDtoSchema(),
     CodeMirrorTypeDtoSchema,
     ElementTypeDtoSchema,
     EnumTypeDtoSchema,
-    InterfaceTypeDtoSchema,
+    InterfaceTypeDtoSchema(),
     LambdaTypeDtoSchema,
     PageTypeDtoSchema,
     PrimitiveTypeDtoSchema,

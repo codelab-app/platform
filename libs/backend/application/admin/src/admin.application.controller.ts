@@ -1,4 +1,4 @@
-import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { DatabaseService } from '@codelab/backend-infra-adapter/neo4j-driver'
 import { type IExportDto, type IImportDto } from '@codelab/shared/abstract/core'
 import { Body, Controller, Post } from '@nestjs/common'
@@ -18,16 +18,16 @@ export class AdminController {
     private readonly commandBus: CommandBus,
     private readonly databaseService: DatabaseService,
     private seederApplicationService: SeederApplicationService,
-    protected loggerService: CodelabLoggerService,
+    protected loggerService: PinoLoggerService,
   ) {}
 
   @Post('export')
   async export(@Body() exportDto: IExportDto) {
-    const { adminDataPath, download } = exportDto
+    const { adminDataPath } = exportDto
     const exportCommand = new ExportAdminDataCommand(adminDataPath)
     const data = await this.commandBus.execute(exportCommand)
 
-    return download ? data : null
+    return data
   }
 
   @Post('import')

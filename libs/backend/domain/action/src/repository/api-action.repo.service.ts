@@ -5,7 +5,7 @@ import type {
   ApiActionWhere,
 } from '@codelab/shared/infra/gql'
 
-import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
@@ -33,7 +33,7 @@ export class ApiActionRepository extends AbstractRepository<
 > {
   constructor(
     protected override validationService: ValidationService,
-    protected override loggerService: CodelabLoggerService,
+    protected override loggerService: PinoLoggerService,
   ) {
     super(validationService, loggerService)
   }

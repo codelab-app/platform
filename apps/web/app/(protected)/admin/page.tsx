@@ -34,7 +34,6 @@ const AdminView = async () => {
             <ImportAdminDataModal />
             <ResetDataButtons />
           </Space>
-
           <UsersTable users={users} />
         </Space>
       </ContentSection>

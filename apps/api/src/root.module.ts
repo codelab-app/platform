@@ -5,12 +5,19 @@ import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
 import { Module } from '@nestjs/common'
 import { APP_GUARD } from '@nestjs/core'
 import { EventEmitterModule } from '@nestjs/event-emitter'
+import { SentryModule } from '@sentry/nestjs/setup'
 
 import { ApiModule } from './api/api.module'
 
 @Module({
   controllers: [HealthcheckController],
-  imports: [GraphqlModule, AuthModule, ApiModule, CodelabLoggerModule],
+  imports: [
+    SentryModule.forRoot(),
+    GraphqlModule,
+    AuthModule,
+    ApiModule,
+    CodelabLoggerModule,
+  ],
   /**
    * Need this to guard all controllers to inject the proper user into context
    *

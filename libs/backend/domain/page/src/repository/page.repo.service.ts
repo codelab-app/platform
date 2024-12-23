@@ -1,7 +1,7 @@
 import type { IPageDto } from '@codelab/shared/abstract/core'
 import type { Page, PageOptions, PageWhere } from '@codelab/shared/infra/gql'
 
-import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import { PageFragment } from '@codelab/shared/infra/gql'
@@ -17,7 +17,7 @@ export class PageRepository extends AbstractRepository<
 > {
   constructor(
     protected override validationService: ValidationService,
-    protected override loggerService: CodelabLoggerService,
+    protected override loggerService: PinoLoggerService,
   ) {
     super(validationService, loggerService)
   }

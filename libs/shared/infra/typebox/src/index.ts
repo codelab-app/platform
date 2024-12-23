@@ -17,8 +17,8 @@ const Typebox = {
   Ref,
   Serialized,
   TRef,
-  ValidateAndClean: validateAndClean,
-  // Values: values,
 }
 
+export * from './validator/nested-validator'
+export * from './validator/validate'
 export { Typebox }

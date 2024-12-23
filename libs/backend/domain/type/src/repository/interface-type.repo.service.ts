@@ -1,7 +1,4 @@
-import type {
-  IInterfaceTypeDto,
-  ITypeRef,
-} from '@codelab/shared/abstract/core'
+import type { IInterfaceTypeDto, ITypeRef } from '@codelab/shared/abstract/core'
 import type {
   InterfaceType,
   InterfaceTypeOptions,
@@ -9,7 +6,7 @@ import type {
 } from '@codelab/shared/infra/gql'
 import type { Static, TAnySchema } from '@sinclair/typebox'
 
-import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import {
@@ -35,7 +32,7 @@ export class InterfaceTypeRepository extends AbstractRepository<
   constructor(
     private neo4jService: Neo4jService,
     protected override validationService: ValidationService,
-    protected override loggerService: CodelabLoggerService,
+    protected override loggerService: PinoLoggerService,
   ) {
     super(validationService, loggerService)
   }

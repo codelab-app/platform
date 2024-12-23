@@ -1,4 +1,4 @@
-import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
   CreateResourceDataSchema,
   type ICreateResourceData,
@@ -19,7 +19,7 @@ import { ResourceApplicationService } from './resource.application.service'
 export class ResourceApplicationController {
   constructor(
     private resourceApplicationService: ResourceApplicationService,
-    private loggerService: CodelabLoggerService,
+    private loggerService: PinoLoggerService,
   ) {}
 
   @Post('create-resource')

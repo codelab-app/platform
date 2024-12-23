@@ -7,7 +7,7 @@ import type {
 } from '@codelab/shared/infra/gql'
 
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
-import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import { CodeMirrorTypeFragment } from '@codelab/shared/infra/gql'
@@ -27,7 +27,7 @@ export class CodeMirrorTypeRepository extends AbstractRepository<
   CodeMirrorTypeOptions
 > {
   constructor(
-    protected override loggerService: CodelabLoggerService,
+    protected override loggerService: PinoLoggerService,
     protected override validationService: ValidationService,
     protected authService: AuthDomainService,
   ) {

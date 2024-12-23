@@ -128,6 +128,7 @@
     "@rjsf/core": "5.18.3",
     "@rjsf/utils": "5.18.3",
     "@rjsf/validator-ajv8": "5.18.3",
+    "@sentry/nestjs": "^8.47.0",
     "@sentry/nextjs": "8",
     "@sentry/profiling-node": "8.35.0",
     "@sentry/react": "8.35.0",

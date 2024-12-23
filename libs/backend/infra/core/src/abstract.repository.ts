@@ -2,7 +2,7 @@ import type { IRepository } from '@codelab/backend/abstract/types'
 import type { IRef } from '@codelab/shared/abstract/core'
 import type { Static, TAnySchema } from '@sinclair/typebox'
 
-import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { NotFoundError } from '@codelab/shared/domain/errors'
 import { Injectable } from '@nestjs/common'
@@ -17,7 +17,7 @@ export abstract class AbstractRepository<
 {
   constructor(
     protected validationService: ValidationService,
-    protected loggerService: CodelabLoggerService,
+    protected loggerService: PinoLoggerService,
   ) {}
 
   /**

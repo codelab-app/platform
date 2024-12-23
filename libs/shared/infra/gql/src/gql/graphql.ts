@@ -31305,20 +31305,20 @@ export type AppTypeFragment = BaseType_AppType_Fragment
 
 export type ArrayTypeFragment = {
   itemType:
-    | { id: string; kind: TypeKind; name: string }
-    | { id: string; kind: TypeKind; name: string }
-    | { id: string; kind: TypeKind; name: string }
-    | { id: string; kind: TypeKind; name: string }
-    | { id: string; kind: TypeKind; name: string }
-    | { id: string; kind: TypeKind; name: string }
-    | { id: string; kind: TypeKind; name: string }
-    | { id: string; kind: TypeKind; name: string }
-    | { id: string; kind: TypeKind; name: string }
-    | { id: string; kind: TypeKind; name: string }
-    | { id: string; kind: TypeKind; name: string }
-    | { id: string; kind: TypeKind; name: string }
-    | { id: string; kind: TypeKind; name: string }
-    | { id: string; kind: TypeKind; name: string }
+    | BaseTypeRef_ActionType_Fragment
+    | BaseTypeRef_AppType_Fragment
+    | BaseTypeRef_ArrayType_Fragment
+    | BaseTypeRef_CodeMirrorType_Fragment
+    | BaseTypeRef_ElementType_Fragment
+    | BaseTypeRef_EnumType_Fragment
+    | BaseTypeRef_InterfaceType_Fragment
+    | BaseTypeRef_LambdaType_Fragment
+    | BaseTypeRef_PageType_Fragment
+    | BaseTypeRef_PrimitiveType_Fragment
+    | BaseTypeRef_ReactNodeType_Fragment
+    | BaseTypeRef_RenderPropType_Fragment
+    | BaseTypeRef_RichTextType_Fragment
+    | BaseTypeRef_UnionType_Fragment
 } & BaseType_ArrayType_Fragment
 
 type BaseType_ActionType_Fragment = {
@@ -31449,6 +31449,120 @@ export type BaseTypeFragment =
   | BaseType_RichTextType_Fragment
   | BaseType_UnionType_Fragment
 
+type BaseTypeRef_ActionType_Fragment = {
+  __typename: 'ActionType'
+  id: string
+  kind: TypeKind
+  name: string
+}
+
+type BaseTypeRef_AppType_Fragment = {
+  __typename: 'AppType'
+  id: string
+  kind: TypeKind
+  name: string
+}
+
+type BaseTypeRef_ArrayType_Fragment = {
+  __typename: 'ArrayType'
+  id: string
+  kind: TypeKind
+  name: string
+}
+
+type BaseTypeRef_CodeMirrorType_Fragment = {
+  __typename: 'CodeMirrorType'
+  id: string
+  kind: TypeKind
+  name: string
+}
+
+type BaseTypeRef_ElementType_Fragment = {
+  __typename: 'ElementType'
+  id: string
+  kind: TypeKind
+  name: string
+}
+
+type BaseTypeRef_EnumType_Fragment = {
+  __typename: 'EnumType'
+  id: string
+  kind: TypeKind
+  name: string
+}
+
+type BaseTypeRef_InterfaceType_Fragment = {
+  __typename: 'InterfaceType'
+  id: string
+  kind: TypeKind
+  name: string
+}
+
+type BaseTypeRef_LambdaType_Fragment = {
+  __typename: 'LambdaType'
+  id: string
+  kind: TypeKind
+  name: string
+}
+
+type BaseTypeRef_PageType_Fragment = {
+  __typename: 'PageType'
+  id: string
+  kind: TypeKind
+  name: string
+}
+
+type BaseTypeRef_PrimitiveType_Fragment = {
+  __typename: 'PrimitiveType'
+  id: string
+  kind: TypeKind
+  name: string
+}
+
+type BaseTypeRef_ReactNodeType_Fragment = {
+  __typename: 'ReactNodeType'
+  id: string
+  kind: TypeKind
+  name: string
+}
+
+type BaseTypeRef_RenderPropType_Fragment = {
+  __typename: 'RenderPropType'
+  id: string
+  kind: TypeKind
+  name: string
+}
+
+type BaseTypeRef_RichTextType_Fragment = {
+  __typename: 'RichTextType'
+  id: string
+  kind: TypeKind
+  name: string
+}
+
+type BaseTypeRef_UnionType_Fragment = {
+  __typename: 'UnionType'
+  id: string
+  kind: TypeKind
+  name: string
+}
+
+export type BaseTypeRefFragment =
+  | BaseTypeRef_ActionType_Fragment
+  | BaseTypeRef_AppType_Fragment
+  | BaseTypeRef_ArrayType_Fragment
+  | BaseTypeRef_CodeMirrorType_Fragment
+  | BaseTypeRef_ElementType_Fragment
+  | BaseTypeRef_EnumType_Fragment
+  | BaseTypeRef_InterfaceType_Fragment
+  | BaseTypeRef_LambdaType_Fragment
+  | BaseTypeRef_PageType_Fragment
+  | BaseTypeRef_PrimitiveType_Fragment
+  | BaseTypeRef_ReactNodeType_Fragment
+  | BaseTypeRef_RenderPropType_Fragment
+  | BaseTypeRef_RichTextType_Fragment
+  | BaseTypeRef_UnionType_Fragment
+
 export type CodeMirrorTypeFragment = {
   language: CodeMirrorLanguage
 } & BaseType_CodeMirrorType_Fragment
@@ -31470,22 +31584,22 @@ export type FieldFragment = {
   key: string
   name?: string | null
   validationRules?: string | null
-  api: { id: string }
+  api: BaseTypeRef_InterfaceType_Fragment
   fieldType:
-    | { __typename: 'ActionType'; id: string; kind: TypeKind; name: string }
-    | { __typename: 'AppType'; id: string; kind: TypeKind; name: string }
-    | { __typename: 'ArrayType'; id: string; kind: TypeKind; name: string }
-    | { __typename: 'CodeMirrorType'; id: string; kind: TypeKind; name: string }
-    | { __typename: 'ElementType'; id: string; kind: TypeKind; name: string }
-    | { __typename: 'EnumType'; id: string; kind: TypeKind; name: string }
-    | { __typename: 'InterfaceType'; id: string; kind: TypeKind; name: string }
-    | { __typename: 'LambdaType'; id: string; kind: TypeKind; name: string }
-    | { __typename: 'PageType'; id: string; kind: TypeKind; name: string }
-    | { __typename: 'PrimitiveType'; id: string; kind: TypeKind; name: string }
-    | { __typename: 'ReactNodeType'; id: string; kind: TypeKind; name: string }
-    | { __typename: 'RenderPropType'; id: string; kind: TypeKind; name: string }
-    | { __typename: 'RichTextType'; id: string; kind: TypeKind; name: string }
-    | { __typename: 'UnionType'; id: string; kind: TypeKind; name: string }
+    | BaseType_ActionType_Fragment
+    | BaseType_AppType_Fragment
+    | BaseType_ArrayType_Fragment
+    | BaseType_CodeMirrorType_Fragment
+    | BaseType_ElementType_Fragment
+    | BaseType_EnumType_Fragment
+    | BaseType_InterfaceType_Fragment
+    | BaseType_LambdaType_Fragment
+    | BaseType_PageType_Fragment
+    | BaseType_PrimitiveType_Fragment
+    | BaseType_ReactNodeType_Fragment
+    | BaseType_RenderPropType_Fragment
+    | BaseType_RichTextType_Fragment
+    | BaseType_UnionType_Fragment
   nextSibling?: { id: string } | null
   prevSibling?: { id: string } | null
 }
@@ -31554,20 +31668,20 @@ export type TypeFragment =
 
 export type UnionTypeFragment = {
   typesOfUnionType: Array<
-    | BaseType_ActionType_Fragment
-    | BaseType_AppType_Fragment
-    | BaseType_ArrayType_Fragment
-    | BaseType_CodeMirrorType_Fragment
-    | BaseType_ElementType_Fragment
-    | BaseType_EnumType_Fragment
-    | BaseType_InterfaceType_Fragment
-    | BaseType_LambdaType_Fragment
-    | BaseType_PageType_Fragment
-    | BaseType_PrimitiveType_Fragment
-    | BaseType_ReactNodeType_Fragment
-    | BaseType_RenderPropType_Fragment
-    | BaseType_RichTextType_Fragment
-    | BaseType_UnionType_Fragment
+    | BaseTypeRef_ActionType_Fragment
+    | BaseTypeRef_AppType_Fragment
+    | BaseTypeRef_ArrayType_Fragment
+    | BaseTypeRef_CodeMirrorType_Fragment
+    | BaseTypeRef_ElementType_Fragment
+    | BaseTypeRef_EnumType_Fragment
+    | BaseTypeRef_InterfaceType_Fragment
+    | BaseTypeRef_LambdaType_Fragment
+    | BaseTypeRef_PageType_Fragment
+    | BaseTypeRef_PrimitiveType_Fragment
+    | BaseTypeRef_ReactNodeType_Fragment
+    | BaseTypeRef_RenderPropType_Fragment
+    | BaseTypeRef_RichTextType_Fragment
+    | BaseTypeRef_UnionType_Fragment
   >
 } & BaseType_UnionType_Fragment
 
@@ -33035,15 +33149,24 @@ export const AppTypeFragmentDoc = new TypedDocumentString(
 }`,
   { fragmentName: 'AppType' },
 ) as unknown as TypedDocumentString<AppTypeFragment, unknown>
+export const BaseTypeRefFragmentDoc = new TypedDocumentString(
+  `
+    fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
+}
+    `,
+  { fragmentName: 'BaseTypeRef' },
+) as unknown as TypedDocumentString<BaseTypeRefFragment, unknown>
 export const ArrayTypeFragmentDoc = new TypedDocumentString(
   `
     fragment ArrayType on ArrayType {
   ...BaseType
   itemType {
     ... on IBaseType {
-      id
-      kind
-      name
+      ...BaseTypeRef
     }
   }
 }
@@ -33055,6 +33178,12 @@ export const ArrayTypeFragmentDoc = new TypedDocumentString(
   owner {
     id
   }
+}
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
 }`,
   { fragmentName: 'ArrayType' },
 ) as unknown as TypedDocumentString<ArrayTypeFragment, unknown>
@@ -33131,17 +33260,14 @@ export const FieldFragmentDoc = new TypedDocumentString(
     fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -33155,7 +33281,21 @@ export const FieldFragmentDoc = new TypedDocumentString(
   }
   validationRules
 }
-    `,
+    fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+  owner {
+    id
+  }
+}
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
+}`,
   { fragmentName: 'Field' },
 ) as unknown as TypedDocumentString<FieldFragment, unknown>
 export const InterfaceTypeFragmentDoc = new TypedDocumentString(
@@ -33175,20 +33315,23 @@ export const InterfaceTypeFragmentDoc = new TypedDocumentString(
     id
   }
 }
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
+}
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -33307,7 +33450,7 @@ export const UnionTypeFragmentDoc = new TypedDocumentString(
   ...BaseType
   typesOfUnionType {
     ... on IBaseType {
-      ...BaseType
+      ...BaseTypeRef
     }
   }
 }
@@ -33319,6 +33462,12 @@ export const UnionTypeFragmentDoc = new TypedDocumentString(
   owner {
     id
   }
+}
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
 }`,
   { fragmentName: 'UnionType' },
 ) as unknown as TypedDocumentString<UnionTypeFragment, unknown>
@@ -33350,9 +33499,7 @@ fragment ArrayType on ArrayType {
   ...BaseType
   itemType {
     ... on IBaseType {
-      id
-      kind
-      name
+      ...BaseTypeRef
     }
   }
 }
@@ -33364,6 +33511,12 @@ fragment BaseType on IBaseType {
   owner {
     id
   }
+}
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -33387,17 +33540,14 @@ fragment EnumType on EnumType {
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -33440,7 +33590,7 @@ fragment UnionType on UnionType {
   ...BaseType
   typesOfUnionType {
     ... on IBaseType {
-      ...BaseType
+      ...BaseTypeRef
     }
   }
 }`,
@@ -33511,20 +33661,23 @@ fragment BaseType on IBaseType {
     id
   }
 }
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
+}
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -33659,9 +33812,7 @@ fragment ArrayType on ArrayType {
   ...BaseType
   itemType {
     ... on IBaseType {
-      id
-      kind
-      name
+      ...BaseTypeRef
     }
   }
 }
@@ -33673,6 +33824,12 @@ fragment BaseType on IBaseType {
   owner {
     id
   }
+}
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -33696,17 +33853,14 @@ fragment EnumType on EnumType {
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -33765,7 +33919,7 @@ fragment UnionType on UnionType {
   ...BaseType
   typesOfUnionType {
     ... on IBaseType {
-      ...BaseType
+      ...BaseTypeRef
     }
   }
 }`,
@@ -34001,20 +34155,23 @@ fragment BaseType on IBaseType {
     id
   }
 }
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
+}
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -34233,9 +34390,7 @@ fragment ArrayType on ArrayType {
   ...BaseType
   itemType {
     ... on IBaseType {
-      id
-      kind
-      name
+      ...BaseTypeRef
     }
   }
 }
@@ -34247,6 +34402,12 @@ fragment BaseType on IBaseType {
   owner {
     id
   }
+}
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -34270,17 +34431,14 @@ fragment EnumType on EnumType {
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -34339,7 +34497,7 @@ fragment UnionType on UnionType {
   ...BaseType
   typesOfUnionType {
     ... on IBaseType {
-      ...BaseType
+      ...BaseTypeRef
     }
   }
 }`,
@@ -34566,9 +34724,7 @@ fragment ArrayType on ArrayType {
   ...BaseType
   itemType {
     ... on IBaseType {
-      id
-      kind
-      name
+      ...BaseTypeRef
     }
   }
 }
@@ -34580,6 +34736,12 @@ fragment BaseType on IBaseType {
   owner {
     id
   }
+}
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -34603,17 +34765,14 @@ fragment EnumType on EnumType {
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -34672,7 +34831,7 @@ fragment UnionType on UnionType {
   ...BaseType
   typesOfUnionType {
     ... on IBaseType {
-      ...BaseType
+      ...BaseTypeRef
     }
   }
 }
@@ -34878,9 +35037,7 @@ fragment ArrayType on ArrayType {
   ...BaseType
   itemType {
     ... on IBaseType {
-      id
-      kind
-      name
+      ...BaseTypeRef
     }
   }
 }
@@ -34892,6 +35049,12 @@ fragment BaseType on IBaseType {
   owner {
     id
   }
+}
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -34915,17 +35078,14 @@ fragment EnumType on EnumType {
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -34984,7 +35144,7 @@ fragment UnionType on UnionType {
   ...BaseType
   typesOfUnionType {
     ... on IBaseType {
-      ...BaseType
+      ...BaseTypeRef
     }
   }
 }`,
@@ -35200,9 +35360,7 @@ fragment ArrayType on ArrayType {
   ...BaseType
   itemType {
     ... on IBaseType {
-      id
-      kind
-      name
+      ...BaseTypeRef
     }
   }
 }
@@ -35214,6 +35372,12 @@ fragment BaseType on IBaseType {
   owner {
     id
   }
+}
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -35237,17 +35401,14 @@ fragment EnumType on EnumType {
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -35306,7 +35467,7 @@ fragment UnionType on UnionType {
   ...BaseType
   typesOfUnionType {
     ... on IBaseType {
-      ...BaseType
+      ...BaseTypeRef
     }
   }
 }
@@ -35435,9 +35596,7 @@ fragment ArrayType on ArrayType {
   ...BaseType
   itemType {
     ... on IBaseType {
-      id
-      kind
-      name
+      ...BaseTypeRef
     }
   }
 }
@@ -35449,6 +35608,12 @@ fragment BaseType on IBaseType {
   owner {
     id
   }
+}
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -35472,17 +35637,14 @@ fragment EnumType on EnumType {
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -35541,7 +35703,7 @@ fragment UnionType on UnionType {
   ...BaseType
   typesOfUnionType {
     ... on IBaseType {
-      ...BaseType
+      ...BaseTypeRef
     }
   }
 }`,
@@ -35727,9 +35889,7 @@ fragment ArrayType on ArrayType {
   ...BaseType
   itemType {
     ... on IBaseType {
-      id
-      kind
-      name
+      ...BaseTypeRef
     }
   }
 }
@@ -35741,6 +35901,12 @@ fragment BaseType on IBaseType {
   owner {
     id
   }
+}
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -35764,17 +35930,14 @@ fragment EnumType on EnumType {
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -35833,7 +35996,7 @@ fragment UnionType on UnionType {
   ...BaseType
   typesOfUnionType {
     ... on IBaseType {
-      ...BaseType
+      ...BaseTypeRef
     }
   }
 }`,
@@ -36030,9 +36193,7 @@ fragment ArrayType on ArrayType {
   ...BaseType
   itemType {
     ... on IBaseType {
-      id
-      kind
-      name
+      ...BaseTypeRef
     }
   }
 }
@@ -36044,6 +36205,12 @@ fragment BaseType on IBaseType {
   owner {
     id
   }
+}
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -36067,17 +36234,14 @@ fragment EnumType on EnumType {
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -36136,7 +36300,7 @@ fragment UnionType on UnionType {
   ...BaseType
   typesOfUnionType {
     ... on IBaseType {
-      ...BaseType
+      ...BaseTypeRef
     }
   }
 }
@@ -36192,20 +36356,23 @@ fragment BaseType on IBaseType {
     id
   }
 }
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
+}
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -36324,20 +36491,23 @@ fragment BaseType on IBaseType {
     id
   }
 }
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
+}
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -36560,9 +36730,7 @@ fragment ArrayType on ArrayType {
   ...BaseType
   itemType {
     ... on IBaseType {
-      id
-      kind
-      name
+      ...BaseTypeRef
     }
   }
 }
@@ -36574,6 +36742,12 @@ fragment BaseType on IBaseType {
   owner {
     id
   }
+}
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -36597,17 +36771,14 @@ fragment EnumType on EnumType {
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -36666,7 +36837,7 @@ fragment UnionType on UnionType {
   ...BaseType
   typesOfUnionType {
     ... on IBaseType {
-      ...BaseType
+      ...BaseTypeRef
     }
   }
 }
@@ -36768,20 +36939,23 @@ fragment BaseType on IBaseType {
     id
   }
 }
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
+}
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -37399,9 +37573,7 @@ fragment ArrayType on ArrayType {
   ...BaseType
   itemType {
     ... on IBaseType {
-      id
-      kind
-      name
+      ...BaseTypeRef
     }
   }
 }
@@ -37413,6 +37585,12 @@ fragment BaseType on IBaseType {
   owner {
     id
   }
+}
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -37436,17 +37614,14 @@ fragment EnumType on EnumType {
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -37505,7 +37680,7 @@ fragment UnionType on UnionType {
   ...BaseType
   typesOfUnionType {
     ... on IBaseType {
-      ...BaseType
+      ...BaseTypeRef
     }
   }
 }
@@ -37758,9 +37933,7 @@ fragment ArrayType on ArrayType {
   ...BaseType
   itemType {
     ... on IBaseType {
-      id
-      kind
-      name
+      ...BaseTypeRef
     }
   }
 }
@@ -37772,6 +37945,12 @@ fragment BaseType on IBaseType {
   owner {
     id
   }
+}
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -37795,17 +37974,14 @@ fragment EnumType on EnumType {
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -37864,7 +38040,7 @@ fragment UnionType on UnionType {
   ...BaseType
   typesOfUnionType {
     ... on IBaseType {
-      ...BaseType
+      ...BaseTypeRef
     }
   }
 }
@@ -38196,9 +38372,7 @@ fragment ArrayType on ArrayType {
   ...BaseType
   itemType {
     ... on IBaseType {
-      id
-      kind
-      name
+      ...BaseTypeRef
     }
   }
 }
@@ -38210,6 +38384,12 @@ fragment BaseType on IBaseType {
   owner {
     id
   }
+}
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -38233,17 +38413,14 @@ fragment EnumType on EnumType {
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -38302,7 +38479,7 @@ fragment UnionType on UnionType {
   ...BaseType
   typesOfUnionType {
     ... on IBaseType {
-      ...BaseType
+      ...BaseTypeRef
     }
   }
 }
@@ -38510,9 +38687,7 @@ fragment ArrayType on ArrayType {
   ...BaseType
   itemType {
     ... on IBaseType {
-      id
-      kind
-      name
+      ...BaseTypeRef
     }
   }
 }
@@ -38524,6 +38699,12 @@ fragment BaseType on IBaseType {
   owner {
     id
   }
+}
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -38547,17 +38728,14 @@ fragment EnumType on EnumType {
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -38616,7 +38794,7 @@ fragment UnionType on UnionType {
   ...BaseType
   typesOfUnionType {
     ... on IBaseType {
-      ...BaseType
+      ...BaseTypeRef
     }
   }
 }
@@ -38707,20 +38885,23 @@ fragment BaseType on IBaseType {
     id
   }
 }
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
+}
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -38968,20 +39149,23 @@ fragment BaseType on IBaseType {
     id
   }
 }
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
+}
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -39214,9 +39398,7 @@ fragment ArrayType on ArrayType {
   ...BaseType
   itemType {
     ... on IBaseType {
-      id
-      kind
-      name
+      ...BaseTypeRef
     }
   }
 }
@@ -39228,6 +39410,12 @@ fragment BaseType on IBaseType {
   owner {
     id
   }
+}
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -39251,17 +39439,14 @@ fragment EnumType on EnumType {
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -39320,7 +39505,7 @@ fragment UnionType on UnionType {
   ...BaseType
   typesOfUnionType {
     ... on IBaseType {
-      ...BaseType
+      ...BaseTypeRef
     }
   }
 }`) as unknown as TypedDocumentString<
@@ -39406,20 +39591,32 @@ export const GetFieldsDocument = new TypedDocumentString(`
     ...Field
   }
 }
-    fragment Field on Field {
+    fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+  owner {
+    id
+  }
+}
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
+}
+fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -39671,9 +39868,7 @@ fragment ArrayType on ArrayType {
   ...BaseType
   itemType {
     ... on IBaseType {
-      id
-      kind
-      name
+      ...BaseTypeRef
     }
   }
 }
@@ -39685,6 +39880,12 @@ fragment BaseType on IBaseType {
   owner {
     id
   }
+}
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -39708,17 +39909,14 @@ fragment EnumType on EnumType {
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -39777,7 +39975,7 @@ fragment UnionType on UnionType {
   ...BaseType
   typesOfUnionType {
     ... on IBaseType {
-      ...BaseType
+      ...BaseTypeRef
     }
   }
 }`) as unknown as TypedDocumentString<PageListQuery, PageListQueryVariables>
@@ -39982,9 +40180,7 @@ fragment ArrayType on ArrayType {
   ...BaseType
   itemType {
     ... on IBaseType {
-      id
-      kind
-      name
+      ...BaseTypeRef
     }
   }
 }
@@ -39996,6 +40192,12 @@ fragment BaseType on IBaseType {
   owner {
     id
   }
+}
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -40019,17 +40221,14 @@ fragment EnumType on EnumType {
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -40088,7 +40287,7 @@ fragment UnionType on UnionType {
   ...BaseType
   typesOfUnionType {
     ... on IBaseType {
-      ...BaseType
+      ...BaseTypeRef
     }
   }
 }`) as unknown as TypedDocumentString<
@@ -40611,20 +40810,23 @@ fragment BaseType on IBaseType {
     id
   }
 }
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
+}
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -41160,9 +41362,7 @@ fragment ArrayType on ArrayType {
   ...BaseType
   itemType {
     ... on IBaseType {
-      id
-      kind
-      name
+      ...BaseTypeRef
     }
   }
 }
@@ -41174,6 +41374,12 @@ fragment BaseType on IBaseType {
   owner {
     id
   }
+}
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -41197,17 +41403,14 @@ fragment EnumType on EnumType {
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -41266,7 +41469,7 @@ fragment UnionType on UnionType {
   ...BaseType
   typesOfUnionType {
     ... on IBaseType {
-      ...BaseType
+      ...BaseTypeRef
     }
   }
 }`) as unknown as TypedDocumentString<GetTypesQuery, GetTypesQueryVariables>
@@ -41302,9 +41505,7 @@ fragment ArrayType on ArrayType {
   ...BaseType
   itemType {
     ... on IBaseType {
-      id
-      kind
-      name
+      ...BaseTypeRef
     }
   }
 }
@@ -41316,6 +41517,12 @@ fragment BaseType on IBaseType {
   owner {
     id
   }
+}
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -41339,17 +41546,14 @@ fragment EnumType on EnumType {
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -41408,7 +41612,7 @@ fragment UnionType on UnionType {
   ...BaseType
   typesOfUnionType {
     ... on IBaseType {
-      ...BaseType
+      ...BaseTypeRef
     }
   }
 }`) as unknown as TypedDocumentString<
@@ -41431,9 +41635,7 @@ fragment ArrayType on ArrayType {
   ...BaseType
   itemType {
     ... on IBaseType {
-      id
-      kind
-      name
+      ...BaseTypeRef
     }
   }
 }
@@ -41445,6 +41647,12 @@ fragment BaseType on IBaseType {
   owner {
     id
   }
+}
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -41468,17 +41676,14 @@ fragment EnumType on EnumType {
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -41537,7 +41742,7 @@ fragment UnionType on UnionType {
   ...BaseType
   typesOfUnionType {
     ... on IBaseType {
-      ...BaseType
+      ...BaseTypeRef
     }
   }
 }`) as unknown as TypedDocumentString<
@@ -41560,9 +41765,7 @@ fragment ArrayType on ArrayType {
   ...BaseType
   itemType {
     ... on IBaseType {
-      id
-      kind
-      name
+      ...BaseTypeRef
     }
   }
 }
@@ -41574,6 +41777,12 @@ fragment BaseType on IBaseType {
   owner {
     id
   }
+}
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -41597,17 +41806,14 @@ fragment EnumType on EnumType {
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -41666,7 +41872,7 @@ fragment UnionType on UnionType {
   ...BaseType
   typesOfUnionType {
     ... on IBaseType {
-      ...BaseType
+      ...BaseTypeRef
     }
   }
 }`) as unknown as TypedDocumentString<
@@ -41689,9 +41895,7 @@ fragment ArrayType on ArrayType {
   ...BaseType
   itemType {
     ... on IBaseType {
-      id
-      kind
-      name
+      ...BaseTypeRef
     }
   }
 }
@@ -41703,6 +41907,12 @@ fragment BaseType on IBaseType {
   owner {
     id
   }
+}
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -41726,17 +41936,14 @@ fragment EnumType on EnumType {
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -41795,7 +42002,7 @@ fragment UnionType on UnionType {
   ...BaseType
   typesOfUnionType {
     ... on IBaseType {
-      ...BaseType
+      ...BaseTypeRef
     }
   }
 }`) as unknown as TypedDocumentString<
@@ -41818,9 +42025,7 @@ fragment ArrayType on ArrayType {
   ...BaseType
   itemType {
     ... on IBaseType {
-      id
-      kind
-      name
+      ...BaseTypeRef
     }
   }
 }
@@ -41832,6 +42037,12 @@ fragment BaseType on IBaseType {
   owner {
     id
   }
+}
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -41855,17 +42066,14 @@ fragment EnumType on EnumType {
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -41924,7 +42132,7 @@ fragment UnionType on UnionType {
   ...BaseType
   typesOfUnionType {
     ... on IBaseType {
-      ...BaseType
+      ...BaseTypeRef
     }
   }
 }`) as unknown as TypedDocumentString<
@@ -41947,9 +42155,7 @@ fragment ArrayType on ArrayType {
   ...BaseType
   itemType {
     ... on IBaseType {
-      id
-      kind
-      name
+      ...BaseTypeRef
     }
   }
 }
@@ -41961,6 +42167,12 @@ fragment BaseType on IBaseType {
   owner {
     id
   }
+}
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -41984,17 +42196,14 @@ fragment EnumType on EnumType {
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -42053,7 +42262,7 @@ fragment UnionType on UnionType {
   ...BaseType
   typesOfUnionType {
     ... on IBaseType {
-      ...BaseType
+      ...BaseTypeRef
     }
   }
 }`) as unknown as TypedDocumentString<
@@ -42118,9 +42327,7 @@ fragment ArrayType on ArrayType {
   ...BaseType
   itemType {
     ... on IBaseType {
-      id
-      kind
-      name
+      ...BaseTypeRef
     }
   }
 }
@@ -42132,6 +42339,12 @@ fragment BaseType on IBaseType {
   owner {
     id
   }
+}
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -42155,17 +42368,14 @@ fragment EnumType on EnumType {
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -42224,7 +42434,7 @@ fragment UnionType on UnionType {
   ...BaseType
   typesOfUnionType {
     ... on IBaseType {
-      ...BaseType
+      ...BaseTypeRef
     }
   }
 }`) as unknown as TypedDocumentString<
@@ -42247,9 +42457,7 @@ fragment ArrayType on ArrayType {
   ...BaseType
   itemType {
     ... on IBaseType {
-      id
-      kind
-      name
+      ...BaseTypeRef
     }
   }
 }
@@ -42261,6 +42469,12 @@ fragment BaseType on IBaseType {
   owner {
     id
   }
+}
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -42284,17 +42498,14 @@ fragment EnumType on EnumType {
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -42353,7 +42564,7 @@ fragment UnionType on UnionType {
   ...BaseType
   typesOfUnionType {
     ... on IBaseType {
-      ...BaseType
+      ...BaseTypeRef
     }
   }
 }`) as unknown as TypedDocumentString<
@@ -42376,9 +42587,7 @@ fragment ArrayType on ArrayType {
   ...BaseType
   itemType {
     ... on IBaseType {
-      id
-      kind
-      name
+      ...BaseTypeRef
     }
   }
 }
@@ -42390,6 +42599,12 @@ fragment BaseType on IBaseType {
   owner {
     id
   }
+}
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -42413,17 +42628,14 @@ fragment EnumType on EnumType {
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -42482,7 +42694,7 @@ fragment UnionType on UnionType {
   ...BaseType
   typesOfUnionType {
     ... on IBaseType {
-      ...BaseType
+      ...BaseTypeRef
     }
   }
 }`) as unknown as TypedDocumentString<
@@ -42505,9 +42717,7 @@ fragment ArrayType on ArrayType {
   ...BaseType
   itemType {
     ... on IBaseType {
-      id
-      kind
-      name
+      ...BaseTypeRef
     }
   }
 }
@@ -42519,6 +42729,12 @@ fragment BaseType on IBaseType {
   owner {
     id
   }
+}
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -42542,17 +42758,14 @@ fragment EnumType on EnumType {
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -42611,7 +42824,7 @@ fragment UnionType on UnionType {
   ...BaseType
   typesOfUnionType {
     ... on IBaseType {
-      ...BaseType
+      ...BaseTypeRef
     }
   }
 }`) as unknown as TypedDocumentString<
@@ -42634,9 +42847,7 @@ fragment ArrayType on ArrayType {
   ...BaseType
   itemType {
     ... on IBaseType {
-      id
-      kind
-      name
+      ...BaseTypeRef
     }
   }
 }
@@ -42648,6 +42859,12 @@ fragment BaseType on IBaseType {
   owner {
     id
   }
+}
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -42671,17 +42888,14 @@ fragment EnumType on EnumType {
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -42740,7 +42954,7 @@ fragment UnionType on UnionType {
   ...BaseType
   typesOfUnionType {
     ... on IBaseType {
-      ...BaseType
+      ...BaseTypeRef
     }
   }
 }`) as unknown as TypedDocumentString<
@@ -42763,9 +42977,7 @@ fragment ArrayType on ArrayType {
   ...BaseType
   itemType {
     ... on IBaseType {
-      id
-      kind
-      name
+      ...BaseTypeRef
     }
   }
 }
@@ -42777,6 +42989,12 @@ fragment BaseType on IBaseType {
   owner {
     id
   }
+}
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
 }
 fragment CodeMirrorType on CodeMirrorType {
   ...BaseType
@@ -42800,17 +43018,14 @@ fragment EnumType on EnumType {
 fragment Field on Field {
   api {
     ... on InterfaceType {
-      id
+      ...BaseTypeRef
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id
@@ -42869,7 +43084,7 @@ fragment UnionType on UnionType {
   ...BaseType
   typesOfUnionType {
     ... on IBaseType {
-      ...BaseType
+      ...BaseTypeRef
     }
   }
 }`) as unknown as TypedDocumentString<

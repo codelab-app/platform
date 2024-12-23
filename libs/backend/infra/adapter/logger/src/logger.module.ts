@@ -8,19 +8,15 @@ import { omit } from 'remeda'
 
 import { loggerConfig } from './logger.config'
 import { NestjsLoggerService } from './nestjs.logger.service'
-import { CodelabLoggerService } from './pino.logger.service'
+import { PinoLoggerService } from './pino.logger.service'
 
 @Global()
 @Module({
-  exports: [CodelabLoggerService, NestjsLoggerService],
+  exports: [PinoLoggerService, NestjsLoggerService],
   imports: [
+    ConfigModule.forFeature(loggerConfig),
     LoggerModule.forRootAsync({
-      imports: [
-        ConfigModule.forRoot({
-          ignoreEnvVars: true,
-          load: [loggerConfig],
-        }),
-      ],
+      imports: [ConfigModule.forFeature(loggerConfig)],
       inject: [loggerConfig.KEY],
       useFactory: async (config: ConfigType<typeof loggerConfig>) => {
         return {
@@ -71,6 +67,6 @@ import { CodelabLoggerService } from './pino.logger.service'
       },
     }),
   ],
-  providers: [CodelabLoggerService, NestjsLoggerService],
+  providers: [PinoLoggerService, NestjsLoggerService],
 })
 export class CodelabLoggerModule {}

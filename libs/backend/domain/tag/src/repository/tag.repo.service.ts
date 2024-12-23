@@ -1,6 +1,6 @@
 import type { Tag, TagOptions, TagWhere } from '@codelab/shared/infra/gql'
 
-import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import { type ITagDto } from '@codelab/shared/abstract/core'
@@ -17,7 +17,7 @@ export class TagRepository extends AbstractRepository<
 > {
   constructor(
     protected override validationService: ValidationService,
-    protected override loggerService: CodelabLoggerService,
+    protected override loggerService: PinoLoggerService,
   ) {
     super(validationService, loggerService)
   }
