@@ -1,4 +1,4 @@
-import type { IAuthGuardDto } from '@codelab/shared/abstract/core'
+import type { IAuthGuardDto, INodeType } from '@codelab/shared/abstract/core'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
@@ -16,6 +16,7 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class AuthGuardRepository extends AbstractRepository<
+  INodeType.AuthGuard,
   IAuthGuardDto,
   AuthGuardFragment,
   AuthGuardWhere,

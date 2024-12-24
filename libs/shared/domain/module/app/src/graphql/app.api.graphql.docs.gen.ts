@@ -14,6 +14,7 @@ export const CreateAppsDocument = graphql(`
   mutation CreateApps($input: [AppCreateInput!]!) {
     createApps(input: $input) {
       apps {
+        __typename
         id
       }
     }
@@ -24,6 +25,7 @@ export const UpdateAppsDocument = graphql(`
   mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {
     updateApps(update: $update, where: $where) {
       apps {
+        __typename
         id
       }
     }

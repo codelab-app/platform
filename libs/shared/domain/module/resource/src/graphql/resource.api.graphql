@@ -10,6 +10,7 @@ query ResourceList($options: ResourceOptions, $where: ResourceWhere) {
 mutation CreateResources($input: [ResourceCreateInput!]!) {
   createResources(input: $input) {
     resources {
+      __typename
       id
     }
   }
@@ -18,6 +19,7 @@ mutation CreateResources($input: [ResourceCreateInput!]!) {
 mutation UpdateResources($where: ResourceWhere, $update: ResourceUpdateInput) {
   updateResources(update: $update, where: $where) {
     resources {
+      __typename
       id
     }
   }

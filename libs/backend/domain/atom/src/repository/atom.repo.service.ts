@@ -1,4 +1,4 @@
-import type { IAtomDto } from '@codelab/shared/abstract/core'
+import type { IAtomDto, INodeType } from '@codelab/shared/abstract/core'
 import type { Atom, AtomOptions, AtomWhere } from '@codelab/shared/infra/gql'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
@@ -10,6 +10,7 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class AtomRepository extends AbstractRepository<
+  INodeType.Atom,
   IAtomDto,
   AtomFragment,
   AtomWhere,

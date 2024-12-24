@@ -1,4 +1,4 @@
-import type { IRenderPropTypeDto } from '@codelab/shared/abstract/core'
+import type { INodeType, IRenderPropTypeDto } from '@codelab/shared/abstract/core'
 import type {
   RenderPropType,
   RenderPropTypeOptions,
@@ -19,6 +19,7 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class RenderPropTypeRepository extends AbstractRepository<
+  INodeType.RenderPropType,
   IRenderPropTypeDto,
   RenderPropTypeFragment,
   RenderPropTypeWhere,

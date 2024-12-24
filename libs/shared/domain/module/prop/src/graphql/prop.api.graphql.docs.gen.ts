@@ -7,6 +7,7 @@ export const CreatePropsDocument = graphql(`
   mutation CreateProps($input: [PropCreateInput!]!) {
     createProps(input: $input) {
       props {
+        __typename
         id
       }
     }
@@ -17,6 +18,7 @@ export const UpdatePropsDocument = graphql(`
   mutation UpdateProps($where: PropWhere, $update: PropUpdateInput) {
     updateProps(update: $update, where: $where) {
       props {
+        __typename
         id
       }
     }

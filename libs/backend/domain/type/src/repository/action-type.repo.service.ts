@@ -1,4 +1,4 @@
-import type { IActionTypeDto, IRef } from '@codelab/shared/abstract/core'
+import type { IActionTypeDto, INodeType, IRef } from '@codelab/shared/abstract/core'
 import type {
   ActionType,
   ActionTypeOptions,
@@ -19,6 +19,7 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class ActionTypeRepository extends AbstractRepository<
+  INodeType.ActionType,
   IActionTypeDto,
   ActionTypeFragment,
   ActionTypeWhere,

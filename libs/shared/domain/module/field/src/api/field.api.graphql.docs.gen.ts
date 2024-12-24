@@ -7,6 +7,7 @@ export const CreateFieldsDocument = graphql(`
   mutation CreateFields($input: [FieldCreateInput!]!) {
     createFields(input: $input) {
       fields {
+        __typename
         id
       }
     }
@@ -17,6 +18,7 @@ export const UpdateFieldsDocument = graphql(`
   mutation UpdateFields($where: FieldWhere!, $update: FieldUpdateInput!) {
     updateFields(update: $update, where: $where) {
       fields {
+        __typename
         id
       }
     }

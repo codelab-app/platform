@@ -1,4 +1,4 @@
-import type { ICodeMirrorTypeDto } from '@codelab/shared/abstract/core'
+import type { ICodeMirrorTypeDto, INodeType } from '@codelab/shared/abstract/core'
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import type {
   CodeMirrorType,
@@ -21,6 +21,7 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class CodeMirrorTypeRepository extends AbstractRepository<
+  INodeType.CodeMirrorType,
   ICodeMirrorTypeDto,
   CodeMirrorTypeFragment,
   CodeMirrorTypeWhere,

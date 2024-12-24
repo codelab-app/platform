@@ -1,4 +1,4 @@
-import type { IStoreDto } from '@codelab/shared/abstract/core'
+import type { INodeType, IStoreDto } from '@codelab/shared/abstract/core'
 import type { Store, StoreOptions, StoreWhere } from '@codelab/shared/infra/gql'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
@@ -10,6 +10,7 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class StoreRepository extends AbstractRepository<
+  INodeType.Store,
   IStoreDto,
   StoreFragment,
   StoreWhere,

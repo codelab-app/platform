@@ -1,6 +1,7 @@
 mutation CreateTags($input: [TagCreateInput!]!) {
   createTags(input: $input) {
     tags {
+      __typename
       id
     }
   }
@@ -9,6 +10,7 @@ mutation CreateTags($input: [TagCreateInput!]!) {
 mutation UpdateTags($where: TagWhere!, $update: TagUpdateInput!) {
   updateTags(update: $update, where: $where) {
     tags {
+      __typename
       id
     }
   }

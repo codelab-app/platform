@@ -1,6 +1,7 @@
 mutation CreatePages($input: [PageCreateInput!]!) {
   createPages(input: $input) {
     pages {
+      __typename
       id
     }
   }
@@ -15,6 +16,7 @@ mutation DeletePages($where: PageWhere, $delete: PageDeleteInput) {
 mutation UpdatePages($where: PageWhere, $update: PageUpdateInput) {
   updatePages(update: $update, where: $where) {
     pages {
+      __typename
       id
     }
   }

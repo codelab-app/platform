@@ -18,6 +18,7 @@ export const CreateResourcesDocument = graphql(`
   mutation CreateResources($input: [ResourceCreateInput!]!) {
     createResources(input: $input) {
       resources {
+        __typename
         id
       }
     }
@@ -31,6 +32,7 @@ export const UpdateResourcesDocument = graphql(`
   ) {
     updateResources(update: $update, where: $where) {
       resources {
+        __typename
         id
       }
     }

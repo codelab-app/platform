@@ -7,6 +7,7 @@ export const CreateTagsDocument = graphql(`
   mutation CreateTags($input: [TagCreateInput!]!) {
     createTags(input: $input) {
       tags {
+        __typename
         id
       }
     }
@@ -17,6 +18,7 @@ export const UpdateTagsDocument = graphql(`
   mutation UpdateTags($where: TagWhere!, $update: TagUpdateInput!) {
     updateTags(update: $update, where: $where) {
       tags {
+        __typename
         id
       }
     }

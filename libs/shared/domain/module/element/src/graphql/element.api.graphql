@@ -1,6 +1,7 @@
 mutation CreateElements($input: [ElementCreateInput!]!) {
   createElements(input: $input) {
     elements {
+      __typename
       id
     }
   }
@@ -15,6 +16,7 @@ mutation DeleteElements($where: ElementWhere!, $delete: ElementDeleteInput) {
 mutation UpdateElements($where: ElementWhere, $update: ElementUpdateInput) {
   updateElements(update: $update, where: $where) {
     elements {
+      __typename
       id
     }
   }

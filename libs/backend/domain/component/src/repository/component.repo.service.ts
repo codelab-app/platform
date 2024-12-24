@@ -1,4 +1,4 @@
-import type { IComponentDto } from '@codelab/shared/abstract/core'
+import type { IComponentDto, INodeType } from '@codelab/shared/abstract/core'
 import type {
   Component,
   ComponentOptions,
@@ -17,6 +17,7 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class ComponentRepository extends AbstractRepository<
+  INodeType.Component,
   IComponentDto,
   ComponentFragment,
   ComponentWhere,

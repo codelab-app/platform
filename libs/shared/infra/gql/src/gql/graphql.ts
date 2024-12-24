@@ -31578,6 +31578,7 @@ export type EnumTypeFragment = {
 } & BaseType_EnumType_Fragment
 
 export type FieldFragment = {
+  __typename: 'Field'
   defaultValues?: string | null
   description?: string | null
   id: string
@@ -31747,14 +31748,18 @@ export type CreateAppsMutationVariables = Exact<{
   input: Array<AppCreateInput> | AppCreateInput
 }>
 
-export type CreateAppsMutation = { createApps: { apps: Array<{ id: string }> } }
+export type CreateAppsMutation = {
+  createApps: { apps: Array<{ __typename: 'App'; id: string }> }
+}
 
 export type UpdateAppsMutationVariables = Exact<{
   where: AppWhere
   update: AppUpdateInput
 }>
 
-export type UpdateAppsMutation = { updateApps: { apps: Array<{ id: string }> } }
+export type UpdateAppsMutation = {
+  updateApps: { apps: Array<{ __typename: 'App'; id: string }> }
+}
 
 export type DeleteAppsMutationVariables = Exact<{
   where: AppWhere
@@ -31801,7 +31806,7 @@ export type CreateAtomsMutationVariables = Exact<{
 
 export type CreateAtomsMutation = {
   createAtoms: {
-    atoms: Array<{ id: string }>
+    atoms: Array<{ __typename: 'Atom'; id: string }>
     info: { nodesCreated: number; relationshipsCreated: number }
   }
 }
@@ -31831,7 +31836,7 @@ export type UpdateAtomsMutationVariables = Exact<{
 }>
 
 export type UpdateAtomsMutation = {
-  updateAtoms: { atoms: Array<{ id: string }> }
+  updateAtoms: { atoms: Array<{ __typename: 'Atom'; id: string }> }
 }
 
 export type GetAuthGuardsQueryVariables = Exact<{
@@ -31849,7 +31854,9 @@ export type CreateAuthGuardsMutationVariables = Exact<{
 }>
 
 export type CreateAuthGuardsMutation = {
-  createAuthGuards: { authGuards: Array<{ id: string }> }
+  createAuthGuards: {
+    authGuards: Array<{ __typename: 'AuthGuard'; id: string }>
+  }
 }
 
 export type UpdateAuthGuardMutationVariables = Exact<{
@@ -31858,7 +31865,9 @@ export type UpdateAuthGuardMutationVariables = Exact<{
 }>
 
 export type UpdateAuthGuardMutation = {
-  updateAuthGuards: { authGuards: Array<{ id: string }> }
+  updateAuthGuards: {
+    authGuards: Array<{ __typename: 'AuthGuard'; id: string }>
+  }
 }
 
 export type DeleteAuthGuardsMutationVariables = Exact<{
@@ -31875,7 +31884,13 @@ export type CreateComponentsMutationVariables = Exact<{
 }>
 
 export type CreateComponentsMutation = {
-  createComponents: { components: Array<{ id: string; store: { id: string } }> }
+  createComponents: {
+    components: Array<{
+      __typename: 'Component'
+      id: string
+      store: { id: string }
+    }>
+  }
 }
 
 export type DeleteComponentsMutationVariables = Exact<{
@@ -31893,7 +31908,9 @@ export type UpdateComponentsMutationVariables = Exact<{
 }>
 
 export type UpdateComponentsMutation = {
-  updateComponents: { components: Array<{ id: string }> }
+  updateComponents: {
+    components: Array<{ __typename: 'Component'; id: string }>
+  }
 }
 
 export type ComponentListQueryVariables = Exact<{
@@ -31921,7 +31938,7 @@ export type CreateDomainsMutationVariables = Exact<{
 }>
 
 export type CreateDomainsMutation = {
-  createDomains: { domains: Array<{ id: string }> }
+  createDomains: { domains: Array<{ __typename: 'Domain'; id: string }> }
 }
 
 export type UpdateDomainsMutationVariables = Exact<{
@@ -31930,7 +31947,7 @@ export type UpdateDomainsMutationVariables = Exact<{
 }>
 
 export type UpdateDomainsMutation = {
-  updateDomains: { domains: Array<{ id: string }> }
+  updateDomains: { domains: Array<{ __typename: 'Domain'; id: string }> }
 }
 
 export type DeleteDomainsMutationVariables = Exact<{
@@ -31944,7 +31961,7 @@ export type CreateElementsMutationVariables = Exact<{
 }>
 
 export type CreateElementsMutation = {
-  createElements: { elements: Array<{ id: string }> }
+  createElements: { elements: Array<{ __typename: 'Element'; id: string }> }
 }
 
 export type DeleteElementsMutationVariables = Exact<{
@@ -31962,7 +31979,7 @@ export type UpdateElementsMutationVariables = Exact<{
 }>
 
 export type UpdateElementsMutation = {
-  updateElements: { elements: Array<{ id: string }> }
+  updateElements: { elements: Array<{ __typename: 'Element'; id: string }> }
 }
 
 export type ElementListQueryVariables = Exact<{
@@ -31994,7 +32011,7 @@ export type CreateFieldsMutationVariables = Exact<{
 }>
 
 export type CreateFieldsMutation = {
-  createFields: { fields: Array<{ id: string }> }
+  createFields: { fields: Array<{ __typename: 'Field'; id: string }> }
 }
 
 export type UpdateFieldsMutationVariables = Exact<{
@@ -32003,7 +32020,7 @@ export type UpdateFieldsMutationVariables = Exact<{
 }>
 
 export type UpdateFieldsMutation = {
-  updateFields: { fields: Array<{ id: string }> }
+  updateFields: { fields: Array<{ __typename: 'Field'; id: string }> }
 }
 
 export type DeleteFieldsMutationVariables = Exact<{
@@ -32027,7 +32044,7 @@ export type CreatePagesMutationVariables = Exact<{
 }>
 
 export type CreatePagesMutation = {
-  createPages: { pages: Array<{ id: string }> }
+  createPages: { pages: Array<{ __typename: 'Page'; id: string }> }
 }
 
 export type DeletePagesMutationVariables = Exact<{
@@ -32043,7 +32060,7 @@ export type UpdatePagesMutationVariables = Exact<{
 }>
 
 export type UpdatePagesMutation = {
-  updatePages: { pages: Array<{ id: string }> }
+  updatePages: { pages: Array<{ __typename: 'Page'; id: string }> }
 }
 
 export type PageListQueryVariables = Exact<{
@@ -32069,7 +32086,7 @@ export type CreatePreferencesMutationVariables = Exact<{
 export type CreatePreferencesMutation = {
   createPreferences: {
     info: { nodesCreated: number; relationshipsCreated: number }
-    preferences: Array<{ id: string }>
+    preferences: Array<{ __typename: 'Preference'; id: string }>
   }
 }
 
@@ -32098,7 +32115,9 @@ export type UpdatePreferencesMutationVariables = Exact<{
 }>
 
 export type UpdatePreferencesMutation = {
-  updatePreferences: { preferences: Array<{ id: string }> }
+  updatePreferences: {
+    preferences: Array<{ __typename: 'Preference'; id: string }>
+  }
 }
 
 export type CreatePropsMutationVariables = Exact<{
@@ -32106,7 +32125,7 @@ export type CreatePropsMutationVariables = Exact<{
 }>
 
 export type CreatePropsMutation = {
-  createProps: { props: Array<{ id: string }> }
+  createProps: { props: Array<{ __typename: 'Prop'; id: string }> }
 }
 
 export type UpdatePropsMutationVariables = Exact<{
@@ -32115,7 +32134,7 @@ export type UpdatePropsMutationVariables = Exact<{
 }>
 
 export type UpdatePropsMutation = {
-  updateProps: { props: Array<{ id: string }> }
+  updateProps: { props: Array<{ __typename: 'Prop'; id: string }> }
 }
 
 export type DeletePropsMutationVariables = Exact<{
@@ -32139,7 +32158,7 @@ export type CreateRedirectsMutationVariables = Exact<{
 }>
 
 export type CreateRedirectsMutation = {
-  createRedirects: { redirects: Array<{ id: string }> }
+  createRedirects: { redirects: Array<{ __typename: 'Redirect'; id: string }> }
 }
 
 export type DeleteRedirectsMutationVariables = Exact<{
@@ -32157,7 +32176,7 @@ export type UpdateRedirectsMutationVariables = Exact<{
 }>
 
 export type UpdateRedirectsMutation = {
-  updateRedirects: { redirects: Array<{ id: string }> }
+  updateRedirects: { redirects: Array<{ __typename: 'Redirect'; id: string }> }
 }
 
 export type GetRedirectsQueryVariables = Exact<{
@@ -32195,7 +32214,7 @@ export type CreateResourcesMutationVariables = Exact<{
 }>
 
 export type CreateResourcesMutation = {
-  createResources: { resources: Array<{ id: string }> }
+  createResources: { resources: Array<{ __typename: 'Resource'; id: string }> }
 }
 
 export type UpdateResourcesMutationVariables = Exact<{
@@ -32204,7 +32223,7 @@ export type UpdateResourcesMutationVariables = Exact<{
 }>
 
 export type UpdateResourcesMutation = {
-  updateResources: { resources: Array<{ id: string }> }
+  updateResources: { resources: Array<{ __typename: 'Resource'; id: string }> }
 }
 
 export type DeleteResourcesMutationVariables = Exact<{
@@ -32221,7 +32240,9 @@ export type CreateCodeActionsMutationVariables = Exact<{
 }>
 
 export type CreateCodeActionsMutation = {
-  createCodeActions: { codeActions: Array<{ id: string }> }
+  createCodeActions: {
+    codeActions: Array<{ __typename: 'CodeAction'; id: string }>
+  }
 }
 
 export type CreateApiActionsMutationVariables = Exact<{
@@ -32229,7 +32250,9 @@ export type CreateApiActionsMutationVariables = Exact<{
 }>
 
 export type CreateApiActionsMutation = {
-  createApiActions: { apiActions: Array<{ id: string }> }
+  createApiActions: {
+    apiActions: Array<{ __typename: 'ApiAction'; id: string }>
+  }
 }
 
 export type DeleteCodeActionsMutationVariables = Exact<{
@@ -32267,7 +32290,7 @@ export type CreateStoresMutationVariables = Exact<{
 export type CreateStoresMutation = {
   createStores: {
     info: { nodesCreated: number; relationshipsCreated: number }
-    stores: Array<{ id: string }>
+    stores: Array<{ __typename: 'Store'; id: string }>
   }
 }
 
@@ -32294,7 +32317,7 @@ export type UpdateStoresMutationVariables = Exact<{
 }>
 
 export type UpdateStoresMutation = {
-  updateStores: { stores: Array<{ id: string }> }
+  updateStores: { stores: Array<{ __typename: 'Store'; id: string }> }
 }
 
 export type UpdateCodeActionsMutationVariables = Exact<{
@@ -32303,7 +32326,9 @@ export type UpdateCodeActionsMutationVariables = Exact<{
 }>
 
 export type UpdateCodeActionsMutation = {
-  updateCodeActions: { codeActions: Array<{ id: string }> }
+  updateCodeActions: {
+    codeActions: Array<{ __typename: 'CodeAction'; id: string }>
+  }
 }
 
 export type UpdateApiActionsMutationVariables = Exact<{
@@ -32312,21 +32337,27 @@ export type UpdateApiActionsMutationVariables = Exact<{
 }>
 
 export type UpdateApiActionsMutation = {
-  updateApiActions: { apiActions: Array<{ id: string }> }
+  updateApiActions: {
+    apiActions: Array<{ __typename: 'ApiAction'; id: string }>
+  }
 }
 
 export type CreateTagsMutationVariables = Exact<{
   input: Array<TagCreateInput> | TagCreateInput
 }>
 
-export type CreateTagsMutation = { createTags: { tags: Array<{ id: string }> } }
+export type CreateTagsMutation = {
+  createTags: { tags: Array<{ __typename: 'Tag'; id: string }> }
+}
 
 export type UpdateTagsMutationVariables = Exact<{
   where: TagWhere
   update: TagUpdateInput
 }>
 
-export type UpdateTagsMutation = { updateTags: { tags: Array<{ id: string }> } }
+export type UpdateTagsMutation = {
+  updateTags: { tags: Array<{ __typename: 'Tag'; id: string }> }
+}
 
 export type DeleteTagsMutationVariables = Exact<{
   where: TagWhere
@@ -32841,7 +32872,7 @@ export type UpdatePrimitiveTypesMutationVariables = Exact<{
 }>
 
 export type UpdatePrimitiveTypesMutation = {
-  types: { types: Array<{ id: string }> }
+  types: { types: Array<{ __typename: 'PrimitiveType'; id: string }> }
 }
 
 export type UpdateArrayTypesMutationVariables = Exact<{
@@ -32850,7 +32881,7 @@ export type UpdateArrayTypesMutationVariables = Exact<{
 }>
 
 export type UpdateArrayTypesMutation = {
-  types: { types: Array<{ id: string }> }
+  types: { types: Array<{ __typename: 'ArrayType'; id: string }> }
 }
 
 export type UpdateUnionTypesMutationVariables = Exact<{
@@ -32859,7 +32890,7 @@ export type UpdateUnionTypesMutationVariables = Exact<{
 }>
 
 export type UpdateUnionTypesMutation = {
-  types: { types: Array<{ id: string }> }
+  types: { types: Array<{ __typename: 'UnionType'; id: string }> }
 }
 
 export type UpdateInterfaceTypesMutationVariables = Exact<{
@@ -32868,7 +32899,7 @@ export type UpdateInterfaceTypesMutationVariables = Exact<{
 }>
 
 export type UpdateInterfaceTypesMutation = {
-  types: { types: Array<{ id: string }> }
+  types: { types: Array<{ __typename: 'InterfaceType'; id: string }> }
 }
 
 export type UpdateReactNodeTypesMutationVariables = Exact<{
@@ -32877,7 +32908,7 @@ export type UpdateReactNodeTypesMutationVariables = Exact<{
 }>
 
 export type UpdateReactNodeTypesMutation = {
-  types: { types: Array<{ id: string }> }
+  types: { types: Array<{ __typename: 'ReactNodeType'; id: string }> }
 }
 
 export type UpdateElementTypesMutationVariables = Exact<{
@@ -32886,7 +32917,7 @@ export type UpdateElementTypesMutationVariables = Exact<{
 }>
 
 export type UpdateElementTypesMutation = {
-  types: { types: Array<{ id: string }> }
+  types: { types: Array<{ __typename: 'ElementType'; id: string }> }
 }
 
 export type UpdateRenderPropTypesMutationVariables = Exact<{
@@ -32895,7 +32926,7 @@ export type UpdateRenderPropTypesMutationVariables = Exact<{
 }>
 
 export type UpdateRenderPropTypesMutation = {
-  types: { types: Array<{ id: string }> }
+  types: { types: Array<{ __typename: 'RenderPropType'; id: string }> }
 }
 
 export type UpdateEnumTypesMutationVariables = Exact<{
@@ -32904,7 +32935,7 @@ export type UpdateEnumTypesMutationVariables = Exact<{
 }>
 
 export type UpdateEnumTypesMutation = {
-  types: { types: Array<{ id: string }> }
+  types: { types: Array<{ __typename: 'EnumType'; id: string }> }
 }
 
 export type UpdateLambdaTypesMutationVariables = Exact<{
@@ -32913,7 +32944,7 @@ export type UpdateLambdaTypesMutationVariables = Exact<{
 }>
 
 export type UpdateLambdaTypesMutation = {
-  types: { types: Array<{ id: string }> }
+  types: { types: Array<{ __typename: 'LambdaType'; id: string }> }
 }
 
 export type UpdatePageTypesMutationVariables = Exact<{
@@ -32922,7 +32953,7 @@ export type UpdatePageTypesMutationVariables = Exact<{
 }>
 
 export type UpdatePageTypesMutation = {
-  types: { types: Array<{ id: string }> }
+  types: { types: Array<{ __typename: 'PageType'; id: string }> }
 }
 
 export type UpdateAppTypesMutationVariables = Exact<{
@@ -32930,7 +32961,9 @@ export type UpdateAppTypesMutationVariables = Exact<{
   where?: InputMaybe<AppTypeWhere>
 }>
 
-export type UpdateAppTypesMutation = { types: { types: Array<{ id: string }> } }
+export type UpdateAppTypesMutation = {
+  types: { types: Array<{ __typename: 'AppType'; id: string }> }
+}
 
 export type UpdateRichTextTypesMutationVariables = Exact<{
   update?: InputMaybe<RichTextTypeUpdateInput>
@@ -32938,7 +32971,7 @@ export type UpdateRichTextTypesMutationVariables = Exact<{
 }>
 
 export type UpdateRichTextTypesMutation = {
-  types: { types: Array<{ id: string }> }
+  types: { types: Array<{ __typename: 'RichTextType'; id: string }> }
 }
 
 export type UpdateActionTypesMutationVariables = Exact<{
@@ -32947,7 +32980,7 @@ export type UpdateActionTypesMutationVariables = Exact<{
 }>
 
 export type UpdateActionTypesMutation = {
-  types: { types: Array<{ id: string }> }
+  types: { types: Array<{ __typename: 'ActionType'; id: string }> }
 }
 
 export type UpdateCodeMirrorTypesMutationVariables = Exact<{
@@ -32956,7 +32989,7 @@ export type UpdateCodeMirrorTypesMutationVariables = Exact<{
 }>
 
 export type UpdateCodeMirrorTypesMutation = {
-  types: { types: Array<{ id: string }> }
+  types: { types: Array<{ __typename: 'CodeMirrorType'; id: string }> }
 }
 
 export type GetUsersQueryVariables = Exact<{
@@ -32973,7 +33006,9 @@ export type CreateUserMutationVariables = Exact<{
 }>
 
 export type CreateUserMutation = {
-  createUsers: { users: Array<{ email: string; id: string }> }
+  createUsers: {
+    users: Array<{ __typename: 'User'; email: string; id: string }>
+  }
 }
 
 export type DeleteUsersMutationVariables = Exact<{
@@ -32988,7 +33023,7 @@ export type UpdateUsersMutationVariables = Exact<{
 }>
 
 export type UpdateUsersMutation = {
-  updateUsers: { users: Array<{ id: string }> }
+  updateUsers: { users: Array<{ __typename: 'User'; id: string }> }
 }
 
 export class TypedDocumentString<TResult, TVariables>
@@ -33234,10 +33269,10 @@ export const EnumTypeValueFragmentDoc = new TypedDocumentString(
 export const EnumTypeFragmentDoc = new TypedDocumentString(
   `
     fragment EnumType on EnumType {
+  ...BaseType
   allowedValues {
     ...EnumTypeValue
   }
-  ...BaseType
 }
     fragment BaseType on IBaseType {
   __typename
@@ -33258,6 +33293,7 @@ fragment EnumTypeValue on EnumTypeValue {
 export const FieldFragmentDoc = new TypedDocumentString(
   `
     fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -33322,6 +33358,7 @@ fragment BaseTypeRef on IBaseType {
   name
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -33532,12 +33569,13 @@ fragment EnumTypeValue on EnumTypeValue {
   value
 }
 fragment EnumType on EnumType {
+  ...BaseType
   allowedValues {
     ...EnumTypeValue
   }
-  ...BaseType
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -33668,6 +33706,7 @@ fragment BaseTypeRef on IBaseType {
   name
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -33845,12 +33884,13 @@ fragment EnumTypeValue on EnumTypeValue {
   value
 }
 fragment EnumType on EnumType {
+  ...BaseType
   allowedValues {
     ...EnumTypeValue
   }
-  ...BaseType
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -34162,6 +34202,7 @@ fragment BaseTypeRef on IBaseType {
   name
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -34423,12 +34464,13 @@ fragment EnumTypeValue on EnumTypeValue {
   value
 }
 fragment EnumType on EnumType {
+  ...BaseType
   allowedValues {
     ...EnumTypeValue
   }
-  ...BaseType
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -34757,12 +34799,13 @@ fragment EnumTypeValue on EnumTypeValue {
   value
 }
 fragment EnumType on EnumType {
+  ...BaseType
   allowedValues {
     ...EnumTypeValue
   }
-  ...BaseType
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -35070,12 +35113,13 @@ fragment EnumTypeValue on EnumTypeValue {
   value
 }
 fragment EnumType on EnumType {
+  ...BaseType
   allowedValues {
     ...EnumTypeValue
   }
-  ...BaseType
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -35393,12 +35437,13 @@ fragment EnumTypeValue on EnumTypeValue {
   value
 }
 fragment EnumType on EnumType {
+  ...BaseType
   allowedValues {
     ...EnumTypeValue
   }
-  ...BaseType
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -35629,12 +35674,13 @@ fragment EnumTypeValue on EnumTypeValue {
   value
 }
 fragment EnumType on EnumType {
+  ...BaseType
   allowedValues {
     ...EnumTypeValue
   }
-  ...BaseType
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -35922,12 +35968,13 @@ fragment EnumTypeValue on EnumTypeValue {
   value
 }
 fragment EnumType on EnumType {
+  ...BaseType
   allowedValues {
     ...EnumTypeValue
   }
-  ...BaseType
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -36226,12 +36273,13 @@ fragment EnumTypeValue on EnumTypeValue {
   value
 }
 fragment EnumType on EnumType {
+  ...BaseType
   allowedValues {
     ...EnumTypeValue
   }
-  ...BaseType
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -36363,6 +36411,7 @@ fragment BaseTypeRef on IBaseType {
   name
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -36498,6 +36547,7 @@ fragment BaseTypeRef on IBaseType {
   name
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -36763,12 +36813,13 @@ fragment EnumTypeValue on EnumTypeValue {
   value
 }
 fragment EnumType on EnumType {
+  ...BaseType
   allowedValues {
     ...EnumTypeValue
   }
-  ...BaseType
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -36946,6 +36997,7 @@ fragment BaseTypeRef on IBaseType {
   name
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -37606,12 +37658,13 @@ fragment EnumTypeValue on EnumTypeValue {
   value
 }
 fragment EnumType on EnumType {
+  ...BaseType
   allowedValues {
     ...EnumTypeValue
   }
-  ...BaseType
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -37966,12 +38019,13 @@ fragment EnumTypeValue on EnumTypeValue {
   value
 }
 fragment EnumType on EnumType {
+  ...BaseType
   allowedValues {
     ...EnumTypeValue
   }
-  ...BaseType
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -38054,6 +38108,7 @@ export const CreateAppsDocument = new TypedDocumentString(`
     mutation CreateApps($input: [AppCreateInput!]!) {
   createApps(input: $input) {
     apps {
+      __typename
       id
     }
   }
@@ -38066,6 +38121,7 @@ export const UpdateAppsDocument = new TypedDocumentString(`
     mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {
   updateApps(update: $update, where: $where) {
     apps {
+      __typename
       id
     }
   }
@@ -38405,12 +38461,13 @@ fragment EnumTypeValue on EnumTypeValue {
   value
 }
 fragment EnumType on EnumType {
+  ...BaseType
   allowedValues {
     ...EnumTypeValue
   }
-  ...BaseType
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -38720,12 +38777,13 @@ fragment EnumTypeValue on EnumTypeValue {
   value
 }
 fragment EnumType on EnumType {
+  ...BaseType
   allowedValues {
     ...EnumTypeValue
   }
-  ...BaseType
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -38808,6 +38866,7 @@ export const CreateAtomsDocument = new TypedDocumentString(`
     mutation CreateAtoms($input: [AtomCreateInput!]!) {
   createAtoms(input: $input) {
     atoms {
+      __typename
       id
     }
     info {
@@ -38892,6 +38951,7 @@ fragment BaseTypeRef on IBaseType {
   name
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -38925,6 +38985,7 @@ export const UpdateAtomsDocument = new TypedDocumentString(`
     mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {
   updateAtoms(update: $update, where: $where) {
     atoms {
+      __typename
       id
     }
   }
@@ -38978,6 +39039,7 @@ export const CreateAuthGuardsDocument = new TypedDocumentString(`
     mutation CreateAuthGuards($input: [AuthGuardCreateInput!]!) {
   createAuthGuards(input: $input) {
     authGuards {
+      __typename
       id
     }
   }
@@ -38990,6 +39052,7 @@ export const UpdateAuthGuardDocument = new TypedDocumentString(`
     mutation UpdateAuthGuard($where: AuthGuardWhere, $update: AuthGuardUpdateInput) {
   updateAuthGuards(update: $update, where: $where) {
     authGuards {
+      __typename
       id
     }
   }
@@ -39012,6 +39075,7 @@ export const CreateComponentsDocument = new TypedDocumentString(`
     mutation CreateComponents($input: [ComponentCreateInput!]!) {
   createComponents(input: $input) {
     components {
+      __typename
       id
       store {
         id
@@ -39037,6 +39101,7 @@ export const UpdateComponentsDocument = new TypedDocumentString(`
     mutation UpdateComponents($where: ComponentWhere, $update: ComponentUpdateInput) {
   updateComponents(update: $update, where: $where) {
     components {
+      __typename
       id
     }
   }
@@ -39156,6 +39221,7 @@ fragment BaseTypeRef on IBaseType {
   name
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -39214,6 +39280,7 @@ export const CreateDomainsDocument = new TypedDocumentString(`
     mutation CreateDomains($input: [DomainCreateInput!]!) {
   createDomains(input: $input) {
     domains {
+      __typename
       id
     }
   }
@@ -39226,6 +39293,7 @@ export const UpdateDomainsDocument = new TypedDocumentString(`
     mutation UpdateDomains($where: DomainWhere!, $update: DomainUpdateInput!) {
   updateDomains(update: $update, where: $where) {
     domains {
+      __typename
       id
     }
   }
@@ -39248,6 +39316,7 @@ export const CreateElementsDocument = new TypedDocumentString(`
     mutation CreateElements($input: [ElementCreateInput!]!) {
   createElements(input: $input) {
     elements {
+      __typename
       id
     }
   }
@@ -39270,6 +39339,7 @@ export const UpdateElementsDocument = new TypedDocumentString(`
     mutation UpdateElements($where: ElementWhere, $update: ElementUpdateInput) {
   updateElements(update: $update, where: $where) {
     elements {
+      __typename
       id
     }
   }
@@ -39431,12 +39501,13 @@ fragment EnumTypeValue on EnumTypeValue {
   value
 }
 fragment EnumType on EnumType {
+  ...BaseType
   allowedValues {
     ...EnumTypeValue
   }
-  ...BaseType
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -39552,6 +39623,7 @@ export const CreateFieldsDocument = new TypedDocumentString(`
     mutation CreateFields($input: [FieldCreateInput!]!) {
   createFields(input: $input) {
     fields {
+      __typename
       id
     }
   }
@@ -39564,6 +39636,7 @@ export const UpdateFieldsDocument = new TypedDocumentString(`
     mutation UpdateFields($where: FieldWhere!, $update: FieldUpdateInput!) {
   updateFields(update: $update, where: $where) {
     fields {
+      __typename
       id
     }
   }
@@ -39607,6 +39680,7 @@ fragment BaseTypeRef on IBaseType {
   name
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -39634,6 +39708,7 @@ export const CreatePagesDocument = new TypedDocumentString(`
     mutation CreatePages($input: [PageCreateInput!]!) {
   createPages(input: $input) {
     pages {
+      __typename
       id
     }
   }
@@ -39656,6 +39731,7 @@ export const UpdatePagesDocument = new TypedDocumentString(`
     mutation UpdatePages($where: PageWhere, $update: PageUpdateInput) {
   updatePages(update: $update, where: $where) {
     pages {
+      __typename
       id
     }
   }
@@ -39901,12 +39977,13 @@ fragment EnumTypeValue on EnumTypeValue {
   value
 }
 fragment EnumType on EnumType {
+  ...BaseType
   allowedValues {
     ...EnumTypeValue
   }
-  ...BaseType
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -40213,12 +40290,13 @@ fragment EnumTypeValue on EnumTypeValue {
   value
 }
 fragment EnumType on EnumType {
+  ...BaseType
   allowedValues {
     ...EnumTypeValue
   }
-  ...BaseType
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -40302,6 +40380,7 @@ export const CreatePreferencesDocument = new TypedDocumentString(`
       relationshipsCreated
     }
     preferences {
+      __typename
       id
     }
   }
@@ -40344,6 +40423,7 @@ export const UpdatePreferencesDocument = new TypedDocumentString(`
     mutation UpdatePreferences($where: PreferenceWhere, $update: PreferenceUpdateInput) {
   updatePreferences(update: $update, where: $where) {
     preferences {
+      __typename
       id
     }
   }
@@ -40356,6 +40436,7 @@ export const CreatePropsDocument = new TypedDocumentString(`
     mutation CreateProps($input: [PropCreateInput!]!) {
   createProps(input: $input) {
     props {
+      __typename
       id
     }
   }
@@ -40368,6 +40449,7 @@ export const UpdatePropsDocument = new TypedDocumentString(`
     mutation UpdateProps($where: PropWhere, $update: PropUpdateInput) {
   updateProps(update: $update, where: $where) {
     props {
+      __typename
       id
     }
   }
@@ -40403,6 +40485,7 @@ export const CreateRedirectsDocument = new TypedDocumentString(`
     mutation CreateRedirects($input: [RedirectCreateInput!]!) {
   createRedirects(input: $input) {
     redirects {
+      __typename
       id
     }
   }
@@ -40425,6 +40508,7 @@ export const UpdateRedirectsDocument = new TypedDocumentString(`
     mutation UpdateRedirects($where: RedirectWhere, $update: RedirectUpdateInput) {
   updateRedirects(update: $update, where: $where) {
     redirects {
+      __typename
       id
     }
   }
@@ -40563,6 +40647,7 @@ export const CreateResourcesDocument = new TypedDocumentString(`
     mutation CreateResources($input: [ResourceCreateInput!]!) {
   createResources(input: $input) {
     resources {
+      __typename
       id
     }
   }
@@ -40575,6 +40660,7 @@ export const UpdateResourcesDocument = new TypedDocumentString(`
     mutation UpdateResources($where: ResourceWhere, $update: ResourceUpdateInput) {
   updateResources(update: $update, where: $where) {
     resources {
+      __typename
       id
     }
   }
@@ -40597,6 +40683,7 @@ export const CreateCodeActionsDocument = new TypedDocumentString(`
     mutation CreateCodeActions($input: [CodeActionCreateInput!]!) {
   createCodeActions(input: $input) {
     codeActions {
+      __typename
       id
     }
   }
@@ -40609,6 +40696,7 @@ export const CreateApiActionsDocument = new TypedDocumentString(`
     mutation CreateApiActions($input: [ApiActionCreateInput!]!) {
   createApiActions(input: $input) {
     apiActions {
+      __typename
       id
     }
   }
@@ -40710,6 +40798,7 @@ export const CreateStoresDocument = new TypedDocumentString(`
       relationshipsCreated
     }
     stores {
+      __typename
       id
     }
   }
@@ -40817,6 +40906,7 @@ fragment BaseTypeRef on IBaseType {
   name
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -40850,6 +40940,7 @@ export const UpdateStoresDocument = new TypedDocumentString(`
     mutation UpdateStores($where: StoreWhere, $update: StoreUpdateInput) {
   updateStores(update: $update, where: $where) {
     stores {
+      __typename
       id
     }
   }
@@ -40862,6 +40953,7 @@ export const UpdateCodeActionsDocument = new TypedDocumentString(`
     mutation UpdateCodeActions($update: CodeActionUpdateInput, $where: CodeActionWhere) {
   updateCodeActions(update: $update, where: $where) {
     codeActions {
+      __typename
       id
     }
   }
@@ -40874,6 +40966,7 @@ export const UpdateApiActionsDocument = new TypedDocumentString(`
     mutation UpdateApiActions($update: ApiActionUpdateInput, $where: ApiActionWhere) {
   updateApiActions(update: $update, where: $where) {
     apiActions {
+      __typename
       id
     }
   }
@@ -40886,6 +40979,7 @@ export const CreateTagsDocument = new TypedDocumentString(`
     mutation CreateTags($input: [TagCreateInput!]!) {
   createTags(input: $input) {
     tags {
+      __typename
       id
     }
   }
@@ -40898,6 +40992,7 @@ export const UpdateTagsDocument = new TypedDocumentString(`
     mutation UpdateTags($where: TagWhere!, $update: TagUpdateInput!) {
   updateTags(update: $update, where: $where) {
     tags {
+      __typename
       id
     }
   }
@@ -40951,6 +41046,7 @@ export const CreatePrimitiveTypesDocument = new TypedDocumentString(`
     mutation CreatePrimitiveTypes($input: [PrimitiveTypeCreateInput!]!) {
   types: createPrimitiveTypes(input: $input) {
     types: primitiveTypes {
+      __typename
       __typename
       id
     }
@@ -41395,12 +41491,13 @@ fragment EnumTypeValue on EnumTypeValue {
   value
 }
 fragment EnumType on EnumType {
+  ...BaseType
   allowedValues {
     ...EnumTypeValue
   }
-  ...BaseType
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -41538,12 +41635,13 @@ fragment EnumTypeValue on EnumTypeValue {
   value
 }
 fragment EnumType on EnumType {
+  ...BaseType
   allowedValues {
     ...EnumTypeValue
   }
-  ...BaseType
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -41668,12 +41766,13 @@ fragment EnumTypeValue on EnumTypeValue {
   value
 }
 fragment EnumType on EnumType {
+  ...BaseType
   allowedValues {
     ...EnumTypeValue
   }
-  ...BaseType
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -41798,12 +41897,13 @@ fragment EnumTypeValue on EnumTypeValue {
   value
 }
 fragment EnumType on EnumType {
+  ...BaseType
   allowedValues {
     ...EnumTypeValue
   }
-  ...BaseType
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -41928,12 +42028,13 @@ fragment EnumTypeValue on EnumTypeValue {
   value
 }
 fragment EnumType on EnumType {
+  ...BaseType
   allowedValues {
     ...EnumTypeValue
   }
-  ...BaseType
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -42058,12 +42159,13 @@ fragment EnumTypeValue on EnumTypeValue {
   value
 }
 fragment EnumType on EnumType {
+  ...BaseType
   allowedValues {
     ...EnumTypeValue
   }
-  ...BaseType
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -42188,12 +42290,13 @@ fragment EnumTypeValue on EnumTypeValue {
   value
 }
 fragment EnumType on EnumType {
+  ...BaseType
   allowedValues {
     ...EnumTypeValue
   }
-  ...BaseType
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -42360,12 +42463,13 @@ fragment EnumTypeValue on EnumTypeValue {
   value
 }
 fragment EnumType on EnumType {
+  ...BaseType
   allowedValues {
     ...EnumTypeValue
   }
-  ...BaseType
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -42490,12 +42594,13 @@ fragment EnumTypeValue on EnumTypeValue {
   value
 }
 fragment EnumType on EnumType {
+  ...BaseType
   allowedValues {
     ...EnumTypeValue
   }
-  ...BaseType
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -42620,12 +42725,13 @@ fragment EnumTypeValue on EnumTypeValue {
   value
 }
 fragment EnumType on EnumType {
+  ...BaseType
   allowedValues {
     ...EnumTypeValue
   }
-  ...BaseType
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -42750,12 +42856,13 @@ fragment EnumTypeValue on EnumTypeValue {
   value
 }
 fragment EnumType on EnumType {
+  ...BaseType
   allowedValues {
     ...EnumTypeValue
   }
-  ...BaseType
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -42880,12 +42987,13 @@ fragment EnumTypeValue on EnumTypeValue {
   value
 }
 fragment EnumType on EnumType {
+  ...BaseType
   allowedValues {
     ...EnumTypeValue
   }
-  ...BaseType
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -43010,12 +43118,13 @@ fragment EnumTypeValue on EnumTypeValue {
   value
 }
 fragment EnumType on EnumType {
+  ...BaseType
   allowedValues {
     ...EnumTypeValue
   }
-  ...BaseType
 }
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
       ...BaseTypeRef
@@ -43188,6 +43297,7 @@ export const UpdatePrimitiveTypesDocument = new TypedDocumentString(`
     mutation UpdatePrimitiveTypes($update: PrimitiveTypeUpdateInput, $where: PrimitiveTypeWhere) {
   types: updatePrimitiveTypes(update: $update, where: $where) {
     types: primitiveTypes {
+      __typename
       id
     }
   }
@@ -43200,6 +43310,7 @@ export const UpdateArrayTypesDocument = new TypedDocumentString(`
     mutation UpdateArrayTypes($update: ArrayTypeUpdateInput, $where: ArrayTypeWhere) {
   types: updateArrayTypes(update: $update, where: $where) {
     types: arrayTypes {
+      __typename
       id
     }
   }
@@ -43212,6 +43323,7 @@ export const UpdateUnionTypesDocument = new TypedDocumentString(`
     mutation UpdateUnionTypes($update: UnionTypeUpdateInput, $where: UnionTypeWhere) {
   types: updateUnionTypes(update: $update, where: $where) {
     types: unionTypes {
+      __typename
       id
     }
   }
@@ -43224,6 +43336,7 @@ export const UpdateInterfaceTypesDocument = new TypedDocumentString(`
     mutation UpdateInterfaceTypes($update: InterfaceTypeUpdateInput, $where: InterfaceTypeWhere) {
   types: updateInterfaceTypes(update: $update, where: $where) {
     types: interfaceTypes {
+      __typename
       id
     }
   }
@@ -43236,6 +43349,7 @@ export const UpdateReactNodeTypesDocument = new TypedDocumentString(`
     mutation UpdateReactNodeTypes($update: ReactNodeTypeUpdateInput, $where: ReactNodeTypeWhere) {
   types: updateReactNodeTypes(update: $update, where: $where) {
     types: reactNodeTypes {
+      __typename
       id
     }
   }
@@ -43248,6 +43362,7 @@ export const UpdateElementTypesDocument = new TypedDocumentString(`
     mutation UpdateElementTypes($update: ElementTypeUpdateInput, $where: ElementTypeWhere) {
   types: updateElementTypes(update: $update, where: $where) {
     types: elementTypes {
+      __typename
       id
     }
   }
@@ -43260,6 +43375,7 @@ export const UpdateRenderPropTypesDocument = new TypedDocumentString(`
     mutation UpdateRenderPropTypes($update: RenderPropTypeUpdateInput, $where: RenderPropTypeWhere) {
   types: updateRenderPropTypes(update: $update, where: $where) {
     types: renderPropTypes {
+      __typename
       id
     }
   }
@@ -43272,6 +43388,7 @@ export const UpdateEnumTypesDocument = new TypedDocumentString(`
     mutation UpdateEnumTypes($update: EnumTypeUpdateInput, $where: EnumTypeWhere) {
   types: updateEnumTypes(update: $update, where: $where) {
     types: enumTypes {
+      __typename
       id
     }
   }
@@ -43284,6 +43401,7 @@ export const UpdateLambdaTypesDocument = new TypedDocumentString(`
     mutation UpdateLambdaTypes($update: LambdaTypeUpdateInput, $where: LambdaTypeWhere) {
   types: updateLambdaTypes(update: $update, where: $where) {
     types: lambdaTypes {
+      __typename
       id
     }
   }
@@ -43296,6 +43414,7 @@ export const UpdatePageTypesDocument = new TypedDocumentString(`
     mutation UpdatePageTypes($update: PageTypeUpdateInput, $where: PageTypeWhere) {
   types: updatePageTypes(update: $update, where: $where) {
     types: pageTypes {
+      __typename
       id
     }
   }
@@ -43308,6 +43427,7 @@ export const UpdateAppTypesDocument = new TypedDocumentString(`
     mutation UpdateAppTypes($update: AppTypeUpdateInput, $where: AppTypeWhere) {
   types: updateAppTypes(update: $update, where: $where) {
     types: appTypes {
+      __typename
       id
     }
   }
@@ -43320,6 +43440,7 @@ export const UpdateRichTextTypesDocument = new TypedDocumentString(`
     mutation UpdateRichTextTypes($update: RichTextTypeUpdateInput, $where: RichTextTypeWhere) {
   types: updateRichTextTypes(update: $update, where: $where) {
     types: richTextTypes {
+      __typename
       id
     }
   }
@@ -43332,6 +43453,7 @@ export const UpdateActionTypesDocument = new TypedDocumentString(`
     mutation UpdateActionTypes($update: ActionTypeUpdateInput, $where: ActionTypeWhere) {
   types: updateActionTypes(update: $update, where: $where) {
     types: actionTypes {
+      __typename
       id
     }
   }
@@ -43344,6 +43466,7 @@ export const UpdateCodeMirrorTypesDocument = new TypedDocumentString(`
     mutation UpdateCodeMirrorTypes($update: CodeMirrorTypeUpdateInput, $where: CodeMirrorTypeWhere) {
   types: updateCodeMirrorTypes(update: $update, where: $where) {
     types: codeMirrorTypes {
+      __typename
       id
     }
   }
@@ -43387,6 +43510,7 @@ export const CreateUserDocument = new TypedDocumentString(`
   createUsers(input: $input) {
     users {
       email
+      __typename
       id
     }
   }
@@ -43409,6 +43533,7 @@ export const UpdateUsersDocument = new TypedDocumentString(`
     mutation UpdateUsers($where: UserWhere!, $update: UserUpdateInput!) {
   updateUsers(update: $update, where: $where) {
     users {
+      __typename
       id
     }
   }

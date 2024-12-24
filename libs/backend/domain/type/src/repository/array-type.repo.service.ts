@@ -1,4 +1,4 @@
-import type { IArrayTypeDto } from '@codelab/shared/abstract/core'
+import type { IArrayTypeDto, INodeType } from '@codelab/shared/abstract/core'
 import type {
   ArrayType,
   ArrayTypeOptions,
@@ -19,6 +19,7 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class ArrayTypeRepository extends AbstractRepository<
+  INodeType.ArrayType,
   IArrayTypeDto,
   ArrayTypeFragment,
   ArrayTypeWhere,

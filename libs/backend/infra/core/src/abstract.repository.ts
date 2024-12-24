@@ -1,5 +1,9 @@
 import type { IRepository } from '@codelab/backend/abstract/types'
-import type { IRef } from '@codelab/shared/abstract/core'
+import type {
+  IDiscriminatedRef,
+  IRef,
+  ITypeRef,
+} from '@codelab/shared/abstract/core'
 import type { Static, TAnySchema } from '@sinclair/typebox'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
@@ -9,6 +13,7 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export abstract class AbstractRepository<
+  INodeType extends string,
   Dto extends IRef,
   Model extends IRef,
   Where extends { id?: string | null },
@@ -23,7 +28,7 @@ export abstract class AbstractRepository<
   /**
    * Array adds complexity, create an optional `addMany` if needed
    */
-  public async add(data: Dto): Promise<IRef> {
+  public async add(data: Dto): Promise<IDiscriminatedRef<INodeType>> {
     if (this.DEBUG) {
       console.log(`${this.constructor.name}.add`, data)
 
@@ -40,7 +45,9 @@ export abstract class AbstractRepository<
     return result
   }
 
-  public async addMany(data: Array<Dto>): Promise<Array<IRef>> {
+  public async addMany(
+    data: Array<Dto>,
+  ): Promise<Array<IDiscriminatedRef<INodeType>>> {
     return this._addMany(data)
   }
 
@@ -183,7 +190,7 @@ export abstract class AbstractRepository<
    *
    * @param where
    */
-  async save(data: Dto, where?: Where): Promise<IRef> {
+  async save(data: Dto, where?: Where): Promise<IDiscriminatedRef<INodeType>> {
     if (this.DEBUG) {
       console.log('save', data)
     }
@@ -212,7 +219,10 @@ export abstract class AbstractRepository<
    *
    * Say we created some DTO data that is keyed by name, but with a generated ID. After finding existing record and performing update, we will actually update the ID as we ll.
    */
-  async update(data: Dto, where?: Where): Promise<IRef> {
+  async update(
+    data: Dto,
+    where?: Where,
+  ): Promise<IDiscriminatedRef<INodeType>> {
     if (this.DEBUG) {
       console.log('update', data, where)
     }
@@ -228,7 +238,9 @@ export abstract class AbstractRepository<
     return model
   }
 
-  protected abstract _addMany(data: Array<Dto>): Promise<Array<IRef>>
+  protected abstract _addMany(
+    data: Array<Dto>,
+  ): Promise<Array<IDiscriminatedRef<INodeType>>>
 
   protected abstract _find({
     options,
@@ -244,7 +256,7 @@ export abstract class AbstractRepository<
     data: Dto,
     where?: Where,
     existing?: Model,
-  ): Promise<IRef | undefined>
+  ): Promise<IDiscriminatedRef<INodeType> | undefined>
 
   private DEBUG = false
 

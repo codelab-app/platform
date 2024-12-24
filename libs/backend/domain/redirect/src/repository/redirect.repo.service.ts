@@ -2,6 +2,7 @@ import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import {
+  type INodeType,
   type IRedirectDto,
   IRedirectTargetType,
 } from '@codelab/shared/abstract/core'
@@ -24,6 +25,7 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class RedirectRepository extends AbstractRepository<
+  INodeType.Redirect,
   IRedirectDto,
   RedirectFragment,
   RedirectWhere,

@@ -1,4 +1,4 @@
-import type { IRichTextTypeDto } from '@codelab/shared/abstract/core'
+import type { INodeType, IRichTextTypeDto } from '@codelab/shared/abstract/core'
 import type {
   RichTextType,
   RichTextTypeOptions,
@@ -19,6 +19,7 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class RichTextTypeRepository extends AbstractRepository<
+  INodeType.RichTextType,
   IRichTextTypeDto,
   RichTextTypeFragment,
   RichTextTypeWhere,

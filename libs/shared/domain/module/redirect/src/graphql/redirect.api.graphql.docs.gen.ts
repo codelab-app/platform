@@ -10,6 +10,7 @@ export const CreateRedirectsDocument = graphql(`
   mutation CreateRedirects($input: [RedirectCreateInput!]!) {
     createRedirects(input: $input) {
       redirects {
+        __typename
         id
       }
     }
@@ -34,6 +35,7 @@ export const UpdateRedirectsDocument = graphql(`
   ) {
     updateRedirects(update: $update, where: $where) {
       redirects {
+        __typename
         id
       }
     }

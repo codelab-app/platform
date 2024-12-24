@@ -11,6 +11,7 @@ export const CreatePreferencesDocument = graphql(`
         relationshipsCreated
       }
       preferences {
+        __typename
         id
       }
     }
@@ -46,6 +47,7 @@ export const UpdatePreferencesDocument = graphql(`
   ) {
     updatePreferences(update: $update, where: $where) {
       preferences {
+        __typename
         id
       }
     }

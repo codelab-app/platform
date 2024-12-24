@@ -4,6 +4,7 @@ mutation UpdateCodeActions(
 ) {
   updateCodeActions(update: $update, where: $where) {
     codeActions {
+      __typename
       id
     }
   }
@@ -15,6 +16,7 @@ mutation UpdateApiActions(
 ) {
   updateApiActions(update: $update, where: $where) {
     apiActions {
+      __typename
       id
     }
   }

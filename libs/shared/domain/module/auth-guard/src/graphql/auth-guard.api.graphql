@@ -10,6 +10,7 @@ query GetAuthGuards($options: AuthGuardOptions, $where: AuthGuardWhere) {
 mutation CreateAuthGuards($input: [AuthGuardCreateInput!]!) {
   createAuthGuards(input: $input) {
     authGuards {
+      __typename
       id
     }
   }
@@ -21,6 +22,7 @@ mutation UpdateAuthGuard(
 ) {
   updateAuthGuards(update: $update, where: $where) {
     authGuards {
+      __typename
       id
     }
   }

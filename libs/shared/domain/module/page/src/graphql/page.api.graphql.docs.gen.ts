@@ -10,6 +10,7 @@ export const CreatePagesDocument = graphql(`
   mutation CreatePages($input: [PageCreateInput!]!) {
     createPages(input: $input) {
       pages {
+        __typename
         id
       }
     }
@@ -28,6 +29,7 @@ export const UpdatePagesDocument = graphql(`
   mutation UpdatePages($where: PageWhere, $update: PageUpdateInput) {
     updatePages(update: $update, where: $where) {
       pages {
+        __typename
         id
       }
     }

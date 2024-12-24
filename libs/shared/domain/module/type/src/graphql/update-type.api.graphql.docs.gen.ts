@@ -9,6 +9,7 @@ export const UpdatePrimitiveTypesDocument = graphql(`
   ) {
     types: updatePrimitiveTypes(update: $update, where: $where) {
       types: primitiveTypes {
+        __typename
         id
       }
     }
@@ -22,6 +23,7 @@ export const UpdateArrayTypesDocument = graphql(`
   ) {
     types: updateArrayTypes(update: $update, where: $where) {
       types: arrayTypes {
+        __typename
         id
       }
     }
@@ -35,6 +37,7 @@ export const UpdateUnionTypesDocument = graphql(`
   ) {
     types: updateUnionTypes(update: $update, where: $where) {
       types: unionTypes {
+        __typename
         id
       }
     }
@@ -48,6 +51,7 @@ export const UpdateInterfaceTypesDocument = graphql(`
   ) {
     types: updateInterfaceTypes(update: $update, where: $where) {
       types: interfaceTypes {
+        __typename
         id
       }
     }
@@ -61,6 +65,7 @@ export const UpdateReactNodeTypesDocument = graphql(`
   ) {
     types: updateReactNodeTypes(update: $update, where: $where) {
       types: reactNodeTypes {
+        __typename
         id
       }
     }
@@ -74,6 +79,7 @@ export const UpdateElementTypesDocument = graphql(`
   ) {
     types: updateElementTypes(update: $update, where: $where) {
       types: elementTypes {
+        __typename
         id
       }
     }
@@ -87,6 +93,7 @@ export const UpdateRenderPropTypesDocument = graphql(`
   ) {
     types: updateRenderPropTypes(update: $update, where: $where) {
       types: renderPropTypes {
+        __typename
         id
       }
     }
@@ -100,6 +107,7 @@ export const UpdateEnumTypesDocument = graphql(`
   ) {
     types: updateEnumTypes(update: $update, where: $where) {
       types: enumTypes {
+        __typename
         id
       }
     }
@@ -113,6 +121,7 @@ export const UpdateLambdaTypesDocument = graphql(`
   ) {
     types: updateLambdaTypes(update: $update, where: $where) {
       types: lambdaTypes {
+        __typename
         id
       }
     }
@@ -126,6 +135,7 @@ export const UpdatePageTypesDocument = graphql(`
   ) {
     types: updatePageTypes(update: $update, where: $where) {
       types: pageTypes {
+        __typename
         id
       }
     }
@@ -136,6 +146,7 @@ export const UpdateAppTypesDocument = graphql(`
   mutation UpdateAppTypes($update: AppTypeUpdateInput, $where: AppTypeWhere) {
     types: updateAppTypes(update: $update, where: $where) {
       types: appTypes {
+        __typename
         id
       }
     }
@@ -149,6 +160,7 @@ export const UpdateRichTextTypesDocument = graphql(`
   ) {
     types: updateRichTextTypes(update: $update, where: $where) {
       types: richTextTypes {
+        __typename
         id
       }
     }
@@ -162,6 +174,7 @@ export const UpdateActionTypesDocument = graphql(`
   ) {
     types: updateActionTypes(update: $update, where: $where) {
       types: actionTypes {
+        __typename
         id
       }
     }
@@ -175,6 +188,7 @@ export const UpdateCodeMirrorTypesDocument = graphql(`
   ) {
     types: updateCodeMirrorTypes(update: $update, where: $where) {
       types: codeMirrorTypes {
+        __typename
         id
       }
     }

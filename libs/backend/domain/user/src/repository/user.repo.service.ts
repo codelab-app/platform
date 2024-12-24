@@ -3,13 +3,14 @@ import type { UserOptions, UserWhere } from '@codelab/shared/infra/gql'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import { type IUserDto } from '@codelab/shared/abstract/core'
+import { type INodeType, type IUserDto } from '@codelab/shared/abstract/core'
 import { UserFragment } from '@codelab/shared/infra/gql'
 import { userApi, userMapper } from '@codelab/shared-domain-module/user'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class UserRepository extends AbstractRepository<
+  INodeType.User,
   IUserDto,
   UserFragment,
   UserWhere,

@@ -1,4 +1,4 @@
-import type { IPreferenceDto } from '@codelab/shared/abstract/core'
+import type { INodeType, IPreferenceDto } from '@codelab/shared/abstract/core'
 import type {
   Preference,
   PreferenceOptions,
@@ -17,6 +17,7 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class PreferenceRepository extends AbstractRepository<
+  INodeType.Preference,
   IPreferenceDto,
   PreferenceFragment,
   PreferenceWhere,

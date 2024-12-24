@@ -1,4 +1,4 @@
-import type { ICodeActionDto } from '@codelab/shared/abstract/core'
+import type { ICodeActionDto, INodeType } from '@codelab/shared/abstract/core'
 import type {
   CodeAction,
   CodeActionOptions,
@@ -24,6 +24,7 @@ const { GetActions } = actionFindApi()
 
 @Injectable()
 export class CodeActionRepository extends AbstractRepository<
+  INodeType.CodeAction,
   ICodeActionDto,
   CodeActionFragment,
   CodeActionWhere,

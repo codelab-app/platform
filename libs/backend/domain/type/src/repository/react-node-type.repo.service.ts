@@ -1,4 +1,7 @@
-import type { IReactNodeTypeDto } from '@codelab/shared/abstract/core'
+import type {
+  INodeType,
+  IReactNodeTypeDto,
+} from '@codelab/shared/abstract/core'
 import type {
   ReactNodeType,
   ReactNodeTypeOptions,
@@ -19,6 +22,7 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class ReactNodeTypeRepository extends AbstractRepository<
+  INodeType.ReactNodeType,
   IReactNodeTypeDto,
   ReactNodeTypeFragment,
   ReactNodeTypeWhere,

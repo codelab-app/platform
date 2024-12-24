@@ -10,6 +10,7 @@ query DomainList($options: DomainOptions, $where: DomainWhere) {
 mutation CreateDomains($input: [DomainCreateInput!]!) {
   createDomains(input: $input) {
     domains {
+      __typename
       id
     }
   }
@@ -18,6 +19,7 @@ mutation CreateDomains($input: [DomainCreateInput!]!) {
 mutation UpdateDomains($where: DomainWhere!, $update: DomainUpdateInput!) {
   updateDomains(update: $update, where: $where) {
     domains {
+      __typename
       id
     }
   }

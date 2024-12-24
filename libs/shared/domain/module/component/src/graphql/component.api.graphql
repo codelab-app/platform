@@ -1,6 +1,7 @@
 mutation CreateComponents($input: [ComponentCreateInput!]!) {
   createComponents(input: $input) {
     components {
+      __typename
       id
       store {
         id
@@ -24,6 +25,7 @@ mutation UpdateComponents(
 ) {
   updateComponents(update: $update, where: $where) {
     components {
+      __typename
       id
     }
   }

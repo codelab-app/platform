@@ -11,6 +11,7 @@ export const CreateStoresDocument = graphql(`
         relationshipsCreated
       }
       stores {
+        __typename
         id
       }
     }
@@ -40,6 +41,7 @@ export const UpdateStoresDocument = graphql(`
   mutation UpdateStores($where: StoreWhere, $update: StoreUpdateInput) {
     updateStores(update: $update, where: $where) {
       stores {
+        __typename
         id
       }
     }

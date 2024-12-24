@@ -1,4 +1,4 @@
-import type { IPropDto } from '@codelab/shared/abstract/core'
+import type { INodeType, IPropDto } from '@codelab/shared/abstract/core'
 import type { Prop, PropOptions, PropWhere } from '@codelab/shared/infra/gql'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
@@ -10,6 +10,7 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class PropRepository extends AbstractRepository<
+  INodeType.Prop,
   IPropDto,
   PropFragment,
   PropWhere,

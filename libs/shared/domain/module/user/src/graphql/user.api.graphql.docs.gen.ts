@@ -19,6 +19,7 @@ export const CreateUserDocument = graphql(`
     createUsers(input: $input) {
       users {
         email
+        __typename
         id
       }
     }
@@ -37,6 +38,7 @@ export const UpdateUsersDocument = graphql(`
   mutation UpdateUsers($where: UserWhere!, $update: UserUpdateInput!) {
     updateUsers(update: $update, where: $where) {
       users {
+        __typename
         id
       }
     }

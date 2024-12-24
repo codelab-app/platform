@@ -1,6 +1,7 @@
 mutation CreateRedirects($input: [RedirectCreateInput!]!) {
   createRedirects(input: $input) {
     redirects {
+      __typename
       id
     }
   }
@@ -15,6 +16,7 @@ mutation DeleteRedirects($where: RedirectWhere, $delete: RedirectDeleteInput) {
 mutation UpdateRedirects($where: RedirectWhere, $update: RedirectUpdateInput) {
   updateRedirects(update: $update, where: $where) {
     redirects {
+      __typename
       id
     }
   }

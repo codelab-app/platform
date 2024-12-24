@@ -1,3 +1,4 @@
+import type { INodeType } from '@codelab/shared/abstract/core'
 import type { Tag, TagOptions, TagWhere } from '@codelab/shared/infra/gql'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
@@ -10,6 +11,7 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class TagRepository extends AbstractRepository<
+  INodeType.Tag,
   ITagDto,
   TagFragment,
   TagWhere,

@@ -1,7 +1,4 @@
-import type {
-  IEnumTypeDto,
-  IEnumTypeValueDto,
-} from '@codelab/shared/abstract/core'
+import type { IEnumTypeDto, INodeType } from '@codelab/shared/abstract/core'
 import type {
   EnumType,
   EnumTypeAllowedValuesFieldInput,
@@ -24,6 +21,7 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class EnumTypeRepository extends AbstractRepository<
+  INodeType.EnumType,
   IEnumTypeDto,
   EnumTypeFragment,
   EnumTypeWhere,

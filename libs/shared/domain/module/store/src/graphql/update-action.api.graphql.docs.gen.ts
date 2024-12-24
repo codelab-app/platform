@@ -9,6 +9,7 @@ export const UpdateCodeActionsDocument = graphql(`
   ) {
     updateCodeActions(update: $update, where: $where) {
       codeActions {
+        __typename
         id
       }
     }
@@ -22,6 +23,7 @@ export const UpdateApiActionsDocument = graphql(`
   ) {
     updateApiActions(update: $update, where: $where) {
       apiActions {
+        __typename
         id
       }
     }

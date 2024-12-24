@@ -18,6 +18,7 @@ export const CreateDomainsDocument = graphql(`
   mutation CreateDomains($input: [DomainCreateInput!]!) {
     createDomains(input: $input) {
       domains {
+        __typename
         id
       }
     }
@@ -28,6 +29,7 @@ export const UpdateDomainsDocument = graphql(`
   mutation UpdateDomains($where: DomainWhere!, $update: DomainUpdateInput!) {
     updateDomains(update: $update, where: $where) {
       domains {
+        __typename
         id
       }
     }

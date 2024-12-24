@@ -5,6 +5,7 @@ mutation CreatePreferences($input: [PreferenceCreateInput!]!) {
       relationshipsCreated
     }
     preferences {
+      __typename
       id
     }
   }
@@ -34,6 +35,7 @@ mutation UpdatePreferences(
 ) {
   updatePreferences(update: $update, where: $where) {
     preferences {
+      __typename
       id
     }
   }

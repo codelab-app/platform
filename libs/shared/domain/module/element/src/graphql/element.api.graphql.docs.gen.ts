@@ -10,6 +10,7 @@ export const CreateElementsDocument = graphql(`
   mutation CreateElements($input: [ElementCreateInput!]!) {
     createElements(input: $input) {
       elements {
+        __typename
         id
       }
     }
@@ -28,6 +29,7 @@ export const UpdateElementsDocument = graphql(`
   mutation UpdateElements($where: ElementWhere, $update: ElementUpdateInput) {
     updateElements(update: $update, where: $where) {
       elements {
+        __typename
         id
       }
     }

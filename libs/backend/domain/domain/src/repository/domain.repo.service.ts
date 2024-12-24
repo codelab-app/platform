@@ -1,4 +1,4 @@
-import type { IDomainDto } from '@codelab/shared/abstract/core'
+import type { IDomainDto, INodeType } from '@codelab/shared/abstract/core'
 import type {
   Domain,
   DomainOptions,
@@ -17,6 +17,7 @@ const { CreateDomains, DomainList, UpdateDomains } = domainApi()
 
 @Injectable()
 export class DomainRepository extends AbstractRepository<
+  INodeType.Domain,
   IDomainDto,
   DomainFragment,
   DomainWhere,

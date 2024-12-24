@@ -1,4 +1,4 @@
-import type { IPageDto } from '@codelab/shared/abstract/core'
+import type { INodeType, IPageDto } from '@codelab/shared/abstract/core'
 import type { Page, PageOptions, PageWhere } from '@codelab/shared/infra/gql'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
@@ -10,6 +10,7 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class PageRepository extends AbstractRepository<
+  INodeType.Page,
   IPageDto,
   PageFragment,
   PageWhere,

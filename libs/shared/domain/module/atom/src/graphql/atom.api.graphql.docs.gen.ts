@@ -7,6 +7,7 @@ export const CreateAtomsDocument = graphql(`
   mutation CreateAtoms($input: [AtomCreateInput!]!) {
     createAtoms(input: $input) {
       atoms {
+        __typename
         id
       }
       info {
@@ -56,6 +57,7 @@ export const UpdateAtomsDocument = graphql(`
   mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {
     updateAtoms(update: $update, where: $where) {
       atoms {
+        __typename
         id
       }
     }

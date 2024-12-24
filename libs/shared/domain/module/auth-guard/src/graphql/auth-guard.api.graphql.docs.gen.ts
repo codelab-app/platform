@@ -18,6 +18,7 @@ export const CreateAuthGuardsDocument = graphql(`
   mutation CreateAuthGuards($input: [AuthGuardCreateInput!]!) {
     createAuthGuards(input: $input) {
       authGuards {
+        __typename
         id
       }
     }
@@ -31,6 +32,7 @@ export const UpdateAuthGuardDocument = graphql(`
   ) {
     updateAuthGuards(update: $update, where: $where) {
       authGuards {
+        __typename
         id
       }
     }

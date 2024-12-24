@@ -1,4 +1,8 @@
-import type { ITypeRef, IUnionTypeDto } from '@codelab/shared/abstract/core'
+import type {
+  INodeType,
+  ITypeRef,
+  IUnionTypeDto,
+} from '@codelab/shared/abstract/core'
 import type {
   UnionType,
   UnionTypeOptions,
@@ -39,6 +43,7 @@ const getFilteredTypes = (typesOfUnionType: Array<ITypeRef>) => ({
 
 @Injectable()
 export class UnionTypeRepository extends AbstractRepository<
+  INodeType.UnionType,
   IUnionTypeDto,
   UnionTypeFragment,
   UnionTypeWhere,

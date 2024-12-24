@@ -7,6 +7,7 @@ export const CreateComponentsDocument = graphql(`
   mutation CreateComponents($input: [ComponentCreateInput!]!) {
     createComponents(input: $input) {
       components {
+        __typename
         id
         store {
           id
@@ -34,6 +35,7 @@ export const UpdateComponentsDocument = graphql(`
   ) {
     updateComponents(update: $update, where: $where) {
       components {
+        __typename
         id
       }
     }

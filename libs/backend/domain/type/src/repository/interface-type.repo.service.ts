@@ -1,4 +1,4 @@
-import type { IInterfaceTypeDto, ITypeRef } from '@codelab/shared/abstract/core'
+import type { IInterfaceTypeDto, INodeType, ITypeRef } from '@codelab/shared/abstract/core'
 import type {
   InterfaceType,
   InterfaceTypeOptions,
@@ -24,6 +24,7 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class InterfaceTypeRepository extends AbstractRepository<
+  INodeType.InterfaceType,
   IInterfaceTypeDto,
   InterfaceTypeFragment,
   InterfaceTypeWhere,

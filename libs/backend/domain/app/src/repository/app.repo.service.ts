@@ -1,4 +1,4 @@
-import type { IAppDto } from '@codelab/shared/abstract/core'
+import type { IAppDto, INodeType } from '@codelab/shared/abstract/core'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
@@ -9,6 +9,7 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class AppRepository extends AbstractRepository<
+  INodeType.App,
   IAppDto,
   AppFragment,
   AppWhere,

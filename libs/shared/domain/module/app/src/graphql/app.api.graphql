@@ -1,6 +1,7 @@
 mutation CreateApps($input: [AppCreateInput!]!) {
   createApps(input: $input) {
     apps {
+      __typename
       id
     }
   }
@@ -9,6 +10,7 @@ mutation CreateApps($input: [AppCreateInput!]!) {
 mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {
   updateApps(update: $update, where: $where) {
     apps {
+      __typename
       id
     }
   }

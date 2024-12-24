@@ -1,4 +1,4 @@
-import type { IPrimitiveTypeDto } from '@codelab/shared/abstract/core'
+import type { INodeType, IPrimitiveTypeDto } from '@codelab/shared/abstract/core'
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import type {
   PrimitiveType,
@@ -21,6 +21,7 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class PrimitiveTypeRepository extends AbstractRepository<
+  INodeType.PrimitiveType,
   IPrimitiveTypeDto,
   PrimitiveTypeFragment,
   PrimitiveTypeWhere,
