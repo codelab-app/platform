@@ -2,16 +2,16 @@ query elementDependentTypes {
   elements {
     dependantTypes {
       ... on EnumType {
+        __typename
         id
-        name
       }
       ... on ArrayType {
+        __typename
         id
-        name
       }
       ... on UnionType {
+        __typename
         id
-        name
       }
     }
   }

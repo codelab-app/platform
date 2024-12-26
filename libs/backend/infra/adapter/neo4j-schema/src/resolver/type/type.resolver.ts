@@ -1,4 +1,9 @@
-import type { AnyType, IBaseType } from '@codelab/shared/infra/gql'
+import type {
+  AnyType,
+  BaseTypeFragment,
+  IBaseType,
+  TypeFragment,
+} from '@codelab/shared/infra/gql'
 import type { IResolvers } from '@graphql-tools/utils'
 import type { FactoryProvider } from '@nestjs/common'
 import type { GraphQLRequestContext } from 'graphql-request/build/cjs/types'
@@ -28,13 +33,15 @@ export const TypeResolverProvider: FactoryProvider<
 
     return {
       AnyType: {
-        __resolveType: (type: AnyType) => type.kind,
+        __resolveType: (type: TypeFragment) => {
+          return type.__typename
+        },
       },
       ArrayType: {
         descendantTypesIds,
       },
       IBaseType: {
-        __resolveType: (type: IBaseType) => type.kind,
+        __resolveType: (type: BaseTypeFragment) => type.__typename,
       },
       InterfaceType: {
         descendantTypesIds,

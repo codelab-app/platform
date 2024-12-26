@@ -11,7 +11,7 @@ import {
   TypeDomainModule,
 } from '@codelab/backend/domain/type'
 import { UserRepository } from '@codelab/backend/domain/user'
-import { initUserContext } from '@codelab/backend/test'
+import { initUserContext } from '@codelab/backend/test/setup'
 import { Neo4jModule } from '@codelab/backend-infra-adapter/neo4j-driver'
 import { IAtomType } from '@codelab/shared/abstract/core'
 

@@ -8,7 +8,7 @@ import {
   GraphqlModule,
   GraphqlService,
 } from '@codelab/backend/infra/adapter/graphql'
-import { initUserContext } from '@codelab/backend/test'
+import { initUserContext } from '@codelab/backend/test/setup'
 import { userDto } from '@codelab/shared/data/test'
 import { connectNodeId } from '@codelab/shared/domain/orm'
 import { graphqlClient } from '@codelab/shared/infra/gql-client'

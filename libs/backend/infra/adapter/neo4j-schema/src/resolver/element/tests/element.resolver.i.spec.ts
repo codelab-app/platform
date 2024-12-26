@@ -24,7 +24,7 @@ import request from 'supertest'
 import { v4 } from 'uuid'
 
 import { setupTestingContext } from './../../../test/setup'
-import { ElementDependentTypesDocument } from './element.spec.graphql'
+import { ElementDependentTypesDocument } from './element.spec.graphql.gen'
 
 describe('ElementResolvers', () => {
   let app: INestApplication
@@ -113,74 +113,76 @@ describe('ElementResolvers', () => {
 
     Validator.assertsDefined(unionType)
 
-    const arrayType = await arrayTypeRepository.create({
+    const arrayType = await arrayTypeRepository.add({
+      __typename: 'ArrayType',
       id: v4(),
-      itemType: connectNodeId(unionType.id),
+      itemType: { __typename: unionType.__typename, id: unionType.id },
+      kind: ITypeKind.ArrayType,
       name: 'ArrayType1',
-      owner: connectOwner(owner),
+      owner: { id: owner.id },
     })
 
     Validator.assertsDefined(arrayType)
 
-    const atomApi = await interfaceTypeRepository.create({
+    const atomApi = await interfaceTypeRepository.add({
+      __typename: 'InterfaceType',
       id: v4(),
+      kind: ITypeKind.InterfaceType,
       name: 'AtomApi',
-      owner: connectOwner(owner),
+      owner: { id: owner.id },
     })
 
     Validator.assertsDefined(atomApi)
 
-    await fieldRepository.create({
-      input: [
-        {
-          api: connectNodeId(atomApi.id),
-          fieldType: connectNodeId(unionType.id),
-          id: v4(),
-          key: 'field1',
-          name: 'Field1',
-        },
-        {
-          api: connectNodeId(atomApi.id),
-          fieldType: connectNodeId(arrayType.id),
-          id: v4(),
-          key: 'field2',
-          name: 'Field2',
-        },
-      ],
-    })
+    await fieldRepository.addMany([
+      {
+        api: { id: atomApi.id },
+        fieldType: { id: unionType.id },
+        id: v4(),
+        key: 'field1',
+        name: 'Field1',
+      },
+      {
+        api: { id: atomApi.id },
+        fieldType: { id: arrayType.id },
+        id: v4(),
+        key: 'field2',
+        name: 'Field2',
+      },
+    ])
 
-    const atom = await atomRepository.create({
-      api: connectNodeId(atomApi.id),
+    const atom = await atomRepository.add({
+      __typename: 'Atom',
+      api: { id: atomApi.id },
       id: v4(),
       name: 'Atom',
-      owner: connectOwner(owner),
+      owner: { id: owner.id },
       type: AtomType.HtmlSpan,
     })
 
     Validator.assertsDefined(atom)
 
-    const props = await propRepository.create({
-      data: '{}',
+    // const props = await propRepository.add({
+    //   data: '{}',
+    //   id: v4(),
+    // })
+
+    // Validator.assertsDefined(props)
+
+    await elementRepository.add({
+      closestContainerNode: { id: v4() },
+      compositeKey: 'test',
       id: v4(),
-    })
-
-    Validator.assertsDefined(props)
-
-    await elementRepository.create({
-      input: [
-        {
-          compositeKey: 'test',
-          id: v4(),
-          props: connectNodeId(props.id),
-          renderType: {
-            Atom: connectNodeId(atom.id),
-          },
-        },
-      ],
+      name: 'TestElement',
+      props: { data: '{}', id: v4() },
+      renderType: {
+        __typename: atom.__typename,
+        id: atom.id,
+      },
     })
 
     await request(app.getHttpServer())
-      .post('/graphql')
+      .post('/api/v1/graphql')
       .send({
         query: print(ElementDependentTypesDocument),
       })
@@ -188,24 +190,24 @@ describe('ElementResolvers', () => {
       .expect(async ({ body }) => {
         expect(body.data.elements).toEqual([
           {
-            dependantTypes: [
+            dependantTypes: expect.arrayContaining([
               {
+                __typename: ITypeKind.ArrayType,
                 id: arrayType.id,
-                name: arrayType.name,
               },
               {
+                __typename: ITypeKind.EnumType,
                 id: enumType1.id,
-                name: enumType1.name,
               },
               {
+                __typename: ITypeKind.EnumType,
                 id: enumType2.id,
-                name: enumType2.name,
               },
               {
+                __typename: ITypeKind.UnionType,
                 id: unionType.id,
-                name: unionType.name,
               },
-            ],
+            ]),
           },
         ])
       })

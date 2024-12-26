@@ -9,7 +9,7 @@ import { Redirect, RedirectRepository } from '@codelab/backend/domain/redirect'
 import { HealthcheckController } from '@codelab/backend/domain/shared/modules'
 import { GraphqlModule } from '@codelab/backend/infra/adapter/graphql'
 import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
-import { startServer } from '@codelab/backend/test'
+import { startServer } from '@codelab/backend/test/setup/setup'
 import {
   HttpMethod,
   HttpResponseType,

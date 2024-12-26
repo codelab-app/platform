@@ -1,6 +1,5 @@
 import type { Static, TAnySchema } from '@sinclair/typebox'
 
-import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
   NestedValidator,
   Typebox,
@@ -10,8 +9,6 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class ValidationService {
-  constructor(private loggerService: PinoLoggerService) {}
-
   validateAndClean = <T extends TAnySchema>(
     schema: T,
     values: unknown,

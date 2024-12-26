@@ -24,7 +24,7 @@ export class Neo4jModule implements OnModuleDestroy {
     /**
      * Graphql subscriptions engine will close first, since GraphqlModule imports Neo4jModule
      *
-     * But in case we import Neo4jModule without using GraphqlModule such as testing, we can close it her as well
+     * But in case we import Neo4jModule without using GraphqlModule such as testing, we can close it here as well
      */
     await this.neo4jService.close()
   }

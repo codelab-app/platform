@@ -2,6 +2,7 @@ import type { IResolvers } from '@graphql-tools/utils'
 import type { GraphQLSchema } from 'graphql'
 import type { Driver } from 'neo4j-driver'
 
+import { ISchemaService } from '@codelab/backend/abstract/types'
 import { Neo4jService } from '@codelab/backend-infra-adapter/neo4j-driver'
 import { getEnv } from '@codelab/shared/config/env'
 import { mergeResolvers } from '@graphql-tools/merge'
@@ -26,7 +27,7 @@ import { typeDefs } from './type-defs'
  * https://community.auth0.com/t/authenticating-users-and-m2m-with-same-middleware/77369/5
  */
 @Injectable()
-export class SchemaService {
+export class SchemaService implements ISchemaService {
   constructor(
     private readonly neo4jService: Neo4jService,
     private readonly resolverService: ResolverService,

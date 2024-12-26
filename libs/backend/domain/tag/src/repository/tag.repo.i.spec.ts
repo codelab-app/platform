@@ -1,5 +1,5 @@
 import { UserDomainModule, UserRepository } from '@codelab/backend/domain/user'
-import { initUserContext } from '@codelab/backend/test'
+import { initUserContext } from '@codelab/backend/test/setup'
 import { v4 } from 'uuid'
 
 import { Tag } from '../model'

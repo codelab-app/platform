@@ -1,3 +1,4 @@
+import type { IElementDto, INodeType } from '@codelab/shared/abstract/core'
 import type {
   ElementFragment,
   ElementOptions,
@@ -7,7 +8,6 @@ import type {
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { IElementDto, INodeType } from '@codelab/shared/abstract/core'
 import {
   elementApi,
   elementMapper,

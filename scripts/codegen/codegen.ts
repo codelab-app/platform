@@ -199,8 +199,8 @@ const config: Types.Config = {
         // dedupeFragments: true, // Uncomment to deduplicate fragments
       },
     },
-    './libs/shared/domain': {
-      documents: ['libs/shared/domain/**/*.{subscription,spec}.graphql'],
+    './libs': {
+      documents: ['libs/**/*.{subscription,spec}.graphql'],
       preset: 'near-operation-file',
       presetConfig: {
         extension: '.graphql.gen.ts',

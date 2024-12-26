@@ -5,7 +5,7 @@ import {
   ReadAdminDataService,
 } from '@codelab/backend/application/data'
 import { InterfaceType, TypeDomainModule } from '@codelab/backend/domain/type'
-import { initUserContext } from '@codelab/backend/test'
+import { initUserContext } from '@codelab/backend/test/setup'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { sortBy } from 'remeda'
 

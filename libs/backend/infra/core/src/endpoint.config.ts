@@ -1,7 +1,7 @@
 import { registerAs } from '@nestjs/config'
 import * as env from 'env-var'
 
-export const ENDPOINT_CONFIG_KEY = 'graphql'
+export const ENDPOINT_CONFIG_KEY = 'ENDPOINT_CONFIG_KEY'
 
 /**
  * graphqlConfig.KEY not available inside main.ts

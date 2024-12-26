@@ -188,7 +188,8 @@
       "@codelab/backend/infra/core": ["libs/backend/infra/core/src/index.ts"],
       "@codelab/backend/shared/eval": ["libs/backend/shared/eval/src/index.ts"],
       "@codelab/backend/shared/util": ["libs/backend/shared/util/src/index.ts"],
-      "@codelab/backend/test": ["libs/backend/test/src/index.ts"],
+      "@codelab/backend/test/setup": ["libs/backend/test/setup/src/index.ts"],
+      "@codelab/backend/test/utils": ["libs/backend/test/utils/src/index.ts"],
       "@codelab/design-system": ["apps/design-system/src/index.ts"],
       "@codelab/eslint-plugin": ["tools/eslint-plugin/src/index.ts"],
       "@codelab/frontend-application-admin/use-cases/admin-props-panel": [

@@ -1,10 +1,24 @@
+import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default'
 import { AuthModule, JwtAuthGuard } from '@codelab/backend/application/auth'
 import { HealthcheckController } from '@codelab/backend/domain/shared/modules'
 import { GraphqlModule } from '@codelab/backend/infra/adapter/graphql'
 import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
+import { RequestContextModule } from '@codelab/backend/infra/adapter/request-context'
+import { endpointConfig } from '@codelab/backend/infra/core'
+import {
+  neo4jConfig,
+  Neo4jModule,
+} from '@codelab/backend-infra-adapter/neo4j-driver'
+import {
+  GraphQLSchemaModule,
+  SchemaService,
+} from '@codelab/backend-infra-adapter/neo4j-schema'
+import { ApolloDriver } from '@nestjs/apollo'
 import { Module } from '@nestjs/common'
+import { ConfigModule } from '@nestjs/config'
 import { APP_GUARD } from '@nestjs/core'
 import { EventEmitterModule } from '@nestjs/event-emitter'
+import { GraphQLModule } from '@nestjs/graphql'
 import { SentryModule } from '@sentry/nestjs/setup'
 
 import { ApiModule } from './api/api.module'
@@ -13,7 +27,10 @@ import { ApiModule } from './api/api.module'
   controllers: [HealthcheckController],
   imports: [
     SentryModule.forRoot(),
-    GraphqlModule,
+    GraphqlModule.forRootAsync({
+      imports: [GraphQLSchemaModule],
+      inject: [SchemaService],
+    }),
     AuthModule,
     ApiModule,
     CodelabLoggerModule,

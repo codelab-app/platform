@@ -1,5 +1,5 @@
 import { deleteFilesSync } from '@codelab/backend/shared/util'
-import { initUserContext } from '@codelab/backend/test'
+import { initUserContext } from '@codelab/backend/test/setup'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { isSubset } from '@codelab/shared/utils'
 import { CommandBus } from '@nestjs/cqrs'

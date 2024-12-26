@@ -319,8 +319,6 @@ export const unionTypeMapper: IMapper<
   toCreateInput: (dto) => {
     const types = connectTypesOfUnionType(dto.typesOfUnionType)
 
-    console.log('typesOfUnionType:', types)
-
     return {
       id: dto.id,
       kind: dto.kind,

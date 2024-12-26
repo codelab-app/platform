@@ -2,7 +2,7 @@ import { SharedApplicationModule } from '@codelab/backend/application/shared'
 import { AppDomainModule, AppRepository } from '@codelab/backend/domain/app'
 import { PageRepository } from '@codelab/backend/domain/page'
 import { UserRepository } from '@codelab/backend/domain/user'
-import { initUserContext } from '@codelab/backend/test'
+import { initUserContext } from '@codelab/backend/test/setup'
 
 describe('Element types', () => {
   const context = initUserContext({

@@ -1,6 +1,3 @@
-/// <reference types="jest" />
-
-import type { endpointConfig } from '@codelab/backend/infra/core'
 import type { INestApplication, ModuleMetadata } from '@nestjs/common'
 import type { ConfigType } from '@nestjs/config'
 
@@ -21,16 +18,26 @@ import {
   RequestContextModule,
 } from '@codelab/backend/infra/adapter/request-context'
 import { ValidationModule } from '@codelab/backend/infra/adapter/typebox'
-import { ENDPOINT_CONFIG_KEY } from '@codelab/backend/infra/core'
+import {
+  ENDPOINT_CONFIG_KEY,
+  endpointConfig,
+} from '@codelab/backend/infra/core'
+import {
+  initUserServices,
+  resetAndSeedDatabase,
+  startServer,
+} from '@codelab/backend/test/utils'
+import {
+  GraphQLSchemaModule,
+  SchemaService,
+} from '@codelab/backend-infra-adapter/neo4j-schema'
 import { userDto } from '@codelab/shared/data/test'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { CommandBus, CqrsModule } from '@nestjs/cqrs'
 import { Test, type TestingModule } from '@nestjs/testing'
 
-import { initUserServices, resetAndSeedDatabase } from './database.utils'
-import { startServer } from './start-server'
-
-export const initUserContext = async (metadata: ModuleMetadata) => {
+//
+export const initUserContext = async (metadata?: ModuleMetadata) => {
   const module: TestingModule = await Test.createTestingModule({
     controllers: [HealthcheckController],
     imports: [
@@ -38,10 +45,17 @@ export const initUserContext = async (metadata: ModuleMetadata) => {
       SharedDomainModule,
       CqrsModule,
       CodelabLoggerModule,
-      GraphqlModule,
-      ...(metadata.imports ?? []),
+      /**
+       * This should be injected at point of use
+       */
+      // GraphqlModule,
+      GraphqlModule.forRootAsync({
+        imports: [GraphQLSchemaModule],
+        inject: [SchemaService],
+      }),
+      ...(metadata?.imports ?? []),
     ],
-    providers: [UserRepository, ...(metadata.providers ?? [])],
+    providers: [UserRepository, ...(metadata?.providers ?? [])],
   })
     .overrideProvider(AuthDomainService)
     .useValue({

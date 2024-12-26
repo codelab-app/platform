@@ -11,7 +11,7 @@ import {
 } from '@codelab/backend/application/type'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import { InterfaceTypeRepository } from '@codelab/backend/domain/type'
-import { initUserContext } from '@codelab/backend/test'
+import { initUserContext } from '@codelab/backend/test/setup'
 import {
   DatabaseService,
   Neo4jModule,

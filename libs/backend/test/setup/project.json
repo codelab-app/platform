@@ -1,7 +1,7 @@
 {
-  "name": "backend-test",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/backend/test/src",
+  "name": "backend-test-setup",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/backend/test/setup/src",
   "projectType": "library",
   "tags": [
     "projectName:backend-test",

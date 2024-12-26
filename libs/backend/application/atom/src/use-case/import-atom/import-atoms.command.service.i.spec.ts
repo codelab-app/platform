@@ -14,7 +14,7 @@ import {
   InterfaceTypeRepository,
   TypeDomainModule,
 } from '@codelab/backend/domain/type'
-import { initUserContext } from '@codelab/backend/test'
+import { initUserContext } from '@codelab/backend/test/setup'
 import { IAtomType } from '@codelab/shared/abstract/core'
 
 import { ImportAtomHandler } from './import-atom.command.service'

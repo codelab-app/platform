@@ -21,7 +21,6 @@ export const startServer = async (app: INestApplication) => {
    *
    * https://github.com/nestjs/cqrs/issues/119#issuecomment-1181596376
    */
-
   await app.init()
 
   // Only listen if not already listening
@@ -29,10 +28,18 @@ export const startServer = async (app: INestApplication) => {
     await app.listen(port)
   }
 
-  // Test if port is working by trying to connect
+  // Wait for 20 seconds to allow server to fully start up
+  // await new Promise((resolve) => setTimeout(resolve, 20000))
+
+  // Test if port and playground are working by trying to connect
   try {
-    const url = `http://127.0.0.1:${port}/api/v1/healthcheck`
-    const response = await fetch(url)
+    const url = `http://127.0.0.1:${port}/api/v1/graphql`
+
+    const response = await fetch(url, {
+      headers: {
+        Accept: 'text/html',
+      },
+    })
 
     if (!response.ok) {
       throw new Error(`Failed to connect to ${url}`)
