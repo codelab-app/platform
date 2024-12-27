@@ -3,7 +3,6 @@ import * as Types from '@codelab/shared/infra/gql'
 import { graphql } from '@codelab/shared/infra/gql'
 import {
   BaseTypeFragmentDoc,
-  BaseTypeRefFragmentDoc,
   TypeFragmentDoc,
   ReactNodeTypeFragmentDoc,
   RichTextTypeFragmentDoc,

@@ -8,13 +8,3 @@ fragment BaseType on IBaseType {
     id
   }
 }
-
-# This is used to create a labeled reference to a base type
-fragment BaseTypeRef on IBaseType {
-  # Need this to narrow down type on frontend
-  __typename
-  id
-  # Need this for resolver resolve
-  kind
-  name
-}

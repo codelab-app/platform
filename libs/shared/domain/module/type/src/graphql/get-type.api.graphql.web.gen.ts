@@ -4,7 +4,6 @@ import { graphql } from '@codelab/shared/infra/gql'
 import { gqlServerRequest } from '@codelab/shared/infra/fetch-server'
 import {
   BaseTypeFragmentDoc,
-  BaseTypeRefFragmentDoc,
   TypeFragmentDoc,
   ReactNodeTypeFragmentDoc,
   RichTextTypeFragmentDoc,

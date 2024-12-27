@@ -6,7 +6,7 @@
   "tags": [
     "projectName:shared-infra-typebox",
     "projectType:library",
-    "type:concrete",
+    "type:abstract",
     "layer:infra",
     "scope:shared"
   ],

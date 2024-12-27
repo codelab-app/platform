@@ -5,6 +5,7 @@ import {
   Neo4jService,
 } from '@codelab/backend-infra-adapter/neo4j-driver'
 import { ITypeKind } from '@codelab/shared/abstract/core'
+import { TypeFragment } from '@codelab/shared/infra/gql'
 import { ITypeWhere, TypeCreateMap } from '@codelab/shared-domain-module/type'
 import { Inject, Injectable } from '@nestjs/common'
 import { TAnySchema } from '@sinclair/typebox'
@@ -74,7 +75,10 @@ export class TypeFactory {
     return sortedDescendants
   }
 
-  async findOne({ __typename, id }: ITypeRef, schema?: TAnySchema) {
+  async findOne(
+    { __typename, id }: ITypeRef,
+    schema?: TAnySchema,
+  ): Promise<TypeFragment> {
     switch (__typename) {
       case ITypeKind.ActionType: {
         return (await this.actionTypeRepository).findOne({

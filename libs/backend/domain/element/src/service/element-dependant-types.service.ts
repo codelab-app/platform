@@ -9,14 +9,20 @@ import {
   ReactNodeTypeRepository,
   RenderPropTypeRepository,
   RichTextTypeRepository,
+  TypeFactory,
   UnionTypeRepository,
 } from '@codelab/backend/domain/type'
 import {
   getElementDependantTypes,
   Neo4jService,
 } from '@codelab/backend-infra-adapter/neo4j-driver'
-import { type IRef, ITypeKind } from '@codelab/shared/abstract/core'
-import { Element, ElementFragment } from '@codelab/shared/infra/gql'
+import { type IRef, ITypeKind, ITypeRef } from '@codelab/shared/abstract/core'
+import {
+  BaseTypeFragment,
+  Element,
+  ElementFragment,
+  TypeFragment,
+} from '@codelab/shared/infra/gql'
 import { Injectable } from '@nestjs/common'
 
 /**
@@ -24,23 +30,28 @@ import { Injectable } from '@nestjs/common'
  */
 @Injectable()
 export class ElementDependantTypesService {
-  constructor(private neo4jService: Neo4jService) {}
+  constructor(
+    private neo4jService: Neo4jService,
+    private typeFactory: TypeFactory,
+  ) {}
 
   /**
    * This attempts to get all dependent types for an element
    */
-  async getDependantTypes(element: Pick<Element, 'id'>) {
+  async getDependantTypes(
+    element: Pick<Element, 'id'>,
+  ): Promise<Array<TypeFragment>> {
     return this.neo4jService.withReadTransaction(async (txn) => {
       const { records } = await txn.run(getElementDependantTypes, {
         id: element.id,
       })
 
-      const dependantTypes = records.map((rec) => ({
+      const typeRefs: Array<ITypeRef> = records.map((rec) => ({
         __typename: rec.get(0).__typename,
         id: rec.get(0).id,
       }))
 
-      return dependantTypes
+      return Promise.all(typeRefs.map((type) => this.typeFactory.findOne(type)))
     })
   }
 }

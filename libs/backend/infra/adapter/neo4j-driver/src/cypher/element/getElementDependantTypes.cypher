@@ -30,8 +30,10 @@ WHERE NOT 'Field' IN labels(type)
 
 // Return unique type nodes with their ID and type name
 RETURN DISTINCT {
-  id: type.id,
   // Get the first label that is not 'Type'
-  __typename: head([label IN labels(type) WHERE label <> 'Type'])
+  __typename: head([label IN labels(type) WHERE label <> 'Type']),
+  id: type.id,
+  kind: type.kind,
+  name: type.name
 }
 

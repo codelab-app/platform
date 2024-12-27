@@ -1,6 +1,10 @@
 import { DigitaloceanModule } from '@codelab/backend/infra/adapter/digitalocean'
 import { Neo4jModule } from '@codelab/backend-infra-adapter/neo4j-driver'
-import { Module, OnModuleDestroy } from '@nestjs/common'
+import {
+  BeforeApplicationShutdown,
+  Module,
+  OnModuleDestroy,
+} from '@nestjs/common'
 
 import { ResolverModule } from '../resolver/resolver.module'
 import { SchemaService } from './schema.service'
@@ -10,13 +14,22 @@ import { SchemaService } from './schema.service'
   imports: [Neo4jModule, DigitaloceanModule, ResolverModule],
   providers: [SchemaService],
 })
-export class GraphQLSchemaModule implements OnModuleDestroy {
+export class GraphQLSchemaModule
+  implements OnModuleDestroy, BeforeApplicationShutdown
+{
   constructor(private schemaService: SchemaService) {}
+
+  /**
+   * Additional cleanup before the application shuts down
+   */
+  async beforeApplicationShutdown() {
+    await this.schemaService.closeEngine()
+  }
 
   /**
    * Close the Neo4j CDC subscription engine before shutdown
    */
-  onModuleDestroy() {
-    this.schemaService.closeEngine()
+  async onModuleDestroy() {
+    await this.schemaService.closeEngine()
   }
 }

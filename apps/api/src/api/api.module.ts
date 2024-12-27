@@ -17,10 +17,10 @@ import { DevtoolsModule } from '@nestjs/devtools-integration'
 @Module({
   controllers: [],
   imports: [
-    DevtoolsModule.register({
-      http: process.env.NODE_ENV !== 'production',
-      port: 8000,
-    }),
+    // DevtoolsModule.register({
+    //   http: process.env.NODE_ENV !== 'production',
+    //   port: 8000,
+    // }),
     RequestContextModule,
     ActionApplicationModule,
     AdminApplicationModule,

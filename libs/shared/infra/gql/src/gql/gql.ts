@@ -85,12 +85,10 @@ const documents = {
     types.ActionTypeFragmentDoc,
   '\n  fragment AppType on AppType {\n    ...BaseType\n  }\n':
     types.AppTypeFragmentDoc,
-  '\n  fragment ArrayType on ArrayType {\n    ...BaseType\n    itemType {\n      ... on IBaseType {\n        ...BaseTypeRef\n      }\n    }\n  }\n':
+  '\n  fragment ArrayType on ArrayType {\n    ...BaseType\n    itemType {\n      ... on IBaseType {\n        ...BaseType\n      }\n    }\n  }\n':
     types.ArrayTypeFragmentDoc,
   '\n  fragment BaseType on IBaseType {\n    __typename\n    id\n    kind\n    name\n    owner {\n      id\n    }\n  }\n':
     types.BaseTypeFragmentDoc,
-  '\n  fragment BaseTypeRef on IBaseType {\n    __typename\n    id\n    kind\n    name\n  }\n':
-    types.BaseTypeRefFragmentDoc,
   '\n  fragment CodeMirrorType on CodeMirrorType {\n    ...BaseType\n    language\n  }\n':
     types.CodeMirrorTypeFragmentDoc,
   '\n  fragment ElementType on ElementType {\n    ...BaseType\n    elementKind\n  }\n':
@@ -99,7 +97,7 @@ const documents = {
     types.EnumTypeValueFragmentDoc,
   '\n  fragment EnumType on EnumType {\n    ...BaseType\n    allowedValues {\n      ...EnumTypeValue\n    }\n  }\n':
     types.EnumTypeFragmentDoc,
-  '\n  fragment Field on Field {\n    __typename\n    api {\n      ... on InterfaceType {\n        ...BaseTypeRef\n      }\n    }\n    defaultValues\n    description\n    fieldType {\n      ... on IBaseType {\n        ...BaseType\n      }\n    }\n    id\n    key\n    name\n    nextSibling {\n      id\n    }\n    prevSibling {\n      id\n    }\n    validationRules\n  }\n':
+  '\n  fragment Field on Field {\n    __typename\n    api {\n      ... on InterfaceType {\n        ...BaseType\n      }\n    }\n    defaultValues\n    description\n    fieldType {\n      ... on IBaseType {\n        ...BaseType\n      }\n    }\n    id\n    key\n    name\n    nextSibling {\n      id\n    }\n    prevSibling {\n      id\n    }\n    validationRules\n  }\n':
     types.FieldFragmentDoc,
   '\n  fragment InterfaceType on InterfaceType {\n    ...BaseType\n    fields {\n      ...Field\n    }\n  }\n':
     types.InterfaceTypeFragmentDoc,
@@ -117,7 +115,7 @@ const documents = {
     types.RichTextTypeFragmentDoc,
   '\n  fragment Type on IBaseType {\n    ...ActionType\n    ...AppType\n    ...ArrayType\n    ...CodeMirrorType\n    ...ElementType\n    ...EnumType\n    ...InterfaceType\n    ...LambdaType\n    ...PageType\n    ...PrimitiveType\n    ...ReactNodeType\n    ...RenderPropType\n    ...RichTextType\n    ...UnionType\n  }\n':
     types.TypeFragmentDoc,
-  '\n  fragment UnionType on UnionType {\n    ...BaseType\n    typesOfUnionType {\n      ... on IBaseType {\n        ...BaseTypeRef\n      }\n    }\n  }\n':
+  '\n  fragment UnionType on UnionType {\n    ...BaseType\n    typesOfUnionType {\n      ... on IBaseType {\n        ...BaseType\n      }\n    }\n  }\n':
     types.UnionTypeFragmentDoc,
   '\n  fragment Owner on User {\n    id\n  }\n': types.OwnerFragmentDoc,
   '\n  fragment User on User {\n    apps {\n      id\n    }\n    auth0Id\n    email\n    id\n    preferences {\n      ...Preference\n    }\n    roles\n    username\n  }\n':
@@ -636,20 +634,14 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  fragment ArrayType on ArrayType {\n    ...BaseType\n    itemType {\n      ... on IBaseType {\n        ...BaseTypeRef\n      }\n    }\n  }\n',
-): (typeof documents)['\n  fragment ArrayType on ArrayType {\n    ...BaseType\n    itemType {\n      ... on IBaseType {\n        ...BaseTypeRef\n      }\n    }\n  }\n']
+  source: '\n  fragment ArrayType on ArrayType {\n    ...BaseType\n    itemType {\n      ... on IBaseType {\n        ...BaseType\n      }\n    }\n  }\n',
+): (typeof documents)['\n  fragment ArrayType on ArrayType {\n    ...BaseType\n    itemType {\n      ... on IBaseType {\n        ...BaseType\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
   source: '\n  fragment BaseType on IBaseType {\n    __typename\n    id\n    kind\n    name\n    owner {\n      id\n    }\n  }\n',
 ): (typeof documents)['\n  fragment BaseType on IBaseType {\n    __typename\n    id\n    kind\n    name\n    owner {\n      id\n    }\n  }\n']
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(
-  source: '\n  fragment BaseTypeRef on IBaseType {\n    __typename\n    id\n    kind\n    name\n  }\n',
-): (typeof documents)['\n  fragment BaseTypeRef on IBaseType {\n    __typename\n    id\n    kind\n    name\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -678,8 +670,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  fragment Field on Field {\n    __typename\n    api {\n      ... on InterfaceType {\n        ...BaseTypeRef\n      }\n    }\n    defaultValues\n    description\n    fieldType {\n      ... on IBaseType {\n        ...BaseType\n      }\n    }\n    id\n    key\n    name\n    nextSibling {\n      id\n    }\n    prevSibling {\n      id\n    }\n    validationRules\n  }\n',
-): (typeof documents)['\n  fragment Field on Field {\n    __typename\n    api {\n      ... on InterfaceType {\n        ...BaseTypeRef\n      }\n    }\n    defaultValues\n    description\n    fieldType {\n      ... on IBaseType {\n        ...BaseType\n      }\n    }\n    id\n    key\n    name\n    nextSibling {\n      id\n    }\n    prevSibling {\n      id\n    }\n    validationRules\n  }\n']
+  source: '\n  fragment Field on Field {\n    __typename\n    api {\n      ... on InterfaceType {\n        ...BaseType\n      }\n    }\n    defaultValues\n    description\n    fieldType {\n      ... on IBaseType {\n        ...BaseType\n      }\n    }\n    id\n    key\n    name\n    nextSibling {\n      id\n    }\n    prevSibling {\n      id\n    }\n    validationRules\n  }\n',
+): (typeof documents)['\n  fragment Field on Field {\n    __typename\n    api {\n      ... on InterfaceType {\n        ...BaseType\n      }\n    }\n    defaultValues\n    description\n    fieldType {\n      ... on IBaseType {\n        ...BaseType\n      }\n    }\n    id\n    key\n    name\n    nextSibling {\n      id\n    }\n    prevSibling {\n      id\n    }\n    validationRules\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -732,8 +724,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  fragment UnionType on UnionType {\n    ...BaseType\n    typesOfUnionType {\n      ... on IBaseType {\n        ...BaseTypeRef\n      }\n    }\n  }\n',
-): (typeof documents)['\n  fragment UnionType on UnionType {\n    ...BaseType\n    typesOfUnionType {\n      ... on IBaseType {\n        ...BaseTypeRef\n      }\n    }\n  }\n']
+  source: '\n  fragment UnionType on UnionType {\n    ...BaseType\n    typesOfUnionType {\n      ... on IBaseType {\n        ...BaseType\n      }\n    }\n  }\n',
+): (typeof documents)['\n  fragment UnionType on UnionType {\n    ...BaseType\n    typesOfUnionType {\n      ... on IBaseType {\n        ...BaseType\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

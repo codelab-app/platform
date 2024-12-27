@@ -30,7 +30,6 @@ import {
   UnionType,
 } from '@codelab/backend/domain/type'
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
-import { ITypeFragment } from '@codelab/shared-domain-module/type'
 import { Injectable } from '@nestjs/common'
 import { v4 } from 'uuid'
 

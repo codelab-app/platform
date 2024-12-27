@@ -2,7 +2,7 @@ fragment ArrayType on ArrayType {
   ...BaseType
   itemType {
     ... on IBaseType {
-      ...BaseTypeRef
+      ...BaseType
     }
   }
 }

@@ -2,7 +2,7 @@ fragment Field on Field {
   __typename
   api {
     ... on InterfaceType {
-      ...BaseTypeRef
+      ...BaseType
     }
   }
   defaultValues
