@@ -157,6 +157,9 @@ const loggerConfig = (0,config_namespaceObject.registerAs)(LOGGER_CONFIG_KEY, ()
         get level() {
             return external_env_var_namespaceObject.get('API_LOG_LEVEL').default('debug').asString();
         },
+        get sentryDsn() {
+            return external_env_var_namespaceObject.get('SENTRY_DSN').required().asString();
+        },
     };
 });
 
@@ -171,12 +174,15 @@ NestjsLoggerService = (0,external_tslib_namespaceObject.__decorate)([
 
 
 ;// ../../libs/backend/infra/adapter/logger/src/pino.logger.service.ts
-var _a, _b;
+var _a, _b, _c;
 
 
 
-let CodelabLoggerService = class CodelabLoggerService extends external_nestjs_pino_namespaceObject.Logger {
-    constructor(logger, params) {
+
+
+
+let PinoLoggerService = class PinoLoggerService extends external_nestjs_pino_namespaceObject.Logger {
+    constructor(logger, params, loggerConf) {
         super(logger, {
             ...params,
         });
@@ -185,6 +191,12 @@ let CodelabLoggerService = class CodelabLoggerService extends external_nestjs_pi
             configurable: true,
             writable: true,
             value: logger
+        });
+        Object.defineProperty(this, "loggerConf", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: loggerConf
         });
     }
     /**
@@ -206,12 +218,30 @@ let CodelabLoggerService = class CodelabLoggerService extends external_nestjs_pi
         const message = JSON.stringify(pinoMessage);
         this.logger.info(message);
     }
+    logToFile(object = {}, filePath = 'tmp/logs/application.log') {
+        console.log('Logging to file...', filePath);
+        const childLogger = external_pino_default()({
+            transport: {
+                options: {
+                    destination: filePath,
+                    mkdir: true,
+                },
+                target: 'pino/file',
+            },
+        });
+        const pinoMessage = {
+            context: 'FileLogger',
+            object,
+        };
+        childLogger.info(pinoMessage);
+    }
 };
-CodelabLoggerService = (0,external_tslib_namespaceObject.__decorate)([
+PinoLoggerService = (0,external_tslib_namespaceObject.__decorate)([
     (0,common_namespaceObject.Injectable)(),
     (0,external_tslib_namespaceObject.__param)(1, (0,common_namespaceObject.Inject)(external_nestjs_pino_namespaceObject.PARAMS_PROVIDER_TOKEN)),
-    (0,external_tslib_namespaceObject.__metadata)("design:paramtypes", [typeof (_a = typeof external_nestjs_pino_namespaceObject.PinoLogger !== "undefined" && external_nestjs_pino_namespaceObject.PinoLogger) === "function" ? _a : Object, typeof (_b = typeof external_nestjs_pino_namespaceObject.Params !== "undefined" && external_nestjs_pino_namespaceObject.Params) === "function" ? _b : Object])
-], CodelabLoggerService);
+    (0,external_tslib_namespaceObject.__param)(2, (0,common_namespaceObject.Inject)(loggerConfig.KEY)),
+    (0,external_tslib_namespaceObject.__metadata)("design:paramtypes", [typeof (_a = typeof external_nestjs_pino_namespaceObject.PinoLogger !== "undefined" && external_nestjs_pino_namespaceObject.PinoLogger) === "function" ? _a : Object, typeof (_b = typeof external_nestjs_pino_namespaceObject.Params !== "undefined" && external_nestjs_pino_namespaceObject.Params) === "function" ? _b : Object, typeof (_c = typeof config_namespaceObject.ConfigType !== "undefined" && config_namespaceObject.ConfigType) === "function" ? _c : Object])
+], PinoLoggerService);
 
 
 ;// ../../libs/backend/infra/adapter/logger/src/logger.module.ts
@@ -229,15 +259,11 @@ let CodelabLoggerModule = class CodelabLoggerModule {
 CodelabLoggerModule = (0,external_tslib_namespaceObject.__decorate)([
     (0,common_namespaceObject.Global)(),
     (0,common_namespaceObject.Module)({
-        exports: [CodelabLoggerService, NestjsLoggerService],
+        exports: [PinoLoggerService, NestjsLoggerService],
         imports: [
+            config_namespaceObject.ConfigModule.forFeature(loggerConfig),
             external_nestjs_pino_namespaceObject.LoggerModule.forRootAsync({
-                imports: [
-                    config_namespaceObject.ConfigModule.forRoot({
-                        ignoreEnvVars: true,
-                        load: [loggerConfig],
-                    }),
-                ],
+                imports: [config_namespaceObject.ConfigModule.forFeature(loggerConfig)],
                 inject: [loggerConfig.KEY],
                 useFactory: async (config) => {
                     return {
@@ -288,7 +314,7 @@ CodelabLoggerModule = (0,external_tslib_namespaceObject.__decorate)([
                 },
             }),
         ],
-        providers: [CodelabLoggerService, NestjsLoggerService],
+        providers: [PinoLoggerService, NestjsLoggerService],
     })
 ], CodelabLoggerModule);
 
@@ -1264,7 +1290,7 @@ var external_yargs_default = /*#__PURE__*/__webpack_require__.n(external_yargs_n
 ;// external "yargs/helpers"
 const helpers_namespaceObject = require("yargs/helpers");
 ;// ./src/commands/command.service.ts
-var command_service_a, command_service_b, _c;
+var command_service_a, command_service_b, command_service_c;
 
 
 
@@ -1327,7 +1353,7 @@ let CommandService = class CommandService {
 };
 CommandService = (0,external_tslib_namespaceObject.__decorate)([
     (0,common_namespaceObject.Injectable)(),
-    (0,external_tslib_namespaceObject.__metadata)("design:paramtypes", [typeof (command_service_a = typeof TerraformService !== "undefined" && TerraformService) === "function" ? command_service_a : Object, typeof (command_service_b = typeof TaskService !== "undefined" && TaskService) === "function" ? command_service_b : Object, typeof (_c = typeof SeedService !== "undefined" && SeedService) === "function" ? _c : Object])
+    (0,external_tslib_namespaceObject.__metadata)("design:paramtypes", [typeof (command_service_a = typeof TerraformService !== "undefined" && TerraformService) === "function" ? command_service_a : Object, typeof (command_service_b = typeof TaskService !== "undefined" && TaskService) === "function" ? command_service_b : Object, typeof (command_service_c = typeof SeedService !== "undefined" && SeedService) === "function" ? command_service_c : Object])
 ], CommandService);
 
 
