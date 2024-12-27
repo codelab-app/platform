@@ -14,7 +14,11 @@ export class PreferenceDomainService {
 
   async createInitialPreference({ owner }: Pick<IPreferenceDto, 'owner'>) {
     const existing = await this.preferenceRepository.findOne({
-      where: { owner },
+      where: {
+        owner: {
+          id: owner.id,
+        },
+      },
     })
 
     return existing
