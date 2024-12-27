@@ -5,6 +5,9 @@ import type { ConfigType } from '@nestjs/config'
 import type { GraphQLSchema } from 'graphql'
 
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default'
+import { AppRepository } from '@codelab/backend/domain/app'
+import { ComponentDomainModule } from '@codelab/backend/domain/component'
+import { ElementDomainModule } from '@codelab/backend/domain/element'
 import { PropRepository } from '@codelab/backend/domain/prop'
 import { UserRepository } from '@codelab/backend/domain/user'
 import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
@@ -73,7 +76,12 @@ export const setupTestingContext = async (metadata: ModuleMetadata = {}) => {
       ValidationModule,
       ...(metadata.imports ?? []),
     ],
-    providers: [UserRepository, PropRepository],
+    providers: [
+      AppRepository,
+      UserRepository,
+      PropRepository,
+      ...(metadata.providers ?? []),
+    ],
   })
     .overrideGuard(AuthGuard('jwt'))
     .useValue({ canActivate: () => true })

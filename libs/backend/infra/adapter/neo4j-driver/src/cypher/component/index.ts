@@ -1,3 +1,3 @@
-import getDescendantComponentIds from './getDescendantComponentIds.cypher'
+import getComponentElements from './getComponentElements.cypher'
 
-export { getDescendantComponentIds }
+export { getComponentElements }

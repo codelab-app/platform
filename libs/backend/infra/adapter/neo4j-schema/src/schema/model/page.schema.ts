@@ -22,7 +22,7 @@ export const pageSchema = gql`
     slug: String! @customResolver(requires: "app { id } compositeKey")
     # The root of the elementTree
     rootElement: Element!
-      @relationship(type: "ROOT_PAGE_ELEMENT", direction: OUT)
+      @relationship(type: "PAGE_ROOT_ELEMENT", direction: OUT)
     # contains the rootElement, and its descendants
     elements: [Element!]! @customResolver(requires: "id")
     app: App! @relationship(type: "PAGES", direction: IN)

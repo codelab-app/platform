@@ -8691,37 +8691,7 @@ type Component implements WithOwner {
     where: ComponentApiConnectionWhere
   ): ComponentApiConnection!
   compositeKey: String!
-  elements(
-    directed: Boolean = true
-      @deprecated(
-        reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"
-      )
-    limit: Int
-    offset: Int
-    options: ElementOptions
-      @deprecated(
-        reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."
-      )
-    sort: [ElementSort!]
-    where: ElementWhere
-  ): [Element!]!
-  elementsAggregate(
-    directed: Boolean = true
-      @deprecated(
-        reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"
-      )
-    where: ElementWhere
-  ): ComponentElementElementsAggregationSelection
-  elementsConnection(
-    after: String
-    directed: Boolean = true
-      @deprecated(
-        reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"
-      )
-    first: Int
-    sort: [ComponentElementsConnectionSort!]
-    where: ComponentElementsConnectionWhere
-  ): ComponentElementsConnection!
+  elements: [Element!]!
   id: ID!
   name: String!
   owner(
@@ -8970,7 +8940,6 @@ input ComponentApiUpdateFieldInput {
 
 input ComponentConnectInput {
   api: ComponentApiConnectFieldInput
-  elements: [ComponentElementsConnectFieldInput!]
   owner: ComponentOwnerConnectFieldInput
   props: ComponentPropsConnectFieldInput
   rootElement: ComponentRootElementConnectFieldInput
@@ -8988,7 +8957,6 @@ input ComponentConnectWhere {
 input ComponentCreateInput {
   api: ComponentApiFieldInput
   compositeKey: String!
-  elements: ComponentElementsFieldInput
   id: ID!
   owner: ComponentOwnerFieldInput
   props: ComponentPropsFieldInput
@@ -9004,7 +8972,6 @@ type ComponentCreatedEvent {
 
 input ComponentDeleteInput {
   api: ComponentApiDeleteFieldInput
-  elements: [ComponentElementsDeleteFieldInput!]
   owner: WithOwnerOwnerDeleteFieldInput
   props: ComponentPropsDeleteFieldInput
   rootElement: ComponentRootElementDeleteFieldInput
@@ -9019,7 +8986,6 @@ type ComponentDeletedEvent {
 
 input ComponentDisconnectInput {
   api: ComponentApiDisconnectFieldInput
-  elements: [ComponentElementsDisconnectFieldInput!]
   owner: WithOwnerOwnerDisconnectFieldInput
   props: ComponentPropsDisconnectFieldInput
   rootElement: ComponentRootElementDisconnectFieldInput
@@ -9029,20 +8995,6 @@ input ComponentDisconnectInput {
 type ComponentEdge {
   cursor: String!
   node: Component!
-}
-
-type ComponentElementElementsAggregationSelection {
-  count: Int!
-  node: ComponentElementElementsNodeAggregateSelection
-}
-
-type ComponentElementElementsNodeAggregateSelection {
-  childMapperPropKey: StringAggregateSelection!
-  compositeKey: StringAggregateSelection!
-  id: IDAggregateSelection!
-  renderForEachPropKey: StringAggregateSelection!
-  renderIfExpression: StringAggregateSelection!
-  style: StringAggregateSelection!
 }
 
 type ComponentElementRootElementAggregationSelection {
@@ -9057,191 +9009,6 @@ type ComponentElementRootElementNodeAggregateSelection {
   renderForEachPropKey: StringAggregateSelection!
   renderIfExpression: StringAggregateSelection!
   style: StringAggregateSelection!
-}
-
-input ComponentElementsAggregateInput {
-  AND: [ComponentElementsAggregateInput!]
-  NOT: ComponentElementsAggregateInput
-  OR: [ComponentElementsAggregateInput!]
-  count: Int @deprecated(reason: "Please use the explicit _EQ version")
-  count_EQ: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: ComponentElementsNodeAggregationWhereInput
-}
-
-input ComponentElementsConnectFieldInput {
-  connect: [ElementConnectInput!]
-
-  """
-  Whether or not to overwrite any matching relationship with the new properties.
-  """
-  overwrite: Boolean! = true
-    @deprecated(
-      reason: "The overwrite argument is deprecated and will be removed"
-    )
-  where: ElementConnectWhere
-}
-
-input ComponentElementsConnectOrCreateFieldInput {
-  onCreate: ComponentElementsConnectOrCreateFieldInputOnCreate!
-  where: ElementConnectOrCreateWhere!
-}
-
-input ComponentElementsConnectOrCreateFieldInputOnCreate {
-  node: ElementOnCreateInput!
-}
-
-type ComponentElementsConnection {
-  edges: [ComponentElementsRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input ComponentElementsConnectionSort {
-  node: ElementSort
-}
-
-input ComponentElementsConnectionWhere {
-  AND: [ComponentElementsConnectionWhere!]
-  NOT: ComponentElementsConnectionWhere
-  OR: [ComponentElementsConnectionWhere!]
-  node: ElementWhere
-}
-
-input ComponentElementsCreateFieldInput {
-  node: ElementCreateInput!
-}
-
-input ComponentElementsDeleteFieldInput {
-  delete: ElementDeleteInput
-  where: ComponentElementsConnectionWhere
-}
-
-input ComponentElementsDisconnectFieldInput {
-  disconnect: ElementDisconnectInput
-  where: ComponentElementsConnectionWhere
-}
-
-input ComponentElementsFieldInput {
-  connect: [ComponentElementsConnectFieldInput!]
-  connectOrCreate: [ComponentElementsConnectOrCreateFieldInput!]
-    @deprecated(
-      reason: "The connectOrCreate operation is deprecated and will be removed"
-    )
-  create: [ComponentElementsCreateFieldInput!]
-}
-
-input ComponentElementsNodeAggregationWhereInput {
-  AND: [ComponentElementsNodeAggregationWhereInput!]
-  NOT: ComponentElementsNodeAggregationWhereInput
-  OR: [ComponentElementsNodeAggregationWhereInput!]
-  childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
-  childMapperPropKey_AVERAGE_LENGTH_GT: Float
-  childMapperPropKey_AVERAGE_LENGTH_GTE: Float
-  childMapperPropKey_AVERAGE_LENGTH_LT: Float
-  childMapperPropKey_AVERAGE_LENGTH_LTE: Float
-  childMapperPropKey_LONGEST_LENGTH_EQUAL: Int
-  childMapperPropKey_LONGEST_LENGTH_GT: Int
-  childMapperPropKey_LONGEST_LENGTH_GTE: Int
-  childMapperPropKey_LONGEST_LENGTH_LT: Int
-  childMapperPropKey_LONGEST_LENGTH_LTE: Int
-  childMapperPropKey_SHORTEST_LENGTH_EQUAL: Int
-  childMapperPropKey_SHORTEST_LENGTH_GT: Int
-  childMapperPropKey_SHORTEST_LENGTH_GTE: Int
-  childMapperPropKey_SHORTEST_LENGTH_LT: Int
-  childMapperPropKey_SHORTEST_LENGTH_LTE: Int
-  compositeKey_AVERAGE_LENGTH_EQUAL: Float
-  compositeKey_AVERAGE_LENGTH_GT: Float
-  compositeKey_AVERAGE_LENGTH_GTE: Float
-  compositeKey_AVERAGE_LENGTH_LT: Float
-  compositeKey_AVERAGE_LENGTH_LTE: Float
-  compositeKey_LONGEST_LENGTH_EQUAL: Int
-  compositeKey_LONGEST_LENGTH_GT: Int
-  compositeKey_LONGEST_LENGTH_GTE: Int
-  compositeKey_LONGEST_LENGTH_LT: Int
-  compositeKey_LONGEST_LENGTH_LTE: Int
-  compositeKey_SHORTEST_LENGTH_EQUAL: Int
-  compositeKey_SHORTEST_LENGTH_GT: Int
-  compositeKey_SHORTEST_LENGTH_GTE: Int
-  compositeKey_SHORTEST_LENGTH_LT: Int
-  compositeKey_SHORTEST_LENGTH_LTE: Int
-  id_MAX_EQUAL: ID
-  id_MAX_GT: ID
-  id_MAX_GTE: ID
-  id_MAX_LT: ID
-  id_MAX_LTE: ID
-  id_MIN_EQUAL: ID
-  id_MIN_GT: ID
-  id_MIN_GTE: ID
-  id_MIN_LT: ID
-  id_MIN_LTE: ID
-  renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
-  renderForEachPropKey_AVERAGE_LENGTH_GT: Float
-  renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
-  renderForEachPropKey_AVERAGE_LENGTH_LT: Float
-  renderForEachPropKey_AVERAGE_LENGTH_LTE: Float
-  renderForEachPropKey_LONGEST_LENGTH_EQUAL: Int
-  renderForEachPropKey_LONGEST_LENGTH_GT: Int
-  renderForEachPropKey_LONGEST_LENGTH_GTE: Int
-  renderForEachPropKey_LONGEST_LENGTH_LT: Int
-  renderForEachPropKey_LONGEST_LENGTH_LTE: Int
-  renderForEachPropKey_SHORTEST_LENGTH_EQUAL: Int
-  renderForEachPropKey_SHORTEST_LENGTH_GT: Int
-  renderForEachPropKey_SHORTEST_LENGTH_GTE: Int
-  renderForEachPropKey_SHORTEST_LENGTH_LT: Int
-  renderForEachPropKey_SHORTEST_LENGTH_LTE: Int
-  renderIfExpression_AVERAGE_LENGTH_EQUAL: Float
-  renderIfExpression_AVERAGE_LENGTH_GT: Float
-  renderIfExpression_AVERAGE_LENGTH_GTE: Float
-  renderIfExpression_AVERAGE_LENGTH_LT: Float
-  renderIfExpression_AVERAGE_LENGTH_LTE: Float
-  renderIfExpression_LONGEST_LENGTH_EQUAL: Int
-  renderIfExpression_LONGEST_LENGTH_GT: Int
-  renderIfExpression_LONGEST_LENGTH_GTE: Int
-  renderIfExpression_LONGEST_LENGTH_LT: Int
-  renderIfExpression_LONGEST_LENGTH_LTE: Int
-  renderIfExpression_SHORTEST_LENGTH_EQUAL: Int
-  renderIfExpression_SHORTEST_LENGTH_GT: Int
-  renderIfExpression_SHORTEST_LENGTH_GTE: Int
-  renderIfExpression_SHORTEST_LENGTH_LT: Int
-  renderIfExpression_SHORTEST_LENGTH_LTE: Int
-  style_AVERAGE_LENGTH_EQUAL: Float
-  style_AVERAGE_LENGTH_GT: Float
-  style_AVERAGE_LENGTH_GTE: Float
-  style_AVERAGE_LENGTH_LT: Float
-  style_AVERAGE_LENGTH_LTE: Float
-  style_LONGEST_LENGTH_EQUAL: Int
-  style_LONGEST_LENGTH_GT: Int
-  style_LONGEST_LENGTH_GTE: Int
-  style_LONGEST_LENGTH_LT: Int
-  style_LONGEST_LENGTH_LTE: Int
-  style_SHORTEST_LENGTH_EQUAL: Int
-  style_SHORTEST_LENGTH_GT: Int
-  style_SHORTEST_LENGTH_GTE: Int
-  style_SHORTEST_LENGTH_LT: Int
-  style_SHORTEST_LENGTH_LTE: Int
-}
-
-type ComponentElementsRelationship {
-  cursor: String!
-  node: Element!
-}
-
-input ComponentElementsUpdateConnectionInput {
-  node: ElementUpdateInput
-}
-
-input ComponentElementsUpdateFieldInput {
-  connect: [ComponentElementsConnectFieldInput!]
-  connectOrCreate: [ComponentElementsConnectOrCreateFieldInput!]
-  create: [ComponentElementsCreateFieldInput!]
-  delete: [ComponentElementsDeleteFieldInput!]
-  disconnect: [ComponentElementsDisconnectFieldInput!]
-  update: ComponentElementsUpdateConnectionInput
-  where: ComponentElementsConnectionWhere
 }
 
 type ComponentEventPayload {
@@ -9888,7 +9655,6 @@ input ComponentUpdateInput {
   api: ComponentApiUpdateFieldInput
   compositeKey: String @deprecated(reason: "Please use the explicit _SET field")
   compositeKey_SET: String
-  elements: [ComponentElementsUpdateFieldInput!]
   owner: ComponentOwnerUpdateFieldInput
   props: ComponentPropsUpdateFieldInput
   rootElement: ComponentRootElementUpdateFieldInput
@@ -9929,47 +9695,6 @@ input ComponentWhere {
   compositeKey_IN: [String!]
   compositeKey_MATCHES: String
   compositeKey_STARTS_WITH: String
-  elementsAggregate: ComponentElementsAggregateInput
-
-  """
-  Return Components where all of the related ComponentElementsConnections match this filter
-  """
-  elementsConnection_ALL: ComponentElementsConnectionWhere
-
-  """
-  Return Components where none of the related ComponentElementsConnections match this filter
-  """
-  elementsConnection_NONE: ComponentElementsConnectionWhere
-
-  """
-  Return Components where one of the related ComponentElementsConnections match this filter
-  """
-  elementsConnection_SINGLE: ComponentElementsConnectionWhere
-
-  """
-  Return Components where some of the related ComponentElementsConnections match this filter
-  """
-  elementsConnection_SOME: ComponentElementsConnectionWhere
-
-  """
-  Return Components where all of the related Elements match this filter
-  """
-  elements_ALL: ElementWhere
-
-  """
-  Return Components where none of the related Elements match this filter
-  """
-  elements_NONE: ElementWhere
-
-  """
-  Return Components where one of the related Elements match this filter
-  """
-  elements_SINGLE: ElementWhere
-
-  """
-  Return Components where some of the related Elements match this filter
-  """
-  elements_SOME: ElementWhere
   id: ID @deprecated(reason: "Please use the explicit _EQ version")
   id_CONTAINS: ID
   id_ENDS_WITH: ID

@@ -9,9 +9,9 @@ export const componentSchema = gql`
     compositeKey: String! @unique
     name: String! @customResolver(requires: "owner { id } compositeKey")
     slug: String! @customResolver(requires: "owner { id } compositeKey")
-    rootElement: Element! @relationship(type: "COMPONENT_ROOT", direction: OUT)
+    rootElement: Element! @relationship(type: "COMPONENT_ROOT_ELEMENT", direction: OUT)
     # contains the rootElement, and its descendants
-    elements: [Element!]! @relationship(type: "COMPONENT_ROOT", direction: OUT)
+    elements: [Element!]! @customResolver(requires: "owner { id }")
     api: InterfaceType! @relationship(type: "COMPONENT_API", direction: OUT)
     owner: User! @relationship(type: "OWNED_BY", direction: OUT)
     store: Store! @relationship(type: "STORE_CONTAINER_NODE", direction: OUT)

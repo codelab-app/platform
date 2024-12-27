@@ -1,25 +1,32 @@
 import type { INestApplication } from '@nestjs/common'
 
+import { AppRepository } from '@codelab/backend/domain/app'
 import { AtomRepository } from '@codelab/backend/domain/atom'
-import { ComponentRepository } from '@codelab/backend/domain/component'
 import { ElementRepository } from '@codelab/backend/domain/element'
+import { PageRepository } from '@codelab/backend/domain/page'
 import { PropRepository } from '@codelab/backend/domain/prop'
 import { StoreRepository } from '@codelab/backend/domain/store'
 import { InterfaceTypeRepository } from '@codelab/backend/domain/type'
 import { UserRepository } from '@codelab/backend/domain/user'
-import { ITypeKind } from '@codelab/shared/abstract/core'
-import { AtomType } from '@codelab/shared/infra/gql'
+import {
+  IAtomType,
+  IPageKind,
+  IPageKindName,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
+import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
 import { Validator } from '@codelab/shared/infra/schema'
-import { cLog } from '@codelab/shared/utils'
 import { ElementProperties } from '@codelab/shared-domain-module/element'
+import { PageProperties } from '@codelab/shared-domain-module/page'
+import { AppProperties } from '@codelab/shared-domain-module-app'
 import { print } from 'graphql'
 import request from 'supertest'
 import { v4 } from 'uuid'
 
 import { setupTestingContext } from '../../../test/setup'
-import { ComponentResolverComponentsDocument } from './component.spec.graphql.gen'
+import { PageResolverPagesDocument } from './page.spec.graphql.gen'
 
-describe('ComponentResolvers', () => {
+describe('PageResolvers', () => {
   let app: INestApplication
   let userRepository: UserRepository
   let atomRepository: AtomRepository
@@ -27,7 +34,8 @@ describe('ComponentResolvers', () => {
   let elementRepository: ElementRepository
   let interfaceTypeRepository: InterfaceTypeRepository
   let storeRepository: StoreRepository
-  let componentRepository: ComponentRepository
+  let pageRepository: PageRepository
+  let appRepository: AppRepository
   const context = setupTestingContext()
 
   beforeAll(async () => {
@@ -41,7 +49,8 @@ describe('ComponentResolvers', () => {
     elementRepository = module.get(ElementRepository)
     interfaceTypeRepository = module.get(InterfaceTypeRepository)
     storeRepository = module.get(StoreRepository)
-    componentRepository = module.get(ComponentRepository)
+    pageRepository = module.get(PageRepository)
+    appRepository = module.get(AppRepository)
 
     await ctx.beforeAll()
   })
@@ -52,7 +61,7 @@ describe('ComponentResolvers', () => {
     await ctx.afterAll()
   })
 
-  it('should fetch a component with elements resolver', async () => {
+  it('should fetch a page with field resolvers - name, slug, elements', async () => {
     const owner = await userRepository.add({
       auth0Id: 'something',
       email: 'something@some.thing',
@@ -61,9 +70,17 @@ describe('ComponentResolvers', () => {
       username: 'someusername',
     })
 
-    const componentRef = { id: v4() }
-
     Validator.assertsDefined(owner)
+
+    const testApp = await appRepository.add({
+      id: v4(),
+      name: 'My Name',
+      owner: { id: owner.id },
+    })
+
+    Validator.assertsDefined(testApp)
+
+    const testPageRef = { id: v4() }
 
     const atomApi = await interfaceTypeRepository.add({
       __typename: 'InterfaceType',
@@ -81,24 +98,15 @@ describe('ComponentResolvers', () => {
       id: v4(),
       name: 'React Fragment',
       owner: { id: owner.id },
-      type: AtomType.ReactFragment,
+      type: IAtomType.ReactFragment,
     })
 
     Validator.assertsDefined(atomReactFragment)
 
-    // const props = await propRepository.add({
-    //   data: '{}',
-    //   id: v4(),
-    // })
-
     const rootElement = await elementRepository.add({
       closestContainerNode: { id: v4() },
-      compositeKey: ElementProperties.elementCompositeKey(
-        'Component Root',
-        componentRef,
-      ),
       id: v4(),
-      name: 'Component Root',
+      name: ROOT_ELEMENT_NAME,
       props: { data: '{}', id: v4() },
       renderType: {
         __typename: 'Atom',
@@ -112,7 +120,7 @@ describe('ComponentResolvers', () => {
       closestContainerNode: { id: v4() },
       compositeKey: ElementProperties.elementCompositeKey(
         'Child Element',
-        componentRef,
+        testPageRef,
       ),
       id: v4(),
       name: 'Child Element',
@@ -144,39 +152,26 @@ describe('ComponentResolvers', () => {
 
     Validator.assertsDefined(store)
 
-    const componentApi = await interfaceTypeRepository.add({
-      __typename: 'InterfaceType',
+    const testPage = await pageRepository.add({
+      app: { id: testApp.id },
       id: v4(),
-      kind: ITypeKind.InterfaceType,
-      name: 'Component Api',
-      owner: { id: owner.id },
-    })
-
-    Validator.assertsDefined(componentApi)
-
-    const component = await componentRepository.add({
-      __typename: 'Component',
-      api: { id: componentApi.id },
-      id: v4(),
-      name: 'Cui Card',
-      owner: { id: owner.id },
-      props: { data: '{}', id: v4() },
+      kind: IPageKind.Provider,
+      name: IPageKindName.Provider,
       rootElement: { id: rootElement.id },
       store: { id: store.id },
+      urlPattern: IPageKindName.Provider,
     })
 
-    Validator.assertsDefined(component)
+    Validator.assertsDefined(testPage)
 
     await request(app.getHttpServer())
       .post('/api/v1/graphql')
       .send({
-        query: print(ComponentResolverComponentsDocument),
+        query: print(PageResolverPagesDocument),
       })
       .expect(200)
       .expect((res) => {
-        cLog('res', res.body.data)
-
-        expect(res.body.data.components).toEqual([
+        expect(res.body.data.pages).toEqual([
           {
             elements: [
               {
@@ -186,12 +181,12 @@ describe('ComponentResolvers', () => {
                 id: childElement.id,
               },
             ],
-            id: component.id,
-            name: 'Cui Card',
+            id: testPage.id,
+            name: IPageKindName.Provider,
             rootElement: {
               id: rootElement.id,
             },
-            slug: 'cui-card',
+            slug: IPageKindName.Provider,
           },
         ])
       })

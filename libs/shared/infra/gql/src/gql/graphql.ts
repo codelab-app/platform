@@ -8368,8 +8368,6 @@ export type Component = WithOwner & {
   apiConnection: ComponentApiConnection
   compositeKey: Scalars['String']['output']
   elements: Array<Element>
-  elementsAggregate?: Maybe<ComponentElementElementsAggregationSelection>
-  elementsConnection: ComponentElementsConnection
   id: Scalars['ID']['output']
   name: Scalars['String']['output']
   owner: User
@@ -8407,28 +8405,6 @@ export type ComponentApiConnectionArgs = {
   first?: InputMaybe<Scalars['Int']['input']>
   sort?: InputMaybe<Array<ComponentApiConnectionSort>>
   where?: InputMaybe<ComponentApiConnectionWhere>
-}
-
-export type ComponentElementsArgs = {
-  directed?: InputMaybe<Scalars['Boolean']['input']>
-  limit?: InputMaybe<Scalars['Int']['input']>
-  offset?: InputMaybe<Scalars['Int']['input']>
-  options?: InputMaybe<ElementOptions>
-  sort?: InputMaybe<Array<ElementSort>>
-  where?: InputMaybe<ElementWhere>
-}
-
-export type ComponentElementsAggregateArgs = {
-  directed?: InputMaybe<Scalars['Boolean']['input']>
-  where?: InputMaybe<ElementWhere>
-}
-
-export type ComponentElementsConnectionArgs = {
-  after?: InputMaybe<Scalars['String']['input']>
-  directed?: InputMaybe<Scalars['Boolean']['input']>
-  first?: InputMaybe<Scalars['Int']['input']>
-  sort?: InputMaybe<Array<ComponentElementsConnectionSort>>
-  where?: InputMaybe<ComponentElementsConnectionWhere>
 }
 
 export type ComponentOwnerArgs = {
@@ -8636,7 +8612,6 @@ export type ComponentApiUpdateFieldInput = {
 
 export type ComponentConnectInput = {
   api?: InputMaybe<ComponentApiConnectFieldInput>
-  elements?: InputMaybe<Array<ComponentElementsConnectFieldInput>>
   owner?: InputMaybe<ComponentOwnerConnectFieldInput>
   props?: InputMaybe<ComponentPropsConnectFieldInput>
   rootElement?: InputMaybe<ComponentRootElementConnectFieldInput>
@@ -8654,7 +8629,6 @@ export type ComponentConnectWhere = {
 export type ComponentCreateInput = {
   api?: InputMaybe<ComponentApiFieldInput>
   compositeKey: Scalars['String']['input']
-  elements?: InputMaybe<ComponentElementsFieldInput>
   id: Scalars['ID']['input']
   owner?: InputMaybe<ComponentOwnerFieldInput>
   props?: InputMaybe<ComponentPropsFieldInput>
@@ -8670,7 +8644,6 @@ export type ComponentCreatedEvent = {
 
 export type ComponentDeleteInput = {
   api?: InputMaybe<ComponentApiDeleteFieldInput>
-  elements?: InputMaybe<Array<ComponentElementsDeleteFieldInput>>
   owner?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
   props?: InputMaybe<ComponentPropsDeleteFieldInput>
   rootElement?: InputMaybe<ComponentRootElementDeleteFieldInput>
@@ -8685,7 +8658,6 @@ export type ComponentDeletedEvent = {
 
 export type ComponentDisconnectInput = {
   api?: InputMaybe<ComponentApiDisconnectFieldInput>
-  elements?: InputMaybe<Array<ComponentElementsDisconnectFieldInput>>
   owner?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
   props?: InputMaybe<ComponentPropsDisconnectFieldInput>
   rootElement?: InputMaybe<ComponentRootElementDisconnectFieldInput>
@@ -8695,20 +8667,6 @@ export type ComponentDisconnectInput = {
 export type ComponentEdge = {
   cursor: Scalars['String']['output']
   node: Component
-}
-
-export type ComponentElementElementsAggregationSelection = {
-  count: Scalars['Int']['output']
-  node?: Maybe<ComponentElementElementsNodeAggregateSelection>
-}
-
-export type ComponentElementElementsNodeAggregateSelection = {
-  childMapperPropKey: StringAggregateSelection
-  compositeKey: StringAggregateSelection
-  id: IdAggregateSelection
-  renderForEachPropKey: StringAggregateSelection
-  renderIfExpression: StringAggregateSelection
-  style: StringAggregateSelection
 }
 
 export type ComponentElementRootElementAggregationSelection = {
@@ -8723,205 +8681,6 @@ export type ComponentElementRootElementNodeAggregateSelection = {
   renderForEachPropKey: StringAggregateSelection
   renderIfExpression: StringAggregateSelection
   style: StringAggregateSelection
-}
-
-export type ComponentElementsAggregateInput = {
-  AND?: InputMaybe<Array<ComponentElementsAggregateInput>>
-  NOT?: InputMaybe<ComponentElementsAggregateInput>
-  OR?: InputMaybe<Array<ComponentElementsAggregateInput>>
-  /** @deprecated Please use the explicit _EQ version */
-  count?: InputMaybe<Scalars['Int']['input']>
-  count_EQ?: InputMaybe<Scalars['Int']['input']>
-  count_GT?: InputMaybe<Scalars['Int']['input']>
-  count_GTE?: InputMaybe<Scalars['Int']['input']>
-  count_LT?: InputMaybe<Scalars['Int']['input']>
-  count_LTE?: InputMaybe<Scalars['Int']['input']>
-  node?: InputMaybe<ComponentElementsNodeAggregationWhereInput>
-}
-
-export type ComponentElementsConnectFieldInput = {
-  connect?: InputMaybe<Array<ElementConnectInput>>
-  /**
-   * Whether or not to overwrite any matching relationship with the new properties.
-   * @deprecated The overwrite argument is deprecated and will be removed
-   */
-  overwrite?: Scalars['Boolean']['input']
-  where?: InputMaybe<ElementConnectWhere>
-}
-
-export type ComponentElementsConnectOrCreateFieldInput = {
-  onCreate: ComponentElementsConnectOrCreateFieldInputOnCreate
-  where: ElementConnectOrCreateWhere
-}
-
-export type ComponentElementsConnectOrCreateFieldInputOnCreate = {
-  node: ElementOnCreateInput
-}
-
-export type ComponentElementsConnection = {
-  edges: Array<ComponentElementsRelationship>
-  pageInfo: PageInfo
-  totalCount: Scalars['Int']['output']
-}
-
-export type ComponentElementsConnectionSort = {
-  node?: InputMaybe<ElementSort>
-}
-
-export type ComponentElementsConnectionWhere = {
-  AND?: InputMaybe<Array<ComponentElementsConnectionWhere>>
-  NOT?: InputMaybe<ComponentElementsConnectionWhere>
-  OR?: InputMaybe<Array<ComponentElementsConnectionWhere>>
-  node?: InputMaybe<ElementWhere>
-}
-
-export type ComponentElementsCreateFieldInput = {
-  node: ElementCreateInput
-}
-
-export type ComponentElementsDeleteFieldInput = {
-  delete?: InputMaybe<ElementDeleteInput>
-  where?: InputMaybe<ComponentElementsConnectionWhere>
-}
-
-export type ComponentElementsDisconnectFieldInput = {
-  disconnect?: InputMaybe<ElementDisconnectInput>
-  where?: InputMaybe<ComponentElementsConnectionWhere>
-}
-
-export type ComponentElementsFieldInput = {
-  connect?: InputMaybe<Array<ComponentElementsConnectFieldInput>>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<
-    Array<ComponentElementsConnectOrCreateFieldInput>
-  >
-  create?: InputMaybe<Array<ComponentElementsCreateFieldInput>>
-}
-
-export type ComponentElementsNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<ComponentElementsNodeAggregationWhereInput>>
-  NOT?: InputMaybe<ComponentElementsNodeAggregationWhereInput>
-  OR?: InputMaybe<Array<ComponentElementsNodeAggregationWhereInput>>
-  childMapperPropKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<
-    Scalars['Float']['input']
-  >
-  childMapperPropKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  childMapperPropKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  childMapperPropKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  childMapperPropKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  childMapperPropKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  childMapperPropKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  childMapperPropKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  childMapperPropKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  childMapperPropKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  childMapperPropKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  childMapperPropKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  childMapperPropKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  childMapperPropKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  childMapperPropKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
-  id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
-  id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
-  id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
-  id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
-  id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
-  id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
-  id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
-  id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
-  id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
-  renderForEachPropKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<
-    Scalars['Float']['input']
-  >
-  renderForEachPropKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  renderForEachPropKey_AVERAGE_LENGTH_GTE?: InputMaybe<
-    Scalars['Float']['input']
-  >
-  renderForEachPropKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  renderForEachPropKey_AVERAGE_LENGTH_LTE?: InputMaybe<
-    Scalars['Float']['input']
-  >
-  renderForEachPropKey_LONGEST_LENGTH_EQUAL?: InputMaybe<
-    Scalars['Int']['input']
-  >
-  renderForEachPropKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  renderForEachPropKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  renderForEachPropKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  renderForEachPropKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  renderForEachPropKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<
-    Scalars['Int']['input']
-  >
-  renderForEachPropKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  renderForEachPropKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  renderForEachPropKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  renderForEachPropKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  renderIfExpression_AVERAGE_LENGTH_EQUAL?: InputMaybe<
-    Scalars['Float']['input']
-  >
-  renderIfExpression_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  renderIfExpression_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  renderIfExpression_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  renderIfExpression_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  renderIfExpression_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  renderIfExpression_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  renderIfExpression_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  renderIfExpression_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  renderIfExpression_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  renderIfExpression_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  renderIfExpression_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  renderIfExpression_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  renderIfExpression_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  renderIfExpression_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  style_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  style_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  style_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  style_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  style_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  style_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  style_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  style_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  style_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  style_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  style_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  style_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  style_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  style_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  style_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-}
-
-export type ComponentElementsRelationship = {
-  cursor: Scalars['String']['output']
-  node: Element
-}
-
-export type ComponentElementsUpdateConnectionInput = {
-  node?: InputMaybe<ElementUpdateInput>
-}
-
-export type ComponentElementsUpdateFieldInput = {
-  connect?: InputMaybe<Array<ComponentElementsConnectFieldInput>>
-  connectOrCreate?: InputMaybe<
-    Array<ComponentElementsConnectOrCreateFieldInput>
-  >
-  create?: InputMaybe<Array<ComponentElementsCreateFieldInput>>
-  delete?: InputMaybe<Array<ComponentElementsDeleteFieldInput>>
-  disconnect?: InputMaybe<Array<ComponentElementsDisconnectFieldInput>>
-  update?: InputMaybe<ComponentElementsUpdateConnectionInput>
-  where?: InputMaybe<ComponentElementsConnectionWhere>
 }
 
 export type ComponentEventPayload = {
@@ -9565,7 +9324,6 @@ export type ComponentUpdateInput = {
   /** @deprecated Please use the explicit _SET field */
   compositeKey?: InputMaybe<Scalars['String']['input']>
   compositeKey_SET?: InputMaybe<Scalars['String']['input']>
-  elements?: InputMaybe<Array<ComponentElementsUpdateFieldInput>>
   owner?: InputMaybe<ComponentOwnerUpdateFieldInput>
   props?: InputMaybe<ComponentPropsUpdateFieldInput>
   rootElement?: InputMaybe<ComponentRootElementUpdateFieldInput>
@@ -9606,23 +9364,6 @@ export type ComponentWhere = {
   compositeKey_IN?: InputMaybe<Array<Scalars['String']['input']>>
   compositeKey_MATCHES?: InputMaybe<Scalars['String']['input']>
   compositeKey_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
-  elementsAggregate?: InputMaybe<ComponentElementsAggregateInput>
-  /** Return Components where all of the related ComponentElementsConnections match this filter */
-  elementsConnection_ALL?: InputMaybe<ComponentElementsConnectionWhere>
-  /** Return Components where none of the related ComponentElementsConnections match this filter */
-  elementsConnection_NONE?: InputMaybe<ComponentElementsConnectionWhere>
-  /** Return Components where one of the related ComponentElementsConnections match this filter */
-  elementsConnection_SINGLE?: InputMaybe<ComponentElementsConnectionWhere>
-  /** Return Components where some of the related ComponentElementsConnections match this filter */
-  elementsConnection_SOME?: InputMaybe<ComponentElementsConnectionWhere>
-  /** Return Components where all of the related Elements match this filter */
-  elements_ALL?: InputMaybe<ElementWhere>
-  /** Return Components where none of the related Elements match this filter */
-  elements_NONE?: InputMaybe<ElementWhere>
-  /** Return Components where one of the related Elements match this filter */
-  elements_SINGLE?: InputMaybe<ElementWhere>
-  /** Return Components where some of the related Elements match this filter */
-  elements_SOME?: InputMaybe<ElementWhere>
   /** @deprecated Please use the explicit _EQ version */
   id?: InputMaybe<Scalars['ID']['input']>
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
@@ -31084,6 +30825,32 @@ export type DomainFragment = {
   domainConfig: { misconfigured: boolean }
 }
 
+type ElementRenderType_Atom_Fragment = {
+  __typename: 'Atom'
+} & AtomBuilderFragment
+
+type ElementRenderType_Component_Fragment = {
+  __typename: 'Component'
+  id: string
+}
+
+export type ElementRenderTypeFragment =
+  | ElementRenderType_Atom_Fragment
+  | ElementRenderType_Component_Fragment
+
+type ElementRenderTypeProduction_Atom_Fragment = {
+  __typename: 'Atom'
+} & AtomProductionFragment
+
+type ElementRenderTypeProduction_Component_Fragment = {
+  __typename: 'Component'
+  id: string
+}
+
+export type ElementRenderTypeProductionFragment =
+  | ElementRenderTypeProduction_Atom_Fragment
+  | ElementRenderTypeProduction_Component_Fragment
+
 export type ElementFragment = {
   __typename: 'Element'
   compositeKey: string
@@ -31175,33 +30942,6 @@ export type ElementProductionFragment = {
     | ElementRenderTypeProduction_Atom_Fragment
     | ElementRenderTypeProduction_Component_Fragment
 }
-
-type ElementRenderType_Atom_Fragment = {
-  __typename: 'Atom'
-} & AtomBuilderFragment
-
-type ElementRenderType_Component_Fragment = {
-  __typename: 'Component'
-  id: string
-  api: { id: string }
-}
-
-export type ElementRenderTypeFragment =
-  | ElementRenderType_Atom_Fragment
-  | ElementRenderType_Component_Fragment
-
-type ElementRenderTypeProduction_Atom_Fragment = {
-  __typename: 'Atom'
-} & AtomProductionFragment
-
-type ElementRenderTypeProduction_Component_Fragment = {
-  __typename: 'Component'
-  id: string
-}
-
-export type ElementRenderTypeProductionFragment =
-  | ElementRenderTypeProduction_Atom_Fragment
-  | ElementRenderTypeProduction_Component_Fragment
 
 export type HookPropFragment = { data: string; id: string }
 
@@ -33775,9 +33515,6 @@ export const ElementRenderTypeFragmentDoc = new TypedDocumentString(
   ... on Component {
     __typename
     id
-    api {
-      id
-    }
   }
 }
     fragment AtomBuilder on Atom {
@@ -33951,9 +33688,6 @@ fragment ElementRenderType on ElementRenderType {
   ... on Component {
     __typename
     id
-    api {
-      id
-    }
   }
 }
 fragment Prop on Prop {
@@ -34451,6 +34185,16 @@ fragment AtomBuilder on Atom {
     id
   }
 }
+fragment ElementRenderType on ElementRenderType {
+  ... on Atom {
+    __typename
+    ...AtomBuilder
+  }
+  ... on Component {
+    __typename
+    id
+  }
+}
 fragment Element on Element {
   __typename
   compositeKey
@@ -34504,19 +34248,6 @@ fragment Element on Element {
   style
   tailwindClassNames
   expanded
-}
-fragment ElementRenderType on ElementRenderType {
-  ... on Atom {
-    __typename
-    ...AtomBuilder
-  }
-  ... on Component {
-    __typename
-    id
-    api {
-      id
-    }
-  }
 }
 fragment Prop on Prop {
   data
@@ -34765,6 +34496,16 @@ fragment Domain on Domain {
   id
   name
 }
+fragment ElementRenderType on ElementRenderType {
+  ... on Atom {
+    __typename
+    ...AtomBuilder
+  }
+  ... on Component {
+    __typename
+    id
+  }
+}
 fragment Element on Element {
   __typename
   compositeKey
@@ -34818,19 +34559,6 @@ fragment Element on Element {
   style
   tailwindClassNames
   expanded
-}
-fragment ElementRenderType on ElementRenderType {
-  ... on Atom {
-    __typename
-    ...AtomBuilder
-  }
-  ... on Component {
-    __typename
-    id
-    api {
-      id
-    }
-  }
 }
 fragment Page on Page {
   app {
@@ -35106,6 +34834,16 @@ fragment AtomBuilder on Atom {
     id
   }
 }
+fragment ElementRenderType on ElementRenderType {
+  ... on Atom {
+    __typename
+    ...AtomBuilder
+  }
+  ... on Component {
+    __typename
+    id
+  }
+}
 fragment Element on Element {
   __typename
   compositeKey
@@ -35159,19 +34897,6 @@ fragment Element on Element {
   style
   tailwindClassNames
   expanded
-}
-fragment ElementRenderType on ElementRenderType {
-  ... on Atom {
-    __typename
-    ...AtomBuilder
-  }
-  ... on Component {
-    __typename
-    id
-    api {
-      id
-    }
-  }
 }
 fragment Prop on Prop {
   data
@@ -35409,6 +35134,16 @@ fragment AtomBuilder on Atom {
     id
   }
 }
+fragment ElementRenderType on ElementRenderType {
+  ... on Atom {
+    __typename
+    ...AtomBuilder
+  }
+  ... on Component {
+    __typename
+    id
+  }
+}
 fragment Element on Element {
   __typename
   compositeKey
@@ -35462,19 +35197,6 @@ fragment Element on Element {
   style
   tailwindClassNames
   expanded
-}
-fragment ElementRenderType on ElementRenderType {
-  ... on Atom {
-    __typename
-    ...AtomBuilder
-  }
-  ... on Component {
-    __typename
-    id
-    api {
-      id
-    }
-  }
 }
 fragment PageDevelopment on Page {
   app {
@@ -36019,6 +35741,16 @@ fragment AtomProduction on Atom {
   }
   type
 }
+fragment ElementRenderTypeProduction on ElementRenderType {
+  ... on Atom {
+    __typename
+    ...AtomProduction
+  }
+  ... on Component {
+    __typename
+    id
+  }
+}
 fragment ElementProduction on Element {
   __typename
   childMapperComponent {
@@ -36070,16 +35802,6 @@ fragment ElementProduction on Element {
   }
   style
   tailwindClassNames
-}
-fragment ElementRenderTypeProduction on ElementRenderType {
-  ... on Atom {
-    __typename
-    ...AtomProduction
-  }
-  ... on Component {
-    __typename
-    id
-  }
 }
 fragment Prop on Prop {
   data
@@ -36302,6 +36024,16 @@ fragment AtomProduction on Atom {
   }
   type
 }
+fragment ElementRenderTypeProduction on ElementRenderType {
+  ... on Atom {
+    __typename
+    ...AtomProduction
+  }
+  ... on Component {
+    __typename
+    id
+  }
+}
 fragment ElementProduction on Element {
   __typename
   childMapperComponent {
@@ -36353,16 +36085,6 @@ fragment ElementProduction on Element {
   }
   style
   tailwindClassNames
-}
-fragment ElementRenderTypeProduction on ElementRenderType {
-  ... on Atom {
-    __typename
-    ...AtomProduction
-  }
-  ... on Component {
-    __typename
-    id
-  }
 }
 fragment PageProduction on Page {
   app {
@@ -36858,6 +36580,16 @@ fragment AtomBuilder on Atom {
     id
   }
 }
+fragment ElementRenderType on ElementRenderType {
+  ... on Atom {
+    __typename
+    ...AtomBuilder
+  }
+  ... on Component {
+    __typename
+    id
+  }
+}
 fragment Element on Element {
   __typename
   compositeKey
@@ -36911,19 +36643,6 @@ fragment Element on Element {
   style
   tailwindClassNames
   expanded
-}
-fragment ElementRenderType on ElementRenderType {
-  ... on Atom {
-    __typename
-    ...AtomBuilder
-  }
-  ... on Component {
-    __typename
-    id
-    api {
-      id
-    }
-  }
 }
 fragment Prop on Prop {
   data
@@ -37650,6 +37369,16 @@ fragment ComponentBuilder on Component {
     ...Store
   }
 }
+fragment ElementRenderType on ElementRenderType {
+  ... on Atom {
+    __typename
+    ...AtomBuilder
+  }
+  ... on Component {
+    __typename
+    id
+  }
+}
 fragment Element on Element {
   __typename
   compositeKey
@@ -37703,19 +37432,6 @@ fragment Element on Element {
   style
   tailwindClassNames
   expanded
-}
-fragment ElementRenderType on ElementRenderType {
-  ... on Atom {
-    __typename
-    ...AtomBuilder
-  }
-  ... on Component {
-    __typename
-    id
-    api {
-      id
-    }
-  }
 }
 fragment PagePreview on Page {
   app {
@@ -38070,6 +37786,16 @@ fragment ComponentBuilder on Component {
     ...Store
   }
 }
+fragment ElementRenderType on ElementRenderType {
+  ... on Atom {
+    __typename
+    ...AtomBuilder
+  }
+  ... on Component {
+    __typename
+    id
+  }
+}
 fragment Element on Element {
   __typename
   compositeKey
@@ -38123,19 +37849,6 @@ fragment Element on Element {
   style
   tailwindClassNames
   expanded
-}
-fragment ElementRenderType on ElementRenderType {
-  ... on Atom {
-    __typename
-    ...AtomBuilder
-  }
-  ... on Component {
-    __typename
-    id
-    api {
-      id
-    }
-  }
 }
 fragment Prop on Prop {
   data
@@ -38491,6 +38204,16 @@ fragment Domain on Domain {
   id
   name
 }
+fragment ElementRenderType on ElementRenderType {
+  ... on Atom {
+    __typename
+    ...AtomBuilder
+  }
+  ... on Component {
+    __typename
+    id
+  }
+}
 fragment Element on Element {
   __typename
   compositeKey
@@ -38544,19 +38267,6 @@ fragment Element on Element {
   style
   tailwindClassNames
   expanded
-}
-fragment ElementRenderType on ElementRenderType {
-  ... on Atom {
-    __typename
-    ...AtomBuilder
-  }
-  ... on Component {
-    __typename
-    id
-    api {
-      id
-    }
-  }
 }
 fragment Page on Page {
   app {
@@ -38821,6 +38531,16 @@ fragment AtomProduction on Atom {
   }
   type
 }
+fragment ElementRenderTypeProduction on ElementRenderType {
+  ... on Atom {
+    __typename
+    ...AtomProduction
+  }
+  ... on Component {
+    __typename
+    id
+  }
+}
 fragment ElementProduction on Element {
   __typename
   childMapperComponent {
@@ -38872,16 +38592,6 @@ fragment ElementProduction on Element {
   }
   style
   tailwindClassNames
-}
-fragment ElementRenderTypeProduction on ElementRenderType {
-  ... on Atom {
-    __typename
-    ...AtomProduction
-  }
-  ... on Component {
-    __typename
-    id
-  }
 }
 fragment PageProduction on Page {
   app {
@@ -39582,6 +39292,16 @@ export const ElementListDocument = new TypedDocumentString(`
     id
   }
 }
+fragment ElementRenderType on ElementRenderType {
+  ... on Atom {
+    __typename
+    ...AtomBuilder
+  }
+  ... on Component {
+    __typename
+    id
+  }
+}
 fragment Element on Element {
   __typename
   compositeKey
@@ -39635,19 +39355,6 @@ fragment Element on Element {
   style
   tailwindClassNames
   expanded
-}
-fragment ElementRenderType on ElementRenderType {
-  ... on Atom {
-    __typename
-    ...AtomBuilder
-  }
-  ... on Component {
-    __typename
-    id
-    api {
-      id
-    }
-  }
 }
 fragment Prop on Prop {
   data
@@ -40016,6 +39723,16 @@ fragment AtomBuilder on Atom {
     id
   }
 }
+fragment ElementRenderType on ElementRenderType {
+  ... on Atom {
+    __typename
+    ...AtomBuilder
+  }
+  ... on Component {
+    __typename
+    id
+  }
+}
 fragment Element on Element {
   __typename
   compositeKey
@@ -40069,19 +39786,6 @@ fragment Element on Element {
   style
   tailwindClassNames
   expanded
-}
-fragment ElementRenderType on ElementRenderType {
-  ... on Atom {
-    __typename
-    ...AtomBuilder
-  }
-  ... on Component {
-    __typename
-    id
-    api {
-      id
-    }
-  }
 }
 fragment Page on Page {
   app {
@@ -40332,6 +40036,16 @@ fragment AtomBuilder on Atom {
     id
   }
 }
+fragment ElementRenderType on ElementRenderType {
+  ... on Atom {
+    __typename
+    ...AtomBuilder
+  }
+  ... on Component {
+    __typename
+    id
+  }
+}
 fragment Element on Element {
   __typename
   compositeKey
@@ -40385,19 +40099,6 @@ fragment Element on Element {
   style
   tailwindClassNames
   expanded
-}
-fragment ElementRenderType on ElementRenderType {
-  ... on Atom {
-    __typename
-    ...AtomBuilder
-  }
-  ... on Component {
-    __typename
-    id
-    api {
-      id
-    }
-  }
 }
 fragment PageDevelopment on Page {
   app {

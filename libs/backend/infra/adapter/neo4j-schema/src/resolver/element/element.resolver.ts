@@ -36,8 +36,13 @@ export const ElementResolverProvider: FactoryProvider<
         slug,
       },
       ElementRenderType: {
-        __resolveType: (node: ElementRenderTypeFragment) => {
-          return node.__typename
+        __resolveType: (
+          node: ElementRenderTypeFragment & { __resolveType?: string },
+        ) => {
+          /**
+           * `__resolveType` is there by default, for ones that don't exist, we have __typename
+           */
+          return node.__resolveType ?? node.__typename
         },
       },
       Mutation: {},

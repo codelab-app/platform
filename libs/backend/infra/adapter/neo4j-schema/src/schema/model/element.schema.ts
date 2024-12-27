@@ -15,11 +15,11 @@ export const elementSchema = gql`
     parentElement: Element
       @relationship(type: "TREE_FIRST_CHILD", direction: OUT)
     # Used for reverse lookup to see whether element is detached
-    page: Page @relationship(type: "ROOT_PAGE_ELEMENT", direction: IN)
+    page: Page @relationship(type: "PAGE_ROOT_ELEMENT", direction: IN)
     props: Prop! @relationship(type: "PROPS_OF_ELEMENT", direction: OUT)
     # element is the rootElement for this component
     parentComponent: Component
-      @relationship(type: "COMPONENT_ROOT", direction: IN)
+      @relationship(type: "COMPONENT_ROOT_ELEMENT", direction: IN)
     # Used for the css set by the styling UI and manually. This is a stringified json object
     # that contains styles for different screen size breakpoints.
     # See interface for more details: IElementStyle
@@ -43,8 +43,6 @@ export const elementSchema = gql`
     postRenderActions: [BaseAction!]!
       @relationship(type: "POST_RENDER_ELEMENT_ACTION", direction: OUT)
     renderType: ElementRenderType!
-      # There is bug for union type, need to use custom query
-      # https://github.com/neo4j/graphql/issues/487
       @relationship(type: "ELEMENT_RENDER_TYPE", direction: OUT)
     # Pre-compute to savetime during rendering
     closestContainerNode: ContainerNode!
