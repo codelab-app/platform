@@ -56,7 +56,7 @@ const create = ({ containerNode, id, rendererType }: IRendererDto) => {
      *
      * Our renderer ref prefixes it
      */
-    id,
+    id: `${rendererType}-${id}`,
     rendererType,
   })
 }
