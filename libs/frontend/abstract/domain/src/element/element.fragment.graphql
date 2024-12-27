@@ -46,18 +46,7 @@ fragment Element on Element {
   renderForEachPropKey
   renderIfExpression
   renderType {
-    ... on Atom {
-      __typename
-      ...AtomBuilder
-    }
-    ... on Component {
-      __typename
-      id
-      # Used for getting dependant types
-      api {
-        id
-      }
-    }
+    ...ElementRenderType
   }
   style
   tailwindClassNames
@@ -111,14 +100,7 @@ fragment ElementProduction on Element {
   renderForEachPropKey
   renderIfExpression
   renderType {
-    ... on Atom {
-      __typename
-      ...AtomProduction
-    }
-    ... on Component {
-      __typename
-      id
-    }
+    ...ElementRenderTypeProduction
   }
   style
   tailwindClassNames

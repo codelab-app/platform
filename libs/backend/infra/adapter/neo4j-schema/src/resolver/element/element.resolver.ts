@@ -1,4 +1,8 @@
-import type { Element } from '@codelab/shared/infra/gql'
+import type {
+  Element,
+  ElementRenderType,
+  ElementRenderTypeFragment,
+} from '@codelab/shared/infra/gql'
 import type { IFieldResolver, IResolvers } from '@graphql-tools/utils'
 import type { FactoryProvider } from '@nestjs/common'
 import type { GraphQLRequestContext } from 'graphql-request/build/cjs/types'
@@ -29,25 +33,11 @@ export const ElementResolverProvider: FactoryProvider<
         __typename: 'Element',
         dependantTypes,
         name,
-        // renderType,
         slug,
       },
       ElementRenderType: {
-        __resolveType: (node: Element) => {
-          /**
-           * `__resolveType` is there by default, for ones that don't exist, we have __typename
-           */
-          const resolveType =
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            (node as any).__resolveType ?? (node as any).__typename
-
-          if (!resolveType) {
-            console.debug(node)
-
-            throw new Error('Missing __resolveType')
-          }
-
-          return resolveType
+        __resolveType: (node: ElementRenderTypeFragment) => {
+          return node.__typename
         },
       },
       Mutation: {},

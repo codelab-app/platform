@@ -31127,8 +31127,8 @@ export type ElementFragment = {
   prevSibling?: { id: string } | null
   props: PropFragment
   renderType:
-    | ({ __typename: 'Atom' } & AtomBuilderFragment)
-    | { __typename: 'Component'; id: string; api: { id: string } }
+    | ElementRenderType_Atom_Fragment
+    | ElementRenderType_Component_Fragment
 }
 
 export type ElementProductionFragment = {
@@ -31172,9 +31172,36 @@ export type ElementProductionFragment = {
   prevSibling?: { id: string } | null
   props: PropFragment
   renderType:
-    | ({ __typename: 'Atom' } & AtomProductionFragment)
-    | { __typename: 'Component'; id: string }
+    | ElementRenderTypeProduction_Atom_Fragment
+    | ElementRenderTypeProduction_Component_Fragment
 }
+
+type ElementRenderType_Atom_Fragment = {
+  __typename: 'Atom'
+} & AtomBuilderFragment
+
+type ElementRenderType_Component_Fragment = {
+  __typename: 'Component'
+  id: string
+  api: { id: string }
+}
+
+export type ElementRenderTypeFragment =
+  | ElementRenderType_Atom_Fragment
+  | ElementRenderType_Component_Fragment
+
+type ElementRenderTypeProduction_Atom_Fragment = {
+  __typename: 'Atom'
+} & AtomProductionFragment
+
+type ElementRenderTypeProduction_Component_Fragment = {
+  __typename: 'Component'
+  id: string
+}
+
+export type ElementRenderTypeProductionFragment =
+  | ElementRenderTypeProduction_Atom_Fragment
+  | ElementRenderTypeProduction_Component_Fragment
 
 export type HookPropFragment = { data: string; id: string }
 
@@ -33738,6 +33765,102 @@ fragment InterfaceType on InterfaceType {
 }`,
   { fragmentName: 'AtomBuilder' },
 ) as unknown as TypedDocumentString<AtomBuilderFragment, unknown>
+export const ElementRenderTypeFragmentDoc = new TypedDocumentString(
+  `
+    fragment ElementRenderType on ElementRenderType {
+  ... on Atom {
+    __typename
+    ...AtomBuilder
+  }
+  ... on Component {
+    __typename
+    id
+    api {
+      id
+    }
+  }
+}
+    fragment AtomBuilder on Atom {
+  __typename
+  api {
+    ...InterfaceType
+  }
+  icon
+  id
+  name
+  requiredParents {
+    id
+    name
+    type
+  }
+  suggestedChildren {
+    id
+    name
+    type
+  }
+  tags {
+    ...TagPreview
+  }
+  type
+  owner {
+    id
+  }
+}
+fragment TagPreview on Tag {
+  id
+  name
+  owner {
+    id
+  }
+}
+fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+  owner {
+    id
+  }
+}
+fragment BaseTypeRef on IBaseType {
+  __typename
+  id
+  kind
+  name
+}
+fragment Field on Field {
+  __typename
+  api {
+    ... on InterfaceType {
+      ...BaseTypeRef
+    }
+  }
+  defaultValues
+  description
+  fieldType {
+    ... on IBaseType {
+      ...BaseType
+    }
+  }
+  id
+  key
+  name
+  nextSibling {
+    id
+  }
+  prevSibling {
+    id
+  }
+  validationRules
+}
+fragment InterfaceType on InterfaceType {
+  ...BaseType
+  fields {
+    ...Field
+  }
+}`,
+  { fragmentName: 'ElementRenderType' },
+) as unknown as TypedDocumentString<ElementRenderTypeFragment, unknown>
 export const ElementFragmentDoc = new TypedDocumentString(
   `
     fragment Element on Element {
@@ -33788,17 +33911,7 @@ export const ElementFragmentDoc = new TypedDocumentString(
   renderForEachPropKey
   renderIfExpression
   renderType {
-    ... on Atom {
-      __typename
-      ...AtomBuilder
-    }
-    ... on Component {
-      __typename
-      id
-      api {
-        id
-      }
-    }
+    ...ElementRenderType
   }
   style
   tailwindClassNames
@@ -33828,6 +33941,19 @@ export const ElementFragmentDoc = new TypedDocumentString(
   type
   owner {
     id
+  }
+}
+fragment ElementRenderType on ElementRenderType {
+  ... on Atom {
+    __typename
+    ...AtomBuilder
+  }
+  ... on Component {
+    __typename
+    id
+    api {
+      id
+    }
   }
 }
 fragment Prop on Prop {
@@ -34373,21 +34499,24 @@ fragment Element on Element {
   renderForEachPropKey
   renderIfExpression
   renderType {
-    ... on Atom {
-      __typename
-      ...AtomBuilder
-    }
-    ... on Component {
-      __typename
-      id
-      api {
-        id
-      }
-    }
+    ...ElementRenderType
   }
   style
   tailwindClassNames
   expanded
+}
+fragment ElementRenderType on ElementRenderType {
+  ... on Atom {
+    __typename
+    ...AtomBuilder
+  }
+  ... on Component {
+    __typename
+    id
+    api {
+      id
+    }
+  }
 }
 fragment Prop on Prop {
   data
@@ -34684,21 +34813,24 @@ fragment Element on Element {
   renderForEachPropKey
   renderIfExpression
   renderType {
-    ... on Atom {
-      __typename
-      ...AtomBuilder
-    }
-    ... on Component {
-      __typename
-      id
-      api {
-        id
-      }
-    }
+    ...ElementRenderType
   }
   style
   tailwindClassNames
   expanded
+}
+fragment ElementRenderType on ElementRenderType {
+  ... on Atom {
+    __typename
+    ...AtomBuilder
+  }
+  ... on Component {
+    __typename
+    id
+    api {
+      id
+    }
+  }
 }
 fragment Page on Page {
   app {
@@ -35022,21 +35154,24 @@ fragment Element on Element {
   renderForEachPropKey
   renderIfExpression
   renderType {
-    ... on Atom {
-      __typename
-      ...AtomBuilder
-    }
-    ... on Component {
-      __typename
-      id
-      api {
-        id
-      }
-    }
+    ...ElementRenderType
   }
   style
   tailwindClassNames
   expanded
+}
+fragment ElementRenderType on ElementRenderType {
+  ... on Atom {
+    __typename
+    ...AtomBuilder
+  }
+  ... on Component {
+    __typename
+    id
+    api {
+      id
+    }
+  }
 }
 fragment Prop on Prop {
   data
@@ -35322,21 +35457,24 @@ fragment Element on Element {
   renderForEachPropKey
   renderIfExpression
   renderType {
-    ... on Atom {
-      __typename
-      ...AtomBuilder
-    }
-    ... on Component {
-      __typename
-      id
-      api {
-        id
-      }
-    }
+    ...ElementRenderType
   }
   style
   tailwindClassNames
   expanded
+}
+fragment ElementRenderType on ElementRenderType {
+  ... on Atom {
+    __typename
+    ...AtomBuilder
+  }
+  ... on Component {
+    __typename
+    id
+    api {
+      id
+    }
+  }
 }
 fragment PageDevelopment on Page {
   app {
@@ -35546,6 +35684,43 @@ export const AtomProductionFragmentDoc = new TypedDocumentString(
     `,
   { fragmentName: 'AtomProduction' },
 ) as unknown as TypedDocumentString<AtomProductionFragment, unknown>
+export const ElementRenderTypeProductionFragmentDoc = new TypedDocumentString(
+  `
+    fragment ElementRenderTypeProduction on ElementRenderType {
+  ... on Atom {
+    __typename
+    ...AtomProduction
+  }
+  ... on Component {
+    __typename
+    id
+  }
+}
+    fragment AtomProduction on Atom {
+  __typename
+  externalCssSource
+  externalJsSource
+  externalSourceType
+  icon
+  id
+  name
+  requiredParents {
+    id
+    name
+    type
+  }
+  suggestedChildren {
+    id
+    name
+    type
+  }
+  type
+}`,
+  { fragmentName: 'ElementRenderTypeProduction' },
+) as unknown as TypedDocumentString<
+  ElementRenderTypeProductionFragment,
+  unknown
+>
 export const ElementProductionFragmentDoc = new TypedDocumentString(
   `
     fragment ElementProduction on Element {
@@ -35595,14 +35770,7 @@ export const ElementProductionFragmentDoc = new TypedDocumentString(
   renderForEachPropKey
   renderIfExpression
   renderType {
-    ... on Atom {
-      __typename
-      ...AtomProduction
-    }
-    ... on Component {
-      __typename
-      id
-    }
+    ...ElementRenderTypeProduction
   }
   style
   tailwindClassNames
@@ -35626,6 +35794,16 @@ export const ElementProductionFragmentDoc = new TypedDocumentString(
     type
   }
   type
+}
+fragment ElementRenderTypeProduction on ElementRenderType {
+  ... on Atom {
+    __typename
+    ...AtomProduction
+  }
+  ... on Component {
+    __typename
+    id
+  }
 }
 fragment Prop on Prop {
   data
@@ -35888,17 +36066,20 @@ fragment ElementProduction on Element {
   renderForEachPropKey
   renderIfExpression
   renderType {
-    ... on Atom {
-      __typename
-      ...AtomProduction
-    }
-    ... on Component {
-      __typename
-      id
-    }
+    ...ElementRenderTypeProduction
   }
   style
   tailwindClassNames
+}
+fragment ElementRenderTypeProduction on ElementRenderType {
+  ... on Atom {
+    __typename
+    ...AtomProduction
+  }
+  ... on Component {
+    __typename
+    id
+  }
 }
 fragment Prop on Prop {
   data
@@ -36168,17 +36349,20 @@ fragment ElementProduction on Element {
   renderForEachPropKey
   renderIfExpression
   renderType {
-    ... on Atom {
-      __typename
-      ...AtomProduction
-    }
-    ... on Component {
-      __typename
-      id
-    }
+    ...ElementRenderTypeProduction
   }
   style
   tailwindClassNames
+}
+fragment ElementRenderTypeProduction on ElementRenderType {
+  ... on Atom {
+    __typename
+    ...AtomProduction
+  }
+  ... on Component {
+    __typename
+    id
+  }
 }
 fragment PageProduction on Page {
   app {
@@ -36722,21 +36906,24 @@ fragment Element on Element {
   renderForEachPropKey
   renderIfExpression
   renderType {
-    ... on Atom {
-      __typename
-      ...AtomBuilder
-    }
-    ... on Component {
-      __typename
-      id
-      api {
-        id
-      }
-    }
+    ...ElementRenderType
   }
   style
   tailwindClassNames
   expanded
+}
+fragment ElementRenderType on ElementRenderType {
+  ... on Atom {
+    __typename
+    ...AtomBuilder
+  }
+  ... on Component {
+    __typename
+    id
+    api {
+      id
+    }
+  }
 }
 fragment Prop on Prop {
   data
@@ -37511,21 +37698,24 @@ fragment Element on Element {
   renderForEachPropKey
   renderIfExpression
   renderType {
-    ... on Atom {
-      __typename
-      ...AtomBuilder
-    }
-    ... on Component {
-      __typename
-      id
-      api {
-        id
-      }
-    }
+    ...ElementRenderType
   }
   style
   tailwindClassNames
   expanded
+}
+fragment ElementRenderType on ElementRenderType {
+  ... on Atom {
+    __typename
+    ...AtomBuilder
+  }
+  ... on Component {
+    __typename
+    id
+    api {
+      id
+    }
+  }
 }
 fragment PagePreview on Page {
   app {
@@ -37928,21 +38118,24 @@ fragment Element on Element {
   renderForEachPropKey
   renderIfExpression
   renderType {
-    ... on Atom {
-      __typename
-      ...AtomBuilder
-    }
-    ... on Component {
-      __typename
-      id
-      api {
-        id
-      }
-    }
+    ...ElementRenderType
   }
   style
   tailwindClassNames
   expanded
+}
+fragment ElementRenderType on ElementRenderType {
+  ... on Atom {
+    __typename
+    ...AtomBuilder
+  }
+  ... on Component {
+    __typename
+    id
+    api {
+      id
+    }
+  }
 }
 fragment Prop on Prop {
   data
@@ -38346,21 +38539,24 @@ fragment Element on Element {
   renderForEachPropKey
   renderIfExpression
   renderType {
-    ... on Atom {
-      __typename
-      ...AtomBuilder
-    }
-    ... on Component {
-      __typename
-      id
-      api {
-        id
-      }
-    }
+    ...ElementRenderType
   }
   style
   tailwindClassNames
   expanded
+}
+fragment ElementRenderType on ElementRenderType {
+  ... on Atom {
+    __typename
+    ...AtomBuilder
+  }
+  ... on Component {
+    __typename
+    id
+    api {
+      id
+    }
+  }
 }
 fragment Page on Page {
   app {
@@ -38672,17 +38868,20 @@ fragment ElementProduction on Element {
   renderForEachPropKey
   renderIfExpression
   renderType {
-    ... on Atom {
-      __typename
-      ...AtomProduction
-    }
-    ... on Component {
-      __typename
-      id
-    }
+    ...ElementRenderTypeProduction
   }
   style
   tailwindClassNames
+}
+fragment ElementRenderTypeProduction on ElementRenderType {
+  ... on Atom {
+    __typename
+    ...AtomProduction
+  }
+  ... on Component {
+    __typename
+    id
+  }
 }
 fragment PageProduction on Page {
   app {
@@ -39431,21 +39630,24 @@ fragment Element on Element {
   renderForEachPropKey
   renderIfExpression
   renderType {
-    ... on Atom {
-      __typename
-      ...AtomBuilder
-    }
-    ... on Component {
-      __typename
-      id
-      api {
-        id
-      }
-    }
+    ...ElementRenderType
   }
   style
   tailwindClassNames
   expanded
+}
+fragment ElementRenderType on ElementRenderType {
+  ... on Atom {
+    __typename
+    ...AtomBuilder
+  }
+  ... on Component {
+    __typename
+    id
+    api {
+      id
+    }
+  }
 }
 fragment Prop on Prop {
   data
@@ -39862,21 +40064,24 @@ fragment Element on Element {
   renderForEachPropKey
   renderIfExpression
   renderType {
-    ... on Atom {
-      __typename
-      ...AtomBuilder
-    }
-    ... on Component {
-      __typename
-      id
-      api {
-        id
-      }
-    }
+    ...ElementRenderType
   }
   style
   tailwindClassNames
   expanded
+}
+fragment ElementRenderType on ElementRenderType {
+  ... on Atom {
+    __typename
+    ...AtomBuilder
+  }
+  ... on Component {
+    __typename
+    id
+    api {
+      id
+    }
+  }
 }
 fragment Page on Page {
   app {
@@ -40175,21 +40380,24 @@ fragment Element on Element {
   renderForEachPropKey
   renderIfExpression
   renderType {
-    ... on Atom {
-      __typename
-      ...AtomBuilder
-    }
-    ... on Component {
-      __typename
-      id
-      api {
-        id
-      }
-    }
+    ...ElementRenderType
   }
   style
   tailwindClassNames
   expanded
+}
+fragment ElementRenderType on ElementRenderType {
+  ... on Atom {
+    __typename
+    ...AtomBuilder
+  }
+  ... on Component {
+    __typename
+    id
+    api {
+      id
+    }
+  }
 }
 fragment PageDevelopment on Page {
   app {

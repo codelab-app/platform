@@ -32,6 +32,9 @@ export const TypeResolverProvider: FactoryProvider<
     }
 
     return {
+      /**
+       * For union types, we can use `__typename` to resolve
+       */
       AnyType: {
         __resolveType: (type: TypeFragment) => {
           return type.__typename
@@ -40,8 +43,13 @@ export const TypeResolverProvider: FactoryProvider<
       ArrayType: {
         descendantTypesIds,
       },
+      /**
+       * For interface types, we don't have `__typename` to resolve
+       */
       IBaseType: {
-        __resolveType: (type: BaseTypeFragment) => type.__typename,
+        __resolveType: (type: BaseTypeFragment) => {
+          return type.kind
+        },
       },
       InterfaceType: {
         descendantTypesIds,

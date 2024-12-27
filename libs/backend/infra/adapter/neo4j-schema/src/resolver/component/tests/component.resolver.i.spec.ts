@@ -1,24 +1,32 @@
 import type { INestApplication } from '@nestjs/common'
 
-import { AtomType } from '@codelab/backend/abstract/codegen'
-import {
-  ComponentProperties,
-  connectNodeId,
-  connectOwner,
-  ElementProperties,
-} from '@codelab/shared/domain-old'
+import { AtomRepository } from '@codelab/backend/domain/atom'
+import { ComponentRepository } from '@codelab/backend/domain/component'
+import { ElementRepository } from '@codelab/backend/domain/element'
+import { PropRepository } from '@codelab/backend/domain/prop'
+import { StoreRepository } from '@codelab/backend/domain/store'
+import { InterfaceTypeRepository } from '@codelab/backend/domain/type'
+import { UserRepository } from '@codelab/backend/domain/user'
+import { ITypeKind } from '@codelab/shared/abstract/core'
+import { AtomType } from '@codelab/shared/infra/gql'
 import { Validator } from '@codelab/shared/infra/schema'
+import { ElementProperties } from '@codelab/shared-domain-module/element'
 import { print } from 'graphql'
 import request from 'supertest'
 import { v4 } from 'uuid'
 
-import { OgmService } from '../../../infra'
 import { setupTestingContext } from '../../../test/setup'
-import { ComponentResolverComponentsDocument } from './component.spec.graphql.api.gen'
+import { ComponentResolverComponentsDocument } from './component.spec.graphql.gen'
 
-describe('PageResolvers', () => {
+describe('ComponentResolvers', () => {
   let app: INestApplication
-  let ogmService: OgmService
+  let userRepository: UserRepository
+  let atomRepository: AtomRepository
+  let propRepository: PropRepository
+  let elementRepository: ElementRepository
+  let interfaceTypeRepository: InterfaceTypeRepository
+  let storeRepository: StoreRepository
+  let componentRepository: ComponentRepository
   const context = setupTestingContext()
 
   beforeAll(async () => {
@@ -26,7 +34,13 @@ describe('PageResolvers', () => {
     const module = ctx.module
 
     app = ctx.nestApp
-    ogmService = module.get(OgmService)
+    userRepository = module.get(UserRepository)
+    atomRepository = module.get(AtomRepository)
+    propRepository = module.get(PropRepository)
+    elementRepository = module.get(ElementRepository)
+    interfaceTypeRepository = module.get(InterfaceTypeRepository)
+    storeRepository = module.get(StoreRepository)
+    componentRepository = module.get(ComponentRepository)
 
     await ctx.beforeAll()
   })
@@ -38,205 +52,129 @@ describe('PageResolvers', () => {
   })
 
   it('should fetch a component with elements resolver', async () => {
-    const owner = (
-      await ogmService.User.create({
-        input: [
-          {
-            auth0Id: 'something',
-            email: 'something@some.thing',
-            id: v4(),
-            username: 'someusername',
-          },
-        ],
-      })
-    ).users[0]
+    const owner = await userRepository.add({
+      auth0Id: 'something',
+      email: 'something@some.thing',
+      id: v4(),
+      roles: [],
+      username: 'someusername',
+    })
 
     const componentRef = { id: v4() }
 
     Validator.assertsDefined(owner)
 
-    const atomApi = (
-      await ogmService.InterfaceType.create({
-        input: [
-          {
-            id: v4(),
-            name: 'React Fragment Api',
-            owner: connectOwner(owner),
-          },
-        ],
-      })
-    ).interfaceTypes[0]
+    const atomApi = await interfaceTypeRepository.add({
+      __typename: 'InterfaceType',
+      id: v4(),
+      kind: ITypeKind.InterfaceType,
+      name: 'React Fragment Api',
+      owner: { id: owner.id },
+    })
 
     Validator.assertsDefined(atomApi)
 
-    const atomReactFragment = (
-      await ogmService.Atom.create({
-        input: [
-          {
-            api: connectNodeId(atomApi.id),
-            id: v4(),
-            name: 'React Fragment',
-            owner: connectOwner(owner),
-            type: AtomType.ReactFragment,
-          },
-        ],
-      })
-    ).atoms[0]
+    const atomReactFragment = await atomRepository.add({
+      __typename: 'Atom',
+      api: { id: atomApi.id },
+      id: v4(),
+      name: 'React Fragment',
+      owner: { id: owner.id },
+      type: AtomType.ReactFragment,
+    })
 
     Validator.assertsDefined(atomReactFragment)
 
-    const props = (
-      await ogmService.Prop.create({
-        input: [
-          {
-            data: '{}',
-            id: v4(),
-          },
-        ],
-      })
-    ).props[0]
+    // const props = await propRepository.add({
+    //   data: '{}',
+    //   id: v4(),
+    // })
 
-    Validator.assertsDefined(props)
-
-    const rootElement = (
-      await ogmService.Element.create({
-        input: [
-          {
-            compositeKey: ElementProperties.elementCompositeKey(
-              'Component Root',
-              componentRef,
-            ),
-            id: v4(),
-            props: connectNodeId(props.id),
-            renderType: {
-              Atom: connectNodeId(atomReactFragment.id),
-            },
-          },
-        ],
-      })
-    ).elements[0]
+    const rootElement = await elementRepository.add({
+      closestContainerNode: { id: v4() },
+      compositeKey: ElementProperties.elementCompositeKey(
+        'Component Root',
+        componentRef,
+      ),
+      id: v4(),
+      name: 'Component Root',
+      props: { data: '{}', id: v4() },
+      renderType: {
+        __typename: 'Atom',
+        id: atomReactFragment.id,
+      },
+    })
 
     Validator.assertsDefined(rootElement)
 
-    const childElementProps = (
-      await ogmService.Prop.create({
-        input: [
-          {
-            data: '{}',
-            id: v4(),
-          },
-        ],
-      })
-    ).props[0]
-
-    Validator.assertsDefined(childElementProps)
-
-    const childElement = (
-      await ogmService.Element.create({
-        input: [
-          {
-            compositeKey: ElementProperties.elementCompositeKey(
-              'Child Element',
-              componentRef,
-            ),
-            id: v4(),
-            parentElement: connectNodeId(rootElement.id),
-            props: connectNodeId(childElementProps.id),
-            renderType: {
-              Atom: connectNodeId(atomReactFragment.id),
-            },
-          },
-        ],
-      })
-    ).elements[0]
+    const childElement = await elementRepository.add({
+      closestContainerNode: { id: v4() },
+      compositeKey: ElementProperties.elementCompositeKey(
+        'Child Element',
+        componentRef,
+      ),
+      id: v4(),
+      name: 'Child Element',
+      parentElement: { id: rootElement.id },
+      props: { data: '{}', id: v4() },
+      renderType: {
+        __typename: 'Atom',
+        id: atomReactFragment.id,
+      },
+    })
 
     Validator.assertsDefined(childElement)
 
-    const storeApi = (
-      await ogmService.InterfaceType.create({
-        input: [
-          {
-            id: v4(),
-            name: 'Store Api',
-            owner: connectOwner(owner),
-          },
-        ],
-      })
-    ).interfaceTypes[0]
+    const storeApi = await interfaceTypeRepository.add({
+      __typename: 'InterfaceType',
+      id: v4(),
+      kind: ITypeKind.InterfaceType,
+      name: 'Store Api',
+      owner: { id: owner.id },
+    })
 
     Validator.assertsDefined(storeApi)
 
-    const store = (
-      await ogmService.Store.create({
-        input: [
-          {
-            api: connectNodeId(storeApi.id),
-            id: v4(),
-            name: 'some store',
-          },
-        ],
-      })
-    ).stores[0]
+    const store = await storeRepository.add({
+      api: { id: storeApi.id },
+      id: v4(),
+      name: 'some store',
+    })
 
     Validator.assertsDefined(store)
 
-    const componentApi = (
-      await ogmService.InterfaceType.create({
-        input: [
-          {
-            id: v4(),
-            name: 'Component Api',
-            owner: connectOwner(owner),
-          },
-        ],
-      })
-    ).interfaceTypes[0]
+    const componentApi = await interfaceTypeRepository.add({
+      __typename: 'InterfaceType',
+      id: v4(),
+      kind: ITypeKind.InterfaceType,
+      name: 'Component Api',
+      owner: { id: owner.id },
+    })
 
     Validator.assertsDefined(componentApi)
 
-    const componentProps = (
-      await ogmService.Prop.create({
-        input: [
-          {
-            data: '{}',
-            id: v4(),
-          },
-        ],
-      })
-    ).props[0]
-
-    Validator.assertsDefined(componentProps)
-
-    const component = (
-      await ogmService.Component.create({
-        input: [
-          {
-            api: connectNodeId(componentApi.id),
-            compositeKey: ComponentProperties.componentCompositeKey(
-              {
-                slug: 'cui-card',
-              },
-              { id: v4() },
-            ),
-            id: v4(),
-            owner: connectOwner(owner),
-            props: connectNodeId(componentProps.id),
-            rootElement: connectNodeId(rootElement.id),
-            store: connectNodeId(store.id),
-          },
-        ],
-      })
-    ).components[0]
+    const component = await componentRepository.add({
+      __typename: 'Component',
+      api: { id: componentApi.id },
+      id: v4(),
+      name: 'Cui Card',
+      owner: { id: owner.id },
+      props: { data: '{}', id: v4() },
+      rootElement: { id: rootElement.id },
+      store: { id: store.id },
+    })
 
     Validator.assertsDefined(component)
 
     await request(app.getHttpServer())
-      .post('/graphql')
+      .post('/api/v1/graphql')
       .send({
         query: print(ComponentResolverComponentsDocument),
       })
       .expect(200)
       .expect((res) => {
+        console.log('res', res.body)
+
         expect(res.body.data.components).toEqual([
           {
             elements: [

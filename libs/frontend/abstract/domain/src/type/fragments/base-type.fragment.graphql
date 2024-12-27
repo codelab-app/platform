@@ -1,5 +1,5 @@
+# Re-used by each sub-type
 fragment BaseType on IBaseType {
-  # Need this to narrow down type on frontend
   __typename
   id
   kind
@@ -10,8 +10,8 @@ fragment BaseType on IBaseType {
 }
 
 # This is used to create a labeled reference to a base type
-
 fragment BaseTypeRef on IBaseType {
+  # Need this to narrow down type on frontend
   __typename
   id
   # Need this for resolver resolve

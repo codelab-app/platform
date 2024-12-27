@@ -1,0 +1,21 @@
+fragment ElementRenderType on ElementRenderType {
+  ... on Atom {
+    __typename
+    ...AtomBuilder
+  }
+  ... on Component {
+    __typename
+    id
+  }
+}
+
+fragment ElementRenderTypeProduction on ElementRenderType {
+  ... on Atom {
+    __typename
+    ...AtomProduction
+  }
+  ... on Component {
+    __typename
+    id
+  }
+}

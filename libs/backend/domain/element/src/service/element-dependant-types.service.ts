@@ -29,7 +29,7 @@ export class ElementDependantTypesService {
   /**
    * This attempts to get all dependent types for an element
    */
-  async getDependantTypes(element: Element) {
+  async getDependantTypes(element: Pick<Element, 'id'>) {
     return this.neo4jService.withReadTransaction(async (txn) => {
       const { records } = await txn.run(getElementDependantTypes, {
         id: element.id,
