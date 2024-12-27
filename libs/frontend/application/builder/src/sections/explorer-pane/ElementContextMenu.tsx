@@ -11,12 +11,14 @@ import {
   runtimeComponentRef,
 } from '@codelab/frontend/abstract/application'
 import { isComponent } from '@codelab/frontend/abstract/domain'
-import { UiKey } from '@codelab/frontend/abstract/types'
-import { useCui } from '@codelab/frontend/presentation/codelab-ui'
 import { useComponentService } from '@codelab/frontend-application-component/services'
-import { useCloneElementService } from '@codelab/frontend-application-element/services'
+import {
+  useCloneElementService,
+  useElementService,
+} from '@codelab/frontend-application-element/services'
 import { useCreateElementForm } from '@codelab/frontend-application-element/use-cases/create-element'
 import { useDeleteElementModal } from '@codelab/frontend-application-element/use-cases/delete-element'
+import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import { useUser } from '@codelab/frontend-application-user/services'
 import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
 import {
@@ -26,6 +28,7 @@ import {
 import { Key } from '@codelab/frontend-presentation-view/components/key'
 import { Dropdown } from 'antd'
 import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 export interface ContextMenuProps {
@@ -46,6 +49,9 @@ export const ElementContextMenu = observer<
   const { builderService, runtimeElementService } = useApplicationStore()
   const { elementDomainService } = useDomainStore()
   const componentService = useComponentService()
+  const { createPopover } = useElementService()
+  const router = useRouter()
+  const { appId, componentId, pageId } = useUrlPathParams()
 
   const cloneElementService = useCloneElementService({
     builderService,
@@ -55,7 +61,6 @@ export const ElementContextMenu = observer<
   const createElementForm = useCreateElementForm()
   const deleteElementModal = useDeleteElementModal()
   const user = useUser()
-  const { popover } = useCui()
 
   const [contextMenuItemId, setContextMenuNodeId] =
     useState<Nullable<string>>(null)
@@ -69,7 +74,7 @@ export const ElementContextMenu = observer<
   const componentInstance = isComponent(element.renderType)
 
   const onAddChild = () => {
-    popover.open(UiKey.ElementPopoverCreate)
+    createPopover.open(router, { appId, componentId, pageId })
 
     createElementForm.open({
       elementOptions:

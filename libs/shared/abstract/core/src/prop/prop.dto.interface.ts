@@ -5,7 +5,7 @@ import { Typebox } from '@codelab/shared/infra/typebox'
 import { Type } from '@sinclair/typebox'
 
 export const PropDtoSchema = Type.Object({
-  api: Typebox.Nullish(Typebox.Ref),
+  api: Type.Optional(Typebox.Ref),
   data: Type.String(),
   id: Type.String(),
 })

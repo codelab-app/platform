@@ -47,7 +47,10 @@ export const RenderTypeField = connectField((props: RenderTypeProps) => {
   const [menuState, setMenuState] = useState({ open: false, skipClose: false })
   const [filters, setFilters] = useState({ atoms: true, components: true })
   const { atoms, components } = useLoadOptions(parentAtom)
-  const errorMessage = error?.message || components.error || atoms.error
+
+  const errorMessage =
+    error?.message || components.error?.message || atoms.error?.message
+
   const componentsToShow = filters.components ? components.value : []
   const atomsToShow = filters.atoms ? atoms.value : []
   const options = useRenderTypeSelectOptions(componentsToShow, atomsToShow)

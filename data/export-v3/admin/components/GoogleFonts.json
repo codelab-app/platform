@@ -25,10 +25,7 @@
         "defaultValues": "Roboto",
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
         },
         "id": "5f7982fd-4d0f-43c3-a30b-0c6c70e867ac",
         "key": "family",
@@ -44,10 +41,7 @@
         "defaultValues": "Open Sans",
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
         },
         "id": "f9dba15a-d8ae-4058-843f-9354fffe2558",
         "key": "family",
@@ -63,10 +57,7 @@
         "defaultValues": "Noto Sans JP",
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
         },
         "id": "3d0818ea-d9fd-44a9-b8d6-d827dd5e1ad6",
         "key": "family",
@@ -82,10 +73,7 @@
         "defaultValues": "Montserrat",
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
         },
         "id": "8cbc3b7b-229a-419c-880a-0cba15baab95",
         "key": "family",
@@ -101,10 +89,7 @@
         "defaultValues": "Lato",
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
         },
         "id": "d61ca4a1-d19a-4a08-af44-5764218583b3",
         "key": "family",
@@ -120,10 +105,7 @@
         "defaultValues": "Poppins",
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
         },
         "id": "35de6560-d869-4156-8634-42dc4e94e5da",
         "key": "family",
@@ -139,10 +121,7 @@
         "defaultValues": "Roboto Condensed",
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
         },
         "id": "fb91dcd3-ff5a-4f87-9650-ce5f7b9c48ee",
         "key": "family",
@@ -158,10 +137,7 @@
         "defaultValues": "Inter",
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
         },
         "id": "b5f603db-ad63-4192-8ec0-abd83fc35305",
         "key": "family",
@@ -177,10 +153,7 @@
         "defaultValues": "Roboto Mono",
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
         },
         "id": "f24410f4-5d5d-447a-8d72-349b7e5d6c64",
         "key": "family",
@@ -196,10 +169,7 @@
         "defaultValues": "Oswald",
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
         },
         "id": "4ed1ade8-965a-42f5-9caa-76627de217b1",
         "key": "family",
@@ -215,10 +185,7 @@
         "defaultValues": "Raleway",
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
         },
         "id": "5eb88454-f3b5-425f-8201-118f839bbc92",
         "key": "family",
@@ -234,10 +201,7 @@
         "defaultValues": "Noto Sans",
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
         },
         "id": "f803c998-ae50-4c59-ac64-44f7715aa86e",
         "key": "family",
@@ -253,10 +217,7 @@
         "defaultValues": "Nunito Sans",
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
         },
         "id": "dbf8147e-ef9a-4d2d-b304-375b471d7fdb",
         "key": "family",
@@ -272,10 +233,7 @@
         "defaultValues": "Roboto Slab",
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
         },
         "id": "378bc7b9-c6e3-4849-a598-a1b53b55ca3e",
         "key": "family",
@@ -291,10 +249,7 @@
         "defaultValues": "Playfair Display",
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
         },
         "id": "00b95e53-eae8-4042-ba26-873bfb73e7b9",
         "key": "family",
@@ -310,10 +265,7 @@
         "defaultValues": "Rubik",
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
         },
         "id": "f08d93aa-83d4-47ab-a587-851c74c545c3",
         "key": "family",
@@ -329,10 +281,7 @@
         "defaultValues": "Nunito",
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
         },
         "id": "ffe8e066-2bfb-42b5-a351-8863ed2feca0",
         "key": "family",
@@ -348,10 +297,7 @@
         "defaultValues": "Ubuntu",
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
         },
         "id": "f63c2e31-cbc0-4230-ac88-1ec4b03f6721",
         "key": "family",
@@ -367,10 +313,7 @@
         "defaultValues": "Nanum Gothic",
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
         },
         "id": "72c89015-6244-4809-9184-de0629183478",
         "key": "family",
@@ -386,10 +329,7 @@
         "defaultValues": "Josefin Sans",
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
         },
         "id": "1bd09556-41cc-43a7-a6c8-59fa85126fd2",
         "key": "family",
@@ -405,10 +345,7 @@
         "defaultValues": "Inconsolata",
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
         },
         "id": "1a5ac6d9-ba09-446a-9f55-fa7c43d8ee54",
         "key": "family",
@@ -424,10 +361,7 @@
         "defaultValues": "Dosis",
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
         },
         "id": "9565b8f7-41e7-4959-baf2-5296cd8c8b92",
         "key": "family",
@@ -443,10 +377,7 @@
         "defaultValues": "Pacifico",
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
         },
         "id": "a8a96e80-86f2-474f-805e-bd9011653fba",
         "key": "family",
@@ -462,10 +393,7 @@
         "defaultValues": "Bruno Ace SC",
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
         },
         "id": "37cd2888-366a-459e-b6b5-d4b78dfcc186",
         "key": "family",
@@ -481,10 +409,7 @@
         "defaultValues": "Gloria Hallelujah",
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
         },
         "id": "1cadf0c9-911c-44b5-b704-d1a97faf93de",
         "key": "family",
@@ -500,10 +425,7 @@
         "defaultValues": "400",
         "description": null,
         "fieldType": {
-          "__typename": "EnumType",
-          "id": "b2c1216d-4840-404a-a7a5-32a6483eccae",
-          "kind": "EnumType",
-          "name": "Google Fonts Roboto Weight Enum"
+          "id": "b2c1216d-4840-404a-a7a5-32a6483eccae"
         },
         "id": "627f7769-185b-4bf1-ad0e-3586ad3a9ed6",
         "key": "weight",
@@ -519,10 +441,7 @@
         "defaultValues": "400",
         "description": null,
         "fieldType": {
-          "__typename": "EnumType",
-          "id": "a1286e57-5852-458b-babf-3c8c2bb31040",
-          "kind": "EnumType",
-          "name": "Google Fonts Open Sans Weight Enum"
+          "id": "a1286e57-5852-458b-babf-3c8c2bb31040"
         },
         "id": "c170d7c9-3e56-4a54-a046-345a425c1216",
         "key": "weight",
@@ -538,10 +457,7 @@
         "defaultValues": "400",
         "description": null,
         "fieldType": {
-          "__typename": "EnumType",
-          "id": "b0bce48d-4817-4205-bbfe-fc8fa9f19ec2",
-          "kind": "EnumType",
-          "name": "Google Fonts Noto Sans JP Weight Enum"
+          "id": "b0bce48d-4817-4205-bbfe-fc8fa9f19ec2"
         },
         "id": "46203320-2ef2-4232-a11a-4468305973b6",
         "key": "weight",
@@ -557,10 +473,7 @@
         "defaultValues": "400",
         "description": null,
         "fieldType": {
-          "__typename": "EnumType",
-          "id": "fe446a41-27d1-41d6-9ce0-4c1f5e05e675",
-          "kind": "EnumType",
-          "name": "Google Fonts Montserrat Weight Enum"
+          "id": "fe446a41-27d1-41d6-9ce0-4c1f5e05e675"
         },
         "id": "667e7288-e3de-4d59-a3e8-8440fcba1a1e",
         "key": "weight",
@@ -576,10 +489,7 @@
         "defaultValues": "400",
         "description": null,
         "fieldType": {
-          "__typename": "EnumType",
-          "id": "cf18c60d-258a-42bc-a84d-a0e3a7bd17c9",
-          "kind": "EnumType",
-          "name": "Google Fonts Lato Weight Enum"
+          "id": "cf18c60d-258a-42bc-a84d-a0e3a7bd17c9"
         },
         "id": "6b80d8eb-4995-4065-b17f-fcc6a16a6363",
         "key": "weight",
@@ -595,10 +505,7 @@
         "defaultValues": "400",
         "description": null,
         "fieldType": {
-          "__typename": "EnumType",
-          "id": "aefea36f-bb3d-4c84-8745-a8cd2d6c30e8",
-          "kind": "EnumType",
-          "name": "Google Fonts Poppins Weight Enum"
+          "id": "aefea36f-bb3d-4c84-8745-a8cd2d6c30e8"
         },
         "id": "c76e330d-1906-4f63-afd2-9e61e45d34b4",
         "key": "weight",
@@ -614,10 +521,7 @@
         "defaultValues": "400",
         "description": null,
         "fieldType": {
-          "__typename": "EnumType",
-          "id": "8aa85607-48cb-42a0-b361-9f24f88adb39",
-          "kind": "EnumType",
-          "name": "Google Fonts Roboto Condensed Weight Enum"
+          "id": "8aa85607-48cb-42a0-b361-9f24f88adb39"
         },
         "id": "3e89b12e-a6a8-49ae-8643-2a3916f387cb",
         "key": "weight",
@@ -633,10 +537,7 @@
         "defaultValues": "400",
         "description": null,
         "fieldType": {
-          "__typename": "EnumType",
-          "id": "57cde81c-a439-4917-8923-243427be8f30",
-          "kind": "EnumType",
-          "name": "Google Fonts Inter Weight Enum"
+          "id": "57cde81c-a439-4917-8923-243427be8f30"
         },
         "id": "1ff3ba46-bcce-4391-bedd-9d6c2dbbc811",
         "key": "weight",
@@ -652,10 +553,7 @@
         "defaultValues": "400",
         "description": null,
         "fieldType": {
-          "__typename": "EnumType",
-          "id": "c8a141d6-b160-4d42-87b2-1222b51a9009",
-          "kind": "EnumType",
-          "name": "Google Fonts Roboto Mono Weight Enum"
+          "id": "c8a141d6-b160-4d42-87b2-1222b51a9009"
         },
         "id": "40ab1696-40e8-45d6-8c87-68a0d266b6af",
         "key": "weight",
@@ -671,10 +569,7 @@
         "defaultValues": "400",
         "description": null,
         "fieldType": {
-          "__typename": "EnumType",
-          "id": "4caf918b-48f9-4499-aa16-0b3aee805832",
-          "kind": "EnumType",
-          "name": "Google Fonts Oswald Weight Enum"
+          "id": "4caf918b-48f9-4499-aa16-0b3aee805832"
         },
         "id": "736dadd6-ffc6-41f6-a196-7ebb1fb5836e",
         "key": "weight",
@@ -690,10 +585,7 @@
         "defaultValues": "400",
         "description": null,
         "fieldType": {
-          "__typename": "EnumType",
-          "id": "08100a42-e090-4589-b4f5-e81a36059150",
-          "kind": "EnumType",
-          "name": "Google Fonts Raleway Weight Enum"
+          "id": "08100a42-e090-4589-b4f5-e81a36059150"
         },
         "id": "87e47aee-ec84-463f-904e-807fd2c7cf78",
         "key": "weight",
@@ -709,10 +601,7 @@
         "defaultValues": "400",
         "description": null,
         "fieldType": {
-          "__typename": "EnumType",
-          "id": "aa566256-bca7-4ce7-9832-a202cae9fc2b",
-          "kind": "EnumType",
-          "name": "Google Fonts Noto Sans Weight Enum"
+          "id": "aa566256-bca7-4ce7-9832-a202cae9fc2b"
         },
         "id": "2cfcf50e-dd95-4ecb-8f03-bef86511fa0c",
         "key": "weight",
@@ -728,10 +617,7 @@
         "defaultValues": "400",
         "description": null,
         "fieldType": {
-          "__typename": "EnumType",
-          "id": "035926c1-d9a9-44f0-8f8c-831b995fa7c6",
-          "kind": "EnumType",
-          "name": "Google Fonts Nunito Sans Weight Enum"
+          "id": "035926c1-d9a9-44f0-8f8c-831b995fa7c6"
         },
         "id": "23d2e7e3-16ac-45ac-ba0d-2a15eb0be8cf",
         "key": "weight",
@@ -747,10 +633,7 @@
         "defaultValues": "400",
         "description": null,
         "fieldType": {
-          "__typename": "EnumType",
-          "id": "d03c9a02-fe37-47b4-8fdb-d8426c08c88d",
-          "kind": "EnumType",
-          "name": "Google Fonts Roboto Slab Weight Enum"
+          "id": "d03c9a02-fe37-47b4-8fdb-d8426c08c88d"
         },
         "id": "b5129a7b-ef5c-4a89-86fa-3b7742ab9d0b",
         "key": "weight",
@@ -766,10 +649,7 @@
         "defaultValues": "400",
         "description": null,
         "fieldType": {
-          "__typename": "EnumType",
-          "id": "8e490d7e-0971-45f9-884c-39a863dce962",
-          "kind": "EnumType",
-          "name": "Google Fonts Playfair Display Weight Enum"
+          "id": "8e490d7e-0971-45f9-884c-39a863dce962"
         },
         "id": "7ad829fd-a402-4f6f-a4a3-9aa86ede8ac9",
         "key": "weight",
@@ -785,10 +665,7 @@
         "defaultValues": "400",
         "description": null,
         "fieldType": {
-          "__typename": "EnumType",
-          "id": "37c42c19-b31a-46d1-8a0b-004ec4636b89",
-          "kind": "EnumType",
-          "name": "Google Fonts Rubik Weight Enum"
+          "id": "37c42c19-b31a-46d1-8a0b-004ec4636b89"
         },
         "id": "fc111ce6-738d-4600-802e-b12887875e58",
         "key": "weight",
@@ -804,10 +681,7 @@
         "defaultValues": "400",
         "description": null,
         "fieldType": {
-          "__typename": "EnumType",
-          "id": "ef83bded-f795-46b4-b2f8-56822ed711d0",
-          "kind": "EnumType",
-          "name": "Google Fonts Nunito Weight Enum"
+          "id": "ef83bded-f795-46b4-b2f8-56822ed711d0"
         },
         "id": "70610f19-7ab2-4a15-8004-c37dcadecb96",
         "key": "weight",
@@ -823,10 +697,7 @@
         "defaultValues": "400",
         "description": null,
         "fieldType": {
-          "__typename": "EnumType",
-          "id": "762e77e5-b2bf-4778-801b-630bbbd076c9",
-          "kind": "EnumType",
-          "name": "Google Fonts Ubuntu Weight Enum"
+          "id": "762e77e5-b2bf-4778-801b-630bbbd076c9"
         },
         "id": "71672dab-9874-4ecb-9de8-e10edf9b462d",
         "key": "weight",
@@ -842,10 +713,7 @@
         "defaultValues": "400",
         "description": null,
         "fieldType": {
-          "__typename": "EnumType",
-          "id": "cccf8bbe-f71f-4334-af98-c9821c0cc349",
-          "kind": "EnumType",
-          "name": "Google Fonts Nanum Gothic Weight Enum"
+          "id": "cccf8bbe-f71f-4334-af98-c9821c0cc349"
         },
         "id": "8bb2418f-c6b6-4188-9a56-3ad8eb11e865",
         "key": "weight",
@@ -861,10 +729,7 @@
         "defaultValues": "400",
         "description": null,
         "fieldType": {
-          "__typename": "EnumType",
-          "id": "529a9531-9e49-4ed7-b643-651caadf3d0e",
-          "kind": "EnumType",
-          "name": "Google Fonts Josefin Sans Weight Enum"
+          "id": "529a9531-9e49-4ed7-b643-651caadf3d0e"
         },
         "id": "6a0eed0a-0b2c-4ef8-83d6-389c964715fe",
         "key": "weight",
@@ -880,10 +745,7 @@
         "defaultValues": "400",
         "description": null,
         "fieldType": {
-          "__typename": "EnumType",
-          "id": "c6648d4b-1789-4489-bac9-0158788b494b",
-          "kind": "EnumType",
-          "name": "Google Fonts Inconsolata Weight Enum"
+          "id": "c6648d4b-1789-4489-bac9-0158788b494b"
         },
         "id": "e0c9ce97-fc56-4dc3-96bc-009c0a971415",
         "key": "weight",
@@ -899,10 +761,7 @@
         "defaultValues": "400",
         "description": null,
         "fieldType": {
-          "__typename": "EnumType",
-          "id": "5cc3d9cf-2da2-4709-93d4-ddea71a1599a",
-          "kind": "EnumType",
-          "name": "Google Fonts Dosis Weight Enum"
+          "id": "5cc3d9cf-2da2-4709-93d4-ddea71a1599a"
         },
         "id": "64acb7af-dea2-42f9-842e-1cabe572e4fd",
         "key": "weight",
@@ -918,10 +777,7 @@
         "defaultValues": "400",
         "description": null,
         "fieldType": {
-          "__typename": "EnumType",
-          "id": "d5bd6b0e-621f-44e7-8517-466b2a8897e1",
-          "kind": "EnumType",
-          "name": "Google Fonts Pacifico Weight Enum"
+          "id": "d5bd6b0e-621f-44e7-8517-466b2a8897e1"
         },
         "id": "0b1701d2-5e5f-40f2-abc1-bd9acca7cc8a",
         "key": "weight",
@@ -937,10 +793,7 @@
         "defaultValues": "400",
         "description": null,
         "fieldType": {
-          "__typename": "EnumType",
-          "id": "252ef653-2b3c-469c-82f9-1a3344fd965e",
-          "kind": "EnumType",
-          "name": "Google Fonts Bruno Ace SC Weight Enum"
+          "id": "252ef653-2b3c-469c-82f9-1a3344fd965e"
         },
         "id": "0e9a5afa-ce57-4781-a7c6-cc7a4e9ad8b6",
         "key": "weight",
@@ -956,10 +809,7 @@
         "defaultValues": "400",
         "description": null,
         "fieldType": {
-          "__typename": "EnumType",
-          "id": "e787a128-d0fe-422f-845a-1ad8fa638701",
-          "kind": "EnumType",
-          "name": "Google Fonts Gloria Hallelujah Weight Enum"
+          "id": "e787a128-d0fe-422f-845a-1ad8fa638701"
         },
         "id": "30d2942d-f5d2-4115-aa18-920c4bfb7940",
         "key": "weight",
@@ -984,42 +834,10 @@
         "__typename": "InterfaceType",
         "fields": [
           {
-            "api": {
-              "id": "5cc64ee4-3a00-4643-9b14-8613e0e98d04"
-            },
-            "defaultValues": "400",
-            "description": null,
-            "fieldType": {
-              "__typename": "EnumType",
-              "id": "252ef653-2b3c-469c-82f9-1a3344fd965e",
-              "kind": "EnumType",
-              "name": "Google Fonts Bruno Ace SC Weight Enum"
-            },
-            "id": "0e9a5afa-ce57-4781-a7c6-cc7a4e9ad8b6",
-            "key": "weight",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "37cd2888-366a-459e-b6b5-d4b78dfcc186"
           },
           {
-            "api": {
-              "id": "5cc64ee4-3a00-4643-9b14-8613e0e98d04"
-            },
-            "defaultValues": "Bruno Ace SC",
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "37cd2888-366a-459e-b6b5-d4b78dfcc186",
-            "key": "family",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "0e9a5afa-ce57-4781-a7c6-cc7a4e9ad8b6"
           }
         ],
         "id": "5cc64ee4-3a00-4643-9b14-8613e0e98d04",
@@ -1030,42 +848,10 @@
         "__typename": "InterfaceType",
         "fields": [
           {
-            "api": {
-              "id": "3e20a519-4968-49ce-9663-6b5380707055"
-            },
-            "defaultValues": "400",
-            "description": null,
-            "fieldType": {
-              "__typename": "EnumType",
-              "id": "5cc3d9cf-2da2-4709-93d4-ddea71a1599a",
-              "kind": "EnumType",
-              "name": "Google Fonts Dosis Weight Enum"
-            },
-            "id": "64acb7af-dea2-42f9-842e-1cabe572e4fd",
-            "key": "weight",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "9565b8f7-41e7-4959-baf2-5296cd8c8b92"
           },
           {
-            "api": {
-              "id": "3e20a519-4968-49ce-9663-6b5380707055"
-            },
-            "defaultValues": "Dosis",
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "9565b8f7-41e7-4959-baf2-5296cd8c8b92",
-            "key": "family",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "64acb7af-dea2-42f9-842e-1cabe572e4fd"
           }
         ],
         "id": "3e20a519-4968-49ce-9663-6b5380707055",
@@ -1076,42 +862,10 @@
         "__typename": "InterfaceType",
         "fields": [
           {
-            "api": {
-              "id": "65dce128-d88c-4eba-b41c-5d4ead345fbf"
-            },
-            "defaultValues": "400",
-            "description": null,
-            "fieldType": {
-              "__typename": "EnumType",
-              "id": "e787a128-d0fe-422f-845a-1ad8fa638701",
-              "kind": "EnumType",
-              "name": "Google Fonts Gloria Hallelujah Weight Enum"
-            },
-            "id": "30d2942d-f5d2-4115-aa18-920c4bfb7940",
-            "key": "weight",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "1cadf0c9-911c-44b5-b704-d1a97faf93de"
           },
           {
-            "api": {
-              "id": "65dce128-d88c-4eba-b41c-5d4ead345fbf"
-            },
-            "defaultValues": "Gloria Hallelujah",
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "1cadf0c9-911c-44b5-b704-d1a97faf93de",
-            "key": "family",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "30d2942d-f5d2-4115-aa18-920c4bfb7940"
           }
         ],
         "id": "65dce128-d88c-4eba-b41c-5d4ead345fbf",
@@ -1122,42 +876,10 @@
         "__typename": "InterfaceType",
         "fields": [
           {
-            "api": {
-              "id": "b5de478b-8d16-477b-be8f-301379ab26d9"
-            },
-            "defaultValues": "400",
-            "description": null,
-            "fieldType": {
-              "__typename": "EnumType",
-              "id": "c6648d4b-1789-4489-bac9-0158788b494b",
-              "kind": "EnumType",
-              "name": "Google Fonts Inconsolata Weight Enum"
-            },
-            "id": "e0c9ce97-fc56-4dc3-96bc-009c0a971415",
-            "key": "weight",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "1a5ac6d9-ba09-446a-9f55-fa7c43d8ee54"
           },
           {
-            "api": {
-              "id": "b5de478b-8d16-477b-be8f-301379ab26d9"
-            },
-            "defaultValues": "Inconsolata",
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "1a5ac6d9-ba09-446a-9f55-fa7c43d8ee54",
-            "key": "family",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "e0c9ce97-fc56-4dc3-96bc-009c0a971415"
           }
         ],
         "id": "b5de478b-8d16-477b-be8f-301379ab26d9",
@@ -1168,42 +890,10 @@
         "__typename": "InterfaceType",
         "fields": [
           {
-            "api": {
-              "id": "de8f4c80-35e8-4b87-a232-d99983248f1a"
-            },
-            "defaultValues": "400",
-            "description": null,
-            "fieldType": {
-              "__typename": "EnumType",
-              "id": "57cde81c-a439-4917-8923-243427be8f30",
-              "kind": "EnumType",
-              "name": "Google Fonts Inter Weight Enum"
-            },
-            "id": "1ff3ba46-bcce-4391-bedd-9d6c2dbbc811",
-            "key": "weight",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "b5f603db-ad63-4192-8ec0-abd83fc35305"
           },
           {
-            "api": {
-              "id": "de8f4c80-35e8-4b87-a232-d99983248f1a"
-            },
-            "defaultValues": "Inter",
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "b5f603db-ad63-4192-8ec0-abd83fc35305",
-            "key": "family",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "1ff3ba46-bcce-4391-bedd-9d6c2dbbc811"
           }
         ],
         "id": "de8f4c80-35e8-4b87-a232-d99983248f1a",
@@ -1214,42 +904,10 @@
         "__typename": "InterfaceType",
         "fields": [
           {
-            "api": {
-              "id": "8d18d110-1e69-4dbe-b02c-5553e96f4656"
-            },
-            "defaultValues": "400",
-            "description": null,
-            "fieldType": {
-              "__typename": "EnumType",
-              "id": "529a9531-9e49-4ed7-b643-651caadf3d0e",
-              "kind": "EnumType",
-              "name": "Google Fonts Josefin Sans Weight Enum"
-            },
-            "id": "6a0eed0a-0b2c-4ef8-83d6-389c964715fe",
-            "key": "weight",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "1bd09556-41cc-43a7-a6c8-59fa85126fd2"
           },
           {
-            "api": {
-              "id": "8d18d110-1e69-4dbe-b02c-5553e96f4656"
-            },
-            "defaultValues": "Josefin Sans",
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "1bd09556-41cc-43a7-a6c8-59fa85126fd2",
-            "key": "family",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "6a0eed0a-0b2c-4ef8-83d6-389c964715fe"
           }
         ],
         "id": "8d18d110-1e69-4dbe-b02c-5553e96f4656",
@@ -1260,42 +918,10 @@
         "__typename": "InterfaceType",
         "fields": [
           {
-            "api": {
-              "id": "11e2bb7c-f3c1-412a-8d25-dc212d4dd169"
-            },
-            "defaultValues": "400",
-            "description": null,
-            "fieldType": {
-              "__typename": "EnumType",
-              "id": "cf18c60d-258a-42bc-a84d-a0e3a7bd17c9",
-              "kind": "EnumType",
-              "name": "Google Fonts Lato Weight Enum"
-            },
-            "id": "6b80d8eb-4995-4065-b17f-fcc6a16a6363",
-            "key": "weight",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "d61ca4a1-d19a-4a08-af44-5764218583b3"
           },
           {
-            "api": {
-              "id": "11e2bb7c-f3c1-412a-8d25-dc212d4dd169"
-            },
-            "defaultValues": "Lato",
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "d61ca4a1-d19a-4a08-af44-5764218583b3",
-            "key": "family",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "6b80d8eb-4995-4065-b17f-fcc6a16a6363"
           }
         ],
         "id": "11e2bb7c-f3c1-412a-8d25-dc212d4dd169",
@@ -1306,42 +932,10 @@
         "__typename": "InterfaceType",
         "fields": [
           {
-            "api": {
-              "id": "10883ab5-c70c-4ce0-ab73-59935a806b05"
-            },
-            "defaultValues": "400",
-            "description": null,
-            "fieldType": {
-              "__typename": "EnumType",
-              "id": "fe446a41-27d1-41d6-9ce0-4c1f5e05e675",
-              "kind": "EnumType",
-              "name": "Google Fonts Montserrat Weight Enum"
-            },
-            "id": "667e7288-e3de-4d59-a3e8-8440fcba1a1e",
-            "key": "weight",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "8cbc3b7b-229a-419c-880a-0cba15baab95"
           },
           {
-            "api": {
-              "id": "10883ab5-c70c-4ce0-ab73-59935a806b05"
-            },
-            "defaultValues": "Montserrat",
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "8cbc3b7b-229a-419c-880a-0cba15baab95",
-            "key": "family",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "667e7288-e3de-4d59-a3e8-8440fcba1a1e"
           }
         ],
         "id": "10883ab5-c70c-4ce0-ab73-59935a806b05",
@@ -1352,42 +946,10 @@
         "__typename": "InterfaceType",
         "fields": [
           {
-            "api": {
-              "id": "6babdef9-12fd-4114-8bb6-391a089bc801"
-            },
-            "defaultValues": "400",
-            "description": null,
-            "fieldType": {
-              "__typename": "EnumType",
-              "id": "cccf8bbe-f71f-4334-af98-c9821c0cc349",
-              "kind": "EnumType",
-              "name": "Google Fonts Nanum Gothic Weight Enum"
-            },
-            "id": "8bb2418f-c6b6-4188-9a56-3ad8eb11e865",
-            "key": "weight",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "72c89015-6244-4809-9184-de0629183478"
           },
           {
-            "api": {
-              "id": "6babdef9-12fd-4114-8bb6-391a089bc801"
-            },
-            "defaultValues": "Nanum Gothic",
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "72c89015-6244-4809-9184-de0629183478",
-            "key": "family",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "8bb2418f-c6b6-4188-9a56-3ad8eb11e865"
           }
         ],
         "id": "6babdef9-12fd-4114-8bb6-391a089bc801",
@@ -1398,42 +960,10 @@
         "__typename": "InterfaceType",
         "fields": [
           {
-            "api": {
-              "id": "bbb47052-87b6-4900-b5d9-c6697d072fc0"
-            },
-            "defaultValues": "400",
-            "description": null,
-            "fieldType": {
-              "__typename": "EnumType",
-              "id": "aa566256-bca7-4ce7-9832-a202cae9fc2b",
-              "kind": "EnumType",
-              "name": "Google Fonts Noto Sans Weight Enum"
-            },
-            "id": "2cfcf50e-dd95-4ecb-8f03-bef86511fa0c",
-            "key": "weight",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "f803c998-ae50-4c59-ac64-44f7715aa86e"
           },
           {
-            "api": {
-              "id": "bbb47052-87b6-4900-b5d9-c6697d072fc0"
-            },
-            "defaultValues": "Noto Sans",
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "f803c998-ae50-4c59-ac64-44f7715aa86e",
-            "key": "family",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "2cfcf50e-dd95-4ecb-8f03-bef86511fa0c"
           }
         ],
         "id": "bbb47052-87b6-4900-b5d9-c6697d072fc0",
@@ -1444,42 +974,10 @@
         "__typename": "InterfaceType",
         "fields": [
           {
-            "api": {
-              "id": "e50c1ff7-28df-40a9-97b9-62ddc5ef927e"
-            },
-            "defaultValues": "400",
-            "description": null,
-            "fieldType": {
-              "__typename": "EnumType",
-              "id": "b0bce48d-4817-4205-bbfe-fc8fa9f19ec2",
-              "kind": "EnumType",
-              "name": "Google Fonts Noto Sans JP Weight Enum"
-            },
-            "id": "46203320-2ef2-4232-a11a-4468305973b6",
-            "key": "weight",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "3d0818ea-d9fd-44a9-b8d6-d827dd5e1ad6"
           },
           {
-            "api": {
-              "id": "e50c1ff7-28df-40a9-97b9-62ddc5ef927e"
-            },
-            "defaultValues": "Noto Sans JP",
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "3d0818ea-d9fd-44a9-b8d6-d827dd5e1ad6",
-            "key": "family",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "46203320-2ef2-4232-a11a-4468305973b6"
           }
         ],
         "id": "e50c1ff7-28df-40a9-97b9-62ddc5ef927e",
@@ -1490,42 +988,10 @@
         "__typename": "InterfaceType",
         "fields": [
           {
-            "api": {
-              "id": "c13c6711-6c69-41c1-bb4f-6d20727eca51"
-            },
-            "defaultValues": "400",
-            "description": null,
-            "fieldType": {
-              "__typename": "EnumType",
-              "id": "ef83bded-f795-46b4-b2f8-56822ed711d0",
-              "kind": "EnumType",
-              "name": "Google Fonts Nunito Weight Enum"
-            },
-            "id": "70610f19-7ab2-4a15-8004-c37dcadecb96",
-            "key": "weight",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "ffe8e066-2bfb-42b5-a351-8863ed2feca0"
           },
           {
-            "api": {
-              "id": "c13c6711-6c69-41c1-bb4f-6d20727eca51"
-            },
-            "defaultValues": "Nunito",
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "ffe8e066-2bfb-42b5-a351-8863ed2feca0",
-            "key": "family",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "70610f19-7ab2-4a15-8004-c37dcadecb96"
           }
         ],
         "id": "c13c6711-6c69-41c1-bb4f-6d20727eca51",
@@ -1536,42 +1002,10 @@
         "__typename": "InterfaceType",
         "fields": [
           {
-            "api": {
-              "id": "a50f5d2f-6ad8-4302-a88a-a43eaa63f2c6"
-            },
-            "defaultValues": "400",
-            "description": null,
-            "fieldType": {
-              "__typename": "EnumType",
-              "id": "035926c1-d9a9-44f0-8f8c-831b995fa7c6",
-              "kind": "EnumType",
-              "name": "Google Fonts Nunito Sans Weight Enum"
-            },
-            "id": "23d2e7e3-16ac-45ac-ba0d-2a15eb0be8cf",
-            "key": "weight",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "dbf8147e-ef9a-4d2d-b304-375b471d7fdb"
           },
           {
-            "api": {
-              "id": "a50f5d2f-6ad8-4302-a88a-a43eaa63f2c6"
-            },
-            "defaultValues": "Nunito Sans",
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "dbf8147e-ef9a-4d2d-b304-375b471d7fdb",
-            "key": "family",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "23d2e7e3-16ac-45ac-ba0d-2a15eb0be8cf"
           }
         ],
         "id": "a50f5d2f-6ad8-4302-a88a-a43eaa63f2c6",
@@ -1582,42 +1016,10 @@
         "__typename": "InterfaceType",
         "fields": [
           {
-            "api": {
-              "id": "57ccc2be-619b-4e27-8ad2-8d11cefb61eb"
-            },
-            "defaultValues": "400",
-            "description": null,
-            "fieldType": {
-              "__typename": "EnumType",
-              "id": "a1286e57-5852-458b-babf-3c8c2bb31040",
-              "kind": "EnumType",
-              "name": "Google Fonts Open Sans Weight Enum"
-            },
-            "id": "c170d7c9-3e56-4a54-a046-345a425c1216",
-            "key": "weight",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "f9dba15a-d8ae-4058-843f-9354fffe2558"
           },
           {
-            "api": {
-              "id": "57ccc2be-619b-4e27-8ad2-8d11cefb61eb"
-            },
-            "defaultValues": "Open Sans",
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "f9dba15a-d8ae-4058-843f-9354fffe2558",
-            "key": "family",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "c170d7c9-3e56-4a54-a046-345a425c1216"
           }
         ],
         "id": "57ccc2be-619b-4e27-8ad2-8d11cefb61eb",
@@ -1628,42 +1030,10 @@
         "__typename": "InterfaceType",
         "fields": [
           {
-            "api": {
-              "id": "ba311b82-869e-407d-9c8f-137138ab0868"
-            },
-            "defaultValues": "400",
-            "description": null,
-            "fieldType": {
-              "__typename": "EnumType",
-              "id": "4caf918b-48f9-4499-aa16-0b3aee805832",
-              "kind": "EnumType",
-              "name": "Google Fonts Oswald Weight Enum"
-            },
-            "id": "736dadd6-ffc6-41f6-a196-7ebb1fb5836e",
-            "key": "weight",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "4ed1ade8-965a-42f5-9caa-76627de217b1"
           },
           {
-            "api": {
-              "id": "ba311b82-869e-407d-9c8f-137138ab0868"
-            },
-            "defaultValues": "Oswald",
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "4ed1ade8-965a-42f5-9caa-76627de217b1",
-            "key": "family",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "736dadd6-ffc6-41f6-a196-7ebb1fb5836e"
           }
         ],
         "id": "ba311b82-869e-407d-9c8f-137138ab0868",
@@ -1674,42 +1044,10 @@
         "__typename": "InterfaceType",
         "fields": [
           {
-            "api": {
-              "id": "e79af94e-ee1b-4023-b25a-25f33ee0e903"
-            },
-            "defaultValues": "400",
-            "description": null,
-            "fieldType": {
-              "__typename": "EnumType",
-              "id": "d5bd6b0e-621f-44e7-8517-466b2a8897e1",
-              "kind": "EnumType",
-              "name": "Google Fonts Pacifico Weight Enum"
-            },
-            "id": "0b1701d2-5e5f-40f2-abc1-bd9acca7cc8a",
-            "key": "weight",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "a8a96e80-86f2-474f-805e-bd9011653fba"
           },
           {
-            "api": {
-              "id": "e79af94e-ee1b-4023-b25a-25f33ee0e903"
-            },
-            "defaultValues": "Pacifico",
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "a8a96e80-86f2-474f-805e-bd9011653fba",
-            "key": "family",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "0b1701d2-5e5f-40f2-abc1-bd9acca7cc8a"
           }
         ],
         "id": "e79af94e-ee1b-4023-b25a-25f33ee0e903",
@@ -1720,42 +1058,10 @@
         "__typename": "InterfaceType",
         "fields": [
           {
-            "api": {
-              "id": "e08ce6a1-7057-46e4-8ad1-2ce48789f63d"
-            },
-            "defaultValues": "400",
-            "description": null,
-            "fieldType": {
-              "__typename": "EnumType",
-              "id": "8e490d7e-0971-45f9-884c-39a863dce962",
-              "kind": "EnumType",
-              "name": "Google Fonts Playfair Display Weight Enum"
-            },
-            "id": "7ad829fd-a402-4f6f-a4a3-9aa86ede8ac9",
-            "key": "weight",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "00b95e53-eae8-4042-ba26-873bfb73e7b9"
           },
           {
-            "api": {
-              "id": "e08ce6a1-7057-46e4-8ad1-2ce48789f63d"
-            },
-            "defaultValues": "Playfair Display",
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "00b95e53-eae8-4042-ba26-873bfb73e7b9",
-            "key": "family",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "7ad829fd-a402-4f6f-a4a3-9aa86ede8ac9"
           }
         ],
         "id": "e08ce6a1-7057-46e4-8ad1-2ce48789f63d",
@@ -1766,42 +1072,10 @@
         "__typename": "InterfaceType",
         "fields": [
           {
-            "api": {
-              "id": "22451e71-275f-4a03-a1e5-1576f1ce9fe3"
-            },
-            "defaultValues": "400",
-            "description": null,
-            "fieldType": {
-              "__typename": "EnumType",
-              "id": "aefea36f-bb3d-4c84-8745-a8cd2d6c30e8",
-              "kind": "EnumType",
-              "name": "Google Fonts Poppins Weight Enum"
-            },
-            "id": "c76e330d-1906-4f63-afd2-9e61e45d34b4",
-            "key": "weight",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "35de6560-d869-4156-8634-42dc4e94e5da"
           },
           {
-            "api": {
-              "id": "22451e71-275f-4a03-a1e5-1576f1ce9fe3"
-            },
-            "defaultValues": "Poppins",
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "35de6560-d869-4156-8634-42dc4e94e5da",
-            "key": "family",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "c76e330d-1906-4f63-afd2-9e61e45d34b4"
           }
         ],
         "id": "22451e71-275f-4a03-a1e5-1576f1ce9fe3",
@@ -1812,42 +1086,10 @@
         "__typename": "InterfaceType",
         "fields": [
           {
-            "api": {
-              "id": "e1f583a4-5bc3-4b47-9b41-6a916bd2dc53"
-            },
-            "defaultValues": "400",
-            "description": null,
-            "fieldType": {
-              "__typename": "EnumType",
-              "id": "08100a42-e090-4589-b4f5-e81a36059150",
-              "kind": "EnumType",
-              "name": "Google Fonts Raleway Weight Enum"
-            },
-            "id": "87e47aee-ec84-463f-904e-807fd2c7cf78",
-            "key": "weight",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "5eb88454-f3b5-425f-8201-118f839bbc92"
           },
           {
-            "api": {
-              "id": "e1f583a4-5bc3-4b47-9b41-6a916bd2dc53"
-            },
-            "defaultValues": "Raleway",
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "5eb88454-f3b5-425f-8201-118f839bbc92",
-            "key": "family",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "87e47aee-ec84-463f-904e-807fd2c7cf78"
           }
         ],
         "id": "e1f583a4-5bc3-4b47-9b41-6a916bd2dc53",
@@ -1858,42 +1100,10 @@
         "__typename": "InterfaceType",
         "fields": [
           {
-            "api": {
-              "id": "a1b9b3a8-b09a-471e-b871-0ebfa40a7a20"
-            },
-            "defaultValues": "400",
-            "description": null,
-            "fieldType": {
-              "__typename": "EnumType",
-              "id": "b2c1216d-4840-404a-a7a5-32a6483eccae",
-              "kind": "EnumType",
-              "name": "Google Fonts Roboto Weight Enum"
-            },
-            "id": "627f7769-185b-4bf1-ad0e-3586ad3a9ed6",
-            "key": "weight",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "5f7982fd-4d0f-43c3-a30b-0c6c70e867ac"
           },
           {
-            "api": {
-              "id": "a1b9b3a8-b09a-471e-b871-0ebfa40a7a20"
-            },
-            "defaultValues": "Roboto",
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "5f7982fd-4d0f-43c3-a30b-0c6c70e867ac",
-            "key": "family",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "627f7769-185b-4bf1-ad0e-3586ad3a9ed6"
           }
         ],
         "id": "a1b9b3a8-b09a-471e-b871-0ebfa40a7a20",
@@ -1904,42 +1114,10 @@
         "__typename": "InterfaceType",
         "fields": [
           {
-            "api": {
-              "id": "719fc1d2-2289-4e4d-a8b9-e0ab1da83bb6"
-            },
-            "defaultValues": "400",
-            "description": null,
-            "fieldType": {
-              "__typename": "EnumType",
-              "id": "8aa85607-48cb-42a0-b361-9f24f88adb39",
-              "kind": "EnumType",
-              "name": "Google Fonts Roboto Condensed Weight Enum"
-            },
-            "id": "3e89b12e-a6a8-49ae-8643-2a3916f387cb",
-            "key": "weight",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "fb91dcd3-ff5a-4f87-9650-ce5f7b9c48ee"
           },
           {
-            "api": {
-              "id": "719fc1d2-2289-4e4d-a8b9-e0ab1da83bb6"
-            },
-            "defaultValues": "Roboto Condensed",
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "fb91dcd3-ff5a-4f87-9650-ce5f7b9c48ee",
-            "key": "family",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "3e89b12e-a6a8-49ae-8643-2a3916f387cb"
           }
         ],
         "id": "719fc1d2-2289-4e4d-a8b9-e0ab1da83bb6",
@@ -1950,42 +1128,10 @@
         "__typename": "InterfaceType",
         "fields": [
           {
-            "api": {
-              "id": "d6a6104d-b710-4ae3-8b7b-6e704a2c4b36"
-            },
-            "defaultValues": "400",
-            "description": null,
-            "fieldType": {
-              "__typename": "EnumType",
-              "id": "c8a141d6-b160-4d42-87b2-1222b51a9009",
-              "kind": "EnumType",
-              "name": "Google Fonts Roboto Mono Weight Enum"
-            },
-            "id": "40ab1696-40e8-45d6-8c87-68a0d266b6af",
-            "key": "weight",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "f24410f4-5d5d-447a-8d72-349b7e5d6c64"
           },
           {
-            "api": {
-              "id": "d6a6104d-b710-4ae3-8b7b-6e704a2c4b36"
-            },
-            "defaultValues": "Roboto Mono",
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "f24410f4-5d5d-447a-8d72-349b7e5d6c64",
-            "key": "family",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "40ab1696-40e8-45d6-8c87-68a0d266b6af"
           }
         ],
         "id": "d6a6104d-b710-4ae3-8b7b-6e704a2c4b36",
@@ -1996,42 +1142,10 @@
         "__typename": "InterfaceType",
         "fields": [
           {
-            "api": {
-              "id": "d6921cd9-a8a4-4a2b-b025-1a54311030cb"
-            },
-            "defaultValues": "400",
-            "description": null,
-            "fieldType": {
-              "__typename": "EnumType",
-              "id": "d03c9a02-fe37-47b4-8fdb-d8426c08c88d",
-              "kind": "EnumType",
-              "name": "Google Fonts Roboto Slab Weight Enum"
-            },
-            "id": "b5129a7b-ef5c-4a89-86fa-3b7742ab9d0b",
-            "key": "weight",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "378bc7b9-c6e3-4849-a598-a1b53b55ca3e"
           },
           {
-            "api": {
-              "id": "d6921cd9-a8a4-4a2b-b025-1a54311030cb"
-            },
-            "defaultValues": "Roboto Slab",
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "378bc7b9-c6e3-4849-a598-a1b53b55ca3e",
-            "key": "family",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "b5129a7b-ef5c-4a89-86fa-3b7742ab9d0b"
           }
         ],
         "id": "d6921cd9-a8a4-4a2b-b025-1a54311030cb",
@@ -2042,42 +1156,10 @@
         "__typename": "InterfaceType",
         "fields": [
           {
-            "api": {
-              "id": "b9b379e6-afd4-47eb-a14b-ac0eaa019c2e"
-            },
-            "defaultValues": "400",
-            "description": null,
-            "fieldType": {
-              "__typename": "EnumType",
-              "id": "37c42c19-b31a-46d1-8a0b-004ec4636b89",
-              "kind": "EnumType",
-              "name": "Google Fonts Rubik Weight Enum"
-            },
-            "id": "fc111ce6-738d-4600-802e-b12887875e58",
-            "key": "weight",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "f08d93aa-83d4-47ab-a587-851c74c545c3"
           },
           {
-            "api": {
-              "id": "b9b379e6-afd4-47eb-a14b-ac0eaa019c2e"
-            },
-            "defaultValues": "Rubik",
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "f08d93aa-83d4-47ab-a587-851c74c545c3",
-            "key": "family",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "fc111ce6-738d-4600-802e-b12887875e58"
           }
         ],
         "id": "b9b379e6-afd4-47eb-a14b-ac0eaa019c2e",
@@ -2088,42 +1170,10 @@
         "__typename": "InterfaceType",
         "fields": [
           {
-            "api": {
-              "id": "63be0022-34ca-41b5-bdd5-66d3344fa537"
-            },
-            "defaultValues": "400",
-            "description": null,
-            "fieldType": {
-              "__typename": "EnumType",
-              "id": "762e77e5-b2bf-4778-801b-630bbbd076c9",
-              "kind": "EnumType",
-              "name": "Google Fonts Ubuntu Weight Enum"
-            },
-            "id": "71672dab-9874-4ecb-9de8-e10edf9b462d",
-            "key": "weight",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "f63c2e31-cbc0-4230-ac88-1ec4b03f6721"
           },
           {
-            "api": {
-              "id": "63be0022-34ca-41b5-bdd5-66d3344fa537"
-            },
-            "defaultValues": "Ubuntu",
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "f63c2e31-cbc0-4230-ac88-1ec4b03f6721",
-            "key": "family",
-            "name": null,
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "71672dab-9874-4ecb-9de8-e10edf9b462d"
           }
         ],
         "id": "63be0022-34ca-41b5-bdd5-66d3344fa537",
@@ -2139,151 +1189,126 @@
           {
             "__typename": "InterfaceType",
             "id": "10883ab5-c70c-4ce0-ab73-59935a806b05",
-            "kind": "InterfaceType",
             "name": "Google Fonts Montserrat"
           },
           {
             "__typename": "InterfaceType",
             "id": "11e2bb7c-f3c1-412a-8d25-dc212d4dd169",
-            "kind": "InterfaceType",
             "name": "Google Fonts Lato"
           },
           {
             "__typename": "InterfaceType",
             "id": "22451e71-275f-4a03-a1e5-1576f1ce9fe3",
-            "kind": "InterfaceType",
             "name": "Google Fonts Poppins"
           },
           {
             "__typename": "InterfaceType",
             "id": "3e20a519-4968-49ce-9663-6b5380707055",
-            "kind": "InterfaceType",
             "name": "Google Fonts Dosis"
           },
           {
             "__typename": "InterfaceType",
             "id": "57ccc2be-619b-4e27-8ad2-8d11cefb61eb",
-            "kind": "InterfaceType",
             "name": "Google Fonts Open Sans"
           },
           {
             "__typename": "InterfaceType",
             "id": "5cc64ee4-3a00-4643-9b14-8613e0e98d04",
-            "kind": "InterfaceType",
             "name": "Google Fonts Bruno Ace SC"
           },
           {
             "__typename": "InterfaceType",
             "id": "63be0022-34ca-41b5-bdd5-66d3344fa537",
-            "kind": "InterfaceType",
             "name": "Google Fonts Ubuntu"
           },
           {
             "__typename": "InterfaceType",
             "id": "65dce128-d88c-4eba-b41c-5d4ead345fbf",
-            "kind": "InterfaceType",
             "name": "Google Fonts Gloria Hallelujah"
           },
           {
             "__typename": "InterfaceType",
             "id": "6babdef9-12fd-4114-8bb6-391a089bc801",
-            "kind": "InterfaceType",
             "name": "Google Fonts Nanum Gothic"
           },
           {
             "__typename": "InterfaceType",
             "id": "719fc1d2-2289-4e4d-a8b9-e0ab1da83bb6",
-            "kind": "InterfaceType",
             "name": "Google Fonts Roboto Condensed"
           },
           {
             "__typename": "InterfaceType",
             "id": "8d18d110-1e69-4dbe-b02c-5553e96f4656",
-            "kind": "InterfaceType",
             "name": "Google Fonts Josefin Sans"
           },
           {
             "__typename": "InterfaceType",
             "id": "a1b9b3a8-b09a-471e-b871-0ebfa40a7a20",
-            "kind": "InterfaceType",
             "name": "Google Fonts Roboto"
           },
           {
             "__typename": "InterfaceType",
             "id": "a50f5d2f-6ad8-4302-a88a-a43eaa63f2c6",
-            "kind": "InterfaceType",
             "name": "Google Fonts Nunito Sans"
           },
           {
             "__typename": "InterfaceType",
             "id": "b5de478b-8d16-477b-be8f-301379ab26d9",
-            "kind": "InterfaceType",
             "name": "Google Fonts Inconsolata"
           },
           {
             "__typename": "InterfaceType",
             "id": "b9b379e6-afd4-47eb-a14b-ac0eaa019c2e",
-            "kind": "InterfaceType",
             "name": "Google Fonts Rubik"
           },
           {
             "__typename": "InterfaceType",
             "id": "ba311b82-869e-407d-9c8f-137138ab0868",
-            "kind": "InterfaceType",
             "name": "Google Fonts Oswald"
           },
           {
             "__typename": "InterfaceType",
             "id": "bbb47052-87b6-4900-b5d9-c6697d072fc0",
-            "kind": "InterfaceType",
             "name": "Google Fonts Noto Sans"
           },
           {
             "__typename": "InterfaceType",
             "id": "c13c6711-6c69-41c1-bb4f-6d20727eca51",
-            "kind": "InterfaceType",
             "name": "Google Fonts Nunito"
           },
           {
             "__typename": "InterfaceType",
             "id": "d6921cd9-a8a4-4a2b-b025-1a54311030cb",
-            "kind": "InterfaceType",
             "name": "Google Fonts Roboto Slab"
           },
           {
             "__typename": "InterfaceType",
             "id": "d6a6104d-b710-4ae3-8b7b-6e704a2c4b36",
-            "kind": "InterfaceType",
             "name": "Google Fonts Roboto Mono"
           },
           {
             "__typename": "InterfaceType",
             "id": "de8f4c80-35e8-4b87-a232-d99983248f1a",
-            "kind": "InterfaceType",
             "name": "Google Fonts Inter"
           },
           {
             "__typename": "InterfaceType",
             "id": "e08ce6a1-7057-46e4-8ad1-2ce48789f63d",
-            "kind": "InterfaceType",
             "name": "Google Fonts Playfair Display"
           },
           {
             "__typename": "InterfaceType",
             "id": "e1f583a4-5bc3-4b47-9b41-6a916bd2dc53",
-            "kind": "InterfaceType",
             "name": "Google Fonts Raleway"
           },
           {
             "__typename": "InterfaceType",
             "id": "e50c1ff7-28df-40a9-97b9-62ddc5ef927e",
-            "kind": "InterfaceType",
             "name": "Google Fonts Noto Sans JP"
           },
           {
             "__typename": "InterfaceType",
             "id": "e79af94e-ee1b-4023-b25a-25f33ee0e903",
-            "kind": "InterfaceType",
             "name": "Google Fonts Pacifico"
           }
         ]
@@ -2856,7 +1881,6 @@
         "itemType": {
           "__typename": "UnionType",
           "id": "12c8df17-1186-491a-87be-ddeba08c6583",
-          "kind": "UnionType",
           "name": "Google Fonts Option"
         },
         "kind": "ArrayType",
@@ -3319,13 +2343,13 @@
       "id": "562984ba-3c4a-41df-8375-21dbc750915c",
       "name": "Google Fonts",
       "nextSibling": null,
+      "page": null,
       "parentComponent": {
-        "id": "417cba0d-a781-485d-82d5-cb3672efe555",
-        "name": "Google Fonts"
+        "id": "417cba0d-a781-485d-82d5-cb3672efe555"
       },
       "parentElement": null,
-      "postRenderActions": null,
-      "preRenderActions": null,
+      "postRenderActions": [],
+      "preRenderActions": [],
       "prevSibling": null,
       "props": {
         "data": "{\"href\":\"{{function run() {\\n  const { fonts } = componentProps\\n  if (!fonts?.length) {\\n    return '#'\\n  }\\n\\n  const createFontLink = (fontDetails) => {\\n    const fontMap = new Map()\\n  \\n    for (let i = 0; i < fontDetails.length; i++) {\\n      const { family, weight } = fontDetails[i].value\\n  \\n      if (fontMap.has(family)) {\\n        if (!fontMap.get(family).includes(weight)) {\\n          fontMap.get(family).push(weight)\\n        }\\n      } else {\\n        fontMap.set(family, [weight ?? 400])\\n      }\\n    }\\n  \\n    const fontParams = []\\n    fontMap.forEach((weights, family) => {\\n      const urlFamily = family.replace(/\\\\s/g, '+')\\n      // Apparently the weights should be sorted so that it's considered valid. \\n      // Otherwise a 400 bad request error is returned\\n      const urlWeights = weights.map(Number).sort((a, b) => a - b).join(';')\\n      fontParams.push(`${urlFamily}:wght@${urlWeights}`)\\n    })\\n  \\n    const href = `https://fonts.googleapis.com/css2?family=${fontParams.join('&family=')}&display=swap`\\n  \\n    return href\\n  }\\n\\n  try {\\n    return createFontLink(fonts)\\n  } catch (error) {\\n    console.error(error)\\n  }\\n  return '#'\\n}()\\n}}\",\"rel\":\"stylesheet\",\"data-component-id\":\"4k-uUYE7rhaDUCucj_eePHqZ\"}",
@@ -3337,7 +2361,6 @@
         "__typename": "Atom",
         "id": "47bcdf5e-f669-4d11-9815-9309b7322498"
       },
-      "slug": "Google Fonts",
       "style": null,
       "tailwindClassNames": null
     }

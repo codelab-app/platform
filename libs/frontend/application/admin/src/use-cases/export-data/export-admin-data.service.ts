@@ -12,5 +12,8 @@ export const exportAdminDataService = async ({ adminDataPath }: IExportDto) => {
     method: 'POST',
   })
 
-  return response.json()
+  const data = await response.text()
+
+  // if "Download" option was not selected during export - server does not return json body
+  return data ? JSON.parse(data) : null
 }

@@ -14,9 +14,12 @@ const AtomRenderTypeSchema = Typebox.DiscriminatedRef(
 
 export type IAtomRenderType = Static<typeof AtomRenderTypeSchema>
 
-export const ElementRenderTypeDtoSchema = Type.Union([
-  AtomRenderTypeSchema,
-  Typebox.DiscriminatedRef(IElementRenderTypeKind.Component),
-])
+export const ElementRenderTypeDtoSchema = Type.Union(
+  [
+    AtomRenderTypeSchema,
+    Typebox.DiscriminatedRef(IElementRenderTypeKind.Component),
+  ],
+  { discriminantKey: '__typename' },
+)
 
 export type IElementRenderTypeDto = Static<typeof ElementRenderTypeDtoSchema>
