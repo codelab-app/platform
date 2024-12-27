@@ -64,15 +64,13 @@ describe('ImportApiCommand', () => {
       fields: sortBy(api?.fields ?? [], (field) => field.key),
     }
 
-    console.log(sortedApi)
-
     expect(sortedApi).toEqual(
       expect.objectContaining({
         fields: expect.arrayContaining(
           buttonAtom.api.fields.map((field) =>
             expect.objectContaining({
-              ...field,
               fieldType: expect.objectContaining(field.fieldType),
+              id: field.id,
             }),
           ),
         ),

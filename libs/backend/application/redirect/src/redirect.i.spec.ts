@@ -9,7 +9,9 @@ import { Redirect, RedirectRepository } from '@codelab/backend/domain/redirect'
 import { HealthcheckController } from '@codelab/backend/domain/shared/modules'
 import { GraphqlModule } from '@codelab/backend/infra/adapter/graphql'
 import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
-import { startServer } from '@codelab/backend/test/setup/setup'
+import { endpointConfig } from '@codelab/backend/infra/core'
+import { initUserContext } from '@codelab/backend/test/setup'
+import { startServer } from '@codelab/backend/test/utils'
 import {
   HttpMethod,
   HttpResponseType,
@@ -17,6 +19,7 @@ import {
   IResourceType,
 } from '@codelab/shared/abstract/core'
 import { ResourceRestClient } from '@codelab/shared-domain-module/resource'
+import { ConfigModule } from '@nestjs/config'
 import { Test, type TestingModule } from '@nestjs/testing'
 import { v4 } from 'uuid'
 
@@ -29,25 +32,25 @@ import { RedirectController } from './redirect.controller'
 describe('Redirect', () => {
   let redirectController: RedirectController
   let redirectRepository: RedirectRepository
-  let module: TestingModule
-  let nestApp: INestApplication
+
+  const context = initUserContext({
+    imports: [RedirectApplicationModule, CodelabLoggerModule],
+  })
 
   beforeAll(async () => {
-    module = await Test.createTestingModule({
-      controllers: [HealthcheckController],
-      imports: [GraphqlModule, RedirectApplicationModule, CodelabLoggerModule],
-    }).compile()
-
-    nestApp = module.createNestApplication()
+    const ctx = await context
+    const module = ctx.module
 
     redirectController = module.get<RedirectController>(RedirectController)
     redirectRepository = module.get<RedirectRepository>(RedirectRepository)
 
-    await startServer(nestApp)
+    await ctx.beforeAll()
   })
 
   afterAll(async () => {
-    await nestApp.close()
+    const ctx = await context
+
+    await ctx.afterAll()
   })
 
   it('should authorize page access when no redirect found', async () => {
@@ -55,8 +58,6 @@ describe('Redirect', () => {
       domain: 'test.com',
       pageUrlPattern: '/some-url',
     })
-
-    console.log(response)
 
     expect(response).toMatchObject({
       canActivate: true,
@@ -87,7 +88,7 @@ describe('Redirect', () => {
 
     expect(response).toMatchObject({
       canActivate: false,
-      message: 'Messing authorization in request body',
+      message: 'Missing authorization in request body',
       redirectUrl: `${domain}${pageUrlPattern}`,
       status: 200,
     })

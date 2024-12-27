@@ -24,15 +24,11 @@ export class ComponentElementsService {
    */
   async getElements(component: ComponentFragment) {
     return this.neo4jService.withReadTransaction(async (txn) => {
-      console.log('component', component)
-
       const { records } = await txn.run(getComponentElements, {
         componentId: component.id,
       })
 
       const elements = records[0]?.get(0) || []
-
-      console.log('elements', elements)
 
       return this.elementRepository.find({
         where: { id_IN: elements },

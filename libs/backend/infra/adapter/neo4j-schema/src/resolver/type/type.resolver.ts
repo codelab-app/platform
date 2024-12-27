@@ -31,24 +31,33 @@ export const TypeResolverProvider: FactoryProvider<
       })
     }
 
+    /**
+     * Don't rely on __typename to resolve
+     */
     return {
-      /**
-       * For union types, we can use `__typename` to resolve
-       */
       AnyType: {
-        __resolveType: (type: TypeFragment) => {
-          return type.__typename
+        __resolveType: (type: Partial<TypeFragment>) => {
+          if (!type.__typename && !type.kind) {
+            throw new Error(
+              'Either __typename or kind is required for resolving AnyType',
+            )
+          }
+
+          return type.__typename ?? type.kind
         },
       },
       ArrayType: {
         descendantTypesIds,
       },
-      /**
-       * For interface types, we don't have `__typename` to resolve
-       */
       IBaseType: {
-        __resolveType: (type: BaseTypeFragment) => {
-          return type.kind
+        __resolveType: (type: Partial<BaseTypeFragment>) => {
+          if (!type.__typename && !type.kind) {
+            throw new Error(
+              'Either __typename or kind is required for resolving IBaseType',
+            )
+          }
+
+          return type.__typename ?? type.kind
         },
       },
       InterfaceType: {

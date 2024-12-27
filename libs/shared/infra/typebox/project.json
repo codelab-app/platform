@@ -4,9 +4,10 @@
   "sourceRoot": "libs/shared/infra/typebox/src",
   "projectType": "library",
   "tags": [
-    "projectName:shared-abstract-typebox",
+    "projectName:shared-infra-typebox",
     "projectType:library",
-    "type:abstract",
+    "type:concrete",
+    "layer:infra",
     "scope:shared"
   ],
   "targets": {

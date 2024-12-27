@@ -36,19 +36,18 @@ import { ConfigModule, ConfigService } from '@nestjs/config'
 import { CommandBus, CqrsModule } from '@nestjs/cqrs'
 import { Test, type TestingModule } from '@nestjs/testing'
 
-//
 export const initUserContext = async (metadata?: ModuleMetadata) => {
   const module: TestingModule = await Test.createTestingModule({
     controllers: [HealthcheckController],
     imports: [
+      ConfigModule.forRoot({
+        load: [endpointConfig],
+      }),
+      RequestContextModule,
       UserDomainModule,
       SharedDomainModule,
       CqrsModule,
       CodelabLoggerModule,
-      /**
-       * This should be injected at point of use
-       */
-      // GraphqlModule,
       GraphqlModule.forRootAsync({
         imports: [GraphQLSchemaModule],
         inject: [SchemaService],

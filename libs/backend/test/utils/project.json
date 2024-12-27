@@ -3,7 +3,13 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/backend/test/utils/src",
   "projectType": "library",
-  "tags": ["scope:backend"],
+  "tags": [
+    "projectName:backend-test-utils",
+    "projectType:library",
+    "type:concrete",
+    "type:test",
+    "scope:backend"
+  ],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint"

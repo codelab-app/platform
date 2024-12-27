@@ -4,7 +4,7 @@
   "sourceRoot": "libs/backend/test/setup/src",
   "projectType": "library",
   "tags": [
-    "projectName:backend-test",
+    "projectName:backend-test-setup",
     "projectType:library",
     "type:concrete",
     "type:test",

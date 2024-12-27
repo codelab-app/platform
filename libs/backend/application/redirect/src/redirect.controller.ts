@@ -53,7 +53,7 @@ export class RedirectController {
     if (!authorization) {
       return {
         canActivate: false,
-        message: 'Messing authorization in request body',
+        message: 'Missing authorization in request body',
         redirectUrl,
         status: 200,
       }

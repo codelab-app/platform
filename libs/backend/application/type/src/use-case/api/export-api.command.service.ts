@@ -117,7 +117,6 @@ export class ExportApiHandler
       if (
         Object.values(ITypeKind).includes(ITypeKind[dependentType.__typename])
       ) {
-        // Here the typesOfUnionType's array item is not filtering owner
         const type = await this.typeFactory.findOne(
           dependentType,
           TypeExportSchema,

@@ -30,7 +30,6 @@ export const ElementResolverProvider: FactoryProvider<
 
     return {
       Element: {
-        __typename: 'Element',
         dependantTypes,
         name,
         slug,
@@ -45,8 +44,6 @@ export const ElementResolverProvider: FactoryProvider<
           return node.__resolveType ?? node.__typename
         },
       },
-      Mutation: {},
-      Query: {},
     }
   },
 }
