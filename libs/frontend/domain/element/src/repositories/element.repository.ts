@@ -9,7 +9,7 @@ import type {
   ElementWhere,
 } from '@codelab/shared/infra/gql'
 
-import { disconnectManyAll } from '@codelab/shared/domain/orm'
+import { disconnectAll, disconnectManyAll } from '@codelab/shared/domain/orm'
 import { Validator } from '@codelab/shared/infra/schema'
 import {
   elementMapper,
@@ -60,6 +60,8 @@ export const elementRepository: IElementRepository = {
 
     // Disconnect here first for pre/post, issue with generated cypher query
     const update = {
+      firstChild: disconnectAll({ omitId: element.firstChild?.id }),
+      parentElement: disconnectAll({ omitId: element.parentElement?.id }),
       postRenderActions: [
         disconnectManyAll({
           omitIds: element.postRenderActions?.map((action) => action.id),
