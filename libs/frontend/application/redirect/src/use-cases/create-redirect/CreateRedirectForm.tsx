@@ -1,7 +1,6 @@
 import type { IRedirectCreateFormData } from '@codelab/frontend/abstract/domain'
 
 import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   DisplayIfField,
   Form,
@@ -41,11 +40,9 @@ export const CreateRedirectForm = observer<IFormController>(
 
     return (
       <Form<IRedirectCreateFormData>
+        errorMessage="Error while creating redirect"
         model={model}
         onSubmit={onSubmit}
-        onSubmitError={createFormErrorNotificationHandler({
-          title: 'Error while creating redirect',
-        })}
         onSubmitSuccess={closeForm}
         schema={createRedirectSchema}
         submitRef={submitRef}

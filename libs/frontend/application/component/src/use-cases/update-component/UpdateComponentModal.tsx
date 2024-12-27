@@ -1,7 +1,6 @@
 import type { IUpdateComponentData } from '@codelab/shared/abstract/core'
 
 import { UiKey } from '@codelab/frontend/abstract/types'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
@@ -32,11 +31,9 @@ export const UpdateComponentModal = observer(() => {
     >
       {/* <UpdateComponentForm component={component} /> */}
       <ModalForm.Form<IUpdateComponentData>
+        errorMessage="Error while creating component"
         model={model}
         onSubmit={handleSubmit}
-        onSubmitError={createFormErrorNotificationHandler({
-          title: 'Error while creating component',
-        })}
         onSubmitSuccess={closeModal}
         schema={updateComponentSchema}
       >

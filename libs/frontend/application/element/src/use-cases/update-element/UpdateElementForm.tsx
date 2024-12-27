@@ -9,7 +9,6 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { SelectActionsField } from '@codelab/frontend/presentation/components/interface-form'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { createAutoCompleteOptions } from '@codelab/frontend-presentation-components-codemirror'
 import {
   CodeMirrorField,
@@ -111,11 +110,9 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
       <div key={element.id}>
         <Form<IUpdateBaseElementData>
           autosave
+          errorMessage="Error while updating element"
           model={element.toJson}
           onSubmit={onSubmit}
-          onSubmitError={createFormErrorNotificationHandler({
-            title: 'Error while updating element',
-          })}
           schema={updateElementSchema}
           uiKey={UiKey.ElementFormUpdate}
         >

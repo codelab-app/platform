@@ -5,7 +5,6 @@ import {
   SelectAction,
   SelectResource,
 } from '@codelab/frontend/presentation/components/interface-form'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ResourceFetchConfigField } from '@codelab/frontend-application-resource/components'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { IActionKind } from '@codelab/shared/abstract/core'
@@ -19,16 +18,9 @@ import { useUpdateActionModal } from './update-action.state'
 export const UpdateActionModal = observer(() => {
   const actionService = useActionService()
   const updateActionModal = useUpdateActionModal()
-  const closeModal = () => updateActionModal.close()
+  const closeModal = updateActionModal.close
+  const onSubmit = actionService.update
   const actionToUpdate = updateActionModal.data
-
-  const onSubmit = (actionDTO: IUpdateActionData) => {
-    return actionService.update(actionDTO)
-  }
-
-  const onSubmitError = createFormErrorNotificationHandler({
-    title: 'Error while updating action',
-  })
 
   const baseModel = {
     id: actionToUpdate?.id,
@@ -62,9 +54,9 @@ export const UpdateActionModal = observer(() => {
       uiKey={UiKey.ActionModalUpdate}
     >
       <ModalForm.Form<IUpdateActionData>
+        errorMessage="Error while updating action"
         model={model}
         onSubmit={onSubmit}
-        onSubmitError={onSubmitError}
         onSubmitSuccess={closeModal}
         schema={updateActionSchema}
       >

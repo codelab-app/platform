@@ -3,7 +3,6 @@
 import type { IDomainModel } from '@codelab/frontend/abstract/domain'
 
 import { PageType, UiKey } from '@codelab/frontend/abstract/types'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
@@ -39,11 +38,9 @@ export const DeleteDomainModal = observer<{ domain: IDomainModel }>(
         uiKey={UiKey.DomainModalDelete}
       >
         <ModalForm.Form
+          errorMessage="Error while deleting domain"
           model={model}
           onSubmit={onSubmit}
-          onSubmitError={createFormErrorNotificationHandler({
-            title: 'Error while deleting domain',
-          })}
           onSubmitSuccess={goBack}
           schema={emptyJsonSchema}
         >

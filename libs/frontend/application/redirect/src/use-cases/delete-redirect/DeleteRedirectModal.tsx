@@ -1,6 +1,5 @@
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { useCui } from '@codelab/frontend/presentation/codelab-ui'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
@@ -37,10 +36,6 @@ export const DeleteRedirectModal = observer(() => {
     return Promise.resolve()
   }
 
-  const onSubmitError = createFormErrorNotificationHandler({
-    title: 'Error while deleting redirect',
-  })
-
   return (
     <ModalForm.Modal
       okText="Delete Redirect"
@@ -50,9 +45,9 @@ export const DeleteRedirectModal = observer(() => {
       uiKey={UiKey.RedirectModalDelete}
     >
       <ModalForm.Form
+        errorMessage="Error while deleting redirect"
         model={{}}
         onSubmit={onSubmit}
-        onSubmitError={onSubmitError}
         onSubmitSuccess={onSubmitSuccess}
         schema={emptyJsonSchema}
       >

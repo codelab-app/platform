@@ -6,7 +6,6 @@ import {
   SelectAction,
   SelectResource,
 } from '@codelab/frontend/presentation/components/interface-form'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ResourceFetchConfigField } from '@codelab/frontend-application-resource/components'
 import {
   DisplayIfField,
@@ -63,11 +62,9 @@ export const CreateActionModal = observer<{ store?: IStoreModel }>(
         uiKey={UiKey.ActionModalCreate}
       >
         <ModalForm.Form<ICreateActionData>
+          errorMessage="Error while creating action"
           model={model}
           onSubmit={onSubmit}
-          onSubmitError={createFormErrorNotificationHandler({
-            title: 'Error while creating action',
-          })}
           onSubmitSuccess={closeModal}
           schema={createActionSchema}
         >

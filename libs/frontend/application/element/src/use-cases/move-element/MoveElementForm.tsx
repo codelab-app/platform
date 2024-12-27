@@ -5,7 +5,6 @@ import type { MoveData } from '@codelab/frontend/abstract/domain'
 
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { SelectExcludeDescendantsElements } from '@codelab/frontend/presentation/components/interface-form'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
 import {
   useApplicationStore,
@@ -91,11 +90,9 @@ export const MoveElementForm = observer<MoveElementFormProps>(
       <div key={element.id}>
         <MoveElementAutoForm<MoveData>
           autosave
+          errorMessage="Error while moving element"
           model={model as MoveData}
           onSubmit={onSubmit}
-          onSubmitError={createFormErrorNotificationHandler({
-            title: 'Error while moving element',
-          })}
           schema={moveElementSchema}
           uiKey={UiKey.ElementFormMove}
         >
