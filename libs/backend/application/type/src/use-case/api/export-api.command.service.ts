@@ -119,9 +119,7 @@ export class ExportApiHandler
           TypeExportSchema,
         )
 
-        if (type) {
-          dependentTypes.push(type)
-        }
+        dependentTypes.push(type)
       }
     }
 
