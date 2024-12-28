@@ -1,4 +1,4 @@
-import { Validator } from '../validator/validator'
+import { Validator } from '../validation/validator.facade'
 import { TNone } from './none.schema'
 
 describe('None Schema', () => {
