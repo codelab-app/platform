@@ -90,8 +90,6 @@ export const useAppService = (): IAppService => {
 
       // await pageService.removeMany(pages)
 
-      await appRepository.delete([app])
-
       // await invalidateAppListQuery()
 
       return app

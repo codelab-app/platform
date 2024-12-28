@@ -33,7 +33,7 @@ export const DeleteAppModal = observer<{ id: string }>(({ id }) => {
         errorMessage="Error while deleting app"
         model={{}}
         onSubmit={onSubmit}
-        onSubmitOptimistic={() => closeModal()}
+        onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}
         successMessage="App deleted successfully"
       >

@@ -29,7 +29,7 @@ export const CreateAppModal = () => {
         errorMessage="Error while creating app"
         model={model}
         onSubmit={appService.create}
-        onSubmitOptimistic={closeModal}
+        onSubmitSuccess={closeModal}
         schema={createAppSchema}
         successMessage="App created successfully"
       >
