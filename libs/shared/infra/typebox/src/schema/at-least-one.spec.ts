@@ -1,4 +1,4 @@
-import { Validator } from '../validator/validator'
+import { Validator } from '../validation/validator.facade'
 import { TAtLeastOne } from './at-least-one.schema'
 
 describe('Validator.validate', () => {

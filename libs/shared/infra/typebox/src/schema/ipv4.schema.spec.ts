@@ -1,4 +1,4 @@
-import { Validator } from '../validator/validator'
+import { Validator } from '../validation/validator.facade'
 import { TIpv4 } from './ipv4.schema'
 
 describe('Ipv4 Schema', () => {

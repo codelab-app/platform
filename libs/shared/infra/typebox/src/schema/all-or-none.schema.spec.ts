@@ -1,4 +1,4 @@
-import { Validator } from '../validator/validator'
+import { Validator } from '../validation/validator.facade'
 import { TAllOrNone } from './all-or-none.schema'
 
 describe('AllOrNone Schema', () => {

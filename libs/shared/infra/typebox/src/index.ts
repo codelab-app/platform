@@ -4,7 +4,7 @@ import { OmitOwner } from './schema/omit-owner'
 import { Overwrite } from './schema/overwrite'
 import { DiscriminatedRef, Ref, TRef } from './schema/ref'
 import { Serialized } from './schema/serialized'
-import { NestedValidator } from './validator/nested-validator'
+import { NestedValidator } from './validation/nested-validator'
 
 const Typebox = {
   DiscriminatedRef,
