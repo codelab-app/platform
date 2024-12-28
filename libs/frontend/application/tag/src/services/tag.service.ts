@@ -19,7 +19,7 @@ import {
   useApplicationStore,
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
-import { Validator } from '@codelab/shared/infra/schema'
+import { Validator } from '@codelab/shared/infra/validation'
 import { atom, useAtom } from 'jotai'
 
 const checkedTagsAtom = atom<Array<string>>([])

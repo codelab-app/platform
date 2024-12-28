@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 import { getEnv } from '@codelab/shared/config/env'
-import { validateAndClean } from '@codelab/shared/infra/typebox'
+import { validateAndClean } from '@codelab/shared/infra/validation'
 import { lists, setConfig } from '@mailchimp/mailchimp_marketing'
 import { Type } from '@sinclair/typebox'
 

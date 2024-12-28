@@ -1,8 +1,11 @@
+import type { ValueErrorIterator } from '@sinclair/typebox/build/cjs/errors'
+
 import { Type } from '@sinclair/typebox'
+import { ValidationException } from 'typebox-validators'
 
-import { validateAndClean } from './validate'
+import { NestedValidator } from './nested-validator'
 
-describe('validateAndClean', () => {
+describe('NestedValidator', () => {
   describe('when validating simple objects', () => {
     const schema = Type.Object({
       age: Type.Number(),
@@ -16,7 +19,8 @@ describe('validateAndClean', () => {
         name: 'John',
       }
 
-      const result = validateAndClean(schema, input)
+      const validator = new NestedValidator(schema)
+      const result = validator.validateAndClean(input)
 
       expect(result).toEqual({
         age: 30,
@@ -32,7 +36,9 @@ describe('validateAndClean', () => {
         name: 123,
       }
 
-      expect(() => validateAndClean(schema, input)).toThrow()
+      const validator = new NestedValidator(schema)
+
+      expect(() => validator.validateAndClean(input)).toThrow()
     })
   })
 
@@ -60,7 +66,8 @@ describe('validateAndClean', () => {
         },
       }
 
-      const result = validateAndClean(schema, input)
+      const validator = new NestedValidator(schema)
+      const result = validator.validateAndClean(input)
 
       expect(result).toEqual({
         user: {
@@ -83,7 +90,8 @@ describe('validateAndClean', () => {
         tags: ['one', 'two', 'three'],
       }
 
-      const result = validateAndClean(schema, input)
+      const validator = new NestedValidator(schema)
+      const result = validator.validateAndClean(input)
 
       expect(result).toEqual({
         tags: ['one', 'two', 'three'],
@@ -96,7 +104,9 @@ describe('validateAndClean', () => {
         tags: ['one', 2, 'three'],
       }
 
-      expect(() => validateAndClean(schema, input)).toThrow()
+      const validator = new NestedValidator(schema)
+
+      expect(() => validator.validateAndClean(input)).toThrow()
     })
   })
 
@@ -123,7 +133,8 @@ describe('validateAndClean', () => {
         type: 'dog',
       }
 
-      const result = validateAndClean(schema, input)
+      const validator = new NestedValidator(schema)
+      const result = validator.validateAndClean(input)
 
       expect(result).toEqual({
         bark: 'woof',
@@ -139,7 +150,8 @@ describe('validateAndClean', () => {
         type: 'cat',
       }
 
-      const result = validateAndClean(schema, input)
+      const validator = new NestedValidator(schema)
+      const result = validator.validateAndClean(input)
 
       expect(result).toEqual({
         meow: 'meow',
@@ -154,7 +166,39 @@ describe('validateAndClean', () => {
         type: 'bird',
       }
 
-      expect(() => validateAndClean(schema, input)).toThrow()
+      const validator = new NestedValidator(schema)
+
+      expect(() => validator.validateAndClean(input)).toThrow()
+    })
+
+    it('should throw error with validation message', () => {
+      const input = {
+        // invalid type
+        tweet: 'tweet',
+        type: 'bird',
+      }
+
+      try {
+        const validator = new NestedValidator(schema)
+
+        validator.validateAndClean(input)
+      } catch (error: unknown) {
+        if (error instanceof ValidationException) {
+          console.log('Validation error:', error)
+
+          for (const err of error.details) {
+            for (const valueError of err.errors) {
+              // Option 1: Using First() to get just the first error
+              console.log(valueError.First())
+
+              // Option 2: Using Symbol.iterator to get all errors
+              for (const _error of valueError[Symbol.iterator]()) {
+                console.log(_error)
+              }
+            }
+          }
+        }
+      }
     })
   })
 })

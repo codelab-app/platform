@@ -1,6 +1,5 @@
 import type { IValidationService } from '@codelab/shared/abstract/infra'
 
-import { Typebox } from '@codelab/shared/infra/typebox'
 import { FormatRegistry } from '@sinclair/typebox'
 
 import {
@@ -20,6 +19,7 @@ import {
   TNone,
 } from '../schema'
 import { Ipv4Schema, IsIPv4, TIpv4 } from '../schema/ipv4.schema'
+import { RefSchema, TRef } from '../schema/ref'
 import { ValidationService } from './validation.service'
 
 /**
@@ -29,7 +29,7 @@ FormatRegistry.Set('ipv4', IsIPv4)
 
 export const Validator: IValidationService = ValidationService.getInstance([
   [TAtLeastOne, AtLeastOneSchema],
-  [Typebox.TRef, Typebox.Ref],
+  [TRef, RefSchema],
   [TExactlyOne, ExactlyOneSchema],
   [TAllOrNone, AllOrNoneSchema],
   [TAtMostOne, AtMostOneSchema],

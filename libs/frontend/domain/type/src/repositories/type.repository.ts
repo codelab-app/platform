@@ -3,7 +3,7 @@ import type { IRef, ITypeDto, ITypeRef } from '@codelab/shared/abstract/core'
 import type { IBaseTypeWhere } from '@codelab/shared/infra/gql'
 
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { Validator } from '@codelab/shared/infra/schema'
+import { Validator } from '@codelab/shared/infra/validation'
 import {
   createTypeServerActions,
   deleteTypeServerActions,

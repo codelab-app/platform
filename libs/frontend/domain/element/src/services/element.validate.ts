@@ -7,7 +7,7 @@ import {
   TExactlyOne,
   TNone,
   Validator,
-} from '@codelab/shared/infra/schema'
+} from '@codelab/shared/infra/validation'
 
 export const validateElement = (element: IElementModel) => {
   const { isRoot, page, parentComponent } = element

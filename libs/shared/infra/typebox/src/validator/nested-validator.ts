@@ -3,6 +3,7 @@ import type { ObjectLike } from '@codelab/shared/abstract/types'
 
 import {
   type Static,
+  type TAnySchema,
   type TObject,
   type TSchema,
   type TUnion,
@@ -15,9 +16,36 @@ import { IsUnion } from '../schema/is-union'
 /**
  * The standard validator checks the top level object properties and handles nested discriminated unions
  *
+ * This uses Ajv under the hood, does not work with `TypeRegistry`
+ *
  * @throws {ValidationException} When validation fails
  */
 export class NestedValidator<S extends TSchema> extends StandardValidator<S> {
+  override assert(
+    value: unknown,
+    message?: string,
+  ): asserts value is Static<S> {
+    return super.assert(value as Readonly<unknown>, message)
+  }
+
+  /**
+   * @throws {ValidationException}
+   */
+  public override validate(values: unknown): Static<S> {
+    return this.withErrorLogging(values, () =>
+      super.validate(values as Readonly<unknown>),
+    )
+  }
+
+  /**
+   * @throws {ValidationException}
+   */
+  public override validateAndClean(values: unknown): Static<S> {
+    return this.withErrorLogging(values, () =>
+      super.validateAndCleanCopy(values as Readonly<unknown>),
+    )
+  }
+
   protected override cleanCopyOfValue<VS extends TSchema>(
     schema: Readonly<VS>,
     value: unknown,
@@ -102,5 +130,17 @@ export class NestedValidator<S extends TSchema> extends StandardValidator<S> {
     })
 
     return cleanedValue
+  }
+
+  /**
+   * Wraps a validation function with error logging
+   */
+  private withErrorLogging<T>(values: unknown, validationFn: () => T): T {
+    try {
+      return validationFn()
+    } catch (error) {
+      console.error('Validation error for values:', values)
+      throw error
+    }
   }
 }

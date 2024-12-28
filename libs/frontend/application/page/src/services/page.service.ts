@@ -18,7 +18,7 @@ import {
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
-import { Validator } from '@codelab/shared/infra/schema'
+import { Validator } from '@codelab/shared/infra/validation'
 import { pageServerActions } from '@codelab/shared-domain-module/page'
 
 import { createPageAction } from '../use-cases/create-page'

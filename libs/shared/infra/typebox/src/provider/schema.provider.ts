@@ -6,6 +6,9 @@ import { Kind, type TKind, type TSchema, TypeRegistry } from '@sinclair/typebox'
 import Ajv from 'ajv'
 import addFormats from 'ajv-formats'
 
+/**
+ * Uses the registry pattern to register custom schema
+ */
 export class SchemaProvider implements ISchemaProvider {
   static getInstance(schemaKindMap: Array<[TKind, TSchema]>): SchemaProvider {
     if (!SchemaProvider.instance) {
@@ -24,7 +27,25 @@ export class SchemaProvider implements ISchemaProvider {
   assertHasRegistry(kind: TKind) {
     const exists = TypeRegistry.Has(kind[Kind])
 
-    if (!exists) {
+    const isDefaultType =
+      kind[Kind] === 'String' ||
+      kind[Kind] === 'Number' ||
+      kind[Kind] === 'Boolean' ||
+      kind[Kind] === 'Object' ||
+      kind[Kind] === 'Array' ||
+      kind[Kind] === 'Null' ||
+      kind[Kind] === 'Integer'
+
+    console.log(
+      'Available TypeBox registries:',
+      Object.fromEntries(TypeRegistry.Entries()),
+    )
+
+    if (!exists && !isDefaultType) {
+      console.log(
+        'Available TypeBox registries:',
+        Object.fromEntries(TypeRegistry.Entries()),
+      )
       throw new Error(`Please register @codelab/${kind} to Typebox first`)
     }
   }

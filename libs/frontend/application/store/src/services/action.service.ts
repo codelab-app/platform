@@ -23,7 +23,7 @@ import {
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
 import { IActionKind } from '@codelab/shared/abstract/core'
-import { Validator } from '@codelab/shared/infra/schema'
+import { Validator } from '@codelab/shared/infra/validation'
 import { actionFactory } from '@codelab/shared-domain-module/action'
 import { v4 } from 'uuid'
 

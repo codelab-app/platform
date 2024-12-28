@@ -1,5 +1,9 @@
 import { ReadAdminDataService } from '@codelab/backend/application/data'
-import { type ICreateComponentData } from '@codelab/shared/abstract/core'
+import {
+  ComponentSchema,
+  type ICreateComponentData,
+} from '@codelab/shared/abstract/core'
+import { validateSchema } from '@codelab/shared/infra/validation'
 import {
   Body,
   ClassSerializerInterceptor,
@@ -25,9 +29,15 @@ export class ComponentApplicationController {
     private readonly readAdminDataService: ReadAdminDataService,
   ) {}
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Post('create-component')
   async createComponent(@Body() createComponentData: ICreateComponentData) {
-    return this.componentApplicationService.createComponent(createComponentData)
+    const component =
+      this.componentApplicationService.createComponent(createComponentData)
+
+    validateSchema(ComponentSchema, component)
+
+    return component
   }
 
   @UseInterceptors(ClassSerializerInterceptor)

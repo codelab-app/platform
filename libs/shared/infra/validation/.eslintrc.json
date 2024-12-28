@@ -5,9 +5,11 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "parserOptions": {
-        "project": ["libs/shared/infra/schema/tsconfig.*?.json"]
+        "project": ["libs/shared/infra/validation/tsconfig.*?.json"]
       },
-      "rules": {}
+      "rules": {
+        "@codelab/typebox-schema-naming": "off"
+      }
     },
     {
       "files": ["*.ts", "*.tsx"],

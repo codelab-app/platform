@@ -5,7 +5,7 @@ import type {
 import type { ObjectMap } from 'mobx-keystone'
 
 import { IPageDto } from '@codelab/shared/abstract/core'
-import { Validator } from '@codelab/shared/infra/schema'
+import { Validator } from '@codelab/shared/infra/validation'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 

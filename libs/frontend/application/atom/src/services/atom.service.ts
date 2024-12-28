@@ -28,7 +28,7 @@ import {
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
 import { type IRef, ITypeKind } from '@codelab/shared/abstract/core'
-import { Validator } from '@codelab/shared/infra/schema'
+import { Validator } from '@codelab/shared/infra/validation'
 import queryString from 'query-string'
 import { isEmpty } from 'remeda'
 import { v4 } from 'uuid'

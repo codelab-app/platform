@@ -10,7 +10,7 @@ import {
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { type AtomWhere } from '@codelab/shared/infra/gql'
-import { Validator } from '@codelab/shared/infra/schema'
+import { Validator } from '@codelab/shared/infra/validation'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 import { Type } from '@sinclair/typebox'
 

@@ -10,7 +10,7 @@ import type {
 } from '@codelab/shared/abstract/core'
 
 import { IActionKind } from '@codelab/shared/abstract/core'
-import { Validator } from '@codelab/shared/infra/schema'
+import { Validator } from '@codelab/shared/infra/validation'
 import {
   apiActionMapper,
   codeActionMapper,

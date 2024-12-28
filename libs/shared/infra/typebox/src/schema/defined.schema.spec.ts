@@ -1,4 +1,4 @@
-import { Validator } from '../validator/validator'
+import { Validator } from '../validation'
 import { TDefined } from './defined.schema'
 
 describe('Defined Schema', () => {

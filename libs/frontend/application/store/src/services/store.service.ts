@@ -4,7 +4,7 @@ import { storeRepository } from '@codelab/frontend-domain-store/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { type IRef, type IStoreDto } from '@codelab/shared/abstract/core'
 import { type StoreFragment, type StoreWhere } from '@codelab/shared/infra/gql'
-import { Validator } from '@codelab/shared/infra/schema'
+import { Validator } from '@codelab/shared/infra/validation'
 
 export const useStoreService = (): IStoreService => {
   const { actionDomainService, storeDomainService, typeDomainService } =

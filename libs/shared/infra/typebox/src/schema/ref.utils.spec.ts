@@ -1,15 +1,15 @@
-import type { IRef } from '@codelab/shared/abstract/core'
-
-import { Typebox } from '@codelab/shared/infra/typebox'
 import { Kind, type TSchema, TypeGuard, TypeRegistry } from '@sinclair/typebox'
 import { Value } from '@sinclair/typebox/value'
 import Ajv from 'ajv'
 import { v4 } from 'uuid'
 
+import { Typebox } from '../index'
+import { type IRef, RefSchema } from './ref'
+
 const ajv = new Ajv({})
 
 const isIRef = (value: unknown): value is IRef => {
-  const validate = ajv.compile(Typebox.Ref)
+  const validate = ajv.compile(RefSchema)
 
   return validate(value)
 }
@@ -24,14 +24,14 @@ const assertIsRef: AssertIsRef = (val) =>
  */
 describe('Ref', () => {
   it('should throw an error if not a ref type', () => {
-    const validate = ajv.compile(Typebox.Ref)
+    const validate = ajv.compile(RefSchema)
 
     expect(validate(true)).toBeFalsy()
     expect(validate({ id: 123 })).toBeFalsy()
   })
 
   it('should pass if a ref type', () => {
-    const validate = ajv.compile(Typebox.Ref)
+    const validate = ajv.compile(RefSchema)
 
     const validated = validate({
       id: v4(),
@@ -47,9 +47,9 @@ describe('Ref', () => {
   })
 
   it('can check a built-in object type', () => {
-    expect(Value.Check(Typebox.Ref, { id: v4() })).toBeTruthy()
-    expect(Value.Check(Typebox.Ref, { id: 0 })).toBeFalsy()
-    expect(Value.Check(Typebox.Ref, false)).toBeFalsy()
+    expect(Value.Check(RefSchema, { id: v4() })).toBeTruthy()
+    expect(Value.Check(RefSchema, { id: 0 })).toBeFalsy()
+    expect(Value.Check(RefSchema, false)).toBeFalsy()
   })
 
   it('should allow type guards for custom type', () => {

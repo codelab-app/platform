@@ -1,6 +1,6 @@
 import type { IMoveElementContext } from '@codelab/frontend/abstract/domain'
 
-import { TAtMostOne, Validator } from '@codelab/shared/infra/schema'
+import { TAtMostOne, Validator } from '@codelab/shared/infra/validation'
 
 /**
  * We either change parentElement or prevSibling to move, but not both

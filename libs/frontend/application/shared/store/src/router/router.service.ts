@@ -5,7 +5,7 @@ import type {
 } from '@codelab/frontend/abstract/types'
 
 import { IRouterProps } from '@codelab/frontend/abstract/application'
-import { Validator } from '@codelab/shared/infra/schema'
+import { Validator } from '@codelab/shared/infra/validation'
 import { computed } from 'mobx'
 import { Model, model, prop } from 'mobx-keystone'
 

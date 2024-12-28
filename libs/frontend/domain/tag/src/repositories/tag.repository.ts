@@ -1,7 +1,7 @@
 import type { ITagRepository } from '@codelab/frontend/abstract/domain'
 import type { IRef, ITagDto } from '@codelab/shared/abstract/core'
 
-import { Validator } from '@codelab/shared/infra/schema'
+import { Validator } from '@codelab/shared/infra/validation'
 import { tagMapper, tagServerActions } from '@codelab/shared-domain-module/tag'
 
 const { CreateTags, DeleteTags, GetTags, UpdateTags } = tagServerActions

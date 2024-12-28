@@ -68,9 +68,11 @@ export class ComponentApplicationService {
       store,
     }
 
-    const component = await this.componentRepository.add(componentDto)
+    await this.componentRepository.add(componentDto)
 
-    return component
+    return this.componentRepository.findOneOrFail({
+      where: { id: componentDto.id },
+    })
   }
 
   /**

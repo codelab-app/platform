@@ -7,7 +7,7 @@ import type {
 
 import { CACHE_TAGS } from '@codelab/frontend/abstract/domain'
 import { type IPreferenceDto } from '@codelab/shared/abstract/core'
-import { Validator } from '@codelab/shared/infra/schema'
+import { Validator } from '@codelab/shared/infra/validation'
 import { preferenceServerActions } from '@codelab/shared-domain-module/preference'
 import { revalidateTag } from 'next/cache'
 

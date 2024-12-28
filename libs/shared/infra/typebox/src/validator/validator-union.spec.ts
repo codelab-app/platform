@@ -1,6 +1,6 @@
 import { Type } from '@sinclair/typebox'
 
-import { validateAndClean } from './validate'
+import { NestedValidator } from './nested-validator'
 
 describe('with nested discriminated unions', () => {
   const schema = Type.Object({
@@ -52,7 +52,8 @@ describe('with nested discriminated unions', () => {
       name: 'Test',
     }
 
-    const result = validateAndClean(schema, input)
+    const validator = new NestedValidator(schema)
+    const result = validator.validateAndClean(input)
 
     expect(result).toEqual({
       content: {
@@ -80,7 +81,8 @@ describe('with nested discriminated unions', () => {
       name: 'Test',
     }
 
-    const result = validateAndClean(schema, input)
+    const validator = new NestedValidator(schema)
+    const result = validator.validateAndClean(input)
 
     expect(result).toEqual({
       content: {
@@ -109,7 +111,9 @@ describe('with nested discriminated unions', () => {
       name: 'Test',
     }
 
-    expect(() => validateAndClean(schema, input)).toThrow()
+    const validator = new NestedValidator(schema)
+
+    expect(() => validator.validateAndClean(input)).toThrow()
   })
 })
 
@@ -159,7 +163,8 @@ describe('with nested objects in top-level union', () => {
       type: 'article',
     }
 
-    const result = validateAndClean(schema, input)
+    const validator = new NestedValidator(schema)
+    const result = validator.validateAndClean(input)
 
     expect(result).toEqual({
       metadata: {
@@ -189,7 +194,8 @@ describe('with nested objects in top-level union', () => {
       type: 'video',
     }
 
-    const result = validateAndClean(schema, input)
+    const validator = new NestedValidator(schema)
+    const result = validator.validateAndClean(input)
 
     expect(result).toEqual({
       metadata: {
@@ -219,6 +225,8 @@ describe('with nested objects in top-level union', () => {
       type: 'article',
     }
 
-    expect(() => validateAndClean(schema, input)).toThrow()
+    const validator = new NestedValidator(schema)
+
+    expect(() => validator.validateAndClean(input)).toThrow()
   })
 })

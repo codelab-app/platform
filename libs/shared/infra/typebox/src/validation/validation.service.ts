@@ -2,10 +2,14 @@ import type { IValidationService } from '@codelab/shared/abstract/infra'
 import type { Static, TKind, TSchema } from '@sinclair/typebox'
 
 import { Value } from '@sinclair/typebox/value'
-import { StandardValidator } from 'typebox-validators'
 
-import { DefinedSchema, SchemaProvider, TDefined } from '../schema'
+import { SchemaProvider } from '../provider/schema.provider'
+import { DefinedSchema, TDefined } from '../schema'
+import { NestedValidator } from '../validator/nested-validator'
 
+/**
+ * Create a facade around `NestedValidator`
+ */
 export class ValidationService implements IValidationService {
   static getInstance(schemaKindMap: Array<[TKind, TSchema]>) {
     if (!ValidationService.instance) {
@@ -19,6 +23,25 @@ export class ValidationService implements IValidationService {
     this.schema = SchemaProvider.getInstance(schemaKindMap)
   }
 
+  /**
+   * Asserts that data matches the schema for the given kind.
+   *
+   * Supports custom validation through schema['validate'] function:
+   *
+   * ```typescript
+   * const EmailSchema = Type.String({
+   *   format: 'email',
+   *   validate: (value: string) => {
+   *     return value.includes('@company.com')
+   *   }
+   * })
+   * ```
+   *
+   * Custom validation runs before standard TypeBox validation.
+   * If custom validation fails, throws error with provided message.
+   *
+   * @throws {Error} When validation fails
+   */
   asserts<T extends TSchema>(
     kind: TKind,
     data: unknown,
@@ -40,13 +63,19 @@ export class ValidationService implements IValidationService {
     }
   }
 
+  /**
+   * Create facade for commonly used methods
+   */
   assertsDefined<T>(data: T): asserts data is NonNullable<T> {
-    try {
-      this.asserts(TDefined, data, { message: 'Data should be defined' })
-    } catch (error: unknown) {
-      console.error('Assertion error:', JSON.stringify(error))
-      throw new Error((error as Error).message)
-    }
+    return this.asserts(TDefined, data, {
+      message: 'Data should be defined',
+    })
+  }
+
+  parse<T extends TSchema>(schema: T, data: unknown): Static<T> {
+    const validator = this.createValidator(schema)
+
+    return validator.validateAndCleanCopy(data as Readonly<unknown>)
   }
 
   /**
@@ -89,28 +118,12 @@ export class ValidationService implements IValidationService {
     }
   }
 
-  validateAndClean<T extends TSchema>(schema: T, data: unknown): Static<T> {
-    try {
-      const validator = new StandardValidator(schema)
-
-      return validator.validateAndCleanCopy(data as Readonly<unknown>)
-    } catch (error: unknown) {
-      console.error('Validation error:', JSON.stringify(error))
-      throw new Error((error as Error).message)
-    }
-  }
-
   private static instance?: ValidationService
 
   private createValidator(kind: TKind) {
-    try {
-      this.schema.assertHasRegistry(kind)
+    this.schema.assertHasRegistry(kind)
 
-      return new StandardValidator(this.schema.tSchema(kind))
-    } catch (error: unknown) {
-      console.error('Validator creation error:', JSON.stringify(error))
-      throw new Error((error as Error).message)
-    }
+    return new NestedValidator(this.schema.tSchema(kind))
   }
 
   private schema

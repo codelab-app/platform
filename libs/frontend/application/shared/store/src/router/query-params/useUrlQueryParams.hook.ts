@@ -3,7 +3,7 @@
 import type { UrlQueryParamsProps } from '@codelab/frontend/abstract/types'
 import type { Required } from 'utility-types'
 
-import { Validator } from '@codelab/shared/infra/schema'
+import { Validator } from '@codelab/shared/infra/validation'
 import { useSearchParams } from 'next/navigation'
 
 import { parseQueryParams } from './query-params'
