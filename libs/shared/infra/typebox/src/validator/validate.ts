@@ -1,10 +1,5 @@
-import type { Static, TAnySchema, TObject, TUnion } from '@sinclair/typebox'
-import type { ValidationException } from 'typebox-validators'
+import type { Static, TAnySchema } from '@sinclair/typebox'
 
-import { DiscriminatedUnionValidator } from 'typebox-validators/discriminated'
-import { StandardValidator } from 'typebox-validators/standard'
-
-import { IsUnion } from '../schema/is-union'
 import { NestedValidator } from './nested-validator'
 
 export const validateAndClean = <T extends TAnySchema>(
