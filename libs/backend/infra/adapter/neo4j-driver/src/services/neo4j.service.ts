@@ -20,7 +20,14 @@ export class Neo4jService {
     const uri = this.config.uri.toString()
     const username = this.config.user
 
-    this.driver = neo4j.driver(uri, neo4j.auth.basic(username, password))
+    this.driver = neo4j.driver(uri, neo4j.auth.basic(username, password), {
+      // logging: {
+      //   level: 'debug',
+      //   logger: (level, message) => {
+      //     console.log(level, message)
+      //   },
+      // },
+    })
   }
 
   async close(): Promise<void> {

@@ -20,3 +20,5 @@ export const PageBuilderContainer = observer(
     )
   },
 )
+
+PageBuilderContainer.displayName = 'PageBuilderContainer'

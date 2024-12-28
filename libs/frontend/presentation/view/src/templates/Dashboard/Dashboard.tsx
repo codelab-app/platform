@@ -119,3 +119,5 @@ export const Dashboard = ({
     </Layout>
   )
 }
+
+Dashboard.displayName = 'Dashboard'

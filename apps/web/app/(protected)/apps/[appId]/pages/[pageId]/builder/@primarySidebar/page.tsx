@@ -21,4 +21,6 @@ const PrimarySidebar = observer(
   },
 )
 
+PrimarySidebar.displayName = 'PrimarySidebar'
+
 export default PrimarySidebar

@@ -6,6 +6,10 @@ import type {
 } from '@codelab/frontend/abstract/application'
 import type { IComponentModel } from '@codelab/frontend/abstract/domain'
 
+import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import { observer } from 'mobx-react-lite'
+import { useSearchParams } from 'next/navigation'
+
 import { useInitializeBuilder } from '../../services'
 import { BaseBuilder } from '../base-builder'
 
@@ -20,21 +24,30 @@ export interface IComponentBuilderProps {
  *
  * Remove observable here, otherwise has loop
  */
-export const ComponentBuilder = ({
-  component,
-  rendererType,
-  RootRenderer,
-}: IComponentBuilderProps) => {
-  if (!component) {
-    throw new Error('Component model is missing')
-  }
+export const ComponentBuilder = observer(
+  ({ component, rendererType, RootRenderer }: IComponentBuilderProps) => {
+    const { rendererService } = useApplicationStore()
 
-  const { renderer } = useInitializeBuilder({
-    containerNode: component,
-    rendererType,
-  })
+    if (!component) {
+      throw new Error('Component model is missing')
+    }
 
-  return <BaseBuilder RootRenderer={RootRenderer} renderer={renderer} />
-}
+    const searchParams = useSearchParams()
+
+    useInitializeBuilder({
+      containerNode: component,
+      rendererType,
+      searchParams,
+    })
+
+    const renderer = rendererService.activeRenderer?.maybeCurrent
+
+    if (!renderer) {
+      return null
+    }
+
+    return <BaseBuilder RootRenderer={RootRenderer} renderer={renderer} />
+  },
+)
 
 ComponentBuilder.displayName = 'ComponentBuilder'

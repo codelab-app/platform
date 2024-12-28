@@ -29,9 +29,10 @@ interface IBuilderProps {
  */
 export const BaseBuilder = observer<IBuilderProps>(
   ({ renderer, RootRenderer }) => {
-    const { builderService, rendererService } = useApplicationStore()
+    console.log('Rendering BaseBuilder')
+
+    const { builderService } = useApplicationStore()
     const deleteElementModal = useDeleteElementModal()
-    const elementTree = rendererService.activeElementTree
     const { selectedNode } = builderService
     const containerRef = useRef<HTMLDivElement>(null)
     const ref = useRef<HTMLDivElement>(null)
@@ -60,16 +61,12 @@ export const BaseBuilder = observer<IBuilderProps>(
       }
     }, [builderService])
 
-    if (!elementTree) {
-      return null
-    }
-
     return (
       <StyledBuilderContainer ref={containerRef}>
         <BuilderResizeHandle>
           <StyledBuilderResizeContainer
             id={BUILDER_CONTAINER_ID}
-            key={elementTree.id}
+            key={renderer.id}
           >
             <RootRenderer ref={ref} renderer={renderer} />
             <BuilderClickOverlay renderContainerRef={ref} />
@@ -80,6 +77,8 @@ export const BaseBuilder = observer<IBuilderProps>(
     )
   },
 )
+
+BaseBuilder.displayName = 'BaseBuilder'
 
 const StyledBuilderResizeContainer = styled.div`
   position: relative;

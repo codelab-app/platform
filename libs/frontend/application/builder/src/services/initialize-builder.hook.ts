@@ -2,6 +2,7 @@ import type {
   IComponentModel,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
+import type { ReadonlyURLSearchParams } from 'next/navigation'
 
 import {
   rendererRef,
@@ -11,29 +12,37 @@ import {
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
+import { v4 } from 'uuid'
 
+/**
+ * Don't need to return renderer, let mobx handle reactivity
+ */
 export const useInitializeBuilder = ({
   containerNode,
   rendererType,
+  searchParams,
 }: {
   rendererType: RendererType
   containerNode: IComponentModel | IPageModel
+  searchParams: ReadonlyURLSearchParams
 }) => {
   const { builderService, rendererService, routerService } =
     useApplicationStore()
-
-  const searchParams = useSearchParams()
-
-  const renderer = rendererService.hydrate({
-    containerNode: containerNode,
-    id: containerNode.id,
-    rendererType,
-  })
 
   /**
    * Defer side effect to lifecycle method, to prevent https://github.com/codelab-app/platform/issues/3463
    */
   useEffect(() => {
+    console.log('Setting active renderer')
+
+    const renderer = rendererService.hydrate({
+      containerNode,
+      id: v4(),
+      rendererType,
+    })
+
+    console.log(renderer.containerNode.current)
+
     rendererService.setActiveRenderer(rendererRef(renderer.id))
 
     const { runtimeContainerNode, runtimeRootContainerNode } = renderer
@@ -43,7 +52,7 @@ export const useInitializeBuilder = ({
     builderService.setSelectedNode(runtimeElementRef(runtimeRootElement))
 
     void renderer.expressionTransformer.init()
-  }, [renderer.id])
+  }, [containerNode.id])
 
   /**
    * Synchronize search params into router service for in-app routing
@@ -53,8 +62,4 @@ export const useInitializeBuilder = ({
 
     routerService.setQueryParams(queryParams)
   }, [routerService, searchParams])
-
-  return {
-    renderer,
-  }
 }

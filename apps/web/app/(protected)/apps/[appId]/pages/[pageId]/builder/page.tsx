@@ -36,4 +36,6 @@ const Page = async ({
   )
 }
 
+Page.displayName = 'Page'
+
 export default Page

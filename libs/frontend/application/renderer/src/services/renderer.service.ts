@@ -22,12 +22,13 @@ export class RendererService
       () => null,
     ).withSetter(),
     /**
-     * These are renderers for the public, they are keyed by pageId
+     * These are renderers for the public, they are keyed by containerId
      */
     renderers: prop(() => objectMap<IRendererModel>()),
   })
   implements IRendererService
 {
+  @computed
   get activeElementTree() {
     return this.activeRenderer?.current.containerNode.current
   }

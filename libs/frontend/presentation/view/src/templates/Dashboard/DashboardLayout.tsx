@@ -57,3 +57,5 @@ export const DashboardLayout = <T extends DashboardSections = never>({
     </Dashboard>
   )
 }
+
+DashboardLayout.displayName = 'DashboardLayout'

@@ -20,3 +20,5 @@ export const CuiResizablePanel = (props: CuiResizablePanelProps) => {
     </>
   )
 }
+
+CuiResizablePanel.displayName = 'CuiResizablePanel'

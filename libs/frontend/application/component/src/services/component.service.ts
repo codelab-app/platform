@@ -28,6 +28,7 @@ import {
   type IRef,
   type IUpdateComponentData,
 } from '@codelab/shared/abstract/core'
+import { v4 } from 'uuid'
 
 import { componentBuilderQuery } from '../use-cases/component-builder'
 
@@ -136,7 +137,7 @@ export const useComponentService = (): IComponentService => {
 
     const renderer = rendererService.hydrate({
       containerNode: component,
-      id: component.id,
+      id: v4(),
       rendererType: RendererType.ComponentBuilder,
     })
 

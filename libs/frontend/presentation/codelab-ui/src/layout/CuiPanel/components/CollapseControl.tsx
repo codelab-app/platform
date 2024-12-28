@@ -25,3 +25,5 @@ export const CollapseControl = ({
     </div>
   )
 }
+
+CollapseControl.displayName = 'CollapseControl'
