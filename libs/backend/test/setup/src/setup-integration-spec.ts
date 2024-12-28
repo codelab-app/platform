@@ -1,27 +1,18 @@
-import type { INestApplication, ModuleMetadata } from '@nestjs/common'
-import type { ConfigType } from '@nestjs/config'
+import type { ModuleMetadata } from '@nestjs/common'
 
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import {
   HealthcheckController,
   SharedDomainModule,
 } from '@codelab/backend/domain/shared/modules'
-import {
-  UserDomainModule,
-  UserDomainService,
-  UserRepository,
-} from '@codelab/backend/domain/user'
+import { UserDomainModule, UserRepository } from '@codelab/backend/domain/user'
 import { GraphqlModule } from '@codelab/backend/infra/adapter/graphql'
 import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
 import {
   RequestContextMiddleware,
   RequestContextModule,
 } from '@codelab/backend/infra/adapter/request-context'
-import { ValidationModule } from '@codelab/backend/infra/adapter/typebox'
-import {
-  ENDPOINT_CONFIG_KEY,
-  endpointConfig,
-} from '@codelab/backend/infra/core'
+import { endpointConfig } from '@codelab/backend/infra/core'
 import {
   initUserServices,
   resetAndSeedDatabase,
@@ -32,7 +23,7 @@ import {
   SchemaService,
 } from '@codelab/backend-infra-adapter/neo4j-schema'
 import { userDto } from '@codelab/shared/data/test'
-import { ConfigModule, ConfigService } from '@nestjs/config'
+import { ConfigModule } from '@nestjs/config'
 import { CommandBus, CqrsModule } from '@nestjs/cqrs'
 import { Test, type TestingModule } from '@nestjs/testing'
 

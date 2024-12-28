@@ -1,14 +1,9 @@
 import type { IDomainDto, INodeType } from '@codelab/shared/abstract/core'
-import type {
-  Domain,
-  DomainOptions,
-  DomainWhere,
-} from '@codelab/shared/infra/gql'
+import type { DomainOptions, DomainWhere } from '@codelab/shared/infra/gql'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import { connectNodeId } from '@codelab/shared/domain/orm'
 import { DomainFragment } from '@codelab/shared/infra/gql'
 import { domainApi, domainMapper } from '@codelab/shared-domain-module/domain'
 import { Injectable } from '@nestjs/common'

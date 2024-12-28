@@ -4,17 +4,10 @@ import type {
   IEnumTypeDto,
   IFieldDto,
   IInterfaceTypeDto,
-  IRef,
   ITypeDto,
-  ITypeRef,
   IUnionTypeDto,
 } from '@codelab/shared/abstract/core'
 /* eslint-disable @typescript-eslint/member-ordering */
-import type {
-  EnumType as IEnumType,
-  InterfaceType as IInterfaceType,
-  UnionType as IUnionType,
-} from '@codelab/shared/infra/gql'
 
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import {

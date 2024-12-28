@@ -1,6 +1,8 @@
-import type { INodeType, IRenderPropTypeDto } from '@codelab/shared/abstract/core'
 import type {
-  RenderPropType,
+  INodeType,
+  IRenderPropTypeDto,
+} from '@codelab/shared/abstract/core'
+import type {
   RenderPropTypeOptions,
   RenderPropTypeWhere,
 } from '@codelab/shared/infra/gql'

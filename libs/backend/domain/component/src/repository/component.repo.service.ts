@@ -1,6 +1,5 @@
 import type { IComponentDto, INodeType } from '@codelab/shared/abstract/core'
 import type {
-  Component,
   ComponentOptions,
   ComponentWhere,
 } from '@codelab/shared/infra/gql'

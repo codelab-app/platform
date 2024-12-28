@@ -1,16 +1,13 @@
-import type { IResolvers } from '@graphql-tools/utils'
 import type { GraphQLSchema } from 'graphql'
-import type { Driver } from 'neo4j-driver'
 
 import { ISchemaService } from '@codelab/backend/abstract/types'
 import { Neo4jService } from '@codelab/backend-infra-adapter/neo4j-driver'
 import { getEnv } from '@codelab/shared/config/env'
-import { mergeResolvers } from '@graphql-tools/merge'
 import {
   Neo4jGraphQL,
   Neo4jGraphQLSubscriptionsCDCEngine,
 } from '@neo4j/graphql'
-import { Inject, Injectable } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 
 import { ResolverService } from '../resolver/resolver.service'
 import { typeDefs } from './type-defs'

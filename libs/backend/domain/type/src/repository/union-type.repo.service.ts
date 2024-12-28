@@ -4,7 +4,6 @@ import type {
   IUnionTypeDto,
 } from '@codelab/shared/abstract/core'
 import type {
-  UnionType,
   UnionTypeOptions,
   UnionTypeWhere,
 } from '@codelab/shared/infra/gql'

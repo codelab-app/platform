@@ -2,9 +2,8 @@
 
 import EllipsisOutlined from '@ant-design/icons/EllipsisOutlined'
 import { Button, Dropdown } from 'antd'
-import { useEffect, useRef, useState } from 'react'
 
-import type { ToolbarItem, ToolbarProps } from '../../abstract'
+import type { ToolbarProps } from '../../abstract'
 
 import { CuiHeaderToolbarItem } from './CuiHeaderToolbarItem'
 

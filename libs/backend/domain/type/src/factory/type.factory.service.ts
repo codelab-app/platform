@@ -5,11 +5,11 @@ import {
   Neo4jService,
 } from '@codelab/backend-infra-adapter/neo4j-driver'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { TypeFragment } from '@codelab/shared/infra/gql'
-import { ITypeWhere, TypeCreateMap } from '@codelab/shared-domain-module/type'
-import { Inject, Injectable } from '@nestjs/common'
+import { NotFoundError } from '@codelab/shared/domain/errors'
+import { Maybe, TypeFragment } from '@codelab/shared/infra/gql'
+import { TypeCreateMap } from '@codelab/shared-domain-module/type'
+import { Injectable } from '@nestjs/common'
 import { TAnySchema } from '@sinclair/typebox'
-import { Driver } from 'neo4j-driver'
 
 import {
   ActionType,
@@ -78,7 +78,7 @@ export class TypeFactory {
   async findOne(
     { __typename, id }: ITypeRef,
     schema?: TAnySchema,
-  ): Promise<TypeFragment> {
+  ): Promise<Maybe<TypeFragment>> {
     switch (__typename) {
       case ITypeKind.ActionType: {
         return (await this.actionTypeRepository).findOne({
@@ -155,6 +155,21 @@ export class TypeFactory {
         throw new Error('No type factory found')
       }
     }
+  }
+
+  async findOneOrFail(
+    { __typename, id }: ITypeRef,
+    schema?: TAnySchema,
+  ): Promise<TypeFragment> {
+    const found = await this.findOne({ __typename, id }, schema)
+
+    if (!found) {
+      throw new NotFoundError('Could not find type!', {
+        where: { __typename, id },
+      })
+    }
+
+    return found
   }
 
   async save<T extends ITypeDto>(

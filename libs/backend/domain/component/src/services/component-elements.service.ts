@@ -1,9 +1,4 @@
-import type {
-  Component,
-  ComponentFragment,
-  Element,
-  Page,
-} from '@codelab/shared/infra/gql'
+import type { ComponentFragment } from '@codelab/shared/infra/gql'
 
 import { ElementRepository } from '@codelab/backend/domain/element'
 import {

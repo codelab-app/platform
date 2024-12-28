@@ -3,9 +3,7 @@ import type {
   IStoreAggregateExport,
 } from '@codelab/shared/abstract/core'
 import type {
-  Element,
   ElementFragment,
-  Page,
   PageFragment,
   PageWhere,
 } from '@codelab/shared/infra/gql'

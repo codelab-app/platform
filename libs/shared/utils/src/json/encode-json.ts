@@ -1,5 +1,3 @@
-import validator from 'validator'
-
 export const encodeJson = (value: unknown) => {
   /**
    * Keep `null` or `string` values as is

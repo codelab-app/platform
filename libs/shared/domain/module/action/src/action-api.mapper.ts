@@ -1,16 +1,10 @@
-import type {
-  IActionDto,
-  IApiAction,
-  IApiActionDto,
-  IMapper,
-} from '@codelab/shared/abstract/core'
+import type { IApiActionDto, IMapper } from '@codelab/shared/abstract/core'
 import type {
   ApiActionCreateInput,
   ApiActionDeleteInput,
   ApiActionUpdateInput,
 } from '@codelab/shared/infra/gql'
 
-import { IActionKind } from '@codelab/shared/abstract/core'
 import { connectNodeId, disconnectAll } from '@codelab/shared/domain/orm'
 import { propMapper } from '@codelab/shared-domain-module/prop'
 

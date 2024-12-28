@@ -1,12 +1,10 @@
 import type { ITypeRepository } from '@codelab/frontend/abstract/domain'
 import type { IRef, ITypeDto, ITypeRef } from '@codelab/shared/abstract/core'
 import type { IBaseTypeWhere } from '@codelab/shared/infra/gql'
-import type { TypeDtoByKind } from '@codelab/shared-domain-module/type'
 
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/schema'
 import {
-  createTypeApi,
   createTypeServerActions,
   deleteTypeServerActions,
   findTypeServerActions,

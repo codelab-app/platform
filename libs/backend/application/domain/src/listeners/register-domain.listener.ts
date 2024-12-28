@@ -12,7 +12,6 @@ import {
 } from '@codelab/shared-domain-module/domain'
 import { Injectable } from '@nestjs/common'
 import { EventEmitter2, OnEvent } from '@nestjs/event-emitter'
-import gql from 'graphql-tag'
 
 import {
   DOMAIN_CREATED_EVENT,

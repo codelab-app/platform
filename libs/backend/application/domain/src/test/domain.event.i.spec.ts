@@ -4,16 +4,12 @@ import type {
 } from '@codelab/shared/infra/gql'
 import type { INestApplication } from '@nestjs/common'
 
-import {
-  GraphqlModule,
-  GraphqlService,
-} from '@codelab/backend/infra/adapter/graphql'
+import { GraphqlService } from '@codelab/backend/infra/adapter/graphql'
 import { initUserContext } from '@codelab/backend/test/setup'
 import { userDto } from '@codelab/shared/data/test'
 import { connectNodeId } from '@codelab/shared/domain/orm'
 import { graphqlClient } from '@codelab/shared/infra/gql-client'
 import { EventEmitterModule } from '@nestjs/event-emitter'
-import * as env from 'env-var'
 import { sleep } from 'radash'
 import { v4 } from 'uuid'
 

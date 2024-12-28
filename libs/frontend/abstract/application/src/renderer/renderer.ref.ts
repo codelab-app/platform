@@ -1,5 +1,3 @@
-import type { IRef } from '@codelab/shared/abstract/core'
-
 import { detach, rootRef } from 'mobx-keystone'
 
 import type { IRendererModel } from './renderer.model.interface'

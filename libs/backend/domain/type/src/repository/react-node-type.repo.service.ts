@@ -3,7 +3,6 @@ import type {
   IReactNodeTypeDto,
 } from '@codelab/shared/abstract/core'
 import type {
-  ReactNodeType,
   ReactNodeTypeOptions,
   ReactNodeTypeWhere,
 } from '@codelab/shared/infra/gql'

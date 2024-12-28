@@ -12,7 +12,6 @@ import { TagApplicationModule } from '@codelab/backend/application/tag'
 import { UserApplicationModule } from '@codelab/backend/application/user'
 import { RequestContextModule } from '@codelab/backend/infra/adapter/request-context'
 import { Module } from '@nestjs/common'
-import { DevtoolsModule } from '@nestjs/devtools-integration'
 
 @Module({
   controllers: [],

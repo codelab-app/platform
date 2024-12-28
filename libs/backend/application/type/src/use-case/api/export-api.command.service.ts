@@ -14,7 +14,6 @@ import {
   TypeFactory,
 } from '@codelab/backend/domain/type'
 import {
-  FieldDtoSchema,
   FieldExportSchema,
   InterfaceTypeSchema,
   ITypeKind,

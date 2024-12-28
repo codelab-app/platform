@@ -12,15 +12,11 @@ import {
   reconnectNodeId,
 } from '@codelab/shared/domain/orm'
 import {
-  type Redirect,
   type RedirectOptions,
   type RedirectWhere,
 } from '@codelab/shared/infra/gql'
 import { RedirectFragment } from '@codelab/shared/infra/gql'
-import {
-  redirectApi,
-  redirectMapper,
-} from '@codelab/shared-domain-module/redirect'
+import { redirectApi } from '@codelab/shared-domain-module/redirect'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

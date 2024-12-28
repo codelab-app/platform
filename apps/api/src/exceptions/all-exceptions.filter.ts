@@ -6,8 +6,6 @@ import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { Catch, HttpException, Injectable } from '@nestjs/common'
 import { BaseExceptionFilter } from '@nestjs/core'
 import * as Sentry from '@sentry/nestjs'
-import { SentryExceptionCaptured } from '@sentry/nestjs'
-import { TypeboxValidationException } from 'nestjs-typebox'
 import { ValidationException } from 'typebox-validators'
 
 @Injectable()

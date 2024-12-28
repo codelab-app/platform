@@ -1,9 +1,4 @@
 import { getMaybeServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
-import { nodeApolloClient } from '@codelab/shared/infra/gql-client'
-import {
-  DomainCreatedDocument,
-  DomainUpdatedDocument,
-} from '@codelab/shared-domain-module/domain'
 import { auth0ServerInstance } from '@codelab/shared-infra-auth0/server'
 import Button from 'antd/lib/button'
 import Link from 'next/link'

@@ -1,6 +1,5 @@
-import type { IActionTypeDto, INodeType, IRef } from '@codelab/shared/abstract/core'
+import type { IActionTypeDto, INodeType } from '@codelab/shared/abstract/core'
 import type {
-  ActionType,
   ActionTypeOptions,
   ActionTypeWhere,
 } from '@codelab/shared/infra/gql'

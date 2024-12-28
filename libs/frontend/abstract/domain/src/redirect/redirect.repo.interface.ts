@@ -1,6 +1,5 @@
 import type { IRedirectDto } from '@codelab/shared/abstract/core'
 import type {
-  RedirectFragment,
   RedirectOptions,
   RedirectPreviewFragment,
   RedirectWhere,

@@ -3,15 +3,10 @@ import type {
   IResourceConfigData,
   IRestFetchConfigData,
 } from '@codelab/shared/abstract/core'
-import type { INestApplication } from '@nestjs/common'
 
 import { Redirect, RedirectRepository } from '@codelab/backend/domain/redirect'
-import { HealthcheckController } from '@codelab/backend/domain/shared/modules'
-import { GraphqlModule } from '@codelab/backend/infra/adapter/graphql'
 import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
-import { endpointConfig } from '@codelab/backend/infra/core'
 import { initUserContext } from '@codelab/backend/test/setup'
-import { startServer } from '@codelab/backend/test/utils'
 import {
   HttpMethod,
   HttpResponseType,
@@ -19,8 +14,6 @@ import {
   IResourceType,
 } from '@codelab/shared/abstract/core'
 import { ResourceRestClient } from '@codelab/shared-domain-module/resource'
-import { ConfigModule } from '@nestjs/config'
-import { Test, type TestingModule } from '@nestjs/testing'
 import { v4 } from 'uuid'
 
 import { RedirectApplicationModule } from './redirect.application.module'

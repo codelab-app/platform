@@ -1,5 +1,5 @@
 import type { IFieldDto, INodeType } from '@codelab/shared/abstract/core'
-import type { Field, FieldOptions, FieldWhere } from '@codelab/shared/infra/gql'
+import type { FieldOptions, FieldWhere } from '@codelab/shared/infra/gql'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'

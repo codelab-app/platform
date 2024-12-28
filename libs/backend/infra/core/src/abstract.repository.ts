@@ -1,9 +1,5 @@
 import type { IRepository } from '@codelab/backend/abstract/types'
-import type {
-  IDiscriminatedRef,
-  IRef,
-  ITypeRef,
-} from '@codelab/shared/abstract/core'
+import type { IDiscriminatedRef, IRef } from '@codelab/shared/abstract/core'
 import type { Static, TAnySchema } from '@sinclair/typebox'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'

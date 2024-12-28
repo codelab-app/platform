@@ -1,4 +1,4 @@
-import type { Element, Page } from '@codelab/shared/infra/gql'
+import type { Page } from '@codelab/shared/infra/gql'
 
 import { ElementRepository } from '@codelab/backend/domain/element'
 import {

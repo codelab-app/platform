@@ -1,12 +1,11 @@
 import type {
   IAppAggregateExport,
   IComponentAggregateExport,
-  IElementDto,
   IElementExport,
   IPageAggregateExport,
   IRef,
 } from '@codelab/shared/abstract/core'
-import type { AppWhere, Element } from '@codelab/shared/infra/gql'
+import type { AppWhere } from '@codelab/shared/infra/gql'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
 import { ExportComponentCommand } from '@codelab/backend/application/component'
@@ -20,7 +19,6 @@ import {
   IActionKind,
   IElementRenderTypeKind,
 } from '@codelab/shared/abstract/core'
-import { Validator } from '@codelab/shared/infra/schema'
 import { uuidRegex } from '@codelab/shared/utils'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 import { unique } from 'radash'

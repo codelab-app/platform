@@ -1,7 +1,6 @@
 import type {
   IAtomDto,
   IFieldDto,
-  IRef,
   IUnionTypeDto,
 } from '@codelab/shared/abstract/core'
 import type {
@@ -12,7 +11,6 @@ import type {
   ReactNodeTypeFragment,
   RenderPropTypeFragment,
   RichTextTypeFragment,
-  UnionTypeFragment,
 } from '@codelab/shared/infra/gql'
 
 /**

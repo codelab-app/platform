@@ -1,7 +1,9 @@
-import type { INodeType, IPrimitiveTypeDto } from '@codelab/shared/abstract/core'
+import type {
+  INodeType,
+  IPrimitiveTypeDto,
+} from '@codelab/shared/abstract/core'
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import type {
-  PrimitiveType,
   PrimitiveTypeOptions,
   PrimitiveTypeWhere,
 } from '@codelab/shared/infra/gql'

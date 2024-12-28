@@ -1,11 +1,5 @@
 import type { IEnumTypeDto, INodeType } from '@codelab/shared/abstract/core'
-import type {
-  EnumType,
-  EnumTypeAllowedValuesFieldInput,
-  EnumTypeAllowedValuesUpdateFieldInput,
-  EnumTypeOptions,
-  EnumTypeWhere,
-} from '@codelab/shared/infra/gql'
+import type { EnumTypeOptions, EnumTypeWhere } from '@codelab/shared/infra/gql'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'

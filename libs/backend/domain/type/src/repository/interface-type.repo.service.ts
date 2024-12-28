@@ -4,7 +4,6 @@ import type {
   ITypeRef,
 } from '@codelab/shared/abstract/core'
 import type {
-  InterfaceType,
   InterfaceTypeOptions,
   InterfaceTypeWhere,
 } from '@codelab/shared/infra/gql'

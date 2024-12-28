@@ -1,5 +1,3 @@
-import type { IRef } from '@codelab/shared/abstract/core'
-
 import { graphqlClient } from '@codelab/shared/infra/gql-client'
 
 import { getSdk as getCreateSdk } from './create-action.api.graphql.api.gen'

@@ -1,4 +1,4 @@
-import type { IPropData, ITypeRef } from '@codelab/shared/abstract/core'
+import type { ITypeRef } from '@codelab/shared/abstract/core'
 import type {
   UnionTypeTypesOfUnionTypeCreateInput,
   UnionTypeTypesOfUnionTypeUpdateInput,
@@ -6,7 +6,6 @@ import type {
 
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { titleCase } from '@codelab/shared/utils'
-import { ObjectTyped } from 'object-typed'
 
 export const connectTypesOfUnionType = (typeRefs?: Array<ITypeRef>) => {
   return typeRefs?.reduce<UnionTypeTypesOfUnionTypeCreateInput>(

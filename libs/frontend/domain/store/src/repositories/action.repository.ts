@@ -1,5 +1,4 @@
 import type {
-  IActionModel,
   IActionOptions,
   IActionRepository,
   IActionWhere,
@@ -9,7 +8,6 @@ import type {
   IActionRef,
   IRef,
 } from '@codelab/shared/abstract/core'
-import type { CodeActionCreateInput } from '@codelab/shared/infra/gql'
 
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/schema'

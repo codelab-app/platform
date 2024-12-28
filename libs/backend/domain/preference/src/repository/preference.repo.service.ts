@@ -1,6 +1,5 @@
 import type { INodeType, IPreferenceDto } from '@codelab/shared/abstract/core'
 import type {
-  Preference,
   PreferenceOptions,
   PreferenceWhere,
 } from '@codelab/shared/infra/gql'

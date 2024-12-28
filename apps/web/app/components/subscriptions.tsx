@@ -5,15 +5,11 @@ import type {
   DomainUpdatedSubscription,
 } from '@codelab/shared-domain-module/domain'
 
-import {
-  browserApolloClient,
-  nodeApolloClient,
-} from '@codelab/shared/infra/gql-client'
+import { browserApolloClient } from '@codelab/shared/infra/gql-client'
 import {
   DomainCreatedDocument,
   DomainUpdatedDocument,
 } from '@codelab/shared-domain-module/domain'
-import { gql } from 'graphql-tag'
 import { useEffect } from 'react'
 
 export const Subscriptions = () => {

@@ -1,28 +1,10 @@
-import {
-  ActionTypeRepository,
-  ArrayTypeRepository,
-  CodeMirrorTypeRepository,
-  EnumTypeRepository,
-  FieldRepository,
-  InterfaceTypeRepository,
-  PrimitiveTypeRepository,
-  ReactNodeTypeRepository,
-  RenderPropTypeRepository,
-  RichTextTypeRepository,
-  TypeFactory,
-  UnionTypeRepository,
-} from '@codelab/backend/domain/type'
+import { TypeFactory } from '@codelab/backend/domain/type'
 import {
   getElementDependantTypes,
   Neo4jService,
 } from '@codelab/backend-infra-adapter/neo4j-driver'
-import { type IRef, ITypeKind, ITypeRef } from '@codelab/shared/abstract/core'
-import {
-  BaseTypeFragment,
-  Element,
-  ElementFragment,
-  TypeFragment,
-} from '@codelab/shared/infra/gql'
+import { ITypeRef } from '@codelab/shared/abstract/core'
+import { Element, TypeFragment } from '@codelab/shared/infra/gql'
 import { Injectable } from '@nestjs/common'
 
 /**
@@ -51,7 +33,9 @@ export class ElementDependantTypesService {
         id: rec.get(0).id,
       }))
 
-      return Promise.all(typeRefs.map((type) => this.typeFactory.findOne(type)))
+      return Promise.all(
+        typeRefs.map((type) => this.typeFactory.findOneOrFail(type)),
+      )
     })
   }
 }

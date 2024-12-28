@@ -1,9 +1,6 @@
 import type { Metadata } from 'next'
 
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
-import { CreateDomainModal } from '@codelab/frontend-application-domain/use-cases/create-domain'
-import { DeleteDomainModal } from '@codelab/frontend-application-domain/use-cases/delete-domain'
-import { UpdateDomainModal } from '@codelab/frontend-application-domain/use-cases/update-domain'
 import { appRepository } from '@codelab/frontend-domain-app/repositories'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'

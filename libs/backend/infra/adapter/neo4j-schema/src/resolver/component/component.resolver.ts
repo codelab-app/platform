@@ -4,7 +4,6 @@ import type { FactoryProvider } from '@nestjs/common'
 import type { GraphQLRequestContext } from 'graphql-request/build/cjs/types'
 
 import { ComponentElementsService } from '@codelab/backend/domain/component'
-import { Neo4jService } from '@codelab/backend-infra-adapter/neo4j-driver'
 import { ComponentProperties } from '@codelab/shared-domain-module/component'
 
 export const COMPONENT_RESOLVER_PROVIDER = 'COMPONENT_RESOLVER_PROVIDER'

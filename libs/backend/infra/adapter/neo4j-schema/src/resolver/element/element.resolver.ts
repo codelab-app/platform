@@ -1,6 +1,5 @@
 import type {
   Element,
-  ElementRenderType,
   ElementRenderTypeFragment,
   TypeFragment,
 } from '@codelab/shared/infra/gql'

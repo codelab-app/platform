@@ -1,10 +1,7 @@
 import type {
-  UnionTypeCreateInput,
   UnionTypeTypesOfUnionTypeCreateInput,
   UnionTypeTypesOfUnionTypeUpdateInput,
 } from '@codelab/shared/infra/gql'
-
-import { ITypeKind } from '@codelab/shared/abstract/core'
 
 import {
   connectTypesOfUnionType,

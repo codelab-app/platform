@@ -163,6 +163,7 @@ executors:
           - neo4j
           - start
         environment:
+          NEO4J_ACCEPT_LICENSE_AGREEMENT: eval
           NEO4J_AUTH: neo4j/password
           NEO4J_PLUGINS: '["apoc"]'
         image: neo4j:5.26.0-enterprise

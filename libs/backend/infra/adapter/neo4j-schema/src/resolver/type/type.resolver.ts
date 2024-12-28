@@ -1,5 +1,4 @@
 import type {
-  AnyType,
   BaseTypeFragment,
   IBaseType,
   TypeFragment,

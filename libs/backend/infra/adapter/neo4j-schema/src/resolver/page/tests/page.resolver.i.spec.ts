@@ -17,8 +17,6 @@ import {
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
 import { Validator } from '@codelab/shared/infra/schema'
 import { ElementProperties } from '@codelab/shared-domain-module/element'
-import { PageProperties } from '@codelab/shared-domain-module/page'
-import { AppProperties } from '@codelab/shared-domain-module-app'
 import { print } from 'graphql'
 import request from 'supertest'
 import { v4 } from 'uuid'

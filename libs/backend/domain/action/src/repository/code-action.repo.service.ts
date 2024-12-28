@@ -1,6 +1,5 @@
 import type { ICodeActionDto, INodeType } from '@codelab/shared/abstract/core'
 import type {
-  CodeAction,
   CodeActionOptions,
   CodeActionWhere,
 } from '@codelab/shared/infra/gql'
@@ -8,7 +7,6 @@ import type {
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/orm'
 import { CodeActionFragment } from '@codelab/shared/infra/gql'
 import { codeActionMapper } from '@codelab/shared-domain-module/action'
 import {

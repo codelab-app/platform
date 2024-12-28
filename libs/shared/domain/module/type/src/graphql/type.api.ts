@@ -9,7 +9,6 @@ import type { ArrayOrSingle } from 'ts-essentials'
 
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { graphqlClient } from '@codelab/shared/infra/gql-client'
-import { Get } from '@sinclair/typebox/build/cjs/type/registry/format'
 
 import type { ITypeCreateInput, ITypeUpdateVars } from '../type.input.interface'
 import type { ITypeWhere } from '../type.where.interface'

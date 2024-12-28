@@ -2,7 +2,6 @@ import type {
   ICreateDomainData,
   IDomainModel,
 } from '@codelab/frontend/abstract/domain'
-import type { IPopover } from '@codelab/frontend/abstract/types'
 import type { IRef } from '@codelab/shared/abstract/core'
 import type { DomainOptions, DomainWhere } from '@codelab/shared/infra/gql'
 

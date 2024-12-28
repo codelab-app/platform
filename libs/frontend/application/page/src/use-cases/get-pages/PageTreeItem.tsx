@@ -16,7 +16,6 @@ import LockFilled from '@ant-design/icons/lib/icons/LockFilled'
 import LoadingOutlined from '@ant-design/icons/LoadingOutlined'
 import SafetyOutlined from '@ant-design/icons/SafetyOutlined'
 import ToolOutlined from '@ant-design/icons/ToolOutlined'
-import { pageRef } from '@codelab/frontend/abstract/domain'
 import {
   PageType,
   PrimarySidebar,

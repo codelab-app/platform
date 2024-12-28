@@ -1,6 +1,5 @@
 import type { INodeType, IRichTextTypeDto } from '@codelab/shared/abstract/core'
 import type {
-  RichTextType,
   RichTextTypeOptions,
   RichTextTypeWhere,
 } from '@codelab/shared/infra/gql'

@@ -1,5 +1,5 @@
 import type { INodeType, IStoreDto } from '@codelab/shared/abstract/core'
-import type { Store, StoreOptions, StoreWhere } from '@codelab/shared/infra/gql'
+import type { StoreOptions, StoreWhere } from '@codelab/shared/infra/gql'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'

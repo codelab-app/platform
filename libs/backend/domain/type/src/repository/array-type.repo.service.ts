@@ -1,6 +1,5 @@
 import type { IArrayTypeDto, INodeType } from '@codelab/shared/abstract/core'
 import type {
-  ArrayType,
   ArrayTypeOptions,
   ArrayTypeWhere,
 } from '@codelab/shared/infra/gql'

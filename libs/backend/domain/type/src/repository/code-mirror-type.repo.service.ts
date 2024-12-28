@@ -1,7 +1,9 @@
-import type { ICodeMirrorTypeDto, INodeType } from '@codelab/shared/abstract/core'
+import type {
+  ICodeMirrorTypeDto,
+  INodeType,
+} from '@codelab/shared/abstract/core'
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import type {
-  CodeMirrorType,
   CodeMirrorTypeOptions,
   CodeMirrorTypeWhere,
 } from '@codelab/shared/infra/gql'

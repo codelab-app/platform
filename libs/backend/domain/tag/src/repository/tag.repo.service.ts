@@ -1,10 +1,9 @@
-import type { INodeType } from '@codelab/shared/abstract/core'
-import type { Tag, TagOptions, TagWhere } from '@codelab/shared/infra/gql'
+import type { INodeType, ITagDto } from '@codelab/shared/abstract/core'
+import type { TagOptions, TagWhere } from '@codelab/shared/infra/gql'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import { type ITagDto } from '@codelab/shared/abstract/core'
 import { TagFragment } from '@codelab/shared/infra/gql'
 import { tagApi, tagMapper } from '@codelab/shared-domain-module/tag'
 import { Injectable } from '@nestjs/common'
