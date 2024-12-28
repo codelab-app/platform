@@ -264,7 +264,7 @@ const documents = {
     types.DeleteTagsDocument,
   '\n  query GetTags($options: TagOptions, $where: TagWhere) {\n    aggregate: tagsAggregate(where: $where) {\n      count\n    }\n    items: tags(options: $options, where: $where) {\n      ...Tag\n    }\n  }\n':
     types.GetTagsDocument,
-  '\n  mutation CreatePrimitiveTypes($input: [PrimitiveTypeCreateInput!]!) {\n    types: createPrimitiveTypes(input: $input) {\n      types: primitiveTypes {\n        __typename\n        __typename\n        id\n      }\n    }\n  }\n':
+  '\n  mutation CreatePrimitiveTypes($input: [PrimitiveTypeCreateInput!]!) {\n    types: createPrimitiveTypes(input: $input) {\n      types: primitiveTypes {\n        __typename\n        id\n      }\n    }\n  }\n':
     types.CreatePrimitiveTypesDocument,
   '\n  mutation CreateArrayTypes($input: [ArrayTypeCreateInput!]!) {\n    types: createArrayTypes(input: $input) {\n      types: arrayTypes {\n        __typename\n        id\n      }\n    }\n  }\n':
     types.CreateArrayTypesDocument,
@@ -1174,8 +1174,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation CreatePrimitiveTypes($input: [PrimitiveTypeCreateInput!]!) {\n    types: createPrimitiveTypes(input: $input) {\n      types: primitiveTypes {\n        __typename\n        __typename\n        id\n      }\n    }\n  }\n',
-): (typeof documents)['\n  mutation CreatePrimitiveTypes($input: [PrimitiveTypeCreateInput!]!) {\n    types: createPrimitiveTypes(input: $input) {\n      types: primitiveTypes {\n        __typename\n        __typename\n        id\n      }\n    }\n  }\n']
+  source: '\n  mutation CreatePrimitiveTypes($input: [PrimitiveTypeCreateInput!]!) {\n    types: createPrimitiveTypes(input: $input) {\n      types: primitiveTypes {\n        __typename\n        id\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation CreatePrimitiveTypes($input: [PrimitiveTypeCreateInput!]!) {\n    types: createPrimitiveTypes(input: $input) {\n      types: primitiveTypes {\n        __typename\n        id\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

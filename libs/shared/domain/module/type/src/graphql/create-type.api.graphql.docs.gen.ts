@@ -7,7 +7,6 @@ export const CreatePrimitiveTypesDocument = graphql(`
     types: createPrimitiveTypes(input: $input) {
       types: primitiveTypes {
         __typename
-        __typename
         id
       }
     }

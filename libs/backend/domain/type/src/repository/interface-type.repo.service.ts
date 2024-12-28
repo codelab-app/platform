@@ -1,4 +1,8 @@
-import type { IInterfaceTypeDto, INodeType, ITypeRef } from '@codelab/shared/abstract/core'
+import type {
+  IInterfaceTypeDto,
+  INodeType,
+  ITypeRef,
+} from '@codelab/shared/abstract/core'
 import type {
   InterfaceType,
   InterfaceTypeOptions,

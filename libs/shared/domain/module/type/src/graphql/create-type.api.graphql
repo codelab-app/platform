@@ -2,7 +2,6 @@ mutation CreatePrimitiveTypes($input: [PrimitiveTypeCreateInput!]!) {
   types: createPrimitiveTypes(input: $input) {
     types: primitiveTypes {
       __typename
-      __typename
       id
     }
   }

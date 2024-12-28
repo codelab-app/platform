@@ -31,7 +31,12 @@ export class ImportAtomsHandler
       ? atomsData.filter((atom) => atoms.includes(atom.atom.type))
       : atomsData
 
-    for (const atom of filteredAtoms) {
+    for (const [index, atom] of filteredAtoms.entries()) {
+      console.log(
+        `Importing atom ${atom.atom.name} (${index + 1}/${
+          filteredAtoms.length
+        })`,
+      )
       await this.commandBus.execute(new ImportAtomCommand(atom))
     }
   }

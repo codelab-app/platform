@@ -40645,7 +40645,6 @@ export const CreatePrimitiveTypesDocument = new TypedDocumentString(`
   types: createPrimitiveTypes(input: $input) {
     types: primitiveTypes {
       __typename
-      __typename
       id
     }
   }
