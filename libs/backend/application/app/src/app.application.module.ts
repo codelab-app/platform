@@ -1,4 +1,5 @@
 import { AtomApplicationModule } from '@codelab/backend/application/atom'
+import { ImportDataMapperService } from '@codelab/backend/application/data'
 import { DomainApplicationModule } from '@codelab/backend/application/domain'
 import {
   ExportPageHandler,
@@ -54,6 +55,7 @@ import {
     ExportPageHandler,
     ImportAppHandler,
     ImportPageHandler,
+    ImportDataMapperService,
   ],
 })
 export class AppApplicationModule {}

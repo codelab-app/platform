@@ -1,5 +1,4 @@
 import type {
-  IApiImport,
   IAtomExport,
   IAtomImport,
   IComponentAggregateExport,
@@ -21,6 +20,7 @@ import { Injectable, Scope } from '@nestjs/common'
 import fs from 'fs'
 import path from 'path'
 
+import { ImportDataMapperService } from './import-data-mapper.service'
 import { MigrationDataService } from './migration-data.service'
 
 interface IReadAdminDataService {
@@ -37,6 +37,7 @@ export class ReadAdminDataService implements IReadAdminDataService {
   constructor(
     public migrationDataService: MigrationDataService,
     private authService: AuthDomainService,
+    private importDataMapperService: ImportDataMapperService,
   ) {}
 
   get atomNames() {
@@ -72,8 +73,6 @@ export class ReadAdminDataService implements IReadAdminDataService {
   }
 
   get components() {
-    const owner = this.authService.currentUser
-
     const componentFilenames = fs.existsSync(
       this.migrationDataService.componentsPath,
     )
@@ -90,35 +89,9 @@ export class ReadAdminDataService implements IReadAdminDataService {
         ),
       )
 
-      const { api, component, elements, store } = componentExport
-
-      const apiImport: IApiImport = {
-        ...api,
-        owner,
-        types: api.types.map((type) => ({ ...type, owner })),
-      }
-
-      // const parsePropsData = (props: IPropExport)
-
-      const componentImport: IComponentAggregateImport = {
-        api: apiImport,
-        component: { ...component, owner },
-        elements,
-        store: {
-          actions: store.actions,
-          api: {
-            ...store.api,
-            owner,
-            types: store.api.types.map((type) => ({
-              ...type,
-              owner,
-            })),
-          },
-          store: store.store,
-        },
-      }
-
-      return componentImport
+      return this.importDataMapperService.getComponentImportData(
+        componentExport,
+      )
     })
   }
 
