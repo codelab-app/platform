@@ -35,6 +35,7 @@ test('should notify error when app with duplicated name created', async ({
 
   await expect(page.getModal()).toBeVisible()
   await expect(page.getNotification()).toContainText('Error while creating app')
+  await expect(page.getAppName()).toHaveCount(1)
 })
 
 test('should be able to update app name', async ({ appListPage: page }) => {

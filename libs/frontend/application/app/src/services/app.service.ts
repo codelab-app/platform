@@ -17,7 +17,10 @@ import {
 import { domainRepository } from '@codelab/frontend-domain-domain/repositories'
 import { pageRepository } from '@codelab/frontend-domain-page/repositories'
 import { PageDomainFactory } from '@codelab/frontend-domain-page/services'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import {
+  useDomainStore,
+  useUndoManager,
+} from '@codelab/frontend-infra-mobx/context'
 import { Validator } from '@codelab/shared/infra/typebox'
 import { withAsyncSpanFunc } from '@codelab/shared-infra-sentry'
 
@@ -33,6 +36,7 @@ export const useAppService = (): IAppService => {
   } = useDomainStore()
 
   const pageService = usePageService()
+  const undoManager = useUndoManager()
   const pageFactory = new PageDomainFactory(userDomainService.user.toJson)
   const user = userDomainService.user.toJson
   const owner = user
@@ -57,7 +61,7 @@ export const useAppService = (): IAppService => {
       return app
     } catch (error) {
       console.log(error)
-      // undoManager.undo()
+      undoManager.undo()
 
       throw error
     } finally {
