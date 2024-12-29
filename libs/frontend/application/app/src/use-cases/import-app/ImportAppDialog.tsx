@@ -6,13 +6,12 @@ import {
   useErrorNotify,
   useSuccessNotify,
 } from '@codelab/frontend/shared/utils'
-import { Spin } from 'antd'
 import { useRef } from 'react'
 
 import { useImportApp } from './useImportApp.hook'
 
 export const ImportAppDialog = () => {
-  const [loading, importApp] = useImportApp()
+  const importApp = useImportApp()
 
   const onError = useErrorNotify({
     description: (event: HttpException) => {
@@ -42,7 +41,6 @@ export const ImportAppDialog = () => {
 
   return (
     <>
-      {loading && <Spin className="mr-2" />}
       <ImportOutlined onClick={onClick} />
       <input
         accept=".json"

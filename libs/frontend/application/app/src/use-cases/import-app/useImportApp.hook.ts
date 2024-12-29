@@ -1,31 +1,35 @@
-import { useCallback, useState } from 'react'
+import { useLoading } from '@codelab/frontend-application-shared-store/loading'
+import { useCallback } from 'react'
 
 import { importAppService } from './import-app.service'
 
 export const useImportApp = () => {
-  const [loading, setLoading] = useState(false)
+  const { setLoading } = useLoading()
 
-  const importApp = useCallback(async (appData: File) => {
-    setLoading(true)
+  const importApp = useCallback(
+    async (appData: File) => {
+      setLoading(true)
 
-    try {
-      const formData = new FormData()
+      try {
+        const formData = new FormData()
 
-      formData.append('file', appData)
+        formData.append('file', appData)
 
-      const importResult = await importAppService(formData)
+        const importResult = await importAppService(formData)
 
-      console.log(importResult)
+        console.log(importResult)
 
-      return importResult
-    } catch (error: unknown) {
-      console.log(error)
+        return importResult
+      } catch (error: unknown) {
+        console.log(error)
 
-      throw error
-    } finally {
-      setLoading(false)
-    }
-  }, [])
+        throw error
+      } finally {
+        setLoading(false)
+      }
+    },
+    [setLoading],
+  )
 
-  return [loading, importApp] as const
+  return importApp
 }
