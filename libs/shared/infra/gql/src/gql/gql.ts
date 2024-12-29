@@ -154,7 +154,7 @@ const documents = {
     types.UpdateAuthGuardDocument,
   '\n  mutation DeleteAuthGuards(\n    $where: AuthGuardWhere\n    $delete: AuthGuardDeleteInput\n  ) {\n    deleteAuthGuards(where: $where, delete: $delete) {\n      nodesDeleted\n    }\n  }\n':
     types.DeleteAuthGuardsDocument,
-  '\n  mutation CreateComponents($input: [ComponentCreateInput!]!) {\n    createComponents(input: $input) {\n      components {\n        __typename\n        id\n        store {\n          id\n        }\n      }\n    }\n  }\n':
+  '\n  mutation CreateComponents($input: [ComponentCreateInput!]!) {\n    createComponents(input: $input) {\n      components {\n        __typename\n        id\n        store {\n          id\n        }\n        rootElement {\n          id\n        }\n      }\n    }\n  }\n':
     types.CreateComponentsDocument,
   '\n  mutation DeleteComponents(\n    $where: ComponentWhere\n    $delete: ComponentDeleteInput\n  ) {\n    deleteComponents(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n':
     types.DeleteComponentsDocument,
@@ -844,8 +844,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation CreateComponents($input: [ComponentCreateInput!]!) {\n    createComponents(input: $input) {\n      components {\n        __typename\n        id\n        store {\n          id\n        }\n      }\n    }\n  }\n',
-): (typeof documents)['\n  mutation CreateComponents($input: [ComponentCreateInput!]!) {\n    createComponents(input: $input) {\n      components {\n        __typename\n        id\n        store {\n          id\n        }\n      }\n    }\n  }\n']
+  source: '\n  mutation CreateComponents($input: [ComponentCreateInput!]!) {\n    createComponents(input: $input) {\n      components {\n        __typename\n        id\n        store {\n          id\n        }\n        rootElement {\n          id\n        }\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation CreateComponents($input: [ComponentCreateInput!]!) {\n    createComponents(input: $input) {\n      components {\n        __typename\n        id\n        store {\n          id\n        }\n        rootElement {\n          id\n        }\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

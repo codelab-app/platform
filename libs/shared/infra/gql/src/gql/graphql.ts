@@ -31542,6 +31542,7 @@ export type CreateComponentsMutation = {
       __typename: 'Component'
       id: string
       store: { id: string }
+      rootElement: { id: string }
     }>
   }
 }
@@ -38712,6 +38713,9 @@ export const CreateComponentsDocument = new TypedDocumentString(`
       __typename
       id
       store {
+        id
+      }
+      rootElement {
         id
       }
     }
