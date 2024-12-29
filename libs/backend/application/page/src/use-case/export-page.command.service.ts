@@ -10,8 +10,10 @@ import type {
 import type { ICommandHandler } from '@nestjs/cqrs'
 
 import { ExportStoreCommand } from '@codelab/backend/application/store'
-import { ElementRepository } from '@codelab/backend/domain/element'
-import { PageRepository } from '@codelab/backend/domain/page'
+import {
+  PageElementsService,
+  PageRepository,
+} from '@codelab/backend/domain/page'
 import { Validator } from '@codelab/shared/infra/typebox'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
@@ -25,7 +27,7 @@ export class ExportPageHandler
 {
   constructor(
     private readonly pageRepository: PageRepository,
-    private readonly elementRepository: ElementRepository,
+    private readonly pageElementsService: PageElementsService,
     private readonly commandBus: CommandBus,
   ) {}
 
@@ -48,9 +50,7 @@ export class ExportPageHandler
   }
 
   private async getPageData(page: PageFragment) {
-    // TODO: use descendants
-    const elementDescendants: Array<ElementFragment> = []
-    // page.rootElement.descendants
+    const elementDescendants = await this.pageElementsService.getElements(page)
 
     const elements = elementDescendants.map((element: ElementFragment) => ({
       ...element,
