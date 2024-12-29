@@ -19,6 +19,7 @@ test('should be able to create app', async ({ appListPage: page }) => {
 
   await page.expectGlobalProgressBarToBeHidden()
 
+  await expect(page.getModal()).toBeHidden()
   await expect(page.getNotification()).toContainText('App created successfully')
   await expect(page.getAppName()).toBeVisible()
 })
@@ -32,6 +33,7 @@ test('should notify error when app with duplicated name created', async ({
 
   await page.expectGlobalProgressBarToBeHidden()
 
+  await expect(page.getModal()).toBeVisible()
   await expect(page.getNotification()).toContainText('Error while creating app')
 })
 

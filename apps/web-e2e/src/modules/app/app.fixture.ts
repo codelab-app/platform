@@ -24,8 +24,6 @@ export class AppListPage extends BasePage {
     await this.getModal()
       .locator(this.getButton({ text: 'Create App' }))
       .click()
-
-    await expect(this.getModal()).toBeHidden()
   }
 
   async fillUpdateAppForm() {
