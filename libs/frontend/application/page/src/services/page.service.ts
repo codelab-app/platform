@@ -148,13 +148,8 @@ export const usePageService = (): IPageService => {
     close: (router: AppRouterInstance) => {
       router.back()
     },
-    open: (
-      router: AppRouterInstance,
-      params: PageContextParams & { elementId: string },
-    ) => {
-      const baseUrl = PageType.PageUpdate(params)
-
-      router.push(`${baseUrl}/${params.elementId}`)
+    open: (router: AppRouterInstance, params: PageContextParams) => {
+      router.push(PageType.PageUpdate(params))
     },
   }
 

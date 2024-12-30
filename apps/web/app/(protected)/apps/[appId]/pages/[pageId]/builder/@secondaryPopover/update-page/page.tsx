@@ -5,11 +5,11 @@ import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { DashboardPopover } from '@codelab/frontend-presentation-view/templates'
 
 const UpdatePagePopoverPage = async ({
-  params: { id },
+  params: { pageId },
 }: {
-  params: { id: string }
+  params: { pageId: string }
 }) => {
-  const page = await pageRepository.findOne({ id_IN: [id] })
+  const page = await pageRepository.findOne({ id_IN: [pageId] })
 
   if (!page) {
     return null
@@ -18,7 +18,7 @@ const UpdatePagePopoverPage = async ({
   return (
     <DashboardPopover>
       <DomainStoreHydrator fallback={<Spinner />} pagesDto={[page]}>
-        <UpdatePagePopover id={id} />
+        <UpdatePagePopover id={pageId} />
       </DomainStoreHydrator>
     </DashboardPopover>
   )
