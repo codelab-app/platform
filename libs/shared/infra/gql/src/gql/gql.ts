@@ -190,7 +190,7 @@ const documents = {
     types.DeleteFieldsDocument,
   '\n  query GetFields($where: FieldWhere, $options: FieldOptions) {\n    aggregate: fieldsAggregate(where: $where) {\n      count\n    }\n    items: fields(options: $options, where: $where) {\n      ...Field\n    }\n  }\n':
     types.GetFieldsDocument,
-  '\n  mutation CreatePages($input: [PageCreateInput!]!) {\n    createPages(input: $input) {\n      pages {\n        __typename\n        id\n      }\n    }\n  }\n':
+  '\n  mutation CreatePages($input: [PageCreateInput!]!) {\n    createPages(input: $input) {\n      pages {\n        __typename\n        id\n        rootElement {\n          id\n        }\n      }\n    }\n  }\n':
     types.CreatePagesDocument,
   '\n  mutation DeletePages($where: PageWhere, $delete: PageDeleteInput) {\n    deletePages(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n':
     types.DeletePagesDocument,
@@ -952,8 +952,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation CreatePages($input: [PageCreateInput!]!) {\n    createPages(input: $input) {\n      pages {\n        __typename\n        id\n      }\n    }\n  }\n',
-): (typeof documents)['\n  mutation CreatePages($input: [PageCreateInput!]!) {\n    createPages(input: $input) {\n      pages {\n        __typename\n        id\n      }\n    }\n  }\n']
+  source: '\n  mutation CreatePages($input: [PageCreateInput!]!) {\n    createPages(input: $input) {\n      pages {\n        __typename\n        id\n        rootElement {\n          id\n        }\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation CreatePages($input: [PageCreateInput!]!) {\n    createPages(input: $input) {\n      pages {\n        __typename\n        id\n        rootElement {\n          id\n        }\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

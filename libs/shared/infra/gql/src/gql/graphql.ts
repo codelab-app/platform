@@ -31698,7 +31698,13 @@ export type CreatePagesMutationVariables = Exact<{
 }>
 
 export type CreatePagesMutation = {
-  createPages: { pages: Array<{ __typename: 'Page'; id: string }> }
+  createPages: {
+    pages: Array<{
+      __typename: 'Page'
+      id: string
+      rootElement: { id: string }
+    }>
+  }
 }
 
 export type DeletePagesMutationVariables = Exact<{
@@ -39320,6 +39326,9 @@ export const CreatePagesDocument = new TypedDocumentString(`
     pages {
       __typename
       id
+      rootElement {
+        id
+      }
     }
   }
 }

@@ -3,6 +3,9 @@ mutation CreatePages($input: [PageCreateInput!]!) {
     pages {
       __typename
       id
+      rootElement {
+        id
+      }
     }
   }
 }
