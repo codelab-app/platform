@@ -30862,7 +30862,7 @@ export type ElementFragment = {
   style?: string | null
   tailwindClassNames?: Array<string> | null
   expanded?: boolean | null
-  childMapperComponent?: { id: string; name: string } | null
+  childMapperComponent?: { id: string } | null
   childMapperPreviousSibling?: { id: string } | null
   dependantTypes: Array<
     | Type_ActionType_Fragment
@@ -33439,7 +33439,6 @@ export const ElementFragmentDoc = new TypedDocumentString(
   compositeKey
   childMapperComponent {
     id
-    name
   }
   childMapperPreviousSibling {
     id
@@ -34022,7 +34021,6 @@ fragment Element on Element {
   compositeKey
   childMapperComponent {
     id
-    name
   }
   childMapperPreviousSibling {
     id
@@ -34327,7 +34325,6 @@ fragment Element on Element {
   compositeKey
   childMapperComponent {
     id
-    name
   }
   childMapperPreviousSibling {
     id
@@ -34659,7 +34656,6 @@ fragment Element on Element {
   compositeKey
   childMapperComponent {
     id
-    name
   }
   childMapperPreviousSibling {
     id
@@ -34953,7 +34949,6 @@ fragment Element on Element {
   compositeKey
   childMapperComponent {
     id
-    name
   }
   childMapperPreviousSibling {
     id
@@ -36363,7 +36358,6 @@ fragment Element on Element {
   compositeKey
   childMapperComponent {
     id
-    name
   }
   childMapperPreviousSibling {
     id
@@ -37140,7 +37134,6 @@ fragment Element on Element {
   compositeKey
   childMapperComponent {
     id
-    name
   }
   childMapperPreviousSibling {
     id
@@ -37551,7 +37544,6 @@ fragment Element on Element {
   compositeKey
   childMapperComponent {
     id
-    name
   }
   childMapperPreviousSibling {
     id
@@ -37963,7 +37955,6 @@ fragment Element on Element {
   compositeKey
   childMapperComponent {
     id
-    name
   }
   childMapperPreviousSibling {
     id
@@ -39030,7 +39021,6 @@ fragment Element on Element {
   compositeKey
   childMapperComponent {
     id
-    name
   }
   childMapperPreviousSibling {
     id
@@ -39449,7 +39439,6 @@ fragment Element on Element {
   compositeKey
   childMapperComponent {
     id
-    name
   }
   childMapperPreviousSibling {
     id
@@ -39756,7 +39745,6 @@ fragment Element on Element {
   compositeKey
   childMapperComponent {
     id
-    name
   }
   childMapperPreviousSibling {
     id
