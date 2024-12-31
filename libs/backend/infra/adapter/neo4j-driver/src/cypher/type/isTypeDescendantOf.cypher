@@ -3,4 +3,4 @@ MATCH
   (descendantType {id: $descendantTypeId})
   WHERE labels(descendantType)[0] ENDS WITH 'Type'
 
-RETURN count(descendantType) > 0 as isDescendant
+RETURN count(descendantType) > 0

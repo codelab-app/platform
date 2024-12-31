@@ -62,6 +62,7 @@ export const CodeMirrorField = (mainProps?: Partial<CodeMirrorFieldProps>) => {
           <CodeMirrorEditor
             height="auto"
             maxHeight="150px"
+            title={merged.label?.toString()}
             {...merged}
             onChange={onChange}
             value={editorValue}

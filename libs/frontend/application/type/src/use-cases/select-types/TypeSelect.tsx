@@ -21,14 +21,18 @@ export const TypeSelect = observer<TypeSelectProps>(({ label, name }) => {
     typeService.getSelectOptions(),
   )
 
+  const fieldValue = Array.isArray(fieldProps.value)
+    ? fieldProps.value
+    : [fieldProps.value]
+
   // On update mode, the current selected type can be used
   // to show the type name instead of showing just the id
-  const currentType = fieldProps.value
-    ? typeDomainService.types.get(fieldProps.value)
-    : undefined
+  const currentTypes = fieldValue.map((typeId) =>
+    typeDomainService.types.get(typeId),
+  )
 
   const typeOptions = pipe(
-    [currentType, ...data],
+    [...currentTypes, ...data],
     filter(isTruthy),
     uniqueBy(prop('id')),
     map(({ id, name: optionLabel }) => ({

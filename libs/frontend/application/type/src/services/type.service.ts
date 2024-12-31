@@ -62,7 +62,9 @@ export const useTypeService = (): ITypeService => {
     const typeDto = TypeFactory.mapDataToDto(data, owner)
     const type = typeDomainService.hydrate(typeDto)
 
-    await typeRepository.add(typeDto)
+    // use hydrated type here instead of dto to make sure the dependant types have full data
+    // (for example "typesOfUnionType" should not only contain ids, but also __typename)
+    await typeRepository.add(type.toJson)
 
     typePagination.dataRefs.set(type.id, typeRef(type))
 
@@ -164,7 +166,9 @@ export const useTypeService = (): ITypeService => {
 
     TypeFactory.writeCache(typeDto, type)
 
-    await typeRepository.update({ id: type.id }, typeDto)
+    // use hydrated type here instead of dto to make sure the dependant types have full data
+    // (for example "typesOfUnionType" should not only contain ids, but also __typename)
+    await typeRepository.update({ id: type.id }, type.toJson)
 
     return type
   }

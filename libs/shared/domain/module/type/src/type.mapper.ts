@@ -176,6 +176,7 @@ export const enumTypeMapper: IMapper<
         })),
       },
     ],
+    name: dto.name,
   }),
 }
 
@@ -325,6 +326,7 @@ export const unionTypeMapper: IMapper<
   },
   toDeleteInput: () => ({}),
   toUpdateInput: (dto) => ({
+    name: dto.name,
     typesOfUnionType: reconnectTypesOfUnionType(dto.typesOfUnionType),
   }),
 }
