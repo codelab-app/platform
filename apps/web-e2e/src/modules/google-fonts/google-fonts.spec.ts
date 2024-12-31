@@ -53,6 +53,8 @@ test('should apply selected fonts to text', async ({ builderPage: page }) => {
 
   await page.applyFonts()
 
+  await expect(page.getSpinner()).toBeHidden()
+
   const updatedStyle = await page
     .getOutputTextNode()
     .evaluate((element) => window.getComputedStyle(element))
