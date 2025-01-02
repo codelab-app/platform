@@ -1,4 +1,5 @@
 import type { Static, TKind, TSchema } from '@sinclair/typebox'
+import type { ValidateFunction } from 'ajv'
 
 /**
  * `parse` - validate and sanitize data
@@ -15,7 +16,7 @@ export interface IValidationService {
    * Add commonly used methods as convenience
    */
   assertsDefined<T>(data: T): asserts data is NonNullable<T>
-  parse<T extends TSchema>(schema: T, data: unknown): Static<T>
+  // parse<T extends TSchema>(schema: T, data: unknown): Static<T>
   parseDefined<T>(data: T): NonNullable<T>
   validate(kind: TKind, data: unknown): boolean
 }

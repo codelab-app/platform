@@ -1,6 +1,7 @@
 import type { IValidationService } from '@codelab/shared/abstract/infra'
 
-import { FormatRegistry } from '@sinclair/typebox'
+import { FormatRegistry, Type } from '@sinclair/typebox'
+import { TypeCompiler } from '@sinclair/typebox/compiler'
 
 import {
   AllOrNoneSchema,
@@ -27,7 +28,7 @@ import { ValidationService } from './validation.service'
  */
 FormatRegistry.Set('ipv4', IsIPv4)
 
-export const Validator: IValidationService = ValidationService.getInstance([
+export const Validator = ValidationService.getInstance([
   [TAtLeastOne, AtLeastOneSchema],
   [TRef, RefSchema],
   [TExactlyOne, ExactlyOneSchema],

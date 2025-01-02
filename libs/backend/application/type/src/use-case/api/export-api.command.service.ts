@@ -163,7 +163,7 @@ export class ExportApiHandler
     dependentTypes
       .filter((type) => type.__typename === ITypeKind.UnionType)
       .forEach((unionType) =>
-        (unionType as IUnionTypeDto).typesOfUnionType.sort((a, b) =>
+        (unionType as IUnionTypeDto)['typesOfUnionType'].sort((a, b) =>
           a.id.localeCompare(b.id),
         ),
       )
