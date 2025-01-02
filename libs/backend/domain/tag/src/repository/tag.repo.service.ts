@@ -2,9 +2,9 @@ import type { INodeType, ITagDto } from '@codelab/shared/abstract/core'
 import type { TagOptions, TagWhere } from '@codelab/shared/infra/gql'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { ValidationService } from '@codelab/backend/infra/adapter/validation'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import { TagFragment } from '@codelab/shared/infra/gql'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { tagApi, tagMapper } from '@codelab/shared-domain-module/tag'
 import { Injectable } from '@nestjs/common'
 
@@ -17,10 +17,10 @@ export class TagRepository extends AbstractRepository<
   TagOptions
 > {
   constructor(
-    protected override validationService: ValidationService,
+
     protected override loggerService: PinoLoggerService,
   ) {
-    super(validationService, loggerService)
+    super(loggerService)
   }
 
   /**

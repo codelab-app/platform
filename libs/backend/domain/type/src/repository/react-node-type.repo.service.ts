@@ -8,9 +8,9 @@ import type {
 } from '@codelab/shared/infra/gql'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { ValidationService } from '@codelab/backend/infra/adapter/validation'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import { ReactNodeTypeFragment } from '@codelab/shared/infra/gql'
+import { Validator } from '@codelab/shared/infra/typebox'
 import {
   createTypeApi,
   findTypeApi,
@@ -28,10 +28,10 @@ export class ReactNodeTypeRepository extends AbstractRepository<
   ReactNodeTypeOptions
 > {
   constructor(
-    protected override validationService: ValidationService,
+
     protected override loggerService: PinoLoggerService,
   ) {
-    super(validationService, loggerService)
+    super(loggerService)
   }
 
   protected async _addMany(reactNodeTypes: Array<IReactNodeTypeDto>) {

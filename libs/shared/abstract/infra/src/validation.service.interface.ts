@@ -16,12 +16,11 @@ export interface IValidationService {
    * Add commonly used methods as convenience
    */
   assertsDefined<T>(data: T): asserts data is NonNullable<T>
-  parse<T extends TSchema>(schema: T, data: unknown): Static<T>
-  parseDefined<T>(data: T): NonNullable<T>
-  validate(kind: TKind, data: Readonly<unknown>): boolean
-  validateAndClean<T extends TSchema>(
+  parse<T extends TSchema>(
     schema: T,
     data: unknown,
     options?: { message: string },
   ): Static<T>
+  parseDefined<T>(data: T): NonNullable<T>
+  validate(kind: TKind, data: Readonly<unknown>): boolean
 }

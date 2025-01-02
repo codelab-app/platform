@@ -10,13 +10,13 @@ import type {
 import type { Static, TAnySchema } from '@sinclair/typebox'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { ValidationService } from '@codelab/backend/infra/adapter/validation'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import {
   getDependentTypes,
   Neo4jService,
 } from '@codelab/backend-infra-adapter/neo4j-driver'
 import { InterfaceTypeFragment } from '@codelab/shared/infra/gql'
+import { Validator } from '@codelab/shared/infra/typebox'
 import {
   createTypeApi,
   findTypeApi,
@@ -35,10 +35,10 @@ export class InterfaceTypeRepository extends AbstractRepository<
 > {
   constructor(
     private neo4jService: Neo4jService,
-    protected override validationService: ValidationService,
+
     protected override loggerService: PinoLoggerService,
   ) {
-    super(validationService, loggerService)
+    super(loggerService)
   }
 
   async getDependentTypes<T extends TAnySchema>(
@@ -54,7 +54,7 @@ export class InterfaceTypeRepository extends AbstractRepository<
 
       if (schema) {
         for (const type of types) {
-          return this.validationService.validateAndClean(schema, type)
+          return Validator.parse(schema, type)
         }
       }
 

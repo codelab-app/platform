@@ -1,13 +1,13 @@
 import type { IAuthGuardDto, INodeType } from '@codelab/shared/abstract/core'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { ValidationService } from '@codelab/backend/infra/adapter/validation'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import {
   AuthGuardFragment,
   AuthGuardOptions,
   AuthGuardWhere,
 } from '@codelab/shared/infra/gql'
+import { Validator } from '@codelab/shared/infra/typebox'
 import {
   authGuardApi,
   authGuardMapper,
@@ -23,10 +23,10 @@ export class AuthGuardRepository extends AbstractRepository<
   AuthGuardOptions
 > {
   constructor(
-    protected override validationService: ValidationService,
+
     protected override loggerService: PinoLoggerService,
   ) {
-    super(validationService, loggerService)
+    super(loggerService)
   }
 
   protected async _addMany(authGuards: Array<IAuthGuardDto>) {

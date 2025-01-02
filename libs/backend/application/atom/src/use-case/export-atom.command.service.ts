@@ -49,7 +49,7 @@ export class ExportAtomHandler
       tags: existingAtom.tags?.map((tag) => ({ id: tag.id })),
     }
 
-    const results = Validator.validateAndClean(AtomExportSchema, { api, atom })
+    const results = Validator.parse(AtomExportSchema, { api, atom })
 
     return results
   }

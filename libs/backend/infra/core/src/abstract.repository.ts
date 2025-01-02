@@ -3,8 +3,8 @@ import type { IDiscriminatedRef, IRef } from '@codelab/shared/abstract/core'
 import type { Static, TAnySchema } from '@sinclair/typebox'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { ValidationService } from '@codelab/backend/infra/adapter/validation'
 import { NotFoundError } from '@codelab/shared/domain/errors'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
@@ -16,10 +16,7 @@ export abstract class AbstractRepository<
   Options,
 > implements IRepository<Dto, Model, Where, Options>
 {
-  constructor(
-    protected validationService: ValidationService,
-    protected loggerService: PinoLoggerService,
-  ) {}
+  constructor(protected loggerService: PinoLoggerService) {}
 
   /**
    * Array adds complexity, create an optional `addMany` if needed
@@ -88,7 +85,7 @@ export abstract class AbstractRepository<
 
     if (schema) {
       const data = results.map((result) => {
-        return this.validationService.validateAndClean(schema, result)
+        return Validator.parse(schema, result)
       })
 
       return data
@@ -141,7 +138,7 @@ export abstract class AbstractRepository<
     }
 
     if (schema) {
-      return this.validationService.validateAndClean(schema, results)
+      return Validator.parse(schema, results)
     }
 
     return results

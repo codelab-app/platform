@@ -10,7 +10,7 @@ import { ElementDomainModule } from '@codelab/backend/domain/element'
 import { PropDomainModule } from '@codelab/backend/domain/prop'
 import { AuthDomainModule } from '@codelab/backend/domain/shared/auth'
 import { TypeDomainModule } from '@codelab/backend/domain/type'
-import { ValidationService } from '@codelab/backend/infra/adapter/validation'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
 
@@ -38,7 +38,6 @@ import { ExportComponentHandler, ImportComponentsHandler } from './use-case'
     ComponentApplicationService,
     ReadAdminDataService,
     MigrationDataService,
-    ValidationService,
   ],
 })
 export class ComponentApplicationModule {}

@@ -1,5 +1,5 @@
 import type { IValidationService } from '@codelab/shared/abstract/infra'
-import type { Static, TKind, TSchema } from '@sinclair/typebox'
+import type { SchemaOptions, Static, TKind, TSchema } from '@sinclair/typebox'
 
 import { Value } from '@sinclair/typebox/value'
 import { ValidationError } from 'class-validator'
@@ -49,14 +49,8 @@ export class ValidationService implements IValidationService {
   ): asserts data is Static<T> {
     const schema = this.typeBox.tSchema(kind)
     const validator = this.createValidator(schema)
-    /**
-     * This is additional custom validation
-     */
-    const validate = schema['validate']
 
-    if (validate && !validate(data)) {
-      throw new Error(options?.message)
-    }
+    this.runCustomValidation(schema, data, options?.message)
 
     return validator.assert(data as Readonly<unknown>, options?.message)
   }
@@ -70,8 +64,20 @@ export class ValidationService implements IValidationService {
     })
   }
 
-  parse<T extends TSchema>(schema: T, data: unknown): Static<T> {
+  /**
+   * Validates and cleans data according to the schema for the given kind.
+   * Removes any properties not defined in the schema.
+   *
+   * @throws {Error} When validation fails
+   */
+  parse<T extends TSchema>(
+    schema: T,
+    data: unknown,
+    options?: { message: string },
+  ): Static<T> {
     const validator = this.createValidator(schema)
+
+    this.runCustomValidation(schema, data, options?.message)
 
     return validator.validateAndCleanCopy(data as Readonly<unknown>)
   }
@@ -109,30 +115,26 @@ export class ValidationService implements IValidationService {
     return truthy
   }
 
-  /**
-   * Validates and cleans data according to the schema for the given kind.
-   * Removes any properties not defined in the schema.
-   *
-   * @throws {Error} When validation fails
-   */
-  validateAndClean<T extends TSchema>(
-    schema: T,
-    data: unknown,
-    options?: { message: string },
-  ): Static<T> {
-    const validator = this.createValidator<T>(schema)
-    const validate = schema['validate']
-
-    if (validate && !validate(data)) {
-      throw new Error(options?.message)
-    }
-
-    return validator.validateAndCleanCopy(data)
-  }
-
   private static instance?: ValidationService
 
   private createValidator<T extends TSchema>(schema: T) {
     return new NestedValidator<T>(schema)
+  }
+
+  /**
+   * Run custom validation on Typebox schema
+   *
+   * Type.Object({}, { validate: (data: unknown) => { return true } })
+   */
+  private runCustomValidation(
+    schema: TSchema & SchemaOptions,
+    data: unknown,
+    message?: string,
+  ) {
+    const validate: SchemaOptions['validate'] = schema['validate']
+
+    if (validate && !validate(data)) {
+      throw new Error(message)
+    }
   }
 }

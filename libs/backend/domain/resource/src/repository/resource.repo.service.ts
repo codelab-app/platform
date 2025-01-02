@@ -1,13 +1,13 @@
 import type { INodeType, IResourceDto } from '@codelab/shared/abstract/core'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { ValidationService } from '@codelab/backend/infra/adapter/validation'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import {
   ResourceFragment,
   ResourceOptions,
   ResourceWhere,
 } from '@codelab/shared/infra/gql'
+import { Validator } from '@codelab/shared/infra/typebox'
 import {
   resourceApi,
   resourceMapper,
@@ -23,10 +23,10 @@ export class ResourceRepository extends AbstractRepository<
   ResourceOptions
 > {
   constructor(
-    protected override validationService: ValidationService,
+
     protected override loggerService: PinoLoggerService,
   ) {
-    super(validationService, loggerService)
+    super(loggerService)
   }
 
   protected async _addMany(resources: Array<IResourceDto>) {
