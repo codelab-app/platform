@@ -1,7 +1,7 @@
 import type { IAppDto, INodeType } from '@codelab/shared/abstract/core'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
+import { ValidationService } from '@codelab/backend/infra/adapter/validation'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import { AppFragment, AppOptions, AppWhere } from '@codelab/shared/infra/gql'
 import { appApi, appMapper } from '@codelab/shared-domain-module-app'

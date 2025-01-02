@@ -21,34 +21,9 @@ import { IsUnion } from '../schema/is-union'
  * @throws {ValidationException} When validation fails
  */
 export class NestedValidator<S extends TSchema> extends StandardValidator<S> {
-  override assert(
-    value: unknown,
-    message?: string,
-  ): asserts value is Static<S> {
-    return super.assert(value as Readonly<unknown>, message)
-  }
-
-  /**
-   * @throws {ValidationException}
-   */
-  public override validate(values: unknown): Static<S> {
-    return this.withErrorLogging(values, () =>
-      super.validate(values as Readonly<unknown>),
-    )
-  }
-
-  /**
-   * @throws {ValidationException}
-   */
-  public override validateAndClean(values: unknown): Static<S> {
-    return this.withErrorLogging(values, () =>
-      super.validateAndCleanCopy(values as Readonly<unknown>),
-    )
-  }
-
   protected override cleanCopyOfValue<VS extends TSchema>(
     schema: Readonly<VS>,
-    value: unknown,
+    value: Static<VS>,
   ): Static<VS> {
     // console.log(value)
     // cLog(schema)
@@ -66,8 +41,8 @@ export class NestedValidator<S extends TSchema> extends StandardValidator<S> {
         )
 
         const cleanedValue = discriminatedValidator.validateAndCleanCopy(
-          value as Readonly<unknown>,
-        )
+          value,
+        ) as any
 
         // Find the matching schema from the union
         const matchedSchema = unionSchema.anyOf.find(
@@ -77,20 +52,15 @@ export class NestedValidator<S extends TSchema> extends StandardValidator<S> {
         )
 
         if (matchedSchema) {
-          return this.cleanNestedObject(
-            matchedSchema,
-            cleanedValue,
-          ) as Static<VS>
+          return this.cleanNestedObject(matchedSchema, cleanedValue)
         }
 
-        return cleanedValue as Static<VS>
+        return cleanedValue
       } else {
         // Fallback to handling union with the standard validator
         const standardUnionValidator = new StandardValidator(unionSchema)
 
-        return standardUnionValidator.validateAndCleanCopy(
-          value as Readonly<unknown>,
-        ) as Static<VS>
+        return standardUnionValidator.validateAndCleanCopy(value)
       }
     }
 
@@ -130,17 +100,5 @@ export class NestedValidator<S extends TSchema> extends StandardValidator<S> {
     })
 
     return cleanedValue
-  }
-
-  /**
-   * Wraps a validation function with error logging
-   */
-  private withErrorLogging<T>(values: unknown, validationFn: () => T): T {
-    try {
-      return validationFn()
-    } catch (error) {
-      console.error('Validation error for values:', values)
-      throw error
-    }
   }
 }

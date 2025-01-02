@@ -15,7 +15,7 @@ import {
   userRef,
 } from '@codelab/frontend/abstract/domain'
 import { IPageKind } from '@codelab/shared/abstract/core'
-import { Validator } from '@codelab/shared/infra/validation'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { slugify } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'

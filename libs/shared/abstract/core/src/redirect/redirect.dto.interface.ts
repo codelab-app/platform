@@ -6,10 +6,10 @@ import { Type } from '@sinclair/typebox'
 import { IRedirectTargetType } from './redirect-target-type.enum'
 
 export const RedirectDtoSchema = Type.Object({
-  authGuard: Typebox.Ref,
+  authGuard: Typebox.RefSchema,
   id: Type.String(),
-  source: Typebox.Ref,
-  targetPage: Typebox.Nullish(Typebox.Ref),
+  source: Typebox.RefSchema,
+  targetPage: Typebox.Nullish(Typebox.RefSchema),
   targetType: Type.Enum(IRedirectTargetType),
   targetUrl: Typebox.Nullish(Type.String()),
 })

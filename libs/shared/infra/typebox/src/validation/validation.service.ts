@@ -2,8 +2,10 @@ import type { IValidationService } from '@codelab/shared/abstract/infra'
 import type { Static, TKind, TSchema } from '@sinclair/typebox'
 
 import { Value } from '@sinclair/typebox/value'
+import { ValidationError } from 'class-validator'
 
-import { SchemaProvider } from '../provider/schema.provider'
+import type { TypeBoxProvider } from '../provider/typebox.provider'
+
 import { DefinedSchema, TDefined } from '../schema'
 import { NestedValidator } from '../validator/nested-validator'
 
@@ -11,17 +13,15 @@ import { NestedValidator } from '../validator/nested-validator'
  * Create a facade around `NestedValidator`
  */
 export class ValidationService implements IValidationService {
-  static getInstance(schemaKindMap: Array<[TKind, TSchema]>) {
+  static getInstance(typeBox: TypeBoxProvider) {
     if (!ValidationService.instance) {
-      ValidationService.instance = new ValidationService(schemaKindMap)
+      ValidationService.instance = new ValidationService(typeBox)
     }
 
     return ValidationService.instance
   }
 
-  private constructor(schemaKindMap: Array<[TKind, TSchema]>) {
-    this.schema = SchemaProvider.getInstance(schemaKindMap)
-  }
+  private constructor(private typeBox: TypeBoxProvider) {}
 
   /**
    * Asserts that data matches the schema for the given kind.
@@ -47,20 +47,18 @@ export class ValidationService implements IValidationService {
     data: unknown,
     options?: { message: string },
   ): asserts data is Static<T> {
-    try {
-      const validator = this.createValidator(kind)
-      const schema = this.schema.tSchema(kind)
-      const validate = schema['validate']
+    const schema = this.typeBox.tSchema(kind)
+    const validator = this.createValidator(schema)
+    /**
+     * This is additional custom validation
+     */
+    const validate = schema['validate']
 
-      if (validate && !validate(data)) {
-        throw new Error(options?.message)
-      }
-
-      return validator.assert(data as Readonly<unknown>, options?.message)
-    } catch (error: unknown) {
-      console.error(kind, options?.message, data)
-      throw new Error((error as Error).message)
+    if (validate && !validate(data)) {
+      throw new Error(options?.message)
     }
+
+    return validator.assert(data as Readonly<unknown>, options?.message)
   }
 
   /**
@@ -86,8 +84,6 @@ export class ValidationService implements IValidationService {
    * https://github.com/sinclairzx81/typebox?tab=readme-ov-file#parse
    */
   parseDefined<T>(data: T) {
-    console.log('parseDefined', data)
-
     const validated = Value.Check(DefinedSchema, data)
 
     if (!validated) {
@@ -101,30 +97,42 @@ export class ValidationService implements IValidationService {
    * Extends typebox `SchemaOptions` with custom `validate` key
    */
   validate(kind: TKind, data: Readonly<unknown>) {
-    try {
-      const validator = this.createValidator(kind)
-      const truthy = validator.test(data)
-      const schema = this.schema.tSchema(kind)
-      const validate = schema['validate']
+    const schema = this.typeBox.tSchema(kind)
+    const validator = this.createValidator(schema)
+    const truthy = validator.test(data)
+    const validate = schema['validate']
 
-      if (validate) {
-        return truthy && schema['validate'](data)
-      }
-
-      return truthy
-    } catch (error: unknown) {
-      console.error('Validation error:', JSON.stringify(error))
-      throw new Error((error as Error).message)
+    if (validate) {
+      return truthy && schema['validate'](data)
     }
+
+    return truthy
+  }
+
+  /**
+   * Validates and cleans data according to the schema for the given kind.
+   * Removes any properties not defined in the schema.
+   *
+   * @throws {Error} When validation fails
+   */
+  validateAndClean<T extends TSchema>(
+    schema: T,
+    data: unknown,
+    options?: { message: string },
+  ): Static<T> {
+    const validator = this.createValidator<T>(schema)
+    const validate = schema['validate']
+
+    if (validate && !validate(data)) {
+      throw new Error(options?.message)
+    }
+
+    return validator.validateAndCleanCopy(data)
   }
 
   private static instance?: ValidationService
 
-  private createValidator(kind: TKind) {
-    this.schema.assertHasRegistry(kind)
-
-    return new NestedValidator(this.schema.tSchema(kind))
+  private createValidator<T extends TSchema>(schema: T) {
+    return new NestedValidator<T>(schema)
   }
-
-  private schema
 }

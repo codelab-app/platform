@@ -15,7 +15,7 @@ import {
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
-import { Validator } from '@codelab/shared/infra/validation'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { ElementProperties } from '@codelab/shared-domain-module/element'
 import { print } from 'graphql'
 import request from 'supertest'

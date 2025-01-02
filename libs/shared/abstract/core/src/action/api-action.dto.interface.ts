@@ -14,7 +14,7 @@ export const ApiActionDtoSchema = Type.Composite([
     __typename: Type.Literal(`${IActionKind.ApiAction}`),
     config: PropDtoSchema,
     errorAction: Typebox.Nullish(ActionRefSchema),
-    resource: Typebox.Ref,
+    resource: Typebox.RefSchema,
     successAction: Typebox.Nullish(ActionRefSchema),
   }),
 ])

@@ -12,7 +12,7 @@ import type { ICommandHandler } from '@nestjs/cqrs'
 import { ExportStoreCommand } from '@codelab/backend/application/store'
 import { ElementRepository } from '@codelab/backend/domain/element'
 import { PageRepository } from '@codelab/backend/domain/page'
-import { Validator } from '@codelab/shared/infra/validation'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
 export class ExportPageCommand {

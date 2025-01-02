@@ -9,14 +9,19 @@ import type { ValidateFunction } from 'ajv'
 export interface IValidationService {
   asserts<T extends TSchema>(
     kind: TKind,
-    value: unknown,
+    data: unknown,
     options?: { message: string },
-  ): asserts value is Static<T>
+  ): asserts data is Static<T>
   /**
    * Add commonly used methods as convenience
    */
   assertsDefined<T>(data: T): asserts data is NonNullable<T>
-  // parse<T extends TSchema>(schema: T, data: unknown): Static<T>
+  parse<T extends TSchema>(schema: T, data: unknown): Static<T>
   parseDefined<T>(data: T): NonNullable<T>
-  validate(kind: TKind, data: unknown): boolean
+  validate(kind: TKind, data: Readonly<unknown>): boolean
+  validateAndClean<T extends TSchema>(
+    schema: T,
+    data: unknown,
+    options?: { message: string },
+  ): Static<T>
 }

@@ -12,7 +12,7 @@ import {
   IAtomType,
   IElementRenderTypeKind,
 } from '@codelab/shared/abstract/core'
-import { Validator } from '@codelab/shared/infra/validation'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { computed, observable } from 'mobx'
 import {
   arraySet,

@@ -5,7 +5,7 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "parserOptions": {
-        "project": ["libs/backend/infra/adapter/typebox/tsconfig.*?.json"]
+        "project": ["libs/backend/infra/adapter/validation/tsconfig.*?.json"]
       },
       "rules": {}
     },

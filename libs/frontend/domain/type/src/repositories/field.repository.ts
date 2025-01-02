@@ -9,7 +9,7 @@ import type {
   FieldWhere,
 } from '@codelab/shared/infra/gql'
 
-import { Validator } from '@codelab/shared/infra/validation'
+import { Validator } from '@codelab/shared/infra/typebox'
 import {
   fieldMapper,
   fieldServerActions,

@@ -8,7 +8,7 @@ import {
   userDto,
 } from '@codelab/frontend/test/data'
 import { createTestStore } from '@codelab/frontend-infra-mobx/store'
-import { Validator } from '@codelab/shared/infra/validation'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { isRefOfType } from 'mobx-keystone'
 import { v4 } from 'uuid'
 

@@ -2,7 +2,7 @@ import type { INodeType, IPageDto } from '@codelab/shared/abstract/core'
 import type { PageOptions, PageWhere } from '@codelab/shared/infra/gql'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
+import { ValidationService } from '@codelab/backend/infra/adapter/validation'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import { PageFragment } from '@codelab/shared/infra/gql'
 import { pageApi, pageMapper } from '@codelab/shared-domain-module/page'

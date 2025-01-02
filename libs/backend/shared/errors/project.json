@@ -3,7 +3,13 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/backend/shared/errors/src",
   "projectType": "library",
-  "tags": ["scope:backend"],
+  "tags": [
+    "projectName:backend-shared-errors",
+    "projectType:library",
+    "type:concrete",
+    "scope:backend",
+    "scope:shared"
+  ],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint"

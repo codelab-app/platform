@@ -4,9 +4,9 @@
   "sourceRoot": "libs/shared/infra/validation/src",
   "projectType": "library",
   "tags": [
-    "projectName:shared-infra-typebox",
+    "projectName:shared-infra-validation",
     "projectType:library",
-    "type:abstract",
+    "type:concrete",
     "layer:infra",
     "scope:shared"
   ],

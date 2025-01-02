@@ -8,13 +8,13 @@ import { PropDtoSchema } from '../prop/prop.dto.interface'
 
 export const ComponentDtoSchema = Type.Object({
   __typename: Type.Literal(`${IElementRenderTypeKind.Component}`),
-  api: Typebox.Ref,
+  api: Typebox.RefSchema,
   id: Type.String(),
   name: Type.String(),
-  owner: Typebox.Ref,
+  owner: Typebox.RefSchema,
   props: PropDtoSchema,
-  rootElement: Typebox.Ref,
-  store: Typebox.Ref,
+  rootElement: Typebox.RefSchema,
+  store: Typebox.RefSchema,
 })
 
 export type IComponentDto = Static<typeof ComponentDtoSchema>

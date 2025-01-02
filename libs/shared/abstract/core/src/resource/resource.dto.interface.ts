@@ -11,7 +11,7 @@ export const ResourceDtoSchema = Type.Object({
   config: PropDtoSchema,
   id: Type.String(),
   name: Type.String(),
-  owner: Typebox.Ref,
+  owner: Typebox.RefSchema,
   type: Type.Enum(IResourceType),
 })
 
@@ -21,7 +21,7 @@ export const ResourceSchema = Type.Object({
   config: PropSchema,
   id: Type.String(),
   name: Type.String(),
-  owner: Typebox.Ref,
+  owner: Typebox.RefSchema,
   type: Type.Enum(IResourceType),
 })
 

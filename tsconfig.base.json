@@ -182,8 +182,8 @@
       "@codelab/backend/infra/adapter/shell": [
         "libs/backend/infra/adapter/shell/src/index.ts"
       ],
-      "@codelab/backend/infra/adapter/typebox": [
-        "libs/backend/infra/adapter/typebox/src/index.ts"
+      "@codelab/backend/infra/adapter/validation": [
+        "libs/backend/infra/adapter/validation/src/index.ts"
       ],
       "@codelab/backend/infra/core": ["libs/backend/infra/core/src/index.ts"],
       "@codelab/backend/shared/errors": [

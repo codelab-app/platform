@@ -11,7 +11,7 @@ import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.
 import { PageType } from '@codelab/frontend/abstract/types'
 import { authGuardRepository } from '@codelab/frontend-domain-auth-guard/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { Validator } from '@codelab/shared/infra/validation'
+import { Validator } from '@codelab/shared/infra/typebox'
 
 export const useAuthGuardService = (): IAuthGuardService => {
   const { authGuardDomainService, resourceDomainService, userDomainService } =

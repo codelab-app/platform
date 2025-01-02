@@ -9,7 +9,7 @@ import {
   CACHE_TAGS,
   type IAppRepository,
 } from '@codelab/frontend/abstract/domain'
-import { Validator } from '@codelab/shared/infra/validation'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { appMapper, appServerActions } from '@codelab/shared-domain-module-app'
 import { withTracingMethods } from '@codelab/shared-infra-sentry'
 

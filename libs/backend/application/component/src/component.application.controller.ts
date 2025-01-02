@@ -1,9 +1,11 @@
 import { ReadAdminDataService } from '@codelab/backend/application/data'
 import {
+  ComponentDtoSchema,
   ComponentSchema,
   type ICreateComponentData,
 } from '@codelab/shared/abstract/core'
-import { validateSchema } from '@codelab/shared/infra/validation'
+import { IComponentDto } from '@codelab/shared/abstract/core'
+import { Validator } from '@codelab/shared/infra/typebox'
 import {
   Body,
   ClassSerializerInterceptor,
@@ -35,9 +37,7 @@ export class ComponentApplicationController {
     const component =
       this.componentApplicationService.createComponent(createComponentData)
 
-    validateSchema(ComponentSchema, component)
-
-    return component
+    return Validator.validate(ComponentDtoSchema, component)
   }
 
   @UseInterceptors(ClassSerializerInterceptor)

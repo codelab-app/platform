@@ -7,7 +7,7 @@ import type {
 } from '@codelab/shared/infra/gql'
 
 import { CACHE_TAGS } from '@codelab/frontend/abstract/domain'
-import { Validator } from '@codelab/shared/infra/validation'
+import { Validator } from '@codelab/shared/infra/typebox'
 import {
   componentMapper,
   componentServerActions,

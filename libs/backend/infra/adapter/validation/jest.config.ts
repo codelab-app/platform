@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'backend-infra-adapter-typebox',
+  displayName: '@codelab/backend/infra/adapter/validation',
   preset: '../../../../../jest.preset.js',
   testEnvironment: 'node',
   transform: {
@@ -19,7 +19,7 @@ export default {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory:
-    '../../../../../coverage/libs/backend/infra/adapter/typebox',
+    '../../../../../coverage/libs/backend/infra/adapter/validation',
   reporters: [
     'default',
     [

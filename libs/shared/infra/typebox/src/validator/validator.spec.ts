@@ -1,4 +1,4 @@
-import type { ValueErrorIterator } from '@sinclair/typebox/build/cjs/errors'
+import type { ValueErrorIterator } from '@sinclair/typebox/value'
 
 import { Type } from '@sinclair/typebox'
 import { ValidationException } from 'typebox-validators'
@@ -20,7 +20,7 @@ describe('NestedValidator', () => {
       }
 
       const validator = new NestedValidator(schema)
-      const result = validator.validateAndClean(input)
+      const result = validator.validateAndCleanCopy(input)
 
       expect(result).toEqual({
         age: 30,
@@ -38,7 +38,7 @@ describe('NestedValidator', () => {
 
       const validator = new NestedValidator(schema)
 
-      expect(() => validator.validateAndClean(input)).toThrow()
+      expect(() => validator.validateAndCleanCopy(input)).toThrow()
     })
   })
 
@@ -67,7 +67,7 @@ describe('NestedValidator', () => {
       }
 
       const validator = new NestedValidator(schema)
-      const result = validator.validateAndClean(input)
+      const result = validator.validateAndCleanCopy(input)
 
       expect(result).toEqual({
         user: {
@@ -91,7 +91,7 @@ describe('NestedValidator', () => {
       }
 
       const validator = new NestedValidator(schema)
-      const result = validator.validateAndClean(input)
+      const result = validator.validateAndCleanCopy(input)
 
       expect(result).toEqual({
         tags: ['one', 'two', 'three'],
@@ -106,7 +106,7 @@ describe('NestedValidator', () => {
 
       const validator = new NestedValidator(schema)
 
-      expect(() => validator.validateAndClean(input)).toThrow()
+      expect(() => validator.validateAndCleanCopy(input)).toThrow()
     })
   })
 
@@ -134,7 +134,7 @@ describe('NestedValidator', () => {
       }
 
       const validator = new NestedValidator(schema)
-      const result = validator.validateAndClean(input)
+      const result = validator.validateAndCleanCopy(input)
 
       expect(result).toEqual({
         bark: 'woof',
@@ -151,7 +151,7 @@ describe('NestedValidator', () => {
       }
 
       const validator = new NestedValidator(schema)
-      const result = validator.validateAndClean(input)
+      const result = validator.validateAndCleanCopy(input)
 
       expect(result).toEqual({
         meow: 'meow',
@@ -168,7 +168,7 @@ describe('NestedValidator', () => {
 
       const validator = new NestedValidator(schema)
 
-      expect(() => validator.validateAndClean(input)).toThrow()
+      expect(() => validator.validateAndCleanCopy(input)).toThrow()
     })
 
     it('should throw error with validation message', () => {
@@ -181,7 +181,7 @@ describe('NestedValidator', () => {
       try {
         const validator = new NestedValidator(schema)
 
-        validator.validateAndClean(input)
+        validator.validateAndCleanCopy(input)
       } catch (error: unknown) {
         if (error instanceof ValidationException) {
           console.log('Validation error:', error)

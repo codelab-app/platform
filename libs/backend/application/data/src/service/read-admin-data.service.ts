@@ -11,7 +11,7 @@ import type {
 } from '@codelab/shared/abstract/core'
 
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
-import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
+import { ValidationService } from '@codelab/backend/infra/adapter/validation'
 import {
   AtomImportSchema,
   TagExportSchema,

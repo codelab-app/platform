@@ -53,7 +53,7 @@ describe('with nested discriminated unions', () => {
     }
 
     const validator = new NestedValidator(schema)
-    const result = validator.validateAndClean(input)
+    const result = validator.validateAndCleanCopy(input)
 
     expect(result).toEqual({
       content: {
@@ -82,7 +82,7 @@ describe('with nested discriminated unions', () => {
     }
 
     const validator = new NestedValidator(schema)
-    const result = validator.validateAndClean(input)
+    const result = validator.validateAndCleanCopy(input)
 
     expect(result).toEqual({
       content: {
@@ -113,7 +113,7 @@ describe('with nested discriminated unions', () => {
 
     const validator = new NestedValidator(schema)
 
-    expect(() => validator.validateAndClean(input)).toThrow()
+    expect(() => validator.validateAndCleanCopy(input)).toThrow()
   })
 })
 
@@ -164,7 +164,7 @@ describe('with nested objects in top-level union', () => {
     }
 
     const validator = new NestedValidator(schema)
-    const result = validator.validateAndClean(input)
+    const result = validator.validateAndCleanCopy(input)
 
     expect(result).toEqual({
       metadata: {
@@ -195,7 +195,7 @@ describe('with nested objects in top-level union', () => {
     }
 
     const validator = new NestedValidator(schema)
-    const result = validator.validateAndClean(input)
+    const result = validator.validateAndCleanCopy(input)
 
     expect(result).toEqual({
       metadata: {
@@ -227,6 +227,6 @@ describe('with nested objects in top-level union', () => {
 
     const validator = new NestedValidator(schema)
 
-    expect(() => validator.validateAndClean(input)).toThrow()
+    expect(() => validator.validateAndCleanCopy(input)).toThrow()
   })
 })

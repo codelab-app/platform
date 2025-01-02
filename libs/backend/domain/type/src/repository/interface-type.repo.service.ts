@@ -10,7 +10,7 @@ import type {
 import type { Static, TAnySchema } from '@sinclair/typebox'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
+import { ValidationService } from '@codelab/backend/infra/adapter/validation'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import {
   getDependentTypes,

@@ -17,4 +17,5 @@ const Typebox = {
 }
 
 export { Typebox }
+export * from './schema'
 export * from './validation'

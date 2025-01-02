@@ -4,7 +4,7 @@ import { Typebox } from '@codelab/shared/infra/typebox'
 import { Type } from '@sinclair/typebox'
 
 export const DomainDtoSchema = Type.Object({
-  app: Typebox.Ref,
+  app: Typebox.RefSchema,
   /**
    * https://stackoverflow.com/a/74650249/2159920
    *

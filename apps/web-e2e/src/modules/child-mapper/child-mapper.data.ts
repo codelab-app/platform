@@ -1,4 +1,5 @@
 import type {
+  IComponentDto,
   ICreateComponentData,
   ICreateElementData,
   IPageDto,
@@ -80,7 +81,7 @@ export const seedTestData = async (request: APIRequestContext) => {
     { data: childMapperComponent },
   )
 
-  const component = await componentResponse.json()
+  const component: IComponentDto = await componentResponse.json()
 
   console.log('Component', component)
 

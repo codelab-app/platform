@@ -9,8 +9,8 @@ export const AuthGuardDtoSchema = Type.Object({
   config: PropDtoSchema,
   id: Type.String(),
   name: Type.String(),
-  owner: Typebox.Ref,
-  resource: Typebox.Ref,
+  owner: Typebox.RefSchema,
+  resource: Typebox.RefSchema,
   responseTransformer: Type.String(),
 })
 

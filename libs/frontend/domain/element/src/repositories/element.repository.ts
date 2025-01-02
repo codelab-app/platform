@@ -10,7 +10,7 @@ import type {
 } from '@codelab/shared/infra/gql'
 
 import { disconnectAll, disconnectManyAll } from '@codelab/shared/domain/orm'
-import { Validator } from '@codelab/shared/infra/schema'
+import { Validator } from '@codelab/shared/infra/typebox'
 import {
   elementMapper,
   elementServerActions,

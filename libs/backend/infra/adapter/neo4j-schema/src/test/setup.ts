@@ -8,7 +8,7 @@ import { AppRepository } from '@codelab/backend/domain/app'
 import { PropRepository } from '@codelab/backend/domain/prop'
 import { UserRepository } from '@codelab/backend/domain/user'
 import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
-import { ValidationModule } from '@codelab/backend/infra/adapter/typebox'
+import { ValidationModule } from '@codelab/backend/infra/adapter/validation'
 import { endpointConfig } from '@codelab/backend/infra/core'
 import { startServer } from '@codelab/backend/test/utils'
 import {

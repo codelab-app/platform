@@ -10,7 +10,7 @@ export const InterfaceTypeDtoSchema = <T extends TSchema>(schema?: T) =>
   Type.Composite([
     BaseTypeDtoSchema(`${ITypeKind.InterfaceType}`),
     Type.Object({
-      fields: Type.Optional(Type.Array(Typebox.Ref, { default: [] })),
+      fields: Type.Optional(Type.Array(Typebox.RefSchema, { default: [] })),
     }),
     ...(schema ? [schema] : []),
   ])

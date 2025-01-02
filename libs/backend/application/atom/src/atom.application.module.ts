@@ -3,7 +3,7 @@ import { SharedApplicationModule } from '@codelab/backend/application/shared'
 import { AtomDomainModule } from '@codelab/backend/domain/atom'
 import { AuthDomainModule } from '@codelab/backend/domain/shared/auth'
 import { TypeDomainModule } from '@codelab/backend/domain/type'
-import { ValidationModule } from '@codelab/backend/infra/adapter/typebox'
+import { ValidationModule } from '@codelab/backend/infra/adapter/validation'
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
 

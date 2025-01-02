@@ -1,5 +1,5 @@
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
-import { ValidationModule } from '@codelab/backend/infra/adapter/typebox'
+import { ValidationModule } from '@codelab/backend/infra/adapter/validation'
 import { Module } from '@nestjs/common'
 
 import {

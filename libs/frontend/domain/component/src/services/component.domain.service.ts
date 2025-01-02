@@ -25,7 +25,7 @@ import {
   IElementRenderTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { Validator } from '@codelab/shared/infra/validation'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { prop as rProp, sortBy } from 'remeda'

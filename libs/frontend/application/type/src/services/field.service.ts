@@ -20,7 +20,7 @@ import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.
 import { PageType, PrimarySidebar } from '@codelab/frontend/abstract/types'
 import { fieldRepository } from '@codelab/frontend-domain-type/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { Validator } from '@codelab/shared/infra/validation'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { filter, isDefined, isTruthy, unique } from 'remeda'
 import { v4 } from 'uuid'
 
