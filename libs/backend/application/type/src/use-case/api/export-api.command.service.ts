@@ -13,6 +13,7 @@ import {
   InterfaceTypeRepository,
   TypeFactory,
 } from '@codelab/backend/domain/type'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
   FieldExportSchema,
   InterfaceTypeSchema,
@@ -38,6 +39,7 @@ export class ExportApiHandler
     private readonly interfaceTypeRepository: InterfaceTypeRepository,
     private readonly fieldRepository: FieldRepository,
     private readonly typeFactory: TypeFactory,
+    private readonly logger: PinoLoggerService,
   ) {}
 
   async execute({ api }: ExportApiCommand): Promise<IApiExport> {
@@ -65,11 +67,17 @@ export class ExportApiHandler
     const dependentTypesIds =
       await this.interfaceTypeRepository.getDependentTypes(api)
 
-    console.log('Exporting!!', api, dependentTypesIds)
+    this.logger.log('Exporting', {
+      context: 'ExportApiHandler',
+      data: { api, dependentTypesIds },
+    })
 
     const dependentTypes = await this.getTypeItems(dependentTypesIds)
 
-    console.log({ dependentTypes })
+    this.logger.log('Dependent types', {
+      context: 'ExportApiHandler',
+      data: { dependentTypes },
+    })
 
     this.sortUnionTypesBeforeExport(dependentTypes)
     this.sortEnumValuesBeforeExport(dependentTypes)
@@ -111,6 +119,11 @@ export class ExportApiHandler
     const dependentTypes: Array<ITypeExport> = []
 
     for (const dependentType of dependentTypesIds) {
+      this.logger.log('Processing dependent type', {
+        context: 'ExportApiHandler',
+        data: { dependentType },
+      })
+
       if (
         Object.values(ITypeKind).includes(ITypeKind[dependentType.__typename])
       ) {

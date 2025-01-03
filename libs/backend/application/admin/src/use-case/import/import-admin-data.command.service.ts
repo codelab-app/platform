@@ -6,6 +6,7 @@ import { ImportComponentsCommand } from '@codelab/backend/application/component'
 import { ReadAdminDataService } from '@codelab/backend/application/data'
 import { ImportTagsCommand } from '@codelab/backend/application/tag'
 import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 import { omit } from 'radash'
 
@@ -23,6 +24,7 @@ export class ImportAdminDataHandler
   constructor(
     private readonly commandBus: CommandBus,
     private readonly readAdminDataService: ReadAdminDataService,
+    private readonly logger: PinoLoggerService,
   ) {}
 
   async execute({ baseDataPaths }: ImportAdminDataCommand) {
@@ -33,16 +35,16 @@ export class ImportAdminDataHandler
     /**
      * System types must be seeded first, so other types can reference it
      */
-    console.log('ImportAdminDataHandler.importSystemTypes()')
+    this.logger.log('importSystemTypes', { context: 'ImportAdminDataHandler' })
     await this.importSystemTypes()
 
-    console.log('ImportAdminDataHandler.importTags()')
+    this.logger.log('importTags', { context: 'ImportAdminDataHandler' })
     await this.importTags()
 
-    console.log('ImportAdminDataHandler.importAtoms()')
+    this.logger.log('importAtoms', { context: 'ImportAdminDataHandler' })
     await this.importAtoms()
 
-    console.log('ImportAdminDataHandler.importComponents()')
+    this.logger.log('importComponents', { context: 'ImportAdminDataHandler' })
     await this.importComponents()
   }
 

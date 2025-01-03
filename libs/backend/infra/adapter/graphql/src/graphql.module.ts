@@ -79,8 +79,6 @@ export class GraphqlModule {
                 return formattedError
               },
               formatResponse: (response: unknown) => {
-                // console.log(response)
-
                 return response
               },
               introspection: true,

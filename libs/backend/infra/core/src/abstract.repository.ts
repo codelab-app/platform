@@ -2,10 +2,15 @@ import type { IRepository } from '@codelab/backend/abstract/types'
 import type { IDiscriminatedRef, IRef } from '@codelab/shared/abstract/core'
 import type { Static, TAnySchema } from '@sinclair/typebox'
 
-import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
+import {
+  LOGGER_CONFIG_KEY,
+  loggerConfig,
+  PinoLoggerService,
+} from '@codelab/backend/infra/adapter/logger'
 import { NotFoundError } from '@codelab/shared/domain/errors'
 import { Validator } from '@codelab/shared/infra/typebox'
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
+import { ConfigType } from '@nestjs/config'
 
 @Injectable()
 export abstract class AbstractRepository<
@@ -16,16 +21,19 @@ export abstract class AbstractRepository<
   Options,
 > implements IRepository<Dto, Model, Where, Options>
 {
-  constructor(protected loggerService: PinoLoggerService) {}
+  constructor(protected loggerService: PinoLoggerService) {
+    this.debug = loggerConfig().level === 'debug'
+  }
 
   /**
    * Array adds complexity, create an optional `addMany` if needed
    */
   public async add(data: Dto): Promise<IDiscriminatedRef<INodeType>> {
-    if (this.DEBUG) {
-      console.log(`${this.constructor.name}.add`, data)
-
-      this.loggerService.log(data, `${this.constructor.name}.add()`)
+    if (this.debug) {
+      this.loggerService.log('Adding data', {
+        context: this.constructor.name,
+        data,
+      })
     }
 
     const results = await this._addMany([data])
@@ -45,8 +53,11 @@ export abstract class AbstractRepository<
   }
 
   async exists(where: Where) {
-    if (this.DEBUG) {
-      console.log('Exists', where)
+    if (this.debug) {
+      this.loggerService.log('Checking if exists', {
+        context: this.constructor.name,
+        data: { where },
+      })
     }
 
     const results = await this.findOne({ where })
@@ -123,8 +134,11 @@ export abstract class AbstractRepository<
     selectionSet?: string
     options: Options
   }): Promise<Model | Static<T> | undefined> {
-    if (this.DEBUG) {
-      console.log('Find one', where)
+    if (this.debug) {
+      this.loggerService.log('Finding one', {
+        context: this.constructor.name,
+        data: { where },
+      })
     }
     // Don't use decorator since it doesn't give us the right name
 
@@ -184,22 +198,29 @@ export abstract class AbstractRepository<
    * @param where
    */
   async save(data: Dto, where?: Where): Promise<IDiscriminatedRef<INodeType>> {
-    if (this.DEBUG) {
-      console.log('save', data)
+    if (this.debug) {
+      this.loggerService.log('Saving data', {
+        context: this.constructor.name,
+        data: { data, where },
+      })
     }
 
     const computedWhere = this.getWhere(data, where)
 
     if (await this.exists(computedWhere)) {
-      if (this.DEBUG) {
-        console.log('exists! updating...')
+      if (this.debug) {
+        this.loggerService.log('Record exists, updating...', {
+          context: this.constructor.name,
+        })
       }
 
       return await this.update(data, computedWhere)
     }
 
-    if (this.DEBUG) {
-      console.log('Not exist, adding...')
+    if (this.debug) {
+      this.loggerService.log('Record does not exist, adding...', {
+        context: this.constructor.name,
+      })
     }
 
     const results = await this.add(data)
@@ -216,8 +237,11 @@ export abstract class AbstractRepository<
     data: Dto,
     where?: Where,
   ): Promise<IDiscriminatedRef<INodeType>> {
-    if (this.DEBUG) {
-      console.log('update', data, where)
+    if (this.debug) {
+      this.loggerService.log('Updating data', {
+        context: this.constructor.name,
+        data: { data, where },
+      })
     }
 
     const computedWhere = this.getWhere(data, where)
@@ -251,7 +275,7 @@ export abstract class AbstractRepository<
     existing?: Model,
   ): Promise<IDiscriminatedRef<INodeType> | undefined>
 
-  private DEBUG = false
+  private debug: boolean
 
   /**
    * Specifying a `where` clause overrides the  id

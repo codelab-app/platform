@@ -1,5 +1,7 @@
+/* eslint-disable perfectionist/sort-objects */
+/* eslint-disable canonical/sort-keys */
 import type { ObjectLike } from '@codelab/shared/abstract/types'
-import type { PinoMessage } from '@codelab/shared/infra/logging'
+import type { LogOptions } from '@codelab/shared/infra/logging'
 import type { LoggerService } from '@nestjs/common'
 
 import { Inject, Injectable } from '@nestjs/common'
@@ -7,15 +9,18 @@ import { ConfigType } from '@nestjs/config'
 import { Logger, Params, PARAMS_PROVIDER_TOKEN, PinoLogger } from 'nestjs-pino'
 import pino from 'pino'
 
-import { loggerConfig } from './logger.config'
+import { LOGGER_CONFIG_KEY, loggerConfig } from './logger.config'
 
+/**
+ * So Nest.js only has two parameters, the first one being the message and the last one being the context. Any other parameters in the middle are ignored.
+ */
 @Injectable()
 export class PinoLoggerService extends Logger implements LoggerService {
   constructor(
     protected override logger: PinoLogger,
     @Inject(PARAMS_PROVIDER_TOKEN) params: Params,
-    @Inject(loggerConfig.KEY)
-    private readonly loggerConf: ConfigType<typeof loggerConfig>,
+    @Inject(LOGGER_CONFIG_KEY)
+    private readonly config: ConfigType<typeof loggerConfig>,
   ) {
     super(logger, {
       ...params,
@@ -23,32 +28,44 @@ export class PinoLoggerService extends Logger implements LoggerService {
   }
 
   /**
-   * We follow nestjs param order, which differs from pino param order
-   *
-   * Watch out for `info()` method override
+   * We create a 2 parameter log function, but extract the context as last parameter, while combining the data with first parameter
    */
-  override log(object: ObjectLike | undefined = {}, context?: string): void {
+  override log(message: unknown, options?: LogOptions): void {
+    const context = options?.context
+
     /**
-     * We can't use this, since cannot control how the object is colorized before printing
-     *
-     * We combine everything into an object, then convert to string, then recreate the object in the transport
+     * If `debug` level, we always include data. Otherwise include only if context matches
      */
-    // this.logger.info(object, message)
-    const pinoMessage: PinoMessage = {
-      context,
-      object,
+    const shouldIncludeData =
+      (context && this.config.context.includes(context)) ||
+      this.config.level === 'debug'
+
+    if (!shouldIncludeData) {
+      return super.log(
+        {
+          message,
+        },
+        context,
+      )
     }
 
-    const message = JSON.stringify(pinoMessage)
-
-    this.logger.info(message)
+    super.log(
+      {
+        message,
+        data: options?.data,
+      },
+      context,
+    )
   }
 
   public logToFile(
     object: ObjectLike | undefined = {},
     filePath = 'tmp/logs/application.log',
   ): void {
-    console.log('Logging to file...', filePath)
+    this.log('Logging to file...', {
+      context: 'FileLogger',
+      data: { filePath },
+    })
 
     const childLogger = pino({
       transport: {
@@ -60,7 +77,7 @@ export class PinoLoggerService extends Logger implements LoggerService {
       },
     })
 
-    const pinoMessage: PinoMessage = {
+    const pinoMessage = {
       context: 'FileLogger',
       object,
     }

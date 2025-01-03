@@ -1,4 +1,5 @@
 import { RedirectRepository } from '@codelab/backend/domain/redirect'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { safeEval } from '@codelab/backend/shared/eval'
 import {
   type ICanActivate,
@@ -13,7 +14,10 @@ import { Body, Controller, Post } from '@nestjs/common'
 
 @Controller()
 export class RedirectController {
-  constructor(private redirectRepository: RedirectRepository) {}
+  constructor(
+    private redirectRepository: RedirectRepository,
+    private logger: PinoLoggerService,
+  ) {}
 
   @Post('can-activate')
   async canActivate(
@@ -32,7 +36,10 @@ export class RedirectController {
       },
     })
 
-    console.log('Redirect', redirect, { authorization, domain, pageUrlPattern })
+    this.logger.log('Redirect', {
+      context: 'RedirectController',
+      data: { authorization, domain, pageUrlPattern, redirect },
+    })
 
     // either a regular page with no redirect attached to or a system page
     if (!redirect) {
@@ -68,7 +75,10 @@ export class RedirectController {
       cookie: authorization,
     }) as IResourceFetchConfig
 
-    console.log(evaluatedConfig)
+    this.logger.log('Evaluated config', {
+      context: 'RedirectController',
+      data: evaluatedConfig,
+    })
 
     let response
 
@@ -84,11 +94,17 @@ export class RedirectController {
     }
 
     try {
-      console.log({ response, responseTransformer })
+      this.logger.log('Response', {
+        context: 'RedirectController',
+        data: { response, responseTransformer },
+      })
 
       const canActivate = await safeEval(responseTransformer, response)
 
-      console.log('Can activate', canActivate)
+      this.logger.log('Can activate', {
+        context: 'RedirectController',
+        data: canActivate,
+      })
 
       return {
         canActivate,
@@ -96,7 +112,10 @@ export class RedirectController {
         status: 200,
       }
     } catch (error) {
-      console.error(error)
+      this.logger.error('Error transforming response', {
+        context: 'RedirectController',
+        data: error,
+      })
 
       return {
         canActivate: false,

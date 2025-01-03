@@ -1,5 +1,6 @@
 import type { Argv, CommandModule } from 'yargs'
 
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
   execCommand,
   globalHandler,
@@ -27,7 +28,10 @@ export class TaskService implements CommandModule<unknown, unknown> {
 
   describe = 'Run tasks'
 
-  constructor(private lazyModuleLoader: LazyModuleLoader) {
+  constructor(
+    private lazyModuleLoader: LazyModuleLoader,
+    private readonly logger: PinoLoggerService,
+  ) {
     this.builder = this.builder.bind(this)
   }
 
@@ -41,12 +45,20 @@ export class TaskService implements CommandModule<unknown, unknown> {
         (argv) => argv,
         globalHandler(({ stage }) => {
           if (stage === Stage.Test) {
+            this.logger.log('Building projects', {
+              context: 'TaskService',
+              data: { stage },
+            })
             // Added since many times can't find production build of next during push
             // Maybe related? https://github.com/nrwl/nx/issues/2839
             execCommand('nx affected --target=build -c test')
           }
 
           if (stage === Stage.CI) {
+            this.logger.log('Building projects', {
+              context: 'TaskService',
+              data: { stage },
+            })
             // Can't use on CI since no `cli` yet
           }
         }),
@@ -57,6 +69,10 @@ export class TaskService implements CommandModule<unknown, unknown> {
         (argv) => argv,
         globalHandler(({ stage }) => {
           if (stage === Stage.Test) {
+            this.logger.log('Running unit tests', {
+              context: 'TaskService',
+              data: { stage },
+            })
             // Added since many times can't find production build of next during push
             // Maybe related? https://github.com/nrwl/nx/issues/2839
             // execCommand(`nx build web -c test`)
@@ -64,6 +80,10 @@ export class TaskService implements CommandModule<unknown, unknown> {
           }
 
           if (stage === Stage.CI) {
+            this.logger.log('Running unit tests', {
+              context: 'TaskService',
+              data: { stage },
+            })
             execCommand('pnpm nx affected --target=test -c ci.unit --ci')
           }
         }),
@@ -74,12 +94,20 @@ export class TaskService implements CommandModule<unknown, unknown> {
         (argv) => argv,
         globalHandler(({ stage }) => {
           if (stage === Stage.Test) {
+            this.logger.log('Running integration tests', {
+              context: 'TaskService',
+              data: { stage },
+            })
             execCommand(
               'nx affected --target=test -c test.integration --parallel=1',
             )
           }
 
           if (stage === Stage.CI) {
+            this.logger.log('Running integration tests', {
+              context: 'TaskService',
+              data: { stage },
+            })
             execCommand(
               'pnpm nx affected --target=test -c ci.integration --runInBand --ci --parallel=1',
             )
@@ -92,8 +120,16 @@ export class TaskService implements CommandModule<unknown, unknown> {
         (argv) => argv,
         globalHandler(async ({ stage }) => {
           if (stage === Stage.Dev) {
+            this.logger.log('Running codegen', {
+              context: 'TaskService',
+              data: { stage },
+            })
+
             if (!(await isPortReachable(4000, { host: '127.0.0.1' }))) {
-              console.error('Please start server!')
+              this.logger.error('Server not reachable', {
+                context: 'TaskService',
+                data: { port: 4000 },
+              })
               process.exit(0)
             }
 
@@ -105,6 +141,11 @@ export class TaskService implements CommandModule<unknown, unknown> {
           }
 
           if (stage === Stage.CI) {
+            this.logger.log('Running codegen', {
+              context: 'TaskService',
+              data: { stage },
+            })
+
             const startServer = 'nx serve api -c ci'
 
             const runSpecs =
@@ -125,6 +166,10 @@ export class TaskService implements CommandModule<unknown, unknown> {
             await new Promise<void>((resolve, reject) => {
               runSpecsChildProcess.on('exit', async (code: number) => {
                 if (!startServerChildProcess.pid) {
+                  this.logger.error('Server process pid not defined', {
+                    context: 'TaskService',
+                    data: { pid: startServerChildProcess.pid },
+                  })
                   reject(
                     new Error('startServerChildProcess.pid is not defined'),
                   )
@@ -137,7 +182,10 @@ export class TaskService implements CommandModule<unknown, unknown> {
 
                   const { unCommittedFiles } = await gitChangedFiles()
 
-                  console.log('Un-committed files', unCommittedFiles)
+                  this.logger.log('Checking uncommitted files', {
+                    context: 'TaskService',
+                    data: { unCommittedFiles },
+                  })
 
                   const containsGeneratedFiles = unCommittedFiles.reduce(
                     (_matches: boolean, file: string) => {
@@ -154,18 +202,28 @@ export class TaskService implements CommandModule<unknown, unknown> {
 
                   if (containsGeneratedFiles) {
                     execCommand('git diff')
-                    console.error('Please run codegen!')
+                    this.logger.error('Generated files not committed', {
+                      context: 'TaskService',
+                      data: { containsGeneratedFiles },
+                    })
                     process.exit(1)
                   }
 
                   resolve()
                 } catch (error) {
-                  console.error(error)
+                  this.logger.error('Error in codegen process', {
+                    context: 'TaskService',
+                    data: { error },
+                  })
                   reject(error)
                 }
               })
 
               runSpecsChildProcess.on('error', (error) => {
+                this.logger.error('Error in specs process', {
+                  context: 'TaskService',
+                  data: { error },
+                })
                 reject(error)
               })
             })
@@ -178,17 +236,27 @@ export class TaskService implements CommandModule<unknown, unknown> {
         (argv) => argv,
         globalHandler(async ({ stage }) => {
           if (stage === Stage.CI) {
+            this.logger.log('Generating workspace', {
+              context: 'TaskService',
+              data: { stage },
+            })
             execCommand(
               'pnpm nx generate @codelab/tools-workspace:nx-project-config --no-interactive',
             )
 
             const { unCommittedFiles } = await gitChangedFiles()
 
-            console.log('Un-committed files', unCommittedFiles)
+            this.logger.log('Checking workspace uncommitted files', {
+              context: 'TaskService',
+              data: { unCommittedFiles },
+            })
 
             if (unCommittedFiles.length) {
               execCommand('git diff')
-              console.error('Please generate workspace!')
+              this.logger.error('Workspace changes not committed', {
+                context: 'TaskService',
+                data: { unCommittedFiles },
+              })
               process.exit(1)
             }
           }
@@ -200,11 +268,19 @@ export class TaskService implements CommandModule<unknown, unknown> {
         (argv) => argv,
         globalHandler(({ stage }) => {
           if (stage === Stage.Test) {
+            this.logger.log('Running lint', {
+              context: 'TaskService',
+              data: { stage },
+            })
             execCommand('pnpm cross-env TIMING=1 lint-staged')
             execCommand('pnpm ls-lint')
           }
 
           if (stage === Stage.CI) {
+            this.logger.log('Running lint', {
+              context: 'TaskService',
+              data: { stage },
+            })
             execCommand('pnpm nx affected --target=lint -c ci')
 
             // Below breaks cache
@@ -225,10 +301,18 @@ export class TaskService implements CommandModule<unknown, unknown> {
         (argv) => argv,
         globalHandler(({ edit, stage }) => {
           if (stage === Stage.Test) {
+            this.logger.log('Running commitlint', {
+              context: 'TaskService',
+              data: { edit, stage },
+            })
             execCommand(`pnpm --no-install commitlint --edit ${edit}`)
           }
 
           if (stage === Stage.CI) {
+            this.logger.log('Running commitlint', {
+              context: 'TaskService',
+              data: { stage },
+            })
             execCommand('./scripts/lint/commitlint-ci.sh')
           }
         }),

@@ -1,6 +1,7 @@
 import type { IApiImport } from '@codelab/shared/abstract/core'
 
 import { FieldRepository, TypeFactory } from '@codelab/backend/domain/type'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 
 export class ImportApiCommand {
@@ -14,6 +15,7 @@ export class ImportApiHandler
   constructor(
     private readonly fieldRepository: FieldRepository,
     private readonly typeFactory: TypeFactory,
+    private readonly logger: PinoLoggerService,
   ) {}
 
   async execute(command: ImportApiCommand) {
@@ -22,13 +24,10 @@ export class ImportApiHandler
     } = command
 
     for (const type of types) {
-      console.log(`Importing type ${type.name}`, type)
       await this.typeFactory.save(type)
-      console.log('Type saved')
     }
 
     for (const field of fields) {
-      console.log(`Importing field ${field.name}`)
       await this.fieldRepository.save(field)
     }
   }

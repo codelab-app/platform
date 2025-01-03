@@ -5,7 +5,12 @@ import type {
   IPageDto,
 } from '@codelab/shared/abstract/core'
 
-import { IAtomType, ITypeKind } from '@codelab/shared/abstract/core'
+import {
+  ComponentDtoSchema,
+  IAtomType,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { type APIRequestContext } from '@playwright/test'
 import { v4 } from 'uuid'
 
@@ -81,7 +86,10 @@ export const seedTestData = async (request: APIRequestContext) => {
     { data: childMapperComponent },
   )
 
-  const component: IComponentDto = await componentResponse.json()
+  const component: IComponentDto = Validator.parse(
+    ComponentDtoSchema,
+    await componentResponse.json(),
+  )
 
   console.log('Component', component)
 

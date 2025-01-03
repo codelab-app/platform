@@ -2,6 +2,7 @@ import type { IApp, IAppAggregateExport } from '@codelab/shared/abstract/core'
 
 import { ImportCypressAtomsCommand } from '@codelab/backend/application/atom'
 import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { DatabaseService } from '@codelab/backend-infra-adapter/neo4j-driver'
 import {
   ClassSerializerInterceptor,
@@ -28,6 +29,7 @@ export class AppApplicationController {
   constructor(
     private commandBus: CommandBus,
     private databaseService: DatabaseService,
+    private logger: PinoLoggerService,
   ) {}
 
   @UseInterceptors(ClassSerializerInterceptor)
@@ -54,19 +56,21 @@ export class AppApplicationController {
   async seedApp() {
     await this.databaseService.resetUserData()
 
-    console.log('Seeding system types:')
+    this.logger.log('Seeding system types', {
+      context: 'AppApplicationController',
+    })
 
     await this.commandBus.execute<ImportSystemTypesCommand>(
       new ImportSystemTypesCommand(),
     )
 
-    console.log('Seeding atoms:')
+    this.logger.log('Seeding atoms', { context: 'AppApplicationController' })
 
     await this.commandBus.execute<ImportCypressAtomsCommand>(
       new ImportCypressAtomsCommand(),
     )
 
-    console.log('Seeding app:')
+    this.logger.log('Seeding app', { context: 'AppApplicationController' })
 
     return this.commandBus.execute<SeedCypressAppCommand, IApp>(
       new SeedCypressAppCommand(),

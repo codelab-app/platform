@@ -1,10 +1,10 @@
 import type { UserOptions, UserWhere } from '@codelab/shared/infra/gql'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { Validator } from '@codelab/shared/infra/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import { type INodeType, type IUserDto } from '@codelab/shared/abstract/core'
 import { UserFragment } from '@codelab/shared/infra/gql'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { userApi, userMapper } from '@codelab/shared-domain-module/user'
 import { Injectable } from '@nestjs/common'
 
@@ -16,10 +16,7 @@ export class UserRepository extends AbstractRepository<
   UserWhere,
   UserOptions
 > {
-  constructor(
-
-    protected override loggerService: PinoLoggerService,
-  ) {
+  constructor(protected override loggerService: PinoLoggerService) {
     super(loggerService)
   }
 

@@ -1,6 +1,7 @@
 import type { BeforeApplicationShutdown } from '@nestjs/common'
 import type { Subscription } from 'zen-observable-ts'
 
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { nodeApolloClient } from '@codelab/shared/infra/gql-client'
 import {
   DomainCreatedDocument,
@@ -28,19 +29,23 @@ import {
 
 @Injectable()
 export class RegisterDomainListener implements BeforeApplicationShutdown {
-  constructor(private eventEmitter: EventEmitter2) {}
+  constructor(
+    private eventEmitter: EventEmitter2,
+    private logger: PinoLoggerService,
+  ) {}
 
   @OnEvent('server.ready')
   registerCreatedSubscriptions() {
-    console.log('Registering created subscriptions')
-
     const subscription = nodeApolloClient()
       .subscribe<DomainCreatedSubscription>({
         query: DomainCreatedDocument,
       })
       .subscribe({
         next: async ({ data }) => {
-          console.log('Domain Created Event received:', data)
+          this.logger.log('Domain Created Event received', {
+            context: 'RegisterDomainListener',
+            data,
+          })
 
           if (!data) {
             throw new Error('Invalid subscription data')
@@ -64,7 +69,10 @@ export class RegisterDomainListener implements BeforeApplicationShutdown {
       })
       .subscribe({
         next: async ({ data }) => {
-          console.log('Domain Deleted Event received:', data)
+          this.logger.log('Domain Deleted Event received', {
+            context: 'RegisterDomainListener',
+            data,
+          })
 
           if (!data) {
             throw new Error('Invalid subscription data')
@@ -88,7 +96,10 @@ export class RegisterDomainListener implements BeforeApplicationShutdown {
       })
       .subscribe({
         next: async ({ data }) => {
-          console.log('Domain Updated Event received:', data)
+          this.logger.log('Domain Updated Event received', {
+            context: 'RegisterDomainListener',
+            data,
+          })
 
           if (!data) {
             throw new Error('Invalid subscription data')
@@ -111,7 +122,9 @@ export class RegisterDomainListener implements BeforeApplicationShutdown {
   private subscriptions?: Array<Subscription> = []
 
   private unsubscribeFromServer() {
-    console.log('Unsubscribed from domain events')
+    this.logger.log('Unsubscribed from domain events', {
+      context: 'RegisterDomainListener',
+    })
 
     this.subscriptions?.forEach((subscription) => subscription.unsubscribe())
   }
