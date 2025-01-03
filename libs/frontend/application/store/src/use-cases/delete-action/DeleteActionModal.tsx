@@ -1,17 +1,19 @@
+'use client'
+
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/navigation'
 import { AutoFields } from 'uniforms-antd'
 
 import { useActionService } from '../../services'
-import { useDeleteActionModal } from './delete-action.state'
 
-export const DeleteActionModal = observer(() => {
+export const DeleteActionModal = observer(({ id }: { id: string }) => {
+  const router = useRouter()
   const actionService = useActionService()
-  const deleteActionModal = useDeleteActionModal()
-  const action = deleteActionModal.data
-  const closeModal = () => deleteActionModal.close()
+  const action = actionService.getOneFromCache({ id })
+  const closeModal = () => actionService.deletePopover.close(router)
 
   const onSubmit = () => {
     if (!action) {
@@ -25,7 +27,7 @@ export const DeleteActionModal = observer(() => {
     <ModalForm.Modal
       okText="Delete Action"
       onCancel={closeModal}
-      open={deleteActionModal.isOpen}
+      open={true}
       title="Delete Confirmation"
       uiKey={UiKey.ActionModalDelete}
     >

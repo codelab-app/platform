@@ -16,7 +16,6 @@ import { DeleteElementModal } from '@codelab/frontend-application-element/use-ca
 import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import { useActionService } from '@codelab/frontend-application-store/services'
 import { useCreateActionForm } from '@codelab/frontend-application-store/use-cases/create-action'
-import { DeleteActionModal } from '@codelab/frontend-application-store/use-cases/delete-action'
 import { ActionsTreeView } from '@codelab/frontend-application-store/use-cases/get-actions'
 import { StateTreeView } from '@codelab/frontend-application-store/use-cases/get-state'
 import { useFieldService } from '@codelab/frontend-application-type/services'
@@ -208,7 +207,6 @@ export const BuilderPrimarySidebar = observer<{
           builderService.selectPreviousElementOnDelete()
         }
       />
-      <DeleteActionModal />
     </>
   )
 })

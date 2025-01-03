@@ -18,7 +18,6 @@ import { IActionKind } from '@codelab/shared/abstract/core'
 import { useRouter } from 'next/navigation'
 
 import { useActionService } from '../../services/action.service'
-import { useDeleteActionModal } from '../delete-action'
 import { useUpdateActionForm } from '../update-action'
 
 interface ActionsTreeItemProps {
@@ -27,18 +26,18 @@ interface ActionsTreeItemProps {
 
 export const ActionsTreeItem = ({ data }: ActionsTreeItemProps) => {
   const { appId, componentId, pageId } = useUrlPathParams()
-  const deleteActionModal = useDeleteActionModal()
-  const { updatePopover } = useActionService()
+  const { deletePopover, updatePopover } = useActionService()
   const updateActionForm = useUpdateActionForm()
   const router = useRouter()
+  const actionId = data.extraData.node.id
 
   const onDelete = () => {
-    deleteActionModal.open(data.extraData.node)
+    deletePopover.open(router, { actionId, appId, componentId, pageId })
   }
 
   const onEdit = () => {
     updateActionForm.open(data.extraData.node)
-    updatePopover.open(router, { appId, componentId, pageId })
+    updatePopover.open(router, { actionId, appId, componentId, pageId })
   }
 
   const toolbarItems: Array<ToolbarItem> = [

@@ -16,10 +16,14 @@ import type { ApiActionOptions } from '@codelab/shared/infra/gql'
 
 import type { ICrudService, IQueryService } from '../services'
 
+export type CrudActionPopoverParams = PageContextParams &
+  ComponentContextParams & { actionId: string }
+
 export interface IActionService
   extends ICrudService<IRef, ICreateActionData, IUpdateActionData>,
     IQueryService<IActionModel, IActionWhere, ApiActionOptions> {
   createPopover: IPopover<PageContextParams & ComponentContextParams>
-  updatePopover: IPopover<PageContextParams & ComponentContextParams>
+  deletePopover: IPopover<CrudActionPopoverParams>
+  updatePopover: IPopover<CrudActionPopoverParams>
   cloneAction(action: IActionModel, storeId: string): Promise<IRef>
 }
