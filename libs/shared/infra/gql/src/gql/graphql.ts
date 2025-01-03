@@ -32281,43 +32281,22 @@ export type GetBaseTypesQueryVariables = Exact<{
 
 export type GetBaseTypesQuery = {
   iBaseTypes: Array<
-    | ({
-        ownerConnection: { totalCount: number }
-      } & BaseType_ActionType_Fragment)
-    | ({ ownerConnection: { totalCount: number } } & BaseType_AppType_Fragment)
-    | ({
-        ownerConnection: { totalCount: number }
-      } & BaseType_ArrayType_Fragment)
-    | ({
-        ownerConnection: { totalCount: number }
-      } & BaseType_CodeMirrorType_Fragment)
-    | ({
-        ownerConnection: { totalCount: number }
-      } & BaseType_ElementType_Fragment)
-    | ({ ownerConnection: { totalCount: number } } & BaseType_EnumType_Fragment)
-    | ({
-        ownerConnection: { totalCount: number }
-      } & BaseType_InterfaceType_Fragment)
-    | ({
-        ownerConnection: { totalCount: number }
-      } & BaseType_LambdaType_Fragment)
-    | ({ ownerConnection: { totalCount: number } } & BaseType_PageType_Fragment)
-    | ({
-        ownerConnection: { totalCount: number }
-      } & BaseType_PrimitiveType_Fragment)
-    | ({
-        ownerConnection: { totalCount: number }
-      } & BaseType_ReactNodeType_Fragment)
-    | ({
-        ownerConnection: { totalCount: number }
-      } & BaseType_RenderPropType_Fragment)
-    | ({
-        ownerConnection: { totalCount: number }
-      } & BaseType_RichTextType_Fragment)
-    | ({
-        ownerConnection: { totalCount: number }
-      } & BaseType_UnionType_Fragment)
+    | BaseType_ActionType_Fragment
+    | BaseType_AppType_Fragment
+    | BaseType_ArrayType_Fragment
+    | BaseType_CodeMirrorType_Fragment
+    | BaseType_ElementType_Fragment
+    | BaseType_EnumType_Fragment
+    | BaseType_InterfaceType_Fragment
+    | BaseType_LambdaType_Fragment
+    | BaseType_PageType_Fragment
+    | BaseType_PrimitiveType_Fragment
+    | BaseType_ReactNodeType_Fragment
+    | BaseType_RenderPropType_Fragment
+    | BaseType_RichTextType_Fragment
+    | BaseType_UnionType_Fragment
   >
+  aggregate: { count: number }
 }
 
 export type GetTypesQueryVariables = Exact<{
@@ -40984,9 +40963,9 @@ export const GetBaseTypesDocument = new TypedDocumentString(`
     query GetBaseTypes($where: IBaseTypeWhere, $options: IBaseTypeOptions) {
   iBaseTypes(where: $where, options: $options) {
     ...BaseType
-    ownerConnection {
-      totalCount
-    }
+  }
+  aggregate: iBaseTypesAggregate(where: $where) {
+    count
   }
 }
     fragment BaseType on IBaseType {

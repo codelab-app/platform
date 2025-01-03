@@ -1,10 +1,10 @@
 query GetBaseTypes($where: IBaseTypeWhere, $options: IBaseTypeOptions) {
   iBaseTypes(where: $where, options: $options) {
     ...BaseType
-    # Only this query requires pagination count, so we inline it
-    ownerConnection {
-      totalCount
-    }
+  }
+  # Required for pagination to work properly on /types page
+  aggregate: iBaseTypesAggregate(where: $where) {
+    count
   }
 }
 

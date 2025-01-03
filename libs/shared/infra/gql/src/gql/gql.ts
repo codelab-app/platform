@@ -320,7 +320,7 @@ const documents = {
     types.DeleteActionTypesDocument,
   '\n  mutation DeleteCodeMirrorTypes(\n    $delete: CodeMirrorTypeDeleteInput\n    $where: CodeMirrorTypeWhere\n  ) {\n    deleteCodeMirrorTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n':
     types.DeleteCodeMirrorTypesDocument,
-  '\n  query GetBaseTypes($where: IBaseTypeWhere, $options: IBaseTypeOptions) {\n    iBaseTypes(where: $where, options: $options) {\n      ...BaseType\n      ownerConnection {\n        totalCount\n      }\n    }\n  }\n':
+  '\n  query GetBaseTypes($where: IBaseTypeWhere, $options: IBaseTypeOptions) {\n    iBaseTypes(where: $where, options: $options) {\n      ...BaseType\n    }\n    aggregate: iBaseTypesAggregate(where: $where) {\n      count\n    }\n  }\n':
     types.GetBaseTypesDocument,
   '\n  query GetTypes($ids: [ID!]) {\n    actionTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    appTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    arrayTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    codeMirrorTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    elementTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    enumTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    interfaceTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    lambdaTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    pageTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    primitiveTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    reactNodeTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    renderPropTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    richTextTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    unionTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n  }\n':
     types.GetTypesDocument,
@@ -1342,8 +1342,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  query GetBaseTypes($where: IBaseTypeWhere, $options: IBaseTypeOptions) {\n    iBaseTypes(where: $where, options: $options) {\n      ...BaseType\n      ownerConnection {\n        totalCount\n      }\n    }\n  }\n',
-): (typeof documents)['\n  query GetBaseTypes($where: IBaseTypeWhere, $options: IBaseTypeOptions) {\n    iBaseTypes(where: $where, options: $options) {\n      ...BaseType\n      ownerConnection {\n        totalCount\n      }\n    }\n  }\n']
+  source: '\n  query GetBaseTypes($where: IBaseTypeWhere, $options: IBaseTypeOptions) {\n    iBaseTypes(where: $where, options: $options) {\n      ...BaseType\n    }\n    aggregate: iBaseTypesAggregate(where: $where) {\n      count\n    }\n  }\n',
+): (typeof documents)['\n  query GetBaseTypes($where: IBaseTypeWhere, $options: IBaseTypeOptions) {\n    iBaseTypes(where: $where, options: $options) {\n      ...BaseType\n    }\n    aggregate: iBaseTypesAggregate(where: $where) {\n      count\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

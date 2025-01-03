@@ -162,16 +162,14 @@ export const typeRepository: ITypeRepository = {
     const where = params?.where ?? {}
     const options = params?.options ?? {}
 
-    const { iBaseTypes } = await GetBaseTypes({
+    const { aggregate, iBaseTypes } = await GetBaseTypes({
       options,
       where,
     })
 
     return {
       items: iBaseTypes,
-      totalCount: iBaseTypes.reduce((acc: number, type) => {
-        return acc + type.ownerConnection.totalCount
-      }, 0),
+      totalCount: aggregate.count,
     }
   },
 
