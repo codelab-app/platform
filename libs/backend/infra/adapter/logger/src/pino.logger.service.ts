@@ -9,7 +9,7 @@ import { ConfigType } from '@nestjs/config'
 import { Logger, Params, PARAMS_PROVIDER_TOKEN, PinoLogger } from 'nestjs-pino'
 import pino from 'pino'
 
-import { LOGGER_CONFIG_KEY, loggerConfig } from './logger.config'
+import { loggerConfig } from './logger.config'
 
 /**
  * So Nest.js only has two parameters, the first one being the message and the last one being the context. Any other parameters in the middle are ignored.
@@ -19,7 +19,7 @@ export class PinoLoggerService extends Logger implements LoggerService {
   constructor(
     protected override logger: PinoLogger,
     @Inject(PARAMS_PROVIDER_TOKEN) params: Params,
-    @Inject(LOGGER_CONFIG_KEY)
+    @Inject(loggerConfig.KEY)
     private readonly config: ConfigType<typeof loggerConfig>,
   ) {
     super(logger, {

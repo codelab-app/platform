@@ -3,7 +3,6 @@ import type { IDiscriminatedRef, IRef } from '@codelab/shared/abstract/core'
 import type { Static, TAnySchema } from '@sinclair/typebox'
 
 import {
-  LOGGER_CONFIG_KEY,
   loggerConfig,
   PinoLoggerService,
 } from '@codelab/backend/infra/adapter/logger'
