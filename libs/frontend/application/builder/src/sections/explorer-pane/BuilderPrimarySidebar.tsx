@@ -10,7 +10,6 @@ import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { isComponent, isPage } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { CuiSidebar } from '@codelab/frontend/presentation/codelab-ui'
-import { DeleteComponentModal } from '@codelab/frontend-application-component/use-cases/delete-component'
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { useCreateElementForm } from '@codelab/frontend-application-element/use-cases/create-element'
 import { DeleteElementModal } from '@codelab/frontend-application-element/use-cases/delete-element'
@@ -204,7 +203,6 @@ export const BuilderPrimarySidebar = observer<{
         uiKey={UiKey.BuilderSidebar}
         views={sidebarViews}
       />
-      <DeleteComponentModal />
       <DeleteElementModal
         selectPreviousElementOnDelete={() =>
           builderService.selectPreviousElementOnDelete()

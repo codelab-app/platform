@@ -60,6 +60,7 @@ export const PageType = {
   ComponentCreate: () => {
     return `${PageType.Components()}/create`
   },
+  ComponentDelete: ({ id }: IRef) => `${PageType.Components()}/delete/${id}`,
   ComponentExport: () => '/api/export/component',
   ComponentPreview: ({ componentId }: Pick<UrlPathParams, 'componentId'>) =>
     `/components/${componentId}`,

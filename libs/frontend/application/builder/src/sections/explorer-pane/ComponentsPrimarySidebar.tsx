@@ -5,7 +5,6 @@ import type { CuiSidebarView } from '@codelab/frontend/presentation/codelab-ui'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import { CuiSidebar } from '@codelab/frontend/presentation/codelab-ui'
-import { DeleteComponentModal } from '@codelab/frontend-application-component/use-cases/delete-component'
 import { ImportComponentDialog } from '@codelab/frontend-application-component/use-cases/import-component'
 import { useRouter } from 'next/navigation'
 
@@ -55,16 +54,12 @@ export const ComponentsPrimarySidebar = () => {
   ]
 
   return (
-    <>
-      <CuiSidebar
-        defaultActiveViewKeys={['custom', 'pre-built']}
-        label="Components"
-        uiKey={UiKey.ComponentSidebar}
-        views={sidebarViews}
-      />
-
-      <DeleteComponentModal />
-    </>
+    <CuiSidebar
+      defaultActiveViewKeys={['custom', 'pre-built']}
+      label="Components"
+      uiKey={UiKey.ComponentSidebar}
+      views={sidebarViews}
+    />
   )
 }
 
