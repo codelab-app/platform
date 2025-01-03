@@ -1,7 +1,15 @@
-import type { PropsWithChildren } from 'react'
+import type { PropsWithChildren, ReactNode } from 'react'
 
-const Layout = async ({ children }: PropsWithChildren) => {
-  return <>{children}</>
+const Layout = async ({
+  children,
+  modal,
+}: PropsWithChildren & { modal: ReactNode }) => {
+  return (
+    <>
+      {children}
+      {modal}
+    </>
+  )
 }
 
 export default Layout

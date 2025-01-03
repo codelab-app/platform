@@ -2,32 +2,33 @@
 
 import type { IImportDto } from '@codelab/shared/abstract/core'
 
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import {
   importDtoDefault,
   ImportDtoSchema,
 } from '@codelab/shared/abstract/core'
+import { useRouter } from 'next/navigation'
 import { AutoFields } from 'uniforms-antd'
 
 import { importAdminDataService } from './import-admin-data.service'
-import { useImportAdminDataModal } from './import-admin-data.state'
 
 export const ImportAdminDataModal = () => {
-  const importDataModal = useImportAdminDataModal()
+  const router = useRouter()
+  const onClose = () => router.push(PageType.Admin())
 
   return (
     <ModalForm.Modal
       okText="Import Admin Data"
-      onCancel={importDataModal.close}
-      open={importDataModal.isOpen}
+      onCancel={onClose}
+      open={true}
       uiKey={UiKey.AdminDataModalImport}
     >
       <ModalForm.Form<IImportDto>
         errorMessage="Error while importing data"
         model={importDtoDefault}
         onSubmit={importAdminDataService}
-        onSubmitSuccess={importDataModal.close}
+        onSubmitSuccess={onClose}
         schema={ImportDtoSchema}
         successMessage="Data imported successfully"
       >

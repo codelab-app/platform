@@ -25,6 +25,8 @@ export enum PrimarySidebar {
 
 export const PageType = {
   Admin: () => '/admin',
+  AdminExport: () => '/admin/export',
+  AdminImport: () => '/admin/import',
   AppBuild: ({ id }: IRef) => `/apps/build/${id}`,
   AppCreate: () => '/apps/create',
   AppDelete: ({ id }: IRef) => `/apps/delete/${id}`,
