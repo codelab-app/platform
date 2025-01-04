@@ -106,6 +106,26 @@ export const PageType = {
     `/apps/${appId}/pages/${pageId}`,
   PageList: ({ appId, pageId }: PageContextParams) =>
     `/apps/${appId}/pages/${pageId}/builder/page`,
+  PageRedirectCreate: ({ appId, pageId }: PageContextParams) => {
+    const pageBuilder = PageType.PageBuilder(
+      { appId, pageId },
+      PrimarySidebar.ElementTree,
+    )
+
+    return `${pageBuilder}/create-redirect`
+  },
+  PageRedirectUpdate: ({
+    appId,
+    pageId,
+    redirectId,
+  }: PageContextParams & { redirectId: string }) => {
+    const pageBuilder = PageType.PageBuilder(
+      { appId, pageId },
+      PrimarySidebar.ElementTree,
+    )
+
+    return `${pageBuilder}/update-redirect/${redirectId}`
+  },
   PageUpdate: ({ appId, pageId }: PageContextParams) => {
     const pageBuilder = PageType.PageBuilder(
       { appId, pageId },

@@ -5,23 +5,21 @@ import type { Maybe } from '@codelab/shared/abstract/types'
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
 import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
-import {
-  CuiSidebarPopover,
-  useCui,
-} from '@codelab/frontend/presentation/codelab-ui'
+import { CuiSidebarSecondary } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/navigation'
 import { useRef } from 'react'
 
-import { useCreateRedirectForm } from './create-redirect.state'
+import { useRedirectService } from '../../services/redirect.service'
 import { CreateRedirectForm } from './CreateRedirectForm'
 
 export const CreateRedirectPopover = observer(() => {
+  const { createPopover } = useRedirectService()
   const submitRef = useRef<Maybe<SubmitController>>()
-  const createRedirectForm = useCreateRedirectForm()
-  const { popover } = useCui()
+  const router = useRouter()
 
   return (
-    <CuiSidebarPopover
+    <CuiSidebarSecondary
       id={UiKey.RedirectPopoverCreate}
       toolbar={{
         items: [
@@ -29,30 +27,23 @@ export const CreateRedirectPopover = observer(() => {
             cuiKey: UiKey.RedirectToolbarItemCreate,
             icon: <SaveOutlined />,
             label: 'Create',
-            onClick: () => {
-              submitRef.current?.submit()
-            },
-            title: 'Create',
+            onClick: () => submitRef.current?.submit(),
           },
           {
             cuiKey: UiKey.RedirectToolbarItemCreateCancel,
             icon: <CloseOutlined />,
             label: 'Cancel',
-            onClick: () => {
-              popover.close()
-              createRedirectForm.close()
-            },
-            title: 'Cancel',
+            onClick: () => createPopover.close(router),
           },
         ],
         title: 'Create Redirect toolbar',
       }}
     >
       <CreateRedirectForm
-        onSubmitSuccess={() => popover.close()}
+        onSubmitSuccess={() => createPopover.close(router)}
         showFormControl={false}
         submitRef={submitRef}
       />
-    </CuiSidebarPopover>
+    </CuiSidebarSecondary>
   )
 })

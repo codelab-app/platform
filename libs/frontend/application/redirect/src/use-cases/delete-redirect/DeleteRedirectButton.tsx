@@ -1,23 +1,37 @@
 import type { IRedirectModel } from '@codelab/frontend/abstract/domain'
 
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
-import { Button } from 'antd'
+import { Button, Popconfirm } from 'antd'
 import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/navigation'
 
-import { useDeleteRedirectModal } from './delete-redirect.state'
+import { useRedirectService } from '../../services/redirect.service'
 
 export const DeleteRedirectButton = observer<{
   redirect?: IRedirectModel
 }>(({ redirect }) => {
-  const deleteRedirectModal = useDeleteRedirectModal()
+  const redirectService = useRedirectService()
+  const router = useRouter()
+
+  if (!redirect) {
+    return null
+  }
+
+  const onConfirm = () =>
+    redirectService
+      .removeMany([redirect])
+      .then(() => redirectService.updatePopover.close(router))
 
   return (
-    <Button
-      danger
-      icon={<DeleteOutlined />}
-      onClick={() => deleteRedirectModal.open(redirect)}
+    <Popconfirm
+      okText="Delete"
+      onConfirm={onConfirm}
+      placement="rightBottom"
+      title="Are you sure you want to delete redirect?"
     >
-      Delete
-    </Button>
+      <Button danger icon={<DeleteOutlined />}>
+        Delete
+      </Button>
+    </Popconfirm>
   )
 })

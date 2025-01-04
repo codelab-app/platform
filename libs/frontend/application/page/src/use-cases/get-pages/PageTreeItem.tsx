@@ -24,10 +24,8 @@ import {
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
-  useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useCreateRedirectForm } from '@codelab/frontend-application-redirect/use-cases/create-redirect'
-import { useUpdateRedirectForm } from '@codelab/frontend-application-redirect/use-cases/update-redirect'
+import { useRedirectService } from '@codelab/frontend-application-redirect/services'
 import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
@@ -49,12 +47,10 @@ export const PageTreeItem = observer(
       primaryTitle,
     },
   }: PageTreeItemProps) => {
-    const updateRedirectForm = useUpdateRedirectForm()
-    const createRedirectForm = useCreateRedirectForm()
     const { isRegenerating, regenerate } = useRegeneratePages()
-    const { popover } = useCui()
     const router = useRouter()
     const { deletePopover, updatePopover } = usePageService()
+    const redirectService = useRedirectService()
     const { appId } = useUrlPathParams()
 
     const commonToolbarItems: Array<ToolbarItem> = [
@@ -90,11 +86,16 @@ export const PageTreeItem = observer(
         icon: <SafetyOutlined />,
         onClick: () => {
           if (page.redirect) {
-            updateRedirectForm.open(page.redirect.current)
-            popover.open(UiKey.RedirectPopoverUpdate)
+            redirectService.updatePopover.open(router, {
+              appId,
+              pageId: page.id,
+              redirectId: page.redirect.id,
+            })
           } else {
-            createRedirectForm.open(page)
-            popover.open(UiKey.RedirectPopoverCreate)
+            redirectService.createPopover.open(router, {
+              appId,
+              pageId: page.id,
+            })
           }
         },
         title: 'Auth Guard',

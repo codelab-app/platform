@@ -1,6 +1,7 @@
 import type { IRedirectCreateFormData } from '@codelab/frontend/abstract/domain'
 
 import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
+import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import {
   DisplayIfField,
   Form,
@@ -14,36 +15,23 @@ import { v4 } from 'uuid'
 
 import { useRedirectService } from '../../services'
 import { createRedirectSchema } from './create-redirect.schema'
-import { useCreateRedirectForm } from './create-redirect.state'
 
 export const CreateRedirectForm = observer<IFormController>(
   ({ onSubmitSuccess, showFormControl = true, submitRef }) => {
     const redirectService = useRedirectService()
-    const createRedirectForm = useCreateRedirectForm()
-    const closeForm = () => createRedirectForm.close()
-
-    const onSubmit = async (redirectDTO: IRedirectCreateFormData) => {
-      await redirectService.create(redirectDTO)
-
-      closeForm()
-      onSubmitSuccess?.()
-
-      return Promise.resolve()
-    }
+    const { pageId } = useUrlPathParams()
 
     const model = {
       id: v4(),
-      source: {
-        id: createRedirectForm.data?.id,
-      },
+      source: { id: pageId },
     }
 
     return (
       <Form<IRedirectCreateFormData>
         errorMessage="Error while creating redirect"
         model={model}
-        onSubmit={onSubmit}
-        onSubmitSuccess={closeForm}
+        onSubmit={redirectService.create}
+        onSubmitSuccess={onSubmitSuccess}
         schema={createRedirectSchema}
         submitRef={submitRef}
         uiKey={UiKey.RedirectFormCreate}
@@ -67,7 +55,7 @@ export const CreateRedirectForm = observer<IFormController>(
         </DisplayIfField>
 
         <DisplayIf condition={showFormControl}>
-          <FormController onCancel={closeForm} submitLabel="Add Redirect" />
+          <FormController submitLabel="Add Redirect" />
         </DisplayIf>
       </Form>
     )
