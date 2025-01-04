@@ -9,10 +9,11 @@ import {
   isRuntimeElement,
 } from '@codelab/frontend/abstract/application'
 import { MakeChildrenDraggable } from '@codelab/frontend-application-dnd/components'
-import { useDeleteElementModal } from '@codelab/frontend-application-element/use-cases/delete-element'
+import { DeleteElementPopconfirm } from '@codelab/frontend-application-element/use-cases/delete-element'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { ClickOverlay } from '@codelab/frontend-presentation-view/components/overlay'
 import { isServer } from '@codelab/shared/utils'
+import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { createPortal } from 'react-dom'
 import styled from 'styled-components'
@@ -41,6 +42,7 @@ const StyledSpan = styled.p`
 const StyledOverlayButtonGroup = styled.div`
   display: flex;
   flex-direction: row;
+  gap: 4px;
 `
 
 export const BuilderClickOverlay = observer<{
@@ -48,7 +50,6 @@ export const BuilderClickOverlay = observer<{
 }>(({ renderContainerRef }) => {
   const { builderService, runtimeElementService } = useApplicationStore()
   const selectedNode = builderService.selectedNode?.current
-  const deleteElementModal = useDeleteElementModal()
 
   if (isServer || !selectedNode || !isRuntimeElement(selectedNode)) {
     return null
@@ -65,70 +66,50 @@ export const BuilderClickOverlay = observer<{
   const content = (
     <StyledOverlayContainer>
       <StyledOverlayButtonGroup>
-        <div
-          className={`
-            flex size-7 cursor-pointer
-            items-center justify-center align-middle
-          `}
-          onClick={(event) => {
-            event.stopPropagation()
-            deleteElementModal.open(element)
-          }}
-        >
-          <div
-            className={`
-              flex size-5 items-center
-              justify-center rounded-full align-middle
-            `}
-            style={{ backgroundColor: '#375583', color: 'red' }}
-          >
-            <DeleteOutlined />
-          </div>
-        </div>
+        <DeleteElementPopconfirm element={element} placement="bottom">
+          <Button
+            danger
+            icon={<DeleteOutlined />}
+            shape="circle"
+            size="small"
+            style={{ backgroundColor: '#375583' }}
+            type="text"
+          ></Button>
+        </DeleteElementPopconfirm>
+
         <MakeChildrenDraggable<BuilderDragData>
           data={{
             action: BuilderDndAction.MoveElement,
           }}
           id={selectedNode.element.id}
         >
-          <div className="flex size-7 items-center justify-center align-middle">
-            <div
-              className={`
-                flex size-5 items-center
-                justify-center rounded-full align-middle
-              `}
-              style={{ backgroundColor: '#375583', color: 'white' }}
-            >
-              <DragOutlined color="white" />
-            </div>
-          </div>
+          <Button
+            icon={<DragOutlined color="white" />}
+            shape="circle"
+            size="small"
+            style={{ backgroundColor: '#375583' }}
+            type="primary"
+          />
         </MakeChildrenDraggable>
         {supportsTextEditing && (
-          <div
-            className={`
-              flex size-7 cursor-pointer
-              items-center justify-center align-middle
-            `}
+          <Button
+            aria-label="Toggle Content Editing"
+            icon={
+              element.isTextContentEditable ? (
+                <CheckOutlined />
+              ) : (
+                <EditOutlined />
+              )
+            }
             onClick={(event) => {
               event.stopPropagation()
               element.setIsTextContentEditable(!element.isTextContentEditable)
             }}
-          >
-            <div
-              aria-label="Toggle Content Editing"
-              className={`
-                flex size-5 items-center
-                justify-center rounded-full align-middle
-              `}
-              style={{ backgroundColor: '#375583', color: 'white' }}
-            >
-              {element.isTextContentEditable ? (
-                <CheckOutlined />
-              ) : (
-                <EditOutlined />
-              )}
-            </div>
-          </div>
+            shape="circle"
+            size="small"
+            style={{ backgroundColor: '#375583' }}
+            type="primary"
+          />
         )}
       </StyledOverlayButtonGroup>
       <StyledSpan>{element.name}</StyledSpan>

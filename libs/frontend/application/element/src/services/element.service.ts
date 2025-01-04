@@ -138,9 +138,32 @@ export const useElementService = (): IElementService => {
     },
   }
 
+  const deletePopover = {
+    close: (router: AppRouterInstance) => {
+      router.back()
+    },
+    open: (
+      router: AppRouterInstance,
+      {
+        appId,
+        componentId,
+        elementId,
+        pageId,
+      }: PageContextParams & ComponentContextParams & { elementId: string },
+    ) => {
+      const url =
+        appId && pageId
+          ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
+          : PageType.ComponentBuilder({ componentId })
+
+      router.push(`${url}/delete/element/${elementId}`)
+    },
+  }
+
   return {
     create,
     createPopover,
+    deletePopover,
     getElement,
     loadDependantTypes,
     move,

@@ -12,7 +12,6 @@ import { UiKey } from '@codelab/frontend/abstract/types'
 import { CuiSidebar } from '@codelab/frontend/presentation/codelab-ui'
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { useCreateElementForm } from '@codelab/frontend-application-element/use-cases/create-element'
-import { DeleteElementModal } from '@codelab/frontend-application-element/use-cases/delete-element'
 import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import { useActionService } from '@codelab/frontend-application-store/services'
 import { useCreateActionForm } from '@codelab/frontend-application-store/use-cases/create-action'
@@ -195,19 +194,12 @@ export const BuilderPrimarySidebar = observer<{
   ]
 
   return (
-    <>
-      <CuiSidebar
-        defaultActiveViewKeys={['ElementTree']}
-        label="Explorer"
-        uiKey={UiKey.BuilderSidebar}
-        views={sidebarViews}
-      />
-      <DeleteElementModal
-        selectPreviousElementOnDelete={() =>
-          builderService.selectPreviousElementOnDelete()
-        }
-      />
-    </>
+    <CuiSidebar
+      defaultActiveViewKeys={['ElementTree']}
+      label="Explorer"
+      uiKey={UiKey.BuilderSidebar}
+      views={sidebarViews}
+    />
   )
 })
 

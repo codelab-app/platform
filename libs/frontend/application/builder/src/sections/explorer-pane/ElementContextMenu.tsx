@@ -17,7 +17,6 @@ import {
   useElementService,
 } from '@codelab/frontend-application-element/services'
 import { useCreateElementForm } from '@codelab/frontend-application-element/use-cases/create-element'
-import { useDeleteElementModal } from '@codelab/frontend-application-element/use-cases/delete-element'
 import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import { useUser } from '@codelab/frontend-application-user/services'
 import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
@@ -49,7 +48,7 @@ export const ElementContextMenu = observer<
   const { builderService, runtimeElementService } = useApplicationStore()
   const { elementDomainService } = useDomainStore()
   const componentService = useComponentService()
-  const { createPopover } = useElementService()
+  const { createPopover, deletePopover } = useElementService()
   const router = useRouter()
   const { appId, componentId, pageId } = useUrlPathParams()
 
@@ -59,7 +58,6 @@ export const ElementContextMenu = observer<
   })
 
   const createElementForm = useCreateElementForm()
-  const deleteElementModal = useDeleteElementModal()
   const user = useUser()
 
   const [contextMenuItemId, setContextMenuNodeId] =
@@ -87,7 +85,12 @@ export const ElementContextMenu = observer<
   }
 
   const onDelete = () => {
-    deleteElementModal.open(element)
+    deletePopover.open(router, {
+      appId,
+      componentId,
+      elementId: element.id,
+      pageId,
+    })
   }
 
   const onDuplicate = async () => {

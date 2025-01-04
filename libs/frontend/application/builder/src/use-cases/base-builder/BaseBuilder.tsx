@@ -8,7 +8,7 @@ import {
   BUILDER_CONTAINER_ID,
   DATA_ELEMENT_ID,
 } from '@codelab/frontend/abstract/domain'
-import { useDeleteElementModal } from '@codelab/frontend-application-element/use-cases/delete-element'
+import { useElementService } from '@codelab/frontend-application-element/services'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import { useEffect, useRef } from 'react'
@@ -32,13 +32,13 @@ export const BaseBuilder = observer<IBuilderProps>(
     console.log('Rendering BaseBuilder')
 
     const { builderService } = useApplicationStore()
-    const deleteElementModal = useDeleteElementModal()
+    const elementService = useElementService()
     const { selectedNode } = builderService
     const containerRef = useRef<HTMLDivElement>(null)
     const ref = useRef<HTMLDivElement>(null)
 
     useBuilderHotkeys({
-      deleteModal: deleteElementModal,
+      deleteModal: elementService.deletePopover,
       selectedNode,
       setSelectedNode: builderService.setSelectedNode.bind(builderService),
     })

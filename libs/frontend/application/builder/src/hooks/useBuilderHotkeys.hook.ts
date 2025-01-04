@@ -1,16 +1,17 @@
 import {
   type IBuilderService,
+  type IElementService,
   isRuntimeElementRef,
-  type IToggleService,
 } from '@codelab/frontend/abstract/application'
-import { type IElementModel } from '@codelab/frontend/abstract/domain'
+import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
+import { useRouter } from 'next/navigation'
 import { useHotkeys } from 'react-hotkeys-hook'
 
 type UseBuilderHotkeysProps = Pick<
   IBuilderService,
   'selectedNode' | 'setSelectedNode'
 > & {
-  deleteModal: IToggleService<IElementModel>
+  deleteModal: IElementService['deletePopover']
 }
 
 /**
@@ -23,6 +24,9 @@ export const useBuilderHotkeys = ({
   selectedNode,
   setSelectedNode,
 }: UseBuilderHotkeysProps) => {
+  const { appId, componentId, pageId } = useUrlPathParams()
+  const router = useRouter()
+
   useHotkeys(
     'del,backspace',
     () => {
@@ -34,7 +38,12 @@ export const useBuilderHotkeys = ({
         const isRootElement = element?.isRoot
 
         if (element && !isRootElement) {
-          deleteModal.open(element)
+          deleteModal.open(router, {
+            appId,
+            componentId,
+            elementId: element.id,
+            pageId,
+          })
         }
       }
     },

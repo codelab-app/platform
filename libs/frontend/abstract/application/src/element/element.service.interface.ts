@@ -39,6 +39,9 @@ export type UpdateElementProperties = {
 export interface IElementService {
   // Moved from element model to decouple renderer
   createPopover: IPopover<PageContextParams & ComponentContextParams>
+  deletePopover: IPopover<
+    PageContextParams & ComponentContextParams & { elementId: string }
+  >
   create(data: IElementDto): Promise<IElementModel>
   getElement(id: string): IElementModel
   // loadComponentTree(component: ComponentDevelopmentFragment): {
