@@ -3,10 +3,14 @@
 import { CreateFieldPopover } from '@codelab/frontend-application-type/use-cases/create-field'
 import { DashboardPopover } from '@codelab/frontend-presentation-view/templates'
 
-const Page = () => {
+const Page = ({
+  params: { interfaceId },
+}: {
+  params: { interfaceId: string }
+}) => {
   return (
     <DashboardPopover>
-      <CreateFieldPopover />
+      <CreateFieldPopover interfaceId={interfaceId} />
     </DashboardPopover>
   )
 }

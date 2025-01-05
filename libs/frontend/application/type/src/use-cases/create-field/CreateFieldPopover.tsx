@@ -11,48 +11,42 @@ import { useRouter } from 'next/navigation'
 import { useRef } from 'react'
 
 import { useFieldService } from '../../services/field.service'
-import { useCreateFieldForm } from './create-field.state'
 import { CreateFieldForm } from './CreateFieldForm'
 
-export const CreateFieldPopover = observer(() => {
-  const router = useRouter()
-  const submitRef = useRef<Maybe<SubmitController>>()
-  const createFieldForm = useCreateFieldForm()
-  const { createPopover } = useFieldService()
+export const CreateFieldPopover = observer(
+  ({ interfaceId }: { interfaceId: string }) => {
+    const router = useRouter()
+    const submitRef = useRef<Maybe<SubmitController>>()
+    const { createPopover } = useFieldService()
 
-  return (
-    <CuiSidebarSecondary
-      id={UiKey.FieldPopoverCreate}
-      toolbar={{
-        items: [
-          {
-            cuiKey: UiKey.FieldToolbarItemCreate,
-            icon: <SaveOutlined />,
-            label: 'Create',
-            onClick: () => {
-              submitRef.current?.submit()
+    return (
+      <CuiSidebarSecondary
+        id={UiKey.FieldPopoverCreate}
+        toolbar={{
+          items: [
+            {
+              cuiKey: UiKey.FieldToolbarItemCreate,
+              icon: <SaveOutlined />,
+              label: 'Create',
+              onClick: () => submitRef.current?.submit(),
             },
-            title: 'Create',
-          },
-          {
-            cuiKey: UiKey.FieldToolbarItemCreateCancel,
-            icon: <CloseOutlined />,
-            label: 'Cancel',
-            onClick: () => {
-              createPopover.close(router)
-              createFieldForm.close()
+            {
+              cuiKey: UiKey.FieldToolbarItemCreateCancel,
+              icon: <CloseOutlined />,
+              label: 'Cancel',
+              onClick: () => createPopover.close(router),
             },
-            title: 'Cancel',
-          },
-        ],
-        title: 'Create Field toolbar',
-      }}
-    >
-      <CreateFieldForm
-        onSubmitSuccess={() => createPopover.close(router)}
-        showFormControl={false}
-        submitRef={submitRef}
-      />
-    </CuiSidebarSecondary>
-  )
-})
+          ],
+          title: 'Create Field toolbar',
+        }}
+      >
+        <CreateFieldForm
+          interfaceId={interfaceId}
+          onSubmitSuccess={() => createPopover.close(router)}
+          showFormControl={false}
+          submitRef={submitRef}
+        />
+      </CuiSidebarSecondary>
+    )
+  },
+)

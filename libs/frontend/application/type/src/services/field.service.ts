@@ -217,15 +217,16 @@ export const useFieldService = (): IFieldService => {
       {
         appId,
         componentId,
+        interfaceId,
         pageId,
-      }: PageContextParams & ComponentContextParams,
+      }: PageContextParams & ComponentContextParams & { interfaceId: string },
     ) => {
       const url =
         appId && pageId
           ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
           : PageType.ComponentBuilder({ componentId })
 
-      router.push(`${url}/create-field`)
+      router.push(`${url}/interface/${interfaceId}/create-field`)
     },
   }
 

@@ -3,10 +3,6 @@ import type {
   IActionService,
 } from '@codelab/frontend/abstract/application'
 import type {
-  ComponentContextParams,
-  PageContextParams,
-} from '@codelab/frontend/abstract/types'
-import type {
   IActionDto,
   ICreateActionData,
   IRef,
@@ -138,18 +134,14 @@ export const useActionService = (): IActionService => {
     },
     open: (
       router: AppRouterInstance,
-      {
-        appId,
-        componentId,
-        pageId,
-      }: PageContextParams & ComponentContextParams,
+      { appId, componentId, pageId, storeId }: CrudActionPopoverParams,
     ) => {
       const url =
         appId && pageId
           ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
           : PageType.ComponentBuilder({ componentId })
 
-      router.push(`${url}/create-action`)
+      router.push(`${url}/store/${storeId}/create-action`)
     },
   }
 

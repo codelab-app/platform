@@ -12,16 +12,15 @@ import { useRouter } from 'next/navigation'
 import { useRef } from 'react'
 
 import { useElementService } from '../../services/element.service'
-import { useCreateElementForm } from './create-element.state'
 import { CreateElementForm } from './CreateElementForm'
 
 export const CreateElementPopover = observer(() => {
   const router = useRouter()
   const submitRef = useRef<Maybe<SubmitController>>()
-  const createElementForm = useCreateElementForm()
   const { createPopover } = useElementService()
-  const { builderService } = useApplicationStore()
+  const { builderService, rendererService } = useApplicationStore()
   const selectedNode = builderService.selectedNode?.maybeCurrent
+  const treeElements = rendererService.activeElementTree?.elements
 
   return (
     <CuiSidebarSecondary
@@ -32,20 +31,13 @@ export const CreateElementPopover = observer(() => {
             cuiKey: UiKey.ElementToolbarItemCreate,
             icon: <SaveOutlined />,
             label: 'Create',
-            onClick: () => {
-              submitRef.current?.submit()
-            },
-            title: 'Create',
+            onClick: () => submitRef.current?.submit(),
           },
           {
             cuiKey: UiKey.ElementToolbarItemCreateCancel,
             icon: <CloseOutlined />,
             label: 'Cancel',
-            onClick: () => {
-              createElementForm.close()
-              createPopover.close(router)
-            },
-            title: 'Cancel',
+            onClick: () => createPopover.close(router),
           },
         ],
         title: 'Create Element toolbar',
@@ -56,6 +48,7 @@ export const CreateElementPopover = observer(() => {
         selectedNode={selectedNode}
         showFormControl={false}
         submitRef={submitRef}
+        treeElements={treeElements}
       />
     </CuiSidebarSecondary>
   )

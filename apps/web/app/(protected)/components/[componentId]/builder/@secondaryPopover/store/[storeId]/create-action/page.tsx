@@ -3,10 +3,10 @@
 import { CreateActionPopover } from '@codelab/frontend-application-store/use-cases/create-action'
 import { DashboardPopover } from '@codelab/frontend-presentation-view/templates'
 
-const Page = () => {
+const Page = ({ params: { storeId } }: { params: { storeId: string } }) => {
   return (
     <DashboardPopover>
-      <CreateActionPopover />
+      <CreateActionPopover id={storeId} />
     </DashboardPopover>
   )
 }

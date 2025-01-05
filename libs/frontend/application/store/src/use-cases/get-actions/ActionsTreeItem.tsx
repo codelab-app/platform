@@ -18,7 +18,6 @@ import { IActionKind } from '@codelab/shared/abstract/core'
 import { useRouter } from 'next/navigation'
 
 import { useActionService } from '../../services/action.service'
-import { useUpdateActionForm } from '../update-action'
 
 interface ActionsTreeItemProps {
   data: ITreeNode<IActionNodeData>
@@ -27,7 +26,6 @@ interface ActionsTreeItemProps {
 export const ActionsTreeItem = ({ data }: ActionsTreeItemProps) => {
   const { appId, componentId, pageId } = useUrlPathParams()
   const { deletePopover, updatePopover } = useActionService()
-  const updateActionForm = useUpdateActionForm()
   const router = useRouter()
   const actionId = data.extraData.node.id
 
@@ -36,7 +34,6 @@ export const ActionsTreeItem = ({ data }: ActionsTreeItemProps) => {
   }
 
   const onEdit = () => {
-    updateActionForm.open(data.extraData.node)
     updatePopover.open(router, { actionId, appId, componentId, pageId })
   }
 

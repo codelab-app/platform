@@ -1,5 +1,4 @@
 import type {
-  IInterfaceTypeModel,
   ITreeNode,
   ITypeTreeNodeData,
 } from '@codelab/frontend/abstract/domain'
@@ -17,14 +16,11 @@ import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { useRouter } from 'next/navigation'
 
-import { useCreateFieldForm } from '../create-field'
-
 interface TypesTreeItemProps {
   data: ITreeNode<ITypeTreeNodeData>
 }
 
 export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
-  const createFieldForm = useCreateFieldForm()
   const { fieldDomainService } = useDomainStore()
   const router = useRouter()
 
@@ -70,9 +66,7 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
         ? data.extraData.node.type.current
         : data.extraData.node
 
-    createFieldForm.open(interfaceType as IInterfaceTypeModel)
-
-    router.push(PageType.TypeFieldCreate())
+    router.push(PageType.TypeFieldCreate(interfaceType.id))
   }
 
   const toolbarItems: Array<ToolbarItem> = [

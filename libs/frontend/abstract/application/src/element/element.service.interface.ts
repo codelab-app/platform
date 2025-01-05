@@ -1,6 +1,5 @@
 import type {
   IElementModel,
-  IElementTree,
   IMoveElementContext,
   IUpdateElementData,
 } from '@codelab/frontend/abstract/domain'
@@ -10,31 +9,6 @@ import type {
   PageContextParams,
 } from '@codelab/frontend/abstract/types'
 import type { IElementDto } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
-
-/**
- * Used for modal input
- */
-export interface CreateElementData {
-  elementOptions: Array<{
-    childrenIds?: Array<string>
-    label: string
-    value: string
-  }>
-  elementTree: IElementTree
-  selectedElement?: Maybe<IElementModel>
-}
-
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-export type CreateElementProperties = {
-  // elementTree: IElementTree | null
-  parentElement?: IElementModel
-}
-
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-export type UpdateElementProperties = {
-  element?: IElementModel
-}
 
 export interface IElementService {
   // Moved from element model to decouple renderer

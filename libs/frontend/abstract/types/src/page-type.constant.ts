@@ -35,7 +35,8 @@ export const PageType = {
   AppUpdate: ({ id }: IRef) => `/apps/update/${id}`,
   AtomCreate: () => `${PageType.Atoms()}/create`,
   AtomDelete: ({ id }: IRef) => `${PageType.Atoms()}/delete/${id}`,
-  AtomFieldCreate: () => `${PageType.Atoms()}/create/field`,
+  AtomFieldCreate: (interfaceId: string) =>
+    `${PageType.Atoms()}/interface/${interfaceId}/create/field`,
   AtomFieldDelete: ({ id }: IRef) => `${PageType.Atoms()}/delete/field/${id}`,
   AtomFieldUpdate: ({ id }: IRef) => `${PageType.Atoms()}/update/field/${id}`,
   Atoms: () => '/atoms',
@@ -150,7 +151,8 @@ export const PageType = {
   Type: () => '/types' as const,
   TypeCreate: () => `${PageType.Type()}/create`,
   TypeDelete: ({ id }: IRef) => `${PageType.Type()}/delete/${id}`,
-  TypeFieldCreate: () => `${PageType.Type()}/create/field`,
+  TypeFieldCreate: (typeId: string) =>
+    `${PageType.Type()}/${typeId}/create/field`,
   TypeFieldDelete: ({ id }: IRef) => `${PageType.Type()}/delete/field/${id}`,
   TypeFieldUpdate: ({ id }: IRef) => `${PageType.Type()}/update/field/${id}`,
   TypeUpdate: ({ id }: IRef) => `${PageType.Type()}/update/${id}`,

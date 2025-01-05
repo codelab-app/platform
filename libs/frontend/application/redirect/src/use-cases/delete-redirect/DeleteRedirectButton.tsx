@@ -1,3 +1,5 @@
+'use client'
+
 import type { IRedirectModel } from '@codelab/frontend/abstract/domain'
 
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
