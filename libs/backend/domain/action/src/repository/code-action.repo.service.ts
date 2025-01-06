@@ -28,10 +28,7 @@ export class CodeActionRepository extends AbstractRepository<
   CodeActionWhere,
   CodeActionOptions
 > {
-  constructor(
-
-    protected override loggerService: PinoLoggerService,
-  ) {
+  constructor(protected override loggerService: PinoLoggerService) {
     super(loggerService)
   }
 

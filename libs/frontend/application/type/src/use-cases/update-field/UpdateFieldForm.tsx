@@ -35,8 +35,8 @@ export interface UpdateFieldFormProps extends IFormController {
 export const UpdateFieldForm = observer<UpdateFieldFormProps>(
   ({ id, onSubmitSuccess, showFormControl = true, submitRef }) => {
     const fieldService = useFieldService()
-    const { typeDomainService } = useDomainStore()
-    const field = fieldService.getOneFromCache({ id })
+    const { fieldDomainService, typeDomainService } = useDomainStore()
+    const field = fieldDomainService.fields.get(id)
     const fieldSchema = useFieldSchema(createFieldSchema, field)
 
     const onSubmit = (input: IUpdateFieldData) => {

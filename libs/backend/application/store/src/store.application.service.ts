@@ -18,7 +18,8 @@ export class StoreApplicationService {
     storeDto: IStoreDto,
     interfaceTypeDto: IInterfaceTypeDto,
   ) {
-    const api = await this.typeDomainService.createInterface(interfaceTypeDto)
+    await this.typeDomainService.createInterface(interfaceTypeDto)
+
     const store = await this.storeDomainService.create(storeDto)
 
     return store

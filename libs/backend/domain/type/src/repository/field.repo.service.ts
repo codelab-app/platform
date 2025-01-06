@@ -16,10 +16,7 @@ export class FieldRepository extends AbstractRepository<
   FieldWhere,
   FieldOptions
 > {
-  constructor(
-
-    protected override loggerService: PinoLoggerService,
-  ) {
+  constructor(protected override loggerService: PinoLoggerService) {
     super(loggerService)
   }
 

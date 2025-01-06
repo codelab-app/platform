@@ -168,14 +168,6 @@ export const useAtomService = (): IAtomService => {
     return atom
   }
 
-  const getOneFromCache = (ref: IRef) => {
-    return atomDomainService.atoms.get(ref.id)
-  }
-
-  const getAllFromCache = () => {
-    return atomDomainService.atomsList
-  }
-
   const goToAtomsPage = (router: AppRouterInstance) => {
     router.push(PageType.Atoms())
   }
@@ -215,10 +207,8 @@ export const useAtomService = (): IAtomService => {
     create,
     createPopover,
     getAll,
-    getAllFromCache,
     getDataFn,
     getOne,
-    getOneFromCache,
     getSelectAtomOptions,
     goToAtomsPage,
     goToDeleteAtomPage,

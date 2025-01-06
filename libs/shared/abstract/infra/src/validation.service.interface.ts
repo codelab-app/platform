@@ -23,5 +23,11 @@ export interface IValidationService {
   ): Static<T>
   parseDefined<T>(data: T): NonNullable<T>
   validate(kind: TKind, data: Readonly<unknown>): boolean
-  validateSchema<T extends TSchema>(schema: T, data: Readonly<unknown>): boolean
+  /**
+   * @throws {Error} if validation fails
+   */
+  validateSchema<T extends TSchema>(
+    schema: T,
+    data: Readonly<unknown>,
+  ): Static<T>
 }

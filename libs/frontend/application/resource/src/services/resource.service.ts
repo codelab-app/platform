@@ -83,14 +83,6 @@ export const useResourceService = (): IResourceService => {
     resources.forEach((resource) => resourceDomainService.hydrate(resource))
   }
 
-  const getOneFromCache = (ref: IRef) => {
-    return resourceDomainService.resources.get(ref.id)
-  }
-
-  const getAllFromCache = () => {
-    return Array.from(resourceDomainService.resources.values())
-  }
-
   const createPopover = {
     close: (router: AppRouterInstance) => {
       router.push(PageType.Resources())
@@ -113,9 +105,7 @@ export const useResourceService = (): IResourceService => {
     create,
     createPopover,
     getAll,
-    getAllFromCache,
     getOne,
-    getOneFromCache,
     getSelectResourceOptions,
     load,
     removeMany,

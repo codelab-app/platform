@@ -2,11 +2,13 @@
 
 import { useResourceService } from '@codelab/frontend-application-resource/services'
 import { DeleteResourceModal } from '@codelab/frontend-application-resource/use-cases/delete-resource'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 
 export const DeleteResourceModalContainer = observer(
   ({ id }: { id: string }) => {
-    const resource = useResourceService().getOneFromCache({ id })
+    const { resourceDomainService } = useDomainStore()
+    const resource = resourceDomainService.resources.get(id)
 
     if (!resource) {
       return null

@@ -158,21 +158,11 @@ export const useComponentService = (): IComponentService => {
     return { items, totalItems: componentPagination.totalItems }
   }
 
-  const getOneFromCache = (ref: IRef) => {
-    return componentDomainService.components.get(ref.id)
-  }
-
-  const getAllFromCache = () => {
-    return Array.from(componentDomainService.components.values())
-  }
-
   return {
     create,
     getAll,
-    getAllFromCache,
     getDataFn,
     getOne,
-    getOneFromCache,
     importComponent,
     paginationService: componentPagination,
     previewComponent,

@@ -13,7 +13,8 @@ export const DeletePageModal = observer(({ id }: { id: string }) => {
   const pageService = usePageService()
   const router = useRouter()
   const closeModal = () => pageService.deletePopover.close(router)
-  const page = pageService.getOneFromCache({ id })
+  const { pageDomainService } = useDomainStore()
+  const page = pageDomainService.pages.get(id)
 
   return (
     <ModalForm.Modal

@@ -10,11 +10,22 @@ export class TypeDomainService {
   async createInterface(
     dto: Omit<IInterfaceTypeDto, '__typename' | 'fields' | 'kind'>,
   ) {
-    return await this.interfaceTypeRepository.add({
+    const interfaceType = await this.interfaceTypeRepository.add({
       ...dto,
       __typename: ITypeKind.InterfaceType,
       fields: [],
       kind: ITypeKind.InterfaceType,
     })
+
+    console.log('interfaceType', interfaceType)
+
+    // Find and return the created interface type
+    const found = await this.interfaceTypeRepository.findOne({
+      where: { id: interfaceType.id },
+    })
+
+    console.log('found', found)
+
+    return interfaceType
   }
 }

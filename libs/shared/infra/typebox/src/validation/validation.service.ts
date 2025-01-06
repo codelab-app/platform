@@ -121,16 +121,14 @@ export class ValidationService implements IValidationService {
   validateSchema<T extends TSchema>(
     schema: T,
     data: Readonly<unknown>,
-  ): boolean {
+  ): Static<T> {
     const validator = this.createValidator(schema)
-    const truthy = validator.test(data)
-    const validate = schema['validate']
 
-    if (validate) {
-      return truthy && schema['validate'](data)
-    }
+    this.runCustomValidation(schema, data)
 
-    return truthy
+    validator.validate(data)
+
+    return data
   }
 
   private static instance?: ValidationService

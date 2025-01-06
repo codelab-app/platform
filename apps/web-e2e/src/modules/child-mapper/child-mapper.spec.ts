@@ -54,7 +54,7 @@ test('should render child-mapper component instances with updated props and in n
   await expect(page.getNotification()).toBeHidden()
 })
 
-test('should not render instances when the prop arrary is empty', async ({
+test('should not render instances when the prop array is empty', async ({
   builderPage: page,
 }) => {
   await page.setEmptyChildMapperProperties()

@@ -70,14 +70,6 @@ export const useAuthGuardService = (): IAuthGuardService => {
     return authGuard
   }
 
-  const getOneFromCache = (ref: IRef) => {
-    return authGuardDomainService.authGuards.get(ref.id)
-  }
-
-  const getAllFromCache = () => {
-    return [...authGuardDomainService.authGuards.values()]
-  }
-
   const updatePopover = {
     close: (router: AppRouterInstance) => {
       router.push(PageType.AuthGuards())
@@ -100,9 +92,7 @@ export const useAuthGuardService = (): IAuthGuardService => {
     create,
     createPopover,
     getAll,
-    getAllFromCache,
     getOne,
-    getOneFromCache,
     removeMany,
     update,
     updatePopover,

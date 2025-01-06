@@ -48,10 +48,7 @@ export class UnionTypeRepository extends AbstractRepository<
   UnionTypeWhere,
   UnionTypeOptions
 > {
-  constructor(
-
-    protected override loggerService: PinoLoggerService,
-  ) {
+  constructor(protected override loggerService: PinoLoggerService) {
     super(loggerService)
   }
 

@@ -27,10 +27,7 @@ export class RedirectRepository extends AbstractRepository<
   RedirectWhere,
   RedirectOptions
 > {
-  constructor(
-
-    protected override loggerService: PinoLoggerService,
-  ) {
+  constructor(protected override loggerService: PinoLoggerService) {
     super(loggerService)
   }
 

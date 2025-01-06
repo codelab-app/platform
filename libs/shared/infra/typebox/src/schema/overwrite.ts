@@ -17,9 +17,9 @@ export const Overwrite = <T extends TObject, U extends TObject>(
   target: U,
 ) => {
   const targetProps = target.properties
-  const newOriginal = Type.Omit(original, ObjectTyped.keys(targetProps))
+  const newOriginalSchema = Type.Omit(original, ObjectTyped.keys(targetProps))
 
-  return Type.Composite([newOriginal, target]) as unknown as TObject<
+  return Type.Composite([newOriginalSchema, target]) as unknown as TObject<
     Omit<T['properties'], keyof U['properties']> & U['properties']
   >
 }

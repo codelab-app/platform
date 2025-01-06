@@ -208,10 +208,6 @@ export const useFieldService = (): IFieldService => {
     return filter(affectedNodeIds, isTruthy)
   }
 
-  const getOneFromCache = (ref: IRef) => {
-    return fieldDomainService.fields.get(ref.id)
-  }
-
   const createPopover = {
     close: (router: AppRouterInstance) => {
       router.back()
@@ -272,7 +268,6 @@ export const useFieldService = (): IFieldService => {
     create,
     createPopover,
     deletePopover,
-    getOneFromCache,
     moveFieldAsNextSibling,
     moveFieldAsPrevSibling,
     removeMany,

@@ -22,10 +22,7 @@ export class ResourceRepository extends AbstractRepository<
   ResourceWhere,
   ResourceOptions
 > {
-  constructor(
-
-    protected override loggerService: PinoLoggerService,
-  ) {
+  constructor(protected override loggerService: PinoLoggerService) {
     super(loggerService)
   }
 

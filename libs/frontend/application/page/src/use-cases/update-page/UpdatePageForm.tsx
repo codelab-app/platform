@@ -4,6 +4,7 @@ import type { IFormController } from '@codelab/frontend/abstract/types'
 import type { IPageUpdateFormData } from '@codelab/shared/abstract/core'
 
 import { UiKey } from '@codelab/frontend/abstract/types'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
   Form,
   FormController,
@@ -25,7 +26,8 @@ export const UpdatePageForm = observer<UpdatePageFormProps>(
     const pageService = usePageService()
     const router = useRouter()
     const closeForm = () => pageService.updatePopover.close(router)
-    const pageToUpdate = pageService.getOneFromCache({ id })
+    const { pageDomainService } = useDomainStore()
+    const pageToUpdate = pageDomainService.pages.get(id)
 
     const model: Partial<IPageUpdateFormData> = {
       app: pageToUpdate?.app,

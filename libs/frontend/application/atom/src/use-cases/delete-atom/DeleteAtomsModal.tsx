@@ -1,6 +1,7 @@
 'use client'
 
 import { UiKey } from '@codelab/frontend/abstract/types'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
@@ -12,7 +13,8 @@ import { useAtomService } from '../../services'
 export const DeleteAtomsModal = observer<{ id: string }>(({ id }) => {
   const { goToAtomsPage, removeMany } = useAtomService()
   const router = useRouter()
-  const atom = useAtomService().getOneFromCache({ id })
+  const { atomDomainService } = useDomainStore()
+  const atom = atomDomainService.atoms.get(id)
 
   if (!atom) {
     return null

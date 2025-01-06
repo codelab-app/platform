@@ -21,10 +21,7 @@ export class EnumTypeRepository extends AbstractRepository<
   EnumTypeWhere,
   EnumTypeOptions
 > {
-  constructor(
-
-    protected override loggerService: PinoLoggerService,
-  ) {
+  constructor(protected override loggerService: PinoLoggerService) {
     super(loggerService)
   }
 

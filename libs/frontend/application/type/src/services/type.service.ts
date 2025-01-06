@@ -210,14 +210,6 @@ export const useTypeService = (): ITypeService => {
     return false
   }
 
-  const getOneFromCache = (ref: IRef) => {
-    return typeDomainService.types.get(ref.id)
-  }
-
-  const getAllFromCache = () => {
-    return Array.from(typeDomainService.types.values())
-  }
-
   const updatePopover = {
     close: (router: AppRouterInstance) => {
       router.push(PageType.Type())
@@ -240,11 +232,9 @@ export const useTypeService = (): ITypeService => {
     create,
     createPopover,
     getAll,
-    getAllFromCache,
     getDataFn,
     getInterface,
     getOne,
-    getOneFromCache,
     getSelectOptions,
     paginationService: typePagination,
     removeMany: deleteType,

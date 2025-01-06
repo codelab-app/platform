@@ -49,20 +49,10 @@ export const useRedirectService = (): IRedirectService => {
     return await redirectRepository.update({ id: data.id }, data)
   }
 
-  const getOneFromCache = (ref: IRef) => {
-    return redirectDomainService.redirects.get(ref.id)
-  }
-
-  const getAllFromCache = () => {
-    return Array.from(redirectDomainService.redirects.values())
-  }
-
   return {
     create,
     getAll,
-    getAllFromCache,
     getOne,
-    getOneFromCache,
     removeMany,
     update,
   }
