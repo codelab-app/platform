@@ -30,7 +30,6 @@ export class PrimitiveTypeRepository extends AbstractRepository<
   PrimitiveTypeOptions
 > {
   constructor(
-
     protected override loggerService: PinoLoggerService,
     protected authService: AuthDomainService,
   ) {

@@ -20,8 +20,6 @@ import { PageDomainFactory } from '@codelab/frontend-domain-page/services'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Validator } from '@codelab/shared/infra/typebox'
 import { withAsyncSpanFunc } from '@codelab/shared-infra-sentry'
-import { computed, type IComputedValueOptions } from 'mobx'
-import { type DependencyList, useMemo } from 'react'
 
 import { createAppAction } from '../use-cases/create-app'
 import { AppFactory } from './app.factory'
@@ -82,15 +80,15 @@ export const useAppService = (): IAppService => {
       /**
        * Get all pages to delete
        */
-      const { items: pagesDto } = await pageRepository.find({
-        appConnection: { node: { id: app.id } },
-      })
+      // const { items: pagesDto } = await pageRepository.find({
+      //   appConnection: { node: { id: app.id } },
+      // })
 
-      const pages = pagesDto.map((pageDto) =>
-        pageDomainService.hydrate(pageDto),
-      )
+      // const pages = pagesDto.map((pageDto) =>
+      //   pageDomainService.hydrate(pageDto),
+      // )
 
-      await pageService.removeMany(pages)
+      // await pageService.removeMany(pages)
 
       await appRepository.delete([app])
 
@@ -183,34 +181,12 @@ export const useAppService = (): IAppService => {
     }
   }
 
-  const appList = useComputed(() => appDomainService.appsList)
-
-  const getAllFromCache = () => {
-    return appDomainService.appsList
-  }
-
-  const getOneFromCache = (ref: IRef) => {
-    return appDomainService.apps.get(ref.id)
-  }
-
   return {
-    appList,
     create: withAsyncSpanFunc({ name: 'AppCreate' }, create),
     getAll,
-    getAllFromCache,
     getOne,
-    getOneFromCache,
     regeneratePages: regeneratePagesForApp,
     removeMany: withAsyncSpanFunc({ name: 'AppRemoveMany' }, removeMany),
     update,
   }
-}
-
-// changes to "options" argument are ignored
-export const useComputed = <T>(
-  func: () => T,
-  options?: IComputedValueOptions<T>,
-  deps?: DependencyList,
-) => {
-  return useMemo(() => computed(func, options), deps ?? []).get()
 }

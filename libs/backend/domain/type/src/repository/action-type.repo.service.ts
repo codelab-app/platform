@@ -24,10 +24,7 @@ export class ActionTypeRepository extends AbstractRepository<
   ActionTypeWhere,
   ActionTypeOptions
 > {
-  constructor(
-
-    protected override loggerService: PinoLoggerService,
-  ) {
+  constructor(protected override loggerService: PinoLoggerService) {
     super(loggerService)
   }
 

@@ -129,14 +129,6 @@ export const useActionService = (): IActionService => {
     return await actionRepository.add(newActionDto)
   }
 
-  const getOneFromCache = (ref: IRef) => {
-    return actionDomainService.actions.get(ref.id)
-  }
-
-  const getAllFromCache = () => {
-    return Array.from(actionDomainService.actions.values())
-  }
-
   const createPopover = {
     close: (router: AppRouterInstance) => {
       router.back()
@@ -184,9 +176,7 @@ export const useActionService = (): IActionService => {
     create,
     createPopover,
     getAll,
-    getAllFromCache,
     getOne,
-    getOneFromCache,
     removeMany,
     update,
     updatePopover,

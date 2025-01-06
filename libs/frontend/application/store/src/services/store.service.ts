@@ -63,20 +63,10 @@ export const useStoreService = (): IStoreService => {
     )
   }
 
-  const getOneFromCache = (ref: IRef) => {
-    return storeDomainService.stores.get(ref.id)
-  }
-
-  const getAllFromCache = () => {
-    return Array.from(storeDomainService.stores.values())
-  }
-
   return {
     create,
     getAll,
-    getAllFromCache,
     getOne,
-    getOneFromCache,
     load,
     removeMany,
     update,

@@ -3,6 +3,7 @@
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
 
 import { PageType, UiKey } from '@codelab/frontend/abstract/types'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
@@ -14,10 +15,16 @@ import { useBuildApp } from './useBuildApp.hook'
 
 export const BuildAppModal = observer(({ id }: { id: string }) => {
   const router = useRouter()
-  const appService = useAppService()
-  const app = appService.getOneFromCache({ id })
+  const { appDomainService } = useDomainStore()
+  const app = appDomainService.apps.get(id)
   const { regenerate } = useBuildApp()
-  const onSubmit = () => regenerate(app as IAppModel)
+
+  const onSubmit = () => {
+    if (app) {
+      return regenerate(app)
+    }
+  }
+
   const closeModal = () => router.push(PageType.AppList())
 
   return (

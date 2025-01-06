@@ -15,6 +15,8 @@ import {
   connectOwner,
   reconnectNodeIds,
 } from '@codelab/shared/domain/orm'
+import { domainMapper } from '@codelab/shared-domain-module/domain'
+import { pageMapper } from '@codelab/shared-domain-module/page'
 
 import { AppProperties } from './app.properties'
 
@@ -37,14 +39,12 @@ export const appMapper: IMapper<
     return {
       domains: [
         {
-          // delete: Domain.toDeleteInput(),
-          where: {},
+          delete: domainMapper.toDeleteInput(),
         },
       ],
       pages: [
         {
-          // delete: Page.toDeleteInput(),
-          where: {},
+          delete: pageMapper.toDeleteInput(),
         },
       ],
     }

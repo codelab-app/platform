@@ -1,6 +1,7 @@
 'use client'
 
 import { UiKey } from '@codelab/frontend/abstract/types'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import {
   emptyJsonSchema,
@@ -15,8 +16,9 @@ import { useFieldService } from '../../services'
 export const DeleteFieldModal = observer<{ id: string }>(({ id }) => {
   const router = useRouter()
   const fieldService = useFieldService()
+  const { fieldDomainService } = useDomainStore()
   const closeModal = router.back
-  const field = fieldService.getOneFromCache({ id })
+  const field = fieldDomainService.fields.get(id)
 
   if (!field) {
     return null

@@ -16,6 +16,7 @@ import {
 import { CuiSidebarSecondary } from '@codelab/frontend/presentation/codelab-ui'
 import { useAtomService } from '@codelab/frontend-application-atom/services'
 import { UpdateAtomPopover } from '@codelab/frontend-application-atom/use-cases/update-atom'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
@@ -36,7 +37,8 @@ const UpdateAtomContainer = observer<UpdateAtomContainerProps>(
     const submitRef = useRef<Maybe<SubmitController>>()
     const { updatePopover } = useAtomService()
     const router = useRouter()
-    const atom = useAtomService().getOneFromCache({ id })
+    const { atomDomainService } = useDomainStore()
+    const atom = atomDomainService.atoms.get(id)
 
     return (
       <CuiSidebarSecondary

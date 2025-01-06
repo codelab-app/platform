@@ -1,11 +1,12 @@
 'use client'
 
-import { useDomainService } from '@codelab/frontend-application-domain/services'
 import { UpdateDomainModal } from '@codelab/frontend-application-domain/use-cases/update-domain'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 
 export const DomainUpdateContainer = observer(({ id }: { id: string }) => {
-  const domain = useDomainService().getOneFromCache({ id })
+  const { domainDomainService } = useDomainStore()
+  const domain = domainDomainService.domains.get(id)
 
   if (!domain) {
     return null

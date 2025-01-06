@@ -2,9 +2,9 @@ import type { INodeType, IPageDto } from '@codelab/shared/abstract/core'
 import type { PageOptions, PageWhere } from '@codelab/shared/infra/gql'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { Validator } from '@codelab/shared/infra/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import { PageFragment } from '@codelab/shared/infra/gql'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { pageApi, pageMapper } from '@codelab/shared-domain-module/page'
 import { Injectable } from '@nestjs/common'
 
@@ -16,10 +16,7 @@ export class PageRepository extends AbstractRepository<
   PageWhere,
   PageOptions
 > {
-  constructor(
-
-    protected override loggerService: PinoLoggerService,
-  ) {
+  constructor(protected override loggerService: PinoLoggerService) {
     super(loggerService)
   }
 

@@ -63,7 +63,7 @@ const bootstrap = async () => {
    */
   const { httpAdapter } = app.get(HttpAdapterHost)
 
-  app.useGlobalFilters(new AllExceptionsFilter(httpAdapter, logger))
+  app.useGlobalFilters(new AllExceptionsFilter(httpAdapter))
 
   /**
    * Add swagger

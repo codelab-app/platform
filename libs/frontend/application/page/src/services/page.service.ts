@@ -135,14 +135,6 @@ export const usePageService = (): IPageService => {
     return page
   }
 
-  const getOneFromCache = (ref: IRef) => {
-    return pageDomainService.pages.get(ref.id)
-  }
-
-  const getAllFromCache = () => {
-    return Array.from(pageDomainService.pages.values())
-  }
-
   const createPopover = {
     close: (router: AppRouterInstance) => {
       router.back()
@@ -182,9 +174,7 @@ export const usePageService = (): IPageService => {
     createPopover,
     deletePopover,
     getAll,
-    getAllFromCache,
     getOne,
-    getOneFromCache,
     getPagesByApp,
     getRenderedPage,
     getSelectPageOptions,

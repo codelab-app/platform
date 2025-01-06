@@ -40,12 +40,15 @@ export const pageMapper: IMapper<
 
   toDeleteInput: (): PageDeleteInput => {
     return {
-      redirect: { where: {} },
+      redirect: { delete: {} },
       // pageContentContainer: { delete: {}, where: {} },
-      rootElement: {},
+      rootElement: {
+        delete: {
+          props: {},
+        },
+      },
       store: {
         delete: storeMapper.toDeleteInput(),
-        where: {},
       },
     }
   },

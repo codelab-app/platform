@@ -9,17 +9,17 @@ import {
   UiKey,
 } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 export const AppButtonOpenCreateForm = ({ children }: PropsWithChildren) => {
-  const router = useRouter()
   const icon = !children && <PlusOutlined />
-  const onClick = () => router.push(PageType.AppCreate())
   const label = getUiDataLabel(UiKey.AppButtonOpenCreateForm)
 
   return (
-    <Button aria-label={label} icon={icon} onClick={onClick} type="primary">
-      {children ?? label}
-    </Button>
+    <Link href={PageType.AppCreate()}>
+      <Button aria-label={label} icon={icon} type="primary">
+        {children ?? label}
+      </Button>
+    </Link>
   )
 }

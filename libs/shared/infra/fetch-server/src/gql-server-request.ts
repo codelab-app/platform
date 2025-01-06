@@ -35,9 +35,12 @@ export const gqlServerRequest = async <TResult, TVariables extends ObjectLike>(
     method: 'POST',
     next,
   }).then((res) => {
-    if (next?.revalidateTag) {
-      revalidateTag(next.revalidateTag)
-    }
+    /**
+     * Disable revalidation for now
+     */
+    // if (next?.revalidateTag) {
+    //   revalidateTag(next.revalidateTag)
+    // }
 
     return res
   })

@@ -3,6 +3,7 @@
 import type { ObjectLike } from '@codelab/shared/abstract/types'
 
 import { propSafeStringify } from '@codelab/frontend-domain-prop/utils'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import {
@@ -24,7 +25,7 @@ interface ResourceTestRequestProps {
 
 export const ResourceTestRequest = observer<ResourceTestRequestProps>(
   ({ fetchConfigDataFieldName, resourceIdFieldName }) => {
-    const resourceService = useResourceService()
+    const { resourceDomainService } = useDomainStore()
     const { model } = useForm()
 
     const resourceId = prop(
@@ -32,7 +33,7 @@ export const ResourceTestRequest = observer<ResourceTestRequestProps>(
       resourceIdFieldName,
     )
 
-    const resource = resourceService.getOneFromCache({ id: resourceId })
+    const resource = resourceDomainService.resources.get(resourceId)
 
     const config = prop(
       model as Record<string, IResourceFetchConfig>,

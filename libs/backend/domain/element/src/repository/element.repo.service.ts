@@ -6,8 +6,8 @@ import type {
 } from '@codelab/shared/infra/gql'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { Validator } from '@codelab/shared/infra/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
+import { Validator } from '@codelab/shared/infra/typebox'
 import {
   elementApi,
   elementMapper,
@@ -22,10 +22,7 @@ export class ElementRepository extends AbstractRepository<
   ElementWhere,
   ElementOptions
 > {
-  constructor(
-
-    protected override loggerService: PinoLoggerService,
-  ) {
+  constructor(protected override loggerService: PinoLoggerService) {
     super(loggerService)
   }
 

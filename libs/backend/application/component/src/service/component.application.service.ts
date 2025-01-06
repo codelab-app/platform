@@ -16,6 +16,7 @@ import {
   InterfaceType,
   InterfaceTypeRepository,
 } from '@codelab/backend/domain/type'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
   IElementRenderTypeKind,
   IRole,
@@ -38,10 +39,20 @@ export class ComponentApplicationService {
     private elementApplicationService: ElementApplicationService,
     private propDomainService: PropDomainService,
     private interfaceTypeRepository: InterfaceTypeRepository,
+    private logger: PinoLoggerService,
   ) {}
 
   async createComponent(createComponentData: ICreateComponentData) {
+    this.logger.debug('createComponent', {
+      context: 'Create Component Data',
+      data: createComponentData,
+    })
+
     const owner = this.authDomainService.currentUser
+
+    if (owner.id !== createComponentData.owner.id) {
+      throw new Error('Owner does not match')
+    }
 
     const api: IInterfaceTypeDto = interfaceTypeDtoFactory({
       id: v4(),
@@ -49,10 +60,8 @@ export class ComponentApplicationService {
       owner,
     })
 
-    const createdApi = await this.interfaceTypeRepository.add(api)
-
     const storeDto: IStoreDto = {
-      api: createdApi,
+      api,
       id: v4(),
       name: Store.createName({ name: createComponentData.name }),
     }
@@ -72,11 +81,19 @@ export class ComponentApplicationService {
     const componentDto: IComponentDto = {
       ...createComponentData,
       __typename: IElementRenderTypeKind.Component,
-      api: createdApi,
+      api,
       owner,
       props,
       rootElement,
       store,
+    }
+
+    const found = await this.interfaceTypeRepository.findOne({
+      where: { id: api.id },
+    })
+
+    if (!found) {
+      throw new Error('Interface type not found')
     }
 
     await this.componentRepository.add(componentDto)

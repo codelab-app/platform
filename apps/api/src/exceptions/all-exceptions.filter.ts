@@ -12,12 +12,12 @@ import { ValidationException } from 'typebox-validators'
 @Injectable()
 @Catch()
 export class AllExceptionsFilter extends BaseExceptionFilter {
-  constructor(
-    applicationRef: HttpServer,
-    private readonly logger: PinoLoggerService,
-  ) {
-    super(applicationRef)
-  }
+  // constructor(
+  //   applicationRef: HttpServer,
+  //   private readonly logger: PinoLoggerService,
+  // ) {
+  //   super(applicationRef)
+  // }
 
   /**
    * Adding this decorator will capture all exceptions and log them to Sentry, by default only uncaught are captured
@@ -70,7 +70,8 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
         // extra: logData,
       })
 
-      return super.catch(httpException, host)
+      // Rethrow the exception to stop the application
+      throw exception
     }
 
     return super.catch(exception, host)

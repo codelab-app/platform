@@ -1,12 +1,15 @@
 import { CurrentUser } from '@codelab/backend/application/auth'
-import { UserDomainService } from '@codelab/backend/domain/user'
+import { UserDomainService, UserRepository } from '@codelab/backend/domain/user'
 import { type IUserDto } from '@codelab/shared/abstract/core'
 import { Controller, Get, Post } from '@nestjs/common'
 import * as Sentry from '@sentry/nestjs'
 
 @Controller('user')
 export class UserApplicationController {
-  constructor(private readonly userDomainService: UserDomainService) {}
+  constructor(
+    private readonly userDomainService: UserDomainService,
+    private readonly userRepository: UserRepository,
+  ) {}
 
   @Get('/debug-sentry')
   getError() {
@@ -14,6 +17,11 @@ export class UserApplicationController {
       console.log('debug sentry')
     })
     // throw new Error('My first Sentry error!')
+  }
+
+  @Get('me')
+  async me(@CurrentUser() userDto: IUserDto) {
+    return this.userRepository.findOne({ where: { id: userDto.id } })
   }
 
   /**

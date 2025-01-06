@@ -4,9 +4,7 @@ import type {
   ITypeTransformContext,
   JsonSchema,
 } from '@codelab/frontend/abstract/domain'
-import type {
-  IRef,
-} from '@codelab/shared/abstract/core'
+import type { IRef } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 
 import { fieldRef, userRef } from '@codelab/frontend/abstract/domain'

@@ -16,10 +16,7 @@ export class TagRepository extends AbstractRepository<
   TagWhere,
   TagOptions
 > {
-  constructor(
-
-    protected override loggerService: PinoLoggerService,
-  ) {
+  constructor(protected override loggerService: PinoLoggerService) {
     super(loggerService)
   }
 

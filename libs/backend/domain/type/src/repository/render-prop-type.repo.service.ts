@@ -27,10 +27,7 @@ export class RenderPropTypeRepository extends AbstractRepository<
   RenderPropTypeWhere,
   RenderPropTypeOptions
 > {
-  constructor(
-
-    protected override loggerService: PinoLoggerService,
-  ) {
+  constructor(protected override loggerService: PinoLoggerService) {
     super(loggerService)
   }
 

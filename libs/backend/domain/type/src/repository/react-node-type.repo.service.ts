@@ -27,10 +27,7 @@ export class ReactNodeTypeRepository extends AbstractRepository<
   ReactNodeTypeWhere,
   ReactNodeTypeOptions
 > {
-  constructor(
-
-    protected override loggerService: PinoLoggerService,
-  ) {
+  constructor(protected override loggerService: PinoLoggerService) {
     super(loggerService)
   }
 

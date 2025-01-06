@@ -34,10 +34,7 @@ export class ComponentApplicationController {
   @UseInterceptors(ClassSerializerInterceptor)
   @Post('create-component')
   async createComponent(@Body() createComponentData: ICreateComponentData) {
-    const component =
-      this.componentApplicationService.createComponent(createComponentData)
-
-    return Validator.validateSchema(ComponentDtoSchema, component)
+    return this.componentApplicationService.createComponent(createComponentData)
   }
 
   @UseInterceptors(ClassSerializerInterceptor)

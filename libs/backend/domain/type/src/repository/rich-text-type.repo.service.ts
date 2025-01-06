@@ -24,10 +24,7 @@ export class RichTextTypeRepository extends AbstractRepository<
   RichTextTypeWhere,
   RichTextTypeOptions
 > {
-  constructor(
-
-    protected override loggerService: PinoLoggerService,
-  ) {
+  constructor(protected override loggerService: PinoLoggerService) {
     super(loggerService)
   }
 

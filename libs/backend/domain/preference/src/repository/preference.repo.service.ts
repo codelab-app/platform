@@ -5,9 +5,9 @@ import type {
 } from '@codelab/shared/infra/gql'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { Validator } from '@codelab/shared/infra/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import { PreferenceFragment } from '@codelab/shared/infra/gql'
+import { Validator } from '@codelab/shared/infra/typebox'
 import {
   preferenceApi,
   preferenceMapper,
@@ -22,10 +22,7 @@ export class PreferenceRepository extends AbstractRepository<
   PreferenceWhere,
   PreferenceOptions
 > {
-  constructor(
-
-    protected override loggerService: PinoLoggerService,
-  ) {
+  constructor(protected override loggerService: PinoLoggerService) {
     super(loggerService)
   }
 

@@ -3,6 +3,7 @@ import type {
   ICreateComponentData,
   ICreateElementData,
   IPageDto,
+  IRef,
 } from '@codelab/shared/abstract/core'
 
 import {
@@ -16,14 +17,13 @@ import { v4 } from 'uuid'
 
 import { seedAppData } from '../builder/builder.data'
 
-export const childMapperComponent: ICreateComponentData = {
+export const childMapperComponent: (owner: IRef) => ICreateComponentData = (
+  owner,
+) => ({
   id: v4(),
   name: 'Component Name',
-  // Mocked here
-  owner: {
-    id: v4(),
-  },
-}
+  owner,
+})
 
 export const childMapperComponentTypography = {
   atom: IAtomType.AntDesignTypographyText,
@@ -77,13 +77,16 @@ export const seedTestData = async (request: APIRequestContext) => {
     throw new Error('Missing page')
   }
 
+  const ownerResponse = await request.get('/api/v1/user/me')
+  const owner = await ownerResponse.json()
+
   await request.post(`/api/v1/element/${page.rootElement.id}/create-elements`, {
     data: providerPageElements(page),
   })
 
   const componentResponse = await request.post(
     '/api/v1/component/create-component',
-    { data: childMapperComponent },
+    { data: childMapperComponent(owner) },
   )
 
   const component: IComponentDto = Validator.parse(

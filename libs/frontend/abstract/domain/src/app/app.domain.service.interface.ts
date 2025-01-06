@@ -8,6 +8,5 @@ import type { IAppModel } from './app.model.interface'
 export interface IAppDomainService extends IHydrateable<IAppDto, IAppModel> {
   apps: ObjectMap<IAppModel>
   appsList: Array<IAppModel>
-
   app(id: string): Maybe<IAppModel>
 }

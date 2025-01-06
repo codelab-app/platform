@@ -16,10 +16,7 @@ export class StoreRepository extends AbstractRepository<
   StoreWhere,
   StoreOptions
 > {
-  constructor(
-
-    protected override loggerService: PinoLoggerService,
-  ) {
+  constructor(protected override loggerService: PinoLoggerService) {
     super(loggerService)
   }
 

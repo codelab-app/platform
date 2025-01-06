@@ -21,7 +21,6 @@ export interface IFieldService
   deletePopover: IPopover<UpdatePopoverParamsContext>
   updatePopover: IPopover<UpdatePopoverParamsContext>
   cloneField(field: IFieldModel, apiId: string): Promise<IFieldModel>
-  getOneFromCache(ref: IRef): IFieldModel | undefined
   moveFieldAsNextSibling(props: {
     field: IRef
     targetField: IRef

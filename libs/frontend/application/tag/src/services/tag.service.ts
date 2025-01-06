@@ -137,14 +137,6 @@ export const useTagService = (): ITagService => {
     setCheckedTagIds([])
   }
 
-  const getOneFromCache = (ref: IRef) => {
-    return tagDomainService.tags.get(ref.id)
-  }
-
-  const getAllFromCache = () => {
-    return Array.from(tagDomainService.tags.values())
-  }
-
   const createPopover = {
     close: (router: AppRouterInstance) => {
       router.push(PageType.Tags())
@@ -169,9 +161,7 @@ export const useTagService = (): ITagService => {
     createPopover,
     deleteCheckedTags,
     getAll,
-    getAllFromCache,
     getDataFn,
-    getOneFromCache,
     paginationService: tagPagination,
     removeMany,
     setCheckedTagIds,

@@ -1,6 +1,7 @@
 'use client'
 
 import { PageType, UiKey } from '@codelab/frontend/abstract/types'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
@@ -12,7 +13,8 @@ export const DeleteAppModal = observer<{ id: string }>(({ id }) => {
   const router = useRouter()
   const appService = useAppService()
   const closeModal = () => router.push(PageType.AppList())
-  const app = appService.getOneFromCache({ id })
+  const { appDomainService } = useDomainStore()
+  const app = appDomainService.apps.get(id)
 
   if (!app) {
     return null

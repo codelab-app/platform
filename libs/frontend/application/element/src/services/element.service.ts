@@ -117,14 +117,6 @@ export const useElementService = (): IElementService => {
     return elementDomainService.element(id)
   }
 
-  const getOneFromCache = (ref: IRef) => {
-    return elementDomainService.elements.get(ref.id)
-  }
-
-  const getAllFromCache = () => {
-    return Array.from(elementDomainService.elements.values())
-  }
-
   const createPopover = {
     close: (router: AppRouterInstance) => {
       router.back()
@@ -149,9 +141,7 @@ export const useElementService = (): IElementService => {
   return {
     create,
     createPopover,
-    // getAllFromCache,
     getElement,
-    // getOneFromCache,
     loadDependantTypes,
     move,
     remove: deleteElement,

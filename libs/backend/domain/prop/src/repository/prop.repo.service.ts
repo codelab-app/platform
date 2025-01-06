@@ -2,9 +2,9 @@ import type { INodeType, IPropDto } from '@codelab/shared/abstract/core'
 import type { PropOptions, PropWhere } from '@codelab/shared/infra/gql'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { Validator } from '@codelab/shared/infra/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import { PropFragment } from '@codelab/shared/infra/gql'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { propApi, propMapper } from '@codelab/shared-domain-module/prop'
 import { Injectable } from '@nestjs/common'
 
@@ -16,10 +16,7 @@ export class PropRepository extends AbstractRepository<
   PropWhere,
   PropOptions
 > {
-  constructor(
-
-    protected override loggerService: PinoLoggerService,
-  ) {
+  constructor(protected override loggerService: PinoLoggerService) {
     super(loggerService)
   }
 

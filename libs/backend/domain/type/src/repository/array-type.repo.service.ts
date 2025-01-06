@@ -24,10 +24,7 @@ export class ArrayTypeRepository extends AbstractRepository<
   ArrayTypeWhere,
   ArrayTypeOptions
 > {
-  constructor(
-
-    protected override loggerService: PinoLoggerService,
-  ) {
+  constructor(protected override loggerService: PinoLoggerService) {
     super(loggerService)
   }
 
