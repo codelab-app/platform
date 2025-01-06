@@ -121,6 +121,7 @@ export const CreateElementForm = observer<CreateElementFormProps>(
       >
         <AutoFields
           omitFields={[
+            'id',
             'parentElement',
             'style',
             'propsData',
