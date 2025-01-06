@@ -9,7 +9,7 @@ export class CssBuilderPage extends BuilderPage {
   getStyledButton() {
     const builderContainer = this.getBuilderRenderContainer()
 
-    return builderContainer.locator('.ant-btn')
+    return builderContainer.locator('.ant-btn').first()
   }
 
   async openCssTab() {
