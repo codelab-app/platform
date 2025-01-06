@@ -1,7 +1,7 @@
 export default {
   displayName: 'shared-infra-typebox',
   preset: '../../../../jest.preset.js',
-  coverageDirectory: '../../../../coverage/libs/shared/infra/typebox',
+  testEnvironment: 'node',
   transform: {
     '^.+.[tj]sx?$': [
       '@swc/jest',
@@ -16,5 +16,6 @@ export default {
       },
     ],
   },
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
+  moduleFileExtensions: ['ts', 'js', 'html'],
+  coverageDirectory: '../../../../coverage/libs/shared/infra/typebox',
 }

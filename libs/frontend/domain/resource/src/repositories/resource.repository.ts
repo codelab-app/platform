@@ -10,7 +10,7 @@ import {
   type IResourceModel,
   type IResourceRepository,
 } from '@codelab/frontend/abstract/domain'
-import { Validator } from '@codelab/shared/infra/schema'
+import { Validator } from '@codelab/shared/infra/typebox'
 import {
   resourceMapper,
   resourceServerActions,

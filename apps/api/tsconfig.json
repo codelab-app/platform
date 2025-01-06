@@ -4,8 +4,9 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "outDir": "../../dist/out-tsc",
-    "module": "ESNext",
+    "module": "CommonJS",
     "moduleResolution": "node",
+    "sourceMap": true,
     "target": "es2021",
     "strictNullChecks": true,
     "noImplicitAny": true,

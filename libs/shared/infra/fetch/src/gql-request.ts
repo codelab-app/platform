@@ -1,9 +1,7 @@
 import type { ObjectLike } from '@codelab/shared/abstract/types'
+import type { TypedDocumentString } from '@codelab/shared/infra/gql'
 import type { DocumentTypeDecoration } from '@graphql-typed-document-node/core'
 import type { GraphQLClient } from 'graphql-request'
-
-import { getEnv } from '@codelab/shared/config/env'
-import { cLog } from '@codelab/shared/utils'
 
 export const gqlRequest = async <TResult, TVariables extends ObjectLike>(
   client: GraphQLClient,
@@ -16,22 +14,27 @@ export const gqlRequest = async <TResult, TVariables extends ObjectLike>(
     'Content-Type': 'application/json',
   })
 
-  try {
-    const data = await client.request<TResult>(document.toString(), variables)
+  /**
+   * @throws {GraphQLError}
+   */
+  return await client.request<TResult>(document.toString(), variables)
 
-    return data
-  } catch (error: unknown) {
-    if (typeof error === 'object' && error !== null && 'response' in error) {
-      const gqlError = error as {
-        response: { errors?: Array<{ message: string }> }
-      }
+  // try {
+  //   const data = await client.request<TResult>(document.toString(), variables)
 
-      if (gqlError.response.errors) {
-        cLog(document, variables, gqlError.response.errors)
-        throw new Error(gqlError.response.errors[0]?.message)
-      }
-    }
+  //   return data
+  // } catch (error: unknown) {
+  //   if (typeof error === 'object' && error !== null && 'response' in error) {
+  //     const gqlError = error as {
+  //       response: { errors?: Array<{ message: string }> }
+  //     }
 
-    throw error
-  }
+  //     if (gqlError.response.errors) {
+  //       cLog(document, variables, gqlError.response.errors)
+  //       throw new Error(gqlError.response.errors[0]?.message)
+  //     }
+  //   }
+
+  //   throw error
+  // }
 }

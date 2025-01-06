@@ -24,7 +24,6 @@ export class Neo4jService {
       // logging: {
       //   level: 'debug',
       //   logger: (level, message) => {
-      //     console.log(level, message)
       //   },
       // },
     })

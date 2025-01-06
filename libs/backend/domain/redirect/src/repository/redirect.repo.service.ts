@@ -1,5 +1,4 @@
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import {
   type INodeType,
@@ -16,6 +15,7 @@ import {
   type RedirectWhere,
 } from '@codelab/shared/infra/gql'
 import { RedirectFragment } from '@codelab/shared/infra/gql'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { redirectApi } from '@codelab/shared-domain-module/redirect'
 import { Injectable } from '@nestjs/common'
 
@@ -28,10 +28,10 @@ export class RedirectRepository extends AbstractRepository<
   RedirectOptions
 > {
   constructor(
-    protected override validationService: ValidationService,
+
     protected override loggerService: PinoLoggerService,
   ) {
-    super(validationService, loggerService)
+    super(loggerService)
   }
 
   protected async _addMany(redirects: Array<IRedirectDto>) {

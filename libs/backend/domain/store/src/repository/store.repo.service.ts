@@ -2,9 +2,9 @@ import type { INodeType, IStoreDto } from '@codelab/shared/abstract/core'
 import type { StoreOptions, StoreWhere } from '@codelab/shared/infra/gql'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import { StoreFragment } from '@codelab/shared/infra/gql'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { storeApi, storeMapper } from '@codelab/shared-domain-module/store'
 import { Injectable } from '@nestjs/common'
 
@@ -17,10 +17,10 @@ export class StoreRepository extends AbstractRepository<
   StoreOptions
 > {
   constructor(
-    protected override validationService: ValidationService,
+
     protected override loggerService: PinoLoggerService,
   ) {
-    super(validationService, loggerService)
+    super(loggerService)
   }
 
   /**

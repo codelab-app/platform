@@ -6,19 +6,19 @@ import { Type } from '@sinclair/typebox'
 import { IPageKind } from './page-kind.enum'
 
 export const PageDtoSchema = Type.Object({
-  app: Typebox.Ref,
+  app: Typebox.RefSchema,
   /**
    * a pre-computed descendant elements ids
    */
-  elements: Type.Optional(Type.Array(Typebox.Ref)),
+  elements: Type.Optional(Type.Array(Typebox.RefSchema)),
   id: Type.String(),
   kind: Type.Enum(IPageKind),
   name: Type.String(),
   // The container element of the page
-  pageContentContainer: Typebox.Nullish(Typebox.Ref),
-  redirect: Typebox.Nullish(Typebox.Ref),
-  rootElement: Typebox.Ref,
-  store: Typebox.Ref,
+  pageContentContainer: Typebox.Nullish(Typebox.RefSchema),
+  redirect: Typebox.Nullish(Typebox.RefSchema),
+  rootElement: Typebox.RefSchema,
+  store: Typebox.RefSchema,
   urlPattern: Type.String(),
 })
 

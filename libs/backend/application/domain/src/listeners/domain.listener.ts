@@ -6,6 +6,7 @@ import type {
 
 import { DigitaloceanService } from '@codelab/backend/infra/adapter/digitalocean'
 import { DnsService } from '@codelab/backend/infra/adapter/dns'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { Injectable } from '@nestjs/common'
 import { OnEvent } from '@nestjs/event-emitter'
 
@@ -18,11 +19,19 @@ export class DomainListener {
   constructor(
     private dnsService: DnsService,
     private digitaloceanService: DigitaloceanService,
+    private readonly logger: PinoLoggerService,
   ) {}
 
   @OnEvent(DOMAIN_CREATED_EVENT)
   async domainCreated(subscription: DomainCreatedSubscription) {
     const domain = subscription.domainCreated.createdDomain
+
+    this.logger.log('domainCreated', {
+      context: 'DomainListener',
+      data: {
+        domain: domain.name,
+      },
+    })
 
     // try {
     //   const records = await this.dnsService.lookupARecord(domain.name)
@@ -42,11 +51,21 @@ export class DomainListener {
 
   @OnEvent(DOMAIN_DELETED_EVENT)
   async domainDeleted(subscription: DomainDeletedSubscription) {
-    //
+    this.logger.log('domainDeleted', {
+      context: 'DomainListener',
+      data: {
+        domain: subscription.domainDeleted.deletedDomain.name,
+      },
+    })
   }
 
   @OnEvent(DOMAIN_UPDATED_EVENT)
   async domainUpdated(subscription: DomainUpdatedSubscription) {
-    //
+    // this.logger.log('domainUpdated', {
+    //   context: 'DomainListener',
+    //   data: {
+    //     domain: subscription.domainUpdated.updatedDomain.name,
+    //   },
+    // })
   }
 }

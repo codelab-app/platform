@@ -87,9 +87,6 @@
       "@codelab/backend/application/resource": [
         "libs/backend/application/resource/src/index.ts"
       ],
-      "@codelab/backend/application/shared": [
-        "libs/backend/application/shared/src/index.ts"
-      ],
       "@codelab/backend/application/store": [
         "libs/backend/application/store/src/index.ts"
       ],
@@ -182,10 +179,10 @@
       "@codelab/backend/infra/adapter/shell": [
         "libs/backend/infra/adapter/shell/src/index.ts"
       ],
-      "@codelab/backend/infra/adapter/typebox": [
-        "libs/backend/infra/adapter/typebox/src/index.ts"
-      ],
       "@codelab/backend/infra/core": ["libs/backend/infra/core/src/index.ts"],
+      "@codelab/backend/shared/errors": [
+        "libs/backend/shared/errors/src/index.ts"
+      ],
       "@codelab/backend/shared/eval": ["libs/backend/shared/eval/src/index.ts"],
       "@codelab/backend/shared/util": ["libs/backend/shared/util/src/index.ts"],
       "@codelab/backend/test/setup": ["libs/backend/test/setup/src/index.ts"],
@@ -1018,9 +1015,11 @@
       "@codelab/shared/infra/logging": [
         "libs/shared/infra/logging/src/index.ts"
       ],
-      "@codelab/shared/infra/schema": ["libs/shared/infra/schema/src/index.ts"],
       "@codelab/shared/infra/typebox": [
         "libs/shared/infra/typebox/src/index.ts"
+      ],
+      "@codelab/shared/infra/validation": [
+        "libs/shared/infra/validation/src/index.ts"
       ],
       "@codelab/shared/utils": ["libs/shared/utils/src/index.ts"],
       "@codelab/tools-workspace": ["libs/tools/workspace/src/index.ts"],

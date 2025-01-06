@@ -77,7 +77,7 @@ import {
 } from '@codelab/shared/abstract/core'
 import { PartialExcept } from '@codelab/shared/abstract/types'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
-import { Validator } from '@codelab/shared/infra/schema'
+import { Validator } from '@codelab/shared/infra/typebox'
 import {
   Model,
   model,

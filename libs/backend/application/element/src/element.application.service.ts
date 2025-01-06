@@ -50,7 +50,9 @@ export class ElementApplicationService {
       renderType = await this.atomDomainService.defaultRenderType()
     }
 
-    this.loggerService.log({ atom: element.atom, renderType }, 'Create element')
+    this.loggerService.log('Create element', {
+      data: { atom: element.atom, renderType },
+    })
 
     return await this.elementRepository.add({
       ...element,

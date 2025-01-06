@@ -37,10 +37,9 @@ export class ResourceApplicationController {
   })
   @ApiResponse({ status: 200 })
   async createResource(@Body() createResourceData: ICreateResourceData) {
-    this.loggerService.log(
-      createResourceData,
-      `${this.constructor.name}.createResource()`,
-    )
+    this.loggerService.log(`${this.constructor.name}.createResource()`, {
+      data: createResourceData,
+    })
 
     return this.resourceApplicationService.createResource(createResourceData)
   }

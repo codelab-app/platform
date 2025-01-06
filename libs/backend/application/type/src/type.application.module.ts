@@ -1,5 +1,4 @@
 import { DataModule } from '@codelab/backend/application/data'
-import { SharedApplicationModule } from '@codelab/backend/application/shared'
 import { AuthDomainModule } from '@codelab/backend/domain/shared/auth'
 import { TypeDomainModule } from '@codelab/backend/domain/type'
 import { Module } from '@nestjs/common'
@@ -16,13 +15,7 @@ import { ImportSystemTypesHandler } from './use-case/system-types/import-system-
 @Module({
   controllers: [TypeApplicationController],
   exports: [TypeApplicationService],
-  imports: [
-    DataModule,
-    CqrsModule,
-    TypeDomainModule,
-    AuthDomainModule,
-    SharedApplicationModule,
-  ],
+  imports: [DataModule, CqrsModule, TypeDomainModule, AuthDomainModule],
   providers: [
     SeedCypressTypesHandler,
     TypeApplicationService,

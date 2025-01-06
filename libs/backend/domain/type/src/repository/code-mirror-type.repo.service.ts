@@ -10,9 +10,9 @@ import type {
 
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import { CodeMirrorTypeFragment } from '@codelab/shared/infra/gql'
+import { Validator } from '@codelab/shared/infra/typebox'
 import {
   codeMirrorTypeMapper,
   createTypeApi,
@@ -31,10 +31,10 @@ export class CodeMirrorTypeRepository extends AbstractRepository<
 > {
   constructor(
     protected override loggerService: PinoLoggerService,
-    protected override validationService: ValidationService,
+
     protected authService: AuthDomainService,
   ) {
-    super(validationService, loggerService)
+    super(loggerService)
   }
 
   protected async _addMany(codemirrorTypes: Array<ICodeMirrorTypeDto>) {

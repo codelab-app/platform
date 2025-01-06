@@ -6,7 +6,7 @@ import { Type } from '@sinclair/typebox'
 import { IRole } from './role.enum'
 
 export const UserDtoSchema = Type.Object({
-  apps: Type.Optional(Type.Array(Typebox.Ref)),
+  apps: Type.Optional(Type.Array(Typebox.RefSchema)),
   auth0Id: Type.String(),
   email: Type.String(),
   id: Type.String(),
@@ -21,7 +21,7 @@ export const UserSchema = UserDtoSchema
 export type IUser = Static<typeof UserSchema>
 
 export const OwnerSchema = Type.Object({
-  owner: Typebox.Ref,
+  owner: Typebox.RefSchema,
 })
 
 export type IOwner = Static<typeof OwnerSchema>

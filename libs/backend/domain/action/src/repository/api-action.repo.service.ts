@@ -9,10 +9,10 @@ import type {
 } from '@codelab/shared/infra/gql'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { ApiActionFragment } from '@codelab/shared/infra/gql'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { apiActionMapper } from '@codelab/shared-domain-module/action'
 import {
   actionCreateApi,
@@ -35,10 +35,10 @@ export class ApiActionRepository extends AbstractRepository<
   ApiActionOptions
 > {
   constructor(
-    protected override validationService: ValidationService,
+
     protected override loggerService: PinoLoggerService,
   ) {
-    super(validationService, loggerService)
+    super(loggerService)
   }
 
   protected async _addMany(actions: Array<IApiActionDto>) {

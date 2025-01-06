@@ -1,4 +1,4 @@
-import { TIpv4, Validator } from '@codelab/shared/infra/schema'
+import { TIpv4, Validator } from '@codelab/shared/infra/typebox'
 import { Test } from '@nestjs/testing'
 
 import { DnsService } from './dns.service'

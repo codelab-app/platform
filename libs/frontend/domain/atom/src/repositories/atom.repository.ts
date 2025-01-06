@@ -11,7 +11,7 @@ import {
   CACHE_TAGS,
   filterNotHookType,
 } from '@codelab/frontend/abstract/domain'
-import { Validator } from '@codelab/shared/infra/schema'
+import { Validator } from '@codelab/shared/infra/typebox'
 import {
   atomMapper,
   atomServerActions,

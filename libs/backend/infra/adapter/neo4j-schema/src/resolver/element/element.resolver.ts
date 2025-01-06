@@ -9,6 +9,7 @@ import type { GraphQLRequestContext } from 'graphql-request/build/cjs/types'
 
 import { ElementDependantTypesService } from '@codelab/backend/domain/element'
 import { TypeFactory } from '@codelab/backend/domain/type'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 
 import { name } from './field/element-name'
 import { slug } from './field/element-slug'
@@ -18,10 +19,12 @@ export const ELEMENT_RESOLVER_PROVIDER = 'ELEMENT_RESOLVER_PROVIDER'
 export const ElementResolverProvider: FactoryProvider<
   Promise<IResolvers<GraphQLRequestContext, unknown>>
 > = {
-  inject: [ElementDependantTypesService, TypeFactory],
+  inject: [ElementDependantTypesService, TypeFactory, PinoLoggerService],
   provide: ELEMENT_RESOLVER_PROVIDER,
   useFactory: async (
     elementDependantTypesService: ElementDependantTypesService,
+    typeFactory: TypeFactory,
+    loggerService: PinoLoggerService,
   ) => {
     /**
      * @returns Must return the full properties
@@ -49,7 +52,10 @@ export const ElementResolverProvider: FactoryProvider<
         __resolveType: (
           node: ElementRenderTypeFragment & { __resolveType?: string },
         ) => {
-          console.log(node)
+          loggerService.verbose('ElementRenderType', {
+            context: 'GraphqlResolver',
+            data: node,
+          })
 
           /**
            * `__resolveType` is there by default, for ones that don't exist, we have __typename

@@ -3,6 +3,7 @@ import type { ObjectLike } from '@codelab/shared/abstract/types'
 
 import {
   type Static,
+  type TAnySchema,
   type TObject,
   type TSchema,
   type TUnion,
@@ -15,12 +16,14 @@ import { IsUnion } from '../schema/is-union'
 /**
  * The standard validator checks the top level object properties and handles nested discriminated unions
  *
+ * This uses Ajv under the hood, does not work with `TypeRegistry`
+ *
  * @throws {ValidationException} When validation fails
  */
 export class NestedValidator<S extends TSchema> extends StandardValidator<S> {
   protected override cleanCopyOfValue<VS extends TSchema>(
     schema: Readonly<VS>,
-    value: unknown,
+    value: Static<VS>,
   ): Static<VS> {
     // console.log(value)
     // cLog(schema)
@@ -38,8 +41,8 @@ export class NestedValidator<S extends TSchema> extends StandardValidator<S> {
         )
 
         const cleanedValue = discriminatedValidator.validateAndCleanCopy(
-          value as Readonly<unknown>,
-        )
+          value,
+        ) as any
 
         // Find the matching schema from the union
         const matchedSchema = unionSchema.anyOf.find(
@@ -49,20 +52,15 @@ export class NestedValidator<S extends TSchema> extends StandardValidator<S> {
         )
 
         if (matchedSchema) {
-          return this.cleanNestedObject(
-            matchedSchema,
-            cleanedValue,
-          ) as Static<VS>
+          return this.cleanNestedObject(matchedSchema, cleanedValue)
         }
 
-        return cleanedValue as Static<VS>
+        return cleanedValue
       } else {
         // Fallback to handling union with the standard validator
         const standardUnionValidator = new StandardValidator(unionSchema)
 
-        return standardUnionValidator.validateAndCleanCopy(
-          value as Readonly<unknown>,
-        ) as Static<VS>
+        return standardUnionValidator.validateAndCleanCopy(value)
       }
     }
 

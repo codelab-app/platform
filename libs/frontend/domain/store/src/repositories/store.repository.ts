@@ -9,7 +9,7 @@ import {
   CACHE_TAGS,
   type IStoreRepository,
 } from '@codelab/frontend/abstract/domain'
-import { Validator } from '@codelab/shared/infra/schema'
+import { Validator } from '@codelab/shared/infra/typebox'
 import {
   storeMapper,
   storeServerActions,

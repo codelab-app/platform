@@ -2,9 +2,9 @@ import type { IDomainDto, INodeType } from '@codelab/shared/abstract/core'
 import type { DomainOptions, DomainWhere } from '@codelab/shared/infra/gql'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import { DomainFragment } from '@codelab/shared/infra/gql'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { domainApi, domainMapper } from '@codelab/shared-domain-module/domain'
 import { Injectable } from '@nestjs/common'
 
@@ -19,10 +19,10 @@ export class DomainRepository extends AbstractRepository<
   DomainOptions
 > {
   constructor(
-    protected override validationService: ValidationService,
+
     protected override loggerService: PinoLoggerService,
   ) {
-    super(validationService, loggerService)
+    super(loggerService)
   }
 
   protected async _addMany(domainsDto: Array<IDomainDto>) {

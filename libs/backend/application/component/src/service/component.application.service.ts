@@ -2,7 +2,7 @@ import type {
   IComponentAggregateExport,
   IComponentDto,
   ICreateComponentData,
-  IInterfaceTypeCreateDto,
+  IInterfaceTypeDto,
   IStoreDto,
 } from '@codelab/shared/abstract/core'
 
@@ -12,8 +12,16 @@ import { ComponentRepository } from '@codelab/backend/domain/component'
 import { PropDomainService } from '@codelab/backend/domain/prop'
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { Store } from '@codelab/backend/domain/store'
-import { InterfaceType } from '@codelab/backend/domain/type'
-import { IElementRenderTypeKind, IRole } from '@codelab/shared/abstract/core'
+import {
+  InterfaceType,
+  InterfaceTypeRepository,
+} from '@codelab/backend/domain/type'
+import {
+  IElementRenderTypeKind,
+  IRole,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
+import { interfaceTypeDtoFactory } from '@codelab/shared-domain-module/type'
 import { Injectable } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 import { v4 } from 'uuid'
@@ -29,19 +37,22 @@ export class ComponentApplicationService {
     private storeApplicationService: StoreApplicationService,
     private elementApplicationService: ElementApplicationService,
     private propDomainService: PropDomainService,
+    private interfaceTypeRepository: InterfaceTypeRepository,
   ) {}
 
   async createComponent(createComponentData: ICreateComponentData) {
     const owner = this.authDomainService.currentUser
 
-    const api: IInterfaceTypeCreateDto = {
+    const api: IInterfaceTypeDto = interfaceTypeDtoFactory({
       id: v4(),
       name: InterfaceType.createName(`${createComponentData.name} Store`),
       owner,
-    }
+    })
+
+    const createdApi = await this.interfaceTypeRepository.add(api)
 
     const storeDto: IStoreDto = {
-      api,
+      api: createdApi,
       id: v4(),
       name: Store.createName({ name: createComponentData.name }),
     }
@@ -61,16 +72,18 @@ export class ComponentApplicationService {
     const componentDto: IComponentDto = {
       ...createComponentData,
       __typename: IElementRenderTypeKind.Component,
-      api,
+      api: createdApi,
       owner,
       props,
       rootElement,
       store,
     }
 
-    const component = await this.componentRepository.add(componentDto)
+    await this.componentRepository.add(componentDto)
 
-    return component
+    return this.componentRepository.findOneOrFail({
+      where: { id: componentDto.id },
+    })
   }
 
   /**

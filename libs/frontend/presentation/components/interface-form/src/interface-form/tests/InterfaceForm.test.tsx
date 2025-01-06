@@ -1,5 +1,5 @@
 /* eslint-disable unicorn/filename-case */
-import { Validator } from '@codelab/shared/infra/schema'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { act, render, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { debug } from 'console'

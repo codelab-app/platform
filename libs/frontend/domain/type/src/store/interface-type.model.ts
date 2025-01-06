@@ -5,7 +5,6 @@ import type {
   JsonSchema,
 } from '@codelab/frontend/abstract/domain'
 import type {
-  IInterfaceTypeCreateDto,
   IRef,
 } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
@@ -36,7 +35,7 @@ const create = ({
   id,
   name,
   owner,
-}: IInterfaceTypeCreateDto): InterfaceType => {
+}: IInterfaceTypeDto): InterfaceType => {
   // assertIsTypeKind(kind, ITypeKind.InterfaceType)
 
   const interfaceType = new InterfaceType({

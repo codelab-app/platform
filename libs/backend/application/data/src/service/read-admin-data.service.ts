@@ -11,12 +11,12 @@ import type {
 } from '@codelab/shared/abstract/core'
 
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
-import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import {
   AtomImportSchema,
   TagExportSchema,
   TypeDtoSchema,
 } from '@codelab/shared/abstract/core'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { Injectable, Scope } from '@nestjs/common'
 import fs from 'fs'
 import path from 'path'
@@ -36,7 +36,6 @@ interface IReadAdminDataService {
 export class ReadAdminDataService implements IReadAdminDataService {
   constructor(
     public migrationDataService: MigrationDataService,
-    private validationService: ValidationService,
     private authService: AuthDomainService,
   ) {}
 
@@ -59,17 +58,14 @@ export class ReadAdminDataService implements IReadAdminDataService {
 
       const owner = this.authService.currentUser
 
-      const data: IAtomImport = this.validationService.validateAndClean(
-        AtomImportSchema,
-        {
-          api: {
-            ...api,
-            owner,
-            types: api.types.map((type) => ({ ...type, owner })),
-          },
-          atom: { ...atom, owner },
+      const data: IAtomImport = Validator.parse(AtomImportSchema, {
+        api: {
+          ...api,
+          owner,
+          types: api.types.map((type) => ({ ...type, owner })),
         },
-      )
+        atom: { ...atom, owner },
+      })
 
       return data
     })
@@ -137,7 +133,7 @@ export class ReadAdminDataService implements IReadAdminDataService {
     ) as Array<ITypeExport>
 
     return types.map((type: ITypeExport) => {
-      return this.validationService.validateAndClean(TypeDtoSchema, {
+      return Validator.parse(TypeDtoSchema, {
         ...type,
         owner,
       })
@@ -156,10 +152,7 @@ export class ReadAdminDataService implements IReadAdminDataService {
     ) as Array<ITagExport>
 
     return tags.map((tag: ITagExport) => {
-      const tagExport: ITagExport = this.validationService.validateAndClean(
-        TagExportSchema,
-        tag,
-      )
+      const tagExport: ITagExport = Validator.parse(TagExportSchema, tag)
 
       return { ...tagExport, owner }
     })

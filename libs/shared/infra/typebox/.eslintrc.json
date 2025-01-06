@@ -7,9 +7,7 @@
       "parserOptions": {
         "project": ["libs/shared/infra/typebox/tsconfig.*?.json"]
       },
-      "rules": {
-        "@codelab/typebox-schema-naming": "off"
-      }
+      "rules": {}
     },
     {
       "files": ["*.ts", "*.tsx"],
@@ -18,13 +16,6 @@
     {
       "files": ["*.js", "*.jsx"],
       "rules": {}
-    },
-    {
-      "files": ["*.json"],
-      "parser": "jsonc-eslint-parser",
-      "rules": {
-        "@nx/dependency-checks": "error"
-      }
     }
   ]
 }

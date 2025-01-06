@@ -10,22 +10,13 @@ export const InterfaceTypeDtoSchema = <T extends TSchema>(schema?: T) =>
   Type.Composite([
     BaseTypeDtoSchema(`${ITypeKind.InterfaceType}`),
     Type.Object({
-      fields: Type.Optional(Type.Array(Typebox.Ref, { default: [] })),
+      fields: Type.Optional(Type.Array(Typebox.RefSchema, { default: [] })),
     }),
     ...(schema ? [schema] : []),
   ])
 
 export type IInterfaceTypeDto<T extends TSchema = never> = Static<
   ReturnType<typeof InterfaceTypeDtoSchema<T>>
->
-
-export const InterfaceTypeCreateDtoSchema = Type.Omit(
-  InterfaceTypeDtoSchema(),
-  ['__typename', 'type', 'kind'],
-)
-
-export type IInterfaceTypeCreateDto = Static<
-  typeof InterfaceTypeCreateDtoSchema
 >
 
 /**

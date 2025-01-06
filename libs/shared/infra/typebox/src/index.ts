@@ -1,23 +1,21 @@
 import { IsUnion } from './schema/is-union'
-import { DiscriminatedRef, Ref, TRef } from './schema/ref'
-import { Nullish } from './types/nullish'
-import { OmitOwner } from './types/omit-owner'
-import { Overwrite } from './types/overwrite'
-import { Serialized } from './types/serialized'
-import { NestedValidator } from './validator/nested-validator'
+import { Nullish } from './schema/nullish'
+import { OmitOwner } from './schema/omit-owner'
+import { Overwrite } from './schema/overwrite'
+import { DiscriminatedRef, RefSchema, TRef } from './schema/ref'
+import { Serialized } from './schema/serialized'
 
 const Typebox = {
   DiscriminatedRef,
   IsUnion,
-  NestedValidator,
   Nullish,
   OmitOwner,
   Overwrite,
-  Ref,
+  RefSchema,
   Serialized,
   TRef,
 }
 
-export * from './validator/nested-validator'
-export * from './validator/validate'
 export { Typebox }
+export * from './schema'
+export * from './validation'

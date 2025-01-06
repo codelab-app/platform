@@ -3,6 +3,7 @@ import type { ICommandHandler } from '@nestjs/cqrs'
 
 import { ImportApiCommand } from '@codelab/backend/application/type'
 import { AtomRepository } from '@codelab/backend/domain/atom'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
 export class ImportAtomCommand {
@@ -16,6 +17,7 @@ export class ImportAtomHandler
   constructor(
     private readonly atomRepository: AtomRepository,
     private commandBus: CommandBus,
+    private readonly logger: PinoLoggerService,
   ) {}
 
   async execute(command: ImportAtomCommand) {
@@ -23,14 +25,8 @@ export class ImportAtomHandler
       atomImport: { api, atom },
     } = command
 
-    console.log('Importing atom...', atom.name)
-
     await this.commandBus.execute<ImportApiCommand>(new ImportApiCommand(api))
 
-    console.log('Saving atom...')
-
     await this.atomRepository.save(atom)
-
-    console.log('Atom saved')
   }
 }

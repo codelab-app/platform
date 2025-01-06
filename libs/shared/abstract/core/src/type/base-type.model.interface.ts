@@ -10,7 +10,7 @@ export const BaseTypeSchema = Type.Object({
   id: Type.String(),
   kind: Type.Enum(ITypeKind),
   name: Type.String(),
-  owner: Typebox.Ref,
+  owner: Typebox.RefSchema,
 })
 
 export type IBaseType = Static<typeof BaseTypeSchema>

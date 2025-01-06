@@ -60,11 +60,12 @@ export class SeedCypressAppHandler
     const notFoundElementProps = notFoundElementPropsData
     const internalServerErrorElementProps = internalServerErrorPropsData
 
-    await this.propRepository.addMany([
-      providerElementProps,
-      notFoundElementProps,
-      internalServerErrorElementProps,
-    ])
+    // Props added to element
+    // await this.propRepository.addMany([
+    //   providerElementProps,
+    //   notFoundElementProps,
+    //   internalServerErrorElementProps,
+    // ])
 
     const atomReactFragment = await this.atomRepository.findOneOrFail({
       where: {

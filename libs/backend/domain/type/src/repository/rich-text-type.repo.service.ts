@@ -5,9 +5,9 @@ import type {
 } from '@codelab/shared/infra/gql'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import { RichTextTypeFragment } from '@codelab/shared/infra/gql'
+import { Validator } from '@codelab/shared/infra/typebox'
 import {
   createTypeApi,
   findTypeApi,
@@ -25,10 +25,10 @@ export class RichTextTypeRepository extends AbstractRepository<
   RichTextTypeOptions
 > {
   constructor(
-    protected override validationService: ValidationService,
+
     protected override loggerService: PinoLoggerService,
   ) {
-    super(validationService, loggerService)
+    super(loggerService)
   }
 
   protected async _addMany(richTextTypes: Array<IRichTextTypeDto>) {

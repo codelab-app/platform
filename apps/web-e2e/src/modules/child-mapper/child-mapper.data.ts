@@ -1,10 +1,16 @@
 import type {
+  IComponentDto,
   ICreateComponentData,
   ICreateElementData,
   IPageDto,
 } from '@codelab/shared/abstract/core'
 
-import { IAtomType, ITypeKind } from '@codelab/shared/abstract/core'
+import {
+  ComponentDtoSchema,
+  IAtomType,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { type APIRequestContext } from '@playwright/test'
 import { v4 } from 'uuid'
 
@@ -65,7 +71,11 @@ export const providerPageElements = (
 
 export const seedTestData = async (request: APIRequestContext) => {
   const app = await seedAppData(request)
-  const page = app.pages![0]!
+  const page = app.pages?.[0]
+
+  if (!page) {
+    throw new Error('Missing page')
+  }
 
   await request.post(`/api/v1/element/${page.rootElement.id}/create-elements`, {
     data: providerPageElements(page),
@@ -76,7 +86,12 @@ export const seedTestData = async (request: APIRequestContext) => {
     { data: childMapperComponent },
   )
 
-  const component = await componentResponse.json()
+  const component: IComponentDto = Validator.parse(
+    ComponentDtoSchema,
+    await componentResponse.json(),
+  )
+
+  console.log('Component', component)
 
   await request.post(
     `/api/v1/element/${component.rootElement.id}/create-elements`,

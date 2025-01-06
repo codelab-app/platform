@@ -12,7 +12,7 @@ import {
   IAtomType,
   IElementRenderTypeKind,
 } from '@codelab/shared/abstract/core'
-import { Validator } from '@codelab/shared/infra/schema'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { computed, observable } from 'mobx'
 import {
   arraySet,
@@ -106,7 +106,7 @@ export class AtomDomainService
       script.type = 'module'
       script.innerText = `
         import ${externalSourceType} from '${externalJsSource}';
-import { Validator } from '@codelab/shared/infra/schema'
+import { Validator } from '@codelab/shared/infra/typebox'
         window.${externalSourceType} = ${externalSourceType};
         if (window.onload${externalSourceType}) {
           window.onload${externalSourceType}(${externalSourceType});

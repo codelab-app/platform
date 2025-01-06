@@ -5,7 +5,7 @@ import type {
 import type { IRedirectDto, IRef } from '@codelab/shared/abstract/core'
 import type { RedirectOptions, RedirectWhere } from '@codelab/shared/infra/gql'
 
-import { Validator } from '@codelab/shared/infra/schema'
+import { Validator } from '@codelab/shared/infra/typebox'
 import {
   redirectMapper,
   redirectServerActions,

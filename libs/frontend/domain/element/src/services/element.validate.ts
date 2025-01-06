@@ -7,7 +7,7 @@ import {
   TExactlyOne,
   TNone,
   Validator,
-} from '@codelab/shared/infra/schema'
+} from '@codelab/shared/infra/typebox'
 
 export const validateElement = (element: IElementModel) => {
   const { isRoot, page, parentComponent } = element

@@ -31,5 +31,5 @@ export const BaseTypeDtoSchema = <T extends `${ITypeKind}`>(kind: T) =>
     id: Type.String(),
     kind: Type.Enum(ITypeKind),
     name: Type.String(),
-    owner: Typebox.Ref,
+    owner: Typebox.RefSchema,
   })

@@ -13,7 +13,7 @@ import {
 import { UserRepository } from '@codelab/backend/domain/user'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { AtomType } from '@codelab/shared/infra/gql'
-import { Validator } from '@codelab/shared/infra/schema'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { print } from 'graphql'
 import request from 'supertest'
 import { v4 } from 'uuid'

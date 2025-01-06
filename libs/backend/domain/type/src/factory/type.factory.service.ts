@@ -1,5 +1,6 @@
 import type { IRef, ITypeDto, ITypeRef } from '@codelab/shared/abstract/core'
 
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
   getTypeDescendants,
   Neo4jService,
@@ -53,9 +54,15 @@ export class TypeFactory {
     private readonly arrayTypeRepository: ArrayTypeRepository,
     private readonly codeMirrorRepository: CodeMirrorTypeRepository,
     private readonly neo4jService: Neo4jService,
+    private readonly logger: PinoLoggerService,
   ) {}
 
   async descendantEntities(typeId: string) {
+    this.logger.log('Getting type descendants', {
+      context: 'TypeFactory',
+      data: { typeId },
+    })
+
     const session = this.neo4jService.driver.session()
 
     const results = await session.run(getTypeDescendants, {
@@ -79,6 +86,11 @@ export class TypeFactory {
     { __typename, id }: ITypeRef,
     schema?: TAnySchema,
   ): Promise<Maybe<TypeFragment>> {
+    this.logger.log('Finding type', {
+      context: 'TypeFactory',
+      data: { __typename, id },
+    })
+
     switch (__typename) {
       case ITypeKind.ActionType: {
         return (await this.actionTypeRepository).findOne({
@@ -151,7 +163,6 @@ export class TypeFactory {
       }
 
       default: {
-        console.log({ __typename })
         throw new Error('No type factory found')
       }
     }
@@ -161,6 +172,11 @@ export class TypeFactory {
     { __typename, id }: ITypeRef,
     schema?: TAnySchema,
   ): Promise<TypeFragment> {
+    this.logger.log('Finding type or fail', {
+      context: 'TypeFactory',
+      data: { __typename, id },
+    })
+
     const found = await this.findOne({ __typename, id }, schema)
 
     if (!found) {
@@ -176,7 +192,10 @@ export class TypeFactory {
     type: TypeCreateMap[T['kind']]['dto'],
     where?: TypeCreateMap[T['kind']]['where'],
   ): Promise<IRef> {
-    // console.log('Saving type', type, where)
+    this.logger.log('Saving type', {
+      context: 'TypeFactory',
+      data: { type: type.__typename },
+    })
 
     /**
      * Type narrow using discriminated union
@@ -243,7 +262,6 @@ export class TypeFactory {
       }
 
       default: {
-        console.log('Data:', type)
         throw new Error('No type factory found')
       }
     }

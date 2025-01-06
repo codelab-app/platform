@@ -7,7 +7,7 @@ import { StoreDtoSchema } from './store.dto.interface'
 
 export const StoreSchema = Type.Object({
   ...StoreDtoSchema.properties,
-  actions: Type.Array(Typebox.Ref),
-  api: Typebox.Ref,
+  actions: Type.Array(Typebox.RefSchema),
+  api: Typebox.RefSchema,
 })
 export type IStore = Static<typeof StoreSchema>
