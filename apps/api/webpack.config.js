@@ -15,5 +15,9 @@ const withRawCypherFiles = (config, ctx) => {
 module.exports = composePlugins(withNx(), withRawCypherFiles, (config) => {
   // Update the webpack config as needed here.
   // e.g. `config.plugins.push(new MyPlugin())`
+
+  // Add source map configuration
+  // config.devtool = 'inline-source-map'
+
   return config
 })

@@ -115,6 +115,24 @@ export class ValidationService implements IValidationService {
     return truthy
   }
 
+  /**
+   * Validates data against a provided schema
+   */
+  validateSchema<T extends TSchema>(
+    schema: T,
+    data: Readonly<unknown>,
+  ): boolean {
+    const validator = this.createValidator(schema)
+    const truthy = validator.test(data)
+    const validate = schema['validate']
+
+    if (validate) {
+      return truthy && schema['validate'](data)
+    }
+
+    return truthy
+  }
+
   private static instance?: ValidationService
 
   private createValidator<T extends TSchema>(schema: T) {

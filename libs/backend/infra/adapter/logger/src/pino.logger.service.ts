@@ -31,19 +31,14 @@ export class PinoLoggerService extends Logger implements LoggerService {
    * We create a 2 parameter log function, but extract the context as last parameter, while combining the data with first parameter
    */
   override log(message: unknown, options?: LogOptions): void {
-    const context = options?.context
+    const context = options?.context ?? ''
+    const includeDataForContext = this.config.context.includes(context)
 
-    /**
-     * If `debug` level, we always include data. Otherwise include only if context matches
-     */
-    const shouldIncludeData =
-      (context && this.config.context.includes(context)) ||
-      this.config.level === 'debug'
-
-    if (!shouldIncludeData) {
+    if (includeDataForContext) {
       return super.log(
         {
           message,
+          data: options?.data,
         },
         context,
       )
@@ -52,7 +47,6 @@ export class PinoLoggerService extends Logger implements LoggerService {
     super.log(
       {
         message,
-        data: options?.data,
       },
       context,
     )

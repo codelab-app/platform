@@ -34,15 +34,15 @@ export class TypeBoxProvider {
     }
   }
 
-  initialize() {
-    this.registerFormats()
-    this.registerTypes()
-  }
-
   tSchema(kind: TKind): TSchema {
     const pair = this.config.schemaKindMap.find(([_kind]) => _kind === kind)
 
     if (!pair) {
+      console.error('Failed to find schema for kind:', kind)
+      console.error(
+        'Available schemas:',
+        this.config.schemaKindMap.map(([_kind]) => _kind),
+      )
       throw new Error('Schema not found')
     }
 
@@ -52,7 +52,8 @@ export class TypeBoxProvider {
   private static instance?: TypeBoxProvider
 
   private constructor(private config: TypeBoxConfig) {
-    this.initialize()
+    this.registerFormats()
+    this.registerTypes()
   }
 
   private registerFormat(format: string, check: (value: string) => boolean) {

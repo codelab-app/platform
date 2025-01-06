@@ -1,8 +1,15 @@
+// Instrument add this first
+// Need to make sure "module": "CommonJS", "ESNext" is processed in two phases
+import './instrument'
+
 import type { endpointConfig } from '@codelab/backend/infra/core'
 import type { ConfigType } from '@nestjs/config'
 
 import { GraphqlService } from '@codelab/backend/infra/adapter/graphql'
-import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
+import {
+  loggerConfig,
+  PinoLoggerService,
+} from '@codelab/backend/infra/adapter/logger'
 import { ENDPOINT_CONFIG_KEY } from '@codelab/backend/infra/core'
 import { Logger } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
@@ -22,9 +29,6 @@ configureNestJsTypebox({
 })
 
 const bootstrap = async () => {
-  // Instrument add this first
-  await import('./sentry.config')
-
   const app = await NestFactory.create(RootModule, {
     /**
      * Enables devtools https://docs.nestjs.com/devtools/overview
@@ -40,6 +44,12 @@ const bootstrap = async () => {
    */
 
   const configService = app.get(ConfigService)
+  /**
+   * Log the current API_LOG_LEVEL
+   */
+  const logger = app.get(PinoLoggerService)
+
+  logger.log(`Current API_LOG_LEVEL: ${loggerConfig().level}`)
 
   const config: ConfigType<typeof endpointConfig> =
     configService.getOrThrow(ENDPOINT_CONFIG_KEY)
@@ -52,7 +62,6 @@ const bootstrap = async () => {
    * Add exceptions filter
    */
   const { httpAdapter } = app.get(HttpAdapterHost)
-  const logger = app.get(PinoLoggerService)
 
   app.useGlobalFilters(new AllExceptionsFilter(httpAdapter, logger))
 

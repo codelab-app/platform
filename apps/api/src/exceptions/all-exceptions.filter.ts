@@ -6,6 +6,7 @@ import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { Catch, HttpException, Injectable } from '@nestjs/common'
 import { BaseExceptionFilter } from '@nestjs/core'
 import * as Sentry from '@sentry/nestjs'
+import { SentryExceptionCaptured } from '@sentry/nestjs'
 import { ValidationException } from 'typebox-validators'
 
 @Injectable()
@@ -18,6 +19,12 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
     super(applicationRef)
   }
 
+  /**
+   * Adding this decorator will capture all exceptions and log them to Sentry, by default only uncaught are captured
+   *
+   * We capture manually below
+   */
+  // @SentryExceptionCaptured()
   /**
    * This will catch all uncaught exceptions and log them to Sentry
    */

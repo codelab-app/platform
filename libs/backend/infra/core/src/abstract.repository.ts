@@ -29,7 +29,7 @@ export abstract class AbstractRepository<
    */
   public async add(data: Dto): Promise<IDiscriminatedRef<INodeType>> {
     if (this.debug) {
-      this.loggerService.log('Adding data', {
+      this.loggerService.log('add()', {
         context: this.constructor.name,
         data,
       })

@@ -37,7 +37,7 @@ export class ComponentApplicationController {
     const component =
       this.componentApplicationService.createComponent(createComponentData)
 
-    return Validator.validate(ComponentDtoSchema, component)
+    return Validator.validateSchema(ComponentDtoSchema, component)
   }
 
   @UseInterceptors(ClassSerializerInterceptor)

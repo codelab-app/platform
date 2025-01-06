@@ -36,10 +36,10 @@ import { CommandBusSubscription } from './command-bus-logger.service'
    */
   providers: [
     CommandBusSubscription,
-    {
-      provide: APP_GUARD,
-      useClass: JwtAuthGuard,
-    },
+    // {
+    //   provide: APP_GUARD,
+    //   useClass: JwtAuthGuard,
+    // },
   ],
 })
 export class RootModule {

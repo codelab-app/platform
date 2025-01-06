@@ -1,16 +1,20 @@
 import * as Sentry from '@sentry/nestjs'
+import { nodeProfilingIntegration } from '@sentry/profiling-node'
 import env from 'env-var'
 
+/**
+ * https://docs.sentry.io/platforms/javascript/guides/nestjs/
+ */
 Sentry.init({
   dsn: env.get('SENTRY_DSN').asString(),
   integrations: [
     // Add our Profiling integration
-    // nodeProfilingIntegration(),
+    nodeProfilingIntegration(),
   ],
 
   normalizeDepth: 0,
 
-  maxValueLength: 10000,
+  // maxValueLength: 10000,
 
   // Set sampling rate for profiling
   // This is relative to tracesSampleRate

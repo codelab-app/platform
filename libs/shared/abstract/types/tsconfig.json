@@ -6,7 +6,7 @@
     "module": "commonjs",
     "outDir": "../../../../dist/out-tsc",
     "declaration": true,
-    "types": ["node", "next"],
+    "types": ["node", "next", "../../../../node_modules/next/types/global.d.ts"],
     "strict": true,
     "noImplicitReturns": true,
     "exactOptionalPropertyTypes": true,
