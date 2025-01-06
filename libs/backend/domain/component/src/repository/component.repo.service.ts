@@ -22,10 +22,7 @@ export class ComponentRepository extends AbstractRepository<
   ComponentWhere,
   ComponentOptions
 > {
-  constructor(
-
-    protected override loggerService: PinoLoggerService,
-  ) {
+  constructor(protected override loggerService: PinoLoggerService) {
     super(loggerService)
   }
 

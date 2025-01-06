@@ -27,10 +27,10 @@ export class CommandBusSubscription implements OnModuleInit {
 
       return Sentry.startSpan(
         {
-          attributes: {
-            commandData: JSON.stringify(command),
-            commandName,
-          },
+          // attributes: {
+          //   commandData: JSON.stringify(command),
+          //   commandName,
+          // },
           name: `Command: ${commandName}`,
           op: 'command.execute',
         },

@@ -1,4 +1,4 @@
-import type { ITypeRef } from '@codelab/shared/abstract/core'
+import type { IInterfaceTypeDto, ITypeRef } from '@codelab/shared/abstract/core'
 import type {
   UnionTypeTypesOfUnionTypeCreateInput,
   UnionTypeTypesOfUnionTypeUpdateInput,
@@ -6,6 +6,15 @@ import type {
 
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { titleCase } from '@codelab/shared/utils'
+
+export const interfaceTypeDtoFactory = (
+  dto: Pick<IInterfaceTypeDto, 'id' | 'name' | 'owner'>,
+) =>
+  ({
+    ...dto,
+    __typename: ITypeKind.InterfaceType,
+    kind: ITypeKind.InterfaceType,
+  } as const)
 
 export const connectTypesOfUnionType = (typeRefs?: Array<ITypeRef>) => {
   return typeRefs?.reduce<UnionTypeTypesOfUnionTypeCreateInput>(

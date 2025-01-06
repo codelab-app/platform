@@ -10,6 +10,7 @@ import { NotFoundError } from '@codelab/shared/domain/errors'
 import { Validator } from '@codelab/shared/infra/typebox'
 import { Inject, Injectable } from '@nestjs/common'
 import { ConfigType } from '@nestjs/config'
+import * as Sentry from '@sentry/nestjs'
 
 @Injectable()
 export abstract class AbstractRepository<
@@ -28,41 +29,91 @@ export abstract class AbstractRepository<
    * Array adds complexity, create an optional `addMany` if needed
    */
   public async add(data: Dto): Promise<IDiscriminatedRef<INodeType>> {
-    if (this.debug) {
-      this.loggerService.log('add()', {
-        context: this.constructor.name,
-        data,
-      })
-    }
+    return Sentry.startSpan(
+      {
+        name: `Repository: ${this.constructor.name}.add`,
+        op: 'repository.add',
+      },
+      async () => {
+        if (this.debug) {
+          this.loggerService.log('add()', {
+            context: this.constructor.name,
+            data: {
+              data,
+            },
+          })
+        }
 
-    const results = await this._addMany([data])
-    const result = results[0]
+        try {
+          const results = await this._addMany([data])
+          const result = results[0]
 
-    if (!result) {
-      throw new Error('Add failed')
-    }
+          if (!result) {
+            throw new Error('Add failed')
+          }
 
-    return result
+          return result
+        } catch (error) {
+          this.loggerService.error('Failed to add item', {
+            context: this.constructor.name,
+            data: {
+              data,
+              error,
+            },
+          })
+          throw error
+        }
+      },
+    )
   }
 
   public async addMany(
     data: Array<Dto>,
   ): Promise<Array<IDiscriminatedRef<INodeType>>> {
-    return this._addMany(data)
+    return Sentry.startSpan(
+      {
+        name: `Repository: ${this.constructor.name}.addMany`,
+        op: 'repository.addMany',
+      },
+      async () => {
+        try {
+          return await this._addMany(data)
+        } catch (error) {
+          this.loggerService.error('Failed to add items', {
+            context: this.constructor.name,
+            data: {
+              data,
+              error,
+            },
+          })
+          throw error
+        }
+      },
+    )
   }
 
   async exists(where: Where) {
-    if (this.debug) {
-      this.loggerService.log('Checking if exists', {
-        context: this.constructor.name,
-        data: { where },
-      })
-    }
+    return Sentry.startSpan(
+      {
+        name: `Repository: ${this.constructor.name}.exists`,
+        op: 'repository.exists',
+      },
+      async () => {
+        if (this.debug) {
+          this.loggerService.log('Checking if exists', {
+            context: this.constructor.name,
+            data: {
+              where,
+            },
+          })
+        }
 
-    const results = await this.findOne({ where })
-    const exists = Boolean(results)
+        const results = await this.findOne({ where })
+        const exists = Boolean(results)
 
-    return exists
+        return exists
+      },
+    )
   }
 
   find(args?: { where?: Where; options?: Options }): Promise<Array<Model>>
@@ -91,17 +142,25 @@ export abstract class AbstractRepository<
     selectionSet?: string
     schema?: T
   } = {}): Promise<Array<Model> | Array<Static<T>>> {
-    const results = await this._find({ options, selectionSet, where })
+    return Sentry.startSpan(
+      {
+        name: `Repository: ${this.constructor.name}.find`,
+        op: 'repository.find',
+      },
+      async () => {
+        const results = await this._find({ options, selectionSet, where })
 
-    if (schema) {
-      const data = results.map((result) => {
-        return Validator.parse(schema, result)
-      })
+        if (schema) {
+          const data = results.map((result) => {
+            return Validator.parse(schema, result)
+          })
 
-      return data
-    }
+          return data
+        }
 
-    return results
+        return results
+      },
+    )
   }
 
   async findOne(args?: {
@@ -133,28 +192,36 @@ export abstract class AbstractRepository<
     selectionSet?: string
     options: Options
   }): Promise<Model | Static<T> | undefined> {
-    if (this.debug) {
-      this.loggerService.log('Finding one', {
-        context: this.constructor.name,
-        data: { where },
-      })
-    }
-    // Don't use decorator since it doesn't give us the right name
+    return Sentry.startSpan(
+      {
+        name: `Repository: ${this.constructor.name}.findOne`,
+        op: 'repository.findOne',
+      },
+      async () => {
+        if (this.debug) {
+          this.loggerService.log('Finding one', {
+            context: this.constructor.name,
+            data: {
+              where,
+            },
+          })
+        }
 
-    // So overload works
-    const results = schema
-      ? (await this.find({ schema, where }))[0]
-      : (await this.find({ where }))[0]
+        const results = schema
+          ? (await this.find({ schema, where }))[0]
+          : (await this.find({ where }))[0]
 
-    if (!results) {
-      return undefined
-    }
+        if (!results) {
+          return undefined
+        }
 
-    if (schema) {
-      return Validator.parse(schema, results)
-    }
+        if (schema) {
+          return Validator.parse(schema, results)
+        }
 
-    return results
+        return results
+      },
+    )
   }
 
   async findOneOrFail(args?: {
@@ -197,34 +264,45 @@ export abstract class AbstractRepository<
    * @param where
    */
   async save(data: Dto, where?: Where): Promise<IDiscriminatedRef<INodeType>> {
-    if (this.debug) {
-      this.loggerService.log('Saving data', {
-        context: this.constructor.name,
-        data: { data, where },
-      })
-    }
+    return Sentry.startSpan(
+      {
+        name: `Repository: ${this.constructor.name}.save`,
+        op: 'repository.save',
+      },
+      async () => {
+        if (this.debug) {
+          this.loggerService.log('Saving data', {
+            context: this.constructor.name,
+            data: {
+              data,
+              where,
+            },
+          })
+        }
 
-    const computedWhere = this.getWhere(data, where)
+        const computedWhere = this.getWhere(data, where)
 
-    if (await this.exists(computedWhere)) {
-      if (this.debug) {
-        this.loggerService.log('Record exists, updating...', {
-          context: this.constructor.name,
-        })
-      }
+        if (await this.exists(computedWhere)) {
+          if (this.debug) {
+            this.loggerService.log('Record exists, updating...', {
+              context: this.constructor.name,
+            })
+          }
 
-      return await this.update(data, computedWhere)
-    }
+          return await this.update(data, computedWhere)
+        }
 
-    if (this.debug) {
-      this.loggerService.log('Record does not exist, adding...', {
-        context: this.constructor.name,
-      })
-    }
+        if (this.debug) {
+          this.loggerService.log('Record does not exist, adding...', {
+            context: this.constructor.name,
+          })
+        }
 
-    const results = await this.add(data)
+        const results = await this.add(data)
 
-    return results
+        return results
+      },
+    )
   }
 
   /**
@@ -236,22 +314,47 @@ export abstract class AbstractRepository<
     data: Dto,
     where?: Where,
   ): Promise<IDiscriminatedRef<INodeType>> {
-    if (this.debug) {
-      this.loggerService.log('Updating data', {
-        context: this.constructor.name,
-        data: { data, where },
-      })
-    }
+    return Sentry.startSpan(
+      {
+        name: `Repository: ${this.constructor.name}.update`,
+        op: 'repository.update',
+      },
+      async () => {
+        if (this.debug) {
+          this.loggerService.log('Updating data', {
+            context: this.constructor.name,
+            data: {
+              data,
+              where,
+            },
+          })
+        }
 
-    const computedWhere = this.getWhere(data, where)
-    const existing = await this.findOne({ where: computedWhere })
-    const model = await this._update(data, where, existing)
+        const computedWhere = this.getWhere(data, where)
+        const existing = await this.findOne({ where: computedWhere })
 
-    if (!model) {
-      throw new Error('Model not updated')
-    }
+        try {
+          const model = await this._update(data, where, existing)
 
-    return model
+          if (!model) {
+            throw new Error('Model not updated')
+          }
+
+          return model
+        } catch (error) {
+          this.loggerService.error('Failed to update item', {
+            context: this.constructor.name,
+            data: {
+              data,
+              error,
+              existing,
+              where,
+            },
+          })
+          throw error
+        }
+      },
+    )
   }
 
   protected abstract _addMany(

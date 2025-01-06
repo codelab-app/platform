@@ -23,7 +23,7 @@ export class GraphQLSchemaModule
    * Additional cleanup before the application shuts down
    */
   async beforeApplicationShutdown() {
-    await this.schemaService.closeEngine()
+    // await this.schemaService.closeEngine()
   }
 
   /**

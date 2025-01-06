@@ -19,15 +19,6 @@ export type IInterfaceTypeDto<T extends TSchema = never> = Static<
   ReturnType<typeof InterfaceTypeDtoSchema<T>>
 >
 
-export const InterfaceTypeCreateDtoSchema = Type.Omit(
-  InterfaceTypeDtoSchema(),
-  ['__typename', 'type', 'kind'],
-)
-
-export type IInterfaceTypeCreateDto = Static<
-  typeof InterfaceTypeCreateDtoSchema
->
-
 /**
  * Entity
  */
