@@ -16,7 +16,7 @@ import {
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { ComponentFragment } from '@codelab/shared/infra/gql'
-import { validateAndClean } from '@codelab/shared/infra/typebox'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 import { Type } from '@sinclair/typebox'
 
@@ -45,7 +45,7 @@ export class ExportComponentHandler
         component as ComponentFragment,
       )
     ).map((element) =>
-      validateAndClean(ElementExportSchema, {
+      Validator.parse(ElementExportSchema, {
         ...element,
         closestContainerNode: { id: componentId },
       }),

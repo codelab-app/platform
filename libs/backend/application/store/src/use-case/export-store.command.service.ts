@@ -11,7 +11,7 @@ import {
   IActionKind,
   StoreAggregateExportSchema,
 } from '@codelab/shared/abstract/core'
-import { validateAndClean } from '@codelab/shared/infra/typebox'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
 export class ExportStoreCommand {
@@ -44,7 +44,7 @@ export class ExportStoreHandler
       return -1
     })
 
-    return validateAndClean(StoreAggregateExportSchema, {
+    return Validator.parse(StoreAggregateExportSchema, {
       actions,
       api,
       store,
