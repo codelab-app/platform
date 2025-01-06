@@ -34,10 +34,10 @@ export interface UpdateFieldFormProps extends IFormController {
 
 export const UpdateFieldForm = observer<UpdateFieldFormProps>(
   ({ id, onSubmitSuccess, showFormControl = true, submitRef }) => {
-    const fieldSchema = useFieldSchema(createFieldSchema)
     const fieldService = useFieldService()
     const { typeDomainService } = useDomainStore()
     const field = fieldService.getOneFromCache({ id })
+    const fieldSchema = useFieldSchema(createFieldSchema, field)
 
     const onSubmit = (input: IUpdateFieldData) => {
       if (!field) {
@@ -63,6 +63,7 @@ export const UpdateFieldForm = observer<UpdateFieldFormProps>(
           interfaceTypeId: field?.api.id,
           key: field?.key,
           name: field?.name,
+          validationRules: field?.validationRules,
         }}
         modelTransform={(mode, model) => {
           // This automatically sets the `defaultValue` to be nullable for types

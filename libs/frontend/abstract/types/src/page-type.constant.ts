@@ -25,8 +25,12 @@ export enum PrimarySidebar {
 
 export const PageType = {
   Admin: () => '/admin',
+  AppBuild: ({ id }: IRef) => `/apps/build/${id}`,
+  AppCreate: () => '/apps/create',
+  AppDelete: ({ id }: IRef) => `/apps/delete/${id}`,
   AppDetail: ({ appId }: Pick<UrlPathParams, 'appId'>) => `/apps/${appId}`,
   AppList: () => '/apps',
+  AppUpdate: ({ id }: IRef) => `/apps/update/${id}`,
   AtomCreate: () => `${PageType.Atoms()}/create`,
   AtomDelete: ({ id }: IRef) => `${PageType.Atoms()}/delete/${id}`,
   AtomFieldCreate: () => `${PageType.Atoms()}/create/field`,

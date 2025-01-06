@@ -11,7 +11,7 @@ import type {
 import { isAtom } from '@codelab/frontend/abstract/domain'
 import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import {
-  SelectActionField,
+  SelectActionsField,
   SelectAnyElement,
 } from '@codelab/frontend/presentation/components/interface-form'
 import { useUser } from '@codelab/frontend-application-user/services'
@@ -155,11 +155,11 @@ export const CreateElementForm = observer<CreateElementFormProps>(
           name="prevSibling.id"
         />
         <RenderTypeField name="renderType" parentAtom={parentAtom} />
-        <SelectActionField
+        <SelectActionsField
           name="preRenderActions"
           selectedNode={selectedNode}
         />
-        <SelectActionField
+        <SelectActionsField
           name="postRenderActions"
           selectedNode={selectedNode}
         />

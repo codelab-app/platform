@@ -2,19 +2,19 @@
 
 import type { IAppUpdateFormData } from '@codelab/frontend/abstract/domain'
 
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/navigation'
 import { AutoFields } from 'uniforms-antd'
 
 import { useAppService } from '../../services'
 import { updateAppSchema } from './update-app.schema'
-import { useUpdateAppModal } from './update-app.state'
 
-export const UpdateAppModal = observer(() => {
+export const UpdateAppModal = observer(({ id }: { id: string }) => {
+  const router = useRouter()
   const appService = useAppService()
-  const updateAppModal = useUpdateAppModal()
-  const app = updateAppModal.data?.app
+  const app = appService.getOneFromCache({ id })
 
   if (!app) {
     return null
@@ -26,13 +26,13 @@ export const UpdateAppModal = observer(() => {
   }
 
   const onSubmit = appService.update
-  const closeModal = updateAppModal.close
+  const closeModal = () => router.push(PageType.AppList())
 
   return (
     <ModalForm.Modal
       okText="Update App"
       onCancel={closeModal}
-      open={updateAppModal.isOpen}
+      open={true}
       uiKey={UiKey.AppModalUpdate}
     >
       <ModalForm.Form<IAppUpdateFormData>

@@ -4,7 +4,6 @@ import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/applicat
 import type { IUpdateComponentData } from '@codelab/shared/abstract/core'
 
 import { UiKey } from '@codelab/frontend/abstract/types'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { Form } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 import { useEffect, useState } from 'react'
@@ -41,11 +40,9 @@ export const UpdateComponentForm = observer<{
     <div key={key}>
       <Form<IUpdateComponentData>
         autosave
+        errorMessage="Error while creating component"
         model={model}
         onSubmit={onSubmit}
-        onSubmitError={createFormErrorNotificationHandler({
-          title: 'Error while creating component',
-        })}
         schema={updateComponentSchema}
         uiKey={UiKey.ComponentFormUpdate}
       >

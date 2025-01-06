@@ -1,5 +1,4 @@
 import { UiKey } from '@codelab/frontend/abstract/types'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useLoading } from '@codelab/frontend-application-shared-store/loading'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
@@ -33,11 +32,9 @@ export const DeleteComponentModal = observer(() => {
       uiKey={UiKey.ComponentModalDelete}
     >
       <ModalForm.Form
+        errorMessage="Error while deleting component"
         model={{}}
         onSubmit={onSubmit}
-        onSubmitError={createFormErrorNotificationHandler({
-          title: 'Error while deleting component',
-        })}
         onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}
       >

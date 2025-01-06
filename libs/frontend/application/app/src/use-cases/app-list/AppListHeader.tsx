@@ -4,19 +4,23 @@ import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 
 import LogoutOutlined from '@ant-design/icons/LogoutOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { getUiDataLabel, UiKey } from '@codelab/frontend/abstract/types'
+import {
+  getUiDataLabel,
+  PageType,
+  UiKey,
+} from '@codelab/frontend/abstract/types'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,
   CuiHeaderToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { Image } from 'antd'
+import { useRouter } from 'next/navigation'
 
-import { useCreateAppModal } from '../create-app/create-app.state'
 import { ImportAppDialog } from '../import-app'
 
 export const AppListHeader = () => {
-  const createAppModal = useCreateAppModal()
+  const router = useRouter()
 
   const toolbarItems: Array<ToolbarItem> = [
     {
@@ -29,7 +33,7 @@ export const AppListHeader = () => {
       ariaLabel: getUiDataLabel(UiKey.AppToolbarItemCreate),
       cuiKey: UiKey.AppToolbarItemCreate,
       icon: <PlusOutlined />,
-      onClick: () => createAppModal.open(),
+      onClick: () => router.push(PageType.AppCreate()),
       title: 'Create an App',
     },
     {

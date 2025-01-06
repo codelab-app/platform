@@ -7,7 +7,11 @@ import type { ICommandHandler } from '@nestjs/cqrs'
 
 import { ExportApiCommand } from '@codelab/backend/application/type'
 import { StoreRepository } from '@codelab/backend/domain/store'
-import { IActionKind } from '@codelab/shared/abstract/core'
+import {
+  IActionKind,
+  StoreAggregateExportSchema,
+} from '@codelab/shared/abstract/core'
+import { validateAndClean } from '@codelab/shared/infra/typebox'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
 export class ExportStoreCommand {
@@ -40,10 +44,10 @@ export class ExportStoreHandler
       return -1
     })
 
-    return {
+    return validateAndClean(StoreAggregateExportSchema, {
       actions,
       api,
       store,
-    }
+    })
   }
 }

@@ -1,7 +1,6 @@
 import type { IRedirectUpdateFormData } from '@codelab/frontend/abstract/domain'
 
 import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   DisplayIfField,
   Form,
@@ -45,11 +44,9 @@ export const UpdateRedirectForm = observer<IFormController>(
     return (
       <>
         <Form<IRedirectUpdateFormData>
+          errorMessage="Error while updating redirect"
           model={model}
           onSubmit={onSubmit}
-          onSubmitError={createFormErrorNotificationHandler({
-            title: 'Error while updating redirect',
-          })}
           schema={updateRedirectSchema}
           submitRef={submitRef}
           uiKey={UiKey.RedirectFormUpdate}

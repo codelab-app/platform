@@ -20,7 +20,7 @@ export class UserDomainService {
     })
 
     await this.preferenceDomainService.createInitialPreference({
-      owner: user,
+      owner: { id: user.id },
     })
 
     return user
@@ -29,7 +29,9 @@ export class UserDomainService {
   async seedUser(userDto: IUserDto) {
     const user = await this.userRepository.add(userDto)
 
-    await this.preferenceDomainService.createInitialPreference({ owner: user })
+    await this.preferenceDomainService.createInitialPreference({
+      owner: { id: user.id },
+    })
 
     return user
   }

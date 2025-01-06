@@ -2,26 +2,26 @@
 
 import type { IAppCreateFormData } from '@codelab/frontend/abstract/domain'
 
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
+import { useRouter } from 'next/navigation'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 
 import { useAppService } from '../../services'
 import { createAppSchema } from './create-app.schema'
-import { useCreateAppModal } from './create-app.state'
 
 export const CreateAppModal = () => {
-  const createAppModal = useCreateAppModal()
+  const router = useRouter()
   const appService = useAppService()
-  const closeModal = createAppModal.close
+  const closeModal = () => router.push(PageType.AppList())
   const model = { id: v4(), name: '' }
 
   return (
     <ModalForm.Modal
       okText="Create App"
       onCancel={closeModal}
-      open={createAppModal.isOpen}
+      open={true}
       title="Some Title"
       uiKey={UiKey.AppModalCreate}
     >

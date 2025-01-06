@@ -17,6 +17,8 @@ import { isNullish } from 'remeda'
 import { useField } from 'uniforms'
 import { AutoFields } from 'uniforms-antd'
 
+import { uniformSchemaFactory as uniformSchema } from '../../uniform-schema'
+
 export const SelectDefaultValue = () => {
   const { typeDomainService } = useDomainStore()
 
@@ -50,7 +52,14 @@ export const SelectDefaultValue = () => {
   const schema = useMemo(
     () => ({
       label: '',
-      properties: type ? { defaultValues: type.toJsonSchema({}) } : {},
+      properties: type
+        ? {
+            defaultValues: type.toJsonSchema({
+              uniformSchema,
+              validationRules: validationRules.value,
+            }),
+          }
+        : {},
       required: isRequired ? ['defaultValues'] : undefined,
       type: 'object',
     }),

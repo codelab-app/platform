@@ -111,8 +111,6 @@ export class ExportApiHandler
     const dependentTypes: Array<ITypeExport> = []
 
     for (const dependentType of dependentTypesIds) {
-      console.log({ dependentType })
-
       if (
         Object.values(ITypeKind).includes(ITypeKind[dependentType.__typename])
       ) {
@@ -121,18 +119,7 @@ export class ExportApiHandler
           TypeExportSchema,
         )
 
-        if (!type) {
-          continue
-        }
-
-        if (type.__typename === ITypeKind.InterfaceType) {
-          dependentTypes.push({
-            ...type,
-            fields: type.fields,
-          })
-        } else {
-          dependentTypes.push(type)
-        }
+        dependentTypes.push(type as ITypeExport)
       }
     }
 
