@@ -59,12 +59,13 @@ export class TypeDomainService
     }
 
     interfaceType = InterfaceType.create({
+      __typename: ITypeKind.InterfaceType,
+      fields: data.fields,
       id: data.id,
+      kind: ITypeKind.InterfaceType,
       name: data.name,
       owner: data.owner,
     })
-
-    interfaceType.writeFieldCache(data.fields)
 
     this.types.set(interfaceType.id, interfaceType)
 

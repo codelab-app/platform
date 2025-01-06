@@ -41,7 +41,7 @@ export class NestedValidator<S extends TSchema> extends StandardValidator<S> {
         )
 
         const cleanedValue = discriminatedValidator.validateAndCleanCopy(
-          value,
+          value as Readonly<unknown>,
         ) as any
 
         // Find the matching schema from the union
@@ -60,7 +60,9 @@ export class NestedValidator<S extends TSchema> extends StandardValidator<S> {
         // Fallback to handling union with the standard validator
         const standardUnionValidator = new StandardValidator(unionSchema)
 
-        return standardUnionValidator.validateAndCleanCopy(value)
+        return standardUnionValidator.validateAndCleanCopy(
+          value as Readonly<unknown>,
+        )
       }
     }
 
