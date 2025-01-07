@@ -6,7 +6,6 @@ import type { ReactElement } from 'react'
 import {
   connectUniformSubmitRef,
   createBridge,
-  logging,
 } from '@codelab/frontend/shared/utils'
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import { throttle } from 'radash'
@@ -39,8 +38,6 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
       uiKey,
     } = props
 
-    logging.useModelDiff('Model', model)
-
     const [bridge, setBridge] = useState(
       schema instanceof Bridge ? schema : createBridge(schema),
     )
@@ -49,33 +46,20 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
       setBridge(schema instanceof Bridge ? schema : createBridge(schema))
     }, [schema])
 
-    const renderCount = useRef({ asyncHandler: 0, postSubmit: 0, submit: 0 })
+    const modelRef = useRef(model)
+
+    // Keep modelRef.current synchronized with the model prop
+    // This is necessary because:
+    // 1. When autosave=true, we use modelRef.current to prevent re-renders
+    // 2. But we still need to reflect external updates to the model prop
+    // 3. Without this effect, modelRef would become stale when model changes
+    useEffect(() => {
+      modelRef.current = model
+    }, [model])
+
     const postSubmit = usePostSubmit<TData, TResponse>(props)
-
-    useEffect(() => {
-      renderCount.current.postSubmit += 1
-      console.log(
-        `usePostSubmit called ${renderCount.current.postSubmit} times for ${uiKey}`,
-      )
-    }, [postSubmit, uiKey])
-
     const asyncHandler = useAsyncHandler<TData, TResponse>()
-
-    useEffect(() => {
-      renderCount.current.asyncHandler += 1
-      console.log(
-        `useAsyncHandler called ${renderCount.current.asyncHandler} times for ${uiKey}`,
-      )
-    }, [asyncHandler, uiKey])
-
     const submit = asyncHandler(onSubmit, onSubmitOptimistic)
-
-    useEffect(() => {
-      renderCount.current.submit += 1
-      console.log(
-        `submit function created ${renderCount.current.submit} times for ${uiKey}`,
-      )
-    }, [submit, uiKey])
 
     return (
       <div
@@ -88,7 +72,7 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
           autosaveDelay={500}
           data-testid={CuiTestId.cuiForm(uiKey)}
           errorsField={() => <ErrorsField />}
-          model={model}
+          model={autosave ? modelRef.current : model}
           modelTransform={modelTransform}
           onChange={onChange}
           onChangeModel={onChangeModel}

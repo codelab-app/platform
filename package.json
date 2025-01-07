@@ -236,6 +236,7 @@
     "server-only": "^0.0.1",
     "slugify": "^1.6.6",
     "sonner": "^1.5.0",
+    "stack-trace": "1.0.0-pre2",
     "storybook": "^8.2.8",
     "styled-components": "6.1.8",
     "sucrase": "3.32.0",

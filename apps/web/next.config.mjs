@@ -1,5 +1,6 @@
 import bundleAnalyzer from '@next/bundle-analyzer'
-import { composePlugins, withNx } from '@nx/next'
+import { composePlugins,
+withNx } from '@nx/next'
 import { withSentryConfig } from '@sentry/nextjs'
 // eslint-disable-next-line import/default
 import env from 'env-var'
@@ -87,6 +88,7 @@ const nextConfig = {
     // increase timeout for long-running proxy request,
     // e.g. request from admin to seed the db; request to seed database in e2e
     proxyTimeout: 1200_000,
+    serverComponentsExternalPackages: ['pino', 'pino-pretty'],
   },
   nx: { svgr: true },
   // https://github.com/ant-design/ant-design-examples/blob/main/examples/with-nextjs-app-router-inline-style/next.config.js

@@ -15,7 +15,7 @@ import {
   SelectActionsField,
   SelectAnyElement,
 } from '@codelab/frontend/presentation/components/interface-form'
-import { logging } from '@codelab/frontend/shared/utils'
+import { tracker } from '@codelab/frontend/shared/utils'
 import { useUser } from '@codelab/frontend-application-user/services'
 import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
 import {
@@ -70,8 +70,14 @@ export const CreateElementForm = observer<CreateElementFormProps>(
 
     const parentElement = elementDomainService.element(selectedElementId)
 
-    console.log(selectedElementId)
-    logging.useModelDiff('Parent element', parentElement)
+    tracker.useModelDiff('Parent element', parentElement)
+    tracker.useModelDiff('Selected node', selectedNode)
+    tracker.useModelDiff('Props', {
+      onSubmitSuccess,
+      selectedNode,
+      showFormControl,
+      submitRef,
+    })
 
     const onSubmit = (data: IElementDto) => {
       const isValidParent = validateParentForCreate(

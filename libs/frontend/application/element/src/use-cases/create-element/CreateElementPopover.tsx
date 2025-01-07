@@ -5,8 +5,9 @@ import type { Maybe } from '@codelab/shared/abstract/types'
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
 import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
+import { logger } from '@codelab/frontend/infra/logger'
 import { CuiSidebarSecondary } from '@codelab/frontend/presentation/codelab-ui'
-import { logging } from '@codelab/frontend/shared/utils'
+import { tracker } from '@codelab/frontend/shared/utils'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
@@ -22,7 +23,8 @@ export const CreateElementPopover = observer(() => {
   const { builderService } = useApplicationStore()
   const selectedNode = builderService.selectedNode?.maybeCurrent
 
-  logging.useModelDiff('Selected node', selectedNode)
+  tracker.useModelDiff('Selected node popover', selectedNode)
+  logger.debug('Selected node popover', selectedNode)
 
   return (
     <CuiSidebarSecondary

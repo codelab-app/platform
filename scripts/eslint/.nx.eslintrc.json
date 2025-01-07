@@ -133,7 +133,7 @@
               },
               {
                 "sourceTag": "scope:shared",
-                "onlyDependOnLibsWithTags": ["scope:shared", "type:abstract"]
+                "onlyDependOnLibsWithTags": ["scope:shared", "type:abstract", "layer:infra"]
               },
               // Domain lib specific constraints
               {
