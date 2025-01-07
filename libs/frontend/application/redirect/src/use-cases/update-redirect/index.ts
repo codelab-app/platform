@@ -1,5 +1,3 @@
 export * from './update-redirect.schema'
-export * from './update-redirect.state'
-export * from './UpdateRedirectButton'
 export * from './UpdateRedirectForm'
 export * from './UpdateRedirectPopover'

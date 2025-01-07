@@ -12,6 +12,9 @@ export const CreateComponentsDocument = graphql(`
         store {
           id
         }
+        rootElement {
+          id
+        }
       }
     }
   }

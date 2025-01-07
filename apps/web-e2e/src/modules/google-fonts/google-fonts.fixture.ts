@@ -1,5 +1,3 @@
-import type { Locator } from '@playwright/test'
-
 import { test as base, expect } from '@playwright/test'
 
 import { CssBuilderPage } from '../css/css.fixture'
@@ -44,12 +42,6 @@ export class GoogleFontsPage extends CssBuilderPage {
 
     await expect(cssTab).toHaveClass('ant-tabs-tab ant-tabs-tab-active')
     await expect(this.getSpinner()).toBeHidden()
-  }
-
-  async scrollUntilElementIsVisible(locator: Locator) {
-    while (!(await locator.isVisible())) {
-      await this.page.mouse.wheel(0, 100)
-    }
   }
 }
 

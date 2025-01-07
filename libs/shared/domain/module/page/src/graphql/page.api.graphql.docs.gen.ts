@@ -12,6 +12,9 @@ export const CreatePagesDocument = graphql(`
       pages {
         __typename
         id
+        rootElement {
+          id
+        }
       }
     }
   }

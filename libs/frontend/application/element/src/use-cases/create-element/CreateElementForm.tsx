@@ -1,20 +1,19 @@
 'use client'
 
 import type { IRuntimeModel } from '@codelab/frontend/abstract/application'
+import type { IElementModel } from '@codelab/frontend/abstract/domain'
+import type { IFormController } from '@codelab/frontend/abstract/types'
 import type { IElementDto } from '@codelab/shared/abstract/core'
-import type {
-  Maybe,
-  Nullable,
-  UniformSelectFieldProps,
-} from '@codelab/shared/abstract/types'
+import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 
 import { isAtom } from '@codelab/frontend/abstract/domain'
-import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   SelectActionsField,
   SelectAnyElement,
 } from '@codelab/frontend/presentation/components/interface-form'
 import { useUser } from '@codelab/frontend-application-user/services'
+import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
   Form,
@@ -31,36 +30,39 @@ import type { ICreateElementDto } from './create-element.schema'
 
 import { AutoComputedElementNameField } from '../../components/AutoComputedElementNameField'
 import { RenderTypeField } from '../../components/render-type-field'
-import { SelectLinkElement } from '../../components/SelectLinkElement'
 import { useElementService } from '../../services/element.service'
 import { useRequiredParentValidator } from '../../validation/useRequiredParentValidator.hook'
 import { createElementSchema } from './create-element.schema'
-import { useCreateElementForm } from './create-element.state'
 
-interface CreateElementFormProps {
+interface CreateElementFormProps extends IFormController {
   // Prevent builder ciricular dep
-  selectedNode?: Nullable<IRuntimeModel>
+  selectedNode?: IRuntimeModel
   showFormControl?: boolean
-  submitRef: React.MutableRefObject<Maybe<SubmitController>>
-  onSubmitSuccess?(data: IElementDto): void
+  treeElements?: Array<IElementModel>
 }
 
 export const CreateElementForm = observer<CreateElementFormProps>(
-  ({ onSubmitSuccess, selectedNode, showFormControl = true, submitRef }) => {
+  ({
+    onSubmitSuccess,
+    selectedNode,
+    showFormControl = true,
+    submitRef,
+    treeElements,
+  }) => {
     const { atomDomainService } = useDomainStore()
     const user = useUser()
     const elementService = useElementService()
-    const createElementForm = useCreateElementForm()
-    const element = createElementForm.data
-    const parentElement = element?.parentElement
-    const elementOptions = element?.elementOptions
     const { validateParentForCreate } = useRequiredParentValidator()
+    const selectedElementId = selectedNode?.treeViewNode.element?.id
 
-    if (!parentElement) {
+    if (!selectedElementId) {
       return null
     }
 
-    const onSubmit = async (data: IElementDto) => {
+    const parentElement = elementService.getElement(selectedElementId)
+    const elementOptions = treeElements?.map(mapElementOption)
+
+    const onSubmit = (data: IElementDto) => {
       const isValidParent = validateParentForCreate(
         data.renderType.id,
         data.parentElement?.id,
@@ -74,15 +76,7 @@ export const CreateElementForm = observer<CreateElementFormProps>(
         delete data.parentElement
       }
 
-      await elementService.create(data)
-
-      onSubmitSuccess?.(data)
-
-      return Promise.resolve()
-    }
-
-    const closeForm = () => {
-      return createElementForm.close()
+      return elementService.create(data)
     }
 
     const model = {
@@ -120,13 +114,14 @@ export const CreateElementForm = observer<CreateElementFormProps>(
         errorMessage="Error while creating element"
         model={model}
         onSubmit={onSubmit}
-        onSubmitSuccess={closeForm}
+        onSubmitSuccess={onSubmitSuccess}
         schema={createElementSchema}
         submitRef={submitRef}
         uiKey={UiKey.ElementFormCreate}
       >
         <AutoFields
           omitFields={[
+            'id',
             'parentElement',
             'style',
             'propsData',
@@ -150,10 +145,10 @@ export const CreateElementForm = observer<CreateElementFormProps>(
           name="parentElement.id"
         />
         {/** We likely won't expose this, since it is difficult for users to understand this. The real world scenario would always create under parent, then drag to re-arrange */}
-        <SelectLinkElement
+        {/* <SelectLinkElement
           allElementOptions={elementOptions}
           name="prevSibling.id"
-        />
+        /> */}
         <RenderTypeField name="renderType" parentAtom={parentAtom} />
         <SelectActionsField
           name="preRenderActions"
@@ -166,7 +161,7 @@ export const CreateElementForm = observer<CreateElementFormProps>(
         <Divider />
         <AutoComputedElementNameField label="Name" name="name" />
         <DisplayIf condition={showFormControl}>
-          <FormController onCancel={closeForm} submitLabel="Create Element" />
+          <FormController submitLabel="Create Element" />
         </DisplayIf>
       </Form>
     )

@@ -19,6 +19,7 @@ export const useUrlPathParams = (): UrlPathParams => {
   const params = useParams()
 
   return {
+    actionId: params.actionId as string,
     appId: params.appId as string,
     authGuardId: params.authGuardId as string,
     componentId: params.componentId as string,

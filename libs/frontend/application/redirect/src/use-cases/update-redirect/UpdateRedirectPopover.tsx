@@ -5,54 +5,48 @@ import type { Maybe } from '@codelab/shared/abstract/types'
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
 import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
-import {
-  CuiSidebarPopover,
-  useCui,
-} from '@codelab/frontend/presentation/codelab-ui'
+import { CuiSidebarSecondary } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/navigation'
 import { useRef } from 'react'
 
-import { useUpdateRedirectForm } from './update-redirect.state'
+import { useRedirectService } from '../../services/redirect.service'
 import { UpdateRedirectForm } from './UpdateRedirectForm'
 
-export const UpdateRedirectPopover = observer(() => {
-  const submitRef = useRef<Maybe<SubmitController>>()
-  const updateRedirectForm = useUpdateRedirectForm()
-  const { popover } = useCui()
+export const UpdateRedirectPopover = observer(
+  ({ redirectId }: { redirectId: string }) => {
+    const submitRef = useRef<Maybe<SubmitController>>()
+    const { updatePopover } = useRedirectService()
+    const router = useRouter()
 
-  return (
-    <CuiSidebarPopover
-      id={UiKey.RedirectPopoverUpdate}
-      toolbar={{
-        items: [
-          {
-            cuiKey: UiKey.RedirectToolbarItemUpdate,
-            icon: <SaveOutlined />,
-            label: 'Update',
-            onClick: () => {
-              submitRef.current?.submit()
+    return (
+      <CuiSidebarSecondary
+        id={UiKey.RedirectPopoverUpdate}
+        toolbar={{
+          items: [
+            {
+              cuiKey: UiKey.RedirectToolbarItemUpdate,
+              icon: <SaveOutlined />,
+              label: 'Update',
+              onClick: () => submitRef.current?.submit(),
             },
-            title: 'Update',
-          },
-          {
-            cuiKey: UiKey.RedirectToolbarItemUpdateCancel,
-            icon: <CloseOutlined />,
-            label: 'Cancel',
-            onClick: () => {
-              popover.close()
-              updateRedirectForm.close()
+            {
+              cuiKey: UiKey.RedirectToolbarItemUpdateCancel,
+              icon: <CloseOutlined />,
+              label: 'Cancel',
+              onClick: () => updatePopover.close(router),
             },
-            title: 'Cancel',
-          },
-        ],
-        title: 'Update Redirect toolbar',
-      }}
-    >
-      <UpdateRedirectForm
-        onSubmitSuccess={() => popover.close()}
-        showFormControl={false}
-        submitRef={submitRef}
-      />
-    </CuiSidebarPopover>
-  )
-})
+          ],
+          title: 'Update Redirect toolbar',
+        }}
+      >
+        <UpdateRedirectForm
+          onSubmitSuccess={() => updatePopover.close(router)}
+          redirectId={redirectId}
+          showFormControl={false}
+          submitRef={submitRef}
+        />
+      </CuiSidebarSecondary>
+    )
+  },
+)

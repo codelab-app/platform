@@ -4,6 +4,7 @@
  * These either come from page props or useSeachParams hook
  */
 export interface UrlPathParamsProps {
+  actionId?: string
   appId?: string
   authGuardId?: string
   componentId?: string

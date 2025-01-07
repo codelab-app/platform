@@ -73,6 +73,15 @@ export class BuilderPage extends BasePage {
     await modal.locator(button).click()
   }
 
+  async clickPopconfirmButton() {
+    const popconfirm = this.page.locator('.ant-popconfirm')
+    const confirmButton = popconfirm.locator('.ant-btn-primary')
+
+    await expect(popconfirm).toBeVisible()
+
+    await confirmButton.click()
+  }
+
   async createElementTree(elements: Array<ICreateCypressElementData>) {
     const explorerTree = this.getElementsTree()
     const itemToolbarKey = CuiTestId.cuiTreeItemToolbar()
@@ -127,7 +136,7 @@ export class BuilderPage extends BasePage {
 
     await this.selectTreeElement(element)
     await deleteElementButton.click()
-    await this.clickModalConfirmButton()
+    await this.clickPopconfirmButton()
 
     await expect(this.getGlobalProgressBar()).toBeHidden()
   }
@@ -135,7 +144,7 @@ export class BuilderPage extends BasePage {
   async deleteElementFromUpdateForm(element: ICreateCypressElementData) {
     await this.selectTreeElement(element)
     await this.page.getByLabel('Delete').click()
-    await this.clickModalConfirmButton()
+    await this.clickPopconfirmButton()
 
     await expect(this.getGlobalProgressBar()).toBeHidden()
   }

@@ -48,7 +48,7 @@ const documents = {
     types.ElementRenderTypeFragmentDoc,
   '\n  fragment ElementRenderTypeProduction on ElementRenderType {\n    ... on Atom {\n      __typename\n      ...AtomProduction\n    }\n    ... on Component {\n      __typename\n      id\n    }\n  }\n':
     types.ElementRenderTypeProductionFragmentDoc,
-  '\n  fragment Element on Element {\n    __typename\n    compositeKey\n    childMapperComponent {\n      id\n      name\n    }\n    childMapperPreviousSibling {\n      id\n    }\n    childMapperPropKey\n    dependantTypes {\n      ...Type\n    }\n    firstChild {\n      id\n    }\n    id\n    name\n    nextSibling {\n      id\n    }\n    page {\n      id\n    }\n    parentComponent {\n      id\n    }\n    parentElement {\n      id\n    }\n    postRenderActions {\n      id\n      type\n    }\n    preRenderActions {\n      id\n      type\n    }\n    prevSibling {\n      id\n    }\n    props {\n      ...Prop\n    }\n    renderForEachPropKey\n    renderIfExpression\n    renderType {\n      ...ElementRenderType\n    }\n    style\n    tailwindClassNames\n    expanded\n  }\n':
+  '\n  fragment Element on Element {\n    __typename\n    compositeKey\n    childMapperComponent {\n      id\n    }\n    childMapperPreviousSibling {\n      id\n    }\n    childMapperPropKey\n    dependantTypes {\n      ...Type\n    }\n    firstChild {\n      id\n    }\n    id\n    name\n    nextSibling {\n      id\n    }\n    page {\n      id\n    }\n    parentComponent {\n      id\n    }\n    parentElement {\n      id\n    }\n    postRenderActions {\n      id\n      type\n    }\n    preRenderActions {\n      id\n      type\n    }\n    prevSibling {\n      id\n    }\n    props {\n      ...Prop\n    }\n    renderForEachPropKey\n    renderIfExpression\n    renderType {\n      ...ElementRenderType\n    }\n    style\n    tailwindClassNames\n    expanded\n  }\n':
     types.ElementFragmentDoc,
   '\n  fragment ElementProduction on Element {\n    __typename\n    childMapperComponent {\n      id\n      name\n    }\n    childMapperPreviousSibling {\n      id\n    }\n    childMapperPropKey\n    dependantTypes {\n      ...Type\n    }\n    firstChild {\n      id\n    }\n    id\n    name\n    nextSibling {\n      id\n    }\n    page {\n      id\n    }\n    parentComponent {\n      id\n    }\n    parentElement {\n      id\n    }\n    postRenderActions {\n      id\n      type\n    }\n    preRenderActions {\n      id\n      type\n    }\n    prevSibling {\n      id\n    }\n    props {\n      ...Prop\n    }\n    renderForEachPropKey\n    renderIfExpression\n    renderType {\n      ...ElementRenderTypeProduction\n    }\n    style\n    tailwindClassNames\n  }\n':
     types.ElementProductionFragmentDoc,
@@ -154,7 +154,7 @@ const documents = {
     types.UpdateAuthGuardDocument,
   '\n  mutation DeleteAuthGuards(\n    $where: AuthGuardWhere\n    $delete: AuthGuardDeleteInput\n  ) {\n    deleteAuthGuards(where: $where, delete: $delete) {\n      nodesDeleted\n    }\n  }\n':
     types.DeleteAuthGuardsDocument,
-  '\n  mutation CreateComponents($input: [ComponentCreateInput!]!) {\n    createComponents(input: $input) {\n      components {\n        __typename\n        id\n        store {\n          id\n        }\n      }\n    }\n  }\n':
+  '\n  mutation CreateComponents($input: [ComponentCreateInput!]!) {\n    createComponents(input: $input) {\n      components {\n        __typename\n        id\n        store {\n          id\n        }\n        rootElement {\n          id\n        }\n      }\n    }\n  }\n':
     types.CreateComponentsDocument,
   '\n  mutation DeleteComponents(\n    $where: ComponentWhere\n    $delete: ComponentDeleteInput\n  ) {\n    deleteComponents(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n':
     types.DeleteComponentsDocument,
@@ -190,7 +190,7 @@ const documents = {
     types.DeleteFieldsDocument,
   '\n  query GetFields($where: FieldWhere, $options: FieldOptions) {\n    aggregate: fieldsAggregate(where: $where) {\n      count\n    }\n    items: fields(options: $options, where: $where) {\n      ...Field\n    }\n  }\n':
     types.GetFieldsDocument,
-  '\n  mutation CreatePages($input: [PageCreateInput!]!) {\n    createPages(input: $input) {\n      pages {\n        __typename\n        id\n      }\n    }\n  }\n':
+  '\n  mutation CreatePages($input: [PageCreateInput!]!) {\n    createPages(input: $input) {\n      pages {\n        __typename\n        id\n        rootElement {\n          id\n        }\n      }\n    }\n  }\n':
     types.CreatePagesDocument,
   '\n  mutation DeletePages($where: PageWhere, $delete: PageDeleteInput) {\n    deletePages(delete: $delete, where: $where) {\n      nodesDeleted\n    }\n  }\n':
     types.DeletePagesDocument,
@@ -320,7 +320,7 @@ const documents = {
     types.DeleteActionTypesDocument,
   '\n  mutation DeleteCodeMirrorTypes(\n    $delete: CodeMirrorTypeDeleteInput\n    $where: CodeMirrorTypeWhere\n  ) {\n    deleteCodeMirrorTypes(delete: $delete, where: $where) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n':
     types.DeleteCodeMirrorTypesDocument,
-  '\n  query GetBaseTypes($where: IBaseTypeWhere, $options: IBaseTypeOptions) {\n    iBaseTypes(where: $where, options: $options) {\n      ...BaseType\n      ownerConnection {\n        totalCount\n      }\n    }\n  }\n':
+  '\n  query GetBaseTypes($where: IBaseTypeWhere, $options: IBaseTypeOptions) {\n    iBaseTypes(where: $where, options: $options) {\n      ...BaseType\n    }\n    aggregate: iBaseTypesAggregate(where: $where) {\n      count\n    }\n  }\n':
     types.GetBaseTypesDocument,
   '\n  query GetTypes($ids: [ID!]) {\n    actionTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    appTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    arrayTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    codeMirrorTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    elementTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    enumTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    interfaceTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    lambdaTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    pageTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    primitiveTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    reactNodeTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    renderPropTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    richTextTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n    unionTypes(where: { id_IN: $ids }) {\n      ...Type\n    }\n  }\n':
     types.GetTypesDocument,
@@ -520,8 +520,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  fragment Element on Element {\n    __typename\n    compositeKey\n    childMapperComponent {\n      id\n      name\n    }\n    childMapperPreviousSibling {\n      id\n    }\n    childMapperPropKey\n    dependantTypes {\n      ...Type\n    }\n    firstChild {\n      id\n    }\n    id\n    name\n    nextSibling {\n      id\n    }\n    page {\n      id\n    }\n    parentComponent {\n      id\n    }\n    parentElement {\n      id\n    }\n    postRenderActions {\n      id\n      type\n    }\n    preRenderActions {\n      id\n      type\n    }\n    prevSibling {\n      id\n    }\n    props {\n      ...Prop\n    }\n    renderForEachPropKey\n    renderIfExpression\n    renderType {\n      ...ElementRenderType\n    }\n    style\n    tailwindClassNames\n    expanded\n  }\n',
-): (typeof documents)['\n  fragment Element on Element {\n    __typename\n    compositeKey\n    childMapperComponent {\n      id\n      name\n    }\n    childMapperPreviousSibling {\n      id\n    }\n    childMapperPropKey\n    dependantTypes {\n      ...Type\n    }\n    firstChild {\n      id\n    }\n    id\n    name\n    nextSibling {\n      id\n    }\n    page {\n      id\n    }\n    parentComponent {\n      id\n    }\n    parentElement {\n      id\n    }\n    postRenderActions {\n      id\n      type\n    }\n    preRenderActions {\n      id\n      type\n    }\n    prevSibling {\n      id\n    }\n    props {\n      ...Prop\n    }\n    renderForEachPropKey\n    renderIfExpression\n    renderType {\n      ...ElementRenderType\n    }\n    style\n    tailwindClassNames\n    expanded\n  }\n']
+  source: '\n  fragment Element on Element {\n    __typename\n    compositeKey\n    childMapperComponent {\n      id\n    }\n    childMapperPreviousSibling {\n      id\n    }\n    childMapperPropKey\n    dependantTypes {\n      ...Type\n    }\n    firstChild {\n      id\n    }\n    id\n    name\n    nextSibling {\n      id\n    }\n    page {\n      id\n    }\n    parentComponent {\n      id\n    }\n    parentElement {\n      id\n    }\n    postRenderActions {\n      id\n      type\n    }\n    preRenderActions {\n      id\n      type\n    }\n    prevSibling {\n      id\n    }\n    props {\n      ...Prop\n    }\n    renderForEachPropKey\n    renderIfExpression\n    renderType {\n      ...ElementRenderType\n    }\n    style\n    tailwindClassNames\n    expanded\n  }\n',
+): (typeof documents)['\n  fragment Element on Element {\n    __typename\n    compositeKey\n    childMapperComponent {\n      id\n    }\n    childMapperPreviousSibling {\n      id\n    }\n    childMapperPropKey\n    dependantTypes {\n      ...Type\n    }\n    firstChild {\n      id\n    }\n    id\n    name\n    nextSibling {\n      id\n    }\n    page {\n      id\n    }\n    parentComponent {\n      id\n    }\n    parentElement {\n      id\n    }\n    postRenderActions {\n      id\n      type\n    }\n    preRenderActions {\n      id\n      type\n    }\n    prevSibling {\n      id\n    }\n    props {\n      ...Prop\n    }\n    renderForEachPropKey\n    renderIfExpression\n    renderType {\n      ...ElementRenderType\n    }\n    style\n    tailwindClassNames\n    expanded\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -844,8 +844,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation CreateComponents($input: [ComponentCreateInput!]!) {\n    createComponents(input: $input) {\n      components {\n        __typename\n        id\n        store {\n          id\n        }\n      }\n    }\n  }\n',
-): (typeof documents)['\n  mutation CreateComponents($input: [ComponentCreateInput!]!) {\n    createComponents(input: $input) {\n      components {\n        __typename\n        id\n        store {\n          id\n        }\n      }\n    }\n  }\n']
+  source: '\n  mutation CreateComponents($input: [ComponentCreateInput!]!) {\n    createComponents(input: $input) {\n      components {\n        __typename\n        id\n        store {\n          id\n        }\n        rootElement {\n          id\n        }\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation CreateComponents($input: [ComponentCreateInput!]!) {\n    createComponents(input: $input) {\n      components {\n        __typename\n        id\n        store {\n          id\n        }\n        rootElement {\n          id\n        }\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -952,8 +952,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation CreatePages($input: [PageCreateInput!]!) {\n    createPages(input: $input) {\n      pages {\n        __typename\n        id\n      }\n    }\n  }\n',
-): (typeof documents)['\n  mutation CreatePages($input: [PageCreateInput!]!) {\n    createPages(input: $input) {\n      pages {\n        __typename\n        id\n      }\n    }\n  }\n']
+  source: '\n  mutation CreatePages($input: [PageCreateInput!]!) {\n    createPages(input: $input) {\n      pages {\n        __typename\n        id\n        rootElement {\n          id\n        }\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation CreatePages($input: [PageCreateInput!]!) {\n    createPages(input: $input) {\n      pages {\n        __typename\n        id\n        rootElement {\n          id\n        }\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -1342,8 +1342,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  query GetBaseTypes($where: IBaseTypeWhere, $options: IBaseTypeOptions) {\n    iBaseTypes(where: $where, options: $options) {\n      ...BaseType\n      ownerConnection {\n        totalCount\n      }\n    }\n  }\n',
-): (typeof documents)['\n  query GetBaseTypes($where: IBaseTypeWhere, $options: IBaseTypeOptions) {\n    iBaseTypes(where: $where, options: $options) {\n      ...BaseType\n      ownerConnection {\n        totalCount\n      }\n    }\n  }\n']
+  source: '\n  query GetBaseTypes($where: IBaseTypeWhere, $options: IBaseTypeOptions) {\n    iBaseTypes(where: $where, options: $options) {\n      ...BaseType\n    }\n    aggregate: iBaseTypesAggregate(where: $where) {\n      count\n    }\n  }\n',
+): (typeof documents)['\n  query GetBaseTypes($where: IBaseTypeWhere, $options: IBaseTypeOptions) {\n    iBaseTypes(where: $where, options: $options) {\n      ...BaseType\n    }\n    aggregate: iBaseTypesAggregate(where: $where) {\n      count\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

@@ -2,13 +2,18 @@
 
 import type { IDomainStoreDto } from '@codelab/frontend/abstract/domain'
 
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import {
+  useDomainStore,
+  useUndoManager,
+} from '@codelab/frontend-infra-mobx/context'
 import { useCallback } from 'react'
 
 /**
  * A previous version of this called the hydrate synchronously without useEffect, but this causes delay and doesn't render immediately
  */
 export const useHydrateStore = () => {
+  const undoManager = useUndoManager()
+
   const {
     actionDomainService,
     appDomainService,
@@ -43,60 +48,64 @@ export const useHydrateStore = () => {
       tagsDto,
       typesDto,
     }: IDomainStoreDto) => {
-      appsDto?.forEach((app) => {
-        appDomainService.hydrate(app)
-      })
+      // we use optimistic updates in some parts of the app, wrapping with a single group action
+      // makes it very easy to undo the entire hydration, in case if requested operation fails
+      undoManager.withGroup('hydration-group-action', () => {
+        appsDto?.forEach((app) => {
+          appDomainService.hydrate(app)
+        })
 
-      domainsDto?.forEach((domain) => {
-        domainDomainService.hydrate(domain)
-      })
+        domainsDto?.forEach((domain) => {
+          domainDomainService.hydrate(domain)
+        })
 
-      atomsDto?.forEach((atom) => {
-        atomDomainService.hydrate(atom)
-      })
+        atomsDto?.forEach((atom) => {
+          atomDomainService.hydrate(atom)
+        })
 
-      typesDto?.forEach((type) => {
-        typeDomainService.hydrate(type)
-      })
+        typesDto?.forEach((type) => {
+          typeDomainService.hydrate(type)
+        })
 
-      fieldsDto?.forEach((field) => {
-        fieldDomainService.hydrate(field)
-      })
+        fieldsDto?.forEach((field) => {
+          fieldDomainService.hydrate(field)
+        })
 
-      elementsDto?.forEach((element) => {
-        elementDomainService.hydrate(element)
-      })
+        elementsDto?.forEach((element) => {
+          elementDomainService.hydrate(element)
+        })
 
-      componentsDto?.forEach((component) => {
-        componentDomainService.hydrate(component)
-      })
+        componentsDto?.forEach((component) => {
+          componentDomainService.hydrate(component)
+        })
 
-      tagsDto?.forEach((tag) => {
-        tagDomainService.hydrate(tag)
-      })
+        tagsDto?.forEach((tag) => {
+          tagDomainService.hydrate(tag)
+        })
 
-      storesDto?.forEach((store) => {
-        storeDomainService.hydrate(store)
-      })
+        storesDto?.forEach((store) => {
+          storeDomainService.hydrate(store)
+        })
 
-      actionsDto?.forEach((action) => {
-        actionDomainService.hydrate(action)
-      })
+        actionsDto?.forEach((action) => {
+          actionDomainService.hydrate(action)
+        })
 
-      resourcesDto?.forEach((resource) => {
-        resourceDomainService.hydrate(resource)
-      })
+        resourcesDto?.forEach((resource) => {
+          resourceDomainService.hydrate(resource)
+        })
 
-      authGuardsDto?.forEach((authGuard) => {
-        authGuardDomainService.hydrate(authGuard)
-      })
+        authGuardsDto?.forEach((authGuard) => {
+          authGuardDomainService.hydrate(authGuard)
+        })
 
-      redirectsDto?.forEach((redirect) => {
-        redirectDomainService.hydrate(redirect)
-      })
+        redirectsDto?.forEach((redirect) => {
+          redirectDomainService.hydrate(redirect)
+        })
 
-      pagesDto?.forEach((page) => {
-        pageDomainService.hydrate(page)
+        pagesDto?.forEach((page) => {
+          pageDomainService.hydrate(page)
+        })
       })
 
       // eslint-disable-next-line react-hooks/exhaustive-deps

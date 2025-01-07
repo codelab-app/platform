@@ -29,6 +29,7 @@ const init = (router: IRouterProps) => {
 export class RouterService
   extends Model({
     pathParams: prop<UrlPathParamsProps>(() => ({
+      actionId: undefined,
       appId: undefined,
       authGuardId: undefined,
       componentId: undefined,
@@ -51,6 +52,15 @@ export class RouterService
   implements IRouterService
 {
   static init = init
+
+  @computed
+  get actionId() {
+    const actionId = this.pathParams.actionId
+
+    Validator.assertsDefined(actionId)
+
+    return actionId
+  }
 
   @computed
   get appId() {

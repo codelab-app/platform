@@ -1,13 +1,7 @@
 import type { Metadata } from 'next'
 
-import {
-  ExportAdminDataButton,
-  ExportAdminDataModal,
-} from '@codelab/frontend-application-admin/use-cases/export-data'
-import {
-  ImportAdminDataButton,
-  ImportAdminDataModal,
-} from '@codelab/frontend-application-admin/use-cases/import-data'
+import { ExportAdminDataButton } from '@codelab/frontend-application-admin/use-cases/export-data'
+import { ImportAdminDataButton } from '@codelab/frontend-application-admin/use-cases/import-data'
 import { ResetDataButtons } from '@codelab/frontend-application-admin/use-cases/reset-data'
 import { AdminViewHeader } from '@codelab/frontend-application-admin/views'
 import { UsersTable } from '@codelab/frontend-application-user/use-cases/user-list'
@@ -29,9 +23,7 @@ const AdminView = async () => {
         <Space className="w-full" direction="vertical" size="large">
           <Space>
             <ExportAdminDataButton />
-            <ExportAdminDataModal />
             <ImportAdminDataButton />
-            <ImportAdminDataModal />
             <ResetDataButtons />
           </Space>
           <UsersTable users={users} />

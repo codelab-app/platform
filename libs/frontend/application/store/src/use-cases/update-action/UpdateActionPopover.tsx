@@ -13,7 +13,7 @@ import { useRef } from 'react'
 import { useActionService } from '../../services/action.service'
 import { UpdateActionForm } from './UpdateActionForm'
 
-export const UpdateActionPopover = observer(() => {
+export const UpdateActionPopover = observer(({ id }: { id: string }) => {
   const submitRef = useRef<Maybe<SubmitController>>()
   const { updatePopover } = useActionService()
   const router = useRouter()
@@ -42,6 +42,7 @@ export const UpdateActionPopover = observer(() => {
       }}
     >
       <UpdateActionForm
+        actionId={id}
         onSubmitSuccess={() => updatePopover.close(router)}
         showFormControl={false}
         submitRef={submitRef}

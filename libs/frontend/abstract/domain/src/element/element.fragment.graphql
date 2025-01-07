@@ -3,7 +3,6 @@ fragment Element on Element {
   compositeKey
   childMapperComponent {
     id
-    name
   }
   childMapperPreviousSibling {
     id

@@ -6,6 +6,9 @@ mutation CreateComponents($input: [ComponentCreateInput!]!) {
       store {
         id
       }
+      rootElement {
+        id
+      }
     }
   }
 }

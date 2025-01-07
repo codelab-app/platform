@@ -1,7 +1,7 @@
 import type {
-  ComponentContextParams,
-  PageContextParams,
-} from '@codelab/frontend/abstract/types'
+  CrudActionPopoverParams,
+  IActionService,
+} from '@codelab/frontend/abstract/application'
 import type {
   IActionDto,
   ICreateActionData,
@@ -10,7 +10,6 @@ import type {
 } from '@codelab/shared/abstract/core'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import { type IActionService } from '@codelab/frontend/abstract/application'
 import {
   type IActionModel,
   type IActionWhere,
@@ -135,18 +134,14 @@ export const useActionService = (): IActionService => {
     },
     open: (
       router: AppRouterInstance,
-      {
-        appId,
-        componentId,
-        pageId,
-      }: PageContextParams & ComponentContextParams,
+      { appId, componentId, pageId, storeId }: CrudActionPopoverParams,
     ) => {
       const url =
         appId && pageId
           ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
           : PageType.ComponentBuilder({ componentId })
 
-      router.push(`${url}/create-action`)
+      router.push(`${url}/store/${storeId}/create-action`)
     },
   }
 
@@ -156,18 +151,31 @@ export const useActionService = (): IActionService => {
     },
     open: (
       router: AppRouterInstance,
-      {
-        appId,
-        componentId,
-        pageId,
-      }: PageContextParams & ComponentContextParams,
+      { actionId, appId, componentId, pageId }: CrudActionPopoverParams,
     ) => {
       const url =
         appId && pageId
           ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
           : PageType.ComponentBuilder({ componentId })
 
-      router.push(`${url}/update-action`)
+      router.push(`${url}/update-action/${actionId}`)
+    },
+  }
+
+  const deletePopover = {
+    close: (router: AppRouterInstance) => {
+      router.back()
+    },
+    open: (
+      router: AppRouterInstance,
+      { actionId, appId, componentId, pageId }: CrudActionPopoverParams,
+    ) => {
+      const url =
+        appId && pageId
+          ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
+          : PageType.ComponentBuilder({ componentId })
+
+      router.push(`${url}/delete/action/${actionId}`)
     },
   }
 
@@ -175,6 +183,7 @@ export const useActionService = (): IActionService => {
     cloneAction,
     create,
     createPopover,
+    deletePopover,
     getAll,
     getOne,
     removeMany,

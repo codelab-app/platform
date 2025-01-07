@@ -12,9 +12,9 @@ export const GetBaseTypesDocument = graphql(`
   query GetBaseTypes($where: IBaseTypeWhere, $options: IBaseTypeOptions) {
     iBaseTypes(where: $where, options: $options) {
       ...BaseType
-      ownerConnection {
-        totalCount
-      }
+    }
+    aggregate: iBaseTypesAggregate(where: $where) {
+      count
     }
   }
 `)

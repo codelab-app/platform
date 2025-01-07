@@ -30862,7 +30862,7 @@ export type ElementFragment = {
   style?: string | null
   tailwindClassNames?: Array<string> | null
   expanded?: boolean | null
-  childMapperComponent?: { id: string; name: string } | null
+  childMapperComponent?: { id: string } | null
   childMapperPreviousSibling?: { id: string } | null
   dependantTypes: Array<
     | Type_ActionType_Fragment
@@ -31542,6 +31542,7 @@ export type CreateComponentsMutation = {
       __typename: 'Component'
       id: string
       store: { id: string }
+      rootElement: { id: string }
     }>
   }
 }
@@ -31697,7 +31698,13 @@ export type CreatePagesMutationVariables = Exact<{
 }>
 
 export type CreatePagesMutation = {
-  createPages: { pages: Array<{ __typename: 'Page'; id: string }> }
+  createPages: {
+    pages: Array<{
+      __typename: 'Page'
+      id: string
+      rootElement: { id: string }
+    }>
+  }
 }
 
 export type DeletePagesMutationVariables = Exact<{
@@ -32274,43 +32281,22 @@ export type GetBaseTypesQueryVariables = Exact<{
 
 export type GetBaseTypesQuery = {
   iBaseTypes: Array<
-    | ({
-        ownerConnection: { totalCount: number }
-      } & BaseType_ActionType_Fragment)
-    | ({ ownerConnection: { totalCount: number } } & BaseType_AppType_Fragment)
-    | ({
-        ownerConnection: { totalCount: number }
-      } & BaseType_ArrayType_Fragment)
-    | ({
-        ownerConnection: { totalCount: number }
-      } & BaseType_CodeMirrorType_Fragment)
-    | ({
-        ownerConnection: { totalCount: number }
-      } & BaseType_ElementType_Fragment)
-    | ({ ownerConnection: { totalCount: number } } & BaseType_EnumType_Fragment)
-    | ({
-        ownerConnection: { totalCount: number }
-      } & BaseType_InterfaceType_Fragment)
-    | ({
-        ownerConnection: { totalCount: number }
-      } & BaseType_LambdaType_Fragment)
-    | ({ ownerConnection: { totalCount: number } } & BaseType_PageType_Fragment)
-    | ({
-        ownerConnection: { totalCount: number }
-      } & BaseType_PrimitiveType_Fragment)
-    | ({
-        ownerConnection: { totalCount: number }
-      } & BaseType_ReactNodeType_Fragment)
-    | ({
-        ownerConnection: { totalCount: number }
-      } & BaseType_RenderPropType_Fragment)
-    | ({
-        ownerConnection: { totalCount: number }
-      } & BaseType_RichTextType_Fragment)
-    | ({
-        ownerConnection: { totalCount: number }
-      } & BaseType_UnionType_Fragment)
+    | BaseType_ActionType_Fragment
+    | BaseType_AppType_Fragment
+    | BaseType_ArrayType_Fragment
+    | BaseType_CodeMirrorType_Fragment
+    | BaseType_ElementType_Fragment
+    | BaseType_EnumType_Fragment
+    | BaseType_InterfaceType_Fragment
+    | BaseType_LambdaType_Fragment
+    | BaseType_PageType_Fragment
+    | BaseType_PrimitiveType_Fragment
+    | BaseType_ReactNodeType_Fragment
+    | BaseType_RenderPropType_Fragment
+    | BaseType_RichTextType_Fragment
+    | BaseType_UnionType_Fragment
   >
+  aggregate: { count: number }
 }
 
 export type GetTypesQueryVariables = Exact<{
@@ -33438,7 +33424,6 @@ export const ElementFragmentDoc = new TypedDocumentString(
   compositeKey
   childMapperComponent {
     id
-    name
   }
   childMapperPreviousSibling {
     id
@@ -34021,7 +34006,6 @@ fragment Element on Element {
   compositeKey
   childMapperComponent {
     id
-    name
   }
   childMapperPreviousSibling {
     id
@@ -34326,7 +34310,6 @@ fragment Element on Element {
   compositeKey
   childMapperComponent {
     id
-    name
   }
   childMapperPreviousSibling {
     id
@@ -34658,7 +34641,6 @@ fragment Element on Element {
   compositeKey
   childMapperComponent {
     id
-    name
   }
   childMapperPreviousSibling {
     id
@@ -34952,7 +34934,6 @@ fragment Element on Element {
   compositeKey
   childMapperComponent {
     id
-    name
   }
   childMapperPreviousSibling {
     id
@@ -36362,7 +36343,6 @@ fragment Element on Element {
   compositeKey
   childMapperComponent {
     id
-    name
   }
   childMapperPreviousSibling {
     id
@@ -37139,7 +37119,6 @@ fragment Element on Element {
   compositeKey
   childMapperComponent {
     id
-    name
   }
   childMapperPreviousSibling {
     id
@@ -37550,7 +37529,6 @@ fragment Element on Element {
   compositeKey
   childMapperComponent {
     id
-    name
   }
   childMapperPreviousSibling {
     id
@@ -37962,7 +37940,6 @@ fragment Element on Element {
   compositeKey
   childMapperComponent {
     id
-    name
   }
   childMapperPreviousSibling {
     id
@@ -38714,6 +38691,9 @@ export const CreateComponentsDocument = new TypedDocumentString(`
       store {
         id
       }
+      rootElement {
+        id
+      }
     }
   }
 }
@@ -39026,7 +39006,6 @@ fragment Element on Element {
   compositeKey
   childMapperComponent {
     id
-    name
   }
   childMapperPreviousSibling {
     id
@@ -39326,6 +39305,9 @@ export const CreatePagesDocument = new TypedDocumentString(`
     pages {
       __typename
       id
+      rootElement {
+        id
+      }
     }
   }
 }
@@ -39445,7 +39427,6 @@ fragment Element on Element {
   compositeKey
   childMapperComponent {
     id
-    name
   }
   childMapperPreviousSibling {
     id
@@ -39752,7 +39733,6 @@ fragment Element on Element {
   compositeKey
   childMapperComponent {
     id
-    name
   }
   childMapperPreviousSibling {
     id
@@ -40983,9 +40963,9 @@ export const GetBaseTypesDocument = new TypedDocumentString(`
     query GetBaseTypes($where: IBaseTypeWhere, $options: IBaseTypeOptions) {
   iBaseTypes(where: $where, options: $options) {
     ...BaseType
-    ownerConnection {
-      totalCount
-    }
+  }
+  aggregate: iBaseTypesAggregate(where: $where) {
+    count
   }
 }
     fragment BaseType on IBaseType {

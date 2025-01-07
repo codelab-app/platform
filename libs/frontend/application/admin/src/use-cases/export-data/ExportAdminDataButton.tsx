@@ -1,15 +1,18 @@
 'use client'
 
 import ImportOutlined from '@ant-design/icons/ImportOutlined'
+import { PageType } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
-
-import { useExportAdminDataModal } from './export-admin-data.state'
+import { useRouter } from 'next/navigation'
 
 export const ExportAdminDataButton = () => {
-  const exportDataModal = useExportAdminDataModal()
+  const router = useRouter()
 
   return (
-    <Button icon={<ImportOutlined />} onClick={() => exportDataModal.open()}>
+    <Button
+      icon={<ImportOutlined />}
+      onClick={() => router.push(PageType.AdminExport())}
+    >
       Export Data
     </Button>
   )

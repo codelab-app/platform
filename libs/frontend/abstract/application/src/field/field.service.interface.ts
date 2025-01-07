@@ -17,7 +17,9 @@ export type UpdatePopoverParamsContext = PageContextParams &
 
 export interface IFieldService
   extends ICrudService<IFieldModel, ICreateFieldData, IUpdateFieldData> {
-  createPopover: IPopover<PageContextParams & ComponentContextParams>
+  createPopover: IPopover<
+    PageContextParams & ComponentContextParams & { interfaceId: string }
+  >
   deletePopover: IPopover<UpdatePopoverParamsContext>
   updatePopover: IPopover<UpdatePopoverParamsContext>
   cloneField(field: IFieldModel, apiId: string): Promise<IFieldModel>

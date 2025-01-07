@@ -10,10 +10,12 @@ import {
   enumTypeName,
   interfaceFieldName,
   interfaceTypeName,
+  unionTypeName,
   updatedArrayTypeName,
   updatedEnumTypeName,
   updatedInterfaceFieldName,
   updatedInterfaceTypeName,
+  updatedUnionTypeName,
 } from './types.data'
 
 export class TypeListPage extends BasePage {
@@ -84,6 +86,23 @@ export class TypeListPage extends BasePage {
 
     await form.fillInputText({ label: 'Name' }, interfaceTypeName)
     await form.fillInputSelect({ label: 'Kind' }, ITypeKind.InterfaceType)
+    await form.getButton({ text: 'Create' }).click()
+    await this.expectGlobalProgressBarToBeHidden()
+  }
+
+  async createUnionType() {
+    await this.getSidebar(UiKey.TypeSidebar)
+      .getToolbarItem(UiKey.TypeToolbarItemCreate)
+      .click()
+
+    const form = await this.getForm(UiKey.TypeFormCreate)
+
+    await form.fillInputText({ label: 'Name' }, unionTypeName)
+    await form.fillInputSelect({ label: 'Kind' }, ITypeKind.UnionType)
+    await form.fillInputMultiSelect({ name: 'unionTypeIds' }, [
+      PrimitiveTypeKind.Boolean,
+      PrimitiveTypeKind.String,
+    ])
     await form.getButton({ text: 'Create' }).click()
     await this.expectGlobalProgressBarToBeHidden()
   }
@@ -168,6 +187,19 @@ export class TypeListPage extends BasePage {
     const form = await this.getForm(UiKey.TypeFormUpdate)
 
     await form.fillInputText({ label: 'Name' }, updatedInterfaceTypeName)
+    await form.getButton({ text: 'Update' }).click()
+    await this.expectGlobalProgressBarToBeHidden()
+  }
+
+  async updateUnionType() {
+    await this.getTreeItemByPrimaryTitle$(unionTypeName).click()
+
+    const form = await this.getForm(UiKey.TypeFormUpdate)
+
+    await form.fillInputText({ label: 'Name' }, updatedUnionTypeName)
+    await form.fillInputMultiSelect({ name: 'unionTypeIds' }, [
+      PrimitiveTypeKind.Number,
+    ])
     await form.getButton({ text: 'Update' }).click()
     await this.expectGlobalProgressBarToBeHidden()
   }

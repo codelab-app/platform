@@ -19,23 +19,18 @@ import { AutoField, AutoFields } from 'uniforms-antd'
 import { useActionService } from '../../services'
 import { useActionSchema } from '../action-hooks'
 import { updateActionSchema } from './update-action.schema'
-import { useUpdateActionForm } from './update-action.state'
 
-export const UpdateActionForm = observer<IFormController>(
-  ({ onSubmitSuccess, showFormControl = true, submitRef }) => {
+interface UpdateActionFormProps extends IFormController {
+  actionId: string
+}
+
+export const UpdateActionForm = observer<UpdateActionFormProps>(
+  ({ actionId, onSubmitSuccess, showFormControl = true, submitRef }) => {
     const actionService = useActionService()
-    const updateActionForm = useUpdateActionForm()
     const actionSchema = useActionSchema(updateActionSchema)
     const { builderService } = useApplicationStore()
     const selectedNode = builderService.selectedNode?.maybeCurrent
-    const closeForm = () => updateActionForm.close()
-    const actionToUpdate = updateActionForm.data
-
-    const onSubmit = (actionDTO: IUpdateActionData) => {
-      updateActionForm.close()
-
-      return actionService.update(actionDTO)
-    }
+    const actionToUpdate = actionService.getOneFromCache({ id: actionId })
 
     const baseModel = {
       id: actionToUpdate?.id,
@@ -65,7 +60,7 @@ export const UpdateActionForm = observer<IFormController>(
       <Form<IUpdateActionData>
         errorMessage="Error while updating action"
         model={model}
-        onSubmit={onSubmit}
+        onSubmit={actionService.update}
         onSubmitSuccess={onSubmitSuccess}
         schema={actionSchema}
         submitRef={submitRef}
@@ -85,7 +80,7 @@ export const UpdateActionForm = observer<IFormController>(
         </DisplayIf>
 
         <DisplayIf condition={showFormControl}>
-          <FormController onCancel={closeForm} submitLabel="Update Action" />
+          <FormController submitLabel="Update Action" />
         </DisplayIf>
       </Form>
     )

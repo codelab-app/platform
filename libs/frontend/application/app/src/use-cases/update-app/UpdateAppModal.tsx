@@ -41,7 +41,7 @@ export const UpdateAppModal = observer(({ id }: { id: string }) => {
         errorMessage="Error while updating app"
         model={model}
         onSubmit={onSubmit}
-        onSubmitOptimistic={closeModal}
+        onSubmitSuccess={closeModal}
         schema={updateAppSchema}
         successMessage="App updated successfully"
       >

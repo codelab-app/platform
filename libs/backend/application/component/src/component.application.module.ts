@@ -1,4 +1,5 @@
 import {
+  ImportDataMapperService,
   MigrationDataService,
   ReadAdminDataService,
 } from '@codelab/backend/application/data'
@@ -10,7 +11,6 @@ import { ElementDomainModule } from '@codelab/backend/domain/element'
 import { PropDomainModule } from '@codelab/backend/domain/prop'
 import { AuthDomainModule } from '@codelab/backend/domain/shared/auth'
 import { TypeDomainModule } from '@codelab/backend/domain/type'
-import { Validator } from '@codelab/shared/infra/typebox'
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
 
@@ -38,6 +38,7 @@ import { ExportComponentHandler, ImportComponentsHandler } from './use-case'
     ComponentApplicationService,
     ReadAdminDataService,
     MigrationDataService,
+    ImportDataMapperService,
   ],
 })
 export class ComponentApplicationModule {}

@@ -4,9 +4,12 @@ import type {
   IRedirectModel,
   IRedirectUpdateFormData,
 } from '@codelab/frontend/abstract/domain'
+import type { PageContextParams } from '@codelab/frontend/abstract/types'
 import type { IRef } from '@codelab/shared/abstract/core'
 import type { RedirectWhere } from '@codelab/shared/infra/gql'
+import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
+import { PageType } from '@codelab/frontend/abstract/types'
 import { redirectRepository } from '@codelab/frontend-domain-redirect/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 
@@ -49,11 +52,34 @@ export const useRedirectService = (): IRedirectService => {
     return await redirectRepository.update({ id: data.id }, data)
   }
 
+  const createPopover = {
+    close: (router: AppRouterInstance) => {
+      router.back()
+    },
+    open: (router: AppRouterInstance, params: PageContextParams) => {
+      router.push(PageType.PageRedirectCreate(params))
+    },
+  }
+
+  const updatePopover = {
+    close: (router: AppRouterInstance) => {
+      router.back()
+    },
+    open: (
+      router: AppRouterInstance,
+      params: PageContextParams & { redirectId: string },
+    ) => {
+      router.push(PageType.PageRedirectUpdate(params))
+    },
+  }
+
   return {
     create,
+    createPopover,
     getAll,
     getOne,
     removeMany,
     update,
+    updatePopover,
   }
 }

@@ -6,7 +6,6 @@ import type {
 import { isAdmin } from '@codelab/frontend/abstract/domain'
 import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import { useFieldService } from '@codelab/frontend-application-type/services'
-import { useCreateFieldForm } from '@codelab/frontend-application-type/use-cases/create-field'
 import { useUser } from '@codelab/frontend-application-user/services'
 import { Button, Col, Dropdown, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -18,7 +17,6 @@ export const AdminPropsPanel = observer<{ interfaceType: IInterfaceTypeModel }>(
     const { appId, componentId, pageId } = useUrlPathParams()
     const router = useRouter()
     const { createPopover, deletePopover, updatePopover } = useFieldService()
-    const createFieldForm = useCreateFieldForm()
 
     if (!isAdmin(user)) {
       return null
@@ -66,10 +64,14 @@ export const AdminPropsPanel = observer<{ interfaceType: IInterfaceTypeModel }>(
       <Row gutter={[16, 16]} justify="center">
         <Col>
           <Button
-            onClick={() => {
-              createFieldForm.open(interfaceType)
-              createPopover.open(router, { appId, componentId, pageId })
-            }}
+            onClick={() =>
+              createPopover.open(router, {
+                appId,
+                componentId,
+                interfaceId: interfaceType.id,
+                pageId,
+              })
+            }
           >
             Add
           </Button>

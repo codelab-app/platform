@@ -25,6 +25,8 @@ export enum PrimarySidebar {
 
 export const PageType = {
   Admin: () => '/admin',
+  AdminExport: () => '/admin/export',
+  AdminImport: () => '/admin/import',
   AppBuild: ({ id }: IRef) => `/apps/build/${id}`,
   AppCreate: () => '/apps/create',
   AppDelete: ({ id }: IRef) => `/apps/delete/${id}`,
@@ -33,7 +35,8 @@ export const PageType = {
   AppUpdate: ({ id }: IRef) => `/apps/update/${id}`,
   AtomCreate: () => `${PageType.Atoms()}/create`,
   AtomDelete: ({ id }: IRef) => `${PageType.Atoms()}/delete/${id}`,
-  AtomFieldCreate: () => `${PageType.Atoms()}/create/field`,
+  AtomFieldCreate: (interfaceId: string) =>
+    `${PageType.Atoms()}/interface/${interfaceId}/create/field`,
   AtomFieldDelete: ({ id }: IRef) => `${PageType.Atoms()}/delete/field/${id}`,
   AtomFieldUpdate: ({ id }: IRef) => `${PageType.Atoms()}/update/field/${id}`,
   Atoms: () => '/atoms',
@@ -58,6 +61,7 @@ export const PageType = {
   ComponentCreate: () => {
     return `${PageType.Components()}/create`
   },
+  ComponentDelete: ({ id }: IRef) => `${PageType.Components()}/delete/${id}`,
   ComponentExport: () => '/api/export/component',
   ComponentPreview: ({ componentId }: Pick<UrlPathParams, 'componentId'>) =>
     `/components/${componentId}`,
@@ -103,6 +107,26 @@ export const PageType = {
     `/apps/${appId}/pages/${pageId}`,
   PageList: ({ appId, pageId }: PageContextParams) =>
     `/apps/${appId}/pages/${pageId}/builder/page`,
+  PageRedirectCreate: ({ appId, pageId }: PageContextParams) => {
+    const pageBuilder = PageType.PageBuilder(
+      { appId, pageId },
+      PrimarySidebar.ElementTree,
+    )
+
+    return `${pageBuilder}/create-redirect`
+  },
+  PageRedirectUpdate: ({
+    appId,
+    pageId,
+    redirectId,
+  }: PageContextParams & { redirectId: string }) => {
+    const pageBuilder = PageType.PageBuilder(
+      { appId, pageId },
+      PrimarySidebar.ElementTree,
+    )
+
+    return `${pageBuilder}/update-redirect/${redirectId}`
+  },
   PageUpdate: ({ appId, pageId }: PageContextParams) => {
     const pageBuilder = PageType.PageBuilder(
       { appId, pageId },
@@ -127,7 +151,8 @@ export const PageType = {
   Type: () => '/types' as const,
   TypeCreate: () => `${PageType.Type()}/create`,
   TypeDelete: ({ id }: IRef) => `${PageType.Type()}/delete/${id}`,
-  TypeFieldCreate: () => `${PageType.Type()}/create/field`,
+  TypeFieldCreate: (typeId: string) =>
+    `${PageType.Type()}/${typeId}/create/field`,
   TypeFieldDelete: ({ id }: IRef) => `${PageType.Type()}/delete/field/${id}`,
   TypeFieldUpdate: ({ id }: IRef) => `${PageType.Type()}/update/field/${id}`,
   TypeUpdate: ({ id }: IRef) => `${PageType.Type()}/update/${id}`,

@@ -4,7 +4,6 @@ import { pinoPrettyStream } from '@codelab/shared/infra/logging'
 import { Global, Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { LoggerModule } from 'nestjs-pino'
-import pino from 'pino'
 import { omit } from 'remeda'
 
 import { loggerConfig } from './logger.config'
@@ -38,7 +37,7 @@ import { PinoLoggerService } from './pino.logger.service'
               },
             },
             level: config.level,
-            mixin: (context, level, logger) => {
+            mixin: (context) => {
               return context
             },
             serializers: {

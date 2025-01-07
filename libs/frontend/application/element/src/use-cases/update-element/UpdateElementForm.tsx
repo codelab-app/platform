@@ -47,7 +47,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
       expandedFields.push('renderer')
     }
 
-    if (element.postRenderActions ?? element.preRenderActions) {
+    if (element.postRenderActions?.length || element.preRenderActions?.length) {
       expandedFields.push('actions')
     }
 

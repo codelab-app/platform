@@ -18,25 +18,27 @@ import { observer } from 'mobx-react-lite'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 
-import { useActionService } from '../../services'
+import { useActionService, useStoreService } from '../../services'
 import { useActionSchema } from '../action-hooks'
 import { createActionSchema } from './create-action.schema'
-import { useCreateActionForm } from './create-action.state'
+
+interface CreateActionFormProps extends IFormController {
+  storeId: string
+}
 
 const CODE_ACTION = `function run() {
     // insert your code here
     // state.count += 2;
 }`
 
-export const CreateActionForm = observer<IFormController>(
-  ({ onSubmitSuccess, showFormControl = true, submitRef }) => {
+export const CreateActionForm = observer<CreateActionFormProps>(
+  ({ onSubmitSuccess, showFormControl = true, storeId, submitRef }) => {
     const actionService = useActionService()
-    const createActionForm = useCreateActionForm()
+    const storeService = useStoreService()
     const actionSchema = useActionSchema(createActionSchema)
     const { builderService } = useApplicationStore()
     const selectedNode = builderService.selectedNode?.maybeCurrent
     const onSubmit = actionService.create
-    const closeForm = createActionForm.close
 
     const model = {
       code: CODE_ACTION,
@@ -53,7 +55,7 @@ export const CreateActionForm = observer<IFormController>(
         id: v4(),
       },
       id: v4(),
-      store: createActionForm.data,
+      store: storeService.getOneFromCache({ id: storeId }),
     }
 
     return (
@@ -94,7 +96,7 @@ export const CreateActionForm = observer<IFormController>(
         </DisplayIfField>
 
         <DisplayIf condition={showFormControl}>
-          <FormController onCancel={closeForm} submitLabel="Create Action" />
+          <FormController submitLabel="Create Action" />
         </DisplayIf>
       </Form>
     )

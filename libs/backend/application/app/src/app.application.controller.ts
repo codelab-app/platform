@@ -1,6 +1,7 @@
 import type { IApp, IAppAggregateExport } from '@codelab/shared/abstract/core'
 
 import { ImportCypressAtomsCommand } from '@codelab/backend/application/atom'
+import { ImportDataMapperService } from '@codelab/backend/application/data'
 import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { DatabaseService } from '@codelab/backend-infra-adapter/neo4j-driver'
@@ -15,8 +16,8 @@ import {
 } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 import { FileInterceptor } from '@nestjs/platform-express'
-import { Express, Request as ExpressRequest } from 'express'
 import 'multer'
+import { Express, Request as ExpressRequest } from 'express'
 
 import {
   ExportAppCommand,
@@ -30,6 +31,7 @@ export class AppApplicationController {
     private commandBus: CommandBus,
     private databaseService: DatabaseService,
     private logger: PinoLoggerService,
+    private importDataMapperService: ImportDataMapperService,
   ) {}
 
   @UseInterceptors(ClassSerializerInterceptor)
@@ -45,9 +47,10 @@ export class AppApplicationController {
   async importApp(@UploadedFile() file: Express.Multer.File) {
     const json = file.buffer.toString('utf8')
     const data = JSON.parse(json)
+    const importData = this.importDataMapperService.getAppImportData(data)
 
     return this.commandBus.execute<SeedCypressAppCommand, IApp>(
-      new ImportAppCommand(data),
+      new ImportAppCommand(importData),
     )
   }
 
