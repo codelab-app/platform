@@ -1,3 +1,10 @@
+/* eslint-disable import/first */
+'use client'
+
+import { initWdyr } from '../wdyr'
+
+// initWdyr()
+
 import '../styles/main.css'
 // import config from '../tailwind.config.js'
 import { StyleProviders } from '@codelab/frontend/infra/context'
