@@ -7,7 +7,6 @@ import { logger } from '@codelab/frontend/infra/logger'
 import {
   connectUniformSubmitRef,
   createBridge,
-  logging,
 } from '@codelab/frontend/shared/utils'
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import { throttle } from 'radash'
@@ -40,8 +39,6 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
       uiKey,
     } = props
 
-    logging.useModelDiff('Model', model)
-
     const [bridge, setBridge] = useState(
       schema instanceof Bridge ? schema : createBridge(schema),
     )
@@ -62,31 +59,8 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
     }, [model])
 
     const postSubmit = usePostSubmit<TData, TResponse>(props)
-
-    useEffect(() => {
-      renderCount.current.postSubmit += 1
-      console.log(
-        `usePostSubmit called ${renderCount.current.postSubmit} times for ${uiKey}`,
-      )
-    }, [postSubmit, uiKey])
-
     const asyncHandler = useAsyncHandler<TData, TResponse>()
-
-    useEffect(() => {
-      renderCount.current.asyncHandler += 1
-      console.log(
-        `useAsyncHandler called ${renderCount.current.asyncHandler} times for ${uiKey}`,
-      )
-    }, [asyncHandler, uiKey])
-
     const submit = asyncHandler(onSubmit, onSubmitOptimistic)
-
-    useEffect(() => {
-      renderCount.current.submit += 1
-      console.log(
-        `submit function created ${renderCount.current.submit} times for ${uiKey}`,
-      )
-    }, [submit, uiKey])
 
     return (
       <div
@@ -99,7 +73,7 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
           autosaveDelay={500}
           data-testid={CuiTestId.cuiForm(uiKey)}
           errorsField={() => <ErrorsField />}
-          model={model}
+          model={autosave ? modelRef.current : model}
           modelTransform={modelTransform}
           onChange={onChange}
           onChangeModel={onChangeModel}

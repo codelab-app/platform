@@ -8,6 +8,7 @@ import { initWdyr } from '../wdyr'
 import '../styles/main.css'
 // import config from '../tailwind.config.js'
 import { StyleProviders } from '@codelab/frontend/infra/context'
+import { clearFileLogs } from '@codelab/frontend/infra/logger'
 import { cn } from '@cui/utils'
 import { getActiveSpan } from '@sentry/react'
 import { setGlobalConfig } from 'mobx-keystone'
@@ -17,6 +18,8 @@ import pino from 'pino'
 setGlobalConfig({
   showDuplicateModelNameWarnings: process.env.NODE_ENV === 'production',
 })
+
+// void clearFileLogs()
 
 // normal: 400
 // bold: 700
