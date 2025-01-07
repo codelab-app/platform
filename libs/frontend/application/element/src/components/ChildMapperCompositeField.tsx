@@ -64,7 +64,7 @@ const ChildMapperFields = ({ runtimeElement }: ChildMapperFieldsProps) => {
         }
       />
       <SelectLinkElement
-        allElementOptions={element.children.map(mapElementOption)}
+        elementOptions={element.children.map(mapElementOption)}
         name="childMapperPreviousSibling.id"
         onChange={(value) => {
           return childMapperPreviousSiblingFieldProps.onChange(

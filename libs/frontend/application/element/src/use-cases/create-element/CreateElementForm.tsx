@@ -4,7 +4,10 @@ import type { IRuntimeModel } from '@codelab/frontend/abstract/application'
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import type { IFormController } from '@codelab/frontend/abstract/types'
 import type { IElementDto } from '@codelab/shared/abstract/core'
-import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
+import type {
+  ObjectLike,
+  UniformSelectFieldProps,
+} from '@codelab/shared/abstract/types'
 
 import { isAtom } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
@@ -12,9 +15,13 @@ import {
   SelectActionsField,
   SelectAnyElement,
 } from '@codelab/frontend/presentation/components/interface-form'
+import { logging } from '@codelab/frontend/shared/utils'
 import { useUser } from '@codelab/frontend-application-user/services'
 import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend-infra-mobx/context'
 import {
   Form,
   FormController,
@@ -22,7 +29,11 @@ import {
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { Divider } from 'antd'
+import { diff } from 'deep-object-diff'
+import { getSnapshot } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
+import { isEqual } from 'radash'
+import { useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 
@@ -35,21 +46,19 @@ import { useRequiredParentValidator } from '../../validation/useRequiredParentVa
 import { createElementSchema } from './create-element.schema'
 
 interface CreateElementFormProps extends IFormController {
-  // Prevent builder ciricular dep
+  // Prevent builder circular dep
   selectedNode?: IRuntimeModel
   showFormControl?: boolean
-  treeElements?: Array<IElementModel>
 }
 
+/**
+ * The `observer` here is causing the form to re-render when we create new element. It's odd at first since why would the parent change if we're using siblings to represent the children.
+ *
+ * Turns out newly added are inserted as first child, which is changing the parent's properties, and causing the observability to re-render. Instead, we add the element as next sibling of the last child.
+ */
 export const CreateElementForm = observer<CreateElementFormProps>(
-  ({
-    onSubmitSuccess,
-    selectedNode,
-    showFormControl = true,
-    submitRef,
-    treeElements,
-  }) => {
-    const { atomDomainService } = useDomainStore()
+  ({ onSubmitSuccess, selectedNode, showFormControl = true, submitRef }) => {
+    const { atomDomainService, elementDomainService } = useDomainStore()
     const user = useUser()
     const elementService = useElementService()
     const { validateParentForCreate } = useRequiredParentValidator()
@@ -59,8 +68,10 @@ export const CreateElementForm = observer<CreateElementFormProps>(
       return null
     }
 
-    const parentElement = elementService.getElement(selectedElementId)
-    const elementOptions = treeElements?.map(mapElementOption)
+    const parentElement = elementDomainService.element(selectedElementId)
+
+    console.log(selectedElementId)
+    logging.useModelDiff('Parent element', parentElement)
 
     const onSubmit = (data: IElementDto) => {
       const isValidParent = validateParentForCreate(
@@ -72,8 +83,20 @@ export const CreateElementForm = observer<CreateElementFormProps>(
         return Promise.reject()
       }
 
-      if (data.prevSibling) {
-        delete data.parentElement
+      // if (data.prevSibling) {
+      //   delete data.parentElement
+      // }
+
+      /**
+       * We want to append the element as last child.
+       *
+       * If children already exists, then we want to append it as next sibling of the last child.
+       */
+
+      if (parentElement.children.length > 0) {
+        data.prevSibling =
+          parentElement.children[parentElement.children.length - 1]
+        data.parentElement = null
       }
 
       return elementService.create(data)
@@ -138,7 +161,7 @@ export const CreateElementForm = observer<CreateElementFormProps>(
             <SelectAnyElement
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...props}
-              allElementOptions={elementOptions}
+              // elementOptions={elementOptions}
             />
           )}
           help={`only elements from \`${parentElement.closestContainerNode.name}\` are visible in this list`}
@@ -146,7 +169,7 @@ export const CreateElementForm = observer<CreateElementFormProps>(
         />
         {/** We likely won't expose this, since it is difficult for users to understand this. The real world scenario would always create under parent, then drag to re-arrange */}
         {/* <SelectLinkElement
-          allElementOptions={elementOptions}
+          elementOptions={elementOptions}
           name="prevSibling.id"
         /> */}
         <RenderTypeField name="renderType" parentAtom={parentAtom} />

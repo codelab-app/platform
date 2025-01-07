@@ -9,12 +9,12 @@ import { difference } from 'remeda'
 import { mapElementOption } from '../use-cases/element-options'
 
 export const getSelectElementOptions = ({
-  allElementOptions,
+  elementOptions,
   elementTree,
   kind,
   targetElementId,
 }: SelectElementOptions) => {
-  const targetElement = allElementOptions?.find(
+  const targetElement = elementOptions?.find(
     (element) => element.value === targetElementId,
   )
 
@@ -23,7 +23,7 @@ export const getSelectElementOptions = ({
   const allActiveTreeElementOptions =
     allActiveTreeElements.map(mapElementOption)
 
-  const elementMap = (allElementOptions ?? []).reduce((acc, element) => {
+  const elementMap = (elementOptions ?? []).reduce((acc, element) => {
     acc[element.value] = element
 
     return acc
@@ -32,11 +32,11 @@ export const getSelectElementOptions = ({
   let selectOptions: Array<SelectElementOption> = []
 
   if (!targetElement) {
-    selectOptions = allElementOptions ?? allActiveTreeElementOptions
+    selectOptions = elementOptions ?? allActiveTreeElementOptions
   } else {
     switch (kind) {
       case IElementTypeKind.AllElements: {
-        selectOptions = allElementOptions ?? allActiveTreeElementOptions
+        selectOptions = elementOptions ?? allActiveTreeElementOptions
         break
       }
 
@@ -52,7 +52,7 @@ export const getSelectElementOptions = ({
 
       case IElementTypeKind.ExcludeDescendantsElements: {
         selectOptions = difference(
-          allElementOptions ?? [],
+          elementOptions ?? [],
           getDescendants(targetElement, elementMap),
         ).filter(({ value }) => value !== targetElement.value)
         break

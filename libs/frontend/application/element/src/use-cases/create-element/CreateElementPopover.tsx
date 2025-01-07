@@ -6,6 +6,7 @@ import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
 import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import { CuiSidebarSecondary } from '@codelab/frontend/presentation/codelab-ui'
+import { logging } from '@codelab/frontend/shared/utils'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
@@ -18,9 +19,10 @@ export const CreateElementPopover = observer(() => {
   const router = useRouter()
   const submitRef = useRef<Maybe<SubmitController>>()
   const { createPopover } = useElementService()
-  const { builderService, rendererService } = useApplicationStore()
+  const { builderService } = useApplicationStore()
   const selectedNode = builderService.selectedNode?.maybeCurrent
-  const treeElements = rendererService.activeElementTree?.elements
+
+  logging.useModelDiff('Selected node', selectedNode)
 
   return (
     <CuiSidebarSecondary
@@ -48,7 +50,6 @@ export const CreateElementPopover = observer(() => {
         selectedNode={selectedNode}
         showFormControl={false}
         submitRef={submitRef}
-        treeElements={treeElements}
       />
     </CuiSidebarSecondary>
   )

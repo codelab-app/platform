@@ -33,7 +33,7 @@ export const DeleteElementModal = observer<{
   const model = { element: { id: elementToDelete.id } }
 
   const onSubmit = ({ element }: DeleteElementData) => {
-    const targetElement = elementService.getElement(element.id)
+    const targetElement = elementDomainService.element(element.id)
 
     return deleteElementUseCase(targetElement, elementDomainService, () =>
       builderService.selectPreviousElementOnDelete(),

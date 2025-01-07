@@ -1,3 +1,10 @@
+/* eslint-disable import/first */
+'use client'
+
+import { initWdyr } from '../wdyr'
+
+// initWdyr()
+
 import '../styles/main.css'
 // import config from '../tailwind.config.js'
 import { StyleProviders } from '@codelab/frontend/infra/context'
@@ -30,15 +37,12 @@ const nunito = Nunito({
 
 const fontClasses = cn(inter.variable, montserrat.variable, nunito.variable)
 
-export const metadata = {
-  description: 'Codelab platform',
-  title: 'Codelab',
-}
+// export const metadata = {
+//   description: 'Codelab platform',
+//   title: 'Codelab',
+// }
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
-  const span = getActiveSpan()
-
-  span?.addEvent('RootLayout')
   // useTwindConfig(config)
 
   return (

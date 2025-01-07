@@ -2,8 +2,8 @@
 /* eslint-disable perfectionist/sort-objects */
 export const panelBreakpoints = {
   default: {
-    default: 22,
-    max: 30,
+    default: 24,
+    max: 34,
     min: 20,
   },
   // md: {

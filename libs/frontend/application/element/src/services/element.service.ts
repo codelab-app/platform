@@ -113,10 +113,6 @@ export const useElementService = (): IElementService => {
     )
   }
 
-  const getElement = (id: string) => {
-    return elementDomainService.element(id)
-  }
-
   const createPopover = {
     close: (router: AppRouterInstance) => {
       router.back()
@@ -164,7 +160,6 @@ export const useElementService = (): IElementService => {
     create,
     createPopover,
     deletePopover,
-    getElement,
     loadDependantTypes,
     move,
     remove: deleteElement,

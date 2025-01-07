@@ -17,7 +17,7 @@ export interface UseDndDropHandler {
 }
 
 export const useDndDropHandler = (): UseDndDropHandler => {
-  const { rendererService, runtimeElementService } = useApplicationStore()
+  const { rendererService, runtimeElementService, elementDomainService } = useApplicationStore()
   const elementService = useElementService()
 
   const { validateParentForCreate, validateParentForMove } =
@@ -53,7 +53,7 @@ export const useDndDropHandler = (): UseDndDropHandler => {
       return
     }
 
-    const parentElement = elementService.getElement(parentElementId)
+    const parentElement = elementDomainService.element(parentElementId)
 
     const createElementDto: IElementDto = {
       closestContainerNode: {
@@ -123,7 +123,7 @@ export const useDndDropHandler = (): UseDndDropHandler => {
             ?.element.id
         : undefined
 
-    const draggedElement = elementService.getElement(draggedElementId)
+    const draggedElement = elementDomainService.element(draggedElementId)
 
     if (
       !parentElementId ||
@@ -136,12 +136,12 @@ export const useDndDropHandler = (): UseDndDropHandler => {
     }
 
     const prevSibling =
-      prevSiblingId && elementService.getElement(prevSiblingId)
+      prevSiblingId && elementDomainService.element(prevSiblingId)
 
     const nextSibling =
-      nextSiblingId && elementService.getElement(nextSiblingId)
+      nextSiblingId && elementDomainService.element(nextSiblingId)
 
-    const parentElement = elementService.getElement(parentElementId)
+    const parentElement = elementDomainService.element(parentElementId)
 
     if (prevSibling && draggedElement.prevSibling?.id !== prevSiblingId) {
       await elementService.move({

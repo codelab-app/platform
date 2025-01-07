@@ -22,35 +22,39 @@ export const elementMapper: IMapper<
   ElementUpdateInput,
   ElementDeleteInput
 > = {
-  toCreateInput: ({
-    childMapperComponent,
-    childMapperPreviousSibling,
-    childMapperPropKey,
-    closestContainerNode,
-    compositeKey,
-    expanded,
-    firstChild,
-    id,
-    name,
-    nextSibling,
-    parentElement,
-    postRenderActions,
-    preRenderActions,
-    prevSibling,
-    props,
-    renderForEachPropKey,
-    renderIfExpression,
-    renderType,
-    style,
-    tailwindClassNames,
-  }: IElementDto): ElementCreateInput => {
+  toCreateInput: (data: IElementDto): ElementCreateInput => {
+    const {
+      childMapperComponent,
+      childMapperPreviousSibling,
+      childMapperPropKey,
+      closestContainerNode,
+      compositeKey,
+      expanded,
+      firstChild,
+      id,
+      name,
+      nextSibling,
+      parentElement,
+      postRenderActions,
+      preRenderActions,
+      prevSibling,
+      props,
+      renderForEachPropKey,
+      renderIfExpression,
+      renderType,
+      style,
+      tailwindClassNames,
+    } = data
+
+    console.debug('Element Mapper', data)
+
     return {
       childMapperComponent: connectNodeId(childMapperComponent?.id),
       childMapperPreviousSibling: connectNodeId(childMapperPreviousSibling?.id),
       childMapperPropKey,
       compositeKey:
         compositeKey ??
-        ElementProperties.elementCompositeKey(name, closestContainerNode),
+        ElementProperties.elementCompositeKey({ name }, closestContainerNode),
       expanded,
       id,
       // We only need to do one way
@@ -115,8 +119,9 @@ export const elementMapper: IMapper<
     tailwindClassNames,
   }: IElementDto): ElementUpdateInput => {
     // We need to disconnect the component if render type changed to atom or empty
-
-    console.log(reconnectNodeIds(preRenderActions?.map((action) => action.id)))
+    console.debug(
+      reconnectNodeIds(preRenderActions?.map((action) => action.id)),
+    )
 
     return {
       childMapperComponent: reconnectNodeId(childMapperComponent?.id),
@@ -126,7 +131,7 @@ export const elementMapper: IMapper<
       childMapperPropKey,
       compositeKey:
         compositeKey ??
-        ElementProperties.elementCompositeKey(name, closestContainerNode),
+        ElementProperties.elementCompositeKey({ name }, closestContainerNode),
       expanded,
       firstChild: reconnectNodeId(firstChild?.id),
       nextSibling: reconnectNodeId(nextSibling?.id),

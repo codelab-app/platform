@@ -13,7 +13,6 @@ export interface IAppModel extends IModel<IAppDto, IAppModel> {
   domains: Array<Ref<IDomainModel>>
   id: string
   name: string
-  // owner: Ref<IUserModel>
   pages: Array<Ref<IPageModel>>
   /**
    * The `_app.tsx` equivalent of pages

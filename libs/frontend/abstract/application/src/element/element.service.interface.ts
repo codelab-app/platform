@@ -17,7 +17,6 @@ export interface IElementService {
     PageContextParams & ComponentContextParams & { elementId: string }
   >
   create(data: IElementDto): Promise<IElementModel>
-  getElement(id: string): IElementModel
   // loadComponentTree(component: ComponentDevelopmentFragment): {
   //   hydratedElements: Array<IElementModel>
   //   rootElement: IElementModel

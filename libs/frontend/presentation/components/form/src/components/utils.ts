@@ -5,7 +5,8 @@ import {
   useErrorNotify,
   useSuccessNotify,
 } from '@codelab/frontend/shared/utils'
-import { useLoading } from '@codelab/frontend-application-shared-store/loading'
+import { loadingAtom } from '@codelab/frontend-application-shared-store/loading'
+import { useSetAtom } from 'jotai'
 
 import type { OptimisticFormProps } from '../modal/ModalForm.Form'
 
@@ -25,11 +26,14 @@ export const useAsyncHandler = <TData, TResponse>(
    */
   setIsLoading?: SetIsLoading,
 ) => {
-  const { setLoading } = useLoading()
+  /**
+   * We use `useSetAtom` since we don't need to read the value, this makes sure we don't re-render the component when the loading state changes
+   */
+  const setLoadingState = useSetAtom(loadingAtom)
 
   const setAllLoadingState = (loading: boolean) => {
     setIsLoading?.(loading)
-    setLoading(loading)
+    setLoadingState((prev) => ({ ...prev, isLoading: loading }))
   }
 
   return (
@@ -45,7 +49,11 @@ export const useAsyncHandler = <TData, TResponse>(
 
       onSubmitOptimistic()
 
-      return submitPromise.finally(() => setAllLoadingState(false))
+      return submitPromise.finally(() => {
+        console.debug('Form promise finished')
+
+        setAllLoadingState(false)
+      })
     }
 }
 

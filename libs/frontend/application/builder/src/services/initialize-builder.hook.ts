@@ -32,15 +32,11 @@ export const useInitializeBuilder = ({
    * Defer side effect to lifecycle method, to prevent https://github.com/codelab-app/platform/issues/3463
    */
   useEffect(() => {
-    console.log('Setting active renderer')
-
     const renderer = rendererService.hydrate({
       containerNode,
       id: v4(),
       rendererType,
     })
-
-    console.log(renderer.containerNode.current)
 
     rendererService.setActiveRenderer(rendererRef(renderer.id))
 

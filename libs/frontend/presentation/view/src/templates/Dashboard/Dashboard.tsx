@@ -89,7 +89,6 @@ export const Dashboard = ({
                 60 + (primarySidebar ? 0 : 20) + (configPane ? 0 : 20)
               }
               id={PaneSection.Builder}
-              // defaultSize={mainWidthPercent}
               order={3}
             >
               <ProgressBar />

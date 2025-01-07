@@ -28,6 +28,9 @@ export class RendererService
   })
   implements IRendererService
 {
+  /**
+   * Get the current container node
+   */
   @computed
   get activeElementTree() {
     return this.activeRenderer?.current.containerNode.current

@@ -26,7 +26,7 @@ export interface SelectElementOption extends SelectOption {
 }
 
 export interface SelectElementOptions {
-  allElementOptions?: Array<SelectElementOption>
+  elementOptions?: Array<SelectElementOption>
   elementTree?: IElementTree
   kind: IElementTypeKind
   targetElementId?: string

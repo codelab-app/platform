@@ -6,14 +6,14 @@ import { connectField, useForm } from 'uniforms'
 
 type SelectLinkElementProps = Pick<
   SelectElementProps,
-  'allElementOptions' | 'targetElementId'
+  'elementOptions' | 'targetElementId'
 > & {
   name: string
 }
 
 export const SelectLinkElement = connectField(
   ({
-    allElementOptions,
+    elementOptions,
     name,
     targetElementId,
     ...props
@@ -27,9 +27,9 @@ export const SelectLinkElement = connectField(
 
     return (
       <SelectChildElement
-        allElementOptions={allElementOptions}
         allowClear
         disableWhenOneOpt={false}
+        elementOptions={elementOptions}
         targetElementId={parentElementId}
         // eslint-disable-next-line react/jsx-props-no-spreading, @typescript-eslint/no-explicit-any
         {...(props as any)}
