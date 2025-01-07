@@ -9,5 +9,7 @@ export const AppListContainer = observer(() => {
   const { appDomainService } = useDomainStore()
   const apps = appDomainService.appsList
 
+  console.log(apps)
+
   return <AppList apps={apps} />
 })

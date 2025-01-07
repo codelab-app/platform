@@ -33,7 +33,7 @@ export const gqlServerRequest = async <TResult, TVariables extends ObjectLike>(
       'Content-Type': 'application/json',
     },
     method: 'POST',
-    next,
+    // next,
   }).then((res) => {
     /**
      * Disable revalidation for now

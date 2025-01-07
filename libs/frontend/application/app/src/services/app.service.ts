@@ -65,14 +65,14 @@ export const useAppService = (): IAppService => {
 
       throw error
     } finally {
-      await invalidateAppListQuery()
+      //
+      // await invalidateAppListQuery()
     }
   }
 
   const removeMany = async (apps: Array<IAppModel>): Promise<number> => {
     const deleteApp = async (app: IAppModel) => {
       /**
-       * Optimistic update.
        * Detach pages before detaching app from root store to avoid script error.
        */
       app.pages.forEach((page) => {
@@ -92,6 +92,7 @@ export const useAppService = (): IAppService => {
       //   pageDomainService.hydrate(pageDto),
       // )
 
+      await appRepository.delete([app])
       // await pageService.removeMany(pages)
 
       // await invalidateAppListQuery()
