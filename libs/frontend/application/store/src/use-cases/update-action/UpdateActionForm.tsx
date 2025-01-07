@@ -6,7 +6,10 @@ import {
   SelectResource,
 } from '@codelab/frontend/presentation/components/interface-form'
 import { ResourceFetchConfigField } from '@codelab/frontend-application-resource/components'
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend-infra-mobx/context'
 import {
   Form,
   FormController,
@@ -27,10 +30,11 @@ interface UpdateActionFormProps extends IFormController {
 export const UpdateActionForm = observer<UpdateActionFormProps>(
   ({ actionId, onSubmitSuccess, showFormControl = true, submitRef }) => {
     const actionService = useActionService()
+    const { actionDomainService } = useDomainStore()
     const actionSchema = useActionSchema(updateActionSchema)
     const { builderService } = useApplicationStore()
     const selectedNode = builderService.selectedNode?.maybeCurrent
-    const actionToUpdate = actionService.getOneFromCache({ id: actionId })
+    const actionToUpdate = actionDomainService.actions.get(actionId)
 
     const baseModel = {
       id: actionToUpdate?.id,

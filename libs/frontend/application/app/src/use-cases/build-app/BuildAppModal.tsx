@@ -20,9 +20,7 @@ export const BuildAppModal = observer(({ id }: { id: string }) => {
   const { regenerate } = useBuildApp()
 
   const onSubmit = () => {
-    if (app) {
-      return regenerate(app)
-    }
+    return app ? regenerate(app) : Promise.reject()
   }
 
   const closeModal = () => router.push(PageType.AppList())

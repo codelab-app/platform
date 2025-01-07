@@ -5,7 +5,10 @@ import type {
 import type { JSONSchemaType } from 'ajv'
 
 import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend-infra-mobx/context'
 import { useMemo } from 'react'
 
 import { useActionService } from '../../services/action.service'
@@ -18,9 +21,9 @@ export const useActionSchema = (
   schema: JSONSchemaType<ICreateActionData | IUpdateActionData>,
 ) => {
   const { rendererService } = useApplicationStore()
-  const actionService = useActionService()
   const { actionId } = useUrlPathParams()
-  const action = actionService.getOneFromCache({ id: actionId })
+  const { actionDomainService } = useDomainStore()
+  const action = actionDomainService.actions.get(actionId)
 
   return useMemo(() => {
     const renderer = rendererService.activeRenderer?.current

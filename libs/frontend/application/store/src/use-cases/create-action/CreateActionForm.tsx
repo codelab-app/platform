@@ -6,7 +6,10 @@ import {
   SelectResource,
 } from '@codelab/frontend/presentation/components/interface-form'
 import { ResourceFetchConfigField } from '@codelab/frontend-application-resource/components'
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend-infra-mobx/context'
 import {
   DisplayIfField,
   Form,
@@ -34,7 +37,7 @@ const CODE_ACTION = `function run() {
 export const CreateActionForm = observer<CreateActionFormProps>(
   ({ onSubmitSuccess, showFormControl = true, storeId, submitRef }) => {
     const actionService = useActionService()
-    const storeService = useStoreService()
+    const { storeDomainService } = useDomainStore()
     const actionSchema = useActionSchema(createActionSchema)
     const { builderService } = useApplicationStore()
     const selectedNode = builderService.selectedNode?.maybeCurrent
@@ -55,7 +58,7 @@ export const CreateActionForm = observer<CreateActionFormProps>(
         id: v4(),
       },
       id: v4(),
-      store: storeService.getOneFromCache({ id: storeId }),
+      store: storeDomainService.stores.get(storeId),
     }
 
     return (

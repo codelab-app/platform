@@ -1,6 +1,7 @@
 'use client'
 
 import { UiKey } from '@codelab/frontend/abstract/types'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
@@ -12,7 +13,8 @@ import { useActionService } from '../../services'
 export const DeleteActionModal = observer(({ id }: { id: string }) => {
   const router = useRouter()
   const actionService = useActionService()
-  const action = actionService.getOneFromCache({ id })
+  const { actionDomainService } = useDomainStore()
+  const action = actionDomainService.actions.get(id)
   const closeModal = () => actionService.deletePopover.close(router)
 
   const onSubmit = () => {

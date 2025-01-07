@@ -1,6 +1,7 @@
 import type { IRedirectUpdateFormData } from '@codelab/frontend/abstract/domain'
 
 import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
   DisplayIfField,
   Form,
@@ -22,7 +23,8 @@ interface UpdateRedirectFormProps extends IFormController {
 export const UpdateRedirectForm = observer<UpdateRedirectFormProps>(
   ({ onSubmitSuccess, redirectId, showFormControl = true, submitRef }) => {
     const redirectService = useRedirectService()
-    const redirect = redirectService.getOneFromCache({ id: redirectId })
+    const { redirectDomainService } = useDomainStore()
+    const redirect = redirectDomainService.redirects.get(redirectId)
 
     const model = {
       authGuard: redirect?.authGuard,
