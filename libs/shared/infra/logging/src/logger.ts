@@ -11,7 +11,6 @@ import { LOG_FILE_PATH, LOGS_DIR } from './logger.config'
 export const pinoOptions: LoggerOptions = {
   // Include all levels
   level: 'trace',
-  mixin: () => ({ context: 'server' }),
 }
 
 const pinoPrettyStreamToConsole = pretty({
@@ -63,28 +62,4 @@ const streams = multistream([
   },
 ])
 
-const pinoLogger = pino(pinoOptions, streams)
-
-export const serverLogger: ILoggerService = {
-  debug: (message: string, options?: LogOptions) => {
-    console.log('debug')
-    pinoLogger.debug(message, { ...options })
-  },
-  error: (message: string, options?: LogOptions) => {
-    console.log('error')
-    pinoLogger.error(message, { ...options })
-  },
-  log: (message: string, options?: LogOptions) => {
-    console.log('info')
-
-    return pinoLogger.info(message, { ...options })
-  },
-  verbose: (message: string, options?: LogOptions) => {
-    console.log('verbose')
-    pinoLogger.trace(message, { ...options })
-  },
-  warn: (message: string, options?: LogOptions) => {
-    console.log('warn')
-    pinoLogger.warn(message, { ...options })
-  },
-}
+export const pinoLogger = pino(pinoOptions, streams)

@@ -69,7 +69,8 @@ export const CreateElementForm = observer<CreateElementFormProps>(
       selectedElementId ?? '',
     )
 
-    tracker.useModelDiff('Parent element', parentElement)
+    // tracker.useModelDiff('Parent element', parentElement)
+    tracker.useRenderedCount('CreateElementForm')
 
     if (!parentElement) {
       return null

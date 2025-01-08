@@ -18,21 +18,21 @@ import { allAtoms } from '../atoms'
 @model('@codelab/ExpressionTransformer')
 export class ExpressionTransformer
   extends Model({
-    initialized: prop<boolean>(false),
+    context: prop<Nullable<ObjectLike>>(() => null).withSetter(),
+    initialized: prop<boolean>(false).withSetter(),
+    transform: prop<Nullable<IExpressionTransformer['transform']>>(
+      () => null,
+    ).withSetter(),
   })
   implements IExpressionTransformer
 {
-  context: Nullable<ObjectLike> = null
-
-  transform: Nullable<IExpressionTransformer['transform']> = null
-
   @modelFlow
   init = _async(function* (this: ExpressionTransformer) {
     const { transform } = yield* _await(import('sucrase'))
 
-    this.context = { atoms: allAtoms, React }
-    this.transform = transform
-    this.initialized = true
+    this.setContext({ atoms: allAtoms, React })
+    this.setTransform(transform)
+    this.setInitialized(true)
   })
 
   @modelAction

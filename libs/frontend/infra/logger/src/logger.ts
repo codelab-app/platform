@@ -11,15 +11,13 @@ import { getEnv } from '@codelab/shared/config/env'
 const sendLog = async (
   level: LogLevel,
   message: unknown,
-  data?: ObjectLike,
+  options: LogOptions,
 ) => {
-  console.log('Sending log to server', { data, level, message })
-
   const baseUrl = getEnv().endpoint.webHost
 
   try {
     await fetch(`${baseUrl}/api/logging`, {
-      body: JSON.stringify({ data, level, message }),
+      body: JSON.stringify({ level, message, options }),
       headers: {
         'Content-Type': 'application/json',
       },

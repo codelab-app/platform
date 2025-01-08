@@ -1,6 +1,8 @@
 import type { UrlPathParams } from '@codelab/frontend/abstract/types'
 import type { ReactNode } from 'react'
 
+import { serverTracker, tracker } from '@codelab/frontend/shared/utils'
+
 import { Dashboard } from './Dashboard'
 
 /**
@@ -40,6 +42,11 @@ export const DashboardLayout = <T extends DashboardSections = never>({
   primarySidebar,
   secondaryPopover,
 }: DashboardLayoutProps<T>) => {
+  serverTracker.useEvent({
+    componentName: 'DashboardLayout',
+    event: 'Rendered',
+  })
+
   const { appId, pageId } = params
 
   return (

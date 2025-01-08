@@ -21,11 +21,14 @@ export const CreateElementPopover = observer(() => {
   const submitRef = useRef<Maybe<SubmitController>>()
   const { createPopover } = useElementService()
   const { builderService } = useApplicationStore()
+  /**
+   * Maybe current is a code smell, since we are using parallel routes, the selected node may not be set yet, since init builder is what sets it.
+   */
   const selectedNode = builderService.selectedNode?.maybeCurrent
 
   // tracker.useModelDiff('Selected node popover', selectedNode)
   // logger.debug('Selected node popover', selectedNode)
-  logger.debug('Logging data', { context: 'CreateElementPopover' })
+  tracker.useRenderedCount('CreateElementPopover')
 
   return (
     <CuiSidebarSecondary

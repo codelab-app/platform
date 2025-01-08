@@ -25,7 +25,7 @@ const getObjectOrSnapshot = (target: Nullish<AnyModel | ObjectLike>) => {
  *
  * Make sure not to use after a conditional in component due to `useRef` usage internally
  */
-export const useModelDiff = (
+const useModelDiff = (
   context: string,
   target: Nullish<AnyModel | ObjectLike>,
 ) => {
@@ -37,15 +37,45 @@ export const useModelDiff = (
 
     renderCountMap[context] = (renderCountMap[context] || 0) + 1
 
-    logger.debug(
-      `Comparing diff for "${context}" (render #${renderCountMap[context]})`,
-      { data: diffResult },
-    )
+    logger.debug(`Comparing diff (render #${renderCountMap[context]})`, {
+      context,
+      data: diffResult,
+    })
 
     prevModel.current = targetObject
   }, [context, target])
 }
 
+/**
+ * Hook that automatically tracks and logs the number of times a component renders
+ */
+const useRenderedCount = (componentName: string) => {
+  const name = useRef(componentName)
+
+  useEffect(() => {
+    renderCountMap[name.current] = (renderCountMap[name.current] || 0) + 1
+
+    logger.debug('Component rendered', {
+      context: name.current,
+      data: {
+        renderCount: renderCountMap[name.current],
+      },
+    })
+  })
+}
+
+const useEvent = ({
+  componentName,
+  event,
+}: {
+  event: string
+  componentName: string
+}) => {
+  logger.debug(`Event '${event}' triggered for component '${componentName}'`)
+}
+
 export const tracker = {
+  useEvent,
   useModelDiff,
+  useRenderedCount,
 }

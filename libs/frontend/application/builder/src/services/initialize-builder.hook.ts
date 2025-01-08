@@ -9,6 +9,7 @@ import {
   type RendererType,
   runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
+import { tracker } from '@codelab/frontend/shared/utils'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { useEffect } from 'react'
 import { v4 } from 'uuid'
@@ -38,14 +39,26 @@ export const useInitializeBuilder = ({
       rendererType,
     })
 
+    tracker.useEvent({
+      componentName: 'useInitializeBuilder',
+      event: 'Set active renderer',
+    })
     rendererService.setActiveRenderer(rendererRef(renderer.id))
 
     const { runtimeContainerNode, runtimeRootContainerNode } = renderer
     const runtimeContainer = runtimeContainerNode ?? runtimeRootContainerNode
     const runtimeRootElement = runtimeContainer.runtimeRootElement
 
+    tracker.useEvent({
+      componentName: 'useInitializeBuilder',
+      event: 'Set selected node',
+    })
     builderService.setSelectedNode(runtimeElementRef(runtimeRootElement))
 
+    tracker.useEvent({
+      componentName: 'useInitializeBuilder',
+      event: 'Expression transformer init',
+    })
     void renderer.expressionTransformer.init()
   }, [containerNode.id])
 

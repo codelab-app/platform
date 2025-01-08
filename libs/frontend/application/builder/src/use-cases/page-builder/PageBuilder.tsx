@@ -6,6 +6,7 @@ import type {
 } from '@codelab/frontend/abstract/application'
 import type { IPageModel } from '@codelab/frontend/abstract/domain'
 
+import { tracker } from '@codelab/frontend/shared/utils'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import { useSearchParams } from 'next/navigation'
@@ -26,6 +27,8 @@ export interface IPageBuilderProps {
  */
 export const PageBuilder = observer(
   ({ page, rendererType, RootRenderer }: IPageBuilderProps) => {
+    tracker.useRenderedCount('PageBuilder')
+
     const { rendererService } = useApplicationStore()
 
     if (!page) {
