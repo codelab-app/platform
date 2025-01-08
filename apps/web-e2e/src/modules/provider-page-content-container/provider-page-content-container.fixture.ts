@@ -31,9 +31,8 @@ export class ProviderPageContentContainerPage extends BuilderPage {
     await this.setFormFieldValue(
       'Page Content Container',
       pageContentContainerName,
-      pageSettingsTab,
+      { locator: pageSettingsTab, waitForAutosave: true },
     )
-    await this.waitForProgressBar()
   }
 }
 

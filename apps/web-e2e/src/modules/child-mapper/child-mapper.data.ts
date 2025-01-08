@@ -17,11 +17,13 @@ import { v4 } from 'uuid'
 
 import { seedAppData } from '../builder/builder.data'
 
+export const childMapperComponentName = 'Component Name'
+
 export const childMapperComponent: (owner: IRef) => ICreateComponentData = (
   owner,
 ) => ({
   id: v4(),
-  name: 'Component Name',
+  name: childMapperComponentName,
   owner,
 })
 

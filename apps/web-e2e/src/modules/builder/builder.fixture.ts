@@ -266,8 +266,16 @@ export class BuilderPage extends BasePage {
     return treeElement
   }
 
-  async setFormFieldValue(label: string, value: string, locator?: Locator) {
-    await setFormFieldValue(locator ?? this.locator!, { label, value })
+  async setFormFieldValue(
+    label: string,
+    value: string,
+    options?: { locator?: Locator; waitForAutosave?: boolean },
+  ) {
+    await setFormFieldValue(options?.locator ?? this.locator!, { label, value })
+
+    if (options?.waitForAutosave) {
+      await this.waitForProgressBar()
+    }
   }
 
   async updateBuilderElement() {
@@ -275,13 +283,10 @@ export class BuilderPage extends BasePage {
     const updateElementForm = this.getUpdateElementForm()
 
     await buttonTreeElement.click()
-    await this.setFormFieldValue(
-      'Name',
-      this.updatedButtonName,
-      updateElementForm,
-    )
-
-    await this.waitForProgressBar()
+    await this.setFormFieldValue('Name', this.updatedButtonName, {
+      locator: updateElementForm,
+      waitForAutosave: true,
+    })
   }
 
   /**
