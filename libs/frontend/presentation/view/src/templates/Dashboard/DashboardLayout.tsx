@@ -4,8 +4,6 @@ import type {
 } from '@codelab/frontend/abstract/types'
 import type { ReactNode } from 'react'
 
-import { serverTracker, tracker } from '@codelab/frontend/shared/utils'
-
 import { Dashboard } from './Dashboard'
 
 /**

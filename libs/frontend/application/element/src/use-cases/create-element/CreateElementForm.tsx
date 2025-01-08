@@ -16,7 +16,6 @@ import {
   SelectActionsField,
   SelectAnyElement,
 } from '@codelab/frontend/presentation/components/interface-form'
-import { tracker, useModelDiff } from '@codelab/frontend/shared/utils'
 import { useUser } from '@codelab/frontend-application-user/services'
 import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
 import {
