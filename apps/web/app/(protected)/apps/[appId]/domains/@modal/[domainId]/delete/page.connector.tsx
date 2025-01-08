@@ -4,7 +4,7 @@ import { DeleteDomainModal } from '@codelab/frontend-application-domain/use-case
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 
-export const DomainDeleteContainer = observer(({ id }: { id: string }) => {
+export const DomainDeleteConnector = observer(({ id }: { id: string }) => {
   const { domainDomainService } = useDomainStore()
   const domain = domainDomainService.domains.get(id)
 

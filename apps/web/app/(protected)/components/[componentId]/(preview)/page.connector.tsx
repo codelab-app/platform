@@ -7,17 +7,13 @@ import { RootRenderer } from '@codelab/frontend-application-renderer/use-cases/r
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 
-export const ComponentPreviewBuilderContainer = observer(
+export const ComponentPreviewBuilderConnector = observer(
   ({ componentId }: { componentId: string }) => {
     const { componentDomainService } = useDomainStore()
     const component = componentDomainService.component(componentId)
 
     return (
-      <ComponentBuilder
-        RootRenderer={RootRenderer}
-        component={component}
-        rendererType={RendererType.Preview}
-      />
+      <ComponentBuilder RootRenderer={RootRenderer} component={component} />
     )
   },
 )

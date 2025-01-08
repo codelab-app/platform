@@ -5,7 +5,7 @@ import { UpdateTagPopover } from '@codelab/frontend-application-tag/use-cases/up
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 
-const UpdateTagContainer = observer(({ id }: { id: string }) => {
+const UpdateTagConnector = observer(({ id }: { id: string }) => {
   const { tagDomainService } = useDomainStore()
   const tag = tagDomainService.tags.get(id)
 
@@ -16,4 +16,4 @@ const UpdateTagContainer = observer(({ id }: { id: string }) => {
   return <UpdateTagPopover tag={tag} />
 })
 
-export default UpdateTagContainer
+export default UpdateTagConnector

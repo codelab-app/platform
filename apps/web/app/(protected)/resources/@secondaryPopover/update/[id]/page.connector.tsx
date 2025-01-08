@@ -5,7 +5,7 @@ import { UpdateResourcePopover } from '@codelab/frontend-application-resource/us
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 
-const UpdateResourceContainer = observer(({ id }: { id: string }) => {
+const UpdateResourceConnector = observer(({ id }: { id: string }) => {
   const { resourceDomainService } = useDomainStore()
   const resource = resourceDomainService.resources.get(id)
 
@@ -16,4 +16,4 @@ const UpdateResourceContainer = observer(({ id }: { id: string }) => {
   return <UpdateResourcePopover resource={resource} />
 })
 
-export default UpdateResourceContainer
+export default UpdateResourceConnector

@@ -8,7 +8,7 @@ interface DomainListContainerProps {
   appId: string
 }
 
-export const DomainListContainer = observer<DomainListContainerProps>(
+export const DomainListConnector = observer<DomainListContainerProps>(
   ({ appId }) => {
     const { domainDomainService } = useDomainStore()
     const domains = domainDomainService.domainsList

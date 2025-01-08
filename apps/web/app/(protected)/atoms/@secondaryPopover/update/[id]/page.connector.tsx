@@ -32,7 +32,7 @@ interface UpdateAtomContainerProps {
 /**
  * Move sidebar secondary and hydrator below it, so we can render the UI first
  */
-const UpdateAtomContainer = observer<UpdateAtomContainerProps>(
+const UpdateAtomConnector = observer<UpdateAtomContainerProps>(
   ({ atomsDto, id, searchParams, tagsDto }) => {
     const submitRef = useRef<Maybe<SubmitController>>()
     const { updatePopover } = useAtomService()
@@ -84,6 +84,6 @@ const UpdateAtomContainer = observer<UpdateAtomContainerProps>(
   },
 )
 
-UpdateAtomContainer.displayName = 'UpdateAtomContainer'
+UpdateAtomConnector.displayName = 'UpdateAtomContainer'
 
-export default UpdateAtomContainer
+export default UpdateAtomConnector

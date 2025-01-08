@@ -5,7 +5,7 @@ import { DeleteTagsModal } from '@codelab/frontend-application-tag/use-cases/del
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 
-export const DeleteTagsModalContainer = observer(
+export const DeleteTagsModalConnector = observer(
   ({ ids }: { ids: Array<string> }) => {
     const { tagDomainService } = useDomainStore()
 

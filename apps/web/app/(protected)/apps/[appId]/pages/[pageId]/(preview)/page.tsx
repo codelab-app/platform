@@ -2,7 +2,7 @@ import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { appBuilderQuery } from '@codelab/frontend-application-app/use-cases/app-builder'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 
-import { PagePreviewPageContainer } from './page.container'
+import { PagePreviewPageConnector } from './page.connector'
 
 const PagePreviewPage = async ({
   params: { appId, pageId },
@@ -33,7 +33,7 @@ const PagePreviewPage = async ({
       typesDto={dto.types}
     >
       {/* Decouple renderer from builder */}
-      <PagePreviewPageContainer pageId={pageId} />
+      <PagePreviewPageConnector pageId={pageId} />
     </DomainStoreHydrator>
   )
 }

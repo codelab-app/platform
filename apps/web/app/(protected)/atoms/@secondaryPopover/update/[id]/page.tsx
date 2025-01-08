@@ -3,7 +3,7 @@ import type { UrlQueryParamsPageProps } from '@codelab/frontend/abstract/types'
 import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
 import { DashboardPopover } from '@codelab/frontend-presentation-view/templates'
 
-import UpdateAtomContainer from './page.container'
+import UpdateAtomConnector from './page.connector'
 
 const Page = async ({
   params: { id },
@@ -18,7 +18,7 @@ const Page = async ({
 
   return (
     <DashboardPopover>
-      <UpdateAtomContainer
+      <UpdateAtomConnector
         atomsDto={atomsDto}
         id={id}
         searchParams={searchParams}

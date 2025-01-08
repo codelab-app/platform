@@ -2,7 +2,7 @@ import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { domainRepository } from '@codelab/frontend-domain-domain/repositories'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 
-import { DomainUpdateContainer } from './page.container'
+import { DomainUpdateConnector } from './page.connector'
 
 const Page = async ({
   params: { domainId },
@@ -16,7 +16,7 @@ const Page = async ({
       domainsDto={domainDto ? [domainDto] : []}
       fallback={<Spinner />}
     >
-      <DomainUpdateContainer id={domainId} />
+      <DomainUpdateConnector id={domainId} />
     </DomainStoreHydrator>
   )
 }

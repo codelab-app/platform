@@ -4,7 +4,7 @@ import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { componentBuilderQuery } from '@codelab/frontend-application-component/use-cases/component-builder'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 
-import { ComponentBuilderContainer } from './page.container'
+import { ComponentBuilderConnector } from './page.connector'
 
 export const metadata: Metadata = {
   title: 'Component Builder | Codelab',
@@ -33,7 +33,7 @@ const ComponentBuilderPage = async ({
       tagsDto={dto.tags}
       typesDto={dto.types}
     >
-      <ComponentBuilderContainer componentId={componentId} />
+      <ComponentBuilderConnector componentId={componentId} />
     </DomainStoreHydrator>
   )
 }
