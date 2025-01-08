@@ -23,8 +23,9 @@ export const CreateElementPopover = observer(() => {
   const { builderService } = useApplicationStore()
   const selectedNode = builderService.selectedNode?.maybeCurrent
 
-  tracker.useModelDiff('Selected node popover', selectedNode)
-  logger.debug('Selected node popover', selectedNode)
+  // tracker.useModelDiff('Selected node popover', selectedNode)
+  // logger.debug('Selected node popover', selectedNode)
+  logger.debug('Logging data', { context: 'CreateElementPopover' })
 
   return (
     <CuiSidebarSecondary

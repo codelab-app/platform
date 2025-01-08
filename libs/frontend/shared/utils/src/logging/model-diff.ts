@@ -7,40 +7,43 @@ import { logger } from '@codelab/frontend/infra/logger'
 import { diff } from 'deep-object-diff'
 import { getSnapshot, isModel } from 'mobx-keystone'
 import { useEffect, useRef } from 'react'
-// import { get } from 'stack-trace'
+import { useCustomCompareEffect } from 'react-use'
+import { isDeepEqual } from 'remeda'
 
 // Move renderCountMap outside the hook to make it static
 const renderCountMap: Record<string, number> = {}
 
 /**
- * Creates a hook that tracks changes between renders for mobx-keystone objects
+ * Gets a plain object representation of a model or object
  */
-const useModelDiff = (
+const getObjectOrSnapshot = (target: Nullish<AnyModel | ObjectLike>) => {
+  return isModel(target) ? getSnapshot(target) : target
+}
+
+/**
+ * Creates a hook that tracks changes between renders for mobx-keystone objects
+ *
+ * Make sure not to use after a conditional in component due to `useRef` usage internally
+ */
+export const useModelDiff = (
   context: string,
   target: Nullish<AnyModel | ObjectLike>,
 ) => {
   const prevModel = useRef<ObjectLike>({})
 
-  if (!target) {
-    return
-  }
+  useEffect(() => {
+    const targetObject = getObjectOrSnapshot(target)
+    const diffResult = diff(prevModel.current, targetObject)
 
-  // Get target object or snapshot if it's a model
-  const targetObject = isModel(target) ? getSnapshot(target) : target
-  const diffResult = diff(prevModel.current, targetObject)
+    renderCountMap[context] = (renderCountMap[context] || 0) + 1
 
-  renderCountMap[context] = (renderCountMap[context] || 0) + 1
+    logger.debug(
+      `Comparing diff for "${context}" (render #${renderCountMap[context]})`,
+      { data: diffResult },
+    )
 
-  // Get the caller's file information
-  // const trace = get()
-  // const callerFile = trace[1]?.getFileName() || 'unknown'
-
-  logger.trace(
-    `Comparing diff for ${context} (render #${renderCountMap[context]}) called from:`,
-    diffResult,
-  )
-
-  prevModel.current = targetObject
+    prevModel.current = targetObject
+  }, [context, target])
 }
 
 export const tracker = {

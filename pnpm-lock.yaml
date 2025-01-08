@@ -511,6 +511,9 @@ importers:
       pino:
         specifier: 9.6.0
         version: 9.6.0
+      pino-caller:
+        specifier: ^3.4.0
+        version: 3.4.0(pino@9.6.0)
       pino-http:
         specifier: 10.3.0
         version: 10.3.0
@@ -13504,6 +13507,12 @@ packages:
 
   pino-abstract-transport@2.0.0:
     resolution: {integrity: sha512-F63x5tizV6WCh4R6RHyi2Ml+M70DNRXt/+HANowMflpgGFMAym/VKm6G7ZOQRjqN7XbGxK1Lg9t6ZrtzOaivMw==}
+
+  pino-caller@3.4.0:
+    resolution: {integrity: sha512-2aEjlmhLA7J3lGBXKDSxtlfDY+cBzGh5PnLFP6ZUhvyqCnqKfv28ulpSch6uymGIdo7fzxXHK2hvR5FrdzbhTg==}
+    engines: {node: '>6.0.0'}
+    peerDependencies:
+      pino: '*'
 
   pino-http@10.3.0:
     resolution: {integrity: sha512-kaHQqt1i5S9LXWmyuw6aPPqYW/TjoDPizPs4PnDW4hSpajz2Uo/oisNliLf7We1xzpiLacdntmw8yaZiEkppQQ==}
@@ -33418,6 +33427,11 @@ snapshots:
   pino-abstract-transport@2.0.0:
     dependencies:
       split2: 4.2.0
+
+  pino-caller@3.4.0(pino@9.6.0):
+    dependencies:
+      pino: 9.6.0
+      source-map-support: 0.5.21
 
   pino-http@10.3.0:
     dependencies:

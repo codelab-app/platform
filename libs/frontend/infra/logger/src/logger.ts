@@ -1,113 +1,48 @@
-import path from 'path'
-import pino from 'pino'
+import type { ObjectLike } from '@codelab/shared/abstract/types'
+import type { ILoggerService, LogOptions } from '@codelab/shared/infra/logging'
+import type { LogLevel } from '@nestjs/common'
+import type { LoggerOptions } from 'pino'
 
-console.log('process.cwd()', process.cwd())
-
-// Create a constant for logs directory
-const LOGS_DIR = path.join(process.cwd(), '../../tmp/logs')
-const LOG_FILE_PATH = path.join(LOGS_DIR, 'client.log')
-
-// Ensure logs directory exists
-const ensureLogsDir = async () => {
-  if (typeof window === 'undefined') {
-    // Only import fs on server-side
-    const fs = await import('fs')
-
-    try {
-      fs.mkdirSync(LOGS_DIR, { recursive: true })
-    } catch (error) {
-      console.error('Failed to create logs directory:', error)
-    }
-  }
-}
-
-// Call this when initializing
-if (typeof window === 'undefined') {
-  void ensureLogsDir()
-}
-
-const clientConfig = {
-  browser: {
-    asObject: true,
-  },
-  level: 'debug',
-  sync: true,
-  transport: {
-    options: {
-      colorize: true,
-      sync: true,
-    },
-    targets: [
-      {
-        options: {
-          colorize: true,
-          sync: true,
-        },
-        target: 'pino-pretty',
-      },
-      {
-        options: {
-          destination: LOG_FILE_PATH,
-          sync: true,
-        },
-        target: 'pino/file',
-      },
-    ],
-  },
-}
-
-const serverConfig = {
-  level: 'debug',
-  sync: true,
-  /**
-   * Has issues with server side logging
-   */
-  // stream: pretty({
-  //   colorize: true,
-  // }),
-  transport: {
-    targets: [
-      {
-        options: {
-          colorize: true,
-          sync: true,
-        },
-        target: 'pino-pretty',
-      },
-      {
-        options: {
-          destination: LOG_FILE_PATH,
-          sync: true,
-        },
-        target: 'pino/file',
-      },
-    ],
-  },
-}
+import { getEnv } from '@codelab/shared/config/env'
 
 /**
- * Clear the log files that pino creates
+ * Send to server endpoint so we can log to file, other wise browser side has no way to log to file
  */
-export const clearFileLogs = async () => {
-  if (typeof window === 'undefined') {
-    console.log('Clearing logs')
+const sendLog = async (
+  level: LogLevel,
+  message: unknown,
+  data?: ObjectLike,
+) => {
+  console.log('Sending log to server', { data, level, message })
 
-    const fs = await import('fs')
+  const baseUrl = getEnv().endpoint.webHost
 
-    try {
-      // Ensure the directory exists first
-      await ensureLogsDir()
-
-      // Open file with 'w' flag to truncate it
-      fs.writeFileSync(LOG_FILE_PATH, '', { flag: 'w' })
-    } catch (error) {
-      console.error('Failed to clear log file:', error)
-    }
+  try {
+    await fetch(`${baseUrl}/api/logging`, {
+      body: JSON.stringify({ data, level, message }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+    })
+  } catch (error) {
+    // Fallback to console in case the logging endpoint fails
+    console.error('Failed to send log to server:', error)
   }
 }
 
 /**
- * Used for both frontend and backend logging
+ * We don't do any logging in the browser, we send information to api and do logging there, which allows optional logging to file
  */
-export const logger =
-  typeof window !== 'undefined' ? pino(clientConfig) : pino(serverConfig)
+export const logger: ILoggerService = {
+  debug: (message: string, options: LogOptions) =>
+    sendLog('debug', message, options),
+  error: (message: string, options: LogOptions) =>
+    sendLog('error', message, options),
+  log: (message: string, options: LogOptions) =>
+    sendLog('log', message, options),
+  verbose: (message: string, options: LogOptions) =>
+    sendLog('verbose', message, options),
+  warn: (message: string, options: LogOptions) =>
+    sendLog('warn', message, options),
+}

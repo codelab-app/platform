@@ -202,6 +202,7 @@
     "passport-jwt": "4.0.1",
     "path-to-regexp": "6.2.1",
     "pino": "9.6.0",
+    "pino-caller": "^3.4.0",
     "pino-http": "10.3.0",
     "prettier": "2.8.8",
     "puppeteer": "22.9.0",

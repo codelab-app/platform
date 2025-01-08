@@ -5,6 +5,7 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitOverride": true,
     "noImplicitReturns": true,
+    "strict": true,
     "noFallthroughCasesInSwitch": true,
     "noPropertyAccessFromIndexSignature": true
   },

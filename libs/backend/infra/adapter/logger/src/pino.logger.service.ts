@@ -1,7 +1,7 @@
 /* eslint-disable perfectionist/sort-objects */
 /* eslint-disable canonical/sort-keys */
 import type { ObjectLike } from '@codelab/shared/abstract/types'
-import type { LogOptions } from '@codelab/shared/infra/logging'
+import type { ILoggerService, LogOptions } from '@codelab/shared/infra/logging'
 import type { LoggerService } from '@nestjs/common'
 
 import { Inject, Injectable } from '@nestjs/common'
@@ -15,7 +15,7 @@ import { loggerConfig } from './logger.config'
  * So Nest.js only has two parameters, the first one being the message and the last one being the context. Any other parameters in the middle are ignored.
  */
 @Injectable()
-export class PinoLoggerService extends Logger implements LoggerService {
+export class PinoLoggerService extends Logger implements ILoggerService {
   constructor(
     protected override logger: PinoLogger,
     @Inject(PARAMS_PROVIDER_TOKEN) params: Params,
@@ -30,7 +30,7 @@ export class PinoLoggerService extends Logger implements LoggerService {
   /**
    * We create a 2 parameter log function, but extract the context as last parameter, while combining the data with first parameter
    */
-  override log(message: unknown, options?: LogOptions): void {
+  override log(message: string, options?: LogOptions): void {
     const context = options?.context ?? ''
     const includeDataForContext = this.config.context.includes(context)
 

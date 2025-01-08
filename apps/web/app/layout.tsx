@@ -1,6 +1,4 @@
 /* eslint-disable import/first */
-'use client'
-
 import { initWdyr } from '../wdyr'
 
 // initWdyr()
@@ -8,17 +6,15 @@ import { initWdyr } from '../wdyr'
 import '../styles/main.css'
 // import config from '../tailwind.config.js'
 import { StyleProviders } from '@codelab/frontend/infra/context'
-import { clearFileLogs } from '@codelab/frontend/infra/logger'
 import { cn } from '@cui/utils'
 import { getActiveSpan } from '@sentry/react'
 import { setGlobalConfig } from 'mobx-keystone'
 import { Inter, Montserrat, Nunito } from 'next/font/google'
+import pino from 'pino'
 
 setGlobalConfig({
   showDuplicateModelNameWarnings: process.env.NODE_ENV === 'production',
 })
-
-// void clearFileLogs()
 
 // normal: 400
 // bold: 700
@@ -45,7 +41,11 @@ const fontClasses = cn(inter.variable, montserrat.variable, nunito.variable)
 //   title: 'Codelab',
 // }
 
-const RootLayout = ({ children }: { children: React.ReactNode }) => {
+const RootLayout = async ({ children }: { children: React.ReactNode }) => {
+  // void setupFileLogs()
+
+  // logger.log('RootLayout rendered')
+
   // useTwindConfig(config)
 
   return (

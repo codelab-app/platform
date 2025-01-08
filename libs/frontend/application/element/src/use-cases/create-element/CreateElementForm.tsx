@@ -15,7 +15,7 @@ import {
   SelectActionsField,
   SelectAnyElement,
 } from '@codelab/frontend/presentation/components/interface-form'
-import { tracker } from '@codelab/frontend/shared/utils'
+import { tracker, useModelDiff } from '@codelab/frontend/shared/utils'
 import { useUser } from '@codelab/frontend-application-user/services'
 import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
 import {
@@ -60,24 +60,28 @@ export const CreateElementForm = observer<CreateElementFormProps>(
   ({ onSubmitSuccess, selectedNode, showFormControl = true, submitRef }) => {
     const { atomDomainService, elementDomainService } = useDomainStore()
     const user = useUser()
-    const elementService = useElementService()
     const { validateParentForCreate } = useRequiredParentValidator()
     const selectedElementId = selectedNode?.treeViewNode.element?.id
+    const elementService = useElementService()
 
-    if (!selectedElementId) {
+    // This way we push the conditional after the model diff
+    const parentElement = elementDomainService.elements.get(
+      selectedElementId ?? '',
+    )
+
+    tracker.useModelDiff('Parent element', parentElement)
+
+    if (!parentElement) {
       return null
     }
 
-    const parentElement = elementDomainService.element(selectedElementId)
-
-    tracker.useModelDiff('Parent element', parentElement)
-    tracker.useModelDiff('Selected node', selectedNode)
-    tracker.useModelDiff('Props', {
-      onSubmitSuccess,
-      selectedNode,
-      showFormControl,
-      submitRef,
-    })
+    // tracker.useModelDiff('Selected node', selectedNode)
+    // tracker.useModelDiff('Props', {
+    //   onSubmitSuccess,
+    //   selectedNode,
+    //   showFormControl,
+    //   submitRef,
+    // })
 
     const onSubmit = (data: IElementDto) => {
       const isValidParent = validateParentForCreate(
