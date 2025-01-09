@@ -153,7 +153,9 @@
       "configurations": {
         "ci": {
           "format": "junit",
-          "outputFile": "tmp/reports/lint/{projectName}.xml"
+          "outputFile": "tmp/reports/lint/{projectName}.xml",
+          // junit reports all warnings as errors
+          "quiet": true
         },
         "codegen": {
           "lintFilePatterns": ["{projectRoot}/**/*.gen.{ts,tsx}"],
