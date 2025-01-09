@@ -42,14 +42,11 @@ export const regularPageCreateData = (app: IAppDto): IPageCreateFormData => ({
   urlPattern: '/test-page',
 })
 
-export const componentData: ICreateComponentData = {
+export const componentData = (owner: IRef): ICreateComponentData => ({
   id: componentId,
   name: componentName,
-  // Mock owner
-  owner: {
-    id: v4(),
-  },
-}
+  owner,
+})
 
 export const builderElements = [
   {
@@ -61,6 +58,8 @@ export const builderElements = [
 
 export const seedTestData = async (request: APIRequestContext) => {
   const app = await seedAppData(request)
+  const ownerResponse = await request.get('/api/v1/user/me')
+  const owner = await ownerResponse.json()
 
   await request.post('/api/v1/page/create-page', {
     data: regularPageCreateData(app),
@@ -68,7 +67,7 @@ export const seedTestData = async (request: APIRequestContext) => {
 
   const componentResponse = await request.post(
     '/api/v1/component/create-component',
-    { data: componentData },
+    { data: componentData(owner) },
   )
 
   const component = await componentResponse.json()
