@@ -1,6 +1,7 @@
 import type { SubmitRef } from '@codelab/frontend/abstract/types'
 import type { MouseEvent } from 'react'
 
+import { logger } from '@codelab/frontend/infra/logger'
 import {
   useErrorNotify,
   useSuccessNotify,
@@ -45,12 +46,14 @@ export const useAsyncHandler = <TData, TResponse>(
     async (formData?: TData) => {
       setAllLoadingState(true)
 
+      logger.debug('Form submitted')
+
       const submitPromise = onSubmit(formData)
 
       onSubmitOptimistic()
 
       return submitPromise.finally(() => {
-        console.debug('Form promise finished')
+        console.debug('Form submission complete')
 
         setAllLoadingState(false)
       })
@@ -86,10 +89,10 @@ type PostSubmitProps<TData, TResponse> = Pick<
 export const usePostSubmit = <TData, TResponse>({
   errorMessage = 'Error submitting form',
   onSubmitError = () => {
-    return
+    return Promise.reject()
   },
   onSubmitSuccess = () => {
-    return
+    return Promise.resolve()
   },
   successMessage = '',
 }: PostSubmitProps<TData, TResponse>) => {

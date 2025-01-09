@@ -25,7 +25,11 @@ const sendLog = async (
     })
   } catch (error) {
     // Fallback to console in case the logging endpoint fails
-    console.error('Failed to send log to server:', error)
+    console.error('Failed to send log to server:', error, {
+      level,
+      message,
+      options,
+    })
   }
 }
 

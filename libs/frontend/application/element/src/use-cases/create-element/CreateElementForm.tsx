@@ -60,39 +60,43 @@ export const CreateElementForm = observer<CreateElementFormProps>(
   ({ onSubmitSuccess, selectedNode, showFormControl = true, submitRef }) => {
     const { atomDomainService, elementDomainService } = useDomainStore()
     const user = useUser()
-    const { validateParentForCreate } = useRequiredParentValidator()
+    // const { validateParentForCreate } = useRequiredParentValidator()
     const selectedElementId = selectedNode?.treeViewNode.element?.id
     const elementService = useElementService()
+
+    // Track multiple references including all props
+    tracker.useReferenceChange('Service references', [
+      { name: 'elementService', value: elementService },
+      { name: 'atomDomainService', value: atomDomainService },
+      { name: 'elementDomainService', value: elementDomainService },
+      { name: 'onSubmitSuccess', value: onSubmitSuccess },
+      { name: 'selectedNode', value: selectedNode },
+      { name: 'showFormControl', value: showFormControl },
+      { name: 'submitRef', value: submitRef },
+    ])
 
     // This way we push the conditional after the model diff
     const parentElement = elementDomainService.elements.get(
       selectedElementId ?? '',
     )
 
-    // tracker.useModelDiff('Parent element', parentElement)
     tracker.useRenderedCount('CreateElementForm')
+    tracker.useModelDiff('Parent element', parentElement)
+    tracker.useModelDiff('Selected node', selectedNode)
 
     if (!parentElement) {
       return null
     }
 
-    // tracker.useModelDiff('Selected node', selectedNode)
-    // tracker.useModelDiff('Props', {
-    //   onSubmitSuccess,
-    //   selectedNode,
-    //   showFormControl,
-    //   submitRef,
-    // })
-
     const onSubmit = (data: IElementDto) => {
-      const isValidParent = validateParentForCreate(
-        data.renderType.id,
-        data.parentElement?.id,
-      )
+      // const isValidParent = validateParentForCreate(
+      //   data.renderType.id,
+      //   data.parentElement?.id,
+      // )
 
-      if (!isValidParent) {
-        return Promise.reject()
-      }
+      // if (!isValidParent) {
+      //   return Promise.reject()
+      // }
 
       // if (data.prevSibling) {
       //   delete data.parentElement

@@ -47,12 +47,17 @@ export class ValidationService implements IValidationService {
     data: unknown,
     options?: { message: string },
   ): asserts data is Static<T> {
-    const schema = this.typeBox.tSchema(kind)
-    const validator = this.createValidator(schema)
+    try {
+      const schema = this.typeBox.tSchema(kind)
+      const validator = this.createValidator(schema)
 
-    this.runCustomValidation(schema, data, options?.message)
+      this.runCustomValidation(schema, data, options?.message)
 
-    return validator.assert(data as Readonly<unknown>, options?.message)
+      return validator.assert(data as Readonly<unknown>, options?.message)
+    } catch (error) {
+      console.log('Validation error:', { data, kind })
+      throw error
+    }
   }
 
   /**
