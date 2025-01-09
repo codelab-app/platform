@@ -14,7 +14,7 @@ import { UiKey } from '@codelab/frontend/abstract/types'
 import { tracker } from '@codelab/frontend/infra/logger'
 import {
   SelectActionsField,
-  SelectAnyElement,
+  SelectElementField,
 } from '@codelab/frontend/presentation/components/interface-form'
 import { useUser } from '@codelab/frontend-application-user/services'
 import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
@@ -72,9 +72,6 @@ export const CreateElementForm = observer<CreateElementFormProps>((props) => {
    * Accessing `treeViewNode` is causing the form to re-render, but we don't see it because we're accessing the element id, which is not changing.
    */
   const selectedElementId = selectedNode?.treeViewNodePreview.element?.id
-
-  console.log(selectedElementId)
-
   const elementService = useElementService()
 
   // tracker.useRenderedCount('CreateElementForm')
@@ -163,12 +160,7 @@ export const CreateElementForm = observer<CreateElementFormProps>((props) => {
         ]}
       />
       <AutoField
-        component={(fieldProps: UniformSelectFieldProps) => (
-          <SelectAnyElement
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            {...fieldProps}
-          />
-        )}
+        component={SelectElementField}
         help={`only elements from \`${parentElement.closestContainerNode.name}\` are visible in this list`}
         name="parentElement.id"
       />

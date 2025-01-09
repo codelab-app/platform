@@ -46,7 +46,7 @@ export const useAsyncHandler = <TData, TResponse>(
     async (formData?: TData) => {
       setAllLoadingState(true)
 
-      logger.debug('Form submitted')
+      console.log('Form submitted')
 
       const submitPromise = onSubmit(formData)
 

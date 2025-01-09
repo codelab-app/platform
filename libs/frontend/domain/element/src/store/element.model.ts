@@ -10,7 +10,11 @@ import type {
   RenderingMetadata,
 } from '@codelab/frontend/abstract/domain'
 import type { IElementDto, IRef } from '@codelab/shared/abstract/core'
-import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import type {
+  Maybe,
+  Nullable,
+  ObjectLike,
+} from '@codelab/shared/abstract/types'
 
 import {
   actionRef,
@@ -22,7 +26,11 @@ import {
   isAtomRef,
   pageRef,
 } from '@codelab/frontend/abstract/domain'
-import { createValidator } from '@codelab/frontend/shared/utils'
+import {
+  createValidator,
+  toMaybeRefSchema,
+  toRefSchema,
+} from '@codelab/frontend/shared/utils'
 import { Prop } from '@codelab/frontend-domain-prop/store'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { slugify, titleCase } from '@codelab/shared/utils'
@@ -327,23 +335,22 @@ export class Element
       childMapperPreviousSibling:
         this.childMapperPreviousSibling?.current.toJson,
       childMapperPropKey: this.childMapperPropKey,
-      closestContainerNode: this.closestContainerNode,
+      closestContainerNode: { id: this.closestContainerNode.id },
       expanded: this.expanded,
-      firstChild: this.firstChild,
+      firstChild: toRefSchema(this.firstChild),
       id: this.id,
-      // isRoot: this.isRoot,
       name: this.name,
-      nextSibling: this.nextSibling,
-      page: this.page,
-      parentComponent: this.parentComponent,
-      parentElement: this.parentElement,
+      nextSibling: toRefSchema(this.nextSibling),
+      page: toRefSchema(this.page),
+      parentComponent: toRefSchema(this.parentComponent),
+      parentElement: toRefSchema(this.parentElement),
       postRenderActions: this.postRenderActions.map((action) => ({
         id: action.id,
       })),
       preRenderActions: this.preRenderActions.map((action) => ({
         id: action.id,
       })),
-      prevSibling: this.prevSibling,
+      prevSibling: toRefSchema(this.prevSibling),
       props: this.props.toJson,
       renderForEachPropKey: this.renderForEachPropKey,
       renderIfExpression: this.renderIfExpression,
@@ -543,6 +550,7 @@ export class Element
     renderType,
     style,
   }: Partial<IElementDto>) {
+    console.log('childMapperComponent', childMapperComponent)
     this.name = name ?? this.name
     this.renderIfExpression = renderIfExpression ?? null
     this.renderForEachPropKey = renderForEachPropKey ?? null

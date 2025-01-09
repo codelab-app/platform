@@ -154,7 +154,6 @@
         "ci": {
           "format": "junit",
           "outputFile": "tmp/reports/lint/{projectName}.xml",
-          // junit reports all warnings as errors
           "quiet": true
         },
         "codegen": {

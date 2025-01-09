@@ -15,6 +15,8 @@ const sendLog = async (
 ) => {
   const baseUrl = getEnv().endpoint.webHost
 
+  // console.log('Send log', message, options)
+
   try {
     await fetch(`${baseUrl}/api/logging`, {
       body: JSON.stringify({ level, message, options }),

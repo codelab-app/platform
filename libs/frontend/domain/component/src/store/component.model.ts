@@ -18,6 +18,7 @@ import {
   typeRef,
   userRef,
 } from '@codelab/frontend/abstract/domain'
+import { toMaybeRefSchema, toRefSchema } from '@codelab/frontend/shared/utils'
 import { Prop } from '@codelab/frontend-domain-prop/store'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
@@ -103,14 +104,14 @@ export class Component
   get toJson() {
     return {
       __typename: this.__typename,
-      api: this.api.current.toJson,
+      api: toRefSchema(this.api),
       id: this.id,
       name: this.name,
-      owner: this.owner.current.toJson,
+      owner: toRefSchema(this.owner),
       props: this.props.toJson,
-      rootElement: this.rootElement,
+      rootElement: toRefSchema(this.rootElement),
       slug: this.slug,
-      store: this.store.current.toJson,
+      store: toRefSchema(this.store),
     }
   }
 
