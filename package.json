@@ -371,7 +371,6 @@
     "@typescript-eslint/eslint-plugin": "7.17.0",
     "@typescript-eslint/parser": "7.17.0",
     "@typescript-eslint/utils": "7.17.0",
-    "@welldone-software/why-did-you-render": "8.0.3",
     "ajv-formats": "2.1.1",
     "ajv-keywords": "5.1.0",
     "autoprefixer": "10.4.14",
