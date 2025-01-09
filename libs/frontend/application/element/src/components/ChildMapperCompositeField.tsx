@@ -1,4 +1,5 @@
 import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
+import type { SelectOption } from '@codelab/frontend/abstract/types'
 import type { IRef } from '@codelab/shared/abstract/core'
 
 import { SelectComponent } from '@codelab/frontend/presentation/components/interface-form'
@@ -36,15 +37,14 @@ const PropKeyField = ToggleExpressionField({
 const ChildMapperFields = ({ runtimeElement }: ChildMapperFieldsProps) => {
   const element = runtimeElement.element.current
 
-  const [childMapperComponentFieldProps] = useField<{ value?: IRef }>(
+  const [childMapperComponentFieldProps] = useField<{ value?: SelectOption }>(
     'childMapperComponent',
     {},
   )
 
-  const [childMapperPreviousSiblingFieldProps] = useField<{ value?: IRef }>(
-    'childMapperPreviousSibling',
-    {},
-  )
+  const [childMapperPreviousSiblingFieldProps] = useField<{
+    value?: SelectOption
+  }>('childMapperPreviousSibling', {})
 
   return (
     <section>
@@ -57,18 +57,20 @@ const ChildMapperFields = ({ runtimeElement }: ChildMapperFieldsProps) => {
       <SelectComponent
         label="Component"
         name="childMapperComponent.id"
-        onChange={(value) =>
-          childMapperComponentFieldProps.onChange(
-            (value ? { id: value } : null) as IRef,
+        onChange={(value) => {
+          console.log('select component on change', value)
+
+          return childMapperComponentFieldProps.onChange(
+            value ? { label: value.name, value } : undefined,
           )
-        }
+        }}
       />
       <SelectLinkElement
         elementOptions={element.children.map(mapElementOption)}
         name="childMapperPreviousSibling.id"
         onChange={(value) => {
           return childMapperPreviousSiblingFieldProps.onChange(
-            (value ? { id: value } : null) as IRef,
+            value ? { label: value.name, value } : undefined,
           )
         }}
         targetElementId={element.id}

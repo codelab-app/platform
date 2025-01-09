@@ -1,3 +1,5 @@
+'use client'
+
 import type {
   IComponentModel,
   IPageModel,
@@ -91,12 +93,12 @@ export const BuilderProvider = ({
   )
 }
 
-export const useBuilder = () => {
-  const context = useContext(BuilderContext)
+// export const useBuilder = () => {
+//   const context = useContext(BuilderContext)
 
-  if (!context) {
-    throw new Error('useBuilder must be used within a BuilderProvider')
-  }
+//   if (!context) {
+//     throw new Error('useBuilder must be used within a BuilderProvider')
+//   }
 
-  return context
-}
+//   return context
+// }

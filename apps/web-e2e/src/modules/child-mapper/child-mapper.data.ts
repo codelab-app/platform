@@ -58,6 +58,9 @@ export const pageRowChild2 = {
   prevSibling: { id: pageRowChild1.id },
 }
 
+/**
+ * We create multiple siblings to test that the child mapper can render in any  sibling location
+ */
 export const providerPageElements = (
   page: IPageDto,
 ): Array<ICreateElementData> => [

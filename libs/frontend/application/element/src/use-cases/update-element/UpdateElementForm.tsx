@@ -15,7 +15,7 @@ import {
   Form,
 } from '@codelab/frontend-presentation-components-form'
 import { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
-import { Collapse } from 'antd'
+import { Collapse, Select } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { isDeepEqual } from 'remeda'
 import { AutoField, AutoFields } from 'uniforms-antd'

@@ -21,8 +21,6 @@ export type IElementRepository = IRepository<
 
 export interface SelectElementOption extends SelectOption {
   childrenIds?: Array<string>
-  label: string
-  value: string
 }
 
 export interface SelectElementOptions {
