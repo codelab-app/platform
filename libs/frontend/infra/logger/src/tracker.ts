@@ -203,6 +203,100 @@ const useReferenceChange = (
   })
 }
 
+/**
+ * Creates a hook that tracks changes between renders for mobx-keystone objects
+ *
+ * Make sure not to use after a conditional in component due to `useRef` usage internally
+ */
+const useModelDiff = (
+  context: string,
+  target: Nullish<AnyModel | ObjectLike>,
+) => {
+  const prevRef = useRef(target)
+
+  useEffect(() => {
+    const targetObject = getObjectOrSnapshot(target)
+    const prevObject = getObjectOrSnapshot(prevRef.current)
+    const diffResult = diff(prevObject, targetObject)
+    const refChanged = prevRef.current !== target
+    const hasChanges = Object.keys(diffResult).length > 0
+
+    renderCountMap[context] = (renderCountMap[context] || 0) + 1
+
+    logger.debug(`Comparing diff (#${renderCountMap[context]})`, {
+      context,
+      data: {
+        // Only include current/previous if there are actual changes
+        ...(hasChanges && {
+          current: targetObject,
+          previous: prevObject,
+        }),
+        diffResult,
+        refChanged,
+      },
+    })
+
+    prevRef.current = target
+  })
+}
+
+/**
+ * Hook that compares props between renders and logs differences
+ */
+const usePropsDiff = <T extends ObjectLike>(
+  componentName: string,
+  props: T,
+) => {
+  // Store previous props
+  const prevPropsRef = useRef<T>(props)
+
+  useEffect(() => {
+    const prevProps = prevPropsRef.current
+    const currentProps = props
+
+    // Compare them deeply for changes
+    if (!isDeepEqual(prevProps, currentProps)) {
+      const referenceChangedKeys: Array<string> = []
+      const diffResult = diff(prevProps, currentProps)
+
+      const allKeys = new Set([
+        ...Object.keys(currentProps),
+        ...Object.keys(prevProps),
+      ])
+
+      allKeys.forEach((key) => {
+        // Check reference equality
+        if (prevProps[key] !== currentProps[key]) {
+          referenceChangedKeys.push(key)
+        }
+      })
+
+      logger.debug('Props changed', {
+        context: componentName,
+        data: {
+          referenceChangedKeys,
+          valueChangedKeys: diffResult,
+        },
+      })
+    }
+
+    prevPropsRef.current = currentProps
+  })
+}
+
+/**
+ * Hook for basic event logging
+ */
+const useEvent = ({
+  componentName,
+  event,
+}: {
+  event: string
+  componentName: string
+}) => {
+  logger.debug(`Event '${event}' triggered for component '${componentName}'`)
+}
+
 export const tracker = {
   useEvent,
   useModelDiff,
