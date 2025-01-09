@@ -45,7 +45,7 @@ export class SeedPageHandler implements ICommandHandler<SeedPageCommand> {
 
     // const pageStore = this.storeDomainService.create({})
 
-    // const pageDto: IPageDTO = {
+    // const pageDto: IPageDto = {
     //   ...page,
     //   rootElement,
     // }

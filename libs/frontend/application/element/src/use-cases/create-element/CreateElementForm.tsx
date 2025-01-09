@@ -33,7 +33,7 @@ import { diff } from 'deep-object-diff'
 import { getSnapshot } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import { isEqual } from 'radash'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 
@@ -56,154 +56,135 @@ interface CreateElementFormProps extends IFormController {
  *
  * Turns out newly added are inserted as first child, which is changing the parent's properties, and causing the observability to re-render. Instead, we add the element as next sibling of the last child.
  */
-export const CreateElementForm = observer<CreateElementFormProps>(
-  ({ onSubmitSuccess, selectedNode, showFormControl = true, submitRef }) => {
-    const { atomDomainService, elementDomainService } = useDomainStore()
-    const user = useUser()
-    // const { validateParentForCreate } = useRequiredParentValidator()
-    const selectedElementId = selectedNode?.treeViewNode.element?.id
-    const elementService = useElementService()
+export const CreateElementForm = observer<CreateElementFormProps>((props) => {
+  // Destructure to pass into tracker hooks
+  const {
+    onSubmitSuccess,
+    selectedNode,
+    showFormControl = true,
+    submitRef,
+  } = props
 
-    // Track multiple references including all props
-    tracker.useReferenceChange('Service references', [
-      { name: 'elementService', value: elementService },
-      { name: 'atomDomainService', value: atomDomainService },
-      { name: 'elementDomainService', value: elementDomainService },
-      { name: 'onSubmitSuccess', value: onSubmitSuccess },
-      { name: 'selectedNode', value: selectedNode },
-      { name: 'showFormControl', value: showFormControl },
-      { name: 'submitRef', value: submitRef },
-    ])
+  const { atomDomainService, elementDomainService } = useDomainStore()
+  const user = useUser()
+  const { validateParentForCreate } = useRequiredParentValidator()
+  /**
+   * Accessing `treeViewNode` is causing the form to re-render, but we don't see it because we're accessing the element id, which is not changing.
+   */
+  const selectedElementId = selectedNode?.treeViewNodePreview.element?.id
 
-    // This way we push the conditional after the model diff
-    const parentElement = elementDomainService.elements.get(
-      selectedElementId ?? '',
+  console.log(selectedElementId)
+
+  const elementService = useElementService()
+
+  // tracker.useRenderedCount('CreateElementForm')
+  // tracker.usePropsDiff('CreateElementForm', props)
+  // tracker.useReferenceChange('Service references', [
+  //   { name: 'elementService', value: elementService },
+  //   { name: 'atomDomainService', value: atomDomainService },
+  //   { name: 'elementDomainService', value: elementDomainService },
+  // ])
+
+  // If we rely on the parentElement object for state, let's track it too
+  const parentElement = elementDomainService.elements.get(
+    selectedElementId ?? '',
+  )
+
+  if (!parentElement) {
+    return null
+  }
+
+  const onSubmit = (data: IElementDto) => {
+    const isValidParent = validateParentForCreate(
+      data.renderType.id,
+      data.parentElement?.id,
     )
 
-    tracker.useRenderedCount('CreateElementForm')
-    tracker.useModelDiff('Parent element', parentElement)
-    tracker.useModelDiff('Selected node', selectedNode)
-
-    if (!parentElement) {
-      return null
+    if (!isValidParent) {
+      return Promise.reject()
     }
 
-    const onSubmit = (data: IElementDto) => {
-      // const isValidParent = validateParentForCreate(
-      //   data.renderType.id,
-      //   data.parentElement?.id,
-      // )
-
-      // if (!isValidParent) {
-      //   return Promise.reject()
-      // }
-
-      // if (data.prevSibling) {
-      //   delete data.parentElement
-      // }
-
-      /**
-       * We want to append the element as last child.
-       *
-       * If children already exists, then we want to append it as next sibling of the last child.
-       */
-
-      if (parentElement.children.length > 0) {
-        data.prevSibling =
-          parentElement.children[parentElement.children.length - 1]
-        data.parentElement = null
-      }
-
-      return elementService.create(data)
+    if (parentElement.children.length > 0) {
+      data.prevSibling =
+        parentElement.children[parentElement.children.length - 1]
+      data.parentElement = null
     }
 
-    const model = {
-      closestContainerNode: {
-        id: parentElement.closestContainerNode.id,
-      },
+    return elementService.create(data)
+  }
+
+  const model = {
+    closestContainerNode: {
+      id: parentElement.closestContainerNode.id,
+    },
+    id: v4(),
+    owner: user.auth0Id,
+    parentElement: {
+      id: parentElement.id,
+    },
+    props: {
+      api: { id: v4() },
+      data: '{}',
       id: v4(),
-      owner: user.auth0Id,
-      parentElement: {
-        id: parentElement.id,
-      },
-      props: {
-        api: { id: v4() },
-        data: '{}',
-        id: v4(),
-      },
-      renderType: {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        __typename: IElementRenderTypeKind.Atom,
-        id: atomDomainService.defaultRenderType.id,
-      },
-      // TODO: Couldn't we only validate when field is changed or submitted?
-      // Needs to be null initially so that required sub-fields
-      // are not validated when nothing is selected yet
-      // renderType: null,
-    }
+    },
+    renderType: {
+      __typename: IElementRenderTypeKind.Atom, // eslint-disable-line @typescript-eslint/naming-convention
+      id: atomDomainService.defaultRenderType.id,
+    },
+  }
 
-    const parentAtom = isAtom(parentElement.renderType.current)
-      ? parentElement.renderType.current
-      : undefined
+  const parentAtom = isAtom(parentElement.renderType.current)
+    ? parentElement.renderType.current
+    : undefined
 
-    return (
-      <Form<ICreateElementDto>
-        cssString="position: relative;"
-        errorMessage="Error while creating element"
-        model={model}
-        onSubmit={onSubmit}
-        onSubmitSuccess={onSubmitSuccess}
-        schema={createElementSchema}
-        submitRef={submitRef}
-        uiKey={UiKey.ElementFormCreate}
-      >
-        <AutoFields
-          omitFields={[
-            'id',
-            'parentElement',
-            'style',
-            'propsData',
-            'prevSibling',
-            'preRenderActions',
-            'postRenderActions',
-            'renderType',
-            'name',
-            'tailwindClassNames',
-          ]}
-        />
-        <AutoField
-          component={(props: UniformSelectFieldProps) => (
-            <SelectAnyElement
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              {...props}
-              // elementOptions={elementOptions}
-            />
-          )}
-          help={`only elements from \`${parentElement.closestContainerNode.name}\` are visible in this list`}
-          name="parentElement.id"
-        />
-        {/** We likely won't expose this, since it is difficult for users to understand this. The real world scenario would always create under parent, then drag to re-arrange */}
-        {/* <SelectLinkElement
-          elementOptions={elementOptions}
-          name="prevSibling.id"
-        /> */}
-        <RenderTypeField name="renderType" parentAtom={parentAtom} />
-        <SelectActionsField
-          name="preRenderActions"
-          selectedNode={selectedNode}
-        />
-        <SelectActionsField
-          name="postRenderActions"
-          selectedNode={selectedNode}
-        />
-        <Divider />
-        <AutoComputedElementNameField label="Name" name="name" />
-        <DisplayIf condition={showFormControl}>
-          <FormController submitLabel="Create Element" />
-        </DisplayIf>
-      </Form>
-    )
-  },
-)
+  return (
+    <Form<ICreateElementDto>
+      cssString="position: relative;"
+      errorMessage="Error while creating element"
+      model={model}
+      onSubmit={onSubmit}
+      onSubmitSuccess={onSubmitSuccess}
+      schema={createElementSchema}
+      submitRef={submitRef}
+      uiKey={UiKey.ElementFormCreate}
+    >
+      <AutoFields
+        omitFields={[
+          'id',
+          'parentElement',
+          'style',
+          'propsData',
+          'prevSibling',
+          'preRenderActions',
+          'postRenderActions',
+          'renderType',
+          'name',
+          'tailwindClassNames',
+        ]}
+      />
+      <AutoField
+        component={(fieldProps: UniformSelectFieldProps) => (
+          <SelectAnyElement
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            {...fieldProps}
+          />
+        )}
+        help={`only elements from \`${parentElement.closestContainerNode.name}\` are visible in this list`}
+        name="parentElement.id"
+      />
+      <RenderTypeField name="renderType" parentAtom={parentAtom} />
+      <SelectActionsField name="preRenderActions" selectedNode={selectedNode} />
+      <SelectActionsField
+        name="postRenderActions"
+        selectedNode={selectedNode}
+      />
+      <Divider />
+      <AutoComputedElementNameField label="Name" name="name" />
+      <DisplayIf condition={showFormControl}>
+        <FormController submitLabel="Create Element" />
+      </DisplayIf>
+    </Form>
+  )
+})
 
 CreateElementForm.displayName = 'CreateElementForm'

@@ -1,7 +1,8 @@
 import type {
   ElementWrapperProps,
+  IElementTreeViewDataNodePreview,
   IRuntimeComponentModel,
-  IRuntimeElementDTO,
+  IRuntimeElementDto,
   IRuntimeElementModel,
   IRuntimeElementPropModel,
   IRuntimeElementStyleModel,
@@ -68,7 +69,7 @@ const compositeKey = (
   return `${container.compositeKey}.${element.id}${instanceKeyToRoot}${propKey}`
 }
 
-const create = (dto: IRuntimeElementDTO) => new RuntimeElementModel(dto)
+const create = (dto: IRuntimeElementDto) => new RuntimeElementModel(dto)
 
 /**
  * In cases of `childMapper`, the `runtimeElement's` renderType matters. If `component` type, then these children are not rendered nor passed to component to render
@@ -292,18 +293,11 @@ export class RuntimeElementModel
     )
   }
 
+  /**
+   * Don't access this unless it's for constructing the tree, this will cause components to re-render
+   */
   @computed
   get treeViewNode(): IElementTreeViewDataNode {
-    const children = this.children.flatMap((child) =>
-      // if element is instance of component we render the element's children instead of component
-      isRuntimeComponent(child) && !child.isChildMapperComponentInstance
-        ? child.children.map(
-            // if element is instance of component we render the element's children instead of component
-            (instanceChild) => instanceChild.treeViewNode,
-          )
-        : [child.treeViewNode],
-    )
-
     const element = this.element.current
     const primaryTitle = element.treeTitle.primary
 
@@ -324,18 +318,38 @@ export class RuntimeElementModel
       ? 'Some props are not correctly set'
       : undefined
 
+    const children = this.children.flatMap((child) =>
+      // if element is instance of component we render the element's children instead of component
+      isRuntimeComponent(child) && !child.isChildMapperComponentInstance
+        ? child.children.map(
+            // if element is instance of component we render the element's children instead of component
+            (instanceChild) => instanceChild.treeViewNode,
+          )
+        : [child.treeViewNode],
+    )
+
     return {
+      ...this.treeViewNodePreview,
       atomMeta,
       children,
       componentMeta,
-      element: { id: this.element.current.id },
       errorMessage,
-      key: this.compositeKey,
       primaryTitle,
       rootKey: this.closestContainerNode.current.compositeKey,
       secondaryTitle,
       title: `${primaryTitle} (${secondaryTitle})`,
       type: IRuntimeNodeType.Element,
+    }
+  }
+
+  /**
+   * Create a separate version for common usage, this removes `children` property to help with re-rendering issues
+   */
+  @computed
+  get treeViewNodePreview(): IElementTreeViewDataNodePreview {
+    return {
+      element: { id: this.element.current.id },
+      key: this.compositeKey,
     }
   }
 

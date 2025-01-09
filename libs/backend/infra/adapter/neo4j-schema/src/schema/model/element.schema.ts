@@ -9,8 +9,8 @@ export const elementSchema = gql`
     compositeKey: String! @unique
     name: String! @customResolver(requires: "id compositeKey")
     slug: String! @customResolver(requires: "id compositeKey")
-    nextSibling: Element @relationship(type: "NODE_SIBLING", direction: IN)
-    prevSibling: Element @relationship(type: "NODE_SIBLING", direction: OUT)
+    nextSibling: Element @relationship(type: "NODE_SIBLING", direction: OUT)
+    prevSibling: Element @relationship(type: "NODE_SIBLING", direction: IN)
     firstChild: Element @relationship(type: "TREE_FIRST_CHILD", direction: IN)
     parentElement: Element
       @relationship(type: "TREE_FIRST_CHILD", direction: OUT)

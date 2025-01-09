@@ -28,3 +28,8 @@ export interface IElementTreeViewDataNode {
   toolbar?: React.ReactNode
   type: IRuntimeNodeType
 }
+
+export type IElementTreeViewDataNodePreview = Pick<
+  IElementTreeViewDataNode,
+  'element' | 'key'
+>

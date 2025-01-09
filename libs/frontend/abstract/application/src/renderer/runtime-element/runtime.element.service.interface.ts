@@ -2,12 +2,10 @@ import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { ObjectMap } from 'mobx-keystone'
 
-import type { IRuntimeComponentModel } from './runtime-component'
-import type {
-  ElementStylePseudoClass,
-  IRuntimeElementModel,
-} from './runtime-element'
-import type { IRuntimePageModel } from './runtime-page'
+import type { IRuntimeComponentModel } from '../runtime-component'
+import type { IRuntimePageModel } from '../runtime-page'
+import type { IRuntimeElementModel } from './runtime-element.model.interface'
+import type { ElementStylePseudoClass } from './runtime-element-style.model.interface'
 
 export interface IRuntimeElementService {
   currentStylePseudoClass: ElementStylePseudoClass

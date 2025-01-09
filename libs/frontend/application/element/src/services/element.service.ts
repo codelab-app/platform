@@ -159,17 +159,14 @@ export const useElementService = (): IElementService => {
   /**
    * If we don't memoize the return object, it will be recreated on each render, causing the calling component to re-render
    */
-  return useMemo(
-    () => ({
-      create,
-      createPopover,
-      deletePopover,
-      loadDependantTypes,
-      move,
-      remove: deleteElement,
-      syncModifiedElements,
-      update,
-    }),
-    [],
-  )
+  return {
+    create,
+    createPopover,
+    deletePopover,
+    loadDependantTypes,
+    move,
+    remove: deleteElement,
+    syncModifiedElements,
+    update,
+  }
 }

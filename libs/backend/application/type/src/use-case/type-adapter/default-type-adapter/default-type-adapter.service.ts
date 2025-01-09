@@ -170,7 +170,7 @@ export class DefaultTypeAdapterService implements ITypeTransformer {
   }
 
   // async arrayType(type: string): Promise<IArrayType> {
-  //   const arrayType: IArrayTypeDTO = {
+  //   const arrayType: IArrayTypeDto = {
   //     __typename: ITypeKind.ArrayType,
   //     itemType: { id: '' },
   //   }

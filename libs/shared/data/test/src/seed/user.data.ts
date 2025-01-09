@@ -50,4 +50,4 @@ export const userDto: IUserDto = {
   username: 'Codelab',
 }
 
-// export const userDto: IUserDTO = mapAuth0IdTokenToUserDto(auth0IdToken)
+// export const userDto: IUserDto = mapAuth0IdTokenToUserDto(auth0IdToken)

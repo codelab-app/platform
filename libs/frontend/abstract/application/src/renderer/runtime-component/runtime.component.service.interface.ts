@@ -2,8 +2,8 @@ import type { IComponentModel } from '@codelab/frontend/abstract/domain'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { ObjectMap } from 'mobx-keystone'
 
-import type { IRuntimeModel } from './runtime.model.interface'
-import type { IRuntimeComponentModel } from './runtime-component'
+import type { IRuntimeComponentModel } from '.'
+import type { IRuntimeModel } from '../runtime.model.interface'
 
 export interface IRuntimeComponentService {
   components: ObjectMap<IRuntimeComponentModel>
