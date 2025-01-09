@@ -168,6 +168,41 @@ const useEvent = ({
   logger.debug(`Event '${event}' triggered for component '${componentName}'`)
 }
 
+/**
+ * Hook that tracks if object references have changed between renders
+ */
+const useReferenceChange = (
+  context: string,
+  targets: Array<{ name: string; value: unknown }>,
+) => {
+  const prevRefs = useRef<Array<{ name: string; value: unknown }>>(targets)
+
+  useEffect(() => {
+    const changes = targets.map((target, index) => {
+      const prev = prevRefs.current[index]
+      const hasChanged = prev?.value !== target.value
+
+      return {
+        hasChanged,
+        name: target.name,
+      }
+    })
+
+    const hasAnyChange = changes.some((change) => change.hasChanged)
+
+    if (hasAnyChange) {
+      logger.debug('References changed', {
+        context,
+        data: {
+          changes: changes.filter((change) => change.hasChanged),
+        },
+      })
+    }
+
+    prevRefs.current = targets
+  })
+}
+
 export const tracker = {
   useEvent,
   useModelDiff,
