@@ -10,9 +10,7 @@ import type { GraphQLRequestContext } from 'graphql-request/build/cjs/types'
 import { ElementDependantTypesService } from '@codelab/backend/domain/element'
 import { TypeFactory } from '@codelab/backend/domain/type'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-
-import { name } from './field/element-name'
-import { slug } from './field/element-slug'
+import { ElementProperties } from '@codelab/shared-domain-module/element'
 
 export const ELEMENT_RESOLVER_PROVIDER = 'ELEMENT_RESOLVER_PROVIDER'
 
@@ -45,8 +43,20 @@ export const ElementResolverProvider: FactoryProvider<
     return {
       Element: {
         dependantTypes,
-        name,
-        slug,
+        /**
+         * `_compoundName` contains format `userId-name`, which allows page name to be unique across users.
+         *
+         * We can compute name by replacing the ID
+         */
+        name: (element: Element) => {
+          return ElementProperties.elementNameFromCompositeKey(element)
+        },
+        /**
+         * Takes the name and slugify it
+         */
+        slug: (element: Element) => {
+          return ElementProperties.elementSlugFromCompositeKey(element)
+        },
       },
       ElementRenderType: {
         __resolveType: (

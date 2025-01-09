@@ -5,7 +5,7 @@ import type { ObjectMap, Ref } from 'mobx-keystone'
 import {
   getRendererService,
   type IRuntimeActionModel,
-  type IRuntimeStoreDTO,
+  type IRuntimeStoreDto,
   type IRuntimeStoreModel,
   runtimeStoreRef,
 } from '@codelab/frontend/abstract/application'
@@ -26,7 +26,7 @@ import { keys } from 'remeda'
 
 import { RuntimeActionModel } from './runtime-action.model'
 
-const create = (dto: IRuntimeStoreDTO) => new RuntimeStoreModel(dto)
+const create = (dto: IRuntimeStoreDto) => new RuntimeStoreModel(dto)
 
 @model('@codelab/RuntimeStore')
 export class RuntimeStoreModel

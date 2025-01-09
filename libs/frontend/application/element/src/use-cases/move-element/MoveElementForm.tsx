@@ -101,7 +101,7 @@ export const MoveElementForm = observer<MoveElementFormProps>(
             component={observer((props) => {
               return (
                 <SelectExcludeDescendantsElements
-                  allElementOptions={elementOptions}
+                  elementOptions={elementOptions}
                   allowClear={false}
                   targetElementId={element.id}
                   // eslint-disable-next-line react/jsx-props-no-spreading, @typescript-eslint/no-explicit-any
@@ -112,7 +112,7 @@ export const MoveElementForm = observer<MoveElementFormProps>(
             name="parentElement.id"
           />
           <SelectLinkElement
-            allElementOptions={elementOptions}
+            elementOptions={elementOptions}
             name="prevSibling.id"
           />
         </MoveElementAutoForm>

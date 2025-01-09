@@ -1,7 +1,7 @@
 import type {
   IRuntimeActionModel,
   IRuntimeElementModel,
-  IRuntimeElementPropDTO,
+  IRuntimeElementPropDto,
   IRuntimeElementPropModel,
 } from '@codelab/frontend/abstract/application'
 import type { Ref } from 'mobx-keystone'
@@ -34,7 +34,7 @@ import { mergeDeep, pathOr, stringToPath } from 'remeda'
 
 import { CodeMirrorEditorWrapper, RichTextEditorWrapper } from '../components'
 
-const create = (dto: IRuntimeElementPropDTO) =>
+const create = (dto: IRuntimeElementPropDto) =>
   new RuntimeElementPropsModel(dto)
 
 @model('@codelab/RuntimeElementProps')

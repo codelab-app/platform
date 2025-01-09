@@ -94,7 +94,7 @@ describe('ComponentResolvers', () => {
     const rootElement = await elementRepository.add({
       closestContainerNode: { id: v4() },
       compositeKey: ElementProperties.elementCompositeKey(
-        'Component Root',
+        { name: 'Component Root' },
         componentRef,
       ),
       id: v4(),
@@ -111,7 +111,7 @@ describe('ComponentResolvers', () => {
     const childElement = await elementRepository.add({
       closestContainerNode: { id: v4() },
       compositeKey: ElementProperties.elementCompositeKey(
-        'Child Element',
+        { name: 'Child Element' },
         componentRef,
       ),
       id: v4(),

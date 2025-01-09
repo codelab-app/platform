@@ -12,18 +12,27 @@ import {
   prop,
 } from 'mobx-keystone'
 import * as React from 'react'
+import { Options, TransformResult } from 'sucrase'
 
 import { allAtoms } from '../atoms'
 
 @model('@codelab/ExpressionTransformer')
 export class ExpressionTransformer
   extends Model({
-    initialized: prop<boolean>(false),
+    initialized: prop<boolean>(false).withSetter(),
   })
   implements IExpressionTransformer
 {
+  /**
+   * Cannot assign non-serializable values to props such as React
+   */
   context: Nullable<ObjectLike> = null
 
+  /**
+   * We use a private class field instead of a mobx-keystone prop because
+   * the transform function from sucrase contains Symbol values which cannot
+   * be serialized/stored as props in mobx-keystone models.
+   */
   transform: Nullable<IExpressionTransformer['transform']> = null
 
   @modelFlow
@@ -32,7 +41,7 @@ export class ExpressionTransformer
 
     this.context = { atoms: allAtoms, React }
     this.transform = transform
-    this.initialized = true
+    this.setInitialized(true)
   })
 
   @modelAction

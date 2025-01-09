@@ -30,6 +30,10 @@ export const SelectComponent = ({
     getSelectComponentOptions(componentDomainService, activeComponent),
   )
 
+  console.log('result', result)
+
+  console.log('fieldProps', fieldProps)
+
   return (
     <SelectField
       {...fieldProps}

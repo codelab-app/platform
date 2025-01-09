@@ -2,6 +2,7 @@ import { getMaybeServerUser } from '@codelab/frontend-application-user/use-cases
 import { auth0ServerInstance } from '@codelab/shared-infra-auth0/server'
 import Button from 'antd/lib/button'
 import Link from 'next/link'
+import pino from 'pino'
 
 import { Subscriptions } from './components/subscriptions'
 

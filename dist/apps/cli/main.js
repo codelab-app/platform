@@ -40,67 +40,13 @@ var __webpack_exports__ = {};
 const core_namespaceObject = require("@nestjs/core");
 ;// external "tslib"
 const external_tslib_namespaceObject = require("tslib");
-;// external "chalk"
-const external_chalk_namespaceObject = require("chalk");
-var external_chalk_default = /*#__PURE__*/__webpack_require__.n(external_chalk_namespaceObject);
 ;// external "pino"
 const external_pino_namespaceObject = require("pino");
 var external_pino_default = /*#__PURE__*/__webpack_require__.n(external_pino_namespaceObject);
 ;// external "pino-pretty"
 const external_pino_pretty_namespaceObject = require("pino-pretty");
 var external_pino_pretty_default = /*#__PURE__*/__webpack_require__.n(external_pino_pretty_namespaceObject);
-;// external "remeda"
-const external_remeda_namespaceObject = require("remeda");
-;// ../../libs/shared/utils/src/prettify/prettify.ts
-const prettifyForConsole = (object) => {
-    return JSON.stringify(object, null, 2);
-};
-
-;// external "@pinojs/json-colorizer"
-const json_colorizer_namespaceObject = require("@pinojs/json-colorizer");
-var json_colorizer_default = /*#__PURE__*/__webpack_require__.n(json_colorizer_namespaceObject);
-;// ../../libs/shared/infra/logging/src/pino/utils.ts
-
-
-const formatNestLikeDate = (timestamp) => {
-    if (typeof timestamp !== 'number') {
-        throw new Error('Timestamp needs to be type number');
-    }
-    const date = new Date(timestamp);
-    const formattedDate = date.toLocaleString('en-US', {
-        day: '2-digit',
-        hour: 'numeric',
-        hour12: true,
-        minute: '2-digit',
-        month: '2-digit',
-        second: '2-digit',
-        year: 'numeric',
-    });
-    return formattedDate;
-};
-const colorize = (object) => {
-    // Assuming message is a JSON object. If it's a string, you may not need JSON.stringify
-    // Adjust this based on the actual data structure of your messages
-    const messageString = typeof object === 'object' ? prettifyForConsole(object) : object;
-    return json_colorizer_default()(messageString, {
-        colors: {
-            BOOLEAN_LITERAL: 'white',
-            BRACE: 'white',
-            BRACKET: 'white',
-            COLON: 'white',
-            COMMA: 'white',
-            NULL_LITERAL: 'white',
-            NUMBER_LITERAL: 'white',
-            STRING_KEY: 'white',
-            STRING_LITERAL: 'green',
-        },
-    });
-};
-
 ;// ../../libs/shared/infra/logging/src/pino/pino-transport.ts
-
-
-
 
 
 const levelsLabels = (external_pino_default()).levels.labels;
@@ -108,35 +54,44 @@ const pinoPrettyStream = external_pino_pretty_default()({
     colorize: true,
     // errorLikeObjectKeys: ['err', 'error'],
     /**
-     * We hide them here, since can't control these order. Instead move them to the message
+     * Yes, Pino automatically adds req and res objects to the logs when used with nestjs-pino because it's designed to work as HTTP middleware by default.
+     *
+     * These keys are added by `this.logger.assign()`
      */
-    ignore: 'time,pid,hostname,context,req,res,responseTime,level',
+    // ignore: 'time,pid,hostname,context,req,res,responseTime,level',
+    ignore: 'pid,hostname,req,res',
     // levelFirst: false,
     // NestJS-like timestamp
     /**
      * This time appears in front of message, cannot find a way to move it.
+     *
+     * Pino emphasizes machine readability, so it uses single json line
      */
     // translateTime: 'SYS:mm/dd/yyyy hh:mm:ss TT',
-    messageFormat: (log, messageKey, levelLabel) => {
-        // console.log(log, messageKey, levelLabel)
-        const message = JSON.parse(log[messageKey]);
-        const level = log['level'];
-        const hostname = log['hostname'];
-        const time = log['time'];
-        const pid = log['pid'];
-        /**
-         * Be careful of `context` and `message`, since `LoggerService.info` has method override
-         */
-        // const context = log['context']
-        const context = message.context;
-        const object = message.object;
-        /**
-         * Pino combines all data into a single object, need to extract user data
-         */
-        const data = (0,external_remeda_namespaceObject.omit)(log, ['level', 'time', 'hostname', 'pid', 'req', 'msg']);
-        return `${external_chalk_default().green('[Pino]')} ${external_chalk_default().green(pid)}  ${external_chalk_default().green('-')} ${external_chalk_default().whiteBright(formatNestLikeDate(time))}     ${external_chalk_default().green(levelsLabels[level]?.toUpperCase())} ${external_chalk_default().yellow(`[${context}]`)}\n${colorize(object)}`;
-    },
-    // singleLine: false,
+    // messageFormat: (log, messageKey, levelLabel) => {
+    //   // console.log(log, messageKey, levelLabel)
+    //   const message = JSON.parse(log[messageKey] as string) as LogOptions
+    //   const level = log['level'] as number
+    //   const hostname = log['hostname']
+    //   const time = log['time']
+    //   const pid = log['pid']
+    //   /**
+    //    * Be careful of `context` and `message`, since `LoggerService.info` has method override
+    //    */
+    //   // const context = log['context']
+    //   const context = message.context
+    //   const object = message.object ?? {}
+    //   /**
+    //    * Pino combines all data into a single object, need to extract user data
+    //    */
+    //   const data = omit(log, ['level', 'time', 'hostname', 'pid', 'req', 'msg'])
+    //   return `${chalk.green('[Pino]')} ${chalk.green(pid)}  ${chalk.green(
+    //     '-',
+    //   )} ${chalk.whiteBright(formatNestLikeDate(time))}     ${chalk.green(
+    //     levelsLabels[level]?.toUpperCase(),
+    //   )} ${chalk.yellow(`[${context}]`)}\n${colorize(object)}`
+    // },
+    // singleLine: true,
     sync: true,
 });
 
@@ -146,19 +101,33 @@ const common_namespaceObject = require("@nestjs/common");
 const config_namespaceObject = require("@nestjs/config");
 ;// external "nestjs-pino"
 const external_nestjs_pino_namespaceObject = require("nestjs-pino");
+;// external "remeda"
+const external_remeda_namespaceObject = require("remeda");
 ;// external "env-var"
 const external_env_var_namespaceObject = require("env-var");
 ;// ../../libs/backend/infra/adapter/logger/src/logger.config.ts
 
 
-const LOGGER_CONFIG_KEY = 'logger';
-const loggerConfig = (0,config_namespaceObject.registerAs)(LOGGER_CONFIG_KEY, () => {
+const loggerConfig = (0,config_namespaceObject.registerAs)('LOGGER_CONFIG', () => {
     return {
         get level() {
-            return external_env_var_namespaceObject.get('API_LOG_LEVEL').default('debug').asString();
+            /**
+             * https://github.com/iamolegga/nestjs-pino
+             */
+            return external_env_var_namespaceObject.get('API_LOG_LEVEL')
+                .default('info')
+                .asEnum(['trace', 'debug', 'info', 'warn', 'error', 'fatal']);
         },
         get sentryDsn() {
             return external_env_var_namespaceObject.get('SENTRY_DSN').required().asString();
+        },
+        get context() {
+            const contexts = external_env_var_namespaceObject.get('API_LOG_CONTEXT')
+                .default('')
+                .asString()
+                .split(',')
+                .filter(Boolean);
+            return contexts;
         },
     };
 });
@@ -181,8 +150,11 @@ var _a, _b, _c;
 
 
 
+/**
+ * So Nest.js only has two parameters, the first one being the message and the last one being the context. Any other parameters in the middle are ignored.
+ */
 let PinoLoggerService = class PinoLoggerService extends external_nestjs_pino_namespaceObject.Logger {
-    constructor(logger, params, loggerConf) {
+    constructor(logger, params, config) {
         super(logger, {
             ...params,
         });
@@ -192,34 +164,34 @@ let PinoLoggerService = class PinoLoggerService extends external_nestjs_pino_nam
             writable: true,
             value: logger
         });
-        Object.defineProperty(this, "loggerConf", {
+        Object.defineProperty(this, "config", {
             enumerable: true,
             configurable: true,
             writable: true,
-            value: loggerConf
+            value: config
         });
     }
     /**
-     * We follow nestjs param order, which differs from pino param order
-     *
-     * Watch out for `info()` method override
+     * We create a 2 parameter log function, but extract the context as last parameter, while combining the data with first parameter
      */
-    log(object = {}, context) {
-        /**
-         * We can't use this, since cannot control how the object is colorized before printing
-         *
-         * We combine everything into an object, then convert to string, then recreate the object in the transport
-         */
-        // this.logger.info(object, message)
-        const pinoMessage = {
-            context,
-            object,
-        };
-        const message = JSON.stringify(pinoMessage);
-        this.logger.info(message);
+    log(message, options) {
+        const context = options?.context ?? '';
+        const includeDataForContext = this.config.context.includes(context);
+        if (includeDataForContext) {
+            return super.log({
+                message,
+                data: options?.data,
+            }, context);
+        }
+        super.log({
+            message,
+        }, context);
     }
     logToFile(object = {}, filePath = 'tmp/logs/application.log') {
-        console.log('Logging to file...', filePath);
+        this.log('Logging to file...', {
+            context: 'FileLogger',
+            data: { filePath },
+        });
         const childLogger = external_pino_default()({
             transport: {
                 options: {
@@ -270,27 +242,35 @@ CodelabLoggerModule = (0,external_tslib_namespaceObject.__decorate)([
                         pinoHttp: {
                             // Disable HTTP requests logging
                             autoLogging: false,
-                            // Turn of using `API_LOG_LEVEL`
+                            // Turn off using `API_LOG_LEVEL`
                             enabled: true,
-                            level: config.level,
-                            /**
-                             * https://stackoverflow.com/a/74100511/2159920
-                             *
-                             * Enable synchronous logging
-                             */
-                            // stream: pino.destination({
-                            //   sync: true,
-                            //   // write: (message: string) => {
-                            //   //   console.log(colorizer(message))
-                            //   // },
-                            // }),
                             // Doesn't prefix in front of date
                             // msgPrefix: '[API]',
                             // Set Pino to synchronous mode
+                            formatters: {
+                                bindings: (bindings) => {
+                                    return {
+                                        ...bindings,
+                                        pid: bindings['pid'],
+                                    };
+                                },
+                            },
+                            level: config.level,
+                            mixin: (context) => {
+                                return context;
+                            },
                             serializers: {
+                                /**
+                                 * Request object is automatically added to the log by nestjs-pino
+                                 */
                                 req: (req) => {
-                                    // Do omission instead of pick as to document the keys
-                                    return (0,external_remeda_namespaceObject.omit)(req, ['id', 'headers']);
+                                    // Use omit instead of pick so we know what keys are being removed
+                                    return (0,external_remeda_namespaceObject.omit)(req, [
+                                        'id',
+                                        'headers',
+                                        'remoteAddress',
+                                        'remotePort',
+                                    ]);
                                 },
                                 // res: (res) => {
                                 //   return {
@@ -299,16 +279,12 @@ CodelabLoggerModule = (0,external_tslib_namespaceObject.__decorate)([
                                 //   }
                                 // },
                             },
+                            /**
+                             * https://stackoverflow.com/a/74100511/2159920
+                             *
+                             * Enable synchronous logging
+                             */
                             stream: pinoPrettyStream,
-                            // Prettify and colorize log
-                            // transport:
-                            //   process.env['NODE_ENV'] !== 'production'
-                            //     ? {
-                            //         options: transportOptions,
-                            //         // target: 'pino-pretty',
-                            //         target: require.resolve('./pino-transport'),
-                            //       }
-                            //     : undefined,
                         },
                     };
                 },
@@ -1110,7 +1086,8 @@ var Tasks;
 })(Tasks || (Tasks = {}));
 
 ;// ../../libs/backend/infra/adapter/cli/src/commands/tasks/tasks.service.ts
-var tasks_service_a;
+var tasks_service_a, tasks_service_b;
+
 
 
 
@@ -1126,12 +1103,18 @@ var tasks_service_a;
 
 
 let TaskService = class TaskService {
-    constructor(lazyModuleLoader) {
+    constructor(lazyModuleLoader, logger) {
         Object.defineProperty(this, "lazyModuleLoader", {
             enumerable: true,
             configurable: true,
             writable: true,
             value: lazyModuleLoader
+        });
+        Object.defineProperty(this, "logger", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: logger
         });
         Object.defineProperty(this, "command", {
             enumerable: true,
@@ -1153,43 +1136,78 @@ let TaskService = class TaskService {
             .middleware([loadStageMiddleware])
             .command(Tasks.Build, 'Build projects', (argv) => argv, globalHandler(({ stage }) => {
             if (stage === Stage.Test) {
+                this.logger.log('Building projects', {
+                    context: 'TaskService',
+                    data: { stage },
+                });
                 // Added since many times can't find production build of next during push
                 // Maybe related? https://github.com/nrwl/nx/issues/2839
                 execCommand('nx affected --target=build -c test');
             }
             if (stage === Stage.CI) {
+                this.logger.log('Building projects', {
+                    context: 'TaskService',
+                    data: { stage },
+                });
                 // Can't use on CI since no `cli` yet
             }
         }))
             .command(Tasks.Unit, 'Run unit tests', (argv) => argv, globalHandler(({ stage }) => {
             if (stage === Stage.Test) {
+                this.logger.log('Running unit tests', {
+                    context: 'TaskService',
+                    data: { stage },
+                });
                 // Added since many times can't find production build of next during push
                 // Maybe related? https://github.com/nrwl/nx/issues/2839
                 // execCommand(`nx build web -c test`)
                 execCommand('nx affected --target=test -c test.unit');
             }
             if (stage === Stage.CI) {
+                this.logger.log('Running unit tests', {
+                    context: 'TaskService',
+                    data: { stage },
+                });
                 execCommand('pnpm nx affected --target=test -c ci.unit --ci');
             }
         }))
             .command(Tasks.Int, 'Run integration tests', (argv) => argv, globalHandler(({ stage }) => {
             if (stage === Stage.Test) {
+                this.logger.log('Running integration tests', {
+                    context: 'TaskService',
+                    data: { stage },
+                });
                 execCommand('nx affected --target=test -c test.integration --parallel=1');
             }
             if (stage === Stage.CI) {
+                this.logger.log('Running integration tests', {
+                    context: 'TaskService',
+                    data: { stage },
+                });
                 execCommand('pnpm nx affected --target=test -c ci.integration --runInBand --ci --parallel=1');
             }
         }))
             .command(Tasks.GraphqlCodegen, 'Run codegen', (argv) => argv, globalHandler(async ({ stage }) => {
             if (stage === Stage.Dev) {
+                this.logger.log('Running codegen', {
+                    context: 'TaskService',
+                    data: { stage },
+                });
                 if (!(await external_is_port_reachable_default()(4000, { host: '127.0.0.1' }))) {
-                    console.error('Please start server!');
+                    this.logger.error('Server not reachable', {
+                        context: 'TaskService',
+                        data: { port: 4000 },
+                    });
                     process.exit(0);
                 }
                 execCommand('pnpm graphql-codegen --config ./scripts/codegen/codegen.ts');
                 process.exit(0);
             }
             if (stage === Stage.CI) {
+                this.logger.log('Running codegen', {
+                    context: 'TaskService',
+                    data: { stage },
+                });
                 const startServer = 'nx serve api -c ci';
                 const runSpecs = "pnpm wait-on 'tcp:127.0.0.1:4000' && pnpm graphql-codegen --config ./scripts/codegen/codegen.ts && exit 0";
                 const runSpecsChildProcess = (0,external_child_process_namespaceObject.spawn)(runSpecs, {
@@ -1205,13 +1223,20 @@ let TaskService = class TaskService {
                 await new Promise((resolve, reject) => {
                     runSpecsChildProcess.on('exit', async (code) => {
                         if (!startServerChildProcess.pid) {
+                            this.logger.error('Server process pid not defined', {
+                                context: 'TaskService',
+                                data: { pid: startServerChildProcess.pid },
+                            });
                             reject(new Error('startServerChildProcess.pid is not defined'));
                             return;
                         }
                         try {
                             process.kill(-startServerChildProcess.pid, 'SIGINT');
                             const { unCommittedFiles } = await external_git_changed_files_default()();
-                            console.log('Un-committed files', unCommittedFiles);
+                            this.logger.log('Checking uncommitted files', {
+                                context: 'TaskService',
+                                data: { unCommittedFiles },
+                            });
                             const containsGeneratedFiles = unCommittedFiles.reduce((_matches, file) => {
                                 const filename = external_path_default().basename(file);
                                 return (_matches ||
@@ -1220,17 +1245,27 @@ let TaskService = class TaskService {
                             }, false);
                             if (containsGeneratedFiles) {
                                 execCommand('git diff');
-                                console.error('Please run codegen!');
+                                this.logger.error('Generated files not committed', {
+                                    context: 'TaskService',
+                                    data: { containsGeneratedFiles },
+                                });
                                 process.exit(1);
                             }
                             resolve();
                         }
                         catch (error) {
-                            console.error(error);
+                            this.logger.error('Error in codegen process', {
+                                context: 'TaskService',
+                                data: { error },
+                            });
                             reject(error);
                         }
                     });
                     runSpecsChildProcess.on('error', (error) => {
+                        this.logger.error('Error in specs process', {
+                            context: 'TaskService',
+                            data: { error },
+                        });
                         reject(error);
                     });
                 });
@@ -1238,22 +1273,40 @@ let TaskService = class TaskService {
         }))
             .command(Tasks.WorkspaceCodegen, 'Generate workspace', (argv) => argv, globalHandler(async ({ stage }) => {
             if (stage === Stage.CI) {
+                this.logger.log('Generating workspace', {
+                    context: 'TaskService',
+                    data: { stage },
+                });
                 execCommand('pnpm nx generate @codelab/tools-workspace:nx-project-config --no-interactive');
                 const { unCommittedFiles } = await external_git_changed_files_default()();
-                console.log('Un-committed files', unCommittedFiles);
+                this.logger.log('Checking workspace uncommitted files', {
+                    context: 'TaskService',
+                    data: { unCommittedFiles },
+                });
                 if (unCommittedFiles.length) {
                     execCommand('git diff');
-                    console.error('Please generate workspace!');
+                    this.logger.error('Workspace changes not committed', {
+                        context: 'TaskService',
+                        data: { unCommittedFiles },
+                    });
                     process.exit(1);
                 }
             }
         }))
             .command(Tasks.Lint, 'Lint projects', (argv) => argv, globalHandler(({ stage }) => {
             if (stage === Stage.Test) {
+                this.logger.log('Running lint', {
+                    context: 'TaskService',
+                    data: { stage },
+                });
                 execCommand('pnpm cross-env TIMING=1 lint-staged');
                 execCommand('pnpm ls-lint');
             }
             if (stage === Stage.CI) {
+                this.logger.log('Running lint', {
+                    context: 'TaskService',
+                    data: { stage },
+                });
                 execCommand('pnpm nx affected --target=lint -c ci');
                 // Below breaks cache
                 // execCommand(
@@ -1266,9 +1319,17 @@ let TaskService = class TaskService {
         }))
             .command(`${Tasks.Commitlint} [edit]`, 'Commitlint projects', (argv) => argv, globalHandler(({ edit, stage }) => {
             if (stage === Stage.Test) {
+                this.logger.log('Running commitlint', {
+                    context: 'TaskService',
+                    data: { edit, stage },
+                });
                 execCommand(`pnpm --no-install commitlint --edit ${edit}`);
             }
             if (stage === Stage.CI) {
+                this.logger.log('Running commitlint', {
+                    context: 'TaskService',
+                    data: { stage },
+                });
                 execCommand('./scripts/lint/commitlint-ci.sh');
             }
         }))
@@ -1280,7 +1341,7 @@ let TaskService = class TaskService {
 };
 TaskService = (0,external_tslib_namespaceObject.__decorate)([
     (0,common_namespaceObject.Injectable)(),
-    (0,external_tslib_namespaceObject.__metadata)("design:paramtypes", [typeof (tasks_service_a = typeof core_namespaceObject.LazyModuleLoader !== "undefined" && core_namespaceObject.LazyModuleLoader) === "function" ? tasks_service_a : Object])
+    (0,external_tslib_namespaceObject.__metadata)("design:paramtypes", [typeof (tasks_service_a = typeof core_namespaceObject.LazyModuleLoader !== "undefined" && core_namespaceObject.LazyModuleLoader) === "function" ? tasks_service_a : Object, typeof (tasks_service_b = typeof PinoLoggerService !== "undefined" && PinoLoggerService) === "function" ? tasks_service_b : Object])
 ], TaskService);
 
 

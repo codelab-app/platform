@@ -32,11 +32,11 @@ export class PageDomainService
     return page
   }
 
-  findById(id: string) {
-    const found = this.pages.get(id)
+  page(id: string) {
+    const page = this.pages.get(id)
 
-    Validator.assertsDefined(found)
+    Validator.assertsDefined(page)
 
-    return found
+    return page
   }
 }

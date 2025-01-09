@@ -1,3 +1,3 @@
-const Page = () => null
+import Page from './page'
 
 export default Page

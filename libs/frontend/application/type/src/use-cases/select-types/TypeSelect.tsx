@@ -1,3 +1,5 @@
+import type { SelectOption } from '@codelab/frontend/abstract/types'
+
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import { useAsyncFn } from 'react-use'
@@ -31,7 +33,7 @@ export const TypeSelect = observer<TypeSelectProps>(({ label, name }) => {
     typeDomainService.types.get(typeId),
   )
 
-  const typeOptions = pipe(
+  const typeOptions: Array<SelectOption> = pipe(
     [...currentTypes, ...data],
     filter(isTruthy),
     uniqueBy(prop('id')),

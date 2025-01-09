@@ -46,7 +46,7 @@ export const ElementContextMenu = observer<
   const { builderService, runtimeElementService } = useApplicationStore()
   const { elementDomainService } = useDomainStore()
   const componentService = useComponentService()
-  const { createPopover, deletePopover, getElement } = useElementService()
+  const { createPopover, deletePopover } = useElementService()
   const router = useRouter()
   const { appId, componentId, pageId } = useUrlPathParams()
 

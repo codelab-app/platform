@@ -5,7 +5,7 @@ import { appRepository } from '@codelab/frontend-domain-app/repositories'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
 
-import { DomainListContainer } from './page.container'
+import { DomainListConnector } from './page.connector'
 
 export const metadata: Metadata = {
   // description: '...',
@@ -27,7 +27,7 @@ const DomainsPage = async ({
         domainsDto={domainsDto}
         fallback={<Spinner />}
       >
-        <DomainListContainer appId={appId} />
+        <DomainListConnector appId={appId} />
       </DomainStoreHydrator>
     </ContentSection>
   )

@@ -43,6 +43,17 @@ export interface IElementModel extends IModel<IElementDto, IElementModel> {
   atomName: string
   childMapperComponent?: Nullable<Ref<IComponentModel>>
   childMapperPreviousSibling?: Nullable<Ref<IElementModel>>
+  /**
+   * One element E1 will have childMapperPropKey that points to a prop which has an array of values.
+   *
+   * For each on these values we render a component `childMapperComponent` as a child of E1 passing `this` value as prop for this component.
+   *
+   * Because E1 will contain other children we need chose what is the rendering position of this array of components
+   *
+   * It can also use `js` to directly input the data `{{[{ name: "test 1" }, { name: "test 2" }]}}`
+   *
+   * TLDR; a pointer to the array of props for the components
+   */
   childMapperPropKey?: Nullable<string>
   children: Array<IElementModel>
   // the closest container node that element belongs to

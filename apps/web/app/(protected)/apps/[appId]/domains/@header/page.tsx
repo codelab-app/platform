@@ -2,7 +2,7 @@ import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { appRepository } from '@codelab/frontend-domain-app/repositories'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 
-import { DomainsPageHeaderContainer } from './page.container'
+import { DomainsPageHeaderConnector } from './page.connector'
 
 const DomainsHeaderPage = async ({
   params: { appId },
@@ -13,7 +13,7 @@ const DomainsHeaderPage = async ({
 
   return (
     <DomainStoreHydrator appsDto={appsDto} fallback={<Spinner />}>
-      <DomainsPageHeaderContainer appId={appId} />
+      <DomainsPageHeaderConnector appId={appId} />
     </DomainStoreHydrator>
   )
 }

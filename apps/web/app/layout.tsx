@@ -5,6 +5,7 @@ import { cn } from '@cui/utils'
 import { getActiveSpan } from '@sentry/react'
 import { setGlobalConfig } from 'mobx-keystone'
 import { Inter, Montserrat, Nunito } from 'next/font/google'
+import pino from 'pino'
 
 setGlobalConfig({
   showDuplicateModelNameWarnings: process.env.NODE_ENV === 'production',
@@ -30,15 +31,16 @@ const nunito = Nunito({
 
 const fontClasses = cn(inter.variable, montserrat.variable, nunito.variable)
 
-export const metadata = {
-  description: 'Codelab platform',
-  title: 'Codelab',
-}
+// export const metadata = {
+//   description: 'Codelab platform',
+//   title: 'Codelab',
+// }
 
-const RootLayout = ({ children }: { children: React.ReactNode }) => {
-  const span = getActiveSpan()
+const RootLayout = async ({ children }: { children: React.ReactNode }) => {
+  // void setupFileLogs()
 
-  span?.addEvent('RootLayout')
+  // logger.log('RootLayout rendered')
+
   // useTwindConfig(config)
 
   return (

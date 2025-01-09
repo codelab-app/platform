@@ -1,5 +1,6 @@
 import type {
-  IRuntimeComponentDTO,
+  IElementTreeViewDataNodePreview,
+  IRuntimeComponentDto,
   IRuntimeComponentModel,
   IRuntimeComponentPropModel,
   IRuntimeModel,
@@ -59,7 +60,7 @@ const compositeKey = (
   }${instanceKeyToRoot}${propKey}${childMapperIndex}`
 }
 
-const create = (dto: IRuntimeComponentDTO) =>
+const create = (dto: IRuntimeComponentDto) =>
   new RuntimeComponentModel({
     ...dto,
     component: componentRef(dto.component),
@@ -140,13 +141,13 @@ export class RuntimeComponentModel
   @computed
   get treeViewNode(): IElementTreeViewDataNode {
     return {
+      ...this.treeViewNodePreview,
       // hide children for child mapper instances
       children: this.isChildMapperComponentInstance
         ? []
         : [this.runtimeRootElement.treeViewNode],
       component: { id: this.component.current.id },
       isChildMapperComponentInstance: this.isChildMapperComponentInstance,
-      key: this.compositeKey,
       primaryTitle: this.isChildMapperComponentInstance
         ? `${this.component.current.name} ${this.childMapperIndex}`
         : this.component.current.name,
@@ -156,6 +157,13 @@ export class RuntimeComponentModel
         : '',
       selectable: !this.isChildMapperComponentInstance,
       type: IRuntimeNodeType.Component,
+    }
+  }
+
+  @computed
+  get treeViewNodePreview(): IElementTreeViewDataNodePreview {
+    return {
+      key: this.compositeKey,
     }
   }
 

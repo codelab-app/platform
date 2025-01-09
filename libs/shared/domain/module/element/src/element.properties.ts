@@ -1,18 +1,22 @@
-import type { IRef } from '@codelab/shared/abstract/core'
+import type { IElementDto, IRef } from '@codelab/shared/abstract/core'
 import type { Element } from '@codelab/shared/infra/gql'
 import type { DeepPick } from 'ts-essentials'
 
-import { removeUuidAndDashPrefix, titleCase } from '@codelab/shared/utils'
+import {
+  removeUuidAndDashPrefix,
+  slugify,
+  titleCase,
+} from '@codelab/shared/utils'
 
 interface ElementData {
   compositeKey: never
 }
 
 const elementCompositeKey = (
-  elementName: string,
+  element: Pick<IElementDto, 'name'>,
   closestContainerNode: IRef,
 ) => {
-  return `${closestContainerNode.id}-${elementName}`
+  return `${closestContainerNode.id}-${slugify(element.name)}`
 }
 
 const elementNameFromCompositeKey = (

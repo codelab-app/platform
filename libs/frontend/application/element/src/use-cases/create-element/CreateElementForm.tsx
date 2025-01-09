@@ -4,17 +4,24 @@ import type { IRuntimeModel } from '@codelab/frontend/abstract/application'
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import type { IFormController } from '@codelab/frontend/abstract/types'
 import type { IElementDto } from '@codelab/shared/abstract/core'
-import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
+import type {
+  ObjectLike,
+  UniformSelectFieldProps,
+} from '@codelab/shared/abstract/types'
 
 import { isAtom } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
+import { tracker } from '@codelab/frontend/infra/logger'
 import {
   SelectActionsField,
   SelectAnyElement,
 } from '@codelab/frontend/presentation/components/interface-form'
 import { useUser } from '@codelab/frontend-application-user/services'
 import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend-infra-mobx/context'
 import {
   Form,
   FormController,
@@ -22,7 +29,11 @@ import {
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { Divider } from 'antd'
+import { diff } from 'deep-object-diff'
+import { getSnapshot } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
+import { isEqual } from 'radash'
+import { useEffect, useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 
@@ -35,137 +46,145 @@ import { useRequiredParentValidator } from '../../validation/useRequiredParentVa
 import { createElementSchema } from './create-element.schema'
 
 interface CreateElementFormProps extends IFormController {
-  // Prevent builder ciricular dep
+  // Prevent builder circular dep
   selectedNode?: IRuntimeModel
   showFormControl?: boolean
-  treeElements?: Array<IElementModel>
 }
 
-export const CreateElementForm = observer<CreateElementFormProps>(
-  ({
+/**
+ * The `observer` here is causing the form to re-render when we create new element. It's odd at first since why would the parent change if we're using siblings to represent the children.
+ *
+ * Turns out newly added are inserted as first child, which is changing the parent's properties, and causing the observability to re-render. Instead, we add the element as next sibling of the last child.
+ */
+export const CreateElementForm = observer<CreateElementFormProps>((props) => {
+  // Destructure to pass into tracker hooks
+  const {
     onSubmitSuccess,
     selectedNode,
     showFormControl = true,
     submitRef,
-    treeElements,
-  }) => {
-    const { atomDomainService } = useDomainStore()
-    const user = useUser()
-    const elementService = useElementService()
-    const { validateParentForCreate } = useRequiredParentValidator()
-    const selectedElementId = selectedNode?.treeViewNode.element?.id
+  } = props
 
-    if (!selectedElementId) {
-      return null
-    }
+  const { atomDomainService, elementDomainService } = useDomainStore()
+  const user = useUser()
+  const { validateParentForCreate } = useRequiredParentValidator()
+  /**
+   * Accessing `treeViewNode` is causing the form to re-render, but we don't see it because we're accessing the element id, which is not changing.
+   */
+  const selectedElementId = selectedNode?.treeViewNodePreview.element?.id
 
-    const parentElement = elementService.getElement(selectedElementId)
-    const elementOptions = treeElements?.map(mapElementOption)
+  console.log(selectedElementId)
 
-    const onSubmit = (data: IElementDto) => {
-      const isValidParent = validateParentForCreate(
-        data.renderType.id,
-        data.parentElement?.id,
-      )
+  const elementService = useElementService()
 
-      if (!isValidParent) {
-        return Promise.reject()
-      }
+  // tracker.useRenderedCount('CreateElementForm')
+  // tracker.usePropsDiff('CreateElementForm', props)
+  // tracker.useReferenceChange('Service references', [
+  //   { name: 'elementService', value: elementService },
+  //   { name: 'atomDomainService', value: atomDomainService },
+  //   { name: 'elementDomainService', value: elementDomainService },
+  // ])
 
-      if (data.prevSibling) {
-        delete data.parentElement
-      }
+  // If we rely on the parentElement object for state, let's track it too
+  const parentElement = elementDomainService.elements.get(
+    selectedElementId ?? '',
+  )
 
-      return elementService.create(data)
-    }
+  if (!parentElement) {
+    return null
+  }
 
-    const model = {
-      closestContainerNode: {
-        id: parentElement.closestContainerNode.id,
-      },
-      id: v4(),
-      owner: user.auth0Id,
-      parentElement: {
-        id: parentElement.id,
-      },
-      props: {
-        api: { id: v4() },
-        data: '{}',
-        id: v4(),
-      },
-      renderType: {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        __typename: IElementRenderTypeKind.Atom,
-        id: atomDomainService.defaultRenderType.id,
-      },
-      // TODO: Couldn't we only validate when field is changed or submitted?
-      // Needs to be null initially so that required sub-fields
-      // are not validated when nothing is selected yet
-      // renderType: null,
-    }
-
-    const parentAtom = isAtom(parentElement.renderType.current)
-      ? parentElement.renderType.current
-      : undefined
-
-    return (
-      <Form<ICreateElementDto>
-        cssString="position: relative;"
-        errorMessage="Error while creating element"
-        model={model}
-        onSubmit={onSubmit}
-        onSubmitSuccess={onSubmitSuccess}
-        schema={createElementSchema}
-        submitRef={submitRef}
-        uiKey={UiKey.ElementFormCreate}
-      >
-        <AutoFields
-          omitFields={[
-            'id',
-            'parentElement',
-            'style',
-            'propsData',
-            'prevSibling',
-            'preRenderActions',
-            'postRenderActions',
-            'renderType',
-            'name',
-            'tailwindClassNames',
-          ]}
-        />
-        <AutoField
-          component={(props: UniformSelectFieldProps) => (
-            <SelectAnyElement
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              {...props}
-              allElementOptions={elementOptions}
-            />
-          )}
-          help={`only elements from \`${parentElement.closestContainerNode.name}\` are visible in this list`}
-          name="parentElement.id"
-        />
-        {/** We likely won't expose this, since it is difficult for users to understand this. The real world scenario would always create under parent, then drag to re-arrange */}
-        {/* <SelectLinkElement
-          allElementOptions={elementOptions}
-          name="prevSibling.id"
-        /> */}
-        <RenderTypeField name="renderType" parentAtom={parentAtom} />
-        <SelectActionsField
-          name="preRenderActions"
-          selectedNode={selectedNode}
-        />
-        <SelectActionsField
-          name="postRenderActions"
-          selectedNode={selectedNode}
-        />
-        <Divider />
-        <AutoComputedElementNameField label="Name" name="name" />
-        <DisplayIf condition={showFormControl}>
-          <FormController submitLabel="Create Element" />
-        </DisplayIf>
-      </Form>
+  const onSubmit = (data: IElementDto) => {
+    const isValidParent = validateParentForCreate(
+      data.renderType.id,
+      data.parentElement?.id,
     )
-  },
-)
+
+    if (!isValidParent) {
+      return Promise.reject()
+    }
+
+    if (parentElement.children.length > 0) {
+      data.prevSibling =
+        parentElement.children[parentElement.children.length - 1]
+      data.parentElement = null
+    }
+
+    return elementService.create(data)
+  }
+
+  const model = {
+    closestContainerNode: {
+      id: parentElement.closestContainerNode.id,
+    },
+    id: v4(),
+    owner: user.auth0Id,
+    parentElement: {
+      id: parentElement.id,
+    },
+    props: {
+      api: { id: v4() },
+      data: '{}',
+      id: v4(),
+    },
+    renderType: {
+      __typename: IElementRenderTypeKind.Atom, // eslint-disable-line @typescript-eslint/naming-convention
+      id: atomDomainService.defaultRenderType.id,
+    },
+  }
+
+  const parentAtom = isAtom(parentElement.renderType.current)
+    ? parentElement.renderType.current
+    : undefined
+
+  return (
+    <Form<ICreateElementDto>
+      cssString="position: relative;"
+      errorMessage="Error while creating element"
+      model={model}
+      onSubmit={onSubmit}
+      onSubmitSuccess={onSubmitSuccess}
+      schema={createElementSchema}
+      submitRef={submitRef}
+      uiKey={UiKey.ElementFormCreate}
+    >
+      <AutoFields
+        omitFields={[
+          'id',
+          'parentElement',
+          'style',
+          'propsData',
+          'prevSibling',
+          'preRenderActions',
+          'postRenderActions',
+          'renderType',
+          'name',
+          'tailwindClassNames',
+        ]}
+      />
+      <AutoField
+        component={(fieldProps: UniformSelectFieldProps) => (
+          <SelectAnyElement
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            {...fieldProps}
+          />
+        )}
+        help={`only elements from \`${parentElement.closestContainerNode.name}\` are visible in this list`}
+        name="parentElement.id"
+      />
+      <RenderTypeField name="renderType" parentAtom={parentAtom} />
+      <SelectActionsField name="preRenderActions" selectedNode={selectedNode} />
+      <SelectActionsField
+        name="postRenderActions"
+        selectedNode={selectedNode}
+      />
+      <Divider />
+      <AutoComputedElementNameField label="Name" name="name" />
+      <DisplayIf condition={showFormControl}>
+        <FormController submitLabel="Create Element" />
+      </DisplayIf>
+    </Form>
+  )
+})
 
 CreateElementForm.displayName = 'CreateElementForm'

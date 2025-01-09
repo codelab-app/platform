@@ -1,4 +1,7 @@
-import type { UrlPathParams } from '@codelab/frontend/abstract/types'
+import type {
+  UrlPathParams,
+  UrlPathParamsProps,
+} from '@codelab/frontend/abstract/types'
 import type { ReactNode } from 'react'
 
 import { Dashboard } from './Dashboard'
@@ -14,24 +17,32 @@ type DashboardSections = Partial<{
   secondaryPopover: ReactNode
 }>
 
-type DashboardLayoutProps<T extends DashboardSections = never> = {
-  [K in keyof DashboardSections]: K extends keyof T ? T[K] : never
+export type DashboardLayoutProps<
+  Slots extends keyof DashboardSections = never,
+  Params extends keyof UrlPathParams = never,
+> = {
+  [K in keyof DashboardSections]: K extends Slots ? ReactNode : never
 } & {
-  params: Partial<UrlPathParams>
+  params: {
+    [K in keyof UrlPathParams]: K extends Params ? string : never
+  }
   children: ReactNode
 }
 
 /**
  * @deprecated Example only
  */
-type _OnlyHeader = DashboardLayoutProps<{ header: ReactNode }>
+type _OnlyHeader = DashboardLayoutProps<'header', 'appId'>
 
 /**
  * @deprecated Example only
  */
 type _All = DashboardLayoutProps
 
-export const DashboardLayout = <T extends DashboardSections = never>({
+export const DashboardLayout = <
+  Slots extends keyof DashboardSections = never,
+  Params extends keyof UrlPathParams = never,
+>({
   children,
   configPane,
   header,
@@ -39,7 +50,7 @@ export const DashboardLayout = <T extends DashboardSections = never>({
   params,
   primarySidebar,
   secondaryPopover,
-}: DashboardLayoutProps<T>) => {
+}: DashboardLayoutProps<Slots, Params>) => {
   const { appId, pageId } = params
 
   return (

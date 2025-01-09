@@ -29,8 +29,6 @@ interface IBuilderProps {
  */
 export const BaseBuilder = observer<IBuilderProps>(
   ({ renderer, RootRenderer }) => {
-    console.log('Rendering BaseBuilder')
-
     const { builderService } = useApplicationStore()
     const elementService = useElementService()
     const { selectedNode } = builderService

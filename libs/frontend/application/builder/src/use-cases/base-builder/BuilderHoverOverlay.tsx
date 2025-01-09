@@ -26,14 +26,15 @@ export const BuilderHoverOverlay = observer<{
   if (
     !element ||
     !renderContainerRef.current ||
-    hoveredNode.element.id === selectedNode?.treeViewNode.key
+    hoveredNode.element.id === selectedNode?.treeViewNodePreview.key
   ) {
     return null
   }
 
   return createPortal(
     <>
-      {hoveredNode.element.id !== selectedNode?.treeViewNode.element?.id && (
+      {hoveredNode.element.id !==
+        selectedNode?.treeViewNodePreview.element?.id && (
         <HoverOverlay
           element={element}
           renderContainer={renderContainerRef.current}

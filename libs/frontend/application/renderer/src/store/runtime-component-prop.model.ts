@@ -1,6 +1,6 @@
 import type {
   IRuntimeComponentModel,
-  IRuntimeComponentPropDTO,
+  IRuntimeComponentPropDto,
   IRuntimeComponentPropModel,
 } from '@codelab/frontend/abstract/application'
 import type { IPropModel } from '@codelab/frontend/abstract/domain'
@@ -23,7 +23,7 @@ import { computed } from 'mobx'
 import { idProp, Model, model, prop } from 'mobx-keystone'
 import { createElement, Fragment } from 'react'
 
-const create = (dto: IRuntimeComponentPropDTO) =>
+const create = (dto: IRuntimeComponentPropDto) =>
   new RuntimeComponentPropModel(dto)
 
 @model('@codelab/RuntimeComponentProp')

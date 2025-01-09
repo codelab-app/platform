@@ -5,6 +5,7 @@ import type { Maybe } from '@codelab/shared/abstract/types'
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
 import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
+import { logger, tracker } from '@codelab/frontend/infra/logger'
 import { CuiSidebarSecondary } from '@codelab/frontend/presentation/codelab-ui'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
@@ -18,9 +19,15 @@ export const CreateElementPopover = observer(() => {
   const router = useRouter()
   const submitRef = useRef<Maybe<SubmitController>>()
   const { createPopover } = useElementService()
-  const { builderService, rendererService } = useApplicationStore()
+  const { builderService } = useApplicationStore()
+  /**
+   * Maybe current is a code smell, since we are using parallel routes, the selected node may not be set yet, since init builder is what sets it.
+   */
   const selectedNode = builderService.selectedNode?.maybeCurrent
-  const treeElements = rendererService.activeElementTree?.elements
+
+  // tracker.useModelDiff('Selected node popover', selectedNode)
+  // logger.debug('Selected node popover', selectedNode)
+  tracker.useRenderedCount('CreateElementPopover')
 
   return (
     <CuiSidebarSecondary
@@ -48,7 +55,6 @@ export const CreateElementPopover = observer(() => {
         selectedNode={selectedNode}
         showFormControl={false}
         submitRef={submitRef}
-        treeElements={treeElements}
       />
     </CuiSidebarSecondary>
   )

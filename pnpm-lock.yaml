@@ -394,6 +394,9 @@ importers:
       date-fns:
         specifier: ^3.6.0
         version: 3.6.0
+      deep-object-diff:
+        specifier: ^1.1.9
+        version: 1.1.9
       diff:
         specifier: 5.1.0
         version: 5.1.0
@@ -508,6 +511,9 @@ importers:
       pino:
         specifier: 9.6.0
         version: 9.6.0
+      pino-caller:
+        specifier: ^3.4.0
+        version: 3.4.0(pino@9.6.0)
       pino-http:
         specifier: 10.3.0
         version: 10.3.0
@@ -610,6 +616,9 @@ importers:
       sonner:
         specifier: ^1.5.0
         version: 1.7.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      stack-trace:
+        specifier: 1.0.0-pre2
+        version: 1.0.0-pre2
       storybook:
         specifier: ^8.2.8
         version: 8.4.2(prettier@2.8.8)
@@ -9358,6 +9367,9 @@ packages:
   deep-is@0.1.4:
     resolution: {integrity: sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==}
 
+  deep-object-diff@1.1.9:
+    resolution: {integrity: sha512-Rn+RuwkmkDwCi2/oXOFS9Gsr5lJZu/yTGpK7wAaAIE75CC+LCGEZHpY6VQJa/RoJcrmaA/docWJZvYohlNkWPA==}
+
   deepmerge@4.3.1:
     resolution: {integrity: sha512-3sUqbMEc77XqpdNO7FRyRog+eW3ph+GYCbj+rK+uYyRMuwsVy0rMiVtPn+QJlKFvWP/1PYpapqYn0Me2knFn+A==}
     engines: {node: '>=0.10.0'}
@@ -13496,6 +13508,12 @@ packages:
   pino-abstract-transport@2.0.0:
     resolution: {integrity: sha512-F63x5tizV6WCh4R6RHyi2Ml+M70DNRXt/+HANowMflpgGFMAym/VKm6G7ZOQRjqN7XbGxK1Lg9t6ZrtzOaivMw==}
 
+  pino-caller@3.4.0:
+    resolution: {integrity: sha512-2aEjlmhLA7J3lGBXKDSxtlfDY+cBzGh5PnLFP6ZUhvyqCnqKfv28ulpSch6uymGIdo7fzxXHK2hvR5FrdzbhTg==}
+    engines: {node: '>6.0.0'}
+    peerDependencies:
+      pino: '*'
+
   pino-http@10.3.0:
     resolution: {integrity: sha512-kaHQqt1i5S9LXWmyuw6aPPqYW/TjoDPizPs4PnDW4hSpajz2Uo/oisNliLf7We1xzpiLacdntmw8yaZiEkppQQ==}
 
@@ -15391,6 +15409,10 @@ packages:
 
   stack-trace@0.0.10:
     resolution: {integrity: sha512-KGzahc7puUKkzyMt+IqAep+TVNbKP+k2Lmwhub39m1AsTSkaDutx56aDCo+HLDzf/D26BIHTJWNiTG1KAJiQCg==}
+
+  stack-trace@1.0.0-pre2:
+    resolution: {integrity: sha512-2ztBJRek8IVofG9DBJqdy2N5kulaacX30Nz7xmkYF6ale9WBVmIy6mFBchvGX7Vx/MyjBhx+Rcxqrj+dbOnQ6A==}
+    engines: {node: '>=16'}
 
   stack-utils@2.0.6:
     resolution: {integrity: sha512-XlkWvfIm6RmsWtNJx+uqtKLS8eqFbxUg0ZzLXqY0caEy9l7hruX8IpiDnjsLavoBgqCCR71TqWO8MaXYheJ3RQ==}
@@ -28284,6 +28306,8 @@ snapshots:
 
   deep-is@0.1.4: {}
 
+  deep-object-diff@1.1.9: {}
+
   deepmerge@4.3.1: {}
 
   default-browser-id@3.0.0:
@@ -33404,6 +33428,11 @@ snapshots:
     dependencies:
       split2: 4.2.0
 
+  pino-caller@3.4.0(pino@9.6.0):
+    dependencies:
+      pino: 9.6.0
+      source-map-support: 0.5.21
+
   pino-http@10.3.0:
     dependencies:
       get-caller-file: 2.0.5
@@ -35643,6 +35672,8 @@ snapshots:
       stackframe: 1.3.4
 
   stack-trace@0.0.10: {}
+
+  stack-trace@1.0.0-pre2: {}
 
   stack-utils@2.0.6:
     dependencies:

@@ -3,6 +3,7 @@
 import type { FormProps } from '@codelab/frontend/abstract/types'
 import type { ReactElement } from 'react'
 
+import { logger } from '@codelab/frontend/infra/logger'
 import {
   connectUniformSubmitRef,
   createBridge,
@@ -47,6 +48,16 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
     }, [schema])
 
     const modelRef = useRef(model)
+
+    // Keep modelRef.current synchronized with the model prop
+    // This is necessary because:
+    // 1. When autosave=true, we use modelRef.current to prevent re-renders
+    // 2. But we still need to reflect external updates to the model prop
+    // 3. Without this effect, modelRef would become stale when model changes
+    useEffect(() => {
+      modelRef.current = model
+    }, [model])
+
     const postSubmit = usePostSubmit<TData, TResponse>(props)
     const asyncHandler = useAsyncHandler<TData, TResponse>()
     const submit = asyncHandler(onSubmit, onSubmitOptimistic)

@@ -87,7 +87,7 @@ export const getApiName = (name: string) => {
 
 export const getInterfaceName = (type: string) => `${titleCase(type)} API`
 
-// export const makeFieldsCreateInput = (type: ICreateTypeDTO) => {
+// export const makeFieldsCreateInput = (type: ICreateTypeDto) => {
 //   return {
 //     connect: type.fields.map((f) => ({
 //       where: { node: { id: f.type.id } },

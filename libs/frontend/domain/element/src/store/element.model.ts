@@ -323,8 +323,9 @@ export class Element
   @computed
   get toJson() {
     return {
-      childMapperComponent: this.childMapperComponent,
-      childMapperPreviousSibling: this.childMapperPreviousSibling,
+      childMapperComponent: this.childMapperComponent?.current.toJson,
+      childMapperPreviousSibling:
+        this.childMapperPreviousSibling?.current.toJson,
       childMapperPropKey: this.childMapperPropKey,
       closestContainerNode: this.closestContainerNode,
       expanded: this.expanded,

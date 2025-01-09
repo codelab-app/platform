@@ -1,5 +1,6 @@
 import type {
-  IRuntimePageDTO,
+  IElementTreeViewDataNodePreview,
+  IRuntimePageDto,
   IRuntimePageModel,
   IRuntimeStoreModel,
 } from '@codelab/frontend/abstract/application'
@@ -30,7 +31,7 @@ const compositeKey = (page: IPageModel) => `runtime.${page.id}`
 const compositeKeyForProvider = (page: IPageModel, provider: IPageModel) =>
   `runtime.${page.id}.${provider.id}`
 
-const create = (dto: IRuntimePageDTO): IRuntimePageModel =>
+const create = (dto: IRuntimePageDto): IRuntimePageModel =>
   new RuntimePageModel(dto)
 
 @model('@codelab/RuntimePage')
@@ -74,6 +75,11 @@ export class RuntimePageModel
   @computed
   get treeViewNode(): IElementTreeViewDataNode {
     return this.runtimeRootElement.treeViewNode
+  }
+
+  @computed
+  get treeViewNodePreview(): IElementTreeViewDataNodePreview {
+    return this.runtimeRootElement.treeViewNodePreview
   }
 
   @modelAction

@@ -56,7 +56,7 @@ export const elementRepository: IElementRepository = {
   },
 
   update: async (where: ElementUniqueWhere, element: IElementDto) => {
-    console.log(elementMapper.toUpdateInput(element))
+    console.debug(elementMapper.toUpdateInput(element))
 
     // Disconnect here first for pre/post, issue with generated cypher query
     const update = {

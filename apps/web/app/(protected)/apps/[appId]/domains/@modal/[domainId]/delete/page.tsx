@@ -2,7 +2,7 @@ import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { domainRepository } from '@codelab/frontend-domain-domain/repositories'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 
-import { DomainDeleteContainer } from './page.container'
+import { DomainDeleteConnector } from './page.connector'
 
 const Page = async ({
   params: { domainId },
@@ -16,7 +16,7 @@ const Page = async ({
       domainsDto={domainDto ? [domainDto] : []}
       fallback={<Spinner />}
     >
-      <DomainDeleteContainer id={domainId} />
+      <DomainDeleteConnector id={domainId} />
     </DomainStoreHydrator>
   )
 }
