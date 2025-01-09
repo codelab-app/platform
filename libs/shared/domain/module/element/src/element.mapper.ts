@@ -46,7 +46,6 @@ export const elementMapper: IMapper<
       tailwindClassNames,
     } = data
 
-    console.debug('Element Mapper', data)
 
     return {
       childMapperComponent: connectNodeId(childMapperComponent?.id),

@@ -44,7 +44,7 @@ export const elementSchema = gql`
       @relationship(type: "POST_RENDER_ELEMENT_ACTION", direction: OUT)
     renderType: ElementRenderType!
       @relationship(type: "ELEMENT_RENDER_TYPE", direction: OUT)
-    # Pre-compute to savetime during rendering
+    # Pre-compute to save time during rendering
     closestContainerNode: ContainerNode!
     expanded: Boolean
 

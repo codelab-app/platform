@@ -117,7 +117,7 @@ describe('PageResolvers', () => {
     const childElement = await elementRepository.add({
       closestContainerNode: { id: v4() },
       compositeKey: ElementProperties.elementCompositeKey(
-        'Child Element',
+        { name: 'Child Element' },
         testPageRef,
       ),
       id: v4(),

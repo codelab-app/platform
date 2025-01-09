@@ -29,6 +29,9 @@ export interface IElementTreeViewDataNode {
   type: IRuntimeNodeType
 }
 
+/**
+ * Some usage requires only key, keep it simple to prevent unnecessary re-rendering, such as `children` property and others.
+ */
 export type IElementTreeViewDataNodePreview = Pick<
   IElementTreeViewDataNode,
   'element' | 'key'
