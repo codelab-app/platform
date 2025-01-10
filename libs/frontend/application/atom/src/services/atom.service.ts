@@ -84,15 +84,18 @@ export const useAtomService = (): IAtomService => {
       owner,
     })
 
-    const atom = await atomRepository.add(
-      {
-        ...data,
-        __typename: 'Atom',
-        api,
-        owner,
-      },
-      { revalidateTag: CACHE_TAGS.ATOM_LIST },
-    )
+    const atomDto = {
+      ...data,
+      __typename: 'Atom',
+      api,
+      owner,
+    } as const
+
+    hydrate({ atomsDto: [atomDto] })
+
+    const atom = await atomRepository.add(atomDto, {
+      revalidateTag: CACHE_TAGS.ATOM_LIST,
+    })
 
     Validator.assertsDefined(atom)
 
