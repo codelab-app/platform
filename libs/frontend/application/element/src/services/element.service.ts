@@ -3,7 +3,7 @@ import type {
   ComponentContextParams,
   PageContextParams,
 } from '@codelab/frontend/abstract/types'
-import type { IElementDto, IRef } from '@codelab/shared/abstract/core'
+import type { IElementDto } from '@codelab/shared/abstract/core'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import {
@@ -17,7 +17,6 @@ import { usePropService } from '@codelab/frontend-application-prop/services'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { useMemo } from 'react'
 import { uniqueBy } from 'remeda'
 
 /**
@@ -81,8 +80,8 @@ export const useElementService = (): IElementService => {
 
     // when new element is inserted into elements tree -
     // auto-expand parent node, so that new one becomes visible
-    if (element.parentElement?.maybeCurrent?.expanded === false) {
-      element.parentElement.current.setExpanded(true)
+    if (element.closestParentElement?.maybeCurrent?.expanded === false) {
+      element.closestParentElement.current.setExpanded(true)
     }
 
     await elementRepository.add(data)
