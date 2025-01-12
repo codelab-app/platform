@@ -571,10 +571,10 @@ export class Element
     this.postRenderActions = postRenderActions
       ? postRenderActions.map((action) => actionRef(action.id))
       : []
-    this.childMapperComponent = childMapperComponent
+    this.childMapperComponent = childMapperComponent?.id
       ? componentRef(childMapperComponent.id)
       : null
-    this.childMapperPreviousSibling = childMapperPreviousSibling
+    this.childMapperPreviousSibling = childMapperPreviousSibling?.id
       ? elementRef(childMapperPreviousSibling.id)
       : null
 

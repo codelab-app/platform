@@ -61,7 +61,7 @@ const ChildMapperFields = ({ runtimeElement }: ChildMapperFieldsProps) => {
           console.log('select component on change', value)
 
           return childMapperComponentFieldProps.onChange(
-            value ? { label: value.name, value } : undefined,
+            value ? { id: value, label: value.name, value } : undefined,
           )
         }}
       />
@@ -70,7 +70,7 @@ const ChildMapperFields = ({ runtimeElement }: ChildMapperFieldsProps) => {
         name="childMapperPreviousSibling.id"
         onChange={(value) => {
           return childMapperPreviousSiblingFieldProps.onChange(
-            value ? { label: value.name, value } : undefined,
+            value ? { id: value, label: value.name, value } : undefined,
           )
         }}
         targetElementId={element.id}
