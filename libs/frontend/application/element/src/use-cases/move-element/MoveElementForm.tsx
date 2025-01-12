@@ -101,8 +101,8 @@ export const MoveElementForm = observer<MoveElementFormProps>(
             component={observer((props) => {
               return (
                 <SelectExcludeDescendantsElements
-                  elementOptions={elementOptions}
                   allowClear={false}
+                  elementOptions={elementOptions}
                   targetElementId={element.id}
                   // eslint-disable-next-line react/jsx-props-no-spreading, @typescript-eslint/no-explicit-any
                   {...(props as any)}
