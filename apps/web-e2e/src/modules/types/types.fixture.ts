@@ -27,8 +27,8 @@ export class TypeListPage extends BasePage {
     const form = await this.getForm(UiKey.TypeFormCreate)
 
     await form.fillInputText({ label: 'Name' }, arrayTypeName)
-    await form.fillInputSelect({ label: 'Kind' }, ITypeKind.ArrayType)
-    await form.fillInputSelect(
+    await form.fillInputFilterSelect({ label: 'Kind' }, ITypeKind.ArrayType)
+    await form.fillInputFilterSelect(
       { label: 'Array item type' },
       PrimitiveTypeKind.String,
     )
@@ -44,7 +44,7 @@ export class TypeListPage extends BasePage {
     const form = await this.getForm(UiKey.TypeFormCreate)
 
     await form.fillInputText({ label: 'Name' }, enumTypeName)
-    await form.fillInputSelect({ label: 'Kind' }, ITypeKind.EnumType)
+    await form.fillInputFilterSelect({ label: 'Kind' }, ITypeKind.EnumType)
 
     for (let i = 0; i < enumTypeAllowedValues.length; i++) {
       const enumItem = enumTypeAllowedValues[i]!
@@ -71,7 +71,10 @@ export class TypeListPage extends BasePage {
     const form = await this.getForm(UiKey.FieldFormCreate)
 
     await form.fillInputText({ label: 'Key' }, interfaceFieldName)
-    await form.fillInputSelect({ label: 'Type' }, PrimitiveTypeKind.String)
+    await form.fillInputFilterSelect(
+      { label: 'Type' },
+      PrimitiveTypeKind.String,
+    )
     await form.fillInputText({ label: 'Default values' }, 'default string')
     await form.getButton({ text: 'Create' }).click()
     await this.expectGlobalProgressBarToBeHidden()
@@ -85,7 +88,7 @@ export class TypeListPage extends BasePage {
     const form = await this.getForm(UiKey.TypeFormCreate)
 
     await form.fillInputText({ label: 'Name' }, interfaceTypeName)
-    await form.fillInputSelect({ label: 'Kind' }, ITypeKind.InterfaceType)
+    await form.fillInputFilterSelect({ label: 'Kind' }, ITypeKind.InterfaceType)
     await form.getButton({ text: 'Create' }).click()
     await this.expectGlobalProgressBarToBeHidden()
   }
@@ -98,7 +101,7 @@ export class TypeListPage extends BasePage {
     const form = await this.getForm(UiKey.TypeFormCreate)
 
     await form.fillInputText({ label: 'Name' }, unionTypeName)
-    await form.fillInputSelect({ label: 'Kind' }, ITypeKind.UnionType)
+    await form.fillInputFilterSelect({ label: 'Kind' }, ITypeKind.UnionType)
     await form.fillInputMultiSelect({ name: 'unionTypeIds' }, [
       PrimitiveTypeKind.Boolean,
       PrimitiveTypeKind.String,
@@ -148,7 +151,7 @@ export class TypeListPage extends BasePage {
     const form = await this.getForm(UiKey.TypeFormUpdate)
 
     await form.fillInputText({ label: 'Name' }, updatedArrayTypeName)
-    await form.fillInputSelect(
+    await form.fillInputFilterSelect(
       { label: 'Array item type' },
       PrimitiveTypeKind.Boolean,
     )

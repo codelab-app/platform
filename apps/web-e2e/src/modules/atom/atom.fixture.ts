@@ -20,7 +20,7 @@ export class AtomPage extends BasePage {
     const form = await this.getForm(UiKey.AtomFormCreate)
 
     await form.fillInputText({ label: 'Name' }, this.atom.name)
-    await form.fillInputSelect({ label: 'Type' }, this.atom.name)
+    await form.fillInputFilterSelect({ label: 'Type' }, this.atom.name)
     await form.getButton({ text: 'Create' }).click()
 
     await this.expectGlobalProgressBarToBeHidden()

@@ -123,15 +123,20 @@ export const PageTreeItem = observer(
       <CuiTreeItem
         icon={
           page.kind === IPageKind.Regular ? (
-            <>
-              {page.redirect?.id && <LockFilled style={{ color: 'green' }} />}
-              <FileTextOutlined style={{ color: 'blue' }} />
-            </>
+            <FileTextOutlined style={{ color: 'blue' }} />
           ) : (
             <FileOutlined style={{ color: 'black' }} />
           )
         }
         primaryTitle={primaryTitle}
+        tag={
+          page.redirect?.id && (
+            <LockFilled
+              style={{ color: 'green' }}
+              title="Auth Redirect applied"
+            />
+          )
+        }
         toolbar={
           <CuiTreeItemToolbar items={toolbarItems} title="page toolbar" />
         }

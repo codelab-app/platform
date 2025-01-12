@@ -34,6 +34,7 @@ export const CreateRedirectForm = observer<IFormController>(
         onSubmitSuccess={onSubmitSuccess}
         schema={createRedirectSchema}
         submitRef={submitRef}
+        successMessage="Auth redirect created successfully"
         uiKey={UiKey.RedirectFormCreate}
       >
         <AutoFields omitFields={['targetPage', 'targetUrl']} />

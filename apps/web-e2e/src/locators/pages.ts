@@ -54,6 +54,33 @@ export class BasePage {
     await expect(this.getGlobalProgressBar()).toBeHidden({ timeout: 15000 })
   }
 
+  async fillInputFilterSelect(
+    options: { label: string | RegExp },
+    value: string,
+  ) {
+    const page = this.locator ?? this.page
+
+    // Fill
+    await page.getByLabel(options.label).fill(value)
+
+    // wait for dynamic dropdowns to populate options
+    await expect(page.getByLabel('loading')).toHaveCount(0)
+
+    // Then click on the first item in the dropdown, it's hoisted outside so we don't scope it to the previous locator
+    await this.page
+      .locator(
+        '.ant-select-dropdown:not(.ant-select-dropdown-hidden) .ant-select-item',
+      )
+      .first()
+      .click()
+
+    await expect(
+      this.page.locator(
+        '.ant-select-dropdown:not(.ant-select-dropdown-hidden)',
+      ),
+    ).toBeHidden()
+  }
+
   async fillInputMultiSelect(
     options: { name: string | RegExp },
     values: Array<number | string>,
@@ -82,20 +109,22 @@ export class BasePage {
 
   async fillInputSelect(options: { label: string | RegExp }, value: string) {
     const page = this.locator ?? this.page
+    const option = this.page.locator(`.ant-select-item[title="${value}"]`)
 
-    // Fill
-    await page.getByLabel(options.label).fill(value)
+    await page.getByLabel(options.label).click()
 
     // wait for dynamic dropdowns to populate options
     await expect(page.getByLabel('loading')).toHaveCount(0)
 
-    // Then click on the first item in the dropdown, it's hoisted outside so we don't scope it to the previous locator
     await this.page
       .locator(
         '.ant-select-dropdown:not(.ant-select-dropdown-hidden) .ant-select-item',
       )
       .first()
-      .click()
+      .hover()
+
+    await this.scrollUntilElementIsVisible(option)
+    await option.click()
   }
 
   fillInputText(options: { label: string | RegExp }, value: string) {
@@ -187,7 +216,7 @@ export class BasePage {
   }
 
   getPopover(key: UiKey) {
-    const popover = this.page.getByTestId(CuiTestId.cuiSidebar(key))
+    const popover = this.page.getByTestId(key)
 
     this.locator = popover
 
