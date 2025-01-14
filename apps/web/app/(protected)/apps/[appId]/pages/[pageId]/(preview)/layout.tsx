@@ -12,17 +12,7 @@ const Layout = ({ children, header, params }: LayoutProps) => {
 
   return (
     <LayoutContainer pageId={pageId}>
-      <DashboardLayout<
-        | 'configPane'
-        | 'header'
-        | 'modal'
-        | 'primarySidebar'
-        | 'secondaryPopover',
-        'pageId'
-      >
-        header={header}
-        params={params}
-      >
+      <DashboardLayout<'header', 'pageId'> header={header} params={params}>
         {children}
       </DashboardLayout>
     </LayoutContainer>

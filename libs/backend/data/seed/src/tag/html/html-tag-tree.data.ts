@@ -1,7 +1,6 @@
-import type { IHtmlAtomRecords, TagNode } from '@codelab/backend/abstract/core'
+import type { IHtmlAtomRecords, TagNode } from '@codelab/shared/abstract/core'
 
-import { IHtmlCategoryTag } from '@codelab/backend/abstract/core'
-import { IAtomType } from '@codelab/shared/abstract/core'
+import { IAtomType, IHtmlCategoryTag } from '@codelab/shared/abstract/core'
 
 /**
  * Taken from here https://developer.mozilla.org/en-US/docs/Web/HTML/Content_categories

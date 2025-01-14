@@ -1,7 +1,6 @@
-import type { IAntdAtomRecords } from '@codelab/backend/abstract/core'
+import type { IAntdAtomRecords } from '@codelab/shared/abstract/core'
 
-import { IAntdCategoryTag } from '@codelab/backend/abstract/core'
-import { IAtomType } from '@codelab/shared/abstract/core'
+import { IAntdCategoryTag, IAtomType } from '@codelab/shared/abstract/core'
 
 /**
  * Assign all data that is related to the atom here

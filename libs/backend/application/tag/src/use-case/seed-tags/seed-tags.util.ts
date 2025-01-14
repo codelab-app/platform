@@ -1,4 +1,4 @@
-import type { TagNode, TagNodeData } from '@codelab/backend/abstract/core'
+import type { TagNode, TagNodeData } from '@codelab/shared/abstract/core'
 
 import { ObjectTyped } from 'object-typed'
 

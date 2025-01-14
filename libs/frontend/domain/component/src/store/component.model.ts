@@ -18,7 +18,7 @@ import {
   typeRef,
   userRef,
 } from '@codelab/frontend/abstract/domain'
-import { toMaybeRefSchema, toRefSchema } from '@codelab/frontend/shared/utils'
+import { toRefSchema } from '@codelab/frontend/shared/utils'
 import { Prop } from '@codelab/frontend-domain-prop/store'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'

@@ -4,13 +4,13 @@ import type {
   ITypeTransformContext,
   JsonSchema,
 } from '@codelab/frontend/abstract/domain'
-import type { IRef } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 
 import { fieldRef, userRef } from '@codelab/frontend/abstract/domain'
 import {
   IInterfaceTypeDto,
   IPropData,
+  IRef,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { InterfaceTypeDeleteInput } from '@codelab/shared/infra/gql'
