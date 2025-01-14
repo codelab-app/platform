@@ -63,17 +63,19 @@ export const CuiTreeItem = ({
                 text={primaryTitle}
               />
             </span>
-            <span
-              className="pl-2 font-normal"
-              data-testid={CuiTestId.cuiTreeItemSecondaryTitle(
-                secondaryTitle || '',
-              )}
-            >
-              <CuiHighlightedText
-                highlight={highlight?.secondaryTitle}
-                text={secondaryTitle}
-              />
-            </span>
+            {secondaryTitle && (
+              <span
+                className="pl-2 font-normal"
+                data-testid={CuiTestId.cuiTreeItemSecondaryTitle(
+                  secondaryTitle || '',
+                )}
+              >
+                <CuiHighlightedText
+                  highlight={highlight?.secondaryTitle}
+                  text={secondaryTitle}
+                />
+              </span>
+            )}
           </p>
         </div>
         <div className="shrink-0 pl-2">{tag}</div>

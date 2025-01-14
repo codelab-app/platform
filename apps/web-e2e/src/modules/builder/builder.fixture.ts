@@ -30,14 +30,14 @@ export class BuilderPage extends BasePage {
     await expect(antDesignRow).toBeVisible()
 
     const antDesignCols = antDesignRow.locator('.ant-col')
-    const firstColEmpty = antDesignCols.nth(0)
+    const firstColTypography = antDesignCols.nth(0).locator('.ant-typography')
     const secondColButton = antDesignCols.nth(1).locator('.ant-btn')
-    const thirdColTypography = antDesignCols.nth(2).locator('.ant-typography')
+    const lastColEmpty = antDesignCols.nth(2)
 
     await expect(antDesignCols).toHaveCount(3)
-    await expect(firstColEmpty).toBeEmpty()
+    await expect(firstColTypography).toContainText('Ant Design Text Element')
     await expect(secondColButton).toContainText('Click Me!')
-    await expect(thirdColTypography).toContainText('Ant Design Text Element')
+    await expect(lastColEmpty).toBeEmpty()
   }
 
   async checkElementTreeStructure(expectedTreeElements: Array<string>) {

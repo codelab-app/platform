@@ -44,6 +44,7 @@ export const UpdateRedirectForm = observer<UpdateRedirectFormProps>(
           onSubmitSuccess={onSubmitSuccess}
           schema={updateRedirectSchema}
           submitRef={submitRef}
+          successMessage="Auth redirect updated successfully"
           uiKey={UiKey.RedirectFormUpdate}
         >
           <AutoFields omitFields={['targetPage', 'targetUrl']} />

@@ -8,7 +8,10 @@ import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/domain'
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { useRequiredParentValidator } from '@codelab/frontend-application-element/validation'
 import { makeAutoIncrementedName } from '@codelab/frontend-domain-element/use-cases/incremented-name'
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend-infra-mobx/context'
 import { v4 } from 'uuid'
 
 export interface UseDndDropHandler {
@@ -17,7 +20,8 @@ export interface UseDndDropHandler {
 }
 
 export const useDndDropHandler = (): UseDndDropHandler => {
-  const { rendererService, runtimeElementService, elementDomainService } = useApplicationStore()
+  const { rendererService, runtimeElementService } = useApplicationStore()
+  const { elementDomainService } = useDomainStore()
   const elementService = useElementService()
 
   const { validateParentForCreate, validateParentForMove } =

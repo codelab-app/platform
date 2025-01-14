@@ -21,7 +21,7 @@ export class ResourcePage extends BasePage {
     const form = this.getForm(UiKey.ResourceFormCreate)
 
     await form.fillInputText({ label: 'Name' }, this.resourceName)
-    await form.fillInputSelect({ label: 'Type' }, IResourceType.GraphQl)
+    await form.fillInputFilterSelect({ label: 'Type' }, IResourceType.GraphQl)
     await form.fillInputText({ label: 'Url' }, this.resourcesUrl)
     await form.getButton({ text: 'Create' }).click()
 

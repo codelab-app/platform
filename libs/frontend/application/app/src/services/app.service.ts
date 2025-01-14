@@ -3,19 +3,13 @@ import type {
   IAppModel,
   IAppUpdateFormData,
 } from '@codelab/frontend/abstract/domain'
-import type { IRef } from '@codelab/shared/abstract/core'
 import type { AppWhere } from '@codelab/shared/infra/gql'
 
 import { type IAppService } from '@codelab/frontend/abstract/application'
 import { useHydrateStore } from '@codelab/frontend/infra/context'
-import { usePageService } from '@codelab/frontend-application-page/services'
 import { regeneratePages } from '@codelab/frontend-application-page/use-cases/generate-pages'
-import {
-  appRepository,
-  invalidateAppListQuery,
-} from '@codelab/frontend-domain-app/repositories'
+import { appRepository } from '@codelab/frontend-domain-app/repositories'
 import { domainRepository } from '@codelab/frontend-domain-domain/repositories'
-import { pageRepository } from '@codelab/frontend-domain-page/repositories'
 import { PageDomainFactory } from '@codelab/frontend-domain-page/services'
 import {
   useDomainStore,
@@ -35,7 +29,6 @@ export const useAppService = (): IAppService => {
     userDomainService,
   } = useDomainStore()
 
-  const pageService = usePageService()
   const undoManager = useUndoManager()
   const pageFactory = new PageDomainFactory(userDomainService.user.toJson)
   const user = userDomainService.user.toJson

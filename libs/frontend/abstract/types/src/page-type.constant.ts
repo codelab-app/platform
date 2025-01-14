@@ -93,7 +93,7 @@ export const PageType = {
       PrimarySidebar.ElementTree,
     )
 
-    return `${pageBuilder}/create-page`
+    return `${pageBuilder}/page/create`
   },
   PageDelete: ({ appId, pageId }: PageContextParams) => {
     const pageBuilder = PageType.PageBuilder(
@@ -113,7 +113,7 @@ export const PageType = {
       PrimarySidebar.ElementTree,
     )
 
-    return `${pageBuilder}/create-redirect`
+    return `${pageBuilder}/page/create-redirect`
   },
   PageRedirectUpdate: ({
     appId,
@@ -125,7 +125,7 @@ export const PageType = {
       PrimarySidebar.ElementTree,
     )
 
-    return `${pageBuilder}/update-redirect/${redirectId}`
+    return `${pageBuilder}/page/update-redirect/${redirectId}`
   },
   PageUpdate: ({ appId, pageId }: PageContextParams) => {
     const pageBuilder = PageType.PageBuilder(
@@ -133,7 +133,7 @@ export const PageType = {
       PrimarySidebar.ElementTree,
     )
 
-    return `${pageBuilder}/update-page`
+    return `${pageBuilder}/page/update`
   },
   PropsInterface: ({ appId }: Pick<UrlPathParams, 'appId'>) =>
     `/apps/${appId}/props`,

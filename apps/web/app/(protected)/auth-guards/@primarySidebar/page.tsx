@@ -1,6 +1,5 @@
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { AuthGuardsPrimarySidebar } from '@codelab/frontend-application-auth-guard/views'
-import { ResourcesPrimarySidebar } from '@codelab/frontend-application-resource/views'
 import { authGuardRepository } from '@codelab/frontend-domain-auth-guard/repositories'
 
 const Page = async () => {
@@ -9,7 +8,7 @@ const Page = async () => {
   return (
     <DomainStoreHydrator
       authGuardsDto={authGuards}
-      fallback={<ResourcesPrimarySidebar isLoading={true} />}
+      fallback={<AuthGuardsPrimarySidebar isLoading={true} />}
     >
       <AuthGuardsPrimarySidebar />
     </DomainStoreHydrator>
