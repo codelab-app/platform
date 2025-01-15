@@ -29,17 +29,20 @@ export const DomainStoreHydrator = observer<DomainStoreHydratorProps>(
     const hydrate = useHydrateStore()
     const [isHydrated, setIsHydrated] = useState(false)
 
-    useEffect(() => {
-      hydrate(data)
-      setIsHydrated(true)
-    }, [])
+    useCustomCompareEffect(
+      () => {
+        hydrate(data)
+        setIsHydrated(true)
+      },
+      [data],
+      isDeepEqual,
+    )
 
-    if (!fallback) {
-      return <>{children}</>
+    // Always wait for hydration, regardless of fallback presence
+    if (!isHydrated) {
+      return fallback ? <>{fallback}</> : null
     }
 
-    // do not render children untill the store is hydrated with all the
-    // specified entities. Othervise `assertIsDefined` may break the application
-    return isHydrated ? <>{children}</> : <>{fallback}</>
+    return <>{children}</>
   },
 )

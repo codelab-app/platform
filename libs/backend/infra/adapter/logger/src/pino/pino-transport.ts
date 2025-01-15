@@ -5,22 +5,7 @@ import pino from 'pino'
 import pretty from 'pino-pretty'
 import { omit } from 'remeda'
 
-import { colorize, formatNestLikeDate } from './utils'
-
 const levelsLabels = pino.levels.labels
-
-export interface LogOptions {
-  /**
-   * [Nest] 19096   - 12/08/2019, 7:12:59 AM   [NestFactory] Starting Nest application...
-   *
-   * The `NestFactory` is the context
-   */
-  context?: string
-  /**
-   * Place to put additional data
-   */
-  data?: ObjectLike | null
-}
 
 export const pinoPrettyStream = pretty({
   colorize: true,

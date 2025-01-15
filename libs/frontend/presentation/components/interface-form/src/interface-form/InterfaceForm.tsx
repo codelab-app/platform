@@ -74,6 +74,8 @@ export const InterfaceForm = observer(
       return mergeDeep(initialSchema ?? {}, jsonSchema as ObjectLike)
     }, [interfaceType, interfaceType.fields, initialSchema])
 
+    console.log(formSchema)
+
     return (
       <Form
         autosave={autosave}

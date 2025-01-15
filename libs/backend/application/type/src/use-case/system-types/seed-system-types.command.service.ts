@@ -21,9 +21,7 @@ export class SeedSystemTypesHandler
   ) {}
 
   async execute() {
-    const types = Object.values(
-      systemTypesData(this.authDomainService.currentUser),
-    )
+    const types = systemTypesData(this.authDomainService.currentUser)
 
     return this.typeSeederService.seedTypes(types)
   }

@@ -26,11 +26,7 @@ import {
   isAtomRef,
   pageRef,
 } from '@codelab/frontend/abstract/domain'
-import {
-  createValidator,
-  toMaybeRefSchema,
-  toRefSchema,
-} from '@codelab/frontend/shared/utils'
+import { createValidator, toRefSchema } from '@codelab/frontend/shared/utils'
 import { Prop } from '@codelab/frontend-domain-prop/store'
 import { Nullish } from '@codelab/shared/abstract/types'
 import { slugify, titleCase } from '@codelab/shared/utils'

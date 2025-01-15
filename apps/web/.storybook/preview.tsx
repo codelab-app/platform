@@ -1,0 +1,54 @@
+import type { Preview } from '@storybook/react'
+
+import { StyleProviders } from '@codelab/frontend/infra/context'
+
+import '../styles/main.css'
+
+import { preferenceDto, userDto } from '@codelab/frontend/test/data'
+import {
+  createRootStore,
+  RootStoreProvider,
+} from '@codelab/frontend-infra-mobx/store'
+import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
+import React from 'react'
+import { v4 } from 'uuid'
+
+const preview: Preview = {
+  decorators: [
+    (Story) => {
+      const user = {
+        ...userDto,
+        [JWT_CLAIMS]: {
+          neo4j_user_id: v4(),
+          roles: [],
+        },
+      }
+
+      const store = createRootStore({
+        preference: preferenceDto,
+        routerProps: {
+          pathParams: {},
+        },
+        user,
+      })
+
+      return (
+        <RootStoreProvider value={store}>
+          <StyleProviders>
+            <Story />
+          </StyleProviders>
+        </RootStoreProvider>
+      )
+    },
+  ],
+  parameters: {
+    backgrounds: {
+      values: [
+        { name: 'red', value: '#f00' },
+        { name: 'green', value: '#0f0' },
+      ],
+    },
+  },
+}
+
+export default preview

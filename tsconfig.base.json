@@ -909,9 +909,6 @@
       "@codelab/frontend/infra/logger": [
         "libs/frontend/infra/logger/src/index.ts"
       ],
-      "@codelab/frontend/infra/logger/server": [
-        "libs/frontend/infra/logger/src/server/index.ts"
-      ],
       "@codelab/frontend/infra/shared": [
         "libs/frontend/infra/shared/src/index.ts"
       ],

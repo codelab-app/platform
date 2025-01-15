@@ -1,7 +1,5 @@
-import type { ObjectLike } from '@codelab/shared/abstract/types'
 import type { ILoggerService, LogOptions } from '@codelab/shared/infra/logging'
 import type { LogLevel } from '@nestjs/common'
-import type { LoggerOptions } from 'pino'
 
 import { getEnv } from '@codelab/shared/config/env'
 

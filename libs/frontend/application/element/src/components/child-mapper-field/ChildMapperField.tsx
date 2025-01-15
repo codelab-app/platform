@@ -11,7 +11,8 @@ import {
 } from '@codelab/frontend-presentation-components-form'
 import { useField } from 'uniforms'
 
-import { SelectLinkElement } from './SelectLinkElement'
+import { SelectLinkElement } from '../SelectLinkElement'
+import { ChildMapperComponentField } from './ChildMapperComponentField'
 
 interface ChildMapperFieldsProps {
   runtimeElement: IRuntimeElementModel
@@ -38,11 +39,6 @@ const PropKeyField = ToggleExpressionField({
 const ChildMapperFields = ({ runtimeElement }: ChildMapperFieldsProps) => {
   const element = runtimeElement.element.current
 
-  const [childMapperComponentFieldProps] = useField<{ value?: SelectOption }>(
-    'childMapperComponent',
-    {},
-  )
-
   const [childMapperPreviousSiblingFieldProps] = useField<{
     value?: SelectOption
   }>('childMapperPreviousSibling', {})
@@ -55,18 +51,8 @@ const ChildMapperFields = ({ runtimeElement }: ChildMapperFieldsProps) => {
           .sort()
           .map((label) => ({ label, value: label }))}
       />
-      <SelectComponent
-        component={childMapperComponent}
-        label="Component"
-        name="childMapperComponent.id"
-        onChange={(value) => {
-          console.log('select component on change', value)
 
-          return childMapperComponentFieldProps.onChange(
-            value ? { id: value, label: value.name, value } : undefined,
-          )
-        }}
-      />
+      <ChildMapperComponentField />
       <SelectLinkElement
         elementOptions={element.children.map(mapElementOption)}
         name="childMapperPreviousSibling.id"

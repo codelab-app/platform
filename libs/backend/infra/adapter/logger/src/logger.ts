@@ -3,10 +3,7 @@ import type { LoggerOptions } from 'pino'
 import pino, { destination, multistream } from 'pino'
 import pretty from 'pino-pretty'
 
-import type { ILoggerService } from './logger.interface'
-import type { LogOptions } from './pino'
-
-import { LOG_FILE_PATH, LOGS_DIR } from './logger.config'
+import { LOG_FILE_PATH } from './logger.config'
 
 export const pinoOptions: LoggerOptions = {
   // Include all levels

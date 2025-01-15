@@ -26,7 +26,7 @@ import { AutoField, AutoFields } from 'uniforms-antd'
 import { useCustomCompareMemo } from 'use-custom-compare'
 
 import { AutoComputedElementNameField } from '../../components/AutoComputedElementNameField'
-import ChildMapperField from '../../components/ChildMapperField'
+import ChildMapperField from '../../components/child-mapper-field/ChildMapperField'
 import { RenderTypeField } from '../../components/render-type-field'
 import { useElementService } from '../../services'
 import { updateElementSchema } from './update-element.schema'

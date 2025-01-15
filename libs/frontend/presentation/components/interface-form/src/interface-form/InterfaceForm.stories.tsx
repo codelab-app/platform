@@ -1,4 +1,8 @@
-import type { ITypeDto } from '@codelab/shared/abstract/core'
+import type {
+  IFieldDto,
+  IInterfaceTypeDto,
+  ITypeDto,
+} from '@codelab/shared/abstract/core'
 
 import {
   type IInterfaceTypeModel,
@@ -9,7 +13,7 @@ import { InterfaceType } from '@codelab/frontend-domain-type/store'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { systemTypesData } from '@codelab/shared/data/seed'
-import { guestUser } from '@codelab/shared/data/test'
+import { guestUser, userDto } from '@codelab/shared/data/test'
 import React from 'react'
 import { v4 } from 'uuid'
 
@@ -20,8 +24,12 @@ export default {
   title: 'InterfaceForm',
 }
 
-const DefaultInterfaceForm = () => {
-  const { typeDomainService } = useDomainStore()
+const DefaultInterfaceForm = ({
+  interfaceTypeId,
+}: {
+  interfaceTypeId: string
+}) => {
+  const { fieldDomainService, typeDomainService } = useDomainStore()
   const model = {}
 
   const onSubmit = (data: unknown) => {
@@ -30,26 +38,51 @@ const DefaultInterfaceForm = () => {
     return Promise.resolve()
   }
 
-  const interfaceType: IInterfaceTypeModel = new InterfaceType({
+  const interfaceTypeModel =
+    typeDomainService.type<IInterfaceTypeModel>(interfaceTypeId)
+
+  const reactNodeType = typeDomainService.typeByKind(ITypeKind.ReactNodeType)
+
+  const reactNodeTypeField: IFieldDto = {
+    api: { id: interfaceTypeModel.id },
+    fieldType: { id: reactNodeType.id },
+    id: v4(),
+    key: 'component',
+    name: 'Component',
+  }
+
+  fieldDomainService.hydrate(reactNodeTypeField)
+
+  console.log(interfaceTypeModel)
+
+  return (
+    <InterfaceForm
+      interfaceType={interfaceTypeModel}
+      model={model}
+      onSubmit={onSubmit}
+    />
+  )
+}
+
+const InterfaceFormHydrator = () => {
+  const interfaceType: IInterfaceTypeDto = {
+    __typename: ITypeKind.InterfaceType,
+    id: v4(),
     kind: ITypeKind.InterfaceType,
     name: 'Test',
-    owner: userRef(v4()),
-  })
+    owner: { id: userDto.id },
+  }
 
-  const systemTypes = systemTypesData(guestUser)
-  const typesDto: Array<ITypeDto> = []
+  const systemTypes = systemTypesData(userDto)
+  const typesDto: Array<ITypeDto> = [...systemTypes, interfaceType]
 
   return (
     <DomainStoreHydrator typesDto={typesDto}>
-      <InterfaceForm
-        interfaceType={interfaceType}
-        model={model}
-        onSubmit={onSubmit}
-      />
+      <DefaultInterfaceForm interfaceTypeId={interfaceType.id} />
     </DomainStoreHydrator>
   )
 }
 
 export const Default = {
-  render: () => <DefaultInterfaceForm />,
+  render: () => <InterfaceFormHydrator />,
 }

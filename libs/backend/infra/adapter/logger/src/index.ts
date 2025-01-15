@@ -1,3 +1,4 @@
+export * from './logger'
 export * from './logger.config'
 export * from './logger.module'
-export * from './pino.logger.service'
+export * from './pino'

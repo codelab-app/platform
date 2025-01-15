@@ -2,7 +2,6 @@ import type { DashboardLayoutProps } from '@codelab/frontend-presentation-view/t
 import type { ReactNode } from 'react'
 
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
-import { serverTracker } from '@codelab/frontend/infra/logger/server'
 import { appBuilderQuery } from '@codelab/frontend-application-app/use-cases/app-builder'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { DashboardLayout } from '@codelab/frontend-presentation-view/templates'
@@ -23,10 +22,7 @@ const Layout = async ({
   primarySidebar,
   secondaryPopover,
 }: LayoutProps) => {
-  serverTracker.useEvent({
-    componentName: 'PageBuilderLayout',
-    event: 'rendered',
-  })
+
 
   const { appId, pageId } = params
   const dto = await appBuilderQuery({ appId })
