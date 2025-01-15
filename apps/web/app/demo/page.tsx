@@ -30,7 +30,6 @@ const validator = () => {
 const bridge = new JSONSchemaBridge(schema, validator)
 
 const CustomSelectField = (props: any) => {
-
   const [fieldProps] = useField(
     props.name,
     {

@@ -4,7 +4,6 @@ import type { TagOptions, TagWhere } from '@codelab/shared/infra/gql'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import { TagFragment } from '@codelab/shared/infra/gql'
-import { Validator } from '@codelab/shared/infra/typebox'
 import { tagApi, tagMapper } from '@codelab/shared-domain-module/tag'
 import { Injectable } from '@nestjs/common'
 

@@ -1,9 +1,6 @@
 import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
 import type { SelectOption } from '@codelab/frontend/abstract/types'
-import type { IRef } from '@codelab/shared/abstract/core'
 
-import { logger, tracker } from '@codelab/frontend/infra/logger'
-import { SelectComponent } from '@codelab/frontend/presentation/components/interface-form'
 import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
 import {
   AutoCompleteField,

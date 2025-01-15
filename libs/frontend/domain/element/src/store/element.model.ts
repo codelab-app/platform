@@ -10,11 +10,7 @@ import type {
   RenderingMetadata,
 } from '@codelab/frontend/abstract/domain'
 import type { IElementDto, IRef } from '@codelab/shared/abstract/core'
-import type {
-  Maybe,
-  Nullable,
-  ObjectLike,
-} from '@codelab/shared/abstract/types'
+import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 
 import {
   actionRef,

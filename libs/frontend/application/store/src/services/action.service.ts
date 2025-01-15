@@ -5,7 +5,6 @@ import type {
 import type {
   IActionDto,
   ICreateActionData,
-  IRef,
   IUpdateActionData,
 } from '@codelab/shared/abstract/core'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'

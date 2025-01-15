@@ -13,7 +13,7 @@ import {
 } from '@codelab/frontend/abstract/application'
 import { tracker } from '@codelab/frontend/infra/logger'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
-import { createContext, type ReactNode, useContext, useEffect } from 'react'
+import { createContext, type ReactNode, useEffect } from 'react'
 import { v4 } from 'uuid'
 
 interface BuilderContextProps {

@@ -1,6 +1,5 @@
 'use client'
 
-import { useTagService } from '@codelab/frontend-application-tag/services'
 import { DeleteTagsModal } from '@codelab/frontend-application-tag/use-cases/delete-tags'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'

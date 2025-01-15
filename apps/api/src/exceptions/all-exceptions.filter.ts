@@ -1,12 +1,9 @@
 import type { ArgumentsHost } from '@nestjs/common'
-import type { HttpServer } from '@nestjs/common/interfaces'
 import type { Request } from 'express'
 
-import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { Catch, HttpException, Injectable } from '@nestjs/common'
 import { BaseExceptionFilter } from '@nestjs/core'
 import * as Sentry from '@sentry/nestjs'
-import { SentryExceptionCaptured } from '@sentry/nestjs'
 import { ValidationException } from 'typebox-validators'
 
 @Injectable()

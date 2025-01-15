@@ -10,7 +10,6 @@ import {
   RootStoreProvider,
 } from '@codelab/frontend-infra-mobx/store'
 import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
-import React from 'react'
 import { v4 } from 'uuid'
 
 const preview: Preview = {

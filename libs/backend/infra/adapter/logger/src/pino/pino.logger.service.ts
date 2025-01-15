@@ -2,7 +2,6 @@
 /* eslint-disable canonical/sort-keys */
 import type { ObjectLike } from '@codelab/shared/abstract/types'
 import type { ILoggerService, LogOptions } from '@codelab/shared/infra/logging'
-import type { LoggerService } from '@nestjs/common'
 
 import { Inject, Injectable } from '@nestjs/common'
 import { ConfigType } from '@nestjs/config'

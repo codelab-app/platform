@@ -1,4 +1,3 @@
-import type { IComponentModel } from '@codelab/frontend/abstract/domain'
 import type { SelectOption } from '@codelab/frontend/abstract/types'
 
 import { SelectComponent } from '@codelab/frontend/presentation/components/interface-form'

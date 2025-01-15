@@ -1,7 +1,6 @@
 import type { LogLevel } from '@nestjs/common'
 
 import { pinoLogger } from '@codelab/backend/infra/adapter/logger'
-import { headers } from 'next/headers'
 import { NextResponse } from 'next/server'
 
 export const dynamic = 'force-dynamic'

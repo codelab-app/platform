@@ -3,7 +3,6 @@ import type {
   IDomainModel,
   IUpdateDomainData,
 } from '@codelab/frontend/abstract/domain'
-import type { IRef } from '@codelab/shared/abstract/core'
 import type { DomainWhere } from '@codelab/shared/infra/gql'
 
 import { type IDomainService } from '@codelab/frontend/abstract/application'

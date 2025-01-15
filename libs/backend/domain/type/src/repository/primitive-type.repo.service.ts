@@ -12,7 +12,6 @@ import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import { PrimitiveTypeFragment } from '@codelab/shared/infra/gql'
-import { Validator } from '@codelab/shared/infra/typebox'
 import {
   createTypeApi,
   findTypeApi,

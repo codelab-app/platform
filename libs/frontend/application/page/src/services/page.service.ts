@@ -3,7 +3,6 @@ import type {
   IElementDto,
   IPageCreateFormData,
   IPageUpdateFormData,
-  IRef,
 } from '@codelab/shared/abstract/core'
 import type { PageWhere } from '@codelab/shared/infra/gql'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'

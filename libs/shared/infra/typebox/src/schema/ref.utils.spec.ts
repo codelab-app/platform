@@ -3,7 +3,6 @@ import { Value } from '@sinclair/typebox/value'
 import Ajv from 'ajv'
 import { v4 } from 'uuid'
 
-import { Typebox } from '../index'
 import { type IRef, RefSchema } from './ref'
 
 const ajv = new Ajv({})

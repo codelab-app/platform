@@ -15,7 +15,6 @@ import {
   type RedirectWhere,
 } from '@codelab/shared/infra/gql'
 import { RedirectFragment } from '@codelab/shared/infra/gql'
-import { Validator } from '@codelab/shared/infra/typebox'
 import { redirectApi } from '@codelab/shared-domain-module/redirect'
 import { Injectable } from '@nestjs/common'
 

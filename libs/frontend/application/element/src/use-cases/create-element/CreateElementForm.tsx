@@ -1,27 +1,17 @@
 'use client'
 
 import type { IRuntimeModel } from '@codelab/frontend/abstract/application'
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import type { IFormController } from '@codelab/frontend/abstract/types'
 import type { IElementDto } from '@codelab/shared/abstract/core'
-import type {
-  ObjectLike,
-  UniformSelectFieldProps,
-} from '@codelab/shared/abstract/types'
 
 import { isAtom } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
-import { tracker } from '@codelab/frontend/infra/logger'
 import {
   SelectActionsField,
   SelectElementField,
 } from '@codelab/frontend/presentation/components/interface-form'
 import { useUser } from '@codelab/frontend-application-user/services'
-import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
-import {
-  useApplicationStore,
-  useDomainStore,
-} from '@codelab/frontend-infra-mobx/context'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
   Form,
   FormController,
@@ -29,11 +19,7 @@ import {
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { Divider } from 'antd'
-import { diff } from 'deep-object-diff'
-import { getSnapshot } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
-import { isEqual } from 'radash'
-import { useEffect, useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 

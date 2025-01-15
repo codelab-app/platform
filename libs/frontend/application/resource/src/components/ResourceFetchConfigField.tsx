@@ -7,8 +7,6 @@ import { IResourceType } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { AutoField } from 'uniforms-antd'
 
-import { useResourceService } from '../services'
-
 interface WithResourceRef {
   resource: IRef
 }

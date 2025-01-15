@@ -4,17 +4,12 @@ import type {
   ITypeDto,
 } from '@codelab/shared/abstract/core'
 
-import {
-  type IInterfaceTypeModel,
-  userRef,
-} from '@codelab/frontend/abstract/domain'
+import { type IInterfaceTypeModel } from '@codelab/frontend/abstract/domain'
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
-import { InterfaceType } from '@codelab/frontend-domain-type/store'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { systemTypesData } from '@codelab/shared/data/seed'
-import { guestUser, userDto } from '@codelab/shared/data/test'
-import React from 'react'
+import { userDto } from '@codelab/shared/data/test'
 import { v4 } from 'uuid'
 
 import { InterfaceForm } from './InterfaceForm'

@@ -8,8 +8,7 @@ import {
 } from '@codelab/backend/infra/adapter/logger'
 import { NotFoundError } from '@codelab/shared/domain/errors'
 import { Validator } from '@codelab/shared/infra/typebox'
-import { Inject, Injectable } from '@nestjs/common'
-import { ConfigType } from '@nestjs/config'
+import { Injectable } from '@nestjs/common'
 import * as Sentry from '@sentry/nestjs'
 
 @Injectable()

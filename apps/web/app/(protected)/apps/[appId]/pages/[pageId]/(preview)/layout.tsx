@@ -1,5 +1,4 @@
 import type { DashboardLayoutProps } from '@codelab/frontend-presentation-view/templates'
-import type { ReactNode } from 'react'
 
 import { DashboardLayout } from '@codelab/frontend-presentation-view/templates'
 

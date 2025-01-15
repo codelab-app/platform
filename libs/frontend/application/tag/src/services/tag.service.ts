@@ -5,7 +5,6 @@ import type {
 import type { ITagModel } from '@codelab/frontend/abstract/domain'
 import type {
   ICreateTagData,
-  IRef,
   IUpdateTagData,
 } from '@codelab/shared/abstract/core'
 import type { TagOptions, TagWhere } from '@codelab/shared/infra/gql'

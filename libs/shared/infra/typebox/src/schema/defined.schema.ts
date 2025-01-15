@@ -1,4 +1,4 @@
-import type { TKind, TSchema } from '@sinclair/typebox'
+import type { TSchema } from '@sinclair/typebox'
 
 import { Kind, Type } from '@sinclair/typebox'
 

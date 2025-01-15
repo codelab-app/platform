@@ -16,8 +16,6 @@ import { useState } from 'react'
 import { isEmpty, prop } from 'remeda'
 import { useForm } from 'uniforms'
 
-import { useResourceService } from '../services'
-
 interface ResourceTestRequestProps {
   fetchConfigDataFieldName: string
   resourceIdFieldName: string

@@ -3,7 +3,6 @@
 import type { FormProps } from '@codelab/frontend/abstract/types'
 import type { ReactElement } from 'react'
 
-import { logger } from '@codelab/frontend/infra/logger'
 import {
   connectUniformSubmitRef,
   createBridge,

@@ -2,8 +2,7 @@ import type {
   IAntdAtomRecords,
   IHtmlAtomRecords,
   IReactAtomRecords,
-} from '@codelab/shared/abstract/core'
-
+} from '../../atom'
 import type { IAntdCategoryTag } from './antd-category-tag.interface'
 import type { IHtmlCategoryTag } from './html-category-tag.interface'
 import type { IReactCategoryTag } from './react-category-tag.interface'

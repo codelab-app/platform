@@ -1,5 +1,3 @@
-import type { ValueErrorIterator } from '@sinclair/typebox/value'
-
 import { Type } from '@sinclair/typebox'
 import { ValidationException } from 'typebox-validators'
 

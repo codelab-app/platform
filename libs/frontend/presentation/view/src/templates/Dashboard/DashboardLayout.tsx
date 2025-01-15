@@ -1,7 +1,4 @@
-import type {
-  UrlPathParams,
-  UrlPathParamsProps,
-} from '@codelab/frontend/abstract/types'
+import type { UrlPathParams } from '@codelab/frontend/abstract/types'
 import type { ReactNode } from 'react'
 
 import { Dashboard } from './Dashboard'

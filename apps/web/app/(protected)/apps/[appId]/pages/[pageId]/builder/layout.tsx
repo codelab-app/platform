@@ -1,5 +1,4 @@
 import type { DashboardLayoutProps } from '@codelab/frontend-presentation-view/templates'
-import type { ReactNode } from 'react'
 
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { appBuilderQuery } from '@codelab/frontend-application-app/use-cases/app-builder'
@@ -22,8 +21,6 @@ const Layout = async ({
   primarySidebar,
   secondaryPopover,
 }: LayoutProps) => {
-
-
   const { appId, pageId } = params
   const dto = await appBuilderQuery({ appId })
 

@@ -1,10 +1,8 @@
 'use client'
 
 /* eslint-disable react/jsx-props-no-spreading */
-import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/application'
 import type { IComponentModel } from '@codelab/frontend/abstract/domain'
 import type { SelectOption } from '@codelab/frontend/abstract/types'
-import type { Ref } from 'mobx-keystone'
 import type { FieldProps } from 'uniforms'
 import type { SelectFieldProps } from 'uniforms-antd'
 

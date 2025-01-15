@@ -9,17 +9,14 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { logger, tracker } from '@codelab/frontend/infra/logger'
-import {
-  SelectActionsField,
-  SelectComponent,
-} from '@codelab/frontend/presentation/components/interface-form'
+import { SelectActionsField } from '@codelab/frontend/presentation/components/interface-form'
 import { createAutoCompleteOptions } from '@codelab/frontend-presentation-components-codemirror'
 import {
   CodeMirrorField,
   Form,
 } from '@codelab/frontend-presentation-components-form'
 import { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
-import { Collapse, Select } from 'antd'
+import { Collapse } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { isDeepEqual } from 'remeda'
 import { AutoField, AutoFields } from 'uniforms-antd'

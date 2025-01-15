@@ -4,7 +4,7 @@ import type {
   ITypeDto,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import type { GetTypesQuery } from '@codelab/shared/infra/gql'
 import type { ObjectMap } from 'mobx-keystone'
 

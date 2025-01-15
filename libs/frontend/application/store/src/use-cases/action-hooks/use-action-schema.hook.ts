@@ -11,8 +11,6 @@ import {
 } from '@codelab/frontend-infra-mobx/context'
 import { useMemo } from 'react'
 
-import { useActionService } from '../../services/action.service'
-
 /**
  * @param schema
  * @returns create/update action schema with validation rules against duplicated action and state names

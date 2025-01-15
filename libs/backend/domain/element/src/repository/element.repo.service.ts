@@ -7,7 +7,6 @@ import type {
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import { Validator } from '@codelab/shared/infra/typebox'
 import {
   elementApi,
   elementMapper,

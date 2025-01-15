@@ -17,11 +17,7 @@ import {
   InterfaceTypeRepository,
 } from '@codelab/backend/domain/type'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import {
-  IElementRenderTypeKind,
-  IRole,
-  ITypeKind,
-} from '@codelab/shared/abstract/core'
+import { IElementRenderTypeKind, IRole } from '@codelab/shared/abstract/core'
 import { interfaceTypeDtoFactory } from '@codelab/shared-domain-module/type'
 import { Injectable } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'

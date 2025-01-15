@@ -1,7 +1,6 @@
 import type { SubmitRef } from '@codelab/frontend/abstract/types'
 import type { MouseEvent } from 'react'
 
-import { logger } from '@codelab/frontend/infra/logger'
 import {
   useErrorNotify,
   useSuccessNotify,

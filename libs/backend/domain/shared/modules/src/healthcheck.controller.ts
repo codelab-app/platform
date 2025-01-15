@@ -1,4 +1,4 @@
-import { Controller, Get, HttpException } from '@nestjs/common'
+import { Controller, Get } from '@nestjs/common'
 import * as Sentry from '@sentry/nestjs'
 
 @Controller('healthcheck')

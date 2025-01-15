@@ -6,7 +6,7 @@ import type { AnyModel } from 'mobx-keystone'
 import { diff } from 'deep-object-diff'
 import { getSnapshot, isModel } from 'mobx-keystone'
 import { useEffect, useRef } from 'react'
-import { isDeepEqual, isEmpty } from 'remeda'
+import { isDeepEqual } from 'remeda'
 
 import { logger } from './logger'
 
