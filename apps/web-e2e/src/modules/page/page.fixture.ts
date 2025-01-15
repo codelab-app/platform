@@ -34,9 +34,7 @@ export class PageListPage extends BasePage {
       .getToolbarItem(UiKey.PageToolbarItemDelete)
       .click()
 
-    const form = await this.getForm(UiKey.PageModalDelete)
-
-    await form.getButton({ label: 'Confirmation Button' }).click()
+    await this.clickPopconfirmButton()
     await this.expectGlobalProgressBarToBeHidden()
   }
 

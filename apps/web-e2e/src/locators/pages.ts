@@ -47,6 +47,15 @@ export class BasePage {
     }
   }
 
+  async clickPopconfirmButton() {
+    const popconfirm = this.page.locator('.ant-popconfirm')
+    const confirmButton = popconfirm.locator('.ant-btn-primary')
+
+    await expect(popconfirm).toBeVisible()
+
+    await confirmButton.click()
+  }
+
   /**
    * Can take a while on CI, so add long timeout
    */

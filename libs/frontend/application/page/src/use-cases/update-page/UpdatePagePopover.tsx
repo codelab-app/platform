@@ -6,6 +6,7 @@ import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
 import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import { CuiSidebarSecondary } from '@codelab/frontend/presentation/codelab-ui'
+import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import { useRef } from 'react'
@@ -14,6 +15,7 @@ import { usePageService } from '../../services/page.service'
 import { UpdatePageForm } from './UpdatePageForm'
 
 export const UpdatePagePopover = observer<{ id: string }>(({ id }) => {
+  const { appId, pageId } = useUrlPathParams()
   const submitRef = useRef<Maybe<SubmitController>>()
   const router = useRouter()
   const { updatePopover } = usePageService()
@@ -33,7 +35,7 @@ export const UpdatePagePopover = observer<{ id: string }>(({ id }) => {
             cuiKey: UiKey.PageToolbarItemUpdateCancel,
             icon: <CloseOutlined />,
             label: 'Cancel',
-            onClick: () => updatePopover.close(router),
+            onClick: () => updatePopover.close(router, { appId, pageId }),
           },
         ],
         title: 'Update Page toolbar',
@@ -41,7 +43,7 @@ export const UpdatePagePopover = observer<{ id: string }>(({ id }) => {
     >
       <UpdatePageForm
         id={id}
-        onSubmitSuccess={() => updatePopover.close(router)}
+        onSubmitSuccess={() => updatePopover.close(router, { appId, pageId })}
         showFormControl={false}
         submitRef={submitRef}
       />

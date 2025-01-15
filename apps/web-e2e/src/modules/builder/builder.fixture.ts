@@ -73,15 +73,6 @@ export class BuilderPage extends BasePage {
     await modal.locator(button).click()
   }
 
-  async clickPopconfirmButton() {
-    const popconfirm = this.page.locator('.ant-popconfirm')
-    const confirmButton = popconfirm.locator('.ant-btn-primary')
-
-    await expect(popconfirm).toBeVisible()
-
-    await confirmButton.click()
-  }
-
   async createElementTree(elements: Array<ICreateCypressElementData>) {
     const explorerTree = this.getElementsTree()
     const itemToolbarKey = CuiTestId.cuiTreeItemToolbar()

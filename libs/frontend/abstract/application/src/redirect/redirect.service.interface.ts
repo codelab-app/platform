@@ -15,6 +15,9 @@ import type { ICrudService, IQueryService } from '../services'
 export interface IRedirectService
   extends ICrudService<IRef, IRedirectCreateFormData, IRedirectUpdateFormData>,
     IQueryService<IRedirectModel, RedirectWhere, RedirectOptions> {
-  createPopover: IPopover<PageContextParams>
-  updatePopover: IPopover<PageContextParams & { redirectId: string }>
+  createPopover: IPopover<PageContextParams, PageContextParams>
+  updatePopover: IPopover<
+    PageContextParams & { redirectId: string },
+    PageContextParams
+  >
 }

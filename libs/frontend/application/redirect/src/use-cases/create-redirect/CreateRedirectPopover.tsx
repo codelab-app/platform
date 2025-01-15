@@ -6,6 +6,7 @@ import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
 import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import { CuiSidebarSecondary } from '@codelab/frontend/presentation/codelab-ui'
+import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import { useRef } from 'react'
@@ -14,6 +15,7 @@ import { useRedirectService } from '../../services/redirect.service'
 import { CreateRedirectForm } from './CreateRedirectForm'
 
 export const CreateRedirectPopover = observer(() => {
+  const { appId, pageId } = useUrlPathParams()
   const { createPopover } = useRedirectService()
   const submitRef = useRef<Maybe<SubmitController>>()
   const router = useRouter()
@@ -33,14 +35,14 @@ export const CreateRedirectPopover = observer(() => {
             cuiKey: UiKey.RedirectToolbarItemCreateCancel,
             icon: <CloseOutlined />,
             label: 'Cancel',
-            onClick: () => createPopover.close(router),
+            onClick: () => createPopover.close(router, { appId, pageId }),
           },
         ],
         title: 'Create Redirect toolbar',
       }}
     >
       <CreateRedirectForm
-        onSubmitSuccess={() => createPopover.close(router)}
+        onSubmitSuccess={() => createPopover.close(router, { appId, pageId })}
         showFormControl={false}
         submitRef={submitRef}
       />
