@@ -1,13 +1,13 @@
 import type { UiKey } from '@codelab/frontend/abstract/types'
-import type { SyntheticEvent } from 'react'
 
 export interface ToolbarItem {
   ariaLabel?: string
+  confirmText?: string
   cuiKey: UiKey
   icon: React.ReactNode
   label?: string
   title?: string
-  onClick?(event: SyntheticEvent): void
+  onClick?(event: unknown): void
 }
 
 export interface ToolbarProps {
