@@ -1,8 +1,5 @@
 import type { IElementService } from '@codelab/frontend/abstract/application'
-import type {
-  ComponentContextParams,
-  PageContextParams,
-} from '@codelab/frontend/abstract/types'
+import type { BuilderContextParams } from '@codelab/frontend/abstract/types'
 import type { IElementDto } from '@codelab/shared/abstract/core'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
@@ -28,7 +25,7 @@ const createPopover = {
   },
   open: (
     router: AppRouterInstance,
-    { appId, componentId, pageId }: PageContextParams & ComponentContextParams,
+    { appId, componentId, pageId }: BuilderContextParams,
   ) => {
     const url =
       appId && pageId
@@ -50,7 +47,7 @@ const deletePopover = {
       componentId,
       elementId,
       pageId,
-    }: PageContextParams & ComponentContextParams & { elementId: string },
+    }: BuilderContextParams & { elementId: string },
   ) => {
     const url =
       appId && pageId

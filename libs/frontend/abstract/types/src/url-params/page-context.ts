@@ -9,4 +9,6 @@ export type PageContextParams = Pick<UrlPathParams, 'appId' | 'pageId'>
 
 export type ComponentContextParams = Pick<UrlPathParams, 'componentId'>
 
+export type BuilderContextParams = PageContextParams & ComponentContextParams
+
 export type PaginationContextParams = Pick<UrlQueryParams, 'page' | 'pageSize'>
