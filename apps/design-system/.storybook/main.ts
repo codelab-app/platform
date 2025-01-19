@@ -10,6 +10,9 @@ const storybookConfig: StorybookConfig = {
     '@nx/react/plugins/storybook',
   ],
   framework: {
+    /**
+     * Decorator issue with `@storybook/nextjs`
+     */
     name: '@storybook/react-vite',
     options: {},
   },

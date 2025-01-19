@@ -122,6 +122,7 @@ export class CuiTreeStore<T extends CuiTreeBasicDataNode> {
     treeData = [],
   }: ICuiTreeStoreDefaults<T>) {
     makeObservable(this)
+
     this.expandedKeys_ = expandedKeys
     this.filterOptions_ = filterOptions
     this.treeData_ = treeData

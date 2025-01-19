@@ -73,3 +73,5 @@ out
 
 vite.config.*.timestamp*
 .aider*
+
+vitest.config.*.timestamp*

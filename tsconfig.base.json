@@ -1006,6 +1006,9 @@
       "@codelab/shared/infra/logging": [
         "libs/shared/infra/logging/src/index.ts"
       ],
+      "@codelab/shared/infra/logging/server": [
+        "libs/shared/infra/logging/src/server/index.ts"
+      ],
       "@codelab/shared/infra/typebox": [
         "libs/shared/infra/typebox/src/index.ts"
       ],

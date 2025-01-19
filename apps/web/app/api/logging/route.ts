@@ -1,22 +1,9 @@
 import type { LogLevel } from '@nestjs/common'
 
-import { pinoLogger } from '@codelab/backend/infra/adapter/logger'
+import { pinoLogger } from '@codelab/shared/infra/logging/server'
 import { NextResponse } from 'next/server'
 
 export const dynamic = 'force-dynamic'
-
-export const GET = async (request: Request) => {
-  pinoLogger.info('User logged in', {
-    metadata: {
-      browser: 'Chrome',
-      ip: '127.0.0.1',
-    },
-    timestamp: new Date(),
-    userId: 123,
-  })
-
-  return NextResponse.json({ success: true })
-}
 
 /**
  * Allows `pino/file` to work in server environment

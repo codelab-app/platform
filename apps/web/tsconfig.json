@@ -11,7 +11,6 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "incremental": true,
-    "experimentalDecorators": true,
     "emitDecoratorMetadata": false,
     "plugins": [
       {
@@ -52,6 +51,9 @@
   "references": [
     {
       "path": "./tsconfig.storybook.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
     }
   ]
 }

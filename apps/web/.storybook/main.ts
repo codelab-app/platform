@@ -1,7 +1,14 @@
-import type { StorybookConfig } from '@storybook/nextjs'
+import type { StorybookConfig } from '@storybook/react-vite'
+import type { Options } from '@swc/core'
 
-const config: StorybookConfig = {
-  addons: ['@storybook/addon-essentials', '@storybook/addon-interactions'],
+import { resolve } from 'path'
+
+const storybookConfig: StorybookConfig = {
+  addons: [
+    '@storybook/addon-essentials',
+    '@storybook/addon-interactions',
+    // 'storybook-css-modules',
+  ],
   framework: {
     name: '@storybook/nextjs',
     options: {
@@ -12,8 +19,9 @@ const config: StorybookConfig = {
   },
   staticDirs: ['../public'],
   stories: [
-    '../**/*.@(mdx|stories.@(js|jsx|ts|tsx))',
+    // '../components/**/*.stories.@(js|jsx|ts|tsx|mdx)',
     '../../../libs/frontend/presentation/components/interface-form/**/*.stories.@(js|jsx|ts|tsx|mdx)',
+    // '../../../libs/frontend/application/**/*.stories.@(js|jsx|ts|tsx|mdx)',
   ],
   /**
    * This is not picked up unless certain conditions are met
@@ -81,7 +89,7 @@ const config: StorybookConfig = {
   },
 }
 
-export default config
+export default storybookConfig
 
 // To customize your webpack configuration you can use the webpackFinal field.
 // Check https://storybook.js.org/docs/react/builders/webpack#extending-storybooks-webpack-config

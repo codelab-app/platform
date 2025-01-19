@@ -1,10 +1,10 @@
 import type { Preview } from '@storybook/react'
 
 import { StyleProviders } from '@codelab/frontend/infra/context'
+import { preferenceDto, userDto } from '@codelab/frontend/test/data'
 
 import '../styles/main.css'
 
-import { preferenceDto, userDto } from '@codelab/frontend/test/data'
 import {
   createRootStore,
   RootStoreProvider,
