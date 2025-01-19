@@ -1,10 +1,11 @@
+import type { IFieldDto } from '@codelab/shared/abstract/core'
+
 import {
   getTypeDomainService,
   type IFieldDomainService,
   type IFieldModel,
-  IInterfaceTypeModel,
+  type IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
-import { IFieldDto } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 

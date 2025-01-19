@@ -1,5 +1,6 @@
 import type {
   ElementWrapperProps,
+  IElementTreeViewDataNode,
   IElementTreeViewDataNodePreview,
   IRuntimeComponentModel,
   IRuntimeElementDto,
@@ -13,14 +14,14 @@ import type {
   IActionModel,
   IElementModel,
 } from '@codelab/frontend/abstract/domain'
-import type { Maybe } from '@codelab/shared/abstract/types'
+import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
+import type { ArrayOrSingle } from 'ts-essentials/dist/types'
 
 import {
   getRendererService,
   getRuntimeComponentService,
   getRuntimeElementService,
-  IElementTreeViewDataNode,
   IRuntimeNodeType,
   isRuntimeComponent,
   isRuntimeElement,
@@ -30,7 +31,6 @@ import {
   getComponentDomainService,
   isComponent,
 } from '@codelab/frontend/abstract/domain'
-import { Nullable } from '@codelab/shared/abstract/types'
 import { evaluateExpression, hasExpression } from '@codelab/shared-infra-eval'
 import { computed } from 'mobx'
 import {
@@ -44,7 +44,6 @@ import {
 } from 'mobx-keystone'
 import { createElement, type ReactElement, type ReactNode } from 'react'
 import { difference, filter, isTruthy } from 'remeda'
-import { ArrayOrSingle } from 'ts-essentials/dist/types'
 
 import { ElementWrapper } from '../components'
 

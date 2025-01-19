@@ -3,6 +3,7 @@ import type {
   IRendererDto,
   IRootStore,
 } from '@codelab/frontend/abstract/application'
+import type { IDomainStore } from '@codelab/frontend/abstract/domain'
 import type {
   IApiActionDto,
   IAppDto,
@@ -22,6 +23,7 @@ import type {
   IRichTextType,
   IStoreDto,
 } from '@codelab/shared/abstract/core'
+import type { PartialExcept } from '@codelab/shared/abstract/types'
 
 import {
   rendererRef,
@@ -36,7 +38,6 @@ import {
   domainDomainServiceContext,
   elementDomainServiceContext,
   fieldDomainServiceContext,
-  IDomainStore,
   pageDomainServiceContext,
   redirectDomainServiceContext,
   resourceDomainServiceContext,
@@ -75,7 +76,6 @@ import {
   IPrimitiveTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { PartialExcept } from '@codelab/shared/abstract/types'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
 import { Validator } from '@codelab/shared/infra/typebox'
 import {
@@ -121,6 +121,8 @@ export const createTestStore = () => {
     @modelAction
     addApp(dto: Partial<IAppDto>) {
       // console.log('addApp', dto)
+
+      // this.domainStore.appDomainService.hydrate(dto)
 
       return appFactory(this.domainStore.appDomainService)(dto)
     }

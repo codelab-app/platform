@@ -1,4 +1,5 @@
 import type { ICodeMirrorTypeDto } from '@codelab/shared/abstract/core'
+import type { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
 
 import {
   type ICodeMirrorTypeModel,
@@ -7,7 +8,6 @@ import {
   userRef,
 } from '@codelab/frontend/abstract/domain'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
-import { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 
 import { typedPropSchema } from '../shared/typed-prop-schema'

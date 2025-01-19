@@ -10,7 +10,17 @@ import {
   RootStoreProvider,
 } from '@codelab/frontend-infra-mobx/store'
 import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
+import { initialize, mswLoader } from 'msw-storybook-addon'
+// eslint-disable-next-line unused-imports/no-unused-imports
+import React from 'react'
 import { v4 } from 'uuid'
+
+/*
+ * Initializes MSW
+ * See https://github.com/mswjs/msw-storybook-addon#configuring-msw
+ * to learn how to customize it
+ */
+initialize()
 
 const preview: Preview = {
   decorators: [
@@ -40,6 +50,7 @@ const preview: Preview = {
       )
     },
   ],
+  loaders: [mswLoader],
   parameters: {
     backgrounds: {
       values: [

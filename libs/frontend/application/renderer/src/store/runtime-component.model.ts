@@ -1,8 +1,10 @@
 import type {
+  IElementTreeViewDataNode,
   IElementTreeViewDataNodePreview,
   IRuntimeComponentDto,
   IRuntimeComponentModel,
   IRuntimeComponentPropModel,
+  IRuntimeElementModel,
   IRuntimeModel,
   IRuntimeStoreModel,
 } from '@codelab/frontend/abstract/application'
@@ -10,15 +12,13 @@ import type {
   IComponentModel,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
-import type { Maybe } from '@codelab/shared/abstract/types'
+import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { ReactElement } from 'react'
 
 import {
   getRuntimeComponentService,
   getRuntimeElementService,
-  IElementTreeViewDataNode,
-  IRuntimeElementModel,
   IRuntimeNodeType,
   runtimeComponentRef,
 } from '@codelab/frontend/abstract/application'
@@ -27,7 +27,6 @@ import {
   isComponent,
   storeRef,
 } from '@codelab/frontend/abstract/domain'
-import { Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { isNonNullish } from 'remeda'

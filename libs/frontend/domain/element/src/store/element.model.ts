@@ -1,6 +1,7 @@
 import type {
   IActionModel,
   IComponentModel,
+  IElementModel,
   IElementRenderTypeModel,
   IHook,
   IPageModel,
@@ -10,21 +11,20 @@ import type {
   RenderingMetadata,
 } from '@codelab/frontend/abstract/domain'
 import type { IElementDto, IRef } from '@codelab/shared/abstract/core'
-import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import type { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
+import type { Ref } from 'mobx-keystone'
 
 import {
   actionRef,
   componentRef,
   DATA_ELEMENT_ID,
   elementRef,
-  IElementModel,
   isAtom,
   isAtomRef,
   pageRef,
 } from '@codelab/frontend/abstract/domain'
 import { createValidator, toRefSchema } from '@codelab/frontend/shared/utils'
 import { Prop } from '@codelab/frontend-domain-prop/store'
-import { Nullish } from '@codelab/shared/abstract/types'
 import { slugify, titleCase } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
@@ -34,7 +34,6 @@ import {
   modelAction,
   patchRecorder,
   prop,
-  Ref,
 } from 'mobx-keystone'
 
 import { validateElement } from '../services/element.validate'

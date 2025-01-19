@@ -9,6 +9,11 @@
   "version": "0.0.1",
   "license": "MIT",
   "sideEffects": false,
+  "msw": {
+    "workerDirectory": [
+      "apps/web/public"
+    ]
+  },
   "scripts": {
     "e2e": "nx e2e-ui web-e2e -c test",
     "e2e:web": "nx serve web -c test",
@@ -49,6 +54,7 @@
     "@codelab-codegen/typescript-server-fetch": "file:dist/libs/external/codelab-codegen/typescript-server-fetch",
     "@codelab/eslint-plugin": "file:dist/libs/tools/eslint-plugin",
     "@codelab/tools-workspace": "file:dist/libs/tools/workspace",
+    "@codelab/tsc-check": "file:dist/libs/tools/tsc-check",
     "@codemirror/autocomplete": "6.12.0",
     "@codemirror/commands": "6.3.3",
     "@codemirror/lang-css": "6.2.1",
@@ -323,6 +329,7 @@
     "@swc-node/register": "1.10.9",
     "@swc/cli": "0.4.0",
     "@swc/core": "1.7.26",
+    "@swc/helpers": "^0.5.15",
     "@swc/jest": "0.2.36",
     "@swc/plugin-styled-components": "3.0.1",
     "@testing-library/dom": "10.4.0",

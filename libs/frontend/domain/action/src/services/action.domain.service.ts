@@ -1,12 +1,12 @@
 import type {
   IActionDomainService,
   IActionModel,
+  IStoreModel,
 } from '@codelab/frontend/abstract/domain'
-import type { IActionDto } from '@codelab/shared/abstract/core'
+import type { IActionDto, IRef } from '@codelab/shared/abstract/core'
 import type { ActionFragment } from '@codelab/shared/infra/gql'
 
-import { IStoreModel } from '@codelab/frontend/abstract/domain'
-import { IActionKind, IRef } from '@codelab/shared/abstract/core'
+import { IActionKind } from '@codelab/shared/abstract/core'
 import { actionFactory } from '@codelab/shared-domain-module/action'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'

@@ -1,14 +1,4 @@
-import * as env from 'env-var'
-
-/**
- * https://github.com/evanshortiss/env-var/issues/162
- */
-const { get } = env.from({
-  NEXT_PUBLIC_API_HOSTNAME: process.env['NEXT_PUBLIC_API_HOSTNAME'],
-  NEXT_PUBLIC_API_PORT: process.env['NEXT_PUBLIC_API_PORT'],
-  NEXT_PUBLIC_BASE_API_PATH: process.env['NEXT_PUBLIC_BASE_API_PATH'],
-  NEXT_PUBLIC_WEB_HOST: process.env['NEXT_PUBLIC_WEB_HOST'],
-})
+import { env } from '../env'
 
 interface IAdminEndpoints {
   /**
@@ -120,8 +110,8 @@ export class EndpointEnvVars implements IEndpointEnvVars {
       return this._apiHost
     }
 
-    const port = get('NEXT_PUBLIC_API_PORT').required().asPortNumber()
-    const url = get('NEXT_PUBLIC_API_HOSTNAME').required().asUrlObject()
+    const port = env.get('NEXT_PUBLIC_API_PORT').required().asPortNumber()
+    const url = env.get('NEXT_PUBLIC_API_HOSTNAME').required().asUrlObject()
 
     return (this._apiHost = new URL(`${url.origin}:${port}`).toString())
   }
@@ -141,7 +131,7 @@ export class EndpointEnvVars implements IEndpointEnvVars {
   }
 
   get baseApiPath() {
-    return get('NEXT_PUBLIC_BASE_API_PATH').required().asString()
+    return env.get('NEXT_PUBLIC_BASE_API_PATH').required().asString()
   }
 
   /**
@@ -190,7 +180,10 @@ export class EndpointEnvVars implements IEndpointEnvVars {
    * This is used before module is initialized, so we must access process.env
    */
   get webHost(): string {
-    return (this._webHost ??= get('NEXT_PUBLIC_WEB_HOST').required().asString())
+    return (this._webHost ??= env
+      .get('NEXT_PUBLIC_WEB_HOST')
+      .required()
+      .asString())
   }
 
   private _apiHost?: string

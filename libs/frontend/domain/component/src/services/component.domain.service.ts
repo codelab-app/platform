@@ -4,7 +4,12 @@ import type {
   IElementModel,
   IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
-import type { IPropDto } from '@codelab/shared/abstract/core'
+import type { SelectOption } from '@codelab/frontend/abstract/types'
+import type {
+  IComponentDto,
+  ICreateComponentData,
+  IPropDto,
+} from '@codelab/shared/abstract/core'
 
 import CodeSandboxOutlined from '@ant-design/icons/CodeSandboxOutlined'
 import {
@@ -15,22 +20,29 @@ import {
   getUserDomainService,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
-import { SelectOption } from '@codelab/frontend/abstract/types'
 import { mapEntitySelectOptions } from '@codelab/frontend-domain-atom/store'
 import { Store } from '@codelab/frontend-domain-store/store'
 import { InterfaceType } from '@codelab/frontend-domain-type/store'
 import {
-  IComponentDto,
-  ICreateComponentData,
   IElementRenderTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/typebox'
 import { computed } from 'mobx'
-import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
+import {
+  _async,
+  _await,
+  Model,
+  model,
+  modelAction,
+  modelFlow,
+  objectMap,
+  prop,
+} from 'mobx-keystone'
 import { prop as rProp, sortBy } from 'remeda'
 import { v4 } from 'uuid'
 
+import { componentRepository } from '../repositories'
 import { Component } from '../store'
 
 @model('@codelab/ComponentDomainService')
@@ -49,6 +61,44 @@ export class ComponentDomainService
   get sortedComponentsList() {
     return sortBy(this.componentList, rProp('name'))
   }
+
+  @modelFlow
+  getSelectOptions = _async(function* (
+    this: ComponentDomainService,
+    component?: Pick<IComponentModel, 'id' | 'name'>,
+  ) {
+    const components = yield* _await(componentRepository.find())
+
+    components.items.forEach((dto) => {
+      this.hydrate(dto)
+    })
+
+    const filtered = this.sortedComponentsList.filter((comp) => {
+      if (comp.id === component?.id) {
+        return false
+      }
+
+      console.log(comp)
+
+      /**
+       * Prevent circular references
+       */
+      const parentIsDescendant = comp.descendantComponents.some(
+        ({ id }) => id === component?.id,
+      )
+
+      console.log({ parentIsDescendant })
+
+      return !component?.id || !parentIsDescendant
+    })
+
+    console.log(filtered)
+
+    return filtered.map((comp) => ({
+      label: comp.name,
+      value: comp.id,
+    }))
+  })
 
   @modelAction
   add({ id, name, rootElement }: ICreateComponentData) {

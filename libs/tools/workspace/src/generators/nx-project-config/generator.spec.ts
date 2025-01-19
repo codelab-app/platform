@@ -18,6 +18,7 @@ describe('project.json lint settings', () => {
     tree = createTreeWithEmptyWorkspace()
 
     await libraryGenerator(tree, {
+      directory: 'libs/tools/workspace',
       linter: Linter.EsLint,
       name: LIB_NAME,
       style: 'none',

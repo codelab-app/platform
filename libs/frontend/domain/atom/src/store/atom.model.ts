@@ -2,18 +2,14 @@ import type {
   IAtomModel,
   IInterfaceTypeModel,
   ITagModel,
+  IUserModel,
 } from '@codelab/frontend/abstract/domain'
 import type { IAtomDto, IAtomType } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 
 import AntDesignOutlined from '@ant-design/icons/AntDesignOutlined'
 import Html5Outlined from '@ant-design/icons/Html5Outlined'
-import {
-  atomRef,
-  IUserModel,
-  typeRef,
-  userRef,
-} from '@codelab/frontend/abstract/domain'
+import { atomRef, typeRef, userRef } from '@codelab/frontend/abstract/domain'
 import { tagRef } from '@codelab/frontend-domain-tag/store'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import {

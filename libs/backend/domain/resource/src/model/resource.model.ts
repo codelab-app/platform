@@ -6,7 +6,7 @@ import type {
   IResourceType,
 } from '@codelab/shared/abstract/core'
 
-import { IModel } from '@codelab/backend/abstract/types'
+import { IModel } from '@codelab/shared/abstract/core'
 import { Prop } from '@codelab/backend/domain/prop'
 
 export class Resource extends IModel implements IResource {

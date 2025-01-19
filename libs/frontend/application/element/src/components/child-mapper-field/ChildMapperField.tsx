@@ -33,7 +33,9 @@ const PropKeyField = ToggleExpressionField({
   },
 })
 
-const ChildMapperFields = ({ runtimeElement }: ChildMapperFieldsProps) => {
+const ChildMapperField = ({
+  runtimeElement,
+}: ChildMapperFieldsProps) => {
   const element = runtimeElement.element.current
 
   const [childMapperPreviousSiblingFieldProps] = useField<{
@@ -64,4 +66,4 @@ const ChildMapperFields = ({ runtimeElement }: ChildMapperFieldsProps) => {
   )
 }
 
-export default ChildMapperFields
+export default ChildMapperField

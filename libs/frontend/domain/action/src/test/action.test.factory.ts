@@ -18,6 +18,7 @@ export const codeActionFactory =
       id: dto.id ?? v4(),
       name: dto.name ?? `${chance.word({ capitalize: true })} Action`,
       store: { id: dto.store?.id ?? v4() },
+      type: IActionKind.CodeAction,
     }
 
     return actionDomainService.hydrate(action)
@@ -35,6 +36,7 @@ export const apiActionFactory =
       resource: dto.resource ?? { id: v4() },
       store: { id: dto.store?.id ?? v4() },
       successAction: dto.successAction,
+      type: IActionKind.ApiAction,
     }
 
     return actionDomainService.hydrate(action)

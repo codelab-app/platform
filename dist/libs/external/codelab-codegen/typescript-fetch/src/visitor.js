@@ -33,7 +33,7 @@ class GraphQLRequestVisitor extends visitor_plugin_common_1.ClientSideBaseVisito
             writable: true,
             value: void 0
         });
-        this._outputFile = path_1.default.basename(info?.outputFile || '');
+        this._outputFile = path_1.default.basename((info === null || info === void 0 ? void 0 : info.outputFile) || '');
         (0, auto_bind_1.default)(this);
         this._additionalImports = [
             "import { graphql } from '@codelab/shared/infra/gql'",
@@ -89,6 +89,7 @@ class GraphQLRequestVisitor extends visitor_plugin_common_1.ClientSideBaseVisito
         return '';
     }
     get content() {
+        var _a;
         const typeImports = this._operationsToInclude
             .map((o) => `type ${o.operationVariablesTypes}`)
             .join(', ');
@@ -98,11 +99,12 @@ class GraphQLRequestVisitor extends visitor_plugin_common_1.ClientSideBaseVisito
         const imports = [
             `import { ${typeImports} } from '${this._externalImportPrefix}'`,
             // Here we import the generated documents to use with our operations
-            `import { ${documentImports} } from './${this._outputFile?.replace('.api.gen.ts', '.docs.gen')}'`,
+            `import { ${documentImports} } from './${(_a = this._outputFile) === null || _a === void 0 ? void 0 : _a.replace('.api.gen.ts', '.docs.gen')}'`,
             "import { GraphQLClient } from 'graphql-request'",
         ];
         const graphqlOperations = this._operationsToInclude.map((o) => {
-            const operationName = o.node.name?.value;
+            var _a;
+            const operationName = (_a = o.node.name) === null || _a === void 0 ? void 0 : _a.value;
             if (!operationName) {
                 throw new Error('Missing operation name');
             }

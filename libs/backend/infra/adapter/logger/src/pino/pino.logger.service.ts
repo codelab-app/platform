@@ -1,10 +1,8 @@
-/* eslint-disable perfectionist/sort-objects */
-/* eslint-disable canonical/sort-keys */
 import type { ObjectLike } from '@codelab/shared/abstract/types'
 import type { ILoggerService, LogOptions } from '@codelab/shared/infra/logging'
+import type { ConfigType } from '@nestjs/config'
 
 import { Inject, Injectable } from '@nestjs/common'
-import { ConfigType } from '@nestjs/config'
 import { Logger, Params, PARAMS_PROVIDER_TOKEN, PinoLogger } from 'nestjs-pino'
 import pino from 'pino'
 
@@ -36,8 +34,8 @@ export class PinoLoggerService extends Logger implements ILoggerService {
     if (includeDataForContext) {
       return super.log(
         {
-          message,
           data: options?.data,
+          message,
         },
         context,
       )

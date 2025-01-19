@@ -22,8 +22,9 @@
 
 # Ignore everything in 'dist/libs/tools' except 'workspace'
 /dist/libs/tools/*
-!/dist/libs/tools/workspace/
 !/dist/libs/tools/eslint-plugin/
+!/dist/libs/tools/tsc-check/
+!/dist/libs/tools/workspace/
 
 !/dist/libs/external/
 /dist/libs/external/*

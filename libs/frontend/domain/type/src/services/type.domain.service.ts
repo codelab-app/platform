@@ -2,14 +2,11 @@ import type {
   ITypeDomainService,
   ITypeModel,
 } from '@codelab/frontend/abstract/domain'
+import type { IInterfaceTypeDto, ITypeDto } from '@codelab/shared/abstract/core'
 import type { GetTypesQuery } from '@codelab/shared/infra/gql'
 
 import { getFieldDomainService } from '@codelab/frontend/abstract/domain'
-import {
-  IInterfaceTypeDto,
-  ITypeDto,
-  ITypeKind,
-} from '@codelab/shared/abstract/core'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/typebox'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'

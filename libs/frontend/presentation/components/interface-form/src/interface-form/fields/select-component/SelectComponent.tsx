@@ -33,7 +33,7 @@ export const SelectComponent = ({
     { error: queryError, loading, value: result },
     selectComponentOptions,
   ] = useAsyncFn<() => Promise<Array<SelectOption> | undefined>>(
-    () => getSelectComponentOptions(componentDomainService, component),
+    () => componentDomainService.getSelectOptions(component),
     [],
     {
       // Start with loading state, so we don't show the initial value until label is fetched
@@ -47,7 +47,7 @@ export const SelectComponent = ({
 
   const errors = fieldProps.error || queryError
 
-  console.log(errors)
+  console.log('result', result)
 
   return (
     <SelectField

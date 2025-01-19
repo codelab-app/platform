@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/member-ordering */
-import * as env from 'env-var'
-
 import type { IEndpointEnvVars } from './endpoint'
+
+import { env } from '../env'
 
 export interface IAuth0EnvVars {
   audience: string

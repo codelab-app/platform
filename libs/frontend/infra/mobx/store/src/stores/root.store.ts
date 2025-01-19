@@ -3,9 +3,8 @@ import type {
   IRootStore,
   IRootStoreInput,
 } from '@codelab/frontend/abstract/application'
+import type { IDomainStore } from '@codelab/frontend/abstract/domain'
 
-import { IDomainStore } from '@codelab/frontend/abstract/domain'
-import { withSpanFunc } from '@codelab/shared-infra-sentry'
 import {
   Model,
   model,
@@ -18,35 +17,33 @@ import {
 import { createApplicationStore } from './application.store'
 import { createDomainStore } from './domain.store'
 
-export const createRootStore = withSpanFunc(
-  {
-    name: 'createRootStore',
-    op: 'codelab.mobx',
-  },
-  ({ preference, routerProps, user }: IRootStoreInput) => {
-    setGlobalConfig({
-      showDuplicateModelNameWarnings: false,
+export const createRootStore = ({
+  preference,
+  routerProps,
+  user,
+}: IRootStoreInput) => {
+  setGlobalConfig({
+    showDuplicateModelNameWarnings: false,
+  })
+
+  const domainStore = createDomainStore(user, preference)
+  const applicationStore = createApplicationStore(routerProps, domainStore)
+
+  @model('@codelab/RootStore')
+  class RootStore
+    extends Model({
+      applicationStore: prop<IApplicationStore>(() => applicationStore),
+      domainStore: prop<IDomainStore>(() => domainStore),
     })
+    implements IRootStore {}
 
-    const domainStore = createDomainStore(user, preference)
-    const applicationStore = createApplicationStore(routerProps, domainStore)
+  const rootStore = new RootStore({})
 
-    @model('@codelab/RootStore')
-    class RootStore
-      extends Model({
-        applicationStore: prop<IApplicationStore>(() => applicationStore),
-        domainStore: prop<IDomainStore>(() => domainStore),
-      })
-      implements IRootStore {}
+  const undoManager = undoMiddleware(rootStore, undefined, {
+    maxUndoLevels: 1,
+  })
 
-    const rootStore = new RootStore({})
+  registerRootStore(rootStore)
 
-    const undoManager = undoMiddleware(rootStore, undefined, {
-      maxUndoLevels: 1,
-    })
-
-    registerRootStore(rootStore)
-
-    return { rootStore, undoManager }
-  },
-)
+  return { rootStore, undoManager }
+}

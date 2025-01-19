@@ -1,0 +1,20 @@
+parameters:
+  resource_class:
+    type: string
+
+executor: docker-node
+
+resource_class: << parameters.resource_class >>
+
+steps:
+  - restore-workspace
+  # - clear-jest-cache
+  - run:
+      name: 'Run Unit Tests'
+      command: pnpm cli tasks unit --stage ci
+      environment:
+        JEST_JUNIT_OUTPUT_DIR: ./tmp/reports/test-unit
+        # JEST_JUNIT_OUTPUT_NAME: 'unit-specs-results.xml'
+  # https://discuss.circleci.com/t/insights-test-panel-doesnt-show-any-information/45070/13
+  - store_test_results:
+      path: ./tmp/reports/test-unit

@@ -1,13 +1,13 @@
+import type { ISchemaService } from '@codelab/backend/abstract/types'
 import type { GraphQLSchema } from 'graphql'
 
-import { ISchemaService } from '@codelab/backend/abstract/types'
 import { Neo4jService } from '@codelab/backend-infra-adapter/neo4j-driver'
 import { getEnv } from '@codelab/shared/config/env'
 import {
   Neo4jGraphQL,
   Neo4jGraphQLSubscriptionsCDCEngine,
 } from '@neo4j/graphql'
-import { Injectable } from '@nestjs/common'
+import { Injectable, OnModuleInit } from '@nestjs/common'
 
 import { ResolverService } from '../resolver/resolver.service'
 import { typeDefs } from './type-defs'
@@ -29,6 +29,7 @@ export class SchemaService implements ISchemaService {
     private readonly neo4jService: Neo4jService,
     private readonly resolverService: ResolverService,
   ) {
+    // Initialize engine after all dependencies are ready
     this.engine = new Neo4jGraphQLSubscriptionsCDCEngine({
       driver: this.neo4jService.driver,
       onlyGraphQLEvents: true,
@@ -36,7 +37,7 @@ export class SchemaService implements ISchemaService {
   }
 
   closeEngine() {
-    this.engine.close()
+    this.engine?.close()
   }
 
   async createSchema(): Promise<GraphQLSchema> {
@@ -89,5 +90,5 @@ export class SchemaService implements ISchemaService {
     }
   }
 
-  private engine: Neo4jGraphQLSubscriptionsCDCEngine
+  private engine?: Neo4jGraphQLSubscriptionsCDCEngine
 }

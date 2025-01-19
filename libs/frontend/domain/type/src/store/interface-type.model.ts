@@ -4,16 +4,16 @@ import type {
   ITypeTransformContext,
   JsonSchema,
 } from '@codelab/frontend/abstract/domain'
-import type { Ref } from 'mobx-keystone'
-
-import { fieldRef, userRef } from '@codelab/frontend/abstract/domain'
-import {
+import type {
   IInterfaceTypeDto,
   IPropData,
   IRef,
-  ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { InterfaceTypeDeleteInput } from '@codelab/shared/infra/gql'
+import type { InterfaceTypeDeleteInput } from '@codelab/shared/infra/gql'
+import type { Ref } from 'mobx-keystone'
+
+import { fieldRef, userRef } from '@codelab/frontend/abstract/domain'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import { createInterfaceTypeName } from '@codelab/shared-domain-module/type'
 import { computed } from 'mobx'
 import {

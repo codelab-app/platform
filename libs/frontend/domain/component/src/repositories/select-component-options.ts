@@ -10,7 +10,13 @@ export const getSelectComponentOptions = async (
   componentDomainService: IComponentDomainService,
   component?: Pick<IComponentModel, 'id' | 'name'>,
 ) => {
-  await componentRepository.find()
+  const components = await componentRepository.find()
+
+  console.log('components', components)
+
+  const hydratedComponents = components.items.map((dto) =>
+    componentDomainService.hydrate(dto),
+  )
 
   const filtered = componentDomainService.sortedComponentsList.filter(
     (comp) => {

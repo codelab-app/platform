@@ -1,16 +1,9 @@
 import { ApolloClient, HttpLink, InMemoryCache, split } from '@apollo/client'
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
 import { getMainDefinition } from '@apollo/client/utilities'
-import * as env from 'env-var'
+import { env } from '@codelab/shared/config/env'
 import { createClient } from 'graphql-ws'
 import WebSocket from 'ws'
-
-/**
- * https://github.com/evanshortiss/env-var/issues/162
- */
-const { get } = env.from({
-  NEXT_PUBLIC_API_PORT: process.env['NEXT_PUBLIC_API_PORT'],
-})
 
 enum Environment {
   Browser = 'browser',
@@ -25,7 +18,8 @@ export const createApolloClient = ({
   environment = Environment.Browser,
 }: CreateApolloClientOptions = {}) => {
   // Move port getter to a function to avoid early evaluation
-  const getApiPort = () => get('NEXT_PUBLIC_API_PORT').required().asPortNumber()
+  const getApiPort = () =>
+    env.get('NEXT_PUBLIC_API_PORT').required().asPortNumber()
 
   const httpLink = new HttpLink({
     uri: `http://127.0.0.1:${getApiPort()}/api/v1/graphql`,

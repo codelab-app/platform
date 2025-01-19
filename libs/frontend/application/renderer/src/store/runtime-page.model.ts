@@ -1,21 +1,20 @@
 import type {
+  IElementTreeViewDataNode,
   IElementTreeViewDataNodePreview,
+  IRuntimeElementModel,
   IRuntimePageDto,
   IRuntimePageModel,
   IRuntimeStoreModel,
 } from '@codelab/frontend/abstract/application'
-import type { Maybe } from '@codelab/shared/abstract/types'
+import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { ReactElement } from 'react'
 
 import {
   getRuntimeElementService,
   getRuntimePageService,
-  IElementTreeViewDataNode,
-  IRuntimeElementModel,
 } from '@codelab/frontend/abstract/application'
 import { type IPageModel } from '@codelab/frontend/abstract/domain'
-import { Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 

@@ -1,40 +1,34 @@
 'use client'
 
+import type { SelectOption } from '@codelab/frontend/abstract/types'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 
-import { useLazySwr } from '@codelab/frontend/infra/graphql/client'
-import {
-  AppListDocument,
-  type AppListQuery,
-  type AppListQueryVariables,
-} from '@codelab/shared/infra/gql'
+import { appRepository } from '@codelab/frontend-domain-app/repositories'
+import { useAsyncFn } from 'react-use'
 import { SelectField } from 'uniforms-antd'
 
 export const SelectApp = ({ error, name }: UniformSelectFieldProps) => {
-  // const [
-  //   { error: queryError, result: selectAppOptions = [], status },
-  //   useSelectAppOptions,
-  // ] = useAsync(() => useSelectAppOptions())
-
-  const [trigger, { data, error: queryError, isLoading }] = useLazySwr<
-    AppListQuery,
-    AppListQueryVariables
-  >(AppListDocument)
-
-  const options = data?.items.map((app) => ({
-    label: app.name,
-    value: app.id,
-  }))
+  const [{ error: queryError, loading, value: options }, loadOptions] =
+    useAsyncFn<() => Promise<Array<SelectOption> | undefined>>(
+      () =>
+        appRepository.find().then((data) =>
+          data.items.map((app) => ({
+            label: app.name,
+            value: app.id,
+          })),
+        ),
+      [],
+    )
 
   return (
     <SelectField
       error={error || queryError}
       getPopupContainer={(triggerNode) => triggerNode.parentElement}
-      loading={isLoading}
+      loading={loading}
       name={name}
       onDropdownVisibleChange={async (open) => {
         if (open) {
-          await trigger()
+          await loadOptions()
         }
       }}
       optionFilterProp="label"

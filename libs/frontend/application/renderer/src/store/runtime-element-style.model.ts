@@ -1,21 +1,19 @@
 import type {
+  CssMap,
   ElementCssRules,
+  IElementStyle,
   IRuntimeElementStyleModel,
 } from '@codelab/frontend/abstract/application'
+import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 
 import {
-  CssMap,
   ElementStylePseudoClass,
   getRendererService,
-  IElementStyle,
   RendererType,
 } from '@codelab/frontend/abstract/application'
-import {
-  getPreferenceDomainService,
-  IElementModel,
-} from '@codelab/frontend/abstract/domain'
+import { getPreferenceDomainService } from '@codelab/frontend/abstract/domain'
 import { IBreakpointType } from '@codelab/shared/abstract/core'
 import { breakpoints } from '@codelab/shared/config/builder'
 import { computed } from 'mobx'

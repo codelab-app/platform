@@ -1,15 +1,16 @@
 import type {
   IRuntimeActionModel,
+  IRuntimeContext,
   IRuntimeElementModel,
   IRuntimeElementPropDto,
   IRuntimeElementPropModel,
 } from '@codelab/frontend/abstract/application'
 import type { Ref } from 'mobx-keystone'
+import type { ReactNode } from 'react'
 
 import {
   getRendererService,
   getRouterService,
-  IRuntimeContext,
   isRuntimeComponent,
 } from '@codelab/frontend/abstract/application'
 import {
@@ -29,7 +30,7 @@ import {
 } from '@codelab/shared-infra-eval'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
-import { createElement, ReactNode } from 'react'
+import { createElement } from 'react'
 import { mergeDeep, pathOr, stringToPath } from 'remeda'
 
 import { CodeMirrorEditorWrapper, RichTextEditorWrapper } from '../components'
