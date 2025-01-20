@@ -14,8 +14,8 @@ export interface IPropModel extends IModel<IPropDto, IPropModel> {
   jsonString: string
   values: IPropData
   clone(): IPropModel
-  delete(key: string): void
   get(key: string): unknown
+  remove(key: string): void
   set(key: string, value: ArrayOrSingle<boolean | string | ObjectLike>): void
   setMany(data: IPropData): void
 }

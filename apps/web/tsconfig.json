@@ -11,7 +11,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "incremental": true,
-    "emitDecoratorMetadata": false,
+    "emitDecoratorMetadata": true,
     "plugins": [
       {
         "name": "next"

@@ -84,6 +84,6 @@ export class RuntimePageModel
   @modelAction
   detach(): void {
     this.runtimeRootElement.detach()
-    this.runtimePageService.delete(this)
+    this.runtimePageService.remove(this)
   }
 }

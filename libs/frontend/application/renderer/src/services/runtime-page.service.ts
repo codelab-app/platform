@@ -82,7 +82,7 @@ export class RuntimePageService
   }
 
   @modelAction
-  delete(runtimePage: IRuntimePageModel) {
+  remove(runtimePage: IRuntimePageModel) {
     return this.pages.delete(runtimePage.compositeKey)
   }
 

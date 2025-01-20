@@ -65,7 +65,7 @@ export class RuntimeComponentService
   }
 
   @modelAction
-  delete(runtimeComponent: IRuntimeComponentModel) {
+  remove(runtimeComponent: IRuntimeComponentModel) {
     return this.components.delete(runtimeComponent.compositeKey)
   }
 

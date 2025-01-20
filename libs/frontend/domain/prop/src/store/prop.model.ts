@@ -91,7 +91,7 @@ export class Prop
   }
 
   @modelAction
-  delete(key: string) {
+  remove(key: string) {
     // Need to cast since deleting key changes the interface
     this.data = frozen(omit(this.data.data ?? {}, [key as keyof IPropData]))
   }

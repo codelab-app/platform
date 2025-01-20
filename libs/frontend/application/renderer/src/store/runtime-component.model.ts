@@ -172,6 +172,6 @@ export class RuntimeComponentModel
       child.detach()
     })
     this.runtimeRootElement.detach()
-    this.runtimeComponentService.delete(this)
+    this.runtimeComponentService.remove(this)
   }
 }

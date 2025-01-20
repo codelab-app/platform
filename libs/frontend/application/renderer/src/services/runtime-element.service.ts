@@ -92,7 +92,7 @@ export class RuntimeElementService
   }
 
   @modelAction
-  delete(runtimeElement: IRuntimeElementModel) {
+  remove(runtimeElement: IRuntimeElementModel) {
     return this.elements.delete(runtimeElement.compositeKey)
   }
 

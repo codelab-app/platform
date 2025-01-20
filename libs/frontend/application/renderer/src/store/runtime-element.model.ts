@@ -375,7 +375,7 @@ export class RuntimeElementModel
     this.children.forEach((child) => {
       child.detach()
     })
-    this.runtimeElementService.delete(this)
+    this.runtimeElementService.remove(this)
   }
 
   onAttachedToRootStore() {
