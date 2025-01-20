@@ -1,826 +1,822 @@
-Error checking for updates: failed to check for updates. `brew outdated --json=v2` returned an error: exit status 1
-Please contact support.
-
 commands:
-    build-repo:
-        description: Build Repo
-        steps:
-            - nx/set-shas:
-                main-branch-name: master
-            - restore_cache:
-                keys:
-                    - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-                    - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-
-                    - nx-cache-
-                name: Restore NX Cache
-            - run:
-                command: (./scripts/nx/reset-cache.sh)
-            - run:
-                command: pnpm nx run-many --target=build --projects=web,api -c ci --nx-bail
-            - save_cache:
-                key: nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-                name: Save NX Cache
-                paths:
-                    - ~/project/.nx/cache
-                    - ~/project/dist/apps/web/.next/cache
-    clear-jest-cache:
-        description: Clear Jest Spec
-        steps:
-            - run:
-                command: |
-                    pnpm jest --clearCache
-    increment-docker-version:
-        description: Increment Docker Version
-        steps:
-            - run: ~/project/.circleci/config/commands/increment-docker-version.sh
-    install-nvm:
-        steps:
-            - restore_cache:
-                keys:
-                    - nvm-cache-{{ checksum ".nvmrc" }}
-                name: Restore NVM Cache
-            - run:
-                command: source ~/project/.circleci/config/install-nvm.sh
-                name: Install NVM
-            - save_cache:
-                key: nvm-cache-{{ checksum ".nvmrc" }}
-                name: Save NVM Cache
-                paths:
-                    - ~/.nvm
-            - run:
-                command: |
-                    nvm install 20.18.1
-                    nvm alias default 20.18.1
-                    node -v
-                name: Set Node Version
-    install-packages:
-        steps:
-            - restore_cache:
-                keys:
-                    - pnpm-cache-{{ checksum "pnpm-lock.yaml" }}
-                    - pnpm-cache
-                name: Restore pnpm Package Cache
-            - run:
-                command: pnpm install --frozen-lockfile --verbose
-                name: Install NPM Packages
-            - save_cache:
-                key: pnpm-cache-{{ checksum "pnpm-lock.yaml" }}
-                name: Save pnpm Cache
-                paths:
-                    - ~/.pnpm-store
-            - save_cache:
-                key: node-modules-cache-{{ checksum "pnpm-lock.yaml" }}
-                name: Save node_modules Cache
-                paths:
-                    - ~/project/node_modules
-    install-packer:
-        description: Install Packer
-        steps:
-            - run:
-                command: |
-                    set -x
+  build-repo:
+    description: Build Repo
+    steps:
+      - nx/set-shas:
+          main-branch-name: master
+      - restore_cache:
+          keys:
+            - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+            - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-
+            - nx-cache-
+          name: Restore NX Cache
+      - run:
+          command: (./scripts/nx/reset-cache.sh)
+      - run:
+          command: pnpm nx run-many --target=build --projects=web,api -c ci --nx-bail
+      - save_cache:
+          key: nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+          name: Save NX Cache
+          paths:
+            - ~/project/.nx/cache
+            - ~/project/dist/apps/web/.next/cache
+  clear-jest-cache:
+    description: Clear Jest Spec
+    steps:
+      - run:
+          command: |
+            pnpm jest --clearCache
+  increment-docker-version:
+    description: Increment Docker Version
+    steps:
+      - run: ~/project/.circleci/config/commands/increment-docker-version.sh
+  install-nvm:
+    steps:
+      - restore_cache:
+          keys:
+            - nvm-cache-{{ checksum ".nvmrc" }}
+          name: Restore NVM Cache
+      - run:
+          command: source ~/project/.circleci/config/install-nvm.sh
+          name: Install NVM
+      - save_cache:
+          key: nvm-cache-{{ checksum ".nvmrc" }}
+          name: Save NVM Cache
+          paths:
+            - ~/.nvm
+      - run:
+          command: |
+            nvm install 20.18.1
+            nvm alias default 20.18.1
+            node -v
+          name: Set Node Version
+  install-packages:
+    steps:
+      - restore_cache:
+          keys:
+            - pnpm-cache-{{ checksum "pnpm-lock.yaml" }}
+            - pnpm-cache
+          name: Restore pnpm Package Cache
+      - run:
+          command: pnpm install --frozen-lockfile --verbose
+          name: Install NPM Packages
+      - save_cache:
+          key: pnpm-cache-{{ checksum "pnpm-lock.yaml" }}
+          name: Save pnpm Cache
+          paths:
+            - ~/.pnpm-store
+      - save_cache:
+          key: node-modules-cache-{{ checksum "pnpm-lock.yaml" }}
+          name: Save node_modules Cache
+          paths:
+            - ~/project/node_modules
+  install-packer:
+    description: Install Packer
+    steps:
+      - run:
+          command: |
+            set -x
 
-                    curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+            curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
 
-                    sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+            sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
 
-                    sudo apt-get update && sudo apt-get install packer
-                name: Install Packer
-    install-pnpm:
-        steps:
-            - run:
-                command: |
-                    sudo corepack enable
-                    sudo corepack prepare pnpm@9.1.1 --activate
-                    pnpm config set store-dir ~/.pnpm-store
-                name: Install pnpm package manager
-    install-terraform:
-        description: Install Terraform
-        steps:
-            - run:
-                command: |
-                    set -x
+            sudo apt-get update && sudo apt-get install packer
+          name: Install Packer
+  install-pnpm:
+    steps:
+      - run:
+          command: |
+            sudo corepack enable
+            sudo corepack prepare pnpm@9.1.1 --activate
+            pnpm config set store-dir ~/.pnpm-store
+          name: Install pnpm package manager
+  install-terraform:
+    description: Install Terraform
+    steps:
+      - run:
+          command: |
+            set -x
 
-                    sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
+            sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
 
-                    apt list upgrade
+            apt list upgrade
 
-                    wget -O- https://apt.releases.hashicorp.com/gpg | \
-                    gpg --dearmor | \
-                    sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
+            wget -O- https://apt.releases.hashicorp.com/gpg | \
+            gpg --dearmor | \
+            sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
 
-                    echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
-                    sudo tee /etc/apt/sources.list.d/hashicorp.list
+            echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
+            sudo tee /etc/apt/sources.list.d/hashicorp.list
 
-                    gpg --no-default-keyring \
-                    --keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg \
-                    --fingerprint
+            gpg --no-default-keyring \
+            --keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg \
+            --fingerprint
 
-                    sudo apt update
-                    sudo apt install terraform=1.7.0-*
-                name: Install Terraform
-    login-docker:
-        description: Login to Docker
-        steps:
-            - run:
-                command: |
-                    echo "$DIGITALOCEAN_ACCESS_TOKEN" | docker login --username codelabapp --password-stdin registry.digitalocean.com
-                name: Login to Docker Registry
-    restore-infra-workspace:
-        description: Restore Infra Workspace
-        steps:
-            - restore-workspace
-            - install-terraform
-    restore-workspace:
-        description: Restore Workspace
-        steps:
-            - checkout
-            - attach_workspace:
-                at: ~/
-            - restore_cache:
-                keys:
-                    - node-modules-cache-{{ checksum "pnpm-lock.yaml" }}
-                    - node-modules-cache-
-                name: Restore node_modules Cache
-            - restore_cache:
-                keys:
-                    - nvm-cache-{{ checksum ".nvmrc" }}
-                name: Restore NVM Cache
-            - install-pnpm
-            - setup-env
-    setup-env:
-        description: Setup Env
-        steps:
-            - run:
-                command: source ~/project/.circleci/config/env.sh
-                name: Setup Env
+            sudo apt update
+            sudo apt install terraform=1.7.0-*
+          name: Install Terraform
+  login-docker:
+    description: Login to Docker
+    steps:
+      - run:
+          command: |
+            echo "$DIGITALOCEAN_ACCESS_TOKEN" | docker login --username codelabapp --password-stdin registry.digitalocean.com
+          name: Login to Docker Registry
+  restore-infra-workspace:
+    description: Restore Infra Workspace
+    steps:
+      - restore-workspace
+      - install-terraform
+  restore-workspace:
+    description: Restore Workspace
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/
+      - restore_cache:
+          keys:
+            - node-modules-cache-{{ checksum "pnpm-lock.yaml" }}
+            - node-modules-cache-
+          name: Restore node_modules Cache
+      - restore_cache:
+          keys:
+            - nvm-cache-{{ checksum ".nvmrc" }}
+          name: Restore NVM Cache
+      - install-pnpm
+      - setup-env
+  setup-env:
+    description: Setup Env
+    steps:
+      - run:
+          command: source ~/project/.circleci/config/env.sh
+          name: Setup Env
 executors:
-    docker-node:
-        docker:
-            - image: cimg/node:20.18.1-browsers
-    docker-node-neo4j:
-        docker:
-            - image: cimg/node:20.18.1-browsers
-              name: 127.0.0.1
-            - command:
-                - neo4j
-                - start
-              environment:
-                NEO4J_ACCEPT_LICENSE_AGREEMENT: eval
-                NEO4J_AUTH: neo4j/password
-                NEO4J_PLUGINS: '["apoc"]'
-              image: neo4j:5.26.0-enterprise
-    machine-ubuntu:
-        machine:
-            image: ubuntu-2004:2022.04.1
-    playwright:
-        docker:
-            - image: mcr.microsoft.com/playwright:v1.46.0-jammy
-    terraform:
-        docker:
-            - image: hashicorp/terraform:1.7.0
+  docker-node:
+    docker:
+      - image: cimg/node:20.18.1-browsers
+  docker-node-neo4j:
+    docker:
+      - image: cimg/node:20.18.1-browsers
+        name: 127.0.0.1
+      - command:
+          - neo4j
+          - start
         environment:
-            TF_WORKSPACE: prod
+          NEO4J_ACCEPT_LICENSE_AGREEMENT: eval
+          NEO4J_AUTH: neo4j/password
+          NEO4J_PLUGINS: '["apoc"]'
+        image: neo4j:5.26.0-enterprise
+  machine-ubuntu:
+    machine:
+      image: ubuntu-2004:2022.04.1
+  playwright:
+    docker:
+      - image: mcr.microsoft.com/playwright:v1.46.0-jammy
+  terraform:
+    docker:
+      - image: hashicorp/terraform:1.7.0
+    environment:
+      TF_WORKSPACE: prod
 jobs:
-    codegen:
-        executor: docker-node-neo4j
-        parameters:
-            resource_class:
-                type: string
-        resource_class: << parameters.resource_class >>
-        steps:
-            - restore-workspace
-            - run:
-                command: pnpm cli tasks graphql-codegen --stage ci
-                name: Check GraphQL Codegen
-            - run:
-                command: pnpm cli tasks workspace-codegen --stage ci
-                name: Check Generate Workspace
-    docker-api:
-        executor: docker-node
-        resource_class: medium
-        steps:
-            - restore-workspace
-            - setup_remote_docker:
-                docker_layer_caching: true
-            - run:
-                command: (./scripts/docker/prod/build-api.sh)
-                name: Build api Docker image
-            - run:
-                command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push api
-                name: Push Docker Image
-    docker-landing:
-        environment:
-            NODE_OPTIONS: --max-old-space-size=6144
-        executor: docker-node
-        resource_class: large
-        steps:
-            - restore-workspace
-            - setup_remote_docker:
-                docker_layer_caching: true
-            - run:
-                command: (./scripts/docker/prod/build-landing.sh)
-                name: Build landing Docker image
-            - run:
-                command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push landing
-                name: Push Docker Image
-    docker-sites:
-        environment:
-            NODE_OPTIONS: --max-old-space-size=6144
-        executor: docker-node
-        resource_class: large
-        steps:
-            - restore-workspace
-            - setup_remote_docker:
-                docker_layer_caching: true
-            - run:
-                command: (./scripts/docker/prod/build-sites.sh)
-                name: Build sites Docker image
-            - run:
-                command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push sites
-                name: Push Docker Image
-    docker-web:
-        environment:
-            NODE_OPTIONS: --max-old-space-size=6144
-        executor: docker-node
-        resource_class: large
-        steps:
-            - restore-workspace
-            - setup_remote_docker:
-                docker_layer_caching: true
-            - run:
-                command: (./scripts/docker/prod/build-web.sh)
-                name: Build web Docker image
-            - run:
-                command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push web
-                name: Push Docker Image
-    e2e:
-        environment:
-            NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
-        executor: docker-node-neo4j
-        parallelism: 2
-        parameters:
-            max_old_space_size:
-                type: integer
-            resource_class:
-                type: string
-        resource_class: << parameters.resource_class >>
-        steps:
-            - restore-workspace
-            - run: pnpm npx playwright install-deps
-            - run:
-                command: |
-                    SHARD="$((${CIRCLE_NODE_INDEX}+1))"
+  codegen:
+    executor: docker-node-neo4j
+    parameters:
+      resource_class:
+        type: string
+    resource_class: << parameters.resource_class >>
+    steps:
+      - restore-workspace
+      - run:
+          command: pnpm cli tasks graphql-codegen --stage ci
+          name: Check GraphQL Codegen
+      - run:
+          command: pnpm cli tasks workspace-codegen --stage ci
+          name: Check Generate Workspace
+  docker-api:
+    executor: docker-node
+    resource_class: medium
+    steps:
+      - restore-workspace
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          command: (./scripts/docker/prod/build-api.sh)
+          name: Build api Docker image
+      - run:
+          command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push api
+          name: Push Docker Image
+  docker-landing:
+    environment:
+      NODE_OPTIONS: --max-old-space-size=6144
+    executor: docker-node
+    resource_class: large
+    steps:
+      - restore-workspace
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          command: (./scripts/docker/prod/build-landing.sh)
+          name: Build landing Docker image
+      - run:
+          command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push landing
+          name: Push Docker Image
+  docker-sites:
+    environment:
+      NODE_OPTIONS: --max-old-space-size=6144
+    executor: docker-node
+    resource_class: large
+    steps:
+      - restore-workspace
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          command: (./scripts/docker/prod/build-sites.sh)
+          name: Build sites Docker image
+      - run:
+          command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push sites
+          name: Push Docker Image
+  docker-web:
+    environment:
+      NODE_OPTIONS: --max-old-space-size=6144
+    executor: docker-node
+    resource_class: large
+    steps:
+      - restore-workspace
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          command: (./scripts/docker/prod/build-web.sh)
+          name: Build web Docker image
+      - run:
+          command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push web
+          name: Push Docker Image
+  e2e:
+    environment:
+      NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
+    executor: docker-node-neo4j
+    parallelism: 2
+    parameters:
+      max_old_space_size:
+        type: integer
+      resource_class:
+        type: string
+    resource_class: << parameters.resource_class >>
+    steps:
+      - restore-workspace
+      - run: pnpm npx playwright install-deps
+      - run:
+          command: |
+            SHARD="$((${CIRCLE_NODE_INDEX}+1))"
 
-                    echo $SHARD;
-                    echo $CIRCLE_NODE_TOTAL;
+            echo $SHARD;
+            echo $CIRCLE_NODE_TOTAL;
 
-                    pnpm nx e2e web-e2e -c ci --shard=${SHARD}/${CIRCLE_NODE_TOTAL}
-                name: Run E2E Tests
-                no_output_timeout: 15m
-            - store_artifacts:
-                destination: playwright-report
-                path: ~/project/dist/.playwright/apps/web-e2e/playwright-report
-            - store_test_results:
-                path: ~/project/dist/.playwright/apps/web-e2e/test-output
-    integration:
-        environment:
-            NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
-        executor: docker-node-neo4j
-        parameters:
-            max_old_space_size:
-                type: integer
-            resource_class:
-                type: string
-        resource_class: << parameters.resource_class >>
-        steps:
-            - restore-workspace
-            - run:
-                command: pnpm cli tasks int --stage ci
-                environment:
-                    JEST_JUNIT_OUTPUT_DIR: ./tmp/reports/test-integration
-                name: Run Integration Tests
-                no_output_timeout: 10m
-            - store_test_results:
-                path: ./tmp/reports/test-integration
-    lint:
-        environment:
-            CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>
-            CIRCLE_REVISION: << pipeline.git.revision >>
-            NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
-        executor: docker-node
-        parameters:
-            max_old_space_size:
-                type: integer
-            resource_class:
-                type: string
-        resource_class: << parameters.resource_class >>
-        steps:
-            - restore-workspace
-            - run:
-                command: pnpm cli tasks lint --stage ci
-                name: Run Lint on Repository
-            - run:
-                command: pnpm cli tasks commitlint --stage ci
-                name: Commitlint
-            - store_test_results:
-                path: ./tmp/reports/lint
-    notify-failure:
-        executor: machine-ubuntu
-        resource_class: small
-        steps:
-            - swissknife/wait_for_job:
-                job-name: install-and-build-workspace,lint,unit,e2e,codegen
-            - slack/notify:
-                channel: $SLACK_CHANNEL_UPDATE
-                event: fail
-                template: basic_fail_1
-    notify-success:
-        executor: docker-node
-        parameters:
-            resource_class:
-                type: string
-        resource_class: << parameters.resource_class >>
-        steps:
-            - slack/notify:
-                channel: $SLACK_CHANNEL_UPDATE
-                custom: |
-                    {
-                    	"text": "CircleCI job succeeded!",
-                    	"blocks": [
-                    		{
-                    			"type": "header",
-                    			"text": {
-                    				"type": "plain_text",
-                    				"text": "Job Succeeded. :white_check_mark:",
-                    				"emoji": true
-                    			}
-                    		},
-                    		{
-                    			"type": "section",
-                    			"fields": [
-                    				{
-                    					"type": "mrkdwn",
-                    					"text": "*Job*: ${CIRCLE_JOB}"
-                    				}
-                    			]
-                    		},
-                    		{
-                    			"type": "section",
-                    			"fields": [
-                    				{
-                    					"type": "mrkdwn",
-                    					"text": "*Project*:\n $CIRCLE_PROJECT_REPONAME"
-                    				},
-                    				{
-                    					"type": "mrkdwn",
-                    					"text": "*Branch*:\n $CIRCLE_BRANCH"
-                                    },
-                                    {
-                    					"type": "mrkdwn",
-                    					"text": "*Commit*:\n $CIRCLE_SHA1"
-                    				},
-                    				{
-                    					"type": "mrkdwn",
-                    					"text": "*Author*:\n $CIRCLE_USERNAME"
-                    				}
-                    			],
-                    			"accessory": {
-                    				"type": "image",
-                    				"image_url": "https://assets.brandfolder.com/otz5mn-bw4j2w-6jzqo8/original/circle-logo-badge-black.png",
-                    				"alt_text": "CircleCI logo"
-                    			}
-                    		},
-                        {
-                          "type": "section",
-                          "fields": [
+            pnpm nx e2e web-e2e -c ci --shard=${SHARD}/${CIRCLE_NODE_TOTAL}
+          name: Run E2E Tests
+          no_output_timeout: 15m
+      - store_artifacts:
+          destination: playwright-report
+          path: ~/project/dist/.playwright/apps/web-e2e/playwright-report
+      - store_test_results:
+          path: ~/project/dist/.playwright/apps/web-e2e/test-output
+  integration:
+    environment:
+      NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
+    executor: docker-node-neo4j
+    parameters:
+      max_old_space_size:
+        type: integer
+      resource_class:
+        type: string
+    resource_class: << parameters.resource_class >>
+    steps:
+      - restore-workspace
+      - run:
+          command: pnpm cli tasks int --stage ci
+          environment:
+            JEST_JUNIT_OUTPUT_DIR: ./tmp/reports/test-integration
+          name: Run Integration Tests
+          no_output_timeout: 10m
+      - store_test_results:
+          path: ./tmp/reports/test-integration
+  lint:
+    environment:
+      CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>
+      CIRCLE_REVISION: << pipeline.git.revision >>
+      NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
+    executor: docker-node
+    parameters:
+      max_old_space_size:
+        type: integer
+      resource_class:
+        type: string
+    resource_class: << parameters.resource_class >>
+    steps:
+      - restore-workspace
+      - run:
+          command: pnpm cli tasks lint --stage ci
+          name: Run Lint on Repository
+      - run:
+          command: pnpm cli tasks commitlint --stage ci
+          name: Commitlint
+      - store_test_results:
+          path: ./tmp/reports/lint
+  notify-failure:
+    executor: machine-ubuntu
+    resource_class: small
+    steps:
+      - swissknife/wait_for_job:
+          job-name: install-and-build-workspace,lint,unit,e2e,codegen
+      - slack/notify:
+          channel: $SLACK_CHANNEL_UPDATE
+          event: fail
+          template: basic_fail_1
+  notify-success:
+    executor: docker-node
+    parameters:
+      resource_class:
+        type: string
+    resource_class: << parameters.resource_class >>
+    steps:
+      - slack/notify:
+          channel: $SLACK_CHANNEL_UPDATE
+          custom: |
+            {
+            	"text": "CircleCI job succeeded!",
+            	"blocks": [
+            		{
+            			"type": "header",
+            			"text": {
+            				"type": "plain_text",
+            				"text": "Job Succeeded. :white_check_mark:",
+            				"emoji": true
+            			}
+            		},
+            		{
+            			"type": "section",
+            			"fields": [
+            				{
+            					"type": "mrkdwn",
+            					"text": "*Job*: ${CIRCLE_JOB}"
+            				}
+            			]
+            		},
+            		{
+            			"type": "section",
+            			"fields": [
+            				{
+            					"type": "mrkdwn",
+            					"text": "*Project*:\n $CIRCLE_PROJECT_REPONAME"
+            				},
+            				{
+            					"type": "mrkdwn",
+            					"text": "*Branch*:\n $CIRCLE_BRANCH"
+                            },
                             {
-                              "type": "mrkdwn",
-                              "text": "*Mentions*:\n $SLACK_PARAM_MENTIONS"
-                            }
-                          ]
-                        },
-                    		{
-                    			"type": "actions",
-                    			"elements": [
-                    				{
-                    					"type": "button",
-                    					"text": {
-                    						"type": "plain_text",
-                    						"text": "View Job"
-                    					},
-                    					"url": "${CIRCLE_BUILD_URL}"
-                    				}
-                    			]
-                    		}
-                    	]
+            					"type": "mrkdwn",
+            					"text": "*Commit*:\n $CIRCLE_SHA1"
+            				},
+            				{
+            					"type": "mrkdwn",
+            					"text": "*Author*:\n $CIRCLE_USERNAME"
+            				}
+            			],
+            			"accessory": {
+            				"type": "image",
+            				"image_url": "https://assets.brandfolder.com/otz5mn-bw4j2w-6jzqo8/original/circle-logo-badge-black.png",
+            				"alt_text": "CircleCI logo"
+            			}
+            		},
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Mentions*:\n $SLACK_PARAM_MENTIONS"
                     }
-                event: pass
-    packer-image:
-        executor: docker-node
-        resource_class: medium
-        steps:
-            - restore-workspace
-            - setup_remote_docker:
-                docker_layer_caching: true
-            - run:
-                command: (./scripts/docker/prod/build-landing.sh)
-                name: Build landing Docker image
-            - run:
-                command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push landing
-                name: Push Docker Image
-    setup-infra-workspace:
-        executor: docker-node
-        resource_class: large
-        steps:
-            - checkout
-            - install-terraform
-            - increment-docker-version
-            - login-docker
-            - increment-docker-version
-            - persist_to_workspace:
-                paths:
-                    - .docker/config.json
-                root: ~/
-    setup-workspace:
-        environment:
-            NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
-        executor: docker-node
-        parameters:
-            max_old_space_size:
-                type: integer
-            resource_class:
-                type: string
-        resource_class: << parameters.resource_class >>
-        steps:
-            - checkout
-            - setup-env
-            - install-nvm
-            - install-pnpm
-            - install-packages
-            - build-repo
-            - persist_to_workspace:
-                paths:
-                    - project/dist/apps/cli
-                    - project/dist/apps/web
-                root: ~/
-    tf-apply:
-        executor: docker-node
-        parameters:
-            stage:
-                enum:
-                    - prod
-                    - ci
-                type: enum
-        steps:
-            - restore-infra-workspace
-            - run:
-                command: pnpm cli terraform --stage << parameters.stage >> init
-                name: Terraform Init
-            - run:
-                command: pnpm cli terraform --stage << parameters.stage >> --autoApprove apply
-                name: Terraform Apply
-    tf-plan:
-        executor: docker-node
-        parameters:
-            stage:
-                enum:
-                    - prod
-                    - ci
-                type: enum
-        steps:
-            - restore-infra-workspace
-            - run:
-                command: |
-                    echo "credentials \"app.terraform.io\" {token = \"$TERRAFORM_USER_TOKEN\"}" >> $HOME/.terraformrc
-                name: Create .terraformrc file locally
-            - run: terraform --version
-            - run:
-                command: terraform -chdir=infra/terraform fmt
-                name: Terraform Format
-            - run:
-                command: pnpm cli terraform --stage << parameters.stage >> init
-                name: Terraform Init
-            - run:
-                command: pnpm cli terraform --stage << parameters.stage >> validate
-                name: Terraform Validate
-            - run:
-                command: pnpm cli terraform --stage << parameters.stage >> plan
-                name: Terraform Plan
-            - persist_to_workspace:
-                paths:
-                    - .terraformrc
-                    - project/terraform/.terraform
-                root: ~/
-    tsc-check:
-        executor: docker-node
-        parameters:
-            resource_class:
-                type: string
-        resource_class: << parameters.resource_class >>
-        steps:
-            - restore-workspace
-            - run:
-                command: pnpm cli tasks unit --stage ci
-                environment:
-                    JEST_JUNIT_OUTPUT_DIR: ./tmp/reports/test-unit
-                name: Run Unit Tests
-            - store_test_results:
-                path: ./tmp/reports/test-unit
-    unit:
-        executor: docker-node
-        parameters:
-            resource_class:
-                type: string
-        resource_class: << parameters.resource_class >>
-        steps:
-            - restore-workspace
-            - run:
-                command: nx run-many --target=tsc-check
-                name: Run tsc Check
+                  ]
+                },
+            		{
+            			"type": "actions",
+            			"elements": [
+            				{
+            					"type": "button",
+            					"text": {
+            						"type": "plain_text",
+            						"text": "View Job"
+            					},
+            					"url": "${CIRCLE_BUILD_URL}"
+            				}
+            			]
+            		}
+            	]
+            }
+          event: pass
+  packer-image:
+    executor: docker-node
+    resource_class: medium
+    steps:
+      - restore-workspace
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          command: (./scripts/docker/prod/build-landing.sh)
+          name: Build landing Docker image
+      - run:
+          command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push landing
+          name: Push Docker Image
+  setup-infra-workspace:
+    executor: docker-node
+    resource_class: large
+    steps:
+      - checkout
+      - install-terraform
+      - increment-docker-version
+      - login-docker
+      - increment-docker-version
+      - persist_to_workspace:
+          paths:
+            - .docker/config.json
+          root: ~/
+  setup-workspace:
+    environment:
+      NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
+    executor: docker-node
+    parameters:
+      max_old_space_size:
+        type: integer
+      resource_class:
+        type: string
+    resource_class: << parameters.resource_class >>
+    steps:
+      - checkout
+      - setup-env
+      - install-nvm
+      - install-pnpm
+      - install-packages
+      - build-repo
+      - persist_to_workspace:
+          paths:
+            - project/dist/apps/cli
+            - project/dist/apps/web
+          root: ~/
+  tf-apply:
+    executor: docker-node
+    parameters:
+      stage:
+        enum:
+          - prod
+          - ci
+        type: enum
+    steps:
+      - restore-infra-workspace
+      - run:
+          command: pnpm cli terraform --stage << parameters.stage >> init
+          name: Terraform Init
+      - run:
+          command: pnpm cli terraform --stage << parameters.stage >> --autoApprove apply
+          name: Terraform Apply
+  tf-plan:
+    executor: docker-node
+    parameters:
+      stage:
+        enum:
+          - prod
+          - ci
+        type: enum
+    steps:
+      - restore-infra-workspace
+      - run:
+          command: |
+            echo "credentials \"app.terraform.io\" {token = \"$TERRAFORM_USER_TOKEN\"}" >> $HOME/.terraformrc
+          name: Create .terraformrc file locally
+      - run: terraform --version
+      - run:
+          command: terraform -chdir=infra/terraform fmt
+          name: Terraform Format
+      - run:
+          command: pnpm cli terraform --stage << parameters.stage >> init
+          name: Terraform Init
+      - run:
+          command: pnpm cli terraform --stage << parameters.stage >> validate
+          name: Terraform Validate
+      - run:
+          command: pnpm cli terraform --stage << parameters.stage >> plan
+          name: Terraform Plan
+      - persist_to_workspace:
+          paths:
+            - .terraformrc
+            - project/terraform/.terraform
+          root: ~/
+  tsc-check:
+    executor: docker-node
+    parameters:
+      resource_class:
+        type: string
+    resource_class: << parameters.resource_class >>
+    steps:
+      - restore-workspace
+      - run:
+          command: pnpm cli tasks unit --stage ci
+          environment:
+            JEST_JUNIT_OUTPUT_DIR: ./tmp/reports/test-unit
+          name: Run Unit Tests
+      - store_test_results:
+          path: ./tmp/reports/test-unit
+  unit:
+    executor: docker-node
+    parameters:
+      resource_class:
+        type: string
+    resource_class: << parameters.resource_class >>
+    steps:
+      - restore-workspace
+      - run:
+          command: nx run-many --target=tsc-check
+          name: Run tsc Check
 orbs:
-    node: circleci/node@5.1.0
-    nx: nrwl/nx@1.6.2
-    queue: eddiewebb/queue@2.2.1
-    slack: circleci/slack@4.12.5
-    swissknife: roopakv/swissknife@0.69.0
-    terraform: circleci/terraform@3.2.1
+  node: circleci/node@5.1.0
+  nx: nrwl/nx@1.6.2
+  queue: eddiewebb/queue@2.2.1
+  slack: circleci/slack@4.12.5
+  swissknife: roopakv/swissknife@0.69.0
+  terraform: circleci/terraform@3.2.1
 version: 2.1
 workflows:
-    app:
-        jobs:
-            - setup-workspace:
-                filters:
-                    branches:
-                        only:
-                            - master
-                max_old_space_size: 6144
-                resource_class: large
-            - hold-deploy:
-                filters:
-                    branches:
-                        only:
-                            - master
-                requires:
-                    - setup-workspace
-                type: approval
-            - tf-plan:
-                filters:
-                    branches:
-                        only:
-                            - staging
-                name: tf-plan-ci
-                requires:
-                    - hold-deploy
-                stage: ci
-            - tf-apply:
-                filters:
-                    branches:
-                        only:
-                            - staging
-                name: tf-apply-ci
-                requires:
-                    - tf-plan-ci
-                stage: ci
-            - setup-infra-workspace:
-                filters:
-                    branches:
-                        only:
-                            - master
-                requires:
-                    - hold-deploy
-            - docker-web:
-                context:
-                    - prod
-                filters:
-                    branches:
-                        only:
-                            - master
-                requires:
-                    - setup-infra-workspace
-            - docker-api:
-                context:
-                    - prod
-                filters:
-                    branches:
-                        only:
-                            - master
-                requires:
-                    - setup-infra-workspace
-            - docker-sites:
-                context:
-                    - prod
-                filters:
-                    branches:
-                        only:
-                            - master
-                requires:
-                    - setup-infra-workspace
-            - docker-landing:
-                context:
-                    - prod
-                filters:
-                    branches:
-                        only:
-                            - master
-                requires:
-                    - setup-infra-workspace
-            - tf-plan:
-                filters:
-                    branches:
-                        only:
-                            - master
-                requires:
-                    - docker-web
-                    - docker-api
-                    - docker-sites
-                    - docker-landing
-                stage: prod
-            - hold-apply:
-                filters:
-                    branches:
-                        only:
-                            - master
-                requires:
-                    - tf-plan
-                type: approval
-            - tf-apply:
-                filters:
-                    branches:
-                        only:
-                            - master
-                requires:
-                    - hold-apply
-                stage: prod
-    app-pr:
-        jobs:
-            - setup-workspace:
-                context:
-                    - build
-                filters:
-                    branches:
-                        ignore:
-                            - master
-                            - staging
-                max_old_space_size: 6144
-                resource_class: large
-            - lint:
-                filters:
-                    branches:
-                        ignore:
-                            - master
-                            - staging
-                max_old_space_size: 8192
-                requires:
-                    - setup-workspace
-                resource_class: large
-            - tsc-check:
-                filters:
-                    branches:
-                        ignore:
-                            - master
-                            - staging
-                requires:
-                    - setup-workspace
-                resource_class: large
-            - codegen:
-                filters:
-                    branches:
-                        ignore:
-                            - master
-                            - staging
-                requires:
-                    - setup-workspace
-                resource_class: medium
-            - unit:
-                filters:
-                    branches:
-                        ignore:
-                            - master
-                            - staging
-                requires:
-                    - setup-workspace
-                resource_class: large
-            - integration:
-                filters:
-                    branches:
-                        ignore:
-                            - master
-                            - staging
-                max_old_space_size: 4096
-                requires:
-                    - setup-workspace
-                resource_class: large
-            - e2e:
-                filters:
-                    branches:
-                        ignore:
-                            - master
-                            - staging
-                max_old_space_size: 4096
-                requires:
-                    - setup-workspace
-                resource_class: large
-            - notify-success:
-                filters:
-                    branches:
-                        ignore:
-                            - master
-                            - staging
-                requires:
-                    - lint
-                    - codegen
-                    - unit
-                    - integration
-                    - e2e
-                resource_class: medium
-    infra-pr:
-        jobs:
-            - setup-infra-workspace:
-                filters:
-                    branches:
-                        only:
-                            - staging
-            - tf-plan:
-                filters:
-                    branches:
-                        only:
-                            - staging
-                name: tf-plan-ci
-                requires:
-                    - setup-infra-workspace
-                stage: ci
-            - tf-apply:
-                filters:
-                    branches:
-                        only:
-                            - staging
-                name: tf-apply-ci
-                requires:
-                    - tf-plan-ci
-                stage: ci
-            - docker-web:
-                context:
-                    - prod
-                filters:
-                    branches:
-                        only:
-                            - staging
-                requires:
-                    - tf-apply-ci
-            - docker-api:
-                context:
-                    - prod
-                filters:
-                    branches:
-                        only:
-                            - staging
-                requires:
-                    - tf-apply-ci
-            - docker-sites:
-                context:
-                    - prod
-                filters:
-                    branches:
-                        only:
-                            - staging
-                requires:
-                    - tf-apply-ci
-            - docker-landing:
-                context:
-                    - prod
-                filters:
-                    branches:
-                        only:
-                            - staging
-                requires:
-                    - setup-infra-workspace
-            - tf-plan:
-                filters:
-                    branches:
-                        only:
-                            - staging
-                requires:
-                    - docker-web
-                    - docker-api
-                    - docker-sites
-                    - docker-landing
-                stage: prod
-            - hold-apply:
-                filters:
-                    branches:
-                        only:
-                            - staging
-                requires:
-                    - tf-plan
-                type: approval
-            - tf-apply:
-                filters:
-                    branches:
-                        only:
-                            - staging
-                requires:
-                    - hold-apply
-                stage: prod
+  app:
+    jobs:
+      - setup-workspace:
+          filters:
+            branches:
+              only:
+                - master
+          max_old_space_size: 6144
+          resource_class: large
+      - hold-deploy:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - setup-workspace
+          type: approval
+      - tf-plan:
+          filters:
+            branches:
+              only:
+                - staging
+          name: tf-plan-ci
+          requires:
+            - hold-deploy
+          stage: ci
+      - tf-apply:
+          filters:
+            branches:
+              only:
+                - staging
+          name: tf-apply-ci
+          requires:
+            - tf-plan-ci
+          stage: ci
+      - setup-infra-workspace:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - hold-deploy
+      - docker-web:
+          context:
+            - prod
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - setup-infra-workspace
+      - docker-api:
+          context:
+            - prod
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - setup-infra-workspace
+      - docker-sites:
+          context:
+            - prod
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - setup-infra-workspace
+      - docker-landing:
+          context:
+            - prod
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - setup-infra-workspace
+      - tf-plan:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - docker-web
+            - docker-api
+            - docker-sites
+            - docker-landing
+          stage: prod
+      - hold-apply:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - tf-plan
+          type: approval
+      - tf-apply:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - hold-apply
+          stage: prod
+  app-pr:
+    jobs:
+      - setup-workspace:
+          context:
+            - build
+          filters:
+            branches:
+              ignore:
+                - master
+                - staging
+          max_old_space_size: 6144
+          resource_class: large
+      - lint:
+          filters:
+            branches:
+              ignore:
+                - master
+                - staging
+          max_old_space_size: 8192
+          requires:
+            - setup-workspace
+          resource_class: large
+      - tsc-check:
+          filters:
+            branches:
+              ignore:
+                - master
+                - staging
+          requires:
+            - setup-workspace
+          resource_class: large
+      - codegen:
+          filters:
+            branches:
+              ignore:
+                - master
+                - staging
+          requires:
+            - setup-workspace
+          resource_class: medium
+      - unit:
+          filters:
+            branches:
+              ignore:
+                - master
+                - staging
+          requires:
+            - setup-workspace
+          resource_class: large
+      - integration:
+          filters:
+            branches:
+              ignore:
+                - master
+                - staging
+          max_old_space_size: 4096
+          requires:
+            - setup-workspace
+          resource_class: large
+      - e2e:
+          filters:
+            branches:
+              ignore:
+                - master
+                - staging
+          max_old_space_size: 4096
+          requires:
+            - setup-workspace
+          resource_class: large
+      - notify-success:
+          filters:
+            branches:
+              ignore:
+                - master
+                - staging
+          requires:
+            - lint
+            - codegen
+            - unit
+            - integration
+            - e2e
+          resource_class: medium
+  infra-pr:
+    jobs:
+      - setup-infra-workspace:
+          filters:
+            branches:
+              only:
+                - staging
+      - tf-plan:
+          filters:
+            branches:
+              only:
+                - staging
+          name: tf-plan-ci
+          requires:
+            - setup-infra-workspace
+          stage: ci
+      - tf-apply:
+          filters:
+            branches:
+              only:
+                - staging
+          name: tf-apply-ci
+          requires:
+            - tf-plan-ci
+          stage: ci
+      - docker-web:
+          context:
+            - prod
+          filters:
+            branches:
+              only:
+                - staging
+          requires:
+            - tf-apply-ci
+      - docker-api:
+          context:
+            - prod
+          filters:
+            branches:
+              only:
+                - staging
+          requires:
+            - tf-apply-ci
+      - docker-sites:
+          context:
+            - prod
+          filters:
+            branches:
+              only:
+                - staging
+          requires:
+            - tf-apply-ci
+      - docker-landing:
+          context:
+            - prod
+          filters:
+            branches:
+              only:
+                - staging
+          requires:
+            - setup-infra-workspace
+      - tf-plan:
+          filters:
+            branches:
+              only:
+                - staging
+          requires:
+            - docker-web
+            - docker-api
+            - docker-sites
+            - docker-landing
+          stage: prod
+      - hold-apply:
+          filters:
+            branches:
+              only:
+                - staging
+          requires:
+            - tf-plan
+          type: approval
+      - tf-apply:
+          filters:
+            branches:
+              only:
+                - staging
+          requires:
+            - hold-apply
+          stage: prod
 working_directory: ~/project
-
