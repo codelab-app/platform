@@ -518,12 +518,8 @@ jobs:
     steps:
       - restore-workspace
       - run:
-          command: pnpm cli tasks unit --stage ci
-          environment:
-            JEST_JUNIT_OUTPUT_DIR: ./tmp/reports/test-unit
-          name: Run Unit Tests
-      - store_test_results:
-          path: ./tmp/reports/test-unit
+          command: pnpm nx run-many --target=tsc-check
+          name: Run tsc Check
   unit:
     executor: docker-node
     parameters:
@@ -533,8 +529,12 @@ jobs:
     steps:
       - restore-workspace
       - run:
-          command: nx run-many --target=tsc-check
-          name: Run tsc Check
+          command: pnpm cli tasks unit --stage ci
+          environment:
+            JEST_JUNIT_OUTPUT_DIR: ./tmp/reports/test-unit
+          name: Run Unit Tests
+      - store_test_results:
+          path: ./tmp/reports/test-unit
 orbs:
   node: circleci/node@5.1.0
   nx: nrwl/nx@1.6.2
