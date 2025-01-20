@@ -65,7 +65,11 @@ export const useAtomService = (): IAtomService => {
     )
 
     const atoms = items.map((atom) => {
-      atom.api.fields.forEach((field) => fieldDomainService.hydrate(field))
+      atom.api.fields.forEach((field) => {
+        // Field hydration requires api type
+        typeDomainService.hydrateInterface(field.api)
+        fieldDomainService.hydrate(field)
+      })
       typeDomainService.hydrateInterface(atom.api)
 
       return atomDomainService.hydrate(atom)
