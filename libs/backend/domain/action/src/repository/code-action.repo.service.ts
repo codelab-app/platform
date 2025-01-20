@@ -7,7 +7,6 @@ import type {
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import { CodeActionFragment } from '@codelab/shared/infra/gql'
-import { Validator } from '@codelab/shared/infra/typebox'
 import { codeActionMapper } from '@codelab/shared-domain-module/action'
 import {
   actionCreateApi,

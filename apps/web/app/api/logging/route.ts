@@ -1,24 +1,9 @@
 import type { LogLevel } from '@nestjs/common'
 
-import { type LogOptions, pinoLogger } from '@codelab/shared/infra/logging'
-import { headers } from 'next/headers'
+import { pinoLogger } from '@codelab/shared/infra/logging/server'
 import { NextResponse } from 'next/server'
-import pino from 'pino'
 
 export const dynamic = 'force-dynamic'
-
-export const GET = async (request: Request) => {
-  pinoLogger.info('User logged in', {
-    metadata: {
-      browser: 'Chrome',
-      ip: '127.0.0.1',
-    },
-    timestamp: new Date(),
-    userId: 123,
-  })
-
-  return NextResponse.json({ success: true })
-}
 
 /**
  * Allows `pino/file` to work in server environment
@@ -28,6 +13,8 @@ export const POST = async (request: Request) => {
     const body = await request.json()
     const { message, options } = body
     const level: LogLevel = body.level
+
+    console.log('Route', { message, ...options })
 
     // Call the appropriate log level method
     switch (level) {

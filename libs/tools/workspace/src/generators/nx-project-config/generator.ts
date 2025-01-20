@@ -9,7 +9,9 @@ import {
 
 import type { EslintGeneratorSchema } from './schema'
 
+import { updateJestConfig } from './jest/update-jest-config'
 import { addProjectTags } from './project-tags/add-project-tags'
+import { updateLibraryTsconfig } from './tsconfig/lib/tsconfig.lib'
 
 /**
  * Go through all projects and update the `lint` setting of `project.json`
@@ -48,11 +50,11 @@ export const nxProjectConfigGenerator = async (
     // removeGraphqlEslintConfig(tree, projectConfig)
     // checkLintConfig(tree, projectConfig)
 
-    // updateTestConfig(tree, projectConfig)
+    updateJestConfig(tree, projectConfig)
     addProjectTags(tree, projectConfig)
 
     // updateBaseTsconfig(tree, projectConfig)
-    // updateLibraryTsconfig(tree, projectConfig)
+    updateLibraryTsconfig(tree, projectConfig)
 
     updateProjectConfiguration(tree, projectName, projectConfig)
   }

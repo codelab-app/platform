@@ -3,12 +3,12 @@ import type {
   IAtomModel,
   IComponentType,
 } from '@codelab/frontend/abstract/domain'
+import type { SelectOption } from '@codelab/frontend/abstract/types'
+import type { IAtomDto } from '@codelab/shared/abstract/core'
 
 import DeploymentUnitOutlined from '@ant-design/icons/lib/icons/DeploymentUnitOutlined'
-import { SelectOption } from '@codelab/frontend/abstract/types'
 import { dynamicLoader } from '@codelab/frontend/shared/utils'
 import {
-  IAtomDto,
   IAtomType,
   IElementRenderTypeKind,
 } from '@codelab/shared/abstract/core'

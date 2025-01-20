@@ -7,7 +7,6 @@ import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 
-import { useResourceService } from '../../services'
 import { ResourcesTreeItem } from './ResourcesTreeItem'
 
 export const ResourcesTreeView = observer(() => {

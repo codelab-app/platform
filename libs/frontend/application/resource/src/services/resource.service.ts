@@ -3,7 +3,6 @@ import type { IResourceModel } from '@codelab/frontend/abstract/domain'
 import type {
   ICreateResourceData,
   IPropDto,
-  IRef,
   IResourceDto,
   IUpdateResourceData,
 } from '@codelab/shared/abstract/core'

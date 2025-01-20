@@ -76,7 +76,7 @@ export const SelectDescendantElement = (props: SelectElementComponentProps) => {
 /**
  * Moved the `elementOptions` to the `SelectElement` component, so that it won't cause form to re-render
  */
-export const SelectAnyElement = (props: SelectElementComponentProps) => {
+export const SelectElementField = (props: SelectElementComponentProps) => {
   const { rendererService } = useApplicationStore()
   const treeElements = rendererService.activeElementTree?.elements
   const elementOptions = treeElements?.map(mapElementOption)
@@ -93,7 +93,7 @@ export const SelectAnyElement = (props: SelectElementComponentProps) => {
 export const getSelectElementComponent = (kind: IElementTypeKind) => {
   switch (kind) {
     case IElementTypeKind.AllElements:
-      return SelectAnyElement
+      return SelectElementField
     case IElementTypeKind.ChildrenOnly:
       return SelectChildElement
     case IElementTypeKind.DescendantsOnly:

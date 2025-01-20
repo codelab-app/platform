@@ -1,3 +1,5 @@
+import type { Ref } from 'mobx-keystone'
+
 import { computed } from 'mobx'
 import {
   idProp,
@@ -5,7 +7,6 @@ import {
   model,
   modelAction,
   prop,
-  Ref,
   walkTree,
   WalkTreeMode,
 } from 'mobx-keystone'

@@ -16,11 +16,13 @@ export interface IComponentDomainService
   componentList: Array<IComponentModel>
   components: ObjectMap<IComponentModel>
   sortedComponentsList: Array<IComponentModel>
-
   add(data: ICreateComponentData): IComponentModel
   component(id: string): IComponentModel
   findById(id: string): IComponentModel
   getRenderTypeOptions(
     components?: Array<SelectOption>,
   ): Array<RenderTypeSelectOption>
+  getSelectOptions(
+    component?: Pick<IComponentModel, 'id' | 'name'>,
+  ): Promise<Array<SelectOption>>
 }

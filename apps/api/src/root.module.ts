@@ -6,9 +6,9 @@ import {
   GraphQLSchemaModule,
   SchemaService,
 } from '@codelab/backend-infra-adapter/neo4j-schema'
-import { Global, Module } from '@nestjs/common'
+import { Module } from '@nestjs/common'
 import { APP_GUARD } from '@nestjs/core'
-import { CommandBus, CqrsModule } from '@nestjs/cqrs'
+import { CqrsModule } from '@nestjs/cqrs'
 import { SentryModule } from '@sentry/nestjs/setup'
 
 import { ApiModule } from './api/api.module'

@@ -1,6 +1,6 @@
 {
   "defaultBase": "master",
-  "useInferencePlugins": false,
+  "useInferencePlugins": true,
   "parallel": 3,
   "tasksRunnerOptions": {
     "default": {
@@ -11,7 +11,15 @@
     }
   },
   "defaultProject": "web",
-  "plugins": [],
+  "plugins": [
+    "@codelab/tsc-check",
+    {
+      "plugin": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "eslint:lint"
+      }
+    }
+  ],
   "generators": {
     "@nx/workspace": {
       "library": {
@@ -154,7 +162,6 @@
         "ci": {
           "format": "junit",
           "outputFile": "tmp/reports/lint/{projectName}.xml",
-          // junit reports all warnings as errors
           "quiet": true
         },
         "codegen": {

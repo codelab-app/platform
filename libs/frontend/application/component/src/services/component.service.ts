@@ -25,7 +25,6 @@ import {
 } from '@codelab/frontend-infra-mobx/context'
 import {
   type ICreateComponentData,
-  type IRef,
   type IUpdateComponentData,
 } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'

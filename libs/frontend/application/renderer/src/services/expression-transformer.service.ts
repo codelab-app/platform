@@ -12,7 +12,6 @@ import {
   prop,
 } from 'mobx-keystone'
 import * as React from 'react'
-import { Options, TransformResult } from 'sucrase'
 
 import { allAtoms } from '../atoms'
 

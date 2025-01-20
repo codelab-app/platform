@@ -1,7 +1,6 @@
 import type { SubmitRef } from '@codelab/frontend/abstract/types'
 import type { MouseEvent } from 'react'
 
-import { logger } from '@codelab/frontend/infra/logger'
 import {
   useErrorNotify,
   useSuccessNotify,
@@ -46,7 +45,7 @@ export const useAsyncHandler = <TData, TResponse>(
     async (formData?: TData) => {
       setAllLoadingState(true)
 
-      logger.debug('Form submitted')
+      console.log('Form submitted')
 
       const submitPromise = onSubmit(formData)
 

@@ -1,5 +1,4 @@
 import type { DashboardLayoutProps } from '@codelab/frontend-presentation-view/templates'
-import type { ReactNode } from 'react'
 
 import { DashboardLayout } from '@codelab/frontend-presentation-view/templates'
 
@@ -12,17 +11,7 @@ const Layout = ({ children, header, params }: LayoutProps) => {
 
   return (
     <LayoutContainer pageId={pageId}>
-      <DashboardLayout<
-        | 'configPane'
-        | 'header'
-        | 'modal'
-        | 'primarySidebar'
-        | 'secondaryPopover',
-        'pageId'
-      >
-        header={header}
-        params={params}
-      >
+      <DashboardLayout<'header', 'pageId'> header={header} params={params}>
         {children}
       </DashboardLayout>
     </LayoutContainer>

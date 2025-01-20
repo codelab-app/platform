@@ -8,7 +8,7 @@ export interface IRuntimePageService {
   pages: ObjectMap<IRuntimePageModel>
   pagesList: Array<IRuntimePageModel>
   add(page: IPageModel): IRuntimePageModel
-  delete(runtimePage: IRuntimePageModel): void
   maybeRuntimePage(compositeKey: string): Maybe<IRuntimePageModel>
+  remove(runtimePage: IRuntimePageModel): void
   runtimePage(compositeKey: string): IRuntimePageModel
 }

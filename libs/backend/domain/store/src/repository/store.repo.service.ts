@@ -4,7 +4,6 @@ import type { StoreOptions, StoreWhere } from '@codelab/shared/infra/gql'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import { StoreFragment } from '@codelab/shared/infra/gql'
-import { Validator } from '@codelab/shared/infra/typebox'
 import { storeApi, storeMapper } from '@codelab/shared-domain-module/store'
 import { Injectable } from '@nestjs/common'
 

@@ -2,7 +2,18 @@ import type { ObjectLike } from '@codelab/shared/abstract/types'
 /* eslint-disable @typescript-eslint/member-ordering */
 import type { LoggerService } from '@nestjs/common'
 
-import type { LogOptions } from './pino'
+export interface LogOptions {
+  /**
+   * [Nest] 19096   - 12/08/2019, 7:12:59 AM   [NestFactory] Starting Nest application...
+   *
+   * The `NestFactory` is the context
+   */
+  context?: string
+  /**
+   * Place to put additional data
+   */
+  data?: ObjectLike | null
+}
 
 /**
  * Considered using overloading instead of putting data in options, but would be hard to distinguish between objects without a discriminated key, something like `__context`.

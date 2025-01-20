@@ -4,6 +4,8 @@
       "plugins": [],
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
+        // We use `canonical/sort-keys` instead
+        "perfectionist/sort-objects": "off",
         // "unused-imports/no-unused-imports": "error",
         "prefer-destructuring": [
           "off",

@@ -1,6 +1,7 @@
 import type {
   ITagModel,
   ITagNodeData,
+  ITreeNode,
   IUserModel,
 } from '@codelab/frontend/abstract/domain'
 import type { ITagDto } from '@codelab/shared/abstract/core'
@@ -9,7 +10,6 @@ import type { Ref } from 'mobx-keystone'
 
 import {
   getUserDomainService,
-  ITreeNode,
   userRef,
 } from '@codelab/frontend/abstract/domain'
 import {

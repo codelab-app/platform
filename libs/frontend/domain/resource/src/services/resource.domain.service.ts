@@ -2,8 +2,8 @@ import type {
   IResourceDomainService,
   IResourceModel,
 } from '@codelab/frontend/abstract/domain'
+import type { IResourceDto } from '@codelab/shared/abstract/core'
 
-import { IResourceDto } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 

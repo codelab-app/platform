@@ -1,6 +1,6 @@
 import type { IDomain, IDomainDto, IRef } from '@codelab/shared/abstract/core'
 
-import { IModel } from '@codelab/backend/abstract/types'
+import { IModel } from '@codelab/shared/abstract/core'
 
 export class Domain extends IModel implements IDomain {
   app: IRef

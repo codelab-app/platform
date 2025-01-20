@@ -1,14 +1,10 @@
 'use client'
 
-import type {
-  IRootRenderer,
-  RendererType,
-} from '@codelab/frontend/abstract/application'
+import type { IRootRenderer } from '@codelab/frontend/abstract/application'
 import type { IComponentModel } from '@codelab/frontend/abstract/domain'
 
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
-import { useSearchParams } from 'next/navigation'
 
 import { BaseBuilder } from '../base-builder'
 

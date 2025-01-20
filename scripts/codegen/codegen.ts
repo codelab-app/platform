@@ -45,6 +45,20 @@ const config: Types.Config = {
 
         deleteSync(fragmentFiles)
       },
+      // Add step to replace toString(): string with override toString(): string in graphql.ts
+      (...files) => {
+        files.forEach(file => {
+          if (file.endsWith('graphql.ts')) {
+            const fs = require('fs')
+            const content = fs.readFileSync(file, 'utf8')
+            const updated = content.replace(
+              /toString\(\): string/g,
+              'override toString(): string'
+            )
+            fs.writeFileSync(file, updated)
+          }
+        })
+      }
     ],
   },
   // Uncomment for using a local schema file
@@ -92,7 +106,7 @@ const config: Types.Config = {
       },
     },
     /**
-     * We create our own plugin as a layer on top of client preset, to wrap doucments with `graphql`
+     * We create our own plugin as a layer on top of client preset, to wrap documents with `graphql`
      *
      * We want to keep the client preset documents in a file, and the operations in another file.
      *

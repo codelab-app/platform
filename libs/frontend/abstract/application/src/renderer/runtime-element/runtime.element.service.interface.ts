@@ -18,8 +18,8 @@ export interface IRuntimeElementService {
     parentElement: Nullable<IRuntimeElementModel>,
     propKey?: string,
   ): IRuntimeElementModel
-  delete(runtimeElement: IRuntimeElementModel): void
   maybeRuntimeElement(compositeKey: string): Maybe<IRuntimeElementModel>
+  remove(runtimeElement: IRuntimeElementModel): void
   runtimeElement(compositeKey: string): IRuntimeElementModel
   setCurrentStylePseudoClass(pseudoClass: ElementStylePseudoClass): void
 }

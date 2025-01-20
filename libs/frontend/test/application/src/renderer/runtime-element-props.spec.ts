@@ -1,5 +1,8 @@
 import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/application'
-import type { UrlQueryParams } from '@codelab/frontend/abstract/types'
+import type {
+  UrlQueryParams,
+  UrlQueryParamsProps,
+} from '@codelab/frontend/abstract/types'
 import type { IResourceFetchConfig } from '@codelab/shared/abstract/core'
 
 import { RendererType } from '@codelab/frontend/abstract/application'
@@ -469,7 +472,7 @@ describe('Runtime Element props', () => {
 
       testStore.applicationStore.routerService.setQueryParams({
         [urlKey]: urlPropValue,
-      } as UrlQueryParams)
+      } as UrlQueryParamsProps)
 
       const { page, renderer, rootElement, runtimeRootElement } =
         testStore.setupRuntimeElement()

@@ -43,6 +43,8 @@ export class App
   })
   implements IAppModel
 {
+  static create = create
+
   @computed
   get providerPage() {
     const providerPage = this.pages.find(
@@ -72,9 +74,6 @@ export class App
       slug: this.slug,
     }
   }
-
-  @modelAction
-  static create = create
 
   @modelAction
   page(id: string) {

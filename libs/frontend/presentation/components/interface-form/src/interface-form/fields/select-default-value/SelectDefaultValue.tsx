@@ -40,7 +40,7 @@ export const SelectDefaultValue = () => {
   )
 
   const type = fieldType.value
-    ? typeDomainService.getType(fieldType.value as string)
+    ? typeDomainService.type(fieldType.value as string)
     : null
 
   // Typecasting just for conditional check if field type is primitive

@@ -1,12 +1,6 @@
 import type { DashboardLayoutProps } from '@codelab/frontend-presentation-view/templates'
-import type { ReactNode } from 'react'
 
-import { BuilderResizeMenu } from '@codelab/frontend-application-builder/use-cases/resize'
-import { ComponentDetailHeader } from '@codelab/frontend-application-component/views'
-import {
-  Dashboard,
-  DashboardLayout,
-} from '@codelab/frontend-presentation-view/templates'
+import { DashboardLayout } from '@codelab/frontend-presentation-view/templates'
 
 import { LayoutContainer } from './layout.container'
 

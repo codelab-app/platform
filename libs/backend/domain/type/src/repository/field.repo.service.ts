@@ -4,7 +4,6 @@ import type { FieldOptions, FieldWhere } from '@codelab/shared/infra/gql'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import { FieldFragment } from '@codelab/shared/infra/gql'
-import { Validator } from '@codelab/shared/infra/typebox'
 import { fieldApi, fieldMapper } from '@codelab/shared-domain-module/field'
 import { Injectable } from '@nestjs/common'
 

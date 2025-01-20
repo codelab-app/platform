@@ -1,12 +1,12 @@
-import type { IRuntimeComponentService } from '@codelab/frontend/abstract/application'
+import type { IComponentModel } from '@codelab/frontend/abstract/domain'
 import type { ObjectMap } from 'mobx-keystone'
 
 import {
-  IRuntimeComponentModel,
-  IRuntimeModel,
-  runtimeElementRef,
+  type IRuntimeComponentModel,
+  type IRuntimeComponentService,
+  type IRuntimeModel,
 } from '@codelab/frontend/abstract/application'
-import { IComponentModel } from '@codelab/frontend/abstract/domain'
+import { runtimeElementRef } from '@codelab/frontend/abstract/application'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 
@@ -65,7 +65,7 @@ export class RuntimeComponentService
   }
 
   @modelAction
-  delete(runtimeComponent: IRuntimeComponentModel) {
+  remove(runtimeComponent: IRuntimeComponentModel) {
     return this.components.delete(runtimeComponent.compositeKey)
   }
 

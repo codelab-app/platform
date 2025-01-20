@@ -35,10 +35,7 @@ export const useFieldService = (): IFieldService => {
     }
 
     const newField = fieldDomainService.hydrate(fieldDto)
-
-    const interfaceType = typeDomainService.getType(
-      apiId,
-    ) as IInterfaceTypeModel
+    const interfaceType = typeDomainService.type<IInterfaceTypeModel>(apiId)
 
     interfaceType.writeCache({
       fields: [{ id: newField.id }],
@@ -55,9 +52,9 @@ export const useFieldService = (): IFieldService => {
     const fieldDto = fieldService.mapDataToDto(createFieldData)
     const field = fieldDomainService.hydrate(fieldDto)
 
-    const interfaceType = typeDomainService.getType(
+    const interfaceType = typeDomainService.type<IInterfaceTypeModel>(
       field.api.id,
-    ) as IInterfaceTypeModel
+    )
 
     interfaceType.writeCache({
       fields: [{ id: field.id }],

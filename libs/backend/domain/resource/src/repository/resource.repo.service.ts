@@ -7,7 +7,6 @@ import {
   ResourceOptions,
   ResourceWhere,
 } from '@codelab/shared/infra/gql'
-import { Validator } from '@codelab/shared/infra/typebox'
 import {
   resourceApi,
   resourceMapper,

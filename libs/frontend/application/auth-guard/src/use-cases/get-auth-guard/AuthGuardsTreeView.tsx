@@ -7,7 +7,6 @@ import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 
-import { useAuthGuardService } from '../../services'
 import { AuthGuardsTreeItem } from './AuthGuardsTreeItem'
 
 export const AuthGuardsTreeView = observer(() => {

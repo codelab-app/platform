@@ -399,14 +399,8 @@
       "@codelab/frontend-application-element/use-cases/hook-description": [
         "libs/frontend/application/element/src/use-cases/hook-description/index.ts"
       ],
-      "@codelab/frontend-application-element/use-cases/hook-list": [
-        "libs/frontend/application/element/src/use-cases/hook-list/index.ts"
-      ],
       "@codelab/frontend-application-element/use-cases/move-element": [
         "libs/frontend/application/element/src/use-cases/move-element/index.ts"
-      ],
-      "@codelab/frontend-application-element/use-cases/remove-hook-from-element": [
-        "libs/frontend/application/element/src/use-cases/remove-hook-from-element/index.ts"
       ],
       "@codelab/frontend-application-element/use-cases/update-element": [
         "libs/frontend/application/element/src/use-cases/update-element/index.ts"
@@ -900,17 +894,8 @@
       "@codelab/frontend/infra/context": [
         "libs/frontend/infra/context/src/index.ts"
       ],
-      "@codelab/frontend/infra/graphql": [
-        "libs/frontend/infra/graphql/src/index.ts"
-      ],
-      "@codelab/frontend/infra/graphql/client": [
-        "libs/frontend/infra/graphql/src/client/index.ts"
-      ],
       "@codelab/frontend/infra/logger": [
         "libs/frontend/infra/logger/src/index.ts"
-      ],
-      "@codelab/frontend/infra/logger/server": [
-        "libs/frontend/infra/logger/src/server/index.ts"
       ],
       "@codelab/frontend/infra/shared": [
         "libs/frontend/infra/shared/src/index.ts"
@@ -1021,6 +1006,9 @@
       "@codelab/shared/infra/logging": [
         "libs/shared/infra/logging/src/index.ts"
       ],
+      "@codelab/shared/infra/logging/server": [
+        "libs/shared/infra/logging/src/server/index.ts"
+      ],
       "@codelab/shared/infra/typebox": [
         "libs/shared/infra/typebox/src/index.ts"
       ],
@@ -1030,6 +1018,7 @@
       "@codelab/shared/utils": ["libs/shared/utils/src/index.ts"],
       "@codelab/tools-workspace": ["libs/tools/workspace/src/index.ts"],
       "@codelab/tools/eslint-plugin": ["libs/tools/eslint-plugin/src/index.ts"],
+      "@codelab/tools/tsc-check": ["libs/tools/tsc-check/src/index.ts"],
       "@cui/ui-atoms": ["libs/frontend/cui/ui/atoms/src/index.ts"],
       "@cui/ui-molecules": ["libs/frontend/cui/ui/molecules/src/index.ts"],
       "@cui/ui-organisms": ["libs/frontend/cui/ui/organisms/src/index.ts"],
@@ -1037,5 +1026,5 @@
     }
   },
   "exclude": ["node_modules", "tmp", "dist"],
-  "include": []
+  "include": ["./scripts/jest/setupFilesAfterEnv.ts"]
 }

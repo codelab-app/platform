@@ -1,7 +1,7 @@
 import {
   builderServiceContext,
   type IApplicationStore,
-  IBuilderService,
+  type IBuilderService,
   type IRendererService,
   type IRouterProps,
   type IRouterService,

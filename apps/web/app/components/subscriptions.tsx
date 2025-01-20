@@ -5,7 +5,6 @@ import type {
   DomainUpdatedSubscription,
 } from '@codelab/shared-domain-module/domain'
 
-import { logger } from '@codelab/frontend/infra/logger'
 import { browserApolloClient } from '@codelab/shared/infra/gql-client'
 import {
   DomainCreatedDocument,

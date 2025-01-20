@@ -7,6 +7,11 @@ export class CuiPopoverStore implements IPopoverStore {
     makeAutoObservable(this)
   }
 
+  @computed
+  get isAnyPopoverOpen() {
+    return Boolean(this.openPopoverId)
+  }
+
   @action
   close() {
     this.openPopoverId = undefined
@@ -14,23 +19,17 @@ export class CuiPopoverStore implements IPopoverStore {
     // Router.events.off('routeChangeStart', this.closeOnRouteChange)
   }
 
-  @computed
-  isAnyPopoverOpen() {
-    return Boolean(this.openPopoverId)
-  }
-
-  @computed
-  isOpen(id: string) {
-    const val = this.openPopoverId === id
-
-    return val
-  }
-
   @action
   open(id: string) {
     this.openPopoverId = id
 
     // Router.events.on('routeChangeStart', this.closeOnRouteChange)
+  }
+
+  isOpen(id: string) {
+    const val = this.openPopoverId === id
+
+    return val
   }
 
   private closeOnRouteChange = () => {

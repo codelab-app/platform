@@ -1,7 +1,4 @@
-import type {
-  UrlPathParams,
-  UrlPathParamsProps,
-} from '@codelab/frontend/abstract/types'
+import type { UrlPathParams } from '@codelab/frontend/abstract/types'
 import type { ReactNode } from 'react'
 
 import { Dashboard } from './Dashboard'
@@ -9,19 +6,22 @@ import { Dashboard } from './Dashboard'
 /**
  * This declares all the possible parallel routes, but not all is required. The Next.js compiler will type check which is required
  */
-type DashboardSections = Partial<{
+interface DashboardSections {
   configPane: ReactNode
   header: ReactNode
   modal: ReactNode
   primarySidebar: ReactNode
   secondaryPopover: ReactNode
-}>
+}
 
+/**
+ * We either
+ */
 export type DashboardLayoutProps<
   Slots extends keyof DashboardSections = never,
   Params extends keyof UrlPathParams = never,
 > = {
-  [K in keyof DashboardSections]: K extends Slots ? ReactNode : never
+  [K in Slots]: ReactNode
 } & {
   params: {
     [K in keyof UrlPathParams]: K extends Params ? string : never
@@ -39,30 +39,25 @@ type _OnlyHeader = DashboardLayoutProps<'header', 'appId'>
  */
 type _All = DashboardLayoutProps
 
+/**
+ * Our inferred slot types make it such that if key is not specified, the prop does not exist, so we need to spread it via `...slots`
+ */
 export const DashboardLayout = <
   Slots extends keyof DashboardSections = never,
   Params extends keyof UrlPathParams = never,
 >({
   children,
-  configPane,
-  header,
-  modal,
   params,
-  primarySidebar,
-  secondaryPopover,
+  ...slots
 }: DashboardLayoutProps<Slots, Params>) => {
   const { appId, pageId } = params
 
   return (
     <Dashboard
+      {...slots}
       appId={appId}
-      configPane={configPane}
       contentStyles={{ paddingTop: '0rem' }}
-      header={header}
-      modal={modal}
       pageId={pageId}
-      primarySidebar={primarySidebar}
-      secondaryPopover={secondaryPopover}
     >
       {children}
     </Dashboard>

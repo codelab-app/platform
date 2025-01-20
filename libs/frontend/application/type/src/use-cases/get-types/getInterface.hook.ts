@@ -39,7 +39,7 @@ export const useGetCurrentInterfaceWithFields = (typeService: ITypeService) => {
     loading: state.loading,
     type:
       interfaceId && !state.loading
-        ? (typeDomainService.getType(interfaceId) as IInterfaceTypeModel)
+        ? typeDomainService.type<IInterfaceTypeModel>(interfaceId)
         : undefined,
   }
 }

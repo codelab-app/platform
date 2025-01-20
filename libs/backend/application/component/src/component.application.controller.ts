@@ -2,11 +2,7 @@ import {
   ImportDataMapperService,
   ReadAdminDataService,
 } from '@codelab/backend/application/data'
-import {
-  ComponentDtoSchema,
-  type ICreateComponentData,
-} from '@codelab/shared/abstract/core'
-import { Validator } from '@codelab/shared/infra/typebox'
+import { type ICreateComponentData } from '@codelab/shared/abstract/core'
 import {
   Body,
   ClassSerializerInterceptor,

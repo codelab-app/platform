@@ -1,6 +1,5 @@
 'use client'
 
-import { useResourceService } from '@codelab/frontend-application-resource/services'
 import { DeleteResourceModal } from '@codelab/frontend-application-resource/use-cases/delete-resource'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'

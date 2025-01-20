@@ -1,13 +1,17 @@
 import type { IComponentDomainService } from '@codelab/frontend/abstract/domain'
-import type { IComponentDto } from '@codelab/shared/abstract/core'
 
 import { chance } from '@codelab/frontend-domain-shared'
+import {
+  type IComponentDto,
+  IElementRenderTypeKind,
+} from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
 export const componentFactory =
   (componentDomainService: IComponentDomainService) =>
   (dto: Partial<IComponentDto>) => {
     const component: IComponentDto = {
+      __typename: IElementRenderTypeKind.Component,
       api: {
         id: dto.api?.id ?? v4(),
       },

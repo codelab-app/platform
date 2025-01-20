@@ -32678,7 +32678,7 @@ export class TypedDocumentString<TResult, TVariables>
     super(value)
   }
 
-  toString(): string & DocumentTypeDecoration<TResult, TVariables> {
+  override toString(): string & DocumentTypeDecoration<TResult, TVariables> {
     return this.value
   }
 }

@@ -2,15 +2,12 @@ import type {
   IAuthGuardModel,
   IPropModel,
   IResourceModel,
+  IUserModel,
 } from '@codelab/frontend/abstract/domain'
 import type { IAuthGuardDto } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 
-import {
-  IUserModel,
-  resourceRef,
-  userRef,
-} from '@codelab/frontend/abstract/domain'
+import { resourceRef, userRef } from '@codelab/frontend/abstract/domain'
 import { Prop } from '@codelab/frontend-domain-prop/store'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'

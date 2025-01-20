@@ -1,20 +1,21 @@
 import type {
   IRuntimeComponentModel,
+  IRuntimeElementModel,
   IRuntimeElementService,
   IRuntimePageModel,
 } from '@codelab/frontend/abstract/application'
+import type { IElementModel } from '@codelab/frontend/abstract/domain'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import type { ObjectMap } from 'mobx-keystone'
 
 import {
   ElementStylePseudoClass,
-  IRuntimeElementModel,
   isRuntimePage,
   runtimeComponentRef,
   runtimeElementRef,
   runtimePageRef,
 } from '@codelab/frontend/abstract/application'
-import { elementRef, IElementModel } from '@codelab/frontend/abstract/domain'
-import { Nullable } from '@codelab/shared/abstract/types'
+import { elementRef } from '@codelab/frontend/abstract/domain'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 
@@ -91,7 +92,7 @@ export class RuntimeElementService
   }
 
   @modelAction
-  delete(runtimeElement: IRuntimeElementModel) {
+  remove(runtimeElement: IRuntimeElementModel) {
     return this.elements.delete(runtimeElement.compositeKey)
   }
 

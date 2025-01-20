@@ -1,4 +1,3 @@
-import type { IAtomRecords, TagNode } from '@codelab/backend/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
 import { SeedCypressAppCommand } from '@codelab/backend/application/app'
@@ -10,9 +9,11 @@ import {
 } from '@codelab/backend/application/type'
 import {
   type IAtomDto,
+  IAtomRecords,
   type IAtomType,
   type IFieldDto,
   type IOwner,
+  TagNode,
 } from '@codelab/shared/abstract/core'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 import { ObjectTyped } from 'object-typed'

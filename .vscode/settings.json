@@ -22,11 +22,10 @@
     "markdown",
     "graphql"
   ],
-  // "eslint.run": "onSave",
-  // "eslint.validate": ["json"],
   "json.format.enable": true,
   "typescript.tsdk": "node_modules/typescript/lib",
   "[terraform]": {
     "editor.defaultFormatter": "hashicorp.terraform"
-  }
+  },
+  "eslint.validate": ["json"]
 }

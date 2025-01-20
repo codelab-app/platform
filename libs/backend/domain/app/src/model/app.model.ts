@@ -1,6 +1,6 @@
 import type { IAppDto, IRef } from '@codelab/shared/abstract/core'
 
-import { IModel } from '@codelab/backend/abstract/types'
+import { IModel } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
 import { Expose } from 'class-transformer'
 

@@ -2,7 +2,6 @@ import type { IComponentModel } from '@codelab/frontend/abstract/domain'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 
-import type { IElementTreeViewDataNode } from '../../builder'
 import type { IBaseRuntimeModel } from '../runtime.model.interface'
 import type { IRuntimeElementModel } from '../runtime-element'
 import type { IRuntimeComponentPropModel } from '../runtime-prop'

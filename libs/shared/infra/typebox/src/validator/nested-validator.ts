@@ -3,7 +3,6 @@ import type { ObjectLike } from '@codelab/shared/abstract/types'
 
 import {
   type Static,
-  type TAnySchema,
   type TObject,
   type TSchema,
   type TUnion,

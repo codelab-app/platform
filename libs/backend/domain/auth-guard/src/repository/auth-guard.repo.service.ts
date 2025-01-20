@@ -7,7 +7,6 @@ import {
   AuthGuardOptions,
   AuthGuardWhere,
 } from '@codelab/shared/infra/gql'
-import { Validator } from '@codelab/shared/infra/typebox'
 import {
   authGuardApi,
   authGuardMapper,

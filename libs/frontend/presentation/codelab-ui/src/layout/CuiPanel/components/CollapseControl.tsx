@@ -1,6 +1,5 @@
 import LeftOutlined from '@ant-design/icons/LeftOutlined'
 import RightOutlined from '@ant-design/icons/RightOutlined'
-import clsx from 'clsx'
 
 interface CollapseControlProps {
   collapsed: boolean

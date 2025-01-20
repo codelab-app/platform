@@ -33,6 +33,15 @@ jobs:
             - staging
       requires:
         - setup-workspace
+  - tsc-check:
+      resource_class: large
+      filters:
+        branches:
+          ignore:
+            - master
+            - staging
+      requires:
+        - setup-workspace
   - codegen:
       resource_class: medium
       filters:

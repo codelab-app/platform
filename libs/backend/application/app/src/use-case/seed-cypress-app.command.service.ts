@@ -4,7 +4,7 @@ import type { IAppDto } from '@codelab/shared/abstract/core'
 import { AppRepository } from '@codelab/backend/domain/app'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import { Element, ElementRepository } from '@codelab/backend/domain/element'
-import { Page, PageRepository } from '@codelab/backend/domain/page'
+import { PageRepository } from '@codelab/backend/domain/page'
 import { PropRepository } from '@codelab/backend/domain/prop'
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { Store, StoreRepository } from '@codelab/backend/domain/store'
@@ -29,6 +29,7 @@ import {
   providerPageData,
   providerPageId,
 } from '@codelab/shared/data/test'
+import { Page } from '@codelab/shared-domain-module/page'
 import { CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 
 export class SeedCypressAppCommand {}

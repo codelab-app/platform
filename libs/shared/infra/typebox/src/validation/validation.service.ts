@@ -2,7 +2,6 @@ import type { IValidationService } from '@codelab/shared/abstract/infra'
 import type { SchemaOptions, Static, TKind, TSchema } from '@sinclair/typebox'
 
 import { Value } from '@sinclair/typebox/value'
-import { ValidationError } from 'class-validator'
 
 import type { TypeBoxProvider } from '../provider/typebox.provider'
 

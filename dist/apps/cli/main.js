@@ -40,61 +40,6 @@ var __webpack_exports__ = {};
 const core_namespaceObject = require("@nestjs/core");
 ;// external "tslib"
 const external_tslib_namespaceObject = require("tslib");
-;// external "pino"
-const external_pino_namespaceObject = require("pino");
-var external_pino_default = /*#__PURE__*/__webpack_require__.n(external_pino_namespaceObject);
-;// external "pino-pretty"
-const external_pino_pretty_namespaceObject = require("pino-pretty");
-var external_pino_pretty_default = /*#__PURE__*/__webpack_require__.n(external_pino_pretty_namespaceObject);
-;// ../../libs/shared/infra/logging/src/pino/pino-transport.ts
-
-
-const levelsLabels = (external_pino_default()).levels.labels;
-const pinoPrettyStream = external_pino_pretty_default()({
-    colorize: true,
-    // errorLikeObjectKeys: ['err', 'error'],
-    /**
-     * Yes, Pino automatically adds req and res objects to the logs when used with nestjs-pino because it's designed to work as HTTP middleware by default.
-     *
-     * These keys are added by `this.logger.assign()`
-     */
-    // ignore: 'time,pid,hostname,context,req,res,responseTime,level',
-    ignore: 'pid,hostname,req,res',
-    // levelFirst: false,
-    // NestJS-like timestamp
-    /**
-     * This time appears in front of message, cannot find a way to move it.
-     *
-     * Pino emphasizes machine readability, so it uses single json line
-     */
-    // translateTime: 'SYS:mm/dd/yyyy hh:mm:ss TT',
-    // messageFormat: (log, messageKey, levelLabel) => {
-    //   // console.log(log, messageKey, levelLabel)
-    //   const message = JSON.parse(log[messageKey] as string) as LogOptions
-    //   const level = log['level'] as number
-    //   const hostname = log['hostname']
-    //   const time = log['time']
-    //   const pid = log['pid']
-    //   /**
-    //    * Be careful of `context` and `message`, since `LoggerService.info` has method override
-    //    */
-    //   // const context = log['context']
-    //   const context = message.context
-    //   const object = message.object ?? {}
-    //   /**
-    //    * Pino combines all data into a single object, need to extract user data
-    //    */
-    //   const data = omit(log, ['level', 'time', 'hostname', 'pid', 'req', 'msg'])
-    //   return `${chalk.green('[Pino]')} ${chalk.green(pid)}  ${chalk.green(
-    //     '-',
-    //   )} ${chalk.whiteBright(formatNestLikeDate(time))}     ${chalk.green(
-    //     levelsLabels[level]?.toUpperCase(),
-    //   )} ${chalk.yellow(`[${context}]`)}\n${colorize(object)}`
-    // },
-    // singleLine: true,
-    sync: true,
-});
-
 ;// external "@nestjs/common"
 const common_namespaceObject = require("@nestjs/common");
 ;// external "@nestjs/config"
@@ -142,9 +87,11 @@ NestjsLoggerService = (0,external_tslib_namespaceObject.__decorate)([
 ], NestjsLoggerService);
 
 
-;// ../../libs/backend/infra/adapter/logger/src/pino.logger.service.ts
-var _a, _b, _c;
-
+;// external "pino"
+const external_pino_namespaceObject = require("pino");
+var external_pino_default = /*#__PURE__*/__webpack_require__.n(external_pino_namespaceObject);
+;// ../../libs/backend/infra/adapter/logger/src/pino/pino.logger.service.ts
+var _a, _b;
 
 
 
@@ -179,8 +126,8 @@ let PinoLoggerService = class PinoLoggerService extends external_nestjs_pino_nam
         const includeDataForContext = this.config.context.includes(context);
         if (includeDataForContext) {
             return super.log({
-                message,
                 data: options?.data,
+                message,
             }, context);
         }
         super.log({
@@ -212,9 +159,61 @@ PinoLoggerService = (0,external_tslib_namespaceObject.__decorate)([
     (0,common_namespaceObject.Injectable)(),
     (0,external_tslib_namespaceObject.__param)(1, (0,common_namespaceObject.Inject)(external_nestjs_pino_namespaceObject.PARAMS_PROVIDER_TOKEN)),
     (0,external_tslib_namespaceObject.__param)(2, (0,common_namespaceObject.Inject)(loggerConfig.KEY)),
-    (0,external_tslib_namespaceObject.__metadata)("design:paramtypes", [typeof (_a = typeof external_nestjs_pino_namespaceObject.PinoLogger !== "undefined" && external_nestjs_pino_namespaceObject.PinoLogger) === "function" ? _a : Object, typeof (_b = typeof external_nestjs_pino_namespaceObject.Params !== "undefined" && external_nestjs_pino_namespaceObject.Params) === "function" ? _b : Object, typeof (_c = typeof config_namespaceObject.ConfigType !== "undefined" && config_namespaceObject.ConfigType) === "function" ? _c : Object])
+    (0,external_tslib_namespaceObject.__metadata)("design:paramtypes", [typeof (_a = typeof external_nestjs_pino_namespaceObject.PinoLogger !== "undefined" && external_nestjs_pino_namespaceObject.PinoLogger) === "function" ? _a : Object, typeof (_b = typeof external_nestjs_pino_namespaceObject.Params !== "undefined" && external_nestjs_pino_namespaceObject.Params) === "function" ? _b : Object, Object])
 ], PinoLoggerService);
 
+
+;// external "pino-pretty"
+const external_pino_pretty_namespaceObject = require("pino-pretty");
+var external_pino_pretty_default = /*#__PURE__*/__webpack_require__.n(external_pino_pretty_namespaceObject);
+;// ../../libs/backend/infra/adapter/logger/src/pino/pino-transport.ts
+
+
+const levelsLabels = (external_pino_default()).levels.labels;
+const pinoPrettyStream = external_pino_pretty_default()({
+    colorize: true,
+    // errorLikeObjectKeys: ['err', 'error'],
+    /**
+     * Yes, Pino automatically adds req and res objects to the logs when used with nestjs-pino because it's designed to work as HTTP middleware by default.
+     *
+     * These keys are added by `this.logger.assign()`
+     */
+    // ignore: 'time,pid,hostname,context,req,res,responseTime,level',
+    ignore: 'pid,hostname,req,res',
+    // levelFirst: false,
+    // NestJS-like timestamp
+    /**
+     * This time appears in front of message, cannot find a way to move it.
+     *
+     * Pino emphasizes machine readability, so it uses single json line
+     */
+    // translateTime: 'SYS:mm/dd/yyyy hh:mm:ss TT',
+    // messageFormat: (log, messageKey, levelLabel) => {
+    //   // console.log(log, messageKey, levelLabel)
+    //   const message = JSON.parse(log[messageKey] as string) as LogOptions
+    //   const level = log['level'] as number
+    //   const hostname = log['hostname']
+    //   const time = log['time']
+    //   const pid = log['pid']
+    //   /**
+    //    * Be careful of `context` and `message`, since `LoggerService.info` has method override
+    //    */
+    //   // const context = log['context']
+    //   const context = message.context
+    //   const object = message.object ?? {}
+    //   /**
+    //    * Pino combines all data into a single object, need to extract user data
+    //    */
+    //   const data = omit(log, ['level', 'time', 'hostname', 'pid', 'req', 'msg'])
+    //   return `${chalk.green('[Pino]')} ${chalk.green(pid)}  ${chalk.green(
+    //     '-',
+    //   )} ${chalk.whiteBright(formatNestLikeDate(time))}     ${chalk.green(
+    //     levelsLabels[level]?.toUpperCase(),
+    //   )} ${chalk.yellow(`[${context}]`)}\n${colorize(object)}`
+    // },
+    // singleLine: true,
+    sync: true,
+});
 
 ;// ../../libs/backend/infra/adapter/logger/src/logger.module.ts
 
@@ -381,8 +380,41 @@ const execCommand = (command) => {
     }
 };
 
+;// ../../libs/shared/config/env/src/env.ts
+
+/**
+ * https://github.com/evanshortiss/env-var/issues/162
+ *
+ * `process.env` access must be static and not dynamic, due to how Next.js compiles envs
+ */
+const env = (0,external_env_var_namespaceObject.from)({
+    AUTH0_CLIENT_ID: process.env['AUTH0_CLIENT_ID'],
+    AUTH0_CLIENT_SECRET: process.env['AUTH0_CLIENT_SECRET'],
+    AUTH0_DOMAIN: process.env['AUTH0_DOMAIN'],
+    AUTH0_E2E_PASSWORD: process.env['AUTH0_E2E_PASSWORD'],
+    AUTH0_E2E_USERNAME: process.env['AUTH0_E2E_USERNAME'],
+    AUTH0_SECRET: process.env['AUTH0_SECRET'],
+    AUTH0_SESSION_AUTO_SAVE: process.env['AUTH0_SESSION_AUTO_SAVE'],
+    CI: process.env['CI'],
+    CIRCLE: process.env['CIRCLE'],
+    MAILCHIMP_API_KEY: process.env['MAILCHIMP_API_KEY'],
+    MAILCHIMP_LIST_ID: process.env['MAILCHIMP_LIST_ID'],
+    MAILCHIMP_SERVER_PREFIX: process.env['MAILCHIMP_SERVER_PREFIX'],
+    NEO4J_PASSWORD: process.env['NEO4J_PASSWORD'],
+    NEO4J_URI: process.env['NEO4J_URI'],
+    NEO4J_USER: process.env['NEO4J_USER'],
+    NEXT_PUBLIC_API_HOSTNAME: process.env['NEXT_PUBLIC_API_HOSTNAME'],
+    NEXT_PUBLIC_API_PORT: process.env['NEXT_PUBLIC_API_PORT'],
+    NEXT_PUBLIC_BASE_API_PATH: process.env['NEXT_PUBLIC_BASE_API_PATH'],
+    NEXT_PUBLIC_GOOGLE_ANALYTICS: process.env['NEXT_PUBLIC_GOOGLE_ANALYTICS'],
+    NEXT_PUBLIC_HOTJAR_ID: process.env['NEXT_PUBLIC_HOTJAR_ID'],
+    NEXT_PUBLIC_HOTJAR_VERSION: process.env['NEXT_PUBLIC_HOTJAR_VERSION'],
+    NEXT_PUBLIC_INTERCOM_APP_ID: process.env['NEXT_PUBLIC_INTERCOM_APP_ID'],
+    NEXT_PUBLIC_WEB_HOST: process.env['NEXT_PUBLIC_WEB_HOST'],
+    NODE_ENV: process.env['NODE_ENV'],
+});
+
 ;// ../../libs/shared/config/env/src/services/auth0.ts
-/* eslint-disable @typescript-eslint/member-ordering */
 
 /* *
  * https://github.com/auth0/nextjs-auth0/issues/383
@@ -454,23 +486,26 @@ class Auth0EnvVars {
         return (this._audience ??= new URL('api/v2/', this.issuerBaseUrl).toString());
     }
     get domain() {
-        return (this._auth0Domain ??= external_env_var_namespaceObject.get('AUTH0_DOMAIN').required().asString());
+        return (this._auth0Domain ??= env.get('AUTH0_DOMAIN').required().asString());
     }
     get clientId() {
-        return (this._clientId ??= external_env_var_namespaceObject.get('AUTH0_CLIENT_ID').required().asString());
+        return (this._clientId ??= env.get('AUTH0_CLIENT_ID').required().asString());
     }
     get clientSecret() {
-        return (this._clientSecret ??= external_env_var_namespaceObject.get('AUTH0_CLIENT_SECRET')
+        return (this._clientSecret ??= env
+            .get('AUTH0_CLIENT_SECRET')
             .required()
             .asString());
     }
     get auth0Username() {
-        return (this._cypressUsername ??= external_env_var_namespaceObject.get('AUTH0_E2E_USERNAME')
+        return (this._cypressUsername ??= env
+            .get('AUTH0_E2E_USERNAME')
             .required()
             .asString());
     }
     get auth0Password() {
-        return (this._cypressPassword ??= external_env_var_namespaceObject.get('AUTH0_E2E_PASSWORD')
+        return (this._cypressPassword ??= env
+            .get('AUTH0_E2E_PASSWORD')
             .required()
             .asString());
     }
@@ -479,10 +514,11 @@ class Auth0EnvVars {
         return (this._issuerBaseUrl ??= issuerBaseUrl);
     }
     get secret() {
-        return (this._secret ??= external_env_var_namespaceObject.get('AUTH0_SECRET').required().asString());
+        return (this._secret ??= env.get('AUTH0_SECRET').required().asString());
     }
     get sessionAutoSave() {
-        return (this._sessionAutoSave ??= external_env_var_namespaceObject.get('AUTH0_SESSION_AUTO_SAVE')
+        return (this._sessionAutoSave ??= env
+            .get('AUTH0_SESSION_AUTO_SAVE')
             .required()
             .asBool());
     }
@@ -512,24 +548,15 @@ class CircleCIEnvVars {
         });
     }
     get ci() {
-        return (this._ci ??= external_env_var_namespaceObject.get('CI').default('false').asBool());
+        return (this._ci ??= env.get('CI').default('false').asBool());
     }
     get circleCi() {
-        return (this._circleCi ??= external_env_var_namespaceObject.get('CIRCLE').default('false').asBool());
+        return (this._circleCi ??= env.get('CIRCLE').default('false').asBool());
     }
 }
 
 ;// ../../libs/shared/config/env/src/services/endpoint.ts
 
-/**
- * https://github.com/evanshortiss/env-var/issues/162
- */
-const { get } = external_env_var_namespaceObject.from({
-    NEXT_PUBLIC_API_HOSTNAME: process.env['NEXT_PUBLIC_API_HOSTNAME'],
-    NEXT_PUBLIC_API_PORT: process.env['NEXT_PUBLIC_API_PORT'],
-    NEXT_PUBLIC_BASE_API_PATH: process.env['NEXT_PUBLIC_BASE_API_PATH'],
-    NEXT_PUBLIC_WEB_HOST: process.env['NEXT_PUBLIC_WEB_HOST'],
-});
 class EndpointEnvVars {
     constructor() {
         Object.defineProperty(this, "_apiHost", {
@@ -570,8 +597,8 @@ class EndpointEnvVars {
         if (this._apiHost) {
             return this._apiHost;
         }
-        const port = get('NEXT_PUBLIC_API_PORT').required().asPortNumber();
-        const url = get('NEXT_PUBLIC_API_HOSTNAME').required().asUrlObject();
+        const port = env.get('NEXT_PUBLIC_API_PORT').required().asPortNumber();
+        const url = env.get('NEXT_PUBLIC_API_HOSTNAME').required().asUrlObject();
         return (this._apiHost = new URL(`${url.origin}:${port}`).toString());
     }
     get apiUrl() {
@@ -586,7 +613,7 @@ class EndpointEnvVars {
         };
     }
     get baseApiPath() {
-        return get('NEXT_PUBLIC_BASE_API_PATH').required().asString();
+        return env.get('NEXT_PUBLIC_BASE_API_PATH').required().asString();
     }
     /**
      * URL is protocol + origin
@@ -626,7 +653,10 @@ class EndpointEnvVars {
      * This is used before module is initialized, so we must access process.env
      */
     get webHost() {
-        return (this._webHost ??= get('NEXT_PUBLIC_WEB_HOST').required().asString());
+        return (this._webHost ??= env
+            .get('NEXT_PUBLIC_WEB_HOST')
+            .required()
+            .asString());
     }
 }
 
@@ -640,7 +670,7 @@ class GoogleAnalyticsEnvVars {
             writable: true,
             value: void 0
         });
-        this.id = external_env_var_namespaceObject.get('NEXT_PUBLIC_GOOGLE_ANALYTICS').default('').asString();
+        this.id = env.get('NEXT_PUBLIC_GOOGLE_ANALYTICS').default('').asString();
     }
 }
 
@@ -660,8 +690,8 @@ class HotjarEnvVars {
             writable: true,
             value: void 0
         });
-        this.id = external_env_var_namespaceObject.get('NEXT_PUBLIC_HOTJAR_ID').default('0').asInt();
-        this.version = external_env_var_namespaceObject.get('NEXT_PUBLIC_HOTJAR_VERSION').default('0').asInt();
+        this.id = env.get('NEXT_PUBLIC_HOTJAR_ID').default('0').asInt();
+        this.version = env.get('NEXT_PUBLIC_HOTJAR_VERSION').default('0').asInt();
     }
 }
 
@@ -675,7 +705,7 @@ class IntercomEnvVars {
             writable: true,
             value: void 0
         });
-        this.appId = external_env_var_namespaceObject.get('NEXT_PUBLIC_INTERCOM_APP_ID').default('').asString();
+        this.appId = env.get('NEXT_PUBLIC_INTERCOM_APP_ID').default('').asString();
     }
 }
 
@@ -701,9 +731,9 @@ class MailchimpEnvVars {
             writable: true,
             value: void 0
         });
-        this.apiKey = external_env_var_namespaceObject.get('MAILCHIMP_API_KEY').required().asString();
-        this.listId = external_env_var_namespaceObject.get('MAILCHIMP_LIST_ID').required().asString();
-        this.serverPrefix = external_env_var_namespaceObject.get('MAILCHIMP_SERVER_PREFIX').required().asString();
+        this.apiKey = env.get('MAILCHIMP_API_KEY').required().asString();
+        this.listId = env.get('MAILCHIMP_LIST_ID').required().asString();
+        this.serverPrefix = env.get('MAILCHIMP_SERVER_PREFIX').required().asString();
     }
 }
 
@@ -731,13 +761,13 @@ class Neo4jEnvVars {
         });
     }
     get password() {
-        return (this._password ??= external_env_var_namespaceObject.get('NEO4J_PASSWORD').required().asString());
+        return (this._password ??= env.get('NEO4J_PASSWORD').required().asString());
     }
     get uri() {
-        return (this._uri ??= external_env_var_namespaceObject.get('NEO4J_URI').required().asUrlString());
+        return (this._uri ??= env.get('NEO4J_URI').required().asUrlString());
     }
     get user() {
-        return (this._user ??= external_env_var_namespaceObject.get('NEO4J_USER').required().asString());
+        return (this._user ??= env.get('NEO4J_USER').required().asString());
     }
 }
 
@@ -753,7 +783,7 @@ class NodeEnvVars {
         });
     }
     get isCi() {
-        return external_env_var_namespaceObject.get('CI').default('false').asBool();
+        return env.get('CI').default('false').asBool();
     }
     get isDevelopment() {
         return this.nodeEnv === 'development';
@@ -765,7 +795,8 @@ class NodeEnvVars {
         return this.nodeEnv === 'test';
     }
     get nodeEnv() {
-        return (this._nodeEnv ??= external_env_var_namespaceObject.get('NODE_ENV')
+        return (this._nodeEnv ??= env
+            .get('NODE_ENV')
             .default('development')
             .asEnum(['development', 'production', 'test']));
     }
@@ -791,7 +822,7 @@ class SupabaseEnvVars {
     }
 }
 
-;// ../../libs/shared/config/env/src/env.ts
+;// ../../libs/shared/config/env/src/config.ts
 
 
 
@@ -1351,7 +1382,7 @@ var external_yargs_default = /*#__PURE__*/__webpack_require__.n(external_yargs_n
 ;// external "yargs/helpers"
 const helpers_namespaceObject = require("yargs/helpers");
 ;// ./src/commands/command.service.ts
-var command_service_a, command_service_b, command_service_c;
+var command_service_a, command_service_b, _c;
 
 
 
@@ -1414,7 +1445,7 @@ let CommandService = class CommandService {
 };
 CommandService = (0,external_tslib_namespaceObject.__decorate)([
     (0,common_namespaceObject.Injectable)(),
-    (0,external_tslib_namespaceObject.__metadata)("design:paramtypes", [typeof (command_service_a = typeof TerraformService !== "undefined" && TerraformService) === "function" ? command_service_a : Object, typeof (command_service_b = typeof TaskService !== "undefined" && TaskService) === "function" ? command_service_b : Object, typeof (command_service_c = typeof SeedService !== "undefined" && SeedService) === "function" ? command_service_c : Object])
+    (0,external_tslib_namespaceObject.__metadata)("design:paramtypes", [typeof (command_service_a = typeof TerraformService !== "undefined" && TerraformService) === "function" ? command_service_a : Object, typeof (command_service_b = typeof TaskService !== "undefined" && TaskService) === "function" ? command_service_b : Object, typeof (_c = typeof SeedService !== "undefined" && SeedService) === "function" ? _c : Object])
 ], CommandService);
 
 
@@ -1508,7 +1539,7 @@ const bootstrap = async () => {
 void bootstrap();
 
 var __webpack_export_target__ = exports;
-for(var i in __webpack_exports__) __webpack_export_target__[i] = __webpack_exports__[i];
+for(var __webpack_i__ in __webpack_exports__) __webpack_export_target__[__webpack_i__] = __webpack_exports__[__webpack_i__];
 if(__webpack_exports__.__esModule) Object.defineProperty(__webpack_export_target__, "__esModule", { value: true });
 /******/ })()
 ;

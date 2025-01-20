@@ -1,17 +1,19 @@
-import {
+import type {
   IPreferenceModel,
   IUserModel,
-  userRef,
 } from '@codelab/frontend/abstract/domain'
-import {
+import type {
   IBreakpoint,
   IBreakpointType,
   IPreferenceDto,
 } from '@codelab/shared/abstract/core'
+import type { PreferenceDeleteInput } from '@codelab/shared/infra/gql'
+import type { Ref } from 'mobx-keystone'
+
+import { userRef } from '@codelab/frontend/abstract/domain'
 import { breakpoints } from '@codelab/shared/config/builder'
-import { PreferenceDeleteInput } from '@codelab/shared/infra/gql'
 import { computed } from 'mobx'
-import { idProp, Model, model, modelAction, prop, Ref } from 'mobx-keystone'
+import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
 const create = ({
   builderBreakpointType,

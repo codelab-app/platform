@@ -2,10 +2,8 @@ import '../styles/main.css'
 // import config from '../tailwind.config.js'
 import { StyleProviders } from '@codelab/frontend/infra/context'
 import { cn } from '@cui/utils'
-import { getActiveSpan } from '@sentry/react'
 import { setGlobalConfig } from 'mobx-keystone'
 import { Inter, Montserrat, Nunito } from 'next/font/google'
-import pino from 'pino'
 
 setGlobalConfig({
   showDuplicateModelNameWarnings: process.env.NODE_ENV === 'production',

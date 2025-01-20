@@ -116,7 +116,7 @@ export const useTypeService = (): ITypeService => {
   }
 
   const getInterface = async (interfaceTypeId: string) => {
-    const interfaceFromStore = typeDomainService.getType(interfaceTypeId)
+    const interfaceFromStore = typeDomainService.types.get(interfaceTypeId)
 
     if (
       interfaceFromStore &&

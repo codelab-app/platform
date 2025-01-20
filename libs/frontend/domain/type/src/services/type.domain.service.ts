@@ -2,14 +2,12 @@ import type {
   ITypeDomainService,
   ITypeModel,
 } from '@codelab/frontend/abstract/domain'
+import type { IInterfaceTypeDto, ITypeDto } from '@codelab/shared/abstract/core'
 import type { GetTypesQuery } from '@codelab/shared/infra/gql'
 
 import { getFieldDomainService } from '@codelab/frontend/abstract/domain'
-import {
-  IInterfaceTypeDto,
-  ITypeDto,
-  ITypeKind,
-} from '@codelab/shared/abstract/core'
+import { ITypeKind } from '@codelab/shared/abstract/core'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 
@@ -105,8 +103,22 @@ export class TypeDomainService
     return null
   }
 
-  getType(id: string) {
-    return this.types.get(id)
+  type<T extends ITypeModel>(id: string) {
+    const type = this.types.get(id)
+
+    Validator.assertsDefined(type)
+
+    return type as T
+  }
+
+  typeByKind<T extends ITypeKind>(kind: T) {
+    const foundType = Array.from(this.types.values()).find(
+      (type) => type.kind === kind,
+    )
+
+    Validator.assertsDefined(foundType)
+
+    return foundType
   }
 
   @computed

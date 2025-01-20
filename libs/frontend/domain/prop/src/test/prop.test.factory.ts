@@ -11,7 +11,7 @@ export const propFactory = (dto?: Partial<IPropDto>) => {
       ? {
           id: dto.api.id,
         }
-      : null,
+      : undefined,
     data: dto?.data ?? '{}',
     id: dto?.id ?? v4(),
   }

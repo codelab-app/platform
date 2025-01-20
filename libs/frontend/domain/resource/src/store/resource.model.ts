@@ -4,6 +4,7 @@ import type {
   IResourceType,
   IUser,
 } from '@codelab/shared/abstract/core'
+import type { Ref } from 'mobx-keystone'
 
 import {
   type IPropModel,
@@ -13,7 +14,7 @@ import {
 import { Prop } from '@codelab/frontend-domain-prop/store'
 import { getResourceClient } from '@codelab/shared-domain-module/resource'
 import { computed } from 'mobx'
-import { idProp, Model, model, modelAction, prop, Ref } from 'mobx-keystone'
+import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
 const create = ({ config, id, name, owner, type }: IResourceDto) =>
   new Resource({

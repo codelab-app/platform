@@ -509,7 +509,7 @@ jobs:
             - .terraformrc
             - project/terraform/.terraform
           root: ~/
-  unit:
+  tsc-check:
     executor: docker-node
     parameters:
       resource_class:
@@ -524,6 +524,17 @@ jobs:
           name: Run Unit Tests
       - store_test_results:
           path: ./tmp/reports/test-unit
+  unit:
+    executor: docker-node
+    parameters:
+      resource_class:
+        type: string
+    resource_class: << parameters.resource_class >>
+    steps:
+      - restore-workspace
+      - run:
+          command: nx run-many --target=tsc-check
+          name: Run tsc Check
 orbs:
   node: circleci/node@5.1.0
   nx: nrwl/nx@1.6.2
@@ -657,6 +668,15 @@ workflows:
                 - master
                 - staging
           max_old_space_size: 8192
+          requires:
+            - setup-workspace
+          resource_class: large
+      - tsc-check:
+          filters:
+            branches:
+              ignore:
+                - master
+                - staging
           requires:
             - setup-workspace
           resource_class: large

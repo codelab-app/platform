@@ -5,7 +5,6 @@ import type {
   IRedirectUpdateFormData,
 } from '@codelab/frontend/abstract/domain'
 import type { PageContextParams } from '@codelab/frontend/abstract/types'
-import type { IRef } from '@codelab/shared/abstract/core'
 import type { RedirectWhere } from '@codelab/shared/infra/gql'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 

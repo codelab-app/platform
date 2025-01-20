@@ -78,8 +78,7 @@
     {
       "files": ["*.schema.ts", "*.config.ts"],
       "rules": {
-        "canonical/sort-keys": "off",
-        "perfectionist/sort-objects": "off"
+        "canonical/sort-keys": "off"
       }
     }
   ]
