@@ -15,6 +15,7 @@ export const CuiTreeItemToolbar = ({ items }: CuiTreeItemToolbarProps) => {
       <div className="flex flex-row items-start overflow-hidden">
         {items.map((item) => (
           <CuiTreeItemToolbarItem
+            confirmText={item.confirmText}
             cuiKey={item.cuiKey}
             icon={item.icon}
             key={item.cuiKey}

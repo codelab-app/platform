@@ -28,9 +28,9 @@ export interface ICreatePageUseCase {
 export interface IPageService
   extends IQueryService<IPageModel, PageWhere, PageOptions>,
     ICrudService<IRef, IPageCreateFormData, IPageUpdateFormData> {
-  createPopover: IPopover<PageContextParams>
-  deletePopover: IPopover<PageContextParams>
-  updatePopover: IPopover<PageContextParams>
+  createPopover: IPopover<PageContextParams, PageContextParams>
+  deletePopover: IPopover<PageContextParams, PageContextParams>
+  updatePopover: IPopover<PageContextParams, PageContextParams>
 
   getPagesByApp(appId: string): Array<IPageModel>
   getRenderedPage(pageId: string): Promise<GetRenderedPageQuery>

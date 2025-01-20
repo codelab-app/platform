@@ -136,8 +136,8 @@ export const usePageService = (): IPageService => {
   }
 
   const createPopover = {
-    close: (router: AppRouterInstance) => {
-      router.back()
+    close: (router: AppRouterInstance, params: PageContextParams) => {
+      router.push(PageType.PageList(params))
     },
     open: (router: AppRouterInstance, params: PageContextParams) => {
       router.push(PageType.PageCreate(params))
@@ -145,8 +145,8 @@ export const usePageService = (): IPageService => {
   }
 
   const updatePopover = {
-    close: (router: AppRouterInstance) => {
-      router.back()
+    close: (router: AppRouterInstance, params: PageContextParams) => {
+      router.push(PageType.PageList(params))
     },
     open: (router: AppRouterInstance, params: PageContextParams) => {
       router.push(PageType.PageUpdate(params))
@@ -154,8 +154,8 @@ export const usePageService = (): IPageService => {
   }
 
   const deletePopover = {
-    close: (router: AppRouterInstance) => {
-      router.back()
+    close: (router: AppRouterInstance, params: PageContextParams) => {
+      router.push(PageType.PageList(params))
     },
     open: (router: AppRouterInstance, params: PageContextParams) => {
       const baseUrl = PageType.PageDelete(params)

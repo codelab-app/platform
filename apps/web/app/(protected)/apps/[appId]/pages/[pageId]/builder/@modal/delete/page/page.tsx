@@ -4,9 +4,9 @@ import { pageRepository } from '@codelab/frontend-domain-page/repositories'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 
 const DeletePageModalPage = async ({
-  params: { pageId },
+  params: { appId, pageId },
 }: {
-  params: { pageId: string }
+  params: { appId: string; pageId: string }
 }) => {
   const pageDto = await pageRepository.findOne({ id: pageId })
 
@@ -15,7 +15,7 @@ const DeletePageModalPage = async ({
       fallback={<Spinner />}
       pagesDto={pageDto ? [pageDto] : []}
     >
-      <DeletePageModal id={pageId} />
+      <DeletePageModal appId={appId} pageId={pageId} />
     </DomainStoreHydrator>
   )
 }

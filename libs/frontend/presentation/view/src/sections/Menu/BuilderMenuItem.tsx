@@ -2,9 +2,8 @@ import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-u
 
 import BuildOutlined from '@ant-design/icons/BuildOutlined'
 import {
-  type ComponentContextParams,
+  type BuilderContextParams,
   ExplorerPaneType,
-  type PageContextParams,
   PageType,
   PrimarySidebar,
 } from '@codelab/frontend/abstract/types'
@@ -13,7 +12,7 @@ export const pageBuilderMenuItem = ({
   appId,
   componentId,
   pageId,
-}: Partial<ComponentContextParams & PageContextParams>): NavigationBarItem => {
+}: Partial<BuilderContextParams>): NavigationBarItem => {
   const disabledBuilderMenuItem = {
     disabled: true,
     icon: <BuildOutlined title="Builder" />,

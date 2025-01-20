@@ -28,10 +28,10 @@ const UiDataRecord = {
     label: 'Update Action Modal',
   },
   [UiKey.ActionPopoverCreate]: {
-    label: 'Create Action Popover',
+    label: 'Create Action',
   },
   [UiKey.ActionPopoverUpdate]: {
-    label: 'Update Action Popover',
+    label: 'Update Action',
   },
   [UiKey.ActionToolbarItemCreate]: {
     label: 'Create Action Toolbar Item',
@@ -245,7 +245,7 @@ const UiDataRecord = {
     label: 'Delete Element Modal',
   },
   [UiKey.ElementPopoverCreate]: {
-    label: 'Create Element Popover',
+    label: 'Create Element',
   },
   [UiKey.ElementToolbarItemCreate]: {
     label: 'Create Element Toolbar Item',
@@ -278,10 +278,10 @@ const UiDataRecord = {
     label: 'Update Field Modal',
   },
   [UiKey.FieldPopoverCreate]: {
-    label: 'Create Field Popover',
+    label: 'Create Field',
   },
   [UiKey.FieldPopoverUpdate]: {
-    label: 'Update Field Popover',
+    label: 'Update Field',
   },
   [UiKey.FieldToolbarItemCreate]: {
     label: 'Create Field Toolbar Item',
@@ -374,10 +374,10 @@ const UiDataRecord = {
     label: 'Delete Redirect Modal',
   },
   [UiKey.RedirectPopoverCreate]: {
-    label: 'Create Redirect Popover',
+    label: 'Create Redirect',
   },
   [UiKey.RedirectPopoverUpdate]: {
-    label: 'Update Redirect Popover',
+    label: 'Update Redirect',
   },
   [UiKey.RedirectToolbarItemCreate]: {
     label: 'Create Redirect Toolbar Item',

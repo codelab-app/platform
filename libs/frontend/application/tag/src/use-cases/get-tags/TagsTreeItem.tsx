@@ -29,7 +29,7 @@ export const TagsTreeItem = observer(({ data }: TagsTreeItemProps) => {
               cuiKey: UiKey.TagToolbarItemDelete,
               icon: <DeleteOutlined />,
               label: 'Delete',
-              onClick: (event) => {
+              onClick: (event: Event) => {
                 event.stopPropagation()
                 router.push(PageType.TagsDelete([data.extraData.node.id]))
               },

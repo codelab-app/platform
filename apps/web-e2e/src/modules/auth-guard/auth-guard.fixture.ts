@@ -1,10 +1,10 @@
 import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import { test as base, expect } from '@playwright/test'
 
-import { BuilderPage } from '../builder/builder.fixture'
+import { BasePage } from '../../locators/pages'
 import { resourceName } from './auth-guard.data'
 
-export class AuthGuardPage extends BuilderPage {
+export class AuthGuardPage extends BasePage {
   readonly authGuardName = 'New Auth Guard'
 
   readonly authGuardRedirectName = 'New Auth Guard Redirect'

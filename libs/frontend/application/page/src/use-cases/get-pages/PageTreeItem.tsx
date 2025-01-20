@@ -49,7 +49,7 @@ export const PageTreeItem = observer(
   }: PageTreeItemProps) => {
     const { isRegenerating, regenerate } = useRegeneratePages()
     const router = useRouter()
-    const { deletePopover, updatePopover } = usePageService()
+    const { removeMany, updatePopover } = usePageService()
     const redirectService = useRedirectService()
     const { appId } = useUrlPathParams()
 
@@ -74,9 +74,10 @@ export const PageTreeItem = observer(
 
     const regularPageToolbarItems: Array<ToolbarItem> = [
       {
+        confirmText: `Are you sure you want to delete "${page.name}"?`,
         cuiKey: UiKey.PageToolbarItemDelete,
         icon: <DeleteOutlined />,
-        onClick: () => deletePopover.open(router, { appId, pageId: page.id }),
+        onClick: () => removeMany([page]),
         title: 'Delete',
       },
       {

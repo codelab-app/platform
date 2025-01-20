@@ -3,9 +3,8 @@ import type {
   IActionWhere,
 } from '@codelab/frontend/abstract/domain'
 import type {
-  ComponentContextParams,
+  BuilderContextParams,
   IPopover,
-  PageContextParams,
 } from '@codelab/frontend/abstract/types'
 import type {
   ICreateActionData,
@@ -16,8 +15,10 @@ import type { ApiActionOptions } from '@codelab/shared/infra/gql'
 
 import type { ICrudService, IQueryService } from '../services'
 
-export type CrudActionPopoverParams = PageContextParams &
-  ComponentContextParams & { actionId?: string; storeId?: string }
+export type CrudActionPopoverParams = BuilderContextParams & {
+  actionId?: string
+  storeId?: string
+}
 
 export interface IActionService
   extends ICrudService<IRef, ICreateActionData, IUpdateActionData>,
