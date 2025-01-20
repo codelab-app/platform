@@ -160,10 +160,11 @@ executors:
       - image: cimg/node:20.18.1-browsers
         name: 127.0.0.1
       - command:
+          - /.docker/scripts/entrypoint.sh
           - neo4j
           - start
         environment:
-          NEO4J_ACCEPT_LICENSE_AGREEMENT: eval
+          NEO4J_ACCEPT_LICENSE_AGREEMENT: 'yes'
           NEO4J_AUTH: neo4j/password
           NEO4J_PLUGINS: '["apoc"]'
         image: neo4j:5.26.0-enterprise
