@@ -4,7 +4,7 @@
   "sourceRoot": "libs/shared/infra/gqlgen/src",
   "projectType": "library",
   "tags": [
-    "projectName:shared-infra-gql",
+    "projectName:shared-infra-gqlgen",
     "projectType:library",
     "type:abstract",
     "layer:infra",

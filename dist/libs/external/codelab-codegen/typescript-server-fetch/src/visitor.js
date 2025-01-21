@@ -36,12 +36,12 @@ class GraphQLRequestVisitor extends visitor_plugin_common_1.ClientSideBaseVisito
         this._outputFile = path_1.default.basename(info?.outputFile || '');
         (0, auto_bind_1.default)(this);
         this._additionalImports = [
-            "import { graphql } from '@codelab/shared/infra/gql'",
+            "import { graphql } from '@codelab/shared/infra/gqlgen'",
             "import { gqlServerRequest } from '@codelab/shared/infra/fetch-server'",
         ];
         this._externalImportPrefix = this.config.importOperationTypesFrom
             ? `${this.config.importOperationTypesFrom}`
-            : '@codelab/shared/infra/gql';
+            : '@codelab/shared/infra/gqlgen';
     }
     /**
      * `export const GetAppsDocument = graphql(gql`

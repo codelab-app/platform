@@ -6,7 +6,7 @@
   "tags": [
     "projectName:shared-infra-gql-client",
     "projectType:library",
-    "type:abstract",
+    "type:concrete",
     "layer:infra",
     "scope:shared"
   ],
