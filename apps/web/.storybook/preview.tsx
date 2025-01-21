@@ -2,9 +2,6 @@ import type { Preview } from '@storybook/react'
 
 import { StyleProviders } from '@codelab/frontend/infra/context'
 import { preferenceDto, userDto } from '@codelab/frontend/test/data'
-
-import '../styles/main.css'
-
 import {
   createRootStore,
   RootStoreProvider,
@@ -14,6 +11,8 @@ import { initialize, mswLoader } from 'msw-storybook-addon'
 // eslint-disable-next-line unused-imports/no-unused-imports
 import React from 'react'
 import { v4 } from 'uuid'
+
+import '../styles/main.css'
 
 /*
  * Initializes MSW

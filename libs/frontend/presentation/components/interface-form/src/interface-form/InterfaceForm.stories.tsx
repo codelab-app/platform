@@ -11,15 +11,21 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { type IInterfaceTypeModel } from '@codelab/frontend/abstract/domain'
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { ITypeKind } from '@codelab/shared/abstract/core'
+import { IPageKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { systemTypesData } from '@codelab/shared/data/seed'
 import { userDto } from '@codelab/shared/data/test'
 import { App } from '@codelab/shared-domain-module-app'
 import { delay, graphql, HttpResponse } from 'msw'
+import React from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { v4 } from 'uuid'
 
 import { InterfaceForm } from './InterfaceForm'
+import {
+  interfaceWithUnionField,
+  intType,
+  stringType,
+} from './tests/setup-store'
 
 const meta: Meta<typeof InterfaceForm> = {
   component: InterfaceForm,
@@ -82,6 +88,16 @@ const InterfaceFormHydrator = () => {
   const systemTypes = systemTypesData(userDto)
   const typesDto: Array<ITypeDto> = [...systemTypes, interfaceType]
   const app = App.seedApp()
+
+  const pageDto: IPageDto = {
+    app: { id: v4() },
+    id: v4(),
+    kind: IPageKind.Regular,
+    name: 'Test Page',
+    rootElement: { id: v4() },
+    store: { id: v4() },
+    urlPattern: '',
+  }
 
   const elementDto: IElementDto = {
     closestContainerNode: { id: pageDto.id },
@@ -148,7 +164,7 @@ const components: Array<IComponentDto> = [
   // },
 ]
 
-const data = {
+const response = {
   aggregate: {
     count: 2,
   },
@@ -161,11 +177,50 @@ export const Default: Story = {
       handlers: [
         graphql.query('ComponentList', () => {
           return HttpResponse.json({
-            data,
+            data: response,
           })
         }),
       ],
     },
   },
   render: () => <InterfaceFormHydrator />,
+}
+
+export const WithUnionField: Story = {
+  parameters: {
+    msw: {
+      handlers: [
+        graphql.query('ComponentList', () => {
+          return HttpResponse.json({
+            data: {
+              aggregate: { count: 0 },
+              items: [],
+            },
+          })
+        }),
+      ],
+    },
+  },
+  render: () => {
+    const onSubmit = (data: unknown) => {
+      console.log('Submitted data:', data)
+
+      return Promise.resolve()
+    }
+
+    return (
+      <ErrorBoundary
+        fallback={<div>Something went wrong with the Interface Form</div>}
+        onError={(error, errorInfo) => {
+          console.error('Interface Form Error:', error, errorInfo)
+        }}
+      >
+        <InterfaceForm
+          interfaceType={interfaceWithUnionField}
+          model={{}}
+          onSubmit={onSubmit}
+        />
+      </ErrorBoundary>
+    )
+  },
 }

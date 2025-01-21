@@ -12,7 +12,7 @@
     "isolatedModules": true,
     "incremental": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": false,
+    "emitDecoratorMetadata": true,
     "plugins": [
       {
         "name": "next"

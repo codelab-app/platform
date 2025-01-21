@@ -12,6 +12,7 @@
     "components/**/*.stories.tsx",
     "components/**/*.stories.mdx",
     ".storybook/*.js",
-    ".storybook/*.ts"
-, ".storybook/preview.tsx"  ]
+    ".storybook/*.ts",
+    ".storybook/preview.tsx"
+  ]
 }

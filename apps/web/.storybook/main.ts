@@ -1,12 +1,15 @@
-import type { StorybookConfig } from '@storybook/react-vite'
+import type { StorybookConfig } from '@storybook/nextjs'
 import type { Options } from '@swc/core'
 
 import { resolve } from 'path'
+import React from 'react'
 
 const storybookConfig: StorybookConfig = {
   addons: [
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
+    // Required to enable `swc` config below
+    '@storybook/addon-webpack5-compiler-swc',
     // 'storybook-css-modules',
   ],
   framework: {
@@ -28,64 +31,39 @@ const storybookConfig: StorybookConfig = {
    *
    * https://github.com/storybookjs/storybook/discussions/26836
    */
-  // swc: (config: Options, options: Options): Options => {
-  //   return {
-  //     ...config,
-  //     // https://github.com/swc-project/swc/issues/2117
-  //     jsc: {
-  //       ...config.jsc,
-  //       keepClassNames: true,
-  //       parser: {
-  //         decorators: true,
-  //         syntax: 'typescript',
-  //       },
-  //       target: 'es2018',
-  //       transform: {
-  //         decoratorMetadata: true,
-  //         legacyDecorator: true,
-  //         useDefineForClassFields: false,
-  //       },
-  //     },
-  //   }
-  // },
+  swc: (config: Options): Options => {
+    console.log('config', config)
+
+    return {
+      ...config,
+      jsc: {
+        ...config.jsc,
+        // keepClassNames: true,
+        parser: {
+          decorators: true,
+          syntax: 'typescript',
+          tsx: true,
+        },
+        transform: {
+          decoratorMetadata: true,
+          // decoratorVersion: '2022-03',
+          legacyDecorator: true,
+          // useDefineForClassFields: false,
+          react: {
+            runtime: 'automatic',
+          },
+        },
+      },
+    }
+  },
   /**
    * https://github.com/storybookjs/storybook/issues/27175
    */
   typescript: {
     reactDocgen: 'react-docgen-typescript',
-    // reactDocgenTypescriptOptions: {
-    //   tsconfigPath: resolve(__dirname, '../tsconfig.storybook.json'),
-    // },
-  },
-  webpackFinal: async (config) => {
-    // Modify webpack config
-    if (config.module?.rules) {
-      config.module.rules.push({
-        test: /\.(ts|tsx)$/,
-        use: [
-          {
-            loader: 'swc-loader',
-            options: {
-              jsc: {
-                keepClassNames: true,
-                parser: {
-                  decorators: true,
-                  syntax: 'typescript',
-                },
-                target: 'es2018',
-                transform: {
-                  decoratorMetadata: true,
-                  legacyDecorator: true,
-                  useDefineForClassFields: false,
-                },
-              },
-            },
-          },
-        ],
-      })
-    }
-
-    return config
+    reactDocgenTypescriptOptions: {
+      tsconfigPath: resolve(__dirname, '../tsconfig.storybook.json'),
+    },
   },
 }
 

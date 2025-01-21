@@ -77,6 +77,8 @@ const nextConfig = {
     styledComponents: true,
   },
   experimental: {
+    forceSwcTransforms: true,
+
     // outputFileTracingRoot: path.join(__dirname, '../../'),
     // optimizePackageImports: ['@auth0/nextjs-auth0/edge'],
     // https://nextjs.org/docs/messages/import-esm-externals
