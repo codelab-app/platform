@@ -55,7 +55,7 @@ const RootRendererComponent = forwardRef<
   )
 
   return (
-    <ErrorBoundary>
+    <Alert.ErrorBoundary>
       <WrapIf
         Wrapper={MakeChildrenDroppable}
         condition={
@@ -68,7 +68,7 @@ const RootRendererComponent = forwardRef<
           {renderer.render}
         </div>
       </WrapIf>
-    </ErrorBoundary>
+    </Alert.ErrorBoundary>
   )
 })
 

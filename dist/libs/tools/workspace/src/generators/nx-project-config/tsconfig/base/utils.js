@@ -21,11 +21,10 @@ const appendTsconfigPath = (tree, project, moduleAlias, targetPath) => {
         return;
     }
     (0, devkit_1.updateJson)(tree, 'tsconfig.base.json', (json) => {
-        var _a;
         console.log('Appending path', {
             [moduleAlias]: [targetPath],
         });
-        const paths = (_a = json.compilerOptions.paths) !== null && _a !== void 0 ? _a : {};
+        const paths = json.compilerOptions.paths ?? {};
         (0, remeda_1.mergeDeep)(paths, {
             [moduleAlias]: [targetPath],
         });
@@ -36,8 +35,7 @@ const appendTsconfigPath = (tree, project, moduleAlias, targetPath) => {
 exports.appendTsconfigPath = appendTsconfigPath;
 const removeTsconfigPath = (tree, moduleAlias) => {
     (0, devkit_1.updateJson)(tree, 'tsconfig.base.json', (json) => {
-        var _a;
-        const paths = (_a = json.compilerOptions.paths) !== null && _a !== void 0 ? _a : {};
+        const paths = json.compilerOptions.paths ?? {};
         // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
         delete json.compilerOptions.paths[moduleAlias];
         json.compilerOptions.paths = paths;

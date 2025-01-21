@@ -7,7 +7,7 @@ const updateLibraryTsconfig = (tree, project) => {
     /**
      * Only update if the lib is a backend project, which we will use default nestjs config for
      */
-    if (projectName === null || projectName === void 0 ? void 0 : projectName.startsWith('backend')) {
+    if (projectName?.startsWith('backend')) {
         (0, devkit_1.updateJson)(tree, `${project.root}/tsconfig.json`, (json) => {
             /**
              * "experimentalDecorators": true,
