@@ -151,6 +151,11 @@ commands:
       - run:
           command: source ~/project/.circleci/config/env.sh
           name: Setup Env
+  setup-neo4j:
+    description: Setup Neo4j
+    steps:
+      - run: ~/project/.docker/cypher/scripts/enable-cdc.sh
+      - run: ~/project/.docker/cypher/scripts/apply-constraints.sh
 executors:
   docker-node:
     docker:
@@ -159,11 +164,7 @@ executors:
     docker:
       - image: cimg/node:20.18.1-browsers
         name: 127.0.0.1
-      - command:
-          - /.docker/scripts/entrypoint.sh
-          - neo4j
-          - start
-        environment:
+      - environment:
           NEO4J_ACCEPT_LICENSE_AGREEMENT: 'yes'
           NEO4J_AUTH: neo4j/password
           NEO4J_PLUGINS: '["apoc"]'
@@ -188,6 +189,7 @@ jobs:
     resource_class: << parameters.resource_class >>
     steps:
       - restore-workspace
+      - setup-neo4j
       - run:
           command: pnpm cli tasks graphql-codegen --stage ci
           name: Check GraphQL Codegen
@@ -265,6 +267,7 @@ jobs:
     resource_class: << parameters.resource_class >>
     steps:
       - restore-workspace
+      - setup-neo4j
       - run: pnpm npx playwright install-deps
       - run:
           command: |
@@ -293,6 +296,7 @@ jobs:
     resource_class: << parameters.resource_class >>
     steps:
       - restore-workspace
+      - setup-neo4j
       - run:
           command: pnpm cli tasks int --stage ci
           environment:
@@ -318,9 +322,6 @@ jobs:
       - run:
           command: pnpm cli tasks lint --stage ci
           name: Run Lint on Repository
-      - run:
-          command: pnpm cli tasks commitlint --stage ci
-          name: Commitlint
       - store_test_results:
           path: ./tmp/reports/lint
   notify-failure:

@@ -22,7 +22,10 @@ export class TagListPage extends BasePage {
 
   async deleteTagNodeInTree(tagName: string) {
     await this.getTree().getTreeItemByPrimaryTitle(tagName).locator?.hover()
-    await this.getTree().getToolbarItem(UiKey.TagToolbarItemDelete).click()
+    await this.getTree()
+      .getTreeItemByPrimaryTitle(tagName)
+      .getToolbarItem(UiKey.TagToolbarItemDelete)
+      .click()
 
     await this.page.waitForURL('/tags/delete/**')
 

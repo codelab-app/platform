@@ -7,6 +7,7 @@ settings:
 overrides:
   '@types/react': 18.3.0
   '@types/react-dom': 18.3.0
+  nx: 20.1.4
   oauth4webapi: npm:@awwong1/oauth4webapi@latest
 
 importers:
@@ -4306,12 +4307,12 @@ packages:
   '@nx/devkit@19.0.4':
     resolution: {integrity: sha512-nsD0RaL61nZLHSJbog2XwxcI8bML5GlI69Z1k2rvd2zvylqdjNS4SXakMPl/Ar9xX2mAW3Qbup850V0jG87y/Q==}
     peerDependencies:
-      nx: '>= 17 <= 20'
+      nx: 20.1.4
 
   '@nx/devkit@20.1.4':
     resolution: {integrity: sha512-Opz7eRPmpt3e4SGkbwZbE9Bg3MhKeivh1QTNCj4tQVAB4gucz0lW/F3mdtRDFdj6gUbqIc5rRrbO/DGlNaEzYw==}
     peerDependencies:
-      nx: '>= 19 <= 21'
+      nx: 20.1.4
 
   '@nx/eslint-plugin@20.1.4':
     resolution: {integrity: sha512-Oa3elOiVm8u3XZgooY0b+k+ro7wEoV9vuf7k4vhPxXUDE4nPglvB1mWagnmwlGuLVQXsDhIEujAP4dMSH5qQrw==}
