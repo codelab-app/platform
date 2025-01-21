@@ -4,7 +4,7 @@ import {
   Neo4jService,
 } from '@codelab/backend-infra-adapter/neo4j-driver'
 import { ITypeRef } from '@codelab/shared/abstract/core'
-import { Element, TypeFragment } from '@codelab/shared/infra/gql'
+import { Element, TypeFragment } from '@codelab/shared/infra/gqlgen'
 import { Injectable } from '@nestjs/common'
 
 /**

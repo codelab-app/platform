@@ -4,7 +4,7 @@ import {
   ICodeMirrorLanguage,
   type ICodeMirrorTypeDto,
 } from '@codelab/shared/abstract/core'
-import { TypeKind } from '@codelab/shared/infra/gql'
+import { TypeKind } from '@codelab/shared/infra/gqlgen'
 import { v4 } from 'uuid'
 
 export const codeMirrorTypeFactory =

@@ -4,7 +4,7 @@ import type { Maybe } from '@codelab/shared/abstract/types'
 import type {
   DomainDeleteInput,
   ProductionDomainConfig,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'

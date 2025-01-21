@@ -3,7 +3,7 @@ import type {
   AuthGuardOptions,
   AuthGuardUniqueWhere,
   AuthGuardWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import {
   CACHE_TAGS,

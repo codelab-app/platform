@@ -3,6 +3,6 @@
  *
  * We don't set a role for regular users
  */
-import { Role } from '@codelab/shared/infra/gql'
+import { Role } from '@codelab/shared/infra/gqlgen'
 
 export { Role as IRole }

@@ -1,9 +1,9 @@
 import type { IAtomDto, INodeType } from '@codelab/shared/abstract/core'
-import type { AtomOptions, AtomWhere } from '@codelab/shared/infra/gql'
+import type { AtomOptions, AtomWhere } from '@codelab/shared/infra/gqlgen'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import { AtomFragment } from '@codelab/shared/infra/gql'
+import { AtomFragment } from '@codelab/shared/infra/gqlgen'
 import { atomApi, atomMapper } from '@codelab/shared-domain-module-atom'
 import { Injectable } from '@nestjs/common'
 

@@ -2,7 +2,7 @@ import type { IAtomExport } from '@codelab/shared/abstract/core'
 
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import { EntitySchema } from '@codelab/shared/abstract/types'
-import { SortDirection } from '@codelab/shared/infra/gql'
+import { SortDirection } from '@codelab/shared/infra/gqlgen'
 import { Injectable } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 

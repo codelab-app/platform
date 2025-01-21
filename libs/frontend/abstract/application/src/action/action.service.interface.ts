@@ -11,7 +11,7 @@ import type {
   IRef,
   IUpdateActionData,
 } from '@codelab/shared/abstract/core'
-import type { ApiActionOptions } from '@codelab/shared/infra/gql'
+import type { ApiActionOptions } from '@codelab/shared/infra/gqlgen'
 
 import type { ICrudService, IQueryService } from '../services'
 

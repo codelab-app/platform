@@ -1,9 +1,9 @@
 import type { INodeType, IStoreDto } from '@codelab/shared/abstract/core'
-import type { StoreOptions, StoreWhere } from '@codelab/shared/infra/gql'
+import type { StoreOptions, StoreWhere } from '@codelab/shared/infra/gqlgen'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import { StoreFragment } from '@codelab/shared/infra/gql'
+import { StoreFragment } from '@codelab/shared/infra/gqlgen'
 import { storeApi, storeMapper } from '@codelab/shared-domain-module/store'
 import { Injectable } from '@nestjs/common'
 

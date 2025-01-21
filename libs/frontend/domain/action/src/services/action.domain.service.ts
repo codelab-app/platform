@@ -4,7 +4,7 @@ import type {
   IStoreModel,
 } from '@codelab/frontend/abstract/domain'
 import type { IActionDto, IRef } from '@codelab/shared/abstract/core'
-import type { ActionFragment } from '@codelab/shared/infra/gql'
+import type { ActionFragment } from '@codelab/shared/infra/gqlgen'
 
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { actionFactory } from '@codelab/shared-domain-module/action'

@@ -3,7 +3,7 @@ import type {
   DomainFragment,
   DomainOptions,
   DomainWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import type { IRepository } from '../shared'
 

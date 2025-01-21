@@ -10,7 +10,7 @@ import {
   NumberValidationRules,
   StringValidationRules,
 } from '@codelab/shared/abstract/core'
-import { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
+import { PrimitiveTypeKind } from '@codelab/shared/infra/gqlgen'
 
 export const createFieldSchema: JSONSchemaType<ICreateFieldData> = {
   if: {

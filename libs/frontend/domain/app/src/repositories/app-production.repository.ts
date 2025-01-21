@@ -2,7 +2,7 @@ import type {
   IAppProductionArgs,
   IAppProductionDto,
 } from '@codelab/frontend/abstract/domain'
-import type { AtomProductionFragment } from '@codelab/shared/infra/gql'
+import type { AtomProductionFragment } from '@codelab/shared/infra/gqlgen'
 
 import { appServerActions } from '@codelab/shared-domain-module-app'
 import { uniqueBy } from 'remeda'

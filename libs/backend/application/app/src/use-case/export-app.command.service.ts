@@ -5,7 +5,7 @@ import type {
   IPageAggregateExport,
   IRef,
 } from '@codelab/shared/abstract/core'
-import type { AppWhere } from '@codelab/shared/infra/gql'
+import type { AppWhere } from '@codelab/shared/infra/gqlgen'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
 import { ExportComponentCommand } from '@codelab/backend/application/component'

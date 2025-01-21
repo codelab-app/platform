@@ -1,9 +1,9 @@
-import type { UserOptions, UserWhere } from '@codelab/shared/infra/gql'
+import type { UserOptions, UserWhere } from '@codelab/shared/infra/gqlgen'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import { type INodeType, type IUserDto } from '@codelab/shared/abstract/core'
-import { UserFragment } from '@codelab/shared/infra/gql'
+import { UserFragment } from '@codelab/shared/infra/gqlgen'
 import { userApi, userMapper } from '@codelab/shared-domain-module/user'
 import { Injectable } from '@nestjs/common'
 

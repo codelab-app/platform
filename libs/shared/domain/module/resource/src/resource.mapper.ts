@@ -3,7 +3,7 @@ import type {
   ResourceCreateInput,
   ResourceDeleteInput,
   ResourceUpdateInput,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import { connectOwner } from '@codelab/shared/domain/orm'
 import { propMapper } from '@codelab/shared-domain-module/prop'

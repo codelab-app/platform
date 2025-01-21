@@ -1,7 +1,7 @@
 'use server'
 
 import type { IRef } from '@codelab/shared/abstract/core'
-import type { App } from '@codelab/shared/infra/gql'
+import type { App } from '@codelab/shared/infra/gqlgen'
 
 import { getEnv } from '@codelab/shared/config/env'
 import { serverFetchWithAuth } from '@codelab/shared/infra/fetch-server'

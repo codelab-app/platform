@@ -4,7 +4,7 @@ import type {
   StoreFragment,
   StoreOptions,
   StoreWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import type { ICrudService, IQueryService } from '../services'
 

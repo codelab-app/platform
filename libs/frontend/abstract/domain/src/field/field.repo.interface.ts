@@ -3,7 +3,7 @@ import type {
   FieldFragment,
   FieldOptions,
   FieldWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import type { IRepository } from '../shared'
 import type { IFieldModel } from './field.model.interface'

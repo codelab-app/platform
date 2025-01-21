@@ -1,7 +1,7 @@
-import * as Types from '@codelab/shared/infra/gql'
+import * as Types from '@codelab/shared/infra/gqlgen'
 
-import { graphql } from '@codelab/shared/infra/gql'
-import { PreferenceFragmentDoc } from '@codelab/shared/infra/gql'
+import { graphql } from '@codelab/shared/infra/gqlgen'
+import { PreferenceFragmentDoc } from '@codelab/shared/infra/gqlgen'
 
 export const CreatePreferencesDocument = graphql(`
   mutation CreatePreferences($input: [PreferenceCreateInput!]!) {

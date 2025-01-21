@@ -3,7 +3,7 @@ import type {
   AuthGuardCreateInput,
   AuthGuardDeleteInput,
   AuthGuardUpdateInput,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import { connectNodeId, connectOwner } from '@codelab/shared/domain/orm'
 import { propMapper } from '@codelab/shared-domain-module/prop'

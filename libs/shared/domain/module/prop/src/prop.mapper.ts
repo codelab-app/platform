@@ -2,7 +2,7 @@ import type { IMapper, IPropDto } from '@codelab/shared/abstract/core'
 import type {
   PropCreateInput,
   PropUpdateInput,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 export const propMapper: IMapper<
   IPropDto,

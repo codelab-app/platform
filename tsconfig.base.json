@@ -999,10 +999,10 @@
       "@codelab/shared/infra/fetch-server": [
         "libs/shared/infra/fetch-server/src/index.ts"
       ],
-      "@codelab/shared/infra/gql": ["libs/shared/infra/gql/src/index.ts"],
       "@codelab/shared/infra/gql-client": [
         "libs/shared/infra/gql-client/src/index.ts"
       ],
+      "@codelab/shared/infra/gqlgen": ["libs/shared/infra/gqlgen/src/index.ts"],
       "@codelab/shared/infra/logging": [
         "libs/shared/infra/logging/src/index.ts"
       ],

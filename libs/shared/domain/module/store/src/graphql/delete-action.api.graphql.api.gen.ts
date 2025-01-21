@@ -1,12 +1,12 @@
-import * as Types from '@codelab/shared/infra/gql'
+import * as Types from '@codelab/shared/infra/gqlgen'
 
-import { graphql } from '@codelab/shared/infra/gql'
+import { graphql } from '@codelab/shared/infra/gqlgen'
 import { gqlRequest } from '@codelab/shared/infra/fetch'
 
 import {
   type DeleteCodeActionsMutationVariables,
   type DeleteApiActionsMutationVariables,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 import {
   DeleteCodeActionsDocument,
   DeleteApiActionsDocument,

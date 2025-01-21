@@ -1,4 +1,4 @@
-import { PageKind } from '@codelab/shared/infra/gql'
+import { PageKind } from '@codelab/shared/infra/gqlgen'
 
 /**
  * We create the enum here then import into Neo4j graphql schema so we can get linting

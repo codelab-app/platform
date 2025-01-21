@@ -7,7 +7,7 @@ import type {
   ElementOptions,
   ElementUniqueWhere,
   ElementWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import { disconnectAll, disconnectManyAll } from '@codelab/shared/domain/orm'
 import { Validator } from '@codelab/shared/infra/typebox'

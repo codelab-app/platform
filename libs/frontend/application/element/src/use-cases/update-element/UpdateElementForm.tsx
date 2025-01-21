@@ -15,7 +15,7 @@ import {
   CodeMirrorField,
   Form,
 } from '@codelab/frontend-presentation-components-form'
-import { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
+import { CodeMirrorLanguage } from '@codelab/shared/infra/gqlgen'
 import { Collapse } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { isDeepEqual } from 'remeda'

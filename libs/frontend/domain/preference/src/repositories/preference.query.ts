@@ -3,7 +3,7 @@
 import type {
   PreferenceOptions,
   PreferenceWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import { CACHE_TAGS } from '@codelab/frontend/abstract/domain'
 import { type IPreferenceDto } from '@codelab/shared/abstract/core'

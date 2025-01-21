@@ -17,7 +17,7 @@ import type {
   GetRenderedPageQuery,
   PageOptions,
   PageWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import type { ICrudService, IQueryService } from '../services'
 

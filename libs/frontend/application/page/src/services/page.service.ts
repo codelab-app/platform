@@ -4,7 +4,7 @@ import type {
   IPageCreateFormData,
   IPageUpdateFormData,
 } from '@codelab/shared/abstract/core'
-import type { PageWhere } from '@codelab/shared/infra/gql'
+import type { PageWhere } from '@codelab/shared/infra/gqlgen'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import { type IPageService } from '@codelab/frontend/abstract/application'

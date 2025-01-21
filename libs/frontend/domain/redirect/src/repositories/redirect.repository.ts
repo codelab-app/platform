@@ -1,5 +1,8 @@
 import type { IRedirectDto, IRef } from '@codelab/shared/abstract/core'
-import type { RedirectOptions, RedirectWhere } from '@codelab/shared/infra/gql'
+import type {
+  RedirectOptions,
+  RedirectWhere,
+} from '@codelab/shared/infra/gqlgen'
 
 import {
   CACHE_TAGS,

@@ -7,7 +7,7 @@ import type {
   FieldOptions,
   FieldUniqueWhere,
   FieldWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import { Validator } from '@codelab/shared/infra/typebox'
 import {

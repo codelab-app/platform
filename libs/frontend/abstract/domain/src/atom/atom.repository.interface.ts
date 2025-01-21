@@ -4,7 +4,7 @@ import type {
   AtomOptions,
   AtomWhere,
   GetSelectAtomOptionsQuery,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import type { IRepository } from '../shared'
 

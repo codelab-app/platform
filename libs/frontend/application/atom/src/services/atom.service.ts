@@ -4,7 +4,7 @@ import type {
   GetDataFn,
   IAtomService,
 } from '@codelab/frontend/abstract/application'
-import type { AtomOptions, AtomWhere } from '@codelab/shared/infra/gql'
+import type { AtomOptions, AtomWhere } from '@codelab/shared/infra/gqlgen'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import {

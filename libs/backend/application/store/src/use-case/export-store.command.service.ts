@@ -2,7 +2,7 @@ import type {
   IApiExport,
   IStoreAggregateExport,
 } from '@codelab/shared/abstract/core'
-import type { StoreWhere } from '@codelab/shared/infra/gql'
+import type { StoreWhere } from '@codelab/shared/infra/gqlgen'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
 import { ExportApiCommand } from '@codelab/backend/application/type'

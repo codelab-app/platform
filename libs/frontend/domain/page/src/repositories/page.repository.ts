@@ -3,7 +3,7 @@ import type {
   PageOptions,
   PageUniqueWhere,
   PageWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import {
   CACHE_TAGS,

@@ -5,7 +5,7 @@ import type {
   CodeActionFragment,
   CodeActionOptions,
   CodeActionWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 export type IActionFragment = ApiActionFragment | CodeActionFragment
 

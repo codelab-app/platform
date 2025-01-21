@@ -6,7 +6,7 @@ import type {
   ElementFragment,
   PageFragment,
   PageWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
 import { ExportStoreCommand } from '@codelab/backend/application/store'

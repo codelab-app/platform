@@ -4,7 +4,7 @@ import type {
   IValidationRules,
 } from '@codelab/shared/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
-import type { FieldUpdateInput } from '@codelab/shared/infra/gql'
+import type { FieldUpdateInput } from '@codelab/shared/infra/gqlgen'
 import type { Ref } from 'mobx-keystone'
 
 import type { IModel } from '../shared'

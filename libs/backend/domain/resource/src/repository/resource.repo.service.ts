@@ -6,7 +6,7 @@ import {
   ResourceFragment,
   ResourceOptions,
   ResourceWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 import {
   resourceApi,
   resourceMapper,

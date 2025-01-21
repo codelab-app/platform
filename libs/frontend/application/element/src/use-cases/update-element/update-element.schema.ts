@@ -7,7 +7,7 @@ import {
   titleCaseValidation,
 } from '@codelab/frontend-presentation-components-form/schema'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
-import { ElementTypeKind } from '@codelab/shared/infra/gql'
+import { ElementTypeKind } from '@codelab/shared/infra/gqlgen'
 
 export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
   properties: {

@@ -15,7 +15,7 @@ import {
   titleCaseValidation,
 } from '@codelab/frontend-presentation-components-form/schema'
 import { HttpMethod, HttpResponseType } from '@codelab/shared/abstract/core'
-import { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
+import { CodeMirrorLanguage } from '@codelab/shared/infra/gqlgen'
 import { keys } from 'remeda'
 
 export const createAuthGuardSchema: JSONSchemaType<IAuthGuardCreateFormData> = {

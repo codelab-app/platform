@@ -1,6 +1,6 @@
-import * as Types from '@codelab/shared/infra/gql'
+import * as Types from '@codelab/shared/infra/gqlgen'
 
-import { graphql } from '@codelab/shared/infra/gql'
+import { graphql } from '@codelab/shared/infra/gqlgen'
 import {
   ActionTypeFragmentDoc,
   AppBuilderFragmentDoc,
@@ -16,7 +16,7 @@ import {
   ComponentBuilderFragmentDoc,
   RedirectFragmentDoc,
   RedirectPreviewFragmentDoc,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 export const GetAppBuilderDocument = graphql(`
   query GetAppBuilder($appId: ID!, $pageIds: [ID!]) {

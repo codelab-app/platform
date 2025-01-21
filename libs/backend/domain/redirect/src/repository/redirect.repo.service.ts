@@ -13,8 +13,8 @@ import {
 import {
   type RedirectOptions,
   type RedirectWhere,
-} from '@codelab/shared/infra/gql'
-import { RedirectFragment } from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
+import { RedirectFragment } from '@codelab/shared/infra/gqlgen'
 import { redirectApi } from '@codelab/shared-domain-module/redirect'
 import { Injectable } from '@nestjs/common'
 

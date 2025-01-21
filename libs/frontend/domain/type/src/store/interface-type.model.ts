@@ -9,7 +9,7 @@ import type {
   IPropData,
   IRef,
 } from '@codelab/shared/abstract/core'
-import type { InterfaceTypeDeleteInput } from '@codelab/shared/infra/gql'
+import type { InterfaceTypeDeleteInput } from '@codelab/shared/infra/gqlgen'
 import type { Ref } from 'mobx-keystone'
 
 import { fieldRef, userRef } from '@codelab/frontend/abstract/domain'

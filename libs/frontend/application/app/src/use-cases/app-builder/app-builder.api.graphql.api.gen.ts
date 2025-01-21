@@ -1,6 +1,6 @@
-import * as Types from '@codelab/shared/infra/gql'
+import * as Types from '@codelab/shared/infra/gqlgen'
 
-import { graphql } from '@codelab/shared/infra/gql'
+import { graphql } from '@codelab/shared/infra/gqlgen'
 import { gqlRequest } from '@codelab/shared/infra/fetch'
 import {
   ActionTypeFragmentDoc,
@@ -17,9 +17,9 @@ import {
   ComponentBuilderFragmentDoc,
   RedirectFragmentDoc,
   RedirectPreviewFragmentDoc,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
-import { type GetAppBuilderQueryVariables } from '@codelab/shared/infra/gql'
+import { type GetAppBuilderQueryVariables } from '@codelab/shared/infra/gqlgen'
 import { GetAppBuilderDocument } from './app-builder.api.graphql.docs.gen'
 import { GraphQLClient } from 'graphql-request'
 

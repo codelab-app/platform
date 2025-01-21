@@ -1,9 +1,9 @@
 import type { INodeType, IPropDto } from '@codelab/shared/abstract/core'
-import type { PropOptions, PropWhere } from '@codelab/shared/infra/gql'
+import type { PropOptions, PropWhere } from '@codelab/shared/infra/gqlgen'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import { PropFragment } from '@codelab/shared/infra/gql'
+import { PropFragment } from '@codelab/shared/infra/gqlgen'
 import { propApi, propMapper } from '@codelab/shared-domain-module/prop'
 import { Injectable } from '@nestjs/common'
 

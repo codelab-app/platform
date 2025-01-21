@@ -4,7 +4,7 @@ import type {
   AuthGuardFragment,
   AuthGuardOptions,
   AuthGuardWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import type { IRepository } from '../shared'
 

@@ -1,7 +1,7 @@
 import type {
   AppCreateInput,
   DomainCreateInput,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 import type { INestApplication } from '@nestjs/common'
 
 import { GraphqlService } from '@codelab/backend/infra/adapter/graphql'

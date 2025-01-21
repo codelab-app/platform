@@ -1,5 +1,5 @@
 import type { IElementDto, IRef } from '@codelab/shared/abstract/core'
-import type { Element } from '@codelab/shared/infra/gql'
+import type { Element } from '@codelab/shared/infra/gqlgen'
 import type { DeepPick } from 'ts-essentials'
 
 import {

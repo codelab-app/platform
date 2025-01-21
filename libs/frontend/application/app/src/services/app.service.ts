@@ -3,7 +3,7 @@ import type {
   IAppModel,
   IAppUpdateFormData,
 } from '@codelab/frontend/abstract/domain'
-import type { AppWhere } from '@codelab/shared/infra/gql'
+import type { AppWhere } from '@codelab/shared/infra/gqlgen'
 
 import { type IAppService } from '@codelab/frontend/abstract/application'
 import { useHydrateStore } from '@codelab/frontend/infra/context'

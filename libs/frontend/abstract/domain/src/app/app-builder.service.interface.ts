@@ -13,7 +13,7 @@ import type {
   StoreFragment,
   TagPreviewFragment,
   TypeFragment,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 export interface IAppBuilderDto {
   actions: StoreFragment['actions']

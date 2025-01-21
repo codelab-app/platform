@@ -1,4 +1,4 @@
-import type { Domain } from '@codelab/shared/infra/gql'
+import type { Domain } from '@codelab/shared/infra/gqlgen'
 import type { IFieldResolver } from '@graphql-tools/utils'
 
 import { lookupARecord } from '@codelab/backend/infra/adapter/dns'

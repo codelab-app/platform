@@ -5,11 +5,11 @@ import type {
 import type {
   ReactNodeTypeOptions,
   ReactNodeTypeWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import { ReactNodeTypeFragment } from '@codelab/shared/infra/gql'
+import { ReactNodeTypeFragment } from '@codelab/shared/infra/gqlgen'
 import {
   createTypeApi,
   findTypeApi,

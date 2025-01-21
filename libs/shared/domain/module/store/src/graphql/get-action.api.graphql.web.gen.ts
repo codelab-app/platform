@@ -1,10 +1,10 @@
-import * as Types from '@codelab/shared/infra/gql'
+import * as Types from '@codelab/shared/infra/gqlgen'
 
-import { graphql } from '@codelab/shared/infra/gql'
+import { graphql } from '@codelab/shared/infra/gqlgen'
 import { gqlServerRequest } from '@codelab/shared/infra/fetch-server'
-import { ActionFragmentDoc } from '@codelab/shared/infra/gql'
+import { ActionFragmentDoc } from '@codelab/shared/infra/gqlgen'
 
-import { type GetActionsQueryVariables } from '@codelab/shared/infra/gql'
+import { type GetActionsQueryVariables } from '@codelab/shared/infra/gqlgen'
 import { GetActionsDocument } from './get-action.api.graphql.docs.gen'
 
 export const GetActions = (

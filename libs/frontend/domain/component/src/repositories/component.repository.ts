@@ -4,7 +4,7 @@ import type {
   ComponentOptions,
   ComponentUniqueWhere,
   ComponentWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import { CACHE_TAGS } from '@codelab/frontend/abstract/domain'
 import { Validator } from '@codelab/shared/infra/typebox'

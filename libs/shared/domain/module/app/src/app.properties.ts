@@ -1,5 +1,5 @@
 import type { IApp, IUserDto } from '@codelab/shared/abstract/core'
-import type { App } from '@codelab/shared/infra/gql'
+import type { App } from '@codelab/shared/infra/gqlgen'
 import type { DeepPick } from 'ts-essentials'
 
 import {

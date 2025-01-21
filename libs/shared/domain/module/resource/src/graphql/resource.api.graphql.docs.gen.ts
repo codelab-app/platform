@@ -1,7 +1,7 @@
-import * as Types from '@codelab/shared/infra/gql'
+import * as Types from '@codelab/shared/infra/gqlgen'
 
-import { graphql } from '@codelab/shared/infra/gql'
-import { ResourceFragmentDoc } from '@codelab/shared/infra/gql'
+import { graphql } from '@codelab/shared/infra/gqlgen'
+import { ResourceFragmentDoc } from '@codelab/shared/infra/gqlgen'
 
 export const ResourceListDocument = graphql(`
   query ResourceList($options: ResourceOptions, $where: ResourceWhere) {

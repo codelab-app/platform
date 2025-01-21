@@ -8,7 +8,7 @@ import type { IRef } from '@codelab/shared/abstract/core'
 import type {
   AuthGuardOptions,
   AuthGuardWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import type { ICrudService, IQueryService } from '../services'
 

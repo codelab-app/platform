@@ -8,7 +8,7 @@ import {
   pageUrlSchema,
 } from '@codelab/frontend-presentation-components-form/schema'
 import { IPageKind } from '@codelab/shared/abstract/core'
-import { ElementTypeKind } from '@codelab/shared/infra/gql'
+import { ElementTypeKind } from '@codelab/shared/infra/gqlgen'
 
 // pageContentContainer is not required in interface, but is required for _app page
 export const schema = (kind: IPageKind): JSONSchemaType<IPageUpdateFormData> =>

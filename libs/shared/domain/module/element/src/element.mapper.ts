@@ -3,7 +3,7 @@ import type {
   ElementCreateInput,
   ElementDeleteInput,
   ElementUpdateInput,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import {
   connectNodeId,

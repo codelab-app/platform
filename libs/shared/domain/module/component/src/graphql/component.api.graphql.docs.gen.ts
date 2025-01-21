@@ -1,7 +1,7 @@
-import * as Types from '@codelab/shared/infra/gql'
+import * as Types from '@codelab/shared/infra/gqlgen'
 
-import { graphql } from '@codelab/shared/infra/gql'
-import { ComponentFragmentDoc } from '@codelab/shared/infra/gql'
+import { graphql } from '@codelab/shared/infra/gqlgen'
+import { ComponentFragmentDoc } from '@codelab/shared/infra/gqlgen'
 
 export const CreateComponentsDocument = graphql(`
   mutation CreateComponents($input: [ComponentCreateInput!]!) {

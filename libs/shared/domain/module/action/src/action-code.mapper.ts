@@ -2,7 +2,7 @@ import type {
   CodeActionCreateInput,
   CodeActionDeleteInput,
   CodeActionUpdateInput,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import {
   IActionKind,

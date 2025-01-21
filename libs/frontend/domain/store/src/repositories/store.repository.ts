@@ -3,7 +3,7 @@ import type {
   StoreOptions,
   StoreUniqueWhere,
   StoreWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import {
   CACHE_TAGS,

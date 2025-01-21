@@ -1,10 +1,10 @@
-import * as Types from '@codelab/shared/infra/gql'
+import * as Types from '@codelab/shared/infra/gqlgen'
 
-import { graphql } from '@codelab/shared/infra/gql'
+import { graphql } from '@codelab/shared/infra/gqlgen'
 import {
   ElementFragmentDoc,
   ElementProductionFragmentDoc,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 export const CreateElementsDocument = graphql(`
   mutation CreateElements($input: [ElementCreateInput!]!) {

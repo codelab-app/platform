@@ -1,13 +1,13 @@
-import * as Types from '@codelab/shared/infra/gql'
+import * as Types from '@codelab/shared/infra/gqlgen'
 
-import { graphql } from '@codelab/shared/infra/gql'
+import { graphql } from '@codelab/shared/infra/gqlgen'
 import { gqlRequest } from '@codelab/shared/infra/fetch'
 import {
   BaseTypeFragmentDoc,
   TypeFragmentDoc,
   ReactNodeTypeFragmentDoc,
   RichTextTypeFragmentDoc,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import {
   type GetBaseTypesQueryVariables,
@@ -27,7 +27,7 @@ import {
   type GetAppTypesQueryVariables,
   type GetActionTypesQueryVariables,
   type GetCodeMirrorTypesQueryVariables,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 import {
   GetBaseTypesDocument,
   GetTypesDocument,

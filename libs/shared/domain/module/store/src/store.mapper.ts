@@ -3,7 +3,7 @@ import type {
   StoreCreateInput,
   StoreDeleteInput,
   StoreUpdateInput,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import { connectNodeId } from '@codelab/shared/domain/orm'
 

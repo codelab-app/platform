@@ -1,9 +1,9 @@
-import * as Types from '@codelab/shared/infra/gql'
+import * as Types from '@codelab/shared/infra/gqlgen'
 
-import { graphql } from '@codelab/shared/infra/gql'
+import { graphql } from '@codelab/shared/infra/gqlgen'
 import { gqlRequest } from '@codelab/shared/infra/fetch'
 
-import { type GetSelectAtomOptionsQueryVariables } from '@codelab/shared/infra/gql'
+import { type GetSelectAtomOptionsQueryVariables } from '@codelab/shared/infra/gqlgen'
 import { GetSelectAtomOptionsDocument } from './get-select-atom-options.api.graphql.docs.gen'
 import { GraphQLClient } from 'graphql-request'
 

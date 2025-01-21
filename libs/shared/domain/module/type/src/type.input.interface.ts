@@ -15,7 +15,7 @@ import type {
   ITypeKind,
   IUnionTypeDto,
 } from '@codelab/shared/abstract/core'
-import type * as cg from '@codelab/shared/infra/gql'
+import type * as cg from '@codelab/shared/infra/gqlgen'
 
 export interface ITypeUpdateArgs {
   connect?: ITypeConnectInput

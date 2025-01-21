@@ -6,12 +6,12 @@ import type {
 import type {
   ApiActionOptions,
   ApiActionWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
-import { ApiActionFragment } from '@codelab/shared/infra/gql'
+import { ApiActionFragment } from '@codelab/shared/infra/gqlgen'
 import { apiActionMapper } from '@codelab/shared-domain-module/action'
 import {
   actionCreateApi,

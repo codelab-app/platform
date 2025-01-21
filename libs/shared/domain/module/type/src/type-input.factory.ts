@@ -2,7 +2,7 @@ import type { IInterfaceTypeDto, ITypeRef } from '@codelab/shared/abstract/core'
 import type {
   UnionTypeTypesOfUnionTypeCreateInput,
   UnionTypeTypesOfUnionTypeUpdateInput,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { titleCase } from '@codelab/shared/utils'

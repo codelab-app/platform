@@ -1,12 +1,12 @@
-import * as Types from '@codelab/shared/infra/gql'
+import * as Types from '@codelab/shared/infra/gqlgen'
 
-import { graphql } from '@codelab/shared/infra/gql'
+import { graphql } from '@codelab/shared/infra/gqlgen'
 import { gqlServerRequest } from '@codelab/shared/infra/fetch-server'
 
 import {
   type IsTypeDescendantOfQueryVariables,
   type GetTypeReferencesQueryVariables,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 import {
   IsTypeDescendantOfDocument,
   GetTypeReferencesDocument,

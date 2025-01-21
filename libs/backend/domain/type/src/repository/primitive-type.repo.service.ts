@@ -6,12 +6,12 @@ import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import type {
   PrimitiveTypeOptions,
   PrimitiveTypeWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import { PrimitiveTypeFragment } from '@codelab/shared/infra/gql'
+import { PrimitiveTypeFragment } from '@codelab/shared/infra/gqlgen'
 import {
   createTypeApi,
   findTypeApi,
