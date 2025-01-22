@@ -18,6 +18,7 @@ steps:
   - install-nvm
   - install-pnpm
   - install-packages
+  - install-cypher-shell
   - build-repo
   # This is required since dist depends on code other than pnpm-lock.yam
   # Instead of this can use nx caching

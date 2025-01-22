@@ -30,6 +30,19 @@ commands:
     description: Increment Docker Version
     steps:
       - run: ~/project/.circleci/config/commands/increment-docker-version.sh
+  install-cypher-shell:
+    steps:
+      - run:
+          command: |
+            # Add Neo4j repository
+            curl -fsSL https://debian.neo4j.com/neotechnology.gpg.key | sudo apt-key add -
+
+            echo 'deb https://debian.neo4j.com stable latest' | sudo tee -a /etc/apt/sources.list.d/neo4j.list
+
+            # Update and install
+            sudo apt-get update
+            sudo apt-get install -y cypher-shell
+          name: Install Cypher Shell
   install-nvm:
     steps:
       - restore_cache:
@@ -457,6 +470,7 @@ jobs:
       - install-nvm
       - install-pnpm
       - install-packages
+      - install-cypher-shell
       - build-repo
       - persist_to_workspace:
           paths:
