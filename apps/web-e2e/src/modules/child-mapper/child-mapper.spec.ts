@@ -2,12 +2,15 @@ import { type IApp } from '@codelab/shared/abstract/core'
 import { providerPageId } from '@codelab/shared/data/test'
 import { expect } from '@playwright/test'
 
+import { globalBeforeAll } from '../../setup/before-all'
 import { seedTestData } from './child-mapper.data'
 import { test } from './child-mapper.fixture'
 
 let app: IApp
 
 test.describe.configure({ mode: 'serial' })
+
+globalBeforeAll()
 
 test.beforeAll(async ({ request }, testInfo) => {
   app = await seedTestData(request)
@@ -77,8 +80,3 @@ test('should not render instances when the prop is not an array', async ({
 
   await expect(page.getNotification()).toBeHidden()
 })
-
-// Disable temporarily so we can check the web page manually after spec runs
-// test.afterAll('cleanup created components', async ({ request }) => {
-//   await request.post('/api/v1/admin/setup-e2e-data')
-// })

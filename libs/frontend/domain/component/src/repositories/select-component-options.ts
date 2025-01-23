@@ -12,8 +12,6 @@ export const getSelectComponentOptions = async (
 ) => {
   const components = await componentRepository.find()
 
-  console.log('components', components)
-
   const hydratedComponents = components.items.map((dto) =>
     componentDomainService.hydrate(dto),
   )

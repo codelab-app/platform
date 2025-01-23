@@ -1,6 +1,7 @@
 description: 'Restore Workspace'
 steps:
   - checkout
+  # Attach `dist` folder
   - attach_workspace:
       at: ~/
   - restore_cache:

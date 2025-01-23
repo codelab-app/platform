@@ -2,11 +2,11 @@ steps:
   - run:
       name: 'Install Cypher Shell'
       command: |
-        # Add Neo4j repository
-        curl -fsSL https://debian.neo4j.com/neotechnology.gpg.key | sudo apt-key add -
+        # https://neo4j.com/docs/operations-manual/current/installation/linux/debian/
+        wget -O - https://debian.neo4j.com/neotechnology.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/neotechnology.gpg
 
-        echo 'deb https://debian.neo4j.com stable latest' | sudo tee -a /etc/apt/sources.list.d/neo4j.list
+        echo 'deb [signed-by=/etc/apt/keyrings/neotechnology.gpg] https://debian.neo4j.com stable latest' | sudo tee -a /etc/apt/sources.list.d/neo4j.list
 
-        # Update and install
         sudo apt-get update
-        sudo apt-get install -y cypher-shell
+
+        sudo apt-get install -y neo4j cypher-shell

@@ -65,10 +65,10 @@ export class BuilderPage extends BasePage {
   }
 
   async clickModalConfirmButton() {
-    const modal = this.getModal()
+    const modal = this.getDialog()
     const button = this.getButton({ key: UiKey.ButtonConfirmation })
 
-    await expect(this.getModal()).toBeVisible()
+    await expect(this.getDialog()).toBeVisible()
 
     await modal.locator(button).click()
   }
@@ -102,10 +102,18 @@ export class BuilderPage extends BasePage {
         await this.setFormFieldValue('Props Data', propsData)
       }
 
-      await this.getModal().locator(submitButton).click()
+      await this.getDialog().locator(submitButton).click()
 
-      await expect(this.getModal()).toBeHidden()
+      await expect(this.getDialog()).toBeHidden()
       await expect(this.getTreeElement(name, atom)).toBeVisible()
+
+      // Wait for popover to close and redirect back
+      await this.page.waitForURL(
+        PageType.PageBuilder(
+          { appId: '**', pageId: '**' },
+          PrimarySidebar.ElementTree,
+        ),
+      )
     }
   }
 

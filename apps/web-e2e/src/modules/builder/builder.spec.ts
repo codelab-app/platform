@@ -1,20 +1,25 @@
-import type { IAppDto } from '@codelab/shared/abstract/core'
+import type { IApp, IAppDto } from '@codelab/shared/abstract/core'
 
 import { providerPageId } from '@codelab/shared/data/test'
 import { expect } from '@playwright/test'
 
+import { globalBeforeAll } from '../../setup/before-all'
 import {
   builderElements,
   elementColA,
   elementColB,
   elementColC,
   seedAppData,
+  seedTestData,
+  textContent,
 } from './builder.data'
 import { test } from './builder.fixture'
 
 let app: IAppDto
 
 test.describe.configure({ mode: 'serial', timeout: 60000 })
+
+globalBeforeAll()
 
 test.beforeAll(async ({ request }) => {
   app = await seedAppData(request)

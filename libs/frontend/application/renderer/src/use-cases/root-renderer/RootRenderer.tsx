@@ -46,6 +46,9 @@ const RootRendererComponent = forwardRef<
 
   const containerStyle = useMemo(
     () => ({
+      /**
+       * This sets `container-name` https://developer.mozilla.org/en-US/docs/Web/CSS/container-name, allows for `@container` CSS rules
+       */
       container: 'root / inline-size',
       minHeight: '100%',
       transform: 'translatex(0)',

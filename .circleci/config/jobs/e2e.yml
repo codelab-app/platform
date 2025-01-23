@@ -11,7 +11,7 @@ resource_class: << parameters.resource_class >>
 environment:
   NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
 
-parallelism: 2
+parallelism: 4
 steps:
   - restore-workspace
   - setup-neo4j

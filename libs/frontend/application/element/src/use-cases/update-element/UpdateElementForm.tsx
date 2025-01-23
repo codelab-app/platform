@@ -41,22 +41,12 @@ export const UpdateElementForm = observer(
     const elementService = useElementService()
 
     const onSubmit = async (data: IUpdateElementData) => {
-      console.log('Submit data', data)
-      logger.debug('Submit data', {
-        data: {
-          childMapperComponent: data.childMapperComponent,
-        },
-      })
-
       return elementService.update(data)
-      // return Promise.resolve()
     }
 
     const expandedFields: Array<string> = []
     // `getSnapshot` is immutable and doesn't work
     const element = runtimeElement.element.current
-
-    console.log('element', element, element.renderType)
 
     if (element.renderType.id) {
       expandedFields.push('renderer')

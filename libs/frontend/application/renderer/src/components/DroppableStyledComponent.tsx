@@ -22,6 +22,7 @@ export const DroppableStyledComponent = ({
   return isDroppable ? (
     <MakeComponentDroppable
       ReactComponent={StyledComponent}
+      // The `componentProps` get spread into the `StyledComponent`
       componentProps={{
         componentProps,
         ReactComponent,

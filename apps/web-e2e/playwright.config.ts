@@ -38,18 +38,19 @@ export default defineConfig({
       testMatch: /auth\.setup\.ts/,
       use: {},
     },
+    // Global level doesn't run for retries, move to beforeAll
+    // {
+    //   dependencies: [Project.AuthSetup],
+    //   name: Project.DatabaseSetup,
+    //   testMatch: /database\.setup\.ts/,
+    //   use: {
+    //     // Requires trailing `/`
+    //     baseURL: `${webBaseApiUrl}/`,
+    //     storageState: authFile,
+    //   },
+    // },
     {
       dependencies: [Project.AuthSetup],
-      name: Project.DatabaseSetup,
-      testMatch: /database\.setup\.ts/,
-      use: {
-        // Requires trailing `/`
-        baseURL: `${webBaseApiUrl}/`,
-        storageState: authFile,
-      },
-    },
-    {
-      dependencies: [Project.AuthSetup, Project.DatabaseSetup],
       name: 'chromium',
       testIgnore: /home\.spec\.ts/,
       testMatch: /.*\.spec\.ts/,

@@ -51,8 +51,6 @@ export const RenderTypeField = connectField((props: RenderTypeProps) => {
   const errorMessage =
     error?.message || components.error?.message || atoms.error?.message
 
-  console.log(errorMessage)
-
   const componentsToShow = filters.components ? components.value : []
   const atomsToShow = filters.atoms ? atoms.value : []
   const options = useRenderTypeSelectOptions(componentsToShow, atomsToShow)

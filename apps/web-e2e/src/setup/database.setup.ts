@@ -1,5 +1,8 @@
 import { expect, test } from '@playwright/test'
 
+/**
+ * Global level doesn't run for retries
+ */
 test('create new database', async ({ context, page, request }) => {
   try {
     // No need to manually set cookies - Playwright handles this automatically
