@@ -43,12 +43,6 @@ commands:
             sudo apt-get update
             sudo apt-get install -y cypher-shell
           name: Install Cypher Shell
-      - run:
-          command: |
-            # Copy the installed binary to the workspace directory
-            echo 'Check which directory cypher-shell is installed in'
-            which cypher-shell
-          name: Locate Cypher Shell binary
   install-nvm:
     steps:
       - restore_cache:
@@ -174,8 +168,15 @@ commands:
   setup-neo4j:
     description: Setup Neo4j
     steps:
-      - run: ~/project/.docker/cypher/scripts/enable-cdc.sh
-      - run: ~/project/.docker/cypher/scripts/apply-constraints.sh
+      - run:
+          command: |
+            ~/project/.docker/cypher/scripts/enable-cdc.sh
+          name: Enable CDC
+      - run:
+          command: |
+            ~/project/.docker/cypher/scripts/apply-constraints.sh
+          name: Apply Neo4j Constraints
+          working_directory: ~/project/.docker/cypher
 executors:
   docker-node:
     docker:
