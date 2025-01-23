@@ -35,7 +35,7 @@ export class TagListPage extends BasePage {
 
     await this.expectGlobalProgressBarToBeHidden()
 
-    await expect(this.getModal()).toBeHidden()
+    await expect(this.getDialog()).toBeHidden()
     await expect(this.getSkeleton()).toBeHidden()
   }
 

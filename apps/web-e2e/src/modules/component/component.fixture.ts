@@ -17,7 +17,7 @@ export class ComponentListPage extends BuilderPage {
     await this.setFormFieldValue('Type', IPrimitiveTypeKind.String)
     await this.page.locator('[name="validationRules.general.nullable"]').click()
 
-    await this.getModal().locator(submitButton).click()
+    await this.getDialog().locator(submitButton).click()
     await this.waitForProgressBar()
   }
 
@@ -31,7 +31,7 @@ export class ComponentListPage extends BuilderPage {
   }
 
   clickModalConfirmButton() {
-    const modal = this.getModal()
+    const modal = this.getDialog()
     const button = this.getButton({ key: UiKey.ButtonConfirmation })
 
     return modal.locator(button).click()
@@ -48,11 +48,11 @@ export class ComponentListPage extends BuilderPage {
   async fillCreateComponentForm() {
     await this.fillInputText({ label: 'Name' }, this.componentName)
 
-    await this.getModal()
+    await this.getDialog()
       .locator(this.getButton({ text: 'Create' }))
       .click()
 
-    await expect(this.getModal()).toBeHidden()
+    await expect(this.getDialog()).toBeHidden()
   }
 
   getComponentName() {
@@ -92,7 +92,7 @@ export class ComponentListPage extends BuilderPage {
   async openCreateComponentPanel() {
     await this.getButton({ label: UiKey.ComponentToolbarItemCreate }).click()
 
-    await expect(this.getModal()).toBeVisible()
+    await expect(this.getDialog()).toBeVisible()
   }
 
   async openDeleteComponentModal() {
@@ -100,7 +100,7 @@ export class ComponentListPage extends BuilderPage {
 
     await this.getButton({ title: 'Delete' }, card).click()
 
-    await expect(this.getModal()).toBeVisible()
+    await expect(this.getDialog()).toBeVisible()
   }
 
   async setComponentPropValue() {

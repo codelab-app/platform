@@ -43,7 +43,7 @@ test('should be able to create page auth guard redirect', async ({
 
   await page.createAuthGuardRedirect()
 
-  await expect(page.getModal()).toBeHidden()
+  await expect(page.getDialog()).toBeHidden()
   await expect(page.getNotification()).toContainText(
     'Auth redirect created successfully',
   )
@@ -57,7 +57,7 @@ test('should be able to update page auth guard redirect', async ({
 
   await page.updateAuthGuardRedirect()
 
-  await expect(page.getModal()).toBeHidden()
+  await expect(page.getDialog()).toBeHidden()
   await expect(page.getNotification()).toContainText(
     'Auth redirect updated successfully',
   )
@@ -73,7 +73,7 @@ test('should be able to delete page auth guard redirect', async ({
 
   await page.deleteAuthGuardRedirect()
 
-  await expect(page.getModal()).toBeHidden()
+  await expect(page.getDialog()).toBeHidden()
   await expect(page.getPageRedirectIcon()).toBeHidden()
 })
 

@@ -189,6 +189,13 @@ export class BasePage {
     return this.page.locator('.ant-card', { hasText: options.name })
   }
 
+  /**
+   * Could be a modal or a popover
+   */
+  getDialog() {
+    return this.page.getByRole('dialog')
+  }
+
   getDropdownItem(options: { label: string | RegExp }) {
     return this.page
       .locator('.ant-dropdown')
@@ -209,12 +216,8 @@ export class BasePage {
     })
   }
 
-  getModal() {
-    return this.page.getByRole('dialog')
-  }
-
   getModalForm(key: UiKey) {
-    const form = this.getModal().locator('form')
+    const form = this.getDialog().locator('form')
 
     this.locator = form
 
@@ -311,7 +314,7 @@ export class BasePage {
   async openModal(options: CuiSelector) {
     await this.getButton(options).click()
 
-    await expect(this.getModal()).toBeVisible()
+    await expect(this.getDialog()).toBeVisible()
   }
 
   async scrollUntilElementIsVisible(locator: Locator) {
