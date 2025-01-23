@@ -109,13 +109,7 @@ commands:
             sudo corepack enable
             sudo corepack prepare pnpm@9.1.1 --activate
             pnpm config set store-dir ~/.pnpm-store
-
-            which pnpm
           name: Install pnpm package manager
-      - persist_to_workspace:
-          paths:
-            - /usr/local/bin/pnpm
-          root: /
   install-terraform:
     description: Install Terraform
     steps:
@@ -168,6 +162,8 @@ commands:
           keys:
             - nvm-cache-{{ checksum ".nvmrc" }}
           name: Restore NVM Cache
+      - install-pnpm
+      - install-cypher-shell
       - setup-env
   setup-env:
     description: Setup Env
@@ -481,7 +477,6 @@ jobs:
       - install-nvm
       - install-pnpm
       - install-packages
-      - install-cypher-shell
       - build-repo
       - persist_to_workspace:
           paths:
