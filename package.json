@@ -87,7 +87,7 @@
     "@lexical/react": "0.17.1",
     "@lexical/utils": "0.17.1",
     "@mailchimp/mailchimp_marketing": "3.0.80",
-    "@neo4j/graphql": "6.2.2",
+    "@neo4j/graphql": "6.2.3",
     "@nestjs/apollo": "12.2.2",
     "@nestjs/common": "10.4.15",
     "@nestjs/config": "3.3.0",
