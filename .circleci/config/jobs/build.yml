@@ -13,8 +13,5 @@ environment:
   NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
 
 steps:
-  - checkout
-  - setup-env
-  - install-nvm
-  - install-pnpm
-  - install-packages
+  - restore-workspace
+  - build-nx-projects

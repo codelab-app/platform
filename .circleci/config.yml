@@ -1,5 +1,5 @@
 commands:
-  build-repo:
+  build-nx-projects:
     description: Build Repo
     steps:
       - nx/set-shas:
@@ -20,11 +20,6 @@ commands:
           paths:
             - ~/project/.nx/cache
             - ~/project/dist/apps/web/.next/cache
-      - persist_to_workspace:
-          paths:
-            - project/dist/apps/cli
-            - project/dist/apps/web
-          root: ~/
   clear-jest-cache:
     description: Clear Jest Spec
     steps:
@@ -150,8 +145,6 @@ commands:
     description: Restore Workspace
     steps:
       - checkout
-      - attach_workspace:
-          at: ~/
       - restore_cache:
           keys:
             - node-modules-cache-{{ checksum "pnpm-lock.yaml" }}
@@ -207,6 +200,19 @@ executors:
     environment:
       TF_WORKSPACE: prod
 jobs:
+  build:
+    environment:
+      NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
+    executor: docker-node
+    parameters:
+      max_old_space_size:
+        type: integer
+      resource_class:
+        type: string
+    resource_class: << parameters.resource_class >>
+    steps:
+      - restore-workspace
+      - build-nx-projects
   codegen:
     executor: docker-node-neo4j
     parameters:
@@ -483,7 +489,6 @@ jobs:
       - install-nvm
       - install-pnpm
       - install-packages
-      - build-repo
   tf-apply:
     executor: docker-node
     parameters:
@@ -694,6 +699,15 @@ workflows:
           requires:
             - setup-workspace
           resource_class: large
+      - build:
+          filters:
+            branches:
+              ignore:
+                - master
+                - staging
+          requires:
+            - setup-workspace
+          resource_class: large
       - tsc-check:
           filters:
             branches:
@@ -739,7 +753,7 @@ workflows:
                 - staging
           max_old_space_size: 4096
           requires:
-            - setup-workspace
+            - build
           resource_class: large
       - notify-success:
           filters:
@@ -748,6 +762,7 @@ workflows:
                 - master
                 - staging
           requires:
+            - build
             - lint
             - codegen
             - unit

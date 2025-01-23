@@ -1,8 +1,9 @@
 description: 'Restore Workspace'
 steps:
   - checkout
-  - attach_workspace:
-      at: ~/
+  # Attach `dist` folder, not using these currently
+  # - attach_workspace:
+  #     at: ~/
   - restore_cache:
       name: 'Restore node_modules Cache'
       keys:
