@@ -35,6 +35,7 @@ jobs:
         - setup-workspace
   - build:
       resource_class: large
+      max_old_space_size: 4096
       filters:
         branches:
           ignore:

@@ -705,6 +705,7 @@ workflows:
               ignore:
                 - master
                 - staging
+          max_old_space_size: 4096
           requires:
             - setup-workspace
           resource_class: large
