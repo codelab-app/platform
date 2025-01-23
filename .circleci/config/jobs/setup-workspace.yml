@@ -27,5 +27,6 @@ steps:
       paths:
         # Using too much workspace storage, eating up credits
         # - project/node_modules
+        - .pnpm-store
         - project/dist/apps/cli
         - project/dist/apps/web

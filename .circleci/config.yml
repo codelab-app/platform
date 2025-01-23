@@ -43,6 +43,10 @@ commands:
             sudo apt-get update
             sudo apt-get install -y cypher-shell
           name: Install Cypher Shell
+      - run: |
+          # Copy the installed binary to the workspace directory
+          echo 'Check which directory cypher-shell is installed in'
+          $(which cypher-shell)
   install-nvm:
     steps:
       - restore_cache:
@@ -103,7 +107,13 @@ commands:
             sudo corepack enable
             sudo corepack prepare pnpm@9.1.1 --activate
             pnpm config set store-dir ~/.pnpm-store
+
+            which pnpm
           name: Install pnpm package manager
+      - persist_to_workspace:
+          paths:
+            - /usr/local/bin/pnpm
+          root: /
   install-terraform:
     description: Install Terraform
     steps:
@@ -156,7 +166,6 @@ commands:
           keys:
             - nvm-cache-{{ checksum ".nvmrc" }}
           name: Restore NVM Cache
-      - install-pnpm
       - setup-env
   setup-env:
     description: Setup Env
@@ -474,6 +483,7 @@ jobs:
       - build-repo
       - persist_to_workspace:
           paths:
+            - .pnpm-store
             - project/dist/apps/cli
             - project/dist/apps/web
           root: ~/

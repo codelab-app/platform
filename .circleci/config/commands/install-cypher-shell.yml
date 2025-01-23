@@ -10,3 +10,13 @@ steps:
         # Update and install
         sudo apt-get update
         sudo apt-get install -y cypher-shell
+  - run: |
+      # Copy the installed binary to the workspace directory
+      echo 'Check which directory cypher-shell is installed in'
+      $(which cypher-shell)
+
+  # Persist the directory across jobs
+  # - persist_to_workspace:
+  #   root: .
+  #     paths:
+  #       - cypher-shell-bin
