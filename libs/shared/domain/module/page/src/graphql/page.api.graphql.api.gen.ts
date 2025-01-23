@@ -1,11 +1,11 @@
-import * as Types from '@codelab/shared/infra/gql'
+import * as Types from '@codelab/shared/infra/gqlgen'
 
-import { graphql } from '@codelab/shared/infra/gql'
+import { graphql } from '@codelab/shared/infra/gqlgen'
 import { gqlRequest } from '@codelab/shared/infra/fetch'
 import {
   PageFragmentDoc,
   PageDevelopmentFragmentDoc,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import {
   type CreatePagesMutationVariables,
@@ -13,7 +13,7 @@ import {
   type UpdatePagesMutationVariables,
   type PageListQueryVariables,
   type GetRenderedPageQueryVariables,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 import {
   CreatePagesDocument,
   DeletePagesDocument,

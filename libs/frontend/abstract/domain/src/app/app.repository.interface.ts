@@ -4,7 +4,7 @@ import type {
   AppOptions,
   AppPreviewFragment,
   AppWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import type { IFindResults, IRepository } from '../shared'
 

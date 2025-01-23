@@ -1,7 +1,7 @@
-import * as Types from '@codelab/shared/infra/gql'
+import * as Types from '@codelab/shared/infra/gqlgen'
 
-import { graphql } from '@codelab/shared/infra/gql'
-import { ActionFragmentDoc } from '@codelab/shared/infra/gql'
+import { graphql } from '@codelab/shared/infra/gqlgen'
+import { ActionFragmentDoc } from '@codelab/shared/infra/gqlgen'
 
 export const GetActionsDocument = graphql(`
   query GetActions(

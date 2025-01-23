@@ -3,7 +3,7 @@ import type {
   TagFragment,
   TagOptions,
   TagWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import type { IRepository } from '../shared'
 

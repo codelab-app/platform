@@ -1,7 +1,7 @@
-import * as Types from '@codelab/shared/infra/gql'
+import * as Types from '@codelab/shared/infra/gqlgen'
 
-import { graphql } from '@codelab/shared/infra/gql'
-import { AuthGuardFragmentDoc } from '@codelab/shared/infra/gql'
+import { graphql } from '@codelab/shared/infra/gqlgen'
+import { AuthGuardFragmentDoc } from '@codelab/shared/infra/gqlgen'
 
 export const GetAuthGuardsDocument = graphql(`
   query GetAuthGuards($options: AuthGuardOptions, $where: AuthGuardWhere) {

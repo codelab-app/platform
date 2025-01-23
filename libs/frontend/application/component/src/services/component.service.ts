@@ -2,7 +2,7 @@ import type {
   ComponentBuilderFragment,
   ComponentOptions,
   ComponentWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import {
   type GetDataFn,

@@ -1,4 +1,4 @@
-import type * as cg from '@codelab/shared/infra/gql'
+import type * as cg from '@codelab/shared/infra/gqlgen'
 
 /**
  * Put all functions in same file so it's easier for LLM to refactor

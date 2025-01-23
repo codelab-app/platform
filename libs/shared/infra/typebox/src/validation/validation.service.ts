@@ -54,8 +54,8 @@ export class ValidationService implements IValidationService {
 
       return validator.assert(data as Readonly<unknown>, options?.message)
     } catch (error) {
-      console.log('Validation error:', { data, kind })
-      throw error
+      console.log('Validation error:', { data, kind }, error)
+      throw error instanceof Error ? error : new Error(String(error))
     }
   }
 

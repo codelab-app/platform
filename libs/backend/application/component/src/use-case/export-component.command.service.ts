@@ -15,7 +15,7 @@ import {
   ElementExportSchema,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { ComponentFragment } from '@codelab/shared/infra/gql'
+import { ComponentFragment } from '@codelab/shared/infra/gqlgen'
 import { Validator } from '@codelab/shared/infra/typebox'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 import { Type } from '@sinclair/typebox'

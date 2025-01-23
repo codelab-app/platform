@@ -6,7 +6,7 @@ import type {
 import type {
   InterfaceTypeOptions,
   InterfaceTypeWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 import type { Static, TAnySchema } from '@sinclair/typebox'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
@@ -15,7 +15,7 @@ import {
   getDependentTypes,
   Neo4jService,
 } from '@codelab/backend-infra-adapter/neo4j-driver'
-import { InterfaceTypeFragment } from '@codelab/shared/infra/gql'
+import { InterfaceTypeFragment } from '@codelab/shared/infra/gqlgen'
 import { Validator } from '@codelab/shared/infra/typebox'
 import {
   createTypeApi,

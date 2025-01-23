@@ -1,7 +1,7 @@
 import type { IResource } from '@codelab/shared/abstract/core'
 import type { APIRequestContext } from '@playwright/test'
 
-import { ResourceType } from '@codelab/shared/infra/gql'
+import { ResourceType } from '@codelab/shared/infra/gqlgen'
 import { v4 } from 'uuid'
 
 export const resourceName = 'Test Resource'

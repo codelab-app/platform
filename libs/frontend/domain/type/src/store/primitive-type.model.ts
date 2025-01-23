@@ -11,7 +11,7 @@ import {
   IPrimitiveTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
+import { PrimitiveTypeKind } from '@codelab/shared/infra/gqlgen'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { isBoolean } from 'remeda'
 

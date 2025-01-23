@@ -8,7 +8,7 @@ import type {
   AppCreateInput,
   AppDeleteInput,
   AppUpdateInput,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import {
   connectNodeIds,

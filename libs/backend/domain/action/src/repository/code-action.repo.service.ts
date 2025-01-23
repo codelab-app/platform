@@ -2,11 +2,11 @@ import type { ICodeActionDto, INodeType } from '@codelab/shared/abstract/core'
 import type {
   CodeActionOptions,
   CodeActionWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import { CodeActionFragment } from '@codelab/shared/infra/gql'
+import { CodeActionFragment } from '@codelab/shared/infra/gqlgen'
 import { codeActionMapper } from '@codelab/shared-domain-module/action'
 import {
   actionCreateApi,

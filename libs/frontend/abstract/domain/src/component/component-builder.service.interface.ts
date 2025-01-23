@@ -9,7 +9,7 @@ import type {
   StoreFragment,
   TagPreviewFragment,
   TypeFragment,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import type { IComponentModel } from './component.model.interface'
 

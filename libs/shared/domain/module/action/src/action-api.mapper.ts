@@ -3,7 +3,7 @@ import type {
   ApiActionCreateInput,
   ApiActionDeleteInput,
   ApiActionUpdateInput,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import { connectNodeId, disconnectAll } from '@codelab/shared/domain/orm'
 import { propMapper } from '@codelab/shared-domain-module/prop'

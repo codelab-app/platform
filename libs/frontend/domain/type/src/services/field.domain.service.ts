@@ -18,6 +18,9 @@ export class FieldDomainService
   })
   implements IFieldDomainService
 {
+  /**
+   * Field api type must be hydrated before field is hydrated
+   */
   @modelAction
   hydrate(fieldDto: IFieldDto) {
     const existingField = this.fields.get(fieldDto.id)

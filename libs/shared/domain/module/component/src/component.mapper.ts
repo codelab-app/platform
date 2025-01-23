@@ -3,7 +3,7 @@ import type {
   ComponentCreateInput,
   ComponentDeleteInput,
   ComponentUpdateInput,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { connectNodeId, connectOwner } from '@codelab/shared/domain/orm'

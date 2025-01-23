@@ -10,7 +10,7 @@ import type {
   IBaseType,
   IBaseTypeOptions,
   IBaseTypeWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import type { ICrudService, IPaginateable, IQueryService } from '../services'
 

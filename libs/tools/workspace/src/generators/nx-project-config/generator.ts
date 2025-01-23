@@ -50,11 +50,11 @@ export const nxProjectConfigGenerator = async (
     // removeGraphqlEslintConfig(tree, projectConfig)
     // checkLintConfig(tree, projectConfig)
 
-    updateJestConfig(tree, projectConfig)
+    // updateJestConfig(tree, projectConfig)
     addProjectTags(tree, projectConfig)
 
     // updateBaseTsconfig(tree, projectConfig)
-    updateLibraryTsconfig(tree, projectConfig)
+    // updateLibraryTsconfig(tree, projectConfig)
 
     updateProjectConfiguration(tree, projectName, projectConfig)
   }

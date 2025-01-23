@@ -22,7 +22,7 @@ import {
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { TypeKind } from '@codelab/shared/infra/gql'
+import { TypeKind } from '@codelab/shared/infra/gqlgen'
 import { Validator } from '@codelab/shared/infra/typebox'
 import { prop, sortBy } from 'remeda'
 

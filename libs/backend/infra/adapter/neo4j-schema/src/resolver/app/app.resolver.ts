@@ -1,4 +1,4 @@
-import type { App } from '@codelab/shared/infra/gql'
+import type { App } from '@codelab/shared/infra/gqlgen'
 import type { IFieldResolver, IResolvers } from '@graphql-tools/utils'
 
 import { AppProperties } from '@codelab/shared-domain-module-app'

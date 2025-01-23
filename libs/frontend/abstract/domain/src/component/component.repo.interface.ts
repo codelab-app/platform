@@ -3,7 +3,7 @@ import type {
   ComponentFragment,
   ComponentOptions,
   ComponentWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 import type { Overwrite } from 'utility-types'
 
 import type { IRepository } from '../shared'

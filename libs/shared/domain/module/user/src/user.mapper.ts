@@ -3,7 +3,7 @@ import type {
   UserCreateInput,
   UserDeleteInput,
   UserUpdateInput,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import {
   type Auth0IdToken,

@@ -3,7 +3,7 @@ import type {
   TagCreateInput,
   TagDeleteInput,
   TagUpdateInput,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import {
   connectNodeId,

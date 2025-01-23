@@ -8,7 +8,10 @@ import type {
   PageContextParams,
 } from '@codelab/frontend/abstract/types'
 import type { IRef } from '@codelab/shared/abstract/core'
-import type { RedirectOptions, RedirectWhere } from '@codelab/shared/infra/gql'
+import type {
+  RedirectOptions,
+  RedirectWhere,
+} from '@codelab/shared/infra/gqlgen'
 
 import type { ICrudService, IQueryService } from '../services'
 

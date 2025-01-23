@@ -10,7 +10,7 @@ import type {
   AtomDeleteInput,
   AtomFragment,
   AtomUpdateInput,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import {
   connectNodeId,

@@ -7,7 +7,7 @@ import type {
   PageProductionFragment,
   PropFragment,
   StoreFragment,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import type { IAppModel } from './app.model.interface'
 

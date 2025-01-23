@@ -17,7 +17,7 @@ import {
   RenderPropTypeSchema,
   RichTextTypeSchema,
 } from '@codelab/shared/abstract/core'
-import { SortDirection } from '@codelab/shared/infra/gql'
+import { SortDirection } from '@codelab/shared/infra/gqlgen'
 import { CommandHandler } from '@nestjs/cqrs'
 import { Type } from '@sinclair/typebox'
 

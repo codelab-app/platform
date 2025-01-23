@@ -16,8 +16,8 @@ import {
 } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 import { FileInterceptor } from '@nestjs/platform-express'
-import 'multer'
 import { Express, Request as ExpressRequest } from 'express'
+import 'multer'
 
 import {
   ExportAppCommand,

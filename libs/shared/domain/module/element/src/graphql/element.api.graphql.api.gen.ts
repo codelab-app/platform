@@ -1,18 +1,18 @@
-import * as Types from '@codelab/shared/infra/gql'
+import * as Types from '@codelab/shared/infra/gqlgen'
 
-import { graphql } from '@codelab/shared/infra/gql'
+import { graphql } from '@codelab/shared/infra/gqlgen'
 import { gqlRequest } from '@codelab/shared/infra/fetch'
 import {
   ElementFragmentDoc,
   ElementProductionFragmentDoc,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import {
   type CreateElementsMutationVariables,
   type DeleteElementsMutationVariables,
   type UpdateElementsMutationVariables,
   type ElementListQueryVariables,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 import {
   CreateElementsDocument,
   DeleteElementsDocument,

@@ -5,7 +5,7 @@ import type {
 import type {
   AtomBuilderFragment,
   GetComponentBuilderQuery,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import { GetComponentBuilder } from '@codelab/frontend-domain-component/repositories'
 import { ITypeKind } from '@codelab/shared/abstract/core'

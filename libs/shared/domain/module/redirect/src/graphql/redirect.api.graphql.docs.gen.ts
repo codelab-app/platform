@@ -1,10 +1,10 @@
-import * as Types from '@codelab/shared/infra/gql'
+import * as Types from '@codelab/shared/infra/gqlgen'
 
-import { graphql } from '@codelab/shared/infra/gql'
+import { graphql } from '@codelab/shared/infra/gqlgen'
 import {
   RedirectFragmentDoc,
   RedirectPreviewFragmentDoc,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 export const CreateRedirectsDocument = graphql(`
   mutation CreateRedirects($input: [RedirectCreateInput!]!) {

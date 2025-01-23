@@ -25,7 +25,8 @@ export interface CuiSelector {
 
 export class BasePage {
   /**
-   * Use this for chaining
+   * Use internally for chaining
+   * For example in `getTree().getTreeItem()`, `getTree()` will set the locator to be chained in `getTreeItem()`
    */
   locator: Locator | undefined
 

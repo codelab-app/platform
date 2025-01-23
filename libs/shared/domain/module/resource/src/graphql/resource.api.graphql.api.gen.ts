@@ -1,15 +1,15 @@
-import * as Types from '@codelab/shared/infra/gql'
+import * as Types from '@codelab/shared/infra/gqlgen'
 
-import { graphql } from '@codelab/shared/infra/gql'
+import { graphql } from '@codelab/shared/infra/gqlgen'
 import { gqlRequest } from '@codelab/shared/infra/fetch'
-import { ResourceFragmentDoc } from '@codelab/shared/infra/gql'
+import { ResourceFragmentDoc } from '@codelab/shared/infra/gqlgen'
 
 import {
   type ResourceListQueryVariables,
   type CreateResourcesMutationVariables,
   type UpdateResourcesMutationVariables,
   type DeleteResourcesMutationVariables,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 import {
   ResourceListDocument,
   CreateResourcesDocument,

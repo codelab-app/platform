@@ -8,7 +8,6 @@ docker:
   # The `command` key is the command issued to the image
   - image: neo4j:5.26.0-enterprise
     environment:
-      NEO4J_ACCEPT_LICENSE_AGREEMENT: eval
+      NEO4J_ACCEPT_LICENSE_AGREEMENT: yes
       NEO4J_AUTH: neo4j/password
       NEO4J_PLUGINS: '["apoc"]'
-    command: ['neo4j', 'start']

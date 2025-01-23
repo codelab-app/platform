@@ -1,5 +1,5 @@
 import type { Nullish } from '@codelab/shared/abstract/types'
-import type { PageKind } from '@codelab/shared/infra/gql'
+import type { PageKind } from '@codelab/shared/infra/gqlgen'
 
 import {
   IModel,

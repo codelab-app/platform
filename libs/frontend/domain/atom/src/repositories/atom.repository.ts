@@ -5,7 +5,7 @@ import type {
   AtomOptions,
   AtomUniqueWhere,
   AtomWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import {
   CACHE_TAGS,

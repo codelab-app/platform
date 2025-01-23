@@ -1,4 +1,4 @@
-import type * as cg from '@codelab/shared/infra/gql'
+import type * as cg from '@codelab/shared/infra/gqlgen'
 
 export type ITypeWhere = cg.ActionTypeWhere &
   cg.AppTypeWhere &

@@ -2,11 +2,11 @@ import type { IComponentDto, INodeType } from '@codelab/shared/abstract/core'
 import type {
   ComponentOptions,
   ComponentWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import { ComponentFragment } from '@codelab/shared/infra/gql'
+import { ComponentFragment } from '@codelab/shared/infra/gqlgen'
 import {
   componentApi,
   componentMapper,

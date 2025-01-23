@@ -1,0 +1,11 @@
+description: 'Setup Neo4j'
+steps:
+  - run:
+      name: Enable CDC
+      command: |
+        ~/project/.docker/cypher/scripts/enable-cdc.sh
+  - run:
+      name: Apply Neo4j Constraints
+      working_directory: ~/project/.docker/cypher
+      command: |
+        ~/project/.docker/cypher/scripts/apply-constraints.sh

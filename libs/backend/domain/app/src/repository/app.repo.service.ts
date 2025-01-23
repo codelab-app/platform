@@ -2,7 +2,7 @@ import type { IAppDto, INodeType } from '@codelab/shared/abstract/core'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import { AppFragment, AppOptions, AppWhere } from '@codelab/shared/infra/gql'
+import { AppFragment, AppOptions, AppWhere } from '@codelab/shared/infra/gqlgen'
 import { appApi, appMapper } from '@codelab/shared-domain-module-app'
 import { Injectable } from '@nestjs/common'
 

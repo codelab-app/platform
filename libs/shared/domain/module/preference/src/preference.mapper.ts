@@ -3,7 +3,7 @@ import type {
   PreferenceCreateInput,
   PreferenceDeleteInput,
   PreferenceUpdateInput,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import { connectOwner } from '@codelab/shared/domain/orm'
 

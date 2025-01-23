@@ -3,7 +3,7 @@ import type {
   AppOptions,
   AppUniqueWhere,
   AppWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import {
   CACHE_TAGS,

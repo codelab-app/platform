@@ -1,5 +1,5 @@
 import type { IPageDto, IRef } from '@codelab/shared/abstract/core'
-import type { Page } from '@codelab/shared/infra/gql'
+import type { Page } from '@codelab/shared/infra/gqlgen'
 import type { DeepPick } from 'ts-essentials'
 
 import { slugify } from '@codelab/shared/utils'

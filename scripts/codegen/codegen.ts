@@ -101,7 +101,7 @@ const config: Types.Config = {
         // enumsAsTypes: true,
       },
       presetConfig: {
-        importAllFragmentsFrom: '~@codelab/shared/infra/gql',
+        importAllFragmentsFrom: '~@codelab/shared/infra/gqlgen',
         fragmentMasking: false,
       },
     },
@@ -125,8 +125,8 @@ const config: Types.Config = {
       ],
       preset: 'near-operation-file',
       presetConfig: {
-        baseTypesPath: '~@codelab/shared/infra/gql',
-        importAllFragmentsFrom: '~@codelab/shared/infra/gql',
+        baseTypesPath: '~@codelab/shared/infra/gqlgen',
+        importAllFragmentsFrom: '~@codelab/shared/infra/gqlgen',
         extension: '.graphql.web.gen.ts',
       },
       plugins: [
@@ -136,8 +136,8 @@ const config: Types.Config = {
              * PresetConfig doesn't seem to work here
              */
             // presetConfig: {
-            //   baseTypesPath: '~@codelab/shared/infra/gql',
-            //   importAllFragmentsFrom: '~@codelab/shared/infra/gql',
+            //   baseTypesPath: '~@codelab/shared/infra/gqlgen',
+            //   importAllFragmentsFrom: '~@codelab/shared/infra/gqlgen',
             //   extension: '.gen.ts',
             // },
           },
@@ -163,8 +163,8 @@ const config: Types.Config = {
       ],
       preset: 'near-operation-file',
       presetConfig: {
-        baseTypesPath: '~@codelab/shared/infra/gql',
-        importAllFragmentsFrom: '~@codelab/shared/infra/gql',
+        baseTypesPath: '~@codelab/shared/infra/gqlgen',
+        importAllFragmentsFrom: '~@codelab/shared/infra/gqlgen',
         extension: '.graphql.api.gen.ts',
       },
       plugins: [
@@ -192,8 +192,8 @@ const config: Types.Config = {
       ],
       preset: 'near-operation-file',
       presetConfig: {
-        baseTypesPath: '~@codelab/shared/infra/gql',
-        importAllFragmentsFrom: '~@codelab/shared/infra/gql',
+        baseTypesPath: '~@codelab/shared/infra/gqlgen',
+        importAllFragmentsFrom: '~@codelab/shared/infra/gqlgen',
         extension: '.graphql.docs.gen.ts',
       },
       plugins: [
@@ -218,7 +218,7 @@ const config: Types.Config = {
       preset: 'near-operation-file',
       presetConfig: {
         extension: '.graphql.gen.ts',
-        baseTypesPath: '~@codelab/shared/infra/gql',
+        baseTypesPath: '~@codelab/shared/infra/gqlgen',
         // Uncomment to force export of fragment types
         // importAllFragmentsFrom: '~@codelab/frontend/abstract/core',
       },

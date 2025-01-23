@@ -8,7 +8,7 @@ import type {
   ActionFragment,
   ApiActionFragment,
   CodeActionFragment,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import { IActionKind } from '@codelab/shared/abstract/core'
 

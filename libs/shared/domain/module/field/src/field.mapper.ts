@@ -3,7 +3,7 @@ import type {
   FieldCreateInput,
   FieldDeleteInput,
   FieldUpdateInput,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/orm'
 import { encodeJson } from '@codelab/shared/utils'

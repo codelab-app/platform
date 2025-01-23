@@ -1,4 +1,6 @@
 # We need to run this before each step, since the core version isn't stored within ~/.pnpm-store
+#
+# It's better to install per job, rather than persisting /usr/local due to permissions issues
 steps:
   - run:
       name: Install pnpm package manager

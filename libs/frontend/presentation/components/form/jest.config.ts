@@ -2,6 +2,7 @@
 export default {
   displayName: 'frontend-presentation-components-form',
   preset: '../../../../../jest.preset.js',
+  testEnvironment: 'jsdom',
   transform: {
     '^.+.[tj]sx?$': [
       '@swc/jest',

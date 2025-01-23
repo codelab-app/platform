@@ -2,7 +2,7 @@ import type {
   ICodeMirrorTypeDto,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import type { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
+import type { CodeMirrorLanguage } from '@codelab/shared/infra/gqlgen'
 
 import type { IBaseTypeModel } from './base-type.model.interface'
 

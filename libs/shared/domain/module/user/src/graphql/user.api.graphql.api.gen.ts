@@ -1,15 +1,15 @@
-import * as Types from '@codelab/shared/infra/gql'
+import * as Types from '@codelab/shared/infra/gqlgen'
 
-import { graphql } from '@codelab/shared/infra/gql'
+import { graphql } from '@codelab/shared/infra/gqlgen'
 import { gqlRequest } from '@codelab/shared/infra/fetch'
-import { UserFragmentDoc } from '@codelab/shared/infra/gql'
+import { UserFragmentDoc } from '@codelab/shared/infra/gqlgen'
 
 import {
   type GetUsersQueryVariables,
   type CreateUserMutationVariables,
   type DeleteUsersMutationVariables,
   type UpdateUsersMutationVariables,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 import {
   GetUsersDocument,
   CreateUserDocument,

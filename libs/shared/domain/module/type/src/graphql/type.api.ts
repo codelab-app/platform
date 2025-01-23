@@ -4,7 +4,7 @@ import type {
   ElementTypeCreateInput,
   PrimitiveTypeCreateInput,
   ReactNodeTypeCreateInput,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 import type { ArrayOrSingle } from 'ts-essentials'
 
 import { ITypeKind } from '@codelab/shared/abstract/core'

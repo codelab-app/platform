@@ -1,4 +1,4 @@
-import type { PageDevelopmentFragment } from '@codelab/shared/infra/gql'
+import type { PageDevelopmentFragment } from '@codelab/shared/infra/gqlgen'
 
 import { IPageKind } from '@codelab/shared/abstract/core'
 

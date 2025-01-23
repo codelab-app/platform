@@ -1,12 +1,12 @@
-import * as Types from '@codelab/shared/infra/gql'
+import * as Types from '@codelab/shared/infra/gqlgen'
 
-import { graphql } from '@codelab/shared/infra/gql'
+import { graphql } from '@codelab/shared/infra/gqlgen'
 import {
   BaseTypeFragmentDoc,
   TypeFragmentDoc,
   ReactNodeTypeFragmentDoc,
   RichTextTypeFragmentDoc,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 export const GetBaseTypesDocument = graphql(`
   query GetBaseTypes($where: IBaseTypeWhere, $options: IBaseTypeOptions) {

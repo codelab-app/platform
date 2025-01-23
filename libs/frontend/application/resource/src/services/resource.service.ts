@@ -6,7 +6,7 @@ import type {
   IResourceDto,
   IUpdateResourceData,
 } from '@codelab/shared/abstract/core'
-import type { ResourceWhere } from '@codelab/shared/infra/gql'
+import type { ResourceWhere } from '@codelab/shared/infra/gqlgen'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import { PageType } from '@codelab/frontend/abstract/types'

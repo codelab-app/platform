@@ -5,7 +5,10 @@ import type {
   IUserModel,
 } from '@codelab/frontend/abstract/domain'
 import type { ITagDto } from '@codelab/shared/abstract/core'
-import type { TagCreateInput, TagUpdateInput } from '@codelab/shared/infra/gql'
+import type {
+  TagCreateInput,
+  TagUpdateInput,
+} from '@codelab/shared/infra/gqlgen'
 import type { Ref } from 'mobx-keystone'
 
 import {

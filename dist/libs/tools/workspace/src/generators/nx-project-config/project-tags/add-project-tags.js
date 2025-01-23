@@ -14,15 +14,14 @@ const remeda_1 = require("remeda");
  */
 const appendTagsToProjectConfig = (libPathsMatch, tag, projectConfig) => {
     const { sourceRoot } = projectConfig;
-    const matches = libPathsMatch.some((lib) => sourceRoot === null || sourceRoot === void 0 ? void 0 : sourceRoot.startsWith(lib));
+    const matches = libPathsMatch.some((lib) => sourceRoot?.startsWith(lib));
     if (matches) {
         appendTags(tag, projectConfig);
     }
     return matches;
 };
 const appendTags = (tag, projectConfig) => {
-    var _a;
-    const updatedTags = (0, remeda_1.unique)([...((_a = projectConfig.tags) !== null && _a !== void 0 ? _a : []), tag]);
+    const updatedTags = (0, remeda_1.unique)([...(projectConfig.tags ?? []), tag]);
     Object.assign(projectConfig, {
         tags: updatedTags,
     });
@@ -64,7 +63,7 @@ const addProjectTags = (tree, projectConfig) => {
         'libs/shared/abstract',
         'libs/frontend/abstract',
         'libs/backend/abstract',
-        'libs/shared/infra/gql',
+        'libs/shared/infra/gqlgen',
         'libs/shared/infra/typebox',
     ], 'type:abstract', projectConfig);
     if (!isAbstract) {

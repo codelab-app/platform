@@ -8,7 +8,7 @@ import type { Maybe } from '@codelab/shared/abstract/types'
 import type {
   ComponentOptions,
   ComponentWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 import type { Overwrite } from 'utility-types'
 
 import type { IPaginateable } from '../services/pagination.service.interface'

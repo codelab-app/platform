@@ -3,7 +3,7 @@ import type {
   UserFragment,
   UserOptions,
   UserWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import type { IRepository } from '../shared'
 

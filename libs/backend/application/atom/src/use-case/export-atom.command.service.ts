@@ -9,7 +9,7 @@ import {
   type IAtomExport,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { type AtomWhere } from '@codelab/shared/infra/gql'
+import { type AtomWhere } from '@codelab/shared/infra/gqlgen'
 import { Validator } from '@codelab/shared/infra/typebox'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 import { Type } from '@sinclair/typebox'

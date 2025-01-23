@@ -1,7 +1,7 @@
-import * as Types from '@codelab/shared/infra/gql'
+import * as Types from '@codelab/shared/infra/gqlgen'
 
-import { graphql } from '@codelab/shared/infra/gql'
-import { PropFragmentDoc } from '@codelab/shared/infra/gql'
+import { graphql } from '@codelab/shared/infra/gqlgen'
+import { PropFragmentDoc } from '@codelab/shared/infra/gqlgen'
 
 export const CreatePropsDocument = graphql(`
   mutation CreateProps($input: [PropCreateInput!]!) {

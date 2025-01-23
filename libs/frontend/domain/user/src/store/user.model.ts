@@ -2,7 +2,7 @@ import type { IRole, IUserDto } from '@codelab/shared/abstract/core'
 import type {
   UserCreateInput,
   UserUpdateInput,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import { type IUserModel } from '@codelab/frontend/abstract/domain'
 import { computed } from 'mobx'

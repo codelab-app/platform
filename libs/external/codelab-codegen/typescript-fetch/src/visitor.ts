@@ -58,13 +58,13 @@ export class GraphQLRequestVisitor extends ClientSideBaseVisitor<
     autoBind(this)
 
     this._additionalImports = [
-      "import { graphql } from '@codelab/shared/infra/gql'",
+      "import { graphql } from '@codelab/shared/infra/gqlgen'",
       "import { gqlRequest } from '@codelab/shared/infra/fetch'",
     ]
 
     this._externalImportPrefix = this.config.importOperationTypesFrom
       ? `${this.config.importOperationTypesFrom}`
-      : '@codelab/shared/infra/gql'
+      : '@codelab/shared/infra/gqlgen'
   }
 
   /**

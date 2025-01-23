@@ -7,7 +7,7 @@ import type {
   IBreakpointType,
   IPreferenceDto,
 } from '@codelab/shared/abstract/core'
-import type { PreferenceDeleteInput } from '@codelab/shared/infra/gql'
+import type { PreferenceDeleteInput } from '@codelab/shared/infra/gqlgen'
 import type { Ref } from 'mobx-keystone'
 
 import { userRef } from '@codelab/frontend/abstract/domain'

@@ -1,15 +1,15 @@
-import * as Types from '@codelab/shared/infra/gql'
+import * as Types from '@codelab/shared/infra/gqlgen'
 
-import { graphql } from '@codelab/shared/infra/gql'
+import { graphql } from '@codelab/shared/infra/gqlgen'
 import { gqlRequest } from '@codelab/shared/infra/fetch'
-import { FieldFragmentDoc } from '@codelab/shared/infra/gql'
+import { FieldFragmentDoc } from '@codelab/shared/infra/gqlgen'
 
 import {
   type CreateFieldsMutationVariables,
   type UpdateFieldsMutationVariables,
   type DeleteFieldsMutationVariables,
   type GetFieldsQueryVariables,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 import {
   CreateFieldsDocument,
   UpdateFieldsDocument,

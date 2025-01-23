@@ -1,7 +1,7 @@
-import * as Types from '@codelab/shared/infra/gql'
+import * as Types from '@codelab/shared/infra/gqlgen'
 
-import { graphql } from '@codelab/shared/infra/gql'
-import { UserFragmentDoc } from '@codelab/shared/infra/gql'
+import { graphql } from '@codelab/shared/infra/gqlgen'
+import { UserFragmentDoc } from '@codelab/shared/infra/gqlgen'
 
 export const GetUsersDocument = graphql(`
   query GetUsers($where: UserWhere) {

@@ -30,6 +30,19 @@ commands:
     description: Increment Docker Version
     steps:
       - run: ~/project/.circleci/config/commands/increment-docker-version.sh
+  install-cypher-shell:
+    steps:
+      - run:
+          command: |
+            # Add Neo4j repository
+            curl -fsSL https://debian.neo4j.com/neotechnology.gpg.key | sudo apt-key add -
+
+            echo 'deb https://debian.neo4j.com stable latest' | sudo tee -a /etc/apt/sources.list.d/neo4j.list
+
+            # Update and install
+            sudo apt-get update
+            sudo apt-get install -y cypher-shell
+          name: Install Cypher Shell
   install-nvm:
     steps:
       - restore_cache:
@@ -60,6 +73,11 @@ commands:
       - run:
           command: pnpm install --frozen-lockfile --verbose
           name: Install NPM Packages
+      - run:
+          command: |
+            pnpm store path
+            pnpm store prune --force
+          name: Prune pnpm store
       - save_cache:
           key: pnpm-cache-{{ checksum "pnpm-lock.yaml" }}
           name: Save pnpm Cache
@@ -144,6 +162,7 @@ commands:
             - nvm-cache-{{ checksum ".nvmrc" }}
           name: Restore NVM Cache
       - install-pnpm
+      - install-cypher-shell
       - setup-env
   setup-env:
     description: Setup Env
@@ -151,6 +170,18 @@ commands:
       - run:
           command: source ~/project/.circleci/config/env.sh
           name: Setup Env
+  setup-neo4j:
+    description: Setup Neo4j
+    steps:
+      - run:
+          command: |
+            ~/project/.docker/cypher/scripts/enable-cdc.sh
+          name: Enable CDC
+      - run:
+          command: |
+            ~/project/.docker/cypher/scripts/apply-constraints.sh
+          name: Apply Neo4j Constraints
+          working_directory: ~/project/.docker/cypher
 executors:
   docker-node:
     docker:
@@ -159,11 +190,8 @@ executors:
     docker:
       - image: cimg/node:20.18.1-browsers
         name: 127.0.0.1
-      - command:
-          - neo4j
-          - start
-        environment:
-          NEO4J_ACCEPT_LICENSE_AGREEMENT: eval
+      - environment:
+          NEO4J_ACCEPT_LICENSE_AGREEMENT: 'yes'
           NEO4J_AUTH: neo4j/password
           NEO4J_PLUGINS: '["apoc"]'
         image: neo4j:5.26.0-enterprise
@@ -187,6 +215,7 @@ jobs:
     resource_class: << parameters.resource_class >>
     steps:
       - restore-workspace
+      - setup-neo4j
       - run:
           command: pnpm cli tasks graphql-codegen --stage ci
           name: Check GraphQL Codegen
@@ -264,6 +293,7 @@ jobs:
     resource_class: << parameters.resource_class >>
     steps:
       - restore-workspace
+      - setup-neo4j
       - run: pnpm npx playwright install-deps
       - run:
           command: |
@@ -292,6 +322,7 @@ jobs:
     resource_class: << parameters.resource_class >>
     steps:
       - restore-workspace
+      - setup-neo4j
       - run:
           command: pnpm cli tasks int --stage ci
           environment:
@@ -317,9 +348,6 @@ jobs:
       - run:
           command: pnpm cli tasks lint --stage ci
           name: Run Lint on Repository
-      - run:
-          command: pnpm cli tasks commitlint --stage ci
-          name: Commitlint
       - store_test_results:
           path: ./tmp/reports/lint
   notify-failure:
@@ -458,6 +486,7 @@ jobs:
       - build-repo
       - persist_to_workspace:
           paths:
+            - .pnpm-store
             - project/dist/apps/cli
             - project/dist/apps/web
           root: ~/
@@ -518,12 +547,8 @@ jobs:
     steps:
       - restore-workspace
       - run:
-          command: pnpm cli tasks unit --stage ci
-          environment:
-            JEST_JUNIT_OUTPUT_DIR: ./tmp/reports/test-unit
-          name: Run Unit Tests
-      - store_test_results:
-          path: ./tmp/reports/test-unit
+          command: pnpm nx run-many --target=tsc-check
+          name: Run tsc Check
   unit:
     executor: docker-node
     parameters:
@@ -533,8 +558,12 @@ jobs:
     steps:
       - restore-workspace
       - run:
-          command: nx run-many --target=tsc-check
-          name: Run tsc Check
+          command: pnpm cli tasks unit --stage ci
+          environment:
+            JEST_JUNIT_OUTPUT_DIR: ./tmp/reports/test-unit
+          name: Run Unit Tests
+      - store_test_results:
+          path: ./tmp/reports/test-unit
 orbs:
   node: circleci/node@5.1.0
   nx: nrwl/nx@1.6.2

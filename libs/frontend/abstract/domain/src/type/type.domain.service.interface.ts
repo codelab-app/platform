@@ -5,7 +5,7 @@ import type {
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import type { GetTypesQuery } from '@codelab/shared/infra/gql'
+import type { GetTypesQuery } from '@codelab/shared/infra/gqlgen'
 import type { ObjectMap } from 'mobx-keystone'
 
 import type { IHydrateable } from '../shared'

@@ -1,7 +1,7 @@
-import * as Types from '@codelab/shared/infra/gql'
+import * as Types from '@codelab/shared/infra/gqlgen'
 
-import { graphql } from '@codelab/shared/infra/gql'
-import { AtomFragmentDoc } from '@codelab/shared/infra/gql'
+import { graphql } from '@codelab/shared/infra/gqlgen'
+import { AtomFragmentDoc } from '@codelab/shared/infra/gqlgen'
 
 export const CreateAtomsDocument = graphql(`
   mutation CreateAtoms($input: [AtomCreateInput!]!) {

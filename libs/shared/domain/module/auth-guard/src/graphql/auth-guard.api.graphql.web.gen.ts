@@ -1,15 +1,15 @@
-import * as Types from '@codelab/shared/infra/gql'
+import * as Types from '@codelab/shared/infra/gqlgen'
 
-import { graphql } from '@codelab/shared/infra/gql'
+import { graphql } from '@codelab/shared/infra/gqlgen'
 import { gqlServerRequest } from '@codelab/shared/infra/fetch-server'
-import { AuthGuardFragmentDoc } from '@codelab/shared/infra/gql'
+import { AuthGuardFragmentDoc } from '@codelab/shared/infra/gqlgen'
 
 import {
   type GetAuthGuardsQueryVariables,
   type CreateAuthGuardsMutationVariables,
   type UpdateAuthGuardMutationVariables,
   type DeleteAuthGuardsMutationVariables,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 import {
   GetAuthGuardsDocument,
   CreateAuthGuardsDocument,

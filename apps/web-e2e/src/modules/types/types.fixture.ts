@@ -1,6 +1,6 @@
 import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
+import { PrimitiveTypeKind } from '@codelab/shared/infra/gqlgen'
 import { test as base } from '@playwright/test'
 
 import { BasePage } from '../../locators/pages'

@@ -4,7 +4,7 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import type { IFieldDefaultValue } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
-import type { ElementUpdateInput } from '@codelab/shared/infra/gql'
+import type { ElementUpdateInput } from '@codelab/shared/infra/gqlgen'
 
 import { isNullish } from 'remeda'
 

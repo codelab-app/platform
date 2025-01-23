@@ -1,15 +1,15 @@
-import * as Types from '@codelab/shared/infra/gql'
+import * as Types from '@codelab/shared/infra/gqlgen'
 
-import { graphql } from '@codelab/shared/infra/gql'
+import { graphql } from '@codelab/shared/infra/gqlgen'
 import { gqlRequest } from '@codelab/shared/infra/fetch'
-import { PreferenceFragmentDoc } from '@codelab/shared/infra/gql'
+import { PreferenceFragmentDoc } from '@codelab/shared/infra/gqlgen'
 
 import {
   type CreatePreferencesMutationVariables,
   type DeletePreferencesMutationVariables,
   type GetPreferencesQueryVariables,
   type UpdatePreferencesMutationVariables,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 import {
   CreatePreferencesDocument,
   DeletePreferencesDocument,

@@ -1,6 +1,6 @@
-import * as Types from '@codelab/shared/infra/gql'
+import * as Types from '@codelab/shared/infra/gqlgen'
 
-import { graphql } from '@codelab/shared/infra/gql'
+import { graphql } from '@codelab/shared/infra/gqlgen'
 import { gqlServerRequest } from '@codelab/shared/infra/fetch-server'
 
 import {
@@ -10,7 +10,7 @@ import {
   type InterfaceForm_GetStoresQueryVariables,
   type InterfaceForm_GetResourceQueryVariables,
   type InterfaceForm_GetPagesQueryVariables,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 import {
   InterfaceForm_GetAppsDocument,
   InterfaceForm_GetAtomsDocument,

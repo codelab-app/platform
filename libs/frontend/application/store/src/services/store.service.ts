@@ -3,7 +3,10 @@ import { type IStoreModel } from '@codelab/frontend/abstract/domain'
 import { storeRepository } from '@codelab/frontend-domain-store/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { type IStoreDto } from '@codelab/shared/abstract/core'
-import { type StoreFragment, type StoreWhere } from '@codelab/shared/infra/gql'
+import {
+  type StoreFragment,
+  type StoreWhere,
+} from '@codelab/shared/infra/gqlgen'
 import { Validator } from '@codelab/shared/infra/typebox'
 
 export const useStoreService = (): IStoreService => {

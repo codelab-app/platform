@@ -1,15 +1,15 @@
-import * as Types from '@codelab/shared/infra/gql'
+import * as Types from '@codelab/shared/infra/gqlgen'
 
-import { graphql } from '@codelab/shared/infra/gql'
+import { graphql } from '@codelab/shared/infra/gqlgen'
 import { gqlRequest } from '@codelab/shared/infra/fetch'
-import { ComponentFragmentDoc } from '@codelab/shared/infra/gql'
+import { ComponentFragmentDoc } from '@codelab/shared/infra/gqlgen'
 
 import {
   type CreateComponentsMutationVariables,
   type DeleteComponentsMutationVariables,
   type UpdateComponentsMutationVariables,
   type ComponentListQueryVariables,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 import {
   CreateComponentsDocument,
   DeleteComponentsDocument,

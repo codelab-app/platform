@@ -6,7 +6,7 @@ import {
   AuthGuardFragment,
   AuthGuardOptions,
   AuthGuardWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 import {
   authGuardApi,
   authGuardMapper,

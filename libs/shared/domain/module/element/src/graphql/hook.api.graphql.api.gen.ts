@@ -1,13 +1,13 @@
-import * as Types from '@codelab/shared/infra/gql'
+import * as Types from '@codelab/shared/infra/gqlgen'
 
-import { graphql } from '@codelab/shared/infra/gql'
+import { graphql } from '@codelab/shared/infra/gqlgen'
 import { gqlRequest } from '@codelab/shared/infra/fetch'
-import { HookFragmentDoc } from '@codelab/shared/infra/gql'
+import { HookFragmentDoc } from '@codelab/shared/infra/gqlgen'
 
 import {
   type CreateHooksMutationVariables,
   type DeleteHooksMutationVariables,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 import {
   CreateHooksDocument,
   DeleteHooksDocument,

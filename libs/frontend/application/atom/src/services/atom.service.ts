@@ -4,7 +4,7 @@ import type {
   GetDataFn,
   IAtomService,
 } from '@codelab/frontend/abstract/application'
-import type { AtomOptions, AtomWhere } from '@codelab/shared/infra/gql'
+import type { AtomOptions, AtomWhere } from '@codelab/shared/infra/gqlgen'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import {
@@ -65,7 +65,11 @@ export const useAtomService = (): IAtomService => {
     )
 
     const atoms = items.map((atom) => {
-      atom.api.fields.forEach((field) => fieldDomainService.hydrate(field))
+      atom.api.fields.forEach((field) => {
+        // Field hydration requires api type
+        typeDomainService.hydrateInterface(field.api)
+        fieldDomainService.hydrate(field)
+      })
       typeDomainService.hydrateInterface(atom.api)
 
       return atomDomainService.hydrate(atom)

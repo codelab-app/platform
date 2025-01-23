@@ -3,7 +3,7 @@ import type {
   PageCreateInput,
   PageDeleteInput,
   PageUpdateInput,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/orm'
 import { storeMapper } from '@codelab/shared-domain-module/store'

@@ -2,7 +2,7 @@ import type {
   RedirectCreateInput,
   RedirectDeleteInput,
   RedirectUpdateInput,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import {
   type IMapper,

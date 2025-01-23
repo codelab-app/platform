@@ -1,8 +1,8 @@
-import * as Types from '@codelab/shared/infra/gql'
+import * as Types from '@codelab/shared/infra/gqlgen'
 
-import { graphql } from '@codelab/shared/infra/gql'
+import { graphql } from '@codelab/shared/infra/gqlgen'
 import { gqlServerRequest } from '@codelab/shared/infra/fetch-server'
-import { AtomFragmentDoc } from '@codelab/shared/infra/gql'
+import { AtomFragmentDoc } from '@codelab/shared/infra/gqlgen'
 
 import {
   type CreateAtomsMutationVariables,
@@ -10,7 +10,7 @@ import {
   type AtomListQueryVariables,
   type GetSelectAtomOptionsQueryVariables,
   type UpdateAtomsMutationVariables,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 import {
   CreateAtomsDocument,
   DeleteAtomsDocument,

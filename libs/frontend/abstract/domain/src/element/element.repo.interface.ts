@@ -7,7 +7,7 @@ import type {
   DomainOptions,
   ElementFragment,
   ElementWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import type { IRepository } from '../shared'
 import type { IElementTree } from './element-tree.interface.model'

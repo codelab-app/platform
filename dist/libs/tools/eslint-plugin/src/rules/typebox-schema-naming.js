@@ -17,8 +17,7 @@ exports.typeboxSchemaNaming = (0, exports.createESLintRule)({
          * @param name of the import
          */
         const isVariableDeclarator = (name, node) => {
-            var _a;
-            return (((_a = node.init) === null || _a === void 0 ? void 0 : _a.type) === utils_1.AST_NODE_TYPES.CallExpression &&
+            return (node.init?.type === utils_1.AST_NODE_TYPES.CallExpression &&
                 node.init.callee.type === utils_1.AST_NODE_TYPES.MemberExpression &&
                 node.init.callee.object.type === utils_1.AST_NODE_TYPES.Identifier &&
                 // Both imports should trigger
@@ -35,9 +34,8 @@ exports.typeboxSchemaNaming = (0, exports.createESLintRule)({
          * @param node Function node
          */
         const checkFunctionReturnType = (name, node) => {
-            var _a, _b;
             const functionName = node.type === utils_1.AST_NODE_TYPES.FunctionDeclaration
-                ? ((_a = node.id) === null || _a === void 0 ? void 0 : _a.type) === utils_1.AST_NODE_TYPES.Identifier
+                ? node.id?.type === utils_1.AST_NODE_TYPES.Identifier
                     ? node.id.name
                     : null
                 : node.parent.type === utils_1.AST_NODE_TYPES.VariableDeclarator &&
@@ -49,7 +47,7 @@ exports.typeboxSchemaNaming = (0, exports.createESLintRule)({
              *
              * https://stackoverflow.com/questions/69094002/why-eslint-ignored-type-inference-of-typescript
              */
-            const returnTypeNode = (_b = node.returnType) === null || _b === void 0 ? void 0 : _b.typeAnnotation;
+            const returnTypeNode = node.returnType?.typeAnnotation;
             // if (functionName && !functionName.endsWith('Schema')) {
             //   context.report({
             //     messageId: 'suffixWithSchema',

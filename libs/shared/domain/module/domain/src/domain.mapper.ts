@@ -3,7 +3,7 @@ import type {
   DomainCreateInput,
   DomainDeleteInput,
   DomainUpdateInput,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import { connectNodeId } from '@codelab/shared/domain/orm'
 

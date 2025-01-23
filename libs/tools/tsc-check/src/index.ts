@@ -4,9 +4,8 @@ import { createNodesFromFiles, readJsonFile } from '@nx/devkit'
 import { existsSync } from 'fs'
 import { dirname, join } from 'path'
 
-export interface MyPluginOptions {
-  //
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface MyPluginOptions {}
 
 export const createNodesV2: CreateNodesV2<MyPluginOptions> = [
   '**/tsconfig.spec.json',

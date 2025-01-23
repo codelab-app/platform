@@ -11,7 +11,7 @@ import type {
   ReactNodeTypeFragment,
   RenderPropTypeFragment,
   RichTextTypeFragment,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 /**
  * Allows transformation of any framework types to the core types

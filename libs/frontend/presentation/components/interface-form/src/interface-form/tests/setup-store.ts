@@ -27,7 +27,7 @@ import {
   CodeMirrorLanguage,
   ElementTypeKind,
   PrimitiveTypeKind,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 import { objectMap } from 'mobx-keystone'
 import { v4 } from 'uuid'
 
