@@ -1,0 +1,27 @@
+# Can't use `pnpm cli` doesn't exist yet
+# We split `apps` and `libs` along with their cache location
+
+description: 'Build Nx Apps'
+steps:
+  - nx/set-shas:
+      main-branch-name: 'master'
+  - restore_cache:
+      name: 'Restore NX Cache'
+      keys:
+        - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+        - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-
+        - nx-cache-
+  - run:
+      name: 'Monitor NX Cache Size'
+      command: (./scripts/nx/reset-cache.sh)
+  - run:
+      command: pnpm nx run-many --target=build --projects=web,api -c ci --nx-bail
+  # CI caching guide https://nextjs.org/docs/pages/building-your-application/deploying/ci-build-caching
+  # Can also use cache, but we're using workspace for simplicity
+  - save_cache:
+      name: 'Save NX Cache'
+      key: nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+      paths:
+        - ~/project/.nx/cache
+        # https://github.com/nrwl/nx/issues/5221
+        - ~/project/dist/apps/web/.next/cache

@@ -33,7 +33,17 @@ jobs:
             - staging
       requires:
         - setup-workspace
-  - build:
+  - build-nx-apps:
+      resource_class: large
+      max_old_space_size: 4096
+      filters:
+        branches:
+          ignore:
+            - master
+            - staging
+      requires:
+        - setup-workspace
+  - build-nx-libs:
       resource_class: large
       max_old_space_size: 4096
       filters:
@@ -71,6 +81,8 @@ jobs:
       requires:
         - setup-workspace
   - integration:
+      # 4gb docker + 4gb node = 8gb large
+      # 4gb for docker is not enough for high throughput tests
       resource_class: large
       max_old_space_size: 4096
       filters:
@@ -90,7 +102,7 @@ jobs:
             - master
             - staging
       requires:
-        - build
+        - build-nx-apps
   - notify-success:
       resource_class: medium
       filters:
@@ -99,9 +111,11 @@ jobs:
             - master
             - staging
       requires:
-        - build
         - lint
         - codegen
         - unit
         - integration
+        - build-nx-libs
+        - build-nx-apps
+        - tsc-check
         - e2e

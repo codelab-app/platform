@@ -1,6 +1,6 @@
 commands:
-  build-nx-projects:
-    description: Build Repo
+  build-nx-apps:
+    description: Build Nx Apps
     steps:
       - nx/set-shas:
           main-branch-name: master
@@ -12,6 +12,7 @@ commands:
           name: Restore NX Cache
       - run:
           command: (./scripts/nx/reset-cache.sh)
+          name: Monitor NX Cache Size
       - run:
           command: pnpm nx run-many --target=build --projects=web,api -c ci --nx-bail
       - save_cache:
@@ -20,6 +21,27 @@ commands:
           paths:
             - ~/project/.nx/cache
             - ~/project/dist/apps/web/.next/cache
+  build-nx-libs:
+    description: Build Nx Libs
+    steps:
+      - nx/set-shas:
+          main-branch-name: master
+      - restore_cache:
+          keys:
+            - nx-cache-libs-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+            - nx-cache-libs-{{ .Environment.CIRCLE_BRANCH }}-
+            - nx-cache-libs-
+          name: Restore NX Cache
+      - run:
+          command: (./scripts/nx/reset-cache.sh)
+          name: Monitor NX Cache Size
+      - run:
+          command: pnpm nx run-many --target=build --all --exclude=web,api -c ci
+      - save_cache:
+          key: nx-cache-libs-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+          name: Save NX Cache
+          paths:
+            - ~/project/.nx/cache-libs
   clear-jest-cache:
     description: Clear Jest Spec
     steps:
@@ -34,14 +56,14 @@ commands:
     steps:
       - run:
           command: |
-            # Add Neo4j repository
-            curl -fsSL https://debian.neo4j.com/neotechnology.gpg.key | sudo apt-key add -
+            # https://neo4j.com/docs/operations-manual/current/installation/linux/debian/
+            wget -O - https://debian.neo4j.com/neotechnology.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/neotechnology.gpg
 
-            echo 'deb https://debian.neo4j.com stable latest' | sudo tee -a /etc/apt/sources.list.d/neo4j.list
+            echo 'deb [signed-by=/etc/apt/keyrings/neotechnology.gpg] https://debian.neo4j.com stable latest' | sudo tee -a /etc/apt/sources.list.d/neo4j.list
 
-            # Update and install
             sudo apt-get update
-            sudo apt-get install -y cypher-shell
+
+            sudo apt-get install -y neo4j cypher-shell
           name: Install Cypher Shell
   install-nvm:
     steps:
@@ -145,6 +167,8 @@ commands:
     description: Restore Workspace
     steps:
       - checkout
+      - attach_workspace:
+          at: ~/
       - restore_cache:
           keys:
             - node-modules-cache-{{ checksum "pnpm-lock.yaml" }}
@@ -166,6 +190,10 @@ commands:
   setup-neo4j:
     description: Setup Neo4j
     steps:
+      - run:
+          command: |
+            neo4j-admin server memory-recommendation --docker
+          name: Run Neo4j Memory Recommendations
       - run:
           command: |
             ~/project/.docker/cypher/scripts/enable-cdc.sh
@@ -200,7 +228,7 @@ executors:
     environment:
       TF_WORKSPACE: prod
 jobs:
-  build:
+  build-nx-apps:
     environment:
       NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
     executor: docker-node
@@ -212,7 +240,21 @@ jobs:
     resource_class: << parameters.resource_class >>
     steps:
       - restore-workspace
-      - build-nx-projects
+      - build-nx-apps
+  build-nx-libs:
+    environment:
+      NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
+      NX_CACHE_DIRECTORY: ~/project/.nx/cache-libs
+    executor: docker-node
+    parameters:
+      max_old_space_size:
+        type: integer
+      resource_class:
+        type: string
+    resource_class: << parameters.resource_class >>
+    steps:
+      - restore-workspace
+      - build-nx-libs
   codegen:
     executor: docker-node-neo4j
     parameters:
@@ -290,7 +332,7 @@ jobs:
     environment:
       NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
     executor: docker-node-neo4j
-    parallelism: 2
+    parallelism: 4
     parameters:
       max_old_space_size:
         type: integer
@@ -699,7 +741,17 @@ workflows:
           requires:
             - setup-workspace
           resource_class: large
-      - build:
+      - build-nx-apps:
+          filters:
+            branches:
+              ignore:
+                - master
+                - staging
+          max_old_space_size: 4096
+          requires:
+            - setup-workspace
+          resource_class: large
+      - build-nx-libs:
           filters:
             branches:
               ignore:
@@ -754,7 +806,7 @@ workflows:
                 - staging
           max_old_space_size: 4096
           requires:
-            - build
+            - build-nx-apps
           resource_class: large
       - notify-success:
           filters:
@@ -763,11 +815,13 @@ workflows:
                 - master
                 - staging
           requires:
-            - build
             - lint
             - codegen
             - unit
             - integration
+            - build-nx-libs
+            - build-nx-apps
+            - tsc-check
             - e2e
           resource_class: medium
   infra-pr:
