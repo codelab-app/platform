@@ -3,6 +3,7 @@ import type { IAppDto } from '@codelab/shared/abstract/core'
 import { providerPageId } from '@codelab/shared/data/test'
 import { expect } from '@playwright/test'
 
+import { globalBeforeAll } from '../../setup/before-all'
 import { seedAppData } from '../builder/builder.data'
 import {
   COMPONENT_PROP_VALUE,
@@ -15,6 +16,8 @@ import { test } from './component.fixture'
 let app: IAppDto
 
 test.describe.configure({ mode: 'serial' })
+
+globalBeforeAll()
 
 test.beforeAll(async ({ request }) => {
   app = await seedAppData(request)

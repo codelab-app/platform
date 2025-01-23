@@ -1,3 +1,5 @@
 *
 !apps/
 !libs/
+# Stuck scanning map for some odd reason
+**/ChildMapperField.tsx

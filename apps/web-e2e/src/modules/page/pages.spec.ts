@@ -4,12 +4,15 @@ import { providerPageId } from '@codelab/shared/data/test'
 import { expect } from '@playwright/test'
 
 import { getCuiTree } from '../../commands'
+import { globalBeforeAll } from '../../setup/before-all'
 import { seedAppData } from '../builder/builder.data'
 import { test } from './page.fixture'
 
 let app: IAppDto
 
 test.describe.configure({ mode: 'serial' })
+
+globalBeforeAll()
 
 test.beforeAll(async ({ request }) => {
   app = await seedAppData(request)

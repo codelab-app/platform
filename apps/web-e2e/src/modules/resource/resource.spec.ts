@@ -1,8 +1,11 @@
 import { expect } from '@playwright/test'
 
+import { globalBeforeAll } from '../../setup/before-all'
 import { test } from './recource.fixture'
 
 test.describe.configure({ mode: 'serial' })
+
+globalBeforeAll()
 
 test.beforeEach(async ({ resourcePage: page }) => {
   await page.goto()

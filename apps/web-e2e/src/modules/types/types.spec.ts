@@ -1,5 +1,6 @@
 import { expect } from '@playwright/test'
 
+import { globalBeforeAll } from '../../setup/before-all'
 import {
   arrayTypeName,
   enumTypeName,
@@ -15,6 +16,8 @@ import {
 import { test } from './types.fixture'
 
 test.describe.configure({ mode: 'serial' })
+
+globalBeforeAll()
 
 test.beforeEach(async ({ typesPage: page }) => {
   await page.goto()

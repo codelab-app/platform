@@ -1,9 +1,12 @@
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { expect } from '@playwright/test'
 
+import { globalBeforeAll } from '../../setup/before-all'
 import { test } from './atom.fixture'
 
 test.describe.configure({ mode: 'serial' })
+
+globalBeforeAll()
 
 test.beforeEach(async ({ atomPage: page }) => {
   await page.goto()
@@ -76,8 +79,4 @@ test('it should be able to create the same atom again', async ({
   await page.expectGlobalProgressBarToBeHidden()
 
   await expect(page.getAtomName()).toBeVisible()
-})
-
-test.afterAll('cleanup created atoms', async ({ request }) => {
-  await request.post('/api/v1/admin/setup-e2e-data')
 })

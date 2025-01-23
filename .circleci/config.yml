@@ -20,6 +20,11 @@ commands:
           paths:
             - ~/project/.nx/cache
             - ~/project/dist/apps/web/.next/cache
+      - persist_to_workspace:
+          paths:
+            - project/dist/apps/cli
+            - project/dist/apps/web
+          root: ~/
   clear-jest-cache:
     description: Clear Jest Spec
     steps:
@@ -479,12 +484,6 @@ jobs:
       - install-pnpm
       - install-packages
       - build-repo
-      - persist_to_workspace:
-          paths:
-            - .pnpm-store
-            - project/dist/apps/cli
-            - project/dist/apps/web
-          root: ~/
   tf-apply:
     executor: docker-node
     parameters:
