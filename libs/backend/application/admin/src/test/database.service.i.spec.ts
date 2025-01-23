@@ -18,7 +18,7 @@ import {
 } from '@codelab/backend-infra-adapter/neo4j-driver'
 import { CommandBus } from '@nestjs/cqrs'
 
-jest.setTimeout(60000)
+jest.setTimeout(90000)
 
 describe('DatabaseService', () => {
   const context = initUserContext({

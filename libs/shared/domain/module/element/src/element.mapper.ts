@@ -116,11 +116,7 @@ export const elementMapper: IMapper<
     style,
     tailwindClassNames,
   }: IElementDto): ElementUpdateInput => {
-    console.log('childMapperComponent', childMapperComponent)
-    // We need to disconnect the component if render type changed to atom or empty
-    console.debug(
-      reconnectNodeIds(preRenderActions?.map((action) => action.id)),
-    )
+    console.log('style', style)
 
     return {
       childMapperComponent: reconnectNodeId(childMapperComponent?.id),
@@ -148,6 +144,7 @@ export const elementMapper: IMapper<
       props: reconnectNodeId(props.id),
       renderForEachPropKey,
       renderIfExpression,
+      // We need to disconnect the component if render type changed to atom or empty
       renderType: {
         Atom:
           renderType.__typename === 'Atom'
