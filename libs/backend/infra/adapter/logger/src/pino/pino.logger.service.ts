@@ -8,9 +8,6 @@ import pino from 'pino'
 
 import { loggerConfig } from '../logger.config'
 
-/**
- * So Nest.js only has two parameters, the first one being the message and the last one being the context. Any other parameters in the middle are ignored.
- */
 @Injectable()
 export class PinoLoggerService extends Logger implements ILoggerService {
   constructor(
@@ -21,6 +18,23 @@ export class PinoLoggerService extends Logger implements ILoggerService {
   ) {
     super(logger, {
       ...params,
+    })
+  }
+
+  async debugWithTiming(
+    message: string,
+    fn: () => Promise<void>,
+    options?: LogOptions,
+  ) {
+    const startTime = Date.now()
+
+    await fn()
+
+    const durationSecs = ((Date.now() - startTime) / 1000).toFixed(2)
+
+    this.debug(message, {
+      ...options,
+      data: { ...options?.data, durationSecs },
     })
   }
 

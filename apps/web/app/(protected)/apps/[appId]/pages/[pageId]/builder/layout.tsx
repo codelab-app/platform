@@ -5,7 +5,7 @@ import { appBuilderQuery } from '@codelab/frontend-application-app/use-cases/app
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { DashboardLayout } from '@codelab/frontend-presentation-view/templates'
 
-import { LayoutContainer } from './layout.container'
+import { LayoutClient } from './layout.client'
 
 type LayoutProps = DashboardLayoutProps<
   'configPane' | 'header' | 'modal' | 'primarySidebar' | 'secondaryPopover',
@@ -42,7 +42,7 @@ const Layout = async ({
       tagsDto={dto.tags}
       typesDto={dto.types}
     >
-      <LayoutContainer pageId={pageId}>
+      <LayoutClient pageId={pageId}>
         <DashboardLayout<
           | 'configPane'
           | 'header'
@@ -60,7 +60,7 @@ const Layout = async ({
         >
           {children}
         </DashboardLayout>
-      </LayoutContainer>
+      </LayoutClient>
     </DomainStoreHydrator>
   )
 }

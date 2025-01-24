@@ -25,8 +25,23 @@ export class ImportAtomHandler
       atomImport: { api, atom },
     } = command
 
-    await this.commandBus.execute<ImportApiCommand>(new ImportApiCommand(api))
+    const importApi = async () => {
+      await this.commandBus.execute<ImportApiCommand>(new ImportApiCommand(api))
+    }
 
-    await this.atomRepository.save(atom)
+    const saveAtom = async () => {
+      await this.atomRepository.save(atom)
+    }
+
+    await this.logger.debugWithTiming('Import Api', importApi, {
+      context: 'ImportAtomHandler',
+    })
+
+    await this.logger.debugWithTiming('Save Atom', saveAtom, {
+      context: 'ImportAtomHandler',
+      data: {
+        atomName: atom.name,
+      },
+    })
   }
 }

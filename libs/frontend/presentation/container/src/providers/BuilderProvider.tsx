@@ -19,7 +19,6 @@ import { v4 } from 'uuid'
 interface BuilderContextProps {
   containerNode: IComponentModel | IPageModel
   rendererType: RendererType
-  searchParams: ReadonlyURLSearchParams
 }
 
 interface BuilderProviderProps extends BuilderContextProps {
@@ -29,6 +28,8 @@ interface BuilderProviderProps extends BuilderContextProps {
 const BuilderContext = createContext<BuilderContextProps | null>(null)
 
 /**
+ * Treating this as a way to block rendering until these data are initialized, we don't provide any data here
+ *
  * 1) Hydrate and set active renderer
  * 2) Set selected node
  * 3) Initialize expression transformer
@@ -37,7 +38,6 @@ export const BuilderProvider = ({
   children,
   containerNode,
   rendererType,
-  searchParams,
 }: BuilderProviderProps) => {
   const { builderService, rendererService, routerService } =
     useApplicationStore()
@@ -75,19 +75,8 @@ export const BuilderProvider = ({
     void renderer.expressionTransformer.init()
   }, [containerNode.id])
 
-  /**
-   * Synchronize search params into router service for in-app routing
-   */
-  useEffect(() => {
-    const queryParams = Object.fromEntries(searchParams.entries())
-
-    routerService.setQueryParams(queryParams)
-  }, [routerService, searchParams])
-
   return (
-    <BuilderContext.Provider
-      value={{ containerNode, rendererType, searchParams }}
-    >
+    <BuilderContext.Provider value={{ containerNode, rendererType }}>
       {children}
     </BuilderContext.Provider>
   )

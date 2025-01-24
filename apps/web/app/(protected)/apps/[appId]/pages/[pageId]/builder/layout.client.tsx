@@ -7,22 +7,20 @@ import { BuilderProvider } from '@codelab/frontend/presentation/container'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { useSearchParams } from 'next/navigation'
 
-export const LayoutContainer = ({
+export const LayoutClient = ({
   children,
-  componentId,
+  pageId,
 }: {
   children: ReactNode
-  componentId: string
+  pageId: string
 }) => {
-  const searchParams = useSearchParams()
-  const { componentDomainService } = useDomainStore()
-  const component = componentDomainService.component(componentId)
+  const { pageDomainService } = useDomainStore()
+  const page = pageDomainService.page(pageId)
 
   return (
     <BuilderProvider
-      containerNode={component}
-      rendererType={RendererType.ComponentBuilder}
-      searchParams={searchParams}
+      containerNode={page}
+      rendererType={RendererType.PageBuilder}
     >
       {children}
     </BuilderProvider>

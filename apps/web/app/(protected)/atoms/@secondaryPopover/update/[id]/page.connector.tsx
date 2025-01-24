@@ -2,7 +2,7 @@
 
 import type {
   SubmitController,
-  UrlQueryParamsPageProps,
+  URLSeachParamPageProps,
 } from '@codelab/frontend/abstract/types'
 import type { IAtomDto, ITagDto } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
@@ -25,7 +25,7 @@ import { useRef } from 'react'
 interface UpdateAtomContainerProps {
   atomsDto: Array<IAtomDto>
   id: string
-  searchParams: UrlQueryParamsPageProps
+  searchParams: URLSeachParamPageProps
   tagsDto: Array<ITagDto>
 }
 

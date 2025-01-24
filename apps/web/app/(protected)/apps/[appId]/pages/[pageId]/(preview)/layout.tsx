@@ -5,7 +5,7 @@ import { appBuilderQuery } from '@codelab/frontend-application-app/use-cases/app
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { DashboardLayout } from '@codelab/frontend-presentation-view/templates'
 
-import { LayoutContainer } from './layout.container'
+import { LayoutClient } from './layout.client'
 
 type LayoutProps = DashboardLayoutProps<'header', 'pageId'>
 
@@ -14,29 +14,11 @@ const Layout = async ({ children, header, params }: LayoutProps) => {
   const dto = await appBuilderQuery({ appId })
 
   return (
-    <DomainStoreHydrator
-      actionsDto={dto.actions}
-      appsDto={[dto.app]}
-      atomsDto={dto.atoms}
-      authGuardsDto={dto.authGuards}
-      componentsDto={dto.components}
-      elementsDto={dto.elements}
-      fallback={<Spinner />}
-      fieldsDto={dto.fields}
-      pagesDto={dto.pages}
-      propsDto={dto.props}
-      redirectsDto={dto.redirects}
-      resourcesDto={dto.resources}
-      storesDto={dto.stores}
-      tagsDto={dto.tags}
-      typesDto={dto.types}
-    >
-      <LayoutContainer pageId={pageId}>
-        <DashboardLayout<'header', 'pageId'> header={header} params={params}>
-          {children}
-        </DashboardLayout>
-      </LayoutContainer>
-    </DomainStoreHydrator>
+    <LayoutClient pageId={pageId}>
+      <DashboardLayout<'header', 'pageId'> header={header} params={params}>
+        {children}
+      </DashboardLayout>
+    </LayoutClient>
   )
 }
 

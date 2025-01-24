@@ -4,7 +4,7 @@ import type {
 } from '@codelab/frontend/abstract/application'
 import type {
   UrlPathParamsProps,
-  UrlQueryParamsProps,
+  URLSearchParamsProps,
 } from '@codelab/frontend/abstract/types'
 
 import { Validator } from '@codelab/shared/infra/typebox'
@@ -39,7 +39,7 @@ export class RouterService
       pageId: undefined,
       resourceId: undefined,
     })).withSetter(),
-    queryParams: prop<UrlQueryParamsProps>(() => ({
+    queryParams: prop<URLSearchParamsProps>(() => ({
       filter: [],
       node: undefined,
       /**

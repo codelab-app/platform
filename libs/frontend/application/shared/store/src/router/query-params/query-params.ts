@@ -1,6 +1,6 @@
 import type {
-  UrlQueryParamsPageProps,
-  UrlQueryParamsProps,
+  URLSeachParamPageProps,
+  URLSearchParamsProps,
 } from '@codelab/frontend/abstract/types'
 
 /**
@@ -10,7 +10,7 @@ import type {
  */
 export const parseQueryParams = (
   searchParams: URLSearchParams,
-): UrlQueryParamsPageProps => {
+): URLSeachParamPageProps => {
   const page = searchParams.get('page') ?? undefined
   const pageSize = searchParams.get('pageSize') ?? undefined
   const filter = searchParams.getAll('filter')
@@ -32,8 +32,8 @@ export const parseQueryParams = (
  * This is used to parse the search param props that come in pages
  */
 export const parseQueryParamPageProps = (
-  params: UrlQueryParamsPageProps,
-): UrlQueryParamsProps => {
+  params: URLSeachParamPageProps,
+): URLSearchParamsProps => {
   const { filter, node, page, pageSize, primarySidebarKey, search } = params
 
   return {

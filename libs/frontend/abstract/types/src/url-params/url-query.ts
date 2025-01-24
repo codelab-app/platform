@@ -5,7 +5,7 @@ import type { Assign, Required } from 'utility-types'
  * @param {string} page - We pass default via middleware to the routes that require it
  * @param {string} pageSize We pass default via middleware to the routes that require it
  */
-export interface UrlQueryParamsPageProps {
+export interface URLSeachParamPageProps {
   /**
    * @param filter - `?key=value` will become `string`, while `?key=value1&key=value2` will become `Array<string>`
    */
@@ -23,8 +23,8 @@ export interface UrlQueryParamsPageProps {
 /**
  * This is the application value with their types, at this point we have validated it yet. We will use a validated version for the hook with get accessor
  */
-export type UrlQueryParamsProps = Assign<
-  UrlQueryParamsPageProps,
+export type URLSearchParamsProps = Assign<
+  URLSeachParamPageProps,
   {
     /**
      * @param filter = here we convert a maybe array type to string
@@ -39,6 +39,6 @@ export type UrlQueryParamsProps = Assign<
  * These types are the final types after validation, they represent the needed types in the calling context
  */
 export type UrlQueryParams = Required<
-  UrlQueryParamsProps,
+  URLSearchParamsProps,
   'filter' | 'page' | 'pageSize'
 >

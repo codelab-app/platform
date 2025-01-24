@@ -1,6 +1,6 @@
 'use client'
 
-import type { UrlQueryParamsProps } from '@codelab/frontend/abstract/types'
+import type { URLSearchParamsProps } from '@codelab/frontend/abstract/types'
 import type { Required } from 'utility-types'
 
 import { Validator } from '@codelab/shared/infra/typebox'
@@ -12,7 +12,7 @@ import { parseQueryParams } from './query-params'
  * When the properties are accessed, they are validated to be defined. The lazy loading allows for unaccessed optional properties.
  */
 export const useUrlQueryParams = (): Required<
-  UrlQueryParamsProps,
+  URLSearchParamsProps,
   'page' | 'pageSize'
 > => {
   const searchParams = useSearchParams()

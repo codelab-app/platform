@@ -2,13 +2,15 @@
 
 import type {
   UrlPathParams,
-  UrlQueryParamsPageProps,
+  URLSeachParamPageProps,
 } from '@codelab/frontend/abstract/types'
 
 import { parseQueryParamPageProps } from '@codelab/frontend-application-shared-store/router'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
-import { type ReactNode, useEffect, useState } from 'react'
+import { type ReactNode, useState } from 'react'
+import { useCustomCompareEffect } from 'react-use'
+import { isDeepEqual } from 'remeda'
 
 interface ApplicationStoreHydratorProps {
   children: ReactNode
@@ -23,7 +25,7 @@ interface ApplicationStoreHydratorProps {
    */
   fallback?: ReactNode
   pathParams?: UrlPathParams
-  queryParams?: UrlQueryParamsPageProps
+  queryParams?: URLSeachParamPageProps
 }
 
 export const ApplicationStoreHydrator = observer(
@@ -36,23 +38,28 @@ export const ApplicationStoreHydrator = observer(
     const { routerService } = useApplicationStore()
     const [isHydrated, setIsHydrated] = useState(false)
 
-    useEffect(() => {
-      if (queryParams) {
-        console.log(parseQueryParamPageProps(queryParams))
-        routerService.setQueryParams(parseQueryParamPageProps(queryParams))
-      }
+    useCustomCompareEffect(
+      () => {
+        if (queryParams) {
+          console.log(parseQueryParamPageProps(queryParams))
+          routerService.setQueryParams(parseQueryParamPageProps(queryParams))
+        }
 
-      if (pathParams) {
-        routerService.setPathParams(pathParams)
-      }
+        if (pathParams) {
+          routerService.setPathParams(pathParams)
+        }
 
-      setIsHydrated(true)
-    }, [])
+        setIsHydrated(true)
+      },
+      [pathParams, queryParams],
+      isDeepEqual,
+    )
 
-    if (!fallback) {
-      return <>{children}</>
+    // Always wait for hydration, regardless of fallback presence
+    if (!isHydrated) {
+      return fallback ? <>{fallback}</> : null
     }
 
-    return isHydrated ? <>{children}</> : <>{fallback}</>
+    return <>{children}</>
   },
 )

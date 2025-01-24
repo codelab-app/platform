@@ -1,4 +1,4 @@
-import type { UrlQueryParamsPageProps } from '@codelab/frontend/abstract/types'
+import type { URLSeachParamPageProps } from '@codelab/frontend/abstract/types'
 
 import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
 import { DashboardPopover } from '@codelab/frontend-presentation-view/templates'
@@ -10,7 +10,7 @@ const Page = async ({
   searchParams,
 }: {
   params: { id: string }
-  searchParams: UrlQueryParamsPageProps
+  searchParams: URLSeachParamPageProps
 }) => {
   const atomDto = await atomRepository.findOne({ id })
   const atomsDto = atomDto ? [atomDto] : []

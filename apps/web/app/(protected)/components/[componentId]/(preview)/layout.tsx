@@ -2,7 +2,7 @@ import type { DashboardLayoutProps } from '@codelab/frontend-presentation-view/t
 
 import { DashboardLayout } from '@codelab/frontend-presentation-view/templates'
 
-import { LayoutContainer } from './layout.container'
+import { LayoutClient } from './layout.client'
 
 type LayoutProps = DashboardLayoutProps<'header', 'componentId'>
 
@@ -11,7 +11,7 @@ const ComponentPreviewLayout = ({ children, header, params }: LayoutProps) => {
 
   return (
     <DashboardLayout<'header', 'componentId'> header={header} params={params}>
-      <LayoutContainer componentId={componentId}>{children}</LayoutContainer>
+      <LayoutClient componentId={componentId}>{children}</LayoutClient>
     </DashboardLayout>
   )
 }

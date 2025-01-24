@@ -58,6 +58,7 @@ export class ImportAdminDataHandler
 
   private async importAtoms() {
     const atoms = this.readAdminDataService.atoms
+    let previousDurationSecs: string | undefined
 
     /**
      * Create all atoms but omit `suggestedChildren`, since it requires all atoms to be added first
@@ -68,17 +69,23 @@ export class ImportAdminDataHandler
     ] of this.readAdminDataService.atoms.entries()) {
       const atomWithoutSuggestedChildren = omit(atom, ['suggestedChildren'])
 
-      this.logger.debug(`Importing atom (${index + 1}/${atoms.length})`, {
-        context: 'ImportAdminDataHandler',
-        data: {
-          name: atom.name,
-        },
-      })
+      const importAtom = async () =>
+        await this.importAtom({
+          api,
+          atom: atomWithoutSuggestedChildren,
+        })
 
-      await this.importAtom({
-        api,
-        atom: atomWithoutSuggestedChildren,
-      })
+      await this.logger.debugWithTiming(
+        `Importing atom (${index + 1}/${atoms.length})`,
+        importAtom,
+        {
+          context: 'ImportAdminDataHandler',
+          data: {
+            name: atom.name,
+            previousAtomDurationSecs: previousDurationSecs,
+          },
+        },
+      )
     }
 
     /**
