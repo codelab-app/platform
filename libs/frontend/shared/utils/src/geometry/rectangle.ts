@@ -47,17 +47,6 @@ export class Rectangle {
     )
   }
 
-  static createRect(left: number, top: number, width: number, height: number) {
-    return {
-      bottom: top + height,
-      height,
-      left,
-      right: left + width,
-      top,
-      width,
-    }
-  }
-
   static shrink(rect: Rect, amount: number): Rect {
     return {
       bottom: rect.bottom - amount,
