@@ -88,15 +88,15 @@ export class RuntimeElementService
   }
 
   @modelAction
-  remove(runtimeElement: IRuntimeElementModel) {
-    return this.elements.delete(runtimeElement.compositeKey)
-  }
-
-  @modelAction
   getExpandedCompositeKeys() {
     return this.elementsList
       .filter((runtimeElement) => runtimeElement.element.current.expanded)
       .map((runtimeElement) => runtimeElement.compositeKey)
+  }
+
+  @modelAction
+  remove(runtimeElement: IRuntimeElementModel) {
+    return this.elements.delete(runtimeElement.compositeKey)
   }
 
   maybeRuntimeElement(compositeKey: string) {
