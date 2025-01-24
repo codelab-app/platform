@@ -1,6 +1,6 @@
 import type { IPageModel } from '@codelab/frontend/abstract/domain'
-import type { Ref } from 'mobx-keystone'
 import type { Maybe } from '@codelab/shared/abstract/types'
+import type { Ref } from 'mobx-keystone'
 
 import type { IBaseRuntimeModel } from '../runtime.model.interface'
 import type { IRuntimeElementModel } from '../runtime-element'
