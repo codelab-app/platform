@@ -13,9 +13,10 @@ done
 
 echo 'Neo4j ready...'
 
-./enable-cdc.sh
 
-./apply-constraints.sh
+/scripts/enable-cdc.sh
+
+/scripts/apply-constraints.sh
 
 # Keep container running in the foreground
 tail -f /dev/null
