@@ -92,42 +92,23 @@ export const useDndDropHandler = (): UseDndDropHandler => {
   }
 
   const handleMoveElement = async (event: DragEndEvent) => {
-    const runtimeDraggedElementKey = event.active.id.toString()
-
-    const draggedElementId = runtimeElementService.runtimeElement(
-      runtimeDraggedElementKey,
-    ).element.id
-
+    const draggedElementId = event.active.id.toString()
+    const draggedElement = elementDomainService.element(draggedElementId)
     const collisionData = event.collisions?.[0]?.data as Maybe<CollisionData>
     const activeElementTree = rendererService.activeElementTree
 
-    const runtimePrevSiblingKey =
+    const prevSiblingId =
       collisionData?.childDroppableBeforePointer as Maybe<string>
 
-    const runtimeNextSiblingKey =
+    const nextSiblingId =
       collisionData?.childDroppableAfterPointer as Maybe<string>
 
-    const runtimeDropTargetKey = event.over?.id.toString()
-
-    const prevSiblingId = runtimePrevSiblingKey
-      ? runtimeElementService.maybeRuntimeElement(runtimePrevSiblingKey)
-          ?.element.id
-      : undefined
-
-    const nextSiblingId = runtimeNextSiblingKey
-      ? runtimeElementService.maybeRuntimeElement(runtimeNextSiblingKey)
-          ?.element.id
-      : undefined
+    const dropTargetId = event.over?.id.toString()
 
     const parentElementId =
-      runtimeDropTargetKey === ROOT_RENDER_CONTAINER_ID
+      dropTargetId === ROOT_RENDER_CONTAINER_ID
         ? activeElementTree?.rootElement.current.id
-        : runtimeDropTargetKey
-        ? runtimeElementService.maybeRuntimeElement(runtimeDropTargetKey)
-            ?.element.id
-        : undefined
-
-    const draggedElement = elementDomainService.element(draggedElementId)
+        : dropTargetId
 
     if (
       !parentElementId ||

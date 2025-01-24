@@ -4,12 +4,17 @@ import type {
   UniqueIdentifier,
 } from '@dnd-kit/core'
 
-import type { Point, Rect } from '../geometry'
+import {
+  findDistance,
+  isAboveLine,
+  type Point,
+  Rect,
+  Rectangle,
+} from '@codelab/frontend/shared/utils'
+
 import type { WithInternalDropData } from '../hooks'
 import type { HierarchicalCollision } from './hierarchical-collision.interface'
 import type { HierarchicalDroppableContainer } from './hierarchical-droppable-container.interface'
-
-import { findDistance, isAboveLine, Rectangle } from '../geometry'
 
 interface HierarchicalCollisionDetectorOptions {
   /**
@@ -64,11 +69,11 @@ export class HierarchicalCollisionDetector {
     )
 
     // if id has children, find before and after
-    const childrenIds = hierarchicalDroppableContainers.find(
+    const childrenIds = eligibleDroppableContainers.find(
       (hid) => hid.id === collisionId,
     )?.children
 
-    const children = hierarchicalDroppableContainers.filter(
+    const children = eligibleDroppableContainers.filter(
       (droppableContainer) => {
         return childrenIds?.includes(droppableContainer.id)
       },
@@ -182,12 +187,21 @@ export class HierarchicalCollisionDetector {
       const parentId =
         dropData?.internalUseOnlyDropData.hierarchy.parentId || ''
 
+      const droppableRect = droppable.rect.current
+
       HierarchicalDroppableContainer.push({
         ancestors: [],
         children: [],
         id: droppable.id,
         parentId,
-        rect: droppable.rect.current || Rectangle.zeroRect(),
+        rect: droppableRect
+          ? new Rect(
+              droppableRect.left,
+              droppableRect.top,
+              droppableRect.width,
+              droppableRect.height,
+            )
+          : Rectangle.zeroRect(),
       })
     })
 

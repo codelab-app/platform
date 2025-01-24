@@ -1,16 +1,10 @@
 'use client'
 
-import type {
-  IElementTreeViewDataNode,
-  IRuntimeComponentModel,
-} from '@codelab/frontend/abstract/application'
+import type { IElementTreeViewDataNode } from '@codelab/frontend/abstract/application'
 import type { Nullable } from '@codelab/shared/abstract/types'
 
-import {
-  isRuntimeComponent,
-  runtimeComponentRef,
-} from '@codelab/frontend/abstract/application'
 import { isComponent } from '@codelab/frontend/abstract/domain'
+import { PageType } from '@codelab/frontend/abstract/types'
 import { useComponentService } from '@codelab/frontend-application-component/services'
 import {
   useCloneElementService,
@@ -66,7 +60,7 @@ export const ElementContextMenu = observer<
     return null
   }
 
-  const componentInstance = isComponent(element.renderType)
+  const componentInstance = isComponent(element.renderType.current)
 
   const onAddChild = () => {
     createPopover.open(router, { appId, componentId, pageId })
@@ -105,20 +99,13 @@ export const ElementContextMenu = observer<
   }
 
   const onEditComponent = () => {
-    if (!isComponent(element.renderType)) {
+    if (!isComponent(element.renderType.current)) {
       return
     }
 
-    const runtimeElement = runtimeElementService.runtimeElement(treeNode.key)
-
-    const runtimeComponent = runtimeElement.children.find(
-      (child): child is IRuntimeComponentModel =>
-        isRuntimeComponent(child) &&
-        child.component.id === element.renderType.id,
+    router.push(
+      PageType.ComponentBuilder({ componentId: element.renderType.current.id }),
     )
-
-    runtimeComponent &&
-      builderService.setSelectedNode(runtimeComponentRef(runtimeComponent))
   }
 
   const menuItems = [

@@ -1,5 +1,6 @@
 'use client'
 
+import type { Nullable } from '@codelab/shared/abstract/types'
 /**
  * useScroll React custom hook
  * Usage:
@@ -8,6 +9,8 @@
  */
 import { isServer } from '@codelab/shared/utils'
 import { useEffect, useState } from 'react'
+
+import type { Rect } from './geometry'
 
 interface SSRRect {
   bottom: number
@@ -61,9 +64,12 @@ const isElementInScrollParentViewport = (
   )
 }
 
-const useScrollIntoView = (element: HTMLElement, root: HTMLElement) => {
+const useScrollIntoView = (
+  element: Nullable<HTMLElement>,
+  root: HTMLElement,
+) => {
   useEffect(() => {
-    if (!isElementInScrollParentViewport(element, root)) {
+    if (element && !isElementInScrollParentViewport(element, root)) {
       element.scrollIntoView({ behavior: 'smooth', block: 'center' })
     }
   }, [element, root])
@@ -72,7 +78,7 @@ const useScrollIntoView = (element: HTMLElement, root: HTMLElement) => {
 const useScroll = () => {
   const [lastScrollTop, setLastScrollTop] = useState<number>(0)
 
-  const [bodyOffset, setBodyOffset] = useState<DOMRect | SSRRect>(
+  const [bodyOffset, setBodyOffset] = useState<Rect | SSRRect>(
     isServer ? EmptySSRRect : document.body.getBoundingClientRect(),
   )
 

@@ -2,9 +2,7 @@ import type { Nullable } from '@codelab/shared/abstract/types'
 
 import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/domain'
 
-export const queryRenderedElementById = (
-  nodeId: string,
-): Nullable<HTMLElement> => {
+export const queryByElementId = (nodeId: string): Nullable<HTMLElement> => {
   if (typeof document === 'undefined') {
     return null
   }

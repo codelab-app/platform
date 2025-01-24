@@ -38,7 +38,7 @@ export const ElementTreeView = observer<{
       autoExpandParent={false}
       disabled={isMoving}
       draggable={true}
-      expandedKeys={runtimeElementService.expandedCompositeKeys}
+      expandedKeys={runtimeElementService.getExpandedCompositeKeys()}
       onClick={(event) => {
         event.stopPropagation()
       }}

@@ -3,7 +3,6 @@ import type {
   IRendererDto,
   IRootStore,
 } from '@codelab/frontend/abstract/application'
-import type { IDomainStore } from '@codelab/frontend/abstract/domain'
 import type {
   IApiActionDto,
   IAppDto,
@@ -38,6 +37,7 @@ import {
   domainDomainServiceContext,
   elementDomainServiceContext,
   fieldDomainServiceContext,
+  IDomainStore,
   pageDomainServiceContext,
   redirectDomainServiceContext,
   resourceDomainServiceContext,
@@ -92,6 +92,11 @@ import { v4 } from 'uuid'
 
 import { createApplicationStore } from './application.store'
 import { createDomainStore } from './domain.store'
+
+export enum Layout {
+  Horizontal,
+  Vertical,
+}
 
 export const createTestStore = () => {
   setGlobalConfig({
@@ -186,13 +191,17 @@ export const createTestStore = () => {
 
     @modelAction
     addPageProvider(app: IRef, id = v4(), name = 'provider') {
+      const rootElementId = v4()
+
       return this.addPage({
         app,
         id,
         kind: IPageKind.Provider,
         name,
+        pageContentContainer: { id: rootElementId },
         rootElement: this.addElement({
           closestContainerNode: { id },
+          id: rootElementId,
           name: ROOT_ELEMENT_NAME,
           page: { id },
           renderType: this.getAtomByType(IAtomType.ReactFragment),
@@ -293,6 +302,7 @@ export const createTestStore = () => {
         owner: { id: v4() },
         rootElement: this.addElement({
           closestContainerNode: { id: componentId },
+          id: rootElementId,
           name: ROOT_ELEMENT_NAME,
           parentComponent: { id: componentId },
           renderType: this.getAtomByType(IAtomType.HtmlDiv),
@@ -311,6 +321,136 @@ export const createTestStore = () => {
       const runtimeComponent = renderer.runtimeComponent
 
       return { component, renderer, runtimeComponent }
+    }
+
+    @modelAction
+    setupDragAndDrop(
+      layout: Layout = Layout.Horizontal,
+      draggableElementFirst = true,
+    ) {
+      const { page, renderer } = this.setupPage(
+        RendererType.PageBuilder,
+        IPageKind.Regular,
+      )
+
+      // we use top/left/right/bottom as a workaround for getBoundingBoxRect
+      const horizontalFirstElement: React.CSSProperties = {
+        bottom: '100px',
+        display: 'inline-block',
+        height: '100px',
+        left: '0px',
+        right: '100px',
+        top: '0px',
+        width: '100px',
+      }
+
+      const horizontalSecondElement: React.CSSProperties = {
+        bottom: '100px',
+        display: 'inline-block',
+        height: '100px',
+        left: '100px',
+        right: '200px',
+        top: '0px',
+        width: '100px',
+      }
+
+      const verticalFirstElement: React.CSSProperties = {
+        bottom: '100px',
+        display: 'block',
+        height: '100px',
+        left: '0px',
+        right: '100px',
+        top: '0px',
+        width: '100px',
+      }
+
+      const verticalSecondElement: React.CSSProperties = {
+        bottom: '200px',
+        display: 'block',
+        height: '100px',
+        left: '0px',
+        right: '100px',
+        top: '100px',
+        width: '100px',
+      }
+
+      const verticalDraggableElement = draggableElementFirst
+        ? verticalFirstElement
+        : verticalSecondElement
+
+      const verticalDroppableElement = draggableElementFirst
+        ? verticalSecondElement
+        : verticalFirstElement
+
+      const horizontalDraggableElement = draggableElementFirst
+        ? horizontalFirstElement
+        : horizontalSecondElement
+
+      const horizontalDroppableElement = draggableElementFirst
+        ? horizontalSecondElement
+        : horizontalFirstElement
+
+      const draggableElement = this.addElement({
+        closestContainerNode: { id: page.id },
+        name: 'Draggable Element',
+        parentElement: page.rootElement,
+        // jest have propblem parsing style passed by `css` prop
+        props: {
+          data: JSON.stringify({
+            style:
+              layout === Layout.Horizontal
+                ? horizontalDraggableElement
+                : verticalDraggableElement,
+          }),
+          id: v4(),
+        },
+        renderType: this.getAtomByType(IAtomType.HtmlDiv),
+      })
+
+      const droppableElement = this.addElement({
+        name: 'Droppable element',
+        parentElement: page.rootElement.current,
+        props: {
+          data: JSON.stringify({
+            style:
+              layout === Layout.Horizontal
+                ? horizontalDroppableElement
+                : verticalDroppableElement,
+          }),
+          id: v4(),
+        },
+        renderType: this.getAtomByType(IAtomType.HtmlDiv),
+      })
+
+      page.rootElement.current.writeCache({
+        firstChild: draggableElementFirst ? draggableElement : droppableElement,
+        props: {
+          data: JSON.stringify({
+            style: {
+              bottom: '300px',
+              display: layout === Layout.Horizontal ? 'inline-block' : 'block',
+              height: '300px',
+              left: '0px',
+              right: '300px',
+              top: '0px',
+              width: '300px',
+            },
+          }),
+          id: v4(),
+        },
+      })
+
+      if (draggableElementFirst) {
+        draggableElement.writeCache({ nextSibling: droppableElement })
+      } else {
+        droppableElement.writeCache({ nextSibling: draggableElement })
+      }
+
+      return {
+        draggableElement,
+        droppableElement,
+        renderer,
+      }
     }
 
     @modelAction
@@ -354,27 +494,33 @@ export const createTestStore = () => {
     }
 
     @modelAction
-    setupRuntimeComponent(
-      rendererType: RendererType = RendererType.Preview,
-      pageKind: IPageKind = IPageKind.Regular,
-    ) {
-      const { page, rendered, renderer, runtimePage } = this.setupPage(
-        rendererType,
-        pageKind,
-      )
-
+    setupRuntimeComponent() {
+      const { page, renderer, runtimePage } = this.setupPage()
       const rootElement = page.rootElement.current
+      const componentId = 'component-id'
 
-      const component = this.domainStore.componentDomainService.add({
-        id: v4(),
+      const component = componentFactory(
+        this.domainStore.componentDomainService,
+      )({
+        id: componentId,
         name: 'Component',
+        owner: { id: componentId },
+        rootElement: testRootStore.addElement({
+          closestContainerNode: { id: componentId },
+          parentComponent: { id: componentId },
+        }),
         // Mock this here
-        owner: { id: v4() },
+        store: testRootStore.addStore({}),
       })
 
-      const runtimeRootElement = runtimePage?.runtimeRootElement
+      rootElement.writeCache({
+        renderType: {
+          __typename: 'Component',
+          id: component.id,
+        },
+      })
 
-      rootElement.writeCache({ renderType: component })
+      const rendered = renderer.render
 
       return {
         component,
@@ -382,7 +528,7 @@ export const createTestStore = () => {
         rendered,
         renderer,
         rootElement,
-        runtimeRootElement: runtimeRootElement,
+        runtimeRootElement: runtimePage?.runtimeRootElement,
       }
     }
 

@@ -1,14 +1,15 @@
+import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
 import type {
   IAtomModel,
   IComponentType,
 } from '@codelab/frontend/abstract/domain'
-import type { IAtomType, IPropData, IRef } from '@codelab/shared/abstract/core'
+import type { IAtomType, IPropData } from '@codelab/shared/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
 
 export interface AtomFactoryInput {
   atom: IAtomModel
-  node: IRef
   props: IPropData
+  runtimeElement: IRuntimeElementModel
 }
 
 export type AtomFactoryResult = [Nullish<IComponentType>, IPropData]

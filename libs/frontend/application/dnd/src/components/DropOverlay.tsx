@@ -1,7 +1,6 @@
+import { Rectangle } from '@codelab/frontend/shared/utils'
 import { useDndContext } from '@dnd-kit/core'
 import { createPortal } from 'react-dom'
-
-import { Rectangle } from '../geometry'
 
 export const DROP_OVERLAY_ID = '__drop__overlay__'
 

@@ -1,12 +1,33 @@
+/* eslint-disable id-length */
 import type { Point } from './point'
 
-export interface Rect {
+export class Rect {
   bottom: number
+
   height: number
+
   left: number
+
   right: number
+
   top: number
+
   width: number
+
+  x: number
+
+  y: number
+
+  constructor(x?: number, y?: number, width?: number, height?: number) {
+    this.x = x || 0
+    this.y = y || 0
+    this.width = width || 0
+    this.height = height || 0
+    this.top = y || 0
+    this.right = this.x + this.width
+    this.bottom = this.y + this.height
+    this.left = x || 0
+  }
 }
 
 export class Rectangle {
@@ -45,10 +66,12 @@ export class Rectangle {
       right: rect.right - amount,
       top: rect.top + amount,
       width: rect.width - 2 * amount,
+      x: rect.x + amount,
+      y: rect.y + amount,
     }
   }
 
   static zeroRect() {
-    return { bottom: 0, height: 0, left: 0, right: 0, top: 0, width: 0 }
+    return new Rect(0, 0, 0, 0)
   }
 }

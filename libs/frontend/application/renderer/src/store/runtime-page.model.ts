@@ -50,6 +50,19 @@ export class RuntimePageModel
   static create = create
 
   @computed
+  get elements(): Array<IRuntimeElementModel> {
+    return this.runtimeElementService.elementsList.filter(
+      (element) =>
+        element.closestContainerNode.current.compositeKey === this.compositeKey,
+    )
+  }
+
+  @computed
+  get mainTreeElement(): Maybe<IRuntimeElementModel> {
+    return this.childPage?.current.runtimeRootElement
+  }
+
+  @computed
   get render(): Nullable<ReactElement> {
     return this.runtimeRootElement.render
   }

@@ -3,6 +3,7 @@ import type { IPropData } from '@codelab/shared/abstract/core'
 import {
   BUILDER_NONE_CLASS_NAME,
   DATA_ELEMENT_ID,
+  DATA_RUNTIME_ELEMENT_KEY,
 } from '@codelab/frontend/abstract/domain'
 import { notify } from '@codelab/frontend/shared/utils'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
@@ -14,8 +15,11 @@ import { allPropsCustomizer, getAtom } from './atoms'
 /**
  * Creates a React Component and default props for it out of an node and an atom
  */
-export const atomFactory = (input: AtomFactoryInput): AtomFactoryResult => {
-  const { atom, node, props } = input
+export const atomFactory = ({
+  atom,
+  props,
+  runtimeElement,
+}: AtomFactoryInput): AtomFactoryResult => {
   /**
    * Get ReactComponent by atomType, this takes in a module mapper to resolve the ReactComponent
    */
@@ -36,7 +40,8 @@ export const atomFactory = (input: AtomFactoryInput): AtomFactoryResult => {
    */
   const commonProps: IPropData = {
     className: BUILDER_NONE_CLASS_NAME,
-    [DATA_ELEMENT_ID]: node.id,
+    [DATA_ELEMENT_ID]: runtimeElement.element.current.id,
+    [DATA_RUNTIME_ELEMENT_KEY]: runtimeElement.compositeKey,
   }
 
   let newProps = mergeProps(commonProps, props)
@@ -47,8 +52,8 @@ export const atomFactory = (input: AtomFactoryInput): AtomFactoryResult => {
     // apply propsCustomizer and get the new props
     const customizer = propsCustomizer({
       atom,
-      node,
       props: newProps,
+      runtimeElement,
     })
 
     if (customizer.props) {

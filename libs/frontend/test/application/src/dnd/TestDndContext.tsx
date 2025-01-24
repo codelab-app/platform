@@ -1,14 +1,14 @@
 import type { DragEndEvent, DragStartEvent } from '@dnd-kit/core'
 import type { PropsWithChildren } from 'react'
 
+import { HierarchicalCollisionDetector } from '@codelab/frontend-application-dnd/collision-detection'
+import {
+  AutoDragOverlay,
+  DropOverlay,
+} from '@codelab/frontend-application-dnd/components'
 import { DndContext } from '@dnd-kit/core'
 
-import { HierarchicalCollisionDetector } from '../collision-detection'
-import { AutoDragOverlay } from '../components/AutoDragOverlay'
-import { DropIndicator } from '../components/DropIndicator'
-import { DropOverlay } from '../components/DropOverlay'
-
-export const COLLISION_ALGORITHM_SPACING = 5
+export const COLLISION_ALGORITHM_SPACING = 2
 
 const hierarchicalCollisionDetector = new HierarchicalCollisionDetector({
   spacing: COLLISION_ALGORITHM_SPACING,
@@ -37,7 +37,6 @@ export const TestDndContext = ({
     >
       {children}
 
-      <DropIndicator />
       <DropOverlay />
       <AutoDragOverlay />
     </DndContext>

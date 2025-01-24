@@ -37,8 +37,8 @@ export class AtomRenderPipe
 
     const [ReactComponent, newProps] = atomFactory({
       atom: atomRenderType,
-      node: element,
       props: runtimeElement.runtimeProps.evaluatedProps,
+      runtimeElement,
     })
 
     if (!ReactComponent && !atomRenderType.externalSourceType) {

@@ -1,10 +1,11 @@
 import type { IComponentModel } from '@codelab/frontend/abstract/domain'
-import type { Maybe } from '@codelab/shared/abstract/types'
+import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 
 import type { IBaseRuntimeModel } from '../runtime.model.interface'
 import type { IRuntimeElementModel } from '../runtime-element'
 import type { IRuntimeComponentPropModel } from '../runtime-prop'
+import { ReactElement } from 'react'
 
 /**
  * Represents runtime model IComponentModel
@@ -26,6 +27,13 @@ export interface IRuntimeComponentModel extends IBaseRuntimeModel {
   component: Ref<IComponentModel>
   isChildMapperComponentInstance: boolean
   isTypedProp?: boolean
+  elements: Array<IRuntimeElementModel>
+  /**
+   * When clicking an element from component while editing a page or another component we should select element
+   * from main tree that is being edited
+   */
+  mainTreeElement: Maybe<IRuntimeElementModel>
+
   /**
    * Exposed for external use by other models and to preserve structure
    */

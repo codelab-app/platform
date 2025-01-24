@@ -2,10 +2,7 @@ import type {
   RenderTypeSelectOption,
   SelectOption,
 } from '@codelab/frontend/abstract/types'
-import type {
-  IComponentDto,
-  ICreateComponentData,
-} from '@codelab/shared/abstract/core'
+import type { IComponentDto } from '@codelab/shared/abstract/core'
 import type { ObjectMap } from 'mobx-keystone'
 
 import type { IHydrateable } from '../shared'
@@ -16,7 +13,6 @@ export interface IComponentDomainService
   componentList: Array<IComponentModel>
   components: ObjectMap<IComponentModel>
   sortedComponentsList: Array<IComponentModel>
-  add(data: ICreateComponentData): IComponentModel
   component(id: string): IComponentModel
   findById(id: string): IComponentModel
   getRenderTypeOptions(

@@ -4,11 +4,11 @@ import type {
   UniqueIdentifier,
 } from '@dnd-kit/core'
 
+import { type Rect, Rectangle } from '@codelab/frontend/shared/utils'
 import { pathOr, stringToPath } from 'remeda'
 
 import type { WithInternalDropData } from '../hooks/internal-drop-data.interface'
 
-import { type Point, type Rect, Rectangle } from '../geometry'
 import { HierarchicalCollisionDetector } from './hierarchical-collision-detector'
 
 interface BaseHierarchyItem {

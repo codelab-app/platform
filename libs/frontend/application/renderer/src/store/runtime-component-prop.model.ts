@@ -94,7 +94,7 @@ export class RuntimeComponentPropModel
       {
         children,
         [DATA_COMPONENT_ID]: this.component.id,
-        key: this.component.id,
+        key: this.runtimeComponent.current.compositeKey,
       },
     )
   }

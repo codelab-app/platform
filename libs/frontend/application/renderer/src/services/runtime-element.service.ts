@@ -41,13 +41,6 @@ export class RuntimeElementService
     return [...this.elements.values()]
   }
 
-  @computed
-  get expandedCompositeKeys() {
-    return this.elementsList
-      .filter((runtimeElement) => runtimeElement.element.current.expanded)
-      .map((runtimeElement) => runtimeElement.compositeKey)
-  }
-
   @modelAction
   add(
     element: IElementModel,
@@ -83,7 +76,10 @@ export class RuntimeElementService
       runtimeProps: RuntimeElementPropsModel.create({
         runtimeElement: runtimeElementRef(compositeKey),
       }),
-      style: new RuntimeElementStyle({ element: elementRef(element) }),
+      style: new RuntimeElementStyle({
+        builderStyle: '',
+        element: elementRef(element),
+      }),
     })
 
     this.elements.set(runtimeElement.compositeKey, runtimeElement)
@@ -94,6 +90,13 @@ export class RuntimeElementService
   @modelAction
   remove(runtimeElement: IRuntimeElementModel) {
     return this.elements.delete(runtimeElement.compositeKey)
+  }
+
+  @modelAction
+  getExpandedCompositeKeys() {
+    return this.elementsList
+      .filter((runtimeElement) => runtimeElement.element.current.expanded)
+      .map((runtimeElement) => runtimeElement.compositeKey)
   }
 
   maybeRuntimeElement(compositeKey: string) {

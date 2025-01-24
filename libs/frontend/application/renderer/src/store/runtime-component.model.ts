@@ -111,8 +111,21 @@ export class RuntimeComponentModel
   }
 
   @computed
+  get elements(): Array<IRuntimeElementModel> {
+    return this.runtimeElementService.elementsList.filter(
+      (element) =>
+        element.closestContainerNode.current.compositeKey === this.compositeKey,
+    )
+  }
+
+  @computed
   get isChildMapperComponentInstance() {
     return isNonNullish(this.childMapperIndex)
+  }
+
+  @computed
+  get mainTreeElement(): Maybe<IRuntimeElementModel> {
+    return this.runtimeParent?.current.mainTreeElement
   }
 
   @computed

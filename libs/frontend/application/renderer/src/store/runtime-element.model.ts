@@ -181,6 +181,32 @@ export class RuntimeElementModel
   }
 
   @computed
+  get descendantElements() {
+    return this.children
+      .flatMap((child) =>
+        isRuntimeElement(child) ? child.descendantElements : child.elements,
+      )
+      .concat(this.children.filter((child) => isRuntimeElement(child)))
+  }
+
+  @computed
+  get mainTreeElement(): IRuntimeElementModel {
+    const treeRoot = this.renderer.runtimeContainerNode
+    const closestContainerNode = this.closestContainerNode.current
+
+    // element belongs to main tree
+    if (treeRoot?.compositeKey === closestContainerNode.compositeKey) {
+      return this
+    }
+
+    if (!closestContainerNode.mainTreeElement) {
+      throw new Error('Unable to find element that belongs to main tree')
+    }
+
+    return closestContainerNode.mainTreeElement
+  }
+
+  @computed
   get parentElement() {
     return this.parentElementKey
       ? this.runtimeElementService.elements.get(this.parentElementKey)

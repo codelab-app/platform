@@ -1,15 +1,9 @@
 import type {
   IComponentDomainService,
   IComponentModel,
-  IElementModel,
-  IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
 import type { SelectOption } from '@codelab/frontend/abstract/types'
-import type {
-  IComponentDto,
-  ICreateComponentData,
-  IPropDto,
-} from '@codelab/shared/abstract/core'
+import type { IComponentDto } from '@codelab/shared/abstract/core'
 
 import CodeSandboxOutlined from '@ant-design/icons/CodeSandboxOutlined'
 import {
@@ -18,15 +12,9 @@ import {
   getStoreDomainService,
   getTypeDomainService,
   getUserDomainService,
-  typeRef,
 } from '@codelab/frontend/abstract/domain'
 import { mapEntitySelectOptions } from '@codelab/frontend-domain-atom/store'
-import { Store } from '@codelab/frontend-domain-store/store'
-import { InterfaceType } from '@codelab/frontend-domain-type/store'
-import {
-  IElementRenderTypeKind,
-  ITypeKind,
-} from '@codelab/shared/abstract/core'
+import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/typebox'
 import { computed } from 'mobx'
 import {
@@ -40,7 +28,6 @@ import {
   prop,
 } from 'mobx-keystone'
 import { prop as rProp, sortBy } from 'remeda'
-import { v4 } from 'uuid'
 
 import { componentRepository } from '../repositories'
 import { Component } from '../store'
@@ -99,84 +86,6 @@ export class ComponentDomainService
       value: comp.id,
     }))
   })
-
-  @modelAction
-  add({ id, name, rootElement }: ICreateComponentData) {
-    const owner = this.userDomainService.user
-
-    const storeApi = this.typeDomainService.hydrateInterface({
-      __typename: ITypeKind.InterfaceType,
-      id: v4(),
-      kind: ITypeKind.InterfaceType,
-      name: InterfaceType.createName(`${name} Store`),
-      owner,
-    })
-
-    const store = this.storeDomainService.hydrate({
-      api: typeRef<IInterfaceTypeModel>(storeApi.id),
-      id: v4(),
-      name: Store.createName({ name }),
-    })
-
-    const fragmentAtom = this.atomDomainService.defaultRenderType
-    const fragmentApi = { id: fragmentAtom.api.id }
-
-    this.atomDomainService.hydrate({ ...fragmentAtom, api: fragmentApi, owner })
-
-    const api = this.typeDomainService.hydrateInterface({
-      __typename: ITypeKind.InterfaceType,
-      id: v4(),
-      kind: ITypeKind.InterfaceType,
-      name: InterfaceType.createName(name),
-      owner,
-    })
-
-    const componentProps: IPropDto = {
-      data: '{}',
-      id: v4(),
-    }
-
-    /**
-     * create rootElement in case it doesn't already exist
-     * Unlike other models such rootElement could exist before component (convertElementToComponent)
-     * connectOrCreate can't handle sub-models like props for element
-     * the only choice left is to create rootElement here if it is not provided
-     * */
-    const rootElementModel: IElementModel = rootElement
-      ? this.elementDomainService.element(rootElement.id)
-      : this.elementDomainService.hydrate({
-          closestContainerNode: {
-            id,
-          },
-          id: v4(),
-          // we don't append 'Root' here to include the case of existing element
-          name,
-          parentComponent: { id },
-          props: {
-            data: '{}',
-            id: v4(),
-          },
-          renderType: {
-            __typename: IElementRenderTypeKind.Atom,
-            id: fragmentAtom.id,
-          },
-        })
-
-    rootElementModel.writeCache({ name: `${name} Root` })
-
-    const component = this.hydrate({
-      __typename: IElementRenderTypeKind.Component,
-      api,
-      id,
-      name,
-      owner,
-      props: componentProps,
-      rootElement: rootElementModel,
-      store,
-    })
-
-    return component
-  }
 
   @modelAction
   component(id: string) {

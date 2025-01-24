@@ -54,8 +54,6 @@ export const useStyle = () => {
     selectedNode.style.appendToGuiCss(currentStylePseudoClass, {
       [key]: value,
     })
-
-    console.log(selectedNode.style.styleParsed)
   }
 
   const resetStyle = (property: CssProperty) => {
