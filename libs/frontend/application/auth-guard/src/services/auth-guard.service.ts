@@ -14,8 +14,7 @@ import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Validator } from '@codelab/shared/infra/typebox'
 
 export const useAuthGuardService = (): IAuthGuardService => {
-  const { authGuardDomainService, resourceDomainService, userDomainService } =
-    useDomainStore()
+  const { authGuardDomainService, resourceDomainService } = useDomainStore()
 
   const create = async (data: IAuthGuardCreateFormData) => {
     const authGuard = await authGuardRepository.add({
