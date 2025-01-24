@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
 export const authGuardSchema = gql`
-  type AuthGuard implements WithOwner {
+  type AuthGuard implements WithOwner @node {
     id: ID! @unique @settable(onUpdate: false)
     name: String!
     resource: Resource!

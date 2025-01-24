@@ -6,7 +6,7 @@ export const resourceSchema = gql`
     Rest
   }
 
-  type Resource implements WithOwner {
+  type Resource implements WithOwner @node {
     id: ID! @unique @settable(onUpdate: false)
     type: ResourceType!
     name: String!

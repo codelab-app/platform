@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
 export const hookSchema = gql`
-  type Hook {
+  type Hook @node {
     id: ID! @unique @settable(onUpdate: false)
     type: AtomType!
     config: Prop! @relationship(type: "CONFIG_OF_HOOK", direction: OUT)

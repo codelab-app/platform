@@ -10,7 +10,7 @@ const atomTypeEnum = `enum AtomType {
 export const atomSchema = gql`
   ${atomTypeEnum}
 
-  type Atom implements WithOwner ${authOwnerOrAdmin} {
+  type Atom implements WithOwner ${authOwnerOrAdmin} @node {
     id: ID! @unique @settable(onUpdate: false)
     owner: User! @relationship(type: "OWNED_BY", direction: OUT)
     type: AtomType! @unique

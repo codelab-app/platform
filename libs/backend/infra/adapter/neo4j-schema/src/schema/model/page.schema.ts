@@ -14,7 +14,7 @@ const allowFullAccessForPageOwner = `
 export const pageSchema = gql`
   ${pageKindSchema}
 
-  type Page {
+  type Page @node {
     id: ID! @unique @settable(onUpdate: false)
     # appId-name format to make it unique across apps
     compositeKey: String! @unique

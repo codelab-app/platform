@@ -3,7 +3,7 @@ import { gql } from '@apollo/client'
 import { authOwnerOrAdmin } from './user.schema'
 
 export const componentSchema = gql`
-  type Component implements WithOwner ${authOwnerOrAdmin} {
+  type Component implements WithOwner ${authOwnerOrAdmin} @node {
     id: ID! @unique @settable(onUpdate: false)
     # userId-name
     compositeKey: String! @unique

@@ -22,7 +22,7 @@ export const actionSchema = gql`
     postRenderElement: Element @declareRelationship
   }
 
-  type CodeAction implements BaseAction {
+  type CodeAction implements BaseAction @node {
     id: ID!
     name: String!
     type: ActionKind! @default(value: CodeAction)
@@ -37,7 +37,7 @@ export const actionSchema = gql`
     code: String!
   }
 
-  type ApiAction implements BaseAction {
+  type ApiAction implements BaseAction @node {
     id: ID!
     name: String!
     type: ActionKind! @default(value: ApiAction)

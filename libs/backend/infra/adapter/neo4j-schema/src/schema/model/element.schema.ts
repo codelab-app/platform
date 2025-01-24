@@ -4,7 +4,7 @@ export const elementSchema = gql`
   union ElementRenderType = Atom | Component
   union ContainerNode = Page | Component
 
-  type Element {
+  type Element @node {
     id: ID! @unique @settable(onUpdate: false)
     compositeKey: String! @unique
     name: String! @customResolver(requires: "id compositeKey")

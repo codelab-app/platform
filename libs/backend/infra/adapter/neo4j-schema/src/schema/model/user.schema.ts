@@ -62,7 +62,7 @@ export const userSchema = gql`
     owner: User! @declareRelationship
   }
 
-  type User {
+  type User @node {
     id: ID! @unique @settable(onUpdate: false)
     auth0Id: String! @unique
     email: String! @unique
