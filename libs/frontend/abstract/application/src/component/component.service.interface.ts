@@ -23,23 +23,7 @@ import type {
 export interface IComponentService
   extends Overwrite<
       ICrudService<IRef, ICreateComponentData, IUpdateComponentData>,
-      {
-        /** ***********  ✨ Codeium Command ⭐  ************ */
-        /**
-         * Create a component with the given data. If `createRootElement` is true, creates
-         * a root element for the component. If `createRootElement` is false, returns
-         * `undefined`.
-         *
-         * @param data The component data.
-         * @param createRootElement Whether to create a root element for the component.
-         * @returns The created component model.
-         */
-        /** ****  3e0bb368-082d-46da-ac3c-c93c386f0bf7  ****** */
-        create(
-          data: ICreateComponentData,
-          createRootElement?: boolean,
-        ): Promise<IComponentModel>
-      }
+      { create(data: ICreateComponentData): Promise<IComponentModel> }
     >,
     IQueryService<IComponentModel, ComponentWhere, ComponentOptions>,
     IPaginateable<IComponentModel> {

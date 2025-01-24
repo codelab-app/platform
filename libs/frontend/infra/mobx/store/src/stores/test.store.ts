@@ -3,7 +3,6 @@ import type {
   IRendererDto,
   IRootStore,
 } from '@codelab/frontend/abstract/application'
-import type { IDomainStore } from '@codelab/frontend/abstract/domain'
 import type {
   IApiActionDto,
   IAppDto,
@@ -495,22 +494,6 @@ export const createTestStore = () => {
     }
 
     @modelAction
-    /** ***********  ✨ Codeium Command ⭐  ************ */
-    /**
-     * Sets up a runtime component within a page.
-     *
-     * This function initializes a runtime component by configuring the page,
-     * renderer, and root element. It creates and associates a component with
-     * the root element, writes it to the cache, and returns relevant elements
-     * and their states for further operations.
-     *
-     * @param rendererType - The type of renderer to use (default: RendererType.Preview).
-     * @param pageKind - The kind of page to set up (default: IPageKind.Regular).
-     * @returns An object containing the component, page, rendered output,
-     *          renderer, root element, and runtime root element.
-     */
-
-    /** ****  b4fd35ed-bbb7-44a7-8c7e-9081a4518bd8  ****** */
     setupRuntimeComponent() {
       const { page, renderer, runtimePage } = this.setupPage()
       const rootElement = page.rootElement.current

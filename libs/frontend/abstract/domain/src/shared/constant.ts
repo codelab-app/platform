@@ -5,7 +5,6 @@
  *
  * node.dataset.componentId
  */
-
 export const DATASET_COMPONENT_ID = 'componentId'
 
 export const DATA_COMPONENT_ID = 'data-component-id'

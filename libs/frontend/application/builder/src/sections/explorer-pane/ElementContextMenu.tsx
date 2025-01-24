@@ -4,6 +4,7 @@ import type { IElementTreeViewDataNode } from '@codelab/frontend/abstract/applic
 import type { Nullable } from '@codelab/shared/abstract/types'
 
 import { isComponent } from '@codelab/frontend/abstract/domain'
+import { PageType } from '@codelab/frontend/abstract/types'
 import { useComponentService } from '@codelab/frontend-application-component/services'
 import {
   useCloneElementService,
@@ -20,7 +21,6 @@ import { Dropdown } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { PageType } from '@codelab/frontend/abstract/types'
 
 export interface ContextMenuProps {
   onBlur?(): unknown
@@ -43,6 +43,7 @@ export const ElementContextMenu = observer<
   const { createPopover, deletePopover } = useElementService()
   const router = useRouter()
   const { appId, componentId, pageId } = useUrlPathParams()
+
   const cloneElementService = useCloneElementService({
     builderService,
     componentService,
@@ -97,25 +98,14 @@ export const ElementContextMenu = observer<
     await cloneElementService.convertElementToComponent(runtimeElement)
   }
 
-  const onEditComponent = async () => {
+  const onEditComponent = () => {
     if (!isComponent(element.renderType.current)) {
       return
     }
 
-    await router.push(
+    router.push(
       PageType.ComponentBuilder({ componentId: element.renderType.current.id }),
     )
-
-    // const runtimeElement = runtimeElementService.runtimeElement(treeNode.key)
-
-    // const runtimeComponent = runtimeElement.children.find(
-    //   (child): child is IRuntimeComponentModel =>
-    //     isRuntimeComponent(child) &&
-    //     child.component.id === element.renderType.id,
-    // )
-
-    // runtimeComponent &&
-    //   builderService.setSelectedNode(runtimeComponentRef(runtimeComponent))
   }
 
   const menuItems = [

@@ -24,7 +24,6 @@ export const CustomComponents = observer(() => {
   })
 
   const editComponent = (componentId: string) => {
-    // sidebar should be explorer
     router.push(PageType.ComponentBuilder({ componentId }))
   }
 

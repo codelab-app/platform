@@ -11,6 +11,7 @@ import type { Ref } from 'mobx-keystone'
 import {
   ElementStylePseudoClass,
   getRendererService,
+  RendererType,
 } from '@codelab/frontend/abstract/application'
 import { getPreferenceDomainService } from '@codelab/frontend/abstract/domain'
 import { IBreakpointType } from '@codelab/shared/abstract/core'
@@ -23,7 +24,7 @@ import { jsonStringToCss, parseCssStringIntoObject } from './style.utils'
 @model('@codelab/RuntimeElementStyle')
 export class RuntimeElementStyle
   extends Model({
-    builderStyle: prop<string>().withSetter(),
+    builderStyle: prop<Maybe<string>>().withSetter(),
     element: prop<Ref<IElementModel>>(),
   })
   implements IRuntimeElementStyleModel
@@ -88,6 +89,12 @@ export class RuntimeElementStyle
 
   @computed
   get styleStringWithBreakpoints(): string {
+    const rendererType = this.renderer.rendererType
+
+    const isProduction =
+      rendererType === RendererType.Production ||
+      rendererType === RendererType.Preview
+
     const breakpointStyles = []
 
     for (const breakpoint of this.breakpointsByPrecedence) {
@@ -125,7 +132,9 @@ export class RuntimeElementStyle
 
     const styleWithBreakPoints = breakpointStyles.join('\n')
 
-    return styleWithBreakPoints
+    return isProduction || !this.builderStyle
+      ? styleWithBreakPoints
+      : [styleWithBreakPoints, this.builderStyle].join('\n')
   }
 
   @computed
