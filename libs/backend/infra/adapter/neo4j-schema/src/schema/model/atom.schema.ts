@@ -11,16 +11,16 @@ export const atomSchema = gql`
   ${atomTypeEnum}
 
   type Atom implements WithOwner ${authOwnerOrAdmin} @node {
-    id: ID! @unique @settable(onUpdate: false)
+    id: ID!  @settable(onUpdate: false) #@unique
     owner: User! @relationship(type: "OWNED_BY", direction: OUT)
-    type: AtomType! @unique
-    name: String! @unique
+    type: AtomType! #@unique
+    name: String! #@unique
     tags: [Tag!]! @relationship(type: "TAGS_WITH", direction: OUT)
     api: InterfaceType! @relationship(type: "ATOM_API", direction: OUT)
     icon: String
     externalJsSource: String
     externalCssSource: String
-    externalSourceType: String @unique
+    externalSourceType: String 
     requiredParents: [Atom!]!
       @relationship(type: "REQUIRED_PARENTS", direction: OUT)
     suggestedChildren: [Atom!]!

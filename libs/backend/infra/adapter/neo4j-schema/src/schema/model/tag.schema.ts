@@ -2,8 +2,8 @@ import { gql } from '@apollo/client'
 
 export const tagSchema = gql`
   type Tag implements WithOwner @node {
-    id: ID! @unique @settable(onUpdate: false)
-    name: String! @unique
+    id: ID! @settable(onUpdate: false) #@unique
+    name: String! #@unique
     parent: Tag @relationship(type: "CHILDREN", direction: IN)
     children: [Tag!]! @relationship(type: "CHILDREN", direction: OUT)
     owner: User! @relationship(type: "OWNED_BY", direction: OUT)

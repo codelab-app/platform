@@ -2,7 +2,7 @@ import { gql } from '@apollo/client'
 
 export const storeSchema = gql`
   type Store @node {
-    id: ID! @unique @settable(onUpdate: false)
+    id: ID! @settable(onUpdate: false) #@unique
     name: String!
     api: InterfaceType! @relationship(type: "STORE_STATE_API", direction: OUT)
     actions: [AnyAction!]! @relationship(type: "STORE_ACTION", direction: OUT)

@@ -76,10 +76,10 @@ export const typeSchema = gql`
   type PrimitiveType implements IBaseType @node(labels: ["Type", "PrimitiveType"]) ${authOwnerOrAdmin} {
     id: ID!
     kind: TypeKind! @default(value: PrimitiveType)
-    name: String! @unique
+    name: String! #@unique
     owner: User! @relationship(type: "OWNED_BY", direction: OUT)
     # There seems to be an issue with the unique constrain right now https://github.com/neo4j/graphql/issues/915
-    primitiveKind: PrimitiveTypeKind! @unique
+    primitiveKind: PrimitiveTypeKind! #@unique
     fieldRefs: [Field!]! @relationship(type: "FIELD_TYPE", direction: IN)
   }
 
@@ -115,7 +115,7 @@ export const typeSchema = gql`
   type UnionType implements IBaseType & WithDescendants @node(labels: ["Type", "UnionType"]) ${authOwnerOrAdmin} {
     id: ID!
     kind: TypeKind! @default(value: UnionType)
-    name: String! @unique
+    name: String! 
     owner: User! @relationship(type: "OWNED_BY", direction: OUT)
     fieldRefs: [Field!]! @relationship(type: "FIELD_TYPE", direction: IN)
     descendantTypesIds: [ID!]! @customResolver(requires: "id")
@@ -187,7 +187,7 @@ export const typeSchema = gql`
   type RenderPropType implements IBaseType @node(labels: ["Type", "RenderPropType"]) ${authOwnerOrAdmin} {
     id: ID!
     kind: TypeKind! @default(value: RenderPropType)
-    name: String! @unique
+    name: String! 
     owner: User! @relationship(type: "OWNED_BY", direction: OUT)
     fieldRefs: [Field!]! @relationship(type: "FIELD_TYPE", direction: IN)
   }
@@ -205,7 +205,7 @@ export const typeSchema = gql`
   type ReactNodeType implements IBaseType @node(labels: ["Type", "ReactNodeType"]) ${authOwnerOrAdmin} {
     id: ID!
     kind: TypeKind! @default(value: ReactNodeType)
-    name: String! @unique
+    name: String! 
     owner: User! @relationship(type: "OWNED_BY", direction: OUT)
     fieldRefs: [Field!]! @relationship(type: "FIELD_TYPE", direction: IN)
   }
@@ -289,7 +289,7 @@ export const typeSchema = gql`
   type ActionType implements IBaseType @node(labels: ["Type", "ActionType"]) ${authOwnerOrAdmin} {
     id: ID!
     kind: TypeKind! @default(value: ActionType)
-    name: String! @unique
+    name: String! # @unique
     owner: User! @relationship(type: "OWNED_BY", direction: OUT)
     fieldRefs: [Field!]! @relationship(type: "FIELD_TYPE", direction: IN)
   }
