@@ -29,9 +29,26 @@ export class PinoLoggerService extends Logger implements ILoggerService {
    */
   override log(message: string, options?: LogOptions): void {
     const context = options?.context ?? ''
-    const includeDataForContext = this.config.context.includes(context)
 
-    if (includeDataForContext) {
+    // Check if context matches any disable patterns
+    const shouldDisableLog = this.config.disableLogForContext.some(
+      (pattern) => {
+        return new RegExp(pattern).test(context)
+      },
+    )
+
+    if (shouldDisableLog) {
+      return
+    }
+
+    // Check if context matches any enable data patterns
+    const shouldIncludeData = this.config.enableDataForContext.some(
+      (pattern) => {
+        return new RegExp(pattern).test(context)
+      },
+    )
+
+    if (shouldIncludeData) {
       return super.log(
         {
           data: options?.data,

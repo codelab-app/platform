@@ -3,6 +3,7 @@ import type { IDiscriminatedRef, IRef } from '@codelab/shared/abstract/core'
 import type { Static, TAnySchema } from '@sinclair/typebox'
 
 import {
+  levelMapping,
   loggerConfig,
   PinoLoggerService,
 } from '@codelab/backend/infra/adapter/logger'
@@ -21,7 +22,10 @@ export abstract class AbstractRepository<
 > implements IRepository<Dto, Model, Where, Options>
 {
   constructor(protected loggerService: PinoLoggerService) {
-    this.debug = loggerConfig().level === 'debug'
+    const level = levelMapping.values[loggerConfig().level]
+
+    // Only show with verbose
+    this.debug = level <= levelMapping.values['verbose']
   }
 
   /**
@@ -35,7 +39,7 @@ export abstract class AbstractRepository<
       },
       async () => {
         if (this.debug) {
-          this.loggerService.log('add()', {
+          this.loggerService.verbose('add()', {
             context: this.constructor.name,
             data: {
               data,
@@ -99,7 +103,7 @@ export abstract class AbstractRepository<
       },
       async () => {
         if (this.debug) {
-          this.loggerService.log('Checking if exists', {
+          this.loggerService.verbose('Checking if exists', {
             context: this.constructor.name,
             data: {
               where,
@@ -198,7 +202,7 @@ export abstract class AbstractRepository<
       },
       async () => {
         if (this.debug) {
-          this.loggerService.log('Finding one', {
+          this.loggerService.verbose('Finding one', {
             context: this.constructor.name,
             data: {
               where,
@@ -270,7 +274,7 @@ export abstract class AbstractRepository<
       },
       async () => {
         if (this.debug) {
-          this.loggerService.log('Saving data', {
+          this.loggerService.verbose('Saving data', {
             context: this.constructor.name,
             data: {
               data,
@@ -283,7 +287,7 @@ export abstract class AbstractRepository<
 
         if (await this.exists(computedWhere)) {
           if (this.debug) {
-            this.loggerService.log('Record exists, updating...', {
+            this.loggerService.verbose('Record exists, updating...', {
               context: this.constructor.name,
             })
           }
@@ -292,7 +296,7 @@ export abstract class AbstractRepository<
         }
 
         if (this.debug) {
-          this.loggerService.log('Record does not exist, adding...', {
+          this.loggerService.verbose('Record does not exist, adding...', {
             context: this.constructor.name,
           })
         }
@@ -320,7 +324,7 @@ export abstract class AbstractRepository<
       },
       async () => {
         if (this.debug) {
-          this.loggerService.log('Updating data', {
+          this.loggerService.verbose('Updating data', {
             context: this.constructor.name,
             data: {
               data,

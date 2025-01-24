@@ -3,7 +3,7 @@ import pretty from 'pino-pretty'
 
 const levelsLabels = pino.levels.labels
 
-export const pinoPrettyStream = pretty({
+export const prettyOptions = {
   colorize: true,
   // errorLikeObjectKeys: ['err', 'error'],
   /**
@@ -48,4 +48,6 @@ export const pinoPrettyStream = pretty({
   // },
   // singleLine: true,
   sync: true,
-})
+}
+
+export const pinoPrettyStream = pretty(prettyOptions)

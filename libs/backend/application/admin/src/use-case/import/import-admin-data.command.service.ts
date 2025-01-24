@@ -35,16 +35,18 @@ export class ImportAdminDataHandler
     /**
      * System types must be seeded first, so other types can reference it
      */
-    this.logger.log('importSystemTypes', { context: 'ImportAdminDataHandler' })
+    this.logger.debug('importSystemTypes', {
+      context: 'ImportAdminDataHandler',
+    })
     await this.importSystemTypes()
 
-    this.logger.log('importTags', { context: 'ImportAdminDataHandler' })
+    this.logger.debug('importTags', { context: 'ImportAdminDataHandler' })
     await this.importTags()
 
-    this.logger.log('importAtoms', { context: 'ImportAdminDataHandler' })
+    this.logger.debug('importAtoms', { context: 'ImportAdminDataHandler' })
     await this.importAtoms()
 
-    this.logger.log('importComponents', { context: 'ImportAdminDataHandler' })
+    this.logger.debug('importComponents', { context: 'ImportAdminDataHandler' })
     await this.importComponents()
   }
 
@@ -60,8 +62,18 @@ export class ImportAdminDataHandler
     /**
      * Create all atoms but omit `suggestedChildren`, since it requires all atoms to be added first
      */
-    for (const { api, atom } of this.readAdminDataService.atoms) {
+    for (const [
+      index,
+      { api, atom },
+    ] of this.readAdminDataService.atoms.entries()) {
       const atomWithoutSuggestedChildren = omit(atom, ['suggestedChildren'])
+
+      this.logger.debug(`Importing atom (${index + 1}/${atoms.length})`, {
+        context: 'ImportAdminDataHandler',
+        data: {
+          name: atom.name,
+        },
+      })
 
       await this.importAtom({
         api,
@@ -76,7 +88,7 @@ export class ImportAdminDataHandler
       ({ atom }) => atom.suggestedChildren?.length,
     )
 
-    for (const atom of atomsWithSuggestedChildren) {
+    for (const [index, atom] of atomsWithSuggestedChildren.entries()) {
       await this.importAtom(atom)
     }
   }

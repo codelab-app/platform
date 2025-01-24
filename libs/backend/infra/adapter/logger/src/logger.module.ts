@@ -8,7 +8,7 @@ import { omit } from 'remeda'
 import { loggerConfig } from './logger.config'
 import { NestjsLoggerService } from './nestjs.logger.service'
 import { PinoLoggerService } from './pino/pino.logger.service'
-import { pinoPrettyStream } from './pino/pino-transport'
+import { pinoPrettyStream, prettyOptions } from './pino/pino-transport'
 
 @Global()
 @Module({
@@ -61,11 +61,15 @@ import { pinoPrettyStream } from './pino/pino-transport'
               // },
             },
             /**
-             * https://stackoverflow.com/a/74100511/2159920
-             *
-             * Enable synchronous logging
+             * Enable synchronous logging by using a direct transport
+             * and setting sync: true in the stream configuration
              */
             stream: pinoPrettyStream,
+            // Force synchronous logging at the transport level
+            transport: {
+              options: prettyOptions,
+              target: 'pino-pretty',
+            },
           },
         }
       },
