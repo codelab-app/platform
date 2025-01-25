@@ -5,7 +5,7 @@ import type {
   SearchParamsProps,
 } from '@codelab/frontend/abstract/types'
 
-import { type ReadonlyURLSearchParams, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { pipe } from 'remeda'
 
 /**

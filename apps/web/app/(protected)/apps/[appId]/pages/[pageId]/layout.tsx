@@ -48,9 +48,7 @@ const Layout = async ({
       tagsDto={dto.tags}
       typesDto={dto.types}
     >
-      <LayoutClient dto={dto} pageId={pageId}>
-        {children}
-      </LayoutClient>
+      <LayoutClient pageId={pageId}>{children}</LayoutClient>
     </DomainStoreHydrator>
   )
 }
