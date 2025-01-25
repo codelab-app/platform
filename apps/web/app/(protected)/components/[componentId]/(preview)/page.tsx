@@ -16,36 +16,29 @@ export const metadata: Metadata = {
 
 const ComponentPreviewPage = async ({
   params: { componentId },
-  searchParams,
 }: {
   params: {
     componentId: string
   }
-  searchParams: SearchParamsPageProps
 }) => {
   const dto = await componentBuilderQuery({ componentId })
 
   return (
-    <ApplicationStoreHydrator
+    <DomainStoreHydrator
+      actionsDto={dto.actions}
+      atomsDto={dto.atoms}
+      componentsDto={dto.components}
+      elementsDto={dto.elements}
       fallback={<Spinner />}
-      searchParams={searchParams}
+      fieldsDto={dto.fields}
+      propsDto={dto.props}
+      resourcesDto={dto.resources}
+      storesDto={dto.stores}
+      tagsDto={dto.tags}
+      typesDto={dto.types}
     >
-      <DomainStoreHydrator
-        actionsDto={dto.actions}
-        atomsDto={dto.atoms}
-        componentsDto={dto.components}
-        elementsDto={dto.elements}
-        fallback={<Spinner />}
-        fieldsDto={dto.fields}
-        propsDto={dto.props}
-        resourcesDto={dto.resources}
-        storesDto={dto.stores}
-        tagsDto={dto.tags}
-        typesDto={dto.types}
-      >
-        <ComponentPreviewBuilderConnector componentId={componentId} />
-      </DomainStoreHydrator>
-    </ApplicationStoreHydrator>
+      <ComponentPreviewBuilderConnector componentId={componentId} />
+    </DomainStoreHydrator>
   )
 }
 

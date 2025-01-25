@@ -19,25 +19,17 @@ import { useSearchParams } from 'next/navigation'
  */
 export const LayoutClient = ({
   children,
-  dto,
   pageId,
 }: {
   children: ReactNode
   pageId: string
-  dto: IAppBuilderDto
 }) => {
-  const searchParams = useSearchParamsProps()
   const { pageDomainService } = useDomainStore()
   const page = pageDomainService.page(pageId)
 
   return (
-    <ApplicationStoreHydrator
-      fallback={<Spinner />}
-      searchParams={searchParams}
-    >
-      <BuilderProvider containerNode={page} rendererType={RendererType.Preview}>
-        {children}
-      </BuilderProvider>
-    </ApplicationStoreHydrator>
+    <BuilderProvider containerNode={page} rendererType={RendererType.Preview}>
+      {children}
+    </BuilderProvider>
   )
 }
