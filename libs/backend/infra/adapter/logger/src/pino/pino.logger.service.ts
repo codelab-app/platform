@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/member-ordering */
 import type { ObjectLike } from '@codelab/shared/abstract/types'
 import type { ILoggerService, LogOptions } from '@codelab/shared/infra/logging'
 import type { ConfigType } from '@nestjs/config'
 
-import { Inject, Injectable } from '@nestjs/common'
+import { Inject, Injectable, LogLevel } from '@nestjs/common'
 import { Logger, Params, PARAMS_PROVIDER_TOKEN, PinoLogger } from 'nestjs-pino'
 import pino from 'pino'
 
@@ -21,63 +22,112 @@ export class PinoLoggerService extends Logger implements ILoggerService {
     })
   }
 
-  async debugWithTiming(
+  private async executeWithTiming<T>(
     message: string,
-    fn: () => Promise<void>,
+    fn: () => Promise<T>,
     options?: LogOptions,
-  ) {
+    logMethod: LogLevel = 'debug',
+  ): Promise<T> {
     const startTime = Date.now()
-
-    await fn()
-
+    const result = await fn()
     const durationSecs = ((Date.now() - startTime) / 1000).toFixed(2)
 
-    this.debug(message, {
+    this[logMethod](message, {
       ...options,
       data: { ...options?.data, durationSecs },
     })
+
+    return result
+  }
+
+  async debugWithTiming<T>(
+    message: string,
+    fn: () => Promise<T>,
+    options?: LogOptions,
+  ): Promise<T> {
+    return this.executeWithTiming(message, fn, options, 'debug')
+  }
+
+  async verboseWithTiming<T>(
+    message: string,
+    fn: () => Promise<T>,
+    options?: LogOptions,
+  ): Promise<T> {
+    return this.executeWithTiming(message, fn, options, 'verbose')
   }
 
   /**
-   * We create a 2 parameter log function, but extract the context as last parameter, while combining the data with first parameter
+   * Return true by default unless we have a contextFilter with matching level,
+   * in which case we check the pattern
    */
-  override log(message: string, options?: LogOptions): void {
+  private enableLog(level: LogLevel, options?: LogOptions) {
     const context = options?.context ?? ''
 
-    // Check if context matches any disable patterns
-    const shouldDisableLog = this.config.disableLogForContext.some(
-      (pattern) => {
-        return new RegExp(pattern).test(context)
-      },
+    // Find filters that match the current level
+    const matchingLevelFilters = this.config.contextFilter.filter(
+      (filter) => level === filter.level,
     )
 
-    if (shouldDisableLog) {
+    // If no filters match the level, enable logging by default
+    if (matchingLevelFilters.length === 0) {
+      return true
+    }
+
+    // If we have matching level filters, check if any pattern matches
+    return matchingLevelFilters.some((filter) =>
+      new RegExp(filter.pattern).test(context),
+    )
+  }
+
+  private shouldIncludeData(options?: LogOptions) {
+    const context = options?.context ?? ''
+
+    // Check if context matches any enable data patterns
+    return this.config.enableDataForContext.some((pattern) => {
+      return new RegExp(pattern).test(context)
+    })
+  }
+
+  private logWithOptions(
+    level: LogLevel,
+    logFn: (message: string, options?: LogOptions) => void,
+    message: string,
+    options?: LogOptions,
+  ): void {
+    const context = options?.context ?? ''
+
+    if (!this.enableLog(level, options)) {
       return
     }
 
-    // Check if context matches any enable data patterns
-    const shouldIncludeData = this.config.enableDataForContext.some(
-      (pattern) => {
-        return new RegExp(pattern).test(context)
-      },
-    )
-
-    if (shouldIncludeData) {
-      return super.log(
-        {
-          data: options?.data,
-          message,
-        },
-        context,
-      )
-    }
-
-    super.log(
-      {
-        message,
-      },
+    return logFn.call(this, message, {
       context,
-    )
+      data: options?.data,
+    })
+  }
+
+  override log(message: string, options?: LogOptions): void {
+    this.logWithOptions('log', super.log, message, options)
+  }
+
+  override debug(message: string, options?: LogOptions): void {
+    this.logWithOptions('debug', super.debug, message, options)
+  }
+
+  override verbose(message: string, options?: LogOptions): void {
+    this.logWithOptions('verbose', super.verbose, message, options)
+  }
+
+  override warn(message: string, options?: LogOptions): void {
+    this.logWithOptions('warn', super.warn, message, options)
+  }
+
+  override error(message: string, options?: LogOptions): void {
+    this.logWithOptions('error', super.error, message, options)
+  }
+
+  override fatal(message: string, options?: LogOptions): void {
+    this.logWithOptions('fatal', super.fatal, message, options)
   }
 
   public logToFile(

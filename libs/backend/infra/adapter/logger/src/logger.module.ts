@@ -5,7 +5,7 @@ import { ConfigModule } from '@nestjs/config'
 import { LoggerModule } from 'nestjs-pino'
 import { omit } from 'remeda'
 
-import { loggerConfig } from './logger.config'
+import { levelMapping, loggerConfig } from './logger.config'
 import { NestjsLoggerService } from './nestjs.logger.service'
 import { PinoLoggerService } from './pino/pino.logger.service'
 import { pinoPrettyStream, prettyOptions } from './pino/pino-transport'
@@ -23,6 +23,11 @@ import { pinoPrettyStream, prettyOptions } from './pino/pino-transport'
           pinoHttp: {
             // Disable HTTP requests logging
             autoLogging: false,
+            customLevels: levelMapping.values,
+            // customLogLevel: (req, res, err) => {
+            //   // Return default level if no specific conditions are met
+            //   return 'verbose'
+            // },
             // Turn off using `API_LOG_LEVEL`
             enabled: true,
             // Doesn't prefix in front of date

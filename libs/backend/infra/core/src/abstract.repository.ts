@@ -22,10 +22,7 @@ export abstract class AbstractRepository<
 > implements IRepository<Dto, Model, Where, Options>
 {
   constructor(protected loggerService: PinoLoggerService) {
-    const level = levelMapping.values[loggerConfig().level]
-
-    // Only show with verbose
-    this.debug = level <= levelMapping.values['verbose']
+    // Remove debug flag initialization
   }
 
   /**
@@ -38,24 +35,28 @@ export abstract class AbstractRepository<
         op: 'repository.add',
       },
       async () => {
-        if (this.debug) {
-          this.loggerService.verbose('add()', {
-            context: this.constructor.name,
-            data: {
-              data,
-            },
-          })
-        }
-
         try {
-          const results = await this._addMany([data])
-          const result = results[0]
+          const addItem = async () => {
+            const results = await this._addMany([data])
+            const result = results[0]
 
-          if (!result) {
-            throw new Error('Add failed')
+            if (!result) {
+              throw new Error('Add failed')
+            }
+
+            return result
           }
 
-          return result
+          return await this.loggerService.verboseWithTiming(
+            'Adding item',
+            addItem,
+            {
+              context: this.constructor.name,
+              data: {
+                data,
+              },
+            },
+          )
         } catch (error) {
           this.loggerService.error('Failed to add item', {
             context: this.constructor.name,
@@ -102,14 +103,12 @@ export abstract class AbstractRepository<
         op: 'repository.exists',
       },
       async () => {
-        if (this.debug) {
-          this.loggerService.verbose('Checking if exists', {
-            context: this.constructor.name,
-            data: {
-              where,
-            },
-          })
-        }
+        this.loggerService.verbose('Checking if exists', {
+          context: this.constructor.name,
+          data: {
+            where,
+          },
+        })
 
         const results = await this.findOne({ where })
         const exists = Boolean(results)
@@ -201,14 +200,12 @@ export abstract class AbstractRepository<
         op: 'repository.findOne',
       },
       async () => {
-        if (this.debug) {
-          this.loggerService.verbose('Finding one', {
-            context: this.constructor.name,
-            data: {
-              where,
-            },
-          })
-        }
+        this.loggerService.verbose('Finding one', {
+          context: this.constructor.name,
+          data: {
+            where,
+          },
+        })
 
         const results = schema
           ? (await this.find({ schema, where }))[0]
@@ -273,37 +270,47 @@ export abstract class AbstractRepository<
         op: 'repository.save',
       },
       async () => {
-        if (this.debug) {
-          this.loggerService.verbose('Saving data', {
+        try {
+          const saveItem = async () => {
+            const computedWhere = this.getWhere(data, where)
+
+            if (await this.exists(computedWhere)) {
+              this.loggerService.verbose('Record exists, updating...', {
+                context: this.constructor.name,
+              })
+
+              return await this.update(data, computedWhere)
+            }
+
+            this.loggerService.verbose('Record does not exist, adding...', {
+              context: this.constructor.name,
+            })
+
+            return await this.add(data)
+          }
+
+          return await this.loggerService.verboseWithTiming(
+            'Saving item',
+            saveItem,
+            {
+              context: this.constructor.name,
+              data: {
+                data,
+                where,
+              },
+            },
+          )
+        } catch (error) {
+          this.loggerService.error('Failed to save item', {
             context: this.constructor.name,
             data: {
               data,
+              error,
               where,
             },
           })
+          throw error
         }
-
-        const computedWhere = this.getWhere(data, where)
-
-        if (await this.exists(computedWhere)) {
-          if (this.debug) {
-            this.loggerService.verbose('Record exists, updating...', {
-              context: this.constructor.name,
-            })
-          }
-
-          return await this.update(data, computedWhere)
-        }
-
-        if (this.debug) {
-          this.loggerService.verbose('Record does not exist, adding...', {
-            context: this.constructor.name,
-          })
-        }
-
-        const results = await this.add(data)
-
-        return results
       },
     )
   }
@@ -323,15 +330,13 @@ export abstract class AbstractRepository<
         op: 'repository.update',
       },
       async () => {
-        if (this.debug) {
-          this.loggerService.verbose('Updating data', {
-            context: this.constructor.name,
-            data: {
-              data,
-              where,
-            },
-          })
-        }
+        this.loggerService.verbose('Updating data', {
+          context: this.constructor.name,
+          data: {
+            data,
+            where,
+          },
+        })
 
         const computedWhere = this.getWhere(data, where)
         const existing = await this.findOne({ where: computedWhere })
@@ -379,8 +384,6 @@ export abstract class AbstractRepository<
     where?: Where,
     existing?: Model,
   ): Promise<IDiscriminatedRef<INodeType> | undefined>
-
-  private debug: boolean
 
   /**
    * Specifying a `where` clause overrides the  id

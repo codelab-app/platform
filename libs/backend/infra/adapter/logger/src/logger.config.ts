@@ -1,3 +1,4 @@
+import type { LogLevel } from '@nestjs/common'
 import type { LevelMapping } from 'pino'
 
 import { registerAs } from '@nestjs/config'
@@ -24,6 +25,11 @@ export const levelMapping = {
   },
 } as const
 
+export interface ContextFilterConfig {
+  level: LogLevel
+  pattern: string
+}
+
 export const loggerConfig = registerAs('LOGGER_CONFIG', () => {
   return {
     get level() {
@@ -38,13 +44,25 @@ export const loggerConfig = registerAs('LOGGER_CONFIG', () => {
     get sentryDsn() {
       return env.get('SENTRY_DSN').required().asString()
     },
-    get disableLogForContext() {
+    get contextFilter() {
       return env
-        .get('API_LOG_DISABLE_LOG_FOR_CONTEXT')
+        .get('API_LOG_CONTEXT_FILTER')
         .default('')
         .asString()
         .split(',')
         .filter(Boolean)
+        .map((filter): ContextFilterConfig => {
+          const [level, pattern] = filter.split(':')
+
+          if (!level || !pattern || !(level in levelMapping.values)) {
+            throw new Error(`Invalid context filter format: ${filter}`)
+          }
+
+          return {
+            level: level as LogLevel,
+            pattern,
+          }
+        })
     },
     get enableDataForContext() {
       return env
