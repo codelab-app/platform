@@ -8,7 +8,7 @@ import type {
 
 import SearchOutlined from '@ant-design/icons/SearchOutlined'
 import { UiKey } from '@codelab/frontend/abstract/types'
-import { useUpdateSearchParams } from '@codelab/frontend/shared/utils'
+import { useUpdateSearchParams } from '@codelab/frontend-application-shared-store/router'
 import { Pagination } from 'antd'
 import { useCallback, useState } from 'react'
 
@@ -31,8 +31,8 @@ export const useToolbarPagination = <T extends SupportedPaginationModel>(
       updateParams((params) => params.set('page', page.toString()))
       updateParams((params) => params.set('pageSize', pageSize.toString()))
 
-      routerService.setQueryParams({
-        ...routerService.queryParams,
+      routerService.setSearchParams({
+        ...routerService.searchParams,
         page,
         pageSize,
       })

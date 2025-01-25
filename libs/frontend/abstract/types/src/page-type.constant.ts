@@ -7,9 +7,9 @@ import type { IRef } from '@codelab/shared/abstract/core'
 
 import type {
   PageContextParams,
+  SearchParamsContext,
   UrlPathParams,
-  UrlQueryParams,
-} from './url-params'
+} from './router'
 
 /**
  * The values are the path
@@ -41,7 +41,7 @@ export const PageType = {
   AtomFieldUpdate: ({ id }: IRef) => `${PageType.Atoms()}/update/field/${id}`,
   Atoms: () => '/atoms',
   AtomTypeList: () => '/atom-types',
-  AtomUpdate: ({ id }: IRef, queryParams?: Partial<UrlQueryParams>) => {
+  AtomUpdate: ({ id }: IRef, queryParams?: Partial<SearchParamsContext>) => {
     // return queryString.stringifyUrl({
     //   query: queryParams,
     //   url: `${PageType.Atoms()}/update/${id}`,

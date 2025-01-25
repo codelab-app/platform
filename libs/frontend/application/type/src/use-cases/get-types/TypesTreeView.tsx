@@ -50,8 +50,8 @@ export const TypesTreeView = observer(
         <CuiTree<ITreeNode<ITypeTreeNodeData>>
           isLoading={isLoading}
           onSearchKeywordChange={(keyword) => {
-            routerService.setQueryParams({
-              ...routerService.queryParams,
+            routerService.setSearchParams({
+              ...routerService.searchParams,
               search: keyword,
             })
           }}

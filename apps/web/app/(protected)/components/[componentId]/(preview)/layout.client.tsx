@@ -4,6 +4,7 @@ import type { ReactNode } from 'react'
 
 import { RendererType } from '@codelab/frontend/abstract/application'
 import { BuilderProvider } from '@codelab/frontend/presentation/container'
+import { useSearchParamsProps } from '@codelab/frontend-application-shared-store/router'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { useSearchParams } from 'next/navigation'
 
@@ -14,7 +15,6 @@ export const LayoutClient = ({
   children: ReactNode
   componentId: string
 }) => {
-  const searchParams = useSearchParams()
   const { componentDomainService } = useDomainStore()
   const component = componentDomainService.component(componentId)
 
@@ -22,7 +22,6 @@ export const LayoutClient = ({
     <BuilderProvider
       containerNode={component}
       rendererType={RendererType.Preview}
-      searchParams={searchParams}
     >
       {children}
     </BuilderProvider>

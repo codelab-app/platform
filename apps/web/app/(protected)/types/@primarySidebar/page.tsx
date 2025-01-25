@@ -1,4 +1,4 @@
-import type { URLSeachParamPageProps } from '@codelab/frontend/abstract/types'
+import type { SearchParamsPageProps } from '@codelab/frontend/abstract/types'
 
 import { ApplicationStoreHydrator } from '@codelab/frontend/infra/context'
 import { TypesPrimarySidebar } from '@codelab/frontend-application-type/views'
@@ -7,10 +7,13 @@ import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 const TypesPrimarySidebarPage = async ({
   searchParams,
 }: {
-  searchParams: URLSeachParamPageProps
+  searchParams: SearchParamsPageProps
 }) => {
   return (
-    <ApplicationStoreHydrator fallback={<Spinner />} queryParams={searchParams}>
+    <ApplicationStoreHydrator
+      fallback={<Spinner />}
+      searchParams={searchParams}
+    >
       <TypesPrimarySidebar />
     </ApplicationStoreHydrator>
   )

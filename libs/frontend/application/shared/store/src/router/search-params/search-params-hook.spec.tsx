@@ -29,8 +29,8 @@ describe('useUrlQueryParams', () => {
       ),
     }))
 
-    const { useUrlQueryParams } = await import('./useUrlQueryParams.hook')
-    const { result } = renderHook(() => useUrlQueryParams())
+    const { useSearchParamsProps } = await import('./search-params')
+    const { result } = renderHook(() => useSearchParamsProps())
 
     expect(result.current.filter).toStrictEqual(['tag1', 'tag2'])
     expect(result.current.page).toBe(2)
@@ -46,8 +46,8 @@ describe('useUrlQueryParams', () => {
         .mockImplementation(() => new URLSearchParams({})),
     }))
 
-    const { useUrlQueryParams } = await import('./useUrlQueryParams.hook')
-    const { result } = renderHook(() => useUrlQueryParams())
+    const { useSearchParamsProps } = await import('./search-params')
+    const { result } = renderHook(() => useSearchParamsProps())
 
     expect(result.current.filter).toStrictEqual([])
     expect(() => result.current.page).toThrow()

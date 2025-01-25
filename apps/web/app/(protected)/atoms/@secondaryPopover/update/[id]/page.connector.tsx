@@ -1,8 +1,8 @@
 'use client'
 
 import type {
+  SearchParamsPageProps,
   SubmitController,
-  URLSeachParamPageProps,
 } from '@codelab/frontend/abstract/types'
 import type { IAtomDto, ITagDto } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
@@ -25,7 +25,7 @@ import { useRef } from 'react'
 interface UpdateAtomContainerProps {
   atomsDto: Array<IAtomDto>
   id: string
-  searchParams: URLSeachParamPageProps
+  searchParams: SearchParamsPageProps
   tagsDto: Array<ITagDto>
 }
 
@@ -69,7 +69,7 @@ const UpdateAtomConnector = observer<UpdateAtomContainerProps>(
       >
         <ApplicationStoreHydrator
           fallback={<Spinner />}
-          queryParams={searchParams}
+          searchParams={searchParams}
         >
           <DomainStoreHydrator
             atomsDto={atomsDto}

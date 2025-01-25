@@ -12,7 +12,7 @@ import {
   CuiTreeItem,
   CuiTreeItemToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { searchParamsAsObject } from '@codelab/frontend/shared/utils'
+import { searchParamsAsObject } from '@codelab/frontend-application-shared-store/router'
 import { useRouter } from 'next/navigation'
 
 import { useAtomService } from '../../services'

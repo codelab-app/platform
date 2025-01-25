@@ -14,7 +14,6 @@ export const LayoutClient = ({
   children: ReactNode
   componentId: string
 }) => {
-  const searchParams = useSearchParams()
   const { componentDomainService } = useDomainStore()
   const component = componentDomainService.component(componentId)
 
@@ -22,7 +21,6 @@ export const LayoutClient = ({
     <BuilderProvider
       containerNode={component}
       rendererType={RendererType.ComponentBuilder}
-      searchParams={searchParams}
     >
       {children}
     </BuilderProvider>

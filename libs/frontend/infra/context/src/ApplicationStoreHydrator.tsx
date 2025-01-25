@@ -1,16 +1,18 @@
 'use client'
 
 import type {
+  SearchParamsPageProps,
+  SearchParamsProps,
   UrlPathParams,
-  URLSeachParamPageProps,
 } from '@codelab/frontend/abstract/types'
+import type { ReadonlyURLSearchParams } from 'next/navigation'
 
-import { parseQueryParamPageProps } from '@codelab/frontend-application-shared-store/router'
+import { parseSearchParamsPageProps } from '@codelab/frontend-application-shared-store/router'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import { type ReactNode, useState } from 'react'
 import { useCustomCompareEffect } from 'react-use'
-import { isDeepEqual } from 'remeda'
+import { isDeepEqual, pipe } from 'remeda'
 
 interface ApplicationStoreHydratorProps {
   children: ReactNode
@@ -25,7 +27,7 @@ interface ApplicationStoreHydratorProps {
    */
   fallback?: ReactNode
   pathParams?: UrlPathParams
-  queryParams?: URLSeachParamPageProps
+  searchParams?: SearchParamsPageProps
 }
 
 export const ApplicationStoreHydrator = observer(
@@ -33,16 +35,19 @@ export const ApplicationStoreHydrator = observer(
     children,
     fallback,
     pathParams,
-    queryParams,
+    searchParams,
   }: ApplicationStoreHydratorProps) => {
     const { routerService } = useApplicationStore()
     const [isHydrated, setIsHydrated] = useState(false)
 
     useCustomCompareEffect(
       () => {
-        if (queryParams) {
-          console.log(parseQueryParamPageProps(queryParams))
-          routerService.setQueryParams(parseQueryParamPageProps(queryParams))
+        if (searchParams) {
+          console.log('searchParams', searchParams)
+
+          const params = parseSearchParamsPageProps(searchParams)
+
+          routerService.setSearchParams(params)
         }
 
         if (pathParams) {
@@ -51,7 +56,7 @@ export const ApplicationStoreHydrator = observer(
 
         setIsHydrated(true)
       },
-      [pathParams, queryParams],
+      [pathParams, searchParams],
       isDeepEqual,
     )
 

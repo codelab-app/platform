@@ -1,10 +1,17 @@
 'use client'
 
+import type {
+  SearchParamsPageProps,
+  SearchParamsProps,
+} from '@codelab/frontend/abstract/types'
+
 import { useSearchParams } from 'next/navigation'
 
+import { useSearchParamsProps } from './search-params'
+
 export const useUpdateSearchParams = () => {
-  const searchParams = useSearchParams()
-  const params = new URLSearchParams(searchParams.toString())
+  // eslint-disable-next-line ban/ban
+  const params = useSearchParams()
 
   const updateParams = (
     setParams: (params: URLSearchParams) => void,

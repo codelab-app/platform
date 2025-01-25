@@ -1,4 +1,4 @@
-import type { URLSeachParamPageProps } from '@codelab/frontend/abstract/types'
+import type { SearchParamsPageProps } from '@codelab/frontend/abstract/types'
 
 import { ApplicationStoreHydrator } from '@codelab/frontend/infra/context'
 import { AtomsPrimarySidebar } from '@codelab/frontend-application-atom/views'
@@ -8,12 +8,15 @@ import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 const Page = async ({
   searchParams,
 }: {
-  searchParams: URLSeachParamPageProps
+  searchParams: SearchParamsPageProps
 }) => {
   // const { items } = await atomRepository.find({})
 
   return (
-    <ApplicationStoreHydrator fallback={<Spinner />} queryParams={searchParams}>
+    <ApplicationStoreHydrator
+      fallback={<Spinner />}
+      searchParams={searchParams}
+    >
       <AtomsPrimarySidebar />
     </ApplicationStoreHydrator>
   )

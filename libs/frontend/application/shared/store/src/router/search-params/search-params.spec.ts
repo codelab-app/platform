@@ -1,7 +1,10 @@
 import queryString from 'query-string'
 import { pipe } from 'remeda'
 
-import { parseQueryParamPageProps, parseQueryParams } from './query-params'
+import {
+  parseSearchParamsPageProps,
+  parseUrlSearchParams,
+} from './search-params'
 
 describe('Query params', () => {
   describe('can parse valid values', () => {
@@ -20,7 +23,7 @@ describe('Query params', () => {
 
     it('can parse search params from a hook', () => {
       const { filter, page, pageSize, primarySidebarKey, search } =
-        parseQueryParams(searchParams)
+        parseUrlSearchParams(searchParams)
 
       expect(filter).toStrictEqual(['tag1', 'tag2'])
       expect(page).toBe('2')
@@ -32,8 +35,8 @@ describe('Query params', () => {
     it('parses query param from page props', () => {
       const result = pipe(
         searchParams,
-        parseQueryParams,
-        parseQueryParamPageProps,
+        parseUrlSearchParams,
+        parseSearchParamsPageProps,
       )
 
       expect(result.filter).toStrictEqual(['tag1', 'tag2'])
@@ -54,7 +57,7 @@ describe('Query params', () => {
       })
 
       const singleFilterSearchParams = new URLSearchParams(singleFilterUrl)
-      const { filter } = parseQueryParams(singleFilterSearchParams)
+      const { filter } = parseUrlSearchParams(singleFilterSearchParams)
 
       expect(filter).toStrictEqual(['tag'])
     })
@@ -69,7 +72,7 @@ describe('Query params', () => {
     const partialSearchParams = new URLSearchParams(partialUrl)
 
     it('parses missing values as undefined', () => {
-      const queryParams = parseQueryParams(partialSearchParams)
+      const queryParams = parseUrlSearchParams(partialSearchParams)
 
       expect(queryParams.filter).toStrictEqual([])
       expect(queryParams.page).toBeUndefined()
