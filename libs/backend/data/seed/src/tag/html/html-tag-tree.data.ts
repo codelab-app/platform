@@ -38,7 +38,6 @@ export const htmlTagTree: TagNode<IHtmlCategoryTag | keyof IHtmlAtomRecords> = {
     IAtomType.HtmlOption,
     IAtomType.HtmlP,
     IAtomType.HtmlPre,
-    IAtomType.HtmlParam,
     IAtomType.HtmlBlockquote,
     IAtomType.HtmlSource,
     IAtomType.HtmlTable,

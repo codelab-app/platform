@@ -5531,7 +5531,6 @@ enum AtomType {
   HtmlOption
   HtmlOutput
   HtmlP
-  HtmlParam
   HtmlPicture
   HtmlPre
   HtmlProgress

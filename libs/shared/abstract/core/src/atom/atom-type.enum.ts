@@ -174,7 +174,6 @@ export enum __AtomType {
   HtmlOption = 'HtmlOption',
   HtmlOutput = 'HtmlOutput',
   HtmlP = 'HtmlP',
-  HtmlParam = 'HtmlParam',
   HtmlPicture = 'HtmlPicture',
   HtmlPre = 'HtmlPre',
   HtmlProgress = 'HtmlProgress',

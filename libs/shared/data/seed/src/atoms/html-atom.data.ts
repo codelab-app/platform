@@ -308,11 +308,6 @@ export const htmlAtomData: IHtmlAtomRecords = {
     icon: null,
     tag: IAtomType.HtmlP,
   },
-  [IAtomType.HtmlParam]: {
-    file: null,
-    icon: null,
-    tag: IAtomType.HtmlParam,
-  },
   [IAtomType.HtmlPicture]: {
     file: null,
     icon: null,
