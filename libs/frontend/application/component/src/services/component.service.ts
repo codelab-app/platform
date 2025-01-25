@@ -14,7 +14,7 @@ import {
   rendererRef,
   RendererType,
 } from '@codelab/frontend/abstract/application'
-import { useHydrateStore } from '@codelab/frontend/infra/context'
+import { useDomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { syncModifiedElements } from '@codelab/frontend-application-element/use-cases/delete-element'
 import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
@@ -46,7 +46,7 @@ export const useComponentService = (): IComponentService => {
     userDomainService,
   } = useDomainStore()
 
-  const hydrate = useHydrateStore()
+  const hydrate = useDomainStoreHydrator()
   const elementService = useElementService()
   const owner = userDomainService.user
 

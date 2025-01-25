@@ -14,7 +14,7 @@ import {
   type IUpdateAtomData,
 } from '@codelab/frontend/abstract/domain'
 import { PageType } from '@codelab/frontend/abstract/types'
-import { useHydrateStore } from '@codelab/frontend/infra/context'
+import { useDomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
@@ -48,7 +48,7 @@ export const useAtomService = (): IAtomService => {
   const user = userDomainService.user
   const owner = { id: user.id }
   const typeService = useTypeService()
-  const hydrate = useHydrateStore()
+  const hydrate = useDomainStoreHydrator()
 
   const getDataFn: GetDataFn<IAtomModel> = async (
     page,

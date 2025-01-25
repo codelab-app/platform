@@ -5,11 +5,16 @@ import type {
   SearchParamsProps,
 } from '@codelab/frontend/abstract/types'
 
-import { useSearchParams } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 import { useSearchParamsProps } from './search-params'
 
+/**
+ * This updates the Next.js url bar, and adds to history
+ */
 export const useUpdateSearchParams = () => {
+  const router = useRouter()
+  const pathname = usePathname()
   // eslint-disable-next-line ban/ban
   const params = useSearchParams()
 
@@ -17,13 +22,14 @@ export const useUpdateSearchParams = () => {
     setParams: (params: URLSearchParams) => void,
     baseUrl?: string,
   ) => {
-    setParams(params)
+    const newParams = new URLSearchParams(params)
 
-    const url = baseUrl
-      ? `${baseUrl}?${params.toString()}`
-      : `?${params.toString()}`
+    setParams(newParams)
 
-    window.history.pushState(null, '', url)
+    // Use the provided baseUrl or current pathname
+    const url = baseUrl || pathname
+
+    router.push(`${url}?${newParams.toString()}`)
   }
 
   return {

@@ -43,8 +43,6 @@ export const ApplicationStoreHydrator = observer(
     useCustomCompareEffect(
       () => {
         if (searchParams) {
-          console.log('searchParams', searchParams)
-
           const params = parseSearchParamsPageProps(searchParams)
 
           routerService.setSearchParams(params)

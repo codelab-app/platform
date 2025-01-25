@@ -7,6 +7,7 @@ import { RendererType } from '@codelab/frontend/abstract/application'
 import {
   ApplicationStoreHydrator,
   DomainStoreHydrator,
+  useApplicationStoreHydrator,
 } from '@codelab/frontend/infra/context'
 import { BuilderProvider } from '@codelab/frontend/presentation/container'
 import { useSearchParamsProps } from '@codelab/frontend-application-shared-store/router'
@@ -15,29 +16,13 @@ import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { useSearchParams } from 'next/navigation'
 
 /**
- * Client layout used for hydration and setting provider context
+ * Hydrate router state at top level layout, make it non-blocking and do conditional check at pages that use the router.
  */
-export const LayoutClient = ({
-  children,
-  dto,
-  pageId,
-}: {
-  children: ReactNode
-  pageId: string
-  dto: IAppBuilderDto
-}) => {
+export const LayoutClient = ({ children }: { children: ReactNode }) => {
   const searchParams = useSearchParamsProps()
-  const { pageDomainService } = useDomainStore()
-  const page = pageDomainService.page(pageId)
+  const hydrate = useApplicationStoreHydrator()
 
-  return (
-    <ApplicationStoreHydrator
-      fallback={<Spinner />}
-      searchParams={searchParams}
-    >
-      <BuilderProvider containerNode={page} rendererType={RendererType.Preview}>
-        {children}
-      </BuilderProvider>
-    </ApplicationStoreHydrator>
-  )
+  hydrate({ searchParams })
+
+  return <>{children}</>
 }

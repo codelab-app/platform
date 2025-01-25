@@ -8,7 +8,7 @@ import { useState } from 'react'
 import { useCustomCompareEffect } from 'react-use'
 import { isDeepEqual } from 'remeda'
 
-import { useHydrateStore } from './useStoreHydrator.hook'
+import { useDomainStoreHydrator } from './useDomainStoreHydrator.hook'
 
 type DomainStoreHydratorProps = IDomainStoreDto & {
   children: ReactNode
@@ -26,7 +26,7 @@ type DomainStoreHydratorProps = IDomainStoreDto & {
  */
 export const DomainStoreHydrator = observer<DomainStoreHydratorProps>(
   ({ children, fallback, ...data }) => {
-    const hydrate = useHydrateStore()
+    const hydrate = useDomainStoreHydrator()
     const [isHydrated, setIsHydrated] = useState(false)
 
     useCustomCompareEffect(
