@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'
 
 export const propSchema = gql`
-  type Prop {
-    id: ID! @unique @settable(onUpdate: false)
+  type Prop @node {
+    id: ID! @settable(onUpdate: false) #@unique
     data: String!
   }
 `

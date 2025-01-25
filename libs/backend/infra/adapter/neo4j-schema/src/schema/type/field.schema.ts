@@ -2,7 +2,7 @@ import { gql } from '@apollo/client'
 
 export const fieldSchema = gql`
   type Field {
-    id: ID! @unique @settable(onUpdate: false)
+    id: ID! @settable(onUpdate: false) #@unique
     key: String!
     name: String
     nextSibling: Field @relationship(type: "FIELD_NEXT_SIBLING", direction: IN)

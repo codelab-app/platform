@@ -14,10 +14,10 @@ const allowFullAccessForPageOwner = `
 export const pageSchema = gql`
   ${pageKindSchema}
 
-  type Page {
-    id: ID! @unique @settable(onUpdate: false)
+  type Page @node {
+    id: ID! @settable(onUpdate: false) #@unique
     # appId-name format to make it unique across apps
-    compositeKey: String! @unique
+    compositeKey: String! #@unique
     name: String! @customResolver(requires: "app { id } compositeKey")
     slug: String! @customResolver(requires: "app { id } compositeKey")
     # The root of the elementTree

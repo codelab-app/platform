@@ -5,6 +5,7 @@ import type {
   IElementRenderTypeDto,
   IInterfaceTypeDto,
   IPropDto,
+  IRef,
   IStoreDto,
 } from '@codelab/shared/abstract/core'
 

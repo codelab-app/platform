@@ -62,11 +62,11 @@ export const userSchema = gql`
     owner: User! @declareRelationship
   }
 
-  type User {
-    id: ID! @unique @settable(onUpdate: false)
-    auth0Id: String! @unique
-    email: String! @unique
-    username: String! @unique
+  type User @node {
+    id: ID!  @settable(onUpdate: false) #@unique
+    auth0Id: String!  #@unique
+    email: String! #@unique
+    username: String! #@unique
     types: [IBaseType!]! @relationship(type: "OWNED_BY", direction: IN)
     apps: [App!]! @relationship(type: "OWNED_BY", direction: IN)
     elements: [Element!]! @relationship(type: "OWNED_BY", direction: IN)

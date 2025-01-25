@@ -4,9 +4,9 @@ export const elementSchema = gql`
   union ElementRenderType = Atom | Component
   union ContainerNode = Page | Component
 
-  type Element {
-    id: ID! @unique @settable(onUpdate: false)
-    compositeKey: String! @unique
+  type Element @node {
+    id: ID! @settable(onUpdate: false) #@unique
+    compositeKey: String! #@unique
     name: String! @customResolver(requires: "id compositeKey")
     slug: String! @customResolver(requires: "id compositeKey")
     nextSibling: Element @relationship(type: "NODE_SIBLING", direction: OUT)
