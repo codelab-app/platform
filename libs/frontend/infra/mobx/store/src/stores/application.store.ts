@@ -15,6 +15,7 @@ import {
   runtimePageServiceContext,
 } from '@codelab/frontend/abstract/application'
 import {
+  componentDomainServiceContext,
   type IAtomModel,
   type IComponentModel,
   type IDomainStore,
@@ -78,6 +79,10 @@ export const createApplicationStore = withSpanFunc(
         preferenceDomainServiceContext.set(
           this,
           domainStore.preferenceDomainService,
+        )
+        componentDomainServiceContext.set(
+          this,
+          domainStore.componentDomainService,
         )
       }
     }
