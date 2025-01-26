@@ -9,6 +9,22 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
+          "id": "b24af1b5-6c50-4864-817c-e7f0c4a39374"
+        },
+        "id": "7k6j5h4g-3f2e-1d0c-9b8a-7m6n5p4q3r2s",
+        "key": "children",
+        "name": "Children",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "383b2571-d1eb-43cd-9e69-af1aff9000b4"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
           "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885"
         },
         "id": "ac766de5-3e92-4560-b2fb-7e1bcd514fbf",
@@ -30,22 +46,6 @@
         "id": "d9750b90-c565-405f-9c57-378d27d03d10",
         "key": "value",
         "name": "Value",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "383b2571-d1eb-43cd-9e69-af1aff9000b4"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "id": "b24af1b5-6c50-4864-817c-e7f0c4a39374"
-        },
-        "id": "7k6j5h4g-3f2e-1d0c-9b8a-7m6n5p4q3r2s",
-        "key": "children",
-        "name": "Children",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null

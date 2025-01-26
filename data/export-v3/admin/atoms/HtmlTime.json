@@ -9,11 +9,11 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
+          "id": "b24af1b5-6c50-4864-817c-e7f0c4a39374"
         },
-        "id": "507c6a8c-02ff-4073-bc5d-2b2c66d60c9c",
-        "key": "datetime",
-        "name": "Datetime",
+        "id": "e2143f6e-9c6d-4d37-85d3-b377fec6f18a",
+        "key": "children",
+        "name": "Children",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -25,11 +25,11 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "id": "b24af1b5-6c50-4864-817c-e7f0c4a39374"
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
         },
-        "id": "e2143f6e-9c6d-4d37-85d3-b377fec6f18a",
-        "key": "children",
-        "name": "Children",
+        "id": "507c6a8c-02ff-4073-bc5d-2b2c66d60c9c",
+        "key": "datetime",
+        "name": "Datetime",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
