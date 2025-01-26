@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   // description: '...',
-  title: 'Internal Server Error<',
+  title: 'Internal Server Error',
 }
 
 const Error500Page = () => {

@@ -5548,10 +5548,8 @@ enum AtomType {
   HtmlStyle
   HtmlSub
   HtmlSup
-  HtmlSvg
   HtmlTable
   HtmlTd
-  HtmlTemplate
   HtmlTextarea
   HtmlTh
   HtmlTime

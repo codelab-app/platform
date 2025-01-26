@@ -669,10 +669,6 @@
         "name": "HtmlTd"
       },
       {
-        "id": "50a53b99-80e2-4d8e-9e51-741a14638a8c",
-        "name": "HtmlTemplate"
-      },
-      {
         "id": "a60e1e9d-5008-4352-9641-2baef79f758f",
         "name": "HtmlTh"
       },
@@ -1518,15 +1514,6 @@
   },
   {
     "children": [],
-    "id": "6aebd5f3-10d7-4274-9bba-242c5f2d44e9",
-    "name": "HtmlSvg",
-    "parent": {
-      "id": "5250999f-1e3c-4576-8a90-820c4fd56a5e",
-      "name": "Phrasing"
-    }
-  },
-  {
-    "children": [],
     "id": "af5b3fa4-41fc-412d-86d6-77c364679054",
     "name": "HtmlTable",
     "parent": {
@@ -1538,15 +1525,6 @@
     "children": [],
     "id": "d837ff15-8080-40f0-af0a-7c5a2df6f37d",
     "name": "HtmlTd",
-    "parent": {
-      "id": "b3c5db6d-1853-458c-9388-1b8ddaf89250",
-      "name": "Flow"
-    }
-  },
-  {
-    "children": [],
-    "id": "50a53b99-80e2-4d8e-9e51-741a14638a8c",
-    "name": "HtmlTemplate",
     "parent": {
       "id": "b3c5db6d-1853-458c-9388-1b8ddaf89250",
       "name": "Flow"
@@ -2090,10 +2068,6 @@
       {
         "id": "28dcc7cf-e9ea-4357-b6d1-784370b34a72",
         "name": "HtmlSup"
-      },
-      {
-        "id": "6aebd5f3-10d7-4274-9bba-242c5f2d44e9",
-        "name": "HtmlSvg"
       },
       {
         "id": "bab5ab9e-0dcc-4a88-a0bc-2550f875ff4a",

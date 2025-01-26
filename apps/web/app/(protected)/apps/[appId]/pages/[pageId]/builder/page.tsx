@@ -1,12 +1,13 @@
 import type { PageContextParams } from '@codelab/frontend/abstract/types'
+import type { Metadata } from 'next'
 
 import { PageBuilderConnector } from './page.connector'
 
-const Page = async ({
-  params: { appId, pageId },
-}: {
-  params: PageContextParams
-}) => {
+export const metadata: Metadata = {
+  title: 'App Builder | Codelab',
+}
+
+const Page = async ({ params: { pageId } }: { params: PageContextParams }) => {
   return <PageBuilderConnector pageId={pageId} />
 }
 

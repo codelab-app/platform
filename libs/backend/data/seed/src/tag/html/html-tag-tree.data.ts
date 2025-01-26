@@ -15,7 +15,6 @@ export const htmlTagTree: TagNode<IHtmlCategoryTag | keyof IHtmlAtomRecords> = {
     IAtomType.HtmlMath,
     IAtomType.HtmlObject,
     IAtomType.HtmlPicture,
-    IAtomType.HtmlSvg,
     IAtomType.HtmlVideo,
   ],
   // Treat this as `Other`
@@ -45,7 +44,6 @@ export const htmlTagTree: TagNode<IHtmlCategoryTag | keyof IHtmlAtomRecords> = {
     IAtomType.HtmlTd,
     IAtomType.HtmlTh,
     IAtomType.HtmlTr,
-    IAtomType.HtmlTemplate,
     IAtomType.HtmlTrack,
     IAtomType.HtmlUl,
   ],
@@ -112,7 +110,6 @@ export const htmlTagTree: TagNode<IHtmlCategoryTag | keyof IHtmlAtomRecords> = {
     IAtomType.HtmlStrong,
     IAtomType.HtmlSub,
     IAtomType.HtmlSup,
-    IAtomType.HtmlSvg,
     IAtomType.HtmlTextarea,
     IAtomType.HtmlTime,
     IAtomType.HtmlU,
