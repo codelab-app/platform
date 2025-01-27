@@ -4,11 +4,21 @@ import type { ILoggerService, LogOptions } from '@codelab/shared/infra/logging'
 import type { ConfigType } from '@nestjs/config'
 
 import { Inject, Injectable, LogLevel } from '@nestjs/common'
-import { Logger, Params, PARAMS_PROVIDER_TOKEN, PinoLogger } from 'nestjs-pino'
+import {
+  InjectPinoLogger,
+  Logger,
+  Params,
+  PARAMS_PROVIDER_TOKEN,
+  PinoLogger,
+} from 'nestjs-pino'
 import pino from 'pino'
+import { omit } from 'remeda'
 
-import { loggerConfig } from '../logger.config'
+import { labelMapping, loggerConfig } from '../logger.config'
 
+/**
+ * Don't use super, but rather from `logger`
+ */
 @Injectable()
 export class PinoLoggerService extends Logger implements ILoggerService {
   constructor(
@@ -26,15 +36,21 @@ export class PinoLoggerService extends Logger implements ILoggerService {
     message: string,
     fn: () => Promise<T>,
     options?: LogOptions,
-    logMethod: LogLevel = 'debug',
+    level: LogLevel = 'debug',
   ): Promise<T> {
     const startTime = Date.now()
     const result = await fn()
     const durationSecs = ((Date.now() - startTime) / 1000).toFixed(2)
+    const context = options?.context ?? undefined
+    const data = options?.data ?? {}
 
-    this[logMethod](message, {
-      ...options,
-      data: { ...options?.data, durationSecs },
+    // Pass data and context as separate properties in LogOptions
+    this[level](message, {
+      context,
+      data: {
+        ...data,
+      },
+      durationSecs,
     })
 
     return result
@@ -90,44 +106,63 @@ export class PinoLoggerService extends Logger implements ILoggerService {
 
   private logWithOptions(
     level: LogLevel,
-    logFn: (message: string, options?: LogOptions) => void,
     message: string,
     options?: LogOptions,
   ): void {
-    const context = options?.context ?? ''
-
     if (!this.enableLog(level, options)) {
       return
     }
 
-    return logFn.call(this, message, {
-      context,
-      data: options?.data,
-    })
+    const mappedLevel = labelMapping[level]
+
+    if (!this.shouldIncludeData(options)) {
+      this.logger[mappedLevel]({
+        msg: message,
+        ...('data' in (options ?? {})
+          ? omit(options ?? {}, ['data'])
+          : options ?? {}),
+      })
+    } else {
+      this.logger[mappedLevel]({ msg: message, ...(options ?? {}) })
+    }
   }
 
   override log(message: string, options?: LogOptions): void {
-    this.logWithOptions('log', super.log, message, options)
+    this.logWithOptions('log', message, options)
   }
 
+  /**
+   * If we specify 2 params format, the second param will be under `context` no matter what
+   *
+   * debug('Hello', 'World') -> DEBUG: Hello /n context: "World"
+   * debug('Hello', 'World', '!') -> DEBUG: Hello /n context: "!"
+   *
+   * If we use single object, we have more control
+   *
+   * debug({ msg: 'Hello', context: 'World', data: '!' }) -> DEBUG
+   *
+   *
+   * @param message
+   * @param options
+   */
   override debug(message: string, options?: LogOptions): void {
-    this.logWithOptions('debug', super.debug, message, options)
+    this.logWithOptions('debug', message, options)
   }
 
   override verbose(message: string, options?: LogOptions): void {
-    this.logWithOptions('verbose', super.verbose, message, options)
+    this.logWithOptions('verbose', message, options)
   }
 
   override warn(message: string, options?: LogOptions): void {
-    this.logWithOptions('warn', super.warn, message, options)
+    this.logWithOptions('warn', message, options)
   }
 
   override error(message: string, options?: LogOptions): void {
-    this.logWithOptions('error', super.error, message, options)
+    this.logWithOptions('error', message, options)
   }
 
   override fatal(message: string, options?: LogOptions): void {
-    this.logWithOptions('fatal', super.fatal, message, options)
+    this.logWithOptions('fatal', message, options)
   }
 
   public logToFile(

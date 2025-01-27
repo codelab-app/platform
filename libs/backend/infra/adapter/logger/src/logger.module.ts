@@ -33,14 +33,14 @@ import { pinoPrettyStream, prettyOptions } from './pino/pino-transport'
             // Doesn't prefix in front of date
             // msgPrefix: '[API]',
             // Set Pino to synchronous mode
-            formatters: {
-              bindings: (bindings) => {
-                return {
-                  ...bindings,
-                  pid: bindings['pid'],
-                }
-              },
-            },
+            // formatters: {
+            //   bindings: (bindings) => {
+            //     return {
+            //       ...bindings,
+            //       pid: bindings['pid'],
+            //     }
+            //   },
+            // },
             level: config.level,
             mixin: (context) => {
               return context
@@ -66,10 +66,9 @@ import { pinoPrettyStream, prettyOptions } from './pino/pino-transport'
               // },
             },
             /**
-             * Enable synchronous logging by using a direct transport
-             * and setting sync: true in the stream configuration
+             * Stream is async by default, cannot change
              */
-            stream: pinoPrettyStream,
+            // stream: pinoPrettyStream,
             // Force synchronous logging at the transport level
             transport: {
               options: prettyOptions,

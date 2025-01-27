@@ -25,6 +25,18 @@ export const levelMapping = {
   },
 } as const
 
+/**
+ * Map from nestjs log levels to pino log levels
+ */
+export const labelMapping = {
+  verbose: 'trace',
+  debug: 'debug',
+  log: 'info',
+  warn: 'warn',
+  error: 'error',
+  fatal: 'fatal',
+} as const
+
 export interface ContextFilterConfig {
   level: LogLevel
   pattern: string

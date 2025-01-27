@@ -2,6 +2,7 @@ import type { NestMiddleware } from '@nestjs/common'
 import type { NextFunction, Request, Response } from 'express'
 
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
+import { ObjectLike } from '@codelab/shared/abstract/types'
 import { Injectable, UnauthorizedException } from '@nestjs/common'
 import { ExecutionContextHost } from '@nestjs/core/helpers/execution-context-host'
 
@@ -23,7 +24,7 @@ export class JwtAuthMiddleware implements NestMiddleware {
        */
       await this.guard.canActivate(context)
     } catch (error) {
-      this.loggerService.error(error)
+      this.loggerService.error('Unauthorized', error as ObjectLike)
       throw new UnauthorizedException('Unauthorized')
     }
 

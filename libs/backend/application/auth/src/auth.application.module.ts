@@ -3,14 +3,16 @@ import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { PassportModule } from '@nestjs/passport'
 
-import { JwtStrategy } from './jwt/jwt.strategy'
+import { JWT_STRATEGY, JwtStrategy } from './jwt/jwt.strategy'
 import { JwtAuthGuard } from './jwt/jwt-auth.guard'
 import { JwtAuthMiddleware } from './jwt-auth.middleware'
 
 @Module({
   exports: [JwtAuthMiddleware, JwtAuthGuard, JwtStrategy],
   imports: [
-    PassportModule.register({}),
+    PassportModule.register({
+      defaultStrategy: JWT_STRATEGY,
+    }),
     ConfigModule.forRoot({
       load: [auth0Config],
     }),

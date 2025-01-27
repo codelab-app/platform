@@ -8,14 +8,14 @@ export const prettyOptions: PrettyOptions = {
   colorize: true,
 
   // Make this nest.js compatible
-  // customLevels: {
-  //   verbose: 10,
-  //   debug: 20,
-  //   info: 30,
-  //   warn: 40,
-  //   error: 50,
-  //   fatal: 60,
-  // },
+  customLevels: {
+    verbose: 10,
+    debug: 20,
+    info: 30,
+    warn: 40,
+    error: 50,
+    fatal: 60,
+  },
 
   // errorLikeObjectKeys: ['err', 'error'],
   /**
