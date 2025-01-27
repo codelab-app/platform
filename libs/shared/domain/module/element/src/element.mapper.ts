@@ -10,7 +10,6 @@ import {
   connectNodeIds,
   disconnectAll,
   reconnectNodeId,
-  reconnectNodeIds,
 } from '@codelab/shared/domain/orm'
 import { propMapper } from '@codelab/shared-domain-module/prop'
 
@@ -67,11 +66,14 @@ export const elementMapper: IMapper<
       //   : undefined,
       prevSibling: connectNodeId(prevSibling?.id),
       props: {
-        connectOrCreate: {
-          onCreate: {
-            node: propMapper.toCreateInput(props),
-          },
-          where: { node: { id: props.id } },
+        // connectOrCreate: {
+        //   onCreate: {
+        //     node: propMapper.toCreateInput(props),
+        //   },
+        //   where: { node: { id: props.id } },
+        // },
+        create: {
+          node: propMapper.toCreateInput(props),
         },
       },
       renderForEachPropKey,
