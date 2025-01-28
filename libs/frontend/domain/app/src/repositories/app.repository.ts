@@ -50,7 +50,6 @@ export const appRepository: IAppRepository = withTracingMethods('app', {
     )
   },
 
-  // FIXME: make a unique where
   findOne: async (where: AppWhere) => {
     return (await appRepository.find(where)).items[0]
   },
