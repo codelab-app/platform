@@ -97,7 +97,7 @@ const config: Types.Config = {
       config: {
         documentMode: 'string',
         inlineFragmentTypes: 'combine',
-        // useTypeImports: true,
+        useTypeImports: true,
         // enumsAsTypes: true,
       },
       presetConfig: {
