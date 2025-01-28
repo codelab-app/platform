@@ -1,9 +1,5 @@
 import type { IPageDto, IRef } from '@codelab/shared/abstract/core'
-import type {
-  PageOptions,
-  PageUniqueWhere,
-  PageWhere,
-} from '@codelab/shared/infra/gqlgen'
+import type { PageOptions, PageWhere } from '@codelab/shared/infra/gqlgen'
 
 import {
   CACHE_TAGS,
@@ -48,7 +44,8 @@ export const pageRepository: IPageRepository = {
     return PageList({ options, where })
   },
 
-  findOne: async (where: PageUniqueWhere) => {
+  // FIXME: make a unique where
+  findOne: async (where: PageWhere) => {
     return (await pageRepository.find(where)).items[0]
   },
 

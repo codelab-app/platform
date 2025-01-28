@@ -1,9 +1,5 @@
 import type { IDomainDto, IRef } from '@codelab/shared/abstract/core'
-import type {
-  DomainOptions,
-  DomainUniqueWhere,
-  DomainWhere,
-} from '@codelab/shared/infra/gqlgen'
+import type { DomainOptions, DomainWhere } from '@codelab/shared/infra/gqlgen'
 
 import {
   CACHE_TAGS,
@@ -56,7 +52,8 @@ export const domainRepository: IDomainRepository = {
     return DomainList({ options, where }, { tags: [CACHE_TAGS.DOMAIN_LIST] })
   },
 
-  findOne: async (where: DomainUniqueWhere) => {
+  // FIXME: make a unique where
+  findOne: async (where: DomainWhere) => {
     return (await domainRepository.find(where)).items[0]
   },
 

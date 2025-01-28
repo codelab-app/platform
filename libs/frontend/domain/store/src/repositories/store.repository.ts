@@ -1,9 +1,5 @@
 import type { IRef, IStoreDto } from '@codelab/shared/abstract/core'
-import type {
-  StoreOptions,
-  StoreUniqueWhere,
-  StoreWhere,
-} from '@codelab/shared/infra/gqlgen'
+import type { StoreOptions, StoreWhere } from '@codelab/shared/infra/gqlgen'
 
 import {
   CACHE_TAGS,
@@ -53,7 +49,8 @@ export const storeRepository: IStoreRepository = withTracingMethods('store', {
     )
   },
 
-  findOne: async (where: StoreUniqueWhere) => {
+  // FIXME: make a unique where
+  findOne: async (where: StoreWhere) => {
     return (await storeRepository.find(where)).items[0]
   },
 

@@ -2,7 +2,6 @@ import type { IComponentRepository } from '@codelab/frontend/abstract/domain'
 import type { IComponentDto, IRef } from '@codelab/shared/abstract/core'
 import type {
   ComponentOptions,
-  ComponentUniqueWhere,
   ComponentWhere,
 } from '@codelab/shared/infra/gqlgen'
 
@@ -55,7 +54,8 @@ export const componentRepository: IComponentRepository = {
     )
   },
 
-  findOne: async (where: ComponentUniqueWhere) => {
+  // FIXME: make a unique where
+  findOne: async (where: ComponentWhere) => {
     return (await componentRepository.find(where)).items[0]
   },
 

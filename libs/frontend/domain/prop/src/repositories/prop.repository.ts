@@ -1,10 +1,6 @@
 import type { IPropRepository } from '@codelab/frontend/abstract/domain'
 import type { IPropDto, IRef } from '@codelab/shared/abstract/core'
-import type {
-  PropOptions,
-  PropUniqueWhere,
-  PropWhere,
-} from '@codelab/shared/infra/gqlgen'
+import type { PropOptions, PropWhere } from '@codelab/shared/infra/gqlgen'
 
 import { Validator } from '@codelab/shared/infra/typebox'
 import {
@@ -43,7 +39,8 @@ export const propRepository: IPropRepository = {
     return await GetProps({ options, where })
   },
 
-  findOne: async (where: PropUniqueWhere) => {
+  // FIXME: make a unique where
+  findOne: async (where: PropWhere) => {
     return (await propRepository.find(where)).items[0]
   },
 

@@ -3,11 +3,7 @@ import type {
   IElementRepository,
 } from '@codelab/frontend/abstract/domain'
 import type { IElementDto } from '@codelab/shared/abstract/core'
-import type {
-  ElementOptions,
-  ElementUniqueWhere,
-  ElementWhere,
-} from '@codelab/shared/infra/gqlgen'
+import type { ElementOptions, ElementWhere } from '@codelab/shared/infra/gqlgen'
 
 import { disconnectAll, disconnectManyAll } from '@codelab/shared/domain/orm'
 import { Validator } from '@codelab/shared/infra/typebox'
@@ -51,11 +47,13 @@ export const elementRepository: IElementRepository = {
     return await ElementList({ options, where })
   },
 
-  findOne: async (where: ElementUniqueWhere) => {
+  // FIXME: make a unique where
+  findOne: async (where: ElementWhere) => {
     return (await elementRepository.find(where)).items[0]
   },
 
-  update: async (where: ElementUniqueWhere, element: IElementDto) => {
+  // FIXME: make a unique where
+  update: async (where: ElementWhere, element: IElementDto) => {
     console.debug(elementMapper.toUpdateInput(element))
 
     // Disconnect here first for pre/post, issue with generated cypher query
