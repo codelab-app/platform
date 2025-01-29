@@ -1,6 +1,8 @@
-import type { PluginFunction, PluginValidateFn } from '@graphql-codegen/plugin-helpers';
-import type { RawGraphQLRequestPluginConfig } from './config';
-import { GraphQLRequestVisitor } from './visitor';
-export declare const plugin: PluginFunction<RawGraphQLRequestPluginConfig>;
+import type { RawConfig } from '@graphql-codegen/visitor-plugin-common';
+import { type PluginFunction, type PluginValidateFn } from '@graphql-codegen/plugin-helpers';
+export interface FetchPluginRawConfig extends RawConfig {
+    gqlFn: string;
+    gqlFnPath: string;
+}
+export declare const plugin: PluginFunction<FetchPluginRawConfig>;
 export declare const validate: PluginValidateFn<any>;
-export { GraphQLRequestVisitor };

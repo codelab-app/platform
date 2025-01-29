@@ -1,11 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GraphQLRequestVisitor = exports.validate = exports.plugin = void 0;
-const plugin_helpers_1 = require("@graphql-codegen/plugin-helpers");
+exports.validate = exports.plugin = void 0;
 const graphql_1 = require("graphql");
+const plugin_helpers_1 = require("@graphql-codegen/plugin-helpers");
 const path_1 = require("path");
-const visitor_1 = require("./visitor");
-Object.defineProperty(exports, "GraphQLRequestVisitor", { enumerable: true, get: function () { return visitor_1.GraphQLRequestVisitor; } });
+const fetch_visitor_1 = require("./fetch-visitor");
 const plugin = (schema, documents, config, info) => {
     const allAst = (0, graphql_1.concatAST)(documents.map((v) => v.document));
     const allFragments = [
@@ -17,14 +16,10 @@ const plugin = (schema, documents, config, info) => {
         })),
         ...(config.externalFragments || []),
     ];
-    const visitor = new visitor_1.GraphQLRequestVisitor(schema, allFragments, config, info);
+    const visitor = new fetch_visitor_1.FetchVisitor(schema, config, documents, info);
     const visitorResult = (0, plugin_helpers_1.oldVisit)(allAst, { leave: visitor });
     return {
-        content: [
-            visitor.fragments,
-            ...visitorResult.definitions.filter((t) => typeof t === 'string'),
-            visitor.content,
-        ].join('\n'),
+        content: visitor.content,
         prepend: visitor.getImports(),
     };
 };

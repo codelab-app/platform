@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.validate = exports.plugin = void 0;
-const plugin_helpers_1 = require("@graphql-codegen/plugin-helpers");
 const graphql_1 = require("graphql");
+const plugin_helpers_1 = require("@graphql-codegen/plugin-helpers");
 const path_1 = require("path");
 const server_fetch_visitor_1 = require("./server-fetch-visitor");
 const plugin = (schema, documents, config, info) => {

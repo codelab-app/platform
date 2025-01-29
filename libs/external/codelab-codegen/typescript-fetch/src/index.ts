@@ -3,12 +3,7 @@ import type {
   RawClientSideBasePluginConfig,
   RawConfig,
 } from '@graphql-codegen/visitor-plugin-common'
-import type {
-  concatAST,
-  FragmentDefinitionNode,
-  type GraphQLSchema,
-  Kind,
-} from 'graphql'
+import type { FragmentDefinitionNode, GraphQLSchema } from 'graphql'
 
 import {
   oldVisit,
@@ -16,6 +11,7 @@ import {
   type PluginValidateFn,
   type Types,
 } from '@graphql-codegen/plugin-helpers'
+import { concatAST, Kind } from 'graphql'
 import { extname } from 'path'
 
 import { FetchVisitor } from './fetch-visitor'

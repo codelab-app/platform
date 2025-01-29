@@ -2,15 +2,15 @@ import type { Types } from '@graphql-codegen/plugin-helpers';
 import type { ParsedConfig } from '@graphql-codegen/visitor-plugin-common';
 import type { GraphQLSchema, OperationDefinitionNode } from 'graphql';
 import { BaseVisitor } from '@graphql-codegen/visitor-plugin-common';
-import type { ServerFetchPluginRawConfig } from './index';
-export interface ServerFetchVisitorConfig extends ParsedConfig {
+import type { FetchPluginRawConfig } from './index';
+export interface FetchVisitorConfig extends ParsedConfig {
     gqlFn: string;
     gqlFnPath: string;
 }
-export declare class ServerFetchVisitor extends BaseVisitor<ServerFetchPluginRawConfig, ServerFetchVisitorConfig> {
+export declare class FetchVisitor extends BaseVisitor<FetchPluginRawConfig, FetchVisitorConfig> {
     private _operations;
     private _outputFile?;
-    constructor(schema: GraphQLSchema, rawConfig: ServerFetchPluginRawConfig, _: Array<Types.DocumentFile>, info?: {
+    constructor(schema: GraphQLSchema, rawConfig: FetchPluginRawConfig, _: Array<Types.DocumentFile>, info?: {
         outputFile?: string;
     });
     getImports(): string[];
