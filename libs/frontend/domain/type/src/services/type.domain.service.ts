@@ -3,10 +3,10 @@ import type {
   ITypeModel,
 } from '@codelab/frontend/abstract/domain'
 import type { IInterfaceTypeDto, ITypeDto } from '@codelab/shared/abstract/core'
-import type { GetTypesQuery } from '@codelab/shared/infra/gqlgen'
 
 import { getFieldDomainService } from '@codelab/frontend/abstract/domain'
 import { ITypeKind } from '@codelab/shared/abstract/core'
+import { type TypeFragment, TypeKind } from '@codelab/shared/infra/gqlgen'
 import { Validator } from '@codelab/shared/infra/typebox'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
@@ -71,25 +71,22 @@ export class TypeDomainService
   }
 
   @modelAction
-  hydrateTypes(types: Partial<GetTypesQuery>) {
+  hydrateTypes(types: Array<TypeFragment>) {
     // console.debug('TypeService.loadTypes()', types)
 
-    const flatTypes = Object.values(types).flat()
+    types
+      .map((fragment) => TypeFactory.create(fragment))
+      .forEach((type) => this.types.set(type.id, type))
 
-    const fields =
-      types.interfaceTypes?.flatMap((fragment) => fragment.fields) ?? []
+    /**
+     * Fields must be hydrated after the interface type
+     */
+    types
+      .filter((fragment) => fragment.__typename === TypeKind.InterfaceType)
+      .flatMap((fragment) => fragment.fields)
+      .forEach((field) => this.fieldDomainService.hydrate(field))
 
-    fields.forEach((field) => this.fieldDomainService.hydrate(field))
-
-    const loadedTypes = flatTypes.map((fragment) =>
-      TypeFactory.create(fragment),
-    )
-
-    for (const type of loadedTypes) {
-      this.types.set(type.id, type)
-    }
-
-    return loadedTypes
+    return types.map((type) => this.types.get(type.id)!)
   }
 
   @modelAction
