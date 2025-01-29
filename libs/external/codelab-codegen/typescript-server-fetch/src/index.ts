@@ -1,26 +1,34 @@
 import type {
-  PluginFunction,
-  PluginValidateFn,
-  Types,
-} from '@graphql-codegen/plugin-helpers'
-import type {
   LoadedFragment,
   RawClientSideBasePluginConfig,
+  RawConfig,
 } from '@graphql-codegen/visitor-plugin-common'
-import type { FragmentDefinitionNode, GraphQLSchema } from 'graphql'
+import type {
+  concatAST,
+  FragmentDefinitionNode,
+  type GraphQLSchema,
+  Kind,
+} from 'graphql'
 
-import { oldVisit } from '@graphql-codegen/plugin-helpers'
-import { concatAST, Kind } from 'graphql'
+import {
+  oldVisit,
+  type PluginFunction,
+  type PluginValidateFn,
+  type Types,
+} from '@graphql-codegen/plugin-helpers'
 import { extname } from 'path'
 
-import type { RawGraphQLRequestPluginConfig } from './config'
+import { ServerFetchVisitor } from './server-fetch-visitor'
 
-import { GraphQLRequestVisitor } from './visitor'
+export interface ServerFetchPluginRawConfig extends RawConfig {
+  gqlFn: string
+  gqlFnPath: string
+}
 
-export const plugin: PluginFunction<RawGraphQLRequestPluginConfig> = (
+export const plugin: PluginFunction<ServerFetchPluginRawConfig> = (
   schema: GraphQLSchema,
   documents: Array<Types.DocumentFile>,
-  config: RawGraphQLRequestPluginConfig,
+  config,
   info,
 ) => {
   const allAst = concatAST(documents.map((v) => v.document!))
@@ -39,15 +47,11 @@ export const plugin: PluginFunction<RawGraphQLRequestPluginConfig> = (
     ...(config.externalFragments || []),
   ]
 
-  const visitor = new GraphQLRequestVisitor(schema, allFragments, config, info)
+  const visitor = new ServerFetchVisitor(schema, config, documents, info)
   const visitorResult = oldVisit(allAst, { leave: visitor })
 
   return {
-    content: [
-      visitor.fragments,
-      ...visitorResult.definitions.filter((t) => typeof t === 'string'),
-      visitor.content,
-    ].join('\n'),
+    content: visitor.content,
     prepend: visitor.getImports(),
   }
 }
@@ -62,5 +66,3 @@ export const validate: PluginValidateFn<any> = async (
     throw new Error('Plugin "typescript-fetch" requires extension to be ".ts"!')
   }
 }
-
-export { GraphQLRequestVisitor }

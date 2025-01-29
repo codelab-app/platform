@@ -1,38 +1,10 @@
-import * as Types from '@codelab/shared/infra/gqlgen'
+import * as Types from '@codelab/shared/infra/gqlgen';
 
-import { graphql } from '@codelab/shared/infra/gqlgen'
 import { gqlServerRequest } from '@codelab/shared/infra/fetch-server'
-import { StoreFragmentDoc } from '@codelab/shared/infra/gqlgen'
+import { CreateStoresDocument, DeleteStoresDocument, GetStoresDocument, UpdateStoresDocument } from './store.api.graphql.docs.gen'
 
-import {
-  type CreateStoresMutationVariables,
-  type DeleteStoresMutationVariables,
-  type GetStoresQueryVariables,
-  type UpdateStoresMutationVariables,
-} from '@codelab/shared/infra/gqlgen'
-import {
-  CreateStoresDocument,
-  DeleteStoresDocument,
-  GetStoresDocument,
-  UpdateStoresDocument,
-} from './store.api.graphql.docs.gen'
 
-export const CreateStores = (
-  variables: CreateStoresMutationVariables,
-  next?: NextFetchRequestConfig & { revalidateTag?: string },
-) => gqlServerRequest(CreateStoresDocument.toString(), variables, next)
-
-export const DeleteStores = (
-  variables: DeleteStoresMutationVariables,
-  next?: NextFetchRequestConfig & { revalidateTag?: string },
-) => gqlServerRequest(DeleteStoresDocument.toString(), variables, next)
-
-export const GetStores = (
-  variables: GetStoresQueryVariables,
-  next?: NextFetchRequestConfig & { revalidateTag?: string },
-) => gqlServerRequest(GetStoresDocument.toString(), variables, next)
-
-export const UpdateStores = (
-  variables: UpdateStoresMutationVariables,
-  next?: NextFetchRequestConfig & { revalidateTag?: string },
-) => gqlServerRequest(UpdateStoresDocument.toString(), variables, next)
+export const CreateStores = (variables: Types.CreateStoresMutationVariables ,next?: NextFetchRequestConfig & { revalidateTag?: string }) => gqlServerRequest(CreateStoresDocument.toString(), variables, next)
+export const DeleteStores = (variables: Types.DeleteStoresMutationVariables ,next?: NextFetchRequestConfig & { revalidateTag?: string }) => gqlServerRequest(DeleteStoresDocument.toString(), variables, next)
+export const GetStores = (variables: Types.GetStoresQueryVariables ,next?: NextFetchRequestConfig & { revalidateTag?: string }) => gqlServerRequest(GetStoresDocument.toString(), variables, next)
+export const UpdateStores = (variables: Types.UpdateStoresMutationVariables ,next?: NextFetchRequestConfig & { revalidateTag?: string }) => gqlServerRequest(UpdateStoresDocument.toString(), variables, next)

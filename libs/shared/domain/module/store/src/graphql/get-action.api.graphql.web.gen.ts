@@ -1,13 +1,7 @@
-import * as Types from '@codelab/shared/infra/gqlgen'
+import * as Types from '@codelab/shared/infra/gqlgen';
 
-import { graphql } from '@codelab/shared/infra/gqlgen'
 import { gqlServerRequest } from '@codelab/shared/infra/fetch-server'
-import { ActionFragmentDoc } from '@codelab/shared/infra/gqlgen'
-
-import { type GetActionsQueryVariables } from '@codelab/shared/infra/gqlgen'
 import { GetActionsDocument } from './get-action.api.graphql.docs.gen'
 
-export const GetActions = (
-  variables: GetActionsQueryVariables,
-  next?: NextFetchRequestConfig & { revalidateTag?: string },
-) => gqlServerRequest(GetActionsDocument.toString(), variables, next)
+
+export const GetActions = (variables: Types.GetActionsQueryVariables ,next?: NextFetchRequestConfig & { revalidateTag?: string }) => gqlServerRequest(GetActionsDocument.toString(), variables, next)

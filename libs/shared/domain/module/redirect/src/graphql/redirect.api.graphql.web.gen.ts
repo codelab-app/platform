@@ -1,48 +1,11 @@
-import * as Types from '@codelab/shared/infra/gqlgen'
+import * as Types from '@codelab/shared/infra/gqlgen';
 
-import { graphql } from '@codelab/shared/infra/gqlgen'
 import { gqlServerRequest } from '@codelab/shared/infra/fetch-server'
-import {
-  RedirectFragmentDoc,
-  RedirectPreviewFragmentDoc,
-} from '@codelab/shared/infra/gqlgen'
+import { CreateRedirectsDocument, DeleteRedirectsDocument, UpdateRedirectsDocument, GetRedirectsDocument, GetRedirectsPreviewDocument } from './redirect.api.graphql.docs.gen'
 
-import {
-  type CreateRedirectsMutationVariables,
-  type DeleteRedirectsMutationVariables,
-  type UpdateRedirectsMutationVariables,
-  type GetRedirectsQueryVariables,
-  type GetRedirectsPreviewQueryVariables,
-} from '@codelab/shared/infra/gqlgen'
-import {
-  CreateRedirectsDocument,
-  DeleteRedirectsDocument,
-  UpdateRedirectsDocument,
-  GetRedirectsDocument,
-  GetRedirectsPreviewDocument,
-} from './redirect.api.graphql.docs.gen'
 
-export const CreateRedirects = (
-  variables: CreateRedirectsMutationVariables,
-  next?: NextFetchRequestConfig & { revalidateTag?: string },
-) => gqlServerRequest(CreateRedirectsDocument.toString(), variables, next)
-
-export const DeleteRedirects = (
-  variables: DeleteRedirectsMutationVariables,
-  next?: NextFetchRequestConfig & { revalidateTag?: string },
-) => gqlServerRequest(DeleteRedirectsDocument.toString(), variables, next)
-
-export const UpdateRedirects = (
-  variables: UpdateRedirectsMutationVariables,
-  next?: NextFetchRequestConfig & { revalidateTag?: string },
-) => gqlServerRequest(UpdateRedirectsDocument.toString(), variables, next)
-
-export const GetRedirects = (
-  variables: GetRedirectsQueryVariables,
-  next?: NextFetchRequestConfig & { revalidateTag?: string },
-) => gqlServerRequest(GetRedirectsDocument.toString(), variables, next)
-
-export const GetRedirectsPreview = (
-  variables: GetRedirectsPreviewQueryVariables,
-  next?: NextFetchRequestConfig & { revalidateTag?: string },
-) => gqlServerRequest(GetRedirectsPreviewDocument.toString(), variables, next)
+export const CreateRedirects = (variables: Types.CreateRedirectsMutationVariables ,next?: NextFetchRequestConfig & { revalidateTag?: string }) => gqlServerRequest(CreateRedirectsDocument.toString(), variables, next)
+export const DeleteRedirects = (variables: Types.DeleteRedirectsMutationVariables ,next?: NextFetchRequestConfig & { revalidateTag?: string }) => gqlServerRequest(DeleteRedirectsDocument.toString(), variables, next)
+export const UpdateRedirects = (variables: Types.UpdateRedirectsMutationVariables ,next?: NextFetchRequestConfig & { revalidateTag?: string }) => gqlServerRequest(UpdateRedirectsDocument.toString(), variables, next)
+export const GetRedirects = (variables: Types.GetRedirectsQueryVariables ,next?: NextFetchRequestConfig & { revalidateTag?: string }) => gqlServerRequest(GetRedirectsDocument.toString(), variables, next)
+export const GetRedirectsPreview = (variables: Types.GetRedirectsPreviewQueryVariables ,next?: NextFetchRequestConfig & { revalidateTag?: string }) => gqlServerRequest(GetRedirectsPreviewDocument.toString(), variables, next)
