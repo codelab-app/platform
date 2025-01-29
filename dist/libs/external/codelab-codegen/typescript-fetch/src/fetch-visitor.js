@@ -35,7 +35,8 @@ class FetchVisitor extends visitor_plugin_common_1.BaseVisitor {
             .join(', ');
         return [
             `import { ${this.config.gqlFn} } from '${this.config.gqlFnPath}'`,
-            `import { ${documentImports} } from './${this._outputFile?.replace('.web.gen.ts', '.docs.gen')}'`,
+            `import { GraphQLClient } from 'graphql-request'`,
+            `import { ${documentImports} } from './${this._outputFile?.replace('.api.gen.ts', '.docs.gen')}'`,
             '\n',
         ];
     }
@@ -63,13 +64,15 @@ class FetchVisitor extends visitor_plugin_common_1.BaseVisitor {
                 throw new Error('Missing operation name');
             }
             const pascalCaseName = operationName.charAt(0).toUpperCase() + operationName.slice(1);
-            const operationBody = `${this.config.gqlFn}(client, ${o.name}Document.toString(), variables, next)`;
+            const operationBody = `${this.config.gqlFn}(client, ${o.name}Document.toString(), variables)`;
             const operationArgs = [`variables: Types.${o.variablesTypes}`].join(' ,');
             // server actions must be exported individually
             return `${pascalCaseName} : (${operationArgs}) => ${operationBody}`;
         });
-        const exportedApi = 'export const getSdk = (client: GraphQLClient)';
-        return `${exportedApi} => ({\n${graphqlOperations.join(',\n')}\n})`;
+        const operations = graphqlOperations.length > 1
+            ? `\n\t${graphqlOperations.join(',\n\t')}\n`
+            : graphqlOperations[0];
+        return `export const getSdk = (client: GraphQLClient) => ({${operations}})`;
     }
 }
 exports.FetchVisitor = FetchVisitor;

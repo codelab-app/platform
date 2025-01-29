@@ -1,13 +1,8 @@
-import * as Types from '@codelab/shared/infra/gqlgen'
+import * as Types from '@codelab/shared/infra/gqlgen';
 
-import { graphql } from '@codelab/shared/infra/gqlgen'
 import { gqlRequest } from '@codelab/shared/infra/fetch'
-
-import { type GetSelectAtomOptionsQueryVariables } from '@codelab/shared/infra/gqlgen'
-import { GetSelectAtomOptionsDocument } from './get-select-atom-options.api.graphql.docs.gen'
 import { GraphQLClient } from 'graphql-request'
+import { GetSelectAtomOptionsDocument } from './get-select-atom-options.api.graphql.docs.gen'
 
-export const getSdk = (client: GraphQLClient) => ({
-  GetSelectAtomOptions: (variables: GetSelectAtomOptionsQueryVariables) =>
-    gqlRequest(client, GetSelectAtomOptionsDocument.toString(), variables),
-})
+
+export const getSdk = (client: GraphQLClient) => ({GetSelectAtomOptions : (variables: Types.GetSelectAtomOptionsQueryVariables) => gqlRequest(client, GetSelectAtomOptionsDocument.toString(), variables)})

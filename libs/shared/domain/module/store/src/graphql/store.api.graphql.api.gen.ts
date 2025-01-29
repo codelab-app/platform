@@ -1,30 +1,13 @@
-import * as Types from '@codelab/shared/infra/gqlgen'
+import * as Types from '@codelab/shared/infra/gqlgen';
 
-import { graphql } from '@codelab/shared/infra/gqlgen'
 import { gqlRequest } from '@codelab/shared/infra/fetch'
-import { StoreFragmentDoc } from '@codelab/shared/infra/gqlgen'
-
-import {
-  type CreateStoresMutationVariables,
-  type DeleteStoresMutationVariables,
-  type GetStoresQueryVariables,
-  type UpdateStoresMutationVariables,
-} from '@codelab/shared/infra/gqlgen'
-import {
-  CreateStoresDocument,
-  DeleteStoresDocument,
-  GetStoresDocument,
-  UpdateStoresDocument,
-} from './store.api.graphql.docs.gen'
 import { GraphQLClient } from 'graphql-request'
+import { CreateStoresDocument, DeleteStoresDocument, GetStoresDocument, UpdateStoresDocument } from './store.api.graphql.docs.gen'
+
 
 export const getSdk = (client: GraphQLClient) => ({
-  CreateStores: (variables: CreateStoresMutationVariables) =>
-    gqlRequest(client, CreateStoresDocument.toString(), variables),
-  DeleteStores: (variables: DeleteStoresMutationVariables) =>
-    gqlRequest(client, DeleteStoresDocument.toString(), variables),
-  GetStores: (variables: GetStoresQueryVariables) =>
-    gqlRequest(client, GetStoresDocument.toString(), variables),
-  UpdateStores: (variables: UpdateStoresMutationVariables) =>
-    gqlRequest(client, UpdateStoresDocument.toString(), variables),
+	CreateStores : (variables: Types.CreateStoresMutationVariables) => gqlRequest(client, CreateStoresDocument.toString(), variables),
+	DeleteStores : (variables: Types.DeleteStoresMutationVariables) => gqlRequest(client, DeleteStoresDocument.toString(), variables),
+	GetStores : (variables: Types.GetStoresQueryVariables) => gqlRequest(client, GetStoresDocument.toString(), variables),
+	UpdateStores : (variables: Types.UpdateStoresMutationVariables) => gqlRequest(client, UpdateStoresDocument.toString(), variables)
 })

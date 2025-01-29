@@ -57,8 +57,9 @@ export class FetchVisitor extends BaseVisitor<
 
     return [
       `import { ${this.config.gqlFn} } from '${this.config.gqlFnPath}'`,
+      "import { GraphQLClient } from 'graphql-request'",
       `import { ${documentImports} } from './${this._outputFile?.replace(
-        '.web.gen.ts',
+        '.api.gen.ts',
         '.docs.gen',
       )}'`,
       '\n',
@@ -97,15 +98,18 @@ export class FetchVisitor extends BaseVisitor<
       const pascalCaseName =
         operationName.charAt(0).toUpperCase() + operationName.slice(1)
 
-      const operationBody = `${this.config.gqlFn}(client, ${o.name}Document.toString(), variables, next)`
+      const operationBody = `${this.config.gqlFn}(client, ${o.name}Document.toString(), variables)`
       const operationArgs = [`variables: Types.${o.variablesTypes}`].join(' ,')
 
       // server actions must be exported individually
       return `${pascalCaseName} : (${operationArgs}) => ${operationBody}`
     })
 
-    const exportedApi = 'export const getSdk = (client: GraphQLClient)'
+    const operations =
+      graphqlOperations.length > 1
+        ? `\n\t${graphqlOperations.join(',\n\t')}\n`
+        : graphqlOperations[0]
 
-    return `${exportedApi} => ({\n${graphqlOperations.join(',\n')}\n})`
+    return `export const getSdk = (client: GraphQLClient) => ({${operations}})`
   }
 }
