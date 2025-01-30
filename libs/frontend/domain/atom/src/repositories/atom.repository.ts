@@ -1,11 +1,7 @@
 import type { IAtomRepository } from '@codelab/frontend/abstract/domain'
 import type { IAtomDto, IRef } from '@codelab/shared/abstract/core'
 import type { NextFetchOptions } from '@codelab/shared/abstract/types'
-import type {
-  AtomOptions,
-  AtomUniqueWhere,
-  AtomWhere,
-} from '@codelab/shared/infra/gqlgen'
+import type { AtomOptions, AtomWhere } from '@codelab/shared/infra/gqlgen'
 
 import {
   CACHE_TAGS,
@@ -61,7 +57,8 @@ export const atomRepository: IAtomRepository = withTracingMethods('atom', {
     return await AtomList({ options, where }, { tags: [CACHE_TAGS.ATOM_LIST] })
   },
 
-  findOne: async (where: AtomUniqueWhere) => {
+  // FIXME: make a unique where
+  findOne: async (where: AtomWhere) => {
     return (await atomRepository.find(where)).items[0]
   },
 

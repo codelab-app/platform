@@ -33,10 +33,6 @@ export const componentMapper: IMapper<
       id,
       owner: connectOwner(owner),
       props: {
-        // connectOrCreate: {
-        //   onCreate: { node: propMapper.toCreateInput(props) },
-        //   where: { node: { id: props.id } },
-        // },
         create: {
           node: propMapper.toCreateInput(props),
         },

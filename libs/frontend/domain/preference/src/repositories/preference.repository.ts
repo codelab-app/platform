@@ -5,7 +5,6 @@ import type {
 import type { IPreferenceDto, IRef } from '@codelab/shared/abstract/core'
 import type {
   PreferenceOptions,
-  PreferenceUniqueWhere,
   PreferenceWhere,
 } from '@codelab/shared/infra/gqlgen'
 
@@ -54,7 +53,8 @@ export const preferenceRepository: IPreferenceRepository = {
     return await GetPreferences({ options, where })
   },
 
-  findOne: async (where: PreferenceUniqueWhere) => {
+  // FIXME: make a unique where
+  findOne: async (where: PreferenceWhere) => {
     return (await preferenceRepository.find(where)).items[0]
   },
 

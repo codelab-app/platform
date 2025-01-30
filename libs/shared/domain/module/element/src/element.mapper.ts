@@ -66,12 +66,6 @@ export const elementMapper: IMapper<
       //   : undefined,
       prevSibling: connectNodeId(prevSibling?.id),
       props: {
-        // connectOrCreate: {
-        //   onCreate: {
-        //     node: propMapper.toCreateInput(props),
-        //   },
-        //   where: { node: { id: props.id } },
-        // },
         create: {
           node: propMapper.toCreateInput(props),
         },

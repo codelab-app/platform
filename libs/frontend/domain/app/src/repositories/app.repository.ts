@@ -1,9 +1,5 @@
 import type { IAppDto, IRef } from '@codelab/shared/abstract/core'
-import type {
-  AppOptions,
-  AppUniqueWhere,
-  AppWhere,
-} from '@codelab/shared/infra/gqlgen'
+import type { AppOptions, AppWhere } from '@codelab/shared/infra/gqlgen'
 
 import {
   CACHE_TAGS,
@@ -54,7 +50,8 @@ export const appRepository: IAppRepository = withTracingMethods('app', {
     )
   },
 
-  findOne: async (where: AppUniqueWhere) => {
+  // FIXME: make a unique where
+  findOne: async (where: AppWhere) => {
     return (await appRepository.find(where)).items[0]
   },
 

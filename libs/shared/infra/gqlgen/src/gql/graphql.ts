@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { DocumentTypeDecoration } from '@graphql-typed-document-node/core'
+import type { DocumentTypeDecoration } from '@graphql-typed-document-node/core'
 export type Maybe<T> = T | null
 export type InputMaybe<T> = Maybe<T>
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -101,6 +101,7 @@ export type ActionTypeOwnerConnectionArgs = {
 
 export type ActionTypeAggregateSelection = {
   count: Scalars['Int']['output']
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -108,10 +109,6 @@ export type ActionTypeAggregateSelection = {
 export type ActionTypeConnectInput = {
   fieldRefs?: InputMaybe<Array<ActionTypeFieldRefsConnectFieldInput>>
   owner?: InputMaybe<ActionTypeOwnerConnectFieldInput>
-}
-
-export type ActionTypeConnectOrCreateWhere = {
-  node: ActionTypeUniqueWhere
 }
 
 export type ActionTypeConnectWhere = {
@@ -167,6 +164,7 @@ export type ActionTypeFieldFieldRefsAggregationSelection = {
 export type ActionTypeFieldFieldRefsNodeAggregateSelection = {
   defaultValues: StringAggregateSelection
   description: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   key: StringAggregateSelection
   name: StringAggregateSelection
@@ -197,25 +195,12 @@ export type ActionTypeFieldRefsConnectFieldInput = {
   where?: InputMaybe<FieldConnectWhere>
 }
 
-export type ActionTypeFieldRefsConnectOrCreateFieldInput = {
-  onCreate: ActionTypeFieldRefsConnectOrCreateFieldInputOnCreate
-  where: FieldConnectOrCreateWhere
-}
-
-export type ActionTypeFieldRefsConnectOrCreateFieldInputOnCreate = {
-  node: FieldOnCreateInput
-}
-
 export type ActionTypeFieldRefsCreateFieldInput = {
   node: FieldCreateInput
 }
 
 export type ActionTypeFieldRefsFieldInput = {
   connect?: InputMaybe<Array<ActionTypeFieldRefsConnectFieldInput>>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<
-    Array<ActionTypeFieldRefsConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<ActionTypeFieldRefsCreateFieldInput>>
 }
 
@@ -253,15 +238,25 @@ export type ActionTypeFieldRefsNodeAggregationWhereInput = {
   description_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   description_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   description_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   key_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   key_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -316,20 +311,11 @@ export type ActionTypeFieldRefsUpdateConnectionInput = {
 
 export type ActionTypeFieldRefsUpdateFieldInput = {
   connect?: InputMaybe<Array<ActionTypeFieldRefsConnectFieldInput>>
-  connectOrCreate?: InputMaybe<
-    Array<ActionTypeFieldRefsConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<ActionTypeFieldRefsCreateFieldInput>>
   delete?: InputMaybe<Array<IBaseTypeFieldRefsDeleteFieldInput>>
   disconnect?: InputMaybe<Array<IBaseTypeFieldRefsDisconnectFieldInput>>
   update?: InputMaybe<ActionTypeFieldRefsUpdateConnectionInput>
   where?: InputMaybe<IBaseTypeFieldRefsConnectionWhere>
-}
-
-export type ActionTypeOnCreateInput = {
-  id: Scalars['ID']['input']
-  kind?: TypeKind
-  name: Scalars['String']['input']
 }
 
 export type ActionTypeOptions = {
@@ -363,23 +349,12 @@ export type ActionTypeOwnerConnectFieldInput = {
   where?: InputMaybe<UserConnectWhere>
 }
 
-export type ActionTypeOwnerConnectOrCreateFieldInput = {
-  onCreate: ActionTypeOwnerConnectOrCreateFieldInputOnCreate
-  where: UserConnectOrCreateWhere
-}
-
-export type ActionTypeOwnerConnectOrCreateFieldInputOnCreate = {
-  node: UserOnCreateInput
-}
-
 export type ActionTypeOwnerCreateFieldInput = {
   node: UserCreateInput
 }
 
 export type ActionTypeOwnerFieldInput = {
   connect?: InputMaybe<ActionTypeOwnerConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<ActionTypeOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<ActionTypeOwnerCreateFieldInput>
 }
 
@@ -417,15 +392,25 @@ export type ActionTypeOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -450,7 +435,6 @@ export type ActionTypeOwnerUpdateConnectionInput = {
 
 export type ActionTypeOwnerUpdateFieldInput = {
   connect?: InputMaybe<ActionTypeOwnerConnectFieldInput>
-  connectOrCreate?: InputMaybe<ActionTypeOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<ActionTypeOwnerCreateFieldInput>
   delete?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
   disconnect?: InputMaybe<IBaseTypeOwnerDisconnectFieldInput>
@@ -490,12 +474,6 @@ export type ActionTypeSubscriptionWhere = {
   name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
 }
 
-export type ActionTypeUniqueWhere = {
-  /** @deprecated Please use the explicit _EQ version */
-  name?: InputMaybe<Scalars['String']['input']>
-  name_EQ?: InputMaybe<Scalars['String']['input']>
-}
-
 export type ActionTypeUpdateInput = {
   fieldRefs?: InputMaybe<Array<ActionTypeFieldRefsUpdateFieldInput>>
   /** @deprecated Please use the explicit _SET field */
@@ -525,6 +503,7 @@ export type ActionTypeUserOwnerAggregationSelection = {
 export type ActionTypeUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelection
   email: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   username: StringAggregateSelection
 }
@@ -789,6 +768,7 @@ export type ApiActionSuccessActionConnectionArgs = {
 
 export type ApiActionAggregateSelection = {
   count: Scalars['Int']['output']
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -814,15 +794,6 @@ export type ApiActionConfigConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<PropConnectWhere>
-}
-
-export type ApiActionConfigConnectOrCreateFieldInput = {
-  onCreate: ApiActionConfigConnectOrCreateFieldInputOnCreate
-  where: PropConnectOrCreateWhere
-}
-
-export type ApiActionConfigConnectOrCreateFieldInputOnCreate = {
-  node: PropOnCreateInput
 }
 
 export type ApiActionConfigConnection = {
@@ -856,8 +827,6 @@ export type ApiActionConfigDisconnectFieldInput = {
 
 export type ApiActionConfigFieldInput = {
   connect?: InputMaybe<ApiActionConfigConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<ApiActionConfigConnectOrCreateFieldInput>
   create?: InputMaybe<ApiActionConfigCreateFieldInput>
 }
 
@@ -880,15 +849,25 @@ export type ApiActionConfigNodeAggregationWhereInput = {
   data_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   data_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   data_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
 }
 
@@ -903,7 +882,6 @@ export type ApiActionConfigUpdateConnectionInput = {
 
 export type ApiActionConfigUpdateFieldInput = {
   connect?: InputMaybe<ApiActionConfigConnectFieldInput>
-  connectOrCreate?: InputMaybe<ApiActionConfigConnectOrCreateFieldInput>
   create?: InputMaybe<ApiActionConfigCreateFieldInput>
   delete?: InputMaybe<ApiActionConfigDeleteFieldInput>
   disconnect?: InputMaybe<ApiActionConfigDisconnectFieldInput>
@@ -983,6 +961,7 @@ export type ApiActionElementPostRenderElementAggregationSelection = {
 export type ApiActionElementPostRenderElementNodeAggregateSelection = {
   childMapperPropKey: StringAggregateSelection
   compositeKey: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   renderForEachPropKey: StringAggregateSelection
   renderIfExpression: StringAggregateSelection
@@ -997,6 +976,7 @@ export type ApiActionElementPreRenderElementAggregationSelection = {
 export type ApiActionElementPreRenderElementNodeAggregateSelection = {
   childMapperPropKey: StringAggregateSelection
   compositeKey: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   renderForEachPropKey: StringAggregateSelection
   renderIfExpression: StringAggregateSelection
@@ -1169,23 +1149,12 @@ export type ApiActionPostRenderElementConnectFieldInput = {
   where?: InputMaybe<ElementConnectWhere>
 }
 
-export type ApiActionPostRenderElementConnectOrCreateFieldInput = {
-  onCreate: ApiActionPostRenderElementConnectOrCreateFieldInputOnCreate
-  where: ElementConnectOrCreateWhere
-}
-
-export type ApiActionPostRenderElementConnectOrCreateFieldInputOnCreate = {
-  node: ElementOnCreateInput
-}
-
 export type ApiActionPostRenderElementCreateFieldInput = {
   node: ElementCreateInput
 }
 
 export type ApiActionPostRenderElementFieldInput = {
   connect?: InputMaybe<ApiActionPostRenderElementConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<ApiActionPostRenderElementConnectOrCreateFieldInput>
   create?: InputMaybe<ApiActionPostRenderElementCreateFieldInput>
 }
 
@@ -1225,15 +1194,25 @@ export type ApiActionPostRenderElementNodeAggregationWhereInput = {
   compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<
     Scalars['Float']['input']
@@ -1300,7 +1279,6 @@ export type ApiActionPostRenderElementUpdateConnectionInput = {
 
 export type ApiActionPostRenderElementUpdateFieldInput = {
   connect?: InputMaybe<ApiActionPostRenderElementConnectFieldInput>
-  connectOrCreate?: InputMaybe<ApiActionPostRenderElementConnectOrCreateFieldInput>
   create?: InputMaybe<ApiActionPostRenderElementCreateFieldInput>
   delete?: InputMaybe<BaseActionPostRenderElementDeleteFieldInput>
   disconnect?: InputMaybe<BaseActionPostRenderElementDisconnectFieldInput>
@@ -1332,23 +1310,12 @@ export type ApiActionPreRenderElementConnectFieldInput = {
   where?: InputMaybe<ElementConnectWhere>
 }
 
-export type ApiActionPreRenderElementConnectOrCreateFieldInput = {
-  onCreate: ApiActionPreRenderElementConnectOrCreateFieldInputOnCreate
-  where: ElementConnectOrCreateWhere
-}
-
-export type ApiActionPreRenderElementConnectOrCreateFieldInputOnCreate = {
-  node: ElementOnCreateInput
-}
-
 export type ApiActionPreRenderElementCreateFieldInput = {
   node: ElementCreateInput
 }
 
 export type ApiActionPreRenderElementFieldInput = {
   connect?: InputMaybe<ApiActionPreRenderElementConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<ApiActionPreRenderElementConnectOrCreateFieldInput>
   create?: InputMaybe<ApiActionPreRenderElementCreateFieldInput>
 }
 
@@ -1388,15 +1355,25 @@ export type ApiActionPreRenderElementNodeAggregationWhereInput = {
   compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<
     Scalars['Float']['input']
@@ -1463,7 +1440,6 @@ export type ApiActionPreRenderElementUpdateConnectionInput = {
 
 export type ApiActionPreRenderElementUpdateFieldInput = {
   connect?: InputMaybe<ApiActionPreRenderElementConnectFieldInput>
-  connectOrCreate?: InputMaybe<ApiActionPreRenderElementConnectOrCreateFieldInput>
   create?: InputMaybe<ApiActionPreRenderElementCreateFieldInput>
   delete?: InputMaybe<BaseActionPreRenderElementDeleteFieldInput>
   disconnect?: InputMaybe<BaseActionPreRenderElementDisconnectFieldInput>
@@ -1478,6 +1454,7 @@ export type ApiActionPropConfigAggregationSelection = {
 
 export type ApiActionPropConfigNodeAggregateSelection = {
   data: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
 }
 
@@ -1503,15 +1480,6 @@ export type ApiActionResourceConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<ResourceConnectWhere>
-}
-
-export type ApiActionResourceConnectOrCreateFieldInput = {
-  onCreate: ApiActionResourceConnectOrCreateFieldInputOnCreate
-  where: ResourceConnectOrCreateWhere
-}
-
-export type ApiActionResourceConnectOrCreateFieldInputOnCreate = {
-  node: ResourceOnCreateInput
 }
 
 export type ApiActionResourceConnection = {
@@ -1547,8 +1515,6 @@ export type ApiActionResourceDisconnectFieldInput = {
 
 export type ApiActionResourceFieldInput = {
   connect?: InputMaybe<ApiActionResourceConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<ApiActionResourceConnectOrCreateFieldInput>
   create?: InputMaybe<ApiActionResourceCreateFieldInput>
 }
 
@@ -1556,15 +1522,25 @@ export type ApiActionResourceNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<ApiActionResourceNodeAggregationWhereInput>>
   NOT?: InputMaybe<ApiActionResourceNodeAggregationWhereInput>
   OR?: InputMaybe<Array<ApiActionResourceNodeAggregationWhereInput>>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -1594,6 +1570,7 @@ export type ApiActionResourceResourceAggregationSelection = {
 }
 
 export type ApiActionResourceResourceNodeAggregateSelection = {
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -1604,7 +1581,6 @@ export type ApiActionResourceUpdateConnectionInput = {
 
 export type ApiActionResourceUpdateFieldInput = {
   connect?: InputMaybe<ApiActionResourceConnectFieldInput>
-  connectOrCreate?: InputMaybe<ApiActionResourceConnectOrCreateFieldInput>
   create?: InputMaybe<ApiActionResourceCreateFieldInput>
   delete?: InputMaybe<ApiActionResourceDeleteFieldInput>
   disconnect?: InputMaybe<ApiActionResourceDisconnectFieldInput>
@@ -1643,23 +1619,12 @@ export type ApiActionStoreConnectFieldInput = {
   where?: InputMaybe<StoreConnectWhere>
 }
 
-export type ApiActionStoreConnectOrCreateFieldInput = {
-  onCreate: ApiActionStoreConnectOrCreateFieldInputOnCreate
-  where: StoreConnectOrCreateWhere
-}
-
-export type ApiActionStoreConnectOrCreateFieldInputOnCreate = {
-  node: StoreOnCreateInput
-}
-
 export type ApiActionStoreCreateFieldInput = {
   node: StoreCreateInput
 }
 
 export type ApiActionStoreFieldInput = {
   connect?: InputMaybe<ApiActionStoreConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<ApiActionStoreConnectOrCreateFieldInput>
   create?: InputMaybe<ApiActionStoreCreateFieldInput>
 }
 
@@ -1667,15 +1632,25 @@ export type ApiActionStoreNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<ApiActionStoreNodeAggregationWhereInput>>
   NOT?: InputMaybe<ApiActionStoreNodeAggregationWhereInput>
   OR?: InputMaybe<Array<ApiActionStoreNodeAggregationWhereInput>>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -1700,6 +1675,7 @@ export type ApiActionStoreStoreAggregationSelection = {
 }
 
 export type ApiActionStoreStoreNodeAggregateSelection = {
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -1710,7 +1686,6 @@ export type ApiActionStoreUpdateConnectionInput = {
 
 export type ApiActionStoreUpdateFieldInput = {
   connect?: InputMaybe<ApiActionStoreConnectFieldInput>
-  connectOrCreate?: InputMaybe<ApiActionStoreConnectOrCreateFieldInput>
   create?: InputMaybe<ApiActionStoreCreateFieldInput>
   delete?: InputMaybe<BaseActionStoreDeleteFieldInput>
   disconnect?: InputMaybe<BaseActionStoreDisconnectFieldInput>
@@ -2033,6 +2008,7 @@ export type AppPagesConnectionArgs = {
 export type AppAggregateSelection = {
   compositeKey: StringAggregateSelection
   count: Scalars['Int']['output']
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
 }
 
@@ -2040,10 +2016,6 @@ export type AppConnectInput = {
   domains?: InputMaybe<Array<AppDomainsConnectFieldInput>>
   owner?: InputMaybe<AppOwnerConnectFieldInput>
   pages?: InputMaybe<Array<AppPagesConnectFieldInput>>
-}
-
-export type AppConnectOrCreateWhere = {
-  node: AppUniqueWhere
 }
 
 export type AppConnectWhere = {
@@ -2088,6 +2060,7 @@ export type AppDomainDomainsAggregationSelection = {
 }
 
 export type AppDomainDomainsNodeAggregateSelection = {
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -2114,15 +2087,6 @@ export type AppDomainsConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<DomainConnectWhere>
-}
-
-export type AppDomainsConnectOrCreateFieldInput = {
-  onCreate: AppDomainsConnectOrCreateFieldInputOnCreate
-  where: DomainConnectOrCreateWhere
-}
-
-export type AppDomainsConnectOrCreateFieldInputOnCreate = {
-  node: DomainOnCreateInput
 }
 
 export type AppDomainsConnection = {
@@ -2158,8 +2122,6 @@ export type AppDomainsDisconnectFieldInput = {
 
 export type AppDomainsFieldInput = {
   connect?: InputMaybe<Array<AppDomainsConnectFieldInput>>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<Array<AppDomainsConnectOrCreateFieldInput>>
   create?: InputMaybe<Array<AppDomainsCreateFieldInput>>
 }
 
@@ -2167,15 +2129,25 @@ export type AppDomainsNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<AppDomainsNodeAggregationWhereInput>>
   NOT?: InputMaybe<AppDomainsNodeAggregationWhereInput>
   OR?: InputMaybe<Array<AppDomainsNodeAggregationWhereInput>>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -2205,7 +2177,6 @@ export type AppDomainsUpdateConnectionInput = {
 
 export type AppDomainsUpdateFieldInput = {
   connect?: InputMaybe<Array<AppDomainsConnectFieldInput>>
-  connectOrCreate?: InputMaybe<Array<AppDomainsConnectOrCreateFieldInput>>
   create?: InputMaybe<Array<AppDomainsCreateFieldInput>>
   delete?: InputMaybe<Array<AppDomainsDeleteFieldInput>>
   disconnect?: InputMaybe<Array<AppDomainsDisconnectFieldInput>>
@@ -2221,11 +2192,6 @@ export type AppEdge = {
 export type AppEventPayload = {
   compositeKey: Scalars['String']['output']
   id: Scalars['ID']['output']
-}
-
-export type AppOnCreateInput = {
-  compositeKey: Scalars['String']['input']
-  id: Scalars['ID']['input']
 }
 
 export type AppOptions = {
@@ -2259,23 +2225,12 @@ export type AppOwnerConnectFieldInput = {
   where?: InputMaybe<UserConnectWhere>
 }
 
-export type AppOwnerConnectOrCreateFieldInput = {
-  onCreate: AppOwnerConnectOrCreateFieldInputOnCreate
-  where: UserConnectOrCreateWhere
-}
-
-export type AppOwnerConnectOrCreateFieldInputOnCreate = {
-  node: UserOnCreateInput
-}
-
 export type AppOwnerCreateFieldInput = {
   node: UserCreateInput
 }
 
 export type AppOwnerFieldInput = {
   connect?: InputMaybe<AppOwnerConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<AppOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<AppOwnerCreateFieldInput>
 }
 
@@ -2313,15 +2268,25 @@ export type AppOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -2346,7 +2311,6 @@ export type AppOwnerUpdateConnectionInput = {
 
 export type AppOwnerUpdateFieldInput = {
   connect?: InputMaybe<AppOwnerConnectFieldInput>
-  connectOrCreate?: InputMaybe<AppOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<AppOwnerCreateFieldInput>
   delete?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
   disconnect?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
@@ -2361,6 +2325,7 @@ export type AppPagePagesAggregationSelection = {
 
 export type AppPagePagesNodeAggregateSelection = {
   compositeKey: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   urlPattern: StringAggregateSelection
 }
@@ -2387,15 +2352,6 @@ export type AppPagesConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<PageConnectWhere>
-}
-
-export type AppPagesConnectOrCreateFieldInput = {
-  onCreate: AppPagesConnectOrCreateFieldInputOnCreate
-  where: PageConnectOrCreateWhere
-}
-
-export type AppPagesConnectOrCreateFieldInputOnCreate = {
-  node: PageOnCreateInput
 }
 
 export type AppPagesConnection = {
@@ -2431,8 +2387,6 @@ export type AppPagesDisconnectFieldInput = {
 
 export type AppPagesFieldInput = {
   connect?: InputMaybe<Array<AppPagesConnectFieldInput>>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<Array<AppPagesConnectOrCreateFieldInput>>
   create?: InputMaybe<Array<AppPagesCreateFieldInput>>
 }
 
@@ -2455,15 +2409,25 @@ export type AppPagesNodeAggregationWhereInput = {
   compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   urlPattern_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   urlPattern_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -2493,7 +2457,6 @@ export type AppPagesUpdateConnectionInput = {
 
 export type AppPagesUpdateFieldInput = {
   connect?: InputMaybe<Array<AppPagesConnectFieldInput>>
-  connectOrCreate?: InputMaybe<Array<AppPagesConnectOrCreateFieldInput>>
   create?: InputMaybe<Array<AppPagesCreateFieldInput>>
   delete?: InputMaybe<Array<AppPagesDeleteFieldInput>>
   disconnect?: InputMaybe<Array<AppPagesDisconnectFieldInput>>
@@ -2593,6 +2556,7 @@ export type AppTypeOwnerConnectionArgs = {
 
 export type AppTypeAggregateSelection = {
   count: Scalars['Int']['output']
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -2655,6 +2619,7 @@ export type AppTypeFieldFieldRefsAggregationSelection = {
 export type AppTypeFieldFieldRefsNodeAggregateSelection = {
   defaultValues: StringAggregateSelection
   description: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   key: StringAggregateSelection
   name: StringAggregateSelection
@@ -2685,23 +2650,12 @@ export type AppTypeFieldRefsConnectFieldInput = {
   where?: InputMaybe<FieldConnectWhere>
 }
 
-export type AppTypeFieldRefsConnectOrCreateFieldInput = {
-  onCreate: AppTypeFieldRefsConnectOrCreateFieldInputOnCreate
-  where: FieldConnectOrCreateWhere
-}
-
-export type AppTypeFieldRefsConnectOrCreateFieldInputOnCreate = {
-  node: FieldOnCreateInput
-}
-
 export type AppTypeFieldRefsCreateFieldInput = {
   node: FieldCreateInput
 }
 
 export type AppTypeFieldRefsFieldInput = {
   connect?: InputMaybe<Array<AppTypeFieldRefsConnectFieldInput>>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<Array<AppTypeFieldRefsConnectOrCreateFieldInput>>
   create?: InputMaybe<Array<AppTypeFieldRefsCreateFieldInput>>
 }
 
@@ -2739,15 +2693,25 @@ export type AppTypeFieldRefsNodeAggregationWhereInput = {
   description_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   description_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   description_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   key_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   key_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -2802,7 +2766,6 @@ export type AppTypeFieldRefsUpdateConnectionInput = {
 
 export type AppTypeFieldRefsUpdateFieldInput = {
   connect?: InputMaybe<Array<AppTypeFieldRefsConnectFieldInput>>
-  connectOrCreate?: InputMaybe<Array<AppTypeFieldRefsConnectOrCreateFieldInput>>
   create?: InputMaybe<Array<AppTypeFieldRefsCreateFieldInput>>
   delete?: InputMaybe<Array<IBaseTypeFieldRefsDeleteFieldInput>>
   disconnect?: InputMaybe<Array<IBaseTypeFieldRefsDisconnectFieldInput>>
@@ -2841,23 +2804,12 @@ export type AppTypeOwnerConnectFieldInput = {
   where?: InputMaybe<UserConnectWhere>
 }
 
-export type AppTypeOwnerConnectOrCreateFieldInput = {
-  onCreate: AppTypeOwnerConnectOrCreateFieldInputOnCreate
-  where: UserConnectOrCreateWhere
-}
-
-export type AppTypeOwnerConnectOrCreateFieldInputOnCreate = {
-  node: UserOnCreateInput
-}
-
 export type AppTypeOwnerCreateFieldInput = {
   node: UserCreateInput
 }
 
 export type AppTypeOwnerFieldInput = {
   connect?: InputMaybe<AppTypeOwnerConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<AppTypeOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<AppTypeOwnerCreateFieldInput>
 }
 
@@ -2895,15 +2847,25 @@ export type AppTypeOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -2928,7 +2890,6 @@ export type AppTypeOwnerUpdateConnectionInput = {
 
 export type AppTypeOwnerUpdateFieldInput = {
   connect?: InputMaybe<AppTypeOwnerConnectFieldInput>
-  connectOrCreate?: InputMaybe<AppTypeOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<AppTypeOwnerCreateFieldInput>
   delete?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
   disconnect?: InputMaybe<IBaseTypeOwnerDisconnectFieldInput>
@@ -2997,6 +2958,7 @@ export type AppTypeUserOwnerAggregationSelection = {
 export type AppTypeUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelection
   email: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   username: StringAggregateSelection
 }
@@ -3052,15 +3014,6 @@ export type AppTypesConnection = {
   totalCount: Scalars['Int']['output']
 }
 
-export type AppUniqueWhere = {
-  /** @deprecated Please use the explicit _EQ version */
-  compositeKey?: InputMaybe<Scalars['String']['input']>
-  compositeKey_EQ?: InputMaybe<Scalars['String']['input']>
-  /** @deprecated Please use the explicit _EQ version */
-  id?: InputMaybe<Scalars['ID']['input']>
-  id_EQ?: InputMaybe<Scalars['ID']['input']>
-}
-
 export type AppUpdateInput = {
   /** @deprecated Please use the explicit _SET field */
   compositeKey?: InputMaybe<Scalars['String']['input']>
@@ -3085,6 +3038,7 @@ export type AppUserOwnerAggregationSelection = {
 export type AppUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelection
   email: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   username: StringAggregateSelection
 }
@@ -3278,6 +3232,7 @@ export type ArrayTypeOwnerConnectionArgs = {
 
 export type ArrayTypeAggregateSelection = {
   count: Scalars['Int']['output']
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -3344,6 +3299,7 @@ export type ArrayTypeFieldFieldRefsAggregationSelection = {
 export type ArrayTypeFieldFieldRefsNodeAggregateSelection = {
   defaultValues: StringAggregateSelection
   description: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   key: StringAggregateSelection
   name: StringAggregateSelection
@@ -3374,25 +3330,12 @@ export type ArrayTypeFieldRefsConnectFieldInput = {
   where?: InputMaybe<FieldConnectWhere>
 }
 
-export type ArrayTypeFieldRefsConnectOrCreateFieldInput = {
-  onCreate: ArrayTypeFieldRefsConnectOrCreateFieldInputOnCreate
-  where: FieldConnectOrCreateWhere
-}
-
-export type ArrayTypeFieldRefsConnectOrCreateFieldInputOnCreate = {
-  node: FieldOnCreateInput
-}
-
 export type ArrayTypeFieldRefsCreateFieldInput = {
   node: FieldCreateInput
 }
 
 export type ArrayTypeFieldRefsFieldInput = {
   connect?: InputMaybe<Array<ArrayTypeFieldRefsConnectFieldInput>>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<
-    Array<ArrayTypeFieldRefsConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<ArrayTypeFieldRefsCreateFieldInput>>
 }
 
@@ -3430,15 +3373,25 @@ export type ArrayTypeFieldRefsNodeAggregationWhereInput = {
   description_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   description_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   description_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   key_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   key_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -3493,9 +3446,6 @@ export type ArrayTypeFieldRefsUpdateConnectionInput = {
 
 export type ArrayTypeFieldRefsUpdateFieldInput = {
   connect?: InputMaybe<Array<ArrayTypeFieldRefsConnectFieldInput>>
-  connectOrCreate?: InputMaybe<
-    Array<ArrayTypeFieldRefsConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<ArrayTypeFieldRefsCreateFieldInput>>
   delete?: InputMaybe<Array<IBaseTypeFieldRefsDeleteFieldInput>>
   disconnect?: InputMaybe<Array<IBaseTypeFieldRefsDisconnectFieldInput>>
@@ -3509,6 +3459,7 @@ export type ArrayTypeIBaseTypeItemTypeAggregationSelection = {
 }
 
 export type ArrayTypeIBaseTypeItemTypeNodeAggregateSelection = {
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -3572,15 +3523,25 @@ export type ArrayTypeItemTypeNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<ArrayTypeItemTypeNodeAggregationWhereInput>>
   NOT?: InputMaybe<ArrayTypeItemTypeNodeAggregationWhereInput>
   OR?: InputMaybe<Array<ArrayTypeItemTypeNodeAggregationWhereInput>>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -3648,23 +3609,12 @@ export type ArrayTypeOwnerConnectFieldInput = {
   where?: InputMaybe<UserConnectWhere>
 }
 
-export type ArrayTypeOwnerConnectOrCreateFieldInput = {
-  onCreate: ArrayTypeOwnerConnectOrCreateFieldInputOnCreate
-  where: UserConnectOrCreateWhere
-}
-
-export type ArrayTypeOwnerConnectOrCreateFieldInputOnCreate = {
-  node: UserOnCreateInput
-}
-
 export type ArrayTypeOwnerCreateFieldInput = {
   node: UserCreateInput
 }
 
 export type ArrayTypeOwnerFieldInput = {
   connect?: InputMaybe<ArrayTypeOwnerConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<ArrayTypeOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<ArrayTypeOwnerCreateFieldInput>
 }
 
@@ -3702,15 +3652,25 @@ export type ArrayTypeOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -3735,7 +3695,6 @@ export type ArrayTypeOwnerUpdateConnectionInput = {
 
 export type ArrayTypeOwnerUpdateFieldInput = {
   connect?: InputMaybe<ArrayTypeOwnerConnectFieldInput>
-  connectOrCreate?: InputMaybe<ArrayTypeOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<ArrayTypeOwnerCreateFieldInput>
   delete?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
   disconnect?: InputMaybe<IBaseTypeOwnerDisconnectFieldInput>
@@ -3805,6 +3764,7 @@ export type ArrayTypeUserOwnerAggregationSelection = {
 export type ArrayTypeUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelection
   email: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   username: StringAggregateSelection
 }
@@ -4029,6 +3989,7 @@ export type AtomAggregateSelection = {
   externalJsSource: StringAggregateSelection
   externalSourceType: StringAggregateSelection
   icon: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -4097,15 +4058,25 @@ export type AtomApiNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<AtomApiNodeAggregationWhereInput>>
   NOT?: InputMaybe<AtomApiNodeAggregationWhereInput>
   OR?: InputMaybe<Array<AtomApiNodeAggregationWhereInput>>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -4152,6 +4123,7 @@ export type AtomAtomRequiredParentsNodeAggregateSelection = {
   externalJsSource: StringAggregateSelection
   externalSourceType: StringAggregateSelection
   icon: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -4166,6 +4138,7 @@ export type AtomAtomSuggestedChildrenNodeAggregateSelection = {
   externalJsSource: StringAggregateSelection
   externalSourceType: StringAggregateSelection
   icon: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -4177,10 +4150,6 @@ export type AtomConnectInput = {
   requiredParents?: InputMaybe<Array<AtomRequiredParentsConnectFieldInput>>
   suggestedChildren?: InputMaybe<Array<AtomSuggestedChildrenConnectFieldInput>>
   tags?: InputMaybe<Array<AtomTagsConnectFieldInput>>
-}
-
-export type AtomConnectOrCreateWhere = {
-  node: AtomUniqueWhere
 }
 
 export type AtomConnectWhere = {
@@ -4248,6 +4217,7 @@ export type AtomElementElementsAggregationSelection = {
 export type AtomElementElementsNodeAggregateSelection = {
   childMapperPropKey: StringAggregateSelection
   compositeKey: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   renderForEachPropKey: StringAggregateSelection
   renderIfExpression: StringAggregateSelection
@@ -4276,15 +4246,6 @@ export type AtomElementsConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<ElementConnectWhere>
-}
-
-export type AtomElementsConnectOrCreateFieldInput = {
-  onCreate: AtomElementsConnectOrCreateFieldInputOnCreate
-  where: ElementConnectOrCreateWhere
-}
-
-export type AtomElementsConnectOrCreateFieldInputOnCreate = {
-  node: ElementOnCreateInput
 }
 
 export type AtomElementsConnection = {
@@ -4320,8 +4281,6 @@ export type AtomElementsDisconnectFieldInput = {
 
 export type AtomElementsFieldInput = {
   connect?: InputMaybe<Array<AtomElementsConnectFieldInput>>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<Array<AtomElementsConnectOrCreateFieldInput>>
   create?: InputMaybe<Array<AtomElementsCreateFieldInput>>
 }
 
@@ -4361,15 +4320,25 @@ export type AtomElementsNodeAggregationWhereInput = {
   compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<
     Scalars['Float']['input']
@@ -4441,7 +4410,6 @@ export type AtomElementsUpdateConnectionInput = {
 
 export type AtomElementsUpdateFieldInput = {
   connect?: InputMaybe<Array<AtomElementsConnectFieldInput>>
-  connectOrCreate?: InputMaybe<Array<AtomElementsConnectOrCreateFieldInput>>
   create?: InputMaybe<Array<AtomElementsCreateFieldInput>>
   delete?: InputMaybe<Array<AtomElementsDeleteFieldInput>>
   disconnect?: InputMaybe<Array<AtomElementsDisconnectFieldInput>>
@@ -4465,18 +4433,9 @@ export type AtomInterfaceTypeApiAggregationSelection = {
 }
 
 export type AtomInterfaceTypeApiNodeAggregateSelection = {
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
-}
-
-export type AtomOnCreateInput = {
-  externalCssSource?: InputMaybe<Scalars['String']['input']>
-  externalJsSource?: InputMaybe<Scalars['String']['input']>
-  externalSourceType?: InputMaybe<Scalars['String']['input']>
-  icon?: InputMaybe<Scalars['String']['input']>
-  id: Scalars['ID']['input']
-  name: Scalars['String']['input']
-  type: AtomType
 }
 
 export type AtomOptions = {
@@ -4510,23 +4469,12 @@ export type AtomOwnerConnectFieldInput = {
   where?: InputMaybe<UserConnectWhere>
 }
 
-export type AtomOwnerConnectOrCreateFieldInput = {
-  onCreate: AtomOwnerConnectOrCreateFieldInputOnCreate
-  where: UserConnectOrCreateWhere
-}
-
-export type AtomOwnerConnectOrCreateFieldInputOnCreate = {
-  node: UserOnCreateInput
-}
-
 export type AtomOwnerCreateFieldInput = {
   node: UserCreateInput
 }
 
 export type AtomOwnerFieldInput = {
   connect?: InputMaybe<AtomOwnerConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<AtomOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<AtomOwnerCreateFieldInput>
 }
 
@@ -4564,15 +4512,25 @@ export type AtomOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -4597,7 +4555,6 @@ export type AtomOwnerUpdateConnectionInput = {
 
 export type AtomOwnerUpdateFieldInput = {
   connect?: InputMaybe<AtomOwnerConnectFieldInput>
-  connectOrCreate?: InputMaybe<AtomOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<AtomOwnerCreateFieldInput>
   delete?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
   disconnect?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
@@ -4627,15 +4584,6 @@ export type AtomRequiredParentsConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<AtomConnectWhere>
-}
-
-export type AtomRequiredParentsConnectOrCreateFieldInput = {
-  onCreate: AtomRequiredParentsConnectOrCreateFieldInputOnCreate
-  where: AtomConnectOrCreateWhere
-}
-
-export type AtomRequiredParentsConnectOrCreateFieldInputOnCreate = {
-  node: AtomOnCreateInput
 }
 
 export type AtomRequiredParentsConnection = {
@@ -4671,10 +4619,6 @@ export type AtomRequiredParentsDisconnectFieldInput = {
 
 export type AtomRequiredParentsFieldInput = {
   connect?: InputMaybe<Array<AtomRequiredParentsConnectFieldInput>>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<
-    Array<AtomRequiredParentsConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<AtomRequiredParentsCreateFieldInput>>
 }
 
@@ -4744,15 +4688,25 @@ export type AtomRequiredParentsNodeAggregationWhereInput = {
   icon_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   icon_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   icon_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -4782,9 +4736,6 @@ export type AtomRequiredParentsUpdateConnectionInput = {
 
 export type AtomRequiredParentsUpdateFieldInput = {
   connect?: InputMaybe<Array<AtomRequiredParentsConnectFieldInput>>
-  connectOrCreate?: InputMaybe<
-    Array<AtomRequiredParentsConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<AtomRequiredParentsCreateFieldInput>>
   delete?: InputMaybe<Array<AtomRequiredParentsDeleteFieldInput>>
   disconnect?: InputMaybe<Array<AtomRequiredParentsDisconnectFieldInput>>
@@ -4890,15 +4841,6 @@ export type AtomSuggestedChildrenConnectFieldInput = {
   where?: InputMaybe<AtomConnectWhere>
 }
 
-export type AtomSuggestedChildrenConnectOrCreateFieldInput = {
-  onCreate: AtomSuggestedChildrenConnectOrCreateFieldInputOnCreate
-  where: AtomConnectOrCreateWhere
-}
-
-export type AtomSuggestedChildrenConnectOrCreateFieldInputOnCreate = {
-  node: AtomOnCreateInput
-}
-
 export type AtomSuggestedChildrenConnection = {
   edges: Array<AtomSuggestedChildrenRelationship>
   pageInfo: PageInfo
@@ -4932,10 +4874,6 @@ export type AtomSuggestedChildrenDisconnectFieldInput = {
 
 export type AtomSuggestedChildrenFieldInput = {
   connect?: InputMaybe<Array<AtomSuggestedChildrenConnectFieldInput>>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<
-    Array<AtomSuggestedChildrenConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<AtomSuggestedChildrenCreateFieldInput>>
 }
 
@@ -5005,15 +4943,25 @@ export type AtomSuggestedChildrenNodeAggregationWhereInput = {
   icon_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   icon_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   icon_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -5043,9 +4991,6 @@ export type AtomSuggestedChildrenUpdateConnectionInput = {
 
 export type AtomSuggestedChildrenUpdateFieldInput = {
   connect?: InputMaybe<Array<AtomSuggestedChildrenConnectFieldInput>>
-  connectOrCreate?: InputMaybe<
-    Array<AtomSuggestedChildrenConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<AtomSuggestedChildrenCreateFieldInput>>
   delete?: InputMaybe<Array<AtomSuggestedChildrenDeleteFieldInput>>
   disconnect?: InputMaybe<Array<AtomSuggestedChildrenDisconnectFieldInput>>
@@ -5059,6 +5004,7 @@ export type AtomTagTagsAggregationSelection = {
 }
 
 export type AtomTagTagsNodeAggregateSelection = {
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -5085,15 +5031,6 @@ export type AtomTagsConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<TagConnectWhere>
-}
-
-export type AtomTagsConnectOrCreateFieldInput = {
-  onCreate: AtomTagsConnectOrCreateFieldInputOnCreate
-  where: TagConnectOrCreateWhere
-}
-
-export type AtomTagsConnectOrCreateFieldInputOnCreate = {
-  node: TagOnCreateInput
 }
 
 export type AtomTagsConnection = {
@@ -5129,8 +5066,6 @@ export type AtomTagsDisconnectFieldInput = {
 
 export type AtomTagsFieldInput = {
   connect?: InputMaybe<Array<AtomTagsConnectFieldInput>>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<Array<AtomTagsConnectOrCreateFieldInput>>
   create?: InputMaybe<Array<AtomTagsCreateFieldInput>>
 }
 
@@ -5138,15 +5073,25 @@ export type AtomTagsNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<AtomTagsNodeAggregationWhereInput>>
   NOT?: InputMaybe<AtomTagsNodeAggregationWhereInput>
   OR?: InputMaybe<Array<AtomTagsNodeAggregationWhereInput>>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -5176,7 +5121,6 @@ export type AtomTagsUpdateConnectionInput = {
 
 export type AtomTagsUpdateFieldInput = {
   connect?: InputMaybe<Array<AtomTagsConnectFieldInput>>
-  connectOrCreate?: InputMaybe<Array<AtomTagsConnectOrCreateFieldInput>>
   create?: InputMaybe<Array<AtomTagsCreateFieldInput>>
   delete?: InputMaybe<Array<AtomTagsDeleteFieldInput>>
   disconnect?: InputMaybe<Array<AtomTagsDisconnectFieldInput>>
@@ -5564,21 +5508,6 @@ export enum AtomType {
   TextList = 'TextList',
 }
 
-export type AtomUniqueWhere = {
-  /** @deprecated Please use the explicit _EQ version */
-  externalSourceType?: InputMaybe<Scalars['String']['input']>
-  externalSourceType_EQ?: InputMaybe<Scalars['String']['input']>
-  /** @deprecated Please use the explicit _EQ version */
-  id?: InputMaybe<Scalars['ID']['input']>
-  id_EQ?: InputMaybe<Scalars['ID']['input']>
-  /** @deprecated Please use the explicit _EQ version */
-  name?: InputMaybe<Scalars['String']['input']>
-  name_EQ?: InputMaybe<Scalars['String']['input']>
-  /** @deprecated Please use the explicit _EQ version */
-  type?: InputMaybe<AtomType>
-  type_EQ?: InputMaybe<AtomType>
-}
-
 export type AtomUpdateInput = {
   api?: InputMaybe<AtomApiUpdateFieldInput>
   elements?: InputMaybe<Array<AtomElementsUpdateFieldInput>>
@@ -5621,6 +5550,7 @@ export type AtomUserOwnerAggregationSelection = {
 export type AtomUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelection
   email: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   username: StringAggregateSelection
 }
@@ -5851,6 +5781,7 @@ export type AuthGuardResourceConnectionArgs = {
 
 export type AuthGuardAggregateSelection = {
   count: Scalars['Int']['output']
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
   responseTransformer: StringAggregateSelection
@@ -5877,15 +5808,6 @@ export type AuthGuardConfigConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<PropConnectWhere>
-}
-
-export type AuthGuardConfigConnectOrCreateFieldInput = {
-  onCreate: AuthGuardConfigConnectOrCreateFieldInputOnCreate
-  where: PropConnectOrCreateWhere
-}
-
-export type AuthGuardConfigConnectOrCreateFieldInputOnCreate = {
-  node: PropOnCreateInput
 }
 
 export type AuthGuardConfigConnection = {
@@ -5919,8 +5841,6 @@ export type AuthGuardConfigDisconnectFieldInput = {
 
 export type AuthGuardConfigFieldInput = {
   connect?: InputMaybe<AuthGuardConfigConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<AuthGuardConfigConnectOrCreateFieldInput>
   create?: InputMaybe<AuthGuardConfigCreateFieldInput>
 }
 
@@ -5943,15 +5863,25 @@ export type AuthGuardConfigNodeAggregationWhereInput = {
   data_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   data_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   data_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
 }
 
@@ -5966,7 +5896,6 @@ export type AuthGuardConfigUpdateConnectionInput = {
 
 export type AuthGuardConfigUpdateFieldInput = {
   connect?: InputMaybe<AuthGuardConfigConnectFieldInput>
-  connectOrCreate?: InputMaybe<AuthGuardConfigConnectOrCreateFieldInput>
   create?: InputMaybe<AuthGuardConfigCreateFieldInput>
   delete?: InputMaybe<AuthGuardConfigDeleteFieldInput>
   disconnect?: InputMaybe<AuthGuardConfigDisconnectFieldInput>
@@ -5978,10 +5907,6 @@ export type AuthGuardConnectInput = {
   config?: InputMaybe<AuthGuardConfigConnectFieldInput>
   owner?: InputMaybe<AuthGuardOwnerConnectFieldInput>
   resource?: InputMaybe<AuthGuardResourceConnectFieldInput>
-}
-
-export type AuthGuardConnectOrCreateWhere = {
-  node: AuthGuardUniqueWhere
 }
 
 export type AuthGuardConnectWhere = {
@@ -6032,12 +5957,6 @@ export type AuthGuardEventPayload = {
   responseTransformer: Scalars['String']['output']
 }
 
-export type AuthGuardOnCreateInput = {
-  id: Scalars['ID']['input']
-  name: Scalars['String']['input']
-  responseTransformer: Scalars['String']['input']
-}
-
 export type AuthGuardOptions = {
   limit?: InputMaybe<Scalars['Int']['input']>
   offset?: InputMaybe<Scalars['Int']['input']>
@@ -6069,23 +5988,12 @@ export type AuthGuardOwnerConnectFieldInput = {
   where?: InputMaybe<UserConnectWhere>
 }
 
-export type AuthGuardOwnerConnectOrCreateFieldInput = {
-  onCreate: AuthGuardOwnerConnectOrCreateFieldInputOnCreate
-  where: UserConnectOrCreateWhere
-}
-
-export type AuthGuardOwnerConnectOrCreateFieldInputOnCreate = {
-  node: UserOnCreateInput
-}
-
 export type AuthGuardOwnerCreateFieldInput = {
   node: UserCreateInput
 }
 
 export type AuthGuardOwnerFieldInput = {
   connect?: InputMaybe<AuthGuardOwnerConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<AuthGuardOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<AuthGuardOwnerCreateFieldInput>
 }
 
@@ -6123,15 +6031,25 @@ export type AuthGuardOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -6156,7 +6074,6 @@ export type AuthGuardOwnerUpdateConnectionInput = {
 
 export type AuthGuardOwnerUpdateFieldInput = {
   connect?: InputMaybe<AuthGuardOwnerConnectFieldInput>
-  connectOrCreate?: InputMaybe<AuthGuardOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<AuthGuardOwnerCreateFieldInput>
   delete?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
   disconnect?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
@@ -6171,6 +6088,7 @@ export type AuthGuardPropConfigAggregationSelection = {
 
 export type AuthGuardPropConfigNodeAggregateSelection = {
   data: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
 }
 
@@ -6196,15 +6114,6 @@ export type AuthGuardResourceConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<ResourceConnectWhere>
-}
-
-export type AuthGuardResourceConnectOrCreateFieldInput = {
-  onCreate: AuthGuardResourceConnectOrCreateFieldInputOnCreate
-  where: ResourceConnectOrCreateWhere
-}
-
-export type AuthGuardResourceConnectOrCreateFieldInputOnCreate = {
-  node: ResourceOnCreateInput
 }
 
 export type AuthGuardResourceConnection = {
@@ -6240,8 +6149,6 @@ export type AuthGuardResourceDisconnectFieldInput = {
 
 export type AuthGuardResourceFieldInput = {
   connect?: InputMaybe<AuthGuardResourceConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<AuthGuardResourceConnectOrCreateFieldInput>
   create?: InputMaybe<AuthGuardResourceCreateFieldInput>
 }
 
@@ -6249,15 +6156,25 @@ export type AuthGuardResourceNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<AuthGuardResourceNodeAggregationWhereInput>>
   NOT?: InputMaybe<AuthGuardResourceNodeAggregationWhereInput>
   OR?: InputMaybe<Array<AuthGuardResourceNodeAggregationWhereInput>>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -6287,6 +6204,7 @@ export type AuthGuardResourceResourceAggregationSelection = {
 }
 
 export type AuthGuardResourceResourceNodeAggregateSelection = {
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -6297,7 +6215,6 @@ export type AuthGuardResourceUpdateConnectionInput = {
 
 export type AuthGuardResourceUpdateFieldInput = {
   connect?: InputMaybe<AuthGuardResourceConnectFieldInput>
-  connectOrCreate?: InputMaybe<AuthGuardResourceConnectOrCreateFieldInput>
   create?: InputMaybe<AuthGuardResourceCreateFieldInput>
   delete?: InputMaybe<AuthGuardResourceDeleteFieldInput>
   disconnect?: InputMaybe<AuthGuardResourceDisconnectFieldInput>
@@ -6341,12 +6258,6 @@ export type AuthGuardSubscriptionWhere = {
   responseTransformer_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
 }
 
-export type AuthGuardUniqueWhere = {
-  /** @deprecated Please use the explicit _EQ version */
-  id?: InputMaybe<Scalars['ID']['input']>
-  id_EQ?: InputMaybe<Scalars['ID']['input']>
-}
-
 export type AuthGuardUpdateInput = {
   config?: InputMaybe<AuthGuardConfigUpdateFieldInput>
   /** @deprecated Please use the explicit _SET field */
@@ -6374,6 +6285,7 @@ export type AuthGuardUserOwnerAggregationSelection = {
 export type AuthGuardUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelection
   email: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   username: StringAggregateSelection
 }
@@ -6481,6 +6393,7 @@ export type BaseActionStoreConnectionArgs = {
 
 export type BaseActionAggregateSelection = {
   count: Scalars['Int']['output']
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -6553,15 +6466,6 @@ export type BaseActionPostRenderElementConnectFieldInput = {
   where?: InputMaybe<ElementConnectWhere>
 }
 
-export type BaseActionPostRenderElementConnectOrCreateFieldInput = {
-  onCreate: BaseActionPostRenderElementConnectOrCreateFieldInputOnCreate
-  where: ElementConnectOrCreateWhere
-}
-
-export type BaseActionPostRenderElementConnectOrCreateFieldInputOnCreate = {
-  node: ElementOnCreateInput
-}
-
 export type BaseActionPostRenderElementConnection = {
   edges: Array<BaseActionPostRenderElementRelationship>
   pageInfo: PageInfo
@@ -6629,15 +6533,25 @@ export type BaseActionPostRenderElementNodeAggregationWhereInput = {
   compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<
     Scalars['Float']['input']
@@ -6709,7 +6623,6 @@ export type BaseActionPostRenderElementUpdateConnectionInput = {
 
 export type BaseActionPostRenderElementUpdateFieldInput = {
   connect?: InputMaybe<BaseActionPostRenderElementConnectFieldInput>
-  connectOrCreate?: InputMaybe<BaseActionPostRenderElementConnectOrCreateFieldInput>
   create?: InputMaybe<BaseActionPostRenderElementCreateFieldInput>
   delete?: InputMaybe<BaseActionPostRenderElementDeleteFieldInput>
   disconnect?: InputMaybe<BaseActionPostRenderElementDisconnectFieldInput>
@@ -6739,15 +6652,6 @@ export type BaseActionPreRenderElementConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<ElementConnectWhere>
-}
-
-export type BaseActionPreRenderElementConnectOrCreateFieldInput = {
-  onCreate: BaseActionPreRenderElementConnectOrCreateFieldInputOnCreate
-  where: ElementConnectOrCreateWhere
-}
-
-export type BaseActionPreRenderElementConnectOrCreateFieldInputOnCreate = {
-  node: ElementOnCreateInput
 }
 
 export type BaseActionPreRenderElementConnection = {
@@ -6817,15 +6721,25 @@ export type BaseActionPreRenderElementNodeAggregationWhereInput = {
   compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<
     Scalars['Float']['input']
@@ -6897,7 +6811,6 @@ export type BaseActionPreRenderElementUpdateConnectionInput = {
 
 export type BaseActionPreRenderElementUpdateFieldInput = {
   connect?: InputMaybe<BaseActionPreRenderElementConnectFieldInput>
-  connectOrCreate?: InputMaybe<BaseActionPreRenderElementConnectOrCreateFieldInput>
   create?: InputMaybe<BaseActionPreRenderElementCreateFieldInput>
   delete?: InputMaybe<BaseActionPreRenderElementDeleteFieldInput>
   disconnect?: InputMaybe<BaseActionPreRenderElementDisconnectFieldInput>
@@ -6936,15 +6849,6 @@ export type BaseActionStoreConnectFieldInput = {
   where?: InputMaybe<StoreConnectWhere>
 }
 
-export type BaseActionStoreConnectOrCreateFieldInput = {
-  onCreate: BaseActionStoreConnectOrCreateFieldInputOnCreate
-  where: StoreConnectOrCreateWhere
-}
-
-export type BaseActionStoreConnectOrCreateFieldInputOnCreate = {
-  node: StoreOnCreateInput
-}
-
 export type BaseActionStoreConnection = {
   edges: Array<BaseActionStoreRelationship>
   pageInfo: PageInfo
@@ -6980,15 +6884,25 @@ export type BaseActionStoreNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<BaseActionStoreNodeAggregationWhereInput>>
   NOT?: InputMaybe<BaseActionStoreNodeAggregationWhereInput>
   OR?: InputMaybe<Array<BaseActionStoreNodeAggregationWhereInput>>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -7018,7 +6932,6 @@ export type BaseActionStoreUpdateConnectionInput = {
 
 export type BaseActionStoreUpdateFieldInput = {
   connect?: InputMaybe<BaseActionStoreConnectFieldInput>
-  connectOrCreate?: InputMaybe<BaseActionStoreConnectOrCreateFieldInput>
   create?: InputMaybe<BaseActionStoreCreateFieldInput>
   delete?: InputMaybe<BaseActionStoreDeleteFieldInput>
   disconnect?: InputMaybe<BaseActionStoreDisconnectFieldInput>
@@ -7070,6 +6983,8 @@ export type BaseActionWhere = {
   type?: InputMaybe<ActionKind>
   type_EQ?: InputMaybe<ActionKind>
   type_IN?: InputMaybe<Array<ActionKind>>
+  typename?: InputMaybe<Array<BaseActionImplementation>>
+  /** @deprecated The typename_IN filter is deprecated, please use the typename filter instead */
   typename_IN?: InputMaybe<Array<BaseActionImplementation>>
 }
 
@@ -7172,6 +7087,7 @@ export type CodeActionStoreConnectionArgs = {
 export type CodeActionAggregateSelection = {
   code: StringAggregateSelection
   count: Scalars['Int']['output']
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -7233,6 +7149,7 @@ export type CodeActionElementPostRenderElementAggregationSelection = {
 export type CodeActionElementPostRenderElementNodeAggregateSelection = {
   childMapperPropKey: StringAggregateSelection
   compositeKey: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   renderForEachPropKey: StringAggregateSelection
   renderIfExpression: StringAggregateSelection
@@ -7247,6 +7164,7 @@ export type CodeActionElementPreRenderElementAggregationSelection = {
 export type CodeActionElementPreRenderElementNodeAggregateSelection = {
   childMapperPropKey: StringAggregateSelection
   compositeKey: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   renderForEachPropKey: StringAggregateSelection
   renderIfExpression: StringAggregateSelection
@@ -7292,23 +7210,12 @@ export type CodeActionPostRenderElementConnectFieldInput = {
   where?: InputMaybe<ElementConnectWhere>
 }
 
-export type CodeActionPostRenderElementConnectOrCreateFieldInput = {
-  onCreate: CodeActionPostRenderElementConnectOrCreateFieldInputOnCreate
-  where: ElementConnectOrCreateWhere
-}
-
-export type CodeActionPostRenderElementConnectOrCreateFieldInputOnCreate = {
-  node: ElementOnCreateInput
-}
-
 export type CodeActionPostRenderElementCreateFieldInput = {
   node: ElementCreateInput
 }
 
 export type CodeActionPostRenderElementFieldInput = {
   connect?: InputMaybe<CodeActionPostRenderElementConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<CodeActionPostRenderElementConnectOrCreateFieldInput>
   create?: InputMaybe<CodeActionPostRenderElementCreateFieldInput>
 }
 
@@ -7348,15 +7255,25 @@ export type CodeActionPostRenderElementNodeAggregationWhereInput = {
   compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<
     Scalars['Float']['input']
@@ -7423,7 +7340,6 @@ export type CodeActionPostRenderElementUpdateConnectionInput = {
 
 export type CodeActionPostRenderElementUpdateFieldInput = {
   connect?: InputMaybe<CodeActionPostRenderElementConnectFieldInput>
-  connectOrCreate?: InputMaybe<CodeActionPostRenderElementConnectOrCreateFieldInput>
   create?: InputMaybe<CodeActionPostRenderElementCreateFieldInput>
   delete?: InputMaybe<BaseActionPostRenderElementDeleteFieldInput>
   disconnect?: InputMaybe<BaseActionPostRenderElementDisconnectFieldInput>
@@ -7455,23 +7371,12 @@ export type CodeActionPreRenderElementConnectFieldInput = {
   where?: InputMaybe<ElementConnectWhere>
 }
 
-export type CodeActionPreRenderElementConnectOrCreateFieldInput = {
-  onCreate: CodeActionPreRenderElementConnectOrCreateFieldInputOnCreate
-  where: ElementConnectOrCreateWhere
-}
-
-export type CodeActionPreRenderElementConnectOrCreateFieldInputOnCreate = {
-  node: ElementOnCreateInput
-}
-
 export type CodeActionPreRenderElementCreateFieldInput = {
   node: ElementCreateInput
 }
 
 export type CodeActionPreRenderElementFieldInput = {
   connect?: InputMaybe<CodeActionPreRenderElementConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<CodeActionPreRenderElementConnectOrCreateFieldInput>
   create?: InputMaybe<CodeActionPreRenderElementCreateFieldInput>
 }
 
@@ -7511,15 +7416,25 @@ export type CodeActionPreRenderElementNodeAggregationWhereInput = {
   compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<
     Scalars['Float']['input']
@@ -7586,7 +7501,6 @@ export type CodeActionPreRenderElementUpdateConnectionInput = {
 
 export type CodeActionPreRenderElementUpdateFieldInput = {
   connect?: InputMaybe<CodeActionPreRenderElementConnectFieldInput>
-  connectOrCreate?: InputMaybe<CodeActionPreRenderElementConnectOrCreateFieldInput>
   create?: InputMaybe<CodeActionPreRenderElementCreateFieldInput>
   delete?: InputMaybe<BaseActionPreRenderElementDeleteFieldInput>
   disconnect?: InputMaybe<BaseActionPreRenderElementDisconnectFieldInput>
@@ -7626,23 +7540,12 @@ export type CodeActionStoreConnectFieldInput = {
   where?: InputMaybe<StoreConnectWhere>
 }
 
-export type CodeActionStoreConnectOrCreateFieldInput = {
-  onCreate: CodeActionStoreConnectOrCreateFieldInputOnCreate
-  where: StoreConnectOrCreateWhere
-}
-
-export type CodeActionStoreConnectOrCreateFieldInputOnCreate = {
-  node: StoreOnCreateInput
-}
-
 export type CodeActionStoreCreateFieldInput = {
   node: StoreCreateInput
 }
 
 export type CodeActionStoreFieldInput = {
   connect?: InputMaybe<CodeActionStoreConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<CodeActionStoreConnectOrCreateFieldInput>
   create?: InputMaybe<CodeActionStoreCreateFieldInput>
 }
 
@@ -7650,15 +7553,25 @@ export type CodeActionStoreNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<CodeActionStoreNodeAggregationWhereInput>>
   NOT?: InputMaybe<CodeActionStoreNodeAggregationWhereInput>
   OR?: InputMaybe<Array<CodeActionStoreNodeAggregationWhereInput>>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -7683,6 +7596,7 @@ export type CodeActionStoreStoreAggregationSelection = {
 }
 
 export type CodeActionStoreStoreNodeAggregateSelection = {
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -7693,7 +7607,6 @@ export type CodeActionStoreUpdateConnectionInput = {
 
 export type CodeActionStoreUpdateFieldInput = {
   connect?: InputMaybe<CodeActionStoreConnectFieldInput>
-  connectOrCreate?: InputMaybe<CodeActionStoreConnectOrCreateFieldInput>
   create?: InputMaybe<CodeActionStoreCreateFieldInput>
   delete?: InputMaybe<BaseActionStoreDeleteFieldInput>
   disconnect?: InputMaybe<BaseActionStoreDisconnectFieldInput>
@@ -7882,6 +7795,7 @@ export type CodeMirrorTypeOwnerConnectionArgs = {
 
 export type CodeMirrorTypeAggregateSelection = {
   count: Scalars['Int']['output']
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -7946,6 +7860,7 @@ export type CodeMirrorTypeFieldFieldRefsAggregationSelection = {
 export type CodeMirrorTypeFieldFieldRefsNodeAggregateSelection = {
   defaultValues: StringAggregateSelection
   description: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   key: StringAggregateSelection
   name: StringAggregateSelection
@@ -7976,25 +7891,12 @@ export type CodeMirrorTypeFieldRefsConnectFieldInput = {
   where?: InputMaybe<FieldConnectWhere>
 }
 
-export type CodeMirrorTypeFieldRefsConnectOrCreateFieldInput = {
-  onCreate: CodeMirrorTypeFieldRefsConnectOrCreateFieldInputOnCreate
-  where: FieldConnectOrCreateWhere
-}
-
-export type CodeMirrorTypeFieldRefsConnectOrCreateFieldInputOnCreate = {
-  node: FieldOnCreateInput
-}
-
 export type CodeMirrorTypeFieldRefsCreateFieldInput = {
   node: FieldCreateInput
 }
 
 export type CodeMirrorTypeFieldRefsFieldInput = {
   connect?: InputMaybe<Array<CodeMirrorTypeFieldRefsConnectFieldInput>>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<
-    Array<CodeMirrorTypeFieldRefsConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<CodeMirrorTypeFieldRefsCreateFieldInput>>
 }
 
@@ -8032,15 +7934,25 @@ export type CodeMirrorTypeFieldRefsNodeAggregationWhereInput = {
   description_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   description_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   description_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   key_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   key_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -8095,9 +8007,6 @@ export type CodeMirrorTypeFieldRefsUpdateConnectionInput = {
 
 export type CodeMirrorTypeFieldRefsUpdateFieldInput = {
   connect?: InputMaybe<Array<CodeMirrorTypeFieldRefsConnectFieldInput>>
-  connectOrCreate?: InputMaybe<
-    Array<CodeMirrorTypeFieldRefsConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<CodeMirrorTypeFieldRefsCreateFieldInput>>
   delete?: InputMaybe<Array<IBaseTypeFieldRefsDeleteFieldInput>>
   disconnect?: InputMaybe<Array<IBaseTypeFieldRefsDisconnectFieldInput>>
@@ -8136,23 +8045,12 @@ export type CodeMirrorTypeOwnerConnectFieldInput = {
   where?: InputMaybe<UserConnectWhere>
 }
 
-export type CodeMirrorTypeOwnerConnectOrCreateFieldInput = {
-  onCreate: CodeMirrorTypeOwnerConnectOrCreateFieldInputOnCreate
-  where: UserConnectOrCreateWhere
-}
-
-export type CodeMirrorTypeOwnerConnectOrCreateFieldInputOnCreate = {
-  node: UserOnCreateInput
-}
-
 export type CodeMirrorTypeOwnerCreateFieldInput = {
   node: UserCreateInput
 }
 
 export type CodeMirrorTypeOwnerFieldInput = {
   connect?: InputMaybe<CodeMirrorTypeOwnerConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<CodeMirrorTypeOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<CodeMirrorTypeOwnerCreateFieldInput>
 }
 
@@ -8190,15 +8088,25 @@ export type CodeMirrorTypeOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -8223,7 +8131,6 @@ export type CodeMirrorTypeOwnerUpdateConnectionInput = {
 
 export type CodeMirrorTypeOwnerUpdateFieldInput = {
   connect?: InputMaybe<CodeMirrorTypeOwnerConnectFieldInput>
-  connectOrCreate?: InputMaybe<CodeMirrorTypeOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<CodeMirrorTypeOwnerCreateFieldInput>
   delete?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
   disconnect?: InputMaybe<IBaseTypeOwnerDisconnectFieldInput>
@@ -8300,6 +8207,7 @@ export type CodeMirrorTypeUserOwnerAggregationSelection = {
 export type CodeMirrorTypeUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelection
   email: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   username: StringAggregateSelection
 }
@@ -8495,6 +8403,7 @@ export type ComponentStoreConnectionArgs = {
 export type ComponentAggregateSelection = {
   compositeKey: StringAggregateSelection
   count: Scalars['Int']['output']
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
 }
 
@@ -8562,15 +8471,25 @@ export type ComponentApiNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<ComponentApiNodeAggregationWhereInput>>
   NOT?: InputMaybe<ComponentApiNodeAggregationWhereInput>
   OR?: InputMaybe<Array<ComponentApiNodeAggregationWhereInput>>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -8613,10 +8532,6 @@ export type ComponentConnectInput = {
   props?: InputMaybe<ComponentPropsConnectFieldInput>
   rootElement?: InputMaybe<ComponentRootElementConnectFieldInput>
   store?: InputMaybe<ComponentStoreConnectFieldInput>
-}
-
-export type ComponentConnectOrCreateWhere = {
-  node: ComponentUniqueWhere
 }
 
 export type ComponentConnectWhere = {
@@ -8674,6 +8589,7 @@ export type ComponentElementRootElementAggregationSelection = {
 export type ComponentElementRootElementNodeAggregateSelection = {
   childMapperPropKey: StringAggregateSelection
   compositeKey: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   renderForEachPropKey: StringAggregateSelection
   renderIfExpression: StringAggregateSelection
@@ -8691,13 +8607,9 @@ export type ComponentInterfaceTypeApiAggregationSelection = {
 }
 
 export type ComponentInterfaceTypeApiNodeAggregateSelection = {
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
-}
-
-export type ComponentOnCreateInput = {
-  compositeKey: Scalars['String']['input']
-  id: Scalars['ID']['input']
 }
 
 export type ComponentOptions = {
@@ -8731,23 +8643,12 @@ export type ComponentOwnerConnectFieldInput = {
   where?: InputMaybe<UserConnectWhere>
 }
 
-export type ComponentOwnerConnectOrCreateFieldInput = {
-  onCreate: ComponentOwnerConnectOrCreateFieldInputOnCreate
-  where: UserConnectOrCreateWhere
-}
-
-export type ComponentOwnerConnectOrCreateFieldInputOnCreate = {
-  node: UserOnCreateInput
-}
-
 export type ComponentOwnerCreateFieldInput = {
   node: UserCreateInput
 }
 
 export type ComponentOwnerFieldInput = {
   connect?: InputMaybe<ComponentOwnerConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<ComponentOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<ComponentOwnerCreateFieldInput>
 }
 
@@ -8785,15 +8686,25 @@ export type ComponentOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -8818,7 +8729,6 @@ export type ComponentOwnerUpdateConnectionInput = {
 
 export type ComponentOwnerUpdateFieldInput = {
   connect?: InputMaybe<ComponentOwnerConnectFieldInput>
-  connectOrCreate?: InputMaybe<ComponentOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<ComponentOwnerCreateFieldInput>
   delete?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
   disconnect?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
@@ -8833,6 +8743,7 @@ export type ComponentPropPropsAggregationSelection = {
 
 export type ComponentPropPropsNodeAggregateSelection = {
   data: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
 }
 
@@ -8857,15 +8768,6 @@ export type ComponentPropsConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<PropConnectWhere>
-}
-
-export type ComponentPropsConnectOrCreateFieldInput = {
-  onCreate: ComponentPropsConnectOrCreateFieldInputOnCreate
-  where: PropConnectOrCreateWhere
-}
-
-export type ComponentPropsConnectOrCreateFieldInputOnCreate = {
-  node: PropOnCreateInput
 }
 
 export type ComponentPropsConnection = {
@@ -8899,8 +8801,6 @@ export type ComponentPropsDisconnectFieldInput = {
 
 export type ComponentPropsFieldInput = {
   connect?: InputMaybe<ComponentPropsConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<ComponentPropsConnectOrCreateFieldInput>
   create?: InputMaybe<ComponentPropsCreateFieldInput>
 }
 
@@ -8923,15 +8823,25 @@ export type ComponentPropsNodeAggregationWhereInput = {
   data_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   data_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   data_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
 }
 
@@ -8946,7 +8856,6 @@ export type ComponentPropsUpdateConnectionInput = {
 
 export type ComponentPropsUpdateFieldInput = {
   connect?: InputMaybe<ComponentPropsConnectFieldInput>
-  connectOrCreate?: InputMaybe<ComponentPropsConnectOrCreateFieldInput>
   create?: InputMaybe<ComponentPropsCreateFieldInput>
   delete?: InputMaybe<ComponentPropsDeleteFieldInput>
   disconnect?: InputMaybe<ComponentPropsDisconnectFieldInput>
@@ -8976,15 +8885,6 @@ export type ComponentRootElementConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<ElementConnectWhere>
-}
-
-export type ComponentRootElementConnectOrCreateFieldInput = {
-  onCreate: ComponentRootElementConnectOrCreateFieldInputOnCreate
-  where: ElementConnectOrCreateWhere
-}
-
-export type ComponentRootElementConnectOrCreateFieldInputOnCreate = {
-  node: ElementOnCreateInput
 }
 
 export type ComponentRootElementConnection = {
@@ -9020,8 +8920,6 @@ export type ComponentRootElementDisconnectFieldInput = {
 
 export type ComponentRootElementFieldInput = {
   connect?: InputMaybe<ComponentRootElementConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<ComponentRootElementConnectOrCreateFieldInput>
   create?: InputMaybe<ComponentRootElementCreateFieldInput>
 }
 
@@ -9061,15 +8959,25 @@ export type ComponentRootElementNodeAggregationWhereInput = {
   compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<
     Scalars['Float']['input']
@@ -9141,7 +9049,6 @@ export type ComponentRootElementUpdateConnectionInput = {
 
 export type ComponentRootElementUpdateFieldInput = {
   connect?: InputMaybe<ComponentRootElementConnectFieldInput>
-  connectOrCreate?: InputMaybe<ComponentRootElementConnectOrCreateFieldInput>
   create?: InputMaybe<ComponentRootElementCreateFieldInput>
   delete?: InputMaybe<ComponentRootElementDeleteFieldInput>
   disconnect?: InputMaybe<ComponentRootElementDisconnectFieldInput>
@@ -9179,15 +9086,6 @@ export type ComponentStoreConnectFieldInput = {
   where?: InputMaybe<StoreConnectWhere>
 }
 
-export type ComponentStoreConnectOrCreateFieldInput = {
-  onCreate: ComponentStoreConnectOrCreateFieldInputOnCreate
-  where: StoreConnectOrCreateWhere
-}
-
-export type ComponentStoreConnectOrCreateFieldInputOnCreate = {
-  node: StoreOnCreateInput
-}
-
 export type ComponentStoreConnection = {
   edges: Array<ComponentStoreRelationship>
   pageInfo: PageInfo
@@ -9221,8 +9119,6 @@ export type ComponentStoreDisconnectFieldInput = {
 
 export type ComponentStoreFieldInput = {
   connect?: InputMaybe<ComponentStoreConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<ComponentStoreConnectOrCreateFieldInput>
   create?: InputMaybe<ComponentStoreCreateFieldInput>
 }
 
@@ -9230,15 +9126,25 @@ export type ComponentStoreNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<ComponentStoreNodeAggregationWhereInput>>
   NOT?: InputMaybe<ComponentStoreNodeAggregationWhereInput>
   OR?: InputMaybe<Array<ComponentStoreNodeAggregationWhereInput>>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -9268,6 +9174,7 @@ export type ComponentStoreStoreAggregationSelection = {
 }
 
 export type ComponentStoreStoreNodeAggregateSelection = {
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -9278,7 +9185,6 @@ export type ComponentStoreUpdateConnectionInput = {
 
 export type ComponentStoreUpdateFieldInput = {
   connect?: InputMaybe<ComponentStoreConnectFieldInput>
-  connectOrCreate?: InputMaybe<ComponentStoreConnectOrCreateFieldInput>
   create?: InputMaybe<ComponentStoreCreateFieldInput>
   delete?: InputMaybe<ComponentStoreDeleteFieldInput>
   disconnect?: InputMaybe<ComponentStoreDisconnectFieldInput>
@@ -9307,15 +9213,6 @@ export type ComponentSubscriptionWhere = {
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
 }
 
-export type ComponentUniqueWhere = {
-  /** @deprecated Please use the explicit _EQ version */
-  compositeKey?: InputMaybe<Scalars['String']['input']>
-  compositeKey_EQ?: InputMaybe<Scalars['String']['input']>
-  /** @deprecated Please use the explicit _EQ version */
-  id?: InputMaybe<Scalars['ID']['input']>
-  id_EQ?: InputMaybe<Scalars['ID']['input']>
-}
-
 export type ComponentUpdateInput = {
   api?: InputMaybe<ComponentApiUpdateFieldInput>
   /** @deprecated Please use the explicit _SET field */
@@ -9342,6 +9239,7 @@ export type ComponentUserOwnerAggregationSelection = {
 export type ComponentUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelection
   email: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   username: StringAggregateSelection
 }
@@ -9610,6 +9508,7 @@ export type DomainAppConnectionArgs = {
 
 export type DomainAggregateSelection = {
   count: Scalars['Int']['output']
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -9635,6 +9534,7 @@ export type DomainAppAppAggregationSelection = {
 
 export type DomainAppAppNodeAggregateSelection = {
   compositeKey: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
 }
 
@@ -9646,15 +9546,6 @@ export type DomainAppConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<AppConnectWhere>
-}
-
-export type DomainAppConnectOrCreateFieldInput = {
-  onCreate: DomainAppConnectOrCreateFieldInputOnCreate
-  where: AppConnectOrCreateWhere
-}
-
-export type DomainAppConnectOrCreateFieldInputOnCreate = {
-  node: AppOnCreateInput
 }
 
 export type DomainAppConnection = {
@@ -9690,8 +9581,6 @@ export type DomainAppDisconnectFieldInput = {
 
 export type DomainAppFieldInput = {
   connect?: InputMaybe<DomainAppConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<DomainAppConnectOrCreateFieldInput>
   create?: InputMaybe<DomainAppCreateFieldInput>
 }
 
@@ -9714,15 +9603,25 @@ export type DomainAppNodeAggregationWhereInput = {
   compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
 }
 
@@ -9737,7 +9636,6 @@ export type DomainAppUpdateConnectionInput = {
 
 export type DomainAppUpdateFieldInput = {
   connect?: InputMaybe<DomainAppConnectFieldInput>
-  connectOrCreate?: InputMaybe<DomainAppConnectOrCreateFieldInput>
   create?: InputMaybe<DomainAppCreateFieldInput>
   delete?: InputMaybe<DomainAppDeleteFieldInput>
   disconnect?: InputMaybe<DomainAppDisconnectFieldInput>
@@ -9747,10 +9645,6 @@ export type DomainAppUpdateFieldInput = {
 
 export type DomainConnectInput = {
   app?: InputMaybe<DomainAppConnectFieldInput>
-}
-
-export type DomainConnectOrCreateWhere = {
-  node: DomainUniqueWhere
 }
 
 export type DomainConnectWhere = {
@@ -9793,11 +9687,6 @@ export type DomainEventPayload = {
   name: Scalars['String']['output']
 }
 
-export type DomainOnCreateInput = {
-  id: Scalars['ID']['input']
-  name: Scalars['String']['input']
-}
-
 export type DomainOptions = {
   limit?: InputMaybe<Scalars['Int']['input']>
   offset?: InputMaybe<Scalars['Int']['input']>
@@ -9830,12 +9719,6 @@ export type DomainSubscriptionWhere = {
   name_IN?: InputMaybe<Array<Scalars['String']['input']>>
   name_MATCHES?: InputMaybe<Scalars['String']['input']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
-}
-
-export type DomainUniqueWhere = {
-  /** @deprecated Please use the explicit _EQ version */
-  id?: InputMaybe<Scalars['ID']['input']>
-  id_EQ?: InputMaybe<Scalars['ID']['input']>
 }
 
 export type DomainUpdateInput = {
@@ -10193,6 +10076,7 @@ export type ElementAggregateSelection = {
   childMapperPropKey: StringAggregateSelection
   compositeKey: StringAggregateSelection
   count: Scalars['Int']['output']
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   renderForEachPropKey: StringAggregateSelection
   renderIfExpression: StringAggregateSelection
@@ -10205,6 +10089,7 @@ export type ElementBaseActionPostRenderActionsAggregationSelection = {
 }
 
 export type ElementBaseActionPostRenderActionsNodeAggregateSelection = {
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -10215,6 +10100,7 @@ export type ElementBaseActionPreRenderActionsAggregationSelection = {
 }
 
 export type ElementBaseActionPreRenderActionsNodeAggregateSelection = {
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -10241,15 +10127,6 @@ export type ElementChildMapperComponentConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<ComponentConnectWhere>
-}
-
-export type ElementChildMapperComponentConnectOrCreateFieldInput = {
-  onCreate: ElementChildMapperComponentConnectOrCreateFieldInputOnCreate
-  where: ComponentConnectOrCreateWhere
-}
-
-export type ElementChildMapperComponentConnectOrCreateFieldInputOnCreate = {
-  node: ComponentOnCreateInput
 }
 
 export type ElementChildMapperComponentConnection = {
@@ -10285,8 +10162,6 @@ export type ElementChildMapperComponentDisconnectFieldInput = {
 
 export type ElementChildMapperComponentFieldInput = {
   connect?: InputMaybe<ElementChildMapperComponentConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<ElementChildMapperComponentConnectOrCreateFieldInput>
   create?: InputMaybe<ElementChildMapperComponentCreateFieldInput>
 }
 
@@ -10309,15 +10184,25 @@ export type ElementChildMapperComponentNodeAggregationWhereInput = {
   compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
 }
 
@@ -10332,7 +10217,6 @@ export type ElementChildMapperComponentUpdateConnectionInput = {
 
 export type ElementChildMapperComponentUpdateFieldInput = {
   connect?: InputMaybe<ElementChildMapperComponentConnectFieldInput>
-  connectOrCreate?: InputMaybe<ElementChildMapperComponentConnectOrCreateFieldInput>
   create?: InputMaybe<ElementChildMapperComponentCreateFieldInput>
   delete?: InputMaybe<ElementChildMapperComponentDeleteFieldInput>
   disconnect?: InputMaybe<ElementChildMapperComponentDisconnectFieldInput>
@@ -10363,16 +10247,6 @@ export type ElementChildMapperPreviousSiblingConnectFieldInput = {
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<ElementConnectWhere>
 }
-
-export type ElementChildMapperPreviousSiblingConnectOrCreateFieldInput = {
-  onCreate: ElementChildMapperPreviousSiblingConnectOrCreateFieldInputOnCreate
-  where: ElementConnectOrCreateWhere
-}
-
-export type ElementChildMapperPreviousSiblingConnectOrCreateFieldInputOnCreate =
-  {
-    node: ElementOnCreateInput
-  }
 
 export type ElementChildMapperPreviousSiblingConnection = {
   edges: Array<ElementChildMapperPreviousSiblingRelationship>
@@ -10407,8 +10281,6 @@ export type ElementChildMapperPreviousSiblingDisconnectFieldInput = {
 
 export type ElementChildMapperPreviousSiblingFieldInput = {
   connect?: InputMaybe<ElementChildMapperPreviousSiblingConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<ElementChildMapperPreviousSiblingConnectOrCreateFieldInput>
   create?: InputMaybe<ElementChildMapperPreviousSiblingCreateFieldInput>
 }
 
@@ -10452,15 +10324,25 @@ export type ElementChildMapperPreviousSiblingNodeAggregationWhereInput = {
   compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<
     Scalars['Float']['input']
@@ -10532,7 +10414,6 @@ export type ElementChildMapperPreviousSiblingUpdateConnectionInput = {
 
 export type ElementChildMapperPreviousSiblingUpdateFieldInput = {
   connect?: InputMaybe<ElementChildMapperPreviousSiblingConnectFieldInput>
-  connectOrCreate?: InputMaybe<ElementChildMapperPreviousSiblingConnectOrCreateFieldInput>
   create?: InputMaybe<ElementChildMapperPreviousSiblingCreateFieldInput>
   delete?: InputMaybe<ElementChildMapperPreviousSiblingDeleteFieldInput>
   disconnect?: InputMaybe<ElementChildMapperPreviousSiblingDisconnectFieldInput>
@@ -10547,6 +10428,7 @@ export type ElementComponentChildMapperComponentAggregationSelection = {
 
 export type ElementComponentChildMapperComponentNodeAggregateSelection = {
   compositeKey: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
 }
 
@@ -10557,6 +10439,7 @@ export type ElementComponentParentComponentAggregationSelection = {
 
 export type ElementComponentParentComponentNodeAggregateSelection = {
   compositeKey: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
 }
 
@@ -10575,10 +10458,6 @@ export type ElementConnectInput = {
   prevSibling?: InputMaybe<ElementPrevSiblingConnectFieldInput>
   props?: InputMaybe<ElementPropsConnectFieldInput>
   renderType?: InputMaybe<ElementRenderTypeConnectInput>
-}
-
-export type ElementConnectOrCreateWhere = {
-  node: ElementUniqueWhere
 }
 
 export type ElementConnectWhere = {
@@ -10669,6 +10548,7 @@ export type ElementElementChildMapperPreviousSiblingAggregationSelection = {
 export type ElementElementChildMapperPreviousSiblingNodeAggregateSelection = {
   childMapperPropKey: StringAggregateSelection
   compositeKey: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   renderForEachPropKey: StringAggregateSelection
   renderIfExpression: StringAggregateSelection
@@ -10683,6 +10563,7 @@ export type ElementElementFirstChildAggregationSelection = {
 export type ElementElementFirstChildNodeAggregateSelection = {
   childMapperPropKey: StringAggregateSelection
   compositeKey: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   renderForEachPropKey: StringAggregateSelection
   renderIfExpression: StringAggregateSelection
@@ -10697,6 +10578,7 @@ export type ElementElementNextSiblingAggregationSelection = {
 export type ElementElementNextSiblingNodeAggregateSelection = {
   childMapperPropKey: StringAggregateSelection
   compositeKey: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   renderForEachPropKey: StringAggregateSelection
   renderIfExpression: StringAggregateSelection
@@ -10711,6 +10593,7 @@ export type ElementElementParentElementAggregationSelection = {
 export type ElementElementParentElementNodeAggregateSelection = {
   childMapperPropKey: StringAggregateSelection
   compositeKey: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   renderForEachPropKey: StringAggregateSelection
   renderIfExpression: StringAggregateSelection
@@ -10725,6 +10608,7 @@ export type ElementElementPrevSiblingAggregationSelection = {
 export type ElementElementPrevSiblingNodeAggregateSelection = {
   childMapperPropKey: StringAggregateSelection
   compositeKey: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   renderForEachPropKey: StringAggregateSelection
   renderIfExpression: StringAggregateSelection
@@ -10766,15 +10650,6 @@ export type ElementFirstChildConnectFieldInput = {
   where?: InputMaybe<ElementConnectWhere>
 }
 
-export type ElementFirstChildConnectOrCreateFieldInput = {
-  onCreate: ElementFirstChildConnectOrCreateFieldInputOnCreate
-  where: ElementConnectOrCreateWhere
-}
-
-export type ElementFirstChildConnectOrCreateFieldInputOnCreate = {
-  node: ElementOnCreateInput
-}
-
 export type ElementFirstChildConnection = {
   edges: Array<ElementFirstChildRelationship>
   pageInfo: PageInfo
@@ -10808,8 +10683,6 @@ export type ElementFirstChildDisconnectFieldInput = {
 
 export type ElementFirstChildFieldInput = {
   connect?: InputMaybe<ElementFirstChildConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<ElementFirstChildConnectOrCreateFieldInput>
   create?: InputMaybe<ElementFirstChildCreateFieldInput>
 }
 
@@ -10849,15 +10722,25 @@ export type ElementFirstChildNodeAggregationWhereInput = {
   compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<
     Scalars['Float']['input']
@@ -10929,7 +10812,6 @@ export type ElementFirstChildUpdateConnectionInput = {
 
 export type ElementFirstChildUpdateFieldInput = {
   connect?: InputMaybe<ElementFirstChildConnectFieldInput>
-  connectOrCreate?: InputMaybe<ElementFirstChildConnectOrCreateFieldInput>
   create?: InputMaybe<ElementFirstChildCreateFieldInput>
   delete?: InputMaybe<ElementFirstChildDeleteFieldInput>
   disconnect?: InputMaybe<ElementFirstChildDisconnectFieldInput>
@@ -10959,15 +10841,6 @@ export type ElementNextSiblingConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<ElementConnectWhere>
-}
-
-export type ElementNextSiblingConnectOrCreateFieldInput = {
-  onCreate: ElementNextSiblingConnectOrCreateFieldInputOnCreate
-  where: ElementConnectOrCreateWhere
-}
-
-export type ElementNextSiblingConnectOrCreateFieldInputOnCreate = {
-  node: ElementOnCreateInput
 }
 
 export type ElementNextSiblingConnection = {
@@ -11003,8 +10876,6 @@ export type ElementNextSiblingDisconnectFieldInput = {
 
 export type ElementNextSiblingFieldInput = {
   connect?: InputMaybe<ElementNextSiblingConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<ElementNextSiblingConnectOrCreateFieldInput>
   create?: InputMaybe<ElementNextSiblingCreateFieldInput>
 }
 
@@ -11044,15 +10915,25 @@ export type ElementNextSiblingNodeAggregationWhereInput = {
   compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<
     Scalars['Float']['input']
@@ -11124,23 +11005,11 @@ export type ElementNextSiblingUpdateConnectionInput = {
 
 export type ElementNextSiblingUpdateFieldInput = {
   connect?: InputMaybe<ElementNextSiblingConnectFieldInput>
-  connectOrCreate?: InputMaybe<ElementNextSiblingConnectOrCreateFieldInput>
   create?: InputMaybe<ElementNextSiblingCreateFieldInput>
   delete?: InputMaybe<ElementNextSiblingDeleteFieldInput>
   disconnect?: InputMaybe<ElementNextSiblingDisconnectFieldInput>
   update?: InputMaybe<ElementNextSiblingUpdateConnectionInput>
   where?: InputMaybe<ElementNextSiblingConnectionWhere>
-}
-
-export type ElementOnCreateInput = {
-  childMapperPropKey?: InputMaybe<Scalars['String']['input']>
-  compositeKey: Scalars['String']['input']
-  expanded?: InputMaybe<Scalars['Boolean']['input']>
-  id: Scalars['ID']['input']
-  renderForEachPropKey?: InputMaybe<Scalars['String']['input']>
-  renderIfExpression?: InputMaybe<Scalars['String']['input']>
-  style?: InputMaybe<Scalars['String']['input']>
-  tailwindClassNames?: InputMaybe<Array<Scalars['String']['input']>>
 }
 
 export type ElementOptions = {
@@ -11172,15 +11041,6 @@ export type ElementPageConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<PageConnectWhere>
-}
-
-export type ElementPageConnectOrCreateFieldInput = {
-  onCreate: ElementPageConnectOrCreateFieldInputOnCreate
-  where: PageConnectOrCreateWhere
-}
-
-export type ElementPageConnectOrCreateFieldInputOnCreate = {
-  node: PageOnCreateInput
 }
 
 export type ElementPageConnection = {
@@ -11216,8 +11076,6 @@ export type ElementPageDisconnectFieldInput = {
 
 export type ElementPageFieldInput = {
   connect?: InputMaybe<ElementPageConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<ElementPageConnectOrCreateFieldInput>
   create?: InputMaybe<ElementPageCreateFieldInput>
 }
 
@@ -11240,15 +11098,25 @@ export type ElementPageNodeAggregationWhereInput = {
   compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   urlPattern_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   urlPattern_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -11274,6 +11142,7 @@ export type ElementPagePageAggregationSelection = {
 
 export type ElementPagePageNodeAggregateSelection = {
   compositeKey: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   urlPattern: StringAggregateSelection
 }
@@ -11289,7 +11158,6 @@ export type ElementPageUpdateConnectionInput = {
 
 export type ElementPageUpdateFieldInput = {
   connect?: InputMaybe<ElementPageConnectFieldInput>
-  connectOrCreate?: InputMaybe<ElementPageConnectOrCreateFieldInput>
   create?: InputMaybe<ElementPageCreateFieldInput>
   delete?: InputMaybe<ElementPageDeleteFieldInput>
   disconnect?: InputMaybe<ElementPageDisconnectFieldInput>
@@ -11319,15 +11187,6 @@ export type ElementParentComponentConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<ComponentConnectWhere>
-}
-
-export type ElementParentComponentConnectOrCreateFieldInput = {
-  onCreate: ElementParentComponentConnectOrCreateFieldInputOnCreate
-  where: ComponentConnectOrCreateWhere
-}
-
-export type ElementParentComponentConnectOrCreateFieldInputOnCreate = {
-  node: ComponentOnCreateInput
 }
 
 export type ElementParentComponentConnection = {
@@ -11363,8 +11222,6 @@ export type ElementParentComponentDisconnectFieldInput = {
 
 export type ElementParentComponentFieldInput = {
   connect?: InputMaybe<ElementParentComponentConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<ElementParentComponentConnectOrCreateFieldInput>
   create?: InputMaybe<ElementParentComponentCreateFieldInput>
 }
 
@@ -11387,15 +11244,25 @@ export type ElementParentComponentNodeAggregationWhereInput = {
   compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
 }
 
@@ -11410,7 +11277,6 @@ export type ElementParentComponentUpdateConnectionInput = {
 
 export type ElementParentComponentUpdateFieldInput = {
   connect?: InputMaybe<ElementParentComponentConnectFieldInput>
-  connectOrCreate?: InputMaybe<ElementParentComponentConnectOrCreateFieldInput>
   create?: InputMaybe<ElementParentComponentCreateFieldInput>
   delete?: InputMaybe<ElementParentComponentDeleteFieldInput>
   disconnect?: InputMaybe<ElementParentComponentDisconnectFieldInput>
@@ -11440,15 +11306,6 @@ export type ElementParentElementConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<ElementConnectWhere>
-}
-
-export type ElementParentElementConnectOrCreateFieldInput = {
-  onCreate: ElementParentElementConnectOrCreateFieldInputOnCreate
-  where: ElementConnectOrCreateWhere
-}
-
-export type ElementParentElementConnectOrCreateFieldInputOnCreate = {
-  node: ElementOnCreateInput
 }
 
 export type ElementParentElementConnection = {
@@ -11484,8 +11341,6 @@ export type ElementParentElementDisconnectFieldInput = {
 
 export type ElementParentElementFieldInput = {
   connect?: InputMaybe<ElementParentElementConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<ElementParentElementConnectOrCreateFieldInput>
   create?: InputMaybe<ElementParentElementCreateFieldInput>
 }
 
@@ -11525,15 +11380,25 @@ export type ElementParentElementNodeAggregationWhereInput = {
   compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<
     Scalars['Float']['input']
@@ -11605,7 +11470,6 @@ export type ElementParentElementUpdateConnectionInput = {
 
 export type ElementParentElementUpdateFieldInput = {
   connect?: InputMaybe<ElementParentElementConnectFieldInput>
-  connectOrCreate?: InputMaybe<ElementParentElementConnectOrCreateFieldInput>
   create?: InputMaybe<ElementParentElementCreateFieldInput>
   delete?: InputMaybe<ElementParentElementDeleteFieldInput>
   disconnect?: InputMaybe<ElementParentElementDisconnectFieldInput>
@@ -11672,15 +11536,25 @@ export type ElementPostRenderActionsNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<ElementPostRenderActionsNodeAggregationWhereInput>>
   NOT?: InputMaybe<ElementPostRenderActionsNodeAggregationWhereInput>
   OR?: InputMaybe<Array<ElementPostRenderActionsNodeAggregationWhereInput>>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -11776,15 +11650,25 @@ export type ElementPreRenderActionsNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<ElementPreRenderActionsNodeAggregationWhereInput>>
   NOT?: InputMaybe<ElementPreRenderActionsNodeAggregationWhereInput>
   OR?: InputMaybe<Array<ElementPreRenderActionsNodeAggregationWhereInput>>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -11845,15 +11729,6 @@ export type ElementPrevSiblingConnectFieldInput = {
   where?: InputMaybe<ElementConnectWhere>
 }
 
-export type ElementPrevSiblingConnectOrCreateFieldInput = {
-  onCreate: ElementPrevSiblingConnectOrCreateFieldInputOnCreate
-  where: ElementConnectOrCreateWhere
-}
-
-export type ElementPrevSiblingConnectOrCreateFieldInputOnCreate = {
-  node: ElementOnCreateInput
-}
-
 export type ElementPrevSiblingConnection = {
   edges: Array<ElementPrevSiblingRelationship>
   pageInfo: PageInfo
@@ -11887,8 +11762,6 @@ export type ElementPrevSiblingDisconnectFieldInput = {
 
 export type ElementPrevSiblingFieldInput = {
   connect?: InputMaybe<ElementPrevSiblingConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<ElementPrevSiblingConnectOrCreateFieldInput>
   create?: InputMaybe<ElementPrevSiblingCreateFieldInput>
 }
 
@@ -11928,15 +11801,25 @@ export type ElementPrevSiblingNodeAggregationWhereInput = {
   compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<
     Scalars['Float']['input']
@@ -12008,7 +11891,6 @@ export type ElementPrevSiblingUpdateConnectionInput = {
 
 export type ElementPrevSiblingUpdateFieldInput = {
   connect?: InputMaybe<ElementPrevSiblingConnectFieldInput>
-  connectOrCreate?: InputMaybe<ElementPrevSiblingConnectOrCreateFieldInput>
   create?: InputMaybe<ElementPrevSiblingCreateFieldInput>
   delete?: InputMaybe<ElementPrevSiblingDeleteFieldInput>
   disconnect?: InputMaybe<ElementPrevSiblingDisconnectFieldInput>
@@ -12023,6 +11905,7 @@ export type ElementPropPropsAggregationSelection = {
 
 export type ElementPropPropsNodeAggregateSelection = {
   data: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
 }
 
@@ -12047,15 +11930,6 @@ export type ElementPropsConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<PropConnectWhere>
-}
-
-export type ElementPropsConnectOrCreateFieldInput = {
-  onCreate: ElementPropsConnectOrCreateFieldInputOnCreate
-  where: PropConnectOrCreateWhere
-}
-
-export type ElementPropsConnectOrCreateFieldInputOnCreate = {
-  node: PropOnCreateInput
 }
 
 export type ElementPropsConnection = {
@@ -12089,8 +11963,6 @@ export type ElementPropsDisconnectFieldInput = {
 
 export type ElementPropsFieldInput = {
   connect?: InputMaybe<ElementPropsConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<ElementPropsConnectOrCreateFieldInput>
   create?: InputMaybe<ElementPropsCreateFieldInput>
 }
 
@@ -12113,15 +11985,25 @@ export type ElementPropsNodeAggregationWhereInput = {
   data_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   data_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   data_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
 }
 
@@ -12136,7 +12018,6 @@ export type ElementPropsUpdateConnectionInput = {
 
 export type ElementPropsUpdateFieldInput = {
   connect?: InputMaybe<ElementPropsConnectFieldInput>
-  connectOrCreate?: InputMaybe<ElementPropsConnectOrCreateFieldInput>
   create?: InputMaybe<ElementPropsCreateFieldInput>
   delete?: InputMaybe<ElementPropsDeleteFieldInput>
   disconnect?: InputMaybe<ElementPropsDisconnectFieldInput>
@@ -12149,15 +12030,6 @@ export type ElementRenderType = Atom | Component
 export type ElementRenderTypeAtomConnectFieldInput = {
   connect?: InputMaybe<AtomConnectInput>
   where?: InputMaybe<AtomConnectWhere>
-}
-
-export type ElementRenderTypeAtomConnectOrCreateFieldInput = {
-  onCreate: ElementRenderTypeAtomConnectOrCreateFieldInputOnCreate
-  where: AtomConnectOrCreateWhere
-}
-
-export type ElementRenderTypeAtomConnectOrCreateFieldInputOnCreate = {
-  node: AtomOnCreateInput
 }
 
 export type ElementRenderTypeAtomConnectionWhere = {
@@ -12183,8 +12055,6 @@ export type ElementRenderTypeAtomDisconnectFieldInput = {
 
 export type ElementRenderTypeAtomFieldInput = {
   connect?: InputMaybe<ElementRenderTypeAtomConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<ElementRenderTypeAtomConnectOrCreateFieldInput>
   create?: InputMaybe<ElementRenderTypeAtomCreateFieldInput>
 }
 
@@ -12194,7 +12064,6 @@ export type ElementRenderTypeAtomUpdateConnectionInput = {
 
 export type ElementRenderTypeAtomUpdateFieldInput = {
   connect?: InputMaybe<ElementRenderTypeAtomConnectFieldInput>
-  connectOrCreate?: InputMaybe<ElementRenderTypeAtomConnectOrCreateFieldInput>
   create?: InputMaybe<ElementRenderTypeAtomCreateFieldInput>
   delete?: InputMaybe<ElementRenderTypeAtomDeleteFieldInput>
   disconnect?: InputMaybe<ElementRenderTypeAtomDisconnectFieldInput>
@@ -12205,15 +12074,6 @@ export type ElementRenderTypeAtomUpdateFieldInput = {
 export type ElementRenderTypeComponentConnectFieldInput = {
   connect?: InputMaybe<ComponentConnectInput>
   where?: InputMaybe<ComponentConnectWhere>
-}
-
-export type ElementRenderTypeComponentConnectOrCreateFieldInput = {
-  onCreate: ElementRenderTypeComponentConnectOrCreateFieldInputOnCreate
-  where: ComponentConnectOrCreateWhere
-}
-
-export type ElementRenderTypeComponentConnectOrCreateFieldInputOnCreate = {
-  node: ComponentOnCreateInput
 }
 
 export type ElementRenderTypeComponentConnectionWhere = {
@@ -12239,8 +12099,6 @@ export type ElementRenderTypeComponentDisconnectFieldInput = {
 
 export type ElementRenderTypeComponentFieldInput = {
   connect?: InputMaybe<ElementRenderTypeComponentConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<ElementRenderTypeComponentConnectOrCreateFieldInput>
   create?: InputMaybe<ElementRenderTypeComponentCreateFieldInput>
 }
 
@@ -12250,7 +12108,6 @@ export type ElementRenderTypeComponentUpdateConnectionInput = {
 
 export type ElementRenderTypeComponentUpdateFieldInput = {
   connect?: InputMaybe<ElementRenderTypeComponentConnectFieldInput>
-  connectOrCreate?: InputMaybe<ElementRenderTypeComponentConnectOrCreateFieldInput>
   create?: InputMaybe<ElementRenderTypeComponentCreateFieldInput>
   delete?: InputMaybe<ElementRenderTypeComponentDeleteFieldInput>
   disconnect?: InputMaybe<ElementRenderTypeComponentDisconnectFieldInput>
@@ -12511,6 +12368,7 @@ export type ElementTypeOwnerConnectionArgs = {
 
 export type ElementTypeAggregateSelection = {
   count: Scalars['Int']['output']
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -12576,6 +12434,7 @@ export type ElementTypeFieldFieldRefsAggregationSelection = {
 export type ElementTypeFieldFieldRefsNodeAggregateSelection = {
   defaultValues: StringAggregateSelection
   description: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   key: StringAggregateSelection
   name: StringAggregateSelection
@@ -12606,25 +12465,12 @@ export type ElementTypeFieldRefsConnectFieldInput = {
   where?: InputMaybe<FieldConnectWhere>
 }
 
-export type ElementTypeFieldRefsConnectOrCreateFieldInput = {
-  onCreate: ElementTypeFieldRefsConnectOrCreateFieldInputOnCreate
-  where: FieldConnectOrCreateWhere
-}
-
-export type ElementTypeFieldRefsConnectOrCreateFieldInputOnCreate = {
-  node: FieldOnCreateInput
-}
-
 export type ElementTypeFieldRefsCreateFieldInput = {
   node: FieldCreateInput
 }
 
 export type ElementTypeFieldRefsFieldInput = {
   connect?: InputMaybe<Array<ElementTypeFieldRefsConnectFieldInput>>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<
-    Array<ElementTypeFieldRefsConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<ElementTypeFieldRefsCreateFieldInput>>
 }
 
@@ -12662,15 +12508,25 @@ export type ElementTypeFieldRefsNodeAggregationWhereInput = {
   description_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   description_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   description_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   key_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   key_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -12725,9 +12581,6 @@ export type ElementTypeFieldRefsUpdateConnectionInput = {
 
 export type ElementTypeFieldRefsUpdateFieldInput = {
   connect?: InputMaybe<Array<ElementTypeFieldRefsConnectFieldInput>>
-  connectOrCreate?: InputMaybe<
-    Array<ElementTypeFieldRefsConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<ElementTypeFieldRefsCreateFieldInput>>
   delete?: InputMaybe<Array<IBaseTypeFieldRefsDeleteFieldInput>>
   disconnect?: InputMaybe<Array<IBaseTypeFieldRefsDisconnectFieldInput>>
@@ -12773,23 +12626,12 @@ export type ElementTypeOwnerConnectFieldInput = {
   where?: InputMaybe<UserConnectWhere>
 }
 
-export type ElementTypeOwnerConnectOrCreateFieldInput = {
-  onCreate: ElementTypeOwnerConnectOrCreateFieldInputOnCreate
-  where: UserConnectOrCreateWhere
-}
-
-export type ElementTypeOwnerConnectOrCreateFieldInputOnCreate = {
-  node: UserOnCreateInput
-}
-
 export type ElementTypeOwnerCreateFieldInput = {
   node: UserCreateInput
 }
 
 export type ElementTypeOwnerFieldInput = {
   connect?: InputMaybe<ElementTypeOwnerConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<ElementTypeOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<ElementTypeOwnerCreateFieldInput>
 }
 
@@ -12827,15 +12669,25 @@ export type ElementTypeOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -12860,7 +12712,6 @@ export type ElementTypeOwnerUpdateConnectionInput = {
 
 export type ElementTypeOwnerUpdateFieldInput = {
   connect?: InputMaybe<ElementTypeOwnerConnectFieldInput>
-  connectOrCreate?: InputMaybe<ElementTypeOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<ElementTypeOwnerCreateFieldInput>
   delete?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
   disconnect?: InputMaybe<IBaseTypeOwnerDisconnectFieldInput>
@@ -12937,6 +12788,7 @@ export type ElementTypeUserOwnerAggregationSelection = {
 export type ElementTypeUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelection
   email: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   username: StringAggregateSelection
 }
@@ -12994,15 +12846,6 @@ export type ElementTypesConnection = {
   edges: Array<ElementTypeEdge>
   pageInfo: PageInfo
   totalCount: Scalars['Int']['output']
-}
-
-export type ElementUniqueWhere = {
-  /** @deprecated Please use the explicit _EQ version */
-  compositeKey?: InputMaybe<Scalars['String']['input']>
-  compositeKey_EQ?: InputMaybe<Scalars['String']['input']>
-  /** @deprecated Please use the explicit _EQ version */
-  id?: InputMaybe<Scalars['ID']['input']>
-  id_EQ?: InputMaybe<Scalars['ID']['input']>
 }
 
 export type ElementUpdateInput = {
@@ -13320,6 +13163,7 @@ export type EnumTypeOwnerConnectionArgs = {
 
 export type EnumTypeAggregateSelection = {
   count: Scalars['Int']['output']
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -13388,15 +13232,25 @@ export type EnumTypeAllowedValuesNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<EnumTypeAllowedValuesNodeAggregationWhereInput>>
   NOT?: InputMaybe<EnumTypeAllowedValuesNodeAggregationWhereInput>
   OR?: InputMaybe<Array<EnumTypeAllowedValuesNodeAggregationWhereInput>>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   key_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   key_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -13502,6 +13356,7 @@ export type EnumTypeEnumTypeValueAllowedValuesAggregationSelection = {
 }
 
 export type EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection = {
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   key: StringAggregateSelection
   value: StringAggregateSelection
@@ -13521,6 +13376,7 @@ export type EnumTypeFieldFieldRefsAggregationSelection = {
 export type EnumTypeFieldFieldRefsNodeAggregateSelection = {
   defaultValues: StringAggregateSelection
   description: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   key: StringAggregateSelection
   name: StringAggregateSelection
@@ -13551,25 +13407,12 @@ export type EnumTypeFieldRefsConnectFieldInput = {
   where?: InputMaybe<FieldConnectWhere>
 }
 
-export type EnumTypeFieldRefsConnectOrCreateFieldInput = {
-  onCreate: EnumTypeFieldRefsConnectOrCreateFieldInputOnCreate
-  where: FieldConnectOrCreateWhere
-}
-
-export type EnumTypeFieldRefsConnectOrCreateFieldInputOnCreate = {
-  node: FieldOnCreateInput
-}
-
 export type EnumTypeFieldRefsCreateFieldInput = {
   node: FieldCreateInput
 }
 
 export type EnumTypeFieldRefsFieldInput = {
   connect?: InputMaybe<Array<EnumTypeFieldRefsConnectFieldInput>>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<
-    Array<EnumTypeFieldRefsConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<EnumTypeFieldRefsCreateFieldInput>>
 }
 
@@ -13607,15 +13450,25 @@ export type EnumTypeFieldRefsNodeAggregationWhereInput = {
   description_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   description_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   description_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   key_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   key_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -13670,9 +13523,6 @@ export type EnumTypeFieldRefsUpdateConnectionInput = {
 
 export type EnumTypeFieldRefsUpdateFieldInput = {
   connect?: InputMaybe<Array<EnumTypeFieldRefsConnectFieldInput>>
-  connectOrCreate?: InputMaybe<
-    Array<EnumTypeFieldRefsConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<EnumTypeFieldRefsCreateFieldInput>>
   delete?: InputMaybe<Array<IBaseTypeFieldRefsDeleteFieldInput>>
   disconnect?: InputMaybe<Array<IBaseTypeFieldRefsDisconnectFieldInput>>
@@ -13711,23 +13561,12 @@ export type EnumTypeOwnerConnectFieldInput = {
   where?: InputMaybe<UserConnectWhere>
 }
 
-export type EnumTypeOwnerConnectOrCreateFieldInput = {
-  onCreate: EnumTypeOwnerConnectOrCreateFieldInputOnCreate
-  where: UserConnectOrCreateWhere
-}
-
-export type EnumTypeOwnerConnectOrCreateFieldInputOnCreate = {
-  node: UserOnCreateInput
-}
-
 export type EnumTypeOwnerCreateFieldInput = {
   node: UserCreateInput
 }
 
 export type EnumTypeOwnerFieldInput = {
   connect?: InputMaybe<EnumTypeOwnerConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<EnumTypeOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<EnumTypeOwnerCreateFieldInput>
 }
 
@@ -13765,15 +13604,25 @@ export type EnumTypeOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -13798,7 +13647,6 @@ export type EnumTypeOwnerUpdateConnectionInput = {
 
 export type EnumTypeOwnerUpdateFieldInput = {
   connect?: InputMaybe<EnumTypeOwnerConnectFieldInput>
-  connectOrCreate?: InputMaybe<EnumTypeOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<EnumTypeOwnerCreateFieldInput>
   delete?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
   disconnect?: InputMaybe<IBaseTypeOwnerDisconnectFieldInput>
@@ -13868,6 +13716,7 @@ export type EnumTypeUserOwnerAggregationSelection = {
 export type EnumTypeUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelection
   email: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   username: StringAggregateSelection
 }
@@ -13905,6 +13754,7 @@ export type EnumTypeValueEnumTypeConnectionArgs = {
 
 export type EnumTypeValueAggregateSelection = {
   count: Scalars['Int']['output']
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   key: StringAggregateSelection
   value: StringAggregateSelection
@@ -14011,6 +13861,7 @@ export type EnumTypeValueEnumTypeEnumTypeAggregationSelection = {
 }
 
 export type EnumTypeValueEnumTypeEnumTypeNodeAggregateSelection = {
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -14024,15 +13875,25 @@ export type EnumTypeValueEnumTypeNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<EnumTypeValueEnumTypeNodeAggregationWhereInput>>
   NOT?: InputMaybe<EnumTypeValueEnumTypeNodeAggregationWhereInput>
   OR?: InputMaybe<Array<EnumTypeValueEnumTypeNodeAggregationWhereInput>>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -14365,6 +14226,7 @@ export type FieldAggregateSelection = {
   count: Scalars['Int']['output']
   defaultValues: StringAggregateSelection
   description: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   key: StringAggregateSelection
   name: StringAggregateSelection
@@ -14435,15 +14297,25 @@ export type FieldApiNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<FieldApiNodeAggregationWhereInput>>
   NOT?: InputMaybe<FieldApiNodeAggregationWhereInput>
   OR?: InputMaybe<Array<FieldApiNodeAggregationWhereInput>>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -14485,10 +14357,6 @@ export type FieldConnectInput = {
   fieldType?: InputMaybe<FieldFieldTypeConnectFieldInput>
   nextSibling?: InputMaybe<FieldNextSiblingConnectFieldInput>
   prevSibling?: InputMaybe<FieldPrevSiblingConnectFieldInput>
-}
-
-export type FieldConnectOrCreateWhere = {
-  node: FieldUniqueWhere
 }
 
 export type FieldConnectWhere = {
@@ -14556,6 +14424,7 @@ export type FieldFieldNextSiblingAggregationSelection = {
 export type FieldFieldNextSiblingNodeAggregateSelection = {
   defaultValues: StringAggregateSelection
   description: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   key: StringAggregateSelection
   name: StringAggregateSelection
@@ -14570,6 +14439,7 @@ export type FieldFieldPrevSiblingAggregationSelection = {
 export type FieldFieldPrevSiblingNodeAggregateSelection = {
   defaultValues: StringAggregateSelection
   description: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   key: StringAggregateSelection
   name: StringAggregateSelection
@@ -14635,15 +14505,25 @@ export type FieldFieldTypeNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<FieldFieldTypeNodeAggregationWhereInput>>
   NOT?: InputMaybe<FieldFieldTypeNodeAggregationWhereInput>
   OR?: InputMaybe<Array<FieldFieldTypeNodeAggregationWhereInput>>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -14686,6 +14566,7 @@ export type FieldIBaseTypeFieldTypeAggregationSelection = {
 }
 
 export type FieldIBaseTypeFieldTypeNodeAggregateSelection = {
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -14696,6 +14577,7 @@ export type FieldInterfaceTypeApiAggregationSelection = {
 }
 
 export type FieldInterfaceTypeApiNodeAggregateSelection = {
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -14722,15 +14604,6 @@ export type FieldNextSiblingConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<FieldConnectWhere>
-}
-
-export type FieldNextSiblingConnectOrCreateFieldInput = {
-  onCreate: FieldNextSiblingConnectOrCreateFieldInputOnCreate
-  where: FieldConnectOrCreateWhere
-}
-
-export type FieldNextSiblingConnectOrCreateFieldInputOnCreate = {
-  node: FieldOnCreateInput
 }
 
 export type FieldNextSiblingConnection = {
@@ -14766,8 +14639,6 @@ export type FieldNextSiblingDisconnectFieldInput = {
 
 export type FieldNextSiblingFieldInput = {
   connect?: InputMaybe<FieldNextSiblingConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<FieldNextSiblingConnectOrCreateFieldInput>
   create?: InputMaybe<FieldNextSiblingCreateFieldInput>
 }
 
@@ -14805,15 +14676,25 @@ export type FieldNextSiblingNodeAggregationWhereInput = {
   description_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   description_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   description_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   key_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   key_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -14873,21 +14754,11 @@ export type FieldNextSiblingUpdateConnectionInput = {
 
 export type FieldNextSiblingUpdateFieldInput = {
   connect?: InputMaybe<FieldNextSiblingConnectFieldInput>
-  connectOrCreate?: InputMaybe<FieldNextSiblingConnectOrCreateFieldInput>
   create?: InputMaybe<FieldNextSiblingCreateFieldInput>
   delete?: InputMaybe<FieldNextSiblingDeleteFieldInput>
   disconnect?: InputMaybe<FieldNextSiblingDisconnectFieldInput>
   update?: InputMaybe<FieldNextSiblingUpdateConnectionInput>
   where?: InputMaybe<FieldNextSiblingConnectionWhere>
-}
-
-export type FieldOnCreateInput = {
-  defaultValues?: InputMaybe<Scalars['String']['input']>
-  description?: InputMaybe<Scalars['String']['input']>
-  id: Scalars['ID']['input']
-  key: Scalars['String']['input']
-  name?: InputMaybe<Scalars['String']['input']>
-  validationRules?: InputMaybe<Scalars['String']['input']>
 }
 
 export type FieldOptions = {
@@ -14919,15 +14790,6 @@ export type FieldPrevSiblingConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<FieldConnectWhere>
-}
-
-export type FieldPrevSiblingConnectOrCreateFieldInput = {
-  onCreate: FieldPrevSiblingConnectOrCreateFieldInputOnCreate
-  where: FieldConnectOrCreateWhere
-}
-
-export type FieldPrevSiblingConnectOrCreateFieldInputOnCreate = {
-  node: FieldOnCreateInput
 }
 
 export type FieldPrevSiblingConnection = {
@@ -14963,8 +14825,6 @@ export type FieldPrevSiblingDisconnectFieldInput = {
 
 export type FieldPrevSiblingFieldInput = {
   connect?: InputMaybe<FieldPrevSiblingConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<FieldPrevSiblingConnectOrCreateFieldInput>
   create?: InputMaybe<FieldPrevSiblingCreateFieldInput>
 }
 
@@ -15002,15 +14862,25 @@ export type FieldPrevSiblingNodeAggregationWhereInput = {
   description_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   description_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   description_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   key_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   key_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -15070,7 +14940,6 @@ export type FieldPrevSiblingUpdateConnectionInput = {
 
 export type FieldPrevSiblingUpdateFieldInput = {
   connect?: InputMaybe<FieldPrevSiblingConnectFieldInput>
-  connectOrCreate?: InputMaybe<FieldPrevSiblingConnectOrCreateFieldInput>
   create?: InputMaybe<FieldPrevSiblingCreateFieldInput>
   delete?: InputMaybe<FieldPrevSiblingDeleteFieldInput>
   disconnect?: InputMaybe<FieldPrevSiblingDisconnectFieldInput>
@@ -15139,12 +15008,6 @@ export type FieldSubscriptionWhere = {
   validationRules_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
   validationRules_MATCHES?: InputMaybe<Scalars['String']['input']>
   validationRules_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
-}
-
-export type FieldUniqueWhere = {
-  /** @deprecated Please use the explicit _EQ version */
-  id?: InputMaybe<Scalars['ID']['input']>
-  id_EQ?: InputMaybe<Scalars['ID']['input']>
 }
 
 export type FieldUpdateInput = {
@@ -15311,6 +15174,7 @@ export type HookElementConnectionArgs = {
 
 export type HookAggregateSelection = {
   count: Scalars['Int']['output']
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
 }
 
@@ -15335,15 +15199,6 @@ export type HookConfigConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<PropConnectWhere>
-}
-
-export type HookConfigConnectOrCreateFieldInput = {
-  onCreate: HookConfigConnectOrCreateFieldInputOnCreate
-  where: PropConnectOrCreateWhere
-}
-
-export type HookConfigConnectOrCreateFieldInputOnCreate = {
-  node: PropOnCreateInput
 }
 
 export type HookConfigConnection = {
@@ -15377,8 +15232,6 @@ export type HookConfigDisconnectFieldInput = {
 
 export type HookConfigFieldInput = {
   connect?: InputMaybe<HookConfigConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<HookConfigConnectOrCreateFieldInput>
   create?: InputMaybe<HookConfigCreateFieldInput>
 }
 
@@ -15401,15 +15254,25 @@ export type HookConfigNodeAggregationWhereInput = {
   data_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   data_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   data_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
 }
 
@@ -15424,7 +15287,6 @@ export type HookConfigUpdateConnectionInput = {
 
 export type HookConfigUpdateFieldInput = {
   connect?: InputMaybe<HookConfigConnectFieldInput>
-  connectOrCreate?: InputMaybe<HookConfigConnectOrCreateFieldInput>
   create?: InputMaybe<HookConfigCreateFieldInput>
   delete?: InputMaybe<HookConfigDeleteFieldInput>
   disconnect?: InputMaybe<HookConfigDisconnectFieldInput>
@@ -15485,15 +15347,6 @@ export type HookElementConnectFieldInput = {
   where?: InputMaybe<ElementConnectWhere>
 }
 
-export type HookElementConnectOrCreateFieldInput = {
-  onCreate: HookElementConnectOrCreateFieldInputOnCreate
-  where: ElementConnectOrCreateWhere
-}
-
-export type HookElementConnectOrCreateFieldInputOnCreate = {
-  node: ElementOnCreateInput
-}
-
 export type HookElementConnection = {
   edges: Array<HookElementRelationship>
   pageInfo: PageInfo
@@ -15533,6 +15386,7 @@ export type HookElementElementAggregationSelection = {
 export type HookElementElementNodeAggregateSelection = {
   childMapperPropKey: StringAggregateSelection
   compositeKey: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   renderForEachPropKey: StringAggregateSelection
   renderIfExpression: StringAggregateSelection
@@ -15541,8 +15395,6 @@ export type HookElementElementNodeAggregateSelection = {
 
 export type HookElementFieldInput = {
   connect?: InputMaybe<HookElementConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<HookElementConnectOrCreateFieldInput>
   create?: InputMaybe<HookElementCreateFieldInput>
 }
 
@@ -15582,15 +15434,25 @@ export type HookElementNodeAggregationWhereInput = {
   compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<
     Scalars['Float']['input']
@@ -15662,7 +15524,6 @@ export type HookElementUpdateConnectionInput = {
 
 export type HookElementUpdateFieldInput = {
   connect?: InputMaybe<HookElementConnectFieldInput>
-  connectOrCreate?: InputMaybe<HookElementConnectOrCreateFieldInput>
   create?: InputMaybe<HookElementCreateFieldInput>
   delete?: InputMaybe<HookElementDeleteFieldInput>
   disconnect?: InputMaybe<HookElementDisconnectFieldInput>
@@ -15689,6 +15550,7 @@ export type HookPropConfigAggregationSelection = {
 
 export type HookPropConfigNodeAggregateSelection = {
   data: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
 }
 
@@ -15801,6 +15663,7 @@ export type IBaseTypeOwnerConnectionArgs = {
 
 export type IBaseTypeAggregateSelection = {
   count: Scalars['Int']['output']
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -15870,15 +15733,6 @@ export type IBaseTypeFieldRefsConnectFieldInput = {
   where?: InputMaybe<FieldConnectWhere>
 }
 
-export type IBaseTypeFieldRefsConnectOrCreateFieldInput = {
-  onCreate: IBaseTypeFieldRefsConnectOrCreateFieldInputOnCreate
-  where: FieldConnectOrCreateWhere
-}
-
-export type IBaseTypeFieldRefsConnectOrCreateFieldInputOnCreate = {
-  node: FieldOnCreateInput
-}
-
 export type IBaseTypeFieldRefsConnection = {
   edges: Array<IBaseTypeFieldRefsRelationship>
   pageInfo: PageInfo
@@ -15944,15 +15798,25 @@ export type IBaseTypeFieldRefsNodeAggregationWhereInput = {
   description_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   description_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   description_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   key_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   key_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -16012,9 +15876,6 @@ export type IBaseTypeFieldRefsUpdateConnectionInput = {
 
 export type IBaseTypeFieldRefsUpdateFieldInput = {
   connect?: InputMaybe<Array<IBaseTypeFieldRefsConnectFieldInput>>
-  connectOrCreate?: InputMaybe<
-    Array<IBaseTypeFieldRefsConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<IBaseTypeFieldRefsCreateFieldInput>>
   delete?: InputMaybe<Array<IBaseTypeFieldRefsDeleteFieldInput>>
   disconnect?: InputMaybe<Array<IBaseTypeFieldRefsDisconnectFieldInput>>
@@ -16068,15 +15929,6 @@ export type IBaseTypeOwnerConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<UserConnectWhere>
-}
-
-export type IBaseTypeOwnerConnectOrCreateFieldInput = {
-  onCreate: IBaseTypeOwnerConnectOrCreateFieldInputOnCreate
-  where: UserConnectOrCreateWhere
-}
-
-export type IBaseTypeOwnerConnectOrCreateFieldInputOnCreate = {
-  node: UserOnCreateInput
 }
 
 export type IBaseTypeOwnerConnection = {
@@ -16144,15 +15996,25 @@ export type IBaseTypeOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -16182,7 +16044,6 @@ export type IBaseTypeOwnerUpdateConnectionInput = {
 
 export type IBaseTypeOwnerUpdateFieldInput = {
   connect?: InputMaybe<IBaseTypeOwnerConnectFieldInput>
-  connectOrCreate?: InputMaybe<IBaseTypeOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<IBaseTypeOwnerCreateFieldInput>
   delete?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
   disconnect?: InputMaybe<IBaseTypeOwnerDisconnectFieldInput>
@@ -16254,6 +16115,8 @@ export type IBaseTypeWhere = {
   owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<IBaseTypeOwnerAggregateInput>
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  typename?: InputMaybe<Array<IBaseTypeImplementation>>
+  /** @deprecated The typename_IN filter is deprecated, please use the typename filter instead */
   typename_IN?: InputMaybe<Array<IBaseTypeImplementation>>
 }
 
@@ -16391,6 +16254,7 @@ export type InterfaceTypeOwnerConnectionArgs = {
 
 export type InterfaceTypeAggregateSelection = {
   count: Scalars['Int']['output']
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -16417,15 +16281,6 @@ export type InterfaceTypeApiOfAtomsConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<AtomConnectWhere>
-}
-
-export type InterfaceTypeApiOfAtomsConnectOrCreateFieldInput = {
-  onCreate: InterfaceTypeApiOfAtomsConnectOrCreateFieldInputOnCreate
-  where: AtomConnectOrCreateWhere
-}
-
-export type InterfaceTypeApiOfAtomsConnectOrCreateFieldInputOnCreate = {
-  node: AtomOnCreateInput
 }
 
 export type InterfaceTypeApiOfAtomsConnection = {
@@ -16461,10 +16316,6 @@ export type InterfaceTypeApiOfAtomsDisconnectFieldInput = {
 
 export type InterfaceTypeApiOfAtomsFieldInput = {
   connect?: InputMaybe<Array<InterfaceTypeApiOfAtomsConnectFieldInput>>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<
-    Array<InterfaceTypeApiOfAtomsConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<InterfaceTypeApiOfAtomsCreateFieldInput>>
 }
 
@@ -16534,15 +16385,25 @@ export type InterfaceTypeApiOfAtomsNodeAggregationWhereInput = {
   icon_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   icon_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   icon_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -16572,9 +16433,6 @@ export type InterfaceTypeApiOfAtomsUpdateConnectionInput = {
 
 export type InterfaceTypeApiOfAtomsUpdateFieldInput = {
   connect?: InputMaybe<Array<InterfaceTypeApiOfAtomsConnectFieldInput>>
-  connectOrCreate?: InputMaybe<
-    Array<InterfaceTypeApiOfAtomsConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<InterfaceTypeApiOfAtomsCreateFieldInput>>
   delete?: InputMaybe<Array<InterfaceTypeApiOfAtomsDeleteFieldInput>>
   disconnect?: InputMaybe<Array<InterfaceTypeApiOfAtomsDisconnectFieldInput>>
@@ -16592,6 +16450,7 @@ export type InterfaceTypeAtomApiOfAtomsNodeAggregateSelection = {
   externalJsSource: StringAggregateSelection
   externalSourceType: StringAggregateSelection
   icon: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -16662,6 +16521,7 @@ export type InterfaceTypeFieldFieldRefsAggregationSelection = {
 export type InterfaceTypeFieldFieldRefsNodeAggregateSelection = {
   defaultValues: StringAggregateSelection
   description: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   key: StringAggregateSelection
   name: StringAggregateSelection
@@ -16676,6 +16536,7 @@ export type InterfaceTypeFieldFieldsAggregationSelection = {
 export type InterfaceTypeFieldFieldsNodeAggregateSelection = {
   defaultValues: StringAggregateSelection
   description: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   key: StringAggregateSelection
   name: StringAggregateSelection
@@ -16706,25 +16567,12 @@ export type InterfaceTypeFieldRefsConnectFieldInput = {
   where?: InputMaybe<FieldConnectWhere>
 }
 
-export type InterfaceTypeFieldRefsConnectOrCreateFieldInput = {
-  onCreate: InterfaceTypeFieldRefsConnectOrCreateFieldInputOnCreate
-  where: FieldConnectOrCreateWhere
-}
-
-export type InterfaceTypeFieldRefsConnectOrCreateFieldInputOnCreate = {
-  node: FieldOnCreateInput
-}
-
 export type InterfaceTypeFieldRefsCreateFieldInput = {
   node: FieldCreateInput
 }
 
 export type InterfaceTypeFieldRefsFieldInput = {
   connect?: InputMaybe<Array<InterfaceTypeFieldRefsConnectFieldInput>>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<
-    Array<InterfaceTypeFieldRefsConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<InterfaceTypeFieldRefsCreateFieldInput>>
 }
 
@@ -16762,15 +16610,25 @@ export type InterfaceTypeFieldRefsNodeAggregationWhereInput = {
   description_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   description_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   description_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   key_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   key_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -16825,9 +16683,6 @@ export type InterfaceTypeFieldRefsUpdateConnectionInput = {
 
 export type InterfaceTypeFieldRefsUpdateFieldInput = {
   connect?: InputMaybe<Array<InterfaceTypeFieldRefsConnectFieldInput>>
-  connectOrCreate?: InputMaybe<
-    Array<InterfaceTypeFieldRefsConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<InterfaceTypeFieldRefsCreateFieldInput>>
   delete?: InputMaybe<Array<IBaseTypeFieldRefsDeleteFieldInput>>
   disconnect?: InputMaybe<Array<IBaseTypeFieldRefsDisconnectFieldInput>>
@@ -16857,15 +16712,6 @@ export type InterfaceTypeFieldsConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<FieldConnectWhere>
-}
-
-export type InterfaceTypeFieldsConnectOrCreateFieldInput = {
-  onCreate: InterfaceTypeFieldsConnectOrCreateFieldInputOnCreate
-  where: FieldConnectOrCreateWhere
-}
-
-export type InterfaceTypeFieldsConnectOrCreateFieldInputOnCreate = {
-  node: FieldOnCreateInput
 }
 
 export type InterfaceTypeFieldsConnection = {
@@ -16901,10 +16747,6 @@ export type InterfaceTypeFieldsDisconnectFieldInput = {
 
 export type InterfaceTypeFieldsFieldInput = {
   connect?: InputMaybe<Array<InterfaceTypeFieldsConnectFieldInput>>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<
-    Array<InterfaceTypeFieldsConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<InterfaceTypeFieldsCreateFieldInput>>
 }
 
@@ -16942,15 +16784,25 @@ export type InterfaceTypeFieldsNodeAggregationWhereInput = {
   description_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   description_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   description_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   key_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   key_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -17010,9 +16862,6 @@ export type InterfaceTypeFieldsUpdateConnectionInput = {
 
 export type InterfaceTypeFieldsUpdateFieldInput = {
   connect?: InputMaybe<Array<InterfaceTypeFieldsConnectFieldInput>>
-  connectOrCreate?: InputMaybe<
-    Array<InterfaceTypeFieldsConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<InterfaceTypeFieldsCreateFieldInput>>
   delete?: InputMaybe<Array<InterfaceTypeFieldsDeleteFieldInput>>
   disconnect?: InputMaybe<Array<InterfaceTypeFieldsDisconnectFieldInput>>
@@ -17051,23 +16900,12 @@ export type InterfaceTypeOwnerConnectFieldInput = {
   where?: InputMaybe<UserConnectWhere>
 }
 
-export type InterfaceTypeOwnerConnectOrCreateFieldInput = {
-  onCreate: InterfaceTypeOwnerConnectOrCreateFieldInputOnCreate
-  where: UserConnectOrCreateWhere
-}
-
-export type InterfaceTypeOwnerConnectOrCreateFieldInputOnCreate = {
-  node: UserOnCreateInput
-}
-
 export type InterfaceTypeOwnerCreateFieldInput = {
   node: UserCreateInput
 }
 
 export type InterfaceTypeOwnerFieldInput = {
   connect?: InputMaybe<InterfaceTypeOwnerConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<InterfaceTypeOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<InterfaceTypeOwnerCreateFieldInput>
 }
 
@@ -17105,15 +16943,25 @@ export type InterfaceTypeOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -17138,7 +16986,6 @@ export type InterfaceTypeOwnerUpdateConnectionInput = {
 
 export type InterfaceTypeOwnerUpdateFieldInput = {
   connect?: InputMaybe<InterfaceTypeOwnerConnectFieldInput>
-  connectOrCreate?: InputMaybe<InterfaceTypeOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<InterfaceTypeOwnerCreateFieldInput>
   delete?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
   disconnect?: InputMaybe<IBaseTypeOwnerDisconnectFieldInput>
@@ -17209,6 +17056,7 @@ export type InterfaceTypeUserOwnerAggregationSelection = {
 export type InterfaceTypeUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelection
   email: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   username: StringAggregateSelection
 }
@@ -17363,6 +17211,7 @@ export type LambdaTypeOwnerConnectionArgs = {
 
 export type LambdaTypeAggregateSelection = {
   count: Scalars['Int']['output']
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -17425,6 +17274,7 @@ export type LambdaTypeFieldFieldRefsAggregationSelection = {
 export type LambdaTypeFieldFieldRefsNodeAggregateSelection = {
   defaultValues: StringAggregateSelection
   description: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   key: StringAggregateSelection
   name: StringAggregateSelection
@@ -17455,25 +17305,12 @@ export type LambdaTypeFieldRefsConnectFieldInput = {
   where?: InputMaybe<FieldConnectWhere>
 }
 
-export type LambdaTypeFieldRefsConnectOrCreateFieldInput = {
-  onCreate: LambdaTypeFieldRefsConnectOrCreateFieldInputOnCreate
-  where: FieldConnectOrCreateWhere
-}
-
-export type LambdaTypeFieldRefsConnectOrCreateFieldInputOnCreate = {
-  node: FieldOnCreateInput
-}
-
 export type LambdaTypeFieldRefsCreateFieldInput = {
   node: FieldCreateInput
 }
 
 export type LambdaTypeFieldRefsFieldInput = {
   connect?: InputMaybe<Array<LambdaTypeFieldRefsConnectFieldInput>>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<
-    Array<LambdaTypeFieldRefsConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<LambdaTypeFieldRefsCreateFieldInput>>
 }
 
@@ -17511,15 +17348,25 @@ export type LambdaTypeFieldRefsNodeAggregationWhereInput = {
   description_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   description_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   description_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   key_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   key_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -17574,9 +17421,6 @@ export type LambdaTypeFieldRefsUpdateConnectionInput = {
 
 export type LambdaTypeFieldRefsUpdateFieldInput = {
   connect?: InputMaybe<Array<LambdaTypeFieldRefsConnectFieldInput>>
-  connectOrCreate?: InputMaybe<
-    Array<LambdaTypeFieldRefsConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<LambdaTypeFieldRefsCreateFieldInput>>
   delete?: InputMaybe<Array<IBaseTypeFieldRefsDeleteFieldInput>>
   disconnect?: InputMaybe<Array<IBaseTypeFieldRefsDisconnectFieldInput>>
@@ -17615,23 +17459,12 @@ export type LambdaTypeOwnerConnectFieldInput = {
   where?: InputMaybe<UserConnectWhere>
 }
 
-export type LambdaTypeOwnerConnectOrCreateFieldInput = {
-  onCreate: LambdaTypeOwnerConnectOrCreateFieldInputOnCreate
-  where: UserConnectOrCreateWhere
-}
-
-export type LambdaTypeOwnerConnectOrCreateFieldInputOnCreate = {
-  node: UserOnCreateInput
-}
-
 export type LambdaTypeOwnerCreateFieldInput = {
   node: UserCreateInput
 }
 
 export type LambdaTypeOwnerFieldInput = {
   connect?: InputMaybe<LambdaTypeOwnerConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<LambdaTypeOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<LambdaTypeOwnerCreateFieldInput>
 }
 
@@ -17669,15 +17502,25 @@ export type LambdaTypeOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -17702,7 +17545,6 @@ export type LambdaTypeOwnerUpdateConnectionInput = {
 
 export type LambdaTypeOwnerUpdateFieldInput = {
   connect?: InputMaybe<LambdaTypeOwnerConnectFieldInput>
-  connectOrCreate?: InputMaybe<LambdaTypeOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<LambdaTypeOwnerCreateFieldInput>
   delete?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
   disconnect?: InputMaybe<IBaseTypeOwnerDisconnectFieldInput>
@@ -17771,6 +17613,7 @@ export type LambdaTypeUserOwnerAggregationSelection = {
 export type LambdaTypeUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelection
   email: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   username: StringAggregateSelection
 }
@@ -18543,6 +18386,7 @@ export type PageStoreConnectionArgs = {
 export type PageAggregateSelection = {
   compositeKey: StringAggregateSelection
   count: Scalars['Int']['output']
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   urlPattern: StringAggregateSelection
 }
@@ -18568,6 +18412,7 @@ export type PageAppAppAggregationSelection = {
 
 export type PageAppAppNodeAggregateSelection = {
   compositeKey: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
 }
 
@@ -18579,15 +18424,6 @@ export type PageAppConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<AppConnectWhere>
-}
-
-export type PageAppConnectOrCreateFieldInput = {
-  onCreate: PageAppConnectOrCreateFieldInputOnCreate
-  where: AppConnectOrCreateWhere
-}
-
-export type PageAppConnectOrCreateFieldInputOnCreate = {
-  node: AppOnCreateInput
 }
 
 export type PageAppConnection = {
@@ -18623,8 +18459,6 @@ export type PageAppDisconnectFieldInput = {
 
 export type PageAppFieldInput = {
   connect?: InputMaybe<PageAppConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<PageAppConnectOrCreateFieldInput>
   create?: InputMaybe<PageAppCreateFieldInput>
 }
 
@@ -18647,15 +18481,25 @@ export type PageAppNodeAggregationWhereInput = {
   compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
 }
 
@@ -18670,7 +18514,6 @@ export type PageAppUpdateConnectionInput = {
 
 export type PageAppUpdateFieldInput = {
   connect?: InputMaybe<PageAppConnectFieldInput>
-  connectOrCreate?: InputMaybe<PageAppConnectOrCreateFieldInput>
   create?: InputMaybe<PageAppCreateFieldInput>
   delete?: InputMaybe<PageAppDeleteFieldInput>
   disconnect?: InputMaybe<PageAppDisconnectFieldInput>
@@ -18684,10 +18527,6 @@ export type PageConnectInput = {
   redirect?: InputMaybe<PageRedirectConnectFieldInput>
   rootElement?: InputMaybe<PageRootElementConnectFieldInput>
   store?: InputMaybe<PageStoreConnectFieldInput>
-}
-
-export type PageConnectOrCreateWhere = {
-  node: PageUniqueWhere
 }
 
 export type PageConnectWhere = {
@@ -18747,6 +18586,7 @@ export type PageElementPageContentContainerAggregationSelection = {
 export type PageElementPageContentContainerNodeAggregateSelection = {
   childMapperPropKey: StringAggregateSelection
   compositeKey: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   renderForEachPropKey: StringAggregateSelection
   renderIfExpression: StringAggregateSelection
@@ -18761,6 +18601,7 @@ export type PageElementRootElementAggregationSelection = {
 export type PageElementRootElementNodeAggregateSelection = {
   childMapperPropKey: StringAggregateSelection
   compositeKey: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   renderForEachPropKey: StringAggregateSelection
   renderIfExpression: StringAggregateSelection
@@ -18787,13 +18628,6 @@ export enum PageKind {
   NotFound = 'NotFound',
   Provider = 'Provider',
   Regular = 'Regular',
-}
-
-export type PageOnCreateInput = {
-  compositeKey: Scalars['String']['input']
-  id: Scalars['ID']['input']
-  kind: PageKind
-  urlPattern: Scalars['String']['input']
 }
 
 export type PageOptions = {
@@ -18825,15 +18659,6 @@ export type PagePageContentContainerConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<ElementConnectWhere>
-}
-
-export type PagePageContentContainerConnectOrCreateFieldInput = {
-  onCreate: PagePageContentContainerConnectOrCreateFieldInputOnCreate
-  where: ElementConnectOrCreateWhere
-}
-
-export type PagePageContentContainerConnectOrCreateFieldInputOnCreate = {
-  node: ElementOnCreateInput
 }
 
 export type PagePageContentContainerConnection = {
@@ -18869,8 +18694,6 @@ export type PagePageContentContainerDisconnectFieldInput = {
 
 export type PagePageContentContainerFieldInput = {
   connect?: InputMaybe<PagePageContentContainerConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<PagePageContentContainerConnectOrCreateFieldInput>
   create?: InputMaybe<PagePageContentContainerCreateFieldInput>
 }
 
@@ -18910,15 +18733,25 @@ export type PagePageContentContainerNodeAggregationWhereInput = {
   compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<
     Scalars['Float']['input']
@@ -18990,7 +18823,6 @@ export type PagePageContentContainerUpdateConnectionInput = {
 
 export type PagePageContentContainerUpdateFieldInput = {
   connect?: InputMaybe<PagePageContentContainerConnectFieldInput>
-  connectOrCreate?: InputMaybe<PagePageContentContainerConnectOrCreateFieldInput>
   create?: InputMaybe<PagePageContentContainerCreateFieldInput>
   delete?: InputMaybe<PagePageContentContainerDeleteFieldInput>
   disconnect?: InputMaybe<PagePageContentContainerDisconnectFieldInput>
@@ -19020,15 +18852,6 @@ export type PageRedirectConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<RedirectConnectWhere>
-}
-
-export type PageRedirectConnectOrCreateFieldInput = {
-  onCreate: PageRedirectConnectOrCreateFieldInputOnCreate
-  where: RedirectConnectOrCreateWhere
-}
-
-export type PageRedirectConnectOrCreateFieldInputOnCreate = {
-  node: RedirectOnCreateInput
 }
 
 export type PageRedirectConnection = {
@@ -19064,8 +18887,6 @@ export type PageRedirectDisconnectFieldInput = {
 
 export type PageRedirectFieldInput = {
   connect?: InputMaybe<PageRedirectConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<PageRedirectConnectOrCreateFieldInput>
   create?: InputMaybe<PageRedirectCreateFieldInput>
 }
 
@@ -19073,15 +18894,25 @@ export type PageRedirectNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<PageRedirectNodeAggregationWhereInput>>
   NOT?: InputMaybe<PageRedirectNodeAggregationWhereInput>
   OR?: InputMaybe<Array<PageRedirectNodeAggregationWhereInput>>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   targetUrl_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   targetUrl_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -19106,6 +18937,7 @@ export type PageRedirectRedirectAggregationSelection = {
 }
 
 export type PageRedirectRedirectNodeAggregateSelection = {
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   targetUrl: StringAggregateSelection
 }
@@ -19121,7 +18953,6 @@ export type PageRedirectUpdateConnectionInput = {
 
 export type PageRedirectUpdateFieldInput = {
   connect?: InputMaybe<PageRedirectConnectFieldInput>
-  connectOrCreate?: InputMaybe<PageRedirectConnectOrCreateFieldInput>
   create?: InputMaybe<PageRedirectCreateFieldInput>
   delete?: InputMaybe<PageRedirectDeleteFieldInput>
   disconnect?: InputMaybe<PageRedirectDisconnectFieldInput>
@@ -19151,15 +18982,6 @@ export type PageRootElementConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<ElementConnectWhere>
-}
-
-export type PageRootElementConnectOrCreateFieldInput = {
-  onCreate: PageRootElementConnectOrCreateFieldInputOnCreate
-  where: ElementConnectOrCreateWhere
-}
-
-export type PageRootElementConnectOrCreateFieldInputOnCreate = {
-  node: ElementOnCreateInput
 }
 
 export type PageRootElementConnection = {
@@ -19195,8 +19017,6 @@ export type PageRootElementDisconnectFieldInput = {
 
 export type PageRootElementFieldInput = {
   connect?: InputMaybe<PageRootElementConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<PageRootElementConnectOrCreateFieldInput>
   create?: InputMaybe<PageRootElementCreateFieldInput>
 }
 
@@ -19236,15 +19056,25 @@ export type PageRootElementNodeAggregationWhereInput = {
   compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<
     Scalars['Float']['input']
@@ -19316,7 +19146,6 @@ export type PageRootElementUpdateConnectionInput = {
 
 export type PageRootElementUpdateFieldInput = {
   connect?: InputMaybe<PageRootElementConnectFieldInput>
-  connectOrCreate?: InputMaybe<PageRootElementConnectOrCreateFieldInput>
   create?: InputMaybe<PageRootElementCreateFieldInput>
   delete?: InputMaybe<PageRootElementDeleteFieldInput>
   disconnect?: InputMaybe<PageRootElementDisconnectFieldInput>
@@ -19356,15 +19185,6 @@ export type PageStoreConnectFieldInput = {
   where?: InputMaybe<StoreConnectWhere>
 }
 
-export type PageStoreConnectOrCreateFieldInput = {
-  onCreate: PageStoreConnectOrCreateFieldInputOnCreate
-  where: StoreConnectOrCreateWhere
-}
-
-export type PageStoreConnectOrCreateFieldInputOnCreate = {
-  node: StoreOnCreateInput
-}
-
 export type PageStoreConnection = {
   edges: Array<PageStoreRelationship>
   pageInfo: PageInfo
@@ -19398,8 +19218,6 @@ export type PageStoreDisconnectFieldInput = {
 
 export type PageStoreFieldInput = {
   connect?: InputMaybe<PageStoreConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<PageStoreConnectOrCreateFieldInput>
   create?: InputMaybe<PageStoreCreateFieldInput>
 }
 
@@ -19407,15 +19225,25 @@ export type PageStoreNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<PageStoreNodeAggregationWhereInput>>
   NOT?: InputMaybe<PageStoreNodeAggregationWhereInput>
   OR?: InputMaybe<Array<PageStoreNodeAggregationWhereInput>>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -19445,6 +19273,7 @@ export type PageStoreStoreAggregationSelection = {
 }
 
 export type PageStoreStoreNodeAggregateSelection = {
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -19455,7 +19284,6 @@ export type PageStoreUpdateConnectionInput = {
 
 export type PageStoreUpdateFieldInput = {
   connect?: InputMaybe<PageStoreConnectFieldInput>
-  connectOrCreate?: InputMaybe<PageStoreConnectOrCreateFieldInput>
   create?: InputMaybe<PageStoreCreateFieldInput>
   delete?: InputMaybe<PageStoreDeleteFieldInput>
   disconnect?: InputMaybe<PageStoreDisconnectFieldInput>
@@ -19561,6 +19389,7 @@ export type PageTypeOwnerConnectionArgs = {
 
 export type PageTypeAggregateSelection = {
   count: Scalars['Int']['output']
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -19623,6 +19452,7 @@ export type PageTypeFieldFieldRefsAggregationSelection = {
 export type PageTypeFieldFieldRefsNodeAggregateSelection = {
   defaultValues: StringAggregateSelection
   description: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   key: StringAggregateSelection
   name: StringAggregateSelection
@@ -19653,25 +19483,12 @@ export type PageTypeFieldRefsConnectFieldInput = {
   where?: InputMaybe<FieldConnectWhere>
 }
 
-export type PageTypeFieldRefsConnectOrCreateFieldInput = {
-  onCreate: PageTypeFieldRefsConnectOrCreateFieldInputOnCreate
-  where: FieldConnectOrCreateWhere
-}
-
-export type PageTypeFieldRefsConnectOrCreateFieldInputOnCreate = {
-  node: FieldOnCreateInput
-}
-
 export type PageTypeFieldRefsCreateFieldInput = {
   node: FieldCreateInput
 }
 
 export type PageTypeFieldRefsFieldInput = {
   connect?: InputMaybe<Array<PageTypeFieldRefsConnectFieldInput>>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<
-    Array<PageTypeFieldRefsConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<PageTypeFieldRefsCreateFieldInput>>
 }
 
@@ -19709,15 +19526,25 @@ export type PageTypeFieldRefsNodeAggregationWhereInput = {
   description_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   description_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   description_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   key_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   key_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -19772,9 +19599,6 @@ export type PageTypeFieldRefsUpdateConnectionInput = {
 
 export type PageTypeFieldRefsUpdateFieldInput = {
   connect?: InputMaybe<Array<PageTypeFieldRefsConnectFieldInput>>
-  connectOrCreate?: InputMaybe<
-    Array<PageTypeFieldRefsConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<PageTypeFieldRefsCreateFieldInput>>
   delete?: InputMaybe<Array<IBaseTypeFieldRefsDeleteFieldInput>>
   disconnect?: InputMaybe<Array<IBaseTypeFieldRefsDisconnectFieldInput>>
@@ -19813,23 +19637,12 @@ export type PageTypeOwnerConnectFieldInput = {
   where?: InputMaybe<UserConnectWhere>
 }
 
-export type PageTypeOwnerConnectOrCreateFieldInput = {
-  onCreate: PageTypeOwnerConnectOrCreateFieldInputOnCreate
-  where: UserConnectOrCreateWhere
-}
-
-export type PageTypeOwnerConnectOrCreateFieldInputOnCreate = {
-  node: UserOnCreateInput
-}
-
 export type PageTypeOwnerCreateFieldInput = {
   node: UserCreateInput
 }
 
 export type PageTypeOwnerFieldInput = {
   connect?: InputMaybe<PageTypeOwnerConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<PageTypeOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<PageTypeOwnerCreateFieldInput>
 }
 
@@ -19867,15 +19680,25 @@ export type PageTypeOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -19900,7 +19723,6 @@ export type PageTypeOwnerUpdateConnectionInput = {
 
 export type PageTypeOwnerUpdateFieldInput = {
   connect?: InputMaybe<PageTypeOwnerConnectFieldInput>
-  connectOrCreate?: InputMaybe<PageTypeOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<PageTypeOwnerCreateFieldInput>
   delete?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
   disconnect?: InputMaybe<IBaseTypeOwnerDisconnectFieldInput>
@@ -19969,6 +19791,7 @@ export type PageTypeUserOwnerAggregationSelection = {
 export type PageTypeUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelection
   email: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   username: StringAggregateSelection
 }
@@ -20022,15 +19845,6 @@ export type PageTypesConnection = {
   edges: Array<PageTypeEdge>
   pageInfo: PageInfo
   totalCount: Scalars['Int']['output']
-}
-
-export type PageUniqueWhere = {
-  /** @deprecated Please use the explicit _EQ version */
-  compositeKey?: InputMaybe<Scalars['String']['input']>
-  compositeKey_EQ?: InputMaybe<Scalars['String']['input']>
-  /** @deprecated Please use the explicit _EQ version */
-  id?: InputMaybe<Scalars['ID']['input']>
-  id_EQ?: InputMaybe<Scalars['ID']['input']>
 }
 
 export type PageUpdateInput = {
@@ -20145,15 +19959,12 @@ export type PreferenceOwnerConnectionArgs = {
 export type PreferenceAggregateSelection = {
   builderWidth: FloatAggregateSelection
   count: Scalars['Int']['output']
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
 }
 
 export type PreferenceConnectInput = {
   owner?: InputMaybe<PreferenceOwnerConnectFieldInput>
-}
-
-export type PreferenceConnectOrCreateWhere = {
-  node: PreferenceUniqueWhere
 }
 
 export type PreferenceConnectWhere = {
@@ -20198,12 +20009,6 @@ export type PreferenceEventPayload = {
   id: Scalars['ID']['output']
 }
 
-export type PreferenceOnCreateInput = {
-  builderBreakpointType: BreakpointType
-  builderWidth: Scalars['Float']['input']
-  id: Scalars['ID']['input']
-}
-
 export type PreferenceOptions = {
   limit?: InputMaybe<Scalars['Int']['input']>
   offset?: InputMaybe<Scalars['Int']['input']>
@@ -20235,23 +20040,12 @@ export type PreferenceOwnerConnectFieldInput = {
   where?: InputMaybe<UserConnectWhere>
 }
 
-export type PreferenceOwnerConnectOrCreateFieldInput = {
-  onCreate: PreferenceOwnerConnectOrCreateFieldInputOnCreate
-  where: UserConnectOrCreateWhere
-}
-
-export type PreferenceOwnerConnectOrCreateFieldInputOnCreate = {
-  node: UserOnCreateInput
-}
-
 export type PreferenceOwnerCreateFieldInput = {
   node: UserCreateInput
 }
 
 export type PreferenceOwnerFieldInput = {
   connect?: InputMaybe<PreferenceOwnerConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<PreferenceOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<PreferenceOwnerCreateFieldInput>
 }
 
@@ -20289,15 +20083,25 @@ export type PreferenceOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -20322,7 +20126,6 @@ export type PreferenceOwnerUpdateConnectionInput = {
 
 export type PreferenceOwnerUpdateFieldInput = {
   connect?: InputMaybe<PreferenceOwnerConnectFieldInput>
-  connectOrCreate?: InputMaybe<PreferenceOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<PreferenceOwnerCreateFieldInput>
   delete?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
   disconnect?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
@@ -20362,12 +20165,6 @@ export type PreferenceSubscriptionWhere = {
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
 }
 
-export type PreferenceUniqueWhere = {
-  /** @deprecated Please use the explicit _EQ version */
-  id?: InputMaybe<Scalars['ID']['input']>
-  id_EQ?: InputMaybe<Scalars['ID']['input']>
-}
-
 export type PreferenceUpdateInput = {
   /** @deprecated Please use the explicit _SET field */
   builderBreakpointType?: InputMaybe<BreakpointType>
@@ -20397,6 +20194,7 @@ export type PreferenceUserOwnerAggregationSelection = {
 export type PreferenceUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelection
   email: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   username: StringAggregateSelection
 }
@@ -20501,6 +20299,7 @@ export type PrimitiveTypeOwnerConnectionArgs = {
 
 export type PrimitiveTypeAggregateSelection = {
   count: Scalars['Int']['output']
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -20508,10 +20307,6 @@ export type PrimitiveTypeAggregateSelection = {
 export type PrimitiveTypeConnectInput = {
   fieldRefs?: InputMaybe<Array<PrimitiveTypeFieldRefsConnectFieldInput>>
   owner?: InputMaybe<PrimitiveTypeOwnerConnectFieldInput>
-}
-
-export type PrimitiveTypeConnectOrCreateWhere = {
-  node: PrimitiveTypeUniqueWhere
 }
 
 export type PrimitiveTypeConnectWhere = {
@@ -20569,6 +20364,7 @@ export type PrimitiveTypeFieldFieldRefsAggregationSelection = {
 export type PrimitiveTypeFieldFieldRefsNodeAggregateSelection = {
   defaultValues: StringAggregateSelection
   description: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   key: StringAggregateSelection
   name: StringAggregateSelection
@@ -20599,25 +20395,12 @@ export type PrimitiveTypeFieldRefsConnectFieldInput = {
   where?: InputMaybe<FieldConnectWhere>
 }
 
-export type PrimitiveTypeFieldRefsConnectOrCreateFieldInput = {
-  onCreate: PrimitiveTypeFieldRefsConnectOrCreateFieldInputOnCreate
-  where: FieldConnectOrCreateWhere
-}
-
-export type PrimitiveTypeFieldRefsConnectOrCreateFieldInputOnCreate = {
-  node: FieldOnCreateInput
-}
-
 export type PrimitiveTypeFieldRefsCreateFieldInput = {
   node: FieldCreateInput
 }
 
 export type PrimitiveTypeFieldRefsFieldInput = {
   connect?: InputMaybe<Array<PrimitiveTypeFieldRefsConnectFieldInput>>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<
-    Array<PrimitiveTypeFieldRefsConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<PrimitiveTypeFieldRefsCreateFieldInput>>
 }
 
@@ -20655,15 +20438,25 @@ export type PrimitiveTypeFieldRefsNodeAggregationWhereInput = {
   description_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   description_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   description_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   key_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   key_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -20718,9 +20511,6 @@ export type PrimitiveTypeFieldRefsUpdateConnectionInput = {
 
 export type PrimitiveTypeFieldRefsUpdateFieldInput = {
   connect?: InputMaybe<Array<PrimitiveTypeFieldRefsConnectFieldInput>>
-  connectOrCreate?: InputMaybe<
-    Array<PrimitiveTypeFieldRefsConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<PrimitiveTypeFieldRefsCreateFieldInput>>
   delete?: InputMaybe<Array<IBaseTypeFieldRefsDeleteFieldInput>>
   disconnect?: InputMaybe<Array<IBaseTypeFieldRefsDisconnectFieldInput>>
@@ -20733,13 +20523,6 @@ export enum PrimitiveTypeKind {
   Integer = 'Integer',
   Number = 'Number',
   String = 'String',
-}
-
-export type PrimitiveTypeOnCreateInput = {
-  id: Scalars['ID']['input']
-  kind?: TypeKind
-  name: Scalars['String']['input']
-  primitiveKind: PrimitiveTypeKind
 }
 
 export type PrimitiveTypeOptions = {
@@ -20773,23 +20556,12 @@ export type PrimitiveTypeOwnerConnectFieldInput = {
   where?: InputMaybe<UserConnectWhere>
 }
 
-export type PrimitiveTypeOwnerConnectOrCreateFieldInput = {
-  onCreate: PrimitiveTypeOwnerConnectOrCreateFieldInputOnCreate
-  where: UserConnectOrCreateWhere
-}
-
-export type PrimitiveTypeOwnerConnectOrCreateFieldInputOnCreate = {
-  node: UserOnCreateInput
-}
-
 export type PrimitiveTypeOwnerCreateFieldInput = {
   node: UserCreateInput
 }
 
 export type PrimitiveTypeOwnerFieldInput = {
   connect?: InputMaybe<PrimitiveTypeOwnerConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<PrimitiveTypeOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<PrimitiveTypeOwnerCreateFieldInput>
 }
 
@@ -20827,15 +20599,25 @@ export type PrimitiveTypeOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -20860,7 +20642,6 @@ export type PrimitiveTypeOwnerUpdateConnectionInput = {
 
 export type PrimitiveTypeOwnerUpdateFieldInput = {
   connect?: InputMaybe<PrimitiveTypeOwnerConnectFieldInput>
-  connectOrCreate?: InputMaybe<PrimitiveTypeOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<PrimitiveTypeOwnerCreateFieldInput>
   delete?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
   disconnect?: InputMaybe<IBaseTypeOwnerDisconnectFieldInput>
@@ -20905,15 +20686,6 @@ export type PrimitiveTypeSubscriptionWhere = {
   primitiveKind_IN?: InputMaybe<Array<PrimitiveTypeKind>>
 }
 
-export type PrimitiveTypeUniqueWhere = {
-  /** @deprecated Please use the explicit _EQ version */
-  name?: InputMaybe<Scalars['String']['input']>
-  name_EQ?: InputMaybe<Scalars['String']['input']>
-  /** @deprecated Please use the explicit _EQ version */
-  primitiveKind?: InputMaybe<PrimitiveTypeKind>
-  primitiveKind_EQ?: InputMaybe<PrimitiveTypeKind>
-}
-
 export type PrimitiveTypeUpdateInput = {
   fieldRefs?: InputMaybe<Array<PrimitiveTypeFieldRefsUpdateFieldInput>>
   /** @deprecated Please use the explicit _SET field */
@@ -20946,6 +20718,7 @@ export type PrimitiveTypeUserOwnerAggregationSelection = {
 export type PrimitiveTypeUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelection
   email: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   username: StringAggregateSelection
 }
@@ -21049,11 +20822,8 @@ export type Prop = {
 export type PropAggregateSelection = {
   count: Scalars['Int']['output']
   data: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
-}
-
-export type PropConnectOrCreateWhere = {
-  node: PropUniqueWhere
 }
 
 export type PropConnectWhere = {
@@ -21085,11 +20855,6 @@ export type PropEdge = {
 export type PropEventPayload = {
   data: Scalars['String']['output']
   id: Scalars['ID']['output']
-}
-
-export type PropOnCreateInput = {
-  data: Scalars['String']['input']
-  id: Scalars['ID']['input']
 }
 
 export type PropOptions = {
@@ -21124,12 +20889,6 @@ export type PropSubscriptionWhere = {
   id_EQ?: InputMaybe<Scalars['ID']['input']>
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
-}
-
-export type PropUniqueWhere = {
-  /** @deprecated Please use the explicit _EQ version */
-  id?: InputMaybe<Scalars['ID']['input']>
-  id_EQ?: InputMaybe<Scalars['ID']['input']>
 }
 
 export type PropUpdateInput = {
@@ -22189,6 +21948,7 @@ export type ReactNodeTypeOwnerConnectionArgs = {
 
 export type ReactNodeTypeAggregateSelection = {
   count: Scalars['Int']['output']
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -22196,10 +21956,6 @@ export type ReactNodeTypeAggregateSelection = {
 export type ReactNodeTypeConnectInput = {
   fieldRefs?: InputMaybe<Array<ReactNodeTypeFieldRefsConnectFieldInput>>
   owner?: InputMaybe<ReactNodeTypeOwnerConnectFieldInput>
-}
-
-export type ReactNodeTypeConnectOrCreateWhere = {
-  node: ReactNodeTypeUniqueWhere
 }
 
 export type ReactNodeTypeConnectWhere = {
@@ -22255,6 +22011,7 @@ export type ReactNodeTypeFieldFieldRefsAggregationSelection = {
 export type ReactNodeTypeFieldFieldRefsNodeAggregateSelection = {
   defaultValues: StringAggregateSelection
   description: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   key: StringAggregateSelection
   name: StringAggregateSelection
@@ -22285,25 +22042,12 @@ export type ReactNodeTypeFieldRefsConnectFieldInput = {
   where?: InputMaybe<FieldConnectWhere>
 }
 
-export type ReactNodeTypeFieldRefsConnectOrCreateFieldInput = {
-  onCreate: ReactNodeTypeFieldRefsConnectOrCreateFieldInputOnCreate
-  where: FieldConnectOrCreateWhere
-}
-
-export type ReactNodeTypeFieldRefsConnectOrCreateFieldInputOnCreate = {
-  node: FieldOnCreateInput
-}
-
 export type ReactNodeTypeFieldRefsCreateFieldInput = {
   node: FieldCreateInput
 }
 
 export type ReactNodeTypeFieldRefsFieldInput = {
   connect?: InputMaybe<Array<ReactNodeTypeFieldRefsConnectFieldInput>>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<
-    Array<ReactNodeTypeFieldRefsConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<ReactNodeTypeFieldRefsCreateFieldInput>>
 }
 
@@ -22341,15 +22085,25 @@ export type ReactNodeTypeFieldRefsNodeAggregationWhereInput = {
   description_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   description_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   description_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   key_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   key_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -22404,20 +22158,11 @@ export type ReactNodeTypeFieldRefsUpdateConnectionInput = {
 
 export type ReactNodeTypeFieldRefsUpdateFieldInput = {
   connect?: InputMaybe<Array<ReactNodeTypeFieldRefsConnectFieldInput>>
-  connectOrCreate?: InputMaybe<
-    Array<ReactNodeTypeFieldRefsConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<ReactNodeTypeFieldRefsCreateFieldInput>>
   delete?: InputMaybe<Array<IBaseTypeFieldRefsDeleteFieldInput>>
   disconnect?: InputMaybe<Array<IBaseTypeFieldRefsDisconnectFieldInput>>
   update?: InputMaybe<ReactNodeTypeFieldRefsUpdateConnectionInput>
   where?: InputMaybe<IBaseTypeFieldRefsConnectionWhere>
-}
-
-export type ReactNodeTypeOnCreateInput = {
-  id: Scalars['ID']['input']
-  kind?: TypeKind
-  name: Scalars['String']['input']
 }
 
 export type ReactNodeTypeOptions = {
@@ -22451,23 +22196,12 @@ export type ReactNodeTypeOwnerConnectFieldInput = {
   where?: InputMaybe<UserConnectWhere>
 }
 
-export type ReactNodeTypeOwnerConnectOrCreateFieldInput = {
-  onCreate: ReactNodeTypeOwnerConnectOrCreateFieldInputOnCreate
-  where: UserConnectOrCreateWhere
-}
-
-export type ReactNodeTypeOwnerConnectOrCreateFieldInputOnCreate = {
-  node: UserOnCreateInput
-}
-
 export type ReactNodeTypeOwnerCreateFieldInput = {
   node: UserCreateInput
 }
 
 export type ReactNodeTypeOwnerFieldInput = {
   connect?: InputMaybe<ReactNodeTypeOwnerConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<ReactNodeTypeOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<ReactNodeTypeOwnerCreateFieldInput>
 }
 
@@ -22505,15 +22239,25 @@ export type ReactNodeTypeOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -22538,7 +22282,6 @@ export type ReactNodeTypeOwnerUpdateConnectionInput = {
 
 export type ReactNodeTypeOwnerUpdateFieldInput = {
   connect?: InputMaybe<ReactNodeTypeOwnerConnectFieldInput>
-  connectOrCreate?: InputMaybe<ReactNodeTypeOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<ReactNodeTypeOwnerCreateFieldInput>
   delete?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
   disconnect?: InputMaybe<IBaseTypeOwnerDisconnectFieldInput>
@@ -22578,12 +22321,6 @@ export type ReactNodeTypeSubscriptionWhere = {
   name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
 }
 
-export type ReactNodeTypeUniqueWhere = {
-  /** @deprecated Please use the explicit _EQ version */
-  name?: InputMaybe<Scalars['String']['input']>
-  name_EQ?: InputMaybe<Scalars['String']['input']>
-}
-
 export type ReactNodeTypeUpdateInput = {
   fieldRefs?: InputMaybe<Array<ReactNodeTypeFieldRefsUpdateFieldInput>>
   /** @deprecated Please use the explicit _SET field */
@@ -22613,6 +22350,7 @@ export type ReactNodeTypeUserOwnerAggregationSelection = {
 export type ReactNodeTypeUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelection
   email: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   username: StringAggregateSelection
 }
@@ -22751,6 +22489,7 @@ export type RedirectTargetPageConnectionArgs = {
 
 export type RedirectAggregateSelection = {
   count: Scalars['Int']['output']
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   targetUrl: StringAggregateSelection
 }
@@ -22775,6 +22514,7 @@ export type RedirectAuthGuardAuthGuardAggregationSelection = {
 }
 
 export type RedirectAuthGuardAuthGuardNodeAggregateSelection = {
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
   responseTransformer: StringAggregateSelection
@@ -22788,15 +22528,6 @@ export type RedirectAuthGuardConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<AuthGuardConnectWhere>
-}
-
-export type RedirectAuthGuardConnectOrCreateFieldInput = {
-  onCreate: RedirectAuthGuardConnectOrCreateFieldInputOnCreate
-  where: AuthGuardConnectOrCreateWhere
-}
-
-export type RedirectAuthGuardConnectOrCreateFieldInputOnCreate = {
-  node: AuthGuardOnCreateInput
 }
 
 export type RedirectAuthGuardConnection = {
@@ -22832,8 +22563,6 @@ export type RedirectAuthGuardDisconnectFieldInput = {
 
 export type RedirectAuthGuardFieldInput = {
   connect?: InputMaybe<RedirectAuthGuardConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<RedirectAuthGuardConnectOrCreateFieldInput>
   create?: InputMaybe<RedirectAuthGuardCreateFieldInput>
 }
 
@@ -22841,15 +22570,25 @@ export type RedirectAuthGuardNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<RedirectAuthGuardNodeAggregationWhereInput>>
   NOT?: InputMaybe<RedirectAuthGuardNodeAggregationWhereInput>
   OR?: InputMaybe<Array<RedirectAuthGuardNodeAggregationWhereInput>>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -22898,7 +22637,6 @@ export type RedirectAuthGuardUpdateConnectionInput = {
 
 export type RedirectAuthGuardUpdateFieldInput = {
   connect?: InputMaybe<RedirectAuthGuardConnectFieldInput>
-  connectOrCreate?: InputMaybe<RedirectAuthGuardConnectOrCreateFieldInput>
   create?: InputMaybe<RedirectAuthGuardCreateFieldInput>
   delete?: InputMaybe<RedirectAuthGuardDeleteFieldInput>
   disconnect?: InputMaybe<RedirectAuthGuardDisconnectFieldInput>
@@ -22910,10 +22648,6 @@ export type RedirectConnectInput = {
   authGuard?: InputMaybe<RedirectAuthGuardConnectFieldInput>
   source?: InputMaybe<RedirectSourceConnectFieldInput>
   targetPage?: InputMaybe<RedirectTargetPageConnectFieldInput>
-}
-
-export type RedirectConnectOrCreateWhere = {
-  node: RedirectUniqueWhere
 }
 
 export type RedirectConnectWhere = {
@@ -22964,12 +22698,6 @@ export type RedirectEventPayload = {
   targetUrl?: Maybe<Scalars['String']['output']>
 }
 
-export type RedirectOnCreateInput = {
-  id: Scalars['ID']['input']
-  targetType: RedirectTargetType
-  targetUrl?: InputMaybe<Scalars['String']['input']>
-}
-
 export type RedirectOptions = {
   limit?: InputMaybe<Scalars['Int']['input']>
   offset?: InputMaybe<Scalars['Int']['input']>
@@ -22984,6 +22712,7 @@ export type RedirectPageSourceAggregationSelection = {
 
 export type RedirectPageSourceNodeAggregateSelection = {
   compositeKey: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   urlPattern: StringAggregateSelection
 }
@@ -22995,6 +22724,7 @@ export type RedirectPageTargetPageAggregationSelection = {
 
 export type RedirectPageTargetPageNodeAggregateSelection = {
   compositeKey: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   urlPattern: StringAggregateSelection
 }
@@ -23030,15 +22760,6 @@ export type RedirectSourceConnectFieldInput = {
   where?: InputMaybe<PageConnectWhere>
 }
 
-export type RedirectSourceConnectOrCreateFieldInput = {
-  onCreate: RedirectSourceConnectOrCreateFieldInputOnCreate
-  where: PageConnectOrCreateWhere
-}
-
-export type RedirectSourceConnectOrCreateFieldInputOnCreate = {
-  node: PageOnCreateInput
-}
-
 export type RedirectSourceConnection = {
   edges: Array<RedirectSourceRelationship>
   pageInfo: PageInfo
@@ -23072,8 +22793,6 @@ export type RedirectSourceDisconnectFieldInput = {
 
 export type RedirectSourceFieldInput = {
   connect?: InputMaybe<RedirectSourceConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<RedirectSourceConnectOrCreateFieldInput>
   create?: InputMaybe<RedirectSourceCreateFieldInput>
 }
 
@@ -23096,15 +22815,25 @@ export type RedirectSourceNodeAggregationWhereInput = {
   compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   urlPattern_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   urlPattern_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -23134,7 +22863,6 @@ export type RedirectSourceUpdateConnectionInput = {
 
 export type RedirectSourceUpdateFieldInput = {
   connect?: InputMaybe<RedirectSourceConnectFieldInput>
-  connectOrCreate?: InputMaybe<RedirectSourceConnectOrCreateFieldInput>
   create?: InputMaybe<RedirectSourceCreateFieldInput>
   delete?: InputMaybe<RedirectSourceDeleteFieldInput>
   disconnect?: InputMaybe<RedirectSourceDisconnectFieldInput>
@@ -23191,15 +22919,6 @@ export type RedirectTargetPageConnectFieldInput = {
   where?: InputMaybe<PageConnectWhere>
 }
 
-export type RedirectTargetPageConnectOrCreateFieldInput = {
-  onCreate: RedirectTargetPageConnectOrCreateFieldInputOnCreate
-  where: PageConnectOrCreateWhere
-}
-
-export type RedirectTargetPageConnectOrCreateFieldInputOnCreate = {
-  node: PageOnCreateInput
-}
-
 export type RedirectTargetPageConnection = {
   edges: Array<RedirectTargetPageRelationship>
   pageInfo: PageInfo
@@ -23233,8 +22952,6 @@ export type RedirectTargetPageDisconnectFieldInput = {
 
 export type RedirectTargetPageFieldInput = {
   connect?: InputMaybe<RedirectTargetPageConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<RedirectTargetPageConnectOrCreateFieldInput>
   create?: InputMaybe<RedirectTargetPageCreateFieldInput>
 }
 
@@ -23257,15 +22974,25 @@ export type RedirectTargetPageNodeAggregationWhereInput = {
   compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   urlPattern_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   urlPattern_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -23295,7 +23022,6 @@ export type RedirectTargetPageUpdateConnectionInput = {
 
 export type RedirectTargetPageUpdateFieldInput = {
   connect?: InputMaybe<RedirectTargetPageConnectFieldInput>
-  connectOrCreate?: InputMaybe<RedirectTargetPageConnectOrCreateFieldInput>
   create?: InputMaybe<RedirectTargetPageCreateFieldInput>
   delete?: InputMaybe<RedirectTargetPageDeleteFieldInput>
   disconnect?: InputMaybe<RedirectTargetPageDisconnectFieldInput>
@@ -23308,12 +23034,6 @@ export enum RedirectTargetType {
   Page = 'Page',
   /** Redirect responsible for fetching data from a resource */
   Url = 'Url',
-}
-
-export type RedirectUniqueWhere = {
-  /** @deprecated Please use the explicit _EQ version */
-  id?: InputMaybe<Scalars['ID']['input']>
-  id_EQ?: InputMaybe<Scalars['ID']['input']>
 }
 
 export type RedirectUpdateInput = {
@@ -23510,6 +23230,7 @@ export type RenderPropTypeOwnerConnectionArgs = {
 
 export type RenderPropTypeAggregateSelection = {
   count: Scalars['Int']['output']
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -23517,10 +23238,6 @@ export type RenderPropTypeAggregateSelection = {
 export type RenderPropTypeConnectInput = {
   fieldRefs?: InputMaybe<Array<RenderPropTypeFieldRefsConnectFieldInput>>
   owner?: InputMaybe<RenderPropTypeOwnerConnectFieldInput>
-}
-
-export type RenderPropTypeConnectOrCreateWhere = {
-  node: RenderPropTypeUniqueWhere
 }
 
 export type RenderPropTypeConnectWhere = {
@@ -23576,6 +23293,7 @@ export type RenderPropTypeFieldFieldRefsAggregationSelection = {
 export type RenderPropTypeFieldFieldRefsNodeAggregateSelection = {
   defaultValues: StringAggregateSelection
   description: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   key: StringAggregateSelection
   name: StringAggregateSelection
@@ -23606,25 +23324,12 @@ export type RenderPropTypeFieldRefsConnectFieldInput = {
   where?: InputMaybe<FieldConnectWhere>
 }
 
-export type RenderPropTypeFieldRefsConnectOrCreateFieldInput = {
-  onCreate: RenderPropTypeFieldRefsConnectOrCreateFieldInputOnCreate
-  where: FieldConnectOrCreateWhere
-}
-
-export type RenderPropTypeFieldRefsConnectOrCreateFieldInputOnCreate = {
-  node: FieldOnCreateInput
-}
-
 export type RenderPropTypeFieldRefsCreateFieldInput = {
   node: FieldCreateInput
 }
 
 export type RenderPropTypeFieldRefsFieldInput = {
   connect?: InputMaybe<Array<RenderPropTypeFieldRefsConnectFieldInput>>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<
-    Array<RenderPropTypeFieldRefsConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<RenderPropTypeFieldRefsCreateFieldInput>>
 }
 
@@ -23662,15 +23367,25 @@ export type RenderPropTypeFieldRefsNodeAggregationWhereInput = {
   description_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   description_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   description_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   key_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   key_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -23725,20 +23440,11 @@ export type RenderPropTypeFieldRefsUpdateConnectionInput = {
 
 export type RenderPropTypeFieldRefsUpdateFieldInput = {
   connect?: InputMaybe<Array<RenderPropTypeFieldRefsConnectFieldInput>>
-  connectOrCreate?: InputMaybe<
-    Array<RenderPropTypeFieldRefsConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<RenderPropTypeFieldRefsCreateFieldInput>>
   delete?: InputMaybe<Array<IBaseTypeFieldRefsDeleteFieldInput>>
   disconnect?: InputMaybe<Array<IBaseTypeFieldRefsDisconnectFieldInput>>
   update?: InputMaybe<RenderPropTypeFieldRefsUpdateConnectionInput>
   where?: InputMaybe<IBaseTypeFieldRefsConnectionWhere>
-}
-
-export type RenderPropTypeOnCreateInput = {
-  id: Scalars['ID']['input']
-  kind?: TypeKind
-  name: Scalars['String']['input']
 }
 
 export type RenderPropTypeOptions = {
@@ -23772,23 +23478,12 @@ export type RenderPropTypeOwnerConnectFieldInput = {
   where?: InputMaybe<UserConnectWhere>
 }
 
-export type RenderPropTypeOwnerConnectOrCreateFieldInput = {
-  onCreate: RenderPropTypeOwnerConnectOrCreateFieldInputOnCreate
-  where: UserConnectOrCreateWhere
-}
-
-export type RenderPropTypeOwnerConnectOrCreateFieldInputOnCreate = {
-  node: UserOnCreateInput
-}
-
 export type RenderPropTypeOwnerCreateFieldInput = {
   node: UserCreateInput
 }
 
 export type RenderPropTypeOwnerFieldInput = {
   connect?: InputMaybe<RenderPropTypeOwnerConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<RenderPropTypeOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<RenderPropTypeOwnerCreateFieldInput>
 }
 
@@ -23826,15 +23521,25 @@ export type RenderPropTypeOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -23859,7 +23564,6 @@ export type RenderPropTypeOwnerUpdateConnectionInput = {
 
 export type RenderPropTypeOwnerUpdateFieldInput = {
   connect?: InputMaybe<RenderPropTypeOwnerConnectFieldInput>
-  connectOrCreate?: InputMaybe<RenderPropTypeOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<RenderPropTypeOwnerCreateFieldInput>
   delete?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
   disconnect?: InputMaybe<IBaseTypeOwnerDisconnectFieldInput>
@@ -23899,12 +23603,6 @@ export type RenderPropTypeSubscriptionWhere = {
   name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
 }
 
-export type RenderPropTypeUniqueWhere = {
-  /** @deprecated Please use the explicit _EQ version */
-  name?: InputMaybe<Scalars['String']['input']>
-  name_EQ?: InputMaybe<Scalars['String']['input']>
-}
-
 export type RenderPropTypeUpdateInput = {
   fieldRefs?: InputMaybe<Array<RenderPropTypeFieldRefsUpdateFieldInput>>
   /** @deprecated Please use the explicit _SET field */
@@ -23934,6 +23632,7 @@ export type RenderPropTypeUserOwnerAggregationSelection = {
 export type RenderPropTypeUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelection
   email: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   username: StringAggregateSelection
 }
@@ -24047,6 +23746,7 @@ export type ResourceOwnerConnectionArgs = {
 
 export type ResourceAggregateSelection = {
   count: Scalars['Int']['output']
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -24072,15 +23772,6 @@ export type ResourceConfigConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<PropConnectWhere>
-}
-
-export type ResourceConfigConnectOrCreateFieldInput = {
-  onCreate: ResourceConfigConnectOrCreateFieldInputOnCreate
-  where: PropConnectOrCreateWhere
-}
-
-export type ResourceConfigConnectOrCreateFieldInputOnCreate = {
-  node: PropOnCreateInput
 }
 
 export type ResourceConfigConnection = {
@@ -24114,8 +23805,6 @@ export type ResourceConfigDisconnectFieldInput = {
 
 export type ResourceConfigFieldInput = {
   connect?: InputMaybe<ResourceConfigConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<ResourceConfigConnectOrCreateFieldInput>
   create?: InputMaybe<ResourceConfigCreateFieldInput>
 }
 
@@ -24138,15 +23827,25 @@ export type ResourceConfigNodeAggregationWhereInput = {
   data_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   data_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   data_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
 }
 
@@ -24161,7 +23860,6 @@ export type ResourceConfigUpdateConnectionInput = {
 
 export type ResourceConfigUpdateFieldInput = {
   connect?: InputMaybe<ResourceConfigConnectFieldInput>
-  connectOrCreate?: InputMaybe<ResourceConfigConnectOrCreateFieldInput>
   create?: InputMaybe<ResourceConfigCreateFieldInput>
   delete?: InputMaybe<ResourceConfigDeleteFieldInput>
   disconnect?: InputMaybe<ResourceConfigDisconnectFieldInput>
@@ -24172,10 +23870,6 @@ export type ResourceConfigUpdateFieldInput = {
 export type ResourceConnectInput = {
   config?: InputMaybe<ResourceConfigConnectFieldInput>
   owner?: InputMaybe<ResourceOwnerConnectFieldInput>
-}
-
-export type ResourceConnectOrCreateWhere = {
-  node: ResourceUniqueWhere
 }
 
 export type ResourceConnectWhere = {
@@ -24223,12 +23917,6 @@ export type ResourceEventPayload = {
   type: ResourceType
 }
 
-export type ResourceOnCreateInput = {
-  id: Scalars['ID']['input']
-  name: Scalars['String']['input']
-  type: ResourceType
-}
-
 export type ResourceOptions = {
   limit?: InputMaybe<Scalars['Int']['input']>
   offset?: InputMaybe<Scalars['Int']['input']>
@@ -24260,23 +23948,12 @@ export type ResourceOwnerConnectFieldInput = {
   where?: InputMaybe<UserConnectWhere>
 }
 
-export type ResourceOwnerConnectOrCreateFieldInput = {
-  onCreate: ResourceOwnerConnectOrCreateFieldInputOnCreate
-  where: UserConnectOrCreateWhere
-}
-
-export type ResourceOwnerConnectOrCreateFieldInputOnCreate = {
-  node: UserOnCreateInput
-}
-
 export type ResourceOwnerCreateFieldInput = {
   node: UserCreateInput
 }
 
 export type ResourceOwnerFieldInput = {
   connect?: InputMaybe<ResourceOwnerConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<ResourceOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<ResourceOwnerCreateFieldInput>
 }
 
@@ -24314,15 +23991,25 @@ export type ResourceOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -24347,7 +24034,6 @@ export type ResourceOwnerUpdateConnectionInput = {
 
 export type ResourceOwnerUpdateFieldInput = {
   connect?: InputMaybe<ResourceOwnerConnectFieldInput>
-  connectOrCreate?: InputMaybe<ResourceOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<ResourceOwnerCreateFieldInput>
   delete?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
   disconnect?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
@@ -24362,6 +24048,7 @@ export type ResourcePropConfigAggregationSelection = {
 
 export type ResourcePropConfigNodeAggregateSelection = {
   data: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
 }
 
@@ -24402,12 +24089,6 @@ export enum ResourceType {
   Rest = 'Rest',
 }
 
-export type ResourceUniqueWhere = {
-  /** @deprecated Please use the explicit _EQ version */
-  id?: InputMaybe<Scalars['ID']['input']>
-  id_EQ?: InputMaybe<Scalars['ID']['input']>
-}
-
 export type ResourceUpdateInput = {
   config?: InputMaybe<ResourceConfigUpdateFieldInput>
   /** @deprecated Please use the explicit _SET field */
@@ -24434,6 +24115,7 @@ export type ResourceUserOwnerAggregationSelection = {
 export type ResourceUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelection
   email: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   username: StringAggregateSelection
 }
@@ -24540,6 +24222,7 @@ export type RichTextTypeOwnerConnectionArgs = {
 
 export type RichTextTypeAggregateSelection = {
   count: Scalars['Int']['output']
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -24602,6 +24285,7 @@ export type RichTextTypeFieldFieldRefsAggregationSelection = {
 export type RichTextTypeFieldFieldRefsNodeAggregateSelection = {
   defaultValues: StringAggregateSelection
   description: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   key: StringAggregateSelection
   name: StringAggregateSelection
@@ -24632,25 +24316,12 @@ export type RichTextTypeFieldRefsConnectFieldInput = {
   where?: InputMaybe<FieldConnectWhere>
 }
 
-export type RichTextTypeFieldRefsConnectOrCreateFieldInput = {
-  onCreate: RichTextTypeFieldRefsConnectOrCreateFieldInputOnCreate
-  where: FieldConnectOrCreateWhere
-}
-
-export type RichTextTypeFieldRefsConnectOrCreateFieldInputOnCreate = {
-  node: FieldOnCreateInput
-}
-
 export type RichTextTypeFieldRefsCreateFieldInput = {
   node: FieldCreateInput
 }
 
 export type RichTextTypeFieldRefsFieldInput = {
   connect?: InputMaybe<Array<RichTextTypeFieldRefsConnectFieldInput>>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<
-    Array<RichTextTypeFieldRefsConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<RichTextTypeFieldRefsCreateFieldInput>>
 }
 
@@ -24688,15 +24359,25 @@ export type RichTextTypeFieldRefsNodeAggregationWhereInput = {
   description_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   description_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   description_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   key_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   key_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -24751,9 +24432,6 @@ export type RichTextTypeFieldRefsUpdateConnectionInput = {
 
 export type RichTextTypeFieldRefsUpdateFieldInput = {
   connect?: InputMaybe<Array<RichTextTypeFieldRefsConnectFieldInput>>
-  connectOrCreate?: InputMaybe<
-    Array<RichTextTypeFieldRefsConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<RichTextTypeFieldRefsCreateFieldInput>>
   delete?: InputMaybe<Array<IBaseTypeFieldRefsDeleteFieldInput>>
   disconnect?: InputMaybe<Array<IBaseTypeFieldRefsDisconnectFieldInput>>
@@ -24792,23 +24470,12 @@ export type RichTextTypeOwnerConnectFieldInput = {
   where?: InputMaybe<UserConnectWhere>
 }
 
-export type RichTextTypeOwnerConnectOrCreateFieldInput = {
-  onCreate: RichTextTypeOwnerConnectOrCreateFieldInputOnCreate
-  where: UserConnectOrCreateWhere
-}
-
-export type RichTextTypeOwnerConnectOrCreateFieldInputOnCreate = {
-  node: UserOnCreateInput
-}
-
 export type RichTextTypeOwnerCreateFieldInput = {
   node: UserCreateInput
 }
 
 export type RichTextTypeOwnerFieldInput = {
   connect?: InputMaybe<RichTextTypeOwnerConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<RichTextTypeOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<RichTextTypeOwnerCreateFieldInput>
 }
 
@@ -24846,15 +24513,25 @@ export type RichTextTypeOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -24879,7 +24556,6 @@ export type RichTextTypeOwnerUpdateConnectionInput = {
 
 export type RichTextTypeOwnerUpdateFieldInput = {
   connect?: InputMaybe<RichTextTypeOwnerConnectFieldInput>
-  connectOrCreate?: InputMaybe<RichTextTypeOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<RichTextTypeOwnerCreateFieldInput>
   delete?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
   disconnect?: InputMaybe<IBaseTypeOwnerDisconnectFieldInput>
@@ -24948,6 +24624,7 @@ export type RichTextTypeUserOwnerAggregationSelection = {
 export type RichTextTypeUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelection
   email: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   username: StringAggregateSelection
 }
@@ -25194,6 +24871,7 @@ export type StoreActionsUpdateInput = {
 
 export type StoreAggregateSelection = {
   count: Scalars['Int']['output']
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -25262,15 +24940,25 @@ export type StoreApiNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<StoreApiNodeAggregationWhereInput>>
   NOT?: InputMaybe<StoreApiNodeAggregationWhereInput>
   OR?: InputMaybe<Array<StoreApiNodeAggregationWhereInput>>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -25310,10 +24998,6 @@ export type StoreApiUpdateFieldInput = {
 export type StoreConnectInput = {
   actions?: InputMaybe<StoreActionsConnectInput>
   api?: InputMaybe<StoreApiConnectFieldInput>
-}
-
-export type StoreConnectOrCreateWhere = {
-  node: StoreUniqueWhere
 }
 
 export type StoreConnectWhere = {
@@ -25365,13 +25049,9 @@ export type StoreInterfaceTypeApiAggregationSelection = {
 }
 
 export type StoreInterfaceTypeApiNodeAggregateSelection = {
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
-}
-
-export type StoreOnCreateInput = {
-  id: Scalars['ID']['input']
-  name: Scalars['String']['input']
 }
 
 export type StoreOptions = {
@@ -25406,12 +25086,6 @@ export type StoreSubscriptionWhere = {
   name_IN?: InputMaybe<Array<Scalars['String']['input']>>
   name_MATCHES?: InputMaybe<Scalars['String']['input']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
-}
-
-export type StoreUniqueWhere = {
-  /** @deprecated Please use the explicit _EQ version */
-  id?: InputMaybe<Scalars['ID']['input']>
-  id_EQ?: InputMaybe<Scalars['ID']['input']>
 }
 
 export type StoreUpdateInput = {
@@ -26116,6 +25790,7 @@ export type TagParentConnectionArgs = {
 
 export type TagAggregateSelection = {
   count: Scalars['Int']['output']
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -26130,6 +25805,7 @@ export type TagAtomAtomsNodeAggregateSelection = {
   externalJsSource: StringAggregateSelection
   externalSourceType: StringAggregateSelection
   icon: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -26156,15 +25832,6 @@ export type TagAtomsConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<AtomConnectWhere>
-}
-
-export type TagAtomsConnectOrCreateFieldInput = {
-  onCreate: TagAtomsConnectOrCreateFieldInputOnCreate
-  where: AtomConnectOrCreateWhere
-}
-
-export type TagAtomsConnectOrCreateFieldInputOnCreate = {
-  node: AtomOnCreateInput
 }
 
 export type TagAtomsConnection = {
@@ -26200,8 +25867,6 @@ export type TagAtomsDisconnectFieldInput = {
 
 export type TagAtomsFieldInput = {
   connect?: InputMaybe<Array<TagAtomsConnectFieldInput>>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<Array<TagAtomsConnectOrCreateFieldInput>>
   create?: InputMaybe<Array<TagAtomsCreateFieldInput>>
 }
 
@@ -26271,15 +25936,25 @@ export type TagAtomsNodeAggregationWhereInput = {
   icon_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   icon_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   icon_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -26309,7 +25984,6 @@ export type TagAtomsUpdateConnectionInput = {
 
 export type TagAtomsUpdateFieldInput = {
   connect?: InputMaybe<Array<TagAtomsConnectFieldInput>>
-  connectOrCreate?: InputMaybe<Array<TagAtomsConnectOrCreateFieldInput>>
   create?: InputMaybe<Array<TagAtomsCreateFieldInput>>
   delete?: InputMaybe<Array<TagAtomsDeleteFieldInput>>
   disconnect?: InputMaybe<Array<TagAtomsDisconnectFieldInput>>
@@ -26339,15 +26013,6 @@ export type TagChildrenConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<TagConnectWhere>
-}
-
-export type TagChildrenConnectOrCreateFieldInput = {
-  onCreate: TagChildrenConnectOrCreateFieldInputOnCreate
-  where: TagConnectOrCreateWhere
-}
-
-export type TagChildrenConnectOrCreateFieldInputOnCreate = {
-  node: TagOnCreateInput
 }
 
 export type TagChildrenConnection = {
@@ -26383,8 +26048,6 @@ export type TagChildrenDisconnectFieldInput = {
 
 export type TagChildrenFieldInput = {
   connect?: InputMaybe<Array<TagChildrenConnectFieldInput>>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<Array<TagChildrenConnectOrCreateFieldInput>>
   create?: InputMaybe<Array<TagChildrenCreateFieldInput>>
 }
 
@@ -26392,15 +26055,25 @@ export type TagChildrenNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<TagChildrenNodeAggregationWhereInput>>
   NOT?: InputMaybe<TagChildrenNodeAggregationWhereInput>
   OR?: InputMaybe<Array<TagChildrenNodeAggregationWhereInput>>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -26430,7 +26103,6 @@ export type TagChildrenUpdateConnectionInput = {
 
 export type TagChildrenUpdateFieldInput = {
   connect?: InputMaybe<Array<TagChildrenConnectFieldInput>>
-  connectOrCreate?: InputMaybe<Array<TagChildrenConnectOrCreateFieldInput>>
   create?: InputMaybe<Array<TagChildrenCreateFieldInput>>
   delete?: InputMaybe<Array<TagChildrenDeleteFieldInput>>
   disconnect?: InputMaybe<Array<TagChildrenDisconnectFieldInput>>
@@ -26443,10 +26115,6 @@ export type TagConnectInput = {
   children?: InputMaybe<Array<TagChildrenConnectFieldInput>>
   owner?: InputMaybe<TagOwnerConnectFieldInput>
   parent?: InputMaybe<TagParentConnectFieldInput>
-}
-
-export type TagConnectOrCreateWhere = {
-  node: TagUniqueWhere
 }
 
 export type TagConnectWhere = {
@@ -26498,11 +26166,6 @@ export type TagEventPayload = {
   name: Scalars['String']['output']
 }
 
-export type TagOnCreateInput = {
-  id: Scalars['ID']['input']
-  name: Scalars['String']['input']
-}
-
 export type TagOptions = {
   limit?: InputMaybe<Scalars['Int']['input']>
   offset?: InputMaybe<Scalars['Int']['input']>
@@ -26534,23 +26197,12 @@ export type TagOwnerConnectFieldInput = {
   where?: InputMaybe<UserConnectWhere>
 }
 
-export type TagOwnerConnectOrCreateFieldInput = {
-  onCreate: TagOwnerConnectOrCreateFieldInputOnCreate
-  where: UserConnectOrCreateWhere
-}
-
-export type TagOwnerConnectOrCreateFieldInputOnCreate = {
-  node: UserOnCreateInput
-}
-
 export type TagOwnerCreateFieldInput = {
   node: UserCreateInput
 }
 
 export type TagOwnerFieldInput = {
   connect?: InputMaybe<TagOwnerConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<TagOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<TagOwnerCreateFieldInput>
 }
 
@@ -26588,15 +26240,25 @@ export type TagOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -26621,7 +26283,6 @@ export type TagOwnerUpdateConnectionInput = {
 
 export type TagOwnerUpdateFieldInput = {
   connect?: InputMaybe<TagOwnerConnectFieldInput>
-  connectOrCreate?: InputMaybe<TagOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<TagOwnerCreateFieldInput>
   delete?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
   disconnect?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
@@ -26651,15 +26312,6 @@ export type TagParentConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<TagConnectWhere>
-}
-
-export type TagParentConnectOrCreateFieldInput = {
-  onCreate: TagParentConnectOrCreateFieldInputOnCreate
-  where: TagConnectOrCreateWhere
-}
-
-export type TagParentConnectOrCreateFieldInputOnCreate = {
-  node: TagOnCreateInput
 }
 
 export type TagParentConnection = {
@@ -26695,8 +26347,6 @@ export type TagParentDisconnectFieldInput = {
 
 export type TagParentFieldInput = {
   connect?: InputMaybe<TagParentConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<TagParentConnectOrCreateFieldInput>
   create?: InputMaybe<TagParentCreateFieldInput>
 }
 
@@ -26704,15 +26354,25 @@ export type TagParentNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<TagParentNodeAggregationWhereInput>>
   NOT?: InputMaybe<TagParentNodeAggregationWhereInput>
   OR?: InputMaybe<Array<TagParentNodeAggregationWhereInput>>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -26742,7 +26402,6 @@ export type TagParentUpdateConnectionInput = {
 
 export type TagParentUpdateFieldInput = {
   connect?: InputMaybe<TagParentConnectFieldInput>
-  connectOrCreate?: InputMaybe<TagParentConnectOrCreateFieldInput>
   create?: InputMaybe<TagParentCreateFieldInput>
   delete?: InputMaybe<TagParentDeleteFieldInput>
   disconnect?: InputMaybe<TagParentDisconnectFieldInput>
@@ -26783,6 +26442,7 @@ export type TagTagChildrenAggregationSelection = {
 }
 
 export type TagTagChildrenNodeAggregateSelection = {
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -26793,17 +26453,9 @@ export type TagTagParentAggregationSelection = {
 }
 
 export type TagTagParentNodeAggregateSelection = {
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
-}
-
-export type TagUniqueWhere = {
-  /** @deprecated Please use the explicit _EQ version */
-  id?: InputMaybe<Scalars['ID']['input']>
-  id_EQ?: InputMaybe<Scalars['ID']['input']>
-  /** @deprecated Please use the explicit _EQ version */
-  name?: InputMaybe<Scalars['String']['input']>
-  name_EQ?: InputMaybe<Scalars['String']['input']>
 }
 
 export type TagUpdateInput = {
@@ -26831,6 +26483,7 @@ export type TagUserOwnerAggregationSelection = {
 export type TagUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelection
   email: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   username: StringAggregateSelection
 }
@@ -27126,6 +26779,7 @@ export type UnionTypeTypesOfUnionTypeConnectionArgs = {
 
 export type UnionTypeAggregateSelection = {
   count: Scalars['Int']['output']
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -27134,10 +26788,6 @@ export type UnionTypeConnectInput = {
   fieldRefs?: InputMaybe<Array<UnionTypeFieldRefsConnectFieldInput>>
   owner?: InputMaybe<UnionTypeOwnerConnectFieldInput>
   typesOfUnionType?: InputMaybe<UnionTypeTypesOfUnionTypeConnectInput>
-}
-
-export type UnionTypeConnectOrCreateWhere = {
-  node: UnionTypeUniqueWhere
 }
 
 export type UnionTypeConnectWhere = {
@@ -27196,6 +26846,7 @@ export type UnionTypeFieldFieldRefsAggregationSelection = {
 export type UnionTypeFieldFieldRefsNodeAggregateSelection = {
   defaultValues: StringAggregateSelection
   description: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   key: StringAggregateSelection
   name: StringAggregateSelection
@@ -27226,25 +26877,12 @@ export type UnionTypeFieldRefsConnectFieldInput = {
   where?: InputMaybe<FieldConnectWhere>
 }
 
-export type UnionTypeFieldRefsConnectOrCreateFieldInput = {
-  onCreate: UnionTypeFieldRefsConnectOrCreateFieldInputOnCreate
-  where: FieldConnectOrCreateWhere
-}
-
-export type UnionTypeFieldRefsConnectOrCreateFieldInputOnCreate = {
-  node: FieldOnCreateInput
-}
-
 export type UnionTypeFieldRefsCreateFieldInput = {
   node: FieldCreateInput
 }
 
 export type UnionTypeFieldRefsFieldInput = {
   connect?: InputMaybe<Array<UnionTypeFieldRefsConnectFieldInput>>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<
-    Array<UnionTypeFieldRefsConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<UnionTypeFieldRefsCreateFieldInput>>
 }
 
@@ -27282,15 +26920,25 @@ export type UnionTypeFieldRefsNodeAggregationWhereInput = {
   description_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   description_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   description_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   key_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   key_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -27345,20 +26993,11 @@ export type UnionTypeFieldRefsUpdateConnectionInput = {
 
 export type UnionTypeFieldRefsUpdateFieldInput = {
   connect?: InputMaybe<Array<UnionTypeFieldRefsConnectFieldInput>>
-  connectOrCreate?: InputMaybe<
-    Array<UnionTypeFieldRefsConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<UnionTypeFieldRefsCreateFieldInput>>
   delete?: InputMaybe<Array<IBaseTypeFieldRefsDeleteFieldInput>>
   disconnect?: InputMaybe<Array<IBaseTypeFieldRefsDisconnectFieldInput>>
   update?: InputMaybe<UnionTypeFieldRefsUpdateConnectionInput>
   where?: InputMaybe<IBaseTypeFieldRefsConnectionWhere>
-}
-
-export type UnionTypeOnCreateInput = {
-  id: Scalars['ID']['input']
-  kind?: TypeKind
-  name: Scalars['String']['input']
 }
 
 export type UnionTypeOptions = {
@@ -27392,23 +27031,12 @@ export type UnionTypeOwnerConnectFieldInput = {
   where?: InputMaybe<UserConnectWhere>
 }
 
-export type UnionTypeOwnerConnectOrCreateFieldInput = {
-  onCreate: UnionTypeOwnerConnectOrCreateFieldInputOnCreate
-  where: UserConnectOrCreateWhere
-}
-
-export type UnionTypeOwnerConnectOrCreateFieldInputOnCreate = {
-  node: UserOnCreateInput
-}
-
 export type UnionTypeOwnerCreateFieldInput = {
   node: UserCreateInput
 }
 
 export type UnionTypeOwnerFieldInput = {
   connect?: InputMaybe<UnionTypeOwnerConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<UnionTypeOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<UnionTypeOwnerCreateFieldInput>
 }
 
@@ -27446,15 +27074,25 @@ export type UnionTypeOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -27479,7 +27117,6 @@ export type UnionTypeOwnerUpdateConnectionInput = {
 
 export type UnionTypeOwnerUpdateFieldInput = {
   connect?: InputMaybe<UnionTypeOwnerConnectFieldInput>
-  connectOrCreate?: InputMaybe<UnionTypeOwnerConnectOrCreateFieldInput>
   create?: InputMaybe<UnionTypeOwnerCreateFieldInput>
   delete?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
   disconnect?: InputMaybe<IBaseTypeOwnerDisconnectFieldInput>
@@ -27524,16 +27161,6 @@ export type UnionTypeTypesOfUnionTypeActionTypeConnectFieldInput = {
   where?: InputMaybe<ActionTypeConnectWhere>
 }
 
-export type UnionTypeTypesOfUnionTypeActionTypeConnectOrCreateFieldInput = {
-  onCreate: UnionTypeTypesOfUnionTypeActionTypeConnectOrCreateFieldInputOnCreate
-  where: ActionTypeConnectOrCreateWhere
-}
-
-export type UnionTypeTypesOfUnionTypeActionTypeConnectOrCreateFieldInputOnCreate =
-  {
-    node: ActionTypeOnCreateInput
-  }
-
 export type UnionTypeTypesOfUnionTypeActionTypeConnectionWhere = {
   AND?: InputMaybe<Array<UnionTypeTypesOfUnionTypeActionTypeConnectionWhere>>
   NOT?: InputMaybe<UnionTypeTypesOfUnionTypeActionTypeConnectionWhere>
@@ -27559,10 +27186,6 @@ export type UnionTypeTypesOfUnionTypeActionTypeFieldInput = {
   connect?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeActionTypeConnectFieldInput>
   >
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<
-    Array<UnionTypeTypesOfUnionTypeActionTypeConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeActionTypeCreateFieldInput>
   >
@@ -27575,9 +27198,6 @@ export type UnionTypeTypesOfUnionTypeActionTypeUpdateConnectionInput = {
 export type UnionTypeTypesOfUnionTypeActionTypeUpdateFieldInput = {
   connect?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeActionTypeConnectFieldInput>
-  >
-  connectOrCreate?: InputMaybe<
-    Array<UnionTypeTypesOfUnionTypeActionTypeConnectOrCreateFieldInput>
   >
   create?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeActionTypeCreateFieldInput>
@@ -28190,16 +27810,6 @@ export type UnionTypeTypesOfUnionTypePrimitiveTypeConnectFieldInput = {
   where?: InputMaybe<PrimitiveTypeConnectWhere>
 }
 
-export type UnionTypeTypesOfUnionTypePrimitiveTypeConnectOrCreateFieldInput = {
-  onCreate: UnionTypeTypesOfUnionTypePrimitiveTypeConnectOrCreateFieldInputOnCreate
-  where: PrimitiveTypeConnectOrCreateWhere
-}
-
-export type UnionTypeTypesOfUnionTypePrimitiveTypeConnectOrCreateFieldInputOnCreate =
-  {
-    node: PrimitiveTypeOnCreateInput
-  }
-
 export type UnionTypeTypesOfUnionTypePrimitiveTypeConnectionWhere = {
   AND?: InputMaybe<Array<UnionTypeTypesOfUnionTypePrimitiveTypeConnectionWhere>>
   NOT?: InputMaybe<UnionTypeTypesOfUnionTypePrimitiveTypeConnectionWhere>
@@ -28225,10 +27835,6 @@ export type UnionTypeTypesOfUnionTypePrimitiveTypeFieldInput = {
   connect?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypePrimitiveTypeConnectFieldInput>
   >
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<
-    Array<UnionTypeTypesOfUnionTypePrimitiveTypeConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypePrimitiveTypeCreateFieldInput>
   >
@@ -28241,9 +27847,6 @@ export type UnionTypeTypesOfUnionTypePrimitiveTypeUpdateConnectionInput = {
 export type UnionTypeTypesOfUnionTypePrimitiveTypeUpdateFieldInput = {
   connect?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypePrimitiveTypeConnectFieldInput>
-  >
-  connectOrCreate?: InputMaybe<
-    Array<UnionTypeTypesOfUnionTypePrimitiveTypeConnectOrCreateFieldInput>
   >
   create?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypePrimitiveTypeCreateFieldInput>
@@ -28262,16 +27865,6 @@ export type UnionTypeTypesOfUnionTypeReactNodeTypeConnectFieldInput = {
   connect?: InputMaybe<Array<ReactNodeTypeConnectInput>>
   where?: InputMaybe<ReactNodeTypeConnectWhere>
 }
-
-export type UnionTypeTypesOfUnionTypeReactNodeTypeConnectOrCreateFieldInput = {
-  onCreate: UnionTypeTypesOfUnionTypeReactNodeTypeConnectOrCreateFieldInputOnCreate
-  where: ReactNodeTypeConnectOrCreateWhere
-}
-
-export type UnionTypeTypesOfUnionTypeReactNodeTypeConnectOrCreateFieldInputOnCreate =
-  {
-    node: ReactNodeTypeOnCreateInput
-  }
 
 export type UnionTypeTypesOfUnionTypeReactNodeTypeConnectionWhere = {
   AND?: InputMaybe<Array<UnionTypeTypesOfUnionTypeReactNodeTypeConnectionWhere>>
@@ -28298,10 +27891,6 @@ export type UnionTypeTypesOfUnionTypeReactNodeTypeFieldInput = {
   connect?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeReactNodeTypeConnectFieldInput>
   >
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<
-    Array<UnionTypeTypesOfUnionTypeReactNodeTypeConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeReactNodeTypeCreateFieldInput>
   >
@@ -28314,9 +27903,6 @@ export type UnionTypeTypesOfUnionTypeReactNodeTypeUpdateConnectionInput = {
 export type UnionTypeTypesOfUnionTypeReactNodeTypeUpdateFieldInput = {
   connect?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeReactNodeTypeConnectFieldInput>
-  >
-  connectOrCreate?: InputMaybe<
-    Array<UnionTypeTypesOfUnionTypeReactNodeTypeConnectOrCreateFieldInput>
   >
   create?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeReactNodeTypeCreateFieldInput>
@@ -28340,16 +27926,6 @@ export type UnionTypeTypesOfUnionTypeRenderPropTypeConnectFieldInput = {
   connect?: InputMaybe<Array<RenderPropTypeConnectInput>>
   where?: InputMaybe<RenderPropTypeConnectWhere>
 }
-
-export type UnionTypeTypesOfUnionTypeRenderPropTypeConnectOrCreateFieldInput = {
-  onCreate: UnionTypeTypesOfUnionTypeRenderPropTypeConnectOrCreateFieldInputOnCreate
-  where: RenderPropTypeConnectOrCreateWhere
-}
-
-export type UnionTypeTypesOfUnionTypeRenderPropTypeConnectOrCreateFieldInputOnCreate =
-  {
-    node: RenderPropTypeOnCreateInput
-  }
 
 export type UnionTypeTypesOfUnionTypeRenderPropTypeConnectionWhere = {
   AND?: InputMaybe<
@@ -28378,10 +27954,6 @@ export type UnionTypeTypesOfUnionTypeRenderPropTypeFieldInput = {
   connect?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeRenderPropTypeConnectFieldInput>
   >
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<
-    Array<UnionTypeTypesOfUnionTypeRenderPropTypeConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeRenderPropTypeCreateFieldInput>
   >
@@ -28394,9 +27966,6 @@ export type UnionTypeTypesOfUnionTypeRenderPropTypeUpdateConnectionInput = {
 export type UnionTypeTypesOfUnionTypeRenderPropTypeUpdateFieldInput = {
   connect?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeRenderPropTypeConnectFieldInput>
-  >
-  connectOrCreate?: InputMaybe<
-    Array<UnionTypeTypesOfUnionTypeRenderPropTypeConnectOrCreateFieldInput>
   >
   create?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeRenderPropTypeCreateFieldInput>
@@ -28472,16 +28041,6 @@ export type UnionTypeTypesOfUnionTypeUnionTypeConnectFieldInput = {
   where?: InputMaybe<UnionTypeConnectWhere>
 }
 
-export type UnionTypeTypesOfUnionTypeUnionTypeConnectOrCreateFieldInput = {
-  onCreate: UnionTypeTypesOfUnionTypeUnionTypeConnectOrCreateFieldInputOnCreate
-  where: UnionTypeConnectOrCreateWhere
-}
-
-export type UnionTypeTypesOfUnionTypeUnionTypeConnectOrCreateFieldInputOnCreate =
-  {
-    node: UnionTypeOnCreateInput
-  }
-
 export type UnionTypeTypesOfUnionTypeUnionTypeConnectionWhere = {
   AND?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUnionTypeConnectionWhere>>
   NOT?: InputMaybe<UnionTypeTypesOfUnionTypeUnionTypeConnectionWhere>
@@ -28507,10 +28066,6 @@ export type UnionTypeTypesOfUnionTypeUnionTypeFieldInput = {
   connect?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeUnionTypeConnectFieldInput>
   >
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<
-    Array<UnionTypeTypesOfUnionTypeUnionTypeConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUnionTypeCreateFieldInput>>
 }
 
@@ -28521,9 +28076,6 @@ export type UnionTypeTypesOfUnionTypeUnionTypeUpdateConnectionInput = {
 export type UnionTypeTypesOfUnionTypeUnionTypeUpdateFieldInput = {
   connect?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeUnionTypeConnectFieldInput>
-  >
-  connectOrCreate?: InputMaybe<
-    Array<UnionTypeTypesOfUnionTypeUnionTypeConnectOrCreateFieldInput>
   >
   create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUnionTypeCreateFieldInput>>
   delete?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUnionTypeDeleteFieldInput>>
@@ -28577,12 +28129,6 @@ export type UnionTypeTypesOfUnionTypeUpdateInput = {
   >
 }
 
-export type UnionTypeUniqueWhere = {
-  /** @deprecated Please use the explicit _EQ version */
-  name?: InputMaybe<Scalars['String']['input']>
-  name_EQ?: InputMaybe<Scalars['String']['input']>
-}
-
 export type UnionTypeUpdateInput = {
   fieldRefs?: InputMaybe<Array<UnionTypeFieldRefsUpdateFieldInput>>
   /** @deprecated Please use the explicit _SET field */
@@ -28613,6 +28159,7 @@ export type UnionTypeUserOwnerAggregationSelection = {
 export type UnionTypeUserOwnerNodeAggregateSelection = {
   auth0Id: StringAggregateSelection
   email: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   username: StringAggregateSelection
 }
@@ -29049,6 +28596,7 @@ export type UserAggregateSelection = {
   auth0Id: StringAggregateSelection
   count: Scalars['Int']['output']
   email: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   username: StringAggregateSelection
 }
@@ -29060,6 +28608,7 @@ export type UserAppAppsAggregationSelection = {
 
 export type UserAppAppsNodeAggregateSelection = {
   compositeKey: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
 }
 
@@ -29085,15 +28634,6 @@ export type UserAppsConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<AppConnectWhere>
-}
-
-export type UserAppsConnectOrCreateFieldInput = {
-  onCreate: UserAppsConnectOrCreateFieldInputOnCreate
-  where: AppConnectOrCreateWhere
-}
-
-export type UserAppsConnectOrCreateFieldInputOnCreate = {
-  node: AppOnCreateInput
 }
 
 export type UserAppsConnection = {
@@ -29129,8 +28669,6 @@ export type UserAppsDisconnectFieldInput = {
 
 export type UserAppsFieldInput = {
   connect?: InputMaybe<Array<UserAppsConnectFieldInput>>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<Array<UserAppsConnectOrCreateFieldInput>>
   create?: InputMaybe<Array<UserAppsCreateFieldInput>>
 }
 
@@ -29153,15 +28691,25 @@ export type UserAppsNodeAggregationWhereInput = {
   compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
 }
 
@@ -29176,7 +28724,6 @@ export type UserAppsUpdateConnectionInput = {
 
 export type UserAppsUpdateFieldInput = {
   connect?: InputMaybe<Array<UserAppsConnectFieldInput>>
-  connectOrCreate?: InputMaybe<Array<UserAppsConnectOrCreateFieldInput>>
   create?: InputMaybe<Array<UserAppsCreateFieldInput>>
   delete?: InputMaybe<Array<UserAppsDeleteFieldInput>>
   disconnect?: InputMaybe<Array<UserAppsDisconnectFieldInput>>
@@ -29194,6 +28741,7 @@ export type UserAtomAtomsNodeAggregateSelection = {
   externalJsSource: StringAggregateSelection
   externalSourceType: StringAggregateSelection
   icon: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -29220,15 +28768,6 @@ export type UserAtomsConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<AtomConnectWhere>
-}
-
-export type UserAtomsConnectOrCreateFieldInput = {
-  onCreate: UserAtomsConnectOrCreateFieldInputOnCreate
-  where: AtomConnectOrCreateWhere
-}
-
-export type UserAtomsConnectOrCreateFieldInputOnCreate = {
-  node: AtomOnCreateInput
 }
 
 export type UserAtomsConnection = {
@@ -29264,8 +28803,6 @@ export type UserAtomsDisconnectFieldInput = {
 
 export type UserAtomsFieldInput = {
   connect?: InputMaybe<Array<UserAtomsConnectFieldInput>>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<Array<UserAtomsConnectOrCreateFieldInput>>
   create?: InputMaybe<Array<UserAtomsCreateFieldInput>>
 }
 
@@ -29335,15 +28872,25 @@ export type UserAtomsNodeAggregationWhereInput = {
   icon_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   icon_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   icon_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -29373,7 +28920,6 @@ export type UserAtomsUpdateConnectionInput = {
 
 export type UserAtomsUpdateFieldInput = {
   connect?: InputMaybe<Array<UserAtomsConnectFieldInput>>
-  connectOrCreate?: InputMaybe<Array<UserAtomsConnectOrCreateFieldInput>>
   create?: InputMaybe<Array<UserAtomsCreateFieldInput>>
   delete?: InputMaybe<Array<UserAtomsDeleteFieldInput>>
   disconnect?: InputMaybe<Array<UserAtomsDisconnectFieldInput>>
@@ -29388,6 +28934,7 @@ export type UserComponentComponentsAggregationSelection = {
 
 export type UserComponentComponentsNodeAggregateSelection = {
   compositeKey: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
 }
 
@@ -29413,15 +28960,6 @@ export type UserComponentsConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<ComponentConnectWhere>
-}
-
-export type UserComponentsConnectOrCreateFieldInput = {
-  onCreate: UserComponentsConnectOrCreateFieldInputOnCreate
-  where: ComponentConnectOrCreateWhere
-}
-
-export type UserComponentsConnectOrCreateFieldInputOnCreate = {
-  node: ComponentOnCreateInput
 }
 
 export type UserComponentsConnection = {
@@ -29457,8 +28995,6 @@ export type UserComponentsDisconnectFieldInput = {
 
 export type UserComponentsFieldInput = {
   connect?: InputMaybe<Array<UserComponentsConnectFieldInput>>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<Array<UserComponentsConnectOrCreateFieldInput>>
   create?: InputMaybe<Array<UserComponentsCreateFieldInput>>
 }
 
@@ -29481,15 +29017,25 @@ export type UserComponentsNodeAggregationWhereInput = {
   compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
 }
 
@@ -29504,7 +29050,6 @@ export type UserComponentsUpdateConnectionInput = {
 
 export type UserComponentsUpdateFieldInput = {
   connect?: InputMaybe<Array<UserComponentsConnectFieldInput>>
-  connectOrCreate?: InputMaybe<Array<UserComponentsConnectOrCreateFieldInput>>
   create?: InputMaybe<Array<UserComponentsCreateFieldInput>>
   delete?: InputMaybe<Array<UserComponentsDeleteFieldInput>>
   disconnect?: InputMaybe<Array<UserComponentsDisconnectFieldInput>>
@@ -29520,10 +29065,6 @@ export type UserConnectInput = {
   preferences?: InputMaybe<UserPreferencesConnectFieldInput>
   tags?: InputMaybe<Array<UserTagsConnectFieldInput>>
   types?: InputMaybe<Array<UserTypesConnectFieldInput>>
-}
-
-export type UserConnectOrCreateWhere = {
-  node: UserUniqueWhere
 }
 
 export type UserConnectWhere = {
@@ -29590,6 +29131,7 @@ export type UserElementElementsAggregationSelection = {
 export type UserElementElementsNodeAggregateSelection = {
   childMapperPropKey: StringAggregateSelection
   compositeKey: StringAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   renderForEachPropKey: StringAggregateSelection
   renderIfExpression: StringAggregateSelection
@@ -29618,15 +29160,6 @@ export type UserElementsConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<ElementConnectWhere>
-}
-
-export type UserElementsConnectOrCreateFieldInput = {
-  onCreate: UserElementsConnectOrCreateFieldInputOnCreate
-  where: ElementConnectOrCreateWhere
-}
-
-export type UserElementsConnectOrCreateFieldInputOnCreate = {
-  node: ElementOnCreateInput
 }
 
 export type UserElementsConnection = {
@@ -29662,8 +29195,6 @@ export type UserElementsDisconnectFieldInput = {
 
 export type UserElementsFieldInput = {
   connect?: InputMaybe<Array<UserElementsConnectFieldInput>>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<Array<UserElementsConnectOrCreateFieldInput>>
   create?: InputMaybe<Array<UserElementsCreateFieldInput>>
 }
 
@@ -29703,15 +29234,25 @@ export type UserElementsNodeAggregationWhereInput = {
   compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<
     Scalars['Float']['input']
@@ -29783,7 +29324,6 @@ export type UserElementsUpdateConnectionInput = {
 
 export type UserElementsUpdateFieldInput = {
   connect?: InputMaybe<Array<UserElementsConnectFieldInput>>
-  connectOrCreate?: InputMaybe<Array<UserElementsConnectOrCreateFieldInput>>
   create?: InputMaybe<Array<UserElementsCreateFieldInput>>
   delete?: InputMaybe<Array<UserElementsDeleteFieldInput>>
   disconnect?: InputMaybe<Array<UserElementsDisconnectFieldInput>>
@@ -29805,16 +29345,9 @@ export type UserIBaseTypeTypesAggregationSelection = {
 }
 
 export type UserIBaseTypeTypesNodeAggregateSelection = {
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
-}
-
-export type UserOnCreateInput = {
-  auth0Id: Scalars['String']['input']
-  email: Scalars['String']['input']
-  id: Scalars['ID']['input']
-  roles?: InputMaybe<Array<Role>>
-  username: Scalars['String']['input']
 }
 
 export type UserOptions = {
@@ -29831,6 +29364,7 @@ export type UserPreferencePreferencesAggregationSelection = {
 
 export type UserPreferencePreferencesNodeAggregateSelection = {
   builderWidth: FloatAggregateSelection
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
 }
 
@@ -29856,15 +29390,6 @@ export type UserPreferencesConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<PreferenceConnectWhere>
-}
-
-export type UserPreferencesConnectOrCreateFieldInput = {
-  onCreate: UserPreferencesConnectOrCreateFieldInputOnCreate
-  where: PreferenceConnectOrCreateWhere
-}
-
-export type UserPreferencesConnectOrCreateFieldInputOnCreate = {
-  node: PreferenceOnCreateInput
 }
 
 export type UserPreferencesConnection = {
@@ -29900,8 +29425,6 @@ export type UserPreferencesDisconnectFieldInput = {
 
 export type UserPreferencesFieldInput = {
   connect?: InputMaybe<UserPreferencesConnectFieldInput>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<UserPreferencesConnectOrCreateFieldInput>
   create?: InputMaybe<UserPreferencesCreateFieldInput>
 }
 
@@ -29929,15 +29452,25 @@ export type UserPreferencesNodeAggregationWhereInput = {
   builderWidth_SUM_GTE?: InputMaybe<Scalars['Float']['input']>
   builderWidth_SUM_LT?: InputMaybe<Scalars['Float']['input']>
   builderWidth_SUM_LTE?: InputMaybe<Scalars['Float']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
 }
 
@@ -29952,7 +29485,6 @@ export type UserPreferencesUpdateConnectionInput = {
 
 export type UserPreferencesUpdateFieldInput = {
   connect?: InputMaybe<UserPreferencesConnectFieldInput>
-  connectOrCreate?: InputMaybe<UserPreferencesConnectOrCreateFieldInput>
   create?: InputMaybe<UserPreferencesCreateFieldInput>
   delete?: InputMaybe<UserPreferencesDeleteFieldInput>
   disconnect?: InputMaybe<UserPreferencesDisconnectFieldInput>
@@ -30015,6 +29547,7 @@ export type UserTagTagsAggregationSelection = {
 }
 
 export type UserTagTagsNodeAggregateSelection = {
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -30041,15 +29574,6 @@ export type UserTagsConnectFieldInput = {
    */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<TagConnectWhere>
-}
-
-export type UserTagsConnectOrCreateFieldInput = {
-  onCreate: UserTagsConnectOrCreateFieldInputOnCreate
-  where: TagConnectOrCreateWhere
-}
-
-export type UserTagsConnectOrCreateFieldInputOnCreate = {
-  node: TagOnCreateInput
 }
 
 export type UserTagsConnection = {
@@ -30085,8 +29609,6 @@ export type UserTagsDisconnectFieldInput = {
 
 export type UserTagsFieldInput = {
   connect?: InputMaybe<Array<UserTagsConnectFieldInput>>
-  /** @deprecated The connectOrCreate operation is deprecated and will be removed */
-  connectOrCreate?: InputMaybe<Array<UserTagsConnectOrCreateFieldInput>>
   create?: InputMaybe<Array<UserTagsCreateFieldInput>>
 }
 
@@ -30094,15 +29616,25 @@ export type UserTagsNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<UserTagsNodeAggregationWhereInput>>
   NOT?: InputMaybe<UserTagsNodeAggregationWhereInput>
   OR?: InputMaybe<Array<UserTagsNodeAggregationWhereInput>>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -30132,7 +29664,6 @@ export type UserTagsUpdateConnectionInput = {
 
 export type UserTagsUpdateFieldInput = {
   connect?: InputMaybe<Array<UserTagsConnectFieldInput>>
-  connectOrCreate?: InputMaybe<Array<UserTagsConnectOrCreateFieldInput>>
   create?: InputMaybe<Array<UserTagsCreateFieldInput>>
   delete?: InputMaybe<Array<UserTagsDeleteFieldInput>>
   disconnect?: InputMaybe<Array<UserTagsDisconnectFieldInput>>
@@ -30199,15 +29730,25 @@ export type UserTypesNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<UserTypesNodeAggregationWhereInput>>
   NOT?: InputMaybe<UserTypesNodeAggregationWhereInput>
   OR?: InputMaybe<Array<UserTypesNodeAggregationWhereInput>>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -30242,21 +29783,6 @@ export type UserTypesUpdateFieldInput = {
   disconnect?: InputMaybe<Array<UserTypesDisconnectFieldInput>>
   update?: InputMaybe<UserTypesUpdateConnectionInput>
   where?: InputMaybe<UserTypesConnectionWhere>
-}
-
-export type UserUniqueWhere = {
-  /** @deprecated Please use the explicit _EQ version */
-  auth0Id?: InputMaybe<Scalars['String']['input']>
-  auth0Id_EQ?: InputMaybe<Scalars['String']['input']>
-  /** @deprecated Please use the explicit _EQ version */
-  email?: InputMaybe<Scalars['String']['input']>
-  email_EQ?: InputMaybe<Scalars['String']['input']>
-  /** @deprecated Please use the explicit _EQ version */
-  id?: InputMaybe<Scalars['ID']['input']>
-  id_EQ?: InputMaybe<Scalars['ID']['input']>
-  /** @deprecated Please use the explicit _EQ version */
-  username?: InputMaybe<Scalars['String']['input']>
-  username_EQ?: InputMaybe<Scalars['String']['input']>
 }
 
 export type UserUpdateInput = {
@@ -30478,6 +30004,8 @@ export type WithDescendantsWhere = {
   descendantTypesIds?: InputMaybe<Array<Scalars['ID']['input']>>
   descendantTypesIds_EQ?: InputMaybe<Array<Scalars['ID']['input']>>
   descendantTypesIds_INCLUDES?: InputMaybe<Scalars['ID']['input']>
+  typename?: InputMaybe<Array<WithDescendantsImplementation>>
+  /** @deprecated The typename_IN filter is deprecated, please use the typename filter instead */
   typename_IN?: InputMaybe<Array<WithDescendantsImplementation>>
 }
 
@@ -30600,15 +30128,25 @@ export type WithOwnerOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MAX_LTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_GTE?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LT?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id_MIN_LTE?: InputMaybe<Scalars['ID']['input']>
   username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
@@ -30639,6 +30177,8 @@ export type WithOwnerWhere = {
   owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<WithOwnerOwnerAggregateInput>
   ownerConnection?: InputMaybe<WithOwnerOwnerConnectionWhere>
+  typename?: InputMaybe<Array<WithOwnerImplementation>>
+  /** @deprecated The typename_IN filter is deprecated, please use the typename filter instead */
   typename_IN?: InputMaybe<Array<WithOwnerImplementation>>
 }
 

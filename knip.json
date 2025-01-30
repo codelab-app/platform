@@ -8,7 +8,7 @@
   },
   "ignore": [
     "dist",
-    "libs/shared/infra/gql/**",
+    "libs/shared/infra/gqlgen/**",
     "libs/backend/abstract/codegen/**",
     "libs/shared/abstract/core/**"
   ],

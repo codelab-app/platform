@@ -86,7 +86,7 @@ const config: Types.Config = {
     /**
      * Instead of `gql` wrapping documents, which requires client side runtime conversion, we build the queries at build time
      */
-    'libs/shared/infra/gql/src/gql/': {
+    'libs/shared/infra/gqlgen/src/gql/': {
       documents: [
         '**/*.fragment.graphql',
         '**/*.api.graphql',
@@ -97,7 +97,7 @@ const config: Types.Config = {
       config: {
         documentMode: 'string',
         inlineFragmentTypes: 'combine',
-        // useTypeImports: true,
+        useTypeImports: true,
         // enumsAsTypes: true,
       },
       presetConfig: {

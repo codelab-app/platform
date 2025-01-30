@@ -1,7 +1,6 @@
 import type { IRef, IResourceDto } from '@codelab/shared/abstract/core'
 import type {
   ResourceOptions,
-  ResourceUniqueWhere,
   ResourceWhere,
 } from '@codelab/shared/infra/gqlgen'
 
@@ -56,7 +55,8 @@ export const resourceRepository: IResourceRepository = {
     )
   },
 
-  findOne: async (where: ResourceUniqueWhere) => {
+  // FIXME: make a unique where
+  findOne: async (where: ResourceWhere) => {
     return (await resourceRepository.find(where)).items[0]
   },
 

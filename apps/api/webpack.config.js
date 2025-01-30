@@ -12,7 +12,7 @@ const withRawCypherFiles = (config, ctx) => {
 }
 
 // Nx plugins for webpack.
-module.exports = composePlugins(withNx(), withRawCypherFiles, (config) => {
+module.exports = composePlugins(withNx({}), withRawCypherFiles, (config) => {
   // Update the webpack config as needed here.
   // e.g. `config.plugins.push(new MyPlugin())`
 

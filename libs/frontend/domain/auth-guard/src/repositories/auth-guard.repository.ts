@@ -1,7 +1,6 @@
 import type { IAuthGuardDto, IRef } from '@codelab/shared/abstract/core'
 import type {
   AuthGuardOptions,
-  AuthGuardUniqueWhere,
   AuthGuardWhere,
 } from '@codelab/shared/infra/gqlgen'
 
@@ -55,7 +54,8 @@ export const authGuardRepository: IAuthGuardRepository = {
     )
   },
 
-  findOne: async (where: AuthGuardUniqueWhere) => {
+  // FIXME: make a unique where
+  findOne: async (where: AuthGuardWhere) => {
     return (await authGuardRepository.find(where)).items[0]
   },
 
