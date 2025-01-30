@@ -30,6 +30,15 @@ export const CreateRedirectForm = observer<IFormController>(
       <Form<IRedirectCreateFormData>
         errorMessage="Error while creating redirect"
         model={model}
+        modelTransform={(form, currentModel) => {
+          if (currentModel.targetType === IRedirectTargetType.Page) {
+            delete currentModel.targetUrl
+          } else {
+            delete currentModel.targetPage
+          }
+
+          return currentModel
+        }}
         onSubmit={redirectService.create}
         onSubmitSuccess={onSubmitSuccess}
         schema={createRedirectSchema}
