@@ -2,8 +2,8 @@ import type {
   INodeType,
   IPrimitiveTypeDto,
 } from '@codelab/shared/abstract/core'
-import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import type {
+  IBaseTypeWhere,
   PrimitiveTypeOptions,
   PrimitiveTypeWhere,
 } from '@codelab/shared/infra/gqlgen'
@@ -64,7 +64,7 @@ export class PrimitiveTypeRepository extends AbstractRepository<
 
   protected async _update(
     primitiveType: IPrimitiveTypeDto,
-    where: BaseTypeUniqueWhere,
+    where: IBaseTypeWhere,
   ) {
     const {
       types: { types },

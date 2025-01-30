@@ -2,10 +2,10 @@ import type {
   ICodeMirrorTypeDto,
   INodeType,
 } from '@codelab/shared/abstract/core'
-import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import type {
   CodeMirrorTypeOptions,
   CodeMirrorTypeWhere,
+  IBaseTypeWhere,
 } from '@codelab/shared/infra/gqlgen'
 
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
@@ -65,7 +65,7 @@ export class CodeMirrorTypeRepository extends AbstractRepository<
 
   protected async _update(
     codemirrorType: ICodeMirrorTypeDto,
-    where: BaseTypeUniqueWhere,
+    where: IBaseTypeWhere,
   ) {
     const {
       types: { types },
