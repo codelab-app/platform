@@ -1,15 +1,14 @@
 import type { Types } from '@graphql-codegen/plugin-helpers'
-import { preset } from '@codelab-app/client-preset'
 import { deleteSync } from 'del'
 import { getEnv } from '../../libs/shared/config/env/src'
 
 const pathToTypescriptServerFetch =
   '../../node_modules/@codelab-codegen/typescript-server-fetch'
 
-const pathToTypescriptFetch = '@codelab-codegen/typescript-fetch'
+const pathToTypescriptFetch =
+  '../../node_modules/@codelab-codegen/typescript-fetch'
 
-const pathToClientPresetDocuments =
-  '../../node_modules/@codelab-codegen/client-preset-documents'
+const pathToClientPresetDocuments = '@codelab-codegen/client-preset-documents'
 
 /**
  * `Field args marked as @deprecated are lost when getting schema over HTTP`
@@ -92,11 +91,11 @@ const config: Types.Config = {
         // 'libs/frontend/application/**/*.{repository,document}.ts',
         // 'libs/frontend/domain/**/*.{repository,document}.ts',
       ],
-      preset,
+      preset: 'client',
       config: {
         documentMode: 'string',
-        inlineFragmentTypes: 'combine',
-        // useTypeImports: true,
+        // inlineFragmentTypes: 'combine',
+        useTypeImports: true,
         // enumsAsTypes: true,
       },
       presetConfig: {
@@ -154,6 +153,23 @@ const config: Types.Config = {
           },
         },
       ],
+    },
+    '.': {
+      documents: [
+        'libs/frontend/**/*.{api,fragment}.graphql',
+        'libs/shared/domain/**/*.{api,fragment}.graphql',
+      ],
+      preset: 'near-operation-file',
+      presetConfig: {
+        baseTypesPath: '~@codelab/shared/infra/gqlgen',
+        extension: '.graphql.docs.gen.ts',
+      },
+      plugins: [
+        {
+          [pathToClientPresetDocuments]: {},
+        },
+      ],
+      config: {},
     },
   },
 }

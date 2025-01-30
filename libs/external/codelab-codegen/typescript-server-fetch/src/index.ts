@@ -14,7 +14,7 @@ import {
 import { concatAST, Kind } from 'graphql'
 import { extname } from 'path'
 
-import { ServerFetchVisitor } from './server-fetch-visitor'
+import { ServerFetchVisitor } from './visitor'
 
 export interface ServerFetchPluginRawConfig extends RawConfig {
   gqlFn: string

@@ -1,26 +1,28 @@
 import type {
-  PluginFunction,
-  PluginValidateFn,
-  Types,
-} from '@graphql-codegen/plugin-helpers'
-import type {
   LoadedFragment,
   RawClientSideBasePluginConfig,
+  RawConfig,
 } from '@graphql-codegen/visitor-plugin-common'
 import type { FragmentDefinitionNode, GraphQLSchema } from 'graphql'
 
-import { oldVisit } from '@graphql-codegen/plugin-helpers'
+import {
+  oldVisit,
+  type PluginFunction,
+  type PluginValidateFn,
+  type Types,
+} from '@graphql-codegen/plugin-helpers'
 import { concatAST, Kind } from 'graphql'
 import { extname } from 'path'
 
-import type { RawGraphQLRequestPluginConfig } from './config.js'
+import { ClientPresetVisitor } from './visitor'
 
-import { GraphQLRequestVisitor } from './visitor.js'
+export type ClientPresetPluginRawConfig = RawConfig
 
-export const plugin: PluginFunction<RawGraphQLRequestPluginConfig> = (
+export const plugin: PluginFunction<ClientPresetPluginRawConfig> = (
   schema: GraphQLSchema,
   documents: Array<Types.DocumentFile>,
-  config: RawGraphQLRequestPluginConfig,
+  config,
+  info,
 ) => {
   const allAst = concatAST(documents.map((v) => v.document!))
 
@@ -38,15 +40,11 @@ export const plugin: PluginFunction<RawGraphQLRequestPluginConfig> = (
     ...(config.externalFragments || []),
   ]
 
-  const visitor = new GraphQLRequestVisitor(schema, allFragments, config)
+  const visitor = new ClientPresetVisitor(schema, config, documents, info)
   const visitorResult = oldVisit(allAst, { leave: visitor })
 
   return {
-    content: [
-      visitor.fragments,
-      ...visitorResult.definitions.filter((t) => typeof t === 'string'),
-      visitor.content,
-    ].join('\n'),
+    content: visitor.content,
     prepend: visitor.getImports(),
   }
 }
@@ -58,10 +56,6 @@ export const validate: PluginValidateFn<any> = async (
   outputFile: string,
 ) => {
   if (!['.ts'].includes(extname(outputFile))) {
-    throw new Error(
-      'Plugin "client-preset-documents" requires extension to be ".ts"!',
-    )
+    throw new Error('Plugin "typescript-fetch" requires extension to be ".ts"!')
   }
 }
-
-export { GraphQLRequestVisitor }

@@ -273,7 +273,6 @@
   "devDependencies": {
     "@0no-co/graphqlsp": "1.12.12",
     "@chromatic-com/storybook": "1.7.0",
-    "@codelab-app/client-preset": "latest",
     "@commitlint/cli": "17.6.5",
     "@commitlint/config-conventional": "17.6.5",
     "@graphql-codegen/cli": "5.0.2",
