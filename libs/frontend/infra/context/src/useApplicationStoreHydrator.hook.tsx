@@ -1,8 +1,7 @@
 'use client'
 
-import type { SearchParamsPageProps } from '@codelab/frontend/abstract/types'
+import type { SearchParamsProps } from '@codelab/frontend/abstract/types'
 
-import { parseSearchParamsPageProps } from '@codelab/frontend-application-shared-store/router'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { useEffect, useRef } from 'react'
 
@@ -18,23 +17,17 @@ export const useApplicationStoreHydrator = () => {
    *
    * The ref allows us to store the searchParams and access them in the useEffect, while preventing the "setState during render" error that would occur if we tried to update router state directly during component render.
    */
-  const hydrateRef = useRef<SearchParamsPageProps | null>(null)
+  const hydrateRef = useRef<SearchParamsProps | null>(null)
 
-  const hydrate = ({
-    searchParams,
-  }: {
-    searchParams: SearchParamsPageProps
-  }) => {
+  const hydrate = ({ searchParams }: { searchParams: SearchParamsProps }) => {
     hydrateRef.current = searchParams
   }
 
   useEffect(() => {
     if (hydrateRef.current) {
-      const params = parseSearchParamsPageProps(hydrateRef.current)
-
-      routerService.setSearchParams(params)
+      routerService.setSearchParams(hydrateRef.current)
     }
-  }, [routerService, hydrateRef.current])
+  }, [routerService])
 
   return hydrate
 }
