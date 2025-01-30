@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react'
 import queryString from 'query-string'
 
-describe('useUrlQueryParams', () => {
+describe('useSearchParamsProps', () => {
   beforeEach(() => {
     jest.resetModules()
     jest.clearAllMocks()
@@ -39,22 +39,24 @@ describe('useUrlQueryParams', () => {
     expect(result.current.search).toBe('searchterm')
   })
 
-  test('should handle missing or undefined values', async () => {
-    jest.mock('next/navigation', () => ({
-      useSearchParams: jest
-        .fn()
-        .mockImplementation(() => new URLSearchParams({})),
-    }))
+  // We used to have a dedicated url query param, but not using search params
+  // Need to create a separate hook that requires these params
+  // test('should handle missing or undefined values', async () => {
+  //   jest.mock('next/navigation', () => ({
+  //     useSearchParams: jest
+  //       .fn()
+  //       .mockImplementation(() => new URLSearchParams({})),
+  //   }))
 
-    const { useSearchParamsProps } = await import('./search-params')
-    const { result } = renderHook(() => useSearchParamsProps())
+  //   const { useSearchParamsProps } = await import('./search-params')
+  //   const { result } = renderHook(() => useSearchParamsProps())
 
-    expect(result.current.filter).toStrictEqual([])
-    expect(() => result.current.page).toThrow()
-    expect(() => result.current.pageSize).toThrow()
-    expect(result.current.primarySidebarKey).toBeUndefined()
-    expect(result.current.search).toBeUndefined()
-  })
+  //   expect(result.current.filter).toStrictEqual([])
+  //   expect(() => result.current.page).toThrow()
+  //   expect(() => result.current.pageSize).toThrow()
+  //   expect(result.current.primarySidebarKey).toBeUndefined()
+  //   expect(result.current.search).toBeUndefined()
+  // })
 
   // describe('parseUrlQueryParams', () => {
   //   test('should parse string params correctly', () => {

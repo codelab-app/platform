@@ -58,5 +58,5 @@ export const useSearchParamsProps = () => {
   // eslint-disable-next-line ban/ban
   const searchParams = useSearchParams()
 
-  return parseUrlSearchParams(searchParams)
+  return pipe(searchParams, parseUrlSearchParams, parseSearchParamsPageProps)
 }
