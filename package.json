@@ -409,7 +409,7 @@
     "eslint-plugin-perfectionist": "3.7.0",
     "eslint-plugin-playwright": "1.6.2",
     "eslint-plugin-prefer-arrow": "1.2.3",
-    "eslint-plugin-prettier": "4.2.1",
+    "eslint-plugin-prettier": "5.2.3",
     "eslint-plugin-react": "7.35.0",
     "eslint-plugin-react-hooks": "5.0.0",
     "eslint-plugin-readable-tailwind": "1.8.0",
