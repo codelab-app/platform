@@ -51,6 +51,7 @@
     "@awwong1/oauth4webapi": "1.0.0",
     "@codelab-codegen/typescript-fetch": "file:dist/libs/external/codelab-codegen/typescript-fetch",
     "@codelab-codegen/typescript-server-fetch": "file:dist/libs/external/codelab-codegen/typescript-server-fetch",
+    "@codelab-codegen/codelab-preset": "file:dist/libs/external/codelab-codegen/codelab-preset",
     "@codelab/eslint-plugin": "file:dist/libs/tools/eslint-plugin",
     "@codelab/tools-workspace": "file:dist/libs/tools/workspace",
     "@codelab/tsc-check": "file:dist/libs/tools/tsc-check",

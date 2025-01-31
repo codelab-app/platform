@@ -1,12 +1,10 @@
 import type { Types } from '@graphql-codegen/plugin-helpers'
 import { deleteSync } from 'del'
-import { preset } from './preset'
+import { preset } from '@codelab-codegen/codelab-preset'
 
-const pathToTypescriptServerFetch =
-  '../../node_modules/@codelab-codegen/typescript-server-fetch'
-
-const pathToTypescriptFetch =
-  '../../node_modules/@codelab-codegen/typescript-fetch'
+const nodeModules = '../../node_modules/'
+const typescriptServerFetch = `${nodeModules}@codelab-codegen/typescript-server-fetch`
+const typescriptFetch = `${nodeModules}@codelab-codegen/typescript-fetch`
 
 /**
  * `Field args marked as @deprecated are lost when getting schema over HTTP`
@@ -111,7 +109,7 @@ const config: Types.Config = {
       },
       plugins: [
         {
-          [pathToTypescriptServerFetch]: {
+          [typescriptServerFetch]: {
             gqlFn: 'gqlServerRequest',
             gqlFnPath: '@codelab/shared/infra/fetch-server',
           },
@@ -130,7 +128,7 @@ const config: Types.Config = {
       },
       plugins: [
         {
-          [pathToTypescriptFetch]: {
+          [typescriptFetch]: {
             gqlFn: 'gqlRequest',
             gqlFnPath: '@codelab/shared/infra/fetch',
           },

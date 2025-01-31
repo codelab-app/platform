@@ -1,5 +1,6 @@
-import * as addPlugin from '@graphql-codegen/add'
 import type { PluginFunction, Types } from '@graphql-codegen/plugin-helpers'
+
+import * as addPlugin from '@graphql-codegen/add'
 import * as typedDocumentNodePlugin from '@graphql-codegen/typed-document-node'
 import * as typescriptPlugin from '@graphql-codegen/typescript'
 import * as typescriptOperationPlugin from '@graphql-codegen/typescript-operations'
@@ -7,15 +8,10 @@ import {
   ClientSideBaseVisitor,
   DocumentMode,
 } from '@graphql-codegen/visitor-plugin-common'
+
 import { processSources } from './process-sources'
 
-export type ClientPresetConfig = {}
-
-export const preset: Types.OutputPreset<ClientPresetConfig> = {
-  prepareDocuments: (outputFilePath, outputSpecificDocuments) => [
-    ...outputSpecificDocuments,
-    `!${outputFilePath}`,
-  ],
+export const preset: Types.OutputPreset = {
   buildGeneratesSection: (options) => {
     const visitor = new ClientSideBaseVisitor(
       options.schemaAst!,
@@ -31,15 +27,12 @@ export const preset: Types.OutputPreset<ClientPresetConfig> = {
     )
 
     const sources = sourcesWithOperations.map(({ source }) => source)
-
     const tdnFinished = createDeferred()
 
     const pluginMap = {
       ...options.pluginMap,
-      [`add`]: addPlugin,
-      [`typescript`]: typescriptPlugin,
-      [`typescript-operations`]: typescriptOperationPlugin,
-      [`typed-document-node`]: {
+      ['add']: addPlugin,
+      ['typed-document-node']: {
         ...typedDocumentNodePlugin,
         plugin: async (...args: Parameters<PluginFunction>) => {
           try {
@@ -49,13 +42,15 @@ export const preset: Types.OutputPreset<ClientPresetConfig> = {
           }
         },
       },
+      ['typescript']: typescriptPlugin,
+      ['typescript-operations']: typescriptOperationPlugin,
     }
 
     const plugins: Array<Types.ConfiguredPlugin> = [
-      { [`add`]: { content: `/* eslint-disable */` } },
-      { [`typescript`]: {} },
-      { [`typescript-operations`]: {} },
-      { [`typed-document-node`]: {} },
+      { ['add']: { content: '/* eslint-disable */' } },
+      { ['typescript']: {} },
+      { ['typescript-operations']: {} },
+      { ['typed-document-node']: {} },
     ]
 
     return [
@@ -63,43 +58,49 @@ export const preset: Types.OutputPreset<ClientPresetConfig> = {
        * create index.ts file to export generated types
        */
       {
-        filename: `${options.baseOutputDir}index.ts`,
-        pluginMap: { [`add`]: addPlugin },
-        plugins: [{ [`add`]: { content: `export * from './graphql'\n` } }],
-        schema: options.schema,
         config: {},
         documents: [],
         documentTransforms: options.documentTransforms,
+        filename: `${options.baseOutputDir}index.ts`,
+        pluginMap: { ['add']: addPlugin },
+        plugins: [{ ['add']: { content: "export * from './graphql'\n" } }],
+        schema: options.schema,
       },
       /**
        * create gql file which contain generated fragments and operations
        */
       {
-        filename: `${options.baseOutputDir}graphql.ts`,
-        plugins,
-        pluginMap,
-        schema: options.schema,
         config: {
           documentMode: DocumentMode.string,
         },
         documents: sources,
         documentTransforms: options.documentTransforms,
+        filename: `${options.baseOutputDir}graphql.ts`,
+        pluginMap,
+        plugins,
+        schema: options.schema,
       },
     ]
   },
+  prepareDocuments: (outputFilePath, outputSpecificDocuments) => [
+    ...outputSpecificDocuments,
+    `!${outputFilePath}`,
+  ],
 }
 
-type Deferred<T = void> = {
-  resolve: (value: T) => void
-  reject: (value: unknown) => void
+interface Deferred<T = void> {
+  resolve(value: T): void
+  reject(value: unknown): void
   promise: Promise<T>
 }
 
-function createDeferred<T = void>(): Deferred<T> {
+const createDeferred = <T = void>(): Deferred<T> => {
   const d = {} as Deferred<T>
+
   d.promise = new Promise<T>((resolve, reject) => {
     d.resolve = resolve
     d.reject = reject
   })
+
   return d
 }
