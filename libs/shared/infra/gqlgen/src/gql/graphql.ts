@@ -5245,7 +5245,6 @@ export enum AtomType {
   AntDesignCheckbox = 'AntDesignCheckbox',
   AntDesignCheckboxGroup = 'AntDesignCheckboxGroup',
   AntDesignCollapse = 'AntDesignCollapse',
-  AntDesignComment = 'AntDesignComment',
   AntDesignConfigProvider = 'AntDesignConfigProvider',
   AntDesignDatePicker = 'AntDesignDatePicker',
   AntDesignDescriptions = 'AntDesignDescriptions',
