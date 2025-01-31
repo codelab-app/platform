@@ -3,8 +3,6 @@ import * as Types from '@codelab/shared/infra/gqlgen';
 import { gqlServerRequest } from '@codelab/shared/infra/fetch-server'
 import { GetBaseTypesDocument, GetTypesDocument, GetDescendantsDocument, GetPrimitiveTypesDocument, GetArrayTypesDocument, GetUnionTypesDocument, GetInterfaceTypesDocument, GetElementTypesDocument, GetRenderPropTypesDocument, GetReactNodeTypesDocument, GetRichTextTypesDocument, GetEnumTypesDocument, GetLambdaTypesDocument, GetPageTypesDocument, GetAppTypesDocument, GetActionTypesDocument, GetCodeMirrorTypesDocument } from '@codelab/shared/infra/gqlgen'
 
-
-
 export const GetBaseTypes = (variables: Types.GetBaseTypesQueryVariables ,next?: NextFetchRequestConfig & { revalidateTag?: string }) => gqlServerRequest(GetBaseTypesDocument.toString(), variables, next)
 export const GetTypes = (variables: Types.GetTypesQueryVariables ,next?: NextFetchRequestConfig & { revalidateTag?: string }) => gqlServerRequest(GetTypesDocument.toString(), variables, next)
 export const GetDescendants = (variables: Types.GetDescendantsQueryVariables ,next?: NextFetchRequestConfig & { revalidateTag?: string }) => gqlServerRequest(GetDescendantsDocument.toString(), variables, next)

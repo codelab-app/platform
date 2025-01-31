@@ -3,8 +3,6 @@ import * as Types from '@codelab/shared/infra/gqlgen';
 import { gqlServerRequest } from '@codelab/shared/infra/fetch-server'
 import { CreateAppsDocument, UpdateAppsDocument, DeleteAppsDocument, AppListPreviewDocument, AppListDocument, GetAppProductionDocument } from '@codelab/shared/infra/gqlgen'
 
-
-
 export const CreateApps = (variables: Types.CreateAppsMutationVariables ,next?: NextFetchRequestConfig & { revalidateTag?: string }) => gqlServerRequest(CreateAppsDocument.toString(), variables, next)
 export const UpdateApps = (variables: Types.UpdateAppsMutationVariables ,next?: NextFetchRequestConfig & { revalidateTag?: string }) => gqlServerRequest(UpdateAppsDocument.toString(), variables, next)
 export const DeleteApps = (variables: Types.DeleteAppsMutationVariables ,next?: NextFetchRequestConfig & { revalidateTag?: string }) => gqlServerRequest(DeleteAppsDocument.toString(), variables, next)

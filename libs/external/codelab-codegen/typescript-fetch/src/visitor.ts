@@ -1,13 +1,13 @@
+import type { Types } from '@graphql-codegen/plugin-helpers'
 import type { ParsedConfig } from '@graphql-codegen/visitor-plugin-common'
-import type { GraphQLSchema, OperationDefinitionNode } from 'graphql'
 
 import {
   BaseVisitor,
-  buildScalarsFromConfig,
   getConfigValue,
 } from '@graphql-codegen/visitor-plugin-common'
 import autoBind from 'auto-bind'
 import { pascalCase } from 'change-case-all'
+import { Kind, type OperationDefinitionNode } from 'graphql'
 
 import type { FetchPluginRawConfig } from './index'
 
@@ -30,15 +30,38 @@ export class FetchVisitor extends BaseVisitor<
 > {
   private _operations: Array<Operation> = []
 
-  constructor(schema: GraphQLSchema, rawConfig: FetchPluginRawConfig) {
+  constructor(
+    documents: Array<Types.DocumentFile>,
+    rawConfig: FetchPluginRawConfig,
+  ) {
     super(rawConfig, {
       gqlFn: getConfigValue(rawConfig.gqlFn, ''),
       gqlFnPath: getConfigValue(rawConfig.gqlFnPath, ''),
       graphqlPath: getConfigValue(rawConfig.graphqlPath, ''),
-      scalars: buildScalarsFromConfig(schema, rawConfig),
     })
 
-    this._operations = []
+    this._operations = documents
+      .flatMap((v) => v.document?.definitions)
+      .filter((de) => de?.kind === Kind.OPERATION_DEFINITION)
+      .map((node) => {
+        const name = this.convertName(node)
+        const type: string = pascalCase(node.operation)
+        const typeSuffix: string = this.getOperationSuffix(node, type)
+        const resultType: string = this.convertName(node)
+
+        const variablesTypes: string = this.convertName(node, {
+          suffix: `${typeSuffix} Variables`,
+        })
+
+        return {
+          name,
+          node,
+          resultType,
+          type,
+          variablesTypes,
+        }
+      })
+
     autoBind(this)
   }
 
@@ -52,33 +75,6 @@ export class FetchVisitor extends BaseVisitor<
       "import { GraphQLClient } from 'graphql-request'",
       `import { ${documentImports} } from '${this.config.graphqlPath}'\n`,
     ]
-  }
-
-  /**
-   * The entry point for the visitor
-   * this will be called for each operation
-   * @param node
-   * @returns
-   */
-  public OperationDefinition(node: OperationDefinitionNode): string {
-    const name = this.convertName(node)
-    const type: string = pascalCase(node.operation)
-    const typeSuffix: string = this.getOperationSuffix(node, type)
-    const resultType: string = this.convertName(node)
-
-    const variablesTypes: string = this.convertName(node, {
-      suffix: `${typeSuffix} Variables`,
-    })
-
-    this._operations.push({
-      name,
-      node,
-      resultType,
-      type,
-      variablesTypes,
-    })
-
-    return this._operations.map((o) => o.name).join('\n')
   }
 
   public get content(): string {

@@ -1,7 +1,7 @@
 import type { ParsedConfig } from '@graphql-codegen/visitor-plugin-common';
-import type { GraphQLSchema, OperationDefinitionNode } from 'graphql';
 import { BaseVisitor } from '@graphql-codegen/visitor-plugin-common';
 import type { ServerFetchPluginRawConfig } from './index';
+import { Types } from '@graphql-codegen/plugin-helpers';
 export interface ServerFetchVisitorConfig extends ParsedConfig {
     gqlFn: string;
     gqlFnPath: string;
@@ -9,14 +9,7 @@ export interface ServerFetchVisitorConfig extends ParsedConfig {
 }
 export declare class ServerFetchVisitor extends BaseVisitor<ServerFetchPluginRawConfig, ServerFetchVisitorConfig> {
     private _operations;
-    constructor(schema: GraphQLSchema, rawConfig: ServerFetchPluginRawConfig);
+    constructor(documents: Types.DocumentFile[], rawConfig: ServerFetchPluginRawConfig);
     getImports(): string[];
-    /**
-     * The entry point for the visitor
-     * this will be called for each operation
-     * @param node
-     * @returns
-     */
-    OperationDefinition(node: OperationDefinitionNode): string;
     get content(): string;
 }

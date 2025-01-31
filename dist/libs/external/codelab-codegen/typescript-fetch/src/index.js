@@ -1,25 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validate = exports.plugin = void 0;
-const plugin_helpers_1 = require("@graphql-codegen/plugin-helpers");
-const graphql_1 = require("graphql");
-const path_1 = require("path");
+exports.plugin = void 0;
 const visitor_1 = require("./visitor");
-const plugin = (schema, documents, config, info) => {
-    const allAst = (0, graphql_1.concatAST)(documents.map((v) => v.document));
-    const visitor = new visitor_1.FetchVisitor(schema, config);
-    // visit all ast
-    (0, plugin_helpers_1.oldVisit)(allAst, { leave: visitor });
+const plugin = (schema, documents, config) => {
+    const visitor = new visitor_1.FetchVisitor(documents, config);
     return {
         content: visitor.content,
         prepend: visitor.getImports(),
     };
 };
 exports.plugin = plugin;
-const validate = async (schema, documents, config, outputFile) => {
-    if (!['.ts'].includes((0, path_1.extname)(outputFile))) {
-        throw new Error('Plugin "typescript-fetch" requires extension to be ".ts"!');
-    }
-};
-exports.validate = validate;
 //# sourceMappingURL=index.js.map
