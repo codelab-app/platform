@@ -2,8 +2,7 @@ import * as Types from '@codelab/shared/infra/gqlgen';
 
 import { gqlRequest } from '@codelab/shared/infra/fetch'
 import { GraphQLClient } from 'graphql-request'
-import { IsTypeDescendantOfDocument, GetTypeReferencesDocument } from './type.api.graphql.docs.gen'
-
+import { IsTypeDescendantOfDocument, GetTypeReferencesDocument } from '@codelab/shared/infra/gqlgen'
 
 export const getSdk = (client: GraphQLClient) => ({
 	IsTypeDescendantOf : (variables: Types.IsTypeDescendantOfQueryVariables) => gqlRequest(client, IsTypeDescendantOfDocument.toString(), variables),

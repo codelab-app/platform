@@ -2,8 +2,7 @@ import * as Types from '@codelab/shared/infra/gqlgen';
 
 import { gqlRequest } from '@codelab/shared/infra/fetch'
 import { GraphQLClient } from 'graphql-request'
-import { CreateComponentsDocument, DeleteComponentsDocument, UpdateComponentsDocument, ComponentListDocument } from './component.api.graphql.docs.gen'
-
+import { CreateComponentsDocument, DeleteComponentsDocument, UpdateComponentsDocument, ComponentListDocument } from '@codelab/shared/infra/gqlgen'
 
 export const getSdk = (client: GraphQLClient) => ({
 	CreateComponents : (variables: Types.CreateComponentsMutationVariables) => gqlRequest(client, CreateComponentsDocument.toString(), variables),

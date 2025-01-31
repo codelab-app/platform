@@ -35,9 +35,8 @@ class FetchVisitor extends visitor_plugin_common_1.BaseVisitor {
             .join(', ');
         return [
             `import { ${this.config.gqlFn} } from '${this.config.gqlFnPath}'`,
-            `import { GraphQLClient } from 'graphql-request'`,
-            `import { ${documentImports} } from './${this._outputFile?.replace('.api.gen.ts', '.docs.gen')}'`,
-            '\n',
+            "import { GraphQLClient } from 'graphql-request'",
+            `import { ${documentImports} } from '@codelab/shared/infra/gqlgen'\n`,
         ];
     }
     OperationDefinition(node) {
@@ -76,4 +75,4 @@ class FetchVisitor extends visitor_plugin_common_1.BaseVisitor {
     }
 }
 exports.FetchVisitor = FetchVisitor;
-//# sourceMappingURL=fetch-visitor.js.map
+//# sourceMappingURL=visitor.js.map

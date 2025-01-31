@@ -1,7 +1,8 @@
 import * as Types from '@codelab/shared/infra/gqlgen';
 
 import { gqlServerRequest } from '@codelab/shared/infra/fetch-server'
-import { IsTypeDescendantOfDocument, GetTypeReferencesDocument } from './type.api.graphql.docs.gen'
+import { IsTypeDescendantOfDocument, GetTypeReferencesDocument } from '@codelab/shared/infra/gqlgen'
+
 
 
 export const IsTypeDescendantOf = (variables: Types.IsTypeDescendantOfQueryVariables ,next?: NextFetchRequestConfig & { revalidateTag?: string }) => gqlServerRequest(IsTypeDescendantOfDocument.toString(), variables, next)

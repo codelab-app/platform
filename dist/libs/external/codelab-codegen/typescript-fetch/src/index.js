@@ -4,7 +4,7 @@ exports.validate = exports.plugin = void 0;
 const plugin_helpers_1 = require("@graphql-codegen/plugin-helpers");
 const graphql_1 = require("graphql");
 const path_1 = require("path");
-const fetch_visitor_1 = require("./fetch-visitor");
+const visitor_1 = require("./visitor");
 const plugin = (schema, documents, config, info) => {
     const allAst = (0, graphql_1.concatAST)(documents.map((v) => v.document));
     const allFragments = [
@@ -16,7 +16,7 @@ const plugin = (schema, documents, config, info) => {
         })),
         ...(config.externalFragments || []),
     ];
-    const visitor = new fetch_visitor_1.FetchVisitor(schema, config, documents, info);
+    const visitor = new visitor_1.FetchVisitor(schema, config, documents, info);
     const visitorResult = (0, plugin_helpers_1.oldVisit)(allAst, { leave: visitor });
     return {
         content: visitor.content,

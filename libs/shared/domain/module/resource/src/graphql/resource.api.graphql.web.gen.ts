@@ -1,7 +1,8 @@
 import * as Types from '@codelab/shared/infra/gqlgen';
 
 import { gqlServerRequest } from '@codelab/shared/infra/fetch-server'
-import { ResourceListDocument, CreateResourcesDocument, UpdateResourcesDocument, DeleteResourcesDocument } from './resource.api.graphql.docs.gen'
+import { ResourceListDocument, CreateResourcesDocument, UpdateResourcesDocument, DeleteResourcesDocument } from '@codelab/shared/infra/gqlgen'
+
 
 
 export const ResourceList = (variables: Types.ResourceListQueryVariables ,next?: NextFetchRequestConfig & { revalidateTag?: string }) => gqlServerRequest(ResourceListDocument.toString(), variables, next)

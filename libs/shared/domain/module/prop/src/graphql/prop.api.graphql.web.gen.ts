@@ -1,7 +1,8 @@
 import * as Types from '@codelab/shared/infra/gqlgen';
 
 import { gqlServerRequest } from '@codelab/shared/infra/fetch-server'
-import { CreatePropsDocument, UpdatePropsDocument, DeletePropsDocument, GetPropsDocument } from './prop.api.graphql.docs.gen'
+import { CreatePropsDocument, UpdatePropsDocument, DeletePropsDocument, GetPropsDocument } from '@codelab/shared/infra/gqlgen'
+
 
 
 export const CreateProps = (variables: Types.CreatePropsMutationVariables ,next?: NextFetchRequestConfig & { revalidateTag?: string }) => gqlServerRequest(CreatePropsDocument.toString(), variables, next)

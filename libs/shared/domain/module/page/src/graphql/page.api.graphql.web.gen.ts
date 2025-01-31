@@ -1,7 +1,8 @@
 import * as Types from '@codelab/shared/infra/gqlgen';
 
 import { gqlServerRequest } from '@codelab/shared/infra/fetch-server'
-import { CreatePagesDocument, DeletePagesDocument, UpdatePagesDocument, PageListDocument, GetRenderedPageDocument } from './page.api.graphql.docs.gen'
+import { CreatePagesDocument, DeletePagesDocument, UpdatePagesDocument, PageListDocument, GetRenderedPageDocument } from '@codelab/shared/infra/gqlgen'
+
 
 
 export const CreatePages = (variables: Types.CreatePagesMutationVariables ,next?: NextFetchRequestConfig & { revalidateTag?: string }) => gqlServerRequest(CreatePagesDocument.toString(), variables, next)

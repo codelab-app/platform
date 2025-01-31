@@ -1,7 +1,8 @@
 import * as Types from '@codelab/shared/infra/gqlgen';
 
 import { gqlServerRequest } from '@codelab/shared/infra/fetch-server'
-import { DeletePrimitiveTypesDocument, DeleteArrayTypesDocument, DeleteReactNodeTypesDocument, DeleteUnionTypesDocument, DeleteInterfaceTypesDocument, DeleteElementTypesDocument, DeleteRenderPropTypesDocument, DeleteRichTextTypesDocument, DeleteEnumTypesDocument, DeleteLambdaTypesDocument, DeletePageTypesDocument, DeleteAppTypesDocument, DeleteActionTypesDocument, DeleteCodeMirrorTypesDocument } from './delete-type.api.graphql.docs.gen'
+import { DeletePrimitiveTypesDocument, DeleteArrayTypesDocument, DeleteReactNodeTypesDocument, DeleteUnionTypesDocument, DeleteInterfaceTypesDocument, DeleteElementTypesDocument, DeleteRenderPropTypesDocument, DeleteRichTextTypesDocument, DeleteEnumTypesDocument, DeleteLambdaTypesDocument, DeletePageTypesDocument, DeleteAppTypesDocument, DeleteActionTypesDocument, DeleteCodeMirrorTypesDocument } from '@codelab/shared/infra/gqlgen'
+
 
 
 export const DeletePrimitiveTypes = (variables: Types.DeletePrimitiveTypesMutationVariables ,next?: NextFetchRequestConfig & { revalidateTag?: string }) => gqlServerRequest(DeletePrimitiveTypesDocument.toString(), variables, next)

@@ -1,7 +1,8 @@
 import * as Types from '@codelab/shared/infra/gqlgen';
 
 import { gqlServerRequest } from '@codelab/shared/infra/fetch-server'
-import { GetUsersDocument, CreateUserDocument, DeleteUsersDocument, UpdateUsersDocument } from './user.api.graphql.docs.gen'
+import { GetUsersDocument, CreateUserDocument, DeleteUsersDocument, UpdateUsersDocument } from '@codelab/shared/infra/gqlgen'
+
 
 
 export const GetUsers = (variables: Types.GetUsersQueryVariables ,next?: NextFetchRequestConfig & { revalidateTag?: string }) => gqlServerRequest(GetUsersDocument.toString(), variables, next)

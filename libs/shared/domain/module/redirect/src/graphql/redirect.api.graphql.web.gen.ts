@@ -1,7 +1,8 @@
 import * as Types from '@codelab/shared/infra/gqlgen';
 
 import { gqlServerRequest } from '@codelab/shared/infra/fetch-server'
-import { CreateRedirectsDocument, DeleteRedirectsDocument, UpdateRedirectsDocument, GetRedirectsDocument, GetRedirectsPreviewDocument } from './redirect.api.graphql.docs.gen'
+import { CreateRedirectsDocument, DeleteRedirectsDocument, UpdateRedirectsDocument, GetRedirectsDocument, GetRedirectsPreviewDocument } from '@codelab/shared/infra/gqlgen'
+
 
 
 export const CreateRedirects = (variables: Types.CreateRedirectsMutationVariables ,next?: NextFetchRequestConfig & { revalidateTag?: string }) => gqlServerRequest(CreateRedirectsDocument.toString(), variables, next)

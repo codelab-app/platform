@@ -1,7 +1,8 @@
 import * as Types from '@codelab/shared/infra/gqlgen';
 
 import { gqlServerRequest } from '@codelab/shared/infra/fetch-server'
-import { CreateHooksDocument, DeleteHooksDocument } from './hook.api.graphql.docs.gen'
+import { CreateHooksDocument, DeleteHooksDocument } from '@codelab/shared/infra/gqlgen'
+
 
 
 export const CreateHooks = (variables: Types.CreateHooksMutationVariables ,next?: NextFetchRequestConfig & { revalidateTag?: string }) => gqlServerRequest(CreateHooksDocument.toString(), variables, next)

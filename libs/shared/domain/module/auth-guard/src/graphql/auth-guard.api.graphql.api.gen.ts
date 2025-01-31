@@ -2,8 +2,7 @@ import * as Types from '@codelab/shared/infra/gqlgen';
 
 import { gqlRequest } from '@codelab/shared/infra/fetch'
 import { GraphQLClient } from 'graphql-request'
-import { GetAuthGuardsDocument, CreateAuthGuardsDocument, UpdateAuthGuardDocument, DeleteAuthGuardsDocument } from './auth-guard.api.graphql.docs.gen'
-
+import { GetAuthGuardsDocument, CreateAuthGuardsDocument, UpdateAuthGuardDocument, DeleteAuthGuardsDocument } from '@codelab/shared/infra/gqlgen'
 
 export const getSdk = (client: GraphQLClient) => ({
 	GetAuthGuards : (variables: Types.GetAuthGuardsQueryVariables) => gqlRequest(client, GetAuthGuardsDocument.toString(), variables),

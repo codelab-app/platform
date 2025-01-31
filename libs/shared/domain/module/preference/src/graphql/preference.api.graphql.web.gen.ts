@@ -1,7 +1,8 @@
 import * as Types from '@codelab/shared/infra/gqlgen';
 
 import { gqlServerRequest } from '@codelab/shared/infra/fetch-server'
-import { CreatePreferencesDocument, DeletePreferencesDocument, GetPreferencesDocument, UpdatePreferencesDocument } from './preference.api.graphql.docs.gen'
+import { CreatePreferencesDocument, DeletePreferencesDocument, GetPreferencesDocument, UpdatePreferencesDocument } from '@codelab/shared/infra/gqlgen'
+
 
 
 export const CreatePreferences = (variables: Types.CreatePreferencesMutationVariables ,next?: NextFetchRequestConfig & { revalidateTag?: string }) => gqlServerRequest(CreatePreferencesDocument.toString(), variables, next)

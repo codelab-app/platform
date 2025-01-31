@@ -1,7 +1,8 @@
 import * as Types from '@codelab/shared/infra/gqlgen';
 
 import { gqlServerRequest } from '@codelab/shared/infra/fetch-server'
-import { CreatePrimitiveTypesDocument, CreateArrayTypesDocument, CreateUnionTypesDocument, CreateInterfaceTypesDocument, CreateElementTypesDocument, CreateRenderPropTypesDocument, CreateReactNodeTypesDocument, CreateEnumTypesDocument, CreateLambdaTypesDocument, CreatePageTypesDocument, CreateAppTypesDocument, CreateRichTextTypesDocument, CreateActionTypesDocument, CreateCodeMirrorTypesDocument } from './create-type.api.graphql.docs.gen'
+import { CreatePrimitiveTypesDocument, CreateArrayTypesDocument, CreateUnionTypesDocument, CreateInterfaceTypesDocument, CreateElementTypesDocument, CreateRenderPropTypesDocument, CreateReactNodeTypesDocument, CreateEnumTypesDocument, CreateLambdaTypesDocument, CreatePageTypesDocument, CreateAppTypesDocument, CreateRichTextTypesDocument, CreateActionTypesDocument, CreateCodeMirrorTypesDocument } from '@codelab/shared/infra/gqlgen'
+
 
 
 export const CreatePrimitiveTypes = (variables: Types.CreatePrimitiveTypesMutationVariables ,next?: NextFetchRequestConfig & { revalidateTag?: string }) => gqlServerRequest(CreatePrimitiveTypesDocument.toString(), variables, next)

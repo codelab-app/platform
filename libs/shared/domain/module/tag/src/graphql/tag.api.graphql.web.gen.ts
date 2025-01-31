@@ -1,7 +1,8 @@
 import * as Types from '@codelab/shared/infra/gqlgen';
 
 import { gqlServerRequest } from '@codelab/shared/infra/fetch-server'
-import { CreateTagsDocument, UpdateTagsDocument, DeleteTagsDocument, GetTagsDocument } from './tag.api.graphql.docs.gen'
+import { CreateTagsDocument, UpdateTagsDocument, DeleteTagsDocument, GetTagsDocument } from '@codelab/shared/infra/gqlgen'
+
 
 
 export const CreateTags = (variables: Types.CreateTagsMutationVariables ,next?: NextFetchRequestConfig & { revalidateTag?: string }) => gqlServerRequest(CreateTagsDocument.toString(), variables, next)

@@ -2,8 +2,7 @@ import * as Types from '@codelab/shared/infra/gqlgen';
 
 import { gqlRequest } from '@codelab/shared/infra/fetch'
 import { GraphQLClient } from 'graphql-request'
-import { DomainListDocument, CreateDomainsDocument, UpdateDomainsDocument, DeleteDomainsDocument } from './domain.api.graphql.docs.gen'
-
+import { DomainListDocument, CreateDomainsDocument, UpdateDomainsDocument, DeleteDomainsDocument } from '@codelab/shared/infra/gqlgen'
 
 export const getSdk = (client: GraphQLClient) => ({
 	DomainList : (variables: Types.DomainListQueryVariables) => gqlRequest(client, DomainListDocument.toString(), variables),

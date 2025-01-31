@@ -1,7 +1,8 @@
 import * as Types from '@codelab/shared/infra/gqlgen';
 
 import { gqlServerRequest } from '@codelab/shared/infra/fetch-server'
-import { DomainListDocument, CreateDomainsDocument, UpdateDomainsDocument, DeleteDomainsDocument } from './domain.api.graphql.docs.gen'
+import { DomainListDocument, CreateDomainsDocument, UpdateDomainsDocument, DeleteDomainsDocument } from '@codelab/shared/infra/gqlgen'
+
 
 
 export const DomainList = (variables: Types.DomainListQueryVariables ,next?: NextFetchRequestConfig & { revalidateTag?: string }) => gqlServerRequest(DomainListDocument.toString(), variables, next)

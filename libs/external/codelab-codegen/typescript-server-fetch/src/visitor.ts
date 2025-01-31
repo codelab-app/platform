@@ -57,10 +57,7 @@ export class ServerFetchVisitor extends BaseVisitor<
 
     return [
       `import { ${this.config.gqlFn} } from '${this.config.gqlFnPath}'`,
-      `import { ${documentImports} } from './${this._outputFile?.replace(
-        '.web.gen.ts',
-        '.docs.gen',
-      )}'`,
+      `import { ${documentImports} } from '@codelab/shared/infra/gqlgen'\n`,
       '\n',
     ]
   }

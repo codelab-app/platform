@@ -32,7 +32,6 @@
 /dist/libs/external/codelab-codegen/*
 !/dist/libs/external/codelab-codegen/typescript-fetch/
 !/dist/libs/external/codelab-codegen/typescript-server-fetch/
-!/dist/libs/external/codelab-codegen/client-preset-documents/
 
 tmp/
 out-tsc/

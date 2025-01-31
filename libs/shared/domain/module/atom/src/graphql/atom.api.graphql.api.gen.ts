@@ -2,8 +2,7 @@ import * as Types from '@codelab/shared/infra/gqlgen';
 
 import { gqlRequest } from '@codelab/shared/infra/fetch'
 import { GraphQLClient } from 'graphql-request'
-import { CreateAtomsDocument, DeleteAtomsDocument, AtomListDocument, GetSelectAtomOptionsDocument, UpdateAtomsDocument } from './atom.api.graphql.docs.gen'
-
+import { CreateAtomsDocument, DeleteAtomsDocument, AtomListDocument, GetSelectAtomOptionsDocument, UpdateAtomsDocument } from '@codelab/shared/infra/gqlgen'
 
 export const getSdk = (client: GraphQLClient) => ({
 	CreateAtoms : (variables: Types.CreateAtomsMutationVariables) => gqlRequest(client, CreateAtomsDocument.toString(), variables),

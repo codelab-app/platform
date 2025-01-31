@@ -58,11 +58,7 @@ export class FetchVisitor extends BaseVisitor<
     return [
       `import { ${this.config.gqlFn} } from '${this.config.gqlFnPath}'`,
       "import { GraphQLClient } from 'graphql-request'",
-      `import { ${documentImports} } from './${this._outputFile?.replace(
-        '.api.gen.ts',
-        '.docs.gen',
-      )}'`,
-      '\n',
+      `import { ${documentImports} } from '@codelab/shared/infra/gqlgen'\n`,
     ]
   }
 

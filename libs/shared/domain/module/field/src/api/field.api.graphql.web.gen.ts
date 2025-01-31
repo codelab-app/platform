@@ -1,7 +1,8 @@
 import * as Types from '@codelab/shared/infra/gqlgen';
 
 import { gqlServerRequest } from '@codelab/shared/infra/fetch-server'
-import { CreateFieldsDocument, UpdateFieldsDocument, DeleteFieldsDocument, GetFieldsDocument } from './field.api.graphql.docs.gen'
+import { CreateFieldsDocument, UpdateFieldsDocument, DeleteFieldsDocument, GetFieldsDocument } from '@codelab/shared/infra/gqlgen'
+
 
 
 export const CreateFields = (variables: Types.CreateFieldsMutationVariables ,next?: NextFetchRequestConfig & { revalidateTag?: string }) => gqlServerRequest(CreateFieldsDocument.toString(), variables, next)

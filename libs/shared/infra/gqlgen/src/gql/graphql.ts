@@ -25,6 +25,7 @@ export enum ActionKind {
 
 /** Allows picking a action from the list of actions */
 export type ActionType = IBaseType & {
+  __typename?: 'ActionType';
   fieldRefs: Array<Field>;
   fieldRefsAggregate?: Maybe<ActionTypeFieldFieldRefsAggregationSelection>;
   fieldRefsConnection: IBaseTypeFieldRefsConnection;
@@ -93,6 +94,7 @@ export type ActionTypeOwnerConnectionArgs = {
 };
 
 export type ActionTypeAggregateSelection = {
+  __typename?: 'ActionTypeAggregateSelection';
   count: Scalars['Int']['output'];
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -117,6 +119,7 @@ export type ActionTypeCreateInput = {
 };
 
 export type ActionTypeCreatedEvent = {
+  __typename?: 'ActionTypeCreatedEvent';
   createdActionType: ActionTypeEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -128,6 +131,7 @@ export type ActionTypeDeleteInput = {
 };
 
 export type ActionTypeDeletedEvent = {
+  __typename?: 'ActionTypeDeletedEvent';
   deletedActionType: ActionTypeEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -139,22 +143,26 @@ export type ActionTypeDisconnectInput = {
 };
 
 export type ActionTypeEdge = {
+  __typename?: 'ActionTypeEdge';
   cursor: Scalars['String']['output'];
   node: ActionType;
 };
 
 export type ActionTypeEventPayload = {
+  __typename?: 'ActionTypeEventPayload';
   id: Scalars['ID']['output'];
   kind: TypeKind;
   name: Scalars['String']['output'];
 };
 
 export type ActionTypeFieldFieldRefsAggregationSelection = {
+  __typename?: 'ActionTypeFieldFieldRefsAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<ActionTypeFieldFieldRefsNodeAggregateSelection>;
 };
 
 export type ActionTypeFieldFieldRefsNodeAggregateSelection = {
+  __typename?: 'ActionTypeFieldFieldRefsNodeAggregateSelection';
   defaultValues: StringAggregateSelection;
   description: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -482,6 +490,7 @@ export type ActionTypeUpdateInput = {
 };
 
 export type ActionTypeUpdatedEvent = {
+  __typename?: 'ActionTypeUpdatedEvent';
   event: EventType;
   previousState: ActionTypeEventPayload;
   timestamp: Scalars['Float']['output'];
@@ -489,11 +498,13 @@ export type ActionTypeUpdatedEvent = {
 };
 
 export type ActionTypeUserOwnerAggregationSelection = {
+  __typename?: 'ActionTypeUserOwnerAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<ActionTypeUserOwnerNodeAggregateSelection>;
 };
 
 export type ActionTypeUserOwnerNodeAggregateSelection = {
+  __typename?: 'ActionTypeUserOwnerNodeAggregateSelection';
   auth0Id: StringAggregateSelection;
   email: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -547,6 +558,7 @@ export type ActionTypeWhere = {
 };
 
 export type ActionTypesConnection = {
+  __typename?: 'ActionTypesConnection';
   edges: Array<ActionTypeEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -579,6 +591,7 @@ export type AnyTypeWhere = {
 };
 
 export type ApiAction = BaseAction & {
+  __typename?: 'ApiAction';
   config: Prop;
   configAggregate?: Maybe<ApiActionPropConfigAggregationSelection>;
   configConnection: ApiActionConfigConnection;
@@ -765,6 +778,7 @@ export type ApiActionSuccessActionConnectionArgs = {
 };
 
 export type ApiActionAggregateSelection = {
+  __typename?: 'ApiActionAggregateSelection';
   count: Scalars['Int']['output'];
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -795,6 +809,7 @@ export type ApiActionConfigConnectFieldInput = {
 };
 
 export type ApiActionConfigConnection = {
+  __typename?: 'ApiActionConfigConnection';
   edges: Array<ApiActionConfigRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -870,6 +885,7 @@ export type ApiActionConfigNodeAggregationWhereInput = {
 };
 
 export type ApiActionConfigRelationship = {
+  __typename?: 'ApiActionConfigRelationship';
   cursor: Scalars['String']['output'];
   node: Prop;
 };
@@ -915,6 +931,7 @@ export type ApiActionCreateInput = {
 };
 
 export type ApiActionCreatedEvent = {
+  __typename?: 'ApiActionCreatedEvent';
   createdApiAction: ApiActionEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -931,6 +948,7 @@ export type ApiActionDeleteInput = {
 };
 
 export type ApiActionDeletedEvent = {
+  __typename?: 'ApiActionDeletedEvent';
   deletedApiAction: ApiActionEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -947,16 +965,19 @@ export type ApiActionDisconnectInput = {
 };
 
 export type ApiActionEdge = {
+  __typename?: 'ApiActionEdge';
   cursor: Scalars['String']['output'];
   node: ApiAction;
 };
 
 export type ApiActionElementPostRenderElementAggregationSelection = {
+  __typename?: 'ApiActionElementPostRenderElementAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<ApiActionElementPostRenderElementNodeAggregateSelection>;
 };
 
 export type ApiActionElementPostRenderElementNodeAggregateSelection = {
+  __typename?: 'ApiActionElementPostRenderElementNodeAggregateSelection';
   childMapperPropKey: StringAggregateSelection;
   compositeKey: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -967,11 +988,13 @@ export type ApiActionElementPostRenderElementNodeAggregateSelection = {
 };
 
 export type ApiActionElementPreRenderElementAggregationSelection = {
+  __typename?: 'ApiActionElementPreRenderElementAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<ApiActionElementPreRenderElementNodeAggregateSelection>;
 };
 
 export type ApiActionElementPreRenderElementNodeAggregateSelection = {
+  __typename?: 'ApiActionElementPreRenderElementNodeAggregateSelection';
   childMapperPropKey: StringAggregateSelection;
   compositeKey: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -1075,6 +1098,7 @@ export type ApiActionErrorActionConnectInput = {
 };
 
 export type ApiActionErrorActionConnection = {
+  __typename?: 'ApiActionErrorActionConnection';
   edges: Array<ApiActionErrorActionRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -1101,6 +1125,7 @@ export type ApiActionErrorActionDisconnectInput = {
 };
 
 export type ApiActionErrorActionRelationship = {
+  __typename?: 'ApiActionErrorActionRelationship';
   cursor: Scalars['String']['output'];
   node: AnyAction;
 };
@@ -1111,6 +1136,7 @@ export type ApiActionErrorActionUpdateInput = {
 };
 
 export type ApiActionEventPayload = {
+  __typename?: 'ApiActionEventPayload';
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
   type: ActionKind;
@@ -1418,11 +1444,13 @@ export type ApiActionPreRenderElementUpdateFieldInput = {
 };
 
 export type ApiActionPropConfigAggregationSelection = {
+  __typename?: 'ApiActionPropConfigAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<ApiActionPropConfigNodeAggregateSelection>;
 };
 
 export type ApiActionPropConfigNodeAggregateSelection = {
+  __typename?: 'ApiActionPropConfigNodeAggregateSelection';
   data: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -1453,6 +1481,7 @@ export type ApiActionResourceConnectFieldInput = {
 };
 
 export type ApiActionResourceConnection = {
+  __typename?: 'ApiActionResourceConnection';
   edges: Array<ApiActionResourceRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -1530,16 +1559,19 @@ export type ApiActionResourceNodeAggregationWhereInput = {
 };
 
 export type ApiActionResourceRelationship = {
+  __typename?: 'ApiActionResourceRelationship';
   cursor: Scalars['String']['output'];
   node: Resource;
 };
 
 export type ApiActionResourceResourceAggregationSelection = {
+  __typename?: 'ApiActionResourceResourceAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<ApiActionResourceResourceNodeAggregateSelection>;
 };
 
 export type ApiActionResourceResourceNodeAggregateSelection = {
+  __typename?: 'ApiActionResourceResourceNodeAggregateSelection';
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
   name: StringAggregateSelection;
@@ -1640,11 +1672,13 @@ export type ApiActionStoreNodeAggregationWhereInput = {
 };
 
 export type ApiActionStoreStoreAggregationSelection = {
+  __typename?: 'ApiActionStoreStoreAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<ApiActionStoreStoreNodeAggregateSelection>;
 };
 
 export type ApiActionStoreStoreNodeAggregateSelection = {
+  __typename?: 'ApiActionStoreStoreNodeAggregateSelection';
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
   name: StringAggregateSelection;
@@ -1782,6 +1816,7 @@ export type ApiActionSuccessActionConnectInput = {
 };
 
 export type ApiActionSuccessActionConnection = {
+  __typename?: 'ApiActionSuccessActionConnection';
   edges: Array<ApiActionSuccessActionRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -1808,6 +1843,7 @@ export type ApiActionSuccessActionDisconnectInput = {
 };
 
 export type ApiActionSuccessActionRelationship = {
+  __typename?: 'ApiActionSuccessActionRelationship';
   cursor: Scalars['String']['output'];
   node: AnyAction;
 };
@@ -1837,6 +1873,7 @@ export type ApiActionUpdateInput = {
 };
 
 export type ApiActionUpdatedEvent = {
+  __typename?: 'ApiActionUpdatedEvent';
   event: EventType;
   previousState: ApiActionEventPayload;
   timestamp: Scalars['Float']['output'];
@@ -1888,12 +1925,14 @@ export type ApiActionWhere = {
 };
 
 export type ApiActionsConnection = {
+  __typename?: 'ApiActionsConnection';
   edges: Array<ApiActionEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
 };
 
 export type App = WithOwner & {
+  __typename?: 'App';
   compositeKey: Scalars['String']['output'];
   domains: Array<Domain>;
   domainsAggregate?: Maybe<AppDomainDomainsAggregationSelection>;
@@ -1985,6 +2024,7 @@ export type AppPagesConnectionArgs = {
 };
 
 export type AppAggregateSelection = {
+  __typename?: 'AppAggregateSelection';
   compositeKey: StringAggregateSelection;
   count: Scalars['Int']['output'];
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -2010,6 +2050,7 @@ export type AppCreateInput = {
 };
 
 export type AppCreatedEvent = {
+  __typename?: 'AppCreatedEvent';
   createdApp: AppEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -2022,6 +2063,7 @@ export type AppDeleteInput = {
 };
 
 export type AppDeletedEvent = {
+  __typename?: 'AppDeletedEvent';
   deletedApp: AppEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -2034,11 +2076,13 @@ export type AppDisconnectInput = {
 };
 
 export type AppDomainDomainsAggregationSelection = {
+  __typename?: 'AppDomainDomainsAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<AppDomainDomainsNodeAggregateSelection>;
 };
 
 export type AppDomainDomainsNodeAggregateSelection = {
+  __typename?: 'AppDomainDomainsNodeAggregateSelection';
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
   name: StringAggregateSelection;
@@ -2069,6 +2113,7 @@ export type AppDomainsConnectFieldInput = {
 };
 
 export type AppDomainsConnection = {
+  __typename?: 'AppDomainsConnection';
   edges: Array<AppDomainsRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -2146,6 +2191,7 @@ export type AppDomainsNodeAggregationWhereInput = {
 };
 
 export type AppDomainsRelationship = {
+  __typename?: 'AppDomainsRelationship';
   cursor: Scalars['String']['output'];
   node: Domain;
 };
@@ -2164,11 +2210,13 @@ export type AppDomainsUpdateFieldInput = {
 };
 
 export type AppEdge = {
+  __typename?: 'AppEdge';
   cursor: Scalars['String']['output'];
   node: App;
 };
 
 export type AppEventPayload = {
+  __typename?: 'AppEventPayload';
   compositeKey: Scalars['String']['output'];
   id: Scalars['ID']['output'];
 };
@@ -2298,11 +2346,13 @@ export type AppOwnerUpdateFieldInput = {
 };
 
 export type AppPagePagesAggregationSelection = {
+  __typename?: 'AppPagePagesAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<AppPagePagesNodeAggregateSelection>;
 };
 
 export type AppPagePagesNodeAggregateSelection = {
+  __typename?: 'AppPagePagesNodeAggregateSelection';
   compositeKey: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -2334,6 +2384,7 @@ export type AppPagesConnectFieldInput = {
 };
 
 export type AppPagesConnection = {
+  __typename?: 'AppPagesConnection';
   edges: Array<AppPagesRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -2426,6 +2477,7 @@ export type AppPagesNodeAggregationWhereInput = {
 };
 
 export type AppPagesRelationship = {
+  __typename?: 'AppPagesRelationship';
   cursor: Scalars['String']['output'];
   node: Page;
 };
@@ -2472,6 +2524,7 @@ export type AppSubscriptionWhere = {
 
 /** Allows picking a app from the list of apps */
 export type AppType = IBaseType & {
+  __typename?: 'AppType';
   fieldRefs: Array<Field>;
   fieldRefsAggregate?: Maybe<AppTypeFieldFieldRefsAggregationSelection>;
   fieldRefsConnection: IBaseTypeFieldRefsConnection;
@@ -2540,6 +2593,7 @@ export type AppTypeOwnerConnectionArgs = {
 };
 
 export type AppTypeAggregateSelection = {
+  __typename?: 'AppTypeAggregateSelection';
   count: Scalars['Int']['output'];
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -2564,6 +2618,7 @@ export type AppTypeCreateInput = {
 };
 
 export type AppTypeCreatedEvent = {
+  __typename?: 'AppTypeCreatedEvent';
   createdAppType: AppTypeEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -2575,6 +2630,7 @@ export type AppTypeDeleteInput = {
 };
 
 export type AppTypeDeletedEvent = {
+  __typename?: 'AppTypeDeletedEvent';
   deletedAppType: AppTypeEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -2586,22 +2642,26 @@ export type AppTypeDisconnectInput = {
 };
 
 export type AppTypeEdge = {
+  __typename?: 'AppTypeEdge';
   cursor: Scalars['String']['output'];
   node: AppType;
 };
 
 export type AppTypeEventPayload = {
+  __typename?: 'AppTypeEventPayload';
   id: Scalars['ID']['output'];
   kind: TypeKind;
   name: Scalars['String']['output'];
 };
 
 export type AppTypeFieldFieldRefsAggregationSelection = {
+  __typename?: 'AppTypeFieldFieldRefsAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<AppTypeFieldFieldRefsNodeAggregateSelection>;
 };
 
 export type AppTypeFieldFieldRefsNodeAggregateSelection = {
+  __typename?: 'AppTypeFieldFieldRefsNodeAggregateSelection';
   defaultValues: StringAggregateSelection;
   description: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -2929,6 +2989,7 @@ export type AppTypeUpdateInput = {
 };
 
 export type AppTypeUpdatedEvent = {
+  __typename?: 'AppTypeUpdatedEvent';
   event: EventType;
   previousState: AppTypeEventPayload;
   timestamp: Scalars['Float']['output'];
@@ -2936,11 +2997,13 @@ export type AppTypeUpdatedEvent = {
 };
 
 export type AppTypeUserOwnerAggregationSelection = {
+  __typename?: 'AppTypeUserOwnerAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<AppTypeUserOwnerNodeAggregateSelection>;
 };
 
 export type AppTypeUserOwnerNodeAggregateSelection = {
+  __typename?: 'AppTypeUserOwnerNodeAggregateSelection';
   auth0Id: StringAggregateSelection;
   email: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -2994,6 +3057,7 @@ export type AppTypeWhere = {
 };
 
 export type AppTypesConnection = {
+  __typename?: 'AppTypesConnection';
   edges: Array<AppTypeEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -3009,6 +3073,7 @@ export type AppUpdateInput = {
 };
 
 export type AppUpdatedEvent = {
+  __typename?: 'AppUpdatedEvent';
   event: EventType;
   previousState: AppEventPayload;
   timestamp: Scalars['Float']['output'];
@@ -3016,11 +3081,13 @@ export type AppUpdatedEvent = {
 };
 
 export type AppUserOwnerAggregationSelection = {
+  __typename?: 'AppUserOwnerAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<AppUserOwnerNodeAggregateSelection>;
 };
 
 export type AppUserOwnerNodeAggregateSelection = {
+  __typename?: 'AppUserOwnerNodeAggregateSelection';
   auth0Id: StringAggregateSelection;
   email: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -3087,6 +3154,7 @@ export type AppWhere = {
 };
 
 export type AppsConnection = {
+  __typename?: 'AppsConnection';
   edges: Array<AppEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -3097,6 +3165,7 @@ export type AppsConnection = {
  * Contains a reference to another type which is the array item type.
  */
 export type ArrayType = IBaseType & WithDescendants & {
+  __typename?: 'ArrayType';
   descendantTypesIds: Array<Scalars['ID']['output']>;
   fieldRefs: Array<Field>;
   fieldRefsAggregate?: Maybe<ArrayTypeFieldFieldRefsAggregationSelection>;
@@ -3224,6 +3293,7 @@ export type ArrayTypeOwnerConnectionArgs = {
 };
 
 export type ArrayTypeAggregateSelection = {
+  __typename?: 'ArrayTypeAggregateSelection';
   count: Scalars['Int']['output'];
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -3250,6 +3320,7 @@ export type ArrayTypeCreateInput = {
 };
 
 export type ArrayTypeCreatedEvent = {
+  __typename?: 'ArrayTypeCreatedEvent';
   createdArrayType: ArrayTypeEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -3262,6 +3333,7 @@ export type ArrayTypeDeleteInput = {
 };
 
 export type ArrayTypeDeletedEvent = {
+  __typename?: 'ArrayTypeDeletedEvent';
   deletedArrayType: ArrayTypeEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -3274,22 +3346,26 @@ export type ArrayTypeDisconnectInput = {
 };
 
 export type ArrayTypeEdge = {
+  __typename?: 'ArrayTypeEdge';
   cursor: Scalars['String']['output'];
   node: ArrayType;
 };
 
 export type ArrayTypeEventPayload = {
+  __typename?: 'ArrayTypeEventPayload';
   id: Scalars['ID']['output'];
   kind: TypeKind;
   name: Scalars['String']['output'];
 };
 
 export type ArrayTypeFieldFieldRefsAggregationSelection = {
+  __typename?: 'ArrayTypeFieldFieldRefsAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<ArrayTypeFieldFieldRefsNodeAggregateSelection>;
 };
 
 export type ArrayTypeFieldFieldRefsNodeAggregateSelection = {
+  __typename?: 'ArrayTypeFieldFieldRefsNodeAggregateSelection';
   defaultValues: StringAggregateSelection;
   description: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -3447,11 +3523,13 @@ export type ArrayTypeFieldRefsUpdateFieldInput = {
 };
 
 export type ArrayTypeIBaseTypeItemTypeAggregationSelection = {
+  __typename?: 'ArrayTypeIBaseTypeItemTypeAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<ArrayTypeIBaseTypeItemTypeNodeAggregateSelection>;
 };
 
 export type ArrayTypeIBaseTypeItemTypeNodeAggregateSelection = {
+  __typename?: 'ArrayTypeIBaseTypeItemTypeNodeAggregateSelection';
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
   name: StringAggregateSelection;
@@ -3477,6 +3555,7 @@ export type ArrayTypeItemTypeConnectFieldInput = {
 };
 
 export type ArrayTypeItemTypeConnection = {
+  __typename?: 'ArrayTypeItemTypeConnection';
   edges: Array<ArrayTypeItemTypeRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -3554,6 +3633,7 @@ export type ArrayTypeItemTypeNodeAggregationWhereInput = {
 };
 
 export type ArrayTypeItemTypeRelationship = {
+  __typename?: 'ArrayTypeItemTypeRelationship';
   cursor: Scalars['String']['output'];
   node: IBaseType;
 };
@@ -3743,6 +3823,7 @@ export type ArrayTypeUpdateInput = {
 };
 
 export type ArrayTypeUpdatedEvent = {
+  __typename?: 'ArrayTypeUpdatedEvent';
   event: EventType;
   previousState: ArrayTypeEventPayload;
   timestamp: Scalars['Float']['output'];
@@ -3750,11 +3831,13 @@ export type ArrayTypeUpdatedEvent = {
 };
 
 export type ArrayTypeUserOwnerAggregationSelection = {
+  __typename?: 'ArrayTypeUserOwnerAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<ArrayTypeUserOwnerNodeAggregateSelection>;
 };
 
 export type ArrayTypeUserOwnerNodeAggregateSelection = {
+  __typename?: 'ArrayTypeUserOwnerNodeAggregateSelection';
   auth0Id: StringAggregateSelection;
   email: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -3811,12 +3894,14 @@ export type ArrayTypeWhere = {
 };
 
 export type ArrayTypesConnection = {
+  __typename?: 'ArrayTypesConnection';
   edges: Array<ArrayTypeEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
 };
 
 export type Atom = WithOwner & {
+  __typename?: 'Atom';
   api: InterfaceType;
   apiAggregate?: Maybe<AtomInterfaceTypeApiAggregationSelection>;
   apiConnection: AtomApiConnection;
@@ -3995,6 +4080,7 @@ export type AtomTagsConnectionArgs = {
 };
 
 export type AtomAggregateSelection = {
+  __typename?: 'AtomAggregateSelection';
   count: Scalars['Int']['output'];
   externalCssSource: StringAggregateSelection;
   externalJsSource: StringAggregateSelection;
@@ -4030,6 +4116,7 @@ export type AtomApiConnectFieldInput = {
 };
 
 export type AtomApiConnection = {
+  __typename?: 'AtomApiConnection';
   edges: Array<AtomApiRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -4107,6 +4194,7 @@ export type AtomApiNodeAggregationWhereInput = {
 };
 
 export type AtomApiRelationship = {
+  __typename?: 'AtomApiRelationship';
   cursor: Scalars['String']['output'];
   node: InterfaceType;
 };
@@ -4125,11 +4213,13 @@ export type AtomApiUpdateFieldInput = {
 };
 
 export type AtomAtomRequiredParentsAggregationSelection = {
+  __typename?: 'AtomAtomRequiredParentsAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<AtomAtomRequiredParentsNodeAggregateSelection>;
 };
 
 export type AtomAtomRequiredParentsNodeAggregateSelection = {
+  __typename?: 'AtomAtomRequiredParentsNodeAggregateSelection';
   externalCssSource: StringAggregateSelection;
   externalJsSource: StringAggregateSelection;
   externalSourceType: StringAggregateSelection;
@@ -4140,11 +4230,13 @@ export type AtomAtomRequiredParentsNodeAggregateSelection = {
 };
 
 export type AtomAtomSuggestedChildrenAggregationSelection = {
+  __typename?: 'AtomAtomSuggestedChildrenAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<AtomAtomSuggestedChildrenNodeAggregateSelection>;
 };
 
 export type AtomAtomSuggestedChildrenNodeAggregateSelection = {
+  __typename?: 'AtomAtomSuggestedChildrenNodeAggregateSelection';
   externalCssSource: StringAggregateSelection;
   externalJsSource: StringAggregateSelection;
   externalSourceType: StringAggregateSelection;
@@ -4184,6 +4276,7 @@ export type AtomCreateInput = {
 };
 
 export type AtomCreatedEvent = {
+  __typename?: 'AtomCreatedEvent';
   createdAtom: AtomEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -4199,6 +4292,7 @@ export type AtomDeleteInput = {
 };
 
 export type AtomDeletedEvent = {
+  __typename?: 'AtomDeletedEvent';
   deletedAtom: AtomEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -4214,16 +4308,19 @@ export type AtomDisconnectInput = {
 };
 
 export type AtomEdge = {
+  __typename?: 'AtomEdge';
   cursor: Scalars['String']['output'];
   node: Atom;
 };
 
 export type AtomElementElementsAggregationSelection = {
+  __typename?: 'AtomElementElementsAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<AtomElementElementsNodeAggregateSelection>;
 };
 
 export type AtomElementElementsNodeAggregateSelection = {
+  __typename?: 'AtomElementElementsNodeAggregateSelection';
   childMapperPropKey: StringAggregateSelection;
   compositeKey: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -4258,6 +4355,7 @@ export type AtomElementsConnectFieldInput = {
 };
 
 export type AtomElementsConnection = {
+  __typename?: 'AtomElementsConnection';
   edges: Array<AtomElementsRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -4395,6 +4493,7 @@ export type AtomElementsNodeAggregationWhereInput = {
 };
 
 export type AtomElementsRelationship = {
+  __typename?: 'AtomElementsRelationship';
   cursor: Scalars['String']['output'];
   node: Element;
 };
@@ -4413,6 +4512,7 @@ export type AtomElementsUpdateFieldInput = {
 };
 
 export type AtomEventPayload = {
+  __typename?: 'AtomEventPayload';
   externalCssSource?: Maybe<Scalars['String']['output']>;
   externalJsSource?: Maybe<Scalars['String']['output']>;
   externalSourceType?: Maybe<Scalars['String']['output']>;
@@ -4423,11 +4523,13 @@ export type AtomEventPayload = {
 };
 
 export type AtomInterfaceTypeApiAggregationSelection = {
+  __typename?: 'AtomInterfaceTypeApiAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<AtomInterfaceTypeApiNodeAggregateSelection>;
 };
 
 export type AtomInterfaceTypeApiNodeAggregateSelection = {
+  __typename?: 'AtomInterfaceTypeApiNodeAggregateSelection';
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
   name: StringAggregateSelection;
@@ -4582,6 +4684,7 @@ export type AtomRequiredParentsConnectFieldInput = {
 };
 
 export type AtomRequiredParentsConnection = {
+  __typename?: 'AtomRequiredParentsConnection';
   edges: Array<AtomRequiredParentsRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -4719,6 +4822,7 @@ export type AtomRequiredParentsNodeAggregationWhereInput = {
 };
 
 export type AtomRequiredParentsRelationship = {
+  __typename?: 'AtomRequiredParentsRelationship';
   cursor: Scalars['String']['output'];
   node: Atom;
 };
@@ -4829,6 +4933,7 @@ export type AtomSuggestedChildrenConnectFieldInput = {
 };
 
 export type AtomSuggestedChildrenConnection = {
+  __typename?: 'AtomSuggestedChildrenConnection';
   edges: Array<AtomSuggestedChildrenRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -4966,6 +5071,7 @@ export type AtomSuggestedChildrenNodeAggregationWhereInput = {
 };
 
 export type AtomSuggestedChildrenRelationship = {
+  __typename?: 'AtomSuggestedChildrenRelationship';
   cursor: Scalars['String']['output'];
   node: Atom;
 };
@@ -4984,11 +5090,13 @@ export type AtomSuggestedChildrenUpdateFieldInput = {
 };
 
 export type AtomTagTagsAggregationSelection = {
+  __typename?: 'AtomTagTagsAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<AtomTagTagsNodeAggregateSelection>;
 };
 
 export type AtomTagTagsNodeAggregateSelection = {
+  __typename?: 'AtomTagTagsNodeAggregateSelection';
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
   name: StringAggregateSelection;
@@ -5019,6 +5127,7 @@ export type AtomTagsConnectFieldInput = {
 };
 
 export type AtomTagsConnection = {
+  __typename?: 'AtomTagsConnection';
   edges: Array<AtomTagsRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -5096,6 +5205,7 @@ export type AtomTagsNodeAggregationWhereInput = {
 };
 
 export type AtomTagsRelationship = {
+  __typename?: 'AtomTagsRelationship';
   cursor: Scalars['String']['output'];
   node: Tag;
 };
@@ -5520,6 +5630,7 @@ export type AtomUpdateInput = {
 };
 
 export type AtomUpdatedEvent = {
+  __typename?: 'AtomUpdatedEvent';
   event: EventType;
   previousState: AtomEventPayload;
   timestamp: Scalars['Float']['output'];
@@ -5527,11 +5638,13 @@ export type AtomUpdatedEvent = {
 };
 
 export type AtomUserOwnerAggregationSelection = {
+  __typename?: 'AtomUserOwnerAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<AtomUserOwnerNodeAggregateSelection>;
 };
 
 export type AtomUserOwnerNodeAggregateSelection = {
+  __typename?: 'AtomUserOwnerNodeAggregateSelection';
   auth0Id: StringAggregateSelection;
   email: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -5671,12 +5784,14 @@ export type AtomWhere = {
 };
 
 export type AtomsConnection = {
+  __typename?: 'AtomsConnection';
   edges: Array<AtomEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
 };
 
 export type AuthGuard = WithOwner & {
+  __typename?: 'AuthGuard';
   config: Prop;
   configAggregate?: Maybe<AuthGuardPropConfigAggregationSelection>;
   configConnection: AuthGuardConfigConnection;
@@ -5767,6 +5882,7 @@ export type AuthGuardResourceConnectionArgs = {
 };
 
 export type AuthGuardAggregateSelection = {
+  __typename?: 'AuthGuardAggregateSelection';
   count: Scalars['Int']['output'];
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -5798,6 +5914,7 @@ export type AuthGuardConfigConnectFieldInput = {
 };
 
 export type AuthGuardConfigConnection = {
+  __typename?: 'AuthGuardConfigConnection';
   edges: Array<AuthGuardConfigRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -5873,6 +5990,7 @@ export type AuthGuardConfigNodeAggregationWhereInput = {
 };
 
 export type AuthGuardConfigRelationship = {
+  __typename?: 'AuthGuardConfigRelationship';
   cursor: Scalars['String']['output'];
   node: Prop;
 };
@@ -5910,6 +6028,7 @@ export type AuthGuardCreateInput = {
 };
 
 export type AuthGuardCreatedEvent = {
+  __typename?: 'AuthGuardCreatedEvent';
   createdAuthGuard: AuthGuardEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -5922,6 +6041,7 @@ export type AuthGuardDeleteInput = {
 };
 
 export type AuthGuardDeletedEvent = {
+  __typename?: 'AuthGuardDeletedEvent';
   deletedAuthGuard: AuthGuardEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -5934,11 +6054,13 @@ export type AuthGuardDisconnectInput = {
 };
 
 export type AuthGuardEdge = {
+  __typename?: 'AuthGuardEdge';
   cursor: Scalars['String']['output'];
   node: AuthGuard;
 };
 
 export type AuthGuardEventPayload = {
+  __typename?: 'AuthGuardEventPayload';
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
   responseTransformer: Scalars['String']['output'];
@@ -6069,11 +6191,13 @@ export type AuthGuardOwnerUpdateFieldInput = {
 };
 
 export type AuthGuardPropConfigAggregationSelection = {
+  __typename?: 'AuthGuardPropConfigAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<AuthGuardPropConfigNodeAggregateSelection>;
 };
 
 export type AuthGuardPropConfigNodeAggregateSelection = {
+  __typename?: 'AuthGuardPropConfigNodeAggregateSelection';
   data: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -6104,6 +6228,7 @@ export type AuthGuardResourceConnectFieldInput = {
 };
 
 export type AuthGuardResourceConnection = {
+  __typename?: 'AuthGuardResourceConnection';
   edges: Array<AuthGuardResourceRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -6181,16 +6306,19 @@ export type AuthGuardResourceNodeAggregationWhereInput = {
 };
 
 export type AuthGuardResourceRelationship = {
+  __typename?: 'AuthGuardResourceRelationship';
   cursor: Scalars['String']['output'];
   node: Resource;
 };
 
 export type AuthGuardResourceResourceAggregationSelection = {
+  __typename?: 'AuthGuardResourceResourceAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<AuthGuardResourceResourceNodeAggregateSelection>;
 };
 
 export type AuthGuardResourceResourceNodeAggregateSelection = {
+  __typename?: 'AuthGuardResourceResourceNodeAggregateSelection';
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
   name: StringAggregateSelection;
@@ -6258,6 +6386,7 @@ export type AuthGuardUpdateInput = {
 };
 
 export type AuthGuardUpdatedEvent = {
+  __typename?: 'AuthGuardUpdatedEvent';
   event: EventType;
   previousState: AuthGuardEventPayload;
   timestamp: Scalars['Float']['output'];
@@ -6265,11 +6394,13 @@ export type AuthGuardUpdatedEvent = {
 };
 
 export type AuthGuardUserOwnerAggregationSelection = {
+  __typename?: 'AuthGuardUserOwnerAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<AuthGuardUserOwnerNodeAggregateSelection>;
 };
 
 export type AuthGuardUserOwnerNodeAggregateSelection = {
+  __typename?: 'AuthGuardUserOwnerNodeAggregateSelection';
   auth0Id: StringAggregateSelection;
   email: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -6316,6 +6447,7 @@ export type AuthGuardWhere = {
 };
 
 export type AuthGuardsConnection = {
+  __typename?: 'AuthGuardsConnection';
   edges: Array<AuthGuardEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -6385,6 +6517,7 @@ export type BaseActionStoreConnectionArgs = {
 };
 
 export type BaseActionAggregateSelection = {
+  __typename?: 'BaseActionAggregateSelection';
   count: Scalars['Int']['output'];
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -6419,6 +6552,7 @@ export type BaseActionDisconnectInput = {
 };
 
 export type BaseActionEdge = {
+  __typename?: 'BaseActionEdge';
   cursor: Scalars['String']['output'];
   node: BaseAction;
 };
@@ -6460,6 +6594,7 @@ export type BaseActionPostRenderElementConnectFieldInput = {
 };
 
 export type BaseActionPostRenderElementConnection = {
+  __typename?: 'BaseActionPostRenderElementConnection';
   edges: Array<BaseActionPostRenderElementRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -6592,6 +6727,7 @@ export type BaseActionPostRenderElementNodeAggregationWhereInput = {
 };
 
 export type BaseActionPostRenderElementRelationship = {
+  __typename?: 'BaseActionPostRenderElementRelationship';
   cursor: Scalars['String']['output'];
   node: Element;
 };
@@ -6634,6 +6770,7 @@ export type BaseActionPreRenderElementConnectFieldInput = {
 };
 
 export type BaseActionPreRenderElementConnection = {
+  __typename?: 'BaseActionPreRenderElementConnection';
   edges: Array<BaseActionPreRenderElementRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -6766,6 +6903,7 @@ export type BaseActionPreRenderElementNodeAggregationWhereInput = {
 };
 
 export type BaseActionPreRenderElementRelationship = {
+  __typename?: 'BaseActionPreRenderElementRelationship';
   cursor: Scalars['String']['output'];
   node: Element;
 };
@@ -6815,6 +6953,7 @@ export type BaseActionStoreConnectFieldInput = {
 };
 
 export type BaseActionStoreConnection = {
+  __typename?: 'BaseActionStoreConnection';
   edges: Array<BaseActionStoreRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -6887,6 +7026,7 @@ export type BaseActionStoreNodeAggregationWhereInput = {
 };
 
 export type BaseActionStoreRelationship = {
+  __typename?: 'BaseActionStoreRelationship';
   cursor: Scalars['String']['output'];
   node: Store;
 };
@@ -6954,6 +7094,7 @@ export type BaseActionWhere = {
 };
 
 export type BaseActionsConnection = {
+  __typename?: 'BaseActionsConnection';
   edges: Array<BaseActionEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -6967,6 +7108,7 @@ export enum BreakpointType {
 }
 
 export type CodeAction = BaseAction & {
+  __typename?: 'CodeAction';
   /** Code to run when action is triggered */
   code: Scalars['String']['output'];
   id: Scalars['ID']['output'];
@@ -7059,6 +7201,7 @@ export type CodeActionStoreConnectionArgs = {
 };
 
 export type CodeActionAggregateSelection = {
+  __typename?: 'CodeActionAggregateSelection';
   code: StringAggregateSelection;
   count: Scalars['Int']['output'];
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -7087,6 +7230,7 @@ export type CodeActionCreateInput = {
 };
 
 export type CodeActionCreatedEvent = {
+  __typename?: 'CodeActionCreatedEvent';
   createdCodeAction: CodeActionEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -7099,6 +7243,7 @@ export type CodeActionDeleteInput = {
 };
 
 export type CodeActionDeletedEvent = {
+  __typename?: 'CodeActionDeletedEvent';
   deletedCodeAction: CodeActionEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -7111,16 +7256,19 @@ export type CodeActionDisconnectInput = {
 };
 
 export type CodeActionEdge = {
+  __typename?: 'CodeActionEdge';
   cursor: Scalars['String']['output'];
   node: CodeAction;
 };
 
 export type CodeActionElementPostRenderElementAggregationSelection = {
+  __typename?: 'CodeActionElementPostRenderElementAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<CodeActionElementPostRenderElementNodeAggregateSelection>;
 };
 
 export type CodeActionElementPostRenderElementNodeAggregateSelection = {
+  __typename?: 'CodeActionElementPostRenderElementNodeAggregateSelection';
   childMapperPropKey: StringAggregateSelection;
   compositeKey: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -7131,11 +7279,13 @@ export type CodeActionElementPostRenderElementNodeAggregateSelection = {
 };
 
 export type CodeActionElementPreRenderElementAggregationSelection = {
+  __typename?: 'CodeActionElementPreRenderElementAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<CodeActionElementPreRenderElementNodeAggregateSelection>;
 };
 
 export type CodeActionElementPreRenderElementNodeAggregateSelection = {
+  __typename?: 'CodeActionElementPreRenderElementNodeAggregateSelection';
   childMapperPropKey: StringAggregateSelection;
   compositeKey: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -7146,6 +7296,7 @@ export type CodeActionElementPreRenderElementNodeAggregateSelection = {
 };
 
 export type CodeActionEventPayload = {
+  __typename?: 'CodeActionEventPayload';
   /** Code to run when action is triggered */
   code: Scalars['String']['output'];
   id: Scalars['ID']['output'];
@@ -7537,11 +7688,13 @@ export type CodeActionStoreNodeAggregationWhereInput = {
 };
 
 export type CodeActionStoreStoreAggregationSelection = {
+  __typename?: 'CodeActionStoreStoreAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<CodeActionStoreStoreNodeAggregateSelection>;
 };
 
 export type CodeActionStoreStoreNodeAggregateSelection = {
+  __typename?: 'CodeActionStoreStoreNodeAggregateSelection';
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
   name: StringAggregateSelection;
@@ -7612,6 +7765,7 @@ export type CodeActionUpdateInput = {
 };
 
 export type CodeActionUpdatedEvent = {
+  __typename?: 'CodeActionUpdatedEvent';
   event: EventType;
   previousState: CodeActionEventPayload;
   timestamp: Scalars['Float']['output'];
@@ -7661,6 +7815,7 @@ export type CodeActionWhere = {
 };
 
 export type CodeActionsConnection = {
+  __typename?: 'CodeActionsConnection';
   edges: Array<CodeActionEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -7677,6 +7832,7 @@ export enum CodeMirrorLanguage {
 
 /** Allows editing the value using a code mirror editor */
 export type CodeMirrorType = IBaseType & {
+  __typename?: 'CodeMirrorType';
   fieldRefs: Array<Field>;
   fieldRefsAggregate?: Maybe<CodeMirrorTypeFieldFieldRefsAggregationSelection>;
   fieldRefsConnection: IBaseTypeFieldRefsConnection;
@@ -7746,6 +7902,7 @@ export type CodeMirrorTypeOwnerConnectionArgs = {
 };
 
 export type CodeMirrorTypeAggregateSelection = {
+  __typename?: 'CodeMirrorTypeAggregateSelection';
   count: Scalars['Int']['output'];
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -7771,6 +7928,7 @@ export type CodeMirrorTypeCreateInput = {
 };
 
 export type CodeMirrorTypeCreatedEvent = {
+  __typename?: 'CodeMirrorTypeCreatedEvent';
   createdCodeMirrorType: CodeMirrorTypeEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -7782,6 +7940,7 @@ export type CodeMirrorTypeDeleteInput = {
 };
 
 export type CodeMirrorTypeDeletedEvent = {
+  __typename?: 'CodeMirrorTypeDeletedEvent';
   deletedCodeMirrorType: CodeMirrorTypeEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -7793,11 +7952,13 @@ export type CodeMirrorTypeDisconnectInput = {
 };
 
 export type CodeMirrorTypeEdge = {
+  __typename?: 'CodeMirrorTypeEdge';
   cursor: Scalars['String']['output'];
   node: CodeMirrorType;
 };
 
 export type CodeMirrorTypeEventPayload = {
+  __typename?: 'CodeMirrorTypeEventPayload';
   id: Scalars['ID']['output'];
   kind: TypeKind;
   language: CodeMirrorLanguage;
@@ -7805,11 +7966,13 @@ export type CodeMirrorTypeEventPayload = {
 };
 
 export type CodeMirrorTypeFieldFieldRefsAggregationSelection = {
+  __typename?: 'CodeMirrorTypeFieldFieldRefsAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<CodeMirrorTypeFieldFieldRefsNodeAggregateSelection>;
 };
 
 export type CodeMirrorTypeFieldFieldRefsNodeAggregateSelection = {
+  __typename?: 'CodeMirrorTypeFieldFieldRefsNodeAggregateSelection';
   defaultValues: StringAggregateSelection;
   description: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -8145,6 +8308,7 @@ export type CodeMirrorTypeUpdateInput = {
 };
 
 export type CodeMirrorTypeUpdatedEvent = {
+  __typename?: 'CodeMirrorTypeUpdatedEvent';
   event: EventType;
   previousState: CodeMirrorTypeEventPayload;
   timestamp: Scalars['Float']['output'];
@@ -8152,11 +8316,13 @@ export type CodeMirrorTypeUpdatedEvent = {
 };
 
 export type CodeMirrorTypeUserOwnerAggregationSelection = {
+  __typename?: 'CodeMirrorTypeUserOwnerAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<CodeMirrorTypeUserOwnerNodeAggregateSelection>;
 };
 
 export type CodeMirrorTypeUserOwnerNodeAggregateSelection = {
+  __typename?: 'CodeMirrorTypeUserOwnerNodeAggregateSelection';
   auth0Id: StringAggregateSelection;
   email: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -8214,12 +8380,14 @@ export type CodeMirrorTypeWhere = {
 };
 
 export type CodeMirrorTypesConnection = {
+  __typename?: 'CodeMirrorTypesConnection';
   edges: Array<CodeMirrorTypeEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
 };
 
 export type Component = WithOwner & {
+  __typename?: 'Component';
   api: InterfaceType;
   apiAggregate?: Maybe<ComponentInterfaceTypeApiAggregationSelection>;
   apiConnection: ComponentApiConnection;
@@ -8368,6 +8536,7 @@ export type ComponentStoreConnectionArgs = {
 };
 
 export type ComponentAggregateSelection = {
+  __typename?: 'ComponentAggregateSelection';
   compositeKey: StringAggregateSelection;
   count: Scalars['Int']['output'];
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -8399,6 +8568,7 @@ export type ComponentApiConnectFieldInput = {
 };
 
 export type ComponentApiConnection = {
+  __typename?: 'ComponentApiConnection';
   edges: Array<ComponentApiRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -8476,6 +8646,7 @@ export type ComponentApiNodeAggregationWhereInput = {
 };
 
 export type ComponentApiRelationship = {
+  __typename?: 'ComponentApiRelationship';
   cursor: Scalars['String']['output'];
   node: InterfaceType;
 };
@@ -8516,6 +8687,7 @@ export type ComponentCreateInput = {
 };
 
 export type ComponentCreatedEvent = {
+  __typename?: 'ComponentCreatedEvent';
   createdComponent: ComponentEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -8530,6 +8702,7 @@ export type ComponentDeleteInput = {
 };
 
 export type ComponentDeletedEvent = {
+  __typename?: 'ComponentDeletedEvent';
   deletedComponent: ComponentEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -8544,16 +8717,19 @@ export type ComponentDisconnectInput = {
 };
 
 export type ComponentEdge = {
+  __typename?: 'ComponentEdge';
   cursor: Scalars['String']['output'];
   node: Component;
 };
 
 export type ComponentElementRootElementAggregationSelection = {
+  __typename?: 'ComponentElementRootElementAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<ComponentElementRootElementNodeAggregateSelection>;
 };
 
 export type ComponentElementRootElementNodeAggregateSelection = {
+  __typename?: 'ComponentElementRootElementNodeAggregateSelection';
   childMapperPropKey: StringAggregateSelection;
   compositeKey: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -8564,16 +8740,19 @@ export type ComponentElementRootElementNodeAggregateSelection = {
 };
 
 export type ComponentEventPayload = {
+  __typename?: 'ComponentEventPayload';
   compositeKey: Scalars['String']['output'];
   id: Scalars['ID']['output'];
 };
 
 export type ComponentInterfaceTypeApiAggregationSelection = {
+  __typename?: 'ComponentInterfaceTypeApiAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<ComponentInterfaceTypeApiNodeAggregateSelection>;
 };
 
 export type ComponentInterfaceTypeApiNodeAggregateSelection = {
+  __typename?: 'ComponentInterfaceTypeApiNodeAggregateSelection';
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
   name: StringAggregateSelection;
@@ -8704,11 +8883,13 @@ export type ComponentOwnerUpdateFieldInput = {
 };
 
 export type ComponentPropPropsAggregationSelection = {
+  __typename?: 'ComponentPropPropsAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<ComponentPropPropsNodeAggregateSelection>;
 };
 
 export type ComponentPropPropsNodeAggregateSelection = {
+  __typename?: 'ComponentPropPropsNodeAggregateSelection';
   data: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -8738,6 +8919,7 @@ export type ComponentPropsConnectFieldInput = {
 };
 
 export type ComponentPropsConnection = {
+  __typename?: 'ComponentPropsConnection';
   edges: Array<ComponentPropsRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -8813,6 +8995,7 @@ export type ComponentPropsNodeAggregationWhereInput = {
 };
 
 export type ComponentPropsRelationship = {
+  __typename?: 'ComponentPropsRelationship';
   cursor: Scalars['String']['output'];
   node: Prop;
 };
@@ -8855,6 +9038,7 @@ export type ComponentRootElementConnectFieldInput = {
 };
 
 export type ComponentRootElementConnection = {
+  __typename?: 'ComponentRootElementConnection';
   edges: Array<ComponentRootElementRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -8992,6 +9176,7 @@ export type ComponentRootElementNodeAggregationWhereInput = {
 };
 
 export type ComponentRootElementRelationship = {
+  __typename?: 'ComponentRootElementRelationship';
   cursor: Scalars['String']['output'];
   node: Element;
 };
@@ -9040,6 +9225,7 @@ export type ComponentStoreConnectFieldInput = {
 };
 
 export type ComponentStoreConnection = {
+  __typename?: 'ComponentStoreConnection';
   edges: Array<ComponentStoreRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -9117,16 +9303,19 @@ export type ComponentStoreNodeAggregationWhereInput = {
 };
 
 export type ComponentStoreRelationship = {
+  __typename?: 'ComponentStoreRelationship';
   cursor: Scalars['String']['output'];
   node: Store;
 };
 
 export type ComponentStoreStoreAggregationSelection = {
+  __typename?: 'ComponentStoreStoreAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<ComponentStoreStoreNodeAggregateSelection>;
 };
 
 export type ComponentStoreStoreNodeAggregateSelection = {
+  __typename?: 'ComponentStoreStoreNodeAggregateSelection';
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
   name: StringAggregateSelection;
@@ -9178,6 +9367,7 @@ export type ComponentUpdateInput = {
 };
 
 export type ComponentUpdatedEvent = {
+  __typename?: 'ComponentUpdatedEvent';
   event: EventType;
   previousState: ComponentEventPayload;
   timestamp: Scalars['Float']['output'];
@@ -9185,11 +9375,13 @@ export type ComponentUpdatedEvent = {
 };
 
 export type ComponentUserOwnerAggregationSelection = {
+  __typename?: 'ComponentUserOwnerAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<ComponentUserOwnerNodeAggregateSelection>;
 };
 
 export type ComponentUserOwnerNodeAggregateSelection = {
+  __typename?: 'ComponentUserOwnerNodeAggregateSelection';
   auth0Id: StringAggregateSelection;
   email: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -9234,6 +9426,7 @@ export type ComponentWhere = {
 };
 
 export type ComponentsConnection = {
+  __typename?: 'ComponentsConnection';
   edges: Array<ComponentEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -9247,188 +9440,225 @@ export type ContainerNodeWhere = {
 };
 
 export type CreateActionTypesMutationResponse = {
+  __typename?: 'CreateActionTypesMutationResponse';
   actionTypes: Array<ActionType>;
   info: CreateInfo;
 };
 
 export type CreateApiActionsMutationResponse = {
+  __typename?: 'CreateApiActionsMutationResponse';
   apiActions: Array<ApiAction>;
   info: CreateInfo;
 };
 
 export type CreateAppTypesMutationResponse = {
+  __typename?: 'CreateAppTypesMutationResponse';
   appTypes: Array<AppType>;
   info: CreateInfo;
 };
 
 export type CreateAppsMutationResponse = {
+  __typename?: 'CreateAppsMutationResponse';
   apps: Array<App>;
   info: CreateInfo;
 };
 
 export type CreateArrayTypesMutationResponse = {
+  __typename?: 'CreateArrayTypesMutationResponse';
   arrayTypes: Array<ArrayType>;
   info: CreateInfo;
 };
 
 export type CreateAtomsMutationResponse = {
+  __typename?: 'CreateAtomsMutationResponse';
   atoms: Array<Atom>;
   info: CreateInfo;
 };
 
 export type CreateAuthGuardsMutationResponse = {
+  __typename?: 'CreateAuthGuardsMutationResponse';
   authGuards: Array<AuthGuard>;
   info: CreateInfo;
 };
 
 export type CreateCodeActionsMutationResponse = {
+  __typename?: 'CreateCodeActionsMutationResponse';
   codeActions: Array<CodeAction>;
   info: CreateInfo;
 };
 
 export type CreateCodeMirrorTypesMutationResponse = {
+  __typename?: 'CreateCodeMirrorTypesMutationResponse';
   codeMirrorTypes: Array<CodeMirrorType>;
   info: CreateInfo;
 };
 
 export type CreateComponentsMutationResponse = {
+  __typename?: 'CreateComponentsMutationResponse';
   components: Array<Component>;
   info: CreateInfo;
 };
 
 export type CreateDomainsMutationResponse = {
+  __typename?: 'CreateDomainsMutationResponse';
   domains: Array<Domain>;
   info: CreateInfo;
 };
 
 export type CreateElementTypesMutationResponse = {
+  __typename?: 'CreateElementTypesMutationResponse';
   elementTypes: Array<ElementType>;
   info: CreateInfo;
 };
 
 export type CreateElementsMutationResponse = {
+  __typename?: 'CreateElementsMutationResponse';
   elements: Array<Element>;
   info: CreateInfo;
 };
 
 export type CreateEnumTypeValuesMutationResponse = {
+  __typename?: 'CreateEnumTypeValuesMutationResponse';
   enumTypeValues: Array<EnumTypeValue>;
   info: CreateInfo;
 };
 
 export type CreateEnumTypesMutationResponse = {
+  __typename?: 'CreateEnumTypesMutationResponse';
   enumTypes: Array<EnumType>;
   info: CreateInfo;
 };
 
 export type CreateFieldsMutationResponse = {
+  __typename?: 'CreateFieldsMutationResponse';
   fields: Array<Field>;
   info: CreateInfo;
 };
 
 export type CreateHooksMutationResponse = {
+  __typename?: 'CreateHooksMutationResponse';
   hooks: Array<Hook>;
   info: CreateInfo;
 };
 
 /** Information about the number of nodes and relationships created during a create mutation */
 export type CreateInfo = {
+  __typename?: 'CreateInfo';
   nodesCreated: Scalars['Int']['output'];
   relationshipsCreated: Scalars['Int']['output'];
 };
 
 export type CreateInterfaceTypesMutationResponse = {
+  __typename?: 'CreateInterfaceTypesMutationResponse';
   info: CreateInfo;
   interfaceTypes: Array<InterfaceType>;
 };
 
 export type CreateLambdaTypesMutationResponse = {
+  __typename?: 'CreateLambdaTypesMutationResponse';
   info: CreateInfo;
   lambdaTypes: Array<LambdaType>;
 };
 
 export type CreatePageTypesMutationResponse = {
+  __typename?: 'CreatePageTypesMutationResponse';
   info: CreateInfo;
   pageTypes: Array<PageType>;
 };
 
 export type CreatePagesMutationResponse = {
+  __typename?: 'CreatePagesMutationResponse';
   info: CreateInfo;
   pages: Array<Page>;
 };
 
 export type CreatePreferencesMutationResponse = {
+  __typename?: 'CreatePreferencesMutationResponse';
   info: CreateInfo;
   preferences: Array<Preference>;
 };
 
 export type CreatePrimitiveTypesMutationResponse = {
+  __typename?: 'CreatePrimitiveTypesMutationResponse';
   info: CreateInfo;
   primitiveTypes: Array<PrimitiveType>;
 };
 
 export type CreatePropsMutationResponse = {
+  __typename?: 'CreatePropsMutationResponse';
   info: CreateInfo;
   props: Array<Prop>;
 };
 
 export type CreateReactNodeTypesMutationResponse = {
+  __typename?: 'CreateReactNodeTypesMutationResponse';
   info: CreateInfo;
   reactNodeTypes: Array<ReactNodeType>;
 };
 
 export type CreateRedirectsMutationResponse = {
+  __typename?: 'CreateRedirectsMutationResponse';
   info: CreateInfo;
   redirects: Array<Redirect>;
 };
 
 export type CreateRenderPropTypesMutationResponse = {
+  __typename?: 'CreateRenderPropTypesMutationResponse';
   info: CreateInfo;
   renderPropTypes: Array<RenderPropType>;
 };
 
 export type CreateResourcesMutationResponse = {
+  __typename?: 'CreateResourcesMutationResponse';
   info: CreateInfo;
   resources: Array<Resource>;
 };
 
 export type CreateRichTextTypesMutationResponse = {
+  __typename?: 'CreateRichTextTypesMutationResponse';
   info: CreateInfo;
   richTextTypes: Array<RichTextType>;
 };
 
 export type CreateStoresMutationResponse = {
+  __typename?: 'CreateStoresMutationResponse';
   info: CreateInfo;
   stores: Array<Store>;
 };
 
 export type CreateTagsMutationResponse = {
+  __typename?: 'CreateTagsMutationResponse';
   info: CreateInfo;
   tags: Array<Tag>;
 };
 
 export type CreateTypeReferencesMutationResponse = {
+  __typename?: 'CreateTypeReferencesMutationResponse';
   info: CreateInfo;
   typeReferences: Array<TypeReference>;
 };
 
 export type CreateUnionTypesMutationResponse = {
+  __typename?: 'CreateUnionTypesMutationResponse';
   info: CreateInfo;
   unionTypes: Array<UnionType>;
 };
 
 export type CreateUsersMutationResponse = {
+  __typename?: 'CreateUsersMutationResponse';
   info: CreateInfo;
   users: Array<User>;
 };
 
 /** Information about the number of nodes and relationships deleted during a delete mutation */
 export type DeleteInfo = {
+  __typename?: 'DeleteInfo';
   nodesDeleted: Scalars['Int']['output'];
   relationshipsDeleted: Scalars['Int']['output'];
 };
 
 export type Domain = {
+  __typename?: 'Domain';
   app: App;
   appAggregate?: Maybe<DomainAppAppAggregationSelection>;
   appConnection: DomainAppConnection;
@@ -9463,6 +9693,7 @@ export type DomainAppConnectionArgs = {
 };
 
 export type DomainAggregateSelection = {
+  __typename?: 'DomainAggregateSelection';
   count: Scalars['Int']['output'];
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -9484,11 +9715,13 @@ export type DomainAppAggregateInput = {
 };
 
 export type DomainAppAppAggregationSelection = {
+  __typename?: 'DomainAppAppAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<DomainAppAppNodeAggregateSelection>;
 };
 
 export type DomainAppAppNodeAggregateSelection = {
+  __typename?: 'DomainAppAppNodeAggregateSelection';
   compositeKey: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -9505,6 +9738,7 @@ export type DomainAppConnectFieldInput = {
 };
 
 export type DomainAppConnection = {
+  __typename?: 'DomainAppConnection';
   edges: Array<DomainAppRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -9582,6 +9816,7 @@ export type DomainAppNodeAggregationWhereInput = {
 };
 
 export type DomainAppRelationship = {
+  __typename?: 'DomainAppRelationship';
   cursor: Scalars['String']['output'];
   node: App;
 };
@@ -9614,6 +9849,7 @@ export type DomainCreateInput = {
 };
 
 export type DomainCreatedEvent = {
+  __typename?: 'DomainCreatedEvent';
   createdDomain: DomainEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -9624,6 +9860,7 @@ export type DomainDeleteInput = {
 };
 
 export type DomainDeletedEvent = {
+  __typename?: 'DomainDeletedEvent';
   deletedDomain: DomainEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -9634,11 +9871,13 @@ export type DomainDisconnectInput = {
 };
 
 export type DomainEdge = {
+  __typename?: 'DomainEdge';
   cursor: Scalars['String']['output'];
   node: Domain;
 };
 
 export type DomainEventPayload = {
+  __typename?: 'DomainEventPayload';
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
 };
@@ -9685,6 +9924,7 @@ export type DomainUpdateInput = {
 };
 
 export type DomainUpdatedEvent = {
+  __typename?: 'DomainUpdatedEvent';
   event: EventType;
   previousState: DomainEventPayload;
   timestamp: Scalars['Float']['output'];
@@ -9716,12 +9956,14 @@ export type DomainWhere = {
 };
 
 export type DomainsConnection = {
+  __typename?: 'DomainsConnection';
   edges: Array<DomainEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
 };
 
 export type Element = {
+  __typename?: 'Element';
   childMapperComponent?: Maybe<Component>;
   childMapperComponentAggregate?: Maybe<ElementComponentChildMapperComponentAggregationSelection>;
   childMapperComponentConnection: ElementChildMapperComponentConnection;
@@ -10064,6 +10306,7 @@ export type ElementRenderTypeConnectionArgs = {
 };
 
 export type ElementAggregateSelection = {
+  __typename?: 'ElementAggregateSelection';
   childMapperPropKey: StringAggregateSelection;
   compositeKey: StringAggregateSelection;
   count: Scalars['Int']['output'];
@@ -10075,22 +10318,26 @@ export type ElementAggregateSelection = {
 };
 
 export type ElementBaseActionPostRenderActionsAggregationSelection = {
+  __typename?: 'ElementBaseActionPostRenderActionsAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<ElementBaseActionPostRenderActionsNodeAggregateSelection>;
 };
 
 export type ElementBaseActionPostRenderActionsNodeAggregateSelection = {
+  __typename?: 'ElementBaseActionPostRenderActionsNodeAggregateSelection';
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
   name: StringAggregateSelection;
 };
 
 export type ElementBaseActionPreRenderActionsAggregationSelection = {
+  __typename?: 'ElementBaseActionPreRenderActionsAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<ElementBaseActionPreRenderActionsNodeAggregateSelection>;
 };
 
 export type ElementBaseActionPreRenderActionsNodeAggregateSelection = {
+  __typename?: 'ElementBaseActionPreRenderActionsNodeAggregateSelection';
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
   name: StringAggregateSelection;
@@ -10121,6 +10368,7 @@ export type ElementChildMapperComponentConnectFieldInput = {
 };
 
 export type ElementChildMapperComponentConnection = {
+  __typename?: 'ElementChildMapperComponentConnection';
   edges: Array<ElementChildMapperComponentRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -10198,6 +10446,7 @@ export type ElementChildMapperComponentNodeAggregationWhereInput = {
 };
 
 export type ElementChildMapperComponentRelationship = {
+  __typename?: 'ElementChildMapperComponentRelationship';
   cursor: Scalars['String']['output'];
   node: Component;
 };
@@ -10240,6 +10489,7 @@ export type ElementChildMapperPreviousSiblingConnectFieldInput = {
 };
 
 export type ElementChildMapperPreviousSiblingConnection = {
+  __typename?: 'ElementChildMapperPreviousSiblingConnection';
   edges: Array<ElementChildMapperPreviousSiblingRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -10377,6 +10627,7 @@ export type ElementChildMapperPreviousSiblingNodeAggregationWhereInput = {
 };
 
 export type ElementChildMapperPreviousSiblingRelationship = {
+  __typename?: 'ElementChildMapperPreviousSiblingRelationship';
   cursor: Scalars['String']['output'];
   node: Element;
 };
@@ -10395,22 +10646,26 @@ export type ElementChildMapperPreviousSiblingUpdateFieldInput = {
 };
 
 export type ElementComponentChildMapperComponentAggregationSelection = {
+  __typename?: 'ElementComponentChildMapperComponentAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<ElementComponentChildMapperComponentNodeAggregateSelection>;
 };
 
 export type ElementComponentChildMapperComponentNodeAggregateSelection = {
+  __typename?: 'ElementComponentChildMapperComponentNodeAggregateSelection';
   compositeKey: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
 };
 
 export type ElementComponentParentComponentAggregationSelection = {
+  __typename?: 'ElementComponentParentComponentAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<ElementComponentParentComponentNodeAggregateSelection>;
 };
 
 export type ElementComponentParentComponentNodeAggregateSelection = {
+  __typename?: 'ElementComponentParentComponentNodeAggregateSelection';
   compositeKey: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -10459,6 +10714,7 @@ export type ElementCreateInput = {
 };
 
 export type ElementCreatedEvent = {
+  __typename?: 'ElementCreatedEvent';
   createdElement: ElementEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -10480,6 +10736,7 @@ export type ElementDeleteInput = {
 };
 
 export type ElementDeletedEvent = {
+  __typename?: 'ElementDeletedEvent';
   deletedElement: ElementEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -10501,16 +10758,19 @@ export type ElementDisconnectInput = {
 };
 
 export type ElementEdge = {
+  __typename?: 'ElementEdge';
   cursor: Scalars['String']['output'];
   node: Element;
 };
 
 export type ElementElementChildMapperPreviousSiblingAggregationSelection = {
+  __typename?: 'ElementElementChildMapperPreviousSiblingAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<ElementElementChildMapperPreviousSiblingNodeAggregateSelection>;
 };
 
 export type ElementElementChildMapperPreviousSiblingNodeAggregateSelection = {
+  __typename?: 'ElementElementChildMapperPreviousSiblingNodeAggregateSelection';
   childMapperPropKey: StringAggregateSelection;
   compositeKey: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -10521,11 +10781,13 @@ export type ElementElementChildMapperPreviousSiblingNodeAggregateSelection = {
 };
 
 export type ElementElementFirstChildAggregationSelection = {
+  __typename?: 'ElementElementFirstChildAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<ElementElementFirstChildNodeAggregateSelection>;
 };
 
 export type ElementElementFirstChildNodeAggregateSelection = {
+  __typename?: 'ElementElementFirstChildNodeAggregateSelection';
   childMapperPropKey: StringAggregateSelection;
   compositeKey: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -10536,11 +10798,13 @@ export type ElementElementFirstChildNodeAggregateSelection = {
 };
 
 export type ElementElementNextSiblingAggregationSelection = {
+  __typename?: 'ElementElementNextSiblingAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<ElementElementNextSiblingNodeAggregateSelection>;
 };
 
 export type ElementElementNextSiblingNodeAggregateSelection = {
+  __typename?: 'ElementElementNextSiblingNodeAggregateSelection';
   childMapperPropKey: StringAggregateSelection;
   compositeKey: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -10551,11 +10815,13 @@ export type ElementElementNextSiblingNodeAggregateSelection = {
 };
 
 export type ElementElementParentElementAggregationSelection = {
+  __typename?: 'ElementElementParentElementAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<ElementElementParentElementNodeAggregateSelection>;
 };
 
 export type ElementElementParentElementNodeAggregateSelection = {
+  __typename?: 'ElementElementParentElementNodeAggregateSelection';
   childMapperPropKey: StringAggregateSelection;
   compositeKey: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -10566,11 +10832,13 @@ export type ElementElementParentElementNodeAggregateSelection = {
 };
 
 export type ElementElementPrevSiblingAggregationSelection = {
+  __typename?: 'ElementElementPrevSiblingAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<ElementElementPrevSiblingNodeAggregateSelection>;
 };
 
 export type ElementElementPrevSiblingNodeAggregateSelection = {
+  __typename?: 'ElementElementPrevSiblingNodeAggregateSelection';
   childMapperPropKey: StringAggregateSelection;
   compositeKey: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -10581,6 +10849,7 @@ export type ElementElementPrevSiblingNodeAggregateSelection = {
 };
 
 export type ElementEventPayload = {
+  __typename?: 'ElementEventPayload';
   childMapperPropKey?: Maybe<Scalars['String']['output']>;
   compositeKey: Scalars['String']['output'];
   expanded?: Maybe<Scalars['Boolean']['output']>;
@@ -10616,6 +10885,7 @@ export type ElementFirstChildConnectFieldInput = {
 };
 
 export type ElementFirstChildConnection = {
+  __typename?: 'ElementFirstChildConnection';
   edges: Array<ElementFirstChildRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -10753,6 +11023,7 @@ export type ElementFirstChildNodeAggregationWhereInput = {
 };
 
 export type ElementFirstChildRelationship = {
+  __typename?: 'ElementFirstChildRelationship';
   cursor: Scalars['String']['output'];
   node: Element;
 };
@@ -10795,6 +11066,7 @@ export type ElementNextSiblingConnectFieldInput = {
 };
 
 export type ElementNextSiblingConnection = {
+  __typename?: 'ElementNextSiblingConnection';
   edges: Array<ElementNextSiblingRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -10932,6 +11204,7 @@ export type ElementNextSiblingNodeAggregationWhereInput = {
 };
 
 export type ElementNextSiblingRelationship = {
+  __typename?: 'ElementNextSiblingRelationship';
   cursor: Scalars['String']['output'];
   node: Element;
 };
@@ -10981,6 +11254,7 @@ export type ElementPageConnectFieldInput = {
 };
 
 export type ElementPageConnection = {
+  __typename?: 'ElementPageConnection';
   edges: Array<ElementPageRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -11073,11 +11347,13 @@ export type ElementPageNodeAggregationWhereInput = {
 };
 
 export type ElementPagePageAggregationSelection = {
+  __typename?: 'ElementPagePageAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<ElementPagePageNodeAggregateSelection>;
 };
 
 export type ElementPagePageNodeAggregateSelection = {
+  __typename?: 'ElementPagePageNodeAggregateSelection';
   compositeKey: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -11085,6 +11361,7 @@ export type ElementPagePageNodeAggregateSelection = {
 };
 
 export type ElementPageRelationship = {
+  __typename?: 'ElementPageRelationship';
   cursor: Scalars['String']['output'];
   node: Page;
 };
@@ -11127,6 +11404,7 @@ export type ElementParentComponentConnectFieldInput = {
 };
 
 export type ElementParentComponentConnection = {
+  __typename?: 'ElementParentComponentConnection';
   edges: Array<ElementParentComponentRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -11204,6 +11482,7 @@ export type ElementParentComponentNodeAggregationWhereInput = {
 };
 
 export type ElementParentComponentRelationship = {
+  __typename?: 'ElementParentComponentRelationship';
   cursor: Scalars['String']['output'];
   node: Component;
 };
@@ -11246,6 +11525,7 @@ export type ElementParentElementConnectFieldInput = {
 };
 
 export type ElementParentElementConnection = {
+  __typename?: 'ElementParentElementConnection';
   edges: Array<ElementParentElementRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -11383,6 +11663,7 @@ export type ElementParentElementNodeAggregationWhereInput = {
 };
 
 export type ElementParentElementRelationship = {
+  __typename?: 'ElementParentElementRelationship';
   cursor: Scalars['String']['output'];
   node: Element;
 };
@@ -11420,6 +11701,7 @@ export type ElementPostRenderActionsConnectFieldInput = {
 };
 
 export type ElementPostRenderActionsConnection = {
+  __typename?: 'ElementPostRenderActionsConnection';
   edges: Array<ElementPostRenderActionsRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -11497,6 +11779,7 @@ export type ElementPostRenderActionsNodeAggregationWhereInput = {
 };
 
 export type ElementPostRenderActionsRelationship = {
+  __typename?: 'ElementPostRenderActionsRelationship';
   cursor: Scalars['String']['output'];
   node: BaseAction;
 };
@@ -11534,6 +11817,7 @@ export type ElementPreRenderActionsConnectFieldInput = {
 };
 
 export type ElementPreRenderActionsConnection = {
+  __typename?: 'ElementPreRenderActionsConnection';
   edges: Array<ElementPreRenderActionsRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -11611,6 +11895,7 @@ export type ElementPreRenderActionsNodeAggregationWhereInput = {
 };
 
 export type ElementPreRenderActionsRelationship = {
+  __typename?: 'ElementPreRenderActionsRelationship';
   cursor: Scalars['String']['output'];
   node: BaseAction;
 };
@@ -11653,6 +11938,7 @@ export type ElementPrevSiblingConnectFieldInput = {
 };
 
 export type ElementPrevSiblingConnection = {
+  __typename?: 'ElementPrevSiblingConnection';
   edges: Array<ElementPrevSiblingRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -11790,6 +12076,7 @@ export type ElementPrevSiblingNodeAggregationWhereInput = {
 };
 
 export type ElementPrevSiblingRelationship = {
+  __typename?: 'ElementPrevSiblingRelationship';
   cursor: Scalars['String']['output'];
   node: Element;
 };
@@ -11808,11 +12095,13 @@ export type ElementPrevSiblingUpdateFieldInput = {
 };
 
 export type ElementPropPropsAggregationSelection = {
+  __typename?: 'ElementPropPropsAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<ElementPropPropsNodeAggregateSelection>;
 };
 
 export type ElementPropPropsNodeAggregateSelection = {
+  __typename?: 'ElementPropPropsNodeAggregateSelection';
   data: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -11842,6 +12131,7 @@ export type ElementPropsConnectFieldInput = {
 };
 
 export type ElementPropsConnection = {
+  __typename?: 'ElementPropsConnection';
   edges: Array<ElementPropsRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -11917,6 +12207,7 @@ export type ElementPropsNodeAggregationWhereInput = {
 };
 
 export type ElementPropsRelationship = {
+  __typename?: 'ElementPropsRelationship';
   cursor: Scalars['String']['output'];
   node: Prop;
 };
@@ -12030,6 +12321,7 @@ export type ElementRenderTypeConnectInput = {
 };
 
 export type ElementRenderTypeConnection = {
+  __typename?: 'ElementRenderTypeConnection';
   edges: Array<ElementRenderTypeRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -12056,6 +12348,7 @@ export type ElementRenderTypeDisconnectInput = {
 };
 
 export type ElementRenderTypeRelationship = {
+  __typename?: 'ElementRenderTypeRelationship';
   cursor: Scalars['String']['output'];
   node: ElementRenderType;
 };
@@ -12152,6 +12445,7 @@ export type ElementSubscriptionWhere = {
  * - ElementType: Current tree element select box, results it 'ReactNode' value
  */
 export type ElementType = IBaseType & {
+  __typename?: 'ElementType';
   /** Allows scoping the type of element to only descendants, children or all elements */
   elementKind: ElementTypeKind;
   fieldRefs: Array<Field>;
@@ -12276,6 +12570,7 @@ export type ElementTypeOwnerConnectionArgs = {
 };
 
 export type ElementTypeAggregateSelection = {
+  __typename?: 'ElementTypeAggregateSelection';
   count: Scalars['Int']['output'];
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -12301,6 +12596,7 @@ export type ElementTypeCreateInput = {
 };
 
 export type ElementTypeCreatedEvent = {
+  __typename?: 'ElementTypeCreatedEvent';
   createdElementType: ElementTypeEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -12312,6 +12608,7 @@ export type ElementTypeDeleteInput = {
 };
 
 export type ElementTypeDeletedEvent = {
+  __typename?: 'ElementTypeDeletedEvent';
   deletedElementType: ElementTypeEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -12323,11 +12620,13 @@ export type ElementTypeDisconnectInput = {
 };
 
 export type ElementTypeEdge = {
+  __typename?: 'ElementTypeEdge';
   cursor: Scalars['String']['output'];
   node: ElementType;
 };
 
 export type ElementTypeEventPayload = {
+  __typename?: 'ElementTypeEventPayload';
   /** Allows scoping the type of element to only descendants, children or all elements */
   elementKind: ElementTypeKind;
   id: Scalars['ID']['output'];
@@ -12336,11 +12635,13 @@ export type ElementTypeEventPayload = {
 };
 
 export type ElementTypeFieldFieldRefsAggregationSelection = {
+  __typename?: 'ElementTypeFieldFieldRefsAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<ElementTypeFieldFieldRefsNodeAggregateSelection>;
 };
 
 export type ElementTypeFieldFieldRefsNodeAggregateSelection = {
+  __typename?: 'ElementTypeFieldFieldRefsNodeAggregateSelection';
   defaultValues: StringAggregateSelection;
   description: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -12683,6 +12984,7 @@ export type ElementTypeUpdateInput = {
 };
 
 export type ElementTypeUpdatedEvent = {
+  __typename?: 'ElementTypeUpdatedEvent';
   event: EventType;
   previousState: ElementTypeEventPayload;
   timestamp: Scalars['Float']['output'];
@@ -12690,11 +12992,13 @@ export type ElementTypeUpdatedEvent = {
 };
 
 export type ElementTypeUserOwnerAggregationSelection = {
+  __typename?: 'ElementTypeUserOwnerAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<ElementTypeUserOwnerNodeAggregateSelection>;
 };
 
 export type ElementTypeUserOwnerNodeAggregateSelection = {
+  __typename?: 'ElementTypeUserOwnerNodeAggregateSelection';
   auth0Id: StringAggregateSelection;
   email: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -12752,6 +13056,7 @@ export type ElementTypeWhere = {
 };
 
 export type ElementTypesConnection = {
+  __typename?: 'ElementTypesConnection';
   edges: Array<ElementTypeEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -12796,6 +13101,7 @@ export type ElementUpdateInput = {
 };
 
 export type ElementUpdatedEvent = {
+  __typename?: 'ElementUpdatedEvent';
   event: EventType;
   previousState: ElementEventPayload;
   timestamp: Scalars['Float']['output'];
@@ -12926,6 +13232,7 @@ export type ElementWhere = {
 };
 
 export type ElementsConnection = {
+  __typename?: 'ElementsConnection';
   edges: Array<ElementEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -12937,6 +13244,7 @@ export type ElementsConnection = {
  * The actual value must be de-referenced by the id.
  */
 export type EnumType = IBaseType & {
+  __typename?: 'EnumType';
   allowedValues: Array<EnumTypeValue>;
   allowedValuesAggregate?: Maybe<EnumTypeEnumTypeValueAllowedValuesAggregationSelection>;
   allowedValuesConnection: EnumTypeAllowedValuesConnection;
@@ -13072,6 +13380,7 @@ export type EnumTypeOwnerConnectionArgs = {
 };
 
 export type EnumTypeAggregateSelection = {
+  __typename?: 'EnumTypeAggregateSelection';
   count: Scalars['Int']['output'];
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -13103,6 +13412,7 @@ export type EnumTypeAllowedValuesConnectFieldInput = {
 };
 
 export type EnumTypeAllowedValuesConnection = {
+  __typename?: 'EnumTypeAllowedValuesConnection';
   edges: Array<EnumTypeAllowedValuesRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -13195,6 +13505,7 @@ export type EnumTypeAllowedValuesNodeAggregationWhereInput = {
 };
 
 export type EnumTypeAllowedValuesRelationship = {
+  __typename?: 'EnumTypeAllowedValuesRelationship';
   cursor: Scalars['String']['output'];
   node: EnumTypeValue;
 };
@@ -13232,6 +13543,7 @@ export type EnumTypeCreateInput = {
 };
 
 export type EnumTypeCreatedEvent = {
+  __typename?: 'EnumTypeCreatedEvent';
   createdEnumType: EnumTypeEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -13244,6 +13556,7 @@ export type EnumTypeDeleteInput = {
 };
 
 export type EnumTypeDeletedEvent = {
+  __typename?: 'EnumTypeDeletedEvent';
   deletedEnumType: EnumTypeEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -13256,16 +13569,19 @@ export type EnumTypeDisconnectInput = {
 };
 
 export type EnumTypeEdge = {
+  __typename?: 'EnumTypeEdge';
   cursor: Scalars['String']['output'];
   node: EnumType;
 };
 
 export type EnumTypeEnumTypeValueAllowedValuesAggregationSelection = {
+  __typename?: 'EnumTypeEnumTypeValueAllowedValuesAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection>;
 };
 
 export type EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection = {
+  __typename?: 'EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection';
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
   key: StringAggregateSelection;
@@ -13273,17 +13589,20 @@ export type EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection = {
 };
 
 export type EnumTypeEventPayload = {
+  __typename?: 'EnumTypeEventPayload';
   id: Scalars['ID']['output'];
   kind: TypeKind;
   name: Scalars['String']['output'];
 };
 
 export type EnumTypeFieldFieldRefsAggregationSelection = {
+  __typename?: 'EnumTypeFieldFieldRefsAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<EnumTypeFieldFieldRefsNodeAggregateSelection>;
 };
 
 export type EnumTypeFieldFieldRefsNodeAggregateSelection = {
+  __typename?: 'EnumTypeFieldFieldRefsNodeAggregateSelection';
   defaultValues: StringAggregateSelection;
   description: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -13612,6 +13931,7 @@ export type EnumTypeUpdateInput = {
 };
 
 export type EnumTypeUpdatedEvent = {
+  __typename?: 'EnumTypeUpdatedEvent';
   event: EventType;
   previousState: EnumTypeEventPayload;
   timestamp: Scalars['Float']['output'];
@@ -13619,11 +13939,13 @@ export type EnumTypeUpdatedEvent = {
 };
 
 export type EnumTypeUserOwnerAggregationSelection = {
+  __typename?: 'EnumTypeUserOwnerAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<EnumTypeUserOwnerNodeAggregateSelection>;
 };
 
 export type EnumTypeUserOwnerNodeAggregateSelection = {
+  __typename?: 'EnumTypeUserOwnerNodeAggregateSelection';
   auth0Id: StringAggregateSelection;
   email: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -13632,6 +13954,7 @@ export type EnumTypeUserOwnerNodeAggregateSelection = {
 };
 
 export type EnumTypeValue = {
+  __typename?: 'EnumTypeValue';
   enumType?: Maybe<EnumType>;
   enumTypeAggregate?: Maybe<EnumTypeValueEnumTypeEnumTypeAggregationSelection>;
   enumTypeConnection: EnumTypeValueEnumTypeConnection;
@@ -13666,6 +13989,7 @@ export type EnumTypeValueEnumTypeConnectionArgs = {
 };
 
 export type EnumTypeValueAggregateSelection = {
+  __typename?: 'EnumTypeValueAggregateSelection';
   count: Scalars['Int']['output'];
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -13689,6 +14013,7 @@ export type EnumTypeValueCreateInput = {
 };
 
 export type EnumTypeValueCreatedEvent = {
+  __typename?: 'EnumTypeValueCreatedEvent';
   createdEnumTypeValue: EnumTypeValueEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -13699,6 +14024,7 @@ export type EnumTypeValueDeleteInput = {
 };
 
 export type EnumTypeValueDeletedEvent = {
+  __typename?: 'EnumTypeValueDeletedEvent';
   deletedEnumTypeValue: EnumTypeValueEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -13709,6 +14035,7 @@ export type EnumTypeValueDisconnectInput = {
 };
 
 export type EnumTypeValueEdge = {
+  __typename?: 'EnumTypeValueEdge';
   cursor: Scalars['String']['output'];
   node: EnumTypeValue;
 };
@@ -13738,6 +14065,7 @@ export type EnumTypeValueEnumTypeConnectFieldInput = {
 };
 
 export type EnumTypeValueEnumTypeConnection = {
+  __typename?: 'EnumTypeValueEnumTypeConnection';
   edges: Array<EnumTypeValueEnumTypeRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -13769,11 +14097,13 @@ export type EnumTypeValueEnumTypeDisconnectFieldInput = {
 };
 
 export type EnumTypeValueEnumTypeEnumTypeAggregationSelection = {
+  __typename?: 'EnumTypeValueEnumTypeEnumTypeAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<EnumTypeValueEnumTypeEnumTypeNodeAggregateSelection>;
 };
 
 export type EnumTypeValueEnumTypeEnumTypeNodeAggregateSelection = {
+  __typename?: 'EnumTypeValueEnumTypeEnumTypeNodeAggregateSelection';
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
   name: StringAggregateSelection;
@@ -13826,6 +14156,7 @@ export type EnumTypeValueEnumTypeNodeAggregationWhereInput = {
 };
 
 export type EnumTypeValueEnumTypeRelationship = {
+  __typename?: 'EnumTypeValueEnumTypeRelationship';
   cursor: Scalars['String']['output'];
   node: EnumType;
 };
@@ -13844,6 +14175,7 @@ export type EnumTypeValueEnumTypeUpdateFieldInput = {
 };
 
 export type EnumTypeValueEventPayload = {
+  __typename?: 'EnumTypeValueEventPayload';
   id: Scalars['ID']['output'];
   key: Scalars['String']['output'];
   value: Scalars['String']['output'];
@@ -13906,6 +14238,7 @@ export type EnumTypeValueUpdateInput = {
 };
 
 export type EnumTypeValueUpdatedEvent = {
+  __typename?: 'EnumTypeValueUpdatedEvent';
   event: EventType;
   previousState: EnumTypeValueEventPayload;
   timestamp: Scalars['Float']['output'];
@@ -13945,6 +14278,7 @@ export type EnumTypeValueWhere = {
 };
 
 export type EnumTypeValuesConnection = {
+  __typename?: 'EnumTypeValuesConnection';
   edges: Array<EnumTypeValueEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -14013,6 +14347,7 @@ export type EnumTypeWhere = {
 };
 
 export type EnumTypesConnection = {
+  __typename?: 'EnumTypesConnection';
   edges: Array<EnumTypeEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -14027,6 +14362,7 @@ export enum EventType {
 }
 
 export type Field = {
+  __typename?: 'Field';
   api: InterfaceType;
   apiAggregate?: Maybe<FieldInterfaceTypeApiAggregationSelection>;
   apiConnection: FieldApiConnection;
@@ -14148,6 +14484,7 @@ export type FieldPrevSiblingConnectionArgs = {
 };
 
 export type FieldAggregateSelection = {
+  __typename?: 'FieldAggregateSelection';
   count: Scalars['Int']['output'];
   defaultValues: StringAggregateSelection;
   description: StringAggregateSelection;
@@ -14183,6 +14520,7 @@ export type FieldApiConnectFieldInput = {
 };
 
 export type FieldApiConnection = {
+  __typename?: 'FieldApiConnection';
   edges: Array<FieldApiRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -14260,6 +14598,7 @@ export type FieldApiNodeAggregationWhereInput = {
 };
 
 export type FieldApiRelationship = {
+  __typename?: 'FieldApiRelationship';
   cursor: Scalars['String']['output'];
   node: InterfaceType;
 };
@@ -14302,6 +14641,7 @@ export type FieldCreateInput = {
 };
 
 export type FieldCreatedEvent = {
+  __typename?: 'FieldCreatedEvent';
   createdField: FieldEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -14315,6 +14655,7 @@ export type FieldDeleteInput = {
 };
 
 export type FieldDeletedEvent = {
+  __typename?: 'FieldDeletedEvent';
   deletedField: FieldEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -14328,11 +14669,13 @@ export type FieldDisconnectInput = {
 };
 
 export type FieldEdge = {
+  __typename?: 'FieldEdge';
   cursor: Scalars['String']['output'];
   node: Field;
 };
 
 export type FieldEventPayload = {
+  __typename?: 'FieldEventPayload';
   defaultValues?: Maybe<Scalars['String']['output']>;
   description?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
@@ -14342,11 +14685,13 @@ export type FieldEventPayload = {
 };
 
 export type FieldFieldNextSiblingAggregationSelection = {
+  __typename?: 'FieldFieldNextSiblingAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<FieldFieldNextSiblingNodeAggregateSelection>;
 };
 
 export type FieldFieldNextSiblingNodeAggregateSelection = {
+  __typename?: 'FieldFieldNextSiblingNodeAggregateSelection';
   defaultValues: StringAggregateSelection;
   description: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -14357,11 +14702,13 @@ export type FieldFieldNextSiblingNodeAggregateSelection = {
 };
 
 export type FieldFieldPrevSiblingAggregationSelection = {
+  __typename?: 'FieldFieldPrevSiblingAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<FieldFieldPrevSiblingNodeAggregateSelection>;
 };
 
 export type FieldFieldPrevSiblingNodeAggregateSelection = {
+  __typename?: 'FieldFieldPrevSiblingNodeAggregateSelection';
   defaultValues: StringAggregateSelection;
   description: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -14391,6 +14738,7 @@ export type FieldFieldTypeConnectFieldInput = {
 };
 
 export type FieldFieldTypeConnection = {
+  __typename?: 'FieldFieldTypeConnection';
   edges: Array<FieldFieldTypeRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -14468,6 +14816,7 @@ export type FieldFieldTypeNodeAggregationWhereInput = {
 };
 
 export type FieldFieldTypeRelationship = {
+  __typename?: 'FieldFieldTypeRelationship';
   cursor: Scalars['String']['output'];
   node: IBaseType;
 };
@@ -14486,22 +14835,26 @@ export type FieldFieldTypeUpdateFieldInput = {
 };
 
 export type FieldIBaseTypeFieldTypeAggregationSelection = {
+  __typename?: 'FieldIBaseTypeFieldTypeAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<FieldIBaseTypeFieldTypeNodeAggregateSelection>;
 };
 
 export type FieldIBaseTypeFieldTypeNodeAggregateSelection = {
+  __typename?: 'FieldIBaseTypeFieldTypeNodeAggregateSelection';
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
   name: StringAggregateSelection;
 };
 
 export type FieldInterfaceTypeApiAggregationSelection = {
+  __typename?: 'FieldInterfaceTypeApiAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<FieldInterfaceTypeApiNodeAggregateSelection>;
 };
 
 export type FieldInterfaceTypeApiNodeAggregateSelection = {
+  __typename?: 'FieldInterfaceTypeApiNodeAggregateSelection';
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
   name: StringAggregateSelection;
@@ -14532,6 +14885,7 @@ export type FieldNextSiblingConnectFieldInput = {
 };
 
 export type FieldNextSiblingConnection = {
+  __typename?: 'FieldNextSiblingConnection';
   edges: Array<FieldNextSiblingRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -14669,6 +15023,7 @@ export type FieldNextSiblingNodeAggregationWhereInput = {
 };
 
 export type FieldNextSiblingRelationship = {
+  __typename?: 'FieldNextSiblingRelationship';
   cursor: Scalars['String']['output'];
   node: Field;
 };
@@ -14718,6 +15073,7 @@ export type FieldPrevSiblingConnectFieldInput = {
 };
 
 export type FieldPrevSiblingConnection = {
+  __typename?: 'FieldPrevSiblingConnection';
   edges: Array<FieldPrevSiblingRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -14855,6 +15211,7 @@ export type FieldPrevSiblingNodeAggregationWhereInput = {
 };
 
 export type FieldPrevSiblingRelationship = {
+  __typename?: 'FieldPrevSiblingRelationship';
   cursor: Scalars['String']['output'];
   node: Field;
 };
@@ -14958,6 +15315,7 @@ export type FieldUpdateInput = {
 };
 
 export type FieldUpdatedEvent = {
+  __typename?: 'FieldUpdatedEvent';
   event: EventType;
   previousState: FieldEventPayload;
   timestamp: Scalars['Float']['output'];
@@ -15030,12 +15388,14 @@ export type FieldWhere = {
 };
 
 export type FieldsConnection = {
+  __typename?: 'FieldsConnection';
   edges: Array<FieldEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
 };
 
 export type FloatAggregateSelection = {
+  __typename?: 'FloatAggregateSelection';
   average?: Maybe<Scalars['Float']['output']>;
   max?: Maybe<Scalars['Float']['output']>;
   min?: Maybe<Scalars['Float']['output']>;
@@ -15043,6 +15403,7 @@ export type FloatAggregateSelection = {
 };
 
 export type Hook = {
+  __typename?: 'Hook';
   config: Prop;
   configAggregate?: Maybe<HookPropConfigAggregationSelection>;
   configConnection: HookConfigConnection;
@@ -15104,6 +15465,7 @@ export type HookElementConnectionArgs = {
 };
 
 export type HookAggregateSelection = {
+  __typename?: 'HookAggregateSelection';
   count: Scalars['Int']['output'];
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -15133,6 +15495,7 @@ export type HookConfigConnectFieldInput = {
 };
 
 export type HookConfigConnection = {
+  __typename?: 'HookConfigConnection';
   edges: Array<HookConfigRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -15208,6 +15571,7 @@ export type HookConfigNodeAggregationWhereInput = {
 };
 
 export type HookConfigRelationship = {
+  __typename?: 'HookConfigRelationship';
   cursor: Scalars['String']['output'];
   node: Prop;
 };
@@ -15233,6 +15597,7 @@ export type HookCreateInput = {
 };
 
 export type HookCreatedEvent = {
+  __typename?: 'HookCreatedEvent';
   createdHook: HookEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -15244,12 +15609,14 @@ export type HookDeleteInput = {
 };
 
 export type HookDeletedEvent = {
+  __typename?: 'HookDeletedEvent';
   deletedHook: HookEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
 };
 
 export type HookEdge = {
+  __typename?: 'HookEdge';
   cursor: Scalars['String']['output'];
   node: Hook;
 };
@@ -15279,6 +15646,7 @@ export type HookElementConnectFieldInput = {
 };
 
 export type HookElementConnection = {
+  __typename?: 'HookElementConnection';
   edges: Array<HookElementRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -15310,11 +15678,13 @@ export type HookElementDisconnectFieldInput = {
 };
 
 export type HookElementElementAggregationSelection = {
+  __typename?: 'HookElementElementAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<HookElementElementNodeAggregateSelection>;
 };
 
 export type HookElementElementNodeAggregateSelection = {
+  __typename?: 'HookElementElementNodeAggregateSelection';
   childMapperPropKey: StringAggregateSelection;
   compositeKey: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -15431,6 +15801,7 @@ export type HookElementNodeAggregationWhereInput = {
 };
 
 export type HookElementRelationship = {
+  __typename?: 'HookElementRelationship';
   cursor: Scalars['String']['output'];
   node: Element;
 };
@@ -15449,6 +15820,7 @@ export type HookElementUpdateFieldInput = {
 };
 
 export type HookEventPayload = {
+  __typename?: 'HookEventPayload';
   id: Scalars['ID']['output'];
   type: AtomType;
 };
@@ -15461,11 +15833,13 @@ export type HookOptions = {
 };
 
 export type HookPropConfigAggregationSelection = {
+  __typename?: 'HookPropConfigAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<HookPropConfigNodeAggregateSelection>;
 };
 
 export type HookPropConfigNodeAggregateSelection = {
+  __typename?: 'HookPropConfigNodeAggregateSelection';
   data: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -15503,6 +15877,7 @@ export type HookUpdateInput = {
 };
 
 export type HookUpdatedEvent = {
+  __typename?: 'HookUpdatedEvent';
   event: EventType;
   previousState: HookEventPayload;
   timestamp: Scalars['Float']['output'];
@@ -15533,6 +15908,7 @@ export type HookWhere = {
 };
 
 export type HooksConnection = {
+  __typename?: 'HooksConnection';
   edges: Array<HookEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -15583,6 +15959,7 @@ export type IBaseTypeOwnerConnectionArgs = {
 };
 
 export type IBaseTypeAggregateSelection = {
+  __typename?: 'IBaseTypeAggregateSelection';
   count: Scalars['Int']['output'];
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -15626,6 +16003,7 @@ export type IBaseTypeDisconnectInput = {
 };
 
 export type IBaseTypeEdge = {
+  __typename?: 'IBaseTypeEdge';
   cursor: Scalars['String']['output'];
   node: IBaseType;
 };
@@ -15655,6 +16033,7 @@ export type IBaseTypeFieldRefsConnectFieldInput = {
 };
 
 export type IBaseTypeFieldRefsConnection = {
+  __typename?: 'IBaseTypeFieldRefsConnection';
   edges: Array<IBaseTypeFieldRefsRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -15787,6 +16166,7 @@ export type IBaseTypeFieldRefsNodeAggregationWhereInput = {
 };
 
 export type IBaseTypeFieldRefsRelationship = {
+  __typename?: 'IBaseTypeFieldRefsRelationship';
   cursor: Scalars['String']['output'];
   node: Field;
 };
@@ -15853,6 +16233,7 @@ export type IBaseTypeOwnerConnectFieldInput = {
 };
 
 export type IBaseTypeOwnerConnection = {
+  __typename?: 'IBaseTypeOwnerConnection';
   edges: Array<IBaseTypeOwnerRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -15955,6 +16336,7 @@ export type IBaseTypeOwnerNodeAggregationWhereInput = {
 };
 
 export type IBaseTypeOwnerRelationship = {
+  __typename?: 'IBaseTypeOwnerRelationship';
   cursor: Scalars['String']['output'];
   node: User;
 };
@@ -16042,18 +16424,21 @@ export type IBaseTypeWhere = {
 };
 
 export type IBaseTypesConnection = {
+  __typename?: 'IBaseTypesConnection';
   edges: Array<IBaseTypeEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
 };
 
 export type IdAggregateSelection = {
+  __typename?: 'IDAggregateSelection';
   longest?: Maybe<Scalars['ID']['output']>;
   shortest?: Maybe<Scalars['ID']['output']>;
 };
 
 /** Represents an object type with multiple fields */
 export type InterfaceType = IBaseType & WithDescendants & {
+  __typename?: 'InterfaceType';
   apiOfAtoms: Array<Atom>;
   apiOfAtomsAggregate?: Maybe<InterfaceTypeAtomApiOfAtomsAggregationSelection>;
   apiOfAtomsConnection: InterfaceTypeApiOfAtomsConnection;
@@ -16185,6 +16570,7 @@ export type InterfaceTypeOwnerConnectionArgs = {
 };
 
 export type InterfaceTypeAggregateSelection = {
+  __typename?: 'InterfaceTypeAggregateSelection';
   count: Scalars['Int']['output'];
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -16216,6 +16602,7 @@ export type InterfaceTypeApiOfAtomsConnectFieldInput = {
 };
 
 export type InterfaceTypeApiOfAtomsConnection = {
+  __typename?: 'InterfaceTypeApiOfAtomsConnection';
   edges: Array<InterfaceTypeApiOfAtomsRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -16353,6 +16740,7 @@ export type InterfaceTypeApiOfAtomsNodeAggregationWhereInput = {
 };
 
 export type InterfaceTypeApiOfAtomsRelationship = {
+  __typename?: 'InterfaceTypeApiOfAtomsRelationship';
   cursor: Scalars['String']['output'];
   node: Atom;
 };
@@ -16371,11 +16759,13 @@ export type InterfaceTypeApiOfAtomsUpdateFieldInput = {
 };
 
 export type InterfaceTypeAtomApiOfAtomsAggregationSelection = {
+  __typename?: 'InterfaceTypeAtomApiOfAtomsAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<InterfaceTypeAtomApiOfAtomsNodeAggregateSelection>;
 };
 
 export type InterfaceTypeAtomApiOfAtomsNodeAggregateSelection = {
+  __typename?: 'InterfaceTypeAtomApiOfAtomsNodeAggregateSelection';
   externalCssSource: StringAggregateSelection;
   externalJsSource: StringAggregateSelection;
   externalSourceType: StringAggregateSelection;
@@ -16407,6 +16797,7 @@ export type InterfaceTypeCreateInput = {
 };
 
 export type InterfaceTypeCreatedEvent = {
+  __typename?: 'InterfaceTypeCreatedEvent';
   createdInterfaceType: InterfaceTypeEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -16420,6 +16811,7 @@ export type InterfaceTypeDeleteInput = {
 };
 
 export type InterfaceTypeDeletedEvent = {
+  __typename?: 'InterfaceTypeDeletedEvent';
   deletedInterfaceType: InterfaceTypeEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -16433,22 +16825,26 @@ export type InterfaceTypeDisconnectInput = {
 };
 
 export type InterfaceTypeEdge = {
+  __typename?: 'InterfaceTypeEdge';
   cursor: Scalars['String']['output'];
   node: InterfaceType;
 };
 
 export type InterfaceTypeEventPayload = {
+  __typename?: 'InterfaceTypeEventPayload';
   id: Scalars['ID']['output'];
   kind: TypeKind;
   name: Scalars['String']['output'];
 };
 
 export type InterfaceTypeFieldFieldRefsAggregationSelection = {
+  __typename?: 'InterfaceTypeFieldFieldRefsAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<InterfaceTypeFieldFieldRefsNodeAggregateSelection>;
 };
 
 export type InterfaceTypeFieldFieldRefsNodeAggregateSelection = {
+  __typename?: 'InterfaceTypeFieldFieldRefsNodeAggregateSelection';
   defaultValues: StringAggregateSelection;
   description: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -16459,11 +16855,13 @@ export type InterfaceTypeFieldFieldRefsNodeAggregateSelection = {
 };
 
 export type InterfaceTypeFieldFieldsAggregationSelection = {
+  __typename?: 'InterfaceTypeFieldFieldsAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<InterfaceTypeFieldFieldsNodeAggregateSelection>;
 };
 
 export type InterfaceTypeFieldFieldsNodeAggregateSelection = {
+  __typename?: 'InterfaceTypeFieldFieldsNodeAggregateSelection';
   defaultValues: StringAggregateSelection;
   description: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -16645,6 +17043,7 @@ export type InterfaceTypeFieldsConnectFieldInput = {
 };
 
 export type InterfaceTypeFieldsConnection = {
+  __typename?: 'InterfaceTypeFieldsConnection';
   edges: Array<InterfaceTypeFieldsRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -16782,6 +17181,7 @@ export type InterfaceTypeFieldsNodeAggregationWhereInput = {
 };
 
 export type InterfaceTypeFieldsRelationship = {
+  __typename?: 'InterfaceTypeFieldsRelationship';
   cursor: Scalars['String']['output'];
   node: Field;
 };
@@ -16972,6 +17372,7 @@ export type InterfaceTypeUpdateInput = {
 };
 
 export type InterfaceTypeUpdatedEvent = {
+  __typename?: 'InterfaceTypeUpdatedEvent';
   event: EventType;
   previousState: InterfaceTypeEventPayload;
   timestamp: Scalars['Float']['output'];
@@ -16979,11 +17380,13 @@ export type InterfaceTypeUpdatedEvent = {
 };
 
 export type InterfaceTypeUserOwnerAggregationSelection = {
+  __typename?: 'InterfaceTypeUserOwnerAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<InterfaceTypeUserOwnerNodeAggregateSelection>;
 };
 
 export type InterfaceTypeUserOwnerNodeAggregateSelection = {
+  __typename?: 'InterfaceTypeUserOwnerNodeAggregateSelection';
   auth0Id: StringAggregateSelection;
   email: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -17071,6 +17474,7 @@ export type InterfaceTypeWhere = {
 };
 
 export type InterfaceTypesConnection = {
+  __typename?: 'InterfaceTypesConnection';
   edges: Array<InterfaceTypeEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -17078,6 +17482,7 @@ export type InterfaceTypesConnection = {
 
 /** Allows picking a lambda */
 export type LambdaType = IBaseType & {
+  __typename?: 'LambdaType';
   fieldRefs: Array<Field>;
   fieldRefsAggregate?: Maybe<LambdaTypeFieldFieldRefsAggregationSelection>;
   fieldRefsConnection: IBaseTypeFieldRefsConnection;
@@ -17146,6 +17551,7 @@ export type LambdaTypeOwnerConnectionArgs = {
 };
 
 export type LambdaTypeAggregateSelection = {
+  __typename?: 'LambdaTypeAggregateSelection';
   count: Scalars['Int']['output'];
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -17170,6 +17576,7 @@ export type LambdaTypeCreateInput = {
 };
 
 export type LambdaTypeCreatedEvent = {
+  __typename?: 'LambdaTypeCreatedEvent';
   createdLambdaType: LambdaTypeEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -17181,6 +17588,7 @@ export type LambdaTypeDeleteInput = {
 };
 
 export type LambdaTypeDeletedEvent = {
+  __typename?: 'LambdaTypeDeletedEvent';
   deletedLambdaType: LambdaTypeEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -17192,22 +17600,26 @@ export type LambdaTypeDisconnectInput = {
 };
 
 export type LambdaTypeEdge = {
+  __typename?: 'LambdaTypeEdge';
   cursor: Scalars['String']['output'];
   node: LambdaType;
 };
 
 export type LambdaTypeEventPayload = {
+  __typename?: 'LambdaTypeEventPayload';
   id: Scalars['ID']['output'];
   kind: TypeKind;
   name: Scalars['String']['output'];
 };
 
 export type LambdaTypeFieldFieldRefsAggregationSelection = {
+  __typename?: 'LambdaTypeFieldFieldRefsAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<LambdaTypeFieldFieldRefsNodeAggregateSelection>;
 };
 
 export type LambdaTypeFieldFieldRefsNodeAggregateSelection = {
+  __typename?: 'LambdaTypeFieldFieldRefsNodeAggregateSelection';
   defaultValues: StringAggregateSelection;
   description: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -17535,6 +17947,7 @@ export type LambdaTypeUpdateInput = {
 };
 
 export type LambdaTypeUpdatedEvent = {
+  __typename?: 'LambdaTypeUpdatedEvent';
   event: EventType;
   previousState: LambdaTypeEventPayload;
   timestamp: Scalars['Float']['output'];
@@ -17542,11 +17955,13 @@ export type LambdaTypeUpdatedEvent = {
 };
 
 export type LambdaTypeUserOwnerAggregationSelection = {
+  __typename?: 'LambdaTypeUserOwnerAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<LambdaTypeUserOwnerNodeAggregateSelection>;
 };
 
 export type LambdaTypeUserOwnerNodeAggregateSelection = {
+  __typename?: 'LambdaTypeUserOwnerNodeAggregateSelection';
   auth0Id: StringAggregateSelection;
   email: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -17600,12 +18015,14 @@ export type LambdaTypeWhere = {
 };
 
 export type LambdaTypesConnection = {
+  __typename?: 'LambdaTypesConnection';
   edges: Array<LambdaTypeEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
 };
 
 export type Mutation = {
+  __typename?: 'Mutation';
   createActionTypes: CreateActionTypesMutationResponse;
   createApiActions: CreateApiActionsMutationResponse;
   createAppTypes: CreateAppTypesMutationResponse;
@@ -18287,6 +18704,7 @@ export type MutationUpdateUsersArgs = {
 };
 
 export type Page = {
+  __typename?: 'Page';
   app: App;
   appAggregate?: Maybe<PageAppAppAggregationSelection>;
   appConnection: PageAppConnection;
@@ -18437,6 +18855,7 @@ export type PageStoreConnectionArgs = {
 };
 
 export type PageAggregateSelection = {
+  __typename?: 'PageAggregateSelection';
   compositeKey: StringAggregateSelection;
   count: Scalars['Int']['output'];
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -18459,11 +18878,13 @@ export type PageAppAggregateInput = {
 };
 
 export type PageAppAppAggregationSelection = {
+  __typename?: 'PageAppAppAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<PageAppAppNodeAggregateSelection>;
 };
 
 export type PageAppAppNodeAggregateSelection = {
+  __typename?: 'PageAppAppNodeAggregateSelection';
   compositeKey: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -18480,6 +18901,7 @@ export type PageAppConnectFieldInput = {
 };
 
 export type PageAppConnection = {
+  __typename?: 'PageAppConnection';
   edges: Array<PageAppRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -18557,6 +18979,7 @@ export type PageAppNodeAggregationWhereInput = {
 };
 
 export type PageAppRelationship = {
+  __typename?: 'PageAppRelationship';
   cursor: Scalars['String']['output'];
   node: App;
 };
@@ -18599,6 +19022,7 @@ export type PageCreateInput = {
 };
 
 export type PageCreatedEvent = {
+  __typename?: 'PageCreatedEvent';
   createdPage: PageEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -18613,6 +19037,7 @@ export type PageDeleteInput = {
 };
 
 export type PageDeletedEvent = {
+  __typename?: 'PageDeletedEvent';
   deletedPage: PageEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -18627,16 +19052,19 @@ export type PageDisconnectInput = {
 };
 
 export type PageEdge = {
+  __typename?: 'PageEdge';
   cursor: Scalars['String']['output'];
   node: Page;
 };
 
 export type PageElementPageContentContainerAggregationSelection = {
+  __typename?: 'PageElementPageContentContainerAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<PageElementPageContentContainerNodeAggregateSelection>;
 };
 
 export type PageElementPageContentContainerNodeAggregateSelection = {
+  __typename?: 'PageElementPageContentContainerNodeAggregateSelection';
   childMapperPropKey: StringAggregateSelection;
   compositeKey: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -18647,11 +19075,13 @@ export type PageElementPageContentContainerNodeAggregateSelection = {
 };
 
 export type PageElementRootElementAggregationSelection = {
+  __typename?: 'PageElementRootElementAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<PageElementRootElementNodeAggregateSelection>;
 };
 
 export type PageElementRootElementNodeAggregateSelection = {
+  __typename?: 'PageElementRootElementNodeAggregateSelection';
   childMapperPropKey: StringAggregateSelection;
   compositeKey: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -18662,6 +19092,7 @@ export type PageElementRootElementNodeAggregateSelection = {
 };
 
 export type PageEventPayload = {
+  __typename?: 'PageEventPayload';
   compositeKey: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   kind: PageKind;
@@ -18670,6 +19101,7 @@ export type PageEventPayload = {
 
 /** Pagination information (Relay) */
 export type PageInfo = {
+  __typename?: 'PageInfo';
   endCursor?: Maybe<Scalars['String']['output']>;
   hasNextPage: Scalars['Boolean']['output'];
   hasPreviousPage: Scalars['Boolean']['output'];
@@ -18715,6 +19147,7 @@ export type PagePageContentContainerConnectFieldInput = {
 };
 
 export type PagePageContentContainerConnection = {
+  __typename?: 'PagePageContentContainerConnection';
   edges: Array<PagePageContentContainerRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -18852,6 +19285,7 @@ export type PagePageContentContainerNodeAggregationWhereInput = {
 };
 
 export type PagePageContentContainerRelationship = {
+  __typename?: 'PagePageContentContainerRelationship';
   cursor: Scalars['String']['output'];
   node: Element;
 };
@@ -18894,6 +19328,7 @@ export type PageRedirectConnectFieldInput = {
 };
 
 export type PageRedirectConnection = {
+  __typename?: 'PageRedirectConnection';
   edges: Array<PageRedirectRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -18971,17 +19406,20 @@ export type PageRedirectNodeAggregationWhereInput = {
 };
 
 export type PageRedirectRedirectAggregationSelection = {
+  __typename?: 'PageRedirectRedirectAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<PageRedirectRedirectNodeAggregateSelection>;
 };
 
 export type PageRedirectRedirectNodeAggregateSelection = {
+  __typename?: 'PageRedirectRedirectNodeAggregateSelection';
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
   targetUrl: StringAggregateSelection;
 };
 
 export type PageRedirectRelationship = {
+  __typename?: 'PageRedirectRelationship';
   cursor: Scalars['String']['output'];
   node: Redirect;
 };
@@ -19024,6 +19462,7 @@ export type PageRootElementConnectFieldInput = {
 };
 
 export type PageRootElementConnection = {
+  __typename?: 'PageRootElementConnection';
   edges: Array<PageRootElementRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -19161,6 +19600,7 @@ export type PageRootElementNodeAggregationWhereInput = {
 };
 
 export type PageRootElementRelationship = {
+  __typename?: 'PageRootElementRelationship';
   cursor: Scalars['String']['output'];
   node: Element;
 };
@@ -19211,6 +19651,7 @@ export type PageStoreConnectFieldInput = {
 };
 
 export type PageStoreConnection = {
+  __typename?: 'PageStoreConnection';
   edges: Array<PageStoreRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -19288,16 +19729,19 @@ export type PageStoreNodeAggregationWhereInput = {
 };
 
 export type PageStoreRelationship = {
+  __typename?: 'PageStoreRelationship';
   cursor: Scalars['String']['output'];
   node: Store;
 };
 
 export type PageStoreStoreAggregationSelection = {
+  __typename?: 'PageStoreStoreAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<PageStoreStoreNodeAggregateSelection>;
 };
 
 export type PageStoreStoreNodeAggregateSelection = {
+  __typename?: 'PageStoreStoreNodeAggregateSelection';
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
   name: StringAggregateSelection;
@@ -19351,6 +19795,7 @@ export type PageSubscriptionWhere = {
 
 /** Allows picking a page from the list of pages */
 export type PageType = IBaseType & {
+  __typename?: 'PageType';
   fieldRefs: Array<Field>;
   fieldRefsAggregate?: Maybe<PageTypeFieldFieldRefsAggregationSelection>;
   fieldRefsConnection: IBaseTypeFieldRefsConnection;
@@ -19419,6 +19864,7 @@ export type PageTypeOwnerConnectionArgs = {
 };
 
 export type PageTypeAggregateSelection = {
+  __typename?: 'PageTypeAggregateSelection';
   count: Scalars['Int']['output'];
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -19443,6 +19889,7 @@ export type PageTypeCreateInput = {
 };
 
 export type PageTypeCreatedEvent = {
+  __typename?: 'PageTypeCreatedEvent';
   createdPageType: PageTypeEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -19454,6 +19901,7 @@ export type PageTypeDeleteInput = {
 };
 
 export type PageTypeDeletedEvent = {
+  __typename?: 'PageTypeDeletedEvent';
   deletedPageType: PageTypeEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -19465,22 +19913,26 @@ export type PageTypeDisconnectInput = {
 };
 
 export type PageTypeEdge = {
+  __typename?: 'PageTypeEdge';
   cursor: Scalars['String']['output'];
   node: PageType;
 };
 
 export type PageTypeEventPayload = {
+  __typename?: 'PageTypeEventPayload';
   id: Scalars['ID']['output'];
   kind: TypeKind;
   name: Scalars['String']['output'];
 };
 
 export type PageTypeFieldFieldRefsAggregationSelection = {
+  __typename?: 'PageTypeFieldFieldRefsAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<PageTypeFieldFieldRefsNodeAggregateSelection>;
 };
 
 export type PageTypeFieldFieldRefsNodeAggregateSelection = {
+  __typename?: 'PageTypeFieldFieldRefsNodeAggregateSelection';
   defaultValues: StringAggregateSelection;
   description: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -19808,6 +20260,7 @@ export type PageTypeUpdateInput = {
 };
 
 export type PageTypeUpdatedEvent = {
+  __typename?: 'PageTypeUpdatedEvent';
   event: EventType;
   previousState: PageTypeEventPayload;
   timestamp: Scalars['Float']['output'];
@@ -19815,11 +20268,13 @@ export type PageTypeUpdatedEvent = {
 };
 
 export type PageTypeUserOwnerAggregationSelection = {
+  __typename?: 'PageTypeUserOwnerAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<PageTypeUserOwnerNodeAggregateSelection>;
 };
 
 export type PageTypeUserOwnerNodeAggregateSelection = {
+  __typename?: 'PageTypeUserOwnerNodeAggregateSelection';
   auth0Id: StringAggregateSelection;
   email: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -19873,6 +20328,7 @@ export type PageTypeWhere = {
 };
 
 export type PageTypesConnection = {
+  __typename?: 'PageTypesConnection';
   edges: Array<PageTypeEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -19896,6 +20352,7 @@ export type PageUpdateInput = {
 };
 
 export type PageUpdatedEvent = {
+  __typename?: 'PageUpdatedEvent';
   event: EventType;
   previousState: PageEventPayload;
   timestamp: Scalars['Float']['output'];
@@ -19951,12 +20408,14 @@ export type PageWhere = {
 };
 
 export type PagesConnection = {
+  __typename?: 'PagesConnection';
   edges: Array<PageEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
 };
 
 export type Preference = WithOwner & {
+  __typename?: 'Preference';
   builderBreakpointType: BreakpointType;
   builderWidth: Scalars['Float']['output'];
   id: Scalars['ID']['output'];
@@ -19991,6 +20450,7 @@ export type PreferenceOwnerConnectionArgs = {
 };
 
 export type PreferenceAggregateSelection = {
+  __typename?: 'PreferenceAggregateSelection';
   builderWidth: FloatAggregateSelection;
   count: Scalars['Int']['output'];
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -20013,6 +20473,7 @@ export type PreferenceCreateInput = {
 };
 
 export type PreferenceCreatedEvent = {
+  __typename?: 'PreferenceCreatedEvent';
   createdPreference: PreferenceEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -20023,6 +20484,7 @@ export type PreferenceDeleteInput = {
 };
 
 export type PreferenceDeletedEvent = {
+  __typename?: 'PreferenceDeletedEvent';
   deletedPreference: PreferenceEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -20033,11 +20495,13 @@ export type PreferenceDisconnectInput = {
 };
 
 export type PreferenceEdge = {
+  __typename?: 'PreferenceEdge';
   cursor: Scalars['String']['output'];
   node: Preference;
 };
 
 export type PreferenceEventPayload = {
+  __typename?: 'PreferenceEventPayload';
   builderBreakpointType: BreakpointType;
   builderWidth: Scalars['Float']['output'];
   id: Scalars['ID']['output'];
@@ -20214,6 +20678,7 @@ export type PreferenceUpdateInput = {
 };
 
 export type PreferenceUpdatedEvent = {
+  __typename?: 'PreferenceUpdatedEvent';
   event: EventType;
   previousState: PreferenceEventPayload;
   timestamp: Scalars['Float']['output'];
@@ -20221,11 +20686,13 @@ export type PreferenceUpdatedEvent = {
 };
 
 export type PreferenceUserOwnerAggregationSelection = {
+  __typename?: 'PreferenceUserOwnerAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<PreferenceUserOwnerNodeAggregateSelection>;
 };
 
 export type PreferenceUserOwnerNodeAggregateSelection = {
+  __typename?: 'PreferenceUserOwnerNodeAggregateSelection';
   auth0Id: StringAggregateSelection;
   email: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -20262,6 +20729,7 @@ export type PreferenceWhere = {
 };
 
 export type PreferencesConnection = {
+  __typename?: 'PreferencesConnection';
   edges: Array<PreferenceEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -20269,6 +20737,7 @@ export type PreferencesConnection = {
 
 /** Base atomic building block of the type system. Represents primitive types - String, Integer, Float, Boolean */
 export type PrimitiveType = IBaseType & {
+  __typename?: 'PrimitiveType';
   fieldRefs: Array<Field>;
   fieldRefsAggregate?: Maybe<PrimitiveTypeFieldFieldRefsAggregationSelection>;
   fieldRefsConnection: IBaseTypeFieldRefsConnection;
@@ -20338,6 +20807,7 @@ export type PrimitiveTypeOwnerConnectionArgs = {
 };
 
 export type PrimitiveTypeAggregateSelection = {
+  __typename?: 'PrimitiveTypeAggregateSelection';
   count: Scalars['Int']['output'];
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -20363,6 +20833,7 @@ export type PrimitiveTypeCreateInput = {
 };
 
 export type PrimitiveTypeCreatedEvent = {
+  __typename?: 'PrimitiveTypeCreatedEvent';
   createdPrimitiveType: PrimitiveTypeEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -20374,6 +20845,7 @@ export type PrimitiveTypeDeleteInput = {
 };
 
 export type PrimitiveTypeDeletedEvent = {
+  __typename?: 'PrimitiveTypeDeletedEvent';
   deletedPrimitiveType: PrimitiveTypeEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -20385,11 +20857,13 @@ export type PrimitiveTypeDisconnectInput = {
 };
 
 export type PrimitiveTypeEdge = {
+  __typename?: 'PrimitiveTypeEdge';
   cursor: Scalars['String']['output'];
   node: PrimitiveType;
 };
 
 export type PrimitiveTypeEventPayload = {
+  __typename?: 'PrimitiveTypeEventPayload';
   id: Scalars['ID']['output'];
   kind: TypeKind;
   name: Scalars['String']['output'];
@@ -20397,11 +20871,13 @@ export type PrimitiveTypeEventPayload = {
 };
 
 export type PrimitiveTypeFieldFieldRefsAggregationSelection = {
+  __typename?: 'PrimitiveTypeFieldFieldRefsAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<PrimitiveTypeFieldFieldRefsNodeAggregateSelection>;
 };
 
 export type PrimitiveTypeFieldFieldRefsNodeAggregateSelection = {
+  __typename?: 'PrimitiveTypeFieldFieldRefsNodeAggregateSelection';
   defaultValues: StringAggregateSelection;
   description: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -20744,6 +21220,7 @@ export type PrimitiveTypeUpdateInput = {
 };
 
 export type PrimitiveTypeUpdatedEvent = {
+  __typename?: 'PrimitiveTypeUpdatedEvent';
   event: EventType;
   previousState: PrimitiveTypeEventPayload;
   timestamp: Scalars['Float']['output'];
@@ -20751,11 +21228,13 @@ export type PrimitiveTypeUpdatedEvent = {
 };
 
 export type PrimitiveTypeUserOwnerAggregationSelection = {
+  __typename?: 'PrimitiveTypeUserOwnerAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<PrimitiveTypeUserOwnerNodeAggregateSelection>;
 };
 
 export type PrimitiveTypeUserOwnerNodeAggregateSelection = {
+  __typename?: 'PrimitiveTypeUserOwnerNodeAggregateSelection';
   auth0Id: StringAggregateSelection;
   email: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -20813,28 +21292,33 @@ export type PrimitiveTypeWhere = {
 };
 
 export type PrimitiveTypesConnection = {
+  __typename?: 'PrimitiveTypesConnection';
   edges: Array<PrimitiveTypeEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
 };
 
 export type ProductionDomainConfig = {
+  __typename?: 'ProductionDomainConfig';
   misconfigured: Scalars['Boolean']['output'];
 };
 
 export type ProductionDomainConfigCreatedEvent = {
+  __typename?: 'ProductionDomainConfigCreatedEvent';
   createdProductionDomainConfig: ProductionDomainConfigEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
 };
 
 export type ProductionDomainConfigDeletedEvent = {
+  __typename?: 'ProductionDomainConfigDeletedEvent';
   deletedProductionDomainConfig: ProductionDomainConfigEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
 };
 
 export type ProductionDomainConfigEventPayload = {
+  __typename?: 'ProductionDomainConfigEventPayload';
   misconfigured: Scalars['Boolean']['output'];
 };
 
@@ -20848,6 +21332,7 @@ export type ProductionDomainConfigSubscriptionWhere = {
 };
 
 export type ProductionDomainConfigUpdatedEvent = {
+  __typename?: 'ProductionDomainConfigUpdatedEvent';
   event: EventType;
   previousState: ProductionDomainConfigEventPayload;
   timestamp: Scalars['Float']['output'];
@@ -20855,11 +21340,13 @@ export type ProductionDomainConfigUpdatedEvent = {
 };
 
 export type Prop = {
+  __typename?: 'Prop';
   data: Scalars['String']['output'];
   id: Scalars['ID']['output'];
 };
 
 export type PropAggregateSelection = {
+  __typename?: 'PropAggregateSelection';
   count: Scalars['Int']['output'];
   data: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -20876,23 +21363,27 @@ export type PropCreateInput = {
 };
 
 export type PropCreatedEvent = {
+  __typename?: 'PropCreatedEvent';
   createdProp: PropEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
 };
 
 export type PropDeletedEvent = {
+  __typename?: 'PropDeletedEvent';
   deletedProp: PropEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
 };
 
 export type PropEdge = {
+  __typename?: 'PropEdge';
   cursor: Scalars['String']['output'];
   node: Prop;
 };
 
 export type PropEventPayload = {
+  __typename?: 'PropEventPayload';
   data: Scalars['String']['output'];
   id: Scalars['ID']['output'];
 };
@@ -20938,6 +21429,7 @@ export type PropUpdateInput = {
 };
 
 export type PropUpdatedEvent = {
+  __typename?: 'PropUpdatedEvent';
   event: EventType;
   previousState: PropEventPayload;
   timestamp: Scalars['Float']['output'];
@@ -20966,12 +21458,14 @@ export type PropWhere = {
 };
 
 export type PropsConnection = {
+  __typename?: 'PropsConnection';
   edges: Array<PropEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
 };
 
 export type Query = {
+  __typename?: 'Query';
   actionTypes: Array<ActionType>;
   actionTypesAggregate: ActionTypeAggregateSelection;
   actionTypesConnection: ActionTypesConnection;
@@ -21991,6 +22485,7 @@ export type QueryOptions = {
  * - ElementType: Current tree element select box, results it 'ReactNode' value
  */
 export type ReactNodeType = IBaseType & {
+  __typename?: 'ReactNodeType';
   fieldRefs: Array<Field>;
   fieldRefsAggregate?: Maybe<ReactNodeTypeFieldFieldRefsAggregationSelection>;
   fieldRefsConnection: IBaseTypeFieldRefsConnection;
@@ -22113,6 +22608,7 @@ export type ReactNodeTypeOwnerConnectionArgs = {
 };
 
 export type ReactNodeTypeAggregateSelection = {
+  __typename?: 'ReactNodeTypeAggregateSelection';
   count: Scalars['Int']['output'];
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -22137,6 +22633,7 @@ export type ReactNodeTypeCreateInput = {
 };
 
 export type ReactNodeTypeCreatedEvent = {
+  __typename?: 'ReactNodeTypeCreatedEvent';
   createdReactNodeType: ReactNodeTypeEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -22148,6 +22645,7 @@ export type ReactNodeTypeDeleteInput = {
 };
 
 export type ReactNodeTypeDeletedEvent = {
+  __typename?: 'ReactNodeTypeDeletedEvent';
   deletedReactNodeType: ReactNodeTypeEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -22159,22 +22657,26 @@ export type ReactNodeTypeDisconnectInput = {
 };
 
 export type ReactNodeTypeEdge = {
+  __typename?: 'ReactNodeTypeEdge';
   cursor: Scalars['String']['output'];
   node: ReactNodeType;
 };
 
 export type ReactNodeTypeEventPayload = {
+  __typename?: 'ReactNodeTypeEventPayload';
   id: Scalars['ID']['output'];
   kind: TypeKind;
   name: Scalars['String']['output'];
 };
 
 export type ReactNodeTypeFieldFieldRefsAggregationSelection = {
+  __typename?: 'ReactNodeTypeFieldFieldRefsAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<ReactNodeTypeFieldFieldRefsNodeAggregateSelection>;
 };
 
 export type ReactNodeTypeFieldFieldRefsNodeAggregateSelection = {
+  __typename?: 'ReactNodeTypeFieldFieldRefsNodeAggregateSelection';
   defaultValues: StringAggregateSelection;
   description: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -22502,6 +23004,7 @@ export type ReactNodeTypeUpdateInput = {
 };
 
 export type ReactNodeTypeUpdatedEvent = {
+  __typename?: 'ReactNodeTypeUpdatedEvent';
   event: EventType;
   previousState: ReactNodeTypeEventPayload;
   timestamp: Scalars['Float']['output'];
@@ -22509,11 +23012,13 @@ export type ReactNodeTypeUpdatedEvent = {
 };
 
 export type ReactNodeTypeUserOwnerAggregationSelection = {
+  __typename?: 'ReactNodeTypeUserOwnerAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<ReactNodeTypeUserOwnerNodeAggregateSelection>;
 };
 
 export type ReactNodeTypeUserOwnerNodeAggregateSelection = {
+  __typename?: 'ReactNodeTypeUserOwnerNodeAggregateSelection';
   auth0Id: StringAggregateSelection;
   email: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -22567,12 +23072,14 @@ export type ReactNodeTypeWhere = {
 };
 
 export type ReactNodeTypesConnection = {
+  __typename?: 'ReactNodeTypesConnection';
   edges: Array<ReactNodeTypeEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
 };
 
 export type Redirect = {
+  __typename?: 'Redirect';
   authGuard: AuthGuard;
   authGuardAggregate?: Maybe<RedirectAuthGuardAuthGuardAggregationSelection>;
   authGuardConnection: RedirectAuthGuardConnection;
@@ -22663,6 +23170,7 @@ export type RedirectTargetPageConnectionArgs = {
 };
 
 export type RedirectAggregateSelection = {
+  __typename?: 'RedirectAggregateSelection';
   count: Scalars['Int']['output'];
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -22684,11 +23192,13 @@ export type RedirectAuthGuardAggregateInput = {
 };
 
 export type RedirectAuthGuardAuthGuardAggregationSelection = {
+  __typename?: 'RedirectAuthGuardAuthGuardAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<RedirectAuthGuardAuthGuardNodeAggregateSelection>;
 };
 
 export type RedirectAuthGuardAuthGuardNodeAggregateSelection = {
+  __typename?: 'RedirectAuthGuardAuthGuardNodeAggregateSelection';
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
   name: StringAggregateSelection;
@@ -22706,6 +23216,7 @@ export type RedirectAuthGuardConnectFieldInput = {
 };
 
 export type RedirectAuthGuardConnection = {
+  __typename?: 'RedirectAuthGuardConnection';
   edges: Array<RedirectAuthGuardRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -22798,6 +23309,7 @@ export type RedirectAuthGuardNodeAggregationWhereInput = {
 };
 
 export type RedirectAuthGuardRelationship = {
+  __typename?: 'RedirectAuthGuardRelationship';
   cursor: Scalars['String']['output'];
   node: AuthGuard;
 };
@@ -22835,6 +23347,7 @@ export type RedirectCreateInput = {
 };
 
 export type RedirectCreatedEvent = {
+  __typename?: 'RedirectCreatedEvent';
   createdRedirect: RedirectEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -22847,6 +23360,7 @@ export type RedirectDeleteInput = {
 };
 
 export type RedirectDeletedEvent = {
+  __typename?: 'RedirectDeletedEvent';
   deletedRedirect: RedirectEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -22859,11 +23373,13 @@ export type RedirectDisconnectInput = {
 };
 
 export type RedirectEdge = {
+  __typename?: 'RedirectEdge';
   cursor: Scalars['String']['output'];
   node: Redirect;
 };
 
 export type RedirectEventPayload = {
+  __typename?: 'RedirectEventPayload';
   id: Scalars['ID']['output'];
   targetType: RedirectTargetType;
   targetUrl?: Maybe<Scalars['String']['output']>;
@@ -22877,11 +23393,13 @@ export type RedirectOptions = {
 };
 
 export type RedirectPageSourceAggregationSelection = {
+  __typename?: 'RedirectPageSourceAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<RedirectPageSourceNodeAggregateSelection>;
 };
 
 export type RedirectPageSourceNodeAggregateSelection = {
+  __typename?: 'RedirectPageSourceNodeAggregateSelection';
   compositeKey: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -22889,11 +23407,13 @@ export type RedirectPageSourceNodeAggregateSelection = {
 };
 
 export type RedirectPageTargetPageAggregationSelection = {
+  __typename?: 'RedirectPageTargetPageAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<RedirectPageTargetPageNodeAggregateSelection>;
 };
 
 export type RedirectPageTargetPageNodeAggregateSelection = {
+  __typename?: 'RedirectPageTargetPageNodeAggregateSelection';
   compositeKey: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -22932,6 +23452,7 @@ export type RedirectSourceConnectFieldInput = {
 };
 
 export type RedirectSourceConnection = {
+  __typename?: 'RedirectSourceConnection';
   edges: Array<RedirectSourceRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -23024,6 +23545,7 @@ export type RedirectSourceNodeAggregationWhereInput = {
 };
 
 export type RedirectSourceRelationship = {
+  __typename?: 'RedirectSourceRelationship';
   cursor: Scalars['String']['output'];
   node: Page;
 };
@@ -23091,6 +23613,7 @@ export type RedirectTargetPageConnectFieldInput = {
 };
 
 export type RedirectTargetPageConnection = {
+  __typename?: 'RedirectTargetPageConnection';
   edges: Array<RedirectTargetPageRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -23183,6 +23706,7 @@ export type RedirectTargetPageNodeAggregationWhereInput = {
 };
 
 export type RedirectTargetPageRelationship = {
+  __typename?: 'RedirectTargetPageRelationship';
   cursor: Scalars['String']['output'];
   node: Page;
 };
@@ -23220,6 +23744,7 @@ export type RedirectUpdateInput = {
 };
 
 export type RedirectUpdatedEvent = {
+  __typename?: 'RedirectUpdatedEvent';
   event: EventType;
   previousState: RedirectEventPayload;
   timestamp: Scalars['Float']['output'];
@@ -23261,6 +23786,7 @@ export type RedirectWhere = {
 };
 
 export type RedirectsConnection = {
+  __typename?: 'RedirectsConnection';
   edges: Array<RedirectEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -23278,6 +23804,7 @@ export type RedirectsConnection = {
  * - ElementType: Current tree element select box, results it 'ReactNode' value
  */
 export type RenderPropType = IBaseType & {
+  __typename?: 'RenderPropType';
   fieldRefs: Array<Field>;
   fieldRefsAggregate?: Maybe<RenderPropTypeFieldFieldRefsAggregationSelection>;
   fieldRefsConnection: IBaseTypeFieldRefsConnection;
@@ -23406,6 +23933,7 @@ export type RenderPropTypeOwnerConnectionArgs = {
 };
 
 export type RenderPropTypeAggregateSelection = {
+  __typename?: 'RenderPropTypeAggregateSelection';
   count: Scalars['Int']['output'];
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -23430,6 +23958,7 @@ export type RenderPropTypeCreateInput = {
 };
 
 export type RenderPropTypeCreatedEvent = {
+  __typename?: 'RenderPropTypeCreatedEvent';
   createdRenderPropType: RenderPropTypeEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -23441,6 +23970,7 @@ export type RenderPropTypeDeleteInput = {
 };
 
 export type RenderPropTypeDeletedEvent = {
+  __typename?: 'RenderPropTypeDeletedEvent';
   deletedRenderPropType: RenderPropTypeEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -23452,22 +23982,26 @@ export type RenderPropTypeDisconnectInput = {
 };
 
 export type RenderPropTypeEdge = {
+  __typename?: 'RenderPropTypeEdge';
   cursor: Scalars['String']['output'];
   node: RenderPropType;
 };
 
 export type RenderPropTypeEventPayload = {
+  __typename?: 'RenderPropTypeEventPayload';
   id: Scalars['ID']['output'];
   kind: TypeKind;
   name: Scalars['String']['output'];
 };
 
 export type RenderPropTypeFieldFieldRefsAggregationSelection = {
+  __typename?: 'RenderPropTypeFieldFieldRefsAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<RenderPropTypeFieldFieldRefsNodeAggregateSelection>;
 };
 
 export type RenderPropTypeFieldFieldRefsNodeAggregateSelection = {
+  __typename?: 'RenderPropTypeFieldFieldRefsNodeAggregateSelection';
   defaultValues: StringAggregateSelection;
   description: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -23795,6 +24329,7 @@ export type RenderPropTypeUpdateInput = {
 };
 
 export type RenderPropTypeUpdatedEvent = {
+  __typename?: 'RenderPropTypeUpdatedEvent';
   event: EventType;
   previousState: RenderPropTypeEventPayload;
   timestamp: Scalars['Float']['output'];
@@ -23802,11 +24337,13 @@ export type RenderPropTypeUpdatedEvent = {
 };
 
 export type RenderPropTypeUserOwnerAggregationSelection = {
+  __typename?: 'RenderPropTypeUserOwnerAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<RenderPropTypeUserOwnerNodeAggregateSelection>;
 };
 
 export type RenderPropTypeUserOwnerNodeAggregateSelection = {
+  __typename?: 'RenderPropTypeUserOwnerNodeAggregateSelection';
   auth0Id: StringAggregateSelection;
   email: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -23860,12 +24397,14 @@ export type RenderPropTypeWhere = {
 };
 
 export type RenderPropTypesConnection = {
+  __typename?: 'RenderPropTypesConnection';
   edges: Array<RenderPropTypeEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
 };
 
 export type Resource = WithOwner & {
+  __typename?: 'Resource';
   config: Prop;
   configAggregate?: Maybe<ResourcePropConfigAggregationSelection>;
   configConnection: ResourceConfigConnection;
@@ -23928,6 +24467,7 @@ export type ResourceOwnerConnectionArgs = {
 };
 
 export type ResourceAggregateSelection = {
+  __typename?: 'ResourceAggregateSelection';
   count: Scalars['Int']['output'];
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -23958,6 +24498,7 @@ export type ResourceConfigConnectFieldInput = {
 };
 
 export type ResourceConfigConnection = {
+  __typename?: 'ResourceConfigConnection';
   edges: Array<ResourceConfigRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -24033,6 +24574,7 @@ export type ResourceConfigNodeAggregationWhereInput = {
 };
 
 export type ResourceConfigRelationship = {
+  __typename?: 'ResourceConfigRelationship';
   cursor: Scalars['String']['output'];
   node: Prop;
 };
@@ -24068,6 +24610,7 @@ export type ResourceCreateInput = {
 };
 
 export type ResourceCreatedEvent = {
+  __typename?: 'ResourceCreatedEvent';
   createdResource: ResourceEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -24079,6 +24622,7 @@ export type ResourceDeleteInput = {
 };
 
 export type ResourceDeletedEvent = {
+  __typename?: 'ResourceDeletedEvent';
   deletedResource: ResourceEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -24090,11 +24634,13 @@ export type ResourceDisconnectInput = {
 };
 
 export type ResourceEdge = {
+  __typename?: 'ResourceEdge';
   cursor: Scalars['String']['output'];
   node: Resource;
 };
 
 export type ResourceEventPayload = {
+  __typename?: 'ResourceEventPayload';
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
   type: ResourceType;
@@ -24225,11 +24771,13 @@ export type ResourceOwnerUpdateFieldInput = {
 };
 
 export type ResourcePropConfigAggregationSelection = {
+  __typename?: 'ResourcePropConfigAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<ResourcePropConfigNodeAggregateSelection>;
 };
 
 export type ResourcePropConfigNodeAggregateSelection = {
+  __typename?: 'ResourcePropConfigNodeAggregateSelection';
   data: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -24284,6 +24832,7 @@ export type ResourceUpdateInput = {
 };
 
 export type ResourceUpdatedEvent = {
+  __typename?: 'ResourceUpdatedEvent';
   event: EventType;
   previousState: ResourceEventPayload;
   timestamp: Scalars['Float']['output'];
@@ -24291,11 +24840,13 @@ export type ResourceUpdatedEvent = {
 };
 
 export type ResourceUserOwnerAggregationSelection = {
+  __typename?: 'ResourceUserOwnerAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<ResourceUserOwnerNodeAggregateSelection>;
 };
 
 export type ResourceUserOwnerNodeAggregateSelection = {
+  __typename?: 'ResourceUserOwnerNodeAggregateSelection';
   auth0Id: StringAggregateSelection;
   email: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -24335,6 +24886,7 @@ export type ResourceWhere = {
 };
 
 export type ResourcesConnection = {
+  __typename?: 'ResourcesConnection';
   edges: Array<ResourceEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -24342,6 +24894,7 @@ export type ResourcesConnection = {
 
 /** Allows picking a app from the list of apps */
 export type RichTextType = IBaseType & {
+  __typename?: 'RichTextType';
   fieldRefs: Array<Field>;
   fieldRefsAggregate?: Maybe<RichTextTypeFieldFieldRefsAggregationSelection>;
   fieldRefsConnection: IBaseTypeFieldRefsConnection;
@@ -24410,6 +24963,7 @@ export type RichTextTypeOwnerConnectionArgs = {
 };
 
 export type RichTextTypeAggregateSelection = {
+  __typename?: 'RichTextTypeAggregateSelection';
   count: Scalars['Int']['output'];
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -24434,6 +24988,7 @@ export type RichTextTypeCreateInput = {
 };
 
 export type RichTextTypeCreatedEvent = {
+  __typename?: 'RichTextTypeCreatedEvent';
   createdRichTextType: RichTextTypeEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -24445,6 +25000,7 @@ export type RichTextTypeDeleteInput = {
 };
 
 export type RichTextTypeDeletedEvent = {
+  __typename?: 'RichTextTypeDeletedEvent';
   deletedRichTextType: RichTextTypeEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -24456,22 +25012,26 @@ export type RichTextTypeDisconnectInput = {
 };
 
 export type RichTextTypeEdge = {
+  __typename?: 'RichTextTypeEdge';
   cursor: Scalars['String']['output'];
   node: RichTextType;
 };
 
 export type RichTextTypeEventPayload = {
+  __typename?: 'RichTextTypeEventPayload';
   id: Scalars['ID']['output'];
   kind: TypeKind;
   name: Scalars['String']['output'];
 };
 
 export type RichTextTypeFieldFieldRefsAggregationSelection = {
+  __typename?: 'RichTextTypeFieldFieldRefsAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<RichTextTypeFieldFieldRefsNodeAggregateSelection>;
 };
 
 export type RichTextTypeFieldFieldRefsNodeAggregateSelection = {
+  __typename?: 'RichTextTypeFieldFieldRefsNodeAggregateSelection';
   defaultValues: StringAggregateSelection;
   description: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -24799,6 +25359,7 @@ export type RichTextTypeUpdateInput = {
 };
 
 export type RichTextTypeUpdatedEvent = {
+  __typename?: 'RichTextTypeUpdatedEvent';
   event: EventType;
   previousState: RichTextTypeEventPayload;
   timestamp: Scalars['Float']['output'];
@@ -24806,11 +25367,13 @@ export type RichTextTypeUpdatedEvent = {
 };
 
 export type RichTextTypeUserOwnerAggregationSelection = {
+  __typename?: 'RichTextTypeUserOwnerAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<RichTextTypeUserOwnerNodeAggregateSelection>;
 };
 
 export type RichTextTypeUserOwnerNodeAggregateSelection = {
+  __typename?: 'RichTextTypeUserOwnerNodeAggregateSelection';
   auth0Id: StringAggregateSelection;
   email: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -24864,6 +25427,7 @@ export type RichTextTypeWhere = {
 };
 
 export type RichTextTypesConnection = {
+  __typename?: 'RichTextTypesConnection';
   edges: Array<RichTextTypeEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -24883,6 +25447,7 @@ export enum SortDirection {
 }
 
 export type Store = {
+  __typename?: 'Store';
   actions: Array<AnyAction>;
   actionsConnection: StoreActionsConnection;
   api: InterfaceType;
@@ -25028,6 +25593,7 @@ export type StoreActionsConnectInput = {
 };
 
 export type StoreActionsConnection = {
+  __typename?: 'StoreActionsConnection';
   edges: Array<StoreActionsRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -25054,6 +25620,7 @@ export type StoreActionsDisconnectInput = {
 };
 
 export type StoreActionsRelationship = {
+  __typename?: 'StoreActionsRelationship';
   cursor: Scalars['String']['output'];
   node: AnyAction;
 };
@@ -25064,6 +25631,7 @@ export type StoreActionsUpdateInput = {
 };
 
 export type StoreAggregateSelection = {
+  __typename?: 'StoreAggregateSelection';
   count: Scalars['Int']['output'];
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -25095,6 +25663,7 @@ export type StoreApiConnectFieldInput = {
 };
 
 export type StoreApiConnection = {
+  __typename?: 'StoreApiConnection';
   edges: Array<StoreApiRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -25172,6 +25741,7 @@ export type StoreApiNodeAggregationWhereInput = {
 };
 
 export type StoreApiRelationship = {
+  __typename?: 'StoreApiRelationship';
   cursor: Scalars['String']['output'];
   node: InterfaceType;
 };
@@ -25206,6 +25776,7 @@ export type StoreCreateInput = {
 };
 
 export type StoreCreatedEvent = {
+  __typename?: 'StoreCreatedEvent';
   createdStore: StoreEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -25217,6 +25788,7 @@ export type StoreDeleteInput = {
 };
 
 export type StoreDeletedEvent = {
+  __typename?: 'StoreDeletedEvent';
   deletedStore: StoreEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -25228,21 +25800,25 @@ export type StoreDisconnectInput = {
 };
 
 export type StoreEdge = {
+  __typename?: 'StoreEdge';
   cursor: Scalars['String']['output'];
   node: Store;
 };
 
 export type StoreEventPayload = {
+  __typename?: 'StoreEventPayload';
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
 };
 
 export type StoreInterfaceTypeApiAggregationSelection = {
+  __typename?: 'StoreInterfaceTypeApiAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<StoreInterfaceTypeApiNodeAggregateSelection>;
 };
 
 export type StoreInterfaceTypeApiNodeAggregateSelection = {
+  __typename?: 'StoreInterfaceTypeApiNodeAggregateSelection';
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
   name: StringAggregateSelection;
@@ -25291,6 +25867,7 @@ export type StoreUpdateInput = {
 };
 
 export type StoreUpdatedEvent = {
+  __typename?: 'StoreUpdatedEvent';
   event: EventType;
   previousState: StoreEventPayload;
   timestamp: Scalars['Float']['output'];
@@ -25338,17 +25915,20 @@ export type StoreWhere = {
 };
 
 export type StoresConnection = {
+  __typename?: 'StoresConnection';
   edges: Array<StoreEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
 };
 
 export type StringAggregateSelection = {
+  __typename?: 'StringAggregateSelection';
   longest?: Maybe<Scalars['String']['output']>;
   shortest?: Maybe<Scalars['String']['output']>;
 };
 
 export type Subscription = {
+  __typename?: 'Subscription';
   actionTypeCreated: ActionTypeCreatedEvent;
   actionTypeDeleted: ActionTypeDeletedEvent;
   actionTypeUpdated: ActionTypeUpdatedEvent;
@@ -25982,6 +26562,7 @@ export type SubscriptionUserUpdatedArgs = {
 };
 
 export type Tag = WithOwner & {
+  __typename?: 'Tag';
   atoms: Array<Atom>;
   atomsAggregate?: Maybe<TagAtomAtomsAggregationSelection>;
   atomsConnection: TagAtomsConnection;
@@ -26100,6 +26681,7 @@ export type TagParentConnectionArgs = {
 };
 
 export type TagAggregateSelection = {
+  __typename?: 'TagAggregateSelection';
   count: Scalars['Int']['output'];
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -26107,11 +26689,13 @@ export type TagAggregateSelection = {
 };
 
 export type TagAtomAtomsAggregationSelection = {
+  __typename?: 'TagAtomAtomsAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<TagAtomAtomsNodeAggregateSelection>;
 };
 
 export type TagAtomAtomsNodeAggregateSelection = {
+  __typename?: 'TagAtomAtomsNodeAggregateSelection';
   externalCssSource: StringAggregateSelection;
   externalJsSource: StringAggregateSelection;
   externalSourceType: StringAggregateSelection;
@@ -26146,6 +26730,7 @@ export type TagAtomsConnectFieldInput = {
 };
 
 export type TagAtomsConnection = {
+  __typename?: 'TagAtomsConnection';
   edges: Array<TagAtomsRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -26283,6 +26868,7 @@ export type TagAtomsNodeAggregationWhereInput = {
 };
 
 export type TagAtomsRelationship = {
+  __typename?: 'TagAtomsRelationship';
   cursor: Scalars['String']['output'];
   node: Atom;
 };
@@ -26325,6 +26911,7 @@ export type TagChildrenConnectFieldInput = {
 };
 
 export type TagChildrenConnection = {
+  __typename?: 'TagChildrenConnection';
   edges: Array<TagChildrenRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -26402,6 +26989,7 @@ export type TagChildrenNodeAggregationWhereInput = {
 };
 
 export type TagChildrenRelationship = {
+  __typename?: 'TagChildrenRelationship';
   cursor: Scalars['String']['output'];
   node: Tag;
 };
@@ -26440,6 +27028,7 @@ export type TagCreateInput = {
 };
 
 export type TagCreatedEvent = {
+  __typename?: 'TagCreatedEvent';
   createdTag: TagEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -26453,6 +27042,7 @@ export type TagDeleteInput = {
 };
 
 export type TagDeletedEvent = {
+  __typename?: 'TagDeletedEvent';
   deletedTag: TagEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -26466,11 +27056,13 @@ export type TagDisconnectInput = {
 };
 
 export type TagEdge = {
+  __typename?: 'TagEdge';
   cursor: Scalars['String']['output'];
   node: Tag;
 };
 
 export type TagEventPayload = {
+  __typename?: 'TagEventPayload';
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
 };
@@ -26624,6 +27216,7 @@ export type TagParentConnectFieldInput = {
 };
 
 export type TagParentConnection = {
+  __typename?: 'TagParentConnection';
   edges: Array<TagParentRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -26701,6 +27294,7 @@ export type TagParentNodeAggregationWhereInput = {
 };
 
 export type TagParentRelationship = {
+  __typename?: 'TagParentRelationship';
   cursor: Scalars['String']['output'];
   node: Tag;
 };
@@ -26746,22 +27340,26 @@ export type TagSubscriptionWhere = {
 };
 
 export type TagTagChildrenAggregationSelection = {
+  __typename?: 'TagTagChildrenAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<TagTagChildrenNodeAggregateSelection>;
 };
 
 export type TagTagChildrenNodeAggregateSelection = {
+  __typename?: 'TagTagChildrenNodeAggregateSelection';
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
   name: StringAggregateSelection;
 };
 
 export type TagTagParentAggregationSelection = {
+  __typename?: 'TagTagParentAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<TagTagParentNodeAggregateSelection>;
 };
 
 export type TagTagParentNodeAggregateSelection = {
+  __typename?: 'TagTagParentNodeAggregateSelection';
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
   name: StringAggregateSelection;
@@ -26778,6 +27376,7 @@ export type TagUpdateInput = {
 };
 
 export type TagUpdatedEvent = {
+  __typename?: 'TagUpdatedEvent';
   event: EventType;
   previousState: TagEventPayload;
   timestamp: Scalars['Float']['output'];
@@ -26785,11 +27384,13 @@ export type TagUpdatedEvent = {
 };
 
 export type TagUserOwnerAggregationSelection = {
+  __typename?: 'TagUserOwnerAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<TagUserOwnerNodeAggregateSelection>;
 };
 
 export type TagUserOwnerNodeAggregateSelection = {
+  __typename?: 'TagUserOwnerNodeAggregateSelection';
   auth0Id: StringAggregateSelection;
   email: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -26859,6 +27460,7 @@ export type TagWhere = {
 };
 
 export type TagsConnection = {
+  __typename?: 'TagsConnection';
   edges: Array<TagEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -26882,6 +27484,7 @@ export enum TypeKind {
 }
 
 export type TypeReference = {
+  __typename?: 'TypeReference';
   /** The type of resource - Atom, InterfaceType, etc. */
   label: Scalars['String']['output'];
   /** The name of the resource referencing the type */
@@ -26889,6 +27492,7 @@ export type TypeReference = {
 };
 
 export type TypeReferenceAggregateSelection = {
+  __typename?: 'TypeReferenceAggregateSelection';
   count: Scalars['Int']['output'];
   label: StringAggregateSelection;
   name: StringAggregateSelection;
@@ -26900,23 +27504,27 @@ export type TypeReferenceCreateInput = {
 };
 
 export type TypeReferenceCreatedEvent = {
+  __typename?: 'TypeReferenceCreatedEvent';
   createdTypeReference: TypeReferenceEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
 };
 
 export type TypeReferenceDeletedEvent = {
+  __typename?: 'TypeReferenceDeletedEvent';
   deletedTypeReference: TypeReferenceEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
 };
 
 export type TypeReferenceEdge = {
+  __typename?: 'TypeReferenceEdge';
   cursor: Scalars['String']['output'];
   node: TypeReference;
 };
 
 export type TypeReferenceEventPayload = {
+  __typename?: 'TypeReferenceEventPayload';
   /** The type of resource - Atom, InterfaceType, etc. */
   label: Scalars['String']['output'];
   /** The name of the resource referencing the type */
@@ -26968,6 +27576,7 @@ export type TypeReferenceUpdateInput = {
 };
 
 export type TypeReferenceUpdatedEvent = {
+  __typename?: 'TypeReferenceUpdatedEvent';
   event: EventType;
   previousState: TypeReferenceEventPayload;
   timestamp: Scalars['Float']['output'];
@@ -26997,6 +27606,7 @@ export type TypeReferenceWhere = {
 };
 
 export type TypeReferencesConnection = {
+  __typename?: 'TypeReferencesConnection';
   edges: Array<TypeReferenceEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -27004,6 +27614,7 @@ export type TypeReferencesConnection = {
 
 /** Allows picking one of a set of types */
 export type UnionType = IBaseType & WithDescendants & {
+  __typename?: 'UnionType';
   descendantTypesIds: Array<Scalars['ID']['output']>;
   fieldRefs: Array<Field>;
   fieldRefsAggregate?: Maybe<UnionTypeFieldFieldRefsAggregationSelection>;
@@ -27094,6 +27705,7 @@ export type UnionTypeTypesOfUnionTypeConnectionArgs = {
 };
 
 export type UnionTypeAggregateSelection = {
+  __typename?: 'UnionTypeAggregateSelection';
   count: Scalars['Int']['output'];
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -27120,6 +27732,7 @@ export type UnionTypeCreateInput = {
 };
 
 export type UnionTypeCreatedEvent = {
+  __typename?: 'UnionTypeCreatedEvent';
   createdUnionType: UnionTypeEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -27132,6 +27745,7 @@ export type UnionTypeDeleteInput = {
 };
 
 export type UnionTypeDeletedEvent = {
+  __typename?: 'UnionTypeDeletedEvent';
   deletedUnionType: UnionTypeEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -27144,22 +27758,26 @@ export type UnionTypeDisconnectInput = {
 };
 
 export type UnionTypeEdge = {
+  __typename?: 'UnionTypeEdge';
   cursor: Scalars['String']['output'];
   node: UnionType;
 };
 
 export type UnionTypeEventPayload = {
+  __typename?: 'UnionTypeEventPayload';
   id: Scalars['ID']['output'];
   kind: TypeKind;
   name: Scalars['String']['output'];
 };
 
 export type UnionTypeFieldFieldRefsAggregationSelection = {
+  __typename?: 'UnionTypeFieldFieldRefsAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<UnionTypeFieldFieldRefsNodeAggregateSelection>;
 };
 
 export type UnionTypeFieldFieldRefsNodeAggregateSelection = {
+  __typename?: 'UnionTypeFieldFieldRefsNodeAggregateSelection';
   defaultValues: StringAggregateSelection;
   description: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -27666,6 +28284,7 @@ export type UnionTypeTypesOfUnionTypeConnectInput = {
 };
 
 export type UnionTypeTypesOfUnionTypeConnection = {
+  __typename?: 'UnionTypeTypesOfUnionTypeConnection';
   edges: Array<UnionTypeTypesOfUnionTypeRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -28048,6 +28667,7 @@ export type UnionTypeTypesOfUnionTypeReactNodeTypeUpdateFieldInput = {
 };
 
 export type UnionTypeTypesOfUnionTypeRelationship = {
+  __typename?: 'UnionTypeTypesOfUnionTypeRelationship';
   cursor: Scalars['String']['output'];
   node: AnyType;
 };
@@ -28217,6 +28837,7 @@ export type UnionTypeUpdateInput = {
 };
 
 export type UnionTypeUpdatedEvent = {
+  __typename?: 'UnionTypeUpdatedEvent';
   event: EventType;
   previousState: UnionTypeEventPayload;
   timestamp: Scalars['Float']['output'];
@@ -28224,11 +28845,13 @@ export type UnionTypeUpdatedEvent = {
 };
 
 export type UnionTypeUserOwnerAggregationSelection = {
+  __typename?: 'UnionTypeUserOwnerAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<UnionTypeUserOwnerNodeAggregateSelection>;
 };
 
 export type UnionTypeUserOwnerNodeAggregateSelection = {
+  __typename?: 'UnionTypeUserOwnerNodeAggregateSelection';
   auth0Id: StringAggregateSelection;
   email: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -28298,98 +28921,117 @@ export type UnionTypeWhere = {
 };
 
 export type UnionTypesConnection = {
+  __typename?: 'UnionTypesConnection';
   edges: Array<UnionTypeEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
 };
 
 export type UpdateActionTypesMutationResponse = {
+  __typename?: 'UpdateActionTypesMutationResponse';
   actionTypes: Array<ActionType>;
   info: UpdateInfo;
 };
 
 export type UpdateApiActionsMutationResponse = {
+  __typename?: 'UpdateApiActionsMutationResponse';
   apiActions: Array<ApiAction>;
   info: UpdateInfo;
 };
 
 export type UpdateAppTypesMutationResponse = {
+  __typename?: 'UpdateAppTypesMutationResponse';
   appTypes: Array<AppType>;
   info: UpdateInfo;
 };
 
 export type UpdateAppsMutationResponse = {
+  __typename?: 'UpdateAppsMutationResponse';
   apps: Array<App>;
   info: UpdateInfo;
 };
 
 export type UpdateArrayTypesMutationResponse = {
+  __typename?: 'UpdateArrayTypesMutationResponse';
   arrayTypes: Array<ArrayType>;
   info: UpdateInfo;
 };
 
 export type UpdateAtomsMutationResponse = {
+  __typename?: 'UpdateAtomsMutationResponse';
   atoms: Array<Atom>;
   info: UpdateInfo;
 };
 
 export type UpdateAuthGuardsMutationResponse = {
+  __typename?: 'UpdateAuthGuardsMutationResponse';
   authGuards: Array<AuthGuard>;
   info: UpdateInfo;
 };
 
 export type UpdateCodeActionsMutationResponse = {
+  __typename?: 'UpdateCodeActionsMutationResponse';
   codeActions: Array<CodeAction>;
   info: UpdateInfo;
 };
 
 export type UpdateCodeMirrorTypesMutationResponse = {
+  __typename?: 'UpdateCodeMirrorTypesMutationResponse';
   codeMirrorTypes: Array<CodeMirrorType>;
   info: UpdateInfo;
 };
 
 export type UpdateComponentsMutationResponse = {
+  __typename?: 'UpdateComponentsMutationResponse';
   components: Array<Component>;
   info: UpdateInfo;
 };
 
 export type UpdateDomainsMutationResponse = {
+  __typename?: 'UpdateDomainsMutationResponse';
   domains: Array<Domain>;
   info: UpdateInfo;
 };
 
 export type UpdateElementTypesMutationResponse = {
+  __typename?: 'UpdateElementTypesMutationResponse';
   elementTypes: Array<ElementType>;
   info: UpdateInfo;
 };
 
 export type UpdateElementsMutationResponse = {
+  __typename?: 'UpdateElementsMutationResponse';
   elements: Array<Element>;
   info: UpdateInfo;
 };
 
 export type UpdateEnumTypeValuesMutationResponse = {
+  __typename?: 'UpdateEnumTypeValuesMutationResponse';
   enumTypeValues: Array<EnumTypeValue>;
   info: UpdateInfo;
 };
 
 export type UpdateEnumTypesMutationResponse = {
+  __typename?: 'UpdateEnumTypesMutationResponse';
   enumTypes: Array<EnumType>;
   info: UpdateInfo;
 };
 
 export type UpdateFieldsMutationResponse = {
+  __typename?: 'UpdateFieldsMutationResponse';
   fields: Array<Field>;
   info: UpdateInfo;
 };
 
 export type UpdateHooksMutationResponse = {
+  __typename?: 'UpdateHooksMutationResponse';
   hooks: Array<Hook>;
   info: UpdateInfo;
 };
 
 /** Information about the number of nodes and relationships created and deleted during an update mutation */
 export type UpdateInfo = {
+  __typename?: 'UpdateInfo';
   nodesCreated: Scalars['Int']['output'];
   nodesDeleted: Scalars['Int']['output'];
   relationshipsCreated: Scalars['Int']['output'];
@@ -28397,91 +29039,109 @@ export type UpdateInfo = {
 };
 
 export type UpdateInterfaceTypesMutationResponse = {
+  __typename?: 'UpdateInterfaceTypesMutationResponse';
   info: UpdateInfo;
   interfaceTypes: Array<InterfaceType>;
 };
 
 export type UpdateLambdaTypesMutationResponse = {
+  __typename?: 'UpdateLambdaTypesMutationResponse';
   info: UpdateInfo;
   lambdaTypes: Array<LambdaType>;
 };
 
 export type UpdatePageTypesMutationResponse = {
+  __typename?: 'UpdatePageTypesMutationResponse';
   info: UpdateInfo;
   pageTypes: Array<PageType>;
 };
 
 export type UpdatePagesMutationResponse = {
+  __typename?: 'UpdatePagesMutationResponse';
   info: UpdateInfo;
   pages: Array<Page>;
 };
 
 export type UpdatePreferencesMutationResponse = {
+  __typename?: 'UpdatePreferencesMutationResponse';
   info: UpdateInfo;
   preferences: Array<Preference>;
 };
 
 export type UpdatePrimitiveTypesMutationResponse = {
+  __typename?: 'UpdatePrimitiveTypesMutationResponse';
   info: UpdateInfo;
   primitiveTypes: Array<PrimitiveType>;
 };
 
 export type UpdatePropsMutationResponse = {
+  __typename?: 'UpdatePropsMutationResponse';
   info: UpdateInfo;
   props: Array<Prop>;
 };
 
 export type UpdateReactNodeTypesMutationResponse = {
+  __typename?: 'UpdateReactNodeTypesMutationResponse';
   info: UpdateInfo;
   reactNodeTypes: Array<ReactNodeType>;
 };
 
 export type UpdateRedirectsMutationResponse = {
+  __typename?: 'UpdateRedirectsMutationResponse';
   info: UpdateInfo;
   redirects: Array<Redirect>;
 };
 
 export type UpdateRenderPropTypesMutationResponse = {
+  __typename?: 'UpdateRenderPropTypesMutationResponse';
   info: UpdateInfo;
   renderPropTypes: Array<RenderPropType>;
 };
 
 export type UpdateResourcesMutationResponse = {
+  __typename?: 'UpdateResourcesMutationResponse';
   info: UpdateInfo;
   resources: Array<Resource>;
 };
 
 export type UpdateRichTextTypesMutationResponse = {
+  __typename?: 'UpdateRichTextTypesMutationResponse';
   info: UpdateInfo;
   richTextTypes: Array<RichTextType>;
 };
 
 export type UpdateStoresMutationResponse = {
+  __typename?: 'UpdateStoresMutationResponse';
   info: UpdateInfo;
   stores: Array<Store>;
 };
 
 export type UpdateTagsMutationResponse = {
+  __typename?: 'UpdateTagsMutationResponse';
   info: UpdateInfo;
   tags: Array<Tag>;
 };
 
 export type UpdateTypeReferencesMutationResponse = {
+  __typename?: 'UpdateTypeReferencesMutationResponse';
   info: UpdateInfo;
   typeReferences: Array<TypeReference>;
 };
 
 export type UpdateUnionTypesMutationResponse = {
+  __typename?: 'UpdateUnionTypesMutationResponse';
   info: UpdateInfo;
   unionTypes: Array<UnionType>;
 };
 
 export type UpdateUsersMutationResponse = {
+  __typename?: 'UpdateUsersMutationResponse';
   info: UpdateInfo;
   users: Array<User>;
 };
 
 export type User = {
+  __typename?: 'User';
   apps: Array<App>;
   appsAggregate?: Maybe<UserAppAppsAggregationSelection>;
   appsConnection: UserAppsConnection;
@@ -28686,6 +29346,7 @@ export type UserTypesConnectionArgs = {
 };
 
 export type UserAggregateSelection = {
+  __typename?: 'UserAggregateSelection';
   auth0Id: StringAggregateSelection;
   count: Scalars['Int']['output'];
   email: StringAggregateSelection;
@@ -28695,11 +29356,13 @@ export type UserAggregateSelection = {
 };
 
 export type UserAppAppsAggregationSelection = {
+  __typename?: 'UserAppAppsAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<UserAppAppsNodeAggregateSelection>;
 };
 
 export type UserAppAppsNodeAggregateSelection = {
+  __typename?: 'UserAppAppsNodeAggregateSelection';
   compositeKey: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -28730,6 +29393,7 @@ export type UserAppsConnectFieldInput = {
 };
 
 export type UserAppsConnection = {
+  __typename?: 'UserAppsConnection';
   edges: Array<UserAppsRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -28807,6 +29471,7 @@ export type UserAppsNodeAggregationWhereInput = {
 };
 
 export type UserAppsRelationship = {
+  __typename?: 'UserAppsRelationship';
   cursor: Scalars['String']['output'];
   node: App;
 };
@@ -28825,11 +29490,13 @@ export type UserAppsUpdateFieldInput = {
 };
 
 export type UserAtomAtomsAggregationSelection = {
+  __typename?: 'UserAtomAtomsAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<UserAtomAtomsNodeAggregateSelection>;
 };
 
 export type UserAtomAtomsNodeAggregateSelection = {
+  __typename?: 'UserAtomAtomsNodeAggregateSelection';
   externalCssSource: StringAggregateSelection;
   externalJsSource: StringAggregateSelection;
   externalSourceType: StringAggregateSelection;
@@ -28864,6 +29531,7 @@ export type UserAtomsConnectFieldInput = {
 };
 
 export type UserAtomsConnection = {
+  __typename?: 'UserAtomsConnection';
   edges: Array<UserAtomsRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -29001,6 +29669,7 @@ export type UserAtomsNodeAggregationWhereInput = {
 };
 
 export type UserAtomsRelationship = {
+  __typename?: 'UserAtomsRelationship';
   cursor: Scalars['String']['output'];
   node: Atom;
 };
@@ -29019,11 +29688,13 @@ export type UserAtomsUpdateFieldInput = {
 };
 
 export type UserComponentComponentsAggregationSelection = {
+  __typename?: 'UserComponentComponentsAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<UserComponentComponentsNodeAggregateSelection>;
 };
 
 export type UserComponentComponentsNodeAggregateSelection = {
+  __typename?: 'UserComponentComponentsNodeAggregateSelection';
   compositeKey: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -29054,6 +29725,7 @@ export type UserComponentsConnectFieldInput = {
 };
 
 export type UserComponentsConnection = {
+  __typename?: 'UserComponentsConnection';
   edges: Array<UserComponentsRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -29131,6 +29803,7 @@ export type UserComponentsNodeAggregationWhereInput = {
 };
 
 export type UserComponentsRelationship = {
+  __typename?: 'UserComponentsRelationship';
   cursor: Scalars['String']['output'];
   node: Component;
 };
@@ -29178,6 +29851,7 @@ export type UserCreateInput = {
 };
 
 export type UserCreatedEvent = {
+  __typename?: 'UserCreatedEvent';
   createdUser: UserEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -29194,6 +29868,7 @@ export type UserDeleteInput = {
 };
 
 export type UserDeletedEvent = {
+  __typename?: 'UserDeletedEvent';
   deletedUser: UserEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
@@ -29210,16 +29885,19 @@ export type UserDisconnectInput = {
 };
 
 export type UserEdge = {
+  __typename?: 'UserEdge';
   cursor: Scalars['String']['output'];
   node: User;
 };
 
 export type UserElementElementsAggregationSelection = {
+  __typename?: 'UserElementElementsAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<UserElementElementsNodeAggregateSelection>;
 };
 
 export type UserElementElementsNodeAggregateSelection = {
+  __typename?: 'UserElementElementsNodeAggregateSelection';
   childMapperPropKey: StringAggregateSelection;
   compositeKey: StringAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
@@ -29254,6 +29932,7 @@ export type UserElementsConnectFieldInput = {
 };
 
 export type UserElementsConnection = {
+  __typename?: 'UserElementsConnection';
   edges: Array<UserElementsRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -29391,6 +30070,7 @@ export type UserElementsNodeAggregationWhereInput = {
 };
 
 export type UserElementsRelationship = {
+  __typename?: 'UserElementsRelationship';
   cursor: Scalars['String']['output'];
   node: Element;
 };
@@ -29409,6 +30089,7 @@ export type UserElementsUpdateFieldInput = {
 };
 
 export type UserEventPayload = {
+  __typename?: 'UserEventPayload';
   auth0Id: Scalars['String']['output'];
   email: Scalars['String']['output'];
   id: Scalars['ID']['output'];
@@ -29417,11 +30098,13 @@ export type UserEventPayload = {
 };
 
 export type UserIBaseTypeTypesAggregationSelection = {
+  __typename?: 'UserIBaseTypeTypesAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<UserIBaseTypeTypesNodeAggregateSelection>;
 };
 
 export type UserIBaseTypeTypesNodeAggregateSelection = {
+  __typename?: 'UserIBaseTypeTypesNodeAggregateSelection';
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
   name: StringAggregateSelection;
@@ -29435,11 +30118,13 @@ export type UserOptions = {
 };
 
 export type UserPreferencePreferencesAggregationSelection = {
+  __typename?: 'UserPreferencePreferencesAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<UserPreferencePreferencesNodeAggregateSelection>;
 };
 
 export type UserPreferencePreferencesNodeAggregateSelection = {
+  __typename?: 'UserPreferencePreferencesNodeAggregateSelection';
   builderWidth: FloatAggregateSelection;
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
@@ -29470,6 +30155,7 @@ export type UserPreferencesConnectFieldInput = {
 };
 
 export type UserPreferencesConnection = {
+  __typename?: 'UserPreferencesConnection';
   edges: Array<UserPreferencesRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -29552,6 +30238,7 @@ export type UserPreferencesNodeAggregationWhereInput = {
 };
 
 export type UserPreferencesRelationship = {
+  __typename?: 'UserPreferencesRelationship';
   cursor: Scalars['String']['output'];
   node: Preference;
 };
@@ -29619,11 +30306,13 @@ export type UserSubscriptionWhere = {
 };
 
 export type UserTagTagsAggregationSelection = {
+  __typename?: 'UserTagTagsAggregationSelection';
   count: Scalars['Int']['output'];
   node?: Maybe<UserTagTagsNodeAggregateSelection>;
 };
 
 export type UserTagTagsNodeAggregateSelection = {
+  __typename?: 'UserTagTagsNodeAggregateSelection';
   /** @deprecated aggregation of ID fields are deprecated and will be removed */
   id: IdAggregateSelection;
   name: StringAggregateSelection;
@@ -29654,6 +30343,7 @@ export type UserTagsConnectFieldInput = {
 };
 
 export type UserTagsConnection = {
+  __typename?: 'UserTagsConnection';
   edges: Array<UserTagsRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -29731,6 +30421,7 @@ export type UserTagsNodeAggregationWhereInput = {
 };
 
 export type UserTagsRelationship = {
+  __typename?: 'UserTagsRelationship';
   cursor: Scalars['String']['output'];
   node: Tag;
 };
@@ -29768,6 +30459,7 @@ export type UserTypesConnectFieldInput = {
 };
 
 export type UserTypesConnection = {
+  __typename?: 'UserTypesConnection';
   edges: Array<UserTypesRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -29845,6 +30537,7 @@ export type UserTypesNodeAggregationWhereInput = {
 };
 
 export type UserTypesRelationship = {
+  __typename?: 'UserTypesRelationship';
   cursor: Scalars['String']['output'];
   node: IBaseType;
 };
@@ -29885,6 +30578,7 @@ export type UserUpdateInput = {
 };
 
 export type UserUpdatedEvent = {
+  __typename?: 'UserUpdatedEvent';
   event: EventType;
   previousState: UserEventPayload;
   timestamp: Scalars['Float']['output'];
@@ -30038,6 +30732,7 @@ export type UserWhere = {
 };
 
 export type UsersConnection = {
+  __typename?: 'UsersConnection';
   edges: Array<UserEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -30048,16 +30743,19 @@ export type WithDescendants = {
 };
 
 export type WithDescendantsAggregateSelection = {
+  __typename?: 'WithDescendantsAggregateSelection';
   count: Scalars['Int']['output'];
 };
 
 export type WithDescendantsConnection = {
+  __typename?: 'WithDescendantsConnection';
   edges: Array<WithDescendantsEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
 };
 
 export type WithDescendantsEdge = {
+  __typename?: 'WithDescendantsEdge';
   cursor: Scalars['String']['output'];
   node: WithDescendants;
 };
@@ -30109,10 +30807,12 @@ export type WithOwnerOwnerConnectionArgs = {
 };
 
 export type WithOwnerAggregateSelection = {
+  __typename?: 'WithOwnerAggregateSelection';
   count: Scalars['Int']['output'];
 };
 
 export type WithOwnerEdge = {
+  __typename?: 'WithOwnerEdge';
   cursor: Scalars['String']['output'];
   node: WithOwner;
 };
@@ -30147,6 +30847,7 @@ export type WithOwnerOwnerAggregateInput = {
 };
 
 export type WithOwnerOwnerConnection = {
+  __typename?: 'WithOwnerOwnerConnection';
   edges: Array<WithOwnerOwnerRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
@@ -30245,6 +30946,7 @@ export type WithOwnerOwnerNodeAggregationWhereInput = {
 };
 
 export type WithOwnerOwnerRelationship = {
+  __typename?: 'WithOwnerOwnerRelationship';
   cursor: Scalars['String']['output'];
   node: User;
 };
@@ -30262,231 +30964,193 @@ export type WithOwnerWhere = {
 };
 
 export type WithOwnersConnection = {
+  __typename?: 'WithOwnersConnection';
   edges: Array<WithOwnerEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
 };
 
-type BaseAction_ApiAction_Fragment = { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { id: string, name: string } };
+type BaseAction_ApiAction_Fragment = { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } };
 
-type BaseAction_CodeAction_Fragment = { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { id: string, name: string } };
+type BaseAction_CodeAction_Fragment = { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } };
 
 export type BaseActionFragment = BaseAction_ApiAction_Fragment | BaseAction_CodeAction_Fragment;
 
-type Action_ApiAction_Fragment = (
-  ApiActionFragment
-  & BaseAction_ApiAction_Fragment
-);
+type Action_ApiAction_Fragment = { __typename: 'ApiAction', id: string, name: string, type: ActionKind, config: { __typename?: 'Prop', data: string, id: string }, errorAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, resource: { __typename?: 'Resource', id: string, name: string, type: ResourceType, config: { __typename?: 'Prop', data: string, id: string }, owner: { __typename?: 'User', id: string } }, successAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, store: { __typename?: 'Store', id: string, name: string } };
 
-type Action_CodeAction_Fragment = (
-  CodeActionFragment
-  & BaseAction_CodeAction_Fragment
-);
+type Action_CodeAction_Fragment = { __typename: 'CodeAction', code: string, id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } };
 
 export type ActionFragment = Action_ApiAction_Fragment | Action_CodeAction_Fragment;
 
-export type ApiActionFragment = (
-  { config: { data: string, id: string }, errorAction?: BaseAction_ApiAction_Fragment | BaseAction_CodeAction_Fragment | null, resource: ResourceFragment, successAction?: BaseAction_ApiAction_Fragment | BaseAction_CodeAction_Fragment | null }
-  & BaseAction_ApiAction_Fragment
-);
+export type ApiActionFragment = { __typename: 'ApiAction', id: string, name: string, type: ActionKind, config: { __typename?: 'Prop', data: string, id: string }, errorAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, resource: { __typename?: 'Resource', id: string, name: string, type: ResourceType, config: { __typename?: 'Prop', data: string, id: string }, owner: { __typename?: 'User', id: string } }, successAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, store: { __typename?: 'Store', id: string, name: string } };
 
-export type CodeActionFragment = (
-  { code: string }
-  & BaseAction_CodeAction_Fragment
-);
+export type CodeActionFragment = { __typename: 'CodeAction', code: string, id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } };
 
-export type AppPreviewFragment = { id: string, name: string, slug: string, domains: Array<DomainFragment>, owner: OwnerFragment, pages: Array<PagePreviewFragment> };
+export type AppPreviewFragment = { __typename?: 'App', id: string, name: string, slug: string, domains: Array<{ __typename?: 'Domain', id: string, name: string, app: { __typename?: 'App', id: string }, domainConfig: { __typename?: 'ProductionDomainConfig', misconfigured: boolean } }>, owner: { __typename?: 'User', id: string }, pages: Array<{ __typename?: 'Page', id: string, kind: PageKind, name: string, urlPattern: string, app: { __typename?: 'App', id: string }, rootElement: { __typename?: 'Element', id: string }, elements: Array<{ __typename?: 'Element', id: string }>, store: { __typename?: 'Store', id: string } }> };
 
-export type AppFragment = { id: string, name: string, slug: string, domains: Array<DomainFragment>, owner: OwnerFragment, pages: Array<PageFragment> };
+export type AppFragment = { __typename?: 'App', id: string, name: string, slug: string, domains: Array<{ __typename?: 'Domain', id: string, name: string, app: { __typename?: 'App', id: string }, domainConfig: { __typename?: 'ProductionDomainConfig', misconfigured: boolean } }>, owner: { __typename?: 'User', id: string }, pages: Array<{ __typename?: 'Page', id: string, kind: PageKind, name: string, urlPattern: string, app: { __typename?: 'App', id: string }, elements: Array<{ __typename: 'Element', compositeKey: string, childMapperPropKey?: string | null, id: string, name: string, renderForEachPropKey?: string | null, renderIfExpression?: string | null, style?: string | null, tailwindClassNames?: Array<string> | null, expanded?: boolean | null, childMapperComponent?: { __typename?: 'Component', id: string } | null, childMapperPreviousSibling?: { __typename?: 'Element', id: string } | null, dependantTypes: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, itemType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', language: CodeMirrorLanguage, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', elementKind: ElementTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, allowedValues: Array<{ __typename?: 'EnumTypeValue', id: string, key: string, value: string }>, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', primitiveKind: PrimitiveTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, typesOfUnionType: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } }>, firstChild?: { __typename?: 'Element', id: string } | null, nextSibling?: { __typename?: 'Element', id: string } | null, page?: { __typename?: 'Page', id: string } | null, parentComponent?: { __typename?: 'Component', id: string } | null, parentElement?: { __typename?: 'Element', id: string } | null, postRenderActions: Array<{ __typename?: 'ApiAction', id: string, type: ActionKind } | { __typename?: 'CodeAction', id: string, type: ActionKind }>, preRenderActions: Array<{ __typename?: 'ApiAction', id: string, type: ActionKind } | { __typename?: 'CodeAction', id: string, type: ActionKind }>, prevSibling?: { __typename?: 'Element', id: string } | null, props: { __typename?: 'Prop', data: string, id: string }, renderType: { __typename: 'Atom', icon?: string | null, id: string, name: string, type: AtomType, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } }, requiredParents: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, suggestedChildren: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, tags: Array<{ __typename?: 'Tag', id: string, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } } | { __typename: 'Component', id: string } }>, pageContentContainer?: { __typename?: 'Element', id: string } | null, redirect?: { __typename?: 'Redirect', id: string } | null, rootElement: { __typename?: 'Element', id: string }, store: { __typename?: 'Store', id: string, name: string, actions: Array<{ __typename: 'ApiAction', id: string, name: string, type: ActionKind, config: { __typename?: 'Prop', data: string, id: string }, errorAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, resource: { __typename?: 'Resource', id: string, name: string, type: ResourceType, config: { __typename?: 'Prop', data: string, id: string }, owner: { __typename?: 'User', id: string } }, successAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', code: string, id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } }>, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } } } }> };
 
-export type AppBuilderFragment = { id: string, name: string, slug: string, owner: OwnerFragment, pages: Array<PageDevelopmentFragment> };
+export type AppBuilderFragment = { __typename?: 'App', id: string, name: string, slug: string, owner: { __typename?: 'User', id: string }, pages: Array<{ __typename?: 'Page', id: string, kind: PageKind, name: string, urlPattern: string, app: { __typename?: 'App', id: string }, elements: Array<{ __typename: 'Element', compositeKey: string, childMapperPropKey?: string | null, id: string, name: string, renderForEachPropKey?: string | null, renderIfExpression?: string | null, style?: string | null, tailwindClassNames?: Array<string> | null, expanded?: boolean | null, childMapperComponent?: { __typename?: 'Component', id: string } | null, childMapperPreviousSibling?: { __typename?: 'Element', id: string } | null, dependantTypes: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, itemType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', language: CodeMirrorLanguage, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', elementKind: ElementTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, allowedValues: Array<{ __typename?: 'EnumTypeValue', id: string, key: string, value: string }>, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', primitiveKind: PrimitiveTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, typesOfUnionType: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } }>, firstChild?: { __typename?: 'Element', id: string } | null, nextSibling?: { __typename?: 'Element', id: string } | null, page?: { __typename?: 'Page', id: string } | null, parentComponent?: { __typename?: 'Component', id: string } | null, parentElement?: { __typename?: 'Element', id: string } | null, postRenderActions: Array<{ __typename?: 'ApiAction', id: string, type: ActionKind } | { __typename?: 'CodeAction', id: string, type: ActionKind }>, preRenderActions: Array<{ __typename?: 'ApiAction', id: string, type: ActionKind } | { __typename?: 'CodeAction', id: string, type: ActionKind }>, prevSibling?: { __typename?: 'Element', id: string } | null, props: { __typename?: 'Prop', data: string, id: string }, renderType: { __typename: 'Atom', icon?: string | null, id: string, name: string, type: AtomType, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } }, requiredParents: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, suggestedChildren: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, tags: Array<{ __typename?: 'Tag', id: string, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } } | { __typename: 'Component', id: string } }>, pageContentContainer?: { __typename?: 'Element', id: string } | null, redirect?: { __typename?: 'Redirect', id: string } | null, rootElement: { __typename?: 'Element', id: string }, store: { __typename?: 'Store', id: string, name: string, actions: Array<{ __typename: 'ApiAction', id: string, name: string, type: ActionKind, config: { __typename?: 'Prop', data: string, id: string }, errorAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, resource: { __typename?: 'Resource', id: string, name: string, type: ResourceType, config: { __typename?: 'Prop', data: string, id: string }, owner: { __typename?: 'User', id: string } }, successAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', code: string, id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } }>, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } } } }> };
 
-export type AppProductionFragment = { id: string, name: string, slug: string, owner: OwnerFragment, pages: Array<PageProductionFragment> };
+export type AppProductionFragment = { __typename?: 'App', id: string, name: string, slug: string, owner: { __typename?: 'User', id: string }, pages: Array<{ __typename?: 'Page', id: string, kind: PageKind, name: string, slug: string, urlPattern: string, app: { __typename?: 'App', id: string }, elements: Array<{ __typename: 'Element', childMapperPropKey?: string | null, id: string, name: string, renderForEachPropKey?: string | null, renderIfExpression?: string | null, style?: string | null, tailwindClassNames?: Array<string> | null, childMapperComponent?: { __typename?: 'Component', id: string, name: string } | null, childMapperPreviousSibling?: { __typename?: 'Element', id: string } | null, dependantTypes: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, itemType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', language: CodeMirrorLanguage, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', elementKind: ElementTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, allowedValues: Array<{ __typename?: 'EnumTypeValue', id: string, key: string, value: string }>, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', primitiveKind: PrimitiveTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, typesOfUnionType: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } }>, firstChild?: { __typename?: 'Element', id: string } | null, nextSibling?: { __typename?: 'Element', id: string } | null, page?: { __typename?: 'Page', id: string } | null, parentComponent?: { __typename?: 'Component', id: string } | null, parentElement?: { __typename?: 'Element', id: string } | null, postRenderActions: Array<{ __typename?: 'ApiAction', id: string, type: ActionKind } | { __typename?: 'CodeAction', id: string, type: ActionKind }>, preRenderActions: Array<{ __typename?: 'ApiAction', id: string, type: ActionKind } | { __typename?: 'CodeAction', id: string, type: ActionKind }>, prevSibling?: { __typename?: 'Element', id: string } | null, props: { __typename?: 'Prop', data: string, id: string }, renderType: { __typename: 'Atom', externalCssSource?: string | null, externalJsSource?: string | null, externalSourceType?: string | null, icon?: string | null, id: string, name: string, type: AtomType, requiredParents: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, suggestedChildren: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }> } | { __typename: 'Component', id: string } }>, pageContentContainer?: { __typename?: 'Element', id: string } | null, redirect?: { __typename?: 'Redirect', id: string } | null, rootElement: { __typename?: 'Element', id: string }, store: { __typename?: 'Store', id: string, name: string, actions: Array<{ __typename: 'ApiAction', id: string, name: string, type: ActionKind, config: { __typename?: 'Prop', data: string, id: string }, errorAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, resource: { __typename?: 'Resource', id: string, name: string, type: ResourceType, config: { __typename?: 'Prop', data: string, id: string }, owner: { __typename?: 'User', id: string } }, successAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', code: string, id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } }>, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } } } }> };
 
-export type AtomFragment = { __typename: 'Atom', externalCssSource?: string | null, externalJsSource?: string | null, externalSourceType?: string | null, icon?: string | null, id: string, name: string, type: AtomType, api: InterfaceTypeFragment, requiredParents: Array<{ id: string, name: string, type: AtomType }>, suggestedChildren: Array<{ id: string, name: string, type: AtomType }>, tags: Array<TagPreviewFragment>, owner: { id: string } };
+export type AtomFragment = { __typename: 'Atom', externalCssSource?: string | null, externalJsSource?: string | null, externalSourceType?: string | null, icon?: string | null, id: string, name: string, type: AtomType, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } }, requiredParents: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, suggestedChildren: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, tags: Array<{ __typename?: 'Tag', id: string, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } };
 
-export type AtomBuilderFragment = { __typename: 'Atom', icon?: string | null, id: string, name: string, type: AtomType, api: InterfaceTypeFragment, requiredParents: Array<{ id: string, name: string, type: AtomType }>, suggestedChildren: Array<{ id: string, name: string, type: AtomType }>, tags: Array<TagPreviewFragment>, owner: { id: string } };
+export type AtomBuilderFragment = { __typename: 'Atom', icon?: string | null, id: string, name: string, type: AtomType, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } }, requiredParents: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, suggestedChildren: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, tags: Array<{ __typename?: 'Tag', id: string, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } };
 
-export type AtomProductionFragment = { __typename: 'Atom', externalCssSource?: string | null, externalJsSource?: string | null, externalSourceType?: string | null, icon?: string | null, id: string, name: string, type: AtomType, requiredParents: Array<{ id: string, name: string, type: AtomType }>, suggestedChildren: Array<{ id: string, name: string, type: AtomType }> };
+export type AtomProductionFragment = { __typename: 'Atom', externalCssSource?: string | null, externalJsSource?: string | null, externalSourceType?: string | null, icon?: string | null, id: string, name: string, type: AtomType, requiredParents: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, suggestedChildren: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }> };
 
-export type AuthGuardFragment = { id: string, name: string, responseTransformer: string, config: PropFragment, resource: ResourceFragment, owner: { id: string } };
+export type AuthGuardFragment = { __typename?: 'AuthGuard', id: string, name: string, responseTransformer: string, config: { __typename?: 'Prop', data: string, id: string }, resource: { __typename?: 'Resource', id: string, name: string, type: ResourceType, config: { __typename?: 'Prop', data: string, id: string }, owner: { __typename?: 'User', id: string } }, owner: { __typename?: 'User', id: string } };
 
-export type ComponentFragment = { __typename: 'Component', id: string, name: string, compositeKey: string, api: { __typename: 'InterfaceType', id: string }, owner: OwnerFragment, props: PropFragment, rootElement: { id: string }, store: StoreFragment };
+export type ComponentFragment = { __typename: 'Component', id: string, name: string, compositeKey: string, api: { __typename: 'InterfaceType', id: string }, owner: { __typename?: 'User', id: string }, props: { __typename?: 'Prop', data: string, id: string }, rootElement: { __typename?: 'Element', id: string }, store: { __typename?: 'Store', id: string, name: string, actions: Array<{ __typename: 'ApiAction', id: string, name: string, type: ActionKind, config: { __typename?: 'Prop', data: string, id: string }, errorAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, resource: { __typename?: 'Resource', id: string, name: string, type: ResourceType, config: { __typename?: 'Prop', data: string, id: string }, owner: { __typename?: 'User', id: string } }, successAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', code: string, id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } }>, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } } } };
 
-export type ComponentBuilderFragment = { __typename: 'Component', id: string, name: string, compositeKey: string, api: InterfaceTypeFragment, elements: Array<ElementFragment>, owner: OwnerFragment, props: PropFragment, rootElement: { id: string, name: string }, store: StoreFragment };
+export type ComponentBuilderFragment = { __typename: 'Component', id: string, name: string, compositeKey: string, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } }, elements: Array<{ __typename: 'Element', compositeKey: string, childMapperPropKey?: string | null, id: string, name: string, renderForEachPropKey?: string | null, renderIfExpression?: string | null, style?: string | null, tailwindClassNames?: Array<string> | null, expanded?: boolean | null, childMapperComponent?: { __typename?: 'Component', id: string } | null, childMapperPreviousSibling?: { __typename?: 'Element', id: string } | null, dependantTypes: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, itemType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', language: CodeMirrorLanguage, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', elementKind: ElementTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, allowedValues: Array<{ __typename?: 'EnumTypeValue', id: string, key: string, value: string }>, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', primitiveKind: PrimitiveTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, typesOfUnionType: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } }>, firstChild?: { __typename?: 'Element', id: string } | null, nextSibling?: { __typename?: 'Element', id: string } | null, page?: { __typename?: 'Page', id: string } | null, parentComponent?: { __typename?: 'Component', id: string } | null, parentElement?: { __typename?: 'Element', id: string } | null, postRenderActions: Array<{ __typename?: 'ApiAction', id: string, type: ActionKind } | { __typename?: 'CodeAction', id: string, type: ActionKind }>, preRenderActions: Array<{ __typename?: 'ApiAction', id: string, type: ActionKind } | { __typename?: 'CodeAction', id: string, type: ActionKind }>, prevSibling?: { __typename?: 'Element', id: string } | null, props: { __typename?: 'Prop', data: string, id: string }, renderType: { __typename: 'Atom', icon?: string | null, id: string, name: string, type: AtomType, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } }, requiredParents: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, suggestedChildren: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, tags: Array<{ __typename?: 'Tag', id: string, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } } | { __typename: 'Component', id: string } }>, owner: { __typename?: 'User', id: string }, props: { __typename?: 'Prop', data: string, id: string }, rootElement: { __typename?: 'Element', id: string, name: string }, store: { __typename?: 'Store', id: string, name: string, actions: Array<{ __typename: 'ApiAction', id: string, name: string, type: ActionKind, config: { __typename?: 'Prop', data: string, id: string }, errorAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, resource: { __typename?: 'Resource', id: string, name: string, type: ResourceType, config: { __typename?: 'Prop', data: string, id: string }, owner: { __typename?: 'User', id: string } }, successAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', code: string, id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } }>, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } } } };
 
-export type ComponentProductionFragment = { id: string, name: string, compositeKey: string, owner: OwnerFragment, props: PropFragment, rootElement: { id: string, name: string }, store: StoreFragment };
+export type ComponentProductionFragment = { __typename?: 'Component', id: string, name: string, compositeKey: string, owner: { __typename?: 'User', id: string }, props: { __typename?: 'Prop', data: string, id: string }, rootElement: { __typename?: 'Element', id: string, name: string }, store: { __typename?: 'Store', id: string, name: string, actions: Array<{ __typename: 'ApiAction', id: string, name: string, type: ActionKind, config: { __typename?: 'Prop', data: string, id: string }, errorAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, resource: { __typename?: 'Resource', id: string, name: string, type: ResourceType, config: { __typename?: 'Prop', data: string, id: string }, owner: { __typename?: 'User', id: string } }, successAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', code: string, id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } }>, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } } } };
 
-export type DomainFragment = { id: string, name: string, app: { id: string }, domainConfig: { misconfigured: boolean } };
+export type DomainFragment = { __typename?: 'Domain', id: string, name: string, app: { __typename?: 'App', id: string }, domainConfig: { __typename?: 'ProductionDomainConfig', misconfigured: boolean } };
 
-type ElementRenderType_Atom_Fragment = (
-  { __typename: 'Atom' }
-  & AtomBuilderFragment
-);
+type ElementRenderType_Atom_Fragment = { __typename: 'Atom', icon?: string | null, id: string, name: string, type: AtomType, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } }, requiredParents: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, suggestedChildren: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, tags: Array<{ __typename?: 'Tag', id: string, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } };
 
 type ElementRenderType_Component_Fragment = { __typename: 'Component', id: string };
 
 export type ElementRenderTypeFragment = ElementRenderType_Atom_Fragment | ElementRenderType_Component_Fragment;
 
-type ElementRenderTypeProduction_Atom_Fragment = (
-  { __typename: 'Atom' }
-  & AtomProductionFragment
-);
+type ElementRenderTypeProduction_Atom_Fragment = { __typename: 'Atom', externalCssSource?: string | null, externalJsSource?: string | null, externalSourceType?: string | null, icon?: string | null, id: string, name: string, type: AtomType, requiredParents: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, suggestedChildren: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }> };
 
 type ElementRenderTypeProduction_Component_Fragment = { __typename: 'Component', id: string };
 
 export type ElementRenderTypeProductionFragment = ElementRenderTypeProduction_Atom_Fragment | ElementRenderTypeProduction_Component_Fragment;
 
-export type ElementFragment = { __typename: 'Element', compositeKey: string, childMapperPropKey?: string | null, id: string, name: string, renderForEachPropKey?: string | null, renderIfExpression?: string | null, style?: string | null, tailwindClassNames?: Array<string> | null, expanded?: boolean | null, childMapperComponent?: { id: string } | null, childMapperPreviousSibling?: { id: string } | null, dependantTypes: Array<Type_ActionType_Fragment | Type_AppType_Fragment | Type_ArrayType_Fragment | Type_CodeMirrorType_Fragment | Type_ElementType_Fragment | Type_EnumType_Fragment | Type_InterfaceType_Fragment | Type_LambdaType_Fragment | Type_PageType_Fragment | Type_PrimitiveType_Fragment | Type_ReactNodeType_Fragment | Type_RenderPropType_Fragment | Type_RichTextType_Fragment | Type_UnionType_Fragment>, firstChild?: { id: string } | null, nextSibling?: { id: string } | null, page?: { id: string } | null, parentComponent?: { id: string } | null, parentElement?: { id: string } | null, postRenderActions: Array<{ id: string, type: ActionKind } | { id: string, type: ActionKind }>, preRenderActions: Array<{ id: string, type: ActionKind } | { id: string, type: ActionKind }>, prevSibling?: { id: string } | null, props: PropFragment, renderType: ElementRenderType_Atom_Fragment | ElementRenderType_Component_Fragment };
+export type ElementFragment = { __typename: 'Element', compositeKey: string, childMapperPropKey?: string | null, id: string, name: string, renderForEachPropKey?: string | null, renderIfExpression?: string | null, style?: string | null, tailwindClassNames?: Array<string> | null, expanded?: boolean | null, childMapperComponent?: { __typename?: 'Component', id: string } | null, childMapperPreviousSibling?: { __typename?: 'Element', id: string } | null, dependantTypes: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, itemType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', language: CodeMirrorLanguage, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', elementKind: ElementTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, allowedValues: Array<{ __typename?: 'EnumTypeValue', id: string, key: string, value: string }>, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', primitiveKind: PrimitiveTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, typesOfUnionType: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } }>, firstChild?: { __typename?: 'Element', id: string } | null, nextSibling?: { __typename?: 'Element', id: string } | null, page?: { __typename?: 'Page', id: string } | null, parentComponent?: { __typename?: 'Component', id: string } | null, parentElement?: { __typename?: 'Element', id: string } | null, postRenderActions: Array<{ __typename?: 'ApiAction', id: string, type: ActionKind } | { __typename?: 'CodeAction', id: string, type: ActionKind }>, preRenderActions: Array<{ __typename?: 'ApiAction', id: string, type: ActionKind } | { __typename?: 'CodeAction', id: string, type: ActionKind }>, prevSibling?: { __typename?: 'Element', id: string } | null, props: { __typename?: 'Prop', data: string, id: string }, renderType: { __typename: 'Atom', icon?: string | null, id: string, name: string, type: AtomType, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } }, requiredParents: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, suggestedChildren: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, tags: Array<{ __typename?: 'Tag', id: string, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } } | { __typename: 'Component', id: string } };
 
-export type ElementProductionFragment = { __typename: 'Element', childMapperPropKey?: string | null, id: string, name: string, renderForEachPropKey?: string | null, renderIfExpression?: string | null, style?: string | null, tailwindClassNames?: Array<string> | null, childMapperComponent?: { id: string, name: string } | null, childMapperPreviousSibling?: { id: string } | null, dependantTypes: Array<Type_ActionType_Fragment | Type_AppType_Fragment | Type_ArrayType_Fragment | Type_CodeMirrorType_Fragment | Type_ElementType_Fragment | Type_EnumType_Fragment | Type_InterfaceType_Fragment | Type_LambdaType_Fragment | Type_PageType_Fragment | Type_PrimitiveType_Fragment | Type_ReactNodeType_Fragment | Type_RenderPropType_Fragment | Type_RichTextType_Fragment | Type_UnionType_Fragment>, firstChild?: { id: string } | null, nextSibling?: { id: string } | null, page?: { id: string } | null, parentComponent?: { id: string } | null, parentElement?: { id: string } | null, postRenderActions: Array<{ id: string, type: ActionKind } | { id: string, type: ActionKind }>, preRenderActions: Array<{ id: string, type: ActionKind } | { id: string, type: ActionKind }>, prevSibling?: { id: string } | null, props: PropFragment, renderType: ElementRenderTypeProduction_Atom_Fragment | ElementRenderTypeProduction_Component_Fragment };
+export type ElementProductionFragment = { __typename: 'Element', childMapperPropKey?: string | null, id: string, name: string, renderForEachPropKey?: string | null, renderIfExpression?: string | null, style?: string | null, tailwindClassNames?: Array<string> | null, childMapperComponent?: { __typename?: 'Component', id: string, name: string } | null, childMapperPreviousSibling?: { __typename?: 'Element', id: string } | null, dependantTypes: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, itemType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', language: CodeMirrorLanguage, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', elementKind: ElementTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, allowedValues: Array<{ __typename?: 'EnumTypeValue', id: string, key: string, value: string }>, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', primitiveKind: PrimitiveTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, typesOfUnionType: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } }>, firstChild?: { __typename?: 'Element', id: string } | null, nextSibling?: { __typename?: 'Element', id: string } | null, page?: { __typename?: 'Page', id: string } | null, parentComponent?: { __typename?: 'Component', id: string } | null, parentElement?: { __typename?: 'Element', id: string } | null, postRenderActions: Array<{ __typename?: 'ApiAction', id: string, type: ActionKind } | { __typename?: 'CodeAction', id: string, type: ActionKind }>, preRenderActions: Array<{ __typename?: 'ApiAction', id: string, type: ActionKind } | { __typename?: 'CodeAction', id: string, type: ActionKind }>, prevSibling?: { __typename?: 'Element', id: string } | null, props: { __typename?: 'Prop', data: string, id: string }, renderType: { __typename: 'Atom', externalCssSource?: string | null, externalJsSource?: string | null, externalSourceType?: string | null, icon?: string | null, id: string, name: string, type: AtomType, requiredParents: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, suggestedChildren: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }> } | { __typename: 'Component', id: string } };
 
-export type HookPropFragment = { data: string, id: string };
+export type HookPropFragment = { __typename?: 'Prop', data: string, id: string };
 
-export type HookFragment = { id: string, type: AtomType, config: HookPropFragment, element: { id: string, name: string } };
+export type HookFragment = { __typename?: 'Hook', id: string, type: AtomType, config: { __typename?: 'Prop', data: string, id: string }, element: { __typename?: 'Element', id: string, name: string } };
 
-export type PagePreviewFragment = { id: string, kind: PageKind, name: string, urlPattern: string, app: { id: string }, rootElement: { id: string }, elements: Array<{ id: string }>, store: { id: string } };
+export type PagePreviewFragment = { __typename?: 'Page', id: string, kind: PageKind, name: string, urlPattern: string, app: { __typename?: 'App', id: string }, rootElement: { __typename?: 'Element', id: string }, elements: Array<{ __typename?: 'Element', id: string }>, store: { __typename?: 'Store', id: string } };
 
-export type PageFragment = { id: string, kind: PageKind, name: string, urlPattern: string, app: { id: string }, elements: Array<ElementFragment>, pageContentContainer?: { id: string } | null, redirect?: { id: string } | null, rootElement: { id: string }, store: StoreFragment };
+export type PageFragment = { __typename?: 'Page', id: string, kind: PageKind, name: string, urlPattern: string, app: { __typename?: 'App', id: string }, elements: Array<{ __typename: 'Element', compositeKey: string, childMapperPropKey?: string | null, id: string, name: string, renderForEachPropKey?: string | null, renderIfExpression?: string | null, style?: string | null, tailwindClassNames?: Array<string> | null, expanded?: boolean | null, childMapperComponent?: { __typename?: 'Component', id: string } | null, childMapperPreviousSibling?: { __typename?: 'Element', id: string } | null, dependantTypes: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, itemType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', language: CodeMirrorLanguage, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', elementKind: ElementTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, allowedValues: Array<{ __typename?: 'EnumTypeValue', id: string, key: string, value: string }>, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', primitiveKind: PrimitiveTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, typesOfUnionType: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } }>, firstChild?: { __typename?: 'Element', id: string } | null, nextSibling?: { __typename?: 'Element', id: string } | null, page?: { __typename?: 'Page', id: string } | null, parentComponent?: { __typename?: 'Component', id: string } | null, parentElement?: { __typename?: 'Element', id: string } | null, postRenderActions: Array<{ __typename?: 'ApiAction', id: string, type: ActionKind } | { __typename?: 'CodeAction', id: string, type: ActionKind }>, preRenderActions: Array<{ __typename?: 'ApiAction', id: string, type: ActionKind } | { __typename?: 'CodeAction', id: string, type: ActionKind }>, prevSibling?: { __typename?: 'Element', id: string } | null, props: { __typename?: 'Prop', data: string, id: string }, renderType: { __typename: 'Atom', icon?: string | null, id: string, name: string, type: AtomType, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } }, requiredParents: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, suggestedChildren: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, tags: Array<{ __typename?: 'Tag', id: string, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } } | { __typename: 'Component', id: string } }>, pageContentContainer?: { __typename?: 'Element', id: string } | null, redirect?: { __typename?: 'Redirect', id: string } | null, rootElement: { __typename?: 'Element', id: string }, store: { __typename?: 'Store', id: string, name: string, actions: Array<{ __typename: 'ApiAction', id: string, name: string, type: ActionKind, config: { __typename?: 'Prop', data: string, id: string }, errorAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, resource: { __typename?: 'Resource', id: string, name: string, type: ResourceType, config: { __typename?: 'Prop', data: string, id: string }, owner: { __typename?: 'User', id: string } }, successAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', code: string, id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } }>, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } } } };
 
-export type PageDevelopmentFragment = { id: string, kind: PageKind, name: string, urlPattern: string, app: { id: string }, elements: Array<ElementFragment>, pageContentContainer?: { id: string } | null, redirect?: { id: string } | null, rootElement: { id: string }, store: StoreFragment };
+export type PageDevelopmentFragment = { __typename?: 'Page', id: string, kind: PageKind, name: string, urlPattern: string, app: { __typename?: 'App', id: string }, elements: Array<{ __typename: 'Element', compositeKey: string, childMapperPropKey?: string | null, id: string, name: string, renderForEachPropKey?: string | null, renderIfExpression?: string | null, style?: string | null, tailwindClassNames?: Array<string> | null, expanded?: boolean | null, childMapperComponent?: { __typename?: 'Component', id: string } | null, childMapperPreviousSibling?: { __typename?: 'Element', id: string } | null, dependantTypes: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, itemType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', language: CodeMirrorLanguage, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', elementKind: ElementTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, allowedValues: Array<{ __typename?: 'EnumTypeValue', id: string, key: string, value: string }>, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', primitiveKind: PrimitiveTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, typesOfUnionType: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } }>, firstChild?: { __typename?: 'Element', id: string } | null, nextSibling?: { __typename?: 'Element', id: string } | null, page?: { __typename?: 'Page', id: string } | null, parentComponent?: { __typename?: 'Component', id: string } | null, parentElement?: { __typename?: 'Element', id: string } | null, postRenderActions: Array<{ __typename?: 'ApiAction', id: string, type: ActionKind } | { __typename?: 'CodeAction', id: string, type: ActionKind }>, preRenderActions: Array<{ __typename?: 'ApiAction', id: string, type: ActionKind } | { __typename?: 'CodeAction', id: string, type: ActionKind }>, prevSibling?: { __typename?: 'Element', id: string } | null, props: { __typename?: 'Prop', data: string, id: string }, renderType: { __typename: 'Atom', icon?: string | null, id: string, name: string, type: AtomType, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } }, requiredParents: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, suggestedChildren: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, tags: Array<{ __typename?: 'Tag', id: string, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } } | { __typename: 'Component', id: string } }>, pageContentContainer?: { __typename?: 'Element', id: string } | null, redirect?: { __typename?: 'Redirect', id: string } | null, rootElement: { __typename?: 'Element', id: string }, store: { __typename?: 'Store', id: string, name: string, actions: Array<{ __typename: 'ApiAction', id: string, name: string, type: ActionKind, config: { __typename?: 'Prop', data: string, id: string }, errorAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, resource: { __typename?: 'Resource', id: string, name: string, type: ResourceType, config: { __typename?: 'Prop', data: string, id: string }, owner: { __typename?: 'User', id: string } }, successAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', code: string, id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } }>, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } } } };
 
-export type PageProductionFragment = { id: string, kind: PageKind, name: string, slug: string, urlPattern: string, app: { id: string }, elements: Array<ElementProductionFragment>, pageContentContainer?: { id: string } | null, redirect?: { id: string } | null, rootElement: { id: string }, store: StoreFragment };
+export type PageProductionFragment = { __typename?: 'Page', id: string, kind: PageKind, name: string, slug: string, urlPattern: string, app: { __typename?: 'App', id: string }, elements: Array<{ __typename: 'Element', childMapperPropKey?: string | null, id: string, name: string, renderForEachPropKey?: string | null, renderIfExpression?: string | null, style?: string | null, tailwindClassNames?: Array<string> | null, childMapperComponent?: { __typename?: 'Component', id: string, name: string } | null, childMapperPreviousSibling?: { __typename?: 'Element', id: string } | null, dependantTypes: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, itemType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', language: CodeMirrorLanguage, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', elementKind: ElementTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, allowedValues: Array<{ __typename?: 'EnumTypeValue', id: string, key: string, value: string }>, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', primitiveKind: PrimitiveTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, typesOfUnionType: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } }>, firstChild?: { __typename?: 'Element', id: string } | null, nextSibling?: { __typename?: 'Element', id: string } | null, page?: { __typename?: 'Page', id: string } | null, parentComponent?: { __typename?: 'Component', id: string } | null, parentElement?: { __typename?: 'Element', id: string } | null, postRenderActions: Array<{ __typename?: 'ApiAction', id: string, type: ActionKind } | { __typename?: 'CodeAction', id: string, type: ActionKind }>, preRenderActions: Array<{ __typename?: 'ApiAction', id: string, type: ActionKind } | { __typename?: 'CodeAction', id: string, type: ActionKind }>, prevSibling?: { __typename?: 'Element', id: string } | null, props: { __typename?: 'Prop', data: string, id: string }, renderType: { __typename: 'Atom', externalCssSource?: string | null, externalJsSource?: string | null, externalSourceType?: string | null, icon?: string | null, id: string, name: string, type: AtomType, requiredParents: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, suggestedChildren: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }> } | { __typename: 'Component', id: string } }>, pageContentContainer?: { __typename?: 'Element', id: string } | null, redirect?: { __typename?: 'Redirect', id: string } | null, rootElement: { __typename?: 'Element', id: string }, store: { __typename?: 'Store', id: string, name: string, actions: Array<{ __typename: 'ApiAction', id: string, name: string, type: ActionKind, config: { __typename?: 'Prop', data: string, id: string }, errorAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, resource: { __typename?: 'Resource', id: string, name: string, type: ResourceType, config: { __typename?: 'Prop', data: string, id: string }, owner: { __typename?: 'User', id: string } }, successAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', code: string, id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } }>, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } } } };
 
-export type PreferenceFragment = { id: string, builderBreakpointType: BreakpointType, builderWidth: number, owner: { id: string } };
+export type PreferenceFragment = { __typename?: 'Preference', id: string, builderBreakpointType: BreakpointType, builderWidth: number, owner: { __typename?: 'User', id: string } };
 
-export type PropFragment = { data: string, id: string };
+export type PropFragment = { __typename?: 'Prop', data: string, id: string };
 
-export type RedirectFragment = { id: string, targetType: RedirectTargetType, targetUrl?: string | null, authGuard: AuthGuardFragment, source: { id: string }, targetPage?: PagePreviewFragment | null };
+export type RedirectFragment = { __typename?: 'Redirect', id: string, targetType: RedirectTargetType, targetUrl?: string | null, authGuard: { __typename?: 'AuthGuard', id: string, name: string, responseTransformer: string, config: { __typename?: 'Prop', data: string, id: string }, resource: { __typename?: 'Resource', id: string, name: string, type: ResourceType, config: { __typename?: 'Prop', data: string, id: string }, owner: { __typename?: 'User', id: string } }, owner: { __typename?: 'User', id: string } }, source: { __typename?: 'Page', id: string }, targetPage?: { __typename?: 'Page', id: string, kind: PageKind, name: string, urlPattern: string, app: { __typename?: 'App', id: string }, rootElement: { __typename?: 'Element', id: string }, elements: Array<{ __typename?: 'Element', id: string }>, store: { __typename?: 'Store', id: string } } | null };
 
-export type RedirectPreviewFragment = { id: string, targetType: RedirectTargetType, targetUrl?: string | null, authGuard: { id: string }, source: { id: string }, targetPage?: { id: string } | null };
+export type RedirectPreviewFragment = { __typename?: 'Redirect', id: string, targetType: RedirectTargetType, targetUrl?: string | null, authGuard: { __typename?: 'AuthGuard', id: string }, source: { __typename?: 'Page', id: string }, targetPage?: { __typename?: 'Page', id: string } | null };
 
-export type ResourceFragment = { id: string, name: string, type: ResourceType, config: PropFragment, owner: { id: string } };
+export type ResourceFragment = { __typename?: 'Resource', id: string, name: string, type: ResourceType, config: { __typename?: 'Prop', data: string, id: string }, owner: { __typename?: 'User', id: string } };
 
-export type StoreFragment = { id: string, name: string, actions: Array<Action_ApiAction_Fragment | Action_CodeAction_Fragment>, api: InterfaceTypeFragment };
+export type StoreFragment = { __typename?: 'Store', id: string, name: string, actions: Array<{ __typename: 'ApiAction', id: string, name: string, type: ActionKind, config: { __typename?: 'Prop', data: string, id: string }, errorAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, resource: { __typename?: 'Resource', id: string, name: string, type: ResourceType, config: { __typename?: 'Prop', data: string, id: string }, owner: { __typename?: 'User', id: string } }, successAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', code: string, id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } }>, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } } };
 
-export type ProductionStoreFragment = { id: string, name: string, actions: Array<Action_ApiAction_Fragment | Action_CodeAction_Fragment> };
+export type ProductionStoreFragment = { __typename?: 'Store', id: string, name: string, actions: Array<{ __typename: 'ApiAction', id: string, name: string, type: ActionKind, config: { __typename?: 'Prop', data: string, id: string }, errorAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, resource: { __typename?: 'Resource', id: string, name: string, type: ResourceType, config: { __typename?: 'Prop', data: string, id: string }, owner: { __typename?: 'User', id: string } }, successAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', code: string, id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } }> };
 
-export type TagFragment = { id: string, name: string, children: Array<{ id: string, name: string, owner: { id: string } }>, descendants: Array<{ id: string, name: string }>, owner: { id: string }, parent?: { id: string, name: string } | null };
+export type TagFragment = { __typename?: 'Tag', id: string, name: string, children: Array<{ __typename?: 'Tag', id: string, name: string, owner: { __typename?: 'User', id: string } }>, descendants: Array<{ __typename?: 'Tag', id: string, name: string }>, owner: { __typename?: 'User', id: string }, parent?: { __typename?: 'Tag', id: string, name: string } | null };
 
-export type TagPreviewFragment = { id: string, name: string, owner: { id: string } };
+export type TagPreviewFragment = { __typename?: 'Tag', id: string, name: string, owner: { __typename?: 'User', id: string } };
 
-export type ActionTypeFragment = BaseType_ActionType_Fragment;
+export type ActionTypeFragment = { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } };
 
-export type AppTypeFragment = BaseType_AppType_Fragment;
+export type AppTypeFragment = { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } };
 
-export type ArrayTypeFragment = (
-  { itemType: BaseType_ActionType_Fragment | BaseType_AppType_Fragment | BaseType_ArrayType_Fragment | BaseType_CodeMirrorType_Fragment | BaseType_ElementType_Fragment | BaseType_EnumType_Fragment | BaseType_InterfaceType_Fragment | BaseType_LambdaType_Fragment | BaseType_PageType_Fragment | BaseType_PrimitiveType_Fragment | BaseType_ReactNodeType_Fragment | BaseType_RenderPropType_Fragment | BaseType_RichTextType_Fragment | BaseType_UnionType_Fragment }
-  & BaseType_ArrayType_Fragment
-);
+export type ArrayTypeFragment = { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, itemType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, owner: { __typename?: 'User', id: string } };
 
-type BaseType_ActionType_Fragment = { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { id: string } };
+type BaseType_ActionType_Fragment = { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } };
 
-type BaseType_AppType_Fragment = { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { id: string } };
+type BaseType_AppType_Fragment = { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } };
 
-type BaseType_ArrayType_Fragment = { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { id: string } };
+type BaseType_ArrayType_Fragment = { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } };
 
-type BaseType_CodeMirrorType_Fragment = { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { id: string } };
+type BaseType_CodeMirrorType_Fragment = { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } };
 
-type BaseType_ElementType_Fragment = { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { id: string } };
+type BaseType_ElementType_Fragment = { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } };
 
-type BaseType_EnumType_Fragment = { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { id: string } };
+type BaseType_EnumType_Fragment = { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } };
 
-type BaseType_InterfaceType_Fragment = { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { id: string } };
+type BaseType_InterfaceType_Fragment = { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } };
 
-type BaseType_LambdaType_Fragment = { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { id: string } };
+type BaseType_LambdaType_Fragment = { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } };
 
-type BaseType_PageType_Fragment = { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { id: string } };
+type BaseType_PageType_Fragment = { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } };
 
-type BaseType_PrimitiveType_Fragment = { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { id: string } };
+type BaseType_PrimitiveType_Fragment = { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } };
 
-type BaseType_ReactNodeType_Fragment = { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { id: string } };
+type BaseType_ReactNodeType_Fragment = { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } };
 
-type BaseType_RenderPropType_Fragment = { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { id: string } };
+type BaseType_RenderPropType_Fragment = { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } };
 
-type BaseType_RichTextType_Fragment = { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { id: string } };
+type BaseType_RichTextType_Fragment = { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } };
 
-type BaseType_UnionType_Fragment = { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { id: string } };
+type BaseType_UnionType_Fragment = { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } };
 
 export type BaseTypeFragment = BaseType_ActionType_Fragment | BaseType_AppType_Fragment | BaseType_ArrayType_Fragment | BaseType_CodeMirrorType_Fragment | BaseType_ElementType_Fragment | BaseType_EnumType_Fragment | BaseType_InterfaceType_Fragment | BaseType_LambdaType_Fragment | BaseType_PageType_Fragment | BaseType_PrimitiveType_Fragment | BaseType_ReactNodeType_Fragment | BaseType_RenderPropType_Fragment | BaseType_RichTextType_Fragment | BaseType_UnionType_Fragment;
 
-export type CodeMirrorTypeFragment = (
-  { language: CodeMirrorLanguage }
-  & BaseType_CodeMirrorType_Fragment
-);
+export type CodeMirrorTypeFragment = { __typename: 'CodeMirrorType', language: CodeMirrorLanguage, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } };
 
-export type ElementTypeFragment = (
-  { elementKind: ElementTypeKind }
-  & BaseType_ElementType_Fragment
-);
+export type ElementTypeFragment = { __typename: 'ElementType', elementKind: ElementTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } };
 
-export type EnumTypeValueFragment = { id: string, key: string, value: string };
+export type EnumTypeValueFragment = { __typename?: 'EnumTypeValue', id: string, key: string, value: string };
 
-export type EnumTypeFragment = (
-  { allowedValues: Array<EnumTypeValueFragment> }
-  & BaseType_EnumType_Fragment
-);
+export type EnumTypeFragment = { __typename: 'EnumType', id: string, kind: TypeKind, name: string, allowedValues: Array<{ __typename?: 'EnumTypeValue', id: string, key: string, value: string }>, owner: { __typename?: 'User', id: string } };
 
-export type FieldFragment = { __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: BaseType_InterfaceType_Fragment, fieldType: BaseType_ActionType_Fragment | BaseType_AppType_Fragment | BaseType_ArrayType_Fragment | BaseType_CodeMirrorType_Fragment | BaseType_ElementType_Fragment | BaseType_EnumType_Fragment | BaseType_InterfaceType_Fragment | BaseType_LambdaType_Fragment | BaseType_PageType_Fragment | BaseType_PrimitiveType_Fragment | BaseType_ReactNodeType_Fragment | BaseType_RenderPropType_Fragment | BaseType_RichTextType_Fragment | BaseType_UnionType_Fragment, nextSibling?: { id: string } | null, prevSibling?: { id: string } | null };
+export type FieldFragment = { __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null };
 
-export type InterfaceTypeFragment = (
-  { fields: Array<FieldFragment> }
-  & BaseType_InterfaceType_Fragment
-);
+export type InterfaceTypeFragment = { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } };
 
-export type LambdaTypeFragment = BaseType_LambdaType_Fragment;
+export type LambdaTypeFragment = { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } };
 
-export type PageTypeFragment = BaseType_PageType_Fragment;
+export type PageTypeFragment = { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } };
 
-export type PrimitiveTypeFragment = (
-  { primitiveKind: PrimitiveTypeKind }
-  & BaseType_PrimitiveType_Fragment
-);
+export type PrimitiveTypeFragment = { __typename: 'PrimitiveType', primitiveKind: PrimitiveTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } };
 
-export type ReactNodeTypeFragment = BaseType_ReactNodeType_Fragment;
+export type ReactNodeTypeFragment = { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } };
 
-export type RenderPropTypeFragment = BaseType_RenderPropType_Fragment;
+export type RenderPropTypeFragment = { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } };
 
-export type RichTextTypeFragment = BaseType_RichTextType_Fragment;
+export type RichTextTypeFragment = { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } };
 
-type Type_ActionType_Fragment = ActionTypeFragment;
+type Type_ActionType_Fragment = { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } };
 
-type Type_AppType_Fragment = AppTypeFragment;
+type Type_AppType_Fragment = { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } };
 
-type Type_ArrayType_Fragment = ArrayTypeFragment;
+type Type_ArrayType_Fragment = { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, itemType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, owner: { __typename?: 'User', id: string } };
 
-type Type_CodeMirrorType_Fragment = CodeMirrorTypeFragment;
+type Type_CodeMirrorType_Fragment = { __typename: 'CodeMirrorType', language: CodeMirrorLanguage, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } };
 
-type Type_ElementType_Fragment = ElementTypeFragment;
+type Type_ElementType_Fragment = { __typename: 'ElementType', elementKind: ElementTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } };
 
-type Type_EnumType_Fragment = EnumTypeFragment;
+type Type_EnumType_Fragment = { __typename: 'EnumType', id: string, kind: TypeKind, name: string, allowedValues: Array<{ __typename?: 'EnumTypeValue', id: string, key: string, value: string }>, owner: { __typename?: 'User', id: string } };
 
-type Type_InterfaceType_Fragment = InterfaceTypeFragment;
+type Type_InterfaceType_Fragment = { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } };
 
-type Type_LambdaType_Fragment = LambdaTypeFragment;
+type Type_LambdaType_Fragment = { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } };
 
-type Type_PageType_Fragment = PageTypeFragment;
+type Type_PageType_Fragment = { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } };
 
-type Type_PrimitiveType_Fragment = PrimitiveTypeFragment;
+type Type_PrimitiveType_Fragment = { __typename: 'PrimitiveType', primitiveKind: PrimitiveTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } };
 
-type Type_ReactNodeType_Fragment = ReactNodeTypeFragment;
+type Type_ReactNodeType_Fragment = { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } };
 
-type Type_RenderPropType_Fragment = RenderPropTypeFragment;
+type Type_RenderPropType_Fragment = { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } };
 
-type Type_RichTextType_Fragment = RichTextTypeFragment;
+type Type_RichTextType_Fragment = { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } };
 
-type Type_UnionType_Fragment = UnionTypeFragment;
+type Type_UnionType_Fragment = { __typename: 'UnionType', id: string, kind: TypeKind, name: string, typesOfUnionType: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } };
 
 export type TypeFragment = Type_ActionType_Fragment | Type_AppType_Fragment | Type_ArrayType_Fragment | Type_CodeMirrorType_Fragment | Type_ElementType_Fragment | Type_EnumType_Fragment | Type_InterfaceType_Fragment | Type_LambdaType_Fragment | Type_PageType_Fragment | Type_PrimitiveType_Fragment | Type_ReactNodeType_Fragment | Type_RenderPropType_Fragment | Type_RichTextType_Fragment | Type_UnionType_Fragment;
 
-export type UnionTypeFragment = (
-  { typesOfUnionType: Array<BaseType_ActionType_Fragment | BaseType_AppType_Fragment | BaseType_ArrayType_Fragment | BaseType_CodeMirrorType_Fragment | BaseType_ElementType_Fragment | BaseType_EnumType_Fragment | BaseType_InterfaceType_Fragment | BaseType_LambdaType_Fragment | BaseType_PageType_Fragment | BaseType_PrimitiveType_Fragment | BaseType_ReactNodeType_Fragment | BaseType_RenderPropType_Fragment | BaseType_RichTextType_Fragment | BaseType_UnionType_Fragment> }
-  & BaseType_UnionType_Fragment
-);
+export type UnionTypeFragment = { __typename: 'UnionType', id: string, kind: TypeKind, name: string, typesOfUnionType: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } };
 
-export type OwnerFragment = { id: string };
+export type OwnerFragment = { __typename?: 'User', id: string };
 
-export type UserFragment = { auth0Id: string, email: string, id: string, roles?: Array<Role> | null, username: string, apps: Array<{ id: string }>, preferences?: PreferenceFragment | null };
+export type UserFragment = { __typename?: 'User', auth0Id: string, email: string, id: string, roles?: Array<Role> | null, username: string, apps: Array<{ __typename?: 'App', id: string }>, preferences?: { __typename?: 'Preference', id: string, builderBreakpointType: BreakpointType, builderWidth: number, owner: { __typename?: 'User', id: string } } | null };
 
 export type GetAppBuilderQueryVariables = Exact<{
   appId: Scalars['ID']['input'];
@@ -30494,24 +31158,24 @@ export type GetAppBuilderQueryVariables = Exact<{
 }>;
 
 
-export type GetAppBuilderQuery = { actionTypes: Array<ActionTypeFragment>, apps: Array<AppBuilderFragment>, atoms: Array<AtomBuilderFragment>, authGuards: Array<AuthGuardFragment>, codeMirrorTypes: Array<CodeMirrorTypeFragment>, components: Array<ComponentBuilderFragment>, primitiveTypes: Array<PrimitiveTypeFragment>, reactNodeTypes: Array<ReactNodeTypeFragment>, redirects: Array<RedirectFragment>, renderPropTypes: Array<RenderPropTypeFragment>, resources: Array<ResourceFragment>, richTextTypes: Array<RichTextTypeFragment> };
+export type GetAppBuilderQuery = { __typename?: 'Query', actionTypes: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, apps: Array<{ __typename?: 'App', id: string, name: string, slug: string, owner: { __typename?: 'User', id: string }, pages: Array<{ __typename?: 'Page', id: string, kind: PageKind, name: string, urlPattern: string, app: { __typename?: 'App', id: string }, elements: Array<{ __typename: 'Element', compositeKey: string, childMapperPropKey?: string | null, id: string, name: string, renderForEachPropKey?: string | null, renderIfExpression?: string | null, style?: string | null, tailwindClassNames?: Array<string> | null, expanded?: boolean | null, childMapperComponent?: { __typename?: 'Component', id: string } | null, childMapperPreviousSibling?: { __typename?: 'Element', id: string } | null, dependantTypes: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, itemType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', language: CodeMirrorLanguage, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', elementKind: ElementTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, allowedValues: Array<{ __typename?: 'EnumTypeValue', id: string, key: string, value: string }>, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', primitiveKind: PrimitiveTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, typesOfUnionType: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } }>, firstChild?: { __typename?: 'Element', id: string } | null, nextSibling?: { __typename?: 'Element', id: string } | null, page?: { __typename?: 'Page', id: string } | null, parentComponent?: { __typename?: 'Component', id: string } | null, parentElement?: { __typename?: 'Element', id: string } | null, postRenderActions: Array<{ __typename?: 'ApiAction', id: string, type: ActionKind } | { __typename?: 'CodeAction', id: string, type: ActionKind }>, preRenderActions: Array<{ __typename?: 'ApiAction', id: string, type: ActionKind } | { __typename?: 'CodeAction', id: string, type: ActionKind }>, prevSibling?: { __typename?: 'Element', id: string } | null, props: { __typename?: 'Prop', data: string, id: string }, renderType: { __typename: 'Atom', icon?: string | null, id: string, name: string, type: AtomType, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } }, requiredParents: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, suggestedChildren: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, tags: Array<{ __typename?: 'Tag', id: string, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } } | { __typename: 'Component', id: string } }>, pageContentContainer?: { __typename?: 'Element', id: string } | null, redirect?: { __typename?: 'Redirect', id: string } | null, rootElement: { __typename?: 'Element', id: string }, store: { __typename?: 'Store', id: string, name: string, actions: Array<{ __typename: 'ApiAction', id: string, name: string, type: ActionKind, config: { __typename?: 'Prop', data: string, id: string }, errorAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, resource: { __typename?: 'Resource', id: string, name: string, type: ResourceType, config: { __typename?: 'Prop', data: string, id: string }, owner: { __typename?: 'User', id: string } }, successAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', code: string, id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } }>, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } } } }> }>, atoms: Array<{ __typename: 'Atom', icon?: string | null, id: string, name: string, type: AtomType, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } }, requiredParents: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, suggestedChildren: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, tags: Array<{ __typename?: 'Tag', id: string, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } }>, authGuards: Array<{ __typename?: 'AuthGuard', id: string, name: string, responseTransformer: string, config: { __typename?: 'Prop', data: string, id: string }, resource: { __typename?: 'Resource', id: string, name: string, type: ResourceType, config: { __typename?: 'Prop', data: string, id: string }, owner: { __typename?: 'User', id: string } }, owner: { __typename?: 'User', id: string } }>, codeMirrorTypes: Array<{ __typename: 'CodeMirrorType', language: CodeMirrorLanguage, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, components: Array<{ __typename: 'Component', id: string, name: string, compositeKey: string, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } }, elements: Array<{ __typename: 'Element', compositeKey: string, childMapperPropKey?: string | null, id: string, name: string, renderForEachPropKey?: string | null, renderIfExpression?: string | null, style?: string | null, tailwindClassNames?: Array<string> | null, expanded?: boolean | null, childMapperComponent?: { __typename?: 'Component', id: string } | null, childMapperPreviousSibling?: { __typename?: 'Element', id: string } | null, dependantTypes: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, itemType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', language: CodeMirrorLanguage, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', elementKind: ElementTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, allowedValues: Array<{ __typename?: 'EnumTypeValue', id: string, key: string, value: string }>, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', primitiveKind: PrimitiveTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, typesOfUnionType: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } }>, firstChild?: { __typename?: 'Element', id: string } | null, nextSibling?: { __typename?: 'Element', id: string } | null, page?: { __typename?: 'Page', id: string } | null, parentComponent?: { __typename?: 'Component', id: string } | null, parentElement?: { __typename?: 'Element', id: string } | null, postRenderActions: Array<{ __typename?: 'ApiAction', id: string, type: ActionKind } | { __typename?: 'CodeAction', id: string, type: ActionKind }>, preRenderActions: Array<{ __typename?: 'ApiAction', id: string, type: ActionKind } | { __typename?: 'CodeAction', id: string, type: ActionKind }>, prevSibling?: { __typename?: 'Element', id: string } | null, props: { __typename?: 'Prop', data: string, id: string }, renderType: { __typename: 'Atom', icon?: string | null, id: string, name: string, type: AtomType, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } }, requiredParents: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, suggestedChildren: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, tags: Array<{ __typename?: 'Tag', id: string, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } } | { __typename: 'Component', id: string } }>, owner: { __typename?: 'User', id: string }, props: { __typename?: 'Prop', data: string, id: string }, rootElement: { __typename?: 'Element', id: string, name: string }, store: { __typename?: 'Store', id: string, name: string, actions: Array<{ __typename: 'ApiAction', id: string, name: string, type: ActionKind, config: { __typename?: 'Prop', data: string, id: string }, errorAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, resource: { __typename?: 'Resource', id: string, name: string, type: ResourceType, config: { __typename?: 'Prop', data: string, id: string }, owner: { __typename?: 'User', id: string } }, successAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', code: string, id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } }>, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } } } }>, primitiveTypes: Array<{ __typename: 'PrimitiveType', primitiveKind: PrimitiveTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, reactNodeTypes: Array<{ __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, redirects: Array<{ __typename?: 'Redirect', id: string, targetType: RedirectTargetType, targetUrl?: string | null, authGuard: { __typename?: 'AuthGuard', id: string, name: string, responseTransformer: string, config: { __typename?: 'Prop', data: string, id: string }, resource: { __typename?: 'Resource', id: string, name: string, type: ResourceType, config: { __typename?: 'Prop', data: string, id: string }, owner: { __typename?: 'User', id: string } }, owner: { __typename?: 'User', id: string } }, source: { __typename?: 'Page', id: string }, targetPage?: { __typename?: 'Page', id: string, kind: PageKind, name: string, urlPattern: string, app: { __typename?: 'App', id: string }, rootElement: { __typename?: 'Element', id: string }, elements: Array<{ __typename?: 'Element', id: string }>, store: { __typename?: 'Store', id: string } } | null }>, renderPropTypes: Array<{ __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, resources: Array<{ __typename?: 'Resource', id: string, name: string, type: ResourceType, config: { __typename?: 'Prop', data: string, id: string }, owner: { __typename?: 'User', id: string } }>, richTextTypes: Array<{ __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }> };
 
 export type GetSelectAtomOptionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetSelectAtomOptionsQuery = { atoms: Array<{ __typename: 'Atom', id: string, name: string, type: AtomType, requiredParents: Array<{ id: string, type: AtomType }> }> };
+export type GetSelectAtomOptionsQuery = { __typename?: 'Query', atoms: Array<{ __typename: 'Atom', id: string, name: string, type: AtomType, requiredParents: Array<{ __typename?: 'Atom', id: string, type: AtomType }> }> };
 
 export type GetComponentBuilderQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetComponentBuilderQuery = { actionTypes: Array<ActionTypeFragment>, atoms: Array<AtomBuilderFragment>, codeMirrorTypes: Array<CodeMirrorTypeFragment>, components: Array<ComponentBuilderFragment>, primitiveTypes: Array<PrimitiveTypeFragment>, reactNodeTypes: Array<ReactNodeTypeFragment>, renderPropTypes: Array<RenderPropTypeFragment>, resources: Array<ResourceFragment>, richTextTypes: Array<RichTextTypeFragment> };
+export type GetComponentBuilderQuery = { __typename?: 'Query', actionTypes: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, atoms: Array<{ __typename: 'Atom', icon?: string | null, id: string, name: string, type: AtomType, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } }, requiredParents: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, suggestedChildren: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, tags: Array<{ __typename?: 'Tag', id: string, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } }>, codeMirrorTypes: Array<{ __typename: 'CodeMirrorType', language: CodeMirrorLanguage, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, components: Array<{ __typename: 'Component', id: string, name: string, compositeKey: string, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } }, elements: Array<{ __typename: 'Element', compositeKey: string, childMapperPropKey?: string | null, id: string, name: string, renderForEachPropKey?: string | null, renderIfExpression?: string | null, style?: string | null, tailwindClassNames?: Array<string> | null, expanded?: boolean | null, childMapperComponent?: { __typename?: 'Component', id: string } | null, childMapperPreviousSibling?: { __typename?: 'Element', id: string } | null, dependantTypes: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, itemType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', language: CodeMirrorLanguage, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', elementKind: ElementTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, allowedValues: Array<{ __typename?: 'EnumTypeValue', id: string, key: string, value: string }>, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', primitiveKind: PrimitiveTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, typesOfUnionType: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } }>, firstChild?: { __typename?: 'Element', id: string } | null, nextSibling?: { __typename?: 'Element', id: string } | null, page?: { __typename?: 'Page', id: string } | null, parentComponent?: { __typename?: 'Component', id: string } | null, parentElement?: { __typename?: 'Element', id: string } | null, postRenderActions: Array<{ __typename?: 'ApiAction', id: string, type: ActionKind } | { __typename?: 'CodeAction', id: string, type: ActionKind }>, preRenderActions: Array<{ __typename?: 'ApiAction', id: string, type: ActionKind } | { __typename?: 'CodeAction', id: string, type: ActionKind }>, prevSibling?: { __typename?: 'Element', id: string } | null, props: { __typename?: 'Prop', data: string, id: string }, renderType: { __typename: 'Atom', icon?: string | null, id: string, name: string, type: AtomType, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } }, requiredParents: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, suggestedChildren: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, tags: Array<{ __typename?: 'Tag', id: string, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } } | { __typename: 'Component', id: string } }>, owner: { __typename?: 'User', id: string }, props: { __typename?: 'Prop', data: string, id: string }, rootElement: { __typename?: 'Element', id: string, name: string }, store: { __typename?: 'Store', id: string, name: string, actions: Array<{ __typename: 'ApiAction', id: string, name: string, type: ActionKind, config: { __typename?: 'Prop', data: string, id: string }, errorAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, resource: { __typename?: 'Resource', id: string, name: string, type: ResourceType, config: { __typename?: 'Prop', data: string, id: string }, owner: { __typename?: 'User', id: string } }, successAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', code: string, id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } }>, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } } } }>, primitiveTypes: Array<{ __typename: 'PrimitiveType', primitiveKind: PrimitiveTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, reactNodeTypes: Array<{ __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, renderPropTypes: Array<{ __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, resources: Array<{ __typename?: 'Resource', id: string, name: string, type: ResourceType, config: { __typename?: 'Prop', data: string, id: string }, owner: { __typename?: 'User', id: string } }>, richTextTypes: Array<{ __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }> };
 
 export type CreateAppsMutationVariables = Exact<{
   input: Array<AppCreateInput> | AppCreateInput;
 }>;
 
 
-export type CreateAppsMutation = { createApps: { apps: Array<{ __typename: 'App', id: string }> } };
+export type CreateAppsMutation = { __typename?: 'Mutation', createApps: { __typename?: 'CreateAppsMutationResponse', apps: Array<{ __typename: 'App', id: string }> } };
 
 export type UpdateAppsMutationVariables = Exact<{
   where: AppWhere;
@@ -30519,7 +31183,7 @@ export type UpdateAppsMutationVariables = Exact<{
 }>;
 
 
-export type UpdateAppsMutation = { updateApps: { apps: Array<{ __typename: 'App', id: string }> } };
+export type UpdateAppsMutation = { __typename?: 'Mutation', updateApps: { __typename?: 'UpdateAppsMutationResponse', apps: Array<{ __typename: 'App', id: string }> } };
 
 export type DeleteAppsMutationVariables = Exact<{
   where: AppWhere;
@@ -30527,7 +31191,7 @@ export type DeleteAppsMutationVariables = Exact<{
 }>;
 
 
-export type DeleteAppsMutation = { deleteApps: { nodesDeleted: number } };
+export type DeleteAppsMutation = { __typename?: 'Mutation', deleteApps: { __typename?: 'DeleteInfo', nodesDeleted: number } };
 
 export type AppListPreviewQueryVariables = Exact<{
   options?: InputMaybe<AppOptions>;
@@ -30535,7 +31199,7 @@ export type AppListPreviewQueryVariables = Exact<{
 }>;
 
 
-export type AppListPreviewQuery = { aggregate: { count: number }, items: Array<AppPreviewFragment> };
+export type AppListPreviewQuery = { __typename?: 'Query', aggregate: { __typename?: 'AppAggregateSelection', count: number }, items: Array<{ __typename?: 'App', id: string, name: string, slug: string, domains: Array<{ __typename?: 'Domain', id: string, name: string, app: { __typename?: 'App', id: string }, domainConfig: { __typename?: 'ProductionDomainConfig', misconfigured: boolean } }>, owner: { __typename?: 'User', id: string }, pages: Array<{ __typename?: 'Page', id: string, kind: PageKind, name: string, urlPattern: string, app: { __typename?: 'App', id: string }, rootElement: { __typename?: 'Element', id: string }, elements: Array<{ __typename?: 'Element', id: string }>, store: { __typename?: 'Store', id: string } }> }> };
 
 export type AppListQueryVariables = Exact<{
   options?: InputMaybe<AppOptions>;
@@ -30543,7 +31207,7 @@ export type AppListQueryVariables = Exact<{
 }>;
 
 
-export type AppListQuery = { items: Array<AppFragment>, aggregate: { count: number }, atoms: Array<AtomBuilderFragment> };
+export type AppListQuery = { __typename?: 'Query', items: Array<{ __typename?: 'App', id: string, name: string, slug: string, domains: Array<{ __typename?: 'Domain', id: string, name: string, app: { __typename?: 'App', id: string }, domainConfig: { __typename?: 'ProductionDomainConfig', misconfigured: boolean } }>, owner: { __typename?: 'User', id: string }, pages: Array<{ __typename?: 'Page', id: string, kind: PageKind, name: string, urlPattern: string, app: { __typename?: 'App', id: string }, elements: Array<{ __typename: 'Element', compositeKey: string, childMapperPropKey?: string | null, id: string, name: string, renderForEachPropKey?: string | null, renderIfExpression?: string | null, style?: string | null, tailwindClassNames?: Array<string> | null, expanded?: boolean | null, childMapperComponent?: { __typename?: 'Component', id: string } | null, childMapperPreviousSibling?: { __typename?: 'Element', id: string } | null, dependantTypes: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, itemType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', language: CodeMirrorLanguage, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', elementKind: ElementTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, allowedValues: Array<{ __typename?: 'EnumTypeValue', id: string, key: string, value: string }>, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', primitiveKind: PrimitiveTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, typesOfUnionType: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } }>, firstChild?: { __typename?: 'Element', id: string } | null, nextSibling?: { __typename?: 'Element', id: string } | null, page?: { __typename?: 'Page', id: string } | null, parentComponent?: { __typename?: 'Component', id: string } | null, parentElement?: { __typename?: 'Element', id: string } | null, postRenderActions: Array<{ __typename?: 'ApiAction', id: string, type: ActionKind } | { __typename?: 'CodeAction', id: string, type: ActionKind }>, preRenderActions: Array<{ __typename?: 'ApiAction', id: string, type: ActionKind } | { __typename?: 'CodeAction', id: string, type: ActionKind }>, prevSibling?: { __typename?: 'Element', id: string } | null, props: { __typename?: 'Prop', data: string, id: string }, renderType: { __typename: 'Atom', icon?: string | null, id: string, name: string, type: AtomType, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } }, requiredParents: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, suggestedChildren: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, tags: Array<{ __typename?: 'Tag', id: string, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } } | { __typename: 'Component', id: string } }>, pageContentContainer?: { __typename?: 'Element', id: string } | null, redirect?: { __typename?: 'Redirect', id: string } | null, rootElement: { __typename?: 'Element', id: string }, store: { __typename?: 'Store', id: string, name: string, actions: Array<{ __typename: 'ApiAction', id: string, name: string, type: ActionKind, config: { __typename?: 'Prop', data: string, id: string }, errorAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, resource: { __typename?: 'Resource', id: string, name: string, type: ResourceType, config: { __typename?: 'Prop', data: string, id: string }, owner: { __typename?: 'User', id: string } }, successAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', code: string, id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } }>, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } } } }> }>, aggregate: { __typename?: 'AppAggregateSelection', count: number }, atoms: Array<{ __typename: 'Atom', icon?: string | null, id: string, name: string, type: AtomType, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } }, requiredParents: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, suggestedChildren: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, tags: Array<{ __typename?: 'Tag', id: string, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } }> };
 
 export type GetAppProductionQueryVariables = Exact<{
   domain: Scalars['String']['input'];
@@ -30551,14 +31215,14 @@ export type GetAppProductionQueryVariables = Exact<{
 }>;
 
 
-export type GetAppProductionQuery = { apps: Array<AppProductionFragment>, atoms: Array<AtomProductionFragment>, resources: Array<ResourceFragment> };
+export type GetAppProductionQuery = { __typename?: 'Query', apps: Array<{ __typename?: 'App', id: string, name: string, slug: string, owner: { __typename?: 'User', id: string }, pages: Array<{ __typename?: 'Page', id: string, kind: PageKind, name: string, slug: string, urlPattern: string, app: { __typename?: 'App', id: string }, elements: Array<{ __typename: 'Element', childMapperPropKey?: string | null, id: string, name: string, renderForEachPropKey?: string | null, renderIfExpression?: string | null, style?: string | null, tailwindClassNames?: Array<string> | null, childMapperComponent?: { __typename?: 'Component', id: string, name: string } | null, childMapperPreviousSibling?: { __typename?: 'Element', id: string } | null, dependantTypes: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, itemType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', language: CodeMirrorLanguage, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', elementKind: ElementTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, allowedValues: Array<{ __typename?: 'EnumTypeValue', id: string, key: string, value: string }>, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', primitiveKind: PrimitiveTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, typesOfUnionType: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } }>, firstChild?: { __typename?: 'Element', id: string } | null, nextSibling?: { __typename?: 'Element', id: string } | null, page?: { __typename?: 'Page', id: string } | null, parentComponent?: { __typename?: 'Component', id: string } | null, parentElement?: { __typename?: 'Element', id: string } | null, postRenderActions: Array<{ __typename?: 'ApiAction', id: string, type: ActionKind } | { __typename?: 'CodeAction', id: string, type: ActionKind }>, preRenderActions: Array<{ __typename?: 'ApiAction', id: string, type: ActionKind } | { __typename?: 'CodeAction', id: string, type: ActionKind }>, prevSibling?: { __typename?: 'Element', id: string } | null, props: { __typename?: 'Prop', data: string, id: string }, renderType: { __typename: 'Atom', externalCssSource?: string | null, externalJsSource?: string | null, externalSourceType?: string | null, icon?: string | null, id: string, name: string, type: AtomType, requiredParents: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, suggestedChildren: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }> } | { __typename: 'Component', id: string } }>, pageContentContainer?: { __typename?: 'Element', id: string } | null, redirect?: { __typename?: 'Redirect', id: string } | null, rootElement: { __typename?: 'Element', id: string }, store: { __typename?: 'Store', id: string, name: string, actions: Array<{ __typename: 'ApiAction', id: string, name: string, type: ActionKind, config: { __typename?: 'Prop', data: string, id: string }, errorAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, resource: { __typename?: 'Resource', id: string, name: string, type: ResourceType, config: { __typename?: 'Prop', data: string, id: string }, owner: { __typename?: 'User', id: string } }, successAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', code: string, id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } }>, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } } } }> }>, atoms: Array<{ __typename: 'Atom', externalCssSource?: string | null, externalJsSource?: string | null, externalSourceType?: string | null, icon?: string | null, id: string, name: string, type: AtomType, requiredParents: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, suggestedChildren: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }> }>, resources: Array<{ __typename?: 'Resource', id: string, name: string, type: ResourceType, config: { __typename?: 'Prop', data: string, id: string }, owner: { __typename?: 'User', id: string } }> };
 
 export type CreateAtomsMutationVariables = Exact<{
   input: Array<AtomCreateInput> | AtomCreateInput;
 }>;
 
 
-export type CreateAtomsMutation = { createAtoms: { atoms: Array<{ __typename: 'Atom', id: string }>, info: { nodesCreated: number, relationshipsCreated: number } } };
+export type CreateAtomsMutation = { __typename?: 'Mutation', createAtoms: { __typename?: 'CreateAtomsMutationResponse', atoms: Array<{ __typename: 'Atom', id: string }>, info: { __typename?: 'CreateInfo', nodesCreated: number, relationshipsCreated: number } } };
 
 export type DeleteAtomsMutationVariables = Exact<{
   where: AtomWhere;
@@ -30566,7 +31230,7 @@ export type DeleteAtomsMutationVariables = Exact<{
 }>;
 
 
-export type DeleteAtomsMutation = { deleteAtoms: { nodesDeleted: number, relationshipsDeleted: number } };
+export type DeleteAtomsMutation = { __typename?: 'Mutation', deleteAtoms: { __typename?: 'DeleteInfo', nodesDeleted: number, relationshipsDeleted: number } };
 
 export type AtomListQueryVariables = Exact<{
   where?: InputMaybe<AtomWhere>;
@@ -30574,7 +31238,7 @@ export type AtomListQueryVariables = Exact<{
 }>;
 
 
-export type AtomListQuery = { aggregate: { count: number }, items: Array<AtomFragment> };
+export type AtomListQuery = { __typename?: 'Query', aggregate: { __typename?: 'AtomAggregateSelection', count: number }, items: Array<{ __typename: 'Atom', externalCssSource?: string | null, externalJsSource?: string | null, externalSourceType?: string | null, icon?: string | null, id: string, name: string, type: AtomType, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } }, requiredParents: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, suggestedChildren: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, tags: Array<{ __typename?: 'Tag', id: string, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } }> };
 
 export type UpdateAtomsMutationVariables = Exact<{
   where?: InputMaybe<AtomWhere>;
@@ -30582,7 +31246,7 @@ export type UpdateAtomsMutationVariables = Exact<{
 }>;
 
 
-export type UpdateAtomsMutation = { updateAtoms: { atoms: Array<{ __typename: 'Atom', id: string }> } };
+export type UpdateAtomsMutation = { __typename?: 'Mutation', updateAtoms: { __typename?: 'UpdateAtomsMutationResponse', atoms: Array<{ __typename: 'Atom', id: string }> } };
 
 export type GetAuthGuardsQueryVariables = Exact<{
   options?: InputMaybe<AuthGuardOptions>;
@@ -30590,14 +31254,14 @@ export type GetAuthGuardsQueryVariables = Exact<{
 }>;
 
 
-export type GetAuthGuardsQuery = { aggregate: { count: number }, items: Array<AuthGuardFragment> };
+export type GetAuthGuardsQuery = { __typename?: 'Query', aggregate: { __typename?: 'AuthGuardAggregateSelection', count: number }, items: Array<{ __typename?: 'AuthGuard', id: string, name: string, responseTransformer: string, config: { __typename?: 'Prop', data: string, id: string }, resource: { __typename?: 'Resource', id: string, name: string, type: ResourceType, config: { __typename?: 'Prop', data: string, id: string }, owner: { __typename?: 'User', id: string } }, owner: { __typename?: 'User', id: string } }> };
 
 export type CreateAuthGuardsMutationVariables = Exact<{
   input: Array<AuthGuardCreateInput> | AuthGuardCreateInput;
 }>;
 
 
-export type CreateAuthGuardsMutation = { createAuthGuards: { authGuards: Array<{ __typename: 'AuthGuard', id: string }> } };
+export type CreateAuthGuardsMutation = { __typename?: 'Mutation', createAuthGuards: { __typename?: 'CreateAuthGuardsMutationResponse', authGuards: Array<{ __typename: 'AuthGuard', id: string }> } };
 
 export type UpdateAuthGuardMutationVariables = Exact<{
   where?: InputMaybe<AuthGuardWhere>;
@@ -30605,7 +31269,7 @@ export type UpdateAuthGuardMutationVariables = Exact<{
 }>;
 
 
-export type UpdateAuthGuardMutation = { updateAuthGuards: { authGuards: Array<{ __typename: 'AuthGuard', id: string }> } };
+export type UpdateAuthGuardMutation = { __typename?: 'Mutation', updateAuthGuards: { __typename?: 'UpdateAuthGuardsMutationResponse', authGuards: Array<{ __typename: 'AuthGuard', id: string }> } };
 
 export type DeleteAuthGuardsMutationVariables = Exact<{
   where?: InputMaybe<AuthGuardWhere>;
@@ -30613,14 +31277,14 @@ export type DeleteAuthGuardsMutationVariables = Exact<{
 }>;
 
 
-export type DeleteAuthGuardsMutation = { deleteAuthGuards: { nodesDeleted: number } };
+export type DeleteAuthGuardsMutation = { __typename?: 'Mutation', deleteAuthGuards: { __typename?: 'DeleteInfo', nodesDeleted: number } };
 
 export type CreateComponentsMutationVariables = Exact<{
   input: Array<ComponentCreateInput> | ComponentCreateInput;
 }>;
 
 
-export type CreateComponentsMutation = { createComponents: { components: Array<{ __typename: 'Component', id: string, store: { id: string }, rootElement: { id: string } }> } };
+export type CreateComponentsMutation = { __typename?: 'Mutation', createComponents: { __typename?: 'CreateComponentsMutationResponse', components: Array<{ __typename: 'Component', id: string, store: { __typename?: 'Store', id: string }, rootElement: { __typename?: 'Element', id: string } }> } };
 
 export type DeleteComponentsMutationVariables = Exact<{
   where?: InputMaybe<ComponentWhere>;
@@ -30628,7 +31292,7 @@ export type DeleteComponentsMutationVariables = Exact<{
 }>;
 
 
-export type DeleteComponentsMutation = { deleteComponents: { nodesDeleted: number } };
+export type DeleteComponentsMutation = { __typename?: 'Mutation', deleteComponents: { __typename?: 'DeleteInfo', nodesDeleted: number } };
 
 export type UpdateComponentsMutationVariables = Exact<{
   where?: InputMaybe<ComponentWhere>;
@@ -30636,7 +31300,7 @@ export type UpdateComponentsMutationVariables = Exact<{
 }>;
 
 
-export type UpdateComponentsMutation = { updateComponents: { components: Array<{ __typename: 'Component', id: string }> } };
+export type UpdateComponentsMutation = { __typename?: 'Mutation', updateComponents: { __typename?: 'UpdateComponentsMutationResponse', components: Array<{ __typename: 'Component', id: string }> } };
 
 export type ComponentListQueryVariables = Exact<{
   options?: InputMaybe<ComponentOptions>;
@@ -30644,7 +31308,7 @@ export type ComponentListQueryVariables = Exact<{
 }>;
 
 
-export type ComponentListQuery = { aggregate: { count: number }, items: Array<ComponentFragment> };
+export type ComponentListQuery = { __typename?: 'Query', aggregate: { __typename?: 'ComponentAggregateSelection', count: number }, items: Array<{ __typename: 'Component', id: string, name: string, compositeKey: string, api: { __typename: 'InterfaceType', id: string }, owner: { __typename?: 'User', id: string }, props: { __typename?: 'Prop', data: string, id: string }, rootElement: { __typename?: 'Element', id: string }, store: { __typename?: 'Store', id: string, name: string, actions: Array<{ __typename: 'ApiAction', id: string, name: string, type: ActionKind, config: { __typename?: 'Prop', data: string, id: string }, errorAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, resource: { __typename?: 'Resource', id: string, name: string, type: ResourceType, config: { __typename?: 'Prop', data: string, id: string }, owner: { __typename?: 'User', id: string } }, successAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', code: string, id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } }>, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } } } }> };
 
 export type DomainListQueryVariables = Exact<{
   options?: InputMaybe<DomainOptions>;
@@ -30652,14 +31316,14 @@ export type DomainListQueryVariables = Exact<{
 }>;
 
 
-export type DomainListQuery = { aggregate: { count: number }, items: Array<DomainFragment> };
+export type DomainListQuery = { __typename?: 'Query', aggregate: { __typename?: 'DomainAggregateSelection', count: number }, items: Array<{ __typename?: 'Domain', id: string, name: string, app: { __typename?: 'App', id: string }, domainConfig: { __typename?: 'ProductionDomainConfig', misconfigured: boolean } }> };
 
 export type CreateDomainsMutationVariables = Exact<{
   input: Array<DomainCreateInput> | DomainCreateInput;
 }>;
 
 
-export type CreateDomainsMutation = { createDomains: { domains: Array<{ __typename: 'Domain', id: string }> } };
+export type CreateDomainsMutation = { __typename?: 'Mutation', createDomains: { __typename?: 'CreateDomainsMutationResponse', domains: Array<{ __typename: 'Domain', id: string }> } };
 
 export type UpdateDomainsMutationVariables = Exact<{
   where: DomainWhere;
@@ -30667,21 +31331,21 @@ export type UpdateDomainsMutationVariables = Exact<{
 }>;
 
 
-export type UpdateDomainsMutation = { updateDomains: { domains: Array<{ __typename: 'Domain', id: string }> } };
+export type UpdateDomainsMutation = { __typename?: 'Mutation', updateDomains: { __typename?: 'UpdateDomainsMutationResponse', domains: Array<{ __typename: 'Domain', id: string }> } };
 
 export type DeleteDomainsMutationVariables = Exact<{
   where: DomainWhere;
 }>;
 
 
-export type DeleteDomainsMutation = { deleteDomains: { nodesDeleted: number } };
+export type DeleteDomainsMutation = { __typename?: 'Mutation', deleteDomains: { __typename?: 'DeleteInfo', nodesDeleted: number } };
 
 export type CreateElementsMutationVariables = Exact<{
   input: Array<ElementCreateInput> | ElementCreateInput;
 }>;
 
 
-export type CreateElementsMutation = { createElements: { elements: Array<{ __typename: 'Element', id: string }> } };
+export type CreateElementsMutation = { __typename?: 'Mutation', createElements: { __typename?: 'CreateElementsMutationResponse', elements: Array<{ __typename: 'Element', id: string }> } };
 
 export type DeleteElementsMutationVariables = Exact<{
   where: ElementWhere;
@@ -30689,7 +31353,7 @@ export type DeleteElementsMutationVariables = Exact<{
 }>;
 
 
-export type DeleteElementsMutation = { deleteElements: { nodesDeleted: number } };
+export type DeleteElementsMutation = { __typename?: 'Mutation', deleteElements: { __typename?: 'DeleteInfo', nodesDeleted: number } };
 
 export type UpdateElementsMutationVariables = Exact<{
   where?: InputMaybe<ElementWhere>;
@@ -30697,7 +31361,7 @@ export type UpdateElementsMutationVariables = Exact<{
 }>;
 
 
-export type UpdateElementsMutation = { updateElements: { elements: Array<{ __typename: 'Element', id: string }> } };
+export type UpdateElementsMutation = { __typename?: 'Mutation', updateElements: { __typename?: 'UpdateElementsMutationResponse', elements: Array<{ __typename: 'Element', id: string }> } };
 
 export type ElementListQueryVariables = Exact<{
   options?: InputMaybe<ElementOptions>;
@@ -30705,28 +31369,28 @@ export type ElementListQueryVariables = Exact<{
 }>;
 
 
-export type ElementListQuery = { aggregate: { count: number }, items: Array<ElementFragment> };
+export type ElementListQuery = { __typename?: 'Query', aggregate: { __typename?: 'ElementAggregateSelection', count: number }, items: Array<{ __typename: 'Element', compositeKey: string, childMapperPropKey?: string | null, id: string, name: string, renderForEachPropKey?: string | null, renderIfExpression?: string | null, style?: string | null, tailwindClassNames?: Array<string> | null, expanded?: boolean | null, childMapperComponent?: { __typename?: 'Component', id: string } | null, childMapperPreviousSibling?: { __typename?: 'Element', id: string } | null, dependantTypes: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, itemType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', language: CodeMirrorLanguage, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', elementKind: ElementTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, allowedValues: Array<{ __typename?: 'EnumTypeValue', id: string, key: string, value: string }>, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', primitiveKind: PrimitiveTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, typesOfUnionType: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } }>, firstChild?: { __typename?: 'Element', id: string } | null, nextSibling?: { __typename?: 'Element', id: string } | null, page?: { __typename?: 'Page', id: string } | null, parentComponent?: { __typename?: 'Component', id: string } | null, parentElement?: { __typename?: 'Element', id: string } | null, postRenderActions: Array<{ __typename?: 'ApiAction', id: string, type: ActionKind } | { __typename?: 'CodeAction', id: string, type: ActionKind }>, preRenderActions: Array<{ __typename?: 'ApiAction', id: string, type: ActionKind } | { __typename?: 'CodeAction', id: string, type: ActionKind }>, prevSibling?: { __typename?: 'Element', id: string } | null, props: { __typename?: 'Prop', data: string, id: string }, renderType: { __typename: 'Atom', icon?: string | null, id: string, name: string, type: AtomType, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } }, requiredParents: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, suggestedChildren: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, tags: Array<{ __typename?: 'Tag', id: string, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } } | { __typename: 'Component', id: string } }> };
 
 export type CreateHooksMutationVariables = Exact<{
   input: Array<HookCreateInput> | HookCreateInput;
 }>;
 
 
-export type CreateHooksMutation = { createHooks: { hooks: Array<HookFragment> } };
+export type CreateHooksMutation = { __typename?: 'Mutation', createHooks: { __typename?: 'CreateHooksMutationResponse', hooks: Array<{ __typename?: 'Hook', id: string, type: AtomType, config: { __typename?: 'Prop', data: string, id: string }, element: { __typename?: 'Element', id: string, name: string } }> } };
 
 export type DeleteHooksMutationVariables = Exact<{
   where: HookWhere;
 }>;
 
 
-export type DeleteHooksMutation = { deleteHooks: { nodesDeleted: number } };
+export type DeleteHooksMutation = { __typename?: 'Mutation', deleteHooks: { __typename?: 'DeleteInfo', nodesDeleted: number } };
 
 export type CreateFieldsMutationVariables = Exact<{
   input: Array<FieldCreateInput> | FieldCreateInput;
 }>;
 
 
-export type CreateFieldsMutation = { createFields: { fields: Array<{ __typename: 'Field', id: string }> } };
+export type CreateFieldsMutation = { __typename?: 'Mutation', createFields: { __typename?: 'CreateFieldsMutationResponse', fields: Array<{ __typename: 'Field', id: string }> } };
 
 export type UpdateFieldsMutationVariables = Exact<{
   where: FieldWhere;
@@ -30734,14 +31398,14 @@ export type UpdateFieldsMutationVariables = Exact<{
 }>;
 
 
-export type UpdateFieldsMutation = { updateFields: { fields: Array<{ __typename: 'Field', id: string }> } };
+export type UpdateFieldsMutation = { __typename?: 'Mutation', updateFields: { __typename?: 'UpdateFieldsMutationResponse', fields: Array<{ __typename: 'Field', id: string }> } };
 
 export type DeleteFieldsMutationVariables = Exact<{
   where: FieldWhere;
 }>;
 
 
-export type DeleteFieldsMutation = { deleteFields: { nodesDeleted: number } };
+export type DeleteFieldsMutation = { __typename?: 'Mutation', deleteFields: { __typename?: 'DeleteInfo', nodesDeleted: number } };
 
 export type GetFieldsQueryVariables = Exact<{
   where?: InputMaybe<FieldWhere>;
@@ -30749,14 +31413,14 @@ export type GetFieldsQueryVariables = Exact<{
 }>;
 
 
-export type GetFieldsQuery = { aggregate: { count: number }, items: Array<FieldFragment> };
+export type GetFieldsQuery = { __typename?: 'Query', aggregate: { __typename?: 'FieldAggregateSelection', count: number }, items: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }> };
 
 export type CreatePagesMutationVariables = Exact<{
   input: Array<PageCreateInput> | PageCreateInput;
 }>;
 
 
-export type CreatePagesMutation = { createPages: { pages: Array<{ __typename: 'Page', id: string, rootElement: { id: string } }> } };
+export type CreatePagesMutation = { __typename?: 'Mutation', createPages: { __typename?: 'CreatePagesMutationResponse', pages: Array<{ __typename: 'Page', id: string, rootElement: { __typename?: 'Element', id: string } }> } };
 
 export type DeletePagesMutationVariables = Exact<{
   where?: InputMaybe<PageWhere>;
@@ -30764,7 +31428,7 @@ export type DeletePagesMutationVariables = Exact<{
 }>;
 
 
-export type DeletePagesMutation = { deletePages: { nodesDeleted: number } };
+export type DeletePagesMutation = { __typename?: 'Mutation', deletePages: { __typename?: 'DeleteInfo', nodesDeleted: number } };
 
 export type UpdatePagesMutationVariables = Exact<{
   where?: InputMaybe<PageWhere>;
@@ -30772,7 +31436,7 @@ export type UpdatePagesMutationVariables = Exact<{
 }>;
 
 
-export type UpdatePagesMutation = { updatePages: { pages: Array<{ __typename: 'Page', id: string }> } };
+export type UpdatePagesMutation = { __typename?: 'Mutation', updatePages: { __typename?: 'UpdatePagesMutationResponse', pages: Array<{ __typename: 'Page', id: string }> } };
 
 export type PageListQueryVariables = Exact<{
   options?: InputMaybe<PageOptions>;
@@ -30780,21 +31444,21 @@ export type PageListQueryVariables = Exact<{
 }>;
 
 
-export type PageListQuery = { aggregate: { count: number }, items: Array<PageFragment> };
+export type PageListQuery = { __typename?: 'Query', aggregate: { __typename?: 'PageAggregateSelection', count: number }, items: Array<{ __typename?: 'Page', id: string, kind: PageKind, name: string, urlPattern: string, app: { __typename?: 'App', id: string }, elements: Array<{ __typename: 'Element', compositeKey: string, childMapperPropKey?: string | null, id: string, name: string, renderForEachPropKey?: string | null, renderIfExpression?: string | null, style?: string | null, tailwindClassNames?: Array<string> | null, expanded?: boolean | null, childMapperComponent?: { __typename?: 'Component', id: string } | null, childMapperPreviousSibling?: { __typename?: 'Element', id: string } | null, dependantTypes: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, itemType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', language: CodeMirrorLanguage, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', elementKind: ElementTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, allowedValues: Array<{ __typename?: 'EnumTypeValue', id: string, key: string, value: string }>, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', primitiveKind: PrimitiveTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, typesOfUnionType: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } }>, firstChild?: { __typename?: 'Element', id: string } | null, nextSibling?: { __typename?: 'Element', id: string } | null, page?: { __typename?: 'Page', id: string } | null, parentComponent?: { __typename?: 'Component', id: string } | null, parentElement?: { __typename?: 'Element', id: string } | null, postRenderActions: Array<{ __typename?: 'ApiAction', id: string, type: ActionKind } | { __typename?: 'CodeAction', id: string, type: ActionKind }>, preRenderActions: Array<{ __typename?: 'ApiAction', id: string, type: ActionKind } | { __typename?: 'CodeAction', id: string, type: ActionKind }>, prevSibling?: { __typename?: 'Element', id: string } | null, props: { __typename?: 'Prop', data: string, id: string }, renderType: { __typename: 'Atom', icon?: string | null, id: string, name: string, type: AtomType, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } }, requiredParents: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, suggestedChildren: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, tags: Array<{ __typename?: 'Tag', id: string, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } } | { __typename: 'Component', id: string } }>, pageContentContainer?: { __typename?: 'Element', id: string } | null, redirect?: { __typename?: 'Redirect', id: string } | null, rootElement: { __typename?: 'Element', id: string }, store: { __typename?: 'Store', id: string, name: string, actions: Array<{ __typename: 'ApiAction', id: string, name: string, type: ActionKind, config: { __typename?: 'Prop', data: string, id: string }, errorAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, resource: { __typename?: 'Resource', id: string, name: string, type: ResourceType, config: { __typename?: 'Prop', data: string, id: string }, owner: { __typename?: 'User', id: string } }, successAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', code: string, id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } }>, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } } } }> };
 
 export type GetRenderedPageQueryVariables = Exact<{
   pageId: Scalars['ID']['input'];
 }>;
 
 
-export type GetRenderedPageQuery = { pages: Array<PageDevelopmentFragment> };
+export type GetRenderedPageQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', id: string, kind: PageKind, name: string, urlPattern: string, app: { __typename?: 'App', id: string }, elements: Array<{ __typename: 'Element', compositeKey: string, childMapperPropKey?: string | null, id: string, name: string, renderForEachPropKey?: string | null, renderIfExpression?: string | null, style?: string | null, tailwindClassNames?: Array<string> | null, expanded?: boolean | null, childMapperComponent?: { __typename?: 'Component', id: string } | null, childMapperPreviousSibling?: { __typename?: 'Element', id: string } | null, dependantTypes: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, itemType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', language: CodeMirrorLanguage, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', elementKind: ElementTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, allowedValues: Array<{ __typename?: 'EnumTypeValue', id: string, key: string, value: string }>, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', primitiveKind: PrimitiveTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, typesOfUnionType: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } }>, firstChild?: { __typename?: 'Element', id: string } | null, nextSibling?: { __typename?: 'Element', id: string } | null, page?: { __typename?: 'Page', id: string } | null, parentComponent?: { __typename?: 'Component', id: string } | null, parentElement?: { __typename?: 'Element', id: string } | null, postRenderActions: Array<{ __typename?: 'ApiAction', id: string, type: ActionKind } | { __typename?: 'CodeAction', id: string, type: ActionKind }>, preRenderActions: Array<{ __typename?: 'ApiAction', id: string, type: ActionKind } | { __typename?: 'CodeAction', id: string, type: ActionKind }>, prevSibling?: { __typename?: 'Element', id: string } | null, props: { __typename?: 'Prop', data: string, id: string }, renderType: { __typename: 'Atom', icon?: string | null, id: string, name: string, type: AtomType, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } }, requiredParents: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, suggestedChildren: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, tags: Array<{ __typename?: 'Tag', id: string, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } } | { __typename: 'Component', id: string } }>, pageContentContainer?: { __typename?: 'Element', id: string } | null, redirect?: { __typename?: 'Redirect', id: string } | null, rootElement: { __typename?: 'Element', id: string }, store: { __typename?: 'Store', id: string, name: string, actions: Array<{ __typename: 'ApiAction', id: string, name: string, type: ActionKind, config: { __typename?: 'Prop', data: string, id: string }, errorAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, resource: { __typename?: 'Resource', id: string, name: string, type: ResourceType, config: { __typename?: 'Prop', data: string, id: string }, owner: { __typename?: 'User', id: string } }, successAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', code: string, id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } }>, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } } } }> };
 
 export type CreatePreferencesMutationVariables = Exact<{
   input: Array<PreferenceCreateInput> | PreferenceCreateInput;
 }>;
 
 
-export type CreatePreferencesMutation = { createPreferences: { info: { nodesCreated: number, relationshipsCreated: number }, preferences: Array<{ __typename: 'Preference', id: string }> } };
+export type CreatePreferencesMutation = { __typename?: 'Mutation', createPreferences: { __typename?: 'CreatePreferencesMutationResponse', info: { __typename?: 'CreateInfo', nodesCreated: number, relationshipsCreated: number }, preferences: Array<{ __typename: 'Preference', id: string }> } };
 
 export type DeletePreferencesMutationVariables = Exact<{
   where?: InputMaybe<PreferenceWhere>;
@@ -30802,7 +31466,7 @@ export type DeletePreferencesMutationVariables = Exact<{
 }>;
 
 
-export type DeletePreferencesMutation = { deletePreferences: { nodesDeleted: number } };
+export type DeletePreferencesMutation = { __typename?: 'Mutation', deletePreferences: { __typename?: 'DeleteInfo', nodesDeleted: number } };
 
 export type GetPreferencesQueryVariables = Exact<{
   where?: InputMaybe<PreferenceWhere>;
@@ -30810,7 +31474,7 @@ export type GetPreferencesQueryVariables = Exact<{
 }>;
 
 
-export type GetPreferencesQuery = { aggregate: { count: number }, items: Array<PreferenceFragment> };
+export type GetPreferencesQuery = { __typename?: 'Query', aggregate: { __typename?: 'PreferenceAggregateSelection', count: number }, items: Array<{ __typename?: 'Preference', id: string, builderBreakpointType: BreakpointType, builderWidth: number, owner: { __typename?: 'User', id: string } }> };
 
 export type UpdatePreferencesMutationVariables = Exact<{
   where?: InputMaybe<PreferenceWhere>;
@@ -30818,14 +31482,14 @@ export type UpdatePreferencesMutationVariables = Exact<{
 }>;
 
 
-export type UpdatePreferencesMutation = { updatePreferences: { preferences: Array<{ __typename: 'Preference', id: string }> } };
+export type UpdatePreferencesMutation = { __typename?: 'Mutation', updatePreferences: { __typename?: 'UpdatePreferencesMutationResponse', preferences: Array<{ __typename: 'Preference', id: string }> } };
 
 export type CreatePropsMutationVariables = Exact<{
   input: Array<PropCreateInput> | PropCreateInput;
 }>;
 
 
-export type CreatePropsMutation = { createProps: { props: Array<{ __typename: 'Prop', id: string }> } };
+export type CreatePropsMutation = { __typename?: 'Mutation', createProps: { __typename?: 'CreatePropsMutationResponse', props: Array<{ __typename: 'Prop', id: string }> } };
 
 export type UpdatePropsMutationVariables = Exact<{
   where?: InputMaybe<PropWhere>;
@@ -30833,14 +31497,14 @@ export type UpdatePropsMutationVariables = Exact<{
 }>;
 
 
-export type UpdatePropsMutation = { updateProps: { props: Array<{ __typename: 'Prop', id: string }> } };
+export type UpdatePropsMutation = { __typename?: 'Mutation', updateProps: { __typename?: 'UpdatePropsMutationResponse', props: Array<{ __typename: 'Prop', id: string }> } };
 
 export type DeletePropsMutationVariables = Exact<{
   where: PropWhere;
 }>;
 
 
-export type DeletePropsMutation = { deleteProps: { nodesDeleted: number } };
+export type DeletePropsMutation = { __typename?: 'Mutation', deleteProps: { __typename?: 'DeleteInfo', nodesDeleted: number } };
 
 export type GetPropsQueryVariables = Exact<{
   options?: InputMaybe<PropOptions>;
@@ -30848,14 +31512,14 @@ export type GetPropsQueryVariables = Exact<{
 }>;
 
 
-export type GetPropsQuery = { aggregate: { count: number }, items: Array<PropFragment> };
+export type GetPropsQuery = { __typename?: 'Query', aggregate: { __typename?: 'PropAggregateSelection', count: number }, items: Array<{ __typename?: 'Prop', data: string, id: string }> };
 
 export type CreateRedirectsMutationVariables = Exact<{
   input: Array<RedirectCreateInput> | RedirectCreateInput;
 }>;
 
 
-export type CreateRedirectsMutation = { createRedirects: { redirects: Array<{ __typename: 'Redirect', id: string }> } };
+export type CreateRedirectsMutation = { __typename?: 'Mutation', createRedirects: { __typename?: 'CreateRedirectsMutationResponse', redirects: Array<{ __typename: 'Redirect', id: string }> } };
 
 export type DeleteRedirectsMutationVariables = Exact<{
   where?: InputMaybe<RedirectWhere>;
@@ -30863,7 +31527,7 @@ export type DeleteRedirectsMutationVariables = Exact<{
 }>;
 
 
-export type DeleteRedirectsMutation = { deleteRedirects: { nodesDeleted: number } };
+export type DeleteRedirectsMutation = { __typename?: 'Mutation', deleteRedirects: { __typename?: 'DeleteInfo', nodesDeleted: number } };
 
 export type UpdateRedirectsMutationVariables = Exact<{
   where?: InputMaybe<RedirectWhere>;
@@ -30871,7 +31535,7 @@ export type UpdateRedirectsMutationVariables = Exact<{
 }>;
 
 
-export type UpdateRedirectsMutation = { updateRedirects: { redirects: Array<{ __typename: 'Redirect', id: string }> } };
+export type UpdateRedirectsMutation = { __typename?: 'Mutation', updateRedirects: { __typename?: 'UpdateRedirectsMutationResponse', redirects: Array<{ __typename: 'Redirect', id: string }> } };
 
 export type GetRedirectsQueryVariables = Exact<{
   options?: InputMaybe<RedirectOptions>;
@@ -30879,7 +31543,7 @@ export type GetRedirectsQueryVariables = Exact<{
 }>;
 
 
-export type GetRedirectsQuery = { aggregate: { count: number }, items: Array<RedirectFragment> };
+export type GetRedirectsQuery = { __typename?: 'Query', aggregate: { __typename?: 'RedirectAggregateSelection', count: number }, items: Array<{ __typename?: 'Redirect', id: string, targetType: RedirectTargetType, targetUrl?: string | null, authGuard: { __typename?: 'AuthGuard', id: string, name: string, responseTransformer: string, config: { __typename?: 'Prop', data: string, id: string }, resource: { __typename?: 'Resource', id: string, name: string, type: ResourceType, config: { __typename?: 'Prop', data: string, id: string }, owner: { __typename?: 'User', id: string } }, owner: { __typename?: 'User', id: string } }, source: { __typename?: 'Page', id: string }, targetPage?: { __typename?: 'Page', id: string, kind: PageKind, name: string, urlPattern: string, app: { __typename?: 'App', id: string }, rootElement: { __typename?: 'Element', id: string }, elements: Array<{ __typename?: 'Element', id: string }>, store: { __typename?: 'Store', id: string } } | null }> };
 
 export type GetRedirectsPreviewQueryVariables = Exact<{
   options?: InputMaybe<RedirectOptions>;
@@ -30887,7 +31551,7 @@ export type GetRedirectsPreviewQueryVariables = Exact<{
 }>;
 
 
-export type GetRedirectsPreviewQuery = { aggregate: { count: number }, items: Array<RedirectPreviewFragment> };
+export type GetRedirectsPreviewQuery = { __typename?: 'Query', aggregate: { __typename?: 'RedirectAggregateSelection', count: number }, items: Array<{ __typename?: 'Redirect', id: string, targetType: RedirectTargetType, targetUrl?: string | null, authGuard: { __typename?: 'AuthGuard', id: string }, source: { __typename?: 'Page', id: string }, targetPage?: { __typename?: 'Page', id: string } | null }> };
 
 export type ResourceListQueryVariables = Exact<{
   options?: InputMaybe<ResourceOptions>;
@@ -30895,14 +31559,14 @@ export type ResourceListQueryVariables = Exact<{
 }>;
 
 
-export type ResourceListQuery = { aggregate: { count: number }, items: Array<ResourceFragment> };
+export type ResourceListQuery = { __typename?: 'Query', aggregate: { __typename?: 'ResourceAggregateSelection', count: number }, items: Array<{ __typename?: 'Resource', id: string, name: string, type: ResourceType, config: { __typename?: 'Prop', data: string, id: string }, owner: { __typename?: 'User', id: string } }> };
 
 export type CreateResourcesMutationVariables = Exact<{
   input: Array<ResourceCreateInput> | ResourceCreateInput;
 }>;
 
 
-export type CreateResourcesMutation = { createResources: { resources: Array<{ __typename: 'Resource', id: string }> } };
+export type CreateResourcesMutation = { __typename?: 'Mutation', createResources: { __typename?: 'CreateResourcesMutationResponse', resources: Array<{ __typename: 'Resource', id: string }> } };
 
 export type UpdateResourcesMutationVariables = Exact<{
   where?: InputMaybe<ResourceWhere>;
@@ -30910,7 +31574,7 @@ export type UpdateResourcesMutationVariables = Exact<{
 }>;
 
 
-export type UpdateResourcesMutation = { updateResources: { resources: Array<{ __typename: 'Resource', id: string }> } };
+export type UpdateResourcesMutation = { __typename?: 'Mutation', updateResources: { __typename?: 'UpdateResourcesMutationResponse', resources: Array<{ __typename: 'Resource', id: string }> } };
 
 export type DeleteResourcesMutationVariables = Exact<{
   where?: InputMaybe<ResourceWhere>;
@@ -30918,21 +31582,21 @@ export type DeleteResourcesMutationVariables = Exact<{
 }>;
 
 
-export type DeleteResourcesMutation = { deleteResources: { nodesDeleted: number } };
+export type DeleteResourcesMutation = { __typename?: 'Mutation', deleteResources: { __typename?: 'DeleteInfo', nodesDeleted: number } };
 
 export type CreateCodeActionsMutationVariables = Exact<{
   input: Array<CodeActionCreateInput> | CodeActionCreateInput;
 }>;
 
 
-export type CreateCodeActionsMutation = { createCodeActions: { codeActions: Array<{ __typename: 'CodeAction', id: string }> } };
+export type CreateCodeActionsMutation = { __typename?: 'Mutation', createCodeActions: { __typename?: 'CreateCodeActionsMutationResponse', codeActions: Array<{ __typename: 'CodeAction', id: string }> } };
 
 export type CreateApiActionsMutationVariables = Exact<{
   input: Array<ApiActionCreateInput> | ApiActionCreateInput;
 }>;
 
 
-export type CreateApiActionsMutation = { createApiActions: { apiActions: Array<{ __typename: 'ApiAction', id: string }> } };
+export type CreateApiActionsMutation = { __typename?: 'Mutation', createApiActions: { __typename?: 'CreateApiActionsMutationResponse', apiActions: Array<{ __typename: 'ApiAction', id: string }> } };
 
 export type DeleteCodeActionsMutationVariables = Exact<{
   where: CodeActionWhere;
@@ -30940,7 +31604,7 @@ export type DeleteCodeActionsMutationVariables = Exact<{
 }>;
 
 
-export type DeleteCodeActionsMutation = { deleteCodeActions: { nodesDeleted: number, relationshipsDeleted: number } };
+export type DeleteCodeActionsMutation = { __typename?: 'Mutation', deleteCodeActions: { __typename?: 'DeleteInfo', nodesDeleted: number, relationshipsDeleted: number } };
 
 export type DeleteApiActionsMutationVariables = Exact<{
   where: ApiActionWhere;
@@ -30948,7 +31612,7 @@ export type DeleteApiActionsMutationVariables = Exact<{
 }>;
 
 
-export type DeleteApiActionsMutation = { deleteApiActions: { nodesDeleted: number, relationshipsDeleted: number } };
+export type DeleteApiActionsMutation = { __typename?: 'Mutation', deleteApiActions: { __typename?: 'DeleteInfo', nodesDeleted: number, relationshipsDeleted: number } };
 
 export type GetActionsQueryVariables = Exact<{
   codeActionWhere?: InputMaybe<CodeActionWhere>;
@@ -30956,14 +31620,14 @@ export type GetActionsQueryVariables = Exact<{
 }>;
 
 
-export type GetActionsQuery = { apiActions: Array<Action_ApiAction_Fragment>, codeActions: Array<Action_CodeAction_Fragment> };
+export type GetActionsQuery = { __typename?: 'Query', apiActions: Array<{ __typename: 'ApiAction', id: string, name: string, type: ActionKind, config: { __typename?: 'Prop', data: string, id: string }, errorAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, resource: { __typename?: 'Resource', id: string, name: string, type: ResourceType, config: { __typename?: 'Prop', data: string, id: string }, owner: { __typename?: 'User', id: string } }, successAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, store: { __typename?: 'Store', id: string, name: string } }>, codeActions: Array<{ __typename: 'CodeAction', code: string, id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } }> };
 
 export type CreateStoresMutationVariables = Exact<{
   input: Array<StoreCreateInput> | StoreCreateInput;
 }>;
 
 
-export type CreateStoresMutation = { createStores: { info: { nodesCreated: number, relationshipsCreated: number }, stores: Array<{ __typename: 'Store', id: string }> } };
+export type CreateStoresMutation = { __typename?: 'Mutation', createStores: { __typename?: 'CreateStoresMutationResponse', info: { __typename?: 'CreateInfo', nodesCreated: number, relationshipsCreated: number }, stores: Array<{ __typename: 'Store', id: string }> } };
 
 export type DeleteStoresMutationVariables = Exact<{
   where?: InputMaybe<StoreWhere>;
@@ -30971,7 +31635,7 @@ export type DeleteStoresMutationVariables = Exact<{
 }>;
 
 
-export type DeleteStoresMutation = { deleteStores: { nodesDeleted: number } };
+export type DeleteStoresMutation = { __typename?: 'Mutation', deleteStores: { __typename?: 'DeleteInfo', nodesDeleted: number } };
 
 export type GetStoresQueryVariables = Exact<{
   where?: InputMaybe<StoreWhere>;
@@ -30979,7 +31643,7 @@ export type GetStoresQueryVariables = Exact<{
 }>;
 
 
-export type GetStoresQuery = { aggregate: { count: number }, items: Array<StoreFragment> };
+export type GetStoresQuery = { __typename?: 'Query', aggregate: { __typename?: 'StoreAggregateSelection', count: number }, items: Array<{ __typename?: 'Store', id: string, name: string, actions: Array<{ __typename: 'ApiAction', id: string, name: string, type: ActionKind, config: { __typename?: 'Prop', data: string, id: string }, errorAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, resource: { __typename?: 'Resource', id: string, name: string, type: ResourceType, config: { __typename?: 'Prop', data: string, id: string }, owner: { __typename?: 'User', id: string } }, successAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', code: string, id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } }>, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } } }> };
 
 export type UpdateStoresMutationVariables = Exact<{
   where?: InputMaybe<StoreWhere>;
@@ -30987,7 +31651,7 @@ export type UpdateStoresMutationVariables = Exact<{
 }>;
 
 
-export type UpdateStoresMutation = { updateStores: { stores: Array<{ __typename: 'Store', id: string }> } };
+export type UpdateStoresMutation = { __typename?: 'Mutation', updateStores: { __typename?: 'UpdateStoresMutationResponse', stores: Array<{ __typename: 'Store', id: string }> } };
 
 export type UpdateCodeActionsMutationVariables = Exact<{
   update?: InputMaybe<CodeActionUpdateInput>;
@@ -30995,7 +31659,7 @@ export type UpdateCodeActionsMutationVariables = Exact<{
 }>;
 
 
-export type UpdateCodeActionsMutation = { updateCodeActions: { codeActions: Array<{ __typename: 'CodeAction', id: string }> } };
+export type UpdateCodeActionsMutation = { __typename?: 'Mutation', updateCodeActions: { __typename?: 'UpdateCodeActionsMutationResponse', codeActions: Array<{ __typename: 'CodeAction', id: string }> } };
 
 export type UpdateApiActionsMutationVariables = Exact<{
   update?: InputMaybe<ApiActionUpdateInput>;
@@ -31003,14 +31667,14 @@ export type UpdateApiActionsMutationVariables = Exact<{
 }>;
 
 
-export type UpdateApiActionsMutation = { updateApiActions: { apiActions: Array<{ __typename: 'ApiAction', id: string }> } };
+export type UpdateApiActionsMutation = { __typename?: 'Mutation', updateApiActions: { __typename?: 'UpdateApiActionsMutationResponse', apiActions: Array<{ __typename: 'ApiAction', id: string }> } };
 
 export type CreateTagsMutationVariables = Exact<{
   input: Array<TagCreateInput> | TagCreateInput;
 }>;
 
 
-export type CreateTagsMutation = { createTags: { tags: Array<{ __typename: 'Tag', id: string }> } };
+export type CreateTagsMutation = { __typename?: 'Mutation', createTags: { __typename?: 'CreateTagsMutationResponse', tags: Array<{ __typename: 'Tag', id: string }> } };
 
 export type UpdateTagsMutationVariables = Exact<{
   where: TagWhere;
@@ -31018,14 +31682,14 @@ export type UpdateTagsMutationVariables = Exact<{
 }>;
 
 
-export type UpdateTagsMutation = { updateTags: { tags: Array<{ __typename: 'Tag', id: string }> } };
+export type UpdateTagsMutation = { __typename?: 'Mutation', updateTags: { __typename?: 'UpdateTagsMutationResponse', tags: Array<{ __typename: 'Tag', id: string }> } };
 
 export type DeleteTagsMutationVariables = Exact<{
   where: TagWhere;
 }>;
 
 
-export type DeleteTagsMutation = { deleteTags: { nodesDeleted: number } };
+export type DeleteTagsMutation = { __typename?: 'Mutation', deleteTags: { __typename?: 'DeleteInfo', nodesDeleted: number } };
 
 export type GetTagsQueryVariables = Exact<{
   options?: InputMaybe<TagOptions>;
@@ -31033,105 +31697,105 @@ export type GetTagsQueryVariables = Exact<{
 }>;
 
 
-export type GetTagsQuery = { aggregate: { count: number }, items: Array<TagFragment> };
+export type GetTagsQuery = { __typename?: 'Query', aggregate: { __typename?: 'TagAggregateSelection', count: number }, items: Array<{ __typename?: 'Tag', id: string, name: string, children: Array<{ __typename?: 'Tag', id: string, name: string, owner: { __typename?: 'User', id: string } }>, descendants: Array<{ __typename?: 'Tag', id: string, name: string }>, owner: { __typename?: 'User', id: string }, parent?: { __typename?: 'Tag', id: string, name: string } | null }> };
 
 export type CreatePrimitiveTypesMutationVariables = Exact<{
   input: Array<PrimitiveTypeCreateInput> | PrimitiveTypeCreateInput;
 }>;
 
 
-export type CreatePrimitiveTypesMutation = { types: { types: Array<{ __typename: 'PrimitiveType', id: string }> } };
+export type CreatePrimitiveTypesMutation = { __typename?: 'Mutation', types: { __typename?: 'CreatePrimitiveTypesMutationResponse', types: Array<{ __typename: 'PrimitiveType', id: string }> } };
 
 export type CreateArrayTypesMutationVariables = Exact<{
   input: Array<ArrayTypeCreateInput> | ArrayTypeCreateInput;
 }>;
 
 
-export type CreateArrayTypesMutation = { types: { types: Array<{ __typename: 'ArrayType', id: string }> } };
+export type CreateArrayTypesMutation = { __typename?: 'Mutation', types: { __typename?: 'CreateArrayTypesMutationResponse', types: Array<{ __typename: 'ArrayType', id: string }> } };
 
 export type CreateUnionTypesMutationVariables = Exact<{
   input: Array<UnionTypeCreateInput> | UnionTypeCreateInput;
 }>;
 
 
-export type CreateUnionTypesMutation = { types: { types: Array<{ __typename: 'UnionType', id: string }> } };
+export type CreateUnionTypesMutation = { __typename?: 'Mutation', types: { __typename?: 'CreateUnionTypesMutationResponse', types: Array<{ __typename: 'UnionType', id: string }> } };
 
 export type CreateInterfaceTypesMutationVariables = Exact<{
   input: Array<InterfaceTypeCreateInput> | InterfaceTypeCreateInput;
 }>;
 
 
-export type CreateInterfaceTypesMutation = { types: { types: Array<{ __typename: 'InterfaceType', id: string }> } };
+export type CreateInterfaceTypesMutation = { __typename?: 'Mutation', types: { __typename?: 'CreateInterfaceTypesMutationResponse', types: Array<{ __typename: 'InterfaceType', id: string }> } };
 
 export type CreateElementTypesMutationVariables = Exact<{
   input: Array<ElementTypeCreateInput> | ElementTypeCreateInput;
 }>;
 
 
-export type CreateElementTypesMutation = { types: { types: Array<{ __typename: 'ElementType', id: string }> } };
+export type CreateElementTypesMutation = { __typename?: 'Mutation', types: { __typename?: 'CreateElementTypesMutationResponse', types: Array<{ __typename: 'ElementType', id: string }> } };
 
 export type CreateRenderPropTypesMutationVariables = Exact<{
   input: Array<RenderPropTypeCreateInput> | RenderPropTypeCreateInput;
 }>;
 
 
-export type CreateRenderPropTypesMutation = { types: { types: Array<{ __typename: 'RenderPropType', id: string }> } };
+export type CreateRenderPropTypesMutation = { __typename?: 'Mutation', types: { __typename?: 'CreateRenderPropTypesMutationResponse', types: Array<{ __typename: 'RenderPropType', id: string }> } };
 
 export type CreateReactNodeTypesMutationVariables = Exact<{
   input: Array<ReactNodeTypeCreateInput> | ReactNodeTypeCreateInput;
 }>;
 
 
-export type CreateReactNodeTypesMutation = { types: { types: Array<{ __typename: 'ReactNodeType', id: string }> } };
+export type CreateReactNodeTypesMutation = { __typename?: 'Mutation', types: { __typename?: 'CreateReactNodeTypesMutationResponse', types: Array<{ __typename: 'ReactNodeType', id: string }> } };
 
 export type CreateEnumTypesMutationVariables = Exact<{
   input: Array<EnumTypeCreateInput> | EnumTypeCreateInput;
 }>;
 
 
-export type CreateEnumTypesMutation = { types: { types: Array<{ __typename: 'EnumType', id: string }> } };
+export type CreateEnumTypesMutation = { __typename?: 'Mutation', types: { __typename?: 'CreateEnumTypesMutationResponse', types: Array<{ __typename: 'EnumType', id: string }> } };
 
 export type CreateLambdaTypesMutationVariables = Exact<{
   input: Array<LambdaTypeCreateInput> | LambdaTypeCreateInput;
 }>;
 
 
-export type CreateLambdaTypesMutation = { types: { types: Array<{ __typename: 'LambdaType', id: string }> } };
+export type CreateLambdaTypesMutation = { __typename?: 'Mutation', types: { __typename?: 'CreateLambdaTypesMutationResponse', types: Array<{ __typename: 'LambdaType', id: string }> } };
 
 export type CreatePageTypesMutationVariables = Exact<{
   input: Array<PageTypeCreateInput> | PageTypeCreateInput;
 }>;
 
 
-export type CreatePageTypesMutation = { types: { types: Array<{ __typename: 'PageType', id: string }> } };
+export type CreatePageTypesMutation = { __typename?: 'Mutation', types: { __typename?: 'CreatePageTypesMutationResponse', types: Array<{ __typename: 'PageType', id: string }> } };
 
 export type CreateAppTypesMutationVariables = Exact<{
   input: Array<AppTypeCreateInput> | AppTypeCreateInput;
 }>;
 
 
-export type CreateAppTypesMutation = { types: { types: Array<{ __typename: 'AppType', id: string }> } };
+export type CreateAppTypesMutation = { __typename?: 'Mutation', types: { __typename?: 'CreateAppTypesMutationResponse', types: Array<{ __typename: 'AppType', id: string }> } };
 
 export type CreateRichTextTypesMutationVariables = Exact<{
   input: Array<RichTextTypeCreateInput> | RichTextTypeCreateInput;
 }>;
 
 
-export type CreateRichTextTypesMutation = { types: { types: Array<{ __typename: 'RichTextType', id: string }> } };
+export type CreateRichTextTypesMutation = { __typename?: 'Mutation', types: { __typename?: 'CreateRichTextTypesMutationResponse', types: Array<{ __typename: 'RichTextType', id: string }> } };
 
 export type CreateActionTypesMutationVariables = Exact<{
   input: Array<ActionTypeCreateInput> | ActionTypeCreateInput;
 }>;
 
 
-export type CreateActionTypesMutation = { types: { types: Array<{ __typename: 'ActionType', id: string }> } };
+export type CreateActionTypesMutation = { __typename?: 'Mutation', types: { __typename?: 'CreateActionTypesMutationResponse', types: Array<{ __typename: 'ActionType', id: string }> } };
 
 export type CreateCodeMirrorTypesMutationVariables = Exact<{
   input: Array<CodeMirrorTypeCreateInput> | CodeMirrorTypeCreateInput;
 }>;
 
 
-export type CreateCodeMirrorTypesMutation = { types: { types: Array<{ __typename: 'CodeMirrorType', id: string }> } };
+export type CreateCodeMirrorTypesMutation = { __typename?: 'Mutation', types: { __typename?: 'CreateCodeMirrorTypesMutationResponse', types: Array<{ __typename: 'CodeMirrorType', id: string }> } };
 
 export type DeletePrimitiveTypesMutationVariables = Exact<{
   delete?: InputMaybe<PrimitiveTypeDeleteInput>;
@@ -31139,7 +31803,7 @@ export type DeletePrimitiveTypesMutationVariables = Exact<{
 }>;
 
 
-export type DeletePrimitiveTypesMutation = { deletePrimitiveTypes: { nodesDeleted: number, relationshipsDeleted: number } };
+export type DeletePrimitiveTypesMutation = { __typename?: 'Mutation', deletePrimitiveTypes: { __typename?: 'DeleteInfo', nodesDeleted: number, relationshipsDeleted: number } };
 
 export type DeleteArrayTypesMutationVariables = Exact<{
   delete?: InputMaybe<ArrayTypeDeleteInput>;
@@ -31147,7 +31811,7 @@ export type DeleteArrayTypesMutationVariables = Exact<{
 }>;
 
 
-export type DeleteArrayTypesMutation = { deleteArrayTypes: { nodesDeleted: number, relationshipsDeleted: number } };
+export type DeleteArrayTypesMutation = { __typename?: 'Mutation', deleteArrayTypes: { __typename?: 'DeleteInfo', nodesDeleted: number, relationshipsDeleted: number } };
 
 export type DeleteReactNodeTypesMutationVariables = Exact<{
   delete?: InputMaybe<ReactNodeTypeDeleteInput>;
@@ -31155,7 +31819,7 @@ export type DeleteReactNodeTypesMutationVariables = Exact<{
 }>;
 
 
-export type DeleteReactNodeTypesMutation = { deleteReactNodeTypes: { nodesDeleted: number, relationshipsDeleted: number } };
+export type DeleteReactNodeTypesMutation = { __typename?: 'Mutation', deleteReactNodeTypes: { __typename?: 'DeleteInfo', nodesDeleted: number, relationshipsDeleted: number } };
 
 export type DeleteUnionTypesMutationVariables = Exact<{
   delete?: InputMaybe<UnionTypeDeleteInput>;
@@ -31163,7 +31827,7 @@ export type DeleteUnionTypesMutationVariables = Exact<{
 }>;
 
 
-export type DeleteUnionTypesMutation = { deleteUnionTypes: { nodesDeleted: number, relationshipsDeleted: number } };
+export type DeleteUnionTypesMutation = { __typename?: 'Mutation', deleteUnionTypes: { __typename?: 'DeleteInfo', nodesDeleted: number, relationshipsDeleted: number } };
 
 export type DeleteInterfaceTypesMutationVariables = Exact<{
   delete?: InputMaybe<InterfaceTypeDeleteInput>;
@@ -31171,7 +31835,7 @@ export type DeleteInterfaceTypesMutationVariables = Exact<{
 }>;
 
 
-export type DeleteInterfaceTypesMutation = { deleteInterfaceTypes: { nodesDeleted: number, relationshipsDeleted: number } };
+export type DeleteInterfaceTypesMutation = { __typename?: 'Mutation', deleteInterfaceTypes: { __typename?: 'DeleteInfo', nodesDeleted: number, relationshipsDeleted: number } };
 
 export type DeleteElementTypesMutationVariables = Exact<{
   delete?: InputMaybe<ElementTypeDeleteInput>;
@@ -31179,7 +31843,7 @@ export type DeleteElementTypesMutationVariables = Exact<{
 }>;
 
 
-export type DeleteElementTypesMutation = { deleteElementTypes: { nodesDeleted: number, relationshipsDeleted: number } };
+export type DeleteElementTypesMutation = { __typename?: 'Mutation', deleteElementTypes: { __typename?: 'DeleteInfo', nodesDeleted: number, relationshipsDeleted: number } };
 
 export type DeleteRenderPropTypesMutationVariables = Exact<{
   delete?: InputMaybe<RenderPropTypeDeleteInput>;
@@ -31187,7 +31851,7 @@ export type DeleteRenderPropTypesMutationVariables = Exact<{
 }>;
 
 
-export type DeleteRenderPropTypesMutation = { deleteRenderPropTypes: { nodesDeleted: number, relationshipsDeleted: number } };
+export type DeleteRenderPropTypesMutation = { __typename?: 'Mutation', deleteRenderPropTypes: { __typename?: 'DeleteInfo', nodesDeleted: number, relationshipsDeleted: number } };
 
 export type DeleteRichTextTypesMutationVariables = Exact<{
   delete?: InputMaybe<RichTextTypeDeleteInput>;
@@ -31195,7 +31859,7 @@ export type DeleteRichTextTypesMutationVariables = Exact<{
 }>;
 
 
-export type DeleteRichTextTypesMutation = { deleteRichTextTypes: { nodesDeleted: number, relationshipsDeleted: number } };
+export type DeleteRichTextTypesMutation = { __typename?: 'Mutation', deleteRichTextTypes: { __typename?: 'DeleteInfo', nodesDeleted: number, relationshipsDeleted: number } };
 
 export type DeleteEnumTypesMutationVariables = Exact<{
   delete?: InputMaybe<EnumTypeDeleteInput>;
@@ -31203,7 +31867,7 @@ export type DeleteEnumTypesMutationVariables = Exact<{
 }>;
 
 
-export type DeleteEnumTypesMutation = { deleteEnumTypes: { nodesDeleted: number, relationshipsDeleted: number }, deleteEnumTypeValues: { nodesDeleted: number } };
+export type DeleteEnumTypesMutation = { __typename?: 'Mutation', deleteEnumTypes: { __typename?: 'DeleteInfo', nodesDeleted: number, relationshipsDeleted: number }, deleteEnumTypeValues: { __typename?: 'DeleteInfo', nodesDeleted: number } };
 
 export type DeleteLambdaTypesMutationVariables = Exact<{
   delete?: InputMaybe<LambdaTypeDeleteInput>;
@@ -31211,7 +31875,7 @@ export type DeleteLambdaTypesMutationVariables = Exact<{
 }>;
 
 
-export type DeleteLambdaTypesMutation = { deleteLambdaTypes: { nodesDeleted: number, relationshipsDeleted: number } };
+export type DeleteLambdaTypesMutation = { __typename?: 'Mutation', deleteLambdaTypes: { __typename?: 'DeleteInfo', nodesDeleted: number, relationshipsDeleted: number } };
 
 export type DeletePageTypesMutationVariables = Exact<{
   delete?: InputMaybe<PageTypeDeleteInput>;
@@ -31219,7 +31883,7 @@ export type DeletePageTypesMutationVariables = Exact<{
 }>;
 
 
-export type DeletePageTypesMutation = { deletePageTypes: { nodesDeleted: number, relationshipsDeleted: number } };
+export type DeletePageTypesMutation = { __typename?: 'Mutation', deletePageTypes: { __typename?: 'DeleteInfo', nodesDeleted: number, relationshipsDeleted: number } };
 
 export type DeleteAppTypesMutationVariables = Exact<{
   delete?: InputMaybe<AppTypeDeleteInput>;
@@ -31227,7 +31891,7 @@ export type DeleteAppTypesMutationVariables = Exact<{
 }>;
 
 
-export type DeleteAppTypesMutation = { deleteAppTypes: { nodesDeleted: number, relationshipsDeleted: number } };
+export type DeleteAppTypesMutation = { __typename?: 'Mutation', deleteAppTypes: { __typename?: 'DeleteInfo', nodesDeleted: number, relationshipsDeleted: number } };
 
 export type DeleteActionTypesMutationVariables = Exact<{
   delete?: InputMaybe<ActionTypeDeleteInput>;
@@ -31235,7 +31899,7 @@ export type DeleteActionTypesMutationVariables = Exact<{
 }>;
 
 
-export type DeleteActionTypesMutation = { deleteActionTypes: { nodesDeleted: number, relationshipsDeleted: number } };
+export type DeleteActionTypesMutation = { __typename?: 'Mutation', deleteActionTypes: { __typename?: 'DeleteInfo', nodesDeleted: number, relationshipsDeleted: number } };
 
 export type DeleteCodeMirrorTypesMutationVariables = Exact<{
   delete?: InputMaybe<CodeMirrorTypeDeleteInput>;
@@ -31243,7 +31907,7 @@ export type DeleteCodeMirrorTypesMutationVariables = Exact<{
 }>;
 
 
-export type DeleteCodeMirrorTypesMutation = { deleteCodeMirrorTypes: { nodesDeleted: number, relationshipsDeleted: number } };
+export type DeleteCodeMirrorTypesMutation = { __typename?: 'Mutation', deleteCodeMirrorTypes: { __typename?: 'DeleteInfo', nodesDeleted: number, relationshipsDeleted: number } };
 
 export type GetBaseTypesQueryVariables = Exact<{
   where?: InputMaybe<IBaseTypeWhere>;
@@ -31251,21 +31915,21 @@ export type GetBaseTypesQueryVariables = Exact<{
 }>;
 
 
-export type GetBaseTypesQuery = { iBaseTypes: Array<BaseType_ActionType_Fragment | BaseType_AppType_Fragment | BaseType_ArrayType_Fragment | BaseType_CodeMirrorType_Fragment | BaseType_ElementType_Fragment | BaseType_EnumType_Fragment | BaseType_InterfaceType_Fragment | BaseType_LambdaType_Fragment | BaseType_PageType_Fragment | BaseType_PrimitiveType_Fragment | BaseType_ReactNodeType_Fragment | BaseType_RenderPropType_Fragment | BaseType_RichTextType_Fragment | BaseType_UnionType_Fragment>, aggregate: { count: number } };
+export type GetBaseTypesQuery = { __typename?: 'Query', iBaseTypes: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, aggregate: { __typename?: 'IBaseTypeAggregateSelection', count: number } };
 
 export type GetTypesQueryVariables = Exact<{
   ids?: InputMaybe<Array<Scalars['ID']['input']> | Scalars['ID']['input']>;
 }>;
 
 
-export type GetTypesQuery = { actionTypes: Array<Type_ActionType_Fragment>, appTypes: Array<Type_AppType_Fragment>, arrayTypes: Array<Type_ArrayType_Fragment>, codeMirrorTypes: Array<Type_CodeMirrorType_Fragment>, elementTypes: Array<Type_ElementType_Fragment>, enumTypes: Array<Type_EnumType_Fragment>, interfaceTypes: Array<Type_InterfaceType_Fragment>, lambdaTypes: Array<Type_LambdaType_Fragment>, pageTypes: Array<Type_PageType_Fragment>, primitiveTypes: Array<Type_PrimitiveType_Fragment>, reactNodeTypes: Array<Type_ReactNodeType_Fragment>, renderPropTypes: Array<Type_RenderPropType_Fragment>, richTextTypes: Array<Type_RichTextType_Fragment>, unionTypes: Array<Type_UnionType_Fragment> };
+export type GetTypesQuery = { __typename?: 'Query', actionTypes: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, appTypes: Array<{ __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, arrayTypes: Array<{ __typename: 'ArrayType', id: string, kind: TypeKind, name: string, itemType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, owner: { __typename?: 'User', id: string } }>, codeMirrorTypes: Array<{ __typename: 'CodeMirrorType', language: CodeMirrorLanguage, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, elementTypes: Array<{ __typename: 'ElementType', elementKind: ElementTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, enumTypes: Array<{ __typename: 'EnumType', id: string, kind: TypeKind, name: string, allowedValues: Array<{ __typename?: 'EnumTypeValue', id: string, key: string, value: string }>, owner: { __typename?: 'User', id: string } }>, interfaceTypes: Array<{ __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } }>, lambdaTypes: Array<{ __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, pageTypes: Array<{ __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, primitiveTypes: Array<{ __typename: 'PrimitiveType', primitiveKind: PrimitiveTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, reactNodeTypes: Array<{ __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, renderPropTypes: Array<{ __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, richTextTypes: Array<{ __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, unionTypes: Array<{ __typename: 'UnionType', id: string, kind: TypeKind, name: string, typesOfUnionType: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } }> };
 
 export type GetDescendantsQueryVariables = Exact<{
   ids?: InputMaybe<Array<Scalars['ID']['input']> | Scalars['ID']['input']>;
 }>;
 
 
-export type GetDescendantsQuery = { arrayTypes: Array<{ descendantTypesIds: Array<string> }>, interfaceTypes: Array<{ descendantTypesIds: Array<string> }>, unionTypes: Array<{ descendantTypesIds: Array<string> }> };
+export type GetDescendantsQuery = { __typename?: 'Query', arrayTypes: Array<{ __typename?: 'ArrayType', descendantTypesIds: Array<string> }>, interfaceTypes: Array<{ __typename?: 'InterfaceType', descendantTypesIds: Array<string> }>, unionTypes: Array<{ __typename?: 'UnionType', descendantTypesIds: Array<string> }> };
 
 export type GetPrimitiveTypesQueryVariables = Exact<{
   options?: InputMaybe<PrimitiveTypeOptions>;
@@ -31273,7 +31937,7 @@ export type GetPrimitiveTypesQueryVariables = Exact<{
 }>;
 
 
-export type GetPrimitiveTypesQuery = { types: Array<Type_PrimitiveType_Fragment> };
+export type GetPrimitiveTypesQuery = { __typename?: 'Query', types: Array<{ __typename: 'PrimitiveType', primitiveKind: PrimitiveTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }> };
 
 export type GetArrayTypesQueryVariables = Exact<{
   options?: InputMaybe<ArrayTypeOptions>;
@@ -31281,7 +31945,7 @@ export type GetArrayTypesQueryVariables = Exact<{
 }>;
 
 
-export type GetArrayTypesQuery = { types: Array<Type_ArrayType_Fragment> };
+export type GetArrayTypesQuery = { __typename?: 'Query', types: Array<{ __typename: 'ArrayType', id: string, kind: TypeKind, name: string, itemType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, owner: { __typename?: 'User', id: string } }> };
 
 export type GetUnionTypesQueryVariables = Exact<{
   options?: InputMaybe<UnionTypeOptions>;
@@ -31289,7 +31953,7 @@ export type GetUnionTypesQueryVariables = Exact<{
 }>;
 
 
-export type GetUnionTypesQuery = { types: Array<Type_UnionType_Fragment> };
+export type GetUnionTypesQuery = { __typename?: 'Query', types: Array<{ __typename: 'UnionType', id: string, kind: TypeKind, name: string, typesOfUnionType: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } }> };
 
 export type GetInterfaceTypesQueryVariables = Exact<{
   options?: InputMaybe<InterfaceTypeOptions>;
@@ -31297,7 +31961,7 @@ export type GetInterfaceTypesQueryVariables = Exact<{
 }>;
 
 
-export type GetInterfaceTypesQuery = { types: Array<Type_InterfaceType_Fragment> };
+export type GetInterfaceTypesQuery = { __typename?: 'Query', types: Array<{ __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } }> };
 
 export type GetElementTypesQueryVariables = Exact<{
   options?: InputMaybe<ElementTypeOptions>;
@@ -31305,7 +31969,7 @@ export type GetElementTypesQueryVariables = Exact<{
 }>;
 
 
-export type GetElementTypesQuery = { types: Array<Type_ElementType_Fragment> };
+export type GetElementTypesQuery = { __typename?: 'Query', types: Array<{ __typename: 'ElementType', elementKind: ElementTypeKind, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }> };
 
 export type GetRenderPropTypesQueryVariables = Exact<{
   options?: InputMaybe<RenderPropTypeOptions>;
@@ -31313,7 +31977,7 @@ export type GetRenderPropTypesQueryVariables = Exact<{
 }>;
 
 
-export type GetRenderPropTypesQuery = { types: Array<Type_RenderPropType_Fragment> };
+export type GetRenderPropTypesQuery = { __typename?: 'Query', types: Array<{ __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }> };
 
 export type GetReactNodeTypesQueryVariables = Exact<{
   options?: InputMaybe<ReactNodeTypeOptions>;
@@ -31321,7 +31985,7 @@ export type GetReactNodeTypesQueryVariables = Exact<{
 }>;
 
 
-export type GetReactNodeTypesQuery = { types: Array<ReactNodeTypeFragment> };
+export type GetReactNodeTypesQuery = { __typename?: 'Query', types: Array<{ __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }> };
 
 export type GetRichTextTypesQueryVariables = Exact<{
   options?: InputMaybe<RichTextTypeOptions>;
@@ -31329,7 +31993,7 @@ export type GetRichTextTypesQueryVariables = Exact<{
 }>;
 
 
-export type GetRichTextTypesQuery = { types: Array<RichTextTypeFragment> };
+export type GetRichTextTypesQuery = { __typename?: 'Query', types: Array<{ __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }> };
 
 export type GetEnumTypesQueryVariables = Exact<{
   options?: InputMaybe<EnumTypeOptions>;
@@ -31337,7 +32001,7 @@ export type GetEnumTypesQueryVariables = Exact<{
 }>;
 
 
-export type GetEnumTypesQuery = { types: Array<Type_EnumType_Fragment> };
+export type GetEnumTypesQuery = { __typename?: 'Query', types: Array<{ __typename: 'EnumType', id: string, kind: TypeKind, name: string, allowedValues: Array<{ __typename?: 'EnumTypeValue', id: string, key: string, value: string }>, owner: { __typename?: 'User', id: string } }> };
 
 export type GetLambdaTypesQueryVariables = Exact<{
   options?: InputMaybe<LambdaTypeOptions>;
@@ -31345,7 +32009,7 @@ export type GetLambdaTypesQueryVariables = Exact<{
 }>;
 
 
-export type GetLambdaTypesQuery = { types: Array<Type_LambdaType_Fragment> };
+export type GetLambdaTypesQuery = { __typename?: 'Query', types: Array<{ __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }> };
 
 export type GetPageTypesQueryVariables = Exact<{
   options?: InputMaybe<PageTypeOptions>;
@@ -31353,7 +32017,7 @@ export type GetPageTypesQueryVariables = Exact<{
 }>;
 
 
-export type GetPageTypesQuery = { types: Array<Type_PageType_Fragment> };
+export type GetPageTypesQuery = { __typename?: 'Query', types: Array<{ __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }> };
 
 export type GetAppTypesQueryVariables = Exact<{
   options?: InputMaybe<AppTypeOptions>;
@@ -31361,7 +32025,7 @@ export type GetAppTypesQueryVariables = Exact<{
 }>;
 
 
-export type GetAppTypesQuery = { types: Array<Type_AppType_Fragment> };
+export type GetAppTypesQuery = { __typename?: 'Query', types: Array<{ __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }> };
 
 export type GetActionTypesQueryVariables = Exact<{
   options?: InputMaybe<ActionTypeOptions>;
@@ -31369,7 +32033,7 @@ export type GetActionTypesQueryVariables = Exact<{
 }>;
 
 
-export type GetActionTypesQuery = { types: Array<Type_ActionType_Fragment> };
+export type GetActionTypesQuery = { __typename?: 'Query', types: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }> };
 
 export type GetCodeMirrorTypesQueryVariables = Exact<{
   options?: InputMaybe<CodeMirrorTypeOptions>;
@@ -31377,7 +32041,7 @@ export type GetCodeMirrorTypesQueryVariables = Exact<{
 }>;
 
 
-export type GetCodeMirrorTypesQuery = { types: Array<Type_CodeMirrorType_Fragment> };
+export type GetCodeMirrorTypesQuery = { __typename?: 'Query', types: Array<{ __typename: 'CodeMirrorType', language: CodeMirrorLanguage, id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }> };
 
 export type InterfaceForm_GetAppsQueryVariables = Exact<{
   options?: InputMaybe<AppOptions>;
@@ -31385,7 +32049,7 @@ export type InterfaceForm_GetAppsQueryVariables = Exact<{
 }>;
 
 
-export type InterfaceForm_GetAppsQuery = { apps: Array<{ id: string, name: string }> };
+export type InterfaceForm_GetAppsQuery = { __typename?: 'Query', apps: Array<{ __typename?: 'App', id: string, name: string }> };
 
 export type InterfaceForm_GetAtomsQueryVariables = Exact<{
   options?: InputMaybe<AtomOptions>;
@@ -31393,14 +32057,14 @@ export type InterfaceForm_GetAtomsQueryVariables = Exact<{
 }>;
 
 
-export type InterfaceForm_GetAtomsQuery = { atoms: Array<{ id: string, name: string, type: AtomType }> };
+export type InterfaceForm_GetAtomsQuery = { __typename?: 'Query', atoms: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }> };
 
 export type InterfaceForm_GetActionsQueryVariables = Exact<{
   appId?: InputMaybe<Scalars['ID']['input']>;
 }>;
 
 
-export type InterfaceForm_GetActionsQuery = { apiActions: Array<{ id: string, name: string }>, codeActions: Array<{ id: string, name: string }> };
+export type InterfaceForm_GetActionsQuery = { __typename?: 'Query', apiActions: Array<{ __typename?: 'ApiAction', id: string, name: string }>, codeActions: Array<{ __typename?: 'CodeAction', id: string, name: string }> };
 
 export type InterfaceForm_GetStoresQueryVariables = Exact<{
   options?: InputMaybe<StoreOptions>;
@@ -31408,7 +32072,7 @@ export type InterfaceForm_GetStoresQueryVariables = Exact<{
 }>;
 
 
-export type InterfaceForm_GetStoresQuery = { stores: Array<{ id: string, name: string }> };
+export type InterfaceForm_GetStoresQuery = { __typename?: 'Query', stores: Array<{ __typename?: 'Store', id: string, name: string }> };
 
 export type InterfaceForm_GetResourceQueryVariables = Exact<{
   options?: InputMaybe<ResourceOptions>;
@@ -31416,7 +32080,7 @@ export type InterfaceForm_GetResourceQueryVariables = Exact<{
 }>;
 
 
-export type InterfaceForm_GetResourceQuery = { resources: Array<{ id: string, name: string }> };
+export type InterfaceForm_GetResourceQuery = { __typename?: 'Query', resources: Array<{ __typename?: 'Resource', id: string, name: string }> };
 
 export type InterfaceForm_GetPagesQueryVariables = Exact<{
   options?: InputMaybe<PageOptions>;
@@ -31424,7 +32088,7 @@ export type InterfaceForm_GetPagesQueryVariables = Exact<{
 }>;
 
 
-export type InterfaceForm_GetPagesQuery = { pages: Array<{ id: string, name: string }> };
+export type InterfaceForm_GetPagesQuery = { __typename?: 'Query', pages: Array<{ __typename?: 'Page', id: string, name: string }> };
 
 export type IsTypeDescendantOfQueryVariables = Exact<{
   descendantTypeId: Scalars['ID']['input'];
@@ -31432,14 +32096,14 @@ export type IsTypeDescendantOfQueryVariables = Exact<{
 }>;
 
 
-export type IsTypeDescendantOfQuery = { isTypeDescendantOf?: boolean | null };
+export type IsTypeDescendantOfQuery = { __typename?: 'Query', isTypeDescendantOf?: boolean | null };
 
 export type GetTypeReferencesQueryVariables = Exact<{
   typeId: Scalars['ID']['input'];
 }>;
 
 
-export type GetTypeReferencesQuery = { getTypeReferences?: Array<{ label: string, name: string }> | null };
+export type GetTypeReferencesQuery = { __typename?: 'Query', getTypeReferences?: Array<{ __typename?: 'TypeReference', label: string, name: string }> | null };
 
 export type UpdatePrimitiveTypesMutationVariables = Exact<{
   update?: InputMaybe<PrimitiveTypeUpdateInput>;
@@ -31447,7 +32111,7 @@ export type UpdatePrimitiveTypesMutationVariables = Exact<{
 }>;
 
 
-export type UpdatePrimitiveTypesMutation = { types: { types: Array<{ __typename: 'PrimitiveType', id: string }> } };
+export type UpdatePrimitiveTypesMutation = { __typename?: 'Mutation', types: { __typename?: 'UpdatePrimitiveTypesMutationResponse', types: Array<{ __typename: 'PrimitiveType', id: string }> } };
 
 export type UpdateArrayTypesMutationVariables = Exact<{
   update?: InputMaybe<ArrayTypeUpdateInput>;
@@ -31455,7 +32119,7 @@ export type UpdateArrayTypesMutationVariables = Exact<{
 }>;
 
 
-export type UpdateArrayTypesMutation = { types: { types: Array<{ __typename: 'ArrayType', id: string }> } };
+export type UpdateArrayTypesMutation = { __typename?: 'Mutation', types: { __typename?: 'UpdateArrayTypesMutationResponse', types: Array<{ __typename: 'ArrayType', id: string }> } };
 
 export type UpdateUnionTypesMutationVariables = Exact<{
   update?: InputMaybe<UnionTypeUpdateInput>;
@@ -31463,7 +32127,7 @@ export type UpdateUnionTypesMutationVariables = Exact<{
 }>;
 
 
-export type UpdateUnionTypesMutation = { types: { types: Array<{ __typename: 'UnionType', id: string }> } };
+export type UpdateUnionTypesMutation = { __typename?: 'Mutation', types: { __typename?: 'UpdateUnionTypesMutationResponse', types: Array<{ __typename: 'UnionType', id: string }> } };
 
 export type UpdateInterfaceTypesMutationVariables = Exact<{
   update?: InputMaybe<InterfaceTypeUpdateInput>;
@@ -31471,7 +32135,7 @@ export type UpdateInterfaceTypesMutationVariables = Exact<{
 }>;
 
 
-export type UpdateInterfaceTypesMutation = { types: { types: Array<{ __typename: 'InterfaceType', id: string }> } };
+export type UpdateInterfaceTypesMutation = { __typename?: 'Mutation', types: { __typename?: 'UpdateInterfaceTypesMutationResponse', types: Array<{ __typename: 'InterfaceType', id: string }> } };
 
 export type UpdateReactNodeTypesMutationVariables = Exact<{
   update?: InputMaybe<ReactNodeTypeUpdateInput>;
@@ -31479,7 +32143,7 @@ export type UpdateReactNodeTypesMutationVariables = Exact<{
 }>;
 
 
-export type UpdateReactNodeTypesMutation = { types: { types: Array<{ __typename: 'ReactNodeType', id: string }> } };
+export type UpdateReactNodeTypesMutation = { __typename?: 'Mutation', types: { __typename?: 'UpdateReactNodeTypesMutationResponse', types: Array<{ __typename: 'ReactNodeType', id: string }> } };
 
 export type UpdateElementTypesMutationVariables = Exact<{
   update?: InputMaybe<ElementTypeUpdateInput>;
@@ -31487,7 +32151,7 @@ export type UpdateElementTypesMutationVariables = Exact<{
 }>;
 
 
-export type UpdateElementTypesMutation = { types: { types: Array<{ __typename: 'ElementType', id: string }> } };
+export type UpdateElementTypesMutation = { __typename?: 'Mutation', types: { __typename?: 'UpdateElementTypesMutationResponse', types: Array<{ __typename: 'ElementType', id: string }> } };
 
 export type UpdateRenderPropTypesMutationVariables = Exact<{
   update?: InputMaybe<RenderPropTypeUpdateInput>;
@@ -31495,7 +32159,7 @@ export type UpdateRenderPropTypesMutationVariables = Exact<{
 }>;
 
 
-export type UpdateRenderPropTypesMutation = { types: { types: Array<{ __typename: 'RenderPropType', id: string }> } };
+export type UpdateRenderPropTypesMutation = { __typename?: 'Mutation', types: { __typename?: 'UpdateRenderPropTypesMutationResponse', types: Array<{ __typename: 'RenderPropType', id: string }> } };
 
 export type UpdateEnumTypesMutationVariables = Exact<{
   update?: InputMaybe<EnumTypeUpdateInput>;
@@ -31503,7 +32167,7 @@ export type UpdateEnumTypesMutationVariables = Exact<{
 }>;
 
 
-export type UpdateEnumTypesMutation = { types: { types: Array<{ __typename: 'EnumType', id: string }> } };
+export type UpdateEnumTypesMutation = { __typename?: 'Mutation', types: { __typename?: 'UpdateEnumTypesMutationResponse', types: Array<{ __typename: 'EnumType', id: string }> } };
 
 export type UpdateLambdaTypesMutationVariables = Exact<{
   update?: InputMaybe<LambdaTypeUpdateInput>;
@@ -31511,7 +32175,7 @@ export type UpdateLambdaTypesMutationVariables = Exact<{
 }>;
 
 
-export type UpdateLambdaTypesMutation = { types: { types: Array<{ __typename: 'LambdaType', id: string }> } };
+export type UpdateLambdaTypesMutation = { __typename?: 'Mutation', types: { __typename?: 'UpdateLambdaTypesMutationResponse', types: Array<{ __typename: 'LambdaType', id: string }> } };
 
 export type UpdatePageTypesMutationVariables = Exact<{
   update?: InputMaybe<PageTypeUpdateInput>;
@@ -31519,7 +32183,7 @@ export type UpdatePageTypesMutationVariables = Exact<{
 }>;
 
 
-export type UpdatePageTypesMutation = { types: { types: Array<{ __typename: 'PageType', id: string }> } };
+export type UpdatePageTypesMutation = { __typename?: 'Mutation', types: { __typename?: 'UpdatePageTypesMutationResponse', types: Array<{ __typename: 'PageType', id: string }> } };
 
 export type UpdateAppTypesMutationVariables = Exact<{
   update?: InputMaybe<AppTypeUpdateInput>;
@@ -31527,7 +32191,7 @@ export type UpdateAppTypesMutationVariables = Exact<{
 }>;
 
 
-export type UpdateAppTypesMutation = { types: { types: Array<{ __typename: 'AppType', id: string }> } };
+export type UpdateAppTypesMutation = { __typename?: 'Mutation', types: { __typename?: 'UpdateAppTypesMutationResponse', types: Array<{ __typename: 'AppType', id: string }> } };
 
 export type UpdateRichTextTypesMutationVariables = Exact<{
   update?: InputMaybe<RichTextTypeUpdateInput>;
@@ -31535,7 +32199,7 @@ export type UpdateRichTextTypesMutationVariables = Exact<{
 }>;
 
 
-export type UpdateRichTextTypesMutation = { types: { types: Array<{ __typename: 'RichTextType', id: string }> } };
+export type UpdateRichTextTypesMutation = { __typename?: 'Mutation', types: { __typename?: 'UpdateRichTextTypesMutationResponse', types: Array<{ __typename: 'RichTextType', id: string }> } };
 
 export type UpdateActionTypesMutationVariables = Exact<{
   update?: InputMaybe<ActionTypeUpdateInput>;
@@ -31543,7 +32207,7 @@ export type UpdateActionTypesMutationVariables = Exact<{
 }>;
 
 
-export type UpdateActionTypesMutation = { types: { types: Array<{ __typename: 'ActionType', id: string }> } };
+export type UpdateActionTypesMutation = { __typename?: 'Mutation', types: { __typename?: 'UpdateActionTypesMutationResponse', types: Array<{ __typename: 'ActionType', id: string }> } };
 
 export type UpdateCodeMirrorTypesMutationVariables = Exact<{
   update?: InputMaybe<CodeMirrorTypeUpdateInput>;
@@ -31551,28 +32215,28 @@ export type UpdateCodeMirrorTypesMutationVariables = Exact<{
 }>;
 
 
-export type UpdateCodeMirrorTypesMutation = { types: { types: Array<{ __typename: 'CodeMirrorType', id: string }> } };
+export type UpdateCodeMirrorTypesMutation = { __typename?: 'Mutation', types: { __typename?: 'UpdateCodeMirrorTypesMutationResponse', types: Array<{ __typename: 'CodeMirrorType', id: string }> } };
 
 export type GetUsersQueryVariables = Exact<{
   where?: InputMaybe<UserWhere>;
 }>;
 
 
-export type GetUsersQuery = { aggregate: { count: number }, items: Array<UserFragment> };
+export type GetUsersQuery = { __typename?: 'Query', aggregate: { __typename?: 'UserAggregateSelection', count: number }, items: Array<{ __typename?: 'User', auth0Id: string, email: string, id: string, roles?: Array<Role> | null, username: string, apps: Array<{ __typename?: 'App', id: string }>, preferences?: { __typename?: 'Preference', id: string, builderBreakpointType: BreakpointType, builderWidth: number, owner: { __typename?: 'User', id: string } } | null }> };
 
 export type CreateUserMutationVariables = Exact<{
   input: Array<UserCreateInput> | UserCreateInput;
 }>;
 
 
-export type CreateUserMutation = { createUsers: { users: Array<{ __typename: 'User', email: string, id: string }> } };
+export type CreateUserMutation = { __typename?: 'Mutation', createUsers: { __typename?: 'CreateUsersMutationResponse', users: Array<{ __typename: 'User', email: string, id: string }> } };
 
 export type DeleteUsersMutationVariables = Exact<{
   where: UserWhere;
 }>;
 
 
-export type DeleteUsersMutation = { deleteUsers: { nodesDeleted: number } };
+export type DeleteUsersMutation = { __typename?: 'Mutation', deleteUsers: { __typename?: 'DeleteInfo', nodesDeleted: number } };
 
 export type UpdateUsersMutationVariables = Exact<{
   where: UserWhere;
@@ -31580,7 +32244,7 @@ export type UpdateUsersMutationVariables = Exact<{
 }>;
 
 
-export type UpdateUsersMutation = { updateUsers: { users: Array<{ __typename: 'User', id: string }> } };
+export type UpdateUsersMutation = { __typename?: 'Mutation', updateUsers: { __typename?: 'UpdateUsersMutationResponse', users: Array<{ __typename: 'User', id: string }> } };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String

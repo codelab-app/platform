@@ -35,7 +35,7 @@ class ServerFetchVisitor extends visitor_plugin_common_1.BaseVisitor {
             .join(', ');
         return [
             `import { ${this.config.gqlFn} } from '${this.config.gqlFnPath}'`,
-            `import { ${documentImports} } from './${this._outputFile?.replace('.web.gen.ts', '.docs.gen')}'`,
+            `import { ${documentImports} } from '@codelab/shared/infra/gqlgen'\n`,
             '\n',
         ];
     }
@@ -78,4 +78,4 @@ class ServerFetchVisitor extends visitor_plugin_common_1.BaseVisitor {
     }
 }
 exports.ServerFetchVisitor = ServerFetchVisitor;
-//# sourceMappingURL=server-fetch-visitor.js.map
+//# sourceMappingURL=visitor.js.map

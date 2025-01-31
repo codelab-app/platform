@@ -2,8 +2,7 @@ import * as Types from '@codelab/shared/infra/gqlgen';
 
 import { gqlRequest } from '@codelab/shared/infra/fetch'
 import { GraphQLClient } from 'graphql-request'
-import { CreateCodeActionsDocument, CreateApiActionsDocument } from './create-action.api.graphql.docs.gen'
-
+import { CreateCodeActionsDocument, CreateApiActionsDocument } from '@codelab/shared/infra/gqlgen'
 
 export const getSdk = (client: GraphQLClient) => ({
 	CreateCodeActions : (variables: Types.CreateCodeActionsMutationVariables) => gqlRequest(client, CreateCodeActionsDocument.toString(), variables),

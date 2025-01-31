@@ -2,8 +2,7 @@ import * as Types from '@codelab/shared/infra/gqlgen';
 
 import { gqlRequest } from '@codelab/shared/infra/fetch'
 import { GraphQLClient } from 'graphql-request'
-import { DeletePrimitiveTypesDocument, DeleteArrayTypesDocument, DeleteReactNodeTypesDocument, DeleteUnionTypesDocument, DeleteInterfaceTypesDocument, DeleteElementTypesDocument, DeleteRenderPropTypesDocument, DeleteRichTextTypesDocument, DeleteEnumTypesDocument, DeleteLambdaTypesDocument, DeletePageTypesDocument, DeleteAppTypesDocument, DeleteActionTypesDocument, DeleteCodeMirrorTypesDocument } from './delete-type.api.graphql.docs.gen'
-
+import { DeletePrimitiveTypesDocument, DeleteArrayTypesDocument, DeleteReactNodeTypesDocument, DeleteUnionTypesDocument, DeleteInterfaceTypesDocument, DeleteElementTypesDocument, DeleteRenderPropTypesDocument, DeleteRichTextTypesDocument, DeleteEnumTypesDocument, DeleteLambdaTypesDocument, DeletePageTypesDocument, DeleteAppTypesDocument, DeleteActionTypesDocument, DeleteCodeMirrorTypesDocument } from '@codelab/shared/infra/gqlgen'
 
 export const getSdk = (client: GraphQLClient) => ({
 	DeletePrimitiveTypes : (variables: Types.DeletePrimitiveTypesMutationVariables) => gqlRequest(client, DeletePrimitiveTypesDocument.toString(), variables),

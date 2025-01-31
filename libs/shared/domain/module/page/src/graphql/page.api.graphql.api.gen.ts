@@ -2,8 +2,7 @@ import * as Types from '@codelab/shared/infra/gqlgen';
 
 import { gqlRequest } from '@codelab/shared/infra/fetch'
 import { GraphQLClient } from 'graphql-request'
-import { CreatePagesDocument, DeletePagesDocument, UpdatePagesDocument, PageListDocument, GetRenderedPageDocument } from './page.api.graphql.docs.gen'
-
+import { CreatePagesDocument, DeletePagesDocument, UpdatePagesDocument, PageListDocument, GetRenderedPageDocument } from '@codelab/shared/infra/gqlgen'
 
 export const getSdk = (client: GraphQLClient) => ({
 	CreatePages : (variables: Types.CreatePagesMutationVariables) => gqlRequest(client, CreatePagesDocument.toString(), variables),
