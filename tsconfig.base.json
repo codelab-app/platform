@@ -30,14 +30,14 @@
       }
     ],
     "paths": {
+      "@codelab-codegen/codelab-preset": [
+        "libs/external/codelab-codegen/codelab-preset/src/index.ts"
+      ],
       "@codelab-codegen/typescript-fetch": [
         "libs/external/codelab-codegen/typescript-fetch/src/index.ts"
       ],
       "@codelab-codegen/typescript-server-fetch": [
         "libs/external/codelab-codegen/typescript-server-fetch/src/index.ts"
-      ],
-      "@codelab-codegen/codelab-preset": [
-        "libs/external/codelab-codegen/codelab-preset/src/index.ts"
       ],
       "@codelab/backend-infra-adapter/neo4j-driver": [
         "libs/backend/infra/adapter/neo4j-driver/src/index.ts"
