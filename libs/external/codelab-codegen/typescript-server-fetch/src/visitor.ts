@@ -102,6 +102,6 @@ export class ServerFetchVisitor extends BaseVisitor<
       return `${exportedOperationName} = (${operationArgs}) => ${operationBody}`
     })
 
-    return graphqlOperations.join('\n')
+    return `${graphqlOperations.join('\n')}\n`
   }
 }

@@ -2,10 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FetchVisitor = void 0;
 const tslib_1 = require("tslib");
-const graphql_1 = require("graphql");
 const visitor_plugin_common_1 = require("@graphql-codegen/visitor-plugin-common");
 const auto_bind_1 = tslib_1.__importDefault(require("auto-bind"));
 const change_case_all_1 = require("change-case-all");
+const graphql_1 = require("graphql");
 class FetchVisitor extends visitor_plugin_common_1.BaseVisitor {
     constructor(documents, rawConfig) {
         super(rawConfig, {
@@ -65,7 +65,7 @@ class FetchVisitor extends visitor_plugin_common_1.BaseVisitor {
         const operations = graphqlOperations.length > 1
             ? `\n\t${graphqlOperations.join(',\n\t')}\n`
             : graphqlOperations[0];
-        return `export const getSdk = (client: GraphQLClient) => ({${operations}})`;
+        return `export const getSdk = (client: GraphQLClient) => ({${operations}})\n`;
     }
 }
 exports.FetchVisitor = FetchVisitor;

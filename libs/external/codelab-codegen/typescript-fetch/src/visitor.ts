@@ -100,6 +100,6 @@ export class FetchVisitor extends BaseVisitor<
         ? `\n\t${graphqlOperations.join(',\n\t')}\n`
         : graphqlOperations[0]
 
-    return `export const getSdk = (client: GraphQLClient) => ({${operations}})`
+    return `export const getSdk = (client: GraphQLClient) => ({${operations}})\n`
   }
 }
