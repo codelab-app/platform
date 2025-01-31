@@ -65,7 +65,7 @@ export const preset: Types.OutputPreset<ClientPresetConfig> = {
       {
         filename: `${options.baseOutputDir}index.ts`,
         pluginMap: { [`add`]: addPlugin },
-        plugins: [{ [`add`]: { content: `export * from './gql'\n` } }],
+        plugins: [{ [`add`]: { content: `export * from './graphql'\n` } }],
         schema: options.schema,
         config: {},
         documents: [],
