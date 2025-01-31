@@ -53,9 +53,6 @@ export const antdAtoms: IAtomRendererRecord = {
   [IAtomType.AntDesignCollapse]: dynamicLoader(
     () => import('antd/lib/collapse'),
   ),
-  [IAtomType.AntDesignCollapsePanel]: dynamicLoader(
-    () => import('antd/lib/collapse/CollapsePanel'),
-  ),
   [IAtomType.AntDesignConfigProvider]: dynamicLoader(
     () => import('antd/lib/config-provider'),
   ),

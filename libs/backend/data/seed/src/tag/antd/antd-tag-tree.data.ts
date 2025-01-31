@@ -10,7 +10,7 @@ export const antdTagTree: TagNode<IAntdCategoryTag | keyof IAntdAtomRecords> = {
     IAtomType.AntDesignAvatar,
     IAtomType.AntDesignBadge,
     IAtomType.AntDesignComment,
-    { [IAtomType.AntDesignCollapse]: [IAtomType.AntDesignCollapsePanel] },
+    IAtomType.AntDesignCollapse,
     IAtomType.AntDesignCarousel,
     {
       [IAtomType.AntDesignCard]: [

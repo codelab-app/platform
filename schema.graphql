@@ -5784,7 +5784,6 @@ enum AtomType {
   AntDesignCheckbox
   AntDesignCheckboxGroup
   AntDesignCollapse
-  AntDesignCollapsePanel
   AntDesignComment
   AntDesignConfigProvider
   AntDesignDatePicker
