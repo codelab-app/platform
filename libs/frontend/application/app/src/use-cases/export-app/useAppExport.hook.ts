@@ -1,18 +1,27 @@
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
 
 import { downloadJsonAsFile } from '@codelab/frontend/shared/utils'
+import { useLoading } from '@codelab/frontend-application-shared-store/loading'
 import { useAsyncFn } from 'react-use'
 
 import { exportAppService } from './export-app.service'
 
 export const useExportApp = (app: IAppModel) => {
-  const [state, execute] = useAsyncFn(() => exportAppService({ id: app.id }))
+  const { setLoading } = useLoading()
+
+  const [state, execute] = useAsyncFn(() => {
+    setLoading(true)
+
+    return exportAppService({ id: app.id }).finally(() => {
+      setLoading(false)
+    })
+  })
 
   if (state.value) {
     downloadJsonAsFile(app.slug, state.value)
   }
 
-  return { exportApp: execute, loading: state.loading }
+  return execute
 }
 
 export const useApp = () => {

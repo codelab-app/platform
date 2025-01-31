@@ -14,8 +14,8 @@ export const antdAtoms: IAtomRendererRecord = {
     () => import('antd/lib/auto-complete'),
   ),
   [IAtomType.AntDesignAvatar]: dynamicLoader(() => import('antd/lib/avatar')),
-  [IAtomType.AntDesignBackTop]: dynamicLoader(
-    () => import('antd/lib/back-top'),
+  [IAtomType.AntDesignBackTop]: dynamicLoader(() =>
+    import('antd/lib/float-button').then((mod) => mod.default.BackTop),
   ),
   // [IAtomType.AntDesignPageHeader]: dynamicLoader(() =>
   //   import('@ant-design/pro-components/lib').then((mod) => mod.PageHeader),
@@ -52,9 +52,6 @@ export const antdAtoms: IAtomRendererRecord = {
   ),
   [IAtomType.AntDesignCollapse]: dynamicLoader(
     () => import('antd/lib/collapse'),
-  ),
-  [IAtomType.AntDesignCollapsePanel]: dynamicLoader(
-    () => import('antd/lib/collapse/CollapsePanel'),
   ),
   [IAtomType.AntDesignConfigProvider]: dynamicLoader(
     () => import('antd/lib/config-provider'),

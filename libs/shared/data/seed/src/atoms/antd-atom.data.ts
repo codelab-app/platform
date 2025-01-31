@@ -119,11 +119,6 @@ export const antdAtomData: IAntdAtomRecords = {
     icon: IAtomType.AntDesignCollapse,
     tag: IAtomType.AntDesignCollapse,
   },
-  [IAtomType.AntDesignCollapsePanel]: {
-    file: 'Collapse--Collapse.Panel',
-    icon: IAtomType.AntDesignCollapse,
-    tag: IAtomType.AntDesignCollapsePanel,
-  },
   [IAtomType.AntDesignComment]: {
     file: 'Comment',
     icon: IAtomType.AntDesignComment,

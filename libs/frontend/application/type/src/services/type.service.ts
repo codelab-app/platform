@@ -100,21 +100,7 @@ export const useTypeService = (): ITypeService => {
 
     // Combine all fragments
     const allFragments = [...typeFragments, ...descendantTypeFragments]
-
-    const types = allFragments.map((typeFragment) => {
-      /**
-       * Field api type must be hydrated before field is hydrated
-       */
-      const hydratedType = typeDomainService.hydrate(typeFragment)
-
-      if (typeFragment.__typename === TypeKind.InterfaceType) {
-        typeFragment.fields.forEach((field) =>
-          fieldDomainService.hydrate(field),
-        )
-      }
-
-      return hydratedType
-    })
+    const types = typeDomainService.hydrateTypes(allFragments)
 
     // Filter types if ids are provided, otherwise return all
     return ids ? types.filter((type) => ids.includes(type.id)) : types

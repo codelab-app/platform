@@ -37,7 +37,7 @@ export const AppListItemDropdown = ({ app }: AppListItemDropdownProps) => {
   const onEditClick = () => router.push(PageType.AppUpdate({ id: app.id }))
   const onDeleteClick = () => router.push(PageType.AppDelete({ id: app.id }))
   const onBuildClick = () => router.push(PageType.AppBuild({ id: app.id }))
-  const { exportApp, loading: loadingExportApp } = useExportApp(app)
+  const onExportClick = useExportApp(app)
 
   const goToDomainsPage = async () => {
     const url = PageType.DomainList({ appId: app.id })
@@ -78,12 +78,10 @@ export const AppListItemDropdown = ({ app }: AppListItemDropdownProps) => {
       style: menuItemStyle,
     },
     {
-      icon: (
-        <ExportOutlined spin={loadingExportApp} style={menuItemIconStyle} />
-      ),
+      icon: <ExportOutlined style={menuItemIconStyle} />,
       key: 'export',
       label: 'Export',
-      onClick: exportApp,
+      onClick: onExportClick,
       style: menuItemStyle,
     },
   ]

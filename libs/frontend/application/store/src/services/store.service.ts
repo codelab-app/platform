@@ -57,9 +57,7 @@ export const useStoreService = (): IStoreService => {
 
     actionDomainService.load(stores.flatMap((store) => store.actions))
 
-    typeDomainService.hydrateTypes({
-      interfaceTypes: stores.map((store) => store.api),
-    })
+    typeDomainService.hydrateTypes(stores.map((store) => store.api))
 
     return stores.map((store) =>
       storeDomainService.hydrate({ ...store, source: null }),
