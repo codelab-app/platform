@@ -38,6 +38,9 @@ importers:
       '@awwong1/oauth4webapi':
         specifier: 1.0.0
         version: 1.0.0
+      '@codelab-codegen/codelab-preset':
+        specifier: file:dist/libs/external/codelab-codegen/codelab-preset
+        version: file:dist/libs/external/codelab-codegen/codelab-preset(encoding@0.1.13)(graphql-request@6.1.0(encoding@0.1.13)(graphql@16.9.0))(graphql-tag@2.12.6(graphql@16.9.0))(graphql@16.9.0)
       '@codelab-codegen/typescript-fetch':
         specifier: file:dist/libs/external/codelab-codegen/typescript-fetch
         version: file:dist/libs/external/codelab-codegen/typescript-fetch(encoding@0.1.13)(graphql-request@6.1.0(encoding@0.1.13)(graphql@16.9.0))(graphql-tag@2.12.6(graphql@16.9.0))(graphql@16.9.0)
@@ -2265,6 +2268,13 @@ packages:
   '@chromatic-com/storybook@1.7.0':
     resolution: {integrity: sha512-0aAkSaNsHaJL37/r+TIbpKjCouIysvoJno61LzUSs1xW4fpxF7gdr8xwIOONQjEsz2Fa0uFHXmzkFYcH6o8kmA==}
     engines: {node: '>=16.0.0', yarn: '>=1.22.18'}
+
+  '@codelab-codegen/codelab-preset@file:dist/libs/external/codelab-codegen/codelab-preset':
+    resolution: {directory: dist/libs/external/codelab-codegen/codelab-preset, type: directory}
+    peerDependencies:
+      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+      graphql-request: ^6.0.0
+      graphql-tag: ^2.0.0
 
   '@codelab-codegen/typescript-fetch@file:dist/libs/external/codelab-codegen/typescript-fetch':
     resolution: {directory: dist/libs/external/codelab-codegen/typescript-fetch, type: directory}
@@ -18047,6 +18057,19 @@ snapshots:
       - '@chromatic-com/cypress'
       - '@chromatic-com/playwright'
       - react
+
+  '@codelab-codegen/codelab-preset@file:dist/libs/external/codelab-codegen/codelab-preset(encoding@0.1.13)(graphql-request@6.1.0(encoding@0.1.13)(graphql@16.9.0))(graphql-tag@2.12.6(graphql@16.9.0))(graphql@16.9.0)':
+    dependencies:
+      '@graphql-codegen/plugin-helpers': 3.1.2(graphql@16.9.0)
+      '@graphql-codegen/visitor-plugin-common': 2.13.1(encoding@0.1.13)(graphql@16.9.0)
+      auto-bind: 4.0.0
+      graphql: 16.9.0
+      graphql-request: 6.1.0(encoding@0.1.13)(graphql@16.9.0)
+      graphql-tag: 2.12.6(graphql@16.9.0)
+      tslib: 2.6.3
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
 
   '@codelab-codegen/typescript-fetch@file:dist/libs/external/codelab-codegen/typescript-fetch(encoding@0.1.13)(graphql-request@6.1.0(encoding@0.1.13)(graphql@16.9.0))(graphql-tag@2.12.6(graphql@16.9.0))(graphql@16.9.0)':
     dependencies:
