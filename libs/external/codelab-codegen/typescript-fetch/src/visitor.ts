@@ -1,4 +1,3 @@
-import type { Types } from '@graphql-codegen/plugin-helpers'
 import type { ParsedConfig } from '@graphql-codegen/visitor-plugin-common'
 import type { GraphQLSchema, OperationDefinitionNode } from 'graphql'
 
@@ -9,7 +8,6 @@ import {
 } from '@graphql-codegen/visitor-plugin-common'
 import autoBind from 'auto-bind'
 import { pascalCase } from 'change-case-all'
-import path from 'path'
 
 import type { FetchPluginRawConfig } from './index'
 
@@ -23,6 +21,7 @@ interface Operation {
 export interface FetchVisitorConfig extends ParsedConfig {
   gqlFn: string
   gqlFnPath: string
+  graphqlPath: string
 }
 
 export class FetchVisitor extends BaseVisitor<
@@ -31,22 +30,15 @@ export class FetchVisitor extends BaseVisitor<
 > {
   private _operations: Array<Operation> = []
 
-  private _outputFile?: string
-
-  constructor(
-    schema: GraphQLSchema,
-    rawConfig: FetchPluginRawConfig,
-    _: Array<Types.DocumentFile>,
-    info?: { outputFile?: string },
-  ) {
+  constructor(schema: GraphQLSchema, rawConfig: FetchPluginRawConfig) {
     super(rawConfig, {
       gqlFn: getConfigValue(rawConfig.gqlFn, ''),
       gqlFnPath: getConfigValue(rawConfig.gqlFnPath, ''),
+      graphqlPath: getConfigValue(rawConfig.graphqlPath, ''),
       scalars: buildScalarsFromConfig(schema, rawConfig),
     })
 
     this._operations = []
-    this._outputFile = path.basename(info?.outputFile || '')
     autoBind(this)
   }
 
@@ -58,10 +50,16 @@ export class FetchVisitor extends BaseVisitor<
     return [
       `import { ${this.config.gqlFn} } from '${this.config.gqlFnPath}'`,
       "import { GraphQLClient } from 'graphql-request'",
-      `import { ${documentImports} } from '@codelab/shared/infra/gqlgen'\n`,
+      `import { ${documentImports} } from '${this.config.graphqlPath}'\n`,
     ]
   }
 
+  /**
+   * The entry point for the visitor
+   * this will be called for each operation
+   * @param node
+   * @returns
+   */
   public OperationDefinition(node: OperationDefinitionNode): string {
     const name = this.convertName(node)
     const type: string = pascalCase(node.operation)

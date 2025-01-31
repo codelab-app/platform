@@ -7,17 +7,9 @@ const path_1 = require("path");
 const visitor_1 = require("./visitor");
 const plugin = (schema, documents, config, info) => {
     const allAst = (0, graphql_1.concatAST)(documents.map((v) => v.document));
-    const allFragments = [
-        ...allAst.definitions.filter((d) => d.kind === graphql_1.Kind.FRAGMENT_DEFINITION).map((fragmentDef) => ({
-            isExternal: false,
-            name: fragmentDef.name.value,
-            node: fragmentDef,
-            onType: fragmentDef.typeCondition.name.value,
-        })),
-        ...(config.externalFragments || []),
-    ];
-    const visitor = new visitor_1.FetchVisitor(schema, config, documents, info);
-    const visitorResult = (0, plugin_helpers_1.oldVisit)(allAst, { leave: visitor });
+    const visitor = new visitor_1.FetchVisitor(schema, config);
+    // visit all ast
+    (0, plugin_helpers_1.oldVisit)(allAst, { leave: visitor });
     return {
         content: visitor.content,
         prepend: visitor.getImports(),

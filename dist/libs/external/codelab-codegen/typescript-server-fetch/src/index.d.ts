@@ -3,6 +3,7 @@ import { type PluginFunction, type PluginValidateFn } from '@graphql-codegen/plu
 export interface ServerFetchPluginRawConfig extends RawConfig {
     gqlFn: string;
     gqlFnPath: string;
+    graphqlPath: string;
 }
 export declare const plugin: PluginFunction<ServerFetchPluginRawConfig>;
 export declare const validate: PluginValidateFn<any>;

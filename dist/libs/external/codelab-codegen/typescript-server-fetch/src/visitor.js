@@ -5,12 +5,12 @@ const tslib_1 = require("tslib");
 const visitor_plugin_common_1 = require("@graphql-codegen/visitor-plugin-common");
 const auto_bind_1 = tslib_1.__importDefault(require("auto-bind"));
 const change_case_all_1 = require("change-case-all");
-const path_1 = tslib_1.__importDefault(require("path"));
 class ServerFetchVisitor extends visitor_plugin_common_1.BaseVisitor {
-    constructor(schema, rawConfig, _, info) {
+    constructor(schema, rawConfig) {
         super(rawConfig, {
             gqlFn: (0, visitor_plugin_common_1.getConfigValue)(rawConfig.gqlFn, ''),
             gqlFnPath: (0, visitor_plugin_common_1.getConfigValue)(rawConfig.gqlFnPath, ''),
+            graphqlPath: (0, visitor_plugin_common_1.getConfigValue)(rawConfig.graphqlPath, ''),
             scalars: (0, visitor_plugin_common_1.buildScalarsFromConfig)(schema, rawConfig),
         });
         Object.defineProperty(this, "_operations", {
@@ -19,14 +19,7 @@ class ServerFetchVisitor extends visitor_plugin_common_1.BaseVisitor {
             writable: true,
             value: []
         });
-        Object.defineProperty(this, "_outputFile", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
         this._operations = [];
-        this._outputFile = path_1.default.basename(info?.outputFile || '');
         (0, auto_bind_1.default)(this);
     }
     getImports() {
@@ -39,6 +32,12 @@ class ServerFetchVisitor extends visitor_plugin_common_1.BaseVisitor {
             '\n',
         ];
     }
+    /**
+     * The entry point for the visitor
+     * this will be called for each operation
+     * @param node
+     * @returns
+     */
     OperationDefinition(node) {
         const name = this.convertName(node, {
             suffix: 'Document',

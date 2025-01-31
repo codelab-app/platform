@@ -1,9 +1,8 @@
 import type {
-  LoadedFragment,
   RawClientSideBasePluginConfig,
   RawConfig,
 } from '@graphql-codegen/visitor-plugin-common'
-import type { FragmentDefinitionNode, GraphQLSchema } from 'graphql'
+import type { GraphQLSchema } from 'graphql'
 
 import {
   oldVisit,
@@ -11,7 +10,7 @@ import {
   type PluginValidateFn,
   type Types,
 } from '@graphql-codegen/plugin-helpers'
-import { concatAST, Kind } from 'graphql'
+import { concatAST } from 'graphql'
 import { extname } from 'path'
 
 import { ServerFetchVisitor } from './visitor'
@@ -19,32 +18,18 @@ import { ServerFetchVisitor } from './visitor'
 export interface ServerFetchPluginRawConfig extends RawConfig {
   gqlFn: string
   gqlFnPath: string
+  graphqlPath: string
 }
 
 export const plugin: PluginFunction<ServerFetchPluginRawConfig> = (
   schema: GraphQLSchema,
   documents: Array<Types.DocumentFile>,
   config,
-  info,
 ) => {
   const allAst = concatAST(documents.map((v) => v.document!))
+  const visitor = new ServerFetchVisitor(schema, config)
 
-  const allFragments: Array<LoadedFragment> = [
-    ...(
-      allAst.definitions.filter(
-        (d) => d.kind === Kind.FRAGMENT_DEFINITION,
-      ) as Array<FragmentDefinitionNode>
-    ).map((fragmentDef) => ({
-      isExternal: false,
-      name: fragmentDef.name.value,
-      node: fragmentDef,
-      onType: fragmentDef.typeCondition.name.value,
-    })),
-    ...(config.externalFragments || []),
-  ]
-
-  const visitor = new ServerFetchVisitor(schema, config, documents, info)
-  const visitorResult = oldVisit(allAst, { leave: visitor })
+  oldVisit(allAst, { leave: visitor })
 
   return {
     content: visitor.content,

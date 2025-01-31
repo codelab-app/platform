@@ -108,6 +108,7 @@ const config: Types.Config = {
           ['@codelab-codegen/typescript-server-fetch']: {
             gqlFn: 'gqlServerRequest',
             gqlFnPath: '@codelab/shared/infra/fetch-server',
+            graphqlPath: '@codelab/shared/infra/gqlgen',
           },
         },
       ],
@@ -128,6 +129,7 @@ const config: Types.Config = {
           ['@codelab-codegen/typescript-fetch']: {
             gqlFn: 'gqlRequest',
             gqlFnPath: '@codelab/shared/infra/fetch',
+            graphqlPath: '@codelab/shared/infra/gqlgen',
           },
         },
       ],
