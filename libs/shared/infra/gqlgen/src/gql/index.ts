@@ -1,1 +1,1 @@
-export * from './graphql.gen'
+export * from './graphql'

@@ -14,4 +14,5 @@ pnpm-lock.yaml
 /.nx/workspace-data
 
 *.gen.ts
+graphql.ts
 schema.graphql

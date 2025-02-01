@@ -61,7 +61,7 @@ exports.preset = {
                 },
                 documents: sources,
                 documentTransforms: options.documentTransforms,
-                filename: `${options.baseOutputDir}graphql.gen.ts`,
+                filename: `${options.baseOutputDir}graphql.ts`,
                 pluginMap,
                 plugins,
                 schema: options.schema,
