@@ -18,7 +18,7 @@ exports.preset = {
                 definition.kind === graphql_1.Kind.FRAGMENT_DEFINITION)
                 .map((definition) => ({
                 definition,
-                initialName: definition.kind === 'FragmentDefinition'
+                initialName: definition.kind === graphql_1.Kind.FRAGMENT_DEFINITION
                     ? visitor.getFragmentVariableName(definition)
                     : visitor.getOperationVariableName(definition),
             }));

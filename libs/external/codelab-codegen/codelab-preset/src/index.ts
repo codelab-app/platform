@@ -34,7 +34,7 @@ export const preset: Types.OutputPreset = {
         .map((definition) => ({
           definition,
           initialName:
-            definition.kind === 'FragmentDefinition'
+            definition.kind === Kind.FRAGMENT_DEFINITION
               ? visitor.getFragmentVariableName(definition)
               : visitor.getOperationVariableName(definition),
         }))
