@@ -4345,7 +4345,6 @@ enum AtomType {
   AntDesignListItem
   AntDesignListItemMeta
   AntDesignMentions
-  AntDesignMentionsOption
   AntDesignMenu
   AntDesignMessage
   AntDesignModal

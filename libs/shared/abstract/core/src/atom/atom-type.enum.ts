@@ -56,7 +56,6 @@ export enum __AtomType {
   AntDesignListItem = 'AntDesignListItem',
   AntDesignListItemMeta = 'AntDesignListItemMeta',
   AntDesignMentions = 'AntDesignMentions',
-  AntDesignMentionsOption = 'AntDesignMentionsOption',
   AntDesignMenu = 'AntDesignMenu',
   AntDesignMessage = 'AntDesignMessage',
   AntDesignModal = 'AntDesignModal',

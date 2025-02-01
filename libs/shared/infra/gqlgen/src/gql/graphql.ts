@@ -5273,7 +5273,6 @@ export enum AtomType {
   AntDesignListItem = 'AntDesignListItem',
   AntDesignListItemMeta = 'AntDesignListItemMeta',
   AntDesignMentions = 'AntDesignMentions',
-  AntDesignMentionsOption = 'AntDesignMentionsOption',
   AntDesignMenu = 'AntDesignMenu',
   AntDesignMessage = 'AntDesignMessage',
   AntDesignModal = 'AntDesignModal',

@@ -278,11 +278,6 @@ export const antdAtomData: IAntdAtomRecords = {
     icon: IAtomType.AntDesignMentions,
     tag: IAtomType.AntDesignMentions,
   },
-  [IAtomType.AntDesignMentionsOption]: {
-    file: 'Mentions--Option',
-    icon: IAtomType.AntDesignMentions,
-    tag: IAtomType.AntDesignMentionsOption,
-  },
   [IAtomType.AntDesignMenu]: {
     file: 'Menu',
     icon: IAtomType.AntDesignMenu,

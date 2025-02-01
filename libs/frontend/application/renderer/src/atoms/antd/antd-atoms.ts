@@ -126,9 +126,6 @@ export const antdAtoms: IAtomRendererRecord = {
   [IAtomType.AntDesignMentions]: dynamicLoader(
     () => import('antd/lib/mentions'),
   ),
-  [IAtomType.AntDesignMentionsOption]: dynamicLoader(() =>
-    import('antd/lib/mentions').then((mod) => mod.Option),
-  ),
   [IAtomType.AntDesignMenu]: dynamicLoader(() => import('antd/lib/menu')),
   [IAtomType.AntDesignMessage]: dynamicLoader(
     () => import('antd/lib/message') as never,
