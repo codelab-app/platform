@@ -5233,8 +5233,6 @@ export enum AtomType {
   AntDesignBackTop = 'AntDesignBackTop',
   AntDesignBadge = 'AntDesignBadge',
   AntDesignBreadcrumb = 'AntDesignBreadcrumb',
-  AntDesignBreadcrumbItem = 'AntDesignBreadcrumbItem',
-  AntDesignBreadcrumbSeparator = 'AntDesignBreadcrumbSeparator',
   AntDesignButton = 'AntDesignButton',
   AntDesignCalendar = 'AntDesignCalendar',
   AntDesignCard = 'AntDesignCard',

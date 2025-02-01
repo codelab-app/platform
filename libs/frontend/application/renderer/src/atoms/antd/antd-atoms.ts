@@ -24,9 +24,6 @@ export const antdAtoms: IAtomRendererRecord = {
   [IAtomType.AntDesignBreadcrumb]: dynamicLoader(
     () => import('antd/lib/breadcrumb'),
   ),
-  [IAtomType.AntDesignBreadcrumbItem]: dynamicLoader(() =>
-    import('antd/lib/breadcrumb').then((mod) => mod.default.Item),
-  ),
   [IAtomType.AntDesignButton]: dynamicLoader(() => import('antd/lib/button')),
   [IAtomType.AntDesignCalendar]: dynamicLoader(
     () => import('antd/lib/calendar'),

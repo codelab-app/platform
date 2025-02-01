@@ -107,12 +107,7 @@ export const antdTagTree: TagNode<IAntdCategoryTag | keyof IAntdAtomRecords> = {
   ],
   [IAntdCategoryTag.AntDesignNavigation]: [
     IAtomType.AntDesignAffix,
-    {
-      [IAtomType.AntDesignBreadcrumb]: [
-        IAtomType.AntDesignBreadcrumbItem,
-        IAtomType.AntDesignBreadcrumbSeparator,
-      ],
-    },
+    IAtomType.AntDesignBreadcrumb,
     { [IAtomType.AntDesignDropdown]: [IAtomType.AntDesignDropdownButton] },
     IAtomType.AntDesignMenu,
     IAtomType.AntDesignPagination,

@@ -57,17 +57,6 @@ export const antdAtomData: IAntdAtomRecords = {
     icon: IAtomType.AntDesignBreadcrumb,
     tag: IAtomType.AntDesignBreadcrumb,
   },
-  [IAtomType.AntDesignBreadcrumbItem]: {
-    file: 'Breadcrumb--Breadcrumb.Item',
-    icon: IAtomType.AntDesignBreadcrumb,
-    tag: IAtomType.AntDesignBreadcrumbItem,
-  },
-  [IAtomType.AntDesignBreadcrumbSeparator]: {
-    // file: 'Breadcrumb--Breadcrumb.Separator',
-    file: null,
-    icon: IAtomType.AntDesignBreadcrumb,
-    tag: IAtomType.AntDesignBreadcrumbSeparator,
-  },
   [IAtomType.AntDesignButton]: {
     file: 'Button',
     icon: IAtomType.AntDesignButton,

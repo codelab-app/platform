@@ -4305,8 +4305,6 @@ enum AtomType {
   AntDesignBackTop
   AntDesignBadge
   AntDesignBreadcrumb
-  AntDesignBreadcrumbItem
-  AntDesignBreadcrumbSeparator
   AntDesignButton
   AntDesignCalendar
   AntDesignCard
