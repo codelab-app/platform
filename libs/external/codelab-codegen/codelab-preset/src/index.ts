@@ -1,3 +1,4 @@
+import type { OperationOrFragment } from '@graphql-codegen/gql-tag-operations'
 import type { PluginFunction, Types } from '@graphql-codegen/plugin-helpers'
 
 import * as addPlugin from '@graphql-codegen/add'
@@ -8,8 +9,7 @@ import {
   ClientSideBaseVisitor,
   DocumentMode,
 } from '@graphql-codegen/visitor-plugin-common'
-
-import { processSources } from './process-sources'
+import { Kind } from 'graphql'
 
 export const preset: Types.OutputPreset = {
   buildGeneratesSection: (options) => {
@@ -20,11 +20,27 @@ export const preset: Types.OutputPreset = {
       options.config,
     )
 
-    const sourcesWithOperations = processSources(options.documents, (node) =>
-      node.kind === 'FragmentDefinition'
-        ? visitor.getFragmentVariableName(node)
-        : visitor.getOperationVariableName(node),
-    )
+    const sourcesWithOperations = options.documents.map((source) => {
+      const { document } = source
+
+      const operations: Array<OperationOrFragment> = (
+        document?.definitions || []
+      )
+        .filter(
+          (definition) =>
+            definition.kind === Kind.OPERATION_DEFINITION ||
+            definition.kind === Kind.FRAGMENT_DEFINITION,
+        )
+        .map((definition) => ({
+          definition,
+          initialName:
+            definition.kind === 'FragmentDefinition'
+              ? visitor.getFragmentVariableName(definition)
+              : visitor.getOperationVariableName(definition),
+        }))
+
+      return { operations, source }
+    })
 
     const sources = sourcesWithOperations.map(({ source }) => source)
     const tdnFinished = createDeferred()

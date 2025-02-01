@@ -7,13 +7,23 @@ const typedDocumentNodePlugin = tslib_1.__importStar(require("@graphql-codegen/t
 const typescriptPlugin = tslib_1.__importStar(require("@graphql-codegen/typescript"));
 const typescriptOperationPlugin = tslib_1.__importStar(require("@graphql-codegen/typescript-operations"));
 const visitor_plugin_common_1 = require("@graphql-codegen/visitor-plugin-common");
-const process_sources_1 = require("./process-sources");
+const graphql_1 = require("graphql");
 exports.preset = {
     buildGeneratesSection: (options) => {
         const visitor = new visitor_plugin_common_1.ClientSideBaseVisitor(options.schemaAst, [], options.config, options.config);
-        const sourcesWithOperations = (0, process_sources_1.processSources)(options.documents, (node) => node.kind === 'FragmentDefinition'
-            ? visitor.getFragmentVariableName(node)
-            : visitor.getOperationVariableName(node));
+        const sourcesWithOperations = options.documents.map((source) => {
+            const { document } = source;
+            const operations = (document?.definitions || [])
+                .filter((definition) => definition.kind === graphql_1.Kind.OPERATION_DEFINITION ||
+                definition.kind === graphql_1.Kind.FRAGMENT_DEFINITION)
+                .map((definition) => ({
+                definition,
+                initialName: definition.kind === 'FragmentDefinition'
+                    ? visitor.getFragmentVariableName(definition)
+                    : visitor.getOperationVariableName(definition),
+            }));
+            return { operations, source };
+        });
         const sources = sourcesWithOperations.map(({ source }) => source);
         const tdnFinished = createDeferred();
         const pluginMap = {
