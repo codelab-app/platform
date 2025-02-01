@@ -85,7 +85,6 @@ export enum __AtomType {
   AntDesignTabsTabPane = 'AntDesignTabsTabPane',
   AntDesignTag = 'AntDesignTag',
   AntDesignTimeline = 'AntDesignTimeline',
-  AntDesignTimelineItem = 'AntDesignTimelineItem',
   AntDesignTimePicker = 'AntDesignTimePicker',
   AntDesignTooltip = 'AntDesignTooltip',
   AntDesignTransfer = 'AntDesignTransfer',

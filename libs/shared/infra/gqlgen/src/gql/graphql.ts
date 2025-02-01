@@ -5303,7 +5303,6 @@ export enum AtomType {
   AntDesignTag = 'AntDesignTag',
   AntDesignTimePicker = 'AntDesignTimePicker',
   AntDesignTimeline = 'AntDesignTimeline',
-  AntDesignTimelineItem = 'AntDesignTimelineItem',
   AntDesignTooltip = 'AntDesignTooltip',
   AntDesignTransfer = 'AntDesignTransfer',
   AntDesignTree = 'AntDesignTree',

@@ -191,9 +191,6 @@ export const antdAtoms: IAtomRendererRecord = {
   [IAtomType.AntDesignTimeline]: dynamicLoader(
     () => import('antd/lib/timeline'),
   ),
-  [IAtomType.AntDesignTimelineItem]: dynamicLoader(
-    () => import('antd/lib/timeline/TimelineItem'),
-  ),
   [IAtomType.AntDesignTimePicker]: dynamicLoader(
     () => import('antd/lib/time-picker'),
   ),

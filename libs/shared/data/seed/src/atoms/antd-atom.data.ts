@@ -432,11 +432,6 @@ export const antdAtomData: IAntdAtomRecords = {
     icon: IAtomType.AntDesignTimeline,
     tag: IAtomType.AntDesignTimeline,
   },
-  [IAtomType.AntDesignTimelineItem]: {
-    file: 'Timeline--Timeline.Item',
-    icon: IAtomType.AntDesignTimeline,
-    tag: IAtomType.AntDesignTimelineItem,
-  },
   [IAtomType.AntDesignTimePicker]: {
     file: null,
     icon: IAtomType.AntDesignTimePicker,
