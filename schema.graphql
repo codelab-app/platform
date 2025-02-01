@@ -4353,7 +4353,6 @@ enum AtomType {
   AntDesignPopconfirm
   AntDesignPopover
   AntDesignProgress
-  AntDesignRadio
   AntDesignRadioGroup
   AntDesignRate
   AntDesignResult

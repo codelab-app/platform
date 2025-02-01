@@ -150,7 +150,6 @@ export const antdAtoms: IAtomRendererRecord = {
   [IAtomType.AntDesignProgress]: dynamicLoader(
     () => import('antd/lib/progress'),
   ),
-  [IAtomType.AntDesignRadio]: dynamicLoader(() => import('antd/lib/radio')),
   [IAtomType.AntDesignRadioGroup]: dynamicLoader(
     () => import('antd/lib/radio/group'),
   ),

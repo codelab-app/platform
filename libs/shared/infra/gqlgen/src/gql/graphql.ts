@@ -5281,7 +5281,6 @@ export enum AtomType {
   AntDesignPopconfirm = 'AntDesignPopconfirm',
   AntDesignPopover = 'AntDesignPopover',
   AntDesignProgress = 'AntDesignProgress',
-  AntDesignRadio = 'AntDesignRadio',
   AntDesignRadioGroup = 'AntDesignRadioGroup',
   AntDesignRate = 'AntDesignRate',
   AntDesignResult = 'AntDesignResult',

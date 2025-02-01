@@ -318,14 +318,9 @@ export const antdAtomData: IAntdAtomRecords = {
     icon: IAtomType.AntDesignProgress,
     tag: IAtomType.AntDesignProgress,
   },
-  [IAtomType.AntDesignRadio]: {
-    file: 'Radio--Radio_Radio.Button',
-    icon: IAtomType.AntDesignRadio,
-    tag: IAtomType.AntDesignRadio,
-  },
   [IAtomType.AntDesignRadioGroup]: {
     file: 'Radio--RadioGroup',
-    icon: IAtomType.AntDesignRadio,
+    icon: IAtomType.AntDesignRadioGroup,
     tag: IAtomType.AntDesignRadioGroup,
   },
   [IAtomType.AntDesignRate]: {
