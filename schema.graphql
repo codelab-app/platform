@@ -4320,7 +4320,6 @@ enum AtomType {
   AntDesignConfigProvider
   AntDesignDatePicker
   AntDesignDescriptions
-  AntDesignDescriptionsItem
   AntDesignDivider
   AntDesignDrawer
   AntDesignDropdown

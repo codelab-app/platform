@@ -5248,7 +5248,6 @@ export enum AtomType {
   AntDesignConfigProvider = 'AntDesignConfigProvider',
   AntDesignDatePicker = 'AntDesignDatePicker',
   AntDesignDescriptions = 'AntDesignDescriptions',
-  AntDesignDescriptionsItem = 'AntDesignDescriptionsItem',
   AntDesignDivider = 'AntDesignDivider',
   AntDesignDrawer = 'AntDesignDrawer',
   AntDesignDropdown = 'AntDesignDropdown',

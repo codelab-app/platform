@@ -18,9 +18,7 @@ export const antdTagTree: TagNode<IAntdCategoryTag | keyof IAntdAtomRecords> = {
       ],
     },
     IAtomType.AntDesignCalendar,
-    {
-      [IAtomType.AntDesignDescriptions]: [IAtomType.AntDesignDescriptionsItem],
-    },
+    IAtomType.AntDesignDescriptions,
     IAtomType.AntDesignEmpty,
     IAtomType.AntDesignImage,
     {

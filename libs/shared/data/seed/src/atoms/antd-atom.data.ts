@@ -140,11 +140,6 @@ export const antdAtomData: IAntdAtomRecords = {
     icon: IAtomType.AntDesignDescriptions,
     tag: IAtomType.AntDesignDescriptions,
   },
-  [IAtomType.AntDesignDescriptionsItem]: {
-    file: 'Descriptions--DescriptionItem',
-    icon: IAtomType.AntDesignDescriptions,
-    tag: IAtomType.AntDesignDescriptionsItem,
-  },
   [IAtomType.AntDesignDivider]: {
     file: 'Divider',
     icon: IAtomType.AntDesignDivider,

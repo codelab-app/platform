@@ -62,9 +62,6 @@ export const antdAtoms: IAtomRendererRecord = {
   [IAtomType.AntDesignDescriptions]: dynamicLoader(
     () => import('antd/lib/descriptions'),
   ),
-  [IAtomType.AntDesignDescriptionsItem]: dynamicLoader(
-    () => import('antd/lib/descriptions/Item'),
-  ),
   [IAtomType.AntDesignDivider]: dynamicLoader(() => import('antd/lib/divider')),
   [IAtomType.AntDesignDrawer]: dynamicLoader(() => import('antd/lib/drawer')),
   [IAtomType.AntDesignDropdown]: dynamicLoader(
