@@ -1,16 +1,18 @@
 import type { IAppDto } from '@codelab/shared/abstract/core'
 import type { HttpException } from '@nestjs/common'
+import type { RefObject } from 'react'
 
 import ImportOutlined from '@ant-design/icons/ImportOutlined'
 import {
   useErrorNotify,
   useSuccessNotify,
 } from '@codelab/frontend/shared/utils'
-import { useRef } from 'react'
 
 import { useImportApp } from './useImportApp.hook'
 
-export const ImportAppDialog = () => {
+export const ImportAppDialog = (props: {
+  inputRef: RefObject<HTMLInputElement>
+}) => {
   const importApp = useImportApp()
 
   const onError = useErrorNotify({
@@ -27,11 +29,8 @@ export const ImportAppDialog = () => {
     title: 'App imported successfully',
   })
 
-  const inputFile = useRef<HTMLInputElement | null>(null)
-  const onClick = () => inputFile.current?.click()
-
   const onFileChange = async () => {
-    const files = inputFile.current?.files
+    const files = props.inputRef.current?.files
     const appDataFile = files?.[0]
 
     if (appDataFile) {
@@ -41,11 +40,11 @@ export const ImportAppDialog = () => {
 
   return (
     <>
-      <ImportOutlined onClick={onClick} />
+      <ImportOutlined />
       <input
         accept=".json"
         onChange={onFileChange}
-        ref={inputFile}
+        ref={props.inputRef}
         style={{ display: 'none' }}
         type="file"
       />
