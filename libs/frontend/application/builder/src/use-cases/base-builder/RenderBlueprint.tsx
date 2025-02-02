@@ -14,8 +14,8 @@ import { useWindowSize } from 'react-use'
 import { ElementBlueprint } from './ElementBlueprint'
 
 export const RenderBlueprint = observer<{
-  builderContainerRef: RefObject<HTMLElement>
-  renderContainerRef: RefObject<HTMLElement>
+  builderContainerRef: RefObject<HTMLElement | null>
+  renderContainerRef: RefObject<HTMLElement | null>
   renderer: IRendererModel
 }>(({ builderContainerRef, renderContainerRef, renderer }) => {
   const [containerRect, setContainerRect] = useState(new Rect())

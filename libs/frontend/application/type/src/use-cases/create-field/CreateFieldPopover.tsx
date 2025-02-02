@@ -17,7 +17,7 @@ import { CreateFieldForm } from './CreateFieldForm'
 export const CreateFieldPopover = observer(
   ({ interfaceId }: { interfaceId: string }) => {
     const router = useRouter()
-    const submitRef = useRef<Maybe<SubmitController>>()
+    const submitRef = useRef<Maybe<SubmitController>>(undefined)
     const { createPopover } = useFieldService()
     const params = useUrlPathParams()
     const closePopover = () => createPopover.close(router, params)

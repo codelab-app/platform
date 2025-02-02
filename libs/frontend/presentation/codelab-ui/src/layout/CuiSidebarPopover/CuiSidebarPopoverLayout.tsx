@@ -5,7 +5,7 @@ import type { PropsWithChildren, RefObject } from 'react'
 import { useCuiSidebarPopover } from './cui-sidebar-popover.hook'
 
 export interface CuiSidebarPopoverLayoutProps {
-  popoverAnchorRef: RefObject<HTMLDivElement>
+  popoverAnchorRef: RefObject<HTMLDivElement | null>
 }
 
 export const CuiSidebarPopoverLayout = ({

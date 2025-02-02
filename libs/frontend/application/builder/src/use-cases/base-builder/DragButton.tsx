@@ -25,7 +25,7 @@ export const DragButton = ({ element }: { element: IElementModel }) => {
     data: {
       action: BuilderDndAction.MoveElement,
       internalUseOnlyDragData: {
-        overlayRenderer: (ref?: RefObject<HTMLDivElement>) => (
+        overlayRenderer: (ref?: RefObject<HTMLDivElement | null>) => (
           <div id={DRAG_OVERLAY_ID} ref={ref}>
             <DragButtonContent />
           </div>

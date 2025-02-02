@@ -221,7 +221,7 @@ export class RuntimeElementModel
   }
 
   @computed
-  get render(): Nullable<ReactElement> {
+  get render(): Nullable<ReactElement<any>> {
     if (this.shouldRender === false) {
       return null
     }

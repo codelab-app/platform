@@ -3,7 +3,13 @@ import { CreateDomainModal } from '@codelab/frontend-application-domain/use-case
 import { appRepository } from '@codelab/frontend-domain-app/repositories'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 
-const Page = async ({ params: { appId } }: { params: { appId: string } }) => {
+const Page = async (props: { params: Promise<{ appId: string }> }) => {
+  const params = await props.params;
+
+  const {
+    appId
+  } = params;
+
   const appDto = await appRepository.findOne({ id: appId })
 
   return (

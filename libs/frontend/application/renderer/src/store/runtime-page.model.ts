@@ -63,7 +63,7 @@ export class RuntimePageModel
   }
 
   @computed
-  get render(): Nullable<ReactElement> {
+  get render(): Nullable<ReactElement<any>> {
     return this.runtimeRootElement.render
   }
 

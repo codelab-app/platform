@@ -9,15 +9,18 @@ type LayoutProps = DashboardLayoutProps<
   'componentId'
 >
 
-const Layout = ({
-  children,
-  configPane,
-  header,
-  modal,
-  params,
-  primarySidebar,
-  secondaryPopover,
-}: LayoutProps) => {
+const Layout = async (props: LayoutProps) => {
+  const params = await props.params;
+
+  const {
+    children,
+    configPane,
+    header,
+    modal,
+    primarySidebar,
+    secondaryPopover
+  } = props;
+
   const { componentId } = params
 
   return (

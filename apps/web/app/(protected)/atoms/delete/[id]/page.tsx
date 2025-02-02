@@ -3,7 +3,13 @@ import { DeleteAtomsModal } from '@codelab/frontend-application-atom/use-cases/d
 import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 
-const Page = async ({ params: { id } }: { params: { id: string } }) => {
+const Page = async (props: { params: Promise<{ id: string }> }) => {
+  const params = await props.params;
+
+  const {
+    id
+  } = params;
+
   const atomDto = await atomRepository.findOne({ id })
 
   return (

@@ -14,7 +14,7 @@ import { useAuthGuardService } from '../../services/auth-guard.service'
 import { CreateAuthGuardForm } from './CreateAuthGuardForm'
 
 export const CreateAuthGuardPopover = observer(() => {
-  const submitRef = useRef<Maybe<SubmitController>>()
+  const submitRef = useRef<Maybe<SubmitController>>(undefined)
   const router = useRouter()
   const { createPopover } = useAuthGuardService()
 

@@ -14,13 +14,19 @@ export const metadata: Metadata = {
   title: 'Component Preview | Codelab',
 }
 
-const ComponentPreviewPage = async ({
-  params: { componentId },
-}: {
-  params: {
-    componentId: string
+const ComponentPreviewPage = async (
+  props0: {
+    params: Promise<{
+      componentId: string
+    }>
   }
-}) => {
+) => {
+  const params = await props0.params;
+
+  const {
+    componentId
+  } = params;
+
   const dto = await componentBuilderQuery({ componentId })
 
   return (

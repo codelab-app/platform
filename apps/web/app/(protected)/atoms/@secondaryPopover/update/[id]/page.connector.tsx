@@ -33,7 +33,7 @@ interface UpdateAtomContainerProps {
  */
 const UpdateAtomConnector = observer<UpdateAtomContainerProps>(
   ({ atomsDto, id, tagsDto }) => {
-    const submitRef = useRef<Maybe<SubmitController>>()
+    const submitRef = useRef<Maybe<SubmitController>>(undefined)
     const { updatePopover } = useAtomService()
     const router = useRouter()
     const { atomDomainService } = useDomainStore()

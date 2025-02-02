@@ -16,7 +16,7 @@ import { UpdateResourceForm } from './UpdateResourceForm'
 
 export const UpdateResourcePopover = observer<{ resource: IResourceModel }>(
   ({ resource }) => {
-    const submitRef = useRef<Maybe<SubmitController>>()
+    const submitRef = useRef<Maybe<SubmitController>>(undefined)
     const { updatePopover } = useResourceService()
     const router = useRouter()
 

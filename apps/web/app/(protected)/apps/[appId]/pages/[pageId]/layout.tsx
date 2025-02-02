@@ -20,13 +20,18 @@ import { LayoutClient } from './layout.client'
  *
  * Hydration is done in `LayoutClient`
  */
-const Layout = async ({
-  children,
-  params,
-}: {
-  children: ReactNode
-  params: PageContextParams
-}) => {
+const Layout = async (
+  props0: {
+    children: ReactNode
+    params: Promise<PageContextParams>
+  }
+) => {
+  const params = await props0.params;
+
+  const {
+    children
+  } = props0;
+
   const { appId, pageId } = params
   const dto = await appBuilderQuery({ appId })
 

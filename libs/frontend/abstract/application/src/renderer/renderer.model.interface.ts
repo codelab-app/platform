@@ -27,7 +27,7 @@ export interface IRendererModel {
   expressionTransformer: IExpressionTransformer
   id: string
   isBuilder: boolean
-  render: Nullable<ReactElement>
+  render: Nullable<ReactElement<any>>
   renderPipe: IRenderPipe
   rendererType: RendererType
   runtimeComponent?: IRuntimeComponentModel

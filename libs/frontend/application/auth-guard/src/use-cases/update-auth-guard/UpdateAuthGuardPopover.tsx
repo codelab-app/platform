@@ -20,7 +20,7 @@ interface UpdateAuthGuardPopoverProps {
 
 export const UpdateAuthGuardPopover = observer<UpdateAuthGuardPopoverProps>(
   ({ id }) => {
-    const submitRef = useRef<Maybe<SubmitController>>()
+    const submitRef = useRef<Maybe<SubmitController>>(undefined)
     const router = useRouter()
     const { authGuardDomainService } = useDomainStore()
     const authGuard = authGuardDomainService.authGuards.get(id)

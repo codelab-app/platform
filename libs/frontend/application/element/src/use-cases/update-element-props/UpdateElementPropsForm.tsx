@@ -81,7 +81,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
       [currentElement.id],
     )
 
-    const submitRef = useRef<Maybe<SubmitController>>()
+    const submitRef = useRef<Maybe<SubmitController>>(undefined)
 
     useEffect(() => {
       // to trigger validation when props tab opened

@@ -22,7 +22,7 @@ export type OptimisticFormProps<TData, TResponse> = React.PropsWithChildren<
 
 export const Form = <TData extends ObjectLike, TResponse = unknown>(
   props: OptimisticFormProps<TData, TResponse>,
-): ReactElement => {
+): ReactElement<any> => {
   const {
     autosave = false,
     children,

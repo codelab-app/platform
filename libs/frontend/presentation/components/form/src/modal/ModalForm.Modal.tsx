@@ -40,7 +40,7 @@ export const Modal = ({
 }: PropsWithChildren<ModalProps>) => {
   const [isLoading, setIsLoading] = useState(false)
   // This is the controller that will do the form submission, create by the modal and passed down to the form
-  const submitRef = useRef<Maybe<SubmitController>>()
+  const submitRef = useRef<Maybe<SubmitController>>(undefined)
 
   return (
     <ModalFormContext.Provider value={{ isLoading, setIsLoading, submitRef }}>

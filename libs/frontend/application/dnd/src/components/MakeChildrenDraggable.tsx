@@ -33,7 +33,7 @@ export const MakeChildrenDraggable = <DragDataType,>({
     data: {
       ...data,
       internalUseOnlyDragData: {
-        overlayRenderer: (ref?: RefObject<HTMLDivElement>) => (
+        overlayRenderer: (ref?: RefObject<HTMLDivElement | null>) => (
           <div id={DRAG_OVERLAY_ID} ref={ref}>
             <WrapperElement>{customOverlay ?? children}</WrapperElement>
           </div>

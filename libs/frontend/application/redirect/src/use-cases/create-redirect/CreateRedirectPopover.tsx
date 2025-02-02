@@ -17,7 +17,7 @@ import { CreateRedirectForm } from './CreateRedirectForm'
 export const CreateRedirectPopover = observer(() => {
   const { appId, pageId } = useUrlPathParams()
   const { createPopover } = useRedirectService()
-  const submitRef = useRef<Maybe<SubmitController>>()
+  const submitRef = useRef<Maybe<SubmitController>>(undefined)
   const router = useRouter()
 
   return (
