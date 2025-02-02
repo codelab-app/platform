@@ -225,6 +225,22 @@
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
+      },
+      {
+        "api": {
+          "id": "7d422c57-5bd3-4c5c-9d2a-002fd36b5645"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "b24af1b5-6c50-4864-817c-e7f0c4a39374"
+        },
+        "id": "f8d12f3a-7b5e-4c1d-8c8a-9b2e3f8c4d5e",
+        "key": "children",
+        "name": "Children",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
       }
     ],
     "id": "7d422c57-5bd3-4c5c-9d2a-002fd36b5645",
@@ -288,6 +304,24 @@
         "id": "22abf888-4c58-4b92-9f76-83cbf629a9d7",
         "kind": "EnumType",
         "name": "AntDesignTooltip Trigger Enum"
+      },
+      {
+        "__typename": "UnionType",
+        "id": "b24af1b5-6c50-4864-817c-e7f0c4a39374",
+        "kind": "UnionType",
+        "name": "AtomChildren Union",
+        "typesOfUnionType": [
+          {
+            "__typename": "CodeMirrorType",
+            "id": "010c4f5a-434b-4c3e-a0ed-01eb1f78172a",
+            "name": "Typescript Code"
+          },
+          {
+            "__typename": "RichTextType",
+            "id": "e7558508-3bb7-4f57-8f8c-6ac989911765",
+            "name": "RichTextType"
+          }
+        ]
       }
     ]
   },
