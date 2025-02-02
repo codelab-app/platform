@@ -374,11 +374,6 @@ export const antdAtomData: IAntdAtomRecords = {
     icon: IAtomType.AntDesignSteps,
     tag: IAtomType.AntDesignSteps,
   },
-  [IAtomType.AntDesignStepsStep]: {
-    file: 'Steps--Steps.Step',
-    icon: IAtomType.AntDesignSteps,
-    tag: IAtomType.AntDesignStepsStep,
-  },
   [IAtomType.AntDesignSwitch]: {
     file: null,
     icon: IAtomType.AntDesignSwitch,

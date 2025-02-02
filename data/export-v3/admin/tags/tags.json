@@ -2186,26 +2186,12 @@
     }
   },
   {
-    "children": [
-      {
-        "id": "075edb93-9b21-4494-92de-e510043bcf71",
-        "name": "Steps.Step"
-      }
-    ],
+    "children": [],
     "id": "b53e39d1-e88c-476b-b302-903704a9091b",
     "name": "Steps",
     "parent": {
       "id": "7c2474e2-f8ab-4cd2-98b7-252a0c8f3c8f",
       "name": "Navigation"
-    }
-  },
-  {
-    "children": [],
-    "id": "075edb93-9b21-4494-92de-e510043bcf71",
-    "name": "Steps.Step",
-    "parent": {
-      "id": "b53e39d1-e88c-476b-b302-903704a9091b",
-      "name": "Steps"
     }
   },
   {

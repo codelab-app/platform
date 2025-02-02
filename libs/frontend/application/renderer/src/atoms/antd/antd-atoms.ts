@@ -171,9 +171,6 @@ export const antdAtoms: IAtomRendererRecord = {
     () => import('antd/lib/statistic'),
   ),
   [IAtomType.AntDesignSteps]: dynamicLoader(() => import('antd/lib/steps')),
-  [IAtomType.AntDesignStepsStep]: dynamicLoader(() =>
-    import('antd/lib/steps').then((mod) => mod.default.Step),
-  ),
   [IAtomType.AntDesignSwitch]: dynamicLoader(() => import('antd/lib/switch')),
   [IAtomType.AntDesignTable]: dynamicLoader(() => import('antd/lib/table')),
   [IAtomType.AntDesignTabs]: dynamicLoader(() => import('antd/lib/tabs')),

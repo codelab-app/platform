@@ -75,7 +75,6 @@ export enum __AtomType {
   AntDesignSpin = 'AntDesignSpin',
   AntDesignStatistic = 'AntDesignStatistic',
   AntDesignSteps = 'AntDesignSteps',
-  AntDesignStepsStep = 'AntDesignStepsStep',
   AntDesignSwitch = 'AntDesignSwitch',
   AntDesignTable = 'AntDesignTable',
   AntDesignTabs = 'AntDesignTabs',

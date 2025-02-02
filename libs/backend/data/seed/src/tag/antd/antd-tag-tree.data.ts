@@ -111,7 +111,7 @@ export const antdTagTree: TagNode<IAntdCategoryTag | keyof IAntdAtomRecords> = {
     { [IAtomType.AntDesignDropdown]: [IAtomType.AntDesignDropdownButton] },
     IAtomType.AntDesignMenu,
     IAtomType.AntDesignPagination,
-    { [IAtomType.AntDesignSteps]: [IAtomType.AntDesignStepsStep] },
+    IAtomType.AntDesignSteps,
   ],
   [IAntdCategoryTag.AntDesignOther]: [
     { [IAtomType.AntDesignAnchor]: [IAtomType.AntDesignAnchorLink] },

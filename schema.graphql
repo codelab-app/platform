@@ -4364,7 +4364,6 @@ enum AtomType {
   AntDesignSpin
   AntDesignStatistic
   AntDesignSteps
-  AntDesignStepsStep
   AntDesignSwitch
   AntDesignTable
   AntDesignTabs
