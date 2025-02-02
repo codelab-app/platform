@@ -1,4 +1,3 @@
-import type { Claims } from '@auth0/nextjs-auth0'
 import type {
   UserCreateInput,
   UserDeleteInput,
@@ -30,7 +29,9 @@ export const mapAuth0IdTokenToUserDto = (
   }
 }
 
-export const mapClaimsToUserDto = (claims?: Claims): IUserSession => {
+export const mapClaimsToUserDto = (claims?: {
+  [key: string]: any
+}): IUserSession => {
   if (!claims || !claims[JWT_CLAIMS].neo4j_user_id) {
     throw new Error('Missing user in request')
   }

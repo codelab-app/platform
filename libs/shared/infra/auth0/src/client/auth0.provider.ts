@@ -13,7 +13,7 @@ export const auth0Instance = new Auth0Client({
   clientId: getEnv().auth0.clientId,
   clientSecret: getEnv().auth0.clientSecret,
   domain: getEnv().auth0.domain,
-  secret: getEnv().auth0.secret,
+  secret: getEnv().auth0.secret,  
   session: {},
   async onCallback(
     error: SdkError | null,

@@ -1,11 +1,11 @@
 'use server'
 
-import type { IUserDto, IUserSession } from '@codelab/shared/abstract/core'
+import type {  IUserSession } from '@codelab/shared/abstract/core'
 
 import { mapClaimsToUserDto } from '@codelab/shared-domain-module/user'
-import { auth0ServerInstance } from '@codelab/shared-infra-auth0/server'
 import { withAsyncSpanFunc } from '@codelab/shared-infra-sentry'
 import { redirect } from 'next/navigation'
+import { auth0Instance } from '@codelab/shared-infra-auth0/client'
 
 export const getServerUser = withAsyncSpanFunc(
   {
@@ -13,7 +13,7 @@ export const getServerUser = withAsyncSpanFunc(
     op: 'codelab.auth0',
   },
   async (): Promise<IUserSession> => {
-    const session = await auth0ServerInstance.getSession()
+    const session = await auth0Instance.getSession()
     const user = session?.user
 
     if (!user) {
@@ -26,7 +26,7 @@ export const getServerUser = withAsyncSpanFunc(
 )
 
 export const getMaybeServerUser = async () => {
-  const session = await auth0ServerInstance.getSession()
+  const session = await auth0Instance.getSession()
   const user = session?.user
 
   if (!user) {
