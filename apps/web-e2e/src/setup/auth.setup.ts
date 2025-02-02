@@ -4,7 +4,7 @@ import { auth0Password, auth0Username, authFile } from '../../playwright.config'
 
 test('authenticate', async ({ page }) => {
   // navigate to login page
-  await page.goto('/api/auth/login?returnTo=%2F')
+  await page.goto('/auth/login?returnTo=%2F')
 
   // fill login form
   await page.getByLabel('Email address').fill(auth0Username)

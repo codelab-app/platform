@@ -1,13 +1,13 @@
 import { getMaybeServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
-import { auth0ServerInstance } from '@codelab/shared-infra-auth0/server'
 import Button from 'antd/lib/button'
 import Link from 'next/link'
 
 import { Subscriptions } from './components/subscriptions'
+import { auth0Instance } from '@codelab/shared-infra-auth0/client'
 
 const HomeView = async () => {
   const maybeUser = await getMaybeServerUser()
-  const session = await auth0ServerInstance.getSession()
+  const session = await auth0Instance.getSession()
 
   /**
    * This is called on server side, useful for getting tokens for playground testing
@@ -42,7 +42,7 @@ const HomeView = async () => {
       ) : (
         <Button
           data-testid="auth0-login-link"
-          href="/api/auth/login"
+          href="/auth/login"
           id="login"
           type="primary"
         >

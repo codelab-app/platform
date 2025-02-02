@@ -1,7 +1,7 @@
 import type { IAppProps } from '@codelab/frontend/abstract/application'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 
-import { UserProvider } from '@auth0/nextjs-auth0/client'
+import { Auth0Provider } from '@auth0/nextjs-auth0/client'
 import { App as AntdApp, ConfigProvider } from 'antd'
 import { RecoilRoot } from 'recoil'
 
@@ -22,7 +22,7 @@ const App = ({ Component, pageProps }: IAppProps) => {
       <GoogleAnalytics />
       <Intercom />
       <RecoilRoot>
-        <UserProvider>
+        <Auth0Provider>
           <ConfigProvider
             theme={{
               token: {
@@ -40,7 +40,7 @@ const App = ({ Component, pageProps }: IAppProps) => {
               </AntdApp>
             </Layout>
           </ConfigProvider>
-        </UserProvider>
+        </Auth0Provider>
       </RecoilRoot>
     </>
   )

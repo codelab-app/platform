@@ -44,7 +44,7 @@ export const MenuDesktop = () => {
             <li className="hidden p-2 laptop:flex">
               <Link
                 className="btn-primary flex items-center"
-                href="/api/auth/login"
+                href="/auth/login"
               >
                 Logout
               </Link>
@@ -60,7 +60,7 @@ export const MenuDesktop = () => {
                       font-semibold
                       laptop:flex
                     `}
-                    href="/api/auth/login"
+                    href="/auth/login"
                   >
                     Log in
                   </Link>
