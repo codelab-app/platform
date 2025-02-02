@@ -174,9 +174,6 @@ export const antdAtoms: IAtomRendererRecord = {
   [IAtomType.AntDesignSwitch]: dynamicLoader(() => import('antd/lib/switch')),
   [IAtomType.AntDesignTable]: dynamicLoader(() => import('antd/lib/table')),
   [IAtomType.AntDesignTabs]: dynamicLoader(() => import('antd/lib/tabs')),
-  [IAtomType.AntDesignTabsTabPane]: dynamicLoader(() =>
-    import('antd/lib/tabs').then((mod) => mod.default.TabPane),
-  ),
   [IAtomType.AntDesignTag]: dynamicLoader(() => import('antd/lib/tag')),
   [IAtomType.AntDesignTimeline]: dynamicLoader(
     () => import('antd/lib/timeline'),

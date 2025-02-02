@@ -2213,26 +2213,12 @@
     }
   },
   {
-    "children": [
-      {
-        "id": "789ca17a-e1ce-4439-a8ad-a5c72455e61a",
-        "name": "Tabs.TabPane"
-      }
-    ],
+    "children": [],
     "id": "a0ebc197-c21b-4498-a440-c46683d22e50",
     "name": "Tabs",
     "parent": {
       "id": "7765f016-04de-4cf7-9ab5-c7920cad0531",
       "name": "Data Display"
-    }
-  },
-  {
-    "children": [],
-    "id": "789ca17a-e1ce-4439-a8ad-a5c72455e61a",
-    "name": "Tabs.TabPane",
-    "parent": {
-      "id": "a0ebc197-c21b-4498-a440-c46683d22e50",
-      "name": "Tabs"
     }
   },
   {

@@ -4367,7 +4367,6 @@ enum AtomType {
   AntDesignSwitch
   AntDesignTable
   AntDesignTabs
-  AntDesignTabsTabPane
   AntDesignTag
   AntDesignTimePicker
   AntDesignTimeline

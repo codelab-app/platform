@@ -5295,7 +5295,6 @@ export enum AtomType {
   AntDesignSwitch = 'AntDesignSwitch',
   AntDesignTable = 'AntDesignTable',
   AntDesignTabs = 'AntDesignTabs',
-  AntDesignTabsTabPane = 'AntDesignTabsTabPane',
   AntDesignTag = 'AntDesignTag',
   AntDesignTimePicker = 'AntDesignTimePicker',
   AntDesignTimeline = 'AntDesignTimeline',

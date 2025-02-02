@@ -384,22 +384,10 @@ export const antdAtomData: IAntdAtomRecords = {
     icon: IAtomType.AntDesignTable,
     tag: IAtomType.AntDesignTable,
   },
-  // 'Table--Column': IAtomType.AntDesignTable,
-  // 'Table--ColumnGroup': IAtomType.AntDesignTable,
-  // 'Table--expandable': IAtomType.AntDesignTable,
-  // 'Table--pagination': IAtomType.AntDesignTable,
-  // 'Table--rowSelection': IAtomType.AntDesignTable,
-  // 'Table--scroll': IAtomType.AntDesignTable,
-  // 'Table--selection': IAtomType.AntDesignTable,
   [IAtomType.AntDesignTabs]: {
     file: 'Tabs',
     icon: IAtomType.AntDesignTabs,
     tag: IAtomType.AntDesignTabs,
-  },
-  [IAtomType.AntDesignTabsTabPane]: {
-    file: 'Tabs--Tabs.TabPane',
-    icon: IAtomType.AntDesignTabs,
-    tag: IAtomType.AntDesignTabsTabPane,
   },
   [IAtomType.AntDesignTag]: {
     file: 'Tag',

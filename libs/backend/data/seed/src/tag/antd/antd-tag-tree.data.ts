@@ -33,7 +33,7 @@ export const antdTagTree: TagNode<IAntdCategoryTag | keyof IAntdAtomRecords> = {
     IAtomType.AntDesignTooltip,
     IAtomType.AntDesignTimeline,
     IAtomType.AntDesignTag,
-    { [IAtomType.AntDesignTabs]: [IAtomType.AntDesignTabsTabPane] },
+    IAtomType.AntDesignTabs,
     IAtomType.AntDesignTable,
   ],
   [IAntdCategoryTag.AntDesignDataEntry]: [
