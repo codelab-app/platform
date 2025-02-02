@@ -6,6 +6,7 @@ import { PageRepository } from '@codelab/backend/domain/page'
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { Store, StoreDomainService } from '@codelab/backend/domain/store'
 import { InterfaceType, TypeDomainService } from '@codelab/backend/domain/type'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { Injectable } from '@nestjs/common'
 import { v4 } from 'uuid'
 
@@ -18,6 +19,7 @@ export class PageApplicationService {
     private typeDomainService: TypeDomainService,
     private appRepository: AppRepository,
     private authDomainService: AuthDomainService,
+    private loggerService: PinoLoggerService,
   ) {}
 
   async createPage(createPageDto: IPageCreateFormData) {
@@ -45,6 +47,8 @@ export class PageApplicationService {
       id: v4(),
       name: Store.createName({ name: createPageDto.name }),
     })
+
+    this.loggerService.debug('Create page ')
 
     return this.pageRepository.add({
       ...createPageDto,

@@ -52,26 +52,26 @@ export const BuilderProvider = ({
       rendererType,
     })
 
-    tracker.useEvent({
-      componentName: 'BuilderProvider',
-      event: 'Set active renderer',
-    })
+    // tracker.useEvent({
+    //   componentName: 'BuilderProvider',
+    //   event: 'Set active renderer',
+    // })
     rendererService.setActiveRenderer(rendererRef(renderer.id))
 
     const { runtimeContainerNode, runtimeRootContainerNode } = renderer
     const runtimeContainer = runtimeContainerNode ?? runtimeRootContainerNode
     const runtimeRootElement = runtimeContainer.runtimeRootElement
 
-    tracker.useEvent({
-      componentName: 'BuilderProvider',
-      event: 'Set selected node',
-    })
+    // tracker.useEvent({
+    //   componentName: 'BuilderProvider',
+    //   event: 'Set selected node',
+    // })
     builderService.setSelectedNode(runtimeElementRef(runtimeRootElement))
 
-    tracker.useEvent({
-      componentName: 'BuilderProvider',
-      event: 'Expression transformer init',
-    })
+    // tracker.useEvent({
+    //   componentName: 'BuilderProvider',
+    //   event: 'Expression transformer init',
+    // })
     void renderer.expressionTransformer.init()
   }, [containerNode.id])
 

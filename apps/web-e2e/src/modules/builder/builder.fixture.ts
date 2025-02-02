@@ -1,4 +1,4 @@
-import type { ICreateCypressElementData } from '@codelab/shared/abstract/core'
+import type { ICreateElementSeedData } from '@codelab/shared/abstract/core'
 import type { Locator } from '@playwright/test'
 
 import {
@@ -73,7 +73,7 @@ export class BuilderPage extends BasePage {
     await modal.locator(button).click()
   }
 
-  async createElementTree(elements: Array<ICreateCypressElementData>) {
+  async createElementTree(elements: Array<ICreateElementSeedData>) {
     const explorerTree = this.getElementsTree()
     const itemToolbarKey = CuiTestId.cuiTreeItemToolbar()
 
@@ -117,7 +117,7 @@ export class BuilderPage extends BasePage {
     }
   }
 
-  async deleteElementByContextMenu(element: ICreateCypressElementData) {
+  async deleteElementByContextMenu(element: ICreateElementSeedData) {
     const treeElement = await this.selectTreeElement(element)
 
     await treeElement.click({ button: 'right' })
@@ -129,7 +129,7 @@ export class BuilderPage extends BasePage {
     await expect(treeElement).toBeHidden()
   }
 
-  async deleteElementFromOverlay(element: ICreateCypressElementData) {
+  async deleteElementFromOverlay(element: ICreateElementSeedData) {
     const elementOverlay = this.getElementOverlay()
     const deleteElementButton = elementOverlay.locator('.anticon-delete')
 
@@ -140,7 +140,7 @@ export class BuilderPage extends BasePage {
     await expect(this.getGlobalProgressBar()).toBeHidden()
   }
 
-  async deleteElementFromUpdateForm(element: ICreateCypressElementData) {
+  async deleteElementFromUpdateForm(element: ICreateElementSeedData) {
     await this.selectTreeElement(element)
     await this.page.getByLabel('Delete').click()
     await this.clickPopconfirmButton()
@@ -249,7 +249,7 @@ export class BuilderPage extends BasePage {
   }
 
   async selectTreeElement(
-    element: Pick<ICreateCypressElementData, 'atom' | 'name'>,
+    element: Pick<ICreateElementSeedData, 'atom' | 'name'>,
   ) {
     const { atom, name } = element
     const treeElement = this.getTreeElement(name, atom)

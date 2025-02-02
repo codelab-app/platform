@@ -1,4 +1,4 @@
-import type { ICreateCypressElementData } from '@codelab/shared/abstract/core'
+import type { ICreateElementSeedData } from '@codelab/shared/abstract/core'
 
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
@@ -6,13 +6,13 @@ import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
 export const COMPONENT_PROP_VALUE = 'component_prop_value'
 export const COMPONENT_INSTANCE_TEXT = 'component_instance_text'
 
-export const componentInstance: ICreateCypressElementData = {
+export const componentInstance: ICreateElementSeedData = {
   atom: 'New Component',
   name: 'Component Instance',
   parentElement: ROOT_ELEMENT_NAME,
 }
 
-export const componentTextElement: ICreateCypressElementData = {
+export const componentTextElement: ICreateElementSeedData = {
   atom: IAtomType.AntDesignTypographyText,
   name: 'Component Text',
   parentElement: 'New Component Root',

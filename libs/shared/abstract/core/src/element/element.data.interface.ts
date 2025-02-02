@@ -40,9 +40,9 @@ export const CreateElementDataSchema = Type.Composite([
 export type ICreateElementData = Static<typeof CreateElementDataSchema>
 
 /**
- * Cypress uses parent element label for the Ui
+ * UI uses parent element label for selection
  */
-export type ICreateCypressElementData = Overwrite<
+export type ICreateElementSeedData = Overwrite<
   Omit<ICreateElementData, 'id'>,
   { parentElement: string; atom: string; propsData?: string }
 >

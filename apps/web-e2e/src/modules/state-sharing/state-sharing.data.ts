@@ -61,7 +61,7 @@ export const seedTestData = async (request: APIRequestContext) => {
   const ownerResponse = await request.get('/api/v1/user/me')
   const owner = await ownerResponse.json()
 
-  await request.post('/api/v1/page/create-page', {
+  await request.post('/api/v1/page/create', {
     data: regularPageCreateData(app),
   })
 

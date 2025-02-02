@@ -1,13 +1,14 @@
 import type { IAppDto } from '@codelab/shared/abstract/core'
 
-import { providerPageId } from '@codelab/shared/data/test'
+import { PageType, PrimarySidebar } from '@codelab/frontend/abstract/types'
 import { expect } from '@playwright/test'
+import { merge } from 'remeda'
 
 import { getCuiTree } from '../../commands'
 import { globalBeforeAll } from '../../setup/before-all'
-import { seedAppData } from '../builder/builder.data'
+import { seedAppData, seedPageData } from '../builder/builder.data'
 import { seedData } from './auth-guard.data'
-import { test } from './auth-guard.fixture'
+import { authGuardPageData, test } from './auth-guard.fixture'
 
 let app: IAppDto
 
@@ -17,6 +18,7 @@ globalBeforeAll()
 
 test.beforeAll(async ({ request }) => {
   app = await seedAppData(request)
+  await seedPageData(request, merge(authGuardPageData, { app }))
   await seedData(request)
 })
 
@@ -39,24 +41,27 @@ test('should be able to create auth guard', async ({ authGuardPage: page }) => {
 test('should be able to create page auth guard redirect', async ({
   authGuardPage: page,
 }) => {
-  await page.goToAppPageList(app.id, providerPageId)
-  await page.createPage()
+  await page.goToAppPageList(app.id, authGuardPageData.id)
 
-  await expect(getCuiTree(page.page).getByText(page.pageName)).toBeVisible()
+  await expect(
+    getCuiTree(page.page).getByText(authGuardPageData.name),
+  ).toBeVisible()
 
   await page.createAuthGuardRedirect()
 
   await expect(page.getDialog()).toBeHidden()
+
   await expect(page.getNotification()).toContainText(
     'Auth redirect created successfully',
   )
+
   await expect(page.getPageRedirectIcon()).toBeVisible()
 })
 
 test('should be able to update page auth guard redirect', async ({
   authGuardPage: page,
 }) => {
-  await page.goToAppPageList(app.id, providerPageId)
+  await page.goToAppPageList(app.id, authGuardPageData.id)
 
   await page.updateAuthGuardRedirect()
 
@@ -70,7 +75,7 @@ test('should be able to update page auth guard redirect', async ({
 test('should be able to delete page auth guard redirect', async ({
   authGuardPage: page,
 }) => {
-  await page.goToAppPageList(app.id, providerPageId)
+  await page.goToAppPageList(app.id, authGuardPageData.id)
 
   await expect(page.getPageRedirectIcon()).toBeVisible()
 

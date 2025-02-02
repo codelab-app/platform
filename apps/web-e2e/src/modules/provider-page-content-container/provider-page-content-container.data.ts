@@ -46,7 +46,7 @@ export const regularPageCreateData = (app: IAppDto): ICreatePageData => ({
 export const seedTestData = async (request: APIRequestContext) => {
   const app = await seedAppData(request)
 
-  const regularPageResponse = await request.post('/api/v1/page/create-page', {
+  const regularPageResponse = await request.post('/api/v1/page/create', {
     data: regularPageCreateData(app),
   })
 

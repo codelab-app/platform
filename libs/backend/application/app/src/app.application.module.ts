@@ -51,10 +51,8 @@ import {
   ],
   providers: [
     SeedCypressAppHandler,
-    ExportAppHandler,
-    ExportPageHandler,
     ImportAppHandler,
-    ImportPageHandler,
+    ExportAppHandler,
     ImportDataMapperService,
   ],
 })
