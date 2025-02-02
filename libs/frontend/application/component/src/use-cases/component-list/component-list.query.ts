@@ -15,5 +15,5 @@ export const componentListQuery = async () => {
   })
 }
 
-export const revalidateComponentListOperation = () =>
+export const revalidateComponentListOperation = async () =>
   revalidateTag(CACHE_TAGS.COMPONENTS_LIST)

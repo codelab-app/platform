@@ -75,7 +75,7 @@ export const TextEditor = ({
 }: TextEditorProps) => {
   const editorRef = useRef<HTMLDivElement>(null)
 
-  useResizeObserver({ onResize, ref: editorRef })
+  useResizeObserver({ onResize, ref: editorRef.current })
 
   const editorConfig = mergeProps<InitialConfigType>(defaultConfig, config)
 

@@ -70,5 +70,5 @@ export const storeRepository: IStoreRepository = withTracingMethods('store', {
   },
 })
 
-export const invalidateStoreListQuery = () =>
+export const invalidateStoreListQuery = async () =>
   revalidateTag(CACHE_TAGS.STORE_LIST)

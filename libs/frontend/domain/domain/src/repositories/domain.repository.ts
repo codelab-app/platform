@@ -73,5 +73,5 @@ export const domainRepository: IDomainRepository = {
   },
 }
 
-export const invalidateDomainListQuery = () =>
+export const invalidateDomainListQuery = async () =>
   revalidateTag(CACHE_TAGS.DOMAIN_LIST)

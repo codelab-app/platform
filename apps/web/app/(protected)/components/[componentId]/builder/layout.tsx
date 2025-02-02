@@ -4,10 +4,15 @@ import { DashboardLayout } from '@codelab/frontend-presentation-view/templates'
 
 import { LayoutClient } from './layout.client'
 
-type LayoutProps = DashboardLayoutProps<
-  'configPane' | 'header' | 'modal' | 'primarySidebar' | 'secondaryPopover',
-  'componentId'
->
+type LayoutProps = Omit<
+  DashboardLayoutProps<
+    'configPane' | 'header' | 'modal' | 'primarySidebar' | 'secondaryPopover',
+    'componentId'
+  >,
+  'params'
+> & {
+  params: Promise<DashboardLayoutProps['params']>
+}
 
 const Layout = async (props: LayoutProps) => {
   const params = await props.params;

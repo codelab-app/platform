@@ -32,4 +32,5 @@ export const preferenceQuery = async (
   return preference
 }
 
-export const invalidateAppListQuery = () => revalidateTag(CACHE_TAGS.PREFERENCE)
+export const invalidateAppListQuery = async () =>
+  revalidateTag(CACHE_TAGS.PREFERENCE)

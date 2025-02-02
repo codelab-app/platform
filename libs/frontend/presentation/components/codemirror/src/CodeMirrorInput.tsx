@@ -16,7 +16,6 @@ import { CodeMirrorModal } from './CodeMirrorModal'
 import { containerStyles, editorStyles, ExpandButton } from './styles'
 
 export interface CodeMirrorInputProps
-  // Removed `prefix` due to type error mismatch
   extends Omit<ReactCodeMirrorProps, 'prefix' | 'title'> {
   className?: string
   cssString?: string

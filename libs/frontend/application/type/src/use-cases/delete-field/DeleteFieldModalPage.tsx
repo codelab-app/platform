@@ -5,10 +5,12 @@ import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { DeleteFieldModal } from './DeleteFieldModal'
 
 export const DeleteFieldModalPage = async ({
-  params: { id },
+  params,
 }: {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }) => {
+
+  const id = (await params).id
   const fieldDto = await fieldRepository.findOne({ id })
 
   return (
