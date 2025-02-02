@@ -56,7 +56,7 @@ export const antdTagTree: TagNode<IAntdCategoryTag | keyof IAntdAtomRecords> = {
     IAtomType.AntDesignMentions,
     IAtomType.AntDesignRadioGroup,
     IAtomType.AntDesignRate,
-    { [IAtomType.AntDesignSelect]: [IAtomType.AntDesignSelectOption] },
+    IAtomType.AntDesignSelect,
     IAtomType.AntDesignSlider,
     IAtomType.AntDesignSwitch,
     IAtomType.AntDesignTimePicker,

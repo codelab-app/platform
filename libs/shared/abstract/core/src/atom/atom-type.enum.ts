@@ -69,7 +69,6 @@ export enum __AtomType {
   AntDesignResult = 'AntDesignResult',
   AntDesignSegmented = 'AntDesignSegmented',
   AntDesignSelect = 'AntDesignSelect',
-  AntDesignSelectOption = 'AntDesignSelectOption',
   AntDesignSkeleton = 'AntDesignSkeleton',
   AntDesignSlider = 'AntDesignSlider',
   AntDesignSpace = 'AntDesignSpace',

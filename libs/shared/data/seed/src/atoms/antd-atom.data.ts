@@ -344,11 +344,6 @@ export const antdAtomData: IAntdAtomRecords = {
     icon: IAtomType.AntDesignSelect,
     tag: IAtomType.AntDesignSelect,
   },
-  [IAtomType.AntDesignSelectOption]: {
-    file: 'Select--Option props',
-    icon: IAtomType.AntDesignSelect,
-    tag: IAtomType.AntDesignSelectOption,
-  },
   [IAtomType.AntDesignSkeleton]: {
     file: 'Skeleton',
     icon: IAtomType.AntDesignSkeleton,

@@ -4358,7 +4358,6 @@ enum AtomType {
   AntDesignResult
   AntDesignSegmented
   AntDesignSelect
-  AntDesignSelectOption
   AntDesignSkeleton
   AntDesignSlider
   AntDesignSpace

@@ -5286,7 +5286,6 @@ export enum AtomType {
   AntDesignResult = 'AntDesignResult',
   AntDesignSegmented = 'AntDesignSegmented',
   AntDesignSelect = 'AntDesignSelect',
-  AntDesignSelectOption = 'AntDesignSelectOption',
   AntDesignSkeleton = 'AntDesignSkeleton',
   AntDesignSlider = 'AntDesignSlider',
   AntDesignSpace = 'AntDesignSpace',

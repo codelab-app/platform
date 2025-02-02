@@ -159,9 +159,6 @@ export const antdAtoms: IAtomRendererRecord = {
     () => import('antd/lib/segmented'),
   ),
   [IAtomType.AntDesignSelect]: dynamicLoader(() => import('antd/lib/select')),
-  [IAtomType.AntDesignSelectOption]: dynamicLoader(() =>
-    import('antd/lib/select').then((mod) => mod.default.Option),
-  ),
   [IAtomType.AntDesignSkeleton]: dynamicLoader(
     () => import('antd/lib/skeleton'),
   ),
