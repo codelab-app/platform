@@ -65,7 +65,11 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
 
   return (
     <AntdForm.Item label={fieldProps.label}>
-      <div className="[&_label]:text-sm">
+      {/*
+      breaking specs with invalid selector 
+      <div className="[&_label]:text-sm"> 
+      */}
+      <div>
         <SelectField
           label=""
           name={typeFieldName}
