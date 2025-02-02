@@ -1,27 +1,18 @@
-import type { ReactNode } from 'react'
+import type { DashboardLayoutProps } from '@codelab/frontend-presentation-view/templates'
 
-import { BuilderResizeMenu } from '@codelab/frontend-application-builder/use-cases/resize'
-import { ComponentDetailHeader } from '@codelab/frontend-application-component/views'
-import { Dashboard } from '@codelab/frontend-presentation-view/templates'
+import { DashboardLayout } from '@codelab/frontend-presentation-view/templates'
 
-const ComponentPreviewLayout = ({
-  children,
-  params: { componentId },
-}: {
-  children: ReactNode
-  params: { componentId: string }
-}) => {
+import { LayoutClient } from './layout.client'
+
+type LayoutProps = DashboardLayoutProps<'header', 'componentId'>
+
+const ComponentPreviewLayout = ({ children, header, params }: LayoutProps) => {
+  const { componentId } = params
+
   return (
-    <Dashboard
-      Header={
-        <ComponentDetailHeader
-          BuilderResizeMenu={<BuilderResizeMenu />}
-          componentId={componentId}
-        />
-      }
-    >
-      {children}
-    </Dashboard>
+    <DashboardLayout<'header', 'componentId'> header={header} params={params}>
+      <LayoutClient componentId={componentId}>{children}</LayoutClient>
+    </DashboardLayout>
   )
 }
 

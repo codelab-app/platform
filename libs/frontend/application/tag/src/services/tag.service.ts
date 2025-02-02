@@ -5,11 +5,9 @@ import type {
 import type { ITagModel } from '@codelab/frontend/abstract/domain'
 import type {
   ICreateTagData,
-  IRef,
   IUpdateTagData,
 } from '@codelab/shared/abstract/core'
-import type { TagOptions, TagWhere } from '@codelab/shared/infra/gql'
-import type { Ref } from 'mobx-keystone'
+import type { TagOptions, TagWhere } from '@codelab/shared/infra/gqlgen'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import { PageType } from '@codelab/frontend/abstract/types'
@@ -20,7 +18,7 @@ import {
   useApplicationStore,
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
-import { Validator } from '@codelab/shared/infra/schema'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { atom, useAtom } from 'jotai'
 
 const checkedTagsAtom = atom<Array<string>>([])
@@ -138,14 +136,6 @@ export const useTagService = (): ITagService => {
     setCheckedTagIds([])
   }
 
-  const getOneFromCache = (ref: IRef) => {
-    return tagDomainService.tags.get(ref.id)
-  }
-
-  const getAllFromCache = () => {
-    return Array.from(tagDomainService.tags.values())
-  }
-
   const createPopover = {
     close: (router: AppRouterInstance) => {
       router.push(PageType.Tags())
@@ -170,9 +160,7 @@ export const useTagService = (): ITagService => {
     createPopover,
     deleteCheckedTags,
     getAll,
-    getAllFromCache,
     getDataFn,
-    getOneFromCache,
     paginationService: tagPagination,
     removeMany,
     setCheckedTagIds,

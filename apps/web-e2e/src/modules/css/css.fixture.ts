@@ -9,7 +9,7 @@ export class CssBuilderPage extends BuilderPage {
   getStyledButton() {
     const builderContainer = this.getBuilderRenderContainer()
 
-    return builderContainer.locator('.ant-btn')
+    return builderContainer.locator('.ant-btn').first()
   }
 
   async openCssTab() {
@@ -32,8 +32,10 @@ export class CssBuilderPage extends BuilderPage {
   async typeIntoCssEditor(css: string) {
     const cssTab = this.page.locator('.ant-tabs-tabpane-active')
 
-    await this.setFormFieldValue('CSS Editor', css, cssTab)
-    await this.waitForProgressBar()
+    await this.setFormFieldValue('CSS Editor', css, {
+      locator: cssTab,
+      waitForAutosave: true,
+    })
   }
 }
 

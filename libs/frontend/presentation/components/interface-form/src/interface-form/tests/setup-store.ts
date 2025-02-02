@@ -1,6 +1,6 @@
 import type { ITypeModel } from '@codelab/frontend/abstract/domain'
 
-import { fieldRef, typeRef } from '@codelab/frontend/abstract/domain'
+import { fieldRef, typeRef, userRef } from '@codelab/frontend/abstract/domain'
 import { createRootDomainStore } from '@codelab/frontend-domain-shared'
 import {
   FieldDomainService,
@@ -27,15 +27,17 @@ import {
   CodeMirrorLanguage,
   ElementTypeKind,
   PrimitiveTypeKind,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 import { objectMap } from 'mobx-keystone'
 import { v4 } from 'uuid'
+
+const ownerId = v4()
 
 export const stringType = new PrimitiveType({
   id: v4(),
   kind: ITypeKind.PrimitiveType,
   name: 'String type',
-
+  owner: userRef(ownerId),
   primitiveKind: PrimitiveTypeKind.String,
 })
 
@@ -43,7 +45,7 @@ export const intType = new PrimitiveType({
   id: v4(),
   kind: ITypeKind.PrimitiveType,
   name: 'Int type',
-
+  owner: userRef(ownerId),
   primitiveKind: PrimitiveTypeKind.Integer,
 })
 
@@ -51,6 +53,7 @@ export const booleanType = new PrimitiveType({
   id: v4(),
   kind: ITypeKind.PrimitiveType,
   name: 'Boolean type',
+  owner: userRef(ownerId),
   primitiveKind: PrimitiveTypeKind.Boolean,
 })
 
@@ -58,36 +61,42 @@ export const appType = new AppType({
   id: v4(),
   kind: ITypeKind.AppType,
   name: 'App type',
+  owner: userRef(ownerId),
 })
 
 export const actionType = new ActionType({
   id: v4(),
   kind: ITypeKind.ActionType,
   name: 'Action type',
+  owner: userRef(ownerId),
 })
 
 export const pageType = new PageType({
   id: v4(),
   kind: ITypeKind.PageType,
   name: 'Page type',
+  owner: userRef(ownerId),
 })
 
 export const renderPropType = new RenderPropType({
   id: v4(),
   kind: ITypeKind.RenderPropType,
   name: 'Render prop type',
+  owner: userRef(ownerId),
 })
 
 export const richTextType = new RichTextType({
   id: v4(),
   kind: ITypeKind.RichTextType,
   name: 'Rich text type',
+  owner: userRef(ownerId),
 })
 
 export const reactNodeType = new ReactNodeType({
   id: v4(),
   kind: ITypeKind.ReactNodeType,
   name: 'React node type',
+  owner: userRef(ownerId),
 })
 
 export const codeMirrorType = new CodeMirrorType({
@@ -95,6 +104,7 @@ export const codeMirrorType = new CodeMirrorType({
   kind: ITypeKind.CodeMirrorType,
   language: CodeMirrorLanguage.Javascript,
   name: 'CodeMirror type',
+  owner: userRef(ownerId),
 })
 
 export const elementType = new ElementType({
@@ -102,6 +112,7 @@ export const elementType = new ElementType({
   id: v4(),
   kind: ITypeKind.ElementType,
   name: 'Element type',
+  owner: userRef(ownerId),
 })
 
 export const enumType = new EnumType({
@@ -113,6 +124,7 @@ export const enumType = new EnumType({
   id: v4(),
   kind: ITypeKind.EnumType,
   name: 'Enum type',
+  owner: userRef(ownerId),
 })
 
 export const arrayType = new ArrayType({
@@ -120,18 +132,21 @@ export const arrayType = new ArrayType({
   itemType: typeRef(stringType),
   kind: ITypeKind.ArrayType,
   name: 'Array type',
+  owner: userRef(ownerId),
 })
 
 export const unionType = new UnionType({
   id: v4(),
   kind: ITypeKind.UnionType,
   name: 'Union type',
+  owner: userRef(ownerId),
   typesOfUnionType: [typeRef(stringType), typeRef(intType)],
 })
 
 const emptyInterface = new InterfaceType({
   id: v4(),
   name: 'Empty Interface Type',
+  owner: userRef(ownerId),
 })
 
 const stringField = new Field({
@@ -197,6 +212,7 @@ export const interfaceWithUnionField = new InterfaceType({
   id: v4(),
   kind: ITypeKind.InterfaceType,
   name: 'Interface with union field',
+  owner: userRef(ownerId),
 })
 
 export const interfaceWithEnumField = new InterfaceType({
@@ -206,6 +222,7 @@ export const interfaceWithEnumField = new InterfaceType({
   id: v4(),
   kind: ITypeKind.InterfaceType,
   name: 'Interface with enum field',
+  owner: userRef(ownerId),
 })
 
 export const interfaceWithRequiredAndDefaultFieldValues = new InterfaceType({
@@ -217,6 +234,7 @@ export const interfaceWithRequiredAndDefaultFieldValues = new InterfaceType({
   id: v4(),
   kind: ITypeKind.InterfaceType,
   name: 'Interface with default field values',
+  owner: userRef(ownerId),
 })
 
 export const rootDomainStore = createRootDomainStore({

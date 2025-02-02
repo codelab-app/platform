@@ -29,4 +29,5 @@ const ConfigPane = observer(() => {
   )
 })
 
+ConfigPane.displayName = 'ConfigPane'
 export default ConfigPane

@@ -1,18 +1,21 @@
+'use client'
+
 import { UiKey } from '@codelab/frontend/abstract/types'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/navigation'
 import { AutoFields } from 'uniforms-antd'
 
 import { useActionService } from '../../services'
-import { useDeleteActionModal } from './delete-action.state'
 
-export const DeleteActionModal = observer(() => {
+export const DeleteActionModal = observer(({ id }: { id: string }) => {
+  const router = useRouter()
   const actionService = useActionService()
-  const deleteActionModal = useDeleteActionModal()
-  const action = deleteActionModal.data
-  const closeModal = () => deleteActionModal.close()
+  const { actionDomainService } = useDomainStore()
+  const action = actionDomainService.actions.get(id)
+  const closeModal = () => actionService.deletePopover.close(router)
 
   const onSubmit = () => {
     if (!action) {
@@ -26,16 +29,14 @@ export const DeleteActionModal = observer(() => {
     <ModalForm.Modal
       okText="Delete Action"
       onCancel={closeModal}
-      open={deleteActionModal.isOpen}
+      open={true}
       title="Delete Confirmation"
       uiKey={UiKey.ActionModalDelete}
     >
       <ModalForm.Form
+        errorMessage="Error while deleting action"
         model={{}}
         onSubmit={onSubmit}
-        onSubmitError={createFormErrorNotificationHandler({
-          title: 'Error while deleting action',
-        })}
         onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}
       >

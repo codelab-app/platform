@@ -1,10 +1,10 @@
-import type { IRef, ITypeDto } from '@codelab/shared/abstract/core'
+import type { ITypeDto } from '@codelab/shared/abstract/core'
 import type {
   BaseTypeFragment,
   IBaseTypeOptions,
   IBaseTypeWhere,
   TypeFragment,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import type { IRepository } from '../shared'
 

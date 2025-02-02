@@ -1,6 +1,6 @@
 import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import { IResourceType } from '@codelab/shared/abstract/core'
-import { test as base, expect } from '@playwright/test'
+import { test as base } from '@playwright/test'
 
 import { BasePage } from '../../locators/pages'
 
@@ -21,7 +21,7 @@ export class ResourcePage extends BasePage {
     const form = this.getForm(UiKey.ResourceFormCreate)
 
     await form.fillInputText({ label: 'Name' }, this.resourceName)
-    await form.fillInputSelect({ label: 'Type' }, IResourceType.GraphQl)
+    await form.fillInputFilterSelect({ label: 'Type' }, IResourceType.GraphQl)
     await form.fillInputText({ label: 'Url' }, this.resourcesUrl)
     await form.getButton({ text: 'Create' }).click()
 

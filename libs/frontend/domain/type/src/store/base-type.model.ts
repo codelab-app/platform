@@ -1,19 +1,14 @@
-import type { IBaseTypeDto, ITypeKind } from '@codelab/shared/abstract/core'
-
-import {
-  getUserDomainService,
-  type IBaseTypeModel,
+import type {
+  IBaseTypeModel,
   ITypeTransformContext,
   IUserModel,
   JsonSchema,
 } from '@codelab/frontend/abstract/domain'
-import {
-  connectOwner,
-  ITypeCreateInput,
-  ITypeUpdateVars,
-} from '@codelab/shared/domain-old'
+import type { IBaseTypeDto, ITypeKind } from '@codelab/shared/abstract/core'
+import type { Ref } from 'mobx-keystone'
+
 import { computed } from 'mobx'
-import { idProp, Model, model, modelAction, prop, Ref } from 'mobx-keystone'
+import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
 export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
   @model(`@codelab/BaseType${typeKind}`)

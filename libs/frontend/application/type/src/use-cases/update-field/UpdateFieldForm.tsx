@@ -10,7 +10,7 @@ import {
   FormController,
 } from '@codelab/frontend-presentation-components-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
-import { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
+import { PrimitiveTypeKind } from '@codelab/shared/infra/gqlgen'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
 
@@ -34,10 +34,10 @@ export interface UpdateFieldFormProps extends IFormController {
 
 export const UpdateFieldForm = observer<UpdateFieldFormProps>(
   ({ id, onSubmitSuccess, showFormControl = true, submitRef }) => {
-    const fieldSchema = useFieldSchema(createFieldSchema)
     const fieldService = useFieldService()
-    const { typeDomainService } = useDomainStore()
-    const field = fieldService.getOneFromCache({ id })
+    const { fieldDomainService, typeDomainService } = useDomainStore()
+    const field = fieldDomainService.fields.get(id)
+    const fieldSchema = useFieldSchema(createFieldSchema, field)
 
     const onSubmit = (input: IUpdateFieldData) => {
       if (!field) {
@@ -63,6 +63,7 @@ export const UpdateFieldForm = observer<UpdateFieldFormProps>(
           interfaceTypeId: field?.api.id,
           key: field?.key,
           name: field?.name,
+          validationRules: field?.validationRules,
         }}
         modelTransform={(mode, model) => {
           // This automatically sets the `defaultValue` to be nullable for types

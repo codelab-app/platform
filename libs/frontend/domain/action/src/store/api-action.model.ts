@@ -6,11 +6,6 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import type { IApiActionDto } from '@codelab/shared/abstract/core'
 import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
-import type {
-  ApiActionCreateInput,
-  ApiActionDeleteInput,
-  ApiActionUpdateInput,
-} from '@codelab/shared/infra/gql'
 import type { Ref } from 'mobx-keystone'
 
 import {
@@ -20,8 +15,6 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { Prop } from '@codelab/frontend-domain-prop/store'
 import { IActionKind } from '@codelab/shared/abstract/core'
-import { connectNodeId, disconnectAll } from '@codelab/shared/domain-old'
-import { computed } from 'mobx'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 
 import { createBaseAction } from './base-action.model'
@@ -69,6 +62,7 @@ export class ApiAction
       resource: this.resource.current.toJson,
       store: this.store.current,
       successAction: this.successAction?.current,
+      type: this.type,
     }
   }
 

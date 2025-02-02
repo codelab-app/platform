@@ -16,7 +16,6 @@ import LockFilled from '@ant-design/icons/lib/icons/LockFilled'
 import LoadingOutlined from '@ant-design/icons/LoadingOutlined'
 import SafetyOutlined from '@ant-design/icons/SafetyOutlined'
 import ToolOutlined from '@ant-design/icons/ToolOutlined'
-import { pageRef } from '@codelab/frontend/abstract/domain'
 import {
   PageType,
   PrimarySidebar,
@@ -25,10 +24,8 @@ import {
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
-  useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useCreateRedirectForm } from '@codelab/frontend-application-redirect/use-cases/create-redirect'
-import { useUpdateRedirectForm } from '@codelab/frontend-application-redirect/use-cases/update-redirect'
+import { useRedirectService } from '@codelab/frontend-application-redirect/services'
 import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
@@ -50,13 +47,11 @@ export const PageTreeItem = observer(
       primaryTitle,
     },
   }: PageTreeItemProps) => {
-    const updateRedirectForm = useUpdateRedirectForm()
-    const createRedirectForm = useCreateRedirectForm()
     const { isRegenerating, regenerate } = useRegeneratePages()
-    const { popover } = useCui()
     const router = useRouter()
-    const { deletePopover, updatePopover } = usePageService()
-    const { appId, pageId } = useUrlPathParams()
+    const { removeMany, updatePopover } = usePageService()
+    const redirectService = useRedirectService()
+    const { appId } = useUrlPathParams()
 
     const commonToolbarItems: Array<ToolbarItem> = [
       {
@@ -79,9 +74,10 @@ export const PageTreeItem = observer(
 
     const regularPageToolbarItems: Array<ToolbarItem> = [
       {
+        confirmText: `Are you sure you want to delete "${page.name}"?`,
         cuiKey: UiKey.PageToolbarItemDelete,
         icon: <DeleteOutlined />,
-        onClick: () => deletePopover.open(router, appId, pageId, page.id),
+        onClick: () => removeMany([page]),
         title: 'Delete',
       },
       {
@@ -91,11 +87,16 @@ export const PageTreeItem = observer(
         icon: <SafetyOutlined />,
         onClick: () => {
           if (page.redirect) {
-            updateRedirectForm.open(page.redirect.current)
-            popover.open(UiKey.RedirectPopoverUpdate)
+            redirectService.updatePopover.open(router, {
+              appId,
+              pageId: page.id,
+              redirectId: page.redirect.id,
+            })
           } else {
-            createRedirectForm.open(page)
-            popover.open(UiKey.RedirectPopoverCreate)
+            redirectService.createPopover.open(router, {
+              appId,
+              pageId: page.id,
+            })
           }
         },
         title: 'Auth Guard',
@@ -109,7 +110,7 @@ export const PageTreeItem = observer(
       {
         cuiKey: UiKey.PageToolbarItemUpdate,
         icon: <EditOutlined />,
-        onClick: () => updatePopover.open(router, appId, pageId, page.id),
+        onClick: () => updatePopover.open(router, { appId, pageId: page.id }),
         title: 'Edit',
       },
     ]
@@ -123,15 +124,20 @@ export const PageTreeItem = observer(
       <CuiTreeItem
         icon={
           page.kind === IPageKind.Regular ? (
-            <>
-              {page.redirect?.id && <LockFilled style={{ color: 'green' }} />}
-              <FileTextOutlined style={{ color: 'blue' }} />
-            </>
+            <FileTextOutlined style={{ color: 'blue' }} />
           ) : (
             <FileOutlined style={{ color: 'black' }} />
           )
         }
         primaryTitle={primaryTitle}
+        tag={
+          page.redirect?.id && (
+            <LockFilled
+              style={{ color: 'green' }}
+              title="Auth Redirect applied"
+            />
+          )
+        }
         toolbar={
           <CuiTreeItemToolbar items={toolbarItems} title="page toolbar" />
         }

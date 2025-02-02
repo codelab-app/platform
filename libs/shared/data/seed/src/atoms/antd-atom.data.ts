@@ -1,7 +1,6 @@
-import type { IAntdAtomRecords } from '@codelab/backend/abstract/core'
+import type { IAntdAtomRecords } from '@codelab/shared/abstract/core'
 
-import { IAntdCategoryTag } from '@codelab/backend/abstract/core'
-import { IAtomType } from '@codelab/shared/abstract/core'
+import { IAntdCategoryTag, IAtomType } from '@codelab/shared/abstract/core'
 
 /**
  * Assign all data that is related to the atom here
@@ -119,11 +118,6 @@ export const antdAtomData: IAntdAtomRecords = {
     file: 'Collapse',
     icon: IAtomType.AntDesignCollapse,
     tag: IAtomType.AntDesignCollapse,
-  },
-  [IAtomType.AntDesignCollapsePanel]: {
-    file: 'Collapse--Collapse.Panel',
-    icon: IAtomType.AntDesignCollapse,
-    tag: IAtomType.AntDesignCollapsePanel,
   },
   [IAtomType.AntDesignComment]: {
     file: 'Comment',

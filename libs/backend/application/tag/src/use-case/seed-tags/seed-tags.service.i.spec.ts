@@ -1,16 +1,11 @@
 import type { ITagDto } from '@codelab/shared/abstract/core'
 
-import { IAntdCategoryTag } from '@codelab/backend/abstract/core'
 import { antdTagTree } from '@codelab/backend/data/seed'
-import {
-  AuthDomainModule,
-  AuthDomainService,
-} from '@codelab/backend/domain/shared/auth'
 import { SharedDomainModule } from '@codelab/backend/domain/shared/modules'
 import { TagDomainModule } from '@codelab/backend/domain/tag'
 import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
-import { initUserContext } from '@codelab/backend/test'
-import { IAtomType } from '@codelab/shared/abstract/core'
+import { initUserContext } from '@codelab/backend/test/setup'
+import { IAntdCategoryTag, IAtomType } from '@codelab/shared/abstract/core'
 import { antdAtoms } from '@codelab/shared-domain-module-atom'
 import { CqrsModule } from '@nestjs/cqrs'
 

@@ -1,4 +1,7 @@
-import type { IComponentModel } from '@codelab/frontend/abstract/domain'
+import type {
+  IComponentModel,
+  IElementModel,
+} from '@codelab/frontend/abstract/domain'
 import type {
   ICreateComponentData,
   IRef,
@@ -8,7 +11,7 @@ import type { Maybe } from '@codelab/shared/abstract/types'
 import type {
   ComponentOptions,
   ComponentWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 import type { Overwrite } from 'utility-types'
 
 import type { IPaginateable } from '../services/pagination.service.interface'
@@ -27,6 +30,10 @@ export interface IComponentService
   // componentDevelopmentService: IComponentDevelopmentService
   // moved to builder
   // getSelectComponentOptions(): Promise<Array<DefaultOptionType>>
+  createWithoutRoot(
+    data: ICreateComponentData,
+    rootElement: IElementModel,
+  ): Promise<IComponentModel>
   importComponent(componentDataFile: File): Promise<Maybe<IComponentModel>>
   previewComponent(id: string): void
 }

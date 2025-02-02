@@ -1,0 +1,17 @@
+{
+  "name": "shared-domain-module-component",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/domain/module/component/src",
+  "projectType": "library",
+  "tags": [
+    "projectName:shared-domain-module-component",
+    "projectType:library",
+    "type:concrete",
+    "scope:shared"
+  ],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

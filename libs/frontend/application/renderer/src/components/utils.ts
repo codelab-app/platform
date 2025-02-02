@@ -1,28 +1,23 @@
-import type { IRenderOutput } from '@codelab/frontend/abstract/application'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 
 import { RendererType } from '@codelab/frontend/abstract/application'
-import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/domain'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { tx } from '@twind/core'
-import { Fragment } from 'react'
 import { isNullish } from 'remeda'
 
-import { getAtom } from '../atoms'
+// export const getReactComponent = (renderOutput: IRenderOutput) => {
+//   // if component does not have atom assigned to the root element
+//   // use span to hold the component's elements together and it is an html
+//   // element with the least effect on its child and can be used for dnd
+//   const atomType =
+//     !renderOutput.atomType && renderOutput.props[DATA_COMPONENT_ID]
+//       ? IAtomType.HtmlSpan
+//       : renderOutput.atomType
 
-export const getReactComponent = (renderOutput: IRenderOutput) => {
-  // if component does not have atom assigned to the root element
-  // use span to hold the component's elements together and it is an html
-  // element with the least effect on its child and can be used for dnd
-  const atomType =
-    !renderOutput.atomType && renderOutput.props[DATA_COMPONENT_ID]
-      ? IAtomType.HtmlSpan
-      : renderOutput.atomType
-
-  // Render the atom if it exists, otherwise use fragment
-  return atomType ? getAtom(atomType) ?? Fragment : Fragment
-}
+//   // Render the atom if it exists, otherwise use fragment
+//   return atomType ? getAtom(atomType) ?? Fragment : Fragment
+// }
 
 export const generateTailwindClasses = (
   classNames: Nullable<Array<string>> | undefined,

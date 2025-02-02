@@ -8,7 +8,10 @@ import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/domain'
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { useRequiredParentValidator } from '@codelab/frontend-application-element/validation'
 import { makeAutoIncrementedName } from '@codelab/frontend-domain-element/use-cases/incremented-name'
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend-infra-mobx/context'
 import { v4 } from 'uuid'
 
 export interface UseDndDropHandler {
@@ -18,6 +21,7 @@ export interface UseDndDropHandler {
 
 export const useDndDropHandler = (): UseDndDropHandler => {
   const { rendererService, runtimeElementService } = useApplicationStore()
+  const { elementDomainService } = useDomainStore()
   const elementService = useElementService()
 
   const { validateParentForCreate, validateParentForMove } =
@@ -53,7 +57,7 @@ export const useDndDropHandler = (): UseDndDropHandler => {
       return
     }
 
-    const parentElement = elementService.getElement(parentElementId)
+    const parentElement = elementDomainService.element(parentElementId)
 
     const createElementDto: IElementDto = {
       closestContainerNode: {
@@ -88,42 +92,23 @@ export const useDndDropHandler = (): UseDndDropHandler => {
   }
 
   const handleMoveElement = async (event: DragEndEvent) => {
-    const runtimeDraggedElementKey = event.active.id.toString()
-
-    const draggedElementId = runtimeElementService.runtimeElement(
-      runtimeDraggedElementKey,
-    ).element.id
-
+    const draggedElementId = event.active.id.toString()
+    const draggedElement = elementDomainService.element(draggedElementId)
     const collisionData = event.collisions?.[0]?.data as Maybe<CollisionData>
     const activeElementTree = rendererService.activeElementTree
 
-    const runtimePrevSiblingKey =
+    const prevSiblingId =
       collisionData?.childDroppableBeforePointer as Maybe<string>
 
-    const runtimeNextSiblingKey =
+    const nextSiblingId =
       collisionData?.childDroppableAfterPointer as Maybe<string>
 
-    const runtimeDropTargetKey = event.over?.id.toString()
-
-    const prevSiblingId = runtimePrevSiblingKey
-      ? runtimeElementService.maybeRuntimeElement(runtimePrevSiblingKey)
-          ?.element.id
-      : undefined
-
-    const nextSiblingId = runtimeNextSiblingKey
-      ? runtimeElementService.maybeRuntimeElement(runtimeNextSiblingKey)
-          ?.element.id
-      : undefined
+    const dropTargetId = event.over?.id.toString()
 
     const parentElementId =
-      runtimeDropTargetKey === ROOT_RENDER_CONTAINER_ID
+      dropTargetId === ROOT_RENDER_CONTAINER_ID
         ? activeElementTree?.rootElement.current.id
-        : runtimeDropTargetKey
-        ? runtimeElementService.maybeRuntimeElement(runtimeDropTargetKey)
-            ?.element.id
-        : undefined
-
-    const draggedElement = elementService.getElement(draggedElementId)
+        : dropTargetId
 
     if (
       !parentElementId ||
@@ -136,12 +121,12 @@ export const useDndDropHandler = (): UseDndDropHandler => {
     }
 
     const prevSibling =
-      prevSiblingId && elementService.getElement(prevSiblingId)
+      prevSiblingId && elementDomainService.element(prevSiblingId)
 
     const nextSibling =
-      nextSiblingId && elementService.getElement(nextSiblingId)
+      nextSiblingId && elementDomainService.element(nextSiblingId)
 
-    const parentElement = elementService.getElement(parentElementId)
+    const parentElement = elementDomainService.element(parentElementId)
 
     if (prevSibling && draggedElement.prevSibling?.id !== prevSiblingId) {
       await elementService.move({

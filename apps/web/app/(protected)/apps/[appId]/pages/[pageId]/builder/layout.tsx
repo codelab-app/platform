@@ -1,34 +1,8 @@
-import type { PageContextParams } from '@codelab/frontend/abstract/types'
+import type { DashboardLayoutProps } from '@codelab/frontend-presentation-view/templates'
 
-import {
-  DashboardLayout,
-  type DashboardSections,
-} from '@codelab/frontend-presentation-view/templates'
-import { type ReactNode } from 'react'
+import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
+import { appBuilderQuery } from '@codelab/frontend-application-app/use-cases/app-builder'
+import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
+import { DashboardLayout } from '@codelab/frontend-presentation-view/templates'
 
-const Layout = ({
-  children,
-  configPane,
-  header,
-  params: { appId, pageId },
-  primarySidebar,
-  secondaryPopover,
-}: DashboardSections & {
-  params: PageContextParams
-  children: ReactNode
-}) => {
-  return (
-    <DashboardLayout<DashboardSections>
-      appId={appId}
-      configPane={configPane}
-      header={header}
-      pageId={pageId}
-      primarySidebar={primarySidebar}
-      secondaryPopover={secondaryPopover}
-    >
-      {children}
-    </DashboardLayout>
-  )
-}
-
-export default Layout
+export default DashboardLayout

@@ -7,7 +7,10 @@ import type {
   IResourceType,
   IUpdateResourceData,
 } from '@codelab/shared/abstract/core'
-import type { ResourceOptions, ResourceWhere } from '@codelab/shared/infra/gql'
+import type {
+  ResourceOptions,
+  ResourceWhere,
+} from '@codelab/shared/infra/gqlgen'
 
 import type { ICrudService, IQueryService } from '../services'
 

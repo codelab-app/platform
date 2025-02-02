@@ -1,11 +1,8 @@
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 
-import { useElementService } from '../services'
-
 export const useRequiredParentValidator = () => {
-  const elementService = useElementService()
-  const { atomDomainService } = useDomainStore()
+  const { atomDomainService, elementDomainService } = useDomainStore()
 
   const validate = (childAtomId?: string, parentAtomId?: string) => {
     const parentAtom = atomDomainService.atomsList.find(
@@ -46,8 +43,8 @@ export const useRequiredParentValidator = () => {
     childElementId?: string,
     parentElementId?: string,
   ) => {
-    const parentElement = elementService.getElement(String(parentElementId))
-    const childElement = elementService.getElement(String(childElementId))
+    const parentElement = elementDomainService.element(String(parentElementId))
+    const childElement = elementDomainService.element(String(childElementId))
 
     return validate(childElement.renderType.id, parentElement.renderType.id)
   }
@@ -56,7 +53,7 @@ export const useRequiredParentValidator = () => {
     childAtomId?: string,
     parentElementId?: string,
   ) => {
-    const parentElement = elementService.getElement(String(parentElementId))
+    const parentElement = elementDomainService.element(String(parentElementId))
 
     if (!childAtomId) {
       return true

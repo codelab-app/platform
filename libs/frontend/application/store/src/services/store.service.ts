@@ -2,9 +2,12 @@ import { type IStoreService } from '@codelab/frontend/abstract/application'
 import { type IStoreModel } from '@codelab/frontend/abstract/domain'
 import { storeRepository } from '@codelab/frontend-domain-store/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { type IRef, type IStoreDto } from '@codelab/shared/abstract/core'
-import { type StoreFragment, type StoreWhere } from '@codelab/shared/infra/gql'
-import { Validator } from '@codelab/shared/infra/schema'
+import { type IStoreDto } from '@codelab/shared/abstract/core'
+import {
+  type StoreFragment,
+  type StoreWhere,
+} from '@codelab/shared/infra/gqlgen'
+import { Validator } from '@codelab/shared/infra/typebox'
 
 export const useStoreService = (): IStoreService => {
   const { actionDomainService, storeDomainService, typeDomainService } =
@@ -54,29 +57,17 @@ export const useStoreService = (): IStoreService => {
 
     actionDomainService.load(stores.flatMap((store) => store.actions))
 
-    typeDomainService.hydrateTypes({
-      interfaceTypes: stores.map((store) => store.api),
-    })
+    typeDomainService.hydrateTypes(stores.map((store) => store.api))
 
     return stores.map((store) =>
       storeDomainService.hydrate({ ...store, source: null }),
     )
   }
 
-  const getOneFromCache = (ref: IRef) => {
-    return storeDomainService.stores.get(ref.id)
-  }
-
-  const getAllFromCache = () => {
-    return Array.from(storeDomainService.stores.values())
-  }
-
   return {
     create,
     getAll,
-    getAllFromCache,
     getOne,
-    getOneFromCache,
     load,
     removeMany,
     update,

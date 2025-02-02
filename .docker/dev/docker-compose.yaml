@@ -11,13 +11,14 @@ version: '3.8'
 name: 'codelab'
 services:
   neo4j:
-    container_name: codelab-neo4j
-    image: neo4j:5.25.1
+    container_name: neo4j
+    image: neo4j:5.26.0-enterprise
     volumes:
       - codelab-neo4j:/data
       - codelab-neo4j:/plugins
       - codelab-neo4j:/import
       - codelab-neo4j:/logs
+      - ./../cypher/scripts:/scripts
     ports:
       - '7474:7474'
       - '7687:7687'
@@ -38,15 +39,18 @@ services:
       # - NEO4J_dbms_allow__upgrade=true
     # networks: ["codelab-neo4j"]
     restart: unless-stopped
+    # Create a wrapper around Neo4j entrypoint to run our own init scripts
+    entrypoint: ['/scripts/entrypoint.sh']
 
   neo4j-test:
-    container_name: codelab-neo4j-test
-    image: neo4j:5.25.1
+    container_name: neo4j-test
+    image: neo4j:5.26.0-enterprise
     volumes:
       - codelab-neo4j-test:/data
       - codelab-neo4j-test:/plugins
       - codelab-neo4j-test:/import
       - codelab-neo4j-test:/logs
+      - ./../cypher/scripts:/scripts
     ports:
       - '7475:7474'
       - '7688:7687'
@@ -59,6 +63,7 @@ services:
       - NEO4J_PLUGINS=["apoc"]
       - NEO4J_AUTH=neo4j/password
     restart: unless-stopped
+    entrypoint: ['/scripts/entrypoint.sh']
 
   # Collectors, used for collecting metrics and traces
   opentelemetry:

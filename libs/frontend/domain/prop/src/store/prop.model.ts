@@ -2,16 +2,11 @@ import type {
   IInterfaceTypeModel,
   IPropModel,
 } from '@codelab/frontend/abstract/domain'
-import type { IPropDto } from '@codelab/shared/abstract/core'
+import type { IPropData, IPropDto } from '@codelab/shared/abstract/core'
 import type { Nullable, ObjectLike } from '@codelab/shared/abstract/types'
-import type {
-  PropCreateInput,
-  PropUpdateInput,
-} from '@codelab/shared/infra/gql'
 import type { Ref } from 'mobx-keystone'
 
 import { typeRef } from '@codelab/frontend/abstract/domain'
-import { IPropData } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
   clone,
@@ -96,7 +91,7 @@ export class Prop
   }
 
   @modelAction
-  delete(key: string) {
+  remove(key: string) {
     // Need to cast since deleting key changes the interface
     this.data = frozen(omit(this.data.data ?? {}, [key as keyof IPropData]))
   }

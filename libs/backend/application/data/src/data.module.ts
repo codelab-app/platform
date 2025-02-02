@@ -1,21 +1,26 @@
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
-import { ValidationModule } from '@codelab/backend/infra/adapter/typebox'
 import { Module } from '@nestjs/common'
 
 import {
+  ImportDataMapperService,
   MigrationDataService,
   ReadAdminDataService,
   WriteAdminDataService,
 } from './service'
 
 @Module({
-  exports: [ReadAdminDataService, WriteAdminDataService, MigrationDataService],
-  imports: [ValidationModule],
+  exports: [
+    ReadAdminDataService,
+    WriteAdminDataService,
+    MigrationDataService,
+    ImportDataMapperService,
+  ],
   providers: [
     AuthDomainService,
     ReadAdminDataService,
     WriteAdminDataService,
     MigrationDataService,
+    ImportDataMapperService,
   ],
 })
 export class DataModule {}

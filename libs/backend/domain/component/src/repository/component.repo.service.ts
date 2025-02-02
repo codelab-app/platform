@@ -1,51 +1,40 @@
+import type { IComponentDto, INodeType } from '@codelab/shared/abstract/core'
 import type {
-  Component,
   ComponentOptions,
   ComponentWhere,
-} from '@codelab/backend/abstract/codegen'
-import type { IComponentDto } from '@codelab/shared/abstract/core'
+} from '@codelab/shared/infra/gqlgen'
 
-import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
-import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
-import {
-  componentSelectionSet,
-  OgmService,
-} from '@codelab/backend/infra/adapter/neo4j'
-import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { AbstractRepository } from '@codelab/backend/infra/core'
+import { ComponentFragment } from '@codelab/shared/infra/gqlgen'
 import {
+  componentApi,
   componentMapper,
-  connectNodeId,
-  connectOwner,
-} from '@codelab/shared/domain-old'
+} from '@codelab/shared-domain-module/component'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class ComponentRepository extends AbstractRepository<
+  INodeType.Component,
   IComponentDto,
-  Component,
+  ComponentFragment,
   ComponentWhere,
   ComponentOptions
 > {
-  constructor(
-    private ogmService: OgmService,
-    protected override validationService: ValidationService,
-    protected override loggerService: CodelabLoggerService,
-  ) {
-    super(validationService, loggerService)
+  constructor(protected override loggerService: PinoLoggerService) {
+    super(loggerService)
   }
 
   async _addMany(components: Array<IComponentDto>) {
-    return (
-      await (
-        await this.ogmService.Component
-      ).create({
-        input: components.map((component) =>
-          componentMapper.toCreateInput(component),
-        ),
-        selectionSet: `{ components { ${componentSelectionSet} } }`,
-      })
-    ).components
+    const {
+      createComponents: { components: createdComponents },
+    } = await componentApi().CreateComponents({
+      input: components.map((component) =>
+        componentMapper.toCreateInput(component),
+      ),
+    })
+
+    return createdComponents
   }
 
   protected async _find({
@@ -55,23 +44,22 @@ export class ComponentRepository extends AbstractRepository<
     where?: ComponentWhere
     options?: ComponentOptions
   }) {
-    return await (
-      await this.ogmService.Component
-    ).find({
+    const { items } = await componentApi().ComponentList({
       options,
-      selectionSet: `{ ${componentSelectionSet} }`,
       where,
     })
+
+    return items
   }
 
   protected async _update(component: IComponentDto, where: ComponentWhere) {
-    return (
-      await (
-        await this.ogmService.Component
-      ).update({
-        update: componentMapper.toUpdateInput(component),
-        where,
-      })
-    ).components[0]
+    const {
+      updateComponents: { components },
+    } = await componentApi().UpdateComponents({
+      update: componentMapper.toUpdateInput(component),
+      where,
+    })
+
+    return components[0]
   }
 }

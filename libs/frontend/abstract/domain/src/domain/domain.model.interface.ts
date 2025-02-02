@@ -1,11 +1,6 @@
-import type { IDomain, IDomainDto, IRef } from '@codelab/shared/abstract/core'
+import type { IDomainDto, IRef } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
-import type {
-  DeleteDomainsMutationVariables,
-  DomainCreateInput,
-  DomainUpdateInput,
-  ProductionDomainConfig,
-} from '@codelab/shared/infra/gql'
+import type { ProductionDomainConfig } from '@codelab/shared/infra/gqlgen'
 
 import type { IModel } from '../shared/models/model.interface'
 

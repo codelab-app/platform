@@ -6,6 +6,7 @@ import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
 import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import { CuiSidebarSecondary } from '@codelab/frontend/presentation/codelab-ui'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import { useRef } from 'react'
@@ -21,8 +22,9 @@ export const UpdateAuthGuardPopover = observer<UpdateAuthGuardPopoverProps>(
   ({ id }) => {
     const submitRef = useRef<Maybe<SubmitController>>()
     const router = useRouter()
-    const { getOneFromCache, updatePopover } = useAuthGuardService()
-    const authGuard = getOneFromCache({ id })
+    const { authGuardDomainService } = useDomainStore()
+    const authGuard = authGuardDomainService.authGuards.get(id)
+    const { updatePopover } = useAuthGuardService()
 
     if (!authGuard) {
       return null

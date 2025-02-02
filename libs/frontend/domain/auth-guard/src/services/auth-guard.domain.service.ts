@@ -2,8 +2,8 @@ import type {
   IAuthGuardDomainService,
   IAuthGuardModel,
 } from '@codelab/frontend/abstract/domain'
+import type { IAuthGuardDto } from '@codelab/shared/abstract/core'
 
-import { IAuthGuardDto } from '@codelab/shared/abstract/core'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 
 import { AuthGuardModel } from '../store'

@@ -13,6 +13,7 @@ environment:
 
 steps:
   - restore-workspace
+  - setup-neo4j
   # - clear-jest-cache
   - run:
       name: 'Run Integration Tests'

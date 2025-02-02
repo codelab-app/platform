@@ -19,7 +19,7 @@ export const CuiSidebarPopoverLayout = ({
     <div
       className="w-1/5"
       style={{
-        display: popover.isAnyPopoverOpen() ? 'flex' : 'none',
+        display: popover.isAnyPopoverOpen ? 'flex' : 'none',
         left: `${left}px`,
         position: 'absolute',
         top: `${top + borderWidth}px`,

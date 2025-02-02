@@ -1,7 +1,4 @@
-import type {
-  IAppAggregateExport,
-  IAppAggregateImport,
-} from '@codelab/shared/abstract/core'
+import type { IAppAggregateImport } from '@codelab/shared/abstract/core'
 
 import { ImportComponentsCommand } from '@codelab/backend/application/component'
 import { ImportPageCommand } from '@codelab/backend/application/page'
@@ -9,7 +6,6 @@ import { AppRepository } from '@codelab/backend/domain/app'
 import { DomainRepository } from '@codelab/backend/domain/domain'
 import { PropRepository } from '@codelab/backend/domain/prop'
 import { ResourceRepository } from '@codelab/backend/domain/resource'
-import { DigitaloceanService } from '@codelab/backend/infra/adapter/digitalocean'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 
 export class ImportAppCommand {
@@ -23,8 +19,7 @@ export class ImportAppHandler implements ICommandHandler<ImportAppCommand> {
     private readonly resourceRepository: ResourceRepository,
     private readonly propRepository: PropRepository,
     private readonly commandBus: CommandBus,
-    private domainRepository: DomainRepository,
-    private digitaloceanService: DigitaloceanService,
+    private readonly domainRepository: DomainRepository,
   ) {}
 
   async execute(command: ImportAppCommand) {
@@ -46,13 +41,13 @@ export class ImportAppHandler implements ICommandHandler<ImportAppCommand> {
       await this.domainRepository.save(domain)
     }
 
+    await this.appRepository.save(app)
+
     for (const page of pages) {
       await this.commandBus.execute<ImportPageCommand>(
         new ImportPageCommand(page),
       )
     }
-
-    await this.appRepository.save(app)
 
     return app
   }

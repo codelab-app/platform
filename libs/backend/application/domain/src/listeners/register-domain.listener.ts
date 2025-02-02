@@ -1,15 +1,18 @@
 import type { BeforeApplicationShutdown } from '@nestjs/common'
 import type { Subscription } from 'zen-observable-ts'
 
-import { apolloClient } from '@codelab/backend/infra/adapter/graphql'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
+import { nodeApolloClient } from '@codelab/shared/infra/gql-client'
+import {
+  DomainCreatedDocument,
+  DomainCreatedSubscription,
+  DomainDeletedDocument,
+  DomainDeletedSubscription,
+  DomainUpdatedDocument,
+  DomainUpdatedSubscription,
+} from '@codelab/shared-domain-module/domain'
 import { Injectable } from '@nestjs/common'
 import { EventEmitter2, OnEvent } from '@nestjs/event-emitter'
-
-import type {
-  DomainCreatedSubscription,
-  DomainDeletedSubscription,
-  DomainUpdatedSubscription,
-} from '../graphql/domain.subscription.graphql.api.gen'
 
 import {
   DOMAIN_CREATED_EVENT,
@@ -23,24 +26,27 @@ import {
   DOMAIN_UPDATED_EVENT,
   DomainUpdatedEvent,
 } from '../events/domain-updated.event'
-import {
-  DomainCreatedDocument,
-  DomainDeletedDocument,
-  DomainUpdatedDocument,
-} from '../graphql/domain.subscription.graphql.api.gen'
 
 @Injectable()
 export class RegisterDomainListener implements BeforeApplicationShutdown {
-  constructor(private eventEmitter: EventEmitter2) {}
+  constructor(
+    private eventEmitter: EventEmitter2,
+    private logger: PinoLoggerService,
+  ) {}
 
   @OnEvent('server.ready')
   registerCreatedSubscriptions() {
-    this.subscription = apolloClient
+    const subscription = nodeApolloClient()
       .subscribe<DomainCreatedSubscription>({
         query: DomainCreatedDocument,
       })
       .subscribe({
         next: async ({ data }) => {
+          this.logger.log('Domain Created Event received', {
+            context: 'RegisterDomainListener',
+            data,
+          })
+
           if (!data) {
             throw new Error('Invalid subscription data')
           }
@@ -51,16 +57,23 @@ export class RegisterDomainListener implements BeforeApplicationShutdown {
           )
         },
       })
+
+    this.subscriptions?.push(subscription)
   }
 
   @OnEvent('server.ready')
   registerDeletedSubscriptions() {
-    this.subscription = apolloClient
+    const subscription = nodeApolloClient()
       .subscribe<DomainDeletedSubscription>({
         query: DomainDeletedDocument,
       })
       .subscribe({
         next: async ({ data }) => {
+          this.logger.log('Domain Deleted Event received', {
+            context: 'RegisterDomainListener',
+            data,
+          })
+
           if (!data) {
             throw new Error('Invalid subscription data')
           }
@@ -71,16 +84,23 @@ export class RegisterDomainListener implements BeforeApplicationShutdown {
           )
         },
       })
+
+    this.subscriptions?.push(subscription)
   }
 
   @OnEvent('server.ready')
   registerUpdatedSubscriptions() {
-    this.subscription = apolloClient
+    const subscription = nodeApolloClient()
       .subscribe<DomainUpdatedSubscription>({
         query: DomainUpdatedDocument,
       })
       .subscribe({
         next: async ({ data }) => {
+          this.logger.log('Domain Updated Event received', {
+            context: 'RegisterDomainListener',
+            data,
+          })
+
           if (!data) {
             throw new Error('Invalid subscription data')
           }
@@ -91,19 +111,21 @@ export class RegisterDomainListener implements BeforeApplicationShutdown {
           )
         },
       })
+
+    this.subscriptions?.push(subscription)
   }
 
   beforeApplicationShutdown(signal: string) {
     this.unsubscribeFromServer()
   }
 
-  private subscription?: Subscription
+  private subscriptions?: Array<Subscription> = []
 
   private unsubscribeFromServer() {
-    console.log('Unsubscribed from domain events')
+    this.logger.log('Unsubscribed from domain events', {
+      context: 'RegisterDomainListener',
+    })
 
-    if (this.subscription) {
-      this.subscription.unsubscribe()
-    }
+    this.subscriptions?.forEach((subscription) => subscription.unsubscribe())
   }
 }

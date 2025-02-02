@@ -1,46 +1,42 @@
+import type { INodeType, IRichTextTypeDto } from '@codelab/shared/abstract/core'
 import type {
-  RichTextType,
   RichTextTypeOptions,
   RichTextTypeWhere,
-} from '@codelab/backend/abstract/codegen'
-import type { IRichTextTypeDto } from '@codelab/shared/abstract/core'
+} from '@codelab/shared/infra/gqlgen'
 
-import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
-import {
-  baseTypeSelection,
-  OgmService,
-} from '@codelab/backend/infra/adapter/neo4j'
-import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import { connectOwner } from '@codelab/shared/domain-old'
+import { RichTextTypeFragment } from '@codelab/shared/infra/gqlgen'
+import {
+  createTypeApi,
+  findTypeApi,
+  richTextTypeMapper,
+  updateTypeApi,
+} from '@codelab/shared-domain-module/type'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class RichTextTypeRepository extends AbstractRepository<
+  INodeType.RichTextType,
   IRichTextTypeDto,
-  RichTextType,
+  RichTextTypeFragment,
   RichTextTypeWhere,
   RichTextTypeOptions
 > {
-  constructor(
-    private ogmService: OgmService,
-    protected override validationService: ValidationService,
-    protected override loggerService: CodelabLoggerService,
-  ) {
-    super(validationService, loggerService)
+  constructor(protected override loggerService: PinoLoggerService) {
+    super(loggerService)
   }
 
   protected async _addMany(richTextTypes: Array<IRichTextTypeDto>) {
-    return (
-      await (
-        await this.ogmService.RichTextType
-      ).create({
-        input: richTextTypes.map(({ __typename, owner, ...richTextType }) => ({
-          ...richTextType,
-          owner: connectOwner(owner),
-        })),
-      })
-    ).richTextTypes
+    const {
+      types: { types },
+    } = await createTypeApi().CreateRichTextTypes({
+      input: richTextTypes.map((richTextType) =>
+        richTextTypeMapper.toCreateInput(richTextType),
+      ),
+    })
+
+    return types
   }
 
   protected async _find({
@@ -50,26 +46,25 @@ export class RichTextTypeRepository extends AbstractRepository<
     where?: RichTextTypeWhere
     options?: RichTextTypeOptions
   }) {
-    return await (
-      await this.ogmService.RichTextType
-    ).find({
+    const { types } = await findTypeApi().GetRichTextTypes({
       options,
-      selectionSet: `{ ${baseTypeSelection} }`,
       where,
     })
+
+    return types
   }
 
   protected async _update(
-    { __typename, id, name }: IRichTextTypeDto,
+    richTextType: IRichTextTypeDto,
     where: RichTextTypeWhere,
   ) {
-    return (
-      await (
-        await this.ogmService.RichTextType
-      ).update({
-        update: { name },
-        where,
-      })
-    ).richTextTypes[0]
+    const {
+      types: { types },
+    } = await updateTypeApi().UpdateRichTextTypes({
+      update: richTextTypeMapper.toUpdateInput(richTextType),
+      where,
+    })
+
+    return types[0]
   }
 }

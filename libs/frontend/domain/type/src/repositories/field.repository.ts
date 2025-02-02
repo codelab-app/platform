@@ -3,20 +3,16 @@ import type {
   IFieldRepository,
 } from '@codelab/frontend/abstract/domain'
 import type { IFieldDto, IRef } from '@codelab/shared/abstract/core'
-import type {
-  FieldOptions,
-  FieldUniqueWhere,
-  FieldWhere,
-} from '@codelab/shared/infra/gql'
+import type { FieldOptions, FieldWhere } from '@codelab/shared/infra/gqlgen'
 
-import { fieldMapper } from '@codelab/shared/domain-old'
-import { Validator } from '@codelab/shared/infra/schema'
+import { Validator } from '@codelab/shared/infra/typebox'
 import {
-  CreateFields,
-  DeleteFields,
-  GetFields,
-  UpdateFields,
+  fieldMapper,
+  fieldServerActions,
 } from '@codelab/shared-domain-module/field'
+
+const { CreateFields, DeleteFields, GetFields, UpdateFields } =
+  fieldServerActions
 
 export const fieldRepository: IFieldRepository = {
   add: async (field: IFieldDto) => {
@@ -49,7 +45,8 @@ export const fieldRepository: IFieldRepository = {
     return await GetFields({ options, where })
   },
 
-  findOne: async (where: FieldUniqueWhere) => {
+  // FIXME: make a unique where
+  findOne: async (where: FieldWhere) => {
     return (await fieldRepository.find(where)).items[0]
   },
 

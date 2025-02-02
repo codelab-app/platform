@@ -6,9 +6,6 @@ import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { CuiSidebar } from '@codelab/frontend/presentation/codelab-ui'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
-import { CreateRedirectPopover } from '@codelab/frontend-application-redirect/use-cases/create-redirect'
-import { DeleteRedirectModal } from '@codelab/frontend-application-redirect/use-cases/delete-redirect'
-import { UpdateRedirectPopover } from '@codelab/frontend-application-redirect/use-cases/update-redirect'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 
@@ -25,13 +22,6 @@ export const PagesPrimarySidebar = observer<PageContextParams>(
       <CuiSidebar
         defaultActiveViewKeys={['pages']}
         label="Pages"
-        popover={
-          <>
-            <CreateRedirectPopover />
-            <UpdateRedirectPopover />
-            <DeleteRedirectModal />
-          </>
-        }
         uiKey={UiKey.PageSidebar}
         views={[
           {
@@ -43,7 +33,7 @@ export const PagesPrimarySidebar = observer<PageContextParams>(
                 {
                   cuiKey: UiKey.PageToolbarItemCreate,
                   icon: <PlusOutlined />,
-                  onClick: () => createPopover.open(router, appId, pageId),
+                  onClick: () => createPopover.open(router, { appId, pageId }),
                   title: 'Create Page',
                 },
               ],

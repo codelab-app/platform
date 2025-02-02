@@ -1,8 +1,8 @@
 import type {
   IAppDto,
   ICreateElementData,
-  ICreatePageData,
   IPage,
+  IPageCreateFormData,
 } from '@codelab/shared/abstract/core'
 
 import { IAtomType, IPageKind, ITypeKind } from '@codelab/shared/abstract/core'
@@ -71,7 +71,7 @@ export const dynamicPageTextElement: ICreateElementData = {
 }
 
 export const buildTestPages = (app: IAppDto) => {
-  const staticPage: ICreatePageData = {
+  const staticPage: IPageCreateFormData = {
     app,
     id: v4(),
     kind: IPageKind.Regular,
@@ -79,7 +79,7 @@ export const buildTestPages = (app: IAppDto) => {
     urlPattern: '/test-page',
   }
 
-  const dynamicPage: ICreatePageData = {
+  const dynamicPage: IPageCreateFormData = {
     app,
     id: v4(),
     kind: IPageKind.Regular,
@@ -111,7 +111,7 @@ export const seedTestData = async (request: APIRequestContext) => {
     ],
   })
 
-  const pageResponse = await request.post('/api/v1/page/create-page', {
+  const pageResponse = await request.post('/api/v1/page/create', {
     data: pages.staticPage,
   })
 
@@ -127,7 +127,7 @@ export const seedTestData = async (request: APIRequestContext) => {
     ],
   })
 
-  const dynamicPageResponse = await request.post('/api/v1/page/create-page', {
+  const dynamicPageResponse = await request.post('/api/v1/page/create', {
     data: pages.dynamicPage,
   })
 

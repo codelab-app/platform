@@ -1,26 +1,16 @@
-import type {
-  ActionTypeWhere,
-  ArrayTypeWhere,
-  CodeMirrorTypeWhere,
-  EnumTypeWhere,
-  InterfaceTypeWhere,
-  PrimitiveTypeWhere,
-  ReactNodeTypeWhere,
-  RenderPropTypeWhere,
-  RichTextTypeWhere,
-  UnionTypeWhere,
-} from '@codelab/backend/abstract/codegen'
-import type { IType, ITypeWhere } from '@codelab/backend/abstract/core'
-import type { ITypeDto, ITypeMaybeRef } from '@codelab/shared/abstract/core'
+import type { IRef, ITypeDto, ITypeRef } from '@codelab/shared/abstract/core'
 
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
-  getTypeDescendantsOGM,
-  NEO4J_DRIVER_PROVIDER,
-} from '@codelab/backend/infra/adapter/neo4j'
+  getTypeDescendants,
+  Neo4jService,
+} from '@codelab/backend-infra-adapter/neo4j-driver'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { Inject, Injectable } from '@nestjs/common'
+import { NotFoundError } from '@codelab/shared/domain/errors'
+import { Maybe, TypeFragment } from '@codelab/shared/infra/gqlgen'
+import { TypeCreateMap } from '@codelab/shared-domain-module/type'
+import { Injectable } from '@nestjs/common'
 import { TAnySchema } from '@sinclair/typebox'
-import { Driver } from 'neo4j-driver'
 
 import {
   ActionType,
@@ -63,20 +53,26 @@ export class TypeFactory {
     private readonly unionTypeRepository: UnionTypeRepository,
     private readonly arrayTypeRepository: ArrayTypeRepository,
     private readonly codeMirrorRepository: CodeMirrorTypeRepository,
-    @Inject(NEO4J_DRIVER_PROVIDER) private driver: Driver,
+    private readonly neo4jService: Neo4jService,
+    private readonly logger: PinoLoggerService,
   ) {}
 
   async descendantEntities(typeId: string) {
-    const session = this.driver.session()
+    this.logger.verbose('Getting type descendants', {
+      context: 'TypeFactory',
+      data: { typeId },
+    })
 
-    const results = await session.run(getTypeDescendantsOGM, {
+    const session = this.neo4jService.driver.session()
+
+    const results = await session.run(getTypeDescendants, {
       id: typeId,
     })
 
     // We pass in a single id, so only get 1 record, for each record, we want the first column
     const descendants = [
       ...(results.records[0]?.values() ?? []),
-    ][0] as Array<ITypeMaybeRef>
+    ][0] as Array<ITypeRef>
 
     // We only get interface type descendants, since other types are pushed in front of interfaces
     const sortedDescendants = descendants.sort((a, b) =>
@@ -86,7 +82,15 @@ export class TypeFactory {
     return sortedDescendants
   }
 
-  async findOne({ __typename, id }: ITypeMaybeRef, schema?: TAnySchema) {
+  async findOne(
+    { __typename, id }: ITypeRef,
+    schema?: TAnySchema,
+  ): Promise<Maybe<TypeFragment>> {
+    this.logger.verbose('Finding type', {
+      context: 'TypeFactory',
+      data: { __typename, id },
+    })
+
     switch (__typename) {
       case ITypeKind.ActionType: {
         return (await this.actionTypeRepository).findOne({
@@ -159,13 +163,40 @@ export class TypeFactory {
       }
 
       default: {
-        console.log({ __typename })
         throw new Error('No type factory found')
       }
     }
   }
 
-  async save<T extends IType>(type: ITypeDto, where?: ITypeWhere): Promise<T> {
+  async findOneOrFail(
+    { __typename, id }: ITypeRef,
+    schema?: TAnySchema,
+  ): Promise<TypeFragment> {
+    this.logger.verbose('Finding type or fail', {
+      context: 'TypeFactory',
+      data: { __typename, id },
+    })
+
+    const found = await this.findOne({ __typename, id }, schema)
+
+    if (!found) {
+      throw new NotFoundError('Could not find type!', {
+        where: { __typename, id },
+      })
+    }
+
+    return found
+  }
+
+  async save<T extends ITypeDto>(
+    type: TypeCreateMap[T['kind']]['dto'],
+    where?: TypeCreateMap[T['kind']]['where'],
+  ): Promise<IRef> {
+    this.logger.verbose('Saving type', {
+      context: 'TypeFactory',
+      data: { type: type.__typename },
+    })
+
     /**
      * Type narrow using discriminated union
      */
@@ -173,95 +204,64 @@ export class TypeFactory {
       case ITypeKind.ActionType: {
         const actionType = new ActionType(type)
 
-        return (await this.actionTypeRepository.save(
-          actionType,
-          where as ActionTypeWhere,
-        )) as T
+        return await this.actionTypeRepository.save(actionType, where)
       }
 
       case ITypeKind.ArrayType: {
         const arrayType = new ArrayType(type)
 
-        return (await this.arrayTypeRepository.save(
-          arrayType,
-          where as ArrayTypeWhere,
-        )) as T
+        return await this.arrayTypeRepository.save(arrayType, where)
       }
 
       case ITypeKind.CodeMirrorType: {
         const codeMirrorType = new CodeMirrorType(type)
 
-        return (await this.codeMirrorRepository.save(
-          codeMirrorType,
-          where as CodeMirrorTypeWhere,
-        )) as T
+        return await this.codeMirrorRepository.save(codeMirrorType, where)
       }
 
       case ITypeKind.EnumType: {
         const enumType = new EnumType(type)
 
-        return (await this.enumTypeRepository.save(
-          enumType,
-          where as EnumTypeWhere,
-        )) as T
+        return await this.enumTypeRepository.save(enumType, where)
       }
 
       case ITypeKind.InterfaceType: {
         const interfaceType = new InterfaceType(type)
 
-        return (await this.interfaceTypeRepository.save(
-          interfaceType,
-          where as InterfaceTypeWhere,
-        )) as T
+        return await this.interfaceTypeRepository.save(interfaceType, where)
       }
 
       case ITypeKind.PrimitiveType: {
         const primitiveType = new PrimitiveType(type)
 
-        return (await this.primitiveTypeRepository.save(
-          primitiveType,
-          where as PrimitiveTypeWhere,
-        )) as T
+        return await this.primitiveTypeRepository.save(primitiveType, where)
       }
 
       case ITypeKind.ReactNodeType: {
         const reactNodeType = new ReactNodeType(type)
 
-        return (await this.reactNodeTypeRepository.save(
-          reactNodeType,
-          where as ReactNodeTypeWhere,
-        )) as T
+        return await this.reactNodeTypeRepository.save(reactNodeType, where)
       }
 
       case ITypeKind.RenderPropType: {
         const renderPropType = new RenderPropType(type)
 
-        return (await this.renderPropTypeRepository.save(
-          renderPropType,
-          where as RenderPropTypeWhere,
-        )) as T
+        return await this.renderPropTypeRepository.save(renderPropType, where)
       }
 
       case ITypeKind.RichTextType: {
         const richTextType = new RichTextType(type)
 
-        return (await this.richTextTypeRepository.save(
-          richTextType,
-          where as RichTextTypeWhere,
-        )) as T
+        return await this.richTextTypeRepository.save(richTextType, where)
       }
 
       case ITypeKind.UnionType: {
         const unionType = new UnionType(type)
 
-        return (await this.unionTypeRepository.save(
-          unionType,
-          where as UnionTypeWhere,
-        )) as T
+        return await this.unionTypeRepository.save(unionType, where)
       }
 
       default: {
-        console.log('Data:', type)
         throw new Error('No type factory found')
       }
     }

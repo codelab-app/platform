@@ -1,14 +1,11 @@
-import type { AppWhere, Element } from '@codelab/backend/abstract/codegen'
 import type {
-  IApiAction,
   IAppAggregateExport,
   IComponentAggregateExport,
-  IElement,
   IElementExport,
   IPageAggregateExport,
-  IPageDto,
   IRef,
 } from '@codelab/shared/abstract/core'
+import type { AppWhere } from '@codelab/shared/infra/gqlgen'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
 import { ExportComponentCommand } from '@codelab/backend/application/component'
@@ -22,8 +19,6 @@ import {
   IActionKind,
   IElementRenderTypeKind,
 } from '@codelab/shared/abstract/core'
-import { Page, PageFragment } from '@codelab/shared/infra/gql'
-import { Validator } from '@codelab/shared/infra/schema'
 import { uuidRegex } from '@codelab/shared/utils'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 import { unique } from 'radash'
@@ -70,18 +65,21 @@ export class ExportAppHandler
     const components: Array<IComponentAggregateExport> = []
 
     for (const { page } of pages) {
-      const elements = (
-        await this.elementRepository.getElementWithDescendants(
-          page.rootElement.id,
-        )
-      ).map((element: Element) => ({
-        ...element,
-        renderType: {
-          __typename: Validator.parseDefined(element.renderType.__typename),
-          id: element.renderType.id,
-        },
-      }))
-
+      // TODO: need to create a separate query that contains descendants
+      // This can access the resolvers
+      // const elements = page.rootElement.descendants
+      const elements: Array<IElementExport> = []
+      // const elements = (
+      //   await this.elementRepository.getElementWithDescendants(
+      //     page.rootElement.id,
+      //   )
+      // ).map((element: Element) => ({
+      //   ...element,
+      //   renderType: {
+      //     __typename: Validator.parseDefined(element.renderType.__typename),
+      //     id: element.renderType.id,
+      //   },
+      // }))
       let elementsCurrentBatch: Array<IElementExport> = elements
 
       // get all components and nested components that are used in the page including their elements

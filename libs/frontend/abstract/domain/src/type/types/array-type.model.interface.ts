@@ -1,8 +1,4 @@
 import type { IArrayTypeDto, ITypeKind } from '@codelab/shared/abstract/core'
-import type {
-  ArrayTypeCreateInput,
-  UpdateArrayTypesMutationVariables,
-} from '@codelab/shared/infra/gql'
 import type { Ref } from 'mobx-keystone'
 
 import type { IBaseTypeModel, ITypeModel } from './base-type.model.interface'

@@ -1,22 +1,19 @@
 import type {
-  PreferenceCreateInput,
-  PreferenceDeleteInput,
-  PreferenceUpdateInput,
-} from '@codelab/shared/infra/gql'
-
-import {
-  type IPreferenceModel,
+  IPreferenceModel,
   IUserModel,
-  userRef,
 } from '@codelab/frontend/abstract/domain'
-import {
+import type {
   IBreakpoint,
   IBreakpointType,
-  type IPreferenceDto,
+  IPreferenceDto,
 } from '@codelab/shared/abstract/core'
-import { breakpoints } from '@codelab/shared/domain-old'
+import type { PreferenceDeleteInput } from '@codelab/shared/infra/gqlgen'
+import type { Ref } from 'mobx-keystone'
+
+import { userRef } from '@codelab/frontend/abstract/domain'
+import { breakpoints } from '@codelab/shared/config/builder'
 import { computed } from 'mobx'
-import { idProp, Model, model, modelAction, prop, Ref } from 'mobx-keystone'
+import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
 const create = ({
   builderBreakpointType,
@@ -73,7 +70,7 @@ export class Preference
     this.builderWidth =
       !builderWidth && builderBreakpointType
         ? this.builderBreakpoint.default
-        : builderWidth ?? this.builderWidth
+        : (builderWidth ?? this.builderWidth)
 
     return this
   }

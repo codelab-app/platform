@@ -32,8 +32,8 @@ export const UpdateResourceForm = observer<UpdateResourceFormProps>(
       type: resource.type,
     }
 
-    const onSubmit = (resourceDTO: IUpdateResourceData) =>
-      resourceService.update(resourceDTO)
+    const onSubmit = (resourceDto: IUpdateResourceData) =>
+      resourceService.update(resourceDto)
 
     return (
       <Form<IUpdateResourceData>

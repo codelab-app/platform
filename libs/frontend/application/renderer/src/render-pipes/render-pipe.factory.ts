@@ -3,11 +3,13 @@ import type { IRenderPipe } from '@codelab/frontend/abstract/application'
 import type { PassThroughRenderPipe } from './pass-through-render-pipe'
 
 import { AtomRenderPipe } from './atom-render-pipe'
+import { ComponentRenderPipe } from './component-render-pipe'
 import { NullRenderPipe } from './null-render-pipe'
 import { PreRenderPipe } from './pre-render-pipe'
 
 export type RenderPipeClass =
   | typeof AtomRenderPipe
+  | typeof ComponentRenderPipe
   | typeof PassThroughRenderPipe
   | typeof PreRenderPipe
 
@@ -15,6 +17,7 @@ export type RenderPipeClass =
 export const defaultPipes: Array<RenderPipeClass> = [
   PreRenderPipe,
   AtomRenderPipe,
+  ComponentRenderPipe,
 ].reverse()
 
 /**

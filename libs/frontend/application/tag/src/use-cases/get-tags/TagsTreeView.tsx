@@ -82,8 +82,8 @@ export const TagsTreeView = observer(({ showSearchBar }: TagsTreeViewProps) => {
         )
       }}
       onSearchKeywordChange={(keyword) => {
-        routerService.setQueryParams({
-          ...routerService.queryParams,
+        routerService.setSearchParams({
+          ...routerService.searchParams,
           search: keyword,
         })
       }}

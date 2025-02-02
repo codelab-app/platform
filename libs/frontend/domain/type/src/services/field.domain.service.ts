@@ -1,9 +1,12 @@
-import type {
-  IFieldDomainService,
-  IFieldModel,
-} from '@codelab/frontend/abstract/domain'
+import type { IFieldDto } from '@codelab/shared/abstract/core'
 
-import { IFieldDto } from '@codelab/shared/abstract/core'
+import {
+  getTypeDomainService,
+  type IFieldDomainService,
+  type IFieldModel,
+  type IInterfaceTypeModel,
+} from '@codelab/frontend/abstract/domain'
+import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 
 import { Field } from '../store'
@@ -15,6 +18,9 @@ export class FieldDomainService
   })
   implements IFieldDomainService
 {
+  /**
+   * Field api type must be hydrated before field is hydrated
+   */
   @modelAction
   hydrate(fieldDto: IFieldDto) {
     const existingField = this.fields.get(fieldDto.id)
@@ -26,6 +32,13 @@ export class FieldDomainService
     const field = Field.create(fieldDto)
 
     this.fields.set(field.id, field)
+
+    // Need to add field to interfaceTypeModel as well
+    const interfaceTypeModel = this.typeDomainService.type<IInterfaceTypeModel>(
+      fieldDto.api.id,
+    )
+
+    interfaceTypeModel.writeFieldCache([field])
 
     return field
   }
@@ -43,5 +56,10 @@ export class FieldDomainService
 
   getField(id: string) {
     return this.fields.get(id)
+  }
+
+  @computed
+  private get typeDomainService() {
+    return getTypeDomainService(this)
   }
 }

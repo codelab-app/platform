@@ -1,9 +1,9 @@
-import type { IAtomExport, IAtomImport } from '@codelab/shared/abstract/core'
+import type { IAtomImport } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
 import { ImportApiCommand } from '@codelab/backend/application/type'
 import { AtomRepository } from '@codelab/backend/domain/atom'
-import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
 export class ImportAtomCommand {
@@ -17,6 +17,7 @@ export class ImportAtomHandler
   constructor(
     private readonly atomRepository: AtomRepository,
     private commandBus: CommandBus,
+    private readonly logger: PinoLoggerService,
   ) {}
 
   async execute(command: ImportAtomCommand) {
@@ -24,10 +25,23 @@ export class ImportAtomHandler
       atomImport: { api, atom },
     } = command
 
-    console.log('Importing atom...', atom.name)
+    const importApi = async () => {
+      await this.commandBus.execute<ImportApiCommand>(new ImportApiCommand(api))
+    }
 
-    await this.commandBus.execute<ImportApiCommand>(new ImportApiCommand(api))
+    const saveAtom = async () => {
+      await this.atomRepository.save(atom)
+    }
 
-    await this.atomRepository.save(atom)
+    await this.logger.debugWithTiming('Import Api', importApi, {
+      context: 'ImportAtomHandler',
+    })
+
+    await this.logger.debugWithTiming('Save Atom', saveAtom, {
+      context: 'ImportAtomHandler',
+      data: {
+        atomName: atom.name,
+      },
+    })
   }
 }

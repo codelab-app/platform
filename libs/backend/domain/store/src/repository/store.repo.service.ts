@@ -1,46 +1,35 @@
-import type {
-  Store,
-  StoreOptions,
-  StoreWhere,
-} from '@codelab/backend/abstract/codegen'
-import type { IStoreDto } from '@codelab/shared/abstract/core'
+import type { INodeType, IStoreDto } from '@codelab/shared/abstract/core'
+import type { StoreOptions, StoreWhere } from '@codelab/shared/infra/gqlgen'
 
-import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
-import {
-  OgmService,
-  storeSelectionSet,
-} from '@codelab/backend/infra/adapter/neo4j'
-import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import { storeMapper } from '@codelab/shared/domain-old'
+import { StoreFragment } from '@codelab/shared/infra/gqlgen'
+import { storeApi, storeMapper } from '@codelab/shared-domain-module/store'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class StoreRepository extends AbstractRepository<
+  INodeType.Store,
   IStoreDto,
-  Store,
+  StoreFragment,
   StoreWhere,
   StoreOptions
 > {
-  constructor(
-    private ogmService: OgmService,
-    protected override validationService: ValidationService,
-    protected override loggerService: CodelabLoggerService,
-  ) {
-    super(validationService, loggerService)
+  constructor(protected override loggerService: PinoLoggerService) {
+    super(loggerService)
   }
 
   /**
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
   protected async _addMany(stores: Array<IStoreDto>) {
-    return (
-      await (
-        await this.ogmService.Store
-      ).create({
-        input: stores.map((store) => storeMapper.toCreateInput(store)),
-      })
-    ).stores
+    const {
+      createStores: { stores: createdStores },
+    } = await storeApi().CreateStores({
+      input: stores.map((store) => storeMapper.toCreateInput(store)),
+    })
+
+    return createdStores
   }
 
   protected async _find({
@@ -50,23 +39,22 @@ export class StoreRepository extends AbstractRepository<
     where?: StoreWhere
     options?: StoreOptions
   }) {
-    return await (
-      await this.ogmService.Store
-    ).find({
+    const { items } = await storeApi().GetStores({
       options,
-      selectionSet: `{ ${storeSelectionSet} }`,
       where,
     })
+
+    return items
   }
 
   protected async _update(store: IStoreDto, where: StoreWhere) {
-    return (
-      await (
-        await this.ogmService.Store
-      ).update({
-        update: storeMapper.toUpdateInput(store),
-        where,
-      })
-    ).stores[0]
+    const {
+      updateStores: { stores },
+    } = await storeApi().UpdateStores({
+      update: storeMapper.toUpdateInput(store),
+      where,
+    })
+
+    return stores[0]
   }
 }

@@ -1,14 +1,14 @@
 import type { Static } from '@sinclair/typebox'
 
-import { Typebox } from '@codelab/shared/abstract/typebox'
+import { Typebox } from '@codelab/shared/infra/typebox'
 import { Type } from '@sinclair/typebox'
 
-import { PropDtoSchema, PropSchema } from '../prop'
+import { PropDtoSchema } from '../prop'
 import { ElementRenderTypeDtoSchema } from './element-render-type'
 
 export const ElementDtoSchema = Type.Object({
-  childMapperComponent: Typebox.Nullish(Typebox.Ref),
-  childMapperPreviousSibling: Typebox.Nullish(Typebox.Ref),
+  childMapperComponent: Typebox.Nullish(Typebox.RefSchema),
+  childMapperPreviousSibling: Typebox.Nullish(Typebox.RefSchema),
   childMapperPropKey: Typebox.Nullish(Type.String()),
   /**
    * For frontend models we can compute from Mobx, but for backend we would map the data in
@@ -21,19 +21,19 @@ export const ElementDtoSchema = Type.Object({
    *
    * Instead of mapping value in, we put together in dto structure
    */
-  closestContainerNode: Typebox.Ref,
+  closestContainerNode: Typebox.RefSchema,
   compositeKey: Typebox.Nullish(Type.String()),
   expanded: Typebox.Nullish(Type.Boolean()),
-  firstChild: Typebox.Nullish(Typebox.Ref),
+  firstChild: Typebox.Nullish(Typebox.RefSchema),
   id: Type.String(),
   name: Type.String(),
-  nextSibling: Typebox.Nullish(Typebox.Ref),
-  page: Typebox.Nullish(Typebox.Ref),
-  parentComponent: Typebox.Nullish(Typebox.Ref),
-  parentElement: Typebox.Nullish(Typebox.Ref),
-  postRenderAction: Typebox.Nullish(Typebox.Ref),
-  preRenderAction: Typebox.Nullish(Typebox.Ref),
-  prevSibling: Typebox.Nullish(Typebox.Ref),
+  nextSibling: Typebox.Nullish(Typebox.RefSchema),
+  page: Typebox.Nullish(Typebox.RefSchema),
+  parentComponent: Typebox.Nullish(Typebox.RefSchema),
+  parentElement: Typebox.Nullish(Typebox.RefSchema),
+  postRenderActions: Typebox.Nullish(Type.Array(Typebox.RefSchema)),
+  preRenderActions: Typebox.Nullish(Type.Array(Typebox.RefSchema)),
+  prevSibling: Typebox.Nullish(Typebox.RefSchema),
   // Treat element as aggregate, so we include prop data here
   props: PropDtoSchema,
   renderForEachPropKey: Typebox.Nullish(Type.String()),

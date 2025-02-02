@@ -18,7 +18,7 @@ import { useAtomService } from '../services/atom.service'
 import { AtomsTreeView } from '../use-cases/get-atoms/AtomsTreeView'
 
 export const AtomsPrimarySidebar = observer(() => {
-  const { atomPopoverCreate, getDataFn, paginationService } = useAtomService()
+  const { createPopover, getDataFn, paginationService } = useAtomService()
   const router = useRouter()
   const { routerService } = useApplicationStore()
 
@@ -63,7 +63,7 @@ export const AtomsPrimarySidebar = observer(() => {
               cuiKey: UiKey.AtomToolbarItemCreate,
               icon: <PlusOutlined />,
               onClick: () => {
-                atomPopoverCreate.open(router)
+                createPopover.open(router)
               },
               title: 'Create Atom',
             },
@@ -79,7 +79,6 @@ export const AtomsPrimarySidebar = observer(() => {
     <CuiSidebar
       defaultActiveViewKeys={['atoms-view']}
       label="Atoms"
-      // popover={<CreateFieldPopover />}
       uiKey={UiKey.AtomSidebar}
       views={views}
     />

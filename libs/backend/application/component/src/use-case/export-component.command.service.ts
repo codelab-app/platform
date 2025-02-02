@@ -1,4 +1,3 @@
-import type { Element } from '@codelab/backend/abstract/codegen'
 import type {
   IApiExport,
   IComponentAggregateExport,
@@ -7,9 +6,19 @@ import type {
 
 import { ExportStoreCommand } from '@codelab/backend/application/store'
 import { ExportApiCommand } from '@codelab/backend/application/type'
-import { ComponentRepository } from '@codelab/backend/domain/component'
-import { ElementRepository } from '@codelab/backend/domain/element'
+import {
+  ComponentElementsService,
+  ComponentRepository,
+} from '@codelab/backend/domain/component'
+import {
+  ComponentDtoSchema,
+  ElementExportSchema,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
+import { ComponentFragment } from '@codelab/shared/infra/gqlgen'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
+import { Type } from '@sinclair/typebox'
 
 export class ExportComponentCommand {
   constructor(public componentId: string) {}
@@ -21,28 +30,26 @@ export class ExportComponentHandler
 {
   constructor(
     private componentRepository: ComponentRepository,
-    private elementRepository: ElementRepository,
+    private componentElementsService: ComponentElementsService,
     private commandBus: CommandBus,
   ) {}
 
   async execute({ componentId }: ExportComponentCommand) {
     const component = await this.componentRepository.findOneOrFail({
-      where: {
-        id: componentId,
-      },
+      schema: Type.Omit(ComponentDtoSchema, ['owner']),
+      where: { id: componentId },
     })
 
     const elements = (
-      await this.elementRepository.getElementWithDescendants(
-        component.rootElement.id,
+      await this.componentElementsService.getElements(
+        component as ComponentFragment,
       )
-    ).map((element: Element) => ({
-      ...element,
-      renderType: {
-        __typename: element.renderType.__typename,
-        id: element.renderType.id,
-      },
-    }))
+    ).map((element) =>
+      Validator.parse(ElementExportSchema, {
+        ...element,
+        closestContainerNode: { id: componentId },
+      }),
+    )
 
     const store = await this.commandBus.execute<
       ExportStoreCommand,
@@ -50,7 +57,10 @@ export class ExportComponentHandler
     >(new ExportStoreCommand({ id: component.store.id }))
 
     const api = await this.commandBus.execute<ExportApiCommand, IApiExport>(
-      new ExportApiCommand(component.api),
+      new ExportApiCommand({
+        __typename: ITypeKind.InterfaceType,
+        id: component.api.id,
+      }),
     )
 
     return {

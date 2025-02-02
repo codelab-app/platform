@@ -21,8 +21,11 @@ export class TagListPage extends BasePage {
   }
 
   async deleteTagNodeInTree(tagName: string) {
-    await this.getTreeItemByPrimaryTitle(tagName).locator?.hover()
-    await this.getToolbarItem(UiKey.TagToolbarItemDelete).click()
+    await this.getTree().getTreeItemByPrimaryTitle(tagName).locator?.hover()
+    await this.getTree()
+      .getTreeItemByPrimaryTitle(tagName)
+      .getToolbarItem(UiKey.TagToolbarItemDelete)
+      .click()
 
     await this.page.waitForURL('/tags/delete/**')
 
@@ -32,7 +35,7 @@ export class TagListPage extends BasePage {
 
     await this.expectGlobalProgressBarToBeHidden()
 
-    await expect(this.getModal()).toBeHidden()
+    await expect(this.getDialog()).toBeHidden()
     await expect(this.getSkeleton()).toBeHidden()
   }
 

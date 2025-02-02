@@ -4,10 +4,12 @@ import type {
 } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend-infra-mobx/context'
 import { useMemo } from 'react'
-
-import { useUpdateActionForm } from '../update-action'
 
 /**
  * @param schema
@@ -17,14 +19,16 @@ export const useActionSchema = (
   schema: JSONSchemaType<ICreateActionData | IUpdateActionData>,
 ) => {
   const { rendererService } = useApplicationStore()
-  const updateActionForm = useUpdateActionForm()
+  const { actionId } = useUrlPathParams()
+  const { actionDomainService } = useDomainStore()
+  const action = actionDomainService.actions.get(actionId)
 
   return useMemo(() => {
     const renderer = rendererService.activeRenderer?.current
     const runtimeStore = renderer?.runtimeContainerNode?.runtimeStore
 
     const forbiddenValues = Object.keys(runtimeStore?.state ?? {}).filter(
-      (fieldName) => fieldName !== updateActionForm.data?.name,
+      (fieldName) => fieldName !== action?.name,
     )
 
     return {
@@ -37,5 +41,5 @@ export const useActionSchema = (
         },
       },
     }
-  }, [rendererService.activeRenderer, schema, updateActionForm.data?.name])
+  }, [rendererService.activeRenderer, schema, action?.name])
 }

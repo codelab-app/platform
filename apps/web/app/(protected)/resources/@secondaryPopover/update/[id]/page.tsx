@@ -3,7 +3,7 @@ import { resourceRepository } from '@codelab/frontend-domain-resource/repositori
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { DashboardPopover } from '@codelab/frontend-presentation-view/templates'
 
-import UpdateResourceContainer from './page.container'
+import UpdateResourceConnector from './page.connector'
 
 const Page = async ({ params: { id } }: { params: { id: string } }) => {
   const resourceDto = await resourceRepository.findOne({ id })
@@ -14,7 +14,7 @@ const Page = async ({ params: { id } }: { params: { id: string } }) => {
         fallback={<Spinner />}
         resourcesDto={resourceDto ? [resourceDto] : []}
       >
-        <UpdateResourceContainer id={id} />
+        <UpdateResourceConnector id={id} />
       </DomainStoreHydrator>
     </DashboardPopover>
   )

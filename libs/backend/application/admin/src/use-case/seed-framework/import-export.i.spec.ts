@@ -1,5 +1,5 @@
 import { deleteFilesSync } from '@codelab/backend/shared/util'
-import { initUserContext } from '@codelab/backend/test'
+import { initUserContext } from '@codelab/backend/test/setup'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { isSubset } from '@codelab/shared/utils'
 import { CommandBus } from '@nestjs/cqrs'
@@ -10,9 +10,9 @@ import path from 'path'
 import { AdminApplicationModule } from '../../admin.application.module'
 import { ExportAdminDataCommand } from '../export/export-admin-data.command.service'
 import { ImportAdminDataCommand } from '../import/import-admin-data.command.service'
-import { getPartialAtomsFromFiles, productionDataPath } from './utils'
+import { getAtomsFromFiles, productionDataPath } from './utils'
 
-jest.setTimeout(90000)
+jest.setTimeout(240000)
 
 // We copy actual data to new path
 const testDataPath = path.resolve('./tmp/data/import-v3')
@@ -44,10 +44,11 @@ describe('Seed, import, & export data', () => {
 
     await copy(productionDataPath, testDataPath)
 
-    const partialAtomType = getPartialAtomsFromFiles()
-    const pattern = `**/{${partialAtomType.join(',')}}.json`
+    const atoms = getAtomsFromFiles({
+      // overrides: [IAtomType.ReactFragment],
+    })
 
-    deleteFilesSync(testDataPath, pattern)
+    deleteFilesSync(testDataPath, atoms)
   })
 
   afterAll(async () => {

@@ -12,8 +12,7 @@ import {
   CuiTreeItem,
   CuiTreeItemToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { searchParamsAsObject } from '@codelab/frontend/shared/utils'
-import { useCreateFieldForm } from '@codelab/frontend-application-type/use-cases/create-field'
+import { searchParamsAsObject } from '@codelab/frontend-application-shared-store/router'
 import { useRouter } from 'next/navigation'
 
 import { useAtomService } from '../../services'
@@ -27,7 +26,6 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
   const { node, type } = data.extraData
   const isAtom = type === 'atom'
   const icon = isAtom ? node.library.icon : null
-  const createFieldForm = useCreateFieldForm()
   const router = useRouter()
 
   const onEdit = () => {
@@ -58,8 +56,7 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
     // Prevent triggering `onEdit`
     event.stopPropagation()
 
-    createFieldForm.open(node.api)
-    router.push(PageType.AtomFieldCreate())
+    router.push(PageType.AtomFieldCreate(node.api.id))
   }
 
   const toolbarItems: Array<ToolbarItem> = [

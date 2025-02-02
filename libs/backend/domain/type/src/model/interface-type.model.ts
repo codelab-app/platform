@@ -6,7 +6,7 @@ import type {
 } from '@codelab/shared/abstract/core'
 
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { createInterfaceTypeName } from '@codelab/shared/domain-old'
+import { createInterfaceTypeName } from '@codelab/shared-domain-module/type'
 import { capitalCase } from 'change-case-all'
 import { v4 } from 'uuid'
 

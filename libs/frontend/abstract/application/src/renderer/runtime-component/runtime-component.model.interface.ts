@@ -1,17 +1,15 @@
 import type { IComponentModel } from '@codelab/frontend/abstract/domain'
-import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
-import type { AnyModel, Ref } from 'mobx-keystone'
-import type { ReactElement } from 'react'
+import type { Maybe } from '@codelab/shared/abstract/types'
+import type { Ref } from 'mobx-keystone'
 
-import type { IElementTreeViewDataNode } from '../../builder'
+import type { IBaseRuntimeModel } from '../runtime.model.interface'
 import type { IRuntimeElementModel } from '../runtime-element'
 import type { IRuntimeComponentPropModel } from '../runtime-prop'
-import type { IRuntimeStoreModel } from '../runtime-store'
 
 /**
  * Represents runtime model IComponentModel
  */
-export interface IRuntimeComponentModel extends AnyModel {
+export interface IRuntimeComponentModel extends IBaseRuntimeModel {
   /**
    * If runtime component is created by child mapper this sets child index
    * this could be different from the child render index if element has children
@@ -26,18 +24,20 @@ export interface IRuntimeComponentModel extends AnyModel {
    * Exposed for external use by other models and to preserve structure
    */
   component: Ref<IComponentModel>
-  compositeKey: string
+  elements: Array<IRuntimeElementModel>
   isChildMapperComponentInstance: boolean
   isTypedProp?: boolean
-  render: Nullable<ReactElement>
+  /**
+   * When clicking an element from component while editing a page or another component we should select element
+   * from main tree that is being edited
+   */
+  mainTreeElement: Maybe<IRuntimeElementModel>
+
   /**
    * Exposed for external use by other models and to preserve structure
    */
   runtimeParent?: Ref<IRuntimeElementModel>
   runtimeProps: IRuntimeComponentPropModel
   runtimeRootElement: IRuntimeElementModel
-  runtimeStore: IRuntimeStoreModel
-  treeViewNode: IElementTreeViewDataNode
-  detach(): void
   setChildMapperIndex(index: number): void
 }

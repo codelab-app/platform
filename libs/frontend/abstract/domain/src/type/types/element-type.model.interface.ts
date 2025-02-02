@@ -3,10 +3,6 @@ import type {
   IElementTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import type {
-  ElementTypeCreateInput,
-  UpdateElementTypesMutationVariables,
-} from '@codelab/shared/infra/gql'
 
 import type { IBaseTypeModel } from './base-type.model.interface'
 

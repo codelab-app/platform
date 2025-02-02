@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation'
 import { useAuthGuardService } from '../services'
 import { AuthGuardsTreeView } from '../use-cases/get-auth-guard'
 
-export const AuthGuardsPrimarySidebar = () => {
+export const AuthGuardsPrimarySidebar = ({ isLoading = false }) => {
   const { createPopover } = useAuthGuardService()
   const router = useRouter()
 
@@ -30,6 +30,7 @@ export const AuthGuardsPrimarySidebar = () => {
       views={[
         {
           content: <AuthGuardsTreeView />,
+          isLoading,
           key: 'authGuards',
           label: 'Auth Guards',
           toolbar: { items, title: 'Auth Guards toolbar' },

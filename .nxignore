@@ -2,5 +2,6 @@
 /dist/libs/tools/eslint-plugin/
 /dist/libs/external/codelab-codegen/typescript-fetch
 /dist/libs/external/codelab-codegen/typescript-server-fetch
+/dist/libs/external/codelab-codegen/codelab-preset
 
 # Issue on Docker build

@@ -1,19 +1,16 @@
 import type {
   AppCreateInput,
   DomainCreateInput,
-} from '@codelab/backend/abstract/codegen'
+} from '@codelab/shared/infra/gqlgen'
 import type { INestApplication } from '@nestjs/common'
 
-import {
-  graphqlClient,
-  GraphqlModule,
-  GraphqlService,
-} from '@codelab/backend/infra/adapter/graphql'
-import { initUserContext } from '@codelab/backend/test'
+import { GraphqlService } from '@codelab/backend/infra/adapter/graphql'
+import { initUserContext } from '@codelab/backend/test/setup'
 import { userDto } from '@codelab/shared/data/test'
-import { connectNodeId } from '@codelab/shared/domain-old'
+import { connectNodeId } from '@codelab/shared/domain/orm'
+import { graphqlClient } from '@codelab/shared/infra/gql-client'
 import { EventEmitterModule } from '@nestjs/event-emitter'
-import * as env from 'env-var'
+import { sleep } from 'radash'
 import { v4 } from 'uuid'
 
 import type {
@@ -31,8 +28,6 @@ import {
   TestUpdateDomainsDocument,
 } from './domain.spec.graphql.api.gen'
 
-const apiPort = env.get('NEXT_PUBLIC_API_PORT').required().asPortNumber()
-
 describe('Domain subscriptions', () => {
   let app: INestApplication
   let graphqlService: GraphqlService
@@ -41,18 +36,13 @@ describe('Domain subscriptions', () => {
   let domainCreatedSpy: jest.SpyInstance
   let domainUpdatedSpy: jest.SpyInstance
   let domainDeletedSpy: jest.SpyInstance
-  let registerCreatedSubscriptionsSpy: jest.SpyInstance
-  let registerDeletedSubscriptionsSpy: jest.SpyInstance
-  let registerUpdatedSubscriptionsSpy: jest.SpyInstance
 
   const context = initUserContext({
-    imports: [
-      EventEmitterModule.forRoot(),
-      GraphqlModule,
-      DomainApplicationModule,
-    ],
+    imports: [EventEmitterModule.forRoot(), DomainApplicationModule],
     providers: [GraphqlService],
   })
+
+  const SLEEP_TIMEOUT = 1000
 
   beforeAll(async () => {
     const ctx = await context
@@ -66,13 +56,12 @@ describe('Domain subscriptions', () => {
     graphqlService = module.get(GraphqlService)
 
     await ctx.beforeAll()
-    await app.listen(apiPort).then(() => {
-      domainCreatedSpy = jest.spyOn(domainListener, 'domainCreated')
-      domainUpdatedSpy = jest.spyOn(domainListener, 'domainUpdated')
-      domainDeletedSpy = jest.spyOn(domainListener, 'domainDeleted')
 
-      graphqlService.emitServerReady()
-    })
+    domainCreatedSpy = jest.spyOn(domainListener, 'domainCreated')
+    domainUpdatedSpy = jest.spyOn(domainListener, 'domainUpdated')
+    domainDeletedSpy = jest.spyOn(domainListener, 'domainDeleted')
+
+    graphqlService.serverReadyHook()
   })
 
   afterAll(async () => {
@@ -108,9 +97,11 @@ describe('Domain subscriptions', () => {
       },
     )
 
-    await graphqlClient.request(TestCreateDomainsDocument, {
+    const data = await graphqlClient.request(TestCreateDomainsDocument, {
       input: domainInput,
     })
+
+    await sleep(SLEEP_TIMEOUT)
 
     expect(domainCreatedSpy).toHaveBeenCalled()
   })
@@ -128,6 +119,8 @@ describe('Domain subscriptions', () => {
       },
     )
 
+    await sleep(SLEEP_TIMEOUT)
+
     expect(domainUpdatedSpy).toHaveBeenCalled()
   })
 
@@ -137,6 +130,8 @@ describe('Domain subscriptions', () => {
         id: domainId,
       },
     })
+
+    await sleep(SLEEP_TIMEOUT)
 
     expect(domainDeletedSpy).toHaveBeenCalled()
   })

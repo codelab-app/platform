@@ -1,0 +1,32 @@
+mutation CreateFields($input: [FieldCreateInput!]!) {
+  createFields(input: $input) {
+    fields {
+      __typename
+      id
+    }
+  }
+}
+
+mutation UpdateFields($where: FieldWhere!, $update: FieldUpdateInput!) {
+  updateFields(update: $update, where: $where) {
+    fields {
+      __typename
+      id
+    }
+  }
+}
+
+mutation DeleteFields($where: FieldWhere!) {
+  deleteFields(where: $where) {
+    nodesDeleted
+  }
+}
+
+query GetFields($where: FieldWhere, $options: FieldOptions) {
+  aggregate: fieldsAggregate(where: $where) {
+    count
+  }
+  items: fields(options: $options, where: $where) {
+    ...Field
+  }
+}

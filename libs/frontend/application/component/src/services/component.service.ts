@@ -1,8 +1,12 @@
 import type {
+  IComponentModel,
+  IElementModel,
+} from '@codelab/frontend/abstract/domain'
+import type {
   ComponentBuilderFragment,
   ComponentOptions,
   ComponentWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import {
   type GetDataFn,
@@ -10,12 +14,15 @@ import {
   rendererRef,
   RendererType,
 } from '@codelab/frontend/abstract/application'
-import { type IComponentModel } from '@codelab/frontend/abstract/domain'
-import { useHydrateStore } from '@codelab/frontend/infra/context'
+import { useDomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { useElementService } from '@codelab/frontend-application-element/services'
+import { syncModifiedElements } from '@codelab/frontend-application-element/use-cases/delete-element'
 import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
 import { componentRepository } from '@codelab/frontend-domain-component/repositories'
-import { componentFactory } from '@codelab/frontend-domain-component/services'
+import {
+  componentFactory,
+  componentWithoutRootFactory,
+} from '@codelab/frontend-domain-component/services'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import { storeRepository } from '@codelab/frontend-domain-store/repositories'
 import { typeRepository } from '@codelab/frontend-domain-type/repositories'
@@ -25,17 +32,21 @@ import {
 } from '@codelab/frontend-infra-mobx/context'
 import {
   type ICreateComponentData,
-  type IRef,
   type IUpdateComponentData,
 } from '@codelab/shared/abstract/core'
+import { v4 } from 'uuid'
 
 import { componentBuilderQuery } from '../use-cases/component-builder'
 
 export const useComponentService = (): IComponentService => {
-  const { atomDomainService, componentDomainService, userDomainService } =
-    useDomainStore()
+  const {
+    atomDomainService,
+    componentDomainService,
+    elementDomainService,
+    userDomainService,
+  } = useDomainStore()
 
-  const hydrate = useHydrateStore()
+  const hydrate = useDomainStoreHydrator()
   const elementService = useElementService()
   const owner = userDomainService.user
 
@@ -61,6 +72,34 @@ export const useComponentService = (): IComponentService => {
     await typeRepository.add(storeApi)
     await storeRepository.add(component.store)
     await elementRepository.add(component.rootElement)
+    await componentRepository.add(component.component)
+
+    return componentDomainService.component(data.id)
+  }
+
+  const createWithoutRoot = async (
+    data: ICreateComponentData,
+    rootElement: IElementModel,
+  ) => {
+    const { component, storeApi } = componentWithoutRootFactory(
+      { ...data, owner },
+      rootElement,
+    )
+
+    rootElement.detachFromTree()
+
+    hydrate({
+      componentsDto: [component.component],
+      storesDto: [component.store],
+      typesDto: [component.api, storeApi],
+    })
+
+    rootElement.attachAsComponentRoot(component.component)
+
+    await syncModifiedElements(elementDomainService)
+    await typeRepository.add(component.api)
+    await typeRepository.add(storeApi)
+    await storeRepository.add(component.store)
     await componentRepository.add(component.component)
 
     return componentDomainService.component(data.id)
@@ -136,7 +175,7 @@ export const useComponentService = (): IComponentService => {
 
     const renderer = rendererService.hydrate({
       containerNode: component,
-      id: component.id,
+      id: v4(),
       rendererType: RendererType.ComponentBuilder,
     })
 
@@ -157,21 +196,12 @@ export const useComponentService = (): IComponentService => {
     return { items, totalItems: componentPagination.totalItems }
   }
 
-  const getOneFromCache = (ref: IRef) => {
-    return componentDomainService.components.get(ref.id)
-  }
-
-  const getAllFromCache = () => {
-    return Array.from(componentDomainService.components.values())
-  }
-
   return {
     create,
+    createWithoutRoot,
     getAll,
-    getAllFromCache,
     getDataFn,
     getOne,
-    getOneFromCache,
     importComponent,
     paginationService: componentPagination,
     previewComponent,

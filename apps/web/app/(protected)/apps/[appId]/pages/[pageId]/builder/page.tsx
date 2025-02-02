@@ -1,39 +1,16 @@
 import type { PageContextParams } from '@codelab/frontend/abstract/types'
+import type { Metadata } from 'next'
 
-import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
-import { appBuilderQuery } from '@codelab/frontend-application-app/use-cases/app-builder'
-import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
+import { PageBuilderConnector } from './page.connector'
 
-import { PageBuilderContainer } from './page.container'
-
-const Page = async ({
-  params: { appId, pageId },
-}: {
-  params: PageContextParams
-}) => {
-  const dto = await appBuilderQuery({ appId })
-
-  return (
-    <DomainStoreHydrator
-      actionsDto={dto.actions}
-      appsDto={[dto.app]}
-      atomsDto={dto.atoms}
-      authGuardsDto={dto.authGuards}
-      componentsDto={dto.components}
-      elementsDto={dto.elements}
-      fallback={<Spinner />}
-      fieldsDto={dto.fields}
-      pagesDto={dto.pages}
-      propsDto={dto.props}
-      redirectsDto={dto.redirects}
-      resourcesDto={dto.resources}
-      storesDto={dto.stores}
-      tagsDto={dto.tags}
-      typesDto={dto.types}
-    >
-      <PageBuilderContainer pageId={pageId} />
-    </DomainStoreHydrator>
-  )
+export const metadata: Metadata = {
+  title: 'App Builder | Codelab',
 }
+
+const Page = async ({ params: { pageId } }: { params: PageContextParams }) => {
+  return <PageBuilderConnector pageId={pageId} />
+}
+
+Page.displayName = 'Page'
 
 export default Page

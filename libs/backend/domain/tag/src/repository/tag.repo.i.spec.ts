@@ -1,6 +1,5 @@
-import { UserDomainModule } from '@codelab/backend/domain/user'
-import { OgmService } from '@codelab/backend/infra/adapter/neo4j'
-import { initUserContext } from '@codelab/backend/test'
+import { UserDomainModule, UserRepository } from '@codelab/backend/domain/user'
+import { initUserContext } from '@codelab/backend/test/setup'
 import { v4 } from 'uuid'
 
 import { Tag } from '../model'
@@ -8,11 +7,11 @@ import { TagRepository } from './tag.repo.service'
 
 describe('Tag repository.', () => {
   let tagRepository: TagRepository
-  let ogmService: OgmService
+  let userRepository: UserRepository
 
   const context = initUserContext({
     imports: [UserDomainModule],
-    providers: [TagRepository],
+    providers: [TagRepository, UserRepository],
   })
 
   beforeAll(async () => {
@@ -21,8 +20,8 @@ describe('Tag repository.', () => {
 
     await ctx.beforeAll()
 
-    ogmService = module.get(OgmService)
     tagRepository = module.get<TagRepository>(TagRepository)
+    userRepository = module.get<UserRepository>(UserRepository)
   })
 
   afterAll(async () => {
@@ -32,18 +31,13 @@ describe('Tag repository.', () => {
   })
 
   it('can create a tag', async () => {
-    const owner = (
-      await ogmService.User.create({
-        input: [
-          {
-            auth0Id: 'something',
-            email: 'something@some.thing',
-            id: v4(),
-            username: 'someusername',
-          },
-        ],
-      })
-    ).users[0]!
+    const owner = await userRepository.add({
+      auth0Id: 'something',
+      email: 'something@some.thing',
+      id: v4(),
+      roles: [],
+      username: 'someusername',
+    })
 
     // Parent
     const parentTagId = v4()
@@ -121,5 +115,76 @@ describe('Tag repository.', () => {
     // savedChildTag = await tagRepository.find({ id: childTag.id })
 
     // expect(savedChildTag?.parent?.id).toEqual(parentTag.id)
+  })
+
+  it('can query descendants of a tag', async () => {
+    const owner = await userRepository.add({
+      auth0Id: 'auth0_test',
+      email: 'test@example.com',
+      id: v4(),
+      roles: [],
+      username: 'testuser',
+    })
+
+    // Root tag
+    const rootTagId = v4()
+
+    const rootTag = new Tag({
+      children: [],
+      id: rootTagId,
+      name: 'Root Tag',
+      owner,
+    })
+
+    // Level 1 child
+    const level1TagId = v4()
+
+    const level1Tag = new Tag({
+      children: [],
+      id: level1TagId,
+      name: 'Level 1 Tag',
+      owner,
+    })
+
+    // Level 2 child
+    const level2TagId = v4()
+
+    const level2Tag = new Tag({
+      children: [],
+      id: level2TagId,
+      name: 'Level 2 Tag',
+      owner,
+    })
+
+    // First create all tags independently
+    await tagRepository.addMany([rootTag, level1Tag, level2Tag])
+
+    // Set up the hierarchy
+    rootTag.children = [level1Tag]
+    level1Tag.children = [level2Tag]
+
+    // Save the relationships
+    await tagRepository.save(rootTag)
+    await tagRepository.save(level1Tag)
+
+    // Query the root tag with descendants
+    const savedRootTag = await tagRepository.findOneOrFail({
+      where: { id: rootTagId },
+    })
+
+    // Get descendants (this should use the custom resolver)
+    const descendants = await savedRootTag.descendants
+
+    console.log(descendants)
+
+    // Verify the hierarchy
+    // Should include both level1 and level2 tags
+    expect(descendants).toHaveLength(2)
+    expect(descendants.map((descendant) => descendant.name)).toContain(
+      'Level 1 Tag',
+    )
+    expect(descendants.map((descendant) => descendant.name)).toContain(
+      'Level 2 Tag',
+    )
   })
 })

@@ -1,20 +1,21 @@
 import type {
   IRuntimeComponentModel,
+  IRuntimeElementModel,
   IRuntimeElementService,
   IRuntimePageModel,
 } from '@codelab/frontend/abstract/application'
+import type { IElementModel } from '@codelab/frontend/abstract/domain'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import type { ObjectMap } from 'mobx-keystone'
 
 import {
   ElementStylePseudoClass,
-  IRuntimeElementModel,
   isRuntimePage,
   runtimeComponentRef,
   runtimeElementRef,
   runtimePageRef,
 } from '@codelab/frontend/abstract/application'
-import { elementRef, IElementModel } from '@codelab/frontend/abstract/domain'
-import { Nullable } from '@codelab/shared/abstract/types'
+import { elementRef } from '@codelab/frontend/abstract/domain'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 
@@ -38,13 +39,6 @@ export class RuntimeElementService
   @computed
   get elementsList() {
     return [...this.elements.values()]
-  }
-
-  @computed
-  get expandedCompositeKeys() {
-    return this.elementsList
-      .filter((runtimeElement) => runtimeElement.element.current.expanded)
-      .map((runtimeElement) => runtimeElement.compositeKey)
   }
 
   @modelAction
@@ -82,7 +76,10 @@ export class RuntimeElementService
       runtimeProps: RuntimeElementPropsModel.create({
         runtimeElement: runtimeElementRef(compositeKey),
       }),
-      style: new RuntimeElementStyle({ element: elementRef(element) }),
+      style: new RuntimeElementStyle({
+        builderStyle: '',
+        element: elementRef(element),
+      }),
     })
 
     this.elements.set(runtimeElement.compositeKey, runtimeElement)
@@ -91,7 +88,14 @@ export class RuntimeElementService
   }
 
   @modelAction
-  delete(runtimeElement: IRuntimeElementModel) {
+  getExpandedCompositeKeys() {
+    return this.elementsList
+      .filter((runtimeElement) => runtimeElement.element.current.expanded)
+      .map((runtimeElement) => runtimeElement.compositeKey)
+  }
+
+  @modelAction
+  remove(runtimeElement: IRuntimeElementModel) {
     return this.elements.delete(runtimeElement.compositeKey)
   }
 

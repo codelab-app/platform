@@ -1,4 +1,3 @@
-export * from './data'
 export * from './mapper'
 export * from './parser'
 export * from './service'

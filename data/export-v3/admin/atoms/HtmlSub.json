@@ -1,7 +1,24 @@
 {
   "api": {
     "__typename": "InterfaceType",
-    "fields": [],
+    "fields": [
+      {
+        "api": {
+          "id": "ca7d60c9-a0e2-42c7-ace5-8337d3c88120"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "b24af1b5-6c50-4864-817c-e7f0c4a39374"
+        },
+        "id": "5d6e7f8g-9h0i-1j2k-3l4m-5n6o7p8q9r0s",
+        "key": "children",
+        "name": "Children",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      }
+    ],
     "id": "ca7d60c9-a0e2-42c7-ace5-8337d3c88120",
     "kind": "InterfaceType",
     "name": "HtmlSub API",
@@ -12,6 +29,24 @@
         "id": "ca7d60c9-a0e2-42c7-ace5-8337d3c88120",
         "kind": "InterfaceType",
         "name": "HtmlSub API"
+      },
+      {
+        "__typename": "UnionType",
+        "id": "b24af1b5-6c50-4864-817c-e7f0c4a39374",
+        "kind": "UnionType",
+        "name": "AtomChildren Union",
+        "typesOfUnionType": [
+          {
+            "__typename": "CodeMirrorType",
+            "id": "010c4f5a-434b-4c3e-a0ed-01eb1f78172a",
+            "name": "Typescript Code"
+          },
+          {
+            "__typename": "RichTextType",
+            "id": "e7558508-3bb7-4f57-8f8c-6ac989911765",
+            "name": "RichTextType"
+          }
+        ]
       }
     ]
   },

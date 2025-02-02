@@ -5,7 +5,7 @@ import { Dashboard } from '@codelab/frontend-presentation-view/templates'
 import { type ReactNode } from 'react'
 
 const LambdasRouteLayout = ({ children }: { children: ReactNode }) => {
-  return <Dashboard Header={<LambdasViewHeader />}>{children}</Dashboard>
+  return <Dashboard header={<LambdasViewHeader />}>{children}</Dashboard>
 }
 
 export default LambdasRouteLayout

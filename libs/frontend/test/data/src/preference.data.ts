@@ -2,7 +2,7 @@ import { type IPreferenceDto } from '@codelab/shared/abstract/core'
 import {
   breakpoints,
   DEFAULT_BUILDER_BREAKPOINT,
-} from '@codelab/shared/domain-old'
+} from '@codelab/shared/config/builder'
 import { v4 } from 'uuid'
 
 import { userDto } from './user.data'

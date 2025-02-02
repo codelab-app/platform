@@ -1,4 +1,5 @@
 import { AtomApplicationModule } from '@codelab/backend/application/atom'
+import { ImportDataMapperService } from '@codelab/backend/application/data'
 import { DomainApplicationModule } from '@codelab/backend/application/domain'
 import {
   ExportPageHandler,
@@ -16,7 +17,7 @@ import { ResourceDomainModule } from '@codelab/backend/domain/resource'
 import { AuthDomainModule } from '@codelab/backend/domain/shared/auth'
 import { StoreDomainModule } from '@codelab/backend/domain/store'
 import { TypeDomainModule } from '@codelab/backend/domain/type'
-import { Neo4jModule } from '@codelab/backend/infra/adapter/neo4j'
+import { Neo4jModule } from '@codelab/backend-infra-adapter/neo4j-driver'
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
 
@@ -50,10 +51,9 @@ import {
   ],
   providers: [
     SeedCypressAppHandler,
-    ExportAppHandler,
-    ExportPageHandler,
     ImportAppHandler,
-    ImportPageHandler,
+    ExportAppHandler,
+    ImportDataMapperService,
   ],
 })
 export class AppApplicationModule {}

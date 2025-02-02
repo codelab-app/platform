@@ -3,13 +3,6 @@ import type { ICodeActionDto } from '@codelab/shared/abstract/core'
 
 import { storeRef } from '@codelab/frontend/abstract/domain'
 import { IActionKind } from '@codelab/shared/abstract/core'
-import { connectNodeId } from '@codelab/shared/domain-old'
-import {
-  CodeActionCreateInput,
-  CodeActionDeleteInput,
-  CodeActionUpdateInput,
-} from '@codelab/shared/infra/gql'
-import { computed } from 'mobx'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 
 import { createBaseAction } from './base-action.model'
@@ -39,6 +32,7 @@ export class CodeAction
       id: this.id,
       name: this.name,
       store: this.store,
+      type: this.type,
     }
   }
 

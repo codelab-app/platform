@@ -22,12 +22,16 @@ export class RendererService
       () => null,
     ).withSetter(),
     /**
-     * These are renderers for the public, they are keyed by pageId
+     * These are renderers for the public, they are keyed by containerId
      */
     renderers: prop(() => objectMap<IRendererModel>()),
   })
   implements IRendererService
 {
+  /**
+   * Get the current container node
+   */
+  @computed
   get activeElementTree() {
     return this.activeRenderer?.current.containerNode.current
   }
@@ -59,8 +63,8 @@ export class RendererService
       // which causes re-rendering the root container node.
 
       this.runtimeElementService.elementsList.forEach((runtimeElement) => {
-        runtimeElement.setPreRenderActionDone(false)
-        runtimeElement.setPostRenderActionDone(false)
+        runtimeElement.setPreRenderActionsDone(false)
+        runtimeElement.setPostRenderActionsDone(false)
       })
     }
 

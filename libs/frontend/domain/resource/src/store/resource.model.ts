@@ -4,22 +4,17 @@ import type {
   IResourceType,
   IUser,
 } from '@codelab/shared/abstract/core'
-import type {
-  ResourceCreateInput,
-  ResourceDeleteInput,
-  ResourceUpdateInput,
-} from '@codelab/shared/infra/gql'
+import type { Ref } from 'mobx-keystone'
 
 import {
-  getUserDomainService,
   type IPropModel,
   type IResourceModel,
   userRef,
 } from '@codelab/frontend/abstract/domain'
 import { Prop } from '@codelab/frontend-domain-prop/store'
-import { connectOwner, getResourceClient } from '@codelab/shared/domain-old'
+import { getResourceClient } from '@codelab/shared-domain-module/resource'
 import { computed } from 'mobx'
-import { idProp, Model, model, modelAction, prop, Ref } from 'mobx-keystone'
+import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
 const create = ({ config, id, name, owner, type }: IResourceDto) =>
   new Resource({

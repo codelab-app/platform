@@ -1,5 +1,5 @@
 import type {
-  IInterfaceTypeCreateDto,
+  IInterfaceTypeDto,
   IStoreDto,
 } from '@codelab/shared/abstract/core'
 
@@ -16,9 +16,10 @@ export class StoreApplicationService {
 
   async createStoreAggregate(
     storeDto: IStoreDto,
-    interfaceTypeDto: IInterfaceTypeCreateDto,
+    interfaceTypeDto: IInterfaceTypeDto,
   ) {
-    const api = await this.typeDomainService.createInterface(interfaceTypeDto)
+    await this.typeDomainService.createInterface(interfaceTypeDto)
+
     const store = await this.storeDomainService.create(storeDto)
 
     return store

@@ -24,17 +24,21 @@ export const useSelectionHandlers = (
     (event: MouseEvent) => {
       event.stopPropagation()
 
-      if (
-        lastEditedElement &&
-        lastEditedElement.compositeKey !== runtimeElement.compositeKey
-      ) {
-        lastEditedElement.element.current.setIsTextContentEditable(false)
-      }
+      // if (
+      //   lastEditedElement &&
+      //   lastEditedElement.compositeKey !== runtimeElement.compositeKey
+      // ) {
+      //   lastEditedElement.element.current.setIsTextContentEditable(false)
+      // }
 
-      builderService.setSelectedNode(runtimeElementRef(runtimeElement))
+      // allow selecting only main tree elements
+      // not internal elements of components nor provider page elements on regular pages
+      const clickedElement = runtimeElement.mainTreeElement
+
+      builderService.setSelectedNode(runtimeElementRef(clickedElement))
 
       // expand parent elements on tree
-      runtimeElement.pathFromRoot.forEach((parentRuntimeElement) =>
+      clickedElement.pathFromRoot.forEach((parentRuntimeElement) =>
         // elements will be marked with modified attribute
         parentRuntimeElement.element.current.setExpanded(true),
       )

@@ -1,24 +1,17 @@
 'use client'
 
-import type {
-  IElementTreeViewDataNode,
-  IRuntimeComponentModel,
-} from '@codelab/frontend/abstract/application'
+import type { IElementTreeViewDataNode } from '@codelab/frontend/abstract/application'
 import type { Nullable } from '@codelab/shared/abstract/types'
 
-import {
-  isRuntimeComponent,
-  runtimeComponentRef,
-} from '@codelab/frontend/abstract/application'
 import { isComponent } from '@codelab/frontend/abstract/domain'
-import { UiKey } from '@codelab/frontend/abstract/types'
-import { useCui } from '@codelab/frontend/presentation/codelab-ui'
+import { PageType } from '@codelab/frontend/abstract/types'
 import { useComponentService } from '@codelab/frontend-application-component/services'
-import { useCloneElementService } from '@codelab/frontend-application-element/services'
-import { useCreateElementForm } from '@codelab/frontend-application-element/use-cases/create-element'
-import { useDeleteElementModal } from '@codelab/frontend-application-element/use-cases/delete-element'
+import {
+  useCloneElementService,
+  useElementService,
+} from '@codelab/frontend-application-element/services'
+import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import { useUser } from '@codelab/frontend-application-user/services'
-import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
 import {
   useApplicationStore,
   useDomainStore,
@@ -26,6 +19,7 @@ import {
 import { Key } from '@codelab/frontend-presentation-view/components/key'
 import { Dropdown } from 'antd'
 import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 export interface ContextMenuProps {
@@ -46,16 +40,16 @@ export const ElementContextMenu = observer<
   const { builderService, runtimeElementService } = useApplicationStore()
   const { elementDomainService } = useDomainStore()
   const componentService = useComponentService()
+  const { createPopover, deletePopover } = useElementService()
+  const router = useRouter()
+  const { appId, componentId, pageId } = useUrlPathParams()
 
   const cloneElementService = useCloneElementService({
     builderService,
     componentService,
   })
 
-  const createElementForm = useCreateElementForm()
-  const deleteElementModal = useDeleteElementModal()
   const user = useUser()
-  const { popover } = useCui()
 
   const [contextMenuItemId, setContextMenuNodeId] =
     useState<Nullable<string>>(null)
@@ -66,23 +60,21 @@ export const ElementContextMenu = observer<
     return null
   }
 
-  const componentInstance = isComponent(element.renderType)
+  const componentInstance = isComponent(element.renderType.current)
 
   const onAddChild = () => {
-    popover.open(UiKey.ElementPopoverCreate)
-
-    createElementForm.open({
-      elementOptions:
-        element.closestContainerNode.elements.map(mapElementOption),
-      elementTree: element.closestContainerNode,
-      selectedElement: element,
-    })
+    createPopover.open(router, { appId, componentId, pageId })
 
     setContextMenuNodeId(null)
   }
 
   const onDelete = () => {
-    deleteElementModal.open(element)
+    deletePopover.open(router, {
+      appId,
+      componentId,
+      elementId: element.id,
+      pageId,
+    })
   }
 
   const onDuplicate = async () => {
@@ -107,20 +99,13 @@ export const ElementContextMenu = observer<
   }
 
   const onEditComponent = () => {
-    if (!isComponent(element.renderType)) {
+    if (!isComponent(element.renderType.current)) {
       return
     }
 
-    const runtimeElement = runtimeElementService.runtimeElement(treeNode.key)
-
-    const runtimeComponent = runtimeElement.children.find(
-      (child): child is IRuntimeComponentModel =>
-        isRuntimeComponent(child) &&
-        child.component.id === element.renderType.id,
+    router.push(
+      PageType.ComponentBuilder({ componentId: element.renderType.current.id }),
     )
-
-    runtimeComponent &&
-      builderService.setSelectedNode(runtimeComponentRef(runtimeComponent))
   }
 
   const menuItems = [

@@ -8,9 +8,7 @@ import {
   userRef,
 } from '@codelab/frontend/abstract/domain'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
-import { computed } from 'mobx'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
-import { mergeDeep } from 'remeda'
 
 import { createBaseType } from './base-type.model'
 import { EnumTypeValue } from './enum-type-value.model'

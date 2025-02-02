@@ -3,20 +3,23 @@
 import type { PropsWithChildren } from 'react'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { getUiDataLabel, UiKey } from '@codelab/frontend/abstract/types'
+import {
+  getUiDataLabel,
+  PageType,
+  UiKey,
+} from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
-
-import { useCreateAppModal } from './create-app.state'
+import Link from 'next/link'
 
 export const AppButtonOpenCreateForm = ({ children }: PropsWithChildren) => {
-  const createAppModal = useCreateAppModal()
   const icon = !children && <PlusOutlined />
-  const onClick = () => createAppModal.open()
   const label = getUiDataLabel(UiKey.AppButtonOpenCreateForm)
 
   return (
-    <Button aria-label={label} icon={icon} onClick={onClick} type="primary">
-      {children ?? label}
-    </Button>
+    <Link href={PageType.AppCreate()}>
+      <Button aria-label={label} icon={icon} type="primary">
+        {children ?? label}
+      </Button>
+    </Link>
   )
 }

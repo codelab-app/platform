@@ -1,5 +1,5 @@
 import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/application'
-import type { UrlQueryParams } from '@codelab/frontend/abstract/types'
+import type { SearchParamsProps } from '@codelab/frontend/abstract/types'
 import type { IResourceFetchConfig } from '@codelab/shared/abstract/core'
 
 import { RendererType } from '@codelab/frontend/abstract/application'
@@ -35,7 +35,7 @@ describe('Runtime Element props', () => {
 
       expect(runtimeProps.props).toMatchObject({
         [DATA_ELEMENT_ID]: rootElement.id,
-        key: rootElement.id,
+        key: runtimeRootElement.compositeKey,
         ref: expect.any(Function),
       })
     })
@@ -467,9 +467,9 @@ describe('Runtime Element props', () => {
       const urlKey = 'urlKey'
       const urlPropValue = 'urlPropValue'
 
-      testStore.applicationStore.routerService.setQueryParams({
+      testStore.applicationStore.routerService.setSearchParams({
         [urlKey]: urlPropValue,
-      } as UrlQueryParams)
+      } as SearchParamsProps)
 
       const { page, renderer, rootElement, runtimeRootElement } =
         testStore.setupRuntimeElement()

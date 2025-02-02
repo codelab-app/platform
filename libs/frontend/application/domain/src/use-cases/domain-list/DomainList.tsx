@@ -18,27 +18,30 @@ const emptyImageStyle: React.CSSProperties = {
   height: 60,
 }
 
-export const DomainList = observer(
-  ({ domains }: { domains: Array<IDomainModel> }) => {
-    return (
-      <ErrorBoundary>
-        <DisplayIf condition={domains.length === 0}>
-          <Empty description="No domain found" imageStyle={emptyImageStyle}>
-            <CreateDomainButton>Create Now</CreateDomainButton>
-          </Empty>
-        </DisplayIf>
+interface DomainListProps {
+  appId: string
+  domains: Array<IDomainModel>
+}
 
-        <Row gutter={[padding.sm, padding.sm]}>
-          {domains.map((domain) => {
-            return (
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              <Col key={domain.name} {...threeGridCol}>
-                <DomainListItem domain={domain} />
-              </Col>
-            )
-          })}
-        </Row>
-      </ErrorBoundary>
-    )
-  },
-)
+export const DomainList = observer<DomainListProps>(({ appId, domains }) => {
+  return (
+    <ErrorBoundary>
+      <DisplayIf condition={domains.length === 0}>
+        <Empty description="No domain found" imageStyle={emptyImageStyle}>
+          <CreateDomainButton appId={appId}>Create Now</CreateDomainButton>
+        </Empty>
+      </DisplayIf>
+
+      <Row gutter={[padding.sm, padding.sm]}>
+        {domains.map((domain) => {
+          return (
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            <Col key={domain.name} {...threeGridCol}>
+              <DomainListItem domain={domain} />
+            </Col>
+          )
+        })}
+      </Row>
+    </ErrorBoundary>
+  )
+})

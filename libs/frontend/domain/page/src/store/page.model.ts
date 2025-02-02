@@ -7,29 +7,17 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import type { IPageDto } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
-import type {
-  PageCreateInput,
-  PageDeleteInput,
-  PageUpdateInput,
-} from '@codelab/shared/infra/gql'
 import type { Ref } from 'mobx-keystone'
 
 import {
   appRef,
   elementRef,
   ElementTree,
-  getRedirectDomainService,
   getUserDomainService,
   redirectRef,
   storeRef,
 } from '@codelab/frontend/abstract/domain'
-import { Store } from '@codelab/frontend-domain-store/store'
 import { IPageKind } from '@codelab/shared/abstract/core'
-import {
-  connectNodeId,
-  PageProperties,
-  reconnectNodeId,
-} from '@codelab/shared/domain-old'
 import { slugify } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'

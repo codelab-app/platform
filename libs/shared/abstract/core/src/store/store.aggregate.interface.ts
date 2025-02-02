@@ -7,7 +7,7 @@ import { StoreSchema } from './store.model.interface'
 export const StoreAggregateExportSchema = Type.Object({
   actions: Type.Array(ActionSchema),
   api: ApiExportSchema,
-  store: StoreSchema,
+  store: Type.Omit(StoreSchema, ['component', 'page', 'source']),
 })
 
 export type IStoreAggregateExport = Static<typeof StoreAggregateExportSchema>

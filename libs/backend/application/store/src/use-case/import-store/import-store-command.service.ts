@@ -1,7 +1,4 @@
-import type {
-  IStoreAggregateExport,
-  IStoreAggregateImport,
-} from '@codelab/shared/abstract/core'
+import type { IStoreAggregateImport } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
 import { ImportApiCommand } from '@codelab/backend/application/type'

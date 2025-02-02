@@ -3,21 +3,21 @@ import type { IResourceModel } from '@codelab/frontend/abstract/domain'
 import type {
   ICreateResourceData,
   IPropDto,
-  IRef,
   IResourceDto,
   IUpdateResourceData,
 } from '@codelab/shared/abstract/core'
-import type { ResourceWhere } from '@codelab/shared/infra/gql'
+import type { ResourceWhere } from '@codelab/shared/infra/gqlgen'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import { PageType } from '@codelab/frontend/abstract/types'
+import { useDomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { resourceRepository } from '@codelab/frontend-domain-resource/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { Validator } from '@codelab/shared/infra/schema'
 import { v4 } from 'uuid'
 
 export const useResourceService = (): IResourceService => {
   const { resourceDomainService } = useDomainStore()
+  const hydrate = useDomainStoreHydrator()
 
   const create = async (data: ICreateResourceData) => {
     const config: IPropDto = {
@@ -25,10 +25,11 @@ export const useResourceService = (): IResourceService => {
       id: v4(),
     }
 
-    return await resourceRepository.add({
-      ...data,
-      config,
-    })
+    const resource = { ...data, config }
+
+    hydrate({ resourcesDto: [resource] })
+
+    return await resourceRepository.add(resource)
   }
 
   const removeMany = async (resources: Array<IResourceModel>) => {
@@ -84,14 +85,6 @@ export const useResourceService = (): IResourceService => {
     resources.forEach((resource) => resourceDomainService.hydrate(resource))
   }
 
-  const getOneFromCache = (ref: IRef) => {
-    return resourceDomainService.resources.get(ref.id)
-  }
-
-  const getAllFromCache = () => {
-    return Array.from(resourceDomainService.resources.values())
-  }
-
   const createPopover = {
     close: (router: AppRouterInstance) => {
       router.push(PageType.Resources())
@@ -114,9 +107,7 @@ export const useResourceService = (): IResourceService => {
     create,
     createPopover,
     getAll,
-    getAllFromCache,
     getOne,
-    getOneFromCache,
     getSelectResourceOptions,
     load,
     removeMany,

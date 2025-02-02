@@ -1,8 +1,4 @@
-import {
-  getUiDataLabel,
-  PageType,
-  UiKey,
-} from '@codelab/frontend/abstract/types'
+import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import { test as base, expect } from '@playwright/test'
 
 import { BasePage } from '../../locators/pages'
@@ -12,7 +8,7 @@ import { BasePage } from '../../locators/pages'
  */
 export class AppListPage extends BasePage {
   clickModalConfirmButton() {
-    const modal = this.getModal()
+    const modal = this.getDialog()
     const button = this.getButton({ key: UiKey.ButtonConfirmation })
 
     return modal.locator(button).click()
@@ -25,21 +21,19 @@ export class AppListPage extends BasePage {
   async fillCreateAppForm() {
     await this.fillInputText({ label: 'Name' }, this.appName)
 
-    await this.getModal()
+    await this.getDialog()
       .locator(this.getButton({ text: 'Create App' }))
       .click()
-
-    await expect(this.getModal()).toBeHidden()
   }
 
   async fillUpdateAppForm() {
     await this.fillInputText({ label: 'Name' }, this.updatedAppName)
 
-    await this.getModal()
+    await this.getDialog()
       .locator(this.getButton({ text: 'Update App' }))
       .click()
 
-    await expect(this.getModal()).toBeHidden()
+    await expect(this.getDialog()).toBeHidden()
   }
 
   getAppName() {
@@ -57,7 +51,7 @@ export class AppListPage extends BasePage {
   async openCreateAppModal(key = UiKey.AppButtonOpenCreateForm) {
     await this.getButton({ key }).click()
 
-    await expect(this.getModal()).toBeVisible()
+    await expect(this.getDialog()).toBeVisible()
   }
 
   async openCreateAppModalFromHeader() {
@@ -71,7 +65,7 @@ export class AppListPage extends BasePage {
 
     await this.getDropdownItem({ label: 'Delete' }).click()
 
-    await expect(this.getModal()).toBeVisible()
+    await expect(this.getDialog()).toBeVisible()
   }
 
   async openUpdateAppModal() {
@@ -81,7 +75,7 @@ export class AppListPage extends BasePage {
 
     await this.getDropdownItem({ label: 'Edit' }).click()
 
-    await expect(this.getModal()).toBeVisible()
+    await expect(this.getDialog()).toBeVisible()
   }
 
   private readonly appName = 'New App'

@@ -9,7 +9,7 @@ import {
   titleCaseValidation,
 } from '@codelab/frontend-presentation-components-form/schema'
 import { IResourceType } from '@codelab/shared/abstract/core'
-import { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
+import { CodeMirrorLanguage } from '@codelab/shared/infra/gqlgen'
 
 export const createResourceSchema: JSONSchemaType<ICreateResourceData> = {
   properties: {

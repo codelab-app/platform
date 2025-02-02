@@ -15,8 +15,8 @@ interface CuiFormProps<
   onSubmit: TTransformedValues extends undefined
     ? SubmitHandler<TFieldValues>
     : TTransformedValues extends FieldValues
-    ? SubmitHandler<TTransformedValues>
-    : never
+      ? SubmitHandler<TTransformedValues>
+      : never
 }
 
 export const CuiForm = <

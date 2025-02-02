@@ -1,10 +1,10 @@
 import type {
   IElementDomainService,
   IElementModel,
+  IMoveElementContext,
 } from '@codelab/frontend/abstract/domain'
 import type { IElementDto } from '@codelab/shared/abstract/core'
 
-import { IMoveElementContext } from '@codelab/frontend/abstract/domain'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 
@@ -65,12 +65,6 @@ export class ElementDomainService
     // console.debug('ElementDomainService.hydrate()', elementDto)
 
     validateElementDto(elementDto)
-
-    const existingElement = this.elements.get(elementDto.id)
-
-    if (existingElement) {
-      return existingElement
-    }
 
     const element: IElementModel = Element.create(elementDto)
 

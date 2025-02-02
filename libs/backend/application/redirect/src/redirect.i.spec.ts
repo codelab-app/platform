@@ -6,14 +6,14 @@ import type {
 
 import { Redirect, RedirectRepository } from '@codelab/backend/domain/redirect'
 import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
+import { initUserContext } from '@codelab/backend/test/setup'
 import {
   HttpMethod,
   HttpResponseType,
   IRedirectTargetType,
   IResourceType,
 } from '@codelab/shared/abstract/core'
-import { ResourceRestClient } from '@codelab/shared/domain-old'
-import { Test, type TestingModule } from '@nestjs/testing'
+import { ResourceRestClient } from '@codelab/shared-domain-module/resource'
 import { v4 } from 'uuid'
 
 import { RedirectApplicationModule } from './redirect.application.module'
@@ -26,13 +26,24 @@ describe('Redirect', () => {
   let redirectController: RedirectController
   let redirectRepository: RedirectRepository
 
+  const context = initUserContext({
+    imports: [RedirectApplicationModule, CodelabLoggerModule],
+  })
+
   beforeAll(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      imports: [RedirectApplicationModule, CodelabLoggerModule],
-    }).compile()
+    const ctx = await context
+    const module = ctx.module
 
     redirectController = module.get<RedirectController>(RedirectController)
     redirectRepository = module.get<RedirectRepository>(RedirectRepository)
+
+    await ctx.beforeAll()
+  })
+
+  afterAll(async () => {
+    const ctx = await context
+
+    await ctx.afterAll()
   })
 
   it('should authorize page access when no redirect found', async () => {
@@ -70,7 +81,7 @@ describe('Redirect', () => {
 
     expect(response).toMatchObject({
       canActivate: false,
-      message: 'Messing authorization in request body',
+      message: 'Missing authorization in request body',
       redirectUrl: `${domain}${pageUrlPattern}`,
       status: 200,
     })

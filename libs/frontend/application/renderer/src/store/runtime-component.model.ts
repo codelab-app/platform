@@ -1,7 +1,10 @@
 import type {
-  IRuntimeComponentDTO,
+  IElementTreeViewDataNode,
+  IElementTreeViewDataNodePreview,
+  IRuntimeComponentDto,
   IRuntimeComponentModel,
   IRuntimeComponentPropModel,
+  IRuntimeElementModel,
   IRuntimeModel,
   IRuntimeStoreModel,
 } from '@codelab/frontend/abstract/application'
@@ -9,15 +12,13 @@ import type {
   IComponentModel,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
-import type { Maybe } from '@codelab/shared/abstract/types'
+import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { ReactElement } from 'react'
 
 import {
   getRuntimeComponentService,
   getRuntimeElementService,
-  IElementTreeViewDataNode,
-  IRuntimeElementModel,
   IRuntimeNodeType,
   runtimeComponentRef,
 } from '@codelab/frontend/abstract/application'
@@ -26,7 +27,6 @@ import {
   isComponent,
   storeRef,
 } from '@codelab/frontend/abstract/domain'
-import { Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { isNonNullish } from 'remeda'
@@ -59,7 +59,7 @@ const compositeKey = (
   }${instanceKeyToRoot}${propKey}${childMapperIndex}`
 }
 
-const create = (dto: IRuntimeComponentDTO) =>
+const create = (dto: IRuntimeComponentDto) =>
   new RuntimeComponentModel({
     ...dto,
     component: componentRef(dto.component),
@@ -111,8 +111,21 @@ export class RuntimeComponentModel
   }
 
   @computed
+  get elements(): Array<IRuntimeElementModel> {
+    return this.runtimeElementService.elementsList.filter(
+      (element) =>
+        element.closestContainerNode.current.compositeKey === this.compositeKey,
+    )
+  }
+
+  @computed
   get isChildMapperComponentInstance() {
     return isNonNullish(this.childMapperIndex)
+  }
+
+  @computed
+  get mainTreeElement(): Maybe<IRuntimeElementModel> {
+    return this.runtimeParent?.current.mainTreeElement
   }
 
   @computed
@@ -140,13 +153,13 @@ export class RuntimeComponentModel
   @computed
   get treeViewNode(): IElementTreeViewDataNode {
     return {
+      ...this.treeViewNodePreview,
       // hide children for child mapper instances
       children: this.isChildMapperComponentInstance
         ? []
         : [this.runtimeRootElement.treeViewNode],
       component: { id: this.component.current.id },
       isChildMapperComponentInstance: this.isChildMapperComponentInstance,
-      key: this.compositeKey,
       primaryTitle: this.isChildMapperComponentInstance
         ? `${this.component.current.name} ${this.childMapperIndex}`
         : this.component.current.name,
@@ -159,12 +172,19 @@ export class RuntimeComponentModel
     }
   }
 
+  @computed
+  get treeViewNodePreview(): IElementTreeViewDataNodePreview {
+    return {
+      key: this.compositeKey,
+    }
+  }
+
   @modelAction
   detach(): void {
     this.children.forEach((child) => {
       child.detach()
     })
     this.runtimeRootElement.detach()
-    this.runtimeComponentService.delete(this)
+    this.runtimeComponentService.remove(this)
   }
 }

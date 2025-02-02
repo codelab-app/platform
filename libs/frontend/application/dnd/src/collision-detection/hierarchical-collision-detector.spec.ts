@@ -1,14 +1,15 @@
+import type { Point } from '@codelab/frontend/shared/utils'
 import type {
   Active,
   DroppableContainer,
   UniqueIdentifier,
 } from '@dnd-kit/core'
 
+import { Rect } from '@codelab/frontend/shared/utils'
 import { pathOr, stringToPath } from 'remeda'
 
 import type { WithInternalDropData } from '../hooks/internal-drop-data.interface'
 
-import { type Point, type Rect, Rectangle } from '../geometry'
 import { HierarchicalCollisionDetector } from './hierarchical-collision-detector'
 
 interface BaseHierarchyItem {
@@ -91,14 +92,7 @@ const createActiveNode = (hierarchy: Hierarchy, path: string): Active => {
     /**
      * Migrated from lodash `get`, but `pathOr` cannot support paths greater than 3 levels deep, adding default `rect` here for type safety, difficult to move it work without it, couldn't cast with any as well
      */
-    rect: {
-      bottom: 0,
-      height: 0,
-      left: 0,
-      right: 0,
-      top: 0,
-      width: 0,
-    },
+    rect: new Rect(0, 0, 0, 0),
   })
 
   return {
@@ -132,10 +126,10 @@ describe('HierarchicalCollisionDetector', () => {
     it('should return an empty array when pointerCoordinates are null', () => {
       const tree: Hierarchy = {
         1: {
-          rect: Rectangle.createRect(0, 0, 100, 100),
+          rect: new Rect(0, 0, 100, 100),
         },
         2: {
-          rect: Rectangle.createRect(100, 100, 100, 100),
+          rect: new Rect(100, 100, 100, 100),
         },
       }
 
@@ -151,7 +145,7 @@ describe('HierarchicalCollisionDetector', () => {
     it('should return an empty array when droppableContainers is empty', () => {
       const tree: Hierarchy = {
         1: {
-          rect: Rectangle.createRect(0, 0, 100, 100),
+          rect: new Rect(0, 0, 100, 100),
         },
       }
 
@@ -168,10 +162,10 @@ describe('HierarchicalCollisionDetector', () => {
   describe('Simple collision detection in detectCollisions', () => {
     const tree: Hierarchy = {
       1: {
-        rect: Rectangle.createRect(0, 0, 100, 100),
+        rect: new Rect(0, 0, 100, 100),
       },
       2: {
-        rect: Rectangle.createRect(10, 10, 100, 100),
+        rect: new Rect(10, 10, 100, 100),
       },
     }
 
@@ -207,16 +201,16 @@ describe('HierarchicalCollisionDetector', () => {
             2: {
               children: {
                 3: {
-                  rect: Rectangle.createRect(20, 20, 60, 60),
+                  rect: new Rect(20, 20, 60, 60),
                 },
               },
-              rect: Rectangle.createRect(10, 10, 80, 80),
+              rect: new Rect(10, 10, 80, 80),
             },
             4: {
-              rect: Rectangle.createRect(90, 10, 20, 20),
+              rect: new Rect(90, 10, 20, 20),
             },
           },
-          rect: Rectangle.createRect(0, 0, 120, 120),
+          rect: new Rect(0, 0, 120, 120),
         },
       }
 
@@ -234,10 +228,10 @@ describe('HierarchicalCollisionDetector', () => {
         1: {
           children: {
             2: {
-              rect: Rectangle.createRect(20, 20, 80, 80),
+              rect: new Rect(20, 20, 80, 80),
             },
           },
-          rect: Rectangle.createRect(10, 10, 100, 100),
+          rect: new Rect(10, 10, 100, 100),
         },
       }
 
@@ -257,13 +251,13 @@ describe('HierarchicalCollisionDetector', () => {
             2: {
               children: {
                 3: {
-                  rect: Rectangle.createRect(30, 30, 70, 70),
+                  rect: new Rect(30, 30, 70, 70),
                 },
               },
-              rect: Rectangle.createRect(20, 20, 80, 80),
+              rect: new Rect(20, 20, 80, 80),
             },
           },
-          rect: Rectangle.createRect(10, 10, 100, 100),
+          rect: new Rect(10, 10, 100, 100),
         },
       }
 
@@ -281,10 +275,10 @@ describe('HierarchicalCollisionDetector', () => {
     it('should not shrink the root container', () => {
       const tree: Hierarchy = {
         1: {
-          rect: Rectangle.createRect(0, 0, 100, 100),
+          rect: new Rect(0, 0, 100, 100),
         },
         2: {
-          rect: Rectangle.createRect(100, 100, 20, 20),
+          rect: new Rect(100, 100, 20, 20),
         },
       }
 
@@ -304,16 +298,16 @@ describe('HierarchicalCollisionDetector', () => {
             2: {
               children: {
                 3: {
-                  rect: Rectangle.createRect(0, 0, 100, 100),
+                  rect: new Rect(0, 0, 100, 100),
                 },
               },
-              rect: Rectangle.createRect(0, 0, 100, 100),
+              rect: new Rect(0, 0, 100, 100),
             },
             4: {
-              rect: Rectangle.createRect(100, 100, 100, 100),
+              rect: new Rect(100, 100, 100, 100),
             },
           },
-          rect: Rectangle.createRect(0, 0, 200, 200),
+          rect: new Rect(0, 0, 200, 200),
         },
       }
 
@@ -333,16 +327,16 @@ describe('HierarchicalCollisionDetector', () => {
         1: {
           children: {
             2: {
-              rect: Rectangle.createRect(0, 0, childrenIntersectionX, 100),
+              rect: new Rect(0, 0, childrenIntersectionX, 100),
             },
             3: {
-              rect: Rectangle.createRect(childrenIntersectionX, 0, 100, 100),
+              rect: new Rect(childrenIntersectionX, 0, 100, 100),
             },
           },
-          rect: Rectangle.createRect(0, 0, 200, 200),
+          rect: new Rect(0, 0, 200, 200),
         },
         4: {
-          rect: Rectangle.createRect(0, 200, 200, 200),
+          rect: new Rect(0, 200, 200, 200),
         },
       }
 
@@ -364,26 +358,16 @@ describe('HierarchicalCollisionDetector', () => {
             2: {
               children: {
                 3: {
-                  rect: Rectangle.createRect(
-                    parentCenter,
-                    parentCenter,
-                    50,
-                    50,
-                  ),
+                  rect: new Rect(parentCenter, parentCenter, 50, 50),
                 },
               },
-              rect: Rectangle.createRect(
-                0,
-                0,
-                parentCenter + 50,
-                parentCenter + 50,
-              ),
+              rect: new Rect(0, 0, parentCenter + 50, parentCenter + 50),
             },
           },
-          rect: Rectangle.createRect(0, 0, 200, 200),
+          rect: new Rect(0, 0, 200, 200),
         },
         4: {
-          rect: Rectangle.createRect(0, 200, 200, 200),
+          rect: new Rect(0, 200, 200, 200),
         },
       }
 
@@ -404,10 +388,10 @@ describe('HierarchicalCollisionDetector', () => {
     it('should correctly identify no siblings when the droppable container has no children', () => {
       const tree: Hierarchy = {
         1: {
-          rect: Rectangle.createRect(0, 0, 100, 100),
+          rect: new Rect(0, 0, 100, 100),
         },
         2: {
-          rect: Rectangle.createRect(100, 100, 100, 100),
+          rect: new Rect(100, 100, 100, 100),
         },
       }
 
@@ -426,13 +410,13 @@ describe('HierarchicalCollisionDetector', () => {
         1: {
           children: {
             2: {
-              rect: Rectangle.createRect(20, 20, 40, 40),
+              rect: new Rect(20, 20, 40, 40),
             },
           },
-          rect: Rectangle.createRect(0, 0, 100, 100),
+          rect: new Rect(0, 0, 100, 100),
         },
         3: {
-          rect: Rectangle.createRect(50, 50, 70, 70),
+          rect: new Rect(50, 50, 70, 70),
         },
       }
 
@@ -452,13 +436,13 @@ describe('HierarchicalCollisionDetector', () => {
         1: {
           children: {
             2: {
-              rect: Rectangle.createRect(20, 20, 40, 40),
+              rect: new Rect(20, 20, 40, 40),
             },
           },
-          rect: Rectangle.createRect(0, 0, 100, 100),
+          rect: new Rect(0, 0, 100, 100),
         },
         3: {
-          rect: Rectangle.createRect(50, 50, 70, 70),
+          rect: new Rect(50, 50, 70, 70),
         },
       }
 
@@ -478,19 +462,19 @@ describe('HierarchicalCollisionDetector', () => {
         1: {
           children: {
             2: {
-              rect: Rectangle.createRect(10, 10, 80, 20),
+              rect: new Rect(10, 10, 80, 20),
             },
             3: {
-              rect: Rectangle.createRect(10, 30, 80, 20),
+              rect: new Rect(10, 30, 80, 20),
             },
             4: {
-              rect: Rectangle.createRect(10, 50, 80, 20),
+              rect: new Rect(10, 50, 80, 20),
             },
           },
-          rect: Rectangle.createRect(0, 0, 100, 100),
+          rect: new Rect(0, 0, 100, 100),
         },
         5: {
-          rect: Rectangle.createRect(50, 50, 70, 70),
+          rect: new Rect(50, 50, 70, 70),
         },
       }
 
@@ -510,19 +494,19 @@ describe('HierarchicalCollisionDetector', () => {
         1: {
           children: {
             2: {
-              rect: Rectangle.createRect(10, 10, 80, 20),
+              rect: new Rect(10, 10, 80, 20),
             },
             3: {
-              rect: Rectangle.createRect(10, 30, 80, 20),
+              rect: new Rect(10, 30, 80, 20),
             },
             4: {
-              rect: Rectangle.createRect(10, 50, 80, 20),
+              rect: new Rect(10, 50, 80, 20),
             },
           },
-          rect: Rectangle.createRect(0, 0, 100, 100),
+          rect: new Rect(0, 0, 100, 100),
         },
         5: {
-          rect: Rectangle.createRect(50, 50, 70, 70),
+          rect: new Rect(50, 50, 70, 70),
         },
       }
 
@@ -542,19 +526,19 @@ describe('HierarchicalCollisionDetector', () => {
         1: {
           children: {
             2: {
-              rect: Rectangle.createRect(10, 10, 80, 20),
+              rect: new Rect(10, 10, 80, 20),
             },
             3: {
-              rect: Rectangle.createRect(10, 30, 80, 20),
+              rect: new Rect(10, 30, 80, 20),
             },
             4: {
-              rect: Rectangle.createRect(10, 50, 80, 20),
+              rect: new Rect(10, 50, 80, 20),
             },
           },
-          rect: Rectangle.createRect(0, 0, 100, 100),
+          rect: new Rect(0, 0, 100, 100),
         },
         5: {
-          rect: Rectangle.createRect(50, 50, 70, 70),
+          rect: new Rect(50, 50, 70, 70),
         },
       }
 

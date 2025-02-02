@@ -1,4 +1,4 @@
-import { getEnv } from '@codelab/shared/config'
+import { getEnv } from '@codelab/shared/config/env'
 
 import { Auth0Client } from './auth0.client'
 

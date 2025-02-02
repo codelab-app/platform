@@ -2,7 +2,7 @@ import { IPreferenceDto } from '@codelab/shared/abstract/core'
 import {
   breakpoints,
   DEFAULT_BUILDER_BREAKPOINT,
-} from '@codelab/shared/domain-old'
+} from '@codelab/shared/config/builder'
 import { Injectable } from '@nestjs/common'
 import { v4 } from 'uuid'
 
@@ -14,7 +14,11 @@ export class PreferenceDomainService {
 
   async createInitialPreference({ owner }: Pick<IPreferenceDto, 'owner'>) {
     const existing = await this.preferenceRepository.findOne({
-      where: { owner },
+      where: {
+        owner: {
+          id: owner.id,
+        },
+      },
     })
 
     return existing

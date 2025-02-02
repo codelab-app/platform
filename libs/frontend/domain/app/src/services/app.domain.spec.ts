@@ -36,7 +36,7 @@ describe('App domain', () => {
 
     // Store
     app.pages.forEach((page) => {
-      const store = page.store.current
+      const store = page.current.store.current
 
       expect(store.name).toBe(store.name)
       expect(store.api.current.name).toBe(store.api.current.name)

@@ -2,10 +2,10 @@ import type {
   IPageDomainService,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
+import type { IPageDto } from '@codelab/shared/abstract/core'
 import type { ObjectMap } from 'mobx-keystone'
 
-import { IPageDto } from '@codelab/shared/abstract/core'
-import { Validator } from '@codelab/shared/infra/schema'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 
@@ -32,11 +32,11 @@ export class PageDomainService
     return page
   }
 
-  findById(id: string) {
-    const found = this.pages.get(id)
+  page(id: string) {
+    const page = this.pages.get(id)
 
-    Validator.assertsDefined(found)
+    Validator.assertsDefined(page)
 
-    return found
+    return page
   }
 }

@@ -4,8 +4,7 @@ import type {
   ICreateTagData,
   IUpdateTagData,
 } from '@codelab/shared/abstract/core'
-import type { TagOptions, TagWhere } from '@codelab/shared/infra/gql'
-import type { Ref } from 'mobx-keystone'
+import type { TagOptions, TagWhere } from '@codelab/shared/infra/gqlgen'
 
 import type { ICrudService, IPaginateable, IQueryService } from '../services'
 

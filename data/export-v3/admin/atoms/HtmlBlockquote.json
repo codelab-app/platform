@@ -9,6 +9,22 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
+          "id": "b24af1b5-6c50-4864-817c-e7f0c4a39374"
+        },
+        "id": "c53b4070-c374-4739-b668-1c2611237af7",
+        "key": "children",
+        "name": "Children",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "bbe82fed-f4c4-4cc1-ac66-0dcdc9d83d2f"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
           "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
         },
         "id": "ef84c17b-fb1b-45c1-93e2-bb6fad79e278",
@@ -29,6 +45,24 @@
         "id": "bbe82fed-f4c4-4cc1-ac66-0dcdc9d83d2f",
         "kind": "InterfaceType",
         "name": "HtmlBlockquote API"
+      },
+      {
+        "__typename": "UnionType",
+        "id": "b24af1b5-6c50-4864-817c-e7f0c4a39374",
+        "kind": "UnionType",
+        "name": "AtomChildren Union",
+        "typesOfUnionType": [
+          {
+            "__typename": "CodeMirrorType",
+            "id": "010c4f5a-434b-4c3e-a0ed-01eb1f78172a",
+            "name": "Typescript Code"
+          },
+          {
+            "__typename": "RichTextType",
+            "id": "e7558508-3bb7-4f57-8f8c-6ac989911765",
+            "name": "RichTextType"
+          }
+        ]
       }
     ]
   },

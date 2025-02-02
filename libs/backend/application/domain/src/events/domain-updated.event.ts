@@ -1,4 +1,4 @@
-import type { DomainUpdatedSubscription } from '../graphql/domain.subscription.graphql.api.gen'
+import type { DomainUpdatedSubscription } from '@codelab/shared-domain-module/domain'
 
 export const DOMAIN_UPDATED_EVENT = 'domain.updated'
 

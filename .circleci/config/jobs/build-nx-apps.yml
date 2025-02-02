@@ -1,0 +1,17 @@
+parameters:
+  resource_class:
+    type: string
+  max_old_space_size:
+    type: integer
+
+# Can't build with machine image, causes build issues
+executor: docker-node
+
+resource_class: << parameters.resource_class >>
+
+environment:
+  NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
+
+steps:
+  - restore-workspace
+  - build-nx-apps

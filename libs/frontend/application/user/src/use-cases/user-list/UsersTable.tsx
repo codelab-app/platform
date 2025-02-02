@@ -1,7 +1,7 @@
 'use client'
 
 import type { ObjectLike } from '@codelab/shared/abstract/types'
-import type { UserFragment } from '@codelab/shared/infra/gql'
+import type { UserFragment } from '@codelab/shared/infra/gqlgen'
 import type { ColumnsType } from 'antd/lib/table'
 
 import { userRepository } from '@codelab/frontend-domain-user/repositories'

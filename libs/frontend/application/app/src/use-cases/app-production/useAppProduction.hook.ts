@@ -11,6 +11,7 @@ import {
   useApplicationStore,
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
+import { useEffect } from 'react'
 import { v4 } from 'uuid'
 
 /**
@@ -26,22 +27,23 @@ export const useAppProduction = (appProductionData: IAppProductionDto) => {
   const app = hydrateAppProductionData(appProductionData, domainStore)
   const page = app.pageByName(pageName)
 
-  const renderer = rendererService.hydrate({
-    containerNode: page,
-    id: page.id,
-    rendererType: RendererType.Production,
-  })
+  useEffect(() => {
+    const renderer = rendererService.hydrate({
+      containerNode: page,
+      id: v4(),
+      rendererType: RendererType.Production,
+    })
 
-  console.debug(renderer)
+    console.debug(renderer)
 
-  rendererService.setActiveRenderer(rendererRef(renderer.id))
-  void renderer.expressionTransformer.init()
+    rendererService.setActiveRenderer(rendererRef(renderer.id))
+    void renderer.expressionTransformer.init()
+  }, [page.id])
 
   return {
     app,
     elementTree: page,
     page,
-    renderer,
   }
 }
 

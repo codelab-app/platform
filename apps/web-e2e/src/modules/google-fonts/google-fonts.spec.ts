@@ -2,6 +2,7 @@ import { type IApp } from '@codelab/shared/abstract/core'
 import { providerPageId } from '@codelab/shared/data/test'
 import { expect } from '@playwright/test'
 
+import { globalBeforeAll } from '../../setup/before-all'
 import {
   FONT_SIZE,
   googleFontsElement,
@@ -12,6 +13,8 @@ import { test } from './google-fonts.fixture'
 let app: IApp
 
 test.describe.configure({ mode: 'serial' })
+
+globalBeforeAll()
 
 test.beforeAll(async ({ request }, testInfo) => {
   app = await seedTestData(request)
@@ -52,6 +55,8 @@ test('should apply selected fonts to text', async ({ builderPage: page }) => {
   expect(initialStyle).toHaveProperty('fontWeight', '500')
 
   await page.applyFonts()
+
+  await expect(page.getSpinner()).toBeHidden()
 
   const updatedStyle = await page
     .getOutputTextNode()

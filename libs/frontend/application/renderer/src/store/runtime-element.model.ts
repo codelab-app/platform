@@ -1,22 +1,27 @@
 import type {
   ElementWrapperProps,
+  IElementTreeViewDataNode,
+  IElementTreeViewDataNodePreview,
   IRuntimeComponentModel,
-  IRuntimeElementDTO,
+  IRuntimeElementDto,
   IRuntimeElementModel,
   IRuntimeElementPropModel,
   IRuntimeElementStyleModel,
   IRuntimeModel,
   IRuntimePageModel,
 } from '@codelab/frontend/abstract/application'
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
-import type { Maybe } from '@codelab/shared/abstract/types'
+import type {
+  IActionModel,
+  IElementModel,
+} from '@codelab/frontend/abstract/domain'
+import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
+import type { ArrayOrSingle } from 'ts-essentials/dist/types'
 
 import {
   getRendererService,
   getRuntimeComponentService,
   getRuntimeElementService,
-  IElementTreeViewDataNode,
   IRuntimeNodeType,
   isRuntimeComponent,
   isRuntimeElement,
@@ -26,7 +31,6 @@ import {
   getComponentDomainService,
   isComponent,
 } from '@codelab/frontend/abstract/domain'
-import { Nullable } from '@codelab/shared/abstract/types'
 import { evaluateExpression, hasExpression } from '@codelab/shared-infra-eval'
 import { computed } from 'mobx'
 import {
@@ -40,7 +44,6 @@ import {
 } from 'mobx-keystone'
 import { createElement, type ReactElement, type ReactNode } from 'react'
 import { difference, filter, isTruthy } from 'remeda'
-import { ArrayOrSingle } from 'ts-essentials/dist/types'
 
 import { ElementWrapper } from '../components'
 
@@ -65,7 +68,7 @@ const compositeKey = (
   return `${container.compositeKey}.${element.id}${instanceKeyToRoot}${propKey}`
 }
 
-const create = (dto: IRuntimeElementDTO) => new RuntimeElementModel(dto)
+const create = (dto: IRuntimeElementDto) => new RuntimeElementModel(dto)
 
 /**
  * In cases of `childMapper`, the `runtimeElement's` renderType matters. If `component` type, then these children are not rendered nor passed to component to render
@@ -80,8 +83,8 @@ export class RuntimeElementModel
     element: prop<Ref<IElementModel>>(),
     lastChildMapperChildrenKeys: prop<Array<string>>(() => []),
     parentElementKey: prop<Nullable<string>>(null),
-    postRenderActionDone: prop(false).withSetter(),
-    preRenderActionDone: prop(false).withSetter(),
+    postRenderActionsDone: prop(false).withSetter(),
+    preRenderActionsDone: prop(false).withSetter(),
     propKey: prop<Maybe<string>>(),
     runtimeProps: prop<IRuntimeElementPropModel>(),
     style: prop<IRuntimeElementStyleModel>(),
@@ -178,6 +181,32 @@ export class RuntimeElementModel
   }
 
   @computed
+  get descendantElements() {
+    return this.children
+      .flatMap((child) =>
+        isRuntimeElement(child) ? child.descendantElements : child.elements,
+      )
+      .concat(this.children.filter((child) => isRuntimeElement(child)))
+  }
+
+  @computed
+  get mainTreeElement(): IRuntimeElementModel {
+    const treeRoot = this.renderer.runtimeContainerNode
+    const closestContainerNode = this.closestContainerNode.current
+
+    // element belongs to main tree
+    if (treeRoot?.compositeKey === closestContainerNode.compositeKey) {
+      return this
+    }
+
+    if (!closestContainerNode.mainTreeElement) {
+      throw new Error('Unable to find element that belongs to main tree')
+    }
+
+    return closestContainerNode.mainTreeElement
+  }
+
+  @computed
   get parentElement() {
     return this.parentElementKey
       ? this.runtimeElementService.elements.get(this.parentElementKey)
@@ -213,7 +242,7 @@ export class RuntimeElementModel
       },
       key: this.compositeKey,
       onRendered: async () => {
-        await this.runPostRenderAction()
+        await this.runPostRenderActions()
       },
       renderer: this.renderer,
       renderOutput,
@@ -289,18 +318,11 @@ export class RuntimeElementModel
     )
   }
 
+  /**
+   * Don't access this unless it's for constructing the tree, this will cause components to re-render
+   */
   @computed
   get treeViewNode(): IElementTreeViewDataNode {
-    const children = this.children.flatMap((child) =>
-      // if element is instance of component we render the element's children instead of component
-      isRuntimeComponent(child) && !child.isChildMapperComponentInstance
-        ? child.children.map(
-            // if element is instance of component we render the element's children instead of component
-            (instanceChild) => instanceChild.treeViewNode,
-          )
-        : [child.treeViewNode],
-    )
-
     const element = this.element.current
     const primaryTitle = element.treeTitle.primary
 
@@ -316,23 +338,43 @@ export class RuntimeElementModel
     const errorMessage = element.renderingMetadata?.error
       ? `Error: ${element.renderingMetadata.error.message}`
       : element.ancestorError
-      ? 'Something went wrong in a parent element'
-      : element.propsHaveErrors
-      ? 'Some props are not correctly set'
-      : undefined
+        ? 'Something went wrong in a parent element'
+        : element.propsHaveErrors
+          ? 'Some props are not correctly set'
+          : undefined
+
+    const children = this.children.flatMap((child) =>
+      // if element is instance of component we render the element's children instead of component
+      isRuntimeComponent(child) && !child.isChildMapperComponentInstance
+        ? child.children.map(
+            // if element is instance of component we render the element's children instead of component
+            (instanceChild) => instanceChild.treeViewNode,
+          )
+        : [child.treeViewNode],
+    )
 
     return {
+      ...this.treeViewNodePreview,
       atomMeta,
       children,
       componentMeta,
-      element: { id: this.element.current.id },
       errorMessage,
-      key: this.compositeKey,
       primaryTitle,
       rootKey: this.closestContainerNode.current.compositeKey,
       secondaryTitle,
       title: `${primaryTitle} (${secondaryTitle})`,
       type: IRuntimeNodeType.Element,
+    }
+  }
+
+  /**
+   * Create a separate version for common usage, this removes `children` property to help with re-rendering issues
+   */
+  @computed
+  get treeViewNodePreview(): IElementTreeViewDataNodePreview {
+    return {
+      element: { id: this.element.current.id },
+      key: this.compositeKey,
     }
   }
 
@@ -359,7 +401,7 @@ export class RuntimeElementModel
     this.children.forEach((child) => {
       child.detach()
     })
-    this.runtimeElementService.delete(this)
+    this.runtimeElementService.remove(this)
   }
 
   onAttachedToRootStore() {
@@ -379,39 +421,35 @@ export class RuntimeElementModel
     }
   }
 
-  runPostRenderAction = () => {
-    if (this.postRenderActionDone) {
+  runPostRenderActions() {
+    if (this.postRenderActionsDone) {
       return
     }
 
-    const { postRenderAction } = this.element.current
-    const currentPostRenderAction = postRenderAction?.current
+    const { postRenderActions } = this.element.current
+    const actions = postRenderActions?.map((action) => action.current)
 
-    if (currentPostRenderAction) {
-      const runner = this.runtimeProps.getActionRunner(
-        currentPostRenderAction.name,
-      )
+    actions?.forEach((action) => this.runRenderAction(action))
 
-      runner()
-      this.setPostRenderActionDone(true)
-    }
+    this.setPostRenderActionsDone(true)
   }
 
-  runPreRenderAction = () => {
-    if (this.preRenderActionDone) {
+  runPreRenderActions() {
+    if (this.preRenderActionsDone) {
       return
     }
 
-    const { preRenderAction } = this.element.current
-    const currentPreRenderAction = preRenderAction?.current
+    const { preRenderActions } = this.element.current
+    const actions = preRenderActions?.map((action) => action.current)
 
-    if (currentPreRenderAction) {
-      const runner = this.runtimeProps.getActionRunner(
-        preRenderAction.current.name,
-      )
+    actions?.forEach((action) => this.runRenderAction(action))
 
-      runner()
-      this.setPreRenderActionDone(true)
-    }
+    this.setPreRenderActionsDone(true)
+  }
+
+  private runRenderAction(action: IActionModel) {
+    const runner = this.runtimeProps.getActionRunner(action.name)
+
+    runner()
   }
 }

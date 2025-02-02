@@ -2,12 +2,14 @@ import type {
   IAppProductionArgs,
   IAppProductionDto,
 } from '@codelab/frontend/abstract/domain'
-import type { AtomProductionFragment } from '@codelab/shared/infra/gql'
+import type { AtomProductionFragment } from '@codelab/shared/infra/gqlgen'
 
-import { GetAppProduction } from '@codelab/shared-domain-module-app'
+import { appServerActions } from '@codelab/shared-domain-module-app'
 import { uniqueBy } from 'remeda'
 
 //  In production we have domain and pageUrlPattern we filter app by domain and page by url
+
+const { GetAppProduction } = appServerActions
 
 export const appProductionRepository = async ({
   domainSlug,

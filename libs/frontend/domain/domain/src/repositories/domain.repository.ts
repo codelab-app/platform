@@ -1,33 +1,33 @@
 import type { IDomainDto, IRef } from '@codelab/shared/abstract/core'
-import type {
-  DomainOptions,
-  DomainUniqueWhere,
-  DomainWhere,
-} from '@codelab/shared/infra/gql'
+import type { DomainOptions, DomainWhere } from '@codelab/shared/infra/gqlgen'
 
 import {
   CACHE_TAGS,
   type IDomainModel,
   type IDomainRepository,
 } from '@codelab/frontend/abstract/domain'
-import { domainMapper } from '@codelab/shared/domain-old'
-import { Validator } from '@codelab/shared/infra/schema'
+import { Validator } from '@codelab/shared/infra/typebox'
+import {
+  domainMapper,
+  domainServerActions,
+} from '@codelab/shared-domain-module/domain'
 import { revalidateTag } from 'next/cache'
 
-import {
-  CreateDomains,
-  DeleteDomains,
-  DomainList,
-  UpdateDomains,
-} from './domain.api.graphql.web.gen'
+const { CreateDomains, DeleteDomains, DomainList, UpdateDomains } =
+  domainServerActions
 
 export const domainRepository: IDomainRepository = {
   add: async (domain: IDomainDto) => {
     const {
       createDomains: { domains },
-    } = await CreateDomains({
-      input: domainMapper.toCreateInput(domain),
-    })
+    } = await CreateDomains(
+      {
+        input: domainMapper.toCreateInput(domain),
+      },
+      {
+        tags: [CACHE_TAGS.DOMAIN_LIST],
+      },
+    )
 
     const createdDomain = domains[0]
 
@@ -49,10 +49,11 @@ export const domainRepository: IDomainRepository = {
   },
 
   find: async (where: DomainWhere = {}, options?: DomainOptions) => {
-    return DomainList({ options, where })
+    return DomainList({ options, where }, { tags: [CACHE_TAGS.DOMAIN_LIST] })
   },
 
-  findOne: async (where: DomainUniqueWhere) => {
+  // FIXME: make a unique where
+  findOne: async (where: DomainWhere) => {
     return (await domainRepository.find(where)).items[0]
   },
 

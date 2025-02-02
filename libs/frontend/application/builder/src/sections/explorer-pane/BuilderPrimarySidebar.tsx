@@ -10,25 +10,16 @@ import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { isComponent, isPage } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { CuiSidebar } from '@codelab/frontend/presentation/codelab-ui'
-import { DeleteComponentModal } from '@codelab/frontend-application-component/use-cases/delete-component'
 import { useElementService } from '@codelab/frontend-application-element/services'
-import { useCreateElementForm } from '@codelab/frontend-application-element/use-cases/create-element'
-import { DeleteElementModal } from '@codelab/frontend-application-element/use-cases/delete-element'
+import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import { useActionService } from '@codelab/frontend-application-store/services'
-import { useCreateActionForm } from '@codelab/frontend-application-store/use-cases/create-action'
-import { DeleteActionModal } from '@codelab/frontend-application-store/use-cases/delete-action'
 import { ActionsTreeView } from '@codelab/frontend-application-store/use-cases/get-actions'
 import { StateTreeView } from '@codelab/frontend-application-store/use-cases/get-state'
 import { useFieldService } from '@codelab/frontend-application-type/services'
-import { useCreateFieldForm } from '@codelab/frontend-application-type/use-cases/create-field'
-import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
-import {
-  useApplicationStore,
-  useDomainStore,
-} from '@codelab/frontend-infra-mobx/context'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
 import { IPageKind } from '@codelab/shared/abstract/core'
-import { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
+import { CodeMirrorLanguage } from '@codelab/shared/infra/gqlgen'
 import { Collapse } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
@@ -40,12 +31,8 @@ export const BuilderPrimarySidebar = observer<{
   containerNode: IComponentModel | IPageModel
 }>(({ containerNode, isLoading = false }) => {
   const router = useRouter()
-  const { elementDomainService } = useDomainStore()
-  const { builderService, rendererService } = useApplicationStore()
-  const createActionForm = useCreateActionForm()
-  const createFieldForm = useCreateFieldForm()
-  const selectedNode = builderService.selectedNode?.current
-  const createElementForm = useCreateElementForm()
+  const { appId, componentId, pageId } = useUrlPathParams()
+  const { rendererService } = useApplicationStore()
   const { createPopover: createElementPopover } = useElementService()
   const { createPopover: createFieldPopover } = useFieldService()
   const { createPopover: createActionPopover } = useActionService()
@@ -67,20 +54,8 @@ export const BuilderPrimarySidebar = observer<{
           {
             cuiKey: UiKey.ElementToolbarItemCreate,
             icon: <PlusOutlined />,
-            onClick: () => {
-              const selectedElement = selectedNode?.treeViewNode.element
-                ? elementDomainService.elements.get(
-                    selectedNode.treeViewNode.element.id,
-                  )
-                : undefined
-
-              createElementForm.open({
-                elementOptions: containerNode.elements.map(mapElementOption),
-                elementTree: containerNode,
-                selectedElement,
-              })
-              createElementPopover.open(router)
-            },
+            onClick: () =>
+              createElementPopover.open(router, { appId, componentId, pageId }),
             title: 'Add Element',
           },
         ],
@@ -104,8 +79,12 @@ export const BuilderPrimarySidebar = observer<{
               }
 
               if (store.api.id) {
-                createFieldForm.open(store.api.current)
-                createFieldPopover.open(router)
+                createFieldPopover.open(router, {
+                  appId,
+                  componentId,
+                  interfaceId: store.api.id,
+                  pageId,
+                })
               }
             },
             title: 'Add Field',
@@ -130,8 +109,12 @@ export const BuilderPrimarySidebar = observer<{
                 return
               }
 
-              createActionForm.open(store)
-              createActionPopover.open(router)
+              createActionPopover.open(router, {
+                appId,
+                componentId,
+                pageId,
+                storeId: store.id,
+              })
             },
             title: 'Add Action',
           },
@@ -195,21 +178,12 @@ export const BuilderPrimarySidebar = observer<{
   ]
 
   return (
-    <>
-      <CuiSidebar
-        defaultActiveViewKeys={['ElementTree']}
-        label="Explorer"
-        uiKey={UiKey.BuilderSidebar}
-        views={sidebarViews}
-      />
-      <DeleteComponentModal />
-      <DeleteElementModal
-        selectPreviousElementOnDelete={() =>
-          builderService.selectPreviousElementOnDelete()
-        }
-      />
-      <DeleteActionModal />
-    </>
+    <CuiSidebar
+      defaultActiveViewKeys={['ElementTree']}
+      label="Explorer"
+      uiKey={UiKey.BuilderSidebar}
+      views={sidebarViews}
+    />
   )
 })
 

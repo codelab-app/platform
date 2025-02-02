@@ -30,7 +30,9 @@ export const typeboxSchemaNaming = createESLintRule({
         node.init.callee.type === AST_NODE_TYPES.MemberExpression &&
         node.init.callee.object.type === AST_NODE_TYPES.Identifier &&
         // Both imports should trigger
-        node.init.callee.object.name === name &&
+        (node.init.callee.object.name === name ||
+          (node.id.type === AST_NODE_TYPES.Identifier &&
+            node.id.name === 'schema')) &&
         node.init.callee.property.type === AST_NODE_TYPES.Identifier
       )
 
@@ -53,9 +55,9 @@ export const typeboxSchemaNaming = createESLintRule({
             ? node.id.name
             : null
           : node.parent.type === AST_NODE_TYPES.VariableDeclarator &&
-            node.parent.id.type === AST_NODE_TYPES.Identifier
-          ? node.parent.id.name
-          : null
+              node.parent.id.type === AST_NODE_TYPES.Identifier
+            ? node.parent.id.name
+            : null
 
       /**
        * ESLint can't get the inferred type, only if there exists an explicit annotation, so we have to turn off checking for functions.
@@ -119,7 +121,7 @@ export const typeboxSchemaNaming = createESLintRule({
           if (node.id.type === AST_NODE_TYPES.Identifier) {
             const variableName = node.id.name
 
-            if (!variableName.endsWith('Schema')) {
+            if (!variableName.endsWith('Schema') && variableName !== 'schema') {
               context.report({
                 messageId: 'suffixWithSchema',
                 node,
@@ -135,7 +137,7 @@ export const typeboxSchemaNaming = createESLintRule({
           if (node.id.type === AST_NODE_TYPES.Identifier) {
             const variableName = node.id.name
 
-            if (!variableName.endsWith('Schema')) {
+            if (!variableName.endsWith('Schema') && variableName !== 'schema') {
               context.report({
                 messageId: 'suffixWithSchema',
                 node,

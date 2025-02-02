@@ -3,8 +3,7 @@ import type {
   IDomainModel,
   IUpdateDomainData,
 } from '@codelab/frontend/abstract/domain'
-import type { IRef } from '@codelab/shared/abstract/core'
-import type { DomainWhere } from '@codelab/shared/infra/gql'
+import type { DomainWhere } from '@codelab/shared/infra/gqlgen'
 
 import { type IDomainService } from '@codelab/frontend/abstract/application'
 import {
@@ -12,7 +11,6 @@ import {
   invalidateDomainListQuery,
 } from '@codelab/frontend-domain-domain/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { Validator } from '@codelab/shared/infra/schema'
 
 export const useDomainService = (): IDomainService => {
   const { domainDomainService } = useDomainStore()
@@ -58,19 +56,9 @@ export const useDomainService = (): IDomainService => {
     return await domainRepository.update({ id: domain.id }, domain)
   }
 
-  const getOneFromCache = (ref: IRef) => {
-    return domainDomainService.domains.get(ref.id)
-  }
-
-  const getAllFromCache = () => {
-    return Array.from(domainDomainService.domains.values())
-  }
-
   return {
     create,
     getAll,
-    getAllFromCache,
-    getOneFromCache,
     removeMany,
     update,
   }

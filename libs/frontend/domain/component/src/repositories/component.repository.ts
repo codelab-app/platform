@@ -2,20 +2,18 @@ import type { IComponentRepository } from '@codelab/frontend/abstract/domain'
 import type { IComponentDto, IRef } from '@codelab/shared/abstract/core'
 import type {
   ComponentOptions,
-  ComponentUniqueWhere,
   ComponentWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import { CACHE_TAGS } from '@codelab/frontend/abstract/domain'
-import { componentMapper } from '@codelab/shared/domain-old'
-import { Validator } from '@codelab/shared/infra/schema'
-
+import { Validator } from '@codelab/shared/infra/typebox'
 import {
-  ComponentList,
-  CreateComponents,
-  DeleteComponents,
-  UpdateComponents,
-} from './component.api.graphql.web.gen'
+  componentMapper,
+  componentServerActions,
+} from '@codelab/shared-domain-module/component'
+
+const { ComponentList, CreateComponents, DeleteComponents, UpdateComponents } =
+  componentServerActions
 
 export const componentRepository: IComponentRepository = {
   add: async (input: IComponentDto) => {
@@ -56,7 +54,8 @@ export const componentRepository: IComponentRepository = {
     )
   },
 
-  findOne: async (where: ComponentUniqueWhere) => {
+  // FIXME: make a unique where
+  findOne: async (where: ComponentWhere) => {
     return (await componentRepository.find(where)).items[0]
   },
 

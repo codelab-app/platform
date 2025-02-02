@@ -1,0 +1,44 @@
+mutation CreateComponents($input: [ComponentCreateInput!]!) {
+  createComponents(input: $input) {
+    components {
+      __typename
+      id
+      store {
+        id
+      }
+      rootElement {
+        id
+      }
+    }
+  }
+}
+
+mutation DeleteComponents(
+  $where: ComponentWhere
+  $delete: ComponentDeleteInput
+) {
+  deleteComponents(delete: $delete, where: $where) {
+    nodesDeleted
+  }
+}
+
+mutation UpdateComponents(
+  $where: ComponentWhere
+  $update: ComponentUpdateInput
+) {
+  updateComponents(update: $update, where: $where) {
+    components {
+      __typename
+      id
+    }
+  }
+}
+
+query ComponentList($options: ComponentOptions, $where: ComponentWhere) {
+  aggregate: componentsAggregate(where: $where) {
+    count
+  }
+  items: components(options: $options, where: $where) {
+    ...Component
+  }
+}

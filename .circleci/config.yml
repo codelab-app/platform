@@ -1,6 +1,6 @@
 commands:
-  build-repo:
-    description: Build Repo
+  build-nx-apps:
+    description: Build Nx Apps
     steps:
       - nx/set-shas:
           main-branch-name: master
@@ -12,6 +12,7 @@ commands:
           name: Restore NX Cache
       - run:
           command: (./scripts/nx/reset-cache.sh)
+          name: Monitor NX Cache Size
       - run:
           command: pnpm nx run-many --target=build --projects=web,api -c ci --nx-bail
       - save_cache:
@@ -20,6 +21,27 @@ commands:
           paths:
             - ~/project/.nx/cache
             - ~/project/dist/apps/web/.next/cache
+  build-nx-libs:
+    description: Build Nx Libs
+    steps:
+      - nx/set-shas:
+          main-branch-name: master
+      - restore_cache:
+          keys:
+            - nx-cache-libs-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+            - nx-cache-libs-{{ .Environment.CIRCLE_BRANCH }}-
+            - nx-cache-libs-
+          name: Restore NX Cache
+      - run:
+          command: (./scripts/nx/reset-cache.sh)
+          name: Monitor NX Cache Size
+      - run:
+          command: pnpm nx run-many --target=build --all --exclude=web,api -c ci
+      - save_cache:
+          key: nx-cache-libs-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+          name: Save NX Cache
+          paths:
+            - ~/project/.nx/cache-libs
   clear-jest-cache:
     description: Clear Jest Spec
     steps:
@@ -30,6 +52,19 @@ commands:
     description: Increment Docker Version
     steps:
       - run: ~/project/.circleci/config/commands/increment-docker-version.sh
+  install-cypher-shell:
+    steps:
+      - run:
+          command: |
+            # https://neo4j.com/docs/operations-manual/current/installation/linux/debian/
+            wget -O - https://debian.neo4j.com/neotechnology.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/neotechnology.gpg
+
+            echo 'deb [signed-by=/etc/apt/keyrings/neotechnology.gpg] https://debian.neo4j.com stable latest' | sudo tee -a /etc/apt/sources.list.d/neo4j.list
+
+            sudo apt-get update
+
+            sudo apt-get install -y neo4j cypher-shell
+          name: Install Cypher Shell
   install-nvm:
     steps:
       - restore_cache:
@@ -46,8 +81,8 @@ commands:
             - ~/.nvm
       - run:
           command: |
-            nvm install 18.18.0
-            nvm alias default 18.18.0
+            nvm install 20.18.1
+            nvm alias default 20.18.1
             node -v
           name: Set Node Version
   install-packages:
@@ -144,6 +179,7 @@ commands:
             - nvm-cache-{{ checksum ".nvmrc" }}
           name: Restore NVM Cache
       - install-pnpm
+      - install-cypher-shell
       - setup-env
   setup-env:
     description: Setup Env
@@ -151,21 +187,35 @@ commands:
       - run:
           command: source ~/project/.circleci/config/env.sh
           name: Setup Env
+  setup-neo4j:
+    description: Setup Neo4j
+    steps:
+      - run:
+          command: |
+            neo4j-admin server memory-recommendation --docker
+          name: Run Neo4j Memory Recommendations
+      - run:
+          command: |
+            ~/project/.docker/cypher/scripts/enable-cdc.sh
+          name: Enable CDC
+      - run:
+          command: |
+            ~/project/.docker/cypher/scripts/apply-constraints.sh
+          name: Apply Neo4j Constraints
+          working_directory: ~/project/.docker/cypher
 executors:
   docker-node:
     docker:
-      - image: cimg/node:18.18.0-browsers
+      - image: cimg/node:20.18.1-browsers
   docker-node-neo4j:
     docker:
-      - image: cimg/node:18.18.0-browsers
+      - image: cimg/node:20.18.1-browsers
         name: 127.0.0.1
-      - command:
-          - neo4j
-          - start
-        environment:
+      - environment:
+          NEO4J_ACCEPT_LICENSE_AGREEMENT: 'yes'
           NEO4J_AUTH: neo4j/password
           NEO4J_PLUGINS: '["apoc"]'
-        image: neo4j:5.25.1
+        image: neo4j:5.26.0-enterprise
   machine-ubuntu:
     machine:
       image: ubuntu-2004:2022.04.1
@@ -178,6 +228,33 @@ executors:
     environment:
       TF_WORKSPACE: prod
 jobs:
+  build-nx-apps:
+    environment:
+      NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
+    executor: docker-node
+    parameters:
+      max_old_space_size:
+        type: integer
+      resource_class:
+        type: string
+    resource_class: << parameters.resource_class >>
+    steps:
+      - restore-workspace
+      - build-nx-apps
+  build-nx-libs:
+    environment:
+      NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
+      NX_CACHE_DIRECTORY: ~/project/.nx/cache-libs
+    executor: docker-node
+    parameters:
+      max_old_space_size:
+        type: integer
+      resource_class:
+        type: string
+    resource_class: << parameters.resource_class >>
+    steps:
+      - restore-workspace
+      - build-nx-libs
   codegen:
     executor: docker-node-neo4j
     parameters:
@@ -186,6 +263,7 @@ jobs:
     resource_class: << parameters.resource_class >>
     steps:
       - restore-workspace
+      - setup-neo4j
       - run:
           command: pnpm cli tasks graphql-codegen --stage ci
           name: Check GraphQL Codegen
@@ -254,7 +332,7 @@ jobs:
     environment:
       NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
     executor: docker-node-neo4j
-    parallelism: 2
+    parallelism: 4
     parameters:
       max_old_space_size:
         type: integer
@@ -263,6 +341,7 @@ jobs:
     resource_class: << parameters.resource_class >>
     steps:
       - restore-workspace
+      - setup-neo4j
       - run: pnpm npx playwright install-deps
       - run:
           command: |
@@ -291,6 +370,7 @@ jobs:
     resource_class: << parameters.resource_class >>
     steps:
       - restore-workspace
+      - setup-neo4j
       - run:
           command: pnpm cli tasks int --stage ci
           environment:
@@ -316,9 +396,6 @@ jobs:
       - run:
           command: pnpm cli tasks lint --stage ci
           name: Run Lint on Repository
-      - run:
-          command: pnpm cli tasks commitlint --stage ci
-          name: Commitlint
       - store_test_results:
           path: ./tmp/reports/lint
   notify-failure:
@@ -454,12 +531,6 @@ jobs:
       - install-nvm
       - install-pnpm
       - install-packages
-      - build-repo
-      - persist_to_workspace:
-          paths:
-            - project/dist/apps/cli
-            - project/dist/apps/web
-          root: ~/
   tf-apply:
     executor: docker-node
     parameters:
@@ -508,6 +579,17 @@ jobs:
             - .terraformrc
             - project/terraform/.terraform
           root: ~/
+  tsc-check:
+    executor: docker-node
+    parameters:
+      resource_class:
+        type: string
+    resource_class: << parameters.resource_class >>
+    steps:
+      - restore-workspace
+      - run:
+          command: pnpm nx run-many --target=tsc-check
+          name: Run tsc Check
   unit:
     executor: docker-node
     parameters:
@@ -659,6 +741,35 @@ workflows:
           requires:
             - setup-workspace
           resource_class: large
+      - build-nx-apps:
+          filters:
+            branches:
+              ignore:
+                - master
+                - staging
+          max_old_space_size: 4096
+          requires:
+            - setup-workspace
+          resource_class: large
+      - build-nx-libs:
+          filters:
+            branches:
+              ignore:
+                - master
+                - staging
+          max_old_space_size: 4096
+          requires:
+            - setup-workspace
+          resource_class: large
+      - tsc-check:
+          filters:
+            branches:
+              ignore:
+                - master
+                - staging
+          requires:
+            - setup-workspace
+          resource_class: large
       - codegen:
           filters:
             branches:
@@ -695,7 +806,7 @@ workflows:
                 - staging
           max_old_space_size: 4096
           requires:
-            - setup-workspace
+            - build-nx-apps
           resource_class: large
       - notify-success:
           filters:
@@ -708,6 +819,9 @@ workflows:
             - codegen
             - unit
             - integration
+            - build-nx-libs
+            - build-nx-apps
+            - tsc-check
             - e2e
           resource_class: medium
   infra-pr:

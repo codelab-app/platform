@@ -1,16 +1,15 @@
-import type { IRuntimePageService } from '@codelab/frontend/abstract/application'
+import type {
+  IRuntimePageModel,
+  IRuntimePageService,
+} from '@codelab/frontend/abstract/application'
+import type { IPageModel } from '@codelab/frontend/abstract/domain'
 import type { ObjectMap } from 'mobx-keystone'
 
 import {
-  IRuntimePageModel,
   runtimePageRef,
   runtimeStoreRef,
 } from '@codelab/frontend/abstract/application'
-import {
-  IPageModel,
-  pageRef,
-  storeRef,
-} from '@codelab/frontend/abstract/domain'
+import { pageRef, storeRef } from '@codelab/frontend/abstract/domain'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { v4 } from 'uuid'
@@ -83,7 +82,7 @@ export class RuntimePageService
   }
 
   @modelAction
-  delete(runtimePage: IRuntimePageModel) {
+  remove(runtimePage: IRuntimePageModel) {
     return this.pages.delete(runtimePage.compositeKey)
   }
 

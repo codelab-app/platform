@@ -38,14 +38,14 @@ export const CreatePagePopover = observer<PageContextParams>(
               cuiKey: UiKey.PageToolbarItemCreateCancel,
               icon: <CloseOutlined />,
               label: 'Cancel',
-              onClick: () => createPopover.close(router),
+              onClick: () => createPopover.close(router, { appId, pageId }),
             },
           ],
           title: 'Create Page toolbar',
         }}
       >
         <CreatePageForm
-          onSubmitSuccess={() => createPopover.close(router)}
+          onSubmitSuccess={() => createPopover.close(router, { appId, pageId })}
           showFormControl={false}
           submitRef={submitRef}
         />

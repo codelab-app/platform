@@ -1,12 +1,7 @@
 import type { IRedirectUpdateFormData } from '@codelab/frontend/abstract/domain'
-import type { Maybe } from '@codelab/shared/abstract/types'
 
-import {
-  type IFormController,
-  type SubmitController,
-  UiKey,
-} from '@codelab/frontend/abstract/types'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
   DisplayIfField,
   Form,
@@ -20,14 +15,16 @@ import { AutoField, AutoFields } from 'uniforms-antd'
 import { useRedirectService } from '../../services'
 import { DeleteRedirectButton } from '../delete-redirect'
 import { updateRedirectSchema } from './update-redirect.schema'
-import { useUpdateRedirectForm } from './update-redirect.state'
 
-export const UpdateRedirectForm = observer<IFormController>(
-  ({ onSubmitSuccess, showFormControl = true, submitRef }) => {
-    const updateRedirectForm = useUpdateRedirectForm()
+interface UpdateRedirectFormProps extends IFormController {
+  redirectId: string
+}
+
+export const UpdateRedirectForm = observer<UpdateRedirectFormProps>(
+  ({ onSubmitSuccess, redirectId, showFormControl = true, submitRef }) => {
     const redirectService = useRedirectService()
-    const redirect = updateRedirectForm.data
-    const closeForm = () => updateRedirectForm.close()
+    const { redirectDomainService } = useDomainStore()
+    const redirect = redirectDomainService.redirects.get(redirectId)
 
     const model = {
       authGuard: redirect?.authGuard,
@@ -38,25 +35,16 @@ export const UpdateRedirectForm = observer<IFormController>(
       targetUrl: redirect?.targetUrl,
     }
 
-    const onSubmit = async (redirectDTO: IRedirectUpdateFormData) => {
-      await redirectService.update(redirectDTO)
-
-      closeForm()
-      onSubmitSuccess?.()
-
-      return Promise.resolve()
-    }
-
     return (
       <>
         <Form<IRedirectUpdateFormData>
+          errorMessage="Error while updating redirect"
           model={model}
-          onSubmit={onSubmit}
-          onSubmitError={createFormErrorNotificationHandler({
-            title: 'Error while updating redirect',
-          })}
+          onSubmit={redirectService.update}
+          onSubmitSuccess={onSubmitSuccess}
           schema={updateRedirectSchema}
           submitRef={submitRef}
+          successMessage="Auth redirect updated successfully"
           uiKey={UiKey.RedirectFormUpdate}
         >
           <AutoFields omitFields={['targetPage', 'targetUrl']} />
@@ -78,10 +66,7 @@ export const UpdateRedirectForm = observer<IFormController>(
           </DisplayIfField>
 
           <DisplayIf condition={showFormControl}>
-            <FormController
-              onCancel={closeForm}
-              submitLabel="Update Redirect"
-            />
+            <FormController submitLabel="Update Redirect" />
           </DisplayIf>
         </Form>
         <DeleteRedirectButton redirect={redirect} />

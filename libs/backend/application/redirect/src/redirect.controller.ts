@@ -1,4 +1,5 @@
 import { RedirectRepository } from '@codelab/backend/domain/redirect'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { safeEval } from '@codelab/backend/shared/eval'
 import {
   type ICanActivate,
@@ -6,14 +7,18 @@ import {
   IRedirectTargetType,
   type IResourceFetchConfig,
 } from '@codelab/shared/abstract/core'
-import { getResourceClient } from '@codelab/shared/domain-old'
+import { ObjectLike } from '@codelab/shared/abstract/types'
 import { tryParse } from '@codelab/shared/utils'
+import { getResourceClient } from '@codelab/shared-domain-module/resource'
 import { evaluateObject } from '@codelab/shared-infra-eval'
 import { Body, Controller, Post } from '@nestjs/common'
 
 @Controller()
 export class RedirectController {
-  constructor(private redirectRepository: RedirectRepository) {}
+  constructor(
+    private redirectRepository: RedirectRepository,
+    private logger: PinoLoggerService,
+  ) {}
 
   @Post('can-activate')
   async canActivate(
@@ -30,6 +35,11 @@ export class RedirectController {
           ],
         },
       },
+    })
+
+    this.logger.log('Redirect', {
+      context: 'RedirectController',
+      data: { authorization, domain, pageUrlPattern, redirect },
     })
 
     // either a regular page with no redirect attached to or a system page
@@ -51,7 +61,7 @@ export class RedirectController {
     if (!authorization) {
       return {
         canActivate: false,
-        message: 'Messing authorization in request body',
+        message: 'Missing authorization in request body',
         redirectUrl,
         status: 200,
       }
@@ -65,6 +75,11 @@ export class RedirectController {
     const evaluatedConfig = evaluateObject(fetchConfig, {
       cookie: authorization,
     }) as IResourceFetchConfig
+
+    this.logger.log('Evaluated config', {
+      context: 'RedirectController',
+      data: evaluatedConfig,
+    })
 
     let response
 
@@ -80,15 +95,28 @@ export class RedirectController {
     }
 
     try {
+      this.logger.log('Response', {
+        context: 'RedirectController',
+        data: { response, responseTransformer },
+      })
+
       const canActivate = await safeEval(responseTransformer, response)
+
+      this.logger.log('Can activate', {
+        context: 'RedirectController',
+        data: canActivate,
+      })
 
       return {
         canActivate,
         redirectUrl: !canActivate ? redirectUrl : undefined,
         status: 200,
       }
-    } catch (error) {
-      console.error(error)
+    } catch (error: unknown) {
+      this.logger.error('Error transforming response', {
+        context: 'RedirectController',
+        data: error as ObjectLike,
+      })
 
       return {
         canActivate: false,

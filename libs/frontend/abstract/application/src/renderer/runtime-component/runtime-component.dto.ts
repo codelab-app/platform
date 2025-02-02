@@ -3,7 +3,7 @@ import type { Ref } from 'mobx-keystone'
 
 import type { IRuntimeElementModel } from '../runtime-element'
 
-export interface IRuntimeComponentDTO {
+export interface IRuntimeComponentDto {
   childMapperIndex?: number
   component: IComponentModel
   compositeKey: string

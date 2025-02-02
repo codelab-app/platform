@@ -1,27 +1,26 @@
 'use client'
 
+import type { IAppModel } from '@codelab/frontend/abstract/domain'
+
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,
   CuiHeaderToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/navigation'
 
-import { useCreateDomainModal } from '../use-cases/create-domain/create-domain.state'
-
-export const DomainsPageHeader = observer(() => {
-  const createDomainModal = useCreateDomainModal()
-  const app = useCurrentApp()
+export const DomainsPageHeader = observer<{ app: IAppModel }>(({ app }) => {
+  const router = useRouter()
 
   return (
     <CuiHeader
       direction={
         <CuiHeaderBreadcrumb
-          items={[{ title: app?.name || '?' }, { title: 'Domains' }]}
+          items={[{ title: app.name }, { title: 'Domains' }]}
         />
       }
       logo={
@@ -38,7 +37,8 @@ export const DomainsPageHeader = observer(() => {
             {
               cuiKey: UiKey.DomainToolbarItemCreate,
               icon: <PlusOutlined />,
-              onClick: () => createDomainModal.open(),
+              onClick: () =>
+                router.push(PageType.DomainCreate({ appId: app.id })),
               title: 'Create Domain',
             },
           ]}

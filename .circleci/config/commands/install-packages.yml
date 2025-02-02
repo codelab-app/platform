@@ -11,10 +11,12 @@ steps:
   - run:
       name: 'Install NPM Packages'
       command: pnpm install --frozen-lockfile --verbose
-  # Has bug where it prunes everything
+  # Need to bust cache manually by updating lock file
   # - run:
-  #     name: 'Prune pnpm cache'
-  #     command: pnpm store prune
+  #     name: 'Prune pnpm store'
+  #     command: |
+  #       pnpm store path
+  #       pnpm store prune --force
   - save_cache:
       name: 'Save pnpm Cache'
       key: pnpm-cache-{{ checksum "pnpm-lock.yaml" }}

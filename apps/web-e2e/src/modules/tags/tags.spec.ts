@@ -1,7 +1,12 @@
 import { expect } from '@playwright/test'
 
+import { globalBeforeAll } from '../../setup/before-all'
 import { CreateData, UpdateData } from './tags.data'
 import { test } from './tags.fixture'
+
+test.describe.configure({ mode: 'serial' })
+
+globalBeforeAll()
 
 test.beforeEach(async ({ tagListPage: page }) => {
   await page.goto()

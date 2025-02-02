@@ -3,16 +3,16 @@ import type {
   IAtomModel,
   IComponentType,
 } from '@codelab/frontend/abstract/domain'
+import type { SelectOption } from '@codelab/frontend/abstract/types'
+import type { IAtomDto } from '@codelab/shared/abstract/core'
 
 import DeploymentUnitOutlined from '@ant-design/icons/lib/icons/DeploymentUnitOutlined'
-import { SelectOption } from '@codelab/frontend/abstract/types'
 import { dynamicLoader } from '@codelab/frontend/shared/utils'
 import {
-  IAtomDto,
   IAtomType,
   IElementRenderTypeKind,
 } from '@codelab/shared/abstract/core'
-import { Validator } from '@codelab/shared/infra/schema'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { computed, observable } from 'mobx'
 import {
   arraySet,
@@ -106,7 +106,7 @@ export class AtomDomainService
       script.type = 'module'
       script.innerText = `
         import ${externalSourceType} from '${externalJsSource}';
-import { Validator } from '@codelab/shared/infra/schema'
+import { Validator } from '@codelab/shared/infra/typebox'
         window.${externalSourceType} = ${externalSourceType};
         if (window.onload${externalSourceType}) {
           window.onload${externalSourceType}(${externalSourceType});

@@ -2,7 +2,7 @@ import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { tagRepository } from '@codelab/frontend-domain-tag/repositories'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 
-import { DeleteTagsModalContainer } from './page.container'
+import { DeleteTagsModalConnector } from './page.connector'
 
 const Page = async ({ params: { id } }: { params: { id: string } }) => {
   const ids = decodeURIComponent(id).split(',')
@@ -10,7 +10,7 @@ const Page = async ({ params: { id } }: { params: { id: string } }) => {
 
   return (
     <DomainStoreHydrator fallback={<Spinner />} tagsDto={tagDto.items}>
-      <DeleteTagsModalContainer ids={ids} />
+      <DeleteTagsModalConnector ids={ids} />
     </DomainStoreHydrator>
   )
 }

@@ -1,6 +1,7 @@
 import type {
   IActionModel,
   IComponentModel,
+  IElementModel,
   IElementRenderTypeModel,
   IHook,
   IPageModel,
@@ -10,33 +11,20 @@ import type {
   RenderingMetadata,
 } from '@codelab/frontend/abstract/domain'
 import type { IElementDto, IRef } from '@codelab/shared/abstract/core'
-import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import type { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
+import type { Ref } from 'mobx-keystone'
 
 import {
   actionRef,
   componentRef,
   DATA_ELEMENT_ID,
   elementRef,
-  IElementModel,
   isAtom,
   isAtomRef,
-  isComponentRef,
   pageRef,
 } from '@codelab/frontend/abstract/domain'
-import { createValidator } from '@codelab/frontend/shared/utils'
+import { createValidator, toRefSchema } from '@codelab/frontend/shared/utils'
 import { Prop } from '@codelab/frontend-domain-prop/store'
-import { Nullish } from '@codelab/shared/abstract/types'
-import {
-  connectNodeId,
-  disconnectAll,
-  disconnectNodeId,
-  ElementProperties,
-  reconnectNodeId,
-} from '@codelab/shared/domain-old'
-import {
-  ElementCreateInput,
-  ElementUpdateInput,
-} from '@codelab/shared/infra/gql'
 import { slugify, titleCase } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
@@ -46,7 +34,6 @@ import {
   modelAction,
   patchRecorder,
   prop,
-  Ref,
 } from 'mobx-keystone'
 
 import { validateElement } from '../services/element.validate'
@@ -65,8 +52,8 @@ const create = (element: IElementDto): IElementModel => {
     page,
     parentComponent,
     parentElement,
-    postRenderAction,
-    preRenderAction,
+    postRenderActions,
+    preRenderActions,
     prevSibling,
     props,
     renderForEachPropKey,
@@ -94,12 +81,8 @@ const create = (element: IElementDto): IElementModel => {
     parentComponent: parentComponent ? componentRef(parentComponent.id) : null,
     // parent of first child
     parentElement: parentElement?.id ? elementRef(parentElement.id) : undefined,
-    postRenderAction: postRenderAction?.id
-      ? actionRef(postRenderAction.id)
-      : undefined,
-    preRenderAction: preRenderAction?.id
-      ? actionRef(preRenderAction.id)
-      : undefined,
+    postRenderActions: postRenderActions?.map((action) => actionRef(action.id)),
+    preRenderActions: preRenderActions?.map((action) => actionRef(action.id)),
     prevSibling: prevSibling?.id ? elementRef(prevSibling.id) : undefined,
     props: Prop.create(props),
     renderForEachPropKey,
@@ -132,11 +115,11 @@ export class Element
     // page which has this element as rootElement
     page: prop<Nullable<Ref<IPageModel>>>(null),
     // component which has this element as rootElement
-    parentComponent: prop<Nullable<Ref<IComponentModel>>>(null).withSetter(),
+    parentComponent: prop<Nullable<Ref<IComponentModel>>>(null),
     // Data used for tree initializing, before our Element model is ready
     parentElement: prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
-    postRenderAction: prop<Nullable<Ref<IActionModel>>>(null).withSetter(),
-    preRenderAction: prop<Nullable<Ref<IActionModel>>>(null).withSetter(),
+    postRenderActions: prop<Array<Ref<IActionModel>>>(() => []).withSetter(),
+    preRenderActions: prop<Array<Ref<IActionModel>>>(() => []).withSetter(),
     prevSibling: prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
     props: prop<IPropModel>().withSetter(),
     renderForEachPropKey: prop<Nullable<string>>(null).withSetter(),
@@ -339,22 +322,26 @@ export class Element
   @computed
   get toJson() {
     return {
-      childMapperComponent: this.childMapperComponent,
-      childMapperPreviousSibling: this.childMapperPreviousSibling,
+      childMapperComponent: this.childMapperComponent?.current.toJson,
+      childMapperPreviousSibling:
+        this.childMapperPreviousSibling?.current.toJson,
       childMapperPropKey: this.childMapperPropKey,
-      closestContainerNode: this.closestContainerNode,
+      closestContainerNode: { id: this.closestContainerNode.id },
       expanded: this.expanded,
-      firstChild: this.firstChild,
+      firstChild: toRefSchema(this.firstChild),
       id: this.id,
-      // isRoot: this.isRoot,
       name: this.name,
-      nextSibling: this.nextSibling,
-      page: this.page,
-      parentComponent: this.parentComponent,
-      parentElement: this.parentElement,
-      postRenderAction: this.postRenderAction,
-      preRenderAction: this.preRenderAction,
-      prevSibling: this.prevSibling,
+      nextSibling: toRefSchema(this.nextSibling),
+      page: toRefSchema(this.page),
+      parentComponent: toRefSchema(this.parentComponent),
+      parentElement: toRefSchema(this.parentElement),
+      postRenderActions: this.postRenderActions.map((action) => ({
+        id: action.id,
+      })),
+      preRenderActions: this.preRenderActions.map((action) => ({
+        id: action.id,
+      })),
+      prevSibling: toRefSchema(this.prevSibling),
       props: this.props.toJson,
       renderForEachPropKey: this.renderForEachPropKey,
       renderIfExpression: this.renderIfExpression,
@@ -385,6 +372,12 @@ export class Element
           ? titleCase(this.renderType.current.type)
           : undefined),
     }
+  }
+
+  @modelAction
+  attachAsComponentRoot(component: IRef) {
+    this.page = null
+    this.parentComponent = componentRef(component.id)
   }
 
   /**
@@ -545,8 +538,8 @@ export class Element
     nextSibling,
     parentComponent,
     parentElement,
-    postRenderAction,
-    preRenderAction,
+    postRenderActions,
+    preRenderActions,
     prevSibling,
     props,
     renderForEachPropKey,
@@ -554,6 +547,7 @@ export class Element
     renderType,
     style,
   }: Partial<IElementDto>) {
+    console.log('childMapperComponent', childMapperComponent)
     this.name = name ?? this.name
     this.renderIfExpression = renderIfExpression ?? null
     this.renderForEachPropKey = renderForEachPropKey ?? null
@@ -576,16 +570,16 @@ export class Element
     this.parentComponent = parentComponent
       ? componentRef(parentComponent.id)
       : this.parentComponent
-    this.preRenderAction = preRenderAction
-      ? actionRef(preRenderAction.id)
-      : null
-    this.postRenderAction = postRenderAction
-      ? actionRef(postRenderAction.id)
-      : null
-    this.childMapperComponent = childMapperComponent
+    this.preRenderActions = preRenderActions
+      ? preRenderActions.map((action) => actionRef(action.id))
+      : []
+    this.postRenderActions = postRenderActions
+      ? postRenderActions.map((action) => actionRef(action.id))
+      : []
+    this.childMapperComponent = childMapperComponent?.id
       ? componentRef(childMapperComponent.id)
       : null
-    this.childMapperPreviousSibling = childMapperPreviousSibling
+    this.childMapperPreviousSibling = childMapperPreviousSibling?.id
       ? elementRef(childMapperPreviousSibling.id)
       : null
 

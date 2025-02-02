@@ -1,24 +1,14 @@
-import type {
-  IPropModel,
-  IPropRepository,
-} from '@codelab/frontend/abstract/domain'
+import type { IPropRepository } from '@codelab/frontend/abstract/domain'
 import type { IPropDto, IRef } from '@codelab/shared/abstract/core'
-import type {
-  PropOptions,
-  PropUniqueWhere,
-  PropWhere,
-  UpdatePropsMutationVariables,
-} from '@codelab/shared/infra/gql'
+import type { PropOptions, PropWhere } from '@codelab/shared/infra/gqlgen'
 
-import { propMapper } from '@codelab/shared/domain-old'
-import { Validator } from '@codelab/shared/infra/schema'
-
+import { Validator } from '@codelab/shared/infra/typebox'
 import {
-  CreateProps,
-  DeleteProps,
-  GetProps,
-  UpdateProps,
-} from './prop.api.graphql.web.gen'
+  propMapper,
+  propServerActions,
+} from '@codelab/shared-domain-module/prop'
+
+const { CreateProps, DeleteProps, GetProps, UpdateProps } = propServerActions
 
 export const propRepository: IPropRepository = {
   add: async (input: IPropDto) => {
@@ -49,7 +39,8 @@ export const propRepository: IPropRepository = {
     return await GetProps({ options, where })
   },
 
-  findOne: async (where: PropUniqueWhere) => {
+  // FIXME: make a unique where
+  findOne: async (where: PropWhere) => {
     return (await propRepository.find(where)).items[0]
   },
 

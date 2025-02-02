@@ -1,29 +1,29 @@
+import type { PageContextParams } from '@codelab/frontend/abstract/types'
 import type {
   IElementDto,
   IPageCreateFormData,
   IPageUpdateFormData,
-  IRef,
 } from '@codelab/shared/abstract/core'
-import type { PageWhere } from '@codelab/shared/infra/gql'
+import type { PageWhere } from '@codelab/shared/infra/gqlgen'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import { type IPageService } from '@codelab/frontend/abstract/application'
 import { type IPageModel } from '@codelab/frontend/abstract/domain'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
-import {
-  GetRenderedPage,
-  pageRepository,
-} from '@codelab/frontend-domain-page/repositories'
+import { pageRepository } from '@codelab/frontend-domain-page/repositories'
 import {
   useApplicationStore,
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
-import { Validator } from '@codelab/shared/infra/schema'
+import { Validator } from '@codelab/shared/infra/typebox'
+import { pageServerActions } from '@codelab/shared-domain-module/page'
 
 import { createPageAction } from '../use-cases/create-page'
 import { createPageFactory } from '../use-cases/create-page/create-page.factory'
+
+const { GetRenderedPage } = pageServerActions
 
 export const usePageService = (): IPageService => {
   const {
@@ -134,52 +134,32 @@ export const usePageService = (): IPageService => {
     return page
   }
 
-  const getOneFromCache = (ref: IRef) => {
-    return pageDomainService.pages.get(ref.id)
-  }
-
-  const getAllFromCache = () => {
-    return Array.from(pageDomainService.pages.values())
-  }
-
   const createPopover = {
-    close: (router: AppRouterInstance) => {
-      router.back()
+    close: (router: AppRouterInstance, params: PageContextParams) => {
+      router.push(PageType.PageList(params))
     },
-    open: (router: AppRouterInstance, appId: string, pageId: string) => {
-      router.push(PageType.PageCreate({ appId, pageId }))
+    open: (router: AppRouterInstance, params: PageContextParams) => {
+      router.push(PageType.PageCreate(params))
     },
   }
 
   const updatePopover = {
-    close: (router: AppRouterInstance) => {
-      router.back()
+    close: (router: AppRouterInstance, params: PageContextParams) => {
+      router.push(PageType.PageList(params))
     },
-    open: (
-      router: AppRouterInstance,
-      appId: string,
-      pageId: string,
-      id: string,
-    ) => {
-      const baseUrl = PageType.PageUpdate({ appId, pageId })
-
-      router.push(`${baseUrl}/${id}`)
+    open: (router: AppRouterInstance, params: PageContextParams) => {
+      router.push(PageType.PageUpdate(params))
     },
   }
 
   const deletePopover = {
-    close: (router: AppRouterInstance) => {
-      router.back()
+    close: (router: AppRouterInstance, params: PageContextParams) => {
+      router.push(PageType.PageList(params))
     },
-    open: (
-      router: AppRouterInstance,
-      appId: string,
-      pageId: string,
-      id: string,
-    ) => {
-      const baseUrl = PageType.PageDelete({ appId, pageId })
+    open: (router: AppRouterInstance, params: PageContextParams) => {
+      const baseUrl = PageType.PageDelete(params)
 
-      router.push(`${baseUrl}/${id}`)
+      router.push(`${baseUrl}`)
     },
   }
 
@@ -188,9 +168,7 @@ export const usePageService = (): IPageService => {
     createPopover,
     deletePopover,
     getAll,
-    getAllFromCache,
     getOne,
-    getOneFromCache,
     getPagesByApp,
     getRenderedPage,
     getSelectPageOptions,

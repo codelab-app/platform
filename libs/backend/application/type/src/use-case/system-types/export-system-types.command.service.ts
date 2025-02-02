@@ -1,7 +1,6 @@
 import type { ITypeExport } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
-import { SortDirection } from '@codelab/backend/abstract/codegen'
 import {
   ActionTypeRepository,
   CodeMirrorTypeRepository,
@@ -18,6 +17,7 @@ import {
   RenderPropTypeSchema,
   RichTextTypeSchema,
 } from '@codelab/shared/abstract/core'
+import { SortDirection } from '@codelab/shared/infra/gqlgen'
 import { CommandHandler } from '@nestjs/cqrs'
 import { Type } from '@sinclair/typebox'
 

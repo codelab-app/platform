@@ -1,23 +1,21 @@
 import type { IAuthGuardDto, IRef } from '@codelab/shared/abstract/core'
 import type {
   AuthGuardOptions,
-  AuthGuardUniqueWhere,
   AuthGuardWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import {
   CACHE_TAGS,
   type IAuthGuardRepository,
 } from '@codelab/frontend/abstract/domain'
-import { Validator } from '@codelab/shared/infra/schema'
-
+import { Validator } from '@codelab/shared/infra/typebox'
 import {
-  CreateAuthGuards,
-  DeleteAuthGuards,
-  GetAuthGuards,
-  UpdateAuthGuard,
-} from './auth-guard.api.graphql.web.gen'
-import { authGuardMapper } from './auth-guard.mapper'
+  authGuardMapper,
+  authGuardServerActions,
+} from '@codelab/shared-domain-module/auth-guard'
+
+const { CreateAuthGuards, DeleteAuthGuards, GetAuthGuards, UpdateAuthGuard } =
+  authGuardServerActions
 
 export const authGuardRepository: IAuthGuardRepository = {
   add: async (input: IAuthGuardDto) => {
@@ -56,7 +54,8 @@ export const authGuardRepository: IAuthGuardRepository = {
     )
   },
 
-  findOne: async (where: AuthGuardUniqueWhere) => {
+  // FIXME: make a unique where
+  findOne: async (where: AuthGuardWhere) => {
     return (await authGuardRepository.find(where)).items[0]
   },
 

@@ -3,6 +3,14 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/external/codelab-codegen/typescript-fetch/src",
   "projectType": "library",
+  "release": {
+    "version": {
+      "generatorOptions": {
+        "packageRoot": "dist/{projectRoot}",
+        "currentVersionResolver": "git-tag"
+      }
+    }
+  },
   "tags": [
     "projectName:codelab-codegen-typescript-fetch",
     "projectType:library",
@@ -14,10 +22,14 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/external/codelab-codegen/typescript-fetch",
-        "main": "libs/external/codelab-codegen/typescript-fetch/src/index.ts",
         "tsConfig": "libs/external/codelab-codegen/typescript-fetch/tsconfig.lib.json",
+        "packageJson": "libs/external/codelab-codegen/typescript-fetch/package.json",
+        "main": "libs/external/codelab-codegen/typescript-fetch/src/index.ts",
         "assets": ["libs/external/codelab-codegen/typescript-fetch/*.md"]
       }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
     }
   }
 }

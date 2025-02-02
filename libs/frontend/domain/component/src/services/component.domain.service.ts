@@ -1,10 +1,9 @@
 import type {
   IComponentDomainService,
   IComponentModel,
-  IElementModel,
-  IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
-import type { IPropDto } from '@codelab/shared/abstract/core'
+import type { SelectOption } from '@codelab/frontend/abstract/types'
+import type { IComponentDto } from '@codelab/shared/abstract/core'
 
 import CodeSandboxOutlined from '@ant-design/icons/CodeSandboxOutlined'
 import {
@@ -13,24 +12,24 @@ import {
   getStoreDomainService,
   getTypeDomainService,
   getUserDomainService,
-  typeRef,
 } from '@codelab/frontend/abstract/domain'
-import { SelectOption } from '@codelab/frontend/abstract/types'
 import { mapEntitySelectOptions } from '@codelab/frontend-domain-atom/store'
-import { Store } from '@codelab/frontend-domain-store/store'
-import { InterfaceType } from '@codelab/frontend-domain-type/store'
-import {
-  IComponentDto,
-  ICreateComponentData,
-  IElementRenderTypeKind,
-  ITypeKind,
-} from '@codelab/shared/abstract/core'
-import { Validator } from '@codelab/shared/infra/schema'
+import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { computed } from 'mobx'
-import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
+import {
+  _async,
+  _await,
+  Model,
+  model,
+  modelAction,
+  modelFlow,
+  objectMap,
+  prop,
+} from 'mobx-keystone'
 import { prop as rProp, sortBy } from 'remeda'
-import { v4 } from 'uuid'
 
+import { componentRepository } from '../repositories'
 import { Component } from '../store'
 
 @model('@codelab/ComponentDomainService')
@@ -50,83 +49,43 @@ export class ComponentDomainService
     return sortBy(this.componentList, rProp('name'))
   }
 
-  @modelAction
-  add({ id, name, rootElement }: ICreateComponentData) {
-    const owner = this.userDomainService.user
+  @modelFlow
+  getSelectOptions = _async(function* (
+    this: ComponentDomainService,
+    component?: Pick<IComponentModel, 'id' | 'name'>,
+  ) {
+    const components = yield* _await(componentRepository.find())
 
-    const storeApi = this.typeDomainService.hydrateInterface({
-      __typename: ITypeKind.InterfaceType,
-      id: v4(),
-      kind: ITypeKind.InterfaceType,
-      name: InterfaceType.createName(`${name} Store`),
-      owner,
+    components.items.forEach((dto) => {
+      this.hydrate(dto)
     })
 
-    const store = this.storeDomainService.hydrate({
-      api: typeRef<IInterfaceTypeModel>(storeApi.id),
-      id: v4(),
-      name: Store.createName({ name }),
+    const filtered = this.sortedComponentsList.filter((comp) => {
+      if (comp.id === component?.id) {
+        return false
+      }
+
+      console.log(comp)
+
+      /**
+       * Prevent circular references
+       */
+      const parentIsDescendant = comp.descendantComponents.some(
+        ({ id }) => id === component?.id,
+      )
+
+      console.log({ parentIsDescendant })
+
+      return !component?.id || !parentIsDescendant
     })
 
-    const fragmentAtom = this.atomDomainService.defaultRenderType
-    const fragmentApi = { id: fragmentAtom.api.id }
+    console.log(filtered)
 
-    this.atomDomainService.hydrate({ ...fragmentAtom, api: fragmentApi, owner })
-
-    const api = this.typeDomainService.hydrateInterface({
-      __typename: ITypeKind.InterfaceType,
-      id: v4(),
-      kind: ITypeKind.InterfaceType,
-      name: InterfaceType.createName(name),
-      owner,
-    })
-
-    const componentProps: IPropDto = {
-      data: '{}',
-      id: v4(),
-    }
-
-    /**
-     * create rootElement in case it doesn't already exist
-     * Unlike other models such rootElement could exist before component (convertElementToComponent)
-     * connectOrCreate can't handle sub-models like props for element
-     * the only choice left is to create rootElement here if it is not provided
-     * */
-    const rootElementModel: IElementModel = rootElement
-      ? this.elementDomainService.element(rootElement.id)
-      : this.elementDomainService.hydrate({
-          closestContainerNode: {
-            id,
-          },
-          id: v4(),
-          // we don't append 'Root' here to include the case of existing element
-          name,
-          parentComponent: { id },
-          props: {
-            data: '{}',
-            id: v4(),
-          },
-          renderType: {
-            __typename: IElementRenderTypeKind.Atom,
-            id: fragmentAtom.id,
-          },
-        })
-
-    rootElementModel.writeCache({ name: `${name} Root` })
-
-    const component = this.hydrate({
-      __typename: IElementRenderTypeKind.Component,
-      api,
-      id,
-      name,
-      owner,
-      props: componentProps,
-      rootElement: rootElementModel,
-      store,
-    })
-
-    return component
-  }
+    return filtered.map((comp) => ({
+      label: comp.name,
+      value: comp.id,
+    }))
+  })
 
   @modelAction
   component(id: string) {

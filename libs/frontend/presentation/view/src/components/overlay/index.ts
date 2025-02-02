@@ -1,3 +1,3 @@
-export * from './ClickOverlay'
-export * from './HoverOverlay'
-export * from './spacingOverlay/Overlay'
+export * from './Margins'
+export * from './Paddings'
+export * from './spacing'

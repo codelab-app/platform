@@ -150,9 +150,8 @@ export enum UiKey {
   /**
    * Pagination
    */
-  PaginationToobarItemSearch = 'PaginationToobarItemSearch',
+  PaginationControl = 'PaginationControl',
   PaginationToolbarItemSearch = 'PaginationToolbarItemSearch',
-  PagintaionControl = 'PagintaionControl',
   /**
    * Progress Bar
    */

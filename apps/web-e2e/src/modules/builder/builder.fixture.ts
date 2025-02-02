@@ -1,4 +1,4 @@
-import type { ICreateCypressElementData } from '@codelab/shared/abstract/core'
+import type { ICreateElementSeedData } from '@codelab/shared/abstract/core'
 import type { Locator } from '@playwright/test'
 
 import {
@@ -7,7 +7,7 @@ import {
   UiKey,
 } from '@codelab/frontend/abstract/types'
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
-import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
+import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
 import { test as base, expect } from '@playwright/test'
 
 import { setFormFieldValue } from '../../commands'
@@ -30,14 +30,14 @@ export class BuilderPage extends BasePage {
     await expect(antDesignRow).toBeVisible()
 
     const antDesignCols = antDesignRow.locator('.ant-col')
-    const firstColEmpty = antDesignCols.nth(0)
+    const firstColTypography = antDesignCols.nth(0).locator('.ant-typography')
     const secondColButton = antDesignCols.nth(1).locator('.ant-btn')
-    const thirdColTypography = antDesignCols.nth(2).locator('.ant-typography')
+    const lastColEmpty = antDesignCols.nth(2)
 
     await expect(antDesignCols).toHaveCount(3)
-    await expect(firstColEmpty).toBeEmpty()
+    await expect(firstColTypography).toContainText('Ant Design Text Element')
     await expect(secondColButton).toContainText('Click Me!')
-    await expect(thirdColTypography).toContainText('Ant Design Text Element')
+    await expect(lastColEmpty).toBeEmpty()
   }
 
   async checkElementTreeStructure(expectedTreeElements: Array<string>) {
@@ -65,15 +65,15 @@ export class BuilderPage extends BasePage {
   }
 
   async clickModalConfirmButton() {
-    const modal = this.getModal()
+    const modal = this.getDialog()
     const button = this.getButton({ key: UiKey.ButtonConfirmation })
 
-    await expect(this.getModal()).toBeVisible()
+    await expect(this.getDialog()).toBeVisible()
 
     await modal.locator(button).click()
   }
 
-  async createElementTree(elements: Array<ICreateCypressElementData>) {
+  async createElementTree(elements: Array<ICreateElementSeedData>) {
     const explorerTree = this.getElementsTree()
     const itemToolbarKey = CuiTestId.cuiTreeItemToolbar()
 
@@ -102,14 +102,22 @@ export class BuilderPage extends BasePage {
         await this.setFormFieldValue('Props Data', propsData)
       }
 
-      await this.getModal().locator(submitButton).click()
+      await this.getDialog().locator(submitButton).click()
 
-      await expect(this.getModal()).toBeHidden()
+      await expect(this.getDialog()).toBeHidden()
       await expect(this.getTreeElement(name, atom)).toBeVisible()
+
+      // Wait for popover to close and redirect back
+      await this.page.waitForURL(
+        PageType.PageBuilder(
+          { appId: '**', pageId: '**' },
+          PrimarySidebar.ElementTree,
+        ),
+      )
     }
   }
 
-  async deleteElementByContextMenu(element: ICreateCypressElementData) {
+  async deleteElementByContextMenu(element: ICreateElementSeedData) {
     const treeElement = await this.selectTreeElement(element)
 
     await treeElement.click({ button: 'right' })
@@ -121,21 +129,21 @@ export class BuilderPage extends BasePage {
     await expect(treeElement).toBeHidden()
   }
 
-  async deleteElementFromOverlay(element: ICreateCypressElementData) {
+  async deleteElementFromOverlay(element: ICreateElementSeedData) {
     const elementOverlay = this.getElementOverlay()
     const deleteElementButton = elementOverlay.locator('.anticon-delete')
 
     await this.selectTreeElement(element)
     await deleteElementButton.click()
-    await this.clickModalConfirmButton()
+    await this.clickPopconfirmButton()
 
     await expect(this.getGlobalProgressBar()).toBeHidden()
   }
 
-  async deleteElementFromUpdateForm(element: ICreateCypressElementData) {
+  async deleteElementFromUpdateForm(element: ICreateElementSeedData) {
     await this.selectTreeElement(element)
     await this.page.getByLabel('Delete').click()
-    await this.clickModalConfirmButton()
+    await this.clickPopconfirmButton()
 
     await expect(this.getGlobalProgressBar()).toBeHidden()
   }
@@ -241,7 +249,7 @@ export class BuilderPage extends BasePage {
   }
 
   async selectTreeElement(
-    element: Pick<ICreateCypressElementData, 'atom' | 'name'>,
+    element: Pick<ICreateElementSeedData, 'atom' | 'name'>,
   ) {
     const { atom, name } = element
     const treeElement = this.getTreeElement(name, atom)
@@ -257,8 +265,16 @@ export class BuilderPage extends BasePage {
     return treeElement
   }
 
-  async setFormFieldValue(label: string, value: string, locator?: Locator) {
-    await setFormFieldValue(locator ?? this.locator!, { label, value })
+  async setFormFieldValue(
+    label: string,
+    value: string,
+    options?: { locator?: Locator; waitForAutosave?: boolean },
+  ) {
+    await setFormFieldValue(options?.locator ?? this.locator!, { label, value })
+
+    if (options?.waitForAutosave) {
+      await this.waitForProgressBar()
+    }
   }
 
   async updateBuilderElement() {
@@ -266,13 +282,10 @@ export class BuilderPage extends BasePage {
     const updateElementForm = this.getUpdateElementForm()
 
     await buttonTreeElement.click()
-    await this.setFormFieldValue(
-      'Name',
-      this.updatedButtonName,
-      updateElementForm,
-    )
-
-    await this.waitForProgressBar()
+    await this.setFormFieldValue('Name', this.updatedButtonName, {
+      locator: updateElementForm,
+      waitForAutosave: true,
+    })
   }
 
   /**

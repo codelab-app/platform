@@ -13,10 +13,7 @@ import { CommandService } from './command.service'
 
 @Module({
   exports: [CommandService],
-  imports: [
-    // Lazy load this when needed for codegen instead, since it requires docker connection
-    // OgmModule,
-  ],
+  imports: [],
   providers: [
     CommandService,
     SeedService,

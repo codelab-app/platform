@@ -1,4 +1,10 @@
 schema:
   - 'schema.graphql'
-  # - '**/*.directive.graphql'
-documents: '**/*.graphql'
+  - 'libs/backend/infra/adapter/neo4j-schema/src/directives/**/*.directive.graphql'
+documents:
+  - 'libs/frontend/domain/**/*.graphql'
+  - 'libs/frontend/abstract/domain/**/*.graphql'
+# schema:
+#   - 'schema.graphql'
+#   # - '**/*.directive.graphql'
+# documents: '**/*.graphql'

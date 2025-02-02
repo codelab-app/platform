@@ -1,32 +1,16 @@
 import type { IAppDto, IRef } from '@codelab/shared/abstract/core'
-import type {
-  AppCreateInput,
-  AppDeleteInput,
-  AppOptions,
-  AppUniqueWhere,
-  AppUpdateInput,
-  AppWhere,
-  CreateAppsMutationVariables,
-  DeleteAppTypesMutationVariables,
-} from '@codelab/shared/infra/gql'
+import type { AppOptions, AppWhere } from '@codelab/shared/infra/gqlgen'
 
 import {
   CACHE_TAGS,
-  type IAppModel,
   type IAppRepository,
 } from '@codelab/frontend/abstract/domain'
-import { appMapper } from '@codelab/shared/domain-old'
-import { Validator } from '@codelab/shared/infra/schema'
-import {
-  AppList,
-  AppListPreview,
-  CreateApps,
-  DeleteApps,
-  UpdateApps,
-} from '@codelab/shared-domain-module-app'
+import { Validator } from '@codelab/shared/infra/typebox'
+import { appMapper, appServerActions } from '@codelab/shared-domain-module-app'
 import { withTracingMethods } from '@codelab/shared-infra-sentry'
 
-import { App } from '../store'
+const { AppList, AppListPreview, CreateApps, DeleteApps, UpdateApps } =
+  appServerActions
 
 export const appRepository: IAppRepository = withTracingMethods('app', {
   add: async (input: IAppDto) => {
@@ -66,7 +50,8 @@ export const appRepository: IAppRepository = withTracingMethods('app', {
     )
   },
 
-  findOne: async (where: AppUniqueWhere) => {
+  // FIXME: make a unique where
+  findOne: async (where: AppWhere) => {
     return (await appRepository.find(where)).items[0]
   },
 

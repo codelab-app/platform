@@ -1,4 +1,7 @@
-import { ReadAdminDataService } from '@codelab/backend/application/data'
+import {
+  ImportDataMapperService,
+  ReadAdminDataService,
+} from '@codelab/backend/application/data'
 import { type ICreateComponentData } from '@codelab/shared/abstract/core'
 import {
   Body,
@@ -21,10 +24,12 @@ import { ExportComponentCommand, ImportComponentsCommand } from './use-case'
 export class ComponentApplicationController {
   constructor(
     private readonly commandBus: CommandBus,
-    private componentApplicationService: ComponentApplicationService,
+    private readonly componentApplicationService: ComponentApplicationService,
     private readonly readAdminDataService: ReadAdminDataService,
+    private readonly importDataMapperService: ImportDataMapperService,
   ) {}
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Post('create-component')
   async createComponent(@Body() createComponentData: ICreateComponentData) {
     return this.componentApplicationService.createComponent(createComponentData)
@@ -40,11 +45,14 @@ export class ComponentApplicationController {
 
   @UseInterceptors(ClassSerializerInterceptor, FileInterceptor('file'))
   @Post('import')
-  async importApp(@UploadedFile() file: Express.Multer.File) {
+  async importComponent(@UploadedFile() file: Express.Multer.File) {
     const json = file.buffer.toString('utf8')
     const data = JSON.parse(json)
+    const importData = this.importDataMapperService.getComponentImportData(data)
 
-    return await this.commandBus.execute(new ImportComponentsCommand(data))
+    return await this.commandBus.execute(
+      new ImportComponentsCommand(importData),
+    )
   }
 
   @UseInterceptors(ClassSerializerInterceptor)

@@ -1,0 +1,5 @@
+export * from './component'
+export * from './element'
+export * from './page'
+export * from './tag'
+export * from './type'

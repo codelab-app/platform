@@ -5,7 +5,7 @@ import {
   type IPrimitiveTypeDto,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
+import { PrimitiveTypeKind } from '@codelab/shared/infra/gqlgen'
 import { v4 } from 'uuid'
 
 export const primitiveTypeFactory =

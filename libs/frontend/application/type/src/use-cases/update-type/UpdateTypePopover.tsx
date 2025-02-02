@@ -6,6 +6,7 @@ import type { Maybe } from '@codelab/shared/abstract/types'
 import { CloseOutlined, SaveOutlined } from '@ant-design/icons/lib/icons'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { CuiSidebarSecondary } from '@codelab/frontend/presentation/codelab-ui'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import { useRef } from 'react'
@@ -22,7 +23,8 @@ export const UpdateTypePopover = observer<UpdateTypeContainerProps>(
     const submitRef = useRef<Maybe<SubmitController>>()
     const { updatePopover } = useTypeService()
     const router = useRouter()
-    const typeModel = useTypeService().getOneFromCache({ id })
+    const { typeDomainService } = useDomainStore()
+    const typeModel = typeDomainService.types.get(id)
 
     if (!typeModel) {
       return null

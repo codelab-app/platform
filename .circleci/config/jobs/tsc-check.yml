@@ -1,0 +1,13 @@
+parameters:
+  resource_class:
+    type: string
+
+executor: docker-node
+
+resource_class: << parameters.resource_class >>
+
+steps:
+  - restore-workspace
+  - run:
+      name: 'Run tsc Check'
+      command: pnpm nx run-many --target=tsc-check

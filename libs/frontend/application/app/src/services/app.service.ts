@@ -3,25 +3,20 @@ import type {
   IAppModel,
   IAppUpdateFormData,
 } from '@codelab/frontend/abstract/domain'
-import type { IRef } from '@codelab/shared/abstract/core'
-import type { AppWhere } from '@codelab/shared/infra/gql'
+import type { AppWhere } from '@codelab/shared/infra/gqlgen'
 
 import { type IAppService } from '@codelab/frontend/abstract/application'
-import { useHydrateStore } from '@codelab/frontend/infra/context'
-import { usePageService } from '@codelab/frontend-application-page/services'
+import { useDomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { regeneratePages } from '@codelab/frontend-application-page/use-cases/generate-pages'
-import {
-  appRepository,
-  invalidateAppListQuery,
-} from '@codelab/frontend-domain-app/repositories'
+import { appRepository } from '@codelab/frontend-domain-app/repositories'
 import { domainRepository } from '@codelab/frontend-domain-domain/repositories'
-import { pageRepository } from '@codelab/frontend-domain-page/repositories'
 import { PageDomainFactory } from '@codelab/frontend-domain-page/services'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { Validator } from '@codelab/shared/infra/schema'
+import {
+  useDomainStore,
+  useUndoManager,
+} from '@codelab/frontend-infra-mobx/context'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { withAsyncSpanFunc } from '@codelab/shared-infra-sentry'
-import { computed, type IComputedValueOptions } from 'mobx'
-import { type DependencyList, useMemo } from 'react'
 
 import { createAppAction } from '../use-cases/create-app'
 import { AppFactory } from './app.factory'
@@ -34,15 +29,16 @@ export const useAppService = (): IAppService => {
     userDomainService,
   } = useDomainStore()
 
-  const pageService = usePageService()
+  const undoManager = useUndoManager()
   const pageFactory = new PageDomainFactory(userDomainService.user.toJson)
   const user = userDomainService.user.toJson
   const owner = user
   const appFactory = new AppFactory(pageFactory)
-  const defaultRenderType = atomDomainService.defaultRenderType
-  const hydrate = useHydrateStore()
+  const hydrate = useDomainStoreHydrator()
 
   const create = async (data: IAppCreateFormData) => {
+    const defaultRenderType = atomDomainService.defaultRenderType
+
     try {
       // render type should be plain object, not MobX model,
       // otherwise would fail to be passed to server action.
@@ -58,18 +54,18 @@ export const useAppService = (): IAppService => {
       return app
     } catch (error) {
       console.log(error)
-      // undoManager.undo()
+      undoManager.undo()
 
       throw error
     } finally {
-      await invalidateAppListQuery()
+      //
+      // await invalidateAppListQuery()
     }
   }
 
   const removeMany = async (apps: Array<IAppModel>): Promise<number> => {
     const deleteApp = async (app: IAppModel) => {
       /**
-       * Optimistic update.
        * Detach pages before detaching app from root store to avoid script error.
        */
       app.pages.forEach((page) => {
@@ -81,17 +77,16 @@ export const useAppService = (): IAppService => {
       /**
        * Get all pages to delete
        */
-      const { items: pagesDto } = await pageRepository.find({
-        appConnection: { node: { id: app.id } },
-      })
+      // const { items: pagesDto } = await pageRepository.find({
+      //   appConnection: { node: { id: app.id } },
+      // })
 
-      const pages = pagesDto.map((pageDto) =>
-        pageDomainService.hydrate(pageDto),
-      )
-
-      await pageService.removeMany(pages)
+      // const pages = pagesDto.map((pageDto) =>
+      //   pageDomainService.hydrate(pageDto),
+      // )
 
       await appRepository.delete([app])
+      // await pageService.removeMany(pages)
 
       // await invalidateAppListQuery()
 
@@ -182,34 +177,12 @@ export const useAppService = (): IAppService => {
     }
   }
 
-  const appList = useComputed(() => appDomainService.appsList)
-
-  const getAllFromCache = () => {
-    return appDomainService.appsList
-  }
-
-  const getOneFromCache = (ref: IRef) => {
-    return appDomainService.apps.get(ref.id)
-  }
-
   return {
-    appList,
     create: withAsyncSpanFunc({ name: 'AppCreate' }, create),
     getAll,
-    getAllFromCache,
     getOne,
-    getOneFromCache,
     regeneratePages: regeneratePagesForApp,
     removeMany: withAsyncSpanFunc({ name: 'AppRemoveMany' }, removeMany),
     update,
   }
-}
-
-// changes to "options" argument are ignored
-export const useComputed = <T>(
-  func: () => T,
-  options?: IComputedValueOptions<T>,
-  deps?: DependencyList,
-) => {
-  return useMemo(() => computed(func, options), deps ?? []).get()
 }

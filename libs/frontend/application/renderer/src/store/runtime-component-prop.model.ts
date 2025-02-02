@@ -1,29 +1,27 @@
 import type {
   IRuntimeComponentModel,
-  IRuntimeComponentPropDTO,
+  IRuntimeComponentPropDto,
   IRuntimeComponentPropModel,
+  IRuntimeContext,
 } from '@codelab/frontend/abstract/application'
 import type { IPropModel } from '@codelab/frontend/abstract/domain'
 import type { IPropData } from '@codelab/shared/abstract/core'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 
-import {
-  getRendererService,
-  IRuntimeContext,
-} from '@codelab/frontend/abstract/application'
+import { getRendererService } from '@codelab/frontend/abstract/application'
 import {
   DATA_COMPONENT_ID,
   isTypedProp,
 } from '@codelab/frontend/abstract/domain'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
-import { Maybe } from '@codelab/shared/abstract/types'
 import { mapDeep } from '@codelab/shared/utils'
 import { evaluateObject } from '@codelab/shared-infra-eval'
 import { computed } from 'mobx'
 import { idProp, Model, model, prop } from 'mobx-keystone'
 import { createElement, Fragment } from 'react'
 
-const create = (dto: IRuntimeComponentPropDTO) =>
+const create = (dto: IRuntimeComponentPropDto) =>
   new RuntimeComponentPropModel(dto)
 
 @model('@codelab/RuntimeComponentProp')
@@ -96,7 +94,7 @@ export class RuntimeComponentPropModel
       {
         children,
         [DATA_COMPONENT_ID]: this.component.id,
-        key: this.component.id,
+        key: this.runtimeComponent.current.compositeKey,
       },
     )
   }

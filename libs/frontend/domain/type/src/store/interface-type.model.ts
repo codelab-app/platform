@@ -5,20 +5,16 @@ import type {
   JsonSchema,
 } from '@codelab/frontend/abstract/domain'
 import type {
-  IInterfaceTypeCreateDto,
+  IInterfaceTypeDto,
+  IPropData,
   IRef,
 } from '@codelab/shared/abstract/core'
+import type { InterfaceTypeDeleteInput } from '@codelab/shared/infra/gqlgen'
 import type { Ref } from 'mobx-keystone'
 
 import { fieldRef, userRef } from '@codelab/frontend/abstract/domain'
-import {
-  assertIsTypeKind,
-  IInterfaceTypeDto,
-  IPropData,
-  ITypeKind,
-} from '@codelab/shared/abstract/core'
-import { createInterfaceTypeName } from '@codelab/shared/domain-old'
-import { InterfaceTypeDeleteInput } from '@codelab/shared/infra/gql'
+import { ITypeKind } from '@codelab/shared/abstract/core'
+import { createInterfaceTypeName } from '@codelab/shared-domain-module/type'
 import { computed } from 'mobx'
 import {
   ExtendedModel,
@@ -37,7 +33,7 @@ const create = ({
   id,
   name,
   owner,
-}: IInterfaceTypeCreateDto): InterfaceType => {
+}: IInterfaceTypeDto): InterfaceType => {
   // assertIsTypeKind(kind, ITypeKind.InterfaceType)
 
   const interfaceType = new InterfaceType({

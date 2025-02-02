@@ -1,15 +1,9 @@
 'use client'
 
 import type { IPageCreateFormData } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
 
-import {
-  type IFormController,
-  type SubmitController,
-  UiKey,
-} from '@codelab/frontend/abstract/types'
+import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useUser } from '@codelab/frontend-application-user/services'
 import {
   Form,
@@ -51,11 +45,9 @@ export const CreatePageForm = observer<IFormController>(
 
     return (
       <Form<IPageCreateFormData>
+        errorMessage="Error while creating page"
         model={model}
         onSubmit={onSubmit}
-        onSubmitError={createFormErrorNotificationHandler({
-          title: 'Error while creating page',
-        })}
         schema={createPageSchema}
         submitRef={submitRef}
         uiKey={UiKey.PageFormCreate}

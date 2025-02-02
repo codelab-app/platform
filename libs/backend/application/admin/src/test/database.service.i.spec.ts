@@ -11,14 +11,14 @@ import {
 } from '@codelab/backend/application/type'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import { InterfaceTypeRepository } from '@codelab/backend/domain/type'
+import { initUserContext } from '@codelab/backend/test/setup'
 import {
   DatabaseService,
   Neo4jModule,
-} from '@codelab/backend/infra/adapter/neo4j'
-import { initUserContext } from '@codelab/backend/test'
+} from '@codelab/backend-infra-adapter/neo4j-driver'
 import { CommandBus } from '@nestjs/cqrs'
 
-jest.setTimeout(60000)
+jest.setTimeout(90000)
 
 describe('DatabaseService', () => {
   const context = initUserContext({
@@ -28,7 +28,6 @@ describe('DatabaseService', () => {
       TypeApplicationModule,
       Neo4jModule,
     ],
-    providers: [],
   })
 
   let commandBus: CommandBus

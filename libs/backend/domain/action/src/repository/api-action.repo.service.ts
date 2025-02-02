@@ -1,69 +1,50 @@
 import type {
-  ApiAction,
+  IActionRef,
+  IApiActionDto,
+  INodeType,
+} from '@codelab/shared/abstract/core'
+import type {
   ApiActionOptions,
   ApiActionWhere,
-} from '@codelab/backend/abstract/codegen'
-import type { IActionRef, IApiActionDto } from '@codelab/shared/abstract/core'
+} from '@codelab/shared/infra/gqlgen'
 
-import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
-import {
-  apiActionSelectionSet,
-  OgmService,
-} from '@codelab/backend/infra/adapter/neo4j'
-import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
-import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain-old'
+import { ApiActionFragment } from '@codelab/shared/infra/gqlgen'
+import { apiActionMapper } from '@codelab/shared-domain-module/action'
+import {
+  actionCreateApi,
+  actionFindApi,
+  actionUpdateApi,
+} from '@codelab/shared-domain-module/store'
 import { Injectable } from '@nestjs/common'
+
+const { CreateApiActions } = actionCreateApi()
+const { UpdateApiActions } = actionUpdateApi()
+// TODO: Split by type
+const { GetActions } = actionFindApi()
 
 @Injectable()
 export class ApiActionRepository extends AbstractRepository<
+  INodeType.ApiAction,
   IApiActionDto,
-  ApiAction,
+  ApiActionFragment,
   ApiActionWhere,
   ApiActionOptions
 > {
-  constructor(
-    private ogmService: OgmService,
-    protected override validationService: ValidationService,
-    protected override loggerService: CodelabLoggerService,
-  ) {
-    super(validationService, loggerService)
+  constructor(protected override loggerService: PinoLoggerService) {
+    super(loggerService)
   }
 
   protected async _addMany(actions: Array<IApiActionDto>) {
-    // this.nestjsLogger.log(actions, `much wow`)
+    const {
+      createApiActions: { apiActions },
+    } = await CreateApiActions({
+      input: actions.map((action) => apiActionMapper.toCreateInput(action)),
+    })
 
-    return (
-      await (
-        await this.ogmService.ApiAction
-      ).create({
-        input: actions.map(
-          ({
-            __typename,
-            config,
-            errorAction,
-            resource,
-            store,
-            successAction,
-            ...action
-          }) => ({
-            ...action,
-            config: connectNodeId(config.id),
-            errorAction: {
-              ApiAction: connectNodeId(errorAction?.id),
-              CodeAction: connectNodeId(errorAction?.id),
-            },
-            resource: connectNodeId(resource.id),
-            store: connectNodeId(store.id),
-            successAction: {
-              ApiAction: connectNodeId(successAction?.id),
-              CodeAction: connectNodeId(successAction?.id),
-            },
-          }),
-        ),
-      })
-    ).apiActions
+    return apiActions
   }
 
   protected async _find({
@@ -73,56 +54,20 @@ export class ApiActionRepository extends AbstractRepository<
     where?: ApiActionWhere
     options?: ApiActionOptions
   }) {
-    return await (
-      await this.ogmService.ApiAction
-    ).find({
-      options,
-      selectionSet: `{ ${apiActionSelectionSet} }`,
-      where,
-    })
+    const { apiActions } = await GetActions({ apiActionWhere: where })
+
+    return apiActions
   }
 
-  protected async _update(
-    {
-      config,
-      errorAction,
-      id,
-      resource,
-      store,
-      successAction,
-      ...action
-    }: IApiActionDto,
-    where: ApiActionWhere,
-  ) {
-    return (
-      await (
-        await this.ogmService.ApiAction
-      ).update({
-        update: {
-          ...action,
-          config: reconnectNodeId(config.id),
-          errorAction: {
-            ApiAction: reconnectNodeId(
-              this.filterBy(errorAction, IActionKind.ApiAction),
-            ),
-            CodeAction: reconnectNodeId(
-              this.filterBy(errorAction, IActionKind.CodeAction),
-            ),
-          },
-          resource: reconnectNodeId(resource.id),
-          store: reconnectNodeId(store.id),
-          successAction: {
-            ApiAction: reconnectNodeId(
-              this.filterBy(successAction, IActionKind.ApiAction),
-            ),
-            CodeAction: reconnectNodeId(
-              this.filterBy(successAction, IActionKind.CodeAction),
-            ),
-          },
-        },
-        where,
-      })
-    ).apiActions[0]
+  protected async _update(dto: IApiActionDto, where: ApiActionWhere) {
+    const {
+      updateApiActions: { apiActions },
+    } = await UpdateApiActions({
+      update: apiActionMapper.toUpdateInput(dto),
+      where,
+    })
+
+    return apiActions[0]
   }
 
   /**

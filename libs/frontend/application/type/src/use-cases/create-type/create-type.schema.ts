@@ -10,7 +10,7 @@ import {
   IPrimitiveTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
+import { CodeMirrorLanguage } from '@codelab/shared/infra/gqlgen'
 
 import { TypeSelect } from '../select-types/TypeSelect'
 

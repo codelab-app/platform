@@ -3,7 +3,7 @@ import { PageRepository } from '@codelab/backend/domain/page'
 import { StoreDomainService } from '@codelab/backend/domain/store'
 import { TypeDomainService } from '@codelab/backend/domain/type'
 import { type IElementDto, type IPageDto } from '@codelab/shared/abstract/core'
-import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
+import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
 import { CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 import { v4 } from 'uuid'
 
@@ -45,7 +45,7 @@ export class SeedPageHandler implements ICommandHandler<SeedPageCommand> {
 
     // const pageStore = this.storeDomainService.create({})
 
-    // const pageDto: IPageDTO = {
+    // const pageDto: IPageDto = {
     //   ...page,
     //   rootElement,
     // }

@@ -4,7 +4,11 @@
 
 # nx cache seems to grow in size if we don't resize, goes to 20G sometimes
 # Go through each directory that has possibly large cache
-NX_CACHE_DIR=~/project/.nx/cache
+NX_CACHE_DIRS=(
+  ~/project/.nx/cache
+  ~/project/.nx/cache-apps
+  ~/project/.nx/cache-libs
+)
 NEXT_DIRS=(
   ~/project/dist/apps/web/.next/cache
   ~/project/dist/apps/landing/.next/cache
@@ -14,15 +18,18 @@ NEXT_DIRS=(
 #
 # Step 1: Handle .nx/cache
 #
-SIZE=$(du -s $NX_CACHE_DIR | cut -f1)
-SIZE_MB=$((SIZE / 1024))
+for DIR in "${NX_CACHE_DIRS[@]}"
+do
+  SIZE=$(du -s $DIR | cut -f1)
+  SIZE_MB=$((SIZE / 1024))
 
-if ((SIZE > 1 * 1024 * 1024)); then
-  echo "Directory $NX_CACHE_DIR is ${SIZE_MB}MB, resetting cache."
-  npx nx reset
-else
-  echo "Directory $NX_CACHE_DIR is ${SIZE_MB}MB, keeping cache"
-fi
+  if ((SIZE > 1 * 1024 * 1024)); then
+    echo "Directory $DIR is ${SIZE_MB}MB, resetting cache."
+    npx nx reset
+  else
+    echo "Directory $DIR is ${SIZE_MB}MB, keeping cache"
+  fi
+done
 
 #
 # Step 2: Handle Next.js cache directories

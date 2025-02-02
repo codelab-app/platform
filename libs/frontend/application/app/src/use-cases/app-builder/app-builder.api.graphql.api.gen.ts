@@ -1,27 +1,7 @@
-import * as Types from '@codelab/shared/infra/gql'
+import * as Types from '@codelab/shared/infra/gqlgen';
 
-import { graphql } from '@codelab/shared/infra/gql'
 import { gqlRequest } from '@codelab/shared/infra/fetch'
-import {
-  ActionTypeFragmentDoc,
-  AppBuilderFragmentDoc,
-  CodeMirrorTypeFragmentDoc,
-  PrimitiveTypeFragmentDoc,
-  ReactNodeTypeFragmentDoc,
-  RenderPropTypeFragmentDoc,
-  RichTextTypeFragmentDoc,
-  AtomBuilderFragmentDoc,
-  AtomProductionFragmentDoc,
-  ResourceFragmentDoc,
-  AuthGuardFragmentDoc,
-  ComponentBuilderFragmentDoc,
-  RedirectFragmentDoc,
-} from '@codelab/shared/infra/gql'
+import { GraphQLClient } from 'graphql-request'
+import { GetAppBuilderDocument } from '@codelab/shared/infra/gqlgen'
 
-import { type GetAppBuilderQueryVariables } from '@codelab/shared/infra/gql'
-import { GetAppBuilderDocument } from './app-builder.api.graphql.docs.gen'
-
-export const getSdk = () => ({
-  GetAppBuilder: (variables: GetAppBuilderQueryVariables) =>
-    gqlRequest(GetAppBuilderDocument.toString(), variables),
-})
+export const getSdk = (client: GraphQLClient) => ({GetAppBuilder : (variables: Types.GetAppBuilderQueryVariables) => gqlRequest(client, GetAppBuilderDocument.toString(), variables)})

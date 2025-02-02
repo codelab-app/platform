@@ -9,6 +9,22 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
+          "id": "b24af1b5-6c50-4864-817c-e7f0c4a39374"
+        },
+        "id": "g2h3i4j5-k6l7-m8n9-o0p1-q2r3s4t5u6v7",
+        "key": "children",
+        "name": "Children",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "1b3a9fcf-af61-40c3-92a9-6d1f445ff3d1"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
           "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
         },
         "id": "6e2cf76d-6bf8-4279-8406-2ae25387f7a5",
@@ -45,6 +61,24 @@
         "id": "1b3a9fcf-af61-40c3-92a9-6d1f445ff3d1",
         "kind": "InterfaceType",
         "name": "AntDesignCardGrid API"
+      },
+      {
+        "__typename": "UnionType",
+        "id": "b24af1b5-6c50-4864-817c-e7f0c4a39374",
+        "kind": "UnionType",
+        "name": "AtomChildren Union",
+        "typesOfUnionType": [
+          {
+            "__typename": "CodeMirrorType",
+            "id": "010c4f5a-434b-4c3e-a0ed-01eb1f78172a",
+            "name": "Typescript Code"
+          },
+          {
+            "__typename": "RichTextType",
+            "id": "e7558508-3bb7-4f57-8f8c-6ac989911765",
+            "name": "RichTextType"
+          }
+        ]
       }
     ]
   },

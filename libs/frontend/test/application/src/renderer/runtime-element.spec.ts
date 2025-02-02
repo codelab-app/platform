@@ -143,7 +143,7 @@ describe('Runtime Element', () => {
       'pre render value',
     ],
   ])(
-    'should run custom hooks that mutates state when in %s page - preRenderAction: `%s`, postRenderAction: `%s`, expectedValue: `%s`',
+    'should run custom hooks that mutates state when in %s page - preRenderActions: `%s`, postRenderActions: `%s`, expectedValue: `%s`',
     (pageKind, preRenderActionCode, postRenderActionCode, expectedValue) => {
       const { page, renderer, runtimeProviderPage } = testStore.setupPage(
         RendererType.Preview,
@@ -165,28 +165,32 @@ describe('Runtime Element', () => {
 
       if (preRenderActionCode) {
         providerPage.rootElement.current.writeCache({
-          preRenderAction: testStore.addCodeAction({
-            code: preRenderActionCode,
-            name: 'preRenderAction',
-            store: providerPage.store,
-          }),
+          preRenderActions: [
+            testStore.addCodeAction({
+              code: preRenderActionCode,
+              name: 'preRenderActions',
+              store: providerPage.store,
+            }),
+          ],
         })
       }
 
       if (postRenderActionCode) {
         providerPage.rootElement.current.writeCache({
-          postRenderAction: testStore.addCodeAction({
-            code: postRenderActionCode,
-            name: 'postRenderAction',
-            store: providerPage.store,
-          }),
+          postRenderActions: [
+            testStore.addCodeAction({
+              code: postRenderActionCode,
+              name: 'postRenderActions',
+              store: providerPage.store,
+            }),
+          ],
         })
       }
 
       expect(runtimeStore?.state[stateFieldKey]).toBe('default value')
 
       const reactElement = testStore.addRenderer({
-        containerNode: page,
+        containerNode: renderer.containerNode.current,
         id: renderer.id,
         rendererType: RendererType.Preview,
       }).render

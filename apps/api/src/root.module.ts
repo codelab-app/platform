@@ -1,30 +1,41 @@
 import { AuthModule, JwtAuthGuard } from '@codelab/backend/application/auth'
+import { HealthcheckController } from '@codelab/backend/domain/shared/modules'
 import { GraphqlModule } from '@codelab/backend/infra/adapter/graphql'
 import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
+import {
+  GraphQLSchemaModule,
+  SchemaService,
+} from '@codelab/backend-infra-adapter/neo4j-schema'
 import { Module } from '@nestjs/common'
 import { APP_GUARD } from '@nestjs/core'
-import { EventEmitterModule } from '@nestjs/event-emitter'
+import { CqrsModule } from '@nestjs/cqrs'
+import { SentryModule } from '@sentry/nestjs/setup'
 
 import { ApiModule } from './api/api.module'
-import { HealthcheckController } from './healthcheck.controller'
+import { CommandBusSubscription } from './command-bus-logger.service'
 
 @Module({
   controllers: [HealthcheckController],
   imports: [
-    GraphqlModule,
+    SentryModule.forRoot(),
+    GraphqlModule.forRootAsync({
+      imports: [GraphQLSchemaModule],
+      inject: [SchemaService],
+    }),
     AuthModule,
     ApiModule,
     CodelabLoggerModule,
-    EventEmitterModule.forRoot(),
+    CqrsModule,
   ],
   /**
    * Need this to guard all controllers to inject the proper user into context
    *
-   * But this doesn't work for `GraphQLModule` at `/api/graphql`, we use middleware for that below
+   * But this doesn't work for `GraphQLModule` at `/api/v1/graphql`, we use middleware for that below
    *
    * GraphQL in NestJS is handled through a single route and processed internally by the Apollo Server
    */
   providers: [
+    CommandBusSubscription,
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard,

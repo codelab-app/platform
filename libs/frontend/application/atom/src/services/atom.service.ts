@@ -4,7 +4,7 @@ import type {
   GetDataFn,
   IAtomService,
 } from '@codelab/frontend/abstract/application'
-import type { AtomOptions, AtomWhere } from '@codelab/shared/infra/gql'
+import type { AtomOptions, AtomWhere } from '@codelab/shared/infra/gqlgen'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import {
@@ -14,7 +14,7 @@ import {
   type IUpdateAtomData,
 } from '@codelab/frontend/abstract/domain'
 import { PageType } from '@codelab/frontend/abstract/types'
-import { useHydrateStore } from '@codelab/frontend/infra/context'
+import { useDomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
@@ -28,7 +28,7 @@ import {
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
 import { type IRef, ITypeKind } from '@codelab/shared/abstract/core'
-import { Validator } from '@codelab/shared/infra/schema'
+import { Validator } from '@codelab/shared/infra/typebox'
 import queryString from 'query-string'
 import { isEmpty } from 'remeda'
 import { v4 } from 'uuid'
@@ -48,7 +48,7 @@ export const useAtomService = (): IAtomService => {
   const user = userDomainService.user
   const owner = { id: user.id }
   const typeService = useTypeService()
-  const hydrate = useHydrateStore()
+  const hydrate = useDomainStoreHydrator()
 
   const getDataFn: GetDataFn<IAtomModel> = async (
     page,
@@ -65,8 +65,7 @@ export const useAtomService = (): IAtomService => {
     )
 
     const atoms = items.map((atom) => {
-      atom.api.fields.forEach((field) => fieldDomainService.hydrate(field))
-      typeDomainService.hydrateInterface(atom.api)
+      typeDomainService.hydrateTypes([atom.api])
 
       return atomDomainService.hydrate(atom)
     })
@@ -84,15 +83,18 @@ export const useAtomService = (): IAtomService => {
       owner,
     })
 
-    const atom = await atomRepository.add(
-      {
-        ...data,
-        __typename: 'Atom',
-        api,
-        owner,
-      },
-      { revalidateTag: CACHE_TAGS.ATOM_LIST },
-    )
+    const atomDto = {
+      ...data,
+      __typename: 'Atom',
+      api,
+      owner,
+    } as const
+
+    hydrate({ atomsDto: [atomDto] })
+
+    const atom = await atomRepository.add(atomDto, {
+      revalidateTag: CACHE_TAGS.ATOM_LIST,
+    })
 
     Validator.assertsDefined(atom)
 
@@ -168,14 +170,6 @@ export const useAtomService = (): IAtomService => {
     return atom
   }
 
-  const getOneFromCache = (ref: IRef) => {
-    return atomDomainService.atoms.get(ref.id)
-  }
-
-  const getAllFromCache = () => {
-    return atomDomainService.atomsList
-  }
-
   const goToAtomsPage = (router: AppRouterInstance) => {
     router.push(PageType.Atoms())
   }
@@ -184,7 +178,7 @@ export const useAtomService = (): IAtomService => {
     router.push(PageType.AtomDelete(ref))
   }
 
-  const atomPopoverUpdate = {
+  const updatePopover = {
     close: (router: AppRouterInstance) => {
       const searchParams = new URLSearchParams(window.location.search)
 
@@ -202,7 +196,7 @@ export const useAtomService = (): IAtomService => {
     },
   }
 
-  const atomPopoverCreate = {
+  const createPopover = {
     close: (router: AppRouterInstance) => {
       router.push(PageType.Atoms())
     },
@@ -212,14 +206,11 @@ export const useAtomService = (): IAtomService => {
   }
 
   return {
-    atomPopoverCreate,
-    atomPopoverUpdate,
     create,
+    createPopover,
     getAll,
-    getAllFromCache,
     getDataFn,
     getOne,
-    getOneFromCache,
     getSelectAtomOptions,
     goToAtomsPage,
     goToDeleteAtomPage,
@@ -227,5 +218,6 @@ export const useAtomService = (): IAtomService => {
     paginationService: atomPagination,
     removeMany,
     update,
+    updatePopover,
   }
 }

@@ -7,9 +7,9 @@ import type { IRef } from '@codelab/shared/abstract/core'
 
 import type {
   PageContextParams,
+  SearchParamsContext,
   UrlPathParams,
-  UrlQueryParams,
-} from './url-params'
+} from './router'
 
 /**
  * The values are the path
@@ -25,16 +25,23 @@ export enum PrimarySidebar {
 
 export const PageType = {
   Admin: () => '/admin',
+  AdminExport: () => '/admin/export',
+  AdminImport: () => '/admin/import',
+  AppBuild: ({ id }: IRef) => `/apps/build/${id}`,
+  AppCreate: () => '/apps/create',
+  AppDelete: ({ id }: IRef) => `/apps/delete/${id}`,
   AppDetail: ({ appId }: Pick<UrlPathParams, 'appId'>) => `/apps/${appId}`,
   AppList: () => '/apps',
+  AppUpdate: ({ id }: IRef) => `/apps/update/${id}`,
   AtomCreate: () => `${PageType.Atoms()}/create`,
   AtomDelete: ({ id }: IRef) => `${PageType.Atoms()}/delete/${id}`,
-  AtomFieldCreate: () => `${PageType.Atoms()}/create/field`,
+  AtomFieldCreate: (interfaceId: string) =>
+    `${PageType.Atoms()}/interface/${interfaceId}/create/field`,
   AtomFieldDelete: ({ id }: IRef) => `${PageType.Atoms()}/delete/field/${id}`,
   AtomFieldUpdate: ({ id }: IRef) => `${PageType.Atoms()}/update/field/${id}`,
   Atoms: () => '/atoms',
   AtomTypeList: () => '/atom-types',
-  AtomUpdate: ({ id }: IRef, queryParams?: Partial<UrlQueryParams>) => {
+  AtomUpdate: ({ id }: IRef, queryParams?: Partial<SearchParamsContext>) => {
     // return queryString.stringifyUrl({
     //   query: queryParams,
     //   url: `${PageType.Atoms()}/update/${id}`,
@@ -54,12 +61,19 @@ export const PageType = {
   ComponentCreate: () => {
     return `${PageType.Components()}/create`
   },
+  ComponentDelete: ({ id }: IRef) => `${PageType.Components()}/delete/${id}`,
   ComponentExport: () => '/api/export/component',
   ComponentPreview: ({ componentId }: Pick<UrlPathParams, 'componentId'>) =>
     `/components/${componentId}`,
   Components: () => '/components' as const,
+  DomainCreate: ({ appId }: Pick<UrlPathParams, 'appId'>) =>
+    `/apps/${appId}/domains/create`,
+  DomainDelete: ({ appId, domainId }: { appId: string; domainId: string }) =>
+    `/apps/${appId}/domains/${domainId}/delete`,
   DomainList: ({ appId }: Pick<UrlPathParams, 'appId'>) =>
     `/apps/${appId}/domains`,
+  DomainUpdate: ({ appId, domainId }: { appId: string; domainId: string }) =>
+    `/apps/${appId}/domains/${domainId}/update`,
   FieldUpdate: () => {
     return `${PageType.Atoms()}/update/field`
   },
@@ -79,7 +93,7 @@ export const PageType = {
       PrimarySidebar.ElementTree,
     )
 
-    return `${pageBuilder}/create-page`
+    return `${pageBuilder}/page/create`
   },
   PageDelete: ({ appId, pageId }: PageContextParams) => {
     const pageBuilder = PageType.PageBuilder(
@@ -93,13 +107,33 @@ export const PageType = {
     `/apps/${appId}/pages/${pageId}`,
   PageList: ({ appId, pageId }: PageContextParams) =>
     `/apps/${appId}/pages/${pageId}/builder/page`,
+  PageRedirectCreate: ({ appId, pageId }: PageContextParams) => {
+    const pageBuilder = PageType.PageBuilder(
+      { appId, pageId },
+      PrimarySidebar.ElementTree,
+    )
+
+    return `${pageBuilder}/page/create-redirect`
+  },
+  PageRedirectUpdate: ({
+    appId,
+    pageId,
+    redirectId,
+  }: PageContextParams & { redirectId: string }) => {
+    const pageBuilder = PageType.PageBuilder(
+      { appId, pageId },
+      PrimarySidebar.ElementTree,
+    )
+
+    return `${pageBuilder}/page/update-redirect/${redirectId}`
+  },
   PageUpdate: ({ appId, pageId }: PageContextParams) => {
     const pageBuilder = PageType.PageBuilder(
       { appId, pageId },
       PrimarySidebar.ElementTree,
     )
 
-    return `${pageBuilder}/update-page`
+    return `${pageBuilder}/page/update`
   },
   PropsInterface: ({ appId }: Pick<UrlPathParams, 'appId'>) =>
     `/apps/${appId}/props`,
@@ -117,7 +151,8 @@ export const PageType = {
   Type: () => '/types' as const,
   TypeCreate: () => `${PageType.Type()}/create`,
   TypeDelete: ({ id }: IRef) => `${PageType.Type()}/delete/${id}`,
-  TypeFieldCreate: () => `${PageType.Type()}/create/field`,
+  TypeFieldCreate: (typeId: string) =>
+    `${PageType.Type()}/${typeId}/create/field`,
   TypeFieldDelete: ({ id }: IRef) => `${PageType.Type()}/delete/field/${id}`,
   TypeFieldUpdate: ({ id }: IRef) => `${PageType.Type()}/update/field/${id}`,
   TypeUpdate: ({ id }: IRef) => `${PageType.Type()}/update/${id}`,

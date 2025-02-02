@@ -3,7 +3,7 @@
 import type { UiKey } from '@codelab/frontend/abstract/types'
 import type { ReactNode } from 'react'
 
-import { useMemo, useRef } from 'react'
+import { useRef } from 'react'
 
 import type { CuiSidebarToolbarProps } from '../../views'
 

@@ -1,16 +1,12 @@
 import type { IComponentDto, IRef } from '@codelab/shared/abstract/core'
 import type {
-  ComponentCreateInput,
-  ComponentDeleteInput,
   ComponentFragment,
   ComponentOptions,
-  ComponentUpdateInput,
   ComponentWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 import type { Overwrite } from 'utility-types'
 
 import type { IRepository } from '../shared'
-import type { IComponentModel } from './component.model.interface'
 
 /**
  * Store needed for clone

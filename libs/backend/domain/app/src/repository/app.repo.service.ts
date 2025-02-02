@@ -1,54 +1,34 @@
-import type {
-  App,
-  AppOptions,
-  AppWhere,
-} from '@codelab/backend/abstract/codegen'
-import type { IAppDto } from '@codelab/shared/abstract/core'
+import type { IAppDto, INodeType } from '@codelab/shared/abstract/core'
 
-import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
-import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
-import {
-  appSelectionSet,
-  OgmService,
-} from '@codelab/backend/infra/adapter/neo4j'
-import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import {
-  appMapper,
-  AppProperties,
-  connectNodeIds,
-  connectOwner,
-  reconnectNodeIds,
-} from '@codelab/shared/domain-old'
-import { slugify } from '@codelab/shared/utils'
+import { AppFragment, AppOptions, AppWhere } from '@codelab/shared/infra/gqlgen'
+import { appApi, appMapper } from '@codelab/shared-domain-module-app'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class AppRepository extends AbstractRepository<
+  INodeType.App,
   IAppDto,
-  App,
+  AppFragment,
   AppWhere,
   AppOptions
 > {
-  constructor(
-    private ogmService: OgmService,
-    protected override validationService: ValidationService,
-    protected override loggerService: CodelabLoggerService,
-  ) {
-    super(validationService, loggerService)
+  constructor(protected override loggerService: PinoLoggerService) {
+    super(loggerService)
   }
 
   /**
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
   protected async _addMany(apps: Array<IAppDto>) {
-    return await (
-      await (
-        await this.ogmService.App
-      ).create({
-        input: apps.map((app) => appMapper.toCreateInput(app)),
-      })
-    ).apps
+    const {
+      createApps: { apps: createdApps },
+    } = await appApi.CreateApps({
+      input: apps.map((app) => appMapper.toCreateInput(app)),
+    })
+
+    return createdApps
   }
 
   protected async _find({
@@ -58,24 +38,23 @@ export class AppRepository extends AbstractRepository<
     where?: AppWhere
     options?: AppOptions
   }) {
-    return await (
-      await this.ogmService.App
-    ).find({
+    const { items } = await appApi.AppList({
       options,
-      selectionSet: `{ ${appSelectionSet} }`,
       where,
     })
+
+    return items
   }
 
   protected async _update(app: IAppDto, where: AppWhere) {
-    return await (
-      await (
-        await this.ogmService.App
-      ).update({
-        update: appMapper.toUpdateInput(app),
-        where,
-      })
-    ).apps[0]
+    const {
+      updateApps: { apps },
+    } = await appApi.UpdateApps({
+      update: appMapper.toUpdateInput(app),
+      where,
+    })
+
+    return apps[0]
   }
 }
 

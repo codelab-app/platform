@@ -1,0 +1,17 @@
+mutation CreateCodeActions($input: [CodeActionCreateInput!]!) {
+  createCodeActions(input: $input) {
+    codeActions {
+      __typename
+      id
+    }
+  }
+}
+
+mutation CreateApiActions($input: [ApiActionCreateInput!]!) {
+  createApiActions(input: $input) {
+    apiActions {
+      __typename
+      id
+    }
+  }
+}

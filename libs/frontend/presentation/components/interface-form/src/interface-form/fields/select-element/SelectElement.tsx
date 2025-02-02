@@ -6,20 +6,22 @@ import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import type { SelectFieldProps } from 'uniforms-antd/cjs/SelectField'
 
 import { getSelectElementOptions } from '@codelab/frontend-domain-element/repositories'
+import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { useFormContext } from '@codelab/frontend-presentation-components-form'
 import { IElementTypeKind } from '@codelab/shared/abstract/core'
 import { SelectField } from 'uniforms-antd'
 
 export type SelectElementProps = UniformSelectFieldProps & {
-  allElementOptions?: Array<SelectElementOption>
+  elementOptions?: Array<SelectElementOption>
   disableWhenOneOpt?: boolean
   kind: IElementTypeKind
   targetElementId?: string
 }
 
 export const SelectElement = ({
-  allElementOptions,
   disableWhenOneOpt = false,
+  elementOptions,
   kind,
   name,
   targetElementId,
@@ -28,7 +30,7 @@ export const SelectElement = ({
   const { elementTree } = useFormContext()
 
   const selectOptions = getSelectElementOptions({
-    allElementOptions,
+    elementOptions,
     elementTree,
     kind,
     targetElementId,
@@ -71,14 +73,27 @@ export const SelectDescendantElement = (props: SelectElementComponentProps) => {
   return <SelectElement kind={IElementTypeKind.DescendantsOnly} {...props} />
 }
 
-export const SelectAnyElement = (props: SelectElementComponentProps) => (
-  <SelectElement kind={IElementTypeKind.AllElements} {...props} />
-)
+/**
+ * Moved the `elementOptions` to the `SelectElement` component, so that it won't cause form to re-render
+ */
+export const SelectElementField = (props: SelectElementComponentProps) => {
+  const { rendererService } = useApplicationStore()
+  const treeElements = rendererService.activeElementTree?.elements
+  const elementOptions = treeElements?.map(mapElementOption)
+
+  return (
+    <SelectElement
+      kind={IElementTypeKind.AllElements}
+      {...props}
+      elementOptions={elementOptions}
+    />
+  )
+}
 
 export const getSelectElementComponent = (kind: IElementTypeKind) => {
   switch (kind) {
     case IElementTypeKind.AllElements:
-      return SelectAnyElement
+      return SelectElementField
     case IElementTypeKind.ChildrenOnly:
       return SelectChildElement
     case IElementTypeKind.DescendantsOnly:

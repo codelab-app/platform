@@ -8,18 +8,19 @@ import type {
 } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
-import { SortDirection } from '@codelab/backend/abstract/codegen'
 import {
   FieldRepository,
   InterfaceTypeRepository,
   TypeFactory,
 } from '@codelab/backend/domain/type'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
-  FieldDtoSchema,
+  FieldExportSchema,
   InterfaceTypeSchema,
   ITypeKind,
   TypeExportSchema,
 } from '@codelab/shared/abstract/core'
+import { SortDirection } from '@codelab/shared/infra/gqlgen'
 import { CommandHandler } from '@nestjs/cqrs'
 import { Type } from '@sinclair/typebox'
 
@@ -38,6 +39,7 @@ export class ExportApiHandler
     private readonly interfaceTypeRepository: InterfaceTypeRepository,
     private readonly fieldRepository: FieldRepository,
     private readonly typeFactory: TypeFactory,
+    private readonly logger: PinoLoggerService,
   ) {}
 
   async execute({ api }: ExportApiCommand): Promise<IApiExport> {
@@ -55,7 +57,7 @@ export class ExportApiHandler
       options: {
         sort: [{ key: SortDirection.Asc }],
       },
-      schema: FieldDtoSchema,
+      schema: FieldExportSchema,
       where: { id_IN: interfaceType.fields.map(({ id }) => id) },
     })
 
@@ -65,7 +67,17 @@ export class ExportApiHandler
     const dependentTypesIds =
       await this.interfaceTypeRepository.getDependentTypes(api)
 
-    const dependentTypes = await this.getTypeItemsFromIds(dependentTypesIds)
+    this.logger.log('Exporting', {
+      context: 'ExportApiHandler',
+      data: { api, dependentTypesIds },
+    })
+
+    const dependentTypes = await this.getTypeItems(dependentTypesIds)
+
+    this.logger.log('Dependent types', {
+      context: 'ExportApiHandler',
+      data: { dependentTypes },
+    })
 
     this.sortUnionTypesBeforeExport(dependentTypes)
     this.sortEnumValuesBeforeExport(dependentTypes)
@@ -77,6 +89,7 @@ export class ExportApiHandler
     const interfacesIds = dependentInterfaceTypes.map(({ id }) => id)
 
     const dependentFields = await this.fieldRepository.find({
+      schema: FieldExportSchema,
       where: {
         api: {
           id_IN: interfacesIds,
@@ -91,35 +104,35 @@ export class ExportApiHandler
 
     return {
       ...interfaceType,
+      /**
+       * These holds the refs of types only
+       */
       fields: [...fields, ...dependentFields],
+      /**
+       * This holds the full types from fields
+       */
       types: [apiInterfaceForExport, ...dependentTypes],
     }
   }
 
-  private async getTypeItemsFromIds(dependentTypesIds: Array<ITypeRef>) {
+  private async getTypeItems(dependentTypesIds: Array<ITypeRef>) {
     const dependentTypes: Array<ITypeExport> = []
 
     for (const dependentType of dependentTypesIds) {
+      this.logger.log('Processing dependent type', {
+        context: 'ExportApiHandler',
+        data: { dependentType },
+      })
+
       if (
-        Object.values(ITypeKind).includes(dependentType.__typename as ITypeKind)
+        Object.values(ITypeKind).includes(ITypeKind[dependentType.__typename])
       ) {
         const type = await this.typeFactory.findOne(
           dependentType,
           TypeExportSchema,
         )
 
-        if (!type) {
-          continue
-        }
-
-        if (type.__typename === ITypeKind.InterfaceType) {
-          dependentTypes.push({
-            ...type,
-            fields: type.fields,
-          })
-        } else {
-          dependentTypes.push(type)
-        }
+        dependentTypes.push(type as ITypeExport)
       }
     }
 
@@ -163,7 +176,7 @@ export class ExportApiHandler
     dependentTypes
       .filter((type) => type.__typename === ITypeKind.UnionType)
       .forEach((unionType) =>
-        (unionType as IUnionTypeDto).typesOfUnionType.sort((a, b) =>
+        (unionType as IUnionTypeDto)['typesOfUnionType'].sort((a, b) =>
           a.id.localeCompare(b.id),
         ),
       )

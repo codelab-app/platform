@@ -7,7 +7,7 @@ import type { IRuntimePageModel } from '../runtime-page'
 import type { IRuntimeElementPropModel } from '../runtime-prop'
 import type { IRuntimeElementStyleModel } from './runtime-element-style.model.interface'
 
-export interface IRuntimeElementDTO {
+export interface IRuntimeElementDto {
   closestContainerNode: Ref<IRuntimeComponentModel> | Ref<IRuntimePageModel>
   compositeKey: string
   element: Ref<IElementModel>

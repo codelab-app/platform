@@ -1,0 +1,168 @@
+query GetBaseTypes($where: IBaseTypeWhere, $options: IBaseTypeOptions) {
+  iBaseTypes(where: $where, options: $options) {
+    ...BaseType
+  }
+  # Required for pagination to work properly on /types page
+  aggregate: iBaseTypesAggregate(where: $where) {
+    count
+  }
+}
+
+query GetTypes($ids: [ID!]) {
+  actionTypes(where: { id_IN: $ids }) {
+    ...Type
+  }
+  appTypes(where: { id_IN: $ids }) {
+    ...Type
+  }
+  arrayTypes(where: { id_IN: $ids }) {
+    ...Type
+  }
+  codeMirrorTypes(where: { id_IN: $ids }) {
+    ...Type
+  }
+  elementTypes(where: { id_IN: $ids }) {
+    ...Type
+  }
+  enumTypes(where: { id_IN: $ids }) {
+    ...Type
+  }
+  interfaceTypes(where: { id_IN: $ids }) {
+    ...Type
+  }
+  lambdaTypes(where: { id_IN: $ids }) {
+    ...Type
+  }
+  pageTypes(where: { id_IN: $ids }) {
+    ...Type
+  }
+  primitiveTypes(where: { id_IN: $ids }) {
+    ...Type
+  }
+  reactNodeTypes(where: { id_IN: $ids }) {
+    ...Type
+  }
+  renderPropTypes(where: { id_IN: $ids }) {
+    ...Type
+  }
+  richTextTypes(where: { id_IN: $ids }) {
+    ...Type
+  }
+  unionTypes(where: { id_IN: $ids }) {
+    ...Type
+  }
+}
+
+query GetDescendants($ids: [ID!]) {
+  arrayTypes(where: { id_IN: $ids }) {
+    descendantTypesIds
+  }
+  interfaceTypes(where: { id_IN: $ids }) {
+    descendantTypesIds
+  }
+  unionTypes(where: { id_IN: $ids }) {
+    descendantTypesIds
+  }
+}
+
+query GetPrimitiveTypes(
+  $options: PrimitiveTypeOptions
+  $where: PrimitiveTypeWhere
+) {
+  types: primitiveTypes(options: $options, where: $where) {
+    ...Type
+  }
+}
+
+query GetArrayTypes($options: ArrayTypeOptions, $where: ArrayTypeWhere) {
+  types: arrayTypes(options: $options, where: $where) {
+    ...Type
+  }
+}
+
+query GetUnionTypes($options: UnionTypeOptions, $where: UnionTypeWhere) {
+  types: unionTypes(options: $options, where: $where) {
+    ...Type
+  }
+}
+
+query GetInterfaceTypes(
+  $options: InterfaceTypeOptions
+  $where: InterfaceTypeWhere
+) {
+  types: interfaceTypes(options: $options, where: $where) {
+    ...Type
+  }
+}
+
+query GetElementTypes($options: ElementTypeOptions, $where: ElementTypeWhere) {
+  types: elementTypes(options: $options, where: $where) {
+    ...Type
+  }
+}
+
+query GetRenderPropTypes(
+  $options: RenderPropTypeOptions
+  $where: RenderPropTypeWhere
+) {
+  types: renderPropTypes(options: $options, where: $where) {
+    ...Type
+  }
+}
+
+query GetReactNodeTypes(
+  $options: ReactNodeTypeOptions
+  $where: ReactNodeTypeWhere
+) {
+  types: reactNodeTypes(options: $options, where: $where) {
+    ...ReactNodeType
+  }
+}
+
+query GetRichTextTypes(
+  $options: RichTextTypeOptions
+  $where: RichTextTypeWhere
+) {
+  types: richTextTypes(options: $options, where: $where) {
+    ...RichTextType
+  }
+}
+
+query GetEnumTypes($options: EnumTypeOptions, $where: EnumTypeWhere) {
+  types: enumTypes(options: $options, where: $where) {
+    ...Type
+  }
+}
+
+query GetLambdaTypes($options: LambdaTypeOptions, $where: LambdaTypeWhere) {
+  types: lambdaTypes(options: $options, where: $where) {
+    ...Type
+  }
+}
+
+query GetPageTypes($options: PageTypeOptions, $where: PageTypeWhere) {
+  types: pageTypes(options: $options, where: $where) {
+    ...Type
+  }
+}
+
+query GetAppTypes($options: AppTypeOptions, $where: AppTypeWhere) {
+  types: appTypes(options: $options, where: $where) {
+    ...Type
+  }
+}
+
+query GetActionTypes($options: ActionTypeOptions, $where: ActionTypeWhere) {
+  types: actionTypes(options: $options, where: $where) {
+    ...Type
+  }
+}
+
+query GetCodeMirrorTypes(
+  $options: CodeMirrorTypeOptions
+  $where: CodeMirrorTypeWhere
+) {
+  types: codeMirrorTypes(options: $options, where: $where) {
+    ...Type
+  }
+}

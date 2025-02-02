@@ -1,22 +1,25 @@
 import type {
   ITagModel,
   ITagNodeData,
+  ITreeNode,
   IUserModel,
 } from '@codelab/frontend/abstract/domain'
 import type { ITagDto } from '@codelab/shared/abstract/core'
-import type { TagCreateInput, TagUpdateInput } from '@codelab/shared/infra/gql'
+import type {
+  TagCreateInput,
+  TagUpdateInput,
+} from '@codelab/shared/infra/gqlgen'
 import type { Ref } from 'mobx-keystone'
 
 import {
   getUserDomainService,
-  ITreeNode,
   userRef,
 } from '@codelab/frontend/abstract/domain'
 import {
   connectNodeId,
   connectOwner,
   reconnectNodeId,
-} from '@codelab/shared/domain-old'
+} from '@codelab/shared/domain/orm'
 import { computed } from 'mobx'
 import {
   detach,

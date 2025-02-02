@@ -31,9 +31,9 @@ export class Element implements IElementDto {
 
   parentComponent?: Nullish<IRef>
 
-  postRenderAction?: Nullish<IRef>
+  postRenderActions?: Array<IRef>
 
-  preRenderAction?: Nullish<IRef>
+  preRenderActions?: Array<IRef>
 
   prevSibling?: Nullish<IRef>
 

@@ -1,70 +1,74 @@
 'use client'
 
 import type { ApolloError } from '@apollo/client'
-import type { IUpdateDomainData } from '@codelab/frontend/abstract/domain'
+import type {
+  IDomainModel,
+  IUpdateDomainData,
+} from '@codelab/frontend/abstract/domain'
 
-import { UiKey } from '@codelab/frontend/abstract/types'
-import { useCurrentApp } from '@codelab/frontend/presentation/container'
+import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import { useErrorNotify } from '@codelab/frontend/shared/utils'
 import { checkDomainExists } from '@codelab/frontend-domain-domain/errors'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/navigation'
 import { AutoFields } from 'uniforms-antd'
 
 import { useDomainService } from '../../services'
 import { updateDomainSchema } from './update-domain.schema'
-import { useUpdateDomainModal } from './update-domain.state'
 
-export const UpdateDomainModal = observer(() => {
-  const updateDomainModal = useUpdateDomainModal()
-  const domainService = useDomainService()
-  const domain = updateDomainModal.data
-  const isOpen = updateDomainModal.isOpen
-  const app = useCurrentApp()
+interface UpdateDomainModalProps {
+  domain: IDomainModel
+}
 
-  if (!domain) {
-    return null
-  }
+export const UpdateDomainModal = observer<UpdateDomainModalProps>(
+  ({ domain }) => {
+    const app = domain.app
+    const domainService = useDomainService()
+    const router = useRouter()
 
-  const onSubmit = (domainDto: IUpdateDomainData) => {
-    return domainService.update(domainDto)
-  }
-
-  const closeModal = () => updateDomainModal.close()
-
-  const onError = useErrorNotify({
-    description: '',
-    title: 'Error while updating app domain',
-  })
-
-  const onSubmitError = (error: unknown) => {
-    if (!checkDomainExists(error as ApolloError)) {
-      void onError()
+    const onSubmit = (domainDto: IUpdateDomainData) => {
+      return domainService.update(domainDto)
     }
-  }
 
-  const model = {
-    app: { id: app.id },
-    id: domain.id,
-    name: domain.current.name,
-  }
+    const onError = useErrorNotify({
+      description: '',
+      title: 'Error while updating app domain',
+    })
 
-  return (
-    <ModalForm.Modal
-      okText="Update Domain"
-      onCancel={closeModal}
-      open={isOpen}
-      uiKey={UiKey.DomainModalUpdate}
-    >
-      <ModalForm.Form<IUpdateDomainData>
-        model={model}
-        onSubmit={onSubmit}
-        onSubmitError={onSubmitError}
-        onSubmitSuccess={closeModal}
-        schema={updateDomainSchema}
+    const onSubmitError = (error: unknown) => {
+      if (!checkDomainExists(error as ApolloError)) {
+        void onError()
+      }
+    }
+
+    const model = {
+      app: { id: app.id },
+      id: domain.id,
+      name: domain.name,
+    }
+
+    const goBack = () => {
+      router.push(PageType.DomainList({ appId: app.id }))
+    }
+
+    return (
+      <ModalForm.Modal
+        okText="Update Domain"
+        onCancel={goBack}
+        open={true}
+        uiKey={UiKey.DomainModalUpdate}
       >
-        <AutoFields omitFields={['storeId']} />
-      </ModalForm.Form>
-    </ModalForm.Modal>
-  )
-})
+        <ModalForm.Form<IUpdateDomainData>
+          model={model}
+          onSubmit={onSubmit}
+          onSubmitError={onSubmitError}
+          onSubmitSuccess={goBack}
+          schema={updateDomainSchema}
+        >
+          <AutoFields omitFields={['storeId']} />
+        </ModalForm.Form>
+      </ModalForm.Modal>
+    )
+  },
+)

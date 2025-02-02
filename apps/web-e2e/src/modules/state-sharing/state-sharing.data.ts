@@ -8,7 +8,7 @@ import type {
 import type { APIRequestContext } from '@playwright/test'
 
 import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
-import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
+import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
 import { v4 } from 'uuid'
 
 import { seedAppData } from '../builder/builder.data'
@@ -42,14 +42,11 @@ export const regularPageCreateData = (app: IAppDto): IPageCreateFormData => ({
   urlPattern: '/test-page',
 })
 
-export const componentData: ICreateComponentData = {
+export const componentData = (owner: IRef): ICreateComponentData => ({
   id: componentId,
   name: componentName,
-  // Mock owner
-  owner: {
-    id: v4(),
-  },
-}
+  owner,
+})
 
 export const builderElements = [
   {
@@ -61,14 +58,16 @@ export const builderElements = [
 
 export const seedTestData = async (request: APIRequestContext) => {
   const app = await seedAppData(request)
+  const ownerResponse = await request.get('/api/v1/user/me')
+  const owner = await ownerResponse.json()
 
-  await request.post('/api/v1/page/create-page', {
+  await request.post('/api/v1/page/create', {
     data: regularPageCreateData(app),
   })
 
   const componentResponse = await request.post(
     '/api/v1/component/create-component',
-    { data: componentData },
+    { data: componentData(owner) },
   )
 
   const component = await componentResponse.json()

@@ -1,17 +1,15 @@
 fragment Field on Field {
+  __typename
   api {
     ... on InterfaceType {
-      id
+      ...BaseType
     }
   }
   defaultValues
   description
   fieldType {
     ... on IBaseType {
-      __typename
-      id
-      kind
-      name
+      ...BaseType
     }
   }
   id

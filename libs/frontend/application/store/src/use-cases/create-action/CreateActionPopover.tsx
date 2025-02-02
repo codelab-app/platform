@@ -13,7 +13,7 @@ import { useRef } from 'react'
 import { useActionService } from '../../services/action.service'
 import { CreateActionForm } from './CreateActionForm'
 
-export const CreateActionPopover = observer(() => {
+export const CreateActionPopover = observer(({ id }: { id: string }) => {
   const submitRef = useRef<Maybe<SubmitController>>()
   const router = useRouter()
   const { createPopover } = useActionService()
@@ -46,6 +46,7 @@ export const CreateActionPopover = observer(() => {
       <CreateActionForm
         onSubmitSuccess={() => createPopover.close(router)}
         showFormControl={false}
+        storeId={id}
         submitRef={submitRef}
       />
     </CuiSidebarSecondary>

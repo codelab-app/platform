@@ -13,9 +13,15 @@ export const CollapseControl = ({
   resizeDirection,
 }: CollapseControlProps) => {
   return (
-    <div className="flex h-full items-center justify-center align-middle">
-      <div className="cursor-pointer bg-gray-200" onClick={onClick}>
-        <div className="flex space-x-0.5 rounded-r bg-inherit p-0.5 py-3">
+    <div
+      className={`
+        relative z-20 flex
+        h-full items-center justify-center
+        align-middle
+      `}
+    >
+      <div className="w-4 cursor-pointer bg-gray-200" onClick={onClick}>
+        <div className="flex justify-center rounded-r bg-inherit py-3">
           {resizeDirection === 'right' && collapsed && <RightOutlined />}
           {resizeDirection === 'right' && !collapsed && <LeftOutlined />}
           {resizeDirection === 'left' && collapsed && <LeftOutlined />}
@@ -25,3 +31,5 @@ export const CollapseControl = ({
     </div>
   )
 }
+
+CollapseControl.displayName = 'CollapseControl'

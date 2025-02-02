@@ -1,0 +1,158 @@
+mutation UpdatePrimitiveTypes(
+  $update: PrimitiveTypeUpdateInput
+  $where: PrimitiveTypeWhere
+) {
+  types: updatePrimitiveTypes(update: $update, where: $where) {
+    types: primitiveTypes {
+      __typename
+      id
+    }
+  }
+}
+
+mutation UpdateArrayTypes(
+  $update: ArrayTypeUpdateInput
+  $where: ArrayTypeWhere
+) {
+  types: updateArrayTypes(update: $update, where: $where) {
+    types: arrayTypes {
+      __typename
+      id
+    }
+  }
+}
+
+mutation UpdateUnionTypes(
+  $update: UnionTypeUpdateInput
+  $where: UnionTypeWhere
+) {
+  types: updateUnionTypes(update: $update, where: $where) {
+    types: unionTypes {
+      __typename
+      id
+    }
+  }
+}
+
+mutation UpdateInterfaceTypes(
+  $update: InterfaceTypeUpdateInput
+  $where: InterfaceTypeWhere
+) {
+  types: updateInterfaceTypes(update: $update, where: $where) {
+    types: interfaceTypes {
+      __typename
+      id
+    }
+  }
+}
+
+mutation UpdateReactNodeTypes(
+  $update: ReactNodeTypeUpdateInput
+  $where: ReactNodeTypeWhere
+) {
+  types: updateReactNodeTypes(update: $update, where: $where) {
+    types: reactNodeTypes {
+      __typename
+      id
+    }
+  }
+}
+
+mutation UpdateElementTypes(
+  $update: ElementTypeUpdateInput
+  $where: ElementTypeWhere
+) {
+  types: updateElementTypes(update: $update, where: $where) {
+    types: elementTypes {
+      __typename
+      id
+    }
+  }
+}
+
+mutation UpdateRenderPropTypes(
+  $update: RenderPropTypeUpdateInput
+  $where: RenderPropTypeWhere
+) {
+  types: updateRenderPropTypes(update: $update, where: $where) {
+    types: renderPropTypes {
+      __typename
+      id
+    }
+  }
+}
+
+mutation UpdateEnumTypes($update: EnumTypeUpdateInput, $where: EnumTypeWhere) {
+  types: updateEnumTypes(update: $update, where: $where) {
+    types: enumTypes {
+      __typename
+      id
+    }
+  }
+}
+
+mutation UpdateLambdaTypes(
+  $update: LambdaTypeUpdateInput
+  $where: LambdaTypeWhere
+) {
+  types: updateLambdaTypes(update: $update, where: $where) {
+    types: lambdaTypes {
+      __typename
+      id
+    }
+  }
+}
+
+mutation UpdatePageTypes($update: PageTypeUpdateInput, $where: PageTypeWhere) {
+  types: updatePageTypes(update: $update, where: $where) {
+    types: pageTypes {
+      __typename
+      id
+    }
+  }
+}
+
+mutation UpdateAppTypes($update: AppTypeUpdateInput, $where: AppTypeWhere) {
+  types: updateAppTypes(update: $update, where: $where) {
+    types: appTypes {
+      __typename
+      id
+    }
+  }
+}
+
+mutation UpdateRichTextTypes(
+  $update: RichTextTypeUpdateInput
+  $where: RichTextTypeWhere
+) {
+  types: updateRichTextTypes(update: $update, where: $where) {
+    types: richTextTypes {
+      __typename
+      id
+    }
+  }
+}
+
+mutation UpdateActionTypes(
+  $update: ActionTypeUpdateInput
+  $where: ActionTypeWhere
+) {
+  types: updateActionTypes(update: $update, where: $where) {
+    types: actionTypes {
+      __typename
+      id
+    }
+  }
+}
+
+mutation UpdateCodeMirrorTypes(
+  $update: CodeMirrorTypeUpdateInput
+  $where: CodeMirrorTypeWhere
+) {
+  types: updateCodeMirrorTypes(update: $update, where: $where) {
+    types: codeMirrorTypes {
+      __typename
+      id
+    }
+  }
+}

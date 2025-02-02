@@ -1,7 +1,6 @@
-import type { IAntdAtomRecords, TagNode } from '@codelab/backend/abstract/core'
+import type { IAntdAtomRecords, TagNode } from '@codelab/shared/abstract/core'
 
-import { IAntdCategoryTag } from '@codelab/backend/abstract/core'
-import { IAtomType } from '@codelab/shared/abstract/core'
+import { IAntdCategoryTag, IAtomType } from '@codelab/shared/abstract/core'
 
 /**
  * This contains hierarchical tag data for Ant Design
@@ -11,7 +10,7 @@ export const antdTagTree: TagNode<IAntdCategoryTag | keyof IAntdAtomRecords> = {
     IAtomType.AntDesignAvatar,
     IAtomType.AntDesignBadge,
     IAtomType.AntDesignComment,
-    { [IAtomType.AntDesignCollapse]: [IAtomType.AntDesignCollapsePanel] },
+    IAtomType.AntDesignCollapse,
     IAtomType.AntDesignCarousel,
     {
       [IAtomType.AntDesignCard]: [

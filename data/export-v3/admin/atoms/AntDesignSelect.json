@@ -713,10 +713,7 @@
         "defaultValues": "null",
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
         },
         "id": "f5839627-d5ee-48aa-a91c-c4c14f9f42dc",
         "key": "value",
@@ -732,10 +729,7 @@
         "defaultValues": "null",
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
         },
         "id": "b9852d21-bfab-43aa-870f-382f75ceb17e",
         "key": "label",
@@ -760,42 +754,10 @@
         "__typename": "InterfaceType",
         "fields": [
           {
-            "api": {
-              "id": "874c97ee-b333-4519-bb60-fee49a12ff6b"
-            },
-            "defaultValues": "null",
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "b9852d21-bfab-43aa-870f-382f75ceb17e",
-            "key": "label",
-            "name": "Label",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{\"general\":{\"nullable\":true}}"
+            "id": "f5839627-d5ee-48aa-a91c-c4c14f9f42dc"
           },
           {
-            "api": {
-              "id": "874c97ee-b333-4519-bb60-fee49a12ff6b"
-            },
-            "defaultValues": "null",
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "f5839627-d5ee-48aa-a91c-c4c14f9f42dc",
-            "key": "value",
-            "name": "Value",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{}"
+            "id": "b9852d21-bfab-43aa-870f-382f75ceb17e"
           }
         ],
         "id": "874c97ee-b333-4519-bb60-fee49a12ff6b",
@@ -990,7 +952,6 @@
         "itemType": {
           "__typename": "InterfaceType",
           "id": "874c97ee-b333-4519-bb60-fee49a12ff6b",
-          "kind": "InterfaceType",
           "name": "AntDesignSelect Option"
         },
         "kind": "ArrayType",

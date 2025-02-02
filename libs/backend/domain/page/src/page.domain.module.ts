@@ -5,16 +5,16 @@ import { TypeDomainModule } from '@codelab/backend/domain/type'
 import { Module } from '@nestjs/common'
 
 import { PageRepository } from './repository'
-import { PageDomainService } from './service'
+import { PageDomainService, PageElementsService } from './service'
 
 @Module({
-  exports: [PageRepository, PageDomainService],
+  exports: [PageRepository, PageDomainService, PageElementsService],
   imports: [
     SharedDomainModule,
     TypeDomainModule,
     StoreDomainModule,
     ElementDomainModule,
   ],
-  providers: [PageRepository, PageDomainService],
+  providers: [PageRepository, PageDomainService, PageElementsService],
 })
 export class PageDomainModule {}

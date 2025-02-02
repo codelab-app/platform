@@ -1,0 +1,23 @@
+mutation UpdateCodeActions(
+  $update: CodeActionUpdateInput
+  $where: CodeActionWhere
+) {
+  updateCodeActions(update: $update, where: $where) {
+    codeActions {
+      __typename
+      id
+    }
+  }
+}
+
+mutation UpdateApiActions(
+  $update: ApiActionUpdateInput
+  $where: ApiActionWhere
+) {
+  updateApiActions(update: $update, where: $where) {
+    apiActions {
+      __typename
+      id
+    }
+  }
+}

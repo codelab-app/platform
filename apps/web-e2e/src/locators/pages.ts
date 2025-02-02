@@ -1,10 +1,6 @@
 import type { Locator, Page } from '@playwright/test'
 
-import {
-  getUiDataKey,
-  getUiDataLabel,
-  UiKey,
-} from '@codelab/frontend/abstract/types'
+import { getUiDataLabel, UiKey } from '@codelab/frontend/abstract/types'
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import { expect } from '@playwright/test'
 
@@ -29,7 +25,8 @@ export interface CuiSelector {
 
 export class BasePage {
   /**
-   * Use this for chaining
+   * Use internally for chaining
+   * For example in `getTree().getTreeItem()`, `getTree()` will set the locator to be chained in `getTreeItem()`
    */
   locator: Locator | undefined
 
@@ -51,6 +48,15 @@ export class BasePage {
     }
   }
 
+  async clickPopconfirmButton() {
+    const popconfirm = this.page.locator('.ant-popconfirm')
+    const confirmButton = popconfirm.locator('.ant-btn-primary')
+
+    await expect(popconfirm).toBeVisible()
+
+    await confirmButton.click()
+  }
+
   /**
    * Can take a while on CI, so add long timeout
    */
@@ -58,7 +64,10 @@ export class BasePage {
     await expect(this.getGlobalProgressBar()).toBeHidden({ timeout: 15000 })
   }
 
-  async fillInputSelect(options: { label: string | RegExp }, value: string) {
+  async fillInputFilterSelect(
+    options: { label: string | RegExp },
+    value: string,
+  ) {
     const page = this.locator ?? this.page
 
     // Fill
@@ -74,6 +83,58 @@ export class BasePage {
       )
       .first()
       .click()
+
+    await expect(
+      this.page.locator(
+        '.ant-select-dropdown:not(.ant-select-dropdown-hidden)',
+      ),
+    ).toBeHidden()
+  }
+
+  async fillInputMultiSelect(
+    options: { name: string | RegExp },
+    values: Array<number | string>,
+  ) {
+    const page = this.locator ?? this.page
+
+    await page.locator(`.ant-select-multiple[name="${options.name}"]`).click()
+
+    // wait for dynamic dropdowns to populate options
+    await expect(page.getByLabel('loading')).toHaveCount(0)
+
+    for (const value of values) {
+      const option = this.page.locator(`.ant-select-item[title="${value}"]`)
+
+      await this.page
+        .locator(
+          '.ant-select-dropdown:not(.ant-select-dropdown-hidden) .ant-select-item',
+        )
+        .first()
+        .hover()
+
+      await this.scrollUntilElementIsVisible(option)
+      await option.click()
+    }
+  }
+
+  async fillInputSelect(options: { label: string | RegExp }, value: string) {
+    const page = this.locator ?? this.page
+    const option = this.page.locator(`.ant-select-item[title="${value}"]`)
+
+    await page.getByLabel(options.label).click()
+
+    // wait for dynamic dropdowns to populate options
+    await expect(page.getByLabel('loading')).toHaveCount(0)
+
+    await this.page
+      .locator(
+        '.ant-select-dropdown:not(.ant-select-dropdown-hidden) .ant-select-item',
+      )
+      .first()
+      .hover()
+
+    await this.scrollUntilElementIsVisible(option)
+    await option.click()
   }
 
   fillInputText(options: { label: string | RegExp }, value: string) {
@@ -128,6 +189,13 @@ export class BasePage {
     return this.page.locator('.ant-card', { hasText: options.name })
   }
 
+  /**
+   * Could be a modal or a popover
+   */
+  getDialog() {
+    return this.page.getByRole('dialog')
+  }
+
   getDropdownItem(options: { label: string | RegExp }) {
     return this.page
       .locator('.ant-dropdown')
@@ -148,12 +216,8 @@ export class BasePage {
     })
   }
 
-  getModal() {
-    return this.page.getByRole('dialog')
-  }
-
   getModalForm(key: UiKey) {
-    const form = this.getModal().locator('form')
+    const form = this.getDialog().locator('form')
 
     this.locator = form
 
@@ -165,7 +229,7 @@ export class BasePage {
   }
 
   getPopover(key: UiKey) {
-    const popover = this.page.getByTestId(CuiTestId.cuiSidebar(key))
+    const popover = this.page.getByTestId(key)
 
     this.locator = popover
 
@@ -250,6 +314,12 @@ export class BasePage {
   async openModal(options: CuiSelector) {
     await this.getButton(options).click()
 
-    await expect(this.getModal()).toBeVisible()
+    await expect(this.getDialog()).toBeVisible()
+  }
+
+  async scrollUntilElementIsVisible(locator: Locator) {
+    while (!(await locator.isVisible())) {
+      await this.page.mouse.wheel(0, 100)
+    }
   }
 }

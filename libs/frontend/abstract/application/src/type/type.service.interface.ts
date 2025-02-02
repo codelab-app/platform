@@ -5,11 +5,12 @@ import type {
   ITypeUpdateDto,
 } from '@codelab/frontend/abstract/domain'
 import type { IPopover } from '@codelab/frontend/abstract/types'
+import type { IRef } from '@codelab/shared/abstract/core'
 import type {
   IBaseType,
   IBaseTypeOptions,
   IBaseTypeWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import type { ICrudService, IPaginateable, IQueryService } from '../services'
 
@@ -18,7 +19,7 @@ export interface ITypeService
     Omit<IQueryService<ITypeModel, IBaseTypeWhere, IBaseTypeOptions>, 'getAll'>,
     IPaginateable<ITypeModel> {
   createPopover: IPopover
-  updatePopover: IPopover
+  updatePopover: IPopover<IRef>
   getAll(ids?: Array<string>): Promise<Array<ITypeModel>>
   getInterface(id: string): Promise<IInterfaceTypeModel>
   getSelectOptions(): Promise<Array<Pick<IBaseType, 'id' | 'kind' | 'name'>>>

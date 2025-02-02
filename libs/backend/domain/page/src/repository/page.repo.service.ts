@@ -1,53 +1,35 @@
-import type {
-  Page,
-  PageOptions,
-  PageWhere,
-} from '@codelab/backend/abstract/codegen'
-import type { IPageDto } from '@codelab/shared/abstract/core'
+import type { INodeType, IPageDto } from '@codelab/shared/abstract/core'
+import type { PageOptions, PageWhere } from '@codelab/shared/infra/gqlgen'
 
-import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
-import {
-  OgmService,
-  pageSelectionSet,
-} from '@codelab/backend/infra/adapter/neo4j'
-import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import {
-  connectNodeId,
-  pageMapper,
-  PageProperties,
-  reconnectNodeId,
-} from '@codelab/shared/domain-old'
+import { PageFragment } from '@codelab/shared/infra/gqlgen'
+import { pageApi, pageMapper } from '@codelab/shared-domain-module/page'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class PageRepository extends AbstractRepository<
+  INodeType.Page,
   IPageDto,
-  Page,
+  PageFragment,
   PageWhere,
   PageOptions
 > {
-  constructor(
-    private ogmService: OgmService,
-
-    protected override validationService: ValidationService,
-    protected override loggerService: CodelabLoggerService,
-  ) {
-    super(validationService, loggerService)
+  constructor(protected override loggerService: PinoLoggerService) {
+    super(loggerService)
   }
 
   /**
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
   protected async _addMany(pages: Array<IPageDto>) {
-    return (
-      await (
-        await this.ogmService.Page
-      ).create({
-        input: pages.map((page) => pageMapper.toCreateInput(page)),
-        selectionSet: `{ pages { ${pageSelectionSet} } }`,
-      })
-    ).pages
+    const {
+      createPages: { pages: createdPages },
+    } = await pageApi().CreatePages({
+      input: pages.map((page) => pageMapper.toCreateInput(page)),
+    })
+
+    return createdPages
   }
 
   protected async _find({
@@ -57,23 +39,22 @@ export class PageRepository extends AbstractRepository<
     where?: PageWhere
     options?: PageOptions
   }) {
-    return await (
-      await this.ogmService.Page
-    ).find({
+    const { items } = await pageApi().PageList({
       options,
-      selectionSet: `{ ${pageSelectionSet} }`,
       where,
     })
+
+    return items
   }
 
   protected async _update(page: IPageDto, where: PageWhere) {
-    return (
-      await (
-        await this.ogmService.Page
-      ).update({
-        update: pageMapper.toUpdateInput(page),
-        where,
-      })
-    ).pages[0]
+    const {
+      updatePages: { pages },
+    } = await pageApi().UpdatePages({
+      update: pageMapper.toUpdateInput(page),
+      where,
+    })
+
+    return pages[0]
   }
 }

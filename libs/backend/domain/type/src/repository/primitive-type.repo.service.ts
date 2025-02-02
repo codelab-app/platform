@@ -1,49 +1,50 @@
 import type {
-  PrimitiveType,
+  INodeType,
+  IPrimitiveTypeDto,
+} from '@codelab/shared/abstract/core'
+import type {
+  IBaseTypeWhere,
   PrimitiveTypeOptions,
   PrimitiveTypeWhere,
-} from '@codelab/backend/abstract/codegen'
-import type { IPrimitiveTypeDto } from '@codelab/shared/abstract/core'
-import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
+} from '@codelab/shared/infra/gqlgen'
 
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
-import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
-import {
-  OgmService,
-  primitiveTypeSelectionSet,
-} from '@codelab/backend/infra/adapter/neo4j'
-import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import { connectOwner } from '@codelab/shared/domain-old'
+import { PrimitiveTypeFragment } from '@codelab/shared/infra/gqlgen'
+import {
+  createTypeApi,
+  findTypeApi,
+  primitiveTypeMapper,
+  updateTypeApi,
+} from '@codelab/shared-domain-module/type'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class PrimitiveTypeRepository extends AbstractRepository<
+  INodeType.PrimitiveType,
   IPrimitiveTypeDto,
-  PrimitiveType,
+  PrimitiveTypeFragment,
   PrimitiveTypeWhere,
   PrimitiveTypeOptions
 > {
   constructor(
-    private ogmService: OgmService,
-    protected override validationService: ValidationService,
-    protected override loggerService: CodelabLoggerService,
+    protected override loggerService: PinoLoggerService,
     protected authService: AuthDomainService,
   ) {
-    super(validationService, loggerService)
+    super(loggerService)
   }
 
   protected async _addMany(primitiveTypes: Array<IPrimitiveTypeDto>) {
-    return (
-      await (
-        await this.ogmService.PrimitiveType
-      ).create({
-        input: primitiveTypes.map(({ __typename, ...type }) => ({
-          ...type,
-          owner: connectOwner(this.authService.currentUser),
-        })),
-      })
-    ).primitiveTypes
+    const {
+      types: { types },
+    } = await createTypeApi().CreatePrimitiveTypes({
+      input: primitiveTypes.map((primitiveType) =>
+        primitiveTypeMapper.toCreateInput(primitiveType),
+      ),
+    })
+
+    return types
   }
 
   protected async _find({
@@ -53,26 +54,25 @@ export class PrimitiveTypeRepository extends AbstractRepository<
     where?: PrimitiveTypeWhere
     options?: PrimitiveTypeOptions
   }) {
-    return await (
-      await this.ogmService.PrimitiveType
-    ).find({
+    const { types } = await findTypeApi().GetPrimitiveTypes({
       options,
-      selectionSet: `{ ${primitiveTypeSelectionSet} }`,
       where,
     })
+
+    return types
   }
 
   protected async _update(
-    { __typename, id, name, primitiveKind }: IPrimitiveTypeDto,
-    where: BaseTypeUniqueWhere,
+    primitiveType: IPrimitiveTypeDto,
+    where: IBaseTypeWhere,
   ) {
-    return (
-      await (
-        await this.ogmService.PrimitiveType
-      ).update({
-        update: { name },
-        where,
-      })
-    ).primitiveTypes[0]
+    const {
+      types: { types },
+    } = await updateTypeApi().UpdatePrimitiveTypes({
+      update: primitiveTypeMapper.toUpdateInput(primitiveType),
+      where,
+    })
+
+    return types[0]
   }
 }

@@ -1,3 +1,3 @@
-import { RedirectTargetType } from '@codelab/shared/infra/gql'
+import { RedirectTargetType } from '@codelab/shared/infra/gqlgen'
 
 export { RedirectTargetType as IRedirectTargetType }

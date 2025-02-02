@@ -14,10 +14,7 @@ import { PageType } from '@codelab/frontend/abstract/types'
 import { Button, Dropdown } from 'antd'
 import { useRouter } from 'next/navigation'
 
-import { useBuildAppModal } from '../build-app/build-app.state'
-import { useDeleteAppModal } from '../delete-app/delete-app.state'
 import { useExportApp } from '../export-app'
-import { useUpdateAppModal } from '../update-app/update-app.state'
 
 export interface AppListItemDropdownProps {
   app: IAppModel
@@ -36,14 +33,11 @@ const menuItemIconStyle: CSSProperties = {
 }
 
 export const AppListItemDropdown = ({ app }: AppListItemDropdownProps) => {
-  const updateAppModal = useUpdateAppModal()
-  const deleteAppModal = useDeleteAppModal()
-  const buildAppModal = useBuildAppModal()
-  const onEditClick = () => updateAppModal.open(app)
-  const onDeleteClick = () => deleteAppModal.open(app)
-  const onBuildClick = () => buildAppModal.open(app)
-  const { exportApp, loading: loadingExportApp } = useExportApp(app)
   const router = useRouter()
+  const onEditClick = () => router.push(PageType.AppUpdate({ id: app.id }))
+  const onDeleteClick = () => router.push(PageType.AppDelete({ id: app.id }))
+  const onBuildClick = () => router.push(PageType.AppBuild({ id: app.id }))
+  const onExportClick = useExportApp(app)
 
   const goToDomainsPage = async () => {
     const url = PageType.DomainList({ appId: app.id })
@@ -84,12 +78,10 @@ export const AppListItemDropdown = ({ app }: AppListItemDropdownProps) => {
       style: menuItemStyle,
     },
     {
-      icon: (
-        <ExportOutlined spin={loadingExportApp} style={menuItemIconStyle} />
-      ),
+      icon: <ExportOutlined style={menuItemIconStyle} />,
       key: 'export',
       label: 'Export',
-      onClick: exportApp,
+      onClick: onExportClick,
       style: menuItemStyle,
     },
   ]

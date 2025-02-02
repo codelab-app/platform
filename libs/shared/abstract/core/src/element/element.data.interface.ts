@@ -1,47 +1,48 @@
 import type { Static } from '@sinclair/typebox'
 import type { Overwrite } from 'utility-types'
 
-import { Typebox } from '@codelab/shared/abstract/typebox'
-import { AtomType } from '@codelab/shared/infra/gql'
+import { AtomType } from '@codelab/shared/infra/gqlgen'
 import { Type } from '@sinclair/typebox'
 
 import type { IPropData } from '../prop/prop.dto.interface'
 
+import { ElementDtoSchema } from './element.dto.interface'
+
 /**
  * This allows for a shortened object to be specified as input. Good for seeding data in cases where the input is manually specified (such as Cypress)
  */
-export const CreateElementDataSchema = Type.Object({
-  /**
-   * We have renderType here
-   */
-  // Can't use `IAtomType` due to circular import issue
-  atom: Type.Optional(Type.Enum(AtomType)),
-  childMapperComponent: Typebox.Nullish(Typebox.Ref),
-  childMapperPreviousSibling: Typebox.Nullish(Typebox.Ref),
-  childMapperPropKey: Typebox.Nullish(Type.String()),
-  // Name of the Component
-  component: Type.Optional(Type.String()),
-  id: Type.String(),
-  name: Type.String(),
-  page: Type.Optional(Typebox.Ref),
-  parentComponent: Type.Optional(Typebox.Ref),
-  parentElement: Type.Optional(Typebox.Ref),
-  postRenderAction: Typebox.Nullish(Typebox.Ref),
-  preRenderAction: Typebox.Nullish(Typebox.Ref),
-  prevSibling: Type.Optional(Typebox.Ref),
-  propsData: Type.Optional(Type.Object<IPropData>({})),
-  // atom?: IAtomType
-  // id: string
-  // name: string
-  // parentElement: IRef
-})
+export const CreateElementDataSchema = Type.Composite([
+  Type.Object({
+    /**
+     * We have renderType here
+     */
+    // Can't use `IAtomType` due to circular import issue
+    atom: Type.Optional(Type.Enum(AtomType)),
+    // Name of the Component
+    component: Type.Optional(Type.String()),
+    propsData: Type.Optional(Type.Object<IPropData>({})),
+  }),
+  Type.Pick(ElementDtoSchema, [
+    'childMapperComponent',
+    'childMapperPreviousSibling',
+    'childMapperPropKey',
+    'id',
+    'name',
+    'page',
+    'parentComponent',
+    'parentElement',
+    'postRenderActions',
+    'preRenderActions',
+    'prevSibling',
+  ]),
+])
 
 export type ICreateElementData = Static<typeof CreateElementDataSchema>
 
 /**
- * Cypress uses parent element label for the Ui
+ * UI uses parent element label for selection
  */
-export type ICreateCypressElementData = Overwrite<
+export type ICreateElementSeedData = Overwrite<
   Omit<ICreateElementData, 'id'>,
   { parentElement: string; atom: string; propsData?: string }
 >

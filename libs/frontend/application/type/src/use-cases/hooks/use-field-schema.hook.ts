@@ -1,3 +1,4 @@
+import type { IFieldModel } from '@codelab/frontend/abstract/domain'
 import type {
   ICreateFieldData,
   IUpdateFieldData,
@@ -10,19 +11,15 @@ import {
 } from '@codelab/frontend-infra-mobx/context'
 import { useMemo } from 'react'
 
-import { useCreateFieldForm } from '../create-field'
-import { useUpdateFieldForm } from '../update-field'
-
 /**
  * @param schema
  * @returns create/update field schema with validation rules against duplicated action and state names
  */
 export const useFieldSchema = (
   schema: JSONSchemaType<ICreateFieldData | IUpdateFieldData>,
+  updatedField?: IFieldModel,
 ) => {
   const { rendererService } = useApplicationStore()
-  const updateFieldForm = useUpdateFieldForm()
-  const createFieldForm = useCreateFieldForm()
   const { storeDomainService } = useDomainStore()
 
   return useMemo(() => {
@@ -30,7 +27,7 @@ export const useFieldSchema = (
     const runtimeStore = renderer?.runtimeContainerNode?.runtimeStore
 
     const forbiddenValues = Object.keys(runtimeStore?.state ?? {}).filter(
-      (fieldName) => fieldName !== updateFieldForm.data?.key,
+      (fieldName) => fieldName !== updatedField?.key,
     )
 
     return {
@@ -44,10 +41,5 @@ export const useFieldSchema = (
       },
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    schema,
-    createFieldForm.data,
-    updateFieldForm.data,
-    storeDomainService.storesList,
-  ])
+  }, [schema, updatedField, storeDomainService.storesList])
 }

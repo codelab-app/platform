@@ -1,6 +1,6 @@
 {
   "defaultBase": "master",
-  "useInferencePlugins": false,
+  "useInferencePlugins": true,
   "parallel": 3,
   "tasksRunnerOptions": {
     "default": {
@@ -11,7 +11,15 @@
     }
   },
   "defaultProject": "web",
-  "plugins": [],
+  "plugins": [
+    "@codelab/tsc-check",
+    {
+      "plugin": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "eslint:lint"
+      }
+    }
+  ],
   "generators": {
     "@nx/workspace": {
       "library": {
@@ -73,10 +81,14 @@
     "@nx/js": {
       "library": {
         "unitTestRunner": "none",
+        "bundler": "none",
         "setParserOptionsProject": true,
+        "linter": "eslint",
         "strict": true,
         "importPath": "@codelab/frontend",
-        "tags": "scope:shared"
+        "tags": "scope:shared",
+        "useProjectJson": true,
+        "skipPackageJson": true
       }
     }
   },
@@ -149,7 +161,8 @@
       "configurations": {
         "ci": {
           "format": "junit",
-          "outputFile": "tmp/reports/lint/{projectName}.xml"
+          "outputFile": "tmp/reports/lint/{projectName}.xml",
+          "quiet": true
         },
         "codegen": {
           "lintFilePatterns": ["{projectRoot}/**/*.gen.{ts,tsx}"],

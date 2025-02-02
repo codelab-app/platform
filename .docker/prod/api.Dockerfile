@@ -11,7 +11,7 @@
 # (1) Build - using alias and having multiple steps can help with caching and build speed
 #
 #
-FROM node:18.18-alpine AS base
+FROM node:20.18.1-alpine AS base
 
 WORKDIR /usr/src/codelab
 
@@ -52,7 +52,7 @@ RUN pnpm nx build api --verbose --skip-nx-cache
 #
 # (2) Prod
 #
-FROM node:18.18-alpine AS prod
+FROM node:20.18.1-alpine AS prod
 
 # RUN apk add curl
 

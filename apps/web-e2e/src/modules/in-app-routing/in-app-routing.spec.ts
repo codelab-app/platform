@@ -2,12 +2,15 @@ import { type IApp } from '@codelab/shared/abstract/core'
 import { providerPageId } from '@codelab/shared/data/test'
 import { expect } from '@playwright/test'
 
+import { globalBeforeAll } from '../../setup/before-all'
 import { seedTestData } from './in-app-routing.data'
 import { test } from './in-app-routing.fixture'
 
 let app: IApp
 
 test.describe.configure({ mode: 'serial' })
+
+globalBeforeAll()
 
 test.beforeAll(async ({ request }, testInfo) => {
   app = await seedTestData(request)

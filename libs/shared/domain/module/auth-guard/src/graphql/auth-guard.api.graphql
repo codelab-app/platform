@@ -1,0 +1,38 @@
+query GetAuthGuards($options: AuthGuardOptions, $where: AuthGuardWhere) {
+  aggregate: authGuardsAggregate(where: $where) {
+    count
+  }
+  items: authGuards(options: $options, where: $where) {
+    ...AuthGuard
+  }
+}
+
+mutation CreateAuthGuards($input: [AuthGuardCreateInput!]!) {
+  createAuthGuards(input: $input) {
+    authGuards {
+      __typename
+      id
+    }
+  }
+}
+
+mutation UpdateAuthGuard(
+  $where: AuthGuardWhere
+  $update: AuthGuardUpdateInput
+) {
+  updateAuthGuards(update: $update, where: $where) {
+    authGuards {
+      __typename
+      id
+    }
+  }
+}
+
+mutation DeleteAuthGuards(
+  $where: AuthGuardWhere
+  $delete: AuthGuardDeleteInput
+) {
+  deleteAuthGuards(where: $where, delete: $delete) {
+    nodesDeleted
+  }
+}

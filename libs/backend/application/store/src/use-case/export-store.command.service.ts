@@ -1,11 +1,17 @@
-import type { StoreWhere } from '@codelab/backend/abstract/codegen'
-import type { IStoreAggregateExport } from '@codelab/shared/abstract/core'
-import type { ApiAction } from '@codelab/shared/infra/gql'
+import type {
+  IApiExport,
+  IStoreAggregateExport,
+} from '@codelab/shared/abstract/core'
+import type { StoreWhere } from '@codelab/shared/infra/gqlgen'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
 import { ExportApiCommand } from '@codelab/backend/application/type'
 import { StoreRepository } from '@codelab/backend/domain/store'
-import { IActionKind } from '@codelab/shared/abstract/core'
+import {
+  IActionKind,
+  StoreAggregateExportSchema,
+} from '@codelab/shared/abstract/core'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
 export class ExportStoreCommand {
@@ -24,7 +30,7 @@ export class ExportStoreHandler
   async execute({ where }: ExportStoreCommand) {
     const store = await this.storeRepository.findOneOrFail({ where })
 
-    const api = await this.commandBus.execute<ExportApiCommand>(
+    const api = await this.commandBus.execute<ExportApiCommand, IApiExport>(
       new ExportApiCommand(store.api),
     )
 
@@ -38,10 +44,10 @@ export class ExportStoreHandler
       return -1
     })
 
-    return {
+    return Validator.parse(StoreAggregateExportSchema, {
       actions,
       api,
       store,
-    }
+    })
   }
 }

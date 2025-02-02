@@ -5,19 +5,10 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import type { IRedirectDto } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import type {
-  RedirectCreateInput,
-  RedirectUpdateInput,
-} from '@codelab/shared/infra/gql'
 import type { Ref } from 'mobx-keystone'
 
 import { authGuardRef, pageRef } from '@codelab/frontend/abstract/domain'
 import { IRedirectTargetType } from '@codelab/shared/abstract/core'
-import {
-  connectNodeId,
-  disconnectAll,
-  reconnectNodeId,
-} from '@codelab/shared/domain-old'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
@@ -85,7 +76,7 @@ export class RedirectModel
 
     this.targetUrl =
       this.targetType === IRedirectTargetType.Url
-        ? targetUrl ?? this.targetUrl
+        ? (targetUrl ?? this.targetUrl)
         : null
 
     return this

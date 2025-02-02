@@ -1,9 +1,9 @@
 import type { ICommandHandler } from '@nestjs/cqrs'
 
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
+import { systemTypesData } from '@codelab/shared/data/seed'
 import { CommandHandler } from '@nestjs/cqrs'
 
-import { systemTypesData } from '../../data'
 import { TypeSeederService } from '../../service'
 
 export class SeedSystemTypesCommand {}
@@ -21,9 +21,7 @@ export class SeedSystemTypesHandler
   ) {}
 
   async execute() {
-    const types = Object.values(
-      systemTypesData(this.authDomainService.currentUser),
-    )
+    const types = systemTypesData(this.authDomainService.currentUser)
 
     return this.typeSeederService.seedTypes(types)
   }

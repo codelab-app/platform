@@ -1,25 +1,35 @@
-import type {
-  IRedirectModel,
-  IRedirectRepository,
-} from '@codelab/frontend/abstract/domain'
 import type { IRedirectDto, IRef } from '@codelab/shared/abstract/core'
-import type { RedirectOptions, RedirectWhere } from '@codelab/shared/infra/gql'
-
-import { redirectMapper } from '@codelab/shared/domain-old'
-import { Validator } from '@codelab/shared/infra/schema'
+import type {
+  RedirectOptions,
+  RedirectWhere,
+} from '@codelab/shared/infra/gqlgen'
 
 import {
+  CACHE_TAGS,
+  type IRedirectModel,
+  type IRedirectRepository,
+} from '@codelab/frontend/abstract/domain'
+import { Validator } from '@codelab/shared/infra/typebox'
+import {
+  redirectMapper,
+  redirectServerActions,
+} from '@codelab/shared-domain-module/redirect'
+
+const {
   CreateRedirects,
   DeleteRedirects,
-  GetRedirects,
+  GetRedirectsPreview,
   UpdateRedirects,
-} from './redirect.api.graphql.web.gen'
+} = redirectServerActions
 
 export const redirectRepository: IRedirectRepository = {
   add: async (redirect: IRedirectDto) => {
     const {
       createRedirects: { redirects },
-    } = await CreateRedirects({ input: redirectMapper.toCreateInput(redirect) })
+    } = await CreateRedirects(
+      { input: redirectMapper.toCreateInput(redirect) },
+      { revalidateTag: CACHE_TAGS.PAGE_LIST },
+    )
 
     const createdRedirect = redirects[0]
 
@@ -39,7 +49,7 @@ export const redirectRepository: IRedirectRepository = {
   },
 
   find: async (where?: RedirectWhere, options?: RedirectOptions) => {
-    return GetRedirects({ options, where })
+    return GetRedirectsPreview({ options, where })
   },
 
   findOne: async (where: RedirectWhere) => {

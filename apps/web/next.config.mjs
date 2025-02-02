@@ -1,10 +1,11 @@
 import bundleAnalyzer from '@next/bundle-analyzer'
-import { composePlugins, withNx } from '@nx/next'
+import { composePlugins,
+withNx } from '@nx/next'
 import { withSentryConfig } from '@sentry/nextjs'
 // eslint-disable-next-line import/default
-import envVar from 'env-var'
+import env from 'env-var'
 
-const { get } = envVar
+const { get } = env
 
 const analyzeBundle = get('ANALYZE_BUNDLE').default(0).asBool()
 
@@ -76,10 +77,11 @@ const nextConfig = {
     styledComponents: true,
   },
   experimental: {
+    // forceSwcTransforms: true,
+
     // outputFileTracingRoot: path.join(__dirname, '../../'),
     // optimizePackageImports: ['@auth0/nextjs-auth0/edge'],
     // https://nextjs.org/docs/messages/import-esm-externals
-    // forceSwcTransforms: true,
     // typedRoutes: true,
     instrumentationHook: enableInstrumentation,
 

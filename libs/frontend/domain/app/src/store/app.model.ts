@@ -15,7 +15,7 @@ import {
   userRef,
 } from '@codelab/frontend/abstract/domain'
 import { IPageKind } from '@codelab/shared/abstract/core'
-import { Validator } from '@codelab/shared/infra/schema'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { slugify } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
@@ -43,6 +43,8 @@ export class App
   })
   implements IAppModel
 {
+  static create = create
+
   @computed
   get providerPage() {
     const providerPage = this.pages.find(
@@ -72,9 +74,6 @@ export class App
       slug: this.slug,
     }
   }
-
-  @modelAction
-  static create = create
 
   @modelAction
   page(id: string) {

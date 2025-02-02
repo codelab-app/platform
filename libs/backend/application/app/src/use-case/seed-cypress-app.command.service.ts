@@ -1,11 +1,14 @@
 import type { InterfaceType } from '@codelab/backend/domain/type'
-import type { IApp, IAppDto } from '@codelab/shared/abstract/core'
+import type {
+  IAppDto,
+  IPageCreateSeedData,
+} from '@codelab/shared/abstract/core'
 
-import { App, AppRepository } from '@codelab/backend/domain/app'
+import { AppRepository } from '@codelab/backend/domain/app'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import { Element, ElementRepository } from '@codelab/backend/domain/element'
-import { Page, PageRepository } from '@codelab/backend/domain/page'
-import { Prop, PropRepository } from '@codelab/backend/domain/prop'
+import { PageRepository } from '@codelab/backend/domain/page'
+import { PropRepository } from '@codelab/backend/domain/prop'
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { Store, StoreRepository } from '@codelab/backend/domain/store'
 import { InterfaceTypeRepository } from '@codelab/backend/domain/type'
@@ -29,8 +32,8 @@ import {
   providerPageData,
   providerPageId,
 } from '@codelab/shared/data/test'
+import { Page } from '@codelab/shared-domain-module/page'
 import { CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
-import { v4 } from 'uuid'
 
 export class SeedCypressAppCommand {}
 
@@ -44,7 +47,6 @@ export class SeedCypressAppHandler
   constructor(
     private readonly appRepository: AppRepository,
     private readonly pageRepository: PageRepository,
-    private readonly propRepository: PropRepository,
     private readonly elementRepository: ElementRepository,
     private atomRepository: AtomRepository,
     private readonly storeRepository: StoreRepository,
@@ -54,18 +56,6 @@ export class SeedCypressAppHandler
 
   async execute() {
     const owner = this.authDomainService.currentUser
-    /**
-     * Create props
-     */
-    const providerElementProps = providerElementPropsData
-    const notFoundElementProps = notFoundElementPropsData
-    const internalServerErrorElementProps = internalServerErrorPropsData
-
-    await this.propRepository.addMany([
-      providerElementProps,
-      notFoundElementProps,
-      internalServerErrorElementProps,
-    ])
 
     const atomReactFragment = await this.atomRepository.findOneOrFail({
       where: {

@@ -3,14 +3,15 @@
 import type {
   PreferenceOptions,
   PreferenceWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import { CACHE_TAGS } from '@codelab/frontend/abstract/domain'
 import { type IPreferenceDto } from '@codelab/shared/abstract/core'
-import { Validator } from '@codelab/shared/infra/schema'
+import { Validator } from '@codelab/shared/infra/typebox'
+import { preferenceServerActions } from '@codelab/shared-domain-module/preference'
 import { revalidateTag } from 'next/cache'
 
-import { GetPreferences } from './preference.api.graphql.web.gen'
+const { GetPreferences } = preferenceServerActions
 
 export const preferenceQuery = async (
   where?: PreferenceWhere,

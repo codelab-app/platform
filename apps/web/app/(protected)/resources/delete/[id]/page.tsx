@@ -2,7 +2,7 @@ import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { resourceRepository } from '@codelab/frontend-domain-resource/repositories'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 
-import { DeleteResourceModalContainer } from './page.container'
+import { DeleteResourceModalConnector } from './page.connector'
 
 const Page = async ({ params: { id } }: { params: { id: string } }) => {
   const resourceDto = await resourceRepository.findOne({ id })
@@ -12,7 +12,7 @@ const Page = async ({ params: { id } }: { params: { id: string } }) => {
       fallback={<Spinner />}
       resourcesDto={resourceDto ? [resourceDto] : []}
     >
-      <DeleteResourceModalContainer id={id} />
+      <DeleteResourceModalConnector id={id} />
     </DomainStoreHydrator>
   )
 }

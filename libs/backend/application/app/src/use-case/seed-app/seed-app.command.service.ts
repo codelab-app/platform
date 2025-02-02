@@ -1,4 +1,4 @@
-import type { IAppDto, ICreatePageDto } from '@codelab/shared/abstract/core'
+import type { IAppDto, IPageDto } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
 import { AppDomainService } from '@codelab/backend/domain/app'
@@ -8,7 +8,7 @@ import { CommandHandler } from '@nestjs/cqrs'
 export class SeedAppCommand {
   constructor(
     public readonly app: Pick<IAppDto, 'id' | 'name'>,
-    public readonly pages: Array<ICreatePageDto>,
+    public readonly pages: Array<IPageDto>,
   ) {}
 }
 

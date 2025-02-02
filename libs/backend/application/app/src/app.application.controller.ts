@@ -1,9 +1,16 @@
-import type { IApp, IAppAggregateExport } from '@codelab/shared/abstract/core'
+import type {
+  IApp,
+  IAppAggregateExport,
+  IPageCreateSeedData,
+} from '@codelab/shared/abstract/core'
 
 import { ImportCypressAtomsCommand } from '@codelab/backend/application/atom'
+import { ImportDataMapperService } from '@codelab/backend/application/data'
 import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
-import { DatabaseService } from '@codelab/backend/infra/adapter/neo4j'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
+import { DatabaseService } from '@codelab/backend-infra-adapter/neo4j-driver'
 import {
+  Body,
   ClassSerializerInterceptor,
   Controller,
   Get,
@@ -28,12 +35,14 @@ export class AppApplicationController {
   constructor(
     private commandBus: CommandBus,
     private databaseService: DatabaseService,
+    private logger: PinoLoggerService,
+    private importDataMapperService: ImportDataMapperService,
   ) {}
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Get('export')
   async exportApp(@Request() req: ExpressRequest) {
-    return this.commandBus.execute<SeedCypressAppCommand, IAppAggregateExport>(
+    return this.commandBus.execute<ExportAppCommand, IAppAggregateExport>(
       new ExportAppCommand({ id: req.query['id'] as string }),
     )
   }
@@ -43,9 +52,10 @@ export class AppApplicationController {
   async importApp(@UploadedFile() file: Express.Multer.File) {
     const json = file.buffer.toString('utf8')
     const data = JSON.parse(json)
+    const importData = this.importDataMapperService.getAppImportData(data)
 
-    return this.commandBus.execute<SeedCypressAppCommand, IApp>(
-      new ImportAppCommand(data),
+    return this.commandBus.execute<ImportAppCommand, IApp>(
+      new ImportAppCommand(importData),
     )
   }
 
@@ -54,13 +64,21 @@ export class AppApplicationController {
   async seedApp() {
     await this.databaseService.resetUserData()
 
+    this.logger.log('Seeding system types', {
+      context: 'AppApplicationController',
+    })
+
     await this.commandBus.execute<ImportSystemTypesCommand>(
       new ImportSystemTypesCommand(),
     )
 
+    this.logger.log('Seeding atoms', { context: 'AppApplicationController' })
+
     await this.commandBus.execute<ImportCypressAtomsCommand>(
       new ImportCypressAtomsCommand(),
     )
+
+    this.logger.log('Seeding app', { context: 'AppApplicationController' })
 
     return this.commandBus.execute<SeedCypressAppCommand, IApp>(
       new SeedCypressAppCommand(),

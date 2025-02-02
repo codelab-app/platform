@@ -1,24 +1,18 @@
-import type { ApolloDriverConfig } from '@nestjs/apollo'
-import type { GraphQLSchema } from 'graphql'
-
 import { DataModule } from '@codelab/backend/application/data'
-import { SharedApplicationModule } from '@codelab/backend/application/shared'
 import {
   ImportSystemTypesHandler,
   TypeApplicationModule,
 } from '@codelab/backend/application/type'
+import { AtomRepository } from '@codelab/backend/domain/atom'
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
-import { TypeDomainModule } from '@codelab/backend/domain/type'
 import {
-  GRAPHQL_SCHEMA_PROVIDER,
-  GraphQLSchemaModule,
-  Neo4jModule,
-  OgmService,
-} from '@codelab/backend/infra/adapter/neo4j'
-import { initUserContext } from '@codelab/backend/test'
+  InterfaceTypeRepository,
+  TypeDomainModule,
+} from '@codelab/backend/domain/type'
+import { UserRepository } from '@codelab/backend/domain/user'
+import { initUserContext } from '@codelab/backend/test/setup'
+import { Neo4jModule } from '@codelab/backend-infra-adapter/neo4j-driver'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { ApolloDriver } from '@nestjs/apollo'
-import { GraphQLModule } from '@nestjs/graphql'
 
 import { AdminApplicationModule } from './admin.application.module'
 import { SeederApplicationService } from './use-case'
@@ -27,29 +21,26 @@ import { SeederApplicationService } from './use-case'
  * Here we show how to mock a user
  */
 describe('Admin', () => {
-  let ogmService: OgmService
+  let userRepository: UserRepository
+  let atomRepository: AtomRepository
+  let interfaceTypeRepository: InterfaceTypeRepository
   let seederApplicationService: SeederApplicationService
 
   const context = initUserContext({
     imports: [
-      GraphQLModule.forRootAsync<ApolloDriverConfig>({
-        driver: ApolloDriver,
-        imports: [GraphQLSchemaModule],
-        inject: [GRAPHQL_SCHEMA_PROVIDER],
-        useFactory: async (graphqlSchema: GraphQLSchema) => {
-          return {
-            schema: graphqlSchema,
-          }
-        },
-      }),
       AdminApplicationModule,
       DataModule,
-      SharedApplicationModule,
       TypeDomainModule,
       TypeApplicationModule,
       Neo4jModule,
     ],
-    providers: [AuthDomainService, ImportSystemTypesHandler],
+    providers: [
+      AuthDomainService,
+      ImportSystemTypesHandler,
+      UserRepository,
+      AtomRepository,
+      InterfaceTypeRepository,
+    ],
   })
 
   beforeAll(async () => {
@@ -57,7 +48,9 @@ describe('Admin', () => {
     const module = ctx.module
 
     seederApplicationService = module.get(SeederApplicationService)
-    ogmService = module.get(OgmService)
+    userRepository = module.get(UserRepository)
+    atomRepository = module.get(AtomRepository)
+    interfaceTypeRepository = module.get(InterfaceTypeRepository)
 
     await ctx.beforeAll()
   })
@@ -74,9 +67,9 @@ describe('Admin', () => {
     /**
      * First seed all the data
      */
-    const users = await ogmService.User.find({})
-    const atoms = await ogmService.Atom.find({})
-    const types = await ogmService.InterfaceType.find({})
+    const users = await userRepository.find()
+    const atoms = await atomRepository.find()
+    const types = await interfaceTypeRepository.find()
 
     expect(users.length).toBe(1)
     expect(atoms.length).toBe(1)

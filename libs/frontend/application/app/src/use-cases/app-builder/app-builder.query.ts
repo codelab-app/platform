@@ -1,5 +1,5 @@
 import type { IAppBuilderQuery } from '@codelab/frontend/abstract/domain'
-import type { AtomBuilderFragment } from '@codelab/shared/infra/gql'
+import type { AtomBuilderFragment } from '@codelab/shared/infra/gqlgen'
 
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { uniqueBy } from 'remeda'

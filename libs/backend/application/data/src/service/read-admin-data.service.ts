@@ -1,7 +1,7 @@
 import type {
-  IApiImport,
   IAtomExport,
   IAtomImport,
+  IComponentAggregateExport,
   IComponentAggregateImport,
   ITagDto,
   ITagExport,
@@ -10,17 +10,17 @@ import type {
 } from '@codelab/shared/abstract/core'
 
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
-import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import {
   AtomImportSchema,
-  ComponentAggregateExportSchema,
   TagExportSchema,
   TypeDtoSchema,
 } from '@codelab/shared/abstract/core'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { Injectable, Scope } from '@nestjs/common'
 import fs from 'fs'
 import path from 'path'
 
+import { ImportDataMapperService } from './import-data-mapper.service'
 import { MigrationDataService } from './migration-data.service'
 
 interface IReadAdminDataService {
@@ -36,8 +36,8 @@ interface IReadAdminDataService {
 export class ReadAdminDataService implements IReadAdminDataService {
   constructor(
     public migrationDataService: MigrationDataService,
-    private validationService: ValidationService,
     private authService: AuthDomainService,
+    private importDataMapperService: ImportDataMapperService,
   ) {}
 
   get atomNames() {
@@ -59,25 +59,20 @@ export class ReadAdminDataService implements IReadAdminDataService {
 
       const owner = this.authService.currentUser
 
-      const data: IAtomImport = this.validationService.validateAndClean(
-        AtomImportSchema,
-        {
-          api: {
-            ...api,
-            owner,
-            types: api.types.map((type) => ({ ...type, owner })),
-          },
-          atom: { ...atom, owner },
+      const data: IAtomImport = Validator.parse(AtomImportSchema, {
+        api: {
+          ...api,
+          owner,
+          types: api.types.map((type) => ({ ...type, owner })),
         },
-      )
+        atom: { ...atom, owner },
+      })
 
       return data
     })
   }
 
   get components() {
-    const owner = this.authService.currentUser
-
     const componentFilenames = fs.existsSync(
       this.migrationDataService.componentsPath,
     )
@@ -87,46 +82,16 @@ export class ReadAdminDataService implements IReadAdminDataService {
       : []
 
     return componentFilenames.map((filename) => {
-      const componentExport = JSON.parse(
+      const componentExport: IComponentAggregateExport = JSON.parse(
         fs.readFileSync(
           path.resolve(this.migrationDataService.componentsPath, filename),
           'utf8',
         ),
       )
 
-      const { api, component, elements, store } =
-        this.validationService.validateAndClean(
-          ComponentAggregateExportSchema,
-          componentExport,
-        )
-
-      const apiImport: IApiImport = {
-        ...api,
-        owner,
-        types: api.types.map((type) => ({ ...type, owner })),
-      }
-
-      // const parsePropsData = (props: IPropExport)
-
-      const componentImport: IComponentAggregateImport = {
-        api: apiImport,
-        component: { ...component, owner },
-        elements,
-        store: {
-          actions: store.actions,
-          api: {
-            ...store.api,
-            owner,
-            types: store.api.types.map((type) => ({
-              ...type,
-              owner,
-            })),
-          },
-          store: store.store,
-        },
-      }
-
-      return componentImport
+      return this.importDataMapperService.getComponentImportData(
+        componentExport,
+      )
     })
   }
 
@@ -141,7 +106,7 @@ export class ReadAdminDataService implements IReadAdminDataService {
     ) as Array<ITypeExport>
 
     return types.map((type: ITypeExport) => {
-      return this.validationService.validateAndClean(TypeDtoSchema, {
+      return Validator.parse(TypeDtoSchema, {
         ...type,
         owner,
       })
@@ -159,11 +124,8 @@ export class ReadAdminDataService implements IReadAdminDataService {
       fs.readFileSync(this.migrationDataService.tagsFilePath, 'utf8'),
     ) as Array<ITagExport>
 
-    return tags.map((tag: unknown) => {
-      const tagExport: ITagExport = this.validationService.validateAndClean(
-        TagExportSchema,
-        tag,
-      )
+    return tags.map((tag: ITagExport) => {
+      const tagExport: ITagExport = Validator.parse(TagExportSchema, tag)
 
       return { ...tagExport, owner }
     })

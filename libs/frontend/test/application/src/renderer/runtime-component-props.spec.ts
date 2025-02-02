@@ -1,5 +1,4 @@
-import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/application'
-
+import { type IRuntimeComponentModel } from '@codelab/frontend/abstract/application'
 import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/domain'
 import { createTestStore } from '@codelab/frontend-infra-mobx/store'
 
@@ -23,7 +22,7 @@ describe('Runtime Component props', () => {
 
       expect(runtimeProps?.props).toMatchObject({
         [DATA_COMPONENT_ID]: component.id,
-        key: component.id,
+        key: runtimeComponent?.compositeKey,
       })
     })
 

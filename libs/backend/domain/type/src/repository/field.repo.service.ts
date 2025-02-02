@@ -1,49 +1,32 @@
-import type {
-  Field,
-  FieldOptions,
-  FieldWhere,
-} from '@codelab/backend/abstract/codegen'
-import type { IFieldDto } from '@codelab/shared/abstract/core'
+import type { IFieldDto, INodeType } from '@codelab/shared/abstract/core'
+import type { FieldOptions, FieldWhere } from '@codelab/shared/infra/gqlgen'
 
-import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
-import {
-  fieldSelectionSet,
-  OgmService,
-} from '@codelab/backend/infra/adapter/neo4j'
-import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain-old'
+import { FieldFragment } from '@codelab/shared/infra/gqlgen'
+import { fieldApi, fieldMapper } from '@codelab/shared-domain-module/field'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class FieldRepository extends AbstractRepository<
+  INodeType.Field,
   IFieldDto,
-  Field,
+  FieldFragment,
   FieldWhere,
   FieldOptions
 > {
-  constructor(
-    private ogmService: OgmService,
-    protected override validationService: ValidationService,
-    protected override loggerService: CodelabLoggerService,
-  ) {
-    super(validationService, loggerService)
+  constructor(protected override loggerService: PinoLoggerService) {
+    super(loggerService)
   }
 
   protected async _addMany(fields: Array<IFieldDto>) {
-    return (
-      await (
-        await this.ogmService.Field
-      ).create({
-        input: fields.map(({ api, fieldType, ...field }) => ({
-          ...field,
-          api: connectNodeId(api.id),
-          fieldType: connectNodeId(fieldType.id),
-          nextSibling: connectNodeId(field.nextSibling?.id),
-          prevSibling: connectNodeId(field.prevSibling?.id),
-        })),
-      })
-    ).fields
+    const {
+      createFields: { fields: createdFields },
+    } = await fieldApi().CreateFields({
+      input: fields.map((field) => fieldMapper.toCreateInput(field)),
+    })
+
+    return createdFields
   }
 
   protected async _find({
@@ -53,13 +36,12 @@ export class FieldRepository extends AbstractRepository<
     where?: FieldWhere
     options: FieldOptions
   }) {
-    return await (
-      await this.ogmService.Field
-    ).find({
+    const { items } = await fieldApi().GetFields({
       options,
-      selectionSet: `{ ${fieldSelectionSet} }`,
       where,
     })
+
+    return items
   }
 
   /**
@@ -67,26 +49,15 @@ export class FieldRepository extends AbstractRepository<
    *
    * Scenario: Say a field was deleted, then we run a seeder, we would have to create for the deleted field
    */
-  protected async _update(
-    { api, fieldType, id, ...field }: IFieldDto,
-    where: FieldWhere,
-  ) {
-    return (
-      await (
-        await this.ogmService.Field
-      ).update({
-        update: {
-          ...field,
-          api: reconnectNodeId(api.id),
-          /**
-           * Can't reconnect due to invariant
-           */
-          // fieldType: reconnectNodeId(fieldType.id),
-          nextSibling: reconnectNodeId(field.nextSibling?.id),
-          prevSibling: reconnectNodeId(field.prevSibling?.id),
-        },
-        where,
-      })
-    ).fields[0]
+
+  protected async _update(field: IFieldDto, where: FieldWhere) {
+    const {
+      updateFields: { fields },
+    } = await fieldApi().UpdateFields({
+      update: fieldMapper.toUpdateInput(field),
+      where,
+    })
+
+    return fields[0]
   }
 }

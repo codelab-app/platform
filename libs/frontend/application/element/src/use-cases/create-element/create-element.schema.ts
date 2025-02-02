@@ -13,8 +13,8 @@ export type ICreateElementDto = Pick<
   | 'id'
   | 'name'
   | 'parentElement'
-  | 'postRenderAction'
-  | 'preRenderAction'
+  | 'postRenderActions'
+  | 'preRenderActions'
   | 'prevSibling'
   | 'props'
   | 'renderType'
@@ -50,25 +50,31 @@ export const createElementSchema: JSONSchemaType<ICreateElementDto> = {
       required: ['id'],
       type: 'object',
     },
-    postRenderAction: {
+    postRenderActions: {
       nullable: true,
-      properties: {
-        ...idSchema({
-          label: 'Post Render action',
-        }),
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          ...idSchema({
+            label: 'Post Render action',
+          }),
+        },
+        required: [],
       },
-      required: [],
-      type: 'object',
     },
-    preRenderAction: {
+    preRenderActions: {
       nullable: true,
-      properties: {
-        ...idSchema({
-          label: 'Pre Render action',
-        }),
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          ...idSchema({
+            label: 'Pre Render action',
+          }),
+        },
+        required: [],
       },
-      required: [],
-      type: 'object',
     },
     prevSibling: {
       nullable: true,

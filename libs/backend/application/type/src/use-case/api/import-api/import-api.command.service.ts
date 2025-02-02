@@ -1,6 +1,7 @@
-import type { IApiExport, IApiImport } from '@codelab/shared/abstract/core'
+import type { IApiImport } from '@codelab/shared/abstract/core'
 
 import { FieldRepository, TypeFactory } from '@codelab/backend/domain/type'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 
 export class ImportApiCommand {
@@ -14,6 +15,7 @@ export class ImportApiHandler
   constructor(
     private readonly fieldRepository: FieldRepository,
     private readonly typeFactory: TypeFactory,
+    private readonly logger: PinoLoggerService,
   ) {}
 
   async execute(command: ImportApiCommand) {

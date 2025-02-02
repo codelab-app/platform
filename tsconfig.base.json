@@ -30,14 +30,20 @@
       }
     ],
     "paths": {
+      "@codelab-codegen/codelab-preset": [
+        "libs/external/codelab-codegen/codelab-preset/src/index.ts"
+      ],
       "@codelab-codegen/typescript-fetch": [
         "libs/external/codelab-codegen/typescript-fetch/src/index.ts"
       ],
       "@codelab-codegen/typescript-server-fetch": [
         "libs/external/codelab-codegen/typescript-server-fetch/src/index.ts"
       ],
-      "@codelab/backend/abstract/codegen": [
-        "libs/backend/abstract/codegen/src/index.ts"
+      "@codelab/backend-infra-adapter/neo4j-driver": [
+        "libs/backend/infra/adapter/neo4j-driver/src/index.ts"
+      ],
+      "@codelab/backend-infra-adapter/neo4j-schema": [
+        "libs/backend/infra/adapter/neo4j-schema/src/index.ts"
       ],
       "@codelab/backend/abstract/core": [
         "libs/backend/abstract/core/src/index.ts"
@@ -83,9 +89,6 @@
       ],
       "@codelab/backend/application/resource": [
         "libs/backend/application/resource/src/index.ts"
-      ],
-      "@codelab/backend/application/shared": [
-        "libs/backend/application/shared/src/index.ts"
       ],
       "@codelab/backend/application/store": [
         "libs/backend/application/store/src/index.ts"
@@ -167,9 +170,6 @@
       "@codelab/backend/infra/adapter/middleware": [
         "libs/backend/infra/adapter/middleware/src/index.ts"
       ],
-      "@codelab/backend/infra/adapter/neo4j": [
-        "libs/backend/infra/adapter/neo4j/src/index.ts"
-      ],
       "@codelab/backend/infra/adapter/queue": [
         "libs/backend/infra/adapter/queue/src/index.ts"
       ],
@@ -182,13 +182,14 @@
       "@codelab/backend/infra/adapter/shell": [
         "libs/backend/infra/adapter/shell/src/index.ts"
       ],
-      "@codelab/backend/infra/adapter/typebox": [
-        "libs/backend/infra/adapter/typebox/src/index.ts"
-      ],
       "@codelab/backend/infra/core": ["libs/backend/infra/core/src/index.ts"],
+      "@codelab/backend/shared/errors": [
+        "libs/backend/shared/errors/src/index.ts"
+      ],
       "@codelab/backend/shared/eval": ["libs/backend/shared/eval/src/index.ts"],
       "@codelab/backend/shared/util": ["libs/backend/shared/util/src/index.ts"],
-      "@codelab/backend/test": ["libs/backend/test/src/index.ts"],
+      "@codelab/backend/test/setup": ["libs/backend/test/setup/src/index.ts"],
+      "@codelab/backend/test/utils": ["libs/backend/test/utils/src/index.ts"],
       "@codelab/design-system": ["apps/design-system/src/index.ts"],
       "@codelab/eslint-plugin": ["tools/eslint-plugin/src/index.ts"],
       "@codelab/frontend-application-admin/use-cases/admin-props-panel": [
@@ -371,6 +372,9 @@
       "@codelab/frontend-application-dnd/components": [
         "libs/frontend/application/dnd/src/components/index.ts"
       ],
+      "@codelab/frontend-application-dnd/hooks": [
+        "libs/frontend/application/dnd/src/hooks/index.ts"
+      ],
       "@codelab/frontend-application-domain/services": [
         "libs/frontend/application/domain/src/services/index.ts"
       ],
@@ -401,14 +405,8 @@
       "@codelab/frontend-application-element/use-cases/hook-description": [
         "libs/frontend/application/element/src/use-cases/hook-description/index.ts"
       ],
-      "@codelab/frontend-application-element/use-cases/hook-list": [
-        "libs/frontend/application/element/src/use-cases/hook-list/index.ts"
-      ],
       "@codelab/frontend-application-element/use-cases/move-element": [
         "libs/frontend/application/element/src/use-cases/move-element/index.ts"
-      ],
-      "@codelab/frontend-application-element/use-cases/remove-hook-from-element": [
-        "libs/frontend/application/element/src/use-cases/remove-hook-from-element/index.ts"
       ],
       "@codelab/frontend-application-element/use-cases/update-element": [
         "libs/frontend/application/element/src/use-cases/update-element/index.ts"
@@ -902,11 +900,8 @@
       "@codelab/frontend/infra/context": [
         "libs/frontend/infra/context/src/index.ts"
       ],
-      "@codelab/frontend/infra/graphql": [
-        "libs/frontend/infra/graphql/src/index.ts"
-      ],
-      "@codelab/frontend/infra/graphql/client": [
-        "libs/frontend/infra/graphql/src/client/index.ts"
+      "@codelab/frontend/infra/logger": [
+        "libs/frontend/infra/logger/src/index.ts"
       ],
       "@codelab/frontend/infra/shared": [
         "libs/frontend/infra/shared/src/index.ts"
@@ -933,11 +928,50 @@
       "@codelab/shared-domain-module-atom": [
         "libs/shared/domain/module/atom/src/index.ts"
       ],
-      "@codelab/shared-domain-module-atom/server": [
-        "libs/shared/domain/module/atom/src/server/index.ts"
+      "@codelab/shared-domain-module/action": [
+        "libs/shared/domain/module/action/src/index.ts"
+      ],
+      "@codelab/shared-domain-module/auth-guard": [
+        "libs/shared/domain/module/auth-guard/src/index.ts"
+      ],
+      "@codelab/shared-domain-module/component": [
+        "libs/shared/domain/module/component/src/index.ts"
+      ],
+      "@codelab/shared-domain-module/domain": [
+        "libs/shared/domain/module/domain/src/index.ts"
+      ],
+      "@codelab/shared-domain-module/element": [
+        "libs/shared/domain/module/element/src/index.ts"
       ],
       "@codelab/shared-domain-module/field": [
         "libs/shared/domain/module/field/src/index.ts"
+      ],
+      "@codelab/shared-domain-module/page": [
+        "libs/shared/domain/module/page/src/index.ts"
+      ],
+      "@codelab/shared-domain-module/preference": [
+        "libs/shared/domain/module/preference/src/index.ts"
+      ],
+      "@codelab/shared-domain-module/prop": [
+        "libs/shared/domain/module/prop/src/index.ts"
+      ],
+      "@codelab/shared-domain-module/redirect": [
+        "libs/shared/domain/module/redirect/src/index.ts"
+      ],
+      "@codelab/shared-domain-module/resource": [
+        "libs/shared/domain/module/resource/src/index.ts"
+      ],
+      "@codelab/shared-domain-module/store": [
+        "libs/shared/domain/module/store/src/index.ts"
+      ],
+      "@codelab/shared-domain-module/tag": [
+        "libs/shared/domain/module/tag/src/index.ts"
+      ],
+      "@codelab/shared-domain-module/type": [
+        "libs/shared/domain/module/type/src/index.ts"
+      ],
+      "@codelab/shared-domain-module/user": [
+        "libs/shared/domain/module/user/src/index.ts"
       ],
       "@codelab/shared-infra-auth0/client": [
         "libs/shared/infra/auth0/src/client/index.ts"
@@ -953,29 +987,44 @@
       "@codelab/shared/abstract/infra": [
         "libs/shared/abstract/infra/src/index.ts"
       ],
-      "@codelab/shared/abstract/typebox": [
-        "libs/shared/abstract/typebox/src/index.ts"
-      ],
       "@codelab/shared/abstract/types": [
         "libs/shared/abstract/types/src/index.ts"
       ],
-      "@codelab/shared/config": ["libs/shared/config/src/index.ts"],
+      "@codelab/shared/config/builder": [
+        "libs/shared/config/builder/src/index.ts"
+      ],
+      "@codelab/shared/config/env": ["libs/shared/config/env/src/index.ts"],
       "@codelab/shared/data/seed": ["libs/shared/data/seed/src/index.ts"],
       "@codelab/shared/data/test": ["libs/shared/data/test/src/index.ts"],
-      "@codelab/shared/domain-old": ["libs/shared/domain-old/src/index.ts"],
+      "@codelab/shared/domain/errors": [
+        "libs/shared/domain/errors/src/index.ts"
+      ],
+      "@codelab/shared/domain/orm": ["libs/shared/domain/orm/src/index.ts"],
       "@codelab/shared/infra/cache": ["libs/shared/infra/cache/src/index.ts"],
       "@codelab/shared/infra/fetch": ["libs/shared/infra/fetch/src/index.ts"],
       "@codelab/shared/infra/fetch-server": [
         "libs/shared/infra/fetch-server/src/index.ts"
       ],
-      "@codelab/shared/infra/gql": ["libs/shared/infra/gql/src/index.ts"],
+      "@codelab/shared/infra/gql-client": [
+        "libs/shared/infra/gql-client/src/index.ts"
+      ],
+      "@codelab/shared/infra/gqlgen": ["libs/shared/infra/gqlgen/src/index.ts"],
       "@codelab/shared/infra/logging": [
         "libs/shared/infra/logging/src/index.ts"
       ],
-      "@codelab/shared/infra/schema": ["libs/shared/infra/schema/src/index.ts"],
+      "@codelab/shared/infra/logging/server": [
+        "libs/shared/infra/logging/src/server/index.ts"
+      ],
+      "@codelab/shared/infra/typebox": [
+        "libs/shared/infra/typebox/src/index.ts"
+      ],
+      "@codelab/shared/infra/validation": [
+        "libs/shared/infra/validation/src/index.ts"
+      ],
       "@codelab/shared/utils": ["libs/shared/utils/src/index.ts"],
       "@codelab/tools-workspace": ["libs/tools/workspace/src/index.ts"],
       "@codelab/tools/eslint-plugin": ["libs/tools/eslint-plugin/src/index.ts"],
+      "@codelab/tools/tsc-check": ["libs/tools/tsc-check/src/index.ts"],
       "@cui/ui-atoms": ["libs/frontend/cui/ui/atoms/src/index.ts"],
       "@cui/ui-molecules": ["libs/frontend/cui/ui/molecules/src/index.ts"],
       "@cui/ui-organisms": ["libs/frontend/cui/ui/organisms/src/index.ts"],
@@ -983,5 +1032,5 @@
     }
   },
   "exclude": ["node_modules", "tmp", "dist"],
-  "include": []
+  "include": ["./scripts/jest/setupFilesAfterEnv.ts"]
 }

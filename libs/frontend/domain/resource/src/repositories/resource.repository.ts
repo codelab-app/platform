@@ -1,24 +1,22 @@
 import type { IRef, IResourceDto } from '@codelab/shared/abstract/core'
 import type {
   ResourceOptions,
-  ResourceUniqueWhere,
   ResourceWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import {
   CACHE_TAGS,
   type IResourceModel,
   type IResourceRepository,
 } from '@codelab/frontend/abstract/domain'
-import { resourceMapper } from '@codelab/shared/domain-old'
-import { Validator } from '@codelab/shared/infra/schema'
-
+import { Validator } from '@codelab/shared/infra/typebox'
 import {
-  CreateResources,
-  DeleteResources,
-  ResourceList,
-  UpdateResource,
-} from './resource.api.graphql.web.gen'
+  resourceMapper,
+  resourceServerActions,
+} from '@codelab/shared-domain-module/resource'
+
+const { CreateResources, DeleteResources, ResourceList, UpdateResources } =
+  resourceServerActions
 
 export const resourceRepository: IResourceRepository = {
   add: async (resource: IResourceDto) => {
@@ -57,14 +55,15 @@ export const resourceRepository: IResourceRepository = {
     )
   },
 
-  findOne: async (where: ResourceUniqueWhere) => {
+  // FIXME: make a unique where
+  findOne: async (where: ResourceWhere) => {
     return (await resourceRepository.find(where)).items[0]
   },
 
   update: async ({ id }: IRef, dto: IResourceDto) => {
     const {
       updateResources: { resources },
-    } = await UpdateResource(
+    } = await UpdateResources(
       {
         update: resourceMapper.toUpdateInput(dto),
         where: { id },

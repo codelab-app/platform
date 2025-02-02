@@ -5,20 +5,23 @@ import type {
 import type { IPreferenceDto, IRef } from '@codelab/shared/abstract/core'
 import type {
   PreferenceOptions,
-  PreferenceUniqueWhere,
   PreferenceWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
-import { preferenceMapper } from '@codelab/shared/domain-old'
-import { Validator } from '@codelab/shared/infra/schema'
+import { Validator } from '@codelab/shared/infra/typebox'
+import {
+  preferenceMapper,
+  preferenceServerActions,
+} from '@codelab/shared-domain-module/preference'
 
 import { Preference } from '../store/preference.model'
-import {
+
+const {
   CreatePreferences,
   DeletePreferences,
   GetPreferences,
   UpdatePreferences,
-} from './preference.api.graphql.web.gen'
+} = preferenceServerActions
 
 export const preferenceRepository: IPreferenceRepository = {
   add: async (preference: IPreferenceDto) => {
@@ -50,7 +53,8 @@ export const preferenceRepository: IPreferenceRepository = {
     return await GetPreferences({ options, where })
   },
 
-  findOne: async (where: PreferenceUniqueWhere) => {
+  // FIXME: make a unique where
+  findOne: async (where: PreferenceWhere) => {
     return (await preferenceRepository.find(where)).items[0]
   },
 

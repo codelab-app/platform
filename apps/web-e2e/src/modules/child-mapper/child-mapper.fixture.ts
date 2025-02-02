@@ -2,7 +2,7 @@ import { test as base, expect } from '@playwright/test'
 
 import { BuilderPage } from '../builder/builder.fixture'
 import {
-  childMapperComponent,
+  childMapperComponentName,
   pageRowChild1,
   pageRowChild2,
   pageRowElement,
@@ -21,14 +21,12 @@ export class ChildMapperPage extends BuilderPage {
     await this.setFormFieldValue(
       'Prop Key',
       '{{[{ name: "updated test 1" }, { name: "updated test 2" }]}}',
-      updateElementForm,
+      { locator: updateElementForm, waitForAutosave: true },
     )
-    await this.setFormFieldValue(
-      'Render next to',
-      pageRowChild2.name,
-      updateElementForm,
-    )
-    await this.waitForProgressBar()
+    await this.setFormFieldValue('Render next to', pageRowChild2.name, {
+      locator: updateElementForm,
+      waitForAutosave: true,
+    })
   }
 
   async checkBuilderOutput() {
@@ -105,20 +103,16 @@ export class ChildMapperPage extends BuilderPage {
     await this.setFormFieldValue(
       'Prop Key',
       '{{[{ name: "test 1" }, { name: "test 2" }]}}',
-      updateElementForm,
+      { locator: updateElementForm, waitForAutosave: true },
     )
-    await this.setFormFieldValue(
-      'Component',
-      childMapperComponent.name,
-      updateElementForm,
-    )
-    await this.setFormFieldValue(
-      'Render next to',
-      pageRowChild1.name,
-      updateElementForm,
-    )
-
-    await this.waitForProgressBar()
+    await this.setFormFieldValue('Component', childMapperComponentName, {
+      locator: updateElementForm,
+      waitForAutosave: true,
+    })
+    await this.setFormFieldValue('Render next to', pageRowChild1.name, {
+      locator: updateElementForm,
+      waitForAutosave: true,
+    })
   }
 
   async setEmptyChildMapperProperties() {
@@ -128,8 +122,10 @@ export class ChildMapperPage extends BuilderPage {
     await updateElementForm
       .locator('.ant-collapse-header', { hasText: 'Child Mapper' })
       .click()
-    await this.setFormFieldValue('Prop Key', '{{[]}}', updateElementForm)
-    await this.waitForProgressBar()
+    await this.setFormFieldValue('Prop Key', '{{[]}}', {
+      locator: updateElementForm,
+      waitForAutosave: true,
+    })
   }
 
   async setNonArrayChildMapperProperties() {
@@ -139,8 +135,10 @@ export class ChildMapperPage extends BuilderPage {
     await updateElementForm
       .locator('.ant-collapse-header', { hasText: 'Child Mapper' })
       .click()
-    await this.setFormFieldValue('Prop Key', '{{false}}', updateElementForm)
-    await this.waitForProgressBar()
+    await this.setFormFieldValue('Prop Key', '{{false}}', {
+      locator: updateElementForm,
+      waitForAutosave: true,
+    })
   }
 
   private async checkBuilderOutputStructure(expectedContent: Array<string>) {

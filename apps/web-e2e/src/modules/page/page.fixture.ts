@@ -1,11 +1,17 @@
 import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import { IPageKindName } from '@codelab/shared/abstract/core'
-import { test as base, expect } from '@playwright/test'
+import { test as base, expect, request } from '@playwright/test'
 
 import { getCuiTree } from '../../commands'
 import { BasePage } from '../../locators/pages'
 
 export class PageListPage extends BasePage {
+  static async seedApp() {
+    const apiRequest = await request.newContext()
+
+    await apiRequest.post('./app/seed-cypress-app')
+  }
+
   readonly pageName = 'New Page'
 
   readonly updatedPageName = 'Updated Page'
@@ -28,9 +34,7 @@ export class PageListPage extends BasePage {
       .getToolbarItem(UiKey.PageToolbarItemDelete)
       .click()
 
-    const form = await this.getForm(UiKey.PageModalDelete)
-
-    await form.getButton({ label: 'Confirmation Button' }).click()
+    await this.clickPopconfirmButton()
     await this.expectGlobalProgressBarToBeHidden()
   }
 

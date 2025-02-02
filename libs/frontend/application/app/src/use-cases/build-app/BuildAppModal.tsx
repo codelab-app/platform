@@ -1,28 +1,32 @@
 'use client'
 
-import type { IAppModel } from '@codelab/frontend/abstract/domain'
-
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { PageType, UiKey } from '@codelab/frontend/abstract/types'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/navigation'
 import { AutoFields } from 'uniforms-antd'
 
-import { useBuildAppModal } from './build-app.state'
 import { useBuildApp } from './useBuildApp.hook'
 
-export const BuildAppModal = observer(() => {
-  const buildAppModal = useBuildAppModal()
-  const app = buildAppModal.data
+export const BuildAppModal = observer(({ id }: { id: string }) => {
+  const router = useRouter()
+  const { appDomainService } = useDomainStore()
+  const app = appDomainService.apps.get(id)
   const { regenerate } = useBuildApp()
-  const onSubmit = async () => regenerate(app as IAppModel)
-  const closeModal = () => buildAppModal.close()
+
+  const onSubmit = () => {
+    return app ? regenerate(app) : Promise.reject()
+  }
+
+  const closeModal = () => router.push(PageType.AppList())
 
   return (
     <ModalForm.Modal
       okText="Build App"
       onCancel={closeModal}
-      open={buildAppModal.isOpen}
+      open={true}
       uiKey={UiKey.AppModalBuild}
     >
       <ModalForm.Form

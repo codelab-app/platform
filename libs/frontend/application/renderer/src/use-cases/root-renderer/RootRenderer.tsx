@@ -3,12 +3,9 @@
 import {
   type IRendererModel,
   type IRootRenderer,
-  RendererType,
 } from '@codelab/frontend/abstract/application'
 import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/domain'
-import { MakeChildrenDroppable } from '@codelab/frontend-application-dnd/components'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { WrapIf } from '@codelab/frontend-presentation-view/components/wrapIf'
 import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
 import { observer } from 'mobx-react-lite'
 import { forwardRef, useMemo } from 'react'
@@ -46,6 +43,9 @@ const RootRendererComponent = forwardRef<
 
   const containerStyle = useMemo(
     () => ({
+      /**
+       * This sets `container-name` https://developer.mozilla.org/en-US/docs/Web/CSS/container-name, allows for `@container` CSS rules
+       */
       container: 'root / inline-size',
       minHeight: '100%',
       transform: 'translatex(0)',
@@ -56,18 +56,9 @@ const RootRendererComponent = forwardRef<
 
   return (
     <ErrorBoundary>
-      <WrapIf
-        Wrapper={MakeChildrenDroppable}
-        condition={
-          renderer.rendererType !== RendererType.Production &&
-          renderer.rendererType !== RendererType.Preview
-        }
-        wrapperProps={{ data: {}, id: ROOT_RENDER_CONTAINER_ID }}
-      >
-        <div id={ROOT_RENDER_CONTAINER_ID} ref={ref} style={containerStyle}>
-          {renderer.render}
-        </div>
-      </WrapIf>
+      <div id={ROOT_RENDER_CONTAINER_ID} ref={ref} style={containerStyle}>
+        {renderer.render}
+      </div>
     </ErrorBoundary>
   )
 })

@@ -1,4 +1,4 @@
-import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
   CreateResourceDataSchema,
   type ICreateResourceData,
@@ -19,7 +19,7 @@ import { ResourceApplicationService } from './resource.application.service'
 export class ResourceApplicationController {
   constructor(
     private resourceApplicationService: ResourceApplicationService,
-    private loggerService: CodelabLoggerService,
+    private loggerService: PinoLoggerService,
   ) {}
 
   @Post('create-resource')
@@ -37,10 +37,9 @@ export class ResourceApplicationController {
   })
   @ApiResponse({ status: 200 })
   async createResource(@Body() createResourceData: ICreateResourceData) {
-    this.loggerService.log(
-      createResourceData,
-      `${this.constructor.name}.createResource()`,
-    )
+    this.loggerService.log(`${this.constructor.name}.createResource()`, {
+      data: createResourceData,
+    })
 
     return this.resourceApplicationService.createResource(createResourceData)
   }

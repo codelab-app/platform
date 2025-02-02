@@ -27,9 +27,9 @@ export class StateSharingPage extends BuilderPage {
     await this.setFormFieldValue('Key', 'name')
     await this.setFormFieldValue('Type', 'String')
     await this.setFormFieldValue('Default values', defaultValue)
-    await this.getModal().locator(submitButton).click()
+    await this.getDialog().locator(submitButton).click()
 
-    await expect(this.getModal()).toBeHidden()
+    await expect(this.getDialog()).toBeHidden()
     await expect(this.getGlobalProgressBar()).toBeHidden()
     await expect(this.getNotification()).toHaveText(
       'Field created successfully',

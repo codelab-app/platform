@@ -1,5 +1,4 @@
 import type {
-  IBaseType,
   IBaseTypeDto,
   IFieldDefaultValue,
   IPropData,

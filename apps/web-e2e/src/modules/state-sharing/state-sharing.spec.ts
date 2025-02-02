@@ -40,13 +40,14 @@ test('should setup the pages that will share states', async ({
 /**
  * We'll keep the UI methods for state since we don't have other specs for state
  */
-test('should create a state variable in the provider page', async ({
+test('should create a state variable in the provider iage', async ({
   builderPage: page,
 }) => {
   await page.goto(app.id, providerPageId)
   await page.checkPageHeaderTitle(['Codelab App', 'Pages', 'provider'])
 
   await expect(page.getSpinner()).toBeHidden()
+  await expect(page.getFormFieldSpinner()).toHaveCount(0)
 
   await page.createStateVariable('provider state value')
 })
@@ -61,6 +62,7 @@ test('should use component state and not use provider state', async ({
   await page.checkPageHeaderTitle(['Codelab App', 'Pages', 'Test Page'])
 
   await expect(page.getSpinner()).toBeHidden()
+  await expect(page.getFormFieldSpinner()).toHaveCount(0)
 
   await page.createElementTree(builderElements)
   await page.openPreview()

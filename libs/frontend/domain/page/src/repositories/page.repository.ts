@@ -1,23 +1,17 @@
 import type { IPageDto, IRef } from '@codelab/shared/abstract/core'
-import type {
-  PageOptions,
-  PageUniqueWhere,
-  PageWhere,
-} from '@codelab/shared/infra/gql'
+import type { PageOptions, PageWhere } from '@codelab/shared/infra/gqlgen'
 
 import {
   CACHE_TAGS,
   type IPageRepository,
 } from '@codelab/frontend/abstract/domain'
-import { pageMapper } from '@codelab/shared/domain-old'
-import { Validator } from '@codelab/shared/infra/schema'
-
+import { Validator } from '@codelab/shared/infra/typebox'
 import {
-  CreatePages,
-  DeletePages,
-  PageList,
-  UpdatePages,
-} from './page.api.graphql.web.gen'
+  pageMapper,
+  pageServerActions,
+} from '@codelab/shared-domain-module/page'
+
+const { CreatePages, DeletePages, PageList, UpdatePages } = pageServerActions
 
 export const pageRepository: IPageRepository = {
   add: async (input: IPageDto) => {
@@ -50,7 +44,8 @@ export const pageRepository: IPageRepository = {
     return PageList({ options, where })
   },
 
-  findOne: async (where: PageUniqueWhere) => {
+  // FIXME: make a unique where
+  findOne: async (where: PageWhere) => {
     return (await pageRepository.find(where)).items[0]
   },
 

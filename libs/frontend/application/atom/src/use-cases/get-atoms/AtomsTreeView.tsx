@@ -33,8 +33,8 @@ export const AtomsTreeView = observer(
         <CuiTree<ITreeNode<IAtomTreeNodeData>>
           isLoading={isLoading}
           onSearchKeywordChange={(keyword) => {
-            routerService.setQueryParams({
-              ...routerService.queryParams,
+            routerService.setSearchParams({
+              ...routerService.searchParams,
               search: keyword,
             })
           }}

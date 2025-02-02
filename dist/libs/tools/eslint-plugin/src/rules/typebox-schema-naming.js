@@ -21,7 +21,9 @@ exports.typeboxSchemaNaming = (0, exports.createESLintRule)({
                 node.init.callee.type === utils_1.AST_NODE_TYPES.MemberExpression &&
                 node.init.callee.object.type === utils_1.AST_NODE_TYPES.Identifier &&
                 // Both imports should trigger
-                node.init.callee.object.name === name &&
+                (node.init.callee.object.name === name ||
+                    (node.id.type === utils_1.AST_NODE_TYPES.Identifier &&
+                        node.id.name === 'schema')) &&
                 node.init.callee.property.type === utils_1.AST_NODE_TYPES.Identifier);
             // This makes it such that we need to have `Type.Object`
             // && node.init.callee.property.name === 'Object'
@@ -86,7 +88,7 @@ exports.typeboxSchemaNaming = (0, exports.createESLintRule)({
                 if (isTypeImported && isVariableDeclarator(TYPE_IMPORT_NAME, node)) {
                     if (node.id.type === utils_1.AST_NODE_TYPES.Identifier) {
                         const variableName = node.id.name;
-                        if (!variableName.endsWith('Schema')) {
+                        if (!variableName.endsWith('Schema') && variableName !== 'schema') {
                             context.report({
                                 messageId: 'suffixWithSchema',
                                 node,
@@ -98,7 +100,7 @@ exports.typeboxSchemaNaming = (0, exports.createESLintRule)({
                     isVariableDeclarator(TYPEBOX_IMPORT_NAME, node)) {
                     if (node.id.type === utils_1.AST_NODE_TYPES.Identifier) {
                         const variableName = node.id.name;
-                        if (!variableName.endsWith('Schema')) {
+                        if (!variableName.endsWith('Schema') && variableName !== 'schema') {
                             context.report({
                                 messageId: 'suffixWithSchema',
                                 node,

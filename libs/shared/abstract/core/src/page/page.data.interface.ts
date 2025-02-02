@@ -12,3 +12,8 @@ export type IPageCreateFormData = Pick<
   IPageDto,
   'app' | 'id' | 'kind' | 'name' | 'urlPattern'
 >
+
+/**
+ * We set defaults where possible
+ */
+export type IPageCreateSeedData = Pick<IPageDto, 'id' | 'name'>

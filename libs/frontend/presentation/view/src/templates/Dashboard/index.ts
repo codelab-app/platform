@@ -1,5 +1,5 @@
 export * from './constants'
 export * from './Dashboard'
+export * from './dashboard.types'
 export * from './DashboardLayout'
 export * from './DashboardPopover'
-export * from './Types'

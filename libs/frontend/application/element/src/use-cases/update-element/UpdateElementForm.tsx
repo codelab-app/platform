@@ -8,14 +8,14 @@ import {
   type IUpdateElementData,
 } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
-import { SelectActionField } from '@codelab/frontend/presentation/components/interface-form'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { logger, tracker } from '@codelab/frontend/infra/logger'
+import { SelectActionsField } from '@codelab/frontend/presentation/components/interface-form'
 import { createAutoCompleteOptions } from '@codelab/frontend-presentation-components-codemirror'
 import {
   CodeMirrorField,
   Form,
 } from '@codelab/frontend-presentation-components-form'
-import { CodeMirrorLanguage } from '@codelab/shared/infra/gql'
+import { CodeMirrorLanguage } from '@codelab/shared/infra/gqlgen'
 import { Collapse } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { isDeepEqual } from 'remeda'
@@ -23,7 +23,7 @@ import { AutoField, AutoFields } from 'uniforms-antd'
 import { useCustomCompareMemo } from 'use-custom-compare'
 
 import { AutoComputedElementNameField } from '../../components/AutoComputedElementNameField'
-import ChildMapperCompositeField from '../../components/ChildMapperCompositeField'
+import ChildMapperField from '../../components/child-mapper-field/ChildMapperField'
 import { RenderTypeField } from '../../components/render-type-field'
 import { useElementService } from '../../services'
 import { updateElementSchema } from './update-element.schema'
@@ -33,8 +33,11 @@ export interface UpdateElementFormProps {
 }
 
 /** Not intended to be used in a modal */
-export const UpdateElementForm = observer<UpdateElementFormProps>(
-  ({ runtimeElement }) => {
+export const UpdateElementForm = observer(
+  ({ runtimeElement }: UpdateElementFormProps) => {
+    tracker.useModelDiff('UpdateElementForm', runtimeElement)
+    tracker.useRenderedCount('UpdateElementForm')
+
     const elementService = useElementService()
 
     const onSubmit = async (data: IUpdateElementData) => {
@@ -42,13 +45,14 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
     }
 
     const expandedFields: Array<string> = []
+    // `getSnapshot` is immutable and doesn't work
     const element = runtimeElement.element.current
 
     if (element.renderType.id) {
       expandedFields.push('renderer')
     }
 
-    if (element.postRenderAction ?? element.preRenderAction) {
+    if (element.postRenderActions?.length || element.preRenderActions?.length) {
       expandedFields.push('actions')
     }
 
@@ -90,8 +94,8 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
       {
         children: (
           <>
-            <SelectActionField name="preRenderAction" />
-            <SelectActionField name="postRenderAction" />
+            <SelectActionsField name="preRenderActions" />
+            <SelectActionsField name="postRenderActions" />
           </>
         ),
         key: 'actions',
@@ -101,7 +105,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
 
     if (isAtom(element.renderType.current)) {
       collapseItems.push({
-        children: <ChildMapperCompositeField runtimeElement={runtimeElement} />,
+        children: <ChildMapperField runtimeElement={runtimeElement} />,
         key: 'childMapper',
         label: 'Child Mapper',
       })
@@ -111,11 +115,9 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
       <div key={element.id}>
         <Form<IUpdateBaseElementData>
           autosave
+          errorMessage="Error while updating element"
           model={element.toJson}
           onSubmit={onSubmit}
-          onSubmitError={createFormErrorNotificationHandler({
-            title: 'Error while updating element',
-          })}
           schema={updateElementSchema}
           uiKey={UiKey.ElementFormUpdate}
         >
@@ -131,12 +133,17 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
               // We edit it in the css tab
               'style',
               'tailwindClassNames',
-              'preRenderAction',
-              'postRenderAction',
+              'preRenderActions',
+              'postRenderActions',
               'renderType',
               'name',
             ]}
           />
+          {/* <SelectComponent
+            component={childMapperComponent}
+            label="Component"
+            name="childMapperComponent.id"
+          /> */}
           <Collapse defaultActiveKey={expandedFields} items={collapseItems} />
         </Form>
       </div>

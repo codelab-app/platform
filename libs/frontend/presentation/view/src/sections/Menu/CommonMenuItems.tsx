@@ -5,8 +5,7 @@ import CloudServerOutlined from '@ant-design/icons/CloudServerOutlined'
 import CodeSandboxOutlined from '@ant-design/icons/CodeSandboxOutlined'
 import SafetyOutlined from '@ant-design/icons/SafetyOutlined'
 import {
-  type ComponentContextParams,
-  type PageContextParams,
+  type BuilderContextParams,
   PageType,
   PrimarySidebar,
 } from '@codelab/frontend/abstract/types'
@@ -42,7 +41,7 @@ export const builderComponentsMenuItem = ({
   appId,
   componentId,
   pageId,
-}: Partial<ComponentContextParams & PageContextParams>): NavigationBarItem => {
+}: Partial<BuilderContextParams>): NavigationBarItem => {
   const componentsListMenuItem = {
     icon: <CodeSandboxOutlined title="Builder Components" />,
     key: 'components',

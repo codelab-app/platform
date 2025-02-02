@@ -17,12 +17,7 @@ import {
 } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
-export const componentFactory = (
-  componentData: ICreateComponentData,
-  defaultRenderType: IElementRenderTypeDto,
-) => {
-  const { id, name, owner, rootElement } = componentData
-
+const storeFactory = ({ name, owner }: ICreateComponentData) => {
   const storeApi: IInterfaceTypeDto = {
     __typename: ITypeKind.InterfaceType,
     fields: [],
@@ -38,32 +33,39 @@ export const componentFactory = (
     name: Store.createName({ name }),
   }
 
-  const api: IInterfaceTypeDto = {
-    __typename: ITypeKind.InterfaceType,
-    fields: [],
-    id: v4(),
-    kind: ITypeKind.InterfaceType,
-    name: InterfaceType.createName(name),
-    owner,
-  }
+  return { store, storeApi }
+}
+
+const apiFactory = ({
+  name,
+  owner,
+}: ICreateComponentData): IInterfaceTypeDto => ({
+  __typename: ITypeKind.InterfaceType,
+  fields: [],
+  id: v4(),
+  kind: ITypeKind.InterfaceType,
+  name: InterfaceType.createName(name),
+  owner,
+})
+
+export const componentFactory = (
+  componentData: ICreateComponentData,
+  defaultRenderType: IElementRenderTypeDto,
+) => {
+  const { id, name } = componentData
+  const api = apiFactory(componentData)
+  const { store, storeApi } = storeFactory(componentData)
 
   const componentProps: IPropDto = {
     data: '{}',
     id: v4(),
   }
 
-  /**
-   * create rootElement in case it doesn't already exist
-   * Unlike other models such rootElement could exist before component (convertElementToComponent)
-   * connectOrCreate can't handle sub-models like props for element
-   * the only choice left is to create rootElement here if it is not provided
-   * */
   const rootElementDto: IElementDto = {
     closestContainerNode: {
       id,
     },
-    id: rootElement ? rootElement.id : v4(),
-    // we don't append 'Root' here to include the case of existing element
+    id: v4(),
     name: `${name} Root`,
     parentComponent: { id },
     props: {
@@ -91,6 +93,41 @@ export const componentFactory = (
       component,
       props: componentProps,
       rootElement: rootElementDto,
+      store,
+    },
+    storeApi,
+  }
+}
+
+export const componentWithoutRootFactory = (
+  componentData: ICreateComponentData,
+  rootElement: IRef,
+) => {
+  const { id } = componentData
+
+  const props: IPropDto = {
+    data: '{}',
+    id: v4(),
+  }
+
+  const api = apiFactory(componentData)
+  const { store, storeApi } = storeFactory(componentData)
+
+  const component: IComponentDto = {
+    ...componentData,
+    __typename: IElementRenderTypeKind.Component,
+    api,
+    id,
+    props,
+    rootElement,
+    store,
+  }
+
+  return {
+    component: {
+      api,
+      component,
+      props,
       store,
     },
     storeApi,

@@ -5,8 +5,8 @@ import type {
   IRef,
 } from '@codelab/shared/abstract/core'
 
-import { IModel } from '@codelab/backend/abstract/types'
 import { Prop } from '@codelab/backend/domain/prop'
+import { IModel } from '@codelab/shared/abstract/core'
 
 export class AuthGuard extends IModel implements IAuthGuard {
   config: IProp

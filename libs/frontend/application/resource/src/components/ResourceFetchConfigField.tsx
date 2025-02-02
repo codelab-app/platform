@@ -1,26 +1,23 @@
 import type { IRef } from '@codelab/shared/abstract/core'
 import type { Context } from 'uniforms'
 
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { DisplayIfField } from '@codelab/frontend-presentation-components-form'
 import { IResourceType } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { AutoField } from 'uniforms-antd'
-
-import { useResourceService } from '../services'
 
 interface WithResourceRef {
   resource: IRef
 }
 
 export const ResourceFetchConfigField = observer(() => {
-  const resourceService = useResourceService()
+  const { resourceDomainService } = useDomainStore()
 
   const getResource = (context: Context<WithResourceRef>) => {
     const resourceId = context.model.resource?.id
 
-    return resourceId
-      ? resourceService.getOneFromCache({ id: resourceId })
-      : null
+    return resourceId ? resourceDomainService.resources.get(resourceId) : null
   }
 
   const getResourceType = (context: Context<WithResourceRef>) =>

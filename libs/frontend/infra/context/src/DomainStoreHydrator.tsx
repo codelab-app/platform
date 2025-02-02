@@ -3,13 +3,12 @@
 import type { IDomainStoreDto } from '@codelab/frontend/abstract/domain'
 import type { ReactNode } from 'react'
 
-import { withProfiler } from '@sentry/react'
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
 import { useCustomCompareEffect } from 'react-use'
 import { isDeepEqual } from 'remeda'
 
-import { useHydrateStore } from './useStoreHydrator.hook'
+import { useDomainStoreHydrator } from './useDomainStoreHydrator.hook'
 
 type DomainStoreHydratorProps = IDomainStoreDto & {
   children: ReactNode
@@ -27,7 +26,7 @@ type DomainStoreHydratorProps = IDomainStoreDto & {
  */
 export const DomainStoreHydrator = observer<DomainStoreHydratorProps>(
   ({ children, fallback, ...data }) => {
-    const hydrate = useHydrateStore()
+    const hydrate = useDomainStoreHydrator()
     const [isHydrated, setIsHydrated] = useState(false)
 
     useCustomCompareEffect(
@@ -35,16 +34,15 @@ export const DomainStoreHydrator = observer<DomainStoreHydratorProps>(
         hydrate(data)
         setIsHydrated(true)
       },
-      [hydrate, data],
+      [data],
       isDeepEqual,
     )
 
-    if (!fallback) {
-      return <>{children}</>
+    // Always wait for hydration, regardless of fallback presence
+    if (!isHydrated) {
+      return fallback ? <>{fallback}</> : null
     }
 
-    // do not render children untill the store is hydrated with all the
-    // specified entities. Othervise `assertIsDefined` may break the application
-    return isHydrated ? <>{children}</> : <>{fallback}</>
+    return <>{children}</>
   },
 )

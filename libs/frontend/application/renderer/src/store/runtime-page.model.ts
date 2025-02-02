@@ -1,20 +1,20 @@
 import type {
-  IRuntimePageDTO,
+  IElementTreeViewDataNode,
+  IElementTreeViewDataNodePreview,
+  IRuntimeElementModel,
+  IRuntimePageDto,
   IRuntimePageModel,
   IRuntimeStoreModel,
 } from '@codelab/frontend/abstract/application'
-import type { Maybe } from '@codelab/shared/abstract/types'
+import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { ReactElement } from 'react'
 
 import {
   getRuntimeElementService,
   getRuntimePageService,
-  IElementTreeViewDataNode,
-  IRuntimeElementModel,
 } from '@codelab/frontend/abstract/application'
 import { type IPageModel } from '@codelab/frontend/abstract/domain'
-import { Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
@@ -30,7 +30,7 @@ const compositeKey = (page: IPageModel) => `runtime.${page.id}`
 const compositeKeyForProvider = (page: IPageModel, provider: IPageModel) =>
   `runtime.${page.id}.${provider.id}`
 
-const create = (dto: IRuntimePageDTO): IRuntimePageModel =>
+const create = (dto: IRuntimePageDto): IRuntimePageModel =>
   new RuntimePageModel(dto)
 
 @model('@codelab/RuntimePage')
@@ -48,6 +48,19 @@ export class RuntimePageModel
   static compositeKeyForProvider = compositeKeyForProvider
 
   static create = create
+
+  @computed
+  get elements(): Array<IRuntimeElementModel> {
+    return this.runtimeElementService.elementsList.filter(
+      (element) =>
+        element.closestContainerNode.current.compositeKey === this.compositeKey,
+    )
+  }
+
+  @computed
+  get mainTreeElement(): Maybe<IRuntimeElementModel> {
+    return this.childPage?.current.runtimeRootElement
+  }
 
   @computed
   get render(): Nullable<ReactElement> {
@@ -76,9 +89,14 @@ export class RuntimePageModel
     return this.runtimeRootElement.treeViewNode
   }
 
+  @computed
+  get treeViewNodePreview(): IElementTreeViewDataNodePreview {
+    return this.runtimeRootElement.treeViewNodePreview
+  }
+
   @modelAction
   detach(): void {
     this.runtimeRootElement.detach()
-    this.runtimePageService.delete(this)
+    this.runtimePageService.remove(this)
   }
 }

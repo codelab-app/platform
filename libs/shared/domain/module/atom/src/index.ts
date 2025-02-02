@@ -1,2 +1,3 @@
-export * from './atom.api.graphql.docs.gen'
+export * from './atom.mapper'
 export * from './atoms'
+export * from './graphql'

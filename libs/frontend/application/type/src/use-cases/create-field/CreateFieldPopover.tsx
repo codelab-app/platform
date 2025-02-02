@@ -6,53 +6,50 @@ import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
 import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import { CuiSidebarSecondary } from '@codelab/frontend/presentation/codelab-ui'
+import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import { useRef } from 'react'
 
 import { useFieldService } from '../../services/field.service'
-import { useCreateFieldForm } from './create-field.state'
 import { CreateFieldForm } from './CreateFieldForm'
 
-export const CreateFieldPopover = observer(() => {
-  const router = useRouter()
-  const submitRef = useRef<Maybe<SubmitController>>()
-  const createFieldForm = useCreateFieldForm()
-  const { createPopover } = useFieldService()
+export const CreateFieldPopover = observer(
+  ({ interfaceId }: { interfaceId: string }) => {
+    const router = useRouter()
+    const submitRef = useRef<Maybe<SubmitController>>()
+    const { createPopover } = useFieldService()
+    const params = useUrlPathParams()
+    const closePopover = () => createPopover.close(router, params)
 
-  return (
-    <CuiSidebarSecondary
-      id={UiKey.FieldPopoverCreate}
-      toolbar={{
-        items: [
-          {
-            cuiKey: UiKey.FieldToolbarItemCreate,
-            icon: <SaveOutlined />,
-            label: 'Create',
-            onClick: () => {
-              submitRef.current?.submit()
+    return (
+      <CuiSidebarSecondary
+        id={UiKey.FieldPopoverCreate}
+        toolbar={{
+          items: [
+            {
+              cuiKey: UiKey.FieldToolbarItemCreate,
+              icon: <SaveOutlined />,
+              label: 'Create',
+              onClick: () => submitRef.current?.submit(),
             },
-            title: 'Create',
-          },
-          {
-            cuiKey: UiKey.FieldToolbarItemCreateCancel,
-            icon: <CloseOutlined />,
-            label: 'Cancel',
-            onClick: () => {
-              createPopover.close(router)
-              createFieldForm.close()
+            {
+              cuiKey: UiKey.FieldToolbarItemCreateCancel,
+              icon: <CloseOutlined />,
+              label: 'Cancel',
+              onClick: closePopover,
             },
-            title: 'Cancel',
-          },
-        ],
-        title: 'Create Field toolbar',
-      }}
-    >
-      <CreateFieldForm
-        onSubmitSuccess={() => createPopover.close(router)}
-        showFormControl={false}
-        submitRef={submitRef}
-      />
-    </CuiSidebarSecondary>
-  )
-})
+          ],
+          title: 'Create Field toolbar',
+        }}
+      >
+        <CreateFieldForm
+          interfaceId={interfaceId}
+          onSubmitSuccess={closePopover}
+          showFormControl={false}
+          submitRef={submitRef}
+        />
+      </CuiSidebarSecondary>
+    )
+  },
+)

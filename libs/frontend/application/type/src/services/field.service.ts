@@ -1,7 +1,12 @@
 import type {
+  IFieldService,
+  UpdatePopoverParamsContext,
+} from '@codelab/frontend/abstract/application'
+import type {
   IFieldModel,
   IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
+import type { BuilderContextParams } from '@codelab/frontend/abstract/types'
 import type {
   ICreateFieldData,
   IFieldDto,
@@ -9,19 +14,16 @@ import type {
 } from '@codelab/shared/abstract/core'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import { type IFieldService } from '@codelab/frontend/abstract/application'
 import { PageType, PrimarySidebar } from '@codelab/frontend/abstract/types'
-import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import { fieldRepository } from '@codelab/frontend-domain-type/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { Validator } from '@codelab/shared/infra/schema'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { filter, isDefined, isTruthy, unique } from 'remeda'
 import { v4 } from 'uuid'
 
 import { useTypeService } from './type.service'
 
 export const useFieldService = (): IFieldService => {
-  const { appId, componentId, pageId } = useUrlPathParams()
   const { fieldDomainService, typeDomainService } = useDomainStore()
   const typeService = useTypeService()
 
@@ -33,10 +35,7 @@ export const useFieldService = (): IFieldService => {
     }
 
     const newField = fieldDomainService.hydrate(fieldDto)
-
-    const interfaceType = typeDomainService.getType(
-      apiId,
-    ) as IInterfaceTypeModel
+    const interfaceType = typeDomainService.type<IInterfaceTypeModel>(apiId)
 
     interfaceType.writeCache({
       fields: [{ id: newField.id }],
@@ -53,9 +52,9 @@ export const useFieldService = (): IFieldService => {
     const fieldDto = fieldService.mapDataToDto(createFieldData)
     const field = fieldDomainService.hydrate(fieldDto)
 
-    const interfaceType = typeDomainService.getType(
+    const interfaceType = typeDomainService.type<IInterfaceTypeModel>(
       field.api.id,
-    ) as IInterfaceTypeModel
+    )
 
     interfaceType.writeCache({
       fields: [{ id: field.id }],
@@ -203,49 +202,65 @@ export const useFieldService = (): IFieldService => {
     return filter(affectedNodeIds, isTruthy)
   }
 
-  const getOneFromCache = (ref: IRef) => {
-    return fieldDomainService.fields.get(ref.id)
+  const closeFieldPopover = (
+    router: AppRouterInstance,
+    { appId, componentId, pageId }: BuilderContextParams,
+  ) => {
+    if (componentId) {
+      router.push(PageType.ComponentBuilder({ componentId }))
+    } else if (appId && pageId) {
+      router.push(
+        PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree),
+      )
+    } else {
+      router.push(PageType.Type())
+    }
   }
 
   const createPopover = {
-    close: (router: AppRouterInstance) => {
-      router.back()
-    },
-    open: (router: AppRouterInstance) => {
-      const url =
-        appId && pageId
-          ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
-          : PageType.ComponentBuilder({ componentId })
+    close: closeFieldPopover,
+    open: (
+      router: AppRouterInstance,
+      {
+        appId,
+        componentId,
+        interfaceId,
+        pageId,
+      }: BuilderContextParams & { interfaceId: string },
+    ) => {
+      const url = componentId
+        ? PageType.ComponentBuilder({ componentId })
+        : PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
 
-      router.push(`${url}/create-field`)
+      router.push(`${url}/interface/${interfaceId}/create-field`)
     },
   }
 
   const updatePopover = {
-    close: (router: AppRouterInstance) => {
-      router.back()
-    },
-    open: (router: AppRouterInstance, id: string) => {
-      const url =
-        appId && pageId
-          ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
-          : PageType.ComponentBuilder({ componentId })
+    close: closeFieldPopover,
+    open: (
+      router: AppRouterInstance,
+      { appId, componentId, fieldId, pageId }: UpdatePopoverParamsContext,
+    ) => {
+      const url = componentId
+        ? PageType.ComponentBuilder({ componentId })
+        : PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
 
-      router.push(`${url}/update-field/${id}`)
+      router.push(`${url}/update-field/${fieldId}`)
     },
   }
 
   const deletePopover = {
-    close: (router: AppRouterInstance) => {
-      router.back()
-    },
-    open: (router: AppRouterInstance, id: string) => {
-      const url =
-        appId && pageId
-          ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
-          : PageType.ComponentBuilder({ componentId })
+    close: closeFieldPopover,
+    open: (
+      router: AppRouterInstance,
+      { appId, componentId, fieldId, pageId }: UpdatePopoverParamsContext,
+    ) => {
+      const url = componentId
+        ? PageType.ComponentBuilder({ componentId })
+        : PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
 
-      router.push(`${url}/delete/field/${id}`)
+      router.push(`${url}/delete/field/${fieldId}`)
     },
   }
 
@@ -254,7 +269,6 @@ export const useFieldService = (): IFieldService => {
     create,
     createPopover,
     deletePopover,
-    getOneFromCache,
     moveFieldAsNextSibling,
     moveFieldAsPrevSibling,
     removeMany,

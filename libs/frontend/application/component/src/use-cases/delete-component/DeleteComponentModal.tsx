@@ -1,20 +1,21 @@
-import { UiKey } from '@codelab/frontend/abstract/types'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useLoading } from '@codelab/frontend-application-shared-store/loading'
+'use client'
+
+import { PageType, UiKey } from '@codelab/frontend/abstract/types'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/navigation'
 import { AutoFields } from 'uniforms-antd'
 
 import { useComponentService } from '../../services'
-import { useDeleteComponentModal } from './delete-component.state'
 
-export const DeleteComponentModal = observer(() => {
-  const deleteModal = useDeleteComponentModal()
+export const DeleteComponentModal = observer(({ id }: { id: string }) => {
+  const router = useRouter()
   const componentService = useComponentService()
-  const closeModal = () => deleteModal.close()
-  const { setLoading } = useLoading()
-  const component = deleteModal.data
+  const { componentDomainService } = useDomainStore()
+  const closeModal = () => router.push(PageType.Components())
+  const component = componentDomainService.components.get(id)
 
   const onSubmit = async () => {
     if (!component) {
@@ -22,22 +23,19 @@ export const DeleteComponentModal = observer(() => {
     }
 
     await componentService.removeMany([component])
-    setLoading(false)
   }
 
   return (
     <ModalForm.Modal
       okText="Delete Component"
       onCancel={closeModal}
-      open={deleteModal.isOpen}
+      open={true}
       uiKey={UiKey.ComponentModalDelete}
     >
       <ModalForm.Form
+        errorMessage="Error while deleting component"
         model={{}}
         onSubmit={onSubmit}
-        onSubmitError={createFormErrorNotificationHandler({
-          title: 'Error while deleting component',
-        })}
         onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}
       >

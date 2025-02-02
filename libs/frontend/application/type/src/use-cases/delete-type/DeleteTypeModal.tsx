@@ -1,22 +1,26 @@
 'use client'
 
 import { PageType, UiKey } from '@codelab/frontend/abstract/types'
-import { GetTypeReferences } from '@codelab/frontend-domain-type/repositories'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import {
   emptyJsonSchema,
   type EmptyJsonSchemaType,
 } from '@codelab/frontend-presentation-components-form/schema'
+import { findTypeServerActions } from '@codelab/shared-domain-module/type'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 
 import { useTypeService } from '../../services'
 
+const { GetTypeReferences } = findTypeServerActions
+
 export const DeleteTypeModal = observer<{ id: string }>(({ id }) => {
   const typeService = useTypeService()
   const router = useRouter()
   const closeModal = () => router.push(PageType.Type())
-  const type = useTypeService().getOneFromCache({ id })
+  const { typeDomainService } = useDomainStore()
+  const type = typeDomainService.types.get(id)
 
   if (!type) {
     return null
@@ -24,6 +28,7 @@ export const DeleteTypeModal = observer<{ id: string }>(({ id }) => {
 
   const onSubmit = async () => {
     // Make sure this type is not referenced anywhere else or the data may become corrupt
+
     const { getTypeReferences } = await GetTypeReferences({
       typeId: type.id,
     })

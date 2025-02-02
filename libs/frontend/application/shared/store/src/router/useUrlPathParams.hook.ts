@@ -6,6 +6,8 @@ import { useParams } from 'next/navigation'
 
 /**
  * Make the return data lazy, so we have type safety while allowing un-used values to not throw error
+ *
+ * Only use this at top level
  */
 export const useUrlPathParams = (): UrlPathParams => {
   /**
@@ -13,10 +15,10 @@ export const useUrlPathParams = (): UrlPathParams => {
    *
    * https://nextjs.org/docs/app/api-reference/functions/use-search-params#behavior
    */
-  // const searchParams = useSearchParams() as Nullable<ReadonlyURLSearchParams>
   const params = useParams()
 
   return {
+    actionId: params.actionId as string,
     appId: params.appId as string,
     authGuardId: params.authGuardId as string,
     componentId: params.componentId as string,

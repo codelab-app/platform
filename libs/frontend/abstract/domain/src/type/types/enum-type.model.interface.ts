@@ -1,8 +1,4 @@
 import type { IEnumTypeDto, ITypeKind } from '@codelab/shared/abstract/core'
-import type {
-  EnumTypeCreateInput,
-  UpdateEnumTypesMutationVariables,
-} from '@codelab/shared/infra/gql'
 
 import type { IBaseTypeModel } from './base-type.model.interface'
 

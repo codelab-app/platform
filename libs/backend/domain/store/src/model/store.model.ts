@@ -1,15 +1,13 @@
 import type {
-  IAction,
   IInterfaceTypeRef,
   IRef,
   IStore,
   IStoreDto,
 } from '@codelab/shared/abstract/core'
 
-import { ActionModelFactory } from '@codelab/backend/domain/action'
 import { InterfaceType } from '@codelab/backend/domain/type'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { createStoreName } from '@codelab/shared/domain-old'
+import { createStoreName } from '@codelab/shared-domain-module/store'
 import { v4 } from 'uuid'
 
 export class Store implements IStore {

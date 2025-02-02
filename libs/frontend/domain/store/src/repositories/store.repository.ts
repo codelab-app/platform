@@ -1,30 +1,20 @@
 import type { IRef, IStoreDto } from '@codelab/shared/abstract/core'
-import type {
-  StoreCreateInput,
-  StoreDeleteInput,
-  StoreOptions,
-  StoreUniqueWhere,
-  StoreUpdateInput,
-  StoreWhere,
-} from '@codelab/shared/infra/gql'
+import type { StoreOptions, StoreWhere } from '@codelab/shared/infra/gqlgen'
 
 import {
   CACHE_TAGS,
-  type IStoreModel,
   type IStoreRepository,
 } from '@codelab/frontend/abstract/domain'
-import { storeMapper } from '@codelab/shared/domain-old'
-import { Validator } from '@codelab/shared/infra/schema'
+import { Validator } from '@codelab/shared/infra/typebox'
+import {
+  storeMapper,
+  storeServerActions,
+} from '@codelab/shared-domain-module/store'
 import { withTracingMethods } from '@codelab/shared-infra-sentry'
 import { revalidateTag } from 'next/cache'
 
-import { Store } from '../store/store.model'
-import {
-  CreateStores,
-  DeleteStores,
-  GetStores,
-  UpdateStores,
-} from './store.api.graphql.web.gen'
+const { CreateStores, DeleteStores, GetStores, UpdateStores } =
+  storeServerActions
 
 export const storeRepository: IStoreRepository = withTracingMethods('store', {
   add: async (input: IStoreDto) => {
@@ -59,7 +49,8 @@ export const storeRepository: IStoreRepository = withTracingMethods('store', {
     )
   },
 
-  findOne: async (where: StoreUniqueWhere) => {
+  // FIXME: make a unique where
+  findOne: async (where: StoreWhere) => {
     return (await storeRepository.find(where)).items[0]
   },
 

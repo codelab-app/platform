@@ -1,4 +1,4 @@
-import { AtomType } from '@codelab/shared/infra/gql'
+import { AtomType } from '@codelab/shared/infra/gqlgen'
 
 /**
  * We create the enum here then import into Neo4j graphql schema so we can get linting
@@ -28,7 +28,6 @@ export enum __AtomType {
   AntDesignCheckbox = 'AntDesignCheckbox',
   AntDesignCheckboxGroup = 'AntDesignCheckboxGroup',
   AntDesignCollapse = 'AntDesignCollapse',
-  AntDesignCollapsePanel = 'AntDesignCollapsePanel',
   AntDesignComment = 'AntDesignComment',
   AntDesignConfigProvider = 'AntDesignConfigProvider',
   AntDesignDatePicker = 'AntDesignDatePicker',
@@ -174,7 +173,6 @@ export enum __AtomType {
   HtmlOption = 'HtmlOption',
   HtmlOutput = 'HtmlOutput',
   HtmlP = 'HtmlP',
-  HtmlParam = 'HtmlParam',
   HtmlPicture = 'HtmlPicture',
   HtmlPre = 'HtmlPre',
   HtmlProgress = 'HtmlProgress',
@@ -192,10 +190,8 @@ export enum __AtomType {
   HtmlStyle = 'HtmlStyle',
   HtmlSub = 'HtmlSub',
   HtmlSup = 'HtmlSup',
-  HtmlSvg = 'HtmlSvg',
   HtmlTable = 'HtmlTable',
   HtmlTd = 'HtmlTd',
-  HtmlTemplate = 'HtmlTemplate',
   HtmlTextarea = 'HtmlTextarea',
   HtmlTh = 'HtmlTh',
   HtmlTime = 'HtmlTime',

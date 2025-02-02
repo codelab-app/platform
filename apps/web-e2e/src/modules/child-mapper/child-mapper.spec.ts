@@ -2,12 +2,15 @@ import { type IApp } from '@codelab/shared/abstract/core'
 import { providerPageId } from '@codelab/shared/data/test'
 import { expect } from '@playwright/test'
 
+import { globalBeforeAll } from '../../setup/before-all'
 import { seedTestData } from './child-mapper.data'
 import { test } from './child-mapper.fixture'
 
 let app: IApp
 
 test.describe.configure({ mode: 'serial' })
+
+globalBeforeAll()
 
 test.beforeAll(async ({ request }, testInfo) => {
   app = await seedTestData(request)
@@ -54,7 +57,7 @@ test('should render child-mapper component instances with updated props and in n
   await expect(page.getNotification()).toBeHidden()
 })
 
-test('should not render instances when the prop arrary is empty', async ({
+test('should not render instances when the prop array is empty', async ({
   builderPage: page,
 }) => {
   await page.setEmptyChildMapperProperties()
@@ -76,8 +79,4 @@ test('should not render instances when the prop is not an array', async ({
   await page.checkEmptyBuilderOutput()
 
   await expect(page.getNotification()).toBeHidden()
-})
-
-test.afterAll('cleanup created components', async ({ request }) => {
-  await request.post('/api/v1/admin/setup-e2e-data')
 })

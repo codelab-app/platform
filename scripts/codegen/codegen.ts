@@ -1,16 +1,12 @@
 import type { Types } from '@graphql-codegen/plugin-helpers'
-import { preset } from '@codelab-app/client-preset'
 import { deleteSync } from 'del'
-import { getEnv } from '../../libs/shared/config/src/env/env'
+import { preset } from '@codelab-codegen/codelab-preset'
 
-const pathToTypescriptServerFetch =
-  '../../node_modules/@codelab-codegen/typescript-server-fetch'
-
-const pathToTypescriptFetch =
-  '../../node_modules/@codelab-codegen/typescript-fetch'
-
-const pathToClientPresetDocuments =
-  '../../node_modules/@codelab-codegen/client-preset-documents'
+/**
+ * `Field args marked as @deprecated are lost when getting schema over HTTP`
+ *
+ * https://github.com/dotansimha/graphql-code-generator/issues/9659
+ */
 
 const config: Types.Config = {
   debug: true,
@@ -20,7 +16,7 @@ const config: Types.Config = {
     // Uncomment to run ESLint fix after code generation
     // afterAllFileWrite: ['pnpm eslint --fix'],
     afterAllFileWrite: [
-      'pnpm prettier --write',
+      //  'pnpm prettier --write',
       (...files) => {
         /**
          * Can't remove these from codegen when using custom plugin, so we remove them here
@@ -39,12 +35,27 @@ const config: Types.Config = {
 
         deleteSync(fragmentFiles)
       },
+      // Add step to replace toString(): string with override toString(): string in graphql.ts
+      (...files) => {
+        files.forEach((file) => {
+          if (file.endsWith('graphql.ts')) {
+            const fs = require('fs')
+            const content = fs.readFileSync(file, 'utf8')
+            const updated = content.replace(
+              /toString\(\): string/g,
+              'override toString(): string',
+            )
+            fs.writeFileSync(file, updated)
+          }
+        })
+      },
     ],
   },
   // Uncomment for using a local schema file
-  // schema: 'schema.graphql',
-  schema: getEnv().endpoint.apiGraphqlUrl,
+  schema: 'schema.graphql',
+  // schema: getEnv().endpoint.apiGraphqlUrl,
   config: {
+    inputValueDeprecation: true,
     scalars: {
       // Uncomment to override scalar types
       // uuid: 'string',
@@ -65,28 +76,12 @@ const config: Types.Config = {
     /**
      * Instead of `gql` wrapping documents, which requires client side runtime conversion, we build the queries at build time
      */
-    'libs/shared/infra/gql/src/gql/': {
-      documents: [
-        '**/*.fragment.graphql',
-        '**/*.subscription.graphql',
-        '**/*.api.graphql',
-        // 'libs/frontend/application/**/*.{repository,document}.ts',
-        // 'libs/frontend/domain/**/*.{repository,document}.ts',
-      ],
+    'libs/shared/infra/gqlgen/src/gql/': {
+      documents: ['**/*.fragment.graphql', '**/*.api.graphql'],
       preset,
-      config: {
-        documentMode: 'string',
-        inlineFragmentTypes: 'combine',
-        // useTypeImports: true,
-        // enumsAsTypes: true,
-      },
-      presetConfig: {
-        importAllFragmentsFrom: '~@codelab/shared/infra/gql',
-        fragmentMasking: false,
-      },
     },
     /**
-     * We create our own plugin as a layer on top of client preset, to wrap doucments with `graphql`
+     * We create our own plugin as a layer on top of client preset, to wrap documents with `graphql`
      *
      * We want to keep the client preset documents in a file, and the operations in another file.
      *
@@ -105,36 +100,18 @@ const config: Types.Config = {
       ],
       preset: 'near-operation-file',
       presetConfig: {
-        baseTypesPath: '~@codelab/shared/infra/gql',
-        importAllFragmentsFrom: '~@codelab/shared/infra/gql',
+        baseTypesPath: '~@codelab/shared/infra/gqlgen',
         extension: '.graphql.web.gen.ts',
       },
       plugins: [
         {
-          [pathToTypescriptServerFetch]: {
-            /**
-             * PresetConfig doesn't seem to work here
-             */
-            // presetConfig: {
-            //   baseTypesPath: '~@codelab/shared/infra/gql',
-            //   importAllFragmentsFrom: '~@codelab/shared/infra/gql',
-            //   extension: '.gen.ts',
-            // },
+          ['@codelab-codegen/typescript-server-fetch']: {
+            gqlFn: 'gqlServerRequest',
+            gqlFnPath: '@codelab/shared/infra/fetch-server',
+            graphqlPath: '@codelab/shared/infra/gqlgen',
           },
         },
       ],
-      config: {
-        inlineFragmentTypes: 'combine',
-        // Need to so we don't import fragments
-        importOperationTypesFrom: '',
-        importAllFragmentsFrom: '',
-        // Uncomment to set suffix for document variables
-        // documentVariableSuffix: 'Gql',
-        // gqlImport: 'graphql-tag#gql',
-        strictScalars: true,
-        defaultScalarType: 'unknown',
-        // dedupeFragments: true, // Uncomment to deduplicate fragments
-      },
     },
     './libs/shared': {
       documents: [
@@ -143,62 +120,26 @@ const config: Types.Config = {
       ],
       preset: 'near-operation-file',
       presetConfig: {
-        baseTypesPath: '~@codelab/shared/infra/gql',
-        importAllFragmentsFrom: '~@codelab/shared/infra/gql',
+        baseTypesPath: '~@codelab/shared/infra/gqlgen',
         extension: '.graphql.api.gen.ts',
       },
       plugins: [
         {
-          [pathToTypescriptFetch]: {},
+          // this path points to a node_module package, make sure to run `pnpm install` before `pnpm codegen`
+          ['@codelab-codegen/typescript-fetch']: {
+            gqlFn: 'gqlRequest',
+            gqlFnPath: '@codelab/shared/infra/fetch',
+            graphqlPath: '@codelab/shared/infra/gqlgen',
+          },
         },
       ],
-      config: {
-        inlineFragmentTypes: 'combine',
-        // Need to so we don't import fragments
-        importOperationTypesFrom: '',
-        importAllFragmentsFrom: '',
-        // Uncomment to set suffix for document variables
-        // documentVariableSuffix: 'Gql',
-        // gqlImport: 'graphql-tag#gql',
-        strictScalars: true,
-        defaultScalarType: 'unknown',
-        // dedupeFragments: true, // Uncomment to deduplicate fragments
-      },
     },
-    '.': {
-      documents: [
-        'libs/frontend/**/*.{api,fragment}.graphql',
-        'libs/shared/domain/**/*.{api,fragment}.graphql',
-      ],
+    './libs': {
+      documents: ['libs/**/*.{subscription,spec}.graphql'],
       preset: 'near-operation-file',
       presetConfig: {
-        baseTypesPath: '~@codelab/shared/infra/gql',
-        importAllFragmentsFrom: '~@codelab/shared/infra/gql',
-        extension: '.graphql.docs.gen.ts',
-      },
-      plugins: [
-        {
-          [pathToClientPresetDocuments]: {},
-        },
-      ],
-      config: {
-        inlineFragmentTypes: 'combine',
-        importOperationTypesFrom: '',
-        importAllFragmentsFrom: '',
-        // Uncomment to set suffix for document variables
-        // documentVariableSuffix: 'Gql',
-        // gqlImport: 'graphql-tag#gql',
-        strictScalars: true,
-        defaultScalarType: 'unknown',
-        // dedupeFragments: true, // Uncomment to deduplicate fragments
-      },
-    },
-    './libs/backend': {
-      documents: ['libs/backend/**/*.{subscription,spec}.graphql'],
-      preset: 'near-operation-file',
-      presetConfig: {
-        extension: '.graphql.api.gen.ts',
-        baseTypesPath: '~@codelab/shared/infra/gql',
+        extension: '.graphql.gen.ts',
+        baseTypesPath: '~@codelab/shared/infra/gqlgen',
         // Uncomment to force export of fragment types
         // importAllFragmentsFrom: '~@codelab/frontend/abstract/core',
       },
@@ -211,6 +152,7 @@ const config: Types.Config = {
         strictScalars: true,
         defaultScalarType: 'unknown',
         // dedupeFragments: true, // Uncomment to deduplicate fragments
+        inputValueDeprecation: true,
       },
     },
   },

@@ -1,6 +1,6 @@
 'use client'
 
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import { downloadJsonAsFile } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import {
@@ -8,35 +8,35 @@ import {
   ExportDtoSchema,
   type IExportDto,
 } from '@codelab/shared/abstract/core'
-import { useCallback } from 'react'
+import { useRouter } from 'next/navigation'
 import { AutoFields } from 'uniforms-antd'
 
 import { exportAdminDataService } from './export-admin-data.service'
-import { useExportAdminDataModal } from './export-admin-data.state'
 
 export const ExportAdminDataModal = () => {
-  const exportDataModal = useExportAdminDataModal()
+  const router = useRouter()
+  const onClose = () => router.push(PageType.Admin())
 
-  const onSubmitHandler = useCallback(async (data: IExportDto) => {
-    const exportedData = await exportAdminDataService(data)
+  const onSubmitHandler = async ({ adminDataPath, download }: IExportDto) => {
+    const exportedData = await exportAdminDataService({ adminDataPath })
 
-    if (exportedData) {
+    if (download) {
       downloadJsonAsFile('export.json', exportedData)
     }
-  }, [])
+  }
 
   return (
     <ModalForm.Modal
       okText="Export Admin Data"
-      onCancel={exportDataModal.close}
-      open={exportDataModal.isOpen}
+      onCancel={onClose}
+      open={true}
       uiKey={UiKey.AdminDataModalExport}
     >
       <ModalForm.Form<IExportDto>
         errorMessage="Error while exporting data"
         model={exportDtoDefault}
         onSubmit={onSubmitHandler}
-        onSubmitSuccess={exportDataModal.close}
+        onSubmitSuccess={onClose}
         schema={ExportDtoSchema}
         successMessage="Data exported successfully"
       >

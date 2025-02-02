@@ -1,7 +1,5 @@
 'use client'
 
-import type { ReactNode } from 'react'
-
 import CodeOutlined from '@ant-design/icons/CodeOutlined'
 import CodeSandboxOutlined from '@ant-design/icons/CodeSandboxOutlined'
 import FileOutlined from '@ant-design/icons/FileOutlined'
@@ -29,6 +27,7 @@ import { FormContextProvider } from '@codelab/frontend-presentation-components-f
 import { Tabs, Tooltip } from 'antd'
 import classNames from 'classnames'
 import { observer } from 'mobx-react-lite'
+import { type ReactNode, useMemo } from 'react'
 import { isNullish } from 'remeda'
 
 import { PropsInspectorTab } from '../PropsInspectorTab'
@@ -65,126 +64,133 @@ export const ConfigPaneInspectorTabContainer = observer<{
   activeRenderer: IRendererModel
   elementTree: IElementTree
 }>(({ activeRenderer, elementTree, selectedNode }) => {
-  const tabItems = [
-    {
-      children: isRuntimeElement(selectedNode) ? (
-        <>
-          <UpdateElementForm
-            key={`${selectedNode.compositeKey}_update_form`}
-            runtimeElement={selectedNode}
-          />
-          <MoveElementForm
-            key={`${selectedNode.compositeKey}_move_form`}
-            runtimeElement={selectedNode}
-          />
-          <DeleteElementButton
-            className="my-3"
-            disabled={selectedNode.element.current.isRoot}
-            runtimeElement={selectedNode}
-          />
-        </>
-      ) : isNullish(selectedNode.childMapperIndex) ? (
-        <UpdateComponentForm runtimeComponent={selectedNode} />
-      ) : (
-        'Child Mapper Component Props cannot be edited'
-      ),
-      key: TAB_NAMES.Node,
-      label: (
-        <TooltipIcon icon={<NodeIndexOutlined />} title={TAB_NAMES.Node} />
-      ),
-    },
-    {
-      children: (
-        <div key={selectedNode.compositeKey}>
-          {isRuntimeElement(selectedNode) ? (
-            <UpdateElementPropsForm runtimeElement={selectedNode} />
-          ) : isRuntimeComponent(selectedNode) ? (
-            <UpdateComponentPropsForm runtimeComponent={selectedNode} />
-          ) : (
-            'Add an atom or a component to this element to edit its props'
-          )}
-        </div>
-      ),
-      key: TAB_NAMES.Props,
-      label: (
-        <TooltipIcon
-          icon={
-            <SettingOutlined
-              style={
-                isRuntimeElement(selectedNode) &&
-                selectedNode.element.current.propsHaveErrors
-                  ? { color: 'red' }
-                  : {}
-              }
+  // Nested components render too many times if we don't memo
+  const tabItems = useMemo(
+    () => [
+      {
+        children: isRuntimeElement(selectedNode) ? (
+          <>
+            <UpdateElementForm
+              key={`${selectedNode.compositeKey}_update_form`}
+              runtimeElement={selectedNode}
             />
-          }
-          title={TAB_NAMES.Props}
-        />
-      ),
-    },
-    {
-      children:
-        isRuntimeElement(selectedNode) &&
-        isAtomRef(selectedNode.element.current.renderType) ? (
-          <ElementCssEditor
-            key={selectedNode.compositeKey}
-            runtimeElement={selectedNode}
-          />
+            <MoveElementForm
+              key={`${selectedNode.compositeKey}_move_form`}
+              runtimeElement={selectedNode}
+            />
+            <DeleteElementButton
+              className="my-3"
+              disabled={selectedNode.element.current.isRoot}
+              runtimeElement={selectedNode}
+            />
+          </>
+        ) : isNullish(selectedNode.childMapperIndex) ? (
+          <UpdateComponentForm runtimeComponent={selectedNode} />
         ) : (
-          'Add an atom to this page element to edit its CSS'
+          'Child Mapper Component Props cannot be edited'
         ),
-      key: TAB_NAMES.CSS,
-      label: (
-        <TooltipIcon icon={<FormatPainterOutlined />} title={TAB_NAMES.CSS} />
-      ),
-    },
-    {
-      children: !isRuntimePage(selectedNode) && (
-        <PropsInspectorTab
-          key={selectedNode.compositeKey}
-          runtimeNode={selectedNode}
-        />
-      ),
-      key: TAB_NAMES.PropsInspector,
-      label: (
-        <TooltipIcon icon={<CodeOutlined />} title={TAB_NAMES.PropsInspector} />
-      ),
-    },
-    ...(activeRenderer.runtimePage
-      ? [
-          {
-            children: <UpdatePageTabForm key={selectedNode.compositeKey} />,
-            key: TAB_NAMES.Page,
-            label: (
-              <TooltipIcon icon={<FileOutlined />} title={TAB_NAMES.Page} />
-            ),
-          },
-        ]
-      : []),
-    ...(activeRenderer.runtimeComponent
-      ? [
-          {
-            children: (
-              <>
-                <UpdateComponentForm
-                  runtimeComponent={activeRenderer.runtimeComponent}
-                />
-                <UpdateComponentPropsForm
-                  runtimeComponent={activeRenderer.runtimeComponent}
-                />
-              </>
-            ),
-            key: TAB_NAMES.Component,
-            label: (
-              <TooltipIcon
-                icon={<CodeSandboxOutlined />}
-                title={TAB_NAMES.Component}
+        key: TAB_NAMES.Node,
+        label: (
+          <TooltipIcon icon={<NodeIndexOutlined />} title={TAB_NAMES.Node} />
+        ),
+      },
+      {
+        children: (
+          <div key={selectedNode.compositeKey}>
+            {isRuntimeElement(selectedNode) ? (
+              <UpdateElementPropsForm runtimeElement={selectedNode} />
+            ) : isRuntimeComponent(selectedNode) ? (
+              <UpdateComponentPropsForm runtimeComponent={selectedNode} />
+            ) : (
+              'Add an atom or a component to this element to edit its props'
+            )}
+          </div>
+        ),
+        key: TAB_NAMES.Props,
+        label: (
+          <TooltipIcon
+            icon={
+              <SettingOutlined
+                style={
+                  isRuntimeElement(selectedNode) &&
+                  selectedNode.element.current.propsHaveErrors
+                    ? { color: 'red' }
+                    : {}
+                }
               />
-            ),
-          },
-        ]
-      : []),
-  ]
+            }
+            title={TAB_NAMES.Props}
+          />
+        ),
+      },
+      {
+        children:
+          isRuntimeElement(selectedNode) &&
+          isAtomRef(selectedNode.element.current.renderType) ? (
+            <ElementCssEditor
+              key={selectedNode.compositeKey}
+              runtimeElement={selectedNode}
+            />
+          ) : (
+            'Add an atom to this page element to edit its CSS'
+          ),
+        key: TAB_NAMES.CSS,
+        label: (
+          <TooltipIcon icon={<FormatPainterOutlined />} title={TAB_NAMES.CSS} />
+        ),
+      },
+      {
+        children: !isRuntimePage(selectedNode) && (
+          <PropsInspectorTab
+            key={selectedNode.compositeKey}
+            runtimeNode={selectedNode}
+          />
+        ),
+        key: TAB_NAMES.PropsInspector,
+        label: (
+          <TooltipIcon
+            icon={<CodeOutlined />}
+            title={TAB_NAMES.PropsInspector}
+          />
+        ),
+      },
+      ...(activeRenderer.runtimePage
+        ? [
+            {
+              children: <UpdatePageTabForm key={selectedNode.compositeKey} />,
+              key: TAB_NAMES.Page,
+              label: (
+                <TooltipIcon icon={<FileOutlined />} title={TAB_NAMES.Page} />
+              ),
+            },
+          ]
+        : []),
+      ...(activeRenderer.runtimeComponent
+        ? [
+            {
+              children: (
+                <>
+                  <UpdateComponentForm
+                    runtimeComponent={activeRenderer.runtimeComponent}
+                  />
+                  <UpdateComponentPropsForm
+                    runtimeComponent={activeRenderer.runtimeComponent}
+                  />
+                </>
+              ),
+              key: TAB_NAMES.Component,
+              label: (
+                <TooltipIcon
+                  icon={<CodeSandboxOutlined />}
+                  title={TAB_NAMES.Component}
+                />
+              ),
+            },
+          ]
+        : []),
+    ],
+    [activeRenderer.runtimeComponent, activeRenderer.runtimePage, selectedNode],
+  )
 
   return (
     <FormContextProvider value={{ elementTree, selectedNode }}>

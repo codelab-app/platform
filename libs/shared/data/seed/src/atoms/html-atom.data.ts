@@ -1,4 +1,4 @@
-import type { IHtmlAtomRecords } from '@codelab/backend/abstract/core'
+import type { IHtmlAtomRecords } from '@codelab/shared/abstract/core'
 
 import { IAtomType } from '@codelab/shared/abstract/core'
 
@@ -308,11 +308,6 @@ export const htmlAtomData: IHtmlAtomRecords = {
     icon: null,
     tag: IAtomType.HtmlP,
   },
-  [IAtomType.HtmlParam]: {
-    file: null,
-    icon: null,
-    tag: IAtomType.HtmlParam,
-  },
   [IAtomType.HtmlPicture]: {
     file: null,
     icon: null,
@@ -398,11 +393,6 @@ export const htmlAtomData: IHtmlAtomRecords = {
     icon: null,
     tag: IAtomType.HtmlSup,
   },
-  [IAtomType.HtmlSvg]: {
-    file: null,
-    icon: null,
-    tag: IAtomType.HtmlSvg,
-  },
   [IAtomType.HtmlTable]: {
     file: null,
     icon: null,
@@ -412,11 +402,6 @@ export const htmlAtomData: IHtmlAtomRecords = {
     file: null,
     icon: null,
     tag: IAtomType.HtmlTd,
-  },
-  [IAtomType.HtmlTemplate]: {
-    file: null,
-    icon: null,
-    tag: IAtomType.HtmlTemplate,
   },
   [IAtomType.HtmlTextarea]: {
     file: null,

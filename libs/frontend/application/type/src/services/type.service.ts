@@ -22,8 +22,8 @@ import {
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { TypeKind } from '@codelab/shared/infra/gql'
-import { Validator } from '@codelab/shared/infra/schema'
+import { TypeKind } from '@codelab/shared/infra/gqlgen'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { prop, sortBy } from 'remeda'
 
 export const useTypeService = (): ITypeService => {
@@ -62,7 +62,9 @@ export const useTypeService = (): ITypeService => {
     const typeDto = TypeFactory.mapDataToDto(data, owner)
     const type = typeDomainService.hydrate(typeDto)
 
-    await typeRepository.add(typeDto)
+    // use hydrated type here instead of dto to make sure the dependant types have full data
+    // (for example "typesOfUnionType" should not only contain ids, but also __typename)
+    await typeRepository.add(type.toJson)
 
     typePagination.dataRefs.set(type.id, typeRef(type))
 
@@ -98,23 +100,14 @@ export const useTypeService = (): ITypeService => {
 
     // Combine all fragments
     const allFragments = [...typeFragments, ...descendantTypeFragments]
-
-    const types = allFragments.map((typeFragment) => {
-      if (typeFragment.__typename === TypeKind.InterfaceType) {
-        typeFragment.fields.forEach((field) =>
-          fieldDomainService.hydrate(field),
-        )
-      }
-
-      return typeDomainService.hydrate(typeFragment)
-    })
+    const types = typeDomainService.hydrateTypes(allFragments)
 
     // Filter types if ids are provided, otherwise return all
     return ids ? types.filter((type) => ids.includes(type.id)) : types
   }
 
   const getInterface = async (interfaceTypeId: string) => {
-    const interfaceFromStore = typeDomainService.getType(interfaceTypeId)
+    const interfaceFromStore = typeDomainService.types.get(interfaceTypeId)
 
     if (
       interfaceFromStore &&
@@ -164,7 +157,9 @@ export const useTypeService = (): ITypeService => {
 
     TypeFactory.writeCache(typeDto, type)
 
-    await typeRepository.update({ id: type.id }, typeDto)
+    // use hydrated type here instead of dto to make sure the dependant types have full data
+    // (for example "typesOfUnionType" should not only contain ids, but also __typename)
+    await typeRepository.update({ id: type.id }, type.toJson)
 
     return type
   }
@@ -210,19 +205,11 @@ export const useTypeService = (): ITypeService => {
     return false
   }
 
-  const getOneFromCache = (ref: IRef) => {
-    return typeDomainService.types.get(ref.id)
-  }
-
-  const getAllFromCache = () => {
-    return Array.from(typeDomainService.types.values())
-  }
-
   const updatePopover = {
     close: (router: AppRouterInstance) => {
       router.push(PageType.Type())
     },
-    open: (router: AppRouterInstance, id: string) => {
+    open: (router: AppRouterInstance, { id }: IRef) => {
       router.push(PageType.TypeUpdate({ id }))
     },
   }
@@ -240,11 +227,9 @@ export const useTypeService = (): ITypeService => {
     create,
     createPopover,
     getAll,
-    getAllFromCache,
     getDataFn,
     getInterface,
     getOne,
-    getOneFromCache,
     getSelectOptions,
     paginationService: typePagination,
     removeMany: deleteType,

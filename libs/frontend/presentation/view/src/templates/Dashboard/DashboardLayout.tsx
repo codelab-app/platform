@@ -3,45 +3,58 @@ import type { ReactNode } from 'react'
 
 import { Dashboard } from './Dashboard'
 
-export interface DashboardSections {
+/**
+ * This declares all the possible parallel routes, but not all is required. The Next.js compiler will type check which is required
+ */
+interface DashboardSections {
   configPane: ReactNode
   header: ReactNode
+  modal: ReactNode
   primarySidebar: ReactNode
   secondaryPopover: ReactNode
 }
 
-type DashboardLayoutProps<T extends Partial<DashboardSections> = never> =
-  Partial<UrlPathParams> & {
-    [K in keyof DashboardSections]: K extends keyof T ? T[K] : never
-  } & {
-    children: ReactNode
+/**
+ * We either
+ */
+export type DashboardLayoutProps<
+  Slots extends keyof DashboardSections = never,
+  Params extends keyof UrlPathParams = never,
+> = {
+  [K in Slots]: ReactNode
+} & {
+  params: {
+    [K in keyof UrlPathParams]: K extends Params ? string : never
   }
+  children: ReactNode
+}
 
 /**
  * @deprecated Example only
  */
-type _OnlyHeader = DashboardLayoutProps<{ header: ReactNode }>
+type _OnlyHeader = DashboardLayoutProps<'header', 'appId'>
 
 /**
  * @deprecated Example only
  */
 type _All = DashboardLayoutProps
 
-export const DashboardLayout = <T extends Partial<DashboardSections> = never>({
-  appId,
+/**
+ * Our inferred slot types make it such that if key is not specified, the prop does not exist, so we need to spread it via `...slots`
+ */
+export const DashboardLayout = <
+  Slots extends keyof DashboardSections = never,
+  Params extends keyof UrlPathParams = never,
+>({
   children,
-  configPane,
-  header,
-  pageId,
-  primarySidebar,
-  secondaryPopover,
-}: DashboardLayoutProps<T>) => {
+  params,
+  ...slots
+}: DashboardLayoutProps<Slots, Params>) => {
+  const { appId, pageId } = params
+
   return (
     <Dashboard
-      ConfigPane={configPane}
-      Header={header}
-      PrimarySidebar={primarySidebar}
-      SecondaryPopover={secondaryPopover}
+      {...slots}
       appId={appId}
       contentStyles={{ paddingTop: '0rem' }}
       pageId={pageId}
@@ -50,3 +63,5 @@ export const DashboardLayout = <T extends Partial<DashboardSections> = never>({
     </Dashboard>
   )
 }
+
+DashboardLayout.displayName = 'DashboardLayout'

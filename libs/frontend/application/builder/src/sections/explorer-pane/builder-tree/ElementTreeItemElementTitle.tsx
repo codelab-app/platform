@@ -11,32 +11,23 @@ import {
   CuiTreeItemToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { useElementService } from '@codelab/frontend-application-element/services'
-import { useCreateElementForm } from '@codelab/frontend-application-element/use-cases/create-element'
-import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
+import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import { Tooltip } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 
 const Toolbar = observer<{ treeNode: IElementTreeViewDataNode }>(
   ({ treeNode }) => {
+    const { appId, componentId, pageId } = useUrlPathParams()
     const router = useRouter()
     const elementService = useElementService()
-    const createElementForm = useCreateElementForm()
 
     if (!treeNode.element) {
       return
     }
 
-    const element = elementService.getElement(treeNode.element.id)
-
     const onClick = () => {
-      elementService.createPopover.open(router)
-      createElementForm.open({
-        elementOptions:
-          element.closestContainerNode.elements.map(mapElementOption),
-        elementTree: element.closestContainerNode,
-        selectedElement: element,
-      })
+      elementService.createPopover.open(router, { appId, componentId, pageId })
     }
 
     const items = [

@@ -1,5 +1,6 @@
 import type { IElementService } from '@codelab/frontend/abstract/application'
-import type { IElementDto, IRef } from '@codelab/shared/abstract/core'
+import type { BuilderContextParams } from '@codelab/frontend/abstract/types'
+import type { IElementDto } from '@codelab/shared/abstract/core'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import {
@@ -10,14 +11,54 @@ import {
 import { PageType, PrimarySidebar } from '@codelab/frontend/abstract/types'
 import { useAtomService } from '@codelab/frontend-application-atom/services'
 import { usePropService } from '@codelab/frontend-application-prop/services'
-import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { uniqueBy } from 'remeda'
 
+/**
+ * Object declaration would create a new object on each usage of hook, causing any usage of service to be re-rendered
+ */
+const createPopover = {
+  close: (router: AppRouterInstance) => {
+    router.back()
+  },
+  open: (
+    router: AppRouterInstance,
+    { appId, componentId, pageId }: BuilderContextParams,
+  ) => {
+    const url =
+      appId && pageId
+        ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
+        : PageType.ComponentBuilder({ componentId })
+
+    router.push(`${url}/create-element`)
+  },
+}
+
+const deletePopover = {
+  close: (router: AppRouterInstance) => {
+    router.back()
+  },
+  open: (
+    router: AppRouterInstance,
+    {
+      appId,
+      componentId,
+      elementId,
+      pageId,
+    }: BuilderContextParams & { elementId: string },
+  ) => {
+    const url =
+      appId && pageId
+        ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
+        : PageType.ComponentBuilder({ componentId })
+
+    router.push(`${url}/delete/element/${elementId}`)
+  },
+}
+
 export const useElementService = (): IElementService => {
-  const { appId, componentId, pageId } = useUrlPathParams()
   const atomService = useAtomService()
   const typeService = useTypeService()
   const propService = usePropService()
@@ -36,8 +77,8 @@ export const useElementService = (): IElementService => {
 
     // when new element is inserted into elements tree -
     // auto-expand parent node, so that new one becomes visible
-    if (element.parentElement?.maybeCurrent?.expanded === false) {
-      element.parentElement.current.setExpanded(true)
+    if (element.closestParentElement?.maybeCurrent?.expanded === false) {
+      element.closestParentElement.current.setExpanded(true)
     }
 
     await elementRepository.add(data)
@@ -111,38 +152,13 @@ export const useElementService = (): IElementService => {
     )
   }
 
-  const getElement = (id: string) => {
-    return elementDomainService.element(id)
-  }
-
-  const getOneFromCache = (ref: IRef) => {
-    return elementDomainService.elements.get(ref.id)
-  }
-
-  const getAllFromCache = () => {
-    return Array.from(elementDomainService.elements.values())
-  }
-
-  const createPopover = {
-    close: (router: AppRouterInstance) => {
-      router.back()
-    },
-    open: (router: AppRouterInstance) => {
-      const url =
-        appId && pageId
-          ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
-          : PageType.ComponentBuilder({ componentId })
-
-      router.push(`${url}/create-element`)
-    },
-  }
-
+  /**
+   * If we don't memoize the return object, it will be recreated on each render, causing the calling component to re-render
+   */
   return {
     create,
     createPopover,
-    // getAllFromCache,
-    getElement,
-    // getOneFromCache,
+    deletePopover,
     loadDependantTypes,
     move,
     remove: deleteElement,

@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-import { Typebox } from '@codelab/shared/abstract/typebox'
-import { getEnv } from '@codelab/shared/config'
+import { getEnv } from '@codelab/shared/config/env'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { lists, setConfig } from '@mailchimp/mailchimp_marketing'
 import { Type } from '@sinclair/typebox'
 
@@ -12,10 +12,8 @@ const EmailSchema = Type.Object({
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { apiKey, listId, serverPrefix } = getEnv().mailchimp
 
-  console.log(req.body)
-
   try {
-    const { email } = Typebox.ValidateAndClean(EmailSchema, req.body)
+    const { email } = Validator.parse(EmailSchema, req.body)
 
     setConfig({
       apiKey,

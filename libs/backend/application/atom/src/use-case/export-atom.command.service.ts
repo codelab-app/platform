@@ -1,6 +1,5 @@
 import type { ICommandHandler } from '@nestjs/cqrs'
 
-import { type AtomWhere } from '@codelab/backend/abstract/codegen'
 import { ExportApiCommand } from '@codelab/backend/application/type'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import {
@@ -10,7 +9,8 @@ import {
   type IAtomExport,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { Validator } from '@codelab/shared/infra/schema'
+import { type AtomWhere } from '@codelab/shared/infra/gqlgen'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 import { Type } from '@sinclair/typebox'
 
@@ -49,6 +49,8 @@ export class ExportAtomHandler
       tags: existingAtom.tags?.map((tag) => ({ id: tag.id })),
     }
 
-    return Validator.validateAndClean(AtomExportSchema, { api, atom })
+    const results = Validator.parse(AtomExportSchema, { api, atom })
+
+    return results
   }
 }

@@ -1,16 +1,13 @@
 import type {
-  ITypeCreateFormData,
   ITypeDomainService,
   ITypeModel,
 } from '@codelab/frontend/abstract/domain'
-import type { GetTypesQuery } from '@codelab/shared/infra/gql'
+import type { IInterfaceTypeDto, ITypeDto } from '@codelab/shared/abstract/core'
 
 import { getFieldDomainService } from '@codelab/frontend/abstract/domain'
-import {
-  IInterfaceTypeDto,
-  ITypeDto,
-  ITypeKind,
-} from '@codelab/shared/abstract/core'
+import { ITypeKind } from '@codelab/shared/abstract/core'
+import { type TypeFragment, TypeKind } from '@codelab/shared/infra/gqlgen'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 
@@ -60,12 +57,13 @@ export class TypeDomainService
     }
 
     interfaceType = InterfaceType.create({
+      __typename: ITypeKind.InterfaceType,
+      fields: data.fields,
       id: data.id,
+      kind: ITypeKind.InterfaceType,
       name: data.name,
       owner: data.owner,
     })
-
-    interfaceType.writeFieldCache(data.fields)
 
     this.types.set(interfaceType.id, interfaceType)
 
@@ -73,25 +71,22 @@ export class TypeDomainService
   }
 
   @modelAction
-  hydrateTypes(types: Partial<GetTypesQuery>) {
+  hydrateTypes(types: Array<TypeFragment>) {
     // console.debug('TypeService.loadTypes()', types)
 
-    const flatTypes = Object.values(types).flat()
+    types
+      .map((fragment) => TypeFactory.create(fragment))
+      .forEach((type) => this.types.set(type.id, type))
 
-    const fields =
-      types.interfaceTypes?.flatMap((fragment) => fragment.fields) ?? []
+    /**
+     * Fields must be hydrated after the interface type
+     */
+    types
+      .filter((fragment) => fragment.__typename === TypeKind.InterfaceType)
+      .flatMap((fragment) => fragment.fields)
+      .forEach((field) => this.fieldDomainService.hydrate(field))
 
-    fields.forEach((field) => this.fieldDomainService.hydrate(field))
-
-    const loadedTypes = flatTypes.map((fragment) =>
-      TypeFactory.create(fragment),
-    )
-
-    for (const type of loadedTypes) {
-      this.types.set(type.id, type)
-    }
-
-    return loadedTypes
+    return types.map((type) => this.types.get(type.id)!)
   }
 
   @modelAction
@@ -105,8 +100,22 @@ export class TypeDomainService
     return null
   }
 
-  getType(id: string) {
-    return this.types.get(id)
+  type<T extends ITypeModel>(id: string) {
+    const type = this.types.get(id)
+
+    Validator.assertsDefined(type)
+
+    return type as T
+  }
+
+  typeByKind<T extends ITypeKind>(kind: T) {
+    const foundType = Array.from(this.types.values()).find(
+      (type) => type.kind === kind,
+    )
+
+    Validator.assertsDefined(foundType)
+
+    return foundType
   }
 
   @computed

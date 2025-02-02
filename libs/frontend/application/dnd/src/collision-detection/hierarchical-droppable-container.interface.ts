@@ -1,6 +1,5 @@
+import type { Rect } from '@codelab/frontend/shared/utils'
 import type { UniqueIdentifier } from '@dnd-kit/core'
-
-import type { Rect } from '../geometry'
 
 export interface HierarchicalDroppableContainer {
   ancestors: Array<UniqueIdentifier>

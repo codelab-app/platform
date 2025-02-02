@@ -6,7 +6,6 @@ module "codelab_neo4j" {
 
   loki_url = var.LOKI_URL
 
-
   neo4j_user     = var.NEO4J_USER
   neo4j_password = var.NEO4J_PASSWORD
 

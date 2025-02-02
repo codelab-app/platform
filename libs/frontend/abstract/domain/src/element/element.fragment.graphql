@@ -1,8 +1,8 @@
 fragment Element on Element {
   __typename
+  compositeKey
   childMapperComponent {
     id
-    name
   }
   childMapperPreviousSibling {
     id
@@ -28,11 +28,11 @@ fragment Element on Element {
   parentElement {
     id
   }
-  postRenderAction {
+  postRenderActions {
     id
     type
   }
-  preRenderAction {
+  preRenderActions {
     id
     type
   }
@@ -45,14 +45,7 @@ fragment Element on Element {
   renderForEachPropKey
   renderIfExpression
   renderType {
-    ... on Atom {
-      __typename
-      ...AtomBuilder
-    }
-    ... on Component {
-      __typename
-      id
-    }
+    ...ElementRenderType
   }
   style
   tailwindClassNames
@@ -89,11 +82,11 @@ fragment ElementProduction on Element {
   parentElement {
     id
   }
-  postRenderAction {
+  postRenderActions {
     id
     type
   }
-  preRenderAction {
+  preRenderActions {
     id
     type
   }
@@ -106,14 +99,7 @@ fragment ElementProduction on Element {
   renderForEachPropKey
   renderIfExpression
   renderType {
-    ... on Atom {
-      __typename
-      ...AtomProduction
-    }
-    ... on Component {
-      __typename
-      id
-    }
+    ...ElementRenderTypeProduction
   }
   style
   tailwindClassNames

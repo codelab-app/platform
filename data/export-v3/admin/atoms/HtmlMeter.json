@@ -9,6 +9,22 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
+          "id": "b24af1b5-6c50-4864-817c-e7f0c4a39374"
+        },
+        "id": "c4d5e6f7-8a9b-4c3d-2e1f-0a1b2c3d4e5f",
+        "key": "children",
+        "name": "Children",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "d7943ca3-8c2d-4bff-97a6-be0eef4c9994"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
           "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
         },
         "id": "6ae946bc-3be5-4ab7-93a9-0ccdf9113065",
@@ -125,6 +141,24 @@
         "id": "d7943ca3-8c2d-4bff-97a6-be0eef4c9994",
         "kind": "InterfaceType",
         "name": "HtmlMeter API"
+      },
+      {
+        "__typename": "UnionType",
+        "id": "b24af1b5-6c50-4864-817c-e7f0c4a39374",
+        "kind": "UnionType",
+        "name": "AtomChildren Union",
+        "typesOfUnionType": [
+          {
+            "__typename": "CodeMirrorType",
+            "id": "010c4f5a-434b-4c3e-a0ed-01eb1f78172a",
+            "name": "Typescript Code"
+          },
+          {
+            "__typename": "RichTextType",
+            "id": "e7558508-3bb7-4f57-8f8c-6ac989911765",
+            "name": "RichTextType"
+          }
+        ]
       }
     ]
   },

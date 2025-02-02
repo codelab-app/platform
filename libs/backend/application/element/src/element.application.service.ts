@@ -2,15 +2,16 @@ import type {
   ICreateComponentData,
   ICreateElementData,
   IElementRenderTypeDto,
+  IPropDto,
   IRef,
 } from '@codelab/shared/abstract/core'
 
 import { AtomDomainService } from '@codelab/backend/domain/atom'
 import { ComponentRepository } from '@codelab/backend/domain/component'
 import { ElementRepository } from '@codelab/backend/domain/element'
-import { PropDomainService } from '@codelab/backend/domain/prop'
-import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
+import { Prop, PropDomainService } from '@codelab/backend/domain/prop'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
+import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
 import { Injectable } from '@nestjs/common'
 import { v4 } from 'uuid'
 
@@ -20,7 +21,7 @@ export class ElementApplicationService {
     private elementRepository: ElementRepository,
     private atomDomainService: AtomDomainService,
     private componentRepository: ComponentRepository,
-    private loggerService: CodelabLoggerService,
+    private loggerService: PinoLoggerService,
     private propDomainService: PropDomainService,
   ) {}
 
@@ -35,7 +36,12 @@ export class ElementApplicationService {
   }
 
   async createElement(element: ICreateElementData, closestContainerNode: IRef) {
-    const props = await this.propDomainService.createProp(element.propsData)
+    // const props = await this.propDomainService.createProp(element.propsData)
+    const props = {
+      data: JSON.stringify(element.propsData ?? {}),
+      id: v4(),
+    }
+
     let renderType: IElementRenderTypeDto
 
     if (element.atom) {
@@ -50,7 +56,9 @@ export class ElementApplicationService {
       renderType = await this.atomDomainService.defaultRenderType()
     }
 
-    this.loggerService.log({ atom: element.atom, renderType }, 'Create element')
+    this.loggerService.debug('Create element', {
+      data: { atom: element.atom, renderType },
+    })
 
     return await this.elementRepository.add({
       ...element,

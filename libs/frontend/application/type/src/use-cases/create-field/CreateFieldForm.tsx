@@ -11,7 +11,7 @@ import {
   FormController,
 } from '@codelab/frontend-presentation-components-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
-import { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
+import { PrimitiveTypeKind } from '@codelab/shared/infra/gqlgen'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
@@ -20,7 +20,6 @@ import { useFieldService } from '../../services'
 import { useFieldSchema } from '../hooks'
 import { TypeSelect } from '../select-types'
 import { createFieldSchema } from './create-field.schema'
-import { useCreateFieldForm } from './create-field.state'
 import {
   canSetDefaultValue,
   filterValidationRules,
@@ -31,17 +30,18 @@ import {
   isString,
 } from './field-utils'
 
-export const CreateFieldForm = observer<IFormController>(
-  ({ onSubmitSuccess, showFormControl = true, submitRef }) => {
+interface CreateFieldFormProps extends IFormController {
+  interfaceId: string
+}
+
+export const CreateFieldForm = observer<CreateFieldFormProps>(
+  ({ interfaceId, onSubmitSuccess, showFormControl = true, submitRef }) => {
     const fieldService = useFieldService()
     const { typeDomainService } = useDomainStore()
     const fieldSchema = useFieldSchema(createFieldSchema)
-    const createFieldForm = useCreateFieldForm()
-    const closeForm = () => createFieldForm.close()
-    const interfaceTypeId = createFieldForm.data?.id
 
     const onSubmit = (input: ICreateFieldData) => {
-      if (!interfaceTypeId) {
+      if (!interfaceId) {
         throw new Error('Missing interface type id')
       }
 
@@ -58,7 +58,7 @@ export const CreateFieldForm = observer<IFormController>(
         errorMessage="Error while creating field"
         model={{
           id: v4(),
-          interfaceTypeId,
+          interfaceTypeId: interfaceId,
         }}
         modelTransform={(mode, model) => {
           // This automatically sets the `defaultValue` to be nullable for types
@@ -81,10 +81,7 @@ export const CreateFieldForm = observer<IFormController>(
           return model
         }}
         onSubmit={onSubmit}
-        onSubmitSuccess={() => {
-          closeForm()
-          onSubmitSuccess?.()
-        }}
+        onSubmitSuccess={onSubmitSuccess}
         schema={fieldSchema}
         submitRef={submitRef}
         successMessage="Field created successfully"
@@ -149,7 +146,7 @@ export const CreateFieldForm = observer<IFormController>(
         </DisplayIfField>
 
         <DisplayIf condition={showFormControl}>
-          <FormController onCancel={closeForm} submitLabel="Create Field" />
+          <FormController submitLabel="Create Field" />
         </DisplayIf>
       </Form>
     )

@@ -3,7 +3,7 @@ import { tagRepository } from '@codelab/frontend-domain-tag/repositories'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { DashboardPopover } from '@codelab/frontend-presentation-view/templates'
 
-import UpdateTagContainer from './page.container'
+import UpdateTagConnector from './page.connector'
 
 const Page = async ({ params: { id } }: { params: { id: string } }) => {
   const tagDto = await tagRepository.findOne({ id })
@@ -14,7 +14,7 @@ const Page = async ({ params: { id } }: { params: { id: string } }) => {
         fallback={<Spinner />}
         tagsDto={tagDto ? [tagDto] : []}
       >
-        <UpdateTagContainer id={id} />
+        <UpdateTagConnector id={id} />
       </DomainStoreHydrator>
     </DashboardPopover>
   )

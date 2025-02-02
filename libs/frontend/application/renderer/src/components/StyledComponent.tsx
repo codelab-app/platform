@@ -1,30 +1,29 @@
 import type { IComponentType } from '@codelab/frontend/abstract/domain'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import type { PropsWithChildren } from 'react'
 
 import { camelCaseToKebabCaseOnlyKeys } from '@codelab/shared/utils'
-import { forwardRef, Fragment, useCallback } from 'react'
+import {
+  forwardRef,
+  Fragment,
+  type PropsWithChildren,
+  useCallback,
+} from 'react'
 import styled from 'styled-components'
 
-const ReusableStyledComponent = styled('placeholder')`
+const Placeholder = styled('placeholder')`
   ${(props: IPropData) => camelCaseToKebabCaseOnlyKeys(props['css'])}
 `
 
-export interface StyledComponentProps {
+export interface StyledComponentProps extends PropsWithChildren {
   ReactComponent: IComponentType
   componentProps: IPropData
 }
 
 export const StyledComponent = forwardRef(
-  (
-    {
-      children,
-      componentProps,
-      ReactComponent,
-    }: PropsWithChildren<StyledComponentProps>,
-    ref,
-  ) => {
+  ({ children, componentProps, ReactComponent }: StyledComponentProps, ref) => {
+    const { key, ...restComponentProps } = componentProps
+
     const onRefChange = useCallback((node: Nullable<HTMLElement>) => {
       componentProps['ref']?.(node)
 
@@ -37,15 +36,12 @@ export const StyledComponent = forwardRef(
       }
     }, [])
 
-    // do not wrap with styled() if it's React.Fragment
     if (ReactComponent === Fragment) {
       return children
     }
 
-    const { key, ...restComponentProps } = componentProps
-
     return (
-      <ReusableStyledComponent
+      <Placeholder
         id="reuseable-styled-component"
         key={key}
         // eslint-disable-next-line react/jsx-props-no-spreading
@@ -54,7 +50,7 @@ export const StyledComponent = forwardRef(
         ref={onRefChange}
       >
         {children}
-      </ReusableStyledComponent>
+      </Placeholder>
     )
   },
 )

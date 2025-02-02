@@ -1,34 +1,34 @@
 import type {
+  CrudActionPopoverParams,
+  IActionService,
+} from '@codelab/frontend/abstract/application'
+import type {
   IActionDto,
   ICreateActionData,
-  IRef,
   IUpdateActionData,
 } from '@codelab/shared/abstract/core'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import { type IActionService } from '@codelab/frontend/abstract/application'
 import {
   type IActionModel,
   type IActionWhere,
 } from '@codelab/frontend/abstract/domain'
 import { PageType, PrimarySidebar } from '@codelab/frontend/abstract/types'
-import { useHydrateStore } from '@codelab/frontend/infra/context'
-import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
+import { useDomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { actionRepository } from '@codelab/frontend-domain-store/repositories'
 import {
   useApplicationStore,
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
 import { IActionKind } from '@codelab/shared/abstract/core'
-import { actionFactory } from '@codelab/shared/domain-old'
-import { Validator } from '@codelab/shared/infra/schema'
+import { Validator } from '@codelab/shared/infra/typebox'
+import { actionFactory } from '@codelab/shared-domain-module/action'
 import { v4 } from 'uuid'
 
 export const useActionService = (): IActionService => {
-  const { appId, componentId, pageId } = useUrlPathParams()
   const { actionDomainService } = useDomainStore()
   const { builderService } = useApplicationStore()
-  const hydrate = useHydrateStore()
+  const hydrate = useDomainStoreHydrator()
 
   const cloneAction = async (action: IActionModel, storeId: string) => {
     return await recursiveClone(action, storeId)
@@ -127,25 +127,20 @@ export const useActionService = (): IActionService => {
     return await actionRepository.add(newActionDto)
   }
 
-  const getOneFromCache = (ref: IRef) => {
-    return actionDomainService.actions.get(ref.id)
-  }
-
-  const getAllFromCache = () => {
-    return Array.from(actionDomainService.actions.values())
-  }
-
   const createPopover = {
     close: (router: AppRouterInstance) => {
       router.back()
     },
-    open: (router: AppRouterInstance) => {
+    open: (
+      router: AppRouterInstance,
+      { appId, componentId, pageId, storeId }: CrudActionPopoverParams,
+    ) => {
       const url =
         appId && pageId
           ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
           : PageType.ComponentBuilder({ componentId })
 
-      router.push(`${url}/create-action`)
+      router.push(`${url}/store/${storeId}/create-action`)
     },
   }
 
@@ -153,13 +148,33 @@ export const useActionService = (): IActionService => {
     close: (router: AppRouterInstance) => {
       router.back()
     },
-    open: (router: AppRouterInstance) => {
+    open: (
+      router: AppRouterInstance,
+      { actionId, appId, componentId, pageId }: CrudActionPopoverParams,
+    ) => {
       const url =
         appId && pageId
           ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
           : PageType.ComponentBuilder({ componentId })
 
-      router.push(`${url}/update-action`)
+      router.push(`${url}/update-action/${actionId}`)
+    },
+  }
+
+  const deletePopover = {
+    close: (router: AppRouterInstance) => {
+      router.back()
+    },
+    open: (
+      router: AppRouterInstance,
+      { actionId, appId, componentId, pageId }: CrudActionPopoverParams,
+    ) => {
+      const url =
+        appId && pageId
+          ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
+          : PageType.ComponentBuilder({ componentId })
+
+      router.push(`${url}/delete/action/${actionId}`)
     },
   }
 
@@ -167,10 +182,9 @@ export const useActionService = (): IActionService => {
     cloneAction,
     create,
     createPopover,
+    deletePopover,
     getAll,
-    getAllFromCache,
     getOne,
-    getOneFromCache,
     removeMany,
     update,
     updatePopover,

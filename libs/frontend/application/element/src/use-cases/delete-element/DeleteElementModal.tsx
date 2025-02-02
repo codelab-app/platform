@@ -1,27 +1,30 @@
 'use client'
-import type { IBuilderService } from '@codelab/frontend/abstract/application'
 
 import { UiKey } from '@codelab/frontend/abstract/types'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend-infra-mobx/context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/navigation'
 import { AutoFields } from 'uniforms-antd'
 
 import type { DeleteElementData } from './delete-element.schema'
 
 import { useElementService } from '../../services'
 import { deleteElementSchema } from './delete-element.schema'
-import { useDeleteElementModal } from './delete-element.state'
 import { deleteElementUseCase } from './delete-element.use-case'
 
 export const DeleteElementModal = observer<{
-  selectPreviousElementOnDelete: IBuilderService['selectPreviousElementOnDelete']
-}>(({ selectPreviousElementOnDelete }) => {
+  id: string
+}>(({ id }) => {
+  const { builderService } = useApplicationStore()
+  const router = useRouter()
   const elementService = useElementService()
-  const deleteElementModal = useDeleteElementModal()
   const { elementDomainService } = useDomainStore()
-  const closeModal = () => deleteElementModal.close()
-  const elementToDelete = deleteElementModal.data
+  const closeModal = () => elementService.deletePopover.close(router)
+  const elementToDelete = elementDomainService.elements.get(id)
 
   if (!elementToDelete) {
     return null
@@ -30,12 +33,10 @@ export const DeleteElementModal = observer<{
   const model = { element: { id: elementToDelete.id } }
 
   const onSubmit = ({ element }: DeleteElementData) => {
-    const targetElement = elementService.getElement(element.id)
+    const targetElement = elementDomainService.element(element.id)
 
-    return deleteElementUseCase(
-      targetElement,
-      elementDomainService,
-      selectPreviousElementOnDelete,
+    return deleteElementUseCase(targetElement, elementDomainService, () =>
+      builderService.selectPreviousElementOnDelete(),
     )
   }
 
@@ -43,7 +44,7 @@ export const DeleteElementModal = observer<{
     <ModalForm.Modal
       okText="Delete"
       onCancel={closeModal}
-      open={deleteElementModal.isOpen}
+      open={true}
       title={<span className="font-semibold">Delete element</span>}
       uiKey={UiKey.ElementModalDelete}
     >
@@ -51,7 +52,7 @@ export const DeleteElementModal = observer<{
         errorMessage="Error while deleting element"
         model={model}
         onSubmit={onSubmit}
-        onSubmitOptimistic={closeModal}
+        onSubmitSuccess={closeModal}
         schema={deleteElementSchema}
         successMessage="Element deleted"
       >

@@ -11,7 +11,7 @@ import type {
 import { Store } from '@codelab/frontend-domain-store/store'
 import { InterfaceType } from '@codelab/frontend-domain-type/store'
 import { IPageKind, ITypeKind } from '@codelab/shared/abstract/core'
-import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
+import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
 import { slugify } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 

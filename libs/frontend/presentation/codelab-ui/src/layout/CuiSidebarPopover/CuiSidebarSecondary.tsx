@@ -3,7 +3,6 @@
 import type { PropsWithChildren } from 'react'
 
 import { getUiDataLabel } from '@codelab/frontend/abstract/types'
-import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import { observer } from 'mobx-react-lite'
 
 import type { CuiSidebarPopoverProps } from './CuiSidebarPopover'

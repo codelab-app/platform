@@ -1,19 +1,19 @@
 import type { HttpException } from '@nestjs/common'
+import type { ChangeEvent } from 'react'
 
 import ImportOutlined from '@ant-design/icons/ImportOutlined'
-import LoadingOutlined from '@ant-design/icons/LoadingOutlined'
 import {
   useErrorNotify,
   useSuccessNotify,
 } from '@codelab/frontend/shared/utils'
+import { useLoading } from '@codelab/frontend-application-shared-store/loading'
+import { Button } from 'antd'
 import { useRef } from 'react'
-import { useAsyncFn } from 'react-use'
 
 import { importComponentDataUseCase } from './import-component-data.use-case'
 
 export const ImportComponentDialog = () => {
-  const [{ loading }, importComponent] = useAsyncFn(importComponentDataUseCase)
-  const Icon = loading ? LoadingOutlined : ImportOutlined
+  const { setLoading } = useLoading()
 
   const onError = useErrorNotify({
     description: (event: HttpException) => event.message,
@@ -28,21 +28,32 @@ export const ImportComponentDialog = () => {
   const inputFile = useRef<HTMLInputElement | null>(null)
   const onClick = () => inputFile.current?.click()
 
-  const onFileChange = async () => {
-    const files = inputFile.current?.files
-    const componentDataFile = files?.[0]
+  const onFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
+    const componentDataFile = event.target.files?.[0]
     const formData = new FormData()
 
     if (componentDataFile) {
+      setLoading(true)
       formData.append('file', componentDataFile)
 
-      await importComponent(formData).then(onSuccess).catch(onError)
+      await importComponentDataUseCase(formData)
+        .then(onSuccess)
+        .catch(onError)
+        .finally(() => {
+          event.target.value = ''
+          setLoading(false)
+        })
     }
   }
 
   return (
     <>
-      <Icon onClick={onClick} />
+      <Button
+        icon={<ImportOutlined />}
+        onClick={onClick}
+        size="small"
+        type="text"
+      />
       <input
         accept=".json"
         onChange={onFileChange}

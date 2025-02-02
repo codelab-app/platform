@@ -10,12 +10,14 @@ import { typeRepository } from '@codelab/frontend-domain-type/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Form } from '@codelab/frontend-presentation-components-form'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { PrimitiveTypeKind } from '@codelab/shared/infra/gql'
+import { PrimitiveTypeKind } from '@codelab/shared/infra/gqlgen'
 import { useMemo, useRef } from 'react'
 import { useAsyncFn, useMount } from 'react-use'
 import { isNullish } from 'remeda'
 import { useField } from 'uniforms'
 import { AutoFields } from 'uniforms-antd'
+
+import { uniformSchemaFactory as uniformSchema } from '../../uniform-schema'
 
 export const SelectDefaultValue = () => {
   const { typeDomainService } = useDomainStore()
@@ -38,7 +40,7 @@ export const SelectDefaultValue = () => {
   )
 
   const type = fieldType.value
-    ? typeDomainService.getType(fieldType.value as string)
+    ? typeDomainService.type(fieldType.value as string)
     : null
 
   // Typecasting just for conditional check if field type is primitive
@@ -50,7 +52,14 @@ export const SelectDefaultValue = () => {
   const schema = useMemo(
     () => ({
       label: '',
-      properties: type ? { defaultValues: type.toJsonSchema({}) } : {},
+      properties: type
+        ? {
+            defaultValues: type.toJsonSchema({
+              uniformSchema,
+              validationRules: validationRules.value,
+            }),
+          }
+        : {},
       required: isRequired ? ['defaultValues'] : undefined,
       type: 'object',
     }),

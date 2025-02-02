@@ -22,7 +22,7 @@
         "api": {
           "id": "9a1fb9ff-df8c-4377-9b10-d1f7425c0ff4"
         },
-        "defaultValues": "\"PictureOutlined\"",
+        "defaultValues": "\\\\\\\"PictureOutlined\\\\\\",
         "description": null,
         "fieldType": {
           "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"

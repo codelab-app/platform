@@ -6,7 +6,10 @@ import {
   SelectResource,
 } from '@codelab/frontend/presentation/components/interface-form'
 import { ResourceFetchConfigField } from '@codelab/frontend-application-resource/components'
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend-infra-mobx/context'
 import {
   DisplayIfField,
   Form,
@@ -21,22 +24,24 @@ import { v4 } from 'uuid'
 import { useActionService } from '../../services'
 import { useActionSchema } from '../action-hooks'
 import { createActionSchema } from './create-action.schema'
-import { useCreateActionForm } from './create-action.state'
+
+interface CreateActionFormProps extends IFormController {
+  storeId: string
+}
 
 const CODE_ACTION = `function run() {
     // insert your code here
     // state.count += 2;
 }`
 
-export const CreateActionForm = observer<IFormController>(
-  ({ onSubmitSuccess, showFormControl = true, submitRef }) => {
+export const CreateActionForm = observer<CreateActionFormProps>(
+  ({ onSubmitSuccess, showFormControl = true, storeId, submitRef }) => {
     const actionService = useActionService()
-    const createActionForm = useCreateActionForm()
+    const { storeDomainService } = useDomainStore()
     const actionSchema = useActionSchema(createActionSchema)
     const { builderService } = useApplicationStore()
     const selectedNode = builderService.selectedNode?.maybeCurrent
     const onSubmit = actionService.create
-    const closeForm = createActionForm.close
 
     const model = {
       code: CODE_ACTION,
@@ -53,7 +58,7 @@ export const CreateActionForm = observer<IFormController>(
         id: v4(),
       },
       id: v4(),
-      store: createActionForm.data,
+      store: storeDomainService.stores.get(storeId),
     }
 
     return (
@@ -94,7 +99,7 @@ export const CreateActionForm = observer<IFormController>(
         </DisplayIfField>
 
         <DisplayIf condition={showFormControl}>
-          <FormController onCancel={closeForm} submitLabel="Create Action" />
+          <FormController submitLabel="Create Action" />
         </DisplayIf>
       </Form>
     )

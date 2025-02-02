@@ -1,7 +1,6 @@
-import type { IHtmlAtomRecords, TagNode } from '@codelab/backend/abstract/core'
+import type { IHtmlAtomRecords, TagNode } from '@codelab/shared/abstract/core'
 
-import { IHtmlCategoryTag } from '@codelab/backend/abstract/core'
-import { IAtomType } from '@codelab/shared/abstract/core'
+import { IAtomType, IHtmlCategoryTag } from '@codelab/shared/abstract/core'
 
 /**
  * Taken from here https://developer.mozilla.org/en-US/docs/Web/HTML/Content_categories
@@ -16,7 +15,6 @@ export const htmlTagTree: TagNode<IHtmlCategoryTag | keyof IHtmlAtomRecords> = {
     IAtomType.HtmlMath,
     IAtomType.HtmlObject,
     IAtomType.HtmlPicture,
-    IAtomType.HtmlSvg,
     IAtomType.HtmlVideo,
   ],
   // Treat this as `Other`
@@ -39,7 +37,6 @@ export const htmlTagTree: TagNode<IHtmlCategoryTag | keyof IHtmlAtomRecords> = {
     IAtomType.HtmlOption,
     IAtomType.HtmlP,
     IAtomType.HtmlPre,
-    IAtomType.HtmlParam,
     IAtomType.HtmlBlockquote,
     IAtomType.HtmlSource,
     IAtomType.HtmlTable,
@@ -47,7 +44,6 @@ export const htmlTagTree: TagNode<IHtmlCategoryTag | keyof IHtmlAtomRecords> = {
     IAtomType.HtmlTd,
     IAtomType.HtmlTh,
     IAtomType.HtmlTr,
-    IAtomType.HtmlTemplate,
     IAtomType.HtmlTrack,
     IAtomType.HtmlUl,
   ],
@@ -114,7 +110,6 @@ export const htmlTagTree: TagNode<IHtmlCategoryTag | keyof IHtmlAtomRecords> = {
     IAtomType.HtmlStrong,
     IAtomType.HtmlSub,
     IAtomType.HtmlSup,
-    IAtomType.HtmlSvg,
     IAtomType.HtmlTextarea,
     IAtomType.HtmlTime,
     IAtomType.HtmlU,

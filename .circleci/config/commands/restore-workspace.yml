@@ -1,6 +1,7 @@
 description: 'Restore Workspace'
 steps:
   - checkout
+  # Attach `dist` folder
   - attach_workspace:
       at: ~/
   - restore_cache:
@@ -18,4 +19,5 @@ steps:
   #       # This is needed for e2e to run, but we add it here for simplicity
   #       - nx-cache-{{ checksum ".nx/cache/lockfile.hash" }}
   - install-pnpm
+  - install-cypher-shell
   - setup-env

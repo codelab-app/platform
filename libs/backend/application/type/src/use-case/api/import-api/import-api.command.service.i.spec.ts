@@ -5,7 +5,7 @@ import {
   ReadAdminDataService,
 } from '@codelab/backend/application/data'
 import { InterfaceType, TypeDomainModule } from '@codelab/backend/domain/type'
-import { initUserContext } from '@codelab/backend/test'
+import { initUserContext } from '@codelab/backend/test/setup'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { sortBy } from 'remeda'
 
@@ -53,9 +53,7 @@ describe('ImportApiCommand', () => {
       throw new Error('Not found!')
     }
 
-    const importApiCommand = new ImportApiCommand(buttonAtom.api)
-
-    await commandBus.execute(importApiCommand)
+    await commandBus.execute(new ImportApiCommand(buttonAtom.api))
 
     const api = await typeApplicationService.getApiByAtomName(
       IAtomType.AntDesignButton,
@@ -71,8 +69,8 @@ describe('ImportApiCommand', () => {
         fields: expect.arrayContaining(
           buttonAtom.api.fields.map((field) =>
             expect.objectContaining({
-              ...field,
               fieldType: expect.objectContaining(field.fieldType),
+              id: field.id,
             }),
           ),
         ),

@@ -9,14 +9,9 @@ import type {
 } from '@codelab/frontend/abstract/application'
 import type { TablePaginationConfig } from 'antd'
 
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
-import { withAsyncSpanFunc } from '@codelab/shared-infra-sentry'
-import * as Sentry from '@sentry/react'
-import { addBreadcrumb } from '@sentry/react'
 import { useRouter } from 'next/navigation'
 import queryString from 'query-string'
 import { useEffect } from 'react'
-import { useCustomCompareEffect, useDeepCompareEffect } from 'react-use'
 import { debounce } from 'remeda'
 
 import { paginationContext } from './pagination.service'
@@ -92,8 +87,8 @@ export const useTablePagination = <T extends SupportedPaginationModel>({
     isLoading: paginationService.isLoading,
     isLoadingBetweenPages: paginationService.isLoadingBetweenPages,
     onSearch: (searchText: string) =>
-      routerService.setQueryParams({
-        ...routerService.queryParams,
+      routerService.setSearchParams({
+        ...routerService.searchParams,
         search: searchText,
       }),
     pagination,

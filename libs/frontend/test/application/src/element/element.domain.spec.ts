@@ -1,5 +1,3 @@
-import type { IElementDto } from '@codelab/shared/abstract/core'
-
 import { atomRef, type IElementModel } from '@codelab/frontend/abstract/domain'
 import {
   atomReactFragmentDto,
@@ -8,7 +6,8 @@ import {
   userDto,
 } from '@codelab/frontend/test/data'
 import { createTestStore } from '@codelab/frontend-infra-mobx/store'
-import { Validator } from '@codelab/shared/infra/schema'
+import { type IElementDto, ITypeKind } from '@codelab/shared/abstract/core'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { isRefOfType } from 'mobx-keystone'
 import { v4 } from 'uuid'
 
@@ -28,6 +27,9 @@ describe('Element domain', () => {
   rootElementDto.renderType.id = atomReactFragmentDto.id
   typeDomainService.hydrateInterface({
     ...atomReactFragmentDto.api,
+    __typename: ITypeKind.InterfaceType,
+    kind: ITypeKind.InterfaceType,
+    name: 'Interface',
     owner: userDto,
   })
   elementDomainService.hydrate({ ...rootElementDto, page: pageDto })

@@ -1,9 +1,4 @@
-import type { IAuthGuard, IAuthGuardDto } from '@codelab/shared/abstract/core'
-import type {
-  AuthGuardCreateInput,
-  AuthGuardDeleteInput,
-  AuthGuardUpdateInput,
-} from '@codelab/shared/infra/gql'
+import type { IAuthGuardDto } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 
 import type { IPropModel } from '../prop'

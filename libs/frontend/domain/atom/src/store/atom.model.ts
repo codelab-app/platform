@@ -2,42 +2,25 @@ import type {
   IAtomModel,
   IInterfaceTypeModel,
   ITagModel,
+  IUserModel,
 } from '@codelab/frontend/abstract/domain'
 import type { IAtomDto, IAtomType } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 
 import AntDesignOutlined from '@ant-design/icons/AntDesignOutlined'
 import Html5Outlined from '@ant-design/icons/Html5Outlined'
-import {
-  atomRef,
-  getUserDomainService,
-  IUserModel,
-  typeRef,
-  userRef,
-} from '@codelab/frontend/abstract/domain'
+import { atomRef, typeRef, userRef } from '@codelab/frontend/abstract/domain'
 import { tagRef } from '@codelab/frontend-domain-tag/store'
-import {
-  IElementRenderTypeKind,
-  ITypeKind,
-} from '@codelab/shared/abstract/core'
-import { AtomCreateInput, AtomUpdateInput } from '@codelab/shared/infra/gql'
+import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import {
   antdAtoms,
   codelabAtoms,
   htmlAtoms,
   reactAtoms,
 } from '@codelab/shared-domain-module-atom'
-import { action, computed, runInAction, untracked } from 'mobx'
-import {
-  idProp,
-  Model,
-  model,
-  modelAction,
-  prop,
-  runUnprotected,
-} from 'mobx-keystone'
+import { computed } from 'mobx'
+import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { createElement } from 'react'
-import { v4 } from 'uuid'
 
 const create = ({
   api,
@@ -109,18 +92,18 @@ export class Atom
           name: 'HTML',
         }
       : antdAtoms.includes(atomType)
-      ? {
-          color: 'geekblue',
-          icon: createElement(AntDesignOutlined),
-          name: 'Ant Design',
-        }
-      : codelabAtoms.includes(atomType)
-      ? { color: 'yellow', name: 'Codelab' }
-      : reactAtoms.includes(atomType)
-      ? { color: 'green', name: 'React' }
-      : atomType === 'ExternalComponent'
-      ? { color: 'brown', name: 'External' }
-      : { color: 'black', name: 'Unknown' }
+        ? {
+            color: 'geekblue',
+            icon: createElement(AntDesignOutlined),
+            name: 'Ant Design',
+          }
+        : codelabAtoms.includes(atomType)
+          ? { color: 'yellow', name: 'Codelab' }
+          : reactAtoms.includes(atomType)
+            ? { color: 'green', name: 'React' }
+            : atomType === 'ExternalComponent'
+              ? { color: 'brown', name: 'External' }
+              : { color: 'black', name: 'Unknown' }
   }
 
   @computed

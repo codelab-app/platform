@@ -1,4 +1,3 @@
-import type { IAtomRecords } from '@codelab/backend/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
 import { AtomRepository } from '@codelab/backend/domain/atom'
@@ -10,6 +9,7 @@ import {
 } from '@codelab/backend/domain/type'
 import {
   type IAtomDto,
+  IAtomRecords,
   IAtomType,
   IElementRenderTypeKind,
 } from '@codelab/shared/abstract/core'

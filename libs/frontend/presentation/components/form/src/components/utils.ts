@@ -1,14 +1,12 @@
-import type { FormProps, SubmitRef } from '@codelab/frontend/abstract/types'
+import type { SubmitRef } from '@codelab/frontend/abstract/types'
 import type { MouseEvent } from 'react'
-import type { DeepPartial } from 'uniforms'
 
 import {
   useErrorNotify,
   useSuccessNotify,
 } from '@codelab/frontend/shared/utils'
-import { useLoading } from '@codelab/frontend-application-shared-store/loading'
-import { throttle } from 'radash'
-import { debounce } from 'remeda'
+import { loadingAtom } from '@codelab/frontend-application-shared-store/loading'
+import { useSetAtom } from 'jotai'
 
 import type { OptimisticFormProps } from '../modal/ModalForm.Form'
 
@@ -28,11 +26,14 @@ export const useAsyncHandler = <TData, TResponse>(
    */
   setIsLoading?: SetIsLoading,
 ) => {
-  const { setLoading } = useLoading()
+  /**
+   * We use `useSetAtom` since we don't need to read the value, this makes sure we don't re-render the component when the loading state changes
+   */
+  const setLoadingState = useSetAtom(loadingAtom)
 
   const setAllLoadingState = (loading: boolean) => {
     setIsLoading?.(loading)
-    setLoading(loading)
+    setLoadingState((prev) => ({ ...prev, isLoading: loading }))
   }
 
   return (
@@ -44,11 +45,17 @@ export const useAsyncHandler = <TData, TResponse>(
     async (formData?: TData) => {
       setAllLoadingState(true)
 
+      console.log('Form submitted')
+
       const submitPromise = onSubmit(formData)
 
       onSubmitOptimistic()
 
-      return submitPromise.finally(() => setAllLoadingState(false))
+      return submitPromise.finally(() => {
+        console.debug('Form submission complete')
+
+        setAllLoadingState(false)
+      })
     }
 }
 
@@ -81,10 +88,10 @@ type PostSubmitProps<TData, TResponse> = Pick<
 export const usePostSubmit = <TData, TResponse>({
   errorMessage = 'Error submitting form',
   onSubmitError = () => {
-    return
+    return Promise.reject()
   },
   onSubmitSuccess = () => {
-    return
+    return Promise.resolve()
   },
   successMessage = '',
 }: PostSubmitProps<TData, TResponse>) => {

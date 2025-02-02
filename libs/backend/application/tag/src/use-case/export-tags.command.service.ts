@@ -1,9 +1,8 @@
-import type { TagWhere } from '@codelab/backend/abstract/codegen'
-import type { ITag, ITagExport } from '@codelab/shared/abstract/core'
+import type { ITagExport } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
-import { SortDirection } from '@codelab/backend/abstract/codegen'
 import { TagRepository } from '@codelab/backend/domain/tag'
+import { SortDirection, TagWhere } from '@codelab/shared/infra/gqlgen'
 import { CommandHandler } from '@nestjs/cqrs'
 
 export class ExportTagsCommand {
@@ -24,11 +23,13 @@ export class ExportTagsHandler
       where,
     })
 
-    // We don't need owner for now
-    return tags.map(({ owner, ...tag }) => ({
+    // We don't need owner or descendants for now
+    return tags.map(({ descendants, owner, ...tag }) => ({
       ...tag,
-      // Sort children values
-      children: tag.children.sort((a, b) => a.name.localeCompare(b.name)),
+      // Sort children values and remove owner and descendants from each child
+      children: tag.children
+        .map(({ owner: childOwner, ...child }) => child)
+        .sort((a, b) => a.name.localeCompare(b.name)),
     }))
   }
 }

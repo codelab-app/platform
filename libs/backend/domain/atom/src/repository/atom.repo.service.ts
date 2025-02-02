@@ -1,79 +1,60 @@
-import type {
-  Atom,
-  AtomOptions,
-  AtomWhere,
-} from '@codelab/backend/abstract/codegen'
-import type { IAtomDto } from '@codelab/shared/abstract/core'
+import type { IAtomDto, INodeType } from '@codelab/shared/abstract/core'
+import type { AtomOptions, AtomWhere } from '@codelab/shared/infra/gqlgen'
 
-import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
-import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
-import {
-  atomSelectionSet,
-  OgmService,
-} from '@codelab/backend/infra/adapter/neo4j'
-import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import {
-  atomMapper,
-  connectNodeId,
-  connectNodeIds,
-  connectOwner,
-  reconnectNodeId,
-  reconnectNodeIds,
-  whereNodeIds,
-} from '@codelab/shared/domain-old'
+import { AtomFragment } from '@codelab/shared/infra/gqlgen'
+import { atomApi, atomMapper } from '@codelab/shared-domain-module-atom'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class AtomRepository extends AbstractRepository<
+  INodeType.Atom,
   IAtomDto,
-  Atom,
+  AtomFragment,
   AtomWhere,
   AtomOptions
 > {
-  constructor(
-    private ogmService: OgmService,
-    protected override validationService: ValidationService,
-    protected override loggerService: CodelabLoggerService,
-  ) {
-    super(validationService, loggerService)
+  constructor(protected override loggerService: PinoLoggerService) {
+    super(loggerService)
   }
 
   /**
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
   protected async _addMany(atoms: Array<IAtomDto>) {
-    return (
-      await (
-        await this.ogmService.Atom
-      ).create({
-        input: atoms.map((atom) => atomMapper.toCreateInput(atom)),
-      })
-    ).atoms
+    const {
+      createAtoms: { atoms: createdAtoms },
+    } = await atomApi().CreateAtoms({
+      input: atoms.map((atom) => atomMapper.toCreateInput(atom)),
+    })
+
+    return createdAtoms
   }
 
   protected async _find({
     options,
-    selectionSet = `{ ${atomSelectionSet} }`,
     where,
   }: {
     where?: AtomWhere
     options?: AtomOptions
-    selectionSet?: string
   }) {
-    return await (
-      await this.ogmService.Atom
-    ).find({ options, selectionSet, where })
+    const { items } = await atomApi().AtomList({
+      options,
+      where,
+    })
+
+    return items
   }
 
   protected async _update(atom: IAtomDto, where: AtomWhere) {
-    return (
-      await (
-        await this.ogmService.Atom
-      ).update({
-        update: atomMapper.toUpdateInput(atom),
-        where,
-      })
-    ).atoms[0]
+    const {
+      updateAtoms: { atoms },
+    } = await atomApi().UpdateAtoms({
+      update: atomMapper.toUpdateInput(atom),
+      where,
+    })
+
+    return atoms[0]
   }
 }

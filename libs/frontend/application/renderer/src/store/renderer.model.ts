@@ -46,11 +46,17 @@ import { typedPropTransformersFactory } from '../typed-prop-transformers'
  * For example - we use the renderContext from ./renderContext inside the pipes to get the renderer model itself and its tree.
  */
 
-const create = ({ containerNode, rendererType }: IRendererDto) => {
+const create = ({ containerNode, id, rendererType }: IRendererDto) => {
   return new Renderer({
     containerNode: isPage(containerNode)
       ? pageRef(containerNode)
       : componentRef(containerNode),
+    /**
+     * Renderer uses an ID based on container node, but can't be the same, so we prefix it with the renderer type
+     *
+     * Our renderer ref prefixes it
+     */
+    id,
     rendererType,
   })
 }

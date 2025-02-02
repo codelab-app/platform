@@ -17,7 +17,7 @@ import { CreateAtomForm } from './CreateAtomForm'
 export const CreateAtomPopover = withProfiler(
   observer(() => {
     const submitRef = useRef<Maybe<SubmitController>>()
-    const { atomPopoverCreate } = useAtomService()
+    const { createPopover } = useAtomService()
     const router = useRouter()
 
     return (
@@ -39,7 +39,7 @@ export const CreateAtomPopover = withProfiler(
               icon: <CloseOutlined />,
               label: 'Cancel',
               onClick: () => {
-                atomPopoverCreate.close(router)
+                createPopover.close(router)
               },
               title: 'Cancel',
             },
@@ -48,7 +48,7 @@ export const CreateAtomPopover = withProfiler(
         }}
       >
         <CreateAtomForm
-          onSubmitSuccess={() => atomPopoverCreate.close(router)}
+          onSubmitSuccess={() => createPopover.close(router)}
           submitRef={submitRef}
         />
       </CuiSidebarSecondary>

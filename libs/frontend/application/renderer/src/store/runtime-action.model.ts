@@ -1,5 +1,5 @@
 import type {
-  IRuntimeActionDTO,
+  IRuntimeActionDto,
   IRuntimeActionModel,
   IRuntimeContext,
   IRuntimeStoreModel,
@@ -21,7 +21,7 @@ import { computed } from 'mobx'
 import { idProp, Model, model, prop } from 'mobx-keystone'
 import { mergeDeep } from 'remeda'
 
-const create = ({ action, runtimeStore }: IRuntimeActionDTO) =>
+const create = ({ action, runtimeStore }: IRuntimeActionDto) =>
   new RuntimeActionModel({ action, runtimeStore })
 
 @model('@codelab/RuntimeAction')

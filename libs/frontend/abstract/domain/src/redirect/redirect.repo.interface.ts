@@ -1,19 +1,15 @@
-import type { IRedirectDto, IResourceDto } from '@codelab/shared/abstract/core'
+import type { IRedirectDto } from '@codelab/shared/abstract/core'
 import type {
-  RedirectCreateInput,
-  RedirectDeleteInput,
-  RedirectFragment,
   RedirectOptions,
-  RedirectUpdateInput,
+  RedirectPreviewFragment,
   RedirectWhere,
-} from '@codelab/shared/infra/gql'
+} from '@codelab/shared/infra/gqlgen'
 
 import type { IRepository } from '../shared'
-import type { IRedirectModel } from './redirect.model.interface'
 
 export type IRedirectRepository = IRepository<
   IRedirectDto,
-  RedirectFragment,
+  RedirectPreviewFragment,
   RedirectWhere,
   RedirectOptions
 >

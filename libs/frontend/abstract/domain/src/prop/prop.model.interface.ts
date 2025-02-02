@@ -1,9 +1,5 @@
-import type { IProp, IPropData, IPropDto } from '@codelab/shared/abstract/core'
+import type { IPropData, IPropDto } from '@codelab/shared/abstract/core'
 import type { Nullable, ObjectLike } from '@codelab/shared/abstract/types'
-import type {
-  PropCreateInput,
-  PropUpdateInput,
-} from '@codelab/shared/infra/gql'
 import type { Frozen, Ref } from 'mobx-keystone'
 import type { ArrayOrSingle } from 'ts-essentials/dist/types'
 
@@ -18,8 +14,8 @@ export interface IPropModel extends IModel<IPropDto, IPropModel> {
   jsonString: string
   values: IPropData
   clone(): IPropModel
-  delete(key: string): void
   get(key: string): unknown
+  remove(key: string): void
   set(key: string, value: ArrayOrSingle<boolean | string | ObjectLike>): void
   setMany(data: IPropData): void
 }

@@ -1,0 +1,18 @@
+{
+  "name": "shared-infra-gqlgen",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/infra/gqlgen/src",
+  "projectType": "library",
+  "tags": [
+    "projectName:shared-infra-gqlgen",
+    "projectType:library",
+    "type:abstract",
+    "layer:infra",
+    "scope:shared"
+  ],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

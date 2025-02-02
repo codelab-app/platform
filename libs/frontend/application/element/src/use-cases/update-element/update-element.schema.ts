@@ -7,7 +7,7 @@ import {
   titleCaseValidation,
 } from '@codelab/frontend-presentation-components-form/schema'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
-import { ElementTypeKind } from '@codelab/shared/infra/gql'
+import { ElementTypeKind } from '@codelab/shared/infra/gqlgen'
 
 export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
   properties: {
@@ -24,27 +24,31 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
         type: 'string',
       },
     },
-    postRenderAction: {
+    postRenderActions: {
       nullable: true,
-      properties: {
-        id: {
-          label: 'Post render action',
-          type: 'string',
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          ...idSchema({
+            label: 'Post Render action',
+          }),
         },
+        required: [],
       },
-      required: [],
-      type: 'object',
     },
-    preRenderAction: {
+    preRenderActions: {
       nullable: true,
-      properties: {
-        id: {
-          label: 'Pre render action',
-          type: 'string',
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          ...idSchema({
+            label: 'Pre Render action',
+          }),
         },
+        required: [],
       },
-      required: [],
-      type: 'object',
     },
     childMapperComponent: {
       nullable: true,

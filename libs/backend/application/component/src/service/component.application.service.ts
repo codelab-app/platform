@@ -2,7 +2,7 @@ import type {
   IComponentAggregateExport,
   IComponentDto,
   ICreateComponentData,
-  IInterfaceTypeCreateDto,
+  IInterfaceTypeDto,
   IStoreDto,
 } from '@codelab/shared/abstract/core'
 
@@ -12,8 +12,13 @@ import { ComponentRepository } from '@codelab/backend/domain/component'
 import { PropDomainService } from '@codelab/backend/domain/prop'
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { Store } from '@codelab/backend/domain/store'
-import { InterfaceType } from '@codelab/backend/domain/type'
+import {
+  InterfaceType,
+  InterfaceTypeRepository,
+} from '@codelab/backend/domain/type'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { IElementRenderTypeKind, IRole } from '@codelab/shared/abstract/core'
+import { interfaceTypeDtoFactory } from '@codelab/shared-domain-module/type'
 import { Injectable } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 import { v4 } from 'uuid'
@@ -29,16 +34,27 @@ export class ComponentApplicationService {
     private storeApplicationService: StoreApplicationService,
     private elementApplicationService: ElementApplicationService,
     private propDomainService: PropDomainService,
+    private interfaceTypeRepository: InterfaceTypeRepository,
+    private logger: PinoLoggerService,
   ) {}
 
   async createComponent(createComponentData: ICreateComponentData) {
+    this.logger.debug('createComponent', {
+      context: 'Create Component Data',
+      data: createComponentData,
+    })
+
     const owner = this.authDomainService.currentUser
 
-    const api: IInterfaceTypeCreateDto = {
+    if (owner.id !== createComponentData.owner.id) {
+      throw new Error('Owner does not match')
+    }
+
+    const api: IInterfaceTypeDto = interfaceTypeDtoFactory({
       id: v4(),
       name: InterfaceType.createName(`${createComponentData.name} Store`),
       owner,
-    }
+    })
 
     const storeDto: IStoreDto = {
       api,
@@ -68,9 +84,19 @@ export class ComponentApplicationService {
       store,
     }
 
-    const component = await this.componentRepository.add(componentDto)
+    const found = await this.interfaceTypeRepository.findOne({
+      where: { id: api.id },
+    })
 
-    return component
+    if (!found) {
+      throw new Error('Interface type not found')
+    }
+
+    await this.componentRepository.add(componentDto)
+
+    return this.componentRepository.findOneOrFail({
+      where: { id: componentDto.id },
+    })
   }
 
   /**

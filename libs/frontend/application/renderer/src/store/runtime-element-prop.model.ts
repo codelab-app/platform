@@ -1,19 +1,21 @@
 import type {
   IRuntimeActionModel,
+  IRuntimeContext,
   IRuntimeElementModel,
-  IRuntimeElementPropDTO,
+  IRuntimeElementPropDto,
   IRuntimeElementPropModel,
 } from '@codelab/frontend/abstract/application'
 import type { Ref } from 'mobx-keystone'
+import type { ReactNode } from 'react'
 
 import {
   getRendererService,
   getRouterService,
-  IRuntimeContext,
   isRuntimeComponent,
 } from '@codelab/frontend/abstract/application'
 import {
   DATA_ELEMENT_ID,
+  DATA_RUNTIME_ELEMENT_KEY,
   isAtom,
   isAtomRef,
   isComponentRef,
@@ -29,12 +31,12 @@ import {
 } from '@codelab/shared-infra-eval'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
-import { createElement, ReactNode } from 'react'
+import { createElement } from 'react'
 import { mergeDeep, pathOr, stringToPath } from 'remeda'
 
 import { CodeMirrorEditorWrapper, RichTextEditorWrapper } from '../components'
 
-const create = (dto: IRuntimeElementPropDTO) =>
+const create = (dto: IRuntimeElementPropDto) =>
   new RuntimeElementPropsModel(dto)
 
 @model('@codelab/RuntimeElementProps')
@@ -153,7 +155,8 @@ export class RuntimeElementPropsModel
        * Internal system props for meta data, use double underline for system-defined identifiers.
        */
       [DATA_ELEMENT_ID]: this.element.id,
-      key: this.element.id,
+      [DATA_RUNTIME_ELEMENT_KEY]: this.runtimeElement.current.compositeKey,
+      key: this.runtimeElement.current.compositeKey,
       ref: registerReference
         ? (node: HTMLElement) => {
             store.registerRef(slug, node)
@@ -282,7 +285,7 @@ export class RuntimeElementPropsModel
       return {}
     }
 
-    return this.routerService.queryParams
+    return this.routerService.searchParams
   }
 
   @modelAction

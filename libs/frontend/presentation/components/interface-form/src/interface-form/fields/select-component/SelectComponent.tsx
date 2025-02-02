@@ -1,24 +1,30 @@
 'use client'
 
 /* eslint-disable react/jsx-props-no-spreading */
-import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/application'
-import type { Ref } from 'mobx-keystone'
+import type { IComponentModel } from '@codelab/frontend/abstract/domain'
+import type { SelectOption } from '@codelab/frontend/abstract/types'
+import type { FieldProps } from 'uniforms'
 import type { SelectFieldProps } from 'uniforms-antd'
 
 import { getSelectComponentOptions } from '@codelab/frontend-domain-component/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { useEffect } from 'react'
 import { useAsyncFn } from 'react-use'
 import { SelectField } from 'uniforms-antd'
 
-export type SelectComponentProps = Partial<
-  Pick<SelectFieldProps, 'error' | 'label' | 'onChange'>
-> &
-  Pick<SelectFieldProps, 'name'> & {
-    activeComponent?: Ref<IRuntimeComponentModel>
-  }
+export type SelectComponentProps = Pick<
+  FieldProps<
+    string,
+    SelectFieldProps,
+    {
+      component?: Pick<IComponentModel, 'id' | 'name'>
+    }
+  >,
+  'component' | 'error' | 'label' | 'name' | 'onChange'
+>
 
 export const SelectComponent = ({
-  activeComponent,
+  component,
   ...fieldProps
 }: SelectComponentProps) => {
   const { componentDomainService } = useDomainStore()
@@ -26,14 +32,27 @@ export const SelectComponent = ({
   const [
     { error: queryError, loading, value: result },
     selectComponentOptions,
-  ] = useAsyncFn(() =>
-    getSelectComponentOptions(componentDomainService, activeComponent),
+  ] = useAsyncFn<() => Promise<Array<SelectOption> | undefined>>(
+    () => componentDomainService.getSelectOptions(component),
+    [],
+    {
+      // Start with loading state, so we don't show the initial value until label is fetched
+      loading: true,
+    },
   )
+
+  useEffect(() => {
+    void selectComponentOptions()
+  }, [])
+
+  const errors = fieldProps.error || queryError
+
+  console.log('result', result)
 
   return (
     <SelectField
       {...fieldProps}
-      error={fieldProps.error || queryError}
+      error={errors}
       getPopupContainer={(triggerNode) => triggerNode.parentElement}
       loading={loading}
       onDropdownVisibleChange={async (open) => {

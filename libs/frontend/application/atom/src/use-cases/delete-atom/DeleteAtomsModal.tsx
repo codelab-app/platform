@@ -1,7 +1,7 @@
 'use client'
 
 import { UiKey } from '@codelab/frontend/abstract/types'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { observer } from 'mobx-react-lite'
@@ -13,7 +13,8 @@ import { useAtomService } from '../../services'
 export const DeleteAtomsModal = observer<{ id: string }>(({ id }) => {
   const { goToAtomsPage, removeMany } = useAtomService()
   const router = useRouter()
-  const atom = useAtomService().getOneFromCache({ id })
+  const { atomDomainService } = useDomainStore()
+  const atom = atomDomainService.atoms.get(id)
 
   if (!atom) {
     return null
@@ -28,11 +29,9 @@ export const DeleteAtomsModal = observer<{ id: string }>(({ id }) => {
       uiKey={UiKey.AtomsModalDelete}
     >
       <ModalForm.Form
+        errorMessage="Error while deleting atom"
         model={{}}
         onSubmit={() => removeMany([atom])}
-        onSubmitError={createFormErrorNotificationHandler({
-          title: 'Error while deleting atom',
-        })}
         onSubmitSuccess={() => goToAtomsPage(router)}
         schema={emptyJsonSchema}
       >

@@ -1,48 +1,45 @@
 import type {
-  RenderPropType,
+  INodeType,
+  IRenderPropTypeDto,
+} from '@codelab/shared/abstract/core'
+import type {
   RenderPropTypeOptions,
   RenderPropTypeWhere,
-} from '@codelab/backend/abstract/codegen'
-import type { IRenderPropTypeDto } from '@codelab/shared/abstract/core'
+} from '@codelab/shared/infra/gqlgen'
 
-import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
-import {
-  baseTypeSelection,
-  OgmService,
-} from '@codelab/backend/infra/adapter/neo4j'
-import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import { connectOwner } from '@codelab/shared/domain-old'
+import { RenderPropTypeFragment } from '@codelab/shared/infra/gqlgen'
+import {
+  createTypeApi,
+  findTypeApi,
+  renderPropTypeMapper,
+  updateTypeApi,
+} from '@codelab/shared-domain-module/type'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class RenderPropTypeRepository extends AbstractRepository<
+  INodeType.RenderPropType,
   IRenderPropTypeDto,
-  RenderPropType,
+  RenderPropTypeFragment,
   RenderPropTypeWhere,
   RenderPropTypeOptions
 > {
-  constructor(
-    private ogmService: OgmService,
-    protected override validationService: ValidationService,
-    protected override loggerService: CodelabLoggerService,
-  ) {
-    super(validationService, loggerService)
+  constructor(protected override loggerService: PinoLoggerService) {
+    super(loggerService)
   }
 
   protected async _addMany(renderPropTypes: Array<IRenderPropTypeDto>) {
-    return (
-      await (
-        await this.ogmService.RenderPropType
-      ).create({
-        input: renderPropTypes.map(
-          ({ __typename, owner, ...renderPropType }) => ({
-            ...renderPropType,
-            owner: connectOwner(owner),
-          }),
-        ),
-      })
-    ).renderPropTypes
+    const {
+      types: { types },
+    } = await createTypeApi().CreateRenderPropTypes({
+      input: renderPropTypes.map((renderPropType) =>
+        renderPropTypeMapper.toCreateInput(renderPropType),
+      ),
+    })
+
+    return types
   }
 
   protected async _find({
@@ -52,26 +49,25 @@ export class RenderPropTypeRepository extends AbstractRepository<
     where?: RenderPropTypeWhere
     options?: RenderPropTypeOptions
   }) {
-    return await (
-      await this.ogmService.RenderPropType
-    ).find({
+    const { types } = await findTypeApi().GetRenderPropTypes({
       options,
-      selectionSet: `{ ${baseTypeSelection} }`,
       where,
     })
+
+    return types
   }
 
   protected async _update(
-    { __typename, id, name }: IRenderPropTypeDto,
+    renderPropType: IRenderPropTypeDto,
     where: RenderPropTypeWhere,
   ) {
-    return (
-      await (
-        await this.ogmService.RenderPropType
-      ).update({
-        update: { name },
-        where,
-      })
-    ).renderPropTypes[0]
+    const {
+      types: { types },
+    } = await updateTypeApi().UpdateRenderPropTypes({
+      update: renderPropTypeMapper.toUpdateInput(renderPropType),
+      where,
+    })
+
+    return types[0]
   }
 }

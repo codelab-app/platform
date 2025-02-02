@@ -1,14 +1,10 @@
-import type { IElement, IElementDto, IRef } from '@codelab/shared/abstract/core'
+import type { IElementDto, IRef } from '@codelab/shared/abstract/core'
 import type {
   Maybe,
   Nullable,
   Nullish,
   ObjectLike,
 } from '@codelab/shared/abstract/types'
-import type {
-  ElementCreateInput,
-  ElementUpdateInput,
-} from '@codelab/shared/infra/gql'
 import type { Ref } from 'mobx-keystone'
 
 import type { IActionModel } from '../action'
@@ -47,6 +43,17 @@ export interface IElementModel extends IModel<IElementDto, IElementModel> {
   atomName: string
   childMapperComponent?: Nullable<Ref<IComponentModel>>
   childMapperPreviousSibling?: Nullable<Ref<IElementModel>>
+  /**
+   * One element E1 will have childMapperPropKey that points to a prop which has an array of values.
+   *
+   * For each on these values we render a component `childMapperComponent` as a child of E1 passing `this` value as prop for this component.
+   *
+   * Because E1 will contain other children we need chose what is the rendering position of this array of components
+   *
+   * It can also use `js` to directly input the data `{{[{ name: "test 1" }, { name: "test 2" }]}}`
+   *
+   * TLDR; a pointer to the array of props for the components
+   */
   childMapperPropKey?: Nullable<string>
   children: Array<IElementModel>
   // the closest container node that element belongs to
@@ -72,8 +79,8 @@ export interface IElementModel extends IModel<IElementDto, IElementModel> {
   // component that this element belongs to
   parentComponent?: Nullable<Ref<IComponentModel>>
   parentElement?: Nullable<Ref<IElementModel>>
-  postRenderAction?: Nullable<Ref<IActionModel>>
-  preRenderAction?: Nullable<Ref<IActionModel>>
+  postRenderActions?: Array<Ref<IActionModel>>
+  preRenderActions?: Array<Ref<IActionModel>>
   prevSibling?: Nullable<Ref<IElementModel>>
   props: IPropModel
   propsHaveErrors: boolean
@@ -101,6 +108,7 @@ export interface IElementModel extends IModel<IElementDto, IElementModel> {
     primary: string
     secondary: string | undefined
   }
+  attachAsComponentRoot(component: IRef): void
   attachAsFirstChild(parentElement: IElementModel): void
   attachAsNextSibling(sibling: IElementModel): void
   attachAsPrevSibling(sibling: IElementModel): void
@@ -111,7 +119,6 @@ export interface IElementModel extends IModel<IElementDto, IElementModel> {
   setName(name: string): void
   setNextSibling(nextSibling: Ref<IElementModel>): void
   setOrderInParent(order: number | null): void
-  setParentComponent(component: Ref<IComponentModel>): void
   setParentElement(parent: Ref<IElementModel>): void
   setPrevSibling(prevSibling: Ref<IElementModel>): void
   setProps(props: IPropModel): void

@@ -4,24 +4,16 @@ import {
   CuiHeader,
   CuiHeaderBreadcrumb,
 } from '@codelab/frontend/presentation/codelab-ui'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Image } from 'antd'
-
-import { useUpdateFieldForm } from '../use-cases/update-field'
-import { useUpdateTypeForm } from '../use-cases/update-type'
+import { useParams } from 'next/navigation'
 
 export const TypesViewHeader = () => {
-  const updateTypeForm = useUpdateTypeForm()
-  const updateFieldForm = useUpdateFieldForm()
-  const typeToUpdate = updateTypeForm.data?.name || ''
-  const fieldToUpdate = updateFieldForm.data?.key || ''
-
-  const typeOrField = updateTypeForm.isOpen
-    ? 'type'
-    : updateFieldForm.isOpen
-    ? 'field'
-    : ''
-
-  const typeOrFieldName = updateTypeForm.isOpen ? typeToUpdate : fieldToUpdate
+  const { id } = useParams()
+  const { fieldDomainService, typeDomainService } = useDomainStore()
+  const type = typeof id === 'string' && typeDomainService.types.get(id)?.name
+  const field = typeof id === 'string' && fieldDomainService.getField(id)?.key
+  const typeOrField = type ? 'type' : field ? 'field' : ''
 
   return (
     <CuiHeader
@@ -30,7 +22,7 @@ export const TypesViewHeader = () => {
           items={[
             { title: 'Types' },
             { title: typeOrField },
-            { title: typeOrFieldName },
+            { title: type ?? field },
           ]}
         />
       }
