@@ -14,7 +14,7 @@ export const interfaceTypeDtoFactory = (
     ...dto,
     __typename: ITypeKind.InterfaceType,
     kind: ITypeKind.InterfaceType,
-  } as const)
+  }) as const
 
 export const connectTypesOfUnionType = (typeRefs?: Array<ITypeRef>) => {
   return typeRefs?.reduce<UnionTypeTypesOfUnionTypeCreateInput>(

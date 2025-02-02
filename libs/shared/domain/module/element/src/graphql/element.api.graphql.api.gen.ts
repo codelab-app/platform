@@ -1,33 +1,12 @@
-import * as Types from '@codelab/shared/infra/gqlgen'
+import * as Types from '@codelab/shared/infra/gqlgen';
 
-import { graphql } from '@codelab/shared/infra/gqlgen'
 import { gqlRequest } from '@codelab/shared/infra/fetch'
-import {
-  ElementFragmentDoc,
-  ElementProductionFragmentDoc,
-} from '@codelab/shared/infra/gqlgen'
-
-import {
-  type CreateElementsMutationVariables,
-  type DeleteElementsMutationVariables,
-  type UpdateElementsMutationVariables,
-  type ElementListQueryVariables,
-} from '@codelab/shared/infra/gqlgen'
-import {
-  CreateElementsDocument,
-  DeleteElementsDocument,
-  UpdateElementsDocument,
-  ElementListDocument,
-} from './element.api.graphql.docs.gen'
 import { GraphQLClient } from 'graphql-request'
+import { CreateElementsDocument, DeleteElementsDocument, UpdateElementsDocument, ElementListDocument } from '@codelab/shared/infra/gqlgen'
 
 export const getSdk = (client: GraphQLClient) => ({
-  CreateElements: (variables: CreateElementsMutationVariables) =>
-    gqlRequest(client, CreateElementsDocument.toString(), variables),
-  DeleteElements: (variables: DeleteElementsMutationVariables) =>
-    gqlRequest(client, DeleteElementsDocument.toString(), variables),
-  UpdateElements: (variables: UpdateElementsMutationVariables) =>
-    gqlRequest(client, UpdateElementsDocument.toString(), variables),
-  ElementList: (variables: ElementListQueryVariables) =>
-    gqlRequest(client, ElementListDocument.toString(), variables),
+	CreateElements : (variables: Types.CreateElementsMutationVariables) => gqlRequest(client, CreateElementsDocument.toString(), variables),
+	DeleteElements : (variables: Types.DeleteElementsMutationVariables) => gqlRequest(client, DeleteElementsDocument.toString(), variables),
+	UpdateElements : (variables: Types.UpdateElementsMutationVariables) => gqlRequest(client, UpdateElementsDocument.toString(), variables),
+	ElementList : (variables: Types.ElementListQueryVariables) => gqlRequest(client, ElementListDocument.toString(), variables)
 })

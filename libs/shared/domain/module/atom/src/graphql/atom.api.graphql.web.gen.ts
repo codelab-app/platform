@@ -1,45 +1,10 @@
-import * as Types from '@codelab/shared/infra/gqlgen'
+import * as Types from '@codelab/shared/infra/gqlgen';
 
-import { graphql } from '@codelab/shared/infra/gqlgen'
 import { gqlServerRequest } from '@codelab/shared/infra/fetch-server'
-import { AtomFragmentDoc } from '@codelab/shared/infra/gqlgen'
+import { CreateAtomsDocument, DeleteAtomsDocument, AtomListDocument, GetSelectAtomOptionsDocument, UpdateAtomsDocument } from '@codelab/shared/infra/gqlgen'
 
-import {
-  type CreateAtomsMutationVariables,
-  type DeleteAtomsMutationVariables,
-  type AtomListQueryVariables,
-  type GetSelectAtomOptionsQueryVariables,
-  type UpdateAtomsMutationVariables,
-} from '@codelab/shared/infra/gqlgen'
-import {
-  CreateAtomsDocument,
-  DeleteAtomsDocument,
-  AtomListDocument,
-  GetSelectAtomOptionsDocument,
-  UpdateAtomsDocument,
-} from './atom.api.graphql.docs.gen'
-
-export const CreateAtoms = (
-  variables: CreateAtomsMutationVariables,
-  next?: NextFetchRequestConfig & { revalidateTag?: string },
-) => gqlServerRequest(CreateAtomsDocument.toString(), variables, next)
-
-export const DeleteAtoms = (
-  variables: DeleteAtomsMutationVariables,
-  next?: NextFetchRequestConfig & { revalidateTag?: string },
-) => gqlServerRequest(DeleteAtomsDocument.toString(), variables, next)
-
-export const AtomList = (
-  variables: AtomListQueryVariables,
-  next?: NextFetchRequestConfig & { revalidateTag?: string },
-) => gqlServerRequest(AtomListDocument.toString(), variables, next)
-
-export const GetSelectAtomOptions = (
-  variables: GetSelectAtomOptionsQueryVariables,
-  next?: NextFetchRequestConfig & { revalidateTag?: string },
-) => gqlServerRequest(GetSelectAtomOptionsDocument.toString(), variables, next)
-
-export const UpdateAtoms = (
-  variables: UpdateAtomsMutationVariables,
-  next?: NextFetchRequestConfig & { revalidateTag?: string },
-) => gqlServerRequest(UpdateAtomsDocument.toString(), variables, next)
+export const CreateAtoms = (variables: Types.CreateAtomsMutationVariables ,next?: NextFetchRequestConfig & { revalidateTag?: string }) => gqlServerRequest(CreateAtomsDocument.toString(), variables, next)
+export const DeleteAtoms = (variables: Types.DeleteAtomsMutationVariables ,next?: NextFetchRequestConfig & { revalidateTag?: string }) => gqlServerRequest(DeleteAtomsDocument.toString(), variables, next)
+export const AtomList = (variables: Types.AtomListQueryVariables ,next?: NextFetchRequestConfig & { revalidateTag?: string }) => gqlServerRequest(AtomListDocument.toString(), variables, next)
+export const GetSelectAtomOptions = (variables: Types.GetSelectAtomOptionsQueryVariables ,next?: NextFetchRequestConfig & { revalidateTag?: string }) => gqlServerRequest(GetSelectAtomOptionsDocument.toString(), variables, next)
+export const UpdateAtoms = (variables: Types.UpdateAtomsMutationVariables ,next?: NextFetchRequestConfig & { revalidateTag?: string }) => gqlServerRequest(UpdateAtomsDocument.toString(), variables, next)

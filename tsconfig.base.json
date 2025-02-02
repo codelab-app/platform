@@ -30,6 +30,9 @@
       }
     ],
     "paths": {
+      "@codelab-codegen/codelab-preset": [
+        "libs/external/codelab-codegen/codelab-preset/src/index.ts"
+      ],
       "@codelab-codegen/typescript-fetch": [
         "libs/external/codelab-codegen/typescript-fetch/src/index.ts"
       ],

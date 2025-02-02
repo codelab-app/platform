@@ -1,30 +1,12 @@
-import * as Types from '@codelab/shared/infra/gqlgen'
+import * as Types from '@codelab/shared/infra/gqlgen';
 
-import { graphql } from '@codelab/shared/infra/gqlgen'
 import { gqlRequest } from '@codelab/shared/infra/fetch'
-import { AuthGuardFragmentDoc } from '@codelab/shared/infra/gqlgen'
-
-import {
-  type GetAuthGuardsQueryVariables,
-  type CreateAuthGuardsMutationVariables,
-  type UpdateAuthGuardMutationVariables,
-  type DeleteAuthGuardsMutationVariables,
-} from '@codelab/shared/infra/gqlgen'
-import {
-  GetAuthGuardsDocument,
-  CreateAuthGuardsDocument,
-  UpdateAuthGuardDocument,
-  DeleteAuthGuardsDocument,
-} from './auth-guard.api.graphql.docs.gen'
 import { GraphQLClient } from 'graphql-request'
+import { GetAuthGuardsDocument, CreateAuthGuardsDocument, UpdateAuthGuardDocument, DeleteAuthGuardsDocument } from '@codelab/shared/infra/gqlgen'
 
 export const getSdk = (client: GraphQLClient) => ({
-  GetAuthGuards: (variables: GetAuthGuardsQueryVariables) =>
-    gqlRequest(client, GetAuthGuardsDocument.toString(), variables),
-  CreateAuthGuards: (variables: CreateAuthGuardsMutationVariables) =>
-    gqlRequest(client, CreateAuthGuardsDocument.toString(), variables),
-  UpdateAuthGuard: (variables: UpdateAuthGuardMutationVariables) =>
-    gqlRequest(client, UpdateAuthGuardDocument.toString(), variables),
-  DeleteAuthGuards: (variables: DeleteAuthGuardsMutationVariables) =>
-    gqlRequest(client, DeleteAuthGuardsDocument.toString(), variables),
+	GetAuthGuards : (variables: Types.GetAuthGuardsQueryVariables) => gqlRequest(client, GetAuthGuardsDocument.toString(), variables),
+	CreateAuthGuards : (variables: Types.CreateAuthGuardsMutationVariables) => gqlRequest(client, CreateAuthGuardsDocument.toString(), variables),
+	UpdateAuthGuard : (variables: Types.UpdateAuthGuardMutationVariables) => gqlRequest(client, UpdateAuthGuardDocument.toString(), variables),
+	DeleteAuthGuards : (variables: Types.DeleteAuthGuardsMutationVariables) => gqlRequest(client, DeleteAuthGuardsDocument.toString(), variables)
 })

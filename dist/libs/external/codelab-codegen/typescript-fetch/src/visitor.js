@@ -1,122 +1,72 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GraphQLRequestVisitor = void 0;
+exports.FetchVisitor = void 0;
 const tslib_1 = require("tslib");
 const visitor_plugin_common_1 = require("@graphql-codegen/visitor-plugin-common");
 const auto_bind_1 = tslib_1.__importDefault(require("auto-bind"));
 const change_case_all_1 = require("change-case-all");
-const path_1 = tslib_1.__importDefault(require("path"));
-class GraphQLRequestVisitor extends visitor_plugin_common_1.ClientSideBaseVisitor {
-    constructor(schema, fragments, rawConfig, info) {
-        super(schema, fragments, rawConfig, {
-            documentMode: (0, visitor_plugin_common_1.getConfigValue)(rawConfig.documentMode, visitor_plugin_common_1.DocumentMode.string),
-            importOperationTypesFrom: '',
-            inlineFragmentTypes: (0, visitor_plugin_common_1.getConfigValue)(rawConfig.inlineFragmentTypes, 'combine'),
-            // From `graphql-request` to show how to add additional params
-            // extensionsType: getConfigValue(rawConfig.extensionsType, 'any'),
+const graphql_1 = require("graphql");
+class FetchVisitor extends visitor_plugin_common_1.BaseVisitor {
+    constructor(documents, rawConfig) {
+        super(rawConfig, {
+            gqlFn: (0, visitor_plugin_common_1.getConfigValue)(rawConfig.gqlFn, ''),
+            gqlFnPath: (0, visitor_plugin_common_1.getConfigValue)(rawConfig.gqlFnPath, ''),
+            graphqlPath: (0, visitor_plugin_common_1.getConfigValue)(rawConfig.graphqlPath, ''),
         });
-        Object.defineProperty(this, "_externalImportPrefix", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "_operationsToInclude", {
+        Object.defineProperty(this, "_operations", {
             enumerable: true,
             configurable: true,
             writable: true,
             value: []
         });
-        Object.defineProperty(this, "_outputFile", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
+        this._operations = documents
+            .flatMap((v) => v.document?.definitions)
+            .filter((de) => de?.kind === graphql_1.Kind.OPERATION_DEFINITION)
+            .map((node) => {
+            const name = this.convertName(node);
+            const type = (0, change_case_all_1.pascalCase)(node.operation);
+            const typeSuffix = this.getOperationSuffix(node, type);
+            const resultType = this.convertName(node);
+            const variablesTypes = this.convertName(node, {
+                suffix: `${typeSuffix} Variables`,
+            });
+            return {
+                name,
+                node,
+                resultType,
+                type,
+                variablesTypes,
+            };
         });
-        this._outputFile = path_1.default.basename(info?.outputFile || '');
         (0, auto_bind_1.default)(this);
-        this._additionalImports = [
-            "import { graphql } from '@codelab/shared/infra/gqlgen'",
-            "import { gqlRequest } from '@codelab/shared/infra/fetch'",
+    }
+    getImports() {
+        const documentImports = this._operations
+            .map((operation) => `${operation.name}Document`)
+            .join(', ');
+        return [
+            `import { ${this.config.gqlFn} } from '${this.config.gqlFnPath}'`,
+            "import { GraphQLClient } from 'graphql-request'",
+            `import { ${documentImports} } from '${this.config.graphqlPath}'\n`,
         ];
-        this._externalImportPrefix = this.config.importOperationTypesFrom
-            ? `${this.config.importOperationTypesFrom}`
-            : '@codelab/shared/infra/gqlgen';
-    }
-    /**
-     * `export const GetAppsDocument = graphql(gql`
-    query GetApps($options: AppOptions, $where: AppWhere) {
-      aggregate: appsAggregate(where: $where) {
-        count
-      }
-      items: apps(options: $options, where: $where) {
-        ...App
-      }
-    }
-    ${AppFragmentDoc}
-  `)`
-      Removes fragments
-     */
-    _includeFragments() {
-        return '';
-    }
-    OperationDefinition(node) {
-        this._collectedOperations.push(node);
-        const documentVariableName = this.getOperationVariableName(node);
-        const operationType = (0, change_case_all_1.pascalCase)(node.operation);
-        const operationTypeSuffix = this.getOperationSuffix(node, operationType);
-        const operationResultType = this.convertName(node, {
-            suffix: operationTypeSuffix + this._parsedConfig.operationResultSuffix,
-        });
-        const operationVariablesTypes = this.convertName(node, {
-            suffix: operationTypeSuffix + 'Variables',
-        });
-        const hasRequiredVariables = this.checkVariablesRequirements(node);
-        const additional = this.buildOperation(node, documentVariableName, operationType, operationResultType, operationVariablesTypes, hasRequiredVariables);
-        return [additional].filter((a) => a).join('\n');
-    }
-    buildOperation(node, documentVariableName, operationType, operationResultType, operationVariablesTypes, _hasRequiredVariables) {
-        // operationResultType = this._externalImportPrefix + operationResultType
-        // operationVariablesTypes =
-        //   this._externalImportPrefix + operationVariablesTypes
-        this._operationsToInclude.push({
-            documentVariableName,
-            node,
-            operationResultType,
-            operationType,
-            operationVariablesTypes,
-        });
-        return '';
     }
     get content() {
-        const typeImports = this._operationsToInclude
-            .map((o) => `type ${o.operationVariablesTypes}`)
-            .join(', ');
-        const documentImports = this._operationsToInclude
-            .map((o) => o.documentVariableName)
-            .join(', ');
-        const imports = [
-            `import { ${typeImports} } from '${this._externalImportPrefix}'`,
-            // Here we import the generated documents to use with our operations
-            `import { ${documentImports} } from './${this._outputFile?.replace('.api.gen.ts', '.docs.gen')}'`,
-            "import { GraphQLClient } from 'graphql-request'",
-        ];
-        const graphqlOperations = this._operationsToInclude.map((o) => {
+        const graphqlOperations = this._operations.map((o) => {
             const operationName = o.node.name?.value;
             if (!operationName) {
                 throw new Error('Missing operation name');
             }
             const pascalCaseName = operationName.charAt(0).toUpperCase() + operationName.slice(1);
-            return `${pascalCaseName}: (variables: ${o.operationVariablesTypes}) =>
-        gqlRequest(client, ${o.documentVariableName}.toString(), variables)`;
+            const operationBody = `${this.config.gqlFn}(client, ${o.name}Document.toString(), variables)`;
+            const operationArgs = [`variables: Types.${o.variablesTypes}`].join(' ,');
+            // server actions must be exported individually
+            return `${pascalCaseName} : (${operationArgs}) => ${operationBody}`;
         });
-        return `
-      ${imports.join('\n')}
-
-      export const getSdk = (client: GraphQLClient) => ({
-        ${graphqlOperations.join(',\n')}
-      })`;
+        const operations = graphqlOperations.length > 1
+            ? `\n\t${graphqlOperations.join(',\n\t')}\n`
+            : graphqlOperations[0];
+        return `export const getSdk = (client: GraphQLClient) => ({${operations}})\n`;
     }
 }
-exports.GraphQLRequestVisitor = GraphQLRequestVisitor;
+exports.FetchVisitor = FetchVisitor;
 //# sourceMappingURL=visitor.js.map

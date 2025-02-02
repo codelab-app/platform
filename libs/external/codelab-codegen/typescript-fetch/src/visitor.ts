@@ -1,166 +1,84 @@
-import type {
-  ClientSideBasePluginConfig,
-  LoadedFragment,
-} from '@graphql-codegen/visitor-plugin-common'
-import type { GraphQLSchema, OperationDefinitionNode } from 'graphql'
+import type { Types } from '@graphql-codegen/plugin-helpers'
+import type { ParsedConfig } from '@graphql-codegen/visitor-plugin-common'
 
 import {
-  ClientSideBaseVisitor,
-  DocumentMode,
+  BaseVisitor,
   getConfigValue,
 } from '@graphql-codegen/visitor-plugin-common'
 import autoBind from 'auto-bind'
 import { pascalCase } from 'change-case-all'
-import path from 'path'
+import { Kind, type OperationDefinitionNode } from 'graphql'
 
-import type { RawGraphQLRequestPluginConfig } from './config.js'
+import type { FetchPluginRawConfig } from './index'
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface GraphQLRequestPluginConfig extends ClientSideBasePluginConfig {
-  // extensionsType: string;
+interface Operation {
+  node: OperationDefinitionNode
+  name: string
+  type: string
+  resultType: string
+  variablesTypes: string
+}
+export interface FetchVisitorConfig extends ParsedConfig {
+  gqlFn: string
+  gqlFnPath: string
+  graphqlPath: string
 }
 
-export class GraphQLRequestVisitor extends ClientSideBaseVisitor<
-  RawGraphQLRequestPluginConfig,
-  GraphQLRequestPluginConfig
+export class FetchVisitor extends BaseVisitor<
+  FetchPluginRawConfig,
+  FetchVisitorConfig
 > {
-  private _externalImportPrefix: string
-
-  private _operationsToInclude: Array<{
-    node: OperationDefinitionNode
-    documentVariableName: string
-    operationType: string
-    operationResultType: string
-    operationVariablesTypes: string
-  }> = []
-
-  private _outputFile?: string
+  private _operations: Array<Operation> = []
 
   constructor(
-    schema: GraphQLSchema,
-    fragments: Array<LoadedFragment>,
-    rawConfig: RawGraphQLRequestPluginConfig,
-    info?: { outputFile?: string },
+    documents: Array<Types.DocumentFile>,
+    rawConfig: FetchPluginRawConfig,
   ) {
-    super(schema, fragments, rawConfig, {
-      documentMode: getConfigValue(rawConfig.documentMode, DocumentMode.string),
-      importOperationTypesFrom: '',
-      inlineFragmentTypes: getConfigValue(
-        rawConfig.inlineFragmentTypes,
-        'combine',
-      ),
-      // From `graphql-request` to show how to add additional params
-      // extensionsType: getConfigValue(rawConfig.extensionsType, 'any'),
+    super(rawConfig, {
+      gqlFn: getConfigValue(rawConfig.gqlFn, ''),
+      gqlFnPath: getConfigValue(rawConfig.gqlFnPath, ''),
+      graphqlPath: getConfigValue(rawConfig.graphqlPath, ''),
     })
 
-    this._outputFile = path.basename(info?.outputFile || '')
+    this._operations = documents
+      .flatMap((v) => v.document?.definitions)
+      .filter((de) => de?.kind === Kind.OPERATION_DEFINITION)
+      .map((node) => {
+        const name = this.convertName(node)
+        const type: string = pascalCase(node.operation)
+        const typeSuffix: string = this.getOperationSuffix(node, type)
+        const resultType: string = this.convertName(node)
+
+        const variablesTypes: string = this.convertName(node, {
+          suffix: `${typeSuffix} Variables`,
+        })
+
+        return {
+          name,
+          node,
+          resultType,
+          type,
+          variablesTypes,
+        }
+      })
 
     autoBind(this)
+  }
 
-    this._additionalImports = [
-      "import { graphql } from '@codelab/shared/infra/gqlgen'",
-      "import { gqlRequest } from '@codelab/shared/infra/fetch'",
+  getImports() {
+    const documentImports = this._operations
+      .map((operation) => `${operation.name}Document`)
+      .join(', ')
+
+    return [
+      `import { ${this.config.gqlFn} } from '${this.config.gqlFnPath}'`,
+      "import { GraphQLClient } from 'graphql-request'",
+      `import { ${documentImports} } from '${this.config.graphqlPath}'\n`,
     ]
-
-    this._externalImportPrefix = this.config.importOperationTypesFrom
-      ? `${this.config.importOperationTypesFrom}`
-      : '@codelab/shared/infra/gqlgen'
-  }
-
-  /**
-   * `export const GetAppsDocument = graphql(gql`
-  query GetApps($options: AppOptions, $where: AppWhere) {
-    aggregate: appsAggregate(where: $where) {
-      count
-    }
-    items: apps(options: $options, where: $where) {
-      ...App
-    }
-  }
-  ${AppFragmentDoc}
-`)`
-    Removes fragments
-   */
-  protected override _includeFragments() {
-    return ''
-  }
-
-  public override OperationDefinition(node: OperationDefinitionNode): string {
-    this._collectedOperations.push(node)
-
-    const documentVariableName = this.getOperationVariableName(node)
-    const operationType: string = pascalCase(node.operation)
-
-    const operationTypeSuffix: string = this.getOperationSuffix(
-      node,
-      operationType,
-    )
-
-    const operationResultType: string = this.convertName(node, {
-      suffix: operationTypeSuffix + this._parsedConfig.operationResultSuffix,
-    })
-
-    const operationVariablesTypes: string = this.convertName(node, {
-      suffix: operationTypeSuffix + 'Variables',
-    })
-
-    const hasRequiredVariables = this.checkVariablesRequirements(node)
-
-    const additional = this.buildOperation(
-      node,
-      documentVariableName,
-      operationType,
-      operationResultType,
-      operationVariablesTypes,
-      hasRequiredVariables,
-    )
-
-    return [additional].filter((a) => a).join('\n')
-  }
-
-  protected override buildOperation(
-    node: OperationDefinitionNode,
-    documentVariableName: string,
-    operationType: string,
-    operationResultType: string,
-    operationVariablesTypes: string,
-    _hasRequiredVariables: boolean,
-  ): string {
-    // operationResultType = this._externalImportPrefix + operationResultType
-    // operationVariablesTypes =
-    //   this._externalImportPrefix + operationVariablesTypes
-
-    this._operationsToInclude.push({
-      documentVariableName,
-      node,
-      operationResultType,
-      operationType,
-      operationVariablesTypes,
-    })
-
-    return ''
   }
 
   public get content(): string {
-    const typeImports = this._operationsToInclude
-      .map((o) => `type ${o.operationVariablesTypes}`)
-      .join(', ')
-
-    const documentImports = this._operationsToInclude
-      .map((o) => o.documentVariableName)
-      .join(', ')
-
-    const imports = [
-      `import { ${typeImports} } from '${this._externalImportPrefix}'`,
-      // Here we import the generated documents to use with our operations
-      `import { ${documentImports} } from './${this._outputFile?.replace(
-        '.api.gen.ts',
-        '.docs.gen',
-      )}'`,
-      "import { GraphQLClient } from 'graphql-request'",
-    ]
-
-    const graphqlOperations = this._operationsToInclude.map((o) => {
+    const graphqlOperations = this._operations.map((o) => {
       const operationName = o.node.name?.value
 
       if (!operationName) {
@@ -170,15 +88,18 @@ export class GraphQLRequestVisitor extends ClientSideBaseVisitor<
       const pascalCaseName =
         operationName.charAt(0).toUpperCase() + operationName.slice(1)
 
-      return `${pascalCaseName}: (variables: ${o.operationVariablesTypes}) =>
-        gqlRequest(client, ${o.documentVariableName}.toString(), variables)`
+      const operationBody = `${this.config.gqlFn}(client, ${o.name}Document.toString(), variables)`
+      const operationArgs = [`variables: Types.${o.variablesTypes}`].join(' ,')
+
+      // server actions must be exported individually
+      return `${pascalCaseName} : (${operationArgs}) => ${operationBody}`
     })
 
-    return `
-      ${imports.join('\n')}
+    const operations =
+      graphqlOperations.length > 1
+        ? `\n\t${graphqlOperations.join(',\n\t')}\n`
+        : graphqlOperations[0]
 
-      export const getSdk = (client: GraphQLClient) => ({
-        ${graphqlOperations.join(',\n')}
-      })`
+    return `export const getSdk = (client: GraphQLClient) => ({${operations}})\n`
   }
 }

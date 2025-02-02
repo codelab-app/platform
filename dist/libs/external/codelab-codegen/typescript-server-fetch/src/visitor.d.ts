@@ -1,32 +1,15 @@
-import type { ClientSideBasePluginConfig, LoadedFragment } from '@graphql-codegen/visitor-plugin-common';
-import type { GraphQLSchema, OperationDefinitionNode } from 'graphql';
-import { ClientSideBaseVisitor } from '@graphql-codegen/visitor-plugin-common';
-import type { RawGraphQLRequestPluginConfig } from './config.js';
-export interface GraphQLRequestPluginConfig extends ClientSideBasePluginConfig {
+import type { Types } from '@graphql-codegen/plugin-helpers';
+import type { ParsedConfig } from '@graphql-codegen/visitor-plugin-common';
+import { BaseVisitor } from '@graphql-codegen/visitor-plugin-common';
+import type { ServerFetchPluginRawConfig } from './index';
+export interface ServerFetchVisitorConfig extends ParsedConfig {
+    gqlFn: string;
+    gqlFnPath: string;
+    graphqlPath: string;
 }
-export declare class GraphQLRequestVisitor extends ClientSideBaseVisitor<RawGraphQLRequestPluginConfig, GraphQLRequestPluginConfig> {
-    private _externalImportPrefix;
-    private _operationsToInclude;
-    private _outputFile?;
-    constructor(schema: GraphQLSchema, fragments: Array<LoadedFragment>, rawConfig: RawGraphQLRequestPluginConfig, info?: {
-        outputFile?: string;
-    });
-    /**
-     * `export const GetAppsDocument = graphql(gql`
-    query GetApps($options: AppOptions, $where: AppWhere) {
-      aggregate: appsAggregate(where: $where) {
-        count
-      }
-      items: apps(options: $options, where: $where) {
-        ...App
-      }
-    }
-    ${AppFragmentDoc}
-  `)`
-      Removes fragments
-     */
-    protected _includeFragments(): string;
-    OperationDefinition(node: OperationDefinitionNode): string;
-    protected buildOperation(node: OperationDefinitionNode, documentVariableName: string, operationType: string, operationResultType: string, operationVariablesTypes: string, _hasRequiredVariables: boolean): string;
+export declare class ServerFetchVisitor extends BaseVisitor<ServerFetchPluginRawConfig, ServerFetchVisitorConfig> {
+    private _operations;
+    constructor(documents: Array<Types.DocumentFile>, rawConfig: ServerFetchPluginRawConfig);
+    getImports(): string[];
     get content(): string;
 }

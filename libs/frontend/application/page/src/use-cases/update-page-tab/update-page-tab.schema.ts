@@ -33,4 +33,4 @@ export const schema = (kind: IPageKind): JSONSchemaType<IPageUpdateFormData> =>
     },
     required: ['name', 'app'],
     type: 'object',
-  } as const)
+  }) as const

@@ -70,7 +70,7 @@ export class Preference
     this.builderWidth =
       !builderWidth && builderBreakpointType
         ? this.builderBreakpoint.default
-        : builderWidth ?? this.builderWidth
+        : (builderWidth ?? this.builderWidth)
 
     return this
   }
