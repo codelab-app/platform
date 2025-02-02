@@ -58,7 +58,7 @@ export class TypeFactory {
   ) {}
 
   async descendantEntities(typeId: string) {
-    this.logger.log('Getting type descendants', {
+    this.logger.verbose('Getting type descendants', {
       context: 'TypeFactory',
       data: { typeId },
     })
@@ -86,7 +86,7 @@ export class TypeFactory {
     { __typename, id }: ITypeRef,
     schema?: TAnySchema,
   ): Promise<Maybe<TypeFragment>> {
-    this.logger.log('Finding type', {
+    this.logger.verbose('Finding type', {
       context: 'TypeFactory',
       data: { __typename, id },
     })
@@ -172,7 +172,7 @@ export class TypeFactory {
     { __typename, id }: ITypeRef,
     schema?: TAnySchema,
   ): Promise<TypeFragment> {
-    this.logger.log('Finding type or fail', {
+    this.logger.verbose('Finding type or fail', {
       context: 'TypeFactory',
       data: { __typename, id },
     })
@@ -192,7 +192,7 @@ export class TypeFactory {
     type: TypeCreateMap[T['kind']]['dto'],
     where?: TypeCreateMap[T['kind']]['where'],
   ): Promise<IRef> {
-    this.logger.log('Saving type', {
+    this.logger.verbose('Saving type', {
       context: 'TypeFactory',
       data: { type: type.__typename },
     })

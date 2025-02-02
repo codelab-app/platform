@@ -7,7 +7,7 @@ import { PageApplicationService } from './page.application.service'
 export class PageApplicationController {
   constructor(private pageService: PageApplicationService) {}
 
-  @Post('create-page')
+  @Post('create')
   async createPage(@Body() createPageDto: IPageCreateFormData) {
     return this.pageService.createPage(createPageDto)
   }

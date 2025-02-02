@@ -45,6 +45,8 @@ export const elementMapper: IMapper<
       tailwindClassNames,
     } = data
 
+    console.log('props', props)
+
     return {
       childMapperComponent: connectNodeId(childMapperComponent?.id),
       childMapperPreviousSibling: connectNodeId(childMapperPreviousSibling?.id),
@@ -116,8 +118,6 @@ export const elementMapper: IMapper<
     style,
     tailwindClassNames,
   }: IElementDto): ElementUpdateInput => {
-    console.log('style', style)
-
     return {
       childMapperComponent: reconnectNodeId(childMapperComponent?.id),
       childMapperPreviousSibling: reconnectNodeId(

@@ -1,15 +1,23 @@
+/* eslint-disable @typescript-eslint/member-ordering */
 import type { ObjectLike } from '@codelab/shared/abstract/types'
 import type { ILoggerService, LogOptions } from '@codelab/shared/infra/logging'
 import type { ConfigType } from '@nestjs/config'
 
-import { Inject, Injectable } from '@nestjs/common'
-import { Logger, Params, PARAMS_PROVIDER_TOKEN, PinoLogger } from 'nestjs-pino'
+import { Inject, Injectable, LogLevel } from '@nestjs/common'
+import {
+  InjectPinoLogger,
+  Logger,
+  Params,
+  PARAMS_PROVIDER_TOKEN,
+  PinoLogger,
+} from 'nestjs-pino'
 import pino from 'pino'
+import { omit } from 'remeda'
 
-import { loggerConfig } from '../logger.config'
+import { labelMapping, loggerConfig } from '../logger.config'
 
 /**
- * So Nest.js only has two parameters, the first one being the message and the last one being the context. Any other parameters in the middle are ignored.
+ * Don't use super, but rather from `logger`
  */
 @Injectable()
 export class PinoLoggerService extends Logger implements ILoggerService {
@@ -24,29 +32,137 @@ export class PinoLoggerService extends Logger implements ILoggerService {
     })
   }
 
-  /**
-   * We create a 2 parameter log function, but extract the context as last parameter, while combining the data with first parameter
-   */
-  override log(message: string, options?: LogOptions): void {
-    const context = options?.context ?? ''
-    const includeDataForContext = this.config.context.includes(context)
+  private async executeWithTiming<T>(
+    message: string,
+    fn: () => Promise<T>,
+    options?: LogOptions,
+    level: LogLevel = 'debug',
+  ): Promise<T> {
+    const startTime = Date.now()
+    const result = await fn()
+    const durationSecs = ((Date.now() - startTime) / 1000).toFixed(2)
+    const context = options?.context ?? undefined
+    const data = options?.data ?? {}
 
-    if (includeDataForContext) {
-      return super.log(
-        {
-          data: options?.data,
-          message,
-        },
-        context,
-      )
+    // Pass data and context as separate properties in LogOptions
+    this[level](message, {
+      context,
+      data: {
+        ...data,
+      },
+      durationSecs,
+    })
+
+    return result
+  }
+
+  async debugWithTiming<T>(
+    message: string,
+    fn: () => Promise<T>,
+    options?: LogOptions,
+  ): Promise<T> {
+    return this.executeWithTiming(message, fn, options, 'debug')
+  }
+
+  async verboseWithTiming<T>(
+    message: string,
+    fn: () => Promise<T>,
+    options?: LogOptions,
+  ): Promise<T> {
+    return this.executeWithTiming(message, fn, options, 'verbose')
+  }
+
+  /**
+   * Return true by default unless we have a contextFilter with matching level,
+   * in which case we check the pattern
+   */
+  private enableLog(level: LogLevel, options?: LogOptions) {
+    const context = options?.context ?? ''
+
+    // Find filters that match the current level
+    const matchingLevelFilters = this.config.contextFilter.filter(
+      (filter) => level === filter.level,
+    )
+
+    // If no filters match the level, enable logging by default
+    if (matchingLevelFilters.length === 0) {
+      return true
     }
 
-    super.log(
-      {
-        message,
-      },
-      context,
+    // If we have matching level filters, check if any pattern matches
+    return matchingLevelFilters.some((filter) =>
+      new RegExp(filter.pattern).test(context),
     )
+  }
+
+  private shouldIncludeData(options?: LogOptions) {
+    const context = options?.context ?? ''
+
+    // Check if context matches any enable data patterns
+    return this.config.enableDataForContext.some((pattern) => {
+      return new RegExp(pattern).test(context)
+    })
+  }
+
+  private logWithOptions(
+    level: LogLevel,
+    message: string,
+    options?: LogOptions,
+  ): void {
+    if (!this.enableLog(level, options)) {
+      return
+    }
+
+    const mappedLevel = labelMapping[level]
+
+    if (!this.shouldIncludeData(options)) {
+      this.logger[mappedLevel]({
+        msg: message,
+        ...('data' in (options ?? {})
+          ? omit(options ?? {}, ['data'])
+          : options ?? {}),
+      })
+    } else {
+      this.logger[mappedLevel]({ msg: message, ...(options ?? {}) })
+    }
+  }
+
+  override log(message: string, options?: LogOptions): void {
+    this.logWithOptions('log', message, options)
+  }
+
+  /**
+   * If we specify 2 params format, the second param will be under `context` no matter what
+   *
+   * debug('Hello', 'World') -> DEBUG: Hello /n context: "World"
+   * debug('Hello', 'World', '!') -> DEBUG: Hello /n context: "!"
+   *
+   * If we use single object, we have more control
+   *
+   * debug({ msg: 'Hello', context: 'World', data: '!' }) -> DEBUG
+   *
+   *
+   * @param message
+   * @param options
+   */
+  override debug(message: string, options?: LogOptions): void {
+    this.logWithOptions('debug', message, options)
+  }
+
+  override verbose(message: string, options?: LogOptions): void {
+    this.logWithOptions('verbose', message, options)
+  }
+
+  override warn(message: string, options?: LogOptions): void {
+    this.logWithOptions('warn', message, options)
+  }
+
+  override error(message: string, options?: LogOptions): void {
+    this.logWithOptions('error', message, options)
+  }
+
+  override fatal(message: string, options?: LogOptions): void {
+    this.logWithOptions('fatal', message, options)
   }
 
   public logToFile(

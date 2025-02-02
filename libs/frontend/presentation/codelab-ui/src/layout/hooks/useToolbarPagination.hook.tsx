@@ -8,14 +8,13 @@ import type {
 
 import SearchOutlined from '@ant-design/icons/SearchOutlined'
 import { UiKey } from '@codelab/frontend/abstract/types'
-import { useUpdateSearchParams } from '@codelab/frontend/shared/utils'
+import { useUpdateSearchParams } from '@codelab/frontend-application-shared-store/router'
 import { Pagination } from 'antd'
 import { useCallback, useState } from 'react'
 
 import type { ToolbarItem } from '../../abstract'
 
 /**
- *
  * @param paginationService Must NOT destructure, or else lose reactivity
  * @returns
  */
@@ -28,11 +27,13 @@ export const useToolbarPagination = <T extends SupportedPaginationModel>(
 
   const handlePaginationChange = useCallback(
     (page: number, pageSize: number) => {
-      updateParams((params) => params.set('page', page.toString()))
-      updateParams((params) => params.set('pageSize', pageSize.toString()))
+      updateParams((params) => {
+        params.set('page', page.toString())
+        params.set('pageSize', pageSize.toString())
+      })
 
-      routerService.setQueryParams({
-        ...routerService.queryParams,
+      routerService.setSearchParams({
+        ...routerService.searchParams,
         page,
         pageSize,
       })
@@ -46,7 +47,7 @@ export const useToolbarPagination = <T extends SupportedPaginationModel>(
 
   const toolbarItems: Array<ToolbarItem> = [
     {
-      cuiKey: UiKey.PagintaionControl,
+      cuiKey: UiKey.PaginationControl,
       icon: (
         <Pagination
           defaultCurrent={routerService.page}
@@ -60,7 +61,7 @@ export const useToolbarPagination = <T extends SupportedPaginationModel>(
       ),
     },
     {
-      cuiKey: UiKey.PaginationToobarItemSearch,
+      cuiKey: UiKey.PaginationToolbarItemSearch,
       icon: <SearchOutlined />,
       onClick: handleSearchBarToggle,
       title: 'Search',

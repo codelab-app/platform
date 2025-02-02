@@ -13,6 +13,7 @@ export interface LogOptions {
    * Place to put additional data
    */
   data?: ObjectLike | null
+  [key: string]: unknown
 }
 
 /**

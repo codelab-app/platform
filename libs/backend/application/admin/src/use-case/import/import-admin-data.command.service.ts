@@ -35,16 +35,18 @@ export class ImportAdminDataHandler
     /**
      * System types must be seeded first, so other types can reference it
      */
-    this.logger.log('importSystemTypes', { context: 'ImportAdminDataHandler' })
+    this.logger.debug('importSystemTypes', {
+      context: 'ImportAdminDataHandler',
+    })
     await this.importSystemTypes()
 
-    this.logger.log('importTags', { context: 'ImportAdminDataHandler' })
+    this.logger.debug('importTags', { context: 'ImportAdminDataHandler' })
     await this.importTags()
 
-    this.logger.log('importAtoms', { context: 'ImportAdminDataHandler' })
+    this.logger.debug('importAtoms', { context: 'ImportAdminDataHandler' })
     await this.importAtoms()
 
-    this.logger.log('importComponents', { context: 'ImportAdminDataHandler' })
+    this.logger.debug('importComponents', { context: 'ImportAdminDataHandler' })
     await this.importComponents()
   }
 
@@ -60,13 +62,28 @@ export class ImportAdminDataHandler
     /**
      * Create all atoms but omit `suggestedChildren`, since it requires all atoms to be added first
      */
-    for (const { api, atom } of this.readAdminDataService.atoms) {
+    for (const [
+      index,
+      { api, atom },
+    ] of this.readAdminDataService.atoms.entries()) {
       const atomWithoutSuggestedChildren = omit(atom, ['suggestedChildren'])
 
-      await this.importAtom({
-        api,
-        atom: atomWithoutSuggestedChildren,
-      })
+      const importAtom = async () =>
+        await this.importAtom({
+          api,
+          atom: atomWithoutSuggestedChildren,
+        })
+
+      await this.logger.debugWithTiming(
+        `Importing atom (${index + 1}/${atoms.length})`,
+        importAtom,
+        {
+          context: 'ImportAdminDataHandler',
+          data: {
+            name: atom.name,
+          },
+        },
+      )
     }
 
     /**
@@ -76,8 +93,22 @@ export class ImportAdminDataHandler
       ({ atom }) => atom.suggestedChildren?.length,
     )
 
-    for (const atom of atomsWithSuggestedChildren) {
-      await this.importAtom(atom)
+    for (const [index, atom] of atomsWithSuggestedChildren.entries()) {
+      const importAtomWithSuggestedChildren = async () =>
+        await this.importAtom(atom)
+
+      await this.logger.debugWithTiming(
+        `Importing atom with suggested children (${index + 1}/${
+          atomsWithSuggestedChildren.length
+        })`,
+        importAtomWithSuggestedChildren,
+        {
+          context: 'ImportAdminDataHandler',
+          data: {
+            name: atom.atom.name,
+          },
+        },
+      )
     }
   }
 

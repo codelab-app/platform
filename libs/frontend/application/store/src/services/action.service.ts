@@ -14,7 +14,7 @@ import {
   type IActionWhere,
 } from '@codelab/frontend/abstract/domain'
 import { PageType, PrimarySidebar } from '@codelab/frontend/abstract/types'
-import { useHydrateStore } from '@codelab/frontend/infra/context'
+import { useDomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { actionRepository } from '@codelab/frontend-domain-store/repositories'
 import {
   useApplicationStore,
@@ -28,7 +28,7 @@ import { v4 } from 'uuid'
 export const useActionService = (): IActionService => {
   const { actionDomainService } = useDomainStore()
   const { builderService } = useApplicationStore()
-  const hydrate = useHydrateStore()
+  const hydrate = useDomainStoreHydrator()
 
   const cloneAction = async (action: IActionModel, storeId: string) => {
     return await recursiveClone(action, storeId)

@@ -1,5 +1,8 @@
 import type { InterfaceType } from '@codelab/backend/domain/type'
-import type { IAppDto } from '@codelab/shared/abstract/core'
+import type {
+  IAppDto,
+  IPageCreateSeedData,
+} from '@codelab/shared/abstract/core'
 
 import { AppRepository } from '@codelab/backend/domain/app'
 import { AtomRepository } from '@codelab/backend/domain/atom'
@@ -44,7 +47,6 @@ export class SeedCypressAppHandler
   constructor(
     private readonly appRepository: AppRepository,
     private readonly pageRepository: PageRepository,
-    private readonly propRepository: PropRepository,
     private readonly elementRepository: ElementRepository,
     private atomRepository: AtomRepository,
     private readonly storeRepository: StoreRepository,
@@ -54,19 +56,6 @@ export class SeedCypressAppHandler
 
   async execute() {
     const owner = this.authDomainService.currentUser
-    /**
-     * Create props
-     */
-    const providerElementProps = providerElementPropsData
-    const notFoundElementProps = notFoundElementPropsData
-    const internalServerErrorElementProps = internalServerErrorPropsData
-
-    // Props added to element
-    // await this.propRepository.addMany([
-    //   providerElementProps,
-    //   notFoundElementProps,
-    //   internalServerErrorElementProps,
-    // ])
 
     const atomReactFragment = await this.atomRepository.findOneOrFail({
       where: {

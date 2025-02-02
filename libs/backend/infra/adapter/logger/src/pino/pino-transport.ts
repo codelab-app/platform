@@ -1,10 +1,22 @@
+/* eslint-disable canonical/sort-keys */
+import type { PrettyOptions } from 'pino-pretty'
+
 import pino from 'pino'
 import pretty from 'pino-pretty'
 
-const levelsLabels = pino.levels.labels
-
-export const pinoPrettyStream = pretty({
+export const prettyOptions: PrettyOptions = {
   colorize: true,
+
+  // Make this nest.js compatible
+  customLevels: {
+    verbose: 10,
+    debug: 20,
+    info: 30,
+    warn: 40,
+    error: 50,
+    fatal: 60,
+  },
+
   // errorLikeObjectKeys: ['err', 'error'],
   /**
    * Yes, Pino automatically adds req and res objects to the logs when used with nestjs-pino because it's designed to work as HTTP middleware by default.
@@ -13,6 +25,7 @@ export const pinoPrettyStream = pretty({
    */
   // ignore: 'time,pid,hostname,context,req,res,responseTime,level',
   ignore: 'pid,hostname,req,res',
+
   // levelFirst: false,
   // NestJS-like timestamp
   /**
@@ -23,7 +36,6 @@ export const pinoPrettyStream = pretty({
   // translateTime: 'SYS:mm/dd/yyyy hh:mm:ss TT',
   // messageFormat: (log, messageKey, levelLabel) => {
   //   // console.log(log, messageKey, levelLabel)
-
   //   const message = JSON.parse(log[messageKey] as string) as LogOptions
   //   const level = log['level'] as number
   //   const hostname = log['hostname']
@@ -39,7 +51,6 @@ export const pinoPrettyStream = pretty({
   //    * Pino combines all data into a single object, need to extract user data
   //    */
   //   const data = omit(log, ['level', 'time', 'hostname', 'pid', 'req', 'msg'])
-
   //   return `${chalk.green('[Pino]')} ${chalk.green(pid)}  ${chalk.green(
   //     '-',
   //   )} ${chalk.whiteBright(formatNestLikeDate(time))}     ${chalk.green(
@@ -48,4 +59,6 @@ export const pinoPrettyStream = pretty({
   // },
   // singleLine: true,
   sync: true,
-})
+}
+
+export const pinoPrettyStream = pretty(prettyOptions)

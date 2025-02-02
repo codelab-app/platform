@@ -15,7 +15,6 @@ export const useUrlPathParams = (): UrlPathParams => {
    *
    * https://nextjs.org/docs/app/api-reference/functions/use-search-params#behavior
    */
-  // const searchParams = useSearchParams() as Nullable<ReadonlyURLSearchParams>
   const params = useParams()
 
   return {

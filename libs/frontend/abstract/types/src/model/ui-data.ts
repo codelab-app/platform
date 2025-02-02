@@ -346,13 +346,10 @@ const UiDataRecord = {
   /**
    * Pagination
    */
-  [UiKey.PaginationToobarItemSearch]: {
-    label: 'Search Pagination Toolbar Item',
-  },
   [UiKey.PaginationToolbarItemSearch]: {
     label: 'Search Pagination Toolbar Item',
   },
-  [UiKey.PagintaionControl]: {
+  [UiKey.PaginationControl]: {
     label: 'Pagination Control Toolbar Item',
   },
   /**

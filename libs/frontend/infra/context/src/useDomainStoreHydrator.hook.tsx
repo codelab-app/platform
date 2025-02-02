@@ -11,7 +11,7 @@ import { useCallback } from 'react'
 /**
  * A previous version of this called the hydrate synchronously without useEffect, but this causes delay and doesn't render immediately
  */
-export const useHydrateStore = () => {
+export const useDomainStoreHydrator = () => {
   const undoManager = useUndoManager()
 
   const {

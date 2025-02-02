@@ -1,15 +1,25 @@
-import { PageType, UiKey } from '@codelab/frontend/abstract/types'
-import { test as base, expect } from '@playwright/test'
+import type { IPageCreateFormData } from '@codelab/shared/abstract/core'
 
+import { PageType, UiKey } from '@codelab/frontend/abstract/types'
+import { IPageCreateSeedData, IPageKind } from '@codelab/shared/abstract/core'
+import { test as base, expect } from '@playwright/test'
+import { v4 } from 'uuid'
+
+import { step, Step } from '../../commands'
 import { BasePage } from '../../locators/pages'
 import { resourceName } from './auth-guard.data'
+
+export const authGuardPageData: Omit<IPageCreateFormData, 'app'> = {
+  id: v4(),
+  kind: IPageKind.Regular,
+  name: 'Auth Guard Page',
+  urlPattern: 'http://test.com',
+}
 
 export class AuthGuardPage extends BasePage {
   readonly authGuardName = 'New Auth Guard'
 
   readonly authGuardRedirectName = 'New Auth Guard Redirect'
-
-  readonly pageName = 'Page'
 
   readonly updatedAuthGuardName = 'Updated Auth Guard'
 
@@ -27,10 +37,11 @@ export class AuthGuardPage extends BasePage {
   }
 
   async createAuthGuardRedirect() {
-    const tree = this.getTree()
-
-    await this.getTreeItemByPrimaryTitle$(this.pageName).hover()
-    await this.getTreeItemByPrimaryTitle(this.pageName)
+    await this.getTree()
+      .getTreeItemByPrimaryTitle$(authGuardPageData.name)
+      .hover()
+    await this.getTree()
+      .getTreeItemByPrimaryTitle(authGuardPageData.name)
       .getToolbarItem(UiKey.RedirectToolbarItemCreate)
       .click()
 
@@ -42,18 +53,6 @@ export class AuthGuardPage extends BasePage {
     )
     await form.fillInputSelect({ label: 'Target type' }, 'Url')
     await form.fillInputText({ label: 'Target url' }, 'http://test.com')
-    await form.getButton({ text: 'Create' }).click()
-    await this.expectGlobalProgressBarToBeHidden()
-  }
-
-  async createPage() {
-    await this.getSidebar(UiKey.PageSidebar)
-      .getToolbarItem(UiKey.PageToolbarItemCreate)
-      .click()
-
-    const form = await this.getForm(UiKey.PageFormCreate)
-
-    await form.fillInputText({ label: 'Name' }, this.pageName)
     await form.getButton({ text: 'Create' }).click()
     await this.expectGlobalProgressBarToBeHidden()
   }
@@ -71,8 +70,8 @@ export class AuthGuardPage extends BasePage {
   }
 
   async deleteAuthGuardRedirect() {
-    await this.getTreeItemByPrimaryTitle$(this.pageName).hover()
-    await this.getTreeItemByPrimaryTitle(this.pageName)
+    await this.getTreeItemByPrimaryTitle$(authGuardPageData.name).hover()
+    await this.getTreeItemByPrimaryTitle(authGuardPageData.name)
       .getToolbarItem(UiKey.RedirectToolbarItemUpdate)
       .click()
 
@@ -89,7 +88,9 @@ export class AuthGuardPage extends BasePage {
   }
 
   getPageRedirectIcon() {
-    return this.page.locator('.anticon.anticon-lock')
+    return step('getPageRedirectIcon', () =>
+      this.page.getByLabel('lock').locator('svg'),
+    )
   }
 
   async goToAppPageList(appId: string, pageId: string) {
@@ -111,10 +112,11 @@ export class AuthGuardPage extends BasePage {
   }
 
   async updateAuthGuardRedirect() {
-    const tree = this.getTree()
-
-    await this.getTreeItemByPrimaryTitle$(this.pageName).hover()
-    await this.getTreeItemByPrimaryTitle(this.pageName)
+    await this.getTree()
+      .getTreeItemByPrimaryTitle$(authGuardPageData.name)
+      .hover()
+    await this.getTree()
+      .getTreeItemByPrimaryTitle(authGuardPageData.name)
       .getToolbarItem(UiKey.RedirectToolbarItemUpdate)
       .click()
 

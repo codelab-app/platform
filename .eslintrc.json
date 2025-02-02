@@ -6,7 +6,8 @@
     "canonical",
     "sort-destructure-keys",
     "unicorn",
-    "@stylistic/ts"
+    "@stylistic/ts",
+    "ban"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {

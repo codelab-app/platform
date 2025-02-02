@@ -87,8 +87,8 @@ export const useTablePagination = <T extends SupportedPaginationModel>({
     isLoading: paginationService.isLoading,
     isLoadingBetweenPages: paginationService.isLoadingBetweenPages,
     onSearch: (searchText: string) =>
-      routerService.setQueryParams({
-        ...routerService.queryParams,
+      routerService.setSearchParams({
+        ...routerService.searchParams,
         search: searchText,
       }),
     pagination,

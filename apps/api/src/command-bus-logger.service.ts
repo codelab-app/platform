@@ -35,7 +35,7 @@ export class CommandBusSubscription implements OnModuleInit {
           op: 'command.execute',
         },
         () => {
-          this.logger.log('Executing command', {
+          this.logger.verbose('Executing command', {
             context: commandName,
             data: command,
           })

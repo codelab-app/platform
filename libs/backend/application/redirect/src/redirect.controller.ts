@@ -7,6 +7,7 @@ import {
   IRedirectTargetType,
   type IResourceFetchConfig,
 } from '@codelab/shared/abstract/core'
+import { ObjectLike } from '@codelab/shared/abstract/types'
 import { tryParse } from '@codelab/shared/utils'
 import { getResourceClient } from '@codelab/shared-domain-module/resource'
 import { evaluateObject } from '@codelab/shared-infra-eval'
@@ -111,10 +112,10 @@ export class RedirectController {
         redirectUrl: !canActivate ? redirectUrl : undefined,
         status: 200,
       }
-    } catch (error) {
+    } catch (error: unknown) {
       this.logger.error('Error transforming response', {
         context: 'RedirectController',
-        data: error,
+        data: error as ObjectLike,
       })
 
       return {

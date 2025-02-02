@@ -7,14 +7,13 @@ import { BuilderProvider } from '@codelab/frontend/presentation/container'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { useSearchParams } from 'next/navigation'
 
-export const LayoutContainer = ({
+export const LayoutClient = ({
   children,
   componentId,
 }: {
   children: ReactNode
   componentId: string
 }) => {
-  const searchParams = useSearchParams()
   const { componentDomainService } = useDomainStore()
   const component = componentDomainService.component(componentId)
 
@@ -22,7 +21,6 @@ export const LayoutContainer = ({
     <BuilderProvider
       containerNode={component}
       rendererType={RendererType.ComponentBuilder}
-      searchParams={searchParams}
     >
       {children}
     </BuilderProvider>

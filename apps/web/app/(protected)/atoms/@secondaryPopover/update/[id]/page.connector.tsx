@@ -1,8 +1,8 @@
 'use client'
 
 import type {
+  SearchParamsPageProps,
   SubmitController,
-  UrlQueryParamsPageProps,
 } from '@codelab/frontend/abstract/types'
 import type { IAtomDto, ITagDto } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
@@ -25,7 +25,6 @@ import { useRef } from 'react'
 interface UpdateAtomContainerProps {
   atomsDto: Array<IAtomDto>
   id: string
-  searchParams: UrlQueryParamsPageProps
   tagsDto: Array<ITagDto>
 }
 
@@ -33,7 +32,7 @@ interface UpdateAtomContainerProps {
  * Move sidebar secondary and hydrator below it, so we can render the UI first
  */
 const UpdateAtomConnector = observer<UpdateAtomContainerProps>(
-  ({ atomsDto, id, searchParams, tagsDto }) => {
+  ({ atomsDto, id, tagsDto }) => {
     const submitRef = useRef<Maybe<SubmitController>>()
     const { updatePopover } = useAtomService()
     const router = useRouter()
@@ -67,18 +66,13 @@ const UpdateAtomConnector = observer<UpdateAtomContainerProps>(
           title: 'Update Atom toolbar',
         }}
       >
-        <ApplicationStoreHydrator
+        <DomainStoreHydrator
+          atomsDto={atomsDto}
           fallback={<Spinner />}
-          queryParams={searchParams}
+          tagsDto={tagsDto}
         >
-          <DomainStoreHydrator
-            atomsDto={atomsDto}
-            fallback={<Spinner />}
-            tagsDto={tagsDto}
-          >
-            {atom && <UpdateAtomPopover atom={atom} submitRef={submitRef} />}
-          </DomainStoreHydrator>
-        </ApplicationStoreHydrator>
+          {atom && <UpdateAtomPopover atom={atom} submitRef={submitRef} />}
+        </DomainStoreHydrator>
       </CuiSidebarSecondary>
     )
   },

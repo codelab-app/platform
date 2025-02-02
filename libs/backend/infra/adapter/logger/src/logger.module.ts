@@ -5,10 +5,10 @@ import { ConfigModule } from '@nestjs/config'
 import { LoggerModule } from 'nestjs-pino'
 import { omit } from 'remeda'
 
-import { loggerConfig } from './logger.config'
+import { levelMapping, loggerConfig } from './logger.config'
 import { NestjsLoggerService } from './nestjs.logger.service'
 import { PinoLoggerService } from './pino/pino.logger.service'
-import { pinoPrettyStream } from './pino/pino-transport'
+import { pinoPrettyStream, prettyOptions } from './pino/pino-transport'
 
 @Global()
 @Module({
@@ -23,19 +23,24 @@ import { pinoPrettyStream } from './pino/pino-transport'
           pinoHttp: {
             // Disable HTTP requests logging
             autoLogging: false,
+            customLevels: levelMapping.values,
+            // customLogLevel: (req, res, err) => {
+            //   // Return default level if no specific conditions are met
+            //   return 'verbose'
+            // },
             // Turn off using `API_LOG_LEVEL`
             enabled: true,
             // Doesn't prefix in front of date
             // msgPrefix: '[API]',
             // Set Pino to synchronous mode
-            formatters: {
-              bindings: (bindings) => {
-                return {
-                  ...bindings,
-                  pid: bindings['pid'],
-                }
-              },
-            },
+            // formatters: {
+            //   bindings: (bindings) => {
+            //     return {
+            //       ...bindings,
+            //       pid: bindings['pid'],
+            //     }
+            //   },
+            // },
             level: config.level,
             mixin: (context) => {
               return context
@@ -61,11 +66,14 @@ import { pinoPrettyStream } from './pino/pino-transport'
               // },
             },
             /**
-             * https://stackoverflow.com/a/74100511/2159920
-             *
-             * Enable synchronous logging
+             * Stream is async by default, cannot change
              */
-            stream: pinoPrettyStream,
+            // stream: pinoPrettyStream,
+            // Force synchronous logging at the transport level
+            transport: {
+              options: prettyOptions,
+              target: 'pino-pretty',
+            },
           },
         }
       },

@@ -51,25 +51,4 @@ export class Page extends IModel implements IPage {
     this.store = store
     this.urlPattern = urlPattern
   }
-
-  writeCache({
-    app,
-    kind,
-    name,
-    pageContentContainer,
-    rootElement,
-    store,
-    urlPattern,
-  }: Partial<IPageDto>) {
-    this.name = name ?? this.name
-    this.rootElement = rootElement ?? this.rootElement
-    this.app = app ?? this.app
-    this.pageContentContainer =
-      pageContentContainer ?? this.pageContentContainer
-    this.kind = kind ?? this.kind
-    this.store = store ?? this.store
-    this.urlPattern = urlPattern ?? ''
-
-    return this
-  }
 }

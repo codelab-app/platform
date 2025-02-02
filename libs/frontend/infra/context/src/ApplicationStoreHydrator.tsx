@@ -1,14 +1,18 @@
 'use client'
 
 import type {
+  SearchParamsPageProps,
+  SearchParamsProps,
   UrlPathParams,
-  UrlQueryParamsPageProps,
 } from '@codelab/frontend/abstract/types'
+import type { ReadonlyURLSearchParams } from 'next/navigation'
 
-import { parseQueryParamPageProps } from '@codelab/frontend-application-shared-store/router'
+import { parseSearchParamsPageProps } from '@codelab/frontend-application-shared-store/router'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
-import { type ReactNode, useEffect, useState } from 'react'
+import { type ReactNode, useState } from 'react'
+import { useCustomCompareEffect } from 'react-use'
+import { isDeepEqual, pipe } from 'remeda'
 
 interface ApplicationStoreHydratorProps {
   children: ReactNode
@@ -23,7 +27,7 @@ interface ApplicationStoreHydratorProps {
    */
   fallback?: ReactNode
   pathParams?: UrlPathParams
-  queryParams?: UrlQueryParamsPageProps
+  searchParams?: SearchParamsPageProps
 }
 
 export const ApplicationStoreHydrator = observer(
@@ -31,28 +35,34 @@ export const ApplicationStoreHydrator = observer(
     children,
     fallback,
     pathParams,
-    queryParams,
+    searchParams,
   }: ApplicationStoreHydratorProps) => {
     const { routerService } = useApplicationStore()
     const [isHydrated, setIsHydrated] = useState(false)
 
-    useEffect(() => {
-      if (queryParams) {
-        console.log(parseQueryParamPageProps(queryParams))
-        routerService.setQueryParams(parseQueryParamPageProps(queryParams))
-      }
+    useCustomCompareEffect(
+      () => {
+        if (searchParams) {
+          const params = parseSearchParamsPageProps(searchParams)
 
-      if (pathParams) {
-        routerService.setPathParams(pathParams)
-      }
+          routerService.setSearchParams(params)
+        }
 
-      setIsHydrated(true)
-    }, [])
+        if (pathParams) {
+          routerService.setPathParams(pathParams)
+        }
 
-    if (!fallback) {
-      return <>{children}</>
+        setIsHydrated(true)
+      },
+      [pathParams, searchParams],
+      isDeepEqual,
+    )
+
+    // Always wait for hydration, regardless of fallback presence
+    if (!isHydrated) {
+      return fallback ? <>{fallback}</> : null
     }
 
-    return isHydrated ? <>{children}</> : <>{fallback}</>
+    return <>{children}</>
   },
 )

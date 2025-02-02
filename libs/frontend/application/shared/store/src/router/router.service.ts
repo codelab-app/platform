@@ -3,24 +3,20 @@ import type {
   IRouterService,
 } from '@codelab/frontend/abstract/application'
 import type {
+  SearchParamsProps,
   UrlPathParamsProps,
-  UrlQueryParamsProps,
 } from '@codelab/frontend/abstract/types'
 
 import { Validator } from '@codelab/shared/infra/typebox'
 import { computed } from 'mobx'
 import { Model, model, prop } from 'mobx-keystone'
 
-import { parseQueryParamPageProps } from './query-params'
-
 const init = (router: IRouterProps) => {
-  const { pathParams, queryParams } = router
+  const { pathParams, searchParams } = router
 
   return new RouterService({
     pathParams,
-    queryParams: queryParams
-      ? parseQueryParamPageProps(queryParams)
-      : undefined,
+    searchParams: searchParams ? searchParams : undefined,
   })
 }
 
@@ -39,11 +35,11 @@ export class RouterService
       pageId: undefined,
       resourceId: undefined,
     })).withSetter(),
-    queryParams: prop<UrlQueryParamsProps>(() => ({
+    searchParams: prop<SearchParamsProps>(() => ({
       filter: [],
       node: undefined,
       /**
-       * Placeholder value to satisfy interface, will be synced to url before useing
+       * Placeholder value to satisfy interface, will be synced to url before using
        */
       page: 0,
       pageSize: 0,
@@ -93,7 +89,7 @@ export class RouterService
 
   @computed
   get filter() {
-    const filter = Array.from(this.queryParams.filter ?? [])
+    const filter = Array.from(this.searchParams.filter ?? [])
 
     Validator.assertsDefined(filter)
 
@@ -111,12 +107,12 @@ export class RouterService
 
   @computed
   get node() {
-    return this.queryParams.node
+    return this.searchParams.node
   }
 
   @computed
   get page() {
-    const page = this.queryParams.page
+    const page = this.searchParams.page
 
     Validator.assertsDefined(page)
 
@@ -134,7 +130,7 @@ export class RouterService
 
   @computed
   get pageSize() {
-    const pageSize = this.queryParams.pageSize
+    const pageSize = this.searchParams.pageSize
 
     Validator.assertsDefined(pageSize)
 
@@ -143,7 +139,7 @@ export class RouterService
 
   @computed
   get primarySidebarKey() {
-    return this.queryParams.primarySidebarKey
+    return this.searchParams.primarySidebarKey
   }
 
   @computed
@@ -157,6 +153,6 @@ export class RouterService
 
   @computed
   get search() {
-    return this.queryParams.search
+    return this.searchParams.search
   }
 }

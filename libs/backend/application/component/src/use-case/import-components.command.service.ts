@@ -28,8 +28,6 @@ export class ImportComponentsHandler
 
     console.log('Importing component...', component)
 
-    await this.propRepository.save(component.props)
-
     await this.commandBus.execute<ImportApiCommand>(new ImportApiCommand(api))
 
     await this.commandBus.execute<ImportStoreCommand>(
@@ -37,10 +35,11 @@ export class ImportComponentsHandler
     )
 
     for (const element of elements) {
-      await this.propRepository.save(element.props)
+      // await this.propRepository.save(element.props)
       await this.elementRepository.save(element)
     }
 
+    // await this.propRepository.save(component.props)
     await this.componentRepository.save(component)
   }
 }

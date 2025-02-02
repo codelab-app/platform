@@ -6,7 +6,7 @@ import type {
 import type { AppWhere } from '@codelab/shared/infra/gqlgen'
 
 import { type IAppService } from '@codelab/frontend/abstract/application'
-import { useHydrateStore } from '@codelab/frontend/infra/context'
+import { useDomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { regeneratePages } from '@codelab/frontend-application-page/use-cases/generate-pages'
 import { appRepository } from '@codelab/frontend-domain-app/repositories'
 import { domainRepository } from '@codelab/frontend-domain-domain/repositories'
@@ -34,7 +34,7 @@ export const useAppService = (): IAppService => {
   const user = userDomainService.user.toJson
   const owner = user
   const appFactory = new AppFactory(pageFactory)
-  const hydrate = useHydrateStore()
+  const hydrate = useDomainStoreHydrator()
 
   const create = async (data: IAppCreateFormData) => {
     const defaultRenderType = atomDomainService.defaultRenderType

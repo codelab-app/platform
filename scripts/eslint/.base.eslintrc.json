@@ -4,6 +4,13 @@
       "plugins": [],
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
+        "ban/ban": [
+          2,
+          {
+            "name": "useSearchParams",
+            "message": "use `useSearchParamsPageProps` instead"
+          }
+        ],
         // We use `canonical/sort-keys` instead
         "perfectionist/sort-objects": "off",
         // "unused-imports/no-unused-imports": "error",

@@ -53,6 +53,37 @@ const external_env_var_namespaceObject = require("env-var");
 ;// ../../libs/backend/infra/adapter/logger/src/logger.config.ts
 
 
+// https://github.com/pinojs/pino/blob/main/docs/api.md#loggerlevels-object
+// Extends `LevelMapping`, but use nestjs values
+const levelMapping = {
+    values: {
+        verbose: 10,
+        debug: 20,
+        info: 30,
+        warn: 40,
+        error: 50,
+        fatal: 60,
+    },
+    labels: {
+        10: 'verbose',
+        20: 'debug',
+        30: 'info',
+        40: 'warn',
+        50: 'error',
+        60: 'fatal',
+    },
+};
+/**
+ * Map from nestjs log levels to pino log levels
+ */
+const labelMapping = {
+    verbose: 'trace',
+    debug: 'debug',
+    log: 'info',
+    warn: 'warn',
+    error: 'error',
+    fatal: 'fatal',
+};
 const loggerConfig = (0,config_namespaceObject.registerAs)('LOGGER_CONFIG', () => {
     return {
         get level() {
@@ -61,18 +92,34 @@ const loggerConfig = (0,config_namespaceObject.registerAs)('LOGGER_CONFIG', () =
              */
             return external_env_var_namespaceObject.get('API_LOG_LEVEL')
                 .default('info')
-                .asEnum(['trace', 'debug', 'info', 'warn', 'error', 'fatal']);
+                .asEnum(['verbose', 'debug', 'info', 'warn', 'error', 'fatal']);
         },
         get sentryDsn() {
             return external_env_var_namespaceObject.get('SENTRY_DSN').required().asString();
         },
-        get context() {
-            const contexts = external_env_var_namespaceObject.get('API_LOG_CONTEXT')
+        get contextFilter() {
+            return external_env_var_namespaceObject.get('API_LOG_CONTEXT_FILTER')
+                .default('')
+                .asString()
+                .split(',')
+                .filter(Boolean)
+                .map((filter) => {
+                const [level, pattern] = filter.split(':');
+                if (!level || !pattern || !(level in levelMapping.values)) {
+                    throw new Error(`Invalid context filter format: ${filter}`);
+                }
+                return {
+                    level: level,
+                    pattern,
+                };
+            });
+        },
+        get enableDataForContext() {
+            return external_env_var_namespaceObject.get('API_LOG_ENABLE_DATA_FOR_CONTEXT')
                 .default('')
                 .asString()
                 .split(',')
                 .filter(Boolean);
-            return contexts;
         },
     };
 });
@@ -97,8 +144,9 @@ var _a, _b;
 
 
 
+
 /**
- * So Nest.js only has two parameters, the first one being the message and the last one being the context. Any other parameters in the middle are ignored.
+ * Don't use super, but rather from `logger`
  */
 let PinoLoggerService = class PinoLoggerService extends external_nestjs_pino_namespaceObject.Logger {
     constructor(logger, params, config) {
@@ -118,21 +166,98 @@ let PinoLoggerService = class PinoLoggerService extends external_nestjs_pino_nam
             value: config
         });
     }
+    async executeWithTiming(message, fn, options, level = 'debug') {
+        const startTime = Date.now();
+        const result = await fn();
+        const durationSecs = ((Date.now() - startTime) / 1000).toFixed(2);
+        const context = options?.context ?? undefined;
+        const data = options?.data ?? {};
+        // Pass data and context as separate properties in LogOptions
+        this[level](message, {
+            context,
+            data: {
+                ...data,
+            },
+            durationSecs,
+        });
+        return result;
+    }
+    async debugWithTiming(message, fn, options) {
+        return this.executeWithTiming(message, fn, options, 'debug');
+    }
+    async verboseWithTiming(message, fn, options) {
+        return this.executeWithTiming(message, fn, options, 'verbose');
+    }
     /**
-     * We create a 2 parameter log function, but extract the context as last parameter, while combining the data with first parameter
+     * Return true by default unless we have a contextFilter with matching level,
+     * in which case we check the pattern
      */
-    log(message, options) {
+    enableLog(level, options) {
         const context = options?.context ?? '';
-        const includeDataForContext = this.config.context.includes(context);
-        if (includeDataForContext) {
-            return super.log({
-                data: options?.data,
-                message,
-            }, context);
+        // Find filters that match the current level
+        const matchingLevelFilters = this.config.contextFilter.filter((filter) => level === filter.level);
+        // If no filters match the level, enable logging by default
+        if (matchingLevelFilters.length === 0) {
+            return true;
         }
-        super.log({
-            message,
-        }, context);
+        // If we have matching level filters, check if any pattern matches
+        return matchingLevelFilters.some((filter) => new RegExp(filter.pattern).test(context));
+    }
+    shouldIncludeData(options) {
+        const context = options?.context ?? '';
+        // Check if context matches any enable data patterns
+        return this.config.enableDataForContext.some((pattern) => {
+            return new RegExp(pattern).test(context);
+        });
+    }
+    logWithOptions(level, message, options) {
+        if (!this.enableLog(level, options)) {
+            return;
+        }
+        const mappedLevel = labelMapping[level];
+        if (!this.shouldIncludeData(options)) {
+            this.logger[mappedLevel]({
+                msg: message,
+                ...('data' in (options ?? {})
+                    ? (0,external_remeda_namespaceObject.omit)(options ?? {}, ['data'])
+                    : options ?? {}),
+            });
+        }
+        else {
+            this.logger[mappedLevel]({ msg: message, ...(options ?? {}) });
+        }
+    }
+    log(message, options) {
+        this.logWithOptions('log', message, options);
+    }
+    /**
+     * If we specify 2 params format, the second param will be under `context` no matter what
+     *
+     * debug('Hello', 'World') -> DEBUG: Hello /n context: "World"
+     * debug('Hello', 'World', '!') -> DEBUG: Hello /n context: "!"
+     *
+     * If we use single object, we have more control
+     *
+     * debug({ msg: 'Hello', context: 'World', data: '!' }) -> DEBUG
+     *
+     *
+     * @param message
+     * @param options
+     */
+    debug(message, options) {
+        this.logWithOptions('debug', message, options);
+    }
+    verbose(message, options) {
+        this.logWithOptions('verbose', message, options);
+    }
+    warn(message, options) {
+        this.logWithOptions('warn', message, options);
+    }
+    error(message, options) {
+        this.logWithOptions('error', message, options);
+    }
+    fatal(message, options) {
+        this.logWithOptions('fatal', message, options);
     }
     logToFile(object = {}, filePath = 'tmp/logs/application.log') {
         this.log('Logging to file...', {
@@ -168,10 +293,17 @@ const external_pino_pretty_namespaceObject = require("pino-pretty");
 var external_pino_pretty_default = /*#__PURE__*/__webpack_require__.n(external_pino_pretty_namespaceObject);
 ;// ../../libs/backend/infra/adapter/logger/src/pino/pino-transport.ts
 
-
-const levelsLabels = (external_pino_default()).levels.labels;
-const pinoPrettyStream = external_pino_pretty_default()({
+const prettyOptions = {
     colorize: true,
+    // Make this nest.js compatible
+    customLevels: {
+        verbose: 10,
+        debug: 20,
+        info: 30,
+        warn: 40,
+        error: 50,
+        fatal: 60,
+    },
     // errorLikeObjectKeys: ['err', 'error'],
     /**
      * Yes, Pino automatically adds req and res objects to the logs when used with nestjs-pino because it's designed to work as HTTP middleware by default.
@@ -213,7 +345,8 @@ const pinoPrettyStream = external_pino_pretty_default()({
     // },
     // singleLine: true,
     sync: true,
-});
+};
+const pinoPrettyStream = external_pino_pretty_default()(prettyOptions);
 
 ;// ../../libs/backend/infra/adapter/logger/src/logger.module.ts
 
@@ -241,19 +374,24 @@ CodelabLoggerModule = (0,external_tslib_namespaceObject.__decorate)([
                         pinoHttp: {
                             // Disable HTTP requests logging
                             autoLogging: false,
+                            customLevels: levelMapping.values,
+                            // customLogLevel: (req, res, err) => {
+                            //   // Return default level if no specific conditions are met
+                            //   return 'verbose'
+                            // },
                             // Turn off using `API_LOG_LEVEL`
                             enabled: true,
                             // Doesn't prefix in front of date
                             // msgPrefix: '[API]',
                             // Set Pino to synchronous mode
-                            formatters: {
-                                bindings: (bindings) => {
-                                    return {
-                                        ...bindings,
-                                        pid: bindings['pid'],
-                                    };
-                                },
-                            },
+                            // formatters: {
+                            //   bindings: (bindings) => {
+                            //     return {
+                            //       ...bindings,
+                            //       pid: bindings['pid'],
+                            //     }
+                            //   },
+                            // },
                             level: config.level,
                             mixin: (context) => {
                                 return context;
@@ -279,11 +417,14 @@ CodelabLoggerModule = (0,external_tslib_namespaceObject.__decorate)([
                                 // },
                             },
                             /**
-                             * https://stackoverflow.com/a/74100511/2159920
-                             *
-                             * Enable synchronous logging
+                             * Stream is async by default, cannot change
                              */
-                            stream: pinoPrettyStream,
+                            // stream: pinoPrettyStream,
+                            // Force synchronous logging at the transport level
+                            transport: {
+                                options: prettyOptions,
+                                target: 'pino-pretty',
+                            },
                         },
                     };
                 },

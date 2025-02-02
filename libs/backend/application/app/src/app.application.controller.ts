@@ -1,4 +1,8 @@
-import type { IApp, IAppAggregateExport } from '@codelab/shared/abstract/core'
+import type {
+  IApp,
+  IAppAggregateExport,
+  IPageCreateSeedData,
+} from '@codelab/shared/abstract/core'
 
 import { ImportCypressAtomsCommand } from '@codelab/backend/application/atom'
 import { ImportDataMapperService } from '@codelab/backend/application/data'
@@ -6,6 +10,7 @@ import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { DatabaseService } from '@codelab/backend-infra-adapter/neo4j-driver'
 import {
+  Body,
   ClassSerializerInterceptor,
   Controller,
   Get,
@@ -37,7 +42,7 @@ export class AppApplicationController {
   @UseInterceptors(ClassSerializerInterceptor)
   @Get('export')
   async exportApp(@Request() req: ExpressRequest) {
-    return this.commandBus.execute<SeedCypressAppCommand, IAppAggregateExport>(
+    return this.commandBus.execute<ExportAppCommand, IAppAggregateExport>(
       new ExportAppCommand({ id: req.query['id'] as string }),
     )
   }
@@ -49,7 +54,7 @@ export class AppApplicationController {
     const data = JSON.parse(json)
     const importData = this.importDataMapperService.getAppImportData(data)
 
-    return this.commandBus.execute<SeedCypressAppCommand, IApp>(
+    return this.commandBus.execute<ImportAppCommand, IApp>(
       new ImportAppCommand(importData),
     )
   }

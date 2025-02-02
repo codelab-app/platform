@@ -1,5 +1,12 @@
+import type { ObjectLike } from '@codelab/shared/abstract/types'
+
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
-import { expect, type Locator, type Page } from '@playwright/test'
+import test, {
+  expect,
+  type Location,
+  type Locator,
+  type Page,
+} from '@playwright/test'
 
 export const getButton = (page: Page, options: { label: string | RegExp }) => {
   return page.getByRole('button', { name: options.label })
@@ -44,4 +51,30 @@ export const getCuiTreeItemByPrimaryTitle = async (
 
 export const getCuiTree = (page: Page) => {
   return page.getByTestId(CuiTestId.cuiTree())
+}
+
+/**
+ * Doesn't seem to work
+ */
+// export function Step() {
+//   return function (
+//     originalMethod: any,
+//     context: ClassMethodDecoratorContext<any, any>,
+//   ) {
+//     return function (this: any, ...args: any) {
+//       const name = this.constructor.name + '.' + (context.name as string)
+
+//       return test.step(name, async () => {
+//         return originalMethod.call(this, ...args)
+//       })
+//     }
+//   }
+// }
+
+export const step = <T>(
+  title: string,
+  body: () => Promise<T> | T,
+  options: { box?: boolean; location?: Location } = {},
+) => {
+  return test.step(title, body, options)
 }

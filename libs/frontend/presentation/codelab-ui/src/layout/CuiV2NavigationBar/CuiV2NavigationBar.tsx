@@ -1,5 +1,6 @@
 'use client'
 
+import { useSearchParamsProps } from '@codelab/frontend-application-shared-store/router'
 import { Menu } from 'antd'
 import classNames from 'classnames'
 import { usePathname, useSearchParams } from 'next/navigation'
@@ -15,11 +16,9 @@ export const CuiV2NavigationBar = ({
   secondaryItems,
 }: CuiNavigationBarProps) => {
   const pathname = usePathname()
-  const searchParams = useSearchParams()
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  const primarySidebarKey = searchParams?.get('primarySidebarKey')
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  const selectedKey = (primarySidebarKey || pathname) ?? ''
+  const searchParams = useSearchParamsProps()
+  const { primarySidebarKey } = searchParams
+  const selectedKey = primarySidebarKey || pathname
 
   return (
     <div

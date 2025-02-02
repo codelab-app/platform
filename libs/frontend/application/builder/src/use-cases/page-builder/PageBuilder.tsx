@@ -21,7 +21,7 @@ export interface IPageBuilderProps {
  */
 export const PageBuilder = observer(
   ({ page, RootRenderer }: IPageBuilderProps) => {
-    tracker.useRenderedCount('PageBuilder')
+    // tracker.useRenderedCount('PageBuilder')
 
     const { rendererService } = useApplicationStore()
 
