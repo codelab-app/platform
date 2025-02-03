@@ -311,7 +311,7 @@
     "@nx/webpack": "20.4.0",
     "@nx/workspace": "20.4.0",
     "@parcel/watcher": "2.4.1",
-    "@playwright/test": "1.49.0",
+    "@playwright/test": "1.50.1",
     "@sentry/types": "8.47.0",
     "@sentry/utils": "8.47.0",
     "@storybook/addon-essentials": "8.4.7",
