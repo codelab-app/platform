@@ -24,9 +24,6 @@ export const antdAtoms: IAtomRendererRecord = {
   [IAtomType.AntDesignBreadcrumb]: dynamicLoader(
     () => import('antd/lib/breadcrumb'),
   ),
-  [IAtomType.AntDesignBreadcrumbItem]: dynamicLoader(() =>
-    import('antd/lib/breadcrumb').then((mod) => mod.default.Item),
-  ),
   [IAtomType.AntDesignButton]: dynamicLoader(() => import('antd/lib/button')),
   [IAtomType.AntDesignCalendar]: dynamicLoader(
     () => import('antd/lib/calendar'),
@@ -61,9 +58,6 @@ export const antdAtoms: IAtomRendererRecord = {
   ),
   [IAtomType.AntDesignDescriptions]: dynamicLoader(
     () => import('antd/lib/descriptions'),
-  ),
-  [IAtomType.AntDesignDescriptionsItem]: dynamicLoader(
-    () => import('antd/lib/descriptions/Item'),
   ),
   [IAtomType.AntDesignDivider]: dynamicLoader(() => import('antd/lib/divider')),
   [IAtomType.AntDesignDrawer]: dynamicLoader(() => import('antd/lib/drawer')),
@@ -132,9 +126,6 @@ export const antdAtoms: IAtomRendererRecord = {
   [IAtomType.AntDesignMentions]: dynamicLoader(
     () => import('antd/lib/mentions'),
   ),
-  [IAtomType.AntDesignMentionsOption]: dynamicLoader(() =>
-    import('antd/lib/mentions').then((mod) => mod.Option),
-  ),
   [IAtomType.AntDesignMenu]: dynamicLoader(() => import('antd/lib/menu')),
   [IAtomType.AntDesignMessage]: dynamicLoader(
     () => import('antd/lib/message') as never,
@@ -159,7 +150,6 @@ export const antdAtoms: IAtomRendererRecord = {
   [IAtomType.AntDesignProgress]: dynamicLoader(
     () => import('antd/lib/progress'),
   ),
-  [IAtomType.AntDesignRadio]: dynamicLoader(() => import('antd/lib/radio')),
   [IAtomType.AntDesignRadioGroup]: dynamicLoader(
     () => import('antd/lib/radio/group'),
   ),
@@ -169,9 +159,6 @@ export const antdAtoms: IAtomRendererRecord = {
     () => import('antd/lib/segmented'),
   ),
   [IAtomType.AntDesignSelect]: dynamicLoader(() => import('antd/lib/select')),
-  [IAtomType.AntDesignSelectOption]: dynamicLoader(() =>
-    import('antd/lib/select').then((mod) => mod.default.Option),
-  ),
   [IAtomType.AntDesignSkeleton]: dynamicLoader(
     () => import('antd/lib/skeleton'),
   ),
@@ -184,21 +171,12 @@ export const antdAtoms: IAtomRendererRecord = {
     () => import('antd/lib/statistic'),
   ),
   [IAtomType.AntDesignSteps]: dynamicLoader(() => import('antd/lib/steps')),
-  [IAtomType.AntDesignStepsStep]: dynamicLoader(() =>
-    import('antd/lib/steps').then((mod) => mod.default.Step),
-  ),
   [IAtomType.AntDesignSwitch]: dynamicLoader(() => import('antd/lib/switch')),
   [IAtomType.AntDesignTable]: dynamicLoader(() => import('antd/lib/table')),
   [IAtomType.AntDesignTabs]: dynamicLoader(() => import('antd/lib/tabs')),
-  [IAtomType.AntDesignTabsTabPane]: dynamicLoader(() =>
-    import('antd/lib/tabs').then((mod) => mod.default.TabPane),
-  ),
   [IAtomType.AntDesignTag]: dynamicLoader(() => import('antd/lib/tag')),
   [IAtomType.AntDesignTimeline]: dynamicLoader(
     () => import('antd/lib/timeline'),
-  ),
-  [IAtomType.AntDesignTimelineItem]: dynamicLoader(
-    () => import('antd/lib/timeline/TimelineItem'),
   ),
   [IAtomType.AntDesignTimePicker]: dynamicLoader(
     () => import('antd/lib/time-picker'),

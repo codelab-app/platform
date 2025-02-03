@@ -4305,8 +4305,6 @@ enum AtomType {
   AntDesignBackTop
   AntDesignBadge
   AntDesignBreadcrumb
-  AntDesignBreadcrumbItem
-  AntDesignBreadcrumbSeparator
   AntDesignButton
   AntDesignCalendar
   AntDesignCard
@@ -4317,11 +4315,9 @@ enum AtomType {
   AntDesignCheckbox
   AntDesignCheckboxGroup
   AntDesignCollapse
-  AntDesignComment
   AntDesignConfigProvider
   AntDesignDatePicker
   AntDesignDescriptions
-  AntDesignDescriptionsItem
   AntDesignDivider
   AntDesignDrawer
   AntDesignDropdown
@@ -4349,7 +4345,6 @@ enum AtomType {
   AntDesignListItem
   AntDesignListItemMeta
   AntDesignMentions
-  AntDesignMentionsOption
   AntDesignMenu
   AntDesignMessage
   AntDesignModal
@@ -4358,28 +4353,23 @@ enum AtomType {
   AntDesignPopconfirm
   AntDesignPopover
   AntDesignProgress
-  AntDesignRadio
   AntDesignRadioGroup
   AntDesignRate
   AntDesignResult
   AntDesignSegmented
   AntDesignSelect
-  AntDesignSelectOption
   AntDesignSkeleton
   AntDesignSlider
   AntDesignSpace
   AntDesignSpin
   AntDesignStatistic
   AntDesignSteps
-  AntDesignStepsStep
   AntDesignSwitch
   AntDesignTable
   AntDesignTabs
-  AntDesignTabsTabPane
   AntDesignTag
   AntDesignTimePicker
   AntDesignTimeline
-  AntDesignTimelineItem
   AntDesignTooltip
   AntDesignTransfer
   AntDesignTree

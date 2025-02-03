@@ -9,7 +9,6 @@ export const antdTagTree: TagNode<IAntdCategoryTag | keyof IAntdAtomRecords> = {
   [IAntdCategoryTag.AntDesignDataDisplay]: [
     IAtomType.AntDesignAvatar,
     IAtomType.AntDesignBadge,
-    IAtomType.AntDesignComment,
     IAtomType.AntDesignCollapse,
     IAtomType.AntDesignCarousel,
     {
@@ -19,9 +18,7 @@ export const antdTagTree: TagNode<IAntdCategoryTag | keyof IAntdAtomRecords> = {
       ],
     },
     IAtomType.AntDesignCalendar,
-    {
-      [IAtomType.AntDesignDescriptions]: [IAtomType.AntDesignDescriptionsItem],
-    },
+    IAtomType.AntDesignDescriptions,
     IAtomType.AntDesignEmpty,
     IAtomType.AntDesignImage,
     {
@@ -34,9 +31,9 @@ export const antdTagTree: TagNode<IAntdCategoryTag | keyof IAntdAtomRecords> = {
     IAtomType.AntDesignStatistic,
     IAtomType.AntDesignTree,
     IAtomType.AntDesignTooltip,
-    { [IAtomType.AntDesignTimeline]: [IAtomType.AntDesignTimelineItem] },
+    IAtomType.AntDesignTimeline,
     IAtomType.AntDesignTag,
-    { [IAtomType.AntDesignTabs]: [IAtomType.AntDesignTabsTabPane] },
+    IAtomType.AntDesignTabs,
     IAtomType.AntDesignTable,
   ],
   [IAntdCategoryTag.AntDesignDataEntry]: [
@@ -56,10 +53,10 @@ export const antdTagTree: TagNode<IAntdCategoryTag | keyof IAntdAtomRecords> = {
     IAtomType.AntDesignInputSearch,
     IAtomType.AntDesignInputTextArea,
     IAtomType.AntDesignInputNumber,
-    { [IAtomType.AntDesignMentions]: [IAtomType.AntDesignMentionsOption] },
-    { [IAtomType.AntDesignRadio]: [IAtomType.AntDesignRadioGroup] },
+    IAtomType.AntDesignMentions,
+    IAtomType.AntDesignRadioGroup,
     IAtomType.AntDesignRate,
-    { [IAtomType.AntDesignSelect]: [IAtomType.AntDesignSelectOption] },
+    IAtomType.AntDesignSelect,
     IAtomType.AntDesignSlider,
     IAtomType.AntDesignSwitch,
     IAtomType.AntDesignTimePicker,
@@ -110,16 +107,11 @@ export const antdTagTree: TagNode<IAntdCategoryTag | keyof IAntdAtomRecords> = {
   ],
   [IAntdCategoryTag.AntDesignNavigation]: [
     IAtomType.AntDesignAffix,
-    {
-      [IAtomType.AntDesignBreadcrumb]: [
-        IAtomType.AntDesignBreadcrumbItem,
-        IAtomType.AntDesignBreadcrumbSeparator,
-      ],
-    },
+    IAtomType.AntDesignBreadcrumb,
     { [IAtomType.AntDesignDropdown]: [IAtomType.AntDesignDropdownButton] },
     IAtomType.AntDesignMenu,
     IAtomType.AntDesignPagination,
-    { [IAtomType.AntDesignSteps]: [IAtomType.AntDesignStepsStep] },
+    IAtomType.AntDesignSteps,
   ],
   [IAntdCategoryTag.AntDesignOther]: [
     { [IAtomType.AntDesignAnchor]: [IAtomType.AntDesignAnchorLink] },

@@ -57,17 +57,6 @@ export const antdAtomData: IAntdAtomRecords = {
     icon: IAtomType.AntDesignBreadcrumb,
     tag: IAtomType.AntDesignBreadcrumb,
   },
-  [IAtomType.AntDesignBreadcrumbItem]: {
-    file: 'Breadcrumb--Breadcrumb.Item',
-    icon: IAtomType.AntDesignBreadcrumb,
-    tag: IAtomType.AntDesignBreadcrumbItem,
-  },
-  [IAtomType.AntDesignBreadcrumbSeparator]: {
-    // file: 'Breadcrumb--Breadcrumb.Separator',
-    file: null,
-    icon: IAtomType.AntDesignBreadcrumb,
-    tag: IAtomType.AntDesignBreadcrumbSeparator,
-  },
   [IAtomType.AntDesignButton]: {
     file: 'Button',
     icon: IAtomType.AntDesignButton,
@@ -119,11 +108,6 @@ export const antdAtomData: IAntdAtomRecords = {
     icon: IAtomType.AntDesignCollapse,
     tag: IAtomType.AntDesignCollapse,
   },
-  [IAtomType.AntDesignComment]: {
-    file: 'Comment',
-    icon: IAtomType.AntDesignComment,
-    tag: IAtomType.AntDesignComment,
-  },
   [IAtomType.AntDesignConfigProvider]: {
     file: 'ConfigProvider',
     icon: IAtomType.AntDesignConfigProvider,
@@ -144,11 +128,6 @@ export const antdAtomData: IAntdAtomRecords = {
     file: 'Descriptions',
     icon: IAtomType.AntDesignDescriptions,
     tag: IAtomType.AntDesignDescriptions,
-  },
-  [IAtomType.AntDesignDescriptionsItem]: {
-    file: 'Descriptions--DescriptionItem',
-    icon: IAtomType.AntDesignDescriptions,
-    tag: IAtomType.AntDesignDescriptionsItem,
   },
   [IAtomType.AntDesignDivider]: {
     file: 'Divider',
@@ -299,11 +278,6 @@ export const antdAtomData: IAntdAtomRecords = {
     icon: IAtomType.AntDesignMentions,
     tag: IAtomType.AntDesignMentions,
   },
-  [IAtomType.AntDesignMentionsOption]: {
-    file: 'Mentions--Option',
-    icon: IAtomType.AntDesignMentions,
-    tag: IAtomType.AntDesignMentionsOption,
-  },
   [IAtomType.AntDesignMenu]: {
     file: 'Menu',
     icon: IAtomType.AntDesignMenu,
@@ -344,14 +318,9 @@ export const antdAtomData: IAntdAtomRecords = {
     icon: IAtomType.AntDesignProgress,
     tag: IAtomType.AntDesignProgress,
   },
-  [IAtomType.AntDesignRadio]: {
-    file: 'Radio--Radio_Radio.Button',
-    icon: IAtomType.AntDesignRadio,
-    tag: IAtomType.AntDesignRadio,
-  },
   [IAtomType.AntDesignRadioGroup]: {
     file: 'Radio--RadioGroup',
-    icon: IAtomType.AntDesignRadio,
+    icon: IAtomType.AntDesignRadioGroup,
     tag: IAtomType.AntDesignRadioGroup,
   },
   [IAtomType.AntDesignRate]: {
@@ -374,11 +343,6 @@ export const antdAtomData: IAntdAtomRecords = {
     file: 'Select--Select props',
     icon: IAtomType.AntDesignSelect,
     tag: IAtomType.AntDesignSelect,
-  },
-  [IAtomType.AntDesignSelectOption]: {
-    file: 'Select--Option props',
-    icon: IAtomType.AntDesignSelect,
-    tag: IAtomType.AntDesignSelectOption,
   },
   [IAtomType.AntDesignSkeleton]: {
     file: 'Skeleton',
@@ -410,11 +374,6 @@ export const antdAtomData: IAntdAtomRecords = {
     icon: IAtomType.AntDesignSteps,
     tag: IAtomType.AntDesignSteps,
   },
-  [IAtomType.AntDesignStepsStep]: {
-    file: 'Steps--Steps.Step',
-    icon: IAtomType.AntDesignSteps,
-    tag: IAtomType.AntDesignStepsStep,
-  },
   [IAtomType.AntDesignSwitch]: {
     file: null,
     icon: IAtomType.AntDesignSwitch,
@@ -425,22 +384,10 @@ export const antdAtomData: IAntdAtomRecords = {
     icon: IAtomType.AntDesignTable,
     tag: IAtomType.AntDesignTable,
   },
-  // 'Table--Column': IAtomType.AntDesignTable,
-  // 'Table--ColumnGroup': IAtomType.AntDesignTable,
-  // 'Table--expandable': IAtomType.AntDesignTable,
-  // 'Table--pagination': IAtomType.AntDesignTable,
-  // 'Table--rowSelection': IAtomType.AntDesignTable,
-  // 'Table--scroll': IAtomType.AntDesignTable,
-  // 'Table--selection': IAtomType.AntDesignTable,
   [IAtomType.AntDesignTabs]: {
     file: 'Tabs',
     icon: IAtomType.AntDesignTabs,
     tag: IAtomType.AntDesignTabs,
-  },
-  [IAtomType.AntDesignTabsTabPane]: {
-    file: 'Tabs--Tabs.TabPane',
-    icon: IAtomType.AntDesignTabs,
-    tag: IAtomType.AntDesignTabsTabPane,
   },
   [IAtomType.AntDesignTag]: {
     file: 'Tag',
@@ -452,11 +399,6 @@ export const antdAtomData: IAntdAtomRecords = {
     file: 'Timeline',
     icon: IAtomType.AntDesignTimeline,
     tag: IAtomType.AntDesignTimeline,
-  },
-  [IAtomType.AntDesignTimelineItem]: {
-    file: 'Timeline--Timeline.Item',
-    icon: IAtomType.AntDesignTimeline,
-    tag: IAtomType.AntDesignTimelineItem,
   },
   [IAtomType.AntDesignTimePicker]: {
     file: null,
