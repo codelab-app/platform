@@ -1,5 +1,6 @@
 import { test as base, expect } from '@playwright/test'
 
+import { step } from '../../commands'
 import { BuilderPage } from '../builder/builder.fixture'
 import {
   childMapperComponentName,
@@ -13,148 +14,186 @@ import {
  */
 export class ChildMapperPage extends BuilderPage {
   async changeChildMapperProps() {
-    const updateElementForm = this.getUpdateElementForm()
+    return step('changeChildMapperProps', async () => {
+      const updateElementForm = this.getUpdateElementForm()
 
-    await this.selectTreeElement(pageRowElement)
-    await expect(this.getFormFieldSpinner()).toHaveCount(0)
+      await this.selectTreeElement(pageRowElement)
+      await expect(this.getFormFieldSpinner()).toHaveCount(0)
 
-    await this.setFormFieldValue(
-      'Prop Key',
-      '{{[{ name: "updated test 1" }, { name: "updated test 2" }]}}',
-      { locator: updateElementForm, waitForAutosave: true },
-    )
-    await this.setFormFieldValue('Render next to', pageRowChild2.name, {
-      locator: updateElementForm,
-      waitForAutosave: true,
+      await this.setFormFieldValue(
+        'Prop Key',
+        '{{[{ name: "updated test 1" }, { name: "updated test 2" }]}}',
+        { locator: updateElementForm, waitForAutosave: true },
+      )
+      await this.setFormFieldValue('Render next to', pageRowChild2.name, {
+        locator: updateElementForm,
+        waitForAutosave: true,
+      })
     })
   }
 
   async checkBuilderOutput() {
-    await this.checkBuilderOutputStructure([
-      '',
-      'text test 1',
-      'text test 2',
-      '',
-    ])
+    return step('checkBuilderOutput', async () => {
+      await this.checkBuilderOutputStructure([
+        '',
+        'text test 1',
+        'text test 2',
+        '',
+      ])
+    })
   }
 
   async checkElementTree() {
-    await this.checkElementTreeStructure([
-      'Body',
-      'Row',
-      'Child 1',
-      'Component Name 0',
-      'Component Name 1',
-      'Child 2',
-    ])
+    return step('checkElementTree', async () => {
+      await this.checkElementTreeStructure([
+        'Body',
+        'Row',
+        'Child 1',
+        'Component Name 0',
+        'Component Name 1',
+        'Child 2',
+      ])
+    })
   }
 
   async checkEmptyBuilderOutput() {
-    await this.checkBuilderOutputStructure(['', ''])
+    return step('checkEmptyBuilderOutput', async () => {
+      await this.checkBuilderOutputStructure(['', ''])
+    })
   }
 
   async checkEmptyElementTree() {
-    await this.checkElementTreeStructure(['Body', 'Row', 'Child 1', 'Child 2'])
+    return step('checkEmptyElementTree', async () => {
+      await this.checkElementTreeStructure([
+        'Body',
+        'Row',
+        'Child 1',
+        'Child 2',
+      ])
+    })
   }
 
   async checkUpdatedBuilderOutput() {
-    await this.checkBuilderOutputStructure([
-      '',
-      '',
-      'updated test 1',
-      'updated test 2',
-    ])
+    return step('checkUpdatedBuilderOutput', async () => {
+      await this.checkBuilderOutputStructure([
+        '',
+        '',
+        'updated test 1',
+        'updated test 2',
+      ])
+    })
   }
 
   async checkUpdatedElementTree() {
-    await this.checkElementTreeStructure([
-      'Body',
-      'Row',
-      'Child 1',
-      'Child 2',
-      'Component Name 0',
-      'Component Name 1',
-    ])
+    return step('checkUpdatedElementTree', async () => {
+      await this.checkElementTreeStructure([
+        'Body',
+        'Row',
+        'Child 1',
+        'Child 2',
+        'Component Name 0',
+        'Component Name 1',
+      ])
+    })
   }
 
   async expandElementsTree() {
-    const row = this.getTreeElement(pageRowElement.name, pageRowElement.atom)
-    const col1 = this.getTreeElement(pageRowChild1.name, pageRowChild1.atom)
-    const col2 = this.getTreeElement(pageRowChild2.name, pageRowChild2.atom)
+    return step('expandElementsTree', async () => {
+      await this.page.locator('.ant-tree-switcher_close').click()
 
-    await this.page.getByLabel('plus-square').click()
-    await expect(row).toBeVisible()
+      const row = this.getTreeElement(pageRowElement.name, pageRowElement.atom)
 
-    await this.page.getByLabel('plus-square').click()
-    await expect(col1).toBeVisible()
-    await expect(col2).toBeVisible()
+      await expect(row).toBeVisible()
+
+      const switcher = this.page.locator('.ant-tree-switcher_close')
+
+      await switcher.waitFor({ state: 'visible', timeout: 5000 })
+      await switcher.click()
+
+      const col1 = this.getTreeElement(pageRowChild1.name, pageRowChild1.atom)
+      const col2 = this.getTreeElement(pageRowChild2.name, pageRowChild2.atom)
+
+      await expect(col1).toBeVisible()
+      await expect(col2).toBeVisible()
+    })
   }
 
   async setChildMapperProperties() {
-    const updateElementForm = this.getUpdateElementForm()
+    return step('setChildMapperProperties', async () => {
+      await this.selectTreeElement(pageRowElement)
 
-    await this.selectTreeElement(pageRowElement)
-    await updateElementForm
-      .locator('.ant-collapse-header', { hasText: 'Child Mapper' })
-      .click()
+      const updateElementForm = this.getUpdateElementForm()
 
-    await updateElementForm.locator('button', { hasText: 'JS' }).click()
+      await updateElementForm
+        .locator('.ant-collapse-header', { hasText: 'Child Mapper' })
+        .click()
 
-    await this.setFormFieldValue(
-      'Prop Key',
-      '{{[{ name: "test 1" }, { name: "test 2" }]}}',
-      { locator: updateElementForm, waitForAutosave: true },
-    )
-    await this.setFormFieldValue('Component', childMapperComponentName, {
-      locator: updateElementForm,
-      waitForAutosave: true,
-    })
-    await this.setFormFieldValue('Render next to', pageRowChild1.name, {
-      locator: updateElementForm,
-      waitForAutosave: true,
+      await this.setFormFieldValue('Component', childMapperComponentName, {
+        locator: updateElementForm,
+        waitForAutosave: true,
+      })
+
+      await updateElementForm.locator('button', { hasText: 'JS' }).click()
+
+      await this.setFormFieldValue(
+        'Prop Key',
+        '{{[{ name: "test 1" }, { name: "test 2" }]}}',
+        { locator: updateElementForm, waitForAutosave: true },
+      )
+
+      await this.setFormFieldValue('Render next to', pageRowChild1.name, {
+        locator: updateElementForm,
+        waitForAutosave: true,
+      })
     })
   }
 
   async setEmptyChildMapperProperties() {
-    const updateElementForm = this.getUpdateElementForm()
+    return step('setEmptyChildMapperProperties', async () => {
+      const updateElementForm = this.getUpdateElementForm()
 
-    await this.selectTreeElement(pageRowElement)
-    await updateElementForm
-      .locator('.ant-collapse-header', { hasText: 'Child Mapper' })
-      .click()
-    await this.setFormFieldValue('Prop Key', '{{[]}}', {
-      locator: updateElementForm,
-      waitForAutosave: true,
+      await this.selectTreeElement(pageRowElement)
+      await updateElementForm
+        .locator('.ant-collapse-header', { hasText: 'Child Mapper' })
+        .click()
+      await this.setFormFieldValue('Prop Key', '{{[]}}', {
+        locator: updateElementForm,
+        waitForAutosave: true,
+      })
     })
   }
 
   async setNonArrayChildMapperProperties() {
-    const updateElementForm = this.getUpdateElementForm()
+    return step('setNonArrayChildMapperProperties', async () => {
+      const updateElementForm = this.getUpdateElementForm()
 
-    await this.selectTreeElement(pageRowElement)
-    await updateElementForm
-      .locator('.ant-collapse-header', { hasText: 'Child Mapper' })
-      .click()
-    await this.setFormFieldValue('Prop Key', '{{false}}', {
-      locator: updateElementForm,
-      waitForAutosave: true,
+      await this.selectTreeElement(pageRowElement)
+      await updateElementForm
+        .locator('.ant-collapse-header', { hasText: 'Child Mapper' })
+        .click()
+      await this.setFormFieldValue('Prop Key', '{{false}}', {
+        locator: updateElementForm,
+        waitForAutosave: true,
+      })
     })
   }
 
   private async checkBuilderOutputStructure(expectedContent: Array<string>) {
-    const outputContainer = this.getBuilderRenderContainer()
-    const antDesignRow = outputContainer.locator('.ant-row')
-    const rowChildren = outputContainer.locator('.ant-row > *')
+    return step('checkBuilderOutputStructure', async () => {
+      const outputContainer = this.getBuilderRenderContainer()
+      const antDesignRow = outputContainer.locator('.ant-row')
+      const rowChildren = outputContainer.locator('.ant-row > *')
 
-    await expect(antDesignRow).toBeVisible()
-    await expect(rowChildren).toHaveCount(expectedContent.length)
+      await expect(antDesignRow).toBeVisible()
+      await expect(rowChildren).toHaveCount(expectedContent.length)
 
-    for (let i = 0; i < expectedContent.length; i++) {
-      const renderedElement = rowChildren.nth(i)
-      const content = expectedContent[i]
+      for (let i = 0; i < expectedContent.length; i++) {
+        const renderedElement = rowChildren.nth(i)
+        const content = expectedContent[i]
 
-      await expect(renderedElement).toContainText(content!)
-    }
+        await expect(renderedElement).toContainText(content!)
+      }
+    })
   }
 }
 

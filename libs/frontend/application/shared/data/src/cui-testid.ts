@@ -12,8 +12,10 @@ export const CuiTestId = {
   cuiPopover: () => 'cui-sidebar-popover',
   cuiSidebar: (key: UiKey) => `cui-sidebar-${getUiDataKey(key)}`,
   cuiSidebarHeader: () => 'cui-sidebar-header',
-  cuiSidebarViewContent: (label: string) => `cui-sidebar-view-content-${label}`,
-  cuiSidebarViewHeader: (label: string) => `cui-sidebar-view-header-${label}`,
+  cuiSidebarViewContent: (label: string) =>
+    `cui-sidebar-view-content-${kebabCase(label)}`,
+  cuiSidebarViewHeader: (label: string) =>
+    `cui-sidebar-view-header-${kebabCase(label)}`,
   cuiSkeleton: () => 'cui-skeleton',
   cuiToolbar: () => 'cui-toolbar',
   cuiToolbarItem: (key: UiKey) => `cui-toolbar-item-${getUiDataKey(key)}`,

@@ -19,7 +19,7 @@ export class ConvertElementToComponentPage extends BuilderPage {
   }
 
   async convertElementToComponent() {
-    await this.page.getByLabel('plus-square').click()
+    await this.page.locator('.ant-tree-switcher_close').click()
 
     const treeElement = await this.selectTreeElement(elementContainer)
 

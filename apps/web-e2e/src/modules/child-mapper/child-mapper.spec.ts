@@ -28,6 +28,7 @@ test('should be able to set child-mapper component', async ({
 }) => {
   await page.expandElementsTree()
   await page.setChildMapperProperties()
+
   await page.checkElementTree()
   await page.checkBuilderOutput()
 

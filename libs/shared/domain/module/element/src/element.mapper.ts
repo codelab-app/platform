@@ -5,6 +5,7 @@ import type {
   ElementUpdateInput,
 } from '@codelab/shared/infra/gqlgen'
 
+import { logger } from '@codelab/frontend/infra/logger'
 import {
   connectNodeId,
   connectNodeIds,
@@ -44,8 +45,6 @@ export const elementMapper: IMapper<
       style,
       tailwindClassNames,
     } = data
-
-    console.log('props', props)
 
     return {
       childMapperComponent: connectNodeId(childMapperComponent?.id),
@@ -118,6 +117,16 @@ export const elementMapper: IMapper<
     style,
     tailwindClassNames,
   }: IElementDto): ElementUpdateInput => {
+    logger.log('elementMapper', {
+      compositeKey:
+        compositeKey ??
+        ElementProperties.elementCompositeKey({ name }, closestContainerNode),
+      firstChild: reconnectNodeId(firstChild?.id),
+      nextSibling: reconnectNodeId(nextSibling?.id),
+      parentElement: reconnectNodeId(parentElement?.id),
+      prevSibling: reconnectNodeId(prevSibling?.id),
+    })
+
     return {
       childMapperComponent: reconnectNodeId(childMapperComponent?.id),
       childMapperPreviousSibling: reconnectNodeId(

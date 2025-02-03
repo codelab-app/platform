@@ -10,7 +10,7 @@ import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
 import { test as base, expect } from '@playwright/test'
 
-import { setFormFieldValue } from '../../commands'
+import { setFormFieldValue, step } from '../../commands'
 import { BasePage } from '../../locators/pages'
 
 /**
@@ -45,12 +45,14 @@ export class BuilderPage extends BasePage {
     const treeElements = elementsTree.locator('.ant-tree-treenode')
 
     for (let i = 0; i < expectedTreeElements.length; i++) {
-      await expect(treeElements.nth(i + 1)).toContainText(
-        expectedTreeElements[i]!,
-      )
+      const element = expectedTreeElements[i]
 
-      if (await this.page.getByLabel('plus-square').isVisible()) {
-        await this.page.getByLabel('plus-square').click()
+      if (element) {
+        await expect(treeElements.nth(i + 1)).toContainText(element)
+      }
+
+      if (await this.page.locator('.ant-tree-switcher_close').isVisible()) {
+        await this.page.locator('.ant-tree-switcher_close').click()
       }
     }
   }
@@ -223,17 +225,15 @@ export class BuilderPage extends BasePage {
   }
 
   async openPreview() {
-    const openPreviewButton = this.page.getByTestId(
-      'cui-toolbar-item-open-preview-builder-toolbar-item',
-    )
+    const openPreviewButton = this.page
+      .getByTestId('cui-toolbar-item-open-preview-builder-toolbar-item')
+      .locator('button')
 
-    const openBuilderButton = this.page.getByTestId(
-      'cui-toolbar-item-open-builder-builder-toolbar-item',
-    )
+    const openBuilderButton = this.page
+      .getByTestId('cui-toolbar-item-open-builder-builder-toolbar-item')
+      .locator('button')
 
     await openPreviewButton.click()
-
-    // await this.page.waitForURL(PageType.ComponentBuilder({ componentId: '**' }))
 
     await expect(openPreviewButton).toBeHidden()
     await expect(openBuilderButton).toBeVisible()
@@ -270,11 +270,22 @@ export class BuilderPage extends BasePage {
     value: string,
     options?: { locator?: Locator; waitForAutosave?: boolean },
   ) {
-    await setFormFieldValue(options?.locator ?? this.locator!, { label, value })
+    return step('setFormFieldValue', async () => {
+      const locator = options?.locator ?? this.locator
 
-    if (options?.waitForAutosave) {
-      await this.waitForProgressBar()
-    }
+      if (!locator) {
+        throw new Error('Locator is not set')
+      }
+
+      await setFormFieldValue(locator, {
+        label,
+        value,
+      })
+
+      if (options?.waitForAutosave) {
+        await this.waitForProgressBar()
+      }
+    })
   }
 
   async updateBuilderElement() {
@@ -289,16 +300,23 @@ export class BuilderPage extends BasePage {
   }
 
   /**
-   * wait for progressbar to display after Form autosave delay,
-   * and then disappear after the submit request finishes.
+   * Wait for progress bar to appear and then disappear, handling the race condition
+   * between form autosave delay and progress bar visibility.
    */
   async waitForProgressBar() {
-    // wait for spinner to appear with a custom polling interval of 50ms,
-    // otherwise, spinner may appear and hide faster that playwright notices it
+    // First, ensure we can detect the progress bar appearing
     await expect(async () => {
-      await expect(this.getGlobalProgressBar()).toBeVisible({ timeout: 50 })
-    }).toPass({ intervals: [50] })
+      const isVisible = this.getGlobalProgressBar()
 
+      await expect(isVisible).toBeVisible()
+    }).toPass({
+      // Use shorter polling intervals for better detection
+      intervals: [50],
+      // Add reasonable timeout to prevent infinite waiting
+      timeout: 10000,
+    })
+
+    // Then wait for it to disappear
     await expect(this.getGlobalProgressBar()).toBeHidden()
   }
 

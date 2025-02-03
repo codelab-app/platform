@@ -58,8 +58,8 @@ export const elementRepository: IElementRepository = {
 
     // Disconnect here first for pre/post, issue with generated cypher query
     const update = {
-      firstChild: disconnectAll({ omitId: element.firstChild?.id }),
-      parentElement: disconnectAll({ omitId: element.parentElement?.id }),
+      // firstChild: disconnectAll({ omitId: element.firstChild?.id }),
+      // parentElement: disconnectAll({ omitId: element.parentElement?.id }),
       postRenderActions: [
         disconnectManyAll({
           omitIds: element.postRenderActions?.map((action) => action.id),

@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable func-style */
 import type { ObjectLike } from '@codelab/shared/abstract/types'
 
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
@@ -26,10 +30,10 @@ export const setFormFieldValue = async (
 ) => {
   const field = locator.getByLabel(options.label, { exact: true })
 
-  await field.fill(options.value)
-
   // wait for dynamic dropdowns to populate options
   await expect(locator.getByLabel('loading')).toHaveCount(0)
+
+  await field.fill(options.value)
 
   await field.press('Enter')
 }
