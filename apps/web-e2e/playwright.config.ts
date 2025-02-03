@@ -24,7 +24,6 @@ export const authFile = 'apps/web-e2e/.auth/user.json'
 
 enum Project {
   AuthSetup = 'AuthSetup',
-  DatabaseSetup = 'DatabaseSetup',
 }
 
 /**
@@ -38,17 +37,6 @@ export default defineConfig({
       testMatch: /auth\.setup\.ts/,
       use: {},
     },
-    // Global level doesn't run for retries, move to beforeAll
-    // {
-    //   dependencies: [Project.AuthSetup],
-    //   name: Project.DatabaseSetup,
-    //   testMatch: /database\.setup\.ts/,
-    //   use: {
-    //     // Requires trailing `/`
-    //     baseURL: `${webBaseApiUrl}/`,
-    //     storageState: authFile,
-    //   },
-    // },
     {
       dependencies: [Project.AuthSetup],
       name: 'chromium',

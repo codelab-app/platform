@@ -15,15 +15,13 @@ import { useMemo } from 'react'
 
 export const RootProviders = ({
   children,
-  preference,
   user,
-}: PropsWithChildren<{ user: IUserDto; preference: IPreferenceDto }>) => {
+}: PropsWithChildren<{ user: IUserDto }>) => {
   const pathParams = useUrlPathParams()
 
   const rootStore = useMemo(
     () =>
       createRootStore({
-        preference,
         routerProps: {
           pathParams,
         },

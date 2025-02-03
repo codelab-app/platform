@@ -35,8 +35,8 @@ const menuItemCommonStyle = {
 }
 
 export const BuilderResizeMenu = observer(() => {
-  const { preferenceDomainService } = useDomainStore()
-  const preference = preferenceDomainService.preference
+  const { userDomainService } = useDomainStore()
+  const preference = userDomainService.preference
   const breakpoint = preference.builderBreakpoint
   const { update } = usePreferenceService()
 

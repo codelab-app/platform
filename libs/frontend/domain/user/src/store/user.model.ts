@@ -4,7 +4,11 @@ import type {
   UserUpdateInput,
 } from '@codelab/shared/infra/gqlgen'
 
-import { type IUserModel } from '@codelab/frontend/abstract/domain'
+import {
+  IPreferenceModel,
+  type IUserModel,
+} from '@codelab/frontend/abstract/domain'
+import { Preference } from '@codelab/frontend-domain-preference/store'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
@@ -13,6 +17,7 @@ const create = (user: IUserDto) => {
     auth0Id: user.auth0Id,
     email: user.email,
     id: user.id,
+    preferences: new Preference(user.preferences),
     roles: user.roles,
     username: user.username,
   })
@@ -29,6 +34,7 @@ export class User
     auth0Id: prop<string>(),
     email: prop<string>(),
     id: idProp.withSetter(),
+    preferences: prop<IPreferenceModel>(),
     roles: prop<Array<IRole>>(() => []),
     username: prop<string>(),
   })
@@ -42,17 +48,21 @@ export class User
       auth0Id: this.auth0Id,
       email: this.email,
       id: this.id,
+      preferences: this.preferences.toJson,
       roles: [...this.roles],
       username: this.username,
     }
   }
 
   @modelAction
-  writeCache({ auth0Id, email, id, username }: Partial<IUserDto>) {
+  writeCache({ auth0Id, email, id, preferences, username }: Partial<IUserDto>) {
     this.email = email ?? this.email
     this.auth0Id = auth0Id ?? this.auth0Id
     this.id = id ?? this.id
     this.username = username ?? this.username
+    this.preferences = preferences
+      ? new Preference(preferences)
+      : this.preferences
 
     return this
   }

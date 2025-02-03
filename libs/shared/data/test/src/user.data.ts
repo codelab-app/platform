@@ -1,8 +1,10 @@
 import {
   type Auth0IdToken,
+  IPreferenceDto,
   type IUserDto,
   JWT_CLAIMS,
 } from '@codelab/shared/abstract/core'
+import { preferenceDefault } from '@codelab/shared-domain-module/preference'
 import { v4 } from 'uuid'
 
 export const adminUser: Auth0IdToken = {
@@ -46,6 +48,7 @@ export const userDto: IUserDto = {
   auth0Id: v4(),
   email: 'admin@codelab.app',
   id: v4(),
+  preferences: preferenceDefault,
   roles: [],
   username: 'Codelab',
 }

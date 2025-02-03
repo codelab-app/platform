@@ -1,6 +1,6 @@
 import { CurrentUser } from '@codelab/backend/application/auth'
 import { UserDomainService, UserRepository } from '@codelab/backend/domain/user'
-import { type IUserDto } from '@codelab/shared/abstract/core'
+import { IUserSession, type IUserDto } from '@codelab/shared/abstract/core'
 import { Controller, Get, Post } from '@nestjs/common'
 import * as Sentry from '@sentry/nestjs'
 
@@ -20,7 +20,7 @@ export class UserApplicationController {
   }
 
   @Get('me')
-  async me(@CurrentUser() userDto: IUserDto) {
+  async me(@CurrentUser() userDto: IUserSession) {
     return this.userRepository.findOne({ where: { id: userDto.id } })
   }
 

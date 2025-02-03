@@ -14,5 +14,4 @@ export interface IPreferenceModel
   builderBreakpointType: IBreakpointType
   builderWidth: number
   id: string
-  owner: Ref<IUserModel>
 }

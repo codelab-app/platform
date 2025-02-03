@@ -8,14 +8,15 @@ import type {
 import {
   type Auth0IdToken,
   type IMapper,
-  IRole,
   type IUserDto,
-  JWT_CLAIMS,
+  type IUserSession,
 } from '@codelab/shared/abstract/core'
+import { IRole, JWT_CLAIMS } from '@codelab/shared/abstract/core'
+import { preferenceMapper } from '@codelab/shared-domain-module/preference'
 
 export const mapAuth0IdTokenToUserDto = (
   auth0IdToken?: Auth0IdToken,
-): IUserDto => {
+): IUserSession => {
   if (!auth0IdToken || !auth0IdToken[JWT_CLAIMS].neo4j_user_id) {
     throw new Error('Missing user in request')
   }
@@ -29,7 +30,7 @@ export const mapAuth0IdTokenToUserDto = (
   }
 }
 
-export const mapClaimsToUserDto = (claims?: Claims): IUserDto => {
+export const mapClaimsToUserDto = (claims?: Claims): IUserSession => {
   if (!claims || !claims[JWT_CLAIMS].neo4j_user_id) {
     throw new Error('Missing user in request')
   }
@@ -53,6 +54,7 @@ export const userMapper: IMapper<
     auth0Id,
     email,
     id,
+    preferences,
     roles,
     username,
   }: IUserDto): UserCreateInput => {
@@ -60,6 +62,11 @@ export const userMapper: IMapper<
       auth0Id,
       email,
       id,
+      preferences: {
+        create: {
+          node: preferenceMapper.toCreateInput(preferences),
+        },
+      },
       roles,
       username,
     }
@@ -72,12 +79,18 @@ export const userMapper: IMapper<
   toUpdateInput: ({
     auth0Id,
     email,
+    preferences,
     roles,
     username,
   }: IUserDto): UserUpdateInput => {
     return {
       auth0Id,
       email,
+      preferences: {
+        update: {
+          node: preferenceMapper.toUpdateInput(preferences),
+        },
+      },
       roles,
       username,
     }

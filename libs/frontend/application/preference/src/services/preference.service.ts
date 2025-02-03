@@ -5,13 +5,13 @@ import { preferenceRepository } from '@codelab/frontend-domain-preference/reposi
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 
 export const usePreferenceService = (): IPreferenceService => {
-  const { preferenceDomainService } = useDomainStore()
+  const { userDomainService } = useDomainStore()
 
   const update = async ({
     builderBreakpointType,
     builderWidth,
   }: IUpdatePreferenceData) => {
-    const preference = preferenceDomainService.preference
+    const preference = userDomainService.preference
 
     preference.writeCache({ builderBreakpointType, builderWidth })
 

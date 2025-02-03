@@ -8,10 +8,10 @@ import { LayoutClient } from './layout.client'
 
 const ProtectedLayout = async ({ children }: { children: ReactNode }) => {
   const user = await getServerUser()
-  const preferenceDto = await preferenceQuery({ owner: { id: user.id } })
+  const preferences = await preferenceQuery({ owner: { id: user.id } })
 
   return (
-    <RootProviders preference={preferenceDto} user={user}>
+    <RootProviders user={{ ...user, preferences }}>
       <LayoutClient>{children}</LayoutClient>
     </RootProviders>
   )

@@ -14,6 +14,6 @@ export const preferenceSchema = gql`
     id: ID!  @settable(onUpdate: false) #@unique
     builderBreakpointType: BreakpointType!
     builderWidth: Float!
-    owner: User! @relationship(type: "OWNED_BY", direction: OUT)
+    owner: User @relationship(type: "OWNED_BY", direction: OUT)
   }
 `

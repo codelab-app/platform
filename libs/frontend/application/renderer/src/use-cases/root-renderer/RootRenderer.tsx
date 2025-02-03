@@ -45,8 +45,8 @@ const RootRendererComponent = forwardRef<
   HTMLDivElement,
   { renderer: IRendererModel }
 >(({ renderer }, ref) => {
-  const { preferenceDomainService } = useDomainStore()
-  const preference = preferenceDomainService.preference
+  const { userDomainService } = useDomainStore()
+  const preference = userDomainService.preference
 
   const containerStyle = useMemo(
     () => ({

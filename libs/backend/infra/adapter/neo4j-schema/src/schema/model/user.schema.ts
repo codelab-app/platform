@@ -76,6 +76,6 @@ export const userSchema = gql`
     # roles: [Role!] @default(value: User)
     roles: [Role!]
     tags: [Tag!]! @relationship(type: "OWNED_BY", direction: IN)
-    preferences: Preference @relationship(type: "OWNED_BY", direction: IN)
+    preferences: Preference! @relationship(type: "OWNED_BY", direction: IN)
   }
 `

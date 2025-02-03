@@ -7,33 +7,38 @@ import { BasePage } from '../../locators/pages'
  * Follow guide https://medium.com/@lucgagan/mastering-playwright-best-practices-for-web-automation-with-the-page-object-model-3541412b03d1
  */
 export class AppListPage extends BasePage {
-  clickModalConfirmButton() {
-    const modal = this.getDialog()
-    const button = this.getButton({ key: UiKey.ButtonConfirmation })
+  async clickModalConfirmButton() {
+    return test.step('clickModalConfirmButton', async () => {
+      const modal = this.getDialog()
+      const button = this.getButton({ key: UiKey.ButtonConfirmation })
 
-    return modal.locator(button).click()
+      return modal.locator(button).click()
+    })
   }
 
   async expectNoPreexistingApp() {
-    await expect(this.getByExactText(this.appName)).toBeHidden()
+    return test.step('expectNoPreexistingApp', async () => {
+      await expect(this.getByExactText(this.appName)).toBeHidden()
+    })
   }
 
   async fillCreateAppForm() {
-    await this.fillInputText({ label: 'Name' }, this.appName)
-
-    await this.getDialog()
-      .locator(this.getButton({ text: 'Create App' }))
-      .click()
+    return test.step('fillCreateAppForm', async () => {
+      await this.fillInputText({ label: 'Name' }, this.appName)
+      await this.getDialog()
+        .locator(this.getButton({ text: 'Create App' }))
+        .click()
+    })
   }
 
   async fillUpdateAppForm() {
-    await this.fillInputText({ label: 'Name' }, this.updatedAppName)
-
-    await this.getDialog()
-      .locator(this.getButton({ text: 'Update App' }))
-      .click()
-
-    await expect(this.getDialog()).toBeHidden()
+    return test.step('fillUpdateAppForm', async () => {
+      await this.fillInputText({ label: 'Name' }, this.updatedAppName)
+      await this.getDialog()
+        .locator(this.getButton({ text: 'Update App' }))
+        .click()
+      await expect(this.getDialog()).toBeHidden()
+    })
   }
 
   getAppName() {
@@ -44,38 +49,43 @@ export class AppListPage extends BasePage {
     return this.getByExactText(this.updatedAppName)
   }
 
-  async goto() {
-    await this.page.goto(PageType.AppList())
+  async gotoAppListUrl() {
+    return test.step('goto', async () => {
+      await this.page.goto(PageType.AppList())
+    })
   }
 
   async openCreateAppModal(key = UiKey.AppButtonOpenCreateForm) {
-    await this.getButton({ key }).click()
-
-    await expect(this.getDialog()).toBeVisible()
+    return test.step('openCreateAppModal', async () => {
+      await this.getButton({ key }).click()
+      await expect(this.getDialog()).toBeVisible()
+    })
   }
 
   async openCreateAppModalFromHeader() {
-    await this.openCreateAppModal(UiKey.AppToolbarItemCreate)
+    return test.step('openCreateAppModalFromHeader', async () => {
+      await this.openCreateAppModal(UiKey.AppToolbarItemCreate)
+    })
   }
 
   async openDeleteAppModal() {
-    const card = this.getCard({ name: this.updatedAppName })
+    return test.step('openDeleteAppModal', async () => {
+      const card = this.getCard({ name: this.updatedAppName })
 
-    await card.locator(this.getButton({ label: 'More options' })).click()
-
-    await this.getDropdownItem({ label: 'Delete' }).click()
-
-    await expect(this.getDialog()).toBeVisible()
+      await card.locator(this.getButton({ label: 'More options' })).click()
+      await this.getDropdownItem({ label: 'Delete' }).click()
+      await expect(this.getDialog()).toBeVisible()
+    })
   }
 
   async openUpdateAppModal() {
-    const card = this.getCard({ name: this.appName })
+    return test.step('openUpdateAppModal', async () => {
+      const card = this.getCard({ name: this.appName })
 
-    await card.locator(this.getButton({ label: 'More options' })).click()
-
-    await this.getDropdownItem({ label: 'Edit' }).click()
-
-    await expect(this.getDialog()).toBeVisible()
+      await card.locator(this.getButton({ label: 'More options' })).click()
+      await this.getDropdownItem({ label: 'Edit' }).click()
+      await expect(this.getDialog()).toBeVisible()
+    })
   }
 
   private readonly appName = 'New App'

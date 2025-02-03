@@ -1,4 +1,8 @@
-import type { Auth0IdToken, IUserDto } from '@codelab/shared/abstract/core'
+import type {
+  Auth0IdToken,
+  IUserDto,
+  IUserSession,
+} from '@codelab/shared/abstract/core'
 
 import { RequestContext } from '@codelab/backend/infra/adapter/request-context'
 import { mapAuth0IdTokenToUserDto } from '@codelab/shared-domain-module/user'
@@ -10,7 +14,10 @@ export interface AuthenticatedRequest extends Request {
 
 @Injectable()
 export class AuthDomainService {
-  get currentUser(): IUserDto {
+  /**
+   * This is made possible by RequestContext, otherwise we'll need to pass down from controller
+   */
+  get currentUser(): IUserSession {
     const request = RequestContext.currentContext?.req as AuthenticatedRequest
     const auth0IdToken = request['user']
 
