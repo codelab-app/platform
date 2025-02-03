@@ -13,7 +13,7 @@ import { useAsyncFn } from 'react-use'
 import { connectField, type FieldProps, type GuaranteedProps } from 'uniforms'
 import { SelectField } from 'uniforms-antd'
 
-export type SelectComponentProps = GuaranteedProps<IRef> & {
+export type SelectComponentProps = GuaranteedProps<string> & {
   component?: Pick<IComponentModel, 'id' | 'name'>
 }
 

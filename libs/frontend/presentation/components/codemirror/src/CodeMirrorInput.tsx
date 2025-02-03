@@ -16,14 +16,14 @@ import { CodeMirrorModal } from './CodeMirrorModal'
 import { containerStyles, editorStyles, ExpandButton } from './styles'
 
 export interface CodeMirrorInputProps
-  extends Omit<ReactCodeMirrorProps, 'title'> {
+  // Removed `prefix` due to type error mismatch
+  extends Omit<ReactCodeMirrorProps, 'prefix' | 'title'> {
   className?: string
   cssString?: string
   expandable?: boolean
   singleLine?: boolean
   title?: Nullish<string>
   value?: string
-
   onChange(value: string): void
   onSave?(value: string): void
 }

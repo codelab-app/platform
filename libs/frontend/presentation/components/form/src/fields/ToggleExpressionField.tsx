@@ -23,7 +23,7 @@ type Value = boolean | number | string | Array<unknown> | undefined
 
 interface CodeMirrorFieldProps {
   autocomplete?: Array<Completion>
-  getBaseControl?(fieldProps: CodeMirrorConnectFieldProps): React.ReactElement
+  getBaseControl?(fieldProps: CodeMirrorConnectFieldProps): React.ReactNode
   onToggle?(
     value: boolean,
     props: CodeMirrorConnectFieldProps,
