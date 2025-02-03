@@ -1,15 +1,14 @@
 import type {
-  Auth0IdToken,
   IUserDto,
   IUserSession,
 } from '@codelab/shared/abstract/core'
 
 import { RequestContext } from '@codelab/backend/infra/adapter/request-context'
-import { mapAuth0IdTokenToUserDto } from '@codelab/shared-domain-module/user'
 import { Injectable } from '@nestjs/common'
 
 export interface AuthenticatedRequest extends Request {
-  user?: Auth0IdToken
+  //user?: Auth0IdToken
+  user?: IUserDto
 }
 
 @Injectable()
@@ -19,8 +18,14 @@ export class AuthDomainService {
    */
   get currentUser(): IUserSession {
     const request = RequestContext.currentContext?.req as AuthenticatedRequest
-    const auth0IdToken = request['user']
+    //const auth0IdToken = request['user']
+    const user = request['user']
 
-    return mapAuth0IdTokenToUserDto(auth0IdToken)
+    if(!user){
+      throw new Error('Missing user in request')
+    }
+
+    //return mapAuth0IdTokenToUserDto(auth0IdToken)
+    return user
   }
 }

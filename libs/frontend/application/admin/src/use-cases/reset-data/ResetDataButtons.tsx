@@ -35,7 +35,7 @@ export const ResetDataButtons = () => {
         return resetDatabaseService()
           .then(onSuccess)
           .catch(onError)
-          .then(() => push('/api/auth/logout'))
+          .then(() => push('/auth/logout'))
       }}
       title="Are you sure you want to reset database?"
     >
@@ -48,7 +48,7 @@ export const ResetDataButtons = () => {
           return resetDatabaseExceptUserAction()
             .then(onSuccess)
             .catch(onError)
-            .then(() => router.push('/api/auth/logout'))
+            .then(() => router.push('/auth/logout'))
       }}
       >
         Reset Database Except User

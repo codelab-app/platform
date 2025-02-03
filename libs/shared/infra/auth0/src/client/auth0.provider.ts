@@ -1,6 +1,9 @@
 import { SdkError } from '@auth0/nextjs-auth0/errors'
 import { Auth0Client } from '@auth0/nextjs-auth0/server'
 import { SessionData } from '@auth0/nextjs-auth0/types'
+import { mapAuth0IdTokenToUserDto } from '@codelab/shared-domain-module/user'
+import { Auth0IdToken, JWT_CLAIMS } from '@codelab/shared/abstract/core'
+import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { getEnv } from '@codelab/shared/config/env'
 import * as env from 'env-var'
 import { NextResponse } from 'next/server'
@@ -13,19 +16,30 @@ export const auth0Instance = new Auth0Client({
   clientId: getEnv().auth0.clientId,
   clientSecret: getEnv().auth0.clientSecret,
   domain: getEnv().auth0.domain,
-  secret: getEnv().auth0.secret,  
+  secret: getEnv().auth0.secret,
+  signInReturnToPath: '/apps',
   session: {},
+  async beforeSessionSaved(session, idToken) {
+    return {
+      ...session,
+      user: {
+        ...session.user,
+        [JWT_CLAIMS]: session.user[JWT_CLAIMS],
+      },
+    }
+  },
   async onCallback(
-    error: SdkError | null,
-    // type not exported by @auth0/nextjs-auth0
+    error: Nullable<SdkError>,
     context: { returnTo?: string },
-    session: SessionData | null,
+    session: Nullable<SessionData>,
   ) {
     if (error) {
       return NextResponse.redirect(
         new URL(`/error?error=${error.message}`, getEnv().auth0.baseUrl),
       )
     }
+
+    const user = mapAuth0IdTokenToUserDto(session?.user as Auth0IdToken)
 
     /**
      * Only do this in development
@@ -34,17 +48,18 @@ export const auth0Instance = new Auth0Client({
       /**
        * Cannot call fetchWithAuth since session is not created yet
        */
-      await fetch(getEnv().endpoint.admin.setupDev, {
+      void (await fetch(getEnv().endpoint.admin.setupDev, {
         body: JSON.stringify({}),
         headers: {
           Authorization: `Bearer ${session?.tokenSet.accessToken}`,
-          //'X-ID-TOKEN': session.idToken ?? '',
+          // 'X-ID-TOKEN': idToken ?? '',
+          'X-USER-ID': user.id,
         },
         method: 'POST',
-      })
+      }))
 
       return NextResponse.redirect(
-        new URL(context.returnTo || '/', getEnv().auth0.baseUrl),
+        new URL(context.returnTo || '/apps', getEnv().auth0.baseUrl),
       )
     }
 
@@ -52,18 +67,23 @@ export const auth0Instance = new Auth0Client({
      * Create user in our neo4j database
      */
     if (process.env['NEXT_PUBLIC_WEB_HOST']?.includes('codelab.app')) {
-      await fetch(getEnv().endpoint.user.save, {
+      void (await fetch(getEnv().endpoint.user.save, {
         body: JSON.stringify({}),
         headers: {
           Authorization: `Bearer ${session?.tokenSet.accessToken}`,
-          // 'X-ID-TOKEN': session.idToken ?? '',
+          // 'X-ID-TOKEN': idToken ?? '',
+          'X-USER-ID': user.id,
         },
         method: 'POST',
-      })
+      }))
+
+      return NextResponse.redirect(
+        new URL(context.returnTo || '/apps', getEnv().auth0.baseUrl),
+      )
     }
 
     return NextResponse.redirect(
-      new URL(context.returnTo || '/', getEnv().auth0.baseUrl),
+      new URL(context.returnTo || '/apps', getEnv().auth0.baseUrl),
     )
   },
 })

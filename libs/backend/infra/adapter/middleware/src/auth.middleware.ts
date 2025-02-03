@@ -1,6 +1,8 @@
 import type { NextRequest, NextResponse } from 'next/server'
 
 import { auth0Instance } from '@codelab/shared-infra-auth0/client'
+import { mapAuth0IdTokenToUserDto } from '@codelab/shared-domain-module/user'
+import { Auth0IdToken } from '@codelab/shared/abstract/core'
 
 export const authMiddleware = async (
   request: NextRequest,
@@ -28,11 +30,14 @@ export const authMiddleware = async (
     /**
      * Attach ID token so we have more information
      */
-    // const idToken = session?.idToken
+    // const idToken = session?.user['idToken']
 
-    // if (idToken) {
-    //   request.headers.set('X-ID-TOKEN', idToken)
-    // }
+    // request.headers.set('X-ID-TOKEN', String(idToken))
+
+    if (session?.user) {
+      const user = mapAuth0IdTokenToUserDto(session.user as Auth0IdToken)
+      request.headers.set('X-USER-ID', user.id)
+    }
   } catch (error) {
     console.error('error when getting session', error)
   }

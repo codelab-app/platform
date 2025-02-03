@@ -1,6 +1,8 @@
 import { corsMiddleware } from '@codelab/backend/infra/adapter/middleware'
 import { PageType } from '@codelab/frontend/abstract/types'
+import { mapAuth0IdTokenToUserDto } from '@codelab/shared-domain-module/user'
 import { auth0Instance } from '@codelab/shared-infra-auth0/client'
+import { Auth0IdToken, JWT_CLAIMS } from '@codelab/shared/abstract/core'
 import {
   type NextFetchEvent,
   type NextMiddleware,
@@ -26,16 +28,18 @@ const middleware: NextMiddleware = async (
 ) => {
   const response = NextResponse.next()
   const pathname = request.nextUrl.pathname
-  const authRoutes = await auth0Instance.middleware(request)
+  const authResponse = await auth0Instance.middleware(request)
 
   // authentication routes — let the middleware handle it
   if (request.nextUrl.pathname.startsWith('/auth')) {
-    return authRoutes
+    return authResponse
   }
 
   const { origin } = new URL(request.url)
   const session = await auth0Instance.getSession()
-  const isProtectedRoute = protectedRoutes.some((route) => pathname.startsWith(route))
+  const isProtectedRoute = protectedRoutes.some((route) =>
+    pathname.startsWith(route),
+  )
   // user does not have a session in a protected route — redirect to login
   if (!session && isProtectedRoute) {
     return NextResponse.redirect(`${origin}/auth/login`)
@@ -73,16 +77,13 @@ const middleware: NextMiddleware = async (
   if (request.nextUrl.pathname.startsWith('/api/v1')) {
     void corsMiddleware(request, response)
 
-    const accessToken = await auth0Instance.getAccessToken()
-
-    if (session?.tokenSet.accessToken) {
+    if (session) {
+      const accessToken = session.tokenSet.accessToken
       response.headers.set('Authorization', `Bearer ${accessToken}`)
+      // response.headers.set('X-ID-TOKEN', session.user.idToken)
+      const user = mapAuth0IdTokenToUserDto(session.user as Auth0IdToken)
+      response.headers.set('X-USER-ID', user.id)
     }
-
-    // TODO: find out the replacement of idToken
-    // if (session?.idToken) {
-    //   response.headers.set('X-ID-TOKEN', session.idToken)
-    // }
 
     return response
   }

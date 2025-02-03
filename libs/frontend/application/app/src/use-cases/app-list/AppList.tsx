@@ -19,7 +19,7 @@ const emptyImageStyle: React.CSSProperties = {
 export const AppList = observer(({ apps }: { apps: Array<IAppModel> }) => {
   if (!apps.length) {
     return (
-      <Empty description="No apps found" imageStyle={emptyImageStyle}>
+      <Empty description="No apps found" styles={{ image: emptyImageStyle }}>
         <AppButtonOpenCreateForm>Create Now</AppButtonOpenCreateForm>
       </Empty>
     )

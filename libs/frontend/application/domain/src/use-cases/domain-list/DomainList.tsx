@@ -27,7 +27,10 @@ export const DomainList = observer<DomainListProps>(({ appId, domains }) => {
   return (
     <ErrorBoundary>
       <DisplayIf condition={domains.length === 0}>
-        <Empty description="No domain found" imageStyle={emptyImageStyle}>
+        <Empty
+          description="No domain found"
+          styles={{ image: emptyImageStyle }}
+        >
           <CreateDomainButton appId={appId}>Create Now</CreateDomainButton>
         </Empty>
       </DisplayIf>
