@@ -45,6 +45,7 @@
     "@ant-design/icons": "5.6.0",
     "@ant-design/nextjs-registry": "1.0.2",
     "@ant-design/pro-components": "2.8.4",
+    "@ant-design/v5-patch-for-react-19": "^1.0.3",
     "@apollo/client": "3.12.3",
     "@apollo/server": "4.11.2",
     "@auth0/nextjs-auth0": "4.0.0",

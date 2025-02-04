@@ -1,8 +1,6 @@
 import { corsMiddleware } from '@codelab/backend/infra/adapter/middleware'
 import { PageType } from '@codelab/frontend/abstract/types'
-import { mapAuth0IdTokenToUserDto } from '@codelab/shared-domain-module/user'
 import { auth0Instance } from '@codelab/shared-infra-auth0/client'
-import { Auth0IdToken, JWT_CLAIMS } from '@codelab/shared/abstract/core'
 import {
   type NextFetchEvent,
   type NextMiddleware,
@@ -81,8 +79,7 @@ const middleware: NextMiddleware = async (
       const accessToken = session.tokenSet.accessToken
       response.headers.set('Authorization', `Bearer ${accessToken}`)
       // response.headers.set('X-ID-TOKEN', session.user.idToken)
-      const user = mapAuth0IdTokenToUserDto(session.user as Auth0IdToken)
-      response.headers.set('X-USER-ID', user.id)
+      response.headers.set('X-USER-ID', session.user.id)
     }
 
     return response

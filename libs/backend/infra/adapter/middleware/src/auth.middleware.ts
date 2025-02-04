@@ -34,10 +34,7 @@ export const authMiddleware = async (
 
     // request.headers.set('X-ID-TOKEN', String(idToken))
 
-    if (session?.user) {
-      const user = mapAuth0IdTokenToUserDto(session.user as Auth0IdToken)
-      request.headers.set('X-USER-ID', user.id)
-    }
+    request.headers.set('X-USER-ID', session?.user['id'])
   } catch (error) {
     console.error('error when getting session', error)
   }

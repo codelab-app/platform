@@ -24,7 +24,7 @@ export const auth0Instance = new Auth0Client({
       ...session,
       user: {
         ...session.user,
-        [JWT_CLAIMS]: session.user[JWT_CLAIMS],
+        ...mapAuth0IdTokenToUserDto(session.user as Auth0IdToken),
       },
     }
   },
@@ -39,8 +39,6 @@ export const auth0Instance = new Auth0Client({
       )
     }
 
-    const user = mapAuth0IdTokenToUserDto(session?.user as Auth0IdToken)
-
     /**
      * Only do this in development
      */
@@ -53,7 +51,7 @@ export const auth0Instance = new Auth0Client({
         headers: {
           Authorization: `Bearer ${session?.tokenSet.accessToken}`,
           // 'X-ID-TOKEN': idToken ?? '',
-          'X-USER-ID': user.id,
+          'X-USER-ID': session?.user['id'],
         },
         method: 'POST',
       }))
@@ -72,7 +70,7 @@ export const auth0Instance = new Auth0Client({
         headers: {
           Authorization: `Bearer ${session?.tokenSet.accessToken}`,
           // 'X-ID-TOKEN': idToken ?? '',
-          'X-USER-ID': user.id,
+          'X-USER-ID': session?.user['id'],
         },
         method: 'POST',
       }))

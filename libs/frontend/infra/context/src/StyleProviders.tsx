@@ -1,7 +1,7 @@
 'use client'
 
 import type { ReactNode } from 'react'
-
+import '@ant-design/v5-patch-for-react-19';
 import { App, ConfigProvider } from 'antd'
 
 // import { AntdRegistry } from './AntdRegistry'
