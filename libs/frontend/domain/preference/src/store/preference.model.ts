@@ -19,13 +19,11 @@ const create = ({
   builderBreakpointType,
   builderWidth,
   id,
-  owner,
 }: IPreferenceDto) => {
   return new Preference({
     builderBreakpointType,
     builderWidth,
     id,
-    owner: userRef(owner.id),
   })
 }
 
@@ -35,7 +33,6 @@ export class Preference
     builderBreakpointType: prop<IBreakpointType>(),
     builderWidth: prop<number>(),
     id: idProp,
-    owner: prop<Ref<IUserModel>>(),
   })
   implements IPreferenceModel
 {
@@ -57,7 +54,6 @@ export class Preference
       builderBreakpointType: this.builderBreakpointType,
       builderWidth: this.builderWidth,
       id: this.id,
-      owner: this.owner.current.toJson,
     }
   }
 
@@ -70,7 +66,7 @@ export class Preference
     this.builderWidth =
       !builderWidth && builderBreakpointType
         ? this.builderBreakpoint.default
-        : (builderWidth ?? this.builderWidth)
+        : builderWidth ?? this.builderWidth
 
     return this
   }

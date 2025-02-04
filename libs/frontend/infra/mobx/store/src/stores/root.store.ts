@@ -18,7 +18,6 @@ import { createApplicationStore } from './application.store'
 import { createDomainStore } from './domain.store'
 
 export const createRootStore = ({
-  preference,
   routerProps,
   user,
 }: IRootStoreInput) => {
@@ -26,7 +25,7 @@ export const createRootStore = ({
     showDuplicateModelNameWarnings: false,
   })
 
-  const domainStore = createDomainStore(user, preference)
+  const domainStore = createDomainStore(user )
   const applicationStore = createApplicationStore(routerProps, domainStore)
 
   @model('@codelab/RootStore')

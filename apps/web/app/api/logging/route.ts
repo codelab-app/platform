@@ -14,8 +14,6 @@ export const POST = async (request: Request) => {
     const { message, options } = body
     const level: LogLevel = body.level
 
-    console.log('Route', { message, ...options })
-
     // Call the appropriate log level method
     switch (level) {
       case 'debug':

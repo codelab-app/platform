@@ -8,9 +8,9 @@ export type ResizeHandlerSide = 'after' | 'before'
 
 export const useBuilderResizer = (side: ResizeHandlerSide) => {
   const [pointerDown, setPointerDown] = useState<boolean>(false)
-  const { preferenceDomainService } = useDomainStore()
+  const { userDomainService } = useDomainStore()
   const { update } = usePreferenceService()
-  const preference = preferenceDomainService.preference
+  const preference = userDomainService.preference
   const breakpoint = preference.builderBreakpoint
 
   const onPointerDown = ({

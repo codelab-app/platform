@@ -7,34 +7,38 @@ import { BuilderPage } from '../builder/builder.fixture'
  */
 export class CssBuilderPage extends BuilderPage {
   getStyledButton() {
-    const builderContainer = this.getBuilderRenderContainer()
-
-    return builderContainer.locator('.ant-btn').first()
+    return this.getBuilderRenderContainer().locator('.ant-btn').first()
   }
 
   async openCssTab() {
-    const cssTab = this.page.locator('[data-node-key="CSS"]')
+    return test.step('openCssTab', async () => {
+      const cssTab = this.page.locator('[data-node-key="CSS"]')
 
-    await cssTab.click()
+      await cssTab.click()
 
-    await expect(cssTab).toHaveClass('ant-tabs-tab ant-tabs-tab-active')
+      await expect(cssTab).toHaveClass('ant-tabs-tab ant-tabs-tab-active')
+    })
   }
 
   async setGuiStyling() {
-    const displyNoneButton = this.page.locator(
-      '[data-test-id="gui-display"] [title="None"]',
-    )
+    return test.step('setGuiStyling', async () => {
+      const displyNoneButton = this.page.locator(
+        '[data-test-id="gui-display"] [title="None"]',
+      )
 
-    await displyNoneButton.click()
-    await this.waitForProgressBar()
+      await displyNoneButton.click()
+      await this.waitForProgressBar()
+    })
   }
 
   async typeIntoCssEditor(css: string) {
-    const cssTab = this.page.locator('.ant-tabs-tabpane-active')
+    return test.step('typeIntoCssEditor', async () => {
+      const cssTab = this.page.locator('.ant-tabs-tabpane-active')
 
-    await this.setFormFieldValue('CSS Editor', css, {
-      locator: cssTab,
-      waitForAutosave: true,
+      await this.setFormFieldValue('CSS Editor', css, {
+        locator: cssTab,
+        waitForAutosave: true,
+      })
     })
   }
 }

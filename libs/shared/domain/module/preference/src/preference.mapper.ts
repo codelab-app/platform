@@ -17,13 +17,11 @@ export const preferenceMapper: IMapper<
     builderBreakpointType,
     builderWidth,
     id,
-    owner,
   }: IPreferenceDto): PreferenceCreateInput => {
     return {
       builderBreakpointType,
       builderWidth,
       id,
-      owner: connectOwner(owner),
     }
   },
 
@@ -34,7 +32,6 @@ export const preferenceMapper: IMapper<
   toUpdateInput: ({
     builderBreakpointType,
     builderWidth,
-    owner,
   }: IPreferenceDto): PreferenceUpdateInput => {
     return {
       builderBreakpointType,

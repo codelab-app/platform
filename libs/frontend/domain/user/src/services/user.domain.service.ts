@@ -33,4 +33,9 @@ export class UserDomainService
   get usersList() {
     return [...Object.values(this.users), this.user]
   }
+
+  @computed
+  get preference() {
+    return this.user.preferences
+  }
 }

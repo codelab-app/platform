@@ -2,9 +2,10 @@ import { getUiDataKey, type UiKey } from '@codelab/frontend/abstract/types'
 import { kebabCase } from '@codelab/shared/utils'
 
 /**
- * These are unique testid selector used for e2d testing
+ * These are unique testid selector used for e2e testing
  */
 export const CuiTestId = {
+  cuiConfigPane: () => 'cui-config-pane',
   cuiForm: (key: UiKey) => `cui-form-${getUiDataKey(key)}`,
   cuiHeader: () => 'cui-header',
   cuiModal: () => 'cui-modal',
@@ -12,8 +13,10 @@ export const CuiTestId = {
   cuiPopover: () => 'cui-sidebar-popover',
   cuiSidebar: (key: UiKey) => `cui-sidebar-${getUiDataKey(key)}`,
   cuiSidebarHeader: () => 'cui-sidebar-header',
-  cuiSidebarViewContent: (label: string) => `cui-sidebar-view-content-${label}`,
-  cuiSidebarViewHeader: (label: string) => `cui-sidebar-view-header-${label}`,
+  cuiSidebarViewContent: (label: string) =>
+    `cui-sidebar-view-content-${kebabCase(label)}`,
+  cuiSidebarViewHeader: (label: string) =>
+    `cui-sidebar-view-header-${kebabCase(label)}`,
   cuiSkeleton: () => 'cui-skeleton',
   cuiToolbar: () => 'cui-toolbar',
   cuiToolbarItem: (key: UiKey) => `cui-toolbar-item-${getUiDataKey(key)}`,

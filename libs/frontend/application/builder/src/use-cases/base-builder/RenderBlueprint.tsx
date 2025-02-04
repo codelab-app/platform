@@ -21,7 +21,7 @@ export const RenderBlueprint = observer<{
   const [containerRect, setContainerRect] = useState(new Rect())
   const runtimeRootContainerNode = renderer.runtimeContainerNode
   const runtimeRootElement = runtimeRootContainerNode?.runtimeRootElement
-  const { preferenceDomainService } = useDomainStore()
+  const { userDomainService } = useDomainStore()
   const window = useWindowSize()
 
   useEffect(() => {
@@ -29,11 +29,7 @@ export const RenderBlueprint = observer<{
       setContainerRect(renderContainerRef.current.getBoundingClientRect())
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    preferenceDomainService.preference.builderWidth,
-    window.height,
-    window.width,
-  ])
+  }, [userDomainService.preference.builderWidth, window.height, window.width])
 
   if (
     isServer ||

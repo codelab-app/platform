@@ -9,7 +9,10 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { logger, tracker } from '@codelab/frontend/infra/logger'
-import { SelectActionsField } from '@codelab/frontend/presentation/components/interface-form'
+import {
+  SelectActionsField,
+  SelectComponent,
+} from '@codelab/frontend/presentation/components/interface-form'
 import { createAutoCompleteOptions } from '@codelab/frontend-presentation-components-codemirror'
 import {
   CodeMirrorField,
@@ -23,7 +26,8 @@ import { AutoField, AutoFields } from 'uniforms-antd'
 import { useCustomCompareMemo } from 'use-custom-compare'
 
 import { AutoComputedElementNameField } from '../../components/AutoComputedElementNameField'
-import ChildMapperField from '../../components/child-mapper-field/ChildMapperField'
+import { ChildMapperPreviousSiblingField } from '../../components/child-mapper-field/ChildMapperPreviousSiblingField'
+import { ChildMapperPropKeyField } from '../../components/child-mapper-field/ChildMapperPropKeyField'
 import { RenderTypeField } from '../../components/render-type-field'
 import { useElementService } from '../../services'
 import { updateElementSchema } from './update-element.schema'
@@ -35,9 +39,6 @@ export interface UpdateElementFormProps {
 /** Not intended to be used in a modal */
 export const UpdateElementForm = observer(
   ({ runtimeElement }: UpdateElementFormProps) => {
-    tracker.useModelDiff('UpdateElementForm', runtimeElement)
-    tracker.useRenderedCount('UpdateElementForm')
-
     const elementService = useElementService()
 
     const onSubmit = async (data: IUpdateElementData) => {
@@ -105,11 +106,26 @@ export const UpdateElementForm = observer(
 
     if (isAtom(element.renderType.current)) {
       collapseItems.push({
-        children: <ChildMapperField runtimeElement={runtimeElement} />,
+        children: (
+          // We don't want a composite field since there is no top level name to nest under
+          <>
+            <SelectComponent label="Component" name="childMapperComponent.id" />
+            <ChildMapperPropKeyField
+              name="childMapperPropKey"
+              runtimeElement={runtimeElement}
+            />
+            <ChildMapperPreviousSiblingField
+              element={element}
+              name="childMapperPreviousSibling"
+            />
+          </>
+        ),
         key: 'childMapper',
         label: 'Child Mapper',
       })
     }
+
+    logger.debug('UpdateElementForm', { data: element.toJson })
 
     return (
       <div key={element.id}>
@@ -139,11 +155,6 @@ export const UpdateElementForm = observer(
               'name',
             ]}
           />
-          {/* <SelectComponent
-            component={childMapperComponent}
-            label="Component"
-            name="childMapperComponent.id"
-          /> */}
           <Collapse defaultActiveKey={expandedFields} items={collapseItems} />
         </Form>
       </div>

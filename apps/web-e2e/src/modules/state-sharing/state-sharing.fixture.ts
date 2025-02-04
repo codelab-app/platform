@@ -47,10 +47,10 @@ export class StateSharingPage extends BuilderPage {
       typographyElement.atom,
     )
 
-    await this.page.getByLabel('plus-square').click()
+    await this.page.locator('.ant-tree-switcher_close').click()
     await expect(space).toBeVisible()
 
-    await this.page.getByLabel('plus-square').click()
+    await this.page.locator('.ant-tree-switcher_close').click()
     await expect(typography).toBeVisible()
   }
 

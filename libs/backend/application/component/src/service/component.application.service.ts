@@ -67,7 +67,10 @@ export class ComponentApplicationService {
       api,
     )
 
-    const props = await this.propDomainService.createProp()
+    const props = {
+      data: '{}',
+      id: v4(),
+    }
 
     const rootElement =
       await this.elementApplicationService.createComponentRootElement(

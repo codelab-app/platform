@@ -19,13 +19,6 @@ export const SelectLinkElement = connectField(
     targetElementId,
     ...props
   }: SelectLinkElementProps) => {
-    /**
-     * When form state is updated, all that uses `useField` will be re-rendered
-     */
-    const [fieldProps] = useField<{
-      value?: SelectOption
-    }>(name, { value: undefined }, { absoluteName: true })
-
     const form = useForm<IElementDto>()
     const parentElementId = targetElementId ?? form.model.parentElement?.id
 
@@ -41,11 +34,6 @@ export const SelectLinkElement = connectField(
         targetElementId={parentElementId}
         // eslint-disable-next-line react/jsx-props-no-spreading, @typescript-eslint/no-explicit-any
         {...(props as any)}
-        onChange={(value) => {
-          return fieldProps.onChange(
-            value ? { label: value.name, value } : undefined,
-          )
-        }}
       />
     )
   },

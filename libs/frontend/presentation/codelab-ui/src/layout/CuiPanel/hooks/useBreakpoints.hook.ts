@@ -23,7 +23,9 @@ export interface ResponsiveBreakpoints {
 /**
  * Based on screen width, see which breakpoint we are using
  */
-export const useBreakpoint = (breakpoints: ResponsiveBreakpoints) => {
+export const useBreakpoint = (
+  breakpoints: ResponsiveBreakpoints,
+): Breakpoint => {
   const { height, width } = useWindowSize()
 
   if (width >= BreakpointSize['2xl']) {

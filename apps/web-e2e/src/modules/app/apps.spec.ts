@@ -8,7 +8,7 @@ test.describe.configure({ mode: 'serial' })
 globalBeforeAll()
 
 test.beforeEach(async ({ appListPage: page }) => {
-  await page.goto()
+  await page.gotoAppListUrl()
 
   await expect(page.getSpinner()).toBeHidden()
 })

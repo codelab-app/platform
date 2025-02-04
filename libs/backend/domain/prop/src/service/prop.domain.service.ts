@@ -9,17 +9,18 @@ import { PropRepository } from '../repository'
 export class PropDomainService {
   constructor(private propRepository: PropRepository) {}
 
-  async createProp(propData: ObjectLike = {}) {
-    const data =
-      propData instanceof Object ? JSON.stringify(propData) : propData
+  // This should not be used, since we are adding them as aggregate
+  // async createProp(propData: ObjectLike = {}) {
+  //   const data =
+  //     propData instanceof Object ? JSON.stringify(propData) : propData
 
-    const { id } = await this.propRepository.add({
-      data,
-      id: v4(),
-    })
+  //   const { id } = await this.propRepository.add({
+  //     data,
+  //     id: v4(),
+  //   })
 
-    const props = this.propRepository.findOneOrFail({ where: { id } })
+  //   const props = this.propRepository.findOneOrFail({ where: { id } })
 
-    return props
-  }
+  //   return props
+  // }
 }

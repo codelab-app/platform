@@ -9,6 +9,8 @@ import { revalidateTag } from 'next/cache'
 
 import type { NextFetchOptions } from './options'
 
+import { serverFetchWithAuth } from './server-fetch-with-auth'
+
 export const gqlServerRequest = async <TResult, TVariables extends ObjectLike>(
   // use `.toString()` version of `TypedDocumentString`
   document: DocumentTypeDecoration<TResult, TVariables>,
@@ -18,11 +20,6 @@ export const gqlServerRequest = async <TResult, TVariables extends ObjectLike>(
    */
   next?: NextFetchOptions,
 ) => {
-  /**
-   * Dynamic import here since nested auth0 requires Request to work
-   */
-  const { serverFetchWithAuth } = await import('./server-fetch-with-auth')
-
   const response = await serverFetchWithAuth(getEnv().endpoint.webGraphqlUrl, {
     body: JSON.stringify({
       query: document,

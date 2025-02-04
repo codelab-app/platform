@@ -51,12 +51,12 @@ const streams = multistream([
     level: 'trace',
     stream: pinoPrettyStreamToConsole,
   },
-  {
-    // Need to enable level for stream
-    level: 'trace',
-    stream: pinoPrettyStreamToFile,
-    // stream: pinoStreamToFile,
-  },
+  // {
+  //   // Need to enable level for stream
+  //   level: 'trace',
+  //   stream: pinoPrettyStreamToFile,
+  //   // stream: pinoStreamToFile,
+  // },
 ])
 
 export const pinoLogger = pino(pinoOptions, streams)

@@ -1,9 +1,13 @@
 resource "auth0_client" "web_client" {
   name = "Codelab Web Client"
   # description         = var.app_description
-  app_type            = "regular_web"
-  oidc_conformant     = true
-  callbacks           = ["${var.next_public_web_host}/api/auth/callback"]
+  app_type        = "regular_web"
+  oidc_conformant = true
+  callbacks = [
+    "${var.next_public_web_host}/api/auth/callback",
+    # New version of `nextjs-auth0` removed `/api` prefix
+    "${var.next_public_web_host}/auth/callback",
+  ]
   allowed_logout_urls = [var.next_public_web_host]
   web_origins         = [var.next_public_web_host]
   allowed_origins     = [var.next_public_web_host]

@@ -24,7 +24,6 @@ export const authFile = 'apps/web-e2e/.auth/user.json'
 
 enum Project {
   AuthSetup = 'AuthSetup',
-  DatabaseSetup = 'DatabaseSetup',
 }
 
 /**
@@ -38,17 +37,6 @@ export default defineConfig({
       testMatch: /auth\.setup\.ts/,
       use: {},
     },
-    // Global level doesn't run for retries, move to beforeAll
-    // {
-    //   dependencies: [Project.AuthSetup],
-    //   name: Project.DatabaseSetup,
-    //   testMatch: /database\.setup\.ts/,
-    //   use: {
-    //     // Requires trailing `/`
-    //     baseURL: `${webBaseApiUrl}/`,
-    //     storageState: authFile,
-    //   },
-    // },
     {
       dependencies: [Project.AuthSetup],
       name: 'chromium',
@@ -98,13 +86,14 @@ export default defineConfig({
   ],
 
   // reporter: [['list'], ['html']],
+  reporter: [['list', { printSteps: true }]],
 
   retries: process.env.CI ? 1 : 0,
 
   timeout: process.env.CI ? 60000 : 60000,
 
   expect: {
-    timeout: process.env.CI ? 60000 : 60000,
+    timeout: process.env.CI ? 45000 : 45000,
   },
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */

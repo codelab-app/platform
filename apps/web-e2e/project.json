@@ -11,15 +11,14 @@
       "outputs": ["{workspaceRoot}/dist/.playwright/apps/web-e2e"],
       "options": {
         "config": "apps/web-e2e/playwright.config.ts",
+        "fullyParallel": false,
+        "workers": 1,
         "headed": false,
         "ui": false
       },
       "configurations": {
         "test": {},
-        "ci": {
-          "fullyParallel": false,
-          "workers": 1
-        }
+        "ci": {}
       }
     },
     "e2e-ui": {
@@ -28,6 +27,8 @@
       "outputs": ["{workspaceRoot}/dist/.playwright/apps/web-e2e"],
       "options": {
         "config": "apps/web-e2e/playwright.config.ts",
+        "fullyParallel": false,
+        "workers": 1,
         "headed": true,
         "ui": true
       },

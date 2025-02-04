@@ -1,6 +1,6 @@
 'use server'
 
-import type { IUserDto } from '@codelab/shared/abstract/core'
+import type { IUserDto, IUserSession } from '@codelab/shared/abstract/core'
 
 import { mapClaimsToUserDto } from '@codelab/shared-domain-module/user'
 import { auth0ServerInstance } from '@codelab/shared-infra-auth0/server'
@@ -12,7 +12,7 @@ export const getServerUser = withAsyncSpanFunc(
     name: 'getServerUser',
     op: 'codelab.auth0',
   },
-  async (): Promise<IUserDto> => {
+  async (): Promise<IUserSession> => {
     const session = await auth0ServerInstance.getSession()
     const user = session?.user
 

@@ -11,7 +11,6 @@ import {
   type IElementDomainService,
   type IFieldDomainService,
   type IPageDomainService,
-  type IPreferenceDomainService,
   type IRedirectDomainService,
   type IResourceDomainService,
   type IStoreDomainService,
@@ -29,7 +28,6 @@ import {
   elementDomainServiceContext,
   fieldDomainServiceContext,
   pageDomainServiceContext,
-  preferenceDomainServiceContext,
   redirectDomainServiceContext,
   resourceDomainServiceContext,
   storeDomainServiceContext,
@@ -45,7 +43,6 @@ import { ComponentDomainService } from '@codelab/frontend-domain-component/servi
 import { DomainDomainService } from '@codelab/frontend-domain-domain/services'
 import { ElementDomainService } from '@codelab/frontend-domain-element/services'
 import { PageDomainService } from '@codelab/frontend-domain-page/services'
-import { PreferenceDomainService } from '@codelab/frontend-domain-preference/services'
 import { RedirectDomainService } from '@codelab/frontend-domain-redirect/services'
 import { ResourceDomainService } from '@codelab/frontend-domain-resource/services'
 import { StoreDomainService } from '@codelab/frontend-domain-store/services'
@@ -63,7 +60,7 @@ export const createDomainStore = withSpanFunc(
     name: 'createDomainStore',
     op: 'codelab.mobx',
   },
-  (user: IUserDto, preference: IPreferenceDto) => {
+  (user: IUserDto) => {
     @model('@codelab/DomainStore')
     class DomainStore
       extends Model({
@@ -93,9 +90,6 @@ export const createDomainStore = withSpanFunc(
         ),
         pageDomainService: prop<IPageDomainService>(
           () => new PageDomainService({}),
-        ),
-        preferenceDomainService: prop<IPreferenceDomainService>(() =>
-          PreferenceDomainService.fromDto(preference),
         ),
         redirectDomainService: prop<IRedirectDomainService>(
           () => new RedirectDomainService({}),
@@ -135,7 +129,6 @@ export const createDomainStore = withSpanFunc(
         tagDomainServiceContext.set(this, this.tagDomainService)
         typeDomainServiceContext.set(this, this.typeDomainService)
         userDomainServiceContext.set(this, this.userDomainService)
-        preferenceDomainServiceContext.set(this, this.preferenceDomainService)
       }
     }
 

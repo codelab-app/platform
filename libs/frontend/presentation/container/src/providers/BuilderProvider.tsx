@@ -66,6 +66,7 @@ export const BuilderProvider = ({
     //   componentName: 'BuilderProvider',
     //   event: 'Set selected node',
     // })
+
     builderService.setSelectedNode(runtimeElementRef(runtimeRootElement))
 
     // tracker.useEvent({
@@ -73,7 +74,7 @@ export const BuilderProvider = ({
     //   event: 'Expression transformer init',
     // })
     void renderer.expressionTransformer.init()
-  }, [containerNode.id])
+  }, [rendererType, containerNode.id])
 
   return (
     <BuilderContext.Provider value={{ containerNode, rendererType }}>

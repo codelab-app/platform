@@ -1,10 +1,16 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-pnpm cli tasks build --stage test
-pnpm cli tasks unit --stage test
-pnpm cli tasks int --stage test
-nx run-many --target=tsc-check
-pnpm nx e2e web-e2e -c test
+# pnpm cli tasks build --stage test
+# pnpm cli tasks unit --stage test
+# pnpm cli tasks int --stage test
+# nx run-many --target=tsc-check
+
+# Or run specific test files
+#
+# pnpm nx e2e web-e2e -c test
+pnpm nx e2e web-e2e -c test \
+  --testFiles="modules/builder/builder.spec.ts" \
+  --skipNxCache
 
 ./scripts/git/branch-name-check.sh

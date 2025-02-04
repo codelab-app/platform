@@ -46,7 +46,7 @@ import {
   typeDomainServiceContext,
   userDomainServiceContext,
 } from '@codelab/frontend/abstract/domain'
-import { preferenceDto, userDto } from '@codelab/frontend/test/data'
+import { userDto } from '@codelab/frontend/test/data'
 import { rendererFactory } from '@codelab/frontend-application-renderer/test'
 import {
   apiActionFactory,
@@ -103,7 +103,7 @@ export const createTestStore = () => {
     showDuplicateModelNameWarnings: false,
   })
 
-  const domainStore = createDomainStore(userDto, preferenceDto)
+  const domainStore = createDomainStore(userDto)
 
   const applicationStore = createApplicationStore(
     { pathParams: {} },

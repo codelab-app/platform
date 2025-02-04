@@ -14,19 +14,11 @@ export class Preference extends IModel implements IPreference {
 
   id: string
 
-  owner: IRef
-
-  constructor({
-    builderBreakpointType,
-    builderWidth,
-    id,
-    owner,
-  }: IPreferenceDto) {
+  constructor({ builderBreakpointType, builderWidth, id }: IPreferenceDto) {
     super()
 
     this.builderBreakpointType = builderBreakpointType
     this.builderWidth = builderWidth
     this.id = id
-    this.owner = owner
   }
 }

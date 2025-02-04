@@ -65,16 +65,12 @@ export class ComponentDomainService
         return false
       }
 
-      console.log(comp)
-
       /**
        * Prevent circular references
        */
       const parentIsDescendant = comp.descendantComponents.some(
         ({ id }) => id === component?.id,
       )
-
-      console.log({ parentIsDescendant })
 
       return !component?.id || !parentIsDescendant
     })

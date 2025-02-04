@@ -62,9 +62,9 @@ export class ValidationService implements IValidationService {
   /**
    * Create facade for commonly used methods
    */
-  assertsDefined<T>(data: T): asserts data is NonNullable<T> {
+  assertsDefined<T>(data: T, message?: string): asserts data is NonNullable<T> {
     return this.asserts(TDefined, data, {
-      message: 'Data should be defined',
+      message: message ?? 'Data should be defined',
     })
   }
 

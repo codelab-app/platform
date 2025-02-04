@@ -40,8 +40,8 @@ export class TagListPage extends BasePage {
   }
 
   async expandTagTree() {
-    await this.page.getByLabel('plus-square').first().click()
-    await this.page.getByLabel('plus-square').first().click()
+    await this.page.locator('.ant-tree-switcher_close').first().click()
+    await this.page.locator('.ant-tree-switcher_close').first().click()
   }
 
   async fillAndSubmitTagForm(name: string, key: UiKey, submitLabel: string) {

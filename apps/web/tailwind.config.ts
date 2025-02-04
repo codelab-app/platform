@@ -11,7 +11,7 @@ const config: Config = {
   presets: [rootTailwindConfig],
   content: [
     resolveWorkspaceAbsolutePath(
-      '{src,pages,components,app}/**/*!(*.stories|*.spec).{ts,tsx,html}',
+      '{components,app}/**/*!(*.stories|*.spec).{ts,tsx,html}',
     ),
     /**
      * Causes workspace root to resolve to `/Root` and throws `server relative imports are not implemented yet. Please try an import relative to the file you are importing from.`

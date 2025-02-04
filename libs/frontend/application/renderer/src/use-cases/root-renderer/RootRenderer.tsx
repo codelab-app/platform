@@ -1,14 +1,21 @@
 'use client'
 
+import type { JSXElementConstructor, ReactElement, ReactNode } from 'react'
+
 import {
   type IRendererModel,
   type IRootRenderer,
 } from '@codelab/frontend/abstract/application'
 import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/domain'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
+import { Alert, Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { forwardRef, useMemo } from 'react'
+
+//  https://github.com/ant-design/ant-design/issues/52213
+const ErrorBoundary = Alert.ErrorBoundary as JSXElementConstructor<{
+  children: ReactNode
+}>
 
 /**
  * This is the main entrypoint into our Renderer, the main flow recursively renders the children until no more children exists.
@@ -38,8 +45,8 @@ const RootRendererComponent = forwardRef<
   HTMLDivElement,
   { renderer: IRendererModel }
 >(({ renderer }, ref) => {
-  const { preferenceDomainService } = useDomainStore()
-  const preference = preferenceDomainService.preference
+  const { userDomainService } = useDomainStore()
+  const preference = userDomainService.preference
 
   const containerStyle = useMemo(
     () => ({

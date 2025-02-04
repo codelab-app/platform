@@ -58,8 +58,8 @@ export const elementRepository: IElementRepository = {
 
     // Disconnect here first for pre/post, issue with generated cypher query
     const update = {
-      firstChild: disconnectAll({ omitId: element.firstChild?.id }),
-      parentElement: disconnectAll({ omitId: element.parentElement?.id }),
+      // firstChild: disconnectAll({ omitId: element.firstChild?.id }),
+      // parentElement: disconnectAll({ omitId: element.parentElement?.id }),
       postRenderActions: [
         disconnectManyAll({
           omitIds: element.postRenderActions?.map((action) => action.id),
@@ -86,7 +86,9 @@ export const elementRepository: IElementRepository = {
 
     const updatedElement = elements[0]
 
-    Validator.assertsDefined(updatedElement)
+    console.log('updatedElement', updatedElement)
+
+    Validator.assertsDefined(updatedElement, 'Updated element is undefined')
 
     return updatedElement
   },

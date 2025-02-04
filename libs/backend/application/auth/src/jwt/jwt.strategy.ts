@@ -53,6 +53,8 @@ export class JwtStrategy
   ): Promise<Auth0IdToken> {
     /**
      * We pass the id token in the header to the backend instead of calling the auth0 token endpoint
+     *
+     * We do this to make the user available in the request context
      */
     const idToken = req.header('x-id-token')
 
