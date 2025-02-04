@@ -15,22 +15,22 @@ const sendLog = async (
 
   // console.log('Send log', message, options)
 
-  try {
-    await fetch(`${baseUrl}/api/logging`, {
-      body: JSON.stringify({ level, message, options }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-    })
-  } catch (error) {
-    // Fallback to console in case the logging endpoint fails
-    console.error('Failed to send log to server:', error, {
-      level,
-      message,
-      options,
-    })
-  }
+  // try {
+  //   await fetch(`${baseUrl}/api/logging`, {
+  //     body: JSON.stringify({ level, message, options }),
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     method: 'POST',
+  //   })
+  // } catch (error) {
+  //   // Fallback to console in case the logging endpoint fails
+  //   console.error('Failed to send log to server:', error, {
+  //     level,
+  //     message,
+  //     options,
+  //   })
+  // }
 }
 
 /**

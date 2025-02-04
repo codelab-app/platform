@@ -50,7 +50,7 @@ export class AppListPage extends BasePage {
   }
 
   async gotoAppListUrl() {
-    return test.step('goto', async () => {
+    return test.step('gotoAppListUrl', async () => {
       await this.page.goto(PageType.AppList())
     })
   }

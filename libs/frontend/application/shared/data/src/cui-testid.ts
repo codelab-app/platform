@@ -2,9 +2,10 @@ import { getUiDataKey, type UiKey } from '@codelab/frontend/abstract/types'
 import { kebabCase } from '@codelab/shared/utils'
 
 /**
- * These are unique testid selector used for e2d testing
+ * These are unique testid selector used for e2e testing
  */
 export const CuiTestId = {
+  cuiConfigPane: () => 'cui-config-pane',
   cuiForm: (key: UiKey) => `cui-form-${getUiDataKey(key)}`,
   cuiHeader: () => 'cui-header',
   cuiModal: () => 'cui-modal',

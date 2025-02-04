@@ -13,34 +13,42 @@ export class AtomPage extends BasePage {
   }
 
   async expectOnlyReactFragmentAtom() {
-    await expect(this.getTree().getTreeItem()).toHaveCount(1)
+    return test.step('expectOnlyReactFragmentAtom', async () => {
+      await expect(this.getTree().getTreeItem()).toHaveCount(1)
+    })
   }
 
   async fillAndSubmitAtomFormCreate() {
-    const form = await this.getForm(UiKey.AtomFormCreate)
+    return test.step('fillAndSubmitAtomFormCreate', async () => {
+      const form = await this.getForm(UiKey.AtomFormCreate)
 
-    await form.fillInputText({ label: 'Name' }, this.atom.name)
-    await form.fillInputFilterSelect({ label: 'Type' }, this.atom.name)
-    await form.getButton({ text: 'Create' }).click()
+      await form.fillInputText({ label: 'Name' }, this.atom.name)
+      await form.fillInputFilterSelect({ label: 'Type' }, this.atom.name)
+      await form.getButton({ text: 'Create' }).click()
 
-    await this.expectGlobalProgressBarToBeHidden()
+      await this.expectGlobalProgressBarToBeHidden()
+    })
   }
 
   async fillAndSubmitAtomFormDelete() {
-    const form = await this.getForm(UiKey.AtomsModalDelete)
+    return test.step('fillAndSubmitAtomFormDelete', async () => {
+      const form = await this.getForm(UiKey.AtomsModalDelete)
 
-    await form.getButton({ label: 'Confirmation Button' }).click()
+      await form.getButton({ label: 'Confirmation Button' }).click()
 
-    await this.expectGlobalProgressBarToBeHidden()
+      await this.expectGlobalProgressBarToBeHidden()
+    })
   }
 
   async fillAndSubmitAtomFormUpdate() {
-    const form = await this.getForm(UiKey.AtomFormUpdate)
+    return test.step('fillAndSubmitAtomFormUpdate', async () => {
+      const form = await this.getForm(UiKey.AtomFormUpdate)
 
-    await form.fillInputText({ label: 'Name' }, this.updatedAtom.name)
-    await form.getButton({ text: 'Update' }).click()
+      await form.fillInputText({ label: 'Name' }, this.updatedAtom.name)
+      await form.getButton({ text: 'Update' }).click()
 
-    await this.expectGlobalProgressBarToBeHidden()
+      await this.expectGlobalProgressBarToBeHidden()
+    })
   }
 
   getAtomName() {
@@ -52,7 +60,9 @@ export class AtomPage extends BasePage {
   }
 
   async goto() {
-    await this.page.goto(PageType.Atoms())
+    return test.step('goto', async () => {
+      await this.page.goto(PageType.Atoms())
+    })
   }
 }
 

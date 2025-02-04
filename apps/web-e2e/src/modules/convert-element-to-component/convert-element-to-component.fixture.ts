@@ -13,40 +13,51 @@ import {
  */
 export class ConvertElementToComponentPage extends BuilderPage {
   async checkComponentHasCorrectElements() {
-    await expect(this.getBuilderRenderContainer()).toHaveText(textContent)
+    return test.step('checkComponentHasCorrectElements', async () => {
+      await expect(this.getBuilderRenderContainer()).toHaveText(textContent)
 
-    await this.checkElementTreeStructure(['Container', 'Row', 'Column', 'Text'])
+      await this.checkElementTreeStructure([
+        'Container',
+        'Row',
+        'Column',
+        'Text',
+      ])
+    })
   }
 
   async convertElementToComponent() {
-    await this.page.locator('.ant-tree-switcher_close').click()
+    return test.step('convertElementToComponent', async () => {
+      await this.page.locator('.ant-tree-switcher_close').click()
 
-    const treeElement = await this.selectTreeElement(elementContainer)
+      const treeElement = await this.selectTreeElement(elementContainer)
 
-    const newComponentElement = this.getTreeElement(
-      'Container',
-      'instance of Container',
-    )
+      const newComponentElement = this.getTreeElement(
+        'Container',
+        'instance of Container',
+      )
 
-    await treeElement.click({ button: 'right' })
-    await this.page.getByText('Convert To Component').click()
+      await treeElement.click({ button: 'right' })
+      await this.page.getByText('Convert To Component').click()
 
-    await expect(this.getGlobalProgressBar()).toBeHidden()
-    await expect(treeElement).toBeHidden()
-    await expect(newComponentElement).toBeVisible()
-    await expect(this.getBuilderRenderContainer()).toHaveText(textContent)
+      await expect(this.getGlobalProgressBar()).toBeHidden()
+      await expect(treeElement).toBeHidden()
+      await expect(newComponentElement).toBeVisible()
+      await expect(this.getBuilderRenderContainer()).toHaveText(textContent)
+    })
   }
 
   async goToComponentBuilderPage() {
-    await this.page.goto(PageType.Components())
+    return test.step('goToComponentBuilderPage', async () => {
+      await this.page.goto(PageType.Components())
 
-    await expect(this.getCard({ name: componentName })).toBeVisible()
+      await expect(this.getCard({ name: componentName })).toBeVisible()
 
-    const card = this.getCard({ name: componentName })
+      const card = this.getCard({ name: componentName })
 
-    await card.locator(this.getButton({ title: 'Edit in Builder' })).click()
+      await card.locator(this.getButton({ title: 'Edit in Builder' })).click()
 
-    await expect(this.getSpinner()).toBeHidden()
+      await expect(this.getSpinner()).toBeHidden()
+    })
   }
 }
 

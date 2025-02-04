@@ -15,7 +15,7 @@ export interface IValidationService {
   /**
    * Add commonly used methods as convenience
    */
-  assertsDefined<T>(data: T): asserts data is NonNullable<T>
+  assertsDefined<T>(data: T, message?: string): asserts data is NonNullable<T>
   parse<T extends TSchema>(
     schema: T,
     data: unknown,

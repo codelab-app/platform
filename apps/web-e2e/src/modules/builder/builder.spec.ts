@@ -10,8 +10,6 @@ import {
   elementColB,
   elementColC,
   seedAppData,
-  seedTestData,
-  textContent,
 } from './builder.data'
 import { test } from './builder.fixture'
 

@@ -74,14 +74,3 @@ export const getCuiTree = (page: Page) => {
 //     }
 //   }
 // }
-
-/**
- * This creates an async function, so better to only wrap async functions to not break calling code
- */
-export const step = <T>(
-  title: string,
-  body: () => Promise<T> | T,
-  options: { box?: boolean; location?: Location } = {},
-) => {
-  return test.step(title, body, options)
-}

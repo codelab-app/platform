@@ -1,6 +1,5 @@
 import { test as base, expect } from '@playwright/test'
 
-import { step } from '../../commands'
 import { BuilderPage } from '../builder/builder.fixture'
 import {
   childMapperComponentName,
@@ -14,7 +13,7 @@ import {
  */
 export class ChildMapperPage extends BuilderPage {
   async changeChildMapperProps() {
-    return step('changeChildMapperProps', async () => {
+    return test.step('changeChildMapperProps', async () => {
       const updateElementForm = this.getUpdateElementForm()
 
       await this.selectTreeElement(pageRowElement)
@@ -33,7 +32,7 @@ export class ChildMapperPage extends BuilderPage {
   }
 
   async checkBuilderOutput() {
-    return step('checkBuilderOutput', async () => {
+    return test.step('checkBuilderOutput', async () => {
       await this.checkBuilderOutputStructure([
         '',
         'text test 1',
@@ -44,7 +43,7 @@ export class ChildMapperPage extends BuilderPage {
   }
 
   async checkElementTree() {
-    return step('checkElementTree', async () => {
+    return test.step('checkElementTree', async () => {
       await this.checkElementTreeStructure([
         'Body',
         'Row',
@@ -57,13 +56,13 @@ export class ChildMapperPage extends BuilderPage {
   }
 
   async checkEmptyBuilderOutput() {
-    return step('checkEmptyBuilderOutput', async () => {
+    return test.step('checkEmptyBuilderOutput', async () => {
       await this.checkBuilderOutputStructure(['', ''])
     })
   }
 
   async checkEmptyElementTree() {
-    return step('checkEmptyElementTree', async () => {
+    return test.step('checkEmptyElementTree', async () => {
       await this.checkElementTreeStructure([
         'Body',
         'Row',
@@ -74,7 +73,7 @@ export class ChildMapperPage extends BuilderPage {
   }
 
   async checkUpdatedBuilderOutput() {
-    return step('checkUpdatedBuilderOutput', async () => {
+    return test.step('checkUpdatedBuilderOutput', async () => {
       await this.checkBuilderOutputStructure([
         '',
         '',
@@ -85,7 +84,7 @@ export class ChildMapperPage extends BuilderPage {
   }
 
   async checkUpdatedElementTree() {
-    return step('checkUpdatedElementTree', async () => {
+    return test.step('checkUpdatedElementTree', async () => {
       await this.checkElementTreeStructure([
         'Body',
         'Row',
@@ -98,7 +97,7 @@ export class ChildMapperPage extends BuilderPage {
   }
 
   async expandElementsTree() {
-    return step('expandElementsTree', async () => {
+    return test.step('expandElementsTree', async () => {
       await this.page.locator('.ant-tree-switcher_close').click()
 
       const row = this.getTreeElement(pageRowElement.name, pageRowElement.atom)
@@ -119,7 +118,7 @@ export class ChildMapperPage extends BuilderPage {
   }
 
   async setChildMapperProperties() {
-    return step('setChildMapperProperties', async () => {
+    return test.step('setChildMapperProperties', async () => {
       await this.selectTreeElement(pageRowElement)
 
       const updateElementForm = this.getUpdateElementForm()
@@ -149,7 +148,7 @@ export class ChildMapperPage extends BuilderPage {
   }
 
   async setEmptyChildMapperProperties() {
-    return step('setEmptyChildMapperProperties', async () => {
+    return test.step('setEmptyChildMapperProperties', async () => {
       const updateElementForm = this.getUpdateElementForm()
 
       await this.selectTreeElement(pageRowElement)
@@ -164,7 +163,7 @@ export class ChildMapperPage extends BuilderPage {
   }
 
   async setNonArrayChildMapperProperties() {
-    return step('setNonArrayChildMapperProperties', async () => {
+    return test.step('setNonArrayChildMapperProperties', async () => {
       const updateElementForm = this.getUpdateElementForm()
 
       await this.selectTreeElement(pageRowElement)
@@ -179,7 +178,7 @@ export class ChildMapperPage extends BuilderPage {
   }
 
   private async checkBuilderOutputStructure(expectedContent: Array<string>) {
-    return step('checkBuilderOutputStructure', async () => {
+    return test.step('checkBuilderOutputStructure', async () => {
       const outputContainer = this.getBuilderRenderContainer()
       const antDesignRow = outputContainer.locator('.ant-row')
       const rowChildren = outputContainer.locator('.ant-row > *')

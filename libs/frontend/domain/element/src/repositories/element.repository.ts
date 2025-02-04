@@ -86,7 +86,9 @@ export const elementRepository: IElementRepository = {
 
     const updatedElement = elements[0]
 
-    Validator.assertsDefined(updatedElement)
+    console.log('updatedElement', updatedElement)
+
+    Validator.assertsDefined(updatedElement, 'Updated element is undefined')
 
     return updatedElement
   },

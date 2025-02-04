@@ -5,7 +5,6 @@ import { IPageCreateSeedData, IPageKind } from '@codelab/shared/abstract/core'
 import { test as base, expect } from '@playwright/test'
 import { v4 } from 'uuid'
 
-import { step } from '../../commands'
 import { BasePage } from '../../locators/pages'
 import { resourceName } from './auth-guard.data'
 
@@ -24,7 +23,7 @@ export class AuthGuardPage extends BasePage {
   readonly updatedAuthGuardName = 'Updated Auth Guard'
 
   async createAuthGuard() {
-    return step('createAuthGuard', async () => {
+    return test.step('createAuthGuard', async () => {
       await this.getSidebar(UiKey.AuthGuardSidebar)
         .getToolbarItem(UiKey.AuthGuardToolbarItemCreate)
         .click()
@@ -39,7 +38,7 @@ export class AuthGuardPage extends BasePage {
   }
 
   async createAuthGuardRedirect() {
-    return step('createAuthGuardRedirect', async () => {
+    return test.step('createAuthGuardRedirect', async () => {
       await this.getTree()
         .getTreeItemByPrimaryTitle$(authGuardPageData.name)
         .hover()
@@ -62,7 +61,7 @@ export class AuthGuardPage extends BasePage {
   }
 
   async deleteAuthGuard() {
-    return step('deleteAuthGuard', async () => {
+    return test.step('deleteAuthGuard', async () => {
       await this.getTreeItemByPrimaryTitle$(this.updatedAuthGuardName).hover()
       await this.getTreeItemByPrimaryTitle(this.updatedAuthGuardName)
         .getToolbarItem(UiKey.AuthGuardToolbarItemDelete)
@@ -76,7 +75,7 @@ export class AuthGuardPage extends BasePage {
   }
 
   async deleteAuthGuardRedirect() {
-    return step('deleteAuthGuardRedirect', async () => {
+    return test.step('deleteAuthGuardRedirect', async () => {
       await this.getTreeItemByPrimaryTitle$(authGuardPageData.name).hover()
       await this.getTreeItemByPrimaryTitle(authGuardPageData.name)
         .getToolbarItem(UiKey.RedirectToolbarItemUpdate)
@@ -92,31 +91,30 @@ export class AuthGuardPage extends BasePage {
   }
 
   async expectNoPreexistingGuards() {
-    return step('expectNoPreexistingGuards', async () => {
+    return test.step('expectNoPreexistingGuards', async () => {
       await expect(this.getByExactText(this.authGuardName)).toBeHidden()
     })
   }
 
   getPageRedirectIcon() {
-    return step('getPageRedirectIcon', () =>
-      this.page.getByLabel('lock').locator('svg'),
-    )
+    return test.step('getPageRedirectIcon', () =>
+      this.page.getByLabel('lock').locator('svg'))
   }
 
   async goToAppPageList(appId: string, pageId: string) {
-    return step('goToAppPageList', async () => {
+    return test.step('goToAppPageList', async () => {
       await this.page.goto(PageType.PageList({ appId, pageId }))
     })
   }
 
   async goto() {
-    return step('goto', async () => {
+    return test.step('goto', async () => {
       await this.page.goto(PageType.AuthGuards())
     })
   }
 
   async updateAuthGuard() {
-    return step('updateAuthGuard', async () => {
+    return test.step('updateAuthGuard', async () => {
       await this.getTreeItemByPrimaryTitle$(this.authGuardName).click()
 
       const form = await this.getForm(UiKey.AuthGuardFormUpdate)
@@ -128,7 +126,7 @@ export class AuthGuardPage extends BasePage {
   }
 
   async updateAuthGuardRedirect() {
-    return step('updateAuthGuardRedirect', async () => {
+    return test.step('updateAuthGuardRedirect', async () => {
       await this.getTree()
         .getTreeItemByPrimaryTitle$(authGuardPageData.name)
         .hover()

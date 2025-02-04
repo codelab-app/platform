@@ -1,11 +1,12 @@
 'use client'
 
 import {
+  configPaneBreakpoints,
   CuiNavigationBar,
   CuiPanel,
   CuiPanelGroup,
   CuiResizablePanel,
-  panelBreakpoints,
+  explorerPaneBreakpoints,
   PaneSection,
 } from '@codelab/frontend/presentation/codelab-ui'
 import Layout from 'antd/es/layout'
@@ -64,7 +65,7 @@ export const Dashboard = ({
           <CuiPanelGroup direction="horizontal">
             {primarySidebar && (
               <CuiResizablePanel
-                breakpoints={panelBreakpoints}
+                breakpoints={explorerPaneBreakpoints}
                 // Close the pane if main area is too crammed
                 collapsible
                 id={PaneSection.Explorer}
@@ -85,9 +86,10 @@ export const Dashboard = ({
 
             <CuiPanel
               className="relative"
-              defaultSize={
-                60 + (primarySidebar ? 0 : 20) + (configPane ? 0 : 20)
-              }
+              // defaultSize={60}
+              // defaultSize={
+              //   60 + (primarySidebar ? 0 : 20) + (configPane ? 0 : 20)
+              // }
               id={PaneSection.Builder}
               order={3}
             >
@@ -99,7 +101,7 @@ export const Dashboard = ({
 
             {configPane && (
               <CuiResizablePanel
-                breakpoints={panelBreakpoints}
+                breakpoints={configPaneBreakpoints}
                 // Close the pane if main area is too crammed
                 collapsible
                 id={PaneSection.Config}

@@ -9,6 +9,7 @@ import {
   type IUpdateElementData,
 } from '@codelab/frontend/abstract/domain'
 import { PageType, PrimarySidebar } from '@codelab/frontend/abstract/types'
+import { logger } from '@codelab/frontend/infra/logger'
 import { useAtomService } from '@codelab/frontend-application-atom/services'
 import { usePropService } from '@codelab/frontend-application-prop/services'
 import { useTypeService } from '@codelab/frontend-application-type/services'
@@ -81,6 +82,7 @@ export const useElementService = (): IElementService => {
       element.closestParentElement.current.setExpanded(true)
     }
 
+    logger.debug('elementService.create', { data })
     await elementRepository.add(data)
     await syncModifiedElements()
 

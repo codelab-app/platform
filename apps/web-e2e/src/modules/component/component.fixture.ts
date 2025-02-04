@@ -7,27 +7,33 @@ import { COMPONENT_PROP_VALUE } from './component.data'
 
 export class ComponentListPage extends BuilderPage {
   async addComponentProps() {
-    const componentTab = this.page.locator('.ant-tabs-tabpane-active')
-    const modal = this.getModalForm(UiKey.FieldPopoverCreate)
-    const submitButton = this.getButton({ text: 'Create' })
+    return test.step('addComponentProps', async () => {
+      const componentTab = this.page.locator('.ant-tabs-tabpane-active')
+      const modal = this.getModalForm(UiKey.FieldPopoverCreate)
+      const submitButton = this.getButton({ text: 'Create' })
 
-    await componentTab.getByText('Add').click()
+      await componentTab.getByText('Add').click()
 
-    await this.setFormFieldValue('Key', this.componentPropName)
-    await this.setFormFieldValue('Type', IPrimitiveTypeKind.String)
-    await this.page.locator('[name="validationRules.general.nullable"]').click()
+      await this.setFormFieldValue('Key', this.componentPropName)
+      await this.setFormFieldValue('Type', IPrimitiveTypeKind.String)
+      await this.page
+        .locator('[name="validationRules.general.nullable"]')
+        .click()
 
-    await this.getDialog().locator(submitButton).click()
-    await this.waitForProgressBar()
+      await this.getDialog().locator(submitButton).click()
+      await this.waitForProgressBar()
+    })
   }
 
   async checkRootElementExists() {
-    const explorerTree = this.getElementsTree()
+    return test.step('checkRootElementExists', async () => {
+      const explorerTree = this.getElementsTree()
 
-    await expect(explorerTree).toBeVisible()
-    await expect(
-      this.getTreeElement(`${this.componentName} Root`, 'ReactFragment'),
-    ).toBeVisible()
+      await expect(explorerTree).toBeVisible()
+      await expect(
+        this.getTreeElement(`${this.componentName} Root`, 'ReactFragment'),
+      ).toBeVisible()
+    })
   }
 
   clickModalConfirmButton() {
@@ -38,21 +44,27 @@ export class ComponentListPage extends BuilderPage {
   }
 
   async expectPreexistingAtoms() {
-    await expect(this.getCard({ name: 'ReactFragment' })).toBeVisible()
+    return test.step('expectPreexistingAtoms', async () => {
+      await expect(this.getCard({ name: 'ReactFragment' })).toBeVisible()
+    })
   }
 
   async expectPreexistingComponents() {
-    await expect(this.getCard({ name: this.componentName })).toBeHidden()
+    return test.step('expectPreexistingComponents', async () => {
+      await expect(this.getCard({ name: this.componentName })).toBeHidden()
+    })
   }
 
   async fillCreateComponentForm() {
-    await this.fillInputText({ label: 'Name' }, this.componentName)
+    return test.step('fillCreateComponentForm', async () => {
+      await this.fillInputText({ label: 'Name' }, this.componentName)
 
-    await this.getDialog()
-      .locator(this.getButton({ text: 'Create' }))
-      .click()
+      await this.getDialog()
+        .locator(this.getButton({ text: 'Create' }))
+        .click()
 
-    await expect(this.getDialog()).toBeHidden()
+      await expect(this.getDialog()).toBeHidden()
+    })
   }
 
   getComponentName() {
@@ -64,51 +76,63 @@ export class ComponentListPage extends BuilderPage {
   }
 
   async goto(appId?: string, pageId?: string) {
-    if (appId && pageId) {
-      await super.goto(appId, pageId)
-    } else {
-      await this.page.goto(PageType.Components())
-    }
+    return test.step('goto', async () => {
+      if (appId && pageId) {
+        await super.goto(appId, pageId)
+      } else {
+        await this.page.goto(PageType.Components())
+      }
+    })
   }
 
   async openComponentBuilder() {
-    const card = this.getCard({ name: this.componentName })
+    return test.step('openComponentBuilder', async () => {
+      const card = this.getCard({ name: this.componentName })
 
-    await this.getButton({ title: 'Edit in Builder' }, card).click()
+      await this.getButton({ title: 'Edit in Builder' }, card).click()
 
-    await this.checkRootElementExists()
-    await expect(this.getSpinner()).toBeHidden()
-    await expect(this.getFormFieldSpinner()).toHaveCount(0)
+      await this.checkRootElementExists()
+      await expect(this.getSpinner()).toBeHidden()
+      await expect(this.getFormFieldSpinner()).toHaveCount(0)
+    })
   }
 
   async openComponentPropsTab() {
-    const conponentTab = this.page.locator('[data-node-key="Component"]')
+    return test.step('openComponentPropsTab', async () => {
+      const conponentTab = this.page.locator('[data-node-key="Component"]')
 
-    await conponentTab.click()
+      await conponentTab.click()
 
-    await expect(conponentTab).toHaveClass('ant-tabs-tab ant-tabs-tab-active')
+      await expect(conponentTab).toHaveClass('ant-tabs-tab ant-tabs-tab-active')
+    })
   }
 
   async openCreateComponentPanel() {
-    await this.getButton({ label: UiKey.ComponentToolbarItemCreate }).click()
+    return test.step('openCreateComponentPanel', async () => {
+      await this.getButton({ label: UiKey.ComponentToolbarItemCreate }).click()
 
-    await expect(this.getDialog()).toBeVisible()
+      await expect(this.getDialog()).toBeVisible()
+    })
   }
 
   async openDeleteComponentModal() {
-    const card = this.getCard({ name: this.componentName })
+    return test.step('openDeleteComponentModal', async () => {
+      const card = this.getCard({ name: this.componentName })
 
-    await this.getButton({ title: 'Delete' }, card).click()
+      await this.getButton({ title: 'Delete' }, card).click()
 
-    await expect(this.getDialog()).toBeVisible()
+      await expect(this.getDialog()).toBeVisible()
+    })
   }
 
   async setComponentPropValue() {
-    await this.page
-      .locator('.ant-form-item-control-input [contenteditable]')
-      .type(COMPONENT_PROP_VALUE)
+    return test.step('setComponentPropValue', async () => {
+      await this.page
+        .locator('.ant-form-item-control-input [contenteditable]')
+        .type(COMPONENT_PROP_VALUE)
 
-    await this.waitForProgressBar()
+      await this.waitForProgressBar()
+    })
   }
 
   private readonly componentName = 'New Component'
@@ -116,7 +140,7 @@ export class ComponentListPage extends BuilderPage {
   private readonly componentPropName = 'component_prop'
 }
 
-export const test = base.extend({
+export const test = base.extend<{ componentListPage: ComponentListPage }>({
   componentListPage: async ({ page }, use) => {
     const componentListPage = new ComponentListPage(page)
 

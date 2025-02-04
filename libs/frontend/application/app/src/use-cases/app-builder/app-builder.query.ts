@@ -6,14 +6,21 @@ import { uniqueBy } from 'remeda'
 
 import { GetAppBuilder } from './app-builder.api.graphql.web.gen'
 
+export const APP_BUILDER_TAG = 'app-builder'
+
 export const appBuilderQuery: IAppBuilderQuery = async ({
   appId,
 }: {
   appId: string
 }) => {
-  const data = await GetAppBuilder({
-    appId,
-  })
+  const data = await GetAppBuilder(
+    {
+      appId,
+    },
+    {
+      tags: [APP_BUILDER_TAG],
+    },
+  )
 
   const app = data.apps[0]
 

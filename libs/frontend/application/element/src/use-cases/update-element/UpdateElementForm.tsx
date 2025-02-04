@@ -125,6 +125,8 @@ export const UpdateElementForm = observer(
       })
     }
 
+    logger.debug('UpdateElementForm', { data: element.toJson })
+
     return (
       <div key={element.id}>
         <Form<IUpdateBaseElementData>

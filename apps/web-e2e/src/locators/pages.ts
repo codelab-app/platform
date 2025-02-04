@@ -55,6 +55,8 @@ export class BasePage {
     await expect(popconfirm).toBeVisible()
 
     await confirmButton.click()
+
+    await expect(popconfirm).toBeHidden()
   }
 
   /**

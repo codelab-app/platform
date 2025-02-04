@@ -8,27 +8,31 @@ import { FONT_NAME, FONT_SIZE, typographyElement } from './google-fonts.data'
  */
 export class GoogleFontsPage extends CssBuilderPage {
   async addFontProps() {
-    const fontLazyOption = this.page.locator(
-      `.ant-select-item[title="${FONT_NAME}"]`,
-    )
+    return test.step('addFontProps', async () => {
+      const fontLazyOption = this.page.locator(
+        `.ant-select-item[title="${FONT_NAME}"]`,
+      )
 
-    await this.page.locator('button span[aria-label="plus-square"]').click()
-    await this.page.locator('div[name="fonts.0.type"]').click()
-    await this.page.locator('.ant-select-item-option-active').hover()
-    await this.scrollUntilElementIsVisible(fontLazyOption)
-    await this.page.locator(`.ant-select-item[title="${FONT_NAME}"]`).click()
-    await this.page.locator('div[name="value.weight"]').click()
-    await this.page.locator(`.ant-select-item[title="${FONT_SIZE}"]`).click()
-    await this.waitForProgressBar()
+      await this.page.locator('button span[aria-label="plus-square"]').click()
+      await this.page.locator('div[name="fonts.0.type"]').click()
+      await this.page.locator('.ant-select-item-option-active').hover()
+      await this.scrollUntilElementIsVisible(fontLazyOption)
+      await this.page.locator(`.ant-select-item[title="${FONT_NAME}"]`).click()
+      await this.page.locator('div[name="value.weight"]').click()
+      await this.page.locator(`.ant-select-item[title="${FONT_SIZE}"]`).click()
+      await this.waitForProgressBar()
+    })
   }
 
   async applyFonts() {
-    await this.selectTreeElement(typographyElement)
-    await this.openCssTab()
+    return test.step('applyFonts', async () => {
+      await this.selectTreeElement(typographyElement)
+      await this.openCssTab()
 
-    await this.page.locator('div[aria-label="Font"]').click()
-    await this.page.locator('.ant-select-item[title="Montserrat"]').click()
-    await this.waitForProgressBar()
+      await this.page.locator('div[aria-label="Font"]').click()
+      await this.page.locator('.ant-select-item[title="Montserrat"]').click()
+      await this.waitForProgressBar()
+    })
   }
 
   getOutputTextNode() {
@@ -36,12 +40,14 @@ export class GoogleFontsPage extends CssBuilderPage {
   }
 
   async openPropsTab() {
-    const cssTab = this.page.locator('[data-node-key="Props"]')
+    return test.step('openPropsTab', async () => {
+      const cssTab = this.page.locator('[data-node-key="Props"]')
 
-    await cssTab.click()
+      await cssTab.click()
 
-    await expect(cssTab).toHaveClass('ant-tabs-tab ant-tabs-tab-active')
-    await expect(this.getSpinner()).toBeHidden()
+      await expect(cssTab).toHaveClass('ant-tabs-tab ant-tabs-tab-active')
+      await expect(this.getSpinner()).toBeHidden()
+    })
   }
 }
 
