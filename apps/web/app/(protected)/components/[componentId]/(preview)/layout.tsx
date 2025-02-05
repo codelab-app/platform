@@ -4,12 +4,7 @@ import { DashboardLayout } from '@codelab/frontend-presentation-view/templates'
 
 import { LayoutClient } from './layout.client'
 
-type LayoutProps = Omit<
-  DashboardLayoutProps<'header', 'componentId'>,
-  'params'
-> & {
-  params: Promise<DashboardLayoutProps['params']>
-}
+type LayoutProps = DashboardLayoutProps<'header', 'componentId'>
 
 const ComponentPreviewLayout = async (props: LayoutProps) => {
   const params = await props.params

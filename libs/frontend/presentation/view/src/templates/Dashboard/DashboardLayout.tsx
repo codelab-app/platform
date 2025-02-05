@@ -23,9 +23,9 @@ export type DashboardLayoutProps<
 > = {
   [K in Slots]: ReactNode
 } & {
-  params: {
+  params: Promise<{
     [K in keyof UrlPathParams]: K extends Params ? string : never
-  }
+  }>
   children: ReactNode
 }
 
@@ -42,7 +42,7 @@ type _All = DashboardLayoutProps
 /**
  * Our inferred slot types make it such that if key is not specified, the prop does not exist, so we need to spread it via `...slots`
  */
-export const DashboardLayout = <
+export const DashboardLayout = async <
   Slots extends keyof DashboardSections = never,
   Params extends keyof UrlPathParams = never,
 >({
@@ -50,7 +50,7 @@ export const DashboardLayout = <
   params,
   ...slots
 }: DashboardLayoutProps<Slots, Params>) => {
-  const { appId, pageId } = params
+  const { appId, pageId } = await params
 
   return (
     <Dashboard
