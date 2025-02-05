@@ -1,47 +1,18 @@
-'use client'
-
 import type {
   ComponentContextParams,
   SearchParamsPageProps,
 } from '@codelab/frontend/abstract/types'
 
-import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
-import {
-  BuilderPrimarySidebar,
-  ComponentsPrimarySidebar,
-} from '@codelab/frontend-application-builder/sections'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
-import { observer } from 'mobx-react-lite'
+import { ComponentPrimarySidebar } from '@codelab/frontend-application-builder/sections'
 
-const PrimarySidebar = observer(
-  ({
-    params: { componentId },
-    searchParams,
-  }: {
-    params: ComponentContextParams
-    searchParams: SearchParamsPageProps
-  }) => {
-    const { componentDomainService } = useDomainStore()
-    const component = componentDomainService.components.get(componentId)
-    const { primarySidebarKey } = searchParams
+const Page = async (props: {
+  params: Promise<ComponentContextParams>
+  searchParams: Promise<SearchParamsPageProps>
+}) => {
+  const params = await props.params
+  const searchParams = await props.searchParams
 
-    if (!component) {
-      return <Spinner isLoading />
-    }
+  return <ComponentPrimarySidebar params={params} searchParams={searchParams} />
+}
 
-    // if (primarySidebarKey === ExplorerPaneType.PageList) {
-    //   return <PagesPrimarySidebar />
-    // }
-
-    if (primarySidebarKey === ExplorerPaneType.Components) {
-      return <ComponentsPrimarySidebar />
-    }
-
-    return <BuilderPrimarySidebar containerNode={component} />
-  },
-)
-
-PrimarySidebar.displayName = 'PrimarySidebar'
-
-export default PrimarySidebar
+export default Page

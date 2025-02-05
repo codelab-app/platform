@@ -1,18 +1,12 @@
 'use client'
 
-import type {
-  SearchParamsPageProps,
-  SubmitController,
-} from '@codelab/frontend/abstract/types'
+import type { SubmitController } from '@codelab/frontend/abstract/types'
 import type { IAtomDto, ITagDto } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 
 import { CloseOutlined, SaveOutlined } from '@ant-design/icons/lib/icons'
 import { UiKey } from '@codelab/frontend/abstract/types'
-import {
-  ApplicationStoreHydrator,
-  DomainStoreHydrator,
-} from '@codelab/frontend/infra/context'
+import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { CuiSidebarSecondary } from '@codelab/frontend/presentation/codelab-ui'
 import { useAtomService } from '@codelab/frontend-application-atom/services'
 import { UpdateAtomPopover } from '@codelab/frontend-application-atom/use-cases/update-atom'

@@ -7,7 +7,7 @@ import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 
 import { BuilderPrimarySidebar } from './BuilderPrimarySidebar'
 
-export const PrimarySidebar = ({ pageId }: PageContextParams) => {
+export const PagePrimarySidebar = ({ pageId }: PageContextParams) => {
   const { pageDomainService } = useDomainStore()
   const page = pageDomainService.pages.get(pageId)
 
@@ -18,4 +18,4 @@ export const PrimarySidebar = ({ pageId }: PageContextParams) => {
   return <BuilderPrimarySidebar containerNode={page} />
 }
 
-PrimarySidebar.displayName = 'PrimarySidebar'
+PagePrimarySidebar.displayName = 'PrimarySidebar'
