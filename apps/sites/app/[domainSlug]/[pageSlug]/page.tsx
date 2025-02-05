@@ -2,18 +2,11 @@ import { appProductionRepository } from '@codelab/frontend-domain-app/repositori
 
 import { ClientProductionPage } from './component'
 
-const ProductionPage = async (
-  props: {
-    params: Promise<{ domainSlug: string; pageSlug: string }>
-  }
-) => {
-  const params = await props.params;
-
-  const {
-    domainSlug,
-    pageSlug
-  } = params;
-
+const ProductionPage = async (props: {
+  params: Promise<{ domainSlug: string; pageSlug: string }>
+}) => {
+  const params = await props.params
+  const { domainSlug, pageSlug } = params
   const pageUrlPattern = pageSlug ? `/${pageSlug}` : '/'
   const dto = await appProductionRepository({ domainSlug, pageUrlPattern })
 

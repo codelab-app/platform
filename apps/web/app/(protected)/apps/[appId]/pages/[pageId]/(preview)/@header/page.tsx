@@ -4,12 +4,8 @@ import { BuilderResizeMenu } from '@codelab/frontend-application-builder/use-cas
 import { PageDetailHeader } from '@codelab/frontend-application-page/views'
 
 const Page = async (props: { params: Promise<PageContextParams> }) => {
-  const params = await props.params;
-
-  const {
-    appId,
-    pageId
-  } = params;
+  const params = await props.params
+  const { appId, pageId } = params
 
   return (
     <PageDetailHeader

@@ -37,7 +37,7 @@ export const RefreshDomainButton = observer(
         <Button
           icon={<SyncOutlined spin={false} />}
           onClick={async () => {
-            invalidateDomainListQuery()
+            void invalidateDomainListQuery()
             // await trigger()
           }}
           shape="circle"

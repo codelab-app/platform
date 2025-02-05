@@ -1,5 +1,3 @@
-'use client'
+import Page from './page'
 
-import PrimarySidebar from './page'
-
-export default PrimarySidebar
+export default Page

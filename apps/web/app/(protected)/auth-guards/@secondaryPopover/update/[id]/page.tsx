@@ -5,12 +5,8 @@ import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { DashboardPopover } from '@codelab/frontend-presentation-view/templates'
 
 const Page = async (props: { params: Promise<{ id: string }> }) => {
-  const params = await props.params;
-
-  const {
-    id
-  } = params;
-
+  const params = await props.params
+  const { id } = params
   const authGuard = await authGuardRepository.findOne({ id_IN: [id] })
 
   if (!authGuard) {

@@ -17,9 +17,7 @@ const Layout = async (props: {
   params: Promise<PageContextParams>
 }) => {
   const params = await props.params
-
   const { children } = props
-
   const { appId, pageId } = params
   const dto = await appBuilderQuery({ appId })
 

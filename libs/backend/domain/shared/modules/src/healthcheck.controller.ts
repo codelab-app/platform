@@ -1,5 +1,5 @@
 import { Controller, Get } from '@nestjs/common'
-import * as Sentry from '@sentry/nestjs'
+import { startSpan } from '@sentry/nestjs'
 
 @Controller('healthcheck')
 export class HealthcheckController {
@@ -8,7 +8,7 @@ export class HealthcheckController {
    */
   @Get()
   getStatus() {
-    Sentry.startSpan({ name: 'healthcheck-sentry' }, () => {
+    startSpan({ name: 'healthcheck-sentry' }, () => {
       console.log('healthcheck sentry')
     })
 

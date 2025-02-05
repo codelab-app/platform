@@ -12,17 +12,9 @@ export const metadata: Metadata = {
   title: 'Domains | Codelab',
 }
 
-const DomainsPage = async (
-  props: {
-    params: Promise<{ appId: string }>
-  }
-) => {
-  const params = await props.params;
-
-  const {
-    appId
-  } = params;
-
+const DomainsPage = async (props: { params: Promise<{ appId: string }> }) => {
+  const params = await props.params
+  const { appId } = params
   const { items: appsDto } = await appRepository.find({ id: appId })
   const domainsDto = appsDto.flatMap((app) => app.domains)
 

@@ -2,15 +2,11 @@ import type { IRepository } from '@codelab/backend/abstract/types'
 import type { IDiscriminatedRef, IRef } from '@codelab/shared/abstract/core'
 import type { Static, TAnySchema } from '@sinclair/typebox'
 
-import {
-  levelMapping,
-  loggerConfig,
-  PinoLoggerService,
-} from '@codelab/backend/infra/adapter/logger'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { NotFoundError } from '@codelab/shared/domain/errors'
 import { Validator } from '@codelab/shared/infra/typebox'
 import { Injectable } from '@nestjs/common'
-import * as Sentry from '@sentry/nestjs'
+import { startSpan } from '@sentry/nestjs'
 
 @Injectable()
 export abstract class AbstractRepository<
@@ -29,7 +25,7 @@ export abstract class AbstractRepository<
    * Array adds complexity, create an optional `addMany` if needed
    */
   public async add(data: Dto): Promise<IDiscriminatedRef<INodeType>> {
-    return Sentry.startSpan(
+    return startSpan(
       {
         name: `Repository: ${this.constructor.name}.add`,
         op: 'repository.add',
@@ -74,7 +70,7 @@ export abstract class AbstractRepository<
   public async addMany(
     data: Array<Dto>,
   ): Promise<Array<IDiscriminatedRef<INodeType>>> {
-    return Sentry.startSpan(
+    return startSpan(
       {
         name: `Repository: ${this.constructor.name}.addMany`,
         op: 'repository.addMany',
@@ -97,7 +93,7 @@ export abstract class AbstractRepository<
   }
 
   async exists(where: Where) {
-    return Sentry.startSpan(
+    return startSpan(
       {
         name: `Repository: ${this.constructor.name}.exists`,
         op: 'repository.exists',
@@ -144,7 +140,7 @@ export abstract class AbstractRepository<
     selectionSet?: string
     schema?: T
   } = {}): Promise<Array<Model> | Array<Static<T>>> {
-    return Sentry.startSpan(
+    return startSpan(
       {
         name: `Repository: ${this.constructor.name}.find`,
         op: 'repository.find',
@@ -194,7 +190,7 @@ export abstract class AbstractRepository<
     selectionSet?: string
     options: Options
   }): Promise<Model | Static<T> | undefined> {
-    return Sentry.startSpan(
+    return startSpan(
       {
         name: `Repository: ${this.constructor.name}.findOne`,
         op: 'repository.findOne',
@@ -264,7 +260,7 @@ export abstract class AbstractRepository<
    * @param where
    */
   async save(data: Dto, where?: Where): Promise<IDiscriminatedRef<INodeType>> {
-    return Sentry.startSpan(
+    return startSpan(
       {
         name: `Repository: ${this.constructor.name}.save`,
         op: 'repository.save',
@@ -324,7 +320,7 @@ export abstract class AbstractRepository<
     data: Dto,
     where?: Where,
   ): Promise<IDiscriminatedRef<INodeType>> {
-    return Sentry.startSpan(
+    return startSpan(
       {
         name: `Repository: ${this.constructor.name}.update`,
         op: 'repository.update',

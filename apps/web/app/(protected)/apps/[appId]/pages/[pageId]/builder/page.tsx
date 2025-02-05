@@ -8,11 +8,8 @@ export const metadata: Metadata = {
 }
 
 const Page = async (props: { params: Promise<PageContextParams> }) => {
-  const params = await props.params;
-
-  const {
-    pageId
-  } = params;
+  const params = await props.params
+  const { pageId } = params
 
   return <PageBuilderConnector pageId={pageId} />
 }

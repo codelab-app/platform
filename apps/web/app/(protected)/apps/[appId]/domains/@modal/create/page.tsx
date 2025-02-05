@@ -4,12 +4,8 @@ import { appRepository } from '@codelab/frontend-domain-app/repositories'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 
 const Page = async (props: { params: Promise<{ appId: string }> }) => {
-  const params = await props.params;
-
-  const {
-    appId
-  } = params;
-
+  const params = await props.params
+  const { appId } = params
   const appDto = await appRepository.findOne({ id: appId })
 
   return (

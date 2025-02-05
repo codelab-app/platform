@@ -1,7 +1,7 @@
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { Global, Injectable, OnModuleInit } from '@nestjs/common'
 import { CommandBus, ICommand } from '@nestjs/cqrs'
-import * as Sentry from '@sentry/nestjs'
+import { startSpan } from '@sentry/nestjs'
 
 /**
  * Allow us to subscribe to the command bus and log the commands
@@ -25,7 +25,7 @@ export class CommandBusSubscription implements OnModuleInit {
     this.commandBus.execute = (command: ICommand) => {
       const commandName = command.constructor.name
 
-      return Sentry.startSpan(
+      return startSpan(
         {
           // attributes: {
           //   commandData: JSON.stringify(command),

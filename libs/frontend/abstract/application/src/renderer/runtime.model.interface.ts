@@ -30,7 +30,7 @@ export type IRuntimeModelRef =
  */
 export interface IBaseRuntimeModel extends AnyModel {
   compositeKey: string
-  render: Nullable<ReactElement<any>>
+  render: Nullable<ReactElement<unknown>>
   /**
    * access runtimeStore via computed values
    */

@@ -3,18 +3,11 @@ import { DeletePageModal } from '@codelab/frontend-application-page/use-cases/de
 import { pageRepository } from '@codelab/frontend-domain-page/repositories'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 
-const DeletePageModalPage = async (
-  props: {
-    params: Promise<{ appId: string; pageId: string }>
-  }
-) => {
-  const params = await props.params;
-
-  const {
-    appId,
-    pageId
-  } = params;
-
+const DeletePageModalPage = async (props: {
+  params: Promise<{ appId: string; pageId: string }>
+}) => {
+  const params = await props.params
+  const { appId, pageId } = params
   const pageDto = await pageRepository.findOne({ id: pageId })
 
   return (

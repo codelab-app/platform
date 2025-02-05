@@ -129,7 +129,7 @@ export class RuntimeComponentModel
   }
 
   @computed
-  get render(): Nullable<ReactElement<any>> {
+  get render(): Nullable<ReactElement<unknown>> {
     return this.runtimeRootElement.render
   }
 

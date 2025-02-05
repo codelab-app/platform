@@ -2,7 +2,7 @@ import type React from 'react'
 
 export interface PrimarySidebarItem {
   key: React.Key
-  render: React.ReactElement<any>
+  render: React.ReactElement<unknown>
 }
 
 export interface PrimarySidebar {

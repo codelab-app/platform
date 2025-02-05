@@ -35,9 +35,11 @@ const middleware: NextMiddleware = async (
 
   const { origin } = new URL(request.url)
   const session = await auth0Instance.getSession()
+
   const isProtectedRoute = protectedRoutes.some((route) =>
     pathname.startsWith(route),
   )
+
   // user does not have a session in a protected route — redirect to login
   if (!session && isProtectedRoute) {
     return NextResponse.redirect(`${origin}/auth/login`)
@@ -77,6 +79,7 @@ const middleware: NextMiddleware = async (
 
     if (session) {
       const accessToken = session.tokenSet.accessToken
+
       response.headers.set('Authorization', `Bearer ${accessToken}`)
       // response.headers.set('X-ID-TOKEN', session.user.idToken)
     }

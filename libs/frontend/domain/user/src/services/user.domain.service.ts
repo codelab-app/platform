@@ -30,12 +30,12 @@ export class UserDomainService
   static fromDto = fromDto
 
   @computed
-  get usersList() {
-    return [...Object.values(this.users), this.user]
+  get preference() {
+    return this.user.preferences
   }
 
   @computed
-  get preference() {
-    return this.user.preferences
+  get usersList() {
+    return [...Object.values(this.users), this.user]
   }
 }

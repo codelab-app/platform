@@ -21,22 +21,19 @@ export const mergeProps = <T extends IPropData>(
   /**
    * Combine all `className` into a single concatenated version
    */
-  return props.reduce(
-    (acc, cur) => {
-      /**
-       * Transform `className` if exists in current
-       */
-      if ('className' in cur) {
-        acc['className'] = acc['className']
-          ? `${acc['className']} ${cur['className']}`
-          : cur['className']
-      }
+  return props.reduce((acc, cur) => {
+    /**
+     * Transform `className` if exists in current
+     */
+    if ('className' in cur) {
+      acc['className'] = acc['className']
+        ? `${acc['className']} ${cur['className']}`
+        : cur['className']
+    }
 
-      /**
-       * Merge all props except className, since we already set earlier
-       */
-      return mergeDeep(acc, omit(cur, ['className']))
-    },
-    {} as { className?: string },
-  ) as T
+    /**
+     * Merge all props except className, since we already set earlier
+     */
+    return mergeDeep(acc, omit(cur, ['className']))
+  }, {} as { className?: string }) as T
 }

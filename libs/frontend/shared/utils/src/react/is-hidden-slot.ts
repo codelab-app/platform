@@ -1,4 +1,4 @@
-import { isValidElement, ReactElement, type ReactNode } from 'react'
+import type { isValidElement, ReactElement, type ReactNode } from 'react'
 
 /**
  * These are the segmentPaths that we use to hide our secondary popovers

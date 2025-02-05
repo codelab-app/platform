@@ -4,12 +4,8 @@ import { typeRepository } from '@codelab/frontend-domain-type/repositories'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 
 const Page = async (props: { params: Promise<{ id: string }> }) => {
-  const params = await props.params;
-
-  const {
-    id
-  } = params;
-
+  const params = await props.params
+  const { id } = params
   const typeDto = await typeRepository.findOne({ id })
 
   return (

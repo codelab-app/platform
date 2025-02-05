@@ -11,9 +11,9 @@ import {
 import { Inject, Injectable } from '@nestjs/common'
 import { type ConfigType } from '@nestjs/config'
 import { PassportStrategy } from '@nestjs/passport'
+import { UserInfoClient } from 'auth0'
 import { passportJwtSecret } from 'jwks-rsa'
 import { ExtractJwt, Strategy } from 'passport-jwt'
-import { UserInfoClient } from 'auth0'
 
 interface IPassportStrategy {
   validate: VerifyCallbackWithRequest
@@ -26,7 +26,6 @@ export class JwtStrategy
   extends PassportStrategy(Strategy)
   implements IPassportStrategy
 {
-  private userInfoClient: UserInfoClient
   constructor(@Inject(auth0Config.KEY) config: ConfigType<typeof auth0Config>) {
     super({
       algorithms: ['RS256'],
@@ -84,4 +83,6 @@ export class JwtStrategy
     // const idTokenPayload = jwt.decode(idToken)
     // return mapAuth0IdTokenToUserDto(idTokenPayload as Auth0IdToken)
   }
+
+  private userInfoClient: UserInfoClient
 }

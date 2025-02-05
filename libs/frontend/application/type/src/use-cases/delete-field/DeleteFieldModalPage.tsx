@@ -9,7 +9,6 @@ export const DeleteFieldModalPage = async ({
 }: {
   params: Promise<{ id: string }>
 }) => {
-
   const id = (await params).id
   const fieldDto = await fieldRepository.findOne({ id })
 

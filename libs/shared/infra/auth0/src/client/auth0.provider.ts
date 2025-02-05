@@ -1,23 +1,18 @@
-import { SdkError } from '@auth0/nextjs-auth0/errors'
+import type { SdkError } from '@auth0/nextjs-auth0/errors'
+import type { SessionData } from '@auth0/nextjs-auth0/types'
+import type { Nullable } from '@codelab/shared/abstract/types'
+
 import { Auth0Client } from '@auth0/nextjs-auth0/server'
-import { SessionData } from '@auth0/nextjs-auth0/types'
-import { Nullable } from '@codelab/shared/abstract/types'
 import { getEnv } from '@codelab/shared/config/env'
 import * as env from 'env-var'
 import { NextResponse } from 'next/server'
 
 export const auth0Instance = new Auth0Client({
+  appBaseUrl: getEnv().auth0.baseUrl,
   authorizationParameters: {
     audience: getEnv().auth0.audience,
   },
-  appBaseUrl: getEnv().auth0.baseUrl,
-  clientId: getEnv().auth0.clientId,
-  clientSecret: getEnv().auth0.clientSecret,
-  domain: getEnv().auth0.domain,
-  secret: getEnv().auth0.secret,
-  signInReturnToPath: '/apps',
-  session: {},
-  async beforeSessionSaved(session, idToken) {
+  beforeSessionSaved: async (session, idToken) => {
     return {
       ...session,
       user: {
@@ -25,11 +20,14 @@ export const auth0Instance = new Auth0Client({
       },
     }
   },
-  async onCallback(
+  clientId: getEnv().auth0.clientId,
+  clientSecret: getEnv().auth0.clientSecret,
+  domain: getEnv().auth0.domain,
+  onCallback: async (
     error: Nullable<SdkError>,
     context: { returnTo?: string },
     session: Nullable<SessionData>,
-  ) {
+  ) => {
     if (error) {
       return NextResponse.redirect(
         new URL(`/error?error=${error.message}`, getEnv().auth0.baseUrl),
@@ -79,4 +77,7 @@ export const auth0Instance = new Auth0Client({
       new URL(context.returnTo || '/apps', getEnv().auth0.baseUrl),
     )
   },
+  secret: getEnv().auth0.secret,
+  session: {},
+  signInReturnToPath: '/apps',
 })

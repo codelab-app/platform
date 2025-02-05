@@ -1,12 +1,12 @@
 'use server'
 
 import type { IUserSession } from '@codelab/shared/abstract/core'
+import type { Nullable } from '@codelab/shared/abstract/types'
 
 import { mapClaimsToUserDto } from '@codelab/shared-domain-module/user'
+import { auth0Instance } from '@codelab/shared-infra-auth0/client'
 import { withAsyncSpanFunc } from '@codelab/shared-infra-sentry'
 import { redirect } from 'next/navigation'
-import { auth0Instance } from '@codelab/shared-infra-auth0/client'
-import { Nullable } from '@codelab/shared/abstract/types'
 
 export const getServerUser = withAsyncSpanFunc(
   {
@@ -21,6 +21,7 @@ export const getServerUser = withAsyncSpanFunc(
       return redirect('/')
       // return redirect('/auth/login')
     }
+
     return mapClaimsToUserDto(user)
   },
 )

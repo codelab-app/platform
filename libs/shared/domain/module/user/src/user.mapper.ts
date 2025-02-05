@@ -1,14 +1,15 @@
 import type {
+  Auth0IdToken,
+  IMapper,
+  IUserDto,
+  IUserSession,
+} from '@codelab/shared/abstract/core'
+import type {
   UserCreateInput,
   UserDeleteInput,
   UserUpdateInput,
 } from '@codelab/shared/infra/gqlgen'
 
-import {
-  type IMapper,
-  type IUserDto,
-  type IUserSession,
-} from '@codelab/shared/abstract/core'
 import { IRole, JWT_CLAIMS } from '@codelab/shared/abstract/core'
 import { preferenceMapper } from '@codelab/shared-domain-module/preference'
 
@@ -28,9 +29,7 @@ import { preferenceMapper } from '@codelab/shared-domain-module/preference'
 //   }
 // }
 
-export const mapClaimsToUserDto = (claims?: {
-  [key: string]: any
-}): IUserSession => {
+export const mapClaimsToUserDto = (claims?: Auth0IdToken): IUserSession => {
   if (!claims || !claims[JWT_CLAIMS].neo4j_user_id) {
     throw new Error('Missing user in request')
   }
@@ -39,7 +38,7 @@ export const mapClaimsToUserDto = (claims?: {
     auth0Id: claims['sub'],
     email: claims['email'],
     id: claims[JWT_CLAIMS].neo4j_user_id,
-    roles: claims[JWT_CLAIMS].roles.map((role: IRole) => IRole[role]),
+    roles: claims[JWT_CLAIMS].roles.map((role) => IRole[role]),
     username: claims['nickname'],
   }
 }
