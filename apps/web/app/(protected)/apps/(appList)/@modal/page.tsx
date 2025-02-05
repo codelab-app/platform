@@ -1,5 +1,3 @@
-import { PropsWithChildren } from 'react'
-
-const Page = ({ children }: PropsWithChildren) => <>{children}</>
+const Page = () => null
 
 export default Page
