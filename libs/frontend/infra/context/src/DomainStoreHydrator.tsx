@@ -23,30 +23,18 @@ type DomainStoreHydratorProps = IDomainStoreDto & {
  * Use a loading state to show fallback while hydrating
  *
  * Client components with `useEffect` will still render on server! This can be confusing
+ *
  */
 export const DomainStoreHydrator = observer<DomainStoreHydratorProps>(
   ({ children, fallback, ...data }) => {
     const hydrate = useDomainStoreHydrator()
-    const [isHydrated, setIsHydrated] = useState(false)
 
-    // useEffect(() => {
-    //   hydrate(data)
-    //   setIsHydrated(true)
-    // }, [])
+    console.log('DomainStoreHydrator')
 
-    useCustomCompareEffect(
-      () => {
-        hydrate(data)
-        setIsHydrated(true)
-      },
-      [data],
-      isDeepEqual,
-    )
-
-    // Always wait for hydration, regardless of fallback presence
-    if (!isHydrated) {
-      return fallback ? <>{fallback}</> : null
-    }
+    useEffect(() => {
+      console.log('Hydrating!!!')
+      hydrate(data)
+    }, [data, hydrate])
 
     return <>{children}</>
   },

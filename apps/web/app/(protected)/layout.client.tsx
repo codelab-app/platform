@@ -9,10 +9,12 @@ import { useSearchParamsProps } from '@codelab/frontend-application-shared-store
  * Hydrate router state at top level layout, make it non-blocking and do conditional check at pages that use the router.
  */
 export const LayoutClient = ({ children }: { children: ReactNode }) => {
-  const searchParams = useSearchParamsProps()
-  const hydrate = useApplicationStoreHydrator()
+  console.log('(protected) LayoutClient')
 
-  hydrate({ searchParams })
+  // const searchParams = useSearchParamsProps()
+  // const hydrate = useApplicationStoreHydrator()
+
+  // hydrate({ searchParams })
 
   return <>{children}</>
 }
