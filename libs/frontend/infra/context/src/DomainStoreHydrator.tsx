@@ -29,8 +29,6 @@ export const DomainStoreHydrator = observer<DomainStoreHydratorProps>(
     const hydrate = useDomainStoreHydrator()
     const [isHydrated, setIsHydrated] = useState(false)
 
-    console.log('Hydrating!!!', { isHydrated })
-
     // useEffect(() => {
     //   hydrate(data)
     //   setIsHydrated(true)

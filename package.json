@@ -45,7 +45,6 @@
     "@ant-design/icons": "5.6.0",
     "@ant-design/nextjs-registry": "1.0.2",
     "@ant-design/pro-components": "2.8.4",
-    "@ant-design/v5-patch-for-react-19": "^1.0.3",
     "@apollo/client": "3.12.3",
     "@apollo/server": "4.11.2",
     "@auth0/nextjs-auth0": "4.0.0",
@@ -132,7 +131,7 @@
     "@radix-ui/react-toggle-group": "1.1.0",
     "@radix-ui/react-tooltip": "1.1.2",
     "@react-spring/web": "9.7.5",
-    "@rjsf/antd": "5.18.5",
+    "@rjsf/antd": "5.24.3",
     "@rjsf/core": "5.18.3",
     "@rjsf/utils": "5.18.3",
     "@rjsf/validator-ajv8": "5.18.3",
@@ -153,7 +152,7 @@
     "adm-zip": "0.5.10",
     "ajv": "8.12.0",
     "animate.css": "4.1.1",
-    "antd": "5.23.3",
+    "antd": "5.23.4",
     "antd-style": "3.7.1",
     "auth0": "4.18.0",
     "auto-bind": "5.0.1",
@@ -170,7 +169,6 @@
     "codemirror": "6.0.1",
     "cors": "2.8.5",
     "cross-fetch": "3.1.4",
-    "date-fns": "3.6.0",
     "deep-object-diff": "1.1.9",
     "diff": "5.1.0",
     "dir-compare": "4.2.0",
@@ -452,11 +450,7 @@
   "pnpm": {
     "overrides": {}
   },
-  "resolutions": {
-    "@types/react": "19.0.8",
-    "@types/react-dom": "19.0.3",
-    "nx": "20.4.0"
-  },
+  "resolutions": {},
   "nx": {
     "includedScripts": [],
     "tags": [
