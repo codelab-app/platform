@@ -79,7 +79,6 @@ const middleware: NextMiddleware = async (
       const accessToken = session.tokenSet.accessToken
       response.headers.set('Authorization', `Bearer ${accessToken}`)
       // response.headers.set('X-ID-TOKEN', session.user.idToken)
-      response.headers.set('X-USER-ID', session.user.id)
     }
 
     return response

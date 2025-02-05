@@ -1,9 +1,7 @@
 import { SdkError } from '@auth0/nextjs-auth0/errors'
 import { Auth0Client } from '@auth0/nextjs-auth0/server'
 import { SessionData } from '@auth0/nextjs-auth0/types'
-import { mapAuth0IdTokenToUserDto } from '@codelab/shared-domain-module/user'
-import { Auth0IdToken, JWT_CLAIMS } from '@codelab/shared/abstract/core'
-import { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { getEnv } from '@codelab/shared/config/env'
 import * as env from 'env-var'
 import { NextResponse } from 'next/server'
@@ -24,7 +22,6 @@ export const auth0Instance = new Auth0Client({
       ...session,
       user: {
         ...session.user,
-        ...mapAuth0IdTokenToUserDto(session.user as Auth0IdToken),
       },
     }
   },
@@ -50,8 +47,7 @@ export const auth0Instance = new Auth0Client({
         body: JSON.stringify({}),
         headers: {
           Authorization: `Bearer ${session?.tokenSet.accessToken}`,
-          // 'X-ID-TOKEN': idToken ?? '',
-          'X-USER-ID': session?.user['id'],
+          // 'X-ID-TOKEN': session?.user['idToken'] ?? '',
         },
         method: 'POST',
       }))
@@ -69,8 +65,7 @@ export const auth0Instance = new Auth0Client({
         body: JSON.stringify({}),
         headers: {
           Authorization: `Bearer ${session?.tokenSet.accessToken}`,
-          // 'X-ID-TOKEN': idToken ?? '',
-          'X-USER-ID': session?.user['id'],
+          // 'X-ID-TOKEN': session?.user['idToken'] ?? '',
         },
         method: 'POST',
       }))

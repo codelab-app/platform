@@ -11,6 +11,6 @@ export const createCypressRestClient = (
       // 'Access-Control-Allow-Origin': '*',
       Authorization: `Bearer ${accessToken}`,
       // 'Content-Type': 'application/json',
-      'X-ID-TOKEN': idToken,
+      // 'X-ID-TOKEN': idToken,
     },
   })

@@ -2,13 +2,18 @@ import type * as express from 'express'
 import type { VerifiedCallback, VerifyCallbackWithRequest } from 'passport-jwt'
 
 import { auth0Config } from '@codelab/backend/infra/adapter/auth0'
-import { IUserDto, IUserSession, type JwtPayload } from '@codelab/shared/abstract/core'
+import {
+  IRole,
+  IUserSession,
+  JWT_CLAIMS,
+  JwtPayload,
+} from '@codelab/shared/abstract/core'
 import { Inject, Injectable } from '@nestjs/common'
 import { type ConfigType } from '@nestjs/config'
 import { PassportStrategy } from '@nestjs/passport'
 import { passportJwtSecret } from 'jwks-rsa'
 import { ExtractJwt, Strategy } from 'passport-jwt'
-import { UserRepository } from '@codelab/backend/domain/user'
+import { UserInfoClient } from 'auth0'
 
 interface IPassportStrategy {
   validate: VerifyCallbackWithRequest
@@ -21,10 +26,8 @@ export class JwtStrategy
   extends PassportStrategy(Strategy)
   implements IPassportStrategy
 {
-  constructor(
-    @Inject(auth0Config.KEY) config: ConfigType<typeof auth0Config>,
-    private userRepository: UserRepository,
-  ) {
+  private userInfoClient: UserInfoClient
+  constructor(@Inject(auth0Config.KEY) config: ConfigType<typeof auth0Config>) {
     super({
       algorithms: ['RS256'],
       /**
@@ -44,6 +47,8 @@ export class JwtStrategy
         rateLimit: true,
       }),
     })
+
+    this.userInfoClient = new UserInfoClient({ domain: config.auth0_domain })
   }
 
   async validate(
@@ -51,39 +56,32 @@ export class JwtStrategy
     payload: JwtPayload,
     done: VerifiedCallback,
   ): Promise<IUserSession> {
-    /**
-     * We pass the id token in the header to the backend instead of calling the auth0 token endpoint
-     *
-     * We do this to make the user available in the request context
-     */
-    // const idToken = req.header('x-id-token')
-    const id = req.header('x-user-id')
+    const token = ExtractJwt.fromAuthHeaderAsBearerToken()(req)
 
-    // if (!payload.aud.includes(this.config.audience.toString())) {
-    //   throw new UnauthorizedException('Audience does not match')
-    // }
-
-    if (!id) {
-      //  throw new Error('Missing id token')
-      throw new Error('Missing user id')
-    }
-
-    // const idTokenPayload = jwt.decode(idToken)
-    // return idTokenPayload as Auth0IdToken
-
-    const user = await this.userRepository.findOne({ where: { id } })
-
-    if (!user) {
-      throw new Error('User not found')
-    }
+    const { data: auth0IdToken } = await this.userInfoClient.getUserInfo(
+      token ?? '',
+    )
 
     return {
-      auth0Id: user.auth0Id,
-      email: user.email,
-      id: user.id,
-      roles: user.roles ?? [],
-      username: user.username,
-      apps: user.apps,
+      auth0Id: payload.sub,
+      email: auth0IdToken.email,
+      id: payload[JWT_CLAIMS].neo4j_user_id,
+      roles: payload[JWT_CLAIMS].roles.map((role) => IRole[role]),
+      username: auth0IdToken.nickname,
     }
+
+    // /**
+    //  * We pass the id token in the header to the backend instead of calling the auth0 token endpoint
+    //  *
+    //  * We do this to make the user available in the request context
+    //  */
+    // const idToken = req.header('x-id-token')
+
+    // if (!idToken) {
+    //   throw new Error('Missing id token')
+    // }
+
+    // const idTokenPayload = jwt.decode(idToken)
+    // return mapAuth0IdTokenToUserDto(idTokenPayload as Auth0IdToken)
   }
 }
