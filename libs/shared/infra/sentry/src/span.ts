@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { StartSpanOptions } from '@sentry/types/build/types'
 
 import { startSpan } from '@sentry/nextjs'
+import { StartSpanOptions } from '@sentry/core'
 
 type AnyFunction<T extends Array<unknown> = Array<any>, R = any> = (
   ...args: T
