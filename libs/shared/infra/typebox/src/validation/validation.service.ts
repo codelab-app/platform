@@ -46,16 +46,16 @@ export class ValidationService implements IValidationService {
     data: unknown,
     options?: { message: string },
   ): asserts data is Static<T> {
-    try {
-      const schema = this.typeBox.tSchema(kind)
-      const validator = this.createValidator(schema)
+    const schema = this.typeBox.tSchema(kind)
+    const validator = this.createValidator(schema)
 
+    try {
       this.runCustomValidation(schema, data, options?.message)
 
       return validator.assert(data as Readonly<unknown>, options?.message)
     } catch (error) {
-      console.log('Validation error:', { data, kind }, error)
-      throw error instanceof Error ? error : new Error(String(error))
+      // Ensure we're throwing an Error object with stack trace
+      throw new Error(error as string)
     }
   }
 
@@ -63,9 +63,13 @@ export class ValidationService implements IValidationService {
    * Create facade for commonly used methods
    */
   assertsDefined<T>(data: T, message?: string): asserts data is NonNullable<T> {
-    return this.asserts(TDefined, data, {
-      message: message ?? 'Data should be defined',
-    })
+    try {
+      return this.asserts(TDefined, data, {
+        message: message ?? 'Data should be defined',
+      })
+    } catch (error) {
+      throw new Error(error as string)
+    }
   }
 
   /**
@@ -154,7 +158,7 @@ export class ValidationService implements IValidationService {
     const validate: SchemaOptions['validate'] = schema['validate']
 
     if (validate && !validate(data)) {
-      throw new Error(message)
+      throw new Error(message || 'Validation failed')
     }
   }
 }

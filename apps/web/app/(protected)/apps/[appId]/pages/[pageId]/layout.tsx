@@ -30,26 +30,12 @@ const Layout = async ({
   const { appId, pageId } = params
   const dto = await appBuilderQuery({ appId })
 
+  console.log('[pageId] Layout')
+
   return (
-    <DomainStoreHydrator
-      actionsDto={dto.actions}
-      appsDto={[dto.app]}
-      atomsDto={dto.atoms}
-      authGuardsDto={dto.authGuards}
-      componentsDto={dto.components}
-      elementsDto={dto.elements}
-      fallback={<Spinner />}
-      fieldsDto={dto.fields}
-      pagesDto={dto.pages}
-      propsDto={dto.props}
-      redirectsDto={dto.redirects}
-      resourcesDto={dto.resources}
-      storesDto={dto.stores}
-      tagsDto={dto.tags}
-      typesDto={dto.types}
-    >
-      <LayoutClient pageId={pageId}>{children}</LayoutClient>
-    </DomainStoreHydrator>
+    <LayoutClient dto={dto} pageId={pageId}>
+      {children}
+    </LayoutClient>
   )
 }
 
