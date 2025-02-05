@@ -11,10 +11,10 @@ import { useSearchParamsProps } from '@codelab/frontend-application-shared-store
 export const LayoutClient = ({ children }: { children: ReactNode }) => {
   console.log('(protected) LayoutClient')
 
-  const searchParams = useSearchParamsProps()
-  const hydrate = useApplicationStoreHydrator()
+  // const searchParams = useSearchParamsProps()
+  // const hydrate = useApplicationStoreHydrator()
 
-  hydrate({ searchParams })
+  // hydrate({ searchParams })
 
   return <>{children}</>
 }

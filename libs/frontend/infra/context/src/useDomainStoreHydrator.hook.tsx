@@ -77,7 +77,6 @@ export const useDomainStoreHydrator = () => {
           })
 
           elementsDto?.forEach((element) => {
-            console.log('hydrate', element)
             elementDomainService.hydrate(element)
           })
 
