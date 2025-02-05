@@ -12,7 +12,7 @@ import { CurveAccent } from './CurveAccent'
 const words = ['Ant Design', 'Material UI', 'Semantic UI', 'HTML tags']
 // https://github.com/pmndrs/react-spring/issues/1515
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const AnimatedDiv = styled(animated.div)<any>``
+const AnimatedDiv = styled(animated.div!)<any>``
 
 export const BannerSection = () => {
   const [index, setIndex] = useState(0)

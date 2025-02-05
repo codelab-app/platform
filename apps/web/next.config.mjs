@@ -1,7 +1,7 @@
 import bundleAnalyzer from '@next/bundle-analyzer'
-import { composePlugins,
-withNx } from '@nx/next'
+import { composePlugins, withNx } from '@nx/next'
 import { withSentryConfig } from '@sentry/nextjs'
+import withSvgr from 'next-plugin-svgr'
 // eslint-disable-next-line import/default
 import env from 'env-var'
 
@@ -61,8 +61,8 @@ const sentryConfig = (nextConfig) =>
   })
 
 const plugins = enableInstrumentation
-  ? [withNx, withBundleAnalyzer, sentryConfig]
-  : [withNx, withBundleAnalyzer]
+  ? [withNx, withBundleAnalyzer, sentryConfig, withSvgr]
+  : [withNx, withBundleAnalyzer, withSvgr]
 
 const port = get('NEXT_PUBLIC_API_PORT').required().asString()
 const url = get('NEXT_PUBLIC_API_HOSTNAME').required().asString()
