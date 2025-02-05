@@ -2,7 +2,7 @@ import type * as express from 'express'
 import type { VerifiedCallback, VerifyCallbackWithRequest } from 'passport-jwt'
 
 import { auth0Config } from '@codelab/backend/infra/adapter/auth0'
-import { IUserDto, type JwtPayload } from '@codelab/shared/abstract/core'
+import { IUserDto, IUserSession, type JwtPayload } from '@codelab/shared/abstract/core'
 import { Inject, Injectable } from '@nestjs/common'
 import { type ConfigType } from '@nestjs/config'
 import { PassportStrategy } from '@nestjs/passport'
@@ -50,7 +50,7 @@ export class JwtStrategy
     req: express.Request,
     payload: JwtPayload,
     done: VerifiedCallback,
-  ): Promise<IUserDto> {
+  ): Promise<IUserSession> {
     /**
      * We pass the id token in the header to the backend instead of calling the auth0 token endpoint
      *

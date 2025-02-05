@@ -1,5 +1,4 @@
 import type {
-  IUserDto,
   IUserSession,
 } from '@codelab/shared/abstract/core'
 
@@ -8,7 +7,7 @@ import { Injectable } from '@nestjs/common'
 
 export interface AuthenticatedRequest extends Request {
   //user?: Auth0IdToken
-  user?: IUserDto
+  user?: IUserSession
 }
 
 @Injectable()
