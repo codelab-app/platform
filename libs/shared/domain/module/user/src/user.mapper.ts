@@ -1,3 +1,4 @@
+import type { User } from '@auth0/nextjs-auth0/types'
 import type {
   IMapper,
   IUserDto,
@@ -11,7 +12,6 @@ import type {
 
 import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
 import { preferenceMapper } from '@codelab/shared-domain-module/preference'
-import { User } from '@auth0/nextjs-auth0/types'
 
 // export const mapAuth0IdTokenToUserDto = (
 //   auth0IdToken?: Auth0IdToken,
