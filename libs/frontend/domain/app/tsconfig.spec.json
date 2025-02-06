@@ -12,6 +12,7 @@
     "noFallthroughCasesInSwitch": true
   },
   "include": [
+    "jest.mocks.ts",
     "jest.config.ts",
     "**/*.test.ts",
     "**/*.spec.ts",
