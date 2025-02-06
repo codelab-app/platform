@@ -18,7 +18,7 @@ import {
   Layout,
   RootStoreProvider,
 } from '@codelab/frontend-infra-mobx/store'
-import { act, fireEvent, render, waitFor } from '@testing-library/react'
+import { act, fireEvent, render } from '@testing-library/react'
 import { createRef } from 'react'
 
 import { COLLISION_ALGORITHM_SPACING, TestDndContext } from './TestDndContext'
@@ -106,7 +106,7 @@ const renderDragAndDropElements = async (
     (runtimeElement) => runtimeElement.element.id === draggableElement.id,
   )
 
-  await waitFor(() => {
+  await act(() => {
     if (!runtimeDraggableElement) {
       return
     }
