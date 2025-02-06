@@ -122,7 +122,7 @@ commands:
     steps:
       - run:
           command: |
-            sudo npm install -g corepack@latest
+            sudo npm install -g corepack@0.31.0
             sudo corepack enable
             sudo corepack prepare pnpm@9.1.1 --activate
             pnpm config set store-dir ~/.pnpm-store
