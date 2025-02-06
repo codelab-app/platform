@@ -1,3 +1,5 @@
+'use client'
+
 import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
 import type { CSSProperties } from 'react'
 

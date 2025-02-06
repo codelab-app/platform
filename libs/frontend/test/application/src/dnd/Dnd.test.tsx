@@ -18,7 +18,7 @@ import {
   Layout,
   RootStoreProvider,
 } from '@codelab/frontend-infra-mobx/store'
-import { fireEvent, render, waitFor } from '@testing-library/react'
+import { act, fireEvent, render, waitFor } from '@testing-library/react'
 import { createRef } from 'react'
 
 import { COLLISION_ALGORITHM_SPACING, TestDndContext } from './TestDndContext'
@@ -41,7 +41,7 @@ const dragElementOver = async (element: HTMLElement, dropPosiotion: Point) => {
     clientY: dropPosiotion.y,
   })
 
-  await waitFor(() => {
+  await act(() => {
     fireEvent(element, mouseDownEvent)
     fireEvent(element, mouseMoveEvent)
   })
@@ -54,7 +54,7 @@ const dropElement = async (element: HTMLElement, dropPosiotion: Point) => {
     clientY: dropPosiotion.y,
   })
 
-  await waitFor(() => {
+  await act(() => {
     fireEvent(element, mouseUpEvent)
   })
 }
@@ -75,7 +75,6 @@ const renderDragAndDropElements = async (
 ) => {
   const { builderService, runtimeElementService } = testStore.applicationStore
   const renderContainerRef = createRef<HTMLDivElement>()
-  const builderContainerRef = createRef<HTMLDivElement>()
 
   render(
     <RootStoreProvider value={storeContext}>
@@ -83,27 +82,22 @@ const renderDragAndDropElements = async (
         onDragEnd={(dragEndEvent) => dragTarget(dragEndEvent.over?.id)}
         onDragStart={(dragStartEvent) => dargStart(dragStartEvent)}
       >
-        <div ref={builderContainerRef}>
-          <div
-            id={ROOT_RENDER_CONTAINER_ID}
-            ref={renderContainerRef}
-            style={{
-              left: '0px',
-
-              // added as a workaround for jsdom not supporting getBoundingClientRect
-              top: '0px',
-              width: '300px',
-            }}
-          >
-            {renderer.render}
-          </div>
-          <RenderBlueprint
-            builderContainerRef={builderContainerRef}
-            renderContainerRef={renderContainerRef}
-            renderer={renderer}
-          />
+        <div
+          id={ROOT_RENDER_CONTAINER_ID}
+          ref={renderContainerRef}
+          style={{
+            left: '0px',
+            // added as a workaround for jsdom not supporting getBoundingClientRect
+            top: '0px',
+            width: '300px',
+          }}
+        >
+          {renderer.render}
         </div>
-        ,
+        <RenderBlueprint
+          renderContainerRef={renderContainerRef}
+          renderer={renderer}
+        />
       </TestDndContext>
     </RootStoreProvider>,
   )
@@ -540,7 +534,7 @@ describe('Dnd', () => {
 
           // Trigger the drop operation.
           await dropElement(dragButton, {
-            x: 100,
+            x: 90,
             y: COLLISION_ALGORITHM_SPACING + 1,
           })
 

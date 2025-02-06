@@ -14,10 +14,9 @@ import { useWindowSize } from 'react-use'
 import { ElementBlueprint } from './ElementBlueprint'
 
 export const RenderBlueprint = observer<{
-  builderContainerRef: RefObject<HTMLElement | null>
   renderContainerRef: RefObject<HTMLElement | null>
   renderer: IRendererModel
-}>(({ builderContainerRef, renderContainerRef, renderer }) => {
+}>(({ renderContainerRef, renderer }) => {
   const [containerRect, setContainerRect] = useState(new Rect())
   const runtimeRootContainerNode = renderer.runtimeContainerNode
   const runtimeRootElement = runtimeRootContainerNode?.runtimeRootElement
@@ -31,12 +30,7 @@ export const RenderBlueprint = observer<{
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userDomainService.preference.builderWidth, window.height, window.width])
 
-  if (
-    isServer ||
-    !renderContainerRef.current ||
-    !runtimeRootElement ||
-    !builderContainerRef.current
-  ) {
+  if (isServer || !renderContainerRef.current || !runtimeRootElement) {
     return null
   }
 
@@ -51,6 +45,6 @@ export const RenderBlueprint = observer<{
         runtimeElement={runtimeRootElement}
       />
     </div>,
-    builderContainerRef.current,
+    renderContainerRef.current,
   )
 })
