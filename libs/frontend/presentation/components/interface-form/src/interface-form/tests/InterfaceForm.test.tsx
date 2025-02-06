@@ -1,6 +1,6 @@
 /* eslint-disable unicorn/filename-case */
 import { Validator } from '@codelab/shared/infra/typebox'
-import { act, render, waitFor } from '@testing-library/react'
+import { render, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { debug } from 'console'
 import { Fragment } from 'react'
@@ -45,7 +45,7 @@ describe('InterfaceForm', () => {
     Validator.assertsDefined(enumSelectElement)
 
     // Click on the selector
-    await act(() => userEvent.click(enumSelectElement))
+    await userEvent.click(enumSelectElement)
 
     // Select the second option
     const dropdownOption = container.querySelector(
@@ -56,7 +56,7 @@ describe('InterfaceForm', () => {
 
     Validator.assertsDefined(dropdownOption)
 
-    await act(() => userEvent.click(dropdownOption))
+    await userEvent.click(dropdownOption)
 
     // Check the value has been updated
     expect(
@@ -96,7 +96,7 @@ describe('InterfaceForm', () => {
     Validator.assertsDefined(selectUnionTypeElement)
 
     // Click on the type selector
-    await act(() => userEvent.click(selectUnionTypeElement))
+    await userEvent.click(selectUnionTypeElement)
 
     //
     // Select the IntType option
@@ -110,7 +110,7 @@ describe('InterfaceForm', () => {
 
     expect(intTypeOption).toBeInTheDocument()
 
-    await act(() => userEvent.click(intTypeOption))
+    await userEvent.click(intTypeOption)
 
     // Check the selected type has been updated
     expect(
@@ -127,13 +127,13 @@ describe('InterfaceForm', () => {
 
     expect(valueField).toBeInTheDocument()
 
-    await act(() => userEvent.type(valueField, '123'))
+    await userEvent.type(valueField, '123')
 
     // Check the value has been updated
     expect(valueField).toHaveValue('123')
 
     // Select String type option
-    await act(() => userEvent.click(selectUnionTypeElement))
+    await userEvent.click(selectUnionTypeElement)
 
     const stringTypeOption = document.querySelector(
       `.ant-select-item.ant-select-item-option[title="${stringType.name}"]`,
@@ -143,7 +143,7 @@ describe('InterfaceForm', () => {
 
     expect(stringTypeOption).toBeInTheDocument()
 
-    await act(() => userEvent.click(stringTypeOption))
+    await userEvent.click(stringTypeOption)
 
     expect(
       container.querySelector('.ant-select-selection-item'),

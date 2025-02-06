@@ -74,6 +74,7 @@ export class ServerFetchVisitor extends BaseVisitor<
       .join(', ')
 
     return [
+      "import type { NextFetchOptions } from '@codelab/shared/abstract/types'",
       `import { ${this.config.gqlFn} } from '${this.config.gqlFnPath}'`,
       `import { ${documentImports} } from '${this.config.graphqlPath}'\n`,
     ]
@@ -95,7 +96,7 @@ export class ServerFetchVisitor extends BaseVisitor<
 
       const operationArgs = [
         `variables: Types.${o.variablesTypes}`,
-        'next?: NextFetchRequestConfig & { revalidateTag?: string }',
+        'next?: NextFetchOptions',
       ].join(' ,')
 
       // server actions must be exported individually
