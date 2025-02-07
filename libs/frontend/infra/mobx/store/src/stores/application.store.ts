@@ -21,6 +21,7 @@ import {
   type IDomainStore,
   type ITagModel,
   type ITypeModel,
+  userDomainServiceContext,
 } from '@codelab/frontend/abstract/domain'
 import { BuilderService } from '@codelab/frontend-application-builder/services'
 import {
@@ -75,6 +76,7 @@ export const createApplicationStore = withSpanFunc(
         runtimePageServiceContext.set(this, this.runtimePageService)
         routerServiceContext.set(this, this.routerService)
         builderServiceContext.set(this, this.builderService)
+        userDomainServiceContext.set(this, domainStore.userDomainService)
         componentDomainServiceContext.set(
           this,
           domainStore.componentDomainService,
