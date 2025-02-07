@@ -5,7 +5,6 @@ import type {
   IRuntimeElementModel,
 } from '@codelab/frontend/abstract/application'
 import type { IPropData } from '@codelab/shared/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
 
 import {
   isRuntimeComponent,
@@ -16,29 +15,37 @@ import {
   type IPageNodeRef,
   isElementRef,
 } from '@codelab/frontend/abstract/domain'
-import { createValidator, notify } from '@codelab/frontend/shared/utils'
+import { useNotify, useSuccessNotify } from '@codelab/frontend/infra/context'
+import { createValidator } from '@codelab/frontend/shared/utils'
 import { usePropService } from '@codelab/frontend-application-prop/services'
+import { NotificationType, type Nullable } from '@codelab/shared/abstract/types'
 import { evaluateObject } from '@codelab/shared-infra-eval'
 import { useState } from 'react'
 
-const validateJson = (value: string): Nullable<IPropData> => {
-  try {
-    return JSON.parse(value)
-  } catch (error) {
-    if (error instanceof Error) {
-      notify({ description: error.message, title: error.name, type: 'error' })
+const useValidateJson = (): ((data: string) => Nullable<IPropData>) => {
+  const onError = useNotify(NotificationType.ERROR)
+
+  return (value: string) => {
+    try {
+      return JSON.parse(value)
+    } catch (error) {
+      if (error instanceof Error) {
+        onError({ description: error.message, title: error.name }, error)
+      }
+
+      console.error(error)
+
+      return null
     }
-
-    console.error(error)
-
-    return null
   }
 }
 
 /**
  * This requires the full api
  */
-const validateSchema = (node: IPageNodeRef) => {
+const useValidateSchema = (node: IPageNodeRef) => {
+  const onError = useNotify(NotificationType.ERROR)
+
   const interfaceType = isElementRef(node)
     ? node.current.renderType.current.api.current
     : node.current.api.current
@@ -52,10 +59,9 @@ const validateSchema = (node: IPageNodeRef) => {
     if (validation?.details[0]) {
       const { instancePath, message } = validation.details[0]
 
-      notify({
+      onError({
         description: `${instancePath} ${message}`,
         title: `${message}`,
-        type: 'error',
       })
 
       return
@@ -73,13 +79,15 @@ export const usePropsInspector = (
 ) => {
   const propService = usePropService()
   const [isLoading, setIsLoading] = useState(false)
+  const validateJson = useValidateJson()
 
   const node = isRuntimeComponent(runtimeNode)
     ? runtimeNode.component
     : runtimeNode.element
 
-  const validator = validateSchema(node)
+  const validator = useValidateSchema(node)
   const nodeLabel = isRuntimeElement(runtimeNode) ? 'Element' : 'Component'
+  const onSuccess = useSuccessNotify({ title: `${nodeLabel} props updated.` })
 
   const runtimeProps = !isRuntimePage(runtimeNode)
     ? runtimeNode.runtimeProps
@@ -110,11 +118,7 @@ export const usePropsInspector = (
 
     setIsLoading(false)
 
-    notify({
-      description: '',
-      title: `${nodeLabel} props updated.`,
-      type: 'success',
-    })
+    onSuccess()
   }
 
   return { isLoading, lastRenderedProp, nodeLabel, save }

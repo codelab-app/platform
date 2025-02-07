@@ -3,7 +3,7 @@ import type { IAppModel } from '@codelab/frontend/abstract/domain'
 import {
   useErrorNotify,
   useSuccessNotify,
-} from '@codelab/frontend/shared/utils'
+} from '@codelab/frontend/infra/context'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { useState } from 'react'
 

@@ -4,7 +4,7 @@ import type { ApolloError } from '@apollo/client'
 import type { ICreateDomainData } from '@codelab/frontend/abstract/domain'
 
 import { PageType, UiKey } from '@codelab/frontend/abstract/types'
-import { useErrorNotify } from '@codelab/frontend/shared/utils'
+import { useErrorNotify } from '@codelab/frontend/infra/context'
 import {
   checkDomainExists,
   DOMAIN_EXISTS_ERROR,

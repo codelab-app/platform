@@ -5,7 +5,6 @@ import {
   DATA_ELEMENT_ID,
   DATA_RUNTIME_ELEMENT_KEY,
 } from '@codelab/frontend/abstract/domain'
-import { notify } from '@codelab/frontend/shared/utils'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 
 import type { AtomFactoryInput, AtomFactoryResult } from './types'
@@ -26,13 +25,7 @@ export const atomFactory = ({
   const ReactComponent = getAtom(atom.type)
 
   if (!ReactComponent && !atom.externalSourceType) {
-    notify({
-      description: '',
-      title: `Missing atom of type ${atom.type} in atom type map`,
-      type: 'error',
-    })
-
-    return [null, {}]
+    throw new Error(`Missing atom of type ${atom.type} in atom type map`)
   }
 
   /**

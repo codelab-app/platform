@@ -1,6 +1,10 @@
 import type { Preview } from '@storybook/react'
 
-import { StyleProviders } from '@codelab/frontend/infra/context'
+import {
+  NotificationProvider,
+  React19Compatibility,
+  StyleProviders,
+} from '@codelab/frontend/infra/context'
 import { preferenceDto, userDto } from '@codelab/frontend/test/data'
 import {
   createRootStore,
@@ -9,7 +13,6 @@ import {
 import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
 import { initialize, mswLoader } from 'msw-storybook-addon'
 // eslint-disable-next-line unused-imports/no-unused-imports
-import React from 'react'
 import { v4 } from 'uuid'
 
 import '../styles/main.css'
@@ -42,8 +45,11 @@ const preview: Preview = {
 
       return (
         <RootStoreProvider value={store}>
+          <React19Compatibility />
           <StyleProviders>
-            <Story />
+            <NotificationProvider>
+              <Story />
+            </NotificationProvider>
           </StyleProviders>
         </RootStoreProvider>
       )

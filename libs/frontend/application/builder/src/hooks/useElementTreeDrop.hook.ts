@@ -6,7 +6,7 @@ import type { IElementTree } from '@codelab/frontend/abstract/domain'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { TreeProps } from 'antd/lib/tree'
 
-import { notify } from '@codelab/frontend/shared/utils'
+import { useInfoNotify } from '@codelab/frontend/infra/context'
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { useRequiredParentValidator } from '@codelab/frontend-application-element/validation'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
@@ -30,6 +30,12 @@ export const useElementTreeDrop = () => {
   const elementService = useElementService()
   const { runtimeElementService } = useApplicationStore()
   const { validateParentForMove } = useRequiredParentValidator()
+
+  const onInfo = useInfoNotify({
+    description: 'Element can only be moved within the same component',
+    title: 'Cannot move element',
+  })
+
   const asyncHandler = useAsyncHandler()
 
   const handleDrop: TreeProps<IElementTreeViewDataNode>['onDrop'] = async (
@@ -57,11 +63,7 @@ export const useElementTreeDrop = () => {
         return
       }
 
-      notify({
-        description: 'Element can only be moved within the same component',
-        title: 'Cannot move element',
-        type: 'info',
-      })
+      void onInfo()
 
       return
     }
