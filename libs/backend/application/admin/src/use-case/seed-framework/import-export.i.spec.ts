@@ -58,8 +58,6 @@ describe('Seed, import, & export data', () => {
   })
 
   it('should check the atom files is a subset of the enum', () => {
-    console.log('starting')
-
     const files = readdirSync(
       path.resolve(productionDataPath, 'admin/atoms'),
     ).map((file) => path.parse(file).name)
