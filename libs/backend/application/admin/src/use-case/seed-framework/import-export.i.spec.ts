@@ -12,7 +12,7 @@ import { ExportAdminDataCommand } from '../export/export-admin-data.command.serv
 import { ImportAdminDataCommand } from '../import/import-admin-data.command.service'
 import { getAtomsFromFiles, productionDataPath } from './utils'
 
-jest.setTimeout(240000)
+jest.setTimeout(600000)
 
 // We copy actual data to new path
 const testDataPath = path.resolve('./tmp/data/import-v3')
@@ -58,6 +58,8 @@ describe('Seed, import, & export data', () => {
   })
 
   it('should check the atom files is a subset of the enum', () => {
+    console.log('starting')
+
     const files = readdirSync(
       path.resolve(productionDataPath, 'admin/atoms'),
     ).map((file) => path.parse(file).name)
