@@ -7,7 +7,7 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 
 import { PageType, UiKey } from '@codelab/frontend/abstract/types'
-import { useErrorNotify } from '@codelab/frontend/shared/utils'
+import { useErrorNotify } from '@codelab/frontend/infra/context'
 import { checkDomainExists } from '@codelab/frontend-domain-domain/errors'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'

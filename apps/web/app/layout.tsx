@@ -1,6 +1,10 @@
 import '../styles/main.css'
 // import config from '../tailwind.config.js'
-import { StyleProviders } from '@codelab/frontend/infra/context'
+import {
+  NotificationProvider,
+  React19Compatibility,
+  StyleProviders,
+} from '@codelab/frontend/infra/context'
 import { cn } from '@cui/utils'
 import { setGlobalConfig } from 'mobx-keystone'
 import { Inter, Montserrat, Nunito } from 'next/font/google'
@@ -45,7 +49,10 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
     <html className={fontClasses} lang="en" suppressHydrationWarning>
       <head></head>
       <body className="min-h-screen bg-background antialiased">
-        <StyleProviders>{children}</StyleProviders>
+        <React19Compatibility />
+        <StyleProviders>
+          <NotificationProvider>{children}</NotificationProvider>
+        </StyleProviders>
       </body>
     </html>
   )

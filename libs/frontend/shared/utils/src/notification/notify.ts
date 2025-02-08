@@ -1,6 +1,6 @@
 import type { Notification } from '@codelab/shared/abstract/types'
+import type { NotificationInstance } from 'antd/es/notification/interface'
 
-import { notification } from 'antd'
 import { isFunction } from 'remeda'
 
 export interface NotifyOptions<TEvent>
@@ -11,6 +11,7 @@ export interface NotifyOptions<TEvent>
 }
 
 export const notify = <TEvent>(
+  api: NotificationInstance,
   options: NotifyOptions<TEvent>,
   event?: TEvent,
 ) => {
@@ -36,7 +37,7 @@ export const notify = <TEvent>(
   const resolvedDescription = resolveValue(description, event)
   const resolvedTitle = resolveValue(title, event)
 
-  notification[type]({
+  api[type]({
     description: resolvedDescription,
     message: resolvedTitle,
     placement: 'topRight',
@@ -49,10 +50,12 @@ export const notify = <TEvent>(
    * Log to console
    */
   if (type === 'warning') {
-    console.warn(title, description)
+    console.warn(resolvedTitle, resolvedDescription)
   } else if (type === 'error') {
-    console.error(title, description)
+    console.error(resolvedTitle, resolvedDescription)
+  } else if (type === 'info') {
+    console.info(resolvedTitle, resolvedDescription)
   } else {
-    console.log(title, description)
+    console.log(resolvedTitle, resolvedDescription)
   }
 }

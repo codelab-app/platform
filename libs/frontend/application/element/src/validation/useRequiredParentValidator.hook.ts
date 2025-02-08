@@ -1,8 +1,10 @@
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { useNotify } from '@codelab/frontend/infra/context'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { NotificationType } from '@codelab/shared/abstract/types'
 
 export const useRequiredParentValidator = () => {
   const { atomDomainService, elementDomainService } = useDomainStore()
+  const onError = useNotify(NotificationType.ERROR)
 
   const validate = (childAtomId?: string, parentAtomId?: string) => {
     const parentAtom = atomDomainService.atomsList.find(
@@ -30,10 +32,10 @@ export const useRequiredParentValidator = () => {
         .map((requiredParent) => requiredParent.current.name)
         .join(', ')
 
-      createFormErrorNotificationHandler({
+      onError({
         description: `[${childAtom.name} can only be a child of ${requiredParents}].`,
         title: 'Invalid parent',
-      })()
+      })
     }
 
     return isValid

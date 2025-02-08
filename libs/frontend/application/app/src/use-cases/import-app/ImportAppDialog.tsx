@@ -6,7 +6,7 @@ import ImportOutlined from '@ant-design/icons/ImportOutlined'
 import {
   useErrorNotify,
   useSuccessNotify,
-} from '@codelab/frontend/shared/utils'
+} from '@codelab/frontend/infra/context'
 
 import { useImportApp } from './useImportApp.hook'
 

@@ -2,7 +2,7 @@
 import type { DraggerProps } from 'antd/lib/upload/Dragger'
 import type { FieldProps } from 'uniforms'
 
-import { notify } from '@codelab/frontend/shared/utils'
+import { useErrorNotify } from '@codelab/frontend/infra/context'
 import Dragger from 'antd/lib/upload/Dragger'
 import { connectField } from 'uniforms'
 import { wrapField } from 'uniforms-antd'
@@ -13,8 +13,10 @@ export type UploadFieldProps = FieldProps<
   { children?: React.ReactNode }
 >
 
-const UploadFieldInternal = (props: UploadFieldProps) =>
-  wrapField(
+const UploadFieldInternal = (props: UploadFieldProps) => {
+  const onError = useErrorNotify({ title: 'File upload failed' })
+
+  return wrapField(
     props,
     <Dragger
       name={props.name}
@@ -22,10 +24,7 @@ const UploadFieldInternal = (props: UploadFieldProps) =>
         const { status } = info.file
 
         if (status === 'error') {
-          notify(
-            { description: '', title: 'File upload failed', type: 'error' },
-            info.file.error,
-          )
+          onError(info.file.error)
         }
 
         if (status === 'done') {
@@ -36,6 +35,7 @@ const UploadFieldInternal = (props: UploadFieldProps) =>
       {props.children}
     </Dragger>,
   )
+}
 
 export const UploadField = connectField<UploadFieldProps>(UploadFieldInternal, {
   kind: 'leaf',

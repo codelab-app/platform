@@ -4,7 +4,7 @@ import type { MouseEvent } from 'react'
 import {
   useErrorNotify,
   useSuccessNotify,
-} from '@codelab/frontend/shared/utils'
+} from '@codelab/frontend/infra/context'
 import { loadingAtom } from '@codelab/frontend-application-shared-store/loading'
 import { useSetAtom } from 'jotai'
 
