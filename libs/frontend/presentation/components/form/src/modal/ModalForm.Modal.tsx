@@ -1,7 +1,7 @@
 'use client'
 
 import type { Maybe } from '@codelab/shared/abstract/types'
-import type { ModalProps as AntModalProps } from 'antd/lib/modal'
+import type { ModalProps as AntModalProps } from 'antd'
 import type { PropsWithChildren } from 'react'
 
 import {
