@@ -14,7 +14,7 @@ import { useResourceService } from '../../services/resource.service'
 import { CreateResourceForm } from './CreateResourceForm'
 
 export const CreateResourcePopover = observer(() => {
-  const submitRef = useRef<Maybe<SubmitController>>()
+  const submitRef = useRef<Maybe<SubmitController>>(undefined)
   const { createPopover } = useResourceService()
   const router = useRouter()
 

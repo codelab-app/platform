@@ -221,7 +221,7 @@ export class RuntimeElementModel
   }
 
   @computed
-  get render(): Nullable<ReactElement> {
+  get render(): Nullable<ReactElement<unknown>> {
     if (this.shouldRender === false) {
       return null
     }
@@ -338,10 +338,10 @@ export class RuntimeElementModel
     const errorMessage = element.renderingMetadata?.error
       ? `Error: ${element.renderingMetadata.error.message}`
       : element.ancestorError
-        ? 'Something went wrong in a parent element'
-        : element.propsHaveErrors
-          ? 'Some props are not correctly set'
-          : undefined
+      ? 'Something went wrong in a parent element'
+      : element.propsHaveErrors
+      ? 'Some props are not correctly set'
+      : undefined
 
     const children = this.children.flatMap((child) =>
       // if element is instance of component we render the element's children instead of component

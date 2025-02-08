@@ -8,7 +8,7 @@ import { StoreRepository } from '@codelab/backend/domain/store'
 import { InterfaceTypeRepository } from '@codelab/backend/domain/type'
 import { UserRepository } from '@codelab/backend/domain/user'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { AtomType } from '@codelab/shared/infra/gqlgen'
+import { AtomType, BreakpointType } from '@codelab/shared/infra/gqlgen'
 import { Validator } from '@codelab/shared/infra/typebox'
 import { cLog } from '@codelab/shared/utils'
 import { ElementProperties } from '@codelab/shared-domain-module/element'
@@ -57,6 +57,11 @@ describe('ComponentResolvers', () => {
       auth0Id: 'something',
       email: 'something@some.thing',
       id: v4(),
+      preferences: {
+        builderBreakpointType: BreakpointType.Desktop,
+        builderWidth: 1000,
+        id: v4(),
+      },
       roles: [],
       username: 'someusername',
     })

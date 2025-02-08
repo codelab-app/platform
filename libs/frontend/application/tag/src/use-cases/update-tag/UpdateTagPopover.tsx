@@ -15,7 +15,7 @@ import { useTagService } from '../../services/tag.service'
 import { UpdateTagForm } from './UpdateTagForm'
 
 export const UpdateTagPopover = observer<{ tag: ITagModel }>(({ tag }) => {
-  const submitRef = useRef<Maybe<SubmitController>>()
+  const submitRef = useRef<Maybe<SubmitController>>(undefined)
   const { updatePopover } = useTagService()
   const router = useRouter()
 

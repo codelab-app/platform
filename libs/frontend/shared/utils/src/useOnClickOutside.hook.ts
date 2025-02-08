@@ -7,7 +7,7 @@ import { useCallback, useEffect } from 'react'
 type OnClickHandler = (event: MouseEvent | TouchEvent) => void
 
 export const useOnClickOutside = (
-  ref: RefObject<HTMLElement>,
+  ref: RefObject<HTMLElement | null>,
   handler: OnClickHandler,
   deps: DependencyList,
 ) => {

@@ -17,7 +17,7 @@ import { useRef } from 'react'
 import { CreateComponentForm } from './CreateComponentForm'
 
 export const CreateComponentPopover = () => {
-  const submitRef = useRef<Maybe<SubmitController>>()
+  const submitRef = useRef<Maybe<SubmitController>>(undefined)
   const router = useRouter()
   const closePopover = () => router.push(PageType.Components())
   const { userDomainService } = useDomainStore()

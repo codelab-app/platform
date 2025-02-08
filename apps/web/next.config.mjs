@@ -1,7 +1,7 @@
 import bundleAnalyzer from '@next/bundle-analyzer'
-import { composePlugins,
-withNx } from '@nx/next'
+import { composePlugins, withNx } from '@nx/next'
 import { withSentryConfig } from '@sentry/nextjs'
+import withSvgr from 'next-plugin-svgr'
 // eslint-disable-next-line import/default
 import env from 'env-var'
 
@@ -61,8 +61,8 @@ const sentryConfig = (nextConfig) =>
   })
 
 const plugins = enableInstrumentation
-  ? [withNx, withBundleAnalyzer, sentryConfig]
-  : [withNx, withBundleAnalyzer]
+  ? [withNx, withBundleAnalyzer, sentryConfig, withSvgr]
+  : [withNx, withBundleAnalyzer, withSvgr]
 
 const port = get('NEXT_PUBLIC_API_PORT').required().asString()
 const url = get('NEXT_PUBLIC_API_HOSTNAME').required().asString()
@@ -83,14 +83,14 @@ const nextConfig = {
     // optimizePackageImports: ['@auth0/nextjs-auth0/edge'],
     // https://nextjs.org/docs/messages/import-esm-externals
     // typedRoutes: true,
-    instrumentationHook: enableInstrumentation,
+    // instrumentationHook: enableInstrumentation,
 
     // 20 min
     // increase timeout for long-running proxy request,
     // e.g. request from admin to seed the db; request to seed database in e2e
     proxyTimeout: 1200_000,
   },
-  nx: { svgr: true },
+  nx: { svgr: false },
   // https://github.com/ant-design/ant-design-examples/blob/main/examples/with-nextjs-app-router-inline-style/next.config.js
   // productionBrowserSourceMaps: true,
   // disable to support uniforms

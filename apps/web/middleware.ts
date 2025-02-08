@@ -1,9 +1,6 @@
-import {
-  authGuardMiddleware,
-  corsMiddleware,
-} from '@codelab/backend/infra/adapter/middleware'
+import { corsMiddleware } from '@codelab/backend/infra/adapter/middleware'
 import { PageType } from '@codelab/frontend/abstract/types'
-import { auth0ServerInstance } from '@codelab/shared-infra-auth0/server'
+import { auth0Instance } from '@codelab/shared-infra-auth0/client'
 import {
   type NextFetchEvent,
   type NextMiddleware,
@@ -21,7 +18,7 @@ import { isEqual } from 'radash'
  */
 
 const paginatedRoutes = [PageType.Atoms(), PageType.Tags(), PageType.Type()]
-const authenticatedRoutes = [PageType.AppList()]
+const protectedRoutes = [PageType.AppList()]
 
 const middleware: NextMiddleware = async (
   request: NextRequest,
@@ -29,12 +26,23 @@ const middleware: NextMiddleware = async (
 ) => {
   const response = NextResponse.next()
   const pathname = request.nextUrl.pathname
+  const authResponse = await auth0Instance.middleware(request)
 
-  /**
-   * Guard routes here
-   */
-  if (authenticatedRoutes.some((route) => pathname.startsWith(route))) {
-    return authGuardMiddleware(request, response, event)
+  // authentication routes — let the middleware handle it
+  if (request.nextUrl.pathname.startsWith('/auth')) {
+    return authResponse
+  }
+
+  const { origin } = new URL(request.url)
+  const session = await auth0Instance.getSession()
+
+  const isProtectedRoute = protectedRoutes.some((route) =>
+    pathname.startsWith(route),
+  )
+
+  // user does not have a session in a protected route — redirect to login
+  if (!session && isProtectedRoute) {
+    return NextResponse.redirect(`${origin}/auth/login`)
   }
 
   /**
@@ -67,18 +75,13 @@ const middleware: NextMiddleware = async (
    * For querying the backend, we want to attach tokens from Auth0 session
    */
   if (request.nextUrl.pathname.startsWith('/api/v1')) {
-    await auth0ServerInstance.touchSession(request, response)
-
-    const session = await auth0ServerInstance.getSession(request, response)
-
     void corsMiddleware(request, response)
 
-    if (session?.accessToken) {
-      response.headers.set('Authorization', `Bearer ${session.accessToken}`)
-    }
+    if (session) {
+      const accessToken = session.tokenSet.accessToken
 
-    if (session?.idToken) {
-      response.headers.set('X-ID-TOKEN', session.idToken)
+      response.headers.set('Authorization', `Bearer ${accessToken}`)
+      // response.headers.set('X-ID-TOKEN', session.user.idToken)
     }
 
     return response

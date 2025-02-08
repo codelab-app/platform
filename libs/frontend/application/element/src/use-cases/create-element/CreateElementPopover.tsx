@@ -17,7 +17,7 @@ import { CreateElementForm } from './CreateElementForm'
 
 export const CreateElementPopover = observer(() => {
   const router = useRouter()
-  const submitRef = useRef<Maybe<SubmitController>>()
+  const submitRef = useRef<Maybe<SubmitController>>(undefined)
   const { createPopover } = useElementService()
   const { builderService } = useApplicationStore()
   /**

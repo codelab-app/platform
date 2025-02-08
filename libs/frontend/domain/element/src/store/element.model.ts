@@ -547,7 +547,6 @@ export class Element
     renderType,
     style,
   }: Partial<IElementDto>) {
-    console.log('childMapperComponent', childMapperComponent)
     this.name = name ?? this.name
     this.renderIfExpression = renderIfExpression ?? null
     this.renderForEachPropKey = renderForEachPropKey ?? null

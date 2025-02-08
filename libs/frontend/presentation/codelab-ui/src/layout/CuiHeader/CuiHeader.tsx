@@ -2,10 +2,10 @@ import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import { Col, Row } from 'antd'
 
 interface CuiHeaderProps {
-  centralArea?: React.ReactElement | null
-  direction?: React.ReactElement | null
-  logo?: React.ReactElement | null
-  toolbar?: React.ReactElement | null
+  centralArea?: React.ReactElement<unknown> | null
+  direction?: React.ReactElement<unknown> | null
+  logo?: React.ReactElement<unknown> | null
+  toolbar?: React.ReactElement<unknown> | null
 }
 
 export const CuiHeader = ({

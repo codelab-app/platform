@@ -3,7 +3,7 @@
 import type { IPreferenceDto, IUserDto } from '@codelab/shared/abstract/core'
 import type { PropsWithChildren } from 'react'
 
-import { UserProvider } from '@auth0/nextjs-auth0/client'
+import { Auth0Provider } from '@auth0/nextjs-auth0'
 import { CuiProvider } from '@codelab/frontend/presentation/codelab-ui'
 import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import {
@@ -31,12 +31,12 @@ export const RootProviders = ({
   )
 
   return (
-    <UserProvider>
+    <Auth0Provider>
       <CuiProvider>
         <Provider>
           <RootStoreProvider value={rootStore}>{children}</RootStoreProvider>
         </Provider>
       </CuiProvider>
-    </UserProvider>
+    </Auth0Provider>
   )
 }

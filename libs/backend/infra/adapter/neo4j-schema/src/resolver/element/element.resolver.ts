@@ -33,8 +33,9 @@ export const ElementResolverProvider: FactoryProvider<
       unknown,
       Promise<Array<TypeFragment>>
     > = async (element) => {
-      const types =
-        await elementDependantTypesService.getDependantTypes(element)
+      const types = await elementDependantTypesService.getDependantTypes(
+        element,
+      )
 
       return types
     }

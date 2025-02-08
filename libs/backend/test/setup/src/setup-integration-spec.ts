@@ -60,8 +60,9 @@ export const initUserContext = async (metadata?: ModuleMetadata) => {
   const commandBus = module.get<CommandBus>(CommandBus)
   const requestContextMiddleware = module.get(RequestContextMiddleware)
 
-  const { authService, owner, userDomainService } =
-    await initUserServices(module)
+  const { authService, owner, userDomainService } = await initUserServices(
+    module,
+  )
 
   const beforeAll = async () => {
     await startServer(nestApp)

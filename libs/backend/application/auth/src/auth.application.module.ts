@@ -1,3 +1,4 @@
+import { UserDomainModule } from '@codelab/backend/domain/user'
 import { auth0Config } from '@codelab/backend/infra/adapter/auth0'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
@@ -10,6 +11,7 @@ import { JwtAuthMiddleware } from './jwt-auth.middleware'
 @Module({
   exports: [JwtAuthMiddleware, JwtAuthGuard, JwtStrategy],
   imports: [
+    UserDomainModule,
     PassportModule.register({
       defaultStrategy: JWT_STRATEGY,
     }),

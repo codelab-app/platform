@@ -16,7 +16,7 @@ import { CreateAtomForm } from './CreateAtomForm'
 
 export const CreateAtomPopover = withProfiler(
   observer(() => {
-    const submitRef = useRef<Maybe<SubmitController>>()
+    const submitRef = useRef<Maybe<SubmitController>>(undefined)
     const { createPopover } = useAtomService()
     const router = useRouter()
 

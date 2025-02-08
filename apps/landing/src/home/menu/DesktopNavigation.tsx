@@ -44,7 +44,7 @@ export const MenuDesktop = () => {
             <li className="hidden p-2 laptop:flex">
               <Link
                 className="btn-primary flex items-center"
-                href="/api/auth/login"
+                href="/auth/login"
               >
                 Logout
               </Link>
@@ -52,7 +52,7 @@ export const MenuDesktop = () => {
           ) : (
             <>
               <li className="p-2 laptop:flex laptop:w-auto tablet:w-8">
-                {/* <Link href="/api/auth/login" legacyBehavior> */}
+                {/* <Link href="/auth/login" legacyBehavior> */}
                 <Button className="mr-2 rounded-lg" ghost type="primary">
                   <Link
                     className={`
@@ -60,7 +60,7 @@ export const MenuDesktop = () => {
                       font-semibold
                       laptop:flex
                     `}
-                    href="/api/auth/login"
+                    href="/auth/login"
                   >
                     Log in
                   </Link>
@@ -68,7 +68,7 @@ export const MenuDesktop = () => {
                 {/* </Link> */}
               </li>
               <li className="hidden p-2 laptop:flex">
-                {/* <Link href="/api/auth/logout" legacyBehavior> */}
+                {/* <Link href="/auth/logout" legacyBehavior> */}
                 <Button className="rounded-lg" type="primary">
                   <Link
                     className={`
@@ -76,7 +76,7 @@ export const MenuDesktop = () => {
                       font-semibold
                       laptop:flex
                     `}
-                    href="/api/auth/logout"
+                    href="/auth/logout"
                   >
                     Sign up
                   </Link>

@@ -51,7 +51,6 @@ export const BaseBuilder = observer<IBuilderProps>(
             >
               <RootRenderer ref={renderContainerRef} renderer={renderer} />
               <RenderBlueprint
-                builderContainerRef={builderContainerRef}
                 renderContainerRef={renderContainerRef}
                 renderer={renderer}
               />

@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { StartSpanOptions } from '@sentry/types'
 
 import { startSpan } from '@sentry/nextjs'
-
+import type { StartSpanOptions } from '@sentry/core'
 export type AnyAsyncFunction<T extends Array<unknown> = Array<any>, R = any> = (
   ...args: T
 ) => Promise<R>

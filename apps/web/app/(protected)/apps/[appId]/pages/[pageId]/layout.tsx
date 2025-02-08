@@ -1,17 +1,9 @@
-import type {
-  PageContextParams,
-  SearchParamsPageProps,
-} from '@codelab/frontend/abstract/types'
-import type { DashboardLayoutProps } from '@codelab/frontend-presentation-view/templates'
+import type { PageContextParams } from '@codelab/frontend/abstract/types'
 import type { ReactNode } from 'react'
 
-import {
-  ApplicationStoreHydrator,
-  DomainStoreHydrator,
-} from '@codelab/frontend/infra/context'
+import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { appBuilderQuery } from '@codelab/frontend-application-app/use-cases/app-builder'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
-import { DashboardLayout } from '@codelab/frontend-presentation-view/templates'
 
 import { LayoutClient } from './layout.client'
 
@@ -20,13 +12,12 @@ import { LayoutClient } from './layout.client'
  *
  * Hydration is done in `LayoutClient`
  */
-const Layout = async ({
-  children,
-  params,
-}: {
+const Layout = async (props: {
   children: ReactNode
-  params: PageContextParams
+  params: Promise<PageContextParams>
 }) => {
+  const params = await props.params
+  const { children } = props
   const { appId, pageId } = params
   const dto = await appBuilderQuery({ appId })
 

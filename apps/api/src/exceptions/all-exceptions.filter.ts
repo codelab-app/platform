@@ -3,7 +3,7 @@ import type { Request } from 'express'
 
 import { Catch, HttpException, Injectable } from '@nestjs/common'
 import { BaseExceptionFilter } from '@nestjs/core'
-import * as Sentry from '@sentry/nestjs'
+import { captureException } from '@sentry/nestjs'
 import { ValidationException } from 'typebox-validators'
 
 @Injectable()
@@ -62,7 +62,7 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
       // console.log(JSON.stringify(exception, null, 2))
       // console.log(JSON.stringify(logData, null, 2))
 
-      Sentry.captureException(exception.toString(), {
+      captureException(exception.toString(), {
         // Not working, move to breadcrumb
         // extra: logData,
       })

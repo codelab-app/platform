@@ -1,5 +1,6 @@
 import { UserDomainModule, UserRepository } from '@codelab/backend/domain/user'
 import { initUserContext } from '@codelab/backend/test/setup'
+import { BreakpointType } from '@codelab/shared/infra/gqlgen'
 import { v4 } from 'uuid'
 
 import { Tag } from '../model'
@@ -35,6 +36,11 @@ describe('Tag repository.', () => {
       auth0Id: 'something',
       email: 'something@some.thing',
       id: v4(),
+      preferences: {
+        builderBreakpointType: BreakpointType.Desktop,
+        builderWidth: 1000,
+        id: v4(),
+      },
       roles: [],
       username: 'someusername',
     })
@@ -122,6 +128,11 @@ describe('Tag repository.', () => {
       auth0Id: 'auth0_test',
       email: 'test@example.com',
       id: v4(),
+      preferences: {
+        builderBreakpointType: BreakpointType.Desktop,
+        builderWidth: 1000,
+        id: v4(),
+      },
       roles: [],
       username: 'testuser',
     })

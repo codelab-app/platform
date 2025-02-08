@@ -3,7 +3,9 @@ import { DeleteAuthGuardModal } from '@codelab/frontend-application-auth-guard/u
 import { authGuardRepository } from '@codelab/frontend-domain-auth-guard/repositories'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 
-const Page = async ({ params: { id } }: { params: { id: string } }) => {
+const Page = async (props: { params: Promise<{ id: string }> }) => {
+  const params = await props.params
+  const { id } = params
   const authGuardDto = await authGuardRepository.findOne({ id })
 
   return (

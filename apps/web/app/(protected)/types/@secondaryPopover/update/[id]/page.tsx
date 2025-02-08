@@ -4,7 +4,9 @@ import { typeRepository } from '@codelab/frontend-domain-type/repositories'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { DashboardPopover } from '@codelab/frontend-presentation-view/templates'
 
-const Page = async ({ params: { id } }: { params: { id: string } }) => {
+const Page = async (props: { params: Promise<{ id: string }> }) => {
+  const params = await props.params
+  const { id } = params
   const type = await typeRepository.findOne({ id_IN: [id] })
 
   if (!type) {

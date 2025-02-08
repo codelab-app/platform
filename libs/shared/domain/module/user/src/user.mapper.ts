@@ -1,46 +1,45 @@
-import type { Claims } from '@auth0/nextjs-auth0'
+import type { User } from '@auth0/nextjs-auth0/types'
+import type {
+  IMapper,
+  IUserDto,
+  IUserSession,
+} from '@codelab/shared/abstract/core'
 import type {
   UserCreateInput,
   UserDeleteInput,
   UserUpdateInput,
 } from '@codelab/shared/infra/gqlgen'
 
-import {
-  type Auth0IdToken,
-  type IMapper,
-  type IUserDto,
-  type IUserSession,
-} from '@codelab/shared/abstract/core'
-import { IRole, JWT_CLAIMS } from '@codelab/shared/abstract/core'
+import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
 import { preferenceMapper } from '@codelab/shared-domain-module/preference'
 
-export const mapAuth0IdTokenToUserDto = (
-  auth0IdToken?: Auth0IdToken,
-): IUserSession => {
-  if (!auth0IdToken || !auth0IdToken[JWT_CLAIMS].neo4j_user_id) {
+// export const mapAuth0IdTokenToUserDto = (
+//   auth0IdToken?: Auth0IdToken,
+// ): IUserSession => {
+//   if (!auth0IdToken || !auth0IdToken[JWT_CLAIMS].neo4j_user_id) {
+//     throw new Error('Missing user in request')
+//   }
+
+//   return {
+//     auth0Id: auth0IdToken.sub,
+//     email: auth0IdToken.email,
+//     id: auth0IdToken[JWT_CLAIMS].neo4j_user_id,
+//     roles: auth0IdToken[JWT_CLAIMS].roles.map((role) => IRole[role]),
+//     username: auth0IdToken.nickname,
+//   }
+// }
+
+export const mapClaimsToUserDto = (user?: User): IUserSession => {
+  if (!user || !user[JWT_CLAIMS].neo4j_user_id) {
     throw new Error('Missing user in request')
   }
 
   return {
-    auth0Id: auth0IdToken.sub,
-    email: auth0IdToken.email,
-    id: auth0IdToken[JWT_CLAIMS].neo4j_user_id,
-    roles: auth0IdToken[JWT_CLAIMS].roles.map((role) => IRole[role]),
-    username: auth0IdToken.nickname,
-  }
-}
-
-export const mapClaimsToUserDto = (claims?: Claims): IUserSession => {
-  if (!claims || !claims[JWT_CLAIMS].neo4j_user_id) {
-    throw new Error('Missing user in request')
-  }
-
-  return {
-    auth0Id: claims['sub'],
-    email: claims['email'],
-    id: claims[JWT_CLAIMS].neo4j_user_id,
-    roles: claims[JWT_CLAIMS].roles.map((role: IRole) => IRole[role]),
-    username: claims['nickname'],
+    auth0Id: user.sub,
+    email: user.email ?? '',
+    id: user[JWT_CLAIMS].neo4j_user_id,
+    roles: user[JWT_CLAIMS].roles,
+    username: user.nickname ?? '',
   }
 }
 

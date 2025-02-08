@@ -4,7 +4,9 @@ import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 
 import { DeleteResourceModalConnector } from './page.connector'
 
-const Page = async ({ params: { id } }: { params: { id: string } }) => {
+const Page = async (props: { params: Promise<{ id: string }> }) => {
+  const params = await props.params
+  const { id } = params
   const resourceDto = await resourceRepository.findOne({ id })
 
   return (

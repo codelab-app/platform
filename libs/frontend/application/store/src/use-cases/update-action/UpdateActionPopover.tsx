@@ -14,7 +14,7 @@ import { useActionService } from '../../services/action.service'
 import { UpdateActionForm } from './UpdateActionForm'
 
 export const UpdateActionPopover = observer(({ id }: { id: string }) => {
-  const submitRef = useRef<Maybe<SubmitController>>()
+  const submitRef = useRef<Maybe<SubmitController>>(undefined)
   const { updatePopover } = useActionService()
   const router = useRouter()
 

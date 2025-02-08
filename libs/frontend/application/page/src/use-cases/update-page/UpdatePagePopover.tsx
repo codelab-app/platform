@@ -16,7 +16,7 @@ import { UpdatePageForm } from './UpdatePageForm'
 
 export const UpdatePagePopover = observer<{ id: string }>(({ id }) => {
   const { appId, pageId } = useUrlPathParams()
-  const submitRef = useRef<Maybe<SubmitController>>()
+  const submitRef = useRef<Maybe<SubmitController>>(undefined)
   const router = useRouter()
   const { updatePopover } = usePageService()
 

@@ -14,7 +14,7 @@ import { useTagService } from '../../services/tag.service'
 import { CreateTagForm } from './CreateTagForm'
 
 export const CreateTagPopover = observer(() => {
-  const submitRef = useRef<Maybe<SubmitController>>()
+  const submitRef = useRef<Maybe<SubmitController>>(undefined)
   const router = useRouter()
   const { createPopover } = useTagService()
 

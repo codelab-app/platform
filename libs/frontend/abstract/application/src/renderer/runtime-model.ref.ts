@@ -8,5 +8,5 @@ export const runtimeModelRef = (model: IRuntimeModel): IRuntimeModelRef =>
   isRuntimeComponent(model)
     ? runtimeComponentRef(model)
     : isRuntimeElement(model)
-      ? runtimeElementRef(model)
-      : runtimePageRef(model)
+    ? runtimeElementRef(model)
+    : runtimePageRef(model)

@@ -6,11 +6,12 @@ export const metadata: Metadata = {
   title: 'App Preview | Codelab',
 }
 
-const PagePreviewPage = async ({
-  params: { pageId },
-}: {
-  params: { pageId: string }
+const PagePreviewPage = async (props: {
+  params: Promise<{ pageId: string }>
 }) => {
+  const params = await props.params
+  const { pageId } = params
+
   return <PagePreviewPageConnector pageId={pageId} />
 }
 

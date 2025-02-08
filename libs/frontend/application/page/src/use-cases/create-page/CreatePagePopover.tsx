@@ -19,7 +19,7 @@ import { CreatePageForm } from './CreatePageForm'
 
 export const CreatePagePopover = observer<PageContextParams>(
   ({ appId, pageId }) => {
-    const submitRef = useRef<Maybe<SubmitController>>()
+    const submitRef = useRef<Maybe<SubmitController>>(undefined)
     const router = useRouter()
     const { createPopover } = usePageService()
 

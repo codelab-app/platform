@@ -6,8 +6,12 @@ import { LayoutClient } from './layout.client'
 
 type LayoutProps = DashboardLayoutProps<'header', 'componentId'>
 
-const ComponentPreviewLayout = ({ children, header, params }: LayoutProps) => {
-  const { componentId } = params
+const ComponentPreviewLayout = async ({
+  children,
+  header,
+  params,
+}: LayoutProps) => {
+  const { componentId } = await params
 
   return (
     <DashboardLayout<'header', 'componentId'> header={header} params={params}>

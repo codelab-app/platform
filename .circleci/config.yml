@@ -81,8 +81,8 @@ commands:
             - ~/.nvm
       - run:
           command: |
-            nvm install 20.18.1
-            nvm alias default 20.18.1
+            nvm install 22.13.1
+            nvm alias default 22.13.1
             node -v
           name: Set Node Version
   install-packages:
@@ -122,6 +122,7 @@ commands:
     steps:
       - run:
           command: |
+            sudo npm install -g corepack@0.31.0
             sudo corepack enable
             sudo corepack prepare pnpm@9.1.1 --activate
             pnpm config set store-dir ~/.pnpm-store
@@ -206,10 +207,10 @@ commands:
 executors:
   docker-node:
     docker:
-      - image: cimg/node:20.18.1-browsers
+      - image: cimg/node:22.13.1-browsers
   docker-node-neo4j:
     docker:
-      - image: cimg/node:20.18.1-browsers
+      - image: cimg/node:22.13.1-browsers
         name: 127.0.0.1
       - environment:
           NEO4J_ACCEPT_LICENSE_AGREEMENT: 'yes'

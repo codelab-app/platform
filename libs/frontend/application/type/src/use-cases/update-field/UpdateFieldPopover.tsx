@@ -16,7 +16,7 @@ import { UpdateFieldForm } from './UpdateFieldForm'
 
 export const UpdateFieldPopover = observer<{ id: string }>(({ id }) => {
   const router = useRouter()
-  const submitRef = useRef<Maybe<SubmitController>>()
+  const submitRef = useRef<Maybe<SubmitController>>(undefined)
   const { updatePopover } = useFieldService()
   const params = useUrlPathParams()
   const closePopover = () => updatePopover.close(router, params)

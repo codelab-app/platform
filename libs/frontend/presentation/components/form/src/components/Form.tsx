@@ -19,7 +19,7 @@ import { useAsyncHandler, usePostSubmit } from './utils'
 export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
   const Form = <TData, TResponse = unknown>(
     props: React.PropsWithChildren<FormProps<TData, TResponse>>,
-  ): ReactElement => {
+  ): ReactElement<unknown> => {
     const {
       autosave = false,
       children,

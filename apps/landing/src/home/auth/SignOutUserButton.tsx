@@ -2,7 +2,7 @@ import type { ButtonProps } from 'antd'
 
 import { Button } from 'antd'
 
-export const signOutHref = '/api/auth/logout'
+export const signOutHref = '/auth/logout'
 
 export const SignOutUserButton = ({ type = 'primary' }: ButtonProps) => {
   return (

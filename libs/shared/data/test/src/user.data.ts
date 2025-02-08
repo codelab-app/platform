@@ -52,5 +52,3 @@ export const userDto: IUserDto = {
   roles: [],
   username: 'Codelab',
 }
-
-// export const userDto: IUserDto = mapAuth0IdTokenToUserDto(auth0IdToken)

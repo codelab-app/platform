@@ -5,7 +5,9 @@ import { DashboardPopover } from '@codelab/frontend-presentation-view/templates'
 
 import UpdateTagConnector from './page.connector'
 
-const Page = async ({ params: { id } }: { params: { id: string } }) => {
+const Page = async (props: { params: Promise<{ id: string }> }) => {
+  const params = await props.params
+  const { id } = params
   const tagDto = await tagRepository.findOne({ id })
 
   return (

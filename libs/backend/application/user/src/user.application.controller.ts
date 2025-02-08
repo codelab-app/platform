@@ -1,8 +1,8 @@
 import { CurrentUser } from '@codelab/backend/application/auth'
 import { UserDomainService, UserRepository } from '@codelab/backend/domain/user'
-import { IUserSession, type IUserDto } from '@codelab/shared/abstract/core'
+import { type IUserDto, IUserSession } from '@codelab/shared/abstract/core'
 import { Controller, Get, Post } from '@nestjs/common'
-import * as Sentry from '@sentry/nestjs'
+import { startSpan } from '@sentry/nestjs'
 
 @Controller('user')
 export class UserApplicationController {
@@ -13,7 +13,7 @@ export class UserApplicationController {
 
   @Get('/debug-sentry')
   getError() {
-    Sentry.startSpan({ name: 'debug-sentry' }, () => {
+    startSpan({ name: 'debug-sentry' }, () => {
       console.log('debug sentry')
     })
     // throw new Error('My first Sentry error!')

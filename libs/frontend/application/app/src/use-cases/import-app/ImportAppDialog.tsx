@@ -11,7 +11,7 @@ import {
 import { useImportApp } from './useImportApp.hook'
 
 export const ImportAppDialog = (props: {
-  inputRef: RefObject<HTMLInputElement>
+  inputRef: RefObject<HTMLInputElement | null>
 }) => {
   const importApp = useImportApp()
 

@@ -55,9 +55,9 @@ export const typeboxSchemaNaming = createESLintRule({
             ? node.id.name
             : null
           : node.parent.type === AST_NODE_TYPES.VariableDeclarator &&
-              node.parent.id.type === AST_NODE_TYPES.Identifier
-            ? node.parent.id.name
-            : null
+            node.parent.id.type === AST_NODE_TYPES.Identifier
+          ? node.parent.id.name
+          : null
 
       /**
        * ESLint can't get the inferred type, only if there exists an explicit annotation, so we have to turn off checking for functions.

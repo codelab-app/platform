@@ -1,9 +1,9 @@
 import { IResourceType } from '@codelab/shared/abstract/core'
 
-import { ReactComponent as GraphQlPlusSvg } from './add-graphql.svg'
-import { ReactComponent as RestPlusSvg } from './add-rest.svg'
-import { ReactComponent as GraphQlSvg } from './graphql.svg'
-import { ReactComponent as RestSvg } from './rest.svg'
+import GraphQlPlusSvg from './add-graphql.svg'
+import RestPlusSvg from './add-rest.svg'
+import GraphQlSvg from './graphql.svg'
+import RestSvg from './rest.svg'
 
 export const icons = {
   add: {

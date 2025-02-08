@@ -6,10 +6,11 @@ import { DashboardPopover } from '@codelab/frontend-presentation-view/templates'
 import { UpdateFieldPopover } from './UpdateFieldPopover'
 
 export const UpdateFieldPopoverPage = async ({
-  params: { id },
+  params,
 }: {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }) => {
+  const { id } = await params
   const field = await fieldRepository.findOne({ id_IN: [id] })
 
   if (!field) {

@@ -1,6 +1,10 @@
-import { v4 } from 'uuid';
-import { breakpoints, DEFAULT_BUILDER_BREAKPOINT } from '@codelab/shared/config/builder';
-import { IPreferenceDto } from "@codelab/shared/abstract/core";
+import type { IPreferenceDto } from '@codelab/shared/abstract/core'
+
+import {
+  breakpoints,
+  DEFAULT_BUILDER_BREAKPOINT,
+} from '@codelab/shared/config/builder'
+import { v4 } from 'uuid'
 
 /**
  * Initial default data

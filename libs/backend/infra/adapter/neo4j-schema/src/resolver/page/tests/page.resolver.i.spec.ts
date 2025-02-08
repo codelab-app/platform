@@ -15,6 +15,7 @@ import {
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
+import { BreakpointType } from '@codelab/shared/infra/gqlgen'
 import { Validator } from '@codelab/shared/infra/typebox'
 import { ElementProperties } from '@codelab/shared-domain-module/element'
 import { print } from 'graphql'
@@ -64,6 +65,11 @@ describe('PageResolvers', () => {
       auth0Id: 'something',
       email: 'something@some.thing',
       id: v4(),
+      preferences: {
+        builderBreakpointType: BreakpointType.Desktop,
+        builderWidth: 1000,
+        id: v4(),
+      },
       roles: [],
       username: 'someusername',
     })

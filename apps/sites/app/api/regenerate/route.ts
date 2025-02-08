@@ -4,9 +4,9 @@ import { auth0Instance } from '@codelab/shared-infra-auth0/client'
 import { revalidatePath } from 'next/cache'
 import { NextResponse } from 'next/server'
 
-const regenerate = async (request: NextRequest, response: NextResponse) => {
+const regenerate = async (request: NextRequest) => {
   try {
-    const session = await auth0Instance.getSession(request, response)
+    const session = await auth0Instance.getSession()
 
     if (!session?.user) {
       return NextResponse.json({ error: 'Not Authenticated' }, { status: 403 })

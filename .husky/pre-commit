@@ -1,1 +1,1 @@
-pnpm cli tasks lint --stage test
+pnpm cli tasks lint --stage=test

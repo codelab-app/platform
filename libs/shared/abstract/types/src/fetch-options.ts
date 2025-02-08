@@ -1,7 +1,7 @@
 /**
  * Copied from `next/types/global.d.ts`
  */
-interface NextFetchRequestConfig {
+export interface NextFetchRequestConfig {
   revalidate?: number | false
   tags?: Array<string>
 }

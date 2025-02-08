@@ -44,8 +44,8 @@ export const AppListHeader = () => {
       cuiKey: UiKey.UserToolbarItemSignOut,
       icon: <LogoutOutlined />,
       onClick: () => {
-        // redirect to /api/auth/logout
-        window.location.href = '/api/auth/logout'
+        // redirect to /auth/logout
+        window.location.href = '/auth/logout'
       },
       title: 'Sign Out',
     },

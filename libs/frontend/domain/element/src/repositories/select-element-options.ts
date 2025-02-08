@@ -23,14 +23,11 @@ export const getSelectElementOptions = ({
   const allActiveTreeElementOptions =
     allActiveTreeElements.map(mapElementOption)
 
-  const elementMap = (elementOptions ?? []).reduce(
-    (acc, element) => {
-      acc[element.value] = element
+  const elementMap = (elementOptions ?? []).reduce((acc, element) => {
+    acc[element.value] = element
 
-      return acc
-    },
-    {} as Record<string, SelectElementOption>,
-  )
+    return acc
+  }, {} as Record<string, SelectElementOption>)
 
   let selectOptions: Array<SelectElementOption> = []
 

@@ -1,9 +1,9 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-# pnpm cli tasks build --stage test
-# pnpm cli tasks unit --stage test
-# pnpm cli tasks int --stage test
+# pnpm cli tasks build --stage=test
+# pnpm cli tasks unit --stage=test
+# pnpm cli tasks int --stage=test
 # nx run-many --target=tsc-check
 
 # Or run specific test files

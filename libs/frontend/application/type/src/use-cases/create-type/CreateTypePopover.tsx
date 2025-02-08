@@ -14,7 +14,7 @@ import { useTypeService } from '../../services'
 import { CreateTypeForm } from './CreateTypeForm'
 
 export const CreateTypePopover = observer(() => {
-  const submitRef = useRef<Maybe<SubmitController>>()
+  const submitRef = useRef<Maybe<SubmitController>>(undefined)
   const { createPopover } = useTypeService()
   const router = useRouter()
 

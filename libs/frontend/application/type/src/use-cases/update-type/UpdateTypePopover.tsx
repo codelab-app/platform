@@ -20,7 +20,7 @@ interface UpdateTypeContainerProps {
 
 export const UpdateTypePopover = observer<UpdateTypeContainerProps>(
   ({ id }) => {
-    const submitRef = useRef<Maybe<SubmitController>>()
+    const submitRef = useRef<Maybe<SubmitController>>(undefined)
     const { updatePopover } = useTypeService()
     const router = useRouter()
     const { typeDomainService } = useDomainStore()

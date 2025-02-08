@@ -12,7 +12,7 @@ import {
 } from '@codelab/backend/domain/type'
 import { UserRepository } from '@codelab/backend/domain/user'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { AtomType } from '@codelab/shared/infra/gqlgen'
+import { AtomType, BreakpointType } from '@codelab/shared/infra/gqlgen'
 import { Validator } from '@codelab/shared/infra/typebox'
 import { print } from 'graphql'
 import request from 'supertest'
@@ -63,6 +63,11 @@ describe('ElementResolvers', () => {
       auth0Id: v4(),
       email: 'test@codelab.com',
       id: v4(),
+      preferences: {
+        builderBreakpointType: BreakpointType.Desktop,
+        builderWidth: 1000,
+        id: v4(),
+      },
       roles: [],
       username: 'test',
     })

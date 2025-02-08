@@ -47,6 +47,7 @@ class ServerFetchVisitor extends visitor_plugin_common_1.BaseVisitor {
             .map((operation) => operation.name)
             .join(', ');
         return [
+            `import type { NextFetchOptions } from '@codelab/shared/abstract/types'`,
             `import { ${this.config.gqlFn} } from '${this.config.gqlFnPath}'`,
             `import { ${documentImports} } from '${this.config.graphqlPath}'\n`,
         ];
@@ -62,7 +63,7 @@ class ServerFetchVisitor extends visitor_plugin_common_1.BaseVisitor {
             const operationBody = `${this.config.gqlFn}(${o.name}.toString(), variables, next)`;
             const operationArgs = [
                 `variables: Types.${o.variablesTypes}`,
-                'next?: NextFetchRequestConfig & { revalidateTag?: string }',
+                'next?: NextFetchOptions',
             ].join(' ,');
             // server actions must be exported individually
             return `${exportedOperationName} = (${operationArgs}) => ${operationBody}`;

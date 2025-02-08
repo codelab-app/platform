@@ -8,7 +8,7 @@ export const LoginUserButton = () => {
         hover:!bg-purple-400 hover:!text-white
       `}
       ghost
-      href="/api/auth/login"
+      href="/auth/login"
       type="primary"
     >
       Login

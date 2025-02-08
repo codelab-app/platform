@@ -4,7 +4,7 @@ import { CuiSidebarPopoverLayout } from '../../CuiSidebarPopover'
 
 interface CuiSidebarPopoverProps {
   popover?: ReactNode
-  sidebarRef: React.RefObject<HTMLDivElement>
+  sidebarRef: React.RefObject<HTMLDivElement | null>
 }
 
 export const CuiSidebarPopover = ({

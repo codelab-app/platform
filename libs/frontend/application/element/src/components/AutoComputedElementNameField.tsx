@@ -40,7 +40,7 @@ const AutoComputedElementName = observer<AutoComputedElementNameProps>(
     // Used to check if the previous selected atom/component name
     // is different from the current value to determine if the user
     // altered the auto-generated name
-    const currentRenderTypeName = useRef<string>()
+    const currentRenderTypeName = useRef<string>(undefined)
 
     const changedRenderTypeHandler = async (
       renderType?: Partial<IElementRenderTypeDto>,

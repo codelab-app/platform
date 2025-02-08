@@ -1,5 +1,4 @@
 import { getMaybeServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
-import { auth0ServerInstance } from '@codelab/shared-infra-auth0/server'
 import Button from 'antd/lib/button'
 import Link from 'next/link'
 
@@ -7,13 +6,12 @@ import { Subscriptions } from './components/subscriptions'
 
 const HomeView = async () => {
   const maybeUser = await getMaybeServerUser()
-  const session = await auth0ServerInstance.getSession()
 
   /**
    * This is called on server side, useful for getting tokens for playground testing
    */
   // console.log('accessToken', session?.accessToken)
-  // console.log('idToken', session?.idToken)
+  // console.log('idToken', session?.user.idToken)
 
   return (
     <div>
@@ -36,13 +34,13 @@ const HomeView = async () => {
       </Link> */}
       {/* Must use normal link since Next.js Link will send a cors request for prefetching */}
       {maybeUser ? (
-        <Button href="/api/auth/logout" id="logout" type="primary">
+        <Button href="/auth/logout" id="logout" type="primary">
           Log Out
         </Button>
       ) : (
         <Button
           data-testid="auth0-login-link"
-          href="/api/auth/login"
+          href="/auth/login"
           id="login"
           type="primary"
         >

@@ -3,14 +3,11 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import type { IComponentModel } from '@codelab/frontend/abstract/domain'
 import type { SelectOption } from '@codelab/frontend/abstract/types'
-import type { IRef } from '@codelab/shared/abstract/core'
-import type { SelectFieldProps } from 'uniforms-antd'
 
-import { getSelectComponentOptions } from '@codelab/frontend-domain-component/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { useEffect } from 'react'
 import { useAsyncFn } from 'react-use'
-import { connectField, type FieldProps, type GuaranteedProps } from 'uniforms'
+import { connectField, type GuaranteedProps } from 'uniforms'
 import { SelectField } from 'uniforms-antd'
 
 export type SelectComponentProps = GuaranteedProps<string> & {

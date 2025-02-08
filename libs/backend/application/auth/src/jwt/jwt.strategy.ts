@@ -3,13 +3,15 @@ import type { VerifiedCallback, VerifyCallbackWithRequest } from 'passport-jwt'
 
 import { auth0Config } from '@codelab/backend/infra/adapter/auth0'
 import {
-  type Auth0IdToken,
-  type JwtPayload,
+  IRole,
+  IUserSession,
+  JWT_CLAIMS,
+  JwtPayload,
 } from '@codelab/shared/abstract/core'
 import { Inject, Injectable } from '@nestjs/common'
 import { type ConfigType } from '@nestjs/config'
 import { PassportStrategy } from '@nestjs/passport'
-import * as jwt from 'jsonwebtoken'
+import { UserInfoClient } from 'auth0'
 import { passportJwtSecret } from 'jwks-rsa'
 import { ExtractJwt, Strategy } from 'passport-jwt'
 
@@ -44,30 +46,43 @@ export class JwtStrategy
         rateLimit: true,
       }),
     })
+
+    this.userInfoClient = new UserInfoClient({ domain: config.auth0_domain })
   }
 
   async validate(
     req: express.Request,
     payload: JwtPayload,
     done: VerifiedCallback,
-  ): Promise<Auth0IdToken> {
-    /**
-     * We pass the id token in the header to the backend instead of calling the auth0 token endpoint
-     *
-     * We do this to make the user available in the request context
-     */
-    const idToken = req.header('x-id-token')
+  ): Promise<IUserSession> {
+    const token = ExtractJwt.fromAuthHeaderAsBearerToken()(req)
 
-    // if (!payload.aud.includes(this.config.audience.toString())) {
-    //   throw new UnauthorizedException('Audience does not match')
-    // }
+    const { data: auth0IdToken } = await this.userInfoClient.getUserInfo(
+      token ?? '',
+    )
 
-    if (!idToken) {
-      throw new Error('Missing id token')
+    return {
+      auth0Id: payload.sub,
+      email: auth0IdToken.email,
+      id: payload[JWT_CLAIMS].neo4j_user_id,
+      roles: payload[JWT_CLAIMS].roles.map((role) => IRole[role]),
+      username: auth0IdToken.nickname,
     }
 
-    const idTokenPayload = jwt.decode(idToken)
+    // /**
+    //  * We pass the id token in the header to the backend instead of calling the auth0 token endpoint
+    //  *
+    //  * We do this to make the user available in the request context
+    //  */
+    // const idToken = req.header('x-id-token')
 
-    return idTokenPayload as Auth0IdToken
+    // if (!idToken) {
+    //   throw new Error('Missing id token')
+    // }
+
+    // const idTokenPayload = jwt.decode(idToken)
+    // return mapAuth0IdTokenToUserDto(idTokenPayload as Auth0IdToken)
   }
+
+  private userInfoClient: UserInfoClient
 }

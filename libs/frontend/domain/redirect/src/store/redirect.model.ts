@@ -76,7 +76,7 @@ export class RedirectModel
 
     this.targetUrl =
       this.targetType === IRedirectTargetType.Url
-        ? (targetUrl ?? this.targetUrl)
+        ? targetUrl ?? this.targetUrl
         : null
 
     return this
