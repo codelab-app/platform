@@ -54,28 +54,28 @@ export const elementRepository: IElementRepository = {
 
   // FIXME: make a unique where
   update: async (where: ElementWhere, element: IElementDto) => {
-    console.debug(elementMapper.toUpdateInput(element))
-
     // Disconnect here first for pre/post, issue with generated cypher query
-    const update = {
-      // firstChild: disconnectAll({ omitId: element.firstChild?.id }),
-      // parentElement: disconnectAll({ omitId: element.parentElement?.id }),
-      postRenderActions: [
-        disconnectManyAll({
-          omitIds: element.postRenderActions?.map((action) => action.id),
-        }),
-      ],
-      preRenderActions: [
-        disconnectManyAll({
-          omitIds: element.preRenderActions?.map((action) => action.id),
-        }),
-      ],
-    }
+    // const update = {
+    //   firstChild: disconnectAll({ omitId: element.firstChild?.id }),
+    //   nextSibling: disconnectAll({ omitId: element.nextSibling?.id }),
+    //   parentElement: disconnectAll({ omitId: element.parentElement?.id }),
+    //   postRenderActions: [
+    //     disconnectManyAll({
+    //       omitIds: element.postRenderActions?.map((action) => action.id),
+    //     }),
+    //   ],
+    //   preRenderActions: [
+    //     disconnectManyAll({
+    //       omitIds: element.preRenderActions?.map((action) => action.id),
+    //     }),
+    //   ],
+    //   prevSibling: disconnectAll({ omitId: element.prevSibling?.id }),
+    // }
 
-    await UpdateElements({
-      update,
-      where,
-    })
+    // await UpdateElements({
+    //   update,
+    //   where,
+    // })
 
     const {
       updateElements: { elements },
@@ -85,8 +85,6 @@ export const elementRepository: IElementRepository = {
     })
 
     const updatedElement = elements[0]
-
-    console.log('updatedElement', updatedElement)
 
     Validator.assertsDefined(updatedElement, 'Updated element is undefined')
 

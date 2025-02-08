@@ -77,6 +77,7 @@ export const useDomainStoreHydrator = () => {
           })
 
           elementsDto?.forEach((element) => {
+            console.log('hydrate', element)
             elementDomainService.hydrate(element)
           })
 
@@ -109,7 +110,6 @@ export const useDomainStoreHydrator = () => {
           })
 
           pagesDto?.forEach((page) => {
-            console.log('hydrating page', page)
             pageDomainService.hydrate(page)
           })
         })

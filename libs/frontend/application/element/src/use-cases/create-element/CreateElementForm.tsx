@@ -111,7 +111,7 @@ export const CreateElementForm = observer<CreateElementFormProps>((props) => {
       id: v4(),
     },
     renderType: {
-      __typename: IElementRenderTypeKind.Atom, // eslint-disable-line @typescript-eslint/naming-convention
+      __typename: IElementRenderTypeKind.Atom,
       id: atomDomainService.defaultRenderType.id,
     },
   }

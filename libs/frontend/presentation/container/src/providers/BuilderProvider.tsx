@@ -11,8 +11,9 @@ import {
   type RendererType,
   runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
-import { tracker } from '@codelab/frontend/infra/logger'
+import { clientLogger, tracker } from '@codelab/frontend/infra/logger'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import { cLog } from '@codelab/shared/utils'
 import { createContext, type ReactNode, useEffect } from 'react'
 import { v4 } from 'uuid'
 
@@ -67,12 +68,16 @@ export const BuilderProvider = ({
     //   event: 'Set selected node',
     // })
 
-    builderService.setSelectedNode(runtimeElementRef(runtimeRootElement))
+    /**
+     * Had a bug where the selected node would reset to the body for no reason.
+     *
+     * Turns out some issue with server action will re-run the component, which is re-running this component
+     */
+    if (!builderService.selectedNode) {
+      console.log('setSelectedNode')
+      builderService.setSelectedNode(runtimeElementRef(runtimeRootElement))
+    }
 
-    // tracker.useEvent({
-    //   componentName: 'BuilderProvider',
-    //   event: 'Expression transformer init',
-    // })
     void renderer.expressionTransformer.init()
   }, [rendererType, containerNode.id])
 
