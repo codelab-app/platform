@@ -203,7 +203,7 @@ commands:
           command: |
             ~/project/.docker/cypher/scripts/apply-constraints.sh
           name: Apply Neo4j Constraints
-          working_directory: ~/project/.docker/cypher
+          working_directory: ~/project/.docker/cypher/scripts
 executors:
   docker-node:
     docker:
