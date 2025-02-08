@@ -4,11 +4,14 @@ import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import type { PopconfirmProps } from 'antd'
 import type { ReactNode } from 'react'
 
+import { loadingAtom } from '@codelab/frontend-application-shared-store/loading'
 import {
   useApplicationStore,
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
+import { useAsyncHandler } from '@codelab/frontend-presentation-components-form'
 import { Popconfirm } from 'antd'
+import { useSetAtom } from 'jotai'
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
 
@@ -24,6 +27,7 @@ export const DeleteElementPopconfirm = observer<DeleteElementPopconfirmProps>(
     const { elementDomainService } = useDomainStore()
     const { builderService } = useApplicationStore()
     const [open, setOpen] = useState(false)
+    const asyncHandler = useAsyncHandler()
 
     const onConfirm = async () => {
       await deleteElementUseCase(element, elementDomainService, () =>
@@ -35,7 +39,7 @@ export const DeleteElementPopconfirm = observer<DeleteElementPopconfirmProps>(
     return (
       <Popconfirm
         okText="Delete"
-        onConfirm={onConfirm}
+        onConfirm={asyncHandler(onConfirm)}
         onOpenChange={setOpen}
         open={open}
         placement={placement}
