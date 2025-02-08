@@ -343,7 +343,7 @@ export class BuilderPage extends BasePage {
         await expect(isVisible).toBeVisible()
       }).toPass({
         // Use shorter polling intervals for better detection
-        intervals: [50],
+        intervals: [25, 50, 100, 125, 150, 175, 200],
         // Add reasonable timeout to prevent infinite waiting
         timeout: 10000,
       })

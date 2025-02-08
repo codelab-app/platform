@@ -509,6 +509,9 @@ importers:
       object-typed:
         specifier: 1.0.0
         version: 1.0.0
+      p-min-delay:
+        specifier: ^4.0.2
+        version: 4.0.2
       passport:
         specifier: 0.7.0
         version: 0.7.0
@@ -12976,6 +12979,10 @@ packages:
     resolution: {integrity: sha512-VFqfGDHlx87K66yZrNdI4YGtD70IRyd+zSvgks6mzHPRNkoKy+9EKP4SFC77/vTTQYmRmti7dvqC+m5jBrBAcg==}
     engines: {node: '>=12'}
 
+  p-min-delay@4.0.2:
+    resolution: {integrity: sha512-7hJcTq/MGF5pNHbQ2akrpPy1N43YYlB4RPECDSbPRn4xP/dsgP0I6ls7NvSUQ5k88o+CyATMOrQiZ/PK4aQR9w==}
+    engines: {node: '>=12'}
+
   p-retry@6.2.1:
     resolution: {integrity: sha512-hEt02O4hUct5wtwg4H4KcWgDdm+l1bOaEy/hWzd8xtXB9BqxTWBBhb+2ImAtH4Cv4rPjV76xN3Zumqk3k3AhhQ==}
     engines: {node: '>=16.17'}
@@ -16553,6 +16560,10 @@ packages:
   yoctocolors-cjs@2.1.2:
     resolution: {integrity: sha512-cYVsTjKl8b+FrnidjibDWskAv7UKOfcwaVZdp/it9n1s9fU3IkgDbhdIRKCW4JDsAlECJY0ytoVPT3sK6kideA==}
     engines: {node: '>=18'}
+
+  yoctodelay@1.2.0:
+    resolution: {integrity: sha512-12y/P9MSig9/5BEhBgylss+fkHiCRZCvYR81eH35NW9uw801cvJt31EAV+WOLcwZRZbLiIQl/hxcdXXXFmGvXg==}
+    engines: {node: '>=4'}
 
   zen-observable-ts@1.1.0:
     resolution: {integrity: sha512-1h4zlLSqI2cRLPJUHJFL8bCWHhkpuXkF+dbGkRaWjgDIG26DmzyshUMrdV/rL3UnR+mhaX4fRq8LPouq0MYYIA==}
@@ -31767,6 +31778,10 @@ snapshots:
     dependencies:
       aggregate-error: 4.0.1
 
+  p-min-delay@4.0.2:
+    dependencies:
+      yoctodelay: 1.2.0
+
   p-retry@6.2.1:
     dependencies:
       '@types/retry': 0.12.2
@@ -35864,6 +35879,8 @@ snapshots:
   yocto-queue@1.1.1: {}
 
   yoctocolors-cjs@2.1.2: {}
+
+  yoctodelay@1.2.0: {}
 
   zen-observable-ts@1.1.0:
     dependencies:
