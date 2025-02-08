@@ -10,7 +10,9 @@ import {
   connectNodeIds,
   disconnectAll,
   reconnectNodeId,
+  reconnectNodeIds,
 } from '@codelab/shared/domain/orm'
+import { logger } from '@codelab/shared/utils'
 import { propMapper } from '@codelab/shared-domain-module/prop'
 
 import { ElementProperties } from './element.properties'
@@ -116,6 +118,12 @@ export const elementMapper: IMapper<
     style,
     tailwindClassNames,
   }: IElementDto): ElementUpdateInput => {
+    logger.debug('toUpdateInput', {
+      id: name,
+      name,
+      page,
+    })
+
     return {
       childMapperComponent: reconnectNodeId(childMapperComponent?.id),
       childMapperPreviousSibling: reconnectNodeId(
@@ -134,12 +142,13 @@ export const elementMapper: IMapper<
       /**
        * The generated cypher query has issues if we do both connect & disconnect, disconnect before here
        */
-      postRenderActions: [
-        connectNodeIds(postRenderActions?.map((action) => action.id)),
-      ],
-      preRenderActions: [
-        connectNodeIds(preRenderActions?.map((action) => action.id)),
-      ],
+      postRenderActions: reconnectNodeIds(
+        postRenderActions?.map((action) => action.id),
+      ),
+
+      preRenderActions: reconnectNodeIds(
+        preRenderActions?.map((action) => action.id),
+      ),
       prevSibling: reconnectNodeId(prevSibling?.id),
       props: reconnectNodeId(props.id),
       renderForEachPropKey,

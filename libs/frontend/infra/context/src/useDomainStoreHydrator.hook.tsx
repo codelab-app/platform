@@ -6,6 +6,7 @@ import {
   useDomainStore,
   useUndoManager,
 } from '@codelab/frontend-infra-mobx/context'
+import { runInAction } from 'mobx'
 import { useCallback } from 'react'
 
 /**
@@ -51,66 +52,86 @@ export const useDomainStoreHydrator = () => {
       // we use optimistic updates in some parts of the app, wrapping with a single group action
       // makes it very easy to undo the entire hydration, in case if requested operation fails
       undoManager.withGroup('hydration-group-action', () => {
-        appsDto?.forEach((app) => {
-          appDomainService.hydrate(app)
-        })
+        /**
+         * Batch the hydration to prevent multiple re-renders, otherwise data invariant will be violated
+         */
+        runInAction(() => {
+          appsDto?.forEach((app) => {
+            appDomainService.hydrate(app)
+          })
 
-        domainsDto?.forEach((domain) => {
-          domainDomainService.hydrate(domain)
-        })
+          domainsDto?.forEach((domain) => {
+            domainDomainService.hydrate(domain)
+          })
 
-        atomsDto?.forEach((atom) => {
-          atomDomainService.hydrate(atom)
-        })
+          atomsDto?.forEach((atom) => {
+            atomDomainService.hydrate(atom)
+          })
 
-        typesDto?.forEach((type) => {
-          typeDomainService.hydrate(type)
-        })
+          typesDto?.forEach((type) => {
+            typeDomainService.hydrate(type)
+          })
 
-        fieldsDto?.forEach((field) => {
-          fieldDomainService.hydrate(field)
-        })
+          fieldsDto?.forEach((field) => {
+            fieldDomainService.hydrate(field)
+          })
 
-        elementsDto?.forEach((element) => {
-          elementDomainService.hydrate(element)
-        })
+          elementsDto?.forEach((element) => {
+            console.log('hydrate', element)
+            elementDomainService.hydrate(element)
+          })
 
-        componentsDto?.forEach((component) => {
-          componentDomainService.hydrate(component)
-        })
+          componentsDto?.forEach((component) => {
+            componentDomainService.hydrate(component)
+          })
 
-        tagsDto?.forEach((tag) => {
-          tagDomainService.hydrate(tag)
-        })
+          tagsDto?.forEach((tag) => {
+            tagDomainService.hydrate(tag)
+          })
 
-        storesDto?.forEach((store) => {
-          storeDomainService.hydrate(store)
-        })
+          storesDto?.forEach((store) => {
+            storeDomainService.hydrate(store)
+          })
 
-        actionsDto?.forEach((action) => {
-          actionDomainService.hydrate(action)
-        })
+          actionsDto?.forEach((action) => {
+            actionDomainService.hydrate(action)
+          })
 
-        resourcesDto?.forEach((resource) => {
-          resourceDomainService.hydrate(resource)
-        })
+          resourcesDto?.forEach((resource) => {
+            resourceDomainService.hydrate(resource)
+          })
 
-        authGuardsDto?.forEach((authGuard) => {
-          authGuardDomainService.hydrate(authGuard)
-        })
+          authGuardsDto?.forEach((authGuard) => {
+            authGuardDomainService.hydrate(authGuard)
+          })
 
-        redirectsDto?.forEach((redirect) => {
-          redirectDomainService.hydrate(redirect)
-        })
+          redirectsDto?.forEach((redirect) => {
+            redirectDomainService.hydrate(redirect)
+          })
 
-        pagesDto?.forEach((page) => {
-          pageDomainService.hydrate(page)
+          pagesDto?.forEach((page) => {
+            pageDomainService.hydrate(page)
+          })
         })
       })
-
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     },
-    [],
+    [
+      actionDomainService,
+      appDomainService,
+      atomDomainService,
+      authGuardDomainService,
+      componentDomainService,
+      domainDomainService,
+      elementDomainService,
+      fieldDomainService,
+      pageDomainService,
+      redirectDomainService,
+      resourceDomainService,
+      storeDomainService,
+      tagDomainService,
+      typeDomainService,
+      undoManager,
+    ],
   )
 
   return hydrate

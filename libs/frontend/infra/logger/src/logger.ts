@@ -36,7 +36,7 @@ const sendLog = async (
 /**
  * We don't do any logging in the browser, we send information to api and do logging there, which allows optional logging to file
  */
-export const logger: ILoggerService = {
+export const clientLogger: ILoggerService = {
   debug: (message: string, options: LogOptions) =>
     sendLog('debug', message, options),
   error: (message: string, options: LogOptions) =>
