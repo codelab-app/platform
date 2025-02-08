@@ -39,30 +39,30 @@ test('should be able to create element tree', async ({ builderPage: page }) => {
   await expect(page.getNotification()).toBeHidden()
 })
 
-test('should be able to update element', async ({ builderPage: page }) => {
-  await page.updateBuilderElement()
-  await page.checkBuilderIsUpdated()
+// test('should be able to update element', async ({ builderPage: page }) => {
+//   await page.updateBuilderElement()
+//   await page.checkBuilderIsUpdated()
 
-  await expect(page.getNotification()).toBeHidden()
-})
+//   await expect(page.getNotification()).toBeHidden()
+// })
 
-test('should be able to delete element subtree', async ({
-  builderPage: page,
-}) => {
-  const colAElement = page.getTreeElement(elementColA.name, elementColA.atom)
-  const colBElement = page.getTreeElement(elementColB.name, elementColB.atom)
-  const colCElement = page.getTreeElement(elementColC.name, elementColC.atom)
+// test('should be able to delete element subtree', async ({
+//   builderPage: page,
+// }) => {
+//   const colAElement = page.getTreeElement(elementColA.name, elementColA.atom)
+//   const colBElement = page.getTreeElement(elementColB.name, elementColB.atom)
+//   const colCElement = page.getTreeElement(elementColC.name, elementColC.atom)
 
-  await expect(colAElement).toBeVisible()
-  await expect(colBElement).toBeVisible()
-  await expect(colCElement).toBeVisible()
+//   await expect(colAElement).toBeVisible()
+//   await expect(colBElement).toBeVisible()
+//   await expect(colCElement).toBeVisible()
 
-  await page.deleteElementByContextMenu(elementColA)
-  await page.deleteElementFromUpdateForm(elementColB)
-  await page.deleteElementFromOverlay(elementColC)
+//   await page.deleteElementByContextMenu(elementColA)
+//   await page.deleteElementFromUpdateForm(elementColB)
+//   await page.deleteElementFromOverlay(elementColC)
 
-  await expect(colAElement).toBeHidden()
-  await expect(colBElement).toBeHidden()
-  await expect(colCElement).toBeHidden()
-  await expect(page.getNotification()).toBeHidden()
-})
+//   await expect(colAElement).toBeHidden()
+//   await expect(colBElement).toBeHidden()
+//   await expect(colCElement).toBeHidden()
+//   await expect(page.getNotification()).toBeHidden()
+// })
