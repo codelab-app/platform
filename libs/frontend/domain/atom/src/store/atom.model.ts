@@ -92,18 +92,18 @@ export class Atom
           name: 'HTML',
         }
       : antdAtoms.includes(atomType)
-        ? {
-            color: 'geekblue',
-            icon: createElement(AntDesignOutlined),
-            name: 'Ant Design',
-          }
-        : codelabAtoms.includes(atomType)
-          ? { color: 'yellow', name: 'Codelab' }
-          : reactAtoms.includes(atomType)
-            ? { color: 'green', name: 'React' }
-            : atomType === 'ExternalComponent'
-              ? { color: 'brown', name: 'External' }
-              : { color: 'black', name: 'Unknown' }
+      ? {
+          color: 'geekblue',
+          icon: createElement(AntDesignOutlined),
+          name: 'Ant Design',
+        }
+      : codelabAtoms.includes(atomType)
+      ? { color: 'yellow', name: 'Codelab' }
+      : reactAtoms.includes(atomType)
+      ? { color: 'green', name: 'React' }
+      : atomType === 'ExternalComponent'
+      ? { color: 'brown', name: 'External' }
+      : { color: 'black', name: 'Unknown' }
   }
 
   @computed

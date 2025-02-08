@@ -25,7 +25,7 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { createValidator, toRefSchema } from '@codelab/frontend/shared/utils'
 import { Prop } from '@codelab/frontend-domain-prop/store'
-import { slugify, titleCase } from '@codelab/shared/utils'
+import { logger, slugify, titleCase } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
   idProp,
@@ -62,6 +62,11 @@ const create = (element: IElementDto): IElementModel => {
     style,
     tailwindClassNames,
   } = element
+
+  logger.debug('createElement', {
+    name,
+    page,
+  })
 
   return new Element({
     childMapperComponent: childMapperComponent
@@ -345,7 +350,10 @@ export class Element
       props: this.props.toJson,
       renderForEachPropKey: this.renderForEachPropKey,
       renderIfExpression: this.renderIfExpression,
-      renderType: this.renderType.current.toJson,
+      renderType: {
+        __typename: this.renderType.current.__typename,
+        id: this.renderType.id,
+      },
       style: this.style,
     }
   }

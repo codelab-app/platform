@@ -8,15 +8,9 @@ export enum IElementRenderTypeKind {
   Component = 'Component',
 }
 
-const AtomRenderTypeSchema = Typebox.DiscriminatedRef(
-  IElementRenderTypeKind.Atom,
-)
-
-export type IAtomRenderType = Static<typeof AtomRenderTypeSchema>
-
 export const ElementRenderTypeDtoSchema = Type.Union(
   [
-    AtomRenderTypeSchema,
+    Typebox.DiscriminatedRef(IElementRenderTypeKind.Atom),
     Typebox.DiscriminatedRef(IElementRenderTypeKind.Component),
   ],
   { discriminantKey: '__typename' },

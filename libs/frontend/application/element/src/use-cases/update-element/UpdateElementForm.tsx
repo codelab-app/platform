@@ -8,7 +8,7 @@ import {
   type IUpdateElementData,
 } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
-import { logger, tracker } from '@codelab/frontend/infra/logger'
+import { clientLogger, tracker } from '@codelab/frontend/infra/logger'
 import {
   SelectActionsField,
   SelectComponent,
@@ -19,6 +19,7 @@ import {
   Form,
 } from '@codelab/frontend-presentation-components-form'
 import { CodeMirrorLanguage } from '@codelab/shared/infra/gqlgen'
+import { cLog, logger } from '@codelab/shared/utils'
 import { Collapse } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { isDeepEqual } from 'remeda'
@@ -42,6 +43,8 @@ export const UpdateElementForm = observer(
     const elementService = useElementService()
 
     const onSubmit = async (data: IUpdateElementData) => {
+      logger.debug('onSubmit', data)
+
       return elementService.update(data)
     }
 
@@ -124,8 +127,6 @@ export const UpdateElementForm = observer(
         label: 'Child Mapper',
       })
     }
-
-    logger.debug('UpdateElementForm', { data: element.toJson })
 
     return (
       <div key={element.id}>

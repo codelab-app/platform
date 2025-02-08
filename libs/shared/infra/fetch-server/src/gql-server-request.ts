@@ -4,7 +4,7 @@ import type { ObjectLike } from '@codelab/shared/abstract/types'
 import type { DocumentTypeDecoration } from '@graphql-typed-document-node/core'
 
 import { getEnv } from '@codelab/shared/config/env'
-import { cLog } from '@codelab/shared/utils'
+import { logger } from '@codelab/shared/utils'
 import { revalidateTag } from 'next/cache'
 
 import type { NextFetchOptions } from './options'
@@ -42,7 +42,7 @@ export const gqlServerRequest = async <TResult, TVariables extends ObjectLike>(
   const { data, errors } = await response.json()
 
   if (errors && errors.length) {
-    cLog(document, variables, errors)
+    logger.debug(document, variables, errors)
 
     throw new Error(errors[0]?.message)
   }

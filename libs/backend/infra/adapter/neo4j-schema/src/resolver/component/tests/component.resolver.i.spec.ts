@@ -10,7 +10,7 @@ import { UserRepository } from '@codelab/backend/domain/user'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { AtomType } from '@codelab/shared/infra/gqlgen'
 import { Validator } from '@codelab/shared/infra/typebox'
-import { cLog } from '@codelab/shared/utils'
+import { logger } from '@codelab/shared/utils'
 import { ElementProperties } from '@codelab/shared-domain-module/element'
 import { print } from 'graphql'
 import request from 'supertest'
@@ -174,7 +174,7 @@ describe('ComponentResolvers', () => {
       })
       .expect(200)
       .expect((res) => {
-        cLog('res', res.body.data)
+        logger.debug('res', res.body.data)
 
         expect(res.body.data.components).toEqual([
           {

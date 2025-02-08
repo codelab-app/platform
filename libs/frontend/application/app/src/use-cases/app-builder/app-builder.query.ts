@@ -35,6 +35,7 @@ export const appBuilderQuery: IAppBuilderQuery = async ({
     page.elements.map((element) => ({
       ...element,
       closestContainerNode: { id: page.id },
+      //
       page: { id: page.id },
     })),
   )

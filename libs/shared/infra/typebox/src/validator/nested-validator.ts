@@ -24,9 +24,6 @@ export class NestedValidator<S extends TSchema> extends StandardValidator<S> {
     schema: Readonly<VS>,
     value: Static<VS>,
   ): Static<VS> {
-    // console.log(value)
-    // cLog(schema)
-
     // Handle unions first
     if (IsUnion(schema)) {
       const unionSchema = schema as TUnion<Array<TObject>>

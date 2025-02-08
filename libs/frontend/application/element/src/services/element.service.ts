@@ -9,12 +9,12 @@ import {
   type IUpdateElementData,
 } from '@codelab/frontend/abstract/domain'
 import { PageType, PrimarySidebar } from '@codelab/frontend/abstract/types'
-import { logger } from '@codelab/frontend/infra/logger'
 import { useAtomService } from '@codelab/frontend-application-atom/services'
 import { usePropService } from '@codelab/frontend-application-prop/services'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { logger } from '@codelab/shared/utils'
 import { uniqueBy } from 'remeda'
 
 /**
@@ -82,7 +82,7 @@ export const useElementService = (): IElementService => {
       element.closestParentElement.current.setExpanded(true)
     }
 
-    logger.debug('elementService.create', { data })
+    logger.debug('elementService.create', data)
     await elementRepository.add(data)
     await syncModifiedElements()
 
@@ -147,6 +147,10 @@ export const useElementService = (): IElementService => {
   }
 
   const updateElements = async (elements: Array<IElementModel>) => {
+    logger.debug(
+      'updateElements',
+      elements.map((element) => element.toJson),
+    )
     await Promise.all(
       uniqueBy(elements, (element) => element.id).map((element) =>
         elementRepository.update({ id: element.id }, element.toJson),
