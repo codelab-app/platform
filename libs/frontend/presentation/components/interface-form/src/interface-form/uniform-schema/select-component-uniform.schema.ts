@@ -24,13 +24,13 @@ export const selectComponentUniformSchema: ITypeModelUniformSchemaBuilder<
   uniforms: {
     component: ToggleExpressionField({
       autocomplete,
-      getBaseControl: async ({ value, ...fieldProps }) =>
+      getBaseControl: ({ value, ...fieldProps }) =>
         SelectComponent({
           ...fieldProps,
           label: null,
-          name: 'id',
+          name: '',
           value: value?.toString(),
-        }),
+        }) as React.ReactNode,
       onToggle: (showExpression, { field, onChange }, lastValue) => {
         if (showExpression) {
           onChange(lastValue ?? COMPONENT_TEMPLATE)
