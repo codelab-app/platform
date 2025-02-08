@@ -35,8 +35,7 @@ export const appBuilderQuery: IAppBuilderQuery = async ({
     page.elements.map((element) => ({
       ...element,
       closestContainerNode: { id: page.id },
-      //
-      page: { id: page.id },
+      page: element.page ? { id: element.page.id } : undefined,
     })),
   )
 
@@ -44,7 +43,9 @@ export const appBuilderQuery: IAppBuilderQuery = async ({
     component.elements.map((element) => ({
       ...element,
       closestContainerNode: { id: component.id },
-      component: { id: component.id },
+      component: element.parentComponent
+        ? { id: element.parentComponent.id }
+        : undefined,
     })),
   )
 
