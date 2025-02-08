@@ -192,7 +192,7 @@ export class BuilderPage extends BasePage {
   }
 
   getSpinner() {
-    return this.page.getByRole('status')
+    return this.page.getByRole('status', { name: 'Loading' })
   }
 
   getStateAccordion() {
