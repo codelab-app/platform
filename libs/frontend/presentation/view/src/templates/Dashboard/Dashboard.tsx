@@ -9,6 +9,7 @@ import {
   explorerPaneBreakpoints,
   PaneSection,
 } from '@codelab/frontend/presentation/codelab-ui'
+import { useIsMounted } from '@codelab/frontend/shared/utils'
 import Layout from 'antd/es/layout'
 import Sider from 'antd/es/layout/Sider'
 import { useMemo } from 'react'
@@ -44,6 +45,12 @@ export const Dashboard = ({
       }),
     [appId, componentId, pageId],
   )
+
+  const isMounted = useIsMounted()
+
+  if (!isMounted) {
+    return null
+  }
 
   return (
     <Layout className="h-full">

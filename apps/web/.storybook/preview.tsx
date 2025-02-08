@@ -5,7 +5,7 @@ import {
   React19Compatibility,
   StyleProviders,
 } from '@codelab/frontend/infra/context'
-import { preferenceDto, userDto } from '@codelab/frontend/test/data'
+import { userDto } from '@codelab/frontend/test/data'
 import {
   createRootStore,
   RootStoreProvider,
@@ -36,7 +36,6 @@ const preview: Preview = {
       }
 
       const store = createRootStore({
-        preference: preferenceDto,
         routerProps: {
           pathParams: {},
         },
