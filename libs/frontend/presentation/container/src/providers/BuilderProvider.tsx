@@ -4,16 +4,13 @@ import type {
   IComponentModel,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
-import type { ReadonlyURLSearchParams } from 'next/navigation'
 
 import {
   rendererRef,
   type RendererType,
   runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
-import { clientLogger, tracker } from '@codelab/frontend/infra/logger'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
-import { cLog } from '@codelab/shared/utils'
 import { createContext, type ReactNode, useEffect } from 'react'
 import { v4 } from 'uuid'
 
