@@ -38,7 +38,7 @@
         "api": {
           "id": "de749d18-fdea-4228-a6b6-87592483402b"
         },
-        "defaultValues": "\\\\\\\"items\\\\\\",
+        "defaultValues": "items",
         "description": null,
         "fieldType": {
           "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"

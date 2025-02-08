@@ -86,7 +86,7 @@
         "api": {
           "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
         },
-        "defaultValues": "null",
+        "defaultValues": "[]",
         "description": null,
         "fieldType": {
           "id": "61e9178f-9a23-4fc0-bb0b-d8264431f254"
@@ -278,7 +278,7 @@
         "api": {
           "id": "8baae515-020d-422e-a1bc-340c20490dd2"
         },
-        "defaultValues": "\\\\\\\"New Item\\\\\\",
+        "defaultValues": "New Item",
         "description": null,
         "fieldType": {
           "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
@@ -294,7 +294,7 @@
         "api": {
           "id": "8baae515-020d-422e-a1bc-340c20490dd2"
         },
-        "defaultValues": "\\\\\\\"new-item\\\\\\",
+        "defaultValues": "new-item",
         "description": null,
         "fieldType": {
           "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"

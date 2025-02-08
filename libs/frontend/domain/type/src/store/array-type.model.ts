@@ -83,7 +83,7 @@ export class ArrayType
       type: 'array',
       ...(uniformSchema?.(this) ?? {}),
       ...validationRules?.general,
-      default: defaultValues,
+      default: defaultValues ?? [],
     }
   }
 
