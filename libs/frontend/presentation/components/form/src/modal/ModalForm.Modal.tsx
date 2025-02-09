@@ -9,6 +9,7 @@ import {
   type SubmitController,
   UiKey,
 } from '@codelab/frontend/abstract/types'
+import { useIsMounted } from '@codelab/frontend/shared/utils'
 import AntdModal from 'antd/lib/modal'
 import { useRef, useState } from 'react'
 
@@ -41,6 +42,13 @@ export const Modal = ({
   const [isLoading, setIsLoading] = useState(false)
   // This is the controller that will do the form submission, create by the modal and passed down to the form
   const submitRef = useRef<Maybe<SubmitController>>(undefined)
+  const isMounted = useIsMounted()
+
+  // a workaround to overcome hydration failed error
+  // a similar issue : https://github.com/radix-ui/primitives/issues/1386
+  if (!isMounted) {
+    return null
+  }
 
   return (
     <ModalFormContext.Provider value={{ isLoading, setIsLoading, submitRef }}>

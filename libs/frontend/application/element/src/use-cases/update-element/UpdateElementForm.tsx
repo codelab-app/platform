@@ -8,7 +8,6 @@ import {
   type IUpdateElementData,
 } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
-import { clientLogger, tracker } from '@codelab/frontend/infra/logger'
 import {
   SelectActionsField,
   SelectComponent,
@@ -19,7 +18,7 @@ import {
   Form,
 } from '@codelab/frontend-presentation-components-form'
 import { CodeMirrorLanguage } from '@codelab/shared/infra/gqlgen'
-import { cLog, logger } from '@codelab/shared/utils'
+import { logger } from '@codelab/shared/utils'
 import { Collapse } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { isDeepEqual } from 'remeda'
