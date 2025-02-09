@@ -9,7 +9,7 @@ import { IActionKind } from './action-kind.enum'
 import { BaseActionDtoSchema } from './base-action.dto.interface'
 
 export const ApiActionDtoSchema = Type.Composite([
-  BaseActionDtoSchema,
+  Type.Omit(BaseActionDtoSchema, ['__typename']),
   Type.Object({
     __typename: Type.Literal(`${IActionKind.ApiAction}`),
     config: PropDtoSchema,
