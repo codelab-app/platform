@@ -29,7 +29,6 @@ import {
 } from '@codelab/frontend-infra-mobx/context'
 import { type IRef, ITypeKind } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/typebox'
-import queryString from 'query-string'
 import { isEmpty } from 'remeda'
 import { v4 } from 'uuid'
 
@@ -180,16 +179,17 @@ export const useAtomService = (): IAtomService => {
 
   const updatePopover = {
     close: (router: AppRouterInstance) => {
-      const searchParams = new URLSearchParams(window.location.search)
+      // const searchParams = new URLSearchParams(window.location.search)
 
-      searchParams.delete('node')
+      // searchParams.delete('node')
 
-      const url = queryString.stringifyUrl({
-        query: Object.fromEntries(searchParams.entries()),
-        url: PageType.Atoms(),
-      })
+      // const url = queryString.stringifyUrl({
+      //   query: Object.fromEntries(searchParams.entries()),
+      //   url: PageType.Atoms(),
+      // })
 
-      router.push(url)
+      // router.push(url)
+      router.back()
     },
     open: (router: AppRouterInstance) => {
       router.push(PageType.AtomCreate())
@@ -198,7 +198,7 @@ export const useAtomService = (): IAtomService => {
 
   const createPopover = {
     close: (router: AppRouterInstance) => {
-      router.push(PageType.Atoms())
+      router.back()
     },
     open: (router: AppRouterInstance) => {
       router.push(PageType.AtomCreate())

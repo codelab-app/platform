@@ -1,6 +1,6 @@
 'use client'
 
-import { PageType, UiKey } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import {
@@ -18,7 +18,7 @@ const { GetTypeReferences } = findTypeServerActions
 export const DeleteTypeModal = observer<{ id: string }>(({ id }) => {
   const typeService = useTypeService()
   const router = useRouter()
-  const closeModal = () => router.push(PageType.Type())
+  const closeModal = () => router.back()
   const { typeDomainService } = useDomainStore()
   const type = typeDomainService.types.get(id)
 

@@ -53,7 +53,7 @@ export const useRedirectService = (): IRedirectService => {
 
   const createPopover = {
     close: (router: AppRouterInstance, params: PageContextParams) => {
-      router.push(PageType.PageList(params))
+      router.back()
     },
     open: (router: AppRouterInstance, params: PageContextParams) => {
       router.push(PageType.PageRedirectCreate(params))
@@ -61,8 +61,8 @@ export const useRedirectService = (): IRedirectService => {
   }
 
   const updatePopover = {
-    close: (router: AppRouterInstance, params: PageContextParams) => {
-      router.push(PageType.PageList(params))
+    close: (router: AppRouterInstance) => {
+      router.back()
     },
     open: (
       router: AppRouterInstance,

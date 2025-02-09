@@ -1,6 +1,6 @@
 'use client'
 
-import { PageType, UiKey } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
@@ -12,7 +12,7 @@ import { useAppService } from '../../services'
 export const DeleteAppModal = observer<{ id: string }>(({ id }) => {
   const router = useRouter()
   const appService = useAppService()
-  const closeModal = () => router.push(PageType.AppList())
+  const closeModal = () => router.back()
   const { appDomainService } = useDomainStore()
   const app = appDomainService.apps.get(id)
 

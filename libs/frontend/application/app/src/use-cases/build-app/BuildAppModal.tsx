@@ -1,6 +1,6 @@
 'use client'
 
-import { PageType, UiKey } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
@@ -20,7 +20,7 @@ export const BuildAppModal = observer(({ id }: { id: string }) => {
     return app ? regenerate(app) : Promise.reject()
   }
 
-  const closeModal = () => router.push(PageType.AppList())
+  const closeModal = () => router.back()
 
   return (
     <ModalForm.Modal

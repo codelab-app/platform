@@ -207,7 +207,7 @@ export const useTypeService = (): ITypeService => {
 
   const updatePopover = {
     close: (router: AppRouterInstance) => {
-      router.push(PageType.Type())
+      router.back()
     },
     open: (router: AppRouterInstance, { id }: IRef) => {
       router.push(PageType.TypeUpdate({ id }))
@@ -216,7 +216,7 @@ export const useTypeService = (): ITypeService => {
 
   const createPopover = {
     close: (router: AppRouterInstance) => {
-      router.push(PageType.Type())
+      router.back()
     },
     open: (router: AppRouterInstance) => {
       router.push(PageType.TypeCreate())
