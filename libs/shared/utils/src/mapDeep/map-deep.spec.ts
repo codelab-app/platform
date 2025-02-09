@@ -31,28 +31,28 @@ describe('mapDeep', () => {
     const input: IPropData = { arr: [1, 2, 3] }
 
     const result = mapDeep(input, (value) =>
-      Array.isArray(value)
-        ? value.map((val) => (typeof val === 'number' ? val * 2 : val))
-        : value,
+      typeof value === 'number' ? value * 2 : value,
     )
 
     expect(result).toEqual({ arr: [2, 4, 6] })
   })
 
+  it('should map nested objects in an array', () => {
+    const input: IPropData = { arr: [{ a: 1 }, { a: 2 }, { a: 3 }] }
+
+    const result = mapDeep(input, (value) =>
+      typeof value === 'number' ? value * 2 : value,
+    )
+
+    expect(result).toEqual({ arr: [{ a: 2 }, { a: 4 }, { a: 6 }] })
+  })
+
   it('should handle mixed types', () => {
     const input: IPropData = { a: 1, b: [2, 3], c: { d: 4 } }
 
-    const result = mapDeep(input, (value) => {
-      if (typeof value === 'number') {
-        return value * 2
-      }
-
-      if (Array.isArray(value)) {
-        return value.map((val) => (typeof val === 'number' ? val * 2 : val))
-      }
-
-      return value
-    })
+    const result = mapDeep(input, (value) =>
+      typeof value === 'number' ? value * 2 : value,
+    )
 
     expect(result).toEqual({ a: 2, b: [4, 6], c: { d: 8 } })
   })

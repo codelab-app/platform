@@ -44,5 +44,5 @@ export const mapDeep = (
       .reduce((acc, cur: ObjectLike) => ({ ...acc, ...cur }), {})
   }
 
-  return valueMapper(obj, '') as IPropData
+  return obj
 }
