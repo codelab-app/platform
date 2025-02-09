@@ -1,3 +1,0 @@
-"property","description","type","default","version","isEnum"
-"queryKey",A unique identifier for this query,string,"-",,false
-lambda,The lambda that will fetch the data,LambdaType,"",,false
