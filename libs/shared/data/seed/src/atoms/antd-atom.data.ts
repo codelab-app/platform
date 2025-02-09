@@ -25,11 +25,6 @@ export const antdAtomData: IAntdAtomRecords = {
     icon: IAtomType.AntDesignAnchor,
     tag: IAtomType.AntDesignAnchor,
   },
-  [IAtomType.AntDesignAnchorLink]: {
-    file: 'Anchor--Link Props',
-    icon: IAtomType.AntDesignAnchorLink,
-    tag: IAtomType.AntDesignAnchorLink,
-  },
   [IAtomType.AntDesignAutoComplete]: {
     file: null,
     icon: IAtomType.AntDesignAutoComplete,
