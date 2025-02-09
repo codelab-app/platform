@@ -5,10 +5,7 @@ import type { PropsWithChildren } from 'react'
 
 import { Auth0Provider } from '@auth0/nextjs-auth0'
 import { CuiProvider } from '@codelab/frontend/presentation/codelab-ui'
-import {
-  useSearchParamsProps,
-  useUrlPathParams,
-} from '@codelab/frontend-application-shared-store/router'
+import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import {
   createRootStore,
   RootStoreProvider,
@@ -21,15 +18,11 @@ export const RootProviders = ({
   user,
 }: PropsWithChildren<{ user: IUserDto }>) => {
   const pathParams = useUrlPathParams()
-  const searchParams = useSearchParamsProps()
 
   const rootStore = useMemo(
     () =>
       createRootStore({
-        routerProps: {
-          pathParams,
-          searchParams,
-        },
+        routerProps: { pathParams },
         user,
       }),
     [user.id],
