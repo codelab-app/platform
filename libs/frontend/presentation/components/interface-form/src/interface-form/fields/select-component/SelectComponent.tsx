@@ -49,6 +49,7 @@ export const SelectComponent = connectField(
         error={errors}
         getPopupContainer={(triggerNode) => triggerNode.parentElement}
         loading={loading}
+        name=""
         onDropdownVisibleChange={async (open) => {
           if (open && !result) {
             await selectComponentOptions()

@@ -1,7 +1,7 @@
 import type { IPropData } from '@codelab/shared/abstract/core'
 import type { ObjectLike } from '@codelab/shared/abstract/types'
 
-import { entries, isArray, isPlainObject, map } from 'remeda'
+import { entries, isArray, isPlainObject } from 'remeda'
 
 import type { IKeyMapper, IOutput, IValueMapper, ObjectKey } from './abstract'
 
@@ -20,7 +20,7 @@ export const mapDeep = (
   }
 
   if (isArray(obj)) {
-    return map((innerObj, index) =>
+    return obj.map((innerObj, index) =>
       mapDeep(innerObj as IPropData, valueMapper, keyMapper, index),
     )
   }
@@ -31,7 +31,7 @@ export const mapDeep = (
         const mappedKey = keyMapper(_value, _key)
         let mappedValue
 
-        if (isPlainObject(_value)) {
+        if (isPlainObject(_value) || isArray(_value)) {
           mappedValue = mapDeep(_value, valueMapper, keyMapper, mappedKey)
         } else {
           mappedValue = valueMapper(_value, _key)
@@ -44,5 +44,5 @@ export const mapDeep = (
       .reduce((acc, cur: ObjectLike) => ({ ...acc, ...cur }), {})
   }
 
-  return valueMapper(obj, '') as IPropData
+  return obj
 }
