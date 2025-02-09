@@ -4,9 +4,7 @@ import type { IDomainStoreDto } from '@codelab/frontend/abstract/domain'
 import type { ReactNode } from 'react'
 
 import { observer } from 'mobx-react-lite'
-import { useEffect, useState } from 'react'
-import { useCustomCompareEffect } from 'react-use'
-import { isDeepEqual } from 'remeda'
+import { useEffect } from 'react'
 
 import { useDomainStoreHydrator } from './useDomainStoreHydrator.hook'
 
@@ -29,10 +27,7 @@ export const DomainStoreHydrator = observer<DomainStoreHydratorProps>(
   ({ children, fallback, ...data }) => {
     const hydrate = useDomainStoreHydrator()
 
-    console.log('DomainStoreHydrator')
-
     useEffect(() => {
-      console.log('Hydrating!!!')
       hydrate(data)
     }, [data, hydrate])
 

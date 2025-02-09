@@ -71,7 +71,7 @@ export class TagListPage extends BasePage {
   }
 }
 
-export const test = base.extend({
+export const test = base.extend<{ tagListPage: TagListPage }>({
   tagListPage: async ({ page }, use) => {
     const tagListPage = new TagListPage(page)
 

@@ -1,6 +1,6 @@
 'use client'
 
-import type { IPreferenceDto, IUserDto } from '@codelab/shared/abstract/core'
+import type { IUserDto } from '@codelab/shared/abstract/core'
 import type { PropsWithChildren } from 'react'
 
 import { Auth0Provider } from '@auth0/nextjs-auth0'
@@ -22,9 +22,7 @@ export const RootProviders = ({
   const rootStore = useMemo(
     () =>
       createRootStore({
-        routerProps: {
-          pathParams,
-        },
+        routerProps: { pathParams },
         user,
       }),
     [user.id],
