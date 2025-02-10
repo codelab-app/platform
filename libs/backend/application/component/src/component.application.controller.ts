@@ -32,7 +32,13 @@ export class ComponentApplicationController {
   @UseInterceptors(ClassSerializerInterceptor)
   @Post('create-component')
   async createComponent(@Body() createComponentData: ICreateComponentData) {
-    return this.componentApplicationService.createComponent(createComponentData)
+    const component = await this.componentApplicationService.createComponent(
+      createComponentData,
+    )
+
+    console.log('component', component)
+
+    return component
   }
 
   @UseInterceptors(ClassSerializerInterceptor)

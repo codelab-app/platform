@@ -44,7 +44,7 @@
         },
         "ci": {
           "buildTarget": "web:build:ci",
-          "dev": true
+          "dev": false
         },
         "prod": {
           "buildTarget": "web:build:prod",

@@ -14,32 +14,15 @@ export const metadata: Metadata = {
   title: 'Component Builder | Codelab',
 }
 
-const ComponentBuilderPage = async (props0: {
+const ComponentBuilderPage = async (props: {
   params: Promise<{
     componentId: string
   }>
 }) => {
-  const params = await props0.params
+  const params = await props.params
   const { componentId } = params
-  const dto = await componentBuilderQuery({ componentId })
 
-  return (
-    <DomainStoreHydrator
-      actionsDto={dto.actions}
-      atomsDto={dto.atoms}
-      componentsDto={dto.components}
-      elementsDto={dto.elements}
-      fallback={<Spinner />}
-      fieldsDto={dto.fields}
-      propsDto={dto.props}
-      resourcesDto={dto.resources}
-      storesDto={dto.stores}
-      tagsDto={dto.tags}
-      typesDto={dto.types}
-    >
-      <ComponentBuilderConnector componentId={componentId} />
-    </DomainStoreHydrator>
-  )
+  return <ComponentBuilderConnector componentId={componentId} />
 }
 
 export default ComponentBuilderPage

@@ -108,9 +108,7 @@ export default defineConfig({
   webServer: [
     {
       // Pass `--debug` to nextjs using `--`
-      command: `nx serve web -c ${
-        process.env.CI ? 'ci' : 'test'
-      } --verbose -- --debug`,
+      command: `nx serve web -c ${process.env.CI ? 'ci' : 'test'} --verbose`,
       cwd: workspaceRoot,
       reuseExistingServer: !process.env.CI,
       stdout: 'pipe',

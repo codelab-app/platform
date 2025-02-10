@@ -1,25 +1,23 @@
 import type {
   Auth0IdToken,
   IPreferenceDto,
+  IRole,
   IUserDto,
+  IUserSession,
 } from '@codelab/shared/abstract/core'
 
-import { IRole, JWT_CLAIMS } from '@codelab/shared/abstract/core'
+import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
 import { preferenceDefault } from '@codelab/shared-domain-module/preference'
 
 export class User implements IUserDto {
-  static fromSession({ email, nickname, sub, ...session }: Auth0IdToken) {
-    const auth0Id = sub
-    const id = session[JWT_CLAIMS].neo4j_user_id
-    const roles = session[JWT_CLAIMS].roles.map((role) => IRole[role])
-
+  static fromSession({ auth0Id, email, id, roles, username }: IUserSession) {
     return new User({
       auth0Id,
       email,
       id,
       preferences: preferenceDefault,
       roles,
-      username: nickname,
+      username,
     })
   }
 

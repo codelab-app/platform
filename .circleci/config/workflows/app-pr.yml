@@ -102,7 +102,7 @@ jobs:
             - master
             - staging
       requires:
-        - build-nx-apps
+        - setup-workspace
   - notify-success:
       resource_class: medium
       filters:
