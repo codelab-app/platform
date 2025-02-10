@@ -12,6 +12,7 @@ import type { TablePaginationConfig } from 'antd'
 import { useRouter } from 'next/navigation'
 import queryString from 'query-string'
 import { useEffect } from 'react'
+import { useDeepCompareEffect } from 'react-use'
 import { debounce } from 'remeda'
 
 import { paginationContext } from './pagination.service'
@@ -49,7 +50,7 @@ export const useTablePagination = <T extends SupportedPaginationModel>({
     })
   }, [getDataFn])
 
-  useEffect(() => {
+  useDeepCompareEffect(() => {
     console.log('Get data!', {
       filter: routerService.filter,
       page: routerService.page,
