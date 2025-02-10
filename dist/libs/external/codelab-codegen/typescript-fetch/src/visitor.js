@@ -58,7 +58,7 @@ class FetchVisitor extends visitor_plugin_common_1.BaseVisitor {
             }
             const pascalCaseName = operationName.charAt(0).toUpperCase() + operationName.slice(1);
             const operationBody = `${this.config.gqlFn}(client, ${o.name}Document.toString(), variables)`;
-            const operationArgs = [`variables: Types.${o.variablesTypes}`].join(' ,');
+            const operationArgs = [`variables: Types.${o.variablesTypes}`].join(', ');
             // server actions must be exported individually
             return `${pascalCaseName} : (${operationArgs}) => ${operationBody}`;
         });

@@ -20,8 +20,8 @@ export class UserApplicationController {
   }
 
   @Get('me')
-  async me(@CurrentUser() userDto: IUserSession) {
-    return this.userRepository.findOne({ where: { id: userDto.id } })
+  async me(@CurrentUser() userSession: IUserSession) {
+    return this.userRepository.findOne({ where: { id: userSession.id } })
   }
 
   /**

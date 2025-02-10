@@ -31,7 +31,6 @@ export const LayoutClient = observer(
     dto: IComponentBuilderDto
   }) => {
     const hydrate = useDomainStoreHydrator()
-    const { componentDomainService } = useDomainStore()
 
     useEffect(() => {
       hydrate({
@@ -48,6 +47,6 @@ export const LayoutClient = observer(
       })
     }, [dto, hydrate])
 
-    return <> {children}</>
+    return <>{children}</>
   },
 )
