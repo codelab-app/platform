@@ -5,6 +5,12 @@ steps:
   - run:
       name: Install pnpm package manager
       command: |
+        set -x
+
+        # Install corepack using the correct path
+        # https://github.com/pnpm/pnpm/issues/9029
+        sudo npm install -g corepack@0.31.0
+
         sudo corepack enable
-        sudo corepack prepare pnpm@9.1.1 --activate
+        sudo corepack prepare pnpm@9.15.5 --activate
         pnpm config set store-dir ~/.pnpm-store

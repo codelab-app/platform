@@ -20,4 +20,5 @@ steps:
   #       - nx-cache-{{ checksum ".nx/cache/lockfile.hash" }}
   - load-nvm
   - install-pnpm
+  - install-cypher-shell
   - setup-env

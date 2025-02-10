@@ -13,7 +13,7 @@ environment:
 
 parallelism: 4
 steps:
-  - restore-workspace
+  - restore-workspace-database
   - setup-neo4j
   - run: pnpm npx playwright install-deps
   # - setup_remote_docker:
@@ -27,8 +27,19 @@ steps:
       # command: pnpm nx e2e web-e2e -c ci --verbose
       no_output_timeout: 15m
       command: |
-        SHARD="$((${CIRCLE_NODE_INDEX}+1))"
+        set -x
 
+        # Debug Node installation and environment
+        which node        # Where is Node installed
+        echo $PATH        # Check PATH
+        ls -l $(which node)  # Check Node executable permissions
+
+        # Additional debugging info
+        node --version    # Verify Node version
+        echo $NODE_ENV    # Check Node environment
+
+        # Original test command
+        SHARD="$((${CIRCLE_NODE_INDEX}+1))"
         echo $SHARD;
         echo $CIRCLE_NODE_TOTAL;
 

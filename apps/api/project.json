@@ -47,9 +47,7 @@
       "defaultConfiguration": "dev",
       "executor": "@nx/js:node",
       "options": {
-        "buildTarget": "api:build:dev",
-        "runtimeArgs": ["--enable-source-maps", "--no-node-snapshot"],
-        "args": ["--trace-deprecation"]
+        "buildTarget": "api:build:dev"
       }
     },
     "test": {

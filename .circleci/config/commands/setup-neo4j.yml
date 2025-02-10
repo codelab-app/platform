@@ -6,10 +6,11 @@ steps:
         neo4j-admin server memory-recommendation --docker
   - run:
       name: Enable CDC
+      working_directory: ~/project/.docker/cypher/scripts
       command: |
-        ~/project/.docker/cypher/scripts/enable-cdc.sh
+        ./enable-cdc.sh
   - run:
       name: Apply Neo4j Constraints
-      working_directory: ~/project/.docker/cypher
+      working_directory: ~/project/.docker/cypher/scripts
       command: |
-        ~/project/.docker/cypher/scripts/apply-constraints.sh
+        ./apply-constraints.sh

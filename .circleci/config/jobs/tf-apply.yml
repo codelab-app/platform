@@ -6,7 +6,7 @@ parameters:
     enum: ['prod', 'ci']
 
 steps:
-  - restore-infra-workspace
+  - restore-workspace-infra
   - run:
       name: 'Terraform Init'
       command: pnpm cli terraform --stage << parameters.stage >> init
