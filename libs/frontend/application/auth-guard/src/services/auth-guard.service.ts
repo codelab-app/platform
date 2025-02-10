@@ -71,7 +71,7 @@ export const useAuthGuardService = (): IAuthGuardService => {
 
   const updatePopover = {
     close: (router: AppRouterInstance) => {
-      router.back()
+      router.push(PageType.AuthGuards())
     },
     open: (router: AppRouterInstance, { id }: IRef) => {
       router.push(PageType.AuthGuardsUpdate({ id }))
@@ -80,7 +80,7 @@ export const useAuthGuardService = (): IAuthGuardService => {
 
   const createPopover = {
     close: (router: AppRouterInstance) => {
-      router.back()
+      router.push(PageType.AuthGuards())
     },
     open: (router: AppRouterInstance) => {
       router.push(PageType.AuthGuardsCreate())

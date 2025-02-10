@@ -138,7 +138,7 @@ export const useTagService = (): ITagService => {
 
   const createPopover = {
     close: (router: AppRouterInstance) => {
-      router.back()
+      router.push(PageType.Tags())
     },
     open: (router: AppRouterInstance) => {
       router.push(PageType.TagsCreate())
@@ -147,7 +147,7 @@ export const useTagService = (): ITagService => {
 
   const updatePopover = {
     close: (router: AppRouterInstance) => {
-      router.back()
+      router.push(PageType.Tags())
     },
     open: (router: AppRouterInstance) => {
       router.push(PageType.Tags())

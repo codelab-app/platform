@@ -2,7 +2,7 @@
 
 import type { ITagModel } from '@codelab/frontend/abstract/domain'
 
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
@@ -17,7 +17,7 @@ export const DeleteTagsModal = observer<{ tags: Array<ITagModel> }>(
   ({ tags }) => {
     const router = useRouter()
     const tagService = useTagService()
-    const closeModal = () => router.back()
+    const closeModal = () => router.push(PageType.Tags())
     const onSubmit = async () => tagService.removeMany(tags)
 
     return (

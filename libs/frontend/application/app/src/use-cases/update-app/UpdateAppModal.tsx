@@ -2,7 +2,7 @@
 
 import type { IAppUpdateFormData } from '@codelab/frontend/abstract/domain'
 
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
@@ -28,7 +28,7 @@ export const UpdateAppModal = observer(({ id }: { id: string }) => {
   }
 
   const onSubmit = appService.update
-  const closeModal = () => router.back()
+  const closeModal = () => router.push(PageType.AppList())
 
   return (
     <ModalForm.Modal

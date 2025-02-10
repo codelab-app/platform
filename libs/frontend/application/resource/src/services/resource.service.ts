@@ -87,7 +87,7 @@ export const useResourceService = (): IResourceService => {
 
   const createPopover = {
     close: (router: AppRouterInstance) => {
-      router.back()
+      router.push(PageType.Resources())
     },
     open: (router: AppRouterInstance) => {
       router.push(PageType.ResourcesCreate())
@@ -96,7 +96,7 @@ export const useResourceService = (): IResourceService => {
 
   const updatePopover = {
     close: (router: AppRouterInstance) => {
-      router.back()
+      router.push(PageType.Resources())
     },
     open: (router: AppRouterInstance) => {
       router.push(PageType.Resources())

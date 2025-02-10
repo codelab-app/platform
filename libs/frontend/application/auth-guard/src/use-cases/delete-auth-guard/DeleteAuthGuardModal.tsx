@@ -2,7 +2,7 @@
 
 import type { IRef } from '@codelab/shared/abstract/core'
 
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
@@ -16,7 +16,7 @@ export const DeleteAuthGuardModal = observer<IRef>(({ id }) => {
   const authGuardService = useAuthGuardService()
   const { authGuardDomainService } = useDomainStore()
   const authGuard = authGuardDomainService.authGuards.get(id)
-  const closeModal = () => router.back()
+  const closeModal = () => router.push(PageType.AuthGuards())
 
   if (!authGuard) {
     return null

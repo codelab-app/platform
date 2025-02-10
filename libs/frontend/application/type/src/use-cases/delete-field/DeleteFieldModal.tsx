@@ -17,7 +17,7 @@ export const DeleteFieldModal = observer<{ id: string }>(({ id }) => {
   const router = useRouter()
   const fieldService = useFieldService()
   const { fieldDomainService } = useDomainStore()
-  const closeModal = () => router.back()
+  const closeModal = router.back
   const field = fieldDomainService.fields.get(id)
 
   if (!field) {

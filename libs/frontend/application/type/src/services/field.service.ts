@@ -202,25 +202,23 @@ export const useFieldService = (): IFieldService => {
     return filter(affectedNodeIds, isTruthy)
   }
 
-  // const closeFieldPopover = (
-  //   router: AppRouterInstance,
-  //   { appId, componentId, pageId }: BuilderContextParams,
-  // ) => {
-  //   if (componentId) {
-  //     router.push(PageType.ComponentBuilder({ componentId }))
-  //   } else if (appId && pageId) {
-  //     router.push(
-  //       PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree),
-  //     )
-  //   } else {
-  //     router.push(PageType.Type())
-  //   }
-  // }
+  const closeFieldPopover = (
+    router: AppRouterInstance,
+    { appId, componentId, pageId }: BuilderContextParams,
+  ) => {
+    if (componentId) {
+      router.push(PageType.ComponentBuilder({ componentId }))
+    } else if (appId && pageId) {
+      router.push(
+        PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree),
+      )
+    } else {
+      router.push(PageType.Type())
+    }
+  }
 
   const createPopover = {
-    close: (router: AppRouterInstance) => {
-      router.back()
-    },
+    close: closeFieldPopover,
     open: (
       router: AppRouterInstance,
       {
@@ -239,9 +237,7 @@ export const useFieldService = (): IFieldService => {
   }
 
   const updatePopover = {
-    close: (router: AppRouterInstance) => {
-      router.back()
-    },
+    close: closeFieldPopover,
     open: (
       router: AppRouterInstance,
       { appId, componentId, fieldId, pageId }: UpdatePopoverParamsContext,
@@ -255,9 +251,7 @@ export const useFieldService = (): IFieldService => {
   }
 
   const deletePopover = {
-    close: (router: AppRouterInstance) => {
-      router.back()
-    },
+    close: closeFieldPopover,
     open: (
       router: AppRouterInstance,
       { appId, componentId, fieldId, pageId }: UpdatePopoverParamsContext,
