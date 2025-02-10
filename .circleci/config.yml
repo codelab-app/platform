@@ -609,7 +609,7 @@ jobs:
       - store_test_results:
           path: ./tmp/reports/test-unit
 orbs:
-  node: circleci/node@5.1.0
+  node: circleci/node@7.1.0
   nx: nrwl/nx@1.6.2
   queue: eddiewebb/queue@2.2.1
   slack: circleci/slack@4.12.5

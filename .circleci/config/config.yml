@@ -15,7 +15,7 @@ version: 2.1
 orbs:
   slack: circleci/slack@4.12.5
   nx: nrwl/nx@1.6.2
-  node: circleci/node@5.1.0
+  node: circleci/node@7.1.0
   queue: eddiewebb/queue@2.2.1
   swissknife: roopakv/swissknife@0.69.0
   terraform: circleci/terraform@3.2.1
