@@ -34,7 +34,7 @@ export class PageListPage extends BasePage {
       .getToolbarItem(UiKey.PageToolbarItemDelete)
       .click()
 
-    await this.clickPopconfirmButton()
+    await this.clickPopconfirmButton(UiKey.ElementPopoverFormDelete)
     await this.expectGlobalProgressBarToBeHidden()
   }
 

@@ -1,6 +1,10 @@
 import type { Locator, Page } from '@playwright/test'
 
-import { getUiDataLabel, UiKey } from '@codelab/frontend/abstract/types'
+import {
+  getUiDataKey,
+  getUiDataLabel,
+  UiKey,
+} from '@codelab/frontend/abstract/types'
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import { expect } from '@playwright/test'
 
@@ -48,8 +52,13 @@ export class BasePage {
     }
   }
 
-  async clickPopconfirmButton() {
-    const popconfirm = this.page.locator('.ant-popconfirm')
+  /**
+   *  Need specifier for pop
+   */
+  async clickPopconfirmButton(
+    key: UiKey.ElementPopoverFormDelete | UiKey.ElementPopoverOverlayDelete,
+  ) {
+    const popconfirm = this.page.locator(`.ant-popconfirm.${getUiDataKey(key)}`)
     const confirmButton = popconfirm.locator('.ant-btn-primary')
 
     await expect(popconfirm).toBeVisible()

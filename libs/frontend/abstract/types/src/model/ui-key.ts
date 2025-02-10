@@ -105,6 +105,8 @@ export enum UiKey {
   ElementFormUpdate = 'ElementFormUpdate',
   ElementModalDelete = 'ElementModalDelete',
   ElementPopoverCreate = 'ElementPopoverCreate',
+  ElementPopoverFormDelete = 'ElementPopoverFormDelete',
+  ElementPopoverOverlayDelete = 'ElementPopoverOverlayDelete',
   ElementToolbarItemCreate = 'ElementToolbarItemCreate',
   ElementToolbarItemCreateCancel = 'ElementToolbarItemCreateCancel',
   /**

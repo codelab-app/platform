@@ -2,6 +2,7 @@
 
 import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
 
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 
@@ -18,7 +19,11 @@ export const DeleteElementButton = observer<DeleteElementProps>(
     const element = runtimeElement.element.current
 
     return (
-      <DeleteElementPopconfirm element={element} placement="leftBottom">
+      <DeleteElementPopconfirm
+        element={element}
+        placement="leftBottom"
+        uiKey={UiKey.ElementPopoverFormDelete}
+      >
         <Button className={className} danger disabled={disabled}>
           Delete
         </Button>

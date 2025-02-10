@@ -122,7 +122,6 @@ commands:
     steps:
       - run:
           command: |
-            sudo npm install -g corepack@0.31.0
             sudo corepack enable
             sudo corepack prepare pnpm@9.1.1 --activate
             pnpm config set store-dir ~/.pnpm-store
@@ -203,7 +202,7 @@ commands:
           command: |
             ~/project/.docker/cypher/scripts/apply-constraints.sh
           name: Apply Neo4j Constraints
-          working_directory: ~/project/.docker/cypher/scripts
+          working_directory: ~/project/.docker/cypher
 executors:
   docker-node:
     docker:
@@ -353,7 +352,7 @@ jobs:
             node -v
             which node
 
-            pnpm nx e2e web-e2e -c ci --shard=${SHARD}/${CIRCLE_NODE_TOTAL}
+            pnpm nx e2e web-e2e -c ci --shard=${SHARD}/${CIRCLE_NODE_TOTAL} --verbose
           name: Run E2E Tests
           no_output_timeout: 15m
       - store_artifacts:

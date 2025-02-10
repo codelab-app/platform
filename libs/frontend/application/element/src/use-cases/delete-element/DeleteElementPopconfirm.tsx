@@ -4,6 +4,7 @@ import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import type { PopconfirmProps } from 'antd'
 import type { ReactNode } from 'react'
 
+import { getUiDataKey, type UiKey } from '@codelab/frontend/abstract/types'
 import { loadingAtom } from '@codelab/frontend-application-shared-store/loading'
 import {
   useApplicationStore,
@@ -20,10 +21,14 @@ import { deleteElementUseCase } from './delete-element.use-case'
 interface DeleteElementPopconfirmProps extends Partial<PopconfirmProps> {
   children: ReactNode
   element: IElementModel
+  /**
+   * Allow for unique identification of popconfirm, `delete-element-popconfirm` etc. Used for classname
+   */
+  uiKey: UiKey.ElementPopoverFormDelete | UiKey.ElementPopoverOverlayDelete
 }
 
 export const DeleteElementPopconfirm = observer<DeleteElementPopconfirmProps>(
-  ({ children, element, placement }) => {
+  ({ children, element, placement, uiKey }) => {
     const { elementDomainService } = useDomainStore()
     const { builderService } = useApplicationStore()
     const [open, setOpen] = useState(false)
@@ -38,6 +43,9 @@ export const DeleteElementPopconfirm = observer<DeleteElementPopconfirmProps>(
 
     return (
       <Popconfirm
+        aria-label="Delete element confirmation"
+        classNames={{ root: getUiDataKey(uiKey) }}
+        // data-testid="delete-element-popconfirm"
         okText="Delete"
         onConfirm={asyncHandler(onConfirm)}
         onOpenChange={setOpen}

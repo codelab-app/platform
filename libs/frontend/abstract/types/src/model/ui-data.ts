@@ -235,6 +235,12 @@ const UiDataRecord = {
   [UiKey.ElementFormCreate]: {
     label: 'Create Element Form',
   },
+  [UiKey.ElementPopoverFormDelete]: {
+    label: 'Delete Element Popover Form',
+  },
+  [UiKey.ElementPopoverOverlayDelete]: {
+    label: 'Delete Element Popover Overlay',
+  },
   [UiKey.ElementFormMove]: {
     label: 'Move Element Form',
   },
