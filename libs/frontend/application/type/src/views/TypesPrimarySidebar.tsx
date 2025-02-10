@@ -7,13 +7,13 @@ import {
   useToolbarPagination,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
-import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
+import { useMemo } from 'react'
 
 import { useTypeService } from '../services'
 import { TypesTreeView } from '../use-cases/get-types'
 
-export const TypesPrimarySidebar = observer(() => {
+export const TypesPrimarySidebar = () => {
   const { createPopover, paginationService } = useTypeService()
   const { routerService } = useApplicationStore()
   const router = useRouter()
@@ -23,30 +23,34 @@ export const TypesPrimarySidebar = observer(() => {
     routerService,
   )
 
+  const views = useMemo(() => {
+    return [
+      {
+        content: <TypesTreeView showSearchBar={showSearchBar} />,
+        key: 'types-view',
+        label: 'Types',
+        toolbar: {
+          items: [
+            ...toolbarItems,
+            {
+              cuiKey: UiKey.TypeToolbarItemCreate,
+              icon: <PlusOutlined />,
+              onClick: () => createPopover.open(router),
+              title: 'Create Type',
+            },
+          ],
+          title: 'types-tree-toolbar',
+        },
+      },
+    ]
+  }, [showSearchBar])
+
   return (
     <CuiSidebar
       defaultActiveViewKeys={['types-view']}
       label="Types"
       uiKey={UiKey.TypeSidebar}
-      views={[
-        {
-          content: <TypesTreeView showSearchBar={showSearchBar} />,
-          key: 'types-view',
-          label: 'Types',
-          toolbar: {
-            items: [
-              ...toolbarItems,
-              {
-                cuiKey: UiKey.TypeToolbarItemCreate,
-                icon: <PlusOutlined />,
-                onClick: () => createPopover.open(router),
-                title: 'Create Type',
-              },
-            ],
-            title: 'types-tree-toolbar',
-          },
-        },
-      ]}
+      views={views}
     />
   )
-})
+}
