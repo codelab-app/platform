@@ -4,16 +4,13 @@ import { getServerUser } from '@codelab/frontend-application-user/use-cases/serv
 import { preferenceQuery } from '@codelab/frontend-domain-preference/repositories'
 
 import { RootProviders } from '../../providers/RootProviders'
-import { LayoutClient } from './layout.client'
 
 const ProtectedLayout = async ({ children }: { children: ReactNode }) => {
   const user = await getServerUser()
   const preferences = await preferenceQuery({ owner: { id: user.id } })
 
   return (
-    <RootProviders user={{ ...user, preferences }}>
-      <LayoutClient>{children}</LayoutClient>
-    </RootProviders>
+    <RootProviders user={{ ...user, preferences }}>{children}</RootProviders>
   )
 }
 

@@ -10,14 +10,13 @@ import {
   useToolbarPagination,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
-import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 
 import { useTagService } from '../services'
 import { CreateTagPopover } from '../use-cases/create-tag'
 import { TagsTreeView } from '../use-cases/get-tags'
 
-export const TagsPrimarySidebar = observer(() => {
+export const TagsPrimarySidebar = () => {
   const router = useRouter()
   const { checkedTagIds, createPopover, paginationService } = useTagService()
   const { routerService } = useApplicationStore()
@@ -60,6 +59,6 @@ export const TagsPrimarySidebar = observer(() => {
       ]}
     />
   )
-})
+}
 
 TagsPrimarySidebar.displayName = 'TagsPrimarySidebar'
