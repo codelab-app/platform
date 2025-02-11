@@ -6,7 +6,7 @@ import { IActionKind } from './action-kind.enum'
 import { BaseActionDtoSchema } from './base-action.dto.interface'
 
 export const CodeActionDtoSchema = Type.Composite([
-  Type.Omit(BaseActionDtoSchema, ['__typename']),
+  BaseActionDtoSchema,
   Type.Object({
     __typename: Type.Literal(`${IActionKind.CodeAction}`),
     code: Type.String(),
