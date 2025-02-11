@@ -350,6 +350,8 @@ jobs:
 
             echo $SHARD;
             echo $CIRCLE_NODE_TOTAL;
+            node -v
+            which node
 
             pnpm nx e2e web-e2e -c ci --shard=${SHARD}/${CIRCLE_NODE_TOTAL}
           name: Run E2E Tests
@@ -607,7 +609,7 @@ jobs:
       - store_test_results:
           path: ./tmp/reports/test-unit
 orbs:
-  node: circleci/node@5.1.0
+  node: circleci/node@7.1.0
   nx: nrwl/nx@1.6.2
   queue: eddiewebb/queue@2.2.1
   slack: circleci/slack@4.12.5

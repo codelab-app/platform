@@ -5,5 +5,5 @@ echo 'export NVM_DIR=$HOME/.nvm' >> $BASH_ENV
 echo 'source $NVM_DIR/nvm.sh' >> $BASH_ENV
 
 if [ ! -d "$NVM_DIR" ]; then
-  wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+  wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 fi

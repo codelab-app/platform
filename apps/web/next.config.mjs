@@ -1,7 +1,6 @@
 import bundleAnalyzer from '@next/bundle-analyzer'
 import { composePlugins, withNx } from '@nx/next'
 import { withSentryConfig } from '@sentry/nextjs'
-import withSvgr from 'next-plugin-svgr'
 // eslint-disable-next-line import/default
 import env from 'env-var'
 
@@ -61,8 +60,8 @@ const sentryConfig = (nextConfig) =>
   })
 
 const plugins = enableInstrumentation
-  ? [withNx, withBundleAnalyzer, sentryConfig, withSvgr]
-  : [withNx, withBundleAnalyzer, withSvgr]
+  ? [withNx, withBundleAnalyzer, sentryConfig]
+  : [withNx, withBundleAnalyzer]
 
 const port = get('NEXT_PUBLIC_API_PORT').required().asString()
 const url = get('NEXT_PUBLIC_API_HOSTNAME').required().asString()
@@ -89,6 +88,14 @@ const nextConfig = {
     // increase timeout for long-running proxy request,
     // e.g. request from admin to seed the db; request to seed database in e2e
     proxyTimeout: 1200_000,
+    turbo: {
+      rules: {
+        '*.svg': {
+          loaders: ['@svgr/webpack'],
+          as: '*.js',
+        },
+      },
+    },
   },
   nx: { svgr: false },
   // https://github.com/ant-design/ant-design-examples/blob/main/examples/with-nextjs-app-router-inline-style/next.config.js
