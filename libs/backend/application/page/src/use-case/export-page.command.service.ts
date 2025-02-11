@@ -1,8 +1,4 @@
 import type {
-  IPageAggregateExport,
-  IStoreAggregateExport,
-} from '@codelab/shared/abstract/core'
-import type {
   ElementFragment,
   PageFragment,
   PageWhere,
@@ -14,6 +10,11 @@ import {
   PageElementsService,
   PageRepository,
 } from '@codelab/backend/domain/page'
+import {
+  ElementExportSchema,
+  type IPageAggregateExport,
+  type IStoreAggregateExport,
+} from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/typebox'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
@@ -52,14 +53,16 @@ export class ExportPageHandler
   private async getPageData(page: PageFragment) {
     const elementDescendants = await this.pageElementsService.getElements(page)
 
-    const elements = elementDescendants.map((element: ElementFragment) => ({
-      ...element,
-      closestContainerNode: { id: page.id },
-      renderType: {
-        __typename: Validator.parseDefined(element.renderType.__typename),
-        id: element.renderType.id,
-      },
-    }))
+    const elements = elementDescendants.map((element: ElementFragment) =>
+      Validator.parse(ElementExportSchema, {
+        ...element,
+        closestContainerNode: { id: page.id },
+        renderType: {
+          __typename: Validator.parseDefined(element.renderType.__typename),
+          id: element.renderType.id,
+        },
+      }),
+    )
 
     const store = await this.commandBus.execute<
       ExportStoreCommand,

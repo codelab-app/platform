@@ -4,7 +4,6 @@ import type { ICommandHandler } from '@nestjs/cqrs'
 import { ImportStoreCommand } from '@codelab/backend/application/store'
 import { ElementRepository } from '@codelab/backend/domain/element'
 import { PageRepository } from '@codelab/backend/domain/page'
-import { PropRepository } from '@codelab/backend/domain/prop'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
 export class ImportPageCommand {
@@ -16,7 +15,6 @@ export class ImportPageHandler implements ICommandHandler<ImportPageCommand> {
   constructor(
     private pageRepository: PageRepository,
     private readonly elementRepository: ElementRepository,
-    private readonly propRepository: PropRepository,
     private readonly commandBus: CommandBus,
   ) {}
 
@@ -28,7 +26,6 @@ export class ImportPageHandler implements ICommandHandler<ImportPageCommand> {
     )
 
     for (const element of elements) {
-      await this.propRepository.save(element.props)
       await this.elementRepository.save(element)
     }
 
