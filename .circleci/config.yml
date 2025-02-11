@@ -20,7 +20,7 @@ commands:
           name: Save NX Cache
           paths:
             - ~/project/.nx/cache
-            - ~/project/dist/apps/web/.next/cache
+            - ~/project/dist/apps/web/.next
   build-nx-libs:
     description: Build Nx Libs
     steps:
@@ -84,6 +84,7 @@ commands:
             nvm install 22.13.1
             nvm alias default 22.13.1
             node -v
+            which node
           name: Set Node Version
   install-packages:
     steps:
@@ -93,8 +94,13 @@ commands:
             - pnpm-cache
           name: Restore pnpm Package Cache
       - run:
-          command: pnpm install --frozen-lockfile --verbose
+          command: pnpm install --frozen-lockfile
           name: Install NPM Packages
+      - run:
+          command: |
+            pnpm store path
+            pnpm store prune --force
+          name: Prune pnpm store
       - save_cache:
           key: pnpm-cache-{{ checksum "pnpm-lock.yaml" }}
           name: Save pnpm Cache
@@ -122,9 +128,14 @@ commands:
     steps:
       - run:
           command: |
+            set -x
+
+            # Install corepack using the correct path
+            # https://github.com/pnpm/pnpm/issues/9029
             sudo npm install -g corepack@0.31.0
+
             sudo corepack enable
-            sudo corepack prepare pnpm@9.1.1 --activate
+            sudo corepack prepare pnpm@9.15.5 --activate
             pnpm config set store-dir ~/.pnpm-store
           name: Install pnpm package manager
   install-terraform:
@@ -152,6 +163,13 @@ commands:
             sudo apt update
             sudo apt install terraform=1.7.0-*
           name: Install Terraform
+  load-nvm:
+    steps:
+      - run:
+          command: |
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+          name: Load NVM
   login-docker:
     description: Login to Docker
     steps:
@@ -159,11 +177,6 @@ commands:
           command: |
             echo "$DIGITALOCEAN_ACCESS_TOKEN" | docker login --username codelabapp --password-stdin registry.digitalocean.com
           name: Login to Docker Registry
-  restore-infra-workspace:
-    description: Restore Infra Workspace
-    steps:
-      - restore-workspace
-      - install-terraform
   restore-workspace:
     description: Restore Workspace
     steps:
@@ -179,9 +192,33 @@ commands:
           keys:
             - nvm-cache-{{ checksum ".nvmrc" }}
           name: Restore NVM Cache
+      - load-nvm
+      - install-pnpm
+      - setup-env
+  restore-workspace-database:
+    description: Restore Workspace
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/
+      - restore_cache:
+          keys:
+            - node-modules-cache-{{ checksum "pnpm-lock.yaml" }}
+            - node-modules-cache-
+          name: Restore node_modules Cache
+      - restore_cache:
+          keys:
+            - nvm-cache-{{ checksum ".nvmrc" }}
+          name: Restore NVM Cache
+      - load-nvm
       - install-pnpm
       - install-cypher-shell
       - setup-env
+  restore-workspace-infra:
+    description: Restore Infra Workspace
+    steps:
+      - restore-workspace
+      - install-terraform
   setup-env:
     description: Setup Env
     steps:
@@ -197,11 +234,12 @@ commands:
           name: Run Neo4j Memory Recommendations
       - run:
           command: |
-            ~/project/.docker/cypher/scripts/enable-cdc.sh
+            ./enable-cdc.sh
           name: Enable CDC
+          working_directory: ~/project/.docker/cypher/scripts
       - run:
           command: |
-            ~/project/.docker/cypher/scripts/apply-constraints.sh
+            ./apply-constraints.sh
           name: Apply Neo4j Constraints
           working_directory: ~/project/.docker/cypher/scripts
 executors:
@@ -222,7 +260,7 @@ executors:
       image: ubuntu-2004:2022.04.1
   playwright:
     docker:
-      - image: mcr.microsoft.com/playwright:v1.46.0-jammy
+      - image: mcr.microsoft.com/playwright:v1.50.0-noble
   terraform:
     docker:
       - image: hashicorp/terraform:1.7.0
@@ -263,7 +301,7 @@ jobs:
         type: string
     resource_class: << parameters.resource_class >>
     steps:
-      - restore-workspace
+      - restore-workspace-database
       - setup-neo4j
       - run:
           command: pnpm cli tasks graphql-codegen --stage ci
@@ -341,19 +379,26 @@ jobs:
         type: string
     resource_class: << parameters.resource_class >>
     steps:
-      - restore-workspace
+      - restore-workspace-database
       - setup-neo4j
+      - restore_cache:
+          keys:
+            - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+            - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-
+            - nx-cache-
+          name: Restore NX Cache
       - run: pnpm npx playwright install-deps
       - run:
           command: |
+            # Original test command
             SHARD="$((${CIRCLE_NODE_INDEX}+1))"
-
             echo $SHARD;
             echo $CIRCLE_NODE_TOTAL;
             node -v
             which node
 
-            pnpm nx e2e web-e2e -c ci --shard=${SHARD}/${CIRCLE_NODE_TOTAL}
+            pnpm nx e2e web-e2e -c ci \
+              --shard=${SHARD}/${CIRCLE_NODE_TOTAL}
           name: Run E2E Tests
           no_output_timeout: 15m
       - store_artifacts:
@@ -372,7 +417,7 @@ jobs:
         type: string
     resource_class: << parameters.resource_class >>
     steps:
-      - restore-workspace
+      - restore-workspace-database
       - setup-neo4j
       - run:
           command: pnpm cli tasks int --stage ci
@@ -543,7 +588,7 @@ jobs:
           - ci
         type: enum
     steps:
-      - restore-infra-workspace
+      - restore-workspace-infra
       - run:
           command: pnpm cli terraform --stage << parameters.stage >> init
           name: Terraform Init
@@ -559,7 +604,7 @@ jobs:
           - ci
         type: enum
     steps:
-      - restore-infra-workspace
+      - restore-workspace-infra
       - run:
           command: |
             echo "credentials \"app.terraform.io\" {token = \"$TERRAFORM_USER_TOKEN\"}" >> $HOME/.terraformrc

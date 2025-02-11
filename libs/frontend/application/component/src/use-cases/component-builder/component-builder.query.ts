@@ -14,7 +14,13 @@ import { uniqueBy } from 'remeda'
 export const componentBuilderQuery: IComponentBuilderQuery = async ({
   componentId,
 }: IComponentBuilderArgs) => {
-  const data: GetComponentBuilderQuery = await GetComponentBuilder({})
+  const data = await GetComponentBuilder({
+    componentId,
+  })
+
+  console.log('data', data)
+  console.log('componentId', componentId)
+
   const components = data.components
 
   const currentComponent = components.find(

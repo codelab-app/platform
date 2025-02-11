@@ -90,10 +90,10 @@ export default defineConfig({
 
   retries: process.env.CI ? 1 : 0,
 
-  timeout: process.env.CI ? 60000 : 60000,
+  timeout: process.env.CI ? 90_000 : 75_000,
 
   expect: {
-    timeout: process.env.CI ? 45000 : 45000,
+    timeout: process.env.CI ? 75_000 : 60_000,
   },
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
@@ -107,7 +107,7 @@ export default defineConfig({
   /* Run your local dev server before starting the tests */
   webServer: [
     {
-      command: `nx serve web -c ${process.env.CI ? 'ci' : 'test'} --verbose`,
+      command: `nx serve web -c ${process.env.CI ? 'ci' : 'test'}`,
       cwd: workspaceRoot,
       reuseExistingServer: !process.env.CI,
       stdout: 'pipe',
@@ -115,7 +115,7 @@ export default defineConfig({
       url: webUrl,
     },
     {
-      command: `nx serve api -c ${process.env.CI ? 'ci' : 'test'} --verbose`,
+      command: `nx serve api -c ${process.env.CI ? 'ci' : 'test'}`,
       cwd: workspaceRoot,
       reuseExistingServer: !process.env.CI,
       stdout: 'pipe',

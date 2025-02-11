@@ -24,4 +24,5 @@ steps:
       paths:
         - ~/project/.nx/cache
         # https://github.com/nrwl/nx/issues/5221
-        - ~/project/dist/apps/web/.next/cache
+        # - ~/project/dist/apps/web/.next/cache
+        - ~/project/dist/apps/web/.next

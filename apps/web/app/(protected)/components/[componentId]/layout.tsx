@@ -1,8 +1,12 @@
-import type { PageContextParams } from '@codelab/frontend/abstract/types'
+import type {
+  ComponentContextParams,
+  PageContextParams,
+} from '@codelab/frontend/abstract/types'
 import type { ReactNode } from 'react'
 
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { appBuilderQuery } from '@codelab/frontend-application-app/use-cases/app-builder'
+import { componentBuilderQuery } from '@codelab/frontend-application-component/use-cases/component-builder'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 
 import { LayoutClient } from './layout.client'
@@ -14,15 +18,15 @@ import { LayoutClient } from './layout.client'
  */
 const Layout = async (props: {
   children: ReactNode
-  params: Promise<PageContextParams>
+  params: Promise<ComponentContextParams>
 }) => {
   const params = await props.params
   const { children } = props
-  const { appId, pageId } = params
-  const dto = await appBuilderQuery({ appId })
+  const { componentId } = params
+  const dto = await componentBuilderQuery({ componentId })
 
   return (
-    <LayoutClient dto={dto} pageId={pageId}>
+    <LayoutClient componentId={componentId} dto={dto}>
       {children}
     </LayoutClient>
   )

@@ -143,12 +143,14 @@ export class BuilderPage extends BasePage {
 
   async deleteElementFromOverlay(element: ICreateElementSeedData) {
     return test.step('deleteElementFromOverlay', async () => {
-      const elementOverlay = this.getElementOverlay()
-      const deleteElementButton = elementOverlay.locator('.anticon-delete')
-
       await this.selectTreeElement(element)
+
+      const deleteElementButton =
+        this.getElementOverlay().locator('.anticon-delete')
+
+      await expect(deleteElementButton).toBeVisible()
       await deleteElementButton.click()
-      await this.clickPopconfirmButton()
+      await this.clickPopconfirmButton(UiKey.ElementPopoverOverlayDelete)
 
       await expect(this.getGlobalProgressBar()).toBeHidden()
     })
@@ -161,7 +163,7 @@ export class BuilderPage extends BasePage {
       await this.getConfigPane()
         .locator(this.page.getByRole('button', { name: 'Delete' }))
         .click()
-      await this.clickPopconfirmButton()
+      await this.clickPopconfirmButton(UiKey.ElementPopoverFormDelete)
     })
   }
 
@@ -174,7 +176,7 @@ export class BuilderPage extends BasePage {
   }
 
   getElementOverlay() {
-    return this.page.locator('#builder-click-overlay')
+    return this.page.locator('#render-blueprint-container')
   }
 
   getElementsTree() {
@@ -184,7 +186,7 @@ export class BuilderPage extends BasePage {
   }
 
   getFormFieldSpinner() {
-    return this.page.getByLabel('loading')
+    return this.page.locator('.ant-form-item-control').getByLabel('loading')
   }
 
   getSelectedTreeElement() {

@@ -1,4 +1,4 @@
-import type { Auth0IdToken } from '@codelab/shared/abstract/core'
+import type { Auth0IdToken, IUserSession } from '@codelab/shared/abstract/core'
 import type { ExecutionContext } from '@nestjs/common'
 
 import { User } from '@codelab/backend/domain/user'
@@ -16,7 +16,7 @@ export const CurrentUser = createParamDecorator<unknown, ExecutionContext>(
 
     // Otherwise assume it's a CLI execution context
     const httpContext = ctx.switchToHttp().getRequest()
-    const userSession = httpContext.user as Auth0IdToken
+    const userSession = httpContext.user as IUserSession
 
     return User.fromSession(userSession)
   },

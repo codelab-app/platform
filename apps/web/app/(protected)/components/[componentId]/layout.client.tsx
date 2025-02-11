@@ -1,6 +1,9 @@
 'use client'
 
-import type { IAppBuilderDto } from '@codelab/frontend/abstract/domain'
+import type {
+  IAppBuilderDto,
+  IComponentBuilderDto,
+} from '@codelab/frontend/abstract/domain'
 
 import { RendererType } from '@codelab/frontend/abstract/application'
 import {
@@ -20,27 +23,23 @@ import { type ReactNode, useEffect } from 'react'
 export const LayoutClient = observer(
   ({
     children,
+    componentId,
     dto,
-    pageId,
   }: {
     children: ReactNode
-    pageId: string
-    dto: IAppBuilderDto
+    componentId: string
+    dto: IComponentBuilderDto
   }) => {
     const hydrate = useDomainStoreHydrator()
 
     useEffect(() => {
       hydrate({
         actionsDto: dto.actions,
-        appsDto: [dto.app],
         atomsDto: dto.atoms,
-        authGuardsDto: dto.authGuards,
         componentsDto: dto.components,
         elementsDto: dto.elements,
         fieldsDto: dto.fields,
-        pagesDto: dto.pages,
         propsDto: dto.props,
-        redirectsDto: dto.redirects,
         resourcesDto: dto.resources,
         storesDto: dto.stores,
         tagsDto: dto.tags,

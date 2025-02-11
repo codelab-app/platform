@@ -12,7 +12,7 @@ environment:
   NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
 
 steps:
-  - restore-workspace
+  - restore-workspace-database
   - setup-neo4j
   # - clear-jest-cache
   - run:
