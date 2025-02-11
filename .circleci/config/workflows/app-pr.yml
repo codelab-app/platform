@@ -33,16 +33,16 @@ jobs:
             - staging
       requires:
         - setup-workspace
-  # - build-nx-apps:
-  #     resource_class: large
-  #     max_old_space_size: 4096
-  #     filters:
-  #       branches:
-  #         ignore:
-  #           - master
-  #           - staging
-  #     requires:
-  #       - setup-workspace
+  - build-nx-apps:
+      resource_class: large
+      max_old_space_size: 4096
+      filters:
+        branches:
+          ignore:
+            - master
+            - staging
+      requires:
+        - setup-workspace
   - build-nx-libs:
       resource_class: large
       max_old_space_size: 4096
@@ -102,8 +102,7 @@ jobs:
             - master
             - staging
       requires:
-        # - build-nx-apps
-        - setup-workspace
+        - build-nx-apps
   - notify-success:
       resource_class: medium
       filters:
@@ -117,6 +116,6 @@ jobs:
         - unit
         - integration
         - build-nx-libs
-        # - build-nx-apps
+        - build-nx-apps
         - tsc-check
         - e2e

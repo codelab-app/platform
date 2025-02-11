@@ -381,7 +381,12 @@ jobs:
     steps:
       - restore-workspace-database
       - setup-neo4j
-      - build-nx-apps
+      - restore_cache:
+          keys:
+            - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+            - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-
+            - nx-cache-
+          name: Restore NX Cache
       - run: pnpm npx playwright install-deps
       - run:
           command: |
@@ -784,6 +789,16 @@ workflows:
           requires:
             - setup-workspace
           resource_class: large
+      - build-nx-apps:
+          filters:
+            branches:
+              ignore:
+                - master
+                - staging
+          max_old_space_size: 4096
+          requires:
+            - setup-workspace
+          resource_class: large
       - build-nx-libs:
           filters:
             branches:
@@ -839,7 +854,7 @@ workflows:
                 - staging
           max_old_space_size: 4096
           requires:
-            - setup-workspace
+            - build-nx-apps
           resource_class: large
       - notify-success:
           filters:
@@ -853,6 +868,7 @@ workflows:
             - unit
             - integration
             - build-nx-libs
+            - build-nx-apps
             - tsc-check
             - e2e
           resource_class: medium
