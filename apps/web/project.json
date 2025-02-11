@@ -43,7 +43,8 @@
           "port": 3001
         },
         "ci": {
-          "buildTarget": "web:build:ci"
+          "buildTarget": "web:build:ci",
+          "dev": false
         },
         "prod": {
           "buildTarget": "web:build:prod",

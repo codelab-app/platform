@@ -20,7 +20,7 @@ commands:
           name: Save NX Cache
           paths:
             - ~/project/.nx/cache
-            - ~/project/dist/apps/web/.next/cache
+            - ~/project/dist/apps/web/.next
   build-nx-libs:
     description: Build Nx Libs
     steps:
@@ -381,20 +381,15 @@ jobs:
     steps:
       - restore-workspace-database
       - setup-neo4j
+      - restore_cache:
+          keys:
+            - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+            - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-
+            - nx-cache-
+          name: Restore NX Cache
       - run: pnpm npx playwright install-deps
       - run:
           command: |
-            set -x
-
-            # Debug Node installation and environment
-            which node        # Where is Node installed
-            echo $PATH        # Check PATH
-            ls -l $(which node)  # Check Node executable permissions
-
-            # Additional debugging info
-            node --version    # Verify Node version
-            echo $NODE_ENV    # Check Node environment
-
             # Original test command
             SHARD="$((${CIRCLE_NODE_INDEX}+1))"
             echo $SHARD;
@@ -858,7 +853,7 @@ workflows:
                 - staging
           max_old_space_size: 4096
           requires:
-            - setup-workspace
+            - build-nx-apps
           resource_class: large
       - notify-success:
           filters:
