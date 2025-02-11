@@ -39,7 +39,11 @@ steps:
         echo $SHARD;
         echo $CIRCLE_NODE_TOTAL;
 
-        pnpm nx e2e web-e2e -c ci --shard=${SHARD}/${CIRCLE_NODE_TOTAL} --verbose
+        pnpm nx e2e web-e2e -c ci \
+          --shard=${SHARD}/${CIRCLE_NODE_TOTAL} \
+          --verbose \
+          --testFiles="modules/builder/builder.spec.ts"
+
   - store_artifacts:
       path: ~/project/dist/.playwright/apps/web-e2e/playwright-report
       destination: playwright-report

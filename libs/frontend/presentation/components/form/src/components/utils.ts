@@ -19,7 +19,7 @@ type OnSubmitOptimistic<TData, TResponse> = OptimisticFormProps<
   TResponse
 >['onSubmitOptimistic']
 
-const MIN_DELAY = 600
+const MIN_DELAY = 400
 
 /**
  * Handles loading state and optimistic submit for async functions

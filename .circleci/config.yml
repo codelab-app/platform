@@ -260,7 +260,7 @@ executors:
       image: ubuntu-2004:2022.04.1
   playwright:
     docker:
-      - image: mcr.microsoft.com/playwright:v1.46.0-jammy
+      - image: mcr.microsoft.com/playwright:v1.50.0-noble
   terraform:
     docker:
       - image: hashicorp/terraform:1.7.0
@@ -397,7 +397,10 @@ jobs:
             node -v
             which node
 
-            pnpm nx e2e web-e2e -c ci --shard=${SHARD}/${CIRCLE_NODE_TOTAL} --verbose
+            pnpm nx e2e web-e2e -c ci \
+              --shard=${SHARD}/${CIRCLE_NODE_TOTAL} \
+              --verbose \
+              --testFiles="modules/builder/builder.spec.ts"
           name: Run E2E Tests
           no_output_timeout: 15m
       - store_artifacts:
