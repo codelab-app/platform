@@ -10,7 +10,7 @@ steps:
         - pnpm-cache
   - run:
       name: 'Install NPM Packages'
-      command: pnpm install --frozen-lockfile --verbose
+      command: pnpm install --frozen-lockfile
   # Need to bust cache manually by updating lock file
   - run:
       name: 'Prune pnpm store'

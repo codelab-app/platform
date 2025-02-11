@@ -94,7 +94,7 @@ commands:
             - pnpm-cache
           name: Restore pnpm Package Cache
       - run:
-          command: pnpm install --frozen-lockfile --verbose
+          command: pnpm install --frozen-lockfile
           name: Install NPM Packages
       - run:
           command: |
@@ -381,12 +381,7 @@ jobs:
     steps:
       - restore-workspace-database
       - setup-neo4j
-      - restore_cache:
-          keys:
-            - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-            - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-
-            - nx-cache-
-          name: Restore NX Cache
+      - build-nx-apps
       - run: pnpm npx playwright install-deps
       - run:
           command: |
@@ -398,9 +393,7 @@ jobs:
             which node
 
             pnpm nx e2e web-e2e -c ci \
-              --shard=${SHARD}/${CIRCLE_NODE_TOTAL} \
-              --verbose \
-              --testFiles="modules/builder/builder.spec.ts"
+              --shard=${SHARD}/${CIRCLE_NODE_TOTAL}
           name: Run E2E Tests
           no_output_timeout: 15m
       - store_artifacts:
@@ -791,16 +784,6 @@ workflows:
           requires:
             - setup-workspace
           resource_class: large
-      - build-nx-apps:
-          filters:
-            branches:
-              ignore:
-                - master
-                - staging
-          max_old_space_size: 4096
-          requires:
-            - setup-workspace
-          resource_class: large
       - build-nx-libs:
           filters:
             branches:
@@ -856,7 +839,7 @@ workflows:
                 - staging
           max_old_space_size: 4096
           requires:
-            - build-nx-apps
+            - setup-workspace
           resource_class: large
       - notify-success:
           filters:
@@ -870,7 +853,6 @@ workflows:
             - unit
             - integration
             - build-nx-libs
-            - build-nx-apps
             - tsc-check
             - e2e
           resource_class: medium

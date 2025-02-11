@@ -18,9 +18,7 @@
       },
       "configurations": {
         "test": {},
-        "ci": {
-          "debug": true
-        }
+        "ci": {}
       }
     },
     "e2e-ui": {

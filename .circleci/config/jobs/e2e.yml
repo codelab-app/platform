@@ -15,13 +15,15 @@ parallelism: 4
 steps:
   - restore-workspace-database
   - setup-neo4j
-  - restore_cache:
-      name: 'Restore NX Cache'
-      keys:
-        # This is needed for e2e to run, the specs don't seem to run without the apps having pre-built
-        - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-        - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-
-        - nx-cache-
+  # Move from job to here to save extra workspace setup
+  - build-nx-apps
+  # - restore_cache:
+  #     name: 'Restore NX Cache'
+  #     keys:
+  #       # This is needed for e2e to run, the specs don't seem to run without the apps having pre-built
+  #       - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+  #       - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-
+  #       - nx-cache-
   - run: pnpm npx playwright install-deps
   # - setup_remote_docker:
   #     version: default
@@ -40,9 +42,7 @@ steps:
         echo $CIRCLE_NODE_TOTAL;
 
         pnpm nx e2e web-e2e -c ci \
-          --shard=${SHARD}/${CIRCLE_NODE_TOTAL} \
-          --verbose \
-          --testFiles="modules/builder/builder.spec.ts"
+          --shard=${SHARD}/${CIRCLE_NODE_TOTAL}
 
   - store_artifacts:
       path: ~/project/dist/.playwright/apps/web-e2e/playwright-report
