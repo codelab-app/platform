@@ -6,8 +6,11 @@ import { ObjectLike } from '@codelab/shared/abstract/types'
 import { Injectable, UnauthorizedException } from '@nestjs/common'
 import { ExecutionContextHost } from '@nestjs/core/helpers/execution-context-host'
 
-import { JwtAuthGuard } from './jwt/jwt-auth.guard'
+import { JwtAuthGuard } from './jwt-auth.guard'
 
+/**
+ * @deprecated
+ */
 @Injectable()
 export class JwtAuthMiddleware implements NestMiddleware {
   constructor(

@@ -1,0 +1,8 @@
+---
+description: Keep comments
+globs: 
+---
+
+# Your rule content
+
+- Don't strip comments from the files
