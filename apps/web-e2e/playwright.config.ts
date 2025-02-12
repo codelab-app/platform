@@ -86,7 +86,13 @@ export default defineConfig({
   ],
 
   // reporter: [['list'], ['html']],
-  reporter: [['list', { printSteps: true }]],
+  reporter: process.env.CI
+    ? [
+        ['html', { open: 'never' }],
+        ['list', { printSteps: true }],
+        ['junit', { outputFile: 'results.xml' }],
+      ]
+    : [['list', { printSteps: true }]],
 
   retries: process.env.CI ? 1 : 0,
 

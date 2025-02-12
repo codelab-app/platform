@@ -394,8 +394,6 @@ jobs:
             SHARD="$((${CIRCLE_NODE_INDEX}+1))"
             echo $SHARD;
             echo $CIRCLE_NODE_TOTAL;
-            node -v
-            which node
 
             pnpm nx e2e web-e2e -c ci \
               --shard=${SHARD}/${CIRCLE_NODE_TOTAL}
