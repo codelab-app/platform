@@ -1,7 +1,424 @@
 {
   "api": {
     "__typename": "InterfaceType",
-    "fields": [],
+    "fields": [
+      {
+        "api": {
+          "id": "832a516f-46fc-46ce-814b-d641cc51b302"
+        },
+        "defaultValues": "false",
+        "description": "Show clear button",
+        "fieldType": {
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+        },
+        "id": "3426b0f6-f04e-478d-bff3-218b3988018b",
+        "key": "allowClear",
+        "name": "AllowClear",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "832a516f-46fc-46ce-814b-d641cc51b302"
+        },
+        "defaultValues": "false",
+        "description": "If get focus when component mounted",
+        "fieldType": {
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+        },
+        "id": "037a9f9a-9faf-4710-98b6-544c4a7f4497",
+        "key": "autoFocus",
+        "name": "AutoFocus",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "832a516f-46fc-46ce-814b-d641cc51b302"
+        },
+        "defaultValues": "false",
+        "description": "If backfill selected item the input when using keyboard",
+        "fieldType": {
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+        },
+        "id": "8f0fa92a-1053-43a0-bff7-6d64951aa85a",
+        "key": "backfill",
+        "name": "Backfill",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "832a516f-46fc-46ce-814b-d641cc51b302"
+        },
+        "defaultValues": "false",
+        "description": "Whether active first option by default",
+        "fieldType": {
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+        },
+        "id": "8bc57f83-7836-48ba-8f16-2e1caa4cb12a",
+        "key": "defaultActiveFirstOption",
+        "name": "DefaultActiveFirstOption",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "832a516f-46fc-46ce-814b-d641cc51b302"
+        },
+        "defaultValues": "false",
+        "description": "Initial open state of dropdown",
+        "fieldType": {
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+        },
+        "id": "296ac4be-b665-4a53-a5a6-7948786d1e64",
+        "key": "defaultOpen",
+        "name": "DefaultOpen",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "832a516f-46fc-46ce-814b-d641cc51b302"
+        },
+        "defaultValues": null,
+        "description": "Initial selected option",
+        "fieldType": {
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
+        },
+        "id": "76520bef-91cf-4c28-8a3a-c9f2f9c023a6",
+        "key": "defaultValue",
+        "name": "DefaultValue",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "832a516f-46fc-46ce-814b-d641cc51b302"
+        },
+        "defaultValues": "false",
+        "description": "Whether disabled select",
+        "fieldType": {
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+        },
+        "id": "b3fe48b2-f4dd-46b1-87f4-e89fae225753",
+        "key": "disabled",
+        "name": "Disabled",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "832a516f-46fc-46ce-814b-d641cc51b302"
+        },
+        "defaultValues": null,
+        "description": "Customize dropdown content",
+        "fieldType": {
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
+        },
+        "id": "c690c59e-bbff-4d63-969d-b722f696ed48",
+        "key": "dropdownRender",
+        "name": "DropdownRender",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "832a516f-46fc-46ce-814b-d641cc51b302"
+        },
+        "defaultValues": "true",
+        "description": "If true, filter options by input, if function, filter options against it. The function will receive two arguments, inputValue and option, if the function returns true, the option will be included in the filtered set; Otherwise, it will be excluded",
+        "fieldType": {
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+        },
+        "id": "4e17f16a-7736-4582-89bf-10849971d26d",
+        "key": "filterOption",
+        "name": "FilterOption",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "832a516f-46fc-46ce-814b-d641cc51b302"
+        },
+        "defaultValues": null,
+        "description": "Specify content to show when no result matches",
+        "fieldType": {
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
+        },
+        "id": "981aa76a-63e4-4415-bf00-20314cfffea9",
+        "key": "notFoundContent",
+        "name": "NotFoundContent",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "832a516f-46fc-46ce-814b-d641cc51b302"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f"
+        },
+        "id": "9d07ee30-58ca-4cf9-b496-15e2122e7a1e",
+        "key": "onBlur",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "832a516f-46fc-46ce-814b-d641cc51b302"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f"
+        },
+        "id": "97f0bf26-2f61-4ebf-b774-ea57ca3160c8",
+        "key": "onChange",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "832a516f-46fc-46ce-814b-d641cc51b302"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f"
+        },
+        "id": "ae101230-b844-463e-944f-84e91f567852",
+        "key": "onClear",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "832a516f-46fc-46ce-814b-d641cc51b302"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f"
+        },
+        "id": "cd9c5ae0-3f78-4ed3-a0af-42aa961d8541",
+        "key": "onDropdownVisibleChange",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "832a516f-46fc-46ce-814b-d641cc51b302"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f"
+        },
+        "id": "2766a5cf-908d-490c-928e-e33772becb39",
+        "key": "onFocus",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "832a516f-46fc-46ce-814b-d641cc51b302"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f"
+        },
+        "id": "caaf2d30-ea44-4002-8de8-3b3284be1e34",
+        "key": "onSearch",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "832a516f-46fc-46ce-814b-d641cc51b302"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f"
+        },
+        "id": "4aacb9ce-bb15-42a4-9636-1277aca64063",
+        "key": "onSelect",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "832a516f-46fc-46ce-814b-d641cc51b302"
+        },
+        "defaultValues": "[]",
+        "description": "Select options. Will get better perf than jsx definition",
+        "fieldType": {
+          "id": "445cce22-98b1-4037-a341-ec06168b0ca4"
+        },
+        "id": "54a05877-dc9c-490f-b8c9-92490365cb7a",
+        "key": "options",
+        "name": "Options",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "832a516f-46fc-46ce-814b-d641cc51b302"
+        },
+        "defaultValues": "\"Placeholder\"",
+        "description": "The placeholder of input",
+        "fieldType": {
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
+        },
+        "id": "4b1700ac-235b-4261-a06f-1a18ab9085f9",
+        "key": "placeholder",
+        "name": "Placeholder",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "832a516f-46fc-46ce-814b-d641cc51b302"
+        },
+        "defaultValues": null,
+        "description": "The className of dropdown menu",
+        "fieldType": {
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
+        },
+        "id": "ee8dd9a2-7d6b-4473-adf8-12fbfdd273f4",
+        "key": "popupClassName",
+        "name": "PopupClassName",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "832a516f-46fc-46ce-814b-d641cc51b302"
+        },
+        "defaultValues": "true",
+        "description": "Determine whether the dropdown menu and the select input are the same width. Default set min-width same as input. Will ignore when value less than select width. false will disable virtual scroll",
+        "fieldType": {
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+        },
+        "id": "d184edf8-5fc0-4b6c-933c-c24d6cedee93",
+        "key": "popupMatchSelectWidth",
+        "name": "PopupMatchSelectWidth",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "832a516f-46fc-46ce-814b-d641cc51b302"
+        },
+        "defaultValues": "\"middle\"",
+        "description": "The size of the input box",
+        "fieldType": {
+          "id": "f8f0f83b-3200-4714-a077-ad184c00e9d2"
+        },
+        "id": "7e7849c6-c054-450f-a351-23df39a37a31",
+        "key": "size",
+        "name": "Size",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "832a516f-46fc-46ce-814b-d641cc51b302"
+        },
+        "defaultValues": "\"outlined\"",
+        "description": null,
+        "fieldType": {
+          "id": "5e7aa0be-411c-44cb-8d5b-dc202ee386cc"
+        },
+        "id": "9b6aeec8-94c4-4d4b-82a7-94a3b380b9f5",
+        "key": "variant",
+        "name": "Variant",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "832a516f-46fc-46ce-814b-d641cc51b302"
+        },
+        "defaultValues": "true",
+        "description": "Disable virtual scroll when set to false",
+        "fieldType": {
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+        },
+        "id": "8c2c37d0-fec0-45b2-9af2-595c70fe2306",
+        "key": "virtual",
+        "name": "Virtual",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "774ae23b-f0ce-4cec-9dae-5477af434e9a"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
+        },
+        "id": "88ce3cf2-6db1-449d-af70-4ca92a11d80a",
+        "key": "label",
+        "name": "Label",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "774ae23b-f0ce-4cec-9dae-5477af434e9a"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
+        },
+        "id": "5ad86410-15ec-4baf-bcc6-9b4828f513a8",
+        "key": "value",
+        "name": "Value",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      }
+    ],
     "id": "832a516f-46fc-46ce-814b-d641cc51b302",
     "kind": "InterfaceType",
     "name": "AntDesignAutoComplete API",
@@ -12,6 +429,77 @@
         "id": "832a516f-46fc-46ce-814b-d641cc51b302",
         "kind": "InterfaceType",
         "name": "AntDesignAutoComplete API"
+      },
+      {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "id": "88ce3cf2-6db1-449d-af70-4ca92a11d80a"
+          },
+          {
+            "id": "5ad86410-15ec-4baf-bcc6-9b4828f513a8"
+          }
+        ],
+        "id": "774ae23b-f0ce-4cec-9dae-5477af434e9a",
+        "kind": "InterfaceType",
+        "name": "AntDesignAutoComplete Option"
+      },
+      {
+        "__typename": "ArrayType",
+        "id": "445cce22-98b1-4037-a341-ec06168b0ca4",
+        "itemType": {
+          "__typename": "InterfaceType",
+          "id": "774ae23b-f0ce-4cec-9dae-5477af434e9a",
+          "name": "AntDesignAutoComplete Option"
+        },
+        "kind": "ArrayType",
+        "name": "AntDesignAutoComplete Options"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "59b35e4b-3c70-462c-ac48-8c5a91843e08",
+            "key": "large",
+            "value": "Large"
+          },
+          {
+            "id": "bc9994c5-bcbc-48d2-a534-def844b54fb8",
+            "key": "Middle",
+            "value": "middle"
+          },
+          {
+            "id": "7ae489c3-f28e-49cd-b7be-a0722a399b0f",
+            "key": "Small",
+            "value": "small"
+          }
+        ],
+        "id": "f8f0f83b-3200-4714-a077-ad184c00e9d2",
+        "kind": "EnumType",
+        "name": "AntDesignAutoComplete Size"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "d9777b1c-eb4f-4e9d-9e0d-3635514a72c4",
+            "key": "Borderless",
+            "value": "borderless"
+          },
+          {
+            "id": "2a804270-e2a2-4204-bc0e-b8f9676d6eb0",
+            "key": "Filled",
+            "value": "filled"
+          },
+          {
+            "id": "853b9d62-88fb-4b27-a4bb-2152ec2570f9",
+            "key": "Outlined",
+            "value": "outlined"
+          }
+        ],
+        "id": "5e7aa0be-411c-44cb-8d5b-dc202ee386cc",
+        "kind": "EnumType",
+        "name": "AntDesignAutoComplete Variant"
       }
     ]
   },

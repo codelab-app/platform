@@ -5227,7 +5227,6 @@ export enum AtomType {
   AntDesignAffix = 'AntDesignAffix',
   AntDesignAlert = 'AntDesignAlert',
   AntDesignAnchor = 'AntDesignAnchor',
-  AntDesignAnchorLink = 'AntDesignAnchorLink',
   AntDesignAutoComplete = 'AntDesignAutoComplete',
   AntDesignAvatar = 'AntDesignAvatar',
   AntDesignBackTop = 'AntDesignBackTop',

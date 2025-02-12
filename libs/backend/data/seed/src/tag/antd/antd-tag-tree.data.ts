@@ -114,7 +114,7 @@ export const antdTagTree: TagNode<IAntdCategoryTag | keyof IAntdAtomRecords> = {
     IAtomType.AntDesignSteps,
   ],
   [IAntdCategoryTag.AntDesignOther]: [
-    { [IAtomType.AntDesignAnchor]: [IAtomType.AntDesignAnchorLink] },
+    IAtomType.AntDesignAnchor,
     IAtomType.AntDesignBackTop,
     IAtomType.AntDesignConfigProvider,
   ],

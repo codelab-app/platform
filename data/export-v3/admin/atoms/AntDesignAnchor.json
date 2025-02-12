@@ -38,6 +38,22 @@
         "api": {
           "id": "053013bf-82ba-4ee7-b9cf-fe7c21f8b484"
         },
+        "defaultValues": "\"Vertical\"",
+        "description": null,
+        "fieldType": {
+          "id": "23cff358-1ac8-4af6-a2b5-c97cdccec04b"
+        },
+        "id": "12ac5847-2969-43a3-ac1b-b7ab6d79baaa",
+        "key": "direction",
+        "name": "Direction",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":false}}"
+      },
+      {
+        "api": {
+          "id": "053013bf-82ba-4ee7-b9cf-fe7c21f8b484"
+        },
         "defaultValues": null,
         "description": null,
         "fieldType": {
@@ -65,6 +81,22 @@
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
+      },
+      {
+        "api": {
+          "id": "053013bf-82ba-4ee7-b9cf-fe7c21f8b484"
+        },
+        "defaultValues": "[]",
+        "description": null,
+        "fieldType": {
+          "id": "84662a8f-253a-457f-8f59-0eb275146b37"
+        },
+        "id": "6507feef-2d27-4a77-8c51-3af2715f6bc2",
+        "key": "items",
+        "name": "Items",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
       },
       {
         "api": {
@@ -145,6 +177,86 @@
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
+      },
+      {
+        "api": {
+          "id": "88cd0d94-5391-4c95-8589-c80cfa297a69"
+        },
+        "defaultValues": null,
+        "description": "The unique identifier of the Anchor Link",
+        "fieldType": {
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
+        },
+        "id": "25154a27-71c8-43a7-ad2d-72076f715126",
+        "key": "key",
+        "name": "Key",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "88cd0d94-5391-4c95-8589-c80cfa297a69"
+        },
+        "defaultValues": null,
+        "description": "The target of hyperlink",
+        "fieldType": {
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
+        },
+        "id": "c848a7d9-a842-4071-9fdd-4fb150904657",
+        "key": "href",
+        "name": "Href",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "88cd0d94-5391-4c95-8589-c80cfa297a69"
+        },
+        "defaultValues": null,
+        "description": "Specifies where to display the linked URL",
+        "fieldType": {
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
+        },
+        "id": "7905e787-b7bf-4096-9984-895f205b6c07",
+        "key": "target",
+        "name": "Target",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "88cd0d94-5391-4c95-8589-c80cfa297a69"
+        },
+        "defaultValues": null,
+        "description": "The content of hyperlink",
+        "fieldType": {
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
+        },
+        "id": "56235644-4c10-45cc-88ae-d6fac3263951",
+        "key": "title",
+        "name": "Title",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "88cd0d94-5391-4c95-8589-c80cfa297a69"
+        },
+        "defaultValues": "false",
+        "description": "Replace item href in browser history instead of pushing it",
+        "fieldType": {
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+        },
+        "id": "0e921322-e3aa-4990-b46d-3f37904c2bda",
+        "key": "replace",
+        "name": "Replace",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
       }
     ],
     "id": "053013bf-82ba-4ee7-b9cf-fe7c21f8b484",
@@ -157,6 +269,58 @@
         "id": "053013bf-82ba-4ee7-b9cf-fe7c21f8b484",
         "kind": "InterfaceType",
         "name": "AntDesignAnchor API"
+      },
+      {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "id": "25154a27-71c8-43a7-ad2d-72076f715126"
+          },
+          {
+            "id": "c848a7d9-a842-4071-9fdd-4fb150904657"
+          },
+          {
+            "id": "7905e787-b7bf-4096-9984-895f205b6c07"
+          },
+          {
+            "id": "56235644-4c10-45cc-88ae-d6fac3263951"
+          },
+          {
+            "id": "0e921322-e3aa-4990-b46d-3f37904c2bda"
+          }
+        ],
+        "id": "88cd0d94-5391-4c95-8589-c80cfa297a69",
+        "kind": "InterfaceType",
+        "name": "AntDesignAnchor Item"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "360b923b-9a2a-4052-84f8-e8905b3235b0",
+            "key": "Horizontal",
+            "value": "horizontal"
+          },
+          {
+            "id": "12e6682d-cc1d-461a-96c1-3ce5774310bf",
+            "key": "Vertical",
+            "value": "vertical"
+          }
+        ],
+        "id": "23cff358-1ac8-4af6-a2b5-c97cdccec04b",
+        "kind": "EnumType",
+        "name": "AntDesignAnchor Direction"
+      },
+      {
+        "__typename": "ArrayType",
+        "id": "84662a8f-253a-457f-8f59-0eb275146b37",
+        "itemType": {
+          "__typename": "InterfaceType",
+          "id": "88cd0d94-5391-4c95-8589-c80cfa297a69",
+          "name": "AntDesignAnchor Item"
+        },
+        "kind": "ArrayType",
+        "name": "AntDesignAnchor Items"
       }
     ]
   },

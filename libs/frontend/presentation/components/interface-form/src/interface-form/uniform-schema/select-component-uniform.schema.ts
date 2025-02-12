@@ -10,10 +10,10 @@ import { SelectComponent } from '../fields'
 
 const COMPONENT_TEMPLATE = `{{
   function run() {
-    const { AntDesignTypographyParagraph, /* import atoms here */ } = this.atoms
+    const { AntDesignTypographyText } = this.atoms
 
     return (
-      <AntDesignTypographyParagraph>Hello world!</AntDesignTypographyParagraph>
+      <AntDesignTypographyText>Content</AntDesignTypographyText>
     )
   }.bind(this)
 }}`

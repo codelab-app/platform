@@ -7,7 +7,71 @@
           "id": "3b792021-dd81-41b4-b2c6-816ba6e8a7fc"
         },
         "defaultValues": null,
+        "description": "The action of Alert",
+        "fieldType": {
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
+        },
+        "id": "35e3d2ad-2b9c-411d-a90a-71c05d6aa731",
+        "key": "action",
+        "name": "Action",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "3b792021-dd81-41b4-b2c6-816ba6e8a7fc"
+        },
+        "defaultValues": null,
+        "description": "Called when close animation is finished",
+        "fieldType": {
+          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f"
+        },
+        "id": "33bbdd77-ef8e-4d05-b5b7-d5b361bf2d41",
+        "key": "afterClose",
+        "name": "On After Close",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "3b792021-dd81-41b4-b2c6-816ba6e8a7fc"
+        },
+        "defaultValues": "false",
+        "description": "Whether to show as banner",
+        "fieldType": {
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+        },
+        "id": "f12968f1-c5cb-44ec-aac4-50d950d85857",
+        "key": "banner",
+        "name": "Banner",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "3b792021-dd81-41b4-b2c6-816ba6e8a7fc"
+        },
+        "defaultValues": "false",
         "description": null,
+        "fieldType": {
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+        },
+        "id": "6e9732f0-8dac-44c5-a4f0-0e4f0a5d2167",
+        "key": "closable",
+        "name": "Closable",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "3b792021-dd81-41b4-b2c6-816ba6e8a7fc"
+        },
+        "defaultValues": "null",
+        "description": "Additional content of Alert",
         "fieldType": {
           "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
         },
@@ -16,14 +80,30 @@
         "name": "Description",
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": null
+        "validationRules": "{}"
       },
       {
         "api": {
           "id": "3b792021-dd81-41b4-b2c6-816ba6e8a7fc"
         },
         "defaultValues": null,
-        "description": null,
+        "description": "Custom icon, effective when showIcon is true",
+        "fieldType": {
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
+        },
+        "id": "ef78dc67-d48f-48c9-9d79-3eefc6154dab",
+        "key": "icon",
+        "name": "Icon",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "3b792021-dd81-41b4-b2c6-816ba6e8a7fc"
+        },
+        "defaultValues": "null",
+        "description": "Content of Alert",
         "fieldType": {
           "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
         },
@@ -32,7 +112,55 @@
         "name": "Message",
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": null
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "3b792021-dd81-41b4-b2c6-816ba6e8a7fc"
+        },
+        "defaultValues": null,
+        "description": "Callback when Alert is closed",
+        "fieldType": {
+          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f"
+        },
+        "id": "a1e84ca5-c387-440a-b803-b222871dee68",
+        "key": "onClose",
+        "name": "On Close",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "3b792021-dd81-41b4-b2c6-816ba6e8a7fc"
+        },
+        "defaultValues": "true",
+        "description": "Whether to show icon",
+        "fieldType": {
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+        },
+        "id": "5704a2ea-98a4-4bc1-b938-4be20f6e9576",
+        "key": "showIcon",
+        "name": "Show Icon",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "3b792021-dd81-41b4-b2c6-816ba6e8a7fc"
+        },
+        "defaultValues": "\"info\"",
+        "description": "Type of Alert styles, options: success, info, warning, error",
+        "fieldType": {
+          "id": "6f71d439-ec14-4e41-81d7-42759eeb751c"
+        },
+        "id": "274d6edf-e924-4c91-9d49-98d4f6fd0ce0",
+        "key": "type",
+        "name": "Type",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
       }
     ],
     "id": "3b792021-dd81-41b4-b2c6-816ba6e8a7fc",
@@ -45,6 +173,34 @@
         "id": "3b792021-dd81-41b4-b2c6-816ba6e8a7fc",
         "kind": "InterfaceType",
         "name": "AntDesignAlert API"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "1fc6294e-fe4b-4aa6-bf71-bf813c44eeac",
+            "key": "Error",
+            "value": "error"
+          },
+          {
+            "id": "39bc6546-a638-4e38-b409-3a84398a0fca",
+            "key": "Info",
+            "value": "info"
+          },
+          {
+            "id": "ac22e10a-8273-4759-9182-b20f07d570f1",
+            "key": "Success",
+            "value": "success"
+          },
+          {
+            "id": "e51c19ea-67e0-4c0e-bd04-fdc05cdf2e96",
+            "key": "Warning",
+            "value": "warning"
+          }
+        ],
+        "id": "6f71d439-ec14-4e41-81d7-42759eeb751c",
+        "kind": "EnumType",
+        "name": "AntDesignAlert Type Enum"
       }
     ]
   },

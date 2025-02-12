@@ -7,9 +7,6 @@ export const antdAtoms: IAtomRendererRecord = {
   [IAtomType.AntDesignAffix]: dynamicLoader(() => import('antd/lib/affix')),
   [IAtomType.AntDesignAlert]: dynamicLoader(() => import('antd/lib/alert')),
   [IAtomType.AntDesignAnchor]: dynamicLoader(() => import('antd/lib/anchor')),
-  [IAtomType.AntDesignAnchorLink]: dynamicLoader(
-    () => import('antd/lib/anchor/AnchorLink'),
-  ),
   [IAtomType.AntDesignAutoComplete]: dynamicLoader(
     () => import('antd/lib/auto-complete'),
   ),

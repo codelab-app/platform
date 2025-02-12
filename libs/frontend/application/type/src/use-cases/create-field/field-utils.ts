@@ -52,7 +52,8 @@ export const canSetDefaultValue: FieldCondition = (
   Boolean(
     fieldType &&
       typeDomainService.type(fieldType).kind !== ITypeKind.InterfaceType &&
-      typeDomainService.type(fieldType).kind !== ITypeKind.ReactNodeType,
+      typeDomainService.type(fieldType).kind !== ITypeKind.ReactNodeType &&
+      typeDomainService.type(fieldType).kind !== ITypeKind.ActionType,
   )
 
 export const isFloat: FieldCondition = (typeDomainService, fieldType) =>

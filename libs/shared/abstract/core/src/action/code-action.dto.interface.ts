@@ -10,7 +10,6 @@ export const CodeActionDtoSchema = Type.Composite([
   Type.Object({
     __typename: Type.Literal(`${IActionKind.CodeAction}`),
     code: Type.String(),
-    // type: Type.Literal(IActionKind.CodeAction),
   }),
 ])
 
