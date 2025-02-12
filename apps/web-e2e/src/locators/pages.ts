@@ -56,7 +56,10 @@ export class BasePage {
    *  Need specifier for pop
    */
   async clickPopconfirmButton(
-    key: UiKey.ElementPopoverFormDelete | UiKey.ElementPopoverOverlayDelete,
+    key:
+      | UiKey.ElementPopconfirmFormDelete
+      | UiKey.ElementPopconfirmOverlayDelete
+      | UiKey.RedirectPopconfirmDelete,
   ) {
     const popconfirm = this.page.locator(`.ant-popconfirm.${getUiDataKey(key)}`)
     const confirmButton = popconfirm.locator('.ant-btn-primary')

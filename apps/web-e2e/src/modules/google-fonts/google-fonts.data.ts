@@ -35,10 +35,30 @@ export const seedTestData = async (request: APIRequestContext) => {
   const app = await seedAppData(request)
   const page = app.pages![0]!
 
-  await request.post('/api/v1/component/seed-system-components')
-  await request.post(`/api/v1/element/${page.rootElement.id}/create-elements`, {
-    data: [{ ...typographyElement, parentElement: page.rootElement }],
-  })
+  const systemComponentsResponse = await request.post(
+    '/api/v1/component/seed-system-components',
+  )
+
+  if (!systemComponentsResponse.ok()) {
+    const text = await systemComponentsResponse.text()
+
+    console.error('Server response:', text)
+    throw new Error(`HTTP error! status: ${systemComponentsResponse.status}`)
+  }
+
+  const elementsResponse = await request.post(
+    `/api/v1/element/${page.rootElement.id}/create-elements`,
+    {
+      data: [{ ...typographyElement, parentElement: page.rootElement }],
+    },
+  )
+
+  if (!elementsResponse.ok()) {
+    const text = await elementsResponse.text()
+
+    console.error('Server response:', text)
+    throw new Error(`HTTP error! status: ${elementsResponse.status}`)
+  }
 
   return app
 }

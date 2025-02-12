@@ -7,7 +7,7 @@ import { merge } from 'remeda'
 import { getCuiTree } from '../../commands'
 import { globalBeforeAll } from '../../setup/before-all'
 import { seedAppData, seedPageData } from '../builder/builder.data'
-import { seedData } from './auth-guard.data'
+import { seedResourceData } from './auth-guard.data'
 import { authGuardPageData, test } from './auth-guard.fixture'
 
 let app: IAppDto
@@ -19,7 +19,7 @@ globalBeforeAll()
 test.beforeAll(async ({ request }) => {
   app = await seedAppData(request)
   await seedPageData(request, merge(authGuardPageData, { app }))
-  await seedData(request)
+  await seedResourceData(request)
 })
 
 test.beforeEach(async ({ authGuardPage: page }) => {

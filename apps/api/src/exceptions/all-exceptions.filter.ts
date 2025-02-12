@@ -4,6 +4,7 @@ import type { Request } from 'express'
 import { Catch, HttpException, Injectable } from '@nestjs/common'
 import { BaseExceptionFilter } from '@nestjs/core'
 import { captureException } from '@sentry/nestjs'
+import { ClientError } from 'graphql-request'
 import { ValidationException } from 'typebox-validators'
 
 @Injectable()
@@ -62,13 +63,27 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
       // console.log(JSON.stringify(exception, null, 2))
       // console.log(JSON.stringify(logData, null, 2))
 
-      captureException(exception.toString(), {
-        // Not working, move to breadcrumb
-        // extra: logData,
-      })
+      // captureException(exception.toString(), {
+      //   // Not working, move to breadcrumb
+      //   // extra: logData,
+      // })
 
       // Rethrow the exception to stop the application
       throw exception
+    }
+
+    if (exception instanceof ClientError) {
+      const errorResponse = {
+        details: exception.response.errors,
+        error: 'GraphQL Error',
+        message:
+          exception.response.errors?.[0]?.message || 'Unknown GraphQL error',
+        statusCode: 400,
+      }
+
+      const httpException = new HttpException(errorResponse, 400)
+
+      throw httpException
     }
 
     return super.catch(exception, host)

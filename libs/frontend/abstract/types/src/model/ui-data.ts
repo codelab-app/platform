@@ -235,11 +235,11 @@ const UiDataRecord = {
   [UiKey.ElementFormCreate]: {
     label: 'Create Element Form',
   },
-  [UiKey.ElementPopoverFormDelete]: {
-    label: 'Delete Element Popover Form',
+  [UiKey.ElementPopconfirmFormDelete]: {
+    label: 'Delete Element Popconfirm Form',
   },
-  [UiKey.ElementPopoverOverlayDelete]: {
-    label: 'Delete Element Popover Overlay',
+  [UiKey.ElementPopconfirmOverlayDelete]: {
+    label: 'Delete Element Popconfirm Overlay',
   },
   [UiKey.ElementFormMove]: {
     label: 'Move Element Form',
@@ -378,6 +378,9 @@ const UiDataRecord = {
   },
   [UiKey.RedirectPopoverCreate]: {
     label: 'Create Redirect',
+  },
+  [UiKey.RedirectPopconfirmDelete]: {
+    label: 'Delete Redirect Popconfirm',
   },
   [UiKey.RedirectPopoverUpdate]: {
     label: 'Update Redirect',

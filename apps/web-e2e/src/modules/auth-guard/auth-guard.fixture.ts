@@ -84,7 +84,7 @@ export class AuthGuardPage extends BasePage {
       const popover = await this.getPopover(UiKey.RedirectPopoverUpdate)
 
       await popover.getButton({ text: 'Delete' }, this.locator).click()
-      await popover.clickPopconfirmButton()
+      await popover.clickPopconfirmButton(UiKey.RedirectPopconfirmDelete)
 
       await expect(this.getGlobalProgressBar()).toBeHidden()
     })

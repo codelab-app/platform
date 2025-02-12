@@ -9,7 +9,7 @@ export const DeleteButton = ({ element }: { element: IElementModel }) => {
     <DeleteElementPopconfirm
       element={element}
       placement="leftBottom"
-      uiKey={UiKey.ElementPopoverOverlayDelete}
+      uiKey={UiKey.ElementPopconfirmOverlayDelete}
     >
       <div
         className={`
