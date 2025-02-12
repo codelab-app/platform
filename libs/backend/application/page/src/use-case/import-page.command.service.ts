@@ -29,6 +29,13 @@ export class ImportPageHandler implements ICommandHandler<ImportPageCommand> {
       await this.elementRepository.save(element)
     }
 
+    // after all elements are created, we need to update the parent and sibling references.
+    // alternatively we can do this with a single smart run: creating elements in the order,
+    // so that leaf elements are created first and then going up to the element tree root
+    for (const element of elements) {
+      await this.elementRepository.update(element)
+    }
+
     await this.pageRepository.save(page)
   }
 }
