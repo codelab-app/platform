@@ -12,7 +12,7 @@ import { CACHE_MANAGER } from '@nestjs/cache-manager'
 import { Inject, Injectable } from '@nestjs/common'
 import { type ConfigType } from '@nestjs/config'
 import { PassportStrategy } from '@nestjs/passport'
-import { UserInfoClient } from 'auth0'
+import { UserInfoClient, UserInfoResponse } from 'auth0'
 import { Cache } from 'cache-manager'
 import { passportJwtSecret } from 'jwks-rsa'
 import { ExtractJwt, Strategy } from 'passport-jwt'
@@ -59,14 +59,13 @@ export class JwtStrategy
     payload: JwtPayload,
     done: VerifiedCallback,
   ): Promise<IUserSession> {
-    const userInfoClient = await this.getCachedUserInfoClient()
     const token = ExtractJwt.fromAuthHeaderAsBearerToken()(req)
 
     if (!token) {
       throw new Error('Missing bearer token')
     }
 
-    const { data: auth0IdToken } = await userInfoClient.getUserInfo(token)
+    const auth0IdToken = await this.getCachedUserInfo(token)
 
     return {
       auth0Id: payload.sub,
@@ -94,21 +93,25 @@ export class JwtStrategy
   /**
    * https://community.auth0.com/t/too-many-requests-when-calling-userinfo/26685
    */
-  private async getCachedUserInfoClient(): Promise<UserInfoClient> {
-    const cachedClient = await this.cacheManager.get<UserInfoClient>(
-      'userInfoClient',
+  private async getCachedUserInfo(token: string) {
+    const cacheKey = `userInfo:${token}`
+
+    const cachedUserInfo = await this.cacheManager.get<UserInfoResponse>(
+      cacheKey,
     )
 
-    if (cachedClient) {
-      return cachedClient
+    if (cachedUserInfo) {
+      return cachedUserInfo
     }
 
     const client = new UserInfoClient({
       domain: this.config.auth0_domain,
     })
 
-    await this.cacheManager.set('userInfoClient', client, 3600)
+    const { data: userInfo } = await client.getUserInfo(token)
 
-    return client
+    await this.cacheManager.set(cacheKey, userInfo, 3600)
+
+    return userInfo
   }
 }

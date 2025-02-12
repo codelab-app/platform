@@ -88,13 +88,17 @@ export default defineConfig({
   // reporter: [['list'], ['html']],
   reporter: process.env.CI
     ? [
-        ['html', { open: 'never' }],
         ['list', { printSteps: true }],
-        ['junit', { outputFile: 'results.xml' }],
+        ['html', { open: 'never', outputFolder: '../../tmp/reports/e2e' }],
+        ['junit', { outputFile: '../../tmp/reports/e2e/results.xml' }],
       ]
-    : [['list', { printSteps: true }]],
+    : [
+        ['list', { printSteps: true }],
+        ['html', { open: 'never', outputFolder: '../../tmp/reports/e2e' }],
+        ['junit', { outputFile: '../../tmp/reports/e2e/results.xml' }],
+      ],
 
-  retries: process.env.CI ? 1 : 0,
+  retries: process.env.CI ? 0 : 0,
 
   timeout: process.env.CI ? 90_000 : 75_000,
 
