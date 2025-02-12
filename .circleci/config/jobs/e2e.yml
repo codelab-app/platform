@@ -41,9 +41,8 @@ steps:
 
         pnpm nx e2e web-e2e -c ci \
           --shard=${SHARD}/${CIRCLE_NODE_TOTAL}
-
   - store_artifacts:
-      path: ~/project/dist/.playwright/apps/web-e2e/playwright-report
+      path: ~/project/tmp/reports/e2e
       destination: playwright-report
   #   - store_artifacts:
   #       path: ~/project/dist/.playwright/apps/web-e2e/src/screenshots
@@ -52,4 +51,4 @@ steps:
   #       path: ~/project/dist/.playwright/apps/web-e2e/src/data
   #       destination: playwright/data
   - store_test_results:
-      path: ~/project/dist/.playwright/apps/web-e2e/test-output
+      path: ~/project/tmp/reports/e2e

@@ -22,8 +22,10 @@ test('should be able to create app', async ({ appListPage: page }) => {
 
   await page.expectGlobalProgressBarToBeHidden()
 
-  await expect(page.getDialog()).toBeHidden()
+  // This may close before route is changed
   await expect(page.getNotification()).toContainText('App created successfully')
+  await expect(page.getDialog()).toBeHidden()
+
   await expect(page.getAppName()).toBeVisible()
 })
 

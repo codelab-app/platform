@@ -43,7 +43,7 @@ export const elementTextCreateData = {
     "children": {
       "kind": "RichTextType",
       "type": "e7558508-3bb7-4f57-8f8c-6ac989911765",
-      "value": "<p class=\\"editor-paragraph\\">${textContent}</p>"     
+      "value": "<p class=\\"editor-paragraph\\">${textContent}</p>"
     }
   }`,
 }
@@ -68,9 +68,19 @@ export const seedTestData = async (request: APIRequestContext) => {
     ({ kind }) => kind === IPageKind.Provider,
   )
 
-  await request.post(`/api/v1/element/${page.rootElement.id}/create-elements`, {
-    data: providerPageElements(page),
-  })
+  const response = await request.post(
+    `/api/v1/element/${page.rootElement.id}/create-elements`,
+    {
+      data: providerPageElements(page),
+    },
+  )
+
+  if (!response.ok()) {
+    const text = await response.text()
+
+    console.error('Server response:', text)
+    throw new Error(`HTTP error! status: ${response.status}`)
+  }
 
   return app
 }

@@ -150,7 +150,7 @@ export class BuilderPage extends BasePage {
 
       await expect(deleteElementButton).toBeVisible()
       await deleteElementButton.click()
-      await this.clickPopconfirmButton(UiKey.ElementPopoverOverlayDelete)
+      await this.clickPopconfirmButton(UiKey.ElementPopconfirmOverlayDelete)
 
       await expect(this.getGlobalProgressBar()).toBeHidden()
     })
@@ -163,7 +163,7 @@ export class BuilderPage extends BasePage {
       await this.getConfigPane()
         .locator(this.page.getByRole('button', { name: 'Delete' }))
         .click()
-      await this.clickPopconfirmButton(UiKey.ElementPopoverFormDelete)
+      await this.clickPopconfirmButton(UiKey.ElementPopconfirmFormDelete)
     })
   }
 

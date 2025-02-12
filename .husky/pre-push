@@ -6,11 +6,10 @@ pnpm cli tasks unit --stage=test
 pnpm cli tasks int --stage=test
 nx run-many --target=tsc-check
 
-# Or run specific test files
-#
 pnpm nx e2e web-e2e -c test
+
+# Or run specific test files
 # pnpm nx e2e web-e2e -c test \
-#   --testFiles="modules/builder/builder.spec.ts" \
-#   --skipNxCache
+#   --testFiles="modules/builder/builder.spec.ts"
 
 ./scripts/git/branch-name-check.sh

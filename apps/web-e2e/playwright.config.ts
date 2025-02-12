@@ -86,9 +86,22 @@ export default defineConfig({
   ],
 
   // reporter: [['list'], ['html']],
-  reporter: [['list', { printSteps: true }]],
+  reporter: process.env.CI
+    ? [
+        ['list', { printSteps: true }],
+        ['html', { open: 'never', outputFolder: '../../tmp/reports/e2e' }],
+        ['junit', { outputFile: '../../tmp/reports/e2e/results.xml' }],
+      ]
+    : [
+        ['list', { printSteps: true }],
+        ['html', { open: 'never', outputFolder: '../../tmp/reports/e2e' }],
+        ['junit', { outputFile: '../../tmp/reports/e2e/results.xml' }],
+      ],
 
-  retries: process.env.CI ? 1 : 0,
+  /**
+   * Takes long to fail if retrying, and we shouldn't need to rely on retry
+   */
+  retries: process.env.CI ? 0 : 0,
 
   timeout: process.env.CI ? 90_000 : 75_000,
 

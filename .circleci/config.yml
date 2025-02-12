@@ -394,8 +394,6 @@ jobs:
             SHARD="$((${CIRCLE_NODE_INDEX}+1))"
             echo $SHARD;
             echo $CIRCLE_NODE_TOTAL;
-            node -v
-            which node
 
             pnpm nx e2e web-e2e -c ci \
               --shard=${SHARD}/${CIRCLE_NODE_TOTAL}
@@ -403,9 +401,9 @@ jobs:
           no_output_timeout: 15m
       - store_artifacts:
           destination: playwright-report
-          path: ~/project/dist/.playwright/apps/web-e2e/playwright-report
+          path: ~/project/tmp/reports/e2e
       - store_test_results:
-          path: ~/project/dist/.playwright/apps/web-e2e/test-output
+          path: ~/project/tmp/reports/e2e
   integration:
     environment:
       NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>

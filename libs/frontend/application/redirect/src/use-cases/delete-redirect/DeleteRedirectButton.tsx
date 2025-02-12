@@ -3,6 +3,7 @@
 import type { IRedirectModel } from '@codelab/frontend/abstract/domain'
 
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
+import { getUiDataKey, UiKey } from '@codelab/frontend/abstract/types'
 import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import { Button, Popconfirm } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -30,6 +31,7 @@ export const DeleteRedirectButton = observer<{
 
   return (
     <Popconfirm
+      classNames={{ root: getUiDataKey(UiKey.RedirectPopconfirmDelete) }}
       okText="Delete"
       onConfirm={onConfirm}
       placement="rightBottom"

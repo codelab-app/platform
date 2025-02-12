@@ -22,7 +22,7 @@ export const DeleteElementButton = observer<DeleteElementProps>(
       <DeleteElementPopconfirm
         element={element}
         placement="leftBottom"
-        uiKey={UiKey.ElementPopoverFormDelete}
+        uiKey={UiKey.ElementPopconfirmFormDelete}
       >
         <Button className={className} danger disabled={disabled}>
           Delete

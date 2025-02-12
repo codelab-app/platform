@@ -6,6 +6,9 @@ import { endpointConfig } from '@codelab/backend/infra/core'
 import { Inject, Injectable, UnauthorizedException } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 
+/**
+ * We're using this guard globally via `APP_GUARD`, so don't need middleware
+ */
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
   constructor(

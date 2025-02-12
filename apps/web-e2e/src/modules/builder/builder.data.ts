@@ -82,20 +82,34 @@ export const seedAppData = async (
     page: IPageCreateSeedData
   },
 ) => {
-  const result = await request.post('/api/v1/app/seed-cypress-app', {
+  const response = await request.post('/api/v1/app/seed-cypress-app', {
     data,
   })
 
-  return result.json() as Promise<IApp>
+  if (!response.ok()) {
+    const text = await response.text()
+
+    console.error('Server response:', text)
+    throw new Error(`HTTP error! status: ${response.status}`)
+  }
+
+  return response.json() as Promise<IApp>
 }
 
 export const seedPageData = async (
   request: APIRequestContext,
   data: IPageCreateFormData,
 ) => {
-  const result = await request.post('/api/v1/page/create', {
+  const response = await request.post('/api/v1/page/create', {
     data,
   })
 
-  return result.json() as Promise<IPage>
+  if (!response.ok()) {
+    const text = await response.text()
+
+    console.error('Server response:', text)
+    throw new Error(`HTTP error! status: ${response.status}`)
+  }
+
+  return response.json() as Promise<IPage>
 }

@@ -8,10 +8,12 @@ import {
   JWT_CLAIMS,
   JwtPayload,
 } from '@codelab/shared/abstract/core'
+import { CACHE_MANAGER } from '@nestjs/cache-manager'
 import { Inject, Injectable } from '@nestjs/common'
 import { type ConfigType } from '@nestjs/config'
 import { PassportStrategy } from '@nestjs/passport'
-import { UserInfoClient } from 'auth0'
+import { UserInfoClient, UserInfoResponse } from 'auth0'
+import { Cache } from 'cache-manager'
 import { passportJwtSecret } from 'jwks-rsa'
 import { ExtractJwt, Strategy } from 'passport-jwt'
 
@@ -26,7 +28,11 @@ export class JwtStrategy
   extends PassportStrategy(Strategy)
   implements IPassportStrategy
 {
-  constructor(@Inject(auth0Config.KEY) config: ConfigType<typeof auth0Config>) {
+  constructor(
+    @Inject(auth0Config.KEY)
+    private readonly config: ConfigType<typeof auth0Config>,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
+  ) {
     super({
       algorithms: ['RS256'],
       /**
@@ -46,8 +52,6 @@ export class JwtStrategy
         rateLimit: true,
       }),
     })
-
-    this.userInfoClient = new UserInfoClient({ domain: config.auth0_domain })
   }
 
   async validate(
@@ -57,9 +61,11 @@ export class JwtStrategy
   ): Promise<IUserSession> {
     const token = ExtractJwt.fromAuthHeaderAsBearerToken()(req)
 
-    const { data: auth0IdToken } = await this.userInfoClient.getUserInfo(
-      token ?? '',
-    )
+    if (!token) {
+      throw new Error('Missing bearer token')
+    }
+
+    const auth0IdToken = await this.getCachedUserInfo(token)
 
     return {
       auth0Id: payload.sub,
@@ -84,5 +90,28 @@ export class JwtStrategy
     // return mapAuth0IdTokenToUserDto(idTokenPayload as Auth0IdToken)
   }
 
-  private userInfoClient: UserInfoClient
+  /**
+   * https://community.auth0.com/t/too-many-requests-when-calling-userinfo/26685
+   */
+  private async getCachedUserInfo(token: string) {
+    const cacheKey = `userInfo:${token}`
+
+    const cachedUserInfo = await this.cacheManager.get<UserInfoResponse>(
+      cacheKey,
+    )
+
+    if (cachedUserInfo) {
+      return cachedUserInfo
+    }
+
+    const client = new UserInfoClient({
+      domain: this.config.auth0_domain,
+    })
+
+    const { data: userInfo } = await client.getUserInfo(token)
+
+    await this.cacheManager.set(cacheKey, userInfo, 3600)
+
+    return userInfo
+  }
 }

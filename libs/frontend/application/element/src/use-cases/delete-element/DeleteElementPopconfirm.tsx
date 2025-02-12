@@ -24,7 +24,9 @@ interface DeleteElementPopconfirmProps extends Partial<PopconfirmProps> {
   /**
    * Allow for unique identification of popconfirm, `delete-element-popconfirm` etc. Used for classname
    */
-  uiKey: UiKey.ElementPopoverFormDelete | UiKey.ElementPopoverOverlayDelete
+  uiKey:
+    | UiKey.ElementPopconfirmFormDelete
+    | UiKey.ElementPopconfirmOverlayDelete
 }
 
 export const DeleteElementPopconfirm = observer<DeleteElementPopconfirmProps>(
