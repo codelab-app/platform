@@ -6,6 +6,8 @@ module "circleci" {
   next_public_api_port      = var.NEXT_PUBLIC_API_PORT
   next_public_base_api_path = var.NEXT_PUBLIC_BASE_API_PATH
 
+  api_log_level = var.API_LOG_LEVEL
+
   auth0_domain       = var.AUTH0_DOMAIN
   auth0_e2e_username = var.AUTH0_E2E_USERNAME
   auth0_e2e_password = var.AUTH0_E2E_PASSWORD

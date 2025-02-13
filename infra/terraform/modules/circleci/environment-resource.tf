@@ -25,7 +25,7 @@ resource "circleci_environment_variable" "env_vars" {
     NEXT_PUBLIC_SUPABASE_URL     = var.next_public_supabase_url
     NEXT_PUBLIC_SUPABASE_KEY     = var.next_public_supabase_key
     NX_CLOUD_ACCESS_TOKEN        = var.nx_cloud_access_token
-    API_LOG_LEVEL                = "debug"
+    API_LOG_LEVEL                = var.api_log_level
     DOCKERHUB_USERNAME           = var.dockerhub_username
     DOCKERHUB_ACCESS_TOKEN       = var.dockerhub_access_token
     DIGITALOCEAN_ACCESS_TOKEN    = var.digitalocean_access_token
