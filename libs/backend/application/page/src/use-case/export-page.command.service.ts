@@ -16,6 +16,7 @@ import {
   type IStoreAggregateExport,
 } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/typebox'
+import { sortPagesByKindAndName } from '@codelab/shared/utils'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
 export class ExportPageCommand {
@@ -34,6 +35,8 @@ export class ExportPageHandler
 
   async execute({ where }: ExportPageCommand) {
     const pages = await this.pageRepository.find({ where })
+
+    sortPagesByKindAndName(pages)
 
     const pagesExport: Array<IPageAggregateExport> = await Promise.all(
       pages.map(async (page) => {
