@@ -72,29 +72,6 @@ export class PinoLoggerService extends Logger implements ILoggerService {
     return this.executeWithTiming(message, fn, options, 'verbose')
   }
 
-  /**
-   * Return true by default unless we have a contextFilter with matching level,
-   * in which case we check the pattern
-   */
-  private enableLog(level: LogLevel, options?: LogOptions) {
-    const context = options?.context ?? ''
-
-    // Find filters that match the current level
-    const matchingLevelFilters = this.config.contextFilter.filter(
-      (filter) => level === filter.level,
-    )
-
-    // If no filters match the level, enable logging by default
-    if (matchingLevelFilters.length === 0) {
-      return true
-    }
-
-    // If we have matching level filters, check if any pattern matches
-    return matchingLevelFilters.some((filter) =>
-      new RegExp(filter.pattern).test(context),
-    )
-  }
-
   private shouldIncludeData(options?: LogOptions) {
     const context = options?.context ?? ''
 
@@ -109,10 +86,6 @@ export class PinoLoggerService extends Logger implements ILoggerService {
     message: string,
     options?: LogOptions,
   ): void {
-    if (!this.enableLog(level, options)) {
-      return
-    }
-
     const mappedLevel = labelMapping[level]
 
     if (!this.shouldIncludeData(options)) {

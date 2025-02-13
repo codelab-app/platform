@@ -56,26 +56,6 @@ export const loggerConfig = registerAs('LOGGER_CONFIG', () => {
     get sentryDsn() {
       return env.get('SENTRY_DSN').required().asString()
     },
-    get contextFilter() {
-      return env
-        .get('API_LOG_CONTEXT_FILTER')
-        .default('')
-        .asString()
-        .split(',')
-        .filter(Boolean)
-        .map((filter): ContextFilterConfig => {
-          const [level, pattern] = filter.split(':')
-
-          if (!level || !pattern || !(level in levelMapping.values)) {
-            throw new Error(`Invalid context filter format: ${filter}`)
-          }
-
-          return {
-            level: level as LogLevel,
-            pattern,
-          }
-        })
-    },
     get enableDataForContext() {
       return env
         .get('API_LOG_ENABLE_DATA_FOR_CONTEXT')

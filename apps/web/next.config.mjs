@@ -91,8 +91,8 @@ const nextConfig = {
     turbo: {
       rules: {
         '*.svg': {
-          loaders: ['@svgr/webpack'],
           as: '*.js',
+          loaders: ['@svgr/webpack'],
         },
       },
     },
@@ -109,6 +109,9 @@ const nextConfig = {
   rewrites: async () => ({
     afterFiles: [],
     // We only need middleware to set the session
+    /**
+     * https://github.com/vercel/next.js/issues/36251
+     */
     beforeFiles: [
       {
         destination: `${apiHost}/graphql`,
