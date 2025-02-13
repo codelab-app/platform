@@ -33,7 +33,7 @@ export class ImportPageHandler implements ICommandHandler<ImportPageCommand> {
     // alternatively we can do this with a single smart run: creating elements in the order,
     // so that leaf elements are created first and then going up to the element tree root
     for (const element of elements) {
-      await this.elementRepository.update(element)
+      await this.elementRepository.save(element)
     }
 
     await this.pageRepository.save(page)
