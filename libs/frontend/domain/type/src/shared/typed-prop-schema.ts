@@ -4,6 +4,8 @@ import type {
   JsonSchema,
 } from '@codelab/frontend/abstract/domain'
 
+import { HiddenField } from 'uniforms-antd'
+
 export const typedPropSchema = (
   type: ITypeModel,
   {
@@ -17,19 +19,18 @@ export const typedPropSchema = (
 
   return {
     isTypedProp: true,
-    label: '',
     properties: {
       kind: {
         default: kind,
         enum: [kind],
         type: 'string',
-        uniforms: { component: null },
+        uniforms: { component: HiddenField },
       },
       type: {
         default: id,
         enum: [id],
         type: 'string',
-        uniforms: { component: null },
+        uniforms: { component: HiddenField },
       },
       value: {
         label: fieldName ?? '',
@@ -38,6 +39,7 @@ export const typedPropSchema = (
     },
     ...validationRules?.general,
     ...(defaultValues ? { default: defaultValues } : {}),
+    label: '',
     required: ['type', 'kind'],
     type: 'object',
   }
