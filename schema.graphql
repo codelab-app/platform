@@ -7060,6 +7060,7 @@ type Component implements WithOwner {
   apiAggregate(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), where: InterfaceTypeWhere): ComponentInterfaceTypeApiAggregationSelection
   apiConnection(after: String, directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), first: Int, sort: [ComponentApiConnectionSort!], where: ComponentApiConnectionWhere): ComponentApiConnection!
   compositeKey: String!
+  dependantTypes: [AnyType!]!
   elements: [Element!]!
   id: ID!
   name: String!
@@ -8346,7 +8347,6 @@ type Element {
   childMapperPropKey: String
   closestContainerNode: ContainerNode!
   compositeKey: String!
-  dependantTypes: [AnyType!]!
   expanded: Boolean
   firstChild(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), limit: Int, offset: Int, options: ElementOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), sort: [ElementSort!], where: ElementWhere): Element
   firstChildAggregate(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), where: ElementWhere): ElementElementFirstChildAggregationSelection
@@ -15195,6 +15195,7 @@ type Page {
   appAggregate(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), where: AppWhere): PageAppAppAggregationSelection
   appConnection(after: String, directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), first: Int, sort: [PageAppConnectionSort!], where: PageAppConnectionWhere): PageAppConnection!
   compositeKey: String!
+  dependantTypes: [AnyType!]!
   elements: [Element!]!
   id: ID!
   kind: PageKind!

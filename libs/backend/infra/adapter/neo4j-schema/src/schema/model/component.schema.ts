@@ -16,6 +16,7 @@ export const componentSchema = gql`
     owner: User! @relationship(type: "OWNED_BY", direction: OUT)
     store: Store! @relationship(type: "STORE_CONTAINER_NODE", direction: OUT)
     props: Prop! @relationship(type: "PROPS_OF_COMPONENT", direction: OUT)
+    dependantTypes: [AnyType!]! @customResolver(requires: "id")
     # This is the slot where prop children is rendered in the component instance
     # We may want multiple slots in the future
     # childrenContainerElement: Element!

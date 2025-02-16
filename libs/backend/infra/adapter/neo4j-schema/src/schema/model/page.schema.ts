@@ -38,6 +38,7 @@ export const pageSchema = gql`
       @relationship(type: "REDIRECT_FROM_PROTECTED_PAGE", direction: OUT)
     # when the app will be deployed - the page will be available on this URL
     urlPattern: String!
+    dependantTypes: [AnyType!]! @customResolver(requires: "id")
   }
 `
 
