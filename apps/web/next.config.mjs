@@ -84,10 +84,10 @@ const nextConfig = {
     // typedRoutes: true,
     // instrumentationHook: enableInstrumentation,
 
-    // 20 min
+    // 120s
     // increase timeout for long-running proxy request,
     // e.g. request from admin to seed the db; request to seed database in e2e
-    proxyTimeout: 1200_000,
+    proxyTimeout: 120_000,
     turbo: {
       rules: {
         '*.svg': {

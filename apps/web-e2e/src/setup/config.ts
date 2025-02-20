@@ -1,1 +1,1 @@
-export const REQUEST_TIMEOUT = 60_000
+export const REQUEST_TIMEOUT = 120_000

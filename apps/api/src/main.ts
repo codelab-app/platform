@@ -1,5 +1,8 @@
 import type { endpointConfig } from '@codelab/backend/infra/core'
+import type { INestApplication } from '@nestjs/common'
 import type { ConfigType } from '@nestjs/config'
+import type { Express } from 'express'
+import type * as http from 'http'
 
 import { GraphqlService } from '@codelab/backend/infra/adapter/graphql'
 import {
@@ -28,15 +31,25 @@ configureNestJsTypebox({
 })
 
 const bootstrap = async () => {
-  const app = await NestFactory.create(RootModule, {
-    /**
-     * Enables devtools https://docs.nestjs.com/devtools/overview
-     */
-    // snapshot: true,
-    // logger: false,
-  })
+  const app = await NestFactory.create<INestApplication<http.Server>>(
+    RootModule,
+    {
+      /**
+       * Enables devtools https://docs.nestjs.com/devtools/overview
+       */
+      // snapshot: true,
+      // logger: false,
+    },
+  )
 
   app.enableShutdownHooks()
+
+  /**
+   * Add timeout for REST controllers
+   */
+  const server = app.getHttpServer()
+
+  server.setTimeout(120_000)
 
   /**
    * Add global prefix
