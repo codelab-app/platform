@@ -897,6 +897,9 @@
       "@codelab/frontend/infra/context": [
         "libs/frontend/infra/context/src/index.ts"
       ],
+      "@codelab/frontend/infra/gql-client": [
+        "libs/frontend/infra/gql-client/src/index.ts"
+      ],
       "@codelab/frontend/infra/logger": [
         "libs/frontend/infra/logger/src/index.ts"
       ],

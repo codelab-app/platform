@@ -5,7 +5,7 @@ import type {
   DomainUpdatedSubscription,
 } from '@codelab/shared-domain-module/domain'
 
-import { browserApolloClient } from '@codelab/shared/infra/gql-client'
+import { browserApolloClient } from '@codelab/frontend/infra/gql-client'
 import {
   DomainCreatedDocument,
   DomainUpdatedDocument,

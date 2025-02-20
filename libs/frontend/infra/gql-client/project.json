@@ -1,0 +1,15 @@
+{
+  "name": "frontend-infra-gql-client",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/frontend/infra/gql-client/src",
+  "projectType": "library",
+  "tags": [
+    "projectName:frontend-infra-gql-client",
+    "projectType:library",
+    "type:concrete",
+    "layer:infra",
+    "scope:frontend"
+  ],
+  "// targets": "to see all targets run: nx show project frontend-infra-gql-client --web",
+  "targets": {}
+}
