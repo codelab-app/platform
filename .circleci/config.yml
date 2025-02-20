@@ -96,11 +96,6 @@ commands:
       - run:
           command: pnpm install --frozen-lockfile
           name: Install NPM Packages
-      - run:
-          command: |
-            pnpm store path
-            pnpm store prune --force
-          name: Prune pnpm store
       - save_cache:
           key: pnpm-cache-{{ checksum "pnpm-lock.yaml" }}
           name: Save pnpm Cache
