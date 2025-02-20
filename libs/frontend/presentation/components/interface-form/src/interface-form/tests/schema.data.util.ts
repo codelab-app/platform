@@ -1,3 +1,5 @@
+import { HiddenField } from 'uniforms-antd'
+
 export const createTypedPropTypeExpectedSchema = (
   kind: string,
   id: string,
@@ -9,13 +11,13 @@ export const createTypedPropTypeExpectedSchema = (
       default: kind,
       enum: [kind],
       type: 'string',
-      uniforms: { component: null },
+      uniforms: { component: HiddenField },
     },
     type: {
       default: id,
       enum: [id],
       type: 'string',
-      uniforms: { component: null },
+      uniforms: { component: HiddenField },
     },
     value: {
       label: '',

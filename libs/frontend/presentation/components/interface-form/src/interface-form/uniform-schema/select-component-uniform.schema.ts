@@ -9,7 +9,7 @@ import { ToggleExpressionField } from '@codelab/frontend-presentation-components
 import { SelectComponent } from '../fields'
 
 const COMPONENT_TEMPLATE = `{{
-  function run() {
+  function render() {
     const { AntDesignTypographyText } = this.atoms
 
     return (
