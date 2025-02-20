@@ -10,6 +10,8 @@ import type { APIRequestContext } from '@playwright/test'
 import { IAtomType, ITypeKind } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
 
+import { REQUEST_TIMEOUT } from '../../setup/config'
+
 export const elementRow: ICreateElementSeedData = {
   atom: IAtomType.AntDesignGridRow,
   name: 'Grid Row',
@@ -84,6 +86,7 @@ export const seedAppData = async (
 ) => {
   const response = await request.post('/api/v1/app/seed-cypress-app', {
     data,
+    timeout: REQUEST_TIMEOUT,
   })
 
   if (!response.ok()) {
@@ -102,6 +105,7 @@ export const seedPageData = async (
 ) => {
   const response = await request.post('/api/v1/page/create', {
     data,
+    timeout: REQUEST_TIMEOUT,
   })
 
   if (!response.ok()) {

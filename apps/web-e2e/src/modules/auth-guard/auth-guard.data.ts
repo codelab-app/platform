@@ -4,10 +4,15 @@ import type { APIRequestContext } from '@playwright/test'
 import { ResourceType } from '@codelab/shared/infra/gqlgen'
 import { v4 } from 'uuid'
 
+import { REQUEST_TIMEOUT } from '../../setup/config'
+
 export const resourceName = 'Test Resource'
 
 export const seedResourceData = async (request: APIRequestContext) => {
-  const ownerResponse = await request.get('/api/v1/user/me')
+  const ownerResponse = await request.get('/api/v1/user/me', {
+    timeout: REQUEST_TIMEOUT,
+  })
+
   const owner = await ownerResponse.json()
 
   const response = await request.post('/api/v1/resource/create-resource', {
@@ -20,6 +25,7 @@ export const seedResourceData = async (request: APIRequestContext) => {
       owner: { id: owner.id },
       type: ResourceType.Rest,
     },
+    timeout: REQUEST_TIMEOUT,
   })
 
   if (!response.ok()) {

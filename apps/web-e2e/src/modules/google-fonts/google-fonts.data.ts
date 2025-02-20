@@ -7,6 +7,7 @@ import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
 import { type APIRequestContext } from '@playwright/test'
 import { v4 } from 'uuid'
 
+import { REQUEST_TIMEOUT } from '../../setup/config'
 import { seedAppData } from '../builder/builder.data'
 
 export const FONT_NAME = 'Google Fonts Montserrat'
@@ -37,6 +38,9 @@ export const seedTestData = async (request: APIRequestContext) => {
 
   const systemComponentsResponse = await request.post(
     '/api/v1/component/seed-system-components',
+    {
+      timeout: REQUEST_TIMEOUT,
+    },
   )
 
   if (!systemComponentsResponse.ok()) {
@@ -50,6 +54,7 @@ export const seedTestData = async (request: APIRequestContext) => {
     `/api/v1/element/${page.rootElement.id}/create-elements`,
     {
       data: [{ ...typographyElement, parentElement: page.rootElement }],
+      timeout: REQUEST_TIMEOUT,
     },
   )
 

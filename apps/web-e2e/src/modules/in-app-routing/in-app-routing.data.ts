@@ -10,6 +10,7 @@ import { findOrFail } from '@codelab/shared/utils'
 import { type APIRequestContext } from '@playwright/test'
 import { v4 } from 'uuid'
 
+import { REQUEST_TIMEOUT } from '../../setup/config'
 import { seedAppData } from '../builder/builder.data'
 
 export const testUrlProps = {
@@ -102,14 +103,13 @@ export const seedTestData = async (request: APIRequestContext) => {
     ({ kind }) => kind === IPageKind.Provider,
   )
 
-  await request.post(`/api/v1/element/${page.rootElement.id}/create-elements`, {
-    data: [
-      {
-        ...providerPageLinkElement,
-        parentElement: { id: page.rootElement.id },
-      },
-    ],
-  })
+  const response = await request.post(
+    `/api/v1/element/${page.rootElement.id}/create-elements`,
+    {
+      data: [{ ...providerPageLinkElement, parentElement: page.rootElement }],
+      timeout: REQUEST_TIMEOUT,
+    },
+  )
 
   const pageResponse = await request.post('/api/v1/page/create', {
     data: pages.staticPage,
