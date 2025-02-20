@@ -9,10 +9,10 @@ import {
 import { DomainSchema } from '../domain/domain.dto.interface'
 import { PageAggregateExportSchema, PageAggregateImportSchema } from '../page'
 import { ResourceDtoSchema } from '../resource'
-import { AppDtoSchema } from './app.dto.interface'
+import { AppExportSchema } from './app.dto.interface'
 
 export const AppAggregateExportSchema = Type.Object({
-  app: AppDtoSchema,
+  app: AppExportSchema,
   components: Type.Array(ComponentAggregateExportSchema),
   domains: Type.Array(DomainSchema),
   pages: Type.Array(PageAggregateExportSchema),
@@ -22,7 +22,7 @@ export const AppAggregateExportSchema = Type.Object({
 export type IAppAggregateExport = Static<typeof AppAggregateExportSchema>
 
 export const AppAggregateImportSchema = Type.Object({
-  app: AppDtoSchema,
+  app: AppExportSchema,
   components: Type.Array(ComponentAggregateImportSchema),
   domains: Type.Array(DomainSchema),
   pages: Type.Array(PageAggregateImportSchema),

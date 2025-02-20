@@ -10,6 +10,8 @@ import { useDomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { regeneratePages } from '@codelab/frontend-application-page/use-cases/generate-pages'
 import { appRepository } from '@codelab/frontend-domain-app/repositories'
 import { domainRepository } from '@codelab/frontend-domain-domain/repositories'
+import { elementRepository } from '@codelab/frontend-domain-element/repositories'
+import { pageRepository } from '@codelab/frontend-domain-page/repositories'
 import { PageDomainFactory } from '@codelab/frontend-domain-page/services'
 import {
   useDomainStore,
@@ -77,16 +79,18 @@ export const useAppService = (): IAppService => {
       /**
        * Get all pages to delete
        */
-      // const { items: pagesDto } = await pageRepository.find({
-      //   appConnection: { node: { id: app.id } },
-      // })
+      const { items: pagesDto } = await pageRepository.find({
+        appConnection: { node: { id: app.id } },
+      })
+
+      const elements = pagesDto.flatMap((page) => page.elements)
 
       // const pages = pagesDto.map((pageDto) =>
       //   pageDomainService.hydrate(pageDto),
       // )
 
       await appRepository.delete([app])
-      // await pageService.removeMany(pages)
+      await elementRepository.delete(elements)
 
       // await invalidateAppListQuery()
 

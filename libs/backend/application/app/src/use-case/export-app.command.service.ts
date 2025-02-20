@@ -13,12 +13,13 @@ import { ExportPageCommand } from '@codelab/backend/application/page'
 import { AppRepository } from '@codelab/backend/domain/app'
 import { ComponentRepository } from '@codelab/backend/domain/component'
 import { DomainRepository } from '@codelab/backend/domain/domain'
-import { ElementRepository } from '@codelab/backend/domain/element'
 import { ResourceRepository } from '@codelab/backend/domain/resource'
 import {
+  AppAggregateExportSchema,
   IActionKind,
   IElementRenderTypeKind,
 } from '@codelab/shared/abstract/core'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { uuidRegex } from '@codelab/shared/utils'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 import { unique } from 'radash'
@@ -35,7 +36,6 @@ export class ExportAppHandler
     private readonly appRepository: AppRepository,
     private readonly domainRepository: DomainRepository,
     private readonly componentRepository: ComponentRepository,
-    private readonly elementRepository: ElementRepository,
     private readonly resourceRepository: ResourceRepository,
     private commandBus: CommandBus,
   ) {}
@@ -52,13 +52,13 @@ export class ExportAppHandler
       Array<IPageAggregateExport>
     >(new ExportPageCommand({ id_IN: app.pages.map((page) => page.id) }))
 
-    return {
+    return Validator.parse(AppAggregateExportSchema, {
       app,
       components: await this.components(pages),
       domains,
       pages,
       resources: await this.resources(pages),
-    }
+    })
   }
 
   private async components(pages: Array<IPageAggregateExport>) {

@@ -1,0 +1,1638 @@
+{
+  "app": {
+    "owner": {
+      "id": "6c288416-ea0a-455c-b7d5-459ab55dff11"
+    },
+    "domains": [],
+    "id": "2e50ee6c-b19c-4155-a202-991b0e78d56c",
+    "name": "Ant Design Atoms Demo"
+  },
+  "components": [],
+  "domains": [],
+  "pages": [
+    {
+      "elements": [
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "7f89323d-9366-449f-a5e8-02d440b2a7b9"
+          },
+          "compositeKey": "7f89323d-9366-449f-a5e8-02d440b2a7b9-body",
+          "expanded": null,
+          "firstChild": null,
+          "id": "cbe70237-ba55-4368-ba5e-969cc9eaf853",
+          "name": "Body",
+          "nextSibling": null,
+          "page": {
+            "id": "7f89323d-9366-449f-a5e8-02d440b2a7b9"
+          },
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": null,
+          "props": {
+            "data": "{}",
+            "id": "b1413276-ba49-4562-85bb-4f98a9210181"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "4a9dd961-501b-4246-8770-48fee5dc5852"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        }
+      ],
+      "page": {
+        "app": {
+          "id": "2e50ee6c-b19c-4155-a202-991b0e78d56c"
+        },
+        "elements": [
+          {
+            "id": "cbe70237-ba55-4368-ba5e-969cc9eaf853"
+          }
+        ],
+        "id": "7f89323d-9366-449f-a5e8-02d440b2a7b9",
+        "kind": "Provider",
+        "name": "provider",
+        "pageContentContainer": {
+          "id": "cbe70237-ba55-4368-ba5e-969cc9eaf853"
+        },
+        "redirect": null,
+        "rootElement": {
+          "id": "cbe70237-ba55-4368-ba5e-969cc9eaf853"
+        },
+        "store": {
+          "id": "bac6af0d-908a-4ad2-baed-09974f8a3ee1"
+        },
+        "urlPattern": "/provider"
+      },
+      "store": {
+        "actions": [],
+        "api": {
+          "types": [
+            {
+              "__typename": "InterfaceType",
+              "id": "fa2a5a82-f4fe-4593-a5a0-0f60980bb59c",
+              "kind": "InterfaceType",
+              "name": "Ant Design Atoms Demo(gm.vpolishchuk) provider Store API",
+              "fields": []
+            }
+          ],
+          "__typename": "InterfaceType",
+          "id": "fa2a5a82-f4fe-4593-a5a0-0f60980bb59c",
+          "kind": "InterfaceType",
+          "name": "Ant Design Atoms Demo(gm.vpolishchuk) provider Store API",
+          "fields": []
+        },
+        "store": {
+          "actions": [],
+          "api": {
+            "id": "fa2a5a82-f4fe-4593-a5a0-0f60980bb59c"
+          },
+          "id": "bac6af0d-908a-4ad2-baed-09974f8a3ee1",
+          "name": "provider Store"
+        }
+      }
+    },
+    {
+      "elements": [
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "223041a7-da75-407c-9b9e-3eaeb94cd847"
+          },
+          "compositeKey": "223041a7-da75-407c-9b9e-3eaeb94cd847-body",
+          "expanded": true,
+          "firstChild": null,
+          "id": "49036795-a38a-4c4d-9b15-43addbb6f41e",
+          "name": "Body",
+          "nextSibling": null,
+          "page": {
+            "id": "223041a7-da75-407c-9b9e-3eaeb94cd847"
+          },
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": null,
+          "props": {
+            "data": "{\"children\":{\"kind\":\"RichTextType\",\"type\":\"e7558508-3bb7-4f57-8f8c-6ac989911765\"}}",
+            "id": "13710192-5ddb-4e7b-9380-e08c029a09f5"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "4a9dd961-501b-4246-8770-48fee5dc5852"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        }
+      ],
+      "page": {
+        "app": {
+          "id": "2e50ee6c-b19c-4155-a202-991b0e78d56c"
+        },
+        "elements": [
+          {
+            "id": "49036795-a38a-4c4d-9b15-43addbb6f41e"
+          }
+        ],
+        "id": "223041a7-da75-407c-9b9e-3eaeb94cd847",
+        "kind": "Regular",
+        "name": "Affix Not Done",
+        "pageContentContainer": null,
+        "redirect": null,
+        "rootElement": {
+          "id": "49036795-a38a-4c4d-9b15-43addbb6f41e"
+        },
+        "store": {
+          "id": "5fcb2152-9cbf-4878-a9d7-fc9bca7f8eb2"
+        },
+        "urlPattern": "/affix-demo"
+      },
+      "store": {
+        "actions": [],
+        "api": {
+          "types": [
+            {
+              "__typename": "InterfaceType",
+              "id": "842b97be-b9f1-48bb-a93a-d531e86ac0b6",
+              "kind": "InterfaceType",
+              "name": "Affix Demo Store API",
+              "fields": []
+            }
+          ],
+          "__typename": "InterfaceType",
+          "id": "842b97be-b9f1-48bb-a93a-d531e86ac0b6",
+          "kind": "InterfaceType",
+          "name": "Affix Demo Store API",
+          "fields": []
+        },
+        "store": {
+          "actions": [],
+          "api": {
+            "id": "842b97be-b9f1-48bb-a93a-d531e86ac0b6"
+          },
+          "id": "5fcb2152-9cbf-4878-a9d7-fc9bca7f8eb2",
+          "name": "Affix Demo Store"
+        }
+      }
+    },
+    {
+      "elements": [
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "e056fa88-0750-4194-a04c-df5930022a89"
+          },
+          "compositeKey": "e056fa88-0750-4194-a04c-df5930022a89-success-alert",
+          "expanded": null,
+          "firstChild": null,
+          "id": "60297383-cd16-404a-b1c2-9d89e053fb35",
+          "name": "Success Alert",
+          "nextSibling": null,
+          "page": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": {
+            "id": "277129ad-0287-45c1-a858-239d418e634c"
+          },
+          "props": {
+            "data": "{\"description\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"type\":\"success\",\"afterClose\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"action\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"showIcon\":false,\"message\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{\\n  function run() {\\n    const { AntDesignTypographyText } = this.atoms\\n\\n    return (\\n      <AntDesignTypographyText>Success; No icon; As banner</AntDesignTypographyText>\\n    )\\n  }.bind(this)\\n}}\"},\"onClose\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"banner\":true}",
+            "id": "4bd91a2b-6aab-42d2-93ad-59a4c4698557"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "7f4e79d6-8d1f-46e7-9e72-fd8affbf5b64"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "e056fa88-0750-4194-a04c-df5930022a89"
+          },
+          "compositeKey": "e056fa88-0750-4194-a04c-df5930022a89-error-alert",
+          "expanded": true,
+          "firstChild": null,
+          "id": "277129ad-0287-45c1-a858-239d418e634c",
+          "name": "Error Alert",
+          "nextSibling": {
+            "id": "60297383-cd16-404a-b1c2-9d89e053fb35"
+          },
+          "page": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": {
+            "id": "fd38827a-d949-482c-8599-95ed77ece1cb"
+          },
+          "props": {
+            "data": "{\"description\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"type\":\"error\",\"afterClose\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"126e43c1-3fd2-4707-994f-1a6780c3d7bf\"},\"action\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"showIcon\":true,\"message\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{\\n  function run() {\\n    const { AntDesignTypographyText } = this.atoms\\n\\n    return (\\n      <AntDesignTypographyText>Error message</AntDesignTypographyText>\\n    )\\n  }.bind(this)\\n}}\"},\"closable\":true,\"onClose\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"8f8b4895-8a93-424e-9b6c-01ddf75077fe\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{\\n  function run() {\\n    const { AntDesignTypographyText } = this.atoms\\n\\n    return (\\n      <AntDesignTypographyText>Custom Icon</AntDesignTypographyText>\\n    )\\n  }.bind(this)\\n}}\"},\"banner\":false}",
+            "id": "6c328901-9608-442c-87c3-b084a90351e8"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "7f4e79d6-8d1f-46e7-9e72-fd8affbf5b64"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "e056fa88-0750-4194-a04c-df5930022a89"
+          },
+          "compositeKey": "e056fa88-0750-4194-a04c-df5930022a89-info-alert",
+          "expanded": false,
+          "firstChild": null,
+          "id": "aa787102-4ed7-41a4-acf8-6d4313858e91",
+          "name": "Info Alert",
+          "nextSibling": {
+            "id": "fd38827a-d949-482c-8599-95ed77ece1cb"
+          },
+          "page": null,
+          "parentComponent": null,
+          "parentElement": {
+            "id": "d4cf8370-5eb9-467a-8f60-9b38db3fc018"
+          },
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": null,
+          "props": {
+            "data": "{\"description\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{\\n  function run() {\\n    const { AntDesignTypographyText } = this.atoms\\n\\n    return (\\n      <AntDesignTypographyText>With Description; Close and After Close events</AntDesignTypographyText>\\n    )\\n  }.bind(this)\\n}}\"},\"type\":\"info\",\"afterClose\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"action\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"showIcon\":true,\"message\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{\\n  function run() {\\n    const { AntDesignTypographyText } = this.atoms\\n\\n    return (\\n      <AntDesignTypographyText>Info message</AntDesignTypographyText>\\n    )\\n  }.bind(this)\\n}}\"},\"onClose\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"banner\":false}",
+            "id": "dfa8f8fd-ddbe-41c8-a086-5ba2e33425f6"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "7f4e79d6-8d1f-46e7-9e72-fd8affbf5b64"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "e056fa88-0750-4194-a04c-df5930022a89"
+          },
+          "compositeKey": "e056fa88-0750-4194-a04c-df5930022a89-body",
+          "expanded": true,
+          "firstChild": {
+            "id": "aa787102-4ed7-41a4-acf8-6d4313858e91"
+          },
+          "id": "d4cf8370-5eb9-467a-8f60-9b38db3fc018",
+          "name": "Body",
+          "nextSibling": null,
+          "page": {
+            "id": "e056fa88-0750-4194-a04c-df5930022a89"
+          },
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": null,
+          "props": {
+            "data": "{\"children\":{\"kind\":\"RichTextType\",\"type\":\"e7558508-3bb7-4f57-8f8c-6ac989911765\"}}",
+            "id": "be1e9f51-9223-44f3-a033-ade38fea5a0b"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "4a9dd961-501b-4246-8770-48fee5dc5852"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "e056fa88-0750-4194-a04c-df5930022a89"
+          },
+          "compositeKey": "e056fa88-0750-4194-a04c-df5930022a89-warning-alert",
+          "expanded": true,
+          "firstChild": null,
+          "id": "fd38827a-d949-482c-8599-95ed77ece1cb",
+          "name": "Warning Alert",
+          "nextSibling": {
+            "id": "277129ad-0287-45c1-a858-239d418e634c"
+          },
+          "page": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": {
+            "id": "aa787102-4ed7-41a4-acf8-6d4313858e91"
+          },
+          "props": {
+            "data": "{\"description\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"type\":\"warning\",\"afterClose\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"action\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{\\n  function run() {\\n    const { AntDesignButton } = this.atoms\\n\\n    return (\\n      <AntDesignButton color=\\\"default\\\" variant=\\\"outlined\\\">Action</AntDesignButton>\\n    )\\n  }.bind(this)\\n}}\"},\"showIcon\":true,\"message\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{\\n  function run() {\\n    const { AntDesignTypographyText } = this.atoms\\n\\n    return (\\n      <AntDesignTypographyText>Warning message</AntDesignTypographyText>\\n    )\\n  }.bind(this)\\n}}\"},\"onClose\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"banner\":false}",
+            "id": "77b14767-acb1-450c-9679-5e455e653bb8"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "7f4e79d6-8d1f-46e7-9e72-fd8affbf5b64"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        }
+      ],
+      "page": {
+        "app": {
+          "id": "2e50ee6c-b19c-4155-a202-991b0e78d56c"
+        },
+        "elements": [
+          {
+            "id": "60297383-cd16-404a-b1c2-9d89e053fb35"
+          },
+          {
+            "id": "277129ad-0287-45c1-a858-239d418e634c"
+          },
+          {
+            "id": "aa787102-4ed7-41a4-acf8-6d4313858e91"
+          },
+          {
+            "id": "d4cf8370-5eb9-467a-8f60-9b38db3fc018"
+          },
+          {
+            "id": "fd38827a-d949-482c-8599-95ed77ece1cb"
+          }
+        ],
+        "id": "e056fa88-0750-4194-a04c-df5930022a89",
+        "kind": "Regular",
+        "name": "Alert",
+        "pageContentContainer": null,
+        "redirect": null,
+        "rootElement": {
+          "id": "d4cf8370-5eb9-467a-8f60-9b38db3fc018"
+        },
+        "store": {
+          "id": "0026913e-1d5a-491d-a170-affd09476060"
+        },
+        "urlPattern": "/alert-demo"
+      },
+      "store": {
+        "actions": [
+          {
+            "id": "8f8b4895-8a93-424e-9b6c-01ddf75077fe",
+            "name": "onClose",
+            "store": {
+              "id": "0026913e-1d5a-491d-a170-affd09476060"
+            },
+            "type": "CodeAction",
+            "__typename": "CodeAction",
+            "code": "function run() {\n  alert('onClose');\n}"
+          },
+          {
+            "id": "126e43c1-3fd2-4707-994f-1a6780c3d7bf",
+            "name": "onAfterClose",
+            "store": {
+              "id": "0026913e-1d5a-491d-a170-affd09476060"
+            },
+            "type": "CodeAction",
+            "__typename": "CodeAction",
+            "code": "function run() {\n  alert('onAfterClose');\n}"
+          }
+        ],
+        "api": {
+          "types": [
+            {
+              "__typename": "InterfaceType",
+              "id": "1b9cf2b6-08f1-477d-a196-a8ad2c55cb40",
+              "kind": "InterfaceType",
+              "name": "Alert Demo Store API",
+              "fields": []
+            }
+          ],
+          "__typename": "InterfaceType",
+          "id": "1b9cf2b6-08f1-477d-a196-a8ad2c55cb40",
+          "kind": "InterfaceType",
+          "name": "Alert Demo Store API",
+          "fields": []
+        },
+        "store": {
+          "actions": [
+            {
+              "id": "8f8b4895-8a93-424e-9b6c-01ddf75077fe"
+            },
+            {
+              "id": "126e43c1-3fd2-4707-994f-1a6780c3d7bf"
+            }
+          ],
+          "api": {
+            "id": "1b9cf2b6-08f1-477d-a196-a8ad2c55cb40"
+          },
+          "id": "0026913e-1d5a-491d-a170-affd09476060",
+          "name": "Alert Demo Store"
+        }
+      }
+    },
+    {
+      "elements": [
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "ee648a37-3aa8-46aa-ba27-072f9b0e3c81"
+          },
+          "compositeKey": "ee648a37-3aa8-46aa-ba27-072f9b0e3c81-body",
+          "expanded": true,
+          "firstChild": {
+            "id": "5f69c0ab-785c-400c-88be-07b6145377e2"
+          },
+          "id": "59618136-398e-4e6c-a59a-55463f570f5a",
+          "name": "Body",
+          "nextSibling": null,
+          "page": {
+            "id": "ee648a37-3aa8-46aa-ba27-072f9b0e3c81"
+          },
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": null,
+          "props": {
+            "data": "{\"children\":{\"kind\":\"RichTextType\",\"type\":\"e7558508-3bb7-4f57-8f8c-6ac989911765\"}}",
+            "id": "e5336c72-1470-4898-b516-ff07021e3fa5"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "4a9dd961-501b-4246-8770-48fee5dc5852"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "ee648a37-3aa8-46aa-ba27-072f9b0e3c81"
+          },
+          "compositeKey": "ee648a37-3aa8-46aa-ba27-072f9b0e3c81-ant-design-anchor",
+          "expanded": null,
+          "firstChild": null,
+          "id": "5f69c0ab-785c-400c-88be-07b6145377e2",
+          "name": "Ant Design Anchor",
+          "nextSibling": null,
+          "page": null,
+          "parentComponent": null,
+          "parentElement": {
+            "id": "59618136-398e-4e6c-a59a-55463f570f5a"
+          },
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": null,
+          "props": {
+            "data": "{\"direction\":\"vertical\",\"getContainer\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"onChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"items\":[{\"replace\":false,\"title\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{\\n  function run() {\\n    const { AntDesignTypographyText } = this.atoms\\n\\n    return (\\n      <AntDesignTypographyText>Content</AntDesignTypographyText>\\n    )\\n  }.bind(this)\\n}}\"},\"key\":\"test\"}],\"getCurrentAnchor\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"affix\":false,\"showInkInFixed\":false}",
+            "id": "29c3e3b2-a193-4e65-bf56-2e43802c5b33"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "1fba53cd-e7a0-4a94-abd7-d92f5de5a9b6"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        }
+      ],
+      "page": {
+        "app": {
+          "id": "2e50ee6c-b19c-4155-a202-991b0e78d56c"
+        },
+        "elements": [
+          {
+            "id": "59618136-398e-4e6c-a59a-55463f570f5a"
+          },
+          {
+            "id": "5f69c0ab-785c-400c-88be-07b6145377e2"
+          }
+        ],
+        "id": "ee648a37-3aa8-46aa-ba27-072f9b0e3c81",
+        "kind": "Regular",
+        "name": "Anchor",
+        "pageContentContainer": null,
+        "redirect": null,
+        "rootElement": {
+          "id": "59618136-398e-4e6c-a59a-55463f570f5a"
+        },
+        "store": {
+          "id": "6ef0b4d6-2c1e-46bc-a63f-b6581d081b8e"
+        },
+        "urlPattern": "/anchor-demo"
+      },
+      "store": {
+        "actions": [],
+        "api": {
+          "types": [
+            {
+              "__typename": "InterfaceType",
+              "id": "1b6edd47-79bc-4f31-852b-13a8b3d20827",
+              "kind": "InterfaceType",
+              "name": "Anchor Demo Store API",
+              "fields": []
+            }
+          ],
+          "__typename": "InterfaceType",
+          "id": "1b6edd47-79bc-4f31-852b-13a8b3d20827",
+          "kind": "InterfaceType",
+          "name": "Anchor Demo Store API",
+          "fields": []
+        },
+        "store": {
+          "actions": [],
+          "api": {
+            "id": "1b6edd47-79bc-4f31-852b-13a8b3d20827"
+          },
+          "id": "6ef0b4d6-2c1e-46bc-a63f-b6581d081b8e",
+          "name": "Anchor Demo Store"
+        }
+      }
+    },
+    {
+      "elements": [
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "2970a228-c24e-4934-9d50-7441c953e5be"
+          },
+          "compositeKey": "2970a228-c24e-4934-9d50-7441c953e5be-ant-design-auto-complete",
+          "expanded": true,
+          "firstChild": null,
+          "id": "ede459a0-a214-41c5-af38-d4c149b439b2",
+          "name": "Ant Design Auto Complete",
+          "nextSibling": {
+            "id": "22858744-9a4f-4c24-b1b0-0029be9b69c6"
+          },
+          "page": null,
+          "parentComponent": null,
+          "parentElement": {
+            "id": "961d09b2-5e47-4aea-947c-49afad9c3b73"
+          },
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": null,
+          "props": {
+            "data": "{\"autoFocus\":false,\"onFocus\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"defaultOpen\":false,\"allowClear\":true,\"onSelect\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"placeholder\":\"Placeholder\",\"filterOption\":true,\"options\":[{\"value\":\"test\",\"label\":\"test\"}],\"size\":\"middle\",\"defaultActiveFirstOption\":false,\"virtual\":true,\"backfill\":false,\"onChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"notFoundContent\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"variant\":\"outlined\",\"onBlur\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onClear\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"disabled\":false,\"dropdownRender\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"onSearch\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onDropdownVisibleChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"popupMatchSelectWidth\":false}",
+            "id": "9a315181-16d3-4c18-9c1a-432f80d3ad2f"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "8ec79857-b3ea-4092-ae82-3de6665adfab"
+          },
+          "style": "{\"Desktop\":{\"guiString\":{\"none\":\"{\\\"width\\\":\\\"200px\\\",\\\"display\\\":\\\"flex\\\"}\"}}}",
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "2970a228-c24e-4934-9d50-7441c953e5be"
+          },
+          "compositeKey": "2970a228-c24e-4934-9d50-7441c953e5be-ant-design-auto-complete-2",
+          "expanded": true,
+          "firstChild": null,
+          "id": "083b6d55-c386-4e47-8c21-2e7859a9f18d",
+          "name": "Ant Design Auto Complete 2",
+          "nextSibling": null,
+          "page": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": {
+            "id": "f811335d-f6ee-4226-b06f-16d4ebca4bc7"
+          },
+          "props": {
+            "data": "{\"autoFocus\":false,\"onFocus\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"defaultOpen\":true,\"allowClear\":false,\"onSelect\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"placeholder\":\"Placeholder\",\"filterOption\":true,\"options\":[{\"value\":\"test\",\"label\":\"test\"}],\"defaultValue\":\"test\",\"size\":\"middle\",\"defaultActiveFirstOption\":false,\"virtual\":true,\"backfill\":false,\"onChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"notFoundContent\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"variant\":\"borderless\",\"onBlur\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onClear\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"disabled\":false,\"dropdownRender\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"onSearch\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onDropdownVisibleChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"popupMatchSelectWidth\":true}",
+            "id": "356f5ea3-604c-44e0-bdb1-f543c2a91755"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "8ec79857-b3ea-4092-ae82-3de6665adfab"
+          },
+          "style": "{\"Desktop\":{\"guiString\":{\"none\":\"{\\\"width\\\":\\\"200px\\\"}\"}}}",
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "2970a228-c24e-4934-9d50-7441c953e5be"
+          },
+          "compositeKey": "2970a228-c24e-4934-9d50-7441c953e5be-ant-design-auto-complete-1",
+          "expanded": true,
+          "firstChild": null,
+          "id": "22858744-9a4f-4c24-b1b0-0029be9b69c6",
+          "name": "Ant Design Auto Complete 1",
+          "nextSibling": {
+            "id": "f811335d-f6ee-4226-b06f-16d4ebca4bc7"
+          },
+          "page": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": {
+            "id": "ede459a0-a214-41c5-af38-d4c149b439b2"
+          },
+          "props": {
+            "data": "{\"autoFocus\":false,\"onFocus\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"defaultOpen\":false,\"allowClear\":false,\"onSelect\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"placeholder\":\"Placeholder\",\"filterOption\":true,\"options\":[],\"size\":\"small\",\"defaultActiveFirstOption\":false,\"virtual\":true,\"backfill\":false,\"onChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"notFoundContent\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"variant\":\"outlined\",\"onBlur\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onClear\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"disabled\":true,\"dropdownRender\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"onSearch\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onDropdownVisibleChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"popupMatchSelectWidth\":true}",
+            "id": "0023f785-01b4-46eb-b06a-984abe4d410e"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "8ec79857-b3ea-4092-ae82-3de6665adfab"
+          },
+          "style": "{\"Desktop\":{\"guiString\":{\"none\":\"{\\\"width\\\":\\\"200px\\\",\\\"display\\\":\\\"flex\\\"}\"}}}",
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "2970a228-c24e-4934-9d50-7441c953e5be"
+          },
+          "compositeKey": "2970a228-c24e-4934-9d50-7441c953e5be-body",
+          "expanded": true,
+          "firstChild": {
+            "id": "ede459a0-a214-41c5-af38-d4c149b439b2"
+          },
+          "id": "961d09b2-5e47-4aea-947c-49afad9c3b73",
+          "name": "Body",
+          "nextSibling": null,
+          "page": {
+            "id": "2970a228-c24e-4934-9d50-7441c953e5be"
+          },
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": null,
+          "props": {
+            "data": "{\"children\":{\"kind\":\"RichTextType\",\"type\":\"e7558508-3bb7-4f57-8f8c-6ac989911765\"}}",
+            "id": "c503e4f2-e83a-4665-8812-94e5596ffd56"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "4a9dd961-501b-4246-8770-48fee5dc5852"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "2970a228-c24e-4934-9d50-7441c953e5be"
+          },
+          "compositeKey": "2970a228-c24e-4934-9d50-7441c953e5be-ant-design-auto-complete-3",
+          "expanded": false,
+          "firstChild": null,
+          "id": "f811335d-f6ee-4226-b06f-16d4ebca4bc7",
+          "name": "Ant Design Auto Complete 3",
+          "nextSibling": {
+            "id": "083b6d55-c386-4e47-8c21-2e7859a9f18d"
+          },
+          "page": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": {
+            "id": "22858744-9a4f-4c24-b1b0-0029be9b69c6"
+          },
+          "props": {
+            "data": "{\"autoFocus\":false,\"onFocus\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"status\":\"error\",\"defaultOpen\":false,\"allowClear\":false,\"onSelect\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"placeholder\":\"Placeholder\",\"filterOption\":true,\"options\":[],\"size\":\"large\",\"defaultActiveFirstOption\":false,\"virtual\":true,\"backfill\":false,\"onChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"notFoundContent\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"variant\":\"outlined\",\"onBlur\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onClear\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"disabled\":false,\"dropdownRender\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"onSearch\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onDropdownVisibleChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"popupMatchSelectWidth\":true}",
+            "id": "d3d1d576-f017-4fec-b2ce-85fc184bd333"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "8ec79857-b3ea-4092-ae82-3de6665adfab"
+          },
+          "style": "{\"Desktop\":{\"guiString\":{\"none\":\"{\\\"width\\\":\\\"200px\\\",\\\"display\\\":\\\"flex\\\"}\"}}}",
+          "tailwindClassNames": null
+        }
+      ],
+      "page": {
+        "app": {
+          "id": "2e50ee6c-b19c-4155-a202-991b0e78d56c"
+        },
+        "elements": [
+          {
+            "id": "ede459a0-a214-41c5-af38-d4c149b439b2"
+          },
+          {
+            "id": "083b6d55-c386-4e47-8c21-2e7859a9f18d"
+          },
+          {
+            "id": "22858744-9a4f-4c24-b1b0-0029be9b69c6"
+          },
+          {
+            "id": "961d09b2-5e47-4aea-947c-49afad9c3b73"
+          },
+          {
+            "id": "f811335d-f6ee-4226-b06f-16d4ebca4bc7"
+          }
+        ],
+        "id": "2970a228-c24e-4934-9d50-7441c953e5be",
+        "kind": "Regular",
+        "name": "Autocomplete",
+        "pageContentContainer": null,
+        "redirect": null,
+        "rootElement": {
+          "id": "961d09b2-5e47-4aea-947c-49afad9c3b73"
+        },
+        "store": {
+          "id": "c7611052-04be-4cef-96fb-0b91251cd451"
+        },
+        "urlPattern": "/autocomplete-demo"
+      },
+      "store": {
+        "actions": [],
+        "api": {
+          "types": [
+            {
+              "__typename": "InterfaceType",
+              "id": "24804ccb-fe59-41ae-8262-085e9efacfac",
+              "kind": "InterfaceType",
+              "name": "Autocomplete Demo Store API",
+              "fields": []
+            }
+          ],
+          "__typename": "InterfaceType",
+          "id": "24804ccb-fe59-41ae-8262-085e9efacfac",
+          "kind": "InterfaceType",
+          "name": "Autocomplete Demo Store API",
+          "fields": []
+        },
+        "store": {
+          "actions": [],
+          "api": {
+            "id": "24804ccb-fe59-41ae-8262-085e9efacfac"
+          },
+          "id": "c7611052-04be-4cef-96fb-0b91251cd451",
+          "name": "Autocomplete Demo Store"
+        }
+      }
+    },
+    {
+      "elements": [
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "72db3b44-b4aa-4606-a264-7189d6e0cd51"
+          },
+          "compositeKey": "72db3b44-b4aa-4606-a264-7189d6e0cd51-ant-design-space-1-duplicate-duplicate",
+          "expanded": true,
+          "firstChild": {
+            "id": "a4ec70e6-900a-431e-af98-0bbbb804399f"
+          },
+          "id": "94aaaf28-bb20-4760-a217-47b7f289132f",
+          "name": "Ant Design Space 1 Duplicate Duplicate",
+          "nextSibling": null,
+          "page": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": {
+            "id": "6bfa1687-2c16-4550-8011-51cdf018c4e9"
+          },
+          "props": {
+            "data": "{\n    \"children\": {\n        \"kind\": \"RichTextType\",\n        \"type\": \"e7558508-3bb7-4f57-8f8c-6ac989911765\"\n    },\n    \"split\": {\n        \"kind\": \"ReactNodeType\",\n        \"type\": \"7333edde-f8f5-4d3c-a595-01b5585b37da\"\n    },\n    \"wrap\": false\n}",
+            "id": "1c5acc14-3e28-4072-9625-f646c64c7d70"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "94785b15-1bfa-468c-ad8a-3063e0ca4891"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "72db3b44-b4aa-4606-a264-7189d6e0cd51"
+          },
+          "compositeKey": "72db3b44-b4aa-4606-a264-7189d6e0cd51-ant-design-avatar-duplicate-duplicate-duplicate-1",
+          "expanded": false,
+          "firstChild": null,
+          "id": "a45f6c82-0fa7-43cb-b6bc-feeecbeea03a",
+          "name": "Ant Design Avatar Duplicate Duplicate Duplicate 1",
+          "nextSibling": {
+            "id": "09d0fc52-66f4-481f-a055-02857ccb9052"
+          },
+          "page": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": {
+            "id": "eafa1e83-40e8-462f-89b9-47b184313342"
+          },
+          "props": {
+            "data": "{\"size\":36,\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"draggable\":false,\"onError\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"src\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{}}\"},\"shape\":\"square\",\"children\":{\"kind\":\"CodeMirrorType\",\"type\":\"010c4f5a-434b-4c3e-a0ed-01eb1f78172a\",\"value\":\"U\"}}",
+            "id": "56bd467a-1cfc-4a1e-a6b8-f8bd3293ae66"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "ff6a8cfe-af3e-4e03-a51b-70455f976edb"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "72db3b44-b4aa-4606-a264-7189d6e0cd51"
+          },
+          "compositeKey": "72db3b44-b4aa-4606-a264-7189d6e0cd51-ant-design-avatar-duplicate",
+          "expanded": false,
+          "firstChild": null,
+          "id": "0f8e83cf-3fb2-4f6e-a213-c6883626fd46",
+          "name": "Ant Design Avatar Duplicate",
+          "nextSibling": {
+            "id": "73241cfc-bb6b-48db-a614-562ec266ecc6"
+          },
+          "page": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": {
+            "id": "eaf44517-290b-4ee3-84cb-d29380a23430"
+          },
+          "props": {
+            "data": "{\"size\":48,\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"draggable\":false,\"onError\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"src\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{}}\"},\"children\":{\"kind\":\"CodeMirrorType\",\"type\":\"010c4f5a-434b-4c3e-a0ed-01eb1f78172a\",\"value\":\"User\"}}",
+            "id": "4c6ec07a-0a90-4bfc-b812-350073640277"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "ff6a8cfe-af3e-4e03-a51b-70455f976edb"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "72db3b44-b4aa-4606-a264-7189d6e0cd51"
+          },
+          "compositeKey": "72db3b44-b4aa-4606-a264-7189d6e0cd51-ant-design-space-1-duplicate",
+          "expanded": false,
+          "firstChild": {
+            "id": "abd59bfd-6800-406b-acc1-f12ca1e0df1b"
+          },
+          "id": "6bfa1687-2c16-4550-8011-51cdf018c4e9",
+          "name": "Ant Design Space 1 Duplicate",
+          "nextSibling": {
+            "id": "94aaaf28-bb20-4760-a217-47b7f289132f"
+          },
+          "page": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": {
+            "id": "b4172516-9bea-4553-be62-6671929f7233"
+          },
+          "props": {
+            "data": "{\n    \"children\": {\n        \"kind\": \"RichTextType\",\n        \"type\": \"e7558508-3bb7-4f57-8f8c-6ac989911765\"\n    },\n    \"split\": {\n        \"kind\": \"ReactNodeType\",\n        \"type\": \"7333edde-f8f5-4d3c-a595-01b5585b37da\"\n    },\n    \"wrap\": false\n}",
+            "id": "ddad6848-8887-49df-882d-619a801b4656"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "94785b15-1bfa-468c-ad8a-3063e0ca4891"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "72db3b44-b4aa-4606-a264-7189d6e0cd51"
+          },
+          "compositeKey": "72db3b44-b4aa-4606-a264-7189d6e0cd51-ant-design-space-1",
+          "expanded": false,
+          "firstChild": {
+            "id": "eaf44517-290b-4ee3-84cb-d29380a23430"
+          },
+          "id": "b4172516-9bea-4553-be62-6671929f7233",
+          "name": "Ant Design Space 1",
+          "nextSibling": {
+            "id": "6bfa1687-2c16-4550-8011-51cdf018c4e9"
+          },
+          "page": null,
+          "parentComponent": null,
+          "parentElement": {
+            "id": "0d46da46-f12d-4943-9b29-b70d9a10ef8e"
+          },
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": null,
+          "props": {
+            "data": "{\"children\":{\"kind\":\"RichTextType\",\"type\":\"e7558508-3bb7-4f57-8f8c-6ac989911765\"},\"split\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"wrap\":false}",
+            "id": "d00acb74-ec01-408b-a2a8-70fa5fd50566"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "94785b15-1bfa-468c-ad8a-3063e0ca4891"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "72db3b44-b4aa-4606-a264-7189d6e0cd51"
+          },
+          "compositeKey": "72db3b44-b4aa-4606-a264-7189d6e0cd51-ant-design-avatar-duplicate-3-duplicate",
+          "expanded": false,
+          "firstChild": null,
+          "id": "a4ec70e6-900a-431e-af98-0bbbb804399f",
+          "name": "Ant Design Avatar Duplicate 3 Duplicate",
+          "nextSibling": {
+            "id": "0ed5b956-fb89-4518-8f80-a07a11536d38"
+          },
+          "page": null,
+          "parentComponent": null,
+          "parentElement": {
+            "id": "94aaaf28-bb20-4760-a217-47b7f289132f"
+          },
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": null,
+          "props": {
+            "data": "{\"size\":64,\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"draggable\":false,\"onError\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"src\":{\"kind\":\"PrimitiveType\",\"type\":\"3a0d0fc6-c51e-4f05-85b4-cde709fe5625\",\"value\":\"https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg\"},\"shape\":\"circle\",\"children\":{\"kind\":\"CodeMirrorType\",\"type\":\"010c4f5a-434b-4c3e-a0ed-01eb1f78172a\",\"value\":\"User\"}}",
+            "id": "a191e0b2-a12e-431f-9b19-2caaafc348ba"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "ff6a8cfe-af3e-4e03-a51b-70455f976edb"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "72db3b44-b4aa-4606-a264-7189d6e0cd51"
+          },
+          "compositeKey": "72db3b44-b4aa-4606-a264-7189d6e0cd51-ant-design-avatar",
+          "expanded": false,
+          "firstChild": null,
+          "id": "eaf44517-290b-4ee3-84cb-d29380a23430",
+          "name": "Ant Design Avatar",
+          "nextSibling": {
+            "id": "0f8e83cf-3fb2-4f6e-a213-c6883626fd46"
+          },
+          "page": null,
+          "parentComponent": null,
+          "parentElement": {
+            "id": "b4172516-9bea-4553-be62-6671929f7233"
+          },
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": null,
+          "props": {
+            "data": "{\"size\":64,\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"draggable\":false,\"onError\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"src\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{}}\"},\"children\":{\"kind\":\"CodeMirrorType\",\"type\":\"010c4f5a-434b-4c3e-a0ed-01eb1f78172a\",\"value\":\"User\"}}",
+            "id": "791fe42e-6c6c-407d-a855-65851554c8b9"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "ff6a8cfe-af3e-4e03-a51b-70455f976edb"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "72db3b44-b4aa-4606-a264-7189d6e0cd51"
+          },
+          "compositeKey": "72db3b44-b4aa-4606-a264-7189d6e0cd51-ant-design-space",
+          "expanded": true,
+          "firstChild": {
+            "id": "b4172516-9bea-4553-be62-6671929f7233"
+          },
+          "id": "0d46da46-f12d-4943-9b29-b70d9a10ef8e",
+          "name": "Ant Design Space",
+          "nextSibling": null,
+          "page": null,
+          "parentComponent": null,
+          "parentElement": {
+            "id": "23714ecb-172f-401e-b6c9-c531c5cc5a50"
+          },
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": null,
+          "props": {
+            "data": "{\"direction\":\"vertical\",\"children\":{\"kind\":\"RichTextType\",\"type\":\"e7558508-3bb7-4f57-8f8c-6ac989911765\"},\"split\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"wrap\":false}",
+            "id": "4ed3dfc4-50b2-439a-8a8d-2666133e719d"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "94785b15-1bfa-468c-ad8a-3063e0ca4891"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "72db3b44-b4aa-4606-a264-7189d6e0cd51"
+          },
+          "compositeKey": "72db3b44-b4aa-4606-a264-7189d6e0cd51-ant-design-avatar-duplicate-duplicate-2-duplicate",
+          "expanded": false,
+          "firstChild": null,
+          "id": "0ed5b956-fb89-4518-8f80-a07a11536d38",
+          "name": "Ant Design Avatar Duplicate Duplicate 2 Duplicate",
+          "nextSibling": null,
+          "page": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": {
+            "id": "a4ec70e6-900a-431e-af98-0bbbb804399f"
+          },
+          "props": {
+            "data": "{\"size\":48,\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"draggable\":false,\"onError\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"src\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{}}\"},\"shape\":\"circle\",\"children\":{\"kind\":\"CodeMirrorType\",\"type\":\"010c4f5a-434b-4c3e-a0ed-01eb1f78172a\",\"value\":\"User\"}}",
+            "id": "df6b9b1b-85cb-4776-a4c7-6eb8ed5d52d6"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "ff6a8cfe-af3e-4e03-a51b-70455f976edb"
+          },
+          "style": "{\"Desktop\":{\"guiString\":{\"none\":\"{\\\"background-color\\\":\\\"#c1b925\\\"}\"}}}",
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "72db3b44-b4aa-4606-a264-7189d6e0cd51"
+          },
+          "compositeKey": "72db3b44-b4aa-4606-a264-7189d6e0cd51-ant-design-avatar-duplicate-duplicate-duplicate-duplicate",
+          "expanded": false,
+          "firstChild": null,
+          "id": "09d0fc52-66f4-481f-a055-02857ccb9052",
+          "name": "Ant Design Avatar Duplicate Duplicate Duplicate Duplicate",
+          "nextSibling": null,
+          "page": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": {
+            "id": "a45f6c82-0fa7-43cb-b6bc-feeecbeea03a"
+          },
+          "props": {
+            "data": "{\"size\":24,\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"draggable\":false,\"onError\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"src\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{}}\"},\"shape\":\"square\",\"children\":{\"kind\":\"CodeMirrorType\",\"type\":\"010c4f5a-434b-4c3e-a0ed-01eb1f78172a\",\"value\":\"U\"}}",
+            "id": "780e8f29-0be8-4c77-915d-a24c664cf8be"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "ff6a8cfe-af3e-4e03-a51b-70455f976edb"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "72db3b44-b4aa-4606-a264-7189d6e0cd51"
+          },
+          "compositeKey": "72db3b44-b4aa-4606-a264-7189d6e0cd51-ant-design-avatar-duplicate-duplicate-2",
+          "expanded": false,
+          "firstChild": null,
+          "id": "eafa1e83-40e8-462f-89b9-47b184313342",
+          "name": "Ant Design Avatar Duplicate Duplicate 2",
+          "nextSibling": {
+            "id": "a45f6c82-0fa7-43cb-b6bc-feeecbeea03a"
+          },
+          "page": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": {
+            "id": "abd59bfd-6800-406b-acc1-f12ca1e0df1b"
+          },
+          "props": {
+            "data": "{\"size\":48,\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"draggable\":false,\"onError\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"src\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{}}\"},\"shape\":\"square\",\"children\":{\"kind\":\"CodeMirrorType\",\"type\":\"010c4f5a-434b-4c3e-a0ed-01eb1f78172a\",\"value\":\"User\"}}",
+            "id": "9ecbda1c-de2a-48da-a3cf-ff01b054d8b0"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "ff6a8cfe-af3e-4e03-a51b-70455f976edb"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "72db3b44-b4aa-4606-a264-7189d6e0cd51"
+          },
+          "compositeKey": "72db3b44-b4aa-4606-a264-7189d6e0cd51-ant-design-avatar-duplicate-duplicate",
+          "expanded": false,
+          "firstChild": null,
+          "id": "73241cfc-bb6b-48db-a614-562ec266ecc6",
+          "name": "Ant Design Avatar Duplicate Duplicate",
+          "nextSibling": {
+            "id": "51703000-6281-4292-bf25-936d3c5b59dd"
+          },
+          "page": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": {
+            "id": "0f8e83cf-3fb2-4f6e-a213-c6883626fd46"
+          },
+          "props": {
+            "data": "{\"size\":36,\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"draggable\":false,\"onError\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"src\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{}}\"},\"children\":{\"kind\":\"CodeMirrorType\",\"type\":\"010c4f5a-434b-4c3e-a0ed-01eb1f78172a\",\"value\":\"U\"}}",
+            "id": "3369dce7-2491-40e6-85f5-8989be78b9d5"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "ff6a8cfe-af3e-4e03-a51b-70455f976edb"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "72db3b44-b4aa-4606-a264-7189d6e0cd51"
+          },
+          "compositeKey": "72db3b44-b4aa-4606-a264-7189d6e0cd51-ant-design-avatar-duplicate-duplicate-duplicate",
+          "expanded": false,
+          "firstChild": null,
+          "id": "51703000-6281-4292-bf25-936d3c5b59dd",
+          "name": "Ant Design Avatar Duplicate Duplicate Duplicate",
+          "nextSibling": null,
+          "page": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": {
+            "id": "73241cfc-bb6b-48db-a614-562ec266ecc6"
+          },
+          "props": {
+            "data": "{\"size\":24,\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"draggable\":false,\"onError\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"src\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{}}\"},\"children\":{\"kind\":\"CodeMirrorType\",\"type\":\"010c4f5a-434b-4c3e-a0ed-01eb1f78172a\",\"value\":\"U\"}}",
+            "id": "2d59ead6-d08c-4a54-85d7-9af2f0db9ad3"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "ff6a8cfe-af3e-4e03-a51b-70455f976edb"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "72db3b44-b4aa-4606-a264-7189d6e0cd51"
+          },
+          "compositeKey": "72db3b44-b4aa-4606-a264-7189d6e0cd51-body",
+          "expanded": true,
+          "firstChild": {
+            "id": "0d46da46-f12d-4943-9b29-b70d9a10ef8e"
+          },
+          "id": "23714ecb-172f-401e-b6c9-c531c5cc5a50",
+          "name": "Body",
+          "nextSibling": null,
+          "page": {
+            "id": "72db3b44-b4aa-4606-a264-7189d6e0cd51"
+          },
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": null,
+          "props": {
+            "data": "{\"children\":{\"kind\":\"RichTextType\",\"type\":\"e7558508-3bb7-4f57-8f8c-6ac989911765\"}}",
+            "id": "00b76068-9cf1-48b5-9717-3bddc4faf116"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "4a9dd961-501b-4246-8770-48fee5dc5852"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "72db3b44-b4aa-4606-a264-7189d6e0cd51"
+          },
+          "compositeKey": "72db3b44-b4aa-4606-a264-7189d6e0cd51-ant-design-avatar-duplicate-3",
+          "expanded": false,
+          "firstChild": null,
+          "id": "abd59bfd-6800-406b-acc1-f12ca1e0df1b",
+          "name": "Ant Design Avatar Duplicate 3",
+          "nextSibling": {
+            "id": "eafa1e83-40e8-462f-89b9-47b184313342"
+          },
+          "page": null,
+          "parentComponent": null,
+          "parentElement": {
+            "id": "6bfa1687-2c16-4550-8011-51cdf018c4e9"
+          },
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": null,
+          "props": {
+            "data": "{\"size\":64,\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"draggable\":false,\"onError\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"src\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{}}\"},\"shape\":\"square\",\"children\":{\"kind\":\"CodeMirrorType\",\"type\":\"010c4f5a-434b-4c3e-a0ed-01eb1f78172a\",\"value\":\"User\"}}",
+            "id": "ac2e2b89-2d81-4993-98fa-d538cacd51ac"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "ff6a8cfe-af3e-4e03-a51b-70455f976edb"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        }
+      ],
+      "page": {
+        "app": {
+          "id": "2e50ee6c-b19c-4155-a202-991b0e78d56c"
+        },
+        "elements": [
+          {
+            "id": "94aaaf28-bb20-4760-a217-47b7f289132f"
+          },
+          {
+            "id": "a45f6c82-0fa7-43cb-b6bc-feeecbeea03a"
+          },
+          {
+            "id": "0f8e83cf-3fb2-4f6e-a213-c6883626fd46"
+          },
+          {
+            "id": "6bfa1687-2c16-4550-8011-51cdf018c4e9"
+          },
+          {
+            "id": "b4172516-9bea-4553-be62-6671929f7233"
+          },
+          {
+            "id": "a4ec70e6-900a-431e-af98-0bbbb804399f"
+          },
+          {
+            "id": "eaf44517-290b-4ee3-84cb-d29380a23430"
+          },
+          {
+            "id": "0d46da46-f12d-4943-9b29-b70d9a10ef8e"
+          },
+          {
+            "id": "0ed5b956-fb89-4518-8f80-a07a11536d38"
+          },
+          {
+            "id": "09d0fc52-66f4-481f-a055-02857ccb9052"
+          },
+          {
+            "id": "eafa1e83-40e8-462f-89b9-47b184313342"
+          },
+          {
+            "id": "73241cfc-bb6b-48db-a614-562ec266ecc6"
+          },
+          {
+            "id": "51703000-6281-4292-bf25-936d3c5b59dd"
+          },
+          {
+            "id": "23714ecb-172f-401e-b6c9-c531c5cc5a50"
+          },
+          {
+            "id": "abd59bfd-6800-406b-acc1-f12ca1e0df1b"
+          }
+        ],
+        "id": "72db3b44-b4aa-4606-a264-7189d6e0cd51",
+        "kind": "Regular",
+        "name": "Avatar",
+        "pageContentContainer": null,
+        "redirect": null,
+        "rootElement": {
+          "id": "23714ecb-172f-401e-b6c9-c531c5cc5a50"
+        },
+        "store": {
+          "id": "2b5e1f81-3751-4667-9723-8d84005043db"
+        },
+        "urlPattern": "/avatar"
+      },
+      "store": {
+        "actions": [],
+        "api": {
+          "types": [
+            {
+              "__typename": "InterfaceType",
+              "id": "29bb1fc6-5e30-44d4-878f-f86df77526c4",
+              "kind": "InterfaceType",
+              "name": "Avatar Store API",
+              "fields": []
+            }
+          ],
+          "__typename": "InterfaceType",
+          "id": "29bb1fc6-5e30-44d4-878f-f86df77526c4",
+          "kind": "InterfaceType",
+          "name": "Avatar Store API",
+          "fields": []
+        },
+        "store": {
+          "actions": [],
+          "api": {
+            "id": "29bb1fc6-5e30-44d4-878f-f86df77526c4"
+          },
+          "id": "2b5e1f81-3751-4667-9723-8d84005043db",
+          "name": "Avatar Store"
+        }
+      }
+    },
+    {
+      "elements": [
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "5930a10c-1e9a-4e3e-a9cd-433cd544248d"
+          },
+          "compositeKey": "5930a10c-1e9a-4e3e-a9cd-433cd544248d-body",
+          "expanded": null,
+          "firstChild": null,
+          "id": "937a66e4-f809-4077-a093-b116fee58d1e",
+          "name": "Body",
+          "nextSibling": null,
+          "page": {
+            "id": "5930a10c-1e9a-4e3e-a9cd-433cd544248d"
+          },
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": null,
+          "props": {
+            "data": "{}",
+            "id": "84b1e2e3-6fb1-435f-b509-b7d7b61d04db"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "4a9dd961-501b-4246-8770-48fee5dc5852"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        }
+      ],
+      "page": {
+        "app": {
+          "id": "2e50ee6c-b19c-4155-a202-991b0e78d56c"
+        },
+        "elements": [
+          {
+            "id": "937a66e4-f809-4077-a093-b116fee58d1e"
+          }
+        ],
+        "id": "5930a10c-1e9a-4e3e-a9cd-433cd544248d",
+        "kind": "NotFound",
+        "name": "404",
+        "pageContentContainer": null,
+        "redirect": null,
+        "rootElement": {
+          "id": "937a66e4-f809-4077-a093-b116fee58d1e"
+        },
+        "store": {
+          "id": "6c84b8a6-368f-4eb3-8209-ed7a415fd080"
+        },
+        "urlPattern": "/404"
+      },
+      "store": {
+        "actions": [],
+        "api": {
+          "types": [
+            {
+              "__typename": "InterfaceType",
+              "id": "8b5a7b1a-094b-45c3-8107-7693895ef4f7",
+              "kind": "InterfaceType",
+              "name": "Ant Design Atoms Demo(gm.vpolishchuk) 404 Store API",
+              "fields": []
+            }
+          ],
+          "__typename": "InterfaceType",
+          "id": "8b5a7b1a-094b-45c3-8107-7693895ef4f7",
+          "kind": "InterfaceType",
+          "name": "Ant Design Atoms Demo(gm.vpolishchuk) 404 Store API",
+          "fields": []
+        },
+        "store": {
+          "actions": [],
+          "api": {
+            "id": "8b5a7b1a-094b-45c3-8107-7693895ef4f7"
+          },
+          "id": "6c84b8a6-368f-4eb3-8209-ed7a415fd080",
+          "name": "404 Store"
+        }
+      }
+    },
+    {
+      "elements": [
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "5dd1e05f-fb3f-4260-a779-cf97727e8a2c"
+          },
+          "compositeKey": "5dd1e05f-fb3f-4260-a779-cf97727e8a2c-body",
+          "expanded": null,
+          "firstChild": null,
+          "id": "2c688153-bedf-4ec1-8c82-ffc595ef4684",
+          "name": "Body",
+          "nextSibling": null,
+          "page": {
+            "id": "5dd1e05f-fb3f-4260-a779-cf97727e8a2c"
+          },
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": null,
+          "props": {
+            "data": "{}",
+            "id": "c7dc0886-de96-4422-ba3f-22b493b3ceda"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "4a9dd961-501b-4246-8770-48fee5dc5852"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        }
+      ],
+      "page": {
+        "app": {
+          "id": "2e50ee6c-b19c-4155-a202-991b0e78d56c"
+        },
+        "elements": [
+          {
+            "id": "2c688153-bedf-4ec1-8c82-ffc595ef4684"
+          }
+        ],
+        "id": "5dd1e05f-fb3f-4260-a779-cf97727e8a2c",
+        "kind": "InternalServerError",
+        "name": "500",
+        "pageContentContainer": null,
+        "redirect": null,
+        "rootElement": {
+          "id": "2c688153-bedf-4ec1-8c82-ffc595ef4684"
+        },
+        "store": {
+          "id": "772cfe83-196f-452d-9552-6de88ead6526"
+        },
+        "urlPattern": "/500"
+      },
+      "store": {
+        "actions": [],
+        "api": {
+          "types": [
+            {
+              "__typename": "InterfaceType",
+              "id": "e66a04b9-09cb-47d0-8b76-cfa0cad8c151",
+              "kind": "InterfaceType",
+              "name": "Ant Design Atoms Demo(gm.vpolishchuk) 500 Store API",
+              "fields": []
+            }
+          ],
+          "__typename": "InterfaceType",
+          "id": "e66a04b9-09cb-47d0-8b76-cfa0cad8c151",
+          "kind": "InterfaceType",
+          "name": "Ant Design Atoms Demo(gm.vpolishchuk) 500 Store API",
+          "fields": []
+        },
+        "store": {
+          "actions": [],
+          "api": {
+            "id": "e66a04b9-09cb-47d0-8b76-cfa0cad8c151"
+          },
+          "id": "772cfe83-196f-452d-9552-6de88ead6526",
+          "name": "500 Store"
+        }
+      }
+    }
+  ],
+  "resources": []
+}

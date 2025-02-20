@@ -14,3 +14,7 @@ export const AppDtoSchema = Type.Object({
 })
 
 export type IAppDto = Static<typeof AppDtoSchema>
+
+export const AppExportSchema = Type.Omit(AppDtoSchema, ['pages'])
+
+export type IAppExport = Static<typeof AppExportSchema>
