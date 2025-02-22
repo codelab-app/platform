@@ -71,22 +71,32 @@ export const DistributeIcon = ({
 }
 
 export const DisplayIcon = ({ display }: { display: Display }) => {
+  let icon = null
+
   switch (display) {
     case Display.Block:
-      return DisplayBlockIcon()
+      icon = DisplayBlockIcon()
+      break
     case Display.Flex:
-      return DisplayFlexIcon()
+      icon = DisplayFlexIcon()
+      break
     case Display.Grid:
-      return DisplayGridIcon()
+      icon = DisplayGridIcon()
+      break
     case Display.Inline:
-      return DisplayInlineIcon()
+      icon = DisplayInlineIcon()
+      break
     case Display.InlineBlock:
-      return DisplayInlineBlockIcon()
+      icon = DisplayInlineBlockIcon()
+      break
     case Display.None:
-      return DisplayNoneIcon()
+      icon = DisplayNoneIcon()
+      break
     default:
       return null
   }
+
+  return <span className="anticon">{icon}</span>
 }
 
 const DisplayBlockIcon = () => {
