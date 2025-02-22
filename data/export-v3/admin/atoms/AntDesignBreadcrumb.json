@@ -102,17 +102,17 @@
         "api": {
           "id": "c7fe3eaa-2c22-46ac-b72b-2d6127f00396"
         },
-        "defaultValues": "null",
+        "defaultValues": null,
         "description": null,
         "fieldType": {
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
         },
         "id": "f894db32-ccdc-460f-8d74-2f69b049a09d",
         "key": "title",
         "name": null,
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": "{\"general\":{\"nullable\":true}}"
+        "validationRules": "{}"
       }
     ],
     "id": "8562d529-43b0-4927-96d3-56f1264e6a50",

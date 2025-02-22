@@ -54,17 +54,17 @@
         "api": {
           "id": "acb61314-5cf0-414d-bb14-8d1843f449f7"
         },
-        "defaultValues": null,
+        "defaultValues": "{\"kind\":\"EnumType\",\"type\":\"dcb317bd-3155-4d2d-b670-6d29cff2067a\",\"value\":\"middle\"}",
         "description": null,
         "fieldType": {
-          "id": "f0aa6d46-a3d5-4829-a02b-51185b604ef5"
+          "id": "cb576e30-ddbb-499a-ba53-c443a762000f"
         },
-        "id": "d04bd470-bd15-4911-83e2-dd9e6e8370fb",
+        "id": "297fbbb2-e69e-4939-a1ae-933d8e1dbdd7",
         "key": "size",
         "name": "Size",
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": null
+        "validationRules": "{\"general\":{\"nullable\":true}}"
       },
       {
         "api": {

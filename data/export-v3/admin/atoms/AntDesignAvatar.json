@@ -54,17 +54,17 @@
         "api": {
           "id": "b97d5258-936f-4396-81d4-c3acefe05cd1"
         },
-        "defaultValues": null,
+        "defaultValues": "false",
         "description": null,
         "fieldType": {
-          "id": "c1f4e4fd-a626-4af2-afcd-1dc00a9e8b77"
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
         },
-        "id": "660115b0-73c2-4e89-967f-477da89c2706",
+        "id": "56370b84-902d-4156-9931-0bdc70cadec3",
         "key": "draggable",
-        "name": "Draggable",
+        "name": null,
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": null
+        "validationRules": "{}"
       },
       {
         "api": {
@@ -134,23 +134,23 @@
         "api": {
           "id": "b97d5258-936f-4396-81d4-c3acefe05cd1"
         },
-        "defaultValues": null,
+        "defaultValues": "48",
         "description": null,
         "fieldType": {
-          "id": "2efb9752-51cd-40fe-aba1-80c291f227d0"
+          "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885"
         },
-        "id": "784fcf0d-43f8-4e20-b474-c897c9ced064",
+        "id": "317fbd97-8f3c-45b1-9602-9371ebc4d085",
         "key": "size",
-        "name": "Size",
+        "name": null,
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": null
+        "validationRules": "{\"general\":{\"nullable\":true}}"
       },
       {
         "api": {
           "id": "b97d5258-936f-4396-81d4-c3acefe05cd1"
         },
-        "defaultValues": "{\"type\":\"3a0d0fc6-c51e-4f05-85b4-cde709fe5625\", \"kind\":\"PrimitiveType\"}",
+        "defaultValues": "{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{}}\"}",
         "description": null,
         "fieldType": {
           "id": "e1489c1e-c897-400b-8806-d22320a01bf7"
@@ -160,7 +160,7 @@
         "name": "Src",
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": "{}"
+        "validationRules": "{\"general\":{\"nullable\":true}}"
       },
       {
         "api": {
@@ -212,29 +212,6 @@
         "id": "2489cc3f-04b4-42b8-bd20-274fe386964c",
         "kind": "EnumType",
         "name": "AntDesignAvatar Cross Origin Enum"
-      },
-      {
-        "__typename": "EnumType",
-        "allowedValues": [
-          {
-            "id": "9b09d5f0-6b07-49f3-aa2c-9bcd897da28e",
-            "key": "boolean",
-            "value": "boolean"
-          },
-          {
-            "id": "4c3a7f70-1b05-499f-becb-8818e29df0d0",
-            "key": "false",
-            "value": "false"
-          },
-          {
-            "id": "ddcd9c8a-dee2-40c1-8e90-6ca9453370f7",
-            "key": "true",
-            "value": "true"
-          }
-        ],
-        "id": "c1f4e4fd-a626-4af2-afcd-1dc00a9e8b77",
-        "kind": "EnumType",
-        "name": "AntDesignAvatar Draggable Enum"
       },
       {
         "__typename": "EnumType",

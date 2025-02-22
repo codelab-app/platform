@@ -358,6 +358,22 @@
         "api": {
           "id": "832a516f-46fc-46ce-814b-d641cc51b302"
         },
+        "defaultValues": null,
+        "description": "Set validation status",
+        "fieldType": {
+          "id": "2a7b8258-0f80-4a14-8454-225580b4c175"
+        },
+        "id": "285f3e21-4959-47f3-9ea2-7c10a5d5df42",
+        "key": "status",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "832a516f-46fc-46ce-814b-d641cc51b302"
+        },
         "defaultValues": "\"outlined\"",
         "description": null,
         "fieldType": {
@@ -434,17 +450,17 @@
         "__typename": "EnumType",
         "allowedValues": [
           {
-            "id": "59b35e4b-3c70-462c-ac48-8c5a91843e08",
-            "key": "large",
-            "value": "Large"
+            "id": "6885477f-4df4-435c-8736-0ef0beaa0366",
+            "key": "Large",
+            "value": "large"
           },
           {
-            "id": "bc9994c5-bcbc-48d2-a534-def844b54fb8",
+            "id": "df67aa2d-991d-4fae-ae7e-0fe2fbae83c9",
             "key": "Middle",
             "value": "middle"
           },
           {
-            "id": "7ae489c3-f28e-49cd-b7be-a0722a399b0f",
+            "id": "a3b231e7-751e-412f-8fe1-374afcd804b6",
             "key": "Small",
             "value": "small"
           }
@@ -452,6 +468,24 @@
         "id": "f8f0f83b-3200-4714-a077-ad184c00e9d2",
         "kind": "EnumType",
         "name": "AntDesignAutoComplete Size"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "d0354101-2bad-4cbe-a5d1-3b65c8f84b8f",
+            "key": "Error",
+            "value": "error"
+          },
+          {
+            "id": "6a233df5-d6f2-4d31-8b50-be460eb485e5",
+            "key": "Warning",
+            "value": "warning"
+          }
+        ],
+        "id": "2a7b8258-0f80-4a14-8454-225580b4c175",
+        "kind": "EnumType",
+        "name": "AntDesignAutoComplete Status"
       },
       {
         "__typename": "EnumType",
