@@ -2,6 +2,7 @@
 
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 
+import ImportOutlined from '@ant-design/icons/ImportOutlined'
 import LogoutOutlined from '@ant-design/icons/LogoutOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import {
@@ -16,20 +17,16 @@ import {
 } from '@codelab/frontend/presentation/codelab-ui'
 import { Image } from 'antd'
 import { useRouter } from 'next/navigation'
-import { useRef } from 'react'
-
-import { ImportAppDialog } from '../import-app'
 
 export const AppListHeader = () => {
   const router = useRouter()
-  const inputRef = useRef<HTMLInputElement>(null)
 
   const toolbarItems: Array<ToolbarItem> = [
     {
       ariaLabel: getUiDataLabel(UiKey.AppToolbarItemImport),
       cuiKey: UiKey.AppToolbarItemImport,
-      icon: <ImportAppDialog inputRef={inputRef} />,
-      onClick: () => inputRef.current?.click(),
+      icon: <ImportOutlined />,
+      onClick: () => router.push(PageType.AppImport()),
       title: 'Import an app',
     },
     {

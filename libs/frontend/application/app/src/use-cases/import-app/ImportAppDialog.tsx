@@ -1,18 +1,20 @@
+'use client'
+
 import type { IAppDto } from '@codelab/shared/abstract/core'
 import type { HttpException } from '@nestjs/common'
-import type { RefObject } from 'react'
 
-import ImportOutlined from '@ant-design/icons/ImportOutlined'
 import {
   useErrorNotify,
   useSuccessNotify,
 } from '@codelab/frontend/infra/context'
+import { useRouter } from 'next/navigation'
+import { useEffect, useRef } from 'react'
 
 import { useImportApp } from './useImportApp.hook'
 
-export const ImportAppDialog = (props: {
-  inputRef: RefObject<HTMLInputElement | null>
-}) => {
+export const ImportAppDialog = () => {
+  const inputRef = useRef<HTMLInputElement>(null)
+  const router = useRouter()
   const importApp = useImportApp()
 
   const onError = useErrorNotify({
@@ -30,24 +32,29 @@ export const ImportAppDialog = (props: {
   })
 
   const onFileChange = async () => {
-    const files = props.inputRef.current?.files
+    const files = inputRef.current?.files
     const appDataFile = files?.[0]
 
     if (appDataFile) {
-      await importApp(appDataFile).then(onSuccess).catch(onError)
+      await importApp(appDataFile)
+        .then(onSuccess)
+        .catch(onError)
+        .finally(() => router.back())
     }
   }
 
+  useEffect(() => {
+    inputRef.current?.click()
+    inputRef.current?.addEventListener('cancel', () => router.back())
+  }, [router, inputRef])
+
   return (
-    <>
-      <ImportOutlined />
-      <input
-        accept=".json"
-        onChange={onFileChange}
-        ref={props.inputRef}
-        style={{ display: 'none' }}
-        type="file"
-      />
-    </>
+    <input
+      accept=".json"
+      onChange={onFileChange}
+      ref={inputRef}
+      style={{ display: 'none' }}
+      type="file"
+    />
   )
 }
