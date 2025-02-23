@@ -1,9 +1,15 @@
+import type { Metadata } from 'next'
+
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { resourceRepository } from '@codelab/frontend-domain-resource/repositories'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { DashboardPopover } from '@codelab/frontend-presentation-view/templates'
 
 import UpdateResourceConnector from './page.connector'
+
+export const metadata: Metadata = {
+  title: 'Update Resource | Codelab',
+}
 
 const Page = async (props: { params: Promise<{ id: string }> }) => {
   const params = await props.params

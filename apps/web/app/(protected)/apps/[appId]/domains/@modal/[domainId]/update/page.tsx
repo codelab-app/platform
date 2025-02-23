@@ -1,8 +1,14 @@
+import type { Metadata } from 'next'
+
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { domainRepository } from '@codelab/frontend-domain-domain/repositories'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 
 import { DomainUpdateConnector } from './page.connector'
+
+export const metadata: Metadata = {
+  title: 'Update Domain | Codelab',
+}
 
 const Page = async (props: { params: Promise<{ domainId: string }> }) => {
   const params = await props.params
