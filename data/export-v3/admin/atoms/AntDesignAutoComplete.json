@@ -431,31 +431,6 @@
         "name": "AntDesignAutoComplete API"
       },
       {
-        "__typename": "InterfaceType",
-        "fields": [
-          {
-            "id": "88ce3cf2-6db1-449d-af70-4ca92a11d80a"
-          },
-          {
-            "id": "5ad86410-15ec-4baf-bcc6-9b4828f513a8"
-          }
-        ],
-        "id": "774ae23b-f0ce-4cec-9dae-5477af434e9a",
-        "kind": "InterfaceType",
-        "name": "AntDesignAutoComplete Option"
-      },
-      {
-        "__typename": "ArrayType",
-        "id": "445cce22-98b1-4037-a341-ec06168b0ca4",
-        "itemType": {
-          "__typename": "InterfaceType",
-          "id": "774ae23b-f0ce-4cec-9dae-5477af434e9a",
-          "name": "AntDesignAutoComplete Option"
-        },
-        "kind": "ArrayType",
-        "name": "AntDesignAutoComplete Options"
-      },
-      {
         "__typename": "EnumType",
         "allowedValues": [
           {
@@ -500,6 +475,31 @@
         "id": "5e7aa0be-411c-44cb-8d5b-dc202ee386cc",
         "kind": "EnumType",
         "name": "AntDesignAutoComplete Variant"
+      },
+      {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "id": "88ce3cf2-6db1-449d-af70-4ca92a11d80a"
+          },
+          {
+            "id": "5ad86410-15ec-4baf-bcc6-9b4828f513a8"
+          }
+        ],
+        "id": "774ae23b-f0ce-4cec-9dae-5477af434e9a",
+        "kind": "InterfaceType",
+        "name": "AntDesignAutoComplete Option"
+      },
+      {
+        "__typename": "ArrayType",
+        "id": "445cce22-98b1-4037-a341-ec06168b0ca4",
+        "itemType": {
+          "__typename": "InterfaceType",
+          "id": "774ae23b-f0ce-4cec-9dae-5477af434e9a",
+          "name": "AntDesignAutoComplete Option"
+        },
+        "kind": "ArrayType",
+        "name": "AntDesignAutoComplete Options"
       }
     ]
   },

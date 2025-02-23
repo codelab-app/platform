@@ -152,6 +152,7 @@ export class ExportApiHandler
   private sortTypesBeforeExport(dependentTypes: Array<ITypeExport>) {
     dependentTypes.sort((a, b) => a.name.localeCompare(b.name))
 
+    const enums: Array<ITypeExport> = []
     const interfaces: Array<ITypeExport> = []
     const unions: Array<ITypeExport> = []
     const remainingTypes: Array<ITypeExport> = []
@@ -164,12 +165,15 @@ export class ExportApiHandler
         case ITypeKind.UnionType:
           unions.push(type)
           break
+        case ITypeKind.EnumType:
+          enums.push(type)
+          break
         default:
           remainingTypes.push(type)
       }
     })
 
-    return [...interfaces, ...unions, ...remainingTypes]
+    return [...enums, ...interfaces, ...unions, ...remainingTypes]
   }
 
   private sortUnionTypesBeforeExport(dependentTypes: Array<ITypeExport>) {

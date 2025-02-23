@@ -111,24 +111,6 @@
         "name": "AntDesignSpace API"
       },
       {
-        "__typename": "UnionType",
-        "id": "b24af1b5-6c50-4864-817c-e7f0c4a39374",
-        "kind": "UnionType",
-        "name": "AtomChildren Union",
-        "typesOfUnionType": [
-          {
-            "__typename": "CodeMirrorType",
-            "id": "010c4f5a-434b-4c3e-a0ed-01eb1f78172a",
-            "name": "Typescript Code"
-          },
-          {
-            "__typename": "RichTextType",
-            "id": "e7558508-3bb7-4f57-8f8c-6ac989911765",
-            "name": "RichTextType"
-          }
-        ]
-      },
-      {
         "__typename": "EnumType",
         "allowedValues": [
           {
@@ -191,6 +173,24 @@
         "id": "f0aa6d46-a3d5-4829-a02b-51185b604ef5",
         "kind": "EnumType",
         "name": "AntDesignSpace Size Enum"
+      },
+      {
+        "__typename": "UnionType",
+        "id": "b24af1b5-6c50-4864-817c-e7f0c4a39374",
+        "kind": "UnionType",
+        "name": "AtomChildren Union",
+        "typesOfUnionType": [
+          {
+            "__typename": "CodeMirrorType",
+            "id": "010c4f5a-434b-4c3e-a0ed-01eb1f78172a",
+            "name": "Typescript Code"
+          },
+          {
+            "__typename": "RichTextType",
+            "id": "e7558508-3bb7-4f57-8f8c-6ac989911765",
+            "name": "RichTextType"
+          }
+        ]
       }
     ]
   },

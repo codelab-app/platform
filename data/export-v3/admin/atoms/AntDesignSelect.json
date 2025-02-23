@@ -751,20 +751,6 @@
         "name": "AntDesignSelect API"
       },
       {
-        "__typename": "InterfaceType",
-        "fields": [
-          {
-            "id": "f5839627-d5ee-48aa-a91c-c4c14f9f42dc"
-          },
-          {
-            "id": "b9852d21-bfab-43aa-870f-382f75ceb17e"
-          }
-        ],
-        "id": "874c97ee-b333-4519-bb60-fee49a12ff6b",
-        "kind": "InterfaceType",
-        "name": "AntDesignSelect Option"
-      },
-      {
         "__typename": "EnumType",
         "allowedValues": [
           {
@@ -947,17 +933,6 @@
         "name": "AntDesignSelect On Select Enum"
       },
       {
-        "__typename": "ArrayType",
-        "id": "a9a0ebd4-17d6-486b-b34d-d45ffa99c8a2",
-        "itemType": {
-          "__typename": "InterfaceType",
-          "id": "874c97ee-b333-4519-bb60-fee49a12ff6b",
-          "name": "AntDesignSelect Option"
-        },
-        "kind": "ArrayType",
-        "name": "AntDesignSelect Options"
-      },
-      {
         "__typename": "EnumType",
         "allowedValues": [
           {
@@ -1025,6 +1000,31 @@
         "id": "ec89417d-a968-4af8-848a-5ffa234b495b",
         "kind": "EnumType",
         "name": "AntDesignSelect Value Enum"
+      },
+      {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "id": "f5839627-d5ee-48aa-a91c-c4c14f9f42dc"
+          },
+          {
+            "id": "b9852d21-bfab-43aa-870f-382f75ceb17e"
+          }
+        ],
+        "id": "874c97ee-b333-4519-bb60-fee49a12ff6b",
+        "kind": "InterfaceType",
+        "name": "AntDesignSelect Option"
+      },
+      {
+        "__typename": "ArrayType",
+        "id": "a9a0ebd4-17d6-486b-b34d-d45ffa99c8a2",
+        "itemType": {
+          "__typename": "InterfaceType",
+          "id": "874c97ee-b333-4519-bb60-fee49a12ff6b",
+          "name": "AntDesignSelect Option"
+        },
+        "kind": "ArrayType",
+        "name": "AntDesignSelect Options"
       }
     ]
   },

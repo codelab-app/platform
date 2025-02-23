@@ -335,23 +335,6 @@
         "name": "AntDesignMenu API"
       },
       {
-        "__typename": "InterfaceType",
-        "fields": [
-          {
-            "id": "cf910edd-2c9f-4094-ab98-a6f185e71bb1"
-          },
-          {
-            "id": "915200d2-ea99-4216-9ba8-673d239d1007"
-          },
-          {
-            "id": "2b9265ef-1f26-478c-a225-419408ce0fa4"
-          }
-        ],
-        "id": "8baae515-020d-422e-a1bc-340c20490dd2",
-        "kind": "InterfaceType",
-        "name": "AntDesignMenuItemType"
-      },
-      {
         "__typename": "EnumType",
         "allowedValues": [
           {
@@ -427,6 +410,23 @@
         "id": "795fcc22-56c6-43e5-b3c9-988ba90f719c",
         "kind": "EnumType",
         "name": "AntDesignMenu Trigger Sub Menu Action Enum"
+      },
+      {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "id": "cf910edd-2c9f-4094-ab98-a6f185e71bb1"
+          },
+          {
+            "id": "915200d2-ea99-4216-9ba8-673d239d1007"
+          },
+          {
+            "id": "2b9265ef-1f26-478c-a225-419408ce0fa4"
+          }
+        ],
+        "id": "8baae515-020d-422e-a1bc-340c20490dd2",
+        "kind": "InterfaceType",
+        "name": "AntDesignMenuItemType"
       },
       {
         "__typename": "ArrayType",

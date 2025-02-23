@@ -191,42 +191,6 @@
         "name": "AntDesignAvatar API"
       },
       {
-        "__typename": "UnionType",
-        "id": "e1489c1e-c897-400b-8806-d22320a01bf7",
-        "kind": "UnionType",
-        "name": "AntDesignAvatar Src Union",
-        "typesOfUnionType": [
-          {
-            "__typename": "PrimitiveType",
-            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-            "name": "String"
-          },
-          {
-            "__typename": "ReactNodeType",
-            "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
-            "name": "ReactNodeType"
-          }
-        ]
-      },
-      {
-        "__typename": "UnionType",
-        "id": "b24af1b5-6c50-4864-817c-e7f0c4a39374",
-        "kind": "UnionType",
-        "name": "AtomChildren Union",
-        "typesOfUnionType": [
-          {
-            "__typename": "CodeMirrorType",
-            "id": "010c4f5a-434b-4c3e-a0ed-01eb1f78172a",
-            "name": "Typescript Code"
-          },
-          {
-            "__typename": "RichTextType",
-            "id": "e7558508-3bb7-4f57-8f8c-6ac989911765",
-            "name": "RichTextType"
-          }
-        ]
-      },
-      {
         "__typename": "EnumType",
         "allowedValues": [
           {
@@ -322,6 +286,42 @@
         "id": "2efb9752-51cd-40fe-aba1-80c291f227d0",
         "kind": "EnumType",
         "name": "AntDesignAvatar Size Enum"
+      },
+      {
+        "__typename": "UnionType",
+        "id": "e1489c1e-c897-400b-8806-d22320a01bf7",
+        "kind": "UnionType",
+        "name": "AntDesignAvatar Src Union",
+        "typesOfUnionType": [
+          {
+            "__typename": "PrimitiveType",
+            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+            "name": "String"
+          },
+          {
+            "__typename": "ReactNodeType",
+            "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+            "name": "ReactNodeType"
+          }
+        ]
+      },
+      {
+        "__typename": "UnionType",
+        "id": "b24af1b5-6c50-4864-817c-e7f0c4a39374",
+        "kind": "UnionType",
+        "name": "AtomChildren Union",
+        "typesOfUnionType": [
+          {
+            "__typename": "CodeMirrorType",
+            "id": "010c4f5a-434b-4c3e-a0ed-01eb1f78172a",
+            "name": "Typescript Code"
+          },
+          {
+            "__typename": "RichTextType",
+            "id": "e7558508-3bb7-4f57-8f8c-6ac989911765",
+            "name": "RichTextType"
+          }
+        ]
       }
     ]
   },
