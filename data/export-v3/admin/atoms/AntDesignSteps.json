@@ -255,6 +255,24 @@
         "name": "AntDesignSteps API"
       },
       {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "93f51d0b-4641-4675-b3b4-9f628edcd0cb",
+            "key": "(iconDot, {index, status, title, description}) => ReactNode",
+            "value": "(iconDot, {index, status, title, description}) => ReactNode"
+          },
+          {
+            "id": "c015c4ed-5131-4192-b950-4f2daec00ec1",
+            "key": "boolean",
+            "value": "boolean"
+          }
+        ],
+        "id": "6610e637-d9e2-4ad6-bd5d-63f9d7537161",
+        "kind": "EnumType",
+        "name": "AntDesignSteps Progress Dot Enum"
+      },
+      {
         "__typename": "InterfaceType",
         "fields": [
           {
@@ -278,24 +296,6 @@
         },
         "kind": "ArrayType",
         "name": "AntDesignSteps Items"
-      },
-      {
-        "__typename": "EnumType",
-        "allowedValues": [
-          {
-            "id": "93f51d0b-4641-4675-b3b4-9f628edcd0cb",
-            "key": "(iconDot, {index, status, title, description}) => ReactNode",
-            "value": "(iconDot, {index, status, title, description}) => ReactNode"
-          },
-          {
-            "id": "c015c4ed-5131-4192-b950-4f2daec00ec1",
-            "key": "boolean",
-            "value": "boolean"
-          }
-        ],
-        "id": "6610e637-d9e2-4ad6-bd5d-63f9d7537161",
-        "kind": "EnumType",
-        "name": "AntDesignSteps Progress Dot Enum"
       }
     ]
   },

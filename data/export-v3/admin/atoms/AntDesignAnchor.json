@@ -271,6 +271,24 @@
         "name": "AntDesignAnchor API"
       },
       {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "360b923b-9a2a-4052-84f8-e8905b3235b0",
+            "key": "Horizontal",
+            "value": "horizontal"
+          },
+          {
+            "id": "12e6682d-cc1d-461a-96c1-3ce5774310bf",
+            "key": "Vertical",
+            "value": "vertical"
+          }
+        ],
+        "id": "23cff358-1ac8-4af6-a2b5-c97cdccec04b",
+        "kind": "EnumType",
+        "name": "AntDesignAnchor Direction"
+      },
+      {
         "__typename": "InterfaceType",
         "fields": [
           {
@@ -292,24 +310,6 @@
         "id": "88cd0d94-5391-4c95-8589-c80cfa297a69",
         "kind": "InterfaceType",
         "name": "AntDesignAnchor Item"
-      },
-      {
-        "__typename": "EnumType",
-        "allowedValues": [
-          {
-            "id": "360b923b-9a2a-4052-84f8-e8905b3235b0",
-            "key": "Horizontal",
-            "value": "horizontal"
-          },
-          {
-            "id": "12e6682d-cc1d-461a-96c1-3ce5774310bf",
-            "key": "Vertical",
-            "value": "vertical"
-          }
-        ],
-        "id": "23cff358-1ac8-4af6-a2b5-c97cdccec04b",
-        "kind": "EnumType",
-        "name": "AntDesignAnchor Direction"
       },
       {
         "__typename": "ArrayType",
