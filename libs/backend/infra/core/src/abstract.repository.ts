@@ -207,6 +207,13 @@ export abstract class AbstractRepository<
           ? (await this.find({ schema, where }))[0]
           : (await this.find({ where }))[0]
 
+        this.loggerService.verbose('Found result', {
+          context: this.constructor.name,
+          data: {
+            exists: Boolean(results),
+          },
+        })
+
         if (!results) {
           return undefined
         }
