@@ -54,13 +54,6 @@ export abstract class AbstractRepository<
             },
           )
         } catch (error) {
-          console.error('Failed to add item', {
-            context: this.constructor.name,
-            data: {
-              data,
-              error,
-            },
-          })
           this.loggerService.error('Failed to add item', {
             context: this.constructor.name,
             data: {
@@ -106,12 +99,6 @@ export abstract class AbstractRepository<
         op: 'repository.exists',
       },
       async () => {
-        console.log('Checking if exists', {
-          context: this.constructor.name,
-          data: {
-            where,
-          },
-        })
         this.loggerService.verbose('Checking if exists', {
           context: this.constructor.name,
           data: {
@@ -209,12 +196,6 @@ export abstract class AbstractRepository<
         op: 'repository.findOne',
       },
       async () => {
-        console.log('Finding one', {
-          context: this.constructor.name,
-          data: {
-            where,
-          },
-        })
         this.loggerService.verbose('Finding one', {
           context: this.constructor.name,
           data: {
@@ -226,12 +207,6 @@ export abstract class AbstractRepository<
           ? (await this.find({ schema, where }))[0]
           : (await this.find({ where }))[0]
 
-        console.log('Found result', {
-          context: this.constructor.name,
-          data: {
-            exists: Boolean(results),
-          },
-        })
         this.loggerService.verbose('Found result', {
           context: this.constructor.name,
           data: {
@@ -303,9 +278,6 @@ export abstract class AbstractRepository<
             const computedWhere = this.getWhere(data, where)
 
             if (await this.exists(computedWhere)) {
-              console.log('Record exists, updating...', {
-                context: this.constructor.name,
-              })
               this.loggerService.verbose('Record exists, updating...', {
                 context: this.constructor.name,
               })
@@ -313,9 +285,6 @@ export abstract class AbstractRepository<
               return await this.update(data, computedWhere)
             }
 
-            console.log('Record does not exist, adding...', {
-              context: this.constructor.name,
-            })
             this.loggerService.verbose('Record does not exist, adding...', {
               context: this.constructor.name,
             })
@@ -335,14 +304,6 @@ export abstract class AbstractRepository<
             },
           )
         } catch (error) {
-          console.error('Failed to save item', {
-            context: this.constructor.name,
-            data: {
-              data,
-              error,
-              where,
-            },
-          })
           this.loggerService.error('Failed to save item', {
             context: this.constructor.name,
             data: {
@@ -372,13 +333,6 @@ export abstract class AbstractRepository<
         op: 'repository.update',
       },
       async () => {
-        console.log('Updating data', {
-          context: this.constructor.name,
-          data: {
-            data,
-            where,
-          },
-        })
         this.loggerService.verbose('Updating data', {
           context: this.constructor.name,
           data: {
@@ -399,15 +353,6 @@ export abstract class AbstractRepository<
 
           return model
         } catch (error) {
-          console.error('Failed to update item', {
-            context: this.constructor.name,
-            data: {
-              data,
-              error,
-              existing,
-              where,
-            },
-          })
           this.loggerService.error('Failed to update item', {
             context: this.constructor.name,
             data: {

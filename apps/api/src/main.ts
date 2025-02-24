@@ -49,6 +49,10 @@ const bootstrap = async () => {
    */
   const server = app.getHttpServer()
 
+  server.keepAliveTimeout = 120_000
+  server.headersTimeout = 120_000
+  server.requestTimeout = 120_000
+
   server.setTimeout(120_000)
 
   /**
