@@ -232,39 +232,6 @@
         "name": "AntDesignAvatar Shape Enum"
       },
       {
-        "__typename": "EnumType",
-        "allowedValues": [
-          {
-            "id": "bfa04291-7eab-49ab-8dd3-c67c8e3971b9",
-            "key": "{ xs: number, sm: number, ...}",
-            "value": "{ xs: number, sm: number, ...}"
-          },
-          {
-            "id": "47e918d3-242a-44e3-90a0-1efc931d3b2e",
-            "key": "default",
-            "value": "default"
-          },
-          {
-            "id": "f6748070-f5b3-4b83-b849-e8dfef0a99f5",
-            "key": "large",
-            "value": "large"
-          },
-          {
-            "id": "25f8b593-6fc3-49d9-bb7d-eb0159f9d9d6",
-            "key": "number",
-            "value": "number"
-          },
-          {
-            "id": "4c735cb0-3c9d-4dab-9146-02dc48af83eb",
-            "key": "small",
-            "value": "small"
-          }
-        ],
-        "id": "2efb9752-51cd-40fe-aba1-80c291f227d0",
-        "kind": "EnumType",
-        "name": "AntDesignAvatar Size Enum"
-      },
-      {
         "__typename": "UnionType",
         "id": "e1489c1e-c897-400b-8806-d22320a01bf7",
         "kind": "UnionType",

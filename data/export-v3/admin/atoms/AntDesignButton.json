@@ -358,6 +358,77 @@
         "name": "AntDesignButton Size Enum"
       },
       {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "90caadfd-6447-41b0-bafe-1f08ff59c6ed",
+            "key": "Dashed",
+            "value": "dashed"
+          },
+          {
+            "id": "dc514d04-e503-47d9-921c-ca5769d290ce",
+            "key": "Default",
+            "value": "default"
+          },
+          {
+            "id": "6555c1cd-3d1d-495f-9632-01af53e4f86a",
+            "key": "Link",
+            "value": "link"
+          },
+          {
+            "id": "21b93e45-03a9-4310-b8f9-461519194c32",
+            "key": "Primary",
+            "value": "primary"
+          },
+          {
+            "id": "65a5a02b-8649-4547-a08a-cf700d0f83d1",
+            "key": "Text",
+            "value": "text"
+          }
+        ],
+        "id": "5b8dc895-49d2-40ee-872c-5a3e7ce8cc90",
+        "kind": "EnumType",
+        "name": "AntDesignButton Type Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "50445813-f5df-4e73-954b-35e44564213e",
+            "key": "Dashed",
+            "value": "dashed"
+          },
+          {
+            "id": "57048d3c-37b6-495d-bc24-3b258f9d07f6",
+            "key": "Filled",
+            "value": "filled"
+          },
+          {
+            "id": "7c06efa2-bf9f-4d8b-9ec3-9117f9603783",
+            "key": "Link",
+            "value": "link"
+          },
+          {
+            "id": "c6e9c698-ab1f-46f1-90a1-e53c75371a47",
+            "key": "Outlined",
+            "value": "outlined"
+          },
+          {
+            "id": "d44432bb-116c-4495-989d-93a9268a9880",
+            "key": "Solid",
+            "value": "solid"
+          },
+          {
+            "id": "e54e2aaf-0c8b-48cd-b057-947902eaf13e",
+            "key": "Text",
+            "value": "text"
+          }
+        ],
+        "id": "d70d7682-3ad6-4e25-be78-ccf26d932a6a",
+        "kind": "EnumType",
+        "name": "AntDesignButton Variant"
+      },
+      {
         "__typename": "UnionType",
         "id": "b24af1b5-6c50-4864-817c-e7f0c4a39374",
         "kind": "UnionType",
