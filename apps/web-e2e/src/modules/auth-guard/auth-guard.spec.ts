@@ -17,9 +17,22 @@ test.describe.configure({ mode: 'serial' })
 globalBeforeAll()
 
 test.beforeAll(async ({ request }) => {
+  const getTimestamp = () =>
+    new Intl.DateTimeFormat('en-US', {
+      hour: 'numeric',
+      hour12: true,
+      minute: '2-digit',
+      second: '2-digit',
+      timeZone: 'Asia/Hong_Kong',
+    }).format(new Date())
+
+  console.log(`[${getTimestamp()}] Seeding app data`)
+
   app = await seedAppData(request)
   await seedPageData(request, merge(authGuardPageData, { app }))
   await seedResourceData(request)
+
+  console.log(`[${getTimestamp()}] Seeding app data done`)
 })
 
 test.beforeEach(async ({ authGuardPage: page }) => {

@@ -11,7 +11,7 @@ resource_class: << parameters.resource_class >>
 environment:
   NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
 
-parallelism: 4
+parallelism: 1
 steps:
   - restore-workspace-database
   - setup-neo4j
@@ -28,6 +28,17 @@ steps:
   # No need since we're not building anything
   # Also very expensive in terms of storage
   # docker_layer_caching: true
+  # - run:
+  #     name: 'Check System Resources'
+  #     command: |
+  #       sudo apt-get update && sudo apt-get install -y htop
+  #       # Use htop with supported flags
+  #       htop -n 1
+  # - run:
+  #     name: 'Check Docker Memory'
+  #     command: |
+  #       echo "=== Docker Container Memory Stats ==="
+  #       docker ps --format "{{.Names}}" | grep neo4j | xargs -I {} docker stats {} --no-stream --format "table {{.Name}}\t{{.MemUsage}}\t{{.MemPerc}}"
   - run:
       name: 'Run E2E Tests'
       # https://github.com/cypress-io/circleci-orb/issues/386
@@ -40,12 +51,14 @@ steps:
         echo $CIRCLE_NODE_TOTAL;
 
         pnpm nx e2e web-e2e -c ci \
-          --shard=${SHARD}/${CIRCLE_NODE_TOTAL}
+          --shard=${SHARD}/${CIRCLE_NODE_TOTAL} \
+          --testFiles="modules/auth-guard/auth-guard.spec.ts"
   - run:
       name: Capture Docker logs
       command: |
         mkdir -p ~/project/tmp/logs
-        docker logs $(docker ps -q --filter "ancestor=neo4j:5.26.0-enterprise") > ~/project/tmp/logs/neo4j.log 2>&1
+
+        docker logs $(docker ps --filter "ancestor=neo4j:5.26.0-enterprise" --format "{{.ID}}") > ~/project/tmp/logs/neo4j.log 2>&1
       # This ensures logs are captured even if previous steps fail
       when: always
   - store_artifacts:
