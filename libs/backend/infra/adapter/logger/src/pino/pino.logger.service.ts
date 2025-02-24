@@ -75,17 +75,6 @@ export class PinoLoggerService extends Logger implements ILoggerService {
   private shouldIncludeData(options?: LogOptions) {
     const context = options?.context ?? ''
 
-    // Add debug logging
-    console.log({
-      context,
-      matches: this.config.enableDataForContext.map((pattern) => ({
-        matches: new RegExp(pattern).test(context),
-        pattern,
-      })),
-      msg: 'Checking shouldIncludeData',
-      patterns: this.config.enableDataForContext,
-    })
-
     return this.config.enableDataForContext.some((pattern) => {
       return new RegExp(pattern).test(context)
     })
@@ -97,7 +86,7 @@ export class PinoLoggerService extends Logger implements ILoggerService {
     options: LogOptions = {},
   ): void {
     const mappedLevel = labelMapping[level]
-    const logger = this.logger[mappedLevel]
+    const logger = this.logger[mappedLevel].bind(this.logger)
 
     if (!this.shouldIncludeData(options)) {
       logger({
