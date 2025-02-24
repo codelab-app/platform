@@ -39,6 +39,8 @@ import {
 
 /**
  * Used for dynamic data when we don't know what type we are creating
+ *
+ * We create empty interface, then assign fields separately
  */
 @Injectable()
 export class TypeFactory {

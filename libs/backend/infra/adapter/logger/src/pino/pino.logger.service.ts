@@ -73,6 +73,9 @@ export class PinoLoggerService extends Logger implements ILoggerService {
   }
 
   private shouldIncludeData(options?: LogOptions) {
+    // Disable data for context for now
+    return true
+
     const context = options?.context ?? ''
 
     return this.config.enableDataForContext.some((pattern) => {
