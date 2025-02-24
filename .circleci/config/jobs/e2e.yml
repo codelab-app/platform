@@ -41,6 +41,16 @@ steps:
 
         pnpm nx e2e web-e2e -c ci \
           --shard=${SHARD}/${CIRCLE_NODE_TOTAL}
+  - run:
+      name: Capture Docker logs
+      command: |
+        mkdir -p ~/project/tmp/logs
+        docker logs $(docker ps -q --filter "ancestor=neo4j:5.26.0-enterprise") > ~/project/tmp/logs/neo4j.log 2>&1
+      # This ensures logs are captured even if previous steps fail
+      when: always
+  - store_artifacts:
+      path: ~/project/tmp/logs
+      destination: docker-logs
   - store_artifacts:
       path: ~/project/tmp/reports/e2e
       destination: playwright-report
