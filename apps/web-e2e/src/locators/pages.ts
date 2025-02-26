@@ -263,7 +263,7 @@ export class BasePage {
   }
 
   getSpinner() {
-    return this.page.getByRole('status')
+    return this.page.getByRole('status', { name: 'Loading' })
   }
 
   getToolbarItem(key: UiKey) {
