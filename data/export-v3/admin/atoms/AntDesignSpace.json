@@ -54,17 +54,17 @@
         "api": {
           "id": "acb61314-5cf0-414d-bb14-8d1843f449f7"
         },
-        "defaultValues": null,
+        "defaultValues": "{\"kind\":\"EnumType\",\"type\":\"dcb317bd-3155-4d2d-b670-6d29cff2067a\",\"value\":\"middle\"}",
         "description": null,
         "fieldType": {
-          "id": "f0aa6d46-a3d5-4829-a02b-51185b604ef5"
+          "id": "cb576e30-ddbb-499a-ba53-c443a762000f"
         },
-        "id": "d04bd470-bd15-4911-83e2-dd9e6e8370fb",
+        "id": "297fbbb2-e69e-4939-a1ae-933d8e1dbdd7",
         "key": "size",
         "name": "Size",
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": null
+        "validationRules": "{\"general\":{\"nullable\":true}}"
       },
       {
         "api": {
@@ -114,23 +114,23 @@
         "__typename": "EnumType",
         "allowedValues": [
           {
-            "id": "5a59d673-91ef-4dd9-9382-cd8400da6b0b",
+            "id": "7bb7803a-134e-4830-ae50-454ca9c534d0",
             "key": "baseline",
             "value": "baseline"
           },
           {
-            "id": "e276b21e-b2fc-405e-bae2-9a5d87f215c1",
-            "key": "center",
+            "id": "ba4697eb-1f34-4e5d-9d2c-73296aac94e7",
+            "key": "Center",
             "value": "center"
           },
           {
-            "id": "edb27cfe-6697-4fca-8ec5-d5103c475ffb",
-            "key": "end",
+            "id": "532680f7-00b8-4eae-8dc9-5beabf348d3c",
+            "key": "End",
             "value": "end"
           },
           {
-            "id": "d3a5ea06-a27b-48ba-97d9-cb0016e3bab2",
-            "key": "start",
+            "id": "b29fd1a3-7c80-4fcb-a12e-90d7dcf03994",
+            "key": "Start",
             "value": "start"
           }
         ],
@@ -142,13 +142,13 @@
         "__typename": "EnumType",
         "allowedValues": [
           {
-            "id": "0f200ee0-43aa-41bd-8b11-05d8e68e0b26",
-            "key": "horizontal",
+            "id": "bf6a1e66-c8cc-4700-a52b-1cb5cac97e02",
+            "key": "Horizontal",
             "value": "horizontal"
           },
           {
-            "id": "e1cb1a85-2515-467a-8e13-5b9c2767281a",
-            "key": "vertical",
+            "id": "de83f730-1541-4093-8f53-286d36629b1e",
+            "key": "Vertical",
             "value": "vertical"
           }
         ],
@@ -160,19 +160,42 @@
         "__typename": "EnumType",
         "allowedValues": [
           {
-            "id": "4b3f3134-86ae-4fd1-a7eb-a9586db25012",
-            "key": "Size",
-            "value": "Size"
+            "id": "fce3f349-6e01-4799-928c-ec3b997a38ec",
+            "key": "Large",
+            "value": "large"
           },
           {
-            "id": "4dc82a8d-fb08-4c20-9f6b-993c03162178",
-            "key": "Size[]",
-            "value": "Size[]"
+            "id": "0135eca7-7beb-45f7-a5c7-77edc96e92ee",
+            "key": "Middle",
+            "value": "middle"
+          },
+          {
+            "id": "b3937685-817b-4540-8b4f-e304570524dc",
+            "key": "Small",
+            "value": "small"
           }
         ],
-        "id": "f0aa6d46-a3d5-4829-a02b-51185b604ef5",
+        "id": "dcb317bd-3155-4d2d-b670-6d29cff2067a",
         "kind": "EnumType",
         "name": "AntDesignSpace Size Enum"
+      },
+      {
+        "__typename": "UnionType",
+        "id": "cb576e30-ddbb-499a-ba53-c443a762000f",
+        "kind": "UnionType",
+        "name": "AntDesignSpace Size Union",
+        "typesOfUnionType": [
+          {
+            "__typename": "PrimitiveType",
+            "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+            "name": "Number"
+          },
+          {
+            "__typename": "EnumType",
+            "id": "dcb317bd-3155-4d2d-b670-6d29cff2067a",
+            "name": "AntDesignSpace Size Enum"
+          }
+        ]
       },
       {
         "__typename": "UnionType",

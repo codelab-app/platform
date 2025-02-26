@@ -41,6 +41,22 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
+          "id": "9ce059a6-cba4-4ec4-85cb-c14289e21af8"
+        },
+        "id": "a296d9be-7958-4ba5-9aa5-303450055106",
+        "key": "color",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
           "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
         },
         "id": "1e7c052e-14b7-4611-844b-9b0ad773a0de",
@@ -217,14 +233,30 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
+          "id": "5b8dc895-49d2-40ee-872c-5a3e7ce8cc90"
         },
-        "id": "1f6981a4-c4ec-4020-8e28-05e0300aa6b7",
+        "id": "43114c7e-0d87-4884-9434-d14eca8165fa",
         "key": "type",
         "name": "Type",
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": null
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "d70d7682-3ad6-4e25-be78-ccf26d932a6a"
+        },
+        "id": "ecc1f4c3-73b7-4307-8e69-4f90f30eeb69",
+        "key": "variant",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
       }
     ],
     "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f",
@@ -237,6 +269,29 @@
         "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f",
         "kind": "InterfaceType",
         "name": "AntDesignButton API"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "2d076cde-7570-42de-98eb-a239ca70bc2f",
+            "key": "Danger",
+            "value": "danger"
+          },
+          {
+            "id": "a54ff039-c6b0-4a60-95cb-c3e47642e2a2",
+            "key": "Default",
+            "value": "default"
+          },
+          {
+            "id": "c8a99d6d-467e-40a8-b6b2-eda8654673b5",
+            "key": "Primary",
+            "value": "primary"
+          }
+        ],
+        "id": "9ce059a6-cba4-4ec4-85cb-c14289e21af8",
+        "kind": "EnumType",
+        "name": "AntDesignButton Color Enum"
       },
       {
         "__typename": "EnumType",
@@ -301,6 +356,77 @@
         "id": "62aa8197-739f-428c-ae0c-3e35531d752e",
         "kind": "EnumType",
         "name": "AntDesignButton Size Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "90caadfd-6447-41b0-bafe-1f08ff59c6ed",
+            "key": "Dashed",
+            "value": "dashed"
+          },
+          {
+            "id": "dc514d04-e503-47d9-921c-ca5769d290ce",
+            "key": "Default",
+            "value": "default"
+          },
+          {
+            "id": "6555c1cd-3d1d-495f-9632-01af53e4f86a",
+            "key": "Link",
+            "value": "link"
+          },
+          {
+            "id": "21b93e45-03a9-4310-b8f9-461519194c32",
+            "key": "Primary",
+            "value": "primary"
+          },
+          {
+            "id": "65a5a02b-8649-4547-a08a-cf700d0f83d1",
+            "key": "Text",
+            "value": "text"
+          }
+        ],
+        "id": "5b8dc895-49d2-40ee-872c-5a3e7ce8cc90",
+        "kind": "EnumType",
+        "name": "AntDesignButton Type Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "50445813-f5df-4e73-954b-35e44564213e",
+            "key": "Dashed",
+            "value": "dashed"
+          },
+          {
+            "id": "57048d3c-37b6-495d-bc24-3b258f9d07f6",
+            "key": "Filled",
+            "value": "filled"
+          },
+          {
+            "id": "7c06efa2-bf9f-4d8b-9ec3-9117f9603783",
+            "key": "Link",
+            "value": "link"
+          },
+          {
+            "id": "c6e9c698-ab1f-46f1-90a1-e53c75371a47",
+            "key": "Outlined",
+            "value": "outlined"
+          },
+          {
+            "id": "d44432bb-116c-4495-989d-93a9268a9880",
+            "key": "Solid",
+            "value": "solid"
+          },
+          {
+            "id": "e54e2aaf-0c8b-48cd-b057-947902eaf13e",
+            "key": "Text",
+            "value": "text"
+          }
+        ],
+        "id": "d70d7682-3ad6-4e25-be78-ccf26d932a6a",
+        "kind": "EnumType",
+        "name": "AntDesignButton Variant"
       },
       {
         "__typename": "UnionType",

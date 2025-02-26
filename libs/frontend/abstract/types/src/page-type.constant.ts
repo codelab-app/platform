@@ -31,6 +31,7 @@ export const PageType = {
   AppCreate: () => '/apps/create',
   AppDelete: ({ id }: IRef) => `/apps/delete/${id}`,
   AppDetail: ({ appId }: Pick<UrlPathParams, 'appId'>) => `/apps/${appId}`,
+  AppImport: () => '/apps/import',
   AppList: () => '/apps',
   AppUpdate: ({ id }: IRef) => `/apps/update/${id}`,
   AtomCreate: () => `${PageType.Atoms()}/create`,

@@ -2,7 +2,10 @@
 
 import type { RefObject } from 'react'
 
-import { type IRendererModel } from '@codelab/frontend/abstract/application'
+import {
+  type IRendererModel,
+  RendererType,
+} from '@codelab/frontend/abstract/application'
 import { Rect } from '@codelab/frontend/shared/utils'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { isServer } from '@codelab/shared/utils'
@@ -22,6 +25,7 @@ export const RenderBlueprint = observer<{
   const runtimeRootElement = runtimeRootContainerNode?.runtimeRootElement
   const { userDomainService } = useDomainStore()
   const window = useWindowSize()
+  const isPreview = renderer.rendererType === RendererType.Preview
 
   useEffect(() => {
     if (renderContainerRef.current) {
@@ -30,7 +34,12 @@ export const RenderBlueprint = observer<{
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userDomainService.preference.builderWidth, window.height, window.width])
 
-  if (isServer || !renderContainerRef.current || !runtimeRootElement) {
+  if (
+    isServer ||
+    !renderContainerRef.current ||
+    !runtimeRootElement ||
+    isPreview
+  ) {
     return null
   }
 

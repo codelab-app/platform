@@ -15,6 +15,7 @@ export const CuiHeaderToolbar = ({ items }: CuiHeaderToolbarProps) => {
     icon: item.icon,
     key: index,
     label: item.title,
+    onClick: item.onClick,
     title: item.title,
   }))
 
