@@ -90,7 +90,7 @@ export const seedAppData = async (
     const text = await response.text()
 
     console.error('Server response:', text)
-    throw new Error(`HTTP error! status: ${response.status}`)
+    throw new Error(`HTTP error! status: ${response.status()}`)
   }
 
   return response.json() as Promise<IApp>
@@ -108,7 +108,7 @@ export const seedPageData = async (
     const text = await response.text()
 
     console.error('Server response:', text)
-    throw new Error(`HTTP error! status: ${response.status}`)
+    throw new Error(`HTTP error! status: ${response.status()}`)
   }
 
   return response.json() as Promise<IPage>

@@ -79,7 +79,7 @@ export const seedTestData = async (request: APIRequestContext) => {
     const text = await response.text()
 
     console.error('Server response:', text)
-    throw new Error(`HTTP error! status: ${response.status}`)
+    throw new Error(`HTTP error! status: ${response.status()}`)
   }
 
   return app
