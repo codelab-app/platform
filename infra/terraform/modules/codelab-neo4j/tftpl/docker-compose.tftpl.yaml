@@ -9,7 +9,7 @@ networks:
 services:
   # Best practices https://assets.neo4j.com/Official-Materials/Neo4j+Monitoring+Best+Practices.pdf
   neo4j:
-    image: neo4j:5.26.0-enterprise
+    image: neo4j:5.26.3-enterprise
     container_name: neo4j
     networks:
       - codelab
@@ -43,7 +43,7 @@ services:
       retries: 5
 
   neo4j-init:
-    image: neo4j:5.26.0-enterprise
+    image: neo4j:5.26.3-enterprise
     depends_on:
       neo4j:
         condition: service_healthy

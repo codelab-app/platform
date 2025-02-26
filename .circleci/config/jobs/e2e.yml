@@ -60,7 +60,7 @@ steps:
       command: |
         mkdir -p ~/project/tmp/logs
 
-        docker logs $(docker ps --filter "ancestor=neo4j:5.26.0-enterprise" --format "{{.ID}}") > ~/project/tmp/logs/neo4j.log 2>&1
+        docker logs $(docker ps --filter "ancestor=neo4j:5.26.3-enterprise" --format "{{.ID}}") > ~/project/tmp/logs/neo4j.log 2>&1
       # This ensures logs are captured even if previous steps fail
       when: always
   - store_artifacts:

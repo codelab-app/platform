@@ -12,7 +12,7 @@ name: 'codelab'
 services:
   neo4j:
     container_name: neo4j
-    image: neo4j:5.26.0-enterprise
+    image: neo4j:5.26.3-enterprise
     volumes:
       - codelab-neo4j:/data
       - codelab-neo4j:/plugins
@@ -44,7 +44,7 @@ services:
 
   neo4j-test:
     container_name: neo4j-test
-    image: neo4j:5.26.0-enterprise
+    image: neo4j:5.26.3-enterprise
     volumes:
       - codelab-neo4j-test:/data
       - codelab-neo4j-test:/plugins

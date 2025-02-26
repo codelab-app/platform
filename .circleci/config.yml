@@ -250,11 +250,8 @@ executors:
           NEO4J_AUTH: neo4j/password
           NEO4J_PLUGINS: '["apoc"]'
           NEO4J_dbms_logs_debug_level: DEBUG
-          NEO4J_dbms_logs_query_enabled: 'true'
-          NEO4J_dbms_logs_query_threshold: '0'
-          NEO4J_dbms_logs_to_console: 'true'
           NEO4J_server_jvm_additional: -XX:+ExitOnOutOfMemoryError
-        image: neo4j:5.26.0-enterprise
+        image: neo4j:5.26.3-enterprise
   machine-ubuntu:
     machine:
       image: ubuntu-2004:2022.04.1
@@ -406,7 +403,7 @@ jobs:
           command: |
             mkdir -p ~/project/tmp/logs
 
-            docker logs $(docker ps --filter "ancestor=neo4j:5.26.0-enterprise" --format "{{.ID}}") > ~/project/tmp/logs/neo4j.log 2>&1
+            docker logs $(docker ps --filter "ancestor=neo4j:5.26.3-enterprise" --format "{{.ID}}") > ~/project/tmp/logs/neo4j.log 2>&1
           name: Capture Docker logs
           when: always
       - store_artifacts:
