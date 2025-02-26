@@ -250,9 +250,6 @@ executors:
           NEO4J_AUTH: neo4j/password
           NEO4J_PLUGINS: '["apoc"]'
           NEO4J_server_jvm_additional: -XX:+ExitOnOutOfMemoryError
-          NEO4J_server_memory_heap_initial__size: 3600m
-          NEO4J_server_memory_heap_max__size: 3600m
-          NEO4J_server_memory_pagecache_size: 4g
         image: neo4j:5.26.0-enterprise
   machine-ubuntu:
     machine:
@@ -387,6 +384,8 @@ jobs:
             - nx-cache-
           name: Restore NX Cache
       - run: pnpm npx playwright install-deps
+      - setup_remote_docker:
+          version: default
       - run:
           command: |
             # Original test command

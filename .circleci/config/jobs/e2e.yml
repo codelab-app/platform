@@ -23,8 +23,8 @@ steps:
         - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-
         - nx-cache-
   - run: pnpm npx playwright install-deps
-  # - setup_remote_docker:
-  #     version: default
+  - setup_remote_docker:
+      version: default
   # No need since we're not building anything
   # Also very expensive in terms of storage
   # docker_layer_caching: true
@@ -53,6 +53,8 @@ steps:
         pnpm nx e2e web-e2e -c ci \
           --shard=${SHARD}/${CIRCLE_NODE_TOTAL} \
           --testFiles="modules/auth-guard/auth-guard.spec.ts"
+
+  # https://stackoverflow.com/questions/68916222/docker-build-error-cannot-connect-to-the-docker-daemon-at-unix-var-run-docke/68922177#68922177
   - run:
       name: Capture Docker logs
       command: |
