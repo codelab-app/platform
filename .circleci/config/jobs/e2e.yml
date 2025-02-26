@@ -13,6 +13,8 @@ environment:
 
 parallelism: 1
 steps:
+  - setup_remote_docker:
+      version: default
   - restore-workspace-database
   - setup-neo4j
   - restore_cache:
@@ -23,8 +25,6 @@ steps:
         - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-
         - nx-cache-
   - run: pnpm npx playwright install-deps
-  - setup_remote_docker:
-      version: default
   # No need since we're not building anything
   # Also very expensive in terms of storage
   # docker_layer_caching: true

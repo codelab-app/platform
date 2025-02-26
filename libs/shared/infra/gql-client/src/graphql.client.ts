@@ -26,8 +26,8 @@ export const graphqlClient = new GraphQLClient(graphqlUrl.toString(), {
     return fetch(...args)
   },
   headers: {
-    // Connection: 'keep-alive',
-    // 'Keep-Alive': 'timeout=60, max=1000',
+    Connection: 'keep-alive',
+    'Keep-Alive': 'timeout=120, max=1000',
   },
   keepalive: true,
   responseMiddleware: (response: Error | GraphQLClientResponse<unknown>) => {

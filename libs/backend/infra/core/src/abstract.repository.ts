@@ -292,17 +292,7 @@ export abstract class AbstractRepository<
             return await this.add(data)
           }
 
-          return await this.loggerService.verboseWithTiming(
-            'Saving item',
-            saveItem,
-            {
-              context: this.constructor.name,
-              data: {
-                data,
-                where,
-              },
-            },
-          )
+          return saveItem()
         } catch (error) {
           this.loggerService.error('Failed to save item', {
             context: this.constructor.name,

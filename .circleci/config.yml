@@ -249,6 +249,10 @@ executors:
           NEO4J_ACCEPT_LICENSE_AGREEMENT: 'yes'
           NEO4J_AUTH: neo4j/password
           NEO4J_PLUGINS: '["apoc"]'
+          NEO4J_dbms_logs_debug_level: DEBUG
+          NEO4J_dbms_logs_query_enabled: 'true'
+          NEO4J_dbms_logs_query_threshold: '0'
+          NEO4J_dbms_logs_to_console: 'true'
           NEO4J_server_jvm_additional: -XX:+ExitOnOutOfMemoryError
         image: neo4j:5.26.0-enterprise
   machine-ubuntu:
@@ -375,6 +379,8 @@ jobs:
         type: string
     resource_class: << parameters.resource_class >>
     steps:
+      - setup_remote_docker:
+          version: default
       - restore-workspace-database
       - setup-neo4j
       - restore_cache:
@@ -384,8 +390,6 @@ jobs:
             - nx-cache-
           name: Restore NX Cache
       - run: pnpm npx playwright install-deps
-      - setup_remote_docker:
-          version: default
       - run:
           command: |
             # Original test command
