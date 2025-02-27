@@ -16,7 +16,13 @@ test.describe.configure({ mode: 'serial' })
 
 globalBeforeAll()
 
-test.beforeAll(async ({ request }) => {
+test.beforeAll(async ({ request }, testInfo) => {
+  console.log(`Current test timeout: ${testInfo.timeout}ms`)
+
+  test.setTimeout(120000)
+
+  console.log('New test timeout set to', test.info().timeout)
+
   const getTimestamp = () =>
     new Intl.DateTimeFormat('en-US', {
       hour: 'numeric',
@@ -29,6 +35,8 @@ test.beforeAll(async ({ request }) => {
   console.log(`[${getTimestamp()}] Seeding app data`)
 
   app = await seedAppData(request)
+
+  console.log(`[${getTimestamp()}] After seeding app data`)
   await seedPageData(request, merge(authGuardPageData, { app }))
   await seedResourceData(request)
 

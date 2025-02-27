@@ -62,7 +62,8 @@ export const prettyOptions: PrettyOptions = {
   // },
   // singleLine: true,
   sync: true,
-  translateTime: 'SYS:standard',
+  // translateTime: 'SYS:standard',
+  translateTime: 'SYS:h:MM:ss TT',
 }
 
 export const pinoPrettyStream = pretty(prettyOptions)

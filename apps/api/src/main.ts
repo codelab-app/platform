@@ -1,7 +1,6 @@
 import type { endpointConfig } from '@codelab/backend/infra/core'
 import type { INestApplication } from '@nestjs/common'
 import type { ConfigType } from '@nestjs/config'
-import type { Express } from 'express'
 import type * as http from 'http'
 
 import { GraphqlService } from '@codelab/backend/infra/adapter/graphql'
@@ -13,10 +12,15 @@ import { ENDPOINT_CONFIG_KEY } from '@codelab/backend/infra/core'
 import { Logger } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { HttpAdapterHost, NestFactory } from '@nestjs/core'
+import {
+  ExpressAdapter,
+  type NestExpressApplication,
+} from '@nestjs/platform-express'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { configureNestJsTypebox } from 'nestjs-typebox'
 
 import { AllExceptionsFilter } from './exceptions/all-exceptions.filter'
+import { expressAdapter } from './express-adapter'
 // Instrument add this first
 // Need to make sure "module": "CommonJS", "ESNext" is processed in two phases
 import './instrument'
@@ -31,29 +35,34 @@ configureNestJsTypebox({
 })
 
 const bootstrap = async () => {
-  const app = await NestFactory.create<INestApplication<http.Server>>(
+  type NestApp = INestApplication<http.Server>
+
+  const app = await NestFactory.create<NestExpressApplication>(
     RootModule,
-    {
-      /**
-       * Enables devtools https://docs.nestjs.com/devtools/overview
-       */
-      // snapshot: true,
-      // logger: false,
-    },
+    expressAdapter,
   )
+
+  // Enable CORS to ensure authentication headers are properly handled
+  app.enableCors({
+    credentials: true,
+    origin: true,
+  })
 
   app.enableShutdownHooks()
 
   /**
    * Add timeout for REST controllers
    */
-  const server = app.getHttpServer()
+  // const server = app.getHttpServer()
 
-  server.keepAliveTimeout = 120_000
-  server.headersTimeout = 120_000
-  server.requestTimeout = 120_000
+  // server.keepAliveTimeout = 120_000
+  // server.headersTimeout = 120_000
+  // server.requestTimeout = 120_000
+  // ;(server as http.ServerOptions).connectionsCheckingInterval = 60_000
 
-  server.setTimeout(120_000)
+  // console.log(server)
+
+  // server.setTimeout(120_000)
 
   /**
    * Add global prefix
