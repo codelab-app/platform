@@ -9,12 +9,12 @@ import fetch from 'node-fetch'
  */
 const httpAgent = new http.Agent({
   keepAlive: true,
-  maxSockets: 100,
+  timeout: 120000,
 })
 
 const httpsAgent = new https.Agent({
   keepAlive: true,
-  maxSockets: 100,
+  timeout: 120000,
 })
 
 type Fetch = (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>

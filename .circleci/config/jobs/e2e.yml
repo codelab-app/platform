@@ -52,7 +52,7 @@ steps:
 
         pnpm nx e2e web-e2e -c ci \
           --shard=${SHARD}/${CIRCLE_NODE_TOTAL} \
-          --testFiles="modules/auth-guard/auth-guard.spec.ts"
+          --testFiles="modules/demo/demo.spec.ts"
 
   # https://stackoverflow.com/questions/68916222/docker-build-error-cannot-connect-to-the-docker-daemon-at-unix-var-run-docke/68922177#68922177
   - run:
@@ -61,6 +61,8 @@ steps:
         mkdir -p ~/project/tmp/logs
 
         docker logs $(docker ps --filter "ancestor=neo4j:5.26.3-enterprise" --format "{{.ID}}") > ~/project/tmp/logs/neo4j.log 2>&1
+
+        docker logs $(docker ps --filter "ancestor=cimg/node:22.13.1-browsers" --format "{{.ID}}") > ~/project/tmp/logs/node.log 2>&1
       # This ensures logs are captured even if previous steps fail
       when: always
   - store_artifacts:

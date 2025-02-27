@@ -35,18 +35,17 @@ configureNestJsTypebox({
 })
 
 const bootstrap = async () => {
-  type NestApp = INestApplication<http.Server>
-
   const app = await NestFactory.create<NestExpressApplication>(
     RootModule,
     expressAdapter,
+    // {
+    // forceCloseConnections: true,
+    // cors: {
+    //   allowedHeaders: ['*'],
+    //   credentials: true,
+    // },
+    // },
   )
-
-  // Enable CORS to ensure authentication headers are properly handled
-  app.enableCors({
-    credentials: true,
-    origin: true,
-  })
 
   app.enableShutdownHooks()
 

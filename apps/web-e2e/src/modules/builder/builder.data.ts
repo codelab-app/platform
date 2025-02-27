@@ -84,8 +84,6 @@ export const seedAppData = async (
     page: IPageCreateSeedData
   },
 ) => {
-  console.log('Seeding app data')
-
   const response = await request.post('/api/v1/app/seed-cypress-app', {
     data,
     timeout: REQUEST_TIMEOUT,

@@ -31,6 +31,21 @@ export class AppApplicationController {
     private importDataMapperService: ImportDataMapperService,
   ) {}
 
+  @Post('demo')
+  async demo() {
+    this.logger.debug('Demo start')
+
+    // Wait for 35000ms (35 seconds) before returning
+    await new Promise((resolve) => {
+      setTimeout(() => {
+        this.logger.debug('Demo complete')
+        resolve(null)
+      }, 35000)
+    })
+
+    return {}
+  }
+
   @UseInterceptors(ClassSerializerInterceptor)
   @Get('export')
   async exportApp(@Request() req: ExpressRequest) {
@@ -51,40 +66,29 @@ export class AppApplicationController {
     )
   }
 
-  // @UseInterceptors(ClassSerializerInterceptor)
+  @UseInterceptors(ClassSerializerInterceptor)
   @Post('seed-cypress-app')
   async seedApp() {
-    // We do not need to reset user data, since DB was already reset in globalBeforeAll hook
-    // await this.databaseService.resetUserData()
+    await this.databaseService.resetUserData()
 
-    // this.logger.log('Seeding system types', {
-    //   context: 'AppApplicationController',
-    // })
+    this.logger.log('Seeding system types', {
+      context: 'AppApplicationController',
+    })
 
-    // await this.commandBus.execute<ImportSystemTypesCommand>(
-    //   new ImportSystemTypesCommand(),
-    // )
+    await this.commandBus.execute<ImportSystemTypesCommand>(
+      new ImportSystemTypesCommand(),
+    )
 
     this.logger.log('Seeding atoms', { context: 'AppApplicationController' })
 
-    // this.logger.log('Seeding system types', {
-    //   context: 'AppApplicationController',
-    // })
+    await this.commandBus.execute<ImportCypressAtomsCommand>(
+      new ImportCypressAtomsCommand(),
+    )
 
-    // await this.commandBus.execute<ImportSystemTypesCommand>(
-    //   new ImportSystemTypesCommand(),
-    // )
+    this.logger.log('Seeding app', { context: 'AppApplicationController' })
 
-    // this.logger.log('Seeding atoms', { context: 'AppApplicationController' })
-
-    // await this.commandBus.execute<ImportCypressAtomsCommand>(
-    //   new ImportCypressAtomsCommand(),
-    // )
-
-    // this.logger.log('Seeding app', { context: 'AppApplicationController' })
-
-    // return this.commandBus.execute<SeedCypressAppCommand, IApp>(
-    //   new SeedCypressAppCommand(),
-    // )
+    return this.commandBus.execute<SeedCypressAppCommand, IApp>(
+      new SeedCypressAppCommand(),
+    )
   }
 }
