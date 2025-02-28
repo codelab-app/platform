@@ -101,7 +101,7 @@ const nextConfig = {
   // https://github.com/ant-design/ant-design-examples/blob/main/examples/with-nextjs-app-router-inline-style/next.config.js
   // productionBrowserSourceMaps: true,
   // disable to support uniforms
-  // https://github.com/vazco/uniforms/issues/1194
+  // http://github.com/vazco/uniforms/issues/1194
   reactStrictMode: false,
   /**
    * https://nextjs.org/docs/app/building-your-application/routing/middleware#matching-paths

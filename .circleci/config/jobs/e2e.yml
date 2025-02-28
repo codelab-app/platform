@@ -62,7 +62,7 @@ steps:
 
         docker logs $(docker ps --filter "ancestor=neo4j:5.26.3-enterprise" --format "{{.ID}}") > ~/project/tmp/logs/neo4j.log 2>&1
 
-        docker logs $(docker ps --filter "ancestor=cimg/node:22.13.1-browsers" --format "{{.ID}}") > ~/project/tmp/logs/node.log 2>&1
+        docker logs $(docker ps --filter "ancestor=cimg/node:22.14.0-browsers" --format "{{.ID}}") > ~/project/tmp/logs/node.log 2>&1
       # This ensures logs are captured even if previous steps fail
       when: always
   - store_artifacts:
