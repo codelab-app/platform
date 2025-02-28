@@ -27,9 +27,9 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
    * This will catch all uncaught exceptions and log them to Sentry
    */
   catch(exception: unknown, host: ArgumentsHost) {
-    const request = host.switchToHttp().getRequest<Request>()
-
     console.log('Exception class:', exception?.constructor?.name)
+
+    // const request = host.switchToHttp().getRequest<Request>()
 
     if (exception instanceof ValidationException) {
       // const logData = {

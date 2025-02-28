@@ -20,7 +20,6 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { configureNestJsTypebox } from 'nestjs-typebox'
 
 import { AllExceptionsFilter } from './exceptions/all-exceptions.filter'
-import { expressAdapter } from './express-adapter'
 // Instrument add this first
 // Need to make sure "module": "CommonJS", "ESNext" is processed in two phases
 import './instrument'
@@ -35,33 +34,14 @@ configureNestJsTypebox({
 })
 
 const bootstrap = async () => {
-  const app = await NestFactory.create<NestExpressApplication>(
-    RootModule,
-    expressAdapter,
-    // {
-    // forceCloseConnections: true,
-    // cors: {
-    //   allowedHeaders: ['*'],
-    //   credentials: true,
-    // },
-    // },
-  )
+  const app = await NestFactory.create<NestExpressApplication>(RootModule, {
+    cors: {
+      allowedHeaders: ['*'],
+      credentials: true,
+    },
+  })
 
   app.enableShutdownHooks()
-
-  /**
-   * Add timeout for REST controllers
-   */
-  // const server = app.getHttpServer()
-
-  // server.keepAliveTimeout = 120_000
-  // server.headersTimeout = 120_000
-  // server.requestTimeout = 120_000
-  // ;(server as http.ServerOptions).connectionsCheckingInterval = 60_000
-
-  // console.log(server)
-
-  // server.setTimeout(120_000)
 
   /**
    * Add global prefix
@@ -86,6 +66,10 @@ const bootstrap = async () => {
    * Add exceptions filter
    */
   const { httpAdapter } = app.get(HttpAdapterHost)
+  const httpServer = httpAdapter.getHttpServer()
+
+  httpServer.keepAliveTimeout = 60000
+  httpServer.headersTimeout = 60000
 
   app.useGlobalFilters(new AllExceptionsFilter(httpAdapter))
 
@@ -109,14 +93,27 @@ const bootstrap = async () => {
 
   const port = config.apiPort
 
-  await app.listen(port).then(() => {
+  const server = await app.listen(port).then((_server) => {
     const graphqlService = app.get(GraphqlService)
 
     graphqlService.serverReadyHook()
+
+    return _server
   })
+
+  server.keepAliveTimeout = 60000
+
   Logger.log(
     `🚀 Application is running on: http://127.0.0.1:${port}${baseApiPath}`,
   )
 }
 
 void bootstrap()
+
+process.on('uncaughtException', (error) => {
+  console.error('🔴 UNCAUGHT EXCEPTION:', error)
+})
+
+process.on('unhandledRejection', (reason) => {
+  console.error('🔴 UNHANDLED REJECTION:', reason)
+})

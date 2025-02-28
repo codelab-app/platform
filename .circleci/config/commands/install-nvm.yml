@@ -15,7 +15,7 @@ steps:
   - run:
       name: 'Set Node Version'
       command: |
-        nvm install 22.14.0
-        nvm alias default 22.14.0
+        nvm install 18.18.0
+        nvm alias default 18.18.0
         node -v
         which node

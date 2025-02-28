@@ -10,9 +10,7 @@ export const gqlRequest = async <TResult, TVariables extends ObjectLike>(
 ) => {
   client.setHeaders({
     Accept: 'application/graphql-response+json',
-    Connection: 'keep-alive',
     'Content-Type': 'application/json',
-    'Keep-Alive': 'timeout=120',
   })
 
   /**

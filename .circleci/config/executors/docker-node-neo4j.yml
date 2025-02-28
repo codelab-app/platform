@@ -2,7 +2,7 @@
 # https://discuss.circleci.com/t/whats-the-docker-hostname-for-the-second-container/20101
 docker:
   # - image: mcr.microsoft.com/playwright:v1.50.0-noble
-  - image: cimg/node:22.14.0-browsers
+  - image: cimg/node:18.18.0-browsers
     # https://circleci.com/docs/configuration-reference/#docker
     name: 127.0.0.1
   # https://circleci.com/docs/using-docker#using-multiple-docker-images

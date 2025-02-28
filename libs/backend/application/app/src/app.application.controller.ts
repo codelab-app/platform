@@ -9,12 +9,13 @@ import {
   Get,
   Post,
   Request,
+  Res,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 import { FileInterceptor } from '@nestjs/platform-express'
-import { Express, Request as ExpressRequest } from 'express'
+import { Express, Request as ExpressRequest, Response } from 'express'
 import 'multer'
 
 import {
@@ -31,19 +32,40 @@ export class AppApplicationController {
     private importDataMapperService: ImportDataMapperService,
   ) {}
 
+  /**
+   * Fixes
+   *
+   * APIResponse: 500 Internal Server Error
+   * Date: Fri, 28 Feb 2025 09:56:11 GMT
+   * Connection: keep-alive
+   * Keep-Alive: timeout=5
+   * Transfer-Encoding: chunked
+   */
   @Post('demo')
-  async demo() {
+  async demo(@Res() response: Response) {
     this.logger.debug('Demo start')
 
-    // Wait for 35000ms (35 seconds) before returning
-    await new Promise((resolve) => {
-      setTimeout(() => {
-        this.logger.debug('Demo complete')
-        resolve(null)
-      }, 35000)
+    // Send headers right away to establish connection
+    response.writeHead(200, {
+      Connection: 'keep-alive',
+      'Content-Type': 'application/json',
+      'Transfer-Encoding': 'chunked',
     })
 
-    return {}
+    // Send progress updates every 5 seconds to keep connection alive
+    const interval = setInterval(() => {
+      response.write('{"progress":"processing"}\n')
+    }, 5000)
+
+    await new Promise((resolve) => {
+      setTimeout(() => {
+        clearInterval(interval)
+        this.logger.debug('Demo complete')
+        response.write('{"status":"complete"}\n')
+        response.end('{}')
+        resolve({})
+      }, 35000)
+    })
   }
 
   @UseInterceptors(ClassSerializerInterceptor)

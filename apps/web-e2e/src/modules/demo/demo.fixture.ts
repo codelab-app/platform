@@ -5,20 +5,24 @@ import { REQUEST_TIMEOUT } from '../../setup/config'
 
 export const demoRequest = async (request: APIRequestContext) => {
   const response = await request.post('/api/v1/app/demo', {
-    headers: {
-      Connection: 'keep-alive',
-      'Keep-Alive': 'timeout=120',
-    },
     timeout: REQUEST_TIMEOUT,
   })
+
+  console.log(response)
 
   if (!response.ok()) {
     const text = await response.text()
 
     console.error(`[${getTimestamp()}] Server response:`, text)
-    console.log(response)
+    // console.log(response)
     throw new Error(`HTTP error! status: ${response.status}`)
   }
 
-  return response.json() as Promise<unknown>
+  // Read response as text instead of trying to parse as JSON
+  const text = await response.text()
+
+  console.log(text)
+
+  // The server sends the final empty object when complete
+  // We can just return an empty object to indicate success
 }

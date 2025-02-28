@@ -10,7 +10,7 @@
 #
 # (1) install - using alias and having multiple steps can help with caching and build speed
 #
-FROM node:22.14.0-alpine AS base
+FROM node:18.18.0-alpine AS base
 
 WORKDIR /usr/src/codelab
 
@@ -76,7 +76,7 @@ RUN pnpm nx build sites --verbose --skip-nx-cache
 #
 # (2) Prod
 #
-FROM node:22.14.0-alpine AS prod
+FROM node:18.18.0-alpine AS prod
 
 RUN corepack enable && corepack prepare pnpm@8.15.0 --activate
 # RUN apk add curl

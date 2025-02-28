@@ -1,7 +1,7 @@
 import type { Page } from '@codelab/shared/infra/gqlgen'
 import type { IFieldResolver, IResolvers } from '@graphql-tools/utils'
 import type { FactoryProvider } from '@nestjs/common'
-import type { GraphQLRequestContext } from 'graphql-request/build/legacy/helpers/types'
+import type { GraphQLRequestContext } from 'graphql-request/build/esm/types'
 
 import { PageElementsService } from '@codelab/backend/domain/page'
 import { PageProperties } from '@codelab/shared-domain-module/page'

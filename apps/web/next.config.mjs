@@ -97,6 +97,9 @@ const nextConfig = {
       },
     },
   },
+  httpAgentOptions: {
+    keepAlive: false,
+  },
   nx: { svgr: false },
   // https://github.com/ant-design/ant-design-examples/blob/main/examples/with-nextjs-app-router-inline-style/next.config.js
   // productionBrowserSourceMaps: true,

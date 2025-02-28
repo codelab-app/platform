@@ -31,7 +31,6 @@
         "buildTarget": "web:build",
         "port": 3000,
         "turbo": true,
-        "keepAliveTimeout": 120000,
         "hostname": "0.0.0.0",
         "maxWorkers": 4
       },
