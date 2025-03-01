@@ -93,11 +93,7 @@ jobs:
       requires:
         - setup-workspace
   - e2e:
-      resource_class: xlarge
-      # Save ram for docker images
-      # 2gb for next.js, 2gb for nest.js
-      # 2gb for neo4j docker, 2gb for browser
-      # 4gb docker + 4gb node = 8gb large is too close to max, will throw `ECONNRESET` error
+      resource_class: large
       max_old_space_size: 4096
       filters:
         branches:

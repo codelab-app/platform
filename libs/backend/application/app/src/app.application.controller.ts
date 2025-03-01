@@ -78,10 +78,43 @@ export class AppApplicationController {
   ) {
     this.logger.debug('Demo timeout start')
 
+    // Log existing request headers
+    this.logger.debug('Existing request headers', {
+      connection: request.headers.connection,
+      contentType: request.headers['content-type'],
+      keepAlive: request.headers['keep-alive'],
+    })
+
+    // Log existing response headers before setting any
+    this.logger.debug('Existing response headers', {
+      connection: response.getHeader('Connection'),
+      contentType: response.getHeader('Content-Type'),
+      keepAlive: response.getHeader('Keep-Alive'),
+    })
+
     // Increase the server's timeout for this specific request
     request.socket.setTimeout(60000)
 
+    // Set headers to help with timeout prevention
+    /**
+     * On CI, there could be some proxy in between setting those headers to lower values
+     */
+    const connectionValue = 'keep-alive'
+    const keepAliveValue = 'timeout=61'
+    const contentTypeValue = 'application/json'
+
+    response.setHeader('Connection', connectionValue)
+    response.setHeader('Keep-Alive', keepAliveValue)
+    response.setHeader('Content-Type', contentTypeValue)
+
     try {
+      // Manually send the response
+      this.logger.debug('Final response headers', {
+        connection: response.getHeader('Connection'),
+        contentType: response.getHeader('Content-Type'),
+        keepAlive: response.getHeader('Keep-Alive'),
+      })
+
       // Simulate long operation
       await new Promise((resolve) => {
         setTimeout(() => {
@@ -90,7 +123,6 @@ export class AppApplicationController {
         }, 35000)
       })
 
-      // Manually send the response
       response.status(200).json({ status: 'complete' })
     } catch (error) {
       this.logger.error('Demo timeout error')

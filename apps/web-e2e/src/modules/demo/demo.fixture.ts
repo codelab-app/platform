@@ -5,6 +5,11 @@ import { REQUEST_TIMEOUT } from '../../setup/config'
 
 export const demoRequest = async (request: APIRequestContext) => {
   const response = await request.post('/api/v1/app/demo-timeout', {
+    headers: {
+      Connection: 'keep-alive',
+      'Content-Type': 'application/json',
+      'Keep-Alive': 'timeout=61',
+    },
     timeout: REQUEST_TIMEOUT,
   })
 

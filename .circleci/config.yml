@@ -865,7 +865,7 @@ workflows:
           max_old_space_size: 4096
           requires:
             - build-nx-apps
-          resource_class: xlarge
+          resource_class: large
       - notify-success:
           filters:
             branches:

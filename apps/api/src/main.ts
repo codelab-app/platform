@@ -90,13 +90,18 @@ const bootstrap = async () => {
   const port = config.apiPort
   const server = app.getHttpServer()
 
-  // This actually helps with the timeout issue
+  // This helps increase socket timeout issue
   server.setTimeout(60000)
 
-  await app.listen(port).then(() => {
+  // Keep-Alive timeout is different than socket timeout
+  server.keepAliveTimeout = 60000
+
+  await app.listen(port).then((_server) => {
     const graphqlService = app.get(GraphqlService)
 
     graphqlService.serverReadyHook()
+
+    console.log('keepAliveTimeout', _server.keepAliveTimeout)
   })
 
   Logger.log(
