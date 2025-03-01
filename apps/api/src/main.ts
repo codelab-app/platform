@@ -66,10 +66,6 @@ const bootstrap = async () => {
    * Add exceptions filter
    */
   const { httpAdapter } = app.get(HttpAdapterHost)
-  const httpServer = httpAdapter.getHttpServer()
-
-  httpServer.keepAliveTimeout = 60000
-  httpServer.headersTimeout = 60000
 
   app.useGlobalFilters(new AllExceptionsFilter(httpAdapter))
 
@@ -92,16 +88,16 @@ const bootstrap = async () => {
    */
 
   const port = config.apiPort
+  const server = app.getHttpServer()
 
-  const server = await app.listen(port).then((_server) => {
+  // This actually helps with the timeout issue
+  server.setTimeout(60000)
+
+  await app.listen(port).then(() => {
     const graphqlService = app.get(GraphqlService)
 
     graphqlService.serverReadyHook()
-
-    return _server
   })
-
-  server.keepAliveTimeout = 60000
 
   Logger.log(
     `🚀 Application is running on: http://127.0.0.1:${port}${baseApiPath}`,

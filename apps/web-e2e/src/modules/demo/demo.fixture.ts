@@ -4,7 +4,7 @@ import { getTimestamp } from '../../commands'
 import { REQUEST_TIMEOUT } from '../../setup/config'
 
 export const demoRequest = async (request: APIRequestContext) => {
-  const response = await request.post('/api/v1/app/demo', {
+  const response = await request.post('/api/v1/app/demo-timeout', {
     timeout: REQUEST_TIMEOUT,
   })
 

@@ -41,8 +41,8 @@ export class AppApplicationController {
    * Keep-Alive: timeout=5
    * Transfer-Encoding: chunked
    */
-  @Post('demo')
-  async demo(@Res() response: Response) {
+  @Post('demo-stream')
+  async demoStream(@Res() response: Response) {
     this.logger.debug('Demo start')
 
     // Send headers right away to establish connection
@@ -66,6 +66,37 @@ export class AppApplicationController {
         resolve({})
       }, 35000)
     })
+  }
+
+  /**
+   * Express's manual response mode) but also returning a Promise value, which creates a conflict in NestJS. When using @Res(), you must handle the response manually and not return a value.
+   */
+  @Post('demo-timeout')
+  async demoTimeout(
+    @Res() response: Response,
+    @Request() request: ExpressRequest,
+  ) {
+    this.logger.debug('Demo timeout start')
+
+    // Increase the server's timeout for this specific request
+    request.socket.setTimeout(60000)
+
+    try {
+      // Simulate long operation
+      await new Promise((resolve) => {
+        setTimeout(() => {
+          this.logger.debug('Demo complete')
+          resolve({})
+        }, 35000)
+      })
+
+      // Manually send the response
+      response.status(200).json({ status: 'complete' })
+    } catch (error) {
+      this.logger.error('Demo timeout error')
+      console.error(error)
+      response.status(500).json({ error: 'An error occurred' })
+    }
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
