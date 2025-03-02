@@ -44,5 +44,5 @@ export type ICreateElementData = Static<typeof CreateElementDataSchema>
  */
 export type ICreateElementSeedData = Overwrite<
   Omit<ICreateElementData, 'id'>,
-  { parentElement: string; atom: string; propsData?: string }
+  { parentElement: string; atom: string }
 >

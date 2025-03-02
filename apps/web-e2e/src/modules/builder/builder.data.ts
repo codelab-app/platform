@@ -7,7 +7,7 @@ import type {
 } from '@codelab/shared/abstract/core'
 import type { APIRequestContext } from '@playwright/test'
 
-import { IAtomType } from '@codelab/shared/abstract/core'
+import { IAtomType, ITypeKind } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
 
 export const elementRow: ICreateElementSeedData = {
@@ -26,13 +26,13 @@ export const elementTextA: ICreateElementSeedData = {
   atom: IAtomType.AntDesignTypographyText,
   name: 'Column A Text',
   parentElement: elementColA.name,
-  propsData: `{
-    "children": {
-      "kind": "RichTextType",
-      "type": "e7558508-3bb7-4f57-8f8c-6ac989911765",
-      "value": "<p class=\\"editor-paragraph\\">Ant Design Text Element</p>"
-    }
-  }`,
+  propsData: {
+    children: {
+      kind: ITypeKind.RichTextType,
+      type: 'e7558508-3bb7-4f57-8f8c-6ac989911765',
+      value: 'Ant Design Text Element',
+    },
+  },
 }
 
 export const elementColB: ICreateElementSeedData = {
@@ -57,13 +57,13 @@ export const elementButtonText: ICreateElementSeedData = {
   atom: IAtomType.AntDesignTypographyText,
   name: 'Button Text',
   parentElement: elementButton.name,
-  propsData: `{
-    "children": {
-      "kind": "RichTextType",
-      "type": "e7558508-3bb7-4f57-8f8c-6ac989911765",
-      "value": "<p class=\\"editor-paragraph\\">Click Me!</p>"
-    }
-  }`,
+  propsData: {
+    children: {
+      kind: ITypeKind.RichTextType,
+      type: 'e7558508-3bb7-4f57-8f8c-6ac989911765',
+      value: 'Click Me!',
+    },
+  },
 }
 
 export const builderElements = [

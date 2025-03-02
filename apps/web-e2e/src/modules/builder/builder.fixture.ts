@@ -115,7 +115,7 @@ export class BuilderPage extends BasePage {
         await this.setFormFieldValue('Render Type', atom)
 
         if (propsData) {
-          await this.setFormFieldValue('Props Data', propsData)
+          await this.setFormFieldValue('Props Data', JSON.stringify(propsData))
         }
 
         await this.getDialog().locator(submitButton).click()
@@ -198,7 +198,7 @@ export class BuilderPage extends BasePage {
   }
 
   getStateAccordion() {
-    return this.page.getByTestId('cui-sidebar-view-header-State')
+    return this.page.getByTestId('cui-sidebar-view-header-state')
   }
 
   getTextEditorInput() {
@@ -246,6 +246,7 @@ export class BuilderPage extends BasePage {
 
       await expect(openBuilderButton).toBeHidden()
       await expect(openPreviewButton).toBeVisible()
+      await expect(this.page.getByLabel('loading')).toHaveCount(0)
     })
   }
 

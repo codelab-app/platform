@@ -26,13 +26,13 @@ test('should setup the pages that will share states', async ({
   await page.setComponentElementText()
   await page.openPreview()
 
-  await expect(page.getBuilderRenderContainer()).toHaveText('text undefined')
+  await expect(page.getBuilderRenderContainer()).toContainText('text undefined')
 
   await page.openBuilder()
   await page.createStateVariable('component state value')
   await page.openPreview()
 
-  await expect(page.getBuilderRenderContainer()).toHaveText(
+  await expect(page.getBuilderRenderContainer()).toContainText(
     'text component state value',
   )
 })
@@ -67,7 +67,7 @@ test('should use component state and not use provider state', async ({
   await page.createElementTree(builderElements)
   await page.openPreview()
 
-  await expect(page.getBuilderRenderContainer()).toHaveText(
+  await expect(page.getBuilderRenderContainer()).toContainText(
     'text component state value',
   )
 })

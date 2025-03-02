@@ -54,6 +54,17 @@ export class AppApplicationController {
   @UseInterceptors(ClassSerializerInterceptor)
   @Post('seed-cypress-app')
   async seedApp() {
+    // We do not need to reset user data, since DB was already reset in globalBeforeAll hook
+    // await this.databaseService.resetUserData()
+
+    // this.logger.log('Seeding system types', {
+    //   context: 'AppApplicationController',
+    // })
+
+    // await this.commandBus.execute<ImportSystemTypesCommand>(
+    //   new ImportSystemTypesCommand(),
+    // )
+
     this.logger.log('Seeding atoms', { context: 'AppApplicationController' })
 
     await this.commandBus.execute<ImportCypressAtomsCommand>(

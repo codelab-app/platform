@@ -16,21 +16,10 @@ import { pipe } from 'remeda'
 export const parseUrlSearchParams = (
   searchParams: URLSearchParams,
 ): SearchParamsPageProps => {
-  const page = searchParams.get('page') ?? undefined
-  const pageSize = searchParams.get('pageSize') ?? undefined
+  const params = Object.fromEntries(searchParams.entries())
   const filter = searchParams.getAll('filter')
-  const primarySidebarKey = searchParams.get('primarySidebarKey') ?? undefined
-  const search = searchParams.get('search') ?? undefined
-  const node = searchParams.get('node') ?? undefined
 
-  return {
-    filter,
-    node,
-    page,
-    pageSize,
-    primarySidebarKey,
-    search,
-  }
+  return { ...params, filter }
 }
 
 /**
@@ -39,7 +28,8 @@ export const parseUrlSearchParams = (
 export const parseSearchParamsPageProps = (
   params: SearchParamsPageProps,
 ): SearchParamsProps => {
-  const { filter, node, page, pageSize, primarySidebarKey, search } = params
+  const { filter, node, page, pageSize, primarySidebarKey, search, ...rest } =
+    params
 
   return {
     filter: filter ? (Array.isArray(filter) ? filter : [filter]) : undefined,
@@ -48,6 +38,8 @@ export const parseSearchParamsPageProps = (
     pageSize: pageSize ? parseInt(pageSize, 10) : undefined,
     primarySidebarKey: primarySidebarKey ?? undefined,
     search: search ?? undefined,
+    // this is dynamic page query params that can be accessed in expressions with "urlProps" api
+    ...rest,
   }
 }
 

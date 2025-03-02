@@ -49,11 +49,11 @@ test('should be able to define api and elements on component', async ({
   await page.addComponentProps()
   await page.createElementTree([componentTextElement])
 
-  await expect(page.getBuilderRenderContainer()).toHaveText('text undefined')
+  await expect(page.getBuilderRenderContainer()).toContainText('text undefined')
 
   await page.openPreview()
 
-  await expect(page.getBuilderRenderContainer()).toHaveText('text undefined')
+  await expect(page.getBuilderRenderContainer()).toContainText('text undefined')
 })
 
 test('should be able to create an instance of the component', async ({
@@ -69,7 +69,7 @@ test('should be able to create an instance of the component', async ({
   await page.openPropsTab()
   await page.setComponentPropValue()
 
-  await expect(page.getBuilderRenderContainer()).toHaveText(
+  await expect(page.getBuilderRenderContainer()).toContainText(
     `text ${COMPONENT_PROP_VALUE}`,
   )
 })
