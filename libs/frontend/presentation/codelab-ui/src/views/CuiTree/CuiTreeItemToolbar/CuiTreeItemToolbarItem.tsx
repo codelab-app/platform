@@ -1,3 +1,4 @@
+import { getUiDataKey } from '@codelab/frontend/abstract/types'
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import { Button, Popconfirm, Tooltip } from 'antd'
 
@@ -13,7 +14,12 @@ export const CuiTreeItemToolbarItem = ({
   title,
 }: CuiTreeItemToolbarItemProps) => {
   return (
-    <Popconfirm disabled={!confirmText} onConfirm={onClick} title={confirmText}>
+    <Popconfirm
+      classNames={{ root: getUiDataKey(cuiKey) }}
+      disabled={!confirmText}
+      onConfirm={onClick}
+      title={confirmText}
+    >
       <div className="size-full" data-testid={CuiTestId.cuiToolbarItem(cuiKey)}>
         <Tooltip title={title}>
           <Button

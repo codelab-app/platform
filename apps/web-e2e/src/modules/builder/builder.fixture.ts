@@ -342,7 +342,7 @@ export class BuilderPage extends BasePage {
       await expect(async () => {
         const isVisible = this.getGlobalProgressBar()
 
-        await expect(isVisible).toBeVisible()
+        await expect(isVisible).toBeVisible({ timeout: 50 })
       }).toPass({
         // Use shorter polling intervals for better detection
         intervals: [25, 50, 100, 125, 150, 175, 200],
