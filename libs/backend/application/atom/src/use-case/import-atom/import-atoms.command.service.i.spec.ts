@@ -92,6 +92,6 @@ describe('ImportAtomsCommand', () => {
       }),
     )
 
-    expect(api?.fields).toHaveLength(14)
+    expect(api?.fields).toHaveLength(16)
   })
 })
