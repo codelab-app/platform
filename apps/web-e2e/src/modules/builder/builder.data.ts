@@ -1,15 +1,20 @@
 import type {
   IApp,
   ICreateElementSeedData,
+  IElementDto,
   IPage,
   IPageCreateFormData,
   IPageCreateSeedData,
 } from '@codelab/shared/abstract/core'
+import type { ObjectLike } from '@codelab/shared/abstract/types'
 import type { APIRequestContext } from '@playwright/test'
 
 import { IAtomType, ITypeKind } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
+import { v4 } from 'uuid'
 
+import { requestOrThrow } from '../../api'
+import { jobOutputRequest } from '../../job-request'
 import { REQUEST_TIMEOUT } from '../../setup/config'
 
 export const elementRow: ICreateElementSeedData = {
@@ -84,19 +89,18 @@ export const seedAppData = async (
     page: IPageCreateSeedData
   },
 ) => {
-  const response = await request.post('/api/v1/app/seed-cypress-app', {
-    data,
-    timeout: REQUEST_TIMEOUT,
-  })
+  const results = await jobOutputRequest<IApp>(
+    request,
+    '/api/v1/app/seed-cypress-app',
+    {
+      data,
+      timeout: REQUEST_TIMEOUT,
+    },
+  )
 
-  if (!response.ok()) {
-    const text = await response.text()
+  console.log('results', results)
 
-    console.error('Server response:', text)
-    throw new Error(`HTTP error! status: ${response.status()}`)
-  }
-
-  return response.json() as Promise<IApp>
+  return results.data
 }
 
 export const seedPageData = async (
@@ -105,17 +109,8 @@ export const seedPageData = async (
 ) => {
   console.log('Seeding page data')
 
-  const response = await request.post('/api/v1/page/create', {
+  return requestOrThrow<IPage>(request, '/api/v1/page/create', {
     data,
     timeout: REQUEST_TIMEOUT,
   })
-
-  if (!response.ok()) {
-    const text = await response.text()
-
-    console.error('Server response:', text)
-    throw new Error(`HTTP error! status: ${response.status()}`)
-  }
-
-  return response.json() as Promise<IPage>
 }

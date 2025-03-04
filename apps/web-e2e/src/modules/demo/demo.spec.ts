@@ -1,12 +1,8 @@
-import type { IAppDto } from '@codelab/shared/abstract/core'
-
-import { PageType, PrimarySidebar } from '@codelab/frontend/abstract/types'
+import { getEnv } from '@codelab/shared/config/env'
 import test, { expect } from '@playwright/test'
-import { merge } from 'remeda'
 
-import { getCuiTree, getTimestamp } from '../../commands'
+import { getTimestamp, waitForJobCompletion } from '../../commands'
 import { globalBeforeAll } from '../../setup/before-all'
-import { seedAppData, seedPageData } from '../builder/builder.data'
 import { demoRequest } from './demo.fixture'
 
 test.describe.configure({ mode: 'serial' })

@@ -3,6 +3,11 @@ import type { IApp, IAppAggregateExport } from '@codelab/shared/abstract/core'
 import { ImportCypressAtomsCommand } from '@codelab/backend/application/atom'
 import { ImportDataMapperService } from '@codelab/backend/application/data'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
+import { DEMO_JOB, SEED_QUEUE } from '@codelab/backend/infra/adapter/queue'
+import { WsGateway } from '@codelab/backend/infra/adapter/ws'
+import { DatabaseService } from '@codelab/backend-infra-adapter/neo4j-driver'
+import { IJobOutput, IJobQueueResponse } from '@codelab/shared/abstract/infra'
+import { InjectQueue } from '@nestjs/bullmq'
 import {
   ClassSerializerInterceptor,
   Controller,
@@ -15,6 +20,7 @@ import {
 } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 import { FileInterceptor } from '@nestjs/platform-express'
+import { Queue } from 'bullmq'
 import { Express, Request as ExpressRequest, Response } from 'express'
 import 'multer'
 
@@ -30,7 +36,59 @@ export class AppApplicationController {
     private commandBus: CommandBus,
     private logger: PinoLoggerService,
     private importDataMapperService: ImportDataMapperService,
+    @InjectQueue(SEED_QUEUE) private seedQueue: Queue,
+    private readonly socketGateway: WsGateway,
   ) {}
+
+  /**
+   * Demonstrates how to use BullMQ queue for processing background jobs
+   */
+  @Post('demo-background')
+  async demoBackground(
+    @Body() { jobId }: { jobId: string },
+  ): Promise<IJobQueueResponse> {
+    this.logger.debug('Starting demo background job')
+
+    // Create job data object
+    const jobData: IJobOutput = {
+      data: 'Demo background job data',
+      jobId,
+    }
+
+    setTimeout(() => {
+      this.logger.debug(`Demo background job ${jobId} completed`)
+      // Emit with proper structure expected by the client
+      this.socketGateway.emitJobComplete(jobData)
+    }, 3000)
+
+    // Return the job ID and other info
+    return {
+      jobId,
+      message: 'Background job has been started',
+      status: 'queued',
+    }
+  }
+
+  /**
+   * Demonstrates how to use BullMQ queue for processing background jobs
+   */
+  @Post('demo-queue')
+  async demoQueue() {
+    this.logger.debug('Adding demo job to queue')
+
+    // Add a job to the queue
+    const job = await this.seedQueue.add(DEMO_JOB, {
+      data: 'Demo queue job data',
+      timestamp: new Date().toISOString(),
+    })
+
+    // Return the job ID and other info
+    return {
+      jobId: job.id,
+      message: 'Job has been added to the queue',
+      status: 'queued',
+    }
+  }
 
   /**
    * Fixes
@@ -80,7 +138,7 @@ export class AppApplicationController {
 
     // Log existing request headers
     this.logger.debug('Existing request headers', {
-      connection: request.headers.connection,
+      connection: request.headers['connection'],
       contentType: request.headers['content-type'],
       keepAlive: request.headers['keep-alive'],
     })
@@ -93,19 +151,19 @@ export class AppApplicationController {
     })
 
     // Increase the server's timeout for this specific request
-    request.socket.setTimeout(60000)
+    // request.socket.setTimeout(60000)
 
     // Set headers to help with timeout prevention
     /**
      * On CI, there could be some proxy in between setting those headers to lower values
      */
-    const connectionValue = 'keep-alive'
-    const keepAliveValue = 'timeout=61'
-    const contentTypeValue = 'application/json'
+    // const connectionValue = 'keep-alive'
+    // const keepAliveValue = 'timeout=61'
+    // const contentTypeValue = 'application/json'
 
-    response.setHeader('Connection', connectionValue)
-    response.setHeader('Keep-Alive', keepAliveValue)
-    response.setHeader('Content-Type', contentTypeValue)
+    // response.setHeader('Connection', connectionValue)
+    // response.setHeader('Keep-Alive', keepAliveValue)
+    // response.setHeader('Content-Type', contentTypeValue)
 
     try {
       // Manually send the response
@@ -153,27 +211,44 @@ export class AppApplicationController {
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Post('seed-cypress-app')
-  async seedApp() {
-    await this.databaseService.resetUserData()
+  async seedApp(
+    @Body() { jobId }: { jobId: string },
+  ): Promise<IJobQueueResponse> {
+    setTimeout(async () => {
+      await this.databaseService.resetUserData()
 
-    this.logger.log('Seeding system types', {
-      context: 'AppApplicationController',
+      this.logger.log('Seeding system types', {
+        context: 'AppApplicationController',
+      })
+
+      await this.commandBus.execute<ImportSystemTypesCommand>(
+        new ImportSystemTypesCommand(),
+      )
+
+      this.logger.log('Seeding atoms', { context: 'AppApplicationController' })
+
+      await this.commandBus.execute<ImportCypressAtomsCommand>(
+        new ImportCypressAtomsCommand(),
+      )
+
+      this.logger.log('Seeding app', { context: 'AppApplicationController' })
+
+      const app = await this.commandBus.execute<SeedCypressAppCommand, IApp>(
+        new SeedCypressAppCommand(),
+      )
+
+      this.socketGateway.emitJobComplete({
+        data: app,
+        jobId,
+      })
+
+      return app
     })
 
-    await this.commandBus.execute<ImportSystemTypesCommand>(
-      new ImportSystemTypesCommand(),
-    )
-
-    this.logger.log('Seeding atoms', { context: 'AppApplicationController' })
-
-    await this.commandBus.execute<ImportCypressAtomsCommand>(
-      new ImportCypressAtomsCommand(),
-    )
-
-    this.logger.log('Seeding app', { context: 'AppApplicationController' })
-
-    return this.commandBus.execute<SeedCypressAppCommand, IApp>(
-      new SeedCypressAppCommand(),
-    )
+    return {
+      jobId,
+      message: 'Seeding app',
+      status: 'queued',
+    }
   }
 }

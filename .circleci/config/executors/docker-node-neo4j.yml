@@ -4,7 +4,7 @@ docker:
   # - image: mcr.microsoft.com/playwright:v1.50.0-noble
   - image: cimg/node:18.18.0-browsers
     # https://circleci.com/docs/configuration-reference/#docker
-    name: 127.0.0.1
+    # name: 127.0.0.1
   # https://circleci.com/docs/using-docker#using-multiple-docker-images
   # The `command` key is the command issued to the image
   - image: neo4j:5.26.3-enterprise
@@ -23,3 +23,5 @@ docker:
       # NEO4J_server_memory_heap_initial__size: 2g
       # NEO4J_server_memory_heap_max__size: 2g
       # NEO4J_server_memory_pagecache_size: 512m
+  - image: redis:7.0.10
+    # Redis will also be available at 127.0.0.1:6379
