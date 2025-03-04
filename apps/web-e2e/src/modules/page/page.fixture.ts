@@ -23,6 +23,8 @@ export class PageListPage extends BasePage {
 
     const form = await this.getForm(UiKey.PageFormCreate)
 
+    // wait for the form to stabilize and finish animations
+    await expect(form.getByExactText('Use / for "Home" page')).toBeVisible()
     await form.fillInputText({ label: 'Name' }, this.pageName)
     await form.getButton({ text: 'Create' }).click()
     await this.expectGlobalProgressBarToBeHidden()
