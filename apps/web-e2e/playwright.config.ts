@@ -101,7 +101,7 @@ export default defineConfig({
   /**
    * Takes long to fail if retrying, and we shouldn't need to rely on retry
    */
-  retries: process.env.CI ? 1 : 0,
+  retries: process.env.CI ? 0 : 0,
 
   timeout: process.env.CI ? 90_000 : 75_000,
 
