@@ -9,6 +9,6 @@ nx run-many --target=tsc-check
 pnpm nx e2e web-e2e -c test
 
 # Or run specific test files
-pnpm nx e2e web-e2e -c test --testFiles="modules/auth-guard/auth-guard.spec.ts"
+# pnpm nx e2e web-e2e -c test --testFiles="modules/auth-guard/auth-guard.spec.ts"
 
 ./scripts/git/branch-name-check.sh
