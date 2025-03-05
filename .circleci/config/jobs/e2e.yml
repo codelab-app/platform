@@ -13,8 +13,8 @@ environment:
 
 parallelism: 4
 steps:
-  # - setup_remote_docker:
-  #     version: default
+  - setup_remote_docker:
+      version: default
   - restore-workspace-database
   - setup-neo4j
   - restore_cache:

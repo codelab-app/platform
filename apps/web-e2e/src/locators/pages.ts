@@ -264,7 +264,10 @@ export class BasePage {
   }
 
   getSpinner() {
-    return this.page.getByRole('status', { name: 'Loading' })
+    return this.page.getByRole('status', { name: 'Loading' }).filter({
+      // Need to ignore next.js toast
+      hasNot: this.page.locator('.nextjs-toast'),
+    })
   }
 
   getToolbarItem(key: UiKey) {

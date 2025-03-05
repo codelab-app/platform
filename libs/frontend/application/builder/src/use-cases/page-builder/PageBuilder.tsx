@@ -5,6 +5,7 @@ import type { IPageModel } from '@codelab/frontend/abstract/domain'
 
 import { tracker } from '@codelab/frontend/infra/logger'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { observer } from 'mobx-react-lite'
 
 import { BaseBuilder } from '../base-builder'
@@ -32,7 +33,7 @@ export const PageBuilder = observer(
     const renderer = rendererService.activeRenderer?.maybeCurrent
 
     if (!renderer) {
-      return null
+      return <Spinner />
     }
 
     return <BaseBuilder RootRenderer={RootRenderer} renderer={renderer} />

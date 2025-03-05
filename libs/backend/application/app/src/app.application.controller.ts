@@ -219,8 +219,6 @@ export class AppApplicationController {
     })
 
     setTimeout(async () => {
-      await this.databaseService.resetUserData()
-
       this.logger.log('Seeding system types', {
         context: 'AppApplicationController',
       })

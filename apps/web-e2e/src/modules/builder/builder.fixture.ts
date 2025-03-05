@@ -193,10 +193,6 @@ export class BuilderPage extends BasePage {
     return this.page.locator('.ant-tree-treenode-selected')
   }
 
-  getSpinner() {
-    return this.page.getByRole('status', { name: 'Loading' })
-  }
-
   getStateAccordion() {
     return this.page.getByTestId('cui-sidebar-view-header-state')
   }
