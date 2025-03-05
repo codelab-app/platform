@@ -59,6 +59,7 @@ export class BasePage {
     key:
       | UiKey.ElementPopconfirmFormDelete
       | UiKey.ElementPopconfirmOverlayDelete
+      | UiKey.PageToolbarItemDelete
       | UiKey.RedirectPopconfirmDelete,
   ) {
     const popconfirm = this.page.locator(`.ant-popconfirm.${getUiDataKey(key)}`)
@@ -263,7 +264,7 @@ export class BasePage {
   }
 
   getSpinner() {
-    return this.page.getByRole('status')
+    return this.page.getByRole('status', { name: 'Loading' })
   }
 
   getToolbarItem(key: UiKey) {

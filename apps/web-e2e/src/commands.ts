@@ -2,15 +2,9 @@
 /* eslint-disable prefer-arrow/prefer-arrow-functions */
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable func-style */
-import type { ObjectLike } from '@codelab/shared/abstract/types'
 
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
-import test, {
-  expect,
-  type Location,
-  type Locator,
-  type Page,
-} from '@playwright/test'
+import { expect, type Locator, type Page } from '@playwright/test'
 
 export const getButton = (page: Page, options: { label: string | RegExp }) => {
   return page.getByRole('button', { name: options.label })
@@ -34,6 +28,9 @@ export const setFormFieldValue = async (
   await expect(locator.getByLabel('loading')).toHaveCount(0)
 
   await field.fill(options.value)
+
+  // wait for dynamic dropdowns to populate options
+  await expect(locator.getByLabel('loading')).toHaveCount(0)
 
   await field.press('Enter')
 }

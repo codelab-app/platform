@@ -1,6 +1,6 @@
 import type { ICreateElementSeedData } from '@codelab/shared/abstract/core'
 
-import { IAtomType } from '@codelab/shared/abstract/core'
+import { IAtomType, ITypeKind } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
 
 export const COMPONENT_PROP_VALUE = 'component_prop_value'
@@ -16,24 +16,24 @@ export const componentTextElement: ICreateElementSeedData = {
   atom: IAtomType.AntDesignTypographyText,
   name: 'Component Text',
   parentElement: 'New Component Root',
-  propsData: `{
-    "children": {
-      "kind": "RichTextType",
-      "type": "e7558508-3bb7-4f57-8f8c-6ac989911765",
-      "value": "<p class=\\"editor-paragraph\\">text {{componentProps.component_prop}}</p>"
-    }
-  }`,
+  propsData: {
+    children: {
+      kind: ITypeKind.RichTextType,
+      type: 'e7558508-3bb7-4f57-8f8c-6ac989911765',
+      value: 'text {{componentProps.component_prop}}',
+    },
+  },
 }
 
 export const componentInstanceChild = {
   atom: IAtomType.AntDesignTypographyText,
   name: 'Component Instance Child',
   parentElement: componentInstance.name,
-  propsData: `{
-    "children": {
-      "kind": "RichTextType",
-      "type": "e7558508-3bb7-4f57-8f8c-6ac989911765",
-      "value": "<p class=\\"editor-paragraph\\">${COMPONENT_INSTANCE_TEXT}</p>"
-    }
-  }`,
+  propsData: {
+    children: {
+      kind: ITypeKind.RichTextType,
+      type: 'e7558508-3bb7-4f57-8f8c-6ac989911765',
+      value: COMPONENT_INSTANCE_TEXT,
+    },
+  },
 }

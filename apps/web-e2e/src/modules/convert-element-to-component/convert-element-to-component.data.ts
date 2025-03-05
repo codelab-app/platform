@@ -5,7 +5,7 @@ import type {
 } from '@codelab/shared/abstract/core'
 import type { APIRequestContext } from '@playwright/test'
 
-import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
+import { IAtomType, IPageKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { findOrFail } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 
@@ -39,13 +39,13 @@ export const elementTextCreateData = {
   id: v4(),
   name: 'Text',
   parentElement: elementColCreateData,
-  propsData: `{
-    "children": {
-      "kind": "RichTextType",
-      "type": "e7558508-3bb7-4f57-8f8c-6ac989911765",
-      "value": "<p class=\\"editor-paragraph\\">${textContent}</p>"
-    }
-  }`,
+  propsData: {
+    children: {
+      kind: ITypeKind.RichTextType,
+      type: 'e7558508-3bb7-4f57-8f8c-6ac989911765',
+      value: textContent,
+    },
+  },
 }
 
 export const providerPageElements = (
@@ -79,7 +79,7 @@ export const seedTestData = async (request: APIRequestContext) => {
     const text = await response.text()
 
     console.error('Server response:', text)
-    throw new Error(`HTTP error! status: ${response.status}`)
+    throw new Error(`HTTP error! status: ${response.status()}`)
   }
 
   return app

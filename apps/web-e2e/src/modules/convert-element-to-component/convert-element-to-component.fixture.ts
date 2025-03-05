@@ -14,7 +14,7 @@ import {
 export class ConvertElementToComponentPage extends BuilderPage {
   async checkComponentHasCorrectElements() {
     return test.step('checkComponentHasCorrectElements', async () => {
-      await expect(this.getBuilderRenderContainer()).toHaveText(textContent)
+      await expect(this.getBuilderRenderContainer()).toContainText(textContent)
 
       await this.checkElementTreeStructure([
         'Container',

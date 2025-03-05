@@ -72,7 +72,7 @@ export class ComponentListPage extends BuilderPage {
   }
 
   getSpinner() {
-    return this.page.getByRole('status')
+    return this.page.getByRole('status', { name: 'Loading' })
   }
 
   async goto(appId?: string, pageId?: string) {

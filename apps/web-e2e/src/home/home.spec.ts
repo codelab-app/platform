@@ -1,11 +1,8 @@
 import { expect } from '@playwright/test'
 
-import { globalBeforeAll } from '../setup/before-all'
 import { test } from './home.fixture'
 
 test.describe.configure({ mode: 'serial' })
-
-globalBeforeAll()
 
 test('has Jaegers link', async ({ homePage: page }) => {
   await page.page.goto('/')

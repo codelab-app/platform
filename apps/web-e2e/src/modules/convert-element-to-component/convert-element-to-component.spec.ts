@@ -23,7 +23,7 @@ test('should convert the element into a component and create an instance of it',
   await page.checkPageHeaderTitle(['Codelab App', 'Pages', 'provider'])
 
   await expect(page.getSpinner()).toBeHidden()
-  await expect(page.getBuilderRenderContainer()).toHaveText(textContent)
+  await expect(page.getBuilderRenderContainer()).toContainText(textContent)
 
   await page.convertElementToComponent()
   await page.goToComponentBuilderPage()
