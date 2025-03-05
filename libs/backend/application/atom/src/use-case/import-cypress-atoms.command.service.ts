@@ -31,6 +31,8 @@ export class ImportCypressAtomsHandler
       atomTypes.includes(atom.type),
     )
 
+    const atomDtos = []
+
     this.logger.log('Import cypress atoms', {
       context: 'ImportCypressAtomsHandler',
       data: {
@@ -38,12 +40,23 @@ export class ImportCypressAtomsHandler
       },
     })
 
-    return await Promise.all(
-      [...atoms.values()].map((atom) => {
-        return this.commandBus.execute<ImportAtomCommand, IAtomDto>(
-          new ImportAtomCommand(atom),
-        )
-      }),
-    )
+    for (const [index, atom] of atoms.entries()) {
+      this.logger.log('Importing atom', {
+        context: 'ImportCypressAtomsHandler',
+        data: {
+          atomName: atom.atom.name,
+          progress: `${index + 1}/${atoms.length}`,
+        },
+      })
+
+      const atomDto = await this.commandBus.execute<
+        ImportAtomCommand,
+        IAtomDto
+      >(new ImportAtomCommand(atom))
+
+      atomDtos.push(atomDto)
+    }
+
+    return atomDtos
   }
 }
