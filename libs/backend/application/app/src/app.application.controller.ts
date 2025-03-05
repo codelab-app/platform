@@ -214,6 +214,10 @@ export class AppApplicationController {
   async seedApp(
     @Body() { jobId }: { jobId: string },
   ): Promise<IJobQueueResponse> {
+    this.logger.log('Seeding cypress app', {
+      context: 'AppApplicationController',
+    })
+
     setTimeout(async () => {
       await this.databaseService.resetUserData()
 

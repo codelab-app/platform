@@ -51,7 +51,7 @@ export const jobSubscription = <T = void>(
     timeoutMs?: number
   } = {
     port: apiPort,
-    timeoutMs: 90000,
+    timeoutMs: 120000,
   },
 ): Promise<IJobOutput<T>> => {
   const { port, timeoutMs } = options

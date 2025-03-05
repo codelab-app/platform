@@ -368,7 +368,7 @@ jobs:
     environment:
       NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
     executor: docker-node-neo4j
-    parallelism: 1
+    parallelism: 4
     parameters:
       max_old_space_size:
         type: integer
@@ -376,8 +376,6 @@ jobs:
         type: string
     resource_class: << parameters.resource_class >>
     steps:
-      - setup_remote_docker:
-          version: default
       - restore-workspace-database
       - setup-neo4j
       - restore_cache:
@@ -395,9 +393,10 @@ jobs:
             echo $CIRCLE_NODE_TOTAL;
 
             pnpm nx e2e web-e2e -c ci \
-              --shard=${SHARD}/${CIRCLE_NODE_TOTAL} \
-              --testFiles="modules/demo/demo.spec.ts" \
-              --testFiles="modules/auth-guard/auth-guard.spec.ts"
+              --shard=${SHARD}/${CIRCLE_NODE_TOTAL}
+
+              # --testFiles="modules/demo/demo.spec.ts" \
+              # --testFiles="modules/auth-guard/auth-guard.spec.ts"
           name: Run E2E Tests
           no_output_timeout: 15m
       - run:
@@ -407,8 +406,6 @@ jobs:
             mkdir -p ~/project/tmp/logs
 
             docker logs $(docker ps --filter "ancestor=neo4j:5.26.3-enterprise" --format "{{.ID}}") > ~/project/tmp/logs/neo4j.log 2>&1
-
-            docker logs $(docker ps --filter "ancestor=cimg/node:18.18.0-browsers" --format "{{.ID}}") > ~/project/tmp/logs/node.log 2>&1
           name: Capture Docker logs
           when: always
       - store_artifacts:

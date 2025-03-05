@@ -98,8 +98,6 @@ export const seedAppData = async (
     },
   )
 
-  console.log('results', results)
-
   return results.data
 }
 
