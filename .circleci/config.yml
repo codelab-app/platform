@@ -81,8 +81,8 @@ commands:
             - ~/.nvm
       - run:
           command: |
-            nvm install 18.18.0
-            nvm alias default 18.18.0
+            nvm install 22.14.0
+            nvm alias default 22.14.0
             node -v
             which node
           name: Set Node Version
@@ -127,7 +127,7 @@ commands:
 
             # Install corepack using the correct path
             # https://github.com/pnpm/pnpm/issues/9029
-            sudo npm install -g corepack@0.20.0
+            sudo npm install -g corepack@0.31.0
 
             sudo corepack enable
             sudo corepack prepare pnpm@9.15.5 --activate
@@ -240,10 +240,10 @@ commands:
 executors:
   docker-node:
     docker:
-      - image: cimg/node:18.18.0-browsers
+      - image: cimg/node:22.14.0-browsers
   docker-node-neo4j:
     docker:
-      - image: cimg/node:18.18.0-browsers
+      - image: cimg/node:22.14.0-browsers
       - environment:
           NEO4J_ACCEPT_LICENSE_AGREEMENT: 'yes'
           NEO4J_AUTH: neo4j/password

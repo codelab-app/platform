@@ -5,7 +5,7 @@ import type {
 } from '@codelab/shared/infra/gqlgen'
 import type { IFieldResolver, IResolvers } from '@graphql-tools/utils'
 import type { FactoryProvider } from '@nestjs/common'
-import type { GraphQLRequestContext } from 'graphql-request/build/esm/types'
+import type { GraphQLRequestContext } from 'graphql-request/build/legacy/helpers/types'
 
 import { ElementDependantTypesService } from '@codelab/backend/domain/element'
 import { TypeFactory } from '@codelab/backend/domain/type'

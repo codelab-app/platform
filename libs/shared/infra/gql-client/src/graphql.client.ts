@@ -1,4 +1,4 @@
-import type { GraphQLClientResponse } from 'graphql-request/build/esm/types'
+import type { GraphQLClientResponse } from 'graphql-request/build/legacy/helpers/types'
 
 import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client/core'
 import { getEnv } from '@codelab/shared/config/env'
