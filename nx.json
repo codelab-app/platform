@@ -136,7 +136,6 @@
           "testPathIgnorePatterns": ["i.spec.ts"]
         },
         "test.integration": {
-          "memoryLimit": 4096,
           "reporters": ["default"],
           "color": true,
           "testPathPattern": ["i.spec.ts"],
@@ -144,10 +143,11 @@
         },
         "ci.integration": {
           "ci": true,
-          "codeCoverage": true,
+          "codeCoverage": false,
           "color": true,
           "testPathPattern": ["i.spec.ts"],
-          "runInBand": true
+          "runInBand": true,
+          "reporters": ["default", "jest-junit"]
         }
       }
     },

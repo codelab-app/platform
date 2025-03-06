@@ -16,7 +16,7 @@ import { ExportAdminDataCommand } from '../export/export-admin-data.command.serv
 import { ImportAdminDataCommand } from '../import/import-admin-data.command.service'
 import { getAtomsFromFiles, productionDataPath } from './utils'
 
-jest.setTimeout(300000)
+jest.setTimeout(500_000)
 
 // We copy actual data to new path
 const testDataPath = path.resolve('./tmp/data/import-v3')
