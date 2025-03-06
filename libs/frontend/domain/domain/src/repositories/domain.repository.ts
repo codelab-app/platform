@@ -11,7 +11,6 @@ import {
   domainMapper,
   domainServerActions,
 } from '@codelab/shared-domain-module/domain'
-import { revalidateTag } from 'next/cache'
 
 const { CreateDomains, DeleteDomains, DomainList, UpdateDomains } =
   domainServerActions
@@ -72,6 +71,3 @@ export const domainRepository: IDomainRepository = {
     return updatedDomain
   },
 }
-
-export const invalidateDomainListQuery = async () =>
-  revalidateTag(CACHE_TAGS.DOMAIN_LIST)

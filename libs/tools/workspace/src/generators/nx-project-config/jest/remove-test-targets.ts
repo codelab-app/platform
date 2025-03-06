@@ -10,5 +10,7 @@ export const migrateToConfigBasedTest = (
   if ('targets' in projectConfig) {
     delete projectConfig['targets']?.['test:integration']
     delete projectConfig['targets']?.['test:unit']
+
+    delete projectConfig['targets']?.['test']?.['options']?.['reporters']
   }
 }

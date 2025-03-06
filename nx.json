@@ -146,8 +146,7 @@
           "codeCoverage": false,
           "color": true,
           "testPathPattern": ["i.spec.ts"],
-          "runInBand": true,
-          "reporters": ["default", "jest-junit"]
+          "runInBand": true
         }
       }
     },
