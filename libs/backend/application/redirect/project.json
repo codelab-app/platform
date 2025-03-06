@@ -19,7 +19,6 @@
       "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "libs/backend/application/redirect/jest.config.ts",
-        "reporters": ["default"],
         "runInBand": true
       },
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]

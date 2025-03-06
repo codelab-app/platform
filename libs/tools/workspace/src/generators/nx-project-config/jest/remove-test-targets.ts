@@ -1,6 +1,6 @@
 import { type ProjectConfiguration, type Tree } from '@nx/devkit'
 
-export const migrateToConfigBasedTest = (
+export const updateTestTargets = (
   tree: Tree,
   projectConfig: ProjectConfiguration,
 ) => {

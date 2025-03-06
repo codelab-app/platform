@@ -31,8 +31,7 @@
         "memoryLimit": 8192,
         "parallel": 3,
         "runInBand": true,
-        "testPathPattern": ["[^i].spec.ts"],
-        "reporters": ["default"]
+        "testPathPattern": ["[^i].spec.ts"]
       },
       "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/element"]
     }

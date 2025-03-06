@@ -19,7 +19,6 @@
       "options": {
         "jestConfig": "libs/frontend/domain/redirect/jest.config.ts",
         "passWithNoTests": true,
-        "reporters": ["default"],
         "runInBand": true
       },
       "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/redirect"]

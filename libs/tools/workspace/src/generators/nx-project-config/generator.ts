@@ -9,6 +9,7 @@ import {
 
 import type { EslintGeneratorSchema } from './schema'
 
+import { updateTestTargets } from './jest/remove-test-targets'
 import { updateJestConfig } from './jest/update-jest-config'
 import { addProjectTags } from './project-tags/add-project-tags'
 import { updateLibraryTsconfig } from './tsconfig/lib/tsconfig.lib'
@@ -52,6 +53,7 @@ export const nxProjectConfigGenerator = async (
 
     // updateJestConfig(tree, projectConfig)
     addProjectTags(tree, projectConfig)
+    updateTestTargets(tree, projectConfig)
 
     // updateBaseTsconfig(tree, projectConfig)
     // updateLibraryTsconfig(tree, projectConfig)

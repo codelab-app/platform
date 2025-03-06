@@ -21,8 +21,7 @@
       ],
       "options": {
         "jestConfig": "libs/frontend/application/renderer/jest.config.ts",
-        "runInBand": true,
-        "reporters": ["default"]
+        "runInBand": true
       }
     }
   }

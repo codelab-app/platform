@@ -20,7 +20,6 @@
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "libs/frontend/application/dnd/jest.config.ts",
-        "reporters": ["default"],
         "runInBand": true
       }
     }

@@ -5,6 +5,7 @@ import { Node, Project } from 'ts-morph'
 
 import { addReportersToJestConfig } from './add-reporters'
 import { jestConfig } from './jest-config'
+import { updateTestTargets } from './remove-test-targets'
 
 export const updateJestConfig = (
   tree: Tree,

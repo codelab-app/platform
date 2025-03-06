@@ -26,7 +26,6 @@
       "options": {
         "jestConfig": "libs/backend/domain/auth-guard/jest.config.ts",
         "passWithNoTests": true,
-        "reporters": ["default"],
         "runInBand": true
       },
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]

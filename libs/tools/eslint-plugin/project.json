@@ -27,7 +27,6 @@
       "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "libs/tools/eslint-plugin/jest.config.ts",
-        "reporters": ["default"],
         "runInBand": true
       },
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
