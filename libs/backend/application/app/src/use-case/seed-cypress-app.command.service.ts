@@ -1,14 +1,10 @@
 import type { InterfaceType } from '@codelab/backend/domain/type'
-import type {
-  IAppDto,
-  IPageCreateSeedData,
-} from '@codelab/shared/abstract/core'
+import type { IAppDto } from '@codelab/shared/abstract/core'
 
 import { AppRepository } from '@codelab/backend/domain/app'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import { Element, ElementRepository } from '@codelab/backend/domain/element'
 import { PageRepository } from '@codelab/backend/domain/page'
-import { PropRepository } from '@codelab/backend/domain/prop'
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { Store, StoreRepository } from '@codelab/backend/domain/store'
 import { InterfaceTypeRepository } from '@codelab/backend/domain/type'
@@ -21,14 +17,11 @@ import {
   appData,
   internalServerErrorElementData,
   internalServerErrorPageData,
-  internalServerErrorPropsData,
   internalServerPageId,
   notFoundElementData,
-  notFoundElementPropsData,
   notFoundPageData,
   notFoundPageId,
   providerElementData,
-  providerElementPropsData,
   providerPageData,
   providerPageId,
 } from '@codelab/shared/data/test'
@@ -48,10 +41,10 @@ export class SeedCypressAppHandler
     private readonly appRepository: AppRepository,
     private readonly pageRepository: PageRepository,
     private readonly elementRepository: ElementRepository,
-    private atomRepository: AtomRepository,
+    private readonly atomRepository: AtomRepository,
     private readonly storeRepository: StoreRepository,
     private readonly interfaceTypeRepository: InterfaceTypeRepository,
-    private authDomainService: AuthDomainService,
+    private readonly authDomainService: AuthDomainService,
   ) {}
 
   async execute() {
@@ -68,9 +61,7 @@ export class SeedCypressAppHandler
      */
     const providerElement = new Element(
       providerElementData(
-        {
-          id: providerPageId,
-        },
+        { id: providerPageId },
         {
           __typename: IElementRenderTypeKind.Atom,
           id: atomReactFragment.id,
@@ -170,14 +161,7 @@ export class SeedCypressAppHandler
     /**
      * Attach the pages to the app
      */
-    app.pages = [providerPage, internalServerErrorPage, notFoundPage].map(
-      (element) => ({
-        ...element,
-        slug: element.slug,
-      }),
-    )
-
-    await this.appRepository.update(app, { id: app.id })
+    app.pages = [providerPage, internalServerErrorPage, notFoundPage]
 
     return app
   }
