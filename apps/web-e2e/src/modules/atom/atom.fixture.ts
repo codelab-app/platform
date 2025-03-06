@@ -24,7 +24,9 @@ export class AtomPage extends BasePage {
 
       await form.fillInputText({ label: 'Name' }, this.atom.name)
       await form.fillInputFilterSelect({ label: 'Type' }, this.atom.name)
-      await form.getButton({ text: 'Create' }).click()
+      await this.getPopover(UiKey.AtomPopoverCreate)
+        .getButton({ text: 'Create' })
+        .click()
 
       await this.expectGlobalProgressBarToBeHidden()
     })
@@ -32,9 +34,9 @@ export class AtomPage extends BasePage {
 
   async fillAndSubmitAtomFormDelete() {
     return test.step('fillAndSubmitAtomFormDelete', async () => {
-      const form = await this.getForm(UiKey.AtomsModalDelete)
+      const modal = await this.getModal(UiKey.AtomsModalDelete)
 
-      await form.getButton({ label: 'Confirmation Button' }).click()
+      await modal.getButton({ label: 'Confirmation Button' }).click()
 
       await this.expectGlobalProgressBarToBeHidden()
     })
@@ -45,7 +47,9 @@ export class AtomPage extends BasePage {
       const form = await this.getForm(UiKey.AtomFormUpdate)
 
       await form.fillInputText({ label: 'Name' }, this.updatedAtom.name)
-      await form.getButton({ text: 'Update' }).click()
+      await this.getPopover(UiKey.AtomPopoverUpdate)
+        .getButton({ text: 'Update' })
+        .click()
 
       await this.expectGlobalProgressBarToBeHidden()
     })

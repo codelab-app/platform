@@ -106,7 +106,7 @@ export default defineConfig({
   timeout: process.env.CI ? 120_000 : 90_000,
 
   expect: {
-    timeout: process.env.CI ? 75_000 : 60_000,
+    timeout: process.env.CI ? 75_000 : 30_000,
   },
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */

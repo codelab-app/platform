@@ -32,7 +32,7 @@ export const UpdateAuthGuardPopover = observer<UpdateAuthGuardPopoverProps>(
 
     return (
       <CuiSidebarSecondary
-        id={UiKey.AuthGuardPopoverCreate}
+        id={UiKey.AuthGuardPopoverUpdate}
         toolbar={{
           items: [
             {

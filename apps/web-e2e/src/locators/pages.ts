@@ -6,7 +6,7 @@ import {
   UiKey,
 } from '@codelab/frontend/abstract/types'
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
-import { expect } from '@playwright/test'
+import test, { expect } from '@playwright/test'
 
 export interface CuiSelector {
   /**
@@ -83,27 +83,38 @@ export class BasePage {
     options: { label: string | RegExp },
     value: string,
   ) {
-    const page = this.locator ?? this.page
+    return test.step('fillInputFilterSelect', async () => {
+      const page = this.locator ?? this.page
 
-    // Fill
-    await page.getByLabel(options.label).fill(value)
+      // Fill
+      await page.getByLabel(options.label).fill(value)
 
-    // wait for dynamic dropdowns to populate options
-    await expect(page.getByLabel('loading')).toHaveCount(0)
+      // wait for dropdown to be visible
+      const visibleDropdown = this.page
+        .locator('.ant-select-dropdown:not(.ant-select-dropdown-hidden)')
+        .filter({
+          has: this.page.locator('.ant-select-item-option').filter({
+            hasText: value,
+          }),
+        })
 
-    // Then click on the first item in the dropdown, it's hoisted outside so we don't scope it to the previous locator
-    await this.page
-      .locator(
-        '.ant-select-dropdown:not(.ant-select-dropdown-hidden) .ant-select-item',
-      )
-      .first()
-      .click()
+      await expect(visibleDropdown).toBeEnabled()
 
-    await expect(
-      this.page.locator(
-        '.ant-select-dropdown:not(.ant-select-dropdown-hidden)',
-      ),
-    ).toBeHidden()
+      // Then click on the first item in the dropdown, it's hoisted outside so we don't scope it to the previous locator
+      // Then click on the specific option with matching text
+      await this.page
+        .locator(
+          '.ant-select-dropdown:not(.ant-select-dropdown-hidden) .ant-select-item-option',
+        )
+        .filter({ hasText: value })
+        .click()
+
+      await expect(
+        this.page.locator(
+          '.ant-select-dropdown:not(.ant-select-dropdown-hidden)',
+        ),
+      ).toBeHidden()
+    })
   }
 
   async fillInputMultiSelect(
@@ -139,7 +150,7 @@ export class BasePage {
     await page.getByLabel(options.label).click()
 
     // wait for dynamic dropdowns to populate options
-    await expect(page.getByLabel('loading')).toHaveCount(0)
+    await expect(page.getByLabel('loading')).toBeHidden()
 
     await this.page
       .locator(

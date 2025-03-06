@@ -64,6 +64,7 @@ export enum UiKey {
   AuthGuardModalDelete = 'AuthGuardModalDelete',
   AuthGuardModalUpdate = 'AuthGuardModalUpdate',
   AuthGuardPopoverCreate = 'AuthGuardPopoverCreate',
+  AuthGuardPopoverUpdate = 'AuthGuardPopoverUpdate',
   AuthGuardSidebar = 'AuthGuardSidebar',
   AuthGuardToolbarItemCreate = 'AuthGuardToolbarItemCreate',
   AuthGuardToolbarItemCreateCancel = 'AuthGuardToolbarItemCreateCancel',

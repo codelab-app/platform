@@ -1,5 +1,6 @@
 import type { ICommandHandler } from '@nestjs/cqrs'
 
+import { IImportOptions } from '@codelab/backend/abstract/types'
 import { ReadAdminDataService } from '@codelab/backend/application/data'
 import { TypeFactory } from '@codelab/backend/domain/type'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
