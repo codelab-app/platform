@@ -429,6 +429,8 @@ jobs:
         type: string
     resource_class: << parameters.resource_class >>
     steps:
+      - setup_remote_docker:
+          version: default
       - restore-workspace-database
       - setup-neo4j
       - run:
@@ -854,7 +856,7 @@ workflows:
               ignore:
                 - master
                 - staging
-          max_old_space_size: 4096
+          max_old_space_size: 8192
           requires:
             - setup-workspace
           resource_class: large

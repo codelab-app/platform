@@ -14,17 +14,17 @@ const graphqlUrl = getEnv().endpoint.apiGraphqlUrl
  */
 export const graphqlClient = new GraphQLClient(graphqlUrl.toString(), {
   errorPolicy: 'all',
-  fetch: async (...args) => {
-    // Only import node-fetch on the server side
-    if (typeof window === 'undefined') {
-      const { nodeFetch } = await import('./node-fetch')
+  // fetch: async (...args) => {
+  //   // Only import node-fetch on the server side
+  //   if (typeof window === 'undefined') {
+  //     const { nodeFetch } = await import('./node-fetch')
 
-      return nodeFetch(...args)
-    }
+  //     return nodeFetch(...args)
+  //   }
 
-    // Use native fetch on the client side
-    return fetch(...args)
-  },
+  //   // Use native fetch on the client side
+  //   return fetch(...args)
+  // },
   headers: {
     Connection: 'keep-alive',
     'Keep-Alive': 'timeout=120, max=1000',

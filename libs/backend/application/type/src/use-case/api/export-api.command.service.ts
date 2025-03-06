@@ -107,11 +107,13 @@ export class ExportApiHandler
       /**
        * These holds the refs of types only
        */
-      fields: [...dependentFields, ...fields],
+      // fields: [...dependentFields, ...fields],
+      fields: [...fields, ...dependentFields],
       /**
        * This holds the full types from fields
        */
-      types: [...dependentTypes, apiInterfaceForExport],
+      // types: [...dependentTypes, apiInterfaceForExport],
+      types: [apiInterfaceForExport, ...dependentTypes],
     }
   }
 

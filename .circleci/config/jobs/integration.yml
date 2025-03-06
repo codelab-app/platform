@@ -12,6 +12,9 @@ environment:
   NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
 
 steps:
+  # This increases memory by double
+  - setup_remote_docker:
+      version: default
   - restore-workspace-database
   - setup-neo4j
   # - clear-jest-cache

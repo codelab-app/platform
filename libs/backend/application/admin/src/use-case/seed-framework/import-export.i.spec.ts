@@ -1,9 +1,13 @@
+import { BASE_DATA_PATH } from '@codelab/backend/application/data'
 import { deleteFilesSync } from '@codelab/backend/shared/util'
 import { initUserContext } from '@codelab/backend/test/setup'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { isSubset } from '@codelab/shared/utils'
 import { CommandBus } from '@nestjs/cqrs'
 import { copy, ensureDir, readdirSync, readFileSync, rmSync } from 'fs-extra'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+import gitChangedFiles from 'git-changed-files'
 import * as glob from 'glob'
 import path from 'path'
 
@@ -12,7 +16,7 @@ import { ExportAdminDataCommand } from '../export/export-admin-data.command.serv
 import { ImportAdminDataCommand } from '../import/import-admin-data.command.service'
 import { getAtomsFromFiles, productionDataPath } from './utils'
 
-jest.setTimeout(600000)
+jest.setTimeout(300000)
 
 // We copy actual data to new path
 const testDataPath = path.resolve('./tmp/data/import-v3')
@@ -87,5 +91,23 @@ describe('Seed, import, & export data', () => {
 
       expect(exportedContent).toEqual(sourceContent)
     }
+
+    // Also check no git diff is generated
+    const { unCommittedFiles } = await gitChangedFiles()
+
+    const containsGeneratedFiles = unCommittedFiles.reduce(
+      (_matches: boolean, file: string) => {
+        // Check if the file belongs to testDataPath
+        const unCommittedPath = path.resolve(file)
+        // console.log('absoluteFilePath', unCommittedPath)
+        // console.log('baseDataPath', BASE_DATA_PATH)
+        const isInTestDataPath = unCommittedPath.startsWith(BASE_DATA_PATH)
+
+        return _matches || isInTestDataPath
+      },
+      false,
+    )
+
+    expect(containsGeneratedFiles).toBeFalsy()
   })
 })
