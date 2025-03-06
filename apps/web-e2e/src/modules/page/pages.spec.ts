@@ -3,7 +3,7 @@ import type { IAppDto } from '@codelab/shared/abstract/core'
 import { providerPageId } from '@codelab/shared/data/test'
 import { expect } from '@playwright/test'
 
-import { getCuiTree } from '../../commands'
+import { getCuiTree, getTimestamp, logTimestamp } from '../../commands'
 import { globalBeforeAll } from '../../setup/before-all'
 import { seedAppData } from '../builder/builder.data'
 import { test } from './page.fixture'
@@ -26,6 +26,7 @@ test.beforeEach(async ({ pageListPage: page }, testInfo) => {
 })
 
 test('should be able to create page', async ({ pageListPage: page }) => {
+  logTimestamp('Starting create page')
   await page.expectSystemPagesToExist()
   await page.expectNoPreexistingPage()
   await page.createPage()
@@ -34,6 +35,7 @@ test('should be able to create page', async ({ pageListPage: page }) => {
 })
 
 test('should be able to update page name', async ({ pageListPage: page }) => {
+  logTimestamp('Starting update page')
   await page.updatePage()
 
   await expect(getCuiTree(page.page).getByText(page.pageName)).toBeHidden()
