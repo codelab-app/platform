@@ -96,7 +96,7 @@ export class BuilderPage extends BasePage {
         const parentElement = explorerTree.getByTitle(element.parentElement)
         const parentElementToolbar = parentElement.getByTestId(itemToolbarKey)
         const submitButton = this.getButton({ text: 'Create' })
-        const modal = this.getModalForm(UiKey.ElementPopoverCreate)
+        const modal = this.getModal(UiKey.ElementPopoverCreate)
 
         await parentElement.click()
         await expect(parentElement).toHaveClass(/ant-tree-node-selected/)

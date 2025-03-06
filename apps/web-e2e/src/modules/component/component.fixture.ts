@@ -9,7 +9,7 @@ export class ComponentListPage extends BuilderPage {
   async addComponentProps() {
     return test.step('addComponentProps', async () => {
       const componentTab = this.page.locator('.ant-tabs-tabpane-active')
-      const modal = this.getModalForm(UiKey.FieldPopoverCreate)
+      const modal = this.getModal(UiKey.FieldPopoverCreate)
       const submitButton = this.getButton({ text: 'Create' })
 
       await componentTab.getByText('Add').click()

@@ -231,10 +231,10 @@ export class BasePage {
     })
   }
 
-  getModalForm(key: UiKey) {
-    const form = this.getDialog().locator('form')
+  getModal(key: UiKey) {
+    const modal = this.page.getByTestId(getUiDataKey(key))
 
-    this.locator = form
+    this.locator = modal
 
     return this
   }

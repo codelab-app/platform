@@ -78,4 +78,8 @@ describe('Admin', () => {
     expect(types.length).toBe(1)
     expect(types[0]?.name).toBe(`${IAtomType.AntDesignButton} API`)
   })
+
+  it('will fail', () => {
+    expect(true).toBeFalsy()
+  })
 })

@@ -5,6 +5,7 @@ import type { ModalProps as AntModalProps } from 'antd/lib/modal'
 import type { PropsWithChildren } from 'react'
 
 import {
+  getUiDataKey,
   getUiDataLabel,
   type SubmitController,
   UiKey,
@@ -59,7 +60,7 @@ export const Modal = ({
           disabled: isLoading,
         }}
         className={className}
-        data-testid={uiKey}
+        data-testid={getUiDataKey(uiKey)}
         destroyOnClose
         okButtonProps={{
           // Pass down any button props we get from the modalProps prop

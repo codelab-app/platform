@@ -21,7 +21,7 @@ export class StateSharingPage extends BuilderPage {
     )
 
     const submitButton = this.getButton({ text: 'Create' })
-    const modal = this.getModalForm(UiKey.ElementPopoverCreate)
+    const modal = this.getModal(UiKey.ElementPopoverCreate)
 
     await createVariable.click()
     await this.setFormFieldValue('Key', 'name')
