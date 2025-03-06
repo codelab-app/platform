@@ -16,6 +16,8 @@ globalBeforeAll()
 
 test.beforeAll(async ({ request }) => {
   app = await seedAppData(request)
+
+  console.log('app', app)
 })
 
 test.beforeEach(async ({ pageListPage: page }, testInfo) => {
@@ -36,6 +38,7 @@ test('should be able to create page', async ({ pageListPage: page }) => {
 
 test('should be able to update page name', async ({ pageListPage: page }) => {
   logTimestamp('Starting update page spec')
+
   await page.updatePage()
 
   await expect(getCuiTree(page.page).getByText(page.pageName)).toBeHidden()

@@ -161,8 +161,8 @@ export class BasePage {
   /**
    * Locator chaining need to be passed in
    */
-  getButton({ key, label, text, title }: CuiSelector, locator?: Locator) {
-    const page = locator ?? this.page
+  getButton({ key, label, text, title }: CuiSelector) {
+    const page = this.locator ?? this.page
 
     const getByLabel = (_label: string | RegExp) => {
       return page

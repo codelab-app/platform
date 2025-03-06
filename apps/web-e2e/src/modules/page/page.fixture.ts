@@ -26,7 +26,9 @@ export class PageListPage extends BasePage {
     // wait for the form to stabilize and finish animations
     await expect(form.getByExactText('Use / for "Home" page')).toBeVisible()
     await form.fillInputText({ label: 'Name' }, this.pageName)
-    await form.getButton({ text: 'Create' }).click()
+    await this.getPopover(UiKey.PagePopoverCreate)
+      .getButton({ text: 'Create' })
+      .click()
     await this.expectGlobalProgressBarToBeHidden()
   }
 
@@ -67,7 +69,9 @@ export class PageListPage extends BasePage {
     const form = await this.getForm(UiKey.PageFormUpdate)
 
     await form.fillInputText({ label: 'Name' }, this.updatedPageName)
-    await form.getButton({ text: 'Update' }).click()
+    await this.getPopover(UiKey.PagePopoverUpdate)
+      .getButton({ text: 'Update' })
+      .click()
     await this.expectGlobalProgressBarToBeHidden()
   }
 }
