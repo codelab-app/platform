@@ -116,6 +116,7 @@
       "cache": true,
       "inputs": ["default", "^default", "{workspaceRoot}/jest.preset.ts"],
       "options": {
+        "parallel": 1,
         "passWithNoTests": true
       },
       "configurations": {
