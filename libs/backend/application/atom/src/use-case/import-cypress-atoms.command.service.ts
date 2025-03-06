@@ -1,6 +1,5 @@
 import type { ICommandHandler } from '@nestjs/cqrs'
 
-import { IImportOptions } from '@codelab/backend/abstract/types'
 import { ReadAdminDataService } from '@codelab/backend/application/data'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { type IAtomDto } from '@codelab/shared/abstract/core'
@@ -9,9 +8,7 @@ import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
 import { ImportAtomCommand } from './import-atom'
 
-export class ImportCypressAtomsCommand {
-  constructor(public options?: IImportOptions) {}
-}
+export class ImportCypressAtomsCommand {}
 
 /**
  * This is a subset of atoms to make importing faster
@@ -29,7 +26,7 @@ export class ImportCypressAtomsHandler
   /**
    * Default `atom` for `Element.renderType` may already exist, so we save by name
    */
-  async execute({ options }: ImportCypressAtomsCommand) {
+  async execute() {
     const atoms = this.readAdminDataService.atoms.filter(({ atom }) =>
       atomTypes.includes(atom.type),
     )
@@ -41,22 +38,18 @@ export class ImportCypressAtomsHandler
       },
     })
 
-    if (options?.upsert) {
-      for (const [index, atom] of atoms.entries()) {
-        this.logger.log('Importing atom', {
-          context: 'ImportCypressAtomsHandler',
-          data: {
-            atomName: atom.atom.name,
-            progress: `${index + 1}/${atoms.length}`,
-          },
-        })
+    for (const [index, atom] of atoms.entries()) {
+      this.logger.log('Importing atom', {
+        context: 'ImportCypressAtomsHandler',
+        data: {
+          atomName: atom.atom.name,
+          progress: `${index + 1}/${atoms.length}`,
+        },
+      })
 
-        await this.commandBus.execute<ImportAtomCommand, IAtomDto>(
-          new ImportAtomCommand(atom),
-        )
-      }
-    } else {
-      //
+      await this.commandBus.execute<ImportAtomCommand, IAtomDto>(
+        new ImportAtomCommand(atom),
+      )
     }
   }
 }

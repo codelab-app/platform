@@ -95,8 +95,8 @@ export class BuilderPage extends BasePage {
         const { atom, name, propsData } = element
         const parentElement = explorerTree.getByTitle(element.parentElement)
         const parentElementToolbar = parentElement.getByTestId(itemToolbarKey)
-        const submitButton = this.getButton({ text: 'Create' })
-        const modal = this.getModal(UiKey.ElementPopoverCreate)
+        const popover = this.getPopover(UiKey.ElementPopoverCreate)
+        const submitButton = popover.getButton({ text: 'Create' })
 
         await parentElement.click()
         await expect(parentElement).toHaveClass(/ant-tree-node-selected/)
@@ -106,8 +106,8 @@ export class BuilderPage extends BasePage {
 
         await expect(this.getFormFieldSpinner()).toHaveCount(0)
 
-        await expect(modal.locator).toBeDefined()
-        await expect(modal.locator!.getByLabel('Name')).toHaveValue(
+        await expect(popover.locator).toBeDefined()
+        await expect(popover.locator!.getByLabel('Name')).toHaveValue(
           'React Fragment',
         )
 

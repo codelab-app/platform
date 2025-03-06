@@ -1,17 +1,13 @@
 import type { IAtomImport } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
-import { IImportOptions } from '@codelab/backend/abstract/types'
 import { ImportApiCommand } from '@codelab/backend/application/type'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
 export class ImportAtomCommand {
-  constructor(
-    public atomImport: IAtomImport,
-    public options?: IImportOptions,
-  ) {}
+  constructor(public atomImport: IAtomImport) {}
 }
 
 @CommandHandler(ImportAtomCommand)
@@ -24,7 +20,7 @@ export class ImportAtomHandler
     private readonly logger: PinoLoggerService,
   ) {}
 
-  async execute({ atomImport, options }: ImportAtomCommand) {
+  async execute({ atomImport }: ImportAtomCommand) {
     const { api, atom } = atomImport
 
     const importApi = async () => {
