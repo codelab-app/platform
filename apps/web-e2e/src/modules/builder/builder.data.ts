@@ -14,6 +14,7 @@ import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
 import { v4 } from 'uuid'
 
 import { requestOrThrow } from '../../api'
+import { logTimestamp } from '../../commands'
 import { jobOutputRequest } from '../../job-request'
 import { REQUEST_TIMEOUT } from '../../setup/config'
 
@@ -89,6 +90,8 @@ export const seedAppData = async (
     page: IPageCreateSeedData
   },
 ) => {
+  logTimestamp('Seeding app data...')
+
   const results = await jobOutputRequest<IApp>(
     request,
     '/api/v1/app/seed-cypress-app',

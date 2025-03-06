@@ -26,7 +26,7 @@ test.beforeEach(async ({ pageListPage: page }, testInfo) => {
 })
 
 test('should be able to create page', async ({ pageListPage: page }) => {
-  logTimestamp('Starting create page')
+  logTimestamp('Starting create page spec')
   await page.expectSystemPagesToExist()
   await page.expectNoPreexistingPage()
   await page.createPage()
@@ -35,7 +35,7 @@ test('should be able to create page', async ({ pageListPage: page }) => {
 })
 
 test('should be able to update page name', async ({ pageListPage: page }) => {
-  logTimestamp('Starting update page')
+  logTimestamp('Starting update page spec')
   await page.updatePage()
 
   await expect(getCuiTree(page.page).getByText(page.pageName)).toBeHidden()
