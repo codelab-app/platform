@@ -25,6 +25,7 @@ import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
 
 import { AppApplicationController } from './app.application.controller'
+import { DemoController } from './demo.controller'
 import {
   ExportAppHandler,
   ImportAppHandler,
@@ -32,7 +33,7 @@ import {
 } from './use-case'
 
 @Module({
-  controllers: [AppApplicationController],
+  controllers: [AppApplicationController, DemoController],
   exports: [],
   imports: [
     BullModule.registerQueue({

@@ -117,7 +117,9 @@ export class BasePage {
       const page = options?.locator ?? this.locator ?? this.page
 
       // Fill
-      await page.getByLabel(label).fill(value)
+      // Input has `readonly` attribute, so we need to force fill
+      await page.getByLabel(label).click()
+      await page.getByLabel(label).fill(value, { force: true })
 
       // wait for dropdown to be visible
       const visibleDropdown = this.page
@@ -130,7 +132,7 @@ export class BasePage {
             }),
         })
 
-      await expect(visibleDropdown).toBeEnabled()
+      await expect(visibleDropdown).toBeVisible()
 
       // Then click on the first item in the dropdown, it's hoisted outside so we don't scope it to the previous locator
       // Then click on the specific option with matching text

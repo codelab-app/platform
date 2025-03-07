@@ -59,6 +59,84 @@ export class TypeFactory {
     private readonly logger: PinoLoggerService,
   ) {}
 
+  async add<T extends ITypeDto>(
+    type: TypeCreateMap[T['kind']]['dto'],
+  ): Promise<IRef> {
+    this.logger.verbose('Adding new type', {
+      context: 'TypeFactory',
+      data: { type: type.__typename },
+    })
+
+    /**
+     * Type narrow using discriminated union
+     */
+    switch (type.__typename) {
+      case ITypeKind.ActionType: {
+        const actionType = new ActionType(type)
+
+        return await this.actionTypeRepository.save(actionType)
+      }
+
+      case ITypeKind.ArrayType: {
+        const arrayType = new ArrayType(type)
+
+        return await this.arrayTypeRepository.save(arrayType)
+      }
+
+      case ITypeKind.CodeMirrorType: {
+        const codeMirrorType = new CodeMirrorType(type)
+
+        return await this.codeMirrorRepository.save(codeMirrorType)
+      }
+
+      case ITypeKind.EnumType: {
+        const enumType = new EnumType(type)
+
+        return await this.enumTypeRepository.save(enumType)
+      }
+
+      case ITypeKind.InterfaceType: {
+        const interfaceType = new InterfaceType(type)
+
+        return await this.interfaceTypeRepository.save(interfaceType)
+      }
+
+      case ITypeKind.PrimitiveType: {
+        const primitiveType = new PrimitiveType(type)
+
+        return await this.primitiveTypeRepository.save(primitiveType)
+      }
+
+      case ITypeKind.ReactNodeType: {
+        const reactNodeType = new ReactNodeType(type)
+
+        return await this.reactNodeTypeRepository.save(reactNodeType)
+      }
+
+      case ITypeKind.RenderPropType: {
+        const renderPropType = new RenderPropType(type)
+
+        return await this.renderPropTypeRepository.save(renderPropType)
+      }
+
+      case ITypeKind.RichTextType: {
+        const richTextType = new RichTextType(type)
+
+        return await this.richTextTypeRepository.save(richTextType)
+      }
+
+      case ITypeKind.UnionType: {
+        const unionType = new UnionType(type)
+
+        return await this.unionTypeRepository.save(unionType)
+      }
+
+      default: {
+        throw new Error('No type factory found')
+      }
+    }
+  }
+
   async descendantEntities(typeId: string) {
     this.logger.verbose('Getting type descendants', {
       context: 'TypeFactory',

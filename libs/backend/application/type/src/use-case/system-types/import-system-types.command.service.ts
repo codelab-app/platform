@@ -14,7 +14,7 @@ export class ImportSystemTypesHandler
   constructor(
     private readonly typeFactory: TypeFactory,
     private readonly readAdminDataService: ReadAdminDataService,
-    protected loggerService: PinoLoggerService,
+    protected logger: PinoLoggerService,
   ) {}
 
   async execute() {
