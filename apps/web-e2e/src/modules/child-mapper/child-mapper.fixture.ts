@@ -110,7 +110,6 @@ export class ChildMapperPage extends BuilderPage {
 
       const switcher = this.page.locator('.ant-tree-switcher_close')
 
-      await switcher.waitFor({ state: 'visible', timeout: 5000 })
       await switcher.click()
 
       const col1 = this.getTreeElement(pageRowChild1.name, pageRowChild1.atom)
