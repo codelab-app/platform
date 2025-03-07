@@ -9,18 +9,23 @@ export class ComponentListPage extends BuilderPage {
   async addComponentProps() {
     return test.step('addComponentProps', async () => {
       const componentTab = this.page.locator('.ant-tabs-tabpane-active')
-      const modal = this.getModal(UiKey.FieldPopoverCreate)
-      const submitButton = this.getButton({ text: 'Create' })
 
       await componentTab.getByText('Add').click()
 
-      await this.fillInputText({ label: 'Key' }, this.componentPropName)
-      await this.fillInputText({ label: 'Type' }, IPrimitiveTypeKind.String)
+      const form = this.getForm(UiKey.FieldFormCreate)
+
+      await form.fillInputText({ label: 'Key' }, this.componentPropName)
+      await form.fillInputSelect({ label: 'Type' }, IPrimitiveTypeKind.String)
       await this.page
         .locator('[name="validationRules.general.nullable"]')
         .click()
 
-      await this.getDialog().locator(submitButton).click()
+      await this.getPopover(UiKey.FieldPopoverCreate)
+        .getButton({
+          text: 'Create',
+        })
+        .click()
+
       await this.waitForProgressBar()
     })
   }
