@@ -19,15 +19,19 @@ export class ChildMapperPage extends BuilderPage {
       await this.selectTreeElement(pageRowElement)
       await expect(this.getFormFieldSpinner()).toHaveCount(0)
 
-      await this.setFormFieldValue(
-        'Prop Key',
+      await this.fillInputText(
+        { label: 'Prop Key' },
         '{{[{ name: "updated test 1" }, { name: "updated test 2" }]}}',
         { locator: updateElementForm, waitForAutosave: true },
       )
-      await this.setFormFieldValue('Render next to', pageRowChild2.name, {
-        locator: updateElementForm,
-        waitForAutosave: true,
-      })
+      await this.fillInputText(
+        { label: 'Render next to' },
+        pageRowChild2.name,
+        {
+          locator: updateElementForm,
+          waitForAutosave: true,
+        },
+      )
     })
   }
 
@@ -127,23 +131,31 @@ export class ChildMapperPage extends BuilderPage {
         .locator('.ant-collapse-header', { hasText: 'Child Mapper' })
         .click()
 
-      await this.setFormFieldValue('Component', childMapperComponentName, {
-        locator: updateElementForm,
-        waitForAutosave: true,
-      })
+      await this.fillInputText(
+        { label: 'Component' },
+        childMapperComponentName,
+        {
+          locator: updateElementForm,
+          waitForAutosave: true,
+        },
+      )
 
       await updateElementForm.locator('button', { hasText: 'JS' }).click()
 
-      await this.setFormFieldValue(
-        'Prop Key',
+      await this.fillInputText(
+        { label: 'Prop Key' },
         '{{[{ name: "test 1" }, { name: "test 2" }]}}',
         { locator: updateElementForm, waitForAutosave: true },
       )
 
-      await this.setFormFieldValue('Render next to', pageRowChild1.name, {
-        locator: updateElementForm,
-        waitForAutosave: true,
-      })
+      await this.fillInputText(
+        { label: 'Render next to' },
+        pageRowChild1.name,
+        {
+          locator: updateElementForm,
+          waitForAutosave: true,
+        },
+      )
     })
   }
 
@@ -155,7 +167,7 @@ export class ChildMapperPage extends BuilderPage {
       await updateElementForm
         .locator('.ant-collapse-header', { hasText: 'Child Mapper' })
         .click()
-      await this.setFormFieldValue('Prop Key', '{{[]}}', {
+      await this.fillInputText({ label: 'Prop Key' }, '{{[]}}', {
         locator: updateElementForm,
         waitForAutosave: true,
       })
@@ -170,7 +182,7 @@ export class ChildMapperPage extends BuilderPage {
       await updateElementForm
         .locator('.ant-collapse-header', { hasText: 'Child Mapper' })
         .click()
-      await this.setFormFieldValue('Prop Key', '{{false}}', {
+      await this.fillInputText({ label: 'Prop Key' }, '{{false}}', {
         locator: updateElementForm,
         waitForAutosave: true,
       })

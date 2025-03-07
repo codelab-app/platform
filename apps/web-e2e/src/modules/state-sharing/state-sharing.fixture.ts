@@ -20,14 +20,13 @@ export class StateSharingPage extends BuilderPage {
       'cui-toolbar-item-create-field-toolbar-item',
     )
 
-    const submitButton = this.getButton({ text: 'Create' })
-    const modal = this.getModal(UiKey.ElementPopoverCreate)
+    const popover = this.getPopover(UiKey.ElementPopoverCreate)
 
     await createVariable.click()
-    await this.setFormFieldValue('Key', 'name')
-    await this.setFormFieldValue('Type', 'String')
-    await this.setFormFieldValue('Default values', defaultValue)
-    await this.getDialog().locator(submitButton).click()
+    await this.fillInputText({ label: 'Key' }, 'name')
+    await this.fillInputText({ label: 'Type' }, 'String')
+    await this.fillInputText({ label: 'Default values' }, defaultValue)
+    await popover.getButton({ text: 'Create' }).click()
 
     await expect(this.getDialog()).toBeHidden()
     await expect(this.getGlobalProgressBar()).toBeHidden()

@@ -2,7 +2,6 @@ import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import { IPageKindName } from '@codelab/shared/abstract/core'
 import { test as base, expect, request } from '@playwright/test'
 
-import { getCuiTree } from '../../commands'
 import { BasePage } from '../../locators/pages'
 
 export class PageListPage extends BasePage {
@@ -47,7 +46,7 @@ export class PageListPage extends BasePage {
   }
 
   async expectSystemPagesToExist() {
-    const cuiTree = getCuiTree(this.page)
+    const cuiTree = this.getCuiTree()
 
     await expect(cuiTree.getByText(IPageKindName.Provider)).toBeVisible()
     await expect(cuiTree.getByText(IPageKindName.NotFound)).toBeVisible()

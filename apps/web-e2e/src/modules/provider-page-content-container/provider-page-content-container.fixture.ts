@@ -28,8 +28,8 @@ export class ProviderPageContentContainerPage extends BuilderPage {
   async setPageContentContainer() {
     const pageSettingsTab = this.page.locator('.ant-tabs-tabpane-active')
 
-    await this.setFormFieldValue(
-      'Page Content Container',
+    await this.fillInputText(
+      { label: 'Page Content Container' },
       pageContentContainerName,
       { locator: pageSettingsTab, waitForAutosave: true },
     )

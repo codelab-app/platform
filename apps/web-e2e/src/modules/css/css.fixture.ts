@@ -35,7 +35,7 @@ export class CssBuilderPage extends BuilderPage {
     return test.step('typeIntoCssEditor', async () => {
       const cssTab = this.page.locator('.ant-tabs-tabpane-active')
 
-      await this.setFormFieldValue('CSS Editor', css, {
+      await this.fillInputText({ label: 'Css Editor' }, css, {
         locator: cssTab,
         waitForAutosave: true,
       })

@@ -80,22 +80,28 @@ export class BasePage {
   }
 
   async fillInputFilterSelect(
-    options: { label: string | RegExp },
+    { label }: { label: string | RegExp },
     value: string,
+    options?: {
+      locator?: Locator
+      waitForAutosave?: boolean
+    },
   ) {
     return test.step('fillInputFilterSelect', async () => {
-      const page = this.locator ?? this.page
+      const page = options?.locator ?? this.locator ?? this.page
 
       // Fill
-      await page.getByLabel(options.label).fill(value)
+      await page.getByLabel(label).fill(value)
 
       // wait for dropdown to be visible
       const visibleDropdown = this.page
         .locator('.ant-select-dropdown:not(.ant-select-dropdown-hidden)')
         .filter({
-          has: this.page.locator('.ant-select-item-option').filter({
-            hasText: value,
-          }),
+          has: this.page
+            .locator('.ant-select-item.ant-select-item-option')
+            .filter({
+              hasText: value,
+            }),
         })
 
       await expect(visibleDropdown).toBeEnabled()
@@ -104,7 +110,7 @@ export class BasePage {
       // Then click on the specific option with matching text
       await this.page
         .locator(
-          '.ant-select-dropdown:not(.ant-select-dropdown-hidden) .ant-select-item-option',
+          '.ant-select-dropdown:not(.ant-select-dropdown-hidden) .ant-select-item.ant-select-item-option',
         )
         .filter({ hasText: value })
         .click()
@@ -163,17 +169,31 @@ export class BasePage {
     await option.click()
   }
 
-  fillInputText(options: { label: string | RegExp }, value: string) {
-    const page = this.locator ?? this.page
+  async fillInputText(
+    { label }: { label: string | RegExp },
+    value: string,
+    options?: {
+      locator?: Locator
+      waitForAutosave?: boolean
+    },
+  ) {
+    const page = options?.locator ?? this.locator ?? this.page
 
-    return page.getByRole('textbox', { name: options.label }).fill(value)
+    await page.getByRole('textbox', { name: label }).fill(value)
+
+    if (options?.waitForAutosave) {
+      await this.waitForProgressBar()
+    }
   }
 
   /**
    * Locator chaining need to be passed in
    */
-  getButton({ key, label, text, title }: CuiSelector) {
-    const page = this.locator ?? this.page
+  getButton(
+    { key, label, text, title }: CuiSelector,
+    options?: { locator?: Locator },
+  ) {
+    const page = options?.locator ?? this.locator ?? this.page
 
     const getByLabel = (_label: string | RegExp) => {
       return page
@@ -211,8 +231,18 @@ export class BasePage {
     return this.page.getByText(text, { exact: true })
   }
 
+  getByLabel(label: string | RegExp) {
+    const page = this.locator ?? this.page
+
+    return page.getByLabel(label)
+  }
+
   getCard(options: { name: string | RegExp }) {
     return this.page.locator('.ant-card', { hasText: options.name })
+  }
+
+  getCuiTree() {
+    return this.page.getByTestId(CuiTestId.cuiTree())
   }
 
   /**
@@ -234,6 +264,13 @@ export class BasePage {
     this.locator = form
 
     return this
+  }
+
+  /**
+   * Returns locator directly
+   */
+  getForm$(key: UiKey) {
+    return this.page.getByTestId(CuiTestId.cuiForm(key))
   }
 
   getGlobalProgressBar() {
@@ -350,5 +387,26 @@ export class BasePage {
     while (!(await locator.isVisible())) {
       await this.page.mouse.wheel(0, 100)
     }
+  }
+
+  /**
+   * Wait for progress bar to appear and then disappear, handling the race condition
+   * between form autosave delay and progress bar visibility.
+   */
+  async waitForProgressBar() {
+    return test.step('waitForProgressBar', async () => {
+      // First, ensure we can detect the progress bar appearing
+      await expect(async () => {
+        const isVisible = this.getGlobalProgressBar()
+
+        await expect(isVisible).toBeVisible({ timeout: 50 })
+      }).toPass({
+        // Add reasonable timeout to prevent infinite waiting
+        timeout: 10000,
+      })
+
+      // Then wait for it to disappear
+      await expect(this.getGlobalProgressBar()).toBeHidden()
+    })
   }
 }
