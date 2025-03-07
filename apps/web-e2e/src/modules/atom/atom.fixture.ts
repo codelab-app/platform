@@ -1,4 +1,5 @@
 import { PageType, UiKey } from '@codelab/frontend/abstract/types'
+import { IAtomType } from '@codelab/shared/abstract/core'
 import { test as base, expect } from '@playwright/test'
 
 import { BasePage } from '../../locators/pages'
@@ -6,6 +7,7 @@ import { BasePage } from '../../locators/pages'
 export class AtomPage extends BasePage {
   readonly atom = {
     name: 'Button',
+    type: IAtomType.AntDesignButton,
   }
 
   readonly updatedAtom = {
@@ -23,7 +25,7 @@ export class AtomPage extends BasePage {
       const form = await this.getForm(UiKey.AtomFormCreate)
 
       await form.fillInputText({ label: 'Name' }, this.atom.name)
-      await form.fillInputFilterSelect({ label: 'Type' }, this.atom.name)
+      await form.fillInputSelect({ label: 'Type' }, this.atom.type)
       await this.getPopover(UiKey.AtomPopoverCreate)
         .getButton({ text: 'Create' })
         .click()

@@ -79,7 +79,33 @@ export class BasePage {
     await expect(this.getGlobalProgressBar()).toBeHidden({ timeout: 15000 })
   }
 
-  async fillInputFilterSelect(
+  async fillInputMultiSelect(
+    options: { name: string | RegExp },
+    values: Array<number | string>,
+  ) {
+    const page = this.locator ?? this.page
+
+    await page.locator(`.ant-select-multiple[name="${options.name}"]`).click()
+
+    // wait for dynamic dropdowns to populate options
+    await expect(page.getByLabel('loading')).toHaveCount(0)
+
+    for (const value of values) {
+      const option = this.page.locator(`.ant-select-item[title="${value}"]`)
+
+      await this.page
+        .locator(
+          '.ant-select-dropdown:not(.ant-select-dropdown-hidden) .ant-select-item',
+        )
+        .first()
+        .hover()
+
+      await this.scrollUntilElementIsVisible(option)
+      await option.click()
+    }
+  }
+
+  async fillInputSelect(
     { label }: { label: string | RegExp },
     value: string,
     options?: {
@@ -87,7 +113,7 @@ export class BasePage {
       waitForAutosave?: boolean
     },
   ) {
-    return test.step('fillInputFilterSelect', async () => {
+    return test.step('fillInputSelect', async () => {
       const page = options?.locator ?? this.locator ?? this.page
 
       // Fill
@@ -121,52 +147,6 @@ export class BasePage {
         ),
       ).toBeHidden()
     })
-  }
-
-  async fillInputMultiSelect(
-    options: { name: string | RegExp },
-    values: Array<number | string>,
-  ) {
-    const page = this.locator ?? this.page
-
-    await page.locator(`.ant-select-multiple[name="${options.name}"]`).click()
-
-    // wait for dynamic dropdowns to populate options
-    await expect(page.getByLabel('loading')).toHaveCount(0)
-
-    for (const value of values) {
-      const option = this.page.locator(`.ant-select-item[title="${value}"]`)
-
-      await this.page
-        .locator(
-          '.ant-select-dropdown:not(.ant-select-dropdown-hidden) .ant-select-item',
-        )
-        .first()
-        .hover()
-
-      await this.scrollUntilElementIsVisible(option)
-      await option.click()
-    }
-  }
-
-  async fillInputSelect(options: { label: string | RegExp }, value: string) {
-    const page = this.locator ?? this.page
-    const option = this.page.locator(`.ant-select-item[title="${value}"]`)
-
-    await page.getByLabel(options.label).click()
-
-    // wait for dynamic dropdowns to populate options
-    await expect(page.getByLabel('loading')).toBeHidden()
-
-    await this.page
-      .locator(
-        '.ant-select-dropdown:not(.ant-select-dropdown-hidden) .ant-select-item',
-      )
-      .first()
-      .hover()
-
-    await this.scrollUntilElementIsVisible(option)
-    await option.click()
   }
 
   async fillInputText(
@@ -399,8 +379,11 @@ export class BasePage {
       await expect(async () => {
         const isVisible = this.getGlobalProgressBar()
 
-        await expect(isVisible).toBeVisible({ timeout: 50 })
+        await expect(isVisible).toBeVisible({ timeout: 25 })
       }).toPass({
+        // Use shorter polling intervals for better detection
+        // Defaults to [100, 250, 500, 1000]
+        intervals: [25, 50, 100, 250, 500, 1000],
         // Add reasonable timeout to prevent infinite waiting
         timeout: 10000,
       })

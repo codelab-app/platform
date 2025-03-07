@@ -24,7 +24,7 @@ export class ChildMapperPage extends BuilderPage {
         '{{[{ name: "updated test 1" }, { name: "updated test 2" }]}}',
         { locator: updateElementForm, waitForAutosave: true },
       )
-      await this.fillInputText(
+      await this.fillInputSelect(
         { label: 'Render next to' },
         pageRowChild2.name,
         {
@@ -130,7 +130,7 @@ export class ChildMapperPage extends BuilderPage {
         .locator('.ant-collapse-header', { hasText: 'Child Mapper' })
         .click()
 
-      await this.fillInputText(
+      await this.fillInputSelect(
         { label: 'Component' },
         childMapperComponentName,
         {
@@ -147,7 +147,7 @@ export class ChildMapperPage extends BuilderPage {
         { locator: updateElementForm, waitForAutosave: true },
       )
 
-      await this.fillInputText(
+      await this.fillInputSelect(
         { label: 'Render next to' },
         pageRowChild1.name,
         {

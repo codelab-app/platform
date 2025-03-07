@@ -108,7 +108,7 @@ export class BuilderPage extends BasePage {
         await expect(form.getByLabel('Name')).toHaveValue('React Fragment')
 
         await form.fillInputText({ label: 'Name' }, name)
-        await form.fillInputFilterSelect({ label: 'Render Type' }, atom)
+        await form.fillInputSelect({ label: 'Render Type' }, atom)
 
         if (propsData) {
           await form.fillInputText(
@@ -217,7 +217,7 @@ export class BuilderPage extends BasePage {
   }
 
   getUpdateElementForm() {
-    return this.page.getByTestId('cui-form-update-element-form')
+    return this.getForm$(UiKey.ElementFormUpdate)
   }
 
   async goto(appId: string, pageId: string) {

@@ -31,7 +31,7 @@ export class AuthGuardPage extends BasePage {
       const form = await this.getForm(UiKey.AuthGuardFormCreate)
 
       await form.fillInputText({ label: 'Name' }, this.authGuardName)
-      await form.fillInputFilterSelect({ label: 'Resource' }, resourceName)
+      await form.fillInputSelect({ label: 'Resource' }, resourceName)
       await this.getPopover(UiKey.AuthGuardPopoverCreate)
         .getButton({ text: 'Create' })
         .click()
@@ -51,10 +51,7 @@ export class AuthGuardPage extends BasePage {
 
       const form = await this.getForm(UiKey.RedirectFormCreate)
 
-      await form.fillInputFilterSelect(
-        { label: 'Auth Guard' },
-        this.authGuardName,
-      )
+      await form.fillInputSelect({ label: 'Auth Guard' }, this.authGuardName)
       await form.fillInputSelect({ label: 'Target type' }, 'Url')
       await form.fillInputText({ label: 'Target url' }, 'http://test.com')
       await this.getPopover(UiKey.RedirectPopoverCreate)
