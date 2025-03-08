@@ -12,7 +12,7 @@ import { jobOutputRequest, jobQueueRequest } from '../../job-request'
 import { REQUEST_TIMEOUT } from '../../setup/config'
 
 export const demoRequest = async (request: APIRequestContext) => {
-  await jobOutputRequest(request, '/api/v1/app/demo-background', {
+  await jobOutputRequest(request, '/api/v1/demo/demo-background', {
     headers: {
       Connection: 'keep-alive',
       'Content-Type': 'application/json',

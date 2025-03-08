@@ -91,6 +91,7 @@ export default defineConfig({
         ['list', { printSteps: true }],
         ['html', { open: 'never', outputFolder: '../../tmp/reports/e2e' }],
         ['junit', { outputFile: '../../tmp/reports/e2e/results.xml' }],
+        ['blob', { outputFile: '../../tmp/reports/e2e/blob-report.zip' }],
       ]
     : [
         ['list', { printSteps: true }],

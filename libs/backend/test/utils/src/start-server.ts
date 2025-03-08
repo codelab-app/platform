@@ -4,6 +4,7 @@ import type { ConfigType } from '@nestjs/config'
 
 import { ENDPOINT_CONFIG_KEY } from '@codelab/backend/infra/core'
 import { ConfigService } from '@nestjs/config'
+import isPortReachable from 'is-port-reachable'
 
 export const startServer = async (app: INestApplication) => {
   const configService = app.get(ConfigService)
@@ -24,7 +25,10 @@ export const startServer = async (app: INestApplication) => {
   await app.init()
 
   // Only listen if not already listening
-  if (!app.getHttpServer().listening) {
+  if (
+    !app.getHttpServer().listening &&
+    (await isPortReachable(port, { host: '127.0.0.1' }))
+  ) {
     await app.listen(port)
   }
 

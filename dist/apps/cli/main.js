@@ -172,8 +172,6 @@ let PinoLoggerService = class PinoLoggerService extends external_nestjs_pino_nam
         return this.executeWithTiming(message, fn, options, 'verbose');
     }
     shouldIncludeData(options) {
-        // Disable data for context for now
-        return true;
         const context = options?.context ?? '';
         return this.config.enableDataForContext.some((pattern) => {
             return new RegExp(pattern).test(context);

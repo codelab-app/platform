@@ -118,7 +118,6 @@ export class BasePage {
 
       // Fill
       // Input has `readonly` attribute, so we need to force fill
-      await page.getByLabel(label).click({ force: true })
       await page.getByLabel(label).fill(value, { force: true })
 
       // wait for dropdown to be visible
