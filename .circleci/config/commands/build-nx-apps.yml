@@ -25,3 +25,8 @@ steps:
         - ~/project/.nx/cache
         # https://github.com/nrwl/nx/issues/5221
         - ~/project/dist/apps/web/.next/cache
+  - persist_to_workspace:
+      root: ~/project
+      paths:
+        - dist/apps/web
+        - dist/apps/api

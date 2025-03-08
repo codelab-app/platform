@@ -19,6 +19,11 @@ commands:
           paths:
             - ~/project/.nx/cache
             - ~/project/dist/apps/web/.next/cache
+      - persist_to_workspace:
+          paths:
+            - dist/apps/web
+            - dist/apps/api
+          root: ~/project
   build-nx-libs:
     description: Build Nx Libs
     steps:
@@ -376,13 +381,6 @@ jobs:
           version: default
       - restore-workspace-database
       - setup-neo4j
-      - restore_cache:
-          keys:
-            - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}-{{ checksum "scripts/circleci/cache-lock.yaml" }}
-            - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
-            - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-
-            - nx-cache-
-          name: Restore NX Cache
       - run: pnpm npx playwright install-deps
       - run:
           command: |
