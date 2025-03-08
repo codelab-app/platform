@@ -62,10 +62,10 @@ steps:
   # https://stackoverflow.com/questions/68916222/docker-build-error-cannot-connect-to-the-docker-daemon-at-unix-var-run-docke/68922177#68922177
 
   - run:
-    name: 'Merge Playwright Reports'
-    command: |
-      pnpm playwright merge-reports --reporter html ~/project/tmp/reports/e2e/all-blob-reports
-    when: always
+      name: 'Merge Playwright Reports'
+      command: |
+        pnpm playwright merge-reports --reporter html ~/project/tmp/reports/e2e/all-blob-reports
+      when: always
   - run:
       name: Capture Docker logs
       command: |
