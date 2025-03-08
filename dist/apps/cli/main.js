@@ -180,14 +180,17 @@ let PinoLoggerService = class PinoLoggerService extends external_nestjs_pino_nam
     logWithOptions(level, message, options = {}) {
         const mappedLevel = labelMapping[level];
         const logger = this.logger[mappedLevel].bind(this.logger);
-        if (!this.shouldIncludeData(options)) {
+        // Always include data for error and fatal levels
+        if (level === 'error' ||
+            level === 'fatal' ||
+            this.shouldIncludeData(options)) {
+            logger({ msg: message, ...options });
+        }
+        else {
             logger({
                 msg: message,
                 ...(0,external_remeda_namespaceObject.omit)(options, ['data']),
             });
-        }
-        else {
-            logger({ msg: message, ...options });
         }
     }
     log(message, options) {

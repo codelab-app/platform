@@ -94,6 +94,7 @@ jobs:
         - setup-workspace
   - e2e:
       resource_class: large
+      # nextjs + nestjs + playwright
       max_old_space_size: 4096
       filters:
         branches:

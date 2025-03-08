@@ -140,12 +140,12 @@ services:
   #     - prometheus
 
   # Redis service for NestJS queues
-  redis:
-    container_name: redis
-    image: redis:7.0.10
-    ports:
-      - '6379:6379'
-    restart: unless-stopped
+  # redis:
+  #   container_name: redis
+  #   image: redis:7.0.10
+  #   ports:
+  #     - '6379:6379'
+  #   restart: unless-stopped
 
 volumes:
   codelab-neo4j:

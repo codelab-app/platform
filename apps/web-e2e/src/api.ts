@@ -24,6 +24,8 @@ export const requestOrThrow = async <T = void>(
   url: string,
   options: ApiRequestOptions,
 ): Promise<T> => {
+  console.log(`[${getTimestamp()}] Requesting ${url}`)
+
   const response = await request.post(url, options)
 
   if (!response.ok()) {
