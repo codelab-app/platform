@@ -98,6 +98,7 @@ const nextConfig = {
     },
   },
   nx: { svgr: false },
+  // productionBrowserSourceMaps: Boolean(process.env.CI),
   // https://github.com/ant-design/ant-design-examples/blob/main/examples/with-nextjs-app-router-inline-style/next.config.js
   // productionBrowserSourceMaps: true,
   // disable to support uniforms

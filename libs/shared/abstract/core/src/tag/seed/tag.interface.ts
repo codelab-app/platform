@@ -22,6 +22,7 @@ import type { IReactCategoryTag } from './react-category-tag.interface'
 export enum IAtomCategory {
   AntDesign = 'AntDesign',
   Html = 'Html',
+  Next = 'Next',
   React = 'React',
 }
 

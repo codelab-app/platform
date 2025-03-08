@@ -47,7 +47,8 @@ export class ReadAdminDataService implements IReadAdminDataService {
       .filter(
         (filename) =>
           filename.startsWith(IAtomCategory.AntDesign) ||
-          filename.startsWith(IAtomCategory.React),
+          filename.startsWith(IAtomCategory.React) ||
+          filename.startsWith(IAtomCategory.Next),
       )
       .filter((filename) => path.extname(filename) === '.json')
 

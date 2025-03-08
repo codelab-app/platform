@@ -7,6 +7,7 @@ import {
 import { PagesPrimarySidebar } from '@codelab/frontend-application-page/views'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
+import { ErrorBoundary } from 'react-error-boundary'
 
 import { BuilderPrimarySidebar } from './BuilderPrimarySidebar'
 
@@ -23,10 +24,18 @@ export const PagePrimarySidebar = ({
   }
 
   if (type === ExplorerPaneType.PageList) {
-    return <PagesPrimarySidebar appId={appId} pageId={pageId} />
+    return (
+      <ErrorBoundary fallbackRender={() => 'PagesPrimarySidebar'}>
+        <PagesPrimarySidebar appId={appId} pageId={pageId} />
+      </ErrorBoundary>
+    )
   }
 
-  return <BuilderPrimarySidebar containerNode={page} />
+  return (
+    <ErrorBoundary fallbackRender={() => 'BuilderPrimarySidebar'}>
+      <BuilderPrimarySidebar containerNode={page} />
+    </ErrorBoundary>
+  )
 }
 
 PagePrimarySidebar.displayName = 'PrimarySidebar'

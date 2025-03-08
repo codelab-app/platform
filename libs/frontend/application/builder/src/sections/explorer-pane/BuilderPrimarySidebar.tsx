@@ -36,6 +36,9 @@ export const BuilderPrimarySidebar = observer<{
   const { createPopover: createElementPopover } = useElementService()
   const { createPopover: createFieldPopover } = useFieldService()
   const { createPopover: createActionPopover } = useActionService()
+
+  console.log('containerNode', containerNode.toJson)
+
   const store = containerNode.store.maybeCurrent
   const renderer = rendererService.activeRenderer?.current
   const runtimeContainerNode = renderer?.runtimeContainerNode
