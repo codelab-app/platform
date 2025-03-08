@@ -88,13 +88,18 @@ export class PinoLoggerService extends Logger implements ILoggerService {
     const mappedLevel = labelMapping[level]
     const logger = this.logger[mappedLevel].bind(this.logger)
 
-    if (!this.shouldIncludeData(options)) {
+    // Always include data for error and fatal levels
+    if (
+      level === 'error' ||
+      level === 'fatal' ||
+      this.shouldIncludeData(options)
+    ) {
+      logger({ msg: message, ...options })
+    } else {
       logger({
         msg: message,
         ...omit(options, ['data']),
       })
-    } else {
-      logger({ msg: message, ...options })
     }
   }
 

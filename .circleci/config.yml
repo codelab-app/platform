@@ -21,9 +21,9 @@ commands:
             - ~/project/dist/apps/web/.next/cache
       - persist_to_workspace:
           paths:
-            - dist/apps/web
-            - dist/apps/api
-          root: ~/project
+            - project/dist/apps/web
+            - project/dist/apps/api
+          root: ~/
   build-nx-libs:
     description: Build Nx Libs
     steps:
@@ -862,7 +862,7 @@ workflows:
               ignore:
                 - master
                 - staging
-          max_old_space_size: 8192
+          max_old_space_size: 4096
           requires:
             - build-nx-apps
           resource_class: large
