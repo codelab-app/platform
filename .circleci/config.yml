@@ -6,23 +6,19 @@ commands:
           main-branch-name: master
       - restore_cache:
           keys:
-            - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}-{{ checksum "dist/apps/web/.next/ci-lock.yaml" }}
+            - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}-{{ checksum "scripts/circleci/cache-lock.yaml" }}
             - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
             - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-
             - nx-cache-
           name: Restore NX Cache
       - run:
-          command: (./scripts/nx/reset-cache.sh)
-          name: Monitor NX Cache Size
-      - run:
           command: pnpm nx run-many --target=build --projects=web,api -c ci --nx-bail
       - save_cache:
-          key: nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}-{{ checksum "dist/apps/web/.next/ci-lock.yaml" }}
+          key: nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}-{{ checksum "scripts/circleci/cache-lock.yaml" }}
           name: Save NX Cache
           paths:
             - ~/project/.nx/cache
             - ~/project/dist/apps/web/.next/cache
-            - ~/project/dist/apps/web/.next/ci-lock.yaml
   build-nx-libs:
     description: Build Nx Libs
     steps:
@@ -30,17 +26,15 @@ commands:
           main-branch-name: master
       - restore_cache:
           keys:
+            - nx-cache-libs-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}-{{ checksum "scripts/circleci/cache-lock.yaml" }}
             - nx-cache-libs-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
             - nx-cache-libs-{{ .Environment.CIRCLE_BRANCH }}-
             - nx-cache-libs-
           name: Restore NX Cache
       - run:
-          command: (./scripts/nx/reset-cache.sh)
-          name: Monitor NX Cache Size
-      - run:
           command: pnpm nx run-many --target=build --all --exclude=web,api -c ci
       - save_cache:
-          key: nx-cache-libs-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
+          key: nx-cache-libs-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}-{{ checksum "scripts/circleci/cache-lock.yaml" }}
           name: Save NX Cache
           paths:
             - ~/project/.nx/cache-libs
