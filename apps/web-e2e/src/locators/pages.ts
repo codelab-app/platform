@@ -118,7 +118,7 @@ export class BasePage {
 
       // Fill
       // Input has `readonly` attribute, so we need to force fill
-      await page.getByLabel(label).click()
+      await page.getByLabel(label).click({ force: true })
       await page.getByLabel(label).fill(value, { force: true })
 
       // wait for dropdown to be visible
@@ -134,7 +134,7 @@ export class BasePage {
 
       await expect(visibleDropdown).toBeVisible()
 
-      // Then click on the first item in the dropdown, it's hoisted outside so we don't scope it to the previous locator
+      // It's hoisted outside so we don't scope it to the previous locator
       // Then click on the specific option with matching text
       await this.page
         .locator(
