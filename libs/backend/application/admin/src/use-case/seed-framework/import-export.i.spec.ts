@@ -51,6 +51,7 @@ describe('Seed, import, & export data', () => {
     await copy(productionDataPath, testDataPath)
 
     const atoms = getAtomsFromFiles({
+      category: 'AntDesign',
       // overrides: [IAtomType.ReactFragment],
     })
 
