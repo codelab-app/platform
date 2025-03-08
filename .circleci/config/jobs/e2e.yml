@@ -22,6 +22,7 @@ steps:
       name: 'Restore NX Cache'
       keys:
         # This is needed for e2e to run, the specs don't seem to run without the apps having pre-built
+        - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}-{{ checksum "scripts/circleci/cache-lock.yaml" }}
         - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
         - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-
         - nx-cache-

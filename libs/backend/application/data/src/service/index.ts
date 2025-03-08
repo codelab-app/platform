@@ -1,3 +1,4 @@
+export * from './admin-data.config'
 export * from './import-data-mapper.service'
 export * from './migration-data.constant'
 export * from './migration-data.service'

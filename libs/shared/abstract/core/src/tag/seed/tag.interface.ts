@@ -19,7 +19,11 @@ import type { IReactCategoryTag } from './react-category-tag.interface'
 //     }
 
 // The prefix of the atom file name
-export type IAtomCategory = 'AntDesign' | 'Html' | 'React'
+export enum IAtomCategory {
+  AntDesign = 'AntDesign',
+  Html = 'Html',
+  React = 'React',
+}
 
 export type AllTags =
   | IAntdCategoryTag

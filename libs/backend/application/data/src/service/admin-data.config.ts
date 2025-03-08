@@ -1,10 +1,11 @@
 import type { IAtomCategory } from '@codelab/shared/abstract/core'
 
+import { resolveWorkspaceRoot } from '@codelab/backend/shared/util'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import fs from 'fs'
 import path from 'path'
 
-export const productionDataPath = path.resolve('./data/export-v3')
+export const BASE_DATA_PROD_PATH = resolveWorkspaceRoot('./data/export-v3')
 
 export const getAtomsFromFiles = ({
   /**
@@ -20,7 +21,7 @@ export const getAtomsFromFiles = ({
   overrides?: Array<string>
 }) => {
   const files = fs
-    .readdirSync(path.resolve(productionDataPath, 'admin/atoms'))
+    .readdirSync(path.resolve(BASE_DATA_PROD_PATH, 'admin/atoms'))
     .map((file) => path.parse(file).name)
     .filter((file) => file.startsWith(category))
 

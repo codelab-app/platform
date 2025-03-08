@@ -2,11 +2,11 @@ import { resolveWorkspaceRoot } from '@codelab/backend/shared/util'
 import { Injectable, Scope } from '@nestjs/common'
 import path from 'path'
 
+import { BASE_DATA_PROD_PATH } from './admin-data.config'
+
 export interface IBaseDataPaths {
   baseDataPath?: string | undefined
 }
-
-export const BASE_DATA_PATH = resolveWorkspaceRoot('./data/export-v3')
 
 /**
  * This service holds all the paths for our migration data
@@ -37,7 +37,7 @@ export class MigrationDataService implements IBaseDataPaths {
   /**
    * process.cwd() doesn't work since run-commands may set app dir as cwd
    */
-  baseDataPath = BASE_DATA_PATH
+  baseDataPath = BASE_DATA_PROD_PATH
 
   /**
    * Allows override by setting at runtime, base path relative to workspace root

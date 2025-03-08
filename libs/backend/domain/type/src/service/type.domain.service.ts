@@ -37,7 +37,7 @@ export class TypeDomainService {
       await this.typeFactory.add(type)
     }
 
-    this.logger.log('Adding interface types', {
+    this.logger.log('Adding interface fields', {
       context: 'TypeDomainService',
       count: apiFields.length,
     })

@@ -1,4 +1,8 @@
-import { BASE_DATA_PATH } from '@codelab/backend/application/data'
+import {
+  BASE_DATA_PATH,
+  getAtomsFromFiles,
+  productionDataPath,
+} from '@codelab/backend/application/data'
 import { CommandBusSubscription } from '@codelab/backend/infra/core'
 import { deleteFilesSync } from '@codelab/backend/shared/util'
 import { initUserContext } from '@codelab/backend/test/setup'
@@ -15,7 +19,6 @@ import path from 'path'
 import { AdminApplicationModule } from '../../admin.application.module'
 import { ExportAdminDataCommand } from '../export/export-admin-data.command.service'
 import { ImportAdminDataCommand } from '../import/import-admin-data.command.service'
-import { getAtomsFromFiles, productionDataPath } from './utils'
 
 jest.setTimeout(500_000)
 

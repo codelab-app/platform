@@ -12,6 +12,7 @@ import type {
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import {
   AtomImportSchema,
+  IAtomCategory,
   TagExportSchema,
   TypeDtoSchema,
 } from '@codelab/shared/abstract/core'
@@ -43,6 +44,11 @@ export class ReadAdminDataService implements IReadAdminDataService {
   get atomNames() {
     const atomFileNames = fs
       .readdirSync(this.migrationDataService.atomsPath)
+      .filter(
+        (filename) =>
+          filename.startsWith(IAtomCategory.AntDesign) ||
+          filename.startsWith(IAtomCategory.React),
+      )
       .filter((filename) => path.extname(filename) === '.json')
 
     return atomFileNames

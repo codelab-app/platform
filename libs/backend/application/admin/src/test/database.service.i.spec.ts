@@ -32,7 +32,6 @@ describe('DatabaseService', () => {
 
   let commandBus: CommandBus
   let databaseService: DatabaseService
-  let atomRepository: AtomRepository
   let interfaceTypeRepository: InterfaceTypeRepository
 
   beforeAll(async () => {
@@ -41,7 +40,6 @@ describe('DatabaseService', () => {
 
     commandBus = module.get(CommandBus)
     databaseService = module.get(DatabaseService)
-    atomRepository = module.get(AtomRepository)
     interfaceTypeRepository = module.get(InterfaceTypeRepository)
 
     await ctx.beforeAll()
@@ -58,11 +56,6 @@ describe('DatabaseService', () => {
       new ImportSystemTypesCommand(),
     )
 
-    await commandBus.execute<ImportCypressAtomsCommand, Array<IAtom>>(
-      new ImportCypressAtomsCommand(),
-    )
-
-    // const atoms = await atomRepository.find()
     const types = await interfaceTypeRepository.find()
 
     await databaseService.resetUserData()
@@ -70,9 +63,5 @@ describe('DatabaseService', () => {
     const typesAfter = await interfaceTypeRepository.find()
 
     expect(types.length).toBe(typesAfter.length)
-
-    // const atomsAfter = await atomRepository.find()
-
-    // expect(atoms.length).toBe(atomsAfter.length)
   })
 })

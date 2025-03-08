@@ -378,6 +378,7 @@ jobs:
       - setup-neo4j
       - restore_cache:
           keys:
+            - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}-{{ checksum "scripts/circleci/cache-lock.yaml" }}
             - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
             - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-
             - nx-cache-
