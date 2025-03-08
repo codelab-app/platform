@@ -93,7 +93,7 @@ export default defineConfig({
         ['html', { open: 'never', outputFolder: '../../tmp/reports/e2e' }],
         ['junit', { outputFile: '../../tmp/reports/e2e/junit/results.xml' }],
         // Allows for a unified report
-        ['blob', { outputDir: '../../tmp/reports/e2e/all-blob-reports' }],
+        // ['blob', { outputDir: '../../tmp/reports/e2e/all-blob-reports' }],
       ]
     : [
         ['list', { printSteps: true }],

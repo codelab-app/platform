@@ -10,7 +10,6 @@ resource_class: << parameters.resource_class >>
 
 environment:
   NODE_OPTIONS: --max-old-space-size=<< parameters.max_old_space_size >>
-  PLAYWRIGHT_HTML_OUTPUT_DIR: ~/project/tmp/reports/e2e/html-report
 
 parallelism: 4
 steps:
@@ -61,11 +60,12 @@ steps:
 
   # https://stackoverflow.com/questions/68916222/docker-build-error-cannot-connect-to-the-docker-daemon-at-unix-var-run-docke/68922177#68922177
 
-  - run:
-      name: 'Merge Playwright Reports'
-      command: |
-        pnpm playwright merge-reports --reporter html ~/project/tmp/reports/e2e/all-blob-reports
-      when: always
+  # This needs a separate job
+  # - run:
+  #     name: 'Merge Playwright Reports'
+  #     command: |
+  #       pnpm playwright merge-reports --reporter html ~/project/tmp/reports/e2e/all-blob-reports
+  #     when: always
   - run:
       name: Capture Docker logs
       command: |
@@ -82,6 +82,9 @@ steps:
   - store_artifacts:
       path: ~/project/tmp/reports/e2e
       destination: playwright-report
+  # - store_artifacts:
+  #     path: ~/project/tmp/reports/e2e/html-report
+  #     destination: html-report
   #   - store_artifacts:
   #       path: ~/project/dist/.playwright/apps/web-e2e/src/screenshots
   #       destination: playwright/screenshots
