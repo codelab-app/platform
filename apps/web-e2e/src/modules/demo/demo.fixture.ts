@@ -10,6 +10,7 @@ import { jobSubscription } from '../../api'
 import { getTimestamp } from '../../commands'
 import { jobOutputRequest, jobQueueRequest } from '../../job-request'
 import { REQUEST_TIMEOUT } from '../../setup/config'
+import { baseTest } from '../../setup/fixtures/base.fixture'
 
 export const demoRequest = async (request: APIRequestContext) => {
   await jobOutputRequest(request, '/api/v1/demo/demo-background', {
@@ -21,3 +22,5 @@ export const demoRequest = async (request: APIRequestContext) => {
     timeout: REQUEST_TIMEOUT,
   })
 }
+
+export const test = baseTest.extend({})

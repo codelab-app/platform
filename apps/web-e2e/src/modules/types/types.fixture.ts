@@ -1,9 +1,9 @@
 import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { PrimitiveTypeKind } from '@codelab/shared/infra/gqlgen'
-import { test as base } from '@playwright/test'
 
-import { BasePage } from '../../locators/pages'
+import { baseTest } from '../../setup/fixtures/base.fixture'
+import { BasePage } from '../../setup/locators/pages'
 import {
   arrayTypeName,
   enumTypeAllowedValues,
@@ -234,7 +234,7 @@ export class TypeListPage extends BasePage {
   }
 }
 
-export const test = base.extend<{ typesPage: TypeListPage }>({
+export const test = baseTest.extend<{ typesPage: TypeListPage }>({
   typesPage: async ({ page }, use) => {
     const typesPage = new TypeListPage(page)
 

@@ -2,10 +2,11 @@ import type { IPageCreateFormData } from '@codelab/shared/abstract/core'
 
 import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import { IPageCreateSeedData, IPageKind } from '@codelab/shared/abstract/core'
-import { test as base, expect } from '@playwright/test'
+import { expect } from '@playwright/test'
 import { v4 } from 'uuid'
 
-import { BasePage } from '../../locators/pages'
+import { baseTest } from '../../setup/fixtures/base.fixture'
+import { BasePage } from '../../setup/locators/pages'
 import { resourceName } from './auth-guard.data'
 
 export const authGuardPageData: Omit<IPageCreateFormData, 'app'> = {
@@ -152,7 +153,7 @@ export class AuthGuardPage extends BasePage {
   }
 }
 
-export const test = base.extend<{ authGuardPage: AuthGuardPage }>({
+export const test = baseTest.extend<{ authGuardPage: AuthGuardPage }>({
   authGuardPage: async ({ page }, use) => {
     const authGuardPage = new AuthGuardPage(page)
 

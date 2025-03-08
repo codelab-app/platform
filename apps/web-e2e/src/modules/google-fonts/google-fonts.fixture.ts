@@ -1,5 +1,6 @@
-import { test as base, expect } from '@playwright/test'
+import { expect } from '@playwright/test'
 
+import { baseTest } from '../../setup/fixtures/base.fixture'
 import { CssBuilderPage } from '../css/css.fixture'
 import { FONT_NAME, FONT_SIZE, typographyElement } from './google-fonts.data'
 
@@ -51,7 +52,7 @@ export class GoogleFontsPage extends CssBuilderPage {
   }
 }
 
-export const test = base.extend<{ builderPage: GoogleFontsPage }>({
+export const test = baseTest.extend<{ builderPage: GoogleFontsPage }>({
   builderPage: async ({ page }, use) => {
     const builderPage = new GoogleFontsPage(page)
 

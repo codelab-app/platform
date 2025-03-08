@@ -1,6 +1,7 @@
 import { test as base, expect } from '@playwright/test'
 
-import { BasePage } from '../locators/pages'
+import { baseTest } from '../setup/fixtures/base.fixture'
+import { BasePage } from '../setup/locators/pages'
 
 export class HomePage extends BasePage {
   async expectPageTitle(title: string) {
@@ -8,7 +9,7 @@ export class HomePage extends BasePage {
   }
 }
 
-export const test = base.extend<{ homePage: HomePage }>({
+export const test = baseTest.extend<{ homePage: HomePage }>({
   homePage: async ({ page }, use) => {
     const homePage = new HomePage(page)
 

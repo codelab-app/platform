@@ -1,8 +1,9 @@
 import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import { IResourceType } from '@codelab/shared/abstract/core'
-import { test as base } from '@playwright/test'
+import { expect } from '@playwright/test'
 
-import { BasePage } from '../../locators/pages'
+import { baseTest } from '../../setup/fixtures/base.fixture'
+import { BasePage } from '../../setup/locators/pages'
 
 export class ResourcePage extends BasePage {
   resourceName = 'New Resource'
@@ -63,7 +64,7 @@ export class ResourcePage extends BasePage {
   }
 }
 
-export const test = base.extend<{ resourcePage: ResourcePage }>({
+export const test = baseTest.extend<{ resourcePage: ResourcePage }>({
   resourcePage: async ({ page }, use) => {
     const resourcePage = new ResourcePage(page)
 

@@ -89,9 +89,11 @@ export default defineConfig({
   reporter: process.env.CI
     ? [
         ['list', { printSteps: true }],
+        // Allows for separate report per machine
         ['html', { open: 'never', outputFolder: '../../tmp/reports/e2e' }],
-        ['junit', { outputFile: '../../tmp/reports/e2e/results.xml' }],
-        ['blob', { outputFile: '../../tmp/reports/e2e/blob-report.zip' }],
+        ['junit', { outputFile: '../../tmp/reports/e2e/junit/results.xml' }],
+        // Allows for a unified report
+        ['blob', { outputDir: '../../tmp/reports/e2e/all-blob-reports' }],
       ]
     : [
         ['list', { printSteps: true }],
@@ -119,6 +121,20 @@ export default defineConfig({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
     video: { mode: 'on' },
+    // launchOptions: {
+    //   logger: {
+    //     isEnabled: (name: string) => {
+    //       return true
+    //       // return name === 'api'
+    //     },
+    //     log: (
+    //       name: string,
+    //       severity: 'error' | 'info' | 'verbose' | 'warning',
+    //       message: string,
+    //       args: Array<any>,
+    //     ) => console.log(`${name} ${severity} ${message} ${args.join(' ')}`),
+    //   },
+    // },
   },
 
   /* Run your local dev server before starting the tests */

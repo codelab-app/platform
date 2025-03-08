@@ -1,6 +1,6 @@
 import { test as base } from '@playwright/test'
 
-import { BasePage } from '../locators/pages'
+import { BasePage } from '../setup/locators/pages'
 
 export class ProductionPage extends BasePage {
   async goto() {

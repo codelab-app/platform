@@ -6,7 +6,7 @@ import {
   UiKey,
 } from '@codelab/frontend/abstract/types'
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
-import test, { expect } from '@playwright/test'
+import { test as base, expect } from '@playwright/test'
 
 export interface CuiSelector {
   /**
@@ -113,7 +113,7 @@ export class BasePage {
       waitForAutosave?: boolean
     },
   ) {
-    return test.step('fillInputSelect', async () => {
+    return base.step('fillInputSelect', async () => {
       const page = options?.locator ?? this.locator ?? this.page
 
       // Fill
@@ -375,7 +375,7 @@ export class BasePage {
    * between form autosave delay and progress bar visibility.
    */
   async waitForProgressBar() {
-    return test.step('waitForProgressBar', async () => {
+    return base.step('waitForProgressBar', async () => {
       // First, ensure we can detect the progress bar appearing
       await expect(async () => {
         const isVisible = this.getGlobalProgressBar()

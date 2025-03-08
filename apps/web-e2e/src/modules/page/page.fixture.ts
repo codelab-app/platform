@@ -1,8 +1,9 @@
 import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import { IPageKindName } from '@codelab/shared/abstract/core'
-import { test as base, expect, request } from '@playwright/test'
+import { expect, request } from '@playwright/test'
 
-import { BasePage } from '../../locators/pages'
+import { baseTest } from '../../setup/fixtures/base.fixture'
+import { BasePage } from '../../setup/locators/pages'
 
 export class PageListPage extends BasePage {
   static async seedApp() {
@@ -75,7 +76,7 @@ export class PageListPage extends BasePage {
   }
 }
 
-export const test = base.extend<{ pageListPage: PageListPage }>({
+export const test = baseTest.extend<{ pageListPage: PageListPage }>({
   pageListPage: async ({ page }, use) => {
     const pageListPage = new PageListPage(page)
 

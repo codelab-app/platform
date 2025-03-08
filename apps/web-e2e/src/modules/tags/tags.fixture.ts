@@ -1,8 +1,9 @@
 import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
-import { test as base, expect } from '@playwright/test'
+import { expect } from '@playwright/test'
 
-import { BasePage } from '../../locators/pages'
+import { baseTest } from '../../setup/fixtures/base.fixture'
+import { BasePage } from '../../setup/locators/pages'
 
 export class TagListPage extends BasePage {
   async createTag(name: string, parentName?: string) {
@@ -81,7 +82,7 @@ export class TagListPage extends BasePage {
   }
 }
 
-export const test = base.extend<{ tagListPage: TagListPage }>({
+export const test = baseTest.extend<{ tagListPage: TagListPage }>({
   tagListPage: async ({ page }, use) => {
     const tagListPage = new TagListPage(page)
 

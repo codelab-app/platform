@@ -27,7 +27,7 @@ export const startServer = async (app: INestApplication) => {
   // Only listen if not already listening
   if (
     !app.getHttpServer().listening &&
-    (await isPortReachable(port, { host: '127.0.0.1' }))
+    !(await isPortReachable(port, { host: '127.0.0.1' }))
   ) {
     await app.listen(port)
   }

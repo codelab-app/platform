@@ -1,5 +1,6 @@
-import { test as base, expect } from '@playwright/test'
+import { expect } from '@playwright/test'
 
+import { baseTest } from '../../setup/fixtures/base.fixture'
 import { BuilderPage } from '../builder/builder.fixture'
 import { pageContentContainerName } from './provider-page-content-container.data'
 
@@ -36,7 +37,7 @@ export class ProviderPageContentContainerPage extends BuilderPage {
   }
 }
 
-export const test = base.extend<{
+export const test = baseTest.extend<{
   builderPage: ProviderPageContentContainerPage
 }>({
   builderPage: async ({ page }, use) => {

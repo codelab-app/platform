@@ -1,6 +1,7 @@
 import { PageType } from '@codelab/frontend/abstract/types'
-import { test as base, expect } from '@playwright/test'
+import { expect } from '@playwright/test'
 
+import { baseTest } from '../../setup/fixtures/base.fixture'
 import { BuilderPage } from '../builder/builder.fixture'
 import {
   componentName,
@@ -61,7 +62,7 @@ export class ConvertElementToComponentPage extends BuilderPage {
   }
 }
 
-export const test = base.extend<{
+export const test = baseTest.extend<{
   builderPage: ConvertElementToComponentPage
 }>({
   builderPage: async ({ page }, use) => {

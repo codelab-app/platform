@@ -1,5 +1,6 @@
-import { test as base, expect } from '@playwright/test'
+import { expect } from '@playwright/test'
 
+import { baseTest } from '../../setup/fixtures/base.fixture'
 import { BuilderPage } from '../builder/builder.fixture'
 import {
   childMapperComponentName,
@@ -207,7 +208,7 @@ export class ChildMapperPage extends BuilderPage {
   }
 }
 
-export const test = base.extend<{ builderPage: ChildMapperPage }>({
+export const test = baseTest.extend<{ builderPage: ChildMapperPage }>({
   builderPage: async ({ page }, use) => {
     const builderPage = new ChildMapperPage(page)
 

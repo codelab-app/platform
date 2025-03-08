@@ -8,9 +8,10 @@ import {
 } from '@codelab/frontend/abstract/types'
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
-import { test as base, expect } from '@playwright/test'
+import { expect } from '@playwright/test'
 
-import { BasePage } from '../../locators/pages'
+import { baseTest } from '../../setup/fixtures/base.fixture'
+import { BasePage } from '../../setup/locators/pages'
 
 /**
  * Follow guide https://medium.com/@lucgagan/mastering-playwright-best-practices-for-web-automation-with-the-page-object-model-3541412b03d1
@@ -311,7 +312,7 @@ export class BuilderPage extends BasePage {
   private readonly updatedButtonName = 'Button Updated'
 }
 
-export const test = base.extend<{ builderPage: BuilderPage }>({
+export const test = baseTest.extend<{ builderPage: BuilderPage }>({
   builderPage: async ({ page }, use) => {
     const builderPage = new BuilderPage(page)
 

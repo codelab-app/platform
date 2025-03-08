@@ -1,7 +1,8 @@
 import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { test as base, expect } from '@playwright/test'
+import { expect } from '@playwright/test'
 
+import { baseTest } from '../../setup/fixtures/base.fixture'
 import { BuilderPage } from '../builder/builder.fixture'
 import {
   componentId,
@@ -14,7 +15,7 @@ import {
  */
 export class StateSharingPage extends BuilderPage {
   async createStateVariable(defaultValue: string) {
-    return base.step('createStateVariable', async () => {
+    return test.step('createStateVariable', async () => {
       const stateAccordion = this.getStateAccordion()
 
       const createVariable = stateAccordion.getByTestId(
@@ -42,7 +43,7 @@ export class StateSharingPage extends BuilderPage {
   }
 
   async expandElementsTree() {
-    return base.step('expandElementsTree', async () => {
+    return test.step('expandElementsTree', async () => {
       const space = this.getTreeElement(
         spaceElementName,
         IAtomType.AntDesignSpace,
@@ -62,13 +63,13 @@ export class StateSharingPage extends BuilderPage {
   }
 
   async goToComponentBuilder() {
-    return base.step('goToComponentBuilder', async () => {
+    return test.step('goToComponentBuilder', async () => {
       await this.page.goto(PageType.ComponentBuilder({ componentId }))
     })
   }
 
   async setComponentElementText() {
-    return base.step('setComponentElementText', async () => {
+    return test.step('setComponentElementText', async () => {
       const outputContainer = this.getBuilderRenderContainer()
       const typography = outputContainer.locator('.ant-typography')
       const elementOverlay = this.getElementOverlay()
@@ -88,7 +89,7 @@ export class StateSharingPage extends BuilderPage {
   }
 }
 
-export const test = base.extend<{ builderPage: StateSharingPage }>({
+export const test = baseTest.extend<{ builderPage: StateSharingPage }>({
   builderPage: async ({ page }, use) => {
     const builderPage = new StateSharingPage(page)
 

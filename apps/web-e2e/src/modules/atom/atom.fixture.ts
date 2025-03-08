@@ -1,8 +1,9 @@
 import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { test as base, expect } from '@playwright/test'
+import { expect } from '@playwright/test'
 
-import { BasePage } from '../../locators/pages'
+import { baseTest } from '../../setup/fixtures/base.fixture'
+import { BasePage } from '../../setup/locators/pages'
 
 export class AtomPage extends BasePage {
   readonly atom = {
@@ -72,7 +73,7 @@ export class AtomPage extends BasePage {
   }
 }
 
-export const test = base.extend<{ atomPage: AtomPage }>({
+export const test = baseTest.extend<{ atomPage: AtomPage }>({
   atomPage: async ({ page }, use) => {
     const atomPage = new AtomPage(page)
 

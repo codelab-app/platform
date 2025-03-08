@@ -1,7 +1,8 @@
 import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
-import { test as base, expect } from '@playwright/test'
+import { expect } from '@playwright/test'
 
+import { baseTest } from '../../setup/fixtures/base.fixture'
 import { BuilderPage } from '../builder/builder.fixture'
 import { COMPONENT_PROP_VALUE } from './component.data'
 
@@ -148,7 +149,7 @@ export class ComponentListPage extends BuilderPage {
   private readonly componentPropName = 'component_prop'
 }
 
-export const test = base.extend<{ componentListPage: ComponentListPage }>({
+export const test = baseTest.extend<{ componentListPage: ComponentListPage }>({
   componentListPage: async ({ page }, use) => {
     const componentListPage = new ComponentListPage(page)
 
