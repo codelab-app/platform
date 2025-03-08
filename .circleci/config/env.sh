@@ -8,6 +8,8 @@ echo "export GIT_COMMIT_MSG=$(git log --format=format:\"%s\" -n 1 ${CIRCLE_SHA1}
 #
 # Global environments
 #
+echo "export TZ=Asia/Hong_Kong" >> $BASH_ENV
+
 echo "export COLOR_FAILURE='#ffccc7'" >> $BASH_ENV
 echo "export COLOR_SUCCESS='#b7eb8f'" >> $BASH_ENV
 

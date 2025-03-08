@@ -15,6 +15,7 @@ import { Validator } from '@codelab/shared/infra/typebox'
 import { type APIRequestContext } from '@playwright/test'
 import { v4 } from 'uuid'
 
+import { REQUEST_TIMEOUT } from '../../setup/config'
 import { seedAppData } from '../builder/builder.data'
 
 export const childMapperComponentName = 'Component Name'
@@ -82,24 +83,29 @@ export const seedTestData = async (request: APIRequestContext) => {
     throw new Error('Missing page')
   }
 
-  const ownerResponse = await request.get('/api/v1/user/me')
+  const ownerResponse = await request.get('/api/v1/user/me', {
+    timeout: REQUEST_TIMEOUT,
+  })
+
   const owner = await ownerResponse.json()
 
   await request.post(`/api/v1/element/${page.rootElement.id}/create-elements`, {
     data: providerPageElements(page),
+    timeout: REQUEST_TIMEOUT,
   })
 
   const componentResponse = await request.post(
     '/api/v1/component/create-component',
-    { data: childMapperComponent(owner) },
+    {
+      data: childMapperComponent(owner),
+      timeout: REQUEST_TIMEOUT,
+    },
   )
 
   const component: IComponentDto = Validator.parse(
     ComponentDtoSchema,
     await componentResponse.json(),
   )
-
-  console.log('Component', component)
 
   await request.post(
     `/api/v1/element/${component.rootElement.id}/create-elements`,
@@ -110,6 +116,7 @@ export const seedTestData = async (request: APIRequestContext) => {
           parentElement: component.rootElement,
         },
       ],
+      timeout: REQUEST_TIMEOUT,
     },
   )
 

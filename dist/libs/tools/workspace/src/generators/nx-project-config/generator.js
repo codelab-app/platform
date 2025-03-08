@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.nxProjectConfigGenerator = void 0;
 const devkit_1 = require("@nx/devkit");
+const remove_test_targets_1 = require("./jest/remove-test-targets");
 const add_project_tags_1 = require("./project-tags/add-project-tags");
 /**
  * Go through all projects and update the `lint` setting of `project.json`
@@ -33,6 +34,7 @@ const nxProjectConfigGenerator = async (tree, options) => {
         // checkLintConfig(tree, projectConfig)
         // updateJestConfig(tree, projectConfig)
         (0, add_project_tags_1.addProjectTags)(tree, projectConfig);
+        (0, remove_test_targets_1.updateTestTargets)(tree, projectConfig);
         // updateBaseTsconfig(tree, projectConfig)
         // updateLibraryTsconfig(tree, projectConfig)
         (0, devkit_1.updateProjectConfiguration)(tree, projectName, projectConfig);

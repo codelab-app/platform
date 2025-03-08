@@ -2,6 +2,8 @@ import { AuthModule, JwtAuthGuard } from '@codelab/backend/application/auth'
 import { HealthcheckController } from '@codelab/backend/domain/shared/modules'
 import { GraphqlModule } from '@codelab/backend/infra/adapter/graphql'
 import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
+import { QueueModule } from '@codelab/backend/infra/adapter/queue'
+import { WsModule } from '@codelab/backend/infra/adapter/ws'
 import {
   GraphQLSchemaModule,
   SchemaService,
@@ -22,6 +24,8 @@ import { CommandBusSubscription } from './command-bus-logger.service'
       imports: [GraphQLSchemaModule],
       inject: [SchemaService],
     }),
+    WsModule,
+    QueueModule,
     AuthModule,
     ApiModule,
     CodelabLoggerModule,

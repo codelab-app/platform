@@ -65,7 +65,6 @@
       "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "apps/web/jest.config.ts",
-        "reporters": ["default"],
         "runInBand": true
       },
       "configurations": {

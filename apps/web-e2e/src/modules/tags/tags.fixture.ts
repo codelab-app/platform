@@ -5,7 +5,7 @@ import { test as base, expect } from '@playwright/test'
 import { BasePage } from '../../locators/pages'
 
 export class TagListPage extends BasePage {
-  async createTag(name: string, parentName: string) {
+  async createTag(name: string, parentName?: string) {
     if (parentName) {
       await this.getTreeTagItem(parentName).click()
     }
@@ -15,7 +15,10 @@ export class TagListPage extends BasePage {
       .click()
 
     await this.page.waitForURL('/tags/create*')
-    await this.fillAndSubmitTagForm(name, UiKey.TagFormCreate, 'Create')
+    await this.fillAndSubmitTagForm(name, 'Create', {
+      form: UiKey.TagFormCreate,
+      popover: UiKey.TagPopoverCreate,
+    })
 
     await expect(this.getSkeleton()).toBeHidden()
   }
@@ -29,9 +32,9 @@ export class TagListPage extends BasePage {
 
     await this.page.waitForURL('/tags/delete/**')
 
-    const form = await this.getForm(UiKey.TagModalDelete)
+    const modal = await this.getModal(UiKey.TagModalDelete)
 
-    await form.getButton({ label: 'Confirmation Button' }).click()
+    await modal.getButton({ label: 'Confirmation Button' }).click()
 
     await this.expectGlobalProgressBarToBeHidden()
 
@@ -44,14 +47,18 @@ export class TagListPage extends BasePage {
     await this.page.locator('.ant-tree-switcher_close').first().click()
   }
 
-  async fillAndSubmitTagForm(name: string, key: UiKey, submitLabel: string) {
-    const form = await this.getForm(key)
+  async fillAndSubmitTagForm(
+    name: string,
+    submitLabel: string,
+    { form, popover }: { form: UiKey; popover: UiKey },
+  ) {
+    const tagForm = await this.getForm(form)
 
-    await form.fillInputText({ label: 'Name' }, name)
-    await form.getButton({ text: submitLabel }).click()
+    await tagForm.fillInputText({ label: 'Name' }, name)
+    await this.getPopover(popover).getButton({ text: submitLabel }).click()
     await this.expectGlobalProgressBarToBeHidden()
 
-    await expect(this.page.getByTestId(CuiTestId.cuiForm(key))).toBeHidden()
+    await expect(this.page.getByTestId(CuiTestId.cuiForm(form))).toBeHidden()
   }
 
   getTreeTagItem(tagName: string) {
@@ -65,7 +72,10 @@ export class TagListPage extends BasePage {
   async updateTag(oldName: string, newName: string) {
     await this.getTreeTagItem(oldName).click()
     await this.page.waitForURL('/tags/update/**')
-    await this.fillAndSubmitTagForm(newName, UiKey.TagFormUpdate, 'Update')
+    await this.fillAndSubmitTagForm(newName, 'Update', {
+      form: UiKey.TagFormUpdate,
+      popover: UiKey.TagPopoverUpdate,
+    })
 
     await expect(this.getSkeleton()).toBeHidden()
   }

@@ -10,7 +10,6 @@ import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
 import { test as base, expect } from '@playwright/test'
 
-import { setFormFieldValue } from '../../commands'
 import { BasePage } from '../../locators/pages'
 
 /**
@@ -95,8 +94,6 @@ export class BuilderPage extends BasePage {
         const { atom, name, propsData } = element
         const parentElement = explorerTree.getByTitle(element.parentElement)
         const parentElementToolbar = parentElement.getByTestId(itemToolbarKey)
-        const submitButton = this.getButton({ text: 'Create' })
-        const modal = this.getModalForm(UiKey.ElementPopoverCreate)
 
         await parentElement.click()
         await expect(parentElement).toHaveClass(/ant-tree-node-selected/)
@@ -106,19 +103,24 @@ export class BuilderPage extends BasePage {
 
         await expect(this.getFormFieldSpinner()).toHaveCount(0)
 
-        await expect(modal.locator).toBeDefined()
-        await expect(modal.locator!.getByLabel('Name')).toHaveValue(
-          'React Fragment',
-        )
+        const form = this.getForm(UiKey.ElementFormCreate)
 
-        await this.setFormFieldValue('Name', name)
-        await this.setFormFieldValue('Render Type', atom)
+        await expect(form.getByLabel('Name')).toHaveValue('React Fragment')
+
+        await form.fillInputText({ label: 'Name' }, name)
+        await form.fillInputSelect({ label: 'Render Type' }, atom)
 
         if (propsData) {
-          await this.setFormFieldValue('Props Data', JSON.stringify(propsData))
+          await form.fillInputText(
+            { label: 'Props Data' },
+            JSON.stringify(propsData),
+          )
         }
 
-        await this.getDialog().locator(submitButton).click()
+        await this.getPopover(UiKey.ElementPopoverCreate)
+          .getButton({ text: 'Create' })
+          .click()
+
         await this.waitForProgressBar()
 
         await expect(this.getDialog()).toBeHidden()
@@ -193,10 +195,6 @@ export class BuilderPage extends BasePage {
     return this.page.locator('.ant-tree-treenode-selected')
   }
 
-  getSpinner() {
-    return this.page.getByRole('status', { name: 'Loading' })
-  }
-
   getStateAccordion() {
     return this.page.getByTestId('cui-sidebar-view-header-state')
   }
@@ -219,7 +217,7 @@ export class BuilderPage extends BasePage {
   }
 
   getUpdateElementForm() {
-    return this.page.getByTestId('cui-form-update-element-form')
+    return this.getForm$(UiKey.ElementFormUpdate)
   }
 
   async goto(appId: string, pageId: string) {
@@ -297,62 +295,16 @@ export class BuilderPage extends BasePage {
     })
   }
 
-  async setFormFieldValue(
-    label: string,
-    value: string,
-    options?: { locator?: Locator; waitForAutosave?: boolean },
-  ) {
-    return test.step('setFormFieldValue', async () => {
-      const locator = options?.locator ?? this.locator
-
-      if (!locator) {
-        throw new Error('Locator is not set')
-      }
-
-      await setFormFieldValue(locator, {
-        label,
-        value,
-      })
-
-      if (options?.waitForAutosave) {
-        await this.waitForProgressBar()
-      }
-    })
-  }
-
   async updateBuilderElement() {
     return test.step('updateBuilderElement', async () => {
       const buttonTreeElement = this.getTreeElement('Button', 'AntDesignButton')
       const updateElementForm = this.getUpdateElementForm()
 
       await buttonTreeElement.click()
-      await this.setFormFieldValue('Name', this.updatedButtonName, {
+      await this.fillInputText({ label: 'Name' }, this.updatedButtonName, {
         locator: updateElementForm,
         waitForAutosave: true,
       })
-    })
-  }
-
-  /**
-   * Wait for progress bar to appear and then disappear, handling the race condition
-   * between form autosave delay and progress bar visibility.
-   */
-  async waitForProgressBar() {
-    return test.step('waitForProgressBar', async () => {
-      // First, ensure we can detect the progress bar appearing
-      await expect(async () => {
-        const isVisible = this.getGlobalProgressBar()
-
-        await expect(isVisible).toBeVisible({ timeout: 50 })
-      }).toPass({
-        // Use shorter polling intervals for better detection
-        intervals: [25, 50, 100, 125, 150, 175, 200],
-        // Add reasonable timeout to prevent infinite waiting
-        timeout: 10000,
-      })
-
-      // Then wait for it to disappear
-      await expect(this.getGlobalProgressBar()).toBeHidden()
     })
   }
 

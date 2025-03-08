@@ -9,18 +9,23 @@ export class ComponentListPage extends BuilderPage {
   async addComponentProps() {
     return test.step('addComponentProps', async () => {
       const componentTab = this.page.locator('.ant-tabs-tabpane-active')
-      const modal = this.getModalForm(UiKey.FieldPopoverCreate)
-      const submitButton = this.getButton({ text: 'Create' })
 
       await componentTab.getByText('Add').click()
 
-      await this.setFormFieldValue('Key', this.componentPropName)
-      await this.setFormFieldValue('Type', IPrimitiveTypeKind.String)
+      const form = this.getForm(UiKey.FieldFormCreate)
+
+      await form.fillInputText({ label: 'Key' }, this.componentPropName)
+      await form.fillInputSelect({ label: 'Type' }, IPrimitiveTypeKind.String)
       await this.page
         .locator('[name="validationRules.general.nullable"]')
         .click()
 
-      await this.getDialog().locator(submitButton).click()
+      await this.getPopover(UiKey.FieldPopoverCreate)
+        .getButton({
+          text: 'Create',
+        })
+        .click()
+
       await this.waitForProgressBar()
     })
   }
@@ -89,7 +94,10 @@ export class ComponentListPage extends BuilderPage {
     return test.step('openComponentBuilder', async () => {
       const card = this.getCard({ name: this.componentName })
 
-      await this.getButton({ title: 'Edit in Builder' }, card).click()
+      await this.getButton(
+        { title: 'Edit in Builder' },
+        { locator: card },
+      ).click()
 
       await this.checkRootElementExists()
       await expect(this.getSpinner()).toBeHidden()
@@ -119,7 +127,7 @@ export class ComponentListPage extends BuilderPage {
     return test.step('openDeleteComponentModal', async () => {
       const card = this.getCard({ name: this.componentName })
 
-      await this.getButton({ title: 'Delete' }, card).click()
+      await this.getButton({ title: 'Delete' }, { locator: card }).click()
 
       await expect(this.getDialog()).toBeVisible()
     })

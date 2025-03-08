@@ -182,6 +182,9 @@
       "@codelab/backend/infra/adapter/shell": [
         "libs/backend/infra/adapter/shell/src/index.ts"
       ],
+      "@codelab/backend/infra/adapter/ws": [
+        "libs/backend/infra/adapter/ws/src/index.ts"
+      ],
       "@codelab/backend/infra/core": ["libs/backend/infra/core/src/index.ts"],
       "@codelab/backend/shared/errors": [
         "libs/backend/shared/errors/src/index.ts"
@@ -896,6 +899,9 @@
       ],
       "@codelab/frontend/infra/context": [
         "libs/frontend/infra/context/src/index.ts"
+      ],
+      "@codelab/frontend/infra/gql-client": [
+        "libs/frontend/infra/gql-client/src/index.ts"
       ],
       "@codelab/frontend/infra/logger": [
         "libs/frontend/infra/logger/src/index.ts"

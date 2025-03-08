@@ -9,6 +9,7 @@ import { IAtomType, IPageKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { findOrFail } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 
+import { REQUEST_TIMEOUT } from '../../setup/config'
 import { seedAppData } from '../builder/builder.data'
 
 export const componentName = 'Container'
@@ -72,6 +73,7 @@ export const seedTestData = async (request: APIRequestContext) => {
     `/api/v1/element/${page.rootElement.id}/create-elements`,
     {
       data: providerPageElements(page),
+      timeout: REQUEST_TIMEOUT,
     },
   )
 

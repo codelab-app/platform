@@ -97,23 +97,6 @@ const loggerConfig = (0,config_namespaceObject.registerAs)('LOGGER_CONFIG', () =
         get sentryDsn() {
             return external_env_var_namespaceObject.get('SENTRY_DSN').required().asString();
         },
-        get contextFilter() {
-            return external_env_var_namespaceObject.get('API_LOG_CONTEXT_FILTER')
-                .default('')
-                .asString()
-                .split(',')
-                .filter(Boolean)
-                .map((filter) => {
-                const [level, pattern] = filter.split(':');
-                if (!level || !pattern || !(level in levelMapping.values)) {
-                    throw new Error(`Invalid context filter format: ${filter}`);
-                }
-                return {
-                    level: level,
-                    pattern,
-                };
-            });
-        },
         get enableDataForContext() {
             return external_env_var_namespaceObject.get('API_LOG_ENABLE_DATA_FOR_CONTEXT')
                 .default('')
@@ -188,43 +171,25 @@ let PinoLoggerService = class PinoLoggerService extends external_nestjs_pino_nam
     async verboseWithTiming(message, fn, options) {
         return this.executeWithTiming(message, fn, options, 'verbose');
     }
-    /**
-     * Return true by default unless we have a contextFilter with matching level,
-     * in which case we check the pattern
-     */
-    enableLog(level, options) {
-        const context = options?.context ?? '';
-        // Find filters that match the current level
-        const matchingLevelFilters = this.config.contextFilter.filter((filter) => level === filter.level);
-        // If no filters match the level, enable logging by default
-        if (matchingLevelFilters.length === 0) {
-            return true;
-        }
-        // If we have matching level filters, check if any pattern matches
-        return matchingLevelFilters.some((filter) => new RegExp(filter.pattern).test(context));
-    }
     shouldIncludeData(options) {
+        // Disable data for context for now
+        return true;
         const context = options?.context ?? '';
-        // Check if context matches any enable data patterns
         return this.config.enableDataForContext.some((pattern) => {
             return new RegExp(pattern).test(context);
         });
     }
-    logWithOptions(level, message, options) {
-        if (!this.enableLog(level, options)) {
-            return;
-        }
+    logWithOptions(level, message, options = {}) {
         const mappedLevel = labelMapping[level];
+        const logger = this.logger[mappedLevel].bind(this.logger);
         if (!this.shouldIncludeData(options)) {
-            this.logger[mappedLevel]({
+            logger({
                 msg: message,
-                ...('data' in (options ?? {})
-                    ? (0,external_remeda_namespaceObject.omit)(options ?? {}, ['data'])
-                    : options ?? {}),
+                ...(0,external_remeda_namespaceObject.omit)(options, ['data']),
             });
         }
         else {
-            this.logger[mappedLevel]({ msg: message, ...(options ?? {}) });
+            logger({ msg: message, ...options });
         }
     }
     log(message, options) {
@@ -293,6 +258,9 @@ const external_pino_pretty_namespaceObject = require("pino-pretty");
 var external_pino_pretty_default = /*#__PURE__*/__webpack_require__.n(external_pino_pretty_namespaceObject);
 ;// ../../libs/backend/infra/adapter/logger/src/pino/pino-transport.ts
 
+/**
+ * https://github.com/pinojs/pino-pretty/issues/504
+ */
 const prettyOptions = {
     colorize: true,
     // Make this nest.js compatible
@@ -345,6 +313,8 @@ const prettyOptions = {
     // },
     // singleLine: true,
     sync: true,
+    // translateTime: 'SYS:standard',
+    translateTime: 'SYS:h:MM:ss TT',
 };
 const pinoPrettyStream = external_pino_pretty_default()(prettyOptions);
 
@@ -375,6 +345,7 @@ CodelabLoggerModule = (0,external_tslib_namespaceObject.__decorate)([
                             // Disable HTTP requests logging
                             autoLogging: false,
                             customLevels: levelMapping.values,
+                            // Force synchronous logging at the transport level
                             // customLogLevel: (req, res, err) => {
                             //   // Return default level if no specific conditions are met
                             //   return 'verbose'
@@ -417,14 +388,13 @@ CodelabLoggerModule = (0,external_tslib_namespaceObject.__decorate)([
                                 // },
                             },
                             /**
-                             * Stream is async by default, cannot change
+                             * You are using both a transport and a destination. You can't have a both (we should probably throw) the transport logic is inherently asynchronous, as it ran off thread. If you want synchronous pretty printing, you should just use it as a stream.
                              */
-                            // stream: pinoPrettyStream,
-                            // Force synchronous logging at the transport level
-                            transport: {
-                                options: prettyOptions,
-                                target: 'pino-pretty',
-                            },
+                            stream: pinoPrettyStream,
+                            // transport: {
+                            //   options: prettyOptions,
+                            //   target: 'pino-pretty',
+                            // },
                         },
                     };
                 },

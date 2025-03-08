@@ -1,5 +1,6 @@
 export * from './cache.interface'
 export * from './digitalocean.interface'
+export * from './import.interface'
 export * from './repository.interface'
 export * from './schema/schema.service.interface'
 export * from './server.interface'

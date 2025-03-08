@@ -1,7 +1,8 @@
 resource "auth0_client" "machine_client" {
-  name        = "Auth0 Machine Client"
-  description = "A M2M client used by Auth0 Actions Flows"
-  app_type    = "non_interactive"
+  name              = "Auth0 Machine Client"
+  description       = "A M2M client used by Auth0 Actions Flows"
+  app_type          = "non_interactive"
+  cross_origin_auth = true
 
   web_origins     = [var.next_public_web_host]
   allowed_origins = [var.next_public_web_host]

@@ -13,3 +13,7 @@ variable "SLACK_DEFAULT_CHANNEL" {
 variable "NX_CLOUD_ACCESS_TOKEN" {
   type = string
 }
+
+variable "DEBUG" {
+  type = string
+}

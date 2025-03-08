@@ -1,6 +1,6 @@
 import { type ProjectConfiguration, type Tree } from '@nx/devkit'
 
-export const migrateToConfigBasedTest = (
+export const updateTestTargets = (
   tree: Tree,
   projectConfig: ProjectConfiguration,
 ) => {
@@ -10,5 +10,7 @@ export const migrateToConfigBasedTest = (
   if ('targets' in projectConfig) {
     delete projectConfig['targets']?.['test:integration']
     delete projectConfig['targets']?.['test:unit']
+
+    delete projectConfig['targets']?.['test']?.['options']?.['reporters']
   }
 }

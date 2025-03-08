@@ -17,11 +17,15 @@ import { ResourceDomainModule } from '@codelab/backend/domain/resource'
 import { AuthDomainModule } from '@codelab/backend/domain/shared/auth'
 import { StoreDomainModule } from '@codelab/backend/domain/store'
 import { TypeDomainModule } from '@codelab/backend/domain/type'
+import { SEED_QUEUE } from '@codelab/backend/infra/adapter/queue'
+import { WsModule } from '@codelab/backend/infra/adapter/ws'
 import { Neo4jModule } from '@codelab/backend-infra-adapter/neo4j-driver'
+import { BullModule } from '@nestjs/bullmq'
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
 
 import { AppApplicationController } from './app.application.controller'
+import { DemoController } from './demo.controller'
 import {
   ExportAppHandler,
   ImportAppHandler,
@@ -29,9 +33,13 @@ import {
 } from './use-case'
 
 @Module({
-  controllers: [AppApplicationController],
+  controllers: [AppApplicationController, DemoController],
   exports: [],
   imports: [
+    BullModule.registerQueue({
+      name: SEED_QUEUE,
+    }),
+    WsModule,
     AtomDomainModule,
     AuthDomainModule,
     AppDomainModule,

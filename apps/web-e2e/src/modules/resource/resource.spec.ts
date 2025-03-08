@@ -1,7 +1,7 @@
 import { expect } from '@playwright/test'
 
 import { globalBeforeAll } from '../../setup/before-all'
-import { test } from './recource.fixture'
+import { test } from './resource.fixture'
 
 test.describe.configure({ mode: 'serial' })
 
@@ -33,7 +33,7 @@ test('should be able to update resource name', async ({
 })
 
 test('should be able to delete resource', async ({ resourcePage: page }) => {
-  await page.deleteReosurce()
+  await page.deleteResource()
 
   await expect(page.getByExactText(page.resourceName)).toBeHidden()
   await expect(page.getByExactText(page.updatedResourceName)).toBeHidden()

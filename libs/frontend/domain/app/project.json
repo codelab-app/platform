@@ -22,7 +22,6 @@
       "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/app"],
       "options": {
         "jestConfig": "libs/frontend/domain/app/jest.config.ts",
-        "reporters": ["default"],
         "runInBand": true
       }
     }

@@ -6,7 +6,7 @@ import {
   UiKey,
 } from '@codelab/frontend/abstract/types'
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
-import { expect } from '@playwright/test'
+import test, { expect } from '@playwright/test'
 
 export interface CuiSelector {
   /**
@@ -79,33 +79,6 @@ export class BasePage {
     await expect(this.getGlobalProgressBar()).toBeHidden({ timeout: 15000 })
   }
 
-  async fillInputFilterSelect(
-    options: { label: string | RegExp },
-    value: string,
-  ) {
-    const page = this.locator ?? this.page
-
-    // Fill
-    await page.getByLabel(options.label).fill(value)
-
-    // wait for dynamic dropdowns to populate options
-    await expect(page.getByLabel('loading')).toHaveCount(0)
-
-    // Then click on the first item in the dropdown, it's hoisted outside so we don't scope it to the previous locator
-    await this.page
-      .locator(
-        '.ant-select-dropdown:not(.ant-select-dropdown-hidden) .ant-select-item',
-      )
-      .first()
-      .click()
-
-    await expect(
-      this.page.locator(
-        '.ant-select-dropdown:not(.ant-select-dropdown-hidden)',
-      ),
-    ).toBeHidden()
-  }
-
   async fillInputMultiSelect(
     options: { name: string | RegExp },
     values: Array<number | string>,
@@ -132,37 +105,77 @@ export class BasePage {
     }
   }
 
-  async fillInputSelect(options: { label: string | RegExp }, value: string) {
-    const page = this.locator ?? this.page
-    const option = this.page.locator(`.ant-select-item[title="${value}"]`)
+  async fillInputSelect(
+    { label }: { label: string | RegExp },
+    value: string,
+    options?: {
+      locator?: Locator
+      waitForAutosave?: boolean
+    },
+  ) {
+    return test.step('fillInputSelect', async () => {
+      const page = options?.locator ?? this.locator ?? this.page
 
-    await page.getByLabel(options.label).click()
+      // Fill
+      // Input has `readonly` attribute, so we need to force fill
+      await page.getByLabel(label).click({ force: true })
+      await page.getByLabel(label).fill(value, { force: true })
 
-    // wait for dynamic dropdowns to populate options
-    await expect(page.getByLabel('loading')).toHaveCount(0)
+      // wait for dropdown to be visible
+      const visibleDropdown = this.page
+        .locator('.ant-select-dropdown:not(.ant-select-dropdown-hidden)')
+        .filter({
+          has: this.page
+            .locator('.ant-select-item.ant-select-item-option')
+            .filter({
+              hasText: value,
+            }),
+        })
 
-    await this.page
-      .locator(
-        '.ant-select-dropdown:not(.ant-select-dropdown-hidden) .ant-select-item',
-      )
-      .first()
-      .hover()
+      await expect(visibleDropdown).toBeVisible()
 
-    await this.scrollUntilElementIsVisible(option)
-    await option.click()
+      // It's hoisted outside so we don't scope it to the previous locator
+      // Then click on the specific option with matching text
+      await this.page
+        .locator(
+          '.ant-select-dropdown:not(.ant-select-dropdown-hidden) .ant-select-item.ant-select-item-option',
+        )
+        .filter({ hasText: value })
+        .click()
+
+      await expect(
+        this.page.locator(
+          '.ant-select-dropdown:not(.ant-select-dropdown-hidden)',
+        ),
+      ).toBeHidden()
+    })
   }
 
-  fillInputText(options: { label: string | RegExp }, value: string) {
-    const page = this.locator ?? this.page
+  async fillInputText(
+    { label }: { label: string | RegExp },
+    value: string,
+    options?: {
+      locator?: Locator
+      waitForAutosave?: boolean
+    },
+  ) {
+    const page = options?.locator ?? this.locator ?? this.page
 
-    return page.getByRole('textbox', { name: options.label }).fill(value)
+    await page.getByRole('textbox', { name: label }).fill(value)
+
+    if (options?.waitForAutosave) {
+      await this.waitForProgressBar()
+    }
   }
 
   /**
    * Locator chaining need to be passed in
    */
-  getButton({ key, label, text, title }: CuiSelector, locator?: Locator) {
-    const page = locator ?? this.page
+  getButton(
+    { key, label, text, title }: CuiSelector,
+    options?: { locator?: Locator },
+  ) {
+    const page = options?.locator ?? this.locator ?? this.page
 
     const getByLabel = (_label: string | RegExp) => {
       return page
@@ -200,8 +213,18 @@ export class BasePage {
     return this.page.getByText(text, { exact: true })
   }
 
+  getByLabel(label: string | RegExp) {
+    const page = this.locator ?? this.page
+
+    return page.getByLabel(label)
+  }
+
   getCard(options: { name: string | RegExp }) {
     return this.page.locator('.ant-card', { hasText: options.name })
+  }
+
+  getCuiTree() {
+    return this.page.getByTestId(CuiTestId.cuiTree())
   }
 
   /**
@@ -225,16 +248,23 @@ export class BasePage {
     return this
   }
 
+  /**
+   * Returns locator directly
+   */
+  getForm$(key: UiKey) {
+    return this.page.getByTestId(CuiTestId.cuiForm(key))
+  }
+
   getGlobalProgressBar() {
     return this.page.getByRole('progressbar', {
       name: getUiDataLabel(UiKey.ProgressBarGlobal),
     })
   }
 
-  getModalForm(key: UiKey) {
-    const form = this.getDialog().locator('form')
+  getModal(key: UiKey) {
+    const modal = this.page.getByTestId(getUiDataKey(key))
 
-    this.locator = form
+    this.locator = modal
 
     return this
   }
@@ -264,7 +294,10 @@ export class BasePage {
   }
 
   getSpinner() {
-    return this.page.getByRole('status', { name: 'Loading' })
+    return this.page.getByRole('status', { name: 'Loading' }).filter({
+      // Need to ignore next.js toast
+      hasNot: this.page.locator('.nextjs-toast'),
+    })
   }
 
   getToolbarItem(key: UiKey) {
@@ -336,5 +369,29 @@ export class BasePage {
     while (!(await locator.isVisible())) {
       await this.page.mouse.wheel(0, 100)
     }
+  }
+
+  /**
+   * Wait for progress bar to appear and then disappear, handling the race condition
+   * between form autosave delay and progress bar visibility.
+   */
+  async waitForProgressBar() {
+    return test.step('waitForProgressBar', async () => {
+      // First, ensure we can detect the progress bar appearing
+      await expect(async () => {
+        const isVisible = this.getGlobalProgressBar()
+
+        await expect(isVisible).toBeVisible({ timeout: 25 })
+      }).toPass({
+        // Use shorter polling intervals for better detection
+        // Defaults to [100, 250, 500, 1000]
+        intervals: [25, 50, 100, 250, 500, 1000],
+        // Add reasonable timeout to prevent infinite waiting
+        timeout: 10000,
+      })
+
+      // Then wait for it to disappear
+      await expect(this.getGlobalProgressBar()).toBeHidden()
+    })
   }
 }

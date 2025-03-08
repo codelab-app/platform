@@ -72,33 +72,9 @@ export class PinoLoggerService extends Logger implements ILoggerService {
     return this.executeWithTiming(message, fn, options, 'verbose')
   }
 
-  /**
-   * Return true by default unless we have a contextFilter with matching level,
-   * in which case we check the pattern
-   */
-  private enableLog(level: LogLevel, options?: LogOptions) {
-    const context = options?.context ?? ''
-
-    // Find filters that match the current level
-    const matchingLevelFilters = this.config.contextFilter.filter(
-      (filter) => level === filter.level,
-    )
-
-    // If no filters match the level, enable logging by default
-    if (matchingLevelFilters.length === 0) {
-      return true
-    }
-
-    // If we have matching level filters, check if any pattern matches
-    return matchingLevelFilters.some((filter) =>
-      new RegExp(filter.pattern).test(context),
-    )
-  }
-
   private shouldIncludeData(options?: LogOptions) {
     const context = options?.context ?? ''
 
-    // Check if context matches any enable data patterns
     return this.config.enableDataForContext.some((pattern) => {
       return new RegExp(pattern).test(context)
     })
@@ -107,23 +83,18 @@ export class PinoLoggerService extends Logger implements ILoggerService {
   private logWithOptions(
     level: LogLevel,
     message: string,
-    options?: LogOptions,
+    options: LogOptions = {},
   ): void {
-    if (!this.enableLog(level, options)) {
-      return
-    }
-
     const mappedLevel = labelMapping[level]
+    const logger = this.logger[mappedLevel].bind(this.logger)
 
     if (!this.shouldIncludeData(options)) {
-      this.logger[mappedLevel]({
+      logger({
         msg: message,
-        ...('data' in (options ?? {})
-          ? omit(options ?? {}, ['data'])
-          : options ?? {}),
+        ...omit(options, ['data']),
       })
     } else {
-      this.logger[mappedLevel]({ msg: message, ...(options ?? {}) })
+      logger({ msg: message, ...options })
     }
   }
 

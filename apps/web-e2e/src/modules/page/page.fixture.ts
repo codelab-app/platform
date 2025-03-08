@@ -2,7 +2,6 @@ import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import { IPageKindName } from '@codelab/shared/abstract/core'
 import { test as base, expect, request } from '@playwright/test'
 
-import { getCuiTree } from '../../commands'
 import { BasePage } from '../../locators/pages'
 
 export class PageListPage extends BasePage {
@@ -26,7 +25,9 @@ export class PageListPage extends BasePage {
     // wait for the form to stabilize and finish animations
     await expect(form.getByExactText('Use / for "Home" page')).toBeVisible()
     await form.fillInputText({ label: 'Name' }, this.pageName)
-    await form.getButton({ text: 'Create' }).click()
+    await this.getPopover(UiKey.PagePopoverCreate)
+      .getButton({ text: 'Create' })
+      .click()
     await this.expectGlobalProgressBarToBeHidden()
   }
 
@@ -45,7 +46,7 @@ export class PageListPage extends BasePage {
   }
 
   async expectSystemPagesToExist() {
-    const cuiTree = getCuiTree(this.page)
+    const cuiTree = this.getCuiTree()
 
     await expect(cuiTree.getByText(IPageKindName.Provider)).toBeVisible()
     await expect(cuiTree.getByText(IPageKindName.NotFound)).toBeVisible()
@@ -67,7 +68,9 @@ export class PageListPage extends BasePage {
     const form = await this.getForm(UiKey.PageFormUpdate)
 
     await form.fillInputText({ label: 'Name' }, this.updatedPageName)
-    await form.getButton({ text: 'Update' }).click()
+    await this.getPopover(UiKey.PagePopoverUpdate)
+      .getButton({ text: 'Update' })
+      .click()
     await this.expectGlobalProgressBarToBeHidden()
   }
 }

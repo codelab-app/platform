@@ -21,14 +21,16 @@ export class ResourcePage extends BasePage {
     const form = this.getForm(UiKey.ResourceFormCreate)
 
     await form.fillInputText({ label: 'Name' }, this.resourceName)
-    await form.fillInputFilterSelect({ label: 'Type' }, IResourceType.GraphQl)
+    await form.fillInputSelect({ label: 'Type' }, IResourceType.GraphQl)
     await form.fillInputText({ label: 'Url' }, this.resourcesUrl)
-    await form.getButton({ text: 'Create' }).click()
+    await this.getPopover(UiKey.ResourcePopoverCreate)
+      .getButton({ text: 'Create' })
+      .click()
 
     await this.expectGlobalProgressBarToBeHidden()
   }
 
-  async deleteReosurce() {
+  async deleteResource() {
     await this.getTreeItemByPrimaryTitle$(this.updatedResourceName).hover()
     await this.getTreeItemByPrimaryTitle(this.updatedResourceName)
       .getToolbarItem(UiKey.ResourceToolbarItemDelete)
@@ -36,9 +38,9 @@ export class ResourcePage extends BasePage {
 
     await this.page.waitForURL('/resources/delete/**')
 
-    const form = await this.getForm(UiKey.ResourceModalDelete)
+    const modal = await this.getModal(UiKey.ResourceModalDelete)
 
-    await form.getButton({ label: 'Confirmation Button' }).click()
+    await modal.getButton({ label: 'Confirmation Button' }).click()
     await this.expectGlobalProgressBarToBeHidden()
   }
 
@@ -53,7 +55,9 @@ export class ResourcePage extends BasePage {
     const form = this.getForm(UiKey.ResourceFormUpdate)
 
     await form.fillInputText({ label: 'Name' }, this.updatedResourceName)
-    await form.getButton({ text: 'Update' }).click()
+    await this.getPopover(UiKey.ResourcePopoverUpdate)
+      .getButton({ text: 'Update' })
+      .click()
 
     await this.expectGlobalProgressBarToBeHidden()
   }

@@ -7,6 +7,7 @@ import { NotFoundError } from '@codelab/shared/domain/errors'
 import { Validator } from '@codelab/shared/infra/typebox'
 import { Injectable } from '@nestjs/common'
 import { startSpan } from '@sentry/nestjs'
+import { chunk } from 'remeda'
 
 @Injectable()
 export abstract class AbstractRepository<
@@ -77,7 +78,33 @@ export abstract class AbstractRepository<
       },
       async () => {
         try {
-          return await this._addMany(data)
+          const BATCH_SIZE = 3
+          const batches = chunk(data, BATCH_SIZE)
+
+          this.loggerService.debug('Processing data in batches', {
+            batchCount: batches.length,
+            batchSize: BATCH_SIZE,
+            context: this.constructor.name,
+            totalItems: data.length,
+          })
+
+          // Process each batch and combine results
+          const results: Array<IDiscriminatedRef<INodeType>> = []
+
+          for (const [i, batch] of batches.entries()) {
+            this.loggerService.debug(
+              `Processing batch (${i + 1}/${batches.length})`,
+              {
+                context: this.constructor.name,
+              },
+            )
+
+            const batchResults = await this._addMany(batch)
+
+            results.push(...batchResults)
+          }
+
+          return results
         } catch (error) {
           this.loggerService.error('Failed to add items', {
             context: this.constructor.name,
@@ -207,6 +234,13 @@ export abstract class AbstractRepository<
           ? (await this.find({ schema, where }))[0]
           : (await this.find({ where }))[0]
 
+        this.loggerService.verbose('Found result', {
+          context: this.constructor.name,
+          data: {
+            exists: Boolean(results),
+          },
+        })
+
         if (!results) {
           return undefined
         }
@@ -285,17 +319,7 @@ export abstract class AbstractRepository<
             return await this.add(data)
           }
 
-          return await this.loggerService.verboseWithTiming(
-            'Saving item',
-            saveItem,
-            {
-              context: this.constructor.name,
-              data: {
-                data,
-                where,
-              },
-            },
-          )
+          return saveItem()
         } catch (error) {
           this.loggerService.error('Failed to save item', {
             context: this.constructor.name,

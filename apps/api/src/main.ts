@@ -1,5 +1,7 @@
 import type { endpointConfig } from '@codelab/backend/infra/core'
+import type { INestApplication } from '@nestjs/common'
 import type { ConfigType } from '@nestjs/config'
+import type * as http from 'http'
 
 import { GraphqlService } from '@codelab/backend/infra/adapter/graphql'
 import {
@@ -10,6 +12,10 @@ import { ENDPOINT_CONFIG_KEY } from '@codelab/backend/infra/core'
 import { Logger } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { HttpAdapterHost, NestFactory } from '@nestjs/core'
+import {
+  ExpressAdapter,
+  type NestExpressApplication,
+} from '@nestjs/platform-express'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { configureNestJsTypebox } from 'nestjs-typebox'
 
@@ -28,12 +34,11 @@ configureNestJsTypebox({
 })
 
 const bootstrap = async () => {
-  const app = await NestFactory.create(RootModule, {
-    /**
-     * Enables devtools https://docs.nestjs.com/devtools/overview
-     */
-    // snapshot: true,
-    // logger: false,
+  const app = await NestFactory.create<NestExpressApplication>(RootModule, {
+    cors: {
+      allowedHeaders: ['*'],
+      credentials: true,
+    },
   })
 
   app.enableShutdownHooks()
@@ -83,15 +88,33 @@ const bootstrap = async () => {
    */
 
   const port = config.apiPort
+  const server = app.getHttpServer()
 
-  await app.listen(port).then(() => {
+  // This helps increase socket timeout issue
+  server.setTimeout(60000)
+
+  // Keep-Alive timeout is different than socket timeout
+  server.keepAliveTimeout = 60000
+
+  await app.listen(port).then((_server) => {
     const graphqlService = app.get(GraphqlService)
 
     graphqlService.serverReadyHook()
+
+    console.log('keepAliveTimeout', _server.keepAliveTimeout)
   })
+
   Logger.log(
     `🚀 Application is running on: http://127.0.0.1:${port}${baseApiPath}`,
   )
 }
 
 void bootstrap()
+
+process.on('uncaughtException', (error) => {
+  console.error('🔴 UNCAUGHT EXCEPTION:', error)
+})
+
+process.on('unhandledRejection', (reason) => {
+  console.error('🔴 UNHANDLED REJECTION:', reason)
+})

@@ -84,15 +84,15 @@ const nextConfig = {
     // typedRoutes: true,
     // instrumentationHook: enableInstrumentation,
 
-    // 20 min
+    // 120s
     // increase timeout for long-running proxy request,
     // e.g. request from admin to seed the db; request to seed database in e2e
-    proxyTimeout: 1200_000,
+    proxyTimeout: 120_000,
     turbo: {
       rules: {
         '*.svg': {
-          loaders: ['@svgr/webpack'],
           as: '*.js',
+          loaders: ['@svgr/webpack'],
         },
       },
     },
@@ -101,7 +101,7 @@ const nextConfig = {
   // https://github.com/ant-design/ant-design-examples/blob/main/examples/with-nextjs-app-router-inline-style/next.config.js
   // productionBrowserSourceMaps: true,
   // disable to support uniforms
-  // https://github.com/vazco/uniforms/issues/1194
+  // http://github.com/vazco/uniforms/issues/1194
   reactStrictMode: false,
   /**
    * https://nextjs.org/docs/app/building-your-application/routing/middleware#matching-paths
@@ -109,6 +109,9 @@ const nextConfig = {
   rewrites: async () => ({
     afterFiles: [],
     // We only need middleware to set the session
+    /**
+     * https://github.com/vercel/next.js/issues/36251
+     */
     beforeFiles: [
       {
         destination: `${apiHost}/graphql`,

@@ -20,7 +20,6 @@
       "options": {
         "jestConfig": "libs/frontend/domain/auth-guard/jest.config.ts",
         "passWithNoTests": true,
-        "reporters": ["default"],
         "runInBand": true
       },
       "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/auth-guard"]

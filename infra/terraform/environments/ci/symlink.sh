@@ -9,6 +9,7 @@ ln -s ../shared/vars-auth0.tf ./vars-auth0.symlink.tf
 ln -s ../shared/vars-auth0-secret.tf ./vars-auth0-secret.symlink.tf
 ln -s ../shared/vars-codelab-api-hostname.tf ./vars-codelab-api-hostname.symlink.tf
 ln -s ../shared/vars-codelab-api-port.tf ./vars-codelab-api-port.symlink.tf
+ln -s ../shared/vars-codelab-api-log.tf ./vars-codelab-api-log.symlink.tf
 ln -s ../shared/vars-codelab-web.tf ./vars-codelab-web.symlink.tf
 ln -s ../shared/vars-supabase.tf ./vars-supabase.symlink.tf
 ln -s ../shared/vars-docker.tf ./vars-docker.symlink.tf

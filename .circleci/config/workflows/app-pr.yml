@@ -84,7 +84,7 @@ jobs:
       # 4gb docker + 4gb node = 8gb large
       # 4gb for docker is not enough for high throughput tests
       resource_class: large
-      max_old_space_size: 4096
+      max_old_space_size: 8192
       filters:
         branches:
           ignore:
@@ -94,8 +94,7 @@ jobs:
         - setup-workspace
   - e2e:
       resource_class: large
-      # Save ram for docker images
-      max_old_space_size: 4096
+      max_old_space_size: 8192
       filters:
         branches:
           ignore:

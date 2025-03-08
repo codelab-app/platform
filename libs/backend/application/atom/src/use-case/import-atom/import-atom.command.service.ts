@@ -20,10 +20,8 @@ export class ImportAtomHandler
     private readonly logger: PinoLoggerService,
   ) {}
 
-  async execute(command: ImportAtomCommand) {
-    const {
-      atomImport: { api, atom },
-    } = command
+  async execute({ atomImport }: ImportAtomCommand) {
+    const { api, atom } = atomImport
 
     const importApi = async () => {
       await this.commandBus.execute<ImportApiCommand>(new ImportApiCommand(api))

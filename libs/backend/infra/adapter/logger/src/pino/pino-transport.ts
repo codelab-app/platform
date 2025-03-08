@@ -4,6 +4,9 @@ import type { PrettyOptions } from 'pino-pretty'
 import pino from 'pino'
 import pretty from 'pino-pretty'
 
+/**
+ * https://github.com/pinojs/pino-pretty/issues/504
+ */
 export const prettyOptions: PrettyOptions = {
   colorize: true,
 
@@ -59,6 +62,8 @@ export const prettyOptions: PrettyOptions = {
   // },
   // singleLine: true,
   sync: true,
+  // translateTime: 'SYS:standard',
+  translateTime: 'SYS:h:MM:ss TT',
 }
 
 export const pinoPrettyStream = pretty(prettyOptions)

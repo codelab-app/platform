@@ -116,6 +116,7 @@
       "cache": true,
       "inputs": ["default", "^default", "{workspaceRoot}/jest.preset.ts"],
       "options": {
+        "parallel": 1,
         "passWithNoTests": true
       },
       "configurations": {
@@ -136,7 +137,6 @@
           "testPathIgnorePatterns": ["i.spec.ts"]
         },
         "test.integration": {
-          "memoryLimit": 4096,
           "reporters": ["default"],
           "color": true,
           "testPathPattern": ["i.spec.ts"],
@@ -144,7 +144,7 @@
         },
         "ci.integration": {
           "ci": true,
-          "codeCoverage": true,
+          "codeCoverage": false,
           "color": true,
           "testPathPattern": ["i.spec.ts"],
           "runInBand": true

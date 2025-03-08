@@ -13,6 +13,9 @@ environment:
 
 parallelism: 4
 steps:
+  # This increases memory by double
+  - setup_remote_docker:
+      version: default
   - restore-workspace-database
   - setup-neo4j
   - restore_cache:
@@ -23,11 +26,20 @@ steps:
         - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-
         - nx-cache-
   - run: pnpm npx playwright install-deps
-  # - setup_remote_docker:
-  #     version: default
   # No need since we're not building anything
   # Also very expensive in terms of storage
   # docker_layer_caching: true
+  # - run:
+  #     name: 'Check System Resources'
+  #     command: |
+  #       sudo apt-get update && sudo apt-get install -y htop
+  #       # Use htop with supported flags
+  #       htop -n 1
+  # - run:
+  #     name: 'Check Docker Memory'
+  #     command: |
+  #       echo "=== Docker Container Memory Stats ==="
+  #       docker ps --format "{{.Names}}" | grep neo4j | xargs -I {} docker stats {} --no-stream --format "table {{.Name}}\t{{.MemUsage}}\t{{.MemPerc}}"
   - run:
       name: 'Run E2E Tests'
       # https://github.com/cypress-io/circleci-orb/issues/386
@@ -41,6 +53,24 @@ steps:
 
         pnpm nx e2e web-e2e -c ci \
           --shard=${SHARD}/${CIRCLE_NODE_TOTAL}
+
+          # --testFiles="modules/demo/demo.spec.ts" \
+          # --testFiles="modules/auth-guard/auth-guard.spec.ts"
+
+  # https://stackoverflow.com/questions/68916222/docker-build-error-cannot-connect-to-the-docker-daemon-at-unix-var-run-docke/68922177#68922177
+  - run:
+      name: Capture Docker logs
+      command: |
+        set -x
+
+        mkdir -p ~/project/tmp/logs
+
+        docker logs $(docker ps --filter "ancestor=neo4j:5.26.3-enterprise" --format "{{.ID}}") > ~/project/tmp/logs/neo4j.log 2>&1
+      # This ensures logs are captured even if previous steps fail
+      when: always
+  - store_artifacts:
+      path: ~/project/tmp/logs
+      destination: docker-logs
   - store_artifacts:
       path: ~/project/tmp/reports/e2e
       destination: playwright-report

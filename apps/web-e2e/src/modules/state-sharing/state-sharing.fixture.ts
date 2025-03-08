@@ -14,66 +14,77 @@ import {
  */
 export class StateSharingPage extends BuilderPage {
   async createStateVariable(defaultValue: string) {
-    const stateAccordion = this.getStateAccordion()
+    return base.step('createStateVariable', async () => {
+      const stateAccordion = this.getStateAccordion()
 
-    const createVariable = stateAccordion.getByTestId(
-      'cui-toolbar-item-create-field-toolbar-item',
-    )
+      const createVariable = stateAccordion.getByTestId(
+        'cui-toolbar-item-create-field-toolbar-item',
+      )
 
-    const submitButton = this.getButton({ text: 'Create' })
-    const modal = this.getModalForm(UiKey.ElementPopoverCreate)
+      await createVariable.click()
 
-    await createVariable.click()
-    await this.setFormFieldValue('Key', 'name')
-    await this.setFormFieldValue('Type', 'String')
-    await this.setFormFieldValue('Default values', defaultValue)
-    await this.getDialog().locator(submitButton).click()
+      const form = this.getForm(UiKey.FieldFormCreate)
 
-    await expect(this.getDialog()).toBeHidden()
-    await expect(this.getGlobalProgressBar()).toBeHidden()
-    await expect(this.getNotification()).toHaveText(
-      'Field created successfully',
-    )
+      await form.fillInputText({ label: 'Key' }, 'name')
+      await form.fillInputSelect({ label: 'Type' }, 'String')
+      await form.fillInputText({ label: 'Default values' }, defaultValue)
+
+      await this.getPopover(UiKey.FieldPopoverCreate)
+        .getButton({ text: 'Create' })
+        .click()
+
+      await expect(this.getDialog()).toBeHidden()
+      await expect(this.getGlobalProgressBar()).toBeHidden()
+      await expect(this.getNotification()).toHaveText(
+        'Field created successfully',
+      )
+    })
   }
 
   async expandElementsTree() {
-    const space = this.getTreeElement(
-      spaceElementName,
-      IAtomType.AntDesignSpace,
-    )
+    return base.step('expandElementsTree', async () => {
+      const space = this.getTreeElement(
+        spaceElementName,
+        IAtomType.AntDesignSpace,
+      )
 
-    const typography = this.getTreeElement(
-      typographyElement.name,
-      typographyElement.atom,
-    )
+      const typography = this.getTreeElement(
+        typographyElement.name,
+        typographyElement.atom,
+      )
 
-    await this.page.locator('.ant-tree-switcher_close').click()
-    await expect(space).toBeVisible()
+      await this.page.locator('.ant-tree-switcher_close').click()
+      await expect(space).toBeVisible()
 
-    await this.page.locator('.ant-tree-switcher_close').click()
-    await expect(typography).toBeVisible()
+      await this.page.locator('.ant-tree-switcher_close').click()
+      await expect(typography).toBeVisible()
+    })
   }
 
   async goToComponentBuilder() {
-    await this.page.goto(PageType.ComponentBuilder({ componentId }))
+    return base.step('goToComponentBuilder', async () => {
+      await this.page.goto(PageType.ComponentBuilder({ componentId }))
+    })
   }
 
   async setComponentElementText() {
-    const outputContainer = this.getBuilderRenderContainer()
-    const typography = outputContainer.locator('.ant-typography')
-    const elementOverlay = this.getElementOverlay()
+    return base.step('setComponentElementText', async () => {
+      const outputContainer = this.getBuilderRenderContainer()
+      const typography = outputContainer.locator('.ant-typography')
+      const elementOverlay = this.getElementOverlay()
 
-    await expect(typography).toBeVisible()
-    await this.selectTreeElement(typographyElement)
+      await expect(typography).toBeVisible()
+      await this.selectTreeElement(typographyElement)
 
-    await expect(elementOverlay).toHaveText(typographyElement.name)
+      await expect(elementOverlay).toHaveText(typographyElement.name)
 
-    await this.getToggleTextEditorButton().click()
-    await this.getTextEditorInput().fill(
-      'text {{ componentProps.name ?? rootState.name ?? state.name }}',
-    )
-    await this.waitForProgressBar()
-    await this.getToggleTextEditorButton().click()
+      await this.getToggleTextEditorButton().click()
+      await this.getTextEditorInput().fill(
+        'text {{ componentProps.name ?? rootState.name ?? state.name }}',
+      )
+      await this.waitForProgressBar()
+      await this.getToggleTextEditorButton().click()
+    })
   }
 }
 

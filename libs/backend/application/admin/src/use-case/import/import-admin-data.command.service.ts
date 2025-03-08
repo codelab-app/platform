@@ -11,7 +11,7 @@ import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 import { omit } from 'radash'
 
 export class ImportAdminDataCommand implements IBaseDataPaths {
-  constructor(public baseDataPaths?: string) {}
+  constructor(public baseDataPath?: string) {}
 }
 
 /**
@@ -27,9 +27,9 @@ export class ImportAdminDataHandler
     private readonly logger: PinoLoggerService,
   ) {}
 
-  async execute({ baseDataPaths }: ImportAdminDataCommand) {
-    if (baseDataPaths) {
-      this.readAdminDataService.migrationDataService.basePaths = baseDataPaths
+  async execute({ baseDataPath }: ImportAdminDataCommand) {
+    if (baseDataPath) {
+      this.readAdminDataService.migrationDataService.basePaths = baseDataPath
     }
 
     /**

@@ -1,10 +1,8 @@
 import type { IAppDto } from '@codelab/shared/abstract/core'
 
-import { PageType, PrimarySidebar } from '@codelab/frontend/abstract/types'
 import { expect } from '@playwright/test'
 import { merge } from 'remeda'
 
-import { getCuiTree } from '../../commands'
 import { globalBeforeAll } from '../../setup/before-all'
 import { seedAppData, seedPageData } from '../builder/builder.data'
 import { seedResourceData } from './auth-guard.data'
@@ -16,8 +14,9 @@ test.describe.configure({ mode: 'serial' })
 
 globalBeforeAll()
 
-test.beforeAll(async ({ request }) => {
+test.beforeAll(async ({ request }, testInfo) => {
   app = await seedAppData(request)
+
   await seedPageData(request, merge(authGuardPageData, { app }))
   await seedResourceData(request)
 })
@@ -33,9 +32,7 @@ test('should be able to create auth guard', async ({ authGuardPage: page }) => {
   await page.expectNoPreexistingGuards()
   await page.createAuthGuard()
 
-  await expect(
-    getCuiTree(page.page).getByText(page.authGuardName),
-  ).toBeVisible()
+  await expect(page.getCuiTree().getByText(page.authGuardName)).toBeVisible()
 })
 
 test('should be able to create page auth guard redirect', async ({
@@ -44,7 +41,7 @@ test('should be able to create page auth guard redirect', async ({
   await page.goToAppPageList(app.id, authGuardPageData.id)
 
   await expect(
-    getCuiTree(page.page).getByText(authGuardPageData.name),
+    page.getCuiTree().getByText(authGuardPageData.name),
   ).toBeVisible()
 
   await page.createAuthGuardRedirect()
@@ -88,17 +85,17 @@ test('should be able to delete page auth guard redirect', async ({
 test('should be able to update auth guard', async ({ authGuardPage: page }) => {
   await page.updateAuthGuard()
 
-  await expect(getCuiTree(page.page).getByText(page.authGuardName)).toBeHidden()
+  await expect(page.getCuiTree().getByText(page.authGuardName)).toBeHidden()
   await expect(
-    getCuiTree(page.page).getByText(page.updatedAuthGuardName),
+    page.getCuiTree().getByText(page.updatedAuthGuardName),
   ).toBeVisible()
 })
 
 test('should be able to delete auth guard', async ({ authGuardPage: page }) => {
   await page.deleteAuthGuard()
 
-  await expect(getCuiTree(page.page).getByText(page.authGuardName)).toBeHidden()
+  await expect(page.getCuiTree().getByText(page.authGuardName)).toBeHidden()
   await expect(
-    getCuiTree(page.page).getByText(page.updatedAuthGuardName),
+    page.getCuiTree().getByText(page.updatedAuthGuardName),
   ).toBeHidden()
 })

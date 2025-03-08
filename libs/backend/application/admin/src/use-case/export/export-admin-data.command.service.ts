@@ -14,7 +14,7 @@ import { ExportSystemTypesCommand } from '@codelab/backend/application/type'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
 export class ExportAdminDataCommand implements IBaseDataPaths {
-  constructor(public baseDataPaths?: string) {}
+  constructor(public baseDataPath?: string) {}
 }
 
 /**
@@ -31,9 +31,9 @@ export class ExportAdminDataHandler
     private componentApplicationService: ComponentApplicationService,
   ) {}
 
-  async execute({ baseDataPaths }: ExportAdminDataCommand) {
-    if (baseDataPaths) {
-      this.writeAdminDataService.migrationDataService.basePaths = baseDataPaths
+  async execute({ baseDataPath }: ExportAdminDataCommand) {
+    if (baseDataPath) {
+      this.writeAdminDataService.migrationDataService.basePaths = baseDataPath
     }
 
     const systemTypes = await this.commandBus.execute<

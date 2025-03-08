@@ -72,6 +72,8 @@ export const seedTestData = async (request: APIRequestContext) => {
 
   const component = await componentResponse.json()
 
+  console.log('component', component)
+
   await request.post(
     `/api/v1/element/${component.rootElement.id}/create-elements`,
     { data: [spaceElement(component.rootElement), typographyElement] },

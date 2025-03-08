@@ -31,8 +31,10 @@ export class AuthGuardPage extends BasePage {
       const form = await this.getForm(UiKey.AuthGuardFormCreate)
 
       await form.fillInputText({ label: 'Name' }, this.authGuardName)
-      await form.fillInputFilterSelect({ label: 'Resource' }, resourceName)
-      await form.getButton({ text: 'Create' }).click()
+      await form.fillInputSelect({ label: 'Resource' }, resourceName)
+      await this.getPopover(UiKey.AuthGuardPopoverCreate)
+        .getButton({ text: 'Create' })
+        .click()
       await this.expectGlobalProgressBarToBeHidden()
     })
   }
@@ -49,13 +51,12 @@ export class AuthGuardPage extends BasePage {
 
       const form = await this.getForm(UiKey.RedirectFormCreate)
 
-      await form.fillInputFilterSelect(
-        { label: 'Auth Guard' },
-        this.authGuardName,
-      )
+      await form.fillInputSelect({ label: 'Auth Guard' }, this.authGuardName)
       await form.fillInputSelect({ label: 'Target type' }, 'Url')
       await form.fillInputText({ label: 'Target url' }, 'http://test.com')
-      await form.getButton({ text: 'Create' }).click()
+      await this.getPopover(UiKey.RedirectPopoverCreate)
+        .getButton({ text: 'Create' })
+        .click()
       await this.expectGlobalProgressBarToBeHidden()
     })
   }
@@ -67,9 +68,9 @@ export class AuthGuardPage extends BasePage {
         .getToolbarItem(UiKey.AuthGuardToolbarItemDelete)
         .click()
 
-      const form = await this.getForm(UiKey.AuthGuardModalDelete)
+      const modal = await this.getModal(UiKey.AuthGuardModalDelete)
 
-      await form.getButton({ label: 'Confirmation Button' }).click()
+      await modal.getButton({ label: 'Confirmation Button' }).click()
       await this.expectGlobalProgressBarToBeHidden()
     })
   }
@@ -83,7 +84,7 @@ export class AuthGuardPage extends BasePage {
 
       const popover = await this.getPopover(UiKey.RedirectPopoverUpdate)
 
-      await popover.getButton({ text: 'Delete' }, this.locator).click()
+      await popover.getButton({ text: 'Delete' }).click()
       await popover.clickPopconfirmButton(UiKey.RedirectPopconfirmDelete)
 
       await expect(this.getGlobalProgressBar()).toBeHidden()
@@ -120,7 +121,9 @@ export class AuthGuardPage extends BasePage {
       const form = await this.getForm(UiKey.AuthGuardFormUpdate)
 
       await form.fillInputText({ label: 'Name' }, this.updatedAuthGuardName)
-      await form.getButton({ text: 'Update' }).click()
+      await this.getPopover(UiKey.AuthGuardPopoverUpdate)
+        .getButton({ text: 'Update' })
+        .click()
       await this.expectGlobalProgressBarToBeHidden()
     })
   }
@@ -141,7 +144,9 @@ export class AuthGuardPage extends BasePage {
         { label: 'Target url' },
         'http://test-updated.com',
       )
-      await form.getButton({ text: 'Update' }).click()
+      await this.getPopover(UiKey.RedirectPopoverUpdate)
+        .getButton({ text: 'Update' })
+        .click()
       await this.expectGlobalProgressBarToBeHidden()
     })
   }

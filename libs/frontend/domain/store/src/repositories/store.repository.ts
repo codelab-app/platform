@@ -11,7 +11,6 @@ import {
   storeServerActions,
 } from '@codelab/shared-domain-module/store'
 import { withTracingMethods } from '@codelab/shared-infra-sentry'
-import { revalidateTag } from 'next/cache'
 
 const { CreateStores, DeleteStores, GetStores, UpdateStores } =
   storeServerActions
@@ -69,6 +68,3 @@ export const storeRepository: IStoreRepository = withTracingMethods('store', {
     return updatedStore
   },
 })
-
-export const invalidateStoreListQuery = async () =>
-  revalidateTag(CACHE_TAGS.STORE_LIST)
