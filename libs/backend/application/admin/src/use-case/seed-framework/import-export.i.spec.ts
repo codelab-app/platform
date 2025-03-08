@@ -1,12 +1,11 @@
 import {
-  BASE_DATA_PATH,
+  BASE_DATA_PROD_PATH,
   getAtomsFromFiles,
-  productionDataPath,
 } from '@codelab/backend/application/data'
 import { CommandBusSubscription } from '@codelab/backend/infra/core'
 import { deleteFilesSync } from '@codelab/backend/shared/util'
 import { initUserContext } from '@codelab/backend/test/setup'
-import { IAtomType } from '@codelab/shared/abstract/core'
+import { IAtomCategory, IAtomType } from '@codelab/shared/abstract/core'
 import { isSubset } from '@codelab/shared/utils'
 import { CommandBus } from '@nestjs/cqrs'
 import { copy, ensureDir, readdirSync, readFileSync, rmSync } from 'fs-extra'
@@ -51,10 +50,10 @@ describe('Seed, import, & export data', () => {
     await ensureDir(testDataPath)
     await ensureDir(testExportDataPath)
 
-    await copy(productionDataPath, testDataPath)
+    await copy(BASE_DATA_PROD_PATH, testDataPath)
 
     const atoms = getAtomsFromFiles({
-      category: 'AntDesign',
+      category: IAtomCategory.AntDesign,
       // overrides: [IAtomType.ReactFragment],
     })
 
@@ -69,7 +68,7 @@ describe('Seed, import, & export data', () => {
 
   it('should check the atom files is a subset of the enum', () => {
     const files = readdirSync(
-      path.resolve(productionDataPath, 'admin/atoms'),
+      path.resolve(BASE_DATA_PROD_PATH, 'admin/atoms'),
     ).map((file) => path.parse(file).name)
 
     const atoms = Object.values(IAtomType)
@@ -107,7 +106,7 @@ describe('Seed, import, & export data', () => {
         const unCommittedPath = path.resolve(file)
         // console.log('absoluteFilePath', unCommittedPath)
         // console.log('baseDataPath', BASE_DATA_PATH)
-        const isInTestDataPath = unCommittedPath.startsWith(BASE_DATA_PATH)
+        const isInTestDataPath = unCommittedPath.startsWith(BASE_DATA_PROD_PATH)
 
         return _matches || isInTestDataPath
       },
