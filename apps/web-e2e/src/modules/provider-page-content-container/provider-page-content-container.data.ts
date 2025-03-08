@@ -11,6 +11,7 @@ import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
 import { findOrFail } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 
+import { requestOrThrow } from '../../api'
 import { seedAppData } from '../builder/builder.data'
 
 export const pageId = v4()
@@ -46,21 +47,28 @@ export const regularPageCreateData = (app: IAppDto): ICreatePageData => ({
 export const seedTestData = async (request: APIRequestContext) => {
   const app = await seedAppData(request)
 
-  const regularPageResponse = await request.post('/api/v1/page/create', {
-    data: regularPageCreateData(app),
-  })
-
-  const regularPage = await regularPageResponse.json()
+  const regularPage = await requestOrThrow<IPage>(
+    request,
+    '/api/v1/page/create',
+    {
+      data: regularPageCreateData(app),
+    },
+  )
 
   const page: IPage = findOrFail(
     app.pages,
     ({ kind }) => kind === IPageKind.Provider,
   )
 
-  await request.post(`/api/v1/element/${page.rootElement.id}/create-elements`, {
-    data: [providerPageCardElementCreateData(page)],
-  })
-  await request.post(
+  await requestOrThrow(
+    request,
+    `/api/v1/element/${page.rootElement.id}/create-elements`,
+    {
+      data: [providerPageCardElementCreateData(page)],
+    },
+  )
+  await requestOrThrow(
+    request,
     `/api/v1/element/${regularPage.rootElement.id}/create-elements`,
     { data: [regularPageInputElementCreateData(regularPage)] },
   )

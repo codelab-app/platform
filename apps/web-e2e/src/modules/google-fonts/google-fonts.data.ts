@@ -7,6 +7,7 @@ import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
 import { type APIRequestContext } from '@playwright/test'
 import { v4 } from 'uuid'
 
+import { requestOrThrow } from '../../api'
 import { REQUEST_TIMEOUT } from '../../setup/config'
 import { seedAppData } from '../builder/builder.data'
 
@@ -36,34 +37,18 @@ export const seedTestData = async (request: APIRequestContext) => {
   const app = await seedAppData(request)
   const page = app.pages![0]!
 
-  const systemComponentsResponse = await request.post(
-    '/api/v1/component/seed-system-components',
-    {
-      timeout: REQUEST_TIMEOUT,
-    },
-  )
+  await requestOrThrow(request, '/api/v1/component/seed-system-components', {
+    timeout: REQUEST_TIMEOUT,
+  })
 
-  if (!systemComponentsResponse.ok()) {
-    const text = await systemComponentsResponse.text()
-
-    console.error('Server response:', text)
-    throw new Error(`HTTP error! status: ${systemComponentsResponse.status}`)
-  }
-
-  const elementsResponse = await request.post(
+  await requestOrThrow(
+    request,
     `/api/v1/element/${page.rootElement.id}/create-elements`,
     {
       data: [{ ...typographyElement, parentElement: page.rootElement }],
       timeout: REQUEST_TIMEOUT,
     },
   )
-
-  if (!elementsResponse.ok()) {
-    const text = await elementsResponse.text()
-
-    console.error('Server response:', text)
-    throw new Error(`HTTP error! status: ${elementsResponse.status}`)
-  }
 
   return app
 }

@@ -6,12 +6,6 @@ import { baseTest } from '../../setup/fixtures/base.fixture'
 import { BasePage } from '../../setup/locators/pages'
 
 export class PageListPage extends BasePage {
-  static async seedApp() {
-    const apiRequest = await request.newContext()
-
-    await apiRequest.post('./app/seed-cypress-app')
-  }
-
   readonly pageName = 'New Page'
 
   readonly updatedPageName = 'Updated Page'

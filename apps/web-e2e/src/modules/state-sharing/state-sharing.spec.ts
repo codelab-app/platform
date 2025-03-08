@@ -71,7 +71,3 @@ test('should use component state and not use provider state', async ({
     'text component state value',
   )
 })
-
-test.afterAll('cleanup created components', async ({ request }) => {
-  await request.post('/api/v1/admin/setup-e2e-data')
-})

@@ -15,6 +15,7 @@ import { Validator } from '@codelab/shared/infra/typebox'
 import { type APIRequestContext } from '@playwright/test'
 import { v4 } from 'uuid'
 
+import { requestOrThrow } from '../../api'
 import { REQUEST_TIMEOUT } from '../../setup/config'
 import { seedAppData } from '../builder/builder.data'
 
@@ -89,12 +90,17 @@ export const seedTestData = async (request: APIRequestContext) => {
 
   const owner = await ownerResponse.json()
 
-  await request.post(`/api/v1/element/${page.rootElement.id}/create-elements`, {
-    data: providerPageElements(page),
-    timeout: REQUEST_TIMEOUT,
-  })
+  await requestOrThrow(
+    request,
+    `/api/v1/element/${page.rootElement.id}/create-elements`,
+    {
+      data: providerPageElements(page),
+      timeout: REQUEST_TIMEOUT,
+    },
+  )
 
-  const componentResponse = await request.post(
+  const componentResponse = await requestOrThrow<IComponentDto>(
+    request,
     '/api/v1/component/create-component',
     {
       data: childMapperComponent(owner),
@@ -104,10 +110,11 @@ export const seedTestData = async (request: APIRequestContext) => {
 
   const component: IComponentDto = Validator.parse(
     ComponentDtoSchema,
-    await componentResponse.json(),
+    await componentResponse,
   )
 
-  await request.post(
+  await requestOrThrow(
+    request,
     `/api/v1/element/${component.rootElement.id}/create-elements`,
     {
       data: [

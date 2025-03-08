@@ -1,5 +1,6 @@
 import type {
   IAppDto,
+  IComponent,
   ICreateComponentData,
   ICreateElementData,
   IPageCreateFormData,
@@ -11,6 +12,7 @@ import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
 import { v4 } from 'uuid'
 
+import { requestOrThrow } from '../../api'
 import { seedAppData } from '../builder/builder.data'
 
 export const componentName = 'Component Name'
@@ -61,20 +63,20 @@ export const seedTestData = async (request: APIRequestContext) => {
   const ownerResponse = await request.get('/api/v1/user/me')
   const owner = await ownerResponse.json()
 
-  await request.post('/api/v1/page/create', {
+  await requestOrThrow(request, '/api/v1/page/create', {
     data: regularPageCreateData(app),
   })
 
-  const componentResponse = await request.post(
+  const component = await requestOrThrow<IComponent>(
+    request,
     '/api/v1/component/create-component',
     { data: componentData(owner) },
   )
 
-  const component = await componentResponse.json()
-
   console.log('component', component)
 
-  await request.post(
+  await requestOrThrow(
+    request,
     `/api/v1/element/${component.rootElement.id}/create-elements`,
     { data: [spaceElement(component.rootElement), typographyElement] },
   )

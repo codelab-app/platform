@@ -22,7 +22,7 @@ export type ApiRequestOptions = Parameters<APIRequestContext['post']>[1]
 export const requestOrThrow = async <T = void>(
   request: APIRequestContext,
   url: string,
-  options: ApiRequestOptions,
+  options?: ApiRequestOptions,
 ): Promise<T> => {
   console.log(`[${getTimestamp()}] Requesting ${url}`)
 

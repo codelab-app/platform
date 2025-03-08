@@ -9,6 +9,7 @@ import { IAtomType, IPageKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { findOrFail } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 
+import { requestOrThrow } from '../../api'
 import { REQUEST_TIMEOUT } from '../../setup/config'
 import { seedAppData } from '../builder/builder.data'
 
@@ -69,20 +70,14 @@ export const seedTestData = async (request: APIRequestContext) => {
     ({ kind }) => kind === IPageKind.Provider,
   )
 
-  const response = await request.post(
+  await requestOrThrow(
+    request,
     `/api/v1/element/${page.rootElement.id}/create-elements`,
     {
       data: providerPageElements(page),
       timeout: REQUEST_TIMEOUT,
     },
   )
-
-  if (!response.ok()) {
-    const text = await response.text()
-
-    console.error('Server response:', text)
-    throw new Error(`HTTP error! status: ${response.status()}`)
-  }
 
   return app
 }

@@ -10,6 +10,7 @@ import { findOrFail } from '@codelab/shared/utils'
 import { type APIRequestContext } from '@playwright/test'
 import { v4 } from 'uuid'
 
+import { requestOrThrow } from '../../api'
 import { REQUEST_TIMEOUT } from '../../setup/config'
 import { seedAppData } from '../builder/builder.data'
 
@@ -103,7 +104,8 @@ export const seedTestData = async (request: APIRequestContext) => {
     ({ kind }) => kind === IPageKind.Provider,
   )
 
-  const response = await request.post(
+  await requestOrThrow(
+    request,
     `/api/v1/element/${page.rootElement.id}/create-elements`,
     {
       data: [{ ...providerPageLinkElement, parentElement: page.rootElement }],
@@ -111,36 +113,48 @@ export const seedTestData = async (request: APIRequestContext) => {
     },
   )
 
-  const pageResponse = await request.post('/api/v1/page/create', {
-    data: pages.staticPage,
-  })
+  const staticPage = await requestOrThrow<IPage>(
+    request,
+    '/api/v1/page/create',
+    {
+      data: pages.staticPage,
+    },
+  )
 
-  const staticPage = await pageResponse.json()
+  await requestOrThrow(
+    request,
+    `/api/v1/element/${staticPage.id}/create-elements`,
+    {
+      data: [
+        {
+          ...staticPageTextElement,
+          parentElement: { id: staticPage.rootElement.id },
+        },
+        staticPageLinkElement,
+      ],
+    },
+  )
 
-  await request.post(`/api/v1/element/${staticPage.id}/create-elements`, {
-    data: [
-      {
-        ...staticPageTextElement,
-        parentElement: { id: staticPage.rootElement.id },
-      },
-      staticPageLinkElement,
-    ],
-  })
+  const dynamicPage = await requestOrThrow<IPage>(
+    request,
+    '/api/v1/page/create',
+    {
+      data: pages.dynamicPage,
+    },
+  )
 
-  const dynamicPageResponse = await request.post('/api/v1/page/create', {
-    data: pages.dynamicPage,
-  })
-
-  const dynamicPage = await dynamicPageResponse.json()
-
-  await request.post(`/api/v1/element/${dynamicPage.id}/create-elements`, {
-    data: [
-      {
-        ...dynamicPageTextElement,
-        parentElement: { id: dynamicPage.rootElement.id },
-      },
-    ],
-  })
+  await requestOrThrow(
+    request,
+    `/api/v1/element/${dynamicPage.id}/create-elements`,
+    {
+      data: [
+        {
+          ...dynamicPageTextElement,
+          parentElement: { id: dynamicPage.rootElement.id },
+        },
+      ],
+    },
+  )
 
   return app
 }
