@@ -4,6 +4,7 @@ import { GraphqlModule } from '@codelab/backend/infra/adapter/graphql'
 import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
 import { QueueModule } from '@codelab/backend/infra/adapter/queue'
 import { WsModule } from '@codelab/backend/infra/adapter/ws'
+import { CommandBusSubscription } from '@codelab/backend/infra/core'
 import {
   GraphQLSchemaModule,
   SchemaService,
@@ -14,7 +15,6 @@ import { CqrsModule } from '@nestjs/cqrs'
 import { SentryModule } from '@sentry/nestjs/setup'
 
 import { ApiModule } from './api/api.module'
-import { CommandBusSubscription } from './command-bus-logger.service'
 
 @Module({
   controllers: [HealthcheckController],

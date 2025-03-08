@@ -123,6 +123,9 @@
         "dev": {
           "reporters": ["default"]
         },
+        "test": {
+          "reporters": ["default"]
+        },
         "test.unit": {
           "reporters": ["default"],
           "color": true,

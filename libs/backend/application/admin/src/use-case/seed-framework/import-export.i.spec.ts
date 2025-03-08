@@ -1,4 +1,5 @@
 import { BASE_DATA_PATH } from '@codelab/backend/application/data'
+import { CommandBusSubscription } from '@codelab/backend/infra/core'
 import { deleteFilesSync } from '@codelab/backend/shared/util'
 import { initUserContext } from '@codelab/backend/test/setup'
 import { IAtomType } from '@codelab/shared/abstract/core'
@@ -25,6 +26,7 @@ const testExportDataPath = path.resolve('./tmp/data/export-v3')
 describe('Seed, import, & export data', () => {
   const context = initUserContext({
     imports: [AdminApplicationModule],
+    providers: [CommandBusSubscription],
   })
 
   let commandBus: CommandBus

@@ -20,29 +20,17 @@ export class CommandBusSubscription implements OnModuleInit {
      * Each time a command is published, this subscription emits.
      * You CANNOT intercept or alter the command; you can only observe it.
      */
-    const originalExecute = this.commandBus.execute.bind(this.commandBus)
+    this.commandBus.subscribe({
+      error: (error: Error) => {
+        this.logger.error('Error executing command', { error })
+      },
+      next: (command: ICommand) => {
+        const commandName = command.constructor.name
 
-    this.commandBus.execute = (command: ICommand) => {
-      const commandName = command.constructor.name
-
-      return startSpan(
-        {
-          // attributes: {
-          //   commandData: JSON.stringify(command),
-          //   commandName,
-          // },
-          name: `Command: ${commandName}`,
-          op: 'command.execute',
-        },
-        () => {
-          this.logger.debug('Executing command', {
-            context: commandName,
-            data: command,
-          })
-
-          return originalExecute(command)
-        },
-      )
-    }
+        this.logger.debug('Command executed...', {
+          context: commandName,
+        })
+      },
+    })
   }
 }
