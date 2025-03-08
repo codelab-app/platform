@@ -5,7 +5,7 @@ export const baseTest = base.extend({
   page: async ({ page }, use) => {
     // Attach the console event to the page
     page.on('console', (msg) => {
-      console.log(msg.text())
+      console.log(`[Browser] ${msg.text()}`)
     })
 
     // Make sure to pass control back for tests
