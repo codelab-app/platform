@@ -64,6 +64,7 @@ steps:
   - run:
     name: 'Merge Playwright Reports'
     command: |
+      pnpm playwright merge-reports --reporter html ~/project/tmp/reports/e2e/all-blob-reports
     when: always
   - run:
       name: Capture Docker logs
