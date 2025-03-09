@@ -7,7 +7,6 @@ steps:
   - restore_cache:
       name: 'Restore NX Cache'
       keys:
-        - nx-cache-libs-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}-{{ checksum "scripts/circleci/cache-lock.yaml" }}
         - nx-cache-libs-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
         - nx-cache-libs-{{ .Environment.CIRCLE_BRANCH }}-
         - nx-cache-libs-
@@ -17,7 +16,7 @@ steps:
   - save_cache:
       name: 'Save NX Cache'
       key:
-        nx-cache-libs-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}-{{ checksum "scripts/circleci/cache-lock.yaml" }}
+        nx-cache-libs-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
         # nx doesn't use `lockfile.hash` anymore, so move the pnpm
         # - nx-cache-{{ checksum ".nx/cache/lockfile.hash" }}
       paths:

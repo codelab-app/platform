@@ -843,8 +843,8 @@
       "@codelab/frontend-presentation-view/components/conditionalView": [
         "libs/frontend/presentation/view/src/components/conditionalView/index.ts"
       ],
-      "@codelab/frontend-presentation-view/components/errorBoundary": [
-        "libs/frontend/presentation/view/src/components/errorBoundary/index.ts"
+      "@codelab/frontend-presentation-view/components/error": [
+        "libs/frontend/presentation/view/src/components/error/index.ts"
       ],
       "@codelab/frontend-presentation-view/components/key": [
         "libs/frontend/presentation/view/src/components/key/index.ts"

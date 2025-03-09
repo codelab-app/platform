@@ -6,6 +6,7 @@ import {
   useDomainStore,
   useUndoManager,
 } from '@codelab/frontend-infra-mobx/context'
+import { logger } from '@codelab/shared/utils'
 import { runInAction } from 'mobx'
 import { useCallback } from 'react'
 
@@ -51,7 +52,7 @@ export const useDomainStoreHydrator = () => {
         typesDto,
       } = data
 
-      console.log('Hydrating data', data)
+      logger.debug('Hydrating data', data)
 
       // we use optimistic updates in some parts of the app, wrapping with a single group action
       // makes it very easy to undo the entire hydration, in case if requested operation fails

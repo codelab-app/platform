@@ -1,3 +1,5 @@
+'use client'
+
 /**
  * https://nextjs.org/docs/advanced-features/error-handling#handling-client-errors
  *

@@ -19,7 +19,7 @@ import { AdminApplicationModule } from '../../admin.application.module'
 import { ExportAdminDataCommand } from '../export/export-admin-data.command.service'
 import { ImportAdminDataCommand } from '../import/import-admin-data.command.service'
 
-jest.setTimeout(500_000)
+jest.setTimeout(300_000)
 
 // We copy actual data to new path
 const testDataPath = path.resolve('./tmp/data/import-v3')

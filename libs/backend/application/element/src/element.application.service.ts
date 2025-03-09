@@ -60,6 +60,8 @@ export class ElementApplicationService {
       data: { atom: element.atom, renderType },
     })
 
+    console.log('renderType', renderType)
+
     return await this.elementRepository.add({
       ...element,
       closestContainerNode: { id: closestContainerNode.id },

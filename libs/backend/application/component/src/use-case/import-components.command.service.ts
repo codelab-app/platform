@@ -19,7 +19,6 @@ export class ImportComponentsHandler
   constructor(
     private readonly elementRepository: ElementRepository,
     private readonly componentRepository: ComponentRepository,
-    private readonly propRepository: PropRepository,
     private readonly commandBus: CommandBus,
   ) {}
 

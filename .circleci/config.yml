@@ -6,7 +6,6 @@ commands:
           main-branch-name: master
       - restore_cache:
           keys:
-            - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}-{{ checksum .Environment.CIRCLE_SHA1 }}
             - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
             - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-
             - nx-cache-
@@ -14,7 +13,7 @@ commands:
       - run:
           command: pnpm nx run-many --target=build --projects=web,api -c ci --nx-bail
       - save_cache:
-          key: nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}-{{ .Environment.CIRCLE_SHA1 }}
+          key: nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
           name: Save NX Cache
           paths:
             - ~/project/.nx/cache
@@ -31,7 +30,6 @@ commands:
           main-branch-name: master
       - restore_cache:
           keys:
-            - nx-cache-libs-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}-{{ checksum "scripts/circleci/cache-lock.yaml" }}
             - nx-cache-libs-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
             - nx-cache-libs-{{ .Environment.CIRCLE_BRANCH }}-
             - nx-cache-libs-
@@ -39,7 +37,7 @@ commands:
       - run:
           command: pnpm nx run-many --target=build --all --exclude=web,api -c ci
       - save_cache:
-          key: nx-cache-libs-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}-{{ checksum "scripts/circleci/cache-lock.yaml" }}
+          key: nx-cache-libs-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
           name: Save NX Cache
           paths:
             - ~/project/.nx/cache-libs

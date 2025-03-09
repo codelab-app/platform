@@ -38,7 +38,7 @@ export class DemoController {
     private commandBus: CommandBus,
     private logger: PinoLoggerService,
     private importDataMapperService: ImportDataMapperService,
-    @InjectQueue(SEED_QUEUE) private seedQueue: Queue,
+    // @InjectQueue(SEED_QUEUE) private seedQueue: Queue,
     private readonly socketGateway: WsGateway,
   ) {}
 
@@ -74,23 +74,23 @@ export class DemoController {
   /**
    * Demonstrates how to use BullMQ queue for processing background jobs
    */
-  @Post('demo-queue')
-  async demoQueue() {
-    this.logger.debug('Adding demo job to queue')
+  // @Post('demo-queue')
+  // async demoQueue() {
+  //   this.logger.debug('Adding demo job to queue')
 
-    // Add a job to the queue
-    const job = await this.seedQueue.add(DEMO_JOB, {
-      data: 'Demo queue job data',
-      timestamp: new Date().toISOString(),
-    })
+  //   // Add a job to the queue
+  //   const job = await this.seedQueue.add(DEMO_JOB, {
+  //     data: 'Demo queue job data',
+  //     timestamp: new Date().toISOString(),
+  //   })
 
-    // Return the job ID and other info
-    return {
-      jobId: job.id,
-      message: 'Job has been added to the queue',
-      status: 'queued',
-    }
-  }
+  //   // Return the job ID and other info
+  //   return {
+  //     jobId: job.id,
+  //     message: 'Job has been added to the queue',
+  //     status: 'queued',
+  //   }
+  // }
 
   /**
    * Fixes

@@ -38,14 +38,17 @@ export class ImportCypressAtomsHandler
     )
 
     this.logger.log('Import cypress atoms', {
+      atomCount: atomsData.length,
       context: 'ImportCypressAtomsHandler',
-      data: {
-        atomCount: atomsData.length,
-      },
     })
 
     const atoms = atomsData.map(({ atom }) => atom)
     const apis = atomsData.map(({ api }) => api)
+
+    this.logger.log('Importing types', {
+      context: 'ImportCypressAtomsHandler',
+      typeCount: apis.length,
+    })
 
     await this.typeDomainService.addManyApis(apis)
 

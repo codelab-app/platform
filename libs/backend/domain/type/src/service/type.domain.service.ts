@@ -20,6 +20,17 @@ export class TypeDomainService {
   ) {}
 
   async addManyApis(apis: Array<IApiImport>) {
+    // Log details for each API
+    // for (const api of apis) {
+    //   const fieldNames = api.fields.map((field) => field.key)
+
+    //   this.logger.log(`API: ${api.name}`, {
+    //     context: 'TypeDomainService',
+    //     fieldCount: api.fields.length,
+    //     fieldNames,
+    //   })
+    // }
+
     const allTypes = apis.flatMap(({ types }) => types)
     const apiFields = apis.flatMap(({ fields }) => fields)
 

@@ -2,4 +2,4 @@
 
 import { Error } from '@codelab/frontend-presentation-view/components/error'
 
-export default Error('Builder Page Error')
+export default Error('Resources Page Error')

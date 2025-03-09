@@ -78,7 +78,7 @@ export abstract class AbstractRepository<
       },
       async () => {
         try {
-          const BATCH_SIZE = 3
+          const BATCH_SIZE = 5
           const batches = chunk(data, BATCH_SIZE)
 
           this.loggerService.debug('Processing data in batches', {
