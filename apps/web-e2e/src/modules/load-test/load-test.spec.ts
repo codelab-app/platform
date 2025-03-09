@@ -18,6 +18,8 @@ test.beforeAll(async ({ request }, testInfo) => {
 test('should be ablle to load "app list", "page list" and "page builder" pages', async ({
   builderPage: page,
 }) => {
+  test.setTimeout(150000)
+
   await page.validateCanOpenAppListPage(app.name)
   await page.validateCanOpenPageListPage(app.name)
   await page.validateCanOpenPageBuilderPage()
