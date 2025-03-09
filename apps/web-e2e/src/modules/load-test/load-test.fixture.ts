@@ -25,6 +25,19 @@ export class LoadTestPage extends BuilderPage {
       .getToolbarItem(UiKey.BuilderToolbarItemOpenBuilder)
       .click()
 
+    await this.checkBuilderPage()
+    await this.page.reload()
+    await this.checkBuilderPage()
+  }
+
+  async validateCanOpenPageListPage(appName: string) {
+    await this.getByExactText(appName).click()
+    await this.checkPageListPage(appName)
+    await this.page.reload()
+    await this.checkPageListPage(appName)
+  }
+
+  private async checkBuilderPage() {
     await this.checkRootElementExists()
     await this.page.locator('span[aria-label="plus-square"]').click()
 
@@ -33,16 +46,12 @@ export class LoadTestPage extends BuilderPage {
       atomTypes.length + 1,
     )
 
-    const outputContainer = this.getBuilderRenderContainer()
-
-    await expect(outputContainer.locator('[data-element-id]')).toHaveCount(
-      atomTypes.length,
-    )
+    await expect(
+      this.getBuilderRenderContainer().locator('[data-element-id]'),
+    ).toHaveCount(atomTypes.length)
   }
 
-  async validateCanOpenPageListPage(appName: string) {
-    await this.getByExactText(appName).click()
-
+  private async checkPageListPage(appName: string) {
     await this.checkPageHeaderTitle([appName, 'Pages', 'provider'])
 
     await expect(this.getSpinner()).toBeHidden()
