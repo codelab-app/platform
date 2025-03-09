@@ -33,22 +33,26 @@ export const useDomainStoreHydrator = () => {
   } = useDomainStore()
 
   const hydrate = useCallback(
-    ({
-      actionsDto,
-      appsDto,
-      atomsDto,
-      authGuardsDto,
-      componentsDto,
-      domainsDto,
-      elementsDto,
-      fieldsDto,
-      pagesDto,
-      redirectsDto,
-      resourcesDto,
-      storesDto,
-      tagsDto,
-      typesDto,
-    }: IDomainStoreDto) => {
+    (data: IDomainStoreDto) => {
+      const {
+        actionsDto,
+        appsDto,
+        atomsDto,
+        authGuardsDto,
+        componentsDto,
+        domainsDto,
+        elementsDto,
+        fieldsDto,
+        pagesDto,
+        redirectsDto,
+        resourcesDto,
+        storesDto,
+        tagsDto,
+        typesDto,
+      } = data
+
+      console.log('Hydrating data', data)
+
       // we use optimistic updates in some parts of the app, wrapping with a single group action
       // makes it very easy to undo the entire hydration, in case if requested operation fails
       undoManager.withGroup('hydration-group-action', () => {

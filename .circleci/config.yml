@@ -6,7 +6,7 @@ commands:
           main-branch-name: master
       - restore_cache:
           keys:
-            - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}-{{ checksum "scripts/circleci/cache-lock.yaml" }}
+            - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}-{{ checksum .Environment.CIRCLE_SHA1 }}
             - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
             - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-
             - nx-cache-
@@ -14,7 +14,7 @@ commands:
       - run:
           command: pnpm nx run-many --target=build --projects=web,api -c ci --nx-bail
       - save_cache:
-          key: nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}-{{ checksum "scripts/circleci/cache-lock.yaml" }}
+          key: nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}-{{ .Environment.CIRCLE_SHA1 }}
           name: Save NX Cache
           paths:
             - ~/project/.nx/cache
@@ -252,7 +252,6 @@ executors:
           NEO4J_dbms_logs_debug_level: DEBUG
           NEO4J_server_jvm_additional: -XX:+ExitOnOutOfMemoryError
         image: neo4j:5.26.3-enterprise
-      - image: redis:7.0.10
   machine-ubuntu:
     machine:
       image: ubuntu-2004:2022.04.1
@@ -391,10 +390,6 @@ jobs:
 
             pnpm nx e2e web-e2e -c ci \
               --shard=${SHARD}/${CIRCLE_NODE_TOTAL}
-
-            # --testFiles="modules/demo/demo.spec.ts" \
-              # --testFiles="modules/demo/demo.spec.ts" \
-              # --testFiles="modules/auth-guard/auth-guard.spec.ts"
           name: Run E2E Tests
           no_output_timeout: 15m
       - run:

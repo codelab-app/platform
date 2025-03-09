@@ -18,14 +18,10 @@ const Layout = async (props: {
 }) => {
   const params = await props.params
   const { children } = props
-  const { appId, pageId } = params
+  const { appId } = params
   const dto = await appBuilderQuery({ appId })
 
-  return (
-    <LayoutClient dto={dto} pageId={pageId}>
-      {children}
-    </LayoutClient>
-  )
+  return <LayoutClient dto={dto}>{children}</LayoutClient>
 }
 
 export default Layout

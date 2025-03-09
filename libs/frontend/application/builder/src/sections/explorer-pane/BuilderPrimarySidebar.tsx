@@ -40,6 +40,9 @@ export const BuilderPrimarySidebar = observer<{
   console.log('containerNode', containerNode.toJson)
 
   const store = containerNode.store.maybeCurrent
+
+  console.log('after containerNode')
+
   const renderer = rendererService.activeRenderer?.current
   const runtimeContainerNode = renderer?.runtimeContainerNode
   const runtimeStore = runtimeContainerNode?.runtimeStore

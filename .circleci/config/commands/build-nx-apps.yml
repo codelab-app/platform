@@ -8,7 +8,7 @@ steps:
   - restore_cache:
       name: 'Restore NX Cache'
       keys:
-        - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}-{{ checksum "scripts/circleci/cache-lock.yaml" }}
+        - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}-{{ checksum .Environment.CIRCLE_SHA1 }}
         - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
         - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-
         - nx-cache-
@@ -20,7 +20,7 @@ steps:
   # https://nextjs.org/docs/pages/building-your-application/deploying/ci-build-caching#circleci
   - save_cache:
       name: 'Save NX Cache'
-      key: nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}-{{ checksum "scripts/circleci/cache-lock.yaml" }}
+      key: nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}-{{ .Environment.CIRCLE_SHA1 }}
       paths:
         - ~/project/.nx/cache
         # https://github.com/nrwl/nx/issues/5221

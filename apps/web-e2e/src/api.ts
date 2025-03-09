@@ -35,7 +35,16 @@ export const requestOrThrow = async <T = void>(
     throw new Error(`HTTP error! status: ${response.status()}`)
   }
 
-  return response.json() as Promise<T>
+  const contentType = response.headers()['content-type']
+
+  console.log('contentType', contentType)
+
+  if (contentType && contentType.includes('application/json')) {
+    return response.json() as Promise<T>
+  }
+
+  // Return empty response or null for non-JSON responses
+  return Promise.resolve<T>(null as T)
 }
 
 const apiPort = env.get('NEXT_PUBLIC_API_PORT').required().asPortNumber()
