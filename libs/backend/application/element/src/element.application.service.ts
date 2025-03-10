@@ -36,6 +36,9 @@ export class ElementApplicationService {
   }
 
   async createElement(element: ICreateElementData, closestContainerNode: IRef) {
+    console.log('element', element)
+    console.log('closestContainerNode', closestContainerNode)
+
     // const props = await this.propDomainService.createProp(element.propsData)
     const props = {
       data: JSON.stringify(element.propsData ?? {}),
@@ -59,8 +62,6 @@ export class ElementApplicationService {
     this.loggerService.debug('Create element', {
       data: { atom: element.atom, renderType },
     })
-
-    console.log('renderType', renderType)
 
     return await this.elementRepository.add({
       ...element,

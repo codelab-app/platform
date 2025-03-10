@@ -3,7 +3,7 @@ import { IAtomType } from '@codelab/shared/abstract/core'
 /**
  * Types we want to seed
  */
-export const atomTypes = [
+export const ATOM_TYPES = [
   IAtomType.AntDesignButton,
   IAtomType.AntDesignTypographyText,
   IAtomType.AntDesignGridCol,

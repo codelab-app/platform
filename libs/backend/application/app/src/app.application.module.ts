@@ -28,7 +28,7 @@ import { DemoController } from './demo.controller'
 import {
   ExportAppHandler,
   ImportAppHandler,
-  SeedCypressAppHandler,
+  SeedE2eAppHandler,
 } from './use-case'
 
 @Module({
@@ -54,7 +54,7 @@ import {
     Neo4jModule,
   ],
   providers: [
-    SeedCypressAppHandler,
+    SeedE2eAppHandler,
     ImportAppHandler,
     ExportAppHandler,
     ImportDataMapperService,

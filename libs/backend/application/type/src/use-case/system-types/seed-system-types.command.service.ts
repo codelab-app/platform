@@ -10,6 +10,8 @@ export class SeedSystemTypesCommand {}
 
 /**
  * Seed generates new ID's, we use import
+ *
+ * @deprecated Only used initially to create the json data
  */
 @CommandHandler(SeedSystemTypesCommand)
 export class SeedSystemTypesHandler

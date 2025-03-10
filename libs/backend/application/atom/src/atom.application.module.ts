@@ -10,7 +10,7 @@ import { AtomApplicationService } from './services/atom.application.service'
 import {
   ExportAtomHandler,
   ImportAtomHandler,
-  ImportCypressAtomsHandler,
+  ImportE2eAtomsHandler,
 } from './use-case'
 
 @Module({
@@ -24,7 +24,7 @@ import {
     AuthDomainModule,
   ],
   providers: [
-    ImportCypressAtomsHandler,
+    ImportE2eAtomsHandler,
     ExportAtomHandler,
     ImportAtomHandler,
     AtomApplicationService,

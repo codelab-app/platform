@@ -6,7 +6,7 @@ import type {
   ITagDto,
   ITagExport,
   ITypeDto,
-  ITypeExport,
+  ITypeDtoWithoutOwner,
 } from '@codelab/shared/abstract/core'
 
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
@@ -104,9 +104,9 @@ export class ReadAdminDataService implements IReadAdminDataService {
 
     const types = JSON.parse(
       fs.readFileSync(this.migrationDataService.systemTypesFilePath, 'utf8'),
-    ) as Array<ITypeExport>
+    ) as Array<ITypeDtoWithoutOwner>
 
-    return types.map((type: ITypeExport) => {
+    return types.map((type: ITypeDtoWithoutOwner) => {
       return Validator.parse(TypeDtoSchema, {
         ...type,
         owner,

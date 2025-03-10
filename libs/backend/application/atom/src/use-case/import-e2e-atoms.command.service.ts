@@ -9,18 +9,20 @@ import {
   TypeFactory,
 } from '@codelab/backend/domain/type'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { type IAtomDto } from '@codelab/shared/abstract/core'
-import { atomTypes } from '@codelab/shared/data/test'
+import { type IAtomDto, IAtomType } from '@codelab/shared/abstract/core'
+import { ATOM_TYPES } from '@codelab/shared/data/test'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
-export class ImportCypressAtomsCommand {}
+export class ImportE2eAtomsCommand {
+  constructor(public atomTypes: Array<IAtomType> = ATOM_TYPES) {}
+}
 
 /**
  * This is a subset of atoms to make importing faster
  */
-@CommandHandler(ImportCypressAtomsCommand)
-export class ImportCypressAtomsHandler
-  implements ICommandHandler<ImportCypressAtomsCommand>
+@CommandHandler(ImportE2eAtomsCommand)
+export class ImportE2eAtomsHandler
+  implements ICommandHandler<ImportE2eAtomsCommand>
 {
   constructor(
     private readonly readAdminDataService: ReadAdminDataService,
@@ -32,21 +34,23 @@ export class ImportCypressAtomsHandler
   /**
    * Default `atom` for `Element.renderType` may already exist, so we save by name
    */
-  async execute() {
+  async execute({ atomTypes }: ImportE2eAtomsCommand) {
+    console.log('atomTypes', atomTypes)
+
     const atomsData = this.readAdminDataService.atoms.filter(({ atom }) =>
       atomTypes.includes(atom.type),
     )
 
-    this.logger.log('Import cypress atoms', {
+    this.logger.log('Import e2e atoms', {
       atomCount: atomsData.length,
-      context: 'ImportCypressAtomsHandler',
+      context: 'ImportE2eAtomsHandler',
     })
 
     const atoms = atomsData.map(({ atom }) => atom)
     const apis = atomsData.map(({ api }) => api)
 
     this.logger.log('Importing types', {
-      context: 'ImportCypressAtomsHandler',
+      context: 'ImportE2eAtomsHandler',
       typeCount: apis.length,
     })
 

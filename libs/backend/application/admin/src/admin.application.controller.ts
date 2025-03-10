@@ -67,7 +67,7 @@ export class AdminController {
   }
 
   /**
-   * Runs once before all Cypress runs
+   * Runs once before all E2e runs
    */
   @Post('setup-e2e-data')
   async setupE2eData() {

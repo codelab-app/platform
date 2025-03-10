@@ -1,6 +1,6 @@
 import type { ICommandHandler } from '@nestjs/cqrs'
 
-import { SeedCypressAppCommand } from '@codelab/backend/application/app'
+import { SeedE2eAppCommand } from '@codelab/backend/application/app'
 import { SeedAtomsCommand } from '@codelab/backend/application/atom'
 import { SeedTagsService } from '@codelab/backend/application/tag'
 import {
@@ -47,7 +47,7 @@ export class SeedFrameworkHandler
   ) {}
 
   async execute({ data }: SeedFrameworkCommand) {
-    await this.commandBus.execute(new SeedCypressAppCommand())
+    await this.commandBus.execute(new SeedE2eAppCommand())
 
     await this.seedTags(data.tags)
 

@@ -3,9 +3,6 @@
   "eslint": {
     "config": ["**/.eslintrc.json"]
   },
-  "cypress": {
-    "entry": ["apps/**/tsconfig.ts", "libs/**/tsconfig.lib.ts"]
-  },
   "ignore": [
     "dist",
     "libs/shared/infra/gqlgen/**",

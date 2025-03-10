@@ -1,10 +1,7 @@
 import type { IAtom } from '@codelab/shared/abstract/core'
 
 import { AppApplicationModule } from '@codelab/backend/application/app'
-import {
-  AtomApplicationModule,
-  ImportCypressAtomsCommand,
-} from '@codelab/backend/application/atom'
+import { AtomApplicationModule } from '@codelab/backend/application/atom'
 import {
   ImportSystemTypesCommand,
   TypeApplicationModule,

@@ -1,4 +1,4 @@
-import type { ITypeExport } from '@codelab/shared/abstract/core'
+import type { ITypeDtoWithoutOwner } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
 import {
@@ -40,7 +40,8 @@ export class ExportSystemTypesCommand {}
  */
 @CommandHandler(ExportSystemTypesCommand)
 export class ExportSystemTypesHandler
-  implements ICommandHandler<ExportSystemTypesCommand, Array<ITypeExport>>
+  implements
+    ICommandHandler<ExportSystemTypesCommand, Array<ITypeDtoWithoutOwner>>
 {
   constructor(
     private primitiveTypeRepository: PrimitiveTypeRepository,

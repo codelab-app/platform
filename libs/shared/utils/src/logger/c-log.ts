@@ -48,7 +48,13 @@ class Logger {
   private formatMessage(
     ...objects: Array<boolean | number | string | ObjectLike | null | undefined>
   ) {
-    return objects
+    return objects.map((obj) => {
+      if (obj && typeof obj === 'object') {
+        return JSON.stringify(obj, null, 2)
+      }
+
+      return obj
+    })
   }
 }
 

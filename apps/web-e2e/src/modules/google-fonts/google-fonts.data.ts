@@ -1,5 +1,6 @@
 import {
   IAtomType,
+  IComponentType,
   type ICreateElementSeedData,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
@@ -34,21 +35,17 @@ export const typographyElement = {
 }
 
 export const seedTestData = async (request: APIRequestContext) => {
-  const app = await seedAppData(request)
-  const page = app.pages![0]!
-
-  await requestOrThrow(request, '/api/v1/component/seed-system-components', {
-    timeout: REQUEST_TIMEOUT,
+  const app = await seedAppData(request, {
+    atomTypes: [IAtomType.AntDesignTypographyText],
+    componentTypes: [IComponentType.GoogleFonts],
   })
 
-  await requestOrThrow(
-    request,
-    `/api/v1/element/${page.rootElement.id}/create-elements`,
-    {
-      data: [{ ...typographyElement, parentElement: page.rootElement }],
-      timeout: REQUEST_TIMEOUT,
-    },
-  )
+  const page = app.pages![0]!
+
+  await requestOrThrow(request, `/api/v1/element/${page.id}/create-elements`, {
+    data: [{ ...typographyElement, parentElement: page.rootElement }],
+    timeout: REQUEST_TIMEOUT,
+  })
 
   return app
 }

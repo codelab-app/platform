@@ -1,5 +1,6 @@
 import type {
   IApp,
+  IComponentType,
   ICreateElementSeedData,
   IElementDto,
   IPage,
@@ -87,14 +88,16 @@ export const builderElements = [
 export const seedAppData = async (
   request: APIRequestContext,
   data?: {
-    page: IPageCreateSeedData
+    page?: IPageCreateSeedData
+    atomTypes?: Array<IAtomType>
+    componentTypes?: Array<IComponentType>
   },
 ) => {
   logTimestamp('Seeding app data...')
 
   const results = await jobOutputRequest<IApp>(
     request,
-    '/api/v1/app/seed-cypress-app',
+    '/api/v1/app/seed-e2e-app',
     {
       data,
       timeout: REQUEST_TIMEOUT,

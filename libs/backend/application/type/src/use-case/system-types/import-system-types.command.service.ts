@@ -1,30 +1,32 @@
 import type { ICommandHandler } from '@nestjs/cqrs'
 
+import { IImportOptions } from '@codelab/backend/abstract/types'
 import { ReadAdminDataService } from '@codelab/backend/application/data'
-import { TypeFactory } from '@codelab/backend/domain/type'
+import { TypeDomainService, TypeFactory } from '@codelab/backend/domain/type'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { CommandHandler } from '@nestjs/cqrs'
 
-export class ImportSystemTypesCommand {}
+export class ImportSystemTypesCommand {
+  constructor(public options?: IImportOptions) {}
+}
 
 @CommandHandler(ImportSystemTypesCommand)
 export class ImportSystemTypesHandler
   implements ICommandHandler<ImportSystemTypesCommand>
 {
   constructor(
-    private readonly typeFactory: TypeFactory,
     private readonly readAdminDataService: ReadAdminDataService,
     protected logger: PinoLoggerService,
+    private typeDomainService: TypeDomainService,
   ) {}
 
-  async execute() {
+  async execute({ options }: ImportSystemTypesCommand) {
     const types = this.readAdminDataService.systemTypes
 
-    /**
-     * Must do sequentially due to type dependency
-     */
-    for (const type of types) {
-      await this.typeFactory.save(type)
+    if (options?.upsert) {
+      await this.typeDomainService.saveMany(types)
+    } else {
+      await this.typeDomainService.addMany(types)
     }
   }
 }

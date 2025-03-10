@@ -6,15 +6,15 @@ import {
 } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 
-import { SeedCypressTagsCommand } from './use-case'
+import { SeedE2eTagsCommand } from './use-case'
 
 @Controller('tag')
 export class TagApplicationController {
   constructor(private commandBus: CommandBus) {}
 
   @UseInterceptors(ClassSerializerInterceptor)
-  @Post('seed-cypress-tag')
+  @Post('seed-e2e-tag')
   seedApp() {
-    return this.commandBus.execute(new SeedCypressTagsCommand())
+    return this.commandBus.execute(new SeedE2eTagsCommand())
   }
 }

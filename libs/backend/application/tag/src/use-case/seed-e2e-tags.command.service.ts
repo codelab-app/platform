@@ -5,14 +5,14 @@ import { Tag, TagRepository } from '@codelab/backend/domain/tag'
 import { createTagsData } from '@codelab/shared/data/test'
 import { CommandHandler } from '@nestjs/cqrs'
 
-export class SeedCypressTagsCommand {}
+export class SeedE2eTagsCommand {}
 
 /**
- * Used as endpoint for creating Cypress data
+ * Used as endpoint for creating E2e data
  */
-@CommandHandler(SeedCypressTagsCommand)
-export class SeedCypressTagsHandler
-  implements ICommandHandler<SeedCypressTagsCommand, void>
+@CommandHandler(SeedE2eTagsCommand)
+export class SeedE2eTagsHandler
+  implements ICommandHandler<SeedE2eTagsCommand, void>
 {
   constructor(
     private readonly tagRepository: TagRepository,

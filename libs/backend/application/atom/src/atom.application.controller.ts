@@ -6,15 +6,15 @@ import {
 } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 
-import { ImportCypressAtomsCommand } from './use-case'
+import { ImportE2eAtomsCommand } from './use-case'
 
 @Controller('atom')
 export class AtomApplicationController {
   constructor(private commandBus: CommandBus) {}
 
   @UseInterceptors(ClassSerializerInterceptor)
-  @Post('seed-cypress-atom')
+  @Post('seed-e2e-atom')
   seedApp() {
-    return this.commandBus.execute(new ImportCypressAtomsCommand())
+    return this.commandBus.execute(new ImportE2eAtomsCommand())
   }
 }

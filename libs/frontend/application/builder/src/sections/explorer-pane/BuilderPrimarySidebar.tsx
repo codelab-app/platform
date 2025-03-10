@@ -77,7 +77,7 @@ export const BuilderPrimarySidebar = observer<{
         items: [
           {
             cuiKey: UiKey.FieldToolbarItemCreate,
-            // Added this for some cases where data is not loaded, and we cannot perform action, mainly in Cypress
+            // Added this for some cases where data is not loaded, and we cannot perform action, mainly in E2e
             icon: <PlusOutlined disabled={!store} />,
             onClick: () => {
               if (!store) {
@@ -108,7 +108,7 @@ export const BuilderPrimarySidebar = observer<{
         items: [
           {
             cuiKey: UiKey.ActionToolbarItemCreate,
-            // Added this for some cases where data is not loaded, and we cannot perform action, mainly in Cypress
+            // Added this for some cases where data is not loaded, and we cannot perform action, mainly in E2e
             icon: <PlusOutlined disabled={!store} />,
             onClick: () => {
               if (!store) {

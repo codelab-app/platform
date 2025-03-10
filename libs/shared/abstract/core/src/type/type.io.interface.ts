@@ -1,4 +1,4 @@
-import type { Static } from '@sinclair/typebox'
+import type { Static, TSchema } from '@sinclair/typebox'
 
 import { Type } from '@sinclair/typebox'
 
@@ -15,32 +15,17 @@ import { PrimitiveTypeDtoSchema } from './primitive-type/primitive-type.dto.inte
 import { ReactNodeTypeDtoSchema } from './react-node-type'
 import { RenderPropTypeDtoSchema } from './render-prop-type/render-prop-type.dto.interface'
 import { RichTextTypeDtoSchema } from './rich-text-type'
+import { TypeDtoSchema, typeDtoSchemas } from './type.dto.interface'
 import { UnionTypeDtoSchema } from './union-type'
 
-export const TypeExportSchema = Type.Union(
-  [
-    Type.Omit(ActionTypeDtoSchema, ['owner']),
-    Type.Omit(AppTypeDtoSchema, ['owner']),
-    Type.Omit(ArrayTypeDtoSchema(Type.Object({ name: Type.String() })), [
-      'owner',
-    ]),
-    Type.Omit(CodeMirrorTypeDtoSchema, ['owner']),
-    Type.Omit(ElementTypeDtoSchema, ['owner']),
-    Type.Omit(EnumTypeDtoSchema, ['owner']),
-    Type.Omit(InterfaceTypeDtoSchema(Type.Object({ name: Type.String() })), [
-      'owner',
-    ]),
-    Type.Omit(LambdaTypeDtoSchema, ['owner']),
-    Type.Omit(PageTypeDtoSchema, ['owner']),
-    Type.Omit(PrimitiveTypeDtoSchema, ['owner']),
-    Type.Omit(ReactNodeTypeDtoSchema, ['owner']),
-    Type.Omit(RenderPropTypeDtoSchema, ['owner']),
-    Type.Omit(RichTextTypeDtoSchema, ['owner']),
-    Type.Omit(UnionTypeDtoSchema(Type.Object({ name: Type.String() })), [
-      'owner',
-    ]),
-  ],
-  { discriminantKey: '__typename', errorMessage: 'Unknown type' },
+export const omitOwner = (schema: TSchema) => Type.Omit(schema, ['owner'])
+
+export const TypeDtoWithoutOwnerSchema = Type.Union(
+  typeDtoSchemas.map(omitOwner),
+  {
+    discriminantKey: '__typename',
+    errorMessage: 'Unknown type',
+  },
 )
 
-export type ITypeExport = Static<typeof TypeExportSchema>
+export type ITypeDtoWithoutOwner = Static<typeof TypeDtoWithoutOwnerSchema>

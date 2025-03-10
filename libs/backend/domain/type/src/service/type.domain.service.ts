@@ -3,6 +3,7 @@ import {
   IApiImport,
   IAtomImport,
   IInterfaceTypeDto,
+  ITypeDto,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
@@ -18,6 +19,15 @@ export class TypeDomainService {
     private readonly fieldRepository: FieldRepository,
     private readonly typeFactory: TypeFactory,
   ) {}
+
+  async addMany(types: Array<ITypeDto>) {
+    /**
+     * Must do sequentially due to type dependency
+     */
+    for (const type of types) {
+      await this.typeFactory.add(type)
+    }
+  }
 
   async addManyApis(apis: Array<IApiImport>) {
     // Log details for each API
@@ -72,5 +82,14 @@ export class TypeDomainService {
     })
 
     return interfaceType
+  }
+
+  async saveMany(types: Array<ITypeDto>) {
+    /**
+     * Must do sequentially due to type dependency
+     */
+    for (const type of types) {
+      await this.typeFactory.save(type)
+    }
   }
 }

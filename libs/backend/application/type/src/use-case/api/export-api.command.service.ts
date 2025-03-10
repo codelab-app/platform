@@ -2,7 +2,7 @@ import type {
   IApiExport,
   IEnumTypeDto,
   IInterfaceTypeRef,
-  ITypeExport,
+  ITypeDtoWithoutOwner,
   ITypeRef,
   IUnionTypeDto,
 } from '@codelab/shared/abstract/core'
@@ -18,7 +18,7 @@ import {
   FieldExportSchema,
   InterfaceTypeSchema,
   ITypeKind,
-  TypeExportSchema,
+  TypeDtoWithoutOwnerSchema,
 } from '@codelab/shared/abstract/core'
 import { SortDirection } from '@codelab/shared/infra/gqlgen'
 import { CommandHandler } from '@nestjs/cqrs'
@@ -118,7 +118,7 @@ export class ExportApiHandler
   }
 
   private async getTypeItems(dependentTypesIds: Array<ITypeRef>) {
-    const dependentTypes: Array<ITypeExport> = []
+    const dependentTypes: Array<ITypeDtoWithoutOwner> = []
 
     for (const dependentType of dependentTypesIds) {
       this.logger.log('Processing dependent type', {
@@ -131,17 +131,19 @@ export class ExportApiHandler
       ) {
         const type = await this.typeFactory.findOne(
           dependentType,
-          TypeExportSchema,
+          TypeDtoWithoutOwnerSchema,
         )
 
-        dependentTypes.push(type as ITypeExport)
+        dependentTypes.push(type as ITypeDtoWithoutOwner)
       }
     }
 
     return this.sortTypesBeforeExport(dependentTypes)
   }
 
-  private sortEnumValuesBeforeExport(dependentTypes: Array<ITypeExport>) {
+  private sortEnumValuesBeforeExport(
+    dependentTypes: Array<ITypeDtoWithoutOwner>,
+  ) {
     dependentTypes
       .filter((type) => type.__typename === ITypeKind.EnumType)
       .forEach((unionType) =>
@@ -151,13 +153,13 @@ export class ExportApiHandler
       )
   }
 
-  private sortTypesBeforeExport(dependentTypes: Array<ITypeExport>) {
+  private sortTypesBeforeExport(dependentTypes: Array<ITypeDtoWithoutOwner>) {
     dependentTypes.sort((a, b) => a.name.localeCompare(b.name))
 
-    const enums: Array<ITypeExport> = []
-    const interfaces: Array<ITypeExport> = []
-    const unions: Array<ITypeExport> = []
-    const remainingTypes: Array<ITypeExport> = []
+    const enums: Array<ITypeDtoWithoutOwner> = []
+    const interfaces: Array<ITypeDtoWithoutOwner> = []
+    const unions: Array<ITypeDtoWithoutOwner> = []
+    const remainingTypes: Array<ITypeDtoWithoutOwner> = []
 
     dependentTypes.forEach((type) => {
       switch (type.__typename) {
@@ -178,7 +180,9 @@ export class ExportApiHandler
     return [...enums, ...interfaces, ...unions, ...remainingTypes]
   }
 
-  private sortUnionTypesBeforeExport(dependentTypes: Array<ITypeExport>) {
+  private sortUnionTypesBeforeExport(
+    dependentTypes: Array<ITypeDtoWithoutOwner>,
+  ) {
     dependentTypes
       .filter((type) => type.__typename === ITypeKind.UnionType)
       .forEach((unionType) =>

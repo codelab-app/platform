@@ -9,7 +9,7 @@ import { PropRepository } from '@codelab/backend/domain/prop'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
 export class ImportComponentsCommand {
-  constructor(public readonly componentImport: IComponentAggregateImport) {}
+  constructor(public readonly componentData: IComponentAggregateImport) {}
 }
 
 @CommandHandler(ImportComponentsCommand)
@@ -23,7 +23,7 @@ export class ImportComponentsHandler
   ) {}
 
   async execute(command: ImportComponentsCommand) {
-    const { api, component, elements, store } = command.componentImport
+    const { api, component, elements, store } = command.componentData
 
     console.log('Importing component...', component)
 
@@ -35,6 +35,7 @@ export class ImportComponentsHandler
 
     for (const element of elements) {
       // await this.propRepository.save(element.props)
+      console.log('element', element)
       await this.elementRepository.save(element)
     }
 

@@ -78,7 +78,7 @@ export abstract class AbstractRepository<
       },
       async () => {
         try {
-          const BATCH_SIZE = 5
+          const BATCH_SIZE = 3
           const batches = chunk(data, BATCH_SIZE)
 
           this.loggerService.debug('Processing data in batches', {
@@ -173,17 +173,29 @@ export abstract class AbstractRepository<
         op: 'repository.find',
       },
       async () => {
-        const results = await this._find({ options, selectionSet, where })
+        try {
+          const results = await this._find({ options, selectionSet, where })
 
-        if (schema) {
-          const data = results.map((result) => {
-            return Validator.parse(schema, result)
+          if (schema) {
+            const data = results.map((result) => {
+              return Validator.parse(schema, result)
+            })
+
+            return data
+          }
+
+          return results
+        } catch (error) {
+          this.loggerService.error('Failed to find items', {
+            context: this.constructor.name,
+            data: {
+              error,
+              options,
+              where,
+            },
           })
-
-          return data
+          throw error
         }
-
-        return results
       },
     )
   }

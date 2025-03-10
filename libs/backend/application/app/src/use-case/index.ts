@@ -1,3 +1,3 @@
 export * from './export-app.command.service'
 export * from './import-app.command.service'
-export * from './seed-cypress-app.command.service'
+export * from './seed-e2e-app.command.service'

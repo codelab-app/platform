@@ -1,6 +1,12 @@
-import type { IApp, IAppAggregateExport } from '@codelab/shared/abstract/core'
+import type {
+  IApp,
+  IAppAggregateExport,
+  IAtomType,
+  IComponentType,
+} from '@codelab/shared/abstract/core'
 
-import { ImportCypressAtomsCommand } from '@codelab/backend/application/atom'
+import { ImportE2eAtomsCommand } from '@codelab/backend/application/atom'
+import { ImportComponentsCommand } from '@codelab/backend/application/component'
 import { ImportDataMapperService } from '@codelab/backend/application/data'
 import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
@@ -27,7 +33,7 @@ import 'multer'
 import {
   ExportAppCommand,
   ImportAppCommand,
-  SeedCypressAppCommand,
+  SeedE2eAppCommand,
 } from './use-case'
 
 @Controller('app')
@@ -59,22 +65,26 @@ export class AppApplicationController {
     )
   }
 
+  /**
+   * Only seed required atom types for the spec to speed up the test
+   */
   @UseInterceptors(ClassSerializerInterceptor)
-  @Post('seed-cypress-app')
+  @Post('seed-e2e-app')
   async seedApp(
-    @Body() { jobId }: { jobId: string },
+    @Body()
+    {
+      atomTypes,
+      componentTypes,
+      jobId,
+    }: {
+      jobId: string
+      atomTypes?: Array<IAtomType>
+      componentTypes?: Array<IComponentType>
+    },
   ): Promise<IJobQueueResponse> {
     setTimeout(async () => {
-      await this.commandBus.execute<ImportSystemTypesCommand>(
-        new ImportSystemTypesCommand(),
-      )
-
-      await this.commandBus.execute<ImportCypressAtomsCommand>(
-        new ImportCypressAtomsCommand(),
-      )
-
-      const app = await this.commandBus.execute<SeedCypressAppCommand, IApp>(
-        new SeedCypressAppCommand(),
+      const app = await this.commandBus.execute<SeedE2eAppCommand, IApp>(
+        new SeedE2eAppCommand(),
       )
 
       this.socketGateway.emitJobComplete({

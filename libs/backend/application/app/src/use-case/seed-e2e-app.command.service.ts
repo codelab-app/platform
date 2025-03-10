@@ -1,6 +1,9 @@
 import type { InterfaceType } from '@codelab/backend/domain/type'
 import type { IAppDto } from '@codelab/shared/abstract/core'
 
+import { ImportE2eAtomsCommand } from '@codelab/backend/application/atom'
+import { ImportComponentsCommand } from '@codelab/backend/application/component'
+import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
 import { AppRepository } from '@codelab/backend/domain/app'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import { Element, ElementRepository } from '@codelab/backend/domain/element'
@@ -26,18 +29,30 @@ import {
   providerPageId,
 } from '@codelab/shared/data/test'
 import { Page } from '@codelab/shared-domain-module/page'
-import { CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
+import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 
-export class SeedCypressAppCommand {}
+export class SeedE2eAppCommand {
+  constructor(
+    public atomTypes?: Array<IAtomType>,
+    public componentTypes?: Array<IComponentType>,
+  ) {}
+}
 
 /**
- * Used as endpoint for creating Cypress data
+ * Used as endpoint for creating E2e data.
+ *
+ * We can either import data from json data or from data files
+ *
+ * We can either seed from code or from data files
+ *
+ * When seeding, we want to control what atom/component to import.
  */
-@CommandHandler(SeedCypressAppCommand)
-export class SeedCypressAppHandler
-  implements ICommandHandler<SeedCypressAppCommand, IAppDto>
+@CommandHandler(SeedE2eAppCommand)
+export class SeedE2eAppHandler
+  implements ICommandHandler<SeedE2eAppCommand, IAppDto>
 {
   constructor(
+    private commandBus: CommandBus,
     private readonly appRepository: AppRepository,
     private readonly pageRepository: PageRepository,
     private readonly elementRepository: ElementRepository,
@@ -47,7 +62,28 @@ export class SeedCypressAppHandler
     private readonly authDomainService: AuthDomainService,
   ) {}
 
-  async execute() {
+  async execute({ atomTypes, componentTypes }: SeedE2eAppCommand) {
+    await this.commandBus.execute<ImportSystemTypesCommand>(
+      new ImportSystemTypesCommand(),
+    )
+
+    await this.commandBus.execute<ImportE2eAtomsCommand>(
+      new ImportE2eAtomsCommand(atomTypes),
+    )
+
+    await this.commandBus.execute<ImportComponentsCommand>(
+      new ImportComponentsCommand(componentTypes),
+    )
+
+    const app = await this.seedApp()
+
+    return app
+  }
+
+  /**
+   * Logic not re-used besides this command, so we leave the logic here
+   */
+  private async seedApp() {
     const owner = this.authDomainService.currentUser
 
     const atomReactFragment = await this.atomRepository.findOneOrFail({

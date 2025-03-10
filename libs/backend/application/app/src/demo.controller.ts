@@ -1,6 +1,6 @@
 import type { IApp, IAppAggregateExport } from '@codelab/shared/abstract/core'
 
-import { ImportCypressAtomsCommand } from '@codelab/backend/application/atom'
+import { ImportE2eAtomsCommand } from '@codelab/backend/application/atom'
 import { ImportDataMapperService } from '@codelab/backend/application/data'
 import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
@@ -29,7 +29,7 @@ import 'multer'
 import {
   ExportAppCommand,
   ImportAppCommand,
-  SeedCypressAppCommand,
+  SeedE2eAppCommand,
 } from './use-case'
 
 @Controller('demo')

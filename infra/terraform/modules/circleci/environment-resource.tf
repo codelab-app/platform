@@ -18,7 +18,6 @@ resource "circleci_environment_variable" "env_vars" {
     AUTH0_E2E_PASSWORD              = var.auth0_e2e_password
     AUTH0_DOMAIN                    = var.auth0_domain
     AUTH0_SECRET                    = var.auth0_secret
-    CYPRESS_RECORD_KEY              = var.cypress_record_key
     SLACK_ACCESS_TOKEN              = var.slack_access_token
     SLACK_DEFAULT_CHANNEL           = var.slack_default_channel
     TERRAFORM_USER_TOKEN            = var.terraform_user_token

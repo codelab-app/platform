@@ -2,7 +2,7 @@ import type { IBaseDataPaths } from '@codelab/backend/application/data'
 import type {
   IAdminExport,
   ITag,
-  ITypeExport,
+  ITypeDtoWithoutOwner,
 } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
@@ -38,7 +38,7 @@ export class ExportAdminDataHandler
 
     const systemTypes = await this.commandBus.execute<
       ExportSystemTypesCommand,
-      Array<ITypeExport>
+      Array<ITypeDtoWithoutOwner>
     >(new ExportSystemTypesCommand())
 
     const atoms = await this.atomApplicationService.exportAtomsForAdmin()
