@@ -47,7 +47,5 @@ export const elementSchema = gql`
     # Pre-compute to save time during rendering
     closestContainerNode: ContainerNode!
     expanded: Boolean
-
-    dependantTypes: [AnyType!]! @customResolver(requires: "id")
   }
 `

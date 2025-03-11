@@ -6,6 +6,7 @@ import { AppRepository } from '@codelab/backend/domain/app'
 import { DomainRepository } from '@codelab/backend/domain/domain'
 import { PropRepository } from '@codelab/backend/domain/prop'
 import { ResourceRepository } from '@codelab/backend/domain/resource'
+import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 
 export class ImportAppCommand {
@@ -20,6 +21,7 @@ export class ImportAppHandler implements ICommandHandler<ImportAppCommand> {
     private readonly propRepository: PropRepository,
     private readonly commandBus: CommandBus,
     private readonly domainRepository: DomainRepository,
+    private readonly authService: AuthDomainService,
   ) {}
 
   async execute(command: ImportAppCommand) {
@@ -41,7 +43,11 @@ export class ImportAppHandler implements ICommandHandler<ImportAppCommand> {
       await this.domainRepository.save(domain)
     }
 
-    await this.appRepository.save(app)
+    await this.appRepository.save({
+      ...app,
+      // whoever is importing the app will be the owner
+      owner: this.authService.currentUser,
+    })
 
     for (const page of pages) {
       await this.commandBus.execute<ImportPageCommand>(

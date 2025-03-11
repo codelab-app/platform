@@ -46,6 +46,9 @@ fragment Page on Page {
     ...Store
   }
   urlPattern
+  dependantTypes {
+    ...Type
+  }
 }
 
 fragment PageDevelopment on Page {
@@ -72,6 +75,9 @@ fragment PageDevelopment on Page {
     ...Store
   }
   urlPattern
+  dependantTypes {
+    ...Type
+  }
 }
 
 fragment PageProduction on Page {

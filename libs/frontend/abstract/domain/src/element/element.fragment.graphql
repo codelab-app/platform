@@ -8,9 +8,6 @@ fragment Element on Element {
     id
   }
   childMapperPropKey
-  dependantTypes {
-    ...Type
-  }
   firstChild {
     id
   }
@@ -62,9 +59,6 @@ fragment ElementProduction on Element {
     id
   }
   childMapperPropKey
-  dependantTypes {
-    ...Type
-  }
   firstChild {
     id
   }

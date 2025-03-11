@@ -2,10 +2,7 @@ import type {
   IComponentBuilderArgs,
   IComponentBuilderQuery,
 } from '@codelab/frontend/abstract/domain'
-import type {
-  AtomBuilderFragment,
-  GetComponentBuilderQuery,
-} from '@codelab/shared/infra/gqlgen'
+import type { AtomBuilderFragment } from '@codelab/shared/infra/gqlgen'
 
 import { GetComponentBuilder } from '@codelab/frontend-domain-component/repositories'
 import { ITypeKind } from '@codelab/shared/abstract/core'
@@ -64,15 +61,15 @@ export const componentBuilderQuery: IComponentBuilderQuery = async ({
     (atom) => atom.id,
   )
 
-  const elementsDependantTypes = elements
-    .map((element) => element.dependantTypes)
-    .flat()
+  const componentsDependantTypes = components.flatMap(
+    (component) => component.dependantTypes,
+  )
 
   const types = [
     ...atoms.flatMap((type) => type.api),
     ...stores.map((store) => store.api),
     ...components.map((component) => component.api),
-    ...elementsDependantTypes.filter(
+    ...componentsDependantTypes.filter(
       (type) => type.kind === ITypeKind.InterfaceType,
     ),
   ]
@@ -100,6 +97,6 @@ export const componentBuilderQuery: IComponentBuilderQuery = async ({
     resources: data.resources,
     stores,
     tags,
-    types: [...types, ...elementsDependantTypes, ...systemTypes],
+    types: [...types, ...componentsDependantTypes, ...systemTypes],
   }
 }

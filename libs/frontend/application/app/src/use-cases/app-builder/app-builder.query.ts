@@ -87,15 +87,13 @@ export const appBuilderQuery: IAppBuilderQuery = async ({
     (atom) => atom.id,
   )
 
-  const elementsDependantTypes = elements
-    .map((element) => element.dependantTypes)
-    .flat()
+  const pageDependantTypes = pages.flatMap((page) => page.dependantTypes)
 
   const types = [
     ...atoms.flatMap((type) => type.api),
     ...stores.map((store) => store.api),
     ...components.map((component) => component.api),
-    ...elementsDependantTypes.filter(
+    ...pageDependantTypes.filter(
       (type) => type.kind === ITypeKind.InterfaceType,
     ),
   ]
@@ -126,6 +124,6 @@ export const appBuilderQuery: IAppBuilderQuery = async ({
     resources: data.resources,
     stores,
     tags,
-    types: [...types, ...elementsDependantTypes, ...systemTypes],
+    types: [...types, ...pageDependantTypes, ...systemTypes],
   }
 }

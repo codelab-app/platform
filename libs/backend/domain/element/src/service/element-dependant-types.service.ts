@@ -28,14 +28,16 @@ export class ElementDependantTypesService {
         id: element.id,
       })
 
-      const typeRefs: Array<ITypeRef> = records.map((rec) => ({
-        __typename: rec.get(0).__typename,
-        id: rec.get(0).id,
-      }))
+      const typeRefs: Array<ITypeRef> = records.map((rec) => rec.get(0))
+      const types = []
 
-      return Promise.all(
-        typeRefs.map((type) => this.typeFactory.findOneOrFail(type)),
-      )
+      for (const typeRef of typeRefs) {
+        const fullType = await this.typeFactory.findOneOrFail(typeRef)
+
+        types.push(fullType)
+      }
+
+      return types
     })
   }
 }

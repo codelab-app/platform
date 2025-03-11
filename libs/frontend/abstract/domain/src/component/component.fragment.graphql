@@ -19,6 +19,9 @@ fragment Component on Component {
   store {
     ...Store
   }
+  dependantTypes {
+    ...Type
+  }
 }
 
 fragment ComponentBuilder on Component {
@@ -44,6 +47,9 @@ fragment ComponentBuilder on Component {
   }
   store {
     ...Store
+  }
+  dependantTypes {
+    ...Type
   }
 }
 
