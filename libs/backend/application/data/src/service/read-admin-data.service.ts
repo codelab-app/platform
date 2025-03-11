@@ -56,15 +56,9 @@ export class ReadAdminDataService implements IReadAdminDataService {
         ),
       ) as IAtomAggregate
 
-      const owner = this.authService.currentUser
-
       const data: IAtomAggregate = Validator.parse(AtomAggregateSchema, {
-        api: {
-          ...api,
-          owner,
-          types: api.types.map((type) => ({ ...type, owner })),
-        },
-        atom: { ...atom, owner },
+        api,
+        atom,
       })
 
       return data
@@ -129,7 +123,9 @@ export class ReadAdminDataService implements IReadAdminDataService {
   }
 
   getAtomsByTypes(types: Array<IAtomType>) {
-    return this.atoms.filter(({ atom }) => types.includes(atom.type))
+    return this.atoms.filter(({ atom }) => {
+      return types.includes(atom.type)
+    })
   }
 
   getComponentsByNames(names: Array<IComponentType>) {

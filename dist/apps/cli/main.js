@@ -1279,10 +1279,6 @@ let TaskService = class TaskService {
             .middleware([loadStageMiddleware])
             .command(Tasks.Build, 'Build projects', (argv) => argv, globalHandler(({ stage }) => {
             if (stage === Stage.Test) {
-                this.logger.log('Building projects', {
-                    context: 'TaskService',
-                    data: { stage },
-                });
                 // Added since many times can't find production build of next during push
                 // Maybe related? https://github.com/nrwl/nx/issues/2839
                 execCommand('nx affected --target=build -c test');
@@ -1297,10 +1293,6 @@ let TaskService = class TaskService {
         }))
             .command(Tasks.Unit, 'Run unit tests', (argv) => argv, globalHandler(({ stage }) => {
             if (stage === Stage.Test) {
-                this.logger.log('Running unit tests', {
-                    context: 'TaskService',
-                    data: { stage },
-                });
                 // Added since many times can't find production build of next during push
                 // Maybe related? https://github.com/nrwl/nx/issues/2839
                 // execCommand(`nx build web -c test`)

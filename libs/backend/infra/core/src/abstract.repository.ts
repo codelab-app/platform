@@ -18,9 +18,7 @@ export abstract class AbstractRepository<
   Options,
 > implements IRepository<Dto, Model, Where, Options>
 {
-  constructor(protected loggerService: PinoLoggerService) {
-    // Remove debug flag initialization
-  }
+  constructor(protected loggerService: PinoLoggerService) {}
 
   /**
    * Array adds complexity, create an optional `addMany` if needed

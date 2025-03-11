@@ -2,9 +2,7 @@ import type { CommandBus } from '@nestjs/cqrs'
 
 import { DataModule } from '@codelab/backend/application/data'
 import {
-  ImportApiHandler,
   ImportSystemTypesCommand,
-  SeedSystemTypesHandler,
   TypeApplicationModule,
   TypeSeederService,
 } from '@codelab/backend/application/type'
@@ -17,9 +15,9 @@ import {
 import { initUserContext } from '@codelab/backend/test/setup'
 import { IAtomType } from '@codelab/shared/abstract/core'
 
-import { AtomApplicationService } from './../../services/atom.application.service'
+import { AtomApplicationService } from '../../services/atom.application.service'
 
-describe('ImportAtomsCommand', () => {
+describe('ImportAtoms', () => {
   let commandBus: CommandBus
   let atomRepository: AtomRepository
   let interfaceTypeRepository: InterfaceTypeRepository
@@ -32,12 +30,7 @@ describe('ImportAtomsCommand', () => {
       TypeApplicationModule,
       DataModule,
     ],
-    providers: [
-      ImportApiHandler,
-      SeedSystemTypesHandler,
-      TypeSeederService,
-      AtomApplicationService,
-    ],
+    providers: [TypeSeederService, AtomApplicationService],
   })
 
   beforeAll(async () => {
@@ -60,11 +53,11 @@ describe('ImportAtomsCommand', () => {
   it('can import atoms', async () => {
     const importSystemTypesCommand = new ImportSystemTypesCommand()
 
+    await commandBus.execute(importSystemTypesCommand)
+
     await atomApplicationService.importAtomsFromTypes([
       IAtomType.AntDesignButton,
     ])
-
-    await commandBus.execute(importSystemTypesCommand)
 
     const atoms = await atomRepository.find()
 

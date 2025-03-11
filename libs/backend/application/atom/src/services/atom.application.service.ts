@@ -20,7 +20,6 @@ export class AtomApplicationService {
     private readonly readAdminDataService: ReadAdminDataService,
     private readonly atomRepository: AtomRepository,
     private logger: PinoLoggerService,
-    private readonly typeDomainService: TypeDomainService,
     private typeApplicationService: TypeApplicationService,
     private authDomainService: AuthDomainService,
   ) {}
@@ -69,7 +68,7 @@ export class AtomApplicationService {
      */
     this.logger.log(`Importing all atoms at once, (${atoms.length})`)
 
-    await this.atomRepository.addMany(
+    return await this.atomRepository.addMany(
       atoms.map((atom) => ({
         ...atom,
         owner: this.authDomainService.currentUser,
