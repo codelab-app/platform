@@ -18,7 +18,8 @@ import { RichTextTypeDtoSchema } from './rich-text-type'
 import { TypeDtoSchema, typeDtoSchemas } from './type.dto.interface'
 import { UnionTypeDtoSchema } from './union-type'
 
-export const omitOwner = (schema: TSchema) => Type.Omit(schema, ['owner'])
+export const omitOwner = <T extends TSchema>(schema: T) =>
+  Type.Omit(schema, ['owner'])
 
 export const TypeDtoWithoutOwnerSchema = Type.Union(
   typeDtoSchemas.map(omitOwner),

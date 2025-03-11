@@ -1,8 +1,8 @@
 import type { IBaseDataPaths } from '@codelab/backend/application/data'
-import type { IAtomImport } from '@codelab/shared/abstract/core'
+import type { IAtomAggregate } from '@codelab/shared/abstract/core'
 
-import { ImportAtomCommand } from '@codelab/backend/application/atom'
-import { ImportComponentsCommand } from '@codelab/backend/application/component'
+import { AtomApplicationService } from '@codelab/backend/application/atom'
+import { ComponentApplicationService } from '@codelab/backend/application/component'
 import { ReadAdminDataService } from '@codelab/backend/application/data'
 import { ImportTagsCommand } from '@codelab/backend/application/tag'
 import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
@@ -25,6 +25,8 @@ export class ImportAdminDataHandler
     private readonly commandBus: CommandBus,
     private readonly readAdminDataService: ReadAdminDataService,
     private readonly logger: PinoLoggerService,
+    private readonly atomApplicationService: AtomApplicationService,
+    private readonly componentApplicationService: ComponentApplicationService,
   ) {}
 
   async execute({ baseDataPath }: ImportAdminDataCommand) {
@@ -50,10 +52,8 @@ export class ImportAdminDataHandler
     await this.importComponents()
   }
 
-  private async importAtom(atom: IAtomImport) {
-    await this.commandBus.execute<ImportAtomCommand>(
-      new ImportAtomCommand(atom),
-    )
+  private async importAtom(atom: IAtomAggregate) {
+    return await this.atomApplicationService.importAtoms([atom])
   }
 
   private async importAtoms() {
@@ -113,9 +113,7 @@ export class ImportAdminDataHandler
   }
 
   private async importComponents() {
-    for (const component of this.readAdminDataService.components) {
-      await this.commandBus.execute(new ImportComponentsCommand(component))
-    }
+    await this.componentApplicationService.importComponentsFromRepo()
   }
 
   private async importSystemTypes() {

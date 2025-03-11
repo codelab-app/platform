@@ -1,4 +1,4 @@
-import { ImportAtomCommand } from '@codelab/backend/application/atom'
+import { AtomApplicationService } from '@codelab/backend/application/atom'
 import { ReadAdminDataService } from '@codelab/backend/application/data'
 import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
 import { UserDomainService } from '@codelab/backend/domain/user'
@@ -14,6 +14,7 @@ export class SeederApplicationService {
     private userDomainService: UserDomainService,
     private readonly readAdminDataService: ReadAdminDataService,
     private readonly databaseService: DatabaseService,
+    private readonly atomApplicationService: AtomApplicationService,
   ) {}
 
   async resetAndSeedUser() {
@@ -36,15 +37,9 @@ export class SeederApplicationService {
       new ImportSystemTypesCommand(),
     )
 
-    const atoms = this.readAdminDataService.atoms.filter(
-      ({ atom }) => atom.type === IAtomType.AntDesignButton,
-    )
-
-    for (const atom of atoms) {
-      await this.commandBus.execute<ImportAtomCommand>(
-        new ImportAtomCommand(atom),
-      )
-    }
+    await this.atomApplicationService.importAtomsFromTypes([
+      IAtomType.AntDesignButton,
+    ])
   }
 
   /**
@@ -57,15 +52,9 @@ export class SeederApplicationService {
       new ImportSystemTypesCommand(),
     )
 
-    const atoms = this.readAdminDataService.atoms.filter(
-      ({ atom }) => atom.type === IAtomType.ReactFragment,
-    )
-
-    for (const atom of atoms) {
-      await this.commandBus.execute<ImportAtomCommand>(
-        new ImportAtomCommand(atom),
-      )
-    }
+    await this.atomApplicationService.importAtomsFromTypes([
+      IAtomType.ReactFragment,
+    ])
   }
 
   /**
@@ -82,14 +71,8 @@ export class SeederApplicationService {
       new ImportSystemTypesCommand(),
     )
 
-    const atoms = this.readAdminDataService.atoms.filter(
-      ({ atom }) => atom.type === IAtomType.ReactFragment,
-    )
-
-    for (const atom of atoms) {
-      await this.commandBus.execute<ImportAtomCommand>(
-        new ImportAtomCommand(atom),
-      )
-    }
+    await this.atomApplicationService.importAtomsFromTypes([
+      IAtomType.ReactFragment,
+    ])
   }
 }

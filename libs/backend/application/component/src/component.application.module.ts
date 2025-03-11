@@ -1,5 +1,4 @@
 import {
-  ImportDataMapperService,
   MigrationDataService,
   ReadAdminDataService,
 } from '@codelab/backend/application/data'
@@ -16,7 +15,7 @@ import { CqrsModule } from '@nestjs/cqrs'
 
 import { ComponentApplicationController } from './component.application.controller'
 import { ComponentApplicationService } from './service/component.application.service'
-import { ExportComponentHandler, ImportComponentsHandler } from './use-case'
+import { ExportComponentHandler } from './use-case'
 
 @Module({
   controllers: [ComponentApplicationController],
@@ -34,11 +33,9 @@ import { ExportComponentHandler, ImportComponentsHandler } from './use-case'
   ],
   providers: [
     ExportComponentHandler,
-    ImportComponentsHandler,
     ComponentApplicationService,
     ReadAdminDataService,
     MigrationDataService,
-    ImportDataMapperService,
   ],
 })
 export class ComponentApplicationModule {}

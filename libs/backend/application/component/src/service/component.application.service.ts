@@ -1,20 +1,25 @@
 import type {
-  IComponentAggregateExport,
+  IComponentAggregate,
   IComponentDto,
+  IComponentType,
   ICreateComponentData,
   IInterfaceTypeDto,
   IStoreDto,
 } from '@codelab/shared/abstract/core'
 
+import { ReadAdminDataService } from '@codelab/backend/application/data'
 import { ElementApplicationService } from '@codelab/backend/application/element'
 import { StoreApplicationService } from '@codelab/backend/application/store'
+import { TypeApplicationService } from '@codelab/backend/application/type'
 import { ComponentRepository } from '@codelab/backend/domain/component'
+import { ElementRepository } from '@codelab/backend/domain/element'
 import { PropDomainService } from '@codelab/backend/domain/prop'
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { Store } from '@codelab/backend/domain/store'
 import {
   InterfaceType,
   InterfaceTypeRepository,
+  TypeDomainService,
 } from '@codelab/backend/domain/type'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { IElementRenderTypeKind, IRole } from '@codelab/shared/abstract/core'
@@ -28,15 +33,52 @@ import { ExportComponentCommand } from '../use-case'
 @Injectable()
 export class ComponentApplicationService {
   constructor(
+    private readonly readAdminDataService: ReadAdminDataService,
     private authDomainService: AuthDomainService,
     private componentRepository: ComponentRepository,
     private commandBus: CommandBus,
     private storeApplicationService: StoreApplicationService,
     private elementApplicationService: ElementApplicationService,
-    private propDomainService: PropDomainService,
     private interfaceTypeRepository: InterfaceTypeRepository,
+    private typeApplicationService: TypeApplicationService,
     private logger: PinoLoggerService,
+    private typeDomainService: TypeDomainService,
+    private elementRepository: ElementRepository,
   ) {}
+
+  /**
+   * Empty means import all
+   */
+  async addComponents(componentsData: Array<IComponentAggregate>) {
+    const apis = componentsData.flatMap(({ api }) => api)
+    const components = componentsData.flatMap(({ component }) => component)
+
+    const elements = componentsData.flatMap(
+      ({ elements: _elements }) => _elements,
+    )
+
+    const stores = componentsData.flatMap(({ store }) => store)
+
+    this.logger.log('Import components', {
+      componentsCount: componentsData.length,
+      context: 'ImportComponentsHandler',
+    })
+
+    await this.typeApplicationService.addApis(apis)
+
+    await this.storeApplicationService.addStores(stores)
+
+    for (const element of elements) {
+      await this.elementRepository.save(element)
+    }
+
+    await this.componentRepository.addMany(
+      components.map((component) => ({
+        ...component,
+        owner: this.authDomainService.currentUser,
+      })),
+    )
+  }
 
   async createComponent(createComponentData: ICreateComponentData) {
     this.logger.debug('createComponent', {
@@ -105,7 +147,7 @@ export class ComponentApplicationService {
   /**
    * Export all components owned by admins
    */
-  async exportComponentsForAdmin(): Promise<Array<IComponentAggregateExport>> {
+  async exportComponentsForAdmin(): Promise<Array<IComponentAggregate>> {
     const components = await this.componentRepository.find({
       where: {
         owner: {
@@ -114,17 +156,37 @@ export class ComponentApplicationService {
       },
     })
 
-    const results: Array<IComponentAggregateExport> = []
+    const results: Array<IComponentAggregate> = []
 
     for (const component of components) {
       const result = await this.commandBus.execute<
         ExportComponentCommand,
-        IComponentAggregateExport
+        IComponentAggregate
       >(new ExportComponentCommand(component.id))
 
       results.push(result)
     }
 
     return results
+  }
+
+  /**
+   * Import all components from repo
+   */
+  async importComponentsFromRepo() {
+    const components = this.readAdminDataService.components
+
+    return await this.addComponents(components)
+  }
+
+  /**
+   * Empty means import all components
+   */
+  async importComponentsFromTypes(componentTypes?: Array<IComponentType>) {
+    const componentsData = componentTypes
+      ? this.readAdminDataService.getComponentsByNames(componentTypes)
+      : this.readAdminDataService.components
+
+    return await this.addComponents(componentsData)
   }
 }

@@ -1,5 +1,5 @@
 import type {
-  IApiExport,
+  IApiAggregate,
   IEnumTypeDto,
   IInterfaceTypeRef,
   ITypeDtoWithoutOwner,
@@ -33,7 +33,7 @@ export class ExportApiCommand {
  */
 @CommandHandler(ExportApiCommand)
 export class ExportApiHandler
-  implements ICommandHandler<ExportApiCommand, IApiExport>
+  implements ICommandHandler<ExportApiCommand, IApiAggregate>
 {
   constructor(
     private readonly interfaceTypeRepository: InterfaceTypeRepository,
@@ -42,7 +42,7 @@ export class ExportApiHandler
     private readonly logger: PinoLoggerService,
   ) {}
 
-  async execute({ api }: ExportApiCommand): Promise<IApiExport> {
+  async execute({ api }: ExportApiCommand): Promise<IApiAggregate> {
     /**
      * (1) Get itself
      */

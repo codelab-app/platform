@@ -10,7 +10,6 @@ export const StoreDtoSchema = Type.Object({
   id: Type.String(),
   name: Type.String(),
   page: Typebox.Nullish(Typebox.RefSchema),
-  source: Typebox.Nullish(Typebox.RefSchema),
 })
 
 export type IStoreDto = Static<typeof StoreDtoSchema>

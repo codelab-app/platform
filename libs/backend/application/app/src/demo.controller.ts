@@ -1,7 +1,5 @@
-import type { IApp, IAppAggregateExport } from '@codelab/shared/abstract/core'
+import type { IApp, IAppAggregate } from '@codelab/shared/abstract/core'
 
-import { ImportE2eAtomsCommand } from '@codelab/backend/application/atom'
-import { ImportDataMapperService } from '@codelab/backend/application/data'
 import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { DEMO_JOB, SEED_QUEUE } from '@codelab/backend/infra/adapter/queue'
@@ -26,18 +24,13 @@ import { Queue } from 'bullmq'
 import { Express, Request as ExpressRequest, Response } from 'express'
 import 'multer'
 
-import {
-  ExportAppCommand,
-  ImportAppCommand,
-  SeedE2eAppCommand,
-} from './use-case'
+import { ExportAppCommand, SeedE2eAppCommand } from './use-case'
 
 @Controller('demo')
 export class DemoController {
   constructor(
     private commandBus: CommandBus,
     private logger: PinoLoggerService,
-    private importDataMapperService: ImportDataMapperService,
     // @InjectQueue(SEED_QUEUE) private seedQueue: Queue,
     private readonly socketGateway: WsGateway,
   ) {}

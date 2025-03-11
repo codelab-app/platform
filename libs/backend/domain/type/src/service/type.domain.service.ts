@@ -1,10 +1,14 @@
+import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
-  IApiImport,
-  IAtomImport,
+  IApiAggregate,
+  IAtomAggregate,
   IInterfaceTypeDto,
+  IOwner,
+  IRef,
   ITypeDto,
   ITypeKind,
+  IUserDto,
 } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 
@@ -15,8 +19,6 @@ import { FieldRepository, InterfaceTypeRepository } from '../repository'
 export class TypeDomainService {
   constructor(
     private interfaceTypeRepository: InterfaceTypeRepository,
-    private readonly logger: PinoLoggerService,
-    private readonly fieldRepository: FieldRepository,
     private readonly typeFactory: TypeFactory,
   ) {}
 
@@ -27,43 +29,6 @@ export class TypeDomainService {
     for (const type of types) {
       await this.typeFactory.add(type)
     }
-  }
-
-  async addManyApis(apis: Array<IApiImport>) {
-    // Log details for each API
-    // for (const api of apis) {
-    //   const fieldNames = api.fields.map((field) => field.key)
-
-    //   this.logger.log(`API: ${api.name}`, {
-    //     context: 'TypeDomainService',
-    //     fieldCount: api.fields.length,
-    //     fieldNames,
-    //   })
-    // }
-
-    const allTypes = apis.flatMap(({ types }) => types)
-    const apiFields = apis.flatMap(({ fields }) => fields)
-
-    /**
-     * Add interface type first, then we assign fields
-     */
-    this.logger.log('Adding interface types', {
-      context: 'TypeDomainService',
-      count: apis.length,
-    })
-
-    await this.interfaceTypeRepository.addMany(apis)
-
-    for (const type of allTypes) {
-      await this.typeFactory.add(type)
-    }
-
-    this.logger.log('Adding interface fields', {
-      context: 'TypeDomainService',
-      count: apiFields.length,
-    })
-
-    await this.fieldRepository.addMany(apiFields)
   }
 
   async createInterface(

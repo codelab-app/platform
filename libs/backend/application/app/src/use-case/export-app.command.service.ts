@@ -1,8 +1,8 @@
 import type {
-  IAppAggregateExport,
-  IComponentAggregateExport,
+  IAppAggregate,
+  IComponentAggregate,
   IElementExport,
-  IPageAggregateExport,
+  IPageAggregate,
   IRef,
 } from '@codelab/shared/abstract/core'
 import type { AppWhere } from '@codelab/shared/infra/gqlgen'
@@ -15,7 +15,7 @@ import { ComponentRepository } from '@codelab/backend/domain/component'
 import { DomainRepository } from '@codelab/backend/domain/domain'
 import { ResourceRepository } from '@codelab/backend/domain/resource'
 import {
-  AppAggregateExportSchema,
+  AppAggregateSchema,
   IActionKind,
   IElementRenderTypeKind,
 } from '@codelab/shared/abstract/core'
@@ -30,7 +30,7 @@ export class ExportAppCommand {
 
 @CommandHandler(ExportAppCommand)
 export class ExportAppHandler
-  implements ICommandHandler<ExportAppCommand, IAppAggregateExport>
+  implements ICommandHandler<ExportAppCommand, IAppAggregate>
 {
   constructor(
     private readonly appRepository: AppRepository,
@@ -47,12 +47,12 @@ export class ExportAppHandler
       where: { app: { id: where.id } },
     })
 
-    const pages: Array<IPageAggregateExport> = await this.commandBus.execute<
+    const pages: Array<IPageAggregate> = await this.commandBus.execute<
       ExportPageCommand,
-      Array<IPageAggregateExport>
+      Array<IPageAggregate>
     >(new ExportPageCommand({ id_IN: app.pages.map((page) => page.id) }))
 
-    return Validator.parse(AppAggregateExportSchema, {
+    return Validator.parse(AppAggregateSchema, {
       app,
       components: await this.components(pages),
       domains,
@@ -61,8 +61,8 @@ export class ExportAppHandler
     })
   }
 
-  private async components(pages: Array<IPageAggregateExport>) {
-    const components: Array<IComponentAggregateExport> = []
+  private async components(pages: Array<IPageAggregate>) {
+    const components: Array<IComponentAggregate> = []
 
     for (const { page } of pages) {
       // TODO: need to create a separate query that contains descendants
@@ -110,7 +110,7 @@ export class ExportAppHandler
         for (const currentComponent of currentComponents) {
           const component = await this.commandBus.execute<
             ExportComponentCommand,
-            IComponentAggregateExport
+            IComponentAggregate
           >(new ExportComponentCommand(currentComponent.id))
 
           components.push(component)
@@ -132,7 +132,7 @@ export class ExportAppHandler
     return components
   }
 
-  private async resources(pages: Array<IPageAggregateExport>) {
+  private async resources(pages: Array<IPageAggregate>) {
     const pageStores = pages.map((page) => page.store)
 
     const pageResourceRefs = pageStores.reduce<Array<IRef>>((acc, store) => {

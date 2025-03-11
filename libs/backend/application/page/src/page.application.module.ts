@@ -1,4 +1,5 @@
 import { ElementApplicationModule } from '@codelab/backend/application/element'
+import { StoreApplicationModule } from '@codelab/backend/application/store'
 import { AppDomainModule } from '@codelab/backend/domain/app'
 import { ComponentDomainModule } from '@codelab/backend/domain/component'
 import { ElementDomainModule } from '@codelab/backend/domain/element'
@@ -12,14 +13,15 @@ import { CqrsModule } from '@nestjs/cqrs'
 
 import { PageApplicationController } from './page.application.controller'
 import { PageApplicationService } from './page.application.service'
-import { ExportPageHandler, ImportPageHandler } from './use-case'
+import { ExportPageHandler } from './use-case'
 
 @Module({
   controllers: [PageApplicationController],
-  exports: [],
+  exports: [PageApplicationService],
   imports: [
     AuthDomainModule,
     ElementApplicationModule,
+    StoreApplicationModule,
     AppDomainModule,
     PageDomainModule,
     StoreDomainModule,
@@ -29,6 +31,6 @@ import { ExportPageHandler, ImportPageHandler } from './use-case'
     ElementDomainModule,
     CqrsModule,
   ],
-  providers: [ExportPageHandler, ImportPageHandler, PageApplicationService],
+  providers: [ExportPageHandler, PageApplicationService],
 })
 export class PageApplicationModule {}

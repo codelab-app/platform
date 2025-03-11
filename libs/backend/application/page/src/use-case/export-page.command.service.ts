@@ -12,8 +12,8 @@ import {
 } from '@codelab/backend/domain/page'
 import {
   ElementExportSchema,
-  type IPageAggregateExport,
-  type IStoreAggregateExport,
+  type IPageAggregate,
+  type IStoreAggregate,
 } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/typebox'
 import { sortPagesByKindAndName } from '@codelab/shared/utils'
@@ -25,7 +25,7 @@ export class ExportPageCommand {
 
 @CommandHandler(ExportPageCommand)
 export class ExportPageHandler
-  implements ICommandHandler<ExportPageCommand, Array<IPageAggregateExport>>
+  implements ICommandHandler<ExportPageCommand, Array<IPageAggregate>>
 {
   constructor(
     private readonly pageRepository: PageRepository,
@@ -38,7 +38,7 @@ export class ExportPageHandler
 
     sortPagesByKindAndName(pages)
 
-    const pagesExport: Array<IPageAggregateExport> = await Promise.all(
+    const pagesExport: Array<IPageAggregate> = await Promise.all(
       pages.map(async (page) => {
         const { elements, store } = await this.getPageData(page)
 
@@ -69,7 +69,7 @@ export class ExportPageHandler
 
     const store = await this.commandBus.execute<
       ExportStoreCommand,
-      IStoreAggregateExport
+      IStoreAggregate
     >(new ExportStoreCommand({ id: page.store.id }))
 
     return { elements, store }

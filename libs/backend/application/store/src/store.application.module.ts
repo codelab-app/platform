@@ -1,3 +1,4 @@
+import { TypeApplicationModule } from '@codelab/backend/application/type'
 import { ActionDomainModule } from '@codelab/backend/domain/action'
 import { PropDomainModule } from '@codelab/backend/domain/prop'
 import { ResourceDomainModule } from '@codelab/backend/domain/resource'
@@ -8,17 +9,13 @@ import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
 
 import { StoreApplicationService } from './store.application.service'
-import {
-  ExportStoreCommand,
-  ExportStoreHandler,
-  ImportStoreCommand,
-  ImportStoreHandler,
-} from './use-case'
+import { ExportStoreCommand, ExportStoreHandler } from './use-case'
 
 @Module({
   exports: [StoreApplicationService],
   imports: [
     CqrsModule,
+    TypeApplicationModule,
     ActionDomainModule,
     StoreDomainModule,
     ResourceDomainModule,
@@ -26,12 +23,6 @@ import {
     SharedDomainModule,
     TypeDomainModule,
   ],
-  providers: [
-    StoreApplicationService,
-    ExportStoreCommand,
-    ExportStoreHandler,
-    ImportStoreHandler,
-    ImportStoreCommand,
-  ],
+  providers: [StoreApplicationService, ExportStoreCommand, ExportStoreHandler],
 })
 export class StoreApplicationModule {}

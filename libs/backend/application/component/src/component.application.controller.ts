@@ -1,8 +1,8 @@
+import { ReadAdminDataService } from '@codelab/backend/application/data'
 import {
-  ImportDataMapperService,
-  ReadAdminDataService,
-} from '@codelab/backend/application/data'
-import { type ICreateComponentData } from '@codelab/shared/abstract/core'
+  IComponentAggregate,
+  type ICreateComponentData,
+} from '@codelab/shared/abstract/core'
 import {
   Body,
   ClassSerializerInterceptor,
@@ -18,7 +18,7 @@ import { FileInterceptor } from '@nestjs/platform-express'
 import { Express, Request as ExpressRequest } from 'express'
 
 import { ComponentApplicationService } from './service/component.application.service'
-import { ExportComponentCommand, ImportComponentsCommand } from './use-case'
+import { ExportComponentCommand } from './use-case'
 
 @Controller('component')
 export class ComponentApplicationController {
@@ -26,7 +26,6 @@ export class ComponentApplicationController {
     private readonly commandBus: CommandBus,
     private readonly componentApplicationService: ComponentApplicationService,
     private readonly readAdminDataService: ReadAdminDataService,
-    private readonly importDataMapperService: ImportDataMapperService,
   ) {}
 
   @UseInterceptors(ClassSerializerInterceptor)
@@ -53,19 +52,8 @@ export class ComponentApplicationController {
   @Post('import')
   async importComponent(@UploadedFile() file: Express.Multer.File) {
     const json = file.buffer.toString('utf8')
-    const data = JSON.parse(json)
-    const importData = this.importDataMapperService.getComponentImportData(data)
+    const component: IComponentAggregate = JSON.parse(json)
 
-    return await this.commandBus.execute(
-      new ImportComponentsCommand(importData),
-    )
-  }
-
-  @UseInterceptors(ClassSerializerInterceptor)
-  @Post('seed-system-components')
-  async seedSystemComponents() {
-    for (const component of this.readAdminDataService.components) {
-      await this.commandBus.execute(new ImportComponentsCommand(component))
-    }
+    return await this.componentApplicationService.addComponents([component])
   }
 }

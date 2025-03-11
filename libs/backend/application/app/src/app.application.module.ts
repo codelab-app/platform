@@ -1,9 +1,8 @@
 import { AtomApplicationModule } from '@codelab/backend/application/atom'
-import { ImportDataMapperService } from '@codelab/backend/application/data'
+import { ComponentApplicationModule } from '@codelab/backend/application/component'
 import { DomainApplicationModule } from '@codelab/backend/application/domain'
 import {
   ExportPageHandler,
-  ImportPageHandler,
   PageApplicationModule,
 } from '@codelab/backend/application/page'
 import { TypeApplicationModule } from '@codelab/backend/application/type'
@@ -25,17 +24,15 @@ import { CqrsModule } from '@nestjs/cqrs'
 
 import { AppApplicationController } from './app.application.controller'
 import { DemoController } from './demo.controller'
-import {
-  ExportAppHandler,
-  ImportAppHandler,
-  SeedE2eAppHandler,
-} from './use-case'
+import { AppApplicationService } from './services/app.application.service'
+import { ExportAppHandler, SeedE2eAppHandler } from './use-case'
 
 @Module({
   controllers: [AppApplicationController, DemoController],
   exports: [],
   imports: [
     WsModule,
+    PageApplicationModule,
     AtomDomainModule,
     AuthDomainModule,
     AppDomainModule,
@@ -43,6 +40,7 @@ import {
     AtomApplicationModule,
     PageApplicationModule,
     TypeApplicationModule,
+    ComponentApplicationModule,
     PropDomainModule,
     ComponentDomainModule,
     ElementDomainModule,
@@ -53,11 +51,6 @@ import {
     CqrsModule,
     Neo4jModule,
   ],
-  providers: [
-    SeedE2eAppHandler,
-    ImportAppHandler,
-    ExportAppHandler,
-    ImportDataMapperService,
-  ],
+  providers: [SeedE2eAppHandler, ExportAppHandler, AppApplicationService],
 })
 export class AppApplicationModule {}

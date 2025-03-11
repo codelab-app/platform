@@ -3,10 +3,10 @@ import type { ICommandHandler } from '@nestjs/cqrs'
 import { ExportApiCommand } from '@codelab/backend/application/type'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import {
-  AtomExportSchema,
+  AtomAggregateSchema,
   AtomSchema,
-  type IApiExport,
-  type IAtomExport,
+  type IApiAggregate,
+  type IAtomAggregate,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { type AtomWhere } from '@codelab/shared/infra/gqlgen'
@@ -20,14 +20,14 @@ export class ExportAtomCommand {
 
 @CommandHandler(ExportAtomCommand)
 export class ExportAtomHandler
-  implements ICommandHandler<ExportAtomCommand, IAtomExport>
+  implements ICommandHandler<ExportAtomCommand, IAtomAggregate>
 {
   constructor(
     private readonly atomRepository: AtomRepository,
     private commandBus: CommandBus,
   ) {}
 
-  async execute(command: ExportAtomCommand): Promise<IAtomExport> {
+  async execute(command: ExportAtomCommand): Promise<IAtomAggregate> {
     const { where } = command
 
     const existingAtom = await this.atomRepository.findOneOrFail({
@@ -35,7 +35,7 @@ export class ExportAtomHandler
       where,
     })
 
-    const api = await this.commandBus.execute<ExportApiCommand, IApiExport>(
+    const api = await this.commandBus.execute<ExportApiCommand, IApiAggregate>(
       new ExportApiCommand({
         ...existingAtom.api,
         __typename: ITypeKind.InterfaceType,
@@ -49,7 +49,7 @@ export class ExportAtomHandler
       tags: existingAtom.tags?.map((tag) => ({ id: tag.id })),
     }
 
-    const results = Validator.parse(AtomExportSchema, { api, atom })
+    const results = Validator.parse(AtomAggregateSchema, { api, atom })
 
     return results
   }

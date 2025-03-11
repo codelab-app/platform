@@ -38,7 +38,7 @@ export class UserDomainService {
    * Seed a user from currently authenticated user, takes user from request object
    */
   async seedUserFromRequest() {
-    const currentUser = this.authDomainService.currentUser
+    const currentUser = this.authDomainService.currentUserSession
 
     return this.saveUser({ ...currentUser, preferences: preferenceDefault })
   }

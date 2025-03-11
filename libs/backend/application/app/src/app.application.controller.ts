@@ -1,13 +1,10 @@
 import type {
   IApp,
-  IAppAggregateExport,
+  IAppAggregate,
   IAtomType,
   IComponentType,
 } from '@codelab/shared/abstract/core'
 
-import { ImportE2eAtomsCommand } from '@codelab/backend/application/atom'
-import { ImportComponentsCommand } from '@codelab/backend/application/component'
-import { ImportDataMapperService } from '@codelab/backend/application/data'
 import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { DEMO_JOB, SEED_QUEUE } from '@codelab/backend/infra/adapter/queue'
@@ -30,25 +27,22 @@ import { FileInterceptor } from '@nestjs/platform-express'
 import { Express, Request as ExpressRequest, Response } from 'express'
 import 'multer'
 
-import {
-  ExportAppCommand,
-  ImportAppCommand,
-  SeedE2eAppCommand,
-} from './use-case'
+import { AppApplicationService } from './services/app.application.service'
+import { ExportAppCommand, SeedE2eAppCommand } from './use-case'
 
 @Controller('app')
 export class AppApplicationController {
   constructor(
     private commandBus: CommandBus,
     private logger: PinoLoggerService,
-    private importDataMapperService: ImportDataMapperService,
     private readonly socketGateway: WsGateway,
+    private appApplicationService: AppApplicationService,
   ) {}
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Get('export')
   async exportApp(@Request() req: ExpressRequest) {
-    return this.commandBus.execute<ExportAppCommand, IAppAggregateExport>(
+    return this.commandBus.execute<ExportAppCommand, IAppAggregate>(
       new ExportAppCommand({ id: req.query['id'] as string }),
     )
   }
@@ -57,12 +51,9 @@ export class AppApplicationController {
   @Post('import')
   async importApp(@UploadedFile() file: Express.Multer.File) {
     const json = file.buffer.toString('utf8')
-    const data = JSON.parse(json)
-    const importData = this.importDataMapperService.getAppImportData(data)
+    const app: IAppAggregate = JSON.parse(json)
 
-    return this.commandBus.execute<ImportAppCommand, IApp>(
-      new ImportAppCommand(importData),
-    )
+    return this.appApplicationService.importApp(app)
   }
 
   /**
@@ -84,7 +75,7 @@ export class AppApplicationController {
   ): Promise<IJobQueueResponse> {
     setTimeout(async () => {
       const app = await this.commandBus.execute<SeedE2eAppCommand, IApp>(
-        new SeedE2eAppCommand(),
+        new SeedE2eAppCommand({ atomTypes, componentTypes }),
       )
 
       this.socketGateway.emitJobComplete({

@@ -1,8 +1,8 @@
 import type { InterfaceType } from '@codelab/backend/domain/type'
-import type { IAppDto } from '@codelab/shared/abstract/core'
+import type { IAppDto, IComponentType } from '@codelab/shared/abstract/core'
 
-import { ImportE2eAtomsCommand } from '@codelab/backend/application/atom'
-import { ImportComponentsCommand } from '@codelab/backend/application/component'
+import { AtomApplicationService } from '@codelab/backend/application/atom'
+import { ComponentApplicationService } from '@codelab/backend/application/component'
 import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
 import { AppRepository } from '@codelab/backend/domain/app'
 import { AtomRepository } from '@codelab/backend/domain/atom'
@@ -33,8 +33,10 @@ import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 
 export class SeedE2eAppCommand {
   constructor(
-    public atomTypes?: Array<IAtomType>,
-    public componentTypes?: Array<IComponentType>,
+    public data: {
+      atomTypes?: Array<IAtomType>
+      componentTypes?: Array<IComponentType>
+    },
   ) {}
 }
 
@@ -59,20 +61,20 @@ export class SeedE2eAppHandler
     private readonly atomRepository: AtomRepository,
     private readonly storeRepository: StoreRepository,
     private readonly interfaceTypeRepository: InterfaceTypeRepository,
-    private readonly authDomainService: AuthDomainService,
+    private authDomainService: AuthDomainService,
+    private readonly componentApplicationService: ComponentApplicationService,
+    private readonly atomApplicationService: AtomApplicationService,
   ) {}
 
-  async execute({ atomTypes, componentTypes }: SeedE2eAppCommand) {
+  async execute({ data: { atomTypes, componentTypes } }: SeedE2eAppCommand) {
     await this.commandBus.execute<ImportSystemTypesCommand>(
       new ImportSystemTypesCommand(),
     )
 
-    await this.commandBus.execute<ImportE2eAtomsCommand>(
-      new ImportE2eAtomsCommand(atomTypes),
-    )
+    await this.atomApplicationService.importAtomsFromTypes(atomTypes)
 
-    await this.commandBus.execute<ImportComponentsCommand>(
-      new ImportComponentsCommand(componentTypes),
+    await this.componentApplicationService.importComponentsFromTypes(
+      componentTypes,
     )
 
     const app = await this.seedApp()

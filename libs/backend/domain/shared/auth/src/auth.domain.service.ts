@@ -1,4 +1,4 @@
-import type { IUserSession } from '@codelab/shared/abstract/core'
+import type { IRef, IUserSession } from '@codelab/shared/abstract/core'
 
 import { RequestContext } from '@codelab/backend/infra/adapter/request-context'
 import { Injectable } from '@nestjs/common'
@@ -12,7 +12,18 @@ export class AuthDomainService {
   /**
    * This is made possible by RequestContext, otherwise we'll need to pass down from controller
    */
-  get currentUser(): IUserSession {
+  get currentUser(): IRef {
+    const request = RequestContext.currentContext?.req as AuthenticatedRequest
+    const user = request['user']
+
+    if (!user) {
+      throw new Error('Missing user in request')
+    }
+
+    return { id: user.id }
+  }
+
+  get currentUserSession(): IUserSession {
     const request = RequestContext.currentContext?.req as AuthenticatedRequest
     const user = request['user']
 
