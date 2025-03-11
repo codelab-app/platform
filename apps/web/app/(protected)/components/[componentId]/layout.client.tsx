@@ -1,19 +1,8 @@
 'use client'
 
-import type {
-  IAppBuilderDto,
-  IComponentBuilderDto,
-} from '@codelab/frontend/abstract/domain'
+import type { IComponentBuilderDto } from '@codelab/frontend/abstract/domain'
 
-import { RendererType } from '@codelab/frontend/abstract/application'
-import {
-  ApplicationStoreHydrator,
-  DomainStoreHydrator,
-  useDomainStoreHydrator,
-} from '@codelab/frontend/infra/context'
-import { BuilderProvider } from '@codelab/frontend/presentation/container'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
+import { useDomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { observer } from 'mobx-react-lite'
 import { type ReactNode, useEffect } from 'react'
 

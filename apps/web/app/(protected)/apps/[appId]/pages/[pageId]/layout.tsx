@@ -1,9 +1,7 @@
 import type { PageContextParams } from '@codelab/frontend/abstract/types'
 import type { ReactNode } from 'react'
 
-import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { appBuilderQuery } from '@codelab/frontend-application-app/use-cases/app-builder'
-import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 
 import { LayoutClient } from './layout.client'
 

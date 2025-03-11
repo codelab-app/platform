@@ -1,4 +1,3 @@
-import type { IResource } from '@codelab/shared/abstract/core'
 import type { APIRequestContext } from '@playwright/test'
 
 import { ResourceType } from '@codelab/shared/infra/gqlgen'

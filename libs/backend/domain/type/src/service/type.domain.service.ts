@@ -1,19 +1,12 @@
-import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
-import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
-  IApiAggregate,
-  IAtomAggregate,
   IInterfaceTypeDto,
-  IOwner,
-  IRef,
   ITypeDto,
   ITypeKind,
-  IUserDto,
 } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 
 import { TypeFactory } from '../factory'
-import { FieldRepository, InterfaceTypeRepository } from '../repository'
+import { InterfaceTypeRepository } from '../repository'
 
 @Injectable()
 export class TypeDomainService {

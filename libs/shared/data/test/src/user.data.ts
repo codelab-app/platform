@@ -1,6 +1,5 @@
 import {
   type Auth0IdToken,
-  IPreferenceDto,
   type IUserDto,
   JWT_CLAIMS,
 } from '@codelab/shared/abstract/core'

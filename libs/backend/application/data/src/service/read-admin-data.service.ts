@@ -12,7 +12,6 @@ import type {
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import {
   AtomAggregateSchema,
-  IAtomCategory,
   TagExportSchema,
   TypeDtoSchema,
 } from '@codelab/shared/abstract/core'

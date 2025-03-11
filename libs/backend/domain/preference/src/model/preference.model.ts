@@ -2,7 +2,6 @@ import type {
   IBreakpointType,
   IPreference,
   IPreferenceDto,
-  IRef,
 } from '@codelab/shared/abstract/core'
 
 import { IModel } from '@codelab/shared/abstract/core'

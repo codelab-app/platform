@@ -8,7 +8,6 @@ import {
 import { loadingAtom } from '@codelab/frontend-application-shared-store/loading'
 import { useSetAtom } from 'jotai'
 import pMinDelay from 'p-min-delay'
-import * as R from 'remeda'
 
 import type { OptimisticFormProps } from '../modal/ModalForm.Form'
 

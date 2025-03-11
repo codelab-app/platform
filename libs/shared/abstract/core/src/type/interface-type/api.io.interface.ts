@@ -14,7 +14,6 @@ import type { Static } from '@sinclair/typebox'
 
 import { Type } from '@sinclair/typebox'
 
-import { TypeDtoSchema } from '../type.dto.interface'
 import { omitOwner, TypeDtoWithoutOwnerSchema } from '../type.io.interface'
 import { InterfaceTypeSchema } from './interface-type.model.interface'
 

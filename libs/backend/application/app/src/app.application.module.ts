@@ -1,10 +1,7 @@
 import { AtomApplicationModule } from '@codelab/backend/application/atom'
 import { ComponentApplicationModule } from '@codelab/backend/application/component'
 import { DomainApplicationModule } from '@codelab/backend/application/domain'
-import {
-  ExportPageHandler,
-  PageApplicationModule,
-} from '@codelab/backend/application/page'
+import { PageApplicationModule } from '@codelab/backend/application/page'
 import { TypeApplicationModule } from '@codelab/backend/application/type'
 import { AppDomainModule } from '@codelab/backend/domain/app'
 import { AtomDomainModule } from '@codelab/backend/domain/atom'
@@ -16,7 +13,6 @@ import { ResourceDomainModule } from '@codelab/backend/domain/resource'
 import { AuthDomainModule } from '@codelab/backend/domain/shared/auth'
 import { StoreDomainModule } from '@codelab/backend/domain/store'
 import { TypeDomainModule } from '@codelab/backend/domain/type'
-import { SEED_QUEUE } from '@codelab/backend/infra/adapter/queue'
 import { WsModule } from '@codelab/backend/infra/adapter/ws'
 import { Neo4jModule } from '@codelab/backend-infra-adapter/neo4j-driver'
 import { Module } from '@nestjs/common'

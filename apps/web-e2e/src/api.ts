@@ -1,14 +1,9 @@
-import type {
-  IJobOutput,
-  IJobQueueResponse,
-} from '@codelab/shared/abstract/infra'
-import type { ObjectLike } from '@codelab/shared/abstract/types'
+import type { IJobOutput } from '@codelab/shared/abstract/infra'
 import type { APIRequestContext } from '@playwright/test'
 import type { Socket } from 'socket.io-client'
 
 import { env } from '@codelab/shared/config/env'
 import { io } from 'socket.io-client'
-import { v4 } from 'uuid'
 
 import { getTimestamp } from './commands'
 /**

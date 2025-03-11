@@ -1,4 +1,4 @@
-import { test as base, expect } from '@playwright/test'
+import { expect } from '@playwright/test'
 
 import { baseTest } from '../setup/fixtures/base.fixture'
 import { BasePage } from '../setup/locators/pages'

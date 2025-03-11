@@ -1,12 +1,9 @@
-import type { IAtom } from '@codelab/shared/abstract/core'
-
 import { AppApplicationModule } from '@codelab/backend/application/app'
 import { AtomApplicationModule } from '@codelab/backend/application/atom'
 import {
   ImportSystemTypesCommand,
   TypeApplicationModule,
 } from '@codelab/backend/application/type'
-import { AtomRepository } from '@codelab/backend/domain/atom'
 import { InterfaceTypeRepository } from '@codelab/backend/domain/type'
 import { initUserContext } from '@codelab/backend/test/setup'
 import {

@@ -1,9 +1,5 @@
 import type { IProp, IPropDto, IRef } from '@codelab/shared/abstract/core'
-import type {
-  Nullable,
-  Nullish,
-  ObjectLike,
-} from '@codelab/shared/abstract/types'
+import type { Nullish, ObjectLike } from '@codelab/shared/abstract/types'
 
 export class Prop implements IProp {
   api?: Nullish<IRef>

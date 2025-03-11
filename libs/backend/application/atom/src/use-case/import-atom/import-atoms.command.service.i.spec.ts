@@ -17,16 +17,13 @@ import {
 import { initUserContext } from '@codelab/backend/test/setup'
 import { IAtomType } from '@codelab/shared/abstract/core'
 
-import { ImportAtomHandler } from './import-atom.command.service'
-import {
-  ImportAtomsCommand,
-  ImportAtomsHandler,
-} from './import-atoms.command.service'
+import { AtomApplicationService } from './../../services/atom.application.service'
 
 describe('ImportAtomsCommand', () => {
   let commandBus: CommandBus
   let atomRepository: AtomRepository
   let interfaceTypeRepository: InterfaceTypeRepository
+  let atomApplicationService: AtomApplicationService
 
   const context = initUserContext({
     imports: [
@@ -36,11 +33,10 @@ describe('ImportAtomsCommand', () => {
       DataModule,
     ],
     providers: [
-      ImportAtomHandler,
-      ImportAtomsHandler,
       ImportApiHandler,
       SeedSystemTypesHandler,
       TypeSeederService,
+      AtomApplicationService,
     ],
   })
 
@@ -52,6 +48,7 @@ describe('ImportAtomsCommand', () => {
     commandBus = ctx.commandBus
     atomRepository = ctx.module.get(AtomRepository)
     interfaceTypeRepository = ctx.module.get(InterfaceTypeRepository)
+    atomApplicationService = ctx.module.get(AtomApplicationService)
   })
 
   afterAll(async () => {
@@ -63,12 +60,11 @@ describe('ImportAtomsCommand', () => {
   it('can import atoms', async () => {
     const importSystemTypesCommand = new ImportSystemTypesCommand()
 
-    const importAtomsCommand = new ImportAtomsCommand([
+    await atomApplicationService.importAtomsFromTypes([
       IAtomType.AntDesignButton,
     ])
 
     await commandBus.execute(importSystemTypesCommand)
-    await commandBus.execute(importAtomsCommand)
 
     const atoms = await atomRepository.find()
 

@@ -1,5 +1,4 @@
 import type { ICreateElementSeedData } from '@codelab/shared/abstract/core'
-import type { Locator } from '@playwright/test'
 
 import {
   PageType,

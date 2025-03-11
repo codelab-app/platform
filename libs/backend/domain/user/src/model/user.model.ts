@@ -1,12 +1,10 @@
 import type {
-  Auth0IdToken,
   IPreferenceDto,
   IRole,
   IUserDto,
   IUserSession,
 } from '@codelab/shared/abstract/core'
 
-import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
 import { preferenceDefault } from '@codelab/shared-domain-module/preference'
 
 export class User implements IUserDto {

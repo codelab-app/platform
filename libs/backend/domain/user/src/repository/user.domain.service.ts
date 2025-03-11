@@ -1,14 +1,9 @@
-import type { IOwner, IUserDto } from '@codelab/shared/abstract/core'
+import type { IUserDto } from '@codelab/shared/abstract/core'
 
 import { PreferenceRepository } from '@codelab/backend/domain/preference'
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
-import {
-  breakpoints,
-  DEFAULT_BUILDER_BREAKPOINT,
-} from '@codelab/shared/config/builder'
 import { preferenceDefault } from '@codelab/shared-domain-module/preference'
 import { Injectable } from '@nestjs/common'
-import { v4 } from 'uuid'
 
 import { UserRepository } from './user.repo.service'
 

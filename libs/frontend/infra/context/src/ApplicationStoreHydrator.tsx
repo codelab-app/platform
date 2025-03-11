@@ -2,17 +2,15 @@
 
 import type {
   SearchParamsPageProps,
-  SearchParamsProps,
   UrlPathParams,
 } from '@codelab/frontend/abstract/types'
-import type { ReadonlyURLSearchParams } from 'next/navigation'
 
 import { parseSearchParamsPageProps } from '@codelab/frontend-application-shared-store/router'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import { type ReactNode, useState } from 'react'
 import { useCustomCompareEffect } from 'react-use'
-import { isDeepEqual, pipe } from 'remeda'
+import { isDeepEqual } from 'remeda'
 
 interface ApplicationStoreHydratorProps {
   children: ReactNode

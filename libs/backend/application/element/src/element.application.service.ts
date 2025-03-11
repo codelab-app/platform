@@ -2,14 +2,13 @@ import type {
   ICreateComponentData,
   ICreateElementData,
   IElementRenderTypeDto,
-  IPropDto,
   IRef,
 } from '@codelab/shared/abstract/core'
 
 import { AtomDomainService } from '@codelab/backend/domain/atom'
 import { ComponentRepository } from '@codelab/backend/domain/component'
 import { ElementRepository } from '@codelab/backend/domain/element'
-import { Prop, PropDomainService } from '@codelab/backend/domain/prop'
+import { PropDomainService } from '@codelab/backend/domain/prop'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
 import { Injectable } from '@nestjs/common'

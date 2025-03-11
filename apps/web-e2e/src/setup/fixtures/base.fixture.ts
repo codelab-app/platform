@@ -1,4 +1,4 @@
-import { test as base, expect, request } from '@playwright/test'
+import { test as base } from '@playwright/test'
 
 export const baseTest = base.extend({
   // Override the default page fixture

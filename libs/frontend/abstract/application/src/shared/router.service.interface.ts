@@ -1,6 +1,5 @@
 import type {
   SearchParamsContext,
-  SearchParamsPageProps,
   SearchParamsProps,
   UrlPathParams,
   UrlPathParamsProps,

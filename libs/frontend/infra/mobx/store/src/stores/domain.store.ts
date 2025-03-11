@@ -1,4 +1,4 @@
-import type { IPreferenceDto, IUserDto } from '@codelab/shared/abstract/core'
+import type { IUserDto } from '@codelab/shared/abstract/core'
 
 import {
   type IActionDomainService,

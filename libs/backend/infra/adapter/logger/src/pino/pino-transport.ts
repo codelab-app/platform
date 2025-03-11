@@ -1,7 +1,6 @@
 /* eslint-disable canonical/sort-keys */
 import type { PrettyOptions } from 'pino-pretty'
 
-import pino from 'pino'
 import pretty from 'pino-pretty'
 
 /**

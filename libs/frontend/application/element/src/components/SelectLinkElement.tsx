@@ -1,9 +1,8 @@
-import type { SelectOption } from '@codelab/frontend/abstract/types'
 import type { SelectElementProps } from '@codelab/frontend/presentation/components/interface-form'
 import type { IElementDto } from '@codelab/shared/abstract/core'
 
 import { SelectChildElement } from '@codelab/frontend/presentation/components/interface-form'
-import { connectField, useField, useForm } from 'uniforms'
+import { connectField, useForm } from 'uniforms'
 
 type SelectLinkElementProps = Pick<
   SelectElementProps,

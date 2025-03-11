@@ -1,7 +1,4 @@
-import type {
-  IJobOutput,
-  IJobQueueResponse,
-} from '@codelab/shared/abstract/infra'
+import type { IJobQueueResponse } from '@codelab/shared/abstract/infra'
 import type { APIRequestContext } from '@playwright/test'
 
 import { v4 } from 'uuid'

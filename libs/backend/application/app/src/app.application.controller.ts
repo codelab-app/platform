@@ -5,12 +5,9 @@ import type {
   IComponentType,
 } from '@codelab/shared/abstract/core'
 
-import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { DEMO_JOB, SEED_QUEUE } from '@codelab/backend/infra/adapter/queue'
 import { WsGateway } from '@codelab/backend/infra/adapter/ws'
-import { DatabaseService } from '@codelab/backend-infra-adapter/neo4j-driver'
-import { IJobOutput, IJobQueueResponse } from '@codelab/shared/abstract/infra'
+import { IJobQueueResponse } from '@codelab/shared/abstract/infra'
 import {
   Body,
   ClassSerializerInterceptor,
@@ -18,13 +15,12 @@ import {
   Get,
   Post,
   Request,
-  Res,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 import { FileInterceptor } from '@nestjs/platform-express'
-import { Express, Request as ExpressRequest, Response } from 'express'
+import { Express, Request as ExpressRequest } from 'express'
 import 'multer'
 
 import { AppApplicationService } from './services/app.application.service'

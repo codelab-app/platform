@@ -1,7 +1,6 @@
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { Global, Injectable, OnModuleInit } from '@nestjs/common'
 import { CommandBus, ICommand } from '@nestjs/cqrs'
-import { startSpan } from '@sentry/nestjs'
 
 /**
  * Allow us to subscribe to the command bus and log the commands

@@ -3,7 +3,7 @@ import type { IAppDto } from '@codelab/shared/abstract/core'
 import { providerPageId } from '@codelab/shared/data/test'
 import { expect } from '@playwright/test'
 
-import { getTimestamp, logTimestamp } from '../../commands'
+import { logTimestamp } from '../../commands'
 import { globalBeforeAll } from '../../setup/before-all'
 import { seedAppData } from '../builder/builder.data'
 import { test } from './page.fixture'

@@ -1,7 +1,4 @@
-import type { ObjectLike } from '@codelab/shared/abstract/types'
-
 import { Injectable } from '@nestjs/common'
-import { v4 } from 'uuid'
 
 import { PropRepository } from '../repository'
 

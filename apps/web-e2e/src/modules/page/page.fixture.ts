@@ -1,6 +1,6 @@
 import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import { IPageKindName } from '@codelab/shared/abstract/core'
-import { expect, request } from '@playwright/test'
+import { expect } from '@playwright/test'
 
 import { baseTest } from '../../setup/fixtures/base.fixture'
 import { BasePage } from '../../setup/locators/pages'

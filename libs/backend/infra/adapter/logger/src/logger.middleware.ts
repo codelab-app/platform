@@ -1,7 +1,5 @@
-import { Injectable, NestMiddleware, RequestMethod } from '@nestjs/common'
-import { RouteInfo } from '@nestjs/common/interfaces'
+import { Injectable, NestMiddleware } from '@nestjs/common'
 import { NextFunction, Request, Response } from 'express'
-import { request } from 'http'
 
 import { PinoLoggerService } from './pino'
 

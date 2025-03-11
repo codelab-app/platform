@@ -7,7 +7,6 @@ import type {
 
 import {
   connectNodeId,
-  connectNodeIds,
   disconnectAll,
   reconnectNodeId,
   reconnectNodeIds,

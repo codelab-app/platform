@@ -5,7 +5,6 @@ import type {
 import type { IElementDto } from '@codelab/shared/abstract/core'
 import type { ElementOptions, ElementWhere } from '@codelab/shared/infra/gqlgen'
 
-import { disconnectAll, disconnectManyAll } from '@codelab/shared/domain/orm'
 import { Validator } from '@codelab/shared/infra/typebox'
 import {
   elementMapper,

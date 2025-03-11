@@ -2,17 +2,14 @@ import type {
   IApp,
   IComponentType,
   ICreateElementSeedData,
-  IElementDto,
   IPage,
   IPageCreateFormData,
   IPageCreateSeedData,
 } from '@codelab/shared/abstract/core'
-import type { ObjectLike } from '@codelab/shared/abstract/types'
 import type { APIRequestContext } from '@playwright/test'
 
 import { IAtomType, ITypeKind } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
-import { v4 } from 'uuid'
 
 import { requestOrThrow } from '../../api'
 import { logTimestamp } from '../../commands'

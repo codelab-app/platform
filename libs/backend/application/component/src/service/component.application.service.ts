@@ -13,7 +13,6 @@ import { StoreApplicationService } from '@codelab/backend/application/store'
 import { TypeApplicationService } from '@codelab/backend/application/type'
 import { ComponentRepository } from '@codelab/backend/domain/component'
 import { ElementRepository } from '@codelab/backend/domain/element'
-import { PropDomainService } from '@codelab/backend/domain/prop'
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { Store } from '@codelab/backend/domain/store'
 import {

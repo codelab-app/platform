@@ -3,7 +3,7 @@
 import { useSearchParamsProps } from '@codelab/frontend-application-shared-store/router'
 import { Menu } from 'antd'
 import classNames from 'classnames'
-import { usePathname, useSearchParams } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 
 import {
   type CuiNavigationBarProps,

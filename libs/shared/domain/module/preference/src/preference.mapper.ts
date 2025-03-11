@@ -5,8 +5,6 @@ import type {
   PreferenceUpdateInput,
 } from '@codelab/shared/infra/gqlgen'
 
-import { connectOwner } from '@codelab/shared/domain/orm'
-
 export const preferenceMapper: IMapper<
   IPreferenceDto,
   PreferenceCreateInput,

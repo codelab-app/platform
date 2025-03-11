@@ -3,7 +3,6 @@
 import type { IRootRenderer } from '@codelab/frontend/abstract/application'
 import type { IPageModel } from '@codelab/frontend/abstract/domain'
 
-import { tracker } from '@codelab/frontend/infra/logger'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { observer } from 'mobx-react-lite'

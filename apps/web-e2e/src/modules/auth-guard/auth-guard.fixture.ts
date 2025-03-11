@@ -1,7 +1,7 @@
 import type { IPageCreateFormData } from '@codelab/shared/abstract/core'
 
 import { PageType, UiKey } from '@codelab/frontend/abstract/types'
-import { IPageCreateSeedData, IPageKind } from '@codelab/shared/abstract/core'
+import { IPageKind } from '@codelab/shared/abstract/core'
 import { expect } from '@playwright/test'
 import { v4 } from 'uuid'
 

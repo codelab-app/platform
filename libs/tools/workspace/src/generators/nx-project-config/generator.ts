@@ -10,9 +10,7 @@ import {
 import type { EslintGeneratorSchema } from './schema'
 
 import { updateTestTargets } from './jest/remove-test-targets'
-import { updateJestConfig } from './jest/update-jest-config'
 import { addProjectTags } from './project-tags/add-project-tags'
-import { updateLibraryTsconfig } from './tsconfig/lib/tsconfig.lib'
 
 /**
  * Go through all projects and update the `lint` setting of `project.json`

@@ -1,30 +1,10 @@
-import type { IApp, IAppAggregate } from '@codelab/shared/abstract/core'
-
-import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { DEMO_JOB, SEED_QUEUE } from '@codelab/backend/infra/adapter/queue'
 import { WsGateway } from '@codelab/backend/infra/adapter/ws'
-import { DatabaseService } from '@codelab/backend-infra-adapter/neo4j-driver'
 import { IJobOutput, IJobQueueResponse } from '@codelab/shared/abstract/infra'
-import { InjectQueue } from '@nestjs/bullmq'
-import {
-  Body,
-  ClassSerializerInterceptor,
-  Controller,
-  Get,
-  Post,
-  Request,
-  Res,
-  UploadedFile,
-  UseInterceptors,
-} from '@nestjs/common'
+import { Body, Controller, Post, Request, Res } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
-import { FileInterceptor } from '@nestjs/platform-express'
-import { Queue } from 'bullmq'
-import { Express, Request as ExpressRequest, Response } from 'express'
+import { Request as ExpressRequest, Response } from 'express'
 import 'multer'
-
-import { ExportAppCommand, SeedE2eAppCommand } from './use-case'
 
 @Controller('demo')
 export class DemoController {

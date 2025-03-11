@@ -1,13 +1,6 @@
 'use client'
 
-import type {
-  SearchParamsPageProps,
-  SearchParamsProps,
-} from '@codelab/frontend/abstract/types'
-
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-
-import { useSearchParamsProps } from './search-params'
 
 /**
  * This updates the Next.js url bar, and adds to history

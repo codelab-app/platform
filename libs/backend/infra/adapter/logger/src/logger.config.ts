@@ -1,5 +1,4 @@
 import type { LogLevel } from '@nestjs/common'
-import type { LevelMapping } from 'pino'
 
 import { registerAs } from '@nestjs/config'
 import * as env from 'env-var'
