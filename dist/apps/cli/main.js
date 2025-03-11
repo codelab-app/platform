@@ -563,13 +563,13 @@ class Auth0EnvVars {
             writable: true,
             value: void 0
         });
-        Object.defineProperty(this, "_cypressUsername", {
+        Object.defineProperty(this, "_e2eUsername", {
             enumerable: true,
             configurable: true,
             writable: true,
             value: void 0
         });
-        Object.defineProperty(this, "_cypressPassword", {
+        Object.defineProperty(this, "_e2ePassword", {
             enumerable: true,
             configurable: true,
             writable: true,
@@ -610,13 +610,13 @@ class Auth0EnvVars {
             .asString());
     }
     get auth0Username() {
-        return (this._cypressUsername ??= env
+        return (this._e2eUsername ??= env
             .get('AUTH0_E2E_USERNAME')
             .required()
             .asString());
     }
     get auth0Password() {
-        return (this._cypressPassword ??= env
+        return (this._e2ePassword ??= env
             .get('AUTH0_E2E_PASSWORD')
             .required()
             .asString());

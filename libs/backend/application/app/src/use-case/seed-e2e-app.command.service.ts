@@ -33,7 +33,7 @@ import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 
 export class SeedE2eAppCommand {
   constructor(
-    public data: {
+    public data?: {
       atomTypes?: Array<IAtomType>
       componentTypes?: Array<IComponentType>
     },
@@ -66,7 +66,9 @@ export class SeedE2eAppHandler
     private readonly atomApplicationService: AtomApplicationService,
   ) {}
 
-  async execute({ data: { atomTypes, componentTypes } }: SeedE2eAppCommand) {
+  async execute({
+    data: { atomTypes, componentTypes } = {},
+  }: SeedE2eAppCommand) {
     await this.commandBus.execute<ImportSystemTypesCommand>(
       new ImportSystemTypesCommand(),
     )

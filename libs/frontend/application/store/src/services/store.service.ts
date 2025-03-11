@@ -59,9 +59,7 @@ export const useStoreService = (): IStoreService => {
 
     typeDomainService.hydrateTypes(stores.map((store) => store.api))
 
-    return stores.map((store) =>
-      storeDomainService.hydrate({ ...store, source: null }),
-    )
+    return stores.map((store) => storeDomainService.hydrate(store))
   }
 
   return {
