@@ -1,17 +1,19 @@
 import type { IBaseDataPaths } from '@codelab/backend/application/data'
 import type { IAtomAggregate } from '@codelab/shared/abstract/core'
 
+import { IImportOptions } from '@codelab/backend/abstract/types'
 import { AtomApplicationService } from '@codelab/backend/application/atom'
 import { ComponentApplicationService } from '@codelab/backend/application/component'
 import { ReadAdminDataService } from '@codelab/backend/application/data'
 import { ImportTagsCommand } from '@codelab/backend/application/tag'
 import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
+import { LogClassMethod } from '@codelab/backend/infra/core'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 import { omit } from 'radash'
 
 export class ImportAdminDataCommand implements IBaseDataPaths {
-  constructor(public baseDataPath?: string) {}
+  constructor(public baseDataPath: string, public options: IImportOptions) {}
 }
 
 /**
@@ -23,13 +25,14 @@ export class ImportAdminDataHandler
 {
   constructor(
     private readonly commandBus: CommandBus,
-    private readonly readAdminDataService: ReadAdminDataService,
+    // Required by `LogClassMethod`
     private readonly logger: PinoLoggerService,
+    private readonly readAdminDataService: ReadAdminDataService,
     private readonly atomApplicationService: AtomApplicationService,
     private readonly componentApplicationService: ComponentApplicationService,
   ) {}
 
-  async execute({ baseDataPath }: ImportAdminDataCommand) {
+  async execute({ baseDataPath, options }: ImportAdminDataCommand) {
     if (baseDataPath) {
       this.readAdminDataService.migrationDataService.basePaths = baseDataPath
     }
@@ -37,91 +40,40 @@ export class ImportAdminDataHandler
     /**
      * System types must be seeded first, so other types can reference it
      */
-    this.logger.debug('importSystemTypes', {
-      context: 'ImportAdminDataHandler',
-    })
+
     await this.importSystemTypes()
 
-    this.logger.debug('importTags', { context: 'ImportAdminDataHandler' })
     await this.importTags()
 
-    this.logger.debug('importAtoms', { context: 'ImportAdminDataHandler' })
-    await this.importAtoms()
+    await this.importAtoms(options)
 
-    this.logger.debug('importComponents', { context: 'ImportAdminDataHandler' })
     await this.importComponents()
   }
 
-  private async importAtom(atom: IAtomAggregate) {
-    return await this.atomApplicationService.importAtoms([atom])
-  }
-
-  private async importAtoms() {
+  @LogClassMethod()
+  private async importAtoms({ upsert }: IImportOptions) {
     const atoms = this.readAdminDataService.atoms
 
-    /**
-     * Create all atoms but omit `suggestedChildren`, since it requires all atoms to be added first
-     */
-    for (const [
-      index,
-      { api, atom },
-    ] of this.readAdminDataService.atoms.entries()) {
-      const atomWithoutSuggestedChildren = omit(atom, ['suggestedChildren'])
-
-      const importAtom = async () =>
-        await this.importAtom({
-          api,
-          atom: atomWithoutSuggestedChildren,
-        })
-
-      await this.logger.debugWithTiming(
-        `Importing atom (${index + 1}/${atoms.length})`,
-        importAtom,
-        {
-          context: 'ImportAdminDataHandler',
-          data: {
-            name: atom.name,
-          },
-        },
-      )
+    if (!upsert) {
+      return await this.atomApplicationService.addAtoms(atoms)
     }
 
-    /**
-     * Here we assign suggestedChildren, since all atoms must be created first
-     */
-    const atomsWithSuggestedChildren = atoms.filter(
-      ({ atom }) => atom.suggestedChildren?.length,
-    )
-
-    for (const [index, atom] of atomsWithSuggestedChildren.entries()) {
-      const importAtomWithSuggestedChildren = async () =>
-        await this.importAtom(atom)
-
-      await this.logger.debugWithTiming(
-        `Importing atom with suggested children (${index + 1}/${
-          atomsWithSuggestedChildren.length
-        })`,
-        importAtomWithSuggestedChildren,
-        {
-          context: 'ImportAdminDataHandler',
-          data: {
-            name: atom.atom.name,
-          },
-        },
-      )
-    }
+    return await this.atomApplicationService.saveAtoms(atoms)
   }
 
+  @LogClassMethod()
   private async importComponents() {
     await this.componentApplicationService.importComponentsFromRepo()
   }
 
+  @LogClassMethod()
   private async importSystemTypes() {
     return this.commandBus.execute<ImportSystemTypesCommand>(
       new ImportSystemTypesCommand(),
     )
   }
 
+  @LogClassMethod()
   private async importTags() {
     const { tags } = this.readAdminDataService
 

@@ -54,7 +54,7 @@ describe('Seed, import, & export data', () => {
 
     const atoms = getAtomsFromFiles({
       category: IAtomCategory.AntDesign,
-      // overrides: [IAtomType.ReactFragment],
+      overrides: [IAtomType.AntDesignButton],
     })
 
     deleteFilesSync(testDataPath, atoms)
@@ -78,7 +78,9 @@ describe('Seed, import, & export data', () => {
   })
 
   it('should import and export Ant Design data without changes', async () => {
-    await commandBus.execute(new ImportAdminDataCommand(testDataPath))
+    await commandBus.execute(
+      new ImportAdminDataCommand(testDataPath, { upsert: true }),
+    )
     await commandBus.execute(new ExportAdminDataCommand(testExportDataPath))
 
     const sourceToExpectedFilePath = glob

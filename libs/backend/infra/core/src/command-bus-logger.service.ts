@@ -26,9 +26,7 @@ export class CommandBusSubscription implements OnModuleInit {
       next: (command: ICommand) => {
         const commandName = command.constructor.name
 
-        this.logger.debug('Command executed...', {
-          context: commandName,
-        })
+        this.logger.debug(`Command executed... [${commandName}]`)
       },
     })
   }

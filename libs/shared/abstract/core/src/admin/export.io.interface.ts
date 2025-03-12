@@ -4,11 +4,9 @@ import { Type } from '@sinclair/typebox'
 import { Value } from '@sinclair/typebox/value'
 
 export const ExportDtoSchema = Type.Object({
-  adminDataPath: Type.Optional(
-    Type.String({
-      default: './data/export-v3',
-    }),
-  ),
+  adminDataPath: Type.String({
+    default: './data/export-v3',
+  }),
   download: Type.Optional(
     Type.Boolean({
       default: false,

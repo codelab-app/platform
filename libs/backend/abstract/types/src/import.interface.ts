@@ -1,3 +1,3 @@
 export interface IImportOptions {
-  upsert?: boolean
+  upsert: boolean
 }

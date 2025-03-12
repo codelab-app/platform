@@ -74,61 +74,61 @@ export class TypeFactory {
       case ITypeKind.ActionType: {
         const actionType = new ActionType(type)
 
-        return await this.actionTypeRepository.save(actionType)
+        return await this.actionTypeRepository.add(actionType)
       }
 
       case ITypeKind.ArrayType: {
         const arrayType = new ArrayType(type)
 
-        return await this.arrayTypeRepository.save(arrayType)
+        return await this.arrayTypeRepository.add(arrayType)
       }
 
       case ITypeKind.CodeMirrorType: {
         const codeMirrorType = new CodeMirrorType(type)
 
-        return await this.codeMirrorRepository.save(codeMirrorType)
+        return await this.codeMirrorRepository.add(codeMirrorType)
       }
 
       case ITypeKind.EnumType: {
         const enumType = new EnumType(type)
 
-        return await this.enumTypeRepository.save(enumType)
+        return await this.enumTypeRepository.add(enumType)
       }
 
       case ITypeKind.InterfaceType: {
         const interfaceType = new InterfaceType(type)
 
-        return await this.interfaceTypeRepository.save(interfaceType)
+        return await this.interfaceTypeRepository.add(interfaceType)
       }
 
       case ITypeKind.PrimitiveType: {
         const primitiveType = new PrimitiveType(type)
 
-        return await this.primitiveTypeRepository.save(primitiveType)
+        return await this.primitiveTypeRepository.add(primitiveType)
       }
 
       case ITypeKind.ReactNodeType: {
         const reactNodeType = new ReactNodeType(type)
 
-        return await this.reactNodeTypeRepository.save(reactNodeType)
+        return await this.reactNodeTypeRepository.add(reactNodeType)
       }
 
       case ITypeKind.RenderPropType: {
         const renderPropType = new RenderPropType(type)
 
-        return await this.renderPropTypeRepository.save(renderPropType)
+        return await this.renderPropTypeRepository.add(renderPropType)
       }
 
       case ITypeKind.RichTextType: {
         const richTextType = new RichTextType(type)
 
-        return await this.richTextTypeRepository.save(richTextType)
+        return await this.richTextTypeRepository.add(richTextType)
       }
 
       case ITypeKind.UnionType: {
         const unionType = new UnionType(type)
 
-        return await this.unionTypeRepository.save(unionType)
+        return await this.unionTypeRepository.add(unionType)
       }
 
       default: {

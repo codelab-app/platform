@@ -6,10 +6,12 @@ import { AtomRepository } from '@codelab/backend/domain/atom'
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { TypeDomainService } from '@codelab/backend/domain/type'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
+import { LogClassMethod } from '@codelab/backend/infra/core'
 import { EntitySchema } from '@codelab/shared/abstract/types'
 import { SortDirection } from '@codelab/shared/infra/gqlgen'
-import { Injectable } from '@nestjs/common'
+import { Injectable, UseInterceptors } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
+import { omit } from 'remeda'
 
 import { ExportAtomCommand } from '../use-case'
 
@@ -24,6 +26,35 @@ export class AtomApplicationService {
     private authDomainService: AuthDomainService,
   ) {}
 
+  @LogClassMethod()
+  async addAtoms(atomsData: Array<IAtomAggregate>) {
+    this.logger.log('Adding atoms', {
+      atomCount: atomsData.length,
+    })
+
+    const atoms = atomsData.map(({ atom }) => atom)
+    const apis = atomsData.map(({ api }) => api)
+
+    this.logger.log('Adding types', {
+      typeCount: apis.length,
+    })
+
+    await this.typeApplicationService.addApis(apis)
+
+    /**
+     * Then add atoms
+     */
+    this.logger.log(`Importing all atoms at once, (${atoms.length})`)
+
+    return await this.atomRepository.addMany(
+      atoms.map((atom) => ({
+        ...atom,
+        owner: this.authDomainService.currentUser,
+      })),
+    )
+  }
+
+  @LogClassMethod()
   async exportAtomsForAdmin(): Promise<Array<IAtomAggregate>> {
     /**
      * Get all atoms first
@@ -47,40 +78,49 @@ export class AtomApplicationService {
     return exportedAtoms
   }
 
-  async importAtoms(atomsData: Array<IAtomAggregate>) {
-    this.logger.log('Import atoms', {
-      atomCount: atomsData.length,
-      context: 'ImportAtomsHandler',
-    })
-
-    const atoms = atomsData.map(({ atom }) => atom)
-    const apis = atomsData.map(({ api }) => api)
-
-    this.logger.log('Importing types', {
-      context: 'ImportAtomsHandler',
-      typeCount: apis.length,
-    })
-
-    await this.typeApplicationService.addApis(apis)
-
-    /**
-     * Then add atoms
-     */
-    this.logger.log(`Importing all atoms at once, (${atoms.length})`)
-
-    return await this.atomRepository.addMany(
-      atoms.map((atom) => ({
-        ...atom,
-        owner: this.authDomainService.currentUser,
-      })),
-    )
-  }
-
+  @LogClassMethod()
   async importAtomsFromTypes(atomTypes?: Array<IAtomType>) {
     const atomsData = atomTypes
       ? this.readAdminDataService.getAtomsByTypes(atomTypes)
       : this.readAdminDataService.atoms
 
-    return this.importAtoms(atomsData)
+    return this.addAtoms(atomsData)
+  }
+
+  @LogClassMethod()
+  async saveAtoms(atoms: Array<IAtomAggregate>) {
+    this.logger.log('Saving atoms', {
+      atomCount: atoms.length,
+    })
+
+    for (const [index, { api, atom }] of atoms.entries()) {
+      await this.logger.debug(`Saving atom (${index + 1}/${atoms.length})`)
+      await this.typeApplicationService.saveApi(api)
+
+      /**
+       * Create all atoms but omit `suggestedChildren`, since it requires all atoms to be added first
+       */
+
+      const atomWithoutSuggestedChildren = omit(atom, ['suggestedChildren'])
+
+      await this.atomRepository.save({
+        ...atomWithoutSuggestedChildren,
+        owner: this.authDomainService.currentUser,
+      })
+    }
+
+    const atomsWithSuggestedChildren = atoms.filter(
+      ({ atom }) => atom.suggestedChildren?.length,
+    )
+
+    for (const { api, atom } of atomsWithSuggestedChildren) {
+      /**
+       * Here we assign suggestedChildren, since all atoms must be created first
+       */
+      await this.atomRepository.save({
+        ...atom,
+        owner: this.authDomainService.currentUser,
+      })
+    }
   }
 }

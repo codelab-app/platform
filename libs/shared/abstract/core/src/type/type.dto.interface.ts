@@ -1,4 +1,4 @@
-import type { Static } from '@sinclair/typebox'
+import type { Static, TSchema } from '@sinclair/typebox'
 
 import { Type } from '@sinclair/typebox'
 
@@ -17,24 +17,24 @@ import { RenderPropTypeDtoSchema } from './render-prop-type/render-prop-type.dto
 import { RichTextTypeDtoSchema } from './rich-text-type'
 import { UnionTypeDtoSchema } from './union-type'
 
-export const typeDtoSchemas = [
+export const typeDtoSchemas = <T extends TSchema>(schema?: T) => [
   ActionTypeDtoSchema,
   AppTypeDtoSchema,
-  ArrayTypeDtoSchema(),
+  ArrayTypeDtoSchema(schema),
   CodeMirrorTypeDtoSchema,
   ElementTypeDtoSchema,
   EnumTypeDtoSchema,
-  InterfaceTypeDtoSchema(),
+  InterfaceTypeDtoSchema(schema),
   LambdaTypeDtoSchema,
   PageTypeDtoSchema,
   PrimitiveTypeDtoSchema,
   ReactNodeTypeDtoSchema,
   RenderPropTypeDtoSchema,
   RichTextTypeDtoSchema,
-  UnionTypeDtoSchema(),
+  UnionTypeDtoSchema(schema),
 ]
 
-export const TypeDtoSchema = Type.Union(typeDtoSchemas, {
+export const TypeDtoSchema = Type.Union(typeDtoSchemas(), {
   discriminantKey: '__typename',
   errorMessage: 'Unknown type',
 })

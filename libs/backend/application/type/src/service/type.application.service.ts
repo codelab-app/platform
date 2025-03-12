@@ -8,6 +8,7 @@ import {
   TypeFactory,
 } from '@codelab/backend/domain/type'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
+import { LogClassMethod } from '@codelab/backend/infra/core'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
@@ -20,6 +21,7 @@ export class TypeApplicationService {
     private readonly typeFactory: TypeFactory,
   ) {}
 
+  @LogClassMethod()
   async addApis(apis: Array<IApiAggregate>) {
     // Log details for each API
     // for (const api of apis) {
@@ -39,16 +41,16 @@ export class TypeApplicationService {
      * Add interface type first, then we assign fields
      */
     this.logger.log('Adding interface types', {
-      context: 'TypeDomainService',
+      context: 'TypeApplicationService',
       count: apis.length,
     })
 
-    await this.interfaceTypeRepository.addMany(
-      apis.map((api) => ({
-        ...api,
-        owner: this.authDomainService.currentUser,
-      })),
-    )
+    // await this.interfaceTypeRepository.addMany(
+    //   apis.map((api) => ({
+    //     ...api,
+    //     owner: this.authDomainService.currentUser,
+    //   })),
+    // )
 
     for (const type of allTypes) {
       await this.typeFactory.add({
@@ -58,13 +60,14 @@ export class TypeApplicationService {
     }
 
     this.logger.log('Adding interface fields', {
-      context: 'TypeDomainService',
+      context: 'TypeApplicationService',
       count: apiFields.length,
     })
 
     await this.fieldRepository.addMany(apiFields)
   }
 
+  @LogClassMethod()
   async getApiByAtomName(name: IAtomType) {
     const api = await this.interfaceTypeRepository.findOne({
       where: {
@@ -73,5 +76,21 @@ export class TypeApplicationService {
     })
 
     return api
+  }
+
+  @LogClassMethod()
+  async saveApi(api: IApiAggregate) {
+    const { fields, types } = api
+
+    for (const type of types) {
+      await this.typeFactory.save({
+        ...type,
+        owner: this.authDomainService.currentUser,
+      })
+    }
+
+    for (const field of fields) {
+      await this.fieldRepository.save(field)
+    }
   }
 }

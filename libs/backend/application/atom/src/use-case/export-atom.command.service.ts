@@ -11,6 +11,7 @@ import {
 } from '@codelab/shared/abstract/core'
 import { type AtomWhere } from '@codelab/shared/infra/gqlgen'
 import { Validator } from '@codelab/shared/infra/typebox'
+import { logger } from '@codelab/shared/utils'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 import { Type } from '@sinclair/typebox'
 
@@ -49,7 +50,11 @@ export class ExportAtomHandler
       tags: existingAtom.tags?.map((tag) => ({ id: tag.id })),
     }
 
+    logger.debug('Export atom api', api)
+
     const results = Validator.parse(AtomAggregateSchema, { api, atom })
+
+    logger.debug('Export atom results', results)
 
     return results
   }
