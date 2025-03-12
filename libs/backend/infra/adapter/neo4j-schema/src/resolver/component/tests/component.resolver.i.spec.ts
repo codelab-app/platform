@@ -3,9 +3,14 @@ import type { INestApplication } from '@nestjs/common'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import { ComponentRepository } from '@codelab/backend/domain/component'
 import { ElementRepository } from '@codelab/backend/domain/element'
-import { PropRepository } from '@codelab/backend/domain/prop'
 import { StoreRepository } from '@codelab/backend/domain/store'
-import { InterfaceTypeRepository } from '@codelab/backend/domain/type'
+import {
+  ArrayTypeRepository,
+  EnumTypeRepository,
+  FieldRepository,
+  InterfaceTypeRepository,
+  UnionTypeRepository,
+} from '@codelab/backend/domain/type'
 import { UserRepository } from '@codelab/backend/domain/user'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { AtomType, BreakpointType } from '@codelab/shared/infra/gqlgen'
@@ -23,7 +28,10 @@ describe('ComponentResolvers', () => {
   let app: INestApplication
   let userRepository: UserRepository
   let atomRepository: AtomRepository
-  let propRepository: PropRepository
+  let enumTypeRepository: EnumTypeRepository
+  let unionTypeRepository: UnionTypeRepository
+  let arrayTypeRepository: ArrayTypeRepository
+  let fieldRepository: FieldRepository
   let elementRepository: ElementRepository
   let interfaceTypeRepository: InterfaceTypeRepository
   let storeRepository: StoreRepository
@@ -37,7 +45,10 @@ describe('ComponentResolvers', () => {
     app = ctx.nestApp
     userRepository = module.get(UserRepository)
     atomRepository = module.get(AtomRepository)
-    propRepository = module.get(PropRepository)
+    enumTypeRepository = module.get(EnumTypeRepository)
+    unionTypeRepository = module.get(UnionTypeRepository)
+    arrayTypeRepository = module.get(ArrayTypeRepository)
+    fieldRepository = module.get(FieldRepository)
     elementRepository = module.get(ElementRepository)
     interfaceTypeRepository = module.get(InterfaceTypeRepository)
     storeRepository = module.get(StoreRepository)
@@ -70,31 +81,93 @@ describe('ComponentResolvers', () => {
 
     Validator.assertsDefined(owner)
 
+    const enumTypes = await Promise.all([
+      enumTypeRepository.add({
+        __typename: 'EnumType',
+        allowedValues: [],
+        id: v4(),
+        kind: ITypeKind.EnumType,
+        name: 'EnumType1',
+        owner: { id: owner.id },
+      }),
+      enumTypeRepository.add({
+        __typename: 'EnumType',
+        allowedValues: [],
+        id: v4(),
+        kind: ITypeKind.EnumType,
+        name: 'EnumType2',
+        owner: { id: owner.id },
+      }),
+    ])
+
+    const enumType1 = enumTypes[0]
+    const enumType2 = enumTypes[1]
+
+    Validator.assertsDefined(enumType1)
+    Validator.assertsDefined(enumType2)
+
+    const unionType = await unionTypeRepository.add({
+      __typename: 'UnionType',
+      id: v4(),
+      kind: ITypeKind.UnionType,
+      name: 'UnionType1',
+      owner: { id: owner.id },
+      typesOfUnionType: enumTypes.map((type) => ({
+        __typename: type.__typename,
+        id: type.id,
+      })),
+    })
+
+    Validator.assertsDefined(unionType)
+
+    const arrayType = await arrayTypeRepository.add({
+      __typename: 'ArrayType',
+      id: v4(),
+      itemType: { __typename: unionType.__typename, id: unionType.id },
+      kind: ITypeKind.ArrayType,
+      name: 'ArrayType1',
+      owner: { id: owner.id },
+    })
+
+    Validator.assertsDefined(arrayType)
+
     const atomApi = await interfaceTypeRepository.add({
       __typename: 'InterfaceType',
       id: v4(),
       kind: ITypeKind.InterfaceType,
-      name: 'React Fragment Api',
+      name: 'AtomApi',
       owner: { id: owner.id },
     })
 
     Validator.assertsDefined(atomApi)
 
-    const atomReactFragment = await atomRepository.add({
+    await fieldRepository.addMany([
+      {
+        api: { id: atomApi.id },
+        fieldType: { id: unionType.id },
+        id: v4(),
+        key: 'field1',
+        name: 'Field1',
+      },
+      {
+        api: { id: atomApi.id },
+        fieldType: { id: arrayType.id },
+        id: v4(),
+        key: 'field2',
+        name: 'Field2',
+      },
+    ])
+
+    const atom = await atomRepository.add({
       __typename: 'Atom',
       api: { id: atomApi.id },
       id: v4(),
-      name: 'React Fragment',
+      name: 'Atom',
       owner: { id: owner.id },
-      type: AtomType.ReactFragment,
+      type: AtomType.HtmlSpan,
     })
 
-    Validator.assertsDefined(atomReactFragment)
-
-    // const props = await propRepository.add({
-    //   data: '{}',
-    //   id: v4(),
-    // })
+    Validator.assertsDefined(atom)
 
     const rootElement = await elementRepository.add({
       closestContainerNode: { id: v4() },
@@ -107,7 +180,7 @@ describe('ComponentResolvers', () => {
       props: { data: '{}', id: v4() },
       renderType: {
         __typename: 'Atom',
-        id: atomReactFragment.id,
+        id: atom.id,
       },
     })
 
@@ -125,7 +198,7 @@ describe('ComponentResolvers', () => {
       props: { data: '{}', id: v4() },
       renderType: {
         __typename: 'Atom',
-        id: atomReactFragment.id,
+        id: atom.id,
       },
     })
 
@@ -183,6 +256,24 @@ describe('ComponentResolvers', () => {
 
         expect(res.body.data.components).toEqual([
           {
+            dependantTypes: expect.arrayContaining([
+              {
+                __typename: ITypeKind.ArrayType,
+                id: arrayType.id,
+              },
+              {
+                __typename: ITypeKind.EnumType,
+                id: enumType1.id,
+              },
+              {
+                __typename: ITypeKind.EnumType,
+                id: enumType2.id,
+              },
+              {
+                __typename: ITypeKind.UnionType,
+                id: unionType.id,
+              },
+            ]),
             elements: [
               {
                 id: rootElement.id,

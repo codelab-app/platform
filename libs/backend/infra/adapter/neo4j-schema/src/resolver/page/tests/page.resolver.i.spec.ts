@@ -4,18 +4,22 @@ import { AppRepository } from '@codelab/backend/domain/app'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import { ElementRepository } from '@codelab/backend/domain/element'
 import { PageRepository } from '@codelab/backend/domain/page'
-import { PropRepository } from '@codelab/backend/domain/prop'
 import { StoreRepository } from '@codelab/backend/domain/store'
-import { InterfaceTypeRepository } from '@codelab/backend/domain/type'
+import {
+  ArrayTypeRepository,
+  EnumTypeRepository,
+  FieldRepository,
+  InterfaceTypeRepository,
+  UnionTypeRepository,
+} from '@codelab/backend/domain/type'
 import { UserRepository } from '@codelab/backend/domain/user'
 import {
-  IAtomType,
   IPageKind,
   IPageKindName,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
-import { BreakpointType } from '@codelab/shared/infra/gqlgen'
+import { AtomType, BreakpointType } from '@codelab/shared/infra/gqlgen'
 import { Validator } from '@codelab/shared/infra/typebox'
 import { ElementProperties } from '@codelab/shared-domain-module/element'
 import { print } from 'graphql'
@@ -29,9 +33,12 @@ describe('PageResolvers', () => {
   let app: INestApplication
   let userRepository: UserRepository
   let atomRepository: AtomRepository
-  let propRepository: PropRepository
   let elementRepository: ElementRepository
   let interfaceTypeRepository: InterfaceTypeRepository
+  let enumTypeRepository: EnumTypeRepository
+  let unionTypeRepository: UnionTypeRepository
+  let arrayTypeRepository: ArrayTypeRepository
+  let fieldRepository: FieldRepository
   let storeRepository: StoreRepository
   let pageRepository: PageRepository
   let appRepository: AppRepository
@@ -44,9 +51,12 @@ describe('PageResolvers', () => {
     app = ctx.nestApp
     userRepository = module.get(UserRepository)
     atomRepository = module.get(AtomRepository)
-    propRepository = module.get(PropRepository)
     elementRepository = module.get(ElementRepository)
     interfaceTypeRepository = module.get(InterfaceTypeRepository)
+    enumTypeRepository = module.get(EnumTypeRepository)
+    unionTypeRepository = module.get(UnionTypeRepository)
+    arrayTypeRepository = module.get(ArrayTypeRepository)
+    fieldRepository = module.get(FieldRepository)
     storeRepository = module.get(StoreRepository)
     pageRepository = module.get(PageRepository)
     appRepository = module.get(AppRepository)
@@ -76,6 +86,83 @@ describe('PageResolvers', () => {
 
     Validator.assertsDefined(owner)
 
+    const enumTypes = await Promise.all([
+      enumTypeRepository.add({
+        __typename: 'EnumType',
+        allowedValues: [],
+        id: v4(),
+        kind: ITypeKind.EnumType,
+        name: 'EnumType1',
+        owner: { id: owner.id },
+      }),
+      enumTypeRepository.add({
+        __typename: 'EnumType',
+        allowedValues: [],
+        id: v4(),
+        kind: ITypeKind.EnumType,
+        name: 'EnumType2',
+        owner: { id: owner.id },
+      }),
+    ])
+
+    const enumType1 = enumTypes[0]
+    const enumType2 = enumTypes[1]
+
+    Validator.assertsDefined(enumType1)
+    Validator.assertsDefined(enumType2)
+
+    const unionType = await unionTypeRepository.add({
+      __typename: 'UnionType',
+      id: v4(),
+      kind: ITypeKind.UnionType,
+      name: 'UnionType1',
+      owner: { id: owner.id },
+      typesOfUnionType: enumTypes.map((type) => ({
+        __typename: type.__typename,
+        id: type.id,
+      })),
+    })
+
+    Validator.assertsDefined(unionType)
+
+    const arrayType = await arrayTypeRepository.add({
+      __typename: 'ArrayType',
+      id: v4(),
+      itemType: { __typename: unionType.__typename, id: unionType.id },
+      kind: ITypeKind.ArrayType,
+      name: 'ArrayType1',
+      owner: { id: owner.id },
+    })
+
+    Validator.assertsDefined(arrayType)
+
+    const atomApi = await interfaceTypeRepository.add({
+      __typename: 'InterfaceType',
+      id: v4(),
+      kind: ITypeKind.InterfaceType,
+      name: 'AtomApi',
+      owner: { id: owner.id },
+    })
+
+    Validator.assertsDefined(atomApi)
+
+    await fieldRepository.addMany([
+      {
+        api: { id: atomApi.id },
+        fieldType: { id: unionType.id },
+        id: v4(),
+        key: 'field1',
+        name: 'Field1',
+      },
+      {
+        api: { id: atomApi.id },
+        fieldType: { id: arrayType.id },
+        id: v4(),
+        key: 'field2',
+        name: 'Field2',
+      },
+    ])
+
     const testApp = await appRepository.add({
       id: v4(),
       name: 'My Name',
@@ -86,26 +173,16 @@ describe('PageResolvers', () => {
 
     const testPageRef = { id: v4() }
 
-    const atomApi = await interfaceTypeRepository.add({
-      __typename: 'InterfaceType',
-      id: v4(),
-      kind: ITypeKind.InterfaceType,
-      name: 'React Fragment Api',
-      owner: { id: owner.id },
-    })
-
-    Validator.assertsDefined(atomApi)
-
-    const atomReactFragment = await atomRepository.add({
+    const atom = await atomRepository.add({
       __typename: 'Atom',
       api: { id: atomApi.id },
       id: v4(),
-      name: 'React Fragment',
+      name: 'Atom',
       owner: { id: owner.id },
-      type: IAtomType.ReactFragment,
+      type: AtomType.HtmlSpan,
     })
 
-    Validator.assertsDefined(atomReactFragment)
+    Validator.assertsDefined(atom)
 
     const rootElement = await elementRepository.add({
       closestContainerNode: { id: v4() },
@@ -114,7 +191,7 @@ describe('PageResolvers', () => {
       props: { data: '{}', id: v4() },
       renderType: {
         __typename: 'Atom',
-        id: atomReactFragment.id,
+        id: atom.id,
       },
     })
 
@@ -132,7 +209,7 @@ describe('PageResolvers', () => {
       props: { data: '{}', id: v4() },
       renderType: {
         __typename: 'Atom',
-        id: atomReactFragment.id,
+        id: atom.id,
       },
     })
 
@@ -177,6 +254,24 @@ describe('PageResolvers', () => {
       .expect((res) => {
         expect(res.body.data.pages).toEqual([
           {
+            dependantTypes: expect.arrayContaining([
+              {
+                __typename: ITypeKind.ArrayType,
+                id: arrayType.id,
+              },
+              {
+                __typename: ITypeKind.EnumType,
+                id: enumType1.id,
+              },
+              {
+                __typename: ITypeKind.EnumType,
+                id: enumType2.id,
+              },
+              {
+                __typename: ITypeKind.UnionType,
+                id: unionType.id,
+              },
+            ]),
             elements: [
               {
                 id: rootElement.id,

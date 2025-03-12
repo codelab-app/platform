@@ -9,5 +9,19 @@ query pageResolverPages {
       id
     }
     slug
+    dependantTypes {
+      ... on EnumType {
+        __typename
+        id
+      }
+      ... on ArrayType {
+        __typename
+        id
+      }
+      ... on UnionType {
+        __typename
+        id
+      }
+    }
   }
 }

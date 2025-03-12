@@ -6,7 +6,7 @@ type GraphQLClientRequestHeaders = RequestOptions['requestHeaders'];
 export type ComponentResolverComponentsQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type ComponentResolverComponentsQuery = { components: Array<{ id: string, name: string, slug: string, elements: Array<{ id: string }>, rootElement: { id: string } }> };
+export type ComponentResolverComponentsQuery = { components: Array<{ id: string, name: string, slug: string, elements: Array<{ id: string }>, rootElement: { id: string }, dependantTypes: Array<{ __typename: 'ArrayType', id: string } | { __typename: 'EnumType', id: string } | { __typename: 'UnionType', id: string } | {}> }> };
 
 
 export const ComponentResolverComponentsDocument = gql`
@@ -20,6 +20,20 @@ export const ComponentResolverComponentsDocument = gql`
     slug
     rootElement {
       id
+    }
+    dependantTypes {
+      ... on EnumType {
+        __typename
+        id
+      }
+      ... on ArrayType {
+        __typename
+        id
+      }
+      ... on UnionType {
+        __typename
+        id
+      }
     }
   }
 }
