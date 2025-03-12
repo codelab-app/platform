@@ -76,7 +76,8 @@ export class ExportApiHandler
 
     this.logger.log('Dependent types', {
       context: 'ExportApiHandler',
-      data: { dependentTypes },
+      dependentTypes,
+      // data: { dependentTypes },
     })
 
     this.sortUnionTypesBeforeExport(dependentTypes)

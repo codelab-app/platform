@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="1" failures="0" errors="0" time="12.42">
-  <testsuite name="ImportAtoms" errors="0" failures="0" skipped="0" timestamp="2025-03-11T13:52:19" time="12.373" tests="1">
-    <testcase classname="backend-application-atom &gt; import-atoms.service.i.spec.ts" name="ImportAtoms &gt; can import atoms" time="6.7">
-    </testcase>
-  </testsuite>
-</testsuites>

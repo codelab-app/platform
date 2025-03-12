@@ -45,7 +45,7 @@ export class ExportAtomHandler
     const atom = {
       ...existingAtom,
       __typename: 'Atom' as const,
-      api: { id: api.id },
+      api,
       tags: existingAtom.tags?.map((tag) => ({ id: tag.id })),
     }
 
