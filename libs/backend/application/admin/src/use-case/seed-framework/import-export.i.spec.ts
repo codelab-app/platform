@@ -93,6 +93,8 @@ describe('Seed, import, & export data', () => {
       }, new Map())
 
     for (const [sourceFile, exportedFile] of sourceToExpectedFilePath) {
+      console.log({ exportedFile, sourceFile })
+
       const sourceContent = readFileSync(sourceFile, 'utf8')
       const exportedContent = readFileSync(exportedFile, 'utf8')
 

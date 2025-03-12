@@ -8,6 +8,7 @@ import {
   ReactNodeTypeRepository,
   RenderPropTypeRepository,
   RichTextTypeRepository,
+  UnionTypeRepository,
 } from '@codelab/backend/domain/type'
 import {
   ActionTypeSchema,
@@ -16,6 +17,7 @@ import {
   ReactNodeTypeSchema,
   RenderPropTypeSchema,
   RichTextTypeSchema,
+  UnionTypeSchema,
 } from '@codelab/shared/abstract/core'
 import { SortDirection } from '@codelab/shared/infra/gqlgen'
 import { CommandHandler } from '@nestjs/cqrs'
@@ -50,6 +52,7 @@ export class ExportSystemTypesHandler
     private renderPropTypeRepository: RenderPropTypeRepository,
     private actionTypeRepository: ActionTypeRepository,
     private codeMirrorTypeRepository: CodeMirrorTypeRepository,
+    private unionTypeRepository: UnionTypeRepository,
   ) {}
 
   async execute() {

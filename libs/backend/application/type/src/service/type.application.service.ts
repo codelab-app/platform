@@ -14,6 +14,7 @@ import {
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
+import { uniqueBy } from 'remeda'
 
 @Injectable()
 export class TypeApplicationService {
@@ -41,18 +42,10 @@ export class TypeApplicationService {
       typesCount: allTypes.length,
     })
 
-    // System types are already imported, they are contained in json file only because they are considered dependentTypes
-    const typesToImport = allTypes.filter((type) => {
-      const isSystemType = this.readAdminDataService.systemTypes.some(
-        ({ id }) => id === type.id,
-      )
+    // Shared types such as `AtomChildren Union` would appear multiple times, filter to dedup
+    const dedupedTypes = uniqueBy(allTypes, (type) => type.id)
 
-      return !isSystemType
-    })
-
-    console.log('typesToImport', typesToImport)
-
-    for (const type of typesToImport) {
+    for (const type of dedupedTypes) {
       await this.typeFactory.add({
         ...type,
         owner: this.authDomainService.currentUser,
