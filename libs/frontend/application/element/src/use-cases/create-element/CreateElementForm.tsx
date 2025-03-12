@@ -101,7 +101,9 @@ export const CreateElementForm = observer<CreateElementFormProps>((props) => {
       id: parentElement.closestContainerNode.id,
     },
     id: v4(),
-    owner: user.auth0Id,
+    owner: {
+      id: user.id,
+    },
     parentElement: {
       id: parentElement.id,
     },

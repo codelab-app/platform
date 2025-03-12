@@ -28,14 +28,11 @@ export class AtomApplicationService {
 
   @LogClassMethod()
   async addAtoms(atomsData: Array<IAtomAggregate>) {
-    this.logger.log('Adding atoms', {
-      atomCount: atomsData.length,
-    })
-
     const atoms = atomsData.map(({ atom }) => atom)
     const apis = atomsData.map(({ api }) => api)
 
-    this.logger.log('Adding types', {
+    this.logger.log('Data', {
+      atomCount: atomsData.length,
       typeCount: apis.length,
     })
 
@@ -52,6 +49,17 @@ export class AtomApplicationService {
         owner: this.authDomainService.currentUser,
       })),
     )
+  }
+
+  @LogClassMethod()
+  async addAtomsFromTypes(atomTypes?: Array<IAtomType>) {
+    this.logger.log('Adding atoms from types', { atomTypes })
+
+    const atomsData = atomTypes
+      ? this.readAdminDataService.getAtomsByTypes(atomTypes)
+      : this.readAdminDataService.atoms
+
+    return this.addAtoms(atomsData)
   }
 
   @LogClassMethod()
@@ -76,15 +84,6 @@ export class AtomApplicationService {
     }
 
     return exportedAtoms
-  }
-
-  @LogClassMethod()
-  async importAtomsFromTypes(atomTypes?: Array<IAtomType>) {
-    const atomsData = atomTypes
-      ? this.readAdminDataService.getAtomsByTypes(atomTypes)
-      : this.readAdminDataService.atoms
-
-    return this.addAtoms(atomsData)
   }
 
   @LogClassMethod()

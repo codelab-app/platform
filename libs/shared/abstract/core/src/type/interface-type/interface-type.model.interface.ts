@@ -4,7 +4,7 @@ import { FieldSchema } from '../../field'
 import { InterfaceTypeDtoSchema } from './interface-type.dto.interface'
 
 export const InterfaceTypeSchema = Type.Composite([
-  InterfaceTypeDtoSchema(),
+  InterfaceTypeDtoSchema,
   Type.Object({
     fields: Type.Array(FieldSchema),
   }),

@@ -1,5 +1,4 @@
-import type { IApiAggregate, IAtomType } from '@codelab/shared/abstract/core'
-
+import { ReadAdminDataService } from '@codelab/backend/application/data'
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import {
   FieldRepository,
@@ -9,6 +8,11 @@ import {
 } from '@codelab/backend/domain/type'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { LogClassMethod } from '@codelab/backend/infra/core'
+import {
+  type IApiAggregate,
+  type IAtomType,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
@@ -19,21 +23,11 @@ export class TypeApplicationService {
     private readonly fieldRepository: FieldRepository,
     private authDomainService: AuthDomainService,
     private readonly typeFactory: TypeFactory,
+    private readonly readAdminDataService: ReadAdminDataService,
   ) {}
 
   @LogClassMethod()
   async addApis(apis: Array<IApiAggregate>) {
-    // Log details for each API
-    // for (const api of apis) {
-    //   const fieldNames = api.fields.map((field) => field.key)
-
-    //   this.logger.log(`API: ${api.name}`, {
-    //     context: 'TypeDomainService',
-    //     fieldCount: api.fields.length,
-    //     fieldNames,
-    //   })
-    // }
-
     const allTypes = apis.flatMap(({ types }) => types)
     const apiFields = apis.flatMap(({ fields }) => fields)
 
@@ -41,18 +35,24 @@ export class TypeApplicationService {
      * Add interface type first, then we assign fields
      */
     this.logger.log('Adding interface types', {
+      apiCount: apis.length,
       context: 'TypeApplicationService',
-      count: apis.length,
+      fieldCount: apiFields.length,
+      typesCount: allTypes.length,
     })
 
-    // await this.interfaceTypeRepository.addMany(
-    //   apis.map((api) => ({
-    //     ...api,
-    //     owner: this.authDomainService.currentUser,
-    //   })),
-    // )
+    // System types are already imported, they are contained in json file only because they are considered dependentTypes
+    const typesToImport = allTypes.filter((type) => {
+      const isSystemType = this.readAdminDataService.systemTypes.some(
+        ({ id }) => id === type.id,
+      )
 
-    for (const type of allTypes) {
+      return !isSystemType
+    })
+
+    console.log('typesToImport', typesToImport)
+
+    for (const type of typesToImport) {
       await this.typeFactory.add({
         ...type,
         owner: this.authDomainService.currentUser,

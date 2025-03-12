@@ -55,9 +55,7 @@ describe('ImportAtoms', () => {
 
     await commandBus.execute(importSystemTypesCommand)
 
-    await atomApplicationService.importAtomsFromTypes([
-      IAtomType.AntDesignButton,
-    ])
+    await atomApplicationService.addAtomsFromTypes([IAtomType.AntDesignButton])
 
     const atoms = await atomRepository.find()
 

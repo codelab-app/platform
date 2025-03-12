@@ -35,6 +35,10 @@ export class ElementRepository extends AbstractRepository<
       input: elements.map((element) => elementMapper.toCreateInput(element)),
     })
 
+    this.loggerService.debug('Data', {
+      input: elements.map((element) => elementMapper.toCreateInput(element)),
+    })
+
     return createdElements
   }
 

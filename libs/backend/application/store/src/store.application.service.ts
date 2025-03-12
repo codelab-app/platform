@@ -31,7 +31,7 @@ export class StoreApplicationService {
     await this.typeApplicationService.addApis(apis)
 
     for (const store of stores) {
-      await this.storeRepository.save(store)
+      await this.storeRepository.add(store)
     }
 
     for (const action of actionsData) {

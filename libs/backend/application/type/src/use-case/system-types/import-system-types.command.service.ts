@@ -6,9 +6,7 @@ import { TypeDomainService } from '@codelab/backend/domain/type'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { CommandHandler } from '@nestjs/cqrs'
 
-export class ImportSystemTypesCommand {
-  constructor(public options?: IImportOptions) {}
-}
+export class ImportSystemTypesCommand {}
 
 @CommandHandler(ImportSystemTypesCommand)
 export class ImportSystemTypesHandler
@@ -20,13 +18,9 @@ export class ImportSystemTypesHandler
     private typeDomainService: TypeDomainService,
   ) {}
 
-  async execute({ options }: ImportSystemTypesCommand) {
+  async execute() {
     const types = this.readAdminDataService.systemTypes
 
-    if (options?.upsert) {
-      await this.typeDomainService.saveMany(types)
-    } else {
-      await this.typeDomainService.addMany(types)
-    }
+    await this.typeDomainService.saveMany(types)
   }
 }

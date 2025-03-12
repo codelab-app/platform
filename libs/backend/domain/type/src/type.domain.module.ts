@@ -1,4 +1,5 @@
 import { SharedDomainModule } from '@codelab/backend/domain/shared/modules'
+import { UserDomainModule } from '@codelab/backend/domain/user'
 import { Module } from '@nestjs/common'
 
 import { TypeFactory } from './factory'
@@ -33,7 +34,7 @@ const typeRepositories = [
 
 @Module({
   exports: [TypeFactory, ...typeRepositories, TypeDomainService],
-  imports: [SharedDomainModule],
+  imports: [SharedDomainModule, UserDomainModule],
   providers: [TypeFactory, ...typeRepositories, TypeDomainService],
 })
 export class TypeDomainModule {}

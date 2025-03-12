@@ -17,24 +17,24 @@ import { RenderPropTypeDtoSchema } from './render-prop-type/render-prop-type.dto
 import { RichTextTypeDtoSchema } from './rich-text-type'
 import { UnionTypeDtoSchema } from './union-type'
 
-export const typeDtoSchemas = <T extends TSchema>(schema?: T) => [
+export const typeDtoSchemas = [
   ActionTypeDtoSchema,
   AppTypeDtoSchema,
-  ArrayTypeDtoSchema(schema),
+  ArrayTypeDtoSchema,
   CodeMirrorTypeDtoSchema,
   ElementTypeDtoSchema,
   EnumTypeDtoSchema,
-  InterfaceTypeDtoSchema(schema),
+  InterfaceTypeDtoSchema,
   LambdaTypeDtoSchema,
   PageTypeDtoSchema,
   PrimitiveTypeDtoSchema,
   ReactNodeTypeDtoSchema,
   RenderPropTypeDtoSchema,
   RichTextTypeDtoSchema,
-  UnionTypeDtoSchema(schema),
+  UnionTypeDtoSchema,
 ]
 
-export const TypeDtoSchema = Type.Union(typeDtoSchemas(), {
+export const TypeDtoSchema = Type.Union(typeDtoSchemas, {
   discriminantKey: '__typename',
   errorMessage: 'Unknown type',
 })

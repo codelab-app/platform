@@ -73,9 +73,9 @@ export class SeedE2eAppHandler
       new ImportSystemTypesCommand(),
     )
 
-    await this.atomApplicationService.importAtomsFromTypes(atomTypes)
+    await this.atomApplicationService.addAtomsFromTypes(atomTypes)
 
-    await this.componentApplicationService.importComponentsFromTypes(
+    await this.componentApplicationService.addComponentsFromTypes(
       componentTypes,
     )
 

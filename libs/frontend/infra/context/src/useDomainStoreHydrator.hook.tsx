@@ -52,7 +52,7 @@ export const useDomainStoreHydrator = () => {
         typesDto,
       } = data
 
-      logger.debug('Hydrating data', data)
+      // logger.debug('Hydrating data', data)
 
       // we use optimistic updates in some parts of the app, wrapping with a single group action
       // makes it very easy to undo the entire hydration, in case if requested operation fails

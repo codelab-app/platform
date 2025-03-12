@@ -36,7 +36,7 @@ export const typographyElement = {
 
 export const seedTestData = async (request: APIRequestContext) => {
   const app = await seedAppData(request, {
-    atomTypes: [IAtomType.AntDesignTypographyText],
+    atomTypes: [IAtomType.AntDesignTypographyText, IAtomType.HtmlLink],
     componentTypes: [IComponentType.GoogleFonts],
   })
 

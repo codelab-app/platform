@@ -10,6 +10,7 @@ import { ComponentRepository } from '@codelab/backend/domain/component'
 import { ElementRepository } from '@codelab/backend/domain/element'
 import { PropDomainService } from '@codelab/backend/domain/prop'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
+import { LogClassMethod } from '@codelab/backend/infra/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
 import { Injectable } from '@nestjs/common'
 import { v4 } from 'uuid'
@@ -20,20 +21,11 @@ export class ElementApplicationService {
     private elementRepository: ElementRepository,
     private atomDomainService: AtomDomainService,
     private componentRepository: ComponentRepository,
-    private loggerService: PinoLoggerService,
+    private logger: PinoLoggerService,
     private propDomainService: PropDomainService,
   ) {}
 
-  async createComponentRootElement(component: ICreateComponentData) {
-    return this.createElement(
-      {
-        id: v4(),
-        name: `${component.name} Root`,
-      },
-      { id: component.id },
-    )
-  }
-
+  @LogClassMethod()
   async createElement(element: ICreateElementData, closestContainerNode: IRef) {
     console.log('element', element)
     console.log('closestContainerNode', closestContainerNode)
@@ -58,7 +50,7 @@ export class ElementApplicationService {
       renderType = await this.atomDomainService.defaultRenderType()
     }
 
-    this.loggerService.debug('Create element', {
+    this.logger.debug('Create element', {
       data: { atom: element.atom, renderType },
     })
 
@@ -69,6 +61,16 @@ export class ElementApplicationService {
       props,
       renderType,
     })
+  }
+
+  async createComponentRootElement(component: ICreateComponentData) {
+    return this.createElement(
+      {
+        id: v4(),
+        name: `${component.name} Root`,
+      },
+      { id: component.id },
+    )
   }
 
   async createElementTree(

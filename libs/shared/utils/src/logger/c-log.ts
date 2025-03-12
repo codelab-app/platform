@@ -1,6 +1,10 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 import type { ObjectLike } from '@codelab/shared/abstract/types'
 
+import { isPlainObject } from 'remeda'
+
+import { isCyclic } from '../isCyclic'
+
 /**
  * To show the correct source file in browser console, enable ignore list
  *
@@ -43,14 +47,20 @@ class Logger {
   }
 
   /**
-   * Formatting will not show objects as expandable
+   * Format messages without stringifying complex objects to avoid circular reference errors
    */
   private formatMessage(
     ...objects: Array<boolean | number | string | ObjectLike | null | undefined>
   ) {
     return objects.map((obj) => {
-      if (obj && typeof obj === 'object') {
-        return JSON.stringify(obj, null, 2)
+      // Only stringify plain objects that aren't cyclic
+      if (obj && typeof obj === 'object' && isPlainObject(obj)) {
+        try {
+          return JSON.stringify(obj, null, 2)
+        } catch (error) {
+          // If stringification fails, return the object as is
+          return obj
+        }
       }
 
       return obj

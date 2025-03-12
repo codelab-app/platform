@@ -37,7 +37,7 @@ export class SeederApplicationService {
       new ImportSystemTypesCommand(),
     )
 
-    await this.atomApplicationService.importAtomsFromTypes([
+    await this.atomApplicationService.addAtomsFromTypes([
       IAtomType.AntDesignButton,
     ])
   }
@@ -52,7 +52,7 @@ export class SeederApplicationService {
       new ImportSystemTypesCommand(),
     )
 
-    await this.atomApplicationService.importAtomsFromTypes([
+    await this.atomApplicationService.addAtomsFromTypes([
       IAtomType.ReactFragment,
     ])
   }
@@ -71,7 +71,7 @@ export class SeederApplicationService {
       new ImportSystemTypesCommand(),
     )
 
-    await this.atomApplicationService.importAtomsFromTypes([
+    await this.atomApplicationService.addAtomsFromTypes([
       IAtomType.ReactFragment,
     ])
   }

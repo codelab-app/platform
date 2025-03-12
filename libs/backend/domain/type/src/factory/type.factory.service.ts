@@ -1,5 +1,6 @@
 import type { IRef, ITypeDto, ITypeRef } from '@codelab/shared/abstract/core'
 
+import { UserRepository } from '@codelab/backend/domain/user'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
   getTypeDescendants,
@@ -57,6 +58,7 @@ export class TypeFactory {
     private readonly codeMirrorRepository: CodeMirrorTypeRepository,
     private readonly neo4jService: Neo4jService,
     private readonly logger: PinoLoggerService,
+    private readonly userRepository: UserRepository,
   ) {}
 
   async add<T extends ITypeDto>(
@@ -66,6 +68,10 @@ export class TypeFactory {
       context: 'TypeFactory',
       data: { type: type.__typename },
     })
+
+    const users = await this.userRepository.find()
+
+    console.log('users', users)
 
     /**
      * Type narrow using discriminated union

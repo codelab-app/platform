@@ -68,7 +68,7 @@ export class ComponentApplicationService {
     await this.storeApplicationService.addStores(stores)
 
     for (const element of elements) {
-      await this.elementRepository.save(element)
+      await this.elementRepository.add(element)
     }
 
     await this.componentRepository.addMany(
@@ -77,6 +77,17 @@ export class ComponentApplicationService {
         owner: this.authDomainService.currentUser,
       })),
     )
+  }
+
+  /**
+   * Empty means import all components
+   */
+  async addComponentsFromTypes(componentTypes?: Array<IComponentType>) {
+    const componentsData = componentTypes
+      ? this.readAdminDataService.getComponentsByNames(componentTypes)
+      : this.readAdminDataService.components
+
+    return await this.addComponents(componentsData)
   }
 
   async createComponent(createComponentData: ICreateComponentData) {
@@ -176,16 +187,5 @@ export class ComponentApplicationService {
     const components = this.readAdminDataService.components
 
     return await this.addComponents(components)
-  }
-
-  /**
-   * Empty means import all components
-   */
-  async importComponentsFromTypes(componentTypes?: Array<IComponentType>) {
-    const componentsData = componentTypes
-      ? this.readAdminDataService.getComponentsByNames(componentTypes)
-      : this.readAdminDataService.components
-
-    return await this.addComponents(componentsData)
   }
 }
