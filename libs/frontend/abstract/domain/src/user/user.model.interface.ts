@@ -7,6 +7,8 @@ export interface IUserModel extends IModel<IUserDto, IUserModel> {
   auth0Id: string
   email: string
   id: string
+  name: string
+  picture: string
   preferences: IPreferenceModel
   roles: Array<IRole>
   username: string

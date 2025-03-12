@@ -36,6 +36,8 @@ describe('Tag repository.', () => {
       auth0Id: 'something',
       email: 'something@some.thing',
       id: v4(),
+      name: 'someusername',
+      picture: '',
       preferences: {
         builderBreakpointType: BreakpointType.Desktop,
         builderWidth: 1000,
@@ -128,6 +130,8 @@ describe('Tag repository.', () => {
       auth0Id: 'auth0_test',
       email: 'test@example.com',
       id: v4(),
+      name: 'testuser',
+      picture: '',
       preferences: {
         builderBreakpointType: BreakpointType.Desktop,
         builderWidth: 1000,

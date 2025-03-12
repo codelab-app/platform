@@ -1,5 +1,5 @@
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
-import { Button, Space, Tooltip } from 'antd'
+import { Button, Tooltip } from 'antd'
 
 import type { ToolbarItem } from '../../abstract'
 
@@ -19,12 +19,10 @@ export const CuiHeaderToolbarItem = ({
         <Button
           aria-label={ariaLabel}
           className="h-8 px-2 py-1"
+          icon={icon}
           onClick={onClick}
         >
-          <Space>
-            {icon}
-            {label}
-          </Space>
+          {label}
         </Button>
       </Tooltip>
     </div>

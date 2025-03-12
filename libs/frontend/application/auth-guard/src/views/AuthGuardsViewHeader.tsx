@@ -2,6 +2,7 @@ import {
   CuiHeader,
   CuiHeaderBreadcrumb,
 } from '@codelab/frontend/presentation/codelab-ui'
+import { UserProfileMenu } from '@codelab/frontend-application-user/components'
 import { Image } from 'antd'
 
 export const AuthGuardsViewHeader = () => {
@@ -16,6 +17,7 @@ export const AuthGuardsViewHeader = () => {
           src="/logo.png"
         />
       }
+      userMenu={<UserProfileMenu />}
     />
   )
 }

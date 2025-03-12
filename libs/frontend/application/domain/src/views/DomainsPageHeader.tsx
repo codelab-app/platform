@@ -10,6 +10,7 @@ import {
   CuiHeaderBreadcrumb,
   CuiHeaderToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
+import { UserProfileMenu } from '@codelab/frontend-application-user/components'
 import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
@@ -46,6 +47,7 @@ export const DomainsPageHeader = observer<{ app: IAppModel }>(({ app }) => {
           title="Domains toolbar"
         />
       }
+      userMenu={<UserProfileMenu />}
     />
   )
 })

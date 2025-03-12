@@ -22921,6 +22921,8 @@ type User {
   elementsConnection(after: String, directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), first: Int, sort: [UserElementsConnectionSort!], where: UserElementsConnectionWhere): UserElementsConnection!
   email: String!
   id: ID!
+  name: String
+  picture: String
   preferences(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), limit: Int, offset: Int, options: PreferenceOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), sort: [PreferenceSort!], where: PreferenceWhere): Preference
   preferencesAggregate(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), where: PreferenceWhere): UserPreferencePreferencesAggregationSelection
   preferencesConnection(after: String, directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), first: Int, sort: [UserPreferencesConnectionSort!], where: UserPreferencesConnectionWhere): UserPreferencesConnection!
@@ -23382,6 +23384,8 @@ input UserCreateInput {
   elements: UserElementsFieldInput
   email: String!
   id: ID!
+  name: String
+  picture: String
   preferences: UserPreferencesFieldInput
   roles: [Role!]
   tags: UserTagsFieldInput
@@ -24035,6 +24039,10 @@ input UserUpdateInput {
   elements: [UserElementsUpdateFieldInput!]
   email: String @deprecated(reason: "Please use the explicit _SET field")
   email_SET: String
+  name: String @deprecated(reason: "Please use the explicit _SET field")
+  name_SET: String
+  picture: String @deprecated(reason: "Please use the explicit _SET field")
+  picture_SET: String
   preferences: UserPreferencesUpdateFieldInput
   roles: [Role!] @deprecated(reason: "Please use the explicit _SET field")
   roles_SET: [Role!]

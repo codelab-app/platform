@@ -29146,6 +29146,8 @@ export type User = {
   elementsConnection: UserElementsConnection;
   email: Scalars['String']['output'];
   id: Scalars['ID']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  picture?: Maybe<Scalars['String']['output']>;
   preferences?: Maybe<Preference>;
   preferencesAggregate?: Maybe<UserPreferencePreferencesAggregationSelection>;
   preferencesConnection: UserPreferencesConnection;
@@ -29832,6 +29834,8 @@ export type UserCreateInput = {
   elements?: InputMaybe<UserElementsFieldInput>;
   email: Scalars['String']['input'];
   id: Scalars['ID']['input'];
+  name?: InputMaybe<Scalars['String']['input']>;
+  picture?: InputMaybe<Scalars['String']['input']>;
   preferences?: InputMaybe<UserPreferencesFieldInput>;
   roles?: InputMaybe<Array<Role>>;
   tags?: InputMaybe<UserTagsFieldInput>;
@@ -30555,6 +30559,12 @@ export type UserUpdateInput = {
   /** @deprecated Please use the explicit _SET field */
   email?: InputMaybe<Scalars['String']['input']>;
   email_SET?: InputMaybe<Scalars['String']['input']>;
+  /** @deprecated Please use the explicit _SET field */
+  name?: InputMaybe<Scalars['String']['input']>;
+  name_SET?: InputMaybe<Scalars['String']['input']>;
+  /** @deprecated Please use the explicit _SET field */
+  picture?: InputMaybe<Scalars['String']['input']>;
+  picture_SET?: InputMaybe<Scalars['String']['input']>;
   preferences?: InputMaybe<UserPreferencesUpdateFieldInput>;
   /** @deprecated Please use the explicit _SET field */
   roles?: InputMaybe<Array<Role>>;
@@ -31139,7 +31149,7 @@ export type UnionTypeFragment = { __typename: 'UnionType', id: string, kind: Typ
 
 export type OwnerFragment = { __typename?: 'User', id: string };
 
-export type UserFragment = { __typename?: 'User', auth0Id: string, email: string, id: string, roles?: Array<Role> | null, username: string, apps: Array<{ __typename?: 'App', id: string }>, preferences?: { __typename?: 'Preference', id: string, builderBreakpointType: BreakpointType, builderWidth: number, owner: { __typename?: 'User', id: string } } | null };
+export type UserFragment = { __typename?: 'User', auth0Id: string, email: string, id: string, roles?: Array<Role> | null, username: string, name?: string | null, picture?: string | null, apps: Array<{ __typename?: 'App', id: string }>, preferences?: { __typename?: 'Preference', id: string, builderBreakpointType: BreakpointType, builderWidth: number, owner: { __typename?: 'User', id: string } } | null };
 
 export type GetPageBuilderQueryVariables = Exact<{
   appId: Scalars['ID']['input'];
@@ -32215,7 +32225,7 @@ export type GetUsersQueryVariables = Exact<{
 }>;
 
 
-export type GetUsersQuery = { __typename?: 'Query', aggregate: { __typename?: 'UserAggregateSelection', count: number }, items: Array<{ __typename?: 'User', auth0Id: string, email: string, id: string, roles?: Array<Role> | null, username: string, apps: Array<{ __typename?: 'App', id: string }>, preferences?: { __typename?: 'Preference', id: string, builderBreakpointType: BreakpointType, builderWidth: number, owner: { __typename?: 'User', id: string } } | null }> };
+export type GetUsersQuery = { __typename?: 'Query', aggregate: { __typename?: 'UserAggregateSelection', count: number }, items: Array<{ __typename?: 'User', auth0Id: string, email: string, id: string, roles?: Array<Role> | null, username: string, name?: string | null, picture?: string | null, apps: Array<{ __typename?: 'App', id: string }>, preferences?: { __typename?: 'Preference', id: string, builderBreakpointType: BreakpointType, builderWidth: number, owner: { __typename?: 'User', id: string } } | null }> };
 
 export type CreateUserMutationVariables = Exact<{
   input: Array<UserCreateInput> | UserCreateInput;
@@ -36065,6 +36075,8 @@ export const UserFragmentDoc = new TypedDocumentString(`
   }
   roles
   username
+  name
+  picture
 }
     fragment Preference on Preference {
   id
@@ -41666,6 +41678,8 @@ fragment User on User {
   }
   roles
   username
+  name
+  picture
 }`) as unknown as TypedDocumentString<GetUsersQuery, GetUsersQueryVariables>;
 export const CreateUserDocument = new TypedDocumentString(`
     mutation CreateUser($input: [UserCreateInput!]!) {

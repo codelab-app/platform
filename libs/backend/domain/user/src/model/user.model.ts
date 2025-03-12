@@ -8,11 +8,21 @@ import type {
 import { preferenceDefault } from '@codelab/shared-domain-module/preference'
 
 export class User implements IUserDto {
-  static fromSession({ auth0Id, email, id, roles, username }: IUserSession) {
+  static fromSession({
+    auth0Id,
+    email,
+    id,
+    name,
+    picture,
+    roles,
+    username,
+  }: IUserSession) {
     return new User({
       auth0Id,
       email,
       id,
+      name,
+      picture,
       preferences: preferenceDefault,
       roles,
       username,
@@ -25,6 +35,10 @@ export class User implements IUserDto {
 
   id: string
 
+  name: string
+
+  picture: string
+
   preferences: IPreferenceDto
 
   roles: Array<IRole>
@@ -35,6 +49,8 @@ export class User implements IUserDto {
     auth0Id,
     email,
     id,
+    name,
+    picture,
     preferences,
     roles = [],
     username,
@@ -45,6 +61,8 @@ export class User implements IUserDto {
     this.roles = roles
     this.username = username
     this.preferences = preferences
+    this.name = name
+    this.picture = picture
   }
 }
 
