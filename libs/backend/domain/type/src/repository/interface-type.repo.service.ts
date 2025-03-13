@@ -68,12 +68,6 @@ export class InterfaceTypeRepository extends AbstractRepository<
    * Even if interface was deleted & fields are not, it is no harm to leave those old fields un-attached. We could run a clean up process for un-attached fields
    */
   protected async _addMany(interfaceTypes: Array<IInterfaceTypeDto>) {
-    this.loggerService.log('interfaceTypes', {
-      interfaceTypes: interfaceTypes.map((interfaceType) =>
-        interfaceTypeMapper.toCreateInput(interfaceType),
-      ),
-    })
-
     const {
       types: { types },
     } = await createTypeApi().CreateInterfaceTypes({

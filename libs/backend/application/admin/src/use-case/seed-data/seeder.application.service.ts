@@ -2,6 +2,8 @@ import { AtomApplicationService } from '@codelab/backend/application/atom'
 import { ReadAdminDataService } from '@codelab/backend/application/data'
 import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
 import { UserDomainService } from '@codelab/backend/domain/user'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
+import { LogClassMethod } from '@codelab/backend/infra/core'
 import { DatabaseService } from '@codelab/backend-infra-adapter/neo4j-driver'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
@@ -15,6 +17,7 @@ export class SeederApplicationService {
     private readonly readAdminDataService: ReadAdminDataService,
     private readonly databaseService: DatabaseService,
     private readonly atomApplicationService: AtomApplicationService,
+    private logger: PinoLoggerService,
   ) {}
 
   async resetAndSeedUser() {
@@ -62,6 +65,7 @@ export class SeederApplicationService {
    *
    * Before we called reset or setup, but those words don't describe clearing then re-adding data
    */
+  @LogClassMethod()
   async setupE2eData() {
     await this.databaseService.resetDatabase()
 

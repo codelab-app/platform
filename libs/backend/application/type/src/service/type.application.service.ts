@@ -43,7 +43,16 @@ export class TypeApplicationService {
     })
 
     // Shared types such as `AtomChildren Union` would appear multiple times, filter to dedup
-    const dedupedTypes = uniqueBy(allTypes, (type) => type.id)
+    const dedupedTypes = uniqueBy(allTypes, (type) => type.id).filter(
+      (type) =>
+        !this.readAdminDataService.systemTypes.some(
+          (_type) => _type.id === type.id,
+        ),
+    )
+
+    this.logger.log('Deduped types', {
+      dedupedTypes,
+    })
 
     for (const type of dedupedTypes) {
       await this.typeFactory.add({

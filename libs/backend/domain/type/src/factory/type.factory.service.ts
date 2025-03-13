@@ -69,10 +69,6 @@ export class TypeFactory {
       data: { type: type.__typename },
     })
 
-    const users = await this.userRepository.find()
-
-    console.log('users', users)
-
     /**
      * Type narrow using discriminated union
      */

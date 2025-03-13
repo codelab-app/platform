@@ -53,8 +53,8 @@
                 "get",
                 "public-field",
                 // These are generally _async arrow syntax methods
-                "public-decorated-field",
-                "public-decorated-method",
+                // "public-decorated-field",
+                // "public-decorated-method",
                 "public-method",
                 [
                   "protected-field",
