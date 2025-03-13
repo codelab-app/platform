@@ -21,7 +21,7 @@ export const UserProfileMenu = () => {
   const content = (
     <Space direction="vertical" split={<Divider style={{ margin: 0 }} />}>
       <Space>
-        <Avatar src={user.picture} />
+        <Avatar shape="square" size="large" src={user.picture} />
         <Space direction="vertical" size={0}>
           <b>{user.name}</b>
           <p>{user.email}</p>
