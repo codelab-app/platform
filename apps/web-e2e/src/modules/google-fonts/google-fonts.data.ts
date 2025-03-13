@@ -10,7 +10,7 @@ import { v4 } from 'uuid'
 
 import { requestOrThrow } from '../../api'
 import { REQUEST_TIMEOUT } from '../../setup/config'
-import { seedAppData } from '../builder/builder.data'
+import { seedAppData } from '../app/app.data'
 
 export const FONT_NAME = 'Google Fonts Montserrat'
 export const FONT_SIZE = 700

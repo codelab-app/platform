@@ -4,7 +4,8 @@ import { expect } from '@playwright/test'
 import { merge } from 'remeda'
 
 import { globalBeforeAll } from '../../setup/before-all'
-import { seedAppData, seedPageData } from '../builder/builder.data'
+import { seedAppData } from '../app/app.data'
+import { seedPageData } from '../page/page.data'
 import { seedResourceData } from './auth-guard.data'
 import { authGuardPageData, test } from './auth-guard.fixture'
 
@@ -15,7 +16,7 @@ test.describe.configure({ mode: 'serial' })
 globalBeforeAll()
 
 test.beforeAll(async ({ request }, testInfo) => {
-  app = await seedAppData(request)
+  app = await seedAppData(request, { atomTypes: [], componentTypes: [] })
 
   await seedPageData(request, merge(authGuardPageData, { app }))
   await seedResourceData(request)

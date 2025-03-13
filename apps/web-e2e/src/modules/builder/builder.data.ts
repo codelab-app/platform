@@ -1,20 +1,7 @@
-import type {
-  IApp,
-  IComponentType,
-  ICreateElementSeedData,
-  IPage,
-  IPageCreateFormData,
-  IPageCreateSeedData,
-} from '@codelab/shared/abstract/core'
-import type { APIRequestContext } from '@playwright/test'
+import type { ICreateElementSeedData } from '@codelab/shared/abstract/core'
 
 import { IAtomType, ITypeKind } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
-
-import { requestOrThrow } from '../../api'
-import { logTimestamp } from '../../commands'
-import { jobOutputRequest } from '../../job-request'
-import { REQUEST_TIMEOUT } from '../../setup/config'
 
 export const elementRow: ICreateElementSeedData = {
   atom: IAtomType.AntDesignGridRow,
@@ -81,37 +68,3 @@ export const builderElements = [
   elementButtonText,
   elementColC,
 ]
-
-export const seedAppData = async (
-  request: APIRequestContext,
-  data?: {
-    page?: IPageCreateSeedData
-    atomTypes?: Array<IAtomType>
-    componentTypes?: Array<IComponentType>
-  },
-) => {
-  logTimestamp('Seeding app data...')
-
-  const results = await jobOutputRequest<IApp>(
-    request,
-    '/api/v1/app/seed-e2e-app',
-    {
-      data,
-      timeout: REQUEST_TIMEOUT,
-    },
-  )
-
-  return results.data
-}
-
-export const seedPageData = async (
-  request: APIRequestContext,
-  data: IPageCreateFormData,
-) => {
-  console.log('Seeding page data')
-
-  return requestOrThrow<IPage>(request, '/api/v1/page/create', {
-    data,
-    timeout: REQUEST_TIMEOUT,
-  })
-}

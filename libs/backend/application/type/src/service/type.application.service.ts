@@ -50,10 +50,6 @@ export class TypeApplicationService {
         ),
     )
 
-    this.logger.log('Deduped types', {
-      dedupedTypes,
-    })
-
     for (const type of dedupedTypes) {
       await this.typeFactory.add({
         ...type,

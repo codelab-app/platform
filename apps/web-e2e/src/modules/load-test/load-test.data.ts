@@ -1,9 +1,9 @@
 import { IPageKind } from '@codelab/shared/abstract/core'
-import { atomTypes } from '@codelab/shared/data/test'
+import { E2E_ATOM_TYPES } from '@codelab/shared/data/test'
 import { type APIRequestContext } from '@playwright/test'
 import { v4 } from 'uuid'
 
-import { seedAppData } from '../builder/builder.data'
+import { seedAppData } from '../app/app.data'
 
 export const PAGE_COUNT = 5
 
@@ -23,7 +23,13 @@ const createPageWithAllPossibleAtoms = async (
   })
 
   const page = await pageResponse.json()
-  const elements = atomTypes.map((atom) => ({ atom, id: v4(), name: atom }))
+
+  const elements = E2E_ATOM_TYPES.map((atom) => ({
+    atom,
+    id: v4(),
+    name: atom,
+  }))
+
   const [firstChild, ...restChildren] = elements
 
   await request.post(`/api/v1/element/${page.id}/create-elements`, {
@@ -38,7 +44,10 @@ const createPageWithAllPossibleAtoms = async (
 }
 
 export const seedTestData = async (request: APIRequestContext) => {
-  const app = await seedAppData(request)
+  const app = await seedAppData(request, {
+    atomTypes: E2E_ATOM_TYPES,
+    componentTypes: [],
+  })
 
   for (let i = 0; i < PAGE_COUNT; i++) {
     await createPageWithAllPossibleAtoms(app.id, `Page ${i}`, request)

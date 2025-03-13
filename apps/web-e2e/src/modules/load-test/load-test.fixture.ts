@@ -1,5 +1,5 @@
 import { PageType, UiKey } from '@codelab/frontend/abstract/types'
-import { atomTypes } from '@codelab/shared/data/test'
+import { E2E_ATOM_TYPES } from '@codelab/shared/data/test'
 import { test as base, expect } from '@playwright/test'
 
 import { BuilderPage } from '../builder/builder.fixture'
@@ -43,12 +43,12 @@ export class LoadTestPage extends BuilderPage {
 
     await expect(this.page.getByRole('treeitem')).toHaveCount(
       // +1 for the root ReactFragment element
-      atomTypes.length + 1,
+      E2E_ATOM_TYPES.length + 1,
     )
 
     await expect(
       this.getBuilderRenderContainer().locator('[data-element-id]'),
-    ).toHaveCount(atomTypes.length)
+    ).toHaveCount(E2E_ATOM_TYPES.length)
   }
 
   private async checkPageListPage(appName: string) {

@@ -1,8 +1,8 @@
 import type {
   IAppDto,
   ICreateElementData,
-  ICreatePageData,
   IPage,
+  IPageCreateFormData,
   IPageDto,
 } from '@codelab/shared/abstract/core'
 import type { APIRequestContext } from '@playwright/test'
@@ -12,7 +12,7 @@ import { findOrFail } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 
 import { requestOrThrow } from '../../api'
-import { seedAppData } from '../builder/builder.data'
+import { seedAppData } from '../app/app.data'
 
 export const pageId = v4()
 export const pageName = 'Test Page'
@@ -36,7 +36,7 @@ export const regularPageInputElementCreateData = (
   parentElement: page.rootElement,
 })
 
-export const regularPageCreateData = (app: IAppDto): ICreatePageData => ({
+export const regularPageCreateData = (app: IAppDto): IPageCreateFormData => ({
   app,
   id: pageId,
   kind: IPageKind.Regular,
@@ -45,7 +45,10 @@ export const regularPageCreateData = (app: IAppDto): ICreatePageData => ({
 })
 
 export const seedTestData = async (request: APIRequestContext) => {
-  const app = await seedAppData(request)
+  const app = await seedAppData(request, {
+    atomTypes: [IAtomType.AntDesignCard, IAtomType.AntDesignInput],
+    componentTypes: [],
+  })
 
   const regularPage = await requestOrThrow<IPage>(
     request,

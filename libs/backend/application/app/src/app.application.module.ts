@@ -21,7 +21,7 @@ import { CqrsModule } from '@nestjs/cqrs'
 import { AppApplicationController } from './app.application.controller'
 import { DemoController } from './demo.controller'
 import { AppApplicationService } from './services/app.application.service'
-import { ExportAppHandler, SeedE2eAppHandler } from './use-case'
+import { ExportAppHandler, SeedAppHandler } from './use-case'
 
 @Module({
   controllers: [AppApplicationController, DemoController],
@@ -47,6 +47,6 @@ import { ExportAppHandler, SeedE2eAppHandler } from './use-case'
     CqrsModule,
     Neo4jModule,
   ],
-  providers: [SeedE2eAppHandler, ExportAppHandler, AppApplicationService],
+  providers: [SeedAppHandler, ExportAppHandler, AppApplicationService],
 })
 export class AppApplicationModule {}

@@ -17,7 +17,7 @@ import { v4 } from 'uuid'
 
 import { requestOrThrow } from '../../api'
 import { REQUEST_TIMEOUT } from '../../setup/config'
-import { seedAppData } from '../builder/builder.data'
+import { seedAppData } from '../app/app.data'
 
 export const childMapperComponentName = 'Component Name'
 
@@ -77,7 +77,11 @@ export const providerPageElements = (
 ]
 
 export const seedTestData = async (request: APIRequestContext) => {
-  const app = await seedAppData(request)
+  const app = await seedAppData(request, {
+    atomTypes: [IAtomType.AntDesignTypographyText, IAtomType.AntDesignGridRow],
+    componentTypes: [],
+  })
+
   const page = app.pages?.[0]
 
   if (!page) {

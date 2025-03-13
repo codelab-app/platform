@@ -24,7 +24,7 @@ import { Express, Request as ExpressRequest } from 'express'
 import 'multer'
 
 import { AppApplicationService } from './services/app.application.service'
-import { ExportAppCommand, SeedE2eAppCommand } from './use-case'
+import { ExportAppCommand, SeedAppCommand } from './use-case'
 
 @Controller('app')
 export class AppApplicationController {
@@ -65,13 +65,13 @@ export class AppApplicationController {
       jobId,
     }: {
       jobId: string
-      atomTypes?: Array<IAtomType>
+      atomTypes: Array<IAtomType>
       componentTypes?: Array<IComponentType>
     },
   ): Promise<IJobQueueResponse> {
     setTimeout(async () => {
-      const app = await this.commandBus.execute<SeedE2eAppCommand, IApp>(
-        new SeedE2eAppCommand({ atomTypes, componentTypes }),
+      const app = await this.commandBus.execute<SeedAppCommand, IApp>(
+        new SeedAppCommand({ atomTypes, componentTypes }),
       )
 
       this.socketGateway.emitJobComplete({

@@ -13,7 +13,7 @@ import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
 import { v4 } from 'uuid'
 
 import { requestOrThrow } from '../../api'
-import { seedAppData } from '../builder/builder.data'
+import { seedAppData } from '../app/app.data'
 
 export const componentName = 'Component Name'
 export const spaceElementName = 'Space Item'
@@ -59,7 +59,11 @@ export const builderElements = [
 ]
 
 export const seedTestData = async (request: APIRequestContext) => {
-  const app = await seedAppData(request)
+  const app = await seedAppData(request, {
+    atomTypes: [IAtomType.AntDesignSpace, IAtomType.AntDesignTypographyText],
+    componentTypes: [],
+  })
+
   const ownerResponse = await request.get('/api/v1/user/me')
   const owner = await ownerResponse.json()
 

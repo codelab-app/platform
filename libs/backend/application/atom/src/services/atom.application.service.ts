@@ -51,6 +51,9 @@ export class AtomApplicationService {
     )
   }
 
+  /**
+   * Default to all atoms
+   */
   @LogClassMethod()
   async addAtomsFromTypes(atomTypes?: Array<IAtomType>) {
     this.logger.log('Adding atoms from types', { atomTypes })

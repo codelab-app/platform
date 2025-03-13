@@ -1,0 +1,4 @@
+{
+  // Used by `tsc-check`
+  "extends": "./tsconfig.json"
+}

@@ -4,7 +4,7 @@ import { providerPageId } from '@codelab/shared/data/test'
 import { expect } from '@playwright/test'
 
 import { globalBeforeAll } from '../../setup/before-all'
-import { seedAppData } from '../builder/builder.data'
+import { seedAppData } from '../app/app.data'
 import {
   COMPONENT_PROP_VALUE,
   componentInstance,
@@ -20,7 +20,7 @@ test.describe.configure({ mode: 'serial' })
 globalBeforeAll()
 
 test.beforeAll(async ({ request }) => {
-  app = await seedAppData(request)
+  app = await seedAppData(request, { atomTypes: [], componentTypes: [] })
 })
 
 test.beforeEach(async ({ componentListPage: page }) => {

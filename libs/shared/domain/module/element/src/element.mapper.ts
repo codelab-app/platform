@@ -46,19 +46,6 @@ export const elementMapper: IMapper<
       tailwindClassNames,
     } = data
 
-    logger.debug({
-      renderType: {
-        Atom:
-          renderType.__typename === 'Atom'
-            ? connectNodeId(renderType.id)
-            : undefined,
-        Component:
-          renderType.__typename === 'Component'
-            ? connectNodeId(renderType.id)
-            : undefined,
-      },
-    })
-
     return {
       childMapperComponent: connectNodeId(childMapperComponent?.id),
       childMapperPreviousSibling: connectNodeId(childMapperPreviousSibling?.id),

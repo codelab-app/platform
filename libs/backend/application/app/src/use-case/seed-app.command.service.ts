@@ -31,7 +31,7 @@ import {
 import { Page } from '@codelab/shared-domain-module/page'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 
-export class SeedE2eAppCommand {
+export class SeedAppCommand {
   constructor(
     public data?: {
       atomTypes?: Array<IAtomType>
@@ -49,9 +49,9 @@ export class SeedE2eAppCommand {
  *
  * When seeding, we want to control what atom/component to import.
  */
-@CommandHandler(SeedE2eAppCommand)
-export class SeedE2eAppHandler
-  implements ICommandHandler<SeedE2eAppCommand, IAppDto>
+@CommandHandler(SeedAppCommand)
+export class SeedAppHandler
+  implements ICommandHandler<SeedAppCommand, IAppDto>
 {
   constructor(
     private commandBus: CommandBus,
@@ -66,9 +66,9 @@ export class SeedE2eAppHandler
     private readonly atomApplicationService: AtomApplicationService,
   ) {}
 
-  async execute({
-    data: { atomTypes, componentTypes } = {},
-  }: SeedE2eAppCommand) {
+  async execute({ data }: SeedAppCommand) {
+    const { atomTypes, componentTypes } = data ?? {}
+
     await this.commandBus.execute<ImportSystemTypesCommand>(
       new ImportSystemTypesCommand(),
     )

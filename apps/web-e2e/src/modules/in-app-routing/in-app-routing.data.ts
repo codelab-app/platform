@@ -12,7 +12,7 @@ import { v4 } from 'uuid'
 
 import { requestOrThrow } from '../../api'
 import { REQUEST_TIMEOUT } from '../../setup/config'
-import { seedAppData } from '../builder/builder.data'
+import { seedAppData } from '../app/app.data'
 
 export const testUrlProps = {
   subtestId: 'second-url-segment',
@@ -96,7 +96,11 @@ export const buildTestPages = (app: IAppDto) => {
 }
 
 export const seedTestData = async (request: APIRequestContext) => {
-  const app = await seedAppData(request)
+  const app = await seedAppData(request, {
+    atomTypes: [IAtomType.NextLink, IAtomType.AntDesignTypographyText],
+    componentTypes: [],
+  })
+
   const pages = buildTestPages(app)
 
   const page: IPage = findOrFail(

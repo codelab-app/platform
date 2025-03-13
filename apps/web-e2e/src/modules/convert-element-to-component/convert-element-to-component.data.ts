@@ -11,7 +11,7 @@ import { v4 } from 'uuid'
 
 import { requestOrThrow } from '../../api'
 import { REQUEST_TIMEOUT } from '../../setup/config'
-import { seedAppData } from '../builder/builder.data'
+import { seedAppData } from '../app/app.data'
 
 export const componentName = 'Container'
 export const textContent = 'Text Element Content'
@@ -63,7 +63,14 @@ export const providerPageElements = (
 ]
 
 export const seedTestData = async (request: APIRequestContext) => {
-  const app = await seedAppData(request)
+  const app = await seedAppData(request, {
+    atomTypes: [
+      IAtomType.AntDesignGridRow,
+      IAtomType.AntDesignGridCol,
+      IAtomType.AntDesignTypographyText,
+    ],
+    componentTypes: [],
+  })
 
   const page: IPage = findOrFail(
     app.pages,
