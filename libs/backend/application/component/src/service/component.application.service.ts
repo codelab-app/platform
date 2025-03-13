@@ -80,7 +80,7 @@ export class ComponentApplicationService {
   }
 
   /**
-   * Empty means import all components
+   * Undefined means import all components
    */
   async addComponentsFromTypes(componentTypes?: Array<IComponentType>) {
     const componentsData = componentTypes

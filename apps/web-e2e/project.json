@@ -14,17 +14,18 @@
         "fullyParallel": false,
         "workers": 1,
         "headed": false,
-        "ui": false,
-        "testFiles": [
-          "pages.spec.ts",
-          "resource.spec.ts",
-          "types.spec.ts",
-          "google-fonts.spec.ts",
-          "provider-page-content-container.spec.ts"
-        ]
+        "ui": false
       },
       "configurations": {
-        "test": {},
+        "test": {
+          "testFiles": [
+            "pages.spec.ts",
+            "resource.spec.ts",
+            "types.spec.ts",
+            "google-fonts.spec.ts",
+            "provider-page-content-container.spec.ts"
+          ]
+        },
         "ci": {}
       }
     },

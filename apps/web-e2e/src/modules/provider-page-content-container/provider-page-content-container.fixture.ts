@@ -1,3 +1,4 @@
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { expect } from '@playwright/test'
 
 import { baseTest } from '../../setup/fixtures/base.fixture'
@@ -27,12 +28,12 @@ export class ProviderPageContentContainerPage extends BuilderPage {
   }
 
   async setPageContentContainer() {
-    const pageSettingsTab = this.page.locator('.ant-tabs-tabpane-active')
+    const form = await this.getForm(UiKey.PageFormUpdate)
 
-    await this.fillInputText(
+    await form.fillInputSelect(
       { label: 'Page Content Container' },
       pageContentContainerName,
-      { locator: pageSettingsTab, waitForAutosave: true },
+      { waitForAutosave: true },
     )
   }
 }

@@ -14,7 +14,7 @@ import { v4 } from 'uuid'
 import { requestOrThrow } from '../../api'
 import { seedAppData } from '../app/app.data'
 
-export const pageId = v4()
+export const regularPageId = v4()
 export const pageName = 'Test Page'
 export const pageContentContainerName = 'Provider Card'
 
@@ -38,7 +38,7 @@ export const regularPageInputElementCreateData = (
 
 export const regularPageCreateData = (app: IAppDto): IPageCreateFormData => ({
   app,
-  id: pageId,
+  id: regularPageId,
   kind: IPageKind.Regular,
   name: pageName,
   urlPattern: '/test-page',
@@ -50,14 +50,9 @@ export const seedTestData = async (request: APIRequestContext) => {
     componentTypes: [],
   })
 
-  const regularPage = await requestOrThrow<IPage>(
-    request,
-    '/api/v1/page/create',
-    {
-      data: regularPageCreateData(app),
-    },
-  )
-
+  /**
+   * Provider page
+   */
   const page: IPage = findOrFail(
     app.pages,
     ({ kind }) => kind === IPageKind.Provider,
@@ -70,6 +65,15 @@ export const seedTestData = async (request: APIRequestContext) => {
       data: [providerPageCardElementCreateData(page)],
     },
   )
+
+  const regularPage = await requestOrThrow<IPage>(
+    request,
+    '/api/v1/page/create',
+    {
+      data: regularPageCreateData(app),
+    },
+  )
+
   await requestOrThrow(
     request,
     `/api/v1/element/${regularPage.rootElement.id}/create-elements`,
