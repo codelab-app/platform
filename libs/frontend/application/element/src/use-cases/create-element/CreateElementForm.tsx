@@ -78,18 +78,24 @@ export const CreateElementForm = observer<CreateElementFormProps>((props) => {
   }
 
   const onSubmit = (data: IElementDto) => {
+    const selectedParentElement =
+      data.parentElement &&
+      elementDomainService.elements.get(data.parentElement.id)
+
     const isValidParent = validateParentForCreate(
       data.renderType.id,
       data.parentElement?.id,
     )
 
-    if (!isValidParent) {
+    if (!isValidParent || !selectedParentElement) {
       return Promise.reject()
     }
 
-    if (parentElement.children.length > 0) {
+    if (selectedParentElement.children.length > 0) {
       data.prevSibling =
-        parentElement.children[parentElement.children.length - 1]
+        selectedParentElement.children[
+          selectedParentElement.children.length - 1
+        ]
       data.parentElement = null
     }
 
