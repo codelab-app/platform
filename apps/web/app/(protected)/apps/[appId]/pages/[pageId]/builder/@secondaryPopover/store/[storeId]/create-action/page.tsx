@@ -7,11 +7,7 @@ const Page = (props: { params: Promise<{ storeId: string }> }) => {
   const params = use(props.params)
   const { storeId } = params
 
-  return (
-    <DashboardPopover>
-      <CreateActionPopover id={storeId} />
-    </DashboardPopover>
-  )
+  return <CreateActionPopover storeId={storeId} />
 }
 
 export default Page

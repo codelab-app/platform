@@ -4,24 +4,15 @@ import { pageRepository } from '@codelab/frontend-domain-page/repositories'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { DashboardPopover } from '@codelab/frontend-presentation-view/templates'
 
+import { UpdatePagePopoverContainer } from './page.client'
+
 const UpdatePagePopoverPage = async (props: {
-  params: Promise<{ pageId: string }>
+  params: Promise<{ pageId: string; appId: string }>
 }) => {
   const params = await props.params
-  const { pageId } = params
-  const page = await pageRepository.findOne({ id_IN: [pageId] })
+  const { appId, pageId } = params
 
-  if (!page) {
-    return null
-  }
-
-  return (
-    <DashboardPopover>
-      <DomainStoreHydrator fallback={<Spinner />} pagesDto={[page]}>
-        <UpdatePagePopover id={pageId} />
-      </DomainStoreHydrator>
-    </DashboardPopover>
-  )
+  return <UpdatePagePopoverContainer appId={appId} pageId={pageId} />
 }
 
 export default UpdatePagePopoverPage

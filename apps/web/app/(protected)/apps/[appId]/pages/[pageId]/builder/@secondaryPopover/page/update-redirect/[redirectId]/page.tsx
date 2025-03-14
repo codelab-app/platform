@@ -7,11 +7,7 @@ const UpdateRedirectPopoverPage = async (props: {
   const params = await props.params
   const { redirectId } = params
 
-  return (
-    <DashboardPopover>
-      <UpdateRedirectPopover redirectId={redirectId} />
-    </DashboardPopover>
-  )
+  return <UpdateRedirectPopover redirectId={redirectId} />
 }
 
 export default UpdateRedirectPopoverPage

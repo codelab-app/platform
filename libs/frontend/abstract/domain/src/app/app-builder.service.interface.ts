@@ -34,4 +34,5 @@ export interface IAppBuilderDto {
 
 export type IAppBuilderQuery = (data: {
   appId: string
+  pageIds?: Array<string>
 }) => Promise<IAppBuilderDto>

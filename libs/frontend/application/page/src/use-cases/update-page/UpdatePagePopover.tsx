@@ -1,5 +1,6 @@
 'use client'
 
+import type { IPageModel } from '@codelab/frontend/abstract/domain'
 import type { Maybe } from '@codelab/shared/abstract/types'
 
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
@@ -14,39 +15,44 @@ import { useRef } from 'react'
 import { usePageService } from '../../services/page.service'
 import { UpdatePageForm } from './UpdatePageForm'
 
-export const UpdatePagePopover = observer<{ id: string }>(({ id }) => {
-  const { appId, pageId } = useUrlPathParams()
-  const submitRef = useRef<Maybe<SubmitController>>(undefined)
-  const router = useRouter()
-  const { updatePopover } = usePageService()
+export const UpdatePagePopover = observer<{ page: IPageModel; appId: string }>(
+  ({ appId, page }) => {
+    const submitRef = useRef<Maybe<SubmitController>>(undefined)
+    const router = useRouter()
+    const { updatePopover } = usePageService()
 
-  return (
-    <CuiSidebarSecondary
-      id={UiKey.PagePopoverUpdate}
-      toolbar={{
-        items: [
-          {
-            cuiKey: UiKey.PageToolbarItemUpdate,
-            icon: <SaveOutlined />,
-            label: 'Update',
-            onClick: () => submitRef.current?.submit(),
-          },
-          {
-            cuiKey: UiKey.PageToolbarItemUpdateCancel,
-            icon: <CloseOutlined />,
-            label: 'Cancel',
-            onClick: () => updatePopover.close(router, { appId, pageId }),
-          },
-        ],
-        title: 'Update Page toolbar',
-      }}
-    >
-      <UpdatePageForm
-        id={id}
-        onSubmitSuccess={() => updatePopover.close(router, { appId, pageId })}
-        showFormControl={false}
-        submitRef={submitRef}
-      />
-    </CuiSidebarSecondary>
-  )
-})
+    return (
+      <CuiSidebarSecondary
+        id={UiKey.PagePopoverUpdate}
+        toolbar={{
+          items: [
+            {
+              cuiKey: UiKey.PageToolbarItemUpdate,
+              icon: <SaveOutlined />,
+              label: 'Update',
+              onClick: () => submitRef.current?.submit(),
+            },
+            {
+              cuiKey: UiKey.PageToolbarItemUpdateCancel,
+              icon: <CloseOutlined />,
+              label: 'Cancel',
+              onClick: () =>
+                updatePopover.close(router, { appId, pageId: page.id }),
+            },
+          ],
+          title: 'Update Page toolbar',
+        }}
+      >
+        <UpdatePageForm
+          appId={appId}
+          onSubmitSuccess={() =>
+            updatePopover.close(router, { appId, pageId: page.id })
+          }
+          page={page}
+          showFormControl={false}
+          submitRef={submitRef}
+        />
+      </CuiSidebarSecondary>
+    )
+  },
+)

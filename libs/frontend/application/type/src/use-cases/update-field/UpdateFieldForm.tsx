@@ -1,4 +1,5 @@
 'use client'
+import type { IFieldModel } from '@codelab/frontend/abstract/domain'
 import type { IUpdateFieldData } from '@codelab/shared/abstract/core'
 
 import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
@@ -29,21 +30,16 @@ import { useFieldSchema } from '../hooks'
 import { TypeSelect } from '../select-types'
 
 export interface UpdateFieldFormProps extends IFormController {
-  id: string
+  field: IFieldModel
 }
 
 export const UpdateFieldForm = observer<UpdateFieldFormProps>(
-  ({ id, onSubmitSuccess, showFormControl = true, submitRef }) => {
+  ({ field, onSubmitSuccess, showFormControl = true, submitRef }) => {
     const fieldService = useFieldService()
-    const { fieldDomainService, typeDomainService } = useDomainStore()
-    const field = fieldDomainService.fields.get(id)
+    const { typeDomainService } = useDomainStore()
     const fieldSchema = useFieldSchema(createFieldSchema, field)
 
     const onSubmit = (input: IUpdateFieldData) => {
-      if (!field) {
-        throw new Error('Updated field is not set')
-      }
-
       const validationRules = filterValidationRules(
         input.validationRules,
         typeDomainService.primitiveKind(input.fieldType),
@@ -56,14 +52,14 @@ export const UpdateFieldForm = observer<UpdateFieldFormProps>(
       <Form<IUpdateFieldData>
         errorMessage="Error while updating field"
         model={{
-          defaultValues: field?.defaultValues,
-          description: field?.description,
-          fieldType: field?.type.id,
-          id: field?.id,
-          interfaceTypeId: field?.api.id,
-          key: field?.key,
-          name: field?.name,
-          validationRules: field?.validationRules,
+          defaultValues: field.defaultValues,
+          description: field.description,
+          fieldType: field.type.id,
+          id: field.id,
+          interfaceTypeId: field.api.id,
+          key: field.key,
+          name: field.name,
+          validationRules: field.validationRules,
         }}
         modelTransform={(mode, model) => {
           // This automatically sets the `defaultValue` to be nullable for types

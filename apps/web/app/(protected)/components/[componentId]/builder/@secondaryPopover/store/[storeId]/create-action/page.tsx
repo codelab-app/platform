@@ -9,7 +9,7 @@ const Page = (props: { params: Promise<{ storeId: string }> }) => {
 
   return (
     <DashboardPopover>
-      <CreateActionPopover id={storeId} />
+      <CreateActionPopover storeId={storeId} />
     </DashboardPopover>
   )
 }

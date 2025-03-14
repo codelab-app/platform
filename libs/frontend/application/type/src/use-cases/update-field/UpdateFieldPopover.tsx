@@ -1,5 +1,6 @@
 'use client'
 
+import type { IFieldModel } from '@codelab/frontend/abstract/domain'
 import type { Maybe } from '@codelab/shared/abstract/types'
 
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
@@ -14,40 +15,42 @@ import { useRef } from 'react'
 import { useFieldService } from '../../services/field.service'
 import { UpdateFieldForm } from './UpdateFieldForm'
 
-export const UpdateFieldPopover = observer<{ id: string }>(({ id }) => {
-  const router = useRouter()
-  const submitRef = useRef<Maybe<SubmitController>>(undefined)
-  const { updatePopover } = useFieldService()
-  const params = useUrlPathParams()
-  const closePopover = () => updatePopover.close(router, params)
+export const UpdateFieldPopover = observer<{ field: IFieldModel }>(
+  ({ field }) => {
+    const router = useRouter()
+    const submitRef = useRef<Maybe<SubmitController>>(undefined)
+    const { updatePopover } = useFieldService()
+    const params = useUrlPathParams()
+    const closePopover = () => updatePopover.close(router, params)
 
-  return (
-    <CuiSidebarSecondary
-      id={UiKey.FieldPopoverUpdate}
-      toolbar={{
-        items: [
-          {
-            cuiKey: UiKey.FieldToolbarItemUpdate,
-            icon: <SaveOutlined />,
-            label: 'Update',
-            onClick: () => submitRef.current?.submit(),
-          },
-          {
-            cuiKey: UiKey.FieldToolbarItemUpdateCancel,
-            icon: <CloseOutlined />,
-            label: 'Cancel',
-            onClick: closePopover,
-          },
-        ],
-        title: 'Update Field toolbar',
-      }}
-    >
-      <UpdateFieldForm
-        id={id}
-        onSubmitSuccess={closePopover}
-        showFormControl={false}
-        submitRef={submitRef}
-      />
-    </CuiSidebarSecondary>
-  )
-})
+    return (
+      <CuiSidebarSecondary
+        id={UiKey.FieldPopoverUpdate}
+        toolbar={{
+          items: [
+            {
+              cuiKey: UiKey.FieldToolbarItemUpdate,
+              icon: <SaveOutlined />,
+              label: 'Update',
+              onClick: () => submitRef.current?.submit(),
+            },
+            {
+              cuiKey: UiKey.FieldToolbarItemUpdateCancel,
+              icon: <CloseOutlined />,
+              label: 'Cancel',
+              onClick: closePopover,
+            },
+          ],
+          title: 'Update Field toolbar',
+        }}
+      >
+        <UpdateFieldForm
+          field={field}
+          onSubmitSuccess={closePopover}
+          showFormControl={false}
+          submitRef={submitRef}
+        />
+      </CuiSidebarSecondary>
+    )
+  },
+)

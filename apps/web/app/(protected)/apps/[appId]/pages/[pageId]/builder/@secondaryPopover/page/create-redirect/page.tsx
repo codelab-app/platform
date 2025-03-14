@@ -2,11 +2,7 @@ import { CreateRedirectPopover } from '@codelab/frontend-application-redirect/us
 import { DashboardPopover } from '@codelab/frontend-presentation-view/templates'
 
 const Page = () => {
-  return (
-    <DashboardPopover>
-      <CreateRedirectPopover />
-    </DashboardPopover>
-  )
+  return <CreateRedirectPopover />
 }
 
 export default Page

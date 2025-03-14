@@ -9,11 +9,7 @@ const Page = (props: { params: Promise<PageContextParams> }) => {
   const params = use(props.params)
   const { appId, pageId } = params
 
-  return (
-    <DashboardPopover>
-      <CreatePagePopover appId={appId} pageId={pageId} />
-    </DashboardPopover>
-  )
+  return <CreatePagePopover appId={appId} pageId={pageId} />
 }
 
 export default Page

@@ -10,12 +10,15 @@ export const APP_BUILDER_TAG = 'app-builder'
 
 export const appBuilderQuery: IAppBuilderQuery = async ({
   appId,
+  pageIds,
 }: {
   appId: string
+  pageIds?: Array<string>
 }) => {
   const data = await GetAppBuilder(
     {
       appId,
+      pageIds,
     },
     {
       tags: [APP_BUILDER_TAG],

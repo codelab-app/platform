@@ -41,10 +41,6 @@ export const CreateFieldForm = observer<CreateFieldFormProps>(
     const fieldSchema = useFieldSchema(createFieldSchema)
 
     const onSubmit = (input: ICreateFieldData) => {
-      if (!interfaceId) {
-        throw new Error('Missing interface type id')
-      }
-
       const validationRules = filterValidationRules(
         input.validationRules,
         typeDomainService.primitiveKind(input.fieldType),
