@@ -1,5 +1,7 @@
 'use client'
 
+import type { IAppModel } from '@codelab/frontend/abstract/domain'
+
 import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
@@ -9,17 +11,10 @@ import { useRouter } from 'next/navigation'
 
 import { useAppService } from '../../services'
 
-export const DeleteAppModal = observer<{ id: string }>(({ id }) => {
+export const DeleteAppModal = observer<{ app: IAppModel }>(({ app }) => {
   const router = useRouter()
   const appService = useAppService()
   const closeModal = () => router.push(PageType.AppList())
-  const { appDomainService } = useDomainStore()
-  const app = appDomainService.apps.get(id)
-
-  if (!app) {
-    return null
-  }
-
   const onSubmit = () => appService.removeMany([app])
 
   return (

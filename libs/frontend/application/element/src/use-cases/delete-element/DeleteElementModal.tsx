@@ -1,5 +1,7 @@
 'use client'
 
+import type { IElementModel } from '@codelab/frontend/abstract/domain'
+
 import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   useApplicationStore,
@@ -17,23 +19,17 @@ import { deleteElementSchema } from './delete-element.schema'
 import { deleteElementUseCase } from './delete-element.use-case'
 
 export const DeleteElementModal = observer<{
-  id: string
-}>(({ id }) => {
+  element: IElementModel
+}>(({ element }) => {
   const { builderService } = useApplicationStore()
   const router = useRouter()
   const elementService = useElementService()
   const { elementDomainService } = useDomainStore()
   const closeModal = () => elementService.deletePopover.close(router)
-  const elementToDelete = elementDomainService.elements.get(id)
+  const model = { element: { id: element.id } }
 
-  if (!elementToDelete) {
-    return null
-  }
-
-  const model = { element: { id: elementToDelete.id } }
-
-  const onSubmit = ({ element }: DeleteElementData) => {
-    const targetElement = elementDomainService.element(element.id)
+  const onSubmit = (data: DeleteElementData) => {
+    const targetElement = elementDomainService.element(data.element.id)
 
     return deleteElementUseCase(targetElement, elementDomainService, () =>
       builderService.selectPreviousElementOnDelete(),
@@ -58,10 +54,7 @@ export const DeleteElementModal = observer<{
       >
         <h4>
           Are you sure you want to delete{' '}
-          {elementToDelete.name
-            ? `the element "${elementToDelete.name}"`
-            : 'that element'}
-          ?
+          {element.name ? `the element "${element.name}"` : 'that element'}?
         </h4>
         <AutoFields />
       </ModalForm.Form>

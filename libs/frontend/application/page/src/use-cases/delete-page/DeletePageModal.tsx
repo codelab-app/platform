@@ -1,5 +1,7 @@
 'use client'
 
+import type { IPageModel } from '@codelab/frontend/abstract/domain'
+
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
@@ -11,15 +13,12 @@ import { AutoFields } from 'uniforms-antd'
 import { usePageService } from '../../services'
 
 export const DeletePageModal = observer(
-  ({ appId, pageId }: { appId: string; pageId: string }) => {
+  ({ appId, page }: { appId: string; page: IPageModel }) => {
     const pageService = usePageService()
     const router = useRouter()
 
     const closeModal = () =>
-      pageService.deletePopover.close(router, { appId, pageId })
-
-    const { pageDomainService } = useDomainStore()
-    const page = pageDomainService.pages.get(pageId)
+      pageService.deletePopover.close(router, { appId, pageId: page.id })
 
     return (
       <ModalForm.Modal
@@ -31,11 +30,11 @@ export const DeletePageModal = observer(
         <ModalForm.Form
           errorMessage="Error while deleting page"
           model={{}}
-          onSubmit={() => pageService.removeMany(page ? [page] : [])}
+          onSubmit={() => pageService.removeMany([page])}
           onSubmitSuccess={closeModal}
           schema={emptyJsonSchema}
         >
-          <h4>Are you sure you want to delete page "{page?.name}"?</h4>
+          <h4>Are you sure you want to delete page "{page.name}"?</h4>
           <AutoFields />
         </ModalForm.Form>
       </ModalForm.Modal>

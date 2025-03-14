@@ -12,16 +12,8 @@ export const metadata: Metadata = {
 const Page = async (props: { params: Promise<{ appId: string }> }) => {
   const params = await props.params
   const { appId } = params
-  const appDto = await appRepository.findOne({ id: appId })
 
-  return (
-    <DomainStoreHydrator
-      appsDto={appDto ? [appDto] : []}
-      fallback={<Spinner />}
-    >
-      <CreateDomainModal appId={appId} />
-    </DomainStoreHydrator>
-  )
+  return <CreateDomainModal appId={appId} />
 }
 
 export default Page

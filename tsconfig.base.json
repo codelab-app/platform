@@ -399,6 +399,9 @@
       "@codelab/frontend-application-element/services": [
         "libs/frontend/application/element/src/services/index.ts"
       ],
+      "@codelab/frontend-application-element/views": [
+        "libs/frontend/application/element/src/views/index.ts"
+      ],
       "@codelab/frontend-application-element/use-cases/create-element": [
         "libs/frontend/application/element/src/use-cases/create-element/index.ts"
       ],
@@ -539,6 +542,9 @@
       ],
       "@codelab/frontend-application-store/services": [
         "libs/frontend/application/store/src/services/index.ts"
+      ],
+      "@codelab/frontend-application-store/views": [
+        "libs/frontend/application/store/src/views/index.ts"
       ],
       "@codelab/frontend-application-store/use-cases/action-hooks": [
         "libs/frontend/application/store/src/use-cases/action-hooks/index.ts"

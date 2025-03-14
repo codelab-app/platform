@@ -1,9 +1,8 @@
 import type { PageContextParams } from '@codelab/frontend/abstract/types'
 import type { ReactNode } from 'react'
 
+import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { appBuilderQuery } from '@codelab/frontend-application-app/use-cases/app-builder'
-
-import { LayoutClient } from './layout.client'
 
 /**
  * The `appBuilderQuery` is shared between `preview` and `builder`, so can be cached in layout.
@@ -19,7 +18,8 @@ const Layout = async (props: {
   const { appId } = params
   const dto = await appBuilderQuery({ appId })
 
-  return <LayoutClient dto={dto}>{children}</LayoutClient>
+  // eslint-disable-next-line react/jsx-props-no-spreading
+  return <DomainStoreHydrator {...dto}>{children}</DomainStoreHydrator>
 }
 
 export default Layout

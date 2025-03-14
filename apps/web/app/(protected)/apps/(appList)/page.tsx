@@ -7,7 +7,7 @@ import { appRepository } from '@codelab/frontend-domain-app/repositories'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
 
-import { AppListConnector } from './page.connector'
+import { AppListContainer } from './page.client'
 
 export const metadata: Metadata = {
   // description: '...',
@@ -33,7 +33,7 @@ const AppsRoute = async () => {
         fallback={<Spinner />}
         pagesDto={appsDto.flatMap((app) => app.pages)}
       >
-        <AppListConnector />
+        <AppListContainer />
       </DomainStoreHydrator>
     </ContentSection>
   )

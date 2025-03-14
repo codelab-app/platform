@@ -118,6 +118,20 @@ export class ExportSystemTypesHandler
     })
 
     /**
+     * Union Type
+     */
+    const unionTypes = await this.unionTypeRepository.find({
+      options: {
+        sort: [{ name: SortDirection.Asc }],
+      },
+      schema: Type.Omit(UnionTypeSchema, ['owner']),
+      where: {
+        // This type is re-used across all React atoms, so we make it into a system type
+        name: 'AtomChildren Union',
+      },
+    })
+
+    /**
      * Here we create the interface dependency tree order
      *
      * Further to the front are closer to the leaf.
@@ -129,6 +143,7 @@ export class ExportSystemTypesHandler
       ...actionTypes,
       ...richTextTypes,
       ...codeMirrorTypes,
+      ...unionTypes,
     ]
   }
 }

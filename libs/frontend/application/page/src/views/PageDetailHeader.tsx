@@ -1,45 +1,45 @@
 'use client'
 
+import type { IAppModel, IPageModel } from '@codelab/frontend/abstract/domain'
 import type { PageContextParams } from '@codelab/frontend/abstract/types'
 
 import { PageType, PrimarySidebar } from '@codelab/frontend/abstract/types'
-import {
-  useCurrentApp,
-  useCurrentPage,
-} from '@codelab/frontend/presentation/container'
 import { DetailHeader } from '@codelab/frontend-presentation-view/sections'
 import { Skeleton } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { usePathname, useRouter } from 'next/navigation'
 import { type ReactNode, useCallback } from 'react'
 
-type IPageDetailHeaderProps = PageContextParams & {
+interface IPageDetailHeaderProps {
   /**
    * Decouples `builder` from `page`
    */
   BuilderResizeMenu: ReactNode
+  app: IAppModel
+  page: IPageModel
 }
 
 export const PageDetailHeader = observer<IPageDetailHeaderProps>(
-  ({ appId, BuilderResizeMenu, pageId }) => {
+  ({ app, BuilderResizeMenu, page }) => {
     const router = useRouter()
     const currentPathname = usePathname()
     const isBuilder = currentPathname.includes('/builder')
-    const app = useCurrentApp()
-    const page = useCurrentPage()
 
     const togglePreviewMode = () => {
       const url = isBuilder
-        ? PageType.PageDetail({ appId, pageId })
-        : PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
+        ? PageType.PageDetail({ appId: app.id, pageId: page.id })
+        : PageType.PageBuilder(
+            { appId: app.id, pageId: page.id },
+            PrimarySidebar.ElementTree,
+          )
 
       return router.push(url)
     }
 
     const navigatePagesPanel = useCallback(async () => {
       const url = PageType.PageList({
-        appId,
-        pageId,
+        appId: app.id,
+        pageId: page.id,
       })
 
       await router.push(url)
@@ -49,14 +49,11 @@ export const PageDetailHeader = observer<IPageDetailHeaderProps>(
       await router.push(PageType.AppList())
     }, [router])
 
-    const directionItems =
-      app && page
-        ? [
-            { onClick: navigateAppsPage, title: app.name },
-            { title: 'Pages' },
-            { onClick: navigatePagesPanel, title: page.name },
-          ]
-        : [{ title: <Skeleton /> }]
+    const directionItems = [
+      { onClick: navigateAppsPage, title: app.name },
+      { title: 'Pages' },
+      { onClick: navigatePagesPanel, title: page.name },
+    ]
 
     return (
       <DetailHeader

@@ -4,25 +4,16 @@ import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { domainRepository } from '@codelab/frontend-domain-domain/repositories'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 
-import { DomainUpdateConnector } from './page.connector'
+import { DomainUpdateContainer } from './page.client'
 
 export const metadata: Metadata = {
   title: 'Update Domain | Codelab',
 }
 
-const Page = async (props: { params: Promise<{ domainId: string }> }) => {
-  const params = await props.params
-  const { domainId } = params
-  const domainDto = await domainRepository.findOne({ id: domainId })
+const Page = async ({ params }: { params: Promise<{ domainId: string }> }) => {
+  const { domainId } = await params
 
-  return (
-    <DomainStoreHydrator
-      domainsDto={domainDto ? [domainDto] : []}
-      fallback={<Spinner />}
-    >
-      <DomainUpdateConnector id={domainId} />
-    </DomainStoreHydrator>
-  )
+  return <DomainUpdateContainer id={domainId} />
 }
 
 export default Page

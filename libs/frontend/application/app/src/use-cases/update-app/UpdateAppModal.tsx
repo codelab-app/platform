@@ -1,6 +1,9 @@
 'use client'
 
-import type { IAppUpdateFormData } from '@codelab/frontend/abstract/domain'
+import type {
+  IAppModel,
+  IAppUpdateFormData,
+} from '@codelab/frontend/abstract/domain'
 
 import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
@@ -12,15 +15,9 @@ import { AutoFields } from 'uniforms-antd'
 import { useAppService } from '../../services'
 import { updateAppSchema } from './update-app.schema'
 
-export const UpdateAppModal = observer(({ id }: { id: string }) => {
+export const UpdateAppModal = observer<{ app: IAppModel }>(({ app }) => {
   const router = useRouter()
   const appService = useAppService()
-  const { appDomainService } = useDomainStore()
-  const app = appDomainService.apps.get(id)
-
-  if (!app) {
-    return null
-  }
 
   const model = {
     id: app.id,

@@ -1,5 +1,7 @@
 'use client'
 
+import type { IAppModel, IPageModel } from '@codelab/frontend/abstract/domain'
+
 import {
   ExplorerPaneType,
   type PageContextParams,
@@ -12,29 +14,20 @@ import { ErrorBoundary } from 'react-error-boundary'
 
 import { BuilderPrimarySidebar } from './BuilderPrimarySidebar'
 
-export const PagePrimarySidebar = observer(
-  ({
-    appId,
-    pageId,
-    type,
-  }: PageContextParams & { type?: ExplorerPaneType }) => {
-    const { pageDomainService } = useDomainStore()
-    const page = pageDomainService.pages.get(pageId)
+export const PagePrimarySidebar = observer<{
+  app: IAppModel
+  page: IPageModel
+  type?: ExplorerPaneType
+}>(({ app, page, type }) => {
+  if (type === ExplorerPaneType.PageList) {
+    return <PagesPrimarySidebar app={app} page={page} />
+  }
 
-    if (!page) {
-      return <Spinner isLoading />
-    }
-
-    if (type === ExplorerPaneType.PageList) {
-      return <PagesPrimarySidebar appId={appId} pageId={pageId} />
-    }
-
-    return (
-      <ErrorBoundary fallbackRender={() => 'BuilderPrimarySidebar'}>
-        <BuilderPrimarySidebar containerNode={page} />
-      </ErrorBoundary>
-    )
-  },
-)
+  return (
+    <ErrorBoundary fallbackRender={() => 'BuilderPrimarySidebar'}>
+      <BuilderPrimarySidebar containerNode={page} />
+    </ErrorBoundary>
+  )
+})
 
 PagePrimarySidebar.displayName = 'PrimarySidebar'

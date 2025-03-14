@@ -1,1 +1,2 @@
-export * from '../use-cases/app-list/AppListHeader'
+export * from './App.connector'
+export * from './Apps.connector'

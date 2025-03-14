@@ -1,20 +1,19 @@
 'use client'
 
+import type { IAppModel, IPageModel } from '@codelab/frontend/abstract/domain'
 import type { PageContextParams } from '@codelab/frontend/abstract/types'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { CuiSidebar } from '@codelab/frontend/presentation/codelab-ui'
-import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 
 import { usePageService } from '../services'
 import { PageList } from '../use-cases/get-pages'
 
-export const PagesPrimarySidebar = observer<PageContextParams>(
-  ({ appId, pageId }) => {
-    const app = useCurrentApp()
+export const PagesPrimarySidebar = observer(
+  ({ app, page }: { app: IAppModel; page: IPageModel }) => {
     const router = useRouter()
     const { createPopover } = usePageService()
 
@@ -25,7 +24,7 @@ export const PagesPrimarySidebar = observer<PageContextParams>(
         uiKey={UiKey.PageSidebar}
         views={[
           {
-            content: app && <PageList app={app} />,
+            content: <PageList app={app} />,
             key: 'pages',
             label: 'Pages',
             toolbar: {
@@ -33,7 +32,11 @@ export const PagesPrimarySidebar = observer<PageContextParams>(
                 {
                   cuiKey: UiKey.PageToolbarItemCreate,
                   icon: <PlusOutlined />,
-                  onClick: () => createPopover.open(router, { appId, pageId }),
+                  onClick: () =>
+                    createPopover.open(router, {
+                      appId: app.id,
+                      pageId: page.id,
+                    }),
                   title: 'Create Page',
                 },
               ],
