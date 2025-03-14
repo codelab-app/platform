@@ -62,15 +62,6 @@ export class PrimitiveType
     }
   }
 
-  @modelAction
-  writeCache(primitiveTypeDto: Partial<IPrimitiveTypeDto>) {
-    super.writeCache(primitiveTypeDto)
-
-    this.primitiveKind = primitiveTypeDto.primitiveKind ?? this.primitiveKind
-
-    return this
-  }
-
   toJsonSchema({
     defaultValues,
     uniformSchema,
@@ -95,5 +86,14 @@ export class PrimitiveType
       ...(uniformSchema?.(this) ?? {}),
       type: primitives[this.primitiveKind],
     }
+  }
+
+  @modelAction
+  writeCache(primitiveTypeDto: Partial<IPrimitiveTypeDto>) {
+    super.writeCache(primitiveTypeDto)
+
+    this.primitiveKind = primitiveTypeDto.primitiveKind ?? this.primitiveKind
+
+    return this
   }
 }

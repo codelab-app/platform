@@ -19,17 +19,17 @@ export class CuiPopoverStore implements IPopoverStore {
     // Router.events.off('routeChangeStart', this.closeOnRouteChange)
   }
 
+  isOpen(id: string) {
+    const val = this.openPopoverId === id
+
+    return val
+  }
+
   @action
   open(id: string) {
     this.openPopoverId = id
 
     // Router.events.on('routeChangeStart', this.closeOnRouteChange)
-  }
-
-  isOpen(id: string) {
-    const val = this.openPopoverId === id
-
-    return val
   }
 
   private closeOnRouteChange = () => {

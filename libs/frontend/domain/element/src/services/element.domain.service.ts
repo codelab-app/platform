@@ -73,6 +73,16 @@ export class ElementDomainService
     return element
   }
 
+  logElementTreeState() {
+    const elements = [...this.elements.values()]
+
+    elements.forEach((element) => {
+      const node = element.toTreeNode
+
+      // console.debug(node)
+    })
+  }
+
   @modelAction
   maybeElement(id: string) {
     return this.elements.get(id)
@@ -123,15 +133,5 @@ export class ElementDomainService
     for (const element of this.elements.values()) {
       element.set_modified(false)
     }
-  }
-
-  logElementTreeState() {
-    const elements = [...this.elements.values()]
-
-    elements.forEach((element) => {
-      const node = element.toTreeNode
-
-      // console.debug(node)
-    })
   }
 }

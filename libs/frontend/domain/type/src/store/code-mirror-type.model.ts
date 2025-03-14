@@ -51,6 +51,10 @@ export class CodeMirrorType
     }
   }
 
+  toJsonSchema(context: ITypeTransformContext): JsonSchema {
+    return typedPropSchema(this, context)
+  }
+
   @modelAction
   writeCache(codeMirrorTypeDto: Partial<ICodeMirrorTypeDto>) {
     super.writeCache(codeMirrorTypeDto)
@@ -58,9 +62,5 @@ export class CodeMirrorType
     this.language = codeMirrorTypeDto.language ?? this.language
 
     return this
-  }
-
-  toJsonSchema(context: ITypeTransformContext): JsonSchema {
-    return typedPropSchema(this, context)
   }
 }

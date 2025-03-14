@@ -33,15 +33,15 @@ export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
       }
     }
 
+    toJsonSchema(context: ITypeTransformContext): JsonSchema {
+      return {}
+    }
+
     @modelAction
     writeCache({ name }: Partial<IBaseTypeDto>) {
       this.name = name ?? this.name
 
       return this
-    }
-
-    toJsonSchema(context: ITypeTransformContext): JsonSchema {
-      return {}
     }
   }
 

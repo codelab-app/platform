@@ -51,6 +51,23 @@ export class AtomDomainService
   @observable
   dynamicComponents: Record<string, IComponentType> = {}
 
+  getRenderTypeOptions(atoms?: Array<SelectOption>) {
+    const fallbackAtoms = this.atomsList.map(mapEntitySelectOptions)
+    const atomOptions = atoms ?? fallbackAtoms
+
+    const optionsWithImage = atomOptions.map(({ label, value }) => {
+      return {
+        __typename: IElementRenderTypeKind.Atom,
+        icon: DeploymentUnitOutlined,
+        label,
+        text: label,
+        value,
+      }
+    })
+
+    return optionsWithImage
+  }
+
   @modelAction
   hydrate(atomDto: IAtomDto) {
     // console.debug('AtomService.add()', atomDto)
@@ -121,22 +138,5 @@ import { Validator } from '@codelab/shared/infra/typebox'
     this.atoms.set(atom.id, atom)
 
     return atom
-  }
-
-  getRenderTypeOptions(atoms?: Array<SelectOption>) {
-    const fallbackAtoms = this.atomsList.map(mapEntitySelectOptions)
-    const atomOptions = atoms ?? fallbackAtoms
-
-    const optionsWithImage = atomOptions.map(({ label, value }) => {
-      return {
-        __typename: IElementRenderTypeKind.Atom,
-        icon: DeploymentUnitOutlined,
-        label,
-        text: label,
-        value,
-      }
-    })
-
-    return optionsWithImage
   }
 }

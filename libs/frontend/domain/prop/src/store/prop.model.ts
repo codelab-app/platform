@@ -90,6 +90,10 @@ export class Prop
     return clone(this)
   }
 
+  get(key: string) {
+    return rProp(this.values, key)
+  }
+
   @modelAction
   remove(key: string) {
     // Need to cast since deleting key changes the interface
@@ -121,9 +125,5 @@ export class Prop
     this.api = api ? typeRef<IInterfaceTypeModel>(api.id) : this.api
 
     return this
-  }
-
-  get(key: string) {
-    return rProp(this.values, key)
   }
 }

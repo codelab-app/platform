@@ -528,6 +528,26 @@ export class Element
     return this
   }
 
+  onAttachedToRootStore() {
+    const recorder = patchRecorder(this, {
+      filter: (patches, inversePatches) => {
+        // Skip patches related to setting '_modified' to false
+
+        return !patches.some((patch) => {
+          return patch.path.includes('_modified')
+        })
+      },
+      onPatches: (patches, inversePatches) => {
+        this.set_modified(true)
+      },
+      recording: true,
+    })
+
+    return () => {
+      recorder.dispose()
+    }
+  }
+
   @modelAction
   setRenderingError(error: Nullish<RenderingError>) {
     this.renderingMetadata = {
@@ -595,25 +615,5 @@ export class Element
     validateElement(this)
 
     return this
-  }
-
-  onAttachedToRootStore() {
-    const recorder = patchRecorder(this, {
-      filter: (patches, inversePatches) => {
-        // Skip patches related to setting '_modified' to false
-
-        return !patches.some((patch) => {
-          return patch.path.includes('_modified')
-        })
-      },
-      onPatches: (patches, inversePatches) => {
-        this.set_modified(true)
-      },
-      recording: true,
-    })
-
-    return () => {
-      recorder.dispose()
-    }
   }
 }

@@ -112,6 +112,20 @@ export class RuntimeStoreModel
     })
   }
 
+  onAttachedToRootStore() {
+    const disposer = reaction(
+      () => this.store.maybeCurrent?.api.maybeCurrent?.defaultValues,
+      (defaultValues) => {
+        this.state = defaultValues || {}
+      },
+      { fireImmediately: true },
+    )
+
+    return () => {
+      disposer()
+    }
+  }
+
   @modelAction
   registerRef(key: string, current: Nullable<HTMLElement>) {
     set(this.refs, { [key]: { current } })
@@ -126,20 +140,6 @@ export class RuntimeStoreModel
     return (
       foundAction || this.runtimeProviderStore?.current.runtimeAction(action)
     )
-  }
-
-  onAttachedToRootStore() {
-    const disposer = reaction(
-      () => this.store.maybeCurrent?.api.maybeCurrent?.defaultValues,
-      (defaultValues) => {
-        this.state = defaultValues || {}
-      },
-      { fireImmediately: true },
-    )
-
-    return () => {
-      disposer()
-    }
   }
 
   @computed

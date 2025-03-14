@@ -54,19 +54,6 @@ export class User
     }
   }
 
-  @modelAction
-  writeCache({ auth0Id, email, id, preferences, username }: Partial<IUserDto>) {
-    this.email = email ?? this.email
-    this.auth0Id = auth0Id ?? this.auth0Id
-    this.id = id ?? this.id
-    this.username = username ?? this.username
-    this.preferences = preferences
-      ? new Preference(preferences)
-      : this.preferences
-
-    return this
-  }
-
   toCreateInput(): UserCreateInput {
     return {
       auth0Id: this.auth0Id,
@@ -78,5 +65,18 @@ export class User
 
   toUpdateInput(): UserUpdateInput {
     return {}
+  }
+
+  @modelAction
+  writeCache({ auth0Id, email, id, preferences, username }: Partial<IUserDto>) {
+    this.email = email ?? this.email
+    this.auth0Id = auth0Id ?? this.auth0Id
+    this.id = id ?? this.id
+    this.username = username ?? this.username
+    this.preferences = preferences
+      ? new Preference(preferences)
+      : this.preferences
+
+    return this
   }
 }

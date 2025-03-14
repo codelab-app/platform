@@ -35,13 +35,15 @@ export class ExpressionTransformer
   transform: Nullable<IExpressionTransformer['transform']> = null
 
   @modelFlow
-  init = _async(function* (this: ExpressionTransformer) {
-    const { transform } = yield* _await(import('sucrase'))
+  init() {
+    return _async(function* (this: ExpressionTransformer) {
+      const { transform } = yield* _await(import('sucrase'))
 
-    this.context = { atoms: allAtoms, React }
-    this.transform = transform
-    this.setInitialized(true)
-  })
+      this.context = { atoms: allAtoms, React }
+      this.transform = transform
+      this.setInitialized(true)
+    }).call(this)
+  }
 
   @modelAction
   transpileAndEvaluateExpression(expression: string) {

@@ -18,6 +18,10 @@ export class FieldDomainService
   })
   implements IFieldDomainService
 {
+  getField(id: string) {
+    return this.fields.get(id)
+  }
+
   /**
    * Field api type must be hydrated before field is hydrated
    */
@@ -53,10 +57,6 @@ export class FieldDomainService
 
   //   return loadedFields
   // }
-
-  getField(id: string) {
-    return this.fields.get(id)
-  }
 
   @computed
   private get typeDomainService() {

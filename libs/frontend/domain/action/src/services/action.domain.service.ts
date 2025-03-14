@@ -27,6 +27,10 @@ export class ActionDomainService
     return [...this.actions.values()]
   }
 
+  action(id: string) {
+    return this.actions.get(id)
+  }
+
   @modelAction
   getSelectActionOptions(
     selectedNodeStore: IStoreModel,
@@ -84,10 +88,6 @@ export class ActionDomainService
     return actions.map((action) =>
       this.hydrate(actionFactory.fromActionFragment(action)),
     )
-  }
-
-  action(id: string) {
-    return this.actions.get(id)
   }
 
   private getParentActions(action?: IActionModel): Array<string> {

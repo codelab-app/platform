@@ -152,6 +152,27 @@ export class Field
     this.prevSibling = null
   }
 
+  // TODO: figure out how to use context
+  toJsonSchema(context: ITypeTransformContext): JsonSchema {
+    return {
+      ...(this.description ? { help: this.description } : {}),
+      label: this.name || titleCase(this.key),
+      ...this.type.current.toJsonSchema({
+        defaultValues: this.defaultValues,
+        fieldName: this.name || titleCase(this.key),
+        uniformSchema: context.uniformSchema,
+        validationRules: this.validationRules,
+      }),
+    }
+  }
+
+  toUpdateNodesInput(): Pick<FieldUpdateInput, 'nextSibling' | 'prevSibling'> {
+    return {
+      nextSibling: reconnectNodeId(this.nextSibling?.id),
+      prevSibling: reconnectNodeId(this.prevSibling?.id),
+    }
+  }
+
   @modelAction
   writeCache({
     defaultValues,
@@ -183,26 +204,5 @@ export class Field
       : this.prevSibling
 
     return this
-  }
-
-  // TODO: figure out how to use context
-  toJsonSchema(context: ITypeTransformContext): JsonSchema {
-    return {
-      ...(this.description ? { help: this.description } : {}),
-      label: this.name || titleCase(this.key),
-      ...this.type.current.toJsonSchema({
-        defaultValues: this.defaultValues,
-        fieldName: this.name || titleCase(this.key),
-        uniformSchema: context.uniformSchema,
-        validationRules: this.validationRules,
-      }),
-    }
-  }
-
-  toUpdateNodesInput(): Pick<FieldUpdateInput, 'nextSibling' | 'prevSibling'> {
-    return {
-      nextSibling: reconnectNodeId(this.nextSibling?.id),
-      prevSibling: reconnectNodeId(this.prevSibling?.id),
-    }
   }
 }

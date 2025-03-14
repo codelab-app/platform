@@ -290,6 +290,24 @@ export const createTestStore = () => {
       })
     }
 
+    getAtomByType(type: IAtomType) {
+      const atomType = this.domainStore.atomDomainService.atomsList.find(
+        (atom) => atom.type === type,
+      )
+
+      Validator.assertsDefined(atomType)
+
+      return atomType
+    }
+
+    getStringType() {
+      return this.domainStore.typeDomainService.typesList.find(
+        (type) =>
+          type.kind === ITypeKind.PrimitiveType &&
+          type.primitiveKind === IPrimitiveTypeKind.String,
+      )
+    }
+
     @modelAction
     setupComponent() {
       const componentId = 'component-id'
@@ -554,24 +572,6 @@ export const createTestStore = () => {
         runtimePage,
         runtimeRootElement: runtimeRootElement,
       }
-    }
-
-    getAtomByType(type: IAtomType) {
-      const atomType = this.domainStore.atomDomainService.atomsList.find(
-        (atom) => atom.type === type,
-      )
-
-      Validator.assertsDefined(atomType)
-
-      return atomType
-    }
-
-    getStringType() {
-      return this.domainStore.typeDomainService.typesList.find(
-        (type) =>
-          type.kind === ITypeKind.PrimitiveType &&
-          type.primitiveKind === IPrimitiveTypeKind.String,
-      )
     }
 
     teardown() {

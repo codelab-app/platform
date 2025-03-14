@@ -109,22 +109,6 @@ export class InterfaceType
     })
   }
 
-  @modelAction
-  writeCache(interfaceTypeDto: IInterfaceTypeDto) {
-    super.writeCache(interfaceTypeDto)
-
-    this.writeFieldCache(interfaceTypeDto.fields)
-
-    return this
-  }
-
-  @modelAction
-  writeFieldCache(fields: Array<IRef> = []) {
-    for (const field of fields) {
-      this._fields.set(field.id, fieldRef(field.id))
-    }
-  }
-
   toJsonSchema(context: ITypeTransformContext): JsonSchema {
     return {
       properties: this.fields.reduce(
@@ -147,6 +131,22 @@ export class InterfaceType
         )
         .filter(Boolean) as Array<string>,
       type: 'object',
+    }
+  }
+
+  @modelAction
+  writeCache(interfaceTypeDto: IInterfaceTypeDto) {
+    super.writeCache(interfaceTypeDto)
+
+    this.writeFieldCache(interfaceTypeDto.fields)
+
+    return this
+  }
+
+  @modelAction
+  writeFieldCache(fields: Array<IRef> = []) {
+    for (const field of fields) {
+      this._fields.set(field.id, fieldRef(field.id))
     }
   }
 }

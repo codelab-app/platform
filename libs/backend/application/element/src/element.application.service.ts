@@ -25,6 +25,16 @@ export class ElementApplicationService {
     private propDomainService: PropDomainService,
   ) {}
 
+  async createComponentRootElement(component: ICreateComponentData) {
+    return this.createElement(
+      {
+        id: v4(),
+        name: `${component.name} Root`,
+      },
+      { id: component.id },
+    )
+  }
+
   @LogClassMethod()
   async createElement(element: ICreateElementData, closestContainerNode: IRef) {
     console.log('element', element)
@@ -61,16 +71,6 @@ export class ElementApplicationService {
       props,
       renderType,
     })
-  }
-
-  async createComponentRootElement(component: ICreateComponentData) {
-    return this.createElement(
-      {
-        id: v4(),
-        name: `${component.name} Root`,
-      },
-      { id: component.id },
-    )
   }
 
   async createElementTree(

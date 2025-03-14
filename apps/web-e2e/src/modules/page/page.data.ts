@@ -1,5 +1,6 @@
-import type { APIRequestContext } from '@playwright/test'
 import type { IPage, IPageCreateFormData } from '@codelab/shared/abstract/core'
+import type { APIRequestContext } from '@playwright/test'
+
 import { requestOrThrow } from '../../api'
 import { REQUEST_TIMEOUT } from '../../setup/config'
 

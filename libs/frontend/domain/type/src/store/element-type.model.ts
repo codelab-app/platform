@@ -47,6 +47,10 @@ export class ElementType
     }
   }
 
+  toJsonSchema(context: ITypeTransformContext): JsonSchema {
+    return typedPropSchema(this, context)
+  }
+
   @modelAction
   writeCache(elementTypeDto: Partial<IElementTypeDto>) {
     super.writeCache(elementTypeDto)
@@ -54,9 +58,5 @@ export class ElementType
     this.elementKind = elementTypeDto.elementKind ?? this.elementKind
 
     return this
-  }
-
-  toJsonSchema(context: ITypeTransformContext): JsonSchema {
-    return typedPropSchema(this, context)
   }
 }

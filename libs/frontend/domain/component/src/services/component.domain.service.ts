@@ -94,26 +94,6 @@ export class ComponentDomainService
     return component
   }
 
-  @modelAction
-  hydrate(componentDto: IComponentDto) {
-    let component = this.components.get(componentDto.id)
-
-    if (component) {
-      component.writeCache(componentDto)
-    } else {
-      component = Component.create(componentDto)
-
-      this.components.set(component.id, component)
-    }
-
-    return component
-  }
-
-  @modelAction
-  maybeComponent(id: string) {
-    return this.components.get(id)
-  }
-
   findById(id: string) {
     const found = this.components.get(id)
 
@@ -137,28 +117,23 @@ export class ComponentDomainService
     })
   }
 
-  @computed
-  private get atomDomainService() {
-    return getAtomDomainService(this)
+  @modelAction
+  hydrate(componentDto: IComponentDto) {
+    let component = this.components.get(componentDto.id)
+
+    if (component) {
+      component.writeCache(componentDto)
+    } else {
+      component = Component.create(componentDto)
+
+      this.components.set(component.id, component)
+    }
+
+    return component
   }
 
-  @computed
-  private get elementDomainService() {
-    return getElementDomainService(this)
-  }
-
-  @computed
-  private get storeDomainService() {
-    return getStoreDomainService(this)
-  }
-
-  @computed
-  private get typeDomainService() {
-    return getTypeDomainService(this)
-  }
-
-  @computed
-  private get userDomainService() {
-    return getUserDomainService(this)
+  @modelAction
+  maybeComponent(id: string) {
+    return this.components.get(id)
   }
 }

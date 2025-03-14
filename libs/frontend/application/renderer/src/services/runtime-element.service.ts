@@ -94,13 +94,13 @@ export class RuntimeElementService
       .map((runtimeElement) => runtimeElement.compositeKey)
   }
 
+  maybeRuntimeElement(compositeKey: string) {
+    return this.elements.get(compositeKey)
+  }
+
   @modelAction
   remove(runtimeElement: IRuntimeElementModel) {
     return this.elements.delete(runtimeElement.compositeKey)
-  }
-
-  maybeRuntimeElement(compositeKey: string) {
-    return this.elements.get(compositeKey)
   }
 
   runtimeElement(compositeKey: string) {
