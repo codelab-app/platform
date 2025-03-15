@@ -1,10 +1,9 @@
 import type { Metadata } from 'next'
 
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
+import { DeleteTagsModalContainer } from '@codelab/frontend-application-tag/use-cases/delete-tags'
 import { tagRepository } from '@codelab/frontend-domain-tag/repositories'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
-
-import { DeleteTagsModalConnector } from './page.connector'
 
 export const metadata: Metadata = {
   title: 'Delete Tags | Codelab',
@@ -18,7 +17,7 @@ const Page = async (props: { params: Promise<{ id: string }> }) => {
 
   return (
     <DomainStoreHydrator fallback={<Spinner />} tagsDto={tagDto.items}>
-      <DeleteTagsModalConnector ids={ids} />
+      <DeleteTagsModalContainer ids={ids} />
     </DomainStoreHydrator>
   )
 }

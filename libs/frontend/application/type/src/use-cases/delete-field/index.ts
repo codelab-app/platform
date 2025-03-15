@@ -1,2 +1,2 @@
 export * from './DeleteFieldModal'
-export * from './DeleteFieldModalPage'
+export * from './DeleteFieldModalContainer'

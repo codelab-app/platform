@@ -17,14 +17,12 @@ const Layout = async ({
   const authGuardDto = await authGuardRepository.findOne({ id })
 
   return (
-    <DashboardPopover>
-      <DomainStoreHydrator
-        authGuardsDto={authGuardDto ? [authGuardDto] : []}
-        fallback={<Spinner />}
-      >
-        {children}
-      </DomainStoreHydrator>
-    </DashboardPopover>
+    <DomainStoreHydrator
+      authGuardsDto={authGuardDto ? [authGuardDto] : []}
+      fallback={<Spinner />}
+    >
+      {children}
+    </DomainStoreHydrator>
   )
 }
 

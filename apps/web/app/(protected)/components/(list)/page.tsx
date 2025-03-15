@@ -9,21 +9,8 @@ export const metadata: Metadata = {
   title: 'Components | Codelab',
 }
 
-const Page = async () => {
-  const [{ items: components }, { items: atoms }] = await Promise.all([
-    componentListQuery(),
-    atomRepository.find(),
-  ])
-
-  return (
-    <DomainStoreHydrator
-      atomsDto={atoms}
-      componentsDto={components}
-      fallback={<Spinner />}
-    >
-      <></>
-    </DomainStoreHydrator>
-  )
+const Page = () => {
+  return null
 }
 
 export default Page

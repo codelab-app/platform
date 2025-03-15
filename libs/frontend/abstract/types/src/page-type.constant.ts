@@ -34,21 +34,18 @@ export const PageType = {
   AppImport: () => '/apps/import',
   AppList: () => '/apps',
   AppUpdate: ({ id }: IRef) => `/apps/update/${id}`,
-  AtomCreate: () => `${PageType.Atoms()}/create`,
-  AtomDelete: ({ id }: IRef) => `${PageType.Atoms()}/delete/${id}`,
-  AtomFieldCreate: (interfaceId: string) =>
-    `${PageType.Atoms()}/interface/${interfaceId}/create/field`,
-  AtomFieldDelete: ({ id }: IRef) => `${PageType.Atoms()}/delete/field/${id}`,
-  AtomFieldUpdate: ({ id }: IRef) => `${PageType.Atoms()}/update/field/${id}`,
+  AtomCreate: () => `${PageType.Atoms()}/atom/create`,
+  AtomDelete: ({ id }: IRef) => `${PageType.Atoms()}/atom/${id}/delete`,
+  AtomFieldCreate: ({ interfaceId }: { interfaceId: string }) =>
+    `${PageType.Atoms()}/field/create/${interfaceId}`,
+  AtomFieldDelete: ({ fieldId }: { fieldId: string }) =>
+    `${PageType.Atoms()}/field/${fieldId}/delete`,
+  AtomFieldUpdate: ({ fieldId }: { fieldId: string }) =>
+    `${PageType.Atoms()}/field/${fieldId}/update`,
   Atoms: () => '/atoms',
   AtomTypeList: () => '/atom-types',
   AtomUpdate: ({ id }: IRef, queryParams?: Partial<SearchParamsContext>) => {
-    // return queryString.stringifyUrl({
-    //   query: queryParams,
-    //   url: `${PageType.Atoms()}/update/${id}`,
-    // })
-
-    const url = `${PageType.Atoms()}/update/${id}`
+    const url = `${PageType.Atoms()}/atom/${id}/update`
     const params = new URLSearchParams(queryParams as URLSearchParams)
 
     return `${url}?${params}`

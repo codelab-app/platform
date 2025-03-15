@@ -1,7 +1,10 @@
 import type { Metadata } from 'next'
 
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
-import { DeleteAuthGuardModal } from '@codelab/frontend-application-auth-guard/use-cases/delete-auth-guard'
+import {
+  DeleteAuthGuardModal,
+  DeleteAuthGuardModalContainer,
+} from '@codelab/frontend-application-auth-guard/use-cases/delete-auth-guard'
 import { authGuardRepository } from '@codelab/frontend-domain-auth-guard/repositories'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 
@@ -13,7 +16,7 @@ const Page = async (props: { params: Promise<{ id: string }> }) => {
   const params = await props.params
   const { id } = params
 
-  return <DeleteAuthGuardModal id={id} />
+  return <DeleteAuthGuardModalContainer id={id} />
 }
 
 export default Page

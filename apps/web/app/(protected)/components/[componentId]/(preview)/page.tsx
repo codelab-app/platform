@@ -1,20 +1,20 @@
 import type { Metadata } from 'next'
 
-import { ComponentPreviewBuilderConnector } from './page.connector'
+import { ComponentPreviewBuilderContainer } from '@codelab/frontend-application-builder/use-cases/component-builder'
 
 export const metadata: Metadata = {
   title: 'Component Preview | Codelab',
 }
 
-const ComponentPreviewPage = async (props0: {
+const Page = async (props: {
   params: Promise<{
     componentId: string
   }>
 }) => {
-  const params = await props0.params
+  const params = await props.params
   const { componentId } = params
 
-  return <ComponentPreviewBuilderConnector componentId={componentId} />
+  return <ComponentPreviewBuilderContainer componentId={componentId} />
 }
 
-export default ComponentPreviewPage
+export default Page

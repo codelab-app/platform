@@ -2,9 +2,10 @@
 
 import type { IActionModel } from '@codelab/frontend/abstract/domain'
 
-import { DeleteActionModal } from '@codelab/frontend-application-store/use-cases/delete-action'
-import { ActionConnector } from '@codelab/frontend-application-store/views'
 import { observer } from 'mobx-react-lite'
+
+import { ActionConnector } from '../../views/Action.connector'
+import { DeleteActionModal } from './DeleteActionModal'
 
 export const DeleteActionModalContainer = observer(({ id }: { id: string }) => {
   return (
