@@ -1,7 +1,6 @@
 'use client'
 
 import { AppConnector } from '@codelab/frontend-application-app/views'
-import { observer } from 'mobx-react-lite'
 
 import { DomainsPageHeader } from './DomainsPageHeader'
 

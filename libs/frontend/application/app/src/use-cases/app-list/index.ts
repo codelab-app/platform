@@ -1,2 +1,2 @@
 export { AppList } from './AppList'
-export { AppListContainer } from './AppListContainer'
+export { AppListContainer } from './AppList.container'

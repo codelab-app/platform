@@ -1,2 +1,2 @@
 export * from './UpdateDomainModal'
-export * from './UpdateDomainModalContainer'
+export * from './UpdateDomainModal.container'

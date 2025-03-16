@@ -1,4 +1,4 @@
 export * from './update-atom.schema'
 export * from './UpdateAtomForm'
 export * from './UpdateAtomPopover'
-export * from './UpdateAtomPopoverContainer'
+export * from './UpdateAtomPopover.container'

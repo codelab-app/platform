@@ -1,3 +1,3 @@
 export * from './delete-tags.schema'
 export * from './DeleteTagsModal'
-export * from './DeleteTagsModalContainer'
+export * from './DeleteTagsModal.container'

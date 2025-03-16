@@ -1,2 +1,2 @@
 export { UpdateAppModal } from './UpdateAppModal'
-export { UpdateAppModalContainer } from './UpdateAppModalContainer'
+export { UpdateAppModalContainer } from './UpdateAppModal.container'

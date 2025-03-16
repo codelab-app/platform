@@ -1,2 +1,2 @@
 export * from './DeleteActionModal'
-export * from './DeleteActionModalContainer'
+export * from './DeleteActionModal.container'

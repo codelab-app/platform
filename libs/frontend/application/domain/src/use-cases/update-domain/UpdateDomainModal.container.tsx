@@ -1,7 +1,5 @@
 'use client'
 
-import { observer } from 'mobx-react-lite'
-
 import { DomainConnector } from '../../views/Domain.connector'
 import { UpdateDomainModal } from './UpdateDomainModal'
 

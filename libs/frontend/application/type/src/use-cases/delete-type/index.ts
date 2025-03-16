@@ -1,2 +1,2 @@
 export * from './DeleteTypeModal'
-export * from './DeleteTypeModalContainer'
+export * from './DeleteTypeModal.container'

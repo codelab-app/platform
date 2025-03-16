@@ -1,1 +1,1 @@
-export * from './PagePreviewContainer'
+export * from './PagePreview.container'

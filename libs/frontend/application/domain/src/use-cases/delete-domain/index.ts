@@ -1,2 +1,2 @@
 export * from './DeleteDomainModal'
-export * from './DeleteDomainModalContainer'
+export * from './DeleteDomainModal.container'

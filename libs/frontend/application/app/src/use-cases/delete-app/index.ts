@@ -1,2 +1,2 @@
 export { DeleteAppModal } from './DeleteAppModal'
-export { DeleteAppModalContainer } from './DeleteAppModalContainer'
+export { DeleteAppModalContainer } from './DeleteAppModal.container'
