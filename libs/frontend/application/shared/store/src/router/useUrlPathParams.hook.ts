@@ -1,6 +1,9 @@
 'use client'
 
-import type { UrlPathParams } from '@codelab/frontend/abstract/types'
+import type {
+  UrlPathParams,
+  UrlPathParamsProps,
+} from '@codelab/frontend/abstract/types'
 
 import { useParams } from 'next/navigation'
 
@@ -20,12 +23,54 @@ export const useUrlPathParams = (): UrlPathParams => {
   const params = useParams()
 
   return {
-    actionId: params.actionId as string,
-    appId: params.appId as string,
-    authGuardId: params.authGuardId as string,
-    componentId: params.componentId as string,
-    interfaceId: params.interfaceId as string,
-    pageId: params.pageId as string,
-    resourceId: params.resourceId as string,
+    get actionId() {
+      if (!params.actionId) {
+        throw new Error('actionId is required')
+      }
+
+      return params.actionId.toString()
+    },
+    get appId() {
+      if (!params.appId) {
+        throw new Error('appId is required')
+      }
+
+      return params.appId.toString()
+    },
+    get authGuardId() {
+      if (!params.authGuardId) {
+        throw new Error('authGuardId is required')
+      }
+
+      return params.authGuardId.toString()
+    },
+    get componentId() {
+      if (!params.componentId) {
+        throw new Error('componentId is required')
+      }
+
+      return params.componentId.toString()
+    },
+    get interfaceId() {
+      if (!params.interfaceId) {
+        throw new Error('interfaceId is required')
+      }
+
+      return params.interfaceId.toString()
+    },
+    get pageId() {
+      if (!params.pageId) {
+        throw new Error('pageId is required')
+      }
+
+      return params.pageId.toString()
+    },
+    get resourceId() {
+      if (!params.resourceId) {
+        throw new Error('resourceId is required')
+      }
+
+      return params.resourceId.toString()
+    },
   }
 }
