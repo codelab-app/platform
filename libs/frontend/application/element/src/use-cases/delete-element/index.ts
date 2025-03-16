@@ -1,5 +1,5 @@
 export * from './delete-element.use-case'
 export * from './DeleteElementButton'
 export * from './DeleteElementModal'
-export * from './DeleteElementModalContainer'
+export * from './DeleteElementModal.container'
 export * from './DeleteElementPopconfirm'

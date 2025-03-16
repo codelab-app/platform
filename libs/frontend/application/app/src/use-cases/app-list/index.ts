@@ -1,2 +1,3 @@
 export { AppList } from './AppList'
 export { AppListContainer } from './AppList.container'
+export * from './AppListHeader'

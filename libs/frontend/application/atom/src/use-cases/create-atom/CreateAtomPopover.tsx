@@ -14,47 +14,42 @@ import { useRef } from 'react'
 import { useAtomService } from '../../services'
 import { CreateAtomForm } from './CreateAtomForm'
 
-export const CreateAtomPopover = withProfiler(
-  observer(() => {
-    const submitRef = useRef<Maybe<SubmitController>>(undefined)
-    const { createPopover } = useAtomService()
-    const router = useRouter()
+export const CreateAtomPopover = observer(() => {
+  const submitRef = useRef<Maybe<SubmitController>>(undefined)
+  const { createPopover } = useAtomService()
+  const router = useRouter()
 
-    return (
-      <CuiSidebarSecondary
-        id={UiKey.AtomPopoverCreate}
-        toolbar={{
-          items: [
-            {
-              cuiKey: UiKey.AtomToolbarItemCreate,
-              icon: <SaveOutlined />,
-              label: 'Create',
-              onClick: () => {
-                submitRef.current?.submit()
-              },
-              title: 'Create',
+  return (
+    <CuiSidebarSecondary
+      id={UiKey.AtomPopoverCreate}
+      toolbar={{
+        items: [
+          {
+            cuiKey: UiKey.AtomToolbarItemCreate,
+            icon: <SaveOutlined />,
+            label: 'Create',
+            onClick: () => {
+              submitRef.current?.submit()
             },
-            {
-              cuiKey: UiKey.AtomToolbarItemCreateCancel,
-              icon: <CloseOutlined />,
-              label: 'Cancel',
-              onClick: () => {
-                createPopover.close(router)
-              },
-              title: 'Cancel',
+            title: 'Create',
+          },
+          {
+            cuiKey: UiKey.AtomToolbarItemCreateCancel,
+            icon: <CloseOutlined />,
+            label: 'Cancel',
+            onClick: () => {
+              createPopover.close(router)
             },
-          ],
-          title: 'Create Atom toolbar',
-        }}
-      >
-        <CreateAtomForm
-          onSubmitSuccess={() => createPopover.close(router)}
-          submitRef={submitRef}
-        />
-      </CuiSidebarSecondary>
-    )
-  }),
-  {
-    name: 'CreateAtomPopover',
-  },
-)
+            title: 'Cancel',
+          },
+        ],
+        title: 'Create Atom toolbar',
+      }}
+    >
+      <CreateAtomForm
+        onSubmitSuccess={() => createPopover.close(router)}
+        submitRef={submitRef}
+      />
+    </CuiSidebarSecondary>
+  )
+})

@@ -1,5 +1,6 @@
 'use client'
 
+import type { IAppModel, IPageModel } from '@codelab/frontend/abstract/domain'
 import type {
   PageContextParams,
   SubmitController,
@@ -17,8 +18,13 @@ import { useRef } from 'react'
 import { usePageService } from '../../services/page.service'
 import { CreatePageForm } from './CreatePageForm'
 
-export const CreatePagePopover = observer<PageContextParams>(
-  ({ appId, pageId }) => {
+interface ICreatePagePopoverProps {
+  app: IAppModel
+  pageId: string
+}
+
+export const CreatePagePopover = observer<ICreatePagePopoverProps>(
+  ({ app, pageId }) => {
     const submitRef = useRef<Maybe<SubmitController>>(undefined)
     const router = useRouter()
     const { createPopover } = usePageService()
@@ -38,14 +44,21 @@ export const CreatePagePopover = observer<PageContextParams>(
               cuiKey: UiKey.PageToolbarItemCreateCancel,
               icon: <CloseOutlined />,
               label: 'Cancel',
-              onClick: () => createPopover.close(router, { appId, pageId }),
+              onClick: () =>
+                createPopover.close(router, { appId: app.id, pageId }),
             },
           ],
           title: 'Create Page toolbar',
         }}
       >
         <CreatePageForm
-          onSubmitSuccess={() => createPopover.close(router, { appId, pageId })}
+          app={app}
+          onSubmitSuccess={() =>
+            createPopover.close(router, {
+              appId: app.id,
+              pageId,
+            })
+          }
           showFormControl={false}
           submitRef={submitRef}
         />

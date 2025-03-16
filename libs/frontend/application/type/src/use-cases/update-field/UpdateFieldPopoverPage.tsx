@@ -7,7 +7,7 @@ import { DashboardPopover } from '@codelab/frontend-presentation-view/templates'
 
 import { FieldConnector } from '../../views'
 import { UpdateFieldPopover } from './UpdateFieldPopover'
-import { UpdateFieldPopoverPageContainer } from './UpdateFieldPopoverContainer'
+import { UpdateFieldPopoverPageContainer } from './UpdateFieldPopover.container'
 
 /**
  * Used by popover so we don't need a server component, can be used by page directly

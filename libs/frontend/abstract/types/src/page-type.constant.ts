@@ -38,10 +38,10 @@ export const PageType = {
   AtomDelete: ({ id }: IRef) => `${PageType.Atoms()}/atom/${id}/delete`,
   AtomFieldCreate: ({ interfaceId }: { interfaceId: string }) =>
     `${PageType.Atoms()}/field/create/${interfaceId}`,
-  AtomFieldDelete: ({ fieldId }: { fieldId: string }) =>
-    `${PageType.Atoms()}/field/${fieldId}/delete`,
-  AtomFieldUpdate: ({ fieldId }: { fieldId: string }) =>
-    `${PageType.Atoms()}/field/${fieldId}/update`,
+  AtomFieldDelete: ({ id }: { id: string }) =>
+    `${PageType.Atoms()}/field/${id}/delete`,
+  AtomFieldUpdate: ({ id }: { id: string }) =>
+    `${PageType.Atoms()}/field/${id}/update`,
   Atoms: () => '/atoms',
   AtomTypeList: () => '/atom-types',
   AtomUpdate: ({ id }: IRef, queryParams?: Partial<SearchParamsContext>) => {

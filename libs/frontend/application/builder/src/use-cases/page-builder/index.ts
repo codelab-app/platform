@@ -1,2 +1,2 @@
 export * from './PageBuilder'
-export * from './PageBuilderContainer'
+export * from './PageBuilder.container'

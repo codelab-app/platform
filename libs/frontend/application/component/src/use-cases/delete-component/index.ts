@@ -1,2 +1,2 @@
 export * from './DeleteComponentModal'
-export * from './DeleteComponentModalContainer'
+export * from './DeleteComponentModal.container'

@@ -3,13 +3,12 @@
 import type { SubmitController } from '@codelab/frontend/abstract/types'
 import type { Maybe } from '@codelab/shared/abstract/types'
 
-import { observer } from 'mobx-react-lite'
 import { useRef } from 'react'
 
 import { AtomConnector } from '../../views/Atom.connector'
 import { UpdateAtomPopover } from './UpdateAtomPopover'
 
-export const UpdateAtomPopoverContainer = observer<{ id: string }>(({ id }) => {
+export const UpdateAtomPopoverContainer = ({ id }: { id: string }) => {
   const submitRef = useRef<Maybe<SubmitController>>(undefined)
 
   return (
@@ -17,6 +16,6 @@ export const UpdateAtomPopoverContainer = observer<{ id: string }>(({ id }) => {
       {(atom) => <UpdateAtomPopover atom={atom} submitRef={submitRef} />}
     </AtomConnector>
   )
-})
+}
 
 UpdateAtomPopoverContainer.displayName = 'UpdateAtomPopoverContainer'

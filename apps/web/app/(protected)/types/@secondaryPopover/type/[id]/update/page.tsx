@@ -7,8 +7,8 @@ export const metadata: Metadata = {
   title: 'Update Type | Codelab',
 }
 
-const Page = async ({ params }: { params: { id: string } }) => {
-  const { id } = params
+const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
+  const { id } = await params
 
   return <UpdateTypePopover id={id} />
 }

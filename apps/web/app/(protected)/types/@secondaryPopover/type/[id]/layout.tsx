@@ -4,14 +4,14 @@ import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 
 interface UpdateTypeLayoutProps {
   children: React.ReactNode
-  params: { id: string }
+  params: Promise<{ id: string }>
 }
 
 const UpdateTypeLayout = async ({
   children,
   params,
 }: UpdateTypeLayoutProps) => {
-  const { id } = params
+  const { id } = await params
   const type = await typeRepository.findOne({ id_IN: [id] })
 
   if (!type) {

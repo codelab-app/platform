@@ -1,2 +1,2 @@
 export * from './DeleteResourceModal'
-export * from './DeleteResourceModalContainer'
+export * from './DeleteResourceModal.container'

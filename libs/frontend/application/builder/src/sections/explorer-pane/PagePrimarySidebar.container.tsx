@@ -4,7 +4,6 @@ import type { ExplorerPaneType } from '@codelab/frontend/abstract/types'
 
 import { AppConnector } from '@codelab/frontend-application-app/views'
 import { PageConnector } from '@codelab/frontend-application-page/views'
-import { observer } from 'mobx-react-lite'
 
 import { PagePrimarySidebar } from './PagePrimarySidebar'
 

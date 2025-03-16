@@ -56,7 +56,7 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
     // Prevent triggering `onEdit`
     event.stopPropagation()
 
-    router.push(PageType.AtomFieldCreate(node.api.id))
+    router.push(PageType.AtomFieldCreate({ interfaceId: node.api.id }))
   }
 
   const toolbarItems: Array<ToolbarItem> = [

@@ -1,2 +1,2 @@
 export * from './DeleteAuthGuardModal'
-export * from './DeleteAuthGuardModalContainer'
+export * from './DeleteAuthGuardModal.container'

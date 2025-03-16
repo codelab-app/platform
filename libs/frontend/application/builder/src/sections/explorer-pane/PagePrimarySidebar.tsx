@@ -14,11 +14,15 @@ import { ErrorBoundary } from 'react-error-boundary'
 
 import { BuilderPrimarySidebar } from './BuilderPrimarySidebar'
 
-export const PagePrimarySidebar = observer<{
+export const PagePrimarySidebar = ({
+  app,
+  page,
+  type,
+}: {
   app: IAppModel
   page: IPageModel
   type?: ExplorerPaneType
-}>(({ app, page, type }) => {
+}) => {
   if (type === ExplorerPaneType.PageList) {
     return <PagesPrimarySidebar app={app} page={page} />
   }
@@ -28,6 +32,6 @@ export const PagePrimarySidebar = observer<{
       <BuilderPrimarySidebar containerNode={page} />
     </ErrorBoundary>
   )
-})
+}
 
 PagePrimarySidebar.displayName = 'PrimarySidebar'
