@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { PagePreviewPageContainer } from './page.client'
+import { PagePreviewContainer } from '@codelab/frontend-application-builder/use-cases/page-preview'
 
 export const metadata: Metadata = {
   title: 'App Preview | Codelab',
@@ -12,7 +12,7 @@ const PagePreviewPage = async (props: {
   const params = await props.params
   const { pageId } = params
 
-  return <PagePreviewPageContainer pageId={pageId} />
+  return <PagePreviewContainer pageId={pageId} />
 }
 
 export default PagePreviewPage

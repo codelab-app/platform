@@ -1,10 +1,7 @@
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
 import type { Metadata } from 'next'
 
-import { DeleteAppModal } from '@codelab/frontend-application-app/use-cases/delete-app'
-import { AppConnector } from '@codelab/frontend-application-app/views'
-
-import { DeleteAppModalContainer } from './page.client'
+import { DeleteAppModalContainer } from '@codelab/frontend-application-app/use-cases/delete-app'
 
 export const metadata: Metadata = {
   title: 'Delete App | Codelab',

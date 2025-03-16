@@ -1,7 +1,7 @@
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
 
-import { UpdateAppModal } from '@codelab/frontend-application-app/use-cases/update-app'
-import { AppConnector } from '@codelab/frontend-application-app/views'
+import { AppConnector } from '../../views/App.connector'
+import { UpdateAppModal } from './UpdateAppModal'
 
 export const UpdateAppModalContainer = ({ id }: { id: string }) => {
   return (
@@ -10,3 +10,5 @@ export const UpdateAppModalContainer = ({ id }: { id: string }) => {
     </AppConnector>
   )
 }
+
+UpdateAppModalContainer.displayName = 'UpdateAppModalContainer'

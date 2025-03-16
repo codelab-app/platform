@@ -1,5 +1,5 @@
-import { UpdatePagePopover } from '@codelab/frontend-application-page/use-cases/update-page'
-import { PageConnector } from '@codelab/frontend-application-page/views'
+import { PageConnector } from '../../views/Page.connector'
+import { UpdatePagePopover } from './UpdatePagePopover'
 
 export const UpdatePagePopoverContainer = ({
   appId,
@@ -16,3 +16,5 @@ export const UpdatePagePopoverContainer = ({
     </PageConnector>
   )
 }
+
+UpdatePagePopoverContainer.displayName = 'UpdatePagePopoverContainer'

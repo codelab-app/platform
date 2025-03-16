@@ -4,8 +4,7 @@ import {
   ExplorerPaneType,
   type PageContextParams,
 } from '@codelab/frontend/abstract/types'
-
-import { PagePrimarySidebarContainer } from './page.client'
+import { PagePrimarySidebarContainer } from '@codelab/frontend-application-builder/sections'
 
 export const metadata: Metadata = {
   title: 'Page List | Codelab',

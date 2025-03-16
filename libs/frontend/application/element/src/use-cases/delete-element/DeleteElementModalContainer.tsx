@@ -2,9 +2,10 @@
 
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
 
-import { DeleteElementModal } from '@codelab/frontend-application-element/use-cases/delete-element'
-import { ElementConnector } from '@codelab/frontend-application-element/views'
 import { observer } from 'mobx-react-lite'
+
+import { ElementConnector } from '../../views/Element.connector'
+import { DeleteElementModal } from './DeleteElementModal'
 
 export const DeleteElementModalContainer = observer(
   ({ id }: { id: string }) => {
@@ -15,3 +16,5 @@ export const DeleteElementModalContainer = observer(
     )
   },
 )
+
+DeleteElementModalContainer.displayName = 'DeleteElementModalContainer'

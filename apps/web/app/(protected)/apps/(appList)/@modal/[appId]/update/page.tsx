@@ -1,8 +1,6 @@
 import type { Metadata } from 'next'
 
-import { UpdateAppModal } from '@codelab/frontend-application-app/use-cases/update-app'
-
-import { UpdateAppModalContainer } from './page.client'
+import { UpdateAppModalContainer } from '@codelab/frontend-application-app/use-cases/update-app'
 
 export const metadata: Metadata = {
   title: 'Update App | Codelab',

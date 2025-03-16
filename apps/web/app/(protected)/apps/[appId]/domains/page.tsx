@@ -1,11 +1,10 @@
 import type { Metadata } from 'next'
 
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
+import { DomainListContainer } from '@codelab/frontend-application-domain/use-cases/domain-list'
 import { appRepository } from '@codelab/frontend-domain-app/repositories'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
-
-import { DomainListContainer } from './page.client'
 
 export const metadata: Metadata = {
   // description: '...',

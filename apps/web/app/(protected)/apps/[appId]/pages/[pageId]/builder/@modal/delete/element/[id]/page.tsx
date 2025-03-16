@@ -1,4 +1,4 @@
-import { DeleteElementModalContainer } from './page.client'
+import { DeleteElementModalContainer } from '@codelab/frontend-application-element/use-cases/delete-element'
 
 const DeleteActionModalPage = async (props: {
   params: Promise<{ id: string }>

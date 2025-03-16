@@ -1,7 +1,7 @@
 import type { PageContextParams } from '@codelab/frontend/abstract/types'
 import type { Metadata } from 'next'
 
-import { PageBuilderContainer } from './page.client'
+import { PageBuilderContainer } from '@codelab/frontend-application-builder/use-cases/page-builder'
 
 export const metadata: Metadata = {
   title: 'App Builder | Codelab',

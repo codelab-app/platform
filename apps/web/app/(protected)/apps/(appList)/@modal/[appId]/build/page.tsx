@@ -1,10 +1,13 @@
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
 import type { Metadata } from 'next'
 
-import { BuildAppModal } from '@codelab/frontend-application-app/use-cases/build-app'
+import {
+  BuildAppModal,
+  BuildAppModalContainer,
+} from '@codelab/frontend-application-app/use-cases/build-app'
 import { AppConnector } from '@codelab/frontend-application-app/views'
 
-import { BuildAppModalContainer } from './page.client'
+// import { BuildAppModalContainer } from './page.client'
 
 export const metadata: Metadata = {
   title: 'Build App | Codelab',

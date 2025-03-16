@@ -1,10 +1,8 @@
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
-import { UpdatePagePopover } from '@codelab/frontend-application-page/use-cases/update-page'
+import { UpdatePagePopoverContainer } from '@codelab/frontend-application-page/use-cases/update-page'
 import { pageRepository } from '@codelab/frontend-domain-page/repositories'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { DashboardPopover } from '@codelab/frontend-presentation-view/templates'
-
-import { UpdatePagePopoverContainer } from './page.client'
 
 const UpdatePagePopoverPage = async (props: {
   params: Promise<{ pageId: string; appId: string }>

@@ -1,8 +1,7 @@
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
+import { DomainsPageHeaderContainer } from '@codelab/frontend-application-domain/views'
 import { appRepository } from '@codelab/frontend-domain-app/repositories'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
-
-import { DomainsPageHeaderContainer } from './page.client'
 
 const DomainsHeaderPage = async (props: {
   params: Promise<{ appId: string }>
