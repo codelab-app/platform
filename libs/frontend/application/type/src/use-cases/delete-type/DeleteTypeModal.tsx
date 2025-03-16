@@ -1,5 +1,7 @@
 'use client'
 
+import type { ITypeModel } from '@codelab/frontend/abstract/domain'
+
 import { PageType, UiKey } from '@codelab/frontend/abstract/types'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
@@ -15,16 +17,10 @@ import { useTypeService } from '../../services'
 
 const { GetTypeReferences } = findTypeServerActions
 
-export const DeleteTypeModal = observer<{ id: string }>(({ id }) => {
+export const DeleteTypeModal = observer<{ type: ITypeModel }>(({ type }) => {
   const typeService = useTypeService()
   const router = useRouter()
   const closeModal = () => router.push(PageType.Type())
-  const { typeDomainService } = useDomainStore()
-  const type = typeDomainService.types.get(id)
-
-  if (!type) {
-    return null
-  }
 
   const onSubmit = async () => {
     // Make sure this type is not referenced anywhere else or the data may become corrupt

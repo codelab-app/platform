@@ -13,16 +13,8 @@ export const metadata: Metadata = {
 const Page = async (props: { params: Promise<{ id: string }> }) => {
   const params = await props.params
   const { id } = params
-  const tagDto = await tagRepository.findOne({ id })
 
-  return (
-    <DomainStoreHydrator
-      fallback={<Spinner />}
-      tagsDto={tagDto ? [tagDto] : []}
-    >
-      <UpdateTagPopoverContainer id={id} />
-    </DomainStoreHydrator>
-  )
+  return <UpdateTagPopoverContainer id={id} />
 }
 
 export default Page

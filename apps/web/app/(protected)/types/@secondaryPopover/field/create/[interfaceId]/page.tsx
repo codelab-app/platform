@@ -7,11 +7,7 @@ const Page = (props: { params: Promise<{ interfaceId: string }> }) => {
   const params = use(props.params)
   const { interfaceId } = params
 
-  return (
-    <DashboardPopover>
-      <CreateFieldPopover interfaceId={interfaceId} />
-    </DashboardPopover>
-  )
+  return <CreateFieldPopover interfaceId={interfaceId} />
 }
 
 export default Page

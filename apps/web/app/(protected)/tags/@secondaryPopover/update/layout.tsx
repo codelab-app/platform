@@ -1,9 +1,8 @@
 import type { ReactNode } from 'react'
 
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
-import { resourceRepository } from '@codelab/frontend-domain-resource/repositories'
+import { tagRepository } from '@codelab/frontend-domain-tag/repositories'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
-import { DashboardPopover } from '@codelab/frontend-presentation-view/templates'
 
 const Layout = async ({
   children,
@@ -13,12 +12,12 @@ const Layout = async ({
   params: Promise<{ id: string }>
 }) => {
   const { id } = await params
-  const resourceDto = await resourceRepository.findOne({ id })
+  const tagDto = await tagRepository.findOne({ id })
 
   return (
     <DomainStoreHydrator
       fallback={<Spinner />}
-      resourcesDto={resourceDto ? [resourceDto] : []}
+      tagsDto={tagDto ? [tagDto] : []}
     >
       {children}
     </DomainStoreHydrator>

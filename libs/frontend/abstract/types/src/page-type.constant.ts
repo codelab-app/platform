@@ -143,9 +143,9 @@ export const PageType = {
   Tags: () => '/tags' as const,
   TagsCreate: () => '/tags/create' as const,
   TagsDelete: (ids: Array<string>) => {
-    return `${PageType.Tags()}/delete/${ids.join(',')}`
+    return `${PageType.Tags()}/${ids.join(',')}/delete`
   },
-  TagsUpdate: ({ id }: IRef) => `/tags/update/${id}` as const,
+  TagsUpdate: ({ id }: IRef) => `/tags/${id}/update` as const,
   Type: () => '/types' as const,
   TypeCreate: () => `${PageType.Type()}/create`,
   TypeDelete: ({ id }: IRef) => `${PageType.Type()}/delete/${id}`,
