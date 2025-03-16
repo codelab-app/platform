@@ -2,7 +2,8 @@
 
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
 
-import { AppConnector } from '../../views/App.connector'
+import { AppConnector } from '@codelab/frontend-domain-app/store'
+
 import { BuildAppModal } from './BuildAppModal'
 
 export const BuildAppModalContainer = ({ id }: { id: string }) => {

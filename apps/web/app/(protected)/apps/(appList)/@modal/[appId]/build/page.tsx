@@ -5,7 +5,7 @@ import {
   BuildAppModal,
   BuildAppModalContainer,
 } from '@codelab/frontend-application-app/use-cases/build-app'
-import { AppConnector } from '@codelab/frontend-application-app/views'
+import { AppConnector } from '@codelab/frontend-domain-app/store'
 
 export const metadata: Metadata = {
   title: 'Build App | Codelab',

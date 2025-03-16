@@ -1,7 +1,7 @@
+import type { IPageModel } from '@codelab/frontend/abstract/domain'
 import type { IPageUpdateFormData } from '@codelab/shared/abstract/core'
 
 import { UiKey } from '@codelab/frontend/abstract/types'
-import { useCurrentPage } from '@codelab/frontend/presentation/container'
 import { Form } from '@codelab/frontend-presentation-components-form'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
@@ -10,14 +10,8 @@ import { AutoFields } from 'uniforms-antd'
 import { usePageService } from '../../services'
 import { schema } from './update-page-tab.schema'
 
-export const UpdatePageTabForm = observer(() => {
+export const UpdatePageTabForm = observer<{ page: IPageModel }>(({ page }) => {
   const pageService = usePageService()
-  const page = useCurrentPage()
-
-  if (!page) {
-    return null
-  }
-
   const onSubmit = (input: IPageUpdateFormData) => pageService.update(input)
   const { kind, pageContentContainer } = page
   const omitFields = ['appId']

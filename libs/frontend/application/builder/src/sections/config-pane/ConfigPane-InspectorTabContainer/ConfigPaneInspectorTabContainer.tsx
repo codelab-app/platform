@@ -157,7 +157,12 @@ export const ConfigPaneInspectorTabContainer = observer<{
       ...(activeRenderer.runtimePage
         ? [
             {
-              children: <UpdatePageTabForm key={selectedNode.compositeKey} />,
+              children: (
+                <UpdatePageTabForm
+                  key={selectedNode.compositeKey}
+                  page={activeRenderer.runtimePage.page.current}
+                />
+              ),
               key: TAB_NAMES.Page,
               label: (
                 <TooltipIcon icon={<FileOutlined />} title={TAB_NAMES.Page} />

@@ -2,8 +2,8 @@
 
 import type { ExplorerPaneType } from '@codelab/frontend/abstract/types'
 
-import { AppConnector } from '@codelab/frontend-application-app/views'
 import { PageConnector } from '@codelab/frontend-application-page/views'
+import { AppConnector } from '@codelab/frontend-domain-app/store'
 
 import { PagePrimarySidebar } from './PagePrimarySidebar'
 
