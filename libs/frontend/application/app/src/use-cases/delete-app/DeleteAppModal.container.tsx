@@ -1,7 +1,6 @@
 'use client'
 
-import { AppConnector } from '@codelab/frontend-domain-app/store'
-
+import { AppConnector } from '../../views/App.connector'
 import { DeleteAppModal } from './DeleteAppModal'
 
 export const DeleteAppModalContainer = ({ id }: { id: string }) => {

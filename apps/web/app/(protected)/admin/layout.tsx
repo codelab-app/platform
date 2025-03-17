@@ -1,15 +1,5 @@
 import type { PropsWithChildren, ReactNode } from 'react'
 
-const Layout = async ({
-  children,
-  modal,
-}: PropsWithChildren & { modal: ReactNode }) => {
-  return (
-    <>
-      {children}
-      {modal}
-    </>
-  )
-}
+import { DashboardLayout } from '@codelab/frontend-presentation-view/templates'
 
-export default Layout
+export default DashboardLayout

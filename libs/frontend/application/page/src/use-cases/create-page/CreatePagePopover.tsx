@@ -19,12 +19,12 @@ import { usePageService } from '../../services/page.service'
 import { CreatePageForm } from './CreatePageForm'
 
 interface ICreatePagePopoverProps {
-  app: IAppModel
+  appId: string
   pageId: string
 }
 
 export const CreatePagePopover = observer<ICreatePagePopoverProps>(
-  ({ app, pageId }) => {
+  ({ appId, pageId }) => {
     const submitRef = useRef<Maybe<SubmitController>>(undefined)
     const router = useRouter()
     const { createPopover } = usePageService()
@@ -44,18 +44,17 @@ export const CreatePagePopover = observer<ICreatePagePopoverProps>(
               cuiKey: UiKey.PageToolbarItemCreateCancel,
               icon: <CloseOutlined />,
               label: 'Cancel',
-              onClick: () =>
-                createPopover.close(router, { appId: app.id, pageId }),
+              onClick: () => createPopover.close(router, { appId, pageId }),
             },
           ],
           title: 'Create Page toolbar',
         }}
       >
         <CreatePageForm
-          app={app}
+          appId={appId}
           onSubmitSuccess={() =>
             createPopover.close(router, {
-              appId: app.id,
+              appId,
               pageId,
             })
           }

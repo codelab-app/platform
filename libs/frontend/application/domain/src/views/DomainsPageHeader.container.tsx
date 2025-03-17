@@ -1,6 +1,6 @@
 'use client'
 
-import { AppConnector } from '@codelab/frontend-domain-app/store'
+import { AppConnector } from '@codelab/frontend-application-app/views'
 
 import { DomainsPageHeader } from './DomainsPageHeader'
 

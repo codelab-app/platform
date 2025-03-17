@@ -18,16 +18,16 @@ import { usePageService } from '../../services'
 import { createPageSchema } from './create-page.schema'
 
 type ICreatePageFormProps = IFormController & {
-  app: IAppModel
+  appId: string
 }
 
 export const CreatePageForm = observer<ICreatePageFormProps>(
-  ({ app, onSubmitSuccess, showFormControl = true, submitRef }) => {
+  ({ appId, onSubmitSuccess, showFormControl = true, submitRef }) => {
     const user = useUser()
     const pageService = usePageService()
 
     const model = {
-      app: { id: app.id },
+      app: { id: appId },
       id: v4(),
       // required for store api
       owner: {

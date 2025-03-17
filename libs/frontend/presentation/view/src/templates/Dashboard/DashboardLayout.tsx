@@ -6,7 +6,7 @@ import { Dashboard } from './Dashboard'
 /**
  * This declares all the possible parallel routes, but not all is required. The Next.js compiler will type check which is required
  */
-interface DashboardSections {
+export interface DashboardSections {
   configPane: ReactNode
   header: ReactNode
   modal: ReactNode

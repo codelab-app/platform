@@ -18,18 +18,16 @@ const AdminView = async () => {
   const { items: users } = await userRepository.find()
 
   return (
-    <Dashboard header={<AdminViewHeader />}>
-      <ContentSection>
-        <Space className="w-full" direction="vertical" size="large">
-          <Space>
-            <ExportAdminDataButton />
-            <ImportAdminDataButton />
-            <ResetDataButtons />
-          </Space>
-          <UsersTable users={users} />
+    <ContentSection>
+      <Space className="w-full" direction="vertical" size="large">
+        <Space>
+          <ExportAdminDataButton />
+          <ImportAdminDataButton />
+          <ResetDataButtons />
         </Space>
-      </ContentSection>
-    </Dashboard>
+        <UsersTable users={users} />
+      </Space>
+    </ContentSection>
   )
 }
 
