@@ -1,3 +1,5 @@
+'use client'
+
 import type { IDomainModel } from '@codelab/frontend/abstract/domain'
 import type { ReactNode } from 'react'
 

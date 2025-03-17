@@ -1,3 +1,5 @@
+'use client'
+
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
 
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'

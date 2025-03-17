@@ -1,3 +1,5 @@
+'use client'
+
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
 import type { ReactNode } from 'react'
 

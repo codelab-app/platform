@@ -1,3 +1,5 @@
+'use client'
+
 import type { IActionModel } from '@codelab/frontend/abstract/domain'
 
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
