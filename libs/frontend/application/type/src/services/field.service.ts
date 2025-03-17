@@ -1,12 +1,12 @@
 import type {
-  IFieldService,
-  UpdatePopoverParamsContext,
-} from '@codelab/frontend/abstract/application'
-import type {
   IFieldModel,
   IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
-import type { BuilderContextParams } from '@codelab/frontend/abstract/types'
+import type {
+  BuilderContextParams,
+  IFieldCreateRouteContext,
+  IFieldUpdateRouteContext,
+} from '@codelab/frontend/abstract/types'
 import type {
   ICreateFieldData,
   IFieldDto,
@@ -14,13 +14,19 @@ import type {
 } from '@codelab/shared/abstract/core'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import { PageType, PrimarySidebar } from '@codelab/frontend/abstract/types'
+import { type IFieldService } from '@codelab/frontend/abstract/application'
+import {
+  IRouteType,
+  PageType,
+  PrimarySidebar,
+} from '@codelab/frontend/abstract/types'
 import { fieldRepository } from '@codelab/frontend-domain-type/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Validator } from '@codelab/shared/infra/typebox'
 import { filter, isDefined, isTruthy, unique } from 'remeda'
 import { v4 } from 'uuid'
 
+import { fieldMapper } from './field.mapper'
 import { useTypeService } from './type.service'
 
 export const useFieldService = (): IFieldService => {
@@ -29,7 +35,7 @@ export const useFieldService = (): IFieldService => {
 
   const cloneField = async (field: IFieldModel, apiId: string) => {
     const fieldDto = {
-      ...fieldService.mapFieldToDto(field),
+      ...fieldMapper.mapFieldToDto(field),
       api: { id: apiId },
       id: v4(),
     }
@@ -49,7 +55,7 @@ export const useFieldService = (): IFieldService => {
   const create = async (createFieldData: ICreateFieldData) => {
     await typeService.getOne(createFieldData.fieldType)
 
-    const fieldDto = fieldService.mapDataToDto(createFieldData)
+    const fieldDto = fieldMapper.mapDataToDto(createFieldData)
     const field = fieldDomainService.hydrate(fieldDto)
 
     const interfaceType = typeDomainService.type<IInterfaceTypeModel>(
@@ -128,7 +134,7 @@ export const useFieldService = (): IFieldService => {
 
     Validator.assertsDefined(field)
 
-    const updateFieldDto = fieldService.mapDataToDto(updateFieldData)
+    const updateFieldDto = fieldMapper.mapDataToDto(updateFieldData)
 
     field.writeCache(updateFieldDto)
 
@@ -204,14 +210,12 @@ export const useFieldService = (): IFieldService => {
 
   const closeFieldPopover = (
     router: AppRouterInstance,
-    { appId, componentId, pageId }: BuilderContextParams,
+    { params, type }: IFieldCreateRouteContext,
   ) => {
-    if (componentId) {
-      router.push(PageType.ComponentBuilder({ componentId }))
-    } else if (appId && pageId) {
-      router.push(
-        PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree),
-      )
+    if (type === IRouteType.Component) {
+      router.push(PageType.ComponentBuilder(params))
+    } else if (type === IRouteType.Page) {
+      router.push(PageType.PageBuilder(params, PrimarySidebar.ElementTree))
     } else {
       router.push(PageType.Type())
     }
@@ -221,18 +225,15 @@ export const useFieldService = (): IFieldService => {
     close: closeFieldPopover,
     open: (
       router: AppRouterInstance,
-      {
-        appId,
-        componentId,
-        interfaceId,
-        pageId,
-      }: BuilderContextParams & { interfaceId: string },
+      { params, type }: IFieldCreateRouteContext,
     ) => {
-      const url = componentId
-        ? PageType.ComponentBuilder({ componentId })
-        : PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
-
-      router.push(`${url}/interface/${interfaceId}/create-field`)
+      if (type === IRouteType.Page) {
+        router.push(
+          PageType.PageBuilderCreateField(params, PrimarySidebar.ElementTree),
+        )
+      } else if (type === IRouteType.Component) {
+        router.push(PageType.ComponentBuilderCreateField(params))
+      }
     },
   }
 
@@ -240,13 +241,15 @@ export const useFieldService = (): IFieldService => {
     close: closeFieldPopover,
     open: (
       router: AppRouterInstance,
-      { appId, componentId, fieldId, pageId }: UpdatePopoverParamsContext,
+      { params, type }: IFieldUpdateRouteContext,
     ) => {
-      const url = componentId
-        ? PageType.ComponentBuilder({ componentId })
-        : PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
-
-      router.push(`${url}/update-field/${fieldId}`)
+      if (type === IRouteType.Component) {
+        router.push(PageType.ComponentBuilderUpdateField(params))
+      } else if (type === IRouteType.Page) {
+        router.push(PageType.PageBuilderUpdateField(params))
+      } else {
+        router.push(PageType.TypeUpdateField(params))
+      }
     },
   }
 
@@ -254,13 +257,15 @@ export const useFieldService = (): IFieldService => {
     close: closeFieldPopover,
     open: (
       router: AppRouterInstance,
-      { appId, componentId, fieldId, pageId }: UpdatePopoverParamsContext,
+      { params, type }: IFieldUpdateRouteContext,
     ) => {
-      const url = componentId
-        ? PageType.ComponentBuilder({ componentId })
-        : PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
-
-      router.push(`${url}/delete/field/${fieldId}`)
+      if (type === IRouteType.Component) {
+        router.push(PageType.ComponentBuilderDeleteField(params))
+      } else if (type === IRouteType.Page) {
+        router.push(PageType.PageBuilderDeleteField(params))
+      } else {
+        router.push(PageType.TypeDeleteField(params))
+      }
     },
   }
 
@@ -275,37 +280,4 @@ export const useFieldService = (): IFieldService => {
     update,
     updatePopover,
   }
-}
-
-export const fieldService = {
-  mapDataToDto: (fieldData: ICreateFieldData) => {
-    return {
-      ...fieldData,
-      api: { id: fieldData.interfaceTypeId },
-      defaultValues: isDefined(fieldData.defaultValues)
-        ? JSON.stringify(fieldData.defaultValues)
-        : null,
-      fieldType: { id: fieldData.fieldType },
-      validationRules: fieldData.validationRules
-        ? JSON.stringify(fieldData.validationRules)
-        : null,
-    }
-  },
-
-  mapFieldToDto: (field: IFieldModel): IFieldDto => {
-    return {
-      api: { id: field.api.id },
-      defaultValues: field.defaultValues
-        ? JSON.stringify(field.defaultValues)
-        : null,
-      description: field.description,
-      fieldType: { id: field.type.id },
-      id: field.id,
-      key: field.key,
-      name: field.name,
-      validationRules: field.validationRules
-        ? JSON.stringify(field.validationRules)
-        : null,
-    }
-  },
 }

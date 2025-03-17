@@ -1,4 +1,5 @@
 import {
+  type IBuilderRouteContext,
   type IElementTreeViewDataNode,
   IRuntimeNodeType,
   runtimeComponentRef,
@@ -21,7 +22,8 @@ import { ElementTreeItemTitle } from './ElementTreeItemTitle'
  */
 export const ElementTreeView = observer<{
   treeData?: IElementTreeViewDataNode
-}>(({ treeData }) => {
+  context: IBuilderRouteContext
+}>(({ context, treeData }) => {
   const { builderService, runtimeElementService } = useApplicationStore()
   const { syncModifiedElements } = useElementService()
   const selectedNode = builderService.selectedNode?.current
@@ -86,7 +88,9 @@ export const ElementTreeView = observer<{
         )
       }}
       selectedKeys={selectedNode ? [selectedNode.compositeKey] : []}
-      titleRender={(data) => <ElementTreeItemTitle data={data} />}
+      titleRender={(data) => (
+        <ElementTreeItemTitle context={context} data={data} />
+      )}
       treeData={treeData ? [treeData] : []}
     />
   )

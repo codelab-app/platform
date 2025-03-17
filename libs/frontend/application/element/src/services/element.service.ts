@@ -1,8 +1,12 @@
-import type { IElementService } from '@codelab/frontend/abstract/application'
 import type { BuilderContextParams } from '@codelab/frontend/abstract/types'
 import type { IElementDto } from '@codelab/shared/abstract/core'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
+import {
+  type IBuilderRouteContext,
+  type IElementService,
+  IRouteType,
+} from '@codelab/frontend/abstract/application'
 import {
   type IElementModel,
   type IMoveElementContext,
@@ -24,14 +28,11 @@ const createPopover = {
   close: (router: AppRouterInstance) => {
     router.back()
   },
-  open: (
-    router: AppRouterInstance,
-    { appId, componentId, pageId }: BuilderContextParams,
-  ) => {
+  open: (router: AppRouterInstance, { params, type }: IBuilderRouteContext) => {
     const url =
-      appId && pageId
-        ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
-        : PageType.ComponentBuilder({ componentId })
+      type === IRouteType.Page
+        ? PageType.PageBuilder(params, PrimarySidebar.ElementTree)
+        : PageType.ComponentBuilder(params)
 
     router.push(`${url}/create-element`)
   },
@@ -43,19 +44,14 @@ const deletePopover = {
   },
   open: (
     router: AppRouterInstance,
-    {
-      appId,
-      componentId,
-      elementId,
-      pageId,
-    }: BuilderContextParams & { elementId: string },
+    { params, type }: IBuilderRouteContext<{ elementId: string }>,
   ) => {
     const url =
-      appId && pageId
-        ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
-        : PageType.ComponentBuilder({ componentId })
+      type === IRouteType.Page
+        ? PageType.PageBuilder(params, PrimarySidebar.ElementTree)
+        : PageType.ComponentBuilder(params)
 
-    router.push(`${url}/delete/element/${elementId}`)
+    router.push(`${url}/delete/element/${params.elementId}`)
   },
 }
 

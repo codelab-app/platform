@@ -8,7 +8,8 @@ import { UrlParamsHydrator } from '@codelab/frontend/infra/context'
 import { CuiProvider } from '@codelab/frontend/presentation/codelab-ui'
 import {
   useSearchParamsProps,
-  useUrlPathParams,
+  useUrlParams,
+  useValidatedUrlParams,
 } from '@codelab/frontend-application-shared-store/router'
 import {
   createRootStore,
@@ -21,7 +22,7 @@ export const RootProviders = ({
   children,
   user,
 }: PropsWithChildren<{ user: IUserDto }>) => {
-  const pathParams = useUrlPathParams()
+  const pathParams = useUrlParams()
   const searchParams = useSearchParamsProps()
 
   const rootStore = useMemo(

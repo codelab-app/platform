@@ -4,7 +4,7 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 
 import { isAdmin } from '@codelab/frontend/abstract/domain'
-import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
+import { useValidatedUrlParams } from '@codelab/frontend-application-shared-store/router'
 import { useFieldService } from '@codelab/frontend-application-type/services'
 import { useUser } from '@codelab/frontend-application-user/services'
 import { Button, Col, Dropdown, Row } from 'antd'
@@ -14,7 +14,7 @@ import { useRouter } from 'next/navigation'
 export const AdminPropsPanel = observer<{ interfaceType: IInterfaceTypeModel }>(
   ({ interfaceType }) => {
     const user = useUser()
-    const { appId, componentId, pageId } = useUrlPathParams()
+    const { appId, componentId, pageId } = useValidatedUrlParams()
     const router = useRouter()
     const { createPopover, deletePopover, updatePopover } = useFieldService()
 

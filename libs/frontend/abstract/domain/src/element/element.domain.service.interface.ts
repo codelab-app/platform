@@ -16,7 +16,6 @@ export interface IElementDomainService
   extends IHydrateable<IElementDto, IElementModel> {
   elements: ObjectMap<IElementModel>
   modifiedElements: Array<IElementModel>
-
   addTreeNode(elementDto: IElementDto): IElementModel
   element(id: string): IElementModel
   logElementTreeState(): void

@@ -2,7 +2,7 @@
 
 import type {
   SearchParamsPageProps,
-  UrlPathParams,
+  ValidatedUrlParamsProps,
 } from '@codelab/frontend/abstract/types'
 
 import { parseSearchParamsPageProps } from '@codelab/frontend-application-shared-store/router'
@@ -24,7 +24,7 @@ interface ApplicationStoreHydratorProps {
    * In that case we'll need some override to disable loader
    */
   fallback?: ReactNode
-  pathParams?: UrlPathParams
+  pathParams?: ValidatedUrlParamsProps
   searchParams?: SearchParamsPageProps
 }
 

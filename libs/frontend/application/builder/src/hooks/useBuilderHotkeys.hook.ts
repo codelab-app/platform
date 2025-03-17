@@ -3,7 +3,7 @@ import {
   type IElementService,
   isRuntimeElementRef,
 } from '@codelab/frontend/abstract/application'
-import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
+import { useValidatedUrlParams } from '@codelab/frontend-application-shared-store/router'
 import { useRouter } from 'next/navigation'
 import { useHotkeys } from 'react-hotkeys-hook'
 
@@ -24,7 +24,7 @@ export const useBuilderHotkeys = ({
   selectedNode,
   setSelectedNode,
 }: UseBuilderHotkeysProps) => {
-  const { appId, componentId, pageId } = useUrlPathParams()
+  const { appId, componentId, pageId } = useValidatedUrlParams()
   const router = useRouter()
 
   useHotkeys(

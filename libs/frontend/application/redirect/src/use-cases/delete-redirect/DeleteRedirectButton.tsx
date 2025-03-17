@@ -4,7 +4,7 @@ import type { IRedirectModel } from '@codelab/frontend/abstract/domain'
 
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import { getUiDataKey, UiKey } from '@codelab/frontend/abstract/types'
-import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
+import { useValidatedUrlParams } from '@codelab/frontend-application-shared-store/router'
 import { Button, Popconfirm } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
@@ -14,7 +14,7 @@ import { useRedirectService } from '../../services/redirect.service'
 export const DeleteRedirectButton = observer<{
   redirect?: IRedirectModel
 }>(({ redirect }) => {
-  const { appId, pageId } = useUrlPathParams()
+  const { appId, pageId } = useValidatedUrlParams()
   const redirectService = useRedirectService()
   const router = useRouter()
 

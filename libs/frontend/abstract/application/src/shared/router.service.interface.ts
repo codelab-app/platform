@@ -1,8 +1,8 @@
 import type {
   SearchParamsContext,
   SearchParamsProps,
-  UrlPathParams,
-  UrlPathParamsProps,
+  UrlParamsProps,
+  ValidatedUrlParamsProps,
 } from '@codelab/frontend/abstract/types'
 
 /**
@@ -14,15 +14,15 @@ import type {
  *
  */
 export interface IRouterProps {
-  pathParams: UrlPathParamsProps
+  pathParams: UrlParamsProps
   searchParams?: SearchParamsProps
 }
 
-export type IRouterService = UrlPathParams &
+export type IRouterService = ValidatedUrlParamsProps &
   SearchParamsContext & {
-    pathParams: UrlPathParamsProps
+    pathParams: UrlParamsProps
     searchParams: SearchParamsProps
 
-    setPathParams(params: UrlPathParams): void
-    setSearchParams(params: Partial<SearchParamsProps>): void
+    setPathParams(params: UrlParamsProps): void
+    setSearchParams(params: SearchParamsProps): void
   }

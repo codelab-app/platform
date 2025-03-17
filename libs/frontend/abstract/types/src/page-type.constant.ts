@@ -6,9 +6,11 @@ import type { IRef } from '@codelab/shared/abstract/core'
 // import queryString from 'query-string'
 
 import type {
+  ExtractRouteContextParams,
+  IFieldUpdateRouteContext,
+  IRouteType,
   PageContextParams,
   SearchParamsContext,
-  UrlPathParams,
 } from './router'
 
 /**
@@ -30,7 +32,7 @@ export const PageType = {
   AppBuild: ({ id }: IRef) => `/apps/${id}/build`,
   AppCreate: () => '/apps/create',
   AppDelete: ({ id }: IRef) => `/apps/${id}/delete`,
-  AppDetail: ({ appId }: Pick<UrlPathParams, 'appId'>) => `/apps/${appId}`,
+  AppDetail: ({ appId }: { appId: string }) => `/apps/${appId}`,
   AppImport: () => '/apps/import',
   AppList: () => '/apps',
   AppUpdate: ({ id }: IRef) => `/apps/update/${id}`,
@@ -54,22 +56,53 @@ export const PageType = {
   AuthGuardsCreate: () => `${PageType.AuthGuards()}/create`,
   AuthGuardsDelete: ({ id }: IRef) => `${PageType.AuthGuards()}/${id}/delete`,
   AuthGuardsUpdate: ({ id }: IRef) => `${PageType.AuthGuards()}/${id}/update`,
-  ComponentBuilder: ({ componentId }: Pick<UrlPathParams, 'componentId'>) =>
+  ComponentBuilder: ({ componentId }: { componentId: string }) =>
     `/components/${componentId}/builder`,
+  ComponentBuilderCreateElement: ({ componentId }: { componentId: string }) =>
+    `${PageType.ComponentBuilder({ componentId })}/create-element`,
+  ComponentBuilderCreateField: ({
+    componentId,
+    interfaceId,
+  }: {
+    componentId: string
+    interfaceId: string
+  }) =>
+    `${PageType.ComponentBuilder({
+      componentId,
+    })}/interface/${interfaceId}/create-field`,
+  ComponentBuilderDeleteField: ({
+    componentId,
+    fieldId,
+  }: {
+    componentId: string
+    fieldId: string
+  }) =>
+    `${PageType.ComponentBuilder({
+      componentId,
+    })}/field/${fieldId}/delete`,
+  ComponentBuilderUpdateField: ({
+    componentId,
+    fieldId,
+  }: {
+    componentId: string
+    fieldId: string
+  }) =>
+    `${PageType.ComponentBuilder({
+      componentId,
+    })}/field/${fieldId}/update`,
   ComponentCreate: () => {
     return `${PageType.Components()}/create`
   },
   ComponentDelete: ({ id }: IRef) => `${PageType.Components()}/delete/${id}`,
   ComponentExport: () => '/api/export/component',
-  ComponentPreview: ({ componentId }: Pick<UrlPathParams, 'componentId'>) =>
+  ComponentPreview: ({ componentId }: { componentId: string }) =>
     `/components/${componentId}`,
   Components: () => '/components' as const,
-  DomainCreate: ({ appId }: Pick<UrlPathParams, 'appId'>) =>
+  DomainCreate: ({ appId }: { appId: string }) =>
     `/apps/${appId}/domains/create`,
   DomainDelete: ({ appId, domainId }: { appId: string; domainId: string }) =>
     `/apps/${appId}/domains/${domainId}/delete`,
-  DomainList: ({ appId }: Pick<UrlPathParams, 'appId'>) =>
-    `/apps/${appId}/domains`,
+  DomainList: ({ appId }: { appId: string }) => `/apps/${appId}/domains`,
   DomainUpdate: ({ appId, domainId }: { appId: string; domainId: string }) =>
     `/apps/${appId}/domains/${domainId}/update`,
   FieldUpdate: () => {
@@ -85,6 +118,36 @@ export const PageType = {
     { appId, pageId }: PageContextParams,
     sidebar: PrimarySidebar,
   ) => `/apps/${appId}/pages/${pageId}/builder${sidebar}`,
+  PageBuilderCreateElement: (
+    { appId, pageId }: PageContextParams,
+    sidebar: PrimarySidebar,
+  ) => `/apps/${appId}/pages/${pageId}/builder${sidebar}/create-element`,
+  PageBuilderCreateField: (
+    { appId, interfaceId, pageId }: PageContextParams & { interfaceId: string },
+    sidebar: PrimarySidebar,
+  ) =>
+    `${PageType.PageBuilder(
+      { appId, pageId },
+      sidebar,
+    )}/interface/${interfaceId}/create-field`,
+  PageBuilderDeleteField: ({
+    appId,
+    fieldId,
+    pageId,
+  }: ExtractRouteContextParams<IFieldUpdateRouteContext, IRouteType.Page>) =>
+    `${PageType.PageBuilder(
+      { appId, pageId },
+      PrimarySidebar.PageList,
+    )}/field/${fieldId}/delete`,
+  PageBuilderUpdateField: ({
+    appId,
+    fieldId,
+    pageId,
+  }: ExtractRouteContextParams<IFieldUpdateRouteContext, IRouteType.Page>) =>
+    `${PageType.PageBuilder(
+      { appId, pageId },
+      PrimarySidebar.PageList,
+    )}/field/${fieldId}/update`,
   PageCreate: ({ appId, pageId }: PageContextParams) => {
     const pageBuilder = PageType.PageBuilder(
       { appId, pageId },
@@ -133,8 +196,7 @@ export const PageType = {
 
     return `${pageBuilder}/page/update`
   },
-  PropsInterface: ({ appId }: Pick<UrlPathParams, 'appId'>) =>
-    `/apps/${appId}/props`,
+  PropsInterface: ({ appId }: { appId: string }) => `/apps/${appId}/props`,
   Resources: () => '/resources',
   ResourcesCreate: () => `${PageType.Resources()}/create`,
   ResourcesDelete: (id: string) => `${PageType.Resources()}/${id}/delete`,
@@ -147,11 +209,15 @@ export const PageType = {
   },
   TagsUpdate: ({ id }: IRef) => `/tags/${id}/update` as const,
   Type: () => '/types' as const,
-  TypeCreate: () => `${PageType.Type()}/create`,
-  TypeDelete: ({ id }: IRef) => `${PageType.Type()}/delete/${id}`,
+  TypeCreate: () => `${PageType.Type()}/type/create`,
+  TypeDelete: ({ id }: IRef) => `${PageType.Type()}/type/${id}/delete`,
+  TypeDeleteField: ({ fieldId }: { fieldId: string }) =>
+    `${PageType.Type()}/field/${fieldId}/delete`,
   TypeFieldCreate: (typeId: string) =>
-    `${PageType.Type()}/${typeId}/create/field`,
-  TypeFieldDelete: ({ id }: IRef) => `${PageType.Type()}/delete/field/${id}`,
-  TypeFieldUpdate: ({ id }: IRef) => `${PageType.Type()}/update/field/${id}`,
-  TypeUpdate: ({ id }: IRef) => `${PageType.Type()}/update/${id}`,
+    `${PageType.Type()}/field/${typeId}/create/field`,
+  TypeFieldDelete: ({ id }: IRef) => `${PageType.Type()}/field/${id}/delete`,
+  TypeFieldUpdate: ({ id }: IRef) => `${PageType.Type()}/field/${id}/update`,
+  TypeUpdate: ({ id }: IRef) => `${PageType.Type()}/type/${id}/update`,
+  TypeUpdateField: ({ fieldId }: { fieldId: string }) =>
+    `${PageType.Type()}/field/${fieldId}/update`,
 }

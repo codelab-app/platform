@@ -1,6 +1,8 @@
 import type { IFieldModel } from '@codelab/frontend/abstract/domain'
 import type {
   BuilderContextParams,
+  IFieldCreateRouteContext,
+  IFieldUpdateRouteContext,
   IPopover,
 } from '@codelab/frontend/abstract/types'
 import type {
@@ -11,18 +13,14 @@ import type {
 
 import type { ICrudService } from '../services'
 
-export type UpdatePopoverParamsContext = BuilderContextParams & {
-  fieldId: string
-}
-
 export interface IFieldService
   extends ICrudService<IFieldModel, ICreateFieldData, IUpdateFieldData> {
   createPopover: IPopover<
     BuilderContextParams & { interfaceId: string },
     BuilderContextParams
   >
-  deletePopover: IPopover<UpdatePopoverParamsContext, BuilderContextParams>
-  updatePopover: IPopover<UpdatePopoverParamsContext, BuilderContextParams>
+  deletePopover: IPopover<IFieldCreateRouteContext, IFieldCreateRouteContext>
+  updatePopover: IPopover<IFieldUpdateRouteContext, IFieldUpdateRouteContext>
   cloneField(field: IFieldModel, apiId: string): Promise<IFieldModel>
   moveFieldAsNextSibling(props: {
     field: IRef

@@ -12,7 +12,7 @@ import {
   CuiTreeItem,
   CuiTreeItemToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
+import { useValidatedUrlParams } from '@codelab/frontend-application-shared-store/router'
 import { useFieldService } from '@codelab/frontend-application-type/services'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { useRouter } from 'next/navigation'
@@ -22,7 +22,7 @@ interface StateTreeItemProps {
 }
 
 export const StateTreeItem = ({ data }: StateTreeItemProps) => {
-  const { appId, componentId, pageId } = useUrlPathParams()
+  const { appId, componentId, pageId } = useValidatedUrlParams()
   const { fieldDomainService } = useDomainStore()
   const { createPopover, deletePopover, updatePopover } = useFieldService()
   const router = useRouter()

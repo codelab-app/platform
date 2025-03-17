@@ -2,7 +2,8 @@
 
 import type {
   SearchParamsProps,
-  UrlPathParams,
+  UrlParamsProps,
+  ValidatedUrlParamsProps,
 } from '@codelab/frontend/abstract/types'
 
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
@@ -15,7 +16,7 @@ export const useApplicationStoreHydrator = () => {
     searchParams,
   }: {
     searchParams?: SearchParamsProps
-    pathParams?: UrlPathParams
+    pathParams?: UrlParamsProps
   }) => {
     if (searchParams) {
       routerService.setSearchParams(searchParams)

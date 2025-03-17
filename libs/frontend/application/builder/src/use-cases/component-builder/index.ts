@@ -1,2 +1,3 @@
 export * from './ComponentBuilder'
+export * from './ComponentBuilder.container'
 export * from './ComponentBuilderPreview.container'

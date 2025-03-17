@@ -13,7 +13,7 @@ import { usePageService } from '../services'
 import { PageList } from '../use-cases/get-pages'
 
 export const PagesPrimarySidebar = observer(
-  ({ app, page }: { app: IAppModel; page: IPageModel }) => {
+  ({ app, pageId }: { app: IAppModel; pageId: string }) => {
     const router = useRouter()
     const { createPopover } = usePageService()
 
@@ -35,7 +35,7 @@ export const PagesPrimarySidebar = observer(
                   onClick: () =>
                     createPopover.open(router, {
                       appId: app.id,
-                      pageId: page.id,
+                      pageId,
                     }),
                   title: 'Create Page',
                 },

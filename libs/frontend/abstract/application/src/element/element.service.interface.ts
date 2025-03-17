@@ -5,14 +5,18 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import type {
   BuilderContextParams,
+  ComponentContextParams,
   IPopover,
+  PageContextParams,
 } from '@codelab/frontend/abstract/types'
 import type { IElementDto } from '@codelab/shared/abstract/core'
 
+import type { IBuilderContext } from '../builder'
+
 export interface IElementService {
   // Moved from element model to decouple renderer
-  createPopover: IPopover<BuilderContextParams>
-  deletePopover: IPopover<BuilderContextParams & { elementId: string }>
+  createPopover: IPopover<IBuilderContext>
+  deletePopover: IPopover<IBuilderContext<{ elementId: string }>>
   create(data: IElementDto): Promise<IElementModel>
   // loadComponentTree(component: ComponentDevelopmentFragment): {
   //   hydratedElements: Array<IElementModel>

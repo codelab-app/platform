@@ -3,6 +3,7 @@
 import type { IRootRenderer } from '@codelab/frontend/abstract/application'
 import type { IComponentModel } from '@codelab/frontend/abstract/domain'
 
+import { BuilderProvider } from '@codelab/frontend/presentation/container'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 

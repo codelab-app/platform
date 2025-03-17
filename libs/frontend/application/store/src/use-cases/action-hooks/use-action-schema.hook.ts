@@ -4,7 +4,7 @@ import type {
 } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 
-import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
+import { useValidatedUrlParams } from '@codelab/frontend-application-shared-store/router'
 import {
   useApplicationStore,
   useDomainStore,
@@ -19,7 +19,7 @@ export const useActionSchema = (
   schema: JSONSchemaType<ICreateActionData | IUpdateActionData>,
 ) => {
   const { rendererService } = useApplicationStore()
-  const { actionId } = useUrlPathParams()
+  const { actionId } = useValidatedUrlParams()
   const { actionDomainService } = useDomainStore()
   const action = actionDomainService.actions.get(actionId)
 

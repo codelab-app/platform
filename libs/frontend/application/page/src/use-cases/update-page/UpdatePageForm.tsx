@@ -5,7 +5,7 @@ import type { IFormController } from '@codelab/frontend/abstract/types'
 import type { IPageUpdateFormData } from '@codelab/shared/abstract/core'
 
 import { UiKey } from '@codelab/frontend/abstract/types'
-import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
+import { useValidatedUrlParams } from '@codelab/frontend-application-shared-store/router'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
   Form,

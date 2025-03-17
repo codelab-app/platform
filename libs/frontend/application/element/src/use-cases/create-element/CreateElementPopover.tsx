@@ -1,5 +1,6 @@
 'use client'
 
+import type { IBuilderType } from '@codelab/frontend/abstract/application'
 import type { Maybe } from '@codelab/shared/abstract/types'
 
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
@@ -15,47 +16,49 @@ import { useRef } from 'react'
 import { useElementService } from '../../services/element.service'
 import { CreateElementForm } from './CreateElementForm'
 
-export const CreateElementPopover = observer(() => {
-  const router = useRouter()
-  const submitRef = useRef<Maybe<SubmitController>>(undefined)
-  const { createPopover } = useElementService()
-  const { builderService } = useApplicationStore()
-  /**
-   * Maybe current is a code smell, since we are using parallel routes, the selected node may not be set yet, since init builder is what sets it.
-   */
-  const selectedNode = builderService.selectedNode?.maybeCurrent
+export const CreateElementPopover = observer<{ type: IBuilderType }>(
+  ({ type }) => {
+    const router = useRouter()
+    const submitRef = useRef<Maybe<SubmitController>>(undefined)
+    const { createPopover } = useElementService()
+    const { builderService } = useApplicationStore()
+    /**
+     * Maybe current is a code smell, since we are using parallel routes, the selected node may not be set yet, since init builder is what sets it.
+     */
+    const selectedNode = builderService.selectedNode?.maybeCurrent
 
-  // tracker.useModelDiff('Selected node popover', selectedNode)
-  // logger.debug('Selected node popover', selectedNode)
-  tracker.useRenderedCount('CreateElementPopover')
+    // tracker.useModelDiff('Selected node popover', selectedNode)
+    // logger.debug('Selected node popover', selectedNode)
+    tracker.useRenderedCount('CreateElementPopover')
 
-  return (
-    <CuiSidebarSecondary
-      id={UiKey.ElementPopoverCreate}
-      toolbar={{
-        items: [
-          {
-            cuiKey: UiKey.ElementToolbarItemCreate,
-            icon: <SaveOutlined />,
-            label: 'Create',
-            onClick: () => submitRef.current?.submit(),
-          },
-          {
-            cuiKey: UiKey.ElementToolbarItemCreateCancel,
-            icon: <CloseOutlined />,
-            label: 'Cancel',
-            onClick: () => createPopover.close(router),
-          },
-        ],
-        title: 'Create Element toolbar',
-      }}
-    >
-      <CreateElementForm
-        onSubmitSuccess={() => createPopover.close(router)}
-        selectedNode={selectedNode}
-        showFormControl={false}
-        submitRef={submitRef}
-      />
-    </CuiSidebarSecondary>
-  )
-})
+    return (
+      <CuiSidebarSecondary
+        id={UiKey.ElementPopoverCreate}
+        toolbar={{
+          items: [
+            {
+              cuiKey: UiKey.ElementToolbarItemCreate,
+              icon: <SaveOutlined />,
+              label: 'Create',
+              onClick: () => submitRef.current?.submit(),
+            },
+            {
+              cuiKey: UiKey.ElementToolbarItemCreateCancel,
+              icon: <CloseOutlined />,
+              label: 'Cancel',
+              onClick: () => createPopover.close(router),
+            },
+          ],
+          title: 'Create Element toolbar',
+        }}
+      >
+        <CreateElementForm
+          onSubmitSuccess={() => createPopover.close(router)}
+          selectedNode={selectedNode}
+          showFormControl={false}
+          submitRef={submitRef}
+        />
+      </CuiSidebarSecondary>
+    )
+  },
+)

@@ -69,11 +69,11 @@ export const CreateElementForm = observer<CreateElementFormProps>((props) => {
   // ])
 
   // If we rely on the parentElement object for state, let's track it too
-  const parentElement = elementDomainService.elements.get(
+  const selectedElement = elementDomainService.elements.get(
     selectedElementId ?? '',
   )
 
-  if (!parentElement) {
+  if (!selectedElement) {
     return null
   }
 
@@ -87,9 +87,9 @@ export const CreateElementForm = observer<CreateElementFormProps>((props) => {
       return Promise.reject()
     }
 
-    if (parentElement.children.length > 0) {
+    if (selectedElement.children.length > 0) {
       data.prevSibling =
-        parentElement.children[parentElement.children.length - 1]
+        selectedElement.children[selectedElement.children.length - 1]
       data.parentElement = null
     }
 
@@ -98,14 +98,14 @@ export const CreateElementForm = observer<CreateElementFormProps>((props) => {
 
   const model = {
     closestContainerNode: {
-      id: parentElement.closestContainerNode.id,
+      id: selectedElement.closestContainerNode.id,
     },
     id: v4(),
     owner: {
       id: user.id,
     },
     parentElement: {
-      id: parentElement.id,
+      id: selectedElement.id,
     },
     props: {
       api: { id: v4() },
@@ -118,8 +118,8 @@ export const CreateElementForm = observer<CreateElementFormProps>((props) => {
     },
   }
 
-  const parentAtom = isAtom(parentElement.renderType.current)
-    ? parentElement.renderType.current
+  const parentAtom = isAtom(selectedElement.renderType.current)
+    ? selectedElement.renderType.current
     : undefined
 
   return (
@@ -149,7 +149,7 @@ export const CreateElementForm = observer<CreateElementFormProps>((props) => {
       />
       <AutoField
         component={SelectElementField}
-        help={`only elements from \`${parentElement.closestContainerNode.name}\` are visible in this list`}
+        help={`only elements from \`${selectedElement.closestContainerNode.name}\` are visible in this list`}
         name="parentElement.id"
       />
       <RenderTypeField name="renderType" parentAtom={parentAtom} />

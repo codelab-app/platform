@@ -1,4 +1,4 @@
-import type { UrlPathParams } from '@codelab/frontend/abstract/types'
+import type { ValidatedUrlParamsProps } from '@codelab/frontend/abstract/types'
 import type { ReactNode } from 'react'
 
 import { Dashboard } from './Dashboard'
@@ -19,12 +19,12 @@ export interface DashboardSections {
  */
 export type DashboardLayoutProps<
   Slots extends keyof DashboardSections = never,
-  Params extends keyof UrlPathParams = never,
+  Params extends keyof ValidatedUrlParamsProps = never,
 > = {
   [K in Slots]: ReactNode
 } & {
   params: Promise<{
-    [K in keyof UrlPathParams]: K extends Params ? string : never
+    [K in keyof ValidatedUrlParamsProps]: K extends Params ? string : never
   }>
   children: ReactNode
 }
@@ -44,7 +44,7 @@ type _All = DashboardLayoutProps
  */
 export const DashboardLayout = async <
   Slots extends keyof DashboardSections = never,
-  Params extends keyof UrlPathParams = never,
+  Params extends keyof ValidatedUrlParamsProps = never,
 >({
   children,
   params,

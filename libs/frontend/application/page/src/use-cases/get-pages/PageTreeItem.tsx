@@ -26,7 +26,7 @@ import {
   CuiTreeItemToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { useRedirectService } from '@codelab/frontend-application-redirect/services'
-import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
+import { useValidatedUrlParams } from '@codelab/frontend-application-shared-store/router'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
@@ -51,7 +51,7 @@ export const PageTreeItem = observer(
     const router = useRouter()
     const { removeMany, updatePopover } = usePageService()
     const redirectService = useRedirectService()
-    const { appId } = useUrlPathParams()
+    const { appId } = useValidatedUrlParams()
 
     const commonToolbarItems: Array<ToolbarItem> = [
       {

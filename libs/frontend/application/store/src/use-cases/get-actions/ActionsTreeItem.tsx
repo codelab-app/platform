@@ -13,7 +13,7 @@ import {
   CuiTreeItem,
   CuiTreeItemToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
+import { useValidatedUrlParams } from '@codelab/frontend-application-shared-store/router'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { useRouter } from 'next/navigation'
 
@@ -24,7 +24,7 @@ interface ActionsTreeItemProps {
 }
 
 export const ActionsTreeItem = ({ data }: ActionsTreeItemProps) => {
-  const { appId, componentId, pageId } = useUrlPathParams()
+  const { appId, componentId, pageId } = useValidatedUrlParams()
   const { deletePopover, updatePopover } = useActionService()
   const router = useRouter()
   const actionId = data.extraData.node.id

@@ -10,7 +10,7 @@ import {
   useCloneElementService,
   useElementService,
 } from '@codelab/frontend-application-element/services'
-import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
+import { useValidatedUrlParams } from '@codelab/frontend-application-shared-store/router'
 import { useUser } from '@codelab/frontend-application-user/services'
 import {
   useApplicationStore,
@@ -40,9 +40,9 @@ export const ElementContextMenu = observer<
   const { builderService, runtimeElementService } = useApplicationStore()
   const { elementDomainService } = useDomainStore()
   const componentService = useComponentService()
-  const { createPopover, deletePopover } = useElementService()
+  const { deletePopover } = useElementService()
   const router = useRouter()
-  const { appId, componentId, pageId } = useUrlPathParams()
+  const { appId, componentId, pageId } = useValidatedUrlParams()
 
   const cloneElementService = useCloneElementService({
     builderService,
@@ -63,7 +63,11 @@ export const ElementContextMenu = observer<
   const componentInstance = isComponent(element.renderType.current)
 
   const onAddChild = () => {
-    createPopover.open(router, { appId, componentId, pageId })
+    if (appId && pageId) {
+      createPopover.open(router, { appId, pageId })
+    } else if (componentId) {
+      createPopover.open(router, { componentId })
+    }
 
     setContextMenuNodeId(null)
   }

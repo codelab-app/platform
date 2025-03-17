@@ -1,10 +1,10 @@
-import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
+import { useValidatedUrlParams } from '@codelab/frontend-application-shared-store/router'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { useMemo } from 'react'
 
 export const useCurrentComponent = () => {
   const { componentDomainService } = useDomainStore()
-  const { componentId } = useUrlPathParams()
+  const { componentId } = useValidatedUrlParams()
 
   return useMemo(() => {
     const component = componentDomainService.components.get(componentId)

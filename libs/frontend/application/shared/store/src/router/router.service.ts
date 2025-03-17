@@ -4,7 +4,7 @@ import type {
 } from '@codelab/frontend/abstract/application'
 import type {
   SearchParamsProps,
-  UrlPathParamsProps,
+  UrlParamsProps,
 } from '@codelab/frontend/abstract/types'
 
 import { Validator } from '@codelab/shared/infra/typebox'
@@ -26,7 +26,7 @@ const init = (router: IRouterProps) => {
 @model('@codelab/RouterService')
 export class RouterService
   extends Model({
-    pathParams: prop<UrlPathParamsProps>(() => ({
+    pathParams: prop<UrlParamsProps>(() => ({
       actionId: undefined,
       appId: undefined,
       authGuardId: undefined,

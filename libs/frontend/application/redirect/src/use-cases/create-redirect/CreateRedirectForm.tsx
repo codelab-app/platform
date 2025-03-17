@@ -1,7 +1,7 @@
 import type { IRedirectCreateFormData } from '@codelab/frontend/abstract/domain'
 
 import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
-import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
+import { useValidatedUrlParams } from '@codelab/frontend-application-shared-store/router'
 import {
   DisplayIfField,
   Form,
@@ -19,7 +19,7 @@ import { createRedirectSchema } from './create-redirect.schema'
 export const CreateRedirectForm = observer<IFormController>(
   ({ onSubmitSuccess, showFormControl = true, submitRef }) => {
     const redirectService = useRedirectService()
-    const { pageId } = useUrlPathParams()
+    const { pageId } = useValidatedUrlParams()
 
     const model = {
       id: v4(),
