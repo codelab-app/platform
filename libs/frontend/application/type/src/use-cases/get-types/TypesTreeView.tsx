@@ -6,7 +6,7 @@ import type {
   ITypeTreeNodeData,
 } from '@codelab/frontend/abstract/domain'
 
-import { PageType } from '@codelab/frontend/abstract/types'
+import { PageType } from '@codelab/frontend/abstract/application'
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import { useTablePagination } from '@codelab/frontend-application-shared-store/pagination'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'

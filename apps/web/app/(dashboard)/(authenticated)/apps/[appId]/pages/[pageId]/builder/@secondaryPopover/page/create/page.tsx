@@ -1,4 +1,4 @@
-import type { PageContextParams } from '@codelab/frontend/abstract/types'
+import type { PageContextParams } from '@codelab/frontend/abstract/application'
 
 import {
   CreatePagePopover,

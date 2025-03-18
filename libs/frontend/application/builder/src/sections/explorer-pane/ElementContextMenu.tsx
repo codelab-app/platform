@@ -3,8 +3,8 @@
 import type { IElementTreeViewDataNode } from '@codelab/frontend/abstract/application'
 import type { Nullable } from '@codelab/shared/abstract/types'
 
+import { PageType } from '@codelab/frontend/abstract/application'
 import { isComponent } from '@codelab/frontend/abstract/domain'
-import { PageType } from '@codelab/frontend/abstract/types'
 import { useComponentService } from '@codelab/frontend-application-component/services'
 import {
   useCloneElementService,

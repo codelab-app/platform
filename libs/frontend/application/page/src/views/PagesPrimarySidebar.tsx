@@ -1,7 +1,7 @@
 'use client'
 
+import type { PageContextParams } from '@codelab/frontend/abstract/application'
 import type { IAppModel, IPageModel } from '@codelab/frontend/abstract/domain'
-import type { PageContextParams } from '@codelab/frontend/abstract/types'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { UiKey } from '@codelab/frontend/abstract/types'

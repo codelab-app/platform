@@ -2,7 +2,7 @@
 
 import type { IComponentModel } from '@codelab/frontend/abstract/domain'
 
-import { PageType } from '@codelab/frontend/abstract/types'
+import { PageType } from '@codelab/frontend/abstract/application'
 import { downloadJsonAsFile } from '@codelab/frontend/shared/utils'
 import { exportComponentService } from '@codelab/frontend-application-component/use-cases/export-component'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'

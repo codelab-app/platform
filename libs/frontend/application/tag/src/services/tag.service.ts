@@ -10,7 +10,7 @@ import type {
 import type { TagOptions, TagWhere } from '@codelab/shared/infra/gqlgen'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import { PageType } from '@codelab/frontend/abstract/types'
+import { PageType } from '@codelab/frontend/abstract/application'
 import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
 import { tagRepository } from '@codelab/frontend-domain-tag/repositories'
 import { tagRef } from '@codelab/frontend-domain-tag/store'

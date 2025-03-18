@@ -1,4 +1,6 @@
-import type { PageContextParams } from '@codelab/frontend/abstract/types'
+import type { PageContextParams } from '@codelab/frontend/abstract/application'
+
+import { PagePrimarySidebarContainer } from '@codelab/frontend-application-builder/sections'
 
 const Page = async ({ params }: { params: Promise<PageContextParams> }) => {
   const { appId, pageId } = await params

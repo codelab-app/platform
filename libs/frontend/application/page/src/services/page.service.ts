@@ -1,4 +1,7 @@
-import type { PageContextParams } from '@codelab/frontend/abstract/types'
+import type {
+  IPageService,
+  PageContextParams,
+} from '@codelab/frontend/abstract/application'
 import type {
   IElementDto,
   IPageCreateFormData,
@@ -7,9 +10,8 @@ import type {
 import type { PageWhere } from '@codelab/shared/infra/gqlgen'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import { type IPageService } from '@codelab/frontend/abstract/application'
+import { PageType } from '@codelab/frontend/abstract/application'
 import { type IPageModel } from '@codelab/frontend/abstract/domain'
-import { PageType } from '@codelab/frontend/abstract/types'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import { pageRepository } from '@codelab/frontend-domain-page/repositories'
 import {

@@ -19,8 +19,8 @@ import ToolOutlined from '@ant-design/icons/ToolOutlined'
 import {
   PageType,
   PrimarySidebar,
-  UiKey,
-} from '@codelab/frontend/abstract/types'
+} from '@codelab/frontend/abstract/application'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,

@@ -1,7 +1,5 @@
-import type {
-  ComponentContextParams,
-  SearchParamsPageProps,
-} from '@codelab/frontend/abstract/types'
+import type { ComponentContextParams } from '@codelab/frontend/abstract/application'
+import type { SearchParamsPageProps } from '@codelab/frontend/abstract/types'
 
 import { ComponentPrimarySidebar } from '@codelab/frontend-application-builder/sections'
 

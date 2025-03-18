@@ -7,13 +7,13 @@ import type {
 import type { AtomOptions, AtomWhere } from '@codelab/shared/infra/gqlgen'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
+import { PageType } from '@codelab/frontend/abstract/application'
 import {
   CACHE_TAGS,
   type IAtomModel,
   type ICreateAtomData,
   type IUpdateAtomData,
 } from '@codelab/frontend/abstract/domain'
-import { PageType } from '@codelab/frontend/abstract/types'
 import { useDomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
 import { useTypeService } from '@codelab/frontend-application-type/services'

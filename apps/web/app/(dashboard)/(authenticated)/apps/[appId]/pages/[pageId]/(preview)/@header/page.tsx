@@ -1,4 +1,4 @@
-import type { PageContextParams } from '@codelab/frontend/abstract/types'
+import type { PageContextParams } from '@codelab/frontend/abstract/application'
 
 import { AppConnector } from '@codelab/frontend-application-app/views'
 import { BuilderResizeMenu } from '@codelab/frontend-application-builder/use-cases/resize'

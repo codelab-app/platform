@@ -4,7 +4,7 @@ import ApiOutlined from '@ant-design/icons/ApiOutlined'
 import DeploymentUnitOutlined from '@ant-design/icons/DeploymentUnitOutlined'
 import TagOutlined from '@ant-design/icons/TagOutlined'
 import UserOutlined from '@ant-design/icons/UserOutlined'
-import { PageType } from '@codelab/frontend/abstract/types'
+import { PageType } from '@codelab/frontend/abstract/application'
 
 export const adminMenuItems: Array<NavigationBarItem> = [
   {

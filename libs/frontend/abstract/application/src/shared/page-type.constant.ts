@@ -1,17 +1,18 @@
+import type { SearchParamsContext } from '@codelab/frontend/abstract/types'
 import type { IRef } from '@codelab/shared/abstract/core'
+
+import type {
+  IActionCreateRouteContext,
+  IActionUpdateRouteContext,
+} from '../action'
+import type { IFieldUpdateRouteContext } from '../field'
+import type { PageContextParams } from '../page'
+import type { ExtractRouteContextParams, IRouteType } from './route.interface'
 
 // playwright currently imports PageType in tests, and the "query-string"
 // is a ESM module that fails to be imported by playwright in CJS environment.
 // importing queryString here breaks all E2E tests. Commenting out until no solution.
 // import queryString from 'query-string'
-
-import type {
-  ExtractRouteContextParams,
-  IFieldUpdateRouteContext,
-  IRouteType,
-  PageContextParams,
-  SearchParamsContext,
-} from './router'
 
 /**
  * The values are the path
@@ -58,6 +59,14 @@ export const PageType = {
   AuthGuardsUpdate: ({ id }: IRef) => `${PageType.AuthGuards()}/${id}/update`,
   ComponentBuilder: ({ componentId }: { componentId: string }) =>
     `/components/${componentId}/builder`,
+  ComponentBuilderCreateAction: ({
+    componentId,
+    storeId,
+  }: ExtractRouteContextParams<
+    IActionCreateRouteContext,
+    IRouteType.Component
+  >) =>
+    `${PageType.ComponentBuilder({ componentId })}/action/create/${storeId}`,
   ComponentBuilderCreateElement: ({ componentId }: { componentId: string }) =>
     `${PageType.ComponentBuilder({ componentId })}/create-element`,
   ComponentBuilderCreateField: ({
@@ -80,6 +89,14 @@ export const PageType = {
     `${PageType.ComponentBuilder({
       componentId,
     })}/field/${fieldId}/delete`,
+  ComponentBuilderUpdateAction: ({
+    actionId,
+    componentId,
+  }: ExtractRouteContextParams<
+    IActionUpdateRouteContext,
+    IRouteType.Component
+  >) =>
+    `${PageType.ComponentBuilder({ componentId })}/action/update/${actionId}`,
   ComponentBuilderUpdateField: ({
     componentId,
     fieldId,
@@ -118,6 +135,18 @@ export const PageType = {
     { appId, pageId }: PageContextParams,
     sidebar: PrimarySidebar,
   ) => `/apps/${appId}/pages/${pageId}/builder${sidebar}`,
+  PageBuilderCreateAction: (
+    {
+      appId,
+      pageId,
+      storeId,
+    }: ExtractRouteContextParams<IActionCreateRouteContext, IRouteType.Page>,
+    sidebar: PrimarySidebar,
+  ) =>
+    `${PageType.PageBuilder(
+      { appId, pageId },
+      sidebar,
+    )}/action/create/${storeId}`,
   PageBuilderCreateElement: (
     { appId, pageId }: PageContextParams,
     sidebar: PrimarySidebar,
@@ -139,6 +168,18 @@ export const PageType = {
       { appId, pageId },
       PrimarySidebar.PageList,
     )}/field/${fieldId}/delete`,
+  PageBuilderUpdateAction: (
+    {
+      actionId,
+      appId,
+      pageId,
+    }: ExtractRouteContextParams<IActionUpdateRouteContext, IRouteType.Page>,
+    sidebar: PrimarySidebar,
+  ) =>
+    `${PageType.PageBuilder(
+      { appId, pageId },
+      sidebar,
+    )}/action/update/${actionId}`,
   PageBuilderUpdateField: ({
     appId,
     fieldId,

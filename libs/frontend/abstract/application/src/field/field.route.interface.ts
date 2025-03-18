@@ -1,4 +1,4 @@
-import type { IRouteType } from '@codelab/frontend/abstract/types'
+import type { IRouteType } from '../shared'
 
 /**
  * `CreateFieldPopover` can be used in 4 places

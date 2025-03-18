@@ -1,4 +1,4 @@
-import type { PageContextParams } from '@codelab/frontend/abstract/types'
+import type { PageContextParams } from '@codelab/frontend/abstract/application'
 import type { Metadata } from 'next'
 
 import { PageBuilderContainer } from '@codelab/frontend-application-builder/use-cases/page-builder'

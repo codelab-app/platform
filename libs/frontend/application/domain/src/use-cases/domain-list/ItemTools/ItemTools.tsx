@@ -1,7 +1,7 @@
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import EditOutlined from '@ant-design/icons/EditOutlined'
+import { PageType } from '@codelab/frontend/abstract/application'
 import { type IDomainModel } from '@codelab/frontend/abstract/domain'
-import { PageType } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'

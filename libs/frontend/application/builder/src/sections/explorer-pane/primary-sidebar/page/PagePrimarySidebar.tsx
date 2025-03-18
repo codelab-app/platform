@@ -1,12 +1,9 @@
 'use client'
 
+import type { IPageBuilderRouteContext } from '@codelab/frontend/abstract/application'
 import type { IAppModel, IPageModel } from '@codelab/frontend/abstract/domain'
-import type { IPageBuilderRouteContext } from '@codelab/frontend/abstract/types'
 
-import {
-  ExplorerPaneType,
-  PageContextParams,
-} from '@codelab/frontend/abstract/types'
+import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { PagesPrimarySidebar } from '@codelab/frontend-application-page/views'
 import { useActionService } from '@codelab/frontend-application-store/services'

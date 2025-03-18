@@ -1,8 +1,4 @@
 import type {
-  CrudActionPopoverParams,
-  IActionService,
-} from '@codelab/frontend/abstract/application'
-import type {
   IActionDto,
   ICreateActionData,
   IUpdateActionData,
@@ -10,10 +6,17 @@ import type {
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import {
+  type IActionCreateRouteContext,
+  type IActionService,
+  type IActionUpdateRouteContext,
+  IRouteType,
+  PageType,
+  PrimarySidebar,
+} from '@codelab/frontend/abstract/application'
+import {
   type IActionModel,
   type IActionWhere,
 } from '@codelab/frontend/abstract/domain'
-import { PageType, PrimarySidebar } from '@codelab/frontend/abstract/types'
 import { useDomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { actionRepository } from '@codelab/frontend-domain-store/repositories'
 import {
@@ -133,14 +136,14 @@ export const useActionService = (): IActionService => {
     },
     open: (
       router: AppRouterInstance,
-      { appId, componentId, pageId, storeId }: CrudActionPopoverParams,
+      { params, type }: IActionCreateRouteContext,
     ) => {
       const url =
-        appId && pageId
-          ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
-          : PageType.ComponentBuilder({ componentId })
+        type === IRouteType.Page
+          ? PageType.PageBuilderCreateAction(params, PrimarySidebar.ElementTree)
+          : PageType.ComponentBuilderCreateAction(params)
 
-      router.push(`${url}/store/${storeId}/create-action`)
+      router.push(url)
     },
   }
 
@@ -150,14 +153,14 @@ export const useActionService = (): IActionService => {
     },
     open: (
       router: AppRouterInstance,
-      { actionId, appId, componentId, pageId }: CrudActionPopoverParams,
+      { params, type }: IActionUpdateRouteContext,
     ) => {
       const url =
-        appId && pageId
-          ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
-          : PageType.ComponentBuilder({ componentId })
+        type === IRouteType.Page
+          ? PageType.PageBuilderUpdateAction(params, PrimarySidebar.ElementTree)
+          : PageType.ComponentBuilderUpdateAction(params)
 
-      router.push(`${url}/update-action/${actionId}`)
+      router.push(url)
     },
   }
 
@@ -167,10 +170,10 @@ export const useActionService = (): IActionService => {
     },
     open: (
       router: AppRouterInstance,
-      { actionId, appId, componentId, pageId }: CrudActionPopoverParams,
+      { params, type }: IActionUpdateRouteContext,
     ) => {
       const url =
-        appId && pageId
+        type === IRouteType.Page
           ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
           : PageType.ComponentBuilder({ componentId })
 

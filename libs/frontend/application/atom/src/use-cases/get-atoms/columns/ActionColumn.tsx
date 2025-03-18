@@ -1,4 +1,4 @@
-import { PageType } from '@codelab/frontend/abstract/types'
+import { PageType } from '@codelab/frontend/abstract/application'
 import {
   ListItemDeleteButton,
   ListItemEditButton,

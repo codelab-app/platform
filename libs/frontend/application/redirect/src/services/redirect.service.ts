@@ -1,14 +1,16 @@
-import type { IRedirectService } from '@codelab/frontend/abstract/application'
+import type {
+  IRedirectService,
+  PageContextParams,
+} from '@codelab/frontend/abstract/application'
 import type {
   IRedirectCreateFormData,
   IRedirectModel,
   IRedirectUpdateFormData,
 } from '@codelab/frontend/abstract/domain'
-import type { PageContextParams } from '@codelab/frontend/abstract/types'
 import type { RedirectWhere } from '@codelab/shared/infra/gqlgen'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import { PageType } from '@codelab/frontend/abstract/types'
+import { PageType } from '@codelab/frontend/abstract/application'
 import { redirectRepository } from '@codelab/frontend-domain-redirect/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 

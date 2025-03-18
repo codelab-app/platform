@@ -8,7 +8,7 @@ import type { IRef } from '@codelab/shared/abstract/core'
 import type { AuthGuardWhere } from '@codelab/shared/infra/gqlgen'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import { PageType } from '@codelab/frontend/abstract/types'
+import { PageType } from '@codelab/frontend/abstract/application'
 import { authGuardRepository } from '@codelab/frontend-domain-auth-guard/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Validator } from '@codelab/shared/infra/typebox'

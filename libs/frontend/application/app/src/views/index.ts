@@ -1,2 +1,2 @@
-export * from './Apps.connector'
 export * from './App.connector'
+export * from './Apps.connector'

@@ -1,15 +1,10 @@
 'use client'
 
+import type { IBuilderRouteContext } from '@codelab/frontend/abstract/application'
 import type {
   IComponentModel,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
-import type {
-  BuilderContextParams,
-  ComponentContextParams,
-  IBuilderRouteContext,
-  PageContextParams,
-} from '@codelab/frontend/abstract/types'
 import type { CuiSidebarView } from '@codelab/frontend/presentation/codelab-ui'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'

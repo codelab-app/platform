@@ -10,7 +10,7 @@ import EllipsisOutlined from '@ant-design/icons/EllipsisOutlined'
 import ExportOutlined from '@ant-design/icons/ExportOutlined'
 import GlobalOutlined from '@ant-design/icons/GlobalOutlined'
 import ToolOutlined from '@ant-design/icons/ToolOutlined'
-import { PageType } from '@codelab/frontend/abstract/types'
+import { PageType } from '@codelab/frontend/abstract/application'
 import { Button, Dropdown } from 'antd'
 import { useRouter } from 'next/navigation'
 

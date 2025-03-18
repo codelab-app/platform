@@ -1,5 +1,5 @@
 import { corsMiddleware } from '@codelab/backend/infra/adapter/middleware'
-import { PageType } from '@codelab/frontend/abstract/types'
+import { PageType } from '@codelab/frontend/abstract/application'
 import { auth0Instance } from '@codelab/shared-infra-auth0/client'
 import {
   type NextFetchEvent,

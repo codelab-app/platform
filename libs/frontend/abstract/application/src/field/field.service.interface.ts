@@ -1,9 +1,5 @@
 import type { IFieldModel } from '@codelab/frontend/abstract/domain'
-import type {
-  BuilderContextParams,
-  IBuilderRouteContext,
-  IPopover,
-} from '@codelab/frontend/abstract/types'
+import type { IPopover } from '@codelab/frontend/abstract/types'
 import type {
   ICreateFieldData,
   IRef,

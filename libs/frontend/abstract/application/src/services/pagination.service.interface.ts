@@ -6,7 +6,7 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import type { Ref } from 'mobx-keystone'
 
-import { PageType } from '@codelab/frontend/abstract/types'
+import { PageType } from '../shared'
 
 export type SupportedPaginationModel =
   | IAtomModel

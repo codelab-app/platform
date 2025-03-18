@@ -1,17 +1,7 @@
 import type {
-  IFieldCreateRouteContext,
-  IFieldRouteContext,
-  IFieldService,
-  IFieldUpdateRouteContext,
-} from '@codelab/frontend/abstract/application'
-import type {
   IFieldModel,
   IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
-import type {
-  BuilderContextParams,
-  IBuilderRouteContext,
-} from '@codelab/frontend/abstract/types'
 import type {
   ICreateFieldData,
   IFieldDto,
@@ -20,10 +10,13 @@ import type {
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import {
+  type IFieldCreateRouteContext,
+  type IFieldRouteContext,
+  type IFieldService,
+  type IFieldUpdateRouteContext,
   IRouteType,
-  PageType,
-  PrimarySidebar,
-} from '@codelab/frontend/abstract/types'
+} from '@codelab/frontend/abstract/application'
+import { PageType, PrimarySidebar } from '@codelab/frontend/abstract/types'
 import { fieldRepository } from '@codelab/frontend-domain-type/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Validator } from '@codelab/shared/infra/typebox'
