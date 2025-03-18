@@ -1,11 +1,16 @@
 import type {
+  IFieldCreateRouteContext,
+  IFieldRouteContext,
+  IFieldService,
+  IFieldUpdateRouteContext,
+} from '@codelab/frontend/abstract/application'
+import type {
   IFieldModel,
   IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
 import type {
   BuilderContextParams,
-  IFieldCreateRouteContext,
-  IFieldUpdateRouteContext,
+  IBuilderRouteContext,
 } from '@codelab/frontend/abstract/types'
 import type {
   ICreateFieldData,
@@ -14,7 +19,6 @@ import type {
 } from '@codelab/shared/abstract/core'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import { type IFieldService } from '@codelab/frontend/abstract/application'
 import {
   IRouteType,
   PageType,
@@ -210,7 +214,7 @@ export const useFieldService = (): IFieldService => {
 
   const closeFieldPopover = (
     router: AppRouterInstance,
-    { params, type }: IFieldCreateRouteContext,
+    { params, type }: IFieldRouteContext,
   ) => {
     if (type === IRouteType.Component) {
       router.push(PageType.ComponentBuilder(params))

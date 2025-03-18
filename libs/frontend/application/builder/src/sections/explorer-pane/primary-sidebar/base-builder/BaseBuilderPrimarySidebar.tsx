@@ -1,6 +1,5 @@
 'use client'
 
-import type { IBuilderRouteContext } from '@codelab/frontend/abstract/application'
 import type {
   IComponentModel,
   IPageModel,
@@ -8,6 +7,7 @@ import type {
 import type {
   BuilderContextParams,
   ComponentContextParams,
+  IBuilderRouteContext,
   PageContextParams,
 } from '@codelab/frontend/abstract/types'
 import type { CuiSidebarView } from '@codelab/frontend/presentation/codelab-ui'
@@ -36,15 +36,25 @@ interface BuilderPrimarySidebarProps {
   containerNode: IComponentModel | IPageModel
   context: IBuilderRouteContext
   isLoading?: boolean
+  openCreateActionPopover(): void
+  openCreateElementPopover(): void
+  openCreateFieldPopover(): void
 }
 
 export const BaseBuilderPrimarySidebar = observer<BuilderPrimarySidebarProps>(
-  ({ containerNode, context, isLoading = false }) => {
+  ({
+    containerNode,
+    context,
+    isLoading = false,
+    openCreateActionPopover,
+    openCreateElementPopover,
+    openCreateFieldPopover,
+  }) => {
     const { rendererService } = useApplicationStore()
-    const router = useRouter()
-    const { createPopover } = useElementService()
-    const { createPopover: createFieldPopover } = useFieldService()
-    const { createPopover: createActionPopover } = useActionService()
+    // const router = useRouter()
+    // const { createPopover: createElementPopover } = useElementService()
+    // const { createPopover: createFieldPopover } = useFieldService()
+    // const { createPopover: createActionPopover } = useActionService()
 
     console.log('containerNode', containerNode.toJson)
 
@@ -70,7 +80,8 @@ export const BaseBuilderPrimarySidebar = observer<BuilderPrimarySidebarProps>(
               cuiKey: UiKey.ElementToolbarItemCreate,
               icon: <PlusOutlined />,
               onClick: () => {
-                return createPopover.open(router, context)
+                openCreateElementPopover()
+                // return createElementPopover.open(router, context)
               },
               title: 'Add Element',
             },
@@ -95,13 +106,8 @@ export const BaseBuilderPrimarySidebar = observer<BuilderPrimarySidebarProps>(
                 }
 
                 if (store.api.id) {
-                  onCreateFieldPopover()
-                  // createFieldPopover.open(router, {
-                  //   appId,
-                  //   componentId,
-                  //   interfaceId: store.api.id,
-                  //   pageId,
-                  // })
+                  openCreateFieldPopover()
+                  // createFieldPopover.open(router, context)
                 }
               },
               title: 'Add Field',
@@ -126,13 +132,8 @@ export const BaseBuilderPrimarySidebar = observer<BuilderPrimarySidebarProps>(
                   return
                 }
 
-                onCreateActionPopover()
-                // createActionPopover.open(router, {
-                //   appId,
-                //   componentId,
-                //   pageId,
-                //   storeId: store.id,
-                // })
+                openCreateActionPopover()
+                // openCreateActionPopover.open(router, context)
               },
               title: 'Add Action',
             },

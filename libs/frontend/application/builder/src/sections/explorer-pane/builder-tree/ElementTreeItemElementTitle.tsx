@@ -1,14 +1,12 @@
+import type { IBuilderRouteContext } from '@codelab/frontend/abstract/types'
+
 import BorderOuterOutlined from '@ant-design/icons/BorderOuterOutlined'
 import CodeSandboxOutlined from '@ant-design/icons/CodeSandboxOutlined'
 import DeploymentUnitOutlined from '@ant-design/icons/DeploymentUnitOutlined'
 import ExclamationCircleOutlined from '@ant-design/icons/ExclamationCircleOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import {
-  type IBuilderRouteContext,
-  type IElementTreeViewDataNode,
-  IRouteType,
-} from '@codelab/frontend/abstract/application'
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { type IElementTreeViewDataNode } from '@codelab/frontend/abstract/application'
+import { IRouteType, UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,

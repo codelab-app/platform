@@ -129,7 +129,7 @@ export const PageType = {
     `${PageType.PageBuilder(
       { appId, pageId },
       sidebar,
-    )}/interface/${interfaceId}/create-field`,
+    )}/field/create/${interfaceId}`,
   PageBuilderDeleteField: ({
     appId,
     fieldId,
@@ -147,7 +147,7 @@ export const PageType = {
     `${PageType.PageBuilder(
       { appId, pageId },
       PrimarySidebar.PageList,
-    )}/field/${fieldId}/update`,
+    )}/field/update/${fieldId}`,
   PageCreate: ({ appId, pageId }: PageContextParams) => {
     const pageBuilder = PageType.PageBuilder(
       { appId, pageId },

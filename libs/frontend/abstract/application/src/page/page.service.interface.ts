@@ -31,7 +31,6 @@ export interface IPageService
   createPopover: IPopover<PageContextParams, PageContextParams>
   deletePopover: IPopover<PageContextParams, PageContextParams>
   updatePopover: IPopover<PageContextParams, PageContextParams>
-
   getPagesByApp(appId: string): Array<IPageModel>
   getRenderedPage(pageId: string): Promise<GetRenderedPageQuery>
   getSelectPageOptions(appId?: string): Promise<Array<SelectOption>>

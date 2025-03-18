@@ -1,6 +1,7 @@
+import type { IBuilderRouteContext } from '@codelab/frontend/abstract/types'
+
 import BorderOuterOutlined from '@ant-design/icons/BorderOuterOutlined'
 import {
-  type IBuilderRouteContext,
   type IElementTreeViewDataNode,
   IRuntimeNodeType,
 } from '@codelab/frontend/abstract/application'
