@@ -140,8 +140,8 @@ export const useActionService = (): IActionService => {
     ) => {
       const url =
         type === IRouteType.Page
-          ? PageType.PageBuilderCreateAction(params, PrimarySidebar.ElementTree)
-          : PageType.ComponentBuilderCreateAction(params)
+          ? PageType.PageBuilderActionCreate(params, PrimarySidebar.ElementTree)
+          : PageType.ComponentBuilderActionCreate(params)
 
       router.push(url)
     },
@@ -157,8 +157,8 @@ export const useActionService = (): IActionService => {
     ) => {
       const url =
         type === IRouteType.Page
-          ? PageType.PageBuilderUpdateAction(params, PrimarySidebar.ElementTree)
-          : PageType.ComponentBuilderUpdateAction(params)
+          ? PageType.PageBuilderActionUpdate(params, PrimarySidebar.ElementTree)
+          : PageType.ComponentBuilderActionUpdate(params)
 
       router.push(url)
     },
@@ -174,10 +174,10 @@ export const useActionService = (): IActionService => {
     ) => {
       const url =
         type === IRouteType.Page
-          ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
-          : PageType.ComponentBuilder({ componentId })
+          ? PageType.PageBuilderActionDelete(params, PrimarySidebar.ElementTree)
+          : PageType.ComponentBuilderActionDelete(params)
 
-      router.push(`${url}/delete/action/${actionId}`)
+      router.push(url)
     },
   }
 

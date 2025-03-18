@@ -1,8 +1,12 @@
 'use client'
 
-import type { IPageBuilderRouteContext } from '@codelab/frontend/abstract/application'
 import type { IAppModel, IPageModel } from '@codelab/frontend/abstract/domain'
 
+import {
+  type IPageBuilderRouteContext,
+  IRouteType,
+  type PageContextParams,
+} from '@codelab/frontend/abstract/application'
 import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { PagesPrimarySidebar } from '@codelab/frontend-application-page/views'
@@ -19,43 +23,15 @@ import { BaseBuilderPrimarySidebar } from '../base-builder/BaseBuilderPrimarySid
 
 interface PagePrimarySidebarProps {
   app: IAppModel
-  context: IPageBuilderRouteContext
   page: IPageModel
   paneType?: ExplorerPaneType
 }
 
 export const PagePrimarySidebar = ({
   app,
-  context,
   page,
   paneType,
 }: PagePrimarySidebarProps) => {
-  const router = useRouter()
-  const { createPopover: createElementPopover } = useElementService()
-  const { createPopover: createFieldPopover } = useFieldService()
-  const { createPopover: createActionPopover } = useActionService()
-
-  const openCreateElementPopover = () => {
-    createElementPopover.open(router, context)
-  }
-
-  const openCreateFieldPopover = () => {
-    const store = page.store.current
-
-    createFieldPopover.open(
-      router,
-      mergeDeep(context, {
-        params: {
-          interfaceId: store.api.id,
-        },
-      }),
-    )
-  }
-
-  const openCreateActionPopover = () => {
-    createActionPopover.open(router, context)
-  }
-
   if (paneType === ExplorerPaneType.PageList) {
     return <PagesPrimarySidebar app={app} pageId={page.id} />
   }
@@ -63,10 +39,13 @@ export const PagePrimarySidebar = ({
   return (
     <BaseBuilderPrimarySidebar
       containerNode={page}
-      context={context}
-      openCreateActionPopover={openCreateActionPopover}
-      openCreateElementPopover={openCreateElementPopover}
-      openCreateFieldPopover={openCreateFieldPopover}
+      context={{
+        params: {
+          appId: app.id,
+          pageId: page.id,
+        },
+        type: IRouteType.Page,
+      }}
     />
   )
 }

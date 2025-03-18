@@ -1,7 +1,6 @@
-import type { IBuilderRouteContext } from '@codelab/frontend/abstract/types'
-
 import BorderOuterOutlined from '@ant-design/icons/BorderOuterOutlined'
 import {
+  type IBuilderRouteContext,
   type IElementTreeViewDataNode,
   IRuntimeNodeType,
 } from '@codelab/frontend/abstract/application'
@@ -16,7 +15,7 @@ export const ElementTreeItemTitle = observer<{
   context: IBuilderRouteContext
 }>(({ context, data }) => {
   return data.type === IRuntimeNodeType.Element ? (
-    <ElementContextMenu treeNode={data}>
+    <ElementContextMenu context={context} treeNode={data}>
       <ElementTreeItemElementTitle context={context} treeNode={data} />
     </ElementContextMenu>
   ) : (

@@ -1,3 +1,4 @@
+import type { BuilderContextParams } from '@codelab/frontend/abstract/application'
 import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-ui'
 
 import AppstoreOutlined from '@ant-design/icons/AppstoreOutlined'
@@ -5,10 +6,9 @@ import CloudServerOutlined from '@ant-design/icons/CloudServerOutlined'
 import CodeSandboxOutlined from '@ant-design/icons/CodeSandboxOutlined'
 import SafetyOutlined from '@ant-design/icons/SafetyOutlined'
 import {
-  type BuilderContextParams,
   PageType,
   PrimarySidebar,
-} from '@codelab/frontend/abstract/types'
+} from '@codelab/frontend/abstract/application'
 
 export const appMenuItem: NavigationBarItem = {
   icon: <AppstoreOutlined title="Apps" />,

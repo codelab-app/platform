@@ -1,11 +1,12 @@
 'use client'
 
-import type {
-  BuilderContextParams,
-  ComponentContextParams,
-  SearchParamsPageProps,
-} from '@codelab/frontend/abstract/types'
+import type { IComponentModel } from '@codelab/frontend/abstract/domain'
+import type { SearchParamsPageProps } from '@codelab/frontend/abstract/types'
 
+import {
+  type ComponentContextParams,
+  IRouteType,
+} from '@codelab/frontend/abstract/application'
 import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
@@ -15,16 +16,11 @@ import { BaseBuilderPrimarySidebar } from '../base-builder/BaseBuilderPrimarySid
 import { ComponentsPrimarySidebar } from './ComponentsPrimarySidebar'
 
 export const ComponentPrimarySidebar = observer<{
-  params: BuilderContextParams
+  params: ComponentContextParams
   searchParams: SearchParamsPageProps
-}>(({ params: { appId, componentId, pageId }, searchParams }) => {
-  const { componentDomainService } = useDomainStore()
-  const component = componentDomainService.components.get(componentId)
+  component: IComponentModel
+}>(({ component, params, searchParams }) => {
   const { primarySidebarKey } = searchParams
-
-  if (!component) {
-    return <Spinner isLoading />
-  }
 
   if (primarySidebarKey === ExplorerPaneType.Components) {
     return <ComponentsPrimarySidebar />
@@ -32,10 +28,11 @@ export const ComponentPrimarySidebar = observer<{
 
   return (
     <BaseBuilderPrimarySidebar
-      appId={appId}
-      componentId={componentId}
       containerNode={component}
-      pageId={pageId}
+      context={{
+        params,
+        type: IRouteType.Component,
+      }}
     />
   )
 })

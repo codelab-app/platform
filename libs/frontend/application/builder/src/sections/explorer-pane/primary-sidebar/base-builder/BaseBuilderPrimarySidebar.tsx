@@ -24,6 +24,7 @@ import { CodeMirrorLanguage } from '@codelab/shared/infra/gqlgen'
 import { Collapse } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
+import { mergeDeep } from 'remeda'
 
 import { ElementTreeView } from '../../builder-tree/ElementTreeView'
 
@@ -31,32 +32,16 @@ interface BuilderPrimarySidebarProps {
   containerNode: IComponentModel | IPageModel
   context: IBuilderRouteContext
   isLoading?: boolean
-  openCreateActionPopover(): void
-  openCreateElementPopover(): void
-  openCreateFieldPopover(): void
 }
 
 export const BaseBuilderPrimarySidebar = observer<BuilderPrimarySidebarProps>(
-  ({
-    containerNode,
-    context,
-    isLoading = false,
-    openCreateActionPopover,
-    openCreateElementPopover,
-    openCreateFieldPopover,
-  }) => {
+  ({ containerNode, context, isLoading = false }) => {
     const { rendererService } = useApplicationStore()
-    // const router = useRouter()
-    // const { createPopover: createElementPopover } = useElementService()
-    // const { createPopover: createFieldPopover } = useFieldService()
-    // const { createPopover: createActionPopover } = useActionService()
-
-    console.log('containerNode', containerNode.toJson)
-
+    const router = useRouter()
+    const { createPopover: createElementPopover } = useElementService()
+    const { createPopover: createFieldPopover } = useFieldService()
+    const { createPopover: createActionPopover } = useActionService()
     const store = containerNode.store.maybeCurrent
-
-    console.log('after containerNode')
-
     const renderer = rendererService.activeRenderer?.current
     const runtimeContainerNode = renderer?.runtimeContainerNode
     const runtimeStore = runtimeContainerNode?.runtimeStore
@@ -75,8 +60,7 @@ export const BaseBuilderPrimarySidebar = observer<BuilderPrimarySidebarProps>(
               cuiKey: UiKey.ElementToolbarItemCreate,
               icon: <PlusOutlined />,
               onClick: () => {
-                openCreateElementPopover()
-                // return createElementPopover.open(router, context)
+                return createElementPopover.open(router, context)
               },
               title: 'Add Element',
             },
@@ -101,8 +85,14 @@ export const BaseBuilderPrimarySidebar = observer<BuilderPrimarySidebarProps>(
                 }
 
                 if (store.api.id) {
-                  openCreateFieldPopover()
-                  // createFieldPopover.open(router, context)
+                  createFieldPopover.open(
+                    router,
+                    mergeDeep(context, {
+                      params: {
+                        interfaceId: store.api.id,
+                      },
+                    }),
+                  )
                 }
               },
               title: 'Add Field',
@@ -127,8 +117,14 @@ export const BaseBuilderPrimarySidebar = observer<BuilderPrimarySidebarProps>(
                   return
                 }
 
-                openCreateActionPopover()
-                // openCreateActionPopover.open(router, context)
+                createActionPopover.open(
+                  router,
+                  mergeDeep(context, {
+                    params: {
+                      storeId: store.id,
+                    },
+                  }),
+                )
               },
               title: 'Add Action',
             },

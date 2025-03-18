@@ -1,9 +1,11 @@
 'use client'
 
-import {
-  type IRendererModel,
-  type IRootRenderer,
+import type {
+  IBuilderRouteContext,
+  IRendererModel,
+  IRootRenderer,
 } from '@codelab/frontend/abstract/application'
+
 import {
   BUILDER_CONTAINER_ID,
   DATA_ELEMENT_ID,
@@ -21,6 +23,7 @@ import { RenderBlueprint } from './RenderBlueprint'
 
 interface IBuilderProps {
   RootRenderer: IRootRenderer
+  context: IBuilderRouteContext<{ elementId: string }>
   renderer: IRendererModel
 }
 
@@ -28,15 +31,14 @@ interface IBuilderProps {
  * Generic builder used for both Component & Element
  */
 export const BaseBuilder = observer<IBuilderProps>(
-  ({ renderer, RootRenderer }) => {
+  ({ context, renderer, RootRenderer }) => {
     const { builderService } = useApplicationStore()
-    const elementService = useElementService()
     const { selectedNode } = builderService
     const builderContainerRef = useRef<HTMLDivElement>(null)
     const renderContainerRef = useRef<HTMLDivElement>(null)
 
     useBuilderHotkeys({
-      deleteModal: elementService.deletePopover,
+      context,
       selectedNode,
       setSelectedNode: builderService.setSelectedNode.bind(builderService),
     })

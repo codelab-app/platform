@@ -1,8 +1,4 @@
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
-import type {
-  ComponentContextParams,
-  PageContextParams,
-} from '@codelab/frontend/abstract/types'
 import type { Nullable, ObjectLike } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { Assign } from 'utility-types'

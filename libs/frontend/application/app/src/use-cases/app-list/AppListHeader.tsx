@@ -5,11 +5,8 @@ import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import ImportOutlined from '@ant-design/icons/ImportOutlined'
 import LogoutOutlined from '@ant-design/icons/LogoutOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import {
-  getUiDataLabel,
-  PageType,
-  UiKey,
-} from '@codelab/frontend/abstract/types'
+import { PageType } from '@codelab/frontend/abstract/application'
+import { getUiDataLabel, UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,

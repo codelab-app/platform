@@ -1,21 +1,18 @@
-import type {
-  BuilderContextParams,
-  IBuilderRouteContext,
-} from '@codelab/frontend/abstract/types'
 import type { IElementDto } from '@codelab/shared/abstract/core'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import { type IElementService } from '@codelab/frontend/abstract/application'
+import {
+  type IBuilderRouteContext,
+  type IElementService,
+  IRouteType,
+  PageType,
+  PrimarySidebar,
+} from '@codelab/frontend/abstract/application'
 import {
   type IElementModel,
   type IMoveElementContext,
   type IUpdateElementData,
 } from '@codelab/frontend/abstract/domain'
-import {
-  IRouteType,
-  PageType,
-  PrimarySidebar,
-} from '@codelab/frontend/abstract/types'
 import { useAtomService } from '@codelab/frontend-application-atom/services'
 import { usePropService } from '@codelab/frontend-application-prop/services'
 import { useTypeService } from '@codelab/frontend-application-type/services'

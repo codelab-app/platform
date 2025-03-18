@@ -21,12 +21,7 @@ export const PagePrimarySidebarContainer = ({
       {(app) => (
         <PageConnector id={pageId}>
           {(page) => (
-            <PagePrimarySidebar
-              app={app}
-              page={page}
-              pageId={pageId}
-              paneType={type}
-            />
+            <PagePrimarySidebar app={app} page={page} paneType={type} />
           )}
         </PageConnector>
       )}

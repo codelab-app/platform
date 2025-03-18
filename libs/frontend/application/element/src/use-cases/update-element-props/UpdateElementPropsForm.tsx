@@ -1,14 +1,21 @@
 'use client'
 
-import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 
+import {
+  IRouteType,
+  type IRuntimeElementModel,
+} from '@codelab/frontend/abstract/application'
 import { isComponent } from '@codelab/frontend/abstract/domain'
 import { PropsForm } from '@codelab/frontend/presentation/components/interface-form'
 import { AdminPropsPanel } from '@codelab/frontend-application-admin/use-cases/admin-props-panel'
 import { usePropService } from '@codelab/frontend-application-prop/services'
+import {
+  useUrlParams,
+  useValidatedUrlParams,
+} from '@codelab/frontend-application-shared-store/router'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
@@ -33,6 +40,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     const elementService = useElementService()
     const propService = usePropService()
     const typeService = useTypeService()
+    const { appId, pageId } = useValidatedUrlParams()
     const currentElement = runtimeElement.element.current
     const apiId = currentElement.renderType.current.api.id
 
@@ -106,7 +114,17 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
               />
             </Col>
             <Col span={24}>
-              <AdminPropsPanel interfaceType={interfaceType} />
+              <AdminPropsPanel
+                context={(fieldId) => ({
+                  params: {
+                    appId,
+                    fieldId,
+                    pageId,
+                  },
+                  type: IRouteType.Page,
+                })}
+                interfaceType={interfaceType}
+              />
             </Col>
           </Row>
         )}

@@ -3,7 +3,8 @@
 import type { CuiSidebarView } from '@codelab/frontend/presentation/codelab-ui'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { PageType, UiKey } from '@codelab/frontend/abstract/types'
+import { PageType } from '@codelab/frontend/abstract/application'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { CuiSidebar } from '@codelab/frontend/presentation/codelab-ui'
 import { ImportComponentDialog } from '@codelab/frontend-application-component/use-cases/import-component'
 import { useRouter } from 'next/navigation'

@@ -2,7 +2,8 @@
 
 import type { ITypeModel } from '@codelab/frontend/abstract/domain'
 
-import { PageType, UiKey } from '@codelab/frontend/abstract/types'
+import { PageType } from '@codelab/frontend/abstract/application'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import {

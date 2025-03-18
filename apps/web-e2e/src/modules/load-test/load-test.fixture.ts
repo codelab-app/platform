@@ -1,4 +1,5 @@
-import { PageType, UiKey } from '@codelab/frontend/abstract/types'
+import { PageType } from '@codelab/frontend/abstract/application'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { E2E_ATOM_TYPES } from '@codelab/shared/data/test'
 import { test as base, expect } from '@playwright/test'
 

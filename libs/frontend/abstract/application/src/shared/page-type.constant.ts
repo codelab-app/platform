@@ -59,7 +59,7 @@ export const PageType = {
   AuthGuardsUpdate: ({ id }: IRef) => `${PageType.AuthGuards()}/${id}/update`,
   ComponentBuilder: ({ componentId }: { componentId: string }) =>
     `/components/${componentId}/builder`,
-  ComponentBuilderCreateAction: ({
+  ComponentBuilderActionCreate: ({
     componentId,
     storeId,
   }: ExtractRouteContextParams<
@@ -67,9 +67,25 @@ export const PageType = {
     IRouteType.Component
   >) =>
     `${PageType.ComponentBuilder({ componentId })}/action/create/${storeId}`,
-  ComponentBuilderCreateElement: ({ componentId }: { componentId: string }) =>
+  ComponentBuilderActionDelete: ({
+    actionId,
+    componentId,
+  }: ExtractRouteContextParams<
+    IActionUpdateRouteContext,
+    IRouteType.Component
+  >) =>
+    `${PageType.ComponentBuilder({ componentId })}/action/delete/${actionId}`,
+  ComponentBuilderActionUpdate: ({
+    actionId,
+    componentId,
+  }: ExtractRouteContextParams<
+    IActionUpdateRouteContext,
+    IRouteType.Component
+  >) =>
+    `${PageType.ComponentBuilder({ componentId })}/action/update/${actionId}`,
+  ComponentBuilderElementCreate: ({ componentId }: { componentId: string }) =>
     `${PageType.ComponentBuilder({ componentId })}/create-element`,
-  ComponentBuilderCreateField: ({
+  ComponentBuilderFieldCreate: ({
     componentId,
     interfaceId,
   }: {
@@ -79,7 +95,7 @@ export const PageType = {
     `${PageType.ComponentBuilder({
       componentId,
     })}/interface/${interfaceId}/create-field`,
-  ComponentBuilderDeleteField: ({
+  ComponentBuilderFieldDelete: ({
     componentId,
     fieldId,
   }: {
@@ -89,15 +105,7 @@ export const PageType = {
     `${PageType.ComponentBuilder({
       componentId,
     })}/field/${fieldId}/delete`,
-  ComponentBuilderUpdateAction: ({
-    actionId,
-    componentId,
-  }: ExtractRouteContextParams<
-    IActionUpdateRouteContext,
-    IRouteType.Component
-  >) =>
-    `${PageType.ComponentBuilder({ componentId })}/action/update/${actionId}`,
-  ComponentBuilderUpdateField: ({
+  ComponentBuilderFieldUpdate: ({
     componentId,
     fieldId,
   }: {
@@ -135,7 +143,7 @@ export const PageType = {
     { appId, pageId }: PageContextParams,
     sidebar: PrimarySidebar,
   ) => `/apps/${appId}/pages/${pageId}/builder${sidebar}`,
-  PageBuilderCreateAction: (
+  PageBuilderActionCreate: (
     {
       appId,
       pageId,
@@ -147,28 +155,19 @@ export const PageType = {
       { appId, pageId },
       sidebar,
     )}/action/create/${storeId}`,
-  PageBuilderCreateElement: (
-    { appId, pageId }: PageContextParams,
-    sidebar: PrimarySidebar,
-  ) => `/apps/${appId}/pages/${pageId}/builder${sidebar}/create-element`,
-  PageBuilderCreateField: (
-    { appId, interfaceId, pageId }: PageContextParams & { interfaceId: string },
+  PageBuilderActionDelete: (
+    {
+      actionId,
+      appId,
+      pageId,
+    }: ExtractRouteContextParams<IActionUpdateRouteContext, IRouteType.Page>,
     sidebar: PrimarySidebar,
   ) =>
     `${PageType.PageBuilder(
       { appId, pageId },
       sidebar,
-    )}/field/create/${interfaceId}`,
-  PageBuilderDeleteField: ({
-    appId,
-    fieldId,
-    pageId,
-  }: ExtractRouteContextParams<IFieldUpdateRouteContext, IRouteType.Page>) =>
-    `${PageType.PageBuilder(
-      { appId, pageId },
-      PrimarySidebar.PageList,
-    )}/field/${fieldId}/delete`,
-  PageBuilderUpdateAction: (
+    )}/action/delete/${actionId}`,
+  PageBuilderActionUpdate: (
     {
       actionId,
       appId,
@@ -180,7 +179,28 @@ export const PageType = {
       { appId, pageId },
       sidebar,
     )}/action/update/${actionId}`,
-  PageBuilderUpdateField: ({
+  PageBuilderElementCreate: (
+    { appId, pageId }: PageContextParams,
+    sidebar: PrimarySidebar,
+  ) => `/apps/${appId}/pages/${pageId}/builder${sidebar}/create-element`,
+  PageBuilderFieldCreate: (
+    { appId, interfaceId, pageId }: PageContextParams & { interfaceId: string },
+    sidebar: PrimarySidebar,
+  ) =>
+    `${PageType.PageBuilder(
+      { appId, pageId },
+      sidebar,
+    )}/field/create/${interfaceId}`,
+  PageBuilderFieldDelete: ({
+    appId,
+    fieldId,
+    pageId,
+  }: ExtractRouteContextParams<IFieldUpdateRouteContext, IRouteType.Page>) =>
+    `${PageType.PageBuilder(
+      { appId, pageId },
+      PrimarySidebar.PageList,
+    )}/field/${fieldId}/delete`,
+  PageBuilderFieldUpdate: ({
     appId,
     fieldId,
     pageId,
@@ -252,13 +272,10 @@ export const PageType = {
   Type: () => '/types' as const,
   TypeCreate: () => `${PageType.Type()}/type/create`,
   TypeDelete: ({ id }: IRef) => `${PageType.Type()}/type/${id}/delete`,
-  TypeDeleteField: ({ fieldId }: { fieldId: string }) =>
-    `${PageType.Type()}/field/${fieldId}/delete`,
   TypeFieldCreate: (typeId: string) =>
     `${PageType.Type()}/field/${typeId}/create/field`,
   TypeFieldDelete: ({ id }: IRef) => `${PageType.Type()}/field/${id}/delete`,
-  TypeFieldUpdate: ({ id }: IRef) => `${PageType.Type()}/field/${id}/update`,
-  TypeUpdate: ({ id }: IRef) => `${PageType.Type()}/type/${id}/update`,
-  TypeUpdateField: ({ fieldId }: { fieldId: string }) =>
+  TypeFieldUpdate: ({ fieldId }: { fieldId: string }) =>
     `${PageType.Type()}/field/${fieldId}/update`,
+  TypeUpdate: ({ id }: IRef) => `${PageType.Type()}/type/${id}/update`,
 }

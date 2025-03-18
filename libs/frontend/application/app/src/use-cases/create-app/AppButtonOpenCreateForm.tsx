@@ -3,11 +3,8 @@
 import type { PropsWithChildren } from 'react'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import {
-  getUiDataLabel,
-  PageType,
-  UiKey,
-} from '@codelab/frontend/abstract/types'
+import { PageType } from '@codelab/frontend/abstract/application'
+import { getUiDataLabel, UiKey } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
 import Link from 'next/link'
 

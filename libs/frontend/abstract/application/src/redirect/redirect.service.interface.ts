@@ -3,16 +3,14 @@ import type {
   IRedirectModel,
   IRedirectUpdateFormData,
 } from '@codelab/frontend/abstract/domain'
-import type {
-  IPopover,
-  PageContextParams,
-} from '@codelab/frontend/abstract/types'
+import type { IPopover } from '@codelab/frontend/abstract/types'
 import type { IRef } from '@codelab/shared/abstract/core'
 import type {
   RedirectOptions,
   RedirectWhere,
 } from '@codelab/shared/infra/gqlgen'
 
+import type { PageContextParams } from '../page'
 import type { ICrudService, IQueryService } from '../services'
 
 export interface IRedirectService
@@ -20,7 +18,7 @@ export interface IRedirectService
     IQueryService<IRedirectModel, RedirectWhere, RedirectOptions> {
   createPopover: IPopover<PageContextParams, PageContextParams>
   updatePopover: IPopover<
-    PageContextParams & { redirectId: string },
+    PageContextParams<{ redirectId: string }>,
     PageContextParams
   >
 }

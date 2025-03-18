@@ -1,12 +1,14 @@
-import type { IBuilderRouteContext } from '@codelab/frontend/abstract/types'
-
 import BorderOuterOutlined from '@ant-design/icons/BorderOuterOutlined'
 import CodeSandboxOutlined from '@ant-design/icons/CodeSandboxOutlined'
 import DeploymentUnitOutlined from '@ant-design/icons/DeploymentUnitOutlined'
 import ExclamationCircleOutlined from '@ant-design/icons/ExclamationCircleOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { type IElementTreeViewDataNode } from '@codelab/frontend/abstract/application'
-import { IRouteType, UiKey } from '@codelab/frontend/abstract/types'
+import {
+  type IBuilderRouteContext,
+  type IElementTreeViewDataNode,
+  IRouteType,
+} from '@codelab/frontend/abstract/application'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
@@ -20,7 +22,7 @@ import { useRouter } from 'next/navigation'
 const Toolbar = observer<{
   treeNode: IElementTreeViewDataNode
   context: IBuilderRouteContext
-}>(({ context: { params, type }, treeNode }) => {
+}>(({ context, treeNode }) => {
   const router = useRouter()
   const { createPopover } = useElementService()
 
@@ -29,11 +31,7 @@ const Toolbar = observer<{
   }
 
   const onClick = () => {
-    if (type === IRouteType.Page) {
-      createPopover.open(router, params)
-    } else {
-      createPopover.open(router, params)
-    }
+    createPopover.open(router, context)
   }
 
   const items = [

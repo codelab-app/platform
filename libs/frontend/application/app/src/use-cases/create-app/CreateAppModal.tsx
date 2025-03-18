@@ -2,7 +2,8 @@
 
 import type { IAppCreateFormData } from '@codelab/frontend/abstract/domain'
 
-import { PageType, UiKey } from '@codelab/frontend/abstract/types'
+import { PageType } from '@codelab/frontend/abstract/application'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { useRouter } from 'next/navigation'
 import { AutoFields } from 'uniforms-antd'

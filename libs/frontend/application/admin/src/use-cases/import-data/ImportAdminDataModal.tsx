@@ -2,7 +2,8 @@
 
 import type { IImportDto } from '@codelab/shared/abstract/core'
 
-import { PageType, UiKey } from '@codelab/frontend/abstract/types'
+import { PageType } from '@codelab/frontend/abstract/application'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import {
   importDtoDefault,

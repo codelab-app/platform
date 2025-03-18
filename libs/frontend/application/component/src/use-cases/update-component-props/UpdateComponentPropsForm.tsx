@@ -1,8 +1,11 @@
 'use client'
 
-import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/application'
 import type { IPropData } from '@codelab/shared/abstract/core'
 
+import {
+  IRouteType,
+  type IRuntimeComponentModel,
+} from '@codelab/frontend/abstract/application'
 import { PropsForm } from '@codelab/frontend/presentation/components/interface-form'
 import { AdminPropsPanel } from '@codelab/frontend-application-admin/use-cases/admin-props-panel'
 import { usePropService } from '@codelab/frontend-application-prop/services'
@@ -65,7 +68,16 @@ export const UpdateComponentPropsForm = observer<UpdateComponentPropsFormProps>(
               />
             </Col>
             <Col span={24}>
-              <AdminPropsPanel interfaceType={interfaceType} />
+              <AdminPropsPanel
+                context={(fieldId) => ({
+                  params: {
+                    componentId: component.id,
+                    fieldId,
+                  },
+                  type: IRouteType.Component,
+                })}
+                interfaceType={interfaceType}
+              />
             </Col>
           </Row>
         )}

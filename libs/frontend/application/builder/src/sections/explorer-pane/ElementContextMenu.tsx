@@ -1,6 +1,9 @@
 'use client'
 
-import type { IElementTreeViewDataNode } from '@codelab/frontend/abstract/application'
+import type {
+  IBuilderRouteContext,
+  IElementTreeViewDataNode,
+} from '@codelab/frontend/abstract/application'
 import type { Nullable } from '@codelab/shared/abstract/types'
 
 import { PageType } from '@codelab/frontend/abstract/application'
@@ -21,6 +24,7 @@ import { Dropdown } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { mergeDeep } from 'remeda'
 
 export interface ContextMenuProps {
   onBlur?(): unknown
@@ -29,6 +33,7 @@ export interface ContextMenuProps {
 
 export type ElementContextMenuProps = ContextMenuProps & {
   treeNode: IElementTreeViewDataNode
+  context: IBuilderRouteContext
 }
 
 /**
@@ -36,13 +41,12 @@ export type ElementContextMenuProps = ContextMenuProps & {
  */
 export const ElementContextMenu = observer<
   React.PropsWithChildren<ElementContextMenuProps>
->(({ children, treeNode }) => {
+>(({ children, context, treeNode }) => {
   const { builderService, runtimeElementService } = useApplicationStore()
   const { elementDomainService } = useDomainStore()
   const componentService = useComponentService()
-  const { deletePopover } = useElementService()
+  const { createPopover, deletePopover } = useElementService()
   const router = useRouter()
-  const { appId, componentId, pageId } = useValidatedUrlParams()
 
   const cloneElementService = useCloneElementService({
     builderService,
@@ -63,22 +67,16 @@ export const ElementContextMenu = observer<
   const componentInstance = isComponent(element.renderType.current)
 
   const onAddChild = () => {
-    if (appId && pageId) {
-      createPopover.open(router, { appId, pageId })
-    } else if (componentId) {
-      createPopover.open(router, { componentId })
-    }
+    createPopover.open(router, context)
 
     setContextMenuNodeId(null)
   }
 
   const onDelete = () => {
-    deletePopover.open(router, {
-      appId,
-      componentId,
-      elementId: element.id,
-      pageId,
-    })
+    deletePopover.open(
+      router,
+      mergeDeep(context, { params: { elementId: element.id } }),
+    )
   }
 
   const onDuplicate = async () => {
