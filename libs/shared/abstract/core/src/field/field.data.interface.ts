@@ -3,7 +3,11 @@ import type { Nullish } from '@codelab/shared/abstract/types'
 import type { IFieldRef } from './field.dto.interface'
 import type { IValidationRules } from './field.validation'
 
-export interface ICreateFieldData {
+export interface IFieldRouteCreateData {
+  interfaceTypeId: string
+}
+
+export interface IFieldCreateData {
   defaultValues?: Nullish<IFieldDefaultValue>
   description?: Nullish<string>
   // Type of field specified by a type id
@@ -16,7 +20,7 @@ export interface ICreateFieldData {
   validationRules?: Nullish<IValidationRules>
 }
 
-export type IUpdateFieldData = ICreateFieldData
+export type IFieldUpdateData = IFieldCreateData
 
 export type IFieldDefaultValue =
   | boolean

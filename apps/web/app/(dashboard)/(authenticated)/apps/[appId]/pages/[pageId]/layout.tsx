@@ -3,19 +3,20 @@ import type { ReactNode } from 'react'
 
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { appBuilderQuery } from '@codelab/frontend-application-app/use-cases/app-builder'
-import { pageRepository } from '@codelab/frontend-domain-page/repositories'
 
 /**
  * The `appBuilderQuery` is shared between `preview` and `builder`, so can be cached in layout.
  *
  * Hydration is done in `LayoutClient`
  */
-const Layout = async (props: {
+const Layout = async ({
+  children,
+  params: paramsPromise,
+}: {
   children: ReactNode
   params: Promise<PageContextParams>
 }) => {
-  const params = await props.params
-  const { children } = props
+  const params = await paramsPromise
   const { appId, pageId } = params
   const dto = await appBuilderQuery({ appId, pageIds: [pageId] })
 

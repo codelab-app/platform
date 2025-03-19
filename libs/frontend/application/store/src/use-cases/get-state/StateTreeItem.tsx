@@ -1,4 +1,8 @@
-import type { IFieldUpdateRouteContext } from '@codelab/frontend/abstract/application'
+import type {
+  IBuilderRouteContext,
+  IFieldCreateRouteContext,
+  IFieldUpdateRouteContext,
+} from '@codelab/frontend/abstract/application'
 import type {
   IFieldNodeData,
   ITreeNode,
@@ -18,30 +22,46 @@ import { useFieldService } from '@codelab/frontend-application-type/services'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { useRouter } from 'next/navigation'
 
+export interface StateTreeItemContext {
+  add({
+    interfaceId,
+  }: {
+    interfaceId: string
+  }): IBuilderRouteContext<{ interfaceId: string }>
+  update({ fieldId }: { fieldId: string }): IBuilderRouteContext<{
+    fieldId: string
+  }>
+}
+
 interface StateTreeItemProps {
+  context: StateTreeItemContext
   data: ITreeNode<IFieldNodeData>
-  context({ fieldId }: { fieldId: string }): IFieldUpdateRouteContext
 }
 
 export const StateTreeItem = ({ context, data }: StateTreeItemProps) => {
-  const { appId, componentId, pageId } = useValidatedUrlParams()
   const { fieldDomainService } = useDomainStore()
   const { createPopover, deletePopover, updatePopover } = useFieldService()
   const router = useRouter()
 
   const onEdit = () =>
-    updatePopover.open(router, context({ fieldId: data.extraData.node.id }))
+    updatePopover.open(
+      router,
+      context.update({ fieldId: data.extraData.node.id }),
+    )
 
   const onDelete = () =>
-    deletePopover.open(router, context({ fieldId: data.extraData.node.id }))
+    deletePopover.open(
+      router,
+      context.update({ fieldId: data.extraData.node.id }),
+    )
 
   const onAddField = () => {
-    createPopover.open(router, {
-      appId,
-      componentId,
-      interfaceId: data.extraData.node.type.id,
-      pageId,
-    })
+    createPopover.open(
+      router,
+      context.add({
+        interfaceId: data.extraData.node.type.id,
+      }),
+    )
   }
 
   const toolbarItems: Array<ToolbarItem> = [

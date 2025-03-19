@@ -1,5 +1,6 @@
 'use client'
 
+import type { IFieldCreateRouteContext } from '@codelab/frontend/abstract/application'
 import type { Maybe } from '@codelab/shared/abstract/types'
 
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
@@ -14,42 +15,42 @@ import { useRef } from 'react'
 import { useFieldService } from '../../services/field.service'
 import { CreateFieldForm } from './CreateFieldForm'
 
-export const CreateFieldPopover = observer(
-  ({ interfaceId }: { interfaceId: string }) => {
-    const router = useRouter()
-    const submitRef = useRef<Maybe<SubmitController>>(undefined)
-    const { createPopover } = useFieldService()
-    const params = useValidatedUrlParams()
-    const closePopover = () => createPopover.close(router, params)
+export const CreateFieldPopover = observer<{
+  interfaceId: string
+  context: IFieldCreateRouteContext
+}>(({ context, interfaceId }) => {
+  const router = useRouter()
+  const submitRef = useRef<Maybe<SubmitController>>(undefined)
+  const { createPopover } = useFieldService()
+  const closePopover = () => createPopover.close(router, context)
 
-    return (
-      <CuiSidebarSecondary
-        id={UiKey.FieldPopoverCreate}
-        toolbar={{
-          items: [
-            {
-              cuiKey: UiKey.FieldToolbarItemCreate,
-              icon: <SaveOutlined />,
-              label: 'Create',
-              onClick: () => submitRef.current?.submit(),
-            },
-            {
-              cuiKey: UiKey.FieldToolbarItemCreateCancel,
-              icon: <CloseOutlined />,
-              label: 'Cancel',
-              onClick: closePopover,
-            },
-          ],
-          title: 'Create Field toolbar',
-        }}
-      >
-        <CreateFieldForm
-          interfaceId={interfaceId}
-          onSubmitSuccess={closePopover}
-          showFormControl={false}
-          submitRef={submitRef}
-        />
-      </CuiSidebarSecondary>
-    )
-  },
-)
+  return (
+    <CuiSidebarSecondary
+      id={UiKey.FieldPopoverCreate}
+      toolbar={{
+        items: [
+          {
+            cuiKey: UiKey.FieldToolbarItemCreate,
+            icon: <SaveOutlined />,
+            label: 'Create',
+            onClick: () => submitRef.current?.submit(),
+          },
+          {
+            cuiKey: UiKey.FieldToolbarItemCreateCancel,
+            icon: <CloseOutlined />,
+            label: 'Cancel',
+            onClick: closePopover,
+          },
+        ],
+        title: 'Create Field toolbar',
+      }}
+    >
+      <CreateFieldForm
+        interfaceId={interfaceId}
+        onSubmitSuccess={closePopover}
+        showFormControl={false}
+        submitRef={submitRef}
+      />
+    </CuiSidebarSecondary>
+  )
+})

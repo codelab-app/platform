@@ -6,9 +6,9 @@ export const metadata: Metadata = {
   title: 'Update App | Codelab',
 }
 
-const Page = async (props: { params: Promise<{ appId: string }> }) => {
-  const params = await props.params
-  const { appId } = params
+const Page = async ({ params }: { params: Promise<{ appId: string }> }) => {
+  const resolvedParams = await params
+  const { appId } = resolvedParams
 
   return <UpdateAppModalContainer id={appId} />
 }

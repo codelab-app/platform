@@ -6,8 +6,4 @@ export const metadata: Metadata = {
   title: 'Create App | Codelab',
 }
 
-const Page = async () => {
-  return <CreateAppModal />
-}
-
-export default Page
+export default CreateAppModal

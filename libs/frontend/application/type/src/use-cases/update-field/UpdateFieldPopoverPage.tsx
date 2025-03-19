@@ -15,9 +15,9 @@ import { UpdateFieldPopoverPageContainer } from './UpdateFieldPopover.container'
 export const UpdateFieldPopoverPage = async ({
   params,
 }: {
-  params: Promise<{ id: string }>
+  params: Promise<{ fieldId: string }>
 }) => {
-  const { id } = await params
+  const { fieldId } = await params
 
-  return <UpdateFieldPopoverPageContainer id={id} />
+  return <UpdateFieldPopoverPageContainer id={fieldId} />
 }

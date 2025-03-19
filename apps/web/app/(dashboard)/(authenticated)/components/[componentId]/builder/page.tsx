@@ -6,15 +6,16 @@ export const metadata: Metadata = {
   title: 'Component Builder | Codelab',
 }
 
-const ComponentBuilderPage = async (props: {
+const Page = async ({
+  params,
+}: {
   params: Promise<{
     componentId: string
   }>
 }) => {
-  const params = await props.params
-  const { componentId } = params
+  const { componentId } = await params
 
   return <ComponentBuilderContainer componentId={componentId} />
 }
 
-export default ComponentBuilderPage
+export default Page

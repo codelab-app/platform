@@ -3,9 +3,9 @@ import { DeleteFieldModalContainer } from './DeleteFieldModal.container'
 export const DeleteFieldModalPage = async ({
   params,
 }: {
-  params: Promise<{ id: string }>
+  params: Promise<{ fieldId: string }>
 }) => {
-  const { id } = await params
+  const { fieldId } = await params
 
-  return <DeleteFieldModalContainer id={id} />
+  return <DeleteFieldModalContainer id={fieldId} />
 }

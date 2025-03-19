@@ -1,6 +1,6 @@
 import type { SearchParamsPageProps } from '@codelab/frontend/abstract/types'
 
-import { ComponentConnector } from '@codelab/frontend-application-component/views'
+import { ComponentConnector } from '@codelab/frontend/infra/connector'
 
 import { ComponentBuilderPrimarySidebar } from './ComponentBuilderPrimarySidebar'
 

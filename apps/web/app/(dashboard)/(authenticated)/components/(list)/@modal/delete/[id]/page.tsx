@@ -1,17 +1,13 @@
 import type { Metadata } from 'next'
 
-import {
-  DeleteComponentModal,
-  DeleteComponentModalContainer,
-} from '@codelab/frontend-application-component/use-cases/delete-component'
+import { DeleteComponentModalContainer } from '@codelab/frontend-application-component/use-cases/delete-component'
 
 export const metadata: Metadata = {
   title: 'Delete Component | Codelab',
 }
 
-const Page = async (props: { params: Promise<{ id: string }> }) => {
-  const params = await props.params
-  const { id } = params
+const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
+  const { id } = await params
 
   return <DeleteComponentModalContainer id={id} />
 }

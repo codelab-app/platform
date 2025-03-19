@@ -13,9 +13,14 @@ import { useTypeService } from '@codelab/frontend-application-type/services'
 import { observer } from 'mobx-react-lite'
 import { useAsyncFn, useMount } from 'react-use'
 
+import type { StateTreeItemContext } from './StateTreeItem'
+
 import { StateTreeItem } from './StateTreeItem'
 
-export const StateTreeView = observer<{ store: IStoreModel }>(({ store }) => {
+export const StateTreeView = observer<{
+  context: StateTreeItemContext
+  store: IStoreModel
+}>(({ context, store }) => {
   const typeService = useTypeService()
 
   const [{ loading, value: type }, getOne] = useAsyncFn(
@@ -33,7 +38,7 @@ export const StateTreeView = observer<{ store: IStoreModel }>(({ store }) => {
       {treeData.length > 0 ? (
         <CuiTree<ITreeNode<IFieldNodeData>>
           titleRender={(node) => {
-            return <StateTreeItem data={node} />
+            return <StateTreeItem context={context} data={node} />
           }}
           treeData={treeData}
         />

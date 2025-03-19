@@ -9,13 +9,14 @@ import { componentBuilderQuery } from '@codelab/frontend-application-component/u
  *
  * Hydration is done in `LayoutClient`
  */
-const Layout = async (props: {
+const Layout = async ({
+  children,
+  params,
+}: {
   children: ReactNode
   params: Promise<ComponentContextParams>
 }) => {
-  const params = await props.params
-  const { children } = props
-  const { componentId } = params
+  const { componentId } = await params
   const dto = await componentBuilderQuery({ componentId })
 
   // eslint-disable-next-line react/jsx-props-no-spreading

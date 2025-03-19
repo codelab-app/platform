@@ -1,11 +1,7 @@
-'use client'
 import { CreateActionPopover } from '@codelab/frontend-application-store/use-cases/create-action'
-import { DashboardPopover } from '@codelab/frontend-presentation-view/templates'
-import { use } from 'react'
 
-const Page = (props: { params: Promise<{ storeId: string }> }) => {
-  const params = use(props.params)
-  const { storeId } = params
+const Page = async ({ params }: { params: Promise<{ storeId: string }> }) => {
+  const { storeId } = await params
 
   return <CreateActionPopover storeId={storeId} />
 }

@@ -7,9 +7,8 @@ export const metadata: Metadata = {
   title: 'App Builder | Codelab',
 }
 
-const Page = async (props: { params: Promise<PageContextParams> }) => {
-  const params = await props.params
-  const { appId, pageId } = params
+const Page = async ({ params }: { params: Promise<PageContextParams> }) => {
+  const { appId, pageId } = await params
 
   return <PageBuilderContainer appId={appId} pageId={pageId} />
 }

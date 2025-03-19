@@ -9,7 +9,6 @@ import {
 } from '@codelab/frontend/abstract/application'
 import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
 import { useElementService } from '@codelab/frontend-application-element/services'
-import { PageListPrimarySidebar } from '@codelab/frontend-application-page/views'
 import { useActionService } from '@codelab/frontend-application-store/services'
 import { useFieldService } from '@codelab/frontend-application-type/services'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
@@ -24,18 +23,12 @@ import { BaseBuilderPrimarySidebar } from '../base-builder/BaseBuilderPrimarySid
 interface PagePrimarySidebarProps {
   app: IAppModel
   page: IPageModel
-  paneType?: ExplorerPaneType
 }
 
 export const PageBuilderPrimarySidebar = ({
   app,
   page,
-  paneType,
 }: PagePrimarySidebarProps) => {
-  if (paneType === ExplorerPaneType.PageList) {
-    return <PageListPrimarySidebar app={app} pageId={page.id} />
-  }
-
   return (
     <BaseBuilderPrimarySidebar
       containerNode={page}

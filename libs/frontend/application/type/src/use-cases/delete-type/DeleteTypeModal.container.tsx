@@ -1,6 +1,7 @@
 'use client'
 
-import { TypeConnector } from '../../views/Type.connector'
+import { TypeConnector } from '@codelab/frontend/infra/connector'
+
 import { DeleteTypeModal } from './DeleteTypeModal'
 
 export const DeleteTypeModalContainer = ({ id }: { id: string }) => {

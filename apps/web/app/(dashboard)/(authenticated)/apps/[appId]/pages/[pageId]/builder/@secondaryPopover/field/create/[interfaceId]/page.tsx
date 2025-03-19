@@ -1,13 +1,28 @@
-'use client'
+import type { BuilderContextParams } from '@codelab/frontend/abstract/application'
+
+import { IRouteType } from '@codelab/frontend/abstract/application'
 import { CreateFieldPopover } from '@codelab/frontend-application-type/use-cases/create-field'
-import { DashboardPopover } from '@codelab/frontend-presentation-view/templates'
-import { use } from 'react'
 
-const Page = (props: { params: Promise<{ interfaceId: string }> }) => {
-  const params = use(props.params)
-  const { interfaceId } = params
+const Page = async ({
+  params,
+}: {
+  params: Promise<BuilderContextParams<{ interfaceId: string }>>
+}) => {
+  const { appId, interfaceId, pageId } = await params
 
-  return <CreateFieldPopover interfaceId={interfaceId} />
+  return (
+    <CreateFieldPopover
+      context={{
+        params: {
+          appId,
+          interfaceId,
+          pageId,
+        },
+        type: IRouteType.Page,
+      }}
+      interfaceId={interfaceId}
+    />
+  )
 }
 
 export default Page

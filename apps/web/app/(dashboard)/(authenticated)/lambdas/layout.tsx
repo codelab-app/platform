@@ -1,11 +1,10 @@
 'use client'
 
 import { LambdasViewHeader } from '@codelab/frontend-application-lambda/views'
-import { Dashboard } from '@codelab/frontend-presentation-view/templates'
+import {
+  Dashboard,
+  DashboardLayout,
+} from '@codelab/frontend-presentation-view/templates'
 import { type ReactNode } from 'react'
 
-const LambdasRouteLayout = ({ children }: { children: ReactNode }) => {
-  return <Dashboard header={<LambdasViewHeader />}>{children}</Dashboard>
-}
-
-export default LambdasRouteLayout
+export default DashboardLayout

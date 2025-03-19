@@ -1,10 +1,11 @@
 import { DeleteActionModalContainer } from '@codelab/frontend-application-store/use-cases/delete-action'
 
-const DeleteActionModalPage = async (props: {
+const DeleteActionModalPage = async ({
+  params,
+}: {
   params: Promise<{ id: string }>
 }) => {
-  const params = await props.params
-  const { id } = params
+  const { id } = await params
 
   return <DeleteActionModalContainer id={id} />
 }
