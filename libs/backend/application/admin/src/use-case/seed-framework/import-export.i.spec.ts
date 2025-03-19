@@ -54,7 +54,7 @@ describe('Seed, import, & export data', () => {
 
     const atoms = getAtomsFromFiles({
       category: IAtomCategory.AntDesign,
-      overrides: [IAtomType.AntDesignButton],
+      // overrides: [IAtomType.AntDesignButton],
     })
 
     deleteFilesSync(testDataPath, atoms)

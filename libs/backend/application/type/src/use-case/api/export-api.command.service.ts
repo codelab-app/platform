@@ -4,7 +4,6 @@ import type {
   IInterfaceTypeRef,
   ITypeDtoWithoutOwner,
   ITypeRef,
-  IUnionTypeDto,
 } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
@@ -187,9 +186,13 @@ export class ExportApiHandler
     dependentTypes
       .filter((type) => type.__typename === ITypeKind.UnionType)
       .forEach((unionType) =>
-        (unionType as IUnionTypeDto)['typesOfUnionType'].sort((a, b) =>
-          a.id.localeCompare(b.id),
-        ),
+        unionType['typesOfUnionType'].sort((a, b) => {
+          if (!a.name || !b.name) {
+            throw new Error('Union type has no name')
+          }
+
+          return a.name.localeCompare(b.name)
+        }),
       )
   }
 }
