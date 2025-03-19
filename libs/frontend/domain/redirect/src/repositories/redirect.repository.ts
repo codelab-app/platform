@@ -6,7 +6,6 @@ import type {
 
 import {
   CACHE_TAGS,
-  type IRedirectModel,
   type IRedirectRepository,
 } from '@codelab/frontend/abstract/domain'
 import { Validator } from '@codelab/shared/infra/typebox'
@@ -38,7 +37,7 @@ export const redirectRepository: IRedirectRepository = {
     return createdRedirect
   },
 
-  delete: async (redirects: Array<IRedirectModel>) => {
+  delete: async (redirects: Array<IRef>) => {
     const {
       deleteRedirects: { nodesDeleted },
     } = await DeleteRedirects({

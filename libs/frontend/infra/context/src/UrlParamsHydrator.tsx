@@ -2,10 +2,7 @@
 
 import type { PropsWithChildren } from 'react'
 
-import {
-  useSearchParamsProps,
-  useUrlParams,
-} from '@codelab/frontend-application-shared-store/router'
+import { useSearchParamsProps } from '@codelab/frontend-application-shared-store/router'
 import { observer } from 'mobx-react-lite'
 import { useDeepCompareEffect } from 'react-use'
 
@@ -13,16 +10,11 @@ import { useApplicationStoreHydrator } from './useApplicationStoreHydrator.hook'
 
 export const UrlParamsHydrator = observer<PropsWithChildren>(({ children }) => {
   const hydrate = useApplicationStoreHydrator()
-  const pathParams = useUrlParams()
   const searchParams = useSearchParamsProps()
 
   useDeepCompareEffect(() => {
     hydrate({ searchParams })
   }, [searchParams])
-
-  useDeepCompareEffect(() => {
-    hydrate({ pathParams })
-  }, [pathParams])
 
   return <>{children}</>
 })

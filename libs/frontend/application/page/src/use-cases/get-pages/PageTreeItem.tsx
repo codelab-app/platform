@@ -26,7 +26,6 @@ import {
   CuiTreeItemToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { useRedirectService } from '@codelab/frontend-application-redirect/services'
-import { useValidatedUrlParams } from '@codelab/frontend-application-shared-store/router'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
@@ -51,7 +50,6 @@ export const PageTreeItem = observer(
     const router = useRouter()
     const { removeMany, updatePopover } = usePageService()
     const redirectService = useRedirectService()
-    const { appId } = useValidatedUrlParams()
 
     const commonToolbarItems: Array<ToolbarItem> = [
       {
@@ -60,7 +58,7 @@ export const PageTreeItem = observer(
         onClick: () => {
           const url = PageType.PageBuilder(
             {
-              appId,
+              appId: app.id,
               pageId: page.id,
             },
             PrimarySidebar.ElementTree,
@@ -88,13 +86,13 @@ export const PageTreeItem = observer(
         onClick: () => {
           if (page.redirect) {
             redirectService.updatePopover.open(router, {
-              appId,
+              appId: app.id,
               pageId: page.id,
               redirectId: page.redirect.id,
             })
           } else {
             redirectService.createPopover.open(router, {
-              appId,
+              appId: app.id,
               pageId: page.id,
             })
           }
@@ -110,7 +108,11 @@ export const PageTreeItem = observer(
       {
         cuiKey: UiKey.PageToolbarItemUpdate,
         icon: <EditOutlined />,
-        onClick: () => updatePopover.open(router, { appId, pageId: page.id }),
+        onClick: () =>
+          updatePopover.open(router, {
+            appId: app.id,
+            pageId: page.id,
+          }),
         title: 'Edit',
       },
     ]

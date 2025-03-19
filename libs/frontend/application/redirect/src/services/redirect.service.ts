@@ -4,9 +4,9 @@ import type {
 } from '@codelab/frontend/abstract/application'
 import type {
   IRedirectCreateFormData,
-  IRedirectModel,
   IRedirectUpdateFormData,
 } from '@codelab/frontend/abstract/domain'
+import type { IRef } from '@codelab/shared/abstract/core'
 import type { RedirectWhere } from '@codelab/shared/infra/gqlgen'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
@@ -23,7 +23,7 @@ export const useRedirectService = (): IRedirectService => {
     return await redirectRepository.add(data)
   }
 
-  const removeMany = async (redirectsModel: Array<IRedirectModel>) => {
+  const removeMany = async (redirectsModel: Array<IRef>) => {
     redirectsModel.forEach((redirect) =>
       redirectDomainService.redirects.delete(redirect.id),
     )

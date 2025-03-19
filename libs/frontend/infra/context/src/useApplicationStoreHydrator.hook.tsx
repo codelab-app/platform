@@ -1,22 +1,13 @@
 'use client'
 
-import type {
-  SearchParamsProps,
-  UrlParamsProps,
-} from '@codelab/frontend/abstract/types'
+import type { SearchParamsProps } from '@codelab/frontend/abstract/types'
 
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 
 export const useApplicationStoreHydrator = () => {
   const { routerService } = useApplicationStore()
 
-  const hydrate = ({
-    pathParams,
-    searchParams,
-  }: {
-    searchParams?: SearchParamsProps
-    pathParams?: UrlParamsProps
-  }) => {
+  const hydrate = ({ searchParams }: { searchParams?: SearchParamsProps }) => {
     if (searchParams) {
       routerService.setSearchParams(searchParams)
     }
