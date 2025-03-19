@@ -1,33 +1,25 @@
-'use client'
+import { IRouteType } from '@codelab/frontend/abstract/application'
+import { ConfigPaneInspectorTabGroupContainer } from '@codelab/frontend-application-builder/sections'
 
-import { isRuntimePage } from '@codelab/frontend/abstract/application'
-import { ConfigPaneInspectorTabContainer } from '@codelab/frontend-application-builder/sections'
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
-import { observer } from 'mobx-react-lite'
-
-const ConfigPane = observer(() => {
-  const { builderService, rendererService } = useApplicationStore()
-  const selectedNode = builderService.selectedNode?.current
-  const activeRenderer = rendererService.activeRenderer?.maybeCurrent
-  const elementTree = rendererService.activeElementTree
-
-  if (
-    !selectedNode ||
-    isRuntimePage(selectedNode) ||
-    !activeRenderer ||
-    !elementTree
-  ) {
-    return null
-  }
+const Page = async ({
+  params,
+}: {
+  params: Promise<{ appId: string; pageId: string }>
+}) => {
+  const { appId, pageId } = await params
 
   return (
-    <ConfigPaneInspectorTabContainer
-      activeRenderer={activeRenderer}
-      elementTree={elementTree}
-      selectedNode={selectedNode}
+    <ConfigPaneInspectorTabGroupContainer
+      context={({ fieldId }) => ({
+        params: {
+          appId,
+          fieldId,
+          pageId,
+        },
+        type: IRouteType.Page,
+      })}
     />
   )
-})
+}
 
-ConfigPane.displayName = 'ConfigPane'
-export default ConfigPane
+export default Page

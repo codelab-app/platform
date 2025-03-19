@@ -7,6 +7,7 @@ import FormatPainterOutlined from '@ant-design/icons/FormatPainterOutlined'
 import NodeIndexOutlined from '@ant-design/icons/NodeIndexOutlined'
 import SettingOutlined from '@ant-design/icons/SettingOutlined'
 import {
+  type IFieldUpdateRouteLazyContext,
   type IRendererModel,
   type IRuntimeComponentModel,
   type IRuntimeElementModel,
@@ -31,7 +32,7 @@ import { type ReactNode, useMemo } from 'react'
 import { isNullish } from 'remeda'
 
 import { PropsInspectorTab } from '../PropsInspectorTab'
-import { TabContainer } from './ConfigPaneInspectorTabContainerStyle'
+import { TabGroup } from './ConfigPaneInspectorTabGroupStyle'
 import { TAB_NAMES } from './data'
 
 interface TooltipIconProps {
@@ -59,11 +60,12 @@ export const TooltipIcon = ({ icon, title }: TooltipIconProps) => {
 /**
  * Issue with observer here, since `page` sets selectedNode, which will trigger update here. But we get `Cannot update a component (`MetaPaneTabContainer`) while rendering a different component (`Builder`)`
  */
-export const ConfigPaneInspectorTabContainer = observer<{
+export const ConfigPaneInspectorTabGroup = observer<{
   selectedNode: IRuntimeComponentModel | IRuntimeElementModel
   activeRenderer: IRendererModel
   elementTree: IElementTree
-}>(({ activeRenderer, elementTree, selectedNode }) => {
+  context: IFieldUpdateRouteLazyContext
+}>(({ activeRenderer, context, elementTree, selectedNode }) => {
   // Nested components render too many times if we don't memo
   const tabItems = useMemo(
     () => [
@@ -98,7 +100,10 @@ export const ConfigPaneInspectorTabContainer = observer<{
         children: (
           <div key={selectedNode.compositeKey}>
             {isRuntimeElement(selectedNode) ? (
-              <UpdateElementPropsForm runtimeElement={selectedNode} />
+              <UpdateElementPropsForm
+                context={context}
+                runtimeElement={selectedNode}
+              />
             ) : isRuntimeComponent(selectedNode) ? (
               <UpdateComponentPropsForm runtimeComponent={selectedNode} />
             ) : (
@@ -199,16 +204,16 @@ export const ConfigPaneInspectorTabContainer = observer<{
 
   return (
     <FormContextProvider value={{ elementTree, selectedNode }}>
-      <TabContainer>
+      <TabGroup>
         <Tabs
           defaultActiveKey={TAB_NAMES.Node}
           destroyInactiveTabPane
           items={tabItems}
           size="small"
         />
-      </TabContainer>
+      </TabGroup>
     </FormContextProvider>
   )
 })
 
-ConfigPaneInspectorTabContainer.displayName = 'MetaPaneTabContainer'
+ConfigPaneInspectorTabGroup.displayName = 'MetaPaneTabContainer'

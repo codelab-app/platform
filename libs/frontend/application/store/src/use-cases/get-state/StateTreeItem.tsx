@@ -1,7 +1,6 @@
 import type {
-  IBuilderRouteContext,
-  IFieldCreateRouteContext,
-  IFieldUpdateRouteContext,
+  IFieldCreateRouteLazyContext,
+  IFieldUpdateRouteLazyContext,
 } from '@codelab/frontend/abstract/application'
 import type {
   IFieldNodeData,
@@ -17,20 +16,13 @@ import {
   CuiTreeItem,
   CuiTreeItemToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useValidatedUrlParams } from '@codelab/frontend-application-shared-store/router'
 import { useFieldService } from '@codelab/frontend-application-type/services'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { useRouter } from 'next/navigation'
 
 export interface StateTreeItemContext {
-  add({
-    interfaceId,
-  }: {
-    interfaceId: string
-  }): IBuilderRouteContext<{ interfaceId: string }>
-  update({ fieldId }: { fieldId: string }): IBuilderRouteContext<{
-    fieldId: string
-  }>
+  add: IFieldCreateRouteLazyContext
+  update: IFieldUpdateRouteLazyContext
 }
 
 interface StateTreeItemProps {

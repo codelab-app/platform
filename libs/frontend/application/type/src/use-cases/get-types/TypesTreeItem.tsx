@@ -29,7 +29,7 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
     if (data.extraData.type === 'type') {
       router.push(PageType.TypeUpdate(data.extraData.node))
     } else {
-      router.push(PageType.TypeFieldUpdate(data.extraData.node))
+      router.push(PageType.TypeFieldUpdate({ fieldId: data.extraData.node.id }))
     }
   }
 
@@ -40,7 +40,7 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
     if (data.extraData.type === 'type') {
       router.push(PageType.TypeDelete(data.extraData.node))
     } else {
-      router.push(PageType.TypeFieldDelete(data.extraData.node))
+      router.push(PageType.TypeFieldDelete({ fieldId: data.extraData.node.id }))
     }
   }
 

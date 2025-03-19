@@ -6,7 +6,6 @@ import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import {
   type IBuilderRouteContext,
   type IElementTreeViewDataNode,
-  IRouteType,
 } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import {
@@ -14,7 +13,6 @@ import {
   CuiTreeItemToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { useElementService } from '@codelab/frontend-application-element/services'
-import { useValidatedUrlParams } from '@codelab/frontend-application-shared-store/router'
 import { Tooltip } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'

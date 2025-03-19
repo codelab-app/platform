@@ -6,7 +6,6 @@ import {
   type IRootRenderer,
   IRouteType,
 } from '@codelab/frontend/abstract/application'
-import { BuilderProvider } from '@codelab/frontend/presentation/container'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 

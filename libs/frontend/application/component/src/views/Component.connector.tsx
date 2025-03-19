@@ -1,7 +1,6 @@
 'use client'
 
 import type { IComponentModel } from '@codelab/frontend/abstract/domain'
-import type { IRef } from '@codelab/shared/abstract/core'
 import type { ReactNode } from 'react'
 
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'

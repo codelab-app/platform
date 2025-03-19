@@ -6,13 +6,6 @@ import type { SelectOption } from '@codelab/frontend/abstract/types'
 import type { IComponentDto } from '@codelab/shared/abstract/core'
 
 import CodeSandboxOutlined from '@ant-design/icons/CodeSandboxOutlined'
-import {
-  getAtomDomainService,
-  getElementDomainService,
-  getStoreDomainService,
-  getTypeDomainService,
-  getUserDomainService,
-} from '@codelab/frontend/abstract/domain'
 import { mapEntitySelectOptions } from '@codelab/frontend-domain-atom/store'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/typebox'

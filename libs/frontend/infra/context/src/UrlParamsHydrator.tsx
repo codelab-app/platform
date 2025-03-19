@@ -5,7 +5,6 @@ import type { PropsWithChildren } from 'react'
 import {
   useSearchParamsProps,
   useUrlParams,
-  useValidatedUrlParams,
 } from '@codelab/frontend-application-shared-store/router'
 import { observer } from 'mobx-react-lite'
 import { useDeepCompareEffect } from 'react-use'

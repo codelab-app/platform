@@ -14,7 +14,6 @@ import {
   CuiTreeItem,
   CuiTreeItemToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useValidatedUrlParams } from '@codelab/frontend-application-shared-store/router'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { useRouter } from 'next/navigation'
 

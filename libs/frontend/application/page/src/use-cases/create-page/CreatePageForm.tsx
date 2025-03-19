@@ -1,6 +1,5 @@
 'use client'
 
-import type { IAppModel } from '@codelab/frontend/abstract/domain'
 import type { IPageCreateFormData } from '@codelab/shared/abstract/core'
 
 import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'

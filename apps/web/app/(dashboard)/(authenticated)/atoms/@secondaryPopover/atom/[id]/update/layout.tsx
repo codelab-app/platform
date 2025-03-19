@@ -2,7 +2,6 @@ import type { ReactNode } from 'react'
 
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
-import { use } from 'react'
 
 const Layout = async ({
   children,

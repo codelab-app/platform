@@ -1,12 +1,18 @@
-import type { IRef } from '@codelab/shared/abstract/core'
+import type { IFieldUpdateRouteContext } from '@codelab/frontend/abstract/application'
 
 import { FieldConnector } from '../../views'
 import { UpdateFieldPopover } from './UpdateFieldPopover'
 
-export const UpdateFieldPopoverPageContainer = ({ id }: IRef) => {
+export const UpdateFieldPopoverContainer = ({
+  context,
+  fieldId,
+}: {
+  context: IFieldUpdateRouteContext
+  fieldId: string
+}) => {
   return (
-    <FieldConnector id={id}>
-      {(field) => <UpdateFieldPopover field={field} />}
+    <FieldConnector id={fieldId}>
+      {(field) => <UpdateFieldPopover context={context} field={field} />}
     </FieldConnector>
   )
 }

@@ -6,11 +6,7 @@ import type { PropsWithChildren } from 'react'
 import { Auth0Provider } from '@auth0/nextjs-auth0'
 import { UrlParamsHydrator } from '@codelab/frontend/infra/context'
 import { CuiProvider } from '@codelab/frontend/presentation/codelab-ui'
-import {
-  useSearchParamsProps,
-  useUrlParams,
-  useValidatedUrlParams,
-} from '@codelab/frontend-application-shared-store/router'
+import { useSearchParamsProps } from '@codelab/frontend-application-shared-store/router'
 import {
   createRootStore,
   RootStoreProvider,

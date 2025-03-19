@@ -1,6 +1,6 @@
 'use client'
 
-import type { IAppModel, IFieldModel } from '@codelab/frontend/abstract/domain'
+import type { IFieldModel } from '@codelab/frontend/abstract/domain'
 import type { ReactNode } from 'react'
 
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'

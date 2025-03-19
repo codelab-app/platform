@@ -1,6 +1,5 @@
 import {
   Kind,
-  type TAnySchema,
   type TObject,
   type TSchema,
   type TUnion,

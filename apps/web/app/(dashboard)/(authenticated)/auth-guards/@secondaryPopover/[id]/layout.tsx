@@ -2,9 +2,7 @@ import type { ReactNode } from 'react'
 
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { authGuardRepository } from '@codelab/frontend-domain-auth-guard/repositories'
-import { resourceRepository } from '@codelab/frontend-domain-resource/repositories'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
-import { DashboardPopover } from '@codelab/frontend-presentation-view/templates'
 
 const Layout = async ({
   children,

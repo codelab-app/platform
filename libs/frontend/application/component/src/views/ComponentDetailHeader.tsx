@@ -5,11 +5,11 @@ import type {
   IComponentModel,
 } from '@codelab/frontend/abstract/domain'
 
+import { PageType } from '@codelab/frontend/abstract/application'
 import { DetailHeader } from '@codelab/frontend-presentation-view/sections'
 import { observer } from 'mobx-react-lite'
 import { usePathname, useRouter } from 'next/navigation'
 import { type ReactNode, useCallback } from 'react'
-import { PageType } from '@codelab/frontend/abstract/application'
 
 interface IComponentDetailHeaderProps {
   BuilderResizeMenu: ReactNode

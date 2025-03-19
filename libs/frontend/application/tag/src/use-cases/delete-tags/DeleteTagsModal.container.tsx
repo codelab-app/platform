@@ -1,8 +1,6 @@
 'use client'
 
 import { TagsConnector } from '@codelab/frontend/infra/connector'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { observer } from 'mobx-react-lite'
 
 import { DeleteTagsModal } from './DeleteTagsModal'
 

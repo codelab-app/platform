@@ -1,15 +1,10 @@
-import type {
-  IFieldRouteContext,
-  IFieldUpdateRouteContext,
-  IRouteType,
-} from '@codelab/frontend/abstract/application'
+import type { IFieldUpdateRouteLazyContext } from '@codelab/frontend/abstract/application'
 import type {
   IFieldModel,
   IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
 
 import { isAdmin } from '@codelab/frontend/abstract/domain'
-import { useValidatedUrlParams } from '@codelab/frontend-application-shared-store/router'
 import { useFieldService } from '@codelab/frontend-application-type/services'
 import { useUser } from '@codelab/frontend-application-user/services'
 import { Button, Col, Dropdown, Row } from 'antd'
@@ -18,9 +13,8 @@ import { useRouter } from 'next/navigation'
 import { mergeDeep } from 'remeda'
 
 export const AdminPropsPanel = observer<{
+  context: IFieldUpdateRouteLazyContext
   interfaceType: IInterfaceTypeModel
-  // Field is passed in
-  context({ fieldId }: { fieldId: string }): IFieldUpdateRouteContext
 }>(({ context, interfaceType }) => {
   const user = useUser()
   const router = useRouter()

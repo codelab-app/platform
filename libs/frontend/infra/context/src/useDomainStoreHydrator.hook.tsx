@@ -6,7 +6,6 @@ import {
   useDomainStore,
   useUndoManager,
 } from '@codelab/frontend-infra-mobx/context'
-import { logger } from '@codelab/shared/utils'
 import { runInAction } from 'mobx'
 import { useCallback } from 'react'
 

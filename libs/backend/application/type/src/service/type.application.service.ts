@@ -11,7 +11,6 @@ import { LogClassMethod } from '@codelab/backend/infra/core'
 import {
   type IApiAggregate,
   type IAtomType,
-  ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { uniqueBy } from 'remeda'

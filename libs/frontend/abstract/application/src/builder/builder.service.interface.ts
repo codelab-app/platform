@@ -1,7 +1,6 @@
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
-import type { Nullable, ObjectLike } from '@codelab/shared/abstract/types'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
-import type { Assign } from 'utility-types'
 
 import type { IRuntimeComponentModel, IRuntimeModel } from '../renderer'
 

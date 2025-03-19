@@ -1,6 +1,5 @@
 'use client'
 
-import type { IAppModel, IPageModel } from '@codelab/frontend/abstract/domain'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
 import type { Maybe } from '@codelab/shared/abstract/types'
 

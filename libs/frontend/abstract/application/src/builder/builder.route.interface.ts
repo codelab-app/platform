@@ -13,7 +13,7 @@ export type BuilderContextParams<T extends ObjectLike = UnknownObjectLike> =
 export type IBuilderRouteContext<T extends ObjectLike = UnknownObjectLike> =
   | {
       type: IRouteType.Component
-      params: ComponentContextParams & T
+      params: ComponentContextParams<T>
     }
   | {
       type: IRouteType.Page

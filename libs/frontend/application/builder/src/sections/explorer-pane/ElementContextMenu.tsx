@@ -13,7 +13,6 @@ import {
   useCloneElementService,
   useElementService,
 } from '@codelab/frontend-application-element/services'
-import { useValidatedUrlParams } from '@codelab/frontend-application-shared-store/router'
 import { useUser } from '@codelab/frontend-application-user/services'
 import {
   useApplicationStore,

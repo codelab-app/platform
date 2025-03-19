@@ -2,7 +2,6 @@
 
 import type {
   IBuilderRouteContext,
-  IElementRouteContext,
   IRendererModel,
   IRootRenderer,
 } from '@codelab/frontend/abstract/application'
@@ -11,7 +10,6 @@ import {
   BUILDER_CONTAINER_ID,
   DATA_ELEMENT_ID,
 } from '@codelab/frontend/abstract/domain'
-import { useElementService } from '@codelab/frontend-application-element/services'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import { useRef } from 'react'

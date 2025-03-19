@@ -7,15 +7,11 @@ import type {
 import type { CuiSidebarView } from '@codelab/frontend/presentation/codelab-ui'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import {
-  type IBuilderRouteContext,
-  IRouteType,
-} from '@codelab/frontend/abstract/application'
+import { type IBuilderRouteContext } from '@codelab/frontend/abstract/application'
 import { isComponent, isPage } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { CuiSidebar } from '@codelab/frontend/presentation/codelab-ui'
 import { useElementService } from '@codelab/frontend-application-element/services'
-import { useValidatedUrlParams } from '@codelab/frontend-application-shared-store/router'
 import { useActionService } from '@codelab/frontend-application-store/services'
 import { ActionsTreeView } from '@codelab/frontend-application-store/use-cases/get-actions'
 import { StateTreeView } from '@codelab/frontend-application-store/use-cases/get-state'

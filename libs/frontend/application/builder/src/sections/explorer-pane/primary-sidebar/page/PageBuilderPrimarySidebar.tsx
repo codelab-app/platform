@@ -2,21 +2,7 @@
 
 import type { IAppModel, IPageModel } from '@codelab/frontend/abstract/domain'
 
-import {
-  type IPageBuilderRouteContext,
-  IRouteType,
-  type PageContextParams,
-} from '@codelab/frontend/abstract/application'
-import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
-import { useElementService } from '@codelab/frontend-application-element/services'
-import { useActionService } from '@codelab/frontend-application-store/services'
-import { useFieldService } from '@codelab/frontend-application-type/services'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
-import { observer } from 'mobx-react-lite'
-import { useRouter } from 'next/navigation'
-import { ErrorBoundary } from 'react-error-boundary'
-import { merge, mergeDeep } from 'remeda'
+import { IRouteType } from '@codelab/frontend/abstract/application'
 
 import { BaseBuilderPrimarySidebar } from '../base-builder/BaseBuilderPrimarySidebar'
 

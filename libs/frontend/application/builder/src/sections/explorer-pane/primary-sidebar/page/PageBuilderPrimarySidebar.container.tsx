@@ -1,7 +1,5 @@
 'use client'
 
-import type { ExplorerPaneType } from '@codelab/frontend/abstract/types'
-
 import { AppConnector, PageConnector } from '@codelab/frontend/infra/connector'
 
 import { PageBuilderPrimarySidebar } from './PageBuilderPrimarySidebar'

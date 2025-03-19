@@ -3,12 +3,10 @@
 import type { IAppModel, IPageModel } from '@codelab/frontend/abstract/domain'
 
 import {
-  type PageContextParams,
   PageType,
   PrimarySidebar,
 } from '@codelab/frontend/abstract/application'
 import { DetailHeader } from '@codelab/frontend-presentation-view/sections'
-import { Skeleton } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { usePathname, useRouter } from 'next/navigation'
 import { type ReactNode, useCallback } from 'react'

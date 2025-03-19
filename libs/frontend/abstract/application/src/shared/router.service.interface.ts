@@ -1,8 +1,6 @@
 import type {
   SearchParamsContext,
   SearchParamsProps,
-  UrlParamsProps,
-  ValidatedUrlParamsProps,
 } from '@codelab/frontend/abstract/types'
 
 /**

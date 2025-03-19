@@ -3,8 +3,6 @@ import type { ObjectLike } from '@codelab/shared/abstract/types'
 
 import { isPlainObject } from 'remeda'
 
-import { isCyclic } from '../isCyclic'
-
 /**
  * To show the correct source file in browser console, enable ignore list
  *

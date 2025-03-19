@@ -1,9 +1,6 @@
 'use client'
 
-import type {
-  IAppModel,
-  IAuthGuardModel,
-} from '@codelab/frontend/abstract/domain'
+import type { IAuthGuardModel } from '@codelab/frontend/abstract/domain'
 import type { ReactNode } from 'react'
 
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'

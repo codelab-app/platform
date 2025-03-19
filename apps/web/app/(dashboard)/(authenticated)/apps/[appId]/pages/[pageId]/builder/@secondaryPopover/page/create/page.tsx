@@ -1,11 +1,6 @@
 import type { PageContextParams } from '@codelab/frontend/abstract/application'
 
-import {
-  CreatePagePopover,
-  CreatePagePopoverContainer,
-} from '@codelab/frontend-application-page/use-cases/create-page'
-import { DashboardPopover } from '@codelab/frontend-presentation-view/templates'
-import { use } from 'react'
+import { CreatePagePopoverContainer } from '@codelab/frontend-application-page/use-cases/create-page'
 
 const Page = async ({ params }: { params: Promise<PageContextParams> }) => {
   const { appId, pageId } = await params

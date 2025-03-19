@@ -3,7 +3,6 @@
 import type {
   SearchParamsProps,
   UrlParamsProps,
-  ValidatedUrlParamsProps,
 } from '@codelab/frontend/abstract/types'
 
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'

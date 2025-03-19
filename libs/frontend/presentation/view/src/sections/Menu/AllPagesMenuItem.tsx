@@ -1,7 +1,10 @@
-import type { PageContextParams } from '@codelab/frontend/abstract/application'
 import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-ui'
 
 import FileOutlined from '@ant-design/icons/FileOutlined'
+import {
+  type PageContextParams,
+  PageType,
+} from '@codelab/frontend/abstract/application'
 import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
 
 export const allPagesMenuItem = ({

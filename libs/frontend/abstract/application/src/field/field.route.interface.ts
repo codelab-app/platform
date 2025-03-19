@@ -24,7 +24,19 @@ export type IFieldCreateRouteContext =
       }
     }
 
+export type IFieldCreateRouteLazyContext = ({
+  interfaceId,
+}: {
+  interfaceId: string
+}) => IFieldCreateRouteContext
+
 export type IFieldUpdateRouteContext =
+  | {
+      type: IRouteType.Atom | IRouteType.Type
+      params: {
+        fieldId: string
+      }
+    }
   | {
       type: IRouteType.Component
       params: { componentId: string; fieldId: string }
@@ -37,12 +49,15 @@ export type IFieldUpdateRouteContext =
         pageId: string
       }
     }
-  | {
-      type: IRouteType.Type
-      params: {
-        fieldId: string
-      }
-    }
+
+/**
+ * Inner-most function may map fields over api, which means we don't have access to field until it's mapped
+ */
+export type IFieldUpdateRouteLazyContext = ({
+  fieldId,
+}: {
+  fieldId: string
+}) => IFieldUpdateRouteContext
 
 export type IFieldRouteContext =
   | IBuilderRouteContext

@@ -1,6 +1,6 @@
-import type { IAppModel, IPageModel } from '@codelab/frontend/abstract/domain'
+import type { IAppModel } from '@codelab/frontend/abstract/domain'
 
-import { AppConnector, PageConnector } from '@codelab/frontend/infra/connector'
+import { AppConnector } from '@codelab/frontend/infra/connector'
 
 import { PageListPrimarySidebar } from './PageListPrimarySidebar'
 

@@ -1,10 +1,10 @@
 import type { IFieldModel } from '@codelab/frontend/abstract/domain'
-import type { ICreateFieldData, IFieldDto } from '@codelab/shared/abstract/core'
+import type { IFieldCreateData, IFieldDto } from '@codelab/shared/abstract/core'
 
 import { isDefined } from 'remeda'
 
 export const fieldMapper = {
-  mapDataToDto: (fieldData: ICreateFieldData) => {
+  mapDataToDto: (fieldData: IFieldCreateData) => {
     return {
       ...fieldData,
       api: { id: fieldData.interfaceTypeId },

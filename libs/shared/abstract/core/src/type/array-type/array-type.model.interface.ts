@@ -1,4 +1,4 @@
-import type { Static, TSchema } from '@sinclair/typebox'
+import type { Static } from '@sinclair/typebox'
 
 import { ArrayTypeDtoSchema } from './array-type.dto.interface'
 

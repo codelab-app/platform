@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 
 import { UpdateTypePopover } from '@codelab/frontend-application-type/use-cases/update-type'
-import { DashboardPopover } from '@codelab/frontend-presentation-view/templates'
 
 export const metadata: Metadata = {
   title: 'Update Type | Codelab',

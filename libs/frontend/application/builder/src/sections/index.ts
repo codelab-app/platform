@@ -1,4 +1,5 @@
-export * from './config-pane/ConfigPane-InspectorTabContainer/ConfigPaneInspectorTabContainer'
+export * from './config-pane/ConfigPane-InspectorTabGroup/ConfigPaneInspectorTabGroup'
+export * from './config-pane/ConfigPane-InspectorTabGroup/ConfigPaneInspectorTabGroup.container'
 export * from './content/BuilderTabs'
 export * from './explorer-pane/primary-sidebar/base-builder/BaseBuilderPrimarySidebar'
 export * from './explorer-pane/primary-sidebar/component/ComponentBuilderPrimarySidebar'

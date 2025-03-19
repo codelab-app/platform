@@ -3,11 +3,9 @@ import type { Metadata } from 'next'
 import { ExportAdminDataButton } from '@codelab/frontend-application-admin/use-cases/export-data'
 import { ImportAdminDataButton } from '@codelab/frontend-application-admin/use-cases/import-data'
 import { ResetDataButtons } from '@codelab/frontend-application-admin/use-cases/reset-data'
-import { AdminViewHeader } from '@codelab/frontend-application-admin/views'
 import { UsersTable } from '@codelab/frontend-application-user/use-cases/user-list'
 import { userRepository } from '@codelab/frontend-domain-user/repositories'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
-import { Dashboard } from '@codelab/frontend-presentation-view/templates'
 import { Space } from 'antd'
 
 export const metadata: Metadata = {

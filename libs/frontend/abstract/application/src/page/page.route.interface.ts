@@ -3,7 +3,6 @@ import type {
   ObjectLike,
   UnknownObjectLike,
 } from '@codelab/shared/abstract/types'
-import type { Assign } from 'utility-types'
 
 import type { IRouteType } from '../shared'
 

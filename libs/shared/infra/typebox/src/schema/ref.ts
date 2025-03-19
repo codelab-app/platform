@@ -1,4 +1,4 @@
-import type { Static, TKind, TSchema } from '@sinclair/typebox'
+import type { Static, TKind } from '@sinclair/typebox'
 
 import { Kind, Type } from '@sinclair/typebox'
 import { TypeSystemPolicy } from '@sinclair/typebox/system'

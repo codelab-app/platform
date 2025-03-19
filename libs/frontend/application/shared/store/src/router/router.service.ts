@@ -2,10 +2,7 @@ import type {
   IRouterProps,
   IRouterService,
 } from '@codelab/frontend/abstract/application'
-import type {
-  SearchParamsProps,
-  UrlParamsProps,
-} from '@codelab/frontend/abstract/types'
+import type { SearchParamsProps } from '@codelab/frontend/abstract/types'
 
 import { Validator } from '@codelab/shared/infra/typebox'
 import { computed } from 'mobx'

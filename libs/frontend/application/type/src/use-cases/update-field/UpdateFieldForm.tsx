@@ -1,6 +1,6 @@
 'use client'
 import type { IFieldModel } from '@codelab/frontend/abstract/domain'
-import type { IUpdateFieldData } from '@codelab/shared/abstract/core'
+import type { IFieldUpdateData } from '@codelab/shared/abstract/core'
 
 import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
 import { SelectDefaultValue } from '@codelab/frontend/presentation/components/interface-form'
@@ -39,7 +39,7 @@ export const UpdateFieldForm = observer<UpdateFieldFormProps>(
     const { typeDomainService } = useDomainStore()
     const fieldSchema = useFieldSchema(createFieldSchema, field)
 
-    const onSubmit = (input: IUpdateFieldData) => {
+    const onSubmit = (input: IFieldUpdateData) => {
       const validationRules = filterValidationRules(
         input.validationRules,
         typeDomainService.primitiveKind(input.fieldType),
@@ -49,7 +49,7 @@ export const UpdateFieldForm = observer<UpdateFieldFormProps>(
     }
 
     return (
-      <Form<IUpdateFieldData>
+      <Form<IFieldUpdateData>
         errorMessage="Error while updating field"
         model={{
           defaultValues: field.defaultValues,
@@ -90,7 +90,7 @@ export const UpdateFieldForm = observer<UpdateFieldFormProps>(
       >
         <AutoFields fields={['id', 'key', 'name', 'description']} />
         <TypeSelect label="Type" name="fieldType" />
-        <DisplayIfField<IUpdateFieldData>
+        <DisplayIfField<IFieldUpdateData>
           condition={({ model }) =>
             !isBoolean(typeDomainService, model.fieldType) &&
             canSetDefaultValue(typeDomainService, model.fieldType)
@@ -98,12 +98,12 @@ export const UpdateFieldForm = observer<UpdateFieldFormProps>(
         >
           <AutoFields fields={['validationRules.general']} />
         </DisplayIfField>
-        <DisplayIfField<IUpdateFieldData>
+        <DisplayIfField<IFieldUpdateData>
           condition={({ model }) =>
             isPrimitive(typeDomainService, model.fieldType)
           }
         >
-          <DisplayIfField<IUpdateFieldData>
+          <DisplayIfField<IFieldUpdateData>
             condition={({ model }) =>
               isString(typeDomainService, model.fieldType)
             }
@@ -112,7 +112,7 @@ export const UpdateFieldForm = observer<UpdateFieldFormProps>(
               fields={[`validationRules.${PrimitiveTypeKind.String}`]}
             />
           </DisplayIfField>
-          <DisplayIfField<IUpdateFieldData>
+          <DisplayIfField<IFieldUpdateData>
             condition={({ model }) =>
               isInteger(typeDomainService, model.fieldType)
             }
@@ -121,7 +121,7 @@ export const UpdateFieldForm = observer<UpdateFieldFormProps>(
               fields={[`validationRules.${PrimitiveTypeKind.Integer}`]}
             />
           </DisplayIfField>
-          <DisplayIfField<IUpdateFieldData>
+          <DisplayIfField<IFieldUpdateData>
             condition={({ model }) =>
               isFloat(typeDomainService, model.fieldType)
             }
@@ -132,7 +132,7 @@ export const UpdateFieldForm = observer<UpdateFieldFormProps>(
           </DisplayIfField>
         </DisplayIfField>
 
-        <DisplayIfField<IUpdateFieldData>
+        <DisplayIfField<IFieldUpdateData>
           condition={({ model }) =>
             canSetDefaultValue(typeDomainService, model.fieldType)
           }

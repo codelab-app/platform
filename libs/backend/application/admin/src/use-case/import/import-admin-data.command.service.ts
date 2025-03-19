@@ -1,5 +1,4 @@
 import type { IBaseDataPaths } from '@codelab/backend/application/data'
-import type { IAtomAggregate } from '@codelab/shared/abstract/core'
 
 import { IImportOptions } from '@codelab/backend/abstract/types'
 import { AtomApplicationService } from '@codelab/backend/application/atom'
@@ -10,7 +9,6 @@ import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { LogClassMethod } from '@codelab/backend/infra/core'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
-import { omit } from 'radash'
 
 export class ImportAdminDataCommand implements IBaseDataPaths {
   constructor(public baseDataPath: string, public options: IImportOptions) {}

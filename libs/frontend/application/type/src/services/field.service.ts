@@ -2,11 +2,7 @@ import type {
   IFieldModel,
   IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
-import type {
-  ICreateFieldData,
-  IFieldDto,
-  IRef,
-} from '@codelab/shared/abstract/core'
+import type { IFieldCreateData, IRef } from '@codelab/shared/abstract/core'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import {
@@ -21,7 +17,7 @@ import {
 import { fieldRepository } from '@codelab/frontend-domain-type/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Validator } from '@codelab/shared/infra/typebox'
-import { filter, isDefined, isTruthy, unique } from 'remeda'
+import { filter, isTruthy, unique } from 'remeda'
 import { v4 } from 'uuid'
 
 import { fieldMapper } from './field.mapper'
@@ -50,7 +46,7 @@ export const useFieldService = (): IFieldService => {
     return newField
   }
 
-  const create = async (createFieldData: ICreateFieldData) => {
+  const create = async (createFieldData: IFieldCreateData) => {
     await typeService.getOne(createFieldData.fieldType)
 
     const fieldDto = fieldMapper.mapDataToDto(createFieldData)
@@ -127,7 +123,7 @@ export const useFieldService = (): IFieldService => {
     return
   }
 
-  const update = async (updateFieldData: ICreateFieldData) => {
+  const update = async (updateFieldData: IFieldCreateData) => {
     const field = fieldDomainService.getField(updateFieldData.id)
 
     Validator.assertsDefined(field)
