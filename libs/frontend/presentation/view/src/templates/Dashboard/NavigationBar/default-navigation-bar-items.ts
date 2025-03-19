@@ -1,4 +1,4 @@
-import type { ValidatedUrlParamsProps } from '@codelab/frontend/abstract/types'
+import type { UrlParams } from '@codelab/frontend/abstract/types'
 import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-ui'
 
 import {
@@ -24,7 +24,7 @@ export const defaultNavigationBarItems = ({
   appId,
   componentId,
   pageId,
-}: Partial<ValidatedUrlParamsProps>): {
+}: Partial<UrlParams>): {
   primaryItems: Array<NavigationBarItem>
   secondaryItems: Array<NavigationBarItem>
 } => ({

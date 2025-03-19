@@ -1,20 +1,13 @@
 /**
- * Params are not required until we are in a specific context
- *
- * These either come from page props or useSearchParams hook
+ * These are all the possible params, use this to extract required params
  */
-export interface UrlParamsProps {
-  actionId?: string
-  appId?: string
-  authGuardId?: string
-  componentId?: string
-  elementId?: string
-  interfaceId?: string
-  pageId?: string
-  resourceId?: string
+export interface UrlParams {
+  actionId: string
+  appId: string
+  authGuardId: string
+  componentId: string
+  elementId: string
+  interfaceId: string
+  pageId: string
+  resourceId: string
 }
-
-/**
- * These are validated and lazy get
- */
-export type ValidatedUrlParamsProps = Required<UrlParamsProps>

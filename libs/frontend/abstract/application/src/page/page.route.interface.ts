@@ -1,4 +1,4 @@
-import type { ValidatedUrlParamsProps } from '@codelab/frontend/abstract/types'
+import type { UrlParams } from '@codelab/frontend/abstract/types'
 import type {
   ObjectLike,
   UnknownObjectLike,
@@ -16,7 +16,7 @@ export interface IPageBuilderRouteContext {
  */
 
 export type PageContextParams<T extends ObjectLike = UnknownObjectLike> = Pick<
-  ValidatedUrlParamsProps,
+  UrlParams,
   'appId' | 'pageId'
 > &
   T

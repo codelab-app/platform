@@ -1,10 +1,10 @@
-import type { ValidatedUrlParamsProps } from '@codelab/frontend/abstract/types'
+import type { UrlParams } from '@codelab/frontend/abstract/types'
 import type { ObjectLike } from '@codelab/shared/abstract/types'
 
 import type { IRouteType } from '../shared'
 
 export type ComponentContextParams<T extends ObjectLike = ObjectLike> = Pick<
-  ValidatedUrlParamsProps,
+  UrlParams,
   'componentId'
 > &
   T
