@@ -1,2 +1,1 @@
-export * from './App.connector'
-export * from './Apps.connector'
+// This file is intentionally empty after removing connector exports

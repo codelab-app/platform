@@ -1,6 +1,7 @@
 'use client'
 
-import { ResourceConnector } from '../../views'
+import { ResourceConnector } from '@codelab/frontend/infra/connector'
+
 import { DeleteResourceModal } from './DeleteResourceModal'
 
 export const DeleteResourceModalContainer = ({ id }: { id: string }) => {

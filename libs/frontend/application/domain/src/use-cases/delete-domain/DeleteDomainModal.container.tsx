@@ -1,6 +1,7 @@
 'use client'
 
-import { DomainConnector } from '../../views'
+import { DomainConnector } from '@codelab/frontend/infra/connector'
+
 import { DeleteDomainModal } from './DeleteDomainModal'
 
 export const DeleteDomainModalContainer = ({ id }: { id: string }) => (

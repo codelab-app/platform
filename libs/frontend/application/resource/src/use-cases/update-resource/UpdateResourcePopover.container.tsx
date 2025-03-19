@@ -1,6 +1,7 @@
 'use client'
 
-import { ResourceConnector } from '../../views'
+import { ResourceConnector } from '@codelab/frontend/infra/connector'
+
 import { UpdateResourcePopover } from './UpdateResourcePopover'
 
 export const UpdateResourcePopoverContainer = ({ id }: { id: string }) => {

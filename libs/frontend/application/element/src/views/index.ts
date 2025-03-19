@@ -1,1 +1,1 @@
-export * from './Element.connector'
+// This file is intentionally empty after removing connector exports

@@ -1,7 +1,6 @@
 'use client'
 
-import { AppConnector } from '@codelab/frontend-application-app/views'
-import { PageConnector } from '@codelab/frontend-application-page/views'
+import { AppConnector, PageConnector } from '@codelab/frontend/infra/connector'
 
 import { PageBuilderPrimarySidebar } from './PageBuilderPrimarySidebar'
 

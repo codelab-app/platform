@@ -11,6 +11,7 @@ import type { EslintGeneratorSchema } from './schema'
 
 import { updateTestTargets } from './jest/remove-test-targets'
 import { addProjectTags } from './project-tags/add-project-tags'
+import { updateBaseTsconfig } from './tsconfig/base/tsconfig.base'
 
 /**
  * Go through all projects and update the `lint` setting of `project.json`
@@ -53,7 +54,7 @@ export const nxProjectConfigGenerator = async (
     addProjectTags(tree, projectConfig)
     updateTestTargets(tree, projectConfig)
 
-    // updateBaseTsconfig(tree, projectConfig)
+    updateBaseTsconfig(tree, projectConfig)
     // updateLibraryTsconfig(tree, projectConfig)
 
     updateProjectConfiguration(tree, projectName, projectConfig)

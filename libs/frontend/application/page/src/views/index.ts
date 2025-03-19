@@ -1,1 +1,1 @@
-export * from './Page.connector'
+// This file is intentionally empty after removing connector exports

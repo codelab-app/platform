@@ -1,6 +1,7 @@
 'use client'
 
-import { TagsConnector } from '../../views'
+import { TagsConnector } from '@codelab/frontend/infra/connector'
+
 import { DeleteTagsModal } from './DeleteTagsModal'
 
 export const DeleteTagsModalContainer = ({ ids }: { ids: Array<string> }) => {

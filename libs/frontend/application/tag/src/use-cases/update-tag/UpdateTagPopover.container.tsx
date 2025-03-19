@@ -1,6 +1,7 @@
 'use client'
 
-import { TagConnector } from '../../views'
+import { TagConnector } from '@codelab/frontend/infra/connector'
+
 import { UpdateTagPopover } from './UpdateTagPopover'
 
 export const UpdateTagPopoverContainer = ({ id }: { id: string }) => {

@@ -1,4 +1,5 @@
-import { ElementConnector } from '../../views'
+import { ElementConnector } from '@codelab/frontend/infra/connector'
+
 import { DeleteElementModal } from './DeleteElementModal'
 
 export const DeleteElementModalContainer = ({ id }: { id: string }) => {
