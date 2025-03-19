@@ -3,8 +3,8 @@ import type { ICreateElementSeedData } from '@codelab/shared/abstract/core'
 import {
   PageType,
   PrimarySidebar,
-  UiKey,
-} from '@codelab/frontend/abstract/types'
+} from '@codelab/frontend/abstract/application'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
 import { expect } from '@playwright/test'
