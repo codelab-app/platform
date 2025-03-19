@@ -46,10 +46,6 @@ export const ApplicationStoreHydrator = observer(
           routerService.setSearchParams(params)
         }
 
-        if (pathParams) {
-          routerService.setPathParams(pathParams)
-        }
-
         setIsHydrated(true)
       },
       [pathParams, searchParams],

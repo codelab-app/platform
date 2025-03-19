@@ -1,12 +1,12 @@
+import type { BuilderContextParams } from '@codelab/frontend/abstract/application'
 import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-ui'
 
 import BuildOutlined from '@ant-design/icons/BuildOutlined'
 import {
-  type BuilderContextParams,
-  ExplorerPaneType,
   PageType,
   PrimarySidebar,
-} from '@codelab/frontend/abstract/types'
+} from '@codelab/frontend/abstract/application'
+import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
 
 export const pageBuilderMenuItem = ({
   appId,

@@ -1,16 +1,15 @@
 import type { ComponentContextParams } from '@codelab/frontend/abstract/application'
 import type { SearchParamsPageProps } from '@codelab/frontend/abstract/types'
 
-import { ComponentPrimarySidebar } from '@codelab/frontend-application-builder/sections'
+import {
+  ComponentBuilderPrimarySidebar,
+  ComponentBuilderPrimarySidebarContainer,
+} from '@codelab/frontend-application-builder/sections'
 
-const Page = async (props: {
-  params: Promise<ComponentContextParams>
-  searchParams: Promise<SearchParamsPageProps>
-}) => {
-  const params = await props.params
-  const searchParams = await props.searchParams
+const Page = async (props: { params: Promise<ComponentContextParams> }) => {
+  const { componentId } = await props.params
 
-  return <ComponentPrimarySidebar params={params} searchParams={searchParams} />
+  return <ComponentBuilderPrimarySidebarContainer componentId={componentId} />
 }
 
 export default Page

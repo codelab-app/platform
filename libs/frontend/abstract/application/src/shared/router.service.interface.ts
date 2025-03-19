@@ -14,15 +14,11 @@ import type {
  *
  */
 export interface IRouterProps {
-  pathParams: UrlParamsProps
   searchParams?: SearchParamsProps
 }
 
-export type IRouterService = ValidatedUrlParamsProps &
-  SearchParamsContext & {
-    pathParams: UrlParamsProps
-    searchParams: SearchParamsProps
+export type IRouterService = SearchParamsContext & {
+  searchParams: SearchParamsProps
 
-    setPathParams(params: UrlParamsProps): void
-    setSearchParams(params: SearchParamsProps): void
-  }
+  setSearchParams(params: SearchParamsProps): void
+}

@@ -2,7 +2,11 @@ import type { PageContextParams } from '@codelab/frontend/abstract/application'
 import type { Metadata } from 'next'
 
 import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
-import { PagePrimarySidebarContainer } from '@codelab/frontend-application-builder/sections'
+import { PageBuilderPrimarySidebarContainer } from '@codelab/frontend-application-builder/sections'
+import {
+  PageListPrimarySidebar,
+  PageListPrimarySidebarContainer,
+} from '@codelab/frontend-application-page/views'
 
 export const metadata: Metadata = {
   title: 'Page List | Codelab',
@@ -11,13 +15,7 @@ export const metadata: Metadata = {
 const Page = async ({ params }: { params: Promise<PageContextParams> }) => {
   const { appId, pageId } = await params
 
-  return (
-    <PagePrimarySidebarContainer
-      appId={appId}
-      pageId={pageId}
-      type={ExplorerPaneType.PageList}
-    />
-  )
+  return <PageListPrimarySidebarContainer appId={appId} pageId={pageId} />
 }
 
 export default Page

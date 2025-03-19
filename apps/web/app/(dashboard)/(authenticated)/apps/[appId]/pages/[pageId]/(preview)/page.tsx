@@ -7,12 +7,12 @@ export const metadata: Metadata = {
 }
 
 const PagePreviewPage = async (props: {
-  params: Promise<{ pageId: string }>
+  params: Promise<{ appId: string; pageId: string }>
 }) => {
   const params = await props.params
-  const { pageId } = params
+  const { appId, pageId } = params
 
-  return <PagePreviewContainer pageId={pageId} />
+  return <PagePreviewContainer appId={appId} pageId={pageId} />
 }
 
 export default PagePreviewPage

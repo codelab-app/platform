@@ -7,7 +7,13 @@ import { RootRenderer } from '@codelab/frontend-application-renderer/use-cases/r
 
 import { PageBuilder } from '../page-builder/PageBuilder'
 
-export const PagePreviewContainer = ({ pageId }: { pageId: string }) => {
+export const PagePreviewContainer = ({
+  appId,
+  pageId,
+}: {
+  pageId: string
+  appId: string
+}) => {
   return (
     <PageConnector id={pageId}>
       {(page) => (
@@ -15,7 +21,7 @@ export const PagePreviewContainer = ({ pageId }: { pageId: string }) => {
           containerNode={page}
           rendererType={RendererType.Preview}
         >
-          <PageBuilder RootRenderer={RootRenderer} page={page} />
+          <PageBuilder RootRenderer={RootRenderer} appId={appId} page={page} />
         </BuilderProvider>
       )}
     </PageConnector>

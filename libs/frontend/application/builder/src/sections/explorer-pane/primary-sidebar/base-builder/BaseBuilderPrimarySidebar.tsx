@@ -34,6 +34,9 @@ interface BuilderPrimarySidebarProps {
   isLoading?: boolean
 }
 
+/**
+ * Can be re-used for both `page` and `component` builder
+ */
 export const BaseBuilderPrimarySidebar = observer<BuilderPrimarySidebarProps>(
   ({ containerNode, context, isLoading = false }) => {
     const { rendererService } = useApplicationStore()
@@ -102,7 +105,7 @@ export const BaseBuilderPrimarySidebar = observer<BuilderPrimarySidebarProps>(
         },
       },
       {
-        content: store && <ActionsTreeView store={store} />,
+        content: store && <ActionsTreeView context={context} store={store} />,
         isLoading: isLoading || !store,
         key: 'Actions',
         label: 'Actions',

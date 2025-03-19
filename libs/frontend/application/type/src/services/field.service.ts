@@ -15,8 +15,9 @@ import {
   type IFieldService,
   type IFieldUpdateRouteContext,
   IRouteType,
+  PageType,
+  PrimarySidebar,
 } from '@codelab/frontend/abstract/application'
-import { PageType, PrimarySidebar } from '@codelab/frontend/abstract/types'
 import { fieldRepository } from '@codelab/frontend-domain-type/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Validator } from '@codelab/shared/infra/typebox'
@@ -226,10 +227,10 @@ export const useFieldService = (): IFieldService => {
     ) => {
       if (type === IRouteType.Page) {
         router.push(
-          PageType.PageBuilderCreateField(params, PrimarySidebar.ElementTree),
+          PageType.PageBuilderFieldCreate(params, PrimarySidebar.ElementTree),
         )
       } else if (type === IRouteType.Component) {
-        router.push(PageType.ComponentBuilderCreateField(params))
+        router.push(PageType.ComponentBuilderFieldCreate(params))
       }
     },
   }
@@ -241,11 +242,11 @@ export const useFieldService = (): IFieldService => {
       { params, type }: IFieldUpdateRouteContext,
     ) => {
       if (type === IRouteType.Component) {
-        router.push(PageType.ComponentBuilderUpdateField(params))
+        router.push(PageType.ComponentBuilderFieldUpdate(params))
       } else if (type === IRouteType.Page) {
-        router.push(PageType.PageBuilderUpdateField(params))
+        router.push(PageType.PageBuilderFieldUpdate(params))
       } else {
-        router.push(PageType.TypeUpdateField(params))
+        router.push(PageType.TypeFieldUpdate(params))
       }
     },
   }
@@ -257,11 +258,11 @@ export const useFieldService = (): IFieldService => {
       { params, type }: IFieldUpdateRouteContext,
     ) => {
       if (type === IRouteType.Component) {
-        router.push(PageType.ComponentBuilderDeleteField(params))
+        router.push(PageType.ComponentBuilderFieldDelete(params))
       } else if (type === IRouteType.Page) {
-        router.push(PageType.PageBuilderDeleteField(params))
+        router.push(PageType.PageBuilderFieldDelete(params))
       } else {
-        router.push(PageType.TypeDeleteField(params))
+        router.push(PageType.TypeFieldDelete(params))
       }
     },
   }

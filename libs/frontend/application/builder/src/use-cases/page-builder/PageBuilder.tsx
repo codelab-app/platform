@@ -1,8 +1,11 @@
 'use client'
 
-import type { IRootRenderer } from '@codelab/frontend/abstract/application'
 import type { IPageModel } from '@codelab/frontend/abstract/domain'
 
+import {
+  type IRootRenderer,
+  IRouteType,
+} from '@codelab/frontend/abstract/application'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { observer } from 'mobx-react-lite'
@@ -11,6 +14,7 @@ import { BaseBuilder } from '../base-builder'
 
 export interface IPageBuilderProps {
   RootRenderer: IRootRenderer
+  appId: string
   page?: IPageModel
 }
 
@@ -20,7 +24,7 @@ export interface IPageBuilderProps {
  * Remove observable here, otherwise has loop
  */
 export const PageBuilder = observer(
-  ({ page, RootRenderer }: IPageBuilderProps) => {
+  ({ appId, page, RootRenderer }: IPageBuilderProps) => {
     // tracker.useRenderedCount('PageBuilder')
 
     const { rendererService } = useApplicationStore()
@@ -35,7 +39,20 @@ export const PageBuilder = observer(
       return <Spinner />
     }
 
-    return <BaseBuilder RootRenderer={RootRenderer} renderer={renderer} />
+    return (
+      <BaseBuilder
+        RootRenderer={RootRenderer}
+        context={({ elementId }) => ({
+          params: {
+            appId,
+            elementId,
+            pageId: page.id,
+          },
+          type: IRouteType.Page,
+        })}
+        renderer={renderer}
+      />
+    )
   },
 )
 

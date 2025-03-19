@@ -1,9 +1,12 @@
 'use client'
 
-import type { PageContextParams } from '@codelab/frontend/abstract/application'
 import type { IAppModel, IPageModel } from '@codelab/frontend/abstract/domain'
 
-import { PageType, PrimarySidebar } from '@codelab/frontend/abstract/types'
+import {
+  type PageContextParams,
+  PageType,
+  PrimarySidebar,
+} from '@codelab/frontend/abstract/application'
 import { DetailHeader } from '@codelab/frontend-presentation-view/sections'
 import { Skeleton } from 'antd'
 import { observer } from 'mobx-react-lite'

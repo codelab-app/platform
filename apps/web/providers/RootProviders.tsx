@@ -22,13 +22,12 @@ export const RootProviders = ({
   children,
   user,
 }: PropsWithChildren<{ user: IUserDto }>) => {
-  const pathParams = useUrlParams()
   const searchParams = useSearchParamsProps()
 
   const rootStore = useMemo(
     () =>
       createRootStore({
-        routerProps: { pathParams, searchParams },
+        routerProps: { searchParams },
         user,
       }),
     [user.id],

@@ -9,10 +9,10 @@ import { CuiSidebar } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 
-import { usePageService } from '../services'
-import { PageList } from '../use-cases/get-pages'
+import { usePageService } from '../../services'
+import { PageList } from '../../use-cases/get-pages'
 
-export const PagesPrimarySidebar = observer(
+export const PageListPrimarySidebar = observer(
   ({ app, pageId }: { app: IAppModel; pageId: string }) => {
     const router = useRouter()
     const { createPopover } = usePageService()

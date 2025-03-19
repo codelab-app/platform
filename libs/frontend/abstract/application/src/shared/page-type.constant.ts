@@ -274,7 +274,8 @@ export const PageType = {
   TypeDelete: ({ id }: IRef) => `${PageType.Type()}/type/${id}/delete`,
   TypeFieldCreate: (typeId: string) =>
     `${PageType.Type()}/field/${typeId}/create/field`,
-  TypeFieldDelete: ({ id }: IRef) => `${PageType.Type()}/field/${id}/delete`,
+  TypeFieldDelete: ({ fieldId }: { fieldId: string }) =>
+    `${PageType.Type()}/field/${fieldId}/delete`,
   TypeFieldUpdate: ({ fieldId }: { fieldId: string }) =>
     `${PageType.Type()}/field/${fieldId}/update`,
   TypeUpdate: ({ id }: IRef) => `${PageType.Type()}/type/${id}/update`,

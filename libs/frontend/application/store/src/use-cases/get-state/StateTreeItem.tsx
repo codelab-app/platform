@@ -1,3 +1,4 @@
+import type { IFieldUpdateRouteContext } from '@codelab/frontend/abstract/application'
 import type {
   IFieldNodeData,
   ITreeNode,
@@ -19,29 +20,20 @@ import { useRouter } from 'next/navigation'
 
 interface StateTreeItemProps {
   data: ITreeNode<IFieldNodeData>
+  context({ fieldId }: { fieldId: string }): IFieldUpdateRouteContext
 }
 
-export const StateTreeItem = ({ data }: StateTreeItemProps) => {
+export const StateTreeItem = ({ context, data }: StateTreeItemProps) => {
   const { appId, componentId, pageId } = useValidatedUrlParams()
   const { fieldDomainService } = useDomainStore()
   const { createPopover, deletePopover, updatePopover } = useFieldService()
   const router = useRouter()
 
   const onEdit = () =>
-    updatePopover.open(router, {
-      appId,
-      componentId,
-      fieldId: data.extraData.node.id,
-      pageId,
-    })
+    updatePopover.open(router, context({ fieldId: data.extraData.node.id }))
 
   const onDelete = () =>
-    deletePopover.open(router, {
-      appId,
-      componentId,
-      fieldId: data.extraData.node.id,
-      pageId,
-    })
+    deletePopover.open(router, context({ fieldId: data.extraData.node.id }))
 
   const onAddField = () => {
     createPopover.open(router, {

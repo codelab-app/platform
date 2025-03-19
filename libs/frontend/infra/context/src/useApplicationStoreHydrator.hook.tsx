@@ -21,10 +21,6 @@ export const useApplicationStoreHydrator = () => {
     if (searchParams) {
       routerService.setSearchParams(searchParams)
     }
-
-    if (pathParams) {
-      routerService.setPathParams(pathParams)
-    }
   }
 
   return hydrate

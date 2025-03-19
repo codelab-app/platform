@@ -5,9 +5,9 @@ import type { ExplorerPaneType } from '@codelab/frontend/abstract/types'
 import { AppConnector } from '@codelab/frontend-application-app/views'
 import { PageConnector } from '@codelab/frontend-application-page/views'
 
-import { PagePrimarySidebar } from './PagePrimarySidebar'
+import { PageBuilderPrimarySidebar } from './PageBuilderPrimarySidebar'
 
-export const PagePrimarySidebarContainer = ({
+export const PageBuilderPrimarySidebarContainer = ({
   appId,
   pageId,
   type,
@@ -21,7 +21,7 @@ export const PagePrimarySidebarContainer = ({
       {(app) => (
         <PageConnector id={pageId}>
           {(page) => (
-            <PagePrimarySidebar app={app} page={page} paneType={type} />
+            <PageBuilderPrimarySidebar app={app} page={page} paneType={type} />
           )}
         </PageConnector>
       )}
@@ -29,4 +29,4 @@ export const PagePrimarySidebarContainer = ({
   )
 }
 
-PagePrimarySidebarContainer.displayName = 'PagePrimarySidebarContainer'
+PageBuilderPrimarySidebarContainer.displayName = 'PagePrimarySidebarContainer'

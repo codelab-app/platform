@@ -13,7 +13,11 @@ type UseBuilderHotkeysProps = Pick<
   IBuilderService,
   'selectedNode' | 'setSelectedNode'
 > & {
-  context: IBuilderRouteContext<{ elementId: string }>
+  context({
+    elementId,
+  }: {
+    elementId: string
+  }): IBuilderRouteContext<{ elementId: string }>
 }
 
 /**
@@ -40,7 +44,7 @@ export const useBuilderHotkeys = ({
         const isRootElement = element?.isRoot
 
         if (element && !isRootElement) {
-          deletePopover.open(router, context)
+          deletePopover.open(router, context({ elementId: element.id }))
         }
       }
     },

@@ -75,6 +75,13 @@ export const useValidatedUrlParams = (): ValidatedUrlParamsProps => {
 
       return params.componentId
     },
+    get elementId() {
+      if (!params.elementId) {
+        throw new Error('elementId is required')
+      }
+
+      return params.elementId
+    },
     get interfaceId() {
       if (!params.interfaceId) {
         throw new Error('interfaceId is required')

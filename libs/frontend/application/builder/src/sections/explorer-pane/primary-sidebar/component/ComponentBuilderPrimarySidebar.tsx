@@ -13,28 +13,20 @@ import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 import { observer } from 'mobx-react-lite'
 
 import { BaseBuilderPrimarySidebar } from '../base-builder/BaseBuilderPrimarySidebar'
-import { ComponentsPrimarySidebar } from './ComponentsPrimarySidebar'
+import { ComponentListPrimarySidebar } from './ComponentListPrimarySidebar'
 
-export const ComponentPrimarySidebar = observer<{
-  params: ComponentContextParams
-  searchParams: SearchParamsPageProps
+export const ComponentBuilderPrimarySidebar = observer<{
   component: IComponentModel
-}>(({ component, params, searchParams }) => {
-  const { primarySidebarKey } = searchParams
+}>(({ component }) => (
+  <BaseBuilderPrimarySidebar
+    containerNode={component}
+    context={{
+      params: {
+        componentId: component.id,
+      },
+      type: IRouteType.Component,
+    }}
+  />
+))
 
-  if (primarySidebarKey === ExplorerPaneType.Components) {
-    return <ComponentsPrimarySidebar />
-  }
-
-  return (
-    <BaseBuilderPrimarySidebar
-      containerNode={component}
-      context={{
-        params,
-        type: IRouteType.Component,
-      }}
-    />
-  )
-})
-
-ComponentPrimarySidebar.displayName = 'ComponentPrimarySidebar'
+ComponentBuilderPrimarySidebar.displayName = 'ComponentPrimarySidebar'

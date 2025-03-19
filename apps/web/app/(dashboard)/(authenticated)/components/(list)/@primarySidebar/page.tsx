@@ -1,3 +1,3 @@
-import { ComponentsPrimarySidebar } from '@codelab/frontend-application-builder/sections'
+import { ComponentListPrimarySidebar } from '@codelab/frontend-application-builder/sections'
 
-export default ComponentsPrimarySidebar
+export default ComponentListPrimarySidebar

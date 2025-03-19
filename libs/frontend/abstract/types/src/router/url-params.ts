@@ -8,6 +8,7 @@ export interface UrlParamsProps {
   appId?: string
   authGuardId?: string
   componentId?: string
+  elementId?: string
   interfaceId?: string
   pageId?: string
   resourceId?: string

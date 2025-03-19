@@ -9,9 +9,9 @@ export const metadata: Metadata = {
 
 const Page = async (props: { params: Promise<PageContextParams> }) => {
   const params = await props.params
-  const { pageId } = params
+  const { appId, pageId } = params
 
-  return <PageBuilderContainer pageId={pageId} />
+  return <PageBuilderContainer appId={appId} pageId={pageId} />
 }
 
 Page.displayName = 'Page'

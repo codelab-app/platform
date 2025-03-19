@@ -1,8 +1,11 @@
 'use client'
 
-import type { IRootRenderer } from '@codelab/frontend/abstract/application'
 import type { IComponentModel } from '@codelab/frontend/abstract/domain'
 
+import {
+  type IRootRenderer,
+  IRouteType,
+} from '@codelab/frontend/abstract/application'
 import { BuilderProvider } from '@codelab/frontend/presentation/container'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
@@ -33,7 +36,19 @@ export const ComponentBuilder = observer(
       return null
     }
 
-    return <BaseBuilder RootRenderer={RootRenderer} renderer={renderer} />
+    return (
+      <BaseBuilder
+        RootRenderer={RootRenderer}
+        context={({ elementId }) => ({
+          params: {
+            componentId: component.id,
+            elementId,
+          },
+          type: IRouteType.Component,
+        })}
+        renderer={renderer}
+      />
+    )
   },
 )
 

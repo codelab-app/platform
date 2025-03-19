@@ -12,7 +12,7 @@ import { useRouter } from 'next/navigation'
 import { CustomComponents } from '../../tab-contents/CustomComponents'
 import { PreBuiltComponents } from '../../tab-contents/PreBuiltComponents'
 
-export const ComponentsPrimarySidebar = () => {
+export const ComponentListPrimarySidebar = () => {
   const router = useRouter()
 
   const sidebarViews: Array<CuiSidebarView> = [
@@ -64,4 +64,4 @@ export const ComponentsPrimarySidebar = () => {
   )
 }
 
-ComponentsPrimarySidebar.displayName = 'ComponentsPrimarySidebar'
+ComponentListPrimarySidebar.displayName = 'ComponentsPrimarySidebar'

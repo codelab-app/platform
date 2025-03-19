@@ -1,3 +1,4 @@
 export * from './Page.connector'
 export * from './PageDetailHeader'
-export * from './PagesPrimarySidebar'
+export * from './primary-sidebar/PageListPrimarySidebar'
+export * from './primary-sidebar/PageListPrimarySidebar.container'

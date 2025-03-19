@@ -2,6 +2,7 @@
 
 import type {
   IBuilderRouteContext,
+  IElementRouteContext,
   IRendererModel,
   IRootRenderer,
 } from '@codelab/frontend/abstract/application'
@@ -23,8 +24,12 @@ import { RenderBlueprint } from './RenderBlueprint'
 
 interface IBuilderProps {
   RootRenderer: IRootRenderer
-  context: IBuilderRouteContext<{ elementId: string }>
   renderer: IRendererModel
+  context({
+    elementId,
+  }: {
+    elementId: string
+  }): IBuilderRouteContext<{ elementId: string }>
 }
 
 /**

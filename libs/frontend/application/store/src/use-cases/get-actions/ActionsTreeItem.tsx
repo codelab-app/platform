@@ -1,3 +1,4 @@
+import type { IActionUpdateRouteContext } from '@codelab/frontend/abstract/application'
 import type {
   IActionNodeData,
   ITreeNode,
@@ -21,20 +22,20 @@ import { useActionService } from '../../services/action.service'
 
 interface ActionsTreeItemProps {
   data: ITreeNode<IActionNodeData>
+  context({ actionId }: { actionId: string }): IActionUpdateRouteContext
 }
 
-export const ActionsTreeItem = ({ data }: ActionsTreeItemProps) => {
-  const { appId, componentId, pageId } = useValidatedUrlParams()
+export const ActionsTreeItem = ({ context, data }: ActionsTreeItemProps) => {
   const { deletePopover, updatePopover } = useActionService()
   const router = useRouter()
   const actionId = data.extraData.node.id
 
   const onDelete = () => {
-    deletePopover.open(router, { actionId, appId, componentId, pageId })
+    deletePopover.open(router, context({ actionId }))
   }
 
   const onEdit = () => {
-    updatePopover.open(router, { actionId, appId, componentId, pageId })
+    updatePopover.open(router, context({ actionId }))
   }
 
   const toolbarItems: Array<ToolbarItem> = [

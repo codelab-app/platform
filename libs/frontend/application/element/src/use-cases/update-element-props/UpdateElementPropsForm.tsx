@@ -115,7 +115,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
             </Col>
             <Col span={24}>
               <AdminPropsPanel
-                context={(fieldId) => ({
+                context={({ fieldId }) => ({
                   params: {
                     appId,
                     fieldId,

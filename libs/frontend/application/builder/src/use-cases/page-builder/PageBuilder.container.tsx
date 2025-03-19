@@ -8,7 +8,13 @@ import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 
 import { PageBuilder } from './PageBuilder'
 
-export const PageBuilderContainer = ({ pageId }: { pageId: string }) => {
+export const PageBuilderContainer = ({
+  appId,
+  pageId,
+}: {
+  appId: string
+  pageId: string
+}) => {
   return (
     /**
      * We push the responsibility of data requirement closer to the page, which allows us to check the data using mobx state as opposed to some `isHydrating` state hook (which gets reset across requests)
@@ -22,6 +28,7 @@ export const PageBuilderContainer = ({ pageId }: { pageId: string }) => {
           <PageBuilder
             // Decouple renderer from builder
             RootRenderer={RootRenderer}
+            appId={appId}
             page={page}
           />
         </BuilderProvider>

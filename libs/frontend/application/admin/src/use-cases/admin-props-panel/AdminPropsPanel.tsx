@@ -20,7 +20,7 @@ import { mergeDeep } from 'remeda'
 export const AdminPropsPanel = observer<{
   interfaceType: IInterfaceTypeModel
   // Field is passed in
-  context(fieldId: string): IFieldUpdateRouteContext
+  context({ fieldId }: { fieldId: string }): IFieldUpdateRouteContext
 }>(({ context, interfaceType }) => {
   const user = useUser()
   const router = useRouter()
@@ -33,7 +33,7 @@ export const AdminPropsPanel = observer<{
   const onEdit = (field: IFieldModel) => {
     updatePopover.open(
       router,
-      mergeDeep(context(field.id), {
+      mergeDeep(context({ fieldId: field.id }), {
         params: {
           fieldId: field.id,
         },
@@ -44,7 +44,7 @@ export const AdminPropsPanel = observer<{
   const onDelete = (field: IFieldModel) => {
     deletePopover.open(
       router,
-      mergeDeep(context(field.id), {
+      mergeDeep(context({ fieldId: field.id }), {
         params: {
           fieldId: field.id,
         },
