@@ -3,9 +3,9 @@
 import type { SubmitController } from '@codelab/frontend/abstract/types'
 import type { Maybe } from '@codelab/shared/abstract/types'
 
-import { AtomConnector } from '@codelab/frontend/infra/connector'
 import { useRef } from 'react'
 
+import { AtomConnector } from '../../views'
 import { UpdateAtomPopover } from './UpdateAtomPopover'
 
 export const UpdateAtomPopoverContainer = ({ id }: { id: string }) => {

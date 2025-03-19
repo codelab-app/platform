@@ -12,6 +12,8 @@ export const AppConnector = observer(
     const { appDomainService } = useDomainStore()
     const app = appDomainService.apps.get(id)
 
+    console.log('AppConnector', app)
+
     if (!app) {
       return <Spinner />
     }

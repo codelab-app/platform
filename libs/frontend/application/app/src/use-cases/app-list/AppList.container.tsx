@@ -1,7 +1,6 @@
 'use client'
 
-import { AppsConnector } from '@codelab/frontend/infra/connector'
-
+import { AppsConnector } from '../../views'
 import { AppList } from './AppList'
 
 export const AppListContainer = () => (

@@ -11,7 +11,7 @@ import { observer } from 'mobx-react-lite'
 import { usePathname, useRouter } from 'next/navigation'
 import { type ReactNode, useCallback } from 'react'
 
-interface IComponentDetailHeaderProps {
+interface IComponentBuilderHeaderProps {
   BuilderResizeMenu: ReactNode
   app?: IAppModel
   /**
@@ -20,7 +20,7 @@ interface IComponentDetailHeaderProps {
   component: IComponentModel
 }
 
-export const ComponentDetailHeader = observer<IComponentDetailHeaderProps>(
+export const ComponentBuilderHeader = observer<IComponentBuilderHeaderProps>(
   ({ app, BuilderResizeMenu, component }) => {
     const router = useRouter()
     const currentPathname = usePathname()

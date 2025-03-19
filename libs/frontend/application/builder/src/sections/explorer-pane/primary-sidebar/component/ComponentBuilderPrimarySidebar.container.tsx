@@ -1,4 +1,4 @@
-import { ComponentConnector } from '@codelab/frontend/infra/connector'
+import { ComponentConnector } from '@codelab/frontend-application-component/views'
 
 import { ComponentBuilderPrimarySidebar } from './ComponentBuilderPrimarySidebar'
 

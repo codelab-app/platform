@@ -2,8 +2,7 @@
 
 import type { IActionModel } from '@codelab/frontend/abstract/domain'
 
-import { ActionConnector } from '@codelab/frontend/infra/connector'
-
+import { ActionConnector } from '../../views'
 import { DeleteActionModal } from './DeleteActionModal'
 
 export const DeleteActionModalContainer = ({ id }: { id: string }) => {

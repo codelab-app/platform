@@ -1,7 +1,6 @@
 'use client'
 
-import { DomainConnector } from '@codelab/frontend/infra/connector'
-
+import { DomainConnector } from '../../views'
 import { UpdateDomainModal } from './UpdateDomainModal'
 
 export const UpdateDomainModalContainer = ({ id }: { id: string }) => (

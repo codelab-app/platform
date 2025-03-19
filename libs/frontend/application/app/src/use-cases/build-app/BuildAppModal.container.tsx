@@ -1,7 +1,6 @@
 'use client'
 
-import { AppConnector } from '@codelab/frontend/infra/connector'
-
+import { AppConnector } from '../../views/App.connector'
 import { BuildAppModal } from './BuildAppModal'
 
 export const BuildAppModalContainer = ({ id }: { id: string }) => {

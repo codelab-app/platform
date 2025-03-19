@@ -3,6 +3,7 @@
   "useInferencePlugins": true,
   "parallel": 3,
   "defaultProject": "web",
+  "maxCacheSize": "2GB",
   "plugins": [
     "@codelab/tsc-check",
     {

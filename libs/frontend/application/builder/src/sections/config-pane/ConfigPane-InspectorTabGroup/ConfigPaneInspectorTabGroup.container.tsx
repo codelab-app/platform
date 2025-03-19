@@ -1,6 +1,6 @@
 'use client'
 
-import type { IFieldUpdateRouteLazyContext } from '@codelab/frontend/abstract/application'
+import type { IBuilderRouteContext } from '@codelab/frontend/abstract/application'
 
 import { isRuntimePage } from '@codelab/frontend/abstract/application'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
@@ -9,7 +9,7 @@ import { observer } from 'mobx-react-lite'
 import { ConfigPaneInspectorTabGroup } from './ConfigPaneInspectorTabGroup'
 
 export const ConfigPaneInspectorTabGroupContainer = observer<{
-  context: IFieldUpdateRouteLazyContext
+  context: IBuilderRouteContext
 }>(({ context }) => {
   const { builderService, rendererService } = useApplicationStore()
   const selectedNode = builderService.selectedNode?.current

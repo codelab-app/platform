@@ -7,7 +7,7 @@ import FormatPainterOutlined from '@ant-design/icons/FormatPainterOutlined'
 import NodeIndexOutlined from '@ant-design/icons/NodeIndexOutlined'
 import SettingOutlined from '@ant-design/icons/SettingOutlined'
 import {
-  type IFieldUpdateRouteLazyContext,
+  type IBuilderRouteContext,
   type IRendererModel,
   type IRuntimeComponentModel,
   type IRuntimeElementModel,
@@ -64,7 +64,7 @@ export const ConfigPaneInspectorTabGroup = observer<{
   selectedNode: IRuntimeComponentModel | IRuntimeElementModel
   activeRenderer: IRendererModel
   elementTree: IElementTree
-  context: IFieldUpdateRouteLazyContext
+  context: IBuilderRouteContext
 }>(({ activeRenderer, context, elementTree, selectedNode }) => {
   // Nested components render too many times if we don't memo
   const tabItems = useMemo(

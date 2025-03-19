@@ -11,8 +11,13 @@ import { AutoFields } from 'uniforms-antd'
 
 import { usePageService } from '../../services'
 
-export const DeletePageModal = observer(
-  ({ appId, page }: { appId: string; page: IPageModel }) => {
+interface DeletePageModalProps {
+  appId: string
+  page: IPageModel
+}
+
+export const DeletePageModal = observer<DeletePageModalProps>(
+  ({ appId, page }) => {
     const pageService = usePageService()
     const router = useRouter()
 

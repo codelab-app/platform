@@ -1,7 +1,5 @@
 # frontend-infra-connector
 
-This library was generated with [Nx](https://nx.dev).
+This was created due to a page list that requires app model, leading page to depend on app, causing circular dependency.
 
-## Running unit tests
-
-Run `nx test frontend-infra-connector` to execute the unit tests via [Jest](https://jestjs.io).
+Solution was to extract to shared layer.

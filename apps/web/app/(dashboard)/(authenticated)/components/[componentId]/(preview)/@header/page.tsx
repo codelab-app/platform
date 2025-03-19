@@ -1,5 +1,5 @@
+import { ComponentBuilderHeaderContainer } from '@codelab/frontend-application-builder/use-cases/component-builder'
 import { BuilderResizeMenu } from '@codelab/frontend-application-builder/use-cases/resize'
-import { ComponentDetailHeaderContainer } from '@codelab/frontend-application-component/views'
 
 const Page = async ({
   params,
@@ -9,7 +9,7 @@ const Page = async ({
   const { componentId } = await params
 
   return (
-    <ComponentDetailHeaderContainer
+    <ComponentBuilderHeaderContainer
       BuilderResizeMenu={<BuilderResizeMenu />}
       componentId={componentId}
     />

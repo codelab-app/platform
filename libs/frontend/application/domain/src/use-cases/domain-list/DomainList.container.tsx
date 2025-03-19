@@ -1,7 +1,6 @@
 'use client'
 
-import { DomainsConnector } from '@codelab/frontend/infra/connector'
-
+import { DomainsConnector } from '../../views'
 import { DomainList } from './DomainList'
 
 interface DomainListContainerProps {

@@ -1,9 +1,10 @@
 import type { ReactNode } from 'react'
 
-import { ComponentConnector } from './Component.connector'
-import { ComponentDetailHeader } from './ComponentDetailHeader'
+import { ComponentConnector } from '@codelab/frontend-application-component/views'
 
-export const ComponentDetailHeaderContainer = ({
+import { ComponentBuilderHeader } from './ComponentBuilderHeader'
+
+export const ComponentBuilderHeaderContainer = ({
   BuilderResizeMenu,
   componentId,
 }: {
@@ -13,7 +14,7 @@ export const ComponentDetailHeaderContainer = ({
   return (
     <ComponentConnector id={componentId}>
       {(component) => (
-        <ComponentDetailHeader
+        <ComponentBuilderHeader
           BuilderResizeMenu={BuilderResizeMenu}
           component={component}
         />

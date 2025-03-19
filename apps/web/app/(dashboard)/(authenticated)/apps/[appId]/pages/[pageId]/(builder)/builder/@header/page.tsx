@@ -2,11 +2,12 @@ import type { PageContextParams } from '@codelab/frontend/abstract/application'
 
 import { PageBuilderHeaderContainer } from '@codelab/frontend-application-builder/use-cases/page-builder'
 
-const Page = async ({ params }: { params: Promise<PageContextParams> }) => {
-  const resolvedParams = await params
-  const { appId, pageId } = resolvedParams
+const Header = async ({ params }: { params: Promise<PageContextParams> }) => {
+  const { appId, pageId } = await params
 
   return <PageBuilderHeaderContainer appId={appId} pageId={pageId} />
 }
 
-export default Page
+Header.displayName = 'Header'
+
+export default Header

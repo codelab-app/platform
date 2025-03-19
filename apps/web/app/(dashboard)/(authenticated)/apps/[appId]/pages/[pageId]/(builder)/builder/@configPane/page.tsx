@@ -10,14 +10,13 @@ const Page = async ({
 
   return (
     <ConfigPaneInspectorTabGroupContainer
-      context={({ fieldId }) => ({
+      context={{
         params: {
           appId,
-          fieldId,
           pageId,
         },
         type: IRouteType.Page,
-      })}
+      }}
     />
   )
 }

@@ -20,7 +20,7 @@ interface IPageDetailHeaderProps {
   page: IPageModel
 }
 
-export const PageDetailHeader = observer<IPageDetailHeaderProps>(
+export const PageBuilderHeader = observer<IPageDetailHeaderProps>(
   ({ app, BuilderResizeMenu, page }) => {
     const router = useRouter()
     const currentPathname = usePathname()

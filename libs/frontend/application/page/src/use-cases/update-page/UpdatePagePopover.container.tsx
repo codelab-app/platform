@@ -1,5 +1,4 @@
-import { PageConnector } from '@codelab/frontend/infra/connector'
-
+import { PageConnector } from '../../views/Page.connector'
 import { UpdatePagePopover } from './UpdatePagePopover'
 
 export const UpdatePagePopoverContainer = ({
