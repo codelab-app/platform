@@ -38,13 +38,12 @@ export const ComponentBuilder = observer(
     return (
       <BaseBuilder
         RootRenderer={RootRenderer}
-        context={({ elementId }) => ({
+        context={{
           params: {
             componentId: component.id,
-            elementId,
           },
           type: IRouteType.Component,
-        })}
+        }}
         renderer={renderer}
       />
     )

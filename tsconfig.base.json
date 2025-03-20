@@ -336,9 +336,6 @@
       "@codelab/frontend-application-builder/utils": [
         "libs/frontend/application/builder/src/utils/index.ts"
       ],
-      "@codelab/frontend-application-builder/views": [
-        "libs/frontend/application/builder/src/views/index.ts"
-      ],
       "@codelab/frontend-application-component/services": [
         "libs/frontend/application/component/src/services/index.ts"
       ],
@@ -458,6 +455,9 @@
       ],
       "@codelab/frontend-application-page/use-cases/get-pages": [
         "libs/frontend/application/page/src/use-cases/get-pages/index.ts"
+      ],
+      "@codelab/frontend-application-page/use-cases/page-list": [
+        "libs/frontend/application/page/src/use-cases/page-list/index.ts"
       ],
       "@codelab/frontend-application-page/use-cases/update-page": [
         "libs/frontend/application/page/src/use-cases/update-page/index.ts"
@@ -990,9 +990,6 @@
       ],
       "@codelab/shared-infra-auth0/client": [
         "libs/shared/infra/auth0/src/client/index.ts"
-      ],
-      "@codelab/shared-infra-auth0/server": [
-        "libs/shared/infra/auth0/src/server/index.ts"
       ],
       "@codelab/shared-infra-eval": ["libs/shared/infra/eval/src/index.ts"],
       "@codelab/shared-infra-sentry": ["libs/shared/infra/sentry/src/index.ts"],

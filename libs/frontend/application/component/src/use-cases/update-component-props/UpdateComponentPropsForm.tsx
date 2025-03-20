@@ -69,13 +69,12 @@ export const UpdateComponentPropsForm = observer<UpdateComponentPropsFormProps>(
             </Col>
             <Col span={24}>
               <AdminPropsPanel
-                context={({ fieldId }) => ({
+                context={{
                   params: {
                     componentId: component.id,
-                    fieldId,
                   },
                   type: IRouteType.Component,
-                })}
+                }}
                 interfaceType={interfaceType}
               />
             </Col>

@@ -6,16 +6,13 @@ import {
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { useRouter } from 'next/navigation'
 import { useHotkeys } from 'react-hotkeys-hook'
+import { mergeDeep } from 'remeda'
 
 type UseBuilderHotkeysProps = Pick<
   IBuilderService,
   'selectedNode' | 'setSelectedNode'
 > & {
-  context({
-    elementId,
-  }: {
-    elementId: string
-  }): IBuilderRouteContext<{ elementId: string }>
+  context: IBuilderRouteContext
 }
 
 /**
@@ -42,7 +39,14 @@ export const useBuilderHotkeys = ({
         const isRootElement = element?.isRoot
 
         if (element && !isRootElement) {
-          deletePopover.open(router, context({ elementId: element.id }))
+          deletePopover.open(
+            router,
+            mergeDeep(context, {
+              params: {
+                elementId: element.id,
+              },
+            }),
+          )
         }
       }
     },

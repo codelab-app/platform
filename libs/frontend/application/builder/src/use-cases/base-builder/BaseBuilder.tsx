@@ -22,12 +22,8 @@ import { RenderBlueprint } from './RenderBlueprint'
 
 interface IBuilderProps {
   RootRenderer: IRootRenderer
+  context: IBuilderRouteContext
   renderer: IRendererModel
-  context({
-    elementId,
-  }: {
-    elementId: string
-  }): IBuilderRouteContext<{ elementId: string }>
 }
 
 /**

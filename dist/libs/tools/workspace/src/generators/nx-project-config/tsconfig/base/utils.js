@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.removeTsconfigPath = exports.appendTsconfigPath = exports.getModuleAlias = exports.sortKeys = void 0;
 const devkit_1 = require("@nx/devkit");
-const remeda_1 = require("remeda");
 const sortKeys = (object) => Object.fromEntries(Object.entries(object).sort());
 exports.sortKeys = sortKeys;
 /**
@@ -25,9 +24,7 @@ const appendTsconfigPath = (tree, project, moduleAlias, targetPath) => {
             [moduleAlias]: [targetPath],
         });
         const paths = json.compilerOptions.paths ?? {};
-        (0, remeda_1.mergeDeep)(paths, {
-            [moduleAlias]: [targetPath],
-        });
+        paths[moduleAlias] = [targetPath];
         json.compilerOptions.paths = (0, exports.sortKeys)(paths);
         return json;
     });

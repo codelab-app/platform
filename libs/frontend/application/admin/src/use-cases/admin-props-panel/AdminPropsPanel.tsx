@@ -1,4 +1,4 @@
-import type { IFieldUpdateRouteLazyContext } from '@codelab/frontend/abstract/application'
+import type { IBuilderRouteContext } from '@codelab/frontend/abstract/application'
 import type {
   IFieldModel,
   IInterfaceTypeModel,
@@ -13,7 +13,7 @@ import { useRouter } from 'next/navigation'
 import { mergeDeep } from 'remeda'
 
 export const AdminPropsPanel = observer<{
-  context: IFieldUpdateRouteLazyContext
+  context: IBuilderRouteContext
   interfaceType: IInterfaceTypeModel
 }>(({ context, interfaceType }) => {
   const user = useUser()
@@ -27,7 +27,7 @@ export const AdminPropsPanel = observer<{
   const onEdit = (field: IFieldModel) => {
     updatePopover.open(
       router,
-      mergeDeep(context({ fieldId: field.id }), {
+      mergeDeep(context, {
         params: {
           fieldId: field.id,
         },
@@ -38,7 +38,7 @@ export const AdminPropsPanel = observer<{
   const onDelete = (field: IFieldModel) => {
     deletePopover.open(
       router,
-      mergeDeep(context({ fieldId: field.id }), {
+      mergeDeep(context, {
         params: {
           fieldId: field.id,
         },

@@ -42,14 +42,13 @@ export const PageBuilder = observer(
     return (
       <BaseBuilder
         RootRenderer={RootRenderer}
-        context={({ elementId }) => ({
+        context={{
           params: {
             appId,
-            elementId,
             pageId: page.id,
           },
           type: IRouteType.Page,
-        })}
+        }}
         renderer={renderer}
       />
     )

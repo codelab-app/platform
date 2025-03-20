@@ -1,7 +1,7 @@
 'use client'
 
 import type {
-  IFieldUpdateRouteLazyContext,
+  IBuilderRouteContext,
   IRuntimeElementModel,
 } from '@codelab/frontend/abstract/application'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
@@ -24,7 +24,7 @@ import { useAsyncFn } from 'react-use'
 import { useElementService } from '../../services'
 
 export interface UpdateElementPropsFormProps {
-  context: IFieldUpdateRouteLazyContext
+  context: IBuilderRouteContext
   runtimeElement: IRuntimeElementModel
 }
 
