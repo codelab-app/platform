@@ -1,7 +1,19 @@
+import type { IDomainStoreDto } from '@codelab/frontend/abstract/domain'
+
+import { IDomainStore } from '@codelab/frontend/abstract/domain'
+import {
+  SUSPENSE_TIMEOUT,
+  waitForTimeout,
+} from '@codelab/frontend/shared/utils'
 import { defaultAtomQuery } from '@codelab/frontend-application-atom/use-cases/get-atoms/server'
 import { appRepository } from '@codelab/frontend-domain-app/repositories'
 import { cache } from 'react'
 import 'server-only'
+
+export type AppItemQueryProps = Pick<
+  IDomainStoreDto,
+  'appsDto' | 'atomsDto' | 'domainsDto'
+>
 
 export const appItemQuery = cache(async ({ appId }: { appId: string }) => {
   const [{ items: appsDto }, { items: atomsDto }] = await Promise.all([
@@ -9,7 +21,7 @@ export const appItemQuery = cache(async ({ appId }: { appId: string }) => {
     defaultAtomQuery(),
   ])
 
-  await new Promise((resolve) => setTimeout(resolve, 3000))
+  await waitForTimeout()
 
   const domainsDto = appsDto.flatMap((app) => app.domains)
 

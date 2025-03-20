@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { DeleteAtomsModal } from '@codelab/frontend-application-atom/use-cases/delete-atom'
 import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
-import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
+import { Spinner } from 'libs/frontend/presentation/view/src/components/loader'
 
 export const metadata: Metadata = {
   title: 'Delete Atom | Codelab',

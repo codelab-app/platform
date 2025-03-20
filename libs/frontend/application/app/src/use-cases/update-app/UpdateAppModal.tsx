@@ -8,6 +8,7 @@ import type {
 import { PageType } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
+import { Skeleton, Space } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import { AutoFields } from 'uniforms-antd'
@@ -27,28 +28,27 @@ export const UpdateAppModal = observer<{ app?: IAppModel }>(({ app }) => {
 
   const onSubmit = appService.update
   const closeModal = () => router.push(PageType.AppList())
+  const isLoading = !app
 
   return (
     <ModalForm.Modal
+      isLoading={isLoading}
       okText="Update App"
       onCancel={closeModal}
       open={true}
       uiKey={UiKey.AppModalUpdate}
     >
-      {app ? (
-        <ModalForm.Form<IAppUpdateFormData>
-          errorMessage="Error while updating app"
-          model={model}
-          onSubmit={onSubmit}
-          onSubmitSuccess={closeModal}
-          schema={updateAppSchema}
-          successMessage="App updated successfully"
-        >
-          <AutoFields />
-        </ModalForm.Form>
-      ) : (
-        <div>No app selected or app data is unavailable</div>
-      )}
+      <ModalForm.Form<IAppUpdateFormData>
+        errorMessage="Error while updating app"
+        isLoading={isLoading}
+        model={model}
+        onSubmit={onSubmit}
+        onSubmitSuccess={closeModal}
+        schema={updateAppSchema}
+        successMessage="App updated successfully"
+      >
+        <AutoFields />
+      </ModalForm.Form>
     </ModalForm.Modal>
   )
 })

@@ -26,6 +26,10 @@ export type FormProps<TData, TResponse = unknown> = Partial<
     uiKey: UiKey
     cssString?: string
     /**
+     * For showing skeleton
+     */
+    isLoading?: boolean
+    /**
      * Called after a failed submit, the input is unknown error
      */
     onSubmitError?: VoidCallback<unknown>

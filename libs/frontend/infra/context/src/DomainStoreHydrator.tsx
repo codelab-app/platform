@@ -26,14 +26,15 @@ type DomainStoreHydratorProps = IDomainStoreDto & {
 export const DomainStoreHydrator = observer<DomainStoreHydratorProps>(
   ({ children, fallback, ...data }) => {
     const hydrate = useDomainStoreHydrator()
-    const [isHydrated, setIsHydrated] = useState(false)
 
     useEffect(() => {
-      console.log('Hydrating data', data)
       hydrate(data)
-      setIsHydrated(true)
     }, [data, hydrate])
 
-    return <>{isHydrated ? children : fallback}</>
+    if (!fallback) {
+      return <>{children}</>
+    }
+
+    return <>{children}</>
   },
 )

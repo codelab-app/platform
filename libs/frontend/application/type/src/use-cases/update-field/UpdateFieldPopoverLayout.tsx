@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { fieldRepository } from '@codelab/frontend-domain-type/repositories'
-import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
+import { Spinner } from 'libs/frontend/presentation/view/src/components/loader'
 
 /**
  * Used by popover so we don't need a server component, can be used by page directly

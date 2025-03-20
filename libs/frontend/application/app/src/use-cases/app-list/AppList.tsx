@@ -1,6 +1,7 @@
 'use client'
 
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
+import type { ReactNode } from 'react'
 
 import {
   padding,
@@ -26,13 +27,27 @@ export const AppList = observer(({ apps }: { apps: Array<IAppModel> }) => {
   }
 
   return (
+    <AppListGrid apps={apps}>
+      {(app: IAppModel) => <AppListItem app={app} />}
+    </AppListGrid>
+  )
+})
+
+export const AppListGrid = ({
+  apps,
+  children,
+}: {
+  apps: Array<IAppModel>
+  children(app: IAppModel): ReactNode
+}) => {
+  return (
     <Row gutter={[padding.sm, padding.sm]}>
       {apps.map((app) => (
         // eslint-disable-next-line react/jsx-props-no-spreading
         <Col key={app.id} {...threeGridCol}>
-          <AppListItem app={app} />
+          {children(app)}
         </Col>
       ))}
     </Row>
   )
-})
+}

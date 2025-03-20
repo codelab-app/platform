@@ -861,6 +861,9 @@
       "@codelab/frontend-presentation-view/components/key": [
         "libs/frontend/presentation/view/src/components/key/index.ts"
       ],
+      "@codelab/frontend-presentation-view/components/loader": [
+        "libs/frontend/presentation/view/src/components/loader/index.ts"
+      ],
       "@codelab/frontend-presentation-view/components/overlay": [
         "libs/frontend/presentation/view/src/components/overlay/index.ts"
       ],

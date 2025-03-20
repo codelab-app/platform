@@ -7,7 +7,7 @@ import type {
 import type { ReactNode } from 'react'
 
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
+import { Spinner } from 'libs/frontend/presentation/view/src/components/loader'
 import { observer } from 'mobx-react-lite'
 
 export const AuthGuardConnector = observer(

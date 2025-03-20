@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { resourceRepository } from '@codelab/frontend-domain-resource/repositories'
-import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
+import { Spinner } from 'libs/frontend/presentation/view/src/components/loader'
 
 const Layout = async ({
   children,

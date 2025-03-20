@@ -11,6 +11,7 @@ import {
   UiKey,
 } from '@codelab/frontend/abstract/types'
 import { useIsMounted } from '@codelab/frontend/shared/utils'
+import { Button, Skeleton } from 'antd'
 import AntdModal from 'antd/lib/modal'
 import { useRef, useState } from 'react'
 
@@ -27,12 +28,13 @@ export type ModalProps = Pick<
   | 'onOk'
   | 'open'
   | 'title'
-> & { uiKey: UiKey }
+> & { uiKey: UiKey; isLoading?: boolean }
 
 export const Modal = ({
   cancelButtonProps,
   children,
   className,
+  isLoading,
   okButtonProps,
   okText,
   onCancel,
@@ -40,7 +42,7 @@ export const Modal = ({
   open,
   uiKey,
 }: PropsWithChildren<ModalProps>) => {
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoadingComponent, setIsLoadingComponent] = useState(false)
   // This is the controller that will do the form submission, create by the modal and passed down to the form
   const submitRef = useRef<Maybe<SubmitController>>(undefined)
   const isMounted = useIsMounted()
@@ -52,12 +54,18 @@ export const Modal = ({
   }
 
   return (
-    <ModalFormContext.Provider value={{ isLoading, setIsLoading, submitRef }}>
+    <ModalFormContext.Provider
+      value={{
+        isLoading: isLoadingComponent,
+        setIsLoading: setIsLoadingComponent,
+        submitRef,
+      }}
+    >
       <AntdModal
         // This is needed, because otherwise form values persist even after closing the modal
         cancelButtonProps={{
           ...cancelButtonProps,
-          disabled: isLoading,
+          disabled: isLoadingComponent,
         }}
         className={className}
         data-testid={getUiDataKey(uiKey)}
@@ -67,7 +75,7 @@ export const Modal = ({
           ...okButtonProps,
           'aria-label': getUiDataLabel(UiKey.ButtonConfirmation),
           disabled: isLoading,
-          loading: isLoading,
+          loading: isLoadingComponent,
           role: 'button',
         }}
         okText={okText}

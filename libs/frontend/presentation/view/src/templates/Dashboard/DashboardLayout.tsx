@@ -14,30 +14,28 @@ export interface DashboardSections {
   secondaryPopover: ReactNode
 }
 
-/**
- * We either
- */
 export type DashboardLayoutProps<
   Slots extends keyof Partial<DashboardSections> = never,
   Params extends keyof Partial<UrlParams> = never,
 > = {
   [K in Slots]: ReactNode
 } & {
-  params: Promise<{
-    [K in Params]: string
-  }>
-  children: ReactNode
+  /**
+   * Async makes typing harder, we can't make this key optional
+   */
+  params: {
+    [K in Params]: Promise<string>
+  }
 }
 
 /**
- * @deprecated Example only
- */
+ * @deprecated Example only */
 type _OnlyHeader = DashboardLayoutProps<'header', 'appId'>
 
 /**
  * @deprecated Example only
  */
-type _None = DashboardLayoutProps
+type _None = DashboardLayoutProps<'header'>
 
 /**
  * Our inferred slot types make it such that if key is not specified, the prop does not exist, so we need to spread it via `...slots`
@@ -49,7 +47,7 @@ export const DashboardLayout = async <
   children,
   params,
   ...slots
-}: DashboardLayoutProps<Slots, Params>) => {
+}: PropsWithChildren<DashboardLayoutProps<Slots, Params>>) => {
   const awaitedParams = await params
 
   return (

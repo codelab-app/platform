@@ -1,15 +1,29 @@
 import type { Metadata } from 'next'
 
+import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
+import { appItemQuery } from '@codelab/frontend-application-app/use-cases/app-item'
 import { DeleteAppModalContainer } from '@codelab/frontend-application-app/use-cases/delete-app'
 
 export const metadata: Metadata = {
   title: 'Delete App | Codelab',
 }
 
-const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
-  const { id } = await params
+const Page = async ({ params }: { params: Promise<{ appId: string }> }) => {
+  const { appId } = await params
+  /**
+   * Must await here and data is blocked, suspense will show loader
+   */
+  const { appsDto, atomsDto, domainsDto } = await appItemQuery({ appId })
 
-  return <DeleteAppModalContainer id={id} />
+  return (
+    <DomainStoreHydrator
+      appsDto={appsDto}
+      atomsDto={atomsDto}
+      domainsDto={domainsDto}
+    >
+      <DeleteAppModalContainer id={appId} />
+    </DomainStoreHydrator>
+  )
 }
 
 export default Page

@@ -1,5 +1,5 @@
-const Loading = () => {
-  return 'This is suspense loader!'
-}
+'use client'
 
-export default Loading
+import { DevLoading } from 'libs/frontend/presentation/view/src/components/loader'
+
+export default DevLoading('apps/(list)/@modal/[appId]')

@@ -8,6 +8,7 @@ import {
   connectUniformSubmitRef,
   createBridge,
 } from '@codelab/frontend/shared/utils'
+import { Skeleton, Space } from 'antd'
 import { useContext, useEffect, useState } from 'react'
 import { Bridge } from 'uniforms'
 import { AutoForm } from 'uniforms-antd'
@@ -26,6 +27,7 @@ export const Form = <TData extends ObjectLike, TResponse = unknown>(
   const {
     autosave = false,
     children,
+    isLoading,
     model,
     modelTransform,
     onChange,
@@ -48,23 +50,33 @@ export const Form = <TData extends ObjectLike, TResponse = unknown>(
   }, [schema])
 
   return (
-    <AutoForm<TData>
-      autosave={autosave}
-      autosaveDelay={250}
-      model={model}
-      modelTransform={modelTransform}
-      onChange={onChange}
-      onChangeModel={onChangeModel}
-      onSubmit={(formData) =>
-        submit(formData as TData)
-          .then(postSubmit.onSubmitSuccess)
-          .catch(postSubmit.onSubmitError)
-      }
-      ref={connectUniformSubmitRef(submitRef)}
-      schema={bridge}
-      showInlineError
-    >
-      {children}
-    </AutoForm>
+    <>
+      {isLoading ? (
+        <Space direction="vertical" style={{ width: '100%' }}>
+          <Skeleton active paragraph={{ rows: 1 }} />
+          <Skeleton.Input active block />
+          <Skeleton.Button active block />
+        </Space>
+      ) : (
+        <AutoForm<TData>
+          autosave={autosave}
+          autosaveDelay={250}
+          model={model}
+          modelTransform={modelTransform}
+          onChange={onChange}
+          onChangeModel={onChangeModel}
+          onSubmit={(formData) =>
+            submit(formData as TData)
+              .then(postSubmit.onSubmitSuccess)
+              .catch(postSubmit.onSubmitError)
+          }
+          ref={connectUniformSubmitRef(submitRef)}
+          schema={bridge}
+          showInlineError
+        >
+          {children}
+        </AutoForm>
+      )}
+    </>
   )
 }
