@@ -14,15 +14,6 @@ export const metadata: Metadata = {
 }
 
 const AppsRoute = async () => {
-  const user = await getServerUser()
-
-  const [{ items: appsDto }, { items: atomsDto }] = await Promise.all([
-    appRepository.findPreview({ owner: { id: user.id } }),
-    defaultAtomQuery(),
-  ])
-
-  const domainsDto = appsDto.flatMap((app) => app.domains)
-
   return (
     <ContentSection>
       <DomainStoreHydrator

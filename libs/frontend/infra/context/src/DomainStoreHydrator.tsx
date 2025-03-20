@@ -4,7 +4,7 @@ import type { IDomainStoreDto } from '@codelab/frontend/abstract/domain'
 import type { ReactNode } from 'react'
 
 import { observer } from 'mobx-react-lite'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useDomainStoreHydrator } from './useDomainStoreHydrator.hook'
 
@@ -26,11 +26,14 @@ type DomainStoreHydratorProps = IDomainStoreDto & {
 export const DomainStoreHydrator = observer<DomainStoreHydratorProps>(
   ({ children, fallback, ...data }) => {
     const hydrate = useDomainStoreHydrator()
+    const [isHydrated, setIsHydrated] = useState(false)
 
     useEffect(() => {
+      console.log('Hydrating data', data)
       hydrate(data)
+      setIsHydrated(true)
     }, [data, hydrate])
 
-    return <>{children}</>
+    return <>{isHydrated ? children : fallback}</>
   },
 )

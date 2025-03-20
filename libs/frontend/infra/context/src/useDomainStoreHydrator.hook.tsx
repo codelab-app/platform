@@ -81,7 +81,6 @@ export const useDomainStoreHydrator = () => {
           })
 
           elementsDto?.forEach((element) => {
-            console.log('hydrate', element)
             elementDomainService.hydrate(element)
           })
 
@@ -116,6 +115,13 @@ export const useDomainStoreHydrator = () => {
           pagesDto?.forEach((page) => {
             pageDomainService.hydrate(page)
           })
+        })
+
+        // Check app exists
+        appsDto?.forEach((app) => {
+          const foundApp = appDomainService.apps.get(app.id)
+
+          console.log('app', foundApp)
         })
       })
     },

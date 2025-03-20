@@ -15,13 +15,14 @@ import { AutoFields } from 'uniforms-antd'
 import { useAppService } from '../../services'
 import { updateAppSchema } from './update-app.schema'
 
-export const UpdateAppModal = observer<{ app: IAppModel }>(({ app }) => {
+export const UpdateAppModal = observer<{ app?: IAppModel }>(({ app }) => {
   const router = useRouter()
   const appService = useAppService()
 
+  // Create model with proper defaults if app doesn't exist
   const model = {
-    id: app.id,
-    name: app.name,
+    id: app?.id,
+    name: app?.name,
   }
 
   const onSubmit = appService.update
@@ -34,16 +35,20 @@ export const UpdateAppModal = observer<{ app: IAppModel }>(({ app }) => {
       open={true}
       uiKey={UiKey.AppModalUpdate}
     >
-      <ModalForm.Form<IAppUpdateFormData>
-        errorMessage="Error while updating app"
-        model={model}
-        onSubmit={onSubmit}
-        onSubmitSuccess={closeModal}
-        schema={updateAppSchema}
-        successMessage="App updated successfully"
-      >
-        <AutoFields />
-      </ModalForm.Form>
+      {app ? (
+        <ModalForm.Form<IAppUpdateFormData>
+          errorMessage="Error while updating app"
+          model={model}
+          onSubmit={onSubmit}
+          onSubmitSuccess={closeModal}
+          schema={updateAppSchema}
+          successMessage="App updated successfully"
+        >
+          <AutoFields />
+        </ModalForm.Form>
+      ) : (
+        <div>No app selected or app data is unavailable</div>
+      )}
     </ModalForm.Modal>
   )
 })

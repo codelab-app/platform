@@ -7,8 +7,7 @@ export const metadata: Metadata = {
 }
 
 const Page = async ({ params }: { params: Promise<{ appId: string }> }) => {
-  const resolvedParams = await params
-  const { appId } = resolvedParams
+  const { appId } = await params
 
   return <UpdateAppModalContainer id={appId} />
 }

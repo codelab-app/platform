@@ -1,8 +1,7 @@
 import type { ReactNode } from 'react'
 
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
-import { defaultAtomQuery } from '@codelab/frontend-application-atom/use-cases/get-atoms/server'
-import { appRepository } from '@codelab/frontend-domain-app/repositories'
+import { appItemQuery } from '@codelab/frontend-application-app/use-cases/app-item'
 import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
 
 const Layout = async ({
@@ -13,20 +12,16 @@ const Layout = async ({
   params: Promise<{ appId: string }>
 }) => {
   const { appId } = await params
-
-  const [{ items: appsDto }, { items: atomsDto }] = await Promise.all([
-    appRepository.findPreview({ id: appId }),
-    defaultAtomQuery(),
-  ])
-
-  const domainsDto = appsDto.flatMap((app) => app.domains)
+  // Can't preload since we need data here
+  // void preloadAppItemQuery(appId)
+  const { appsDto, atomsDto, domainsDto } = await appItemQuery({ appId })
 
   return (
     <DomainStoreHydrator
       appsDto={appsDto}
       atomsDto={atomsDto}
       domainsDto={domainsDto}
-      fallback={<Spinner />}
+      fallback={<>LoADING!!</>}
       pagesDto={appsDto.flatMap((app) => app.pages)}
     >
       {children}

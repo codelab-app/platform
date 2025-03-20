@@ -216,6 +216,9 @@
       "@codelab/frontend-application-app/use-cases/app-builder": [
         "libs/frontend/application/app/src/use-cases/app-builder/index.ts"
       ],
+      "@codelab/frontend-application-app/use-cases/app-item": [
+        "libs/frontend/application/app/src/use-cases/app-item/index.ts"
+      ],
       "@codelab/frontend-application-app/use-cases/app-list": [
         "libs/frontend/application/app/src/use-cases/app-list/index.ts"
       ],
