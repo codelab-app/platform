@@ -8,6 +8,8 @@ import type {
 import { useSearchParams } from 'next/navigation'
 import { pipe } from 'remeda'
 
+import { parseSearchParamsPageProps } from './search-params.server'
+
 /**
  * This version is used to get searchParams from the hook
  *
@@ -20,27 +22,6 @@ export const parseUrlSearchParams = (
   const filter = searchParams.getAll('filter')
 
   return { ...params, filter }
-}
-
-/**
- * This is used to parse the search param props that come in pages
- */
-export const parseSearchParamsPageProps = (
-  params: SearchParamsPageProps,
-): SearchParamsProps => {
-  const { filter, node, page, pageSize, primarySidebarKey, search, ...rest } =
-    params
-
-  return {
-    filter: filter ? (Array.isArray(filter) ? filter : [filter]) : undefined,
-    node,
-    page: page ? parseInt(page, 10) : undefined,
-    pageSize: pageSize ? parseInt(pageSize, 10) : undefined,
-    primarySidebarKey: primarySidebarKey ?? undefined,
-    search: search ?? undefined,
-    // this is dynamic page query params that can be accessed in expressions with "urlProps" api
-    ...rest,
-  }
 }
 
 /**

@@ -267,6 +267,9 @@
       "@codelab/frontend-application-atom/services": [
         "libs/frontend/application/atom/src/services/index.ts"
       ],
+      "@codelab/frontend-application-atom/use-cases/atom-table": [
+        "libs/frontend/application/atom/src/use-cases/atom-table/index.ts"
+      ],
       "@codelab/frontend-application-atom/use-cases/create-atom": [
         "libs/frontend/application/atom/src/use-cases/create-atom/index.ts"
       ],

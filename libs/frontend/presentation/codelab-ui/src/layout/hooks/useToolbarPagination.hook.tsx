@@ -27,6 +27,9 @@ export const useToolbarPagination = <T extends SupportedPaginationModel>(
 
   const handlePaginationChange = useCallback(
     (page: number, pageSize: number) => {
+      console.log('Change page!')
+      paginationService.setIsLoadingBetweenPages(true)
+
       updateParams((params) => {
         params.set('page', page.toString())
         params.set('pageSize', pageSize.toString())
@@ -50,9 +53,9 @@ export const useToolbarPagination = <T extends SupportedPaginationModel>(
       cuiKey: UiKey.PaginationControl,
       icon: (
         <Pagination
-          defaultCurrent={routerService.page}
-          defaultPageSize={routerService.pageSize}
+          current={routerService.page}
           onChange={handlePaginationChange}
+          pageSize={routerService.pageSize}
           showSizeChanger={true}
           simple
           size="small"

@@ -4,7 +4,7 @@ import type { IAtomModel } from '@codelab/frontend/abstract/domain'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { PageType } from '@codelab/frontend/abstract/application'
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { Model, UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiSidebar,
   useToolbarPagination,
@@ -19,7 +19,7 @@ import { useAtomService } from '../services/atom.service'
 import { AtomsTreeView } from '../use-cases/get-atoms/AtomsTreeView'
 
 export const AtomsPrimarySidebar = observer(() => {
-  const { createPopover, getDataFn, paginationService } = useAtomService()
+  const { createPopover, paginationService } = useAtomService()
   const router = useRouter()
   const { routerService } = useApplicationStore()
 
@@ -30,20 +30,24 @@ export const AtomsPrimarySidebar = observer(() => {
 
   const { data, isLoading, isLoadingBetweenPages } =
     useTablePagination<IAtomModel>({
-      getDataFn,
       paginationService,
-      pathname: PageType.Atoms(),
+      pathname: Model.Atom,
       routerService,
     })
 
   /**
    * Let this component re-render itself, we disable loading instead of memoizing on the data
    */
+  console.log({
+    isLoading,
+    isLoadingBetweenPages,
+  })
+
   const atomsTreeView = (
     <AtomsTreeView
       data={data}
       // This takes care of initial load and loading between pages
-      isLoading={isLoadingBetweenPages && isLoading}
+      isLoading={isLoadingBetweenPages || isLoading}
       showSearchBar={showSearchBar}
     />
   )

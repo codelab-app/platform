@@ -15,17 +15,13 @@ import { useEffect } from 'react'
 import { useDeepCompareEffect } from 'react-use'
 import { debounce } from 'remeda'
 
-import { paginationContext } from './pagination.service'
-
 interface TablePaginationProps<T extends SupportedPaginationModel> {
-  getDataFn: GetDataFn<T>
   paginationService: IPaginationService<T>
   pathname: SupportedPaginationModelPage
   routerService: IRouterService
 }
 
 export const useTablePagination = <T extends SupportedPaginationModel>({
-  getDataFn,
   paginationService,
   pathname,
   routerService,
@@ -44,28 +40,6 @@ export const useTablePagination = <T extends SupportedPaginationModel>({
     router.push(url)
   }
 
-  useEffect(() => {
-    paginationContext.setDefault({
-      getDataFn,
-    })
-  }, [getDataFn])
-
-  useDeepCompareEffect(() => {
-    console.log('Get data!', {
-      filter: routerService.filter,
-      page: routerService.page,
-      pageSize: routerService.pageSize,
-      search: routerService.search,
-    })
-
-    void paginationService.getData()
-  }, [
-    routerService.page,
-    routerService.pageSize,
-    routerService.search,
-    routerService.filter,
-  ])
-
   const pagination: TablePaginationConfig = {
     current: routerService.page,
     onChange: (newPage: number, newPageSize: number) => {
@@ -73,7 +47,7 @@ export const useTablePagination = <T extends SupportedPaginationModel>({
         () => {
           onChange(newPage, newPageSize)
         },
-        { waitMs: 500 },
+        { waitMs: 0 },
       ).call()
     },
     pageSize: routerService.pageSize,
@@ -84,7 +58,6 @@ export const useTablePagination = <T extends SupportedPaginationModel>({
 
   return {
     data: paginationService.data,
-    getData: paginationService.getData,
     isLoading: paginationService.isLoading,
     isLoadingBetweenPages: paginationService.isLoadingBetweenPages,
     onSearch: (searchText: string) =>

@@ -21,8 +21,13 @@ export const useUpdateSearchParams = () => {
 
     // Use the provided baseUrl or current pathname
     const url = baseUrl || pathname
+    const newUrl = `${url}?${newParams.toString()}`
 
-    router.push(`${url}?${newParams.toString()}`)
+    // Update URL immediately in the address bar before router push
+    window.history.replaceState({}, '', newUrl)
+
+    // Then push to router for proper Next.js navigation handling
+    router.push(newUrl)
   }
 
   return {

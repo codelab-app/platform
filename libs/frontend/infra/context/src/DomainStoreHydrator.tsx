@@ -31,10 +31,6 @@ export const DomainStoreHydrator = observer<DomainStoreHydratorProps>(
       hydrate(data)
     }, [data, hydrate])
 
-    if (!fallback) {
-      return <>{children}</>
-    }
-
     return <>{children}</>
   },
 )

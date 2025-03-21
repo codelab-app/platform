@@ -10,6 +10,7 @@ import { type TypeFragment, TypeKind } from '@codelab/shared/infra/gqlgen'
 import { Validator } from '@codelab/shared/infra/typebox'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
+import { isDefined } from 'remeda'
 
 import { InterfaceType, TypeFactory } from '../store'
 
@@ -86,7 +87,7 @@ export class TypeDomainService
       .flatMap((fragment) => fragment.fields)
       .forEach((field) => this.fieldDomainService.hydrate(field))
 
-    return types.map((type) => this.types.get(type.id)!)
+    return types.map((type) => this.types.get(type.id)).filter(isDefined)
   }
 
   @modelAction

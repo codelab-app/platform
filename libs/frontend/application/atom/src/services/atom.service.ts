@@ -50,29 +50,6 @@ export const useAtomService = (): IAtomService => {
   const typeService = useTypeService()
   const hydrate = useDomainStoreHydrator()
 
-  const getDataFn: GetDataFn<IAtomModel> = async (
-    page,
-    pageSize,
-    filter,
-    search,
-  ) => {
-    const { aggregate, items } = await atomRepository.find(
-      graphqlFilterMatches(filter, search),
-      {
-        limit: pageSize,
-        offset: (page - 1) * pageSize,
-      },
-    )
-
-    const atoms = items.map((atom) => {
-      typeDomainService.hydrateTypes([atom.api])
-
-      return atomDomainService.hydrate(atom)
-    })
-
-    return { items: atoms, totalItems: aggregate.count }
-  }
-
   const create = async (data: ICreateAtomData) => {
     const api = await typeRepository.add({
       __typename: ITypeKind.InterfaceType,
@@ -209,7 +186,6 @@ export const useAtomService = (): IAtomService => {
     create,
     createPopover,
     getAll,
-    getDataFn,
     getOne,
     getSelectAtomOptions,
     goToAtomsPage,

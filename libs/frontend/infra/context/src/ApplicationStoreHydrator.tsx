@@ -1,16 +1,28 @@
 'use client'
 
 import type {
-  SearchParamsPageProps,
-  UrlParams,
-} from '@codelab/frontend/abstract/types'
+  SupportedPaginationDto,
+  SupportedPaginationModel,
+} from '@codelab/frontend/abstract/application'
+import type { SearchParamsPageProps } from '@codelab/frontend/abstract/types'
+import type {
+  IAtomDto,
+  IComponentDto,
+  IRef,
+  ITagDto,
+  ITypeDto,
+} from '@codelab/shared/abstract/core'
 
+import { Model, UrlParams } from '@codelab/frontend/abstract/types'
 import { parseSearchParamsPageProps } from '@codelab/frontend-application-shared-store/router'
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
-import { type ReactNode, useState } from 'react'
+import { type ReactNode, useEffect, useState } from 'react'
 import { useCustomCompareEffect } from 'react-use'
-import { isDeepEqual } from 'remeda'
+import { isDeepEqual, isDefined } from 'remeda'
 
 interface ApplicationStoreHydratorProps {
   children: ReactNode
@@ -24,39 +36,71 @@ interface ApplicationStoreHydratorProps {
    * In that case we'll need some override to disable loader
    */
   fallback?: ReactNode
-  pathParams?: UrlParams
+  pagination:
+    | {
+        type: Model.Atom
+        data: Array<IRef>
+        totalItems: number
+      }
+    | {
+        type: Model.Component
+        data: Array<IComponentDto>
+        totalItems: number
+      }
+    | {
+        type: Model.Tag
+        data: Array<ITagDto>
+        totalItems: number
+      }
+    | {
+        type: Model.Type
+        data: Array<ITypeDto>
+        totalItems: number
+      }
   searchParams?: SearchParamsPageProps
 }
 
-export const ApplicationStoreHydrator = observer(
-  ({
-    children,
-    fallback,
-    pathParams,
-    searchParams,
-  }: ApplicationStoreHydratorProps) => {
-    const { routerService } = useApplicationStore()
-    const [isHydrated, setIsHydrated] = useState(false)
+export const ApplicationStoreHydrator = observer<ApplicationStoreHydratorProps>(
+  ({ children, pagination: { data, totalItems, type }, searchParams }) => {
+    const {
+      pagination: { atomPagination },
+      routerService,
+    } = useApplicationStore()
+
+    const { atomDomainService } = useDomainStore()
+
+    useEffect(
+      () => {
+        if (type === Model.Atom) {
+          const atoms = data
+            .map((ref) => atomDomainService.atoms.get(ref.id))
+            .filter(isDefined)
+
+          atomPagination.setData(atoms, totalItems)
+        }
+      },
+      /**
+       * `atomsList` ensure reactivity when data changes
+       */
+      [atomDomainService.atomsList],
+    )
 
     useCustomCompareEffect(
       () => {
         if (searchParams) {
           const params = parseSearchParamsPageProps(searchParams)
 
+          console.log('Set search params!', params)
+
           routerService.setSearchParams(params)
         }
-
-        setIsHydrated(true)
       },
-      [pathParams, searchParams],
+      [searchParams],
       isDeepEqual,
     )
-
-    // Always wait for hydration, regardless of fallback presence
-    if (!isHydrated) {
-      return fallback ? <>{fallback}</> : null
-    }
 
     return <>{children}</>
   },
 )
+
+ApplicationStoreHydrator.displayName = 'ApplicationStoreHydrator'

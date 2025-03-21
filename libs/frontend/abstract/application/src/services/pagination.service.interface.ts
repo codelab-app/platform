@@ -4,9 +4,20 @@ import type {
   ITagModel,
   ITypeModel,
 } from '@codelab/frontend/abstract/domain'
+import type { Model } from '@codelab/frontend/abstract/types'
+import type {
+  IAtomDto,
+  IComponentDto,
+  ITagDto,
+  ITypeDto,
+} from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 
-import { PageType } from '../shared'
+export type SupportedPaginationDto =
+  | IAtomDto
+  | IComponentDto
+  | ITagDto
+  | ITypeDto
 
 export type SupportedPaginationModel =
   | IAtomModel
@@ -14,16 +25,11 @@ export type SupportedPaginationModel =
   | ITagModel
   | ITypeModel
 
-const atoms = PageType.Atoms()
-const components = PageType.Components()
-const tags = PageType.Tags()
-const types = PageType.Type()
-
 export type SupportedPaginationModelPage =
-  | typeof atoms
-  | typeof components
-  | typeof tags
-  | typeof types
+  | Model.Atom
+  | Model.Component
+  | Model.Tag
+  | Model.Type
 
 export interface IPaginateable<T extends SupportedPaginationModel> {
   getDataFn: GetDataFn<T>
@@ -44,7 +50,7 @@ export interface IPaginationService<T extends SupportedPaginationModel> {
   isLoadingBetweenPages: boolean
   totalItems: number
   totalPages: number
-  getData(): Promise<Array<T>>
+  setData(data: Array<T>, totalItems: number): void
   setIsLoadingBetweenPages(loading: boolean): void
   setTotalItems(totalPages: number): void
 }
