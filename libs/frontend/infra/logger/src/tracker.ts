@@ -1,13 +1,13 @@
+'use client'
+
 import type { Nullish, ObjectLike } from '@codelab/shared/abstract/types'
 import type { AnyModel } from 'mobx-keystone'
 
-import { logger } from '@codelab/shared/utils'
+import { logger } from '@codelab/shared/infra/logging'
 import { diff } from 'deep-object-diff'
 import { getSnapshot, isModel } from 'mobx-keystone'
 import { useEffect, useRef } from 'react'
 import { isDeepEqual } from 'remeda'
-
-;('use client')
 
 // Move renderCountMap and prevPropsMap outside the hooks to make them static
 const renderCountMap: Record<string, number> = {}

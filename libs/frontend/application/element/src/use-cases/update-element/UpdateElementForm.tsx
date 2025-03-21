@@ -18,7 +18,7 @@ import {
   Form,
 } from '@codelab/frontend-presentation-components-form'
 import { CodeMirrorLanguage } from '@codelab/shared/infra/gqlgen'
-import { logger } from '@codelab/shared/utils'
+import { logger } from '@codelab/shared/infra/logging'
 import { Collapse } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { isDeepEqual } from 'remeda'

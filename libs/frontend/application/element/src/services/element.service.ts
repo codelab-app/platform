@@ -18,7 +18,7 @@ import { usePropService } from '@codelab/frontend-application-prop/services'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { logger } from '@codelab/shared/utils'
+import { logger } from '@codelab/shared/infra/logging'
 import { uniqueBy } from 'remeda'
 
 /**

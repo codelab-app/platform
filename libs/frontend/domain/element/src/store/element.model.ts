@@ -25,7 +25,8 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { createValidator, toRefSchema } from '@codelab/frontend/shared/utils'
 import { Prop } from '@codelab/frontend-domain-prop/store'
-import { logger, slugify, titleCase } from '@codelab/shared/utils'
+import { logger } from '@codelab/shared/infra/logging'
+import { slugify, titleCase } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
   idProp,

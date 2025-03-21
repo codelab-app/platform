@@ -3,6 +3,7 @@ import type { SearchParamsPageProps } from '@codelab/frontend/abstract/types'
 import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
 import { parseSearchParamsPageProps } from '@codelab/frontend-application-shared-store/router'
 import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
+import { logTimestampMs } from '@codelab/shared/infra/logging'
 import 'server-only'
 
 export const atomTableQuery = async (searchParams: SearchParamsPageProps) => {
@@ -13,6 +14,8 @@ export const atomTableQuery = async (searchParams: SearchParamsPageProps) => {
     search,
   } = parseSearchParamsPageProps(searchParams)
 
+  logTimestampMs('Start atomTableQuery')
+
   const {
     aggregate: { count },
     items: atomsDto,
@@ -20,6 +23,8 @@ export const atomTableQuery = async (searchParams: SearchParamsPageProps) => {
     limit: pageSize,
     offset: (page - 1) * pageSize,
   })
+
+  logTimestampMs('End atomTableQuery')
 
   const typesDto = atomsDto.map((atom) => atom.api)
   const fieldsDto = atomsDto.flatMap((atom) => atom.api.fields)

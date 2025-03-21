@@ -7,7 +7,7 @@ import type {
 import type { DocumentTypeDecoration } from '@graphql-typed-document-node/core'
 
 import { getEnv } from '@codelab/shared/config/env'
-import { logger } from '@codelab/shared/utils'
+import { logger } from '@codelab/shared/infra/logging'
 import { revalidateTag } from 'next/cache'
 
 import { serverFetchWithAuth } from './server-fetch-with-auth'

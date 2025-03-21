@@ -11,7 +11,7 @@ import {
   reconnectNodeId,
   reconnectNodeIds,
 } from '@codelab/shared/domain/orm'
-import { logger } from '@codelab/shared/utils'
+import { logger } from '@codelab/shared/infra/logging'
 import { propMapper } from '@codelab/shared-domain-module/prop'
 
 import { ElementProperties } from './element.properties'
