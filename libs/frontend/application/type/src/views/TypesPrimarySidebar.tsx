@@ -4,7 +4,7 @@ import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiSidebar,
-  useToolbarPagination,
+  usePaginationToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { useRouter } from 'next/navigation'
@@ -18,7 +18,7 @@ export const TypesPrimarySidebar = () => {
   const { routerService } = useApplicationStore()
   const router = useRouter()
 
-  const { showSearchBar, toolbarItems } = useToolbarPagination(
+  const { showSearchBar, toolbarItems } = usePaginationToolbar(
     paginationService,
     routerService,
   )

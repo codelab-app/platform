@@ -8,7 +8,7 @@ import { PageType } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiSidebar,
-  useToolbarPagination,
+  usePaginationToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { useRouter } from 'next/navigation'
@@ -22,7 +22,7 @@ export const TagsPrimarySidebar = () => {
   const { checkedTagIds, createPopover, paginationService } = useTagService()
   const { routerService } = useApplicationStore()
 
-  const { showSearchBar, toolbarItems } = useToolbarPagination(
+  const { showSearchBar, toolbarItems } = usePaginationToolbar(
     paginationService,
     routerService,
   )

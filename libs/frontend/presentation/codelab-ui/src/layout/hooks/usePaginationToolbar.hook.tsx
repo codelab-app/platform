@@ -21,7 +21,7 @@ export interface ToolbarPaginationProps {
 /**
  * Hook that provides pagination toolbar items without MobX dependencies
  */
-export const useToolbarPagination = ({
+export const usePaginationToolbar = ({
   onPageChange,
   page,
   pageSize,
