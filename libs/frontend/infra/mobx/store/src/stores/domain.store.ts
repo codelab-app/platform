@@ -55,83 +55,73 @@ import { UserDomainService } from '@codelab/frontend-domain-user/services'
 import { withSpanFunc } from '@codelab/shared-infra-sentry'
 import { Model, model, prop } from 'mobx-keystone'
 
-export const createDomainStore = withSpanFunc(
+export const createDomainStore = (user: IUserDto) => {
+  @model('@codelab/DomainStore')
+  class DomainStore
+    extends Model({
+      actionDomainService: prop<IActionDomainService>(
+        () => new ActionDomainService({}),
+      ),
+      appDomainService: prop<IAppDomainService>(() => new AppDomainService({})),
+      atomDomainService: prop<IAtomDomainService>(
+        () => new AtomDomainService({}),
+      ),
+      authGuardDomainService: prop<IAuthGuardDomainService>(
+        () => new AuthGuardDomainService({}),
+      ),
+      componentDomainService: prop<IComponentDomainService>(
+        () => new ComponentDomainService({}),
+      ),
+      domainDomainService: prop<IDomainDomainService>(
+        () => new DomainDomainService({}),
+      ),
+      elementDomainService: prop<IElementDomainService>(
+        () => new ElementDomainService({}),
+      ),
+      fieldDomainService: prop<IFieldDomainService>(
+        () => new FieldDomainService({}),
+      ),
+      pageDomainService: prop<IPageDomainService>(
+        () => new PageDomainService({}),
+      ),
+      redirectDomainService: prop<IRedirectDomainService>(
+        () => new RedirectDomainService({}),
+      ),
+      resourceDomainService: prop<IResourceDomainService>(
+        () => new ResourceDomainService({}),
+      ),
+      storeDomainService: prop<IStoreDomainService>(
+        () => new StoreDomainService({}),
+      ),
+      tagDomainService: prop<ITagDomainService>(() => new TagDomainService({})),
+      typeDomainService: prop<ITypeDomainService>(
+        () => new TypeDomainService({}),
+      ),
+      userDomainService: prop<IUserDomainService>(() =>
+        UserDomainService.fromDto(user),
+      ),
+    })
+    implements IDomainStore
   {
-    name: 'createDomainStore',
-    op: 'codelab.mobx',
-  },
-  (user: IUserDto) => {
-    @model('@codelab/DomainStore')
-    class DomainStore
-      extends Model({
-        actionDomainService: prop<IActionDomainService>(
-          () => new ActionDomainService({}),
-        ),
-        appDomainService: prop<IAppDomainService>(
-          () => new AppDomainService({}),
-        ),
-        atomDomainService: prop<IAtomDomainService>(
-          () => new AtomDomainService({}),
-        ),
-        authGuardDomainService: prop<IAuthGuardDomainService>(
-          () => new AuthGuardDomainService({}),
-        ),
-        componentDomainService: prop<IComponentDomainService>(
-          () => new ComponentDomainService({}),
-        ),
-        domainDomainService: prop<IDomainDomainService>(
-          () => new DomainDomainService({}),
-        ),
-        elementDomainService: prop<IElementDomainService>(
-          () => new ElementDomainService({}),
-        ),
-        fieldDomainService: prop<IFieldDomainService>(
-          () => new FieldDomainService({}),
-        ),
-        pageDomainService: prop<IPageDomainService>(
-          () => new PageDomainService({}),
-        ),
-        redirectDomainService: prop<IRedirectDomainService>(
-          () => new RedirectDomainService({}),
-        ),
-        resourceDomainService: prop<IResourceDomainService>(
-          () => new ResourceDomainService({}),
-        ),
-        storeDomainService: prop<IStoreDomainService>(
-          () => new StoreDomainService({}),
-        ),
-        tagDomainService: prop<ITagDomainService>(
-          () => new TagDomainService({}),
-        ),
-        typeDomainService: prop<ITypeDomainService>(
-          () => new TypeDomainService({}),
-        ),
-        userDomainService: prop<IUserDomainService>(() =>
-          UserDomainService.fromDto(user),
-        ),
-      })
-      implements IDomainStore
-    {
-      protected onInit() {
-        // provided here to be accessible by application store services
-        actionDomainServiceContext.set(this, this.actionDomainService)
-        appDomainServiceContext.set(this, this.appDomainService)
-        atomDomainServiceContext.set(this, this.atomDomainService)
-        authGuardDomainServiceContext.set(this, this.authGuardDomainService)
-        componentDomainServiceContext.set(this, this.componentDomainService)
-        domainDomainServiceContext.set(this, this.domainDomainService)
-        elementDomainServiceContext.set(this, this.elementDomainService)
-        fieldDomainServiceContext.set(this, this.fieldDomainService)
-        pageDomainServiceContext.set(this, this.pageDomainService)
-        redirectDomainServiceContext.set(this, this.redirectDomainService)
-        resourceDomainServiceContext.set(this, this.resourceDomainService)
-        storeDomainServiceContext.set(this, this.storeDomainService)
-        tagDomainServiceContext.set(this, this.tagDomainService)
-        typeDomainServiceContext.set(this, this.typeDomainService)
-        userDomainServiceContext.set(this, this.userDomainService)
-      }
+    protected onInit() {
+      // provided here to be accessible by application store services
+      actionDomainServiceContext.set(this, this.actionDomainService)
+      appDomainServiceContext.set(this, this.appDomainService)
+      atomDomainServiceContext.set(this, this.atomDomainService)
+      authGuardDomainServiceContext.set(this, this.authGuardDomainService)
+      componentDomainServiceContext.set(this, this.componentDomainService)
+      domainDomainServiceContext.set(this, this.domainDomainService)
+      elementDomainServiceContext.set(this, this.elementDomainService)
+      fieldDomainServiceContext.set(this, this.fieldDomainService)
+      pageDomainServiceContext.set(this, this.pageDomainService)
+      redirectDomainServiceContext.set(this, this.redirectDomainService)
+      resourceDomainServiceContext.set(this, this.resourceDomainService)
+      storeDomainServiceContext.set(this, this.storeDomainService)
+      tagDomainServiceContext.set(this, this.tagDomainService)
+      typeDomainServiceContext.set(this, this.typeDomainService)
+      userDomainServiceContext.set(this, this.userDomainService)
     }
+  }
 
-    return new DomainStore({})
-  },
-)
+  return new DomainStore({})
+}

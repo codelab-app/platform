@@ -1,23 +1,12 @@
-import type {
-  IRouterProps,
-  IRouterService,
-} from '@codelab/frontend/abstract/application'
+import type { IRouterService } from '@codelab/frontend/abstract/application'
 import type { SearchParamsProps } from '@codelab/frontend/abstract/types'
 
 import { Validator } from '@codelab/shared/infra/typebox'
 import { computed } from 'mobx'
 import { Model, model, prop } from 'mobx-keystone'
 
-const init = (router: IRouterProps) => {
-  const { searchParams } = router
-
-  return new RouterService({
-    searchParams: searchParams ? searchParams : undefined,
-  })
-}
-
 /**
- * We want to expose validated params, assumed them to be working
+ * Cannot init searchParams in root store, since layout does not have access to search params. We use a separate component to hydrate the search params within page
  */
 @model('@codelab/RouterService')
 export class RouterService
@@ -36,8 +25,6 @@ export class RouterService
   })
   implements IRouterService
 {
-  static init = init
-
   @computed
   get filter() {
     const filter = Array.from(this.searchParams.filter ?? [])

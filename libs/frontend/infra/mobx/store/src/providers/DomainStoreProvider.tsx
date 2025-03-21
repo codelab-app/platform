@@ -1,3 +1,5 @@
+'use client'
+
 import {
   DomainStoreContext,
   type DomainStoreProviderProps,

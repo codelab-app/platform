@@ -7,10 +7,10 @@ import type {
  * This is used to parse the search param props that come in pages
  */
 export const parseSearchParamsPageProps = (
-  params: SearchParamsPageProps,
+  searchParams: SearchParamsPageProps,
 ): SearchParamsProps => {
   const { filter, node, page, pageSize, primarySidebarKey, search, ...rest } =
-    params
+    searchParams
 
   return {
     filter: filter ? (Array.isArray(filter) ? filter : [filter]) : undefined,

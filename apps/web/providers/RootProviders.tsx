@@ -4,9 +4,7 @@ import type { IUserDto } from '@codelab/shared/abstract/core'
 import type { PropsWithChildren } from 'react'
 
 import { Auth0Provider } from '@auth0/nextjs-auth0'
-import { UrlParamsHydrator } from '@codelab/frontend/infra/context'
 import { CuiProvider } from '@codelab/frontend/presentation/codelab-ui'
-import { useSearchParamsProps } from '@codelab/frontend-application-shared-store/router'
 import {
   createRootStore,
   RootStoreProvider,
@@ -18,12 +16,9 @@ export const RootProviders = ({
   children,
   user,
 }: PropsWithChildren<{ user: IUserDto }>) => {
-  const searchParams = useSearchParamsProps()
-
   const rootStore = useMemo(
     () =>
       createRootStore({
-        routerProps: { searchParams },
         user,
       }),
     [user.id],
@@ -33,9 +28,7 @@ export const RootProviders = ({
     <Auth0Provider>
       <CuiProvider>
         <Provider>
-          <RootStoreProvider value={rootStore}>
-            <UrlParamsHydrator>{children}</UrlParamsHydrator>
-          </RootStoreProvider>
+          <RootStoreProvider value={rootStore}>{children}</RootStoreProvider>
         </Provider>
       </CuiProvider>
     </Auth0Provider>
