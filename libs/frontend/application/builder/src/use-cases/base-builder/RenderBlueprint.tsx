@@ -31,8 +31,12 @@ export const RenderBlueprint = observer<{
     if (renderContainerRef.current) {
       setContainerRect(renderContainerRef.current.getBoundingClientRect())
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userDomainService.preference.builderWidth, window.height, window.width])
+  }, [
+    renderContainerRef,
+    userDomainService.preference.builderWidth,
+    window.height,
+    window.width,
+  ])
 
   if (
     isServer ||
@@ -46,11 +50,9 @@ export const RenderBlueprint = observer<{
   return createPortal(
     <div id="render-blueprint-container">
       <ElementBlueprint
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        container={renderContainerRef.current!}
+        container={renderContainerRef.current}
         containerRect={containerRect}
-        key={runtimeRootElement.compositeKey}
-        parentRect={renderContainerRef.current.getBoundingClientRect()}
+        parentRect={containerRect}
         runtimeElement={runtimeRootElement}
       />
     </div>,
