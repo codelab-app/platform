@@ -1,8 +1,5 @@
 import { type SearchParamsPageProps } from '@codelab/frontend/abstract/types'
-import {
-  ApplicationStoreHydrator,
-  DomainStoreHydrator,
-} from '@codelab/frontend/infra/context'
+import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { atomTableQuery } from '@codelab/frontend-application-atom/use-cases/atom-table'
 import { AtomsPrimarySidebarContainer } from '@codelab/frontend-application-atom/views'
 import { parsePaginationSearchParams } from '@codelab/frontend-application-shared-store/router'
@@ -32,15 +29,13 @@ const Page = async ({
       fieldsDto={fieldsDto}
       typesDto={typesDto}
     >
-      <ApplicationStoreHydrator searchParams={await searchParams}>
-        <AtomsPrimarySidebarContainer
-          atomsRef={atomsDto}
-          pagination={{
-            totalItems: count,
-          }}
-          searchParams={await params}
-        />
-      </ApplicationStoreHydrator>
+      <AtomsPrimarySidebarContainer
+        atomsRef={atomsDto}
+        pagination={{
+          totalItems: count,
+        }}
+        searchParams={await params}
+      />
     </DomainStoreHydrator>
   )
 }

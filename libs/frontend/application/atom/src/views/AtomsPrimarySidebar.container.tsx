@@ -4,10 +4,7 @@ import type { IRef } from '@codelab/shared/abstract/core'
 
 import { PageType } from '@codelab/frontend/abstract/application'
 import { useRedirectPaginationRoute } from '@codelab/frontend-application-shared-store/router'
-import {
-  useApplicationStore,
-  useDomainStore,
-} from '@codelab/frontend-infra-mobx/context'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { logTimestampMs } from '@codelab/shared/infra/logging'
 import { observer } from 'mobx-react-lite'
 import { useEffect } from 'react'
@@ -23,9 +20,10 @@ export const AtomsPrimarySidebarContainer = observer<{
   searchParams: IPaginationSearchParams
   atomsRef: Array<IRef>
 }>(({ atomsRef, pagination: { totalItems }, searchParams }) => {
+  console.log('searchParams', searchParams)
+
   const { atomDomainService } = useDomainStore()
   const { paginationService } = useAtomService()
-  const { routerService } = useApplicationStore()
 
   const atoms = atomsRef
     .map((atomRef) => atomDomainService.atoms.get(atomRef.id))
@@ -37,12 +35,6 @@ export const AtomsPrimarySidebarContainer = observer<{
     redirect((params) => {
       params.page = page
       params.pageSize = pageSize
-    })
-
-    routerService.setSearchParams({
-      ...routerService.searchParams,
-      page,
-      pageSize,
     })
   }
 

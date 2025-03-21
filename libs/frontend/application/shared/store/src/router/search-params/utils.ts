@@ -5,38 +5,7 @@ import type {
   SupportedPaginationPathname,
 } from '@codelab/frontend/abstract/application'
 
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-
-/**
- * This updates the Next.js url bar, and adds to history
- */
-export const useUpdateSearchParams = () => {
-  const router = useRouter()
-  const pathname = usePathname()
-  // eslint-disable-next-line ban/ban
-  const params = useSearchParams()
-
-  const updateParams = (
-    setParams: (params: URLSearchParams) => void,
-    baseUrl?: string,
-  ) => {
-    const newParams = new URLSearchParams(params)
-
-    setParams(newParams)
-
-    // Use the provided baseUrl or current pathname
-    const url = baseUrl || pathname
-    const newUrl = `${url}?${newParams.toString()}`
-
-    // Update URL immediately in the address bar before router push
-    window.history.replaceState({}, '', newUrl)
-
-    // Then push to router for proper Next.js navigation handling
-    router.push(newUrl)
-  }
-
-  return updateParams
-}
+import { useRouter } from 'next/navigation'
 
 export const useRedirectPaginationRoute = (
   params: IPaginationSearchParams,
@@ -49,7 +18,19 @@ export const useRedirectPaginationRoute = (
 
     // Use the provided baseUrl or current pathname
     const url = pathname
-    const newUrl = `${url}?${params.toString()}`
+
+    console.log(params)
+
+    const searchParams = new URLSearchParams()
+
+    // Add each parameter to searchParams
+    Object.entries(params).forEach(([key, value]) => {
+      if (value !== undefined && value !== null) {
+        searchParams.set(key, value.toString())
+      }
+    })
+
+    const newUrl = `${url}?${searchParams.toString()}`
 
     // Update URL immediately in the address bar before router push
     window.history.replaceState({}, '', newUrl)

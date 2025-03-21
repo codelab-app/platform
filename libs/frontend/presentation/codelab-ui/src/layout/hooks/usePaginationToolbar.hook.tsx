@@ -40,17 +40,16 @@ export const usePaginationToolbar = ({
       setLocalPage(page)
 
       // Preload next/prev page
-      const url = `${pathname}?page=${page}&pageSize=${pageSize}&${filter}`
+      // const url = `${pathname}?page=${page}&pageSize=${pageSize}&${filter}`
 
-      router.prefetch(url)
+      // router.prefetch(url)
     }
-  }, [page, localPage])
+  }, [page, pageSize])
 
   const handlePaginationChange = useCallback(
     (newPage: number, newPageSize: number) => {
       // Optimistic UI update (React state) - happens immediately
       setLocalPage(newPage)
-      // setIsLoading(true)
 
       // Call the provided callback
       setTimeout(() => {
