@@ -30,9 +30,7 @@ export const useUpdateSearchParams = () => {
     router.push(newUrl)
   }
 
-  return {
-    updateParams,
-  }
+  return updateParams
 }
 
 export const searchParamsAsObject = (keys?: Array<string>) => {

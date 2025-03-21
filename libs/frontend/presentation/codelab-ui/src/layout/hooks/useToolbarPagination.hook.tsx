@@ -1,63 +1,54 @@
 'use client'
 
-import type {
-  IPaginationService,
-  IRouterService,
-  SupportedPaginationModel,
-} from '@codelab/frontend/abstract/application'
+import type { SupportedPaginationModel } from '@codelab/frontend/abstract/application'
+import type { SearchParamsProps } from '@codelab/frontend/abstract/types'
 
 import SearchOutlined from '@ant-design/icons/SearchOutlined'
 import { UiKey } from '@codelab/frontend/abstract/types'
-import { useUpdateSearchParams } from '@codelab/frontend-application-shared-store/router'
 import { Pagination } from 'antd'
 import { useCallback, useEffect, useState } from 'react'
 
 import type { ToolbarItem } from '../../abstract'
 
+export interface ToolbarPaginationProps {
+  page: number
+  pageSize: number
+  searchParams?: SearchParamsProps
+  totalItems: number
+  onPageChange(page: number, pageSize: number): void
+}
+
 /**
- * @param paginationService Must NOT destructure, or else lose reactivity
- * @returns
+ * Hook that provides pagination toolbar items without MobX dependencies
  */
-export const useToolbarPagination = <T extends SupportedPaginationModel>(
-  paginationService: IPaginationService<T>,
-  routerService: IRouterService,
-) => {
+export const useToolbarPagination = ({
+  onPageChange,
+  page,
+  pageSize,
+  totalItems,
+}: ToolbarPaginationProps) => {
   const [showSearchBar, setShowSearchBar] = useState(false)
   // Local React state for immediate UI updates
-  const [page, setPage] = useState(routerService.page)
-  const { updateParams } = useUpdateSearchParams()
+  const [localPage, setLocalPage] = useState(page)
 
-  // Update local state when MobX state changes (e.g., from external sources)
+  // Update local state when prop changes
   useEffect(() => {
-    if (routerService.page !== page) {
-      setPage(routerService.page)
+    if (page !== localPage) {
+      setLocalPage(page)
     }
-  }, [routerService.page, page])
+  }, [page, localPage])
 
   const handlePaginationChange = useCallback(
-    (newPage: number, pageSize: number) => {
+    (newPage: number, newPageSize: number) => {
       // Optimistic UI update (React state) - happens immediately
-      setPage(newPage)
+      setLocalPage(newPage)
 
-      // Queue MobX state update and URL updates to happen after current render
+      // Call the provided callback
       setTimeout(() => {
-        paginationService.setIsLoadingBetweenPages(true)
-
-        // Update URL params first
-        updateParams((params) => {
-          params.set('page', newPage.toString())
-          params.set('pageSize', pageSize.toString())
-        })
-
-        // Then update MobX state
-        routerService.setSearchParams({
-          ...routerService.searchParams,
-          page: newPage,
-          pageSize,
-        })
+        onPageChange(newPage, newPageSize)
       })
     },
-    [routerService, updateParams],
+    [onPageChange],
   )
 
   const handleSearchBarToggle = useCallback(() => {
@@ -70,13 +61,13 @@ export const useToolbarPagination = <T extends SupportedPaginationModel>(
       icon: (
         <Pagination
           // Use React state for UI rendering
-          current={page}
+          current={localPage}
           onChange={handlePaginationChange}
-          pageSize={routerService.pageSize}
+          pageSize={pageSize}
           showSizeChanger={true}
           simple
           size="small"
-          total={paginationService.totalItems}
+          total={totalItems}
         />
       ),
     },

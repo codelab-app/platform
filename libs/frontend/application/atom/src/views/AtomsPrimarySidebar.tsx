@@ -10,6 +10,7 @@ import {
   useToolbarPagination,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { useTablePagination } from '@codelab/frontend-application-shared-store/pagination'
+import { useUpdateSearchParams } from '@codelab/frontend-application-shared-store/router'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
@@ -22,32 +23,37 @@ export const AtomsPrimarySidebar = observer(() => {
   const { createPopover, paginationService } = useAtomService()
   const router = useRouter()
   const { routerService } = useApplicationStore()
+  const data = paginationService.data
+  const updateParams = useUpdateSearchParams()
 
-  const { showSearchBar, toolbarItems } = useToolbarPagination(
-    paginationService,
-    routerService,
-  )
+  const { showSearchBar, toolbarItems } = useToolbarPagination({
+    onPageChange: (page, pageSize) => {
+      paginationService.setIsLoadingBetweenPages(true)
 
-  const { data, isLoading, isLoadingBetweenPages } =
-    useTablePagination<IAtomModel>({
-      paginationService,
-      pathname: Model.Atom,
-      routerService,
-    })
+      updateParams((params) => {
+        params.set('page', page.toString())
+        params.set('pageSize', pageSize.toString())
+      })
 
-  /**
-   * Let this component re-render itself, we disable loading instead of memoizing on the data
-   */
-  console.log({
-    isLoading,
-    isLoadingBetweenPages,
+      routerService.setSearchParams({
+        ...routerService.searchParams,
+        page,
+        pageSize,
+      })
+    },
+    page: routerService.page,
+    pageSize: routerService.pageSize,
+    totalItems: paginationService.totalItems,
   })
+
+  const isLoading =
+    paginationService.isLoading || paginationService.isLoadingBetweenPages
 
   const atomsTreeView = (
     <AtomsTreeView
       data={data}
       // This takes care of initial load and loading between pages
-      isLoading={isLoadingBetweenPages || isLoading}
+      isLoading={isLoading}
       showSearchBar={showSearchBar}
     />
   )

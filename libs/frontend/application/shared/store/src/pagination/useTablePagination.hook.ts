@@ -5,7 +5,7 @@ import type {
   IPaginationService,
   IRouterService,
   SupportedPaginationModel,
-  SupportedPaginationModelPage,
+  SupportedPaginationPathname,
 } from '@codelab/frontend/abstract/application'
 import type { TablePaginationConfig } from 'antd'
 
@@ -15,57 +15,47 @@ import { useEffect } from 'react'
 import { useDeepCompareEffect } from 'react-use'
 import { debounce } from 'remeda'
 
-interface TablePaginationProps<T extends SupportedPaginationModel> {
-  paginationService: IPaginationService<T>
-  pathname: SupportedPaginationModelPage
-  routerService: IRouterService
+interface TablePaginationProps<T> {
+  data: Array<T>
+  isLoading: boolean
+  isLoadingBetweenPages: boolean
+  page: number
+  pageSize: number
+  search?: string
+  totalItems: number
+  onPageChange(page: number, pageSize: number): void
+  onSearch?(searchText: string): void
 }
 
 export const useTablePagination = <T extends SupportedPaginationModel>({
-  paginationService,
-  pathname,
-  routerService,
+  data,
+  onPageChange,
+  onSearch,
+  page,
+  pageSize,
+  search,
+  totalItems,
 }: TablePaginationProps<T>) => {
-  const router = useRouter()
-
-  const onChange = (page: number, pageSize: number) => {
-    const url = queryString.stringifyUrl({
-      query: {
-        page,
-        pageSize,
-      },
-      url: pathname,
-    })
-
-    router.push(url)
-  }
-
   const pagination: TablePaginationConfig = {
-    current: routerService.page,
+    current: page,
     onChange: (newPage: number, newPageSize: number) => {
       debounce(
         () => {
-          onChange(newPage, newPageSize)
+          onPageChange(newPage, newPageSize)
         },
         { waitMs: 0 },
       ).call()
     },
-    pageSize: routerService.pageSize,
+    pageSize,
     position: ['bottomCenter'],
     showSizeChanger: true,
-    total: paginationService.totalItems,
+    total: totalItems,
   }
 
   return {
-    data: paginationService.data,
-    isLoading: paginationService.isLoading,
-    isLoadingBetweenPages: paginationService.isLoadingBetweenPages,
-    onSearch: (searchText: string) =>
-      routerService.setSearchParams({
-        ...routerService.searchParams,
-        search: searchText,
-      }),
+    data,
+    onSearch,
     pagination,
-    searchText: routerService.search,
+    searchText: search,
   }
 }
