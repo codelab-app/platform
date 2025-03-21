@@ -109,11 +109,9 @@ const testimonialItems = [
 export const TestimonialSection = () => {
   const settings: Settings = {
     appendDots: (dots) => (
-      <>
-        <div className={`${styles['slick-dots']} ${styles['slick-thumb']}`}>
-          <>{dots}</>
-        </div>
-      </>
+      <div className={`${styles['slick-dots']} ${styles['slick-thumb']}`}>
+        {dots}
+      </div>
     ),
     centerMode: false,
     dots: true,

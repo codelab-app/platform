@@ -24,6 +24,7 @@ const appendTsconfigPath = (tree, project, moduleAlias, targetPath) => {
             [moduleAlias]: [targetPath],
         });
         const paths = json.compilerOptions.paths ?? {};
+        // Replace hold alias with new
         paths[moduleAlias] = [targetPath];
         json.compilerOptions.paths = (0, exports.sortKeys)(paths);
         return json;
@@ -33,9 +34,16 @@ exports.appendTsconfigPath = appendTsconfigPath;
 const removeTsconfigPath = (tree, moduleAlias) => {
     (0, devkit_1.updateJson)(tree, 'tsconfig.base.json', (json) => {
         const paths = json.compilerOptions.paths ?? {};
-        // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-        delete json.compilerOptions.paths[moduleAlias];
-        json.compilerOptions.paths = paths;
+        // Check if the path exists before attempting to delete it
+        if (moduleAlias in paths) {
+            console.log(`Removing existing path alias: ${moduleAlias}`);
+            // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+            delete paths[moduleAlias];
+        }
+        else {
+            console.log(`Attempted to remove non-existent path alias: ${moduleAlias}`);
+        }
+        json.compilerOptions.paths = (0, exports.sortKeys)(paths);
         return json;
     });
 };

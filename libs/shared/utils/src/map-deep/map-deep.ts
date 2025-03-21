@@ -5,7 +5,7 @@ import { entries, isArray, isPlainObject } from 'remeda'
 
 import type { IKeyMapper, IOutput, IValueMapper, ObjectKey } from './abstract'
 
-import { isCyclic } from '../isCyclic'
+import { isCyclic } from '../is-cyclic'
 
 export const mapDeep = (
   obj: Array<IPropData> | IPropData,

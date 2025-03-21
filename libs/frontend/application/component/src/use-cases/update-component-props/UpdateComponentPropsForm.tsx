@@ -11,7 +11,7 @@ import { AdminPropsPanel } from '@codelab/frontend-application-admin/use-cases/a
 import { usePropService } from '@codelab/frontend-application-prop/services'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
-import { Spinner } from 'libs/frontend/presentation/view/src/components/loader'
+import { Spinner } from '@codelab/frontend-presentation-view/components/loader'
 import { filterEmptyStrings } from '@codelab/shared/utils'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'

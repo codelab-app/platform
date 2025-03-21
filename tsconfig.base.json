@@ -19,7 +19,7 @@
     "module": "esnext",
     "types": ["node", "worker-loader"],
     "typeRoots": ["types", "node_modules/@types"],
-    "lib": ["es2017", "dom"],
+    "lib": ["es2021", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
@@ -875,9 +875,6 @@
       ],
       "@codelab/frontend-presentation-view/components/skeleton": [
         "libs/frontend/presentation/view/src/components/skeleton/index.ts"
-      ],
-      "@codelab/frontend-presentation-view/components/spinner": [
-        "libs/frontend/presentation/view/src/components/spinner/index.ts"
       ],
       "@codelab/frontend-presentation-view/components/state": [
         "libs/frontend/presentation/view/src/components/state/index.ts"

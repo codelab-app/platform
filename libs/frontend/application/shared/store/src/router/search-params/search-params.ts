@@ -1,9 +1,6 @@
 'use client'
 
-import type {
-  SearchParamsPageProps,
-  SearchParamsProps,
-} from '@codelab/frontend/abstract/types'
+import type { SearchParamsPageProps } from '@codelab/frontend/abstract/types'
 
 import { useSearchParams } from 'next/navigation'
 import { pipe } from 'remeda'

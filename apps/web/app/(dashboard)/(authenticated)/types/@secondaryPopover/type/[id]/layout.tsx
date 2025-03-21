@@ -1,6 +1,6 @@
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { typeRepository } from '@codelab/frontend-domain-type/repositories'
-import { Spinner } from 'libs/frontend/presentation/view/src/components/loader'
+import { Spinner } from '@codelab/frontend-presentation-view/components/loader'
 
 interface UpdateTypeLayoutProps {
   children: React.ReactNode

@@ -52,7 +52,6 @@ import {
   TypeDomainService,
 } from '@codelab/frontend-domain-type/services'
 import { UserDomainService } from '@codelab/frontend-domain-user/services'
-import { withSpanFunc } from '@codelab/shared-infra-sentry'
 import { Model, model, prop } from 'mobx-keystone'
 
 export const createDomainStore = (user: IUserDto) => {

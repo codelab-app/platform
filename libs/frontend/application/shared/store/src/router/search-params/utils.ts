@@ -1,9 +1,6 @@
 'use client'
 
-import type {
-  SupportedPaginationModel,
-  SupportedPaginationPathname,
-} from '@codelab/frontend/abstract/application'
+import type { SupportedPaginationPathname } from '@codelab/frontend/abstract/application'
 import type { SearchParamsPageProps } from '@codelab/frontend/abstract/types'
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'

@@ -6,7 +6,9 @@ import type {
 
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import { logTimestampMs } from '@codelab/shared/infra/logging'
 import { observer } from 'mobx-react-lite'
+import { useEffect } from 'react'
 
 import { AtomsTreeItem } from './AtomsTreeItem'
 
@@ -27,6 +29,12 @@ export const AtomsTreeView = observer(
       primaryTitle: atom.library.name,
       secondaryTitle: atom.name,
     }))
+
+    useEffect(() => {
+      if (!isLoading) {
+        logTimestampMs('AtomsTreeView rendered')
+      }
+    }, [isLoading])
 
     return (
       <div className="size-full">

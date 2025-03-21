@@ -1,4 +1,4 @@
-import { Spinner } from 'libs/frontend/presentation/view/src/components/loader'
+import { Spinner } from '@codelab/frontend-presentation-view/components/loader'
 
 const Loader = () => {
   return <Spinner />

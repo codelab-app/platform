@@ -1,4 +1,4 @@
 'use client'
-import { DevLoading } from 'libs/frontend/presentation/view/src/components/loader'
+import { DevLoading } from '@codelab/frontend-presentation-view/components/loader'
 
 export default DevLoading('apps/(list)/@modal')

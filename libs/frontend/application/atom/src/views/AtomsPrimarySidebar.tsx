@@ -1,29 +1,17 @@
 'use client'
 
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
-import type { SearchParamsPageProps } from '@codelab/frontend/abstract/types'
-import type { IAtomDto, IRef } from '@codelab/shared/abstract/core'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { PageType } from '@codelab/frontend/abstract/application'
-import { Model, UiKey } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiSidebar,
   usePaginationToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useTablePagination } from '@codelab/frontend-application-shared-store/pagination'
-import {
-  useRedirectPaginationRoute,
-  useUpdateSearchParams,
-} from '@codelab/frontend-application-shared-store/router'
-import {
-  useApplicationStore,
-  useDomainStore,
-} from '@codelab/frontend-infra-mobx/context'
+import { logTimestampMs } from '@codelab/shared/infra/logging'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { isDefined } from 'remeda'
+import { useMemo, useState } from 'react'
 
 import { useAtomService } from '../services/atom.service'
 import { AtomsTreeView } from '../use-cases/get-atoms/AtomsTreeView'
@@ -38,6 +26,7 @@ export const AtomsPrimarySidebar = observer<{
 
   const { showSearchBar, toolbarItems } = usePaginationToolbar({
     onPageChange: (page: number, pageSize: number) => {
+      logTimestampMs('onPageChange')
       // Immediately set loading to true for UI feedback, don't batch with other updates
       setIsLoading(true)
 
@@ -49,8 +38,6 @@ export const AtomsPrimarySidebar = observer<{
     setIsLoading,
     totalItems: paginationService.totalItems,
   })
-
-  console.log({ isLoading })
 
   /**
    * We don't re-render if the data are the same id's. This prevents re-render from updates, since we use optimistic cache. We only re-render when we fetch different sets of id's

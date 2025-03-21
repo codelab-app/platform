@@ -8,6 +8,7 @@ import {
   useApplicationStore,
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
+import { logTimestampMs } from '@codelab/shared/infra/logging'
 import { observer } from 'mobx-react-lite'
 import { useEffect } from 'react'
 import { isDefined } from 'remeda'
@@ -47,6 +48,7 @@ export const AtomsPrimarySidebarContainer = observer<{
 
   useEffect(() => {
     paginationService.setData(atoms, totalItems)
+    logTimestampMs('set data')
   }, [atomDomainService.atomsList])
 
   return <AtomsPrimarySidebar atoms={atoms} onPageChange={onPageChange} />

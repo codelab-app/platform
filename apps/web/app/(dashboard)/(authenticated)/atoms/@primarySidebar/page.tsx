@@ -1,16 +1,10 @@
-import {
-  Model,
-  type SearchParamsPageProps,
-} from '@codelab/frontend/abstract/types'
+import { type SearchParamsPageProps } from '@codelab/frontend/abstract/types'
 import {
   ApplicationStoreHydrator,
   DomainStoreHydrator,
 } from '@codelab/frontend/infra/context'
 import { atomTableQuery } from '@codelab/frontend-application-atom/use-cases/atom-table'
-import {
-  AtomsPrimarySidebar,
-  AtomsPrimarySidebarContainer,
-} from '@codelab/frontend-application-atom/views'
+import { AtomsPrimarySidebarContainer } from '@codelab/frontend-application-atom/views'
 
 const Page = async ({
   searchParams,

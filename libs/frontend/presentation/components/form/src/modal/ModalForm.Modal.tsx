@@ -11,7 +11,6 @@ import {
   UiKey,
 } from '@codelab/frontend/abstract/types'
 import { useIsMounted } from '@codelab/frontend/shared/utils'
-import { Button, Skeleton } from 'antd'
 import AntdModal from 'antd/lib/modal'
 import { useRef, useState } from 'react'
 

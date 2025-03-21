@@ -3,12 +3,10 @@ import { SeoHead } from '../src/home/SeoHead'
 
 const PrivacyPolicy = () => {
   return (
-    <>
-      <SeoHead
-        description="Privacy policy page for Codelab builder"
-        title="Privacy Policy"
-      />
-    </>
+    <SeoHead
+      description="Privacy policy page for Codelab builder"
+      title="Privacy Policy"
+    />
   )
 }
 

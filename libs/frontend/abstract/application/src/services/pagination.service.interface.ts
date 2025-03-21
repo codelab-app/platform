@@ -4,7 +4,6 @@ import type {
   ITagModel,
   ITypeModel,
 } from '@codelab/frontend/abstract/domain'
-import type { Model } from '@codelab/frontend/abstract/types'
 import type {
   IAtomDto,
   IComponentDto,

@@ -1,31 +1,10 @@
 'use client'
 
-import type {
-  SupportedPaginationDto,
-  SupportedPaginationModel,
-} from '@codelab/frontend/abstract/application'
-import type {
-  Model,
-  SearchParamsPageProps,
-} from '@codelab/frontend/abstract/types'
-import type {
-  IAtomDto,
-  IComponentDto,
-  IRef,
-  ITagDto,
-  ITypeDto,
-} from '@codelab/shared/abstract/core'
+import type { SearchParamsPageProps } from '@codelab/frontend/abstract/types'
 
-import { UrlParams } from '@codelab/frontend/abstract/types'
 import { parseSearchParamsPageProps } from '@codelab/frontend-application-shared-store/router'
-import {
-  useApplicationStore,
-  useDomainStore,
-} from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
-import { type ReactNode, useEffect, useState } from 'react'
-import { useCustomCompareEffect, useDeepCompareEffect } from 'react-use'
-import { isDeepEqual, isDefined } from 'remeda'
+import { type ReactNode, useEffect } from 'react'
 
 import { useApplicationStoreHydrator } from './useApplicationStoreHydrator.hook'
 

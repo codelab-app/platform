@@ -1,18 +1,8 @@
 'use client'
 
-import type {
-  GetDataFn,
-  IPaginationService,
-  IRouterService,
-  SupportedPaginationModel,
-  SupportedPaginationPathname,
-} from '@codelab/frontend/abstract/application'
+import type { SupportedPaginationModel } from '@codelab/frontend/abstract/application'
 import type { TablePaginationConfig } from 'antd'
 
-import { useRouter } from 'next/navigation'
-import queryString from 'query-string'
-import { useEffect } from 'react'
-import { useDeepCompareEffect } from 'react-use'
 import { debounce } from 'remeda'
 
 interface TablePaginationProps<T> {

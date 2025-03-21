@@ -3,7 +3,7 @@ import type { ReactNode } from 'react'
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { defaultAtomQuery } from '@codelab/frontend-application-atom/use-cases/get-atoms/server'
 import { appRepository } from '@codelab/frontend-domain-app/repositories'
-import { Spinner } from 'libs/frontend/presentation/view/src/components/loader'
+import { Spinner } from '@codelab/frontend-presentation-view/components/loader'
 
 const Layout = async ({
   children,

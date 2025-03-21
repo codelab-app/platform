@@ -7,7 +7,7 @@ import {
   IRouteType,
 } from '@codelab/frontend/abstract/application'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
-import { Spinner } from 'libs/frontend/presentation/view/src/components/loader'
+import { Spinner } from '@codelab/frontend-presentation-view/components/loader'
 import { observer } from 'mobx-react-lite'
 
 import { BaseBuilder } from '../base-builder'

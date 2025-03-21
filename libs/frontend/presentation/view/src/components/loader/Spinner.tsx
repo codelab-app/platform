@@ -1,9 +1,6 @@
 'use client'
 
-import type { ReactNode } from 'react'
-
-import { message, Modal, Spin } from 'antd'
-import { useEffect } from 'react'
+import { Spin } from 'antd'
 
 export interface SpinnerProps {
   center?: boolean

@@ -1,9 +1,9 @@
 import type { IAppDto } from '@codelab/shared/abstract/core'
 
 import { providerPageId } from '@codelab/shared/data/test'
+import { logTimestamp } from '@codelab/shared/infra/logging'
 import { expect } from '@playwright/test'
 
-import { logTimestamp } from '../../commands'
 import { globalBeforeAll } from '../../setup/before-all'
 import { seedAppData } from '../app/app.data'
 import { test } from './page.fixture'

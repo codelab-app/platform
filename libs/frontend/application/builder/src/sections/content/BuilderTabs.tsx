@@ -1,5 +1,5 @@
 import { extractErrorMessage } from '@codelab/frontend/shared/utils'
-import { Spinner } from 'libs/frontend/presentation/view/src/components/loader'
+import { Spinner } from '@codelab/frontend-presentation-view/components/loader'
 import { Alert, Layout } from 'antd'
 import { Content } from 'antd/lib/layout/layout'
 

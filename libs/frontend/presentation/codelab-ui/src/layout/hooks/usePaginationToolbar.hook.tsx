@@ -1,9 +1,5 @@
 'use client'
 
-import type {
-  IPaginationService,
-  SupportedPaginationModel,
-} from '@codelab/frontend/abstract/application'
 import type { SearchParamsProps } from '@codelab/frontend/abstract/types'
 
 import SearchOutlined from '@ant-design/icons/SearchOutlined'

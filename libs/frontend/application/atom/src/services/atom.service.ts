@@ -1,9 +1,6 @@
 'use client'
 
-import type {
-  GetDataFn,
-  IAtomService,
-} from '@codelab/frontend/abstract/application'
+import type { IAtomService } from '@codelab/frontend/abstract/application'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/infra/gqlgen'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
@@ -15,7 +12,6 @@ import {
   type IUpdateAtomData,
 } from '@codelab/frontend/abstract/domain'
 import { useDomainStoreHydrator } from '@codelab/frontend/infra/context'
-import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
 import {

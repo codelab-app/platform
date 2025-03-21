@@ -9,5 +9,5 @@ export const DisplayIf = ({
   condition,
   fallback,
 }: DisplayIfProps) => {
-  return <>{condition ? <>{children}</> : fallback ?? <></>}</>
+  return <>{condition ? <>{children}</> : fallback ?? null}</>
 }
