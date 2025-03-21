@@ -1,6 +1,8 @@
 'use client'
 
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
+import type { SearchParamsPageProps } from '@codelab/frontend/abstract/types'
+import type { IAtomDto, IRef } from '@codelab/shared/abstract/core'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { PageType } from '@codelab/frontend/abstract/application'
@@ -10,76 +12,43 @@ import {
   usePaginationToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { useTablePagination } from '@codelab/frontend-application-shared-store/pagination'
-import { useUpdateSearchParams } from '@codelab/frontend-application-shared-store/router'
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import {
+  useRedirectPaginationRoute,
+  useUpdateSearchParams,
+} from '@codelab/frontend-application-shared-store/router'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { isDefined } from 'remeda'
 
 import { useAtomService } from '../services/atom.service'
 import { AtomsTreeView } from '../use-cases/get-atoms/AtomsTreeView'
 
-export const AtomsPrimarySidebar = observer(() => {
+export const AtomsPrimarySidebar = observer<{
+  atoms: Array<IAtomModel>
+  onPageChange(page: number, pageSize: number): void
+}>(({ atoms, onPageChange }) => {
   const { createPopover, paginationService } = useAtomService()
   const router = useRouter()
-  const { routerService } = useApplicationStore()
-  const data = paginationService.data
-  const updateParams = useUpdateSearchParams()
-  // Start with false, but track if we're waiting for pagination data
-  const [isLocalLoading, setIsLocalLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
-  // Track initial loading separately
-  const isInitialLoading =
-    paginationService.isLoading || paginationService.isLoadingBetweenPages
-
-  // Pre-compute loading state to avoid flashing
-  const isLoading = isLocalLoading || isInitialLoading
-
-  // Create a toolbar with instant loading feedback
   const { showSearchBar, toolbarItems } = usePaginationToolbar({
     onPageChange: (page: number, pageSize: number) => {
       // Immediately set loading to true for UI feedback, don't batch with other updates
-      setIsLocalLoading(true)
+      setIsLoading(true)
 
       // Update loading state in service and URL params after local state is updated
       setTimeout(() => {
-        paginationService.setIsLoadingBetweenPages(true)
-
-        updateParams((params) => {
-          params.set('page', page.toString())
-          params.set('pageSize', pageSize.toString())
-        })
-
-        routerService.setSearchParams({
-          ...routerService.searchParams,
-          page,
-          pageSize,
-        })
-      }, 0)
+        onPageChange(page, pageSize)
+      })
     },
-    page: routerService.page,
-    pageSize: routerService.pageSize,
+    setIsLoading,
     totalItems: paginationService.totalItems,
   })
-
-  // Reset local loading when data loading completes
-  useEffect(() => {
-    if (!isInitialLoading && isLocalLoading) {
-      setIsLocalLoading(false)
-    }
-  }, [isInitialLoading, isLocalLoading])
-
-  // Memoize tree view to prevent unnecessary re-renders
-  const atomsTreeView = useMemo(
-    () => (
-      <AtomsTreeView
-        data={data}
-        isLoading={isLoading}
-        showSearchBar={showSearchBar}
-      />
-    ),
-    [data, isLoading, showSearchBar],
-  )
 
   console.log({ isLoading })
 
@@ -89,7 +58,13 @@ export const AtomsPrimarySidebar = observer(() => {
   const views = useMemo(
     () => [
       {
-        content: atomsTreeView,
+        content: (
+          <AtomsTreeView
+            data={atoms}
+            isLoading={isLoading}
+            showSearchBar={showSearchBar}
+          />
+        ),
         key: 'atoms-view',
         label: 'Atoms',
         toolbar: {
@@ -108,7 +83,7 @@ export const AtomsPrimarySidebar = observer(() => {
         },
       },
     ],
-    [atomsTreeView, toolbarItems, router, createPopover],
+    [atoms, toolbarItems, router, createPopover],
   )
 
   return (

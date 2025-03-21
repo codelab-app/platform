@@ -1,21 +1,24 @@
 'use client'
 
-import type { SupportedPaginationModel } from '@codelab/frontend/abstract/application'
+import type {
+  IPaginationService,
+  SupportedPaginationModel,
+} from '@codelab/frontend/abstract/application'
 import type { SearchParamsProps } from '@codelab/frontend/abstract/types'
 
 import SearchOutlined from '@ant-design/icons/SearchOutlined'
 import { UiKey } from '@codelab/frontend/abstract/types'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { Pagination } from 'antd'
 import { useCallback, useEffect, useState } from 'react'
 
 import type { ToolbarItem } from '../../abstract'
 
 export interface ToolbarPaginationProps {
-  page: number
-  pageSize: number
   searchParams?: SearchParamsProps
   totalItems: number
   onPageChange(page: number, pageSize: number): void
+  setIsLoading(isLoading: boolean): void
 }
 
 /**
@@ -23,10 +26,12 @@ export interface ToolbarPaginationProps {
  */
 export const usePaginationToolbar = ({
   onPageChange,
-  page,
-  pageSize,
+  setIsLoading,
   totalItems,
 }: ToolbarPaginationProps) => {
+  const { routerService } = useApplicationStore()
+  const page = routerService.page
+  const pageSize = routerService.pageSize
   const [showSearchBar, setShowSearchBar] = useState(false)
   // Local React state for immediate UI updates
   const [localPage, setLocalPage] = useState(page)
@@ -42,6 +47,7 @@ export const usePaginationToolbar = ({
     (newPage: number, newPageSize: number) => {
       // Optimistic UI update (React state) - happens immediately
       setLocalPage(newPage)
+      // setIsLoading(true)
 
       // Call the provided callback
       setTimeout(() => {

@@ -4,7 +4,10 @@ import type {
   SupportedPaginationDto,
   SupportedPaginationModel,
 } from '@codelab/frontend/abstract/application'
-import type { SearchParamsPageProps } from '@codelab/frontend/abstract/types'
+import type {
+  Model,
+  SearchParamsPageProps,
+} from '@codelab/frontend/abstract/types'
 import type {
   IAtomDto,
   IComponentDto,
@@ -13,7 +16,7 @@ import type {
   ITypeDto,
 } from '@codelab/shared/abstract/core'
 
-import { Model, UrlParams } from '@codelab/frontend/abstract/types'
+import { UrlParams } from '@codelab/frontend/abstract/types'
 import { parseSearchParamsPageProps } from '@codelab/frontend-application-shared-store/router'
 import {
   useApplicationStore,
@@ -21,8 +24,10 @@ import {
 } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import { type ReactNode, useEffect, useState } from 'react'
-import { useCustomCompareEffect } from 'react-use'
+import { useCustomCompareEffect, useDeepCompareEffect } from 'react-use'
 import { isDeepEqual, isDefined } from 'remeda'
+
+import { useApplicationStoreHydrator } from './useApplicationStoreHydrator.hook'
 
 interface ApplicationStoreHydratorProps {
   children: ReactNode
@@ -36,68 +41,18 @@ interface ApplicationStoreHydratorProps {
    * In that case we'll need some override to disable loader
    */
   fallback?: ReactNode
-  pagination:
-    | {
-        type: Model.Atom
-        data: Array<IRef>
-        totalItems: number
-      }
-    | {
-        type: Model.Component
-        data: Array<IComponentDto>
-        totalItems: number
-      }
-    | {
-        type: Model.Tag
-        data: Array<ITagDto>
-        totalItems: number
-      }
-    | {
-        type: Model.Type
-        data: Array<ITypeDto>
-        totalItems: number
-      }
   searchParams?: SearchParamsPageProps
 }
 
 export const ApplicationStoreHydrator = observer<ApplicationStoreHydratorProps>(
-  ({ children, pagination: { data, totalItems, type }, searchParams }) => {
-    const {
-      pagination: { atomPagination },
-      routerService,
-    } = useApplicationStore()
+  ({ children, searchParams }) => {
+    const hydrate = useApplicationStoreHydrator()
 
-    const { atomDomainService } = useDomainStore()
-
-    useEffect(
-      () => {
-        if (type === Model.Atom) {
-          const atoms = data
-            .map((ref) => atomDomainService.atoms.get(ref.id))
-            .filter(isDefined)
-
-          atomPagination.setData(atoms, totalItems)
-        }
-      },
-      /**
-       * `atomsList` ensure reactivity when data changes
-       */
-      [atomDomainService.atomsList],
-    )
-
-    useCustomCompareEffect(
-      () => {
-        if (searchParams) {
-          const params = parseSearchParamsPageProps(searchParams)
-
-          console.log('Set search params!', params)
-
-          routerService.setSearchParams(params)
-        }
-      },
-      [searchParams],
-      isDeepEqual,
-    )
+    useEffect(() => {
+      if (searchParams) {
+        hydrate({ searchParams: parseSearchParamsPageProps(searchParams) })
+      }
+    }, [searchParams])
 
     return <>{children}</>
   },

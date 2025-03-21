@@ -5,10 +5,12 @@ import {
 import {
   ApplicationStoreHydrator,
   DomainStoreHydrator,
-  SearchParamsHydrator,
 } from '@codelab/frontend/infra/context'
 import { atomTableQuery } from '@codelab/frontend-application-atom/use-cases/atom-table'
-import { AtomsPrimarySidebar } from '@codelab/frontend-application-atom/views'
+import {
+  AtomsPrimarySidebar,
+  AtomsPrimarySidebarContainer,
+} from '@codelab/frontend-application-atom/views'
 
 const Page = async ({
   searchParams,
@@ -23,23 +25,21 @@ const Page = async ({
   )
 
   return (
-    <SearchParamsHydrator searchParams={await searchParams}>
-      <DomainStoreHydrator
-        atomsDto={atomsDto}
-        fieldsDto={fieldsDto}
-        typesDto={typesDto}
-      >
-        <ApplicationStoreHydrator
+    <DomainStoreHydrator
+      atomsDto={atomsDto}
+      fieldsDto={fieldsDto}
+      typesDto={typesDto}
+    >
+      <ApplicationStoreHydrator searchParams={await searchParams}>
+        <AtomsPrimarySidebarContainer
+          atomsRef={atomsDto}
           pagination={{
-            data: atomsDto,
             totalItems: count,
-            type: Model.Atom,
           }}
-        >
-          <AtomsPrimarySidebar />
-        </ApplicationStoreHydrator>
-      </DomainStoreHydrator>
-    </SearchParamsHydrator>
+          searchParams={await searchParams}
+        />
+      </ApplicationStoreHydrator>
+    </DomainStoreHydrator>
   )
 }
 

@@ -27,10 +27,6 @@ export class PaginationService<T1 extends SupportedPaginationModel>
     dataRefs: prop(() => objectMap<Ref<T2>>()),
     // Make initial true so we know data is not there yet
     isLoading: prop(true).withSetter(),
-    /**
-     * We want to conditionally show a loader when transitioning between pages
-     */
-    isLoadingBetweenPages: prop(false).withSetter(),
     totalItems: prop<number>(0).withSetter(),
   }))<T1>
   implements IPaginationService<T1>
@@ -55,9 +51,6 @@ export class PaginationService<T1 extends SupportedPaginationModel>
     data.forEach((item) => {
       this.dataRefs.set(item.id, paginationServiceRef(item.id) as Ref<T1>)
     })
-
-    this.setIsLoading(false)
-    this.setIsLoadingBetweenPages(false)
   }
 
   @computed
