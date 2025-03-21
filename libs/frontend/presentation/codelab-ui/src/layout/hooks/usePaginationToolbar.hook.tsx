@@ -7,6 +7,7 @@ import type {
 
 import SearchOutlined from '@ant-design/icons/SearchOutlined'
 import { UiKey } from '@codelab/frontend/abstract/types'
+import { usePrefetchPaginationRoutes } from '@codelab/frontend-application-shared-store/router'
 import { Pagination } from 'antd'
 import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
@@ -29,22 +30,30 @@ export const usePaginationToolbar = ({
   searchParams: { filter, page, pageSize },
   totalItems,
 }: ToolbarPaginationProps) => {
-  const router = useRouter()
   const [showSearchBar, setShowSearchBar] = useState(false)
   // Local React state for immediate UI updates
   const [localPage, setLocalPage] = useState(page)
 
+  // Use the prefetch hook
+  const { prefetchAdjacentPages } = usePrefetchPaginationRoutes(
+    { filter, page, pageSize },
+    pathname,
+    totalItems,
+  )
+
   // Update local state when prop changes
-  useEffect(() => {
-    if (page !== localPage) {
-      setLocalPage(page)
+  useEffect(
+    () => {
+      if (page !== localPage) {
+        setLocalPage(page)
 
-      // Preload next/prev page
-      // const url = `${pathname}?page=${page}&pageSize=${pageSize}&${filter}`
-
-      // router.prefetch(url)
-    }
-  }, [page, pageSize])
+        // Prefetch adjacent pages when page changes
+        // prefetchAdjacentPages()
+      }
+    },
+    // Don't include localPage in the dependency array
+    [page, pageSize],
+  )
 
   const handlePaginationChange = useCallback(
     (newPage: number, newPageSize: number) => {

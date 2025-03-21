@@ -29,7 +29,11 @@ export const AtomsPrimarySidebarContainer = observer<{
     .map((atomRef) => atomDomainService.atoms.get(atomRef.id))
     .filter(isDefined)
 
-  const redirect = useRedirectPaginationRoute(searchParams, PageType.Atoms())
+  const redirect = useRedirectPaginationRoute(
+    searchParams,
+    PageType.Atoms(),
+    totalItems,
+  )
 
   const onPageChange = (page: number, pageSize: number) => {
     redirect((params) => {
