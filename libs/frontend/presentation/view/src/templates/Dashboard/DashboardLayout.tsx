@@ -1,5 +1,5 @@
 import type { UrlParams } from '@codelab/frontend/abstract/types'
-import type { PropsWithChildren, ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
 import { Dashboard } from './Dashboard'
 
@@ -15,17 +15,18 @@ export interface DashboardSections {
 }
 
 export type DashboardLayoutProps<
-  Slots extends keyof Partial<DashboardSections> = never,
-  Params extends keyof Partial<UrlParams> = never,
+  Slots extends keyof DashboardSections = never,
+  Params extends keyof UrlParams = never,
 > = {
   [K in Slots]: ReactNode
 } & {
   /**
    * Async makes typing harder, we can't make this key optional
    */
-  params: {
-    [K in Params]: Promise<string>
-  }
+  params: Promise<{
+    [K in Params]: string
+  }>
+  children: ReactNode
 }
 
 /**
@@ -41,18 +42,16 @@ type _None = DashboardLayoutProps<'header'>
  * Our inferred slot types make it such that if key is not specified, the prop does not exist, so we need to spread it via `...slots`
  */
 export const DashboardLayout = async <
-  Slots extends keyof Partial<DashboardSections> = never,
-  Params extends keyof Partial<UrlParams> = never,
+  Slots extends keyof DashboardSections = never,
+  Params extends keyof UrlParams = never,
 >({
   children,
   params,
   ...slots
-}: PropsWithChildren<DashboardLayoutProps<Slots, Params>>) => {
-  const awaitedParams = await params
-
+}: DashboardLayoutProps<Slots, Params>) => {
   return (
     <Dashboard
-      {...awaitedParams}
+      {...await params}
       {...slots}
       contentStyles={{ paddingTop: '0rem' }}
     >

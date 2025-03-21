@@ -585,6 +585,9 @@
       "@codelab/frontend-application-tag/use-cases/get-tags": [
         "libs/frontend/application/tag/src/use-cases/get-tags/index.ts"
       ],
+      "@codelab/frontend-application-tag/use-cases/tag-table": [
+        "libs/frontend/application/tag/src/use-cases/tag-table/index.ts"
+      ],
       "@codelab/frontend-application-tag/use-cases/update-tag": [
         "libs/frontend/application/tag/src/use-cases/update-tag/index.ts"
       ],
@@ -617,6 +620,9 @@
       ],
       "@codelab/frontend-application-type/use-cases/select-types": [
         "libs/frontend/application/type/src/use-cases/select-types/index.ts"
+      ],
+      "@codelab/frontend-application-type/use-cases/type-table": [
+        "libs/frontend/application/type/src/use-cases/type-table/index.ts"
       ],
       "@codelab/frontend-application-type/use-cases/update-field": [
         "libs/frontend/application/type/src/use-cases/update-field/index.ts"

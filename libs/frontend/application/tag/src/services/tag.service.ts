@@ -1,7 +1,4 @@
-import type {
-  GetDataFn,
-  ITagService,
-} from '@codelab/frontend/abstract/application'
+import type { ITagService } from '@codelab/frontend/abstract/application'
 import type { ITagModel } from '@codelab/frontend/abstract/domain'
 import type {
   ICreateTagData,
@@ -11,7 +8,6 @@ import type { TagOptions, TagWhere } from '@codelab/shared/infra/gqlgen'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import { PageType } from '@codelab/frontend/abstract/application'
-import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
 import { tagRepository } from '@codelab/frontend-domain-tag/repositories'
 import { tagRef } from '@codelab/frontend-domain-tag/store'
 import {
@@ -31,34 +27,34 @@ export const useTagService = (): ITagService => {
   const { tagDomainService } = useDomainStore()
   const [checkedTagIds, setCheckedTagIds] = useAtom(checkedTagsAtom)
 
-  const getDataFn: GetDataFn<ITagModel> = async (
-    page,
-    pageSize,
-    filter,
-    search,
-  ) => {
-    const {
-      aggregate: { count: totalItems },
-      items,
-    } = await tagRepository.find(
-      {
-        ...graphqlFilterMatches(filter, search),
-        parentAggregate: { count: 0 },
-      },
-      {
-        limit: pageSize,
-        offset: (page - 1) * pageSize,
-      },
-    )
+  // const getDataFn: GetDataFn<ITagModel> = async (
+  //   page,
+  //   pageSize,
+  //   filter,
+  //   search,
+  // ) => {
+  //   const {
+  //     aggregate: { count: totalItems },
+  //     items,
+  //   } = await tagRepository.find(
+  //     {
+  //       ...graphqlFilterMatches(filter, search),
+  //       parentAggregate: { count: 0 },
+  //     },
+  //     {
+  //       limit: pageSize,
+  //       offset: (page - 1) * pageSize,
+  //     },
+  //   )
 
-    const tags = items.map((tag) => {
-      tag.children.forEach((child) => tagDomainService.hydrate(child))
+  //   const tags = items.map((tag) => {
+  //     tag.children.forEach((child) => tagDomainService.hydrate(child))
 
-      return tagDomainService.hydrate(tag)
-    })
+  //     return tagDomainService.hydrate(tag)
+  //   })
 
-    return { items: tags, totalItems }
-  }
+  //   return { items: tags, totalItems }
+  // }
 
   const create = async (data: ICreateTagData) => {
     const tag = tagDomainService.hydrate(data)
@@ -160,7 +156,6 @@ export const useTagService = (): ITagService => {
     createPopover,
     deleteCheckedTags,
     getAll,
-    getDataFn,
     paginationService: tagPagination,
     removeMany,
     setCheckedTagIds,

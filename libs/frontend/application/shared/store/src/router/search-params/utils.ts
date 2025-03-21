@@ -1,7 +1,9 @@
 'use client'
 
-import type { SupportedPaginationPathname } from '@codelab/frontend/abstract/application'
-import type { SearchParamsPageProps } from '@codelab/frontend/abstract/types'
+import type {
+  IPaginationSearchParams,
+  SupportedPaginationPathname,
+} from '@codelab/frontend/abstract/application'
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
@@ -37,18 +39,17 @@ export const useUpdateSearchParams = () => {
 }
 
 export const useRedirectPaginationRoute = (
-  searchParams: SearchParamsPageProps,
+  params: IPaginationSearchParams,
   pathname: SupportedPaginationPathname,
 ) => {
   const router = useRouter()
-  const newParams = new URLSearchParams(searchParams as URLSearchParams)
 
-  return (setParams: (params: URLSearchParams) => void) => {
-    setParams(newParams)
+  return (setParams: (params: IPaginationSearchParams) => void) => {
+    setParams(params)
 
     // Use the provided baseUrl or current pathname
     const url = pathname
-    const newUrl = `${url}?${newParams.toString()}`
+    const newUrl = `${url}?${params.toString()}`
 
     // Update URL immediately in the address bar before router push
     window.history.replaceState({}, '', newUrl)

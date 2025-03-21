@@ -1,7 +1,4 @@
-import type {
-  GetDataFn,
-  ITypeService,
-} from '@codelab/frontend/abstract/application'
+import type { ITypeService } from '@codelab/frontend/abstract/application'
 import type {
   IInterfaceTypeModel,
   ITypeCreateFormData,
@@ -37,26 +34,26 @@ export const useTypeService = (): ITypeService => {
   const user = userDomainService.user
   const owner = { id: user.id }
 
-  const getDataFn: GetDataFn<ITypeModel> = async (
-    page,
-    pageSize,
-    filter,
-    search,
-  ) => {
-    const { items: baseTypes, totalCount: totalItems } =
-      await typeRepository.findBaseTypes({
-        options: {
-          limit: pageSize,
-          offset: (page - 1) * pageSize,
-        },
-        where: graphqlFilterMatches(filter, search),
-      })
+  // const getDataFn: GetDataFn<ITypeModel> = async (
+  //   page,
+  //   pageSize,
+  //   filter,
+  //   search,
+  // ) => {
+  //   const { items: baseTypes, totalCount: totalItems } =
+  //     await typeRepository.findBaseTypes({
+  //       options: {
+  //         limit: pageSize,
+  //         offset: (page - 1) * pageSize,
+  //       },
+  //       where: graphqlFilterMatches(filter, search),
+  //     })
 
-    const typeIds = baseTypes.map(({ id }) => id)
-    const items = await getAll(typeIds)
+  //   const typeIds = baseTypes.map(({ id }) => id)
+  //   const items = await getAll(typeIds)
 
-    return { items, totalItems }
-  }
+  //   return { items, totalItems }
+  // }
 
   const create = async (data: ITypeCreateFormData) => {
     const typeDto = TypeFactory.mapDataToDto(data, owner)
@@ -227,7 +224,6 @@ export const useTypeService = (): ITypeService => {
     create,
     createPopover,
     getAll,
-    getDataFn,
     getInterface,
     getOne,
     getSelectOptions,

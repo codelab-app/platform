@@ -9,7 +9,6 @@ import type {
 } from '@codelab/shared/infra/gqlgen'
 
 import {
-  type GetDataFn,
   type IComponentService,
   rendererRef,
   RendererType,
@@ -17,7 +16,6 @@ import {
 import { useDomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { syncModifiedElements } from '@codelab/frontend-application-element/use-cases/delete-element'
-import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
 import { componentRepository } from '@codelab/frontend-domain-component/repositories'
 import {
   componentFactory,
@@ -182,25 +180,24 @@ export const useComponentService = (): IComponentService => {
     rendererService.setActiveRenderer(rendererRef(renderer))
   }
 
-  const getDataFn: GetDataFn<IComponentModel> = async (
-    page,
-    pageSize,
-    filter,
-    search,
-  ) => {
-    const items = await getAll(graphqlFilterMatches(filter, search), {
-      limit: pageSize,
-      offset: (page - 1) * pageSize,
-    })
+  // const getDataFn: GetDataFn<IComponentModel> = async (
+  //   page,
+  //   pageSize,
+  //   filter,
+  //   search,
+  // ) => {
+  //   const items = await getAll(graphqlFilterMatches(filter, search), {
+  //     limit: pageSize,
+  //     offset: (page - 1) * pageSize,
+  //   })
 
-    return { items, totalItems: componentPagination.totalItems }
-  }
+  //   return { items, totalItems: componentPagination.totalItems }
+  // }
 
   return {
     create,
     createWithoutRoot,
     getAll,
-    getDataFn,
     getOne,
     importComponent,
     paginationService: componentPagination,

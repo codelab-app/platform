@@ -5,6 +5,7 @@ import {
 } from '@codelab/frontend/infra/context'
 import { atomTableQuery } from '@codelab/frontend-application-atom/use-cases/atom-table'
 import { AtomsPrimarySidebarContainer } from '@codelab/frontend-application-atom/views'
+import { parsePaginationSearchParams } from '@codelab/frontend-application-shared-store/router'
 import { logTimestampMs } from '@codelab/shared/infra/logging'
 
 const Page = async ({
@@ -23,6 +24,8 @@ const Page = async ({
 
   logTimestampMs('After atomTableQuery')
 
+  const params = parsePaginationSearchParams(await searchParams)
+
   return (
     <DomainStoreHydrator
       atomsDto={atomsDto}
@@ -35,7 +38,7 @@ const Page = async ({
           pagination={{
             totalItems: count,
           }}
-          searchParams={await searchParams}
+          searchParams={await params}
         />
       </ApplicationStoreHydrator>
     </DomainStoreHydrator>

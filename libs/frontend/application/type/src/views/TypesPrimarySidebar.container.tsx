@@ -13,25 +13,25 @@ import { observer } from 'mobx-react-lite'
 import { useEffect } from 'react'
 import { isDefined } from 'remeda'
 
-import { useAtomService } from '../services'
-import { AtomsPrimarySidebar } from './AtomsPrimarySidebar'
+import { useTypeService } from '../services'
+import { TypesPrimarySidebar } from './TypesPrimarySidebar'
 
-export const AtomsPrimarySidebarContainer = observer<{
+export const TypesPrimarySidebarContainer = observer<{
+  types: Array<IRef>
+  searchParams: IPaginationSearchParams
   pagination: {
     totalItems: number
   }
-  searchParams: IPaginationSearchParams
-  atomsRef: Array<IRef>
-}>(({ atomsRef, pagination: { totalItems }, searchParams }) => {
-  const { atomDomainService } = useDomainStore()
-  const { paginationService } = useAtomService()
+}>(({ pagination: { totalItems }, searchParams, types }) => {
+  const { typeDomainService } = useDomainStore()
+  const { paginationService } = useTypeService()
   const { routerService } = useApplicationStore()
 
-  const atoms = atomsRef
-    .map((atomRef) => atomDomainService.atoms.get(atomRef.id))
+  const typeModels = types
+    .map((typeRef) => typeDomainService.types.get(typeRef.id))
     .filter(isDefined)
 
-  const redirect = useRedirectPaginationRoute(searchParams, PageType.Atoms())
+  const redirect = useRedirectPaginationRoute(searchParams, PageType.Type())
 
   const onPageChange = (page: number, pageSize: number) => {
     redirect((params) => {
@@ -47,15 +47,15 @@ export const AtomsPrimarySidebarContainer = observer<{
   }
 
   useEffect(() => {
-    paginationService.setData(atoms, totalItems)
+    paginationService.setData(typeModels, totalItems)
     logTimestampMs('set data')
-  }, [atomDomainService.atomsList])
+  }, [typeDomainService.typesList])
 
   return (
-    <AtomsPrimarySidebar
-      atoms={atoms}
+    <TypesPrimarySidebar
       onPageChange={onPageChange}
       searchParams={searchParams}
+      types={typeModels}
     />
   )
 })

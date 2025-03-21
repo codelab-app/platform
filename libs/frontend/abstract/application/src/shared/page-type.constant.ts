@@ -45,7 +45,17 @@ export const PageType = {
     `${PageType.Atoms()}/field/${id}/delete`,
   AtomFieldUpdate: ({ id }: { id: string }) =>
     `${PageType.Atoms()}/field/${id}/update`,
-  Atoms: () => '/atoms',
+  Atoms: () => '/atoms' as const,
+  AtomTable: ({
+    filter,
+    page,
+    pageSize,
+  }: {
+    filter: Array<string>
+    page: number
+    pageSize: number
+  }) =>
+    `/atoms/table?page=${page}&pageSize=${pageSize}&filter=${filter.join(',')}`,
   AtomTypeList: () => '/atom-types',
   AtomUpdate: ({ id }: IRef, queryParams?: Partial<SearchParamsContext>) => {
     const url = `${PageType.Atoms()}/atom/${id}/update`

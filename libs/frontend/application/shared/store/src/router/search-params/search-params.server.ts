@@ -1,3 +1,4 @@
+import type { IPaginationSearchParams } from '@codelab/frontend/abstract/application'
 import type {
   SearchParamsPageProps,
   SearchParamsProps,
@@ -21,5 +22,21 @@ export const parseSearchParamsPageProps = (
     search: search ?? undefined,
     // this is dynamic page query params that can be accessed in expressions with "urlProps" api
     ...rest,
+  }
+}
+
+export const parsePaginationSearchParams = (
+  searchParams: SearchParamsPageProps,
+): IPaginationSearchParams => {
+  const { filter, page, pageSize } = searchParams
+
+  if (!filter || !page || !pageSize) {
+    throw new Error('filter, page, pageSize are required')
+  }
+
+  return {
+    filter: Array.isArray(filter) ? filter.join(',') : filter,
+    page: parseInt(page, 10),
+    pageSize: parseInt(pageSize, 10),
   }
 }

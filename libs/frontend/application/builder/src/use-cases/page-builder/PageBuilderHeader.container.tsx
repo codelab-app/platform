@@ -4,10 +4,8 @@ import type { PageContextParams } from '@codelab/frontend/abstract/application'
 
 import { AppConnector, PageConnector } from '@codelab/frontend/infra/connector'
 
-import { BuilderResizeMenu } from '../component-builder/ComponentBuilderHeader.container'
-import { BuilderResizeMenu } from '../resize/BuilderResizeMenu'
+import { BuilderResizeMenu } from '../resize'
 import { PageBuilderHeader } from './PageBuilderHeader'
-import { BuilderResizeMenu } from './PageBuilderHeader.container'
 
 export const PageBuilderHeaderContainer = ({
   appId,

@@ -13,25 +13,25 @@ import { observer } from 'mobx-react-lite'
 import { useEffect } from 'react'
 import { isDefined } from 'remeda'
 
-import { useAtomService } from '../services'
-import { AtomsPrimarySidebar } from './AtomsPrimarySidebar'
+import { useTagService } from '../services'
+import { TagsPrimarySidebar } from './TagsPrimarySidebar'
 
-export const AtomsPrimarySidebarContainer = observer<{
+export const TagsPrimarySidebarContainer = observer<{
+  tagsRef: Array<IRef>
+  searchParams: IPaginationSearchParams
   pagination: {
     totalItems: number
   }
-  searchParams: IPaginationSearchParams
-  atomsRef: Array<IRef>
-}>(({ atomsRef, pagination: { totalItems }, searchParams }) => {
-  const { atomDomainService } = useDomainStore()
-  const { paginationService } = useAtomService()
+}>(({ pagination: { totalItems }, searchParams, tagsRef }) => {
+  const { tagDomainService } = useDomainStore()
+  const { paginationService } = useTagService()
   const { routerService } = useApplicationStore()
 
-  const atoms = atomsRef
-    .map((atomRef) => atomDomainService.atoms.get(atomRef.id))
+  const tags = tagsRef
+    .map((tagRef) => tagDomainService.tags.get(tagRef.id))
     .filter(isDefined)
 
-  const redirect = useRedirectPaginationRoute(searchParams, PageType.Atoms())
+  const redirect = useRedirectPaginationRoute(searchParams, PageType.Tags())
 
   const onPageChange = (page: number, pageSize: number) => {
     redirect((params) => {
@@ -47,15 +47,15 @@ export const AtomsPrimarySidebarContainer = observer<{
   }
 
   useEffect(() => {
-    paginationService.setData(atoms, totalItems)
+    paginationService.setData(tags, totalItems)
     logTimestampMs('set data')
-  }, [atomDomainService.atomsList])
+  }, [tagDomainService.tagsList])
 
   return (
-    <AtomsPrimarySidebar
-      atoms={atoms}
+    <TagsPrimarySidebar
       onPageChange={onPageChange}
       searchParams={searchParams}
+      tags={tags}
     />
   )
 })

@@ -38,22 +38,20 @@ const tags = PageType.Tags()
 const types = PageType.Type()
 
 export type SupportedPaginationPathname =
-  | typeof atoms
-  | typeof components
-  | typeof tags
-  | typeof types
+  | `${typeof atoms}`
+  | `${typeof components}`
+  | `${typeof tags}`
+  | `${typeof types}`
 
 export interface IPaginateable<T extends SupportedPaginationModel> {
-  getDataFn: GetDataFn<T>
   paginationService: IPaginationService<T>
 }
 
-export type GetDataFn<T extends SupportedPaginationModel> = (
-  page: number,
-  pageSize: number,
-  filter: Array<string>,
-  search?: string,
-) => Promise<{ items: Array<T>; totalItems: number }>
+export interface IPaginationSearchParams {
+  filter: string
+  page: number
+  pageSize: number
+}
 
 export interface IPaginationService<T extends SupportedPaginationModel> {
   data: Array<T>

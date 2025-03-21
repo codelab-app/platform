@@ -6,31 +6,22 @@ import type {
   ITypeTreeNodeData,
 } from '@codelab/frontend/abstract/domain'
 
-import { PageType } from '@codelab/frontend/abstract/application'
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
-import { useTablePagination } from '@codelab/frontend-application-shared-store/pagination'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { TypeKind } from '@codelab/shared/infra/gqlgen'
 import { observer } from 'mobx-react-lite'
 
-import { useTypeService } from '../../services'
 import { TypesTreeItem } from './TypesTreeItem'
 
 interface TypesTreeViewProps {
+  data: Array<ITypeModel>
+  isLoading: boolean
   showSearchBar: boolean
 }
 
-export const TypesTreeView = observer(
-  ({ showSearchBar }: TypesTreeViewProps) => {
+export const TypesTreeView = observer<TypesTreeViewProps>(
+  ({ data, isLoading, showSearchBar }) => {
     const { routerService } = useApplicationStore()
-    const { getDataFn, paginationService } = useTypeService()
-
-    const { data, isLoading } = useTablePagination<ITypeModel>({
-      getDataFn,
-      paginationService,
-      pathname: PageType.Type(),
-      routerService,
-    })
 
     const treeData: Array<ITreeNode<ITypeTreeNodeData>> = data.map((type) => ({
       children:

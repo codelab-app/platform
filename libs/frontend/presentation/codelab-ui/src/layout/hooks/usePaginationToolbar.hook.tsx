@@ -1,20 +1,23 @@
 'use client'
 
-import type { SearchParamsProps } from '@codelab/frontend/abstract/types'
+import type {
+  IPaginationSearchParams,
+  SupportedPaginationPathname,
+} from '@codelab/frontend/abstract/application'
 
 import SearchOutlined from '@ant-design/icons/SearchOutlined'
 import { UiKey } from '@codelab/frontend/abstract/types'
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { Pagination } from 'antd'
+import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 
 import type { ToolbarItem } from '../../abstract'
 
 export interface ToolbarPaginationProps {
-  searchParams?: SearchParamsProps
+  pathname: SupportedPaginationPathname
+  searchParams: IPaginationSearchParams
   totalItems: number
   onPageChange(page: number, pageSize: number): void
-  setIsLoading(isLoading: boolean): void
 }
 
 /**
@@ -22,12 +25,11 @@ export interface ToolbarPaginationProps {
  */
 export const usePaginationToolbar = ({
   onPageChange,
-  setIsLoading,
+  pathname,
+  searchParams: { filter, page, pageSize },
   totalItems,
 }: ToolbarPaginationProps) => {
-  const { routerService } = useApplicationStore()
-  const page = routerService.page
-  const pageSize = routerService.pageSize
+  const router = useRouter()
   const [showSearchBar, setShowSearchBar] = useState(false)
   // Local React state for immediate UI updates
   const [localPage, setLocalPage] = useState(page)
@@ -36,6 +38,11 @@ export const usePaginationToolbar = ({
   useEffect(() => {
     if (page !== localPage) {
       setLocalPage(page)
+
+      // Preload next/prev page
+      const url = `${pathname}?page=${page}&pageSize=${pageSize}&${filter}`
+
+      router.prefetch(url)
     }
   }, [page, localPage])
 

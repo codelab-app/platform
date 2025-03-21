@@ -18,7 +18,7 @@ const Layout = ({
     <DashboardLayout<'header' | 'modal'>
       header={header}
       modal={modal}
-      params={{}}
+      params={Promise.resolve({})}
     >
       {children}
     </DashboardLayout>

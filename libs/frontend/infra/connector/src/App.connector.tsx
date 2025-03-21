@@ -2,27 +2,36 @@
 
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
 import type { ReactNode } from 'react'
-import { useState, useEffect } from 'react'
 
+import { SUSPENSE_TIMEOUT } from '@codelab/frontend/shared/utils'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import {
-  SUSPENSE_TIMEOUT,
-  waitForTimeout,
-} from '@codelab/frontend/shared/utils'
-import { Spinner } from 'libs/frontend/presentation/view/src/components/loader'
 import { observer } from 'mobx-react-lite'
+import { useEffect, useState } from 'react'
 
 export const AppConnector = observer(
+  ({ children, id }: { id: string; children(app: IAppModel): ReactNode }) => {
+    const { appDomainService } = useDomainStore()
+    const app = appDomainService.apps.get(id)
+
+    if (!app) {
+      return null
+    }
+
+    // After delay, render with the actual app
+    return <>{children(app)}</>
+  },
+)
+
+export const AppMaybeConnector = observer(
   ({ children, id }: { id: string; children(app?: IAppModel): ReactNode }) => {
     const { appDomainService } = useDomainStore()
     const app = appDomainService.apps.get(id)
     // Add state to track if we're ready to render the actual app
     const [isReady, setIsReady] = useState(false)
 
-    console.log('AppConnector', app)
-
     useEffect(() => {
       const timer = setTimeout(() => setIsReady(true), SUSPENSE_TIMEOUT)
+
       return () => clearTimeout(timer)
     }, [])
 
