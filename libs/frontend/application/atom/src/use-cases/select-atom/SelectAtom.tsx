@@ -5,6 +5,7 @@ import { mapEntitySelectOptions } from '@codelab/frontend-domain-atom/store'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import { useAsyncFn } from 'react-use'
+import { useField } from 'uniforms'
 import { SelectField } from 'uniforms-antd'
 
 import { useAtomService } from '../../services'
@@ -23,6 +24,7 @@ export const SelectAtom = observer<SelectAtomProps>(
   ({ error, label, name, parent }) => {
     const atomService = useAtomService()
     const { atomDomainService } = useDomainStore()
+    const [fieldProps] = useField<{ value?: Array<{ id: string }> }>(name, {})
 
     const fallbackAtomOptions = atomDomainService.atomsList.map(
       mapEntitySelectOptions,
@@ -39,6 +41,9 @@ export const SelectAtom = observer<SelectAtomProps>(
         label={label}
         loading={state.loading}
         name={name}
+        onChange={(value) =>
+          fieldProps.onChange(value.map((id: string) => ({ id })))
+        }
         onDropdownVisibleChange={async (open) => {
           if (open && !state.loading && !state.value) {
             await getSelectAtomOptions()
@@ -56,6 +61,7 @@ export const SelectAtom = observer<SelectAtomProps>(
         optionLabelProp="label"
         options={state.value ?? fallbackAtomOptions}
         showSearch
+        value={fieldProps.value?.map((ref) => ref.id)}
       />
     )
   },
