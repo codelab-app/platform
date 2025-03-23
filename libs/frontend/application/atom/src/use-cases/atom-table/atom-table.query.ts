@@ -28,7 +28,7 @@ export const atomTableQuery = async (searchParams: SearchParamsPageProps) => {
     aggregate: { count },
     items: atomsDto,
   } = await atomRepository.find(where, options, {
-    revalidateTag: CACHE_TAGS.AtomList({ options, where }),
+    tags: [CACHE_TAGS.AtomList({ options, where })],
   })
 
   logTimestampMs('End atomTableQuery')

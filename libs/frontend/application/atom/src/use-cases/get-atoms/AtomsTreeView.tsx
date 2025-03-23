@@ -31,9 +31,8 @@ export const AtomsTreeView = observer(
     }))
 
     useEffect(() => {
-      if (!isLoading) {
-        logTimestampMs('AtomsTreeView rendered')
-      }
+      console.log({ isLoading })
+      logTimestampMs('AtomsTreeView rendered')
     }, [isLoading])
 
     return (

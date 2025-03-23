@@ -20,7 +20,7 @@ export const AtomsPrimarySidebarContainer = observer<{
   searchParams: IPaginationSearchParams
   atomsRef: Array<IRef>
 }>(({ atomsRef, pagination: { totalItems }, searchParams }) => {
-  console.log('searchParams', searchParams)
+  logTimestampMs('AtomsPrimarySidebarContainer')
 
   const { atomDomainService } = useDomainStore()
   const { paginationService } = useAtomService()

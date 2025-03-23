@@ -35,7 +35,7 @@ export const useRedirectPaginationRoute = (
     const newUrl = `${url}?${urlParams.toString()}`
 
     // Update URL immediately in the address bar before router push
-    window.history.replaceState({}, '', newUrl)
+    // window.history.replaceState({}, '', newUrl)
 
     // Then push to router for proper Next.js navigation handling
     router.push(newUrl)
