@@ -75,7 +75,11 @@
     "icon": "List",
     "id": "b77de7ef-5f4e-4886-bd11-44ec92cfc690",
     "name": "AntDesignListItemMeta",
-    "requiredParents": [],
+    "requiredParents": [
+      {
+        "id": "d642fce7-c315-427d-9944-e74fd06dd60f"
+      }
+    ],
     "suggestedChildren": [],
     "tags": [
       {

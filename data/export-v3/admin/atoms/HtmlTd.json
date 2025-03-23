@@ -109,7 +109,11 @@
     "icon": null,
     "id": "4f1edcad-ece4-4d0a-b8e8-c516d685a189",
     "name": "HtmlTd",
-    "requiredParents": [],
+    "requiredParents": [
+      {
+        "id": "9f9deec1-7be5-44b4-bd4b-010c5ca27220"
+      }
+    ],
     "suggestedChildren": [],
     "tags": [
       {
