@@ -109,7 +109,7 @@ export const useAtomService = (): IAtomService => {
 
   const getSelectAtomOptions = async (parent?: IAtomModel) => {
     const { atoms } = await atomApi().GetSelectAtomOptions({})
-    const atomOptions = parent ? filterAtoms(atoms, parent) : atoms
+    const atomOptions = filterAtoms(atoms, parent)
 
     return atomOptions.map(mapEntitySelectOptions)
   }
