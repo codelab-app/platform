@@ -7,12 +7,15 @@ import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { useEffect } from 'react'
 import { useAsyncFn } from 'react-use'
 
-export const useLoadOptions = (parentAtom?: IAtomModel) => {
+export const useLoadOptions = (parentElementId?: string) => {
   const atomService = useAtomService()
-  const { componentDomainService } = useDomainStore()
+  const { componentDomainService, elementDomainService } = useDomainStore()
+  const parentElement = elementDomainService.maybeElement(parentElementId)
+  const parentAtom = parentElement?.renderType.current as IAtomModel
 
-  const [atoms, loadAtomOptions] = useAsyncFn(() =>
-    atomService.getSelectAtomOptions(parentAtom),
+  const [atoms, loadAtomOptions] = useAsyncFn(
+    () => atomService.getSelectAtomOptions(parentAtom),
+    [parentAtom],
   )
 
   const [components, loadComponentOptions] = useAsyncFn(() =>
