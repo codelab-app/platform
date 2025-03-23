@@ -31609,6 +31609,8 @@ export type DeleteApiActionsMutation = { __typename?: 'Mutation', deleteApiActio
 export type GetActionsQueryVariables = Exact<{
   codeActionWhere?: InputMaybe<CodeActionWhere>;
   apiActionWhere?: InputMaybe<ApiActionWhere>;
+  codeActionOptions?: InputMaybe<CodeActionOptions>;
+  apiActionOptions?: InputMaybe<ApiActionOptions>;
 }>;
 
 
@@ -39196,11 +39198,11 @@ export const DeleteApiActionsDocument = new TypedDocumentString(`
 }
     `) as unknown as TypedDocumentString<DeleteApiActionsMutation, DeleteApiActionsMutationVariables>;
 export const GetActionsDocument = new TypedDocumentString(`
-    query GetActions($codeActionWhere: CodeActionWhere, $apiActionWhere: ApiActionWhere) {
-  apiActions(where: $apiActionWhere) {
+    query GetActions($codeActionWhere: CodeActionWhere, $apiActionWhere: ApiActionWhere, $codeActionOptions: CodeActionOptions, $apiActionOptions: ApiActionOptions) {
+  apiActions(where: $apiActionWhere, options: $apiActionOptions) {
     ...Action
   }
-  codeActions(where: $codeActionWhere) {
+  codeActions(where: $codeActionWhere, options: $codeActionOptions) {
     ...Action
   }
 }

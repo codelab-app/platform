@@ -97,7 +97,9 @@ export class ServerFetchVisitor extends BaseVisitor<
       const operationArgs = [
         `variables: Types.${o.variablesTypes}`,
         'next?: NextFetchOptions',
-      ].join(' ,')
+      ]
+        .join(', ')
+        .trim()
 
       // server actions must be exported individually
       return `${exportedOperationName} = (${operationArgs}) => ${operationBody}`

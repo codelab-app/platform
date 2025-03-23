@@ -1,5 +1,6 @@
 import type { SearchParamsPageProps } from '@codelab/frontend/abstract/types'
 
+import { CACHE_TAGS } from '@codelab/frontend-application-shared-store/cache'
 import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
 import { parseSearchParamsPageProps } from '@codelab/frontend-application-shared-store/router'
 import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
@@ -16,12 +17,18 @@ export const atomTableQuery = async (searchParams: SearchParamsPageProps) => {
 
   logTimestampMs('Start atomTableQuery')
 
+  const where = graphqlFilterMatches(filter, search)
+
+  const options = {
+    limit: pageSize,
+    offset: (page - 1) * pageSize,
+  }
+
   const {
     aggregate: { count },
     items: atomsDto,
-  } = await atomRepository.find(graphqlFilterMatches(filter, search), {
-    limit: pageSize,
-    offset: (page - 1) * pageSize,
+  } = await atomRepository.find(where, options, {
+    revalidateTag: CACHE_TAGS.AtomList({ options, where }),
   })
 
   logTimestampMs('End atomTableQuery')

@@ -60,14 +60,14 @@ export const createCacheTag = (
   baseTag: string,
   options?: Option,
   where?: Where,
-): Array<string> => {
+): string => {
   if (!options && !where) {
-    return [baseTag]
+    return baseTag
   }
 
   const uniqueTag = `${baseTag}::${createDeterministicTagParams(
     options,
   )}::${createDeterministicTagParams(where)}`
 
-  return [baseTag, uniqueTag]
+  return uniqueTag
 }

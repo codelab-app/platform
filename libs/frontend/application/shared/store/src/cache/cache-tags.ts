@@ -19,11 +19,8 @@ const BASE_TAGS = {
 // Cache tags as functions similar to PageType
 export const CACHE_TAGS = {
   AppList: () => BASE_TAGS.APP_LIST,
-  AtomList: (options?: Option, where?: Where): Array<string> => {
+  AtomList: ({ options, where }: { options?: Option; where?: Where } = {}) => {
     return createCacheTag(BASE_TAGS.ATOM_LIST, options, where)
-  },
-  AtomSelectOptions: (): Array<string> => {
-    return [BASE_TAGS.ATOM_LIST, `${BASE_TAGS.ATOM_LIST}-select-options`]
   },
   AuthGuardList: () => BASE_TAGS.AUTH_GUARD_LIST,
   ComponentsList: () => BASE_TAGS.COMPONENTS_LIST,

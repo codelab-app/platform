@@ -116,7 +116,9 @@ export const actionRepository: IActionRepository = {
   ) => {
     const { apiActions, codeActions } = await GetActions(
       {
+        apiActionOptions: options,
         apiActionWhere: where,
+        codeActionOptions: options,
         codeActionWhere: where,
       },
       next,
