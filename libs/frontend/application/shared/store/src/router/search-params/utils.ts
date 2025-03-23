@@ -5,6 +5,7 @@ import type {
   SupportedPaginationPathname,
 } from '@codelab/frontend/abstract/application'
 
+import { PrefetchKind } from 'next/dist/client/components/router-reducer/router-reducer-types'
 import { useRouter } from 'next/navigation'
 
 export const useRedirectPaginationRoute = (
@@ -43,6 +44,8 @@ export const useRedirectPaginationRoute = (
 
 /**
  * Hook to prefetch adjacent pagination pages for smoother navigation experience
+ *
+ * https://github.com/vercel/next.js/issues/77064
  */
 export const usePrefetchPaginationRoutes = (
   params: IPaginationSearchParams,
@@ -86,20 +89,24 @@ export const usePrefetchPaginationRoutes = (
 
     // Prefetch next page if it exists
     if (currentPage < totalPages) {
-      console.log('Prefetching next page')
-
       const nextPageUrl = createPageUrl(currentPage + 1)
 
-      router.prefetch(nextPageUrl)
+      console.log('Prefetching next page', nextPageUrl)
+
+      router.prefetch(nextPageUrl, {
+        kind: PrefetchKind.FULL,
+      })
     }
 
     // Prefetch previous page if it exists
     if (currentPage > 1) {
-      console.log('Prefetching previous page')
-
       const prevPageUrl = createPageUrl(currentPage - 1)
 
-      router.prefetch(prevPageUrl)
+      console.log('Prefetching previous page', prevPageUrl)
+
+      router.prefetch(prevPageUrl, {
+        kind: PrefetchKind.FULL,
+      })
     }
   }
 

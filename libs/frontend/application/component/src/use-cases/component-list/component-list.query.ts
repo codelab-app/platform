@@ -1,6 +1,6 @@
 'use server'
 
-import { CACHE_TAGS } from '@codelab/frontend/abstract/domain'
+import { CACHE_TAGS } from '@codelab/frontend-application-shared-store/cache'
 import { getServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
 import { componentServerActions } from '@codelab/shared-domain-module/component'
 import { revalidateTag } from 'next/cache'

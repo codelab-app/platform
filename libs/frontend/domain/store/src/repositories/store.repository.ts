@@ -1,10 +1,8 @@
 import type { IRef, IStoreDto } from '@codelab/shared/abstract/core'
+import type { NextFetchOptions } from '@codelab/shared/abstract/types'
 import type { StoreOptions, StoreWhere } from '@codelab/shared/infra/gqlgen'
 
-import {
-  CACHE_TAGS,
-  type IStoreRepository,
-} from '@codelab/frontend/abstract/domain'
+import { type IStoreRepository } from '@codelab/frontend/abstract/domain'
 import { Validator } from '@codelab/shared/infra/typebox'
 import {
   storeMapper,
@@ -16,12 +14,15 @@ const { CreateStores, DeleteStores, GetStores, UpdateStores } =
   storeServerActions
 
 export const storeRepository: IStoreRepository = withTracingMethods('store', {
-  add: async (input: IStoreDto) => {
+  add: async (input: IStoreDto, next?: NextFetchOptions) => {
     const {
       createStores: { stores },
-    } = await CreateStores({
-      input: storeMapper.toCreateInput(input),
-    })
+    } = await CreateStores(
+      {
+        input: storeMapper.toCreateInput(input),
+      },
+      next,
+    )
 
     const createdStore = stores[0]
 
@@ -30,36 +31,43 @@ export const storeRepository: IStoreRepository = withTracingMethods('store', {
     return createdStore
   },
 
-  delete: async (refs: Array<IRef>) => {
+  delete: async (refs: Array<IRef>, next?: NextFetchOptions) => {
     const {
       deleteStores: { nodesDeleted },
-    } = await DeleteStores({
-      delete: storeMapper.toDeleteInput(),
-      where: { id_IN: refs.map(({ id }) => id) },
-    })
+    } = await DeleteStores(
+      {
+        delete: storeMapper.toDeleteInput(),
+        where: { id_IN: refs.map(({ id }) => id) },
+      },
+      next,
+    )
 
     return nodesDeleted
   },
 
-  find: async (where?: StoreWhere, options?: StoreOptions) => {
-    return await GetStores(
-      { options, where },
-      { tags: [CACHE_TAGS.STORE_LIST] },
-    )
+  find: async (
+    where?: StoreWhere,
+    options?: StoreOptions,
+    next?: NextFetchOptions,
+  ) => {
+    return await GetStores({ options, where }, next)
   },
 
   // FIXME: make a unique where
-  findOne: async (where: StoreWhere) => {
-    return (await storeRepository.find(where)).items[0]
+  findOne: async (where: StoreWhere, next?: NextFetchOptions) => {
+    return (await storeRepository.find(where, {}, next)).items[0]
   },
 
-  update: async ({ id }: IRef, input: IStoreDto) => {
+  update: async ({ id }: IRef, input: IStoreDto, next?: NextFetchOptions) => {
     const {
       updateStores: { stores },
-    } = await UpdateStores({
-      update: storeMapper.toUpdateInput(input),
-      where: { id },
-    })
+    } = await UpdateStores(
+      {
+        update: storeMapper.toUpdateInput(input),
+        where: { id },
+      },
+      next,
+    )
 
     const updatedStore = stores[0]
 

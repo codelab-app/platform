@@ -1,13 +1,11 @@
 import type { IAuthGuardDto, IRef } from '@codelab/shared/abstract/core'
+import type { NextFetchOptions } from '@codelab/shared/abstract/types'
 import type {
   AuthGuardOptions,
   AuthGuardWhere,
 } from '@codelab/shared/infra/gqlgen'
 
-import {
-  CACHE_TAGS,
-  type IAuthGuardRepository,
-} from '@codelab/frontend/abstract/domain'
+import { type IAuthGuardRepository } from '@codelab/frontend/abstract/domain'
 import { Validator } from '@codelab/shared/infra/typebox'
 import {
   authGuardMapper,
@@ -18,12 +16,12 @@ const { CreateAuthGuards, DeleteAuthGuards, GetAuthGuards, UpdateAuthGuard } =
   authGuardServerActions
 
 export const authGuardRepository: IAuthGuardRepository = {
-  add: async (input: IAuthGuardDto) => {
+  add: async (input: IAuthGuardDto, next?: NextFetchOptions) => {
     const {
       createAuthGuards: { authGuards },
     } = await CreateAuthGuards(
       { input: authGuardMapper.toCreateInput(input) },
-      { revalidateTag: CACHE_TAGS.AUTH_GUARD_LIST },
+      next,
     )
 
     const createdAuthGuard = authGuards[0]
@@ -33,7 +31,7 @@ export const authGuardRepository: IAuthGuardRepository = {
     return createdAuthGuard
   },
 
-  delete: async (refs: Array<IRef>) => {
+  delete: async (refs: Array<IRef>, next?: NextFetchOptions) => {
     const {
       deleteAuthGuards: { nodesDeleted },
     } = await DeleteAuthGuards(
@@ -41,26 +39,27 @@ export const authGuardRepository: IAuthGuardRepository = {
         delete: authGuardMapper.toDeleteInput(),
         where: { id_IN: refs.map(({ id }) => id) },
       },
-      { revalidateTag: CACHE_TAGS.AUTH_GUARD_LIST },
+      next,
     )
 
     return nodesDeleted
   },
 
-  find: async (where?: AuthGuardWhere, options?: AuthGuardOptions) => {
-    return await GetAuthGuards(
-      { options, where },
-      { tags: [CACHE_TAGS.AUTH_GUARD_LIST] },
-    )
+  find: async (
+    where?: AuthGuardWhere,
+    options?: AuthGuardOptions,
+    next?: NextFetchOptions,
+  ) => {
+    return await GetAuthGuards({ options, where }, next)
   },
 
   // FIXME: make a unique where
-  findOne: async (where: AuthGuardWhere) => {
-    return (await authGuardRepository.find(where)).items[0]
+  findOne: async (where: AuthGuardWhere, next?: NextFetchOptions) => {
+    return (await authGuardRepository.find(where, {}, next)).items[0]
   },
 
-  selectOptions: async () => {
-    const { items: authGuards } = await authGuardRepository.find({})
+  selectOptions: async (next?: NextFetchOptions) => {
+    const { items: authGuards } = await authGuardRepository.find({}, {}, next)
 
     return authGuards.map((authGuard) => ({
       label: authGuard.name,
@@ -68,7 +67,11 @@ export const authGuardRepository: IAuthGuardRepository = {
     }))
   },
 
-  update: async ({ id }: IRef, input: IAuthGuardDto) => {
+  update: async (
+    { id }: IRef,
+    input: IAuthGuardDto,
+    next?: NextFetchOptions,
+  ) => {
     const {
       updateAuthGuards: { authGuards },
     } = await UpdateAuthGuard(
@@ -76,7 +79,7 @@ export const authGuardRepository: IAuthGuardRepository = {
         update: authGuardMapper.toUpdateInput(input),
         where: { id },
       },
-      { revalidateTag: CACHE_TAGS.AUTH_GUARD_LIST },
+      next,
     )
 
     const updatedAuthGuard = authGuards[0]

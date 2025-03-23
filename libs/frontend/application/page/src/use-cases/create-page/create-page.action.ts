@@ -7,7 +7,7 @@ import type {
   IStoreDto,
 } from '@codelab/shared/abstract/core'
 
-import { CACHE_TAGS } from '@codelab/frontend/abstract/domain'
+import { CACHE_TAGS } from '@codelab/frontend-application-shared-store/cache'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import { pageRepository } from '@codelab/frontend-domain-page/repositories'
 import { storeRepository } from '@codelab/frontend-domain-store/repositories'

@@ -1,8 +1,8 @@
 import type { IDomainDto, IRef } from '@codelab/shared/abstract/core'
+import type { NextFetchOptions } from '@codelab/shared/abstract/types'
 import type { DomainOptions, DomainWhere } from '@codelab/shared/infra/gqlgen'
 
 import {
-  CACHE_TAGS,
   type IDomainModel,
   type IDomainRepository,
 } from '@codelab/frontend/abstract/domain'
@@ -16,16 +16,14 @@ const { CreateDomains, DeleteDomains, DomainList, UpdateDomains } =
   domainServerActions
 
 export const domainRepository: IDomainRepository = {
-  add: async (domain: IDomainDto) => {
+  add: async (domain: IDomainDto, next?: NextFetchOptions) => {
     const {
       createDomains: { domains },
     } = await CreateDomains(
       {
         input: domainMapper.toCreateInput(domain),
       },
-      {
-        tags: [CACHE_TAGS.DOMAIN_LIST],
-      },
+      next,
     )
 
     const createdDomain = domains[0]
@@ -35,34 +33,44 @@ export const domainRepository: IDomainRepository = {
     return createdDomain
   },
 
-  delete: async (domains: Array<IDomainModel>) => {
+  delete: async (domains: Array<IDomainModel>, next?: NextFetchOptions) => {
     const {
       deleteDomains: { nodesDeleted },
-    } = await DeleteDomains({
-      where: {
-        id_IN: domains.map((domain) => domain.id),
+    } = await DeleteDomains(
+      {
+        where: {
+          id_IN: domains.map((domain) => domain.id),
+        },
       },
-    })
+      next,
+    )
 
     return nodesDeleted
   },
 
-  find: async (where: DomainWhere = {}, options?: DomainOptions) => {
-    return DomainList({ options, where }, { tags: [CACHE_TAGS.DOMAIN_LIST] })
+  find: async (
+    where: DomainWhere = {},
+    options?: DomainOptions,
+    next?: NextFetchOptions,
+  ) => {
+    return DomainList({ options, where }, next)
   },
 
   // FIXME: make a unique where
-  findOne: async (where: DomainWhere) => {
-    return (await domainRepository.find(where)).items[0]
+  findOne: async (where: DomainWhere, next?: NextFetchOptions) => {
+    return (await domainRepository.find(where, {}, next)).items[0]
   },
 
-  update: async ({ id }: IRef, domain: IDomainDto) => {
+  update: async ({ id }: IRef, domain: IDomainDto, next?: NextFetchOptions) => {
     const {
       updateDomains: { domains },
-    } = await UpdateDomains({
-      update: domainMapper.toUpdateInput(domain),
-      where: { id },
-    })
+    } = await UpdateDomains(
+      {
+        update: domainMapper.toUpdateInput(domain),
+        where: { id },
+      },
+      next,
+    )
 
     const updatedDomain = domains[0]
 

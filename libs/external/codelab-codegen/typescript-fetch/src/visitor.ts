@@ -92,7 +92,7 @@ export class FetchVisitor extends BaseVisitor<
       const operationArgs = [`variables: Types.${o.variablesTypes}`].join(', ')
 
       // server actions must be exported individually
-      return `${pascalCaseName} : (${operationArgs}) => ${operationBody}`
+      return `${pascalCaseName}: (${operationArgs}) => ${operationBody}`
     })
 
     const operations =

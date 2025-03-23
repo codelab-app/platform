@@ -1,11 +1,11 @@
 import type { IRef, IResourceDto } from '@codelab/shared/abstract/core'
+import type { NextFetchOptions } from '@codelab/shared/abstract/types'
 import type {
   ResourceOptions,
   ResourceWhere,
 } from '@codelab/shared/infra/gqlgen'
 
 import {
-  CACHE_TAGS,
   type IResourceModel,
   type IResourceRepository,
 } from '@codelab/frontend/abstract/domain'
@@ -19,12 +19,12 @@ const { CreateResources, DeleteResources, ResourceList, UpdateResources } =
   resourceServerActions
 
 export const resourceRepository: IResourceRepository = {
-  add: async (resource: IResourceDto) => {
+  add: async (resource: IResourceDto, next?: NextFetchOptions) => {
     const {
       createResources: { resources },
     } = await CreateResources(
       { input: [resourceMapper.toCreateInput(resource)] },
-      { revalidateTag: CACHE_TAGS.RESOURCE_LIST },
+      next,
     )
 
     const createdResource = resources[0]
@@ -34,7 +34,7 @@ export const resourceRepository: IResourceRepository = {
     return createdResource
   },
 
-  delete: async (resources: Array<IResourceModel>) => {
+  delete: async (resources: Array<IResourceModel>, next?: NextFetchOptions) => {
     const {
       deleteResources: { nodesDeleted },
     } = await DeleteResources(
@@ -42,25 +42,26 @@ export const resourceRepository: IResourceRepository = {
         delete: { config: { where: {} } },
         where: { id_IN: resources.map((resource) => resource.id) },
       },
-      { revalidateTag: CACHE_TAGS.RESOURCE_LIST },
+      next,
     )
 
     return nodesDeleted
   },
 
-  find: async (where?: ResourceWhere, options?: ResourceOptions) => {
-    return await ResourceList(
-      { options, where },
-      { tags: [CACHE_TAGS.RESOURCE_LIST] },
-    )
+  find: async (
+    where?: ResourceWhere,
+    options?: ResourceOptions,
+    next?: NextFetchOptions,
+  ) => {
+    return await ResourceList({ options, where }, next)
   },
 
   // FIXME: make a unique where
-  findOne: async (where: ResourceWhere) => {
-    return (await resourceRepository.find(where)).items[0]
+  findOne: async (where: ResourceWhere, next?: NextFetchOptions) => {
+    return (await resourceRepository.find(where, {}, next)).items[0]
   },
 
-  update: async ({ id }: IRef, dto: IResourceDto) => {
+  update: async ({ id }: IRef, dto: IResourceDto, next?: NextFetchOptions) => {
     const {
       updateResources: { resources },
     } = await UpdateResources(
@@ -68,7 +69,7 @@ export const resourceRepository: IResourceRepository = {
         update: resourceMapper.toUpdateInput(dto),
         where: { id },
       },
-      { revalidateTag: CACHE_TAGS.RESOURCE_LIST },
+      next,
     )
 
     const updatedResource = resources[0]

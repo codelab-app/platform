@@ -1,11 +1,11 @@
 import type { IComponentRepository } from '@codelab/frontend/abstract/domain'
 import type { IComponentDto, IRef } from '@codelab/shared/abstract/core'
+import type { NextFetchOptions } from '@codelab/shared/abstract/types'
 import type {
   ComponentOptions,
   ComponentWhere,
 } from '@codelab/shared/infra/gqlgen'
 
-import { CACHE_TAGS } from '@codelab/frontend/abstract/domain'
 import { Validator } from '@codelab/shared/infra/typebox'
 import {
   componentMapper,
@@ -16,12 +16,12 @@ const { ComponentList, CreateComponents, DeleteComponents, UpdateComponents } =
   componentServerActions
 
 export const componentRepository: IComponentRepository = {
-  add: async (input: IComponentDto) => {
+  add: async (input: IComponentDto, next?: NextFetchOptions) => {
     const {
       createComponents: { components },
     } = await CreateComponents(
       { input: componentMapper.toCreateInput(input) },
-      { revalidateTag: CACHE_TAGS.COMPONENTS_LIST },
+      next,
     )
 
     const createdComponent = components[0]
@@ -31,7 +31,7 @@ export const componentRepository: IComponentRepository = {
     return createdComponent
   },
 
-  delete: async (refs: Array<IRef>) => {
+  delete: async (refs: Array<IRef>, next?: NextFetchOptions) => {
     const {
       deleteComponents: { nodesDeleted },
     } = await DeleteComponents(
@@ -41,25 +41,30 @@ export const componentRepository: IComponentRepository = {
           id_IN: refs.map(({ id }) => id),
         },
       },
-      { revalidateTag: CACHE_TAGS.COMPONENTS_LIST },
+      next,
     )
 
     return nodesDeleted
   },
 
-  find: async (where?: ComponentWhere, options?: ComponentOptions) => {
-    return await ComponentList(
-      { options, where },
-      { tags: [CACHE_TAGS.COMPONENTS_LIST] },
-    )
+  find: async (
+    where?: ComponentWhere,
+    options?: ComponentOptions,
+    next?: NextFetchOptions,
+  ) => {
+    return await ComponentList({ options, where }, next)
   },
 
   // FIXME: make a unique where
-  findOne: async (where: ComponentWhere) => {
-    return (await componentRepository.find(where)).items[0]
+  findOne: async (where: ComponentWhere, next?: NextFetchOptions) => {
+    return (await componentRepository.find(where, {}, next)).items[0]
   },
 
-  update: async ({ id }: IRef, input: IComponentDto) => {
+  update: async (
+    { id }: IRef,
+    input: IComponentDto,
+    next?: NextFetchOptions,
+  ) => {
     const {
       updateComponents: { components },
     } = await UpdateComponents(
@@ -67,7 +72,7 @@ export const componentRepository: IComponentRepository = {
         update: componentMapper.toUpdateInput(input),
         where: { id },
       },
-      { revalidateTag: CACHE_TAGS.COMPONENTS_LIST },
+      next,
     )
 
     const updatedComponent = components[0]

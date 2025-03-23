@@ -46,10 +46,10 @@ export const usePaginationToolbar = ({
     () => {
       if (page !== localPage) {
         setLocalPage(page)
-
-        // Prefetch adjacent pages when page changes
-        // prefetchAdjacentPages()
       }
+
+      // Prefetch adjacent pages when page changes
+      prefetchAdjacentPages()
     },
     // Don't include localPage in the dependency array
     [page, pageSize],

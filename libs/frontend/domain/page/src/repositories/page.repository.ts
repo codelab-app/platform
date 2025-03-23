@@ -1,10 +1,8 @@
 import type { IPageDto, IRef } from '@codelab/shared/abstract/core'
+import type { NextFetchOptions } from '@codelab/shared/abstract/types'
 import type { PageOptions, PageWhere } from '@codelab/shared/infra/gqlgen'
 
-import {
-  CACHE_TAGS,
-  type IPageRepository,
-} from '@codelab/frontend/abstract/domain'
+import { type IPageRepository } from '@codelab/frontend/abstract/domain'
 import { Validator } from '@codelab/shared/infra/typebox'
 import {
   pageMapper,
@@ -14,10 +12,10 @@ import {
 const { CreatePages, DeletePages, PageList, UpdatePages } = pageServerActions
 
 export const pageRepository: IPageRepository = {
-  add: async (input: IPageDto) => {
+  add: async (input: IPageDto, next?: NextFetchOptions) => {
     const {
       createPages: { pages },
-    } = await CreatePages({ input: pageMapper.toCreateInput(input) })
+    } = await CreatePages({ input: pageMapper.toCreateInput(input) }, next)
 
     const createdPage = pages[0]
 
@@ -26,7 +24,7 @@ export const pageRepository: IPageRepository = {
     return createdPage
   },
 
-  delete: async (pages: Array<IRef>) => {
+  delete: async (pages: Array<IRef>, next?: NextFetchOptions) => {
     const {
       deletePages: { nodesDeleted },
     } = await DeletePages(
@@ -34,28 +32,35 @@ export const pageRepository: IPageRepository = {
         delete: pageMapper.toDeleteInput(),
         where: { id_IN: pages.map((page) => page.id) },
       },
-      { revalidateTag: CACHE_TAGS.PAGE_LIST },
+      next,
     )
 
     return nodesDeleted
   },
 
-  find: async (where?: PageWhere, options?: PageOptions) => {
-    return PageList({ options, where })
+  find: async (
+    where?: PageWhere,
+    options?: PageOptions,
+    next?: NextFetchOptions,
+  ) => {
+    return PageList({ options, where }, next)
   },
 
   // FIXME: make a unique where
-  findOne: async (where: PageWhere) => {
-    return (await pageRepository.find(where)).items[0]
+  findOne: async (where: PageWhere, next?: NextFetchOptions) => {
+    return (await pageRepository.find(where, {}, next)).items[0]
   },
 
-  update: async ({ id }: IRef, input: IPageDto) => {
+  update: async ({ id }: IRef, input: IPageDto, next?: NextFetchOptions) => {
     const {
       updatePages: { pages },
-    } = await UpdatePages({
-      update: pageMapper.toUpdateInput(input),
-      where: { id },
-    })
+    } = await UpdatePages(
+      {
+        update: pageMapper.toUpdateInput(input),
+        where: { id },
+      },
+      next,
+    )
 
     const updatedPage = pages[0]
 

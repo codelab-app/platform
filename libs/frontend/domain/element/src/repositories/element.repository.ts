@@ -3,6 +3,7 @@ import type {
   IElementRepository,
 } from '@codelab/frontend/abstract/domain'
 import type { IElementDto } from '@codelab/shared/abstract/core'
+import type { NextFetchOptions } from '@codelab/shared/abstract/types'
 import type { ElementOptions, ElementWhere } from '@codelab/shared/infra/gqlgen'
 
 import { Validator } from '@codelab/shared/infra/typebox'
@@ -15,12 +16,15 @@ const { CreateElements, DeleteElements, ElementList, UpdateElements } =
   elementServerActions
 
 export const elementRepository: IElementRepository = {
-  add: async (element: IElementDto) => {
+  add: async (element: IElementDto, next?: NextFetchOptions) => {
     const {
       createElements: { elements },
-    } = await CreateElements({
-      input: elementMapper.toCreateInput(element),
-    })
+    } = await CreateElements(
+      {
+        input: elementMapper.toCreateInput(element),
+      },
+      next,
+    )
 
     const createdElement = elements[0]
 
@@ -29,30 +33,41 @@ export const elementRepository: IElementRepository = {
     return createdElement
   },
 
-  delete: async (elements: Array<IElementModel>) => {
+  delete: async (elements: Array<IElementModel>, next?: NextFetchOptions) => {
     const {
       deleteElements: { nodesDeleted },
-    } = await DeleteElements({
-      delete: elementMapper.toDeleteInput(),
-      where: {
-        id_IN: elements.map((element) => element.id),
+    } = await DeleteElements(
+      {
+        delete: elementMapper.toDeleteInput(),
+        where: {
+          id_IN: elements.map((element) => element.id),
+        },
       },
-    })
+      next,
+    )
 
     return nodesDeleted
   },
 
-  find: async (where: ElementWhere, options?: ElementOptions) => {
-    return await ElementList({ options, where })
+  find: async (
+    where: ElementWhere,
+    options?: ElementOptions,
+    next?: NextFetchOptions,
+  ) => {
+    return await ElementList({ options, where }, next)
   },
 
   // FIXME: make a unique where
-  findOne: async (where: ElementWhere) => {
-    return (await elementRepository.find(where)).items[0]
+  findOne: async (where: ElementWhere, next?: NextFetchOptions) => {
+    return (await elementRepository.find(where, {}, next)).items[0]
   },
 
   // FIXME: make a unique where
-  update: async (where: ElementWhere, element: IElementDto) => {
+  update: async (
+    where: ElementWhere,
+    element: IElementDto,
+    next?: NextFetchOptions,
+  ) => {
     // Disconnect here first for pre/post, issue with generated cypher query
     // const update = {
     //   firstChild: disconnectAll({ omitId: element.firstChild?.id }),
@@ -78,10 +93,13 @@ export const elementRepository: IElementRepository = {
 
     const {
       updateElements: { elements },
-    } = await UpdateElements({
-      update: elementMapper.toUpdateInput(element),
-      where,
-    })
+    } = await UpdateElements(
+      {
+        update: elementMapper.toUpdateInput(element),
+        where,
+      },
+      next,
+    )
 
     const updatedElement = elements[0]
 

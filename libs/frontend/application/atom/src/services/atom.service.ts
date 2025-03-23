@@ -6,12 +6,12 @@ import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.
 
 import { PageType } from '@codelab/frontend/abstract/application'
 import {
-  CACHE_TAGS,
   type IAtomModel,
   type ICreateAtomData,
   type IUpdateAtomData,
 } from '@codelab/frontend/abstract/domain'
 import { useDomainStoreHydrator } from '@codelab/frontend/infra/context'
+import { CACHE_TAGS } from '@codelab/frontend-application-shared-store/cache'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
 import {
@@ -66,7 +66,7 @@ export const useAtomService = (): IAtomService => {
     hydrate({ atomsDto: [atomDto] })
 
     const atom = await atomRepository.add(atomDto, {
-      revalidateTag: CACHE_TAGS.ATOM_LIST,
+      revalidateTag: CACHE_TAGS.AtomList()[0],
     })
 
     Validator.assertsDefined(atom)
@@ -135,7 +135,7 @@ export const useAtomService = (): IAtomService => {
     atom?.writeCache(data)
 
     await atomRepository.update({ id }, data, {
-      revalidateTag: CACHE_TAGS.ATOM_LIST,
+      revalidateTag: CACHE_TAGS.AtomList()[0],
     })
 
     Validator.assertsDefined(atom)

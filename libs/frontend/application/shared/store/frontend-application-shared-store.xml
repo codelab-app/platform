@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="4" failures="0" errors="0" time="0.456">
+  <testsuite name="createDeterministicTagParams" errors="0" failures="0" skipped="0" timestamp="2025-03-23T02:35:08" time="0.223" tests="4">
+    <testcase classname="frontend-application-shared-store &gt; utils.spec.ts" name="createDeterministicTagParams &gt; should handle undefined or null input" time="0.002">
+    </testcase>
+    <testcase classname="frontend-application-shared-store &gt; utils.spec.ts" name="createDeterministicTagParams &gt; should create deterministic output for objects regardless of key order" time="0.001">
+    </testcase>
+    <testcase classname="frontend-application-shared-store &gt; utils.spec.ts" name="createDeterministicTagParams &gt; should handle Where object with name" time="0">
+    </testcase>
+    <testcase classname="frontend-application-shared-store &gt; utils.spec.ts" name="createDeterministicTagParams &gt; should handle Option with sort" time="0.001">
+    </testcase>
+  </testsuite>
+</testsuites>

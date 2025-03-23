@@ -5,7 +5,7 @@ import type {
   PreferenceWhere,
 } from '@codelab/shared/infra/gqlgen'
 
-import { CACHE_TAGS } from '@codelab/frontend/abstract/domain'
+import { CACHE_TAGS } from '@codelab/frontend-application-shared-store/cache'
 import { type IPreferenceDto } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/typebox'
 import { preferenceServerActions } from '@codelab/shared-domain-module/preference'

@@ -3,10 +3,7 @@ import type { IAtomDto, IRef } from '@codelab/shared/abstract/core'
 import type { NextFetchOptions } from '@codelab/shared/abstract/types'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/infra/gqlgen'
 
-import {
-  CACHE_TAGS,
-  filterNotHookType,
-} from '@codelab/frontend/abstract/domain'
+import { filterNotHookType } from '@codelab/frontend/abstract/domain'
 import { Validator } from '@codelab/shared/infra/typebox'
 import {
   atomMapper,
@@ -24,14 +21,10 @@ const {
 } = atomServerActions
 
 export const atomRepository: IAtomRepository = withTracingMethods('atom', {
-  add: async (input: IAtomDto, options?: NextFetchOptions) => {
+  add: async (input: IAtomDto, next?: NextFetchOptions) => {
     const {
       createAtoms: { atoms },
-    } = await CreateAtoms(
-      { input: atomMapper.toCreateInput(input) },
-      options,
-      // { revalidateTag: CACHE_TAGS.ATOM_LIST },
-    )
+    } = await CreateAtoms({ input: atomMapper.toCreateInput(input) }, next)
 
     const createdAtom = atoms[0]
 
@@ -40,33 +33,40 @@ export const atomRepository: IAtomRepository = withTracingMethods('atom', {
     return createdAtom
   },
 
-  delete: async (atoms: Array<IRef>) => {
+  delete: async (atoms: Array<IRef>, next?: NextFetchOptions) => {
     const {
       deleteAtoms: { nodesDeleted },
-    } = await DeleteAtoms({
-      delete: {
-        api: {},
+    } = await DeleteAtoms(
+      {
+        delete: {
+          api: {},
+        },
+        where: { id_IN: atoms.map(({ id }) => id) },
       },
-      where: { id_IN: atoms.map(({ id }) => id) },
-    })
+      next,
+    )
 
     return nodesDeleted
   },
 
-  find: async (where?: AtomWhere, options?: AtomOptions) => {
-    return await AtomList({ options, where }, { tags: [CACHE_TAGS.ATOM_LIST] })
+  find: async (
+    where?: AtomWhere,
+    options?: AtomOptions,
+    next?: NextFetchOptions,
+  ) => {
+    return await AtomList({ options, where }, next)
   },
 
   // FIXME: make a unique where
-  findOne: async (where: AtomWhere) => {
-    return (await atomRepository.find(where)).items[0]
+  findOne: async (where: AtomWhere, next?: NextFetchOptions) => {
+    // We rely on the find method's unique caching mechanism
+    const result = await atomRepository.find(where, {}, next)
+
+    return result.items[0]
   },
 
-  getSelectAtomOptions: async () => {
-    const { atoms } = await GetSelectAtomOptions(
-      {},
-      { tags: [CACHE_TAGS.ATOM_LIST] },
-    )
+  getSelectAtomOptions: async (next?: NextFetchOptions) => {
+    const { atoms } = await GetSelectAtomOptions({}, next)
 
     return sortBy(
       atoms.filter(({ type }) => filterNotHookType(type)),
@@ -74,7 +74,7 @@ export const atomRepository: IAtomRepository = withTracingMethods('atom', {
     )
   },
 
-  update: async ({ id }: IRef, input: IAtomDto, options?: NextFetchOptions) => {
+  update: async ({ id }: IRef, input: IAtomDto, next?: NextFetchOptions) => {
     const {
       updateAtoms: { atoms },
     } = await UpdateAtoms(
@@ -82,10 +82,7 @@ export const atomRepository: IAtomRepository = withTracingMethods('atom', {
         update: atomMapper.toUpdateInput(input),
         where: { id },
       },
-      options,
-      // {
-      //   revalidateTag: CACHE_TAGS.ATOM_LIST,
-      // },
+      next,
     )
 
     const updatedAtom = atoms[0]

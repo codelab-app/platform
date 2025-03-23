@@ -16,14 +16,9 @@ export interface IComponentCreateResults {
   store: IRef
 }
 
-export type IComponentRepository = Overwrite<
-  IRepository<
-    IComponentDto,
-    ComponentFragment,
-    ComponentWhere,
-    ComponentOptions
-  >,
-  {
-    add(dto: IComponentDto): Promise<IComponentCreateResults>
-  }
+export type IComponentRepository = IRepository<
+  IComponentDto,
+  ComponentFragment,
+  ComponentWhere,
+  ComponentOptions
 >

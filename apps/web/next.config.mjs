@@ -88,6 +88,10 @@ const nextConfig = {
     // increase timeout for long-running proxy request,
     // e.g. request from admin to seed the db; request to seed database in e2e
     proxyTimeout: 120_000,
+    staleTimes: {
+      dynamic: 30,
+      static: 180,
+    },
     turbo: {
       rules: {
         '*.svg': {

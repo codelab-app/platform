@@ -1,10 +1,8 @@
 import queryString from 'query-string'
 import { pipe } from 'remeda'
 
-import {
-  parseSearchParamsPageProps,
-  parseUrlSearchParams,
-} from './search-params'
+import { parseUrlSearchParams } from './search-params'
+import { parseSearchParamsPageProps } from './search-params.server'
 
 describe('Query params', () => {
   describe('can parse valid values', () => {
