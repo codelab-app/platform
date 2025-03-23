@@ -35,8 +35,12 @@ export const filterAtoms = (
   )
 
   if (atomsRequiringCurrentParent.length) {
-    // only get atoms if their required parents include the parent
-    return atomsRequiringCurrentParent
+    // If there are atoms that require the current parent - return them on top,
+    // as they are most likely the ones to be used.
+    // Then return all the atoms the do not require any parent.
+    // For example, antd Card.Grid or Card.Meta components are only allowed inside Card component,
+    // but the Card component can actually contain any other children atoms as well.
+    return [...atomsRequiringCurrentParent, ...atomsWithNoRequiredParents]
   }
 
   if (atomsExcludingSelfAndRequiredParents.length) {
