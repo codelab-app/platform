@@ -30,11 +30,6 @@ export const AtomsTreeView = observer(
       secondaryTitle: atom.name,
     }))
 
-    useEffect(() => {
-      console.log({ isLoading })
-      logTimestampMs('AtomsTreeView rendered')
-    }, [isLoading])
-
     return (
       <div className="size-full">
         <CuiTree<ITreeNode<IAtomTreeNodeData>>

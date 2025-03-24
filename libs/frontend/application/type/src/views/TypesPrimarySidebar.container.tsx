@@ -25,37 +25,15 @@ export const TypesPrimarySidebarContainer = observer<{
 }>(({ pagination: { totalItems }, searchParams, types }) => {
   const { typeDomainService } = useDomainStore()
   const { paginationService } = useTypeService()
-  const { routerService } = useApplicationStore()
 
   const typeModels = types
     .map((typeRef) => typeDomainService.types.get(typeRef.id))
     .filter(isDefined)
-
-  const redirect = useRedirectPaginationRoute(searchParams, PageType.Type())
-
-  const onPageChange = (page: number, pageSize: number) => {
-    redirect((params) => {
-      params.page = page
-      params.pageSize = pageSize
-    })
-
-    routerService.setSearchParams({
-      ...routerService.searchParams,
-      page,
-      pageSize,
-    })
-  }
 
   useEffect(() => {
     paginationService.setData(typeModels, totalItems)
     logTimestampMs('set data')
   }, [typeDomainService.typesList])
 
-  return (
-    <TypesPrimarySidebar
-      onPageChange={onPageChange}
-      searchParams={searchParams}
-      types={typeModels}
-    />
-  )
+  return <TypesPrimarySidebar searchParams={searchParams} types={typeModels} />
 })

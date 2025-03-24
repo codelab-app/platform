@@ -21,20 +21,14 @@ import { TypesTreeView } from '../use-cases/get-types'
 export const TypesPrimarySidebar = observer<{
   types: Array<ITypeModel>
   searchParams: IPaginationSearchParams
-  onPageChange(page: number, pageSize: number): void
-}>(({ onPageChange, searchParams, types }) => {
+}>(({ searchParams, types }) => {
   const { createPopover, paginationService } = useTypeService()
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
 
   const { showSearchBar, toolbarItems } = usePaginationToolbar({
     onPageChange: (page: number, pageSize: number) => {
-      logTimestampMs('onPageChange')
       setIsLoading(true)
-
-      setTimeout(() => {
-        onPageChange(page, pageSize)
-      })
     },
     pathname: PageType.Type(),
     searchParams,

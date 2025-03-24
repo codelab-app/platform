@@ -23,20 +23,14 @@ import { TagsTreeView } from '../use-cases/get-tags'
 export const TagsPrimarySidebar = observer<{
   tags: Array<ITagModel>
   searchParams: IPaginationSearchParams
-  onPageChange(page: number, pageSize: number): void
-}>(({ onPageChange, searchParams, tags }) => {
+}>(({ searchParams, tags }) => {
   const router = useRouter()
   const { checkedTagIds, createPopover, paginationService } = useTagService()
   const [isLoading, setIsLoading] = useState(false)
 
   const { showSearchBar, toolbarItems } = usePaginationToolbar({
     onPageChange: (page: number, pageSize: number) => {
-      logTimestampMs('onPageChange')
       setIsLoading(true)
-
-      setTimeout(() => {
-        onPageChange(page, pageSize)
-      })
     },
     pathname: PageType.Tags(),
     searchParams,

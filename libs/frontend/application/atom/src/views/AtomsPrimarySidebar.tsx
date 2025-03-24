@@ -23,22 +23,15 @@ import { AtomsTreeView } from '../use-cases/get-atoms/AtomsTreeView'
 export const AtomsPrimarySidebar = observer<{
   atoms: Array<IAtomModel>
   searchParams: IPaginationSearchParams
-  onPageChange(page: number, pageSize: number): void
-}>(({ atoms, onPageChange, searchParams }) => {
+}>(({ atoms, searchParams }) => {
   const { createPopover, paginationService } = useAtomService()
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
 
+  // The pagination responsiveness in development mode is quite laggy but in production mode it is prefetched and snappy
   const { showSearchBar, toolbarItems } = usePaginationToolbar({
     onPageChange: (page: number, pageSize: number) => {
-      logTimestampMs('onPageChange')
-      // Immediately set loading to true for UI feedback, don't batch with other updates
       setIsLoading(true)
-
-      // Update loading state in service and URL params after local state is updated
-      setTimeout(() => {
-        onPageChange(page, pageSize)
-      })
     },
     pathname: PageType.Atoms(),
     searchParams,

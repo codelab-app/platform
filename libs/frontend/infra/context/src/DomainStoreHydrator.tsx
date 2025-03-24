@@ -29,9 +29,9 @@ export const DomainStoreHydrator = observer<DomainStoreHydratorProps>(
     const hydrate = useDomainStoreHydrator()
 
     useEffect(() => {
-      logTimestampMs('DomainStoreHydrator start hydrate')
+      // logTimestampMs('DomainStoreHydrator start hydrate')
       hydrate(data)
-      logTimestampMs('DomainStoreHydrator end hydrate')
+      // logTimestampMs('DomainStoreHydrator end hydrate')
     }, [data, hydrate])
 
     return <>{children}</>

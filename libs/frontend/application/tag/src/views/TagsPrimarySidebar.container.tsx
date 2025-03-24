@@ -3,7 +3,6 @@ import type { IPaginationSearchParams } from '@codelab/frontend/abstract/applica
 import type { IRef } from '@codelab/shared/abstract/core'
 
 import { PageType } from '@codelab/frontend/abstract/application'
-import { useRedirectPaginationRoute } from '@codelab/frontend-application-shared-store/router'
 import {
   useApplicationStore,
   useDomainStore,
@@ -25,37 +24,15 @@ export const TagsPrimarySidebarContainer = observer<{
 }>(({ pagination: { totalItems }, searchParams, tagsRef }) => {
   const { tagDomainService } = useDomainStore()
   const { paginationService } = useTagService()
-  const { routerService } = useApplicationStore()
 
   const tags = tagsRef
     .map((tagRef) => tagDomainService.tags.get(tagRef.id))
     .filter(isDefined)
-
-  const redirect = useRedirectPaginationRoute(searchParams, PageType.Tags())
-
-  const onPageChange = (page: number, pageSize: number) => {
-    redirect((params) => {
-      params.page = page
-      params.pageSize = pageSize
-    })
-
-    routerService.setSearchParams({
-      ...routerService.searchParams,
-      page,
-      pageSize,
-    })
-  }
 
   useEffect(() => {
     paginationService.setData(tags, totalItems)
     logTimestampMs('set data')
   }, [tagDomainService.tagsList])
 
-  return (
-    <TagsPrimarySidebar
-      onPageChange={onPageChange}
-      searchParams={searchParams}
-      tags={tags}
-    />
-  )
+  return <TagsPrimarySidebar searchParams={searchParams} tags={tags} />
 })

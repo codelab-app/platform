@@ -10,6 +10,7 @@ import RightOutlined from '@ant-design/icons/RightOutlined'
 import SearchOutlined from '@ant-design/icons/SearchOutlined'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { usePrefetchPaginationRoutes } from '@codelab/frontend-application-shared-store/router'
+import { logTimestampMs } from '@codelab/shared/infra/logging'
 import { Button, Pagination } from 'antd'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -51,9 +52,12 @@ export const usePaginationToolbar = ({
 
   const handlePaginationChange = useCallback(
     (newPage: number, newPageSize: number) => {
+      logTimestampMs('onPageChange')
+
       // Optimistic UI update (React state) - happens immediately
       setLocalPage(newPage)
 
+      // Wrapping this function under Set Timeout improves the responsiveness in development mode, but is not required for production as we prefetch the pages.
       onPageChange(newPage, newPageSize)
     },
     [onPageChange],

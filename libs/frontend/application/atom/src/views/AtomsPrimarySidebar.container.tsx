@@ -20,8 +20,6 @@ export const AtomsPrimarySidebarContainer = observer<{
   searchParams: IPaginationSearchParams
   atomsRef: Array<IRef>
 }>(({ atomsRef, pagination: { totalItems }, searchParams }) => {
-  logTimestampMs('AtomsPrimarySidebarContainer')
-
   const { atomDomainService } = useDomainStore()
   const { paginationService } = useAtomService()
 
@@ -29,25 +27,12 @@ export const AtomsPrimarySidebarContainer = observer<{
     .map((atomRef) => atomDomainService.atoms.get(atomRef.id))
     .filter(isDefined)
 
-  const redirect = useRedirectPaginationRoute(searchParams, PageType.Atoms())
-
-  const onPageChange = (page: number, pageSize: number) => {
-    redirect((params) => {
-      params.page = page
-      params.pageSize = pageSize
-    })
-  }
-
   useEffect(() => {
     paginationService.setData(atoms, totalItems)
     logTimestampMs('set data')
-  }, [atomDomainService.atomsList])
+    // Include searchParams to ensure pagination updates when navigating between
+    // already loaded pages (e.g., page 2->3->2) where atoms and totalItems remain the same
+  }, [searchParams])
 
-  return (
-    <AtomsPrimarySidebar
-      atoms={atoms}
-      onPageChange={onPageChange}
-      searchParams={searchParams}
-    />
-  )
+  return <AtomsPrimarySidebar atoms={atoms} searchParams={searchParams} />
 })

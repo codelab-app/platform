@@ -36,8 +36,7 @@
       },
       "configurations": {
         "dev": {
-          "buildTarget": "web:build:dev",
-          "dev": false
+          "buildTarget": "web:build:dev"
         },
         "test": {
           "buildTarget": "web:build:test",
