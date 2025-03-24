@@ -118,7 +118,6 @@ export const CuiTree = observer(
     )
 
     useEffect(() => {
-      console.log('CuiTree useEffect')
       cuiTreeStore.setTreeData(treeData ?? [])
       cuiTreeStore.setExpandedKeys(expandedKeys ?? cuiTreeStore.expandedKeys)
       cuiTreeStore.updateFilterOptions(filter)

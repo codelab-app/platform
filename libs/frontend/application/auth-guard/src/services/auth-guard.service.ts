@@ -12,6 +12,7 @@ import { PageType } from '@codelab/frontend/abstract/application'
 import { authGuardRepository } from '@codelab/frontend-domain-auth-guard/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Validator } from '@codelab/shared/infra/typebox'
+import { useMemo } from 'react'
 
 export const useAuthGuardService = (): IAuthGuardService => {
   const { authGuardDomainService, resourceDomainService } = useDomainStore()
@@ -39,6 +40,8 @@ export const useAuthGuardService = (): IAuthGuardService => {
   }
 
   const getAll = async (where: AuthGuardWhere = {}) => {
+    console.log('AuthGuardService.getAll called with', where)
+
     const { items: authGuards } = await authGuardRepository.find(where)
 
     return authGuards.map((authGuard) => {
@@ -78,14 +81,17 @@ export const useAuthGuardService = (): IAuthGuardService => {
     },
   }
 
-  const createPopover = {
-    close: (router: AppRouterInstance) => {
-      router.push(PageType.AuthGuards())
-    },
-    open: (router: AppRouterInstance) => {
-      router.push(PageType.AuthGuardsCreate())
-    },
-  }
+  const createPopover = useMemo(
+    () => ({
+      close: (router: AppRouterInstance) => {
+        router.push(PageType.AuthGuards())
+      },
+      open: (router: AppRouterInstance) => {
+        router.push(PageType.AuthGuardsCreate())
+      },
+    }),
+    [],
+  )
 
   return {
     create,

@@ -23,8 +23,10 @@ export const atomTableQuery = async (searchParams: SearchParamsPageProps) => {
 
   const options = {
     limit: pageSize,
-    offset: (page - 1) * pageSize,
+    offset: (Math.max(1, page) - 1) * pageSize,
   }
+
+  console.log(page, Math.max(1, page), pageSize, options)
 
   const {
     aggregate: { count },
@@ -33,7 +35,7 @@ export const atomTableQuery = async (searchParams: SearchParamsPageProps) => {
     tags: [CACHE_TAGS.AtomList({ options, where }), CACHE_TAGS.AtomList()],
   })
 
-  await sleep(3000)
+  // await sleep(5000)
 
   logTimestampMs('End atomTableQuery')
 

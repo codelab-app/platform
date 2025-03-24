@@ -12,6 +12,9 @@ import { revalidateTag } from 'next/cache'
 
 import { serverFetchWithAuth } from './server-fetch-with-auth'
 
+/**
+ * When you call server action in client component Next.js consider it as mutation and re-render the entire route segment
+ */
 export const gqlServerRequest = async <TResult, TVariables extends ObjectLike>(
   // use `.toString()` version of `TypedDocumentString`
   document: DocumentTypeDecoration<TResult, TVariables>,
@@ -31,7 +34,6 @@ export const gqlServerRequest = async <TResult, TVariables extends ObjectLike>(
       'Content-Type': 'application/json',
     },
     method: 'POST',
-    next,
   }).then((res) => {
     if (next?.revalidateTag) {
       revalidateTag(next.revalidateTag)

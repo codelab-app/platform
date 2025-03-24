@@ -135,7 +135,7 @@ const config: Types.Config = {
       ],
     },
     './libs': {
-      documents: ['libs/**/*.{subscription,spec}.graphql'],
+      documents: ['libs/**/*.{subscription,spec,client}.graphql'],
       preset: 'near-operation-file',
       presetConfig: {
         extension: '.graphql.gen.ts',

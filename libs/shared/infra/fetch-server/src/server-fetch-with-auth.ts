@@ -9,7 +9,7 @@ import type { NextFetchOptions } from '@codelab/shared/abstract/types'
 
 export const serverFetchWithAuth = async (
   endpoint: string,
-  init: RequestInit & NextFetchOptions = {},
+  init: RequestInit,
 ) => {
   /**
    * Need to be callback, otherwise import chain will call `auth0-server.provider.ts` which requires Next.js `request` to be present

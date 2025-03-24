@@ -3,10 +3,10 @@ import { AuthGuardsPrimarySidebar } from '@codelab/frontend-application-auth-gua
 import { authGuardRepository } from '@codelab/frontend-domain-auth-guard/repositories'
 
 const Page = async () => {
-  const { items: authGuards } = await authGuardRepository.find()
+  const { items: authGuardsDto } = await authGuardRepository.find()
 
   return (
-    <DomainStoreHydrator authGuardsDto={authGuards}>
+    <DomainStoreHydrator authGuardsDto={authGuardsDto}>
       <AuthGuardsPrimarySidebar />
     </DomainStoreHydrator>
   )

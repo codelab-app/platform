@@ -17,14 +17,8 @@ import { isEqual } from 'radash'
  * https://stackoverflow.com/questions/76813923/how-to-avoid-warning-message-when-getting-user-information-on-next-js-13-server/77015385#77015385
  */
 
-// Convert arrays to Sets for O(1) lookups instead of O(n) array searches
-const paginatedRouteSet = new Set([
-  PageType.Atoms(),
-  PageType.Tags(),
-  PageType.Type(),
-])
-
-const protectedRouteSet = new Set([PageType.AppList()])
+const paginatedRoutes = [PageType.Atoms(), PageType.Tags(), PageType.Type()]
+const protectedRoutes = [PageType.AppList()]
 
 const middleware: NextMiddleware = async (
   request: NextRequest,
@@ -32,43 +26,30 @@ const middleware: NextMiddleware = async (
 ) => {
   const response = NextResponse.next()
   const pathname = request.nextUrl.pathname
+  const authResponse = await auth0Instance.middleware(request)
+
+  // authentication routes — let the middleware handle it
+  if (request.nextUrl.pathname.startsWith('/auth')) {
+    return authResponse
+  }
+
   const { origin } = new URL(request.url)
+  const session = await auth0Instance.getSession()
 
-  // Fast path for API routes - skip auth0 calls for performance
-  if (pathname.startsWith('/api/v1')) {
-    void corsMiddleware(request, response)
+  const isProtectedRoute = protectedRoutes.some((route) =>
+    pathname.startsWith(route),
+  )
 
-    // Only get session if we need it for API routes
-    const session = await auth0Instance.getSession()
-
-    if (session) {
-      const accessToken = session.tokenSet.accessToken
-
-      response.headers.set('Authorization', `Bearer ${accessToken}`)
-    }
-
-    return response
+  // user does not have a session in a protected route — redirect to login
+  if (!session && isProtectedRoute) {
+    return NextResponse.redirect(`${origin}/auth/login`)
   }
 
-  // Handle auth routes early to avoid unnecessary processing
-  if (pathname.startsWith('/auth')) {
-    return auth0Instance.middleware(request)
-  }
-
-  // Check if it's a protected route before getting session
-  const isProtectedRoute = checkProtectedRoute(pathname)
-
-  // Only get session if needed for protected routes
-  if (isProtectedRoute) {
-    const session = await auth0Instance.getSession()
-
-    if (!session) {
-      return NextResponse.redirect(`${origin}/auth/login`)
-    }
-  }
-
-  // Handle pagination routes with efficient checks
-  if (isPaginatedRoute(pathname)) {
+  /**
+   * Pagination uses query params as source of truth, we set default ones here.
+   * Only apply to exact route matches to avoid unnecessary query params
+   */
+  if (paginatedRoutes.some((route) => pathname === route)) {
     const url = request.nextUrl.clone()
     const currentPage = url.searchParams.get('page')
     const currentPageSize = url.searchParams.get('pageSize')
@@ -77,54 +58,44 @@ const middleware: NextMiddleware = async (
     const newPageSize = currentPageSize ?? '20'
     const newFilter = currentFilter.length ? currentFilter : ['name']
 
-    // Only modify URL if values would actually change
-    if (
-      currentPage !== newPage ||
-      currentPageSize !== newPageSize ||
-      currentFilter.length === 0
-    ) {
-      url.searchParams.set('page', newPage)
-      url.searchParams.set('pageSize', newPageSize)
-      url.searchParams.set('filter', newFilter.join(','))
+    url.searchParams.set('page', newPage)
+    url.searchParams.set('pageSize', newPageSize)
+    url.searchParams.set('filter', newFilter.join(','))
 
+    const hasChanged =
+      !isEqual(newPage, currentPage) ||
+      !isEqual(newPageSize, currentPageSize) ||
+      !isEqual(currentFilter, newFilter)
+
+    if (hasChanged) {
       return NextResponse.redirect(url)
     }
+  }
+
+  /**
+   * For querying the backend, we want to attach tokens from Auth0 session
+   */
+  if (request.nextUrl.pathname.startsWith('/api/v1')) {
+    void corsMiddleware(request, response)
+
+    if (session) {
+      const accessToken = session.tokenSet.accessToken
+
+      response.headers.set('Authorization', `Bearer ${accessToken}`)
+      // response.headers.set('X-ID-TOKEN', session.user.idToken)
+    }
+
+    return response
   }
 
   return response
 }
 
-// Helper functions for efficient route checking
-const isPaginatedRoute = (pathname: string): boolean => {
-  for (const route of paginatedRouteSet) {
-    if (pathname.startsWith(route)) {
-      return true
-    }
-  }
-
-  return false
-}
-
-const checkProtectedRoute = (pathname: string): boolean => {
-  for (const route of protectedRouteSet) {
-    if (pathname.startsWith(route)) {
-      return true
-    }
-  }
-
-  return false
-}
-
 export default middleware
 
 export const config = {
-  // Only run middleware on the specific routes that need it
-  matcher: [
-    '/auth/:path*',
-    '/api/v1/:path*',
-    '/atoms/:path*',
-    '/tags/:path*',
-    '/type/:path*',
-    '/apps/:path*',
-  ],
+  /**
+   * Use conditional matching instead https://nextjs.org/docs/app/building-your-application/routing/middleware#conditional-statements
+   */
+  // matcher: ['/apps/:path*'],
 }

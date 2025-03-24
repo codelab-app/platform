@@ -12,44 +12,48 @@ import {
 } from '@codelab/frontend-presentation-components-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { observer } from 'mobx-react-lite'
+import { useMemo } from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 
 import { useAuthGuardService } from '../../services'
 import { createAuthGuardSchema } from './create-auth-guard.schema'
 
-export const CreateAuthGuardForm = observer<IFormController>(
-  ({ onSubmitSuccess, showFormControl = true, submitRef }) => {
-    const user = useUser()
-    const authGuardService = useAuthGuardService()
+export const CreateAuthGuardForm = ({
+  onSubmitSuccess,
+  showFormControl = true,
+  submitRef,
+}: IFormController) => {
+  console.log('CreateAuthGuardForm')
 
-    const model = {
-      config: { data: {}, id: v4() },
-      id: v4(),
-      owner: { id: user.id },
-    }
+  const user = useUser()
+  const authGuardService = useAuthGuardService()
 
-    return (
-      <Form<IAuthGuardCreateFormData>
-        errorMessage="Error while creating resource"
-        model={model}
-        onSubmit={authGuardService.create}
-        onSubmitSuccess={onSubmitSuccess}
-        schema={createAuthGuardSchema}
-        submitRef={submitRef}
-        uiKey={UiKey.AuthGuardFormCreate}
-      >
-        <AutoFields omitFields={['config']} />
-        <ResourceFetchConfigField />
-        <ResourceTestRequest
-          fetchConfigDataFieldName="config.data"
-          resourceIdFieldName="resource.id"
-        />
+  const model = {
+    config: { data: {}, id: v4() },
+    id: v4(),
+    owner: { id: user.id },
+  }
 
-        <DisplayIf condition={showFormControl}>
-          <FormController submitLabel="Create Type" />
-        </DisplayIf>
-      </Form>
-    )
-  },
-)
+  return (
+    <Form<IAuthGuardCreateFormData>
+      errorMessage="Error while creating resource"
+      model={model}
+      onSubmit={authGuardService.create}
+      onSubmitSuccess={onSubmitSuccess}
+      schema={createAuthGuardSchema}
+      submitRef={submitRef}
+      uiKey={UiKey.AuthGuardFormCreate}
+    >
+      <AutoFields omitFields={['config']} />
+      {/* <ResourceFetchConfigField />
+      <ResourceTestRequest
+        fetchConfigDataFieldName="config.data"
+        resourceIdFieldName="resource.id"
+      /> */}
+      <DisplayIf condition={showFormControl}>
+        <FormController submitLabel="Create Type" />
+      </DisplayIf>
+    </Form>
+  )
+}
