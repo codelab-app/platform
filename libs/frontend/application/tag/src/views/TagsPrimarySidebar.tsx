@@ -30,12 +30,8 @@ export const TagsPrimarySidebar = observer<{
 }>(({ pagination, searchParams, tags }) => {
   const router = useRouter()
   const { checkedTagIds, createPopover } = useTagService()
-  const [isLoading, setIsLoading] = useState(false)
 
   const { showSearchBar, toolbarItems } = usePaginationToolbar({
-    onPageChange: (page: number, pageSize: number) => {
-      setIsLoading(true)
-    },
     pathname: PageType.Tags(),
     searchParams,
     totalItems: pagination.totalItems,
@@ -47,7 +43,8 @@ export const TagsPrimarySidebar = observer<{
         content: (
           <TagsTreeView
             data={tags}
-            isLoading={isLoading}
+            isLoading={false}
+            searchParams={searchParams}
             showSearchBar={showSearchBar}
           />
         ),
@@ -73,7 +70,7 @@ export const TagsPrimarySidebar = observer<{
         },
       },
     ],
-    [tags, toolbarItems, isLoading, showSearchBar],
+    [tags, toolbarItems, showSearchBar],
   )
 
   return (

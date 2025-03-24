@@ -28,13 +28,9 @@ export const AtomsPrimarySidebar = observer<{
 }>(({ atoms, pagination, searchParams }) => {
   const { createPopover } = useAtomService()
   const router = useRouter()
-  const [isLoading, setIsLoading] = useState(false)
 
   // The pagination responsiveness in development mode is quite laggy but in production mode it is prefetched and snappy
   const { showSearchBar, toolbarItems } = usePaginationToolbar({
-    onPageChange: (page: number, pageSize: number) => {
-      setIsLoading(true)
-    },
     pathname: PageType.Atoms(),
     searchParams,
     totalItems: pagination.totalItems,
@@ -49,7 +45,8 @@ export const AtomsPrimarySidebar = observer<{
         content: (
           <AtomsTreeView
             data={atoms}
-            isLoading={isLoading}
+            isLoading={false}
+            searchParams={searchParams}
             showSearchBar={showSearchBar}
           />
         ),

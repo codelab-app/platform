@@ -3,29 +3,40 @@
 import SearchOutlined from '@ant-design/icons/SearchOutlined'
 import { Input } from 'antd'
 import classNames from 'classnames'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { debounce } from 'remeda'
 
 import Style from './CuiSearchBar.module.css'
 
 interface CuiSearchBarProps {
+  debounceTime?: number
   searchKeyword?: string
   onKeywordChange(value: string): void
 }
 
 export const CuiSearchBar = ({
+  debounceTime = 0,
   onKeywordChange,
   searchKeyword = '',
 }: CuiSearchBarProps) => {
   const [currentSearchKeyword, setCurrentSearchKeyword] =
     useState(searchKeyword)
 
-  useEffect(() => {
-    setCurrentSearchKeyword(searchKeyword)
-  }, [searchKeyword])
+  // Create a debounced version of onKeywordChange using Remeda
+  const debouncedSearch = useRef(
+    debounce(
+      (nextValue: string) => {
+        onKeywordChange(nextValue)
+      },
+      { waitMs: debounceTime },
+    ),
+  ).current
 
   const handleChange = (value: string) => {
     setCurrentSearchKeyword(value)
-    onKeywordChange(value)
+
+    // Call the debounced function using call method
+    debouncedSearch.call(value)
   }
 
   return (

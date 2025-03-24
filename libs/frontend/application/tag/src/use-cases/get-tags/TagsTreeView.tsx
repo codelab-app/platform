@@ -1,6 +1,10 @@
 'use client'
 
 import type {
+  IPaginationSearchParams,
+  ITreeViewProps,
+} from '@codelab/frontend/abstract/application'
+import type {
   ITagModel,
   ITagNodeData,
   ITreeNode,
@@ -19,16 +23,10 @@ import { observer } from 'mobx-react-lite'
 import { useTagService } from '../../services'
 import { TagsTreeItem } from './TagsTreeItem'
 
-interface TagsTreeViewProps {
-  data: Array<ITagModel>
-  isLoading: boolean
-  showSearchBar: boolean
-}
-
-export const TagsTreeView = observer<TagsTreeViewProps>(
-  ({ data, isLoading, showSearchBar }) => {
+export const TagsTreeView = observer<ITreeViewProps<ITagModel>>(
+  ({ data, isLoading, searchParams, showSearchBar }) => {
     const tagService = useTagService()
-    const { routerService } = useApplicationStore()
+    const { search } = searchParams
     const { tagDomainService } = useDomainStore()
 
     /**
@@ -66,6 +64,14 @@ export const TagsTreeView = observer<TagsTreeViewProps>(
         checkable
         checkedKeys={tagService.checkedTagIds}
         expandedKeys={tagDomainService.expandedNodes}
+        filter={
+          showSearchBar
+            ? {
+                filterable: { primaryTitle: true },
+                keyword: search || '',
+              }
+            : undefined
+        }
         isLoading={isLoading}
         onCheck={onCheck}
         onExpand={(expandedKeys) => {
@@ -73,20 +79,7 @@ export const TagsTreeView = observer<TagsTreeViewProps>(
             expandedKeys.map((key) => key.toString()),
           )
         }}
-        onSearchKeywordChange={(keyword) => {
-          routerService.setSearchParams({
-            ...routerService.searchParams,
-            search: keyword,
-          })
-        }}
         onSelect={onSelect}
-        searcheable={
-          showSearchBar
-            ? {
-                primaryTitle: true,
-              }
-            : false
-        }
         titleRender={(node) => {
           return <TagsTreeItem data={node} />
         }}

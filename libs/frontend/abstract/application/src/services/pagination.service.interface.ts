@@ -6,6 +6,7 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import type {
   IAtomDto,
+  IAtomType,
   IComponentDto,
   ITagDto,
   ITypeDto,
@@ -19,6 +20,8 @@ const components = PageType.Components()
 const tags = PageType.Tags()
 const types = PageType.Type()
 
+export type SupportedPaginationModel = IAtomModel | ITagModel | ITypeModel
+
 export type SupportedPaginationPathname =
   | `${typeof atoms}`
   | `${typeof components}`
@@ -29,6 +32,10 @@ export interface IPaginationSearchParams {
   filter: string
   page: number
   pageSize: number
+
+  search?: string
+  // Selected node
+  selectedKey?: string
 }
 
 export interface IPaginationData {

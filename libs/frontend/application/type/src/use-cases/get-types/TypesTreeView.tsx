@@ -1,6 +1,10 @@
 'use client'
 
 import type {
+  IPaginationSearchParams,
+  ITreeViewProps,
+} from '@codelab/frontend/abstract/application'
+import type {
   ITreeNode,
   ITypeModel,
   ITypeTreeNodeData,
@@ -13,15 +17,9 @@ import { observer } from 'mobx-react-lite'
 
 import { TypesTreeItem } from './TypesTreeItem'
 
-interface TypesTreeViewProps {
-  data: Array<ITypeModel>
-  isLoading: boolean
-  showSearchBar: boolean
-}
-
-export const TypesTreeView = observer<TypesTreeViewProps>(
-  ({ data, isLoading, showSearchBar }) => {
-    const { routerService } = useApplicationStore()
+export const TypesTreeView = observer<ITreeViewProps<ITypeModel>>(
+  ({ data, isLoading, searchParams, showSearchBar }) => {
+    const { search } = searchParams
 
     const treeData: Array<ITreeNode<ITypeTreeNodeData>> = data.map((type) => ({
       children:
@@ -39,21 +37,15 @@ export const TypesTreeView = observer<TypesTreeViewProps>(
     return (
       <div className="size-full">
         <CuiTree<ITreeNode<ITypeTreeNodeData>>
-          isLoading={isLoading}
-          onSearchKeywordChange={(keyword) => {
-            routerService.setSearchParams({
-              ...routerService.searchParams,
-              search: keyword,
-            })
-          }}
-          searchKeyword={routerService.search}
-          searcheable={
+          filter={
             showSearchBar
               ? {
-                  primaryTitle: true,
+                  filterable: { primaryTitle: true },
+                  keyword: search || '',
                 }
-              : false
+              : undefined
           }
+          isLoading={isLoading}
           titleRender={(node) => {
             return <TypesTreeItem data={node} />
           }}

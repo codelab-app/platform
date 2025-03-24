@@ -12,6 +12,7 @@ import { observer, useLocalObservable } from 'mobx-react-lite'
 import { useCallback, useEffect } from 'react'
 
 import type { Variant } from '../../abstract'
+import type { FilterOptions } from './store'
 
 import { CuiSearchBar, CuiSkeletonWrapper } from '../../components'
 import styles from './CuiTree.module.css'
@@ -50,9 +51,11 @@ export type WithChildren<T> = T & {
 export interface CuiTreeProps<T extends WithChildren<CuiTreeBasicDataNode>>
   extends DirectoryTreeProps<T> {
   draggable?: boolean
+  /**
+   * Allows local filtering of tree data by primary and secondary titles
+   */
+  filter?: FilterOptions
   isLoading?: boolean
-  searchKeyword?: string
-  searcheable?: boolean | { primaryTitle?: boolean; secondaryTitle?: boolean }
   treeData?: Array<T>
   onSearchKeywordChange?(keyword: string): void
 }
@@ -64,17 +67,13 @@ export const CuiTree = observer(
       autoExpandParent,
       draggable,
       expandedKeys,
+      filter,
       isLoading = false,
       onExpand,
       onMouseEnter,
       onMouseLeave,
       onSearchKeywordChange,
       onSelect,
-      searcheable = false,
-      /**
-       * Allow redirect back from popover to keep selected node
-       */
-      searchKeyword = '',
       titleRender,
       treeData,
     } = props
@@ -84,7 +83,7 @@ export const CuiTree = observer(
         new CuiTreeStore({
           autoExpandParent,
           expandedKeys,
-          filterOptions: {},
+          filter,
           treeData,
         }),
     )
@@ -102,22 +101,28 @@ export const CuiTree = observer(
 
     const handleSearchKeywordChange = useCallback(
       (keyword: string) => {
-        if (searcheable === false) {
-          return
-        }
-
         onSearchKeywordChange?.(keyword)
         cuiTreeStore.setAutoExpandParent(true)
-        cuiTreeStore.updateFilterOptions(searcheable, keyword)
+
+        // Create an updated filter with the new keyword
+        if (filter) {
+          const updatedFilter: FilterOptions = {
+            ...filter,
+            keyword: keyword,
+          }
+
+          cuiTreeStore.updateFilterOptions(updatedFilter)
+        }
       },
-      [onSearchKeywordChange, cuiTreeStore, searcheable],
+      [onSearchKeywordChange, cuiTreeStore, filter],
     )
 
     useEffect(() => {
+      console.log('CuiTree useEffect')
       cuiTreeStore.setTreeData(treeData ?? [])
       cuiTreeStore.setExpandedKeys(expandedKeys ?? cuiTreeStore.expandedKeys)
-      cuiTreeStore.updateFilterOptions(searcheable, searchKeyword)
-    }, [treeData, expandedKeys, searcheable, searchKeyword, cuiTreeStore])
+      cuiTreeStore.updateFilterOptions(filter)
+    }, [treeData, expandedKeys, filter, cuiTreeStore])
 
     return (
       <div
@@ -127,10 +132,10 @@ export const CuiTree = observer(
         )}
         data-testid={CuiTestId.cuiTree()}
       >
-        {searcheable && (
+        {filter && (
           <CuiSearchBar
             onKeywordChange={handleSearchKeywordChange}
-            searchKeyword={searchKeyword}
+            searchKeyword={filter.keyword}
           />
         )}
         <div className="overflow-auto">

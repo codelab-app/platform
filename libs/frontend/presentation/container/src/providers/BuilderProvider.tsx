@@ -37,8 +37,7 @@ export const BuilderProvider = ({
   containerNode,
   rendererType,
 }: BuilderProviderProps) => {
-  const { builderService, rendererService, routerService } =
-    useApplicationStore()
+  const { builderService, rendererService } = useApplicationStore()
 
   /**
    * Defer side effect to lifecycle method, to prevent https://github.com/codelab-app/platform/issues/3463

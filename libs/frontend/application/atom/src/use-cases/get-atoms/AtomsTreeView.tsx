@@ -1,4 +1,8 @@
 import type {
+  IPaginationSearchParams,
+  ITreeViewProps,
+} from '@codelab/frontend/abstract/application'
+import type {
   IAtomModel,
   IAtomTreeNodeData,
   ITreeNode,
@@ -12,15 +16,9 @@ import { useEffect } from 'react'
 
 import { AtomsTreeItem } from './AtomsTreeItem'
 
-interface AtomsTreeViewProps {
-  data: Array<IAtomModel>
-  isLoading: boolean
-  showSearchBar: boolean
-}
-
-export const AtomsTreeView = observer(
-  ({ data, isLoading, showSearchBar }: AtomsTreeViewProps) => {
-    const { routerService } = useApplicationStore()
+export const AtomsTreeView = observer<ITreeViewProps<IAtomModel>>(
+  ({ data, isLoading, searchParams, showSearchBar }) => {
+    const { search, selectedKey } = searchParams
 
     const treeData: Array<ITreeNode<IAtomTreeNodeData>> = data.map((atom) => ({
       children: atom.api.current.fieldsTree,
@@ -33,16 +31,16 @@ export const AtomsTreeView = observer(
     return (
       <div className="size-full">
         <CuiTree<ITreeNode<IAtomTreeNodeData>>
+          filter={
+            showSearchBar
+              ? {
+                  filterable: { primaryTitle: true },
+                  keyword: search || '',
+                }
+              : undefined
+          }
           isLoading={isLoading}
-          onSearchKeywordChange={(keyword) => {
-            routerService.setSearchParams({
-              ...routerService.searchParams,
-              search: keyword,
-            })
-          }}
-          searchKeyword={routerService.search}
-          searcheable={showSearchBar ? { primaryTitle: true } : false}
-          selectedKeys={routerService.node ? [routerService.node] : []}
+          selectedKeys={selectedKey ? [selectedKey] : []}
           titleRender={(node) => <AtomsTreeItem data={node} />}
           treeData={treeData}
         />

@@ -27,12 +27,8 @@ export const TypesPrimarySidebar = observer<{
 }>(({ pagination, searchParams, types }) => {
   const { createPopover } = useTypeService()
   const router = useRouter()
-  const [isLoading, setIsLoading] = useState(false)
 
   const { showSearchBar, toolbarItems } = usePaginationToolbar({
-    onPageChange: (page: number, pageSize: number) => {
-      setIsLoading(true)
-    },
     pathname: PageType.Type(),
     searchParams,
     totalItems: pagination.totalItems,
@@ -44,7 +40,8 @@ export const TypesPrimarySidebar = observer<{
         content: (
           <TypesTreeView
             data={types}
-            isLoading={isLoading}
+            isLoading={false}
+            searchParams={searchParams}
             showSearchBar={showSearchBar}
           />
         ),
