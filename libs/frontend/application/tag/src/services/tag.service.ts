@@ -20,48 +20,13 @@ import { atom, useAtom } from 'jotai'
 const checkedTagsAtom = atom<Array<string>>([])
 
 export const useTagService = (): ITagService => {
-  const {
-    pagination: { tagPagination },
-  } = useApplicationStore()
-
   const { tagDomainService } = useDomainStore()
   const [checkedTagIds, setCheckedTagIds] = useAtom(checkedTagsAtom)
-
-  // const getDataFn: GetDataFn<ITagModel> = async (
-  //   page,
-  //   pageSize,
-  //   filter,
-  //   search,
-  // ) => {
-  //   const {
-  //     aggregate: { count: totalItems },
-  //     items,
-  //   } = await tagRepository.find(
-  //     {
-  //       ...graphqlFilterMatches(filter, search),
-  //       parentAggregate: { count: 0 },
-  //     },
-  //     {
-  //       limit: pageSize,
-  //       offset: (page - 1) * pageSize,
-  //     },
-  //   )
-
-  //   const tags = items.map((tag) => {
-  //     tag.children.forEach((child) => tagDomainService.hydrate(child))
-
-  //     return tagDomainService.hydrate(tag)
-  //   })
-
-  //   return { items: tags, totalItems }
-  // }
 
   const create = async (data: ICreateTagData) => {
     const tag = tagDomainService.hydrate(data)
 
     await tagRepository.add(data)
-
-    tagPagination.dataRefs.set(tag.id, tagRef(tag))
 
     if (!tag.parent) {
       return tag
@@ -101,8 +66,6 @@ export const useTagService = (): ITagService => {
       aggregate: { count },
       items: tags,
     } = await tagRepository.find(where, options)
-
-    tagPagination.setTotalItems(count)
 
     return tags.map((tag) => {
       tag.children.forEach((child) => tagDomainService.hydrate(child))
@@ -156,7 +119,6 @@ export const useTagService = (): ITagService => {
     createPopover,
     deleteCheckedTags,
     getAll,
-    paginationService: tagPagination,
     removeMany,
     setCheckedTagIds,
     update,

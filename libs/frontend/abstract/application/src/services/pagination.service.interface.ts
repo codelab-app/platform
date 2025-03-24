@@ -14,24 +14,6 @@ import type { Ref } from 'mobx-keystone'
 
 import { PageType } from '../shared'
 
-export type SupportedPaginationDto =
-  | IAtomDto
-  | IComponentDto
-  | ITagDto
-  | ITypeDto
-
-export type SupportedPaginationModel =
-  | IAtomModel
-  | IComponentModel
-  | ITagModel
-  | ITypeModel
-
-// export type SupportedPaginationModelPage =
-//   | Model.Atom
-//   | Model.Component
-//   | Model.Tag
-//   | Model.Type
-
 const atoms = PageType.Atoms()
 const components = PageType.Components()
 const tags = PageType.Tags()
@@ -43,22 +25,12 @@ export type SupportedPaginationPathname =
   | `${typeof tags}`
   | `${typeof types}`
 
-export interface IPaginateable<T extends SupportedPaginationModel> {
-  paginationService: IPaginationService<T>
-}
-
 export interface IPaginationSearchParams {
   filter: string
   page: number
   pageSize: number
 }
 
-export interface IPaginationService<T extends SupportedPaginationModel> {
-  data: Array<T>
-  dataRefs: Map<string, Ref<T>>
-  isLoading: boolean
+export interface IPaginationData {
   totalItems: number
-  totalPages: number
-  setData(data: Array<T>, totalItems: number): void
-  setTotalItems(totalPages: number): void
 }

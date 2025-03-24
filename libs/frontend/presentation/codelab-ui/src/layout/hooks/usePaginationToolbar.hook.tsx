@@ -9,7 +9,6 @@ import LeftOutlined from '@ant-design/icons/LeftOutlined'
 import RightOutlined from '@ant-design/icons/RightOutlined'
 import SearchOutlined from '@ant-design/icons/SearchOutlined'
 import { UiKey } from '@codelab/frontend/abstract/types'
-import { usePrefetchPaginationRoutes } from '@codelab/frontend-application-shared-store/router'
 import { logTimestampMs } from '@codelab/shared/infra/logging'
 import { Button, Pagination } from 'antd'
 import Link from 'next/link'
@@ -27,6 +26,8 @@ export interface ToolbarPaginationProps {
 
 /**
  * Hook that provides pagination toolbar items without MobX dependencies
+ *
+ * Will feel slow in development but with production prefetch enabled will be quick. We previously used local state for page and setTimeout to optimize in development, but is not required.
  */
 export const usePaginationToolbar = ({
   onPageChange,
@@ -35,27 +36,10 @@ export const usePaginationToolbar = ({
   totalItems,
 }: ToolbarPaginationProps) => {
   const [showSearchBar, setShowSearchBar] = useState(false)
-  // Local React state for immediate UI updates
-  const [localPage, setLocalPage] = useState(page)
-  const router = useRouter()
-
-  // Update local state when prop changes
-  useEffect(
-    () => {
-      if (page !== localPage) {
-        setLocalPage(page)
-      }
-    },
-    // Don't include localPage in the dependency array
-    [page, pageSize],
-  )
 
   const handlePaginationChange = useCallback(
     (newPage: number, newPageSize: number) => {
       logTimestampMs('onPageChange')
-
-      // Optimistic UI update (React state) - happens immediately
-      setLocalPage(newPage)
 
       // Wrapping this function under Set Timeout improves the responsiveness in development mode, but is not required for production as we prefetch the pages.
       onPageChange(newPage, newPageSize)
@@ -94,20 +78,18 @@ export const usePaginationToolbar = ({
         <div className="flex items-center space-x-2">
           <Pagination
             // Use React state for UI rendering
-            current={localPage}
+            current={page}
             // itemRender={(currentPage, type, originalElement) => {
             //   return null
             // }}
             itemRender={(currentPage, type, originalElement) => {
               if (type === 'prev') {
-                const canGoPrev = localPage > 1
+                const canGoPrev = page > 1
 
                 return (
                   <Link
                     href={
-                      canGoPrev
-                        ? createPageUrl(localPage - 1)
-                        : createPageUrl(localPage)
+                      canGoPrev ? createPageUrl(page - 1) : createPageUrl(page)
                     }
                     prefetch={true}
                   >
@@ -121,14 +103,12 @@ export const usePaginationToolbar = ({
               }
 
               if (type === 'next') {
-                const canGoNext = localPage < totalPages
+                const canGoNext = page < totalPages
 
                 return (
                   <Link
                     href={
-                      canGoNext
-                        ? createPageUrl(localPage + 1)
-                        : createPageUrl(localPage)
+                      canGoNext ? createPageUrl(page + 1) : createPageUrl(page)
                     }
                     prefetch={true}
                   >

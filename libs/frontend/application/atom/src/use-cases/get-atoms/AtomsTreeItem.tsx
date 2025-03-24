@@ -13,7 +13,6 @@ import {
   CuiTreeItem,
   CuiTreeItemToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { searchParamsAsObject } from '@codelab/frontend-application-shared-store/router'
 import { useRouter } from 'next/navigation'
 
 import { useAtomService } from '../../services'
@@ -33,7 +32,6 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
     if (isAtom) {
       router.push(
         PageType.AtomUpdate(node, {
-          ...searchParamsAsObject(),
           node: node.id,
         }),
       )

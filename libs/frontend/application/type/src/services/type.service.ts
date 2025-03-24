@@ -24,36 +24,11 @@ import { Validator } from '@codelab/shared/infra/typebox'
 import { prop, sortBy } from 'remeda'
 
 export const useTypeService = (): ITypeService => {
-  const {
-    pagination: { typePagination },
-  } = useApplicationStore()
-
   const { fieldDomainService, typeDomainService, userDomainService } =
     useDomainStore()
 
   const user = userDomainService.user
   const owner = { id: user.id }
-
-  // const getDataFn: GetDataFn<ITypeModel> = async (
-  //   page,
-  //   pageSize,
-  //   filter,
-  //   search,
-  // ) => {
-  //   const { items: baseTypes, totalCount: totalItems } =
-  //     await typeRepository.findBaseTypes({
-  //       options: {
-  //         limit: pageSize,
-  //         offset: (page - 1) * pageSize,
-  //       },
-  //       where: graphqlFilterMatches(filter, search),
-  //     })
-
-  //   const typeIds = baseTypes.map(({ id }) => id)
-  //   const items = await getAll(typeIds)
-
-  //   return { items, totalItems }
-  // }
 
   const create = async (data: ITypeCreateFormData) => {
     const typeDto = TypeFactory.mapDataToDto(data, owner)
@@ -62,8 +37,6 @@ export const useTypeService = (): ITypeService => {
     // use hydrated type here instead of dto to make sure the dependant types have full data
     // (for example "typesOfUnionType" should not only contain ids, but also __typename)
     await typeRepository.add(type.toJson)
-
-    typePagination.dataRefs.set(type.id, typeRef(type))
 
     return type
   }
@@ -227,7 +200,6 @@ export const useTypeService = (): ITypeService => {
     getInterface,
     getOne,
     getSelectOptions,
-    paginationService: typePagination,
     removeMany: deleteType,
     update,
     updatePopover,

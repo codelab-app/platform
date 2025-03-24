@@ -4,6 +4,7 @@ import type { IAtomModel } from '@codelab/frontend/abstract/domain'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import {
+  type IPaginationData,
   type IPaginationSearchParams,
   PageType,
 } from '@codelab/frontend/abstract/application'
@@ -23,8 +24,9 @@ import { AtomsTreeView } from '../use-cases/get-atoms/AtomsTreeView'
 export const AtomsPrimarySidebar = observer<{
   atoms: Array<IAtomModel>
   searchParams: IPaginationSearchParams
-}>(({ atoms, searchParams }) => {
-  const { createPopover, paginationService } = useAtomService()
+  pagination: IPaginationData
+}>(({ atoms, pagination, searchParams }) => {
+  const { createPopover } = useAtomService()
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
 
@@ -35,7 +37,7 @@ export const AtomsPrimarySidebar = observer<{
     },
     pathname: PageType.Atoms(),
     searchParams,
-    totalItems: paginationService.totalItems,
+    totalItems: pagination.totalItems,
   })
 
   /**

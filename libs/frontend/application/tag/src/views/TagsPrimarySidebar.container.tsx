@@ -1,5 +1,8 @@
 'use client'
-import type { IPaginationSearchParams } from '@codelab/frontend/abstract/application'
+import type {
+  IPaginationData,
+  IPaginationSearchParams,
+} from '@codelab/frontend/abstract/application'
 import type { IRef } from '@codelab/shared/abstract/core'
 
 import { PageType } from '@codelab/frontend/abstract/application'
@@ -18,21 +21,19 @@ import { TagsPrimarySidebar } from './TagsPrimarySidebar'
 export const TagsPrimarySidebarContainer = observer<{
   tagsRef: Array<IRef>
   searchParams: IPaginationSearchParams
-  pagination: {
-    totalItems: number
-  }
-}>(({ pagination: { totalItems }, searchParams, tagsRef }) => {
+  pagination: IPaginationData
+}>(({ pagination, searchParams, tagsRef }) => {
   const { tagDomainService } = useDomainStore()
-  const { paginationService } = useTagService()
 
   const tags = tagsRef
     .map((tagRef) => tagDomainService.tags.get(tagRef.id))
     .filter(isDefined)
 
-  useEffect(() => {
-    paginationService.setData(tags, totalItems)
-    logTimestampMs('set data')
-  }, [tagDomainService.tagsList])
-
-  return <TagsPrimarySidebar searchParams={searchParams} tags={tags} />
+  return (
+    <TagsPrimarySidebar
+      pagination={pagination}
+      searchParams={searchParams}
+      tags={tags}
+    />
+  )
 })

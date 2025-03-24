@@ -1,9 +1,11 @@
 'use client'
-import type { IPaginationSearchParams } from '@codelab/frontend/abstract/application'
+import type {
+  IPaginationData,
+  IPaginationSearchParams,
+} from '@codelab/frontend/abstract/application'
 import type { IRef } from '@codelab/shared/abstract/core'
 
 import { PageType } from '@codelab/frontend/abstract/application'
-import { useRedirectPaginationRoute } from '@codelab/frontend-application-shared-store/router'
 import {
   useApplicationStore,
   useDomainStore,
@@ -17,23 +19,21 @@ import { useTypeService } from '../services'
 import { TypesPrimarySidebar } from './TypesPrimarySidebar'
 
 export const TypesPrimarySidebarContainer = observer<{
-  types: Array<IRef>
+  pagination: IPaginationData
   searchParams: IPaginationSearchParams
-  pagination: {
-    totalItems: number
-  }
-}>(({ pagination: { totalItems }, searchParams, types }) => {
+  types: Array<IRef>
+}>(({ pagination, searchParams, types }) => {
   const { typeDomainService } = useDomainStore()
-  const { paginationService } = useTypeService()
 
   const typeModels = types
     .map((typeRef) => typeDomainService.types.get(typeRef.id))
     .filter(isDefined)
 
-  useEffect(() => {
-    paginationService.setData(typeModels, totalItems)
-    logTimestampMs('set data')
-  }, [typeDomainService.typesList])
-
-  return <TypesPrimarySidebar searchParams={searchParams} types={typeModels} />
+  return (
+    <TypesPrimarySidebar
+      pagination={pagination}
+      searchParams={searchParams}
+      types={typeModels}
+    />
+  )
 })

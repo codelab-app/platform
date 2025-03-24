@@ -12,7 +12,6 @@ import type {
   IRuntimeElementService,
   IRuntimePageService,
 } from '../renderer'
-import type { IPaginationService } from '../services'
 import type { IRouterService } from './router.service.interface'
 
 /**
@@ -20,12 +19,7 @@ import type { IRouterService } from './router.service.interface'
  */
 export interface IApplicationStore {
   builderService: IBuilderService
-  pagination: {
-    atomPagination: IPaginationService<IAtomModel>
-    componentPagination: IPaginationService<IComponentModel>
-    tagPagination: IPaginationService<ITagModel>
-    typePagination: IPaginationService<ITypeModel>
-  }
+
   rendererService: IRendererService
   routerService: IRouterService
   runtimeComponentService: IRuntimeComponentService

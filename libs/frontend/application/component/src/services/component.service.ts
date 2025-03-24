@@ -47,11 +47,7 @@ export const useComponentService = (): IComponentService => {
   const hydrate = useDomainStoreHydrator()
   const elementService = useElementService()
   const owner = userDomainService.user
-
-  const {
-    pagination: { componentPagination },
-    rendererService,
-  } = useApplicationStore()
+  const { rendererService } = useApplicationStore()
 
   const create = async (data: ICreateComponentData) => {
     const { component, storeApi } = componentFactory(
@@ -180,27 +176,12 @@ export const useComponentService = (): IComponentService => {
     rendererService.setActiveRenderer(rendererRef(renderer))
   }
 
-  // const getDataFn: GetDataFn<IComponentModel> = async (
-  //   page,
-  //   pageSize,
-  //   filter,
-  //   search,
-  // ) => {
-  //   const items = await getAll(graphqlFilterMatches(filter, search), {
-  //     limit: pageSize,
-  //     offset: (page - 1) * pageSize,
-  //   })
-
-  //   return { items, totalItems: componentPagination.totalItems }
-  // }
-
   return {
     create,
     createWithoutRoot,
     getAll,
     getOne,
     importComponent,
-    paginationService: componentPagination,
     previewComponent,
     removeMany,
     update,

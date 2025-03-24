@@ -29,7 +29,6 @@ import {
   RuntimeElementService,
   RuntimePageService,
 } from '@codelab/frontend-application-renderer/services'
-import { PaginationService } from '@codelab/frontend-application-shared-store/pagination'
 import { RouterService } from '@codelab/frontend-application-shared-store/router'
 import { Model, model, prop } from 'mobx-keystone'
 
@@ -40,12 +39,6 @@ export const createApplicationStore = (domainStore: IDomainStore) => {
       builderService: prop<IBuilderService>(
         () => new BuilderService({ hoveredNode: null, selectedNode: null }),
       ),
-      pagination: prop(() => ({
-        atomPagination: new PaginationService<IAtomModel>({}),
-        componentPagination: new PaginationService<IComponentModel>({}),
-        tagPagination: new PaginationService<ITagModel>({}),
-        typePagination: new PaginationService<ITypeModel>({}),
-      })),
       // add reference to domain store, so that all the models in ApplicationStore
       // can access refs from domain store (elements, components, apps, etc)
       rendererService: prop<IRendererService>(() => new RendererService({})),

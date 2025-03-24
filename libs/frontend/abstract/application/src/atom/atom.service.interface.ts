@@ -8,12 +8,11 @@ import type { IRef } from '@codelab/shared/abstract/core'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/infra/gqlgen'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import type { ICrudService, IPaginateable, IQueryService } from '../services'
+import type { ICrudService, IQueryService } from '../services'
 
 export interface IAtomService
   extends ICrudService<IRef, ICreateAtomData, IUpdateAtomData>,
-    IQueryService<IAtomModel, AtomWhere, AtomOptions>,
-    IPaginateable<IAtomModel> {
+    IQueryService<IAtomModel, AtomWhere, AtomOptions> {
   createPopover: IPopover
   updatePopover: IPopover
   getSelectAtomOptions(

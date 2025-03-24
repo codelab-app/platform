@@ -1,6 +1,9 @@
 'use client'
 
-import type { IPaginationSearchParams } from '@codelab/frontend/abstract/application'
+import type {
+  IPaginationData,
+  IPaginationSearchParams,
+} from '@codelab/frontend/abstract/application'
 import type { ITypeModel } from '@codelab/frontend/abstract/domain'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
@@ -10,7 +13,6 @@ import {
   CuiSidebar,
   usePaginationToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { logTimestampMs } from '@codelab/shared/infra/logging'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import { useMemo, useState } from 'react'
@@ -19,10 +21,11 @@ import { useTypeService } from '../services'
 import { TypesTreeView } from '../use-cases/get-types'
 
 export const TypesPrimarySidebar = observer<{
-  types: Array<ITypeModel>
+  pagination: IPaginationData
   searchParams: IPaginationSearchParams
-}>(({ searchParams, types }) => {
-  const { createPopover, paginationService } = useTypeService()
+  types: Array<ITypeModel>
+}>(({ pagination, searchParams, types }) => {
+  const { createPopover } = useTypeService()
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
 
@@ -32,7 +35,7 @@ export const TypesPrimarySidebar = observer<{
     },
     pathname: PageType.Type(),
     searchParams,
-    totalItems: paginationService.totalItems,
+    totalItems: pagination.totalItems,
   })
 
   const views = useMemo(() => {

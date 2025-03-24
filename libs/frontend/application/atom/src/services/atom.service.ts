@@ -31,10 +31,6 @@ import { v4 } from 'uuid'
 
 export const useAtomService = (): IAtomService => {
   const {
-    pagination: { atomPagination },
-  } = useApplicationStore()
-
-  const {
     atomDomainService,
     fieldDomainService,
     typeDomainService,
@@ -94,8 +90,6 @@ export const useAtomService = (): IAtomService => {
       aggregate: { count },
       items: atoms,
     } = await atomRepository.find(where, options)
-
-    atomPagination.setTotalItems(count)
 
     if (!isEmpty(where ?? {}) || options?.limit) {
       hydrate({
@@ -187,7 +181,6 @@ export const useAtomService = (): IAtomService => {
     goToAtomsPage,
     goToDeleteAtomPage,
     loadApi,
-    paginationService: atomPagination,
     removeMany,
     update,
     updatePopover,

@@ -12,12 +12,14 @@ import type {
   IBaseTypeWhere,
 } from '@codelab/shared/infra/gqlgen'
 
-import type { ICrudService, IPaginateable, IQueryService } from '../services'
+import type { ICrudService, IQueryService } from '../services'
 
 export interface ITypeService
   extends ICrudService<ITypeModel, ITypeCreateFormData, ITypeUpdateDto>,
-    Omit<IQueryService<ITypeModel, IBaseTypeWhere, IBaseTypeOptions>, 'getAll'>,
-    IPaginateable<ITypeModel> {
+    Omit<
+      IQueryService<ITypeModel, IBaseTypeWhere, IBaseTypeOptions>,
+      'getAll'
+    > {
   createPopover: IPopover
   updatePopover: IPopover<IRef>
   getAll(ids?: Array<string>): Promise<Array<ITypeModel>>

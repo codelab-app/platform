@@ -1,6 +1,9 @@
 'use client'
 
-import type { IPaginationSearchParams } from '@codelab/frontend/abstract/application'
+import type {
+  IPaginationData,
+  IPaginationSearchParams,
+} from '@codelab/frontend/abstract/application'
 import type { ITagModel } from '@codelab/frontend/abstract/domain'
 
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
@@ -23,9 +26,10 @@ import { TagsTreeView } from '../use-cases/get-tags'
 export const TagsPrimarySidebar = observer<{
   tags: Array<ITagModel>
   searchParams: IPaginationSearchParams
-}>(({ searchParams, tags }) => {
+  pagination: IPaginationData
+}>(({ pagination, searchParams, tags }) => {
   const router = useRouter()
-  const { checkedTagIds, createPopover, paginationService } = useTagService()
+  const { checkedTagIds, createPopover } = useTagService()
   const [isLoading, setIsLoading] = useState(false)
 
   const { showSearchBar, toolbarItems } = usePaginationToolbar({
@@ -34,7 +38,7 @@ export const TagsPrimarySidebar = observer<{
     },
     pathname: PageType.Tags(),
     searchParams,
-    totalItems: paginationService.totalItems,
+    totalItems: pagination.totalItems,
   })
 
   const views = useMemo(
