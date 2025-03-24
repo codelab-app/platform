@@ -87,7 +87,7 @@ export const usePageService = (): IPageService => {
 
     return await createPageAction(page, store, storeApi, rootElement)
 
-    // revalidateTag(CACHE_TAGS.PAGE_LIST)
+    // revalidateTag(CACHE_TAGS.PageList())
   }
 
   const removeMany = async (pageModels: Array<IPageModel>) => {

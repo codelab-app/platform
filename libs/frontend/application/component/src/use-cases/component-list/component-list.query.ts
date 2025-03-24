@@ -1,7 +1,7 @@
 'use server'
 
-import { CACHE_TAGS } from '@codelab/frontend-application-shared-store/cache'
 import { getServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
+import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { componentServerActions } from '@codelab/shared-domain-module/component'
 import { revalidateTag } from 'next/cache'
 
@@ -16,4 +16,4 @@ export const componentListQuery = async () => {
 }
 
 export const revalidateComponentListOperation = async () =>
-  revalidateTag(CACHE_TAGS.COMPONENTS_LIST)
+  revalidateTag(CACHE_TAGS.ComponentsList())

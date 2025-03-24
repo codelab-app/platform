@@ -11,13 +11,13 @@ import {
   type IUpdateAtomData,
 } from '@codelab/frontend/abstract/domain'
 import { useDomainStoreHydrator } from '@codelab/frontend/infra/context'
-import { CACHE_TAGS } from '@codelab/frontend-application-shared-store/cache'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
 import {
   filterAtoms,
   mapEntitySelectOptions,
 } from '@codelab/frontend-domain-atom/store'
+import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { typeRepository } from '@codelab/frontend-domain-type/repositories'
 import {
   useApplicationStore,

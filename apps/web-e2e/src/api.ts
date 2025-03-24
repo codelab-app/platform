@@ -3,9 +3,9 @@ import type { APIRequestContext } from '@playwright/test'
 import type { Socket } from 'socket.io-client'
 
 import { env } from '@codelab/shared/config/env'
+import { getTimestamp } from '@codelab/shared/infra/logging'
 import { io } from 'socket.io-client'
 
-import { getTimestamp } from './commands'
 /**
  * Extract the options type from Playwright's APIRequestContext.post method
  */

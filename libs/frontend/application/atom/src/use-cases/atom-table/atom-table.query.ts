@@ -1,9 +1,9 @@
 import type { SearchParamsPageProps } from '@codelab/frontend/abstract/types'
 
-import { CACHE_TAGS } from '@codelab/frontend-application-shared-store/cache'
 import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
 import { parseSearchParamsPageProps } from '@codelab/frontend-application-shared-store/router'
 import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
+import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { logTimestampMs } from '@codelab/shared/infra/logging'
 import 'server-only'
 
