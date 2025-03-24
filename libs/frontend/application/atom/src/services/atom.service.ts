@@ -30,13 +30,7 @@ import { isEmpty } from 'remeda'
 import { v4 } from 'uuid'
 
 export const useAtomService = (): IAtomService => {
-  const {
-    atomDomainService,
-    fieldDomainService,
-    typeDomainService,
-    userDomainService,
-  } = useDomainStore()
-
+  const { atomDomainService, userDomainService } = useDomainStore()
   const user = userDomainService.user
   const owner = { id: user.id }
   const typeService = useTypeService()
@@ -62,7 +56,7 @@ export const useAtomService = (): IAtomService => {
     hydrate({ atomsDto: [atomDto] })
 
     const atom = await atomRepository.add(atomDto, {
-      revalidateTag: CACHE_TAGS.AtomList()[0],
+      revalidateTag: CACHE_TAGS.AtomList(),
     })
 
     Validator.assertsDefined(atom)
@@ -129,7 +123,7 @@ export const useAtomService = (): IAtomService => {
     atom?.writeCache(data)
 
     await atomRepository.update({ id }, data, {
-      revalidateTag: CACHE_TAGS.AtomList()[0],
+      revalidateTag: CACHE_TAGS.AtomList(),
     })
 
     Validator.assertsDefined(atom)

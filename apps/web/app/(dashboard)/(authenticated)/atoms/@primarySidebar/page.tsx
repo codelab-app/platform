@@ -5,21 +5,19 @@ import { AtomsPrimarySidebarContainer } from '@codelab/frontend-application-atom
 import { parsePaginationSearchParams } from '@codelab/frontend-application-shared-store/router'
 import { logTimestampMs } from '@codelab/shared/infra/logging'
 
+// export const dynamic = 'force-dynamic'
+
 const Page = async ({
   searchParams,
 }: {
   searchParams: Promise<SearchParamsPageProps>
 }) => {
-  logTimestampMs('Before atomTableQuery')
-
   /**
    * We hydrate these to domain services, but need to also hydrate to pagination service
    */
   const { atomsDto, count, fieldsDto, typesDto } = await atomTableQuery(
     await searchParams,
   )
-
-  logTimestampMs('After atomTableQuery')
 
   const params = parsePaginationSearchParams(await searchParams)
 

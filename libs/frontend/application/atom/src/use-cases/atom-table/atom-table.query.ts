@@ -5,6 +5,8 @@ import { parseSearchParamsPageProps } from '@codelab/frontend-application-shared
 import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { logTimestampMs } from '@codelab/shared/infra/logging'
+import { revalidateTag } from 'next/cache'
+import { sleep } from 'radash'
 import 'server-only'
 
 export const atomTableQuery = async (searchParams: SearchParamsPageProps) => {
@@ -28,8 +30,10 @@ export const atomTableQuery = async (searchParams: SearchParamsPageProps) => {
     aggregate: { count },
     items: atomsDto,
   } = await atomRepository.find(where, options, {
-    tags: [CACHE_TAGS.AtomList({ options, where })],
+    tags: [CACHE_TAGS.AtomList({ options, where }), CACHE_TAGS.AtomList()],
   })
+
+  await sleep(3000)
 
   logTimestampMs('End atomTableQuery')
 

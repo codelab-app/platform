@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
-import { defaultAtomQuery } from '@codelab/frontend-application-atom/use-cases/get-atoms/server'
+import { defaultAtomQuery } from '@codelab/frontend-application-atom/use-cases/atom-list/server'
 import { appRepository } from '@codelab/frontend-domain-app/repositories'
 import { Spinner } from '@codelab/frontend-presentation-view/components/loader'
 
@@ -26,7 +26,6 @@ const Layout = async ({
       appsDto={appsDto}
       atomsDto={atomsDto}
       domainsDto={domainsDto}
-      fallback={<Spinner />}
       pagesDto={appsDto.flatMap((app) => app.pages)}
     >
       {children}

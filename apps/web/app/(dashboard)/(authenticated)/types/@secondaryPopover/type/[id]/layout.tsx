@@ -18,11 +18,7 @@ const UpdateTypeLayout = async ({
     return null
   }
 
-  return (
-    <DomainStoreHydrator fallback={<Spinner />} typesDto={[type]}>
-      {children}
-    </DomainStoreHydrator>
-  )
+  return <DomainStoreHydrator typesDto={[type]}>{children}</DomainStoreHydrator>
 }
 
 export default UpdateTypeLayout

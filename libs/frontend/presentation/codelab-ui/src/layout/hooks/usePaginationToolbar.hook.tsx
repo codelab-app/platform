@@ -86,6 +86,9 @@ export const usePaginationToolbar = ({
 
               return originalElement
             }}
+            onChange={() => {
+              // Added to avoid warning
+            }}
             pageSize={pageSize}
             showSizeChanger={true}
             simple

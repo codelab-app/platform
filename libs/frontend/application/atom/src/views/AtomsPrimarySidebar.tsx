@@ -19,7 +19,7 @@ import { useRouter } from 'next/navigation'
 import { useMemo, useState } from 'react'
 
 import { useAtomService } from '../services/atom.service'
-import { AtomsTreeView } from '../use-cases/get-atoms/AtomsTreeView'
+import { AtomsTreeView } from '../use-cases/atom-list/AtomsTreeView'
 
 export const AtomsPrimarySidebar = observer<{
   atoms: Array<IAtomModel>
@@ -68,7 +68,7 @@ export const AtomsPrimarySidebar = observer<{
         },
       },
     ],
-    [atoms, toolbarItems, router, createPopover],
+    [atoms, toolbarItems, router, createPopover, showSearchBar],
   )
 
   return (

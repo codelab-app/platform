@@ -15,10 +15,7 @@ const Layout = async ({
   const resourceDto = await resourceRepository.findOne({ id })
 
   return (
-    <DomainStoreHydrator
-      fallback={<Spinner />}
-      resourcesDto={resourceDto ? [resourceDto] : []}
-    >
+    <DomainStoreHydrator resourcesDto={resourceDto ? [resourceDto] : []}>
       {children}
     </DomainStoreHydrator>
   )

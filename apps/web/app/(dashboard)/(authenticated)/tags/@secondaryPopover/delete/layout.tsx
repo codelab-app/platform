@@ -15,11 +15,7 @@ const Layout = async ({
   // const ids = decodeURIComponent(id).split(',')
   const { items: tagsDto } = await tagRepository.find({ id_IN: ids })
 
-  return (
-    <DomainStoreHydrator fallback={<Spinner />} tagsDto={tagsDto}>
-      {children}
-    </DomainStoreHydrator>
-  )
+  return <DomainStoreHydrator tagsDto={tagsDto}>{children}</DomainStoreHydrator>
 }
 
 export default Layout

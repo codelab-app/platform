@@ -18,10 +18,7 @@ export const UpdateFieldPopoverLayout = async ({
   const fieldDto = await fieldRepository.findOne({ id_IN: [fieldId] })
 
   return (
-    <DomainStoreHydrator
-      fallback={<Spinner />}
-      fieldsDto={fieldDto ? [fieldDto] : []}
-    >
+    <DomainStoreHydrator fieldsDto={fieldDto ? [fieldDto] : []}>
       {children}
     </DomainStoreHydrator>
   )

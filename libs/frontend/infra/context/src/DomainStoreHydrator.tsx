@@ -11,7 +11,6 @@ import { useDomainStoreHydrator } from './useDomainStoreHydrator.hook'
 
 type DomainStoreHydratorProps = IDomainStoreDto & {
   children: ReactNode
-  fallback?: ReactNode
 }
 
 /**
@@ -25,7 +24,7 @@ type DomainStoreHydratorProps = IDomainStoreDto & {
  *
  */
 export const DomainStoreHydrator = observer<DomainStoreHydratorProps>(
-  ({ children, fallback, ...data }) => {
+  ({ children, ...data }) => {
     const hydrate = useDomainStoreHydrator()
 
     useEffect(() => {

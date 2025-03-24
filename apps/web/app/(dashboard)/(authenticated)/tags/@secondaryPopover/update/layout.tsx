@@ -15,10 +15,7 @@ const Layout = async ({
   const tagDto = await tagRepository.findOne({ id })
 
   return (
-    <DomainStoreHydrator
-      fallback={<Spinner />}
-      tagsDto={tagDto ? [tagDto] : []}
-    >
+    <DomainStoreHydrator tagsDto={tagDto ? [tagDto] : []}>
       {children}
     </DomainStoreHydrator>
   )

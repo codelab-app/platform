@@ -12,11 +12,7 @@ const Layout = async ({ children }: { children: ReactNode }) => {
   ])
 
   return (
-    <DomainStoreHydrator
-      atomsDto={atoms}
-      componentsDto={components}
-      fallback={<Spinner />}
-    >
+    <DomainStoreHydrator atomsDto={atoms} componentsDto={components}>
       {children}
     </DomainStoreHydrator>
   )

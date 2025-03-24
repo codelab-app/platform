@@ -15,10 +15,7 @@ const Layout = async ({
   const authGuardDto = await authGuardRepository.findOne({ id })
 
   return (
-    <DomainStoreHydrator
-      authGuardsDto={authGuardDto ? [authGuardDto] : []}
-      fallback={<Spinner />}
-    >
+    <DomainStoreHydrator authGuardsDto={authGuardDto ? [authGuardDto] : []}>
       {children}
     </DomainStoreHydrator>
   )

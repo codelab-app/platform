@@ -14,10 +14,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const atomDto = await atomRepository.findOne({ id })
 
   return (
-    <DomainStoreHydrator
-      atomsDto={atomDto ? [atomDto] : []}
-      fallback={<Spinner />}
-    >
+    <DomainStoreHydrator atomsDto={atomDto ? [atomDto] : []}>
       <DeleteAtomsModal id={id} />
     </DomainStoreHydrator>
   )
