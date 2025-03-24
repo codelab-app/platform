@@ -53,7 +53,12 @@ export const useAtomService = (): IAtomService => {
       owner,
     } as const
 
-    hydrate({ atomsDto: [atomDto] })
+    /**
+     * Hydrating just the atom would leave the aggregate in an inconsistent state.
+     *
+     * For example, `AtomsTreeView` requires `api.fieldsTree` to display related fields of the atom. Using `atom.api.current` breaks the app, while using `atom.api.maybeCurrent` is enough.
+     */
+    // hydrate({ atomsDto: [atomDto] })
 
     const atom = await atomRepository.add(atomDto, {
       revalidateTag: CACHE_TAGS.AtomList(),

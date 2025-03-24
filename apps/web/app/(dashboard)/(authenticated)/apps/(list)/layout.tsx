@@ -15,11 +15,7 @@ const Layout = ({
   preloadAppListQuery()
 
   return (
-    <DashboardLayout<'header' | 'modal'>
-      header={header}
-      modal={modal}
-      params={Promise.resolve({})}
-    >
+    <DashboardLayout<'header' | 'modal'> header={header} modal={modal}>
       {children}
     </DashboardLayout>
   )

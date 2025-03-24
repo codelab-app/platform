@@ -21,6 +21,7 @@ export const AtomsTreeView = observer<ITreeViewProps<IAtomModel>>(
     const { search, selectedKey } = searchParams
 
     const treeData: Array<ITreeNode<IAtomTreeNodeData>> = data.map((atom) => ({
+      // May not be hydrated yet after adding, need to make sure our hydration strategy hydrates the entire aggregate at once
       children: atom.api.current.fieldsTree,
       extraData: { node: atom, type: 'atom' },
       key: atom.id,

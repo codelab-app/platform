@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import type { UrlParams } from '@codelab/frontend/abstract/types'
 import type { ReactNode } from 'react'
 
@@ -20,12 +21,12 @@ export type DashboardLayoutProps<
 > = {
   [K in Slots]: ReactNode
 } & {
-  /**
-   * Async makes typing harder, we can't make this key optional
-   */
-  params: Promise<{
-    [K in Params]: string
-  }>
+  params?: Params extends undefined
+    ? {}
+    : Promise<{
+        [K in Params]: string
+      }>
+} & {
   children: ReactNode
 }
 

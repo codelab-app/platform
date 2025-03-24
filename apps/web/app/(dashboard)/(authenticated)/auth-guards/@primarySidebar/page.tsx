@@ -6,10 +6,7 @@ const Page = async () => {
   const { items: authGuards } = await authGuardRepository.find()
 
   return (
-    <DomainStoreHydrator
-      authGuardsDto={authGuards}
-      fallback={<AuthGuardsPrimarySidebar isLoading={true} />}
-    >
+    <DomainStoreHydrator authGuardsDto={authGuards}>
       <AuthGuardsPrimarySidebar />
     </DomainStoreHydrator>
   )
