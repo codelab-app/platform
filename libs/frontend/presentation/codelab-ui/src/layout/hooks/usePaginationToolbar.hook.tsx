@@ -5,10 +5,13 @@ import type {
   SupportedPaginationPathname,
 } from '@codelab/frontend/abstract/application'
 
+import LeftOutlined from '@ant-design/icons/LeftOutlined'
+import RightOutlined from '@ant-design/icons/RightOutlined'
 import SearchOutlined from '@ant-design/icons/SearchOutlined'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { usePrefetchPaginationRoutes } from '@codelab/frontend-application-shared-store/router'
-import { Pagination } from 'antd'
+import { Button, Pagination } from 'antd'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 
@@ -33,13 +36,7 @@ export const usePaginationToolbar = ({
   const [showSearchBar, setShowSearchBar] = useState(false)
   // Local React state for immediate UI updates
   const [localPage, setLocalPage] = useState(page)
-
-  // Use the prefetch hook
-  const { prefetchAdjacentPages } = usePrefetchPaginationRoutes(
-    { filter, page, pageSize },
-    pathname,
-    totalItems,
-  )
+  const router = useRouter()
 
   // Update local state when prop changes
   useEffect(
@@ -47,9 +44,6 @@ export const usePaginationToolbar = ({
       if (page !== localPage) {
         setLocalPage(page)
       }
-
-      // Prefetch adjacent pages when page changes
-      prefetchAdjacentPages()
     },
     // Don't include localPage in the dependency array
     [page, pageSize],
@@ -60,10 +54,7 @@ export const usePaginationToolbar = ({
       // Optimistic UI update (React state) - happens immediately
       setLocalPage(newPage)
 
-      // Call the provided callback
-      setTimeout(() => {
-        onPageChange(newPage, newPageSize)
-      })
+      onPageChange(newPage, newPageSize)
     },
     [onPageChange],
   )
@@ -72,20 +63,90 @@ export const usePaginationToolbar = ({
     setShowSearchBar((showSearch) => !showSearch)
   }, [])
 
+  // Create URLs for next and previous pages
+  const createPageUrl = useCallback(
+    (pageNum: number) => {
+      const urlParams = new URLSearchParams()
+
+      if (filter) {
+        urlParams.set('filter', filter)
+      }
+
+      urlParams.set('page', pageNum.toString())
+      urlParams.set('pageSize', pageSize.toString())
+
+      return `${pathname}?${urlParams.toString()}`
+    },
+    [filter, pageSize, pathname],
+  )
+
+  // Calculate total pages
+  const totalPages = Math.ceil(totalItems / pageSize)
+
   const toolbarItems: Array<ToolbarItem> = [
     {
       cuiKey: UiKey.PaginationControl,
       icon: (
-        <Pagination
-          // Use React state for UI rendering
-          current={localPage}
-          onChange={handlePaginationChange}
-          pageSize={pageSize}
-          showSizeChanger={true}
-          simple
-          size="small"
-          total={totalItems}
-        />
+        <div className="flex items-center space-x-2">
+          <Pagination
+            // Use React state for UI rendering
+            current={localPage}
+            // itemRender={(currentPage, type, originalElement) => {
+            //   return null
+            // }}
+            itemRender={(currentPage, type, originalElement) => {
+              if (type === 'prev') {
+                const canGoPrev = localPage > 1
+
+                return (
+                  <Link
+                    href={
+                      canGoPrev
+                        ? createPageUrl(localPage - 1)
+                        : createPageUrl(localPage)
+                    }
+                    prefetch={true}
+                  >
+                    <Button
+                      disabled={!canGoPrev}
+                      icon={<LeftOutlined />}
+                      size="small"
+                    />
+                  </Link>
+                )
+              }
+
+              if (type === 'next') {
+                const canGoNext = localPage < totalPages
+
+                return (
+                  <Link
+                    href={
+                      canGoNext
+                        ? createPageUrl(localPage + 1)
+                        : createPageUrl(localPage)
+                    }
+                    prefetch={true}
+                  >
+                    <Button
+                      disabled={!canGoNext}
+                      icon={<RightOutlined />}
+                      size="small"
+                    />
+                  </Link>
+                )
+              }
+
+              return originalElement
+            }}
+            onChange={handlePaginationChange}
+            pageSize={pageSize}
+            showSizeChanger={true}
+            simple
+            size="small"
+            total={totalItems}
+          />
+        </div>
       ),
     },
     {

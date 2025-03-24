@@ -1,14 +1,14 @@
 import { ClientComponent } from './client'
 
 export interface PageProps {
-  params: {
+  params: Promise<{
     testId: string
-  }
-  searchParams: Record<string, string>
+  }>
+  searchParams: Promise<Record<string, string>>
 }
 
 const Page = async ({ params, searchParams }: PageProps) => {
-  const testId = await params.testId
+  const { testId } = await params
 
   const parsedSearchParams = Object.fromEntries(
     Object.entries(await searchParams),

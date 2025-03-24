@@ -4,8 +4,8 @@ import { logTimestampMs } from '@codelab/shared/infra/logging'
 import Link from 'next/link'
 
 interface ClientComponentProps {
-  testId: string
   searchParams: Record<string, string>
+  testId: string
 }
 
 export const ClientComponent = ({
