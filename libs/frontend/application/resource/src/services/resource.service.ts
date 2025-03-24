@@ -13,6 +13,7 @@ import { PageType } from '@codelab/frontend/abstract/application'
 import { useDomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { resourceRepository } from '@codelab/frontend-domain-resource/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { resourceApi } from '@codelab/shared-domain-module/resource'
 import { v4 } from 'uuid'
 
 export const useResourceService = (): IResourceService => {
@@ -53,12 +54,17 @@ export const useResourceService = (): IResourceService => {
   }
 
   const getSelectResourceOptions = async () => {
-    const resources = await getAll()
+    /**
+     * Don't use server action, otherwise will re-render the entire route segment!
+     */
+    const { items: resources } = await resourceApi().ResourceList({})
 
-    return resources.map((resource) => ({
-      label: resource.name,
-      value: resource.id,
-    }))
+    return resources
+      .map((resource) => resourceDomainService.hydrate(resource))
+      .map((resource) => ({
+        label: resource.name,
+        value: resource.id,
+      }))
   }
 
   const update = async (data: IUpdateResourceData) => {

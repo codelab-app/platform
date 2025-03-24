@@ -46,11 +46,11 @@ export const CreateAuthGuardForm = ({
       uiKey={UiKey.AuthGuardFormCreate}
     >
       <AutoFields omitFields={['config']} />
-      {/* <ResourceFetchConfigField />
+      <ResourceFetchConfigField />
       <ResourceTestRequest
         fetchConfigDataFieldName="config.data"
         resourceIdFieldName="resource.id"
-      /> */}
+      />
       <DisplayIf condition={showFormControl}>
         <FormController submitLabel="Create Type" />
       </DisplayIf>

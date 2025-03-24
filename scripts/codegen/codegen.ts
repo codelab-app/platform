@@ -94,10 +94,7 @@ const config: Types.Config = {
      * Although we can't use the same key for json config, we can use `./` and `.` to differentiate the 2
      */
     './': {
-      documents: [
-        'libs/frontend/**/*.{api,fragment}.graphql',
-        'libs/shared/domain/module/**/*.{api,fragment}.graphql',
-      ],
+      documents: ['libs/frontend/**/*.{api,fragment}.graphql'],
       preset: 'near-operation-file',
       presetConfig: {
         baseTypesPath: '~@codelab/shared/infra/gqlgen',
@@ -114,10 +111,7 @@ const config: Types.Config = {
       ],
     },
     './libs/shared': {
-      documents: [
-        'libs/frontend/**/*.{api,fragment}.graphql',
-        'libs/shared/domain/module/**/*.{api,fragment}.graphql',
-      ],
+      documents: ['libs/frontend/**/*.{api,fragment,client}.graphql'],
       preset: 'near-operation-file',
       presetConfig: {
         baseTypesPath: '~@codelab/shared/infra/gqlgen',
@@ -135,7 +129,7 @@ const config: Types.Config = {
       ],
     },
     './libs': {
-      documents: ['libs/**/*.{subscription,spec,client}.graphql'],
+      documents: ['libs/**/*.{subscription,spec}.graphql'],
       preset: 'near-operation-file',
       presetConfig: {
         extension: '.graphql.gen.ts',

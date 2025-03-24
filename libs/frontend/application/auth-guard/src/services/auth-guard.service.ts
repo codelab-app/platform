@@ -40,8 +40,6 @@ export const useAuthGuardService = (): IAuthGuardService => {
   }
 
   const getAll = async (where: AuthGuardWhere = {}) => {
-    console.log('AuthGuardService.getAll called with', where)
-
     const { items: authGuards } = await authGuardRepository.find(where)
 
     return authGuards.map((authGuard) => {

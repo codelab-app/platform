@@ -8,42 +8,29 @@ import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import { CuiSidebarSecondary } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
-import { useCallback, useMemo, useRef } from 'react'
+import { useMemo, useRef } from 'react'
 
 import { useAuthGuardService } from '../../services/auth-guard.service'
 import { CreateAuthGuardForm } from './CreateAuthGuardForm'
 
 export const CreateAuthGuardPopover = () => {
-  console.log('CreateAuthGuardPopover')
-
   const submitRef = useRef<Maybe<SubmitController>>(undefined)
   const router = useRouter()
   const { createPopover } = useAuthGuardService()
 
-  // Memoize the close handler to prevent re-renders
-  const handleClose = useCallback(() => {
-    createPopover.close(router)
-  }, [])
-
-  // Memoize the submit handler
-  const handleSubmit = useCallback(() => {
-    submitRef.current?.submit()
-  }, [])
-
-  // Memoize toolbar items to prevent re-renders
-  const toolbarItems = useMemo(
+  const items = useMemo(
     () => [
       {
         cuiKey: UiKey.AuthGuardToolbarItemCreate,
         icon: <SaveOutlined />,
         label: 'Create',
-        onClick: handleSubmit,
+        onClick: () => submitRef.current?.submit(),
       },
       {
         cuiKey: UiKey.AuthGuardToolbarItemCreateCancel,
         icon: <CloseOutlined />,
         label: 'Cancel',
-        onClick: handleClose,
+        onClick: () => createPopover.close(router),
       },
     ],
     [],
@@ -53,12 +40,12 @@ export const CreateAuthGuardPopover = () => {
     <CuiSidebarSecondary
       id={UiKey.AuthGuardPopoverCreate}
       toolbar={{
-        items: toolbarItems,
+        items,
         title: 'Create AuthGuard toolbar',
       }}
     >
       <CreateAuthGuardForm
-        onSubmitSuccess={handleClose}
+        onSubmitSuccess={() => createPopover.close(router)}
         showFormControl={false}
         submitRef={submitRef}
       />
