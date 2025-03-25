@@ -1,7 +1,200 @@
 {
   "api": {
     "__typename": "InterfaceType",
-    "fields": [],
+    "fields": [
+      {
+        "api": {
+          "id": "ddb152d0-9625-4044-bbed-c3c2055f7461"
+        },
+        "defaultValues": "false",
+        "description": "Adjust the slide's height automatically",
+        "fieldType": {
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+        },
+        "id": "8249e099-c5fc-457d-a353-568a0e4f3098",
+        "key": "adaptiveHeight",
+        "name": "Adaptive Height",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "ddb152d0-9625-4044-bbed-c3c2055f7461"
+        },
+        "defaultValues": null,
+        "description": "Callback function called after the current index changes",
+        "fieldType": {
+          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f"
+        },
+        "id": "c91d1784-880e-4b14-90af-48d5d9784551",
+        "key": "afterChange",
+        "name": "After Change",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "ddb152d0-9625-4044-bbed-c3c2055f7461"
+        },
+        "defaultValues": "false",
+        "description": "Whether to show switch arrows",
+        "fieldType": {
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+        },
+        "id": "93f04c88-a40c-4881-b150-2a3ddeb99f22",
+        "key": "arrows",
+        "name": "Arrows",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "ddb152d0-9625-4044-bbed-c3c2055f7461"
+        },
+        "defaultValues": "false",
+        "description": "Whether to scroll automatically",
+        "fieldType": {
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+        },
+        "id": "ac7a8c4f-d22d-48c4-903b-1d34a6d4d604",
+        "key": "autoplay",
+        "name": "Autoplay",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "ddb152d0-9625-4044-bbed-c3c2055f7461"
+        },
+        "defaultValues": "3000",
+        "description": "Delay between each auto scroll (in milliseconds)",
+        "fieldType": {
+          "id": "90f20c4d-97ca-4dd4-bf14-9da3b2f721ec"
+        },
+        "id": "0fcaba97-709d-4973-af52-fb2fede0fb3e",
+        "key": "autoplaySpeed",
+        "name": "Autoplay Speed",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "ddb152d0-9625-4044-bbed-c3c2055f7461"
+        },
+        "defaultValues": null,
+        "description": "Callback function called before the current index changes",
+        "fieldType": {
+          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f"
+        },
+        "id": "f1857612-9e18-46ba-9878-3c931d898722",
+        "key": "beforeChange",
+        "name": "Before Change",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "ddb152d0-9625-4044-bbed-c3c2055f7461"
+        },
+        "defaultValues": "\"bottom\"",
+        "description": null,
+        "fieldType": {
+          "id": "1b7e2efd-96c7-4998-babc-d2c9d5534b5f"
+        },
+        "id": "98370173-26c5-4e0e-ad39-9e6fb9badeb8",
+        "key": "dotPosition",
+        "name": "Dot Position",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "ddb152d0-9625-4044-bbed-c3c2055f7461"
+        },
+        "defaultValues": "true",
+        "description": "Whether to show the dots at the bottom of the gallery",
+        "fieldType": {
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+        },
+        "id": "b14e48f1-af14-49cb-be18-9c6e21f845ad",
+        "key": "dots",
+        "name": "Dots",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "ddb152d0-9625-4044-bbed-c3c2055f7461"
+        },
+        "defaultValues": "\"scrollx\"",
+        "description": null,
+        "fieldType": {
+          "id": "c539c731-c9ea-4dd0-942f-ae29d51edcd8"
+        },
+        "id": "e326b993-a024-4530-a389-a233c51f8076",
+        "key": "effect",
+        "name": "Effect",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "ddb152d0-9625-4044-bbed-c3c2055f7461"
+        },
+        "defaultValues": "false",
+        "description": "Whether to use fade transition",
+        "fieldType": {
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+        },
+        "id": "71a40e5c-b2a9-457b-8a28-2dc67aee78ad",
+        "key": "fade",
+        "name": "Fade",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "ddb152d0-9625-4044-bbed-c3c2055f7461"
+        },
+        "defaultValues": "true",
+        "description": "Infinitely wrap around contents",
+        "fieldType": {
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+        },
+        "id": "baac2822-dcde-45c3-8195-ce701e369c31",
+        "key": "infinite",
+        "name": "Infinite",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "ddb152d0-9625-4044-bbed-c3c2055f7461"
+        },
+        "defaultValues": "500",
+        "description": "Animation speed in milliseconds",
+        "fieldType": {
+          "id": "90f20c4d-97ca-4dd4-bf14-9da3b2f721ec"
+        },
+        "id": "e61d97cc-36ee-4fda-b7b8-956126127087",
+        "key": "speed",
+        "name": "Speed",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      }
+    ],
     "id": "ddb152d0-9625-4044-bbed-c3c2055f7461",
     "kind": "InterfaceType",
     "name": "AntDesignCarousel API",
@@ -12,6 +205,52 @@
         "id": "ddb152d0-9625-4044-bbed-c3c2055f7461",
         "kind": "InterfaceType",
         "name": "AntDesignCarousel API"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "eb85b8e2-a9bd-4435-98e8-cb32ecda3251",
+            "key": "Bottom",
+            "value": "bottom"
+          },
+          {
+            "id": "d794db7e-1e95-4b13-abac-f1a5d008bb13",
+            "key": "Left",
+            "value": "left"
+          },
+          {
+            "id": "ffbf5309-6c1e-4591-afd5-409ff8b38c9a",
+            "key": "Right",
+            "value": "right"
+          },
+          {
+            "id": "b0d688e1-ffd2-468e-b749-1acd0884c4eb",
+            "key": "Top",
+            "value": "top"
+          }
+        ],
+        "id": "1b7e2efd-96c7-4998-babc-d2c9d5534b5f",
+        "kind": "EnumType",
+        "name": "AntDesignCarousel Dot Position Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "c336a11e-4eec-4984-ba4f-8eb4e2cce31b",
+            "key": "Fade",
+            "value": "fade"
+          },
+          {
+            "id": "c88464b8-1862-4301-973c-040de7d688db",
+            "key": "Scrollx",
+            "value": "scrollx"
+          }
+        ],
+        "id": "c539c731-c9ea-4dd0-942f-ae29d51edcd8",
+        "kind": "EnumType",
+        "name": "AntDesignCarousel Effect Enum"
       }
     ]
   },
