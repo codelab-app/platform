@@ -1,8 +1,5 @@
 ---
-description: Keep comments
+description: 
 globs: 
+alwaysApply: false
 ---
-
-# Your rule content
-
-- Don't strip comments from the files

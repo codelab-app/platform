@@ -1,3 +1,4 @@
+import type { LayoutProps } from '@codelab/frontend-presentation-view/templates'
 import type { Metadata } from 'next'
 
 import { UpdateResourcePopoverContainer } from '@codelab/frontend-application-resource/use-cases/update-resource'
@@ -6,10 +7,10 @@ export const metadata: Metadata = {
   title: 'Update Resource | Codelab',
 }
 
-const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
-  const { id } = await params
+const Page = async ({ params }: LayoutProps<'resourceId'>) => {
+  const { resourceId } = await params
 
-  return <UpdateResourcePopoverContainer id={id} />
+  return <UpdateResourcePopoverContainer id={resourceId} />
 }
 
 export default Page

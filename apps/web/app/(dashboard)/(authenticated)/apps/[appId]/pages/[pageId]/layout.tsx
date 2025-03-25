@@ -1,4 +1,5 @@
 import type { PageContextParams } from '@codelab/frontend/abstract/application'
+import type { DashboardLayoutProps } from '@codelab/frontend-presentation-view/templates'
 import type { ReactNode } from 'react'
 
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
@@ -11,13 +12,9 @@ import { pageBuilderQuery } from '@codelab/frontend-application-builder/use-case
  */
 const Layout = async ({
   children,
-  params: paramsPromise,
-}: {
-  children: ReactNode
-  params: Promise<PageContextParams>
-}) => {
-  const params = await paramsPromise
-  const { appId, pageId } = params
+  params,
+}: DashboardLayoutProps<never, 'appId' | 'pageId'>) => {
+  const { appId, pageId } = await params
   const dto = await pageBuilderQuery({ appId, pageIds: [pageId] })
 
   return (

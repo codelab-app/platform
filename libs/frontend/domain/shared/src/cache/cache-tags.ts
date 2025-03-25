@@ -11,6 +11,7 @@ export const CACHE_TAGS = {
     return createPaginatedCacheTag('ATOM_LIST_CACHE_TAG', options, where)
   },
   AuthGuardList: () => 'AUTH_GUARD_LIST_CACHE_TAG',
+  ComponentBuilder: () => 'COMPONENT_BUILDER_CACHE_TAG',
   ComponentsList: () => 'COMPONENTS_LIST_CACHE_TAG',
   DomainList: () => 'DOMAIN_LIST_CACHE_TAG',
   ElementList: () => 'ELEMENT_LIST_CACHE_TAG',

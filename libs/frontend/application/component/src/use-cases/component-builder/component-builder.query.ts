@@ -5,15 +5,34 @@ import type {
 import type { AtomBuilderFragment } from '@codelab/shared/infra/gqlgen'
 
 import { GetComponentBuilder } from '@codelab/frontend-domain-component/repositories'
+import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { uniqueBy } from 'remeda'
 
 export const componentBuilderQuery: IComponentBuilderQuery = async ({
   componentId,
 }: IComponentBuilderArgs) => {
-  const data = await GetComponentBuilder({
-    componentId,
-  })
+  const data = await GetComponentBuilder(
+    {
+      componentId,
+    },
+    {
+      // Include all the cache tags that are used in the component builder
+      tags: [
+        CACHE_TAGS.ComponentBuilder(),
+        CACHE_TAGS.ActionList(),
+        CACHE_TAGS.AtomList(),
+        CACHE_TAGS.ComponentsList(),
+        CACHE_TAGS.ElementList(),
+        CACHE_TAGS.FieldList(),
+        CACHE_TAGS.PropList(),
+        CACHE_TAGS.ResourceList(),
+        CACHE_TAGS.StoreList(),
+        CACHE_TAGS.TagList(),
+        CACHE_TAGS.TypeList(),
+      ],
+    },
+  )
 
   console.log('data', data)
   console.log('componentId', componentId)

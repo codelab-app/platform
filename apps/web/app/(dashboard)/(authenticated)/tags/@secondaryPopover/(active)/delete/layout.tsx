@@ -1,19 +1,13 @@
+import type { LayoutProps } from '@codelab/frontend-presentation-view/templates'
 import type { ReactNode } from 'react'
 
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { tagRepository } from '@codelab/frontend-domain-tag/repositories'
 import { Spinner } from '@codelab/frontend-presentation-view/components/loader'
 
-const Layout = async ({
-  children,
-  params,
-}: {
-  children: ReactNode
-  params: Promise<{ ids: Array<string> }>
-}) => {
-  const { ids } = await params
-  // const ids = decodeURIComponent(id).split(',')
-  const { items: tagsDto } = await tagRepository.find({ id_IN: ids })
+const Layout = async ({ children, params }: LayoutProps<'tagIds'>) => {
+  const { tagIds } = await params
+  const { items: tagsDto } = await tagRepository.find({ id_IN: tagIds })
 
   return <DomainStoreHydrator tagsDto={tagsDto}>{children}</DomainStoreHydrator>
 }

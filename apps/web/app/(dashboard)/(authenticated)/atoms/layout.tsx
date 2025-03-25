@@ -1,6 +1,23 @@
-import { DashboardLayout } from '@codelab/frontend-presentation-view/templates'
+import type { DashboardLayoutProps } from '@codelab/frontend-presentation-view/templates'
 
-/**
- * Cannot access `searchParams` here so we don't load the query in the `page`
- */
-export default DashboardLayout
+import { DashboardLayout } from '@codelab/frontend-presentation-view/templates'
+import { ReactNode } from 'react'
+
+const Layout = ({
+  children,
+  header,
+  primarySidebar,
+  secondaryPopover,
+}: DashboardLayoutProps<'header' | 'primarySidebar' | 'secondaryPopover'>) => {
+  return (
+    <DashboardLayout<'header' | 'primarySidebar' | 'secondaryPopover'>
+      header={header}
+      primarySidebar={primarySidebar}
+      secondaryPopover={secondaryPopover}
+    >
+      {children}
+    </DashboardLayout>
+  )
+}
+
+export default Layout

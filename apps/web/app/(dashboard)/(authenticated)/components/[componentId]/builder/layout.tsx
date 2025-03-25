@@ -1,6 +1,3 @@
-import type { UrlParams } from '@codelab/frontend/abstract/types'
-import type { ReactNode } from 'react'
-
 import { DashboardLayout } from '@codelab/frontend-presentation-view/templates'
 
 export default DashboardLayout

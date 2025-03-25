@@ -1,4 +1,5 @@
 import type { ComponentContextParams } from '@codelab/frontend/abstract/application'
+import type { LayoutProps } from '@codelab/frontend-presentation-view/templates'
 import type { ReactNode } from 'react'
 
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
@@ -6,16 +7,10 @@ import { componentBuilderQuery } from '@codelab/frontend-application-component/u
 
 /**
  * The `componentBuilderQuery` is shared between `preview` and `builder`, so can be cached in layout.
- *
+ *For the component builder
  * Hydration is done in `LayoutClient`
  */
-const Layout = async ({
-  children,
-  params,
-}: {
-  children: ReactNode
-  params: Promise<ComponentContextParams>
-}) => {
+const Layout = async ({ children, params }: LayoutProps<'componentId'>) => {
   const { componentId } = await params
   const dto = await componentBuilderQuery({ componentId })
 

@@ -17,7 +17,7 @@ import Layout from 'antd/es/layout'
 import Sider from 'antd/es/layout/Sider'
 import { useMemo } from 'react'
 
-import type { DashboardLayoutProps, DashboardSections } from './DashboardLayout'
+import type { DashboardLayoutProps, DashboardSlots } from './DashboardLayout'
 
 import { ProgressBar } from '../../components/progressBar/ProgressBar'
 import { sidebarWidth } from './constants'
@@ -26,7 +26,7 @@ import { defaultNavigationBarItems } from './NavigationBar'
 /**
  * Coped from `DashboardLayoutProps`
  */
-export type DashboardProps = Partial<DashboardSections> & {
+export type DashboardProps = Partial<DashboardSlots> & {
   params?: Partial<UrlParams>
   children: ReactNode
 }
