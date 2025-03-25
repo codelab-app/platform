@@ -21,7 +21,6 @@ const tags = RoutePaths.Tags()
 const types = RoutePaths.Type()
 
 export type SupportedPaginationModel = IAtomModel | ITagModel | ITypeModel
-
 export type SupportedPaginationPathname =
   | `${typeof atoms}`
   | `${typeof components}`
@@ -32,7 +31,6 @@ export interface IPaginationSearchParams {
   filter: string
   page: number
   pageSize: number
-
   search?: string
   // Selected node
   selectedKey?: string

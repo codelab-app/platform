@@ -16,6 +16,7 @@ import { useAtomService } from '@codelab/frontend-application-atom/services'
 import { usePropService } from '@codelab/frontend-application-prop/services'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
+import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { logger } from '@codelab/shared/infra/logging'
 import { uniqueBy } from 'remeda'
@@ -78,7 +79,9 @@ export const useElementService = (): IElementService => {
     }
 
     logger.debug('elementService.create', data)
-    await elementRepository.add(data)
+    await elementRepository.add(data, {
+      revalidateTag: CACHE_TAGS.Element.list(),
+    })
     await syncModifiedElements()
 
     return element
@@ -96,7 +99,9 @@ export const useElementService = (): IElementService => {
 
     subRootElement.detachFromTree()
 
-    await elementRepository.delete(elementsToDelete)
+    await elementRepository.delete(elementsToDelete, {
+      revalidateTag: CACHE_TAGS.Element.list(),
+    })
 
     elementsToDelete.reverse().forEach((element) => {
       elementDomainService.elements.delete(element.id)
@@ -136,7 +141,9 @@ export const useElementService = (): IElementService => {
 
     currentElement.writeCache(newElement)
 
-    await elementRepository.update({ id: currentElement.id }, newElement)
+    await elementRepository.update({ id: currentElement.id }, newElement, {
+      revalidateTag: CACHE_TAGS.Element.list(),
+    })
 
     return currentElement
   }
@@ -148,7 +155,9 @@ export const useElementService = (): IElementService => {
     )
     await Promise.all(
       uniqueBy(elements, (element) => element.id).map((element) =>
-        elementRepository.update({ id: element.id }, element.toJson),
+        elementRepository.update({ id: element.id }, element.toJson, {
+          revalidateTag: CACHE_TAGS.Element.list(),
+        }),
       ),
     )
   }

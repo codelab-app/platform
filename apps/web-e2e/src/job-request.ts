@@ -3,7 +3,7 @@ import type { APIRequestContext } from '@playwright/test'
 
 import { v4 } from 'uuid'
 
-import type { ApiRequestOptions } from './api'
+import type { ApiRequestPostOptions } from './api'
 
 import { jobSubscription, requestOrThrow } from './api'
 
@@ -13,7 +13,7 @@ import { jobSubscription, requestOrThrow } from './api'
 export const jobQueueRequest = async (
   request: APIRequestContext,
   url: string,
-  options: ApiRequestOptions,
+  options: ApiRequestPostOptions,
 ): Promise<IJobQueueResponse> => {
   const jobId = v4()
 
@@ -30,7 +30,7 @@ export const jobQueueRequest = async (
 export const jobOutputRequest = async <T>(
   request: APIRequestContext,
   url: string,
-  options: ApiRequestOptions,
+  options: ApiRequestPostOptions,
 ) => {
   const result = await jobQueueRequest(request, url, options)
 

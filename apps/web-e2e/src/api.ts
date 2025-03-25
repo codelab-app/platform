@@ -7,9 +7,10 @@ import { getTimestamp } from '@codelab/shared/infra/logging'
 import { io } from 'socket.io-client'
 
 /**
- * Extract the options type from Playwright's APIRequestContext.post method
+ * Extract the options type from Playwright's APIRequestContext methods
  */
-export type ApiRequestOptions = Parameters<APIRequestContext['post']>[1]
+export type ApiRequestPostOptions = Parameters<APIRequestContext['post']>[1]
+export type ApiRequestGetOptions = Parameters<APIRequestContext['get']>[1]
 
 /**
  * Helper function to make API requests that automatically throws on non-OK responses
@@ -17,11 +18,20 @@ export type ApiRequestOptions = Parameters<APIRequestContext['post']>[1]
 export const requestOrThrow = async <T = void>(
   request: APIRequestContext,
   url: string,
-  options?: ApiRequestOptions,
+  options:
+    | (ApiRequestGetOptions & { method: 'GET' })
+    | (ApiRequestPostOptions & { method: 'POST' }) = {
+    method: 'POST',
+  },
 ): Promise<T> => {
-  console.log(`[${getTimestamp()}] Requesting ${url}`)
+  const { method, ...rest } = options
 
-  const response = await request.post(`/api/v1/${url}`, options)
+  console.log(`[${getTimestamp()}] Requesting ${url} [${method}]`)
+
+  const response =
+    method === 'GET'
+      ? await request.get(`/api/v1/${url}`, rest)
+      : await request.post(`/api/v1/${url}`, rest)
 
   if (!response.ok()) {
     const text = await response.text()
@@ -32,10 +42,10 @@ export const requestOrThrow = async <T = void>(
 
   const contentType = response.headers()['content-type']
 
-  console.log('contentType', contentType)
-
   if (contentType && contentType.includes('application/json')) {
     return response.json() as Promise<T>
+  } else {
+    console.log('Content-Type not found', contentType)
   }
 
   // Return empty response or null for non-JSON responses

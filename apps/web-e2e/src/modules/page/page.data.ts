@@ -12,6 +12,7 @@ export const seedPageData = async (
 
   return requestOrThrow<IPage>(request, 'page/create', {
     data,
+    method: 'POST',
     timeout: REQUEST_TIMEOUT,
   })
 }

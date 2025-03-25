@@ -4,6 +4,7 @@ import type {
   ICreateElementData,
   IPageDto,
   IRef,
+  IUserDto,
 } from '@codelab/shared/abstract/core'
 
 import {
@@ -88,17 +89,17 @@ export const seedTestData = async (request: APIRequestContext) => {
     throw new Error('Missing page')
   }
 
-  const ownerResponse = await request.get('user/me', {
+  const owner = await requestOrThrow<IUserDto>(request, 'user/me', {
+    method: 'GET',
     timeout: REQUEST_TIMEOUT,
   })
-
-  const owner = await ownerResponse.json()
 
   await requestOrThrow(
     request,
     `element/${page.rootElement.id}/create-elements`,
     {
       data: providerPageElements(page),
+      method: 'POST',
       timeout: REQUEST_TIMEOUT,
     },
   )
@@ -108,6 +109,7 @@ export const seedTestData = async (request: APIRequestContext) => {
     'component/create-component',
     {
       data: childMapperComponent(owner),
+      method: 'POST',
       timeout: REQUEST_TIMEOUT,
     },
   )
@@ -127,6 +129,7 @@ export const seedTestData = async (request: APIRequestContext) => {
           parentElement: component.rootElement,
         },
       ],
+      method: 'POST',
       timeout: REQUEST_TIMEOUT,
     },
   )

@@ -10,6 +10,7 @@ import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.
 
 import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { authGuardRepository } from '@codelab/frontend-domain-auth-guard/repositories'
+import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Validator } from '@codelab/shared/infra/typebox'
 import { useMemo } from 'react'
@@ -18,13 +19,18 @@ export const useAuthGuardService = (): IAuthGuardService => {
   const { authGuardDomainService, resourceDomainService } = useDomainStore()
 
   const create = async (data: IAuthGuardCreateFormData) => {
-    const authGuard = await authGuardRepository.add({
-      ...data,
-      config: {
-        data: JSON.stringify(data.config.data),
-        id: data.config.id,
+    const authGuard = await authGuardRepository.add(
+      {
+        ...data,
+        config: {
+          data: JSON.stringify(data.config.data),
+          id: data.config.id,
+        },
       },
-    })
+      {
+        revalidateTag: CACHE_TAGS.AuthGuard.list(),
+      },
+    )
 
     Validator.assertsDefined(authGuard)
 
@@ -36,7 +42,9 @@ export const useAuthGuardService = (): IAuthGuardService => {
       authGuardDomainService.authGuards.delete(authGuard.id)
     }
 
-    return await authGuardRepository.delete(authGuards)
+    return await authGuardRepository.delete(authGuards, {
+      revalidateTag: CACHE_TAGS.AuthGuard.list(),
+    })
   }
 
   const getAll = async (where: AuthGuardWhere = {}) => {
@@ -64,6 +72,9 @@ export const useAuthGuardService = (): IAuthGuardService => {
           data: JSON.stringify(authGuard.config.data),
           id: authGuard.config.id,
         },
+      },
+      {
+        revalidateTag: CACHE_TAGS.AuthGuard.list(),
       },
     )
 

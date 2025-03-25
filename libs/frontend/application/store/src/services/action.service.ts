@@ -17,6 +17,7 @@ import {
   type IActionWhere,
 } from '@codelab/frontend/abstract/domain'
 import { useDomainStoreHydrator } from '@codelab/frontend/infra/context'
+import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { actionRepository } from '@codelab/frontend-domain-store/repositories'
 import {
   useApplicationStore,
@@ -41,7 +42,9 @@ export const useActionService = (): IActionService => {
 
     hydrate({ actionsDto: [action] })
 
-    return await actionRepository.add(action)
+    return await actionRepository.add(action, {
+      revalidateTag: CACHE_TAGS.Action.list(),
+    })
   }
 
   const removeMany = async (actions: Array<IActionModel>) => {
@@ -60,7 +63,9 @@ export const useActionService = (): IActionService => {
       }
     }
 
-    return await actionRepository.delete(actions)
+    return await actionRepository.delete(actions, {
+      revalidateTag: CACHE_TAGS.Action.list(),
+    })
   }
 
   const getAll = async (where: IActionWhere) => {
@@ -84,7 +89,9 @@ export const useActionService = (): IActionService => {
 
     hydrate({ actionsDto: [actionDto] })
 
-    await actionRepository.update({ id: action.id }, actionDto)
+    await actionRepository.update({ id: action.id }, actionDto, {
+      revalidateTag: CACHE_TAGS.Action.list(),
+    })
 
     return action
   }
@@ -126,7 +133,9 @@ export const useActionService = (): IActionService => {
 
     const newAction = actionDomainService.hydrate(newActionDto)
 
-    return await actionRepository.add(newActionDto)
+    return await actionRepository.add(newActionDto, {
+      revalidateTag: CACHE_TAGS.Action.list(),
+    })
   }
 
   const createPopover = {

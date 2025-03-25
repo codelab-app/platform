@@ -14,6 +14,7 @@ import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { type IPageModel } from '@codelab/frontend/abstract/domain'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import { pageRepository } from '@codelab/frontend-domain-page/repositories'
+import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import {
   useApplicationStore,
   useDomainStore,
@@ -88,8 +89,6 @@ export const usePageService = (): IPageService => {
       )
 
     return await createPageAction(page, store, storeApi, rootElement)
-
-    // revalidateTag(CACHE_TAGS.PageList())
   }
 
   const removeMany = async (pageModels: Array<IPageModel>) => {
@@ -116,7 +115,9 @@ export const usePageService = (): IPageService => {
 
     await elementRepository.delete(elements)
 
-    return await pageRepository.delete([pageModel])
+    return await pageRepository.delete([pageModel], {
+      revalidateTag: CACHE_TAGS.Page.list(),
+    })
   }
 
   const update = async (data: IPageUpdateFormData) => {
@@ -133,7 +134,9 @@ export const usePageService = (): IPageService => {
       urlPattern,
     })
 
-    await pageRepository.update({ id: page.id }, page)
+    await pageRepository.update({ id: page.id }, page, {
+      revalidateTag: CACHE_TAGS.Page.list(),
+    })
 
     return page
   }

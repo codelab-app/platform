@@ -50,6 +50,10 @@ export class TypeApplicationService {
     )
 
     for (const type of dedupedTypes) {
+      this.logger.debug('Adding type', {
+        type,
+      })
+
       await this.typeFactory.add({
         ...type,
         owner: this.authDomainService.currentUser,

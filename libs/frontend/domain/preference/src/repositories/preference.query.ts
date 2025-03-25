@@ -24,7 +24,7 @@ export const preferenceQuery = async (
       options,
       where,
     },
-    { tags: [CACHE_TAGS.Preference()] },
+    { tags: [CACHE_TAGS.Preference.all()] },
   )
 
   Validator.assertsDefined(preference)
@@ -33,4 +33,4 @@ export const preferenceQuery = async (
 }
 
 export const invalidateAppListQuery = async () =>
-  revalidateTag(CACHE_TAGS.Preference())
+  revalidateTag(CACHE_TAGS.Preference.all())

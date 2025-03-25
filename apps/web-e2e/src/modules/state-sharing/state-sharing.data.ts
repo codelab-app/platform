@@ -5,6 +5,7 @@ import type {
   ICreateElementData,
   IPageCreateFormData,
   IRef,
+  IUserDto,
 } from '@codelab/shared/abstract/core'
 import type { APIRequestContext } from '@playwright/test'
 
@@ -64,25 +65,31 @@ export const seedTestData = async (request: APIRequestContext) => {
     componentTypes: [],
   })
 
-  const ownerResponse = await request.get('user/me')
-  const owner = await ownerResponse.json()
+  const owner = await requestOrThrow<IUserDto>(request, 'user/me', {
+    method: 'GET',
+  })
 
   await requestOrThrow(request, 'page/create', {
     data: regularPageCreateData(app),
+    method: 'POST',
   })
 
   const component = await requestOrThrow<IComponent>(
     request,
     'component/create-component',
-    { data: componentData(owner) },
+    {
+      data: componentData(owner),
+      method: 'POST',
+    },
   )
-
-  console.log('component', component)
 
   await requestOrThrow(
     request,
     `element/${component.rootElement.id}/create-elements`,
-    { data: [spaceElement(component.rootElement), typographyElement] },
+    {
+      data: [spaceElement(component.rootElement), typographyElement],
+      method: 'POST',
+    },
   )
 
   return app

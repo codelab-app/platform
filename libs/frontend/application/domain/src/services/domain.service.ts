@@ -10,6 +10,7 @@ import {
   domainRepository,
   invalidateDomainListQuery,
 } from '@codelab/frontend-domain-domain/repositories'
+import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 
 export const useDomainService = (): IDomainService => {
@@ -21,7 +22,9 @@ export const useDomainService = (): IDomainService => {
       domainConfig: undefined,
     })
 
-    await domainRepository.add(domain)
+    await domainRepository.add(domain, {
+      revalidateTag: CACHE_TAGS.Domain.list(),
+    })
 
     // Fetching again to get the backend-generated domainConfig
     await invalidateDomainListQuery()
@@ -34,7 +37,9 @@ export const useDomainService = (): IDomainService => {
       const { id } = domain
 
       domainDomainService.domains.delete(id)
-      await domainRepository.delete([domain])
+      await domainRepository.delete([domain], {
+        revalidateTag: CACHE_TAGS.Domain.list(),
+      })
 
       return domain
     }
@@ -53,7 +58,9 @@ export const useDomainService = (): IDomainService => {
   }
 
   const update = async (domain: IUpdateDomainData) => {
-    return await domainRepository.update({ id: domain.id }, domain)
+    return await domainRepository.update({ id: domain.id }, domain, {
+      revalidateTag: CACHE_TAGS.Domain.list(),
+    })
   }
 
   return {

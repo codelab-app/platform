@@ -82,7 +82,7 @@ export const seedTestData = async (request: APIRequestContext) => {
     `element/${page.rootElement.id}/create-elements`,
     {
       data: providerPageElements(page),
-      timeout: REQUEST_TIMEOUT,
+      method: 'POST',
     },
   )
 

@@ -113,12 +113,15 @@ export const seedTestData = async (request: APIRequestContext) => {
     `element/${page.rootElement.id}/create-elements`,
     {
       data: [{ ...providerPageLinkElement, parentElement: page.rootElement }],
+      method: 'POST',
       timeout: REQUEST_TIMEOUT,
     },
   )
 
   const staticPage = await requestOrThrow<IPage>(request, 'page/create', {
     data: pages.staticPage,
+    method: 'POST',
+    timeout: REQUEST_TIMEOUT,
   })
 
   await requestOrThrow(request, `element/${staticPage.id}/create-elements`, {
@@ -129,10 +132,14 @@ export const seedTestData = async (request: APIRequestContext) => {
       },
       staticPageLinkElement,
     ],
+    method: 'POST',
+    timeout: REQUEST_TIMEOUT,
   })
 
   const dynamicPage = await requestOrThrow<IPage>(request, 'page/create', {
     data: pages.dynamicPage,
+    method: 'POST',
+    timeout: REQUEST_TIMEOUT,
   })
 
   await requestOrThrow(request, `element/${dynamicPage.id}/create-elements`, {
@@ -142,6 +149,8 @@ export const seedTestData = async (request: APIRequestContext) => {
         parentElement: { id: dynamicPage.rootElement.id },
       },
     ],
+    method: 'POST',
+    timeout: REQUEST_TIMEOUT,
   })
 
   return app

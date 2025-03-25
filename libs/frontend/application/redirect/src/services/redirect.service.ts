@@ -22,7 +22,7 @@ export const useRedirectService = (): IRedirectService => {
     // const redirect = redirectDomainService.hydrate(redirectDto)
 
     return await redirectRepository.add(data, {
-      revalidateTag: CACHE_TAGS.RedirectList(),
+      revalidateTag: CACHE_TAGS.Redirect.list(),
     })
   }
 
@@ -32,7 +32,7 @@ export const useRedirectService = (): IRedirectService => {
     )
 
     return await redirectRepository.delete(redirectsModel, {
-      revalidateTag: CACHE_TAGS.RedirectList(),
+      revalidateTag: CACHE_TAGS.Redirect.list(),
     })
   }
 
@@ -56,7 +56,7 @@ export const useRedirectService = (): IRedirectService => {
     // redirect.writeCache(redirectDto)
 
     return await redirectRepository.update({ id: data.id }, data, {
-      revalidateTag: CACHE_TAGS.RedirectList(),
+      revalidateTag: CACHE_TAGS.Redirect.list(),
     })
   }
 

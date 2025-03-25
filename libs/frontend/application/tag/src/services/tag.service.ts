@@ -8,6 +8,7 @@ import type { TagOptions, TagWhere } from '@codelab/shared/infra/gqlgen'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { tagRepository } from '@codelab/frontend-domain-tag/repositories'
 import { tagRef } from '@codelab/frontend-domain-tag/store'
 import {
@@ -26,7 +27,9 @@ export const useTagService = (): ITagService => {
   const create = async (data: ICreateTagData) => {
     const tag = tagDomainService.hydrate(data)
 
-    await tagRepository.add(data)
+    await tagRepository.add(data, {
+      revalidateTag: CACHE_TAGS.Tag.list(),
+    })
 
     if (!tag.parent) {
       return tag
@@ -58,7 +61,9 @@ export const useTagService = (): ITagService => {
       })
     }
 
-    return await tagRepository.delete(tagsToRemove)
+    return await tagRepository.delete(tagsToRemove, {
+      revalidateTag: CACHE_TAGS.Tag.list(),
+    })
   }
 
   const getAll = async (where?: TagWhere, options?: TagOptions) => {
@@ -81,7 +86,9 @@ export const useTagService = (): ITagService => {
 
     tag.writeCache({ name, parent })
 
-    await tagRepository.update({ id: tag.id }, tag)
+    await tagRepository.update({ id: tag.id }, tag, {
+      revalidateTag: CACHE_TAGS.Tag.list(),
+    })
 
     return tag
   }

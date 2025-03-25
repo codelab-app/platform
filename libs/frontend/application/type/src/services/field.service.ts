@@ -13,6 +13,7 @@ import {
   IRouteType,
   RoutePaths,
 } from '@codelab/frontend/abstract/application'
+import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { fieldRepository } from '@codelab/frontend-domain-type/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Validator } from '@codelab/shared/infra/typebox'
@@ -40,7 +41,9 @@ export const useFieldService = (): IFieldService => {
       fields: [{ id: newField.id }],
     })
 
-    await fieldRepository.add(fieldDto)
+    await fieldRepository.add(fieldDto, {
+      revalidateTag: CACHE_TAGS.Field.list(),
+    })
 
     return newField
   }
@@ -59,7 +62,9 @@ export const useFieldService = (): IFieldService => {
       fields: [{ id: field.id }],
     })
 
-    await fieldRepository.add(fieldDto)
+    await fieldRepository.add(fieldDto, {
+      revalidateTag: CACHE_TAGS.Field.list(),
+    })
 
     return field
   }
@@ -67,7 +72,9 @@ export const useFieldService = (): IFieldService => {
   const removeMany = async (fields: Array<IFieldModel>) => {
     fields.forEach((field) => fieldDomainService.fields.delete(field.id))
 
-    const nodesDeleted = fieldRepository.delete(fields)
+    const nodesDeleted = fieldRepository.delete(fields, {
+      revalidateTag: CACHE_TAGS.Field.list(),
+    })
 
     return nodesDeleted
   }
@@ -131,7 +138,9 @@ export const useFieldService = (): IFieldService => {
 
     field.writeCache(updateFieldDto)
 
-    await fieldRepository.update({ id: updateFieldData.id }, updateFieldDto)
+    await fieldRepository.update({ id: updateFieldData.id }, updateFieldDto, {
+      revalidateTag: CACHE_TAGS.Field.list(),
+    })
 
     return field
   }

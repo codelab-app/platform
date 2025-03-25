@@ -26,7 +26,7 @@ export const createPageAction = async (
 
   const page = await pageRepository.add(pageDto)
 
-  revalidateTag(CACHE_TAGS.PageList())
+  revalidateTag(CACHE_TAGS.Page.list())
 
   return page
 }

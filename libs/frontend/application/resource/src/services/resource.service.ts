@@ -12,6 +12,7 @@ import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.
 import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { useDomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { resourceRepository } from '@codelab/frontend-domain-resource/repositories'
+import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { resourceApi } from '@codelab/shared-domain-module/resource'
 import { v4 } from 'uuid'
@@ -30,7 +31,9 @@ export const useResourceService = (): IResourceService => {
 
     hydrate({ resourcesDto: [resource] })
 
-    return await resourceRepository.add(resource)
+    return await resourceRepository.add(resource, {
+      revalidateTag: CACHE_TAGS.Resource.list(),
+    })
   }
 
   const removeMany = async (resources: Array<IResourceModel>) => {
@@ -38,7 +41,9 @@ export const useResourceService = (): IResourceService => {
       resourceDomainService.resources.delete(resource.id)
     })
 
-    return await resourceRepository.delete(resources)
+    return await resourceRepository.delete(resources, {
+      revalidateTag: CACHE_TAGS.Resource.list(),
+    })
   }
 
   const getAll = async (where: ResourceWhere = {}) => {
@@ -83,6 +88,9 @@ export const useResourceService = (): IResourceService => {
           data: JSON.stringify(data.config),
           id: v4(),
         },
+      },
+      {
+        revalidateTag: CACHE_TAGS.Resource.list(),
       },
     )
   }

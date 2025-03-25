@@ -10,6 +10,7 @@ import type {
   UnknownObjectLike,
 } from '@codelab/shared/abstract/types'
 import type { SortDirection } from '@codelab/shared/infra/gqlgen'
+import { EntityType } from '@codelab/frontend/abstract/types'
 
 import type { Option, Where } from './cache-options'
 
@@ -70,4 +71,52 @@ export const createPaginatedCacheTag = (
   )}::${createDeterministicTagParams(where)}`
 
   return uniqueTag
+}
+
+// Base tag creation functions
+export const createListTag = (
+  entity: EntityType,
+  options?: {
+    options?: Option
+    where?: Where
+  },
+) => {
+  if (!options) {
+    return `${entity}_LIST`
+  }
+
+  if (options.options || options.where) {
+    return createPaginatedCacheTag(
+      `${entity}_LIST`,
+      options.options,
+      options.where,
+    )
+  }
+
+  return `${entity}_LIST`
+}
+
+export const createItemTag = (entity: EntityType, id: string) => {
+  return `${entity}:${id}`
+}
+
+export const invalidateItem = (entity: EntityType, id: string) => {
+  return [createItemTag(entity, id), createListTag(entity)]
+}
+
+export const invalidateRelated = (
+  entity: EntityType,
+  id: string,
+  relatedEntities: Array<EntityType>,
+) => {
+  return [
+    createItemTag(entity, id),
+    createListTag(entity),
+    ...relatedEntities.map((re) => createListTag(re)),
+  ]
+}
+
+// Create a combined tag set for item and its containing list
+export const createItemWithListTags = (entity: EntityType, id: string) => {
+  return [createItemTag(entity, id), createListTag(entity)]
 }

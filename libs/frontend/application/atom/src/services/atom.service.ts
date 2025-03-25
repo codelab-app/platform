@@ -62,7 +62,7 @@ export const useAtomService = (): IAtomService => {
     // hydrate({ atomsDto: [atomDto] })
 
     const atom = await atomRepository.add(atomDto, {
-      revalidateTag: CACHE_TAGS.AtomList(),
+      revalidateTag: CACHE_TAGS.Atom.list(),
     })
 
     Validator.assertsDefined(atom)
@@ -82,7 +82,9 @@ export const useAtomService = (): IAtomService => {
       }
     })
 
-    return await atomRepository.delete(atomsToDelete)
+    return await atomRepository.delete(atomsToDelete, {
+      revalidateTag: CACHE_TAGS.Atom.list(),
+    })
   }
 
   const getAll = async (where?: AtomWhere, options?: AtomOptions) => {
@@ -129,7 +131,7 @@ export const useAtomService = (): IAtomService => {
     atom?.writeCache(data)
 
     await atomRepository.update({ id }, data, {
-      revalidateTag: CACHE_TAGS.AtomList(),
+      revalidateTag: CACHE_TAGS.Atom.list(),
     })
 
     Validator.assertsDefined(atom)

@@ -19,17 +19,17 @@ export const componentBuilderQuery: IComponentBuilderQuery = async ({
     {
       // Include all the cache tags that are used in the component builder
       tags: [
-        CACHE_TAGS.ComponentBuilder(),
-        CACHE_TAGS.ActionList(),
-        CACHE_TAGS.AtomList(),
-        CACHE_TAGS.ComponentsList(),
-        CACHE_TAGS.ElementList(),
-        CACHE_TAGS.FieldList(),
-        CACHE_TAGS.PropList(),
-        CACHE_TAGS.ResourceList(),
-        CACHE_TAGS.StoreList(),
-        CACHE_TAGS.TagList(),
-        CACHE_TAGS.TypeList(),
+        CACHE_TAGS.Component.builder(),
+        CACHE_TAGS.Action.list(),
+        CACHE_TAGS.Atom.list(),
+        CACHE_TAGS.Component.list(),
+        CACHE_TAGS.Element.list(),
+        CACHE_TAGS.Field.list(),
+        CACHE_TAGS.Prop.list(),
+        CACHE_TAGS.Resource.list(),
+        CACHE_TAGS.Store.list(),
+        CACHE_TAGS.Tag.list(),
+        CACHE_TAGS.Type.list(),
       ],
     },
   )

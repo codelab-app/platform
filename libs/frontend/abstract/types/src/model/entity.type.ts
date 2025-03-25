@@ -1,4 +1,4 @@
-export enum Model {
+export enum EntityType {
   Action = 'Action',
   Admin = 'Admin',
   App = 'App',
@@ -9,7 +9,6 @@ export enum Model {
   Domain = 'Domain',
   Element = 'Element',
   Field = 'Field',
-  Lambda = 'Lambda',
   Page = 'Page',
   Pagination = 'Pagination',
   Prop = 'Prop',

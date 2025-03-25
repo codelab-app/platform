@@ -15,10 +15,10 @@ export const componentListQuery = async () => {
       where: { owner: { id } },
     },
     {
-      tags: [CACHE_TAGS.ComponentsList()],
+      tags: [CACHE_TAGS.Component.list()],
     },
   )
 }
 
 export const revalidateComponentListOperation = async () =>
-  revalidateTag(CACHE_TAGS.ComponentsList())
+  revalidateTag(CACHE_TAGS.Component.list())

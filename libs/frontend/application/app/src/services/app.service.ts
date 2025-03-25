@@ -13,6 +13,7 @@ import { domainRepository } from '@codelab/frontend-domain-domain/repositories'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import { pageRepository } from '@codelab/frontend-domain-page/repositories'
 import { PageDomainFactory } from '@codelab/frontend-domain-page/services'
+import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import {
   useDomainStore,
   useUndoManager,
@@ -62,7 +63,6 @@ export const useAppService = (): IAppService => {
       throw error
     } finally {
       //
-      // await invalidateAppListQuery()
     }
   }
 
@@ -86,14 +86,10 @@ export const useAppService = (): IAppService => {
 
       const elements = pagesDto.flatMap((page) => page.elements)
 
-      // const pages = pagesDto.map((pageDto) =>
-      //   pageDomainService.hydrate(pageDto),
-      // )
-
-      await appRepository.delete([app])
+      await appRepository.delete([app], {
+        revalidateTag: CACHE_TAGS.App.list(),
+      })
       await elementRepository.delete(elements)
-
-      // await invalidateAppListQuery()
 
       return app
     }
@@ -157,9 +153,13 @@ export const useAppService = (): IAppService => {
 
     app?.writeCache({ name })
 
-    await appRepository.update({ id }, { id, name, owner })
-
-    // await invalidateAppListQuery()
+    await appRepository.update(
+      { id },
+      { id, name, owner },
+      {
+        revalidateTag: CACHE_TAGS.App.list(),
+      },
+    )
 
     Validator.assertsDefined(app)
 

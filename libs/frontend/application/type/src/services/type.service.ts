@@ -12,6 +12,7 @@ import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.
 import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { typeRef } from '@codelab/frontend/abstract/domain'
 import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
+import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { typeRepository } from '@codelab/frontend-domain-type/repositories'
 import { TypeFactory } from '@codelab/frontend-domain-type/store'
 import {
@@ -37,7 +38,9 @@ export const useTypeService = (): ITypeService => {
 
     // use hydrated type here instead of dto to make sure the dependant types have full data
     // (for example "typesOfUnionType" should not only contain ids, but also __typename)
-    await typeRepository.add(type.toJson)
+    await typeRepository.add(type.toJson, {
+      revalidateTag: CACHE_TAGS.Type.list(),
+    })
 
     return type
   }
@@ -48,7 +51,9 @@ export const useTypeService = (): ITypeService => {
 
       typeDomainService.types.delete(id)
 
-      return await typeRepository.delete([type])
+      return await typeRepository.delete([type], {
+        revalidateTag: CACHE_TAGS.Type.list(),
+      })
     }
 
     const items = await Promise.all(
@@ -130,7 +135,9 @@ export const useTypeService = (): ITypeService => {
 
     // use hydrated type here instead of dto to make sure the dependant types have full data
     // (for example "typesOfUnionType" should not only contain ids, but also __typename)
-    await typeRepository.update({ id: type.id }, type.toJson)
+    await typeRepository.update({ id: type.id }, type.toJson, {
+      revalidateTag: CACHE_TAGS.Type.list(),
+    })
 
     return type
   }

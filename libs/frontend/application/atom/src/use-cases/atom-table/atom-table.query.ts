@@ -32,7 +32,7 @@ export const atomTableQuery = async (searchParams: SearchParamsPageProps) => {
     aggregate: { count },
     items: atomsDto,
   } = await atomRepository.find(where, options, {
-    tags: [CACHE_TAGS.AtomList({ options, where }), CACHE_TAGS.AtomList()],
+    tags: [CACHE_TAGS.Atom.list({ options, where }), CACHE_TAGS.Atom.list()],
   })
 
   // await sleep(5000)

@@ -11,17 +11,22 @@ import type {
 
 import { propRepository } from '@codelab/frontend-domain-prop/repositories'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
+import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { filterEmptyStrings } from '@codelab/shared/utils'
 
 export const usePropService = (): IPropService => {
   const create = async (props: IPropCreateData) => {
-    await propRepository.add(props)
+    await propRepository.add(props, {
+      revalidateTag: CACHE_TAGS.Prop.list(),
+    })
 
     return props
   }
 
   const removeMany = async (props: Array<IRef>) => {
-    return await propRepository.delete(props)
+    return await propRepository.delete(props, {
+      revalidateTag: CACHE_TAGS.Prop.list(),
+    })
   }
 
   const reset = async (props: IPropDto) => {
@@ -32,7 +37,9 @@ export const usePropService = (): IPropService => {
   }
 
   const update = async (dto: IPropUpdateData) => {
-    await propRepository.update({ id: dto.id }, dto)
+    await propRepository.update({ id: dto.id }, dto, {
+      revalidateTag: CACHE_TAGS.Prop.list(),
+    })
 
     return dto
   }
