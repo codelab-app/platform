@@ -35,9 +35,9 @@ export const useTagService = (): ITagService => {
       return tag
     }
 
-    tag.parent.current.writeCache({
-      children: [...tag.parent.current.children, tagRef(tag)],
-    })
+    // tag.parent.current.writeCache({
+    //   children: [...tag.parent.current.children, tagRef(tag)],
+    // })
 
     tagDomainService.setExpandedNodes([
       ...tagDomainService.expandedNodes,
@@ -51,14 +51,18 @@ export const useTagService = (): ITagService => {
     const tags = await getAll({ id_IN: ids.map(({ id }) => id) })
     const tagsToRemove = []
 
+    // Collect all tags to be removed (including descendants)
     for (const tag of tags) {
-      tagDomainService.tags.delete(tag.id)
       tagsToRemove.push(tag)
 
       tag.descendants.forEach((descendant) => {
         tagsToRemove.push(descendant)
-        tagDomainService.tags.delete(descendant.id)
       })
+    }
+
+    // Remove tags from local state before API call to prevent UI flashing
+    for (const tag of tagsToRemove) {
+      tagDomainService.tags.delete(tag.id)
     }
 
     return await tagRepository.delete(tagsToRemove, {
@@ -70,7 +74,9 @@ export const useTagService = (): ITagService => {
     const {
       aggregate: { count },
       items: tags,
-    } = await tagRepository.find(where, options)
+    } = await tagRepository.find(where, options, {
+      tags: [CACHE_TAGS.Tag.list()],
+    })
 
     return tags.map((tag) => {
       tag.children.forEach((child) => tagDomainService.hydrate(child))
@@ -107,7 +113,7 @@ export const useTagService = (): ITagService => {
       router.push(RoutePaths.Tags())
     },
     open: (router: AppRouterInstance) => {
-      router.push(RoutePaths.TagsCreate())
+      router.push(RoutePaths.TagCreate())
     },
   }
 

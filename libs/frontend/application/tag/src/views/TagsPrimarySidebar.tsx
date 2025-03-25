@@ -62,7 +62,7 @@ export const TagsPrimarySidebar = observer<{
             {
               cuiKey: UiKey.TagToolbarItemDelete,
               icon: <DeleteOutlined />,
-              onClick: () => router.push(RoutePaths.TagsDelete(checkedTagIds)),
+              onClick: () => router.push(RoutePaths.TagDelete(checkedTagIds)),
               title: 'Delete Tag',
             },
           ],

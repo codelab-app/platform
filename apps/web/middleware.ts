@@ -22,6 +22,7 @@ const paginatedRoutes = [
   RoutePaths.Tags(),
   RoutePaths.Type(),
 ]
+
 const protectedRoutes = [RoutePaths.AppList()]
 
 const middleware: NextMiddleware = async (

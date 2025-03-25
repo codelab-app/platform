@@ -21,7 +21,7 @@ export const TagsTreeItem = observer(({ data }: TagsTreeItemProps) => {
 
   return (
     <CuiTreeItem
-      onClick={() => router.push(RoutePaths.TagsUpdate(data.extraData.node))}
+      onClick={() => router.push(RoutePaths.TagUpdate(data.extraData.node))}
       primaryTitle={data.primaryTitle}
       toolbar={
         <CuiTreeItemToolbar
@@ -32,7 +32,7 @@ export const TagsTreeItem = observer(({ data }: TagsTreeItemProps) => {
               label: 'Delete',
               onClick: (event: Event) => {
                 event.stopPropagation()
-                router.push(RoutePaths.TagsDelete([data.extraData.node.id]))
+                router.push(RoutePaths.TagDelete([data.extraData.node.id]))
               },
               title: 'Delete',
             },

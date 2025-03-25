@@ -46,7 +46,7 @@ export const usePaginationToolbar = ({
     {
       cuiKey: UiKey.PaginationControl,
       icon: (
-        <div className="flex items-center space-x-2">
+        <div className="[&_.ant-pagination-simple-pager]:!me-0">
           <Pagination
             current={page}
             itemRender={(targetPage, type, originalElement) => {
@@ -58,10 +58,12 @@ export const usePaginationToolbar = ({
                     href={createPageUrl(pathname, targetPage, pageSize, filter)}
                     prefetch={true}
                   >
-                    <Button
-                      disabled={!canGoPrev}
-                      icon={<LeftOutlined />}
-                      size="small"
+                    <LeftOutlined
+                      className={
+                        !canGoPrev
+                          ? 'text-gray-400 cursor-not-allowed'
+                          : 'cursor-pointer'
+                      }
                     />
                   </Link>
                 )
@@ -75,10 +77,12 @@ export const usePaginationToolbar = ({
                     href={createPageUrl(pathname, targetPage, pageSize, filter)}
                     prefetch={true}
                   >
-                    <Button
-                      disabled={!canGoNext}
-                      icon={<RightOutlined />}
-                      size="small"
+                    <RightOutlined
+                      className={
+                        !canGoNext
+                          ? 'text-gray-400 cursor-not-allowed'
+                          : 'cursor-pointer'
+                      }
                     />
                   </Link>
                 )

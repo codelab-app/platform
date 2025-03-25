@@ -21,7 +21,7 @@ export const CuiSidebarHeader = ({ label, toolbar }: ICuiSidebarHeader) => {
         flex-wrap items-center justify-between
         gap-1 border-0 border-b-2
         border-solid border-gray-300 bg-neutral-100
-        p-1 pl-4
+        p-1
       `}
       data-testid={CuiTestId.cuiSidebarHeader()}
     >

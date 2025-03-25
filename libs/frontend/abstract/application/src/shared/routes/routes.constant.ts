@@ -218,12 +218,12 @@ export const RoutePaths = {
   ResourcesDelete: (id: string) => `${RoutePaths.Resources()}/${id}/delete`,
   ResourcesUpdate: (id: string) => `${RoutePaths.Resources()}/${id}/update`,
   Storybook: () => '/storybook',
-  Tags: () => '/tags' as const,
-  TagsCreate: () => '/tags/create' as const,
-  TagsDelete: (ids: Array<string>) => {
-    return `${RoutePaths.Tags()}/${ids.join(',')}/delete`
+  TagCreate: () => '/tags/create' as const,
+  TagDelete: (ids: Array<string>) => {
+    return `${RoutePaths.Tags()}/delete/${ids.join(',')}`
   },
-  TagsUpdate: ({ id }: IRef) => `/tags/${id}/update` as const,
+  Tags: () => '/tags' as const,
+  TagUpdate: ({ id }: IRef) => `/tags/update/${id}` as const,
   Type: () => '/types' as const,
   TypeCreate: () => `${RoutePaths.Type()}/type/create`,
   TypeDelete: ({ id }: IRef) => `${RoutePaths.Type()}/type/${id}/delete`,

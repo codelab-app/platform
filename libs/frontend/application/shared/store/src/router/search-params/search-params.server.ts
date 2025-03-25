@@ -28,11 +28,14 @@ export const parseSearchParamsPageProps = (
 export const parsePaginationSearchParams = (
   searchParams: SearchParamsPageProps,
 ): IPaginationSearchParams => {
-  const { filter, page, pageSize } = searchParams
+  const { filter = 'name', page = '1', pageSize = '20' } = searchParams
 
-  if (!filter || !page || !pageSize) {
-    throw new Error('filter, page, pageSize are required')
-  }
+  /**
+   * If used in server page parallel slots, the page could be activated when there are no search params
+   */
+  // if (!filter || !page || !pageSize) {
+  //   throw new Error('filter, page, pageSize are required')
+  // }
 
   return {
     filter: Array.isArray(filter) ? filter.join(',') : filter,

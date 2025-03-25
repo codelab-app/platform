@@ -13,15 +13,12 @@ const Page = async ({
 }: {
   searchParams: Promise<SearchParamsPageProps>
 }) => {
-  logTimestampMs('Before tagTableQuery')
-
   /**
    * We hydrate these to domain services, but need to also hydrate to pagination service
    */
+  console.log('searchParams', await searchParams)
+
   const { count, tagsDto } = await tagTableQuery(await searchParams)
-
-  logTimestampMs('After tagTableQuery')
-
   const params = parsePaginationSearchParams(await searchParams)
 
   return (
