@@ -23,12 +23,10 @@ const Layout = async ({
     <DomainStoreHydrator
       actionsDto={dto.actions}
       atomsDto={dto.atoms}
-      authGuardsDto={dto.authGuards}
       componentsDto={dto.components}
       elementsDto={dto.elements}
       fieldsDto={dto.fields}
       propsDto={dto.props}
-      redirectsDto={dto.redirects}
       resourcesDto={dto.resources}
       storesDto={dto.stores}
       tagsDto={dto.tags}

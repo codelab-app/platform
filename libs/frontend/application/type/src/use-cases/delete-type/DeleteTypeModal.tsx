@@ -2,7 +2,7 @@
 
 import type { ITypeModel } from '@codelab/frontend/abstract/domain'
 
-import { PageType } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import {
@@ -20,7 +20,7 @@ const { GetTypeReferences } = findTypeServerActions
 export const DeleteTypeModal = observer<{ type: ITypeModel }>(({ type }) => {
   const typeService = useTypeService()
   const router = useRouter()
-  const closeModal = () => router.push(PageType.Type())
+  const closeModal = () => router.push(RoutePaths.Type())
 
   const onSubmit = async () => {
     // Make sure this type is not referenced anywhere else or the data may become corrupt

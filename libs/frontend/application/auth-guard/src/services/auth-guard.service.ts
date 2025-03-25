@@ -8,7 +8,7 @@ import type { IRef } from '@codelab/shared/abstract/core'
 import type { AuthGuardWhere } from '@codelab/shared/infra/gqlgen'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import { PageType } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { authGuardRepository } from '@codelab/frontend-domain-auth-guard/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Validator } from '@codelab/shared/infra/typebox'
@@ -72,20 +72,20 @@ export const useAuthGuardService = (): IAuthGuardService => {
 
   const updatePopover = {
     close: (router: AppRouterInstance) => {
-      router.push(PageType.AuthGuards())
+      router.push(RoutePaths.AuthGuards())
     },
     open: (router: AppRouterInstance, { id }: IRef) => {
-      router.push(PageType.AuthGuardsUpdate({ id }))
+      router.push(RoutePaths.AuthGuardsUpdate({ id }))
     },
   }
 
   const createPopover = useMemo(
     () => ({
       close: (router: AppRouterInstance) => {
-        router.push(PageType.AuthGuards())
+        router.push(RoutePaths.AuthGuards())
       },
       open: (router: AppRouterInstance) => {
-        router.push(PageType.AuthGuardsCreate())
+        router.push(RoutePaths.AuthGuardsCreate())
       },
     }),
     [],

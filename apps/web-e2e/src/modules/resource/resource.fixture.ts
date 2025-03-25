@@ -1,4 +1,4 @@
-import { PageType } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { IResourceType } from '@codelab/shared/abstract/core'
 
@@ -46,7 +46,7 @@ export class ResourcePage extends BasePage {
   }
 
   async goto() {
-    await this.page.goto(PageType.Resources())
+    await this.page.goto(RoutePaths.Resources())
   }
 
   async updateResource() {

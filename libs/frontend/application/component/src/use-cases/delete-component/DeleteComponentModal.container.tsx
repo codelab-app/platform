@@ -1,3 +1,5 @@
+'use client'
+
 import { ComponentConnector } from '@codelab/frontend/infra/connector'
 
 import { DeleteComponentModal } from './DeleteComponentModal'

@@ -51,11 +51,7 @@ export const DashboardLayout = async <
   ...slots
 }: DashboardLayoutProps<Slots, Params>) => {
   return (
-    <Dashboard
-      {...await params}
-      {...slots}
-      contentStyles={{ paddingTop: '0rem' }}
-    >
+    <Dashboard {...await params} {...slots}>
       {children}
     </Dashboard>
   )

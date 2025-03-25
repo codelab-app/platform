@@ -1,4 +1,4 @@
-import { PageType } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { expect } from '@playwright/test'
@@ -65,7 +65,7 @@ export class StateSharingPage extends BuilderPage {
 
   async goToComponentBuilder() {
     return test.step('goToComponentBuilder', async () => {
-      await this.page.goto(PageType.ComponentBuilder({ componentId }))
+      await this.page.goto(RoutePaths.ComponentBuilder({ componentId }))
     })
   }
 

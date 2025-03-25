@@ -1,4 +1,4 @@
-import { PageType } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import {
   ListItemDeleteButton,
   ListItemEditButton,
@@ -14,10 +14,10 @@ export const ActionColumn = ({ atom }: ActionColumnProps) => {
   return (
     <Space size="middle">
       <ListItemEditButton
-        onClick={() => router.push(PageType.AtomUpdate(atom))}
+        onClick={() => router.push(RoutePaths.AtomUpdate(atom))}
       />
       <ListItemDeleteButton
-        onClick={() => router.push(PageType.AtomDelete(atom))}
+        onClick={() => router.push(RoutePaths.AtomDelete(atom))}
       />
     </Space>
   )

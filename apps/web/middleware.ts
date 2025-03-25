@@ -1,5 +1,5 @@
 import { corsMiddleware } from '@codelab/backend/infra/adapter/middleware'
-import { PageType } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { auth0Instance } from '@codelab/shared-infra-auth0/client'
 import {
   type NextFetchEvent,
@@ -17,8 +17,12 @@ import { isEqual } from 'radash'
  * https://stackoverflow.com/questions/76813923/how-to-avoid-warning-message-when-getting-user-information-on-next-js-13-server/77015385#77015385
  */
 
-const paginatedRoutes = [PageType.Atoms(), PageType.Tags(), PageType.Type()]
-const protectedRoutes = [PageType.AppList()]
+const paginatedRoutes = [
+  RoutePaths.Atoms(),
+  RoutePaths.Tags(),
+  RoutePaths.Type(),
+]
+const protectedRoutes = [RoutePaths.AppList()]
 
 const middleware: NextMiddleware = async (
   request: NextRequest,

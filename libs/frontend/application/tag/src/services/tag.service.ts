@@ -7,7 +7,7 @@ import type {
 import type { TagOptions, TagWhere } from '@codelab/shared/infra/gqlgen'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import { PageType } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { tagRepository } from '@codelab/frontend-domain-tag/repositories'
 import { tagRef } from '@codelab/frontend-domain-tag/store'
 import {
@@ -97,19 +97,19 @@ export const useTagService = (): ITagService => {
 
   const createPopover = {
     close: (router: AppRouterInstance) => {
-      router.push(PageType.Tags())
+      router.push(RoutePaths.Tags())
     },
     open: (router: AppRouterInstance) => {
-      router.push(PageType.TagsCreate())
+      router.push(RoutePaths.TagsCreate())
     },
   }
 
   const updatePopover = {
     close: (router: AppRouterInstance) => {
-      router.push(PageType.Tags())
+      router.push(RoutePaths.Tags())
     },
     open: (router: AppRouterInstance) => {
-      router.push(PageType.Tags())
+      router.push(RoutePaths.Tags())
     },
   }
 

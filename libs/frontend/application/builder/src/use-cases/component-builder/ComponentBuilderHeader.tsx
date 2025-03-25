@@ -5,7 +5,7 @@ import type {
   IComponentModel,
 } from '@codelab/frontend/abstract/domain'
 
-import { PageType } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { DetailHeader } from '@codelab/frontend-presentation-view/sections'
 import { observer } from 'mobx-react-lite'
 import { usePathname, useRouter } from 'next/navigation'
@@ -28,14 +28,14 @@ export const ComponentBuilderHeader = observer<IComponentBuilderHeaderProps>(
 
     const togglePreviewMode = () => {
       const url = isBuilder
-        ? PageType.ComponentPreview({ componentId: component.id })
-        : PageType.ComponentBuilder({ componentId: component.id })
+        ? RoutePaths.ComponentPreview({ componentId: component.id })
+        : RoutePaths.ComponentBuilder({ componentId: component.id })
 
       return router.push(url)
     }
 
     const navigateComponentsPanel = useCallback(async () => {
-      const url = PageType.ComponentBuilder({
+      const url = RoutePaths.ComponentBuilder({
         componentId: component.id,
       })
 
@@ -43,7 +43,7 @@ export const ComponentBuilderHeader = observer<IComponentBuilderHeaderProps>(
     }, [router, component.id])
 
     const navigateAppsPage = useCallback(async () => {
-      await router.push(PageType.AppList())
+      await router.push(RoutePaths.AppList())
     }, [router])
 
     // TODO: Restore app.name

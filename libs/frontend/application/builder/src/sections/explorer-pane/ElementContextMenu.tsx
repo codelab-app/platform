@@ -6,7 +6,7 @@ import type {
 } from '@codelab/frontend/abstract/application'
 import type { Nullable } from '@codelab/shared/abstract/types'
 
-import { PageType } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { isComponent } from '@codelab/frontend/abstract/domain'
 import { useComponentService } from '@codelab/frontend-application-component/services'
 import {
@@ -105,7 +105,9 @@ export const ElementContextMenu = observer<
     }
 
     router.push(
-      PageType.ComponentBuilder({ componentId: element.renderType.current.id }),
+      RoutePaths.ComponentBuilder({
+        componentId: element.renderType.current.id,
+      }),
     )
   }
 

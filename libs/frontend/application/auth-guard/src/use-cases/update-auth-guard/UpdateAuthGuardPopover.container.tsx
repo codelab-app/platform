@@ -1,3 +1,5 @@
+'use client'
+
 import type { IRef } from '@codelab/shared/abstract/core'
 
 import { AuthGuardConnector } from '@codelab/frontend/infra/connector'

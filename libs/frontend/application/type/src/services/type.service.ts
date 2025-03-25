@@ -9,7 +9,7 @@ import type { IRef } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import { PageType } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { typeRef } from '@codelab/frontend/abstract/domain'
 import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
 import { typeRepository } from '@codelab/frontend-domain-type/repositories'
@@ -178,19 +178,19 @@ export const useTypeService = (): ITypeService => {
 
   const updatePopover = {
     close: (router: AppRouterInstance) => {
-      router.push(PageType.Type())
+      router.push(RoutePaths.Type())
     },
     open: (router: AppRouterInstance, { id }: IRef) => {
-      router.push(PageType.TypeUpdate({ id }))
+      router.push(RoutePaths.TypeUpdate({ id }))
     },
   }
 
   const createPopover = {
     close: (router: AppRouterInstance) => {
-      router.push(PageType.Type())
+      router.push(RoutePaths.Type())
     },
     open: (router: AppRouterInstance) => {
-      router.push(PageType.TypeCreate())
+      router.push(RoutePaths.TypeCreate())
     },
   }
 

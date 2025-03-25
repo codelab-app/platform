@@ -3,7 +3,7 @@
 import type { ApolloError } from '@apollo/client'
 import type { ICreateDomainData } from '@codelab/frontend/abstract/domain'
 
-import { PageType } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { useErrorNotify } from '@codelab/frontend/infra/context'
 import {
@@ -41,7 +41,7 @@ export const CreateDomainModal = observer<CreateDomainModalProps>(
     }
 
     const goBack = () => {
-      router.push(PageType.DomainList({ appId }))
+      router.push(RoutePaths.DomainList({ appId }))
     }
 
     const onError = useErrorNotify({

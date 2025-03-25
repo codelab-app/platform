@@ -1,6 +1,6 @@
 'use client'
 
-import { PageType } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { downloadJsonAsFile } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
@@ -16,7 +16,7 @@ import { exportAdminDataService } from './export-admin-data.service'
 
 export const ExportAdminDataModal = () => {
   const router = useRouter()
-  const onClose = () => router.push(PageType.Admin())
+  const onClose = () => router.push(RoutePaths.Admin())
 
   const onSubmitHandler = async ({ adminDataPath, download }: IExportDto) => {
     const exportedData = await exportAdminDataService({ adminDataPath })

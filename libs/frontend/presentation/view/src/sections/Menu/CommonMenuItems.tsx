@@ -5,34 +5,31 @@ import AppstoreOutlined from '@ant-design/icons/AppstoreOutlined'
 import CloudServerOutlined from '@ant-design/icons/CloudServerOutlined'
 import CodeSandboxOutlined from '@ant-design/icons/CodeSandboxOutlined'
 import SafetyOutlined from '@ant-design/icons/SafetyOutlined'
-import {
-  PageType,
-  PrimarySidebar,
-} from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 
 export const appMenuItem: NavigationBarItem = {
   icon: <AppstoreOutlined title="Apps" />,
-  key: PageType.AppList(),
+  key: RoutePaths.AppList(),
   link: {
-    href: PageType.AppList(),
+    href: RoutePaths.AppList(),
   },
   title: 'Apps',
 }
 
 export const resourceMenuItem: NavigationBarItem = {
   icon: <CloudServerOutlined title="Resources" />,
-  key: PageType.Resources(),
+  key: RoutePaths.Resources(),
   link: {
-    href: PageType.Resources(),
+    href: RoutePaths.Resources(),
   },
   title: 'Resources',
 }
 
 export const authGuardMenuItem: NavigationBarItem = {
   icon: <SafetyOutlined title="Auth Guards" />,
-  key: PageType.AuthGuards(),
+  key: RoutePaths.AuthGuards(),
   link: {
-    href: PageType.AuthGuards(),
+    href: RoutePaths.AuthGuards(),
   },
   title: 'Auth Guards',
 }
@@ -46,7 +43,7 @@ export const builderComponentsMenuItem = ({
     icon: <CodeSandboxOutlined title="Builder Components" />,
     key: 'components',
     link: {
-      href: PageType.Components(),
+      href: RoutePaths.Components(),
     },
     title: 'Builder Components',
   }
@@ -55,10 +52,7 @@ export const builderComponentsMenuItem = ({
     return {
       ...componentsListMenuItem,
       link: {
-        href: PageType.PageBuilder(
-          { appId, pageId },
-          PrimarySidebar.ComponentList,
-        ),
+        href: RoutePaths.PageBuilderComponentList({ appId, pageId }),
       },
     }
   }
@@ -67,7 +61,7 @@ export const builderComponentsMenuItem = ({
     return {
       ...componentsListMenuItem,
       link: {
-        href: PageType.ComponentBuilder({ componentId }),
+        href: RoutePaths.ComponentBuilder({ componentId }),
       },
     }
   }

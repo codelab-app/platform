@@ -1,4 +1,4 @@
-import { PageType } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { expect } from '@playwright/test'
 
@@ -53,7 +53,7 @@ export class AppListPage extends BasePage {
 
   async gotoAppListUrl() {
     return test.step('gotoAppListUrl', async () => {
-      await this.page.goto(PageType.AppList())
+      await this.page.goto(RoutePaths.AppList())
     })
   }
 

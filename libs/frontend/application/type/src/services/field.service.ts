@@ -11,8 +11,7 @@ import {
   type IFieldService,
   type IFieldUpdateRouteContext,
   IRouteType,
-  PageType,
-  PrimarySidebar,
+  RoutePaths,
 } from '@codelab/frontend/abstract/application'
 import { fieldRepository } from '@codelab/frontend-domain-type/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
@@ -207,11 +206,11 @@ export const useFieldService = (): IFieldService => {
     { params, type }: IFieldRouteContext,
   ) => {
     if (type === IRouteType.Component) {
-      router.push(PageType.ComponentBuilder(params))
+      router.push(RoutePaths.ComponentBuilder(params))
     } else if (type === IRouteType.Page) {
-      router.push(PageType.PageBuilder(params, PrimarySidebar.ElementTree))
+      router.push(RoutePaths.PageBuilder(params))
     } else {
-      router.push(PageType.Type())
+      router.push(RoutePaths.Type())
     }
   }
 
@@ -222,11 +221,9 @@ export const useFieldService = (): IFieldService => {
       { params, type }: IFieldCreateRouteContext,
     ) => {
       if (type === IRouteType.Page) {
-        router.push(
-          PageType.PageBuilderFieldCreate(params, PrimarySidebar.ElementTree),
-        )
+        router.push(RoutePaths.PageBuilderFieldCreate(params))
       } else if (type === IRouteType.Component) {
-        router.push(PageType.ComponentBuilderFieldCreate(params))
+        router.push(RoutePaths.ComponentBuilderFieldCreate(params))
       }
     },
   }
@@ -238,11 +235,11 @@ export const useFieldService = (): IFieldService => {
       { params, type }: IFieldUpdateRouteContext,
     ) => {
       if (type === IRouteType.Component) {
-        router.push(PageType.ComponentBuilderFieldUpdate(params))
+        router.push(RoutePaths.ComponentBuilderFieldUpdate(params))
       } else if (type === IRouteType.Page) {
-        router.push(PageType.PageBuilderFieldUpdate(params))
+        router.push(RoutePaths.PageBuilderFieldUpdate(params))
       } else {
-        router.push(PageType.TypeFieldUpdate(params))
+        router.push(RoutePaths.TypeFieldUpdate(params))
       }
     },
   }
@@ -254,11 +251,11 @@ export const useFieldService = (): IFieldService => {
       { params, type }: IFieldUpdateRouteContext,
     ) => {
       if (type === IRouteType.Component) {
-        router.push(PageType.ComponentBuilderFieldDelete(params))
+        router.push(RoutePaths.ComponentBuilderFieldDelete(params))
       } else if (type === IRouteType.Page) {
-        router.push(PageType.PageBuilderFieldDelete(params))
+        router.push(RoutePaths.PageBuilderFieldDelete(params))
       } else {
-        router.push(PageType.TypeFieldDelete(params))
+        router.push(RoutePaths.TypeFieldDelete(params))
       }
     },
   }

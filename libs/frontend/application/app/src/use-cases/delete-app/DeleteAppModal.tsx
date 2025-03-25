@@ -2,7 +2,7 @@
 
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
 
-import { PageType } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
@@ -14,7 +14,7 @@ import { useAppService } from '../../services'
 export const DeleteAppModal = observer<{ app?: IAppModel }>(({ app }) => {
   const router = useRouter()
   const appService = useAppService()
-  const closeModal = () => router.push(PageType.AppList())
+  const closeModal = () => router.push(RoutePaths.AppList())
 
   const onSubmit = () =>
     app ? appService.removeMany([app]) : Promise.resolve({})

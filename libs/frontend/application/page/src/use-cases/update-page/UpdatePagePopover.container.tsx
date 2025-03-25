@@ -1,3 +1,5 @@
+'use client'
+
 import { PageConnector } from '@codelab/frontend/infra/connector'
 
 import { UpdatePagePopover } from './UpdatePagePopover'

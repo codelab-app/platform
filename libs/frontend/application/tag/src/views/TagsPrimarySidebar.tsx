@@ -8,7 +8,7 @@ import type { ITagModel } from '@codelab/frontend/abstract/domain'
 
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { PageType } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiSidebar,
@@ -32,7 +32,7 @@ export const TagsPrimarySidebar = observer<{
   const { checkedTagIds, createPopover } = useTagService()
 
   const { showSearchBar, toolbarItems } = usePaginationToolbar({
-    pathname: PageType.Tags(),
+    pathname: RoutePaths.Tags(),
     searchParams,
     totalItems: pagination.totalItems,
   })
@@ -62,7 +62,7 @@ export const TagsPrimarySidebar = observer<{
             {
               cuiKey: UiKey.TagToolbarItemDelete,
               icon: <DeleteOutlined />,
-              onClick: () => router.push(PageType.TagsDelete(checkedTagIds)),
+              onClick: () => router.push(RoutePaths.TagsDelete(checkedTagIds)),
               title: 'Delete Tag',
             },
           ],

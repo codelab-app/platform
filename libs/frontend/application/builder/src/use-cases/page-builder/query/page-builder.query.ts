@@ -1,12 +1,11 @@
 import type { IPageBuilderQuery } from '@codelab/frontend/abstract/domain'
 import type { AtomBuilderFragment } from '@codelab/shared/infra/gqlgen'
 
+import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { uniqueBy } from 'remeda'
 
 import { GetPageBuilder } from './page-builder.api.graphql.web.gen'
-
-export const PAGE_BUILDER_TAG = 'page-builder'
 
 export const pageBuilderQuery: IPageBuilderQuery = async ({
   appId,
@@ -21,7 +20,24 @@ export const pageBuilderQuery: IPageBuilderQuery = async ({
       pageIds,
     },
     {
-      tags: [PAGE_BUILDER_TAG],
+      // Include all the cache tags that are used in the page builder
+      tags: [
+        CACHE_TAGS.PageBuilder(),
+        CACHE_TAGS.ActionList(),
+        CACHE_TAGS.AppList(),
+        CACHE_TAGS.AtomList(),
+        CACHE_TAGS.AuthGuardList(),
+        CACHE_TAGS.ComponentsList(),
+        CACHE_TAGS.ElementList(),
+        CACHE_TAGS.FieldList(),
+        CACHE_TAGS.PageList(),
+        CACHE_TAGS.PropList(),
+        CACHE_TAGS.RedirectList(),
+        CACHE_TAGS.ResourceList(),
+        CACHE_TAGS.StoreList(),
+        CACHE_TAGS.TagList(),
+        CACHE_TAGS.TypeList(),
+      ],
     },
   )
 

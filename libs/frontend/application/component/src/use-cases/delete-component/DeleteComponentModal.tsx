@@ -2,7 +2,7 @@
 
 import type { IComponentModel } from '@codelab/frontend/abstract/domain'
 
-import { PageType } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
@@ -16,7 +16,7 @@ export const DeleteComponentModal = observer<{ component: IComponentModel }>(
   ({ component }) => {
     const router = useRouter()
     const componentService = useComponentService()
-    const closeModal = () => router.push(PageType.Components())
+    const closeModal = () => router.push(RoutePaths.Components())
 
     const onSubmit = async () => {
       await componentService.removeMany([component])

@@ -1,3 +1,5 @@
+'use client'
+
 import type { IFieldUpdateRouteContext } from '@codelab/frontend/abstract/application'
 
 import { FieldConnector } from '@codelab/frontend/infra/connector'

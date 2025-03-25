@@ -4,9 +4,9 @@ import type { IRef } from '@codelab/shared/abstract/core'
 import type {
   IActionCreateRouteContext,
   IActionUpdateRouteContext,
-} from '../action'
-import type { IFieldUpdateRouteContext } from '../field'
-import type { PageContextParams } from '../page'
+} from '../../action'
+import type { IFieldUpdateRouteContext } from '../../field'
+import type { PageContextParams } from '../../page'
 import type { ExtractRouteContextParams, IRouteType } from './route.interface'
 
 // playwright currently imports PageType in tests, and the "query-string"
@@ -14,19 +14,7 @@ import type { ExtractRouteContextParams, IRouteType } from './route.interface'
 // importing queryString here breaks all E2E tests. Commenting out until no solution.
 // import queryString from 'query-string'
 
-/**
- * The values are the path
- */
-export enum PrimarySidebar {
-  ComponentList = '/component',
-  /**
-   * This doesn't change the path
-   */
-  ElementTree = '',
-  PageList = '/page',
-}
-
-export const PageType = {
+export const RoutePaths = {
   Admin: () => '/admin',
   AdminExport: () => '/admin/export',
   AdminImport: () => '/admin/import',
@@ -37,14 +25,14 @@ export const PageType = {
   AppImport: () => '/apps/import',
   AppList: () => '/apps',
   AppUpdate: ({ id }: IRef) => `/apps/${id}/update`,
-  AtomCreate: () => `${PageType.Atoms()}/atom/create`,
-  AtomDelete: ({ id }: IRef) => `${PageType.Atoms()}/atom/${id}/delete`,
+  AtomCreate: () => `${RoutePaths.Atoms()}/atom/create`,
+  AtomDelete: ({ id }: IRef) => `${RoutePaths.Atoms()}/atom/${id}/delete`,
   AtomFieldCreate: ({ interfaceId }: { interfaceId: string }) =>
-    `${PageType.Atoms()}/field/create/${interfaceId}`,
+    `${RoutePaths.Atoms()}/field/create/${interfaceId}`,
   AtomFieldDelete: ({ id }: { id: string }) =>
-    `${PageType.Atoms()}/field/${id}/delete`,
+    `${RoutePaths.Atoms()}/field/${id}/delete`,
   AtomFieldUpdate: ({ id }: { id: string }) =>
-    `${PageType.Atoms()}/field/${id}/update`,
+    `${RoutePaths.Atoms()}/field/${id}/update`,
   Atoms: () => '/atoms' as const,
   AtomTable: ({
     filter,
@@ -58,15 +46,15 @@ export const PageType = {
     `/atoms/table?page=${page}&pageSize=${pageSize}&filter=${filter.join(',')}`,
   AtomTypeList: () => '/atom-types',
   AtomUpdate: ({ id }: IRef, queryParams?: Partial<SearchParamsContext>) => {
-    const url = `${PageType.Atoms()}/atom/${id}/update`
+    const url = `${RoutePaths.Atoms()}/atom/${id}/update`
     const params = new URLSearchParams(queryParams as URLSearchParams)
 
     return `${url}?${params}`
   },
   AuthGuards: () => '/auth-guards',
-  AuthGuardsCreate: () => `${PageType.AuthGuards()}/create`,
-  AuthGuardsDelete: ({ id }: IRef) => `${PageType.AuthGuards()}/${id}/delete`,
-  AuthGuardsUpdate: ({ id }: IRef) => `${PageType.AuthGuards()}/${id}/update`,
+  AuthGuardsCreate: () => `${RoutePaths.AuthGuards()}/create`,
+  AuthGuardsDelete: ({ id }: IRef) => `${RoutePaths.AuthGuards()}/${id}/delete`,
+  AuthGuardsUpdate: ({ id }: IRef) => `${RoutePaths.AuthGuards()}/${id}/update`,
   ComponentBuilder: ({ componentId }: { componentId: string }) =>
     `/components/${componentId}/builder`,
   ComponentBuilderActionCreate: ({
@@ -76,7 +64,7 @@ export const PageType = {
     IActionCreateRouteContext,
     IRouteType.Component
   >) =>
-    `${PageType.ComponentBuilder({ componentId })}/action/create/${storeId}`,
+    `${RoutePaths.ComponentBuilder({ componentId })}/action/create/${storeId}`,
   ComponentBuilderActionDelete: ({
     actionId,
     componentId,
@@ -84,7 +72,7 @@ export const PageType = {
     IActionUpdateRouteContext,
     IRouteType.Component
   >) =>
-    `${PageType.ComponentBuilder({ componentId })}/action/delete/${actionId}`,
+    `${RoutePaths.ComponentBuilder({ componentId })}/action/delete/${actionId}`,
   ComponentBuilderActionUpdate: ({
     actionId,
     componentId,
@@ -92,9 +80,9 @@ export const PageType = {
     IActionUpdateRouteContext,
     IRouteType.Component
   >) =>
-    `${PageType.ComponentBuilder({ componentId })}/action/update/${actionId}`,
+    `${RoutePaths.ComponentBuilder({ componentId })}/action/update/${actionId}`,
   ComponentBuilderElementCreate: ({ componentId }: { componentId: string }) =>
-    `${PageType.ComponentBuilder({ componentId })}/create-element`,
+    `${RoutePaths.ComponentBuilder({ componentId })}/create-element`,
   ComponentBuilderFieldCreate: ({
     componentId,
     interfaceId,
@@ -102,7 +90,7 @@ export const PageType = {
     componentId: string
     interfaceId: string
   }) =>
-    `${PageType.ComponentBuilder({
+    `${RoutePaths.ComponentBuilder({
       componentId,
     })}/interface/${interfaceId}/create-field`,
   ComponentBuilderFieldDelete: ({
@@ -112,7 +100,7 @@ export const PageType = {
     componentId: string
     fieldId: string
   }) =>
-    `${PageType.ComponentBuilder({
+    `${RoutePaths.ComponentBuilder({
       componentId,
     })}/field/${fieldId}/delete`,
   ComponentBuilderFieldUpdate: ({
@@ -122,13 +110,13 @@ export const PageType = {
     componentId: string
     fieldId: string
   }) =>
-    `${PageType.ComponentBuilder({
+    `${RoutePaths.ComponentBuilder({
       componentId,
     })}/field/${fieldId}/update`,
   ComponentCreate: () => {
-    return `${PageType.Components()}/create`
+    return `${RoutePaths.Components()}/create`
   },
-  ComponentDelete: ({ id }: IRef) => `${PageType.Components()}/delete/${id}`,
+  ComponentDelete: ({ id }: IRef) => `${RoutePaths.Components()}/delete/${id}`,
   ComponentExport: () => '/api/export/component',
   ComponentPreview: ({ componentId }: { componentId: string }) =>
     `/components/${componentId}`,
@@ -141,152 +129,109 @@ export const PageType = {
   DomainUpdate: ({ appId, domainId }: { appId: string; domainId: string }) =>
     `/apps/${appId}/domains/${domainId}/update`,
   FieldUpdate: () => {
-    return `${PageType.Atoms()}/update/field`
+    return `${RoutePaths.Atoms()}/update/field`
   },
   Home: () => '/',
   LambdaList: () => '/lambdas',
   Page404: ({ appId, pageId }: PageContextParams) =>
-    `/apps/${appId}/pages/${pageId}/404`,
+    `${RoutePaths.PageDetail_({ appId, pageId })}/404`,
   Page500: ({ appId, pageId }: PageContextParams) =>
-    `/apps/${appId}/pages/${pageId}/500`,
-  PageBuilder: (
-    { appId, pageId }: PageContextParams,
-    sidebar: PrimarySidebar,
-  ) => `/apps/${appId}/pages/${pageId}/builder${sidebar}`,
-  PageBuilderActionCreate: (
-    {
-      appId,
-      pageId,
-      storeId,
-    }: ExtractRouteContextParams<IActionCreateRouteContext, IRouteType.Page>,
-    sidebar: PrimarySidebar,
-  ) =>
-    `${PageType.PageBuilder(
-      { appId, pageId },
-      sidebar,
-    )}/action/create/${storeId}`,
-  PageBuilderActionDelete: (
-    {
-      actionId,
-      appId,
-      pageId,
-    }: ExtractRouteContextParams<IActionUpdateRouteContext, IRouteType.Page>,
-    sidebar: PrimarySidebar,
-  ) =>
-    `${PageType.PageBuilder(
-      { appId, pageId },
-      sidebar,
-    )}/action/delete/${actionId}`,
-  PageBuilderActionUpdate: (
-    {
-      actionId,
-      appId,
-      pageId,
-    }: ExtractRouteContextParams<IActionUpdateRouteContext, IRouteType.Page>,
-    sidebar: PrimarySidebar,
-  ) =>
-    `${PageType.PageBuilder(
-      { appId, pageId },
-      sidebar,
-    )}/action/update/${actionId}`,
-  PageBuilderElementCreate: (
-    { appId, pageId }: PageContextParams,
-    sidebar: PrimarySidebar,
-  ) => `/apps/${appId}/pages/${pageId}/builder${sidebar}/create-element`,
-  PageBuilderFieldCreate: (
-    { appId, interfaceId, pageId }: PageContextParams & { interfaceId: string },
-    sidebar: PrimarySidebar,
-  ) =>
-    `${PageType.PageBuilder(
-      { appId, pageId },
-      sidebar,
-    )}/field/create/${interfaceId}`,
+    `${RoutePaths.PageDetail_({ appId, pageId })}/500`,
+  PageBuilder: ({ appId, pageId }: PageContextParams) =>
+    `${RoutePaths.PageDetail_({ appId, pageId })}/builder`,
+  PageBuilderActionCreate: ({
+    appId,
+    pageId,
+    storeId,
+  }: ExtractRouteContextParams<IActionCreateRouteContext, IRouteType.Page>) =>
+    `${RoutePaths.PageBuilder({ appId, pageId })}/action/create/${storeId}`,
+  PageBuilderActionDelete: ({
+    actionId,
+    appId,
+    pageId,
+  }: ExtractRouteContextParams<IActionUpdateRouteContext, IRouteType.Page>) =>
+    `${RoutePaths.PageBuilder({ appId, pageId })}/action/delete/${actionId}`,
+  PageBuilderActionUpdate: ({
+    actionId,
+    appId,
+    pageId,
+  }: ExtractRouteContextParams<IActionUpdateRouteContext, IRouteType.Page>) =>
+    `${RoutePaths.PageBuilder({ appId, pageId })}/action/update/${actionId}`,
+  PageBuilderComponentList: ({ appId, pageId }: PageContextParams) =>
+    `${RoutePaths.PageBuilder({ appId, pageId })}/components`,
+  PageBuilderElementCreate: ({ appId, pageId }: PageContextParams) =>
+    `${RoutePaths.PageBuilder({ appId, pageId })}/create-element`,
+  PageBuilderFieldCreate: ({
+    appId,
+    interfaceId,
+    pageId,
+  }: PageContextParams & { interfaceId: string }) =>
+    `${RoutePaths.PageBuilder({ appId, pageId })}/field/create/${interfaceId}`,
   PageBuilderFieldDelete: ({
     appId,
     fieldId,
     pageId,
   }: ExtractRouteContextParams<IFieldUpdateRouteContext, IRouteType.Page>) =>
-    `${PageType.PageBuilder(
-      { appId, pageId },
-      PrimarySidebar.PageList,
-    )}/field/${fieldId}/delete`,
+    `${RoutePaths.PageBuilder({ appId, pageId })}/field/${fieldId}/delete`,
   PageBuilderFieldUpdate: ({
     appId,
     fieldId,
     pageId,
   }: ExtractRouteContextParams<IFieldUpdateRouteContext, IRouteType.Page>) =>
-    `${PageType.PageBuilder(
-      { appId, pageId },
-      PrimarySidebar.PageList,
-    )}/field/update/${fieldId}`,
+    `${RoutePaths.PageBuilder({ appId, pageId })}/field/update/${fieldId}`,
   PageCreate: ({ appId, pageId }: PageContextParams) => {
-    const pageBuilder = PageType.PageBuilder(
-      { appId, pageId },
-      PrimarySidebar.ElementTree,
-    )
+    const pageBuilder = RoutePaths.PageBuilder({ appId, pageId })
 
     return `${pageBuilder}/page/create`
   },
   PageDelete: ({ appId, pageId }: PageContextParams) => {
-    const pageBuilder = PageType.PageBuilder(
-      { appId, pageId },
-      PrimarySidebar.ElementTree,
-    )
+    const pageBuilder = RoutePaths.PageBuilder({ appId, pageId })
 
     return `${pageBuilder}/delete/page`
   },
-  PageDetail: ({ appId, pageId }: PageContextParams) =>
+  PageDetail_: ({ appId, pageId }: PageContextParams) =>
     `/apps/${appId}/pages/${pageId}`,
   PageList: ({ appId, pageId }: PageContextParams) =>
-    `/apps/${appId}/pages/${pageId}/builder/page`,
+    `${RoutePaths.PageDetail_({ appId, pageId })}/builder/page`,
   PageRedirectCreate: ({ appId, pageId }: PageContextParams) => {
-    const pageBuilder = PageType.PageBuilder(
-      { appId, pageId },
-      PrimarySidebar.ElementTree,
-    )
+    const pageBuilder = RoutePaths.PageBuilder({ appId, pageId })
 
-    return `${pageBuilder}/page/create-redirect`
+    return `${pageBuilder}/redirect/create`
   },
   PageRedirectUpdate: ({
     appId,
     pageId,
     redirectId,
   }: PageContextParams & { redirectId: string }) => {
-    const pageBuilder = PageType.PageBuilder(
-      { appId, pageId },
-      PrimarySidebar.ElementTree,
-    )
+    const pageBuilder = RoutePaths.PageBuilder({ appId, pageId })
 
-    return `${pageBuilder}/page/update-redirect/${redirectId}`
+    return `${pageBuilder}/redirect/update/${redirectId}`
   },
   PageUpdate: ({ appId, pageId }: PageContextParams) => {
-    const pageBuilder = PageType.PageBuilder(
-      { appId, pageId },
-      PrimarySidebar.ElementTree,
-    )
+    const pageBuilder = RoutePaths.PageBuilder({ appId, pageId })
 
     return `${pageBuilder}/page/update`
   },
   PropsInterface: ({ appId }: { appId: string }) => `/apps/${appId}/props`,
   Resources: () => '/resources',
-  ResourcesCreate: () => `${PageType.Resources()}/create`,
-  ResourcesDelete: (id: string) => `${PageType.Resources()}/${id}/delete`,
-  ResourcesUpdate: (id: string) => `${PageType.Resources()}/${id}/update`,
+  ResourcesCreate: () => `${RoutePaths.Resources()}/create`,
+  ResourcesDelete: (id: string) => `${RoutePaths.Resources()}/${id}/delete`,
+  ResourcesUpdate: (id: string) => `${RoutePaths.Resources()}/${id}/update`,
   Storybook: () => '/storybook',
   Tags: () => '/tags' as const,
   TagsCreate: () => '/tags/create' as const,
   TagsDelete: (ids: Array<string>) => {
-    return `${PageType.Tags()}/${ids.join(',')}/delete`
+    return `${RoutePaths.Tags()}/${ids.join(',')}/delete`
   },
   TagsUpdate: ({ id }: IRef) => `/tags/${id}/update` as const,
   Type: () => '/types' as const,
-  TypeCreate: () => `${PageType.Type()}/type/create`,
-  TypeDelete: ({ id }: IRef) => `${PageType.Type()}/type/${id}/delete`,
+  TypeCreate: () => `${RoutePaths.Type()}/type/create`,
+  TypeDelete: ({ id }: IRef) => `${RoutePaths.Type()}/type/${id}/delete`,
   TypeFieldCreate: (typeId: string) =>
-    `${PageType.Type()}/field/${typeId}/create/field`,
+    `${RoutePaths.Type()}/field/${typeId}/create/field`,
   TypeFieldDelete: ({ fieldId }: { fieldId: string }) =>
-    `${PageType.Type()}/field/${fieldId}/delete`,
+    `${RoutePaths.Type()}/field/${fieldId}/delete`,
   TypeFieldUpdate: ({ fieldId }: { fieldId: string }) =>
-    `${PageType.Type()}/field/${fieldId}/update`,
-  TypeUpdate: ({ id }: IRef) => `${PageType.Type()}/type/${id}/update`,
+    `${RoutePaths.Type()}/field/${fieldId}/update`,
+  TypeUpdate: ({ id }: IRef) => `${RoutePaths.Type()}/type/${id}/update`,
 }

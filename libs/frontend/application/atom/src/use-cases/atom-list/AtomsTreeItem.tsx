@@ -7,7 +7,7 @@ import type { SyntheticEvent } from 'react'
 
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { PageType } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiTreeItem,
@@ -31,12 +31,12 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
   const onEdit = () => {
     if (isAtom) {
       router.push(
-        PageType.AtomUpdate(node, {
+        RoutePaths.AtomUpdate(node, {
           node: node.id,
         }),
       )
     } else {
-      router.push(PageType.AtomFieldUpdate(node))
+      router.push(RoutePaths.AtomFieldUpdate(node))
     }
   }
 
@@ -47,7 +47,7 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
     if (isAtom) {
       goToDeleteAtomPage(node, router)
     } else {
-      router.push(PageType.AtomFieldDelete(node))
+      router.push(RoutePaths.AtomFieldDelete(node))
     }
   }
 
@@ -55,7 +55,7 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
     // Prevent triggering `onEdit`
     event.stopPropagation()
 
-    router.push(PageType.AtomFieldCreate({ interfaceId: node.api.id }))
+    router.push(RoutePaths.AtomFieldCreate({ interfaceId: node.api.id }))
   }
 
   const toolbarItems: Array<ToolbarItem> = [

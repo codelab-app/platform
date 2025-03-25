@@ -1,3 +1,5 @@
+'use client'
+
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
 
 import { AppConnector } from '@codelab/frontend/infra/connector'

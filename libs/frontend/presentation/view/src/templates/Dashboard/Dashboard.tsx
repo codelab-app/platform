@@ -1,5 +1,8 @@
 'use client'
 
+import type { UrlParams } from '@codelab/frontend/abstract/types'
+import type { ReactNode } from 'react'
+
 import {
   configPaneBreakpoints,
   CuiNavigationBar,
@@ -14,28 +17,34 @@ import Layout from 'antd/es/layout'
 import Sider from 'antd/es/layout/Sider'
 import { useMemo } from 'react'
 
-import type { DashboardProps } from './dashboard.types'
+import type { DashboardLayoutProps, DashboardSections } from './DashboardLayout'
 
 import { ProgressBar } from '../../components/progressBar/ProgressBar'
 import { sidebarWidth } from './constants'
 import { defaultNavigationBarItems } from './NavigationBar'
 
 /**
+ * Coped from `DashboardLayoutProps`
+ */
+export type DashboardProps = Partial<DashboardSections> & {
+  params?: Partial<UrlParams>
+  children: ReactNode
+}
+
+/**
  * When passing ReactNode as props, React treats it as a new prop on every render of the parent component, even if the content hasn't changed.
  */
 export const Dashboard = ({
-  appId,
   children,
-  componentId,
   configPane,
-  contentStyles,
   header,
   modal,
-  pageId,
+  params = {},
   primarySidebar,
-  primarySidebarKey,
   secondaryPopover,
-}: React.PropsWithChildren<DashboardProps>) => {
+}: DashboardProps) => {
+  const { appId, componentId, pageId } = params
+
   const navigationBarItems = useMemo(
     () =>
       defaultNavigationBarItems({
@@ -68,7 +77,7 @@ export const Dashboard = ({
           />
         </Sider>
 
-        <Layout style={contentStyles}>
+        <Layout style={{ paddingTop: '0rem' }}>
           <CuiPanelGroup direction="horizontal">
             {primarySidebar && (
               <CuiResizablePanel

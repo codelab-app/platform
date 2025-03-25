@@ -1,33 +1,27 @@
 import type { Option, Where } from './cache-options'
 
-// Base cache tag constants
-import { createCacheTag } from './utils'
-
-const BASE_TAGS = {
-  APP_LIST: 'APP_LIST_CACHE_TAG',
-  ATOM_LIST: 'ATOM_LIST_CACHE_TAG',
-  AUTH_GUARD_LIST: 'AUTH_GUARD_LIST_CACHE_TAG',
-  COMPONENTS_LIST: 'COMPONENTS_LIST_CACHE_TAG',
-  DOMAIN_LIST: 'DOMAIN_LIST_CACHE_TAG',
-  ELEMENT_LIST: 'ELEMENT_LIST_CACHE_TAG',
-  PAGE_LIST: 'PAGE_LIST_CACHE_TAG',
-  PREFERENCE: 'PREFERENCE_CACHE_TAG',
-  RESOURCE_LIST: 'RESOURCE_LIST_CACHE_TAG',
-  STORE_LIST: 'STORE_LIST_CACHE_TAG',
-}
+// Cache tag constants
+import { createPaginatedCacheTag } from './utils'
 
 // Cache tags as functions similar to PageType
 export const CACHE_TAGS = {
-  AppList: () => BASE_TAGS.APP_LIST,
+  ActionList: () => 'ACTION_LIST_CACHE_TAG',
+  AppList: () => 'APP_LIST_CACHE_TAG',
   AtomList: ({ options, where }: { options?: Option; where?: Where } = {}) => {
-    return createCacheTag(BASE_TAGS.ATOM_LIST, options, where)
+    return createPaginatedCacheTag('ATOM_LIST_CACHE_TAG', options, where)
   },
-  AuthGuardList: () => BASE_TAGS.AUTH_GUARD_LIST,
-  ComponentsList: () => BASE_TAGS.COMPONENTS_LIST,
-  DomainList: () => BASE_TAGS.DOMAIN_LIST,
-  ElementList: () => BASE_TAGS.ELEMENT_LIST,
-  PageList: () => BASE_TAGS.PAGE_LIST,
-  Preference: () => BASE_TAGS.PREFERENCE,
-  ResourceList: () => BASE_TAGS.RESOURCE_LIST,
-  StoreList: () => BASE_TAGS.STORE_LIST,
+  AuthGuardList: () => 'AUTH_GUARD_LIST_CACHE_TAG',
+  ComponentsList: () => 'COMPONENTS_LIST_CACHE_TAG',
+  DomainList: () => 'DOMAIN_LIST_CACHE_TAG',
+  ElementList: () => 'ELEMENT_LIST_CACHE_TAG',
+  FieldList: () => 'FIELD_LIST_CACHE_TAG',
+  PageBuilder: () => 'PAGE_BUILDER_CACHE_TAG',
+  PageList: () => 'PAGE_LIST_CACHE_TAG',
+  Preference: () => 'PREFERENCE_CACHE_TAG',
+  PropList: () => 'PROP_LIST_CACHE_TAG',
+  RedirectList: () => 'REDIRECT_LIST_CACHE_TAG',
+  ResourceList: () => 'RESOURCE_LIST_CACHE_TAG',
+  StoreList: () => 'STORE_LIST_CACHE_TAG',
+  TagList: () => 'TAG_LIST_CACHE_TAG',
+  TypeList: () => 'TYPE_LIST_CACHE_TAG',
 }

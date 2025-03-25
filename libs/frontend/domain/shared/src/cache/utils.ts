@@ -56,7 +56,7 @@ export const createDeterministicTagParams = (obj?: TagParam): string => {
 /**
  * Creates a unique cache tag from query parameters
  */
-export const createCacheTag = (
+export const createPaginatedCacheTag = (
   baseTag: string,
   options?: Option,
   where?: Where,

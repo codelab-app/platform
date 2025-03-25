@@ -1,6 +1,6 @@
 import type { IPageCreateFormData } from '@codelab/shared/abstract/core'
 
-import { PageType } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { expect } from '@playwright/test'
@@ -106,13 +106,13 @@ export class AuthGuardPage extends BasePage {
 
   async goToAppPageList(appId: string, pageId: string) {
     return test.step('goToAppPageList', async () => {
-      await this.page.goto(PageType.PageList({ appId, pageId }))
+      await this.page.goto(RoutePaths.PageList({ appId, pageId }))
     })
   }
 
   async goto() {
     return test.step('goto', async () => {
-      await this.page.goto(PageType.AuthGuards())
+      await this.page.goto(RoutePaths.AuthGuards())
     })
   }
 
