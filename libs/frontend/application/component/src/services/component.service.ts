@@ -22,6 +22,7 @@ import {
   componentWithoutRootFactory,
 } from '@codelab/frontend-domain-component/services'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
+import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { storeRepository } from '@codelab/frontend-domain-store/repositories'
 import { typeRepository } from '@codelab/frontend-domain-type/repositories'
 import {
@@ -66,7 +67,9 @@ export const useComponentService = (): IComponentService => {
     await typeRepository.add(storeApi)
     await storeRepository.add(component.store)
     await elementRepository.add(component.rootElement)
-    await componentRepository.add(component.component)
+    await componentRepository.add(component.component, {
+      revalidateTag: CACHE_TAGS.ComponentsList(),
+    })
 
     return componentDomainService.component(data.id)
   }

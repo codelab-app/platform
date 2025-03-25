@@ -10,9 +10,14 @@ const { ComponentList } = componentServerActions
 export const componentListQuery = async () => {
   const { id } = await getServerUser()
 
-  return await ComponentList({
-    where: { owner: { id } },
-  })
+  return await ComponentList(
+    {
+      where: { owner: { id } },
+    },
+    {
+      tags: [CACHE_TAGS.ComponentsList()],
+    },
+  )
 }
 
 export const revalidateComponentListOperation = async () =>

@@ -1,4 +1,7 @@
-import type { LayoutProps } from '@codelab/frontend-presentation-view/templates'
+import type {
+  LayoutProps,
+  PageProps,
+} from '@codelab/frontend-presentation-view/templates'
 import type { Metadata } from 'next'
 
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
@@ -9,7 +12,7 @@ export const metadata: Metadata = {
   title: 'Delete Atom | Codelab',
 }
 
-const Page = async ({ params }: LayoutProps<'atomId'>) => {
+const Page = async ({ params }: PageProps<'atomId'>) => {
   const { atomId } = await params
   const atomDto = await atomRepository.findOne({ id: atomId })
 

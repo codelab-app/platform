@@ -1,5 +1,4 @@
-import type { IAppDto } from '@codelab/shared/abstract/core'
-
+import { type IAppDto, IAtomType } from '@codelab/shared/abstract/core'
 import { providerPageId } from '@codelab/shared/data/test'
 import { expect } from '@playwright/test'
 
@@ -20,7 +19,10 @@ test.describe.configure({ mode: 'serial' })
 globalBeforeAll()
 
 test.beforeAll(async ({ request }) => {
-  app = await seedAppData(request, { atomTypes: [], componentTypes: [] })
+  app = await seedAppData(request, {
+    atomTypes: [IAtomType.AntDesignTypographyText],
+    componentTypes: [],
+  })
 })
 
 test.beforeEach(async ({ componentListPage: page }) => {

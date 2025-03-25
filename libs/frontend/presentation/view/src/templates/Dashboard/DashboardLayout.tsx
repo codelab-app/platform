@@ -17,9 +17,9 @@ export interface DashboardSlots {
 }
 
 export type DashboardLayoutProps<
-  Slots extends keyof DashboardSlots = never,
-  Params extends keyof UrlParams = never,
-> = PropsWithChildren<ParamProps<Params> & SlotProps<Slots>>
+  SlotKey extends keyof DashboardSlots = never,
+  ParamKey extends keyof UrlParams = never,
+> = ParamProps<ParamKey> & SlotProps<SlotKey> & { children: ReactNode }
 
 /**
  * @deprecated Example only */

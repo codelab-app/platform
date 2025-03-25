@@ -4,13 +4,19 @@ import type {
   IComponentModel,
 } from '@codelab/frontend/abstract/domain'
 
+import { componentApi } from '@codelab/shared-domain-module/component'
+
 import { componentRepository } from './component.repository'
 
+/**
+ * Moved here instead of `componentService` to avoid circular dependency. `RenderTypeField` in `element` requires this
+ */
 export const getSelectComponentOptions = async (
   componentDomainService: IComponentDomainService,
   component?: Pick<IComponentModel, 'id' | 'name'>,
 ) => {
-  const components = await componentRepository.find()
+  // Use non-server fetch to avoid re-render
+  const components = await componentApi().ComponentList({})
 
   const hydratedComponents = components.items.map((dto) =>
     componentDomainService.hydrate(dto),

@@ -20,7 +20,7 @@ export interface IComponentBuilderArgs {
 export interface IComponentBuilderDto {
   actions: StoreFragment['actions']
   atoms: Array<AtomBuilderFragment>
-  // component: IRef
+  component: IRef
   components: Array<ComponentBuilderFragment>
   elements: Array<ElementFragment & { closestContainerNode: { id: string } }>
   fields: Array<FieldFragment>
