@@ -20,7 +20,7 @@ import {
 } from '@codelab/frontend-infra-mobx/context'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/typebox'
-import { pageServerActions } from '@codelab/shared-domain-module/page'
+import { pageApi, pageServerActions } from '@codelab/shared-domain-module/page'
 
 import { createPageAction } from '../use-cases/create-page'
 import { createPageFactory } from '../use-cases/create-page/create-page.factory'
@@ -56,7 +56,9 @@ export const usePageService = (): IPageService => {
   }
 
   const getSelectPageOptions = async (appId?: string) => {
-    const pages = await getAll({ appConnection: { node: { id: appId } } })
+    const { items: pages } = await pageApi().PageList({
+      where: appId ? { appConnection: { node: { id: appId } } } : {},
+    })
 
     return pages.map((page) => ({
       label: page.name,

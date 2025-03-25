@@ -89,7 +89,7 @@ export const componentBuilderQuery: IComponentBuilderQuery = async ({
   return {
     actions,
     atoms,
-    component: currentComponent,
+    // component: currentComponent,
     components,
     elements,
     fields,

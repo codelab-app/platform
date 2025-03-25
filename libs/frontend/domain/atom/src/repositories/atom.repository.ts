@@ -8,7 +8,7 @@ import { Validator } from '@codelab/shared/infra/typebox'
 import {
   atomMapper,
   atomServerActions,
-} from '@codelab/shared-domain-module-atom'
+} from '@codelab/shared-domain-module/atom'
 import { withTracingMethods } from '@codelab/shared-infra-sentry'
 import { prop, sortBy } from 'remeda'
 

@@ -952,10 +952,10 @@
         "libs/frontend/test/application/src/index.ts"
       ],
       "@codelab/frontend/test/data": ["libs/frontend/test/data/src/index.ts"],
-      "@codelab/shared-domain-module-app": [
+      "@codelab/shared-domain-module/app": [
         "libs/shared/domain/module/app/src/index.ts"
       ],
-      "@codelab/shared-domain-module-atom": [
+      "@codelab/shared-domain-module/atom": [
         "libs/shared/domain/module/atom/src/index.ts"
       ],
       "@codelab/shared-domain-module/action": [

@@ -8,6 +8,7 @@ import type {
 import { type IAuthGuardRepository } from '@codelab/frontend/abstract/domain'
 import { Validator } from '@codelab/shared/infra/typebox'
 import {
+  authGuardApi,
   authGuardMapper,
   authGuardServerActions,
 } from '@codelab/shared-domain-module/auth-guard'
@@ -59,7 +60,7 @@ export const authGuardRepository: IAuthGuardRepository = {
   },
 
   selectOptions: async (next?: NextFetchOptions) => {
-    const { items: authGuards } = await authGuardRepository.find({}, {}, next)
+    const { items: authGuards } = await authGuardApi().GetAuthGuards({})
 
     return authGuards.map((authGuard) => ({
       label: authGuard.name,

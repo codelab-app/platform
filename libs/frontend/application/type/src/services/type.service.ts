@@ -21,6 +21,7 @@ import {
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { TypeKind } from '@codelab/shared/infra/gqlgen'
 import { Validator } from '@codelab/shared/infra/typebox'
+import { findTypeApi } from '@codelab/shared-domain-module/type'
 import { prop, sortBy } from 'remeda'
 
 export const useTypeService = (): ITypeService => {
@@ -113,9 +114,9 @@ export const useTypeService = (): ITypeService => {
   }
 
   const getSelectOptions = async () => {
-    const { items } = await typeRepository.findBaseTypes()
+    const { iBaseTypes } = await findTypeApi().GetBaseTypes({})
 
-    return sortBy(items, prop('name'))
+    return sortBy(iBaseTypes, prop('name'))
   }
 
   const update = async (data: ITypeUpdateDto) => {

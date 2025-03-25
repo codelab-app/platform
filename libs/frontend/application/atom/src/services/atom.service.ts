@@ -25,6 +25,7 @@ import {
 } from '@codelab/frontend-infra-mobx/context'
 import { type IRef, ITypeKind } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/typebox'
+import { atomApi } from '@codelab/shared-domain-module/atom'
 import queryString from 'query-string'
 import { isEmpty } from 'remeda'
 import { v4 } from 'uuid'
@@ -108,7 +109,7 @@ export const useAtomService = (): IAtomService => {
   }
 
   const getSelectAtomOptions = async (parent?: IAtomModel) => {
-    const atoms = await atomRepository.getSelectAtomOptions()
+    const { atoms } = await atomApi().GetSelectAtomOptions({})
     const atomOptions = parent ? filterAtoms(atoms, parent) : atoms
 
     return atomOptions.map(mapEntitySelectOptions)

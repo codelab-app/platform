@@ -1,27 +1,27 @@
-import type { IAppBuilderQuery } from '@codelab/frontend/abstract/domain'
+import type { IPageBuilderQuery } from '@codelab/frontend/abstract/domain'
 import type { AtomBuilderFragment } from '@codelab/shared/infra/gqlgen'
 
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { uniqueBy } from 'remeda'
 
-import { GetAppBuilder } from './app-builder.api.graphql.web.gen'
+import { GetPageBuilder } from './page-builder.api.graphql.web.gen'
 
-export const APP_BUILDER_TAG = 'app-builder'
+export const PAGE_BUILDER_TAG = 'page-builder'
 
-export const appBuilderQuery: IAppBuilderQuery = async ({
+export const pageBuilderQuery: IPageBuilderQuery = async ({
   appId,
   pageIds,
 }: {
   appId: string
   pageIds?: Array<string>
 }) => {
-  const data = await GetAppBuilder(
+  const data = await GetPageBuilder(
     {
       appId,
       pageIds,
     },
     {
-      tags: [APP_BUILDER_TAG],
+      tags: [PAGE_BUILDER_TAG],
     },
   )
 

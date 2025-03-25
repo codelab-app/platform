@@ -18,6 +18,7 @@ import {
   useUndoManager,
 } from '@codelab/frontend-infra-mobx/context'
 import { Validator } from '@codelab/shared/infra/typebox'
+import { appApi } from '@codelab/shared-domain-module/app'
 import { withAsyncSpanFunc } from '@codelab/shared-infra-sentry'
 
 import { createAppAction } from '../use-cases/create-app'
@@ -115,9 +116,9 @@ export const useAppService = (): IAppService => {
   }
 
   const getSelectAppOptions = async () => {
-    await getAll({})
+    const { items: apps } = await appApi().AppList({})
 
-    return appDomainService.appsList.map((app) => ({
+    return apps.map((app) => ({
       label: app.name,
       value: app.id,
     }))

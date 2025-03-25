@@ -1,4 +1,4 @@
-query GetAppBuilder($appId: ID!, $pageIds: [ID!]) {
+query GetPageBuilder($appId: ID!, $pageIds: [ID!]) {
   actionTypes {
     ...ActionType
   }

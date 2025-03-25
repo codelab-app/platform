@@ -2,10 +2,10 @@ import type { PageContextParams } from '@codelab/frontend/abstract/application'
 import type { ReactNode } from 'react'
 
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
-import { appBuilderQuery } from '@codelab/frontend-application-app/use-cases/app-builder'
+import { pageBuilderQuery } from '@codelab/frontend-application-builder/use-cases/page-builder'
 
 /**
- * The `appBuilderQuery` is shared between `preview` and `builder`, so can be cached in layout.
+ * The `pageBuilderQuery` is shared between `preview` and `builder`, so can be cached in layout.
  *
  * Hydration is done in `LayoutClient`
  */
@@ -18,10 +18,28 @@ const Layout = async ({
 }) => {
   const params = await paramsPromise
   const { appId, pageId } = params
-  const dto = await appBuilderQuery({ appId, pageIds: [pageId] })
+  const dto = await pageBuilderQuery({ appId, pageIds: [pageId] })
 
-  // eslint-disable-next-line react/jsx-props-no-spreading
-  return <DomainStoreHydrator {...dto}>{children}</DomainStoreHydrator>
+  return (
+    <DomainStoreHydrator
+      actionsDto={dto.actions}
+      appsDto={[dto.app]}
+      atomsDto={dto.atoms}
+      authGuardsDto={dto.authGuards}
+      componentsDto={dto.components}
+      elementsDto={dto.elements}
+      fieldsDto={dto.fields}
+      pagesDto={dto.pages}
+      propsDto={dto.props}
+      redirectsDto={dto.redirects}
+      resourcesDto={dto.resources}
+      storesDto={dto.stores}
+      tagsDto={dto.tags}
+      typesDto={dto.types}
+    >
+      {children}
+    </DomainStoreHydrator>
+  )
 }
 
 export default Layout

@@ -19,8 +19,24 @@ const Layout = async ({
   const { componentId } = await params
   const dto = await componentBuilderQuery({ componentId })
 
-  // eslint-disable-next-line react/jsx-props-no-spreading
-  return <DomainStoreHydrator {...dto}>{children}</DomainStoreHydrator>
+  return (
+    <DomainStoreHydrator
+      actionsDto={dto.actions}
+      atomsDto={dto.atoms}
+      authGuardsDto={dto.authGuards}
+      componentsDto={dto.components}
+      elementsDto={dto.elements}
+      fieldsDto={dto.fields}
+      propsDto={dto.props}
+      redirectsDto={dto.redirects}
+      resourcesDto={dto.resources}
+      storesDto={dto.stores}
+      tagsDto={dto.tags}
+      typesDto={dto.types}
+    >
+      {children}
+    </DomainStoreHydrator>
+  )
 }
 
 export default Layout

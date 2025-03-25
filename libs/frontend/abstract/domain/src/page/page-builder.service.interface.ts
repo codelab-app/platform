@@ -15,7 +15,7 @@ import type {
   TypeFragment,
 } from '@codelab/shared/infra/gqlgen'
 
-export interface IAppBuilderDto {
+export interface IPageBuilderDto {
   actions: StoreFragment['actions']
   app: AppBuilderFragment
   atoms: Array<AtomBuilderFragment>
@@ -32,7 +32,7 @@ export interface IAppBuilderDto {
   types: Array<TypeFragment>
 }
 
-export type IAppBuilderQuery = (data: {
+export type IPageBuilderQuery = (data: {
   appId: string
   pageIds?: Array<string>
-}) => Promise<IAppBuilderDto>
+}) => Promise<IPageBuilderDto>

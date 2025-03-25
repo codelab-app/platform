@@ -3,7 +3,7 @@ import type { IAppDto, INodeType } from '@codelab/shared/abstract/core'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import { AppFragment, AppOptions, AppWhere } from '@codelab/shared/infra/gqlgen'
-import { appApi, appMapper } from '@codelab/shared-domain-module-app'
+import { appApi, appMapper } from '@codelab/shared-domain-module/app'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
@@ -24,7 +24,7 @@ export class AppRepository extends AbstractRepository<
   protected async _addMany(apps: Array<IAppDto>) {
     const {
       createApps: { apps: createdApps },
-    } = await appApi.CreateApps({
+    } = await appApi().CreateApps({
       input: apps.map((app) => appMapper.toCreateInput(app)),
     })
 
@@ -38,7 +38,7 @@ export class AppRepository extends AbstractRepository<
     where?: AppWhere
     options?: AppOptions
   }) {
-    const { items } = await appApi.AppList({
+    const { items } = await appApi().AppList({
       options,
       where,
     })
@@ -49,7 +49,7 @@ export class AppRepository extends AbstractRepository<
   protected async _update(app: IAppDto, where: AppWhere) {
     const {
       updateApps: { apps },
-    } = await appApi.UpdateApps({
+    } = await appApi().UpdateApps({
       update: appMapper.toUpdateInput(app),
       where,
     })

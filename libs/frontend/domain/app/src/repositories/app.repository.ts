@@ -4,7 +4,7 @@ import type { AppOptions, AppWhere } from '@codelab/shared/infra/gqlgen'
 
 import { type IAppRepository } from '@codelab/frontend/abstract/domain'
 import { Validator } from '@codelab/shared/infra/typebox'
-import { appMapper, appServerActions } from '@codelab/shared-domain-module-app'
+import { appMapper, appServerActions } from '@codelab/shared-domain-module/app'
 import { withTracingMethods } from '@codelab/shared-infra-sentry'
 
 const { AppList, AppListPreview, CreateApps, DeleteApps, UpdateApps } =
