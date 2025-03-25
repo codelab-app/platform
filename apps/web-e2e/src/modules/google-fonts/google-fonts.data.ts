@@ -42,7 +42,7 @@ export const seedTestData = async (request: APIRequestContext) => {
 
   const page = app.pages![0]!
 
-  await requestOrThrow(request, `/api/v1/element/${page.id}/create-elements`, {
+  await requestOrThrow(request, `element/${page.id}/create-elements`, {
     data: [{ ...typographyElement, parentElement: page.rootElement }],
     timeout: REQUEST_TIMEOUT,
   })

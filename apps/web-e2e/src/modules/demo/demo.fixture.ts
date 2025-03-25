@@ -5,7 +5,7 @@ import { REQUEST_TIMEOUT } from '../../setup/config'
 import { baseTest } from '../../setup/fixtures/base.fixture'
 
 export const demoRequest = async (request: APIRequestContext) => {
-  await jobOutputRequest(request, '/api/v1/demo/demo-background', {
+  await jobOutputRequest(request, 'demo/demo-background', {
     headers: {
       Connection: 'keep-alive',
       'Content-Type': 'application/json',

@@ -16,7 +16,6 @@ export class TagListPage extends BasePage {
       .getToolbarItem(UiKey.TagToolbarItemCreate)
       .click()
 
-    await this.page.waitForURL('/tags/create*')
     await this.fillAndSubmitTagForm(name, 'Create', {
       form: UiKey.TagFormCreate,
       popover: UiKey.TagPopoverCreate,
@@ -31,8 +30,6 @@ export class TagListPage extends BasePage {
       .getTreeItemByPrimaryTitle(tagName)
       .getToolbarItem(UiKey.TagToolbarItemDelete)
       .click()
-
-    await this.page.waitForURL('/tags/delete/**')
 
     const modal = await this.getModal(UiKey.TagModalDelete)
 
@@ -73,7 +70,6 @@ export class TagListPage extends BasePage {
 
   async updateTag(oldName: string, newName: string) {
     await this.getTreeTagItem(oldName).click()
-    await this.page.waitForURL('/tags/update/**')
     await this.fillAndSubmitTagForm(newName, 'Update', {
       form: UiKey.TagFormUpdate,
       popover: UiKey.TagPopoverUpdate,

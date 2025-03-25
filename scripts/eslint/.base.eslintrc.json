@@ -8,7 +8,7 @@
           2,
           {
             "name": "useSearchParams",
-            "message": "use `useSearchParamsPageProps` instead"
+            "message": "use `useSearchParamsProps()` instead"
           }
         ],
         // We use `canonical/sort-keys` instead

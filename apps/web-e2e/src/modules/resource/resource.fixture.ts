@@ -17,8 +17,6 @@ export class ResourcePage extends BasePage {
       .locator?.getByLabel(UiKey.ResourceToolbarItemCreate)
       .click()
 
-    await this.page.waitForURL('/resources/create*')
-
     const form = this.getForm(UiKey.ResourceFormCreate)
 
     await form.fillInputText({ label: 'Name' }, this.resourceName)
@@ -37,8 +35,6 @@ export class ResourcePage extends BasePage {
       .getToolbarItem(UiKey.ResourceToolbarItemDelete)
       .click()
 
-    await this.page.waitForURL('/resources/delete/**')
-
     const modal = await this.getModal(UiKey.ResourceModalDelete)
 
     await modal.getButton({ label: 'Confirmation Button' }).click()
@@ -51,7 +47,6 @@ export class ResourcePage extends BasePage {
 
   async updateResource() {
     await this.getByExactText(this.resourceName).click()
-    await this.page.waitForURL('/resources/update/*')
 
     const form = this.getForm(UiKey.ResourceFormUpdate)
 

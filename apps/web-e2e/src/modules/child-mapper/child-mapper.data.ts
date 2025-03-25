@@ -88,7 +88,7 @@ export const seedTestData = async (request: APIRequestContext) => {
     throw new Error('Missing page')
   }
 
-  const ownerResponse = await request.get('/api/v1/user/me', {
+  const ownerResponse = await request.get('user/me', {
     timeout: REQUEST_TIMEOUT,
   })
 
@@ -96,7 +96,7 @@ export const seedTestData = async (request: APIRequestContext) => {
 
   await requestOrThrow(
     request,
-    `/api/v1/element/${page.rootElement.id}/create-elements`,
+    `element/${page.rootElement.id}/create-elements`,
     {
       data: providerPageElements(page),
       timeout: REQUEST_TIMEOUT,
@@ -105,7 +105,7 @@ export const seedTestData = async (request: APIRequestContext) => {
 
   const componentResponse = await requestOrThrow<IComponentDto>(
     request,
-    '/api/v1/component/create-component',
+    'component/create-component',
     {
       data: childMapperComponent(owner),
       timeout: REQUEST_TIMEOUT,
@@ -119,7 +119,7 @@ export const seedTestData = async (request: APIRequestContext) => {
 
   await requestOrThrow(
     request,
-    `/api/v1/element/${component.rootElement.id}/create-elements`,
+    `element/${component.rootElement.id}/create-elements`,
     {
       data: [
         {

@@ -21,7 +21,7 @@ export const requestOrThrow = async <T = void>(
 ): Promise<T> => {
   console.log(`[${getTimestamp()}] Requesting ${url}`)
 
-  const response = await request.post(url, options)
+  const response = await request.post(`/api/v1/${url}`, options)
 
   if (!response.ok()) {
     const text = await response.text()

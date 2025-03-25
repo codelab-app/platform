@@ -31,7 +31,9 @@ export const useRedirectService = (): IRedirectService => {
       redirectDomainService.redirects.delete(redirect.id),
     )
 
-    return await redirectRepository.delete(redirectsModel)
+    return await redirectRepository.delete(redirectsModel, {
+      revalidateTag: CACHE_TAGS.RedirectList(),
+    })
   }
 
   const getAll = async (where: RedirectWhere) => {
@@ -53,7 +55,9 @@ export const useRedirectService = (): IRedirectService => {
 
     // redirect.writeCache(redirectDto)
 
-    return await redirectRepository.update({ id: data.id }, data)
+    return await redirectRepository.update({ id: data.id }, data, {
+      revalidateTag: CACHE_TAGS.RedirectList(),
+    })
   }
 
   const createPopover = {

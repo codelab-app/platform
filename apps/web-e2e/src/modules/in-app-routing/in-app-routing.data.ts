@@ -110,55 +110,39 @@ export const seedTestData = async (request: APIRequestContext) => {
 
   await requestOrThrow(
     request,
-    `/api/v1/element/${page.rootElement.id}/create-elements`,
+    `element/${page.rootElement.id}/create-elements`,
     {
       data: [{ ...providerPageLinkElement, parentElement: page.rootElement }],
       timeout: REQUEST_TIMEOUT,
     },
   )
 
-  const staticPage = await requestOrThrow<IPage>(
-    request,
-    '/api/v1/page/create',
-    {
-      data: pages.staticPage,
-    },
-  )
+  const staticPage = await requestOrThrow<IPage>(request, 'page/create', {
+    data: pages.staticPage,
+  })
 
-  await requestOrThrow(
-    request,
-    `/api/v1/element/${staticPage.id}/create-elements`,
-    {
-      data: [
-        {
-          ...staticPageTextElement,
-          parentElement: { id: staticPage.rootElement.id },
-        },
-        staticPageLinkElement,
-      ],
-    },
-  )
+  await requestOrThrow(request, `element/${staticPage.id}/create-elements`, {
+    data: [
+      {
+        ...staticPageTextElement,
+        parentElement: { id: staticPage.rootElement.id },
+      },
+      staticPageLinkElement,
+    ],
+  })
 
-  const dynamicPage = await requestOrThrow<IPage>(
-    request,
-    '/api/v1/page/create',
-    {
-      data: pages.dynamicPage,
-    },
-  )
+  const dynamicPage = await requestOrThrow<IPage>(request, 'page/create', {
+    data: pages.dynamicPage,
+  })
 
-  await requestOrThrow(
-    request,
-    `/api/v1/element/${dynamicPage.id}/create-elements`,
-    {
-      data: [
-        {
-          ...dynamicPageTextElement,
-          parentElement: { id: dynamicPage.rootElement.id },
-        },
-      ],
-    },
-  )
+  await requestOrThrow(request, `element/${dynamicPage.id}/create-elements`, {
+    data: [
+      {
+        ...dynamicPageTextElement,
+        parentElement: { id: dynamicPage.rootElement.id },
+      },
+    ],
+  })
 
   return app
 }

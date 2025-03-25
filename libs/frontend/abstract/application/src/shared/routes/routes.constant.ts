@@ -192,7 +192,7 @@ export const RoutePaths = {
   PageDetail_: ({ appId, pageId }: PageContextParams) =>
     `/apps/${appId}/pages/${pageId}`,
   PageList: ({ appId, pageId }: PageContextParams) =>
-    `${RoutePaths.PageDetail_({ appId, pageId })}/builder/page`,
+    `${RoutePaths.PageDetail_({ appId, pageId })}/builder/pages`,
   PageRedirectCreate: ({ appId, pageId }: PageContextParams) => {
     const pageBuilder = RoutePaths.PageBuilder({ appId, pageId })
 

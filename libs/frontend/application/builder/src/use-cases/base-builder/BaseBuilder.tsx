@@ -10,13 +10,16 @@ import {
   BUILDER_CONTAINER_ID,
   DATA_ELEMENT_ID,
 } from '@codelab/frontend/abstract/domain'
+import { ApplicationStoreHydrator } from '@codelab/frontend/infra/context'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
+import { useSearchParams } from 'next/navigation'
 import { useRef } from 'react'
 import styled from 'styled-components'
 
 import { BuilderDndContext } from '../../dnd/index'
 import { useBuilderHotkeys } from '../../hooks/useBuilderHotkeys.hook'
+import { useInitializeSearchParams } from '../../hooks/useInitializeSearchParams.hook'
 import { BuilderResizeHandle } from '../base-builder/BuilderResizeHandle'
 import { RenderBlueprint } from './RenderBlueprint'
 
@@ -42,23 +45,27 @@ export const BaseBuilder = observer<IBuilderProps>(
       setSelectedNode: builderService.setSelectedNode.bind(builderService),
     })
 
+    useInitializeSearchParams()
+
     return (
-      <BuilderDndContext>
-        <StyledBuilderContainer ref={builderContainerRef}>
-          <BuilderResizeHandle>
-            <StyledBuilderResizeContainer
-              id={BUILDER_CONTAINER_ID}
-              key={renderer.id}
-            >
-              <RootRenderer ref={renderContainerRef} renderer={renderer} />
-              <RenderBlueprint
-                renderContainerRef={renderContainerRef}
-                renderer={renderer}
-              />
-            </StyledBuilderResizeContainer>
-          </BuilderResizeHandle>
-        </StyledBuilderContainer>
-      </BuilderDndContext>
+      <ApplicationStoreHydrator>
+        <BuilderDndContext>
+          <StyledBuilderContainer ref={builderContainerRef}>
+            <BuilderResizeHandle>
+              <StyledBuilderResizeContainer
+                id={BUILDER_CONTAINER_ID}
+                key={renderer.id}
+              >
+                <RootRenderer ref={renderContainerRef} renderer={renderer} />
+                <RenderBlueprint
+                  renderContainerRef={renderContainerRef}
+                  renderer={renderer}
+                />
+              </StyledBuilderResizeContainer>
+            </BuilderResizeHandle>
+          </StyledBuilderContainer>
+        </BuilderDndContext>
+      </ApplicationStoreHydrator>
     )
   },
 )

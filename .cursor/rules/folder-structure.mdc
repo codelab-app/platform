@@ -9,4 +9,5 @@ alwaysApply: false
 - For each module, if there are parallel slots (header, modal, primarySideabr, secondaryPopover, configPane), we will use DashboardLayout
 - layout.tsx should either use DashboardLayoutProps if using slots, or LayoutProps if not using slots
 - We split the libs into frontend and backend, /libs/frontend, /libs/backend
+- For example if we say frontend domain services, it will be in /libs/frontend/domain
 - The within each will be split into application and domain

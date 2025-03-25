@@ -12,7 +12,7 @@ const createPageWithAllPossibleAtoms = async (
   pageName: string,
   request: APIRequestContext,
 ) => {
-  const pageResponse = await request.post('/api/v1/page/create', {
+  const pageResponse = await request.post('page/create', {
     data: {
       app: { id: appId },
       id: v4(),
@@ -32,7 +32,7 @@ const createPageWithAllPossibleAtoms = async (
 
   const [firstChild, ...restChildren] = elements
 
-  await request.post(`/api/v1/element/${page.id}/create-elements`, {
+  await request.post(`element/${page.id}/create-elements`, {
     data: [
       { ...firstChild, parentElement: { id: page.rootElement.id } },
       ...restChildren.map((child, index) => ({

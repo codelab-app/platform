@@ -10,7 +10,7 @@ export const seedPageData = async (
 ) => {
   console.log('Seeding page data')
 
-  return requestOrThrow<IPage>(request, '/api/v1/page/create', {
+  return requestOrThrow<IPage>(request, 'page/create', {
     data,
     timeout: REQUEST_TIMEOUT,
   })

@@ -19,8 +19,10 @@ import type { IRouterService } from './router.service.interface'
  */
 export interface IApplicationStore {
   builderService: IBuilderService
-
   rendererService: IRendererService
+  /**
+   * Used for builder to access search params, not used by the codebase. We use page props instead
+   */
   routerService: IRouterService
   runtimeComponentService: IRuntimeComponentService
   runtimeElementService: IRuntimeElementService

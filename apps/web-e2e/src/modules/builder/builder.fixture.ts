@@ -235,8 +235,6 @@ export class BuilderPage extends BasePage {
 
       await openBuilderButton.click()
 
-      // await this.page.waitForURL(PageType.ComponentBuilder({ componentId: '**' }))
-
       await expect(openBuilderButton).toBeHidden()
       await expect(openPreviewButton).toBeVisible()
       await expect(this.page.getByLabel('loading')).toHaveCount(0)

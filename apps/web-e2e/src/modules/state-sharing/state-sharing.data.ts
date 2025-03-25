@@ -64,16 +64,16 @@ export const seedTestData = async (request: APIRequestContext) => {
     componentTypes: [],
   })
 
-  const ownerResponse = await request.get('/api/v1/user/me')
+  const ownerResponse = await request.get('user/me')
   const owner = await ownerResponse.json()
 
-  await requestOrThrow(request, '/api/v1/page/create', {
+  await requestOrThrow(request, 'page/create', {
     data: regularPageCreateData(app),
   })
 
   const component = await requestOrThrow<IComponent>(
     request,
-    '/api/v1/component/create-component',
+    'component/create-component',
     { data: componentData(owner) },
   )
 
@@ -81,7 +81,7 @@ export const seedTestData = async (request: APIRequestContext) => {
 
   await requestOrThrow(
     request,
-    `/api/v1/element/${component.rootElement.id}/create-elements`,
+    `element/${component.rootElement.id}/create-elements`,
     { data: [spaceElement(component.rootElement), typographyElement] },
   )
 

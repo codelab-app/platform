@@ -25,14 +25,10 @@ export const seedAppData = async (
 ) => {
   logTimestamp('Seeding app data...')
 
-  const results = await jobOutputRequest<IApp>(
-    request,
-    '/api/v1/app/seed-e2e-app',
-    {
-      data,
-      timeout: REQUEST_TIMEOUT,
-    },
-  )
+  const results = await jobOutputRequest<IApp>(request, 'app/seed-e2e-app', {
+    data,
+    timeout: REQUEST_TIMEOUT,
+  })
 
   return results.data
 }

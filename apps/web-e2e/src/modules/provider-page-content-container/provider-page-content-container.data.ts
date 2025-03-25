@@ -60,23 +60,19 @@ export const seedTestData = async (request: APIRequestContext) => {
 
   await requestOrThrow(
     request,
-    `/api/v1/element/${page.rootElement.id}/create-elements`,
+    `element/${page.rootElement.id}/create-elements`,
     {
       data: [providerPageCardElementCreateData(page)],
     },
   )
 
-  const regularPage = await requestOrThrow<IPage>(
-    request,
-    '/api/v1/page/create',
-    {
-      data: regularPageCreateData(app),
-    },
-  )
+  const regularPage = await requestOrThrow<IPage>(request, 'page/create', {
+    data: regularPageCreateData(app),
+  })
 
   await requestOrThrow(
     request,
-    `/api/v1/element/${regularPage.rootElement.id}/create-elements`,
+    `element/${regularPage.rootElement.id}/create-elements`,
     { data: [regularPageInputElementCreateData(regularPage)] },
   )
 
