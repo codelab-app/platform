@@ -13,12 +13,12 @@ import type {
 } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 
-import { RoutePaths } from '../shared'
+import { NewRoutePaths } from '../shared'
 
-const atoms = RoutePaths.Atoms()
-const components = RoutePaths.Components()
-const tags = RoutePaths.Tags()
-const types = RoutePaths.Type()
+const atoms = NewRoutePaths.Atom.base()
+const components = NewRoutePaths.Component.base()
+const tags = NewRoutePaths.Tag.base()
+const types = NewRoutePaths.Type.base()
 
 export type SupportedPaginationModel = IAtomModel | ITagModel | ITypeModel
 export type SupportedPaginationPathname =

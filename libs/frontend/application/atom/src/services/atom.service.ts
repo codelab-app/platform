@@ -4,7 +4,7 @@ import type { IAtomService } from '@codelab/frontend/abstract/application'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/infra/gqlgen'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { NewRoutePaths } from '@codelab/frontend/abstract/application'
 import {
   type IAtomModel,
   type ICreateAtomData,
@@ -140,11 +140,11 @@ export const useAtomService = (): IAtomService => {
   }
 
   const goToAtomsPage = (router: AppRouterInstance) => {
-    router.push(RoutePaths.Atoms())
+    router.push(NewRoutePaths.Atom.base())
   }
 
   const goToDeleteAtomPage = (ref: IRef, router: AppRouterInstance) => {
-    router.push(RoutePaths.AtomDelete(ref))
+    router.push(NewRoutePaths.Atom.delete(ref))
   }
 
   const updatePopover = {
@@ -155,22 +155,22 @@ export const useAtomService = (): IAtomService => {
 
       const url = queryString.stringifyUrl({
         query: Object.fromEntries(searchParams.entries()),
-        url: RoutePaths.Atoms(),
+        url: NewRoutePaths.Atom.base(),
       })
 
       router.push(url)
     },
     open: (router: AppRouterInstance) => {
-      router.push(RoutePaths.AtomCreate())
+      router.push(NewRoutePaths.Atom.create())
     },
   }
 
   const createPopover = {
     close: (router: AppRouterInstance) => {
-      router.push(RoutePaths.Atoms())
+      router.push(NewRoutePaths.Atom.base())
     },
     open: (router: AppRouterInstance) => {
-      router.push(RoutePaths.AtomCreate())
+      router.push(NewRoutePaths.Atom.create())
     },
   }
 

@@ -1,4 +1,4 @@
-import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { NewRoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { E2E_ATOM_TYPES } from '@codelab/shared/data/test'
 import { test as base, expect } from '@playwright/test'
@@ -11,7 +11,7 @@ import { PAGE_COUNT } from './load-test.data'
  */
 export class LoadTestPage extends BuilderPage {
   async validateCanOpenAppListPage(appName: string) {
-    await this.page.goto(RoutePaths.AppList())
+    await this.page.goto(NewRoutePaths.App.list())
 
     await expect(this.getSpinner()).toBeHidden()
 

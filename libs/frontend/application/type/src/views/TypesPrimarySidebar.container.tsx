@@ -6,7 +6,7 @@ import type {
 import type { IRef, ITypeDto } from '@codelab/shared/abstract/core'
 import type { TypeFragment } from '@codelab/shared/infra/gqlgen'
 
-import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { NewRoutePaths } from '@codelab/frontend/abstract/application'
 import {
   useApplicationStore,
   useDomainStore,

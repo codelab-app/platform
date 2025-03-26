@@ -2,7 +2,7 @@
 
 import type { IImportDto } from '@codelab/shared/abstract/core'
 
-import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { NewRoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import {
@@ -16,7 +16,7 @@ import { importAdminDataService } from './import-admin-data.service'
 
 export const ImportAdminDataModal = () => {
   const router = useRouter()
-  const onClose = () => router.push(RoutePaths.Admin())
+  const onClose = () => router.push(NewRoutePaths.Admin.base())
 
   return (
     <ModalForm.Modal

@@ -1,4 +1,4 @@
-import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { NewRoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { expect } from '@playwright/test'
@@ -69,7 +69,7 @@ export class AtomPage extends BasePage {
 
   async goto() {
     return test.step('goto', async () => {
-      await this.page.goto(RoutePaths.Atoms())
+      await this.page.goto(NewRoutePaths.Atom.base())
     })
   }
 }

@@ -10,7 +10,7 @@ import {
   type IActionService,
   type IActionUpdateRouteContext,
   IRouteType,
-  RoutePaths,
+  NewRoutePaths,
 } from '@codelab/frontend/abstract/application'
 import {
   type IActionModel,
@@ -148,8 +148,8 @@ export const useActionService = (): IActionService => {
     ) => {
       const url =
         type === IRouteType.Page
-          ? RoutePaths.PageBuilderActionCreate(params)
-          : RoutePaths.ComponentBuilderActionCreate(params)
+          ? NewRoutePaths.Page.builderAction.create(params)
+          : NewRoutePaths.Component.builderAction.create(params)
 
       router.push(url)
     },
@@ -165,8 +165,8 @@ export const useActionService = (): IActionService => {
     ) => {
       const url =
         type === IRouteType.Page
-          ? RoutePaths.PageBuilderActionUpdate(params)
-          : RoutePaths.ComponentBuilderActionUpdate(params)
+          ? NewRoutePaths.Page.builderAction.update(params)
+          : NewRoutePaths.Component.builderAction.update(params)
 
       router.push(url)
     },
@@ -182,8 +182,8 @@ export const useActionService = (): IActionService => {
     ) => {
       const url =
         type === IRouteType.Page
-          ? RoutePaths.PageBuilderActionDelete(params)
-          : RoutePaths.ComponentBuilderActionDelete(params)
+          ? NewRoutePaths.Page.builderAction.delete(params)
+          : NewRoutePaths.Component.builderAction.delete(params)
 
       router.push(url)
     },

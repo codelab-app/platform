@@ -6,7 +6,7 @@ import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import type { SyntheticEvent } from 'react'
 
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
-import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { NewRoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiTreeItem,
@@ -25,11 +25,11 @@ export const ResourcesTreeItem = observer(
   ({ data }: ResourcesTreeItemProps) => {
     const router = useRouter()
     const resource = data.extraData.node
-    const onEdit = () => router.push(RoutePaths.ResourcesUpdate(resource.id))
+    const onEdit = () => router.push(NewRoutePaths.Resource.update(resource.id))
 
     const onDelete = (event: SyntheticEvent) => {
       event.stopPropagation()
-      router.push(RoutePaths.ResourcesDelete(resource.id))
+      router.push(NewRoutePaths.Resource.delete(resource.id))
     }
 
     const toolbarItems: Array<ToolbarItem> = [

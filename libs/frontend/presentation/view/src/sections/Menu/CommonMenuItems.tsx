@@ -5,31 +5,31 @@ import AppstoreOutlined from '@ant-design/icons/AppstoreOutlined'
 import CloudServerOutlined from '@ant-design/icons/CloudServerOutlined'
 import CodeSandboxOutlined from '@ant-design/icons/CodeSandboxOutlined'
 import SafetyOutlined from '@ant-design/icons/SafetyOutlined'
-import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { NewRoutePaths } from '@codelab/frontend/abstract/application'
 
 export const appMenuItem: NavigationBarItem = {
   icon: <AppstoreOutlined title="Apps" />,
-  key: RoutePaths.AppList(),
+  key: NewRoutePaths.App.list(),
   link: {
-    href: RoutePaths.AppList(),
+    href: NewRoutePaths.App.list(),
   },
   title: 'Apps',
 }
 
 export const resourceMenuItem: NavigationBarItem = {
   icon: <CloudServerOutlined title="Resources" />,
-  key: RoutePaths.Resources(),
+  key: NewRoutePaths.Resource.base(),
   link: {
-    href: RoutePaths.Resources(),
+    href: NewRoutePaths.Resource.base(),
   },
   title: 'Resources',
 }
 
 export const authGuardMenuItem: NavigationBarItem = {
   icon: <SafetyOutlined title="Auth Guards" />,
-  key: RoutePaths.AuthGuards(),
+  key: NewRoutePaths.AuthGuard.base(),
   link: {
-    href: RoutePaths.AuthGuards(),
+    href: NewRoutePaths.AuthGuard.base(),
   },
   title: 'Auth Guards',
 }
@@ -43,7 +43,7 @@ export const builderComponentsMenuItem = ({
     icon: <CodeSandboxOutlined title="Builder Components" />,
     key: 'components',
     link: {
-      href: RoutePaths.Components(),
+      href: NewRoutePaths.Component.base(),
     },
     title: 'Builder Components',
   }
@@ -52,7 +52,7 @@ export const builderComponentsMenuItem = ({
     return {
       ...componentsListMenuItem,
       link: {
-        href: RoutePaths.PageBuilderComponentList({ appId, pageId }),
+        href: NewRoutePaths.Page.builderComponent.list({ appId, pageId }),
       },
     }
   }
@@ -61,7 +61,7 @@ export const builderComponentsMenuItem = ({
     return {
       ...componentsListMenuItem,
       link: {
-        href: RoutePaths.ComponentBuilder({ componentId }),
+        href: NewRoutePaths.Component.builder({ componentId }),
       },
     }
   }

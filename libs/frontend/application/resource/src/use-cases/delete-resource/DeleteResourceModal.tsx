@@ -2,7 +2,7 @@
 
 import type { IResourceModel } from '@codelab/frontend/abstract/domain'
 
-import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { NewRoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
@@ -16,7 +16,7 @@ export const DeleteResourceModal = observer<{ resource: IResourceModel }>(
   ({ resource }) => {
     const resourceService = useResourceService()
     const router = useRouter()
-    const onClose = () => router.push(RoutePaths.Resources())
+    const onClose = () => router.push(NewRoutePaths.Resource.base())
     const onSubmit = () => resourceService.removeMany([resource])
 
     return (

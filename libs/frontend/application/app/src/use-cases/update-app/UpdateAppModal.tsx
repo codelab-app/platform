@@ -5,7 +5,7 @@ import type {
   IAppUpdateFormData,
 } from '@codelab/frontend/abstract/domain'
 
-import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { NewRoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
@@ -26,7 +26,7 @@ export const UpdateAppModal = observer<{ app?: IAppModel }>(({ app }) => {
   }
 
   const onSubmit = appService.update
-  const closeModal = () => router.push(RoutePaths.AppList())
+  const closeModal = () => router.push(NewRoutePaths.App.list())
   const isLoading = !app
 
   return (

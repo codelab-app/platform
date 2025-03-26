@@ -3,7 +3,7 @@
 import type { PropsWithChildren } from 'react'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { NewRoutePaths } from '@codelab/frontend/abstract/application'
 import { getUiDataLabel, UiKey } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
 import Link from 'next/link'
@@ -13,7 +13,7 @@ export const AppButtonOpenCreateForm = ({ children }: PropsWithChildren) => {
   const label = getUiDataLabel(UiKey.AppButtonOpenCreateForm)
 
   return (
-    <Link href={RoutePaths.AppCreate()}>
+    <Link href={NewRoutePaths.App.create()}>
       <Button aria-label={label} icon={icon} type="primary">
         {children ?? label}
       </Button>

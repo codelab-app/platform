@@ -3,7 +3,7 @@
 import type { CuiSidebarView } from '@codelab/frontend/presentation/codelab-ui'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { NewRoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { CuiSidebar } from '@codelab/frontend/presentation/codelab-ui'
 import { ImportComponentDialog } from '@codelab/frontend-application-component/use-cases/import-component'
@@ -30,7 +30,7 @@ export const ComponentListPrimarySidebar = () => {
             cuiKey: UiKey.ComponentToolbarItemCreate,
             icon: <PlusOutlined />,
             onClick: () => {
-              router.push(RoutePaths.ComponentCreate())
+              router.push(NewRoutePaths.Component.create())
             },
             title: 'Add Component',
           },

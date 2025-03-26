@@ -3,7 +3,7 @@
 import type { ITagNodeData, ITreeNode } from '@codelab/frontend/abstract/domain'
 
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
-import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { NewRoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiTreeItem,
@@ -21,7 +21,7 @@ export const TagsTreeItem = observer(({ data }: TagsTreeItemProps) => {
 
   return (
     <CuiTreeItem
-      onClick={() => router.push(RoutePaths.TagUpdate(data.extraData.node))}
+      onClick={() => router.push(NewRoutePaths.Tag.update(data.extraData.node))}
       primaryTitle={data.primaryTitle}
       toolbar={
         <CuiTreeItemToolbar
@@ -32,7 +32,7 @@ export const TagsTreeItem = observer(({ data }: TagsTreeItemProps) => {
               label: 'Delete',
               onClick: (event: Event) => {
                 event.stopPropagation()
-                router.push(RoutePaths.TagDelete([data.extraData.node.id]))
+                router.push(NewRoutePaths.Tag.delete([data.extraData.node.id]))
               },
               title: 'Delete',
             },

@@ -2,7 +2,7 @@
 
 import type { IDomainModel } from '@codelab/frontend/abstract/domain'
 
-import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { NewRoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
@@ -27,7 +27,7 @@ export const DeleteDomainModal = observer<{ domain: IDomainModel }>(
     }
 
     const goBack = () => {
-      router.push(RoutePaths.DomainList({ appId: app.id }))
+      router.push(NewRoutePaths.Domain.list({ appId: app.id }))
     }
 
     return (

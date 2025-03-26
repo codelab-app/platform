@@ -2,7 +2,7 @@
 
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
 
-import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { NewRoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
@@ -16,7 +16,7 @@ export const BuildAppModal = observer<{ app: IAppModel }>(({ app }) => {
   const router = useRouter()
   const { regenerate } = useBuildApp()
   const onSubmit = () => regenerate(app)
-  const closeModal = () => router.push(RoutePaths.AppList())
+  const closeModal = () => router.push(NewRoutePaths.App.list())
 
   return (
     <ModalForm.Modal

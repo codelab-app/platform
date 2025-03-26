@@ -6,7 +6,7 @@ import type {
   IUpdateDomainData,
 } from '@codelab/frontend/abstract/domain'
 
-import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { NewRoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { useErrorNotify } from '@codelab/frontend/infra/context'
 import { checkDomainExists } from '@codelab/frontend-domain-domain/errors'
@@ -50,7 +50,7 @@ export const UpdateDomainModal = observer<UpdateDomainModalProps>(
     }
 
     const goBack = () => {
-      router.push(RoutePaths.DomainList({ appId: app.id }))
+      router.push(NewRoutePaths.Domain.list({ appId: app.id }))
     }
 
     return (

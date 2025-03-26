@@ -11,3 +11,4 @@ alwaysApply: false
 - We split the libs into frontend and backend, /libs/frontend, /libs/backend
 - For example if we say frontend domain services, it will be in /libs/frontend/domain
 - The within each will be split into application and domain
+- If you search, ignore nested .next folder

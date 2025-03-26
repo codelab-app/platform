@@ -7,7 +7,7 @@ import type { SyntheticEvent } from 'react'
 
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { NewRoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiTreeItem,
@@ -27,10 +27,10 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
 
   const onEdit = () => {
     if (data.extraData.type === 'type') {
-      router.push(RoutePaths.TypeUpdate(data.extraData.node))
+      router.push(NewRoutePaths.Type.update(data.extraData.node))
     } else {
       router.push(
-        RoutePaths.TypeFieldUpdate({ fieldId: data.extraData.node.id }),
+        NewRoutePaths.Type.field.update({ fieldId: data.extraData.node.id }),
       )
     }
   }
@@ -40,10 +40,10 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
     event.stopPropagation()
 
     if (data.extraData.type === 'type') {
-      router.push(RoutePaths.TypeDelete(data.extraData.node))
+      router.push(NewRoutePaths.Type.delete(data.extraData.node))
     } else {
       router.push(
-        RoutePaths.TypeFieldDelete({ fieldId: data.extraData.node.id }),
+        NewRoutePaths.Type.field.delete({ fieldId: data.extraData.node.id }),
       )
     }
   }
@@ -71,7 +71,7 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
         ? data.extraData.node.type.current
         : data.extraData.node
 
-    router.push(RoutePaths.TypeFieldCreate(interfaceType.id))
+    router.push(NewRoutePaths.Type.field.create(interfaceType.id))
   }
 
   const toolbarItems: Array<ToolbarItem> = [

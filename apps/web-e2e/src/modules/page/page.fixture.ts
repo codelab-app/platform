@@ -1,4 +1,4 @@
-import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { NewRoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { IPageKindName } from '@codelab/shared/abstract/core'
 import { expect } from '@playwright/test'
@@ -52,7 +52,7 @@ export class PageListPage extends BasePage {
   }
 
   async goto(appId: string, pageId: string) {
-    await this.page.goto(RoutePaths.PageList({ appId, pageId }))
+    await this.page.goto(NewRoutePaths.Page.list({ appId, pageId }))
   }
 
   async updatePage() {

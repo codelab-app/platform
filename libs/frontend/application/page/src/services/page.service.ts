@@ -10,7 +10,7 @@ import type {
 import type { PageWhere } from '@codelab/shared/infra/gqlgen'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { NewRoutePaths } from '@codelab/frontend/abstract/application'
 import { type IPageModel } from '@codelab/frontend/abstract/domain'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import { pageRepository } from '@codelab/frontend-domain-page/repositories'
@@ -143,28 +143,28 @@ export const usePageService = (): IPageService => {
 
   const createPopover = {
     close: (router: AppRouterInstance, params: PageContextParams) => {
-      router.push(RoutePaths.PageList(params))
+      router.push(NewRoutePaths.Page.list(params))
     },
     open: (router: AppRouterInstance, params: PageContextParams) => {
-      router.push(RoutePaths.PageCreate(params))
+      router.push(NewRoutePaths.Page.create(params))
     },
   }
 
   const updatePopover = {
     close: (router: AppRouterInstance, params: PageContextParams) => {
-      router.push(RoutePaths.PageList(params))
+      router.push(NewRoutePaths.Page.list(params))
     },
     open: (router: AppRouterInstance, params: PageContextParams) => {
-      router.push(RoutePaths.PageUpdate(params))
+      router.push(NewRoutePaths.Page.update(params))
     },
   }
 
   const deletePopover = {
     close: (router: AppRouterInstance, params: PageContextParams) => {
-      router.push(RoutePaths.PageList(params))
+      router.push(NewRoutePaths.Page.list(params))
     },
     open: (router: AppRouterInstance, params: PageContextParams) => {
-      const baseUrl = RoutePaths.PageDelete(params)
+      const baseUrl = NewRoutePaths.Page.delete(params)
 
       router.push(`${baseUrl}`)
     },

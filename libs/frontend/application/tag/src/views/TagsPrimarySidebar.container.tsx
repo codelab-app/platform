@@ -5,7 +5,7 @@ import type {
 } from '@codelab/frontend/abstract/application'
 import type { IRef } from '@codelab/shared/abstract/core'
 
-import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { NewRoutePaths } from '@codelab/frontend/abstract/application'
 import {
   useApplicationStore,
   useDomainStore,

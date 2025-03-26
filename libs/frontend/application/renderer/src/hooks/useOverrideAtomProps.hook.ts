@@ -4,7 +4,7 @@ import type { IPropData } from '@codelab/shared/abstract/core'
 import type { ObjectLike } from '@codelab/shared/abstract/types'
 
 import {
-  RoutePaths,
+  NewRoutePaths,
   RendererType,
 } from '@codelab/frontend/abstract/application'
 import { IAtomType } from '@codelab/shared/abstract/core'
@@ -39,7 +39,7 @@ export const useOverrideAtomProps = (
     )
 
     if (pageId && appId) {
-      const href = RoutePaths.PageDetail_({ appId, pageId })
+      const href = NewRoutePaths.Page.base({ appId, pageId })
       const searchParams = new URLSearchParams(query)
 
       builderOverrideProps['href'] = `${href}?${searchParams}`

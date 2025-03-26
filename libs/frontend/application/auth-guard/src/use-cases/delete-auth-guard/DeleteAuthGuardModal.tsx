@@ -2,7 +2,7 @@
 
 import type { IAuthGuardModel } from '@codelab/frontend/abstract/domain'
 
-import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { NewRoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
@@ -15,7 +15,7 @@ export const DeleteAuthGuardModal = observer<{ authGuard: IAuthGuardModel }>(
   ({ authGuard }) => {
     const router = useRouter()
     const authGuardService = useAuthGuardService()
-    const closeModal = () => router.push(RoutePaths.AuthGuards())
+    const closeModal = () => router.push(NewRoutePaths.AuthGuard.base())
     const onSubmit = () => authGuardService.removeMany([authGuard])
 
     return (

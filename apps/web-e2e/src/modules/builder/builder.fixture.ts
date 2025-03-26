@@ -1,6 +1,6 @@
 import type { ICreateElementSeedData } from '@codelab/shared/abstract/core'
 
-import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { NewRoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
@@ -219,7 +219,7 @@ export class BuilderPage extends BasePage {
 
   async goto(appId: string, pageId: string) {
     return test.step('goto', async () => {
-      await this.page.goto(RoutePaths.PageBuilder({ appId, pageId }))
+      await this.page.goto(NewRoutePaths.Page.builder({ appId, pageId }))
     })
   }
 
