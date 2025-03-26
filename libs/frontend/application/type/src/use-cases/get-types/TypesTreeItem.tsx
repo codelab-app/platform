@@ -3,7 +3,7 @@ import type {
   ITypeTreeNodeData,
 } from '@codelab/frontend/abstract/domain'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
-import type { SyntheticEvent } from 'react'
+import type { Key, SyntheticEvent } from 'react'
 
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
@@ -25,12 +25,20 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
   const { fieldDomainService } = useDomainStore()
   const router = useRouter()
 
-  const onEdit = () => {
+  const onEdit = ({ selectedKey }: { selectedKey?: string }) => {
     if (data.extraData.type === 'type') {
-      router.push(RoutePaths.Type.update(data.extraData.node))
+      router.push(
+        RoutePaths.Type.update({
+          selectedKey,
+          typeId: data.extraData.node.id,
+        }),
+      )
     } else {
       router.push(
-        RoutePaths.Type.field.update({ fieldId: data.extraData.node.id }),
+        RoutePaths.Type.field.update({
+          fieldId: data.extraData.node.id,
+          selectedKey,
+        }),
       )
     }
   }
@@ -105,9 +113,10 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
     <CuiTreeItem
       highlight={data.highlight}
       key={data.key}
-      onClick={onEdit}
+      onClick={(event) => onEdit({ selectedKey: data.key.toString() })}
       primaryTitle={data.primaryTitle}
       secondaryTitle={data.secondaryTitle}
+      selectedKey={data.key}
       toolbar={
         <CuiTreeItemToolbar
           items={toolbarItems}

@@ -80,6 +80,13 @@ export class BasePage {
   }
 
   /**
+   * Check for error notification with expected text
+   */
+  async expectNotificationError(message: string) {
+    await expect(this.getNotification()).toContainText(message)
+  }
+
+  /**
    * Check for success notification with expected text
    */
   async expectNotificationSuccess(message: string) {
@@ -382,7 +389,11 @@ export class BasePage {
    * Wait for navigation to a specific URL pattern
    */
   async waitForPage(urlPattern: string | RegExp) {
-    await this.page.waitForURL(urlPattern)
+    // If urlPattern is a string, append '*' to match any query strins
+    const pattern =
+      typeof urlPattern === 'string' ? `${urlPattern}*` : urlPattern
+
+    await this.page.waitForURL(pattern)
   }
 
   /**

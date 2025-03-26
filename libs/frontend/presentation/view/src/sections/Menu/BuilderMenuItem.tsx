@@ -3,7 +3,6 @@ import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-u
 
 import BuildOutlined from '@ant-design/icons/BuildOutlined'
 import { RoutePaths } from '@codelab/frontend/abstract/application'
-import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
 
 export const pageBuilderMenuItem = ({
   appId,
@@ -13,7 +12,7 @@ export const pageBuilderMenuItem = ({
   const disabledBuilderMenuItem = {
     disabled: true,
     icon: <BuildOutlined title="Builder" />,
-    key: ExplorerPaneType.Explorer,
+    key: 'builder',
     link: undefined,
     title: 'Builder',
   }

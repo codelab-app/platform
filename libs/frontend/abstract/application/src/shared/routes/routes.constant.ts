@@ -1,6 +1,8 @@
 import type { SearchParamsContext } from '@codelab/frontend/abstract/types'
 import type { IRef } from '@codelab/shared/abstract/core'
 
+import queryString from 'query-string'
+
 import type {
   IActionCreateRouteContext,
   IActionUpdateRouteContext,
@@ -9,10 +11,21 @@ import type { IFieldUpdateRouteContext } from '../../field'
 import type { PageContextParams } from '../../page'
 import type { ExtractRouteContextParams, IRouteType } from './route.interface'
 
-// playwright currently imports PageType in tests, and the "query-string"
-// is a ESM module that fails to be imported by playwright in CJS environment.
-// importing queryString here breaks all E2E tests. Commenting out until no solution.
-// import queryString from 'query-string'
+/**
+ * Adds query parameters to a URL path if they exist
+ */
+export const addQueryParams = (
+  basePath: string,
+  params: Record<string, string | undefined>,
+) => {
+  const filteredParams = Object.entries(params)
+    .filter(([_, value]) => value !== undefined)
+    .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {})
+
+  const queryStr = queryString.stringify(filteredParams)
+
+  return queryStr ? `${basePath}?${queryStr}` : basePath
+}
 
 /**
  * Scope each path by their module, then sub-scope by their action
@@ -269,9 +282,20 @@ export const RoutePaths = {
         `/types/field/create/${interfaceTypeId}`,
       delete: ({ fieldId }: { fieldId: string }) =>
         `/types/field/${fieldId}/delete`,
-      update: ({ fieldId }: { fieldId: string }) =>
-        `/types/field/${fieldId}/update`,
+      update: ({
+        fieldId,
+        selectedKey,
+      }: {
+        fieldId: string
+        selectedKey?: string
+      }) => addQueryParams(`/types/field/${fieldId}/update`, { selectedKey }),
     },
-    update: ({ id }: IRef) => `/types/type/${id}/update`,
+    update: ({
+      selectedKey,
+      typeId,
+    }: {
+      typeId: string
+      selectedKey?: string
+    }) => addQueryParams(`/types/type/${typeId}/update`, { selectedKey }),
   },
 }

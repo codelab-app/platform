@@ -5,7 +5,6 @@ import {
   type PageContextParams,
   RoutePaths,
 } from '@codelab/frontend/abstract/application'
-import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
 
 export const allPagesMenuItem = ({
   appId,
@@ -14,7 +13,7 @@ export const allPagesMenuItem = ({
   const disabledPageListItem = {
     disabled: true,
     icon: <FileOutlined title="Pages" />,
-    key: ExplorerPaneType.PageList,
+    key: 'pages',
     link: undefined,
     title: 'Pages',
   }

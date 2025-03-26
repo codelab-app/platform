@@ -32,6 +32,7 @@ export const CuiTree = observer(
   ) => {
     const {
       autoExpandParent,
+      defaultSelectedKeys,
       draggable,
       expandedKeys,
       filter,
@@ -114,6 +115,7 @@ export const CuiTree = observer(
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 {...props}
                 autoExpandParent={cuiTreeStore.autoExpandParent}
+                defaultSelectedKeys={defaultSelectedKeys}
                 draggable={
                   draggable
                     ? {
@@ -151,6 +153,7 @@ export const CuiTree = observer(
                       icon={node.icon}
                       primaryTitle={node.primaryTitle}
                       secondaryTitle={node.secondaryTitle}
+                      selectedKey={node.key}
                       tag={node.tags}
                       toolbar={node.toolbar}
                       variant={node.variant}

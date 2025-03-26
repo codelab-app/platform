@@ -23,7 +23,8 @@ test('should be able to create app', async ({ appListPage: page }) => {
   await page.expectGlobalProgressBarToBeHidden()
 
   // This may close before route is changed
-  await expect(page.getNotification()).toContainText('App created successfully')
+  await page.expectNotificationSuccess('App created successfully')
+
   await expect(page.getDialog()).toBeHidden()
 
   await expect(page.getAppName()).toBeVisible()
@@ -39,7 +40,9 @@ test('should notify error when app with duplicated name created', async ({
   await page.expectGlobalProgressBarToBeHidden()
 
   await expect(page.getDialog()).toBeVisible()
-  await expect(page.getNotification()).toContainText('Error while creating app')
+
+  await page.expectNotificationError('Error while creating app')
+
   await expect(page.getAppName()).toHaveCount(1)
 })
 
@@ -50,7 +53,8 @@ test('should be able to update app name', async ({ appListPage: page }) => {
 
   await page.expectGlobalProgressBarToBeHidden()
 
-  await expect(page.getNotification()).toContainText('App updated successfully')
+  await page.expectNotificationSuccess('App updated successfully')
+
   await expect(page.getUpdatedAppName()).toBeVisible()
 })
 
@@ -61,6 +65,7 @@ test('should be able to delete app', async ({ appListPage: page }) => {
 
   await page.expectGlobalProgressBarToBeHidden()
 
-  await expect(page.getNotification()).toContainText('App deleted successfully')
+  await page.expectNotificationSuccess('App deleted successfully')
+
   await expect(page.getUpdatedAppName()).toBeHidden()
 })

@@ -1,3 +1,4 @@
+import type { PageProps } from '@codelab/frontend-presentation-view/templates'
 import type { Metadata } from 'next'
 
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
   title: 'Update App | Codelab',
 }
 
-const Page = async ({ params }: { params: Promise<{ appId: string }> }) => {
+const Page = async ({ params }: PageProps<'appId'>) => {
   const { appId } = await params
   const { appsDto, atomsDto, domainsDto } = await appItemQuery({ appId })
 

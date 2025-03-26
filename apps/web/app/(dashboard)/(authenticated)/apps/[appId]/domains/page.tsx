@@ -1,3 +1,4 @@
+import type { PageProps } from '@codelab/frontend-presentation-view/templates'
 import type { Metadata } from 'next'
 
 import { DomainListContainer } from '@codelab/frontend-application-domain/use-cases/domain-list'
@@ -8,11 +9,7 @@ export const metadata: Metadata = {
   title: 'Domains | Codelab',
 }
 
-const DomainsPage = async ({
-  params,
-}: {
-  params: Promise<{ appId: string }>
-}) => {
+const Page = async ({ params }: PageProps<'appId'>) => {
   const { appId } = await params
 
   return (
@@ -22,4 +19,4 @@ const DomainsPage = async ({
   )
 }
 
-export default DomainsPage
+export default Page

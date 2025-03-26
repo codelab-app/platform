@@ -1,3 +1,4 @@
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { expect } from '@playwright/test'
 
@@ -26,6 +27,7 @@ test('it should be able to create an atom', async ({ atomPage: page }) => {
   await page.fillAndSubmitAtomFormCreate()
 
   await page.expectGlobalProgressBarToBeHidden()
+  await page.waitForPage(RoutePaths.Atom.base())
 
   await expect(page.getAtomName()).toBeVisible()
 })
@@ -34,6 +36,8 @@ test('it should be able to update an atom name', async ({ atomPage: page }) => {
   await page.getTreeItemBySecondaryTitle(page.atom.name).locator?.click()
 
   await page.fillAndSubmitAtomFormUpdate()
+
+  await page.waitForPage(RoutePaths.Atom.base())
 
   await expect(page.getAtomName()).toBeHidden()
 
@@ -49,6 +53,8 @@ test('should be able to delete an atom', async ({ atomPage: page }) => {
     .click()
 
   await page.fillAndSubmitAtomFormDelete()
+
+  await page.waitForPage(RoutePaths.Atom.base())
 
   await expect(page.getAtomName()).toBeHidden()
 
@@ -71,6 +77,7 @@ test('it should be able to create the same atom again', async ({
   await page.fillAndSubmitAtomFormCreate()
 
   await page.expectGlobalProgressBarToBeHidden()
+  await page.waitForPage(RoutePaths.Atom.base())
 
   await expect(page.getAtomName()).toBeVisible()
 })

@@ -37,9 +37,7 @@ export class StateSharingPage extends BuilderPage {
 
       await expect(this.getDialog()).toBeHidden()
       await expect(this.getGlobalProgressBar()).toBeHidden()
-      await expect(this.getNotification()).toHaveText(
-        'Field created successfully',
-      )
+      await this.expectNotificationSuccess('Field created successfully')
     })
   }
 

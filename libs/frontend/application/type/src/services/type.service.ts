@@ -188,7 +188,7 @@ export const useTypeService = (): ITypeService => {
       router.push(RoutePaths.Type.base())
     },
     open: (router: AppRouterInstance, { id }: IRef) => {
-      router.push(RoutePaths.Type.update({ id }))
+      router.push(RoutePaths.Type.update({ typeId }))
     },
   }
 

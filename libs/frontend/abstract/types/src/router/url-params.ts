@@ -9,9 +9,12 @@ export interface UrlParams {
   componentId: string
   domainId: string
   elementId: string
+  fieldId: string
   interfaceId: string
   pageId: string
   resourceId: string
+  storeId: string
   tagId: string
   tagIds: Array<string>
+  typeId: string
 }

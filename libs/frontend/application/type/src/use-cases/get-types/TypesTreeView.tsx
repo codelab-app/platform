@@ -19,33 +19,12 @@ import { useSearchParams } from 'next/navigation'
 import { type Key, useCallback } from 'react'
 
 import { TypesTreeItem } from './TypesTreeItem'
-
-const useUpdateSearchParams = () => {
-  // eslint-disable-next-line ban/ban
-  const searchParams = useSearchParams()
-
-  const updateSearchParams = useCallback(
-    (expandedKeys: Array<Key>) => {
-      const params = new URLSearchParams(searchParams)
-
-      params.delete('expandedNodes')
-
-      expandedKeys.forEach((key) => {
-        params.append('expandedNodes', key.toString())
-      })
-
-      window.history.pushState(null, '', `?${params.toString()}`)
-    },
-    [searchParams],
-  )
-
-  return { updateSearchParams }
-}
+import { useUpdateSearchParams } from './useUpdateSearchParams.hook'
 
 export const TypesTreeView = ({
   data,
   isLoading,
-  searchParams: { expandedNodes, search },
+  searchParams: { expandedNodes, search, selectedKey },
   showSearchBar,
 }: ITreeViewProps<ITypeModel>) => {
   const { updateSearchParams } = useUpdateSearchParams()
@@ -63,9 +42,13 @@ export const TypesTreeView = ({
     title: `${type.name} (${type.kind})`,
   }))
 
+  console.log('selectedKey', selectedKey)
+
   return (
     <div className="size-full">
       <CuiTree<ITreeNode<ITypeTreeNodeData>>
+        // Ensure navigation persists selected key
+        defaultSelectedKeys={selectedKey ? [selectedKey] : undefined}
         expandedKeys={expandedNodes}
         filter={
           showSearchBar

@@ -135,7 +135,7 @@ export class BuilderPage extends BasePage {
       await this.clickModalConfirmButton()
 
       await expect(this.getGlobalProgressBar()).toBeHidden()
-      await expect(this.getNotification()).toHaveText('Element deleted')
+      await this.expectNotificationSuccess('Element deleted')
       await expect(treeElement).toBeHidden()
     })
   }

@@ -1,10 +1,9 @@
-import type { PageContextParams } from '@codelab/frontend/abstract/application'
+import type { PageProps } from '@codelab/frontend-presentation-view/templates'
 
 import { PageBuilderHeaderContainer } from '@codelab/frontend-application-builder/use-cases/page-builder'
 
-const Page = async ({ params }: { params: Promise<PageContextParams> }) => {
-  const resolvedParams = await params
-  const { appId, pageId } = resolvedParams
+const Page = async ({ params }: PageProps<'appId' | 'pageId'>) => {
+  const { appId, pageId } = await params
 
   return <PageBuilderHeaderContainer appId={appId} pageId={pageId} />
 }
