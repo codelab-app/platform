@@ -1,6 +1,5 @@
 'use client'
 
-import { useSearchParamsProps } from '@codelab/frontend-application-shared-store/router'
 import { Menu } from 'antd'
 import classNames from 'classnames'
 import { usePathname } from 'next/navigation'
@@ -16,9 +15,7 @@ export const CuiV2NavigationBar = ({
   secondaryItems,
 }: CuiNavigationBarProps) => {
   const pathname = usePathname()
-  const searchParams = useSearchParamsProps()
-  const { primarySidebarKey } = searchParams
-  const selectedKey = primarySidebarKey || pathname
+  const selectedKey = pathname
 
   return (
     <div

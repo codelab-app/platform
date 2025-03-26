@@ -1,13 +1,11 @@
-import type { BuilderContextParams } from '@codelab/frontend/abstract/application'
+import type { PageProps } from '@codelab/frontend-presentation-view/templates'
 
 import { IRouteType } from '@codelab/frontend/abstract/application'
 import { CreateFieldPopover } from '@codelab/frontend-application-type/use-cases/create-field'
 
 const Page = async ({
   params,
-}: {
-  params: Promise<BuilderContextParams<{ interfaceId: string }>>
-}) => {
+}: PageProps<'appId' | 'interfaceId' | 'pageId'>) => {
   const { appId, interfaceId, pageId } = await params
 
   return (

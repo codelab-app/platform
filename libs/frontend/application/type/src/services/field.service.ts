@@ -14,10 +14,7 @@ import {
   RoutePaths,
 } from '@codelab/frontend/abstract/application'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
-import {
-  fieldRepository,
-  revalidateTypeListCache,
-} from '@codelab/frontend-domain-type/repositories'
+import { fieldRepository } from '@codelab/frontend-domain-type/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Validator } from '@codelab/shared/infra/typebox'
 import { filter, isTruthy, unique } from 'remeda'
@@ -244,14 +241,16 @@ export const useFieldService = (): IFieldService => {
     close: closeFieldPopover,
     open: (
       router: AppRouterInstance,
-      { params, type }: IFieldUpdateRouteContext,
+      { type, ...props }: IFieldUpdateRouteContext,
     ) => {
       if (type === IRouteType.Component) {
-        router.push(RoutePaths.Component.builderField.update(params))
+        router.push(RoutePaths.Component.builderField.update(props))
       } else if (type === IRouteType.Page) {
-        router.push(RoutePaths.Page.builderField.update(params))
+        router.push(RoutePaths.Page.builderField.update(props))
       } else {
-        router.push(RoutePaths.Type.field.update(params))
+        const data = props
+
+        router.push(RoutePaths.Type.field.update(props))
       }
     },
   }

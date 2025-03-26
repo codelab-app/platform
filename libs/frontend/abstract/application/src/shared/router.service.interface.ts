@@ -2,9 +2,9 @@ import type {
   SearchParamsContext,
   SearchParamsProps,
 } from '@codelab/frontend/abstract/types'
+import type { ObjectLike } from '@codelab/shared/abstract/types'
 
-export type IRouterService = SearchParamsContext & {
-  searchParams: SearchParamsProps
-
-  setSearchParams(params: SearchParamsProps): void
+export interface IRouterService {
+  searchParams: ObjectLike
+  setSearchParams(props: URLSearchParams): void
 }

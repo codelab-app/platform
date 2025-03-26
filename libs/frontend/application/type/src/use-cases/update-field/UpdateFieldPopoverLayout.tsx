@@ -1,8 +1,7 @@
-import type { ReactNode } from 'react'
+import type { LayoutProps } from '@codelab/frontend-presentation-view/templates'
 
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { fieldRepository } from '@codelab/frontend-domain-type/repositories'
-import { Spinner } from '@codelab/frontend-presentation-view/components/loader'
 
 /**
  * Used by popover so we don't need a server component, can be used by page directly
@@ -10,10 +9,7 @@ import { Spinner } from '@codelab/frontend-presentation-view/components/loader'
 export const UpdateFieldPopoverLayout = async ({
   children,
   params,
-}: {
-  children: ReactNode
-  params: Promise<{ fieldId: string }>
-}) => {
+}: LayoutProps<'fieldId'>) => {
   const { fieldId } = await params
   const fieldDto = await fieldRepository.findOne({ id_IN: [fieldId] })
 

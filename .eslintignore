@@ -1,11 +1,11 @@
 node_modules
 dist
-data
+/data
 .next
 .cache
-coverage
-tmp
-.nx
+/coverage
+/tmp
+/.nx
 .aider*
 public
 *.png

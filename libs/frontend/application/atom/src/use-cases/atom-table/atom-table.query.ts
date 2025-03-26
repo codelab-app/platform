@@ -5,8 +5,6 @@ import { parseSearchParamsPageProps } from '@codelab/frontend-application-shared
 import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { logTimestampMs } from '@codelab/shared/infra/logging'
-import { revalidateTag } from 'next/cache'
-import { sleep } from 'radash'
 import 'server-only'
 
 export const atomTableQuery = async (searchParams: SearchParamsPageProps) => {

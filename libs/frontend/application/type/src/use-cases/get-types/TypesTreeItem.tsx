@@ -3,7 +3,7 @@ import type {
   ITypeTreeNodeData,
 } from '@codelab/frontend/abstract/domain'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
-import type { Key, SyntheticEvent } from 'react'
+import type { SyntheticEvent } from 'react'
 
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'

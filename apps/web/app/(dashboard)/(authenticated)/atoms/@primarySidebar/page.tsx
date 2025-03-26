@@ -3,7 +3,6 @@ import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { atomTableQuery } from '@codelab/frontend-application-atom/use-cases/atom-table'
 import { AtomsPrimarySidebarContainer } from '@codelab/frontend-application-atom/views'
 import { parsePaginationSearchParams } from '@codelab/frontend-application-shared-store/router'
-import { logTimestampMs } from '@codelab/shared/infra/logging'
 
 // export const dynamic = 'force-dynamic'
 

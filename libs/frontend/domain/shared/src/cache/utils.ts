@@ -3,14 +3,7 @@
  * by sorting object keys before stringifying
  */
 
-import type {
-  Nullable,
-  Nullish,
-  ObjectLike,
-  UnknownObjectLike,
-} from '@codelab/shared/abstract/types'
-import type { SortDirection } from '@codelab/shared/infra/gqlgen'
-import { EntityType } from '@codelab/frontend/abstract/types'
+import type { EntityType } from '@codelab/frontend/abstract/types'
 
 import type { Option, Where } from './cache-options'
 

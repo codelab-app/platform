@@ -1,4 +1,3 @@
-import type { PageContextParams } from '@codelab/frontend/abstract/application'
 import type { PageProps } from '@codelab/frontend-presentation-view/templates'
 
 import { PageBuilderPrimarySidebarContainer } from '@codelab/frontend-application-builder/sections'

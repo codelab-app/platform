@@ -1,11 +1,9 @@
+import type { PageProps } from '@codelab/frontend-presentation-view/templates'
+
 import { IRouteType } from '@codelab/frontend/abstract/application'
 import { UpdateFieldPopoverContainer } from '@codelab/frontend-application-type/use-cases/update-field'
 
-const Page = async ({
-  params,
-}: {
-  params: Promise<{ componentId: string; fieldId: string }>
-}) => {
+const Page = async ({ params }: PageProps<'componentId' | 'fieldId'>) => {
   const { componentId, fieldId } = await params
 
   return (

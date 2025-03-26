@@ -6,7 +6,6 @@ import type { GuaranteedProps } from 'uniforms'
 
 import CodeSandboxOutlined from '@ant-design/icons/CodeSandboxOutlined'
 import DeploymentUnitOutlined from '@ant-design/icons/DeploymentUnitOutlined'
-import { logger } from '@codelab/shared/infra/logging'
 import { Button, Form, Select } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react'

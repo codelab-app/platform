@@ -11,7 +11,6 @@ describe('Query params', () => {
         filter: ['tag1', 'tag2'],
         page: '2',
         pageSize: '10',
-        primarySidebarKey: 'builder',
         search: 'keyword',
       },
       url: '',
@@ -20,13 +19,12 @@ describe('Query params', () => {
     const searchParams = new URLSearchParams(url)
 
     it('can parse search params from a hook', () => {
-      const { filter, page, pageSize, primarySidebarKey, search } =
+      const { filter, page, pageSize, search } =
         parseUrlSearchParams(searchParams)
 
       expect(filter).toStrictEqual(['tag1', 'tag2'])
       expect(page).toBe('2')
       expect(pageSize).toBe('10')
-      expect(primarySidebarKey).toBe('builder')
       expect(search).toBe('keyword')
     })
 
@@ -40,7 +38,6 @@ describe('Query params', () => {
       expect(result.filter).toStrictEqual(['tag1', 'tag2'])
       expect(result.page).toBe(2)
       expect(result.pageSize).toBe(10)
-      expect(result.primarySidebarKey).toBe('builder')
       expect(result.search).toBe('keyword')
     })
 
@@ -75,7 +72,6 @@ describe('Query params', () => {
       expect(queryParams.filter).toStrictEqual([])
       expect(queryParams.page).toBeUndefined()
       expect(queryParams.pageSize).toBeUndefined()
-      expect(queryParams.primarySidebarKey).toBeUndefined()
       expect(queryParams.search).toBeUndefined()
     })
   })

@@ -1,1 +1,1 @@
-export * from './page-builder.query'
+export { pageBuilderQuery } from './page-builder.query'

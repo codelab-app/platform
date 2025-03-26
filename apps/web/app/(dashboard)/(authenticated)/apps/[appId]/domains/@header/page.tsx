@@ -1,14 +1,11 @@
+import type { PageProps } from '@codelab/frontend-presentation-view/templates'
+
 import { DomainsPageHeaderContainer } from '@codelab/frontend-application-domain/views'
 
-const DomainsHeaderPage = async ({
-  params,
-}: {
-  params: Promise<{ appId: string }>
-}) => {
-  const resolvedParams = await params
-  const { appId } = resolvedParams
+const Page = async ({ params }: PageProps<'appId'>) => {
+  const { appId } = await params
 
   return <DomainsPageHeaderContainer appId={appId} />
 }
 
-export default DomainsHeaderPage
+export default Page

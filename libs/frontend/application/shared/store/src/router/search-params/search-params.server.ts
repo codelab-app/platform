@@ -10,24 +10,15 @@ import type {
 export const parseSearchParamsPageProps = (
   searchParams: SearchParamsPageProps,
 ): SearchParamsProps => {
-  const {
-    expandedNodes,
-    filter,
-    node,
-    page,
-    pageSize,
-    primarySidebarKey,
-    search,
-    ...rest
-  } = searchParams
+  const { expandedKeys, filter, node, page, pageSize, search, ...rest } =
+    searchParams
 
   return {
-    expandedNodes: expandedNodes ?? undefined,
+    expandedKeys: expandedKeys ?? undefined,
     filter: filter ? (Array.isArray(filter) ? filter : [filter]) : undefined,
     node,
     page: page ? parseInt(page, 10) : undefined,
     pageSize: pageSize ? parseInt(pageSize, 10) : undefined,
-    primarySidebarKey: primarySidebarKey ?? undefined,
     search: search ?? undefined,
     // this is dynamic page query params that can be accessed in expressions with "urlProps" api
     ...rest,
@@ -38,7 +29,7 @@ export const parsePaginationSearchParams = (
   searchParams: SearchParamsPageProps,
 ): IPaginationSearchParams => {
   const {
-    expandedNodes = [],
+    expandedKeys = [],
     filter = 'name',
     page = '1',
     pageSize = '20',
@@ -58,7 +49,7 @@ export const parsePaginationSearchParams = (
     Array.isArray(key) ? key.join(',') : key
 
   return {
-    expandedNodes: parseArray(expandedNodes),
+    expandedKeys: parseArray(expandedKeys),
     filter: parseString(filter),
     page: parseInt(page, 10),
     pageSize: parseInt(pageSize, 10),

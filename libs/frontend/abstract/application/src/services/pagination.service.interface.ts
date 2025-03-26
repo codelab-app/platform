@@ -1,17 +1,8 @@
 import type {
   IAtomModel,
-  IComponentModel,
   ITagModel,
   ITypeModel,
 } from '@codelab/frontend/abstract/domain'
-import type {
-  IAtomDto,
-  IAtomType,
-  IComponentDto,
-  ITagDto,
-  ITypeDto,
-} from '@codelab/shared/abstract/core'
-import type { Ref } from 'mobx-keystone'
 
 import { RoutePaths } from '../shared'
 
@@ -28,13 +19,15 @@ export type SupportedPaginationPathname =
   | `${typeof types}`
 
 export interface IPaginationSearchParams {
-  expandedNodes?: Array<string>
+  expandedKeys?: Array<string>
   filter: string
   page: number
   pageSize: number
   search?: string
-  // Selected node
-  selectedKey?: string
+  /**
+   * Require key as a result of `TreeViewParams`
+   */
+  selectedKey: string | undefined
 }
 
 export interface IPaginationData {

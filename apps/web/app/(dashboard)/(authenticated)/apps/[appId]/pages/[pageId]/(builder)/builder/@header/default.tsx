@@ -1,3 +1,3 @@
-import Header from './page'
+import Page from './page'
 
-export default Header
+export default Page

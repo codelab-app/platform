@@ -1,12 +1,10 @@
-import type { PageContextParams } from '@codelab/frontend/abstract/application'
+import type { PageProps } from '@codelab/frontend-presentation-view/templates'
 
 import { UpdateRedirectPopover } from '@codelab/frontend-application-redirect/use-cases/update-redirect'
 
 const UpdateRedirectPopoverPage = async ({
   params,
-}: {
-  params: Promise<PageContextParams<{ redirectId: string }>>
-}) => {
+}: PageProps<'appId' | 'pageId' | 'redirectId'>) => {
   const { appId, pageId, redirectId } = await params
 
   return (

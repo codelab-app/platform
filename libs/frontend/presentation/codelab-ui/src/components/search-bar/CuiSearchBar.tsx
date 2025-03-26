@@ -3,7 +3,7 @@
 import SearchOutlined from '@ant-design/icons/SearchOutlined'
 import { Input } from 'antd'
 import classNames from 'classnames'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { debounce } from 'remeda'
 
 import Style from './CuiSearchBar.module.css'

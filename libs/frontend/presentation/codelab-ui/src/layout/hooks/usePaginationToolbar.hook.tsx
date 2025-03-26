@@ -9,11 +9,9 @@ import LeftOutlined from '@ant-design/icons/LeftOutlined'
 import RightOutlined from '@ant-design/icons/RightOutlined'
 import SearchOutlined from '@ant-design/icons/SearchOutlined'
 import { UiKey } from '@codelab/frontend/abstract/types'
-import { logTimestampMs } from '@codelab/shared/infra/logging'
-import { Button, Pagination } from 'antd'
+import { Pagination } from 'antd'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import type { ToolbarItem } from '../../abstract'
 

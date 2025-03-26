@@ -11,8 +11,6 @@ import {
   FormController,
 } from '@codelab/frontend-presentation-components-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
-import { observer } from 'mobx-react-lite'
-import { useMemo } from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 

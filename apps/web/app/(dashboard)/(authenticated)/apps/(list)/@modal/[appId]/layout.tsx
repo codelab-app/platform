@@ -1,5 +1,4 @@
 import type { LayoutProps } from '@codelab/frontend-presentation-view/templates'
-import type { ReactNode } from 'react'
 
 import { preloadAppItemQuery } from '@codelab/frontend-application-app/use-cases/app-item'
 

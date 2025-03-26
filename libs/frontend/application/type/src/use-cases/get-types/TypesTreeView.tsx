@@ -1,9 +1,6 @@
 'use client'
 
-import type {
-  IPaginationSearchParams,
-  ITreeViewProps,
-} from '@codelab/frontend/abstract/application'
+import type { ITreeViewProps } from '@codelab/frontend/abstract/application'
 import type {
   ITreeNode,
   ITypeModel,
@@ -11,12 +8,7 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
-import { useSearchParamsProps } from '@codelab/frontend-application-shared-store/router'
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { TypeKind } from '@codelab/shared/infra/gqlgen'
-import { observer } from 'mobx-react-lite'
-import { useSearchParams } from 'next/navigation'
-import { type Key, useCallback } from 'react'
 
 import { TypesTreeItem } from './TypesTreeItem'
 import { useUpdateSearchParams } from './useUpdateSearchParams.hook'
@@ -24,7 +16,7 @@ import { useUpdateSearchParams } from './useUpdateSearchParams.hook'
 export const TypesTreeView = ({
   data,
   isLoading,
-  searchParams: { expandedNodes, search, selectedKey },
+  searchParams: { expandedKeys, search, selectedKey },
   showSearchBar,
 }: ITreeViewProps<ITypeModel>) => {
   const { updateSearchParams } = useUpdateSearchParams()
@@ -49,7 +41,7 @@ export const TypesTreeView = ({
       <CuiTree<ITreeNode<ITypeTreeNodeData>>
         // Ensure navigation persists selected key
         defaultSelectedKeys={selectedKey ? [selectedKey] : undefined}
-        expandedKeys={expandedNodes}
+        expandedKeys={expandedKeys}
         filter={
           showSearchBar
             ? {

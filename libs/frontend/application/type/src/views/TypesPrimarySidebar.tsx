@@ -13,9 +13,8 @@ import {
   CuiSidebar,
   usePaginationToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 
 import { useTypeService } from '../services'
 import { TypesTreeView } from '../use-cases/get-types'

@@ -9,17 +9,15 @@ import { parseSearchParamsPageProps } from './search-params.server'
 
 /**
  * This version is used to get searchParams from the hook
- *
- * We use lazy loading since some may be called without others being set. We could require only `primarySidebarKey`. Could refactor to group them accordingly based on required/optional
  */
 export const parseUrlSearchParams = (
   searchParams: URLSearchParams,
 ): SearchParamsPageProps => {
   const params = Object.fromEntries(searchParams.entries())
   const filter = searchParams.getAll('filter')
-  const expandedNodes = searchParams.getAll('expandedNodes')
+  const expandedKeys = searchParams.getAll('expandedKeys')
 
-  return { ...params, expandedNodes, filter }
+  return { ...params, expandedKeys, filter }
 }
 
 /**

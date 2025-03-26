@@ -1,13 +1,11 @@
+import type { PageProps } from '@codelab/frontend-presentation-view/templates'
+
 import { DeleteElementModalContainer } from '@codelab/frontend-application-element/use-cases/delete-element'
 
-const DeleteActionModalPage = async ({
-  params,
-}: {
-  params: Promise<{ elementId: string }>
-}) => {
+const Page = async ({ params }: PageProps<'elementId'>) => {
   const { elementId } = await params
 
   return <DeleteElementModalContainer id={elementId} />
 }
 
-export default DeleteActionModalPage
+export default Page

@@ -10,11 +10,7 @@ import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.
 import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { tagRepository } from '@codelab/frontend-domain-tag/repositories'
-import { tagRef } from '@codelab/frontend-domain-tag/store'
-import {
-  useApplicationStore,
-  useDomainStore,
-} from '@codelab/frontend-infra-mobx/context'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Validator } from '@codelab/shared/infra/typebox'
 import { atom, useAtom } from 'jotai'
 

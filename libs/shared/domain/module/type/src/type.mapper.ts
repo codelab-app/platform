@@ -22,12 +22,7 @@ import {
   ITypeKind,
   type IUnionTypeDto,
 } from '@codelab/shared/abstract/core'
-import {
-  connectNodeId,
-  connectOwner,
-  disconnectNodeId,
-  reconnectNodeId,
-} from '@codelab/shared/domain/orm'
+import { connectNodeId, connectOwner } from '@codelab/shared/domain/orm'
 
 import {
   connectTypesOfUnionType,

@@ -10,7 +10,6 @@ import { findOrFail } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 
 import { requestOrThrow } from '../../api'
-import { REQUEST_TIMEOUT } from '../../setup/config'
 import { seedAppData } from '../app/app.data'
 
 export const componentName = 'Container'

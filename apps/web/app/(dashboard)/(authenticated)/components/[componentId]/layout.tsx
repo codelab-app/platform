@@ -1,6 +1,4 @@
-import type { ComponentContextParams } from '@codelab/frontend/abstract/application'
 import type { LayoutProps } from '@codelab/frontend-presentation-view/templates'
-import type { ReactNode } from 'react'
 
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { componentBuilderQuery } from '@codelab/frontend-application-component/use-cases/component-builder'

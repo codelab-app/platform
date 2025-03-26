@@ -6,8 +6,6 @@ import type {
 
 import { componentApi } from '@codelab/shared-domain-module/component'
 
-import { componentRepository } from './component.repository'
-
 /**
  * Moved here instead of `componentService` to avoid circular dependency. `RenderTypeField` in `element` requires this
  */

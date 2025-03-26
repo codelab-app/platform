@@ -3,7 +3,6 @@
 import type { IDomainStoreDto } from '@codelab/frontend/abstract/domain'
 import type { ReactNode } from 'react'
 
-import { logTimestampMs } from '@codelab/shared/infra/logging'
 import { observer } from 'mobx-react-lite'
 import { useEffect } from 'react'
 

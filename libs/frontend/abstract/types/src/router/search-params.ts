@@ -21,7 +21,7 @@ export interface SearchParamsPageProps {
   /**
    * For keeping track of directory tree expanded nodes when navigating
    */
-  expandedNodes?: Array<string>
+  expandedKeys?: Array<string>
   /**
    * @param filter - `?key=value` will become `string`, while `?key=value1&key=value2` will become `Array<string>`
    */
@@ -32,7 +32,6 @@ export interface SearchParamsPageProps {
   node?: string
   page?: string
   pageSize?: string
-  primarySidebarKey?: string
   search?: string
 }
 
@@ -50,6 +49,12 @@ export type SearchParamsProps = Assign<
     pageSize?: number
   }
 >
+export interface TreeViewParams {
+  /**
+   * Require the key to make it easier to enforce. Easier to development when we change interface, the implementation will be forced to update
+   */
+  selectedKey: string | undefined
+}
 
 /**
  * These types are the final types after validation, they represent the needed types in the calling context

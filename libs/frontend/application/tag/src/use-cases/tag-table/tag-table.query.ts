@@ -4,7 +4,6 @@ import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store
 import { parseSearchParamsPageProps } from '@codelab/frontend-application-shared-store/router'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { tagRepository } from '@codelab/frontend-domain-tag/repositories'
-import { logTimestampMs } from '@codelab/shared/infra/logging'
 import 'server-only'
 
 export const tagTableQuery = async (searchParams: SearchParamsPageProps) => {

@@ -17,7 +17,7 @@ import Layout from 'antd/es/layout'
 import Sider from 'antd/es/layout/Sider'
 import { useMemo } from 'react'
 
-import type { DashboardLayoutProps, DashboardSlots } from './DashboardLayout'
+import type { DashboardSlots } from './DashboardLayout'
 
 import { ProgressBar } from '../../components/progressBar/ProgressBar'
 import { sidebarWidth } from './constants'

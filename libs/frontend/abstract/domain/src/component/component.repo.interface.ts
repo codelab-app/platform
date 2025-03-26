@@ -4,7 +4,6 @@ import type {
   ComponentOptions,
   ComponentWhere,
 } from '@codelab/shared/infra/gqlgen'
-import type { Overwrite } from 'utility-types'
 
 import type { IRepository } from '../shared'
 

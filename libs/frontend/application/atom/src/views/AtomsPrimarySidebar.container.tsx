@@ -5,14 +5,10 @@ import type {
 } from '@codelab/frontend/abstract/application'
 import type { IRef } from '@codelab/shared/abstract/core'
 
-import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { logTimestampMs } from '@codelab/shared/infra/logging'
 import { observer } from 'mobx-react-lite'
-import { useEffect } from 'react'
 import { isDefined } from 'remeda'
 
-import { useAtomService } from '../services'
 import { AtomsPrimarySidebar } from './AtomsPrimarySidebar'
 
 export const AtomsPrimarySidebarContainer = observer<{

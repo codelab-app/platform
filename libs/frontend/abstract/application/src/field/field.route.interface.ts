@@ -36,10 +36,16 @@ export type IFieldUpdateRouteContext =
       params: {
         fieldId: string
       }
+      searchParams: {
+        selectedKey: string | undefined
+      }
     }
   | {
       type: IRouteType.Component
       params: { componentId: string; fieldId: string }
+      searchParams: {
+        selectedKey: string | undefined
+      }
     }
   | {
       type: IRouteType.Page
@@ -47,6 +53,9 @@ export type IFieldUpdateRouteContext =
         fieldId: string
         appId: string
         pageId: string
+      }
+      searchParams: {
+        selectedKey: string | undefined
       }
     }
 

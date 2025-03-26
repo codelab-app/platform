@@ -5,7 +5,21 @@ export enum IRouteType {
   Type = 'Type',
 }
 
+/**
+ * Choose from union based on type
+ */
 export type ExtractRouteContextParams<
   TContext,
   TRouteType extends IRouteType,
-> = TContext extends { type: TRouteType; params: infer P } ? P : never
+> = [TContext] extends [never]
+  ? never
+  : TContext extends {
+      type: TRouteType
+      params: infer Params
+      searchParams: infer SearchParams
+    }
+  ? {
+      params: Params
+      searchParams: SearchParams
+    }
+  : { [K in keyof TContext]: never }

@@ -1,5 +1,5 @@
 import type { UrlParams } from '@codelab/frontend/abstract/types'
-import type { PropsWithChildren, ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
 import type { ParamProps, SlotProps } from '../props.type'
 

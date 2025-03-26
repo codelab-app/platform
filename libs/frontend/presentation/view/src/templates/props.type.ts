@@ -1,8 +1,10 @@
-import type { UrlParams } from '@codelab/frontend/abstract/types'
-import type { ObjectLike } from '@codelab/shared/abstract/types'
+import type {
+  SearchParamsPageProps,
+  UrlParams,
+} from '@codelab/frontend/abstract/types'
 import type { ReactNode } from 'react'
 
-import type { DashboardLayoutProps, DashboardSlots } from './Dashboard'
+import type { DashboardSlots } from './Dashboard'
 /**
  * Non-dashboard layout has no slots, only params
  *
@@ -25,6 +27,22 @@ export type ParamProps<ParamKey extends keyof UrlParams = never> = [
         [K in keyof UrlParams]: K extends ParamKey ? UrlParams[K] : never
       }>
     }
+
+export type SearchParamProps<Key extends keyof SearchParamsPageProps = never> =
+  [Key] extends [never]
+    ? {
+        params?: never
+      }
+    : {
+        params: Promise<{
+          /**
+           * We want to iterate through all possible keys, then set `never` to filter it out if we don't use it
+           */
+          [K in keyof SearchParamsPageProps]: K extends Key
+            ? SearchParamsPageProps[K]
+            : never
+        }>
+      }
 
 export type SlotProps<SlotKey extends keyof DashboardSlots = never> = {
   [K in SlotKey]: ReactNode

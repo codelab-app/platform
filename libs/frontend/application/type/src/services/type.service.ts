@@ -5,20 +5,15 @@ import type {
   ITypeModel,
   ITypeUpdateDto,
 } from '@codelab/frontend/abstract/domain'
-import type { IRef } from '@codelab/shared/abstract/core'
+import type { TreeViewParams } from '@codelab/frontend/abstract/types'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import { RoutePaths } from '@codelab/frontend/abstract/application'
-import { typeRef } from '@codelab/frontend/abstract/domain'
-import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { typeRepository } from '@codelab/frontend-domain-type/repositories'
 import { TypeFactory } from '@codelab/frontend-domain-type/store'
-import {
-  useApplicationStore,
-  useDomainStore,
-} from '@codelab/frontend-infra-mobx/context'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { TypeKind } from '@codelab/shared/infra/gqlgen'
 import { Validator } from '@codelab/shared/infra/typebox'
@@ -184,20 +179,23 @@ export const useTypeService = (): ITypeService => {
   }
 
   const updatePopover = {
-    close: (router: AppRouterInstance) => {
-      router.push(RoutePaths.Type.base())
+    close: (router: AppRouterInstance, params: TreeViewParams) => {
+      router.push(RoutePaths.Type.base(params))
     },
-    open: (router: AppRouterInstance, { id }: IRef) => {
-      router.push(RoutePaths.Type.update({ typeId }))
+    open: (
+      router: AppRouterInstance,
+      params: { typeId: string } & TreeViewParams,
+    ) => {
+      router.push(RoutePaths.Type.update(params))
     },
   }
 
   const createPopover = {
-    close: (router: AppRouterInstance) => {
-      router.push(RoutePaths.Type.base())
+    close: (router: AppRouterInstance, params: TreeViewParams) => {
+      router.push(RoutePaths.Type.base(params))
     },
-    open: (router: AppRouterInstance) => {
-      router.push(RoutePaths.Type.create())
+    open: (router: AppRouterInstance, params: TreeViewParams) => {
+      router.push(RoutePaths.Type.create(params))
     },
   }
 

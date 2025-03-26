@@ -1,17 +1,12 @@
 'use client'
 
-import type { DirectoryTreeProps } from 'antd/es/tree'
-import type { ReactNode } from 'react'
-
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
-import { logTimestampMs } from '@codelab/shared/infra/logging'
 import { Tree } from 'antd'
 import Empty from 'antd/lib/empty'
 import classNames from 'classnames'
 import { observer, useLocalObservable } from 'mobx-react-lite'
 import { useCallback, useEffect } from 'react'
 
-import type { Variant } from '../../abstract'
 import type {
   CuiTreeBasicDataNode,
   CuiTreeProps,

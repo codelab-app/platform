@@ -13,10 +13,9 @@ import {
   CuiSidebar,
   usePaginationToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { logTimestampMs } from '@codelab/shared/infra/logging'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 
 import { useAtomService } from '../services/atom.service'
 import { AtomsTreeView } from '../use-cases/atom-list/AtomsTreeView'

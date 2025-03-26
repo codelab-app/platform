@@ -1,12 +1,8 @@
-import type { ComponentContextParams } from '@codelab/frontend/abstract/application'
+import type { PageProps } from '@codelab/frontend-presentation-view/templates'
 
 import { ComponentBuilderPrimarySidebarContainer } from '@codelab/frontend-application-builder/sections'
 
-const Page = async ({
-  params,
-}: {
-  params: Promise<ComponentContextParams>
-}) => {
+const Page = async ({ params }: PageProps<'componentId'>) => {
   const { componentId } = await params
 
   return <ComponentBuilderPrimarySidebarContainer componentId={componentId} />

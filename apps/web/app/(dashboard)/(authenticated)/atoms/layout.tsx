@@ -1,7 +1,6 @@
 import type { DashboardLayoutProps } from '@codelab/frontend-presentation-view/templates'
 
 import { DashboardLayout } from '@codelab/frontend-presentation-view/templates'
-import { ReactNode } from 'react'
 
 const Layout = ({
   children,

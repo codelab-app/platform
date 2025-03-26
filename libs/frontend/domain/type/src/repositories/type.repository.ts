@@ -16,7 +16,6 @@ import {
   typeMapperRecord,
   updateTypeServerActions,
 } from '@codelab/shared-domain-module/type'
-import { sortBy } from 'remeda'
 
 const { GetBaseTypes, GetDescendants } = findTypeServerActions
 

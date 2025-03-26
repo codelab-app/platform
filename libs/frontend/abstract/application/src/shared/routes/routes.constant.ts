@@ -1,5 +1,9 @@
-import type { SearchParamsContext } from '@codelab/frontend/abstract/types'
+import type {
+  SearchParamsContext,
+  TreeViewParams,
+} from '@codelab/frontend/abstract/types'
 import type { IRef } from '@codelab/shared/abstract/core'
+import type { Optional } from 'utility-types'
 
 import queryString from 'query-string'
 
@@ -14,11 +18,11 @@ import type { ExtractRouteContextParams, IRouteType } from './route.interface'
 /**
  * Adds query parameters to a URL path if they exist
  */
-export const addQueryParams = (
+export const addSearchParams = (
   basePath: string,
-  params: Record<string, string | undefined>,
+  searchParams: Record<string, string | undefined>,
 ) => {
-  const filteredParams = Object.entries(params)
+  const filteredParams = Object.entries(searchParams)
     .filter(([_, value]) => value !== undefined)
     .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {})
 
@@ -274,28 +278,39 @@ export const RoutePaths = {
   },
 
   Type: {
-    base: () => '/types' as const,
-    create: () => '/types/type/create',
+    base: (params: TreeViewParams = { selectedKey: undefined }) =>
+      addSearchParams('/types', { selectedKey: params.selectedKey }),
+    create: ({ selectedKey }: TreeViewParams) =>
+      addSearchParams('/types/type/create', { selectedKey }),
     delete: ({ id }: IRef) => `/types/type/${id}/delete`,
     field: {
-      create: (interfaceTypeId: string) =>
-        `/types/field/create/${interfaceTypeId}`,
-      delete: ({ fieldId }: { fieldId: string }) =>
-        `/types/field/${fieldId}/delete`,
-      update: ({
-        fieldId,
+      create: ({
+        interfaceId,
         selectedKey,
-      }: {
-        fieldId: string
-        selectedKey?: string
-      }) => addQueryParams(`/types/field/${fieldId}/update`, { selectedKey }),
+      }: ExtractRouteContextParams<
+        IFieldUpdateRouteContext,
+        IRouteType.Type
+      >) =>
+        addSearchParams(`/types/field/create/${interfaceId}`, { selectedKey }),
+      delete: ({
+        fieldId,
+      }: ExtractRouteContextParams<
+        IFieldUpdateRouteContext,
+        IRouteType.Type
+      >) => `/types/field/${fieldId}/delete`,
+      update: ({
+        params: { fieldId },
+        searchParams,
+      }: ExtractRouteContextParams<
+        IFieldUpdateRouteContext,
+        IRouteType.Type
+      >) => addSearchParams(`/types/field/${fieldId}/update`, searchParams),
     },
     update: ({
       selectedKey,
       typeId,
-    }: {
+    }: TreeViewParams & {
       typeId: string
-      selectedKey?: string
-    }) => addQueryParams(`/types/type/${typeId}/update`, { selectedKey }),
+    }) => addSearchParams(`/types/type/${typeId}/update`, { selectedKey }),
   },
 }

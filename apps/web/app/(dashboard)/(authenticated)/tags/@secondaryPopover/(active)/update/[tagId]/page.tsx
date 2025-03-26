@@ -1,7 +1,4 @@
-import type {
-  LayoutProps,
-  PageProps,
-} from '@codelab/frontend-presentation-view/templates'
+import type { PageProps } from '@codelab/frontend-presentation-view/templates'
 import type { Metadata } from 'next'
 
 import { UpdateTagPopoverContainer } from '@codelab/frontend-application-tag/use-cases/update-tag'

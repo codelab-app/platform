@@ -15,11 +15,7 @@ import {
 } from '@codelab/frontend/abstract/application'
 import {
   componentDomainServiceContext,
-  type IAtomModel,
-  type IComponentModel,
   type IDomainStore,
-  type ITagModel,
-  type ITypeModel,
   userDomainServiceContext,
 } from '@codelab/frontend/abstract/domain'
 import { BuilderService } from '@codelab/frontend-application-builder/services'

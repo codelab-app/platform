@@ -1,5 +1,4 @@
 import type { LayoutProps } from '@codelab/frontend-presentation-view/templates'
-import type { ReactNode } from 'react'
 
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { atomRepository } from '@codelab/frontend-domain-atom/repositories'

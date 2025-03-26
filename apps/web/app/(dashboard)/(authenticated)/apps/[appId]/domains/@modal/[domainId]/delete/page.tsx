@@ -8,8 +8,7 @@ export const metadata: Metadata = {
 }
 
 const Page = async ({ params }: PageProps<'domainId'>) => {
-  const resolvedParams = await params
-  const { domainId } = resolvedParams
+  const { domainId } = await params
 
   return <DeleteDomainModalContainer id={domainId} />
 }

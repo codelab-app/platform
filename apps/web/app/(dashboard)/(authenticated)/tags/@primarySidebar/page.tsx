@@ -1,12 +1,8 @@
 import { type SearchParamsPageProps } from '@codelab/frontend/abstract/types'
-import {
-  ApplicationStoreHydrator,
-  DomainStoreHydrator,
-} from '@codelab/frontend/infra/context'
+import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { parsePaginationSearchParams } from '@codelab/frontend-application-shared-store/router'
 import { tagTableQuery } from '@codelab/frontend-application-tag/use-cases/tag-table'
 import { TagsPrimarySidebarContainer } from '@codelab/frontend-application-tag/views'
-import { logTimestampMs } from '@codelab/shared/infra/logging'
 
 const Page = async ({
   searchParams,

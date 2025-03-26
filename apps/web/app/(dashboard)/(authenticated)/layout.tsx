@@ -1,5 +1,4 @@
 import type { LayoutProps } from '@codelab/frontend-presentation-view/templates'
-import type { PropsWithChildren, ReactNode } from 'react'
 
 import { getServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
 import { preferenceQuery } from '@codelab/frontend-domain-preference/repositories'

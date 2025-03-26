@@ -2,7 +2,6 @@ import type { LayoutProps } from '@codelab/frontend-presentation-view/templates'
 
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { typeRepository } from '@codelab/frontend-domain-type/repositories'
-import { Spinner } from '@codelab/frontend-presentation-view/components/loader'
 
 const Layout = async ({ children, params }: LayoutProps<'typeId'>) => {
   const { typeId } = await params

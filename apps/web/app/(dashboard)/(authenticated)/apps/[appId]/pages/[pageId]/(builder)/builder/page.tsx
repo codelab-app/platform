@@ -1,4 +1,3 @@
-import type { PageContextParams } from '@codelab/frontend/abstract/application'
 import type { PageProps } from '@codelab/frontend-presentation-view/templates'
 import type { Metadata } from 'next'
 

@@ -13,7 +13,6 @@ import {
 import { ApplicationStoreHydrator } from '@codelab/frontend/infra/context'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
-import { useSearchParams } from 'next/navigation'
 import { useRef } from 'react'
 import styled from 'styled-components'
 

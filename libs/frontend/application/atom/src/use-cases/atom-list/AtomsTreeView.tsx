@@ -1,7 +1,4 @@
-import type {
-  IPaginationSearchParams,
-  ITreeViewProps,
-} from '@codelab/frontend/abstract/application'
+import type { ITreeViewProps } from '@codelab/frontend/abstract/application'
 import type {
   IAtomModel,
   IAtomTreeNodeData,
@@ -9,10 +6,7 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
-import { logTimestampMs } from '@codelab/shared/infra/logging'
 import { observer } from 'mobx-react-lite'
-import { useEffect } from 'react'
 
 import { AtomsTreeItem } from './AtomsTreeItem'
 

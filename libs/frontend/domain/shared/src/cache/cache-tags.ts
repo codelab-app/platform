@@ -7,7 +7,6 @@ import {
   createItemTag,
   createItemWithListTags,
   createListTag,
-  createPaginatedCacheTag,
   invalidateItem as invalidateItemUtil,
   invalidateRelated as invalidateRelatedUtil,
 } from './utils'

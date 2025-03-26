@@ -12,6 +12,7 @@ export interface UrlParams {
   fieldId: string
   interfaceId: string
   pageId: string
+  redirectId: string
   resourceId: string
   storeId: string
   tagId: string
