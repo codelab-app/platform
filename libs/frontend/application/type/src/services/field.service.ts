@@ -142,7 +142,7 @@ export const useFieldService = (): IFieldService => {
     field.writeCache(updateFieldDto)
 
     await fieldRepository.update({ id: updateFieldData.id }, updateFieldDto, {
-      revalidateTags: [CACHE_TAGS.Type.list()],
+      revalidateTags: [CACHE_TAGS.Type.list(), CACHE_TAGS.Field.list()],
     })
 
     return field

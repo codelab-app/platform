@@ -9,7 +9,7 @@ import { ITypeKind } from '@codelab/shared/abstract/core'
 import { type TypeFragment, TypeKind } from '@codelab/shared/infra/gqlgen'
 import { Validator } from '@codelab/shared/infra/typebox'
 import { computed } from 'mobx'
-import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
+import { Model, model, modelAction, objectMap, prop, Ref } from 'mobx-keystone'
 import { isDefined } from 'remeda'
 
 import { InterfaceType, TypeFactory } from '../store'
@@ -17,6 +17,10 @@ import { InterfaceType, TypeFactory } from '../store'
 @model('@codelab/TypeDomainService')
 export class TypeDomainService
   extends Model({
+    /**
+     * This allows us to display a subset of types for pagination while retaining observability
+     */
+    paginatedTypes: prop(() => objectMap<Ref<ITypeModel>>()),
     /**
      * This holds all types
      */

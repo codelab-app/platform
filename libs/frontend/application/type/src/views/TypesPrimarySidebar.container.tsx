@@ -19,11 +19,17 @@ import { isDefined } from 'remeda'
 import { useTypeService } from '../services'
 import { TypesPrimarySidebar } from './TypesPrimarySidebar'
 
-export const TypesPrimarySidebarContainer = observer<{
+interface TypesPrimarySidebarContainerProps {
   pagination: IPaginationData
   searchParams: IPaginationSearchParams
   typesDto: Array<TypeFragment>
-}>(({ pagination, searchParams, typesDto }) => {
+}
+
+export const TypesPrimarySidebarContainer = ({
+  pagination,
+  searchParams,
+  typesDto,
+}: TypesPrimarySidebarContainerProps) => {
   const { typeDomainService } = useDomainStore()
   const types = typeDomainService.hydrateTypes(typesDto)
 
@@ -34,4 +40,4 @@ export const TypesPrimarySidebarContainer = observer<{
       types={types}
     />
   )
-})
+}

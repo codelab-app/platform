@@ -20,11 +20,17 @@ import { useMemo, useState } from 'react'
 import { useTypeService } from '../services'
 import { TypesTreeView } from '../use-cases/get-types'
 
-export const TypesPrimarySidebar = observer<{
+interface TypesPrimarySidebarProps {
   pagination: IPaginationData
   searchParams: IPaginationSearchParams
   types: Array<ITypeModel>
-}>(({ pagination, searchParams, types }) => {
+}
+
+export const TypesPrimarySidebar = ({
+  pagination,
+  searchParams,
+  types,
+}: TypesPrimarySidebarProps) => {
   const { createPopover } = useTypeService()
   const router = useRouter()
 
@@ -71,4 +77,4 @@ export const TypesPrimarySidebar = observer<{
       views={views}
     />
   )
-})
+}

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { UpdateTypePopover } from '@codelab/frontend-application-type/use-cases/update-type'
+import { UpdateTypePopoverContainer } from '@codelab/frontend-application-type/use-cases/update-type'
 
 export const metadata: Metadata = {
   title: 'Update Type | Codelab',
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params
 
-  return <UpdateTypePopover id={id} />
+  return <UpdateTypePopoverContainer id={id} />
 }
 
 export default Page

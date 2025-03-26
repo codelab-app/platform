@@ -10,10 +10,19 @@ import type {
 export const parseSearchParamsPageProps = (
   searchParams: SearchParamsPageProps,
 ): SearchParamsProps => {
-  const { filter, node, page, pageSize, primarySidebarKey, search, ...rest } =
-    searchParams
+  const {
+    expandedNodes,
+    filter,
+    node,
+    page,
+    pageSize,
+    primarySidebarKey,
+    search,
+    ...rest
+  } = searchParams
 
   return {
+    expandedNodes: expandedNodes ?? undefined,
     filter: filter ? (Array.isArray(filter) ? filter : [filter]) : undefined,
     node,
     page: page ? parseInt(page, 10) : undefined,
@@ -28,7 +37,12 @@ export const parseSearchParamsPageProps = (
 export const parsePaginationSearchParams = (
   searchParams: SearchParamsPageProps,
 ): IPaginationSearchParams => {
-  const { filter = 'name', page = '1', pageSize = '20' } = searchParams
+  const {
+    expandedNodes = [],
+    filter = 'name',
+    page = '1',
+    pageSize = '20',
+  } = searchParams
 
   /**
    * If used in server page parallel slots, the page could be activated when there are no search params
@@ -37,8 +51,15 @@ export const parsePaginationSearchParams = (
   //   throw new Error('filter, page, pageSize are required')
   // }
 
+  const parseArray = (key: string | Array<string>) =>
+    Array.isArray(key) ? key : [key]
+
+  const parseString = (key: string | Array<string>) =>
+    Array.isArray(key) ? key.join(',') : key
+
   return {
-    filter: Array.isArray(filter) ? filter.join(',') : filter,
+    expandedNodes: parseArray(expandedNodes),
+    filter: parseString(filter),
     page: parseInt(page, 10),
     pageSize: parseInt(pageSize, 10),
   }

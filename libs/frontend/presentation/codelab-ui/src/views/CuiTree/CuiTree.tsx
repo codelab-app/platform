@@ -12,6 +12,11 @@ import { observer, useLocalObservable } from 'mobx-react-lite'
 import { useCallback, useEffect } from 'react'
 
 import type { Variant } from '../../abstract'
+import type {
+  CuiTreeBasicDataNode,
+  CuiTreeProps,
+  WithChildren,
+} from './cui-tree.type'
 import type { FilterOptions } from './store'
 
 import { CuiSearchBar, CuiSkeletonWrapper } from '../../components'
@@ -21,44 +26,6 @@ import { CuiTreeStore } from './store'
 
 const { DirectoryTree } = Tree
 
-export interface CuiTreeBasicDataNode {
-  checkable?: boolean
-  /** Set style of TreeNode. This is not recommend if you don't have any force requirement */
-  className?: string
-  disableCheckbox?: boolean
-  disabled?: boolean
-  highlight?: {
-    primaryTitle?: string
-    secondaryTitle?: string
-  }
-  icon?: ReactNode
-  isLeaf?: boolean
-  key: number | string
-  primaryTitle?: string
-  secondaryTitle?: string
-  selectable?: boolean
-  style?: React.CSSProperties
-  switcherIcon?: ReactNode
-  tags?: ReactNode
-  toolbar?: ReactNode
-  variant?: Variant
-}
-
-export type WithChildren<T> = T & {
-  children?: Array<WithChildren<T>>
-}
-
-export interface CuiTreeProps<T extends WithChildren<CuiTreeBasicDataNode>>
-  extends DirectoryTreeProps<T> {
-  draggable?: boolean
-  /**
-   * Allows local filtering of tree data by primary and secondary titles
-   */
-  filter?: FilterOptions
-  isLoading?: boolean
-  treeData?: Array<T>
-  onSearchKeywordChange?(keyword: string): void
-}
 export const CuiTree = observer(
   <T extends CuiTreeBasicDataNode = CuiTreeBasicDataNode>(
     props: CuiTreeProps<T>,
@@ -118,8 +85,9 @@ export const CuiTree = observer(
     )
 
     useEffect(() => {
+      console.log('expandedNodes', expandedKeys)
       cuiTreeStore.setTreeData(treeData ?? [])
-      cuiTreeStore.setExpandedKeys(expandedKeys ?? cuiTreeStore.expandedKeys)
+      // cuiTreeStore.setExpandedKeys(expandedKeys ?? cuiTreeStore.expandedKeys)
       cuiTreeStore.updateFilterOptions(filter)
     }, [treeData, expandedKeys, filter, cuiTreeStore])
 

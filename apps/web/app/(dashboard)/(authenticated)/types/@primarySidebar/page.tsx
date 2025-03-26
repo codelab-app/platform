@@ -22,8 +22,6 @@ const Page = async ({
 
   const params = parsePaginationSearchParams(await searchParams)
 
-  console.log(typesDto, fieldsDto)
-
   return (
     <DomainStoreHydrator fieldsDto={fieldsDto} typesDto={typesDto}>
       <TypesPrimarySidebarContainer

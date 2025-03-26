@@ -19,6 +19,10 @@ import type { Assign, Required } from 'utility-types'
  */
 export interface SearchParamsPageProps {
   /**
+   * For keeping track of directory tree expanded nodes when navigating
+   */
+  expandedNodes?: Array<string>
+  /**
    * @param filter - `?key=value` will become `string`, while `?key=value1&key=value2` will become `Array<string>`
    */
   filter?: string | Array<string>

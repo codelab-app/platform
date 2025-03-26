@@ -28,6 +28,7 @@ export type SupportedPaginationPathname =
   | `${typeof types}`
 
 export interface IPaginationSearchParams {
+  expandedNodes?: Array<string>
   filter: string
   page: number
   pageSize: number

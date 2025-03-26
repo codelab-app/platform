@@ -17,8 +17,9 @@ export const parseUrlSearchParams = (
 ): SearchParamsPageProps => {
   const params = Object.fromEntries(searchParams.entries())
   const filter = searchParams.getAll('filter')
+  const expandedNodes = searchParams.getAll('expandedNodes')
 
-  return { ...params, filter }
+  return { ...params, expandedNodes, filter }
 }
 
 /**
