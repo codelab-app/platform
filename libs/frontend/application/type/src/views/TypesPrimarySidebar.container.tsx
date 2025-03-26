@@ -3,7 +3,8 @@ import type {
   IPaginationData,
   IPaginationSearchParams,
 } from '@codelab/frontend/abstract/application'
-import type { IRef } from '@codelab/shared/abstract/core'
+import type { IRef, ITypeDto } from '@codelab/shared/abstract/core'
+import type { TypeFragment } from '@codelab/shared/infra/gqlgen'
 
 import { RoutePaths } from '@codelab/frontend/abstract/application'
 import {
@@ -21,19 +22,16 @@ import { TypesPrimarySidebar } from './TypesPrimarySidebar'
 export const TypesPrimarySidebarContainer = observer<{
   pagination: IPaginationData
   searchParams: IPaginationSearchParams
-  types: Array<IRef>
-}>(({ pagination, searchParams, types }) => {
+  typesDto: Array<TypeFragment>
+}>(({ pagination, searchParams, typesDto }) => {
   const { typeDomainService } = useDomainStore()
-
-  const typeModels = types
-    .map((typeRef) => typeDomainService.types.get(typeRef.id))
-    .filter(isDefined)
+  const types = typeDomainService.hydrateTypes(typesDto)
 
   return (
     <TypesPrimarySidebar
       pagination={pagination}
       searchParams={searchParams}
-      types={typeModels}
+      types={types}
     />
   )
 })

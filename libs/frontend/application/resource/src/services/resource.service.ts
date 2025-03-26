@@ -32,7 +32,7 @@ export const useResourceService = (): IResourceService => {
     hydrate({ resourcesDto: [resource] })
 
     return await resourceRepository.add(resource, {
-      revalidateTag: CACHE_TAGS.Resource.list(),
+      revalidateTags: [CACHE_TAGS.Resource.list()],
     })
   }
 
@@ -42,7 +42,7 @@ export const useResourceService = (): IResourceService => {
     })
 
     return await resourceRepository.delete(resources, {
-      revalidateTag: CACHE_TAGS.Resource.list(),
+      revalidateTags: [CACHE_TAGS.Resource.list()],
     })
   }
 
@@ -90,7 +90,7 @@ export const useResourceService = (): IResourceService => {
         },
       },
       {
-        revalidateTag: CACHE_TAGS.Resource.list(),
+        revalidateTags: [CACHE_TAGS.Resource.list()],
       },
     )
   }

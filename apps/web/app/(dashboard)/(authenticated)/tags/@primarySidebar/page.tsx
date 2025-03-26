@@ -16,22 +16,18 @@ const Page = async ({
   /**
    * We hydrate these to domain services, but need to also hydrate to pagination service
    */
-  console.log('searchParams', await searchParams)
-
   const { count, tagsDto } = await tagTableQuery(await searchParams)
   const params = parsePaginationSearchParams(await searchParams)
 
   return (
     <DomainStoreHydrator tagsDto={tagsDto}>
-      <ApplicationStoreHydrator searchParams={await searchParams}>
-        <TagsPrimarySidebarContainer
-          pagination={{
-            totalItems: count,
-          }}
-          searchParams={await params}
-          tagsRef={tagsDto}
-        />
-      </ApplicationStoreHydrator>
+      <TagsPrimarySidebarContainer
+        pagination={{
+          totalItems: count,
+        }}
+        searchParams={await params}
+        tagsRef={tagsDto}
+      />
     </DomainStoreHydrator>
   )
 }

@@ -14,7 +14,10 @@ import {
   RoutePaths,
 } from '@codelab/frontend/abstract/application'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
-import { fieldRepository } from '@codelab/frontend-domain-type/repositories'
+import {
+  fieldRepository,
+  revalidateTypeListCache,
+} from '@codelab/frontend-domain-type/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Validator } from '@codelab/shared/infra/typebox'
 import { filter, isTruthy, unique } from 'remeda'
@@ -42,7 +45,7 @@ export const useFieldService = (): IFieldService => {
     })
 
     await fieldRepository.add(fieldDto, {
-      revalidateTag: CACHE_TAGS.Field.list(),
+      revalidateTags: [CACHE_TAGS.Field.list()],
     })
 
     return newField
@@ -63,7 +66,7 @@ export const useFieldService = (): IFieldService => {
     })
 
     await fieldRepository.add(fieldDto, {
-      revalidateTag: CACHE_TAGS.Field.list(),
+      revalidateTags: [CACHE_TAGS.Field.list()],
     })
 
     return field
@@ -73,7 +76,7 @@ export const useFieldService = (): IFieldService => {
     fields.forEach((field) => fieldDomainService.fields.delete(field.id))
 
     const nodesDeleted = fieldRepository.delete(fields, {
-      revalidateTag: CACHE_TAGS.Field.list(),
+      revalidateTags: [CACHE_TAGS.Field.list()],
     })
 
     return nodesDeleted
@@ -139,7 +142,7 @@ export const useFieldService = (): IFieldService => {
     field.writeCache(updateFieldDto)
 
     await fieldRepository.update({ id: updateFieldData.id }, updateFieldDto, {
-      revalidateTag: CACHE_TAGS.Field.list(),
+      revalidateTags: [CACHE_TAGS.Type.list()],
     })
 
     return field

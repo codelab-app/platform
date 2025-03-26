@@ -23,7 +23,7 @@ export const useDomainService = (): IDomainService => {
     })
 
     await domainRepository.add(domain, {
-      revalidateTag: CACHE_TAGS.Domain.list(),
+      revalidateTags: [CACHE_TAGS.Domain.list()],
     })
 
     // Fetching again to get the backend-generated domainConfig
@@ -38,7 +38,7 @@ export const useDomainService = (): IDomainService => {
 
       domainDomainService.domains.delete(id)
       await domainRepository.delete([domain], {
-        revalidateTag: CACHE_TAGS.Domain.list(),
+        revalidateTags: [CACHE_TAGS.Domain.list()],
       })
 
       return domain
@@ -59,7 +59,7 @@ export const useDomainService = (): IDomainService => {
 
   const update = async (domain: IUpdateDomainData) => {
     return await domainRepository.update({ id: domain.id }, domain, {
-      revalidateTag: CACHE_TAGS.Domain.list(),
+      revalidateTags: [CACHE_TAGS.Domain.list()],
     })
   }
 

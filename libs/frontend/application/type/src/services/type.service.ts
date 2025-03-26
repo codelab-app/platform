@@ -39,7 +39,7 @@ export const useTypeService = (): ITypeService => {
     // use hydrated type here instead of dto to make sure the dependant types have full data
     // (for example "typesOfUnionType" should not only contain ids, but also __typename)
     await typeRepository.add(type.toJson, {
-      revalidateTag: CACHE_TAGS.Type.list(),
+      revalidateTags: [CACHE_TAGS.Type.list()],
     })
 
     return type
@@ -52,7 +52,7 @@ export const useTypeService = (): ITypeService => {
       typeDomainService.types.delete(id)
 
       return await typeRepository.delete([type], {
-        revalidateTag: CACHE_TAGS.Type.list(),
+        revalidateTags: [CACHE_TAGS.Type.list()],
       })
     }
 
@@ -136,7 +136,7 @@ export const useTypeService = (): ITypeService => {
     // use hydrated type here instead of dto to make sure the dependant types have full data
     // (for example "typesOfUnionType" should not only contain ids, but also __typename)
     await typeRepository.update({ id: type.id }, type.toJson, {
-      revalidateTag: CACHE_TAGS.Type.list(),
+      revalidateTags: [CACHE_TAGS.Type.list()],
     })
 
     return type

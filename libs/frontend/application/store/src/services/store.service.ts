@@ -18,7 +18,7 @@ export const useStoreService = (): IStoreService => {
     const store = storeDomainService.hydrate(data)
 
     return await storeRepository.add(data, {
-      revalidateTag: CACHE_TAGS.Store.list(),
+      revalidateTags: [CACHE_TAGS.Store.list()],
     })
   }
 
@@ -28,7 +28,7 @@ export const useStoreService = (): IStoreService => {
     })
 
     return await storeRepository.delete(stores, {
-      revalidateTag: CACHE_TAGS.Store.list(),
+      revalidateTags: [CACHE_TAGS.Store.list()],
     })
   }
 
@@ -55,7 +55,7 @@ export const useStoreService = (): IStoreService => {
     store.writeCache({ name: data.name })
 
     return await storeRepository.update({ id: store.id }, data, {
-      revalidateTag: CACHE_TAGS.Store.list(),
+      revalidateTags: [CACHE_TAGS.Store.list()],
     })
   }
 

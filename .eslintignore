@@ -1,7 +1,12 @@
 node_modules
 dist
+data
 .next
 .cache
+coverage
+tmp
+.nx
+.aider*
 public
 *.png
 *.d.ts

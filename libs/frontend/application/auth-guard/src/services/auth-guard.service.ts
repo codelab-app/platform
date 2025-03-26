@@ -28,7 +28,7 @@ export const useAuthGuardService = (): IAuthGuardService => {
         },
       },
       {
-        revalidateTag: CACHE_TAGS.AuthGuard.list(),
+        revalidateTags: [CACHE_TAGS.AuthGuard.list()],
       },
     )
 
@@ -43,7 +43,7 @@ export const useAuthGuardService = (): IAuthGuardService => {
     }
 
     return await authGuardRepository.delete(authGuards, {
-      revalidateTag: CACHE_TAGS.AuthGuard.list(),
+      revalidateTags: [CACHE_TAGS.AuthGuard.list()],
     })
   }
 
@@ -74,7 +74,7 @@ export const useAuthGuardService = (): IAuthGuardService => {
         },
       },
       {
-        revalidateTag: CACHE_TAGS.AuthGuard.list(),
+        revalidateTags: [CACHE_TAGS.AuthGuard.list()],
       },
     )
 

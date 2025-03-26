@@ -68,7 +68,7 @@ export const useComponentService = (): IComponentService => {
     await storeRepository.add(component.store)
     await elementRepository.add(component.rootElement)
     await componentRepository.add(component.component, {
-      revalidateTag: CACHE_TAGS.Component.list(),
+      revalidateTags: [CACHE_TAGS.Component.list()],
     })
 
     return componentDomainService.component(data.id)
@@ -123,7 +123,7 @@ export const useComponentService = (): IComponentService => {
       componentDomainService.components.delete(id)
 
       await componentRepository.delete([component], {
-        revalidateTag: CACHE_TAGS.Component.list(),
+        revalidateTags: [CACHE_TAGS.Component.list()],
       })
 
       return component
@@ -167,7 +167,7 @@ export const useComponentService = (): IComponentService => {
 
   const update = async (data: IUpdateComponentData) => {
     return await componentRepository.update({ id: data.id }, data, {
-      revalidateTag: CACHE_TAGS.Component.list(),
+      revalidateTags: [CACHE_TAGS.Component.list()],
     })
   }
 

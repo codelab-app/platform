@@ -87,7 +87,7 @@ export const useAppService = (): IAppService => {
       const elements = pagesDto.flatMap((page) => page.elements)
 
       await appRepository.delete([app], {
-        revalidateTag: CACHE_TAGS.App.list(),
+        revalidateTags: [CACHE_TAGS.App.list()],
       })
       await elementRepository.delete(elements)
 
@@ -157,7 +157,7 @@ export const useAppService = (): IAppService => {
       { id },
       { id, name, owner },
       {
-        revalidateTag: CACHE_TAGS.App.list(),
+        revalidateTags: [CACHE_TAGS.App.list()],
       },
     )
 

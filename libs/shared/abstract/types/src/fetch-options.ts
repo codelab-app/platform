@@ -5,6 +5,9 @@ export interface NextFetchRequestConfig {
   revalidate?: number | false
   tags?: Array<string>
 }
+/**
+ * Add my own
+ */
 export type NextFetchOptions = NextFetchRequestConfig & {
-  revalidateTag?: string
+  revalidateTags?: Array<string>
 }

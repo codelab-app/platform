@@ -28,7 +28,7 @@ export const useTagService = (): ITagService => {
     const tag = tagDomainService.hydrate(data)
 
     await tagRepository.add(data, {
-      revalidateTag: CACHE_TAGS.Tag.list(),
+      revalidateTags: [CACHE_TAGS.Tag.list()],
     })
 
     if (!tag.parent) {
@@ -66,7 +66,7 @@ export const useTagService = (): ITagService => {
     }
 
     return await tagRepository.delete(tagsToRemove, {
-      revalidateTag: CACHE_TAGS.Tag.list(),
+      revalidateTags: [CACHE_TAGS.Tag.list()],
     })
   }
 
@@ -93,7 +93,7 @@ export const useTagService = (): ITagService => {
     tag.writeCache({ name, parent })
 
     await tagRepository.update({ id: tag.id }, tag, {
-      revalidateTag: CACHE_TAGS.Tag.list(),
+      revalidateTags: [CACHE_TAGS.Tag.list()],
     })
 
     return tag

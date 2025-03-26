@@ -163,10 +163,11 @@ export class TypeListPage extends BasePage {
     const form = await this.getForm(UiKey.TypeFormUpdate)
 
     await form.fillInputText({ label: 'Name' }, updatedArrayTypeName)
-    await form.fillInputSelect(
-      { label: 'Array item type' },
-      PrimitiveTypeKind.Boolean,
-    )
+    // Cannot disconnect required field
+    // await form.fillInputSelect(
+    //   { label: 'Array Item Type' },
+    //   PrimitiveTypeKind.Boolean,
+    // )
 
     await this.getPopover(UiKey.TypePopoverUpdate)
       .getButton({ text: 'Update' })

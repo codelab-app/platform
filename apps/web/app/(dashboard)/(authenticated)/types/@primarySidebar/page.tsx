@@ -13,28 +13,26 @@ const Page = async ({
 }: {
   searchParams: Promise<SearchParamsPageProps>
 }) => {
-  logTimestampMs('Before typeTableQuery')
-
   /**
    * We hydrate these to domain services, but need to also hydrate to pagination service
    */
-  const { count, fieldsDto, types } = await typeTableQuery(await searchParams)
-
-  logTimestampMs('After typeTableQuery')
+  const { count, fieldsDto, typesDto } = await typeTableQuery(
+    await searchParams,
+  )
 
   const params = parsePaginationSearchParams(await searchParams)
 
+  console.log(typesDto, fieldsDto)
+
   return (
-    <DomainStoreHydrator fieldsDto={fieldsDto} typesDto={types}>
-      <ApplicationStoreHydrator searchParams={await searchParams}>
-        <TypesPrimarySidebarContainer
-          pagination={{
-            totalItems: count,
-          }}
-          searchParams={await params}
-          types={types}
-        />
-      </ApplicationStoreHydrator>
+    <DomainStoreHydrator fieldsDto={fieldsDto} typesDto={typesDto}>
+      <TypesPrimarySidebarContainer
+        pagination={{
+          totalItems: count,
+        }}
+        searchParams={await params}
+        typesDto={typesDto}
+      />
     </DomainStoreHydrator>
   )
 }

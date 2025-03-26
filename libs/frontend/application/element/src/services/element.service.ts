@@ -80,7 +80,7 @@ export const useElementService = (): IElementService => {
 
     logger.debug('elementService.create', data)
     await elementRepository.add(data, {
-      revalidateTag: CACHE_TAGS.Element.list(),
+      revalidateTags: [CACHE_TAGS.Element.list()],
     })
     await syncModifiedElements()
 
@@ -100,7 +100,7 @@ export const useElementService = (): IElementService => {
     subRootElement.detachFromTree()
 
     await elementRepository.delete(elementsToDelete, {
-      revalidateTag: CACHE_TAGS.Element.list(),
+      revalidateTags: [CACHE_TAGS.Element.list()],
     })
 
     elementsToDelete.reverse().forEach((element) => {
@@ -142,7 +142,7 @@ export const useElementService = (): IElementService => {
     currentElement.writeCache(newElement)
 
     await elementRepository.update({ id: currentElement.id }, newElement, {
-      revalidateTag: CACHE_TAGS.Element.list(),
+      revalidateTags: [CACHE_TAGS.Element.list()],
     })
 
     return currentElement
@@ -156,7 +156,7 @@ export const useElementService = (): IElementService => {
     await Promise.all(
       uniqueBy(elements, (element) => element.id).map((element) =>
         elementRepository.update({ id: element.id }, element.toJson, {
-          revalidateTag: CACHE_TAGS.Element.list(),
+          revalidateTags: [CACHE_TAGS.Element.list()],
         }),
       ),
     )

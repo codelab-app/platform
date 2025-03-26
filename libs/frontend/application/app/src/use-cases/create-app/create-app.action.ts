@@ -1,8 +1,6 @@
 'use server'
 
-import {
-  appRepository,
-} from '@codelab/frontend-domain-app/repositories'
+import { appRepository } from '@codelab/frontend-domain-app/repositories'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import { pageRepository } from '@codelab/frontend-domain-page/repositories'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
@@ -22,7 +20,9 @@ export const createAppAction = async (appAggregate: IAppAggregate) => {
   await Promise.all(storesDto.map((store) => storeRepository.add(store)))
   await Promise.all(
     appsDto.map((appDto) =>
-      appRepository.add(appDto, { revalidateTag: CACHE_TAGS.App.list() }),
+      appRepository.add(appDto, {
+        revalidateTags: [CACHE_TAGS.App.list()],
+      }),
     ),
   )
   await Promise.all(pagesDto.map((page) => pageRepository.add(page)))

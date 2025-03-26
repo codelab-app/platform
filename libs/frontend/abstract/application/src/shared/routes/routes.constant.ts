@@ -227,8 +227,8 @@ export const RoutePaths = {
   Type: () => '/types' as const,
   TypeCreate: () => `${RoutePaths.Type()}/type/create`,
   TypeDelete: ({ id }: IRef) => `${RoutePaths.Type()}/type/${id}/delete`,
-  TypeFieldCreate: (typeId: string) =>
-    `${RoutePaths.Type()}/field/${typeId}/create/field`,
+  TypeFieldCreate: (interfaceTypeId: string) =>
+    `${RoutePaths.Type()}/field/create/${interfaceTypeId}`,
   TypeFieldDelete: ({ fieldId }: { fieldId: string }) =>
     `${RoutePaths.Type()}/field/${fieldId}/delete`,
   TypeFieldUpdate: ({ fieldId }: { fieldId: string }) =>

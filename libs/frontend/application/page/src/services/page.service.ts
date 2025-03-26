@@ -116,7 +116,7 @@ export const usePageService = (): IPageService => {
     await elementRepository.delete(elements)
 
     return await pageRepository.delete([pageModel], {
-      revalidateTag: CACHE_TAGS.Page.list(),
+      revalidateTags: [CACHE_TAGS.Page.list()],
     })
   }
 
@@ -135,7 +135,7 @@ export const usePageService = (): IPageService => {
     })
 
     await pageRepository.update({ id: page.id }, page, {
-      revalidateTag: CACHE_TAGS.Page.list(),
+      revalidateTags: [CACHE_TAGS.Page.list()],
     })
 
     return page

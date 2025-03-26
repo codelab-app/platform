@@ -43,7 +43,7 @@ export const useActionService = (): IActionService => {
     hydrate({ actionsDto: [action] })
 
     return await actionRepository.add(action, {
-      revalidateTag: CACHE_TAGS.Action.list(),
+      revalidateTags: [CACHE_TAGS.Action.list()],
     })
   }
 
@@ -64,7 +64,7 @@ export const useActionService = (): IActionService => {
     }
 
     return await actionRepository.delete(actions, {
-      revalidateTag: CACHE_TAGS.Action.list(),
+      revalidateTags: [CACHE_TAGS.Action.list()],
     })
   }
 
@@ -90,7 +90,7 @@ export const useActionService = (): IActionService => {
     hydrate({ actionsDto: [actionDto] })
 
     await actionRepository.update({ id: action.id }, actionDto, {
-      revalidateTag: CACHE_TAGS.Action.list(),
+      revalidateTags: [CACHE_TAGS.Action.list()],
     })
 
     return action
@@ -134,7 +134,7 @@ export const useActionService = (): IActionService => {
     const newAction = actionDomainService.hydrate(newActionDto)
 
     return await actionRepository.add(newActionDto, {
-      revalidateTag: CACHE_TAGS.Action.list(),
+      revalidateTags: [CACHE_TAGS.Action.list()],
     })
   }
 

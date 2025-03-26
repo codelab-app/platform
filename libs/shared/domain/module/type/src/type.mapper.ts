@@ -22,7 +22,12 @@ import {
   ITypeKind,
   type IUnionTypeDto,
 } from '@codelab/shared/abstract/core'
-import { connectNodeId, connectOwner } from '@codelab/shared/domain/orm'
+import {
+  connectNodeId,
+  connectOwner,
+  disconnectNodeId,
+  reconnectNodeId,
+} from '@codelab/shared/domain/orm'
 
 import {
   connectTypesOfUnionType,
@@ -83,7 +88,7 @@ export const arrayTypeMapper: IMapper<
   }),
   toUpdateInput: (dto) => ({
     // Required means we cannot disconnect
-    // itemType: reconnectNodeId(dto.itemType?.id),
+    // itemType: disconnectNodeId(dto.itemType?.id),
     name: dto.name,
     owner: connectOwner(dto.owner),
   }),
