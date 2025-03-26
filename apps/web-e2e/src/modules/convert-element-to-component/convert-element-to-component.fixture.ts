@@ -1,4 +1,4 @@
-import { NewRoutePaths } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { expect } from '@playwright/test'
 
 import { baseTest } from '../../setup/fixtures/base.fixture'
@@ -49,7 +49,7 @@ export class ConvertElementToComponentPage extends BuilderPage {
 
   async goToComponentBuilderPage() {
     return test.step('goToComponentBuilderPage', async () => {
-      await this.page.goto(NewRoutePaths.Component.base())
+      await this.page.goto(RoutePaths.Component.base())
 
       await expect(this.getCard({ name: componentName })).toBeVisible()
 

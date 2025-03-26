@@ -1,4 +1,4 @@
-import { NewRoutePaths } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { IResourceType } from '@codelab/shared/abstract/core'
 
@@ -42,7 +42,7 @@ export class ResourcePage extends BasePage {
   }
 
   async goto() {
-    await this.page.goto(NewRoutePaths.Resource.base())
+    await this.page.goto(RoutePaths.Resource.base())
   }
 
   async updateResource() {

@@ -5,7 +5,7 @@ import {
   type IBuilderRouteContext,
   type IElementService,
   IRouteType,
-  NewRoutePaths,
+  RoutePaths,
 } from '@codelab/frontend/abstract/application'
 import {
   type IElementModel,
@@ -31,8 +31,8 @@ const createPopover = {
   open: (router: AppRouterInstance, { params, type }: IBuilderRouteContext) => {
     const url =
       type === IRouteType.Page
-        ? NewRoutePaths.Page.builder(params)
-        : NewRoutePaths.Component.builder(params)
+        ? RoutePaths.Page.builder(params)
+        : RoutePaths.Component.builder(params)
 
     router.push(`${url}/create-element`)
   },
@@ -48,8 +48,8 @@ const deletePopover = {
   ) => {
     const url =
       type === IRouteType.Page
-        ? NewRoutePaths.Page.builder(params)
-        : NewRoutePaths.Component.builder(params)
+        ? RoutePaths.Page.builder(params)
+        : RoutePaths.Component.builder(params)
 
     router.push(`${url}/delete/element/${params.elementId}`)
   },

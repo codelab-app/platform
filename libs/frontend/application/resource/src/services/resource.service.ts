@@ -9,7 +9,7 @@ import type {
 import type { ResourceWhere } from '@codelab/shared/infra/gqlgen'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import { NewRoutePaths } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { useDomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { resourceRepository } from '@codelab/frontend-domain-resource/repositories'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
@@ -101,19 +101,19 @@ export const useResourceService = (): IResourceService => {
 
   const createPopover = {
     close: (router: AppRouterInstance) => {
-      router.push(NewRoutePaths.Resource.base())
+      router.push(RoutePaths.Resource.base())
     },
     open: (router: AppRouterInstance) => {
-      router.push(NewRoutePaths.Resource.create())
+      router.push(RoutePaths.Resource.create())
     },
   }
 
   const updatePopover = {
     close: (router: AppRouterInstance) => {
-      router.push(NewRoutePaths.Resource.base())
+      router.push(RoutePaths.Resource.base())
     },
     open: (router: AppRouterInstance) => {
-      router.push(NewRoutePaths.Resource.base())
+      router.push(RoutePaths.Resource.base())
     },
   }
 

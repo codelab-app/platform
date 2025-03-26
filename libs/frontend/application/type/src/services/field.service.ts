@@ -11,7 +11,7 @@ import {
   type IFieldService,
   type IFieldUpdateRouteContext,
   IRouteType,
-  NewRoutePaths,
+  RoutePaths,
 } from '@codelab/frontend/abstract/application'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import {
@@ -218,11 +218,11 @@ export const useFieldService = (): IFieldService => {
     { params, type }: IFieldRouteContext,
   ) => {
     if (type === IRouteType.Component) {
-      router.push(NewRoutePaths.Component.builder(params))
+      router.push(RoutePaths.Component.builder(params))
     } else if (type === IRouteType.Page) {
-      router.push(NewRoutePaths.Page.builder(params))
+      router.push(RoutePaths.Page.builder(params))
     } else {
-      router.push(NewRoutePaths.Type.base())
+      router.push(RoutePaths.Type.base())
     }
   }
 
@@ -233,9 +233,9 @@ export const useFieldService = (): IFieldService => {
       { params, type }: IFieldCreateRouteContext,
     ) => {
       if (type === IRouteType.Page) {
-        router.push(NewRoutePaths.Page.builderField.create(params))
+        router.push(RoutePaths.Page.builderField.create(params))
       } else if (type === IRouteType.Component) {
-        router.push(NewRoutePaths.Component.builderField.create(params))
+        router.push(RoutePaths.Component.builderField.create(params))
       }
     },
   }
@@ -247,11 +247,11 @@ export const useFieldService = (): IFieldService => {
       { params, type }: IFieldUpdateRouteContext,
     ) => {
       if (type === IRouteType.Component) {
-        router.push(NewRoutePaths.Component.builderField.update(params))
+        router.push(RoutePaths.Component.builderField.update(params))
       } else if (type === IRouteType.Page) {
-        router.push(NewRoutePaths.Page.builderField.update(params))
+        router.push(RoutePaths.Page.builderField.update(params))
       } else {
-        router.push(NewRoutePaths.Type.field.update(params))
+        router.push(RoutePaths.Type.field.update(params))
       }
     },
   }
@@ -263,11 +263,11 @@ export const useFieldService = (): IFieldService => {
       { params, type }: IFieldUpdateRouteContext,
     ) => {
       if (type === IRouteType.Component) {
-        router.push(NewRoutePaths.Component.builderField.delete(params))
+        router.push(RoutePaths.Component.builderField.delete(params))
       } else if (type === IRouteType.Page) {
-        router.push(NewRoutePaths.Page.builderField.delete(params))
+        router.push(RoutePaths.Page.builderField.delete(params))
       } else {
-        router.push(NewRoutePaths.Type.field.delete(params))
+        router.push(RoutePaths.Type.field.delete(params))
       }
     },
   }

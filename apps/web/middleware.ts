@@ -1,5 +1,5 @@
 import { corsMiddleware } from '@codelab/backend/infra/adapter/middleware'
-import { NewRoutePaths } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { auth0Instance } from '@codelab/shared-infra-auth0/client'
 import {
   type NextFetchEvent,
@@ -18,12 +18,12 @@ import { isEqual } from 'radash'
  */
 
 const paginatedRoutes = [
-  NewRoutePaths.Atom.base(),
-  NewRoutePaths.Tag.base(),
-  NewRoutePaths.Type.base(),
+  RoutePaths.Atom.base(),
+  RoutePaths.Tag.base(),
+  RoutePaths.Type.base(),
 ]
 
-const protectedRoutes = [NewRoutePaths.App.list()]
+const protectedRoutes = [RoutePaths.App.list()]
 
 const middleware: NextMiddleware = async (
   request: NextRequest,

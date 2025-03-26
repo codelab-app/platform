@@ -4,40 +4,40 @@ import ApiOutlined from '@ant-design/icons/ApiOutlined'
 import DeploymentUnitOutlined from '@ant-design/icons/DeploymentUnitOutlined'
 import TagOutlined from '@ant-design/icons/TagOutlined'
 import UserOutlined from '@ant-design/icons/UserOutlined'
-import { NewRoutePaths } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 
 export const adminMenuItems: Array<NavigationBarItem> = [
   {
     icon: (
       <DeploymentUnitOutlined data-testid="atom-tab-trigger" title="Atoms" />
     ),
-    key: NewRoutePaths.Atom.base(),
+    key: RoutePaths.Atom.base(),
     link: {
-      href: NewRoutePaths.Atom.base(),
+      href: RoutePaths.Atom.base(),
     },
     title: 'Atoms',
   },
   {
     icon: <ApiOutlined title="Types" />,
-    key: NewRoutePaths.Type.base(),
+    key: RoutePaths.Type.base(),
     link: {
-      href: NewRoutePaths.Type.base(),
+      href: RoutePaths.Type.base(),
     },
     title: 'Types',
   },
   {
     icon: <TagOutlined title="Tags" />,
-    key: NewRoutePaths.Tag.base(),
+    key: RoutePaths.Tag.base(),
     link: {
-      href: NewRoutePaths.Tag.base(),
+      href: RoutePaths.Tag.base(),
     },
     title: 'Tags',
   },
   {
     icon: <UserOutlined title="Admin" />,
-    key: NewRoutePaths.Admin.base(),
+    key: RoutePaths.Admin.base(),
     link: {
-      href: NewRoutePaths.Admin.base(),
+      href: RoutePaths.Admin.base(),
     },
     title: 'Admin',
   },

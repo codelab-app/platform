@@ -3,9 +3,8 @@ import type { Key } from 'react'
 import { action, computed, makeObservable, observable } from 'mobx'
 import { isTruthy, filter as rFilter } from 'remeda'
 
-import type { CuiTreeBasicDataNode, WithChildren } from '../CuiTree'
-
 import { traverseAndFlattenTrees, traverseTrees } from '../../../util'
+import { CuiTreeBasicDataNode, WithChildren } from '../cui-tree.type'
 
 export interface FilterOptions {
   // Set a filter false if you don't want a filter.

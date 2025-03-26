@@ -79,6 +79,13 @@ export class BasePage {
     await expect(this.getGlobalProgressBar()).toBeHidden({ timeout: 15000 })
   }
 
+  /**
+   * Check for success notification with expected text
+   */
+  async expectNotificationSuccess(message: string) {
+    await expect(this.getNotification()).toHaveText(message)
+  }
+
   async fillInputMultiSelect(
     options: { name: string | RegExp },
     values: Array<number | string>,
@@ -369,6 +376,13 @@ export class BasePage {
     while (!(await locator.isVisible())) {
       await this.page.mouse.wheel(0, 100)
     }
+  }
+
+  /**
+   * Wait for navigation to a specific URL pattern
+   */
+  async waitForPage(urlPattern: string | RegExp) {
+    await this.page.waitForURL(urlPattern)
   }
 
   /**

@@ -1,3 +1,4 @@
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { expect } from '@playwright/test'
 
 import { globalBeforeAll } from '../../setup/before-all'
@@ -32,8 +33,9 @@ test('should be able to create enum', async ({ typesPage: page }) => {
   await expect(page.getByExactText(enumTypeName)).toBeHidden()
 
   await page.createEnumType()
+  await page.expectNotificationSuccess('Type created successfully')
+  await page.waitForPage(RoutePaths.Type.base())
 
-  await expect(page.getNotification()).toHaveText('Type created successfully')
   await expect(page.getByExactText(enumTypeName)).toBeVisible()
 })
 
@@ -41,8 +43,9 @@ test('should be able to create array', async ({ typesPage: page }) => {
   await expect(page.getByExactText(arrayTypeName)).toBeHidden()
 
   await page.createArrayType()
+  await page.expectNotificationSuccess('Type created successfully')
+  await page.waitForPage(RoutePaths.Type.base())
 
-  await expect(page.getNotification()).toHaveText('Type created successfully')
   await expect(page.getByExactText(arrayTypeName)).toBeVisible()
 })
 
@@ -50,8 +53,9 @@ test('should be able to create interface', async ({ typesPage: page }) => {
   await expect(page.getByExactText(interfaceTypeName)).toBeHidden()
 
   await page.createInterfaceType()
+  await page.expectNotificationSuccess('Type created successfully')
+  await page.waitForPage(RoutePaths.Type.base())
 
-  await expect(page.getNotification()).toHaveText('Type created successfully')
   await expect(page.getByExactText(interfaceTypeName)).toBeVisible()
 })
 
@@ -59,22 +63,25 @@ test('should be able to create union', async ({ typesPage: page }) => {
   await expect(page.getByExactText(unionTypeName)).toBeHidden()
 
   await page.createUnionType()
+  await page.expectNotificationSuccess('Type created successfully')
+  await page.waitForPage(RoutePaths.Type.base())
 
-  await expect(page.getNotification()).toHaveText('Type created successfully')
   await expect(page.getByExactText(unionTypeName)).toBeVisible()
 })
 
 test('should be able to add fields', async ({ typesPage: page }) => {
   await page.createInterfaceField()
 
-  await expect(page.getNotification()).toHaveText('Field created successfully')
+  await page.expectNotificationSuccess('Field created successfully')
+
   await expect(page.getByExactText(interfaceTypeName)).toBeVisible()
 })
 
 test('should be able to update enum', async ({ typesPage: page }) => {
   await page.updateEnumType()
 
-  await expect(page.getNotification()).toHaveText('Type updated successfully')
+  await page.expectNotificationSuccess('Type updated successfully')
+
   await expect(page.getByExactText(enumTypeName)).toBeHidden()
   await expect(page.getByExactText(updatedEnumTypeName)).toBeVisible()
 })
@@ -82,7 +89,8 @@ test('should be able to update enum', async ({ typesPage: page }) => {
 test('should be able to update array', async ({ typesPage: page }) => {
   await page.updateArrayType()
 
-  await expect(page.getNotification()).toHaveText('Type updated successfully')
+  await page.expectNotificationSuccess('Type updated successfully')
+
   await expect(page.getByExactText(arrayTypeName)).toBeHidden()
   await expect(page.getByExactText(updatedArrayTypeName)).toBeVisible()
 })
@@ -90,7 +98,8 @@ test('should be able to update array', async ({ typesPage: page }) => {
 test('should be able to update interface', async ({ typesPage: page }) => {
   await page.updateInterfaceType()
 
-  await expect(page.getNotification()).toHaveText('Type updated successfully')
+  await page.expectNotificationSuccess('Type updated successfully')
+
   await expect(page.getByExactText(interfaceTypeName)).toBeHidden()
   await expect(page.getByExactText(updatedInterfaceTypeName)).toBeVisible()
 })
@@ -98,7 +107,8 @@ test('should be able to update interface', async ({ typesPage: page }) => {
 test('should be able to update field', async ({ typesPage: page }) => {
   await page.updateInterfaceField()
 
-  await expect(page.getNotification()).toHaveText('Field updated successfully')
+  await page.expectNotificationSuccess('Field updated successfully')
+
   await expect(page.getByExactText(interfaceFieldName)).toBeHidden()
   await expect(page.getByExactText(updatedInterfaceFieldName)).toBeVisible()
 })
@@ -106,7 +116,8 @@ test('should be able to update field', async ({ typesPage: page }) => {
 test('should be able to update union', async ({ typesPage: page }) => {
   await page.updateUnionType()
 
-  await expect(page.getNotification()).toHaveText('Type updated successfully')
+  await page.expectNotificationSuccess('Type updated successfully')
+
   await expect(page.getByExactText(unionTypeName)).toBeHidden()
   await expect(page.getByExactText(updatedUnionTypeName)).toBeVisible()
 })
@@ -116,7 +127,8 @@ test('should be able to delete enum type', async ({ typesPage: page }) => {
 
   await page.deleteType(updatedEnumTypeName)
 
-  await expect(page.getNotification()).toHaveText('Type deleted successfully')
+  await page.expectNotificationSuccess('Type deleted successfully')
+
   await expect(page.getByExactText(updatedEnumTypeName)).toBeHidden()
 })
 
@@ -125,7 +137,8 @@ test('should be able to delete array type', async ({ typesPage: page }) => {
 
   await page.deleteType(updatedArrayTypeName)
 
-  await expect(page.getNotification()).toHaveText('Type deleted successfully')
+  await page.expectNotificationSuccess('Type deleted successfully')
+
   await expect(page.getByExactText(updatedArrayTypeName)).toBeHidden()
 })
 
@@ -134,7 +147,8 @@ test('should be able to delete interface field type', async ({
 }) => {
   await page.deleteFieldType(updatedInterfaceFieldName)
 
-  await expect(page.getNotification()).toHaveText('Field deleted successfully')
+  await page.expectNotificationSuccess('Field deleted successfully')
+
   await expect(page.getByExactText(updatedInterfaceFieldName)).toBeHidden()
 })
 
@@ -143,7 +157,8 @@ test('should be able to delete interface type', async ({ typesPage: page }) => {
 
   await page.deleteType(updatedInterfaceTypeName)
 
-  await expect(page.getNotification()).toHaveText('Type deleted successfully')
+  await page.expectNotificationSuccess('Type deleted successfully')
+
   await expect(page.getByExactText(updatedInterfaceTypeName)).toBeHidden()
 })
 
@@ -152,6 +167,7 @@ test('should be able to delete union type', async ({ typesPage: page }) => {
 
   await page.deleteType(updatedUnionTypeName)
 
-  await expect(page.getNotification()).toHaveText('Type deleted successfully')
+  await page.expectNotificationSuccess('Type deleted successfully')
+
   await expect(page.getByExactText(updatedUnionTypeName)).toBeHidden()
 })

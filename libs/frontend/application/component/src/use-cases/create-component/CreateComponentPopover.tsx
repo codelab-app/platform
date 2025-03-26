@@ -4,7 +4,7 @@ import type { Maybe } from '@codelab/shared/abstract/types'
 
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
-import { NewRoutePaths } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import { CuiSidebarSecondary } from '@codelab/frontend/presentation/codelab-ui'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
@@ -16,7 +16,7 @@ import { CreateComponentForm } from './CreateComponentForm'
 export const CreateComponentPopover = () => {
   const submitRef = useRef<Maybe<SubmitController>>(undefined)
   const router = useRouter()
-  const closePopover = () => router.push(NewRoutePaths.Component.base())
+  const closePopover = () => router.push(RoutePaths.Component.base())
   const { userDomainService } = useDomainStore()
   const owner = userDomainService.user
 

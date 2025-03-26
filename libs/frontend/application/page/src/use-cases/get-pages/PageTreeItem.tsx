@@ -16,7 +16,7 @@ import LockFilled from '@ant-design/icons/lib/icons/LockFilled'
 import LoadingOutlined from '@ant-design/icons/LoadingOutlined'
 import SafetyOutlined from '@ant-design/icons/SafetyOutlined'
 import ToolOutlined from '@ant-design/icons/ToolOutlined'
-import { NewRoutePaths } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiTreeItem,
@@ -53,7 +53,7 @@ export const PageTreeItem = observer(
         cuiKey: UiKey.BuilderToolbarItemOpenBuilder,
         icon: <BuildOutlined />,
         onClick: () => {
-          const url = NewRoutePaths.Page.builder({
+          const url = RoutePaths.Page.builder({
             appId: app.id,
             pageId: page.id,
           })

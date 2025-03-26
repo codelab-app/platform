@@ -2,7 +2,7 @@
 
 import type { IAppModel, IPageModel } from '@codelab/frontend/abstract/domain'
 
-import { NewRoutePaths } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { DetailHeader } from '@codelab/frontend-presentation-view/sections'
 import { observer } from 'mobx-react-lite'
 import { usePathname, useRouter } from 'next/navigation'
@@ -25,14 +25,14 @@ export const PageBuilderHeader = observer<IPageDetailHeaderProps>(
 
     const togglePreviewMode = () => {
       const url = isBuilder
-        ? NewRoutePaths.Page.base({ appId: app.id, pageId: page.id })
-        : NewRoutePaths.Page.builder({ appId: app.id, pageId: page.id })
+        ? RoutePaths.Page.base({ appId: app.id, pageId: page.id })
+        : RoutePaths.Page.builder({ appId: app.id, pageId: page.id })
 
       return router.push(url)
     }
 
     const navigatePagesPanel = useCallback(async () => {
-      const url = NewRoutePaths.Page.list({
+      const url = RoutePaths.Page.list({
         appId: app.id,
         pageId: page.id,
       })
@@ -41,7 +41,7 @@ export const PageBuilderHeader = observer<IPageDetailHeaderProps>(
     }, [router, app.id, page.id])
 
     const navigateAppsPage = useCallback(async () => {
-      await router.push(NewRoutePaths.App.list())
+      await router.push(RoutePaths.App.list())
     }, [router])
 
     const directionItems = [

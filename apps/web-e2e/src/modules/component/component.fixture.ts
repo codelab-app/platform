@@ -1,4 +1,4 @@
-import { NewRoutePaths } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import { expect } from '@playwright/test'
@@ -87,7 +87,7 @@ export class ComponentListPage extends BuilderPage {
       if (appId && pageId) {
         await super.goto(appId, pageId)
       } else {
-        await this.page.goto(NewRoutePaths.Component.base())
+        await this.page.goto(RoutePaths.Component.base())
       }
     })
   }

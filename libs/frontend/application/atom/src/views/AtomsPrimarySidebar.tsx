@@ -6,7 +6,7 @@ import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import {
   type IPaginationData,
   type IPaginationSearchParams,
-  NewRoutePaths,
+  RoutePaths,
 } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import {
@@ -31,7 +31,7 @@ export const AtomsPrimarySidebar = observer<{
 
   // The pagination responsiveness in development mode is quite laggy but in production mode it is prefetched and snappy
   const { showSearchBar, toolbarItems } = usePaginationToolbar({
-    pathname: NewRoutePaths.Atom.base(),
+    pathname: RoutePaths.Atom.base(),
     searchParams,
     totalItems: pagination.totalItems,
   })

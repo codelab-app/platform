@@ -1,4 +1,4 @@
-import { NewRoutePaths } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import { expect } from '@playwright/test'
@@ -65,7 +65,7 @@ export class TagListPage extends BasePage {
   }
 
   async goto() {
-    await this.page.goto(NewRoutePaths.Tag.base())
+    await this.page.goto(RoutePaths.Tag.base())
   }
 
   async updateTag(oldName: string, newName: string) {

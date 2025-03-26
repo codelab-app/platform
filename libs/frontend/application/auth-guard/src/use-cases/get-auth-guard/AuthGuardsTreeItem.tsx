@@ -6,7 +6,7 @@ import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import type { SyntheticEvent } from 'react'
 
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
-import { NewRoutePaths } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiTreeItem,
@@ -32,7 +32,7 @@ export const AuthGuardsTreeItem = observer(
       // Prevent triggering `onEdit`
       event.stopPropagation()
 
-      router.push(NewRoutePaths.AuthGuard.delete({ id: authGuard.id }))
+      router.push(RoutePaths.AuthGuard.delete({ id: authGuard.id }))
     }
 
     const toolbarItems: Array<ToolbarItem> = [

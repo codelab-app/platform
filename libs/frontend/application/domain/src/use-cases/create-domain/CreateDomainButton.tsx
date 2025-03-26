@@ -3,7 +3,7 @@
 import type { PropsWithChildren } from 'react'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { NewRoutePaths } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
@@ -18,7 +18,7 @@ export const CreateDomainButton = observer<CreateDomainButtonProps>(
     const icon = !children && <PlusOutlined />
 
     const onClick = () => {
-      router.push(NewRoutePaths.Domain.create({ appId }))
+      router.push(RoutePaths.Domain.create({ appId }))
     }
 
     return (

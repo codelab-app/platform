@@ -7,7 +7,7 @@ import type {
 import type { ITypeModel } from '@codelab/frontend/abstract/domain'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { NewRoutePaths } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiSidebar,
@@ -35,7 +35,7 @@ export const TypesPrimarySidebar = ({
   const router = useRouter()
 
   const { showSearchBar, toolbarItems } = usePaginationToolbar({
-    pathname: NewRoutePaths.Type.base(),
+    pathname: RoutePaths.Type.base(),
     searchParams,
     totalItems: pagination.totalItems,
   })

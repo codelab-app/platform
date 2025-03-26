@@ -10,7 +10,7 @@ import type { IRef } from '@codelab/shared/abstract/core'
 import type { RedirectWhere } from '@codelab/shared/infra/gqlgen'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import { NewRoutePaths } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { redirectRepository } from '@codelab/frontend-domain-redirect/repositories'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
@@ -62,22 +62,22 @@ export const useRedirectService = (): IRedirectService => {
 
   const createPopover = {
     close: (router: AppRouterInstance, params: PageContextParams) => {
-      router.push(NewRoutePaths.Page.list(params))
+      router.push(RoutePaths.Page.list(params))
     },
     open: (router: AppRouterInstance, params: PageContextParams) => {
-      router.push(NewRoutePaths.Page.redirect.create(params))
+      router.push(RoutePaths.Page.redirect.create(params))
     },
   }
 
   const updatePopover = {
     close: (router: AppRouterInstance, params: PageContextParams) => {
-      router.push(NewRoutePaths.Page.list(params))
+      router.push(RoutePaths.Page.list(params))
     },
     open: (
       router: AppRouterInstance,
       params: PageContextParams & { redirectId: string },
     ) => {
-      router.push(NewRoutePaths.Page.redirect.update(params))
+      router.push(RoutePaths.Page.redirect.update(params))
     },
   }
 

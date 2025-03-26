@@ -1,4 +1,4 @@
-import { NewRoutePaths } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { PrimitiveTypeKind } from '@codelab/shared/infra/gqlgen'
@@ -154,7 +154,7 @@ export class TypeListPage extends BasePage {
   }
 
   async goto() {
-    await this.page.goto(NewRoutePaths.Type.base())
+    await this.page.goto(RoutePaths.Type.base())
   }
 
   async updateArrayType() {

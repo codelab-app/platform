@@ -5,7 +5,7 @@ import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import ImportOutlined from '@ant-design/icons/ImportOutlined'
 import LogoutOutlined from '@ant-design/icons/LogoutOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { NewRoutePaths } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { getUiDataLabel, UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiHeader,
@@ -23,14 +23,14 @@ export const AppListHeader = () => {
       ariaLabel: getUiDataLabel(UiKey.AppToolbarItemImport),
       cuiKey: UiKey.AppToolbarItemImport,
       icon: <ImportOutlined />,
-      onClick: () => router.push(NewRoutePaths.App.import()),
+      onClick: () => router.push(RoutePaths.App.import()),
       title: 'Import an app',
     },
     {
       ariaLabel: getUiDataLabel(UiKey.AppToolbarItemCreate),
       cuiKey: UiKey.AppToolbarItemCreate,
       icon: <PlusOutlined />,
-      onClick: () => router.push(NewRoutePaths.App.create()),
+      onClick: () => router.push(RoutePaths.App.create()),
       title: 'Create an App',
     },
     {

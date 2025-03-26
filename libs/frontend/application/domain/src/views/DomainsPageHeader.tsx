@@ -3,7 +3,7 @@
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { NewRoutePaths } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiHeader,
@@ -39,7 +39,7 @@ export const DomainsPageHeader = observer<{ app: IAppModel }>(({ app }) => {
               cuiKey: UiKey.DomainToolbarItemCreate,
               icon: <PlusOutlined />,
               onClick: () =>
-                router.push(NewRoutePaths.Domain.create({ appId: app.id })),
+                router.push(RoutePaths.Domain.create({ appId: app.id })),
               title: 'Create Domain',
             },
           ]}

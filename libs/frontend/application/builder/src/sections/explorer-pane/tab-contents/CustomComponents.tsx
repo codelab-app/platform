@@ -2,7 +2,7 @@
 
 import type { IComponentModel } from '@codelab/frontend/abstract/domain'
 
-import { NewRoutePaths } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { downloadJsonAsFile } from '@codelab/frontend/shared/utils'
 import { exportComponentService } from '@codelab/frontend-application-component/use-cases/export-component'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
@@ -24,11 +24,11 @@ export const CustomComponents = observer(() => {
   })
 
   const editComponent = (componentId: string) => {
-    router.push(NewRoutePaths.Component.builder({ componentId }))
+    router.push(RoutePaths.Component.builder({ componentId }))
   }
 
   const deleteComponent = (componentId: string) => {
-    router.push(NewRoutePaths.Component.delete({ id: componentId }))
+    router.push(RoutePaths.Component.delete({ id: componentId }))
   }
 
   return (
