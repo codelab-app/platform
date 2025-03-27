@@ -1,6 +1,6 @@
 import type {
   SearchParamsContext,
-  TreeViewParams,
+  TreeViewSearchParams,
 } from '@codelab/frontend/abstract/types'
 import type { IRef } from '@codelab/shared/abstract/core'
 import type { Optional } from 'utility-types'
@@ -265,9 +265,9 @@ export const RoutePaths = {
   },
 
   Type: {
-    base: (params: TreeViewParams = { selectedKey: undefined }) =>
+    base: (params: TreeViewSearchParams = { selectedKey: undefined }) =>
       addSearchParams('/types', { selectedKey: params.selectedKey }),
-    create: ({ selectedKey }: TreeViewParams) =>
+    create: ({ selectedKey }: TreeViewSearchParams) =>
       addSearchParams('/types/type/create', { selectedKey }),
     delete: ({ id }: IRef) => `/types/type/${id}/delete`,
     field: {
@@ -295,7 +295,7 @@ export const RoutePaths = {
     update: ({
       selectedKey,
       typeId,
-    }: TreeViewParams & {
+    }: TreeViewSearchParams & {
       typeId: string
     }) => addSearchParams(`/types/type/${typeId}/update`, { selectedKey }),
   },

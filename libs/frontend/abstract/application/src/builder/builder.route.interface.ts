@@ -1,3 +1,4 @@
+import type { TreeViewSearchParams } from '@codelab/frontend/abstract/types'
 import type {
   ObjectLike,
   UnknownObjectLike,
@@ -14,8 +15,10 @@ export type IBuilderRouteContext<T extends ObjectLike = UnknownObjectLike> =
   | {
       type: IRouteType.Component
       params: ComponentContextParams<T>
+      searchParams: TreeViewSearchParams
     }
   | {
       type: IRouteType.Page
       params: PageContextParams<T>
+      searchParams: TreeViewSearchParams
     }

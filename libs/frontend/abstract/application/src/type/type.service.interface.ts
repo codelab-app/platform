@@ -4,7 +4,7 @@ import type {
   ITypeModel,
   ITypeUpdateDto,
 } from '@codelab/frontend/abstract/domain'
-import type { IPopover, TreeViewParams } from '@codelab/frontend/abstract/types'
+import type { IPopover, TreeViewSearchParams } from '@codelab/frontend/abstract/types'
 import type {
   IBaseType,
   IBaseTypeOptions,
@@ -19,8 +19,8 @@ export interface ITypeService
       IQueryService<ITypeModel, IBaseTypeWhere, IBaseTypeOptions>,
       'getAll'
     > {
-  createPopover: IPopover<TreeViewParams, TreeViewParams>
-  updatePopover: IPopover<TreeViewParams, TreeViewParams>
+  createPopover: IPopover<TreeViewSearchParams, TreeViewSearchParams>
+  updatePopover: IPopover<TreeViewSearchParams, TreeViewSearchParams>
   getAll(ids?: Array<string>): Promise<Array<ITypeModel>>
   getInterface(id: string): Promise<IInterfaceTypeModel>
   getSelectOptions(): Promise<Array<Pick<IBaseType, 'id' | 'kind' | 'name'>>>

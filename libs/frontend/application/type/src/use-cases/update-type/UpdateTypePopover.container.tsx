@@ -1,6 +1,6 @@
 'use client'
 
-import type { TreeViewParams } from '@codelab/frontend/abstract/types'
+import type { TreeViewSearchParams } from '@codelab/frontend/abstract/types'
 
 import { TypeConnector } from '@codelab/frontend/infra/connector'
 
@@ -11,7 +11,7 @@ export const UpdateTypePopoverContainer = ({
   params,
 }: {
   id: string
-  params: TreeViewParams
+  params: TreeViewSearchParams
 }) => {
   return (
     <TypeConnector id={id}>

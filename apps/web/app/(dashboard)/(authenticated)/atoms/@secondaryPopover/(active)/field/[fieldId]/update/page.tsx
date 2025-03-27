@@ -5,7 +5,7 @@ import { parsePageProps } from '@codelab/frontend-application-shared-store/route
 import { UpdateFieldPopoverContainer } from '@codelab/frontend-application-type/use-cases/update-field'
 
 const Page = async (props: PageProps<'fieldId', 'selectedKey'>) => {
-  const context = await parsePageProps<'fieldId', 'selectedKey'>(props)
+  const context = await parsePageProps(props)
 
   return (
     <UpdateFieldPopoverContainer

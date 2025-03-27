@@ -2,9 +2,12 @@ import type { PageProps } from '@codelab/frontend/abstract/types'
 
 import { ComponentBuilderHeaderContainer } from '@codelab/frontend-application-builder/use-cases/component-builder'
 import { BuilderResizeMenu } from '@codelab/frontend-application-builder/use-cases/resize'
+import { parsePageProps } from '@codelab/frontend-application-shared-store/router'
 
-const Page = async ({ params }: PageProps<'componentId'>) => {
-  const { componentId } = await params
+const Page = async (props: PageProps<'componentId'>) => {
+  const {
+    params: { componentId },
+  } = await parsePageProps(props)
 
   return (
     <ComponentBuilderHeaderContainer

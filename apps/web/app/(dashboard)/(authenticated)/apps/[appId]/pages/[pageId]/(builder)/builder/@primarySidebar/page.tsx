@@ -2,6 +2,7 @@ import type { PageProps } from '@codelab/frontend/abstract/types'
 import type { Metadata } from 'next'
 
 import { PageBuilderPrimarySidebarContainer } from '@codelab/frontend-application-builder/sections'
+import { parsePageProps } from '@codelab/frontend-application-shared-store/router'
 
 export const metadata: Metadata = {
   title: 'Page List | Codelab',
@@ -10,8 +11,10 @@ export const metadata: Metadata = {
 /**
  * Page needed here for default purposes
  */
-const Page = async ({ params }: PageProps<'appId' | 'pageId'>) => {
-  const { appId, pageId } = await params
+const Page = async (props: PageProps<'appId' | 'pageId'>) => {
+  const {
+    params: { appId, pageId },
+  } = await parsePageProps(props)
 
   return <PageBuilderPrimarySidebarContainer appId={appId} pageId={pageId} />
 }

@@ -8,17 +8,19 @@ import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
 import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import { CuiSidebarSecondary } from '@codelab/frontend/presentation/codelab-ui'
-import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import { useRef } from 'react'
 
 import { useFieldService } from '../../services/field.service'
 import { UpdateFieldForm } from './UpdateFieldForm'
 
-export const UpdateFieldPopover = observer<{
+export const UpdateFieldPopover = ({
+  context,
+  field,
+}: {
   field: IFieldModel
   context: IFieldUpdateRouteContext
-}>(({ context, field }) => {
+}) => {
   const router = useRouter()
   const submitRef = useRef<Maybe<SubmitController>>(undefined)
   const { updatePopover } = useFieldService()
@@ -53,4 +55,4 @@ export const UpdateFieldPopover = observer<{
       />
     </CuiSidebarSecondary>
   )
-})
+}

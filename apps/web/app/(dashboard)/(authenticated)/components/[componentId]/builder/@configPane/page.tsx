@@ -2,16 +2,15 @@ import type { PageProps } from '@codelab/frontend/abstract/types'
 
 import { IRouteType } from '@codelab/frontend/abstract/application'
 import { ConfigPaneInspectorTabGroupContainer } from '@codelab/frontend-application-builder/sections'
+import { parsePageProps } from '@codelab/frontend-application-shared-store/router'
 
-const Page = async ({ params }: PageProps<'componentId'>) => {
-  const { componentId } = await params
+const Page = async (props: PageProps<'componentId'>) => {
+  const context = await parsePageProps(props)
 
   return (
     <ConfigPaneInspectorTabGroupContainer
       context={{
-        params: {
-          componentId,
-        },
+        ...context,
         type: IRouteType.Component,
       }}
     />

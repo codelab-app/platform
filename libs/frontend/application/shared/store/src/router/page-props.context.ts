@@ -12,8 +12,8 @@ import type {
  *
  */
 export const parsePageProps = async <
-  Params extends keyof UrlParams,
-  SearchParams extends keyof SearchParamsPageProps,
+  Params extends keyof UrlParams = keyof UrlParams,
+  SearchParams extends keyof SearchParamsPageProps = keyof SearchParamsPageProps,
 >(
   props: PageProps<Params, SearchParams>,
 ) => {

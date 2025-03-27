@@ -1,3 +1,5 @@
+import type { TreeViewSearchParams } from '@codelab/frontend/abstract/types'
+
 import type { IBuilderRouteContext } from '../builder'
 import type { IRouteType } from '../shared'
 
@@ -36,16 +38,12 @@ export type IFieldUpdateRouteContext =
       params: {
         fieldId: string
       }
-      searchParams: {
-        selectedKey: string | undefined
-      }
+      searchParams: TreeViewSearchParams
     }
   | {
       type: IRouteType.Component
       params: { componentId: string; fieldId: string }
-      searchParams: {
-        selectedKey: string | undefined
-      }
+      searchParams: TreeViewSearchParams
     }
   | {
       type: IRouteType.Page
@@ -54,9 +52,7 @@ export type IFieldUpdateRouteContext =
         appId: string
         pageId: string
       }
-      searchParams: {
-        selectedKey: string | undefined
-      }
+      searchParams: TreeViewSearchParams
     }
 
 /**

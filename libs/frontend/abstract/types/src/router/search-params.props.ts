@@ -67,7 +67,7 @@ export type SearchParamProps<Key extends keyof SearchParamsPageProps = never> =
             : never
         }>
       }
-export interface TreeViewParams {
+export interface TreeViewSearchParams {
   /**
    * Require the key to make it easier to enforce. Easier to development when we change interface, the implementation will be forced to update
    */

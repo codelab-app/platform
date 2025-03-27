@@ -3,7 +3,7 @@
 import type { ITypeModel } from '@codelab/frontend/abstract/domain'
 import type {
   SubmitController,
-  TreeViewParams,
+  TreeViewSearchParams,
 } from '@codelab/frontend/abstract/types'
 import type { Maybe } from '@codelab/shared/abstract/types'
 
@@ -17,7 +17,7 @@ import { useTypeService } from '../../services'
 import { UpdateTypeForm } from './UpdateTypeForm'
 
 interface UpdateTypeContainerProps {
-  params: TreeViewParams
+  params: TreeViewSearchParams
   type: ITypeModel
 }
 
