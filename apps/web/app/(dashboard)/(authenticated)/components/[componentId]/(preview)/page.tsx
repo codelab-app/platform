@@ -1,4 +1,4 @@
-import type { PageProps } from '@codelab/frontend-presentation-view/templates'
+import type { PageProps } from '@codelab/frontend/abstract/types'
 import type { Metadata } from 'next'
 
 import { ComponentPreviewBuilderContainer } from '@codelab/frontend-application-builder/use-cases/component-builder'

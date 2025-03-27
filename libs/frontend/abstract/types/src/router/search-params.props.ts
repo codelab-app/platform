@@ -14,6 +14,8 @@ import type { Assign, Required } from 'utility-types'
 /**
  * These come in as page props, the array query params could be string if there are only 1 key
  *
+ * These are unlike `params`, and are not passed from server components. So it is rendered as undefined in the first pass
+ *
  * @param {string} page - We pass default via middleware to the routes that require it
  * @param {string} pageSize We pass default via middleware to the routes that require it
  */
@@ -33,6 +35,7 @@ export interface SearchParamsPageProps {
   page?: string
   pageSize?: string
   search?: string
+  selectedKey?: string | undefined
 }
 
 /**
@@ -49,6 +52,21 @@ export type SearchParamsProps = Assign<
     pageSize?: number
   }
 >
+export type SearchParamProps<Key extends keyof SearchParamsPageProps = never> =
+  [Key] extends [never]
+    ? {
+        searchParams?: never
+      }
+    : {
+        searchParams: Promise<{
+          /**
+           * When TypeScript resolves the mapped type for SearchParamsPageProps, it preserves the optionality, resulting in properties showing as undefined rather than never.
+           */
+          [K in keyof Required<SearchParamsPageProps>]: K extends Key
+            ? SearchParamsPageProps[K]
+            : never
+        }>
+      }
 export interface TreeViewParams {
   /**
    * Require the key to make it easier to enforce. Easier to development when we change interface, the implementation will be forced to update

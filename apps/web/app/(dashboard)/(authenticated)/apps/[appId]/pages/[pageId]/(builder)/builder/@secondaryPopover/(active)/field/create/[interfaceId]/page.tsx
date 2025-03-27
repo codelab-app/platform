@@ -1,4 +1,4 @@
-import type { PageProps } from '@codelab/frontend-presentation-view/templates'
+import type { PageProps } from '@codelab/frontend/abstract/types'
 
 import { IRouteType } from '@codelab/frontend/abstract/application'
 import { CreateFieldPopover } from '@codelab/frontend-application-type/use-cases/create-field'

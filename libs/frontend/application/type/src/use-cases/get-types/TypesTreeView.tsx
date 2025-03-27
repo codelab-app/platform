@@ -51,8 +51,8 @@ export const TypesTreeView = ({
             : undefined
         }
         isLoading={isLoading}
-        onExpand={(expandedKeys) => {
-          updateSearchParams(expandedKeys)
+        onExpand={(keys) => {
+          updateSearchParams(keys)
         }}
         titleRender={(node) => {
           return <TypesTreeItem data={node} />

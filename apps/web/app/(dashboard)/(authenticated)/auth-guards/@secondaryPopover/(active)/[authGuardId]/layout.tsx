@@ -1,4 +1,4 @@
-import type { LayoutProps } from '@codelab/frontend-presentation-view/templates'
+import type { LayoutProps } from '@codelab/frontend/abstract/types'
 
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { authGuardRepository } from '@codelab/frontend-domain-auth-guard/repositories'

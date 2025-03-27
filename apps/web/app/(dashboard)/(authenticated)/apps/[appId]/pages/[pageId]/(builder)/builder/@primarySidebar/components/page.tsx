@@ -1,4 +1,4 @@
-import type { PageProps } from '@codelab/frontend-presentation-view/templates'
+import type { PageProps } from '@codelab/frontend/abstract/types'
 
 import { PageBuilderPrimarySidebarContainer } from '@codelab/frontend-application-builder/sections'
 

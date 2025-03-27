@@ -1,4 +1,4 @@
-import type { PageProps } from '@codelab/frontend-presentation-view/templates'
+import type { PageProps } from '@codelab/frontend/abstract/types'
 
 import { CreateActionPopover } from '@codelab/frontend-application-store/use-cases/create-action'
 

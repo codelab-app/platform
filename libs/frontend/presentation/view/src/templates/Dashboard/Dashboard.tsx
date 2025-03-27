@@ -1,6 +1,10 @@
 'use client'
 
-import type { UrlParams } from '@codelab/frontend/abstract/types'
+import type {
+  DashboardProps,
+  DashboardSlots,
+  UrlParams,
+} from '@codelab/frontend/abstract/types'
 import type { ReactNode } from 'react'
 
 import {
@@ -17,19 +21,9 @@ import Layout from 'antd/es/layout'
 import Sider from 'antd/es/layout/Sider'
 import { useMemo } from 'react'
 
-import type { DashboardSlots } from './DashboardLayout'
-
 import { ProgressBar } from '../../components/progressBar/ProgressBar'
 import { sidebarWidth } from './constants'
 import { defaultNavigationBarItems } from './NavigationBar'
-
-/**
- * Coped from `DashboardLayoutProps`
- */
-export type DashboardProps = Partial<DashboardSlots> & {
-  params?: Partial<UrlParams>
-  children: ReactNode
-}
 
 /**
  * When passing ReactNode as props, React treats it as a new prop on every render of the parent component, even if the content hasn't changed.

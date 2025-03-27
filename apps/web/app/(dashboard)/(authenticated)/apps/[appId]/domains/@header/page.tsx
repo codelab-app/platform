@@ -1,4 +1,4 @@
-import type { PageProps } from '@codelab/frontend-presentation-view/templates'
+import type { PageProps } from '@codelab/frontend/abstract/types'
 
 import { DomainsPageHeaderContainer } from '@codelab/frontend-application-domain/views'
 

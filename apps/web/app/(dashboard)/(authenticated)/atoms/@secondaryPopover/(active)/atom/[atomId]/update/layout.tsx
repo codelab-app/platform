@@ -1,4 +1,4 @@
-import type { LayoutProps } from '@codelab/frontend-presentation-view/templates'
+import type { LayoutProps } from '@codelab/frontend/abstract/types'
 
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { atomRepository } from '@codelab/frontend-domain-atom/repositories'

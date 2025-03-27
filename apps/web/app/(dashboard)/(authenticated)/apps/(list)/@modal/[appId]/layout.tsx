@@ -1,4 +1,4 @@
-import type { LayoutProps } from '@codelab/frontend-presentation-view/templates'
+import type { LayoutProps } from '@codelab/frontend/abstract/types'
 
 import { preloadAppItemQuery } from '@codelab/frontend-application-app/use-cases/app-item'
 

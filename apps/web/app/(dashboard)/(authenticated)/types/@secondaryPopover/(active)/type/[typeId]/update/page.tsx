@@ -1,5 +1,4 @@
-import type { SearchParamsPageProps } from '@codelab/frontend/abstract/types'
-import type { PageProps } from '@codelab/frontend-presentation-view/templates'
+import type { SearchParamsPageProps , PageProps } from '@codelab/frontend/abstract/types'
 import type { Metadata } from 'next'
 
 import { parsePaginationSearchParams } from '@codelab/frontend-application-shared-store/router'

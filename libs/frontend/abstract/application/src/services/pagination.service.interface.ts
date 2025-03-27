@@ -20,7 +20,7 @@ export type SupportedPaginationPathname =
 
 export interface IPaginationSearchParams {
   expandedKeys?: Array<string>
-  filter: string
+  filter: Array<string>
   page: number
   pageSize: number
   search?: string

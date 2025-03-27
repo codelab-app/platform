@@ -8,13 +8,11 @@ import { UpdateFieldPopover } from './UpdateFieldPopover'
 
 export const UpdateFieldPopoverContainer = ({
   context,
-  fieldId,
 }: {
   context: IFieldUpdateRouteContext
-  fieldId: string
 }) => {
   return (
-    <FieldConnector id={fieldId}>
+    <FieldConnector id={context.params.fieldId}>
       {(field) => <UpdateFieldPopover context={context} field={field} />}
     </FieldConnector>
   )

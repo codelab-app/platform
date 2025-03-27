@@ -1,4 +1,4 @@
-import type { DashboardLayoutProps } from '@codelab/frontend-presentation-view/templates'
+import type { DashboardLayoutProps } from '@codelab/frontend/abstract/types'
 
 import { DashboardLayout } from '@codelab/frontend-presentation-view/templates'
 
