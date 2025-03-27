@@ -1,7 +1,7 @@
 'use client'
 
 import type {
-  IBuilderRouteContext,
+  IBuilderRoute,
   IRendererModel,
   IRootRenderer,
 } from '@codelab/frontend/abstract/application'
@@ -24,7 +24,7 @@ import { RenderBlueprint } from './RenderBlueprint'
 
 interface IBuilderProps {
   RootRenderer: IRootRenderer
-  context: IBuilderRouteContext
+  context: IBuilderRoute
   renderer: IRendererModel
 }
 

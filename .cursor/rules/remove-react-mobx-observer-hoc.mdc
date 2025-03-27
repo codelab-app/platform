@@ -1,0 +1,10 @@
+---
+description: Remove mobx observer from React component
+globs: 
+alwaysApply: false
+---
+
+# Your rule content
+
+- Remove `observer` from React component if not required
+- Create a type alias for the props

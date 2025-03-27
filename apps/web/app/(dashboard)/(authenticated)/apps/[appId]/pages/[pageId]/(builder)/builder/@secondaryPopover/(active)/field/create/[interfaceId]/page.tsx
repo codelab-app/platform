@@ -1,24 +1,20 @@
 import type { PageProps } from '@codelab/frontend/abstract/types'
 
 import { IRouteType } from '@codelab/frontend/abstract/application'
+import { parsePageProps } from '@codelab/frontend-application-shared-store/router'
 import { CreateFieldPopover } from '@codelab/frontend-application-type/use-cases/create-field'
 
-const Page = async ({
-  params,
-}: PageProps<'appId' | 'interfaceId' | 'pageId'>) => {
-  const { appId, interfaceId, pageId } = await params
+const Page = async (
+  props: PageProps<'appId' | 'interfaceId' | 'pageId', 'selectedKey'>,
+) => {
+  const context = await parsePageProps(props)
 
   return (
     <CreateFieldPopover
       context={{
-        params: {
-          appId,
-          interfaceId,
-          pageId,
-        },
+        ...context,
         type: IRouteType.Page,
       }}
-      interfaceId={interfaceId}
     />
   )
 }

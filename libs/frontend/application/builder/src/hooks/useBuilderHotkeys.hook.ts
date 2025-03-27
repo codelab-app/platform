@@ -1,5 +1,5 @@
 import {
-  type IBuilderRouteContext,
+  type IBuilderRoute,
   type IBuilderService,
   isRuntimeElementRef,
 } from '@codelab/frontend/abstract/application'
@@ -12,7 +12,7 @@ type UseBuilderHotkeysProps = Pick<
   IBuilderService,
   'selectedNode' | 'setSelectedNode'
 > & {
-  context: IBuilderRouteContext
+  context: IBuilderRoute
 }
 
 /**

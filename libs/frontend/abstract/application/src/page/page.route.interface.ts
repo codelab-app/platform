@@ -1,4 +1,7 @@
-import type { UrlParams } from '@codelab/frontend/abstract/types'
+import type {
+  TreeViewSearchParams,
+  UrlParams,
+} from '@codelab/frontend/abstract/types'
 import type {
   ObjectLike,
   UnknownObjectLike,
@@ -6,8 +9,9 @@ import type {
 
 import type { IRouteType } from '../shared'
 
-export interface IPageBuilderRouteContext {
+export interface IPageBuilderRoute {
   params: PageContextParams
+  searchParams: TreeViewSearchParams
   type: IRouteType.Page
 }
 

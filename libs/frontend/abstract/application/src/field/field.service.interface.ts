@@ -8,16 +8,15 @@ import type {
 
 import type { ICrudService } from '../services'
 import type {
-  IFieldCreateRouteContext,
-  IFieldRouteContext,
-  IFieldUpdateRouteContext,
+  IFieldCreateRoute,
+  IFieldUpdateRoute,
 } from './field.route.interface'
 
 export interface IFieldService
   extends ICrudService<IFieldModel, IFieldCreateData, IFieldUpdateData> {
-  createPopover: IPopover<IFieldCreateRouteContext, IFieldRouteContext>
-  deletePopover: IPopover<IFieldUpdateRouteContext, IFieldRouteContext>
-  updatePopover: IPopover<IFieldUpdateRouteContext, IFieldRouteContext>
+  createPopover: IPopover<IFieldCreateRoute, IFieldCreateRoute>
+  deletePopover: IPopover<IFieldUpdateRoute, IFieldUpdateRoute>
+  updatePopover: IPopover<IFieldUpdateRoute, IFieldUpdateRoute>
   cloneField(field: IFieldModel, apiId: string): Promise<IFieldModel>
   moveFieldAsNextSibling(props: {
     field: IRef

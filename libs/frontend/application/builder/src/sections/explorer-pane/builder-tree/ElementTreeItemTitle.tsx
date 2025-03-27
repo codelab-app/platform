@@ -1,6 +1,6 @@
 import BorderOuterOutlined from '@ant-design/icons/BorderOuterOutlined'
 import {
-  type IBuilderRouteContext,
+  type IBuilderRoute,
   type IElementTreeViewDataNode,
   IRuntimeNodeType,
 } from '@codelab/frontend/abstract/application'
@@ -12,7 +12,7 @@ import { ElementTreeItemElementTitle } from './ElementTreeItemElementTitle'
 
 export const ElementTreeItemTitle = observer<{
   data: IElementTreeViewDataNode
-  context: IBuilderRouteContext
+  context: IBuilderRoute
 }>(({ context, data }) => {
   return data.type === IRuntimeNodeType.Element ? (
     <ElementContextMenu context={context} treeNode={data}>

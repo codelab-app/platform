@@ -1,7 +1,7 @@
 'use client'
 
 import type {
-  IBuilderRouteContext,
+  IBuilderRoute,
   IRuntimeElementModel,
 } from '@codelab/frontend/abstract/application'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
@@ -24,7 +24,7 @@ import { useAsyncFn } from 'react-use'
 import { useElementService } from '../../services'
 
 export interface UpdateElementPropsFormProps {
-  context: IBuilderRouteContext
+  context: IBuilderRoute
   runtimeElement: IRuntimeElementModel
 }
 

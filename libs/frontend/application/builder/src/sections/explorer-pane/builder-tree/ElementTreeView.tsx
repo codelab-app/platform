@@ -1,5 +1,5 @@
 import {
-  type IBuilderRouteContext,
+  type IBuilderRoute,
   type IElementTreeViewDataNode,
   IRuntimeNodeType,
   runtimeComponentRef,
@@ -22,7 +22,7 @@ import { ElementTreeItemTitle } from './ElementTreeItemTitle'
  */
 export const ElementTreeView = observer<{
   treeData?: IElementTreeViewDataNode
-  context: IBuilderRouteContext
+  context: IBuilderRoute
 }>(({ context, treeData }) => {
   const { builderService, runtimeElementService } = useApplicationStore()
   const { syncModifiedElements } = useElementService()
@@ -38,6 +38,7 @@ export const ElementTreeView = observer<{
         return !data.dragNode.isChildMapperComponentInstance
       }}
       autoExpandParent={false}
+      defaultSelectedKeys={selectedNode ? [selectedNode.compositeKey] : []}
       disabled={isMoving}
       draggable={true}
       expandedKeys={runtimeElementService.getExpandedCompositeKeys()}
@@ -87,7 +88,6 @@ export const ElementTreeView = observer<{
             : runtimeElementRef(node.key),
         )
       }}
-      selectedKeys={selectedNode ? [selectedNode.compositeKey] : []}
       titleRender={(data) => (
         <ElementTreeItemTitle context={context} data={data} />
       )}

@@ -7,7 +7,7 @@ import type {
 import type { CuiSidebarView } from '@codelab/frontend/presentation/codelab-ui'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { type IBuilderRouteContext } from '@codelab/frontend/abstract/application'
+import { type IBuilderRoute } from '@codelab/frontend/abstract/application'
 import { isComponent, isPage } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { CuiSidebar } from '@codelab/frontend/presentation/codelab-ui'
@@ -29,7 +29,7 @@ import { ElementTreeView } from '../../builder-tree/ElementTreeView'
 
 interface BuilderPrimarySidebarProps {
   containerNode: IComponentModel | IPageModel
-  context: IBuilderRouteContext
+  context: IBuilderRoute
   isLoading?: boolean
 }
 

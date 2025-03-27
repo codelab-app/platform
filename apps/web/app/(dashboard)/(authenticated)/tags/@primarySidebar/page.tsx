@@ -1,19 +1,22 @@
-import { type SearchParamsPageProps } from '@codelab/frontend/abstract/types'
+import type { PageProps } from '@codelab/frontend/abstract/types'
+
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
-import { parsePaginationSearchParams } from '@codelab/frontend-application-shared-store/router'
+import {
+  parsePageProps,
+  parsePaginationSearchParams,
+} from '@codelab/frontend-application-shared-store/router'
 import { tagTableQuery } from '@codelab/frontend-application-tag/use-cases/tag-table'
 import { TagsPrimarySidebarContainer } from '@codelab/frontend-application-tag/views'
 
-const Page = async ({
-  searchParams,
-}: {
-  searchParams: Promise<SearchParamsPageProps>
-}) => {
+const Page = async (
+  props: PageProps<'tagId', 'filter' | 'page' | 'pageSize'>,
+) => {
+  const { searchParams } = await parsePageProps(props)
   /**
    * We hydrate these to domain services, but need to also hydrate to pagination service
    */
-  const { count, tagsDto } = await tagTableQuery(await searchParams)
-  const params = parsePaginationSearchParams(await searchParams)
+  const { count, tagsDto } = await tagTableQuery(searchParams)
+  const params = parsePaginationSearchParams(searchParams)
 
   return (
     <DomainStoreHydrator tagsDto={tagsDto}>
@@ -21,7 +24,7 @@ const Page = async ({
         pagination={{
           totalItems: count,
         }}
-        searchParams={await params}
+        searchParams={params}
         tagsRef={tagsDto}
       />
     </DomainStoreHydrator>

@@ -1,6 +1,6 @@
 import type { IRouteType } from '../shared'
 
-export type IActionCreateRouteContext =
+export type IActionCreateRoute =
   | {
       type: IRouteType.Component
       params: {
@@ -17,7 +17,7 @@ export type IActionCreateRouteContext =
       }
     }
 
-export type IActionUpdateRouteContext =
+export type IActionUpdateRoute =
   | {
       type: IRouteType.Component
       params: {

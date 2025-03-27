@@ -1,9 +1,12 @@
 import type { PageProps } from '@codelab/frontend/abstract/types'
 
 import { DomainsPageHeaderContainer } from '@codelab/frontend-application-domain/views'
+import { parsePageProps } from '@codelab/frontend-application-shared-store/router'
 
-const Page = async ({ params }: PageProps<'appId'>) => {
-  const { appId } = await params
+const Page = async (props: PageProps<'appId'>) => {
+  const {
+    params: { appId },
+  } = await parsePageProps(props)
 
   return <DomainsPageHeaderContainer appId={appId} />
 }

@@ -1,6 +1,6 @@
 import type {
-  IFieldCreateRouteLazyContext,
-  IFieldUpdateRouteLazyContext,
+  IFieldCreateRouteLazy,
+  IFieldUpdateRouteLazy,
 } from '@codelab/frontend/abstract/application'
 import type {
   IFieldNodeData,
@@ -21,8 +21,8 @@ import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { useRouter } from 'next/navigation'
 
 export interface StateTreeItemContext {
-  add: IFieldCreateRouteLazyContext
-  update: IFieldUpdateRouteLazyContext
+  add: IFieldCreateRouteLazy
+  update: IFieldUpdateRouteLazy
 }
 
 interface StateTreeItemProps {

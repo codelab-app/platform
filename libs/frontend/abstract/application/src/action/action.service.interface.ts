@@ -12,15 +12,15 @@ import type { ApiActionOptions } from '@codelab/shared/infra/gqlgen'
 
 import type { ICrudService, IQueryService } from '../services'
 import type {
-  IActionCreateRouteContext,
-  IActionUpdateRouteContext,
+  IActionCreateRoute,
+  IActionUpdateRoute,
 } from './action.route.interface'
 
 export interface IActionService
   extends ICrudService<IRef, ICreateActionData, IUpdateActionData>,
     IQueryService<IActionModel, IActionWhere, ApiActionOptions> {
-  createPopover: IPopover<IActionCreateRouteContext>
-  deletePopover: IPopover<IActionUpdateRouteContext>
-  updatePopover: IPopover<IActionUpdateRouteContext>
+  createPopover: IPopover<IActionCreateRoute>
+  deletePopover: IPopover<IActionUpdateRoute>
+  updatePopover: IPopover<IActionUpdateRoute>
   cloneAction(action: IActionModel, storeId: string): Promise<IRef>
 }

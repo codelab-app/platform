@@ -9,11 +9,10 @@ import type {
  * Parses the page props by awaiting both params and searchParams
  *
  * The difference is in how TypeScript handles type narrowing in different contexts, as to why it's needed here but not `page.tsx`
- *
  */
 export const parsePageProps = async <
-  Params extends keyof UrlParams = keyof UrlParams,
-  SearchParams extends keyof SearchParamsPageProps = keyof SearchParamsPageProps,
+  Params extends keyof Partial<UrlParams> = keyof Partial<UrlParams>,
+  SearchParams extends keyof Partial<SearchParamsPageProps> = keyof Partial<SearchParamsPageProps>,
 >(
   props: PageProps<Params, SearchParams>,
 ) => {

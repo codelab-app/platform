@@ -11,7 +11,7 @@ import type { IRouteType } from '../shared'
 export type BuilderContextParams<T extends ObjectLike = UnknownObjectLike> =
   ComponentContextParams & PageContextParams<T>
 
-export type IBuilderRouteContext<T extends ObjectLike = UnknownObjectLike> =
+export type IBuilderRoute<T extends ObjectLike = UnknownObjectLike> =
   | {
       type: IRouteType.Component
       params: ComponentContextParams<T>

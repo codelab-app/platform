@@ -4,7 +4,7 @@ import { IRouteType } from '@codelab/frontend/abstract/application'
 import { ConfigPaneInspectorTabGroupContainer } from '@codelab/frontend-application-builder/sections'
 import { parsePageProps } from '@codelab/frontend-application-shared-store/router'
 
-const Page = async (props: PageProps<'componentId'>) => {
+const Page = async (props: PageProps<'componentId', 'selectedKey'>) => {
   const context = await parsePageProps(props)
 
   return (

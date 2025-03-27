@@ -1,4 +1,4 @@
-import type { IBuilderRouteContext } from '@codelab/frontend/abstract/application'
+import type { IBuilderRoute } from '@codelab/frontend/abstract/application'
 import type {
   IActionNodeData,
   ITreeNode,
@@ -21,7 +21,7 @@ import { mergeDeep } from 'remeda'
 import { useActionService } from '../../services/action.service'
 
 interface ActionsTreeItemProps {
-  context: IBuilderRouteContext
+  context: IBuilderRoute
   data: ITreeNode<IActionNodeData>
 }
 

@@ -1,4 +1,7 @@
-import type { UrlParams } from '@codelab/frontend/abstract/types'
+import type {
+  TreeViewSearchParams,
+  UrlParams,
+} from '@codelab/frontend/abstract/types'
 import type { ObjectLike } from '@codelab/shared/abstract/types'
 
 import type { IRouteType } from '../shared'
@@ -9,7 +12,8 @@ export type ComponentContextParams<T extends ObjectLike = ObjectLike> = Pick<
 > &
   T
 
-export interface IComponentBuilderRouteContext {
+export interface IComponentBuilderRoute {
   params: ComponentContextParams
+  searchParams: TreeViewSearchParams
   type: IRouteType.Component
 }

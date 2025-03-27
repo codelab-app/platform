@@ -1,6 +1,6 @@
 'use client'
 
-import type { IFieldUpdateRouteContext } from '@codelab/frontend/abstract/application'
+import type { IFieldUpdateRoute } from '@codelab/frontend/abstract/application'
 
 import { FieldConnector } from '@codelab/frontend/infra/connector'
 
@@ -9,7 +9,7 @@ import { UpdateFieldPopover } from './UpdateFieldPopover'
 export const UpdateFieldPopoverContainer = ({
   context,
 }: {
-  context: IFieldUpdateRouteContext
+  context: IFieldUpdateRoute
 }) => {
   return (
     <FieldConnector id={context.params.fieldId}>

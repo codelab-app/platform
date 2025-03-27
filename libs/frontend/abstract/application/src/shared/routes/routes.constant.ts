@@ -1,27 +1,31 @@
 import type {
   SearchParamsContext,
+  SearchParamsPageProps,
   TreeViewSearchParams,
 } from '@codelab/frontend/abstract/types'
 import type { IRef } from '@codelab/shared/abstract/core'
+import type { ObjectLike } from '@codelab/shared/abstract/types'
+import type { SearchParams } from 'next/dist/server/request/search-params'
 import type { Optional } from 'utility-types'
 
 import queryString from 'query-string'
 
-import type {
-  IActionCreateRouteContext,
-  IActionUpdateRouteContext,
-} from '../../action'
-import type { IFieldUpdateRouteContext } from '../../field'
+import type { IActionCreateRoute, IActionUpdateRoute } from '../../action'
+import type { IFieldCreateRoute, IFieldUpdateRoute } from '../../field'
 import type { PageContextParams } from '../../page'
 import type { ExtractRouteContextParams, IRouteType } from './route.interface'
 
 /**
  * Adds query parameters to a URL path if they exist
  */
-export const addSearchParams = (
+export const addSearchParams = <T extends SearchParamsPageProps>(
   basePath: string,
-  searchParams: Record<string, string | undefined>,
+  searchParams: T | undefined,
 ) => {
+  if (!searchParams) {
+    return basePath
+  }
+
   const filteredParams = Object.entries(searchParams)
     .filter(([_, value]) => value !== undefined)
     .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {})
@@ -100,22 +104,16 @@ export const RoutePaths = {
     builderAction: {
       create: ({
         params: { componentId, storeId },
-      }: ExtractRouteContextParams<
-        IActionCreateRouteContext,
-        IRouteType.Component
-      >) => `/components/${componentId}/builder/action/create/${storeId}`,
+      }: ExtractRouteContextParams<IActionCreateRoute, IRouteType.Component>) =>
+        `/components/${componentId}/builder/action/create/${storeId}`,
       delete: ({
         params: { actionId, componentId },
-      }: ExtractRouteContextParams<
-        IActionUpdateRouteContext,
-        IRouteType.Component
-      >) => `/components/${componentId}/builder/action/delete/${actionId}`,
+      }: ExtractRouteContextParams<IActionUpdateRoute, IRouteType.Component>) =>
+        `/components/${componentId}/builder/action/delete/${actionId}`,
       update: ({
         params: { actionId, componentId },
-      }: ExtractRouteContextParams<
-        IActionUpdateRouteContext,
-        IRouteType.Component
-      >) => `/components/${componentId}/builder/action/update/${actionId}`,
+      }: ExtractRouteContextParams<IActionUpdateRoute, IRouteType.Component>) =>
+        `/components/${componentId}/builder/action/update/${actionId}`,
     },
     builderElement: {
       create: ({ componentId }: { componentId: string }) =>
@@ -123,27 +121,20 @@ export const RoutePaths = {
     },
     builderField: {
       create: ({
-        componentId,
-        interfaceId,
-      }: {
-        componentId: string
-        interfaceId: string
-      }) =>
+        params: { componentId, interfaceId },
+      }: ExtractRouteContextParams<IFieldCreateRoute, IRouteType.Component>) =>
         `/components/${componentId}/builder/interface/${interfaceId}/create-field`,
       delete: ({
-        componentId,
-        fieldId,
-      }: {
-        componentId: string
-        fieldId: string
-      }) => `/components/${componentId}/builder/field/${fieldId}/delete`,
-      update: ({
-        componentId,
-        fieldId,
-      }: {
-        componentId: string
-        fieldId: string
-      }) => `/components/${componentId}/builder/field/${fieldId}/update`,
+        params: { componentId, fieldId },
+      }: ExtractRouteContextParams<IFieldUpdateRoute, IRouteType.Component>) =>
+        `/components/${componentId}/builder/field/${fieldId}/delete`,
+      update: (
+        props: ExtractRouteContextParams<
+          IFieldUpdateRoute,
+          IRouteType.Component
+        >,
+      ) =>
+        `/components/${props.params.componentId}/builder/field/${props.params.fieldId}/update`,
     },
     create: () => '/components/create',
     delete: ({ id }: IRef) => `/components/delete/${id}`,
@@ -175,22 +166,16 @@ export const RoutePaths = {
     builderAction: {
       create: ({
         params: { appId, pageId, storeId },
-      }: ExtractRouteContextParams<
-        IActionCreateRouteContext,
-        IRouteType.Page
-      >) => `/apps/${appId}/pages/${pageId}/builder/action/create/${storeId}`,
+      }: ExtractRouteContextParams<IActionCreateRoute, IRouteType.Page>) =>
+        `/apps/${appId}/pages/${pageId}/builder/action/create/${storeId}`,
       delete: ({
         params: { actionId, appId, pageId },
-      }: ExtractRouteContextParams<
-        IActionUpdateRouteContext,
-        IRouteType.Page
-      >) => `/apps/${appId}/pages/${pageId}/builder/action/delete/${actionId}`,
+      }: ExtractRouteContextParams<IActionUpdateRoute, IRouteType.Page>) =>
+        `/apps/${appId}/pages/${pageId}/builder/action/delete/${actionId}`,
       update: ({
         params: { actionId, appId, pageId },
-      }: ExtractRouteContextParams<
-        IActionUpdateRouteContext,
-        IRouteType.Page
-      >) => `/apps/${appId}/pages/${pageId}/builder/action/update/${actionId}`,
+      }: ExtractRouteContextParams<IActionUpdateRoute, IRouteType.Page>) =>
+        `/apps/${appId}/pages/${pageId}/builder/action/update/${actionId}`,
     },
     builderComponent: {
       list: ({ appId, pageId }: PageContextParams) =>
@@ -202,23 +187,17 @@ export const RoutePaths = {
     },
     builderField: {
       create: ({
-        appId,
-        interfaceId,
-        pageId,
-      }: PageContextParams & { interfaceId: string }) =>
+        params: { appId, interfaceId, pageId },
+      }: ExtractRouteContextParams<IFieldCreateRoute, IRouteType.Page>) =>
         `/apps/${appId}/pages/${pageId}/builder/field/create/${interfaceId}`,
       delete: ({
         params: { appId, fieldId, pageId },
-      }: ExtractRouteContextParams<
-        IFieldUpdateRouteContext,
-        IRouteType.Page
-      >) => `/apps/${appId}/pages/${pageId}/builder/field/${fieldId}/delete`,
+      }: ExtractRouteContextParams<IFieldUpdateRoute, IRouteType.Page>) =>
+        `/apps/${appId}/pages/${pageId}/builder/field/${fieldId}/delete`,
       update: ({
         params: { appId, fieldId, pageId },
-      }: ExtractRouteContextParams<
-        IFieldUpdateRouteContext,
-        IRouteType.Page
-      >) => `/apps/${appId}/pages/${pageId}/builder/field/update/${fieldId}`,
+      }: ExtractRouteContextParams<IFieldUpdateRoute, IRouteType.Page>) =>
+        `/apps/${appId}/pages/${pageId}/builder/field/update/${fieldId}`,
     },
     create: ({ appId, pageId }: PageContextParams) =>
       `/apps/${appId}/pages/${pageId}/builder/page/create`,
@@ -273,24 +252,17 @@ export const RoutePaths = {
     field: {
       create: ({
         params: { interfaceId },
-        searchParams,
-      }: ExtractRouteContextParams<
-        IFieldUpdateRouteContext,
-        IRouteType.Type
-      >) => addSearchParams(`/types/field/create/${interfaceId}`, searchParams),
+      }: ExtractRouteContextParams<IFieldCreateRoute, IRouteType.Type>) =>
+        `/types/field/create/${interfaceId}`,
       delete: ({
         params: { fieldId },
-      }: ExtractRouteContextParams<
-        IFieldUpdateRouteContext,
-        IRouteType.Type
-      >) => `/types/field/${fieldId}/delete`,
+      }: ExtractRouteContextParams<IFieldUpdateRoute, IRouteType.Type>) =>
+        `/types/field/${fieldId}/delete`,
       update: ({
         params: { fieldId },
         searchParams,
-      }: ExtractRouteContextParams<
-        IFieldUpdateRouteContext,
-        IRouteType.Type
-      >) => addSearchParams(`/types/field/${fieldId}/update`, searchParams),
+      }: ExtractRouteContextParams<IFieldUpdateRoute, IRouteType.Type>) =>
+        addSearchParams(`/types/field/${fieldId}/update`, searchParams),
     },
     update: ({
       selectedKey,

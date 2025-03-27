@@ -7,7 +7,7 @@ import type { SyntheticEvent } from 'react'
 
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { IRouteType, RoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiTreeItem,
@@ -36,8 +36,8 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
     } else {
       router.push(
         RoutePaths.Type.field.update({
-          fieldId: data.extraData.node.id,
-          selectedKey,
+          params: { fieldId: data.extraData.node.id },
+          searchParams: { selectedKey },
         }),
       )
     }
@@ -51,7 +51,10 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
       router.push(RoutePaths.Type.delete(data.extraData.node))
     } else {
       router.push(
-        RoutePaths.Type.field.delete({ fieldId: data.extraData.node.id }),
+        RoutePaths.Type.field.delete({
+          params: { fieldId: data.extraData.node.id },
+          searchParams: { selectedKey: undefined },
+        }),
       )
     }
   }
@@ -79,7 +82,11 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
         ? data.extraData.node.type.current
         : data.extraData.node
 
-    router.push(RoutePaths.Type.field.create(interfaceType.id))
+    router.push(
+      RoutePaths.Type.field.create({
+        params: { interfaceId: interfaceType.id },
+      }),
+    )
   }
 
   const toolbarItems: Array<ToolbarItem> = [

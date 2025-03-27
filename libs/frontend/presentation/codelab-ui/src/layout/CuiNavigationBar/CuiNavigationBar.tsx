@@ -71,15 +71,15 @@ export const CuiNavigationBar = ({
       <Menu
         className="h-full"
         defaultOpenKeys={[]}
+        defaultSelectedKeys={selectedKey ? [selectedKey] : []}
         items={primaryItems?.map(mapNavBarItemToMenuItem)}
         mode="inline"
-        selectedKeys={selectedKey ? [selectedKey] : []}
       />
       <Menu
         defaultOpenKeys={[]}
+        defaultSelectedKeys={selectedKey ? [selectedKey] : []}
         items={secondaryItems?.map(mapNavBarItemToMenuItem)}
         mode="inline"
-        selectedKeys={selectedKey ? [selectedKey] : []}
       />
     </div>
   )

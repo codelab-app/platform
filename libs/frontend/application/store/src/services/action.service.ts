@@ -6,9 +6,9 @@ import type {
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import {
-  type IActionCreateRouteContext,
+  type IActionCreateRoute,
   type IActionService,
-  type IActionUpdateRouteContext,
+  type IActionUpdateRoute,
   IRouteType,
   RoutePaths,
 } from '@codelab/frontend/abstract/application'
@@ -144,7 +144,7 @@ export const useActionService = (): IActionService => {
     },
     open: (
       router: AppRouterInstance,
-      { params, type }: IActionCreateRouteContext,
+      { params, type }: IActionCreateRoute,
     ) => {
       const url =
         type === IRouteType.Page
@@ -161,7 +161,7 @@ export const useActionService = (): IActionService => {
     },
     open: (
       router: AppRouterInstance,
-      { params, type }: IActionUpdateRouteContext,
+      { params, type }: IActionUpdateRoute,
     ) => {
       const url =
         type === IRouteType.Page
@@ -178,7 +178,7 @@ export const useActionService = (): IActionService => {
     },
     open: (
       router: AppRouterInstance,
-      { params, type }: IActionUpdateRouteContext,
+      { params, type }: IActionUpdateRoute,
     ) => {
       const url =
         type === IRouteType.Page

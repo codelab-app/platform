@@ -43,6 +43,8 @@ export const UpdateFieldForm = ({
   const fieldSchema = useFieldSchema(createFieldSchema, field)
 
   const onSubmit = (input: IFieldUpdateData) => {
+    console.log('onSubmit', input)
+
     const validationRules = filterValidationRules(
       input.validationRules,
       typeDomainService.primitiveKind(input.fieldType),

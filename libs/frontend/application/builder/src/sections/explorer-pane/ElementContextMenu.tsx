@@ -1,7 +1,7 @@
 'use client'
 
 import type {
-  IBuilderRouteContext,
+  IBuilderRoute,
   IElementTreeViewDataNode,
 } from '@codelab/frontend/abstract/application'
 import type { Nullable } from '@codelab/shared/abstract/types'
@@ -32,7 +32,7 @@ export interface ContextMenuProps {
 
 export type ElementContextMenuProps = ContextMenuProps & {
   treeNode: IElementTreeViewDataNode
-  context: IBuilderRouteContext
+  context: IBuilderRoute
 }
 
 /**

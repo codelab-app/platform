@@ -4,7 +4,7 @@ import DeploymentUnitOutlined from '@ant-design/icons/DeploymentUnitOutlined'
 import ExclamationCircleOutlined from '@ant-design/icons/ExclamationCircleOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import {
-  type IBuilderRouteContext,
+  type IBuilderRoute,
   type IElementTreeViewDataNode,
 } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
@@ -19,7 +19,7 @@ import { useRouter } from 'next/navigation'
 
 const Toolbar = observer<{
   treeNode: IElementTreeViewDataNode
-  context: IBuilderRouteContext
+  context: IBuilderRoute
 }>(({ context, treeNode }) => {
   const router = useRouter()
   const { createPopover } = useElementService()
@@ -46,7 +46,7 @@ const Toolbar = observer<{
 
 export const ElementTreeItemElementTitle = observer<{
   treeNode: IElementTreeViewDataNode
-  context: IBuilderRouteContext
+  context: IBuilderRoute
 }>(({ context, treeNode }) => {
   const { atomMeta, componentMeta, errorMessage, selectable = true } = treeNode
 

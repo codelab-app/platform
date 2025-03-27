@@ -7,6 +7,9 @@ export interface PageProps {
   searchParams: Promise<Record<string, string>>
 }
 
+/**
+ * DO NOT REFACTOR
+ */
 const Page = async ({ params, searchParams }: PageProps) => {
   const { testId } = await params
 

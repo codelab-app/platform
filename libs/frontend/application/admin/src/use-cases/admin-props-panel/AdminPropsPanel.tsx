@@ -1,4 +1,4 @@
-import type { IBuilderRouteContext } from '@codelab/frontend/abstract/application'
+import type { IBuilderRoute } from '@codelab/frontend/abstract/application'
 import type {
   IFieldModel,
   IInterfaceTypeModel,
@@ -12,10 +12,15 @@ import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import { mergeDeep } from 'remeda'
 
-export const AdminPropsPanel = observer<{
-  context: IBuilderRouteContext
+interface AdminPropsPanelProps {
+  context: IBuilderRoute
   interfaceType: IInterfaceTypeModel
-}>(({ context, interfaceType }) => {
+}
+
+export const AdminPropsPanel = ({
+  context,
+  interfaceType,
+}: AdminPropsPanelProps) => {
   const user = useUser()
   const router = useRouter()
   const { createPopover, deletePopover, updatePopover } = useFieldService()
@@ -94,4 +99,4 @@ export const AdminPropsPanel = observer<{
       </Col>
     </Row>
   )
-})
+}

@@ -26,6 +26,7 @@ export const AtomsTreeView = observer<ITreeViewProps<IAtomModel>>(
     return (
       <div className="size-full">
         <CuiTree<ITreeNode<IAtomTreeNodeData>>
+          defaultSelectedKeys={selectedKey ? [selectedKey] : []}
           filter={
             showSearchBar
               ? {
@@ -35,7 +36,6 @@ export const AtomsTreeView = observer<ITreeViewProps<IAtomModel>>(
               : undefined
           }
           isLoading={isLoading}
-          selectedKeys={selectedKey ? [selectedKey] : []}
           titleRender={(node) => <AtomsTreeItem data={node} />}
           treeData={treeData}
         />

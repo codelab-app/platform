@@ -1,6 +1,7 @@
 import type { PageProps } from '@codelab/frontend/abstract/types'
 import type { Metadata } from 'next'
 
+import { IRouteType } from '@codelab/frontend/abstract/application'
 import { PageBuilderPrimarySidebarContainer } from '@codelab/frontend-application-builder/sections'
 import { parsePageProps } from '@codelab/frontend-application-shared-store/router'
 
@@ -11,12 +12,17 @@ export const metadata: Metadata = {
 /**
  * Page needed here for default purposes
  */
-const Page = async (props: PageProps<'appId' | 'pageId'>) => {
-  const {
-    params: { appId, pageId },
-  } = await parsePageProps(props)
+const Page = async (props: PageProps<'appId' | 'pageId', 'selectedKey'>) => {
+  const context = await parsePageProps(props)
 
-  return <PageBuilderPrimarySidebarContainer appId={appId} pageId={pageId} />
+  return (
+    <PageBuilderPrimarySidebarContainer
+      context={{
+        ...context,
+        type: IRouteType.Page,
+      }}
+    />
+  )
 }
 
 export default Page

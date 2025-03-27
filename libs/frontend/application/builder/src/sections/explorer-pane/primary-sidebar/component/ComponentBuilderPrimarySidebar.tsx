@@ -1,24 +1,19 @@
 'use client'
 
+import type { IComponentBuilderRoute } from '@codelab/frontend/abstract/application'
 import type { IComponentModel } from '@codelab/frontend/abstract/domain'
+import type { TreeViewSearchParams } from '@codelab/frontend/abstract/types'
 
 import { IRouteType } from '@codelab/frontend/abstract/application'
-import { observer } from 'mobx-react-lite'
 
 import { BaseBuilderPrimarySidebar } from '../base-builder/BaseBuilderPrimarySidebar'
 
-export const ComponentBuilderPrimarySidebar = observer<{
+export const ComponentBuilderPrimarySidebar = ({
+  component,
+  context,
+}: {
   component: IComponentModel
-}>(({ component }) => (
-  <BaseBuilderPrimarySidebar
-    containerNode={component}
-    context={{
-      params: {
-        componentId: component.id,
-      },
-      type: IRouteType.Component,
-    }}
-  />
-))
+  context: IComponentBuilderRoute
+}) => <BaseBuilderPrimarySidebar containerNode={component} context={context} />
 
 ComponentBuilderPrimarySidebar.displayName = 'ComponentPrimarySidebar'

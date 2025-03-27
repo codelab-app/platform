@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-types */
+import type { Identity } from '@codelab/shared/abstract/types'
 import type { Assign, Required } from 'utility-types'
 
 /**
@@ -55,16 +57,16 @@ export type SearchParamsProps = Assign<
 export type SearchParamProps<Key extends keyof SearchParamsPageProps = never> =
   [Key] extends [never]
     ? {
-        searchParams?: never
+        searchParams?: undefined
       }
     : {
         searchParams: Promise<{
           /**
-           * When TypeScript resolves the mapped type for SearchParamsPageProps, it preserves the optionality, resulting in properties showing as undefined rather than never.
+           * We filter out never values from the resulting type
            */
-          [K in keyof Required<SearchParamsPageProps>]: K extends Key
-            ? SearchParamsPageProps[K]
-            : never
+          [K in keyof Required<SearchParamsPageProps> as K extends Key
+            ? K
+            : never]: SearchParamsPageProps[K]
         }>
       }
 export interface TreeViewSearchParams {

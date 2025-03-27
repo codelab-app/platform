@@ -2,6 +2,7 @@ import type { PageProps } from '@codelab/frontend/abstract/types'
 import type { Metadata } from 'next'
 
 import { DomainListContainer } from '@codelab/frontend-application-domain/use-cases/domain-list'
+import { parsePageProps } from '@codelab/frontend-application-shared-store/router'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
 
 export const metadata: Metadata = {
@@ -9,8 +10,10 @@ export const metadata: Metadata = {
   title: 'Domains | Codelab',
 }
 
-const Page = async ({ params }: PageProps<'appId'>) => {
-  const { appId } = await params
+const Page = async (props: PageProps<'appId'>) => {
+  const {
+    params: { appId },
+  } = await parsePageProps(props)
 
   return (
     <ContentSection>

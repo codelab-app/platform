@@ -9,12 +9,13 @@ import type { AtomOptions, AtomWhere } from '@codelab/shared/infra/gqlgen'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import type { ICrudService, IQueryService } from '../services'
+import type { IAtomCreateRoute, IAtomUpdateRoute } from './atom.route.interface'
 
 export interface IAtomService
   extends ICrudService<IRef, ICreateAtomData, IUpdateAtomData>,
     IQueryService<IAtomModel, AtomWhere, AtomOptions> {
-  createPopover: IPopover
-  updatePopover: IPopover
+  createPopover: IPopover<IAtomCreateRoute, IAtomCreateRoute>
+  updatePopover: IPopover<IAtomUpdateRoute, IAtomUpdateRoute>
   getSelectAtomOptions(
     parent: IAtomModel | undefined,
   ): Promise<Array<SelectOption>>

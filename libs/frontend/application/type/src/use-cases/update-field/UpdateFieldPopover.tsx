@@ -1,6 +1,6 @@
 'use client'
 
-import type { IFieldUpdateRouteContext } from '@codelab/frontend/abstract/application'
+import type { IFieldUpdateRoute } from '@codelab/frontend/abstract/application'
 import type { IFieldModel } from '@codelab/frontend/abstract/domain'
 import type { Maybe } from '@codelab/shared/abstract/types'
 
@@ -19,7 +19,7 @@ export const UpdateFieldPopover = ({
   field,
 }: {
   field: IFieldModel
-  context: IFieldUpdateRouteContext
+  context: IFieldUpdateRoute
 }) => {
   const router = useRouter()
   const submitRef = useRef<Maybe<SubmitController>>(undefined)

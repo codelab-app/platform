@@ -1,24 +1,26 @@
-import { type SearchParamsPageProps } from '@codelab/frontend/abstract/types'
+import type { PageProps } from '@codelab/frontend/abstract/types'
+
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { atomTableQuery } from '@codelab/frontend-application-atom/use-cases/atom-table'
 import { AtomsPrimarySidebarContainer } from '@codelab/frontend-application-atom/views'
-import { parsePaginationSearchParams } from '@codelab/frontend-application-shared-store/router'
+import {
+  parsePageProps,
+  parsePaginationSearchParams,
+} from '@codelab/frontend-application-shared-store/router'
 
-// export const dynamic = 'force-dynamic'
+const Page = async (
+  props: PageProps<'typeId', 'filter' | 'page' | 'pageSize'>,
+) => {
+  const { searchParams } = await parsePageProps(props)
 
-const Page = async ({
-  searchParams,
-}: {
-  searchParams: Promise<SearchParamsPageProps>
-}) => {
   /**
    * We hydrate these to domain services, but need to also hydrate to pagination service
    */
   const { atomsDto, count, fieldsDto, typesDto } = await atomTableQuery(
-    await searchParams,
+    searchParams,
   )
 
-  const params = parsePaginationSearchParams(await searchParams)
+  const params = parsePaginationSearchParams(searchParams)
 
   return (
     <DomainStoreHydrator
@@ -31,7 +33,7 @@ const Page = async ({
         pagination={{
           totalItems: count,
         }}
-        searchParams={await params}
+        searchParams={params}
       />
     </DomainStoreHydrator>
   )

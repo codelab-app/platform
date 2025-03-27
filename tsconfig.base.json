@@ -267,6 +267,12 @@
       "@codelab/frontend-application-atom/services": [
         "libs/frontend/application/atom/src/services/index.ts"
       ],
+      "@codelab/frontend-application-atom/use-cases/atom-list": [
+        "libs/frontend/application/atom/src/use-cases/atom-list/index.ts"
+      ],
+      "@codelab/frontend-application-atom/use-cases/atom-list/server": [
+        "libs/frontend/application/atom/src/use-cases/atom-list/server/index.ts"
+      ],
       "@codelab/frontend-application-atom/use-cases/atom-table": [
         "libs/frontend/application/atom/src/use-cases/atom-table/index.ts"
       ],
@@ -275,12 +281,6 @@
       ],
       "@codelab/frontend-application-atom/use-cases/delete-atom": [
         "libs/frontend/application/atom/src/use-cases/delete-atom/index.ts"
-      ],
-      "@codelab/frontend-application-atom/use-cases/atom-list": [
-        "libs/frontend/application/atom/src/use-cases/atom-list/index.ts"
-      ],
-      "@codelab/frontend-application-atom/use-cases/atom-list/server": [
-        "libs/frontend/application/atom/src/use-cases/atom-list/server/index.ts"
       ],
       "@codelab/frontend-application-atom/use-cases/helper": [
         "libs/frontend/application/atom/src/use-cases/helper/index.ts"
@@ -537,11 +537,11 @@
       "@codelab/frontend-application-shared-data": [
         "libs/frontend/application/shared/data/src/index.ts"
       ],
-      "@codelab/frontend-application-shared-store/loading": [
-        "libs/frontend/application/shared/store/src/loading/index.ts"
-      ],
       "@codelab/frontend-application-shared-store/cache": [
         "libs/frontend/application/shared/store/src/cache/index.ts"
+      ],
+      "@codelab/frontend-application-shared-store/loading": [
+        "libs/frontend/application/shared/store/src/loading/index.ts"
       ],
       "@codelab/frontend-application-shared-store/pagination": [
         "libs/frontend/application/shared/store/src/pagination/index.ts"
@@ -952,14 +952,14 @@
         "libs/frontend/test/application/src/index.ts"
       ],
       "@codelab/frontend/test/data": ["libs/frontend/test/data/src/index.ts"],
+      "@codelab/shared-domain-module/action": [
+        "libs/shared/domain/module/action/src/index.ts"
+      ],
       "@codelab/shared-domain-module/app": [
         "libs/shared/domain/module/app/src/index.ts"
       ],
       "@codelab/shared-domain-module/atom": [
         "libs/shared/domain/module/atom/src/index.ts"
-      ],
-      "@codelab/shared-domain-module/action": [
-        "libs/shared/domain/module/action/src/index.ts"
       ],
       "@codelab/shared-domain-module/auth-guard": [
         "libs/shared/domain/module/auth-guard/src/index.ts"

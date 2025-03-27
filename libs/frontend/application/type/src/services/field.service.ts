@@ -6,10 +6,9 @@ import type { IFieldCreateData, IRef } from '@codelab/shared/abstract/core'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import {
-  type IFieldCreateRouteContext,
-  type IFieldRouteContext,
+  type IFieldCreateRoute,
   type IFieldService,
-  type IFieldUpdateRouteContext,
+  type IFieldUpdateRoute,
   IRouteType,
   RoutePaths,
 } from '@codelab/frontend/abstract/application'
@@ -212,7 +211,7 @@ export const useFieldService = (): IFieldService => {
 
   const closeFieldPopover = (
     router: AppRouterInstance,
-    { params, type }: IFieldRouteContext,
+    { params, type }: IFieldUpdateRoute,
   ) => {
     if (type === IRouteType.Component) {
       router.push(RoutePaths.Component.builder(params))
@@ -224,49 +223,54 @@ export const useFieldService = (): IFieldService => {
   }
 
   const createPopover = {
-    close: closeFieldPopover,
-    open: (
-      router: AppRouterInstance,
-      { params, type }: IFieldCreateRouteContext,
-    ) => {
+    close: (router: AppRouterInstance, context: IFieldCreateRoute) => {
+      const { params, type } = context
+
+      if (type === IRouteType.Component) {
+        router.push(RoutePaths.Component.builder(params))
+      } else if (type === IRouteType.Page) {
+        router.push(RoutePaths.Page.builder(params))
+      } else {
+        router.push(RoutePaths.Type.base())
+      }
+    },
+    open: (router: AppRouterInstance, context: IFieldCreateRoute) => {
+      const { type } = context
+
       if (type === IRouteType.Page) {
-        router.push(RoutePaths.Page.builderField.create(params))
+        router.push(RoutePaths.Page.builderField.create(context))
       } else if (type === IRouteType.Component) {
-        router.push(RoutePaths.Component.builderField.create(params))
+        router.push(RoutePaths.Component.builderField.create(context))
       }
     },
   }
 
   const updatePopover = {
     close: closeFieldPopover,
-    open: (
-      router: AppRouterInstance,
-      { type, ...props }: IFieldUpdateRouteContext,
-    ) => {
-      if (type === IRouteType.Component) {
-        router.push(RoutePaths.Component.builderField.update(props))
-      } else if (type === IRouteType.Page) {
-        router.push(RoutePaths.Page.builderField.update(props))
-      } else {
-        const data = props
+    open: (router: AppRouterInstance, context: IFieldUpdateRoute) => {
+      const { type } = context
 
-        router.push(RoutePaths.Type.field.update(props))
+      if (type === IRouteType.Component) {
+        router.push(RoutePaths.Component.builderField.update(context))
+      } else if (type === IRouteType.Page) {
+        router.push(RoutePaths.Page.builderField.update(context))
+      } else {
+        router.push(RoutePaths.Type.field.update(context))
       }
     },
   }
 
   const deletePopover = {
     close: closeFieldPopover,
-    open: (
-      router: AppRouterInstance,
-      { params, type }: IFieldUpdateRouteContext,
-    ) => {
+    open: (router: AppRouterInstance, context: IFieldUpdateRoute) => {
+      const { type } = context
+
       if (type === IRouteType.Component) {
-        router.push(RoutePaths.Component.builderField.delete(params))
+        router.push(RoutePaths.Component.builderField.delete(context))
       } else if (type === IRouteType.Page) {
-        router.push(RoutePaths.Page.builderField.delete(params))
+        router.push(RoutePaths.Page.builderField.delete(context))
       } else {
-        router.push(RoutePaths.Type.field.delete(params))
+        router.push(RoutePaths.Type.field.delete(context))
       }
     },
   }

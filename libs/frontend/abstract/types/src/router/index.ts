@@ -1,4 +1,5 @@
 export * from './layout.props'
+export * from './merge'
 export * from './page.props'
 export * from './params.props'
 export * from './search-params.props'

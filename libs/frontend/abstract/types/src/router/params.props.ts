@@ -1,3 +1,5 @@
+import type { Identity } from '@codelab/shared/abstract/types'
+
 import type { UrlParams } from './url-params'
 
 /**
@@ -21,8 +23,15 @@ export type ParamProps<ParamKey extends keyof UrlParams = never> = [
   : {
       params: Promise<{
         /**
-         * We want to iterate through all possible keys, then set `never` to filter it out if we don't use it
+         * We want to iterate through all possible keys, then set `never` to
+         * filter it out if we don't use it
+         *
+         * We filter out never values from the resulting type
          */
-        [K in keyof UrlParams]: K extends ParamKey ? UrlParams[K] : never
+        [K in keyof UrlParams as K extends ParamKey ? K : never]: UrlParams[K]
       }>
     }
+
+type Demo = ParamProps<'appId' | 'fieldId'>
+
+type None = ParamProps

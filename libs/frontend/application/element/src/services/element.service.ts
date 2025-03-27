@@ -2,7 +2,7 @@ import type { IElementDto } from '@codelab/shared/abstract/core'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import {
-  type IBuilderRouteContext,
+  type IBuilderRoute,
   type IElementService,
   IRouteType,
   RoutePaths,
@@ -28,7 +28,7 @@ const createPopover = {
   close: (router: AppRouterInstance) => {
     router.back()
   },
-  open: (router: AppRouterInstance, { params, type }: IBuilderRouteContext) => {
+  open: (router: AppRouterInstance, { params, type }: IBuilderRoute) => {
     const url =
       type === IRouteType.Page
         ? RoutePaths.Page.builder(params)
@@ -44,7 +44,7 @@ const deletePopover = {
   },
   open: (
     router: AppRouterInstance,
-    { params, type }: IBuilderRouteContext<{ elementId: string }>,
+    { params, type }: IBuilderRoute<{ elementId: string }>,
   ) => {
     const url =
       type === IRouteType.Page

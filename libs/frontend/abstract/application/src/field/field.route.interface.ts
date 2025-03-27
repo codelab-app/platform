@@ -1,38 +1,63 @@
-import type { TreeViewSearchParams } from '@codelab/frontend/abstract/types'
+/* eslint-disable @typescript-eslint/ban-types */
+import type {
+  DistributeUnion,
+  TreeViewSearchParams,
+} from '@codelab/frontend/abstract/types'
+import type { Identity } from '@codelab/shared/abstract/types'
+import type { Assign } from 'utility-types'
 
-import type { IBuilderRouteContext } from '../builder'
+import type { IBuilderRoute } from '../builder'
 import type { IRouteType } from '../shared'
 
 /**
- * `CreateFieldPopover` can be used in 4 places
+ * Base routes
  */
-export type IFieldCreateRouteContext =
+export type IFieldRoute =
   | {
-      type: IRouteType.Atom | IRouteType.Type
-      params: {
-        interfaceId: string
-      }
+      type: IRouteType.Atom
+      searchParams: TreeViewSearchParams
     }
   | {
       type: IRouteType.Component
-      params: { componentId: string; interfaceId: string }
+      searchParams: TreeViewSearchParams
+      params: { componentId: string }
     }
   | {
       type: IRouteType.Page
+      searchParams: TreeViewSearchParams
       params: {
-        interfaceId: string
         appId: string
         pageId: string
       }
     }
+  | {
+      type: IRouteType.Type
+      searchParams: TreeViewSearchParams
+    }
+
+/**
+ * `CreateFieldPopover` can be used in 4 places
+ * Utility type to add interfaceId to params of a route
+ */
+
+export type IFieldCreateRoute = DistributeUnion<
+  IFieldRoute,
+  { interfaceId: string }
+>
+
+export type IFieldCreateRouteLazy = ({
+  interfaceId,
+}: {
+  interfaceId: string
+}) => IFieldCreateRoute
 
 export type IFieldCreateRouteLazyContext = ({
   interfaceId,
 }: {
   interfaceId: string
-}) => IFieldCreateRouteContext
+}) => IFieldCreateRoute
 
-export type IFieldUpdateRouteContext =
+export type IFieldUpdateRoute =
   | {
       type: IRouteType.Atom | IRouteType.Type
       params: {
@@ -58,16 +83,8 @@ export type IFieldUpdateRouteContext =
 /**
  * Inner-most function may map fields over api, which means we don't have access to field until it's mapped
  */
-export type IFieldUpdateRouteLazyContext = ({
+export type IFieldUpdateRouteLazy = ({
   fieldId,
 }: {
   fieldId: string
-}) => IFieldUpdateRouteContext
-
-export type IFieldRouteContext =
-  | IBuilderRouteContext
-  | {
-      type: IRouteType.Atom | IRouteType.Type
-      // eslint-disable-next-line @typescript-eslint/ban-types
-      params: {}
-    }
+}) => IFieldUpdateRoute
