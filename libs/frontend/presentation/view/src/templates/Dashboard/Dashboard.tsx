@@ -1,11 +1,6 @@
 'use client'
 
-import type {
-  DashboardProps,
-  DashboardSlots,
-  UrlParams,
-} from '@codelab/frontend/abstract/types'
-import type { ReactNode } from 'react'
+import type { DashboardProps } from '@codelab/frontend/abstract/types'
 
 import {
   configPaneBreakpoints,
@@ -57,8 +52,8 @@ export const Dashboard = ({
 
   return (
     <Layout className="h-full">
-      {modal}
-      {header}
+      <>{modal}</>
+      <>{header}</>
       {/*
           Need explicitly set `hasSider` prop to avoid flickering
           see AntD documentation or https://github.com/ant-design/ant-design/issues/8937
