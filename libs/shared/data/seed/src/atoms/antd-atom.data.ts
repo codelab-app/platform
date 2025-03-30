@@ -67,11 +67,6 @@ export const antdAtomData: IAntdAtomRecords = {
     icon: IAtomType.AntDesignCard,
     tag: IAtomType.AntDesignCard,
   },
-  [IAtomType.AntDesignCardGrid]: {
-    file: 'Card--Card.Grid',
-    icon: IAtomType.AntDesignCard,
-    tag: IAtomType.AntDesignCardGrid,
-  },
   [IAtomType.AntDesignCardMeta]: {
     file: 'Card--Card.Meta',
     icon: IAtomType.AntDesignCard,

@@ -6,33 +6,33 @@
         "api": {
           "id": "27456d50-a815-4289-9082-2ccc1d5a1134"
         },
-        "defaultValues": null,
+        "defaultValues": "{\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"}",
         "description": null,
         "fieldType": {
-          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
+          "id": "9e8326a2-4c44-4adc-b3f0-68e9098718e4"
         },
-        "id": "d0fedf55-c8b4-4294-a999-0e0ad8811098",
+        "id": "6bb2d6ec-56e1-4296-9d4f-97e83fe30ee5",
         "key": "dateCellRender",
         "name": "Date Cell Render",
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": null
+        "validationRules": "{\"general\":{\"nullable\":true}}"
       },
       {
         "api": {
           "id": "27456d50-a815-4289-9082-2ccc1d5a1134"
         },
-        "defaultValues": null,
+        "defaultValues": "{\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"}",
         "description": null,
         "fieldType": {
-          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
+          "id": "9e8326a2-4c44-4adc-b3f0-68e9098718e4"
         },
-        "id": "23fe4433-16f4-4467-9b51-79e824e38723",
+        "id": "d32483ec-56fe-4a08-be04-c009363ccc7b",
         "key": "dateFullCellRender",
         "name": "Date Full Cell Render",
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": null
+        "validationRules": "{\"general\":{\"nullable\":true}}"
       },
       {
         "api": {
@@ -70,17 +70,17 @@
         "api": {
           "id": "27456d50-a815-4289-9082-2ccc1d5a1134"
         },
-        "defaultValues": null,
+        "defaultValues": "{\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"}",
         "description": null,
         "fieldType": {
-          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f"
+          "id": "9e8326a2-4c44-4adc-b3f0-68e9098718e4"
         },
-        "id": "01fc6cf4-d14e-4911-b7c6-109838edf92e",
+        "id": "8aeab2e3-d9bb-4948-b159-9866a418ac49",
         "key": "headerRender",
         "name": "Header Render",
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": null
+        "validationRules": "{\"general\":{\"nullable\":true}}"
       },
       {
         "api": {
@@ -102,33 +102,33 @@
         "api": {
           "id": "27456d50-a815-4289-9082-2ccc1d5a1134"
         },
-        "defaultValues": null,
+        "defaultValues": "{\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"}",
         "description": null,
         "fieldType": {
-          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
+          "id": "9e8326a2-4c44-4adc-b3f0-68e9098718e4"
         },
-        "id": "addc0087-6aae-4956-933b-2d31c2f96c4b",
+        "id": "f4bc559d-af71-40b4-81dc-d4b07b64c868",
         "key": "monthCellRender",
         "name": "Month Cell Render",
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": null
+        "validationRules": "{}"
       },
       {
         "api": {
           "id": "27456d50-a815-4289-9082-2ccc1d5a1134"
         },
-        "defaultValues": null,
+        "defaultValues": "{\"kind\":\"RenderPropType\",\"type\":\"9e8326a2-4c44-4adc-b3f0-68e9098718e4\"}",
         "description": null,
         "fieldType": {
-          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
+          "id": "9e8326a2-4c44-4adc-b3f0-68e9098718e4"
         },
-        "id": "5b2cd8ef-c097-4149-b64c-9e75c116bdaf",
+        "id": "dc97a204-0d12-4f5b-b94b-8d04cda1700c",
         "key": "monthFullCellRender",
         "name": "Month Full Cell Render",
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": null
+        "validationRules": "{\"general\":{\"nullable\":true}}"
       },
       {
         "api": {
@@ -161,6 +161,22 @@
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
+      },
+      {
+        "api": {
+          "id": "27456d50-a815-4289-9082-2ccc1d5a1134"
+        },
+        "defaultValues": "false",
+        "description": null,
+        "fieldType": {
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+        },
+        "id": "57532065-08f0-4b0b-8722-84ddb099b540",
+        "key": "showWeek",
+        "name": "Show week",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
       }
     ],
     "id": "27456d50-a815-4289-9082-2ccc1d5a1134",

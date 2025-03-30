@@ -18,7 +18,6 @@ export enum __AtomType {
   AntDesignButton = 'AntDesignButton',
   AntDesignCalendar = 'AntDesignCalendar',
   AntDesignCard = 'AntDesignCard',
-  AntDesignCardGrid = 'AntDesignCardGrid',
   AntDesignCardMeta = 'AntDesignCardMeta',
   AntDesignCarousel = 'AntDesignCarousel',
   AntDesignCascader = 'AntDesignCascader',
