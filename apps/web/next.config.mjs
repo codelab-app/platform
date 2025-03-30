@@ -1,12 +1,15 @@
 import bundleAnalyzer from '@next/bundle-analyzer'
-import { composePlugins, withNx } from '@nx/next'
+import { composePlugins,
+withNx } from '@nx/next'
 import { withSentryConfig } from '@sentry/nextjs'
 // eslint-disable-next-line import/default
 import env from 'env-var'
 
 const { get } = env
 
-const analyzeBundle = get('ANALYZE_BUNDLE').default(0).asBool()
+const analyzeBundle = get('ANALYZE_BUNDLE').default('false').asBoolStrict()
+
+console.log('analyzeBundle', analyzeBundle)
 
 const withBundleAnalyzer = bundleAnalyzer({
   enabled: analyzeBundle,
