@@ -15,6 +15,7 @@ import {
 } from '@codelab/frontend/presentation/codelab-ui'
 import { useRouter } from 'next/navigation'
 import { useMemo } from 'react'
+import { mergeDeep } from 'remeda'
 
 import { useTypeService } from '../services'
 import { TypesTreeView } from '../use-cases/get-types'
@@ -45,6 +46,7 @@ export const TypesPrimarySidebar = ({
       {
         content: (
           <TypesTreeView
+            context={context}
             data={types}
             isLoading={false}
             searchParams={searchParams}

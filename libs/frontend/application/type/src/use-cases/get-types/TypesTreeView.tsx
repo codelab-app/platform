@@ -1,6 +1,10 @@
 'use client'
 
-import type { ITreeViewProps } from '@codelab/frontend/abstract/application'
+import type {
+  ITreeViewProps,
+  ITypeCreateRoute,
+  ITypeUpdateRoute,
+} from '@codelab/frontend/abstract/application'
 import type {
   ITreeNode,
   ITypeModel,
@@ -9,16 +13,22 @@ import type {
 
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import { TypeKind } from '@codelab/shared/infra/gqlgen'
+import { mergeDeep } from 'remeda'
 
 import { TypesTreeItem } from './TypesTreeItem'
 import { useUpdateSearchParams } from './useUpdateSearchParams.hook'
 
+type TypesTreeViewProps = ITreeViewProps<ITypeModel> & {
+  context: ITypeCreateRoute
+}
+
 export const TypesTreeView = ({
+  context,
   data,
   isLoading,
   searchParams: { expandedKeys, search, selectedKey },
   showSearchBar,
-}: ITreeViewProps<ITypeModel>) => {
+}: TypesTreeViewProps) => {
   const { updateSearchParams } = useUpdateSearchParams()
 
   const treeData: Array<ITreeNode<ITypeTreeNodeData>> = data.map((type) => ({
@@ -55,7 +65,16 @@ export const TypesTreeView = ({
           updateSearchParams(keys)
         }}
         titleRender={(node) => {
-          return <TypesTreeItem data={node} />
+          return (
+            <TypesTreeItem
+              context={mergeDeep(context, {
+                params: {
+                  typeId: node.extraData.node.id,
+                },
+              })}
+              data={node}
+            />
+          )
         }}
         treeData={treeData}
       />

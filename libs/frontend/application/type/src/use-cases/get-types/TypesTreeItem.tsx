@@ -1,3 +1,4 @@
+import type { ITypeUpdateRoute } from '@codelab/frontend/abstract/application'
 import type {
   ITreeNode,
   ITypeTreeNodeData,
@@ -18,23 +19,17 @@ import { ITypeKind } from '@codelab/shared/abstract/core'
 import { useRouter } from 'next/navigation'
 
 interface TypesTreeItemProps {
+  context: ITypeUpdateRoute
   data: ITreeNode<ITypeTreeNodeData>
 }
 
-export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
+export const TypesTreeItem = ({ context, data }: TypesTreeItemProps) => {
   const { fieldDomainService } = useDomainStore()
   const router = useRouter()
 
   const onEdit = ({ selectedKey }: { selectedKey?: string }) => {
     if (data.extraData.type === 'type') {
-      router.push(
-        RoutePaths.Type.update({
-          params: {
-            typeId: data.extraData.node.id,
-          },
-          searchParams: { selectedKey },
-        }),
-      )
+      router.push(RoutePaths.Type.update(context))
     } else {
       router.push(
         RoutePaths.Type.field.update({

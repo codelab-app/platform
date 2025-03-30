@@ -6,14 +6,12 @@ import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { tagRepository } from '@codelab/frontend-domain-tag/repositories'
 import 'server-only'
 
-export const tagTableQuery = async (searchParams: SearchParamsClientProps) => {
-  const {
-    filter = ['name'],
-    page = 1,
-    pageSize = 20,
-    search,
-  } = parseSearchParams(searchParams)
-
+export const tagTableQuery = async ({
+  filter,
+  page,
+  pageSize,
+  search,
+}: SearchParamsClientProps) => {
   const {
     aggregate: { count },
     items: tagsDto,

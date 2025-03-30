@@ -1,5 +1,8 @@
 'use client'
-import type { IPaginationData } from '@codelab/frontend/abstract/application'
+import type {
+  IAtomCreateRoute,
+  IPaginationData,
+} from '@codelab/frontend/abstract/application'
 import type {
   PaginationClientProps,
   TreeViewClientProps,
@@ -11,14 +14,14 @@ import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { TypesPrimarySidebar } from './TypesPrimarySidebar'
 
 interface TypesPrimarySidebarContainerProps {
+  context: IAtomCreateRoute
   pagination: IPaginationData
-  searchParams: TreeViewClientProps & PaginationClientProps
   typesDto: Array<TypeFragment>
 }
 
 export const TypesPrimarySidebarContainer = ({
+  context,
   pagination,
-  searchParams,
   typesDto,
 }: TypesPrimarySidebarContainerProps) => {
   const { typeDomainService } = useDomainStore()
@@ -26,8 +29,8 @@ export const TypesPrimarySidebarContainer = ({
 
   return (
     <TypesPrimarySidebar
+      context={context}
       pagination={pagination}
-      searchParams={searchParams}
       types={types}
     />
   )

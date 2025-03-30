@@ -72,7 +72,7 @@ export const AtomsPrimarySidebar = ({
               cuiKey: UiKey.AtomToolbarItemCreate,
               icon: <PlusOutlined />,
               onClick: () => {
-                createPopover.open(router, {})
+                createPopover.open(router, context)
               },
               title: 'Create Atom',
             },

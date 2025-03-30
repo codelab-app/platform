@@ -11,7 +11,8 @@ import { TypesPrimarySidebarContainer } from '@codelab/frontend-application-type
 const Page = async (
   props: PageProps<'typeId', 'filter' | 'page' | 'pageSize'>,
 ) => {
-  const { searchParams } = await parsePageProps(props)
+  const context = await parsePageProps(props)
+  const { searchParams } = context
   /**
    * We hydrate these to domain services, but need to also hydrate to pagination service
    */
@@ -20,10 +21,10 @@ const Page = async (
   return (
     <DomainStoreHydrator fieldsDto={fieldsDto} typesDto={typesDto}>
       <TypesPrimarySidebarContainer
+        context={context}
         pagination={{
           totalItems: count,
         }}
-        searchParams={searchParams}
         typesDto={typesDto}
       />
     </DomainStoreHydrator>
