@@ -26,9 +26,6 @@ export const antdAtoms: IAtomRendererRecord = {
     () => import('antd/lib/calendar'),
   ),
   [IAtomType.AntDesignCard]: dynamicLoader(() => import('antd/lib/card')),
-  [IAtomType.AntDesignCardGrid]: dynamicLoader(
-    () => import('antd/lib/card/Grid'),
-  ),
   [IAtomType.AntDesignCardMeta]: dynamicLoader(
     () => import('antd/lib/card/Meta'),
   ),

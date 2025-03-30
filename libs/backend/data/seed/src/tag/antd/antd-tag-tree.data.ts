@@ -12,10 +12,7 @@ export const antdTagTree: TagNode<IAntdCategoryTag | keyof IAntdAtomRecords> = {
     IAtomType.AntDesignCollapse,
     IAtomType.AntDesignCarousel,
     {
-      [IAtomType.AntDesignCard]: [
-        IAtomType.AntDesignCardGrid,
-        IAtomType.AntDesignCardMeta,
-      ],
+      [IAtomType.AntDesignCard]: [IAtomType.AntDesignCardMeta],
     },
     IAtomType.AntDesignCalendar,
     IAtomType.AntDesignDescriptions,
