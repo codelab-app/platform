@@ -1,5 +1,7 @@
 'use client'
 
+import type { IPageBuilderRoute } from '@codelab/frontend/abstract/application'
+
 import { RendererType } from '@codelab/frontend/abstract/application'
 import { PageConnector } from '@codelab/frontend/infra/connector'
 import { BuilderProvider } from '@codelab/frontend/presentation/container'
@@ -8,12 +10,14 @@ import { RootRenderer } from '@codelab/frontend-application-renderer/use-cases/r
 import { PageBuilder } from '../page-builder/PageBuilder'
 
 export const PagePreviewContainer = ({
-  appId,
-  pageId,
+  context,
 }: {
-  pageId: string
-  appId: string
+  context: IPageBuilderRoute
 }) => {
+  const {
+    params: { pageId },
+  } = context
+
   return (
     <PageConnector id={pageId}>
       {(page) => (
@@ -21,7 +25,11 @@ export const PagePreviewContainer = ({
           containerNode={page}
           rendererType={RendererType.Preview}
         >
-          <PageBuilder RootRenderer={RootRenderer} appId={appId} page={page} />
+          <PageBuilder
+            RootRenderer={RootRenderer}
+            context={context}
+            page={page}
+          />
         </BuilderProvider>
       )}
     </PageConnector>

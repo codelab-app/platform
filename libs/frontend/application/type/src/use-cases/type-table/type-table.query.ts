@@ -1,19 +1,20 @@
-import type { SearchParamsPageProps } from '@codelab/frontend/abstract/types'
+import type {
+  SearchParamsClientProps,
+  SearchParamsServerProps,
+} from '@codelab/frontend/abstract/types'
 
 import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
-import { parseSearchParamsPageProps } from '@codelab/frontend-application-shared-store/router'
+import { parseSearchParams } from '@codelab/frontend-application-shared-store/router'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { typeRepository } from '@codelab/frontend-domain-type/repositories'
 import 'server-only'
 
-export const typeTableQuery = async (searchParams: SearchParamsPageProps) => {
-  const {
-    filter = ['name'],
-    page = 1,
-    pageSize = 20,
-    search,
-  } = parseSearchParamsPageProps(searchParams)
-
+export const typeTableQuery = async ({
+  filter,
+  page,
+  pageSize,
+  search,
+}: SearchParamsClientProps) => {
   const { items: typeFragments, totalCount: count } =
     await typeRepository.findBaseTypes(
       {
@@ -44,6 +45,8 @@ export const typeTableQuery = async (searchParams: SearchParamsPageProps) => {
   return { count, fieldsDto, typesDto }
 }
 
-export const preloadTypeTableQuery = (searchParams: SearchParamsPageProps) => {
+export const preloadTypeTableQuery = (
+  searchParams: SearchParamsClientProps,
+) => {
   void typeTableQuery(searchParams)
 }

@@ -1,8 +1,7 @@
 'use client'
 
-import type { SearchParamsPageProps } from '@codelab/frontend/abstract/types'
+import type { NextjsSearchParamsProps } from '@codelab/frontend/abstract/application'
 
-import { parseSearchParamsPageProps } from '@codelab/frontend-application-shared-store/router'
 import { observer } from 'mobx-react-lite'
 import { type ReactNode, useEffect } from 'react'
 
@@ -20,7 +19,7 @@ interface ApplicationStoreHydratorProps {
    * In that case we'll need some override to disable loader
    */
   fallback?: ReactNode
-  searchParams?: SearchParamsPageProps
+  searchParams?: NextjsSearchParamsProps
 }
 
 export const ApplicationStoreHydrator = observer<ApplicationStoreHydratorProps>(
@@ -29,7 +28,7 @@ export const ApplicationStoreHydrator = observer<ApplicationStoreHydratorProps>(
 
     useEffect(() => {
       if (searchParams) {
-        hydrate({ searchParams: parseSearchParamsPageProps(searchParams) })
+        hydrate({ searchParams })
       }
     }, [searchParams])
 

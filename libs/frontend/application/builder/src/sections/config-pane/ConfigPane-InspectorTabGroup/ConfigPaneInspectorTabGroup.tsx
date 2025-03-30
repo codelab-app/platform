@@ -9,6 +9,7 @@ import SettingOutlined from '@ant-design/icons/SettingOutlined'
 import {
   type IBuilderRoute,
   type IRendererModel,
+  IRouteType,
   type IRuntimeComponentModel,
   type IRuntimeElementModel,
   isRuntimeComponent,
@@ -105,7 +106,10 @@ export const ConfigPaneInspectorTabGroup = observer<{
                 runtimeElement={selectedNode}
               />
             ) : isRuntimeComponent(selectedNode) ? (
-              <UpdateComponentPropsForm runtimeComponent={selectedNode} />
+              <UpdateComponentPropsForm
+                context={context}
+                runtimeComponent={selectedNode}
+              />
             ) : (
               'Add an atom or a component to this element to edit its props'
             )}
@@ -184,6 +188,7 @@ export const ConfigPaneInspectorTabGroup = observer<{
                     runtimeComponent={activeRenderer.runtimeComponent}
                   />
                   <UpdateComponentPropsForm
+                    context={context}
                     runtimeComponent={activeRenderer.runtimeComponent}
                   />
                 </>

@@ -1,5 +1,5 @@
 import type {
-  TreeViewSearchParams,
+  TreeViewClientProps,
   UrlParams,
 } from '@codelab/frontend/abstract/types'
 import type {
@@ -11,7 +11,7 @@ import type { IRouteType } from '../shared'
 
 export interface IPageBuilderRoute {
   params: PageContextParams
-  searchParams: TreeViewSearchParams
+  searchParams: TreeViewClientProps
   type: IRouteType.Page
 }
 

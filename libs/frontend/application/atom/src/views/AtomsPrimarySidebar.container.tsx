@@ -1,8 +1,13 @@
 'use client'
 import type {
+  IAtomCreateRoute,
+  IAtomUpdateRoute,
   IPaginationData,
-  IPaginationSearchParams,
 } from '@codelab/frontend/abstract/application'
+import type {
+  PaginationClientProps,
+  TreeViewClientProps,
+} from '@codelab/frontend/abstract/types'
 import type { IRef } from '@codelab/shared/abstract/core'
 
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
@@ -13,9 +18,10 @@ import { AtomsPrimarySidebar } from './AtomsPrimarySidebar'
 
 export const AtomsPrimarySidebarContainer = observer<{
   pagination: IPaginationData
-  searchParams: IPaginationSearchParams
+  searchParams: TreeViewClientProps & PaginationClientProps
   atomsRef: Array<IRef>
-}>(({ atomsRef, pagination, searchParams }) => {
+  context: IAtomCreateRoute
+}>(({ atomsRef, context, pagination, searchParams }) => {
   const { atomDomainService } = useDomainStore()
 
   const atoms = atomsRef
@@ -25,6 +31,7 @@ export const AtomsPrimarySidebarContainer = observer<{
   return (
     <AtomsPrimarySidebar
       atoms={atoms}
+      context={context}
       pagination={pagination}
       searchParams={searchParams}
     />

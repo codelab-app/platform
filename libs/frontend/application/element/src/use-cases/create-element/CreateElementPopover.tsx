@@ -8,14 +8,13 @@ import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import { tracker } from '@codelab/frontend/infra/logger'
 import { CuiSidebarSecondary } from '@codelab/frontend/presentation/codelab-ui'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
-import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import { useRef } from 'react'
 
 import { useElementService } from '../../services/element.service'
 import { CreateElementForm } from './CreateElementForm'
 
-export const CreateElementPopover = observer(() => {
+export const CreateElementPopover = () => {
   const router = useRouter()
   const submitRef = useRef<Maybe<SubmitController>>(undefined)
   const { createPopover } = useElementService()
@@ -24,10 +23,6 @@ export const CreateElementPopover = observer(() => {
    * Maybe current is a code smell, since we are using parallel routes, the selected node may not be set yet, since init builder is what sets it.
    */
   const selectedNode = builderService.selectedNode?.maybeCurrent
-
-  // tracker.useModelDiff('Selected node popover', selectedNode)
-  // logger.debug('Selected node popover', selectedNode)
-  tracker.useRenderedCount('CreateElementPopover')
 
   return (
     <CuiSidebarSecondary
@@ -58,4 +53,4 @@ export const CreateElementPopover = observer(() => {
       />
     </CuiSidebarSecondary>
   )
-})
+}

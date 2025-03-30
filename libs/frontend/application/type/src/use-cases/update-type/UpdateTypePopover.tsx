@@ -1,9 +1,10 @@
 'use client'
 
+import type { ITypeUpdateRoute } from '@codelab/frontend/abstract/application'
 import type { ITypeModel } from '@codelab/frontend/abstract/domain'
 import type {
   SubmitController,
-  TreeViewSearchParams,
+  TreeViewClientProps,
 } from '@codelab/frontend/abstract/types'
 import type { Maybe } from '@codelab/shared/abstract/types'
 
@@ -17,12 +18,12 @@ import { useTypeService } from '../../services'
 import { UpdateTypeForm } from './UpdateTypeForm'
 
 interface UpdateTypeContainerProps {
-  params: TreeViewSearchParams
+  context: ITypeUpdateRoute
   type: ITypeModel
 }
 
 export const UpdateTypePopover = ({
-  params,
+  context,
   type,
 }: UpdateTypeContainerProps) => {
   const submitRef = useRef<Maybe<SubmitController>>(undefined)
@@ -44,14 +45,14 @@ export const UpdateTypePopover = ({
             cuiKey: UiKey.TypeToolbarItemCreateCancel,
             icon: <CloseOutlined />,
             label: 'Cancel',
-            onClick: () => updatePopover.close(router, params),
+            onClick: () => updatePopover.close(router, context),
           },
         ],
         title: 'Update Type',
       }}
     >
       <UpdateTypeForm
-        onSubmitSuccess={() => updatePopover.close(router, params)}
+        onSubmitSuccess={() => updatePopover.close(router, context)}
         showFormControl={false}
         submitRef={submitRef}
         type={type}

@@ -18,18 +18,6 @@ export type SupportedPaginationPathname =
   | `${typeof tags}`
   | `${typeof types}`
 
-export interface IPaginationSearchParams {
-  expandedKeys?: Array<string>
-  filter: Array<string>
-  page: number
-  pageSize: number
-  search?: string
-  /**
-   * Require key as a result of `TreeViewParams`
-   */
-  selectedKey: string | undefined
-}
-
 export interface IPaginationData {
   totalItems: number
 }

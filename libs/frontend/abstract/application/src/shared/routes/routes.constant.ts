@@ -1,7 +1,6 @@
 import type {
-  SearchParamsContext,
-  SearchParamsPageProps,
-  TreeViewSearchParams,
+  SearchParamsClientProps,
+  TreeViewClientProps,
 } from '@codelab/frontend/abstract/types'
 import type { IRef } from '@codelab/shared/abstract/core'
 import type { ObjectLike } from '@codelab/shared/abstract/types'
@@ -11,14 +10,17 @@ import type { Optional } from 'utility-types'
 import queryString from 'query-string'
 
 import type { IActionCreateRoute, IActionUpdateRoute } from '../../action'
+import type { IAtomUpdateRoute } from '../../atom'
 import type { IFieldCreateRoute, IFieldUpdateRoute } from '../../field'
 import type { PageContextParams } from '../../page'
+import type { ITypeUpdateRoute } from '../../type'
 import type { ExtractRouteContextParams, IRouteType } from './route.interface'
 
 /**
  * Adds query parameters to a URL path if they exist
  */
-export const addSearchParams = <T extends SearchParamsPageProps>(
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const addSearchParams = <T extends object>(
   basePath: string,
   searchParams: T | undefined,
 ) => {
@@ -82,11 +84,8 @@ export const RoutePaths = {
         ',',
       )}`,
     typeList: () => '/atom-types',
-    update: ({ id }: IRef, queryParams?: Partial<SearchParamsContext>) => {
-      const url = `/atoms/atom/${id}/update`
-      const params = new URLSearchParams(queryParams as URLSearchParams)
-
-      return `${url}?${params}`
+    update: ({ params: { atomId }, searchParams }: IAtomUpdateRoute) => {
+      return addSearchParams(`/atoms/atom/${atomId}/update`, searchParams)
     },
   },
 
@@ -244,9 +243,9 @@ export const RoutePaths = {
   },
 
   Type: {
-    base: (params: TreeViewSearchParams = { selectedKey: undefined }) =>
-      addSearchParams('/types', { selectedKey: params.selectedKey }),
-    create: ({ selectedKey }: TreeViewSearchParams) =>
+    base: (params?: SearchParamsClientProps) =>
+      addSearchParams('/types', params),
+    create: ({ selectedKey }: TreeViewClientProps) =>
       addSearchParams('/types/type/create', { selectedKey }),
     delete: ({ id }: IRef) => `/types/type/${id}/delete`,
     field: {
@@ -265,10 +264,9 @@ export const RoutePaths = {
         addSearchParams(`/types/field/${fieldId}/update`, searchParams),
     },
     update: ({
-      selectedKey,
-      typeId,
-    }: TreeViewSearchParams & {
-      typeId: string
-    }) => addSearchParams(`/types/type/${typeId}/update`, { selectedKey }),
+      params: { typeId },
+      searchParams: { selectedKey },
+    }: ITypeUpdateRoute) =>
+      addSearchParams(`/types/type/${typeId}/update`, { selectedKey }),
   },
 }

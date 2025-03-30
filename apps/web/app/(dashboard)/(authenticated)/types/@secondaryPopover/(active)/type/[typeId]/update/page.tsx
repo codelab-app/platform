@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 
 import {
   parsePageProps,
-  parsePaginationSearchParams,
+  parseSearchParams,
 } from '@codelab/frontend-application-shared-store/router'
 import { UpdateTypePopoverContainer } from '@codelab/frontend-application-type/use-cases/update-type'
 
@@ -12,16 +12,11 @@ export const metadata: Metadata = {
 }
 
 const Page = async (
-  props: PageProps<'typeId', 'filter' | 'page' | 'pageSize'>,
+  props: PageProps<'typeId', 'filter' | 'page' | 'pageSize' | 'selectedKey'>,
 ) => {
-  const {
-    params: { typeId },
-    searchParams,
-  } = await parsePageProps(props)
+  const context = await parsePageProps(props)
 
-  const paginationParams = parsePaginationSearchParams(searchParams)
-
-  return <UpdateTypePopoverContainer id={typeId} params={paginationParams} />
+  return <UpdateTypePopoverContainer context={context} />
 }
 
 export default Page

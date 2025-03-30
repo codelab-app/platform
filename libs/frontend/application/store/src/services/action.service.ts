@@ -142,14 +142,11 @@ export const useActionService = (): IActionService => {
     close: (router: AppRouterInstance) => {
       router.back()
     },
-    open: (
-      router: AppRouterInstance,
-      { params, type }: IActionCreateRoute,
-    ) => {
+    open: (router: AppRouterInstance, context: IActionCreateRoute) => {
       const url =
-        type === IRouteType.Page
-          ? RoutePaths.Page.builderAction.create(params)
-          : RoutePaths.Component.builderAction.create(params)
+        context.type === IRouteType.Page
+          ? RoutePaths.Page.builderAction.create(context)
+          : RoutePaths.Component.builderAction.create(context)
 
       router.push(url)
     },
@@ -159,14 +156,11 @@ export const useActionService = (): IActionService => {
     close: (router: AppRouterInstance) => {
       router.back()
     },
-    open: (
-      router: AppRouterInstance,
-      { params, type }: IActionUpdateRoute,
-    ) => {
+    open: (router: AppRouterInstance, context: IActionUpdateRoute) => {
       const url =
-        type === IRouteType.Page
-          ? RoutePaths.Page.builderAction.update(params)
-          : RoutePaths.Component.builderAction.update(params)
+        context.type === IRouteType.Page
+          ? RoutePaths.Page.builderAction.update(context)
+          : RoutePaths.Component.builderAction.update(context)
 
       router.push(url)
     },
@@ -176,14 +170,11 @@ export const useActionService = (): IActionService => {
     close: (router: AppRouterInstance) => {
       router.back()
     },
-    open: (
-      router: AppRouterInstance,
-      { params, type }: IActionUpdateRoute,
-    ) => {
+    open: (router: AppRouterInstance, context: IActionUpdateRoute) => {
       const url =
-        type === IRouteType.Page
-          ? RoutePaths.Page.builderAction.delete(params)
-          : RoutePaths.Component.builderAction.delete(params)
+        context.type === IRouteType.Page
+          ? RoutePaths.Page.builderAction.delete(context)
+          : RoutePaths.Component.builderAction.delete(context)
 
       router.push(url)
     },

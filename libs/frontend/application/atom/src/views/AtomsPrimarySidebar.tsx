@@ -1,11 +1,16 @@
 'use client'
 
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
+import type {
+  PaginationClientProps,
+  TreeViewClientProps,
+} from '@codelab/frontend/abstract/types'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import {
+  type IAtomCreateRoute,
+  type IAtomUpdateRoute,
   type IPaginationData,
-  type IPaginationSearchParams,
   RoutePaths,
 } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
@@ -20,11 +25,19 @@ import { useMemo } from 'react'
 import { useAtomService } from '../services/atom.service'
 import { AtomsTreeView } from '../use-cases/atom-list/AtomsTreeView'
 
-export const AtomsPrimarySidebar = observer<{
+interface AtomsPrimarySidebarProps {
   atoms: Array<IAtomModel>
-  searchParams: IPaginationSearchParams
+  context: IAtomCreateRoute
   pagination: IPaginationData
-}>(({ atoms, pagination, searchParams }) => {
+  searchParams: TreeViewClientProps & PaginationClientProps
+}
+
+export const AtomsPrimarySidebar = ({
+  atoms,
+  context,
+  pagination,
+  searchParams,
+}: AtomsPrimarySidebarProps) => {
   const { createPopover } = useAtomService()
   const router = useRouter()
 
@@ -43,6 +56,7 @@ export const AtomsPrimarySidebar = observer<{
       {
         content: (
           <AtomsTreeView
+            context={context}
             data={atoms}
             isLoading={false}
             searchParams={searchParams}
@@ -58,7 +72,7 @@ export const AtomsPrimarySidebar = observer<{
               cuiKey: UiKey.AtomToolbarItemCreate,
               icon: <PlusOutlined />,
               onClick: () => {
-                createPopover.open(router)
+                createPopover.open(router, {})
               },
               title: 'Create Atom',
             },
@@ -78,6 +92,6 @@ export const AtomsPrimarySidebar = observer<{
       views={views}
     />
   )
-})
+}
 
 AtomsPrimarySidebar.displayName = 'AtomsPrimarySidebar'

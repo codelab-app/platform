@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import type {
   DistributeUnion,
-  TreeViewSearchParams,
+  TreeViewClientProps,
 } from '@codelab/frontend/abstract/types'
 import type { Identity } from '@codelab/shared/abstract/types'
 import type { Assign } from 'utility-types'
@@ -15,16 +15,16 @@ import type { IRouteType } from '../shared'
 export type IFieldRoute =
   | {
       type: IRouteType.Atom
-      searchParams: TreeViewSearchParams
+      searchParams: TreeViewClientProps
     }
   | {
       type: IRouteType.Component
-      searchParams: TreeViewSearchParams
+      searchParams: TreeViewClientProps
       params: { componentId: string }
     }
   | {
       type: IRouteType.Page
-      searchParams: TreeViewSearchParams
+      searchParams: TreeViewClientProps
       params: {
         appId: string
         pageId: string
@@ -32,7 +32,7 @@ export type IFieldRoute =
     }
   | {
       type: IRouteType.Type
-      searchParams: TreeViewSearchParams
+      searchParams: TreeViewClientProps
     }
 
 /**
@@ -63,12 +63,12 @@ export type IFieldUpdateRoute =
       params: {
         fieldId: string
       }
-      searchParams: TreeViewSearchParams
+      searchParams: TreeViewClientProps
     }
   | {
       type: IRouteType.Component
       params: { componentId: string; fieldId: string }
-      searchParams: TreeViewSearchParams
+      searchParams: TreeViewClientProps
     }
   | {
       type: IRouteType.Page
@@ -77,7 +77,7 @@ export type IFieldUpdateRoute =
         appId: string
         pageId: string
       }
-      searchParams: TreeViewSearchParams
+      searchParams: TreeViewClientProps
     }
 
 /**

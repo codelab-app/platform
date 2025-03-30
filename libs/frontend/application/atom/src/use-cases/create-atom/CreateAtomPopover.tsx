@@ -1,5 +1,6 @@
 'use client'
 
+import type { IAtomCreateRoute } from '@codelab/frontend/abstract/application'
 import type { Maybe } from '@codelab/shared/abstract/types'
 
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
@@ -13,7 +14,11 @@ import { useRef } from 'react'
 import { useAtomService } from '../../services'
 import { CreateAtomForm } from './CreateAtomForm'
 
-export const CreateAtomPopover = observer(() => {
+export const CreateAtomPopover = ({
+  context,
+}: {
+  context: IAtomCreateRoute
+}) => {
   const submitRef = useRef<Maybe<SubmitController>>(undefined)
   const { createPopover } = useAtomService()
   const router = useRouter()
@@ -37,7 +42,7 @@ export const CreateAtomPopover = observer(() => {
             icon: <CloseOutlined />,
             label: 'Cancel',
             onClick: () => {
-              createPopover.close(router)
+              createPopover.close(router, context)
             },
             title: 'Cancel',
           },
@@ -46,9 +51,9 @@ export const CreateAtomPopover = observer(() => {
       }}
     >
       <CreateAtomForm
-        onSubmitSuccess={() => createPopover.close(router)}
+        onSubmitSuccess={() => createPopover.close(router, context)}
         submitRef={submitRef}
       />
     </CuiSidebarSecondary>
   )
-})
+}

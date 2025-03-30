@@ -3,6 +3,7 @@
 import type { IPageModel } from '@codelab/frontend/abstract/domain'
 
 import {
+  type IPageBuilderRoute,
   type IRootRenderer,
   IRouteType,
 } from '@codelab/frontend/abstract/application'
@@ -14,7 +15,7 @@ import { BaseBuilder } from '../base-builder'
 
 export interface IPageBuilderProps {
   RootRenderer: IRootRenderer
-  appId: string
+  context: IPageBuilderRoute
   page?: IPageModel
 }
 
@@ -24,7 +25,7 @@ export interface IPageBuilderProps {
  * Remove observable here, otherwise has loop
  */
 export const PageBuilder = observer(
-  ({ appId, page, RootRenderer }: IPageBuilderProps) => {
+  ({ context, page, RootRenderer }: IPageBuilderProps) => {
     // tracker.useRenderedCount('PageBuilder')
 
     const { rendererService } = useApplicationStore()
@@ -43,10 +44,7 @@ export const PageBuilder = observer(
       <BaseBuilder
         RootRenderer={RootRenderer}
         context={{
-          params: {
-            appId,
-            pageId: page.id,
-          },
+          ...context,
           type: IRouteType.Page,
         }}
         renderer={renderer}

@@ -2,7 +2,7 @@
 
 import type {
   IPaginationData,
-  IPaginationSearchParams,
+  ITypeCreateRoute,
 } from '@codelab/frontend/abstract/application'
 import type { ITypeModel } from '@codelab/frontend/abstract/domain'
 
@@ -20,18 +20,19 @@ import { useTypeService } from '../services'
 import { TypesTreeView } from '../use-cases/get-types'
 
 interface TypesPrimarySidebarProps {
+  context: ITypeCreateRoute
   pagination: IPaginationData
-  searchParams: IPaginationSearchParams
   types: Array<ITypeModel>
 }
 
 export const TypesPrimarySidebar = ({
+  context,
   pagination,
-  searchParams,
   types,
 }: TypesPrimarySidebarProps) => {
   const { createPopover } = useTypeService()
   const router = useRouter()
+  const { searchParams } = context
 
   const { showSearchBar, toolbarItems } = usePaginationToolbar({
     pathname: RoutePaths.Type.base(),
@@ -58,7 +59,7 @@ export const TypesPrimarySidebar = ({
             {
               cuiKey: UiKey.TypeToolbarItemCreate,
               icon: <PlusOutlined />,
-              onClick: () => createPopover.open(router),
+              onClick: () => createPopover.open(router, context),
               title: 'Create Type',
             },
           ],

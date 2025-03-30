@@ -1,5 +1,10 @@
 'use client'
 
+import type {
+  IBuilderRoute,
+  IComponentBuilderRoute,
+} from '@codelab/frontend/abstract/application'
+
 import { RendererType } from '@codelab/frontend/abstract/application'
 import { ComponentConnector } from '@codelab/frontend/infra/connector'
 import { BuilderProvider } from '@codelab/frontend/presentation/container'
@@ -8,10 +13,14 @@ import { RootRenderer } from '@codelab/frontend-application-renderer/use-cases/r
 import { ComponentBuilder } from './ComponentBuilder'
 
 export const ComponentPreviewBuilderContainer = ({
-  componentId,
+  context,
 }: {
-  componentId: string
+  context: IComponentBuilderRoute
 }) => {
+  const {
+    params: { componentId },
+  } = context
+
   return (
     <ComponentConnector id={componentId}>
       {(component) => (
@@ -19,7 +28,11 @@ export const ComponentPreviewBuilderContainer = ({
           containerNode={component}
           rendererType={RendererType.Preview}
         >
-          <ComponentBuilder RootRenderer={RootRenderer} component={component} />
+          <ComponentBuilder
+            RootRenderer={RootRenderer}
+            component={component}
+            context={context}
+          />
         </BuilderProvider>
       )}
     </ComponentConnector>

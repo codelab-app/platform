@@ -1,3 +1,4 @@
+import type { IAtomUpdateRoute } from '@codelab/frontend/abstract/application'
 import type {
   IAtomTreeNodeData,
   ITreeNode,
@@ -18,10 +19,11 @@ import { useRouter } from 'next/navigation'
 import { useAtomService } from '../../services'
 
 interface AtomsTreeItemProps {
+  context: IAtomUpdateRoute
   data: ITreeNode<IAtomTreeNodeData>
 }
 
-export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
+export const AtomsTreeItem = ({ context, data }: AtomsTreeItemProps) => {
   const { goToDeleteAtomPage } = useAtomService()
   const { node, type } = data.extraData
   const isAtom = type === 'atom'
@@ -30,11 +32,7 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
 
   const onEdit = () => {
     if (isAtom) {
-      router.push(
-        RoutePaths.Atom.update(node, {
-          node: node.id,
-        }),
-      )
+      router.push(RoutePaths.Atom.update(context))
     } else {
       router.push(RoutePaths.Atom.field.update(node))
     }

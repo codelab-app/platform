@@ -6,5 +6,5 @@ alwaysApply: false
 
 # Your rule content
 
-- Remove `observer` from React component if not required
+- Remove `observer` from React component but only if we don't require observability in this component
 - Create a type alias for the props

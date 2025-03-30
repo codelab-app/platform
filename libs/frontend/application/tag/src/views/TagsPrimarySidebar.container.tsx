@@ -1,8 +1,9 @@
 'use client'
+import type { IPaginationData } from '@codelab/frontend/abstract/application'
 import type {
-  IPaginationData,
-  IPaginationSearchParams,
-} from '@codelab/frontend/abstract/application'
+  PaginationClientProps,
+  TreeViewClientProps,
+} from '@codelab/frontend/abstract/types'
 import type { IRef } from '@codelab/shared/abstract/core'
 
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
@@ -13,7 +14,7 @@ import { TagsPrimarySidebar } from './TagsPrimarySidebar'
 
 export const TagsPrimarySidebarContainer = observer<{
   tagsRef: Array<IRef>
-  searchParams: IPaginationSearchParams
+  searchParams: TreeViewClientProps & PaginationClientProps
   pagination: IPaginationData
 }>(({ pagination, searchParams, tagsRef }) => {
   const { tagDomainService } = useDomainStore()

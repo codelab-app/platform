@@ -4,7 +4,10 @@ import type {
   ITypeModel,
   ITypeUpdateDto,
 } from '@codelab/frontend/abstract/domain'
-import type { IPopover, TreeViewSearchParams } from '@codelab/frontend/abstract/types'
+import type {
+  IPopover,
+  TreeViewClientProps,
+} from '@codelab/frontend/abstract/types'
 import type {
   IBaseType,
   IBaseTypeOptions,
@@ -12,6 +15,7 @@ import type {
 } from '@codelab/shared/infra/gqlgen'
 
 import type { ICrudService, IQueryService } from '../services'
+import type { ITypeCreateRoute, ITypeUpdateRoute } from './type.route.interface'
 
 export interface ITypeService
   extends ICrudService<ITypeModel, ITypeCreateFormData, ITypeUpdateDto>,
@@ -19,8 +23,8 @@ export interface ITypeService
       IQueryService<ITypeModel, IBaseTypeWhere, IBaseTypeOptions>,
       'getAll'
     > {
-  createPopover: IPopover<TreeViewSearchParams, TreeViewSearchParams>
-  updatePopover: IPopover<TreeViewSearchParams, TreeViewSearchParams>
+  createPopover: IPopover<ITypeCreateRoute, ITypeCreateRoute>
+  updatePopover: IPopover<ITypeUpdateRoute, ITypeUpdateRoute>
   getAll(ids?: Array<string>): Promise<Array<ITypeModel>>
   getInterface(id: string): Promise<IInterfaceTypeModel>
   getSelectOptions(): Promise<Array<Pick<IBaseType, 'id' | 'kind' | 'name'>>>

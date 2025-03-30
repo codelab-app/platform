@@ -3,18 +3,13 @@ import type {
   TreeViewClientProps,
 } from '@codelab/frontend/abstract/types'
 
-import type { IBuilderRoute } from '../builder'
-import type { IRouteType } from '../shared'
-
-export interface IAtomCreateRoute {
-  // type?: IRouteType.Atom
+export interface ITypeCreateRoute {
   searchParams: TreeViewClientProps & PaginationClientProps
 }
 
-export interface IAtomUpdateRoute {
+export interface ITypeUpdateRoute {
   params: {
-    atomId: string
+    typeId: string
   }
   searchParams: TreeViewClientProps & PaginationClientProps
-  // type?: IRouteType.Atom
 }

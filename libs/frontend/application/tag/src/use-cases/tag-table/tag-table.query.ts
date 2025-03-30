@@ -1,18 +1,18 @@
-import type { SearchParamsPageProps } from '@codelab/frontend/abstract/types'
+import type { SearchParamsClientProps } from '@codelab/frontend/abstract/types'
 
 import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
-import { parseSearchParamsPageProps } from '@codelab/frontend-application-shared-store/router'
+import { parseSearchParams } from '@codelab/frontend-application-shared-store/router'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { tagRepository } from '@codelab/frontend-domain-tag/repositories'
 import 'server-only'
 
-export const tagTableQuery = async (searchParams: SearchParamsPageProps) => {
+export const tagTableQuery = async (searchParams: SearchParamsClientProps) => {
   const {
     filter = ['name'],
     page = 1,
     pageSize = 20,
     search,
-  } = parseSearchParamsPageProps(searchParams)
+  } = parseSearchParams(searchParams)
 
   const {
     aggregate: { count },
@@ -35,6 +35,6 @@ export const tagTableQuery = async (searchParams: SearchParamsPageProps) => {
   return { count, tagsDto }
 }
 
-export const preloadTagTableQuery = (searchParams: SearchParamsPageProps) => {
+export const preloadTagTableQuery = (searchParams: SearchParamsClientProps) => {
   void tagTableQuery(searchParams)
 }

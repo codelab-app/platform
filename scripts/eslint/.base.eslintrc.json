@@ -7,8 +7,7 @@
         "ban/ban": [
           2,
           {
-            "name": "useSearchParams",
-            "message": "use `useSearchParamsProps()` instead"
+            "name": "useSearchParams"
           }
         ],
         // We use `canonical/sort-keys` instead

@@ -1,24 +1,22 @@
-import type { TreeViewSearchParams } from '@codelab/frontend/abstract/types'
+import type { TreeViewClientProps } from '@codelab/frontend/abstract/types'
 import type {
   ObjectLike,
   UnknownObjectLike,
 } from '@codelab/shared/abstract/types'
 
-import type { ComponentContextParams } from '../component'
-import type { PageContextParams } from '../page'
+import type {
+  ComponentContextParams,
+  IComponentBuilderRoute,
+} from '../component'
+import type { IPageBuilderRoute, PageContextParams } from '../page'
 import type { IRouteType } from '../shared'
 
 export type BuilderContextParams<T extends ObjectLike = UnknownObjectLike> =
   ComponentContextParams & PageContextParams<T>
 
+/**
+ * Used by base components shared by page/component builder
+ */
 export type IBuilderRoute<T extends ObjectLike = UnknownObjectLike> =
-  | {
-      type: IRouteType.Component
-      params: ComponentContextParams<T>
-      searchParams: TreeViewSearchParams
-    }
-  | {
-      type: IRouteType.Page
-      params: PageContextParams<T>
-      searchParams: TreeViewSearchParams
-    }
+  | IComponentBuilderRoute
+  | IPageBuilderRoute

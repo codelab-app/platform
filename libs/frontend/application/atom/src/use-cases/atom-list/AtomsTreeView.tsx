@@ -1,4 +1,8 @@
-import type { ITreeViewProps } from '@codelab/frontend/abstract/application'
+import type {
+  IAtomCreateRoute,
+  IAtomUpdateRoute,
+  ITreeViewProps,
+} from '@codelab/frontend/abstract/application'
 import type {
   IAtomModel,
   IAtomTreeNodeData,
@@ -7,11 +11,16 @@ import type {
 
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
+import { mergeDeep } from 'remeda'
 
 import { AtomsTreeItem } from './AtomsTreeItem'
 
-export const AtomsTreeView = observer<ITreeViewProps<IAtomModel>>(
-  ({ data, isLoading, searchParams, showSearchBar }) => {
+type AtomsTreeViewProps = ITreeViewProps<IAtomModel> & {
+  context: IAtomCreateRoute
+}
+
+export const AtomsTreeView = observer<AtomsTreeViewProps>(
+  ({ context, data, isLoading, searchParams, showSearchBar }) => {
     const { search, selectedKey } = searchParams
 
     const treeData: Array<ITreeNode<IAtomTreeNodeData>> = data.map((atom) => ({
@@ -36,7 +45,16 @@ export const AtomsTreeView = observer<ITreeViewProps<IAtomModel>>(
               : undefined
           }
           isLoading={isLoading}
-          titleRender={(node) => <AtomsTreeItem data={node} />}
+          titleRender={(node) => (
+            <AtomsTreeItem
+              context={mergeDeep(context, {
+                params: {
+                  atomId: node.extraData.node.id,
+                },
+              })}
+              data={node}
+            />
+          )}
           treeData={treeData}
         />
       </div>

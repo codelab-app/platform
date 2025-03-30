@@ -1,5 +1,7 @@
 'use client'
 
+import type { IComponentBuilderRoute } from '@codelab/frontend/abstract/application'
+
 import { RendererType } from '@codelab/frontend/abstract/application'
 import { ComponentConnector } from '@codelab/frontend/infra/connector'
 import { BuilderProvider } from '@codelab/frontend/presentation/container'
@@ -8,10 +10,14 @@ import { RootRenderer } from '@codelab/frontend-application-renderer/use-cases/r
 import { ComponentBuilder } from './ComponentBuilder'
 
 export const ComponentBuilderContainer = ({
-  componentId,
+  context,
 }: {
-  componentId: string
+  context: IComponentBuilderRoute
 }) => {
+  const {
+    params: { componentId },
+  } = context
+
   return (
     <ComponentConnector id={componentId}>
       {(component) => (
@@ -19,7 +25,11 @@ export const ComponentBuilderContainer = ({
           containerNode={component}
           rendererType={RendererType.ComponentBuilder}
         >
-          <ComponentBuilder RootRenderer={RootRenderer} component={component} />
+          <ComponentBuilder
+            RootRenderer={RootRenderer}
+            component={component}
+            context={context}
+          />
         </BuilderProvider>
       )}
     </ComponentConnector>

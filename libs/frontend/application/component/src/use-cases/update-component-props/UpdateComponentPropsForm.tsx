@@ -1,11 +1,11 @@
 'use client'
 
+import type {
+  IBuilderRoute,
+  IRuntimeComponentModel,
+} from '@codelab/frontend/abstract/application'
 import type { IPropData } from '@codelab/shared/abstract/core'
 
-import {
-  IRouteType,
-  type IRuntimeComponentModel,
-} from '@codelab/frontend/abstract/application'
 import { PropsForm } from '@codelab/frontend/presentation/components/interface-form'
 import { AdminPropsPanel } from '@codelab/frontend-application-admin/use-cases/admin-props-panel'
 import { usePropService } from '@codelab/frontend-application-prop/services'
@@ -19,11 +19,12 @@ import { Fragment, useEffect } from 'react'
 import { useAsyncFn } from 'react-use'
 
 export interface UpdateComponentPropsFormProps {
+  context: IBuilderRoute
   runtimeComponent: IRuntimeComponentModel
 }
 
 export const UpdateComponentPropsForm = observer<UpdateComponentPropsFormProps>(
-  ({ runtimeComponent }) => {
+  ({ context, runtimeComponent }) => {
     const typeService = useTypeService()
     const propService = usePropService()
     const component = runtimeComponent.component.current
@@ -69,12 +70,7 @@ export const UpdateComponentPropsForm = observer<UpdateComponentPropsFormProps>(
             </Col>
             <Col span={24}>
               <AdminPropsPanel
-                context={{
-                  params: {
-                    componentId: component.id,
-                  },
-                  type: IRouteType.Component,
-                }}
+                context={context}
                 interfaceType={interfaceType}
               />
             </Col>

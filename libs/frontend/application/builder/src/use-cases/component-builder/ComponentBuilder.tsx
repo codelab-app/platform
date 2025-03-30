@@ -3,6 +3,8 @@
 import type { IComponentModel } from '@codelab/frontend/abstract/domain'
 
 import {
+  type IBuilderRoute,
+  type IComponentBuilderRoute,
   type IRootRenderer,
   IRouteType,
 } from '@codelab/frontend/abstract/application'
@@ -14,6 +16,7 @@ import { BaseBuilder } from '../base-builder'
 export interface IComponentBuilderProps {
   RootRenderer: IRootRenderer
   component?: IComponentModel
+  context: IComponentBuilderRoute
 }
 
 /**
@@ -22,7 +25,7 @@ export interface IComponentBuilderProps {
  * Remove observable here, otherwise has loop
  */
 export const ComponentBuilder = observer(
-  ({ component, RootRenderer }: IComponentBuilderProps) => {
+  ({ component, context, RootRenderer }: IComponentBuilderProps) => {
     const { rendererService } = useApplicationStore()
 
     if (!component) {
@@ -38,12 +41,7 @@ export const ComponentBuilder = observer(
     return (
       <BaseBuilder
         RootRenderer={RootRenderer}
-        context={{
-          params: {
-            componentId: component.id,
-          },
-          type: IRouteType.Component,
-        }}
+        context={context}
         renderer={renderer}
       />
     )

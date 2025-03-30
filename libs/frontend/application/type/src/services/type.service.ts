@@ -1,11 +1,15 @@
-import type { ITypeService } from '@codelab/frontend/abstract/application'
+import type {
+  ITypeCreateRoute,
+  ITypeService,
+  ITypeUpdateRoute,
+} from '@codelab/frontend/abstract/application'
 import type {
   IInterfaceTypeModel,
   ITypeCreateFormData,
   ITypeModel,
   ITypeUpdateDto,
 } from '@codelab/frontend/abstract/domain'
-import type { TreeViewSearchParams } from '@codelab/frontend/abstract/types'
+import type { TreeViewClientProps } from '@codelab/frontend/abstract/types'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
@@ -179,23 +183,20 @@ export const useTypeService = (): ITypeService => {
   }
 
   const updatePopover = {
-    close: (router: AppRouterInstance, params: TreeViewSearchParams) => {
-      router.push(RoutePaths.Type.base(params))
+    close: (router: AppRouterInstance, context: ITypeUpdateRoute) => {
+      router.push(RoutePaths.Type.base(context.searchParams))
     },
-    open: (
-      router: AppRouterInstance,
-      params: { typeId: string } & TreeViewSearchParams,
-    ) => {
-      router.push(RoutePaths.Type.update(params))
+    open: (router: AppRouterInstance, context: ITypeUpdateRoute) => {
+      router.push(RoutePaths.Type.update(context))
     },
   }
 
   const createPopover = {
-    close: (router: AppRouterInstance, params: TreeViewSearchParams) => {
-      router.push(RoutePaths.Type.base(params))
+    close: (router: AppRouterInstance, context: ITypeCreateRoute) => {
+      router.push(RoutePaths.Type.base(context.searchParams))
     },
-    open: (router: AppRouterInstance, params: TreeViewSearchParams) => {
-      router.push(RoutePaths.Type.create(params))
+    open: (router: AppRouterInstance, context: ITypeCreateRoute) => {
+      router.push(RoutePaths.Type.create(context.searchParams))
     },
   }
 

@@ -29,8 +29,10 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
     if (data.extraData.type === 'type') {
       router.push(
         RoutePaths.Type.update({
-          selectedKey,
-          typeId: data.extraData.node.id,
+          params: {
+            typeId: data.extraData.node.id,
+          },
+          searchParams: { selectedKey },
         }),
       )
     } else {
@@ -43,7 +45,10 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
     }
   }
 
-  const onDelete = (event: SyntheticEvent) => {
+  const onDelete = (
+    event: SyntheticEvent,
+    { selectedKey }: { selectedKey?: string },
+  ) => {
     // Prevent triggering `onEdit`
     event.stopPropagation()
 
@@ -53,13 +58,16 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
       router.push(
         RoutePaths.Type.field.delete({
           params: { fieldId: data.extraData.node.id },
-          searchParams: { selectedKey: undefined },
+          searchParams: { selectedKey },
         }),
       )
     }
   }
 
-  const onAddField = (event: SyntheticEvent) => {
+  const onAddField = (
+    event: SyntheticEvent,
+    { selectedKey }: { selectedKey?: string },
+  ) => {
     // Prevent triggering `onEdit`
     event.stopPropagation()
 
@@ -85,6 +93,7 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
     router.push(
       RoutePaths.Type.field.create({
         params: { interfaceId: interfaceType.id },
+        searchParams: { selectedKey },
       }),
     )
   }
@@ -96,7 +105,10 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
           ? UiKey.TypeToolbarItemDelete
           : UiKey.FieldToolbarItemDelete,
       icon: <DeleteOutlined />,
-      onClick: onDelete,
+      onClick: (event: SyntheticEvent) =>
+        onDelete(event, {
+          selectedKey: data.extraData.node.id,
+        }),
       title: data.extraData.type === 'type' ? 'Delete type' : 'Delete field',
     },
   ]
@@ -111,7 +123,8 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
     toolbarItems.push({
       cuiKey: UiKey.FieldToolbarItemCreate,
       icon: <PlusOutlined />,
-      onClick: onAddField,
+      onClick: (event: SyntheticEvent) =>
+        onAddField(event, { selectedKey: data.extraData.node.id }),
       title: 'Add field',
     })
   }

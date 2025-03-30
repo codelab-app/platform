@@ -1,16 +1,18 @@
+import type { NextjsSearchParamsProps } from '@codelab/frontend/abstract/application'
+
 /**
  * Creates a URL with the provided params
  */
 export const createUrlWithParams = (
   pathname: string,
-  params: Record<string, string>,
+  params: NextjsSearchParamsProps,
 ): string => {
   const urlParams = new URLSearchParams()
 
   // Set all provided params
   Object.entries(params).forEach(([key, value]) => {
     if (value) {
-      urlParams.set(key, value)
+      urlParams.set(key, Array.isArray(value) ? value.join(',') : value)
     }
   })
 
@@ -40,7 +42,7 @@ export const createPageUrl = (
   pathname: string,
   pageNum: number,
   pageSize: number,
-  filter?: string,
+  filter?: string | Array<string>,
 ): string => {
   return createUrlWithParams(pathname, {
     filter: filter || '',

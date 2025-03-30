@@ -3,9 +3,9 @@ import type { ReactNode } from 'react'
 
 import type { ParamProps } from './params.props'
 import type {
-  SearchParamProps,
-  SearchParamsPageProps,
-} from './search-params.props'
+  SearchParamsClientProps,
+  SearchParamsProps,
+} from './search-params.client.props'
 import type { UrlParams } from './url-params'
 
 /**
@@ -13,8 +13,8 @@ import type { UrlParams } from './url-params'
  */
 export type PageProps<
   Params extends keyof UrlParams = never,
-  SearchParams extends keyof SearchParamsPageProps = never,
-> = ParamProps<Params> & SearchParamProps<SearchParams>
+  SearchParams extends keyof SearchParamsClientProps = never,
+> = ParamProps<Params> & SearchParamsProps<SearchParams>
 
 /**
  * Hover over `_WithParamsOnly` to see the fully computed type

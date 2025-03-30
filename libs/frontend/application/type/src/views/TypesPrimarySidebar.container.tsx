@@ -1,8 +1,9 @@
 'use client'
+import type { IPaginationData } from '@codelab/frontend/abstract/application'
 import type {
-  IPaginationData,
-  IPaginationSearchParams,
-} from '@codelab/frontend/abstract/application'
+  PaginationClientProps,
+  TreeViewClientProps,
+} from '@codelab/frontend/abstract/types'
 import type { TypeFragment } from '@codelab/shared/infra/gqlgen'
 
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
@@ -11,7 +12,7 @@ import { TypesPrimarySidebar } from './TypesPrimarySidebar'
 
 interface TypesPrimarySidebarContainerProps {
   pagination: IPaginationData
-  searchParams: IPaginationSearchParams
+  searchParams: TreeViewClientProps & PaginationClientProps
   typesDto: Array<TypeFragment>
 }
 

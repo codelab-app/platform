@@ -2,7 +2,7 @@
 
 import type { IComponentBuilderRoute } from '@codelab/frontend/abstract/application'
 import type { IComponentModel } from '@codelab/frontend/abstract/domain'
-import type { TreeViewSearchParams } from '@codelab/frontend/abstract/types'
+import type { TreeViewClientProps } from '@codelab/frontend/abstract/types'
 
 import { IRouteType } from '@codelab/frontend/abstract/application'
 

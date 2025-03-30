@@ -3,15 +3,13 @@ import type { PageProps } from '@codelab/frontend/abstract/types'
 import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { atomTableQuery } from '@codelab/frontend-application-atom/use-cases/atom-table'
 import { AtomsPrimarySidebarContainer } from '@codelab/frontend-application-atom/views'
-import {
-  parsePageProps,
-  parsePaginationSearchParams,
-} from '@codelab/frontend-application-shared-store/router'
+import { parsePageProps } from '@codelab/frontend-application-shared-store/router'
 
 const Page = async (
   props: PageProps<'typeId', 'filter' | 'page' | 'pageSize'>,
 ) => {
-  const { searchParams } = await parsePageProps(props)
+  const context = await parsePageProps(props)
+  const { searchParams } = context
 
   /**
    * We hydrate these to domain services, but need to also hydrate to pagination service
@@ -19,8 +17,6 @@ const Page = async (
   const { atomsDto, count, fieldsDto, typesDto } = await atomTableQuery(
     searchParams,
   )
-
-  const params = parsePaginationSearchParams(searchParams)
 
   return (
     <DomainStoreHydrator
@@ -30,10 +26,11 @@ const Page = async (
     >
       <AtomsPrimarySidebarContainer
         atomsRef={atomsDto}
+        context={context}
         pagination={{
           totalItems: count,
         }}
-        searchParams={params}
+        searchParams={searchParams}
       />
     </DomainStoreHydrator>
   )

@@ -1,5 +1,7 @@
 'use client'
 
+import type { IPageBuilderRoute } from '@codelab/frontend/abstract/application'
+
 import { RendererType } from '@codelab/frontend/abstract/application'
 import { PageConnector } from '@codelab/frontend/infra/connector'
 import { BuilderProvider } from '@codelab/frontend/presentation/container'
@@ -8,12 +10,14 @@ import { RootRenderer } from '@codelab/frontend-application-renderer/use-cases/r
 import { PageBuilder } from './PageBuilder'
 
 export const PageBuilderContainer = ({
-  appId,
-  pageId,
+  context,
 }: {
-  appId: string
-  pageId: string
+  context: IPageBuilderRoute
 }) => {
+  const {
+    params: { pageId },
+  } = context
+
   return (
     /**
      * We push the responsibility of data requirement closer to the page, which allows us to check the data using mobx state as opposed to some `isHydrating` state hook (which gets reset across requests)
@@ -27,7 +31,7 @@ export const PageBuilderContainer = ({
           <PageBuilder
             // Decouple renderer from builder
             RootRenderer={RootRenderer}
-            appId={appId}
+            context={context}
             page={page}
           />
         </BuilderProvider>

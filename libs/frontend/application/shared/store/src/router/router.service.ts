@@ -1,5 +1,7 @@
-import type { IRouterService } from '@codelab/frontend/abstract/application'
-import type { SearchParamsProps } from '@codelab/frontend/abstract/types'
+import type {
+  IRouterService,
+  NextjsSearchParamsProps,
+} from '@codelab/frontend/abstract/application'
 
 import { ObjectLike } from '@codelab/shared/abstract/types'
 import { Validator } from '@codelab/shared/infra/typebox'
@@ -14,6 +16,6 @@ import { Model, model, prop } from 'mobx-keystone'
 @model('@codelab/RouterService')
 export class RouterService
   extends Model({
-    searchParams: prop<ObjectLike>(() => ({})).withSetter(),
+    searchParams: prop<NextjsSearchParamsProps>(() => ({})).withSetter(),
   })
   implements IRouterService {}
