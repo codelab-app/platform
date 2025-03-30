@@ -24,6 +24,7 @@ export const jobQueueRequest = async (
       ...options?.data,
       jobId,
     },
+    method: 'POST',
   })
 }
 
