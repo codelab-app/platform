@@ -62,23 +62,10 @@ exports.generateReferencePathsForLib = generateReferencePathsForLib;
 const handleTsconfigPath = (tree, project, moduleAlias, targetPath, folderHasFiles) => {
     const folderHasIndexFile = tree.exists(targetPath);
     const folderHasIndexFileContent = folderHasIndexFile && tree.read(targetPath);
-    console.log('Debug handleTsconfigPath', {
-        condition: folderHasFiles && folderHasIndexFile && folderHasIndexFileContent,
-        folderHasFiles,
-        folderHasIndexFile,
-        hasContent: Boolean(folderHasIndexFileContent),
-        moduleAlias,
-        targetPath,
-    });
     if (folderHasFiles && folderHasIndexFile && folderHasIndexFileContent) {
         (0, utils_1.appendTsconfigPath)(tree, project, moduleAlias, targetPath);
     }
     else {
-        console.log(`Removing path alias (${moduleAlias}) because:`, {
-            folderHasFiles,
-            folderHasIndexFile,
-            hasContent: Boolean(folderHasIndexFileContent),
-        });
         (0, utils_1.removeTsconfigPath)(tree, moduleAlias);
     }
 };

@@ -64,7 +64,9 @@ class ServerFetchVisitor extends visitor_plugin_common_1.BaseVisitor {
             const operationArgs = [
                 `variables: Types.${o.variablesTypes}`,
                 'next?: NextFetchOptions',
-            ].join(' ,');
+            ]
+                .join(', ')
+                .trim();
             // server actions must be exported individually
             return `${exportedOperationName} = (${operationArgs}) => ${operationBody}`;
         });

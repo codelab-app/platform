@@ -509,6 +509,7 @@ const env = (0,external_env_var_namespaceObject.from)({
     AUTH0_SESSION_AUTO_SAVE: process.env['AUTH0_SESSION_AUTO_SAVE'],
     CI: process.env['CI'],
     CIRCLE: process.env['CIRCLE'],
+    E2E: process.env['E2E'],
     MAILCHIMP_API_KEY: process.env['MAILCHIMP_API_KEY'],
     MAILCHIMP_LIST_ID: process.env['MAILCHIMP_LIST_ID'],
     MAILCHIMP_SERVER_PREFIX: process.env['MAILCHIMP_SERVER_PREFIX'],
