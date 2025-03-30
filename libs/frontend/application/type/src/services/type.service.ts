@@ -161,18 +161,24 @@ export const useTypeService = (): ITypeService => {
     return type
   }
 
-  const shouldLoadType = (typeId: string) => {
+  const shouldLoadType = (
+    typeId: string,
+    visitedTypeIds: Set<string> = new Set(),
+  ) => {
     const type = typeDomainService.types.get(typeId)
 
-    if (!type) {
+    if (!type || visitedTypeIds.has(typeId)) {
       return true
+    } else {
+      // to avoid infinite recursion for circular types
+      visitedTypeIds.add(typeId)
     }
 
     if (type.kind === TypeKind.InterfaceType) {
       for (const field of type.fields) {
         if (
           !field.type.maybeCurrent ||
-          shouldLoadType(field.type.maybeCurrent.id)
+          shouldLoadType(field.type.maybeCurrent.id, visitedTypeIds)
         ) {
           return true
         }
@@ -182,7 +188,7 @@ export const useTypeService = (): ITypeService => {
     if (type.kind === TypeKind.ArrayType) {
       if (
         !type.itemType?.maybeCurrent ||
-        shouldLoadType(type.itemType.maybeCurrent.id)
+        shouldLoadType(type.itemType.maybeCurrent.id, visitedTypeIds)
       ) {
         return true
       }
@@ -192,7 +198,7 @@ export const useTypeService = (): ITypeService => {
       for (const typeOfUnion of type.typesOfUnionType) {
         if (
           !typeOfUnion.maybeCurrent ||
-          shouldLoadType(typeOfUnion.maybeCurrent.id)
+          shouldLoadType(typeOfUnion.maybeCurrent.id, visitedTypeIds)
         ) {
           return true
         }

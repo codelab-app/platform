@@ -1,8 +1,8 @@
 /**
- * Recursively filters out empty strings and empty objects/arrays from the given data.
+ * Recursively filters out empty strings from the given data.
  *
  * @param data - The data to filter.
- * @returns The filtered data, with empty strings and empty objects/arrays removed.
+ * @returns The filtered data, with empty strings removed.
  */
 import type { IPropData } from '@codelab/shared/abstract/core'
 
@@ -30,14 +30,6 @@ export const filterEmptyStrings = (
   if (isObjectType(data)) {
     const filtered = pickBy(data, (value) => {
       const filteredValue = filterEmptyStrings(value)
-
-      if (isArray(filteredValue)) {
-        return filteredValue.length > 0
-      }
-
-      if (isObjectType(filteredValue)) {
-        return Object.keys(filteredValue).length > 0
-      }
 
       return filteredValue !== '' && filteredValue !== undefined
     })

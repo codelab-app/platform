@@ -48,6 +48,7 @@ export interface JsonSchema extends JSONSchema7 {
 
 export interface ITypeTransformContext {
   defaultValues?: Nullish<IFieldDefaultValue>
+  depth?: number
   fieldName?: string | null
   validationRules?: Nullish<IValidationRules>
   uniformSchema?(type: ITypeModel): ObjectLike
