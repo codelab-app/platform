@@ -3,7 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/demo",
   "projectType": "application",
-  "tags": [],
+  "tags": ["projectName:demo", "projectType:application", "type:concrete"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
