@@ -70,7 +70,6 @@ export const BuilderProvider = ({
      * Turns out some issue with server action will re-run the component, which is re-running this component
      */
     if (!builderService.selectedNode) {
-      console.log('setSelectedNode')
       builderService.setSelectedNode(runtimeElementRef(runtimeRootElement))
     }
 

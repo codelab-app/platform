@@ -62,8 +62,6 @@ export const RenderTypeField = connectField(
     const atomsToShow = filters.atoms ? atoms.value : []
     const options = useRenderTypeSelectOptions(componentsToShow, atomsToShow)
 
-    console.log('options', options.length)
-
     return (
       <StyledFormField
         help={errorMessage}

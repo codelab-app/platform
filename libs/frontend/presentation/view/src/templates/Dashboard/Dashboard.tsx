@@ -100,7 +100,7 @@ export const Dashboard = ({
             >
               <ProgressBar />
               {/* We want the popover to overlay on top of the main, so we put it inside here */}
-              {secondaryPopover}
+              <>{secondaryPopover}</>
               <div className="size-full p-3">{children}</div>
             </CuiPanel>
 

@@ -1,5 +1,6 @@
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
 
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { Card } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -24,7 +25,7 @@ export const AppListItem = observer(({ app }: AppListItemProps) => {
   const Title = (
     <Link
       aria-label={app.name}
-      href={`/apps/${app.id}/pages/${providerPage.id}/builder/page`}
+      href={RoutePaths.Page.list({ appId: app.id, pageId: providerPage.id })}
     >
       {app.name}
     </Link>
