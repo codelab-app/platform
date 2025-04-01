@@ -1,9 +1,6 @@
 'use client'
 
-import type {
-  type ITreeViewProps,
-  ITypeCreateRoute,
-} from '@codelab/frontend/abstract/application'
+import type { ITreeViewProps } from '@codelab/frontend/abstract/application'
 import type {
   ITreeNode,
   ITypeModel,
@@ -17,13 +14,12 @@ import { TypeKind } from '@codelab/shared/infra/gqlgen'
 import { TypesTreeItem } from './TypesTreeItem'
 
 export const TypesTreeView = ({
-  context,
   data,
   isLoading,
+  searchParams,
   showSearchBar,
-}: ITreeViewProps<ITypeModel> & { context: ITypeCreateRoute }) => {
+}: ITreeViewProps<ITypeModel>) => {
   const { typeDomainService } = useDomainStore()
-  const { searchParams } = context
   const { expandedKeys, search, selectedKey } = searchParams
 
   const treeData: Array<ITreeNode<ITypeTreeNodeData>> = data.map((type) => ({

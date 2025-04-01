@@ -1,4 +1,4 @@
-import type { TreeViewClientProps } from '@codelab/frontend/abstract/types'
+import type { SearchParamsClientProps } from '@codelab/frontend/abstract/types'
 import type { IRef } from '@codelab/shared/abstract/core'
 
 import queryString from 'query-string'
@@ -237,11 +237,11 @@ export const RoutePaths = {
   },
 
   Type: {
-    base: (searchParams?: TreeViewClientProps) =>
+    base: (searchParams?: SearchParamsClientProps) =>
       addSearchParams('/types', searchParams),
-    create: (searchParams?: TreeViewClientProps) =>
+    create: (searchParams?: SearchParamsClientProps) =>
       addSearchParams('/types/type/create', searchParams),
-    delete: ({ id }: IRef, searchParams?: TreeViewClientProps) =>
+    delete: ({ id }: IRef, searchParams?: SearchParamsClientProps) =>
       addSearchParams(`/types/type/${id}/delete`, searchParams),
     field: {
       create: ({

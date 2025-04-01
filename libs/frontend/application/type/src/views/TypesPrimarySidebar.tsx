@@ -42,7 +42,7 @@ export const TypesPrimarySidebar = ({
   })
 
   useEffect(() => {
-    typeDomainService.setSelectedKey(context.searchParams.selectedKey || null)
+    typeDomainService.setSelectedKey(context.searchParams.selectedKey)
     typeDomainService.setExpandedNodes(context.searchParams.expandedKeys ?? [])
   }, [context])
 
@@ -51,9 +51,9 @@ export const TypesPrimarySidebar = ({
       {
         content: (
           <TypesTreeView
-            context={context}
             data={types}
             isLoading={false}
+            searchParams={context.searchParams}
             showSearchBar={showSearchBar}
           />
         ),

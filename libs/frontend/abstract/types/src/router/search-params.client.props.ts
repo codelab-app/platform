@@ -45,7 +45,6 @@ export interface TreeViewClientProps {
    * For keeping track of directory tree expanded nodes when navigating
    */
   expandedKeys?: Array<string>
-  search?: string
 
   /**
    * For the directory tree, useful when redirecting back

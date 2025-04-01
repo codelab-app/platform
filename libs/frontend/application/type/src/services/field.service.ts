@@ -24,7 +24,6 @@ import { useTypeService } from './type.service'
 
 export const useFieldService = (): IFieldService => {
   const { fieldDomainService, typeDomainService } = useDomainStore()
-  // this gets the updated search params unlike the ones found in context
   const typeService = useTypeService()
 
   const cloneField = async (field: IFieldModel, apiId: string) => {

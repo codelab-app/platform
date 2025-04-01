@@ -30,7 +30,6 @@ const { GetTypeReferences } = findTypeServerActions
 
 export const useTypeService = (): ITypeService => {
   const { typeDomainService, userDomainService } = useDomainStore()
-  // this gets the updated search params unlike the ones found in context
   const user = userDomainService.user
   const owner = { id: user.id }
 
