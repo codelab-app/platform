@@ -135,9 +135,8 @@ export class TypeListPage extends BasePage {
       .getToolbarItem(UiKey.FieldToolbarItemDelete)
       .click()
 
-    await this.getModal(UiKey.FieldModalDelete)
-      .getButton({ label: 'Confirmation Button' })
-      .click()
+    await this.clickPopconfirmButton(UiKey.FieldToolbarItemDelete)
+
     await this.expectGlobalProgressBarToBeHidden()
   }
 

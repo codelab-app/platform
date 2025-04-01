@@ -59,6 +59,7 @@ export class BasePage {
     key:
       | UiKey.ElementPopconfirmFormDelete
       | UiKey.ElementPopconfirmOverlayDelete
+      | UiKey.FieldToolbarItemDelete
       | UiKey.PageToolbarItemDelete
       | UiKey.RedirectPopconfirmDelete
       | UiKey.TypeToolbarItemDelete,
