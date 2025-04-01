@@ -244,15 +244,9 @@ export const useFieldService = (): IFieldService => {
       }
     },
     open: (router: AppRouterInstance, context: IFieldCreateRoute) => {
-      const { params, type } = context
+      const { params, searchParams, type } = context
       const selectedKey = typeDomainService.selectedKey
       const expandedKeys = typeDomainService.expandedNodes
-
-      const searchParams = {
-        ...context.searchParams,
-        expandedKeys,
-        selectedKey,
-      }
 
       if (type === IRouteType.Page) {
         router.push(
@@ -263,7 +257,12 @@ export const useFieldService = (): IFieldService => {
           RoutePaths.Component.builderField.create({ params, searchParams }),
         )
       } else {
-        router.push(RoutePaths.Type.field.create({ params, searchParams }))
+        router.push(
+          RoutePaths.Type.field.create({
+            params,
+            searchParams: { ...searchParams, expandedKeys, selectedKey },
+          }),
+        )
       }
     },
   }
@@ -293,15 +292,9 @@ export const useFieldService = (): IFieldService => {
   const deletePopover = {
     close: closeFieldPopover,
     open: (router: AppRouterInstance, context: IFieldUpdateRoute) => {
-      const { params, type } = context
+      const { params, searchParams, type } = context
       const selectedKey = typeDomainService.selectedKey
       const expandedKeys = typeDomainService.expandedNodes
-
-      const searchParams = {
-        ...context.searchParams,
-        expandedKeys,
-        selectedKey,
-      }
 
       if (type === IRouteType.Component) {
         router.push(
@@ -312,7 +305,16 @@ export const useFieldService = (): IFieldService => {
           RoutePaths.Page.builderField.delete({ params, searchParams }),
         )
       } else {
-        router.push(RoutePaths.Type.field.delete({ params, searchParams }))
+        router.push(
+          RoutePaths.Type.field.delete({
+            params,
+            searchParams: {
+              ...searchParams,
+              expandedKeys,
+              selectedKey,
+            },
+          }),
+        )
       }
     },
   }

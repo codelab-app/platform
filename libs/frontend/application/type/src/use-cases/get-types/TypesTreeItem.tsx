@@ -18,7 +18,8 @@ import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { useRouter } from 'next/navigation'
 
-import { useFieldService, useTypeService } from '../../services/field.service'
+import { useFieldService } from '../../services/field.service'
+import { useTypeService } from '../../services/type.service'
 
 interface TypesTreeItemProps {
   data: ITreeNode<ITypeTreeNodeData>
@@ -29,7 +30,6 @@ export const TypesTreeItem = ({ data, searchParams }: TypesTreeItemProps) => {
   const { fieldDomainService } = useDomainStore()
   const typeService = useTypeService()
   const fieldService = useFieldService()
-  const { typeDomainService } = useDomainStore()
   const router = useRouter()
 
   const deleteNode = () => {
