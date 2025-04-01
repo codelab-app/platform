@@ -1,10 +1,7 @@
 'use client'
 
 import type { SupportedPaginationPathname } from '@codelab/frontend/abstract/application'
-import type {
-  PaginationClientProps,
-  TreeViewClientProps,
-} from '@codelab/frontend/abstract/types'
+import type { SearchParamsClientProps } from '@codelab/frontend/abstract/types'
 
 import LeftOutlined from '@ant-design/icons/LeftOutlined'
 import RightOutlined from '@ant-design/icons/RightOutlined'
@@ -20,7 +17,7 @@ import { createPageUrl } from './pagination.utils'
 
 export interface ToolbarPaginationProps {
   pathname: SupportedPaginationPathname
-  searchParams: TreeViewClientProps & PaginationClientProps
+  searchParams: SearchParamsClientProps
   totalItems: number
 }
 

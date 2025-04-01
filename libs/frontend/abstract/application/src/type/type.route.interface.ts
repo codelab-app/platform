@@ -1,15 +1,12 @@
-import type {
-  PaginationClientProps,
-  TreeViewClientProps,
-} from '@codelab/frontend/abstract/types'
+import type { SearchParamsClientProps } from '@codelab/frontend/abstract/types'
 
 export interface ITypeCreateRoute {
-  searchParams: TreeViewClientProps & PaginationClientProps
+  searchParams: SearchParamsClientProps
 }
 
 export interface ITypeUpdateRoute {
   params: {
     typeId: string
   }
-  searchParams: TreeViewClientProps & PaginationClientProps
+  searchParams: SearchParamsClientProps
 }
