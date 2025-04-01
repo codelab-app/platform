@@ -43,7 +43,11 @@
     "icon": null,
     "id": "c5bf2c32-5b19-4a78-87dd-d828fa6313b4",
     "name": "AntDesignLayoutHeader",
-    "requiredParents": [],
+    "requiredParents": [
+      {
+        "id": "54aa52b4-d0db-4a4c-9cb6-08bc1dae8612"
+      }
+    ],
     "suggestedChildren": [],
     "tags": [],
     "type": "AntDesignLayoutHeader"

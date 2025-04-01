@@ -1,7 +1,6 @@
 import {
   // ScrapeAntdService,
   // ScrapeHtmlService,
-  SeedService,
   TaskService,
   TerraformService,
 } from '@codelab/backend/infra/adapter/cli'
@@ -16,7 +15,6 @@ export class CommandService {
     // private readonly scrapeHtmlService: ScrapeHtmlService,
     private readonly terraformService: TerraformService,
     private readonly taskService: TaskService,
-    private readonly seedService: SeedService,
   ) {}
 
   exec() {

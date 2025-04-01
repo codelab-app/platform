@@ -91,7 +91,11 @@
     "icon": "Card",
     "id": "c74b6e84-7886-4655-84d4-86db56ef6f37",
     "name": "AntDesignCardMeta",
-    "requiredParents": [],
+    "requiredParents": [
+      {
+        "id": "7f59c046-c648-4b8a-8837-37adc6c5a0a2"
+      }
+    ],
     "suggestedChildren": [],
     "tags": [
       {

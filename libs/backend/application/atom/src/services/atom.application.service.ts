@@ -99,24 +99,27 @@ export class AtomApplicationService {
       await this.typeApplicationService.saveApi(api)
 
       /**
-       * Create all atoms but omit `suggestedChildren`, since it requires all atoms to be added first
+       * Create all atoms but omit `suggestedChildren`, and `requiredParents` since it requires all atoms to be added first
        */
-
-      const atomWithoutSuggestedChildren = omit(atom, ['suggestedChildren'])
+      const atomWithoutDependencies = omit(atom, [
+        'suggestedChildren',
+        'requiredParents',
+      ])
 
       await this.atomRepository.save({
-        ...atomWithoutSuggestedChildren,
+        ...atomWithoutDependencies,
         owner: this.authDomainService.currentUser,
       })
     }
 
-    const atomsWithSuggestedChildren = atoms.filter(
-      ({ atom }) => atom.suggestedChildren?.length,
+    const atomsWithDependencies = atoms.filter(
+      ({ atom }) =>
+        atom.suggestedChildren?.length || atom.requiredParents?.length,
     )
 
-    for (const { api, atom } of atomsWithSuggestedChildren) {
+    for (const { atom } of atomsWithDependencies) {
       /**
-       * Here we assign suggestedChildren, since all atoms must be created first
+       * Here we assign suggestedChildren and requiredParents, since all atoms must be created first
        */
       await this.atomRepository.save({
         ...atom,

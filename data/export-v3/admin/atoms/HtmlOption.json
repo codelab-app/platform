@@ -125,7 +125,17 @@
     "icon": null,
     "id": "80225ed9-bc87-452a-97ea-2f2305a8bd5c",
     "name": "HtmlOption",
-    "requiredParents": [],
+    "requiredParents": [
+      {
+        "id": "149f445e-6a3e-4ef0-8d02-cb48d3e6f0d4"
+      },
+      {
+        "id": "b996ebfa-52bf-482e-8353-5439e3c4bdb9"
+      },
+      {
+        "id": "9d774c57-10ba-42c2-8084-1be6128a89ae"
+      }
+    ],
     "suggestedChildren": [],
     "tags": [
       {

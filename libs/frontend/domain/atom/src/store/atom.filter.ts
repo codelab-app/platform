@@ -12,8 +12,14 @@ export const filterAtoms = (
         requiredParents: Array<{ id: string; type: AtomType }>
       }
   >,
-  parent: IAtomModel,
+  parent?: IAtomModel,
 ) => {
+  if (!parent) {
+    // if no parent exists (page or component root element) - return all atoms
+    // that do not require specific parent
+    return allAtoms.filter((atom) => !atom.requiredParents?.length)
+  }
+
   const atomsRequiringCurrentParent = allAtoms.filter((atom) => {
     return atom.requiredParents?.length
       ? atom.requiredParents.some(
@@ -35,8 +41,12 @@ export const filterAtoms = (
   )
 
   if (atomsRequiringCurrentParent.length) {
-    // only get atoms if their required parents include the parent
-    return atomsRequiringCurrentParent
+    // If there are atoms that require the current parent - return them on top,
+    // as they are most likely the ones to be used.
+    // Then return all the atoms the do not require any parent.
+    // For example, antd Card.Grid or Card.Meta components are only allowed inside Card component,
+    // but the Card component can actually contain any other children atoms as well.
+    return [...atomsRequiringCurrentParent, ...atomsWithNoRequiredParents]
   }
 
   if (atomsExcludingSelfAndRequiredParents.length) {

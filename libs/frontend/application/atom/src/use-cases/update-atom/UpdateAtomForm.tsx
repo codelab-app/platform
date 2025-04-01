@@ -41,6 +41,10 @@ export const UpdateAtomForm = observer<UpdateAtomFormProps>(
     const atomService = useAtomService()
     const tagListOption = tagDomainService.tagsSelectOptions
 
+    const tags = atom.tags
+      .filter((tag) => tag.isValid)
+      .map((tag) => tag.current)
+
     const model = useMemo(
       () => ({
         api: atom.api,
@@ -50,14 +54,12 @@ export const UpdateAtomForm = observer<UpdateAtomFormProps>(
         externalSourceType: atom.externalSourceType ?? undefined,
         id: atom.id,
         name: atom.name,
-        requiredParents: atom.requiredParents.map((child) => child),
-        suggestedChildren: atom.suggestedChildren.map(
-          (suggestedChild) => suggestedChild,
-        ),
-        tags: atom.tags.map((tag) => tag.current),
+        requiredParents: atom.requiredParents,
+        suggestedChildren: atom.suggestedChildren,
+        tags,
         type: atom.type,
       }),
-      [atom],
+      [atom, tags],
     )
 
     return (

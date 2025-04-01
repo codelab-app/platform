@@ -222,7 +222,11 @@
     "icon": null,
     "id": "491b7c97-70b5-41db-9586-eeb51dd60213",
     "name": "HtmlTh",
-    "requiredParents": [],
+    "requiredParents": [
+      {
+        "id": "9f9deec1-7be5-44b4-bd4b-010c5ca27220"
+      }
+    ],
     "suggestedChildren": [],
     "tags": [
       {

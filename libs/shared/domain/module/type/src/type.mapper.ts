@@ -157,11 +157,7 @@ export const enumTypeMapper: IMapper<
         delete: [
           {
             where: {
-              node: {
-                NOT: {
-                  id_IN: dto.allowedValues.map((av) => av.id),
-                },
-              },
+              node: {},
             },
           },
         ],
