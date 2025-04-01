@@ -71,6 +71,8 @@ export class JwtStrategy
       auth0Id: payload.sub,
       email: auth0IdToken.email,
       id: payload[JWT_CLAIMS].neo4j_user_id,
+      name: auth0IdToken.name,
+      picture: auth0IdToken.picture ?? '',
       roles: payload[JWT_CLAIMS].roles.map((role) => IRole[role]),
       username: auth0IdToken.nickname,
     }

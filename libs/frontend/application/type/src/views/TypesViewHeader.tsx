@@ -4,6 +4,7 @@ import {
   CuiHeader,
   CuiHeaderBreadcrumb,
 } from '@codelab/frontend/presentation/codelab-ui'
+import { UserProfileMenu } from '@codelab/frontend-application-user/components'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Image } from 'antd'
 import { useParams } from 'next/navigation'
@@ -34,6 +35,7 @@ export const TypesViewHeader = () => {
           src="/logo.png"
         />
       }
+      userMenu={<UserProfileMenu />}
     />
   )
 }

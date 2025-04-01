@@ -17,6 +17,8 @@ const create = (user: IUserDto) => {
     auth0Id: user.auth0Id,
     email: user.email,
     id: user.id,
+    name: user.name,
+    picture: user.picture,
     preferences: new Preference(user.preferences),
     roles: user.roles,
     username: user.username,
@@ -34,6 +36,8 @@ export class User
     auth0Id: prop<string>(),
     email: prop<string>(),
     id: idProp.withSetter(),
+    name: prop<string>(),
+    picture: prop<string>(),
     preferences: prop<IPreferenceModel>(),
     roles: prop<Array<IRole>>(() => []),
     username: prop<string>(),
@@ -48,6 +52,8 @@ export class User
       auth0Id: this.auth0Id,
       email: this.email,
       id: this.id,
+      name: this.name,
+      picture: this.picture,
       preferences: this.preferences.toJson,
       roles: [...this.roles],
       username: this.username,
@@ -68,10 +74,20 @@ export class User
   }
 
   @modelAction
-  writeCache({ auth0Id, email, id, preferences, username }: Partial<IUserDto>) {
+  writeCache({
+    auth0Id,
+    email,
+    id,
+    name,
+    picture,
+    preferences,
+    username,
+  }: Partial<IUserDto>) {
     this.email = email ?? this.email
     this.auth0Id = auth0Id ?? this.auth0Id
     this.id = id ?? this.id
+    this.name = name ?? this.name
+    this.picture = picture ?? this.picture
     this.username = username ?? this.username
     this.preferences = preferences
       ? new Preference(preferences)

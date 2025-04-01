@@ -11,6 +11,8 @@ export const UserDtoSchema = Type.Object({
   auth0Id: Type.String(),
   email: Type.String(),
   id: Type.String(),
+  name: Type.String(),
+  picture: Type.String(),
   preferences: PreferenceDtoSchema,
   roles: Type.Array(Type.Enum(IRole)),
   username: Type.String(),

@@ -1,11 +1,12 @@
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
-import { Col, Row } from 'antd'
+import { Col, Row, Space } from 'antd'
 
 interface CuiHeaderProps {
   centralArea?: React.ReactElement<unknown> | null
   direction?: React.ReactElement<unknown> | null
   logo?: React.ReactElement<unknown> | null
   toolbar?: React.ReactElement<unknown> | null
+  userMenu?: React.ReactElement<unknown> | null
 }
 
 export const CuiHeader = ({
@@ -13,6 +14,7 @@ export const CuiHeader = ({
   direction,
   logo,
   toolbar,
+  userMenu,
 }: CuiHeaderProps) => {
   return (
     <div className={CuiTestId.cuiHeader()}>
@@ -27,7 +29,7 @@ export const CuiHeader = ({
         <div className="h-full w-10 shrink-0 cursor-pointer text-clip">
           {logo}
         </div>
-        <div className="relative h-full flex-1 p-1">
+        <div className="relative h-full flex-1 px-1">
           <Row className="h-full" justify="space-between">
             <Col className="h-full" sm={6} span={12}>
               {direction}
@@ -36,7 +38,10 @@ export const CuiHeader = ({
               {centralArea}
             </Col>
             <Col className="h-full" sm={6} span={12}>
-              {toolbar}
+              <Space className="flex size-full justify-end">
+                {toolbar}
+                {userMenu}
+              </Space>
             </Col>
           </Row>
         </div>

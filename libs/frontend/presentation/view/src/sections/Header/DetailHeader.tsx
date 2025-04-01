@@ -8,6 +8,7 @@ import {
   type HeaderBreadcrumbItem,
   type ToolbarItem,
 } from '@codelab/frontend/presentation/codelab-ui'
+import { UserProfileMenu } from '@codelab/frontend-application-user/components'
 import { Image } from 'antd'
 import { type ReactNode } from 'react'
 
@@ -55,6 +56,7 @@ export const DetailHeader = ({
       toolbar={
         <CuiHeaderToolbar items={toolbarItems} title="My Header Toolbar" />
       }
+      userMenu={<UserProfileMenu />}
     />
   )
 }

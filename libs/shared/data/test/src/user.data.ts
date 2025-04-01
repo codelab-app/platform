@@ -47,6 +47,8 @@ export const userDto: IUserDto = {
   auth0Id: v4(),
   email: 'admin@codelab.app',
   id: v4(),
+  name: 'Codelab',
+  picture: '',
   preferences: preferenceDefault,
   roles: [],
   username: 'Codelab',

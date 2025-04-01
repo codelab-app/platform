@@ -636,6 +636,9 @@
       "@codelab/frontend-application-type/views": [
         "libs/frontend/application/type/src/views/index.ts"
       ],
+      "@codelab/frontend-application-user/components": [
+        "libs/frontend/application/user/src/components/index.ts"
+      ],
       "@codelab/frontend-application-user/services": [
         "libs/frontend/application/user/src/services/index.ts"
       ],

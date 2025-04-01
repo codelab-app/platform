@@ -68,6 +68,8 @@ describe('ComponentResolvers', () => {
       auth0Id: 'something',
       email: 'something@some.thing',
       id: v4(),
+      name: 'something',
+      picture: '',
       preferences: {
         builderBreakpointType: BreakpointType.Desktop,
         builderWidth: 1000,
