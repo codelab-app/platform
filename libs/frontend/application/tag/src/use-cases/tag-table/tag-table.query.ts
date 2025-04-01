@@ -1,7 +1,6 @@
 import type { SearchParamsClientProps } from '@codelab/frontend/abstract/types'
 
 import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
-import { parseSearchParams } from '@codelab/frontend-application-shared-store/router'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { tagRepository } from '@codelab/frontend-domain-tag/repositories'
 import 'server-only'

@@ -6,6 +6,7 @@ import type { IInterfaceTypeDto, ITypeDto } from '@codelab/shared/abstract/core'
 
 import { getFieldDomainService } from '@codelab/frontend/abstract/domain'
 import { ITypeKind } from '@codelab/shared/abstract/core'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { type TypeFragment, TypeKind } from '@codelab/shared/infra/gqlgen'
 import { Validator } from '@codelab/shared/infra/typebox'
 import { computed } from 'mobx'
@@ -17,10 +18,14 @@ import { InterfaceType, TypeFactory } from '../store'
 @model('@codelab/TypeDomainService')
 export class TypeDomainService
   extends Model({
+    expandedNodes: prop<Array<string>>(() => []).withSetter(),
     /**
      * This allows us to display a subset of types for pagination while retaining observability
      */
     paginatedTypes: prop(() => objectMap<Ref<ITypeModel>>()),
+
+    selectedKey: prop<Maybe<string>>(() => undefined).withSetter(),
+
     /**
      * This holds all types
      */

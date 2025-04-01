@@ -1,10 +1,6 @@
-import type {
-  SearchParamsClientProps,
-  SearchParamsServerProps,
-} from '@codelab/frontend/abstract/types'
+import type { SearchParamsClientProps } from '@codelab/frontend/abstract/types'
 
 import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
-import { parseSearchParams } from '@codelab/frontend-application-shared-store/router'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { typeRepository } from '@codelab/frontend-domain-type/repositories'
 import 'server-only'

@@ -1,9 +1,8 @@
 'use client'
 
 import type {
-  ITreeViewProps,
+  type ITreeViewProps,
   ITypeCreateRoute,
-  ITypeUpdateRoute,
 } from '@codelab/frontend/abstract/application'
 import type {
   ITreeNode,
@@ -12,24 +11,20 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { TypeKind } from '@codelab/shared/infra/gqlgen'
-import { mergeDeep } from 'remeda'
 
 import { TypesTreeItem } from './TypesTreeItem'
-import { useUpdateSearchParams } from './useUpdateSearchParams.hook'
-
-type TypesTreeViewProps = ITreeViewProps<ITypeModel> & {
-  context: ITypeCreateRoute
-}
 
 export const TypesTreeView = ({
   context,
   data,
   isLoading,
-  searchParams: { expandedKeys, search, selectedKey },
   showSearchBar,
-}: TypesTreeViewProps) => {
-  const { updateSearchParams } = useUpdateSearchParams()
+}: ITreeViewProps<ITypeModel> & { context: ITypeCreateRoute }) => {
+  const { typeDomainService } = useDomainStore()
+  const { searchParams } = context
+  const { expandedKeys, search, selectedKey } = searchParams
 
   const treeData: Array<ITreeNode<ITypeTreeNodeData>> = data.map((type) => ({
     children:
@@ -43,8 +38,6 @@ export const TypesTreeView = ({
     secondaryTitle: type.kind,
     title: `${type.name} (${type.kind})`,
   }))
-
-  console.log('selectedKey', selectedKey)
 
   return (
     <div className="size-full">
@@ -62,19 +55,15 @@ export const TypesTreeView = ({
         }
         isLoading={isLoading}
         onExpand={(keys) => {
-          updateSearchParams(keys)
+          typeDomainService.setExpandedNodes(keys.map((key) => key.toString()))
+        }}
+        onSelect={(keys) => {
+          if (keys[0]) {
+            typeDomainService.setSelectedKey(keys[0].toString())
+          }
         }}
         titleRender={(node) => {
-          return (
-            <TypesTreeItem
-              context={mergeDeep(context, {
-                params: {
-                  typeId: node.extraData.node.id,
-                },
-              })}
-              data={node}
-            />
-          )
+          return <TypesTreeItem data={node} searchParams={searchParams} />
         }}
         treeData={treeData}
       />

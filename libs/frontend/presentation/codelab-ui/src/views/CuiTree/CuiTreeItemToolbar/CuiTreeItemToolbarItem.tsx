@@ -14,22 +14,27 @@ export const CuiTreeItemToolbarItem = ({
   title,
 }: CuiTreeItemToolbarItemProps) => {
   return (
-    <Popconfirm
-      classNames={{ root: getUiDataKey(cuiKey) }}
-      disabled={!confirmText}
-      onConfirm={onClick}
-      title={confirmText}
-    >
-      <div className="size-full" data-testid={CuiTestId.cuiToolbarItem(cuiKey)}>
-        <Tooltip title={title}>
-          <Button
-            icon={icon}
-            onClick={confirmText ? undefined : onClick}
-            size="small"
-            type="text"
-          />
-        </Tooltip>
-      </div>
-    </Popconfirm>
+    <div onClick={(event) => event.stopPropagation()}>
+      <Popconfirm
+        classNames={{ root: getUiDataKey(cuiKey) }}
+        disabled={!confirmText}
+        onConfirm={onClick}
+        title={confirmText}
+      >
+        <div
+          className="size-full"
+          data-testid={CuiTestId.cuiToolbarItem(cuiKey)}
+        >
+          <Tooltip title={title}>
+            <Button
+              icon={icon}
+              onClick={confirmText ? undefined : onClick}
+              size="small"
+              type="text"
+            />
+          </Tooltip>
+        </div>
+      </Popconfirm>
+    </div>
   )
 }

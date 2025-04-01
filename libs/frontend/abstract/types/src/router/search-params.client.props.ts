@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import type { Identity } from '@codelab/shared/abstract/types'
-import type { Assign, Required } from 'utility-types'
+import type { Assign } from 'utility-types'
 
 /**
  * These come in as page props, the array query params could be string if there are only 1 key
@@ -45,6 +45,8 @@ export interface TreeViewClientProps {
    * For keeping track of directory tree expanded nodes when navigating
    */
   expandedKeys?: Array<string>
+  search?: string
+
   /**
    * For the directory tree, useful when redirecting back
    */

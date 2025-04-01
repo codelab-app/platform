@@ -1,5 +1,3 @@
-import type { NextjsSearchParamsProps } from '@codelab/frontend/abstract/application'
-
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'

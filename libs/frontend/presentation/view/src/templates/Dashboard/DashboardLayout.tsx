@@ -3,7 +3,6 @@ import type {
   DashboardSlots,
   UrlParams,
 } from '@codelab/frontend/abstract/types'
-import type { ReactNode } from 'react'
 
 import { Dashboard } from './Dashboard'
 

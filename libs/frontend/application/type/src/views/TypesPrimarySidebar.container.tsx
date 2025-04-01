@@ -3,29 +3,24 @@ import type {
   IAtomCreateRoute,
   IPaginationData,
 } from '@codelab/frontend/abstract/application'
-import type {
-  PaginationClientProps,
-  TreeViewClientProps,
-} from '@codelab/frontend/abstract/types'
 import type { TypeFragment } from '@codelab/shared/infra/gqlgen'
 
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { observer } from 'mobx-react-lite'
+import { isDefined } from 'remeda'
 
 import { TypesPrimarySidebar } from './TypesPrimarySidebar'
 
-interface TypesPrimarySidebarContainerProps {
+export const TypesPrimarySidebarContainer = observer<{
   context: IAtomCreateRoute
   pagination: IPaginationData
   typesDto: Array<TypeFragment>
-}
-
-export const TypesPrimarySidebarContainer = ({
-  context,
-  pagination,
-  typesDto,
-}: TypesPrimarySidebarContainerProps) => {
+}>(({ context, pagination, typesDto }) => {
   const { typeDomainService } = useDomainStore()
-  const types = typeDomainService.hydrateTypes(typesDto)
+
+  const types = typesDto
+    .map((typeDto) => typeDomainService.types.get(typeDto.id))
+    .filter(isDefined)
 
   return (
     <TypesPrimarySidebar
@@ -34,4 +29,4 @@ export const TypesPrimarySidebarContainer = ({
       types={types}
     />
   )
-}
+})

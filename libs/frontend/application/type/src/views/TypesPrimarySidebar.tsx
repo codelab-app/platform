@@ -13,9 +13,9 @@ import {
   CuiSidebar,
   usePaginationToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { useRouter } from 'next/navigation'
-import { useMemo } from 'react'
-import { mergeDeep } from 'remeda'
+import { useEffect, useMemo } from 'react'
 
 import { useTypeService } from '../services'
 import { TypesTreeView } from '../use-cases/get-types'
@@ -32,14 +32,19 @@ export const TypesPrimarySidebar = ({
   types,
 }: TypesPrimarySidebarProps) => {
   const { createPopover } = useTypeService()
+  const { typeDomainService } = useDomainStore()
   const router = useRouter()
-  const { searchParams } = context
 
   const { showSearchBar, toolbarItems } = usePaginationToolbar({
     pathname: RoutePaths.Type.base(),
-    searchParams,
+    searchParams: context.searchParams,
     totalItems: pagination.totalItems,
   })
+
+  useEffect(() => {
+    typeDomainService.setSelectedKey(context.searchParams.selectedKey || null)
+    typeDomainService.setExpandedNodes(context.searchParams.expandedKeys ?? [])
+  }, [context])
 
   const views = useMemo(() => {
     return [
@@ -49,7 +54,6 @@ export const TypesPrimarySidebar = ({
             context={context}
             data={types}
             isLoading={false}
-            searchParams={searchParams}
             showSearchBar={showSearchBar}
           />
         ),
@@ -69,7 +73,7 @@ export const TypesPrimarySidebar = ({
         },
       },
     ]
-  }, [showSearchBar])
+  }, [types, toolbarItems, router, createPopover, showSearchBar])
 
   return (
     <CuiSidebar

@@ -24,6 +24,7 @@ import { useTypeService } from './type.service'
 
 export const useFieldService = (): IFieldService => {
   const { fieldDomainService, typeDomainService } = useDomainStore()
+  // this gets the updated search params unlike the ones found in context
   const typeService = useTypeService()
 
   const cloneField = async (field: IFieldModel, apiId: string) => {
@@ -211,36 +212,59 @@ export const useFieldService = (): IFieldService => {
 
   const closeFieldPopover = (
     router: AppRouterInstance,
-    { params, type }: IFieldUpdateRoute,
+    { params, searchParams, type }: IFieldUpdateRoute,
   ) => {
+    const selectedKey = typeDomainService.selectedKey
+    const expandedKeys = typeDomainService.expandedNodes
+
     if (type === IRouteType.Component) {
       router.push(RoutePaths.Component.builder(params))
     } else if (type === IRouteType.Page) {
       router.push(RoutePaths.Page.builder(params))
     } else {
-      router.push(RoutePaths.Type.base())
+      router.push(
+        RoutePaths.Type.base({ ...searchParams, expandedKeys, selectedKey }),
+      )
     }
   }
 
   const createPopover = {
     close: (router: AppRouterInstance, context: IFieldCreateRoute) => {
-      const { params, type } = context
+      const { params, searchParams, type } = context
+      const selectedKey = typeDomainService.selectedKey
+      const expandedKeys = typeDomainService.expandedNodes
 
       if (type === IRouteType.Component) {
         router.push(RoutePaths.Component.builder(params))
       } else if (type === IRouteType.Page) {
         router.push(RoutePaths.Page.builder(params))
       } else {
-        router.push(RoutePaths.Type.base())
+        router.push(
+          RoutePaths.Type.base({ ...searchParams, expandedKeys, selectedKey }),
+        )
       }
     },
     open: (router: AppRouterInstance, context: IFieldCreateRoute) => {
-      const { type } = context
+      const { params, type } = context
+      const selectedKey = typeDomainService.selectedKey
+      const expandedKeys = typeDomainService.expandedNodes
+
+      const searchParams = {
+        ...context.searchParams,
+        expandedKeys,
+        selectedKey,
+      }
 
       if (type === IRouteType.Page) {
-        router.push(RoutePaths.Page.builderField.create(context))
+        router.push(
+          RoutePaths.Page.builderField.create({ params, searchParams }),
+        )
       } else if (type === IRouteType.Component) {
-        router.push(RoutePaths.Component.builderField.create(context))
+        router.push(
+          RoutePaths.Component.builderField.create({ params, searchParams }),
+        )
+      } else {
+        router.push(RoutePaths.Type.field.create({ params, searchParams }))
       }
     },
   }
@@ -248,14 +272,21 @@ export const useFieldService = (): IFieldService => {
   const updatePopover = {
     close: closeFieldPopover,
     open: (router: AppRouterInstance, context: IFieldUpdateRoute) => {
-      const { type } = context
+      const { params, searchParams, type } = context
+      const selectedKey = typeDomainService.selectedKey
+      const expandedKeys = typeDomainService.expandedNodes
 
       if (type === IRouteType.Component) {
         router.push(RoutePaths.Component.builderField.update(context))
       } else if (type === IRouteType.Page) {
         router.push(RoutePaths.Page.builderField.update(context))
       } else {
-        router.push(RoutePaths.Type.field.update(context))
+        router.push(
+          RoutePaths.Type.field.update({
+            params,
+            searchParams: { ...searchParams, expandedKeys, selectedKey },
+          }),
+        )
       }
     },
   }
@@ -263,14 +294,26 @@ export const useFieldService = (): IFieldService => {
   const deletePopover = {
     close: closeFieldPopover,
     open: (router: AppRouterInstance, context: IFieldUpdateRoute) => {
-      const { type } = context
+      const { params, type } = context
+      const selectedKey = typeDomainService.selectedKey
+      const expandedKeys = typeDomainService.expandedNodes
+
+      const searchParams = {
+        ...context.searchParams,
+        expandedKeys,
+        selectedKey,
+      }
 
       if (type === IRouteType.Component) {
-        router.push(RoutePaths.Component.builderField.delete(context))
+        router.push(
+          RoutePaths.Component.builderField.delete({ params, searchParams }),
+        )
       } else if (type === IRouteType.Page) {
-        router.push(RoutePaths.Page.builderField.delete(context))
+        router.push(
+          RoutePaths.Page.builderField.delete({ params, searchParams }),
+        )
       } else {
-        router.push(RoutePaths.Type.field.delete(context))
+        router.push(RoutePaths.Type.field.delete({ params, searchParams }))
       }
     },
   }
