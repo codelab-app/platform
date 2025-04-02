@@ -1,3 +1,4 @@
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { expect } from '@playwright/test'
 
 import { globalBeforeAll } from '../../setup/before-all'
@@ -19,6 +20,8 @@ test('should be able to create resource', async ({ resourcePage: page }) => {
 
   await page.createResource()
 
+  await page.waitForPage(RoutePaths.Resource.base())
+
   await expect(page.getTree().getTreeItem()).toHaveCount(1)
   await expect(page.getByExactText(page.resourceName)).toBeVisible()
 })
@@ -27,6 +30,7 @@ test('should be able to update resource name', async ({
   resourcePage: page,
 }) => {
   await page.updateResource()
+  await page.waitForPage(RoutePaths.Resource.base())
 
   await expect(page.getByExactText(page.resourceName)).toBeHidden()
   await expect(page.getByExactText(page.updatedResourceName)).toBeVisible()

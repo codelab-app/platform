@@ -63,7 +63,8 @@ test('should be able to create an instance of the component', async ({
 }) => {
   await page.goto(app.id, providerPageId)
 
-  await expect(page.getSpinner()).toBeHidden()
+  await page.expectGlobalProgressBarToBeHidden()
+
   await expect(page.getFormFieldSpinner()).toHaveCount(0)
 
   await page.createElementTree([componentInstance, componentInstanceChild])

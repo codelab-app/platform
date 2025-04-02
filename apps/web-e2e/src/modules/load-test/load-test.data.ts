@@ -3,6 +3,7 @@ import type { IPage } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { E2E_ATOM_TYPES } from '@codelab/shared/data/test'
 import { type APIRequestContext } from '@playwright/test'
+import { sleep } from 'radash'
 import { v4 } from 'uuid'
 
 import { requestOrThrow } from '../../api'
@@ -10,6 +11,8 @@ import { REQUEST_TIMEOUT } from '../../setup/config'
 import { seedAppData } from '../app/app.data'
 
 export const PAGE_COUNT = 5
+
+const SLEEP_TIMEOUT = 1000
 
 const createPageWithAllPossibleAtoms = async (
   appId: string,
@@ -23,6 +26,9 @@ const createPageWithAllPossibleAtoms = async (
       kind: IPageKind.Regular,
       name: pageName,
       urlPattern: `/${pageName}`,
+    },
+    headers: {
+      'Content-Type': 'application/json',
     },
     method: 'POST',
     timeout: REQUEST_TIMEOUT,
@@ -57,6 +63,8 @@ export const seedTestData = async (request: APIRequestContext) => {
 
   for (let i = 0; i < PAGE_COUNT; i++) {
     await createPageWithAllPossibleAtoms(app.id, `Page ${i}`, request)
+    // to avoid getting Too Many Requests from server
+    await sleep(SLEEP_TIMEOUT)
   }
 
   return app

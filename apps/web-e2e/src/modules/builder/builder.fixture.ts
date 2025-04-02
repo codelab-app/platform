@@ -84,23 +84,17 @@ export class BuilderPage extends BasePage {
    */
   async createElementTree(elements: Array<ICreateElementSeedData>) {
     return test.step('createElementTree', async () => {
-      const explorerTree = this.getElementsTree()
-      const itemToolbarKey = CuiTestId.cuiTreeItemToolbar()
-
       for (const element of elements) {
-        const { atom, name, propsData } = element
-        const parentElement = explorerTree.getByTitle(element.parentElement)
-        const parentElementToolbar = parentElement.getByTestId(itemToolbarKey)
+        const { atom, name, parentElement, propsData } = element
 
-        await parentElement.click()
-        await expect(parentElement).toHaveClass(/ant-tree-node-selected/)
-        await expect(this.getFormFieldSpinner()).toHaveCount(0)
+        await this.getTree().getTreeItemByPrimaryTitle$(parentElement).hover()
 
-        await parentElementToolbar.getByLabel('plus').click()
+        await this.getTree()
+          .getTreeItemByPrimaryTitle(parentElement)
+          .getToolbarItem(UiKey.ElementToolbarItemCreate)
+          .click()
 
-        await expect(this.getFormFieldSpinner()).toHaveCount(0)
-
-        const form = this.getForm(UiKey.ElementFormCreate)
+        const form = await this.getForm(UiKey.ElementFormCreate)
 
         await expect(form.getByLabel('Name')).toHaveValue('React Fragment')
 
@@ -118,9 +112,9 @@ export class BuilderPage extends BasePage {
           .getButton({ text: 'Create' })
           .click()
 
-        await this.waitForProgressBar()
+        await this.waitForPage(new RegExp(/^((?!create-element).)*$/gm))
+        await this.expectGlobalProgressBarToBeHidden()
 
-        await expect(this.getDialog()).toBeHidden()
         await expect(this.getTreeElement(name, atom)).toBeVisible()
       }
     })
