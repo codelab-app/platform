@@ -87,7 +87,14 @@ export class BuilderPage extends BasePage {
       for (const element of elements) {
         const { atom, name, parentElement, propsData } = element
 
-        await this.getTree().getTreeItemByPrimaryTitle$(parentElement).hover()
+        const parentTreeElement =
+          await this.getTree().getTreeItemByPrimaryTitle$(parentElement)
+
+        await parentTreeElement.click()
+        // we hover so the plus icon is visible
+        await parentTreeElement.hover()
+
+        await parentTreeElement.getByLabel('plus').click()
 
         await this.getTree()
           .getTreeItemByPrimaryTitle(parentElement)
@@ -113,7 +120,6 @@ export class BuilderPage extends BasePage {
           .click()
 
         await this.waitForPage(new RegExp(/^((?!create-element).)*$/gm))
-        await this.expectGlobalProgressBarToBeHidden()
 
         await expect(this.getTreeElement(name, atom)).toBeVisible()
       }
