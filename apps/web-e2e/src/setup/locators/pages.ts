@@ -79,7 +79,7 @@ export class BasePage {
    * Can take a while on CI, so add long timeout
    */
   async expectGlobalProgressBarToBeHidden() {
-    await expect(this.getGlobalProgressBar()).toBeHidden({ timeout: 15000 })
+    await expect(this.getGlobalProgressBar()).toBeHidden({ timeout: 25000 })
   }
 
   /**
@@ -396,7 +396,7 @@ export class BasePage {
     const pattern =
       typeof urlPattern === 'string' ? `${urlPattern}*` : urlPattern
 
-    await this.page.waitForURL(pattern)
+    await this.page.waitForURL(pattern, { timeout: 2000 })
   }
 
   /**

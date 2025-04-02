@@ -33,7 +33,7 @@ test('should be able to update resource name', async ({
   await page.updateResource()
 
   await page.expectNotificationSuccess('Resource updated successfully')
-  await page.waitForPage(RoutePaths.Type.base())
+  await page.waitForPage(RoutePaths.Resource.base())
 
   await expect(page.getByExactText(page.resourceName)).toBeHidden()
   await expect(page.getByExactText(page.updatedResourceName)).toBeVisible()
