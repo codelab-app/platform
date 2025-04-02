@@ -32,8 +32,9 @@ export const UpdateResourceForm = observer<UpdateResourceFormProps>(
       type: resource.type,
     }
 
-    const onSubmit = (resourceDto: IUpdateResourceData) =>
-      resourceService.update(resourceDto)
+    const onSubmit = async (resourceDto: IUpdateResourceData) => {
+      await resourceService.update(resourceDto)
+    }
 
     return (
       <Form<IUpdateResourceData>

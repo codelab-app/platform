@@ -14,6 +14,7 @@ import { useDomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { resourceRepository } from '@codelab/frontend-domain-resource/repositories'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { resourceApi } from '@codelab/shared-domain-module/resource'
 import { v4 } from 'uuid'
 
@@ -72,27 +73,17 @@ export const useResourceService = (): IResourceService => {
       }))
   }
 
-  const update = async (data: IUpdateResourceData) => {
-    // const resource = resourceDomainService.resources.get(id)
+  const update = async ({ config, id, name, type }: IUpdateResourceData) => {
+    const resource = resourceDomainService.resources.get(id)
 
-    // Validator.assertsDefined(resource)
+    Validator.assertsDefined(resource)
 
-    // config.writeCache({ data: JSON.stringify(configData) })
-    // resource.writeCache({ name, type })
+    resource.writeCache({ name, type })
+    resource.config.writeCache({ data: JSON.stringify(config) })
 
-    return await resourceRepository.update(
-      { id: data.id },
-      {
-        ...data,
-        config: {
-          data: JSON.stringify(data.config),
-          id: v4(),
-        },
-      },
-      {
-        revalidateTags: [CACHE_TAGS.Resource.list()],
-      },
-    )
+    return await resourceRepository.update({ id }, resource.toJson, {
+      revalidateTags: [CACHE_TAGS.Resource.list()],
+    })
   }
 
   const load = (resources: Array<IResourceDto>) => {
