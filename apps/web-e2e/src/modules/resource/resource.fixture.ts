@@ -35,9 +35,8 @@ export class ResourcePage extends BasePage {
       .getToolbarItem(UiKey.ResourceToolbarItemDelete)
       .click()
 
-    const modal = await this.getModal(UiKey.ResourceModalDelete)
+    await this.clickPopconfirmButton(UiKey.ResourceToolbarItemDelete)
 
-    await modal.getButton({ label: 'Confirmation Button' }).click()
     await this.expectGlobalProgressBarToBeHidden()
   }
 

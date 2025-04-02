@@ -1,5 +1,6 @@
 'use client'
 
+import type { IResourceModel } from '@codelab/frontend/abstract/domain'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
@@ -10,7 +11,11 @@ import { useRouter } from 'next/navigation'
 import { useResourceService } from '../services'
 import { ResourcesTreeView } from '../use-cases/get-resource'
 
-export const ResourcesPrimarySidebar = ({ isLoading = false }) => {
+export const ResourcesPrimarySidebar = ({
+  resources,
+}: {
+  resources: Array<IResourceModel>
+}) => {
   const { createPopover } = useResourceService()
   const router = useRouter()
 
@@ -29,8 +34,7 @@ export const ResourcesPrimarySidebar = ({ isLoading = false }) => {
       uiKey={UiKey.ResourceSidebar}
       views={[
         {
-          content: <ResourcesTreeView />,
-          isLoading,
+          content: <ResourcesTreeView resources={resources} />,
           key: 'resources',
           label: 'Resources',
           toolbar: { items, title: 'Resources toolbar' },

@@ -62,6 +62,7 @@ export class BasePage {
       | UiKey.FieldToolbarItemDelete
       | UiKey.PageToolbarItemDelete
       | UiKey.RedirectPopconfirmDelete
+      | UiKey.ResourceToolbarItemDelete
       | UiKey.TypeToolbarItemDelete,
   ) {
     const popconfirm = this.page.locator(`.ant-popconfirm.${getUiDataKey(key)}`)
