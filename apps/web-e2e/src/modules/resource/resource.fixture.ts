@@ -17,11 +17,12 @@ export class ResourcePage extends BasePage {
       .locator?.getByLabel(UiKey.ResourceToolbarItemCreate)
       .click()
 
-    const form = this.getForm(UiKey.ResourceFormCreate)
+    const form = await this.getForm(UiKey.ResourceFormCreate)
 
     await form.fillInputText({ label: 'Name' }, this.resourceName)
     await form.fillInputSelect({ label: 'Type' }, IResourceType.GraphQl)
     await form.fillInputText({ label: 'Url' }, this.resourcesUrl)
+
     await this.getPopover(UiKey.ResourcePopoverCreate)
       .getButton({ text: 'Create' })
       .click()
@@ -35,10 +36,7 @@ export class ResourcePage extends BasePage {
       .getToolbarItem(UiKey.ResourceToolbarItemDelete)
       .click()
 
-    const modal = await this.getModal(UiKey.ResourceModalDelete)
-
-    await modal.getButton({ label: 'Confirmation Button' }).click()
-    await this.expectGlobalProgressBarToBeHidden()
+    await this.clickPopconfirmButton(UiKey.ResourceToolbarItemDelete)
   }
 
   async goto() {
@@ -48,7 +46,7 @@ export class ResourcePage extends BasePage {
   async updateResource() {
     await this.getByExactText(this.resourceName).click()
 
-    const form = this.getForm(UiKey.ResourceFormUpdate)
+    const form = await this.getForm(UiKey.ResourceFormUpdate)
 
     await form.fillInputText({ label: 'Name' }, this.updatedResourceName)
     await this.getPopover(UiKey.ResourcePopoverUpdate)

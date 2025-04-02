@@ -1,18 +1,25 @@
+import type { IPage } from '@codelab/shared/abstract/core'
+
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { E2E_ATOM_TYPES } from '@codelab/shared/data/test'
 import { type APIRequestContext } from '@playwright/test'
+import { sleep } from 'radash'
 import { v4 } from 'uuid'
 
+import { requestOrThrow } from '../../api'
+import { REQUEST_TIMEOUT } from '../../setup/config'
 import { seedAppData } from '../app/app.data'
 
 export const PAGE_COUNT = 5
+
+const SLEEP_TIMEOUT = 1000
 
 const createPageWithAllPossibleAtoms = async (
   appId: string,
   pageName: string,
   request: APIRequestContext,
 ) => {
-  const pageResponse = await request.post('page/create', {
+  const page = await requestOrThrow<IPage>(request, 'page/create', {
     data: {
       app: { id: appId },
       id: v4(),
@@ -20,9 +27,12 @@ const createPageWithAllPossibleAtoms = async (
       name: pageName,
       urlPattern: `/${pageName}`,
     },
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+    timeout: REQUEST_TIMEOUT,
   })
-
-  const page = await pageResponse.json()
 
   const elements = E2E_ATOM_TYPES.map((atom) => ({
     atom,
@@ -32,7 +42,7 @@ const createPageWithAllPossibleAtoms = async (
 
   const [firstChild, ...restChildren] = elements
 
-  await request.post(`element/${page.id}/create-elements`, {
+  await requestOrThrow(request, `element/${page.id}/create-elements`, {
     data: [
       { ...firstChild, parentElement: { id: page.rootElement.id } },
       ...restChildren.map((child, index) => ({
@@ -40,6 +50,8 @@ const createPageWithAllPossibleAtoms = async (
         prevSibling: { id: elements[index]!.id },
       })),
     ],
+    method: 'POST',
+    timeout: REQUEST_TIMEOUT,
   })
 }
 
@@ -51,6 +63,8 @@ export const seedTestData = async (request: APIRequestContext) => {
 
   for (let i = 0; i < PAGE_COUNT; i++) {
     await createPageWithAllPossibleAtoms(app.id, `Page ${i}`, request)
+    // to avoid getting Too Many Requests from server
+    await sleep(SLEEP_TIMEOUT)
   }
 
   return app

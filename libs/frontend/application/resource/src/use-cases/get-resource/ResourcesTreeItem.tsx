@@ -12,44 +12,44 @@ import {
   CuiTreeItem,
   CuiTreeItemToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 
+import { useResourceService } from '../../services/resource.service'
 import { ResourceIcon } from '../../views'
 
 interface ResourcesTreeItemProps {
   data: ITreeNode<IResourceNodeData>
 }
 
-export const ResourcesTreeItem = observer(
-  ({ data }: ResourcesTreeItemProps) => {
-    const router = useRouter()
-    const resource = data.extraData.node
-    const onEdit = () => router.push(RoutePaths.Resource.update(resource.id))
+export const ResourcesTreeItem = ({ data }: ResourcesTreeItemProps) => {
+  const router = useRouter()
+  const resourceService = useResourceService()
+  const resource = data.extraData.node
+  const onEdit = () => router.push(RoutePaths.Resource.update(resource.id))
 
-    const onDelete = (event: SyntheticEvent) => {
-      event.stopPropagation()
-      router.push(RoutePaths.Resource.delete(resource.id))
-    }
+  const onDelete = (event: SyntheticEvent) => {
+    event.stopPropagation()
+    void resourceService.removeMany([data.extraData.node])
+  }
 
-    const toolbarItems: Array<ToolbarItem> = [
-      {
-        cuiKey: UiKey.ResourceToolbarItemDelete,
-        icon: <DeleteOutlined />,
-        onClick: onDelete,
-        title: 'Delete',
-      },
-    ]
+  const toolbarItems: Array<ToolbarItem> = [
+    {
+      confirmText: `Are you sure you want to delete "${data.extraData.node.name}"?`,
+      cuiKey: UiKey.ResourceToolbarItemDelete,
+      icon: <DeleteOutlined />,
+      onClick: onDelete,
+      title: 'Delete',
+    },
+  ]
 
-    return (
-      <CuiTreeItem
-        icon={<ResourceIcon type={resource.type} />}
-        onClick={onEdit}
-        primaryTitle={data.primaryTitle}
-        toolbar={
-          <CuiTreeItemToolbar items={toolbarItems} title="Resource toolbar" />
-        }
-      />
-    )
-  },
-)
+  return (
+    <CuiTreeItem
+      icon={<ResourceIcon type={resource.type} />}
+      onClick={onEdit}
+      primaryTitle={data.primaryTitle}
+      toolbar={
+        <CuiTreeItemToolbar items={toolbarItems} title="Resource toolbar" />
+      }
+    />
+  )
+}

@@ -142,7 +142,7 @@ export const useElementService = (): IElementService => {
     currentElement.writeCache(newElement)
 
     await elementRepository.update({ id: currentElement.id }, newElement, {
-      revalidateTags: [CACHE_TAGS.Element.list()],
+      revalidateTags: [],
     })
 
     return currentElement

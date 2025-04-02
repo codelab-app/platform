@@ -528,6 +528,9 @@
       "@codelab/frontend-application-resource/use-cases/get-resource": [
         "libs/frontend/application/resource/src/use-cases/get-resource/index.ts"
       ],
+      "@codelab/frontend-application-resource/use-cases/resource-list": [
+        "libs/frontend/application/resource/src/use-cases/resource-list/index.ts"
+      ],
       "@codelab/frontend-application-resource/use-cases/update-resource": [
         "libs/frontend/application/resource/src/use-cases/update-resource/index.ts"
       ],

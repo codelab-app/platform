@@ -28,7 +28,8 @@ export class ComponentListPage extends BuilderPage {
         })
         .click()
 
-      await this.waitForProgressBar()
+      await this.waitForPage(new RegExp(/^((?!create-field).)*$/gm))
+      await this.expectGlobalProgressBarToBeHidden()
     })
   }
 
@@ -141,7 +142,7 @@ export class ComponentListPage extends BuilderPage {
         .locator('.ant-form-item-control-input [contenteditable]')
         .type(COMPONENT_PROP_VALUE)
 
-      await this.waitForProgressBar()
+      await this.expectGlobalProgressBarToBeHidden()
     })
   }
 

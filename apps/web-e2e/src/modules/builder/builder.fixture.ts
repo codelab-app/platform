@@ -84,23 +84,24 @@ export class BuilderPage extends BasePage {
    */
   async createElementTree(elements: Array<ICreateElementSeedData>) {
     return test.step('createElementTree', async () => {
-      const explorerTree = this.getElementsTree()
-      const itemToolbarKey = CuiTestId.cuiTreeItemToolbar()
-
       for (const element of elements) {
-        const { atom, name, propsData } = element
-        const parentElement = explorerTree.getByTitle(element.parentElement)
-        const parentElementToolbar = parentElement.getByTestId(itemToolbarKey)
+        const { atom, name, parentElement, propsData } = element
 
-        await parentElement.click()
-        await expect(parentElement).toHaveClass(/ant-tree-node-selected/)
-        await expect(this.getFormFieldSpinner()).toHaveCount(0)
+        const parentTreeElement =
+          await this.getTree().getTreeItemByPrimaryTitle$(parentElement)
 
-        await parentElementToolbar.getByLabel('plus').click()
+        await parentTreeElement.click()
+        // we hover so the plus icon is visible
+        await parentTreeElement.hover()
 
-        await expect(this.getFormFieldSpinner()).toHaveCount(0)
+        await parentTreeElement.getByLabel('plus').click()
 
-        const form = this.getForm(UiKey.ElementFormCreate)
+        await this.getTree()
+          .getTreeItemByPrimaryTitle(parentElement)
+          .getToolbarItem(UiKey.ElementToolbarItemCreate)
+          .click()
+
+        const form = await this.getForm(UiKey.ElementFormCreate)
 
         await expect(form.getByLabel('Name')).toHaveValue('React Fragment')
 
@@ -118,9 +119,10 @@ export class BuilderPage extends BasePage {
           .getButton({ text: 'Create' })
           .click()
 
-        await this.waitForProgressBar()
+        await this.expectGlobalProgressBarToBeHidden()
+        await this.expectNotificationSuccess('Element created successfully')
+        await this.waitForPage(new RegExp(/^((?!create-element).)*$/gm))
 
-        await expect(this.getDialog()).toBeHidden()
         await expect(this.getTreeElement(name, atom)).toBeVisible()
       }
     })

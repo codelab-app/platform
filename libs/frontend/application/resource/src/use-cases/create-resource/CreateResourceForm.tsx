@@ -31,6 +31,7 @@ export const CreateResourceForm = observer<IFormController>(
         onSubmitSuccess={onSubmitSuccess}
         schema={createResourceSchema}
         submitRef={submitRef}
+        successMessage="Resource created successfully"
         uiKey={UiKey.ResourceFormCreate}
       >
         <AutoFields omitFields={['owner']} />
