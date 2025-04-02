@@ -131,6 +131,7 @@ export const CreateElementForm = observer<CreateElementFormProps>((props) => {
       onSubmitSuccess={onSubmitSuccess}
       schema={createElementSchema}
       submitRef={submitRef}
+      successMessage="Element created successfully"
       uiKey={UiKey.ElementFormCreate}
     >
       <AutoFields

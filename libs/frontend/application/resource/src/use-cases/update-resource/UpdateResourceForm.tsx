@@ -44,6 +44,7 @@ export const UpdateResourceForm = observer<UpdateResourceFormProps>(
         onSubmitSuccess={onSubmitSuccess}
         schema={updateResourceSchema}
         submitRef={submitRef}
+        successMessage="Resource updated successfully"
         uiKey={UiKey.ResourceFormUpdate}
       >
         <AutoFields />

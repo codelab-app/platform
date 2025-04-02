@@ -27,7 +27,6 @@ export class ResourcePage extends BasePage {
       .click()
 
     await this.expectGlobalProgressBarToBeHidden()
-    await this.waitForPage(RoutePaths.Resource.base())
   }
 
   async deleteResource() {
@@ -37,8 +36,6 @@ export class ResourcePage extends BasePage {
       .click()
 
     await this.clickPopconfirmButton(UiKey.ResourceToolbarItemDelete)
-
-    await this.expectGlobalProgressBarToBeHidden()
   }
 
   async goto() {
@@ -56,7 +53,6 @@ export class ResourcePage extends BasePage {
       .click()
 
     await this.expectGlobalProgressBarToBeHidden()
-    await this.waitForPage(RoutePaths.Resource.base())
   }
 }
 

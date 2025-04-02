@@ -119,6 +119,8 @@ export class BuilderPage extends BasePage {
           .getButton({ text: 'Create' })
           .click()
 
+        await this.expectGlobalProgressBarToBeHidden()
+        await this.expectNotificationSuccess('Element created successfully')
         await this.waitForPage(new RegExp(/^((?!create-element).)*$/gm))
 
         await expect(this.getTreeElement(name, atom)).toBeVisible()
