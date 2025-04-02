@@ -94,8 +94,6 @@ export class BuilderPage extends BasePage {
         // we hover so the plus icon is visible
         await parentTreeElement.hover()
 
-        await parentTreeElement.getByLabel('plus').click()
-
         await this.getTree()
           .getTreeItemByPrimaryTitle(parentElement)
           .getToolbarItem(UiKey.ElementToolbarItemCreate)
@@ -122,6 +120,8 @@ export class BuilderPage extends BasePage {
         await this.expectGlobalProgressBarToBeHidden()
         await this.expectNotificationSuccess('Element created successfully')
         await this.waitForPage(new RegExp(/^((?!create-element).)*$/gm))
+
+        await parentTreeElement.getByLabel('plus').click()
 
         await expect(this.getTreeElement(name, atom)).toBeVisible()
       }

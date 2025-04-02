@@ -28,7 +28,7 @@ export class CssBuilderPage extends BuilderPage {
       )
 
       await displyNoneButton.click()
-      await this.waitForProgressBar()
+      await this.expectGlobalProgressBarToBeHidden()
     })
   }
 
