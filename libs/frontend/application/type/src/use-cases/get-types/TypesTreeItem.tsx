@@ -1,14 +1,14 @@
-import type { ITypeUpdateRoute } from '@codelab/frontend/abstract/application'
 import type {
   ITreeNode,
   ITypeTreeNodeData,
 } from '@codelab/frontend/abstract/domain'
+import type { SearchParamsClientProps } from '@codelab/frontend/abstract/types'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import type { SyntheticEvent } from 'react'
 
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { IRouteType, RoutePaths } from '@codelab/frontend/abstract/application'
+import { IRouteType } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiTreeItem,
@@ -18,51 +18,44 @@ import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { useRouter } from 'next/navigation'
 
+import { useFieldService } from '../../services/field.service'
+import { useTypeService } from '../../services/type.service'
+
 interface TypesTreeItemProps {
-  context: ITypeUpdateRoute
   data: ITreeNode<ITypeTreeNodeData>
+  searchParams: SearchParamsClientProps
 }
 
-export const TypesTreeItem = ({ context, data }: TypesTreeItemProps) => {
+export const TypesTreeItem = ({ data, searchParams }: TypesTreeItemProps) => {
   const { fieldDomainService } = useDomainStore()
+  const typeService = useTypeService()
+  const fieldService = useFieldService()
   const router = useRouter()
 
-  const onEdit = ({ selectedKey }: { selectedKey?: string }) => {
+  const deleteNode = () => {
     if (data.extraData.type === 'type') {
-      router.push(RoutePaths.Type.update(context))
+      void typeService.deleteType(data.extraData.node)
     } else {
-      router.push(
-        RoutePaths.Type.field.update({
-          params: { fieldId: data.extraData.node.id },
-          searchParams: { selectedKey },
-        }),
-      )
+      void fieldService.removeMany([data.extraData.node])
     }
   }
 
-  const onDelete = (
-    event: SyntheticEvent,
-    { selectedKey }: { selectedKey?: string },
-  ) => {
-    // Prevent triggering `onEdit`
-    event.stopPropagation()
-
+  const onEdit = () => {
     if (data.extraData.type === 'type') {
-      router.push(RoutePaths.Type.delete(data.extraData.node))
+      typeService.updatePopover.open(router, {
+        params: { typeId: data.extraData.node.id },
+        searchParams,
+      })
     } else {
-      router.push(
-        RoutePaths.Type.field.delete({
-          params: { fieldId: data.extraData.node.id },
-          searchParams: { selectedKey },
-        }),
-      )
+      fieldService.updatePopover.open(router, {
+        params: { fieldId: data.extraData.node.id },
+        searchParams,
+        type: IRouteType.Type,
+      })
     }
   }
 
-  const onAddField = (
-    event: SyntheticEvent,
-    { selectedKey }: { selectedKey?: string },
-  ) => {
+  const onAddField = (event: SyntheticEvent) => {
     // Prevent triggering `onEdit`
     event.stopPropagation()
 
@@ -85,25 +78,27 @@ export const TypesTreeItem = ({ context, data }: TypesTreeItemProps) => {
         ? data.extraData.node.type.current
         : data.extraData.node
 
-    router.push(
-      RoutePaths.Type.field.create({
-        params: { interfaceId: interfaceType.id },
-        searchParams: { selectedKey },
-      }),
-    )
+    fieldService.createPopover.open(router, {
+      params: { interfaceId: interfaceType.id },
+      searchParams,
+      type: IRouteType.Type,
+    })
   }
 
   const toolbarItems: Array<ToolbarItem> = [
     {
+      confirmText: `Are you sure you want to delete "${data.title}"?`,
       cuiKey:
         data.extraData.type === 'type'
           ? UiKey.TypeToolbarItemDelete
           : UiKey.FieldToolbarItemDelete,
       icon: <DeleteOutlined />,
-      onClick: (event: SyntheticEvent) =>
-        onDelete(event, {
-          selectedKey: data.extraData.node.id,
-        }),
+      onClick: (event: SyntheticEvent) => {
+        // Prevent triggering `onEdit`
+        event.stopPropagation()
+
+        deleteNode()
+      },
       title: data.extraData.type === 'type' ? 'Delete type' : 'Delete field',
     },
   ]
@@ -118,8 +113,7 @@ export const TypesTreeItem = ({ context, data }: TypesTreeItemProps) => {
     toolbarItems.push({
       cuiKey: UiKey.FieldToolbarItemCreate,
       icon: <PlusOutlined />,
-      onClick: (event: SyntheticEvent) =>
-        onAddField(event, { selectedKey: data.extraData.node.id }),
+      onClick: (event: SyntheticEvent) => onAddField(event),
       title: 'Add field',
     })
   }
@@ -128,7 +122,7 @@ export const TypesTreeItem = ({ context, data }: TypesTreeItemProps) => {
     <CuiTreeItem
       highlight={data.highlight}
       key={data.key}
-      onClick={(event) => onEdit({ selectedKey: data.key.toString() })}
+      onClick={(event) => onEdit()}
       primaryTitle={data.primaryTitle}
       secondaryTitle={data.secondaryTitle}
       selectedKey={data.key}

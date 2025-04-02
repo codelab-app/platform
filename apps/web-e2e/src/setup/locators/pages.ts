@@ -59,8 +59,10 @@ export class BasePage {
     key:
       | UiKey.ElementPopconfirmFormDelete
       | UiKey.ElementPopconfirmOverlayDelete
+      | UiKey.FieldToolbarItemDelete
       | UiKey.PageToolbarItemDelete
-      | UiKey.RedirectPopconfirmDelete,
+      | UiKey.RedirectPopconfirmDelete
+      | UiKey.TypeToolbarItemDelete,
   ) {
     const popconfirm = this.page.locator(`.ant-popconfirm.${getUiDataKey(key)}`)
     const confirmButton = popconfirm.locator('.ant-btn-primary')

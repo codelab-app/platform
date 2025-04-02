@@ -4,10 +4,7 @@ import type {
   ITypeModel,
   ITypeUpdateDto,
 } from '@codelab/frontend/abstract/domain'
-import type {
-  IPopover,
-  TreeViewClientProps,
-} from '@codelab/frontend/abstract/types'
+import type { IPopover } from '@codelab/frontend/abstract/types'
 import type {
   IBaseType,
   IBaseTypeOptions,
@@ -25,6 +22,7 @@ export interface ITypeService
     > {
   createPopover: IPopover<ITypeCreateRoute, ITypeCreateRoute>
   updatePopover: IPopover<ITypeUpdateRoute, ITypeUpdateRoute>
+  deleteType(type: ITypeModel): Promise<void>
   getAll(ids?: Array<string>): Promise<Array<ITypeModel>>
   getInterface(id: string): Promise<IInterfaceTypeModel>
   getSelectOptions(): Promise<Array<Pick<IBaseType, 'id' | 'kind' | 'name'>>>

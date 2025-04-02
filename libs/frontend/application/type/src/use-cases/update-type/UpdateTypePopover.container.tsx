@@ -1,7 +1,6 @@
 'use client'
 
 import type { ITypeUpdateRoute } from '@codelab/frontend/abstract/application'
-import type { TreeViewClientProps } from '@codelab/frontend/abstract/types'
 
 import { TypeConnector } from '@codelab/frontend/infra/connector'
 
@@ -22,3 +21,5 @@ export const UpdateTypePopoverContainer = ({
     </TypeConnector>
   )
 }
+
+UpdateTypePopoverContainer.displayName = 'UpdateTypePopoverContainer'

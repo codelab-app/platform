@@ -1,11 +1,5 @@
-import type {
-  SearchParamsClientProps,
-  TreeViewClientProps,
-} from '@codelab/frontend/abstract/types'
+import type { SearchParamsClientProps } from '@codelab/frontend/abstract/types'
 import type { IRef } from '@codelab/shared/abstract/core'
-import type { ObjectLike } from '@codelab/shared/abstract/types'
-import type { SearchParams } from 'next/dist/server/request/search-params'
-import type { Optional } from 'utility-types'
 
 import queryString from 'query-string'
 
@@ -243,30 +237,30 @@ export const RoutePaths = {
   },
 
   Type: {
-    base: (params?: SearchParamsClientProps) =>
-      addSearchParams('/types', params),
-    create: ({ selectedKey }: TreeViewClientProps) =>
-      addSearchParams('/types/type/create', { selectedKey }),
-    delete: ({ id }: IRef) => `/types/type/${id}/delete`,
+    base: (searchParams?: SearchParamsClientProps) =>
+      addSearchParams('/types', searchParams),
+    create: (searchParams?: SearchParamsClientProps) =>
+      addSearchParams('/types/type/create', searchParams),
+    delete: ({ id }: IRef, searchParams?: SearchParamsClientProps) =>
+      addSearchParams(`/types/type/${id}/delete`, searchParams),
     field: {
       create: ({
         params: { interfaceId },
+        searchParams,
       }: ExtractRouteContextParams<IFieldCreateRoute, IRouteType.Type>) =>
-        `/types/field/create/${interfaceId}`,
+        addSearchParams(`/types/field/create/${interfaceId}`, searchParams),
       delete: ({
         params: { fieldId },
+        searchParams,
       }: ExtractRouteContextParams<IFieldUpdateRoute, IRouteType.Type>) =>
-        `/types/field/${fieldId}/delete`,
+        addSearchParams(`/types/field/${fieldId}/delete`, searchParams),
       update: ({
         params: { fieldId },
         searchParams,
       }: ExtractRouteContextParams<IFieldUpdateRoute, IRouteType.Type>) =>
         addSearchParams(`/types/field/${fieldId}/update`, searchParams),
     },
-    update: ({
-      params: { typeId },
-      searchParams: { selectedKey },
-    }: ITypeUpdateRoute) =>
-      addSearchParams(`/types/type/${typeId}/update`, { selectedKey }),
+    update: ({ params: { typeId }, searchParams }: ITypeUpdateRoute) =>
+      addSearchParams(`/types/type/${typeId}/update`, searchParams),
   },
 }

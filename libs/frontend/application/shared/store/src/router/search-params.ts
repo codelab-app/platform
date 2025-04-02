@@ -1,9 +1,6 @@
-import type { NextjsSearchParamsProps } from '@codelab/frontend/abstract/application'
 import type {
-  PaginationClientProps,
   SearchParamsClientProps,
   SearchParamsServerProps,
-  TreeViewClientProps,
 } from '@codelab/frontend/abstract/types'
 
 /**

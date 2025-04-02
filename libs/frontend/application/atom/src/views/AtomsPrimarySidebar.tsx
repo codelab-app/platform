@@ -1,15 +1,11 @@
 'use client'
 
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
-import type {
-  PaginationClientProps,
-  TreeViewClientProps,
-} from '@codelab/frontend/abstract/types'
+import type { SearchParamsClientProps } from '@codelab/frontend/abstract/types'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import {
   type IAtomCreateRoute,
-  type IAtomUpdateRoute,
   type IPaginationData,
   RoutePaths,
 } from '@codelab/frontend/abstract/application'
@@ -18,7 +14,6 @@ import {
   CuiSidebar,
   usePaginationToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import { useMemo } from 'react'
 
@@ -29,7 +24,7 @@ interface AtomsPrimarySidebarProps {
   atoms: Array<IAtomModel>
   context: IAtomCreateRoute
   pagination: IPaginationData
-  searchParams: TreeViewClientProps & PaginationClientProps
+  searchParams: SearchParamsClientProps
 }
 
 export const AtomsPrimarySidebar = ({

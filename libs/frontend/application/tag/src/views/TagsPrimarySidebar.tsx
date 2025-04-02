@@ -2,10 +2,7 @@
 
 import type { IPaginationData } from '@codelab/frontend/abstract/application'
 import type { ITagModel } from '@codelab/frontend/abstract/domain'
-import type {
-  PaginationClientProps,
-  TreeViewClientProps,
-} from '@codelab/frontend/abstract/types'
+import type { SearchParamsClientProps } from '@codelab/frontend/abstract/types'
 
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
@@ -25,7 +22,7 @@ import { TagsTreeView } from '../use-cases/get-tags'
 
 export const TagsPrimarySidebar = observer<{
   tags: Array<ITagModel>
-  searchParams: TreeViewClientProps & PaginationClientProps
+  searchParams: SearchParamsClientProps
   pagination: IPaginationData
 }>(({ pagination, searchParams, tags }) => {
   const router = useRouter()

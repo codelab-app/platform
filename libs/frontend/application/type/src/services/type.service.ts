@@ -9,7 +9,6 @@ import type {
   ITypeModel,
   ITypeUpdateDto,
 } from '@codelab/frontend/abstract/domain'
-import type { TreeViewClientProps } from '@codelab/frontend/abstract/types'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
@@ -21,13 +20,16 @@ import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { TypeKind } from '@codelab/shared/infra/gqlgen'
 import { Validator } from '@codelab/shared/infra/typebox'
-import { findTypeApi } from '@codelab/shared-domain-module/type'
+import {
+  findTypeApi,
+  findTypeServerActions,
+} from '@codelab/shared-domain-module/type'
 import { prop, sortBy } from 'remeda'
 
-export const useTypeService = (): ITypeService => {
-  const { fieldDomainService, typeDomainService, userDomainService } =
-    useDomainStore()
+const { GetTypeReferences } = findTypeServerActions
 
+export const useTypeService = (): ITypeService => {
+  const { typeDomainService, userDomainService } = useDomainStore()
   const user = userDomainService.user
   const owner = { id: user.id }
 
@@ -44,7 +46,25 @@ export const useTypeService = (): ITypeService => {
     return type
   }
 
-  const deleteType = async (types: Array<ITypeModel>) => {
+  const deleteType = async (type: ITypeModel) => {
+    const { getTypeReferences } = await GetTypeReferences({
+      typeId: type.id,
+    })
+
+    if (getTypeReferences?.length) {
+      const allRefs = getTypeReferences.map(
+        (typeRef) => `${typeRef.name} (${typeRef.label})`,
+      )
+
+      const label = Array.from(new Set(allRefs)).join(', ')
+
+      throw new Error(`Can't delete typed since it's referenced in ${label}`)
+    }
+
+    await removeMany([type])
+  }
+
+  const removeMany = async (types: Array<ITypeModel>) => {
     const deleteTypeOperation = async (type: ITypeModel) => {
       const { id } = type
 
@@ -183,31 +203,58 @@ export const useTypeService = (): ITypeService => {
   }
 
   const updatePopover = {
-    close: (router: AppRouterInstance, context: ITypeUpdateRoute) => {
-      router.push(RoutePaths.Type.base(context.searchParams))
+    close: (router: AppRouterInstance, { searchParams }: ITypeUpdateRoute) => {
+      const selectedKey = typeDomainService.selectedKey
+      const expandedKeys = typeDomainService.expandedNodes
+
+      router.push(
+        RoutePaths.Type.base({ ...searchParams, expandedKeys, selectedKey }),
+      )
     },
-    open: (router: AppRouterInstance, context: ITypeUpdateRoute) => {
-      router.push(RoutePaths.Type.update(context))
+    open: (
+      router: AppRouterInstance,
+      { params, searchParams }: ITypeUpdateRoute,
+    ) => {
+      const selectedKey = typeDomainService.selectedKey
+      const expandedKeys = typeDomainService.expandedNodes
+
+      router.push(
+        RoutePaths.Type.update({
+          params,
+          searchParams: { ...searchParams, expandedKeys, selectedKey },
+        }),
+      )
     },
   }
 
   const createPopover = {
-    close: (router: AppRouterInstance, context: ITypeCreateRoute) => {
-      router.push(RoutePaths.Type.base(context.searchParams))
+    close: (router: AppRouterInstance, { searchParams }: ITypeCreateRoute) => {
+      const selectedKey = typeDomainService.selectedKey
+      const expandedKeys = typeDomainService.expandedNodes
+
+      router.push(
+        RoutePaths.Type.base({ ...searchParams, expandedKeys, selectedKey }),
+      )
     },
-    open: (router: AppRouterInstance, context: ITypeCreateRoute) => {
-      router.push(RoutePaths.Type.create(context.searchParams))
+    open: (router: AppRouterInstance, { searchParams }: ITypeCreateRoute) => {
+      const selectedKey = typeDomainService.selectedKey
+      const expandedKeys = typeDomainService.expandedNodes
+
+      router.push(
+        RoutePaths.Type.create({ ...searchParams, expandedKeys, selectedKey }),
+      )
     },
   }
 
   return {
     create,
     createPopover,
+    deleteType,
     getAll,
     getInterface,
     getOne,
     getSelectOptions,
-    removeMany: deleteType,
+    removeMany,
     update,
     updatePopover,
   }

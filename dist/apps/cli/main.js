@@ -425,47 +425,6 @@ var Stage;
 ;// external "path"
 const external_path_namespaceObject = require("path");
 var external_path_default = /*#__PURE__*/__webpack_require__.n(external_path_namespaceObject);
-;// ../../libs/backend/infra/adapter/cli/src/commands/seed/seed.service.ts
-
-
-let SeedService = class SeedService {
-    constructor() {
-        Object.defineProperty(this, "command", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: 'seed'
-        });
-        Object.defineProperty(this, "describe", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: 'Parse Ant Design scraped CSV files and seed to application as types'
-        });
-        this.builder = this.builder.bind(this);
-    }
-    builder(argv) {
-        return argv
-            .command('antd', 'Seed Ant Design framework', (_argv) => _argv, async ({ user }) => {
-            const owner = user;
-            // await new AdminSeederService(owner).seedAntDesign()
-        })
-            .command('html', 'Seed html', (_argv) => _argv, async ({ user }) => {
-            const owner = user;
-            // await new AdminSeederService(owner).seedHtml()
-        })
-            .demandCommand();
-    }
-    handler() {
-        // await new SeedDataService().execute(user)
-    }
-};
-SeedService = (0,external_tslib_namespaceObject.__decorate)([
-    (0,common_namespaceObject.Injectable)(),
-    (0,external_tslib_namespaceObject.__metadata)("design:paramtypes", [])
-], SeedService);
-
-
 ;// external "execa"
 const external_execa_namespaceObject = require("execa");
 var external_execa_default = /*#__PURE__*/__webpack_require__.n(external_execa_namespaceObject);
@@ -1487,7 +1446,7 @@ var external_yargs_default = /*#__PURE__*/__webpack_require__.n(external_yargs_n
 ;// external "yargs/helpers"
 const helpers_namespaceObject = require("yargs/helpers");
 ;// ./src/commands/command.service.ts
-var command_service_a, command_service_b, _c;
+var command_service_a, command_service_b;
 
 
 
@@ -1497,7 +1456,7 @@ let CommandService = class CommandService {
     constructor(
     // private readonly scrapeAntdService: ScrapeAntdService,
     // private readonly scrapeHtmlService: ScrapeHtmlService,
-    terraformService, taskService, seedService) {
+    terraformService, taskService) {
         Object.defineProperty(this, "terraformService", {
             enumerable: true,
             configurable: true,
@@ -1509,12 +1468,6 @@ let CommandService = class CommandService {
             configurable: true,
             writable: true,
             value: taskService
-        });
-        Object.defineProperty(this, "seedService", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: seedService
         });
     }
     exec() {
@@ -1550,7 +1503,7 @@ let CommandService = class CommandService {
 };
 CommandService = (0,external_tslib_namespaceObject.__decorate)([
     (0,common_namespaceObject.Injectable)(),
-    (0,external_tslib_namespaceObject.__metadata)("design:paramtypes", [typeof (command_service_a = typeof TerraformService !== "undefined" && TerraformService) === "function" ? command_service_a : Object, typeof (command_service_b = typeof TaskService !== "undefined" && TaskService) === "function" ? command_service_b : Object, typeof (_c = typeof SeedService !== "undefined" && SeedService) === "function" ? _c : Object])
+    (0,external_tslib_namespaceObject.__metadata)("design:paramtypes", [typeof (command_service_a = typeof TerraformService !== "undefined" && TerraformService) === "function" ? command_service_a : Object, typeof (command_service_b = typeof TaskService !== "undefined" && TaskService) === "function" ? command_service_b : Object])
 ], CommandService);
 
 
@@ -1579,7 +1532,7 @@ CommandModule = (0,external_tslib_namespaceObject.__decorate)([
         imports: [],
         providers: [
             CommandService,
-            SeedService,
+            // SeedService,
             // ScrapeAntdService,
             // ScrapeHtmlService,
             TerraformService,
