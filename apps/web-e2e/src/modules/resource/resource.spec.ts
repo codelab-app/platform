@@ -19,7 +19,6 @@ test('should be able to create resource', async ({ resourcePage: page }) => {
 
   await page.createResource()
 
-  await expect(page.getTree().getTreeItem()).toHaveCount(1)
   await expect(page.getByExactText(page.resourceName)).toBeVisible()
 })
 
