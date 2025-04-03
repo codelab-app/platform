@@ -25,8 +25,13 @@ import { uniqueBy } from 'remeda'
  * Object declaration would create a new object on each usage of hook, causing any usage of service to be re-rendered
  */
 const createPopover = {
-  close: (router: AppRouterInstance) => {
-    router.back()
+  close: (router: AppRouterInstance, { params, type }: IBuilderRoute) => {
+    const url =
+      type === IRouteType.Page
+        ? RoutePaths.Page.builder(params)
+        : RoutePaths.Component.builder(params)
+
+    router.push(url)
   },
   open: (router: AppRouterInstance, { params, type }: IBuilderRoute) => {
     const url =
@@ -39,8 +44,13 @@ const createPopover = {
 }
 
 const deletePopover = {
-  close: (router: AppRouterInstance) => {
-    router.back()
+  close: (router: AppRouterInstance, { params, type }: IBuilderRoute) => {
+    const url =
+      type === IRouteType.Page
+        ? RoutePaths.Page.builder(params)
+        : RoutePaths.Component.builder(params)
+
+    router.push(url)
   },
   open: (
     router: AppRouterInstance,

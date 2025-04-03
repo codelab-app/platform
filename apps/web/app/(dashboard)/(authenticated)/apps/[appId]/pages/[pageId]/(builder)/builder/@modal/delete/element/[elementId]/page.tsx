@@ -4,11 +4,10 @@ import { DeleteElementModalContainer } from '@codelab/frontend-application-eleme
 import { parsePageProps } from '@codelab/frontend-application-shared-store/router'
 
 const Page = async (props: PageProps<'elementId'>) => {
-  const {
-    params: { elementId },
-  } = await parsePageProps(props)
+  const context = await parsePageProps(props)
+  const { elementId } = context.params
 
-  return <DeleteElementModalContainer id={elementId} />
+  return <DeleteElementModalContainer context={context} id={elementId} />
 }
 
 export default Page

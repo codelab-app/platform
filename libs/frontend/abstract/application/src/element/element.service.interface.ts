@@ -10,8 +10,8 @@ import type { IBuilderRoute } from '../builder'
 
 export interface IElementService {
   // Moved from element model to decouple renderer
-  createPopover: IPopover<IBuilderRoute>
-  deletePopover: IPopover<IBuilderRoute<{ elementId: string }>>
+  createPopover: IPopover<IBuilderRoute, IBuilderRoute>
+  deletePopover: IPopover<IBuilderRoute<{ elementId: string }>, IBuilderRoute>
   create(data: IElementDto): Promise<IElementModel>
   // loadComponentTree(component: ComponentDevelopmentFragment): {
   //   hydratedElements: Array<IElementModel>

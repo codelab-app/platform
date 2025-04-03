@@ -1,5 +1,6 @@
 'use client'
 
+import type { IBuilderRoute } from '@codelab/frontend/abstract/application'
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
 
 import { UiKey } from '@codelab/frontend/abstract/types'
@@ -20,12 +21,13 @@ import { deleteElementUseCase } from './delete-element.use-case'
 
 export const DeleteElementModal = observer<{
   element: IElementModel
-}>(({ element }) => {
+  context: IBuilderRoute
+}>(({ context, element }) => {
   const { builderService } = useApplicationStore()
   const router = useRouter()
   const elementService = useElementService()
   const { elementDomainService } = useDomainStore()
-  const closeModal = () => elementService.deletePopover.close(router)
+  const closeModal = () => elementService.deletePopover.close(router, context)
   const model = { element: { id: element.id } }
 
   const onSubmit = (data: DeleteElementData) => {

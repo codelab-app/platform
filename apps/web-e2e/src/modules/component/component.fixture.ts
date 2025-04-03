@@ -28,8 +28,9 @@ export class ComponentListPage extends BuilderPage {
         })
         .click()
 
-      await this.waitForPage(new RegExp(/^((?!create-field).)*$/gm))
       await this.expectGlobalProgressBarToBeHidden()
+      await this.expectNotificationSuccess('Field created successfully')
+      await this.waitForPage(new RegExp(/^((?!create-field).)*$/gm))
     })
   }
 
