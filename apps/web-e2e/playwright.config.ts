@@ -109,7 +109,7 @@ export default defineConfig({
   /**
    * Includes hooks
    */
-  timeout: process.env.CI ? 240_000 : 60_000,
+  timeout: process.env.CI ? 120_000 : 60_000,
 
   expect: {
     timeout: 75_000,
