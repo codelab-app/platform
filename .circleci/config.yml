@@ -792,16 +792,16 @@ workflows:
       #     requires:
       #       - setup-workspace
       #     resource_class: large
-      # - build-nx-apps:
-      #     filters:
-      #       branches:
-      #         ignore:
-      #           - master
-      #           - staging
-      #     max_old_space_size: 4096
-      #     requires:
-      #       - setup-workspace
-      #     resource_class: large
+      - build-nx-apps:
+          filters:
+            branches:
+              ignore:
+                - master
+                - staging
+          max_old_space_size: 4096
+          requires:
+            - setup-workspace
+          resource_class: large
       # - build-nx-libs:
       #     filters:
       #       branches:
@@ -871,7 +871,7 @@ workflows:
             # - unit
             # - integration
             # - build-nx-libs
-            # - build-nx-apps
+            - build-nx-apps
             # - tsc-check
             - e2e
           resource_class: medium
