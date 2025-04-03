@@ -396,7 +396,7 @@ export class BasePage {
     const pattern =
       typeof urlPattern === 'string' ? `${urlPattern}*` : urlPattern
 
-    await this.page.waitForURL(pattern, { timeout: 2000 })
+    await this.page.waitForURL(pattern)
   }
 
   /**
