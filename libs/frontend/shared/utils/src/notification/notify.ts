@@ -49,13 +49,13 @@ export const notify = <TEvent>(
   /**
    * Log to console
    */
-  if (type === 'warning') {
-    console.warn(resolvedTitle, resolvedDescription)
-  } else if (type === 'error') {
-    console.error(resolvedTitle, resolvedDescription)
-  } else if (type === 'info') {
-    console.info(resolvedTitle, resolvedDescription)
-  } else {
-    console.log(resolvedTitle, resolvedDescription)
-  }
+  // if (type === 'warning') {
+  //   console.warn(resolvedTitle, resolvedDescription)
+  // } else if (type === 'error') {
+  //   console.error(resolvedTitle, resolvedDescription)
+  // } else if (type === 'info') {
+  //   console.info(resolvedTitle, resolvedDescription)
+  // } else {
+  //   console.log(resolvedTitle, resolvedDescription)
+  // }
 }

@@ -56,7 +56,6 @@ export const useAsyncHandler = <TData, TResponse>(
 
       // Ensure min delay to prevent flickering
       return pMinDelay(submitPromise, MIN_DELAY).finally(() => {
-        console.debug('Form submission complete')
         setAllLoadingState(false)
       })
     }
