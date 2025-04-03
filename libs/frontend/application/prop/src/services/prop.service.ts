@@ -12,7 +12,6 @@ import type {
 import { propRepository } from '@codelab/frontend-domain-prop/repositories'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
-import { filterEmptyStrings } from '@codelab/shared/utils'
 
 export const usePropService = (): IPropService => {
   const create = async (props: IPropCreateData) => {
@@ -48,7 +47,10 @@ export const usePropService = (): IPropService => {
     props: IPropModel,
     { data, defaultValues, id }: IUpdatePropDataWithDefaultValues,
   ) => {
-    const filteredData = filterEmptyStrings(data) as IPropData
+    // does not look like we need to remove empty strings/arrays/objects from the properties,
+    // since users should have ability to override property to whatever value they want
+    // const filteredData = filterEmptyStrings(data) as IPropData
+    const filteredData = data as IPropData
 
     const mergedWithDefaultValues = mergeProps(
       defaultValues ?? {},

@@ -91,7 +91,8 @@ export class InterfaceType
     return this.fields.map((field) => {
       return {
         children:
-          field.type.maybeCurrent?.kind === ITypeKind.InterfaceType
+          field.type.maybeCurrent?.kind === ITypeKind.InterfaceType &&
+          field.type.maybeCurrent.name !== this.name
             ? field.type.maybeCurrent.fieldsTree
             : [],
         extraData: {
@@ -109,13 +110,22 @@ export class InterfaceType
     })
   }
 
-  toJsonSchema(context: ITypeTransformContext): JsonSchema {
+  toJsonSchema(context: ITypeTransformContext = {}): JsonSchema {
+    const currentDepth = context.depth ?? 0
+
+    // Return empty object if we've reached max depth (10) for recursive types
+    if (currentDepth >= 10) {
+      return {}
+    }
+
     return {
       properties: this.fields.reduce(
         (all, field) => ({
           ...all,
           [field.key]: field.toJsonSchema({
+            ...context,
             defaultValues: field.defaultValues,
+            depth: currentDepth + 1,
             fieldName: field.key,
             uniformSchema: context.uniformSchema,
             validationRules: field.validationRules,

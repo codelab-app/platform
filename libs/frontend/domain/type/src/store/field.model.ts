@@ -158,6 +158,7 @@ export class Field
       ...(this.description ? { help: this.description } : {}),
       label: this.name || titleCase(this.key),
       ...this.type.current.toJsonSchema({
+        ...context,
         defaultValues: this.defaultValues,
         fieldName: this.name || titleCase(this.key),
         uniformSchema: context.uniformSchema,

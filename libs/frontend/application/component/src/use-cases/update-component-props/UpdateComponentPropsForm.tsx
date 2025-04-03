@@ -12,7 +12,6 @@ import { usePropService } from '@codelab/frontend-application-prop/services'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 import { Spinner } from '@codelab/frontend-presentation-view/components/loader'
-import { filterEmptyStrings } from '@codelab/shared/utils'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { Fragment, useEffect } from 'react'
@@ -39,7 +38,10 @@ export const UpdateComponentPropsForm = observer<UpdateComponentPropsFormProps>(
     }, [api.id, getInterface])
 
     const onSubmit = async (data: IPropData) => {
-      const filteredData = filterEmptyStrings(data)
+      // does not look like we need to remove empty strings/arrays/objects from the properties,
+      // since users should have ability to override property to whatever value they want
+      // const filteredData = filterEmptyStrings(data)
+      const filteredData = data
 
       return propService.update({
         data: JSON.stringify(filteredData),

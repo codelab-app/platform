@@ -154,14 +154,18 @@ export const elementMapper: IMapper<
       renderIfExpression,
       // We need to disconnect the component if render type changed to atom or empty
       renderType: {
-        Atom:
-          renderType.__typename === 'Atom'
+        Atom: {
+          ...disconnectAll({ omitId: renderType.id }),
+          ...(renderType.__typename === 'Atom'
             ? connectNodeId(renderType.id)
-            : disconnectAll({ omitId: renderType.id }),
-        Component:
-          renderType.__typename === 'Component'
+            : null),
+        },
+        Component: {
+          ...disconnectAll({ omitId: renderType.id }),
+          ...(renderType.__typename === 'Component'
             ? connectNodeId(renderType.id)
-            : disconnectAll({ omitId: renderType.id }),
+            : null),
+        },
       },
       style,
       tailwindClassNames,
