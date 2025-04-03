@@ -57,11 +57,11 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+          "id": "a695b3f5-e8af-4c9e-a195-8b33f396b4fa"
         },
         "id": "b9b45e23-72fc-43f7-9f8e-4827d3746856",
-        "key": "bordered",
-        "name": "Bordered",
+        "key": "variant",
+        "name": "Variant",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -362,6 +362,34 @@
         "id": "0cf1d59b-4d32-4eef-a159-1ee562270b72",
         "kind": "EnumType",
         "name": "AntDesignInput Status Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "f8e7a3d1-6b92-4c5a-8e45-9f1c3a5b7d2e",
+            "key": "outlined",
+            "value": "outlined"
+          },
+          {
+            "id": "e2d1c3b4-a5f6-47d8-9e2c-1a3b4c5d6e7f",
+            "key": "borderless",
+            "value": "borderless"
+          },
+          {
+            "id": "d1e2f3a4-b5c6-47d8-9e0f-1a2b3c4d5e6f",
+            "key": "filled",
+            "value": "filled"
+          },
+          {
+            "id": "c1d2e3f4-a5b6-47c8-9d0e-1f2a3b4c5d6e",
+            "key": "underlined",
+            "value": "underlined"
+          }
+        ],
+        "id": "a695b3f5-e8af-4c9e-a195-8b33f396b4fa",
+        "kind": "EnumType",
+        "name": "AntDesignInput Variant Enum"
       }
     ]
   },

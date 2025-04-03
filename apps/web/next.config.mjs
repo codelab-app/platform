@@ -9,8 +9,6 @@ const { get } = env
 
 const analyzeBundle = get('ANALYZE_BUNDLE').default('false').asBoolStrict()
 
-console.log('analyzeBundle', analyzeBundle)
-
 const withBundleAnalyzer = bundleAnalyzer({
   enabled: analyzeBundle,
   // openAnalyzer: false,
