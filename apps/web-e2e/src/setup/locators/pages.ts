@@ -79,7 +79,7 @@ export class BasePage {
    * Can take a while on CI, so add long timeout
    */
   async expectGlobalProgressBarToBeHidden() {
-    await expect(this.getGlobalProgressBar()).toBeHidden({ timeout: 25000 })
+    await expect(this.getGlobalProgressBar()).toBeHidden({ timeout: 15000 })
   }
 
   /**
@@ -153,14 +153,12 @@ export class BasePage {
 
       // It's hoisted outside so we don't scope it to the previous locator
       // Then click on the specific option with matching text
-      const option = await this.page
+      await this.page
         .locator(
           '.ant-select-dropdown:not(.ant-select-dropdown-hidden) .ant-select-item.ant-select-item-option',
         )
         .filter({ hasText: value })
-
-      await option.waitFor({ state: 'visible' })
-      await option.click()
+        .click()
 
       await expect(
         this.page.locator(
