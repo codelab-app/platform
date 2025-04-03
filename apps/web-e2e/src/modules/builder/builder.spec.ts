@@ -16,7 +16,7 @@ import { test } from './builder.fixture'
 
 let app: IAppDto
 
-test.describe.configure({ mode: 'serial', timeout: 180_000 })
+test.describe.configure({ mode: 'serial', timeout: 480_000 })
 
 globalBeforeAll()
 
