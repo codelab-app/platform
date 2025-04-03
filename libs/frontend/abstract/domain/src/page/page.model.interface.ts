@@ -10,10 +10,6 @@ import type { IStoreModel } from '../store'
 
 export interface IPageModel extends IModel<IPageDto, IPageModel>, IElementTree {
   app: Ref<IAppModel>
-  /**
-   * The platform URL
-   */
-  builderUrlInstance: string
   elements: Array<IElementModel>
   /**
    * a pre-computed descendant elements ids

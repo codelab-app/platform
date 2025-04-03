@@ -73,14 +73,6 @@ export class Page
 {
   static create = create
 
-  /**
-   * /home /apps/codelab/test/pages/home
-   */
-  @computed
-  get builderUrlInstance() {
-    return `/apps/${this.userDomainService.user.username}/${this.app.current.slug}/pages/${this.slug}`
-  }
-
   @computed
   get providerPage() {
     return this.kind === IPageKind.Regular
