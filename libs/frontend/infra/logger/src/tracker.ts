@@ -28,13 +28,6 @@ const useRenderedCount = (componentName: string) => {
 
   useEffect(() => {
     renderCountMap[name.current] = (renderCountMap[name.current] || 0) + 1
-
-    logger.debug('Component rendered', {
-      context: name.current,
-      data: {
-        renderCount: renderCountMap[name.current],
-      },
-    })
   })
 }
 
