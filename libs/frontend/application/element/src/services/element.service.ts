@@ -18,7 +18,6 @@ import { useTypeService } from '@codelab/frontend-application-type/services'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { logger } from '@codelab/shared/infra/logging'
 import { uniqueBy } from 'remeda'
 
 /**
@@ -88,7 +87,6 @@ export const useElementService = (): IElementService => {
       element.closestParentElement.current.setExpanded(true)
     }
 
-    logger.debug('elementService.create', data)
     await elementRepository.add(data, {
       revalidateTags: [CACHE_TAGS.Element.list()],
     })
@@ -159,10 +157,6 @@ export const useElementService = (): IElementService => {
   }
 
   const updateElements = async (elements: Array<IElementModel>) => {
-    logger.debug(
-      'updateElements',
-      elements.map((element) => element.toJson),
-    )
     await Promise.all(
       uniqueBy(elements, (element) => element.id).map((element) =>
         elementRepository.update({ id: element.id }, element.toJson, {
