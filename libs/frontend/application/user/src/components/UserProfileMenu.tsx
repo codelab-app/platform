@@ -24,7 +24,7 @@ export const UserProfileMenu = () => {
         <Avatar shape="square" size="large" src={user.picture} />
         <Space direction="vertical" size={0}>
           <b>{user.name}</b>
-          <p>{user.email}</p>
+          <span>{user.email}</span>
         </Space>
       </Space>
       <Menu items={items} style={{ border: 0 }} />
