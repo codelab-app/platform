@@ -23,6 +23,10 @@ export const PageBuilderHeader = observer<IPageDetailHeaderProps>(
     const currentPathname = usePathname()
     const isBuilder = currentPathname.includes('/builder')
 
+    const isPageList = currentPathname.includes(
+      RoutePaths.Page.list({ appId: app.id, pageId: page.id }),
+    )
+
     const togglePreviewMode = () => {
       const url = isBuilder
         ? RoutePaths.Page.base({ appId: app.id, pageId: page.id })
@@ -32,12 +36,18 @@ export const PageBuilderHeader = observer<IPageDetailHeaderProps>(
     }
 
     const navigatePagesPanel = useCallback(async () => {
-      const url = RoutePaths.Page.list({
+      const url = RoutePaths.Page.builder({
         appId: app.id,
         pageId: page.id,
       })
 
       await router.push(url)
+    }, [router, app.id, page.id])
+
+    const navigatePageList = useCallback(async () => {
+      await router.push(
+        RoutePaths.Page.list({ appId: app.id, pageId: page.id }),
+      )
     }, [router, app.id, page.id])
 
     const navigateAppsPage = useCallback(async () => {
@@ -46,8 +56,8 @@ export const PageBuilderHeader = observer<IPageDetailHeaderProps>(
 
     const directionItems = [
       { onClick: navigateAppsPage, title: app.name },
-      { title: 'Pages' },
-      { onClick: navigatePagesPanel, title: page.name },
+      { onClick: navigatePageList, title: 'Pages' },
+      { onClick: navigatePagesPanel, title: isPageList ? null : page.name },
     ]
 
     return (
