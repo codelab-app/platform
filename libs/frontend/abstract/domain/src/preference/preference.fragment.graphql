@@ -2,6 +2,7 @@ fragment Preference on Preference {
   id
   builderBreakpointType
   builderWidth
+  activeConfigPaneTab
   owner {
     id
   }

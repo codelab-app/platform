@@ -1,5 +1,7 @@
 'use client'
 
+import type { IConfigPaneTab } from '@codelab/shared/abstract/core'
+
 import CodeOutlined from '@ant-design/icons/CodeOutlined'
 import CodeSandboxOutlined from '@ant-design/icons/CodeSandboxOutlined'
 import FileOutlined from '@ant-design/icons/FileOutlined'
@@ -9,7 +11,6 @@ import SettingOutlined from '@ant-design/icons/SettingOutlined'
 import {
   type IBuilderRoute,
   type IRendererModel,
-  IRouteType,
   type IRuntimeComponentModel,
   type IRuntimeElementModel,
   isRuntimeComponent,
@@ -24,6 +25,8 @@ import { MoveElementForm } from '@codelab/frontend-application-element/use-cases
 import { UpdateElementForm } from '@codelab/frontend-application-element/use-cases/update-element'
 import { UpdateElementPropsForm } from '@codelab/frontend-application-element/use-cases/update-element-props'
 import { UpdatePageTabForm } from '@codelab/frontend-application-page/use-cases/update-page-tab'
+import { usePreferenceService } from '@codelab/frontend-application-preference/services'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ElementCssEditor } from '@codelab/frontend-presentation-components-css-editor'
 import { FormContextProvider } from '@codelab/frontend-presentation-components-form'
 import { Tabs, Tooltip } from 'antd'
@@ -67,6 +70,10 @@ export const ConfigPaneInspectorTabGroup = observer<{
   elementTree: IElementTree
   context: IBuilderRoute
 }>(({ activeRenderer, context, elementTree, selectedNode }) => {
+  const { userDomainService } = useDomainStore()
+  const { update } = usePreferenceService()
+  const preference = userDomainService.preference
+
   // Nested components render too many times if we don't memo
   const tabItems = useMemo(
     () => [
@@ -207,13 +214,21 @@ export const ConfigPaneInspectorTabGroup = observer<{
     [activeRenderer.runtimeComponent, activeRenderer.runtimePage, selectedNode],
   )
 
+  console.log(preference.activeConfigPaneTab)
+
   return (
     <FormContextProvider value={{ elementTree, selectedNode }}>
       <TabGroup>
         <Tabs
-          defaultActiveKey={TAB_NAMES.Node}
+          defaultActiveKey={preference.activeConfigPaneTab}
           destroyInactiveTabPane
           items={tabItems}
+          onChange={(activeKey) =>
+            update({
+              activeConfigPaneTab: activeKey as IConfigPaneTab,
+              id: preference.id,
+            })
+          }
           size="small"
         />
       </TabGroup>

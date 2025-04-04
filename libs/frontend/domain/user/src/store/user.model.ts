@@ -66,6 +66,8 @@ export class User
       email: this.email,
       id: this.id,
       username: this.username,
+      name: this.name,
+      picture: this.picture,
     }
   }
 
