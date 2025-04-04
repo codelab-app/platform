@@ -1,9 +1,6 @@
 'use client'
 
-import type {
-  IAppModel,
-  IComponentModel,
-} from '@codelab/frontend/abstract/domain'
+import type { IComponentModel } from '@codelab/frontend/abstract/domain'
 
 import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { DetailHeader } from '@codelab/frontend-presentation-view/sections'
@@ -13,7 +10,6 @@ import { type ReactNode, useCallback } from 'react'
 
 interface IComponentBuilderHeaderProps {
   BuilderResizeMenu: ReactNode
-  app?: IAppModel
   /**
    * Decouples `builder` from `page`
    */
@@ -21,7 +17,7 @@ interface IComponentBuilderHeaderProps {
 }
 
 export const ComponentBuilderHeader = observer<IComponentBuilderHeaderProps>(
-  ({ app, BuilderResizeMenu, component }) => {
+  ({ BuilderResizeMenu, component }) => {
     const router = useRouter()
     const currentPathname = usePathname()
     const isBuilder = currentPathname.endsWith('/builder')
@@ -42,16 +38,12 @@ export const ComponentBuilderHeader = observer<IComponentBuilderHeaderProps>(
       await router.push(url)
     }, [router, component.id])
 
-    const navigateAppsPage = useCallback(async () => {
-      await router.push(RoutePaths.App.list())
+    const navigateToComponentsList = useCallback(async () => {
+      await router.push(RoutePaths.Component.base())
     }, [router])
 
-    // TODO: Restore app.name
-    const title = app?.name ?? 'App'
-
     const directionItems = [
-      { onClick: navigateAppsPage, title },
-      { title: 'Components' },
+      { onClick: navigateToComponentsList, title: 'Components' },
       { onClick: navigateComponentsPanel, title: component.name },
     ]
 
