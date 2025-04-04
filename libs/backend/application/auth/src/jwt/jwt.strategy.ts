@@ -28,6 +28,8 @@ export class JwtStrategy
   extends PassportStrategy(Strategy)
   implements IPassportStrategy
 {
+  private readonly logger = new Logger(JwtStrategy.name)
+
   constructor(
     @Inject(auth0Config.KEY)
     private readonly config: ConfigType<typeof auth0Config>,
