@@ -1,7 +1,7 @@
 import type { LogLevel } from '@nestjs/common'
 
 import { registerAs } from '@nestjs/config'
-import * as env from 'env-var'
+import { get } from 'env-var'
 
 // https://github.com/pinojs/pino/blob/main/docs/api.md#loggerlevels-object
 // Extends `LevelMapping`, but use nestjs values
@@ -47,17 +47,15 @@ export const loggerConfig = registerAs('LOGGER_CONFIG', () => {
       /**
        * https://github.com/iamolegga/nestjs-pino
        */
-      return env
-        .get('API_LOG_LEVEL')
+      return get('API_LOG_LEVEL')
         .default('info')
         .asEnum(['verbose', 'debug', 'info', 'warn', 'error', 'fatal'])
     },
     get sentryDsn() {
-      return env.get('SENTRY_DSN').required().asString()
+      return get('SENTRY_DSN').required().asString()
     },
     get enableDataForContext() {
-      return env
-        .get('API_LOG_ENABLE_DATA_FOR_CONTEXT')
+      return get('API_LOG_ENABLE_DATA_FOR_CONTEXT')
         .default('')
         .asString()
         .split(',')

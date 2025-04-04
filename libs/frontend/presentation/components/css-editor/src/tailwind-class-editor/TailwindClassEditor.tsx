@@ -5,7 +5,12 @@ import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import { Select, Space } from 'antd'
 import { useState } from 'react'
 
-import * as Styled from './styles'
+import {
+  BlankColorBox,
+  CustomOption,
+  Label,
+  ColorBox as StyledColorBox,
+} from './styles'
 import {
   extractVariant,
   getOnlyColorValue,
@@ -73,7 +78,7 @@ export const TailwindClassEditor = ({
 
   return (
     <div className="mb-4">
-      <Styled.Label>Tailwind Classes:</Styled.Label>
+      <Label>Tailwind Classes:</Label>
       <Select
         allowClear
         defaultValue={element.tailwindClassNames ?? []}
@@ -117,11 +122,11 @@ const TagRender = (props: CustomTagProps) => {
   const { onClose, value } = props
 
   return (
-    <Styled.CustomOption>
+    <CustomOption>
       <ColorBox color={value} withPlaceholder={false} />
       {value}
       <CloseOutlined onClick={onClose} />
-    </Styled.CustomOption>
+    </CustomOption>
   )
 }
 
@@ -133,10 +138,10 @@ const ColorBox = ({
   withPlaceholder?: boolean
 }) => {
   if (!isColorClass(color)) {
-    return withPlaceholder ? <Styled.BlankColorBox /> : null
+    return withPlaceholder ? <BlankColorBox /> : null
   }
 
   const backgroundClassName = `bg-${getOnlyColorValue(color)}`
 
-  return <Styled.ColorBox className={backgroundClassName} />
+  return <StyledColorBox className={backgroundClassName} />
 }

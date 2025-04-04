@@ -1,4 +1,75 @@
-import type * as cg from '@codelab/shared/infra/gqlgen'
+import type {
+  ActionTypeCreateInput,
+  ActionTypeDeleteInput,
+  ActionTypeUpdateInput,
+  ActionTypeWhere,
+  AppTypeCreateInput,
+  AppTypeDeleteInput,
+  AppTypeUpdateInput,
+  AppTypeWhere,
+  ArrayTypeCreateInput,
+  ArrayTypeDeleteInput,
+  ArrayTypeUpdateInput,
+  ArrayTypeWhere,
+  CodeMirrorTypeCreateInput,
+  CodeMirrorTypeDeleteInput,
+  CodeMirrorTypeUpdateInput,
+  CodeMirrorTypeWhere,
+  ElementTypeCreateInput,
+  ElementTypeDeleteInput,
+  ElementTypeUpdateInput,
+  ElementTypeWhere,
+  EnumTypeCreateInput,
+  EnumTypeDeleteInput,
+  EnumTypeUpdateInput,
+  EnumTypeWhere,
+  InterfaceTypeCreateInput,
+  InterfaceTypeDeleteInput,
+  InterfaceTypeUpdateInput,
+  InterfaceTypeWhere,
+  LambdaTypeCreateInput,
+  LambdaTypeDeleteInput,
+  LambdaTypeUpdateInput,
+  LambdaTypeWhere,
+  PageTypeCreateInput,
+  PageTypeDeleteInput,
+  PageTypeUpdateInput,
+  PageTypeWhere,
+  PrimitiveTypeCreateInput,
+  PrimitiveTypeDeleteInput,
+  PrimitiveTypeUpdateInput,
+  PrimitiveTypeWhere,
+  ReactNodeTypeCreateInput,
+  ReactNodeTypeDeleteInput,
+  ReactNodeTypeUpdateInput,
+  ReactNodeTypeWhere,
+  RenderPropTypeCreateInput,
+  RenderPropTypeDeleteInput,
+  RenderPropTypeUpdateInput,
+  RenderPropTypeWhere,
+  RichTextTypeCreateInput,
+  RichTextTypeDeleteInput,
+  RichTextTypeUpdateInput,
+  RichTextTypeWhere,
+  UnionTypeCreateInput,
+  UnionTypeDeleteInput,
+  UnionTypeUpdateInput,
+  UnionTypeWhere,
+  UpdateActionTypesMutationVariables,
+  UpdateAppTypesMutationVariables,
+  UpdateArrayTypesMutationVariables,
+  UpdateCodeMirrorTypesMutationVariables,
+  UpdateElementTypesMutationVariables,
+  UpdateEnumTypesMutationVariables,
+  UpdateInterfaceTypesMutationVariables,
+  UpdateLambdaTypesMutationVariables,
+  UpdatePageTypesMutationVariables,
+  UpdatePrimitiveTypesMutationVariables,
+  UpdateReactNodeTypesMutationVariables,
+  UpdateRenderPropTypesMutationVariables,
+  UpdateRichTextTypesMutationVariables,
+  UpdateUnionTypesMutationVariables,
+} from '@codelab/shared/infra/gqlgen'
 
 /**
  * Put all functions in same file so it's easier for LLM to refactor
@@ -38,9 +109,9 @@ const createOrUpdateActionType = (dto: IActionTypeDto) => ({
 
 export const actionTypeMapper: IMapper<
   IActionTypeDto,
-  cg.ActionTypeCreateInput,
-  cg.ActionTypeUpdateInput,
-  cg.ActionTypeDeleteInput
+  ActionTypeCreateInput,
+  ActionTypeUpdateInput,
+  ActionTypeDeleteInput
 > = {
   toCreateInput: createOrUpdateActionType,
   toDeleteInput: () => ({}),
@@ -56,9 +127,9 @@ const createOrUpdateAppType = (dto: IAppTypeDto) => ({
 
 export const appTypeMapper: IMapper<
   IAppTypeDto,
-  cg.AppTypeCreateInput,
-  cg.AppTypeUpdateInput,
-  cg.AppTypeDeleteInput
+  AppTypeCreateInput,
+  AppTypeUpdateInput,
+  AppTypeDeleteInput
 > = {
   toCreateInput: createOrUpdateAppType,
   toDeleteInput: () => ({}),
@@ -67,9 +138,9 @@ export const appTypeMapper: IMapper<
 
 export const arrayTypeMapper: IMapper<
   IArrayTypeDto,
-  cg.ArrayTypeCreateInput,
-  cg.ArrayTypeUpdateInput,
-  cg.ArrayTypeDeleteInput
+  ArrayTypeCreateInput,
+  ArrayTypeUpdateInput,
+  ArrayTypeDeleteInput
 > = {
   toCreateInput: (dto) => ({
     id: dto.id,
@@ -99,9 +170,9 @@ const createOrUpdateCodeMirrorType = (dto: ICodeMirrorTypeDto) => ({
 
 export const codeMirrorTypeMapper: IMapper<
   ICodeMirrorTypeDto,
-  cg.CodeMirrorTypeCreateInput,
-  cg.CodeMirrorTypeUpdateInput,
-  cg.CodeMirrorTypeDeleteInput
+  CodeMirrorTypeCreateInput,
+  CodeMirrorTypeUpdateInput,
+  CodeMirrorTypeDeleteInput
 > = {
   toCreateInput: createOrUpdateCodeMirrorType,
   toDeleteInput: () => ({}),
@@ -118,9 +189,9 @@ const createOrUpdateElementType = (dto: IElementTypeDto) => ({
 
 export const elementTypeMapper: IMapper<
   IElementTypeDto,
-  cg.ElementTypeCreateInput,
-  cg.ElementTypeUpdateInput,
-  cg.ElementTypeDeleteInput
+  ElementTypeCreateInput,
+  ElementTypeUpdateInput,
+  ElementTypeDeleteInput
 > = {
   toCreateInput: createOrUpdateElementType,
   toDeleteInput: () => ({}),
@@ -129,9 +200,9 @@ export const elementTypeMapper: IMapper<
 
 export const enumTypeMapper: IMapper<
   IEnumTypeDto,
-  cg.EnumTypeCreateInput,
-  cg.EnumTypeUpdateInput,
-  cg.EnumTypeDeleteInput
+  EnumTypeCreateInput,
+  EnumTypeUpdateInput,
+  EnumTypeDeleteInput
 > = {
   toCreateInput: (dto) => ({
     allowedValues: {
@@ -185,9 +256,9 @@ const createOrUpdateInterfaceType = (dto: IInterfaceTypeDto) => ({
 
 export const interfaceTypeMapper: IMapper<
   IInterfaceTypeDto,
-  cg.InterfaceTypeCreateInput,
-  cg.InterfaceTypeUpdateInput,
-  cg.InterfaceTypeDeleteInput
+  InterfaceTypeCreateInput,
+  InterfaceTypeUpdateInput,
+  InterfaceTypeDeleteInput
 > = {
   toCreateInput: createOrUpdateInterfaceType,
   toDeleteInput: () => ({}),
@@ -203,9 +274,9 @@ const createOrUpdateLambdaType = (dto: ILambdaTypeDto) => ({
 
 export const lambdaTypeMapper: IMapper<
   ILambdaTypeDto,
-  cg.LambdaTypeCreateInput,
-  cg.LambdaTypeUpdateInput,
-  cg.LambdaTypeDeleteInput
+  LambdaTypeCreateInput,
+  LambdaTypeUpdateInput,
+  LambdaTypeDeleteInput
 > = {
   toCreateInput: createOrUpdateLambdaType,
   toDeleteInput: () => ({}),
@@ -221,9 +292,9 @@ const createOrUpdatePageType = (dto: IPageTypeDto) => ({
 
 export const pageTypeMapper: IMapper<
   IPageTypeDto,
-  cg.PageTypeCreateInput,
-  cg.PageTypeUpdateInput,
-  cg.PageTypeDeleteInput
+  PageTypeCreateInput,
+  PageTypeUpdateInput,
+  PageTypeDeleteInput
 > = {
   toCreateInput: createOrUpdatePageType,
   toDeleteInput: () => ({}),
@@ -232,9 +303,9 @@ export const pageTypeMapper: IMapper<
 
 export const primitiveTypeMapper: IMapper<
   IPrimitiveTypeDto,
-  cg.PrimitiveTypeCreateInput,
-  cg.PrimitiveTypeUpdateInput,
-  cg.PrimitiveTypeDeleteInput
+  PrimitiveTypeCreateInput,
+  PrimitiveTypeUpdateInput,
+  PrimitiveTypeDeleteInput
 > = {
   toCreateInput: (dto) => ({
     id: dto.id,
@@ -258,9 +329,9 @@ const createOrUpdateReactNodeType = (dto: IReactNodeTypeDto) => ({
 
 export const reactNodeTypeMapper: IMapper<
   IReactNodeTypeDto,
-  cg.ReactNodeTypeCreateInput,
-  cg.ReactNodeTypeUpdateInput,
-  cg.ReactNodeTypeDeleteInput
+  ReactNodeTypeCreateInput,
+  ReactNodeTypeUpdateInput,
+  ReactNodeTypeDeleteInput
 > = {
   toCreateInput: createOrUpdateReactNodeType,
   toDeleteInput: () => ({}),
@@ -276,9 +347,9 @@ const createOrUpdateRenderPropType = (dto: IRenderPropTypeDto) => ({
 
 export const renderPropTypeMapper: IMapper<
   IRenderPropTypeDto,
-  cg.RenderPropTypeCreateInput,
-  cg.RenderPropTypeUpdateInput,
-  cg.RenderPropTypeDeleteInput
+  RenderPropTypeCreateInput,
+  RenderPropTypeUpdateInput,
+  RenderPropTypeDeleteInput
 > = {
   toCreateInput: createOrUpdateRenderPropType,
   toDeleteInput: () => ({}),
@@ -294,9 +365,9 @@ const createOrUpdateRichTextType = (dto: IRichTextTypeDto) => ({
 
 export const richTextTypeMapper: IMapper<
   IRichTextTypeDto,
-  cg.RichTextTypeCreateInput,
-  cg.RichTextTypeUpdateInput,
-  cg.RichTextTypeDeleteInput
+  RichTextTypeCreateInput,
+  RichTextTypeUpdateInput,
+  RichTextTypeDeleteInput
 > = {
   toCreateInput: createOrUpdateRichTextType,
   toDeleteInput: () => ({}),
@@ -305,9 +376,9 @@ export const richTextTypeMapper: IMapper<
 
 export const unionTypeMapper: IMapper<
   IUnionTypeDto,
-  cg.UnionTypeCreateInput,
-  cg.UnionTypeUpdateInput,
-  cg.UnionTypeDeleteInput
+  UnionTypeCreateInput,
+  UnionTypeUpdateInput,
+  UnionTypeDeleteInput
 > = {
   toCreateInput: (dto) => {
     const types = connectTypesOfUnionType(dto.typesOfUnionType)

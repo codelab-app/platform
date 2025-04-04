@@ -7,5 +7,6 @@
 /coverage/
 # Ignore all directories that start with `.` at root
 /.*
+!/.circleci
 .next
 dist

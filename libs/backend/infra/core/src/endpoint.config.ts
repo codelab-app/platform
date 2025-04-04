@@ -1,5 +1,5 @@
 import { registerAs } from '@nestjs/config'
-import * as env from 'env-var'
+import { get } from 'env-var'
 
 export const ENDPOINT_CONFIG_KEY = 'ENDPOINT_CONFIG_KEY'
 
@@ -13,13 +13,13 @@ export const endpointConfig = registerAs(ENDPOINT_CONFIG_KEY, () => {
       return `${this.apiHostname}:${this.apiPort}`
     },
     get apiHostname() {
-      return env.get('NEXT_PUBLIC_API_HOSTNAME').required().asPortNumber()
+      return get('NEXT_PUBLIC_API_HOSTNAME').required().asPortNumber()
     },
     get apiPort() {
-      return env.get('NEXT_PUBLIC_API_PORT').required().asPortNumber()
+      return get('NEXT_PUBLIC_API_PORT').required().asPortNumber()
     },
     get baseApiPath() {
-      return env.get('NEXT_PUBLIC_BASE_API_PATH').required().asString()
+      return get('NEXT_PUBLIC_BASE_API_PATH').required().asString()
     },
   }
 })

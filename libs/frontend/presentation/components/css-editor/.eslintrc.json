@@ -9,7 +9,9 @@
           "libs/frontend/presentation/components/css-editor/tsconfig.*?.json"
         ]
       },
-      "rules": {}
+      "rules": {
+        "import/no-namespace": "off"
+      }
     },
     {
       "files": ["*.ts", "*.tsx"],
