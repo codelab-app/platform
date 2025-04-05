@@ -8,12 +8,11 @@ import {
   storeMapper,
   storeServerActions,
 } from '@codelab/shared-domain-module/store'
-import { withTracingMethods } from '@codelab/shared-infra-sentry'
 
 const { CreateStores, DeleteStores, GetStores, UpdateStores } =
   storeServerActions
 
-export const storeRepository: IStoreRepository = withTracingMethods('store', {
+export const storeRepository: IStoreRepository = {
   add: async (input: IStoreDto, next?: NextFetchOptions) => {
     const {
       createStores: { stores },
@@ -75,4 +74,4 @@ export const storeRepository: IStoreRepository = withTracingMethods('store', {
 
     return updatedStore
   },
-})
+}

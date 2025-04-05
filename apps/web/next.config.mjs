@@ -16,7 +16,6 @@ const withBundleAnalyzer = bundleAnalyzer({
 const enableInstrumentation = get('NEXT_WEB_ENABLE_OTEL').default(0).asBool()
 
 
-
 const plugins = enableInstrumentation
   ? [withNx, withBundleAnalyzer]
   : [withNx, withBundleAnalyzer]

@@ -16,12 +16,17 @@ import { Cache } from 'cache-manager'
 import { Request } from 'express'
 import { passportJwtSecret } from 'jwks-rsa'
 import { ExtractJwt, Strategy } from 'passport-jwt'
+import { isPlainObject } from 'remeda'
 
 interface IPassportStrategy {
   validate: VerifyCallbackWithRequest
 }
 
 export const JWT_STRATEGY = 'JWT_STRATEGY'
+
+// Track all cached keys
+const CACHE_PREFIX = 'userInfo:'
+const cachedKeys = new Set<string>()
 
 @Injectable()
 export class JwtStrategy
@@ -97,7 +102,12 @@ export class JwtStrategy
    * https://community.auth0.com/t/too-many-requests-when-calling-userinfo/26685
    */
   private async getCachedUserInfo(auth0Id: string, token: string) {
-    const cacheKey = `userInfo:${auth0Id}`
+    const cacheKey = `${CACHE_PREFIX}${auth0Id}`
+
+    // Add to tracking set
+    cachedKeys.add(cacheKey)
+
+    this.logger.debug(`Getting cached user info for key: ${cacheKey}`)
 
     const cachedUserInfo = await this.cacheManager.get<UserInfoResponse>(
       cacheKey,
@@ -117,9 +127,40 @@ export class JwtStrategy
 
     const { data: userInfo } = await client.getUserInfo(token)
 
-    await this.cacheManager.set(cacheKey, userInfo, 3600)
+    console.log({
+      availableCache: await this.cacheManager.get,
+      isPlainObject: isPlainObject(userInfo),
+    })
+
+    // Store serializable version of userInfo
+    await this.cacheManager.set(
+      cacheKey,
+      JSON.parse(JSON.stringify(userInfo)),
+      3600,
+    )
 
     return userInfo
+  }
+
+  /**
+   * Retrieves all cached user info
+   * Note: This only returns items cached since the application started
+   */
+  async getAllCachedUserInfo() {
+    const result = new Map<string, UserInfoResponse>()
+
+    for (const key of cachedKeys) {
+      const value = await this.cacheManager.get<UserInfoResponse>(key)
+
+      if (value) {
+        // Extract the auth0Id from the cache key
+        const auth0Id = key.replace(CACHE_PREFIX, '')
+
+        result.set(auth0Id, value)
+      }
+    }
+
+    return result
   }
 
   private readonly logger = new Logger(JwtStrategy.name)

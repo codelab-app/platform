@@ -9,7 +9,6 @@ import {
   atomMapper,
   atomServerActions,
 } from '@codelab/shared-domain-module/atom'
-import { withTracingMethods } from '@codelab/shared-infra-sentry'
 import { prop, sortBy } from 'remeda'
 
 const {
@@ -20,7 +19,7 @@ const {
   UpdateAtoms,
 } = atomServerActions
 
-export const atomRepository: IAtomRepository = withTracingMethods('atom', {
+export const atomRepository: IAtomRepository = {
   add: async (input: IAtomDto, next?: NextFetchOptions) => {
     const {
       createAtoms: { atoms },
@@ -91,4 +90,4 @@ export const atomRepository: IAtomRepository = withTracingMethods('atom', {
 
     return updatedAtom
   },
-})
+}
