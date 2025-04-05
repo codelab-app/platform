@@ -12,7 +12,9 @@ import { JwtAuthMiddleware } from './jwt/jwt-auth.middleware'
 @Module({
   exports: [JwtAuthGuard, JwtStrategy],
   imports: [
-    CacheModule.register(),
+    CacheModule.register({
+      ttl: 60_000,
+    }),
     UserDomainModule,
     PassportModule.register({
       defaultStrategy: JWT_STRATEGY,
