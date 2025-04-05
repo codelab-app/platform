@@ -12,7 +12,7 @@ import {
   UnionTypeRepository,
 } from '@codelab/backend/domain/type'
 import { UserRepository } from '@codelab/backend/domain/user'
-import { ITypeKind } from '@codelab/shared/abstract/core'
+import { IConfigPaneTab, ITypeKind } from '@codelab/shared/abstract/core'
 import { AtomType, BreakpointType } from '@codelab/shared/infra/gqlgen'
 import { logger } from '@codelab/shared/infra/logging'
 import { Validator } from '@codelab/shared/infra/typebox'
@@ -71,6 +71,7 @@ describe('ComponentResolvers', () => {
       name: 'something',
       picture: '',
       preferences: {
+        activeConfigPaneTab: IConfigPaneTab.Node,
         builderBreakpointType: BreakpointType.Desktop,
         builderWidth: 1000,
         id: v4(),
