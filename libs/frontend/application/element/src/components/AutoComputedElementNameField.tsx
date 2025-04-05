@@ -5,10 +5,11 @@ import type { Maybe } from '@codelab/shared/abstract/types'
 import type { InputProps } from 'antd'
 import type { FieldProps } from 'uniforms'
 
-import { useAtomService } from '@codelab/frontend-application-atom/services'
-import { componentRepository } from '@codelab/frontend-domain-component/repositories'
 import { makeAutoIncrementedName } from '@codelab/frontend-domain-element/use-cases/incremented-name'
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend-infra-mobx/context'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { titleCase } from '@codelab/shared/utils'
 import { observer } from 'mobx-react-lite'
@@ -30,7 +31,7 @@ type AutoComputedElementNameProps = FieldProps<
 const AutoComputedElementName = observer<AutoComputedElementNameProps>(
   (props) => {
     const { rendererService } = useApplicationStore()
-    const atomService = useAtomService()
+    const { atomDomainService, componentDomainService } = useDomainStore()
     const { name, onChange, value } = props
 
     const [renderTypeField] = useField<{
@@ -51,17 +52,26 @@ const AutoComputedElementName = observer<AutoComputedElementNameProps>(
         return
       }
 
-      if (renderType.__typename === IElementRenderTypeKind.Atom) {
-        renderTypeName = (await atomService.getOne(renderType.id))?.name
-      }
+      // if (renderType.__typename === IElementRenderTypeKind.Atom) {
+      //   renderTypeName = (await atomService.getOne(renderType.id))?.name
+      // }
 
-      if (renderType.__typename === IElementRenderTypeKind.Component) {
-        renderTypeName = (
-          await componentRepository.findOne({ id: renderType.id })
-        )?.name
-      }
+      // if (renderType.__typename === IElementRenderTypeKind.Component) {
+      //   renderTypeName = (
+      //     await componentRepository.findOne({ id: renderType.id })
+      //   )?.name
+      // }
 
-      renderTypeName = renderTypeName
+      const isAtom = renderType.__typename === IElementRenderTypeKind.Atom
+
+      renderTypeName = isAtom
+        ? atomDomainService.atomsList.find((atom) => atom.id === renderType.id)
+            ?.name
+        : componentDomainService.componentList.find(
+            (component) => component.id === renderType.id,
+          )?.name
+
+      renderTypeName = renderTypeName = renderTypeName
         ? makeAutoIncrementedName(
             rendererService.activeElementTree?.elements.map(
               (element) => element.name,

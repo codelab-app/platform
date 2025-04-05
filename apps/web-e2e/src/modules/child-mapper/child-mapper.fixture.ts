@@ -109,9 +109,7 @@ export class ChildMapperPage extends BuilderPage {
 
       await expect(row).toBeVisible()
 
-      const switcher = this.page.locator('.ant-tree-switcher_close')
-
-      await switcher.click()
+      await this.page.locator('.ant-tree-switcher_close').click()
 
       const col1 = this.getTreeElement(pageRowChild1.name, pageRowChild1.atom)
       const col2 = this.getTreeElement(pageRowChild2.name, pageRowChild2.atom)
