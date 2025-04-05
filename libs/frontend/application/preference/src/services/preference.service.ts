@@ -8,12 +8,17 @@ export const usePreferenceService = (): IPreferenceService => {
   const { userDomainService } = useDomainStore()
 
   const update = async ({
+    activeConfigPaneTab,
     builderBreakpointType,
     builderWidth,
   }: IUpdatePreferenceData) => {
     const preference = userDomainService.preference
 
-    preference.writeCache({ builderBreakpointType, builderWidth })
+    preference.writeCache({
+      activeConfigPaneTab,
+      builderBreakpointType,
+      builderWidth,
+    })
 
     await preferenceRepository.update({ id: preference.id }, preference)
 

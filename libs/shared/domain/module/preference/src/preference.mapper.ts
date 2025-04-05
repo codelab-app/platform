@@ -12,11 +12,13 @@ export const preferenceMapper: IMapper<
   PreferenceDeleteInput
 > = {
   toCreateInput: ({
+    activeConfigPaneTab,
     builderBreakpointType,
     builderWidth,
     id,
   }: IPreferenceDto): PreferenceCreateInput => {
     return {
+      activeConfigPaneTab,
       builderBreakpointType,
       builderWidth,
       id,
@@ -28,10 +30,12 @@ export const preferenceMapper: IMapper<
   },
 
   toUpdateInput: ({
+    activeConfigPaneTab,
     builderBreakpointType,
     builderWidth,
   }: IPreferenceDto): PreferenceUpdateInput => {
     return {
+      activeConfigPaneTab,
       builderBreakpointType,
       builderWidth,
     }

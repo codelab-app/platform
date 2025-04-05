@@ -1,5 +1,6 @@
 import { UserDomainModule, UserRepository } from '@codelab/backend/domain/user'
 import { initUserContext } from '@codelab/backend/test/setup'
+import { IConfigPaneTab } from '@codelab/shared/abstract/core'
 import { BreakpointType } from '@codelab/shared/infra/gqlgen'
 import { v4 } from 'uuid'
 
@@ -39,6 +40,7 @@ describe('Tag repository.', () => {
       name: 'someusername',
       picture: '',
       preferences: {
+        activeConfigPaneTab: IConfigPaneTab.Node,
         builderBreakpointType: BreakpointType.Desktop,
         builderWidth: 1000,
         id: v4(),
@@ -133,6 +135,7 @@ describe('Tag repository.', () => {
       name: 'testuser',
       picture: '',
       preferences: {
+        activeConfigPaneTab: IConfigPaneTab.Node,
         builderBreakpointType: BreakpointType.Desktop,
         builderWidth: 1000,
         id: v4(),

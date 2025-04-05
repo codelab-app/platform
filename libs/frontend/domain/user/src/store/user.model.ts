@@ -65,6 +65,8 @@ export class User
       auth0Id: this.auth0Id,
       email: this.email,
       id: this.id,
+      name: this.name,
+      picture: this.picture,
       username: this.username,
     }
   }

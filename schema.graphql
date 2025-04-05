@@ -311,6 +311,36 @@ input ActionTypeOwnerNodeAggregationWhereInput {
   id_MIN_GTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  picture_AVERAGE_LENGTH_EQUAL: Float
+  picture_AVERAGE_LENGTH_GT: Float
+  picture_AVERAGE_LENGTH_GTE: Float
+  picture_AVERAGE_LENGTH_LT: Float
+  picture_AVERAGE_LENGTH_LTE: Float
+  picture_LONGEST_LENGTH_EQUAL: Int
+  picture_LONGEST_LENGTH_GT: Int
+  picture_LONGEST_LENGTH_GTE: Int
+  picture_LONGEST_LENGTH_LT: Int
+  picture_LONGEST_LENGTH_LTE: Int
+  picture_SHORTEST_LENGTH_EQUAL: Int
+  picture_SHORTEST_LENGTH_GT: Int
+  picture_SHORTEST_LENGTH_GTE: Int
+  picture_SHORTEST_LENGTH_LT: Int
+  picture_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -399,6 +429,8 @@ type ActionTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelection!
   email: StringAggregateSelection!
   id: IDAggregateSelection! @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name: StringAggregateSelection!
+  picture: StringAggregateSelection!
   username: StringAggregateSelection!
 }
 
@@ -1862,6 +1894,36 @@ input AppOwnerNodeAggregationWhereInput {
   id_MIN_GTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  picture_AVERAGE_LENGTH_EQUAL: Float
+  picture_AVERAGE_LENGTH_GT: Float
+  picture_AVERAGE_LENGTH_GTE: Float
+  picture_AVERAGE_LENGTH_LT: Float
+  picture_AVERAGE_LENGTH_LTE: Float
+  picture_LONGEST_LENGTH_EQUAL: Int
+  picture_LONGEST_LENGTH_GT: Int
+  picture_LONGEST_LENGTH_GTE: Int
+  picture_LONGEST_LENGTH_LT: Int
+  picture_LONGEST_LENGTH_LTE: Int
+  picture_SHORTEST_LENGTH_EQUAL: Int
+  picture_SHORTEST_LENGTH_GT: Int
+  picture_SHORTEST_LENGTH_GTE: Int
+  picture_SHORTEST_LENGTH_LT: Int
+  picture_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -2358,6 +2420,36 @@ input AppTypeOwnerNodeAggregationWhereInput {
   id_MIN_GTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  picture_AVERAGE_LENGTH_EQUAL: Float
+  picture_AVERAGE_LENGTH_GT: Float
+  picture_AVERAGE_LENGTH_GTE: Float
+  picture_AVERAGE_LENGTH_LT: Float
+  picture_AVERAGE_LENGTH_LTE: Float
+  picture_LONGEST_LENGTH_EQUAL: Int
+  picture_LONGEST_LENGTH_GT: Int
+  picture_LONGEST_LENGTH_GTE: Int
+  picture_LONGEST_LENGTH_LT: Int
+  picture_LONGEST_LENGTH_LTE: Int
+  picture_SHORTEST_LENGTH_EQUAL: Int
+  picture_SHORTEST_LENGTH_GT: Int
+  picture_SHORTEST_LENGTH_GTE: Int
+  picture_SHORTEST_LENGTH_LT: Int
+  picture_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -2446,6 +2538,8 @@ type AppTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelection!
   email: StringAggregateSelection!
   id: IDAggregateSelection! @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name: StringAggregateSelection!
+  picture: StringAggregateSelection!
   username: StringAggregateSelection!
 }
 
@@ -2537,6 +2631,8 @@ type AppUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelection!
   email: StringAggregateSelection!
   id: IDAggregateSelection! @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name: StringAggregateSelection!
+  picture: StringAggregateSelection!
   username: StringAggregateSelection!
 }
 
@@ -3063,6 +3159,36 @@ input ArrayTypeOwnerNodeAggregationWhereInput {
   id_MIN_GTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  picture_AVERAGE_LENGTH_EQUAL: Float
+  picture_AVERAGE_LENGTH_GT: Float
+  picture_AVERAGE_LENGTH_GTE: Float
+  picture_AVERAGE_LENGTH_LT: Float
+  picture_AVERAGE_LENGTH_LTE: Float
+  picture_LONGEST_LENGTH_EQUAL: Int
+  picture_LONGEST_LENGTH_GT: Int
+  picture_LONGEST_LENGTH_GTE: Int
+  picture_LONGEST_LENGTH_LT: Int
+  picture_LONGEST_LENGTH_LTE: Int
+  picture_SHORTEST_LENGTH_EQUAL: Int
+  picture_SHORTEST_LENGTH_GT: Int
+  picture_SHORTEST_LENGTH_GTE: Int
+  picture_SHORTEST_LENGTH_LT: Int
+  picture_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -3152,6 +3278,8 @@ type ArrayTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelection!
   email: StringAggregateSelection!
   id: IDAggregateSelection! @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name: StringAggregateSelection!
+  picture: StringAggregateSelection!
   username: StringAggregateSelection!
 }
 
@@ -3748,6 +3876,36 @@ input AtomOwnerNodeAggregationWhereInput {
   id_MIN_GTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  picture_AVERAGE_LENGTH_EQUAL: Float
+  picture_AVERAGE_LENGTH_GT: Float
+  picture_AVERAGE_LENGTH_GTE: Float
+  picture_AVERAGE_LENGTH_LT: Float
+  picture_AVERAGE_LENGTH_LTE: Float
+  picture_LONGEST_LENGTH_EQUAL: Int
+  picture_LONGEST_LENGTH_GT: Int
+  picture_LONGEST_LENGTH_GTE: Int
+  picture_LONGEST_LENGTH_LT: Int
+  picture_LONGEST_LENGTH_LTE: Int
+  picture_SHORTEST_LENGTH_EQUAL: Int
+  picture_SHORTEST_LENGTH_GT: Int
+  picture_SHORTEST_LENGTH_GTE: Int
+  picture_SHORTEST_LENGTH_LT: Int
+  picture_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -4699,6 +4857,8 @@ type AtomUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelection!
   email: StringAggregateSelection!
   id: IDAggregateSelection! @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name: StringAggregateSelection!
+  picture: StringAggregateSelection!
   username: StringAggregateSelection!
 }
 
@@ -5162,6 +5322,36 @@ input AuthGuardOwnerNodeAggregationWhereInput {
   id_MIN_GTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  picture_AVERAGE_LENGTH_EQUAL: Float
+  picture_AVERAGE_LENGTH_GT: Float
+  picture_AVERAGE_LENGTH_GTE: Float
+  picture_AVERAGE_LENGTH_LT: Float
+  picture_AVERAGE_LENGTH_LTE: Float
+  picture_LONGEST_LENGTH_EQUAL: Int
+  picture_LONGEST_LENGTH_GT: Int
+  picture_LONGEST_LENGTH_GTE: Int
+  picture_LONGEST_LENGTH_LT: Int
+  picture_LONGEST_LENGTH_LTE: Int
+  picture_SHORTEST_LENGTH_EQUAL: Int
+  picture_SHORTEST_LENGTH_GT: Int
+  picture_SHORTEST_LENGTH_GTE: Int
+  picture_SHORTEST_LENGTH_LT: Int
+  picture_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -5381,6 +5571,8 @@ type AuthGuardUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelection!
   email: StringAggregateSelection!
   id: IDAggregateSelection! @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name: StringAggregateSelection!
+  picture: StringAggregateSelection!
   username: StringAggregateSelection!
 }
 
@@ -6882,6 +7074,36 @@ input CodeMirrorTypeOwnerNodeAggregationWhereInput {
   id_MIN_GTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  picture_AVERAGE_LENGTH_EQUAL: Float
+  picture_AVERAGE_LENGTH_GT: Float
+  picture_AVERAGE_LENGTH_GTE: Float
+  picture_AVERAGE_LENGTH_LT: Float
+  picture_AVERAGE_LENGTH_LTE: Float
+  picture_LONGEST_LENGTH_EQUAL: Int
+  picture_LONGEST_LENGTH_GT: Int
+  picture_LONGEST_LENGTH_GTE: Int
+  picture_LONGEST_LENGTH_LT: Int
+  picture_LONGEST_LENGTH_LTE: Int
+  picture_SHORTEST_LENGTH_EQUAL: Int
+  picture_SHORTEST_LENGTH_GT: Int
+  picture_SHORTEST_LENGTH_GTE: Int
+  picture_SHORTEST_LENGTH_LT: Int
+  picture_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -6976,6 +7198,8 @@ type CodeMirrorTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelection!
   email: StringAggregateSelection!
   id: IDAggregateSelection! @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name: StringAggregateSelection!
+  picture: StringAggregateSelection!
   username: StringAggregateSelection!
 }
 
@@ -7362,6 +7586,36 @@ input ComponentOwnerNodeAggregationWhereInput {
   id_MIN_GTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  picture_AVERAGE_LENGTH_EQUAL: Float
+  picture_AVERAGE_LENGTH_GT: Float
+  picture_AVERAGE_LENGTH_GTE: Float
+  picture_AVERAGE_LENGTH_LT: Float
+  picture_AVERAGE_LENGTH_LTE: Float
+  picture_LONGEST_LENGTH_EQUAL: Int
+  picture_LONGEST_LENGTH_GT: Int
+  picture_LONGEST_LENGTH_GTE: Int
+  picture_LONGEST_LENGTH_LT: Int
+  picture_LONGEST_LENGTH_LTE: Int
+  picture_SHORTEST_LENGTH_EQUAL: Int
+  picture_SHORTEST_LENGTH_GT: Int
+  picture_SHORTEST_LENGTH_GTE: Int
+  picture_SHORTEST_LENGTH_LT: Int
+  picture_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -7845,6 +8099,8 @@ type ComponentUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelection!
   email: StringAggregateSelection!
   id: IDAggregateSelection! @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name: StringAggregateSelection!
+  picture: StringAggregateSelection!
   username: StringAggregateSelection!
 }
 
@@ -7886,6 +8142,17 @@ type ComponentsConnection {
   edges: [ComponentEdge!]!
   pageInfo: PageInfo!
   totalCount: Int!
+}
+
+enum ConfigPaneTab {
+  CSS
+  Component
+  Node
+  Page
+  Props
+  PropsInspector
+  PropsMap
+  PropsTransformation
 }
 
 union ContainerNode = Component | Page
@@ -10656,6 +10923,36 @@ input ElementTypeOwnerNodeAggregationWhereInput {
   id_MIN_GTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  picture_AVERAGE_LENGTH_EQUAL: Float
+  picture_AVERAGE_LENGTH_GT: Float
+  picture_AVERAGE_LENGTH_GTE: Float
+  picture_AVERAGE_LENGTH_LT: Float
+  picture_AVERAGE_LENGTH_LTE: Float
+  picture_LONGEST_LENGTH_EQUAL: Int
+  picture_LONGEST_LENGTH_GT: Int
+  picture_LONGEST_LENGTH_GTE: Int
+  picture_LONGEST_LENGTH_LT: Int
+  picture_LONGEST_LENGTH_LTE: Int
+  picture_SHORTEST_LENGTH_EQUAL: Int
+  picture_SHORTEST_LENGTH_GT: Int
+  picture_SHORTEST_LENGTH_GTE: Int
+  picture_SHORTEST_LENGTH_LT: Int
+  picture_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -10750,6 +11047,8 @@ type ElementTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelection!
   email: StringAggregateSelection!
   id: IDAggregateSelection! @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name: StringAggregateSelection!
+  picture: StringAggregateSelection!
   username: StringAggregateSelection!
 }
 
@@ -11469,6 +11768,36 @@ input EnumTypeOwnerNodeAggregationWhereInput {
   id_MIN_GTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  picture_AVERAGE_LENGTH_EQUAL: Float
+  picture_AVERAGE_LENGTH_GT: Float
+  picture_AVERAGE_LENGTH_GTE: Float
+  picture_AVERAGE_LENGTH_LT: Float
+  picture_AVERAGE_LENGTH_LTE: Float
+  picture_LONGEST_LENGTH_EQUAL: Int
+  picture_LONGEST_LENGTH_GT: Int
+  picture_LONGEST_LENGTH_GTE: Int
+  picture_LONGEST_LENGTH_LT: Int
+  picture_LONGEST_LENGTH_LTE: Int
+  picture_SHORTEST_LENGTH_EQUAL: Int
+  picture_SHORTEST_LENGTH_GT: Int
+  picture_SHORTEST_LENGTH_GTE: Int
+  picture_SHORTEST_LENGTH_LT: Int
+  picture_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -11558,6 +11887,8 @@ type EnumTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelection!
   email: StringAggregateSelection!
   id: IDAggregateSelection! @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name: StringAggregateSelection!
+  picture: StringAggregateSelection!
   username: StringAggregateSelection!
 }
 
@@ -13571,6 +13902,36 @@ input IBaseTypeOwnerNodeAggregationWhereInput {
   id_MIN_GTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  picture_AVERAGE_LENGTH_EQUAL: Float
+  picture_AVERAGE_LENGTH_GT: Float
+  picture_AVERAGE_LENGTH_GTE: Float
+  picture_AVERAGE_LENGTH_LT: Float
+  picture_AVERAGE_LENGTH_LTE: Float
+  picture_LONGEST_LENGTH_EQUAL: Int
+  picture_LONGEST_LENGTH_GT: Int
+  picture_LONGEST_LENGTH_GTE: Int
+  picture_LONGEST_LENGTH_LT: Int
+  picture_LONGEST_LENGTH_LTE: Int
+  picture_SHORTEST_LENGTH_EQUAL: Int
+  picture_SHORTEST_LENGTH_GT: Int
+  picture_SHORTEST_LENGTH_GTE: Int
+  picture_SHORTEST_LENGTH_LT: Int
+  picture_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -14381,6 +14742,36 @@ input InterfaceTypeOwnerNodeAggregationWhereInput {
   id_MIN_GTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  picture_AVERAGE_LENGTH_EQUAL: Float
+  picture_AVERAGE_LENGTH_GT: Float
+  picture_AVERAGE_LENGTH_GTE: Float
+  picture_AVERAGE_LENGTH_LT: Float
+  picture_AVERAGE_LENGTH_LTE: Float
+  picture_LONGEST_LENGTH_EQUAL: Int
+  picture_LONGEST_LENGTH_GT: Int
+  picture_LONGEST_LENGTH_GTE: Int
+  picture_LONGEST_LENGTH_LT: Int
+  picture_LONGEST_LENGTH_LTE: Int
+  picture_SHORTEST_LENGTH_EQUAL: Int
+  picture_SHORTEST_LENGTH_GT: Int
+  picture_SHORTEST_LENGTH_GTE: Int
+  picture_SHORTEST_LENGTH_LT: Int
+  picture_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -14471,6 +14862,8 @@ type InterfaceTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelection!
   email: StringAggregateSelection!
   id: IDAggregateSelection! @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name: StringAggregateSelection!
+  picture: StringAggregateSelection!
   username: StringAggregateSelection!
 }
 
@@ -14929,6 +15322,36 @@ input LambdaTypeOwnerNodeAggregationWhereInput {
   id_MIN_GTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  picture_AVERAGE_LENGTH_EQUAL: Float
+  picture_AVERAGE_LENGTH_GT: Float
+  picture_AVERAGE_LENGTH_GTE: Float
+  picture_AVERAGE_LENGTH_LT: Float
+  picture_AVERAGE_LENGTH_LTE: Float
+  picture_LONGEST_LENGTH_EQUAL: Int
+  picture_LONGEST_LENGTH_GT: Int
+  picture_LONGEST_LENGTH_GTE: Int
+  picture_LONGEST_LENGTH_LT: Int
+  picture_LONGEST_LENGTH_LTE: Int
+  picture_SHORTEST_LENGTH_EQUAL: Int
+  picture_SHORTEST_LENGTH_GT: Int
+  picture_SHORTEST_LENGTH_GTE: Int
+  picture_SHORTEST_LENGTH_LT: Int
+  picture_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -15017,6 +15440,8 @@ type LambdaTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelection!
   email: StringAggregateSelection!
   id: IDAggregateSelection! @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name: StringAggregateSelection!
+  picture: StringAggregateSelection!
   username: StringAggregateSelection!
 }
 
@@ -16373,6 +16798,36 @@ input PageTypeOwnerNodeAggregationWhereInput {
   id_MIN_GTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  picture_AVERAGE_LENGTH_EQUAL: Float
+  picture_AVERAGE_LENGTH_GT: Float
+  picture_AVERAGE_LENGTH_GTE: Float
+  picture_AVERAGE_LENGTH_LT: Float
+  picture_AVERAGE_LENGTH_LTE: Float
+  picture_LONGEST_LENGTH_EQUAL: Int
+  picture_LONGEST_LENGTH_GT: Int
+  picture_LONGEST_LENGTH_GTE: Int
+  picture_LONGEST_LENGTH_LT: Int
+  picture_LONGEST_LENGTH_LTE: Int
+  picture_SHORTEST_LENGTH_EQUAL: Int
+  picture_SHORTEST_LENGTH_GT: Int
+  picture_SHORTEST_LENGTH_GTE: Int
+  picture_SHORTEST_LENGTH_LT: Int
+  picture_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -16461,6 +16916,8 @@ type PageTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelection!
   email: StringAggregateSelection!
   id: IDAggregateSelection! @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name: StringAggregateSelection!
+  picture: StringAggregateSelection!
   username: StringAggregateSelection!
 }
 
@@ -16600,6 +17057,7 @@ type PagesConnection {
 }
 
 type Preference implements WithOwner {
+  activeConfigPaneTab: ConfigPaneTab!
   builderBreakpointType: BreakpointType!
   builderWidth: Float!
   id: ID!
@@ -16623,6 +17081,7 @@ input PreferenceConnectWhere {
 }
 
 input PreferenceCreateInput {
+  activeConfigPaneTab: ConfigPaneTab!
   builderBreakpointType: BreakpointType!
   builderWidth: Float!
   id: ID!
@@ -16655,6 +17114,7 @@ type PreferenceEdge {
 }
 
 type PreferenceEventPayload {
+  activeConfigPaneTab: ConfigPaneTab!
   builderBreakpointType: BreakpointType!
   builderWidth: Float!
   id: ID!
@@ -16746,6 +17206,36 @@ input PreferenceOwnerNodeAggregationWhereInput {
   id_MIN_GTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  picture_AVERAGE_LENGTH_EQUAL: Float
+  picture_AVERAGE_LENGTH_GT: Float
+  picture_AVERAGE_LENGTH_GTE: Float
+  picture_AVERAGE_LENGTH_LT: Float
+  picture_AVERAGE_LENGTH_LTE: Float
+  picture_LONGEST_LENGTH_EQUAL: Int
+  picture_LONGEST_LENGTH_GT: Int
+  picture_LONGEST_LENGTH_GTE: Int
+  picture_LONGEST_LENGTH_LT: Int
+  picture_LONGEST_LENGTH_LTE: Int
+  picture_SHORTEST_LENGTH_EQUAL: Int
+  picture_SHORTEST_LENGTH_GT: Int
+  picture_SHORTEST_LENGTH_GTE: Int
+  picture_SHORTEST_LENGTH_LT: Int
+  picture_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -16780,6 +17270,7 @@ input PreferenceOwnerUpdateFieldInput {
 Fields to sort Preferences by. The order in which sorts are applied is not guaranteed when specifying many fields in one PreferenceSort object.
 """
 input PreferenceSort {
+  activeConfigPaneTab: SortDirection
   builderBreakpointType: SortDirection
   builderWidth: SortDirection
   id: SortDirection
@@ -16789,6 +17280,9 @@ input PreferenceSubscriptionWhere {
   AND: [PreferenceSubscriptionWhere!]
   NOT: PreferenceSubscriptionWhere
   OR: [PreferenceSubscriptionWhere!]
+  activeConfigPaneTab: ConfigPaneTab @deprecated(reason: "Please use the explicit _EQ version")
+  activeConfigPaneTab_EQ: ConfigPaneTab
+  activeConfigPaneTab_IN: [ConfigPaneTab!]
   builderBreakpointType: BreakpointType @deprecated(reason: "Please use the explicit _EQ version")
   builderBreakpointType_EQ: BreakpointType
   builderBreakpointType_IN: [BreakpointType!]
@@ -16808,6 +17302,8 @@ input PreferenceSubscriptionWhere {
 }
 
 input PreferenceUpdateInput {
+  activeConfigPaneTab: ConfigPaneTab @deprecated(reason: "Please use the explicit _SET field")
+  activeConfigPaneTab_SET: ConfigPaneTab
   builderBreakpointType: BreakpointType @deprecated(reason: "Please use the explicit _SET field")
   builderBreakpointType_SET: BreakpointType
   builderWidth: Float @deprecated(reason: "Please use the explicit _SET field")
@@ -16835,6 +17331,8 @@ type PreferenceUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelection!
   email: StringAggregateSelection!
   id: IDAggregateSelection! @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name: StringAggregateSelection!
+  picture: StringAggregateSelection!
   username: StringAggregateSelection!
 }
 
@@ -16842,6 +17340,9 @@ input PreferenceWhere {
   AND: [PreferenceWhere!]
   NOT: PreferenceWhere
   OR: [PreferenceWhere!]
+  activeConfigPaneTab: ConfigPaneTab @deprecated(reason: "Please use the explicit _EQ version")
+  activeConfigPaneTab_EQ: ConfigPaneTab
+  activeConfigPaneTab_IN: [ConfigPaneTab!]
   builderBreakpointType: BreakpointType @deprecated(reason: "Please use the explicit _EQ version")
   builderBreakpointType_EQ: BreakpointType
   builderBreakpointType_IN: [BreakpointType!]
@@ -17186,6 +17687,36 @@ input PrimitiveTypeOwnerNodeAggregationWhereInput {
   id_MIN_GTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  picture_AVERAGE_LENGTH_EQUAL: Float
+  picture_AVERAGE_LENGTH_GT: Float
+  picture_AVERAGE_LENGTH_GTE: Float
+  picture_AVERAGE_LENGTH_LT: Float
+  picture_AVERAGE_LENGTH_LTE: Float
+  picture_LONGEST_LENGTH_EQUAL: Int
+  picture_LONGEST_LENGTH_GT: Int
+  picture_LONGEST_LENGTH_GTE: Int
+  picture_LONGEST_LENGTH_LT: Int
+  picture_LONGEST_LENGTH_LTE: Int
+  picture_SHORTEST_LENGTH_EQUAL: Int
+  picture_SHORTEST_LENGTH_GT: Int
+  picture_SHORTEST_LENGTH_GTE: Int
+  picture_SHORTEST_LENGTH_LT: Int
+  picture_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -17280,6 +17811,8 @@ type PrimitiveTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelection!
   email: StringAggregateSelection!
   id: IDAggregateSelection! @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name: StringAggregateSelection!
+  picture: StringAggregateSelection!
   username: StringAggregateSelection!
 }
 
@@ -17961,6 +18494,36 @@ input ReactNodeTypeOwnerNodeAggregationWhereInput {
   id_MIN_GTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  picture_AVERAGE_LENGTH_EQUAL: Float
+  picture_AVERAGE_LENGTH_GT: Float
+  picture_AVERAGE_LENGTH_GTE: Float
+  picture_AVERAGE_LENGTH_LT: Float
+  picture_AVERAGE_LENGTH_LTE: Float
+  picture_LONGEST_LENGTH_EQUAL: Int
+  picture_LONGEST_LENGTH_GT: Int
+  picture_LONGEST_LENGTH_GTE: Int
+  picture_LONGEST_LENGTH_LT: Int
+  picture_LONGEST_LENGTH_LTE: Int
+  picture_SHORTEST_LENGTH_EQUAL: Int
+  picture_SHORTEST_LENGTH_GT: Int
+  picture_SHORTEST_LENGTH_GTE: Int
+  picture_SHORTEST_LENGTH_LT: Int
+  picture_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -18049,6 +18612,8 @@ type ReactNodeTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelection!
   email: StringAggregateSelection!
   id: IDAggregateSelection! @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name: StringAggregateSelection!
+  picture: StringAggregateSelection!
   username: StringAggregateSelection!
 }
 
@@ -19019,6 +19584,36 @@ input RenderPropTypeOwnerNodeAggregationWhereInput {
   id_MIN_GTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  picture_AVERAGE_LENGTH_EQUAL: Float
+  picture_AVERAGE_LENGTH_GT: Float
+  picture_AVERAGE_LENGTH_GTE: Float
+  picture_AVERAGE_LENGTH_LT: Float
+  picture_AVERAGE_LENGTH_LTE: Float
+  picture_LONGEST_LENGTH_EQUAL: Int
+  picture_LONGEST_LENGTH_GT: Int
+  picture_LONGEST_LENGTH_GTE: Int
+  picture_LONGEST_LENGTH_LT: Int
+  picture_LONGEST_LENGTH_LTE: Int
+  picture_SHORTEST_LENGTH_EQUAL: Int
+  picture_SHORTEST_LENGTH_GT: Int
+  picture_SHORTEST_LENGTH_GTE: Int
+  picture_SHORTEST_LENGTH_LT: Int
+  picture_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -19107,6 +19702,8 @@ type RenderPropTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelection!
   email: StringAggregateSelection!
   id: IDAggregateSelection! @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name: StringAggregateSelection!
+  picture: StringAggregateSelection!
   username: StringAggregateSelection!
 }
 
@@ -19440,6 +20037,36 @@ input ResourceOwnerNodeAggregationWhereInput {
   id_MIN_GTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  picture_AVERAGE_LENGTH_EQUAL: Float
+  picture_AVERAGE_LENGTH_GT: Float
+  picture_AVERAGE_LENGTH_GTE: Float
+  picture_AVERAGE_LENGTH_LT: Float
+  picture_AVERAGE_LENGTH_LTE: Float
+  picture_LONGEST_LENGTH_EQUAL: Int
+  picture_LONGEST_LENGTH_GT: Int
+  picture_LONGEST_LENGTH_GTE: Int
+  picture_LONGEST_LENGTH_LT: Int
+  picture_LONGEST_LENGTH_LTE: Int
+  picture_SHORTEST_LENGTH_EQUAL: Int
+  picture_SHORTEST_LENGTH_GT: Int
+  picture_SHORTEST_LENGTH_GTE: Int
+  picture_SHORTEST_LENGTH_LT: Int
+  picture_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -19541,6 +20168,8 @@ type ResourceUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelection!
   email: StringAggregateSelection!
   id: IDAggregateSelection! @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name: StringAggregateSelection!
+  picture: StringAggregateSelection!
   username: StringAggregateSelection!
 }
 
@@ -19883,6 +20512,36 @@ input RichTextTypeOwnerNodeAggregationWhereInput {
   id_MIN_GTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  picture_AVERAGE_LENGTH_EQUAL: Float
+  picture_AVERAGE_LENGTH_GT: Float
+  picture_AVERAGE_LENGTH_GTE: Float
+  picture_AVERAGE_LENGTH_LT: Float
+  picture_AVERAGE_LENGTH_LTE: Float
+  picture_LONGEST_LENGTH_EQUAL: Int
+  picture_LONGEST_LENGTH_GT: Int
+  picture_LONGEST_LENGTH_GTE: Int
+  picture_LONGEST_LENGTH_LT: Int
+  picture_LONGEST_LENGTH_LTE: Int
+  picture_SHORTEST_LENGTH_EQUAL: Int
+  picture_SHORTEST_LENGTH_GT: Int
+  picture_SHORTEST_LENGTH_GTE: Int
+  picture_SHORTEST_LENGTH_LT: Int
+  picture_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -19971,6 +20630,8 @@ type RichTextTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelection!
   email: StringAggregateSelection!
   id: IDAggregateSelection! @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name: StringAggregateSelection!
+  picture: StringAggregateSelection!
   username: StringAggregateSelection!
 }
 
@@ -21047,6 +21708,36 @@ input TagOwnerNodeAggregationWhereInput {
   id_MIN_GTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  picture_AVERAGE_LENGTH_EQUAL: Float
+  picture_AVERAGE_LENGTH_GT: Float
+  picture_AVERAGE_LENGTH_GTE: Float
+  picture_AVERAGE_LENGTH_LT: Float
+  picture_AVERAGE_LENGTH_LTE: Float
+  picture_LONGEST_LENGTH_EQUAL: Int
+  picture_LONGEST_LENGTH_GT: Int
+  picture_LONGEST_LENGTH_GTE: Int
+  picture_LONGEST_LENGTH_LT: Int
+  picture_LONGEST_LENGTH_LTE: Int
+  picture_SHORTEST_LENGTH_EQUAL: Int
+  picture_SHORTEST_LENGTH_GT: Int
+  picture_SHORTEST_LENGTH_GTE: Int
+  picture_SHORTEST_LENGTH_LT: Int
+  picture_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -21257,6 +21948,8 @@ type TagUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelection!
   email: StringAggregateSelection!
   id: IDAggregateSelection! @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name: StringAggregateSelection!
+  picture: StringAggregateSelection!
   username: StringAggregateSelection!
 }
 
@@ -21808,6 +22501,36 @@ input UnionTypeOwnerNodeAggregationWhereInput {
   id_MIN_GTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  picture_AVERAGE_LENGTH_EQUAL: Float
+  picture_AVERAGE_LENGTH_GT: Float
+  picture_AVERAGE_LENGTH_GTE: Float
+  picture_AVERAGE_LENGTH_LT: Float
+  picture_AVERAGE_LENGTH_LTE: Float
+  picture_LONGEST_LENGTH_EQUAL: Int
+  picture_LONGEST_LENGTH_GT: Int
+  picture_LONGEST_LENGTH_GTE: Int
+  picture_LONGEST_LENGTH_LT: Int
+  picture_LONGEST_LENGTH_LTE: Int
+  picture_SHORTEST_LENGTH_EQUAL: Int
+  picture_SHORTEST_LENGTH_GT: Int
+  picture_SHORTEST_LENGTH_GTE: Int
+  picture_SHORTEST_LENGTH_LT: Int
+  picture_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
@@ -22626,6 +23349,8 @@ type UnionTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelection!
   email: StringAggregateSelection!
   id: IDAggregateSelection! @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name: StringAggregateSelection!
+  picture: StringAggregateSelection!
   username: StringAggregateSelection!
 }
 
@@ -22921,9 +23646,9 @@ type User {
   elementsConnection(after: String, directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), first: Int, sort: [UserElementsConnectionSort!], where: UserElementsConnectionWhere): UserElementsConnection!
   email: String!
   id: ID!
-  name: String
-  picture: String
-  preferences(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), limit: Int, offset: Int, options: PreferenceOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), sort: [PreferenceSort!], where: PreferenceWhere): Preference
+  name: String!
+  picture: String!
+  preferences(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), limit: Int, offset: Int, options: PreferenceOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), sort: [PreferenceSort!], where: PreferenceWhere): Preference!
   preferencesAggregate(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), where: PreferenceWhere): UserPreferencePreferencesAggregationSelection
   preferencesConnection(after: String, directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), first: Int, sort: [UserPreferencesConnectionSort!], where: UserPreferencesConnectionWhere): UserPreferencesConnection!
   roles: [Role!]
@@ -22941,6 +23666,8 @@ type UserAggregateSelection {
   count: Int!
   email: StringAggregateSelection!
   id: IDAggregateSelection! @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name: StringAggregateSelection!
+  picture: StringAggregateSelection!
   username: StringAggregateSelection!
 }
 
@@ -23384,8 +24111,8 @@ input UserCreateInput {
   elements: UserElementsFieldInput
   email: String!
   id: ID!
-  name: String
-  picture: String
+  name: String!
+  picture: String!
   preferences: UserPreferencesFieldInput
   roles: [Role!]
   tags: UserTagsFieldInput
@@ -23616,6 +24343,8 @@ type UserEventPayload {
   auth0Id: String!
   email: String!
   id: ID!
+  name: String!
+  picture: String!
   roles: [Role!]
   username: String!
 }
@@ -23770,6 +24499,8 @@ input UserSort {
   auth0Id: SortDirection
   email: SortDirection
   id: SortDirection
+  name: SortDirection
+  picture: SortDirection
   username: SortDirection
 }
 
@@ -23797,6 +24528,20 @@ input UserSubscriptionWhere {
   id_EQ: ID
   id_IN: [ID!]
   id_STARTS_WITH: ID
+  name: String @deprecated(reason: "Please use the explicit _EQ version")
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_EQ: String
+  name_IN: [String!]
+  name_MATCHES: String
+  name_STARTS_WITH: String
+  picture: String @deprecated(reason: "Please use the explicit _EQ version")
+  picture_CONTAINS: String
+  picture_ENDS_WITH: String
+  picture_EQ: String
+  picture_IN: [String!]
+  picture_MATCHES: String
+  picture_STARTS_WITH: String
   roles: [Role!] @deprecated(reason: "Please use the explicit _EQ version")
   roles_EQ: [Role!]
   roles_INCLUDES: Role
@@ -24215,6 +24960,20 @@ input UserWhere {
   id_EQ: ID
   id_IN: [ID!]
   id_STARTS_WITH: ID
+  name: String @deprecated(reason: "Please use the explicit _EQ version")
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_EQ: String
+  name_IN: [String!]
+  name_MATCHES: String
+  name_STARTS_WITH: String
+  picture: String @deprecated(reason: "Please use the explicit _EQ version")
+  picture_CONTAINS: String
+  picture_ENDS_WITH: String
+  picture_EQ: String
+  picture_IN: [String!]
+  picture_MATCHES: String
+  picture_STARTS_WITH: String
   preferences: PreferenceWhere
   preferencesAggregate: UserPreferencesAggregateInput
   preferencesConnection: UserPreferencesConnectionWhere
@@ -24456,6 +25215,36 @@ input WithOwnerOwnerNodeAggregationWhereInput {
   id_MIN_GTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LT: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
   id_MIN_LTE: ID @deprecated(reason: "aggregation of ID fields are deprecated and will be removed")
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  picture_AVERAGE_LENGTH_EQUAL: Float
+  picture_AVERAGE_LENGTH_GT: Float
+  picture_AVERAGE_LENGTH_GTE: Float
+  picture_AVERAGE_LENGTH_LT: Float
+  picture_AVERAGE_LENGTH_LTE: Float
+  picture_LONGEST_LENGTH_EQUAL: Int
+  picture_LONGEST_LENGTH_GT: Int
+  picture_LONGEST_LENGTH_GTE: Int
+  picture_LONGEST_LENGTH_LT: Int
+  picture_LONGEST_LENGTH_LTE: Int
+  picture_SHORTEST_LENGTH_EQUAL: Int
+  picture_SHORTEST_LENGTH_GT: Int
+  picture_SHORTEST_LENGTH_GTE: Int
+  picture_SHORTEST_LENGTH_LT: Int
+  picture_SHORTEST_LENGTH_LTE: Int
   username_AVERAGE_LENGTH_EQUAL: Float
   username_AVERAGE_LENGTH_GT: Float
   username_AVERAGE_LENGTH_GTE: Float
