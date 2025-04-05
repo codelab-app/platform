@@ -38,10 +38,10 @@ export const ElementTreeView = observer<{
         return !data.dragNode.isChildMapperComponentInstance
       }}
       autoExpandParent={false}
-      defaultExpandedKeys={runtimeElementService.getExpandedCompositeKeys()}
       defaultSelectedKeys={selectedNode ? [selectedNode.compositeKey] : []}
       disabled={isMoving}
       draggable={true}
+      expandedKeys={runtimeElementService.getExpandedCompositeKeys()}
       onClick={(event) => {
         event.stopPropagation()
       }}
@@ -49,9 +49,9 @@ export const ElementTreeView = observer<{
       onExpand={(expandedKeys) => {
         runtimeElementService.elementsList.forEach((runtimeElement) => {
           // element will be marked modified automatically
-          runtimeElement.element.current.setExpanded(
-            expandedKeys.includes(runtimeElement.compositeKey),
-          )
+          runtimeElement.element.current.writeCache({
+            expanded: expandedKeys.includes(runtimeElement.compositeKey),
+          })
         })
 
         void syncModifiedElements()

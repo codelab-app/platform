@@ -594,10 +594,10 @@ export class Element
       : this.parentComponent
     this.preRenderActions = preRenderActions
       ? preRenderActions.map((action) => actionRef(action.id))
-      : []
+      : this.preRenderActions
     this.postRenderActions = postRenderActions
       ? postRenderActions.map((action) => actionRef(action.id))
-      : []
+      : this.postRenderActions
     this.childMapperComponent = childMapperComponent?.id
       ? componentRef(childMapperComponent.id)
       : null

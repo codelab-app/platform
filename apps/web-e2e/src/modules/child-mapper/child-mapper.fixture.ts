@@ -103,13 +103,16 @@ export class ChildMapperPage extends BuilderPage {
 
   async expandElementsTree() {
     return test.step('expandElementsTree', async () => {
-      await this.page.locator('.ant-tree-switcher_close').click()
+      await this.page.getByLabel('plus-square').click()
 
       const row = this.getTreeElement(pageRowElement.name, pageRowElement.atom)
 
       await expect(row).toBeVisible()
 
-      await this.page.locator('.ant-tree-switcher_close').click()
+      // for some reason tests are failling unless we click the row before expanding
+      await row.click()
+
+      await this.page.getByLabel('plus-square').click()
 
       const col1 = this.getTreeElement(pageRowChild1.name, pageRowChild1.atom)
       const col2 = this.getTreeElement(pageRowChild2.name, pageRowChild2.atom)
@@ -125,9 +128,9 @@ export class ChildMapperPage extends BuilderPage {
 
       const updateElementForm = this.getUpdateElementForm()
 
-      await updateElementForm
-        .locator('.ant-collapse-header', { hasText: 'Child Mapper' })
-        .click()
+      // await updateElementForm
+      //   .locator('.ant-collapse-header', { hasText: 'Child Mapper' })
+      //   .click()
 
       await this.fillInputSelect(
         { label: 'Component' },

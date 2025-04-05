@@ -139,7 +139,7 @@ export class BasePage {
       await page.getByLabel(label, { exact: true }).fill(value, { force: true })
 
       // wait for dropdown to be visible
-      const visibleDropdown = this.page
+      const visibleDropdown = await this.page
         .locator('.ant-select-dropdown:not(.ant-select-dropdown-hidden)')
         .filter({
           has: this.page

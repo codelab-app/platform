@@ -2,9 +2,7 @@ import type { IAtomModel } from '@codelab/frontend/abstract/domain'
 import type { SelectOption } from '@codelab/frontend/abstract/types'
 
 import { useAtomService } from '@codelab/frontend-application-atom/services'
-import { getSelectComponentOptions } from '@codelab/frontend-domain-component/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { useEffect } from 'react'
 import { useAsyncFn } from 'react-use'
 
 export const useLoadOptions = (parentElementId?: string) => {
@@ -18,15 +16,15 @@ export const useLoadOptions = (parentElementId?: string) => {
     [parentAtom],
   )
 
-  const [components, loadComponentOptions] = useAsyncFn(() =>
-    getSelectComponentOptions(componentDomainService),
-  )
+  // const [components, loadComponentOptions] = useAsyncFn(() =>
+  //   getSelectComponentOptions(componentDomainService),
+  // )
 
-  useEffect(() => {
-    void Promise.all([loadComponentOptions(), loadAtomOptions()])
-  }, [loadComponentOptions, loadAtomOptions])
+  // useEffect(() => {
+  //   void Promise.all([loadComponentOptions(), loadAtomOptions()])
+  // }, [loadComponentOptions, loadAtomOptions])
 
-  return { atoms, components }
+  return { atoms: [], components: componentDomainService.componentList }
 }
 
 export const useRenderTypeSelectOptions = (
