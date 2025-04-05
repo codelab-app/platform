@@ -10,7 +10,7 @@ import { JwtAuthGuard } from './jwt/jwt-auth.guard'
 import { JwtAuthMiddleware } from './jwt/jwt-auth.middleware'
 
 @Module({
-  exports: [JwtAuthMiddleware, JwtAuthGuard, JwtStrategy],
+  exports: [JwtAuthGuard, JwtStrategy],
   imports: [
     CacheModule.register(),
     UserDomainModule,
@@ -21,6 +21,6 @@ import { JwtAuthMiddleware } from './jwt/jwt-auth.middleware'
       load: [auth0Config],
     }),
   ],
-  providers: [JwtStrategy, JwtAuthMiddleware, JwtAuthGuard],
+  providers: [JwtStrategy, JwtAuthGuard],
 })
 export class AuthModule {}
