@@ -3,14 +3,16 @@ import type { SessionData } from '@auth0/nextjs-auth0/types'
 import type { Nullable } from '@codelab/shared/abstract/types'
 
 import { Auth0Client } from '@auth0/nextjs-auth0/server'
-import { getEnv } from '@codelab/shared/config/env'
 import { get } from 'env-var'
 import { NextResponse } from 'next/server'
 
+/**
+ * Using direct env-var access instead of getEnv due to edge dependency constraints
+ */
 export const auth0Instance = new Auth0Client({
-  appBaseUrl: getEnv().auth0.baseUrl,
+  appBaseUrl: get('NEXT_PUBLIC_WEB_HOST').required().asString(),
   authorizationParameters: {
-    audience: getEnv().auth0.audience,
+    audience: get('AUTH0_AUDIENCE').required().asString(),
   },
   beforeSessionSaved: async (session, idToken) => {
     return {
@@ -20,9 +22,9 @@ export const auth0Instance = new Auth0Client({
       },
     }
   },
-  clientId: getEnv().auth0.clientId,
-  clientSecret: getEnv().auth0.clientSecret,
-  domain: getEnv().auth0.domain,
+  clientId: get('AUTH0_CLIENT_ID').required().asString(),
+  clientSecret: get('AUTH0_CLIENT_SECRET').required().asString(),
+  domain: get('AUTH0_DOMAIN').required().asString(),
   onCallback: async (
     error: Nullable<SdkError>,
     context: { returnTo?: string },
@@ -30,7 +32,10 @@ export const auth0Instance = new Auth0Client({
   ) => {
     if (error) {
       return NextResponse.redirect(
-        new URL(`/error?error=${error.message}`, getEnv().auth0.baseUrl),
+        new URL(
+          `/error?error=${error.message}`,
+          get('NEXT_PUBLIC_WEB_HOST').required().asString(),
+        ),
       )
     }
 
@@ -41,17 +46,23 @@ export const auth0Instance = new Auth0Client({
       /**
        * Cannot call fetchWithAuth since session is not created yet
        */
-      void (await fetch(getEnv().endpoint.admin.setupDev, {
-        body: JSON.stringify({}),
-        headers: {
-          Authorization: `Bearer ${session?.tokenSet.accessToken}`,
-          // 'X-ID-TOKEN': session?.user['idToken'] ?? '',
+      void (await fetch(
+        get('API_ENDPOINT_ADMIN_SETUP_DEV').required().asString(),
+        {
+          body: JSON.stringify({}),
+          headers: {
+            Authorization: `Bearer ${session?.tokenSet.accessToken}`,
+            // 'X-ID-TOKEN': session?.user['idToken'] ?? '',
+          },
+          method: 'POST',
         },
-        method: 'POST',
-      }))
+      ))
 
       return NextResponse.redirect(
-        new URL(context.returnTo || '/apps', getEnv().auth0.baseUrl),
+        new URL(
+          context.returnTo || '/apps',
+          get('NEXT_PUBLIC_WEB_HOST').required().asString(),
+        ),
       )
     }
 
@@ -59,7 +70,7 @@ export const auth0Instance = new Auth0Client({
      * Create user in our neo4j database
      */
     if (process.env['NEXT_PUBLIC_WEB_HOST']?.includes('codelab.app')) {
-      void (await fetch(getEnv().endpoint.user.save, {
+      void (await fetch(get('API_ENDPOINT_USER_SAVE').required().asString(), {
         body: JSON.stringify({}),
         headers: {
           Authorization: `Bearer ${session?.tokenSet.accessToken}`,
@@ -69,15 +80,21 @@ export const auth0Instance = new Auth0Client({
       }))
 
       return NextResponse.redirect(
-        new URL(context.returnTo || '/apps', getEnv().auth0.baseUrl),
+        new URL(
+          context.returnTo || '/apps',
+          get('NEXT_PUBLIC_WEB_HOST').required().asString(),
+        ),
       )
     }
 
     return NextResponse.redirect(
-      new URL(context.returnTo || '/apps', getEnv().auth0.baseUrl),
+      new URL(
+        context.returnTo || '/apps',
+        get('NEXT_PUBLIC_WEB_HOST').required().asString(),
+      ),
     )
   },
-  secret: getEnv().auth0.secret,
+  secret: get('AUTH0_SECRET').required().asString(),
   session: {},
   signInReturnToPath: '/apps',
 })
