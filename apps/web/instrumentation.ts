@@ -10,4 +10,4 @@ export const register = async () => {
   // }
 }
 
-export const onRequestError = Sentry.captureRequestError
+// export const onRequestError = Sentry.captureRequestError

@@ -47,7 +47,7 @@
     "@ant-design/pro-components": "2.8.4",
     "@apollo/client": "3.12.3",
     "@apollo/server": "4.11.2",
-    "@auth0/nextjs-auth0": "4.2.1",
+    "@auth0/nextjs-auth0": "4.4.1",
     "@codelab-codegen/codelab-preset": "file:dist/libs/external/codelab-codegen/codelab-preset",
     "@codelab-codegen/typescript-fetch": "file:dist/libs/external/codelab-codegen/typescript-fetch",
     "@codelab-codegen/typescript-server-fetch": "file:dist/libs/external/codelab-codegen/typescript-server-fetch",

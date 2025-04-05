@@ -8,5 +8,6 @@
 # Ignore all directories that start with `.` at root
 /.*
 !/.circleci
+!.env
 .next
 dist
