@@ -23,6 +23,10 @@ interface IPassportStrategy {
 
 export const JWT_STRATEGY = 'JWT_STRATEGY'
 
+// Track all cached keys
+const CACHE_PREFIX = 'userInfo:'
+const cachedKeys = new Set<string>()
+
 @Injectable()
 export class JwtStrategy
   extends PassportStrategy(Strategy)
@@ -97,7 +101,12 @@ export class JwtStrategy
    * https://community.auth0.com/t/too-many-requests-when-calling-userinfo/26685
    */
   private async getCachedUserInfo(auth0Id: string, token: string) {
-    const cacheKey = `userInfo:${auth0Id}`
+    const cacheKey = `${CACHE_PREFIX}${auth0Id}`
+
+    // Add to tracking set
+    cachedKeys.add(cacheKey)
+
+    this.logger.debug(`Getting cached user info for key: ${cacheKey}`)
 
     this.logger.debug(`Getting cached user info for key: ${cacheKey}`)
 
@@ -124,6 +133,27 @@ export class JwtStrategy
     await this.cacheManager.set(cacheKey, userInfo, 60 * 60 * 1000)
 
     return userInfo
+  }
+
+  /**
+   * Retrieves all cached user info
+   * Note: This only returns items cached since the application started
+   */
+  async getAllCachedUserInfo() {
+    const result = new Map<string, UserInfoResponse>()
+
+    for (const key of cachedKeys) {
+      const value = await this.cacheManager.get<UserInfoResponse>(key)
+
+      if (value) {
+        // Extract the auth0Id from the cache key
+        const auth0Id = key.replace(CACHE_PREFIX, '')
+
+        result.set(auth0Id, value)
+      }
+    }
+
+    return result
   }
 
   private readonly logger = new Logger(JwtStrategy.name)
