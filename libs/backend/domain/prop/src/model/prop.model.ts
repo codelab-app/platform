@@ -1,16 +1,13 @@
-import type { IProp, IPropDto, IRef } from '@codelab/shared/abstract/core'
-import type { Nullish, ObjectLike } from '@codelab/shared/abstract/types'
+import type { IProp, IPropDto } from '@codelab/shared/abstract/core'
+import type { ObjectLike } from '@codelab/shared/abstract/types'
 
 export class Prop implements IProp {
-  api?: Nullish<IRef>
-
   data: ObjectLike
 
   id: string
 
-  constructor({ api, data, id }: IPropDto) {
+  constructor({ data, id }: IPropDto) {
     this.id = id
-    this.api = api
     this.data = JSON.parse(data)
   }
 }

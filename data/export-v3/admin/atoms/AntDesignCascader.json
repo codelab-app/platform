@@ -137,6 +137,17 @@
         },
         "kind": "ArrayType",
         "name": "AntDesignCascader Options"
+      },
+      {
+        "__typename": "ArrayType",
+        "id": "4158c89e-7841-4941-afb2-db3cb325f918",
+        "itemType": {
+          "__typename": "InterfaceType",
+          "id": "ce7cd5d0-a6a8-46b1-9d6c-edf7ab97402a",
+          "name": "AntDesignCascader Option"
+        },
+        "kind": "ArrayType",
+        "name": "AntDesignCascader Options"
       }
     ]
   },
