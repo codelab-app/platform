@@ -37,8 +37,6 @@ export const BuilderProvider = observer(
   ({ children, containerNode, rendererType }: BuilderProviderProps) => {
     const { builderService, rendererService } = useApplicationStore()
 
-    console.log('rendererType', rendererType)
-
     /**
      * Defer side effect to lifecycle method, to prevent https://github.com/codelab-app/platform/issues/3463
      */

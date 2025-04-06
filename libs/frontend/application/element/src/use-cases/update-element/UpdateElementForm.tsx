@@ -44,10 +44,11 @@ export const UpdateElementForm = observer(
     const onSubmit = async (data: IUpdateElementData) => {
       logger.debug('onSubmit', data)
 
-      return elementService.update(data)
+      return runtimeElement.element.current.writeCache(data)
+      //      return elementService.update(data)
     }
 
-    const expandedFields: Array<string> = []
+    const expandedFields: Array<string> = ['childMapper']
     // `getSnapshot` is immutable and doesn't work
     const element = runtimeElement.element.current
 

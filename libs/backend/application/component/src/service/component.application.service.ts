@@ -89,11 +89,6 @@ export class ComponentApplicationService {
   }
 
   async createComponent(createComponentData: ICreateComponentData) {
-    this.logger.debug('createComponent', {
-      context: 'Create Component Data',
-      data: createComponentData,
-    })
-
     const owner = this.authDomainService.currentUser
 
     if (owner.id !== createComponentData.owner.id) {

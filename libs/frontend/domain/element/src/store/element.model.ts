@@ -25,7 +25,6 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { createValidator, toRefSchema } from '@codelab/frontend/shared/utils'
 import { Prop } from '@codelab/frontend-domain-prop/store'
-import { logger } from '@codelab/shared/infra/logging'
 import { slugify, titleCase } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
@@ -63,11 +62,6 @@ const create = (element: IElementDto): IElementModel => {
     style,
     tailwindClassNames,
   } = element
-
-  // logger.debug('createElement', {
-  //   name,
-  //   page,
-  // })
 
   return new Element({
     childMapperComponent: childMapperComponent
@@ -600,10 +594,10 @@ export class Element
       : this.parentComponent
     this.preRenderActions = preRenderActions
       ? preRenderActions.map((action) => actionRef(action.id))
-      : []
+      : this.preRenderActions
     this.postRenderActions = postRenderActions
       ? postRenderActions.map((action) => actionRef(action.id))
-      : []
+      : this.postRenderActions
     this.childMapperComponent = childMapperComponent?.id
       ? componentRef(childMapperComponent.id)
       : null

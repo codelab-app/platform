@@ -49,9 +49,9 @@ export const ElementTreeView = observer<{
       onExpand={(expandedKeys) => {
         runtimeElementService.elementsList.forEach((runtimeElement) => {
           // element will be marked modified automatically
-          runtimeElement.element.current.setExpanded(
-            expandedKeys.includes(runtimeElement.compositeKey),
-          )
+          runtimeElement.element.current.writeCache({
+            expanded: expandedKeys.includes(runtimeElement.compositeKey),
+          })
         })
 
         void syncModifiedElements()

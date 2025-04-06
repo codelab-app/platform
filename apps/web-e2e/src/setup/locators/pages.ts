@@ -79,7 +79,7 @@ export class BasePage {
    * Can take a while on CI, so add long timeout
    */
   async expectGlobalProgressBarToBeHidden() {
-    await expect(this.getGlobalProgressBar()).toBeHidden({ timeout: 25000 })
+    await expect(this.getGlobalProgressBar()).toBeHidden({ timeout: 30000 })
   }
 
   /**
@@ -139,7 +139,7 @@ export class BasePage {
       await page.getByLabel(label, { exact: true }).fill(value, { force: true })
 
       // wait for dropdown to be visible
-      const visibleDropdown = this.page
+      const visibleDropdown = await this.page
         .locator('.ant-select-dropdown:not(.ant-select-dropdown-hidden)')
         .filter({
           has: this.page
@@ -400,7 +400,7 @@ export class BasePage {
     const pattern =
       typeof urlPattern === 'string' ? `${urlPattern}*` : urlPattern
 
-    await this.page.waitForURL(pattern, { timeout: 2000 })
+    await this.page.waitForURL(pattern)
   }
 
   /**
