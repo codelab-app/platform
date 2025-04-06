@@ -1,5 +1,10 @@
-import type * as cg from '@codelab/shared/infra/gqlgen'
+import type {
+  ApiActionOptions,
+  ApiActionWhere,
+  CodeActionOptions,
+  CodeActionWhere,
+} from '@codelab/shared/infra/gqlgen'
 
-export type IActionWhere = cg.ApiActionWhere & cg.CodeActionWhere
+export type IActionWhere = ApiActionWhere & CodeActionWhere
 
-export type IActionOptions = cg.ApiActionOptions & cg.CodeActionOptions
+export type IActionOptions = ApiActionOptions & CodeActionOptions

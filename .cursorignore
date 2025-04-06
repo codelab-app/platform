@@ -1,5 +1,5 @@
 # Add directories or file patterns to ignore during indexing (e.g. foo/ or *.csv)
-/data/
+# /data/
 /infra/
 /types/
 /tmp/
@@ -7,5 +7,7 @@
 /coverage/
 # Ignore all directories that start with `.` at root
 /.*
+!/.circleci
+!.env
 .next
 dist

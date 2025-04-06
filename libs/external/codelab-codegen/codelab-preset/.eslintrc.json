@@ -10,6 +10,7 @@
         ]
       },
       "rules": {
+        "import/no-namespace": "off",
         "id-length": "off",
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/member-ordering": "off"

@@ -64,10 +64,10 @@ const create = (element: IElementDto): IElementModel => {
     tailwindClassNames,
   } = element
 
-  logger.debug('createElement', {
-    name,
-    page,
-  })
+  // logger.debug('createElement', {
+  //   name,
+  //   page,
+  // })
 
   return new Element({
     childMapperComponent: childMapperComponent

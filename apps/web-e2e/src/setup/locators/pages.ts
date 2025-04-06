@@ -160,6 +160,10 @@ export class BasePage {
         .filter({ hasText: value })
         .click()
 
+      if (options?.waitForAutosave) {
+        await this.waitForProgressBar()
+      }
+
       await expect(
         this.page.locator(
           '.ant-select-dropdown:not(.ant-select-dropdown-hidden)',

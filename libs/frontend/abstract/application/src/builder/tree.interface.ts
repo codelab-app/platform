@@ -1,5 +1,4 @@
 import type { IRef } from '@codelab/shared/abstract/core'
-import type * as React from 'react'
 
 export enum IRuntimeNodeType {
   Component = 'Component',

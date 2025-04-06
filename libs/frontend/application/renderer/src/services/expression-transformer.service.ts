@@ -11,7 +11,6 @@ import {
   modelFlow,
   prop,
 } from 'mobx-keystone'
-import * as React from 'react'
 
 import { allAtoms } from '../atoms'
 
@@ -38,6 +37,7 @@ export class ExpressionTransformer
   init() {
     return _async(function* (this: ExpressionTransformer) {
       const { transform } = yield* _await(import('sucrase'))
+      const React = yield* _await(import('react'))
 
       this.context = { atoms: allAtoms, React }
       this.transform = transform

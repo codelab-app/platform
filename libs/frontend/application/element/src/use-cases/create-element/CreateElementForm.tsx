@@ -60,14 +60,6 @@ export const CreateElementForm = observer<CreateElementFormProps>((props) => {
   const selectedElementId = selectedNode?.treeViewNodePreview.element?.id
   const elementService = useElementService()
 
-  // tracker.useRenderedCount('CreateElementForm')
-  // tracker.usePropsDiff('CreateElementForm', props)
-  // tracker.useReferenceChange('Service references', [
-  //   { name: 'elementService', value: elementService },
-  //   { name: 'atomDomainService', value: atomDomainService },
-  //   { name: 'elementDomainService', value: elementDomainService },
-  // ])
-
   // If we rely on the parentElement object for state, let's track it too
   const selectedElement = elementDomainService.elements.get(
     selectedElementId ?? '',

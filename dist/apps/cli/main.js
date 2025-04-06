@@ -90,15 +90,15 @@ const loggerConfig = (0,config_namespaceObject.registerAs)('LOGGER_CONFIG', () =
             /**
              * https://github.com/iamolegga/nestjs-pino
              */
-            return external_env_var_namespaceObject.get('API_LOG_LEVEL')
+            return (0,external_env_var_namespaceObject.get)('API_LOG_LEVEL')
                 .default('info')
                 .asEnum(['verbose', 'debug', 'info', 'warn', 'error', 'fatal']);
         },
         get sentryDsn() {
-            return external_env_var_namespaceObject.get('SENTRY_DSN').required().asString();
+            return (0,external_env_var_namespaceObject.get)('SENTRY_DSN').required().asString();
         },
         get enableDataForContext() {
-            return external_env_var_namespaceObject.get('API_LOG_ENABLE_DATA_FOR_CONTEXT')
+            return (0,external_env_var_namespaceObject.get)('API_LOG_ENABLE_DATA_FOR_CONTEXT')
                 .default('')
                 .asString()
                 .split(',')

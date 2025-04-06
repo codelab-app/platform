@@ -2,19 +2,19 @@
 import { workspaceRoot } from '@nx/devkit'
 import { nxE2EPreset } from '@nx/playwright/preset'
 import { defineConfig, devices } from '@playwright/test'
-import * as env from 'env-var'
+import { get } from 'env-var'
 
-const apiHost = env.get('NEXT_PUBLIC_API_HOSTNAME').required().asString()
-const apiPort = env.get('NEXT_PUBLIC_API_PORT').required().asString()
-const apiBasePath = env.get('NEXT_PUBLIC_BASE_API_PATH').required().asString()
+const apiHost = get('NEXT_PUBLIC_API_HOSTNAME').required().asString()
+const apiPort = get('NEXT_PUBLIC_API_PORT').required().asString()
+const apiBasePath = get('NEXT_PUBLIC_BASE_API_PATH').required().asString()
 const apiUrl = new URL(apiBasePath, `${apiHost}:${apiPort}`).toString()
-const webUrl = env.get('NEXT_PUBLIC_WEB_HOST').required().asString()
+const webUrl = get('NEXT_PUBLIC_WEB_HOST').required().asString()
 
 export const webBaseApiUrl = new URL(apiBasePath, webUrl).toString()
 export const apiBaseUrl = new URL(apiBasePath, apiUrl).toString()
 
-export const auth0Username = env.get('AUTH0_E2E_USERNAME').required().asString()
-export const auth0Password = env.get('AUTH0_E2E_PASSWORD').required().asString()
+export const auth0Username = get('AUTH0_E2E_USERNAME').required().asString()
+export const auth0Password = get('AUTH0_E2E_PASSWORD').required().asString()
 
 /**
  * https://www.checklyhq.com/blog/why-page-goto-is-slowing-down-your-playwright-test/

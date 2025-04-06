@@ -12,7 +12,7 @@ import { copy, ensureDir, readdirSync, readFileSync, rmSync } from 'fs-extra'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 import gitChangedFiles from 'git-changed-files'
-import * as glob from 'glob'
+import { sync } from 'glob'
 import path from 'path'
 
 import { AdminApplicationModule } from '../../admin.application.module'
@@ -83,14 +83,15 @@ describe('Seed, import, & export data', () => {
     )
     await commandBus.execute(new ExportAdminDataCommand(testExportDataPath))
 
-    const sourceToExpectedFilePath = glob
-      .sync('**/*', { cwd: testExportDataPath, nodir: true })
-      .reduce((acc, file) => {
-        const sourcePath = path.resolve(testDataPath, file)
-        const exportedPath = path.resolve(testExportDataPath, file)
+    const sourceToExpectedFilePath = sync('**/*', {
+      cwd: testExportDataPath,
+      nodir: true,
+    }).reduce((acc, file) => {
+      const sourcePath = path.resolve(testDataPath, file)
+      const exportedPath = path.resolve(testExportDataPath, file)
 
-        return acc.set(sourcePath, exportedPath)
-      }, new Map())
+      return acc.set(sourcePath, exportedPath)
+    }, new Map())
 
     for (const [sourceFile, exportedFile] of sourceToExpectedFilePath) {
       const sourceContent = readFileSync(sourceFile, 'utf8')

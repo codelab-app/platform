@@ -153,6 +153,7 @@
         "ci.integration": {
           "ci": true,
           "codeCoverage": false,
+          "maxWorkers": "50%",
           "color": true,
           "testPathPattern": ["i.spec.ts"],
           "runInBand": true

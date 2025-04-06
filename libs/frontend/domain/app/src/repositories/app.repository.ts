@@ -5,12 +5,11 @@ import type { AppOptions, AppWhere } from '@codelab/shared/infra/gqlgen'
 import { type IAppRepository } from '@codelab/frontend/abstract/domain'
 import { Validator } from '@codelab/shared/infra/typebox'
 import { appMapper, appServerActions } from '@codelab/shared-domain-module/app'
-import { withTracingMethods } from '@codelab/shared-infra-sentry'
 
 const { AppList, AppListPreview, CreateApps, DeleteApps, UpdateApps } =
   appServerActions
 
-export const appRepository: IAppRepository = withTracingMethods('app', {
+export const appRepository: IAppRepository = {
   add: async (input: IAppDto, next?: NextFetchOptions) => {
     const {
       createApps: { apps },
@@ -91,4 +90,4 @@ export const appRepository: IAppRepository = withTracingMethods('app', {
 
     return updatedApp
   },
-})
+}

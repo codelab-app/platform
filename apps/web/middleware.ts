@@ -1,5 +1,5 @@
 import { corsMiddleware } from '@codelab/backend/infra/adapter/middleware'
-import { RoutePaths } from '@codelab/frontend/abstract/application'
+// import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { auth0Instance } from '@codelab/shared-infra-auth0/client'
 import {
   type NextFetchEvent,
@@ -17,13 +17,11 @@ import { isEqual } from 'radash'
  * https://stackoverflow.com/questions/76813923/how-to-avoid-warning-message-when-getting-user-information-on-next-js-13-server/77015385#77015385
  */
 
-const paginatedRoutes = [
-  RoutePaths.Atom.base(),
-  RoutePaths.Tag.base(),
-  RoutePaths.Type.base(),
-]
-
-const protectedRoutes = [RoutePaths.App.list()]
+/**
+ * Using `RoutePaths` may bloat the bundle size
+ */
+const paginatedRoutes = ['/atoms', '/tags', '/types']
+const protectedRoutes = ['/apps']
 
 const middleware: NextMiddleware = async (
   request: NextRequest,
@@ -39,7 +37,7 @@ const middleware: NextMiddleware = async (
   }
 
   const { origin } = new URL(request.url)
-  const session = await auth0Instance.getSession()
+  const session = await auth0Instance.getSession(request)
 
   const isProtectedRoute = protectedRoutes.some((route) =>
     pathname.startsWith(route),
@@ -58,6 +56,7 @@ const middleware: NextMiddleware = async (
     const url = request.nextUrl.clone()
     const currentPage = url.searchParams.get('page')
     const currentPageSize = url.searchParams.get('pageSize')
+    //
     const currentFilter = url.searchParams.getAll('filter')
     const newPage = currentPage ?? '1'
     const newPageSize = currentPageSize ?? '20'

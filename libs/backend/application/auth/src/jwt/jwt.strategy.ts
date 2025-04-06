@@ -1,4 +1,3 @@
-import type * as express from 'express'
 import type { VerifiedCallback, VerifyCallbackWithRequest } from 'passport-jwt'
 
 import { auth0Config } from '@codelab/backend/infra/adapter/auth0'
@@ -9,13 +8,15 @@ import {
   JwtPayload,
 } from '@codelab/shared/abstract/core'
 import { CACHE_MANAGER } from '@nestjs/cache-manager'
-import { Inject, Injectable } from '@nestjs/common'
+import { Inject, Injectable, Logger } from '@nestjs/common'
 import { type ConfigType } from '@nestjs/config'
 import { PassportStrategy } from '@nestjs/passport'
 import { UserInfoClient, UserInfoResponse } from 'auth0'
 import { Cache } from 'cache-manager'
+import { Request } from 'express'
 import { passportJwtSecret } from 'jwks-rsa'
 import { ExtractJwt, Strategy } from 'passport-jwt'
+import { isPlainObject } from 'remeda'
 
 interface IPassportStrategy {
   validate: VerifyCallbackWithRequest
@@ -55,7 +56,7 @@ export class JwtStrategy
   }
 
   async validate(
-    req: express.Request,
+    req: Request,
     payload: JwtPayload,
     done: VerifiedCallback,
   ): Promise<IUserSession> {
@@ -65,7 +66,8 @@ export class JwtStrategy
       throw new Error('Missing bearer token')
     }
 
-    const auth0IdToken = await this.getCachedUserInfo(token)
+    const auth0Id = payload.sub
+    const auth0IdToken = await this.getCachedUserInfo(auth0Id, token)
 
     return {
       auth0Id: payload.sub,
@@ -95,16 +97,22 @@ export class JwtStrategy
   /**
    * https://community.auth0.com/t/too-many-requests-when-calling-userinfo/26685
    */
-  private async getCachedUserInfo(token: string) {
-    const cacheKey = `userInfo:${token}`
+  private async getCachedUserInfo(auth0Id: string, token: string) {
+    const cacheKey = `userInfo:${auth0Id}`
+
+    this.logger.debug(`Getting cached user info for key: ${cacheKey}`)
 
     const cachedUserInfo = await this.cacheManager.get<UserInfoResponse>(
       cacheKey,
     )
 
     if (cachedUserInfo) {
+      this.logger.debug(`Using cached user info for auth0Id: ${auth0Id}`)
+
       return cachedUserInfo
     }
+
+    this.logger.debug(`Fetching user info from Auth0 for auth0Id: ${auth0Id}`)
 
     const client = new UserInfoClient({
       domain: this.config.auth0_domain,
@@ -112,8 +120,17 @@ export class JwtStrategy
 
     const { data: userInfo } = await client.getUserInfo(token)
 
-    await this.cacheManager.set(cacheKey, userInfo, 3600)
+    // use 1 hour cache, since it improves performance, fixes 429 HTTP error, with only
+    // one drawback that the user picture and nickname may be out of date for a bit
+    await this.cacheManager.set(cacheKey, userInfo, 60 * 60 * 1000)
+
+    console.log({
+      cache: await this.cacheManager.get(cacheKey),
+      isPlainObject: isPlainObject(userInfo),
+    })
 
     return userInfo
   }
+
+  private readonly logger = new Logger(JwtStrategy.name)
 }
