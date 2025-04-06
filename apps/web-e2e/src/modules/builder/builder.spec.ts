@@ -34,12 +34,14 @@ test.beforeAll(async ({ request }) => {
 
 test.beforeEach(async ({ builderPage: page }, testInfo) => {
   await page.goto(app.id, providerPageId)
-  await page.checkPageHeaderTitle(['Codelab App', 'Pages', 'provider'])
 
   await expect(page.getSpinner()).toBeHidden()
+  await expect(page.getSkeleton()).toBeHidden()
   await expect(page.getFormFieldSpinner()).toHaveCount(0)
 
   await page.expectGlobalProgressBarToBeHidden()
+
+  await page.checkPageHeaderTitle(['Codelab App', 'Pages', 'provider'])
 })
 
 test('should be able to create element tree', async ({ builderPage: page }) => {
