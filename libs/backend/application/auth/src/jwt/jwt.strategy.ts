@@ -101,8 +101,6 @@ export class JwtStrategy
 
     this.logger.debug(`Getting cached user info for key: ${cacheKey}`)
 
-    this.logger.debug(`Getting cached user info for key: ${cacheKey}`)
-
     const cachedUserInfo = await this.cacheManager.get<UserInfoResponse>(
       cacheKey,
     )
