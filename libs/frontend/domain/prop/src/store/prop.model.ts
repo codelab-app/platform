@@ -6,7 +6,6 @@ import type { IPropData, IPropDto } from '@codelab/shared/abstract/core'
 import type { Nullable, ObjectLike } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 
-import { typeRef } from '@codelab/frontend/abstract/domain'
 import { computed } from 'mobx'
 import {
   clone,
@@ -30,9 +29,8 @@ import {
 import { mergeProps } from '../utils/merge-props'
 import { propSafeStringify } from '../utils/prop-safe-stringify'
 
-const create = ({ api, data, id }: IPropDto) => {
+const create = ({ data, id }: IPropDto) => {
   return new Prop({
-    api: api ? typeRef<IInterfaceTypeModel>(api.id) : null,
     data: frozen(JSON.parse(data)),
     id,
   })
@@ -119,10 +117,9 @@ export class Prop
   }
 
   @modelAction
-  writeCache({ api, data, id }: Partial<IPropDto>): IPropModel {
+  writeCache({ data, id }: Partial<IPropDto>): IPropModel {
     this.id = id ?? this.id
     this.data = data ? frozen(JSON.parse(data)) : this.data
-    this.api = api ? typeRef<IInterfaceTypeModel>(api.id) : this.api
 
     return this
   }
