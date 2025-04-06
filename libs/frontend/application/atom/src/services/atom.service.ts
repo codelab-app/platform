@@ -164,7 +164,6 @@ export const useAtomService = (): IAtomService => {
     createPopover,
     getAll,
     getOne,
-    getSelectAtomOptions,
     goToAtomsPage,
     goToDeleteAtomPage,
     loadApi,

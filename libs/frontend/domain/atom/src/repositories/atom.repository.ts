@@ -3,21 +3,13 @@ import type { IAtomDto, IRef } from '@codelab/shared/abstract/core'
 import type { NextFetchOptions } from '@codelab/shared/abstract/types'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/infra/gqlgen'
 
-import { filterNotHookType } from '@codelab/frontend/abstract/domain'
 import { Validator } from '@codelab/shared/infra/typebox'
 import {
   atomMapper,
   atomServerActions,
 } from '@codelab/shared-domain-module/atom'
-import { prop, sortBy } from 'remeda'
 
-const {
-  AtomList,
-  CreateAtoms,
-  DeleteAtoms,
-  GetSelectAtomOptions,
-  UpdateAtoms,
-} = atomServerActions
+const { AtomList, CreateAtoms, DeleteAtoms, UpdateAtoms } = atomServerActions
 
 export const atomRepository: IAtomRepository = {
   add: async (input: IAtomDto, next?: NextFetchOptions) => {
@@ -62,15 +54,6 @@ export const atomRepository: IAtomRepository = {
     const result = await atomRepository.find(where, {}, next)
 
     return result.items[0]
-  },
-
-  getSelectAtomOptions: async (next?: NextFetchOptions) => {
-    const { atoms } = await GetSelectAtomOptions({}, next)
-
-    return sortBy(
-      atoms.filter(({ type }) => filterNotHookType(type)),
-      prop('name'),
-    )
   },
 
   update: async ({ id }: IRef, input: IAtomDto, next?: NextFetchOptions) => {
