@@ -120,7 +120,9 @@ export class JwtStrategy
 
     const { data: userInfo } = await client.getUserInfo(token)
 
-    await this.cacheManager.set(cacheKey, userInfo, 3600)
+    // use 1 hour cache, since it improves performance, fixes 429 HTTP error, with only
+    // one drawback that the user picture and nickname may be out of date for a bit
+    await this.cacheManager.set(cacheKey, userInfo, 60 * 60 * 1000)
 
     console.log({
       cache: await this.cacheManager.get(cacheKey),
