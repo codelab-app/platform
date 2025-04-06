@@ -38,6 +38,8 @@ test.beforeEach(async ({ builderPage: page }, testInfo) => {
 
   await expect(page.getSpinner()).toBeHidden()
   await expect(page.getFormFieldSpinner()).toHaveCount(0)
+
+  await page.expectGlobalProgressBarToBeHidden()
 })
 
 test('should be able to create element tree', async ({ builderPage: page }) => {
