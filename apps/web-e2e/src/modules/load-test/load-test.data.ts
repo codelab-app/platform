@@ -39,9 +39,6 @@ const createPageWithAllPossibleAtoms = async (
 
   const [firstChild, ...restChildren] = elements
 
-  // to avoid getting Too Many Requests from server
-  await sleep(SLEEP_TIMEOUT)
-
   await requestOrThrow(request, `element/${page.id}/create-elements`, {
     data: [
       { ...firstChild, parentElement: { id: page.rootElement.id } },

@@ -3,7 +3,7 @@ import type {
   ICreateAtomData,
   IUpdateAtomData,
 } from '@codelab/frontend/abstract/domain'
-import type { IPopover, SelectOption } from '@codelab/frontend/abstract/types'
+import type { IPopover } from '@codelab/frontend/abstract/types'
 import type { IRef } from '@codelab/shared/abstract/core'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/infra/gqlgen'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
@@ -16,9 +16,6 @@ export interface IAtomService
     IQueryService<IAtomModel, AtomWhere, AtomOptions> {
   createPopover: IPopover<IAtomCreateRoute, IAtomCreateRoute>
   updatePopover: IPopover<IAtomUpdateRoute, IAtomUpdateRoute>
-  getSelectAtomOptions(
-    parent: IAtomModel | undefined,
-  ): Promise<Array<SelectOption>>
   /**
    * Decouples router from services
    */

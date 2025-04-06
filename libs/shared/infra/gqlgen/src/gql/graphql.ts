@@ -32032,11 +32032,6 @@ export type AtomListQueryVariables = Exact<{
 
 export type AtomListQuery = { __typename?: 'Query', aggregate: { __typename?: 'AtomAggregateSelection', count: number }, items: Array<{ __typename: 'Atom', externalCssSource?: string | null, externalJsSource?: string | null, externalSourceType?: string | null, icon?: string | null, id: string, name: string, type: AtomType, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } }, requiredParents: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, suggestedChildren: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, tags: Array<{ __typename?: 'Tag', id: string, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } }> };
 
-export type GetSelectAtomOptionsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetSelectAtomOptionsQuery = { __typename?: 'Query', atoms: Array<{ __typename: 'Atom', id: string, name: string, type: AtomType, requiredParents: Array<{ __typename?: 'Atom', id: string, type: AtomType }> }> };
-
 export type UpdateAtomsMutationVariables = Exact<{
   where?: InputMaybe<AtomWhere>;
   update?: InputMaybe<AtomUpdateInput>;
@@ -36892,7 +36887,7 @@ export const GetPageBuilderDocument = new TypedDocumentString(`
   apps(where: {id: $appId}) {
     ...AppBuilder
   }
-  atoms(where: {type: ReactFragment}) {
+  atoms {
     ...AtomBuilder
   }
   authGuards {
@@ -38408,20 +38403,6 @@ fragment InterfaceType on InterfaceType {
     ...Field
   }
 }`) as unknown as TypedDocumentString<AtomListQuery, AtomListQueryVariables>;
-export const GetSelectAtomOptionsDocument = new TypedDocumentString(`
-    query GetSelectAtomOptions {
-  atoms {
-    __typename
-    id
-    name
-    requiredParents {
-      id
-      type
-    }
-    type
-  }
-}
-    `) as unknown as TypedDocumentString<GetSelectAtomOptionsQuery, GetSelectAtomOptionsQueryVariables>;
 export const UpdateAtomsDocument = new TypedDocumentString(`
     mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {
   updateAtoms(update: $update, where: $where) {

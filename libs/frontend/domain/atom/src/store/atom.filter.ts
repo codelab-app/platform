@@ -5,7 +5,7 @@ import type { AtomType } from '@codelab/shared/infra/gqlgen'
 
 export const filterAtoms = (
   allAtoms: Array<
-    | IAtomDto
+    | IAtomModel
     | {
         id: string
         name: string
@@ -17,11 +17,11 @@ export const filterAtoms = (
   if (!parent) {
     // if no parent exists (page or component root element) - return all atoms
     // that do not require specific parent
-    return allAtoms.filter((atom) => !atom.requiredParents?.length)
+    return allAtoms.filter((atom) => !atom.requiredParents.length)
   }
 
   const atomsRequiringCurrentParent = allAtoms.filter((atom) => {
-    return atom.requiredParents?.length
+    return atom.requiredParents.length
       ? atom.requiredParents.some(
           (requiredParent) => requiredParent.id === parent.id,
         )
@@ -37,7 +37,7 @@ export const filterAtoms = (
   })
 
   const atomsWithNoRequiredParents = allAtoms.filter(
-    (atom) => atom.requiredParents?.length === 0,
+    (atom) => atom.requiredParents.length === 0,
   )
 
   if (atomsRequiringCurrentParent.length) {

@@ -21,6 +21,7 @@ import {
   elementRef,
   isAtom,
   isAtomRef,
+  isComponent,
   pageRef,
 } from '@codelab/frontend/abstract/domain'
 import { createValidator, toRefSchema } from '@codelab/frontend/shared/utils'
@@ -187,6 +188,13 @@ export class Element
     }
 
     return results
+  }
+
+  @computed
+  get closestContainerComponent() {
+    return isComponent(this.closestContainerNode)
+      ? this.closestContainerNode
+      : undefined
   }
 
   @computed

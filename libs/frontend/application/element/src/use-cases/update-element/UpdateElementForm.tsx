@@ -112,7 +112,11 @@ export const UpdateElementForm = observer(
         children: (
           // We don't want a composite field since there is no top level name to nest under
           <>
-            <SelectComponent label="Component" name="childMapperComponent.id" />
+            <SelectComponent
+              label="Component"
+              name="childMapperComponent.id"
+              parentComponent={element.closestContainerComponent}
+            />
             <ChildMapperPropKeyField
               name="childMapperPropKey"
               runtimeElement={runtimeElement}
@@ -139,7 +143,11 @@ export const UpdateElementForm = observer(
           uiKey={UiKey.ElementFormUpdate}
         >
           <AutoComputedElementNameField label="Name" name="name" />
-          <RenderTypeField name="renderType" />
+          <RenderTypeField
+            name="renderType"
+            parentComponent={element.closestContainerComponent}
+            parentElement={element.parentElement?.current}
+          />
           <AutoFields
             omitFields={[
               'childMapperComponent',

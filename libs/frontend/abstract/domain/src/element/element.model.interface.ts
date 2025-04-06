@@ -56,6 +56,8 @@ export interface IElementModel extends IModel<IElementDto, IElementModel> {
    */
   childMapperPropKey?: Nullable<string>
   children: Array<IElementModel>
+  // the closest component that element belongs to
+  closestContainerComponent: Maybe<IComponentModel>
   // the closest container node that element belongs to
   closestContainerNode: IComponentModel | IPageModel
   // closestPage: Nullable<Ref<IPageModel>>

@@ -20,4 +20,5 @@ export interface IAtomDomainService extends IHydrateable<IAtomDto, IAtomModel> {
   getRenderTypeOptions(
     components?: Array<SelectOption>,
   ): Array<RenderTypeSelectOption>
+  getSelectOptions(parent: IAtomModel | undefined): Array<SelectOption>
 }
