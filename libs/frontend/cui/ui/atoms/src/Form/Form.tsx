@@ -3,7 +3,7 @@ import type { ControllerProps, FieldPath, FieldValues } from 'react-hook-form'
 
 import { cn } from '@cui/utils'
 import { Slot } from '@radix-ui/react-slot'
-import { forwardRef } from 'react'
+import React, { forwardRef } from 'react'
 import { Controller, FormProvider, useFormContext } from 'react-hook-form'
 
 import { Label } from '../Label'

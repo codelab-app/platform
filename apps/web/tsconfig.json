@@ -18,7 +18,7 @@
         "name": "next"
       }
     ],
-    "types": ["node", "worker-loader", "cypher", "styled-components"]
+    "types": ["node", "worker-loader", "cypher", "styled-components", "uniforms"]
   },
   "include": [
     "**/*.ts",
