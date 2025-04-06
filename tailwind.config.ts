@@ -1,8 +1,4 @@
-const colors = require('tailwindcss/colors')
-const path = require('path')
 import type { Config } from 'tailwindcss'
-// const { breakpoints } = require('./.codelab.js')
-
 import shadcnTailwindConfig from './scripts/tailwind/shadcn.tailwind.config'
 
 /**

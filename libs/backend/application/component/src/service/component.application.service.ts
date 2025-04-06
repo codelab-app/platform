@@ -18,7 +18,6 @@ import { Store } from '@codelab/backend/domain/store'
 import {
   InterfaceType,
   InterfaceTypeRepository,
-  TypeDomainService,
 } from '@codelab/backend/domain/type'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { IElementRenderTypeKind, IRole } from '@codelab/shared/abstract/core'
@@ -41,7 +40,6 @@ export class ComponentApplicationService {
     private interfaceTypeRepository: InterfaceTypeRepository,
     private typeApplicationService: TypeApplicationService,
     private logger: PinoLoggerService,
-    private typeDomainService: TypeDomainService,
     private elementRepository: ElementRepository,
   ) {}
 
