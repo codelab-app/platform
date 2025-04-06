@@ -1,12 +1,12 @@
-import type {
-  IAtomModel,
-  IElementModel,
-} from '@codelab/frontend/abstract/domain'
 import type { SelectOption } from '@codelab/frontend/abstract/types'
 import type { IRef } from '@codelab/shared/abstract/core'
 
+import {
+  type IAtomModel,
+  type IElementModel,
+  isAtom,
+} from '@codelab/frontend/abstract/domain'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { isAtom } from 'mobx/dist/internal'
 
 export const useLoadOptions = ({
   parentComponent,
