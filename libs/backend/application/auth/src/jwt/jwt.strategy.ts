@@ -16,7 +16,6 @@ import { Cache } from 'cache-manager'
 import { Request } from 'express'
 import { passportJwtSecret } from 'jwks-rsa'
 import { ExtractJwt, Strategy } from 'passport-jwt'
-import { isPlainObject } from 'remeda'
 
 interface IPassportStrategy {
   validate: VerifyCallbackWithRequest
@@ -123,11 +122,6 @@ export class JwtStrategy
     // use 1 hour cache, since it improves performance, fixes 429 HTTP error, with only
     // one drawback that the user picture and nickname may be out of date for a bit
     await this.cacheManager.set(cacheKey, userInfo, 60 * 60 * 1000)
-
-    console.log({
-      cache: await this.cacheManager.get(cacheKey),
-      isPlainObject: isPlainObject(userInfo),
-    })
 
     return userInfo
   }
