@@ -68,8 +68,6 @@ export class ComponentDomainService
       return !component?.id || !parentIsDescendant
     })
 
-    console.log(filtered)
-
     return filtered.map((comp) => ({
       label: comp.name,
       value: comp.id,

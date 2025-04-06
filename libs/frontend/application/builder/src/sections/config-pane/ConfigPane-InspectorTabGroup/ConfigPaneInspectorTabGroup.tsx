@@ -214,8 +214,6 @@ export const ConfigPaneInspectorTabGroup = observer<{
     [activeRenderer.runtimeComponent, activeRenderer.runtimePage, selectedNode],
   )
 
-  console.log(preference.activeConfigPaneTab)
-
   return (
     <FormContextProvider value={{ elementTree, selectedNode }}>
       <TabGroup>

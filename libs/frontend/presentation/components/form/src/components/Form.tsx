@@ -11,12 +11,14 @@ import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import { throttle } from 'radash'
 import { useEffect, useRef, useState } from 'react'
 import { css } from 'styled-components'
-import { Bridge } from 'uniforms'
+import { Bridge, filterDOMProps } from 'uniforms'
 import { AutoForm, ErrorsField } from 'uniforms-antd'
 
 import { useAsyncHandler, usePostSubmit } from './utils'
 
 export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
+  filterDOMProps.register('nullable')
+
   const Form = <TData, TResponse = unknown>(
     props: React.PropsWithChildren<FormProps<TData, TResponse>>,
   ): ReactElement<unknown> => {

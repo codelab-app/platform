@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../../../../dist/out-tsc",
-    "types": ["styled-components"]
+    "types": ["styled-components", "uniforms"]
   },
   "files": [
     "../../../../../node_modules/@nx/react/typings/cssmodule.d.ts",
