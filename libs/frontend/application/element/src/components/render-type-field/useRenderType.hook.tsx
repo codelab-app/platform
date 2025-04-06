@@ -26,7 +26,7 @@ export const useLoadOptions = ({
   const components = componentDomainService.getSelectOptions(parentComponent)
   const atoms = atomDomainService.getSelectOptions(parentAtom)
 
-  return { atoms: [], components: componentDomainService.componentList }
+  return { atoms, components }
 }
 
 export const useRenderTypeSelectOptions = (
