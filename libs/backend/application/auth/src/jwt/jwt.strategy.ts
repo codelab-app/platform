@@ -16,7 +16,6 @@ import { Cache } from 'cache-manager'
 import { Request } from 'express'
 import { passportJwtSecret } from 'jwks-rsa'
 import { ExtractJwt, Strategy } from 'passport-jwt'
-import { isPlainObject } from 'remeda'
 
 interface IPassportStrategy {
   validate: VerifyCallbackWithRequest
@@ -99,8 +98,6 @@ export class JwtStrategy
    */
   private async getCachedUserInfo(auth0Id: string, token: string) {
     const cacheKey = `userInfo:${auth0Id}`
-
-    this.logger.debug(`Getting cached user info for key: ${cacheKey}`)
 
     this.logger.debug(`Getting cached user info for key: ${cacheKey}`)
 
