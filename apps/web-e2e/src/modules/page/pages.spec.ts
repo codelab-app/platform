@@ -20,9 +20,13 @@ test.beforeAll(async ({ request }) => {
 
 test.beforeEach(async ({ pageListPage: page }, testInfo) => {
   await page.goto(app.id, providerPageId)
-  await page.checkPageHeaderTitle(['Codelab App', 'Pages', 'provider'])
 
   await expect(page.getSpinner()).toBeHidden()
+  await expect(page.getSkeleton()).toBeHidden()
+
+  await page.expectGlobalProgressBarToBeHidden()
+
+  await page.checkPageHeaderTitle(['Codelab App', 'Pages'])
 })
 
 test('should be able to create page', async ({ pageListPage: page }) => {
