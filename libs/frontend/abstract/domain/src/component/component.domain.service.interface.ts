@@ -2,7 +2,7 @@ import type {
   RenderTypeSelectOption,
   SelectOption,
 } from '@codelab/frontend/abstract/types'
-import type { IComponentDto } from '@codelab/shared/abstract/core'
+import type { IComponentDto, IRef } from '@codelab/shared/abstract/core'
 import type { ObjectMap } from 'mobx-keystone'
 
 import type { IHydrateable } from '../shared'
@@ -18,7 +18,5 @@ export interface IComponentDomainService
   getRenderTypeOptions(
     components?: Array<SelectOption>,
   ): Array<RenderTypeSelectOption>
-  getSelectOptions(
-    component?: Pick<IComponentModel, 'id' | 'name'>,
-  ): Promise<Array<SelectOption>>
+  getSelectOptions(currentComponent?: IRef): Array<SelectOption>
 }

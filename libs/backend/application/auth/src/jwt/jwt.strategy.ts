@@ -16,7 +16,6 @@ import { Cache } from 'cache-manager'
 import { Request } from 'express'
 import { passportJwtSecret } from 'jwks-rsa'
 import { ExtractJwt, Strategy } from 'passport-jwt'
-import { isPlainObject } from 'remeda'
 
 interface IPassportStrategy {
   validate: VerifyCallbackWithRequest

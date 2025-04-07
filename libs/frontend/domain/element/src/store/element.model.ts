@@ -21,6 +21,7 @@ import {
   elementRef,
   isAtom,
   isAtomRef,
+  isComponent,
   pageRef,
 } from '@codelab/frontend/abstract/domain'
 import { createValidator, toRefSchema } from '@codelab/frontend/shared/utils'
@@ -187,6 +188,13 @@ export class Element
     }
 
     return results
+  }
+
+  @computed
+  get closestContainerComponent() {
+    return isComponent(this.closestContainerNode)
+      ? this.closestContainerNode
+      : undefined
   }
 
   @computed
@@ -600,10 +608,10 @@ export class Element
       : this.postRenderActions
     this.childMapperComponent = childMapperComponent?.id
       ? componentRef(childMapperComponent.id)
-      : null
+      : this.childMapperComponent
     this.childMapperPreviousSibling = childMapperPreviousSibling?.id
       ? elementRef(childMapperPreviousSibling.id)
-      : null
+      : this.childMapperPreviousSibling
 
     this.style = style ?? this.style
 

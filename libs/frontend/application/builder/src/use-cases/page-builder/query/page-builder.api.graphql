@@ -5,7 +5,7 @@ query GetPageBuilder($appId: ID!, $pageIds: [ID!]) {
   apps(where: { id: $appId }) {
     ...AppBuilder
   }
-  atoms(where: { type: ReactFragment }) {
+  atoms {
     ...AtomBuilder
   }
   authGuards {

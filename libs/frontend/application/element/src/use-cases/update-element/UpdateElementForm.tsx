@@ -18,9 +18,9 @@ import {
   Form,
 } from '@codelab/frontend-presentation-components-form'
 import { CodeMirrorLanguage } from '@codelab/shared/infra/gqlgen'
-import { logger } from '@codelab/shared/infra/logging'
 import { Collapse } from 'antd'
 import { observer } from 'mobx-react-lite'
+import { useMemo } from 'react'
 import { isDeepEqual } from 'remeda'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { useCustomCompareMemo } from 'use-custom-compare'
@@ -42,10 +42,13 @@ export const UpdateElementForm = observer(
     const elementService = useElementService()
 
     const onSubmit = async (data: IUpdateElementData) => {
-      logger.debug('onSubmit', data)
+      console.log({
+        childMapperComponent: data.childMapperComponent,
+        childMapperPreviousSibling: data.childMapperPreviousSibling,
+        childMapperPropKey: data.childMapperPropKey,
+      })
 
-      return runtimeElement.element.current.writeCache(data)
-      //      return elementService.update(data)
+      return elementService.update(data)
     }
 
     const expandedFields: Array<string> = ['childMapper']
@@ -112,7 +115,11 @@ export const UpdateElementForm = observer(
         children: (
           // We don't want a composite field since there is no top level name to nest under
           <>
-            <SelectComponent label="Component" name="childMapperComponent.id" />
+            <SelectComponent
+              label="Component"
+              name="childMapperComponent.id"
+              parentComponent={element.closestContainerComponent}
+            />
             <ChildMapperPropKeyField
               name="childMapperPropKey"
               runtimeElement={runtimeElement}
@@ -128,18 +135,25 @@ export const UpdateElementForm = observer(
       })
     }
 
+    // Form should be the source of the update we don't want to send those changes back
+    const model = useMemo(() => element.toJson, [])
+
     return (
       <div key={element.id}>
         <Form<IUpdateBaseElementData>
           autosave
           errorMessage="Error while updating element"
-          model={element.toJson}
+          model={model}
           onSubmit={onSubmit}
           schema={updateElementSchema}
           uiKey={UiKey.ElementFormUpdate}
         >
           <AutoComputedElementNameField label="Name" name="name" />
-          <RenderTypeField name="renderType" />
+          <RenderTypeField
+            name="renderType"
+            parentComponent={element.closestContainerComponent}
+            parentElement={element.parentElement?.current}
+          />
           <AutoFields
             omitFields={[
               'childMapperComponent',

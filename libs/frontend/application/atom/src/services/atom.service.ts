@@ -13,16 +13,11 @@ import {
 import { useDomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
-import {
-  filterAtoms,
-  mapEntitySelectOptions,
-} from '@codelab/frontend-domain-atom/store'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { typeRepository } from '@codelab/frontend-domain-type/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { type IRef, ITypeKind } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/typebox'
-import { atomApi } from '@codelab/shared-domain-module/atom'
 import queryString from 'query-string'
 import { isEmpty } from 'remeda'
 import { v4 } from 'uuid'
@@ -107,13 +102,6 @@ export const useAtomService = (): IAtomService => {
     return all[0]
   }
 
-  const getSelectAtomOptions = async (parent?: IAtomModel) => {
-    const { atoms } = await atomApi().GetSelectAtomOptions({})
-    const atomOptions = filterAtoms(atoms, parent)
-
-    return atomOptions.map(mapEntitySelectOptions)
-  }
-
   const loadApi = async (id: string) => {
     const atom = atomDomainService.atoms.get(id) ?? (await getOne(id))
 
@@ -176,7 +164,6 @@ export const useAtomService = (): IAtomService => {
     createPopover,
     getAll,
     getOne,
-    getSelectAtomOptions,
     goToAtomsPage,
     goToDeleteAtomPage,
     loadApi,

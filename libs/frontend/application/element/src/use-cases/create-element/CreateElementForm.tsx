@@ -4,7 +4,6 @@ import type { IRuntimeModel } from '@codelab/frontend/abstract/application'
 import type { IFormController } from '@codelab/frontend/abstract/types'
 import type { IElementDto } from '@codelab/shared/abstract/core'
 
-import { isAtom } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   SelectActionsField,
@@ -110,10 +109,6 @@ export const CreateElementForm = observer<CreateElementFormProps>((props) => {
     },
   }
 
-  const parentAtom = isAtom(selectedElement.renderType.current)
-    ? selectedElement.renderType.current
-    : undefined
-
   return (
     <Form<ICreateElementDto>
       cssString="position: relative;"
@@ -145,7 +140,11 @@ export const CreateElementForm = observer<CreateElementFormProps>((props) => {
         help={`only elements from \`${selectedElement.closestContainerNode.name}\` are visible in this list`}
         name="parentElement.id"
       />
-      <RenderTypeField name="renderType" parentAtom={parentAtom} />
+      <RenderTypeField
+        name="renderType"
+        parentComponent={selectedElement.closestContainerComponent}
+        parentElement={selectedElement}
+      />
       <SelectActionsField name="preRenderActions" selectedNode={selectedNode} />
       <SelectActionsField
         name="postRenderActions"

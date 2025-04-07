@@ -1,13 +1,11 @@
 import type { IUpdateBaseElementData } from '@codelab/frontend/abstract/domain'
 import type { JSONSchemaType } from 'ajv'
 
-import { getSelectElementComponent } from '@codelab/frontend/presentation/components/interface-form'
 import {
   idSchema,
   titleCaseValidation,
 } from '@codelab/frontend-presentation-components-form/schema'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
-import { ElementTypeKind } from '@codelab/shared/infra/gqlgen'
 
 export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
   properties: {
@@ -67,7 +65,6 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
       properties: {
         ...idSchema({
           label: 'Render next to',
-          component: getSelectElementComponent(ElementTypeKind.ChildrenOnly),
           help: 'Component instances will be rendered next to this element',
         }),
         // help: 'testing testing testing',

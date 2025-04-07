@@ -23,7 +23,7 @@ import {
   prop,
 } from 'mobx-keystone'
 
-import { Atom, mapEntitySelectOptions } from '../store'
+import { Atom, filterAtoms, mapEntitySelectOptions } from '../store'
 
 @model('@codelab/AtomDomainService')
 export class AtomDomainService
@@ -66,6 +66,12 @@ export class AtomDomainService
     })
 
     return optionsWithImage
+  }
+
+  getSelectOptions(parentAtom?: IAtomModel) {
+    const atomOptions = filterAtoms(this.atomsList, parentAtom)
+
+    return atomOptions.map(mapEntitySelectOptions)
   }
 
   @modelAction

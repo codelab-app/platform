@@ -21,7 +21,7 @@ import { ElementTreeItemTitle } from './ElementTreeItemTitle'
  * When you think about it, the only dependency a BuilderTree should have is the data. All other services or data is only supporting infrastructure
  */
 export const ElementTreeView = observer<{
-  treeData?: IElementTreeViewDataNode
+  treeData: IElementTreeViewDataNode
   context: IBuilderRoute
 }>(({ context, treeData }) => {
   const { builderService, runtimeElementService } = useApplicationStore()
@@ -91,7 +91,7 @@ export const ElementTreeView = observer<{
       titleRender={(data) => (
         <ElementTreeItemTitle context={context} data={data} />
       )}
-      treeData={treeData ? [treeData] : []}
+      treeData={[treeData]}
     />
   )
 })

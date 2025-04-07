@@ -52,7 +52,9 @@ export const BaseBuilderPrimarySidebar = observer<BuilderPrimarySidebarProps>(
 
     const sidebarViews: Array<CuiSidebarView> = [
       {
-        content: <ElementTreeView context={context} treeData={antdTree} />,
+        content: antdTree && (
+          <ElementTreeView context={context} treeData={antdTree} />
+        ),
         isLoading: isLoading || !containerNode,
         key: 'ElementTree',
         label: 'Elements Tree',
