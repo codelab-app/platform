@@ -1,6 +1,5 @@
 import bundleAnalyzer from '@next/bundle-analyzer'
-import { composePlugins,
-withNx } from '@nx/next'
+import { composePlugins, withNx } from '@nx/next'
 // eslint-disable-next-line import/default
 import env from 'env-var'
 
@@ -14,7 +13,6 @@ const withBundleAnalyzer = bundleAnalyzer({
 })
 
 const enableInstrumentation = get('NEXT_WEB_ENABLE_OTEL').default(0).asBool()
-
 
 const plugins = enableInstrumentation
   ? [withNx, withBundleAnalyzer]
@@ -32,6 +30,14 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/i,
+      issuer: /\.[jt]sx?$/,
+      use: ['@svgr/webpack'],
+    })
+    return config
+  },
   experimental: {
     // forceSwcTransforms: true,
 
@@ -48,6 +54,8 @@ const nextConfig = {
       dynamic: 30,
       static: 180,
     },
+    // https://github.com/vercel/turborepo/issues/4832#issuecomment-2629459687
+    // turbopack working for dev only not for production
     turbo: {
       rules: {
         '*.svg': {
