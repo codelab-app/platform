@@ -18,7 +18,6 @@ import {
   Form,
 } from '@codelab/frontend-presentation-components-form'
 import { CodeMirrorLanguage } from '@codelab/shared/infra/gqlgen'
-import { logger } from '@codelab/shared/infra/logging'
 import { Collapse } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { isDeepEqual } from 'remeda'
@@ -42,10 +41,7 @@ export const UpdateElementForm = observer(
     const elementService = useElementService()
 
     const onSubmit = async (data: IUpdateElementData) => {
-      logger.debug('onSubmit', data)
-
-      return runtimeElement.element.current.writeCache(data)
-      //      return elementService.update(data)
+      return elementService.update(data)
     }
 
     const expandedFields: Array<string> = ['childMapper']
@@ -138,6 +134,9 @@ export const UpdateElementForm = observer(
           autosave
           errorMessage="Error while updating element"
           model={element.toJson}
+          onChange={(key, value) => {
+            console.log(key, value)
+          }}
           onSubmit={onSubmit}
           schema={updateElementSchema}
           uiKey={UiKey.ElementFormUpdate}
