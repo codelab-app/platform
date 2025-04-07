@@ -608,10 +608,10 @@ export class Element
       : this.postRenderActions
     this.childMapperComponent = childMapperComponent?.id
       ? componentRef(childMapperComponent.id)
-      : null
+      : this.childMapperComponent
     this.childMapperPreviousSibling = childMapperPreviousSibling?.id
       ? elementRef(childMapperPreviousSibling.id)
-      : null
+      : this.childMapperPreviousSibling
 
     this.style = style ?? this.style
 
