@@ -50,6 +50,9 @@ export class LoadTestPage extends BuilderPage {
     await expect(
       this.getBuilderRenderContainer().locator('[data-element-id]'),
     ).toHaveCount(E2E_ATOM_TYPES.length)
+
+    // close it for next check
+    await this.page.locator('span[aria-label="minus-square"]').click()
   }
 
   private async checkPageListPage(appName: string) {

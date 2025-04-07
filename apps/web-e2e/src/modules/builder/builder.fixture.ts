@@ -292,12 +292,7 @@ export class BuilderPage extends BasePage {
 
   async updateBuilderElement() {
     return test.step('updateBuilderElement', async () => {
-      const buttonTreeElement = await this.getTreeElement(
-        'Button',
-        'AntDesignButton',
-      )
-
-      await buttonTreeElement.click()
+      await this.selectTreeElement({ atom: 'AntDesignButton', name: 'Button' })
 
       const form = await this.getForm(UiKey.ElementFormUpdate)
 
