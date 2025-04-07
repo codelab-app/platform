@@ -53,7 +53,7 @@ export class LoadTestPage extends BuilderPage {
   }
 
   private async checkPageListPage(appName: string) {
-    await this.checkPageHeaderTitle([appName, 'Pages', 'provider'])
+    await this.checkPageHeaderTitle([appName, 'Pages'])
 
     await expect(this.getSpinner()).toBeHidden()
 
