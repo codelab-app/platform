@@ -20,6 +20,7 @@ import {
 import { CodeMirrorLanguage } from '@codelab/shared/infra/gqlgen'
 import { Collapse } from 'antd'
 import { observer } from 'mobx-react-lite'
+import { useMemo } from 'react'
 import { isDeepEqual } from 'remeda'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { useCustomCompareMemo } from 'use-custom-compare'
@@ -41,6 +42,12 @@ export const UpdateElementForm = observer(
     const elementService = useElementService()
 
     const onSubmit = async (data: IUpdateElementData) => {
+      console.log({
+        childMapperComponent: data.childMapperComponent,
+        childMapperPreviousSibling: data.childMapperPreviousSibling,
+        childMapperPropKey: data.childMapperPropKey,
+      })
+
       return elementService.update(data)
     }
 
@@ -128,15 +135,15 @@ export const UpdateElementForm = observer(
       })
     }
 
+    // Form should be the source of the update we don't want to send those changes back
+    const model = useMemo(() => element.toJson, [])
+
     return (
       <div key={element.id}>
         <Form<IUpdateBaseElementData>
           autosave
           errorMessage="Error while updating element"
-          model={element.toJson}
-          onChange={(key, value) => {
-            console.log(key, value)
-          }}
+          model={model}
           onSubmit={onSubmit}
           schema={updateElementSchema}
           uiKey={UiKey.ElementFormUpdate}
