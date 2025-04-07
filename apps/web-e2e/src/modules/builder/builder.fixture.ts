@@ -292,12 +292,18 @@ export class BuilderPage extends BasePage {
 
   async updateBuilderElement() {
     return test.step('updateBuilderElement', async () => {
-      const buttonTreeElement = this.getTreeElement('Button', 'AntDesignButton')
-      const updateElementForm = this.getUpdateElementForm()
+      const buttonTreeElement = await this.getTreeElement(
+        'Button',
+        'AntDesignButton',
+      )
 
       await buttonTreeElement.click()
-      await this.fillInputText({ label: 'Name' }, this.updatedButtonName, {
-        locator: updateElementForm,
+
+      const form = await this.getForm(UiKey.ElementFormUpdate)
+
+      await expect(form.getByLabel('Name')).toHaveValue('Button')
+
+      await form.fillInputText({ label: 'Name' }, this.updatedButtonName, {
         waitForAutosave: true,
       })
     })
