@@ -32,7 +32,7 @@ import {
   isComponent,
 } from '@codelab/frontend/abstract/domain'
 import { evaluateExpression, hasExpression } from '@codelab/shared-infra-eval'
-import { computed } from 'mobx'
+import { computed, reaction } from 'mobx'
 import {
   applySnapshot,
   detach,
@@ -46,7 +46,7 @@ import {
   prop,
 } from 'mobx-keystone'
 import { createElement, type ReactElement, type ReactNode } from 'react'
-import { difference, filter, isTruthy } from 'remeda'
+import { difference, filter, isTruthy, pick } from 'remeda'
 
 import { ElementWrapper } from '../components'
 
@@ -71,7 +71,21 @@ const compositeKey = (
   return `${container.compositeKey}.${element.id}${instanceKeyToRoot}${propKey}`
 }
 
-const create = (dto: IRuntimeElementDto) => new RuntimeElementModel(dto)
+const create = (dto: IRuntimeElementDto) => {
+  const runtimeElement = new RuntimeElementModel(dto)
+  /**
+   * Apply expanded state from localStorage
+   */
+  const item = localStorage.getItem(runtimeElement.id)
+  const snapshot = item ? JSON.parse(item) : null
+
+  if (snapshot) {
+    console.log('restoring snapshot', snapshot, runtimeElement)
+    applySnapshot(runtimeElement, snapshot)
+  }
+
+  return runtimeElement
+}
 
 /**
  * In cases of `childMapper`, the `runtimeElement's` renderType matters. If `component` type, then these children are not rendered nor passed to component to render
@@ -409,10 +423,6 @@ export class RuntimeElementModel
   }
 
   onAttachedToRootStore() {
-    this.restoreExpandedState()
-
-    this.expandParentElement()
-
     const recorder = patchRecorder(this, {
       filter: (patches, inversePatches) => {
         // record when patches are setting 'element'
@@ -424,10 +434,27 @@ export class RuntimeElementModel
       recording: true,
     })
 
+    // every time the snapshot of the configuration changes
+    const reactionDisposer = reaction(
+      () => getSnapshot(this),
+      (snapshot) => {
+        console.log('saving snapshot', pick(snapshot, ['expanded']))
+
+        // save the config to local storage
+        localStorage.setItem(
+          this.id,
+          JSON.stringify(pick(snapshot, ['expanded'])),
+        )
+      },
+      {
+        // also run the reaction the first time
+        // fireImmediately: true,
+      },
+    )
+
     return () => {
-      // Save expanded state to localStorage only on dispose
-      this.saveExpandedState()
       recorder.dispose()
+      reactionDisposer()
     }
   }
 
@@ -458,41 +485,9 @@ export class RuntimeElementModel
     this.setPreRenderActionsDone(true)
   }
 
-  /**
-   * When we add a new element to the tree, we need to expand the parent element
-   */
-  @modelAction
-  private expandParentElement() {
-    const parentElement = this.parentElement
-
-    if (parentElement) {
-      parentElement.setExpanded(true)
-    }
-  }
-
-  /**
-   * We store expanded state in localStorage, restore when re-constructing the element tree
-   */
-  private restoreExpandedState() {
-    const storedData = localStorage.getItem(this.compositeKey)
-
-    if (storedData) {
-      const snapshot = JSON.parse(storedData)
-
-      applySnapshot(this, snapshot)
-    }
-  }
-
   private runRenderAction(action: IActionModel) {
     const runner = this.runtimeProps.getActionRunner(action.name)
 
     runner()
-  }
-
-  /**
-   * Saves the current expanded state to localStorage
-   */
-  private saveExpandedState() {
-    localStorage.setItem(this.compositeKey, JSON.stringify(getSnapshot(this)))
   }
 }

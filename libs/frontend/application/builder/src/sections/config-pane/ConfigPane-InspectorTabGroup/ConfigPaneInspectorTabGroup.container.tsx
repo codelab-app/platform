@@ -12,7 +12,8 @@ export const ConfigPaneInspectorTabGroupContainer = observer<{
   context: IBuilderRoute
 }>(({ context }) => {
   const { builderService, rendererService } = useApplicationStore()
-  const selectedNode = builderService.selectedNode?.current
+  // `selectedNode` may not be hydrated yet
+  const selectedNode = builderService.selectedNode?.maybeCurrent
   const activeRenderer = rendererService.activeRenderer?.maybeCurrent
   const elementTree = rendererService.activeElementTree
 

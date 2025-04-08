@@ -147,7 +147,10 @@ export const useCloneElementService = ({
       renderType,
     }
 
-    const createdElement = await elementService.create(instanceElement)
+    const createdElement = await elementService.create(
+      instanceElement,
+      builderService.selectedNode?.current,
+    )
 
     const runtimeCreatedElement = runtimeParentElement?.children.find(
       (child): child is IRuntimeElementModel =>

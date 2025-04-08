@@ -19,7 +19,9 @@ import { RuntimeComponentModel } from '../store'
 @model('@codelab/RuntimeComponentService')
 export class RuntimeComponentService
   extends Model({
-    components: prop<ObjectMap<IRuntimeComponentModel>>(() => objectMap([])),
+    components: prop<ObjectMap<IRuntimeComponentModel>>(() =>
+      objectMap<IRuntimeComponentModel>([]),
+    ),
   })
   implements IRuntimeComponentService
 {

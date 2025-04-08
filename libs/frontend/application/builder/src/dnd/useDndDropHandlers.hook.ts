@@ -20,9 +20,10 @@ export interface UseDndDropHandler {
 }
 
 export const useDndDropHandler = (): UseDndDropHandler => {
-  const { rendererService, runtimeElementService } = useApplicationStore()
+  const { builderService, rendererService } = useApplicationStore()
   const { elementDomainService } = useDomainStore()
   const elementService = useElementService()
+  const selectedNode = builderService.selectedNode
 
   const { validateParentForCreate, validateParentForMove } =
     useRequiredParentValidator()
@@ -88,7 +89,7 @@ export const useDndDropHandler = (): UseDndDropHandler => {
       renderType,
     }
 
-    await elementService.create(createElementDto)
+    await elementService.create(createElementDto, selectedNode?.current)
   }
 
   const handleMoveElement = async (event: DragEndEvent) => {

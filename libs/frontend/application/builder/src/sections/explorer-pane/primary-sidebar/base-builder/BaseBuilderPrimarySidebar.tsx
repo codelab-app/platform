@@ -38,7 +38,7 @@ interface BuilderPrimarySidebarProps {
  */
 export const BaseBuilderPrimarySidebar = observer<BuilderPrimarySidebarProps>(
   ({ containerNode, context, isLoading = false }) => {
-    const { rendererService } = useApplicationStore()
+    const { builderService, rendererService } = useApplicationStore()
     const router = useRouter()
     const { createPopover: createElementPopover } = useElementService()
     const { createPopover: createFieldPopover } = useFieldService()
@@ -224,4 +224,4 @@ export const BaseBuilderPrimarySidebar = observer<BuilderPrimarySidebarProps>(
   },
 )
 
-BaseBuilderPrimarySidebar.displayName = 'BuilderMainPane'
+BaseBuilderPrimarySidebar.displayName = 'BaseBuilderPrimarySidebar'

@@ -45,7 +45,6 @@ const create = (element: IElementDto): IElementModel => {
     childMapperComponent,
     childMapperPreviousSibling,
     childMapperPropKey,
-    expanded,
     firstChild,
     id,
     name,
@@ -72,7 +71,6 @@ const create = (element: IElementDto): IElementModel => {
       ? elementRef(childMapperPreviousSibling.id)
       : null,
     childMapperPropKey,
-    expanded,
     firstChild: firstChild?.id ? elementRef(firstChild.id) : undefined,
     id,
     isTextContentEditable: false,
@@ -104,7 +102,6 @@ export class Element
     childMapperPreviousSibling:
       prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
     childMapperPropKey: prop<Nullable<string>>(null).withSetter(),
-    expanded: prop<Nullish<boolean>>(false).withSetter(),
     firstChild: prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
     hooks: prop<Array<IHook>>(() => []),
     id: idProp.withSetter(),
@@ -335,7 +332,6 @@ export class Element
         this.childMapperPreviousSibling?.current.toJson,
       childMapperPropKey: this.childMapperPropKey,
       closestContainerNode: { id: this.closestContainerNode.id },
-      expanded: this.expanded,
       firstChild: toRefSchema(this.firstChild),
       id: this.id,
       name: this.name,
@@ -563,7 +559,6 @@ export class Element
     childMapperComponent,
     childMapperPreviousSibling,
     childMapperPropKey,
-    expanded,
     firstChild,
     name,
     nextSibling,
@@ -587,7 +582,6 @@ export class Element
     this.parentElement = parentElement?.id
       ? elementRef(parentElement.id)
       : this.parentElement
-    this.expanded = expanded ?? this.expanded
     this.nextSibling = nextSibling?.id
       ? elementRef(nextSibling.id)
       : this.nextSibling

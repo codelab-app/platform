@@ -38,8 +38,6 @@ const AutoComputedElementName = observer<AutoComputedElementNameProps>(
       value?: Partial<IElementRenderTypeDto>
     }>('renderType', {})
 
-    console.log(renderTypeField)
-
     const newRenderTypeId = renderTypeField.value?.id
     // Used to check if the previous selected atom/component name
     // is different from the current value to determine if the user
@@ -66,8 +64,6 @@ const AutoComputedElementName = observer<AutoComputedElementNameProps>(
           (component) => component.id === newRenderTypeId,
         )?.name
       }
-
-      console.log(newRenderTypeId, atomDomainService.atomsList)
 
       renderTypeName = renderTypeName
         ? makeAutoIncrementedName(

@@ -1,10 +1,13 @@
 import type { IElementDto } from '@codelab/shared/abstract/core'
+import type { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import {
   type IBuilderRoute,
   type IElementService,
   IRouteType,
+  type IRuntimeModel,
+  isRuntimeElement,
   RoutePaths,
 } from '@codelab/frontend/abstract/application'
 import {
@@ -71,11 +74,12 @@ export const useElementService = (): IElementService => {
   const atomService = useAtomService()
   const typeService = useTypeService()
   const propService = usePropService()
-  const { builderService } = useApplicationStore()
   const { componentDomainService, elementDomainService } = useDomainStore()
-  const { runtimeElementService } = useApplicationStore()
 
-  const create = async (data: IElementDto) => {
+  const create = async (
+    data: IElementDto,
+    selectedNode: Maybe<IRuntimeModel>,
+  ) => {
     if (data.renderType.__typename === 'Atom') {
       await atomService.loadApi(data.renderType.id)
     } else {
@@ -85,6 +89,13 @@ export const useElementService = (): IElementService => {
     }
 
     const element = elementDomainService.addTreeNode(data)
+
+    /**
+     * Expand the parent for newly added element
+     */
+    if (selectedNode && isRuntimeElement(selectedNode)) {
+      selectedNode.parentElement?.setExpanded(true)
+    }
 
     await elementRepository.add(data, {
       revalidateTags: [CACHE_TAGS.Element.list()],

@@ -31,8 +31,9 @@ import {
 import { groupBy } from 'remeda'
 
 export const COMPONENT_TAG_NAME = 'Component'
+export const BUILDER_SERVICE = '@codelab/BuilderService'
 
-@model('@codelab/BuilderService')
+@model(BUILDER_SERVICE)
 export class BuilderService
   extends Model({
     hoveredNode: prop<Nullable<Ref<IRuntimeModel>>>().withSetter(),
@@ -130,6 +131,31 @@ export class BuilderService
   @computed
   get tagDomainService() {
     return getTagDomainService(this)
+  }
+
+  onAttachedToRootStore() {
+    console.log(this.selectedNode)
+
+    // every time the snapshot of the configuration changes
+    const reactionDisposer = reaction(
+      () => getSnapshot(this),
+      (snapshot) => {
+        // save the config to local storage
+        /**
+         * https://stackoverflow.com/questions/76300847/getting-referenceerror-localstorage-is-not-defined-even-after-adding-use-clien
+         */
+        localStorage.setItem(BUILDER_SERVICE, JSON.stringify(snapshot))
+      },
+      {
+        // also run the reaction the first time
+        // fireImmediately: true,
+      },
+    )
+
+    // when the model is no longer part of the root store stop saving
+    return () => {
+      reactionDisposer()
+    }
   }
 
   @modelAction

@@ -84,7 +84,7 @@ export const CreateElementForm = observer<CreateElementFormProps>((props) => {
       data.parentElement = null
     }
 
-    return elementService.create(data)
+    return elementService.create(data, selectedNode)
   }
 
   const model = {

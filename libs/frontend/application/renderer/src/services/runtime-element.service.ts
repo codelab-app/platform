@@ -17,7 +17,14 @@ import {
 } from '@codelab/frontend/abstract/application'
 import { elementRef } from '@codelab/frontend/abstract/domain'
 import { computed } from 'mobx'
-import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
+import {
+  applySnapshot,
+  Model,
+  model,
+  modelAction,
+  objectMap,
+  prop,
+} from 'mobx-keystone'
 
 import { RuntimeElementModel, RuntimeElementPropsModel } from '../store'
 import { RuntimeElementStyle } from '../store/runtime-element-style.model'

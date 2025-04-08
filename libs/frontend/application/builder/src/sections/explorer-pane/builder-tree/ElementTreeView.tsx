@@ -6,6 +6,7 @@ import type {
 import {
   type IBuilderRoute,
   type IElementTreeViewDataNode,
+  type IRuntimeModel,
   IRuntimeNodeType,
   runtimeComponentRef,
   runtimeElementRef,
@@ -40,8 +41,10 @@ export const ElementTreeView = observer<ElementTreeViewProps>(
   ({ containerNode, context, treeData }) => {
     const { builderService, runtimeElementService } = useApplicationStore()
     const { syncModifiedElements } = useElementService()
-    const selectedNode = builderService.selectedNode?.current
     const { handleDrop, isMoving } = useElementTreeDrop()
+    const selectedNode = builderService.selectedNode?.maybeCurrent
+
+    console.log(runtimeElementService.expandedKeys)
 
     return (
       <CuiTree<IElementTreeViewDataNode>
@@ -52,7 +55,7 @@ export const ElementTreeView = observer<ElementTreeViewProps>(
           return !data.dragNode.isChildMapperComponentInstance
         }}
         autoExpandParent={false}
-        defaultSelectedKeys={selectedNode ? [selectedNode.compositeKey] : []}
+        defaultSelectedKeys={selectedNode ? [selectedNode.id] : []}
         disabled={isMoving}
         draggable={true}
         expandedKeys={runtimeElementService.expandedKeys}
@@ -62,6 +65,8 @@ export const ElementTreeView = observer<ElementTreeViewProps>(
         onDrop={handleDrop}
         onExpand={(expandedKeys, { expanded, node }) => {
           runtimeElementService.runtimeElement(node.key).setExpanded(expanded)
+
+          console.log(runtimeElementService.expandedKeys)
         }}
         onMouseEnter={({ event, node }) => {
           // Selectable by default, unless it's not
@@ -84,18 +89,21 @@ export const ElementTreeView = observer<ElementTreeViewProps>(
         onMouseLeave={() => {
           builderService.setHoveredNode(null)
         }}
-        onSelect={([id], { nativeEvent, node }) => {
-          nativeEvent.stopPropagation()
+        onSelect={(selectedKeys, info) => {
+          info.nativeEvent.stopPropagation()
 
-          if (!id) {
+          if (selectedKeys.length === 0) {
             return
           }
 
-          builderService.setSelectedNode(
-            node.type === IRuntimeNodeType.Component
-              ? runtimeComponentRef(node.key)
-              : runtimeElementRef(node.key),
-          )
+          // Use setTimeout to defer the state update to prevent React setState during render issues
+          runInAction(() => {
+            builderService.setSelectedNode(
+              info.node.type === IRuntimeNodeType.Component
+                ? runtimeComponentRef(info.node.key)
+                : runtimeElementRef(info.node.key),
+            )
+          })
         }}
         titleRender={(data) => (
           <ElementTreeItemTitle context={context} data={data} />
