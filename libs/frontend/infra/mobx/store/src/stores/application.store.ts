@@ -44,7 +44,7 @@ export const createApplicationStore = (
     builderServiceSnapshot,
   }: {
     builderServiceSnapshot?: SnapshotInOf<IBuilderService>
-  },
+  } = {},
 ) => {
   const builderService = builderServiceSnapshot
     ? fromSnapshot<IBuilderService>(builderServiceSnapshot)
