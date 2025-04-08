@@ -55,7 +55,7 @@ export const ElementTreeView = observer<ElementTreeViewProps>(
           return !data.dragNode.isChildMapperComponentInstance
         }}
         autoExpandParent={false}
-        defaultSelectedKeys={selectedNode ? [selectedNode.id] : []}
+        defaultSelectedKeys={selectedNode ? [selectedNode.compositeKey] : []}
         disabled={isMoving}
         draggable={true}
         expandedKeys={runtimeElementService.expandedKeys}

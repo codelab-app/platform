@@ -42,6 +42,7 @@ import {
   model,
   modelAction,
   modelFlow,
+  onSnapshot,
   patchRecorder,
   prop,
 } from 'mobx-keystone'
@@ -72,19 +73,7 @@ const compositeKey = (
 }
 
 const create = (dto: IRuntimeElementDto) => {
-  const runtimeElement = new RuntimeElementModel(dto)
-  /**
-   * Apply expanded state from localStorage
-   */
-  const item = localStorage.getItem(runtimeElement.id)
-  const snapshot = item ? JSON.parse(item) : null
-
-  if (snapshot) {
-    console.log('restoring snapshot', snapshot, runtimeElement)
-    applySnapshot(runtimeElement, snapshot)
-  }
-
-  return runtimeElement
+  return new RuntimeElementModel(dto)
 }
 
 /**
@@ -97,6 +86,7 @@ export class RuntimeElementModel
       Ref<IRuntimeComponentModel> | Ref<IRuntimePageModel>
     >(),
     compositeKey: idProp,
+    // compositeKey: prop<string>(),
     element: prop<Ref<IElementModel>>(),
     expanded: prop(false).withSetter(),
     lastChildMapperChildrenKeys: prop<Array<string>>(() => []),
@@ -423,6 +413,8 @@ export class RuntimeElementModel
   }
 
   onAttachedToRootStore() {
+    console.log('onAttachedToRootStore', this.compositeKey)
+
     const recorder = patchRecorder(this, {
       filter: (patches, inversePatches) => {
         // record when patches are setting 'element'
@@ -435,22 +427,29 @@ export class RuntimeElementModel
     })
 
     // every time the snapshot of the configuration changes
-    const reactionDisposer = reaction(
-      () => getSnapshot(this),
-      (snapshot) => {
-        console.log('saving snapshot', pick(snapshot, ['expanded']))
+    const reactionDisposer = onSnapshot(
+      this,
+      (newSnapshot, previousSnapshot) => {
+        /**
+         * The additional $modelType property is used to allow fromSnapshot to recognize the original class and faithfully recreate it, rather than assume it is a plain object. This metadata is only required for models, in other words, arrays, plain objects and primitives don't have this extra field.
+         */
+        const runtimeElementSnapshot = pick(newSnapshot, ['expanded'])
+
+        console.log(
+          'runtimeElementSnapshot',
+          this.element.id,
+          runtimeElementSnapshot,
+        )
 
         // save the config to local storage
         localStorage.setItem(
-          this.id,
-          JSON.stringify(pick(snapshot, ['expanded'])),
+          this.compositeKey,
+          JSON.stringify(runtimeElementSnapshot),
         )
       },
-      {
-        // also run the reaction the first time
-        // fireImmediately: true,
-      },
     )
+
+    this.mergeSnapshotFromLocalStorage()
 
     return () => {
       recorder.dispose()
@@ -483,6 +482,25 @@ export class RuntimeElementModel
     actions?.forEach((action) => this.runRenderAction(action))
 
     this.setPreRenderActionsDone(true)
+  }
+
+  /**
+   * The snapshot needs to be restored after model creation to make sure that the reference is existing
+   *
+   * `applySnapshot` overrides target if some property is not supplied, create our own merge function
+   */
+  @modelAction
+  private mergeSnapshotFromLocalStorage() {
+    const storedItem = localStorage.getItem(this.compositeKey)
+    const storedSnapshot = storedItem ? JSON.parse(storedItem) : null
+    const currentSnapshot = getSnapshot(this)
+
+    if (storedSnapshot) {
+      applySnapshot(this, {
+        ...currentSnapshot,
+        ...storedSnapshot,
+      })
+    }
   }
 
   private runRenderAction(action: IActionModel) {
