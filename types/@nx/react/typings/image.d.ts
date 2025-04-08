@@ -2,14 +2,11 @@
 /// <reference types="react-dom" />
 
 declare module '*.svg' {
-  import * as React from 'react'
+  import { FC, SVGProps } from 'react'
 
-  export const ReactComponent: React.FunctionComponent<
-    React.SVGProps<SVGSVGElement> & { title?: string }
-  >
+  const content: FC<SVGProps<SVGElement>>
 
-  const src: string
-  export default src
+  export default content
 }
 
 declare module '*.bmp' {
