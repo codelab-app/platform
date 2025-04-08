@@ -6,7 +6,7 @@ import type {
   UrlParams,
 } from '@codelab/frontend/abstract/types'
 
-import { parseSearchParams } from './search-params'
+import { parseSearchParams } from './search-params.server'
 
 /**
  * Parses the page props by awaiting both params and searchParams

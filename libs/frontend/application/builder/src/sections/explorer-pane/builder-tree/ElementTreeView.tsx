@@ -1,3 +1,8 @@
+import type {
+  IComponentModel,
+  IPageModel,
+} from '@codelab/frontend/abstract/domain'
+
 import {
   type IBuilderRoute,
   type IElementTreeViewDataNode,
@@ -7,7 +12,9 @@ import {
 } from '@codelab/frontend/abstract/application'
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import { useElementService } from '@codelab/frontend-application-element/services'
+import { useSyncHistoryState } from '@codelab/frontend-application-shared-store/search-params'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import { runInAction } from 'mobx'
 import { observer } from 'mobx-react-lite'
 
 import { useElementTreeDrop } from '../../../hooks'
@@ -17,83 +24,86 @@ import {
 } from './disable-node-hover-effects'
 import { ElementTreeItemTitle } from './ElementTreeItemTitle'
 
+interface ElementTreeViewProps {
+  /**
+   * Used by builderService to key the expanded keys
+   */
+  containerNode: IComponentModel | IPageModel
+  context: IBuilderRoute
+  treeData?: IElementTreeViewDataNode
+}
+
 /**
  * When you think about it, the only dependency a BuilderTree should have is the data. All other services or data is only supporting infrastructure
  */
-export const ElementTreeView = observer<{
-  treeData: IElementTreeViewDataNode
-  context: IBuilderRoute
-}>(({ context, treeData }) => {
-  const { builderService, runtimeElementService } = useApplicationStore()
-  const { syncModifiedElements } = useElementService()
-  const selectedNode = builderService.selectedNode?.current
-  const { handleDrop, isMoving } = useElementTreeDrop()
+export const ElementTreeView = observer<ElementTreeViewProps>(
+  ({ containerNode, context, treeData }) => {
+    const { builderService, runtimeElementService } = useApplicationStore()
+    const { syncModifiedElements } = useElementService()
+    const selectedNode = builderService.selectedNode?.current
+    const { handleDrop, isMoving } = useElementTreeDrop()
 
-  return (
-    <CuiTree<IElementTreeViewDataNode>
-      allowDrop={(data) => {
-        // Child mapper component instances cannot be moved around individually since they are
-        // dynamically rendered and can't have NODE_SIBLING relationship to actual elements
-        // They can only be moved around via the `childMapperPreviousSibling` field of the element
-        return !data.dragNode.isChildMapperComponentInstance
-      }}
-      autoExpandParent={false}
-      defaultSelectedKeys={selectedNode ? [selectedNode.compositeKey] : []}
-      disabled={isMoving}
-      draggable={true}
-      expandedKeys={runtimeElementService.getExpandedCompositeKeys()}
-      onClick={(event) => {
-        event.stopPropagation()
-      }}
-      onDrop={handleDrop}
-      onExpand={(expandedKeys) => {
-        runtimeElementService.elementsList.forEach((runtimeElement) => {
-          // element will be marked modified automatically
-          runtimeElement.element.current.writeCache({
-            expanded: expandedKeys.includes(runtimeElement.compositeKey),
-          })
-        })
+    return (
+      <CuiTree<IElementTreeViewDataNode>
+        allowDrop={(data) => {
+          // Child mapper component instances cannot be moved around individually since they are
+          // dynamically rendered and can't have NODE_SIBLING relationship to actual elements
+          // They can only be moved around via the `childMapperPreviousSibling` field of the element
+          return !data.dragNode.isChildMapperComponentInstance
+        }}
+        autoExpandParent={false}
+        defaultSelectedKeys={selectedNode ? [selectedNode.compositeKey] : []}
+        disabled={isMoving}
+        draggable={true}
+        expandedKeys={runtimeElementService.expandedKeys}
+        onClick={(event) => {
+          event.stopPropagation()
+        }}
+        onDrop={handleDrop}
+        onExpand={(expandedKeys, { expanded, node }) => {
+          runtimeElementService.runtimeElement(node.key).setExpanded(expanded)
+        }}
+        onMouseEnter={({ event, node }) => {
+          // Selectable by default, unless it's not
+          if ('selectable' in node && !node.selectable) {
+            const target = event.target as Element
+            // This is where the hover effect is set
+            const treeNodeWrapper = target.closest(TREE_NODE_WRAPPER_SELECTOR)
 
-        void syncModifiedElements()
-      }}
-      onMouseEnter={({ event, node }) => {
-        // Selectable by default, unless it's not
-        if ('selectable' in node && !node.selectable) {
-          const target = event.target as Element
-          // This is where the hover effect is set
-          const treeNodeWrapper = target.closest(TREE_NODE_WRAPPER_SELECTOR)
+            treeNodeWrapper?.classList.add(DISABLE_HOVER_CLASSNAME)
+          }
 
-          treeNodeWrapper?.classList.add(DISABLE_HOVER_CLASSNAME)
-        }
+          if (node.type !== IRuntimeNodeType.Component) {
+            const runtimeElement = runtimeElementService.runtimeElement(
+              node.key,
+            )
 
-        if (node.type !== IRuntimeNodeType.Component) {
-          const runtimeElement = runtimeElementService.runtimeElement(node.key)
+            builderService.setHoveredNode(runtimeElementRef(runtimeElement))
+          }
+        }}
+        onMouseLeave={() => {
+          builderService.setHoveredNode(null)
+        }}
+        onSelect={([id], { nativeEvent, node }) => {
+          nativeEvent.stopPropagation()
 
-          builderService.setHoveredNode(runtimeElementRef(runtimeElement))
-        }
-      }}
-      onMouseLeave={() => {
-        builderService.setHoveredNode(null)
-      }}
-      onSelect={([id], { nativeEvent, node }) => {
-        nativeEvent.stopPropagation()
+          if (!id) {
+            return
+          }
 
-        if (!id) {
-          return
-        }
-
-        builderService.setSelectedNode(
-          node.type === IRuntimeNodeType.Component
-            ? runtimeComponentRef(node.key)
-            : runtimeElementRef(node.key),
-        )
-      }}
-      titleRender={(data) => (
-        <ElementTreeItemTitle context={context} data={data} />
-      )}
-      treeData={[treeData]}
-    />
-  )
-})
+          builderService.setSelectedNode(
+            node.type === IRuntimeNodeType.Component
+              ? runtimeComponentRef(node.key)
+              : runtimeElementRef(node.key),
+          )
+        }}
+        titleRender={(data) => (
+          <ElementTreeItemTitle context={context} data={data} />
+        )}
+        treeData={treeData ? [treeData] : []}
+      />
+    )
+  },
+)
 
 ElementTreeView.displayName = 'ElementTree'

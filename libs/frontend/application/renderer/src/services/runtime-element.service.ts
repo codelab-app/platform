@@ -32,13 +32,22 @@ export class RuntimeElementService
     currentStylePseudoClass: prop(
       () => ElementStylePseudoClass.None,
     ).withSetter(),
-    elements: prop<ObjectMap<IRuntimeElementModel>>(() => objectMap([])),
+    elements: prop<ObjectMap<IRuntimeElementModel>>(() =>
+      objectMap<IRuntimeElementModel>([]),
+    ),
   })
   implements IRuntimeElementService
 {
   @computed
   get elementsList() {
     return [...this.elements.values()]
+  }
+
+  @computed
+  get expandedKeys() {
+    return this.elementsList
+      .filter((element) => element.expanded)
+      .map((element) => element.compositeKey)
   }
 
   @modelAction
@@ -85,13 +94,6 @@ export class RuntimeElementService
     this.elements.set(runtimeElement.compositeKey, runtimeElement)
 
     return runtimeElement
-  }
-
-  @modelAction
-  getExpandedCompositeKeys() {
-    return this.elementsList
-      .filter((runtimeElement) => runtimeElement.element.current.expanded)
-      .map((runtimeElement) => runtimeElement.compositeKey)
   }
 
   maybeRuntimeElement(compositeKey: string) {

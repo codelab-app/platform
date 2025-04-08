@@ -38,6 +38,9 @@ const AutoComputedElementName = observer<AutoComputedElementNameProps>(
       value?: Partial<IElementRenderTypeDto>
     }>('renderType', {})
 
+    console.log(renderTypeField)
+
+    const newRenderTypeId = renderTypeField.value?.id
     // Used to check if the previous selected atom/component name
     // is different from the current value to determine if the user
     // altered the auto-generated name
@@ -52,26 +55,21 @@ const AutoComputedElementName = observer<AutoComputedElementNameProps>(
         return
       }
 
-      // if (renderType.__typename === IElementRenderTypeKind.Atom) {
-      //   renderTypeName = (await atomService.getOne(renderType.id))?.name
-      // }
+      if (renderType.__typename === IElementRenderTypeKind.Atom) {
+        renderTypeName = atomDomainService.atomsList.find(
+          (atom) => atom.id === newRenderTypeId,
+        )?.name
+      }
 
-      // if (renderType.__typename === IElementRenderTypeKind.Component) {
-      //   renderTypeName = (
-      //     await componentRepository.findOne({ id: renderType.id })
-      //   )?.name
-      // }
+      if (renderType.__typename === IElementRenderTypeKind.Component) {
+        renderTypeName = componentDomainService.componentList.find(
+          (component) => component.id === newRenderTypeId,
+        )?.name
+      }
 
-      const isAtom = renderType.__typename === IElementRenderTypeKind.Atom
+      console.log(newRenderTypeId, atomDomainService.atomsList)
 
-      renderTypeName = isAtom
-        ? atomDomainService.atomsList.find((atom) => atom.id === renderType.id)
-            ?.name
-        : componentDomainService.componentList.find(
-            (component) => component.id === renderType.id,
-          )?.name
-
-      renderTypeName = renderTypeName = renderTypeName
+      renderTypeName = renderTypeName
         ? makeAutoIncrementedName(
             rendererService.activeElementTree?.elements.map(
               (element) => element.name,

@@ -3,6 +3,8 @@ import type {
   SearchParamsServerProps,
 } from '@codelab/frontend/abstract/types'
 
+// import 'server-only'
+
 /**
  * Parse the type only, we don't validate the existence of the params since client first pass render may be undefined
  */

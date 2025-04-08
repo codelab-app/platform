@@ -1,9 +1,10 @@
 import type {
   IBuilderService,
+  IRuntimeElementModel,
   IRuntimeModel,
 } from '@codelab/frontend/abstract/application'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import type { Ref } from 'mobx-keystone'
+import type { ObjectMap, Ref } from 'mobx-keystone'
 
 import {
   getRendererService,
@@ -17,8 +18,16 @@ import {
   getTagDomainService,
 } from '@codelab/frontend/abstract/domain'
 import { isNonNullable } from '@codelab/shared/utils'
-import { computed } from 'mobx'
-import { Model, model, modelAction, prop } from 'mobx-keystone'
+import { computed, reaction } from 'mobx'
+import {
+  fromSnapshot,
+  getSnapshot,
+  Model,
+  model,
+  modelAction,
+  objectMap,
+  prop,
+} from 'mobx-keystone'
 import { groupBy } from 'remeda'
 
 export const COMPONENT_TAG_NAME = 'Component'

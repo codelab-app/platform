@@ -552,6 +552,9 @@
       "@codelab/frontend-application-shared-store/router": [
         "libs/frontend/application/shared/store/src/router/index.ts"
       ],
+      "@codelab/frontend-application-shared-store/search-params": [
+        "libs/frontend/application/shared/store/src/search-params/index.ts"
+      ],
       "@codelab/frontend-application-shared-store/ui": [
         "libs/frontend/application/shared/store/src/ui/index.ts"
       ],

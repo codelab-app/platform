@@ -17,7 +17,10 @@ import { usePropService } from '@codelab/frontend-application-prop/services'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend-infra-mobx/context'
 import { uniqueBy } from 'remeda'
 
 /**
@@ -68,7 +71,9 @@ export const useElementService = (): IElementService => {
   const atomService = useAtomService()
   const typeService = useTypeService()
   const propService = usePropService()
+  const { builderService } = useApplicationStore()
   const { componentDomainService, elementDomainService } = useDomainStore()
+  const { runtimeElementService } = useApplicationStore()
 
   const create = async (data: IElementDto) => {
     if (data.renderType.__typename === 'Atom') {
@@ -80,12 +85,6 @@ export const useElementService = (): IElementService => {
     }
 
     const element = elementDomainService.addTreeNode(data)
-
-    // when new element is inserted into elements tree -
-    // auto-expand parent node, so that new one becomes visible
-    if (element.closestParentElement?.maybeCurrent?.expanded === false) {
-      element.closestParentElement.current.setExpanded(true)
-    }
 
     await elementRepository.add(data, {
       revalidateTags: [CACHE_TAGS.Element.list()],

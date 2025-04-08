@@ -38,10 +38,9 @@ export const useSelectionHandlers = (
       builderService.setSelectedNode(runtimeElementRef(clickedElement))
 
       // expand parent elements on tree
-      clickedElement.pathFromRoot.forEach((parentRuntimeElement) =>
-        // elements will be marked with modified attribute
-        parentRuntimeElement.element.current.setExpanded(true),
-      )
+      clickedElement.pathFromRoot.forEach((parentRuntimeElement) => {
+        parentRuntimeElement.setExpanded(true)
+      })
 
       void syncModifiedElements()
     },

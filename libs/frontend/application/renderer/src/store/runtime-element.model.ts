@@ -34,11 +34,14 @@ import {
 import { evaluateExpression, hasExpression } from '@codelab/shared-infra-eval'
 import { computed } from 'mobx'
 import {
+  applySnapshot,
   detach,
+  getSnapshot,
   idProp,
   Model,
   model,
   modelAction,
+  modelFlow,
   patchRecorder,
   prop,
 } from 'mobx-keystone'
@@ -81,6 +84,7 @@ export class RuntimeElementModel
     >(),
     compositeKey: idProp,
     element: prop<Ref<IElementModel>>(),
+    expanded: prop(false).withSetter(),
     lastChildMapperChildrenKeys: prop<Array<string>>(() => []),
     parentElementKey: prop<Nullable<string>>(null),
     postRenderActionsDone: prop(false).withSetter(),
@@ -405,6 +409,10 @@ export class RuntimeElementModel
   }
 
   onAttachedToRootStore() {
+    this.restoreExpandedState()
+
+    this.expandParentElement()
+
     const recorder = patchRecorder(this, {
       filter: (patches, inversePatches) => {
         // record when patches are setting 'element'
@@ -417,6 +425,8 @@ export class RuntimeElementModel
     })
 
     return () => {
+      // Save expanded state to localStorage only on dispose
+      this.saveExpandedState()
       recorder.dispose()
     }
   }
@@ -434,6 +444,7 @@ export class RuntimeElementModel
     this.setPostRenderActionsDone(true)
   }
 
+  @modelAction
   runPreRenderActions() {
     if (this.preRenderActionsDone) {
       return
@@ -447,9 +458,41 @@ export class RuntimeElementModel
     this.setPreRenderActionsDone(true)
   }
 
+  /**
+   * When we add a new element to the tree, we need to expand the parent element
+   */
+  @modelAction
+  private expandParentElement() {
+    const parentElement = this.parentElement
+
+    if (parentElement) {
+      parentElement.setExpanded(true)
+    }
+  }
+
+  /**
+   * We store expanded state in localStorage, restore when re-constructing the element tree
+   */
+  private restoreExpandedState() {
+    const storedData = localStorage.getItem(this.compositeKey)
+
+    if (storedData) {
+      const snapshot = JSON.parse(storedData)
+
+      applySnapshot(this, snapshot)
+    }
+  }
+
   private runRenderAction(action: IActionModel) {
     const runner = this.runtimeProps.getActionRunner(action.name)
 
     runner()
+  }
+
+  /**
+   * Saves the current expanded state to localStorage
+   */
+  private saveExpandedState() {
+    localStorage.setItem(this.compositeKey, JSON.stringify(getSnapshot(this)))
   }
 }
