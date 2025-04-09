@@ -39,12 +39,11 @@ import {
   Model,
   model,
   modelAction,
-  onSnapshot,
   patchRecorder,
   prop,
 } from 'mobx-keystone'
 import { createElement, type ReactElement, type ReactNode } from 'react'
-import { difference, filter, isTruthy, pick } from 'remeda'
+import { difference, filter, isTruthy } from 'remeda'
 
 import { ElementWrapper } from '../components'
 
@@ -451,30 +450,8 @@ export class RuntimeElementModel
       recording: true,
     })
 
-    // every time the snapshot of the configuration changes
-    const reactionDisposer = onSnapshot(
-      this,
-      (newSnapshot, previousSnapshot) => {
-        /**
-         * The additional $modelType property is used to allow fromSnapshot to recognize the original class and faithfully recreate it, rather than assume it is a plain object. This metadata is only required for models, in other words, arrays, plain objects and primitives don't have this extra field.
-         */
-
-        // Only save if expanded value has changed
-        if (newSnapshot.expanded !== previousSnapshot.expanded) {
-          const runtimeElementSnapshot = pick(newSnapshot, ['expanded'])
-
-          // save the config to local storage
-          localStorage.setItem(
-            this.compositeKey,
-            JSON.stringify(runtimeElementSnapshot),
-          )
-        }
-      },
-    )
-
     return () => {
       recorder.dispose()
-      reactionDisposer()
     }
   }
 

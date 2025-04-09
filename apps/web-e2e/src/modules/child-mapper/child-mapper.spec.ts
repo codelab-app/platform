@@ -20,7 +20,12 @@ test.beforeEach(async ({ builderPage: page }) => {
   await page.goto(app.id, providerPageId)
 
   await expect(page.getSpinner()).toBeHidden()
+  await expect(page.getSkeleton()).toBeHidden()
   await expect(page.getFormFieldSpinner()).toHaveCount(0)
+
+  await page.expectGlobalProgressBarToBeHidden()
+
+  await page.checkPageHeaderTitle(['Codelab App', 'Pages', 'provider'])
 
   // because local storage isn't preserved in specs we need to expand the tree before each test
   await page.expandElementsTree()

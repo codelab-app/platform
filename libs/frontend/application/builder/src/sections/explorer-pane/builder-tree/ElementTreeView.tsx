@@ -8,7 +8,6 @@ import {
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
-import { runInAction } from 'mobx'
 import { observer } from 'mobx-react-lite'
 
 import { useElementTreeDrop } from '../../../hooks'
