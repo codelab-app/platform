@@ -28,11 +28,7 @@ export const ComponentPreviewBuilderContainer = ({
           containerNode={component}
           rendererType={RendererType.Preview}
         >
-          <ComponentBuilder
-            RootRenderer={RootRenderer}
-            component={component}
-            context={context}
-          />
+          <ComponentBuilder component={component} context={context} />
         </BuilderProvider>
       )}
     </ComponentConnector>

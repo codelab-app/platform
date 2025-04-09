@@ -14,7 +14,6 @@ import { observer } from 'mobx-react-lite'
 import { BaseBuilder } from '../base-builder'
 
 export interface IComponentBuilderProps {
-  RootRenderer: IRootRenderer
   component?: IComponentModel
   context: IComponentBuilderRoute
 }
@@ -25,7 +24,7 @@ export interface IComponentBuilderProps {
  * Remove observable here, otherwise has loop
  */
 export const ComponentBuilder = observer(
-  ({ component, context, RootRenderer }: IComponentBuilderProps) => {
+  ({ component, context }: IComponentBuilderProps) => {
     const { rendererService } = useApplicationStore()
 
     if (!component) {
@@ -38,13 +37,7 @@ export const ComponentBuilder = observer(
       return null
     }
 
-    return (
-      <BaseBuilder
-        RootRenderer={RootRenderer}
-        context={context}
-        renderer={renderer}
-      />
-    )
+    return <BaseBuilder context={context} renderer={renderer} />
   },
 )
 

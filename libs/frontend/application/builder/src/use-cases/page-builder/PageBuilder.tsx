@@ -14,7 +14,6 @@ import { observer } from 'mobx-react-lite'
 import { BaseBuilder } from '../base-builder'
 
 export interface IPageBuilderProps {
-  RootRenderer: IRootRenderer
   context: IPageBuilderRoute
   page?: IPageModel
 }
@@ -24,31 +23,28 @@ export interface IPageBuilderProps {
  *
  * Remove observable here, otherwise has loop
  */
-export const PageBuilder = observer(
-  ({ context, page, RootRenderer }: IPageBuilderProps) => {
-    const { rendererService } = useApplicationStore()
+export const PageBuilder = observer(({ context, page }: IPageBuilderProps) => {
+  const { rendererService } = useApplicationStore()
 
-    if (!page) {
-      throw new Error('Missing page model')
-    }
+  if (!page) {
+    throw new Error('Missing page model')
+  }
 
-    const renderer = rendererService.activeRenderer?.maybeCurrent
+  const renderer = rendererService.activeRenderer?.maybeCurrent
 
-    if (!renderer) {
-      return <Spinner />
-    }
+  if (!renderer) {
+    return <Spinner />
+  }
 
-    return (
-      <BaseBuilder
-        RootRenderer={RootRenderer}
-        context={{
-          ...context,
-          type: IRouteType.Page,
-        }}
-        renderer={renderer}
-      />
-    )
-  },
-)
+  return (
+    <BaseBuilder
+      context={{
+        ...context,
+        type: IRouteType.Page,
+      }}
+      renderer={renderer}
+    />
+  )
+})
 
 PageBuilder.displayName = 'PageBuilder'
