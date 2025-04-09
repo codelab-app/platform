@@ -1,7 +1,7 @@
 'use client'
 import type {
-  IAtomCreateRoute,
   IPaginationData,
+  ITypeCreateRoute,
 } from '@codelab/frontend/abstract/application'
 import type { TypeFragment } from '@codelab/shared/infra/gqlgen'
 
@@ -12,7 +12,7 @@ import { isDefined } from 'remeda'
 import { TypesPrimarySidebar } from './TypesPrimarySidebar'
 
 export const TypesPrimarySidebarContainer = observer<{
-  context: IAtomCreateRoute
+  context: ITypeCreateRoute
   pagination: IPaginationData
   typesDto: Array<TypeFragment>
 }>(({ context, pagination, typesDto }) => {

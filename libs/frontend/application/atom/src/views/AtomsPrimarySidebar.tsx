@@ -37,11 +37,12 @@ export const AtomsPrimarySidebar = ({
   const router = useRouter()
 
   // The pagination responsiveness in development mode is quite laggy but in production mode it is prefetched and snappy
-  const { showSearchBar, toolbarItems } = usePaginationToolbar({
-    pathname: RoutePaths.Atom.base(),
-    searchParams,
-    totalItems: pagination.totalItems,
-  })
+  const { handlePaginationChange, showSearchBar, toolbarItems } =
+    usePaginationToolbar({
+      pathname: RoutePaths.Atom.base(),
+      searchParams,
+      totalItems: pagination.totalItems,
+    })
 
   /**
    * We don't re-render if the data are the same id's. This prevents re-render from updates, since we use optimistic cache. We only re-render when we fetch different sets of id's
@@ -53,6 +54,7 @@ export const AtomsPrimarySidebar = ({
           <AtomsTreeView
             context={context}
             data={atoms}
+            handlePaginationChange={handlePaginationChange}
             isLoading={false}
             searchParams={searchParams}
             showSearchBar={showSearchBar}

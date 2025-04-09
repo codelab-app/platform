@@ -3,13 +3,12 @@
 import type { SupportedPaginationPathname } from '@codelab/frontend/abstract/application'
 import type { SearchParamsClientProps } from '@codelab/frontend/abstract/types'
 
-import LeftOutlined from '@ant-design/icons/LeftOutlined'
-import RightOutlined from '@ant-design/icons/RightOutlined'
 import SearchOutlined from '@ant-design/icons/SearchOutlined'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { Pagination } from 'antd'
-import Link from 'next/link'
-import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { useRef, useState } from 'react'
+import { debounce } from 'remeda'
 
 import type { ToolbarItem } from '../../abstract'
 
@@ -28,15 +27,25 @@ export interface ToolbarPaginationProps {
  */
 export const usePaginationToolbar = ({
   pathname,
-  searchParams: { filter, page, pageSize },
+  searchParams: { filter, page, pageSize, search },
   totalItems,
 }: ToolbarPaginationProps) => {
-  const [showSearchBar, setShowSearchBar] = useState(false)
+  const [showSearchBar, setShowSearchBar] = useState(Boolean(search))
+  const router = useRouter()
+
+  const { call: handlePaginationChange } = useRef(
+    debounce(
+      (newPage: number, newPageSize: number, newSearch = search) => {
+        router.push(
+          createPageUrl(pathname, newPage, newPageSize, filter, newSearch),
+        )
+      },
+      { waitMs: 500 },
+    ),
+  ).current
 
   const handleSearchBarToggle = () =>
-    setShowSearchBar((showSearch) => !showSearch)
-
-  const totalPages = Math.ceil(totalItems / pageSize)
+    setShowSearchBar((showSearch) => !showSearch || Boolean(search))
 
   const toolbarItems: Array<ToolbarItem> = [
     {
@@ -45,50 +54,7 @@ export const usePaginationToolbar = ({
         <div className="[&_.ant-pagination-simple-pager]:!me-0">
           <Pagination
             current={page}
-            itemRender={(targetPage, type, originalElement) => {
-              if (type === 'prev') {
-                const canGoPrev = page > 1
-
-                return (
-                  <Link
-                    href={createPageUrl(pathname, targetPage, pageSize, filter)}
-                    prefetch={true}
-                  >
-                    <LeftOutlined
-                      className={
-                        !canGoPrev
-                          ? 'text-gray-400 cursor-not-allowed'
-                          : 'cursor-pointer'
-                      }
-                    />
-                  </Link>
-                )
-              }
-
-              if (type === 'next') {
-                const canGoNext = page < totalPages
-
-                return (
-                  <Link
-                    href={createPageUrl(pathname, targetPage, pageSize, filter)}
-                    prefetch={true}
-                  >
-                    <RightOutlined
-                      className={
-                        !canGoNext
-                          ? 'text-gray-400 cursor-not-allowed'
-                          : 'cursor-pointer'
-                      }
-                    />
-                  </Link>
-                )
-              }
-
-              return originalElement
-            }}
-            onChange={() => {
-              // Added to avoid warning
-            }}
+            onChange={handlePaginationChange}
             pageSize={pageSize}
             showSizeChanger={true}
             simple
@@ -106,5 +72,5 @@ export const usePaginationToolbar = ({
     },
   ]
 
-  return { showSearchBar, toolbarItems }
+  return { handlePaginationChange, showSearchBar, toolbarItems }
 }

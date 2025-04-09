@@ -35,11 +35,12 @@ export const TypesPrimarySidebar = ({
   const { typeDomainService } = useDomainStore()
   const router = useRouter()
 
-  const { showSearchBar, toolbarItems } = usePaginationToolbar({
-    pathname: RoutePaths.Type.base(),
-    searchParams: context.searchParams,
-    totalItems: pagination.totalItems,
-  })
+  const { handlePaginationChange, showSearchBar, toolbarItems } =
+    usePaginationToolbar({
+      pathname: RoutePaths.Type.base(),
+      searchParams: context.searchParams,
+      totalItems: pagination.totalItems,
+    })
 
   useEffect(() => {
     typeDomainService.setSelectedKey(context.searchParams.selectedKey)
@@ -52,6 +53,7 @@ export const TypesPrimarySidebar = ({
         content: (
           <TypesTreeView
             data={types}
+            handlePaginationChange={handlePaginationChange}
             isLoading={false}
             searchParams={context.searchParams}
             showSearchBar={showSearchBar}
