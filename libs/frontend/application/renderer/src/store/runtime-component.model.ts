@@ -32,6 +32,7 @@ import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { isNonNullish } from 'remeda'
 
 import { RuntimeComponentPropModel } from './runtime-component-prop.model'
+import { RuntimeElementModel } from './runtime-element.model'
 import { RuntimeStoreModel } from './runtime-store.model'
 
 const compositeKey = (
@@ -129,8 +130,8 @@ export class RuntimeComponentModel
   }
 
   @computed
-  get render(): Nullable<ReactElement<unknown>> {
-    return this.runtimeRootElement.render
+  get rendered(): Nullable<ReactElement<unknown>> {
+    return this.runtimeRootElement.rendered
   }
 
   @computed
@@ -146,8 +147,9 @@ export class RuntimeComponentModel
   @computed
   get runtimeRootElement(): IRuntimeElementModel {
     const rootElement = this.component.current.rootElement.current
+    const key = RuntimeElementModel.compositeKey(rootElement, this)
 
-    return this.runtimeElementService.add(rootElement, this, null)
+    return this.runtimeElementService.runtimeElement(key)
   }
 
   @computed
@@ -186,5 +188,14 @@ export class RuntimeComponentModel
     })
     this.runtimeRootElement.detach()
     this.runtimeComponentService.remove(this)
+  }
+
+  @modelAction
+  render(): Nullable<ReactElement<unknown>> {
+    const rootElement = this.component.current.rootElement.current
+
+    this.runtimeElementService.add(rootElement, this, null)
+
+    return this.runtimeRootElement.render()
   }
 }

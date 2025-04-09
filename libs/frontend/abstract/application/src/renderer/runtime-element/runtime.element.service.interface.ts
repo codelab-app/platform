@@ -18,8 +18,10 @@ export interface IRuntimeElementService {
     parentElement: Nullable<IRuntimeElementModel>,
     propKey?: string,
   ): IRuntimeElementModel
-  maybeRuntimeElement(compositeKey: string): Maybe<IRuntimeElementModel>
   remove(runtimeElement: IRuntimeElementModel): void
-  runtimeElement(compositeKey: string): IRuntimeElementModel
+  /**
+   * We need to call `render()` to setup the runtime models, so access to the runtime element is delayed until then
+   */
+  runtimeElement(compositeKey: string): Maybe<IRuntimeElementModel>
   setCurrentStylePseudoClass(pseudoClass: ElementStylePseudoClass): void
 }

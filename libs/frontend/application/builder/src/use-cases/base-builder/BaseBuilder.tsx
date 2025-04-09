@@ -11,6 +11,7 @@ import {
   DATA_ELEMENT_ID,
 } from '@codelab/frontend/abstract/domain'
 import { ApplicationStoreHydrator } from '@codelab/frontend/infra/context'
+import { RootRenderer } from '@codelab/frontend-application-renderer/use-cases/root-renderer'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import { useRef } from 'react'
@@ -23,7 +24,6 @@ import { BuilderResizeHandle } from '../base-builder/BuilderResizeHandle'
 import { RenderBlueprint } from './RenderBlueprint'
 
 interface IBuilderProps {
-  RootRenderer: IRootRenderer
   context: IBuilderRoute
   renderer: IRendererModel
 }
@@ -31,43 +31,41 @@ interface IBuilderProps {
 /**
  * Generic builder used for both Component & Element
  */
-export const BaseBuilder = observer<IBuilderProps>(
-  ({ context, renderer, RootRenderer }) => {
-    const { builderService } = useApplicationStore()
-    const { selectedNode } = builderService
-    const builderContainerRef = useRef<HTMLDivElement>(null)
-    const renderContainerRef = useRef<HTMLDivElement>(null)
+export const BaseBuilder = observer<IBuilderProps>(({ context, renderer }) => {
+  const { builderService } = useApplicationStore()
+  const { selectedNode } = builderService
+  const builderContainerRef = useRef<HTMLDivElement>(null)
+  const renderContainerRef = useRef<HTMLDivElement>(null)
 
-    useBuilderHotkeys({
-      context,
-      selectedNode,
-      setSelectedNode: builderService.setSelectedNode.bind(builderService),
-    })
+  useBuilderHotkeys({
+    context,
+    selectedNode,
+    setSelectedNode: builderService.setSelectedNode.bind(builderService),
+  })
 
-    useInitializeSearchParams()
+  useInitializeSearchParams()
 
-    return (
-      <ApplicationStoreHydrator>
-        <BuilderDndContext>
-          <StyledBuilderContainer ref={builderContainerRef}>
-            <BuilderResizeHandle>
-              <StyledBuilderResizeContainer
-                id={BUILDER_CONTAINER_ID}
-                key={renderer.id}
-              >
-                <RootRenderer ref={renderContainerRef} renderer={renderer} />
-                <RenderBlueprint
-                  renderContainerRef={renderContainerRef}
-                  renderer={renderer}
-                />
-              </StyledBuilderResizeContainer>
-            </BuilderResizeHandle>
-          </StyledBuilderContainer>
-        </BuilderDndContext>
-      </ApplicationStoreHydrator>
-    )
-  },
-)
+  return (
+    <ApplicationStoreHydrator>
+      <BuilderDndContext>
+        <StyledBuilderContainer ref={builderContainerRef}>
+          <BuilderResizeHandle>
+            <StyledBuilderResizeContainer
+              id={BUILDER_CONTAINER_ID}
+              key={renderer.id}
+            >
+              <RootRenderer ref={renderContainerRef} renderer={renderer} />
+              <RenderBlueprint
+                renderContainerRef={renderContainerRef}
+                renderer={renderer}
+              />
+            </StyledBuilderResizeContainer>
+          </BuilderResizeHandle>
+        </StyledBuilderContainer>
+      </BuilderDndContext>
+    </ApplicationStoreHydrator>
+  )
+})
 
 BaseBuilder.displayName = 'BaseBuilder'
 

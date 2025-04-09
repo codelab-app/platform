@@ -23,7 +23,9 @@ import { RuntimePageModel, RuntimeStoreModel } from '../store'
 @model('@codelab/RuntimePageService')
 export class RuntimePageService
   extends Model({
-    pages: prop<ObjectMap<IRuntimePageModel>>(() => objectMap([])),
+    pages: prop<ObjectMap<IRuntimePageModel>>(() =>
+      objectMap<IRuntimePageModel>([]),
+    ),
   })
   implements IRuntimePageService
 {

@@ -15,7 +15,7 @@ import type {
   IElementModel,
 } from '@codelab/frontend/abstract/domain'
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
-import type { Ref } from 'mobx-keystone'
+import type { Ref, SnapshotInOf } from 'mobx-keystone'
 import type { ArrayOrSingle } from 'ts-essentials/dist/types'
 
 import {
@@ -32,7 +32,7 @@ import {
   isComponent,
 } from '@codelab/frontend/abstract/domain'
 import { evaluateExpression, hasExpression } from '@codelab/shared-infra-eval'
-import { computed, reaction } from 'mobx'
+import { computed, observable, reaction } from 'mobx'
 import {
   applySnapshot,
   detach,
@@ -72,8 +72,24 @@ const compositeKey = (
   return `${container.compositeKey}.${element.id}${instanceKeyToRoot}${propKey}`
 }
 
+const getPropertiesFromLocalStorage = (key: string) => {
+  const storedItem = localStorage.getItem(key)
+
+  const storedSnapshot: SnapshotInOf<IRuntimeElementModel> = storedItem
+    ? JSON.parse(storedItem)
+    : null
+
+  return storedSnapshot
+}
+
 const create = (dto: IRuntimeElementDto) => {
-  return new RuntimeElementModel(dto)
+  const runtimeElement = new RuntimeElementModel({
+    ...dto,
+    expanded: true,
+    // ...getPropertiesFromLocalStorage(dto.compositeKey),
+  })
+
+  return runtimeElement
 }
 
 /**
@@ -228,45 +244,13 @@ export class RuntimeElementModel
       : [this]
   }
 
-  @computed
-  get render(): Nullable<ReactElement<unknown>> {
-    if (this.shouldRender === false) {
-      return null
-    }
-
-    // Render the element to an intermediate output
-    const renderOutput = this.renderer.renderPipe.render(this)
-
-    const wrapperProps: ElementWrapperProps = {
-      errorBoundary: {
-        onError: ({ message, stack }) => {
-          this.element.current.setRenderingError({ message, stack })
-        },
-        onReset: ({ reason }) => {
-          if (reason === 'keys') {
-            this.element.current.setRenderingError(null)
-          }
-        },
-      },
-      key: this.compositeKey,
-      onRendered: async () => {
-        await this.runPostRenderActions()
-      },
-      renderer: this.renderer,
-      renderOutput,
-      runtimeElement: this,
-    }
-
-    return createElement(ElementWrapper, wrapperProps)
-  }
-
   /**
    * Renders the elements children
    */
   @computed
   get renderChildren(): ArrayOrSingle<ReactNode> {
     const rendered = filter(
-      this.children.map((child) => child.render),
+      this.children.map((child) => child.rendered),
       isTruthy,
     )
 
@@ -284,6 +268,13 @@ export class RuntimeElementModel
   @computed
   get renderService() {
     return getRendererService(this)
+  }
+
+  @computed
+  get rendered(): Nullable<ReactElement<unknown>> {
+    return this.wrapperProps
+      ? createElement(ElementWrapper, this.wrapperProps)
+      : null
   }
 
   @computed
@@ -387,6 +378,12 @@ export class RuntimeElementModel
   }
 
   /**
+   * Intermediate structure to store the wrapper props for rendered element
+   */
+  @observable
+  wrapperProps: Nullable<ElementWrapperProps> = null
+
+  /**
    * Used for cleaning up old child mapper nodes when the new evaluated prop has changed
    * e.g. when child mapper element depends on a filtered data
    * @param validNodes new evaluated child mapper prop
@@ -412,13 +409,34 @@ export class RuntimeElementModel
     this.runtimeElementService.remove(this)
   }
 
+  /**
+   * The snapshot needs to be restored after model creation to make sure that the reference is existing
+   *
+   * `applySnapshot` overrides target if some property is not supplied, create our own merge function
+   */
+  // @modelAction
+  // mergeSnapshotFromLocalStorage() {
+  //   const storedItem = localStorage.getItem(this.compositeKey)
+  //   const storedSnapshot = storedItem ? JSON.parse(storedItem) : null
+  //   const currentSnapshot = getSnapshot(this)
+
+  //   if (storedSnapshot) {
+  //     applySnapshot(this, {
+  //       ...currentSnapshot,
+  //       ...storedSnapshot,
+  //     })
+  //   }
+  // }
+
   onAttachedToRootStore() {
     console.log('onAttachedToRootStore', this.compositeKey)
 
     const recorder = patchRecorder(this, {
       filter: (patches, inversePatches) => {
-        // record when patches are setting 'element'
-        return patches.some((patch) => patch.path.includes('element'))
+        // record when patches are setting 'element' property
+        return patches.some((patch) => {
+          return patch.path.includes('element')
+        })
       },
       onPatches: (patches, inversePatches) => {
         detach(this)
@@ -426,35 +444,69 @@ export class RuntimeElementModel
       recording: true,
     })
 
-    // every time the snapshot of the configuration changes
-    const reactionDisposer = onSnapshot(
-      this,
-      (newSnapshot, previousSnapshot) => {
-        /**
-         * The additional $modelType property is used to allow fromSnapshot to recognize the original class and faithfully recreate it, rather than assume it is a plain object. This metadata is only required for models, in other words, arrays, plain objects and primitives don't have this extra field.
-         */
-        const runtimeElementSnapshot = pick(newSnapshot, ['expanded'])
+    // // every time the snapshot of the configuration changes
+    // const reactionDisposer = onSnapshot(
+    //   this,
+    //   (newSnapshot, previousSnapshot) => {
+    //     /**
+    //      * The additional $modelType property is used to allow fromSnapshot to recognize the original class and faithfully recreate it, rather than assume it is a plain object. This metadata is only required for models, in other words, arrays, plain objects and primitives don't have this extra field.
+    //      */
+    //     const runtimeElementSnapshot = pick(newSnapshot, ['expanded'])
 
-        console.log(
-          'runtimeElementSnapshot',
-          this.element.id,
-          runtimeElementSnapshot,
-        )
+    //     console.log(
+    //       'Saving runtimeElementSnapshot',
+    //       this.compositeKey,
+    //       runtimeElementSnapshot,
+    //     )
 
-        // save the config to local storage
-        localStorage.setItem(
-          this.compositeKey,
-          JSON.stringify(runtimeElementSnapshot),
-        )
-      },
-    )
-
-    this.mergeSnapshotFromLocalStorage()
+    //     // save the config to local storage
+    //     // localStorage.setItem(
+    //     //   this.compositeKey,
+    //     //   JSON.stringify(runtimeElementSnapshot),
+    //     // )
+    //   },
+    // )
 
     return () => {
       recorder.dispose()
-      reactionDisposer()
+      // reactionDisposer()
     }
+  }
+
+  /**
+   * Added to implement interface   */
+  @modelAction
+  render(): Nullable<ReactElement<unknown>> {
+    if (this.shouldRender === false) {
+      return null
+    }
+
+    // Render the element to an intermediate output
+    const renderOutput = this.renderer.renderPipe.render(this)
+
+    const wrapperProps: ElementWrapperProps = {
+      errorBoundary: {
+        onError: ({ message, stack }) => {
+          this.element.current.setRenderingError({ message, stack })
+        },
+        onReset: ({ reason }) => {
+          if (reason === 'keys') {
+            this.element.current.setRenderingError(null)
+          }
+        },
+      },
+      key: this.compositeKey,
+      onRendered: async () => {
+        await this.runPostRenderActions()
+      },
+      renderer: this.renderer,
+      renderOutput,
+      runtimeElement: this,
+    }
+
+    this.wrapperProps = wrapperProps
+
+    return createElement(ElementWrapper, wrapperProps)
   }
 
   runPostRenderActions() {
@@ -482,25 +534,6 @@ export class RuntimeElementModel
     actions?.forEach((action) => this.runRenderAction(action))
 
     this.setPreRenderActionsDone(true)
-  }
-
-  /**
-   * The snapshot needs to be restored after model creation to make sure that the reference is existing
-   *
-   * `applySnapshot` overrides target if some property is not supplied, create our own merge function
-   */
-  @modelAction
-  private mergeSnapshotFromLocalStorage() {
-    const storedItem = localStorage.getItem(this.compositeKey)
-    const storedSnapshot = storedItem ? JSON.parse(storedItem) : null
-    const currentSnapshot = getSnapshot(this)
-
-    if (storedSnapshot) {
-      applySnapshot(this, {
-        ...currentSnapshot,
-        ...storedSnapshot,
-      })
-    }
   }
 
   private runRenderAction(action: IActionModel) {

@@ -31,7 +31,9 @@ const create = (dto: IRuntimeStoreDto) => new RuntimeStoreModel(dto)
 export class RuntimeStoreModel
   extends Model(() => ({
     id: idProp,
-    runtimeActions: prop<ObjectMap<IRuntimeActionModel>>(() => objectMap([])),
+    runtimeActions: prop<ObjectMap<IRuntimeActionModel>>(() =>
+      objectMap<IRuntimeActionModel>([]),
+    ),
     runtimeProviderStore: prop<Maybe<Ref<IRuntimeStoreModel>>>(),
     store: prop<Ref<IStoreModel>>(),
   }))

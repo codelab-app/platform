@@ -103,10 +103,6 @@ export class RuntimeElementService
     return runtimeElement
   }
 
-  maybeRuntimeElement(compositeKey: string) {
-    return this.elements.get(compositeKey)
-  }
-
   @modelAction
   remove(runtimeElement: IRuntimeElementModel) {
     return this.elements.delete(runtimeElement.compositeKey)
@@ -114,10 +110,6 @@ export class RuntimeElementService
 
   runtimeElement(compositeKey: string) {
     const runtimeElement = this.elements.get(compositeKey)
-
-    if (!runtimeElement) {
-      throw new Error('Missing runtime element')
-    }
 
     return runtimeElement
   }

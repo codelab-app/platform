@@ -26,6 +26,7 @@ import { useRouter } from 'next/navigation'
 import { mergeDeep } from 'remeda'
 
 import { ElementTreeView } from '../../builder-tree/ElementTreeView'
+import { InspectorPanel } from './InspectorPanel'
 
 interface BuilderPrimarySidebarProps {
   containerNode: IComponentModel | IPageModel
@@ -38,26 +39,16 @@ interface BuilderPrimarySidebarProps {
  */
 export const BaseBuilderPrimarySidebar = observer<BuilderPrimarySidebarProps>(
   ({ containerNode, context, isLoading = false }) => {
-    const { builderService, rendererService } = useApplicationStore()
     const router = useRouter()
     const { createPopover: createElementPopover } = useElementService()
     const { createPopover: createFieldPopover } = useFieldService()
     const { createPopover: createActionPopover } = useActionService()
     const store = containerNode.store.maybeCurrent
-    const renderer = rendererService.activeRenderer?.current
-    const runtimeContainerNode = renderer?.runtimeContainerNode
-    const runtimeStore = runtimeContainerNode?.runtimeStore
-    const runtimeProviderStore = runtimeStore?.runtimeProviderStore?.current
-    const antdTree = runtimeContainerNode?.runtimeRootElement.treeViewNode
 
     const sidebarViews: Array<CuiSidebarView> = [
       {
         content: (
-          <ElementTreeView
-            containerNode={containerNode}
-            context={context}
-            treeData={antdTree}
-          />
+          <ElementTreeView containerNode={containerNode} context={context} />
         ),
         isLoading: isLoading || !containerNode,
         key: 'ElementTree',
@@ -159,54 +150,7 @@ export const BaseBuilderPrimarySidebar = observer<BuilderPrimarySidebarProps>(
         },
       },
       {
-        content: runtimeStore && (
-          <Collapse ghost size="small">
-            <Collapse.Panel header="Local Store" key="localStore">
-              <CodeMirrorEditor
-                className="mt-1"
-                editable={false}
-                language={CodeMirrorLanguage.Json}
-                onChange={() => undefined}
-                singleLine={false}
-                title="Local Store"
-                value={runtimeStore.jsonString}
-              />
-            </Collapse.Panel>
-            {isComponent(containerNode) ? (
-              <Collapse.Panel header="Component Store" key="componentStore">
-                <CodeMirrorEditor
-                  className="mt-1"
-                  editable={false}
-                  language={CodeMirrorLanguage.Json}
-                  onChange={() => undefined}
-                  singleLine={false}
-                  title="Component Store"
-                  value={runtimeStore.jsonString}
-                />
-              </Collapse.Panel>
-            ) : (
-              ''
-            )}
-
-            {runtimeProviderStore &&
-            isPage(containerNode) &&
-            containerNode.kind === IPageKind.Regular ? (
-              <Collapse.Panel header="Root Store" key="rootStore">
-                <CodeMirrorEditor
-                  className="mt-1"
-                  editable={false}
-                  language={CodeMirrorLanguage.Json}
-                  onChange={() => undefined}
-                  singleLine={false}
-                  title="Root Store"
-                  value={runtimeProviderStore.jsonString}
-                />
-              </Collapse.Panel>
-            ) : (
-              ''
-            )}
-          </Collapse>
-        ),
+        content: <InspectorPanel containerNode={containerNode} />,
         isLoading: isLoading || !store,
         key: 'Inspector',
         label: 'Inspector',

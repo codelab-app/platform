@@ -27,14 +27,22 @@ export interface IRendererModel {
   expressionTransformer: IExpressionTransformer
   id: string
   isBuilder: boolean
-  render: Nullable<ReactElement<unknown>>
   renderPipe: IRenderPipe
+  /**
+   * Refactored to move initialization out
+   */
+  rendered: Nullable<ReactElement<unknown>>
   rendererType: RendererType
   runtimeComponent?: IRuntimeComponentModel
   runtimeContainerNode: Maybe<IRuntimeComponentModel> | Maybe<IRuntimePageModel>
   runtimePage?: IRuntimePageModel
   runtimeRootContainerNode: IRuntimeComponentModel | IRuntimePageModel
   typedPropTransformers: ObjectMap<ITypedPropTransformer>
+
+  /**
+   * Call `init` before accessing `rendered`
+   */
+  render(): Nullable<ReactElement<unknown>>
 }
 
 export interface ElementWrapperProps {

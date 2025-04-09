@@ -25,11 +25,7 @@ export const PagePreviewContainer = ({
           containerNode={page}
           rendererType={RendererType.Preview}
         >
-          <PageBuilder
-            RootRenderer={RootRenderer}
-            context={context}
-            page={page}
-          />
+          <PageBuilder context={context} page={page} />
         </BuilderProvider>
       )}
     </PageConnector>

@@ -23,5 +23,5 @@ export interface IRuntimePageModel extends IBaseRuntimeModel {
    * Page domain model
    */
   page: Ref<IPageModel>
-  runtimeRootElement: IRuntimeElementModel
+  runtimeRootElement: Maybe<IRuntimeElementModel>
 }

@@ -10,7 +10,7 @@ import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/domain'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Alert } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { forwardRef, useMemo } from 'react'
+import { forwardRef, useEffect, useMemo } from 'react'
 
 //  https://github.com/ant-design/ant-design/issues/52213
 const ErrorBoundary = Alert.ErrorBoundary as JSXElementConstructor<{
@@ -61,10 +61,19 @@ const RootRendererComponent = forwardRef<
     [preference.builderWidth],
   )
 
+  useEffect(() => {
+    /**
+     * This should not have any side effects, we extract any action to `render()`
+     */
+    renderer.render()
+  }, [])
+
+  const Rendered = renderer.rendered
+
   return (
     <ErrorBoundary>
       <div id={ROOT_RENDER_CONTAINER_ID} ref={ref} style={containerStyle}>
-        {renderer.render}
+        {Rendered}
       </div>
     </ErrorBoundary>
   )

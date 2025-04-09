@@ -1,5 +1,3 @@
-'use client'
-
 import type { IPageBuilderRoute } from '@codelab/frontend/abstract/application'
 import type { IAppModel, IPageModel } from '@codelab/frontend/abstract/domain'
 
@@ -21,4 +19,4 @@ export const PageBuilderPrimarySidebar = ({
   return <BaseBuilderPrimarySidebar containerNode={page} context={context} />
 }
 
-PageBuilderPrimarySidebar.displayName = 'PrimarySidebar'
+PageBuilderPrimarySidebar.displayName = 'PageBuilderPrimarySidebar'

@@ -24,7 +24,7 @@ import {
   pageRef,
 } from '@codelab/frontend/abstract/domain'
 import { computed } from 'mobx'
-import { idProp, Model, model, prop } from 'mobx-keystone'
+import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
 import { defaultPipes, renderPipeFactory } from '../render-pipes'
 import { ExpressionTransformer } from '../services'
@@ -104,11 +104,11 @@ export class Renderer
   }
 
   /**
-   * This is the entry point to start the rendering process
+   * This should not have any side effects, we extract any action to `render()`
    */
   @computed
-  get render() {
-    return this.runtimeRootContainerNode.render
+  get rendered() {
+    return this.runtimeRootContainerNode.rendered
   }
 
   @computed
@@ -149,5 +149,13 @@ export class Renderer
     return isPage(this.containerNode.current)
       ? this.runtimePageService.add(this.containerNode.current)
       : this.runtimeComponentService.add(this.containerNode.current)
+  }
+
+  /**
+   * This is the entry point to start the rendering process
+   */
+  @modelAction
+  render() {
+    return this.runtimeRootContainerNode.render()
   }
 }

@@ -18,6 +18,8 @@ import { type IPageModel } from '@codelab/frontend/abstract/domain'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
+import { RuntimeElementModel } from './runtime-element.model'
+
 /**
  * Create both provider page and regular page recursively
  *
@@ -63,8 +65,8 @@ export class RuntimePageModel
   }
 
   @computed
-  get render(): Nullable<ReactElement<unknown>> {
-    return this.runtimeRootElement.render
+  get rendered(): Nullable<ReactElement<unknown>> {
+    return this.runtimeRootElement.rendered
   }
 
   @computed
@@ -78,10 +80,11 @@ export class RuntimePageModel
   }
 
   @computed
-  get runtimeRootElement(): IRuntimeElementModel {
+  get runtimeRootElement() {
     const rootElement = this.page.current.rootElement.current
+    const key = RuntimeElementModel.compositeKey(rootElement, this)
 
-    return this.runtimeElementService.add(rootElement, this, null)
+    return this.runtimeElementService.runtimeElement(key)
   }
 
   @computed
@@ -98,5 +101,14 @@ export class RuntimePageModel
   detach(): void {
     this.runtimeRootElement.detach()
     this.runtimePageService.remove(this)
+  }
+
+  @modelAction
+  render(): Nullable<ReactElement<unknown>> {
+    const rootElement = this.page.current.rootElement.current
+
+    this.runtimeElementService.add(rootElement, this, null)
+
+    return this.runtimeRootElement.render()
   }
 }

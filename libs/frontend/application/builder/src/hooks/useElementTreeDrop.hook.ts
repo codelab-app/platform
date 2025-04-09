@@ -49,6 +49,10 @@ export const useElementTreeDrop = () => {
       info.node.key.toString(),
     )
 
+    if (!runtimeDraggedElement || !runtimeDropElement) {
+      return
+    }
+
     const draggedElement = runtimeDraggedElement.element.current
     const draggedRootId = info.dragNode.rootKey?.toString()
     const dropElement = runtimeDropElement.element.current

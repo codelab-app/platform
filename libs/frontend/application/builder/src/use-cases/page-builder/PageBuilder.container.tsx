@@ -28,12 +28,7 @@ export const PageBuilderContainer = ({
           containerNode={page}
           rendererType={RendererType.PageBuilder}
         >
-          <PageBuilder
-            // Decouple renderer from builder
-            RootRenderer={RootRenderer}
-            context={context}
-            page={page}
-          />
+          <PageBuilder context={context} page={page} />
         </BuilderProvider>
       )}
     </PageConnector>
