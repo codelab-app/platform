@@ -41,7 +41,7 @@ export class LoadTestPage extends BuilderPage {
 
   private async checkBuilderPage() {
     await this.checkRootElementExists()
-    await this.page.locator('span[aria-label="plus-square"]').click()
+    // await this.page.locator('span[aria-label="plus-square"]').click()
 
     await expect(this.page.getByRole('treeitem')).toHaveCount(
       // +1 for the root ReactFragment element
