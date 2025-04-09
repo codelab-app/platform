@@ -53,15 +53,6 @@ export const ElementTreeView = observer<{
       onDrop={handleDrop}
       onExpand={async (expandedKeys, { expanded, node }) => {
         const runtimeElement = runtimeElementService.runtimeElement(node.key)
-        // Force the change to be tracked by first getting the current value
-        const currentExpanded = runtimeElement.expanded
-
-        console.log(
-          'Changing expanded state from',
-          currentExpanded,
-          'to',
-          expanded,
-        )
 
         // Set the new expanded state
         runtimeElement.setExpanded(expanded)
