@@ -28,7 +28,6 @@ export const elementMapper: IMapper<
       childMapperPropKey,
       closestContainerNode,
       compositeKey,
-      expanded,
       firstChild,
       id,
       name,
@@ -52,7 +51,6 @@ export const elementMapper: IMapper<
       compositeKey:
         compositeKey ??
         ElementProperties.elementCompositeKey({ name }, closestContainerNode),
-      expanded,
       id,
       // We only need to do one way
       // firstChild: connectNodeId(firstChild?.id),
@@ -99,7 +97,6 @@ export const elementMapper: IMapper<
     childMapperPropKey,
     closestContainerNode,
     compositeKey,
-    expanded,
     firstChild,
     name,
     nextSibling,
@@ -125,7 +122,6 @@ export const elementMapper: IMapper<
       compositeKey:
         compositeKey ??
         ElementProperties.elementCompositeKey({ name }, closestContainerNode),
-      expanded,
       firstChild: reconnectNodeId(firstChild?.id),
       nextSibling: reconnectNodeId(nextSibling?.id),
       page: reconnectNodeId(page?.id),

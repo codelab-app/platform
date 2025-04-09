@@ -15,7 +15,7 @@ import type {
   IElementModel,
 } from '@codelab/frontend/abstract/domain'
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
-import type { Ref } from 'mobx-keystone'
+import type { Ref, SnapshotInOf } from 'mobx-keystone'
 import type { ArrayOrSingle } from 'ts-essentials/dist/types'
 
 import {
@@ -32,18 +32,21 @@ import {
   isComponent,
 } from '@codelab/frontend/abstract/domain'
 import { evaluateExpression, hasExpression } from '@codelab/shared-infra-eval'
-import { computed } from 'mobx'
+import { computed, reaction } from 'mobx'
 import {
   detach,
+  getSnapshot,
   idProp,
   Model,
   model,
   modelAction,
+  onSnapshot,
   patchRecorder,
   prop,
 } from 'mobx-keystone'
+import { todo } from 'node:test'
 import { createElement, type ReactElement, type ReactNode } from 'react'
-import { difference, filter, isTruthy } from 'remeda'
+import { difference, filter, isTruthy, pick } from 'remeda'
 
 import { ElementWrapper } from '../components'
 
@@ -68,7 +71,23 @@ const compositeKey = (
   return `${container.compositeKey}.${element.id}${instanceKeyToRoot}${propKey}`
 }
 
-const create = (dto: IRuntimeElementDto) => new RuntimeElementModel(dto)
+const getPropertiesFromLocalStorage = (key: string) => {
+  const storedItem = localStorage.getItem(key)
+
+  const storedSnapshot: SnapshotInOf<IRuntimeElementModel> = storedItem
+    ? JSON.parse(storedItem)
+    : null
+
+  return storedSnapshot
+}
+
+const create = (dto: IRuntimeElementDto) => {
+  const properties = getPropertiesFromLocalStorage(dto.compositeKey)
+
+  console.log('properties', dto.compositeKey, properties)
+
+  return new RuntimeElementModel({ ...dto, ...properties })
+}
 
 /**
  * In cases of `childMapper`, the `runtimeElement's` renderType matters. If `component` type, then these children are not rendered nor passed to component to render
@@ -81,6 +100,7 @@ export class RuntimeElementModel
     >(),
     compositeKey: idProp,
     element: prop<Ref<IElementModel>>(),
+    expanded: prop<boolean>(false).withSetter(),
     lastChildMapperChildrenKeys: prop<Array<string>>(() => []),
     parentElementKey: prop<Nullable<string>>(null),
     postRenderActionsDone: prop(false).withSetter(),
@@ -405,6 +425,8 @@ export class RuntimeElementModel
   }
 
   onAttachedToRootStore() {
+    console.log('onAttachedToRootStore', this.compositeKey)
+
     const recorder = patchRecorder(this, {
       filter: (patches, inversePatches) => {
         // record when patches are setting 'element'
@@ -416,8 +438,41 @@ export class RuntimeElementModel
       recording: true,
     })
 
+    // every time the snapshot of the configuration changes
+    const reactionDisposer = onSnapshot(
+      this,
+      (newSnapshot, previousSnapshot) => {
+        /**
+         * The additional $modelType property is used to allow fromSnapshot to recognize the original class and faithfully recreate it, rather than assume it is a plain object. This metadata is only required for models, in other words, arrays, plain objects and primitives don't have this extra field.
+         */
+
+        console.log({
+          new: newSnapshot.expanded,
+          old: previousSnapshot.expanded,
+        })
+
+        // Only save if expanded value has changed
+        if (newSnapshot.expanded !== previousSnapshot.expanded) {
+          const runtimeElementSnapshot = pick(newSnapshot, ['expanded'])
+
+          console.log(
+            'Saving runtimeElementSnapshot',
+            this.compositeKey,
+            runtimeElementSnapshot,
+          )
+
+          // save the config to local storage
+          localStorage.setItem(
+            this.compositeKey,
+            JSON.stringify(runtimeElementSnapshot),
+          )
+        }
+      },
+    )
+
     return () => {
       recorder.dispose()
+      reactionDisposer()
     }
   }
 

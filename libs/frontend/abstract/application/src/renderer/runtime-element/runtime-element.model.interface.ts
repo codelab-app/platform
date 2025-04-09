@@ -27,6 +27,10 @@ export interface IRuntimeElementModel extends IBaseRuntimeModel {
   closestContainerNode: Ref<IRuntimeComponentModel | IRuntimePageModel>
   descendantElements: Array<IRuntimeElementModel>
   element: Ref<IElementModel>
+  /**
+   * Whether the element is expanded in the tree view, moved from `ElementModel`
+   */
+  expanded: boolean
   mainTreeElement: IRuntimeElementModel
   parentElement: Maybe<IRuntimeElementModel>
   parentElementKey: Nullable<string>
@@ -52,6 +56,7 @@ export interface IRuntimeElementModel extends IBaseRuntimeModel {
   cleanupChildMapperNodes(newKeys: Array<string>): void
   runPostRenderActions(): void
   runPreRenderActions(): void
+  setExpanded(expanded: boolean): void
   setPostRenderActionsDone(value: boolean): void
   setPreRenderActionsDone(value: boolean): void
 }

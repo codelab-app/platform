@@ -66,7 +66,6 @@ export interface IElementModel extends IModel<IElementDto, IElementModel> {
   closestSubTreeRootElement: IElementModel
   // This is a computed property, so we can use model instead of ref
   descendantElements: Array<IElementModel>
-  expanded?: Nullish<boolean>
   firstChild?: Nullable<Ref<IElementModel>>
   hooks: Array<IHook>
   id: string

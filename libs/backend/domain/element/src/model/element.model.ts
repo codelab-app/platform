@@ -15,8 +15,6 @@ export class Element implements IElementDto {
 
   closestContainerNode: IRef
 
-  expanded: Nullish<boolean>
-
   firstChild?: Nullish<IRef>
 
   id: string
@@ -49,7 +47,6 @@ export class Element implements IElementDto {
 
   constructor({
     closestContainerNode,
-    expanded,
     id,
     name,
     props,
@@ -57,7 +54,6 @@ export class Element implements IElementDto {
   }: IElementDto) {
     this.id = id
     this.props = props
-    this.expanded = expanded
     this.closestContainerNode = closestContainerNode
     this.name = name
     this.renderType = renderType

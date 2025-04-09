@@ -32,7 +32,9 @@ export class RuntimeElementService
     currentStylePseudoClass: prop(
       () => ElementStylePseudoClass.None,
     ).withSetter(),
-    elements: prop<ObjectMap<IRuntimeElementModel>>(() => objectMap([])),
+    elements: prop<ObjectMap<IRuntimeElementModel>>(() =>
+      objectMap<IRuntimeElementModel>([]),
+    ),
   })
   implements IRuntimeElementService
 {
@@ -90,7 +92,7 @@ export class RuntimeElementService
   @modelAction
   getExpandedCompositeKeys() {
     return this.elementsList
-      .filter((runtimeElement) => runtimeElement.element.current.expanded)
+      .filter((runtimeElement) => runtimeElement.expanded)
       .map((runtimeElement) => runtimeElement.compositeKey)
   }
 
