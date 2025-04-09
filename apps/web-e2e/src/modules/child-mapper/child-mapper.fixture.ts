@@ -101,26 +101,26 @@ export class ChildMapperPage extends BuilderPage {
     })
   }
 
-  async expandElementsTree() {
-    return test.step('expandElementsTree', async () => {
-      await this.page.getByLabel('plus-square').click()
+  // async expandElementsTree() {
+  //   return test.step('expandElementsTree', async () => {
+  //     await this.page.getByLabel('plus-square').click()
 
-      const row = this.getTreeElement(pageRowElement.name, pageRowElement.atom)
+  //     const row = this.getTreeElement(pageRowElement.name, pageRowElement.atom)
 
-      await expect(row).toBeVisible()
+  //     await expect(row).toBeVisible()
 
-      // for some reason tests are failling unless we click the row before expanding
-      await row.click()
+  //     // for some reason tests are failling unless we click the row before expanding
+  //     await row.click()
 
-      await this.page.getByLabel('plus-square').click()
+  //     await this.page.getByLabel('plus-square').click()
 
-      const col1 = this.getTreeElement(pageRowChild1.name, pageRowChild1.atom)
-      const col2 = this.getTreeElement(pageRowChild2.name, pageRowChild2.atom)
+  //     const col1 = this.getTreeElement(pageRowChild1.name, pageRowChild1.atom)
+  //     const col2 = this.getTreeElement(pageRowChild2.name, pageRowChild2.atom)
 
-      await expect(col1).toBeVisible()
-      await expect(col2).toBeVisible()
-    })
-  }
+  //     await expect(col1).toBeVisible()
+  //     await expect(col2).toBeVisible()
+  //   })
+  // }
 
   async setChildMapperProperties() {
     return test.step('setChildMapperProperties', async () => {

@@ -1,15 +1,10 @@
 import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
-import { IAtomType } from '@codelab/shared/abstract/core'
 import { expect } from '@playwright/test'
 
 import { baseTest } from '../../setup/fixtures/base.fixture'
 import { BuilderPage } from '../builder/builder.fixture'
-import {
-  componentId,
-  spaceElementName,
-  typographyElement,
-} from './state-sharing.data'
+import { componentId, typographyElement } from './state-sharing.data'
 
 /**
  * Follow guide https://medium.com/@lucgagan/mastering-playwright-best-practices-for-web-automation-with-the-page-object-model-3541412b03d1
@@ -41,25 +36,25 @@ export class StateSharingPage extends BuilderPage {
     })
   }
 
-  async expandElementsTree() {
-    return test.step('expandElementsTree', async () => {
-      const space = this.getTreeElement(
-        spaceElementName,
-        IAtomType.AntDesignSpace,
-      )
+  // async expandElementsTree() {
+  //   return test.step('expandElementsTree', async () => {
+  //     const space = this.getTreeElement(
+  //       spaceElementName,
+  //       IAtomType.AntDesignSpace,
+  //     )
 
-      const typography = this.getTreeElement(
-        typographyElement.name,
-        typographyElement.atom,
-      )
+  //     const typography = this.getTreeElement(
+  //       typographyElement.name,
+  //       typographyElement.atom,
+  //     )
 
-      await this.page.locator('.ant-tree-switcher_close').click()
-      await expect(space).toBeVisible()
+  //     await this.page.locator('.ant-tree-switcher_close').click()
+  //     await expect(space).toBeVisible()
 
-      await this.page.locator('.ant-tree-switcher_close').click()
-      await expect(typography).toBeVisible()
-    })
-  }
+  //     await this.page.locator('.ant-tree-switcher_close').click()
+  //     await expect(typography).toBeVisible()
+  //   })
+  // }
 
   async goToComponentBuilder() {
     return test.step('goToComponentBuilder', async () => {

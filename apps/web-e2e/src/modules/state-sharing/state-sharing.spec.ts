@@ -25,7 +25,7 @@ test('should setup the pages that will share states', async ({
   await expect(page.getSpinner()).toBeHidden()
   await expect(page.getFormFieldSpinner()).toHaveCount(0)
 
-  await page.expandElementsTree()
+  // await page.expandElementsTree()
   await page.setComponentElementText()
   await page.openPreview()
 

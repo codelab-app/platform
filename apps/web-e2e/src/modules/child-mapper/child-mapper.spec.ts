@@ -28,7 +28,7 @@ test.beforeEach(async ({ builderPage: page }) => {
   await page.checkPageHeaderTitle(['Codelab App', 'Pages', 'provider'])
 
   // because local storage isn't preserved in specs we need to expand the tree before each test
-  await page.expandElementsTree()
+  // await page.expandElementsTree()
 })
 
 test('should be able to set child-mapper component', async ({

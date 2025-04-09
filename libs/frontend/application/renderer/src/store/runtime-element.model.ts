@@ -95,7 +95,7 @@ export class RuntimeElementModel
     >(),
     compositeKey: idProp,
     element: prop<Ref<IElementModel>>(),
-    expanded: prop<boolean>(false),
+    expanded: prop<boolean>(true),
     lastChildMapperChildrenKeys: prop<Array<string>>(() => []),
     parentElementKey: prop<Nullable<string>>(null),
     postRenderActionsDone: prop(false).withSetter(),
