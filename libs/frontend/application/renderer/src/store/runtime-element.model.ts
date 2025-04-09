@@ -84,10 +84,6 @@ const getPropertiesFromLocalStorage = (key: string) => {
 const create = (dto: IRuntimeElementDto) => {
   const properties = getPropertiesFromLocalStorage(dto.compositeKey)
 
-  console.log('RuntimeElementModel.create', {
-    properties,
-  })
-
   return new RuntimeElementModel({ ...dto, ...properties })
 }
 
@@ -446,6 +442,8 @@ export class RuntimeElementModel
   }
 
   onAttachedToRootStore() {
+    console.log('onAttachedToRootStore', this.compositeKey)
+
     const recorder = patchRecorder(this, {
       filter: (patches, inversePatches) => {
         // record when patches are setting 'element'
@@ -457,8 +455,49 @@ export class RuntimeElementModel
       recording: true,
     })
 
+    // every time the snapshot of the configuration changes
+    const reactionDisposer = onSnapshot(
+      this,
+      (newSnapshot, previousSnapshot) => {
+        /**
+         * The additional $modelType property is used to allow fromSnapshot to recognize the original class and faithfully recreate it, rather than assume it is a plain object. This metadata is only required for models, in other words, arrays, plain objects and primitives don't have this extra field.
+         */
+
+        console.log({
+          new: newSnapshot.expanded,
+          old: previousSnapshot.expanded,
+        })
+
+        // Only save if expanded value has changed
+        if (newSnapshot.expanded !== previousSnapshot.expanded) {
+          const runtimeElementSnapshot = pick(newSnapshot, ['expanded'])
+
+          console.log(
+            'Saving runtimeElementSnapshot',
+            this.compositeKey,
+            runtimeElementSnapshot,
+          )
+
+          // save the config to local storage
+          localStorage.setItem(
+            this.compositeKey,
+            JSON.stringify(runtimeElementSnapshot),
+          )
+        }
+      },
+    )
+
+    const disposer = reaction(
+      () => getSnapshot(this),
+      (todoSnapshot) => {
+        console.log('todoSnapshot', todoSnapshot)
+      },
+    )
+
     return () => {
       recorder.dispose()
+      disposer()
+      reactionDisposer()
     }
   }
 
