@@ -54,7 +54,6 @@ export const ElementTreeView = observer<{
       onExpand={async (expandedKeys, { expanded, node }) => {
         const runtimeElement = runtimeElementService.runtimeElement(node.key)
 
-        // Set the new expanded state
         runtimeElement.setExpanded(expanded)
       }}
       onMouseEnter={({ event, node }) => {

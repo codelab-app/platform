@@ -21,12 +21,14 @@ test.beforeEach(async ({ builderPage: page }) => {
 
   await expect(page.getSpinner()).toBeHidden()
   await expect(page.getFormFieldSpinner()).toHaveCount(0)
+
+  // because local storage isn't preserved in specs we need to expand the tree before each test
+  await page.expandElementsTree()
 })
 
 test('should be able to set child-mapper component', async ({
   builderPage: page,
 }) => {
-  await page.expandElementsTree()
   await page.setChildMapperProperties()
 
   await page.checkElementTree()

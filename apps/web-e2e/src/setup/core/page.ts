@@ -7,6 +7,7 @@ import {
 } from '@codelab/frontend/abstract/types'
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import { test as base, expect } from '@playwright/test'
+import { sleep } from 'radash'
 
 import { storageStateFile } from '../../../playwright.config'
 import { StorageState } from './storage-state'
@@ -178,7 +179,8 @@ export class BasePage {
         .click()
 
       if (options?.waitForAutosave) {
-        await this.waitForProgressBar()
+        await sleep(200)
+        await this.expectGlobalProgressBarToBeHidden()
       }
 
       await expect(
@@ -202,7 +204,8 @@ export class BasePage {
     await page.getByRole('textbox', { name: label }).fill(value)
 
     if (options?.waitForAutosave) {
-      await this.waitForProgressBar()
+      await sleep(200)
+      await this.expectGlobalProgressBarToBeHidden()
     }
   }
 

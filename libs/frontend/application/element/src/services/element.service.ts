@@ -89,7 +89,7 @@ export const useElementService = (): IElementService => {
 
     const element = elementDomainService.addTreeNode(data)
 
-    // TODO: expand parent    
+    // TODO: expand parent
     await elementRepository.add(data, {
       revalidateTags: [CACHE_TAGS.Element.list()],
     })
