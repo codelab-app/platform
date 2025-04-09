@@ -487,16 +487,8 @@ export class RuntimeElementModel
       },
     )
 
-    const disposer = reaction(
-      () => getSnapshot(this),
-      (todoSnapshot) => {
-        console.log('todoSnapshot', todoSnapshot)
-      },
-    )
-
     return () => {
       recorder.dispose()
-      disposer()
       reactionDisposer()
     }
   }
