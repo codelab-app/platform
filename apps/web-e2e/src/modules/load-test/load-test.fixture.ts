@@ -1,8 +1,9 @@
 import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { E2E_ATOM_TYPES } from '@codelab/shared/data/test'
-import { test as base, expect } from '@playwright/test'
+import { expect } from '@playwright/test'
 
+import { baseTest } from '../../setup/fixtures/base.fixture'
 import { BuilderPage } from '../builder/builder.fixture'
 import { PAGE_COUNT } from './load-test.data'
 
@@ -64,9 +65,9 @@ export class LoadTestPage extends BuilderPage {
   }
 }
 
-export const test = base.extend<{ builderPage: LoadTestPage }>({
-  builderPage: async ({ page }, use) => {
-    const builderPage = new LoadTestPage(page)
+export const test = baseTest.extend<{ builderPage: LoadTestPage }>({
+  builderPage: async ({ browserContext, page }, use) => {
+    const builderPage = new LoadTestPage(page, browserContext)
 
     await use(builderPage)
   },

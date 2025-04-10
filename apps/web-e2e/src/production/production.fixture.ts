@@ -1,6 +1,5 @@
-import { test as base } from '@playwright/test'
-
-import { BasePage } from '../setup/locators/pages'
+import { BasePage } from '../setup/core/page'
+import { baseTest } from '../setup/fixtures/base.fixture'
 
 export class ProductionPage extends BasePage {
   async goto() {
@@ -8,9 +7,9 @@ export class ProductionPage extends BasePage {
   }
 }
 
-export const test = base.extend<{ productionPage: ProductionPage }>({
-  productionPage: async ({ page }, use) => {
-    const productionPage = new ProductionPage(page)
+export const test = baseTest.extend<{ productionPage: ProductionPage }>({
+  productionPage: async ({ browserContext, page }, use) => {
+    const productionPage = new ProductionPage(page, browserContext)
 
     await use(productionPage)
   },

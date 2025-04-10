@@ -2,8 +2,8 @@ import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { IResourceType } from '@codelab/shared/abstract/core'
 
+import { BasePage } from '../../setup/core/page'
 import { baseTest } from '../../setup/fixtures/base.fixture'
-import { BasePage } from '../../setup/locators/pages'
 
 export class ResourcePage extends BasePage {
   resourceName = 'New Resource'
@@ -58,8 +58,8 @@ export class ResourcePage extends BasePage {
 }
 
 export const test = baseTest.extend<{ resourcePage: ResourcePage }>({
-  resourcePage: async ({ page }, use) => {
-    const resourcePage = new ResourcePage(page)
+  resourcePage: async ({ browserContext, page }, use) => {
+    const resourcePage = new ResourcePage(page, browserContext)
 
     await use(resourcePage)
   },

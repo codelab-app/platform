@@ -20,10 +20,16 @@ export const auth0Password = get('AUTH0_E2E_PASSWORD').required().asString()
  * https://www.checklyhq.com/blog/why-page-goto-is-slowing-down-your-playwright-test/
  */
 
-export const authFile = 'apps/web-e2e/.auth/user.json'
+/**
+ * Used by `auth0` to store cookies for authentication, as well as mobx for storing element expanded states
+ *
+ * We can't use multiple storage states at once, so we need to use a single one https://github.com/microsoft/playwright/issues/14872
+ */
+export const storageStateFile = 'apps/web-e2e/.storage/storage-state.json'
 
 enum Project {
   AuthSetup = 'AuthSetup',
+  LocalStorage = 'LocalStorage',
 }
 
 /**
@@ -31,6 +37,7 @@ enum Project {
  */
 export default defineConfig({
   ...nxE2EPreset(__filename, { testDir: './src' }),
+  // globalSetup: require.resolve('./src/setup/global-setup'),
   projects: [
     {
       name: Project.AuthSetup,
@@ -40,17 +47,24 @@ export default defineConfig({
     {
       dependencies: [Project.AuthSetup],
       name: 'chromium',
-      testIgnore: /home\.spec\.ts/,
+      testIgnore: /home\.spec\.ts|local-storage\.spec\.ts/,
       testMatch: /.*\.spec\.ts/,
       use: {
         ...devices['Desktop Chrome'],
         // channel: 'chrome',
-        storageState: authFile,
+        storageState: storageStateFile,
       },
     },
     {
       name: 'home',
       testMatch: /home\.spec\.ts/,
+      use: {
+        ...devices['Desktop Chrome'],
+      },
+    },
+    {
+      name: Project.LocalStorage,
+      testMatch: /local-storage\.spec\.ts/,
       use: {
         ...devices['Desktop Chrome'],
       },

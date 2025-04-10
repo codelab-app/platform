@@ -1,0 +1,77 @@
+import type { BrowserContext, Page } from '@playwright/test'
+
+import { ensureFile } from 'fs-extra'
+import { dirname } from 'path'
+
+import { BasePage } from '../setup/core/page'
+import { baseTest } from '../setup/fixtures/base.fixture'
+
+export const localStorageTestFile =
+  'apps/web-e2e/.storage/local-storage-test.json'
+export class LocalStoragePage extends BasePage {
+  context: BrowserContext
+
+  constructor(page: Page, context: BrowserContext) {
+    super(page, context)
+    this.context = context
+  }
+
+  browser() {
+    return this.context.browser()
+  }
+
+  async getLocalStorageItem(key: string) {
+    return baseTest.step('getLocalStorageItem', async () => {
+      return this.page.evaluate((itemKey) => localStorage.getItem(itemKey), key)
+    })
+  }
+
+  async setLocalStorageItem(key: string, value: string) {
+    return baseTest.step('setLocalStorageItem', async () => {
+      await this.page.evaluate(
+        ({ itemKey, itemValue }) => {
+          localStorage.setItem(itemKey, itemValue)
+
+          return true
+        },
+        { itemKey: key, itemValue: value },
+      )
+    })
+  }
+
+  async setupLocalStorage(items: Record<string, string> = {}) {
+    return baseTest.step('setupLocalStorage', async () => {
+      // Ensure storage file exists first
+      await this.storageState.checkFileExists(localStorageTestFile)
+
+      // Navigate to the page first before accessing localStorage
+      await this.page.goto('/')
+
+      // Set localStorage items
+      await this.page.evaluate((storageItems) => {
+        Object.entries(storageItems).forEach(([key, value]) => {
+          localStorage.setItem(key, value)
+        })
+
+        return true
+      }, items)
+
+      // Save the storage state to the file
+      await this.context.storageState({ path: localStorageTestFile })
+    })
+  }
+}
+
+export const test = baseTest.extend<{
+  localStoragePage: LocalStoragePage
+  forEachWorker: unknown
+}>({
+  localStoragePage: async ({ browserContext }, use) => {
+    const page = await browserContext.newPage()
+    const localStoragePage = new LocalStoragePage(page, browserContext)
+
+    await use(localStoragePage)
+  },
+  // Override the storage file path to use our test-specific file
+  storageFilePath: localStorageTestFile,
+})

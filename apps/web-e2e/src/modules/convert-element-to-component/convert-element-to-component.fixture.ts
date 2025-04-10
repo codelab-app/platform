@@ -65,8 +65,8 @@ export class ConvertElementToComponentPage extends BuilderPage {
 export const test = baseTest.extend<{
   builderPage: ConvertElementToComponentPage
 }>({
-  builderPage: async ({ page }, use) => {
-    const builderPage = new ConvertElementToComponentPage(page)
+  builderPage: async ({ browserContext, page }, use) => {
+    const builderPage = new ConvertElementToComponentPage(page, browserContext)
 
     await use(builderPage)
   },

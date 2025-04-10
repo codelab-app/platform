@@ -6,8 +6,8 @@ import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
 import { expect } from '@playwright/test'
 
+import { BasePage } from '../../setup/core/page'
 import { baseTest } from '../../setup/fixtures/base.fixture'
-import { BasePage } from '../../setup/locators/pages'
 
 /**
  * Follow guide https://medium.com/@lucgagan/mastering-playwright-best-practices-for-web-automation-with-the-page-object-model-3541412b03d1
@@ -308,8 +308,8 @@ export class BuilderPage extends BasePage {
 }
 
 export const test = baseTest.extend<{ builderPage: BuilderPage }>({
-  builderPage: async ({ page }, use) => {
-    const builderPage = new BuilderPage(page)
+  builderPage: async ({ browserContext, page }, use) => {
+    const builderPage = new BuilderPage(page, browserContext)
 
     await use(builderPage)
   },

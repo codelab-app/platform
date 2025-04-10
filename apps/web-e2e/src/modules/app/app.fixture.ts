@@ -2,8 +2,8 @@ import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { expect } from '@playwright/test'
 
+import { BasePage } from '../../setup/core/page'
 import { baseTest } from '../../setup/fixtures/base.fixture'
-import { BasePage } from '../../setup/locators/pages'
 
 /**
  * Follow guide https://medium.com/@lucgagan/mastering-playwright-best-practices-for-web-automation-with-the-page-object-model-3541412b03d1
@@ -96,8 +96,8 @@ export class AppListPage extends BasePage {
 }
 
 export const test = baseTest.extend<{ appListPage: AppListPage }>({
-  appListPage: async ({ page }, use) => {
-    const appListPage = new AppListPage(page)
+  appListPage: async ({ browserContext, page }, use) => {
+    const appListPage = new AppListPage(page, browserContext)
 
     await use(appListPage)
   },
