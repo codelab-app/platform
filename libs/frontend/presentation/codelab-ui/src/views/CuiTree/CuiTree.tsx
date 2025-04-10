@@ -82,7 +82,7 @@ export const CuiTree = observer(
 
     useEffect(() => {
       cuiTreeStore.setTreeData(treeData ?? [])
-      // cuiTreeStore.setExpandedKeys(expandedKeys ?? cuiTreeStore.expandedKeys)
+      cuiTreeStore.setExpandedKeys(expandedKeys ?? cuiTreeStore.expandedKeys)
       cuiTreeStore.updateFilterOptions(filter)
     }, [treeData, expandedKeys, filter, cuiTreeStore])
 
@@ -109,7 +109,6 @@ export const CuiTree = observer(
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 {...props}
                 autoExpandParent={cuiTreeStore.autoExpandParent}
-                defaultExpandedKeys={cuiTreeStore.expandedKeys}
                 defaultSelectedKeys={defaultSelectedKeys}
                 draggable={
                   draggable
@@ -119,6 +118,7 @@ export const CuiTree = observer(
                     : false
                 }
                 expandAction="doubleClick"
+                expandedKeys={cuiTreeStore.expandedKeys}
                 onExpand={handleExpand}
                 onMouseEnter={(info) => {
                   const target = info.event.target as Element
