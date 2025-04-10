@@ -57,11 +57,11 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
         },
         "id": "047b6340-04f3-4200-a879-7ab96edcc447",
-        "key": "bordered",
-        "name": "Bordered",
+        "key": "variant",
+        "name": "Variant",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -574,22 +574,6 @@
         "id": "ef005a61-7eda-4d02-b61d-bce583131759",
         "key": "searchValue",
         "name": "Search Value",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "8bef2781-fb9d-46b3-8b86-81ea3e8e302d"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
-        },
-        "id": "bfdf55c7-308d-411b-98b0-622e44b49b46",
-        "key": "showArrow",
-        "name": "Show Arrow",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null

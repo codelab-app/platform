@@ -41,11 +41,11 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
         },
         "id": "2787fdd4-6d20-41a9-a213-f7c034410242",
-        "key": "bordered",
-        "name": "Bordered",
+        "key": "variant",
+        "name": "Variant",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
