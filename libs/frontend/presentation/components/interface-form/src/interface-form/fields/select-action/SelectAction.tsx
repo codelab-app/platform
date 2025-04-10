@@ -29,10 +29,10 @@ export const SelectAction = ({
   const formContext = useFormContext()
   const { actionDomainService } = useDomainStore()
   const runtimeStore = (selectedNode ?? formContext.selectedNode)?.runtimeStore
-  const store = runtimeStore?.store.current
+  const store = runtimeStore?.store?.current
 
   const providerStore =
-    runtimeStore?.runtimeProviderStore?.current.store.current
+    runtimeStore?.runtimeProviderStore?.current.store?.current
 
   const selectActionOptions = store
     ? actionDomainService.getSelectActionOptions(
