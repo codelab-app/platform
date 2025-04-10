@@ -44,6 +44,8 @@ export class RuntimePageService
       return foundPage
     }
 
+    console.log(page.providerPage ? page.providerPage.store.id : page.store.id)
+
     const runtimeStore = RuntimeStoreModel.create({
       id: v4(),
       store: storeRef(

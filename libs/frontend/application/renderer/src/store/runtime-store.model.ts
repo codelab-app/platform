@@ -33,7 +33,7 @@ export class RuntimeStoreModel
     id: idProp,
     runtimeActions: prop<ObjectMap<IRuntimeActionModel>>(() => objectMap([])),
     runtimeProviderStore: prop<Maybe<Ref<IRuntimeStoreModel>>>(),
-    store: prop<Ref<IStoreModel>>(),
+    store: prop<Maybe<Ref<IStoreModel>>>(),
   }))
   implements IRuntimeStoreModel
 {
@@ -50,8 +50,8 @@ export class RuntimeStoreModel
   @computed
   get refKeys(): Array<string> {
     const elementTree =
-      this.store.current.page?.maybeCurrent ||
-      this.store.current.component?.maybeCurrent
+      this.store?.current.page?.maybeCurrent ||
+      this.store?.current.component?.maybeCurrent
 
     const elements = elementTree?.elements || []
 
@@ -69,22 +69,26 @@ export class RuntimeStoreModel
   get runtimeActionsList() {
     const actions = [...this.runtimeActions.values()]
 
-    return this.store.current.actions.map((action) => {
-      const found = actions.find((existing) => existing.action.id === action.id)
+    return (
+      this.store?.current.actions.map((action) => {
+        const found = actions.find(
+          (existing) => existing.action.id === action.id,
+        )
 
-      if (found) {
-        return found
-      }
+        if (found) {
+          return found
+        }
 
-      const runtimeAction = RuntimeActionModel.create({
-        action: actionRef(action.id),
-        runtimeStore: runtimeStoreRef(this.id),
-      })
+        const runtimeAction = RuntimeActionModel.create({
+          action: actionRef(action.id),
+          runtimeStore: runtimeStoreRef(this.id),
+        })
 
-      this.runtimeActions.set(runtimeAction.id, runtimeAction)
+        this.runtimeActions.set(runtimeAction.id, runtimeAction)
 
-      return runtimeAction
-    })
+        return runtimeAction
+      }) ?? []
+    )
   }
 
   refs = observable.object<IPropData>({})
@@ -114,7 +118,7 @@ export class RuntimeStoreModel
 
   onAttachedToRootStore() {
     const disposer = reaction(
-      () => this.store.maybeCurrent?.api.maybeCurrent?.defaultValues,
+      () => this.store?.maybeCurrent?.api.maybeCurrent?.defaultValues,
       (defaultValues) => {
         this.state = defaultValues || {}
       },

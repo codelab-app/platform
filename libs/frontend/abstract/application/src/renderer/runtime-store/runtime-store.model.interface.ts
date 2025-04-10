@@ -14,7 +14,8 @@ export interface IRuntimeStoreModel extends AnyModel {
   runtimeProviderStore?: Ref<IRuntimeStoreModel>
   state: IPropData
 
-  store: Ref<IStoreModel>
+  // ref can be null at anytime
+  store: Maybe<Ref<IStoreModel>>
 
   registerRef(key: string, node: HTMLElement): void
   runtimeAction(action: IRef): Maybe<IRuntimeActionModel>
