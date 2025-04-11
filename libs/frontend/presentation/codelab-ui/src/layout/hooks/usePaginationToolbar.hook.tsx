@@ -7,7 +7,7 @@ import SearchOutlined from '@ant-design/icons/SearchOutlined'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { Pagination } from 'antd'
 import { useRouter } from 'next/navigation'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { debounce } from 'remeda'
 
 import type { ToolbarItem } from '../../abstract'
@@ -32,6 +32,20 @@ export const usePaginationToolbar = ({
 }: ToolbarPaginationProps) => {
   const [showSearchBar, setShowSearchBar] = useState(Boolean(search))
   const router = useRouter()
+
+  useEffect(() => {
+    if (page < Math.ceil(totalItems / pageSize)) {
+      router.prefetch(
+        createPageUrl(pathname, page + 1, pageSize, filter, search),
+      )
+    }
+
+    if (page > 1) {
+      router.prefetch(
+        createPageUrl(pathname, page - 1, pageSize, filter, search),
+      )
+    }
+  }, [router, pathname, page, pageSize, filter, search, totalItems])
 
   const { call: handlePaginationChange } = useRef(
     debounce(
