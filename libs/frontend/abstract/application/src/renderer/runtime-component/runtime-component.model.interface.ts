@@ -5,6 +5,7 @@ import type { Ref } from 'mobx-keystone'
 import type { IBaseRuntimeModel } from '../runtime.model.interface'
 import type { IRuntimeElementModel } from '../runtime-element'
 import type { IRuntimeComponentPropModel } from '../runtime-prop'
+import type { IRuntimeComponentDto } from './runtime-component.dto'
 
 /**
  * Represents runtime model IComponentModel
@@ -39,5 +40,6 @@ export interface IRuntimeComponentModel extends IBaseRuntimeModel {
   runtimeParent?: Ref<IRuntimeElementModel>
   runtimeProps: IRuntimeComponentPropModel
   runtimeRootElement: IRuntimeElementModel
+  toJson: IRuntimeComponentDto
   setChildMapperIndex(index: number): void
 }

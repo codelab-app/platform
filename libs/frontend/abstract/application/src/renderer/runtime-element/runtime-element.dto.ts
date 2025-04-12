@@ -11,6 +11,7 @@ export interface IRuntimeElementDto {
   closestContainerNode: Ref<IRuntimeComponentModel> | Ref<IRuntimePageModel>
   compositeKey: string
   element: Ref<IElementModel>
+  expanded: boolean
   parentElementKey: Nullable<string>
   propKey?: string
   runtimeProps: IRuntimeElementPropModel

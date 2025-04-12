@@ -84,6 +84,16 @@ export class RuntimePageModel
   }
 
   @computed
+  get toJson(): IRuntimePageDto {
+    return {
+      childPage: this.childPage ?? undefined,
+      compositeKey: this.compositeKey,
+      page: this.page,
+      runtimeStore: this.runtimeStore,
+    }
+  }
+
+  @computed
   get treeViewNode(): IElementTreeViewDataNode {
     return this.runtimeRootElement.treeViewNode
   }

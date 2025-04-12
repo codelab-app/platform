@@ -6,6 +6,7 @@ import {
   type IElementService,
   IRouteType,
   isRuntimeElement,
+  isRuntimeElementRef,
   RoutePaths,
 } from '@codelab/frontend/abstract/application'
 import {
@@ -22,6 +23,7 @@ import {
   useApplicationStore,
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
+import { logger } from '@codelab/shared/infra/logging'
 import { uniqueBy } from 'remeda'
 
 /**
@@ -87,17 +89,17 @@ export const useElementService = (): IElementService => {
 
     const element = elementDomainService.addTreeNode(data)
 
-    /**
-     * Expand the parent for newly added element
-     */
-    if (selectedNode && isRuntimeElement(selectedNode)) {
-      selectedNode.parentElement?.setExpanded(true)
-    }
-
     await elementRepository.add(data, {
       revalidateTags: [CACHE_TAGS.Element.list()],
     })
     await syncModifiedElements()
+
+    /**
+     * Expand the parent for newly added element, need to handle case where the `selectedNode` is already the root
+     */
+    if (selectedNode && isRuntimeElementRef(selectedNode)) {
+      selectedNode.current.closestElement.setExpanded(true)
+    }
 
     return element
   }

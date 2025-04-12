@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 import type { ObjectLike } from '@codelab/shared/abstract/types'
 
+import { isCyclic } from '@codelab/shared/utils'
 import { isPlainObject } from 'remeda'
 
 /**
@@ -51,8 +52,7 @@ class Logger {
     ...objects: Array<boolean | number | string | ObjectLike | null | undefined>
   ) {
     return objects.map((obj) => {
-      // Only stringify plain objects that aren't cyclic
-      if (obj && typeof obj === 'object' && isPlainObject(obj)) {
+      if (obj && typeof obj === 'object') {
         try {
           return JSON.stringify(obj, null, 2)
         } catch (error) {

@@ -4,6 +4,7 @@ import type { Ref } from 'mobx-keystone'
 
 import type { IBaseRuntimeModel } from '../runtime.model.interface'
 import type { IRuntimeElementModel } from '../runtime-element'
+import type { IRuntimePageDto } from './runtime-page.dto'
 
 /**
  * Represents runtime model for IPageModel or IComponentModel
@@ -24,4 +25,8 @@ export interface IRuntimePageModel extends IBaseRuntimeModel {
    */
   page: Ref<IPageModel>
   runtimeRootElement: IRuntimeElementModel
+  /**
+   * Returns DTO representation of the runtime page
+   */
+  toJson: IRuntimePageDto
 }

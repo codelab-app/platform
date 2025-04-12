@@ -73,6 +73,7 @@ export class RuntimeElementService
         : runtimeComponentRef(closestContainerNode.compositeKey),
       compositeKey,
       element: elementRef(element),
+      expanded: false,
       parentElementKey: parentElement ? parentElement.compositeKey : null,
       propKey,
       runtimeProps: RuntimeElementPropsModel.create({

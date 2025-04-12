@@ -84,6 +84,10 @@ const getPropertiesFromLocalStorage = (key: string) => {
 const create = (dto: IRuntimeElementDto) => {
   const properties = getPropertiesFromLocalStorage(dto.compositeKey)
 
+  console.log('RuntimeElementModel.create', {
+    properties,
+  })
+
   return new RuntimeElementModel({ ...dto, ...properties })
 }
 
@@ -98,7 +102,7 @@ export class RuntimeElementModel
     >(),
     compositeKey: idProp,
     element: prop<Ref<IElementModel>>(),
-    expanded: prop<boolean>(false).withSetter(),
+    expanded: prop<boolean>(false),
     lastChildMapperChildrenKeys: prop<Array<string>>(() => []),
     parentElementKey: prop<Nullable<string>>(null),
     postRenderActionsDone: prop(false).withSetter(),
@@ -184,6 +188,11 @@ export class RuntimeElementModel
     children.splice(previousSiblingIndex + 1, 0, ...this.childMapperChildren)
 
     return children
+  }
+
+  @computed
+  get closestElement(): IRuntimeElementModel {
+    return this.parentElement || this
   }
 
   @computed
@@ -336,6 +345,20 @@ export class RuntimeElementModel
     )
   }
 
+  @computed
+  get toJson() {
+    return {
+      closestContainerNode: this.closestContainerNode,
+      compositeKey: this.compositeKey,
+      element: this.element,
+      expanded: this.expanded,
+      parentElementKey: this.parentElementKey,
+      propKey: this.propKey,
+      runtimeProps: this.runtimeProps,
+      style: this.style,
+    }
+  }
+
   /**
    * Don't access this unless it's for constructing the tree, this will cause components to re-render
    */
@@ -434,39 +457,12 @@ export class RuntimeElementModel
       recording: true,
     })
 
-    // every time the snapshot of the configuration changes
-    const reactionDisposer = onSnapshot(
-      this,
-      (newSnapshot, previousSnapshot) => {
-        /**
-         * The additional $modelType property is used to allow fromSnapshot to recognize the original class and faithfully recreate it, rather than assume it is a plain object. This metadata is only required for models, in other words, arrays, plain objects and primitives don't have this extra field.
-         */
-
-        // Only save if expanded value has changed
-        if (newSnapshot.expanded !== previousSnapshot.expanded) {
-          const runtimeElementSnapshot = pick(newSnapshot, ['expanded'])
-
-          console.log(
-            'Saving runtimeElementSnapshot',
-            this.compositeKey,
-            runtimeElementSnapshot,
-          )
-
-          // save the config to local storage
-          localStorage.setItem(
-            this.compositeKey,
-            JSON.stringify(runtimeElementSnapshot),
-          )
-        }
-      },
-    )
-
     return () => {
       recorder.dispose()
-      reactionDisposer()
     }
   }
 
+  @modelAction
   runPostRenderActions() {
     if (this.postRenderActionsDone) {
       return
@@ -480,6 +476,7 @@ export class RuntimeElementModel
     this.setPostRenderActionsDone(true)
   }
 
+  @modelAction
   runPreRenderActions() {
     if (this.preRenderActionsDone) {
       return
@@ -493,6 +490,13 @@ export class RuntimeElementModel
     this.setPreRenderActionsDone(true)
   }
 
+  @modelAction
+  setExpanded(expanded: boolean) {
+    this.expanded = expanded
+    localStorage.setItem(this.compositeKey, JSON.stringify({ expanded }))
+  }
+
+  @modelAction
   private runRenderAction(action: IActionModel) {
     const runner = this.runtimeProps.getActionRunner(action.name)
 

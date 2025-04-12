@@ -7,7 +7,7 @@ import { BasePage } from '../setup/core/page'
 import { baseTest } from '../setup/fixtures/base.fixture'
 
 export const localStorageTestFile =
-  'apps/web-e2e/.storage/local-storage-test.json'
+  'apps/web-e2e/.storage/storage-state-test.json'
 export class LocalStoragePage extends BasePage {
   context: BrowserContext
 

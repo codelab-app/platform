@@ -66,8 +66,14 @@ export const baseTest = base.extend<{
     const page = await browserContext.newPage()
 
     // Attach the console event to the page
-    page.on('console', (msg) => {
-      console.log(`[Browser] ${msg.text()}`)
+    page.on('console', async (msg) => {
+      const values = []
+
+      for (const arg of msg.args()) {
+        values.push(await arg.jsonValue())
+      }
+
+      console.log(`[Browser ${msg.type()}]`, ...values)
     })
 
     // Make sure to pass control back for tests

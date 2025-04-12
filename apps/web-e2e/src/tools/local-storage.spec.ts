@@ -77,7 +77,7 @@ test('storage state can be used in different contexts', async ({
 
   // Create another context with the updated storage state
   const newContext = await browser.newContext({
-    storageState: storageStateFile,
+    storageState: localStorageTestFile,
   })
 
   const newPage = await newContext.newPage()

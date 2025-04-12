@@ -26,11 +26,13 @@ export const ElementTreeView = observer<{
   context: IBuilderRoute
 }>(({ context, treeData }) => {
   const { builderService, runtimeElementService } = useApplicationStore()
-  const { syncModifiedElements } = useElementService()
   const selectedNode = builderService.selectedNode?.current
   const { handleDrop, isMoving } = useElementTreeDrop()
 
-  console.log('expandedKeys', runtimeElementService.getExpandedCompositeKeys())
+  console.log({
+    expandedKeys: runtimeElementService.getExpandedCompositeKeys(),
+    selectedNode: selectedNode?.compositeKey,
+  })
 
   return (
     <CuiTree<IElementTreeViewDataNode>
