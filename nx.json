@@ -4,10 +4,7 @@
   "parallel": 3,
   "tasksRunnerOptions": {
     "default": {
-      "options": {
-        "canTrackAnalytics": true,
-        "showUsageWarnings": true
-      }
+      "options": { "canTrackAnalytics": true, "showUsageWarnings": true }
     }
   },
   "defaultProject": "web",
@@ -15,27 +12,14 @@
     "@codelab/tsc-check",
     {
       "plugin": "@nx/eslint/plugin",
-      "options": {
-        "targetName": "eslint:lint"
-      }
+      "options": { "targetName": "eslint:lint" }
     }
   ],
   "generators": {
-    "@nx/workspace": {
-      "library": {
-        "linter": "eslint"
-      }
-    },
-    "@nx/web": {
-      "application": {
-        "linter": "eslint"
-      }
-    },
+    "@nx/workspace": { "library": { "linter": "eslint" } },
+    "@nx/web": { "application": { "linter": "eslint" } },
     "@nx/react": {
-      "application": {
-        "style": "css",
-        "linter": "eslint"
-      },
+      "application": { "style": "css", "linter": "eslint" },
       "library": {
         "style": "styled-components",
         "linter": "eslint",
@@ -49,22 +33,12 @@
         "importPath": "@codelab/frontend/",
         "tags": "scope:frontend"
       },
-      "storybook-configuration": {
-        "linter": "eslint"
-      },
-      "component": {
-        "style": "css"
-      }
+      "storybook-configuration": { "linter": "eslint" },
+      "component": { "style": "css" }
     },
-    "@nx/plugin": {
-      "plugin": {
-        "linter": "eslint"
-      }
-    },
+    "@nx/plugin": { "plugin": { "linter": "eslint" } },
     "@nx/node": {
-      "application": {
-        "linter": "eslint"
-      },
+      "application": { "linter": "eslint" },
       "library": {
         "linter": "eslint",
         "setParserOptionsProject": true,
@@ -73,10 +47,7 @@
       }
     },
     "@nx/next": {
-      "application": {
-        "style": "styled-components",
-        "linter": "eslint"
-      }
+      "application": { "style": "styled-components", "linter": "eslint" }
     },
     "@nx/js": {
       "library": {
@@ -99,10 +70,7 @@
       "inputs": ["prod", "^prod"],
       "cache": true
     },
-    "e2e": {
-      "inputs": ["default", "^default"],
-      "cache": true
-    },
+    "e2e": { "inputs": ["default", "^default"], "cache": true },
     "build-storybook": {
       "inputs": [
         "default",
@@ -115,14 +83,9 @@
     "@nx/jest:jest": {
       "cache": true,
       "inputs": ["default", "^default", "{workspaceRoot}/jest.preset.ts"],
-      "options": {
-        "parallel": 1,
-        "passWithNoTests": true
-      },
+      "options": { "parallel": 1, "passWithNoTests": true },
       "configurations": {
-        "dev": {
-          "reporters": ["default"]
-        },
+        "dev": { "reporters": ["default"] },
         "test.unit": {
           "reporters": ["default"],
           "color": true,
@@ -155,9 +118,7 @@
       "inputs": ["default", "{workspaceRoot}/.eslintrc.json"],
       "cache": true,
       "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["{projectRoot}/**/*.{ts,tsx,js,jsx}"]
-      },
+      "options": { "lintFilePatterns": ["{projectRoot}/**/*.{ts,tsx,js,jsx}"] },
       "configurations": {
         "ci": {
           "format": "junit",
@@ -170,16 +131,9 @@
         }
       }
     },
-    "@nx/vite:test": {
-      "cache": true,
-      "inputs": ["default", "^default"]
-    },
-    "test": {
-      "cache": true
-    },
-    "lint": {
-      "cache": true
-    },
+    "@nx/vite:test": { "cache": true, "inputs": ["default", "^default"] },
+    "test": { "cache": true },
+    "lint": { "cache": true },
     "@nx/js:tsc": {
       "cache": true,
       "dependsOn": ["^build"],
@@ -220,8 +174,7 @@
     ]
   },
   "release": {
-    "version": {
-      "preVersionCommand": "pnpm dlx nx run-many -t build"
-    }
-  }
+    "version": { "preVersionCommand": "pnpm dlx nx run-many -t build" }
+  },
+  "nxCloudId": "67fb4871000e9059b9b7a538"
 }
