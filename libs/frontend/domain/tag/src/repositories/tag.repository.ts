@@ -42,7 +42,7 @@ export const tagRepository: ITagRepository = {
     return await GetTags(
       {
         options,
-        where: { ...where, parent: undefined },
+        where,
       },
       next,
     )

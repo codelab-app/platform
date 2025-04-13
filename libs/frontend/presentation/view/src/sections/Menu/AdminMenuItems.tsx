@@ -2,7 +2,6 @@ import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-u
 
 import ApiOutlined from '@ant-design/icons/ApiOutlined'
 import DeploymentUnitOutlined from '@ant-design/icons/DeploymentUnitOutlined'
-import TagOutlined from '@ant-design/icons/TagOutlined'
 import UserOutlined from '@ant-design/icons/UserOutlined'
 import { RoutePaths } from '@codelab/frontend/abstract/application'
 
@@ -25,14 +24,14 @@ export const adminMenuItems: Array<NavigationBarItem> = [
     },
     title: 'Types',
   },
-  {
-    icon: <TagOutlined title="Tags" />,
-    key: RoutePaths.Tag.base(),
-    link: {
-      href: RoutePaths.Tag.base(),
-    },
-    title: 'Tags',
-  },
+  // {
+  //   icon: <TagOutlined title="Tags" />,
+  //   key: RoutePaths.Tag.base(),
+  //   link: {
+  //     href: RoutePaths.Tag.base(),
+  //   },
+  //   title: 'Tags',
+  // },
   {
     icon: <UserOutlined title="Admin" />,
     key: RoutePaths.Admin.base(),
