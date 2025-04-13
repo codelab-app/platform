@@ -38,6 +38,102 @@
         "api": {
           "id": "c071bfa1-1011-404d-b34b-613193953c4e"
         },
+        "defaultValues": "false",
+        "description": null,
+        "fieldType": {
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+        },
+        "id": "b5b110c9-0997-4889-8755-f386047580c6",
+        "key": "autoFocus",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "c071bfa1-1011-404d-b34b-613193953c4e"
+        },
+        "defaultValues": "false",
+        "description": "Change value on each selection if set to true, see above demo for details",
+        "fieldType": {
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+        },
+        "id": "94946a44-219e-4ad6-9838-433452cf7fe0",
+        "key": "changeOnSelect",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "c071bfa1-1011-404d-b34b-613193953c4e"
+        },
+        "defaultValues": "[]",
+        "description": null,
+        "fieldType": {
+          "id": "251c37db-9d28-4106-a6b9-f68f5a7dcc1c"
+        },
+        "id": "49cb5294-e156-48ea-acea-76f9c4e6f655",
+        "key": "defaultValue",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "c071bfa1-1011-404d-b34b-613193953c4e"
+        },
+        "defaultValues": "false",
+        "description": null,
+        "fieldType": {
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+        },
+        "id": "c010858b-0968-471c-8451-0411ec0a476f",
+        "key": "disabled",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "c071bfa1-1011-404d-b34b-613193953c4e"
+        },
+        "defaultValues": "false",
+        "description": null,
+        "fieldType": {
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+        },
+        "id": "7c01c7e3-aad1-4c3d-a8b8-f832dd12e1c7",
+        "key": "multiple",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "c071bfa1-1011-404d-b34b-613193953c4e"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f"
+        },
+        "id": "806d02b9-5b40-4958-a3d0-f3f869b24314",
+        "key": "onChange",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "c071bfa1-1011-404d-b34b-613193953c4e"
+        },
         "defaultValues": "[]",
         "description": null,
         "fieldType": {
@@ -46,6 +142,54 @@
         "id": "8f78b7dd-15a9-41bd-a79d-6b4d428dc824",
         "key": "options",
         "name": "Options",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":false}}"
+      },
+      {
+        "api": {
+          "id": "c071bfa1-1011-404d-b34b-613193953c4e"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "0d7ae844-805d-4524-8cba-7ddf59322ef4"
+        },
+        "id": "1429679d-2208-49b3-9fd2-3d63d07ba68e",
+        "key": "size",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "c071bfa1-1011-404d-b34b-613193953c4e"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "dfff5967-1961-4e1c-9835-aba1ab6c3d2c"
+        },
+        "id": "5e86cbfd-3895-487c-af78-ef0c7b0570ca",
+        "key": "status",
+        "name": "",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "c071bfa1-1011-404d-b34b-613193953c4e"
+        },
+        "defaultValues": "\"outlined\"",
+        "description": null,
+        "fieldType": {
+          "id": "1e5818df-3b48-4293-bee7-6c94c63b1b0a"
+        },
+        "id": "e2cdbbc5-4341-4900-9485-70dc88fd3792",
+        "key": "variant",
+        "name": "Variant",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": "{\"general\":{\"nullable\":false}}"
@@ -111,6 +255,75 @@
         "name": "AntDesignCascader API"
       },
       {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "adae1b41-4f88-4776-b075-fc8618f899df",
+            "key": "Large",
+            "value": "large"
+          },
+          {
+            "id": "29eb2819-9d41-4ca0-bf98-679f94d4a110",
+            "key": "Medium",
+            "value": "medium"
+          },
+          {
+            "id": "1810ded0-adf2-4a51-a328-29f5d9195f68",
+            "key": "Small",
+            "value": "small"
+          }
+        ],
+        "id": "0d7ae844-805d-4524-8cba-7ddf59322ef4",
+        "kind": "EnumType",
+        "name": "AntDesignCascader Size"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "99c46dee-a04e-49a2-8189-0b522fec34bd",
+            "key": "Error",
+            "value": "error"
+          },
+          {
+            "id": "9524b2eb-37f1-444f-b075-ad2c1f21e4b6",
+            "key": "Warning",
+            "value": "warning"
+          }
+        ],
+        "id": "dfff5967-1961-4e1c-9835-aba1ab6c3d2c",
+        "kind": "EnumType",
+        "name": "AntDesignCascader Status"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "28aebfee-4408-4e0b-baf5-157bf53f6244",
+            "key": "Borderless",
+            "value": "borderless"
+          },
+          {
+            "id": "f16083c2-ba4a-4418-ad5c-3049344c69be",
+            "key": "Filled",
+            "value": "filled"
+          },
+          {
+            "id": "5e81a067-6de5-401a-8e33-2a894a889e2a",
+            "key": "Outlined",
+            "value": "outlined"
+          },
+          {
+            "id": "227bfe07-7293-4d7e-9738-7ef0b404362d",
+            "key": "Underlined",
+            "value": "underlined"
+          }
+        ],
+        "id": "1e5818df-3b48-4293-bee7-6c94c63b1b0a",
+        "kind": "EnumType",
+        "name": "AntDesignCascader Variant Enum"
+      },
+      {
         "__typename": "InterfaceType",
         "fields": [
           {
@@ -126,6 +339,17 @@
         "id": "ce7cd5d0-a6a8-46b1-9d6c-edf7ab97402a",
         "kind": "InterfaceType",
         "name": "AntDesignCascader Option"
+      },
+      {
+        "__typename": "ArrayType",
+        "id": "251c37db-9d28-4106-a6b9-f68f5a7dcc1c",
+        "itemType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "name": "String"
+        },
+        "kind": "ArrayType",
+        "name": "AndDesignCascader Default Value Array"
       },
       {
         "__typename": "ArrayType",
