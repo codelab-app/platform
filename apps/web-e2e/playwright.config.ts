@@ -9,9 +9,8 @@ const apiPort = get('NEXT_PUBLIC_API_PORT').required().asString()
 const apiBasePath = get('NEXT_PUBLIC_BASE_API_PATH').required().asString()
 const apiUrl = new URL(apiBasePath, `${apiHost}:${apiPort}`).toString()
 const webUrl = get('NEXT_PUBLIC_WEB_HOST').required().asString()
-const ci = get('CI').asBool()
+const ci = get('CI').default('false').asBool()
 
-console.log('env', process.env)
 console.log('ci', ci)
 
 export const webBaseApiUrl = new URL(apiBasePath, webUrl).toString()
