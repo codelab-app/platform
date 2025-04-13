@@ -25,6 +25,7 @@ export const SelectComponent = connectField(
     return (
       <SelectField
         {...props}
+        name=""
         optionFilterProp="label"
         options={componentDomainService.getSelectOptions(parentComponent)}
         showSearch
