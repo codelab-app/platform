@@ -78,6 +78,9 @@ export const useElementService = (): IElementService => {
   const { componentDomainService, elementDomainService } = useDomainStore()
   const selectedNode = builderService.selectedNode
 
+  /**
+   * When we create a new element, the selected node should stay at the parent
+   */
   const create = async (data: IElementDto) => {
     if (data.renderType.__typename === 'Atom') {
       await atomService.loadApi(data.renderType.id)
@@ -89,17 +92,17 @@ export const useElementService = (): IElementService => {
 
     const element = elementDomainService.addTreeNode(data)
 
+    /**
+     * We want to keep the selected node expanded, so we can see the children
+     */
+    if (selectedNode && isRuntimeElementRef(selectedNode)) {
+      selectedNode.current.setExpanded(true)
+    }
+
     await elementRepository.add(data, {
       revalidateTags: [CACHE_TAGS.Element.list()],
     })
     await syncModifiedElements()
-
-    /**
-     * Expand the parent for newly added element, need to handle case where the `selectedNode` is already the root
-     */
-    if (selectedNode && isRuntimeElementRef(selectedNode)) {
-      selectedNode.current.closestElement.setExpanded(true)
-    }
 
     return element
   }
@@ -151,7 +154,7 @@ export const useElementService = (): IElementService => {
     const oldRenderTypeId = currentElement.renderType.id
 
     if (newRenderTypeId !== oldRenderTypeId) {
-      propService.reset(currentElement.props.toJson)
+      await propService.reset(currentElement.props.toJson)
 
       await atomService.loadApi(newRenderTypeId)
     }

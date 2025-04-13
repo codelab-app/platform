@@ -122,11 +122,13 @@ export default defineConfig({
 
   /**
    * Includes hooks
+   *
+   * Increase to high timeout locally if you need to view console in the popup browser, sometimes there isn't enough time for it to stay open
    */
-  timeout: process.env.CI ? 60_000 : 30_000,
+  timeout: process.env.CI ? 60_000 : 120_000,
 
   expect: {
-    timeout: process.env.CI ? 30_000 : 15_000,
+    timeout: process.env.CI ? 30_000 : 120_000,
   },
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */

@@ -30,7 +30,7 @@ export const ElementTreeView = observer<{
   const { handleDrop, isMoving } = useElementTreeDrop()
 
   console.log({
-    expandedKeys: runtimeElementService.getExpandedCompositeKeys(),
+    expandedKeys: runtimeElementService.expandedCompositeKeys,
     selectedNode: selectedNode?.compositeKey,
   })
 
@@ -46,7 +46,7 @@ export const ElementTreeView = observer<{
       defaultSelectedKeys={selectedNode ? [selectedNode.compositeKey] : []}
       disabled={isMoving}
       draggable={true}
-      expandedKeys={runtimeElementService.getExpandedCompositeKeys()}
+      expandedKeys={runtimeElementService.expandedCompositeKeys}
       onClick={(event) => {
         event.stopPropagation()
       }}

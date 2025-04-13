@@ -1,4 +1,6 @@
+import { getEnv } from '@codelab/shared/config/env'
 import { expect } from '@playwright/test'
+import fs from 'fs'
 import { join } from 'path'
 
 import { storageStateFile } from '../../playwright.config'
@@ -97,9 +99,26 @@ test('storage state can be used in different contexts', async ({
 
 // Test 3: Load storage from custom JSON fixture file
 test('can load storage from custom JSON fixture file', async ({ browser }) => {
-  // Create a new context using the custom storage fixture
+  // Get the web host from environment service
+  const webHost = getEnv().endpoint.webHost
+
+  // Create dynamic custom storage file with proper origin
+  const customStorageContent = {
+    cookies: [],
+    origins: [
+      {
+        localStorage: [
+          { name: 'customKey1', value: 'customValue1' },
+          { name: 'customKey2', value: 'customValue2' },
+          { name: 'configKey', value: 'configValue' },
+        ],
+        origin: webHost,
+      },
+    ],
+  }
+
   const customContext = await browser.newContext({
-    storageState: customStorageFile,
+    storageState: customStorageContent,
   })
 
   const customPage = await customContext.newPage()
