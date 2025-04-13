@@ -14,7 +14,9 @@
         "id": "8599dae3-32d8-4435-9c8e-55d7b8ccd2dd",
         "key": "colon",
         "name": "Colon",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "b20097e0-38e9-4007-93d7-593cdfeea552"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -30,8 +32,12 @@
         "id": "b20097e0-38e9-4007-93d7-593cdfeea552",
         "key": "extra",
         "name": "Extra",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "da4a25de-1a0a-4874-874e-1145e16ec0f0"
+        },
+        "prevSibling": {
+          "id": "8599dae3-32d8-4435-9c8e-55d7b8ccd2dd"
+        },
         "validationRules": null
       },
       {
@@ -46,8 +52,12 @@
         "id": "da4a25de-1a0a-4874-874e-1145e16ec0f0",
         "key": "help",
         "name": "Help",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "4de44ce0-f0ed-46f8-a5e1-69998dd8fe55"
+        },
+        "prevSibling": {
+          "id": "b20097e0-38e9-4007-93d7-593cdfeea552"
+        },
         "validationRules": null
       },
       {
@@ -62,8 +72,12 @@
         "id": "4de44ce0-f0ed-46f8-a5e1-69998dd8fe55",
         "key": "hidden",
         "name": "Hidden",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "90033671-6a82-43ac-88c9-3483b456caf0"
+        },
+        "prevSibling": {
+          "id": "da4a25de-1a0a-4874-874e-1145e16ec0f0"
+        },
         "validationRules": null
       },
       {
@@ -78,8 +92,12 @@
         "id": "90033671-6a82-43ac-88c9-3483b456caf0",
         "key": "htmlFor",
         "name": "Html For",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "25ecb383-60f8-4e7d-b1c4-673794fe6b7d"
+        },
+        "prevSibling": {
+          "id": "4de44ce0-f0ed-46f8-a5e1-69998dd8fe55"
+        },
         "validationRules": null
       },
       {
@@ -94,8 +112,12 @@
         "id": "25ecb383-60f8-4e7d-b1c4-673794fe6b7d",
         "key": "initialValue",
         "name": "Initial Value",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "0074f385-30ba-4067-a785-4471620099e1"
+        },
+        "prevSibling": {
+          "id": "90033671-6a82-43ac-88c9-3483b456caf0"
+        },
         "validationRules": null
       },
       {
@@ -110,8 +132,12 @@
         "id": "0074f385-30ba-4067-a785-4471620099e1",
         "key": "label",
         "name": "Label",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "ae8b6d54-8a3d-4e20-b1a9-18ae3ab80cbd"
+        },
+        "prevSibling": {
+          "id": "25ecb383-60f8-4e7d-b1c4-673794fe6b7d"
+        },
         "validationRules": null
       },
       {
@@ -126,8 +152,12 @@
         "id": "ae8b6d54-8a3d-4e20-b1a9-18ae3ab80cbd",
         "key": "labelAlign",
         "name": "Label Align",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "9dbc141d-f068-404b-aa3f-5d1f47e38eb6"
+        },
+        "prevSibling": {
+          "id": "0074f385-30ba-4067-a785-4471620099e1"
+        },
         "validationRules": null
       },
       {
@@ -142,8 +172,12 @@
         "id": "9dbc141d-f068-404b-aa3f-5d1f47e38eb6",
         "key": "name",
         "name": "Name",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "1df0c780-8110-4587-b72a-f287e772e3c7"
+        },
+        "prevSibling": {
+          "id": "ae8b6d54-8a3d-4e20-b1a9-18ae3ab80cbd"
+        },
         "validationRules": null
       },
       {
@@ -158,8 +192,12 @@
         "id": "1df0c780-8110-4587-b72a-f287e772e3c7",
         "key": "required",
         "name": "Required",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "fee3220c-f52c-4d70-8d7e-24e8843cdc8e"
+        },
+        "prevSibling": {
+          "id": "9dbc141d-f068-404b-aa3f-5d1f47e38eb6"
+        },
         "validationRules": null
       },
       {
@@ -174,8 +212,12 @@
         "id": "fee3220c-f52c-4d70-8d7e-24e8843cdc8e",
         "key": "trigger",
         "name": "Trigger",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "6d773ad5-ae53-4428-90ed-174d9459afac"
+        },
+        "prevSibling": {
+          "id": "1df0c780-8110-4587-b72a-f287e772e3c7"
+        },
         "validationRules": null
       },
       {
@@ -191,7 +233,9 @@
         "key": "valuePropName",
         "name": "Value Prop Name",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "fee3220c-f52c-4d70-8d7e-24e8843cdc8e"
+        },
         "validationRules": "{\"general\":{\"nullable\":true}}"
       }
     ],

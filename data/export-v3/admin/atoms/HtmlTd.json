@@ -14,7 +14,9 @@
         "id": "7f8g9h0i-1j2k-3l4m-5n6o-7p8q9r0s1t2u",
         "key": "children",
         "name": "Children",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "634ebf85-3e3a-48e8-8d6f-bc9149f190dc"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -30,8 +32,12 @@
         "id": "634ebf85-3e3a-48e8-8d6f-bc9149f190dc",
         "key": "colspan",
         "name": "Colspan",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "d497460a-2d66-4f2d-b020-a569c911b54f"
+        },
+        "prevSibling": {
+          "id": "7f8g9h0i-1j2k-3l4m-5n6o-7p8q9r0s1t2u"
+        },
         "validationRules": null
       },
       {
@@ -46,8 +52,12 @@
         "id": "d497460a-2d66-4f2d-b020-a569c911b54f",
         "key": "headers",
         "name": "Headers",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "a9ebb24a-4120-443d-8508-41bef7d7c3df"
+        },
+        "prevSibling": {
+          "id": "634ebf85-3e3a-48e8-8d6f-bc9149f190dc"
+        },
         "validationRules": null
       },
       {
@@ -63,7 +73,9 @@
         "key": "rowspan",
         "name": "Rowspan",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "d497460a-2d66-4f2d-b020-a569c911b54f"
+        },
         "validationRules": null
       }
     ],

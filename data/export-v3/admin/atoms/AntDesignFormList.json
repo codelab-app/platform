@@ -14,7 +14,9 @@
         "id": "888d3694-8595-4413-9d7c-cb7ab19b70e0",
         "key": "children",
         "name": "children",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "cd31b525-94a8-4321-8ce9-cc08406fec68"
+        },
         "prevSibling": null,
         "validationRules": "{}"
       },
@@ -30,8 +32,12 @@
         "id": "cd31b525-94a8-4321-8ce9-cc08406fec68",
         "key": "initialValue",
         "name": "initialValue",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "e44dd38f-8093-4be1-9d2e-195ad3899193"
+        },
+        "prevSibling": {
+          "id": "888d3694-8595-4413-9d7c-cb7ab19b70e0"
+        },
         "validationRules": "{}"
       },
       {
@@ -47,7 +53,9 @@
         "key": "name",
         "name": "name",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "cd31b525-94a8-4321-8ce9-cc08406fec68"
+        },
         "validationRules": "{}"
       }
     ],

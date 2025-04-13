@@ -14,7 +14,9 @@
         "id": "e504abbc-b42c-4f3d-a27d-aa721a54f90e",
         "key": "offsetBottom",
         "name": "Offset Bottom",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "a66e843c-334d-4b31-900d-40816d16b26b"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -30,8 +32,12 @@
         "id": "a66e843c-334d-4b31-900d-40816d16b26b",
         "key": "offsetTop",
         "name": "Offset Top",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "902f2deb-8128-4160-aaf1-a6dc7b21dbe6"
+        },
+        "prevSibling": {
+          "id": "e504abbc-b42c-4f3d-a27d-aa721a54f90e"
+        },
         "validationRules": null
       },
       {
@@ -46,8 +52,12 @@
         "id": "902f2deb-8128-4160-aaf1-a6dc7b21dbe6",
         "key": "onChange",
         "name": "On Change",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "02746390-9b61-4728-8ffb-b085b8442b09"
+        },
+        "prevSibling": {
+          "id": "a66e843c-334d-4b31-900d-40816d16b26b"
+        },
         "validationRules": null
       },
       {
@@ -63,7 +73,9 @@
         "key": "target",
         "name": "Target",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "902f2deb-8128-4160-aaf1-a6dc7b21dbe6"
+        },
         "validationRules": null
       }
     ],

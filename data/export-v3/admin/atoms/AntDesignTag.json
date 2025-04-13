@@ -14,7 +14,9 @@
         "id": "e9b36d8a-8e5f-4c4d-9c4b-12a4b3e4f5d6",
         "key": "children",
         "name": "Children",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "fbb1d0a1-2522-4767-9de3-3e70d53296b2"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -30,8 +32,12 @@
         "id": "fbb1d0a1-2522-4767-9de3-3e70d53296b2",
         "key": "closable",
         "name": "Closable",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "b771805f-e086-4845-8052-7f8e69085fef"
+        },
+        "prevSibling": {
+          "id": "e9b36d8a-8e5f-4c4d-9c4b-12a4b3e4f5d6"
+        },
         "validationRules": null
       },
       {
@@ -46,8 +52,12 @@
         "id": "b771805f-e086-4845-8052-7f8e69085fef",
         "key": "closeIcon",
         "name": "Close Icon",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "a8e8bea2-24d6-49e2-8388-d45924363580"
+        },
+        "prevSibling": {
+          "id": "fbb1d0a1-2522-4767-9de3-3e70d53296b2"
+        },
         "validationRules": null
       },
       {
@@ -62,8 +72,12 @@
         "id": "a8e8bea2-24d6-49e2-8388-d45924363580",
         "key": "color",
         "name": "Color",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "5dae7a18-0e96-474d-90ac-4737cccbe91a"
+        },
+        "prevSibling": {
+          "id": "b771805f-e086-4845-8052-7f8e69085fef"
+        },
         "validationRules": null
       },
       {
@@ -78,8 +92,12 @@
         "id": "5dae7a18-0e96-474d-90ac-4737cccbe91a",
         "key": "icon",
         "name": "Icon",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "a3c4d18d-eb86-4924-a0dd-45281013cfe8"
+        },
+        "prevSibling": {
+          "id": "a8e8bea2-24d6-49e2-8388-d45924363580"
+        },
         "validationRules": null
       },
       {
@@ -95,7 +113,9 @@
         "key": "onClose",
         "name": "On Close",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "5dae7a18-0e96-474d-90ac-4737cccbe91a"
+        },
         "validationRules": null
       }
     ],

@@ -14,7 +14,9 @@
         "id": "8a166710-a0a1-4bb9-b041-604e9d42269d",
         "key": "href",
         "name": "Href",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "724ebf58-07c6-4fd1-8ca9-fadeca7279ac"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -31,7 +33,9 @@
         "key": "target",
         "name": "Target",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "8a166710-a0a1-4bb9-b041-604e9d42269d"
+        },
         "validationRules": null
       }
     ],

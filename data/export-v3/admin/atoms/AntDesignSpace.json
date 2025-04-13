@@ -14,7 +14,9 @@
         "id": "a649adb3-965d-4498-9dcb-899197755242",
         "key": "align",
         "name": "Align",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "272b9bff-5be2-429d-b21e-8665337bbd9b"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -30,8 +32,12 @@
         "id": "272b9bff-5be2-429d-b21e-8665337bbd9b",
         "key": "children",
         "name": "Children",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "1cbbf830-ee31-4eff-90ea-4de0aff4eb91"
+        },
+        "prevSibling": {
+          "id": "a649adb3-965d-4498-9dcb-899197755242"
+        },
         "validationRules": "{}"
       },
       {
@@ -46,8 +52,12 @@
         "id": "1cbbf830-ee31-4eff-90ea-4de0aff4eb91",
         "key": "direction",
         "name": "Direction",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "297fbbb2-e69e-4939-a1ae-933d8e1dbdd7"
+        },
+        "prevSibling": {
+          "id": "272b9bff-5be2-429d-b21e-8665337bbd9b"
+        },
         "validationRules": null
       },
       {
@@ -62,8 +72,12 @@
         "id": "297fbbb2-e69e-4939-a1ae-933d8e1dbdd7",
         "key": "size",
         "name": "Size",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "9302413a-486d-4e73-a2ae-7c123bf5f937"
+        },
+        "prevSibling": {
+          "id": "1cbbf830-ee31-4eff-90ea-4de0aff4eb91"
+        },
         "validationRules": "{\"general\":{\"nullable\":true}}"
       },
       {
@@ -78,8 +92,12 @@
         "id": "9302413a-486d-4e73-a2ae-7c123bf5f937",
         "key": "split",
         "name": "Split",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "9afc689e-e02a-439c-abe2-83103826c444"
+        },
+        "prevSibling": {
+          "id": "297fbbb2-e69e-4939-a1ae-933d8e1dbdd7"
+        },
         "validationRules": null
       },
       {
@@ -95,7 +113,9 @@
         "key": "wrap",
         "name": "Wrap",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "9302413a-486d-4e73-a2ae-7c123bf5f937"
+        },
         "validationRules": null
       }
     ],

@@ -14,7 +14,9 @@
         "id": "14a18b7c-85c4-4c11-a5e3-aa80283deb14",
         "key": "className",
         "name": "Class Name",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "9f28cc92-2e53-4b8b-8b7f-0ef5734f2c86"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -30,8 +32,12 @@
         "id": "9f28cc92-2e53-4b8b-8b7f-0ef5734f2c86",
         "key": "name",
         "name": "Icon Name",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "5f34a1f4-38e2-4bfe-a43e-f46901792a7b"
+        },
+        "prevSibling": {
+          "id": "14a18b7c-85c4-4c11-a5e3-aa80283deb14"
+        },
         "validationRules": "{\"general\":{\"nullable\":false}}"
       },
       {
@@ -46,8 +52,12 @@
         "id": "5f34a1f4-38e2-4bfe-a43e-f46901792a7b",
         "key": "rotate",
         "name": "Rotate",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "de6b3607-bfbe-41d3-9ad0-5e2d4a12450e"
+        },
+        "prevSibling": {
+          "id": "9f28cc92-2e53-4b8b-8b7f-0ef5734f2c86"
+        },
         "validationRules": null
       },
       {
@@ -63,7 +73,9 @@
         "key": "spin",
         "name": "Spin",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "5f34a1f4-38e2-4bfe-a43e-f46901792a7b"
+        },
         "validationRules": null
       }
     ],

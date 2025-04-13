@@ -14,7 +14,9 @@
         "id": "5b6f7eef-dff5-4721-ac64-92f3ef39e495",
         "key": "autoInsertSpaceInButton",
         "name": "Auto Insert Space In Button",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "4ee46454-2ff1-40e3-a41d-b62044581f4d"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -30,8 +32,12 @@
         "id": "4ee46454-2ff1-40e3-a41d-b62044581f4d",
         "key": "componentDisabled",
         "name": "Component Disabled",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "c892b1b4-6b4a-49be-9215-cf4c905f57d8"
+        },
+        "prevSibling": {
+          "id": "5b6f7eef-dff5-4721-ac64-92f3ef39e495"
+        },
         "validationRules": null
       },
       {
@@ -46,8 +52,12 @@
         "id": "c892b1b4-6b4a-49be-9215-cf4c905f57d8",
         "key": "componentSize",
         "name": "Component Size",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "bd2d7dad-5bcb-4b18-8fe4-e7d546f7c23b"
+        },
+        "prevSibling": {
+          "id": "4ee46454-2ff1-40e3-a41d-b62044581f4d"
+        },
         "validationRules": null
       },
       {
@@ -62,8 +72,12 @@
         "id": "bd2d7dad-5bcb-4b18-8fe4-e7d546f7c23b",
         "key": "csp",
         "name": "Csp",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "df0d31b4-7f6e-411f-892b-9310786ec47a"
+        },
+        "prevSibling": {
+          "id": "c892b1b4-6b4a-49be-9215-cf4c905f57d8"
+        },
         "validationRules": null
       },
       {
@@ -78,8 +92,12 @@
         "id": "df0d31b4-7f6e-411f-892b-9310786ec47a",
         "key": "direction",
         "name": "Direction",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "9ef85c93-7f3d-4395-93fd-ac776e835eab"
+        },
+        "prevSibling": {
+          "id": "bd2d7dad-5bcb-4b18-8fe4-e7d546f7c23b"
+        },
         "validationRules": null
       },
       {
@@ -94,8 +112,12 @@
         "id": "9ef85c93-7f3d-4395-93fd-ac776e835eab",
         "key": "dropdownMatchSelectWidth",
         "name": "Dropdown Match Select Width",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "0b4ec360-96a0-4d81-919b-5b868e5202e4"
+        },
+        "prevSibling": {
+          "id": "df0d31b4-7f6e-411f-892b-9310786ec47a"
+        },
         "validationRules": null
       },
       {
@@ -110,8 +132,12 @@
         "id": "0b4ec360-96a0-4d81-919b-5b868e5202e4",
         "key": "form",
         "name": "Form",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "1cec6eab-f6a0-441f-b36c-48c28f7b9762"
+        },
+        "prevSibling": {
+          "id": "9ef85c93-7f3d-4395-93fd-ac776e835eab"
+        },
         "validationRules": null
       },
       {
@@ -126,8 +152,12 @@
         "id": "1cec6eab-f6a0-441f-b36c-48c28f7b9762",
         "key": "getPopupContainer",
         "name": "Get Popup Container",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "051da31f-8f00-4dbb-ab90-81deb184bcf0"
+        },
+        "prevSibling": {
+          "id": "0b4ec360-96a0-4d81-919b-5b868e5202e4"
+        },
         "validationRules": null
       },
       {
@@ -142,8 +172,12 @@
         "id": "051da31f-8f00-4dbb-ab90-81deb184bcf0",
         "key": "getTargetContainer",
         "name": "Get Target Container",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "8ca0c04a-4e7e-4250-9320-ce0ec7820d01"
+        },
+        "prevSibling": {
+          "id": "1cec6eab-f6a0-441f-b36c-48c28f7b9762"
+        },
         "validationRules": null
       },
       {
@@ -158,8 +192,12 @@
         "id": "8ca0c04a-4e7e-4250-9320-ce0ec7820d01",
         "key": "iconPrefixCls",
         "name": "Icon Prefix Cls",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "c71d3938-2fb8-4f35-ad28-f536eae04e89"
+        },
+        "prevSibling": {
+          "id": "051da31f-8f00-4dbb-ab90-81deb184bcf0"
+        },
         "validationRules": null
       },
       {
@@ -174,8 +212,12 @@
         "id": "c71d3938-2fb8-4f35-ad28-f536eae04e89",
         "key": "input",
         "name": "Input",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "5f97a0b1-ad67-4523-9ea9-a61dd91d0c1b"
+        },
+        "prevSibling": {
+          "id": "8ca0c04a-4e7e-4250-9320-ce0ec7820d01"
+        },
         "validationRules": null
       },
       {
@@ -190,8 +232,12 @@
         "id": "5f97a0b1-ad67-4523-9ea9-a61dd91d0c1b",
         "key": "pageHeader",
         "name": "Page Header",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "10d73057-cd8d-47a2-8095-5528c60ccc0e"
+        },
+        "prevSibling": {
+          "id": "c71d3938-2fb8-4f35-ad28-f536eae04e89"
+        },
         "validationRules": null
       },
       {
@@ -206,8 +252,12 @@
         "id": "10d73057-cd8d-47a2-8095-5528c60ccc0e",
         "key": "prefixCls",
         "name": "Prefix Cls",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "37381a73-4bf9-42f8-b1bc-af56ce6781d5"
+        },
+        "prevSibling": {
+          "id": "5f97a0b1-ad67-4523-9ea9-a61dd91d0c1b"
+        },
         "validationRules": null
       },
       {
@@ -222,8 +272,12 @@
         "id": "37381a73-4bf9-42f8-b1bc-af56ce6781d5",
         "key": "renderEmpty",
         "name": "Render Empty",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "d3155ee0-2400-4ba4-9b99-8c28da9feff5"
+        },
+        "prevSibling": {
+          "id": "10d73057-cd8d-47a2-8095-5528c60ccc0e"
+        },
         "validationRules": null
       },
       {
@@ -238,8 +292,12 @@
         "id": "d3155ee0-2400-4ba4-9b99-8c28da9feff5",
         "key": "space",
         "name": "Space",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "7e09ba1f-5e68-45f8-88ad-132ea44ff2dd"
+        },
+        "prevSibling": {
+          "id": "37381a73-4bf9-42f8-b1bc-af56ce6781d5"
+        },
         "validationRules": null
       },
       {
@@ -255,7 +313,9 @@
         "key": "virtual",
         "name": "Virtual",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "d3155ee0-2400-4ba4-9b99-8c28da9feff5"
+        },
         "validationRules": null
       }
     ],

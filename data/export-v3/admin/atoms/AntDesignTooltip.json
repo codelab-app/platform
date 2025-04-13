@@ -14,7 +14,9 @@
         "id": "af16e1cf-d34a-4921-965c-e4a67ae9baee",
         "key": "arrowPointAtCenter",
         "name": "Arrow Point At Center",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "e1a60f3f-d285-4ece-b816-20e10717f46e"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -30,8 +32,12 @@
         "id": "e1a60f3f-d285-4ece-b816-20e10717f46e",
         "key": "autoAdjustOverflow",
         "name": "Auto Adjust Overflow",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "f8d12f3a-7b5e-4c1d-8c8a-9b2e3f8c4d5e"
+        },
+        "prevSibling": {
+          "id": "af16e1cf-d34a-4921-965c-e4a67ae9baee"
+        },
         "validationRules": null
       },
       {
@@ -46,8 +52,12 @@
         "id": "f8d12f3a-7b5e-4c1d-8c8a-9b2e3f8c4d5e",
         "key": "children",
         "name": "Children",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "d66a20db-c578-468a-9cec-c66dd7af1379"
+        },
+        "prevSibling": {
+          "id": "e1a60f3f-d285-4ece-b816-20e10717f46e"
+        },
         "validationRules": null
       },
       {
@@ -62,8 +72,12 @@
         "id": "d66a20db-c578-468a-9cec-c66dd7af1379",
         "key": "color",
         "name": "Color",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "2a06e017-b004-43fe-a735-44150d6d7fa4"
+        },
+        "prevSibling": {
+          "id": "f8d12f3a-7b5e-4c1d-8c8a-9b2e3f8c4d5e"
+        },
         "validationRules": null
       },
       {
@@ -78,8 +92,12 @@
         "id": "2a06e017-b004-43fe-a735-44150d6d7fa4",
         "key": "defaultOpen",
         "name": "Default Open",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "46cc5ce6-d475-4979-8301-64004387f31b"
+        },
+        "prevSibling": {
+          "id": "d66a20db-c578-468a-9cec-c66dd7af1379"
+        },
         "validationRules": null
       },
       {
@@ -94,8 +112,12 @@
         "id": "46cc5ce6-d475-4979-8301-64004387f31b",
         "key": "destroyTooltipOnHide",
         "name": "Destroy Tooltip On Hide",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "24bf5147-a8bc-43c7-96e7-5f9f07a9d4cb"
+        },
+        "prevSibling": {
+          "id": "2a06e017-b004-43fe-a735-44150d6d7fa4"
+        },
         "validationRules": null
       },
       {
@@ -110,8 +132,12 @@
         "id": "24bf5147-a8bc-43c7-96e7-5f9f07a9d4cb",
         "key": "getPopupContainer",
         "name": "Get Popup Container",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "0b23efeb-725f-4e2d-9bc5-f2ee2953ca83"
+        },
+        "prevSibling": {
+          "id": "46cc5ce6-d475-4979-8301-64004387f31b"
+        },
         "validationRules": null
       },
       {
@@ -126,8 +152,12 @@
         "id": "0b23efeb-725f-4e2d-9bc5-f2ee2953ca83",
         "key": "mouseEnterDelay",
         "name": "Mouse Enter Delay",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "2c82b786-24cc-4129-9c80-11d1add90520"
+        },
+        "prevSibling": {
+          "id": "24bf5147-a8bc-43c7-96e7-5f9f07a9d4cb"
+        },
         "validationRules": null
       },
       {
@@ -142,8 +172,12 @@
         "id": "2c82b786-24cc-4129-9c80-11d1add90520",
         "key": "mouseLeaveDelay",
         "name": "Mouse Leave Delay",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "46716956-d864-4aa4-a8d2-1d508cb0795a"
+        },
+        "prevSibling": {
+          "id": "0b23efeb-725f-4e2d-9bc5-f2ee2953ca83"
+        },
         "validationRules": null
       },
       {
@@ -158,8 +192,12 @@
         "id": "46716956-d864-4aa4-a8d2-1d508cb0795a",
         "key": "onOpenChange",
         "name": "On Open Change",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "f19d658e-0583-46e1-ac68-290f4c47a706"
+        },
+        "prevSibling": {
+          "id": "2c82b786-24cc-4129-9c80-11d1add90520"
+        },
         "validationRules": null
       },
       {
@@ -174,8 +212,12 @@
         "id": "f19d658e-0583-46e1-ac68-290f4c47a706",
         "key": "open",
         "name": "Open",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "41a2249d-8aed-4f71-8944-c2a0491e86fa"
+        },
+        "prevSibling": {
+          "id": "46716956-d864-4aa4-a8d2-1d508cb0795a"
+        },
         "validationRules": null
       },
       {
@@ -190,8 +232,12 @@
         "id": "41a2249d-8aed-4f71-8944-c2a0491e86fa",
         "key": "overlayClassName",
         "name": "Overlay Class Name",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "3760fdd9-bf21-4795-9978-d4e0307a29ec"
+        },
+        "prevSibling": {
+          "id": "f19d658e-0583-46e1-ac68-290f4c47a706"
+        },
         "validationRules": null
       },
       {
@@ -206,8 +252,12 @@
         "id": "3760fdd9-bf21-4795-9978-d4e0307a29ec",
         "key": "placement",
         "name": "Placement",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "4f6ed38d-8cad-4ace-a040-d68656e58f04"
+        },
+        "prevSibling": {
+          "id": "41a2249d-8aed-4f71-8944-c2a0491e86fa"
+        },
         "validationRules": null
       },
       {
@@ -222,8 +272,12 @@
         "id": "4f6ed38d-8cad-4ace-a040-d68656e58f04",
         "key": "trigger",
         "name": "Trigger",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "bb476036-bc40-4bf7-8a70-c1a765eceede"
+        },
+        "prevSibling": {
+          "id": "3760fdd9-bf21-4795-9978-d4e0307a29ec"
+        },
         "validationRules": null
       },
       {
@@ -239,7 +293,9 @@
         "key": "zIndex",
         "name": "Z Index",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "4f6ed38d-8cad-4ace-a040-d68656e58f04"
+        },
         "validationRules": null
       }
     ],

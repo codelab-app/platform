@@ -14,7 +14,9 @@
         "id": "29e15b1b-5bee-496f-868e-05c6dbf7ce9a",
         "key": "actions",
         "name": "Actions",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "a8e4ae82-6107-4f64-acfd-d0bc7a18e391"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -31,7 +33,9 @@
         "key": "extra",
         "name": "Extra",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "29e15b1b-5bee-496f-868e-05c6dbf7ce9a"
+        },
         "validationRules": null
       }
     ],

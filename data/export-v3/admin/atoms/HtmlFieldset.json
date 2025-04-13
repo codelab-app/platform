@@ -14,7 +14,9 @@
         "id": "35e6cb59-1e54-4eec-9b7f-7433a1b84ead",
         "key": "disabled",
         "name": "Disabled",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "1debb6bc-baf2-4ff7-9ca3-af22f0dc7adf"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -30,8 +32,12 @@
         "id": "1debb6bc-baf2-4ff7-9ca3-af22f0dc7adf",
         "key": "form",
         "name": "Form",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "4f7bef07-4b20-4bef-b345-ba0f30ff07b0"
+        },
+        "prevSibling": {
+          "id": "35e6cb59-1e54-4eec-9b7f-7433a1b84ead"
+        },
         "validationRules": null
       },
       {
@@ -47,7 +53,9 @@
         "key": "name",
         "name": "Name",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "1debb6bc-baf2-4ff7-9ca3-af22f0dc7adf"
+        },
         "validationRules": null
       }
     ],

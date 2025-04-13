@@ -14,7 +14,9 @@
         "id": "071eb1f6-6e61-4a58-906d-cb434a9ad4fb",
         "key": "bordered",
         "name": "Bordered",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "deb9951d-8e97-4120-b72c-1b6904610172"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -30,8 +32,12 @@
         "id": "deb9951d-8e97-4120-b72c-1b6904610172",
         "key": "colon",
         "name": "Colon",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "c960add5-38f7-4abf-ac80-008db6141abc"
+        },
+        "prevSibling": {
+          "id": "071eb1f6-6e61-4a58-906d-cb434a9ad4fb"
+        },
         "validationRules": null
       },
       {
@@ -46,8 +52,12 @@
         "id": "c960add5-38f7-4abf-ac80-008db6141abc",
         "key": "column",
         "name": "Column",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "4b942852-7dbc-4006-ba5e-1d6ebd65a21b"
+        },
+        "prevSibling": {
+          "id": "deb9951d-8e97-4120-b72c-1b6904610172"
+        },
         "validationRules": null
       },
       {
@@ -62,8 +72,12 @@
         "id": "4b942852-7dbc-4006-ba5e-1d6ebd65a21b",
         "key": "extra",
         "name": "Extra",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "19f51f63-7ec5-4c79-8e3e-5c1d9833279c"
+        },
+        "prevSibling": {
+          "id": "c960add5-38f7-4abf-ac80-008db6141abc"
+        },
         "validationRules": null
       },
       {
@@ -78,8 +92,12 @@
         "id": "19f51f63-7ec5-4c79-8e3e-5c1d9833279c",
         "key": "layout",
         "name": "Layout",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "11f5fa01-bca3-4814-95e7-18a781c2f6d6"
+        },
+        "prevSibling": {
+          "id": "4b942852-7dbc-4006-ba5e-1d6ebd65a21b"
+        },
         "validationRules": null
       },
       {
@@ -94,8 +112,12 @@
         "id": "11f5fa01-bca3-4814-95e7-18a781c2f6d6",
         "key": "size",
         "name": "Size",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "d403679b-6b20-45ac-95a4-5befad742013"
+        },
+        "prevSibling": {
+          "id": "19f51f63-7ec5-4c79-8e3e-5c1d9833279c"
+        },
         "validationRules": null
       },
       {
@@ -111,7 +133,9 @@
         "key": "title",
         "name": "Title",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "11f5fa01-bca3-4814-95e7-18a781c2f6d6"
+        },
         "validationRules": null
       }
     ],

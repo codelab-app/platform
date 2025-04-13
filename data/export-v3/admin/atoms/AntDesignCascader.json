@@ -14,7 +14,9 @@
         "id": "08c6200e-f7dc-4b42-9e91-71d150aa2512",
         "key": "allowClear",
         "name": "Allow Clear",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "b2a084c9-e8a9-4e78-80eb-997a169e4440"
+        },
         "prevSibling": null,
         "validationRules": "{}"
       },
@@ -30,8 +32,12 @@
         "id": "b2a084c9-e8a9-4e78-80eb-997a169e4440",
         "key": "autoClearSearchValue",
         "name": null,
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "8f78b7dd-15a9-41bd-a79d-6b4d428dc824"
+        },
+        "prevSibling": {
+          "id": "08c6200e-f7dc-4b42-9e91-71d150aa2512"
+        },
         "validationRules": "{}"
       },
       {
@@ -143,7 +149,9 @@
         "key": "options",
         "name": "Options",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "b2a084c9-e8a9-4e78-80eb-997a169e4440"
+        },
         "validationRules": "{\"general\":{\"nullable\":false}}"
       },
       {
@@ -206,7 +214,9 @@
         "id": "45fad519-ba05-4f0f-b7e1-f8fb8617686f",
         "key": "label",
         "name": "Label",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "a8687422-64a7-4d02-b756-8aa3fda0a120"
+        },
         "prevSibling": null,
         "validationRules": "{\"general\":{\"nullable\":false}}"
       },
@@ -222,8 +232,12 @@
         "id": "a8687422-64a7-4d02-b756-8aa3fda0a120",
         "key": "value",
         "name": "Value",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "518ae78e-4521-4a1b-841e-25b67b4f85f4"
+        },
+        "prevSibling": {
+          "id": "45fad519-ba05-4f0f-b7e1-f8fb8617686f"
+        },
         "validationRules": "{\"general\":{\"nullable\":false}}"
       },
       {
@@ -239,7 +253,9 @@
         "key": "children",
         "name": "Children",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "a8687422-64a7-4d02-b756-8aa3fda0a120"
+        },
         "validationRules": "{\"general\":{\"nullable\":true}}"
       }
     ],

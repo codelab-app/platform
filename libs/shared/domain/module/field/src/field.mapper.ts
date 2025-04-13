@@ -22,6 +22,7 @@ export const fieldMapper: IMapper<
     id,
     key,
     name,
+    prevSibling,
     validationRules,
   }: IFieldDto): FieldCreateInput => {
     return {
@@ -32,6 +33,7 @@ export const fieldMapper: IMapper<
       id,
       key,
       name,
+      prevSibling: prevSibling?.id ? connectNodeId(prevSibling.id) : undefined,
       validationRules: encodeJson(validationRules),
     }
   },
@@ -41,13 +43,10 @@ export const fieldMapper: IMapper<
   },
 
   toUpdateInput: ({
-    api,
     defaultValues,
     description,
-    fieldType,
     key,
     name,
-    nextSibling,
     prevSibling,
     validationRules,
   }: IFieldDto): FieldUpdateInput => {
@@ -57,6 +56,9 @@ export const fieldMapper: IMapper<
       // fieldType: reconnectNodeId(fieldType.id),
       key,
       name,
+      prevSibling: prevSibling?.id
+        ? reconnectNodeId(prevSibling.id)
+        : undefined,
       validationRules: encodeJson(validationRules),
     }
   },

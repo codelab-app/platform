@@ -14,7 +14,9 @@
         "id": "0347501a-8383-4c16-b3e2-5597500e3812",
         "key": "children",
         "name": "Children",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "9c291035-b572-41b3-b9a8-8799050fce1f"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -30,8 +32,12 @@
         "id": "9c291035-b572-41b3-b9a8-8799050fce1f",
         "key": "coords",
         "name": "Coords",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "b49908fd-6a15-482d-86e2-b92069a100c0"
+        },
+        "prevSibling": {
+          "id": "0347501a-8383-4c16-b3e2-5597500e3812"
+        },
         "validationRules": null
       },
       {
@@ -46,8 +52,12 @@
         "id": "b49908fd-6a15-482d-86e2-b92069a100c0",
         "key": "download",
         "name": "Download",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "579e369e-6d1b-4894-ad58-b5bf6cd180d4"
+        },
+        "prevSibling": {
+          "id": "9c291035-b572-41b3-b9a8-8799050fce1f"
+        },
         "validationRules": null
       },
       {
@@ -62,8 +72,12 @@
         "id": "579e369e-6d1b-4894-ad58-b5bf6cd180d4",
         "key": "href",
         "name": "Href",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "ea0a1bf7-2653-4719-9608-dc3e91a75db4"
+        },
+        "prevSibling": {
+          "id": "b49908fd-6a15-482d-86e2-b92069a100c0"
+        },
         "validationRules": null
       },
       {
@@ -78,8 +92,12 @@
         "id": "ea0a1bf7-2653-4719-9608-dc3e91a75db4",
         "key": "hreflang",
         "name": "Hreflang",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "2a0563f8-b98f-44ae-bb15-1ae1d0d54ade"
+        },
+        "prevSibling": {
+          "id": "579e369e-6d1b-4894-ad58-b5bf6cd180d4"
+        },
         "validationRules": null
       },
       {
@@ -94,8 +112,12 @@
         "id": "2a0563f8-b98f-44ae-bb15-1ae1d0d54ade",
         "key": "name",
         "name": "Name",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "e02d7e7d-356c-4425-b7d0-39319d7d78cb"
+        },
+        "prevSibling": {
+          "id": "ea0a1bf7-2653-4719-9608-dc3e91a75db4"
+        },
         "validationRules": null
       },
       {
@@ -110,8 +132,12 @@
         "id": "e02d7e7d-356c-4425-b7d0-39319d7d78cb",
         "key": "ping",
         "name": "Ping",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "ae6068fa-26f1-4b79-86b5-37303a9a9783"
+        },
+        "prevSibling": {
+          "id": "2a0563f8-b98f-44ae-bb15-1ae1d0d54ade"
+        },
         "validationRules": null
       },
       {
@@ -126,8 +152,12 @@
         "id": "ae6068fa-26f1-4b79-86b5-37303a9a9783",
         "key": "referrerpolicy",
         "name": "Referrerpolicy",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "e3668073-4c96-4ad0-a329-570025e6b2d4"
+        },
+        "prevSibling": {
+          "id": "e02d7e7d-356c-4425-b7d0-39319d7d78cb"
+        },
         "validationRules": null
       },
       {
@@ -142,8 +172,12 @@
         "id": "e3668073-4c96-4ad0-a329-570025e6b2d4",
         "key": "rel",
         "name": "Rel",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "675ed78d-3dac-4890-9235-6447cf3865e7"
+        },
+        "prevSibling": {
+          "id": "ae6068fa-26f1-4b79-86b5-37303a9a9783"
+        },
         "validationRules": null
       },
       {
@@ -158,8 +192,12 @@
         "id": "675ed78d-3dac-4890-9235-6447cf3865e7",
         "key": "rev",
         "name": "Rev",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "aebbf333-ef80-4dcf-ada8-63bce5dd0002"
+        },
+        "prevSibling": {
+          "id": "e3668073-4c96-4ad0-a329-570025e6b2d4"
+        },
         "validationRules": null
       },
       {
@@ -174,8 +212,12 @@
         "id": "aebbf333-ef80-4dcf-ada8-63bce5dd0002",
         "key": "shape",
         "name": "Shape",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "9d1e820b-4bf1-4e30-9cf3-d0dfa566ce0b"
+        },
+        "prevSibling": {
+          "id": "675ed78d-3dac-4890-9235-6447cf3865e7"
+        },
         "validationRules": null
       },
       {
@@ -190,8 +232,12 @@
         "id": "9d1e820b-4bf1-4e30-9cf3-d0dfa566ce0b",
         "key": "target",
         "name": "Target",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "1257a5ce-af50-48fd-9f51-5e85aeda0f40"
+        },
+        "prevSibling": {
+          "id": "aebbf333-ef80-4dcf-ada8-63bce5dd0002"
+        },
         "validationRules": null
       },
       {
@@ -207,7 +253,9 @@
         "key": "type",
         "name": "Type",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "9d1e820b-4bf1-4e30-9cf3-d0dfa566ce0b"
+        },
         "validationRules": null
       }
     ],

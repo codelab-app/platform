@@ -14,7 +14,9 @@
         "id": "ad9a6cdb-f22e-45df-a7a8-81500fa32182",
         "key": "display",
         "name": "Display",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "37d85426-dfda-4e52-945d-76ba4e4a1a3d"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -31,7 +33,9 @@
         "key": "xmlns",
         "name": "Xmlns",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "ad9a6cdb-f22e-45df-a7a8-81500fa32182"
+        },
         "validationRules": null
       }
     ],

@@ -14,7 +14,9 @@
         "id": "44b4d07f-b0e4-405e-b8fb-8f12b0368a36",
         "key": "reversed",
         "name": "Reversed",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "d389c360-8952-48d1-b125-b2ef3b1737e1"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -30,8 +32,12 @@
         "id": "d389c360-8952-48d1-b125-b2ef3b1737e1",
         "key": "start",
         "name": "Start",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "d4a5276a-e941-4371-995a-c6181c75cb0b"
+        },
+        "prevSibling": {
+          "id": "44b4d07f-b0e4-405e-b8fb-8f12b0368a36"
+        },
         "validationRules": null
       },
       {
@@ -47,7 +53,9 @@
         "key": "type",
         "name": "Type",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "d389c360-8952-48d1-b125-b2ef3b1737e1"
+        },
         "validationRules": null
       }
     ],

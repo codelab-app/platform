@@ -14,7 +14,9 @@
         "id": "75113fd0-385a-40a8-8bda-50746bec3f4e",
         "key": "alt",
         "name": "Alt",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "b3823c6e-be42-4583-b1d2-2d61891df792"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -30,8 +32,12 @@
         "id": "b3823c6e-be42-4583-b1d2-2d61891df792",
         "key": "crossorigin",
         "name": "Crossorigin",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "dfd6b68c-307a-42b7-9022-892769404390"
+        },
+        "prevSibling": {
+          "id": "75113fd0-385a-40a8-8bda-50746bec3f4e"
+        },
         "validationRules": null
       },
       {
@@ -46,8 +52,12 @@
         "id": "dfd6b68c-307a-42b7-9022-892769404390",
         "key": "height",
         "name": "Height",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "b884a0f8-d6b6-4fc9-8fb2-db3fc0f22e3d"
+        },
+        "prevSibling": {
+          "id": "b3823c6e-be42-4583-b1d2-2d61891df792"
+        },
         "validationRules": null
       },
       {
@@ -62,8 +72,12 @@
         "id": "b884a0f8-d6b6-4fc9-8fb2-db3fc0f22e3d",
         "key": "ismap",
         "name": "Ismap",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "f6b83590-ae4e-4c85-a739-8efee24c7785"
+        },
+        "prevSibling": {
+          "id": "dfd6b68c-307a-42b7-9022-892769404390"
+        },
         "validationRules": null
       },
       {
@@ -78,8 +92,12 @@
         "id": "f6b83590-ae4e-4c85-a739-8efee24c7785",
         "key": "longdesc",
         "name": "Longdesc",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "a3e1fffb-239b-44c0-9314-5d442de145be"
+        },
+        "prevSibling": {
+          "id": "b884a0f8-d6b6-4fc9-8fb2-db3fc0f22e3d"
+        },
         "validationRules": null
       },
       {
@@ -94,8 +112,12 @@
         "id": "a3e1fffb-239b-44c0-9314-5d442de145be",
         "key": "referrerpolicy",
         "name": "Referrerpolicy",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "5bed13ac-f3c3-4ba9-91b2-ab61ca7e8219"
+        },
+        "prevSibling": {
+          "id": "f6b83590-ae4e-4c85-a739-8efee24c7785"
+        },
         "validationRules": null
       },
       {
@@ -110,8 +132,12 @@
         "id": "5bed13ac-f3c3-4ba9-91b2-ab61ca7e8219",
         "key": "sizes",
         "name": "Sizes",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "8d1a4b88-bbef-4628-823e-2f7639b692f6"
+        },
+        "prevSibling": {
+          "id": "a3e1fffb-239b-44c0-9314-5d442de145be"
+        },
         "validationRules": null
       },
       {
@@ -126,8 +152,12 @@
         "id": "8d1a4b88-bbef-4628-823e-2f7639b692f6",
         "key": "src",
         "name": "Src",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "74726439-686e-41fd-b82e-2665f38e84ac"
+        },
+        "prevSibling": {
+          "id": "5bed13ac-f3c3-4ba9-91b2-ab61ca7e8219"
+        },
         "validationRules": null
       },
       {
@@ -142,8 +172,12 @@
         "id": "74726439-686e-41fd-b82e-2665f38e84ac",
         "key": "srcset",
         "name": "Srcset",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "257ffbbc-6a74-4ed8-b15e-0ffd9d63bad6"
+        },
+        "prevSibling": {
+          "id": "8d1a4b88-bbef-4628-823e-2f7639b692f6"
+        },
         "validationRules": null
       },
       {
@@ -158,8 +192,12 @@
         "id": "257ffbbc-6a74-4ed8-b15e-0ffd9d63bad6",
         "key": "usemap",
         "name": "Usemap",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "5fb912ac-60c8-4314-bfe2-3ca289196f00"
+        },
+        "prevSibling": {
+          "id": "74726439-686e-41fd-b82e-2665f38e84ac"
+        },
         "validationRules": null
       },
       {
@@ -175,7 +213,9 @@
         "key": "width",
         "name": "Width",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "257ffbbc-6a74-4ed8-b15e-0ffd9d63bad6"
+        },
         "validationRules": null
       }
     ],

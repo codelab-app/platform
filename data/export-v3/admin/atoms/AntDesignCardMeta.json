@@ -14,7 +14,9 @@
         "id": "838882ea-2f7c-4ad9-a585-f019dc2980f7",
         "key": "avatar",
         "name": "Avatar",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "8f5d3e9d-b47d-4a16-be8e-1b3ff84983f4"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -30,8 +32,12 @@
         "id": "8f5d3e9d-b47d-4a16-be8e-1b3ff84983f4",
         "key": "className",
         "name": "Class Name",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "68cea946-dff1-49e8-bd87-81a64f7019da"
+        },
+        "prevSibling": {
+          "id": "838882ea-2f7c-4ad9-a585-f019dc2980f7"
+        },
         "validationRules": null
       },
       {
@@ -46,8 +52,12 @@
         "id": "68cea946-dff1-49e8-bd87-81a64f7019da",
         "key": "description",
         "name": "Description",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "10c60780-305b-4e26-ac26-e25054ae7bb3"
+        },
+        "prevSibling": {
+          "id": "8f5d3e9d-b47d-4a16-be8e-1b3ff84983f4"
+        },
         "validationRules": null
       },
       {
@@ -63,7 +73,9 @@
         "key": "title",
         "name": "Title",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "68cea946-dff1-49e8-bd87-81a64f7019da"
+        },
         "validationRules": null
       }
     ],

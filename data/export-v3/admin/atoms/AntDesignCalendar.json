@@ -14,7 +14,9 @@
         "id": "6bb2d6ec-56e1-4296-9d4f-97e83fe30ee5",
         "key": "dateCellRender",
         "name": "Date Cell Render",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "d32483ec-56fe-4a08-be04-c009363ccc7b"
+        },
         "prevSibling": null,
         "validationRules": "{\"general\":{\"nullable\":true}}"
       },
@@ -30,8 +32,12 @@
         "id": "d32483ec-56fe-4a08-be04-c009363ccc7b",
         "key": "dateFullCellRender",
         "name": "Date Full Cell Render",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "3dfa83c7-80c7-4d9c-ad1e-0dd82e837f17"
+        },
+        "prevSibling": {
+          "id": "6bb2d6ec-56e1-4296-9d4f-97e83fe30ee5"
+        },
         "validationRules": "{\"general\":{\"nullable\":true}}"
       },
       {
@@ -46,8 +52,12 @@
         "id": "3dfa83c7-80c7-4d9c-ad1e-0dd82e837f17",
         "key": "disabledDate",
         "name": "Disabled Date",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "f1340c9a-28a5-44f1-a279-5cbe6cca9928"
+        },
+        "prevSibling": {
+          "id": "d32483ec-56fe-4a08-be04-c009363ccc7b"
+        },
         "validationRules": null
       },
       {
@@ -62,8 +72,12 @@
         "id": "f1340c9a-28a5-44f1-a279-5cbe6cca9928",
         "key": "fullscreen",
         "name": "Fullscreen",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "8aeab2e3-d9bb-4948-b159-9866a418ac49"
+        },
+        "prevSibling": {
+          "id": "3dfa83c7-80c7-4d9c-ad1e-0dd82e837f17"
+        },
         "validationRules": null
       },
       {
@@ -78,8 +92,12 @@
         "id": "8aeab2e3-d9bb-4948-b159-9866a418ac49",
         "key": "headerRender",
         "name": "Header Render",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "be944f4a-6a4f-4fc6-996d-b5666eba00c8"
+        },
+        "prevSibling": {
+          "id": "f1340c9a-28a5-44f1-a279-5cbe6cca9928"
+        },
         "validationRules": "{\"general\":{\"nullable\":true}}"
       },
       {
@@ -94,8 +112,12 @@
         "id": "be944f4a-6a4f-4fc6-996d-b5666eba00c8",
         "key": "mode",
         "name": "Mode",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "f4bc559d-af71-40b4-81dc-d4b07b64c868"
+        },
+        "prevSibling": {
+          "id": "8aeab2e3-d9bb-4948-b159-9866a418ac49"
+        },
         "validationRules": null
       },
       {
@@ -110,8 +132,12 @@
         "id": "f4bc559d-af71-40b4-81dc-d4b07b64c868",
         "key": "monthCellRender",
         "name": "Month Cell Render",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "dc97a204-0d12-4f5b-b94b-8d04cda1700c"
+        },
+        "prevSibling": {
+          "id": "be944f4a-6a4f-4fc6-996d-b5666eba00c8"
+        },
         "validationRules": "{}"
       },
       {
@@ -126,8 +152,12 @@
         "id": "dc97a204-0d12-4f5b-b94b-8d04cda1700c",
         "key": "monthFullCellRender",
         "name": "Month Full Cell Render",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "5b84d46f-3620-4b1d-80de-33ebe8b3ac84"
+        },
+        "prevSibling": {
+          "id": "f4bc559d-af71-40b4-81dc-d4b07b64c868"
+        },
         "validationRules": "{\"general\":{\"nullable\":true}}"
       },
       {
@@ -142,8 +172,12 @@
         "id": "5b84d46f-3620-4b1d-80de-33ebe8b3ac84",
         "key": "onChange",
         "name": "On Change",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "0aa4b7e0-85f3-422e-911a-0ec6ed360dd1"
+        },
+        "prevSibling": {
+          "id": "dc97a204-0d12-4f5b-b94b-8d04cda1700c"
+        },
         "validationRules": null
       },
       {
@@ -158,8 +192,12 @@
         "id": "0aa4b7e0-85f3-422e-911a-0ec6ed360dd1",
         "key": "onPanelChange",
         "name": "On Panel Change",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "57532065-08f0-4b0b-8722-84ddb099b540"
+        },
+        "prevSibling": {
+          "id": "5b84d46f-3620-4b1d-80de-33ebe8b3ac84"
+        },
         "validationRules": null
       },
       {
@@ -175,7 +213,9 @@
         "key": "showWeek",
         "name": "Show week",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "0aa4b7e0-85f3-422e-911a-0ec6ed360dd1"
+        },
         "validationRules": "{}"
       }
     ],

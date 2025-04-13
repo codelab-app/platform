@@ -14,7 +14,9 @@
         "id": "ffa74cc0-a223-4599-8f37-e2a69edf1712",
         "key": "crossOrigin",
         "name": "Cross Origin",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "fc0379cb-5f9d-4b85-a7b0-12c1e5528a8b"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -30,8 +32,12 @@
         "id": "fc0379cb-5f9d-4b85-a7b0-12c1e5528a8b",
         "key": "name",
         "name": "Name",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "ddeb77f6-2a7c-4641-8a83-4b69951d1b41"
+        },
+        "prevSibling": {
+          "id": "ffa74cc0-a223-4599-8f37-e2a69edf1712"
+        },
         "validationRules": null
       },
       {
@@ -46,8 +52,12 @@
         "id": "ddeb77f6-2a7c-4641-8a83-4b69951d1b41",
         "key": "percent",
         "name": "Percent",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "34e83690-39e6-46d3-90cd-30a69e65c9e2"
+        },
+        "prevSibling": {
+          "id": "fc0379cb-5f9d-4b85-a7b0-12c1e5528a8b"
+        },
         "validationRules": null
       },
       {
@@ -62,8 +72,12 @@
         "id": "34e83690-39e6-46d3-90cd-30a69e65c9e2",
         "key": "status",
         "name": "Status",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "b8e37d8d-fd2f-4a22-ba2f-46ccd420f8be"
+        },
+        "prevSibling": {
+          "id": "ddeb77f6-2a7c-4641-8a83-4b69951d1b41"
+        },
         "validationRules": null
       },
       {
@@ -78,8 +92,12 @@
         "id": "b8e37d8d-fd2f-4a22-ba2f-46ccd420f8be",
         "key": "thumbUrl",
         "name": "Thumb Url",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "5cc9558a-a677-499f-b548-6e6803856c35"
+        },
+        "prevSibling": {
+          "id": "34e83690-39e6-46d3-90cd-30a69e65c9e2"
+        },
         "validationRules": null
       },
       {
@@ -94,8 +112,12 @@
         "id": "5cc9558a-a677-499f-b548-6e6803856c35",
         "key": "uid",
         "name": "Uid",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "039cc118-df48-44e8-80ab-305439ce6a1d"
+        },
+        "prevSibling": {
+          "id": "b8e37d8d-fd2f-4a22-ba2f-46ccd420f8be"
+        },
         "validationRules": null
       },
       {
@@ -111,7 +133,9 @@
         "key": "url",
         "name": "Url",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "5cc9558a-a677-499f-b548-6e6803856c35"
+        },
         "validationRules": null
       }
     ],

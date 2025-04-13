@@ -14,7 +14,9 @@
         "id": "4630cf9f-a719-4a87-b9bb-626c538d3cd5",
         "key": "disabledTime",
         "name": "Disabled Time",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "61ca6f47-2b72-4907-9cca-a9f795de627a"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -30,8 +32,12 @@
         "id": "61ca6f47-2b72-4907-9cca-a9f795de627a",
         "key": "format",
         "name": "Format",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "ecae7053-bf5f-40bb-acaa-92fe6993e9f9"
+        },
+        "prevSibling": {
+          "id": "4630cf9f-a719-4a87-b9bb-626c538d3cd5"
+        },
         "validationRules": null
       },
       {
@@ -46,8 +52,12 @@
         "id": "ecae7053-bf5f-40bb-acaa-92fe6993e9f9",
         "key": "onChange",
         "name": "On Change",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "22cb5a48-5054-4a4b-9132-2340cd4ea5bc"
+        },
+        "prevSibling": {
+          "id": "61ca6f47-2b72-4907-9cca-a9f795de627a"
+        },
         "validationRules": null
       },
       {
@@ -62,8 +72,12 @@
         "id": "22cb5a48-5054-4a4b-9132-2340cd4ea5bc",
         "key": "onOk",
         "name": "On Ok",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "d5a8e32c-851d-4310-a405-6d4929a062e1"
+        },
+        "prevSibling": {
+          "id": "ecae7053-bf5f-40bb-acaa-92fe6993e9f9"
+        },
         "validationRules": null
       },
       {
@@ -78,8 +92,12 @@
         "id": "d5a8e32c-851d-4310-a405-6d4929a062e1",
         "key": "onPanelChange",
         "name": "On Panel Change",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "15ff97b9-299d-473a-abd9-6f051cf49591"
+        },
+        "prevSibling": {
+          "id": "22cb5a48-5054-4a4b-9132-2340cd4ea5bc"
+        },
         "validationRules": null
       },
       {
@@ -94,8 +112,12 @@
         "id": "15ff97b9-299d-473a-abd9-6f051cf49591",
         "key": "renderExtraFooter",
         "name": "Render Extra Footer",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "ef9e4db2-2d8f-4fa4-b217-df021a87a6f3"
+        },
+        "prevSibling": {
+          "id": "d5a8e32c-851d-4310-a405-6d4929a062e1"
+        },
         "validationRules": null
       },
       {
@@ -110,8 +132,12 @@
         "id": "ef9e4db2-2d8f-4fa4-b217-df021a87a6f3",
         "key": "showNow",
         "name": "Show Now",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "8a3dfc9f-8678-4d22-baf0-1c8ee473b9b4"
+        },
+        "prevSibling": {
+          "id": "15ff97b9-299d-473a-abd9-6f051cf49591"
+        },
         "validationRules": null
       },
       {
@@ -126,8 +152,12 @@
         "id": "8a3dfc9f-8678-4d22-baf0-1c8ee473b9b4",
         "key": "showTime",
         "name": "Show Time",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "dec9340a-d38d-43cf-835e-543c44a00ab5"
+        },
+        "prevSibling": {
+          "id": "ef9e4db2-2d8f-4fa4-b217-df021a87a6f3"
+        },
         "validationRules": null
       },
       {
@@ -143,7 +173,9 @@
         "key": "showToday",
         "name": "Show Today",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "8a3dfc9f-8678-4d22-baf0-1c8ee473b9b4"
+        },
         "validationRules": null
       }
     ],

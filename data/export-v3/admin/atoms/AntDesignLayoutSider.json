@@ -14,7 +14,9 @@
         "id": "b261c4d6-4a44-4b89-8a5e-15bb187db4b1",
         "key": "antdTheme",
         "name": "Theme",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "e00146ff-d5c4-4fb9-b6b0-2b2772d074e0"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -30,8 +32,12 @@
         "id": "e00146ff-d5c4-4fb9-b6b0-2b2772d074e0",
         "key": "breakpoint",
         "name": "Breakpoint",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "dde36a63-2dc7-4279-9366-b056542d349c"
+        },
+        "prevSibling": {
+          "id": "b261c4d6-4a44-4b89-8a5e-15bb187db4b1"
+        },
         "validationRules": null
       },
       {
@@ -46,8 +52,12 @@
         "id": "dde36a63-2dc7-4279-9366-b056542d349c",
         "key": "className",
         "name": "Class Name",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "ed5bc733-a0bd-42fa-8b86-855ccb5d73be"
+        },
+        "prevSibling": {
+          "id": "e00146ff-d5c4-4fb9-b6b0-2b2772d074e0"
+        },
         "validationRules": null
       },
       {
@@ -62,8 +72,12 @@
         "id": "ed5bc733-a0bd-42fa-8b86-855ccb5d73be",
         "key": "collapsed",
         "name": "Collapsed",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "5b696a23-0f36-4105-90a3-c3294497960e"
+        },
+        "prevSibling": {
+          "id": "dde36a63-2dc7-4279-9366-b056542d349c"
+        },
         "validationRules": null
       },
       {
@@ -78,8 +92,12 @@
         "id": "5b696a23-0f36-4105-90a3-c3294497960e",
         "key": "collapsedWidth",
         "name": "Collapsed Width",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "3beed845-a52b-4950-ace9-e1add2c898e8"
+        },
+        "prevSibling": {
+          "id": "ed5bc733-a0bd-42fa-8b86-855ccb5d73be"
+        },
         "validationRules": null
       },
       {
@@ -94,8 +112,12 @@
         "id": "3beed845-a52b-4950-ace9-e1add2c898e8",
         "key": "collapsible",
         "name": "Collapsible",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "69c09edf-07b2-4b66-8e2d-ad61e152cfe1"
+        },
+        "prevSibling": {
+          "id": "5b696a23-0f36-4105-90a3-c3294497960e"
+        },
         "validationRules": null
       },
       {
@@ -110,8 +132,12 @@
         "id": "69c09edf-07b2-4b66-8e2d-ad61e152cfe1",
         "key": "defaultCollapsed",
         "name": "Default Collapsed",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "2b857649-bb0d-4391-9ea7-e8b1a93691d0"
+        },
+        "prevSibling": {
+          "id": "3beed845-a52b-4950-ace9-e1add2c898e8"
+        },
         "validationRules": null
       },
       {
@@ -126,8 +152,12 @@
         "id": "2b857649-bb0d-4391-9ea7-e8b1a93691d0",
         "key": "reverseArrow",
         "name": "Reverse Arrow",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "62ac03ba-c0a3-41dc-bcd6-c10b8196ce12"
+        },
+        "prevSibling": {
+          "id": "69c09edf-07b2-4b66-8e2d-ad61e152cfe1"
+        },
         "validationRules": null
       },
       {
@@ -142,8 +172,12 @@
         "id": "62ac03ba-c0a3-41dc-bcd6-c10b8196ce12",
         "key": "trigger",
         "name": "Trigger",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "5fd3a7e7-18e1-45b1-bc8e-abcaf85cad08"
+        },
+        "prevSibling": {
+          "id": "2b857649-bb0d-4391-9ea7-e8b1a93691d0"
+        },
         "validationRules": null
       },
       {
@@ -159,7 +193,9 @@
         "key": "width",
         "name": "Width",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "62ac03ba-c0a3-41dc-bcd6-c10b8196ce12"
+        },
         "validationRules": null
       }
     ],

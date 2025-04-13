@@ -14,7 +14,9 @@
         "id": "34358b01-2609-4577-bcf3-d4e89d66b818",
         "key": "buttonStyle",
         "name": "Button Style",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "b403e44b-e341-4c4c-a8c8-00e50c890523"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -30,8 +32,12 @@
         "id": "b403e44b-e341-4c4c-a8c8-00e50c890523",
         "key": "disabled",
         "name": "Disabled",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "64b40767-903d-4c83-b1af-7b582a6cdd53"
+        },
+        "prevSibling": {
+          "id": "34358b01-2609-4577-bcf3-d4e89d66b818"
+        },
         "validationRules": null
       },
       {
@@ -46,8 +52,12 @@
         "id": "64b40767-903d-4c83-b1af-7b582a6cdd53",
         "key": "name",
         "name": "Name",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "b043b0af-1aa8-496c-9dc4-efed96eee7e7"
+        },
+        "prevSibling": {
+          "id": "b403e44b-e341-4c4c-a8c8-00e50c890523"
+        },
         "validationRules": null
       },
       {
@@ -62,8 +72,12 @@
         "id": "b043b0af-1aa8-496c-9dc4-efed96eee7e7",
         "key": "onChange",
         "name": "On Change",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "93c25b30-70de-4475-94a2-55fce07b7b95"
+        },
+        "prevSibling": {
+          "id": "64b40767-903d-4c83-b1af-7b582a6cdd53"
+        },
         "validationRules": null
       },
       {
@@ -78,8 +92,12 @@
         "id": "93c25b30-70de-4475-94a2-55fce07b7b95",
         "key": "optionType",
         "name": "Option Type",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "777c8179-3aeb-4461-9297-e160d55383be"
+        },
+        "prevSibling": {
+          "id": "b043b0af-1aa8-496c-9dc4-efed96eee7e7"
+        },
         "validationRules": null
       },
       {
@@ -94,8 +112,12 @@
         "id": "777c8179-3aeb-4461-9297-e160d55383be",
         "key": "options",
         "name": "Options",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "b280d41f-bd36-4feb-a8d7-62ead3ee8d40"
+        },
+        "prevSibling": {
+          "id": "93c25b30-70de-4475-94a2-55fce07b7b95"
+        },
         "validationRules": null
       },
       {
@@ -110,8 +132,12 @@
         "id": "b280d41f-bd36-4feb-a8d7-62ead3ee8d40",
         "key": "size",
         "name": "Size",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "ae78f58b-56a2-4a47-9ab1-247301bb1c8b"
+        },
+        "prevSibling": {
+          "id": "777c8179-3aeb-4461-9297-e160d55383be"
+        },
         "validationRules": null
       },
       {
@@ -127,7 +153,9 @@
         "key": "value",
         "name": "Value",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "b280d41f-bd36-4feb-a8d7-62ead3ee8d40"
+        },
         "validationRules": "{\"general\":{\"nullable\":true}}"
       }
     ],
