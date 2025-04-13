@@ -18,7 +18,7 @@ export const DashboardLayout = async <
   ...slots
 }: DashboardLayoutProps<Slots, Params>) => {
   return (
-    <Dashboard {...await params} {...slots}>
+    <Dashboard params={await params} {...slots}>
       {children}
     </Dashboard>
   )

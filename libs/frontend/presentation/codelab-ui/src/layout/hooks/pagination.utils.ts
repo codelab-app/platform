@@ -32,6 +32,7 @@ export const createSearchUrl = (
     filter: search,
     page: '1',
     pageSize: pageSize.toString(),
+    search: search,
   })
 }
 
@@ -43,10 +44,12 @@ export const createPageUrl = (
   pageNum: number,
   pageSize: number,
   filter?: string | Array<string>,
+  search?: string,
 ): string => {
   return createUrlWithParams(pathname, {
     filter: filter || '',
     page: pageNum.toString(),
     pageSize: pageSize.toString(),
+    search: search || '',
   })
 }

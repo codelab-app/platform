@@ -1,6 +1,5 @@
 import type {
   IAtomCreateRoute,
-  IAtomUpdateRoute,
   ITreeViewProps,
 } from '@codelab/frontend/abstract/application'
 import type {
@@ -20,8 +19,15 @@ type AtomsTreeViewProps = ITreeViewProps<IAtomModel> & {
 }
 
 export const AtomsTreeView = observer<AtomsTreeViewProps>(
-  ({ context, data, isLoading, searchParams, showSearchBar }) => {
-    const { search, selectedKey } = searchParams
+  ({
+    context,
+    data,
+    handlePaginationChange,
+    isLoading,
+    searchParams,
+    showSearchBar,
+  }) => {
+    const { pageSize, search, selectedKey } = searchParams
 
     const treeData: Array<ITreeNode<IAtomTreeNodeData>> = data.map((atom) => ({
       // May not be hydrated yet after adding, need to make sure our hydration strategy hydrates the entire aggregate at once
@@ -45,6 +51,9 @@ export const AtomsTreeView = observer<AtomsTreeViewProps>(
               : undefined
           }
           isLoading={isLoading}
+          onSearchKeywordChange={(newSearch) =>
+            handlePaginationChange?.(1, pageSize, newSearch)
+          }
           titleRender={(node) => (
             <AtomsTreeItem
               context={mergeDeep(context, {

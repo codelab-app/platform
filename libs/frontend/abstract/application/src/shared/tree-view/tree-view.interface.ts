@@ -7,4 +7,5 @@ export interface ITreeViewProps<T extends SupportedPaginationModel> {
   isLoading: boolean
   searchParams: SearchParamsClientProps
   showSearchBar: boolean
+  handlePaginationChange?(page: number, pageSize: number, search: string): void
 }

@@ -9,7 +9,8 @@ import type {
 export const parseSearchParams = (
   searchParams: SearchParamsServerProps,
 ): SearchParamsClientProps => {
-  const { expandedKeys, filter, page, pageSize, selectedKey } = searchParams
+  const { expandedKeys, filter, page, pageSize, search, selectedKey } =
+    searchParams
 
   const parseArray = (key: string | Array<string> | undefined) =>
     key ? (Array.isArray(key) ? key : [key]) : []
@@ -19,6 +20,7 @@ export const parseSearchParams = (
     filter: parseArray(filter),
     page: page ? parseInt(page, 10) : 1,
     pageSize: pageSize ? parseInt(pageSize, 10) : 20,
+    search: search ? search : '',
     selectedKey,
   }
 }

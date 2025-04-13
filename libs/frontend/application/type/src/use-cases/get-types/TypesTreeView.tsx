@@ -15,12 +15,13 @@ import { TypesTreeItem } from './TypesTreeItem'
 
 export const TypesTreeView = ({
   data,
+  handlePaginationChange,
   isLoading,
   searchParams,
   showSearchBar,
 }: ITreeViewProps<ITypeModel>) => {
   const { typeDomainService } = useDomainStore()
-  const { expandedKeys, search, selectedKey } = searchParams
+  const { expandedKeys, pageSize, search, selectedKey } = searchParams
 
   const treeData: Array<ITreeNode<ITypeTreeNodeData>> = data.map((type) => ({
     children:
@@ -53,6 +54,9 @@ export const TypesTreeView = ({
         onExpand={(keys) => {
           typeDomainService.setExpandedNodes(keys.map((key) => key.toString()))
         }}
+        onSearchKeywordChange={(newSearch) =>
+          handlePaginationChange?.(1, pageSize, newSearch)
+        }
         onSelect={(keys) => {
           if (keys[0]) {
             typeDomainService.setSelectedKey(keys[0].toString())
