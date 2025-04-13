@@ -50,11 +50,11 @@ export class ExportAtomHandler
       tags: existingAtom.tags?.map((tag) => ({ id: tag.id })),
     }
 
-    logger.debug('Export atom api', api)
+    // logger.debug('Export atom api', api)
 
     const results = Validator.parse(AtomAggregateSchema, { api, atom })
 
-    logger.debug('Export atom results', results)
+    // logger.debug('Export atom results', results)
 
     return results
   }
