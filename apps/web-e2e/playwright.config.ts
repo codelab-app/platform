@@ -9,6 +9,10 @@ const apiPort = get('NEXT_PUBLIC_API_PORT').required().asString()
 const apiBasePath = get('NEXT_PUBLIC_BASE_API_PATH').required().asString()
 const apiUrl = new URL(apiBasePath, `${apiHost}:${apiPort}`).toString()
 const webUrl = get('NEXT_PUBLIC_WEB_HOST').required().asString()
+const ci = get('CI').required().asBool()
+
+console.log('env', process.env)
+console.log('ci', ci)
 
 export const webBaseApiUrl = new URL(apiBasePath, webUrl).toString()
 export const apiBaseUrl = new URL(apiBasePath, apiUrl).toString()
@@ -100,7 +104,7 @@ export default defineConfig({
   ],
 
   // reporter: [['list'], ['html']],
-  reporter: process.env.CI
+  reporter: ci
     ? [
         ['list', { printSteps: true }],
         // Allows for separate report per machine
@@ -118,17 +122,17 @@ export default defineConfig({
   /**
    * Takes long to fail if retrying, and we shouldn't need to rely on retry
    */
-  retries: process.env.CI ? 0 : 0,
+  retries: ci ? 0 : 0,
 
   /**
    * Includes hooks
    *
    * Increase to high timeout locally if you need to view console in the popup browser, sometimes there isn't enough time for it to stay open
    */
-  timeout: process.env.CI ? 60_000 : 120_000,
+  timeout: ci ? 60_000 : 120_000,
 
   expect: {
-    timeout: process.env.CI ? 30_000 : 120_000,
+    timeout: ci ? 30_000 : 120_000,
   },
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
