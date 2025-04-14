@@ -7,8 +7,6 @@ import { test } from './load-test.fixture'
 
 let app: IApp
 
-globalBeforeAll()
-
 test.beforeAll(async ({ request }, testInfo) => {
   testInfo.setTimeout(150_000)
 

@@ -63,16 +63,26 @@ export class LocalStoragePage extends BasePage {
   }
 }
 
-export const test = baseTest.extend<{
-  localStoragePage: LocalStoragePage
-  forEachWorker: unknown
-}>({
+export const test = baseTest.extend<
+  {
+    localStoragePage: LocalStoragePage
+  },
+  {
+    storageFilePath: string
+  }
+>({
   localStoragePage: async ({ context }, use) => {
     const page = await context.newPage()
     const localStoragePage = new LocalStoragePage(page, context)
 
     await use(localStoragePage)
   },
-  // Override the storage file path to use our test-specific file
-  storageFilePath: localStorageTestFile,
+
+  // Add configurable storage file path with default value
+  storageFilePath: [
+    async ({ browser }, use, workerInfo) => {
+      await use(localStorageTestFile)
+    },
+    { scope: 'worker' },
+  ],
 })

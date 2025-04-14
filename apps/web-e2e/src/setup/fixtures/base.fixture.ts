@@ -3,7 +3,7 @@ import type { BrowserContext } from '@playwright/test'
 
 import { getEnv } from '@codelab/shared/config/env'
 import { test as base } from '@playwright/test'
-import { ensureFile, writeFile } from 'fs-extra'
+import { ensureFile, readFile, writeFile } from 'fs-extra'
 
 import { storageStateFile } from '../../../playwright.config'
 
@@ -49,14 +49,15 @@ export const baseTest = base.extend<
     async ({ storageFilePath }, use) => {
       // This code runs before all the tests in the worker/test file
       console.log(
-        `Resetting storage state for worker ${base.info().workerIndex}`,
+        `Resetting localStorage for worker ${base.info().workerIndex}`,
+        storageFilePath,
       )
 
       // Create directory if it doesn't exist
       await ensureFile(storageFilePath)
 
-      // Create an empty storage state template
-      const emptyStorageState = {
+      // Default storage state with empty localStorage
+      const storageState = {
         cookies: [],
         origins: [
           {
@@ -66,11 +67,17 @@ export const baseTest = base.extend<
         ],
       }
 
-      // Write the empty state to the file
-      await writeFile(
-        storageFilePath,
-        JSON.stringify(emptyStorageState, null, 2),
-      )
+      // Try to read existing storage state
+      const existingData = await readFile(storageFilePath, 'utf8')
+      const parsedData = JSON.parse(existingData)
+
+      // Preserve cookies from existing state
+      if (parsedData && parsedData.cookies) {
+        storageState.cookies = parsedData.cookies
+      }
+
+      // Write the state with preserved cookies and reset localStorage
+      await writeFile(storageFilePath, JSON.stringify(storageState, null, 2))
 
       // Execute tests
       await use()
@@ -99,5 +106,10 @@ export const baseTest = base.extend<
   },
 
   // Add configurable storage file path with default value
-  storageFilePath: [storageStateFile, { option: true, scope: 'worker' }],
+  storageFilePath: [
+    async ({ browser }, use, workerInfo) => {
+      await use(storageStateFile)
+    },
+    { scope: 'worker' },
+  ],
 })
