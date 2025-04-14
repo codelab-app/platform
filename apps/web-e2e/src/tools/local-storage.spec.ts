@@ -1,16 +1,11 @@
 import { getEnv } from '@codelab/shared/config/env'
 import { expect } from '@playwright/test'
-import { ensureFile } from 'fs-extra'
-import { join } from 'path'
 
 import {
   LocalStoragePage,
   localStorageTestFile,
   test,
 } from './local-storage.fixture'
-
-// Define path to custom storage file
-const customStorageFile = join(__dirname, './custom-storage.json')
 
 // Setup initial test values before running tests
 test.beforeEach(async ({ browser, localStoragePage }) => {
@@ -107,12 +102,9 @@ test('can load storage from custom JSON fixture file', async ({ browser }) => {
     ],
   }
 
-  await ensureFile(customStorageFile)
-
   // Can use either file path or data
   const customContext = await browser.newContext({
-    storageState: customStorageFile,
-    // storageState: customStorageContent,
+    storageState: customStorageContent,
   })
 
   const customPage = await customContext.newPage()

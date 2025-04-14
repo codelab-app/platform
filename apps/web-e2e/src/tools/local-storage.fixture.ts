@@ -1,7 +1,6 @@
 import type { BrowserContext, Page } from '@playwright/test'
 
 import { ensureFile } from 'fs-extra'
-import { dirname } from 'path'
 
 import { BasePage } from '../setup/core/page'
 import { baseTest } from '../setup/fixtures/base.fixture'
@@ -76,6 +75,7 @@ export const test = baseTest.extend<
     const localStoragePage = new LocalStoragePage(page, context)
 
     await use(localStoragePage)
+    await page.close()
   },
 
   // Add configurable storage file path with default value

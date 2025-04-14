@@ -1,0 +1,13 @@
+{
+  "cookies": [],
+  "origins": [
+    {
+      "localStorage": [
+        { "name": "customKey1", "value": "customValue1" },
+        { "name": "customKey2", "value": "customValue2" },
+        { "name": "configKey", "value": "configValue" }
+      ],
+      "origin": "http://localhost:*"
+    }
+  ]
+}
