@@ -5,6 +5,13 @@ description: 'Build Nx Apps'
 steps:
   - nx/set-shas:
       main-branch-name: 'master'
+  - run:
+      name: 'Check directory structure before cache restore'
+      command: |
+        echo "=== Disk space before cache restore ==="
+        df -h
+        echo "=== Directory structure before cache restore ==="
+        ls -la ~/project/.nx/ || echo "No .nx directory yet"
   - restore_cache:
       name: 'Restore NX Cache'
       keys:
@@ -12,11 +19,36 @@ steps:
         - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
         - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-
         - nx-cache-
+  - run:
+      name: 'Debug NX Cache after restore'
+      command: |
+        echo "=== Directory structure after cache restore ==="
+        ls -la ~/project/.nx/ || echo "No .nx directory"
+        echo "=== Contents of .nx/cache ==="
+        ls -la ~/project/.nx/cache/ || echo "No .nx/cache directory"
+        echo "=== Check for specific hash directory ==="
+        find ~/project/.nx/cache -type d -name "3093047817415218224" || echo "Hash directory not found"
+        echo "=== Create directories if missing ==="
+        mkdir -p ~/project/.nx/cache
+        echo "=== Disk space after cache restore ==="
+        df -h
   # - run:
   #     name: 'Monitor NX Cache Size'
   #     command: (./scripts/nx/reset-cache.sh)
   - run:
+      name: 'Reset Nx cache to ensure clean state'
+      command: npx nx reset || echo "Failed to reset Nx cache"
+  - run:
       command: pnpm nx run-many --target=build --projects=web,api -c ci --nx-bail
+  - run:
+      name: 'Debug NX Cache after build'
+      command: |
+        echo "=== Directory structure after build ==="
+        ls -la ~/project/.nx/cache/ || echo "No .nx/cache directory"
+        echo "=== Directory size ==="
+        du -sh ~/project/.nx/cache/ || echo "Failed to check directory size"
+        echo "=== Next.js cache ==="
+        ls -la ~/project/dist/apps/web/.next/cache || echo "No Next.js cache directory"
   # https://nextjs.org/docs/pages/building-your-application/deploying/ci-build-caching#circleci
   - save_cache:
       name: 'Save NX Cache'
