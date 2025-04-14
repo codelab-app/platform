@@ -41,6 +41,11 @@ export class StateSharingPage extends BuilderPage {
     })
   }
 
+  /**
+   * Ant Design Tree components require elements to be in an active/focused state before their toggle controls become fully interactive. Clicking the element first ensures this state is properly set.
+   *
+   * We could either `hover` or `click` on it
+   */
   async expandElementsTree() {
     return test.step('expandElementsTree', async () => {
       await this.page.getByLabel('plus-square').click()

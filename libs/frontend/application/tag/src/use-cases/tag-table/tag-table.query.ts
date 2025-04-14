@@ -17,8 +17,8 @@ export const tagTableQuery = async ({
   } = await tagRepository.find(
     {
       ...graphqlFilterMatches(filter, search),
-      // Root tags have no parent
-      parent: null,
+      // Query all tags for now
+      // parent: null,
     },
     {
       limit: pageSize,
