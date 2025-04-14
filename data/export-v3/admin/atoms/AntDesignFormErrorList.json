@@ -28,10 +28,10 @@
     "name": "AntDesignFormErrorList",
     "requiredParents": [
       {
-        "id": "153d60f7-0c7d-4b0a-97b3-c47c38afb5f3"
+        "id": "14b1cbfb-b0c1-411e-9953-0f20165dd44e"
       },
       {
-        "id": "14b1cbfb-b0c1-411e-9953-0f20165dd44e"
+        "id": "153d60f7-0c7d-4b0a-97b3-c47c38afb5f3"
       }
     ],
     "suggestedChildren": [],

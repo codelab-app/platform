@@ -83,6 +83,9 @@ export class TypeApplicationService {
   async saveApi(api: IApiAggregate) {
     const { fields, types } = api
 
+    /**
+     * Cannot save in parallel due to dependencies
+     */
     for (const type of types) {
       await this.typeFactory.save({
         ...type,

@@ -94,37 +94,43 @@ export class AtomApplicationService {
       atomCount: atoms.length,
     })
 
-    for (const [index, { api, atom }] of atoms.entries()) {
-      await this.logger.debug(`Saving atom (${index + 1}/${atoms.length})`)
-      await this.typeApplicationService.saveApi(api)
+    // First, process all atoms without dependencies in parallel
+    await Promise.all(
+      atoms.map(async ({ api, atom }, index) => {
+        await this.logger.debug(`Saving atom (${index + 1}/${atoms.length})`)
+        await this.typeApplicationService.saveApi(api)
 
-      /**
-       * Create all atoms but omit `suggestedChildren`, and `requiredParents` since it requires all atoms to be added first
-       */
-      const atomWithoutDependencies = omit(atom, [
-        'suggestedChildren',
-        'requiredParents',
-      ])
+        /**
+         * Create all atoms but omit `suggestedChildren`, and `requiredParents` since it requires all atoms to be added first
+         */
+        const atomWithoutDependencies = omit(atom, [
+          'suggestedChildren',
+          'requiredParents',
+        ])
 
-      await this.atomRepository.save({
-        ...atomWithoutDependencies,
-        owner: this.authDomainService.currentUser,
-      })
-    }
+        await this.atomRepository.save({
+          ...atomWithoutDependencies,
+          owner: this.authDomainService.currentUser,
+        })
+      }),
+    )
 
     const atomsWithDependencies = atoms.filter(
       ({ atom }) =>
         atom.suggestedChildren?.length || atom.requiredParents?.length,
     )
 
-    for (const { atom } of atomsWithDependencies) {
-      /**
-       * Here we assign suggestedChildren and requiredParents, since all atoms must be created first
-       */
-      await this.atomRepository.save({
-        ...atom,
-        owner: this.authDomainService.currentUser,
-      })
-    }
+    // Then process atoms with dependencies in parallel as well
+    await Promise.all(
+      atomsWithDependencies.map(async ({ atom }) => {
+        /**
+         * Here we assign suggestedChildren and requiredParents, since all atoms must be created first
+         */
+        await this.atomRepository.save({
+          ...atom,
+          owner: this.authDomainService.currentUser,
+        })
+      }),
+    )
   }
 }

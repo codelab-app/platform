@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
 export const fieldSchema = gql`
-  type Field {
+  type Field @node {
     id: ID! @settable(onUpdate: false) #@unique
     key: String!
     name: String

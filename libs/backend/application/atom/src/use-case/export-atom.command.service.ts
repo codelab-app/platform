@@ -47,6 +47,12 @@ export class ExportAtomHandler
       ...existingAtom,
       __typename: 'Atom' as const,
       api,
+      requiredParents: existingAtom.requiredParents?.sort((a, b) =>
+        a.id.localeCompare(b.id),
+      ),
+      suggestedChildren: existingAtom.suggestedChildren?.sort((a, b) =>
+        a.id.localeCompare(b.id),
+      ),
       tags: existingAtom.tags?.map((tag) => ({ id: tag.id })),
     }
 
