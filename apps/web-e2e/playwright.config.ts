@@ -4,6 +4,8 @@ import { nxE2EPreset } from '@nx/playwright/preset'
 import { defineConfig, devices } from '@playwright/test'
 import { get } from 'env-var'
 
+import { localStorageTestFile } from './src/tools/local-storage.fixture'
+
 const apiHost = get('NEXT_PUBLIC_API_HOSTNAME').required().asString()
 const apiPort = get('NEXT_PUBLIC_API_PORT').required().asString()
 const apiBasePath = get('NEXT_PUBLIC_BASE_API_PATH').required().asString()
@@ -70,6 +72,7 @@ export default defineConfig({
       testMatch: /local-storage\.spec\.ts/,
       use: {
         ...devices['Desktop Chrome'],
+        storageState: localStorageTestFile,
       },
     },
     // {

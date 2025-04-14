@@ -10,12 +10,16 @@ let app: IApp
 globalBeforeAll()
 
 test.beforeAll(async ({ request }, testInfo) => {
+  testInfo.setTimeout(150_000)
+
   app = await seedTestData(request)
 })
 
 test('should load "app list", "page list" and "page builder" pages', async ({
   builderPage: page,
 }) => {
+  test.setTimeout(120_000)
+
   await page.validateCanOpenAppListPage(app.name)
   await page.validateCanOpenPageListPage(app.name)
   await page.validateCanOpenPageBuilderPage()

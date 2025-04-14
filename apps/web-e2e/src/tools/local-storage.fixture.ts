@@ -8,6 +8,7 @@ import { baseTest } from '../setup/fixtures/base.fixture'
 
 export const localStorageTestFile =
   'apps/web-e2e/.storage/storage-state-test.json'
+
 export class LocalStoragePage extends BasePage {
   context: BrowserContext
 
@@ -16,17 +17,17 @@ export class LocalStoragePage extends BasePage {
     this.context = context
   }
 
-  browser() {
+  browser = () => {
     return this.context.browser()
   }
 
-  async getLocalStorageItem(key: string) {
+  getLocalStorageItem = async (key: string) => {
     return baseTest.step('getLocalStorageItem', async () => {
       return this.page.evaluate((itemKey) => localStorage.getItem(itemKey), key)
     })
   }
 
-  async setLocalStorageItem(key: string, value: string) {
+  setLocalStorageItem = async (key: string, value: string) => {
     return baseTest.step('setLocalStorageItem', async () => {
       await this.page.evaluate(
         ({ itemKey, itemValue }) => {
@@ -39,10 +40,10 @@ export class LocalStoragePage extends BasePage {
     })
   }
 
-  async setupLocalStorage(items: Record<string, string> = {}) {
+  setupLocalStorage = async (items: Record<string, string> = {}) => {
     return baseTest.step('setupLocalStorage', async () => {
       // Ensure storage file exists first
-      await this.storageState.checkFileExists(localStorageTestFile)
+      await ensureFile(localStorageTestFile)
 
       // Navigate to the page first before accessing localStorage
       await this.page.goto('/')

@@ -13,22 +13,13 @@ import {
 // Define path to custom storage file
 const customStorageFile = join(__dirname, './custom-storage.json')
 
-// Setup: create storage state file with localStorage items
-test.beforeAll(async ({ browser }) => {
-  // Manually create context and page for the setup
-  const context = await browser.newContext()
-  const page = await context.newPage()
-  const localStoragePage = new LocalStoragePage(page, context)
-
+// Setup initial test values before running tests
+test.beforeEach(async ({ browser, localStoragePage }) => {
+  // Setup localStorage directly on the page that will be used in the test
   await localStoragePage.setupLocalStorage({
     anotherKey: 'anotherValue',
     testKey: 'testValue',
   })
-
-  // Make sure the storage state is saved
-  await localStoragePage.storageState.save(localStorageTestFile)
-
-  await context.close()
 })
 
 // Test 1: Verify local storage persists across navigations
@@ -75,7 +66,7 @@ test('storage state can be used in different contexts', async ({
   await localStoragePage.setLocalStorageItem('newKey', 'newValue')
 
   // Save the updated storage state
-  await localStoragePage.storageState.save(localStorageTestFile)
+  await localStoragePage.context.storageState({ path: localStorageTestFile })
 
   // Create another context with the updated storage state
   const newContext = await browser.newContext({
@@ -117,8 +108,10 @@ test('can load storage from custom JSON fixture file', async ({ browser }) => {
     ],
   }
 
+  // Can use either file path or data
   const customContext = await browser.newContext({
-    storageState: customStorageContent,
+    storageState: customStorageFile,
+    // storageState: customStorageContent,
   })
 
   const customPage = await customContext.newPage()
