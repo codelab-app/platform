@@ -3,6 +3,7 @@
 import { appRepository } from '@codelab/frontend-domain-app/repositories'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import { pageRepository } from '@codelab/frontend-domain-page/repositories'
+import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { storeRepository } from '@codelab/frontend-domain-store/repositories'
 import { typeRepository } from '@codelab/frontend-domain-type/repositories'
 
@@ -16,7 +17,13 @@ export const createAppAction = async (appAggregate: IAppAggregate) => {
   )
   await Promise.all(typesDto.map((type) => typeRepository.add(type)))
   await Promise.all(storesDto.map((store) => storeRepository.add(store)))
-  await Promise.all(appsDto.map((appDto) => appRepository.add(appDto)))
+  await Promise.all(
+    appsDto.map((appDto) =>
+      appRepository.add(appDto, {
+        revalidateTags: [CACHE_TAGS.App.list()],
+      }),
+    ),
+  )
   await Promise.all(pagesDto.map((page) => pageRepository.add(page)))
 
   return appsDto[0]

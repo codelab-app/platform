@@ -9,15 +9,16 @@ import type {
 import type { ResourceWhere } from '@codelab/shared/infra/gqlgen'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import { PageType } from '@codelab/frontend/abstract/types'
-import { useDomainStoreHydrator } from '@codelab/frontend/infra/context'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { resourceRepository } from '@codelab/frontend-domain-resource/repositories'
+import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { Validator } from '@codelab/shared/infra/typebox'
+import { resourceApi } from '@codelab/shared-domain-module/resource'
 import { v4 } from 'uuid'
 
 export const useResourceService = (): IResourceService => {
   const { resourceDomainService } = useDomainStore()
-  const hydrate = useDomainStoreHydrator()
 
   const create = async (data: ICreateResourceData) => {
     const config: IPropDto = {
@@ -27,9 +28,11 @@ export const useResourceService = (): IResourceService => {
 
     const resource = { ...data, config }
 
-    hydrate({ resourcesDto: [resource] })
+    resourceDomainService.hydrate(resource)
 
-    return await resourceRepository.add(resource)
+    return await resourceRepository.add(resource, {
+      revalidateTags: [CACHE_TAGS.Resource.list()],
+    })
   }
 
   const removeMany = async (resources: Array<IResourceModel>) => {
@@ -37,7 +40,9 @@ export const useResourceService = (): IResourceService => {
       resourceDomainService.resources.delete(resource.id)
     })
 
-    return await resourceRepository.delete(resources)
+    return await resourceRepository.delete(resources, {
+      revalidateTags: [CACHE_TAGS.Resource.list()],
+    })
   }
 
   const getAll = async (where: ResourceWhere = {}) => {
@@ -53,32 +58,30 @@ export const useResourceService = (): IResourceService => {
   }
 
   const getSelectResourceOptions = async () => {
-    const resources = await getAll()
+    /**
+     * Don't use server action, otherwise will re-render the entire route segment!
+     */
+    const { items: resources } = await resourceApi().ResourceList({})
 
-    return resources.map((resource) => ({
-      label: resource.name,
-      value: resource.id,
-    }))
+    return resources
+      .map((resource) => resourceDomainService.hydrate(resource))
+      .map((resource) => ({
+        label: resource.name,
+        value: resource.id,
+      }))
   }
 
-  const update = async (data: IUpdateResourceData) => {
-    // const resource = resourceDomainService.resources.get(id)
+  const update = async ({ config, id, name, type }: IUpdateResourceData) => {
+    const resource = resourceDomainService.resources.get(id)
 
-    // Validator.assertsDefined(resource)
+    Validator.assertsDefined(resource)
 
-    // config.writeCache({ data: JSON.stringify(configData) })
-    // resource.writeCache({ name, type })
+    resource.writeCache({ name, type })
+    resource.config.writeCache({ data: JSON.stringify(config) })
 
-    return await resourceRepository.update(
-      { id: data.id },
-      {
-        ...data,
-        config: {
-          data: JSON.stringify(data.config),
-          id: v4(),
-        },
-      },
-    )
+    return await resourceRepository.update({ id }, resource.toJson, {
+      revalidateTags: [CACHE_TAGS.Resource.list()],
+    })
   }
 
   const load = (resources: Array<IResourceDto>) => {
@@ -87,19 +90,19 @@ export const useResourceService = (): IResourceService => {
 
   const createPopover = {
     close: (router: AppRouterInstance) => {
-      router.push(PageType.Resources())
+      router.push(RoutePaths.Resource.base())
     },
     open: (router: AppRouterInstance) => {
-      router.push(PageType.ResourcesCreate())
+      router.push(RoutePaths.Resource.create())
     },
   }
 
   const updatePopover = {
     close: (router: AppRouterInstance) => {
-      router.push(PageType.Resources())
+      router.push(RoutePaths.Resource.base())
     },
     open: (router: AppRouterInstance) => {
-      router.push(PageType.Resources())
+      router.push(RoutePaths.Resource.base())
     },
   }
 

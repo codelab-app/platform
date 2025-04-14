@@ -1,17 +1,18 @@
 import {
+  type IBuilderRoute,
   type IBuilderService,
-  type IElementService,
   isRuntimeElementRef,
 } from '@codelab/frontend/abstract/application'
-import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
+import { useElementService } from '@codelab/frontend-application-element/services'
 import { useRouter } from 'next/navigation'
 import { useHotkeys } from 'react-hotkeys-hook'
+import { mergeDeep } from 'remeda'
 
 type UseBuilderHotkeysProps = Pick<
   IBuilderService,
   'selectedNode' | 'setSelectedNode'
 > & {
-  deleteModal: IElementService['deletePopover']
+  context: IBuilderRoute
 }
 
 /**
@@ -20,11 +21,11 @@ type UseBuilderHotkeysProps = Pick<
  * - Esc -> de-selects element
  */
 export const useBuilderHotkeys = ({
-  deleteModal,
+  context,
   selectedNode,
   setSelectedNode,
 }: UseBuilderHotkeysProps) => {
-  const { appId, componentId, pageId } = useUrlPathParams()
+  const { deletePopover } = useElementService()
   const router = useRouter()
 
   useHotkeys(
@@ -38,12 +39,14 @@ export const useBuilderHotkeys = ({
         const isRootElement = element?.isRoot
 
         if (element && !isRootElement) {
-          deleteModal.open(router, {
-            appId,
-            componentId,
-            elementId: element.id,
-            pageId,
-          })
+          deletePopover.open(
+            router,
+            mergeDeep(context, {
+              params: {
+                elementId: element.id,
+              },
+            }),
+          )
         }
       }
     },

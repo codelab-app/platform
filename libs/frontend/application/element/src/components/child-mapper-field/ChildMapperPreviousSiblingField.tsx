@@ -11,12 +11,15 @@ type ChildMapperPreviousSiblingFieldProps = GuaranteedProps<unknown> & {
 }
 
 export const ChildMapperPreviousSiblingField =
-  connectField<ChildMapperPreviousSiblingFieldProps>(({ element }) => {
-    return (
-      <SelectLinkElement
-        elementOptions={element.children.map(mapElementOption)}
-        name="id"
-        targetElementId={element.id}
-      />
-    )
-  })
+  connectField<ChildMapperPreviousSiblingFieldProps>(
+    ({ element }) => {
+      return (
+        <SelectLinkElement
+          elementOptions={element.children.map(mapElementOption)}
+          name="id"
+          targetElementId={element.id}
+        />
+      )
+    },
+    { initialValue: false, kind: 'node' },
+  )

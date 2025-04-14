@@ -11,9 +11,6 @@ steps:
         - nx-cache-libs-{{ .Environment.CIRCLE_BRANCH }}-
         - nx-cache-libs-
   - run:
-      name: 'Monitor NX Cache Size'
-      command: (./scripts/nx/reset-cache.sh)
-  - run:
       command: pnpm nx run-many --target=build --all --exclude=web,api -c ci
   # CI caching guide https://nextjs.org/docs/pages/building-your-application/deploying/ci-build-caching
   - save_cache:

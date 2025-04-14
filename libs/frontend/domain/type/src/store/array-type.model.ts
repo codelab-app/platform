@@ -54,19 +54,9 @@ export class ArrayType
     }
   }
 
-  @modelAction
-  writeCache(arrayTypeDto: Partial<IArrayTypeDto>) {
-    super.writeCache(arrayTypeDto)
-
-    this.itemType = arrayTypeDto.itemType
-      ? typeRef(arrayTypeDto.itemType.id)
-      : null
-
-    return this
-  }
-
   toJsonSchema({
     defaultValues,
+    depth,
     fieldName,
     uniformSchema,
     validationRules,
@@ -75,6 +65,7 @@ export class ArrayType
       items: this.itemType?.isValid
         ? this.itemType.current.toJsonSchema({
             defaultValues,
+            depth,
             fieldName,
             uniformSchema,
             validationRules,
@@ -108,5 +99,16 @@ export class ArrayType
           }
         : undefined,
     })
+  }
+
+  @modelAction
+  writeCache(arrayTypeDto: Partial<IArrayTypeDto>) {
+    super.writeCache(arrayTypeDto)
+
+    this.itemType = arrayTypeDto.itemType
+      ? typeRef(arrayTypeDto.itemType.id)
+      : null
+
+    return this
   }
 }

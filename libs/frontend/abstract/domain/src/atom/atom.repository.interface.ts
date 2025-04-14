@@ -3,7 +3,6 @@ import type {
   AtomFragment,
   AtomOptions,
   AtomWhere,
-  GetSelectAtomOptionsQuery,
 } from '@codelab/shared/infra/gqlgen'
 
 import type { IRepository } from '../shared'
@@ -13,6 +12,4 @@ export type IAtomRepository = IRepository<
   AtomFragment,
   AtomWhere,
   AtomOptions
-> & {
-  getSelectAtomOptions(): Promise<GetSelectAtomOptionsQuery['atoms']>
-}
+>

@@ -75,7 +75,11 @@
     "icon": "Form",
     "id": "3c093418-6d0c-413c-9d7b-f4539da97176",
     "name": "AntDesignFormList",
-    "requiredParents": [],
+    "requiredParents": [
+      {
+        "id": "153d60f7-0c7d-4b0a-97b3-c47c38afb5f3"
+      }
+    ],
     "suggestedChildren": [],
     "tags": [
       {

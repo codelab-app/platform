@@ -8,7 +8,7 @@ import { omit } from 'remeda'
 import { levelMapping, loggerConfig } from './logger.config'
 import { NestjsLoggerService } from './nestjs.logger.service'
 import { PinoLoggerService } from './pino/pino.logger.service'
-import { pinoPrettyStream, prettyOptions } from './pino/pino-transport'
+import { pinoPrettyStream } from './pino/pino-transport'
 
 @Global()
 @Module({

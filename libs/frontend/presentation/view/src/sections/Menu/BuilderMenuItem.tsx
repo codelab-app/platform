@@ -1,12 +1,8 @@
+import type { BuilderContextParams } from '@codelab/frontend/abstract/application'
 import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-ui'
 
 import BuildOutlined from '@ant-design/icons/BuildOutlined'
-import {
-  type BuilderContextParams,
-  ExplorerPaneType,
-  PageType,
-  PrimarySidebar,
-} from '@codelab/frontend/abstract/types'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 
 export const pageBuilderMenuItem = ({
   appId,
@@ -16,7 +12,7 @@ export const pageBuilderMenuItem = ({
   const disabledBuilderMenuItem = {
     disabled: true,
     icon: <BuildOutlined title="Builder" />,
-    key: ExplorerPaneType.Explorer,
+    key: 'builder',
     link: undefined,
     title: 'Builder',
   }
@@ -26,10 +22,7 @@ export const pageBuilderMenuItem = ({
       ...disabledBuilderMenuItem,
       disabled: false,
       link: {
-        href: PageType.PageBuilder(
-          { appId, pageId },
-          PrimarySidebar.ElementTree,
-        ),
+        href: RoutePaths.Page.builder({ appId, pageId }),
       },
     }
   }
@@ -39,7 +32,7 @@ export const pageBuilderMenuItem = ({
       ...disabledBuilderMenuItem,
       disabled: false,
       link: {
-        href: PageType.ComponentBuilder({ componentId }),
+        href: RoutePaths.Component.builder({ componentId }),
       },
     }
   }

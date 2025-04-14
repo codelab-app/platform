@@ -1,5 +1,6 @@
 import {
   IAtomType,
+  IComponentType,
   type ICreateElementSeedData,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
@@ -7,8 +8,9 @@ import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
 import { type APIRequestContext } from '@playwright/test'
 import { v4 } from 'uuid'
 
+import { requestOrThrow } from '../../api'
 import { REQUEST_TIMEOUT } from '../../setup/config'
-import { seedAppData } from '../builder/builder.data'
+import { seedAppData } from '../app/app.data'
 
 export const FONT_NAME = 'Google Fonts Montserrat'
 export const FONT_SIZE = 700
@@ -33,37 +35,18 @@ export const typographyElement = {
 }
 
 export const seedTestData = async (request: APIRequestContext) => {
-  const app = await seedAppData(request)
+  const app = await seedAppData(request, {
+    atomTypes: [IAtomType.AntDesignTypographyText, IAtomType.HtmlLink],
+    componentTypes: [IComponentType.GoogleFonts],
+  })
+
   const page = app.pages![0]!
 
-  const systemComponentsResponse = await request.post(
-    '/api/v1/component/seed-system-components',
-    {
-      timeout: REQUEST_TIMEOUT,
-    },
-  )
-
-  if (!systemComponentsResponse.ok()) {
-    const text = await systemComponentsResponse.text()
-
-    console.error('Server response:', text)
-    throw new Error(`HTTP error! status: ${systemComponentsResponse.status}`)
-  }
-
-  const elementsResponse = await request.post(
-    `/api/v1/element/${page.rootElement.id}/create-elements`,
-    {
-      data: [{ ...typographyElement, parentElement: page.rootElement }],
-      timeout: REQUEST_TIMEOUT,
-    },
-  )
-
-  if (!elementsResponse.ok()) {
-    const text = await elementsResponse.text()
-
-    console.error('Server response:', text)
-    throw new Error(`HTTP error! status: ${elementsResponse.status}`)
-  }
+  await requestOrThrow(request, `element/${page.id}/create-elements`, {
+    data: [{ ...typographyElement, parentElement: page.rootElement }],
+    method: 'POST',
+    timeout: REQUEST_TIMEOUT,
+  })
 
   return app
 }

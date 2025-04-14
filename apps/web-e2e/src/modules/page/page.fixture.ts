@@ -1,16 +1,12 @@
-import { PageType, UiKey } from '@codelab/frontend/abstract/types'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { IPageKindName } from '@codelab/shared/abstract/core'
-import { test as base, expect, request } from '@playwright/test'
+import { expect } from '@playwright/test'
 
-import { BasePage } from '../../locators/pages'
+import { BasePage } from '../../setup/core/page'
+import { baseTest } from '../../setup/fixtures/base.fixture'
 
 export class PageListPage extends BasePage {
-  static async seedApp() {
-    const apiRequest = await request.newContext()
-
-    await apiRequest.post('./app/seed-cypress-app')
-  }
-
   readonly pageName = 'New Page'
 
   readonly updatedPageName = 'Updated Page'
@@ -56,7 +52,7 @@ export class PageListPage extends BasePage {
   }
 
   async goto(appId: string, pageId: string) {
-    await this.page.goto(PageType.PageList({ appId, pageId }))
+    await this.page.goto(RoutePaths.Page.list({ appId, pageId }))
   }
 
   async updatePage() {
@@ -75,9 +71,9 @@ export class PageListPage extends BasePage {
   }
 }
 
-export const test = base.extend<{ pageListPage: PageListPage }>({
-  pageListPage: async ({ page }, use) => {
-    const pageListPage = new PageListPage(page)
+export const test = baseTest.extend<{ pageListPage: PageListPage }>({
+  pageListPage: async ({ context, page }, use) => {
+    const pageListPage = new PageListPage(page, context)
 
     await use(pageListPage)
   },

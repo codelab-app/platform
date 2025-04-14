@@ -13,6 +13,14 @@
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/shared"],
+      "options": {
+        "jestConfig": "libs/frontend/domain/shared/jest.config.ts",
+        "runInBand": true
+      }
     }
   }
 }

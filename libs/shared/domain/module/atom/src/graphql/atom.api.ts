@@ -1,12 +1,10 @@
 import { graphqlClient } from '@codelab/shared/infra/gql-client'
 
 import { getSdk } from './atom.api.graphql.api.gen'
-
 import {
   AtomList,
   CreateAtoms,
   DeleteAtoms,
-  GetSelectAtomOptions,
   UpdateAtoms,
 } from './atom.api.graphql.web.gen'
 
@@ -16,6 +14,5 @@ export const atomServerActions = {
   AtomList,
   CreateAtoms,
   DeleteAtoms,
-  GetSelectAtomOptions,
   UpdateAtoms,
 }

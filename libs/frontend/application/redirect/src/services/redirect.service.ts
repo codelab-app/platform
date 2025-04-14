@@ -1,15 +1,18 @@
-import type { IRedirectService } from '@codelab/frontend/abstract/application'
+import type {
+  IRedirectService,
+  PageContextParams,
+} from '@codelab/frontend/abstract/application'
 import type {
   IRedirectCreateFormData,
-  IRedirectModel,
   IRedirectUpdateFormData,
 } from '@codelab/frontend/abstract/domain'
-import type { PageContextParams } from '@codelab/frontend/abstract/types'
+import type { IRef } from '@codelab/shared/abstract/core'
 import type { RedirectWhere } from '@codelab/shared/infra/gqlgen'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import { PageType } from '@codelab/frontend/abstract/types'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { redirectRepository } from '@codelab/frontend-domain-redirect/repositories'
+import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 
 export const useRedirectService = (): IRedirectService => {
@@ -18,15 +21,19 @@ export const useRedirectService = (): IRedirectService => {
   const create = async (data: IRedirectCreateFormData) => {
     // const redirect = redirectDomainService.hydrate(redirectDto)
 
-    return await redirectRepository.add(data)
+    return await redirectRepository.add(data, {
+      revalidateTags: [CACHE_TAGS.Redirect.list()],
+    })
   }
 
-  const removeMany = async (redirectsModel: Array<IRedirectModel>) => {
+  const removeMany = async (redirectsModel: Array<IRef>) => {
     redirectsModel.forEach((redirect) =>
       redirectDomainService.redirects.delete(redirect.id),
     )
 
-    return await redirectRepository.delete(redirectsModel)
+    return await redirectRepository.delete(redirectsModel, {
+      revalidateTags: [CACHE_TAGS.Redirect.list()],
+    })
   }
 
   const getAll = async (where: RedirectWhere) => {
@@ -48,27 +55,29 @@ export const useRedirectService = (): IRedirectService => {
 
     // redirect.writeCache(redirectDto)
 
-    return await redirectRepository.update({ id: data.id }, data)
+    return await redirectRepository.update({ id: data.id }, data, {
+      revalidateTags: [CACHE_TAGS.Redirect.list()],
+    })
   }
 
   const createPopover = {
     close: (router: AppRouterInstance, params: PageContextParams) => {
-      router.push(PageType.PageList(params))
+      router.push(RoutePaths.Page.list(params))
     },
     open: (router: AppRouterInstance, params: PageContextParams) => {
-      router.push(PageType.PageRedirectCreate(params))
+      router.push(RoutePaths.Page.redirect.create(params))
     },
   }
 
   const updatePopover = {
     close: (router: AppRouterInstance, params: PageContextParams) => {
-      router.push(PageType.PageList(params))
+      router.push(RoutePaths.Page.list(params))
     },
     open: (
       router: AppRouterInstance,
       params: PageContextParams & { redirectId: string },
     ) => {
-      router.push(PageType.PageRedirectUpdate(params))
+      router.push(RoutePaths.Page.redirect.update(params))
     },
   }
 

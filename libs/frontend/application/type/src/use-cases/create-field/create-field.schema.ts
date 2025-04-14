@@ -1,4 +1,4 @@
-import type { ICreateFieldData } from '@codelab/shared/abstract/core'
+import type { IFieldCreateData } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 
 import {
@@ -12,7 +12,7 @@ import {
 } from '@codelab/shared/abstract/core'
 import { PrimitiveTypeKind } from '@codelab/shared/infra/gqlgen'
 
-export const createFieldSchema: JSONSchemaType<ICreateFieldData> = {
+export const createFieldSchema: JSONSchemaType<IFieldCreateData> = {
   if: {
     properties: {
       validationRules: {

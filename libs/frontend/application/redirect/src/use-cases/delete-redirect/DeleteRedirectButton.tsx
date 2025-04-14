@@ -1,10 +1,10 @@
 'use client'
 
-import type { IRedirectModel } from '@codelab/frontend/abstract/domain'
+import type { PageContextParams } from '@codelab/frontend/abstract/application'
+import type { IRef } from '@codelab/shared/abstract/core'
 
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import { getUiDataKey, UiKey } from '@codelab/frontend/abstract/types'
-import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import { Button, Popconfirm } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
@@ -12,9 +12,9 @@ import { useRouter } from 'next/navigation'
 import { useRedirectService } from '../../services/redirect.service'
 
 export const DeleteRedirectButton = observer<{
-  redirect?: IRedirectModel
-}>(({ redirect }) => {
-  const { appId, pageId } = useUrlPathParams()
+  redirect?: IRef
+  params: PageContextParams
+}>(({ params, redirect }) => {
   const redirectService = useRedirectService()
   const router = useRouter()
 
@@ -25,9 +25,7 @@ export const DeleteRedirectButton = observer<{
   const onConfirm = () =>
     redirectService
       .removeMany([redirect])
-      .then(() =>
-        redirectService.updatePopover.close(router, { appId, pageId }),
-      )
+      .then(() => redirectService.updatePopover.close(router, params))
 
   return (
     <Popconfirm

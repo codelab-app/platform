@@ -11,6 +11,7 @@ import {
   runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import { observer } from 'mobx-react-lite'
 import { createContext, type ReactNode, useEffect } from 'react'
 import { v4 } from 'uuid'
 
@@ -32,65 +33,52 @@ const BuilderContext = createContext<BuilderContextProps | null>(null)
  * 2) Set selected node
  * 3) Initialize expression transformer
  */
-export const BuilderProvider = ({
-  children,
-  containerNode,
-  rendererType,
-}: BuilderProviderProps) => {
-  const { builderService, rendererService, routerService } =
-    useApplicationStore()
-
-  /**
-   * Defer side effect to lifecycle method, to prevent https://github.com/codelab-app/platform/issues/3463
-   */
-  useEffect(() => {
-    const renderer = rendererService.hydrate({
-      containerNode,
-      id: v4(),
-      rendererType,
-    })
-
-    // tracker.useEvent({
-    //   componentName: 'BuilderProvider',
-    //   event: 'Set active renderer',
-    // })
-    rendererService.setActiveRenderer(rendererRef(renderer.id))
-
-    const { runtimeContainerNode, runtimeRootContainerNode } = renderer
-    const runtimeContainer = runtimeContainerNode ?? runtimeRootContainerNode
-    const runtimeRootElement = runtimeContainer.runtimeRootElement
-
-    // tracker.useEvent({
-    //   componentName: 'BuilderProvider',
-    //   event: 'Set selected node',
-    // })
+export const BuilderProvider = observer(
+  ({ children, containerNode, rendererType }: BuilderProviderProps) => {
+    const { builderService, rendererService } = useApplicationStore()
 
     /**
-     * Had a bug where the selected node would reset to the body for no reason.
-     *
-     * Turns out some issue with server action will re-run the component, which is re-running this component
+     * Defer side effect to lifecycle method, to prevent https://github.com/codelab-app/platform/issues/3463
      */
-    if (!builderService.selectedNode) {
-      console.log('setSelectedNode')
-      builderService.setSelectedNode(runtimeElementRef(runtimeRootElement))
-    }
+    useEffect(() => {
+      const renderer = rendererService.hydrate({
+        containerNode,
+        id: v4(),
+        rendererType,
+      })
 
-    void renderer.expressionTransformer.init()
-  }, [rendererType, containerNode.id])
+      // tracker.useEvent({
+      //   componentName: 'BuilderProvider',
+      //   event: 'Set active renderer',
+      // })
+      rendererService.setActiveRenderer(rendererRef(renderer.id))
 
-  return (
-    <BuilderContext.Provider value={{ containerNode, rendererType }}>
-      {children}
-    </BuilderContext.Provider>
-  )
-}
+      const runtimeContainer =
+        renderer.runtimeContainerNode ?? renderer.runtimeRootContainerNode
 
-// export const useBuilder = () => {
-//   const context = useContext(BuilderContext)
+      const runtimeRootElement = runtimeContainer.runtimeRootElement
 
-//   if (!context) {
-//     throw new Error('useBuilder must be used within a BuilderProvider')
-//   }
+      // tracker.useEvent({
+      //   componentName: 'BuilderProvider',
+      //   event: 'Set selected node',
+      // })
 
-//   return context
-// }
+      /**
+       * Had a bug where the selected node would reset to the body for no reason.
+       *
+       * Turns out some issue with server action will re-run the component, which is re-running this component
+       */
+      if (!builderService.selectedNode) {
+        builderService.setSelectedNode(runtimeElementRef(runtimeRootElement))
+      }
+
+      void renderer.expressionTransformer.init()
+    }, [rendererType, containerNode.id])
+
+    return (
+      <BuilderContext.Provider value={{ containerNode, rendererType }}>
+        {children}
+      </BuilderContext.Provider>
+    )
+  },
+)

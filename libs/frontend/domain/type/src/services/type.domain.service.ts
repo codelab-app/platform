@@ -6,16 +6,26 @@ import type { IInterfaceTypeDto, ITypeDto } from '@codelab/shared/abstract/core'
 
 import { getFieldDomainService } from '@codelab/frontend/abstract/domain'
 import { ITypeKind } from '@codelab/shared/abstract/core'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { type TypeFragment, TypeKind } from '@codelab/shared/infra/gqlgen'
 import { Validator } from '@codelab/shared/infra/typebox'
 import { computed } from 'mobx'
-import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
+import { Model, model, modelAction, objectMap, prop, Ref } from 'mobx-keystone'
+import { isDefined } from 'remeda'
 
 import { InterfaceType, TypeFactory } from '../store'
 
 @model('@codelab/TypeDomainService')
 export class TypeDomainService
   extends Model({
+    expandedNodes: prop<Array<string>>(() => []).withSetter(),
+    /**
+     * This allows us to display a subset of types for pagination while retaining observability
+     */
+    paginatedTypes: prop(() => objectMap<Ref<ITypeModel>>()),
+
+    selectedKey: prop<Maybe<string>>(() => undefined).withSetter(),
+
     /**
      * This holds all types
      */
@@ -86,7 +96,7 @@ export class TypeDomainService
       .flatMap((fragment) => fragment.fields)
       .forEach((field) => this.fieldDomainService.hydrate(field))
 
-    return types.map((type) => this.types.get(type.id)!)
+    return types.map((type) => this.types.get(type.id)).filter(isDefined)
   }
 
   @modelAction

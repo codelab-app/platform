@@ -104,11 +104,7 @@ export const createTestStore = () => {
   })
 
   const domainStore = createDomainStore(userDto)
-
-  const applicationStore = createApplicationStore(
-    { pathParams: {} },
-    domainStore,
-  )
+  const applicationStore = createApplicationStore(domainStore)
 
   @model('@codelab/TestRootStore')
   class TestRootStore
@@ -288,6 +284,24 @@ export const createTestStore = () => {
         ...dto,
         api: dto.api ?? this.addInterfaceType({}),
       })
+    }
+
+    getAtomByType(type: IAtomType) {
+      const atomType = this.domainStore.atomDomainService.atomsList.find(
+        (atom) => atom.type === type,
+      )
+
+      Validator.assertsDefined(atomType)
+
+      return atomType
+    }
+
+    getStringType() {
+      return this.domainStore.typeDomainService.typesList.find(
+        (type) =>
+          type.kind === ITypeKind.PrimitiveType &&
+          type.primitiveKind === IPrimitiveTypeKind.String,
+      )
     }
 
     @modelAction
@@ -554,24 +568,6 @@ export const createTestStore = () => {
         runtimePage,
         runtimeRootElement: runtimeRootElement,
       }
-    }
-
-    getAtomByType(type: IAtomType) {
-      const atomType = this.domainStore.atomDomainService.atomsList.find(
-        (atom) => atom.type === type,
-      )
-
-      Validator.assertsDefined(atomType)
-
-      return atomType
-    }
-
-    getStringType() {
-      return this.domainStore.typeDomainService.typesList.find(
-        (type) =>
-          type.kind === ITypeKind.PrimitiveType &&
-          type.primitiveKind === IPrimitiveTypeKind.String,
-      )
     }
 
     teardown() {

@@ -21,11 +21,12 @@ import {
   elementRef,
   isAtom,
   isAtomRef,
+  isComponent,
   pageRef,
 } from '@codelab/frontend/abstract/domain'
 import { createValidator, toRefSchema } from '@codelab/frontend/shared/utils'
 import { Prop } from '@codelab/frontend-domain-prop/store'
-import { logger, slugify, titleCase } from '@codelab/shared/utils'
+import { slugify, titleCase } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
   idProp,
@@ -44,7 +45,6 @@ const create = (element: IElementDto): IElementModel => {
     childMapperComponent,
     childMapperPreviousSibling,
     childMapperPropKey,
-    expanded,
     firstChild,
     id,
     name,
@@ -63,11 +63,6 @@ const create = (element: IElementDto): IElementModel => {
     tailwindClassNames,
   } = element
 
-  logger.debug('createElement', {
-    name,
-    page,
-  })
-
   return new Element({
     childMapperComponent: childMapperComponent
       ? componentRef(childMapperComponent.id)
@@ -76,7 +71,6 @@ const create = (element: IElementDto): IElementModel => {
       ? elementRef(childMapperPreviousSibling.id)
       : null,
     childMapperPropKey,
-    expanded,
     firstChild: firstChild?.id ? elementRef(firstChild.id) : undefined,
     id,
     isTextContentEditable: false,
@@ -192,6 +186,13 @@ export class Element
     }
 
     return results
+  }
+
+  @computed
+  get closestContainerComponent() {
+    return isComponent(this.closestContainerNode)
+      ? this.closestContainerNode
+      : undefined
   }
 
   @computed
@@ -332,7 +333,6 @@ export class Element
         this.childMapperPreviousSibling?.current.toJson,
       childMapperPropKey: this.childMapperPropKey,
       closestContainerNode: { id: this.closestContainerNode.id },
-      expanded: this.expanded,
       firstChild: toRefSchema(this.firstChild),
       id: this.id,
       name: this.name,
@@ -528,6 +528,26 @@ export class Element
     return this
   }
 
+  onAttachedToRootStore() {
+    const recorder = patchRecorder(this, {
+      filter: (patches, inversePatches) => {
+        // Skip patches related to setting '_modified' to false
+
+        return !patches.some((patch) => {
+          return patch.path.includes('_modified')
+        })
+      },
+      onPatches: (patches, inversePatches) => {
+        this.set_modified(true)
+      },
+      recording: true,
+    })
+
+    return () => {
+      recorder.dispose()
+    }
+  }
+
   @modelAction
   setRenderingError(error: Nullish<RenderingError>) {
     this.renderingMetadata = {
@@ -540,7 +560,6 @@ export class Element
     childMapperComponent,
     childMapperPreviousSibling,
     childMapperPropKey,
-    expanded,
     firstChild,
     name,
     nextSibling,
@@ -564,7 +583,6 @@ export class Element
     this.parentElement = parentElement?.id
       ? elementRef(parentElement.id)
       : this.parentElement
-    this.expanded = expanded ?? this.expanded
     this.nextSibling = nextSibling?.id
       ? elementRef(nextSibling.id)
       : this.nextSibling
@@ -579,41 +597,21 @@ export class Element
       : this.parentComponent
     this.preRenderActions = preRenderActions
       ? preRenderActions.map((action) => actionRef(action.id))
-      : []
+      : this.preRenderActions
     this.postRenderActions = postRenderActions
       ? postRenderActions.map((action) => actionRef(action.id))
-      : []
+      : this.postRenderActions
     this.childMapperComponent = childMapperComponent?.id
       ? componentRef(childMapperComponent.id)
-      : null
+      : this.childMapperComponent
     this.childMapperPreviousSibling = childMapperPreviousSibling?.id
       ? elementRef(childMapperPreviousSibling.id)
-      : null
+      : this.childMapperPreviousSibling
 
     this.style = style ?? this.style
 
     validateElement(this)
 
     return this
-  }
-
-  onAttachedToRootStore() {
-    const recorder = patchRecorder(this, {
-      filter: (patches, inversePatches) => {
-        // Skip patches related to setting '_modified' to false
-
-        return !patches.some((patch) => {
-          return patch.path.includes('_modified')
-        })
-      },
-      onPatches: (patches, inversePatches) => {
-        this.set_modified(true)
-      },
-      recording: true,
-    })
-
-    return () => {
-      recorder.dispose()
-    }
   }
 }

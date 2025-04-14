@@ -1,5 +1,7 @@
-import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/application'
-import type { SearchParamsProps } from '@codelab/frontend/abstract/types'
+import type {
+  IRuntimeComponentModel,
+  NextjsSearchParamsProps,
+} from '@codelab/frontend/abstract/application'
 import type { IResourceFetchConfig } from '@codelab/shared/abstract/core'
 
 import { RendererType } from '@codelab/frontend/abstract/application'
@@ -469,7 +471,7 @@ describe('Runtime Element props', () => {
 
       testStore.applicationStore.routerService.setSearchParams({
         [urlKey]: urlPropValue,
-      } as SearchParamsProps)
+      } as NextjsSearchParamsProps)
 
       const { page, renderer, rootElement, runtimeRootElement } =
         testStore.setupRuntimeElement()

@@ -1,0 +1,14 @@
+---
+description: Folder directory project structure, module naming and layout UI
+globs: 
+alwaysApply: false
+---
+- I'm using an nx mono repo where /apps and /libs hold most of the code
+- /apps/web is the main web repo, and most routes are in /apps/web/app/(dashboard)/(authenticated)
+- Under (authenticated), we have admin, apps, atoms, auth-guards, components, resources, tags, types
+- For each module, if there are parallel slots (header, modal, primarySideabr, secondaryPopover, configPane), we will use DashboardLayout
+- layout.tsx should either use DashboardLayoutProps if using slots, or LayoutProps if not using slots
+- We split the libs into frontend and backend, /libs/frontend, /libs/backend
+- For example if we say frontend domain services, it will be in /libs/frontend/domain
+- The within each will be split into application and domain
+- If you search, ignore nested .next folder

@@ -1,3 +1,4 @@
+import type { IBuilderRoute } from '@codelab/frontend/abstract/application'
 import type {
   IActionNodeData,
   ITreeNode,
@@ -13,28 +14,28 @@ import {
   CuiTreeItem,
   CuiTreeItemToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { useRouter } from 'next/navigation'
+import { mergeDeep } from 'remeda'
 
 import { useActionService } from '../../services/action.service'
 
 interface ActionsTreeItemProps {
+  context: IBuilderRoute
   data: ITreeNode<IActionNodeData>
 }
 
-export const ActionsTreeItem = ({ data }: ActionsTreeItemProps) => {
-  const { appId, componentId, pageId } = useUrlPathParams()
+export const ActionsTreeItem = ({ context, data }: ActionsTreeItemProps) => {
   const { deletePopover, updatePopover } = useActionService()
   const router = useRouter()
   const actionId = data.extraData.node.id
 
   const onDelete = () => {
-    deletePopover.open(router, { actionId, appId, componentId, pageId })
+    deletePopover.open(router, mergeDeep(context, { params: { actionId } }))
   }
 
   const onEdit = () => {
-    updatePopover.open(router, { actionId, appId, componentId, pageId })
+    updatePopover.open(router, mergeDeep(context, { params: { actionId } }))
   }
 
   const toolbarItems: Array<ToolbarItem> = [

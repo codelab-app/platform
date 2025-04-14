@@ -1,11 +1,10 @@
 'use client'
 
+import type { IPageModel } from '@codelab/frontend/abstract/domain'
 import type { IFormController } from '@codelab/frontend/abstract/types'
 import type { IPageUpdateFormData } from '@codelab/shared/abstract/core'
 
 import { UiKey } from '@codelab/frontend/abstract/types'
-import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
   Form,
   FormController,
@@ -19,26 +18,23 @@ import { usePageService } from '../../services'
 import { type UpdatePageSchema, updatePageSchema } from './update-page.schema'
 
 export interface UpdatePageFormProps extends IFormController {
-  id: string
+  appId: string
+  page: IPageModel
 }
 
 export const UpdatePageForm = observer<UpdatePageFormProps>(
-  ({ id, onSubmitSuccess, showFormControl = true, submitRef }) => {
-    const { appId, pageId } = useUrlPathParams()
+  ({ appId, onSubmitSuccess, page, showFormControl = true, submitRef }) => {
     const pageService = usePageService()
     const router = useRouter()
 
     const closeForm = () =>
-      pageService.updatePopover.close(router, { appId, pageId })
-
-    const { pageDomainService } = useDomainStore()
-    const pageToUpdate = pageDomainService.pages.get(id)
+      pageService.updatePopover.close(router, { appId, pageId: page.id })
 
     const model: Partial<IPageUpdateFormData> = {
-      app: pageToUpdate?.app,
-      id: pageToUpdate?.id,
-      name: pageToUpdate?.name,
-      urlPattern: pageToUpdate?.urlPattern,
+      app: page.app,
+      id: page.id,
+      name: page.name,
+      urlPattern: page.urlPattern,
     }
 
     return (

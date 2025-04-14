@@ -3,24 +3,13 @@ import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 
 import { ElementExportSchema } from '../element'
-import {
-  StoreAggregateExportSchema,
-  StoreAggregateImportSchema,
-} from '../store'
+import { StoreAggregateSchema } from '../store'
 import { PageDtoSchema } from './page.dto.interface'
 
-export const PageAggregateExportSchema = Type.Object({
+export const PageAggregateSchema = Type.Object({
   elements: Type.Array(ElementExportSchema),
   page: PageDtoSchema,
-  store: StoreAggregateExportSchema,
+  store: StoreAggregateSchema,
 })
 
-export type IPageAggregateExport = Static<typeof PageAggregateExportSchema>
-
-export const PageAggregateImportSchema = Type.Object({
-  elements: Type.Array(ElementExportSchema),
-  page: PageDtoSchema,
-  store: StoreAggregateImportSchema,
-})
-
-export type IPageAggregateImport = Static<typeof PageAggregateImportSchema>
+export type IPageAggregate = Static<typeof PageAggregateSchema>

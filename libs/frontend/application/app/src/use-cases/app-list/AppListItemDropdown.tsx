@@ -10,7 +10,7 @@ import EllipsisOutlined from '@ant-design/icons/EllipsisOutlined'
 import ExportOutlined from '@ant-design/icons/ExportOutlined'
 import GlobalOutlined from '@ant-design/icons/GlobalOutlined'
 import ToolOutlined from '@ant-design/icons/ToolOutlined'
-import { PageType } from '@codelab/frontend/abstract/types'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { Button, Dropdown } from 'antd'
 import { useRouter } from 'next/navigation'
 
@@ -34,13 +34,13 @@ const menuItemIconStyle: CSSProperties = {
 
 export const AppListItemDropdown = ({ app }: AppListItemDropdownProps) => {
   const router = useRouter()
-  const onEditClick = () => router.push(PageType.AppUpdate({ id: app.id }))
-  const onDeleteClick = () => router.push(PageType.AppDelete({ id: app.id }))
-  const onBuildClick = () => router.push(PageType.AppBuild({ id: app.id }))
+  const onEditClick = () => router.push(RoutePaths.App.update({ id: app.id }))
+  const onDeleteClick = () => router.push(RoutePaths.App.delete({ id: app.id }))
+  const onBuildClick = () => router.push(RoutePaths.App.build({ id: app.id }))
   const onExportClick = useExportApp(app)
 
   const goToDomainsPage = async () => {
-    const url = PageType.DomainList({ appId: app.id })
+    const url = RoutePaths.Domain.list({ appId: app.id })
 
     router.push(url)
   }

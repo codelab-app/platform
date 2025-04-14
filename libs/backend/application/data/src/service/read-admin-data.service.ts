@@ -1,31 +1,31 @@
 import type {
-  IAtomExport,
-  IAtomImport,
-  IComponentAggregateExport,
-  IComponentAggregateImport,
+  IAtomAggregate,
+  IAtomType,
+  IComponentAggregate,
+  IComponentType,
   ITagDto,
   ITagExport,
   ITypeDto,
-  ITypeExport,
+  ITypeDtoWithoutOwner,
 } from '@codelab/shared/abstract/core'
 
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import {
-  AtomImportSchema,
+  AtomAggregateSchema,
   TagExportSchema,
   TypeDtoSchema,
 } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/typebox'
+import { titleCase } from '@codelab/shared/utils'
 import { Injectable, Scope } from '@nestjs/common'
 import fs from 'fs'
 import path from 'path'
 
-import { ImportDataMapperService } from './import-data-mapper.service'
 import { MigrationDataService } from './migration-data.service'
 
 interface IReadAdminDataService {
-  atoms: Array<IAtomImport>
-  components: Array<IComponentAggregateImport>
+  atoms: Array<IAtomAggregate>
+  components: Array<IComponentAggregate>
   systemTypes: Array<ITypeDto>
   tags: Array<ITagDto>
 }
@@ -37,7 +37,6 @@ export class ReadAdminDataService implements IReadAdminDataService {
   constructor(
     public migrationDataService: MigrationDataService,
     private authService: AuthDomainService,
-    private importDataMapperService: ImportDataMapperService,
   ) {}
 
   get atomNames() {
@@ -55,17 +54,11 @@ export class ReadAdminDataService implements IReadAdminDataService {
           `${this.migrationDataService.atomsPath}/${filename}`,
           'utf8',
         ),
-      ) as IAtomExport
+      ) as IAtomAggregate
 
-      const owner = this.authService.currentUser
-
-      const data: IAtomImport = Validator.parse(AtomImportSchema, {
-        api: {
-          ...api,
-          owner,
-          types: api.types.map((type) => ({ ...type, owner })),
-        },
-        atom: { ...atom, owner },
+      const data: IAtomAggregate = Validator.parse(AtomAggregateSchema, {
+        api,
+        atom,
       })
 
       return data
@@ -82,16 +75,14 @@ export class ReadAdminDataService implements IReadAdminDataService {
       : []
 
     return componentFilenames.map((filename) => {
-      const componentExport: IComponentAggregateExport = JSON.parse(
+      const componentExport: IComponentAggregate = JSON.parse(
         fs.readFileSync(
           path.resolve(this.migrationDataService.componentsPath, filename),
           'utf8',
         ),
       )
 
-      return this.importDataMapperService.getComponentImportData(
-        componentExport,
-      )
+      return componentExport
     })
   }
 
@@ -103,9 +94,9 @@ export class ReadAdminDataService implements IReadAdminDataService {
 
     const types = JSON.parse(
       fs.readFileSync(this.migrationDataService.systemTypesFilePath, 'utf8'),
-    ) as Array<ITypeExport>
+    ) as Array<ITypeDtoWithoutOwner>
 
-    return types.map((type: ITypeExport) => {
+    return types.map((type: ITypeDtoWithoutOwner) => {
       return Validator.parse(TypeDtoSchema, {
         ...type,
         owner,
@@ -129,5 +120,17 @@ export class ReadAdminDataService implements IReadAdminDataService {
 
       return { ...tagExport, owner }
     })
+  }
+
+  getAtomsByTypes(types: Array<IAtomType>) {
+    return this.atoms.filter(({ atom }) => {
+      return types.includes(atom.type)
+    })
+  }
+
+  getComponentsByNames(names: Array<IComponentType>) {
+    return this.components.filter(({ component }) =>
+      names.map((name) => titleCase(name)).includes(component.name),
+    )
   }
 }

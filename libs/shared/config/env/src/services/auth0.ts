@@ -28,9 +28,9 @@ export class Auth0EnvVars implements IAuth0EnvVars {
 
   private _clientSecret?: string
 
-  private _cypressUsername?: string
+  private _e2eUsername?: string
 
-  private _cypressPassword?: string
+  private _e2ePassword?: string
 
   private _issuerBaseUrl?: string
 
@@ -63,14 +63,14 @@ export class Auth0EnvVars implements IAuth0EnvVars {
   }
 
   get auth0Username(): string {
-    return (this._cypressUsername ??= env
+    return (this._e2eUsername ??= env
       .get('AUTH0_E2E_USERNAME')
       .required()
       .asString())
   }
 
   get auth0Password(): string {
-    return (this._cypressPassword ??= env
+    return (this._e2ePassword ??= env
       .get('AUTH0_E2E_PASSWORD')
       .required()
       .asString())

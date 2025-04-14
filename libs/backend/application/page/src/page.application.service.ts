@@ -1,7 +1,12 @@
-import type { IPageCreateFormData } from '@codelab/shared/abstract/core'
+import type {
+  IPageAggregate,
+  IPageCreateFormData,
+} from '@codelab/shared/abstract/core'
 
 import { ElementApplicationService } from '@codelab/backend/application/element'
+import { StoreApplicationService } from '@codelab/backend/application/store'
 import { AppRepository } from '@codelab/backend/domain/app'
+import { ElementRepository } from '@codelab/backend/domain/element'
 import { PageRepository } from '@codelab/backend/domain/page'
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { Store, StoreDomainService } from '@codelab/backend/domain/store'
@@ -17,10 +22,31 @@ export class PageApplicationService {
     private elementApplicationService: ElementApplicationService,
     private storeDomainService: StoreDomainService,
     private typeDomainService: TypeDomainService,
+    private elementRepository: ElementRepository,
     private appRepository: AppRepository,
+    private storeApplicationService: StoreApplicationService,
     private authDomainService: AuthDomainService,
     private loggerService: PinoLoggerService,
   ) {}
+
+  async addPage(pageAggregate: IPageAggregate) {
+    const { elements, page, store } = pageAggregate
+
+    await this.storeApplicationService.addStores([store])
+
+    for (const element of elements) {
+      await this.elementRepository.save(element)
+    }
+
+    // after all elements are created, we need to update the parent and sibling references.
+    // alternatively we can do this with a single smart run: creating elements in the order,
+    // so that leaf elements are created first and then going up to the element tree root
+    for (const element of elements) {
+      await this.elementRepository.save(element)
+    }
+
+    await this.pageRepository.save(page)
+  }
 
   async createPage(createPageDto: IPageCreateFormData) {
     const owner = this.authDomainService.currentUser

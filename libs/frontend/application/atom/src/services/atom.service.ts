@@ -1,32 +1,21 @@
 'use client'
 
-import type {
-  GetDataFn,
-  IAtomService,
-} from '@codelab/frontend/abstract/application'
+import type { IAtomService } from '@codelab/frontend/abstract/application'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/infra/gqlgen'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import {
-  CACHE_TAGS,
   type IAtomModel,
   type ICreateAtomData,
   type IUpdateAtomData,
 } from '@codelab/frontend/abstract/domain'
-import { PageType } from '@codelab/frontend/abstract/types'
 import { useDomainStoreHydrator } from '@codelab/frontend/infra/context'
-import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
-import {
-  filterAtoms,
-  mapEntitySelectOptions,
-} from '@codelab/frontend-domain-atom/store'
+import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { typeRepository } from '@codelab/frontend-domain-type/repositories'
-import {
-  useApplicationStore,
-  useDomainStore,
-} from '@codelab/frontend-infra-mobx/context'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { type IRef, ITypeKind } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/typebox'
 import queryString from 'query-string'
@@ -34,44 +23,11 @@ import { isEmpty } from 'remeda'
 import { v4 } from 'uuid'
 
 export const useAtomService = (): IAtomService => {
-  const {
-    pagination: { atomPagination },
-  } = useApplicationStore()
-
-  const {
-    atomDomainService,
-    fieldDomainService,
-    typeDomainService,
-    userDomainService,
-  } = useDomainStore()
-
+  const { atomDomainService, userDomainService } = useDomainStore()
   const user = userDomainService.user
   const owner = { id: user.id }
   const typeService = useTypeService()
   const hydrate = useDomainStoreHydrator()
-
-  const getDataFn: GetDataFn<IAtomModel> = async (
-    page,
-    pageSize,
-    filter,
-    search,
-  ) => {
-    const { aggregate, items } = await atomRepository.find(
-      graphqlFilterMatches(filter, search),
-      {
-        limit: pageSize,
-        offset: (page - 1) * pageSize,
-      },
-    )
-
-    const atoms = items.map((atom) => {
-      typeDomainService.hydrateTypes([atom.api])
-
-      return atomDomainService.hydrate(atom)
-    })
-
-    return { items: atoms, totalItems: aggregate.count }
-  }
 
   const create = async (data: ICreateAtomData) => {
     const api = await typeRepository.add({
@@ -90,10 +46,15 @@ export const useAtomService = (): IAtomService => {
       owner,
     } as const
 
-    hydrate({ atomsDto: [atomDto] })
+    /**
+     * Hydrating just the atom would leave the aggregate in an inconsistent state.
+     *
+     * For example, `AtomsTreeView` requires `api.fieldsTree` to display related fields of the atom. Using `atom.api.current` breaks the app, while using `atom.api.maybeCurrent` is enough.
+     */
+    // hydrate({ atomsDto: [atomDto] })
 
     const atom = await atomRepository.add(atomDto, {
-      revalidateTag: CACHE_TAGS.ATOM_LIST,
+      revalidateTags: [CACHE_TAGS.Atom.list()],
     })
 
     Validator.assertsDefined(atom)
@@ -113,7 +74,9 @@ export const useAtomService = (): IAtomService => {
       }
     })
 
-    return await atomRepository.delete(atomsToDelete)
+    return await atomRepository.delete(atomsToDelete, {
+      revalidateTags: [CACHE_TAGS.Atom.list()],
+    })
   }
 
   const getAll = async (where?: AtomWhere, options?: AtomOptions) => {
@@ -121,8 +84,6 @@ export const useAtomService = (): IAtomService => {
       aggregate: { count },
       items: atoms,
     } = await atomRepository.find(where, options)
-
-    atomPagination.setTotalItems(count)
 
     if (!isEmpty(where ?? {}) || options?.limit) {
       hydrate({
@@ -141,13 +102,6 @@ export const useAtomService = (): IAtomService => {
     return all[0]
   }
 
-  const getSelectAtomOptions = async (parent?: IAtomModel) => {
-    const atoms = await atomRepository.getSelectAtomOptions()
-    const atomOptions = parent ? filterAtoms(atoms, parent) : atoms
-
-    return atomOptions.map(mapEntitySelectOptions)
-  }
-
   const loadApi = async (id: string) => {
     const atom = atomDomainService.atoms.get(id) ?? (await getOne(id))
 
@@ -162,7 +116,7 @@ export const useAtomService = (): IAtomService => {
     atom?.writeCache(data)
 
     await atomRepository.update({ id }, data, {
-      revalidateTag: CACHE_TAGS.ATOM_LIST,
+      revalidateTags: [CACHE_TAGS.Atom.list()],
     })
 
     Validator.assertsDefined(atom)
@@ -171,11 +125,11 @@ export const useAtomService = (): IAtomService => {
   }
 
   const goToAtomsPage = (router: AppRouterInstance) => {
-    router.push(PageType.Atoms())
+    router.push(RoutePaths.Atom.base())
   }
 
   const goToDeleteAtomPage = (ref: IRef, router: AppRouterInstance) => {
-    router.push(PageType.AtomDelete(ref))
+    router.push(RoutePaths.Atom.delete(ref))
   }
 
   const updatePopover = {
@@ -186,22 +140,22 @@ export const useAtomService = (): IAtomService => {
 
       const url = queryString.stringifyUrl({
         query: Object.fromEntries(searchParams.entries()),
-        url: PageType.Atoms(),
+        url: RoutePaths.Atom.base(),
       })
 
       router.push(url)
     },
     open: (router: AppRouterInstance) => {
-      router.push(PageType.AtomCreate())
+      router.push(RoutePaths.Atom.create())
     },
   }
 
   const createPopover = {
     close: (router: AppRouterInstance) => {
-      router.push(PageType.Atoms())
+      router.push(RoutePaths.Atom.base())
     },
     open: (router: AppRouterInstance) => {
-      router.push(PageType.AtomCreate())
+      router.push(RoutePaths.Atom.create())
     },
   }
 
@@ -209,13 +163,10 @@ export const useAtomService = (): IAtomService => {
     create,
     createPopover,
     getAll,
-    getDataFn,
     getOne,
-    getSelectAtomOptions,
     goToAtomsPage,
     goToDeleteAtomPage,
     loadApi,
-    paginationService: atomPagination,
     removeMany,
     update,
     updatePopover,

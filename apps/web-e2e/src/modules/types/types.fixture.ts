@@ -1,9 +1,10 @@
-import { PageType, UiKey } from '@codelab/frontend/abstract/types'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { PrimitiveTypeKind } from '@codelab/shared/infra/gqlgen'
-import { test as base } from '@playwright/test'
 
-import { BasePage } from '../../locators/pages'
+import { BasePage } from '../../setup/core/page'
+import { baseTest } from '../../setup/fixtures/base.fixture'
 import {
   arrayTypeName,
   enumTypeAllowedValues,
@@ -33,9 +34,9 @@ export class TypeListPage extends BasePage {
       PrimitiveTypeKind.String,
     )
 
-    const modal = await this.getModal(UiKey.TypeModalCreate)
-
-    await modal.getButton({ text: 'Create' }).click()
+    await this.getPopover(UiKey.TypePopoverCreate)
+      .getButton({ text: 'Create' })
+      .click()
     await this.expectGlobalProgressBarToBeHidden()
   }
 
@@ -61,9 +62,9 @@ export class TypeListPage extends BasePage {
         .type(enumItem.value)
     }
 
-    const modal = await this.getModal(UiKey.TypeModalCreate)
-
-    await modal.getButton({ text: 'Create' }).click()
+    await this.getPopover(UiKey.TypePopoverCreate)
+      .getButton({ text: 'Create' })
+      .click()
     await this.expectGlobalProgressBarToBeHidden()
   }
 
@@ -79,9 +80,9 @@ export class TypeListPage extends BasePage {
     await form.fillInputSelect({ label: 'Type' }, PrimitiveTypeKind.String)
     await form.fillInputText({ label: 'Default values' }, 'default string')
 
-    const modal = await this.getModal(UiKey.FieldModalCreate)
-
-    await modal.getButton({ text: 'Create' }).click()
+    await this.getPopover(UiKey.FieldPopoverCreate)
+      .getButton({ text: 'Create' })
+      .click()
     await this.expectGlobalProgressBarToBeHidden()
   }
 
@@ -95,9 +96,9 @@ export class TypeListPage extends BasePage {
     await form.fillInputText({ label: 'Name' }, interfaceTypeName)
     await form.fillInputSelect({ label: 'Kind' }, ITypeKind.InterfaceType)
 
-    const modal = await this.getModal(UiKey.TypeModalCreate)
-
-    await modal.getButton({ text: 'Create' }).click()
+    await this.getPopover(UiKey.TypePopoverCreate)
+      .getButton({ text: 'Create' })
+      .click()
     await this.expectGlobalProgressBarToBeHidden()
   }
 
@@ -115,9 +116,9 @@ export class TypeListPage extends BasePage {
       PrimitiveTypeKind.String,
     ])
 
-    const modal = await this.getModal(UiKey.TypeModalCreate)
-
-    await modal.getButton({ text: 'Create' }).click()
+    await this.getPopover(UiKey.TypePopoverCreate)
+      .getButton({ text: 'Create' })
+      .click()
     await this.expectGlobalProgressBarToBeHidden()
   }
 
@@ -134,9 +135,8 @@ export class TypeListPage extends BasePage {
       .getToolbarItem(UiKey.FieldToolbarItemDelete)
       .click()
 
-    const modal = await this.getModal(UiKey.FieldModalDelete)
+    await this.clickPopconfirmButton(UiKey.FieldToolbarItemDelete)
 
-    await modal.getButton({ label: 'Confirmation Button' }).click()
     await this.expectGlobalProgressBarToBeHidden()
   }
 
@@ -146,14 +146,12 @@ export class TypeListPage extends BasePage {
       .getToolbarItem(UiKey.TypeToolbarItemDelete)
       .click()
 
-    const modal = await this.getModal(UiKey.TypeModalDelete)
-
-    await modal.getButton({ label: 'Confirmation Button' }).click()
+    await this.clickPopconfirmButton(UiKey.TypeToolbarItemDelete)
     await this.expectGlobalProgressBarToBeHidden()
   }
 
   async goto() {
-    await this.page.goto(PageType.Type())
+    await this.page.goto(RoutePaths.Type.base())
   }
 
   async updateArrayType() {
@@ -162,14 +160,15 @@ export class TypeListPage extends BasePage {
     const form = await this.getForm(UiKey.TypeFormUpdate)
 
     await form.fillInputText({ label: 'Name' }, updatedArrayTypeName)
-    await form.fillInputSelect(
-      { label: 'Array item type' },
-      PrimitiveTypeKind.Boolean,
-    )
+    // Cannot disconnect required field
+    // await form.fillInputSelect(
+    //   { label: 'Array Item Type' },
+    //   PrimitiveTypeKind.Boolean,
+    // )
 
-    const modal = await this.getModal(UiKey.TypeModalUpdate)
-
-    await modal.getButton({ text: 'Update' }).click()
+    await this.getPopover(UiKey.TypePopoverUpdate)
+      .getButton({ text: 'Update' })
+      .click()
     await this.expectGlobalProgressBarToBeHidden()
   }
 
@@ -180,9 +179,9 @@ export class TypeListPage extends BasePage {
 
     await form.fillInputText({ label: 'Name' }, updatedEnumTypeName)
 
-    const modal = await this.getModal(UiKey.TypeModalUpdate)
-
-    await modal.getButton({ text: 'Update' }).click()
+    await this.getPopover(UiKey.TypePopoverUpdate)
+      .getButton({ text: 'Update' })
+      .click()
     await this.expectGlobalProgressBarToBeHidden()
   }
 
@@ -198,9 +197,9 @@ export class TypeListPage extends BasePage {
     await fieldTreeNode.click()
     await form.fillInputText({ label: 'Key' }, updatedInterfaceFieldName)
 
-    const modal = await this.getModal(UiKey.FieldModalUpdate)
-
-    await modal.getButton({ text: 'Update' }).click()
+    await this.getPopover(UiKey.FieldPopoverUpdate)
+      .getButton({ text: 'Update' })
+      .click()
     await this.expectGlobalProgressBarToBeHidden()
   }
 
@@ -211,9 +210,9 @@ export class TypeListPage extends BasePage {
 
     await form.fillInputText({ label: 'Name' }, updatedInterfaceTypeName)
 
-    const modal = await this.getModal(UiKey.TypeModalUpdate)
-
-    await modal.getButton({ text: 'Update' }).click()
+    await this.getPopover(UiKey.TypePopoverUpdate)
+      .getButton({ text: 'Update' })
+      .click()
     await this.expectGlobalProgressBarToBeHidden()
   }
 
@@ -227,16 +226,16 @@ export class TypeListPage extends BasePage {
       PrimitiveTypeKind.Number,
     ])
 
-    const modal = await this.getModal(UiKey.TypeModalUpdate)
-
-    await modal.getButton({ text: 'Update' }).click()
+    await this.getPopover(UiKey.TypePopoverUpdate)
+      .getButton({ text: 'Update' })
+      .click()
     await this.expectGlobalProgressBarToBeHidden()
   }
 }
 
-export const test = base.extend<{ typesPage: TypeListPage }>({
-  typesPage: async ({ page }, use) => {
-    const typesPage = new TypeListPage(page)
+export const test = baseTest.extend<{ typesPage: TypeListPage }>({
+  typesPage: async ({ context, page }, use) => {
+    const typesPage = new TypeListPage(page, context)
 
     await use(typesPage)
   },

@@ -8,6 +8,7 @@
         "project": ["libs/frontend/cui/ui/atoms/tsconfig.*?.json"]
       },
       "rules": {
+        "import/no-namespace": "off",
         "react/jsx-props-no-spreading": "off",
         "tailwindcss/no-custom-classname": [
           "error",

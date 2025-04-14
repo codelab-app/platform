@@ -1,12 +1,12 @@
 'use client'
 
+import type { IAuthGuardModel } from '@codelab/frontend/abstract/domain'
 import type { Maybe } from '@codelab/shared/abstract/types'
 
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
 import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import { CuiSidebarSecondary } from '@codelab/frontend/presentation/codelab-ui'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import { useRef } from 'react'
@@ -14,21 +14,11 @@ import { useRef } from 'react'
 import { useAuthGuardService } from '../../services/auth-guard.service'
 import { UpdateAuthGuardForm } from './UpdateAuthGuardForm'
 
-interface UpdateAuthGuardPopoverProps {
-  id: string
-}
-
-export const UpdateAuthGuardPopover = observer<UpdateAuthGuardPopoverProps>(
-  ({ id }) => {
+export const UpdateAuthGuardPopover = observer<{ authGuard: IAuthGuardModel }>(
+  ({ authGuard }) => {
     const submitRef = useRef<Maybe<SubmitController>>(undefined)
     const router = useRouter()
-    const { authGuardDomainService } = useDomainStore()
-    const authGuard = authGuardDomainService.authGuards.get(id)
     const { updatePopover } = useAuthGuardService()
-
-    if (!authGuard) {
-      return null
-    }
 
     return (
       <CuiSidebarSecondary

@@ -1,20 +1,20 @@
 'use client'
+import type { IAppModel } from '@codelab/frontend/abstract/domain'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 
-import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { getSelectPageOptions } from '@codelab/frontend-domain-page/repositories'
 import { useAsyncFn } from 'react-use'
 import { SelectField } from 'uniforms-antd'
 
-export type SelectPageProps = UniformSelectFieldProps
+export type SelectPageProps = UniformSelectFieldProps & {
+  app: IAppModel
+}
 
-export const SelectPage = ({ error, label, name }: SelectPageProps) => {
-  const app = useCurrentApp()
-
+export const SelectPage = ({ app, error, label, name }: SelectPageProps) => {
   const [
     { error: queryError, loading, value: selectPageOptions = [] },
     executeGetSelectPageOptions,
-  ] = useAsyncFn(() => getSelectPageOptions(app?.id))
+  ] = useAsyncFn(() => getSelectPageOptions(app.id))
 
   return (
     <SelectField

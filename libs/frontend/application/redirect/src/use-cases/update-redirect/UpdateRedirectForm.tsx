@@ -1,3 +1,4 @@
+import type { PageContextParams } from '@codelab/frontend/abstract/application'
 import type { IRedirectUpdateFormData } from '@codelab/frontend/abstract/domain'
 
 import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
@@ -17,11 +18,18 @@ import { DeleteRedirectButton } from '../delete-redirect'
 import { updateRedirectSchema } from './update-redirect.schema'
 
 interface UpdateRedirectFormProps extends IFormController {
+  params: PageContextParams
   redirectId: string
 }
 
 export const UpdateRedirectForm = observer<UpdateRedirectFormProps>(
-  ({ onSubmitSuccess, redirectId, showFormControl = true, submitRef }) => {
+  ({
+    onSubmitSuccess,
+    params,
+    redirectId,
+    showFormControl = true,
+    submitRef,
+  }) => {
     const redirectService = useRedirectService()
     const { redirectDomainService } = useDomainStore()
     const redirect = redirectDomainService.redirects.get(redirectId)
@@ -69,7 +77,7 @@ export const UpdateRedirectForm = observer<UpdateRedirectFormProps>(
             <FormController submitLabel="Update Redirect" />
           </DisplayIf>
         </Form>
-        <DeleteRedirectButton redirect={redirect} />
+        <DeleteRedirectButton params={params} redirect={redirect} />
       </>
     )
   },

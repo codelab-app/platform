@@ -1,7 +1,9 @@
-import { ImportAtomCommand } from '@codelab/backend/application/atom'
+import { AtomApplicationService } from '@codelab/backend/application/atom'
 import { ReadAdminDataService } from '@codelab/backend/application/data'
 import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
 import { UserDomainService } from '@codelab/backend/domain/user'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
+import { LogClassMethod } from '@codelab/backend/infra/core'
 import { DatabaseService } from '@codelab/backend-infra-adapter/neo4j-driver'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
@@ -14,6 +16,8 @@ export class SeederApplicationService {
     private userDomainService: UserDomainService,
     private readonly readAdminDataService: ReadAdminDataService,
     private readonly databaseService: DatabaseService,
+    private readonly atomApplicationService: AtomApplicationService,
+    private logger: PinoLoggerService,
   ) {}
 
   async resetAndSeedUser() {
@@ -36,15 +40,9 @@ export class SeederApplicationService {
       new ImportSystemTypesCommand(),
     )
 
-    const atoms = this.readAdminDataService.atoms.filter(
-      ({ atom }) => atom.type === IAtomType.AntDesignButton,
-    )
-
-    for (const atom of atoms) {
-      await this.commandBus.execute<ImportAtomCommand>(
-        new ImportAtomCommand(atom),
-      )
-    }
+    await this.atomApplicationService.addAtomsFromTypes([
+      IAtomType.AntDesignButton,
+    ])
   }
 
   /**
@@ -57,15 +55,9 @@ export class SeederApplicationService {
       new ImportSystemTypesCommand(),
     )
 
-    const atoms = this.readAdminDataService.atoms.filter(
-      ({ atom }) => atom.type === IAtomType.ReactFragment,
-    )
-
-    for (const atom of atoms) {
-      await this.commandBus.execute<ImportAtomCommand>(
-        new ImportAtomCommand(atom),
-      )
-    }
+    await this.atomApplicationService.addAtomsFromTypes([
+      IAtomType.ReactFragment,
+    ])
   }
 
   /**
@@ -73,6 +65,7 @@ export class SeederApplicationService {
    *
    * Before we called reset or setup, but those words don't describe clearing then re-adding data
    */
+  @LogClassMethod()
   async setupE2eData() {
     await this.databaseService.resetDatabase()
 
@@ -82,14 +75,8 @@ export class SeederApplicationService {
       new ImportSystemTypesCommand(),
     )
 
-    const atoms = this.readAdminDataService.atoms.filter(
-      ({ atom }) => atom.type === IAtomType.ReactFragment,
-    )
-
-    for (const atom of atoms) {
-      await this.commandBus.execute<ImportAtomCommand>(
-        new ImportAtomCommand(atom),
-      )
-    }
+    await this.atomApplicationService.addAtomsFromTypes([
+      IAtomType.ReactFragment,
+    ])
   }
 }

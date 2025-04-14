@@ -23,5 +23,5 @@ docker:
       # NEO4J_server_memory_heap_initial__size: 2g
       # NEO4J_server_memory_heap_max__size: 2g
       # NEO4J_server_memory_pagecache_size: 512m
-  - image: redis:7.0.10
-    # Redis will also be available at 127.0.0.1:6379
+  # - image: redis:7.0.10
+  # Redis will also be available at 127.0.0.1:6379

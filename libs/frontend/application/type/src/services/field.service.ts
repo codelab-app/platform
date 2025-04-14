@@ -1,26 +1,25 @@
 import type {
-  IFieldService,
-  UpdatePopoverParamsContext,
-} from '@codelab/frontend/abstract/application'
-import type {
   IFieldModel,
   IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
-import type { BuilderContextParams } from '@codelab/frontend/abstract/types'
-import type {
-  ICreateFieldData,
-  IFieldDto,
-  IRef,
-} from '@codelab/shared/abstract/core'
+import type { IFieldCreateData, IRef } from '@codelab/shared/abstract/core'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import { PageType, PrimarySidebar } from '@codelab/frontend/abstract/types'
+import {
+  type IFieldCreateRoute,
+  type IFieldService,
+  type IFieldUpdateRoute,
+  IRouteType,
+  RoutePaths,
+} from '@codelab/frontend/abstract/application'
+import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { fieldRepository } from '@codelab/frontend-domain-type/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Validator } from '@codelab/shared/infra/typebox'
-import { filter, isDefined, isTruthy, unique } from 'remeda'
+import { filter, isTruthy, unique } from 'remeda'
 import { v4 } from 'uuid'
 
+import { fieldMapper } from './field.mapper'
 import { useTypeService } from './type.service'
 
 export const useFieldService = (): IFieldService => {
@@ -29,7 +28,7 @@ export const useFieldService = (): IFieldService => {
 
   const cloneField = async (field: IFieldModel, apiId: string) => {
     const fieldDto = {
-      ...fieldService.mapFieldToDto(field),
+      ...fieldMapper.mapFieldToDto(field),
       api: { id: apiId },
       id: v4(),
     }
@@ -41,15 +40,17 @@ export const useFieldService = (): IFieldService => {
       fields: [{ id: newField.id }],
     })
 
-    await fieldRepository.add(fieldDto)
+    await fieldRepository.add(fieldDto, {
+      revalidateTags: [CACHE_TAGS.Field.list()],
+    })
 
     return newField
   }
 
-  const create = async (createFieldData: ICreateFieldData) => {
+  const create = async (createFieldData: IFieldCreateData) => {
     await typeService.getOne(createFieldData.fieldType)
 
-    const fieldDto = fieldService.mapDataToDto(createFieldData)
+    const fieldDto = fieldMapper.mapDataToDto(createFieldData)
     const field = fieldDomainService.hydrate(fieldDto)
 
     const interfaceType = typeDomainService.type<IInterfaceTypeModel>(
@@ -60,7 +61,9 @@ export const useFieldService = (): IFieldService => {
       fields: [{ id: field.id }],
     })
 
-    await fieldRepository.add(fieldDto)
+    await fieldRepository.add(fieldDto, {
+      revalidateTags: [CACHE_TAGS.Field.list()],
+    })
 
     return field
   }
@@ -68,7 +71,9 @@ export const useFieldService = (): IFieldService => {
   const removeMany = async (fields: Array<IFieldModel>) => {
     fields.forEach((field) => fieldDomainService.fields.delete(field.id))
 
-    const nodesDeleted = fieldRepository.delete(fields)
+    const nodesDeleted = fieldRepository.delete(fields, {
+      revalidateTags: [CACHE_TAGS.Field.list()],
+    })
 
     return nodesDeleted
   }
@@ -123,16 +128,18 @@ export const useFieldService = (): IFieldService => {
     return
   }
 
-  const update = async (updateFieldData: ICreateFieldData) => {
+  const update = async (updateFieldData: IFieldCreateData) => {
     const field = fieldDomainService.getField(updateFieldData.id)
 
     Validator.assertsDefined(field)
 
-    const updateFieldDto = fieldService.mapDataToDto(updateFieldData)
+    const updateFieldDto = fieldMapper.mapDataToDto(updateFieldData)
 
     field.writeCache(updateFieldDto)
 
-    await fieldRepository.update({ id: updateFieldData.id }, updateFieldDto)
+    await fieldRepository.update({ id: updateFieldData.id }, updateFieldDto, {
+      revalidateTags: [CACHE_TAGS.Type.list(), CACHE_TAGS.Field.list()],
+    })
 
     return field
   }
@@ -204,63 +211,111 @@ export const useFieldService = (): IFieldService => {
 
   const closeFieldPopover = (
     router: AppRouterInstance,
-    { appId, componentId, pageId }: BuilderContextParams,
+    { params, searchParams, type }: IFieldUpdateRoute,
   ) => {
-    if (componentId) {
-      router.push(PageType.ComponentBuilder({ componentId }))
-    } else if (appId && pageId) {
-      router.push(
-        PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree),
-      )
+    const selectedKey = typeDomainService.selectedKey
+    const expandedKeys = typeDomainService.expandedNodes
+
+    if (type === IRouteType.Component) {
+      router.push(RoutePaths.Component.builder(params))
+    } else if (type === IRouteType.Page) {
+      router.push(RoutePaths.Page.builder(params))
     } else {
-      router.push(PageType.Type())
+      router.push(
+        RoutePaths.Type.base({ ...searchParams, expandedKeys, selectedKey }),
+      )
     }
   }
 
   const createPopover = {
-    close: closeFieldPopover,
-    open: (
-      router: AppRouterInstance,
-      {
-        appId,
-        componentId,
-        interfaceId,
-        pageId,
-      }: BuilderContextParams & { interfaceId: string },
-    ) => {
-      const url = componentId
-        ? PageType.ComponentBuilder({ componentId })
-        : PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
+    close: (router: AppRouterInstance, context: IFieldCreateRoute) => {
+      const { params, searchParams, type } = context
+      const selectedKey = typeDomainService.selectedKey
+      const expandedKeys = typeDomainService.expandedNodes
 
-      router.push(`${url}/interface/${interfaceId}/create-field`)
+      if (type === IRouteType.Component) {
+        router.push(RoutePaths.Component.builder(params))
+      } else if (type === IRouteType.Page) {
+        router.push(RoutePaths.Page.builder(params))
+      } else {
+        router.push(
+          RoutePaths.Type.base({ ...searchParams, expandedKeys, selectedKey }),
+        )
+      }
+    },
+    open: (router: AppRouterInstance, context: IFieldCreateRoute) => {
+      const { params, searchParams, type } = context
+      const selectedKey = typeDomainService.selectedKey
+      const expandedKeys = typeDomainService.expandedNodes
+
+      if (type === IRouteType.Page) {
+        router.push(
+          RoutePaths.Page.builderField.create({ params, searchParams }),
+        )
+      } else if (type === IRouteType.Component) {
+        router.push(
+          RoutePaths.Component.builderField.create({ params, searchParams }),
+        )
+      } else {
+        router.push(
+          RoutePaths.Type.field.create({
+            params,
+            searchParams: { ...searchParams, expandedKeys, selectedKey },
+          }),
+        )
+      }
     },
   }
 
   const updatePopover = {
     close: closeFieldPopover,
-    open: (
-      router: AppRouterInstance,
-      { appId, componentId, fieldId, pageId }: UpdatePopoverParamsContext,
-    ) => {
-      const url = componentId
-        ? PageType.ComponentBuilder({ componentId })
-        : PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
+    open: (router: AppRouterInstance, context: IFieldUpdateRoute) => {
+      const { params, searchParams, type } = context
+      const selectedKey = typeDomainService.selectedKey
+      const expandedKeys = typeDomainService.expandedNodes
 
-      router.push(`${url}/update-field/${fieldId}`)
+      if (type === IRouteType.Component) {
+        router.push(RoutePaths.Component.builderField.update(context))
+      } else if (type === IRouteType.Page) {
+        router.push(RoutePaths.Page.builderField.update(context))
+      } else {
+        router.push(
+          RoutePaths.Type.field.update({
+            params,
+            searchParams: { ...searchParams, expandedKeys, selectedKey },
+          }),
+        )
+      }
     },
   }
 
   const deletePopover = {
     close: closeFieldPopover,
-    open: (
-      router: AppRouterInstance,
-      { appId, componentId, fieldId, pageId }: UpdatePopoverParamsContext,
-    ) => {
-      const url = componentId
-        ? PageType.ComponentBuilder({ componentId })
-        : PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
+    open: (router: AppRouterInstance, context: IFieldUpdateRoute) => {
+      const { params, searchParams, type } = context
+      const selectedKey = typeDomainService.selectedKey
+      const expandedKeys = typeDomainService.expandedNodes
 
-      router.push(`${url}/delete/field/${fieldId}`)
+      if (type === IRouteType.Component) {
+        router.push(
+          RoutePaths.Component.builderField.delete({ params, searchParams }),
+        )
+      } else if (type === IRouteType.Page) {
+        router.push(
+          RoutePaths.Page.builderField.delete({ params, searchParams }),
+        )
+      } else {
+        router.push(
+          RoutePaths.Type.field.delete({
+            params,
+            searchParams: {
+              ...searchParams,
+              expandedKeys,
+              selectedKey,
+            },
+          }),
+        )
+      }
     },
   }
 
@@ -275,37 +330,4 @@ export const useFieldService = (): IFieldService => {
     update,
     updatePopover,
   }
-}
-
-export const fieldService = {
-  mapDataToDto: (fieldData: ICreateFieldData) => {
-    return {
-      ...fieldData,
-      api: { id: fieldData.interfaceTypeId },
-      defaultValues: isDefined(fieldData.defaultValues)
-        ? JSON.stringify(fieldData.defaultValues)
-        : null,
-      fieldType: { id: fieldData.fieldType },
-      validationRules: fieldData.validationRules
-        ? JSON.stringify(fieldData.validationRules)
-        : null,
-    }
-  },
-
-  mapFieldToDto: (field: IFieldModel): IFieldDto => {
-    return {
-      api: { id: field.api.id },
-      defaultValues: field.defaultValues
-        ? JSON.stringify(field.defaultValues)
-        : null,
-      description: field.description,
-      fieldType: { id: field.type.id },
-      id: field.id,
-      key: field.key,
-      name: field.name,
-      validationRules: field.validationRules
-        ? JSON.stringify(field.validationRules)
-        : null,
-    }
-  },
 }

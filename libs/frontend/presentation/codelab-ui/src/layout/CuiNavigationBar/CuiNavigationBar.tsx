@@ -4,7 +4,6 @@ import type { LinkProps } from 'next/link'
 import type { ReactNode } from 'react'
 
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
-import { useSearchParamsProps } from '@codelab/frontend-application-shared-store/router'
 import { Menu } from 'antd'
 import classNames from 'classnames'
 import Link from 'next/link'
@@ -50,9 +49,8 @@ export const CuiNavigationBar = ({
   primaryItems,
   secondaryItems,
 }: CuiNavigationBarProps) => {
-  const { primarySidebarKey } = useSearchParamsProps()
   const pathname = usePathname()
-  const selectedKey = primarySidebarKey || pathname
+  const selectedKey = pathname
 
   return (
     <div
@@ -73,15 +71,15 @@ export const CuiNavigationBar = ({
       <Menu
         className="h-full"
         defaultOpenKeys={[]}
+        defaultSelectedKeys={selectedKey ? [selectedKey] : []}
         items={primaryItems?.map(mapNavBarItemToMenuItem)}
         mode="inline"
-        selectedKeys={selectedKey ? [selectedKey] : []}
       />
       <Menu
         defaultOpenKeys={[]}
+        defaultSelectedKeys={selectedKey ? [selectedKey] : []}
         items={secondaryItems?.map(mapNavBarItemToMenuItem)}
         mode="inline"
-        selectedKeys={selectedKey ? [selectedKey] : []}
       />
     </div>
   )

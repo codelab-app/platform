@@ -49,18 +49,6 @@ export class UnionType
     }
   }
 
-  @modelAction
-  writeCache(unionTypeDto: Partial<IUnionTypeDto>) {
-    super.writeCache(unionTypeDto)
-
-    this.typesOfUnionType =
-      unionTypeDto.typesOfUnionType?.map((typeOfUnionType) =>
-        typeRef(typeOfUnionType.id),
-      ) ?? this.typesOfUnionType
-
-    return this
-  }
-
   toJsonSchema(context: ITypeTransformContext): JsonSchema {
     return {
       oneOf: this.typesOfUnionType.map((innerType) => {
@@ -81,5 +69,17 @@ export class UnionType
       }),
       ...(context.uniformSchema?.(this) ?? {}),
     }
+  }
+
+  @modelAction
+  writeCache(unionTypeDto: Partial<IUnionTypeDto>) {
+    super.writeCache(unionTypeDto)
+
+    this.typesOfUnionType =
+      unionTypeDto.typesOfUnionType?.map((typeOfUnionType) =>
+        typeRef(typeOfUnionType.id),
+      ) ?? this.typesOfUnionType
+
+    return this
   }
 }

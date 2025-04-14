@@ -14,18 +14,13 @@ import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { IPageKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { systemTypesData } from '@codelab/shared/data/seed'
 import { userDto } from '@codelab/shared/data/test'
-import { App } from '@codelab/shared-domain-module-app'
-import { delay, graphql, HttpResponse } from 'msw'
-import React from 'react'
+import { App } from '@codelab/shared-domain-module/app'
+import { graphql, HttpResponse } from 'msw'
 import { ErrorBoundary } from 'react-error-boundary'
 import { v4 } from 'uuid'
 
 import { InterfaceForm } from './InterfaceForm'
-import {
-  interfaceWithUnionField,
-  intType,
-  stringType,
-} from './tests/setup-store'
+import { interfaceWithUnionField } from './tests/setup-store'
 
 const meta: Meta<typeof InterfaceForm> = {
   component: InterfaceForm,

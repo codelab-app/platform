@@ -3,13 +3,14 @@ import type { ICommandHandler } from '@nestjs/cqrs'
 import { ExportApiCommand } from '@codelab/backend/application/type'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import {
-  AtomExportSchema,
+  AtomAggregateSchema,
   AtomSchema,
-  type IApiExport,
-  type IAtomExport,
+  type IApiAggregate,
+  type IAtomAggregate,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { type AtomWhere } from '@codelab/shared/infra/gqlgen'
+import { logger } from '@codelab/shared/infra/logging'
 import { Validator } from '@codelab/shared/infra/typebox'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 import { Type } from '@sinclair/typebox'
@@ -20,14 +21,14 @@ export class ExportAtomCommand {
 
 @CommandHandler(ExportAtomCommand)
 export class ExportAtomHandler
-  implements ICommandHandler<ExportAtomCommand, IAtomExport>
+  implements ICommandHandler<ExportAtomCommand, IAtomAggregate>
 {
   constructor(
     private readonly atomRepository: AtomRepository,
     private commandBus: CommandBus,
   ) {}
 
-  async execute(command: ExportAtomCommand): Promise<IAtomExport> {
+  async execute(command: ExportAtomCommand): Promise<IAtomAggregate> {
     const { where } = command
 
     const existingAtom = await this.atomRepository.findOneOrFail({
@@ -35,7 +36,7 @@ export class ExportAtomHandler
       where,
     })
 
-    const api = await this.commandBus.execute<ExportApiCommand, IApiExport>(
+    const api = await this.commandBus.execute<ExportApiCommand, IApiAggregate>(
       new ExportApiCommand({
         ...existingAtom.api,
         __typename: ITypeKind.InterfaceType,
@@ -45,11 +46,21 @@ export class ExportAtomHandler
     const atom = {
       ...existingAtom,
       __typename: 'Atom' as const,
-      api: { id: api.id },
+      api,
+      requiredParents: existingAtom.requiredParents?.sort((a, b) =>
+        a.id.localeCompare(b.id),
+      ),
+      suggestedChildren: existingAtom.suggestedChildren?.sort((a, b) =>
+        a.id.localeCompare(b.id),
+      ),
       tags: existingAtom.tags?.map((tag) => ({ id: tag.id })),
     }
 
-    const results = Validator.parse(AtomExportSchema, { api, atom })
+    // logger.debug('Export atom api', api)
+
+    const results = Validator.parse(AtomAggregateSchema, { api, atom })
+
+    // logger.debug('Export atom results', results)
 
     return results
   }

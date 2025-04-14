@@ -101,18 +101,6 @@ export class Tag
     }
   }
 
-  @modelAction
-  writeCache({ children, descendants, name, parent }: Partial<ITagDto>) {
-    this.name = name ?? this.name
-    this.children = children?.map((child) => tagRef(child.id)) ?? this.children
-    this.descendants =
-      descendants?.map((descendant) => tagRef(descendant.id)) ??
-      this.descendants
-    this.parent = parent ? tagRef(parent.id) : undefined
-
-    return this
-  }
-
   toCreateInput(): TagCreateInput {
     return {
       // children: connectNodeIds(this.children.map((tag) => tag.current.id)),
@@ -129,6 +117,18 @@ export class Tag
       name: this.name,
       parent: reconnectNodeId(this.parent?.current.id),
     }
+  }
+
+  @modelAction
+  writeCache({ children, descendants, name, parent }: Partial<ITagDto>) {
+    this.name = name ?? this.name
+    this.children = children?.map((child) => tagRef(child.id)) ?? this.children
+    this.descendants =
+      descendants?.map((descendant) => tagRef(descendant.id)) ??
+      this.descendants
+    this.parent = parent ? tagRef(parent.id) : undefined
+
+    return this
   }
 
   @computed

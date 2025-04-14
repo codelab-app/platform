@@ -7,12 +7,11 @@ import { PassportModule } from '@nestjs/passport'
 
 import { JWT_STRATEGY, JwtStrategy } from './jwt/jwt.strategy'
 import { JwtAuthGuard } from './jwt/jwt-auth.guard'
-import { JwtAuthMiddleware } from './jwt/jwt-auth.middleware'
 
 @Module({
-  exports: [JwtAuthMiddleware, JwtAuthGuard, JwtStrategy],
+  exports: [JwtAuthGuard, JwtStrategy],
   imports: [
-    CacheModule.register(),
+    CacheModule.register({ ttl: 60_000 }),
     UserDomainModule,
     PassportModule.register({
       defaultStrategy: JWT_STRATEGY,
@@ -21,6 +20,6 @@ import { JwtAuthMiddleware } from './jwt/jwt-auth.middleware'
       load: [auth0Config],
     }),
   ],
-  providers: [JwtStrategy, JwtAuthMiddleware, JwtAuthGuard],
+  providers: [JwtStrategy, JwtAuthGuard],
 })
 export class AuthModule {}

@@ -1,7 +1,5 @@
 import type { endpointConfig } from '@codelab/backend/infra/core'
-import type { INestApplication } from '@nestjs/common'
 import type { ConfigType } from '@nestjs/config'
-import type * as http from 'http'
 
 import { GraphqlService } from '@codelab/backend/infra/adapter/graphql'
 import {
@@ -12,10 +10,7 @@ import { ENDPOINT_CONFIG_KEY } from '@codelab/backend/infra/core'
 import { Logger } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { HttpAdapterHost, NestFactory } from '@nestjs/core'
-import {
-  ExpressAdapter,
-  type NestExpressApplication,
-} from '@nestjs/platform-express'
+import { type NestExpressApplication } from '@nestjs/platform-express'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { configureNestJsTypebox } from 'nestjs-typebox'
 

@@ -1,5 +1,6 @@
-import { test as base, expect } from '@playwright/test'
+import { expect } from '@playwright/test'
 
+import { baseTest } from '../../setup/fixtures/base.fixture'
 import { BuilderPage } from '../builder/builder.fixture'
 
 /**
@@ -43,9 +44,9 @@ export class CssBuilderPage extends BuilderPage {
   }
 }
 
-export const test = base.extend<{ builderPage: CssBuilderPage }>({
-  builderPage: async ({ page }, use) => {
-    const builderPage = new CssBuilderPage(page)
+export const test = baseTest.extend<{ builderPage: CssBuilderPage }>({
+  builderPage: async ({ context, page }, use) => {
+    const builderPage = new CssBuilderPage(page, context)
 
     await use(builderPage)
   },

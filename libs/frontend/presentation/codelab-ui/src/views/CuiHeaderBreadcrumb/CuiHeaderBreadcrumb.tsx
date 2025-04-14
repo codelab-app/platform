@@ -44,9 +44,16 @@ const createFullPath = (allItems: Array<HeaderBreadcrumbItem>) => {
 }
 
 export const CuiHeaderBreadcrumb = ({ items }: CuiHeaderBreadcrumbProps) => {
+  const breadcrumbItems = filterBreadcrumbItems(items)
+  const isBreadcrumbTruncated = breadcrumbItems.length < items.length
+
   return (
-    <Tooltip placement="bottom" title={createFullPath(items)}>
-      <div className="flex h-full items-center px-2">
+    <Tooltip
+      open={isBreadcrumbTruncated ? undefined : false}
+      placement="bottom"
+      title={createFullPath(items)}
+    >
+      <div className="flex h-full w-max items-center px-2">
         <Breadcrumb
           items={filterBreadcrumbItems(items)
             .filter((item) => item.title)

@@ -3,16 +3,15 @@ import type {
   IMoveElementContext,
   IUpdateElementData,
 } from '@codelab/frontend/abstract/domain'
-import type {
-  BuilderContextParams,
-  IPopover,
-} from '@codelab/frontend/abstract/types'
+import type { IPopover } from '@codelab/frontend/abstract/types'
 import type { IElementDto } from '@codelab/shared/abstract/core'
+
+import type { IBuilderRoute } from '../builder'
 
 export interface IElementService {
   // Moved from element model to decouple renderer
-  createPopover: IPopover<BuilderContextParams>
-  deletePopover: IPopover<BuilderContextParams & { elementId: string }>
+  createPopover: IPopover<IBuilderRoute, IBuilderRoute>
+  deletePopover: IPopover<IBuilderRoute<{ elementId: string }>, IBuilderRoute>
   create(data: IElementDto): Promise<IElementModel>
   // loadComponentTree(component: ComponentDevelopmentFragment): {
   //   hydratedElements: Array<IElementModel>
@@ -22,5 +21,8 @@ export interface IElementService {
   move(context: IMoveElementContext): Promise<void>
   remove(subRoot: IElementModel): Promise<void>
   syncModifiedElements(): Promise<void>
+  /**
+   * Since used in auto-save form, we must not revalidate cache anywhere in the call tree, otherwise form may re-render
+   */
   update(data: IUpdateElementData): Promise<IElementModel>
 }

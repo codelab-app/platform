@@ -50,7 +50,7 @@ export class PageDomainService {
     { id, kind, name, urlPattern }: IPageCreateFormData,
     app: ICreatePageAppDto,
   ) {
-    const user = this.authService.currentUser
+    const user = this.authService.currentUserSession
 
     const pageStoreApi = await this.typeDomainService.createInterface({
       id: v4(),

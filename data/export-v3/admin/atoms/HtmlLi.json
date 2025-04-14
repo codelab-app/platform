@@ -53,14 +53,14 @@
         "name": "AtomChildren Union",
         "typesOfUnionType": [
           {
-            "__typename": "CodeMirrorType",
-            "id": "010c4f5a-434b-4c3e-a0ed-01eb1f78172a",
-            "name": "Typescript Code"
-          },
-          {
             "__typename": "RichTextType",
             "id": "e7558508-3bb7-4f57-8f8c-6ac989911765",
             "name": "RichTextType"
+          },
+          {
+            "__typename": "CodeMirrorType",
+            "id": "010c4f5a-434b-4c3e-a0ed-01eb1f78172a",
+            "name": "Typescript Code"
           }
         ]
       }
@@ -77,7 +77,14 @@
     "icon": null,
     "id": "a8f1d48b-1a82-4178-9ae9-1cc213d7d905",
     "name": "HtmlLi",
-    "requiredParents": [],
+    "requiredParents": [
+      {
+        "id": "1c9db3e8-8790-47c8-b09e-eb877f66d2d0"
+      },
+      {
+        "id": "958c84bf-c7c1-4e7e-aca4-3f245acbd73b"
+      }
+    ],
     "suggestedChildren": [],
     "tags": [
       {

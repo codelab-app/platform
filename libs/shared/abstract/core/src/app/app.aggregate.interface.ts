@@ -2,31 +2,19 @@ import type { Static } from '@sinclair/typebox'
 
 import { Type } from '@sinclair/typebox'
 
-import {
-  ComponentAggregateExportSchema,
-  ComponentAggregateImportSchema,
-} from '../component'
+import { ComponentAggregateSchema } from '../component'
 import { DomainSchema } from '../domain/domain.dto.interface'
-import { PageAggregateExportSchema, PageAggregateImportSchema } from '../page'
+import { PageAggregateSchema } from '../page'
 import { ResourceDtoSchema } from '../resource'
-import { AppExportSchema } from './app.dto.interface'
+import { omitOwner } from '../type'
+import { AppDtoSchema } from './app.dto.interface'
 
-export const AppAggregateExportSchema = Type.Object({
-  app: AppExportSchema,
-  components: Type.Array(ComponentAggregateExportSchema),
+export const AppAggregateSchema = Type.Object({
+  app: omitOwner(AppDtoSchema),
+  components: Type.Array(ComponentAggregateSchema),
   domains: Type.Array(DomainSchema),
-  pages: Type.Array(PageAggregateExportSchema),
-  resources: Type.Array(Type.Omit(ResourceDtoSchema, ['owner'])),
+  pages: Type.Array(PageAggregateSchema),
+  resources: Type.Array(omitOwner(ResourceDtoSchema)),
 })
 
-export type IAppAggregateExport = Static<typeof AppAggregateExportSchema>
-
-export const AppAggregateImportSchema = Type.Object({
-  app: AppExportSchema,
-  components: Type.Array(ComponentAggregateImportSchema),
-  domains: Type.Array(DomainSchema),
-  pages: Type.Array(PageAggregateImportSchema),
-  resources: Type.Array(ResourceDtoSchema),
-})
-
-export type IAppAggregateImport = Static<typeof AppAggregateImportSchema>
+export type IAppAggregate = Static<typeof AppAggregateSchema>

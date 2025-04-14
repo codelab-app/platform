@@ -1,9 +1,8 @@
-import { getEnv } from '@codelab/shared/config/env'
-import test, { expect } from '@playwright/test'
+import { getTimestamp } from '@codelab/shared/infra/logging'
+import { expect } from '@playwright/test'
 
-import { getTimestamp, waitForJobCompletion } from '../../commands'
 import { globalBeforeAll } from '../../setup/before-all'
-import { demoRequest } from './demo.fixture'
+import { demoRequest, test } from './demo.fixture'
 
 test.describe.configure({ mode: 'serial' })
 

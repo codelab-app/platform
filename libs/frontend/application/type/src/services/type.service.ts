@@ -1,6 +1,7 @@
 import type {
-  GetDataFn,
+  ITypeCreateRoute,
   ITypeService,
+  ITypeUpdateRoute,
 } from '@codelab/frontend/abstract/application'
 import type {
   IInterfaceTypeModel,
@@ -8,55 +9,29 @@ import type {
   ITypeModel,
   ITypeUpdateDto,
 } from '@codelab/frontend/abstract/domain'
-import type { IRef } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import { typeRef } from '@codelab/frontend/abstract/domain'
-import { PageType } from '@codelab/frontend/abstract/types'
-import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { typeRepository } from '@codelab/frontend-domain-type/repositories'
 import { TypeFactory } from '@codelab/frontend-domain-type/store'
-import {
-  useApplicationStore,
-  useDomainStore,
-} from '@codelab/frontend-infra-mobx/context'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { TypeKind } from '@codelab/shared/infra/gqlgen'
 import { Validator } from '@codelab/shared/infra/typebox'
+import {
+  findTypeApi,
+  findTypeServerActions,
+} from '@codelab/shared-domain-module/type'
 import { prop, sortBy } from 'remeda'
 
+const { GetTypeReferences } = findTypeServerActions
+
 export const useTypeService = (): ITypeService => {
-  const {
-    pagination: { typePagination },
-  } = useApplicationStore()
-
-  const { fieldDomainService, typeDomainService, userDomainService } =
-    useDomainStore()
-
+  const { typeDomainService, userDomainService } = useDomainStore()
   const user = userDomainService.user
   const owner = { id: user.id }
-
-  const getDataFn: GetDataFn<ITypeModel> = async (
-    page,
-    pageSize,
-    filter,
-    search,
-  ) => {
-    const { items: baseTypes, totalCount: totalItems } =
-      await typeRepository.findBaseTypes({
-        options: {
-          limit: pageSize,
-          offset: (page - 1) * pageSize,
-        },
-        where: graphqlFilterMatches(filter, search),
-      })
-
-    const typeIds = baseTypes.map(({ id }) => id)
-    const items = await getAll(typeIds)
-
-    return { items, totalItems }
-  }
 
   const create = async (data: ITypeCreateFormData) => {
     const typeDto = TypeFactory.mapDataToDto(data, owner)
@@ -64,20 +39,40 @@ export const useTypeService = (): ITypeService => {
 
     // use hydrated type here instead of dto to make sure the dependant types have full data
     // (for example "typesOfUnionType" should not only contain ids, but also __typename)
-    await typeRepository.add(type.toJson)
-
-    typePagination.dataRefs.set(type.id, typeRef(type))
+    await typeRepository.add(type.toJson, {
+      revalidateTags: [CACHE_TAGS.Type.list()],
+    })
 
     return type
   }
 
-  const deleteType = async (types: Array<ITypeModel>) => {
+  const deleteType = async (type: ITypeModel) => {
+    const { getTypeReferences } = await GetTypeReferences({
+      typeId: type.id,
+    })
+
+    if (getTypeReferences?.length) {
+      const allRefs = getTypeReferences.map(
+        (typeRef) => `${typeRef.name} (${typeRef.label})`,
+      )
+
+      const label = Array.from(new Set(allRefs)).join(', ')
+
+      throw new Error(`Can't delete typed since it's referenced in ${label}`)
+    }
+
+    await removeMany([type])
+  }
+
+  const removeMany = async (types: Array<ITypeModel>) => {
     const deleteTypeOperation = async (type: ITypeModel) => {
       const { id } = type
 
       typeDomainService.types.delete(id)
 
-      return await typeRepository.delete([type])
+      return await typeRepository.delete([type], {
+        revalidateTags: [CACHE_TAGS.Type.list()],
+      })
     }
 
     const items = await Promise.all(
@@ -143,9 +138,9 @@ export const useTypeService = (): ITypeService => {
   }
 
   const getSelectOptions = async () => {
-    const { items } = await typeRepository.findBaseTypes()
+    const { iBaseTypes } = await findTypeApi().GetBaseTypes({})
 
-    return sortBy(items, prop('name'))
+    return sortBy(iBaseTypes, prop('name'))
   }
 
   const update = async (data: ITypeUpdateDto) => {
@@ -159,23 +154,31 @@ export const useTypeService = (): ITypeService => {
 
     // use hydrated type here instead of dto to make sure the dependant types have full data
     // (for example "typesOfUnionType" should not only contain ids, but also __typename)
-    await typeRepository.update({ id: type.id }, type.toJson)
+    await typeRepository.update({ id: type.id }, type.toJson, {
+      revalidateTags: [CACHE_TAGS.Type.list()],
+    })
 
     return type
   }
 
-  const shouldLoadType = (typeId: string) => {
+  const shouldLoadType = (
+    typeId: string,
+    visitedTypeIds: Set<string> = new Set(),
+  ) => {
     const type = typeDomainService.types.get(typeId)
 
-    if (!type) {
+    if (!type || visitedTypeIds.has(typeId)) {
       return true
+    } else {
+      // to avoid infinite recursion for circular types
+      visitedTypeIds.add(typeId)
     }
 
     if (type.kind === TypeKind.InterfaceType) {
       for (const field of type.fields) {
         if (
           !field.type.maybeCurrent ||
-          shouldLoadType(field.type.maybeCurrent.id)
+          shouldLoadType(field.type.maybeCurrent.id, visitedTypeIds)
         ) {
           return true
         }
@@ -185,7 +188,7 @@ export const useTypeService = (): ITypeService => {
     if (type.kind === TypeKind.ArrayType) {
       if (
         !type.itemType?.maybeCurrent ||
-        shouldLoadType(type.itemType.maybeCurrent.id)
+        shouldLoadType(type.itemType.maybeCurrent.id, visitedTypeIds)
       ) {
         return true
       }
@@ -195,7 +198,7 @@ export const useTypeService = (): ITypeService => {
       for (const typeOfUnion of type.typesOfUnionType) {
         if (
           !typeOfUnion.maybeCurrent ||
-          shouldLoadType(typeOfUnion.maybeCurrent.id)
+          shouldLoadType(typeOfUnion.maybeCurrent.id, visitedTypeIds)
         ) {
           return true
         }
@@ -206,33 +209,58 @@ export const useTypeService = (): ITypeService => {
   }
 
   const updatePopover = {
-    close: (router: AppRouterInstance) => {
-      router.push(PageType.Type())
+    close: (router: AppRouterInstance, { searchParams }: ITypeUpdateRoute) => {
+      const selectedKey = typeDomainService.selectedKey
+      const expandedKeys = typeDomainService.expandedNodes
+
+      router.push(
+        RoutePaths.Type.base({ ...searchParams, expandedKeys, selectedKey }),
+      )
     },
-    open: (router: AppRouterInstance, { id }: IRef) => {
-      router.push(PageType.TypeUpdate({ id }))
+    open: (
+      router: AppRouterInstance,
+      { params, searchParams }: ITypeUpdateRoute,
+    ) => {
+      const selectedKey = typeDomainService.selectedKey
+      const expandedKeys = typeDomainService.expandedNodes
+
+      router.push(
+        RoutePaths.Type.update({
+          params,
+          searchParams: { ...searchParams, expandedKeys, selectedKey },
+        }),
+      )
     },
   }
 
   const createPopover = {
-    close: (router: AppRouterInstance) => {
-      router.push(PageType.Type())
+    close: (router: AppRouterInstance, { searchParams }: ITypeCreateRoute) => {
+      const selectedKey = typeDomainService.selectedKey
+      const expandedKeys = typeDomainService.expandedNodes
+
+      router.push(
+        RoutePaths.Type.base({ ...searchParams, expandedKeys, selectedKey }),
+      )
     },
-    open: (router: AppRouterInstance) => {
-      router.push(PageType.TypeCreate())
+    open: (router: AppRouterInstance, { searchParams }: ITypeCreateRoute) => {
+      const selectedKey = typeDomainService.selectedKey
+      const expandedKeys = typeDomainService.expandedNodes
+
+      router.push(
+        RoutePaths.Type.create({ ...searchParams, expandedKeys, selectedKey }),
+      )
     },
   }
 
   return {
     create,
     createPopover,
+    deleteType,
     getAll,
-    getDataFn,
     getInterface,
     getOne,
     getSelectOptions,
-    paginationService: typePagination,
-    removeMany: deleteType,
+    removeMany,
     update,
     updatePopover,
   }

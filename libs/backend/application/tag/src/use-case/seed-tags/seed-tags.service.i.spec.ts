@@ -6,7 +6,7 @@ import { TagDomainModule } from '@codelab/backend/domain/tag'
 import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
 import { initUserContext } from '@codelab/backend/test/setup'
 import { IAntdCategoryTag, IAtomType } from '@codelab/shared/abstract/core'
-import { antdAtoms } from '@codelab/shared-domain-module-atom'
+import { antdAtoms } from '@codelab/shared-domain-module/atom'
 import { CqrsModule } from '@nestjs/cqrs'
 
 import { SeedTagsService } from './seed-tags.service'

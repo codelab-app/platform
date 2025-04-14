@@ -7,7 +7,7 @@ import { TagApplicationController } from './tag.application.controller'
 import {
   ExportTagsHandler,
   ImportTagsHandler,
-  SeedCypressTagsHandler,
+  SeedE2eTagsHandler,
   SeedTagsService,
 } from './use-case'
 
@@ -18,7 +18,7 @@ import {
   providers: [
     ExportTagsHandler,
     ImportTagsHandler,
-    SeedCypressTagsHandler,
+    SeedE2eTagsHandler,
     SeedTagsService,
   ],
 })

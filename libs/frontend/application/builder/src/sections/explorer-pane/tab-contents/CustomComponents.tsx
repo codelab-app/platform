@@ -2,7 +2,7 @@
 
 import type { IComponentModel } from '@codelab/frontend/abstract/domain'
 
-import { PageType } from '@codelab/frontend/abstract/types'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { downloadJsonAsFile } from '@codelab/frontend/shared/utils'
 import { exportComponentService } from '@codelab/frontend-application-component/use-cases/export-component'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
@@ -24,11 +24,11 @@ export const CustomComponents = observer(() => {
   })
 
   const editComponent = (componentId: string) => {
-    router.push(PageType.ComponentBuilder({ componentId }))
+    router.push(RoutePaths.Component.builder({ componentId }))
   }
 
   const deleteComponent = (componentId: string) => {
-    router.push(PageType.ComponentDelete({ id: componentId }))
+    router.push(RoutePaths.Component.delete({ id: componentId }))
   }
 
   return (

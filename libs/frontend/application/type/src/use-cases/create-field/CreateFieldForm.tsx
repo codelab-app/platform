@@ -1,6 +1,6 @@
 'use client'
 
-import type { ICreateFieldData } from '@codelab/shared/abstract/core'
+import type { IFieldCreateData } from '@codelab/shared/abstract/core'
 
 import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
 import { SelectDefaultValue } from '@codelab/frontend/presentation/components/interface-form'
@@ -40,11 +40,7 @@ export const CreateFieldForm = observer<CreateFieldFormProps>(
     const { typeDomainService } = useDomainStore()
     const fieldSchema = useFieldSchema(createFieldSchema)
 
-    const onSubmit = (input: ICreateFieldData) => {
-      if (!interfaceId) {
-        throw new Error('Missing interface type id')
-      }
-
+    const onSubmit = (input: IFieldCreateData) => {
       const validationRules = filterValidationRules(
         input.validationRules,
         typeDomainService.primitiveKind(input.fieldType),
@@ -54,7 +50,7 @@ export const CreateFieldForm = observer<CreateFieldFormProps>(
     }
 
     return (
-      <Form<ICreateFieldData>
+      <Form<IFieldCreateData>
         errorMessage="Error while creating field"
         model={{
           id: v4(),
@@ -96,7 +92,7 @@ export const CreateFieldForm = observer<CreateFieldFormProps>(
           ]}
         />
         <TypeSelect label="Type" name="fieldType" />
-        <DisplayIfField<ICreateFieldData>
+        <DisplayIfField<IFieldCreateData>
           condition={({ model }) =>
             !isBoolean(typeDomainService, model.fieldType) &&
             canSetDefaultValue(typeDomainService, model.fieldType)
@@ -104,12 +100,12 @@ export const CreateFieldForm = observer<CreateFieldFormProps>(
         >
           <AutoFields fields={['validationRules.general']} />
         </DisplayIfField>
-        <DisplayIfField<ICreateFieldData>
+        <DisplayIfField<IFieldCreateData>
           condition={({ model }) =>
             isPrimitive(typeDomainService, model.fieldType)
           }
         >
-          <DisplayIfField<ICreateFieldData>
+          <DisplayIfField<IFieldCreateData>
             condition={({ model }) =>
               isString(typeDomainService, model.fieldType)
             }
@@ -118,7 +114,7 @@ export const CreateFieldForm = observer<CreateFieldFormProps>(
               fields={[`validationRules.${PrimitiveTypeKind.String}`]}
             />
           </DisplayIfField>
-          <DisplayIfField<ICreateFieldData>
+          <DisplayIfField<IFieldCreateData>
             condition={({ model }) =>
               isInteger(typeDomainService, model.fieldType)
             }
@@ -127,7 +123,7 @@ export const CreateFieldForm = observer<CreateFieldFormProps>(
               fields={[`validationRules.${PrimitiveTypeKind.Integer}`]}
             />
           </DisplayIfField>
-          <DisplayIfField<ICreateFieldData>
+          <DisplayIfField<IFieldCreateData>
             condition={({ model }) =>
               isFloat(typeDomainService, model.fieldType)
             }
@@ -137,7 +133,7 @@ export const CreateFieldForm = observer<CreateFieldFormProps>(
             />
           </DisplayIfField>
         </DisplayIfField>
-        <DisplayIfField<ICreateFieldData>
+        <DisplayIfField<IFieldCreateData>
           condition={({ model }) =>
             canSetDefaultValue(typeDomainService, model.fieldType)
           }

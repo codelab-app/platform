@@ -1,5 +1,4 @@
 import { type ProjectConfiguration, type Tree, updateJson } from '@nx/devkit'
-import { mergeDeep } from 'remeda'
 
 export const sortKeys = (object: object): object =>
   Object.fromEntries(Object.entries(object).sort())
@@ -36,9 +35,8 @@ export const appendTsconfigPath = (
 
     const paths = json.compilerOptions.paths ?? {}
 
-    mergeDeep(paths, {
-      [moduleAlias]: [targetPath],
-    })
+    // Replace hold alias with new
+    paths[moduleAlias] = [targetPath]
 
     json.compilerOptions.paths = sortKeys(paths)
 
@@ -50,10 +48,16 @@ export const removeTsconfigPath = (tree: Tree, moduleAlias: string) => {
   updateJson(tree, 'tsconfig.base.json', (json) => {
     const paths = json.compilerOptions.paths ?? {}
 
-    // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-    delete json.compilerOptions.paths[moduleAlias]
+    // Check if the path exists before attempting to delete it
+    if (moduleAlias in paths) {
+      console.log(`Removing existing path alias: ${moduleAlias}`)
+      // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+      delete paths[moduleAlias]
+    } else {
+      console.log(`Attempted to remove non-existent path alias: ${moduleAlias}`)
+    }
 
-    json.compilerOptions.paths = paths
+    json.compilerOptions.paths = sortKeys(paths)
 
     return json
   })

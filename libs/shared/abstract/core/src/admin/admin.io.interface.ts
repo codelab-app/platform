@@ -2,10 +2,10 @@ import type { Static } from '@sinclair/typebox'
 
 import { Type } from '@sinclair/typebox'
 
-import { AtomExportSchema } from '../atom'
-import { ComponentAggregateExportSchema } from '../component'
+import { AtomAggregateSchema } from '../atom'
+import { ComponentAggregateSchema } from '../component'
 import { TagSchema } from '../tag'
-import { TypeExportSchema } from '../type'
+import { TypeDtoWithoutOwnerSchema } from '../type'
 
 /**
  * When we export data, we should keep a file for each atom, this way it makes it easier to look at diff.
@@ -23,10 +23,10 @@ import { TypeExportSchema } from '../type'
  * This is the final complete data that is passed into our import function
  */
 export const AdminExportSchema = Type.Object({
-  atoms: Type.Array(AtomExportSchema),
-  components: Type.Array(ComponentAggregateExportSchema),
+  atoms: Type.Array(AtomAggregateSchema),
+  components: Type.Array(ComponentAggregateSchema),
   // resources: Array<IResourceOutputDto>
-  systemTypes: Type.Array(TypeExportSchema),
+  systemTypes: Type.Array(TypeDtoWithoutOwnerSchema),
   tags: Type.Array(TagSchema),
 })
 

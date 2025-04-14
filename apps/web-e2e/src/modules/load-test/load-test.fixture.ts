@@ -1,7 +1,9 @@
-import { PageType, UiKey } from '@codelab/frontend/abstract/types'
-import { atomTypes } from '@codelab/shared/data/test'
-import { test as base, expect } from '@playwright/test'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { UiKey } from '@codelab/frontend/abstract/types'
+import { E2E_ATOM_TYPES } from '@codelab/shared/data/test'
+import { expect } from '@playwright/test'
 
+import { baseTest } from '../../setup/fixtures/base.fixture'
 import { BuilderPage } from '../builder/builder.fixture'
 import { PAGE_COUNT } from './load-test.data'
 
@@ -10,7 +12,7 @@ import { PAGE_COUNT } from './load-test.data'
  */
 export class LoadTestPage extends BuilderPage {
   async validateCanOpenAppListPage(appName: string) {
-    await this.page.goto(PageType.AppList())
+    await this.page.goto(RoutePaths.App.list())
 
     await expect(this.getSpinner()).toBeHidden()
 
@@ -39,20 +41,23 @@ export class LoadTestPage extends BuilderPage {
 
   private async checkBuilderPage() {
     await this.checkRootElementExists()
-    await this.page.locator('span[aria-label="plus-square"]').click()
+    await this.page.getByLabel('plus-square').click()
 
     await expect(this.page.getByRole('treeitem')).toHaveCount(
       // +1 for the root ReactFragment element
-      atomTypes.length + 1,
+      E2E_ATOM_TYPES.length + 1,
     )
 
     await expect(
       this.getBuilderRenderContainer().locator('[data-element-id]'),
-    ).toHaveCount(atomTypes.length)
+    ).toHaveCount(E2E_ATOM_TYPES.length)
+
+    // close it for next check
+    await this.page.getByLabel('minus-square').click()
   }
 
   private async checkPageListPage(appName: string) {
-    await this.checkPageHeaderTitle([appName, 'Pages', 'provider'])
+    await this.checkPageHeaderTitle([appName, 'Pages'])
 
     await expect(this.getSpinner()).toBeHidden()
 
@@ -60,9 +65,9 @@ export class LoadTestPage extends BuilderPage {
   }
 }
 
-export const test = base.extend<{ builderPage: LoadTestPage }>({
-  builderPage: async ({ page }, use) => {
-    const builderPage = new LoadTestPage(page)
+export const test = baseTest.extend<{ builderPage: LoadTestPage }>({
+  builderPage: async ({ context, page }, use) => {
+    const builderPage = new LoadTestPage(page, context)
 
     await use(builderPage)
   },

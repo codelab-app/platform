@@ -1,15 +1,18 @@
 import type {
-  IComponentAggregateExport,
+  IComponentAggregate,
   IComponentDto,
+  IComponentType,
   ICreateComponentData,
   IInterfaceTypeDto,
   IStoreDto,
 } from '@codelab/shared/abstract/core'
 
+import { ReadAdminDataService } from '@codelab/backend/application/data'
 import { ElementApplicationService } from '@codelab/backend/application/element'
 import { StoreApplicationService } from '@codelab/backend/application/store'
+import { TypeApplicationService } from '@codelab/backend/application/type'
 import { ComponentRepository } from '@codelab/backend/domain/component'
-import { PropDomainService } from '@codelab/backend/domain/prop'
+import { ElementRepository } from '@codelab/backend/domain/element'
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { Store } from '@codelab/backend/domain/store'
 import {
@@ -28,22 +31,64 @@ import { ExportComponentCommand } from '../use-case'
 @Injectable()
 export class ComponentApplicationService {
   constructor(
+    private readonly readAdminDataService: ReadAdminDataService,
     private authDomainService: AuthDomainService,
     private componentRepository: ComponentRepository,
     private commandBus: CommandBus,
     private storeApplicationService: StoreApplicationService,
     private elementApplicationService: ElementApplicationService,
-    private propDomainService: PropDomainService,
     private interfaceTypeRepository: InterfaceTypeRepository,
+    private typeApplicationService: TypeApplicationService,
     private logger: PinoLoggerService,
+    private elementRepository: ElementRepository,
   ) {}
 
-  async createComponent(createComponentData: ICreateComponentData) {
-    this.logger.debug('createComponent', {
-      context: 'Create Component Data',
-      data: createComponentData,
+  /**
+   * Empty means import all
+   */
+  async addComponents(componentsData: Array<IComponentAggregate>) {
+    const apis = componentsData.flatMap(({ api }) => api)
+    const components = componentsData.flatMap(({ component }) => component)
+
+    const elements = componentsData.flatMap(
+      ({ elements: _elements }) => _elements,
+    )
+
+    const stores = componentsData.flatMap(({ store }) => store)
+
+    this.logger.log('Import components', {
+      componentsCount: componentsData.length,
+      context: 'ImportComponentsHandler',
     })
 
+    await this.typeApplicationService.addApis(apis)
+
+    await this.storeApplicationService.addStores(stores)
+
+    for (const element of elements) {
+      await this.elementRepository.add(element)
+    }
+
+    await this.componentRepository.addMany(
+      components.map((component) => ({
+        ...component,
+        owner: this.authDomainService.currentUser,
+      })),
+    )
+  }
+
+  /**
+   * Undefined means import all components
+   */
+  async addComponentsFromTypes(componentTypes?: Array<IComponentType>) {
+    const componentsData = componentTypes
+      ? this.readAdminDataService.getComponentsByNames(componentTypes)
+      : this.readAdminDataService.components
+
+    return await this.addComponents(componentsData)
+  }
+
+  async createComponent(createComponentData: ICreateComponentData) {
     const owner = this.authDomainService.currentUser
 
     if (owner.id !== createComponentData.owner.id) {
@@ -105,7 +150,7 @@ export class ComponentApplicationService {
   /**
    * Export all components owned by admins
    */
-  async exportComponentsForAdmin(): Promise<Array<IComponentAggregateExport>> {
+  async exportComponentsForAdmin(): Promise<Array<IComponentAggregate>> {
     const components = await this.componentRepository.find({
       where: {
         owner: {
@@ -114,17 +159,26 @@ export class ComponentApplicationService {
       },
     })
 
-    const results: Array<IComponentAggregateExport> = []
+    const results: Array<IComponentAggregate> = []
 
     for (const component of components) {
       const result = await this.commandBus.execute<
         ExportComponentCommand,
-        IComponentAggregateExport
+        IComponentAggregate
       >(new ExportComponentCommand(component.id))
 
       results.push(result)
     }
 
     return results
+  }
+
+  /**
+   * Import all components from repo
+   */
+  async importComponentsFromRepo() {
+    const components = this.readAdminDataService.components
+
+    return await this.addComponents(components)
   }
 }

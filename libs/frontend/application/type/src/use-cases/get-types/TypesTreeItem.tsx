@@ -2,12 +2,14 @@ import type {
   ITreeNode,
   ITypeTreeNodeData,
 } from '@codelab/frontend/abstract/domain'
+import type { SearchParamsClientProps } from '@codelab/frontend/abstract/types'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import type { SyntheticEvent } from 'react'
 
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { PageType, UiKey } from '@codelab/frontend/abstract/types'
+import { IRouteType } from '@codelab/frontend/abstract/application'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
@@ -16,30 +18,40 @@ import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { useRouter } from 'next/navigation'
 
+import { useFieldService } from '../../services/field.service'
+import { useTypeService } from '../../services/type.service'
+
 interface TypesTreeItemProps {
   data: ITreeNode<ITypeTreeNodeData>
+  searchParams: SearchParamsClientProps
 }
 
-export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
+export const TypesTreeItem = ({ data, searchParams }: TypesTreeItemProps) => {
   const { fieldDomainService } = useDomainStore()
+  const typeService = useTypeService()
+  const fieldService = useFieldService()
   const router = useRouter()
 
-  const onEdit = () => {
+  const deleteNode = () => {
     if (data.extraData.type === 'type') {
-      router.push(PageType.TypeUpdate(data.extraData.node))
+      void typeService.deleteType(data.extraData.node)
     } else {
-      router.push(PageType.TypeFieldUpdate(data.extraData.node))
+      void fieldService.removeMany([data.extraData.node])
     }
   }
 
-  const onDelete = (event: SyntheticEvent) => {
-    // Prevent triggering `onEdit`
-    event.stopPropagation()
-
+  const onEdit = () => {
     if (data.extraData.type === 'type') {
-      router.push(PageType.TypeDelete(data.extraData.node))
+      typeService.updatePopover.open(router, {
+        params: { typeId: data.extraData.node.id },
+        searchParams,
+      })
     } else {
-      router.push(PageType.TypeFieldDelete(data.extraData.node))
+      fieldService.updatePopover.open(router, {
+        params: { fieldId: data.extraData.node.id },
+        searchParams,
+        type: IRouteType.Type,
+      })
     }
   }
 
@@ -66,17 +78,27 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
         ? data.extraData.node.type.current
         : data.extraData.node
 
-    router.push(PageType.TypeFieldCreate(interfaceType.id))
+    fieldService.createPopover.open(router, {
+      params: { interfaceId: interfaceType.id },
+      searchParams,
+      type: IRouteType.Type,
+    })
   }
 
   const toolbarItems: Array<ToolbarItem> = [
     {
+      confirmText: `Are you sure you want to delete "${data.title}"?`,
       cuiKey:
         data.extraData.type === 'type'
           ? UiKey.TypeToolbarItemDelete
           : UiKey.FieldToolbarItemDelete,
       icon: <DeleteOutlined />,
-      onClick: onDelete,
+      onClick: (event: SyntheticEvent) => {
+        // Prevent triggering `onEdit`
+        event.stopPropagation()
+
+        deleteNode()
+      },
       title: data.extraData.type === 'type' ? 'Delete type' : 'Delete field',
     },
   ]
@@ -91,7 +113,7 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
     toolbarItems.push({
       cuiKey: UiKey.FieldToolbarItemCreate,
       icon: <PlusOutlined />,
-      onClick: onAddField,
+      onClick: (event: SyntheticEvent) => onAddField(event),
       title: 'Add field',
     })
   }
@@ -100,9 +122,10 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
     <CuiTreeItem
       highlight={data.highlight}
       key={data.key}
-      onClick={onEdit}
+      onClick={(event) => onEdit()}
       primaryTitle={data.primaryTitle}
       secondaryTitle={data.secondaryTitle}
+      selectedKey={data.key}
       toolbar={
         <CuiTreeItemToolbar
           items={toolbarItems}

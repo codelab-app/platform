@@ -36,9 +36,7 @@ const preview: Preview = {
       }
 
       const store = createRootStore({
-        routerProps: {
-          pathParams: {},
-        },
+        routerProps: {},
         user,
       })
 

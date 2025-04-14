@@ -18,9 +18,7 @@ export abstract class AbstractRepository<
   Options,
 > implements IRepository<Dto, Model, Where, Options>
 {
-  constructor(protected loggerService: PinoLoggerService) {
-    // Remove debug flag initialization
-  }
+  constructor(protected loggerService: PinoLoggerService) {}
 
   /**
    * Array adds complexity, create an optional `addMany` if needed
@@ -173,17 +171,29 @@ export abstract class AbstractRepository<
         op: 'repository.find',
       },
       async () => {
-        const results = await this._find({ options, selectionSet, where })
+        try {
+          const results = await this._find({ options, selectionSet, where })
 
-        if (schema) {
-          const data = results.map((result) => {
-            return Validator.parse(schema, result)
+          if (schema) {
+            const data = results.map((result) => {
+              return Validator.parse(schema, result)
+            })
+
+            return data
+          }
+
+          return results
+        } catch (error) {
+          this.loggerService.error('Failed to find items', {
+            context: this.constructor.name,
+            data: {
+              error,
+              options,
+              where,
+            },
           })
-
-          return data
+          throw error
         }
-
-        return results
       },
     )
   }

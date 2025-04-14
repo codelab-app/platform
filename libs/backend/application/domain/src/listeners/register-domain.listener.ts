@@ -34,6 +34,10 @@ export class RegisterDomainListener implements BeforeApplicationShutdown {
     private logger: PinoLoggerService,
   ) {}
 
+  beforeApplicationShutdown(signal: string) {
+    this.unsubscribeFromServer()
+  }
+
   @OnEvent('server.ready')
   registerCreatedSubscriptions() {
     const subscription = nodeApolloClient()
@@ -113,10 +117,6 @@ export class RegisterDomainListener implements BeforeApplicationShutdown {
       })
 
     this.subscriptions?.push(subscription)
-  }
-
-  beforeApplicationShutdown(signal: string) {
-    this.unsubscribeFromServer()
   }
 
   private subscriptions?: Array<Subscription> = []

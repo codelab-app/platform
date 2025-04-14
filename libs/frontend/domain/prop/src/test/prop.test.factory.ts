@@ -6,12 +6,6 @@ import { Prop } from '../store'
 
 export const propFactory = (dto?: Partial<IPropDto>) => {
   const propDto: IPropDto = {
-    // Api is optional here
-    api: dto?.api?.id
-      ? {
-          id: dto.api.id,
-        }
-      : undefined,
     data: dto?.data ?? '{}',
     id: dto?.id ?? v4(),
   }

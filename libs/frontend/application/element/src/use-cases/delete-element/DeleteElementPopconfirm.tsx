@@ -5,14 +5,12 @@ import type { PopconfirmProps } from 'antd'
 import type { ReactNode } from 'react'
 
 import { getUiDataKey, type UiKey } from '@codelab/frontend/abstract/types'
-import { loadingAtom } from '@codelab/frontend-application-shared-store/loading'
 import {
   useApplicationStore,
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
 import { useAsyncHandler } from '@codelab/frontend-presentation-components-form'
 import { Popconfirm } from 'antd'
-import { useSetAtom } from 'jotai'
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
 

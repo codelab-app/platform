@@ -1,9 +1,11 @@
 import type {
   IAppDto,
+  IComponent,
   ICreateComponentData,
   ICreateElementData,
   IPageCreateFormData,
   IRef,
+  IUserDto,
 } from '@codelab/shared/abstract/core'
 import type { APIRequestContext } from '@playwright/test'
 
@@ -11,7 +13,8 @@ import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
 import { v4 } from 'uuid'
 
-import { seedAppData } from '../builder/builder.data'
+import { requestOrThrow } from '../../api'
+import { seedAppData } from '../app/app.data'
 
 export const componentName = 'Component Name'
 export const spaceElementName = 'Space Item'
@@ -57,26 +60,36 @@ export const builderElements = [
 ]
 
 export const seedTestData = async (request: APIRequestContext) => {
-  const app = await seedAppData(request)
-  const ownerResponse = await request.get('/api/v1/user/me')
-  const owner = await ownerResponse.json()
-
-  await request.post('/api/v1/page/create', {
-    data: regularPageCreateData(app),
+  const app = await seedAppData(request, {
+    atomTypes: [IAtomType.AntDesignSpace, IAtomType.AntDesignTypographyText],
+    componentTypes: [],
   })
 
-  const componentResponse = await request.post(
-    '/api/v1/component/create-component',
-    { data: componentData(owner) },
+  const owner = await requestOrThrow<IUserDto>(request, 'user/me', {
+    method: 'GET',
+  })
+
+  await requestOrThrow(request, 'page/create', {
+    data: regularPageCreateData(app),
+    method: 'POST',
+  })
+
+  const component = await requestOrThrow<IComponent>(
+    request,
+    'component/create-component',
+    {
+      data: componentData(owner),
+      method: 'POST',
+    },
   )
 
-  const component = await componentResponse.json()
-
-  console.log('component', component)
-
-  await request.post(
-    `/api/v1/element/${component.rootElement.id}/create-elements`,
-    { data: [spaceElement(component.rootElement), typographyElement] },
+  await requestOrThrow(
+    request,
+    `element/${component.rootElement.id}/create-elements`,
+    {
+      data: [spaceElement(component.rootElement), typographyElement],
+      method: 'POST',
+    },
   )
 
   return app

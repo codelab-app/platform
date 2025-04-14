@@ -1,4 +1,4 @@
-import type { ITypeExport } from '@codelab/shared/abstract/core'
+import type { ITypeDtoWithoutOwner } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
 import {
@@ -8,6 +8,7 @@ import {
   ReactNodeTypeRepository,
   RenderPropTypeRepository,
   RichTextTypeRepository,
+  UnionTypeRepository,
 } from '@codelab/backend/domain/type'
 import {
   ActionTypeSchema,
@@ -16,6 +17,7 @@ import {
   ReactNodeTypeSchema,
   RenderPropTypeSchema,
   RichTextTypeSchema,
+  UnionTypeSchema,
 } from '@codelab/shared/abstract/core'
 import { SortDirection } from '@codelab/shared/infra/gqlgen'
 import { CommandHandler } from '@nestjs/cqrs'
@@ -40,7 +42,8 @@ export class ExportSystemTypesCommand {}
  */
 @CommandHandler(ExportSystemTypesCommand)
 export class ExportSystemTypesHandler
-  implements ICommandHandler<ExportSystemTypesCommand, Array<ITypeExport>>
+  implements
+    ICommandHandler<ExportSystemTypesCommand, Array<ITypeDtoWithoutOwner>>
 {
   constructor(
     private primitiveTypeRepository: PrimitiveTypeRepository,
@@ -49,6 +52,7 @@ export class ExportSystemTypesHandler
     private renderPropTypeRepository: RenderPropTypeRepository,
     private actionTypeRepository: ActionTypeRepository,
     private codeMirrorTypeRepository: CodeMirrorTypeRepository,
+    private unionTypeRepository: UnionTypeRepository,
   ) {}
 
   async execute() {
@@ -114,6 +118,20 @@ export class ExportSystemTypesHandler
     })
 
     /**
+     * Union Type
+     */
+    const unionTypes = await this.unionTypeRepository.find({
+      options: {
+        sort: [{ name: SortDirection.Asc }],
+      },
+      schema: Type.Omit(UnionTypeSchema, ['owner']),
+      where: {
+        // This type is re-used across all React atoms, so we make it into a system type
+        name: 'AtomChildren Union',
+      },
+    })
+
+    /**
      * Here we create the interface dependency tree order
      *
      * Further to the front are closer to the leaf.
@@ -125,6 +143,7 @@ export class ExportSystemTypesHandler
       ...actionTypes,
       ...richTextTypes,
       ...codeMirrorTypes,
+      ...unionTypes,
     ]
   }
 }

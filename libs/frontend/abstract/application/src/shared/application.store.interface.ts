@@ -1,10 +1,3 @@
-import type {
-  IAtomModel,
-  IComponentModel,
-  ITagModel,
-  ITypeModel,
-} from '@codelab/frontend/abstract/domain'
-
 import type { IBuilderService } from '../builder'
 import type {
   IRendererService,
@@ -12,7 +5,6 @@ import type {
   IRuntimeElementService,
   IRuntimePageService,
 } from '../renderer'
-import type { IPaginationService } from '../services'
 import type { IRouterService } from './router.service.interface'
 
 /**
@@ -20,13 +12,10 @@ import type { IRouterService } from './router.service.interface'
  */
 export interface IApplicationStore {
   builderService: IBuilderService
-  pagination: {
-    atomPagination: IPaginationService<IAtomModel>
-    componentPagination: IPaginationService<IComponentModel>
-    tagPagination: IPaginationService<ITagModel>
-    typePagination: IPaginationService<ITypeModel>
-  }
   rendererService: IRendererService
+  /**
+   * Used for builder to access search params, not used by the codebase. We use page props instead
+   */
   routerService: IRouterService
   runtimeComponentService: IRuntimeComponentService
   runtimeElementService: IRuntimeElementService

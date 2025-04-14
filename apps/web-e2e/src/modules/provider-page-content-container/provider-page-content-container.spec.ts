@@ -4,8 +4,8 @@ import { expect } from '@playwright/test'
 
 import { globalBeforeAll } from '../../setup/before-all'
 import {
-  pageId,
   pageName,
+  regularPageId,
   seedTestData,
 } from './provider-page-content-container.data'
 import { test } from './provider-page-content-container.fixture'
@@ -30,8 +30,9 @@ test('should set card element as a container for child pages in the provider pag
 
   await page.openPageSettingsTab()
   await page.setPageContentContainer()
-  await page.goto(app.id, pageId)
+  await page.goto(app.id, regularPageId)
   await page.checkPageHeaderTitle(['Codelab App', 'Pages', pageName])
+  await page.openPreview()
 
   await page.checkPageIsInsideProviderPageContainer()
 })

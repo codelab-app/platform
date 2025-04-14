@@ -1,6 +1,8 @@
+import type { Difference } from 'dir-compare'
+
 import chalk from 'chalk'
-import * as diffLib from 'diff'
-import * as dirCompare from 'dir-compare'
+import { diffLines } from 'diff'
+import { compare } from 'dir-compare'
 import { readFileSync } from 'fs'
 import path from 'path'
 
@@ -9,7 +11,7 @@ interface CompareDirectoriesParams {
   dir2: string
 }
 
-const logDifference = async (diff: dirCompare.Difference) => {
+const logDifference = async (diff: Difference) => {
   if (
     diff.state === 'distinct' &&
     diff.type1 === 'file' &&
@@ -27,7 +29,7 @@ const logDifference = async (diff: dirCompare.Difference) => {
     const fileName2 = path.resolve(diff.path2, diff.name2)
     const content1 = readFileSync(fileName1, 'utf-8')
     const content2 = readFileSync(fileName2, 'utf-8')
-    const contentDiff = diffLib.diffLines(content1, content2)
+    const contentDiff = diffLines(content1, content2)
 
     console.log('-------------------------------------')
     console.log(`Diff found: ${fileName1} & ${fileName2}`)
@@ -55,7 +57,7 @@ export const areDirectoriesIdentical = async ({
     excludeFilter: '**/components/**',
   }
 
-  const res = await dirCompare.compare(dir1, dir2, options)
+  const res = await compare(dir1, dir2, options)
 
   if (!res.same && res.diffSet) {
     for (const diff of res.diffSet) {

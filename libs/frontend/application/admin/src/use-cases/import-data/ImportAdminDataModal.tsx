@@ -2,7 +2,8 @@
 
 import type { IImportDto } from '@codelab/shared/abstract/core'
 
-import { PageType, UiKey } from '@codelab/frontend/abstract/types'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import {
   importDtoDefault,
@@ -15,7 +16,7 @@ import { importAdminDataService } from './import-admin-data.service'
 
 export const ImportAdminDataModal = () => {
   const router = useRouter()
-  const onClose = () => router.push(PageType.Admin())
+  const onClose = () => router.push(RoutePaths.Admin.base())
 
   return (
     <ModalForm.Modal

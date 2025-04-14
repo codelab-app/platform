@@ -1,1 +1,1 @@
-export * from './useToolbarPagination.hook'
+export * from './usePaginationToolbar.hook'

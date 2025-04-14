@@ -7,7 +7,9 @@
   "targets": {
     "build": {
       "configurations": {
-        "ci": {},
+        "ci": {
+          "optimization": true
+        },
         "dev": {},
         "prod": {
           "optimization": true

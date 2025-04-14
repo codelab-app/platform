@@ -1,0 +1,1 @@
+- https://github.com/johnpeterman72/CursorRIPER?tab=readme-ov-file

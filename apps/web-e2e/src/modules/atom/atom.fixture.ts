@@ -1,8 +1,10 @@
-import { PageType, UiKey } from '@codelab/frontend/abstract/types'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { test as base, expect } from '@playwright/test'
+import { expect } from '@playwright/test'
 
-import { BasePage } from '../../locators/pages'
+import { BasePage } from '../../setup/core/page'
+import { baseTest } from '../../setup/fixtures/base.fixture'
 
 export class AtomPage extends BasePage {
   readonly atom = {
@@ -67,14 +69,14 @@ export class AtomPage extends BasePage {
 
   async goto() {
     return test.step('goto', async () => {
-      await this.page.goto(PageType.Atoms())
+      await this.page.goto(RoutePaths.Atom.base())
     })
   }
 }
 
-export const test = base.extend<{ atomPage: AtomPage }>({
-  atomPage: async ({ page }, use) => {
-    const atomPage = new AtomPage(page)
+export const test = baseTest.extend<{ atomPage: AtomPage }>({
+  atomPage: async ({ context, page }, use) => {
+    const atomPage = new AtomPage(page, context)
 
     await use(atomPage)
   },

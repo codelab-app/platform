@@ -1,7 +1,4 @@
-import type {
-  GetDataFn,
-  ITagService,
-} from '@codelab/frontend/abstract/application'
+import type { ITagService } from '@codelab/frontend/abstract/application'
 import type { ITagModel } from '@codelab/frontend/abstract/domain'
 import type {
   ICreateTagData,
@@ -10,70 +7,33 @@ import type {
 import type { TagOptions, TagWhere } from '@codelab/shared/infra/gqlgen'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import { PageType } from '@codelab/frontend/abstract/types'
-import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { tagRepository } from '@codelab/frontend-domain-tag/repositories'
-import { tagRef } from '@codelab/frontend-domain-tag/store'
-import {
-  useApplicationStore,
-  useDomainStore,
-} from '@codelab/frontend-infra-mobx/context'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Validator } from '@codelab/shared/infra/typebox'
 import { atom, useAtom } from 'jotai'
 
 const checkedTagsAtom = atom<Array<string>>([])
 
 export const useTagService = (): ITagService => {
-  const {
-    pagination: { tagPagination },
-  } = useApplicationStore()
-
   const { tagDomainService } = useDomainStore()
   const [checkedTagIds, setCheckedTagIds] = useAtom(checkedTagsAtom)
-
-  const getDataFn: GetDataFn<ITagModel> = async (
-    page,
-    pageSize,
-    filter,
-    search,
-  ) => {
-    const {
-      aggregate: { count: totalItems },
-      items,
-    } = await tagRepository.find(
-      {
-        ...graphqlFilterMatches(filter, search),
-        parentAggregate: { count: 0 },
-      },
-      {
-        limit: pageSize,
-        offset: (page - 1) * pageSize,
-      },
-    )
-
-    const tags = items.map((tag) => {
-      tag.children.forEach((child) => tagDomainService.hydrate(child))
-
-      return tagDomainService.hydrate(tag)
-    })
-
-    return { items: tags, totalItems }
-  }
 
   const create = async (data: ICreateTagData) => {
     const tag = tagDomainService.hydrate(data)
 
-    await tagRepository.add(data)
-
-    tagPagination.dataRefs.set(tag.id, tagRef(tag))
+    await tagRepository.add(data, {
+      revalidateTags: [CACHE_TAGS.Tag.list()],
+    })
 
     if (!tag.parent) {
       return tag
     }
 
-    tag.parent.current.writeCache({
-      children: [...tag.parent.current.children, tagRef(tag)],
-    })
+    // tag.parent.current.writeCache({
+    //   children: [...tag.parent.current.children, tagRef(tag)],
+    // })
 
     tagDomainService.setExpandedNodes([
       ...tagDomainService.expandedNodes,
@@ -87,26 +47,32 @@ export const useTagService = (): ITagService => {
     const tags = await getAll({ id_IN: ids.map(({ id }) => id) })
     const tagsToRemove = []
 
+    // Collect all tags to be removed (including descendants)
     for (const tag of tags) {
-      tagDomainService.tags.delete(tag.id)
       tagsToRemove.push(tag)
 
       tag.descendants.forEach((descendant) => {
         tagsToRemove.push(descendant)
-        tagDomainService.tags.delete(descendant.id)
       })
     }
 
-    return await tagRepository.delete(tagsToRemove)
+    // Remove tags from local state before API call to prevent UI flashing
+    for (const tag of tagsToRemove) {
+      tagDomainService.tags.delete(tag.id)
+    }
+
+    return await tagRepository.delete(tagsToRemove, {
+      revalidateTags: [CACHE_TAGS.Tag.list()],
+    })
   }
 
   const getAll = async (where?: TagWhere, options?: TagOptions) => {
     const {
       aggregate: { count },
       items: tags,
-    } = await tagRepository.find(where, options)
-
-    tagPagination.setTotalItems(count)
+    } = await tagRepository.find(where, options, {
+      tags: [CACHE_TAGS.Tag.list()],
+    })
 
     return tags.map((tag) => {
       tag.children.forEach((child) => tagDomainService.hydrate(child))
@@ -122,7 +88,9 @@ export const useTagService = (): ITagService => {
 
     tag.writeCache({ name, parent })
 
-    await tagRepository.update({ id: tag.id }, tag)
+    await tagRepository.update({ id: tag.id }, tag, {
+      revalidateTags: [CACHE_TAGS.Tag.list()],
+    })
 
     return tag
   }
@@ -138,19 +106,19 @@ export const useTagService = (): ITagService => {
 
   const createPopover = {
     close: (router: AppRouterInstance) => {
-      router.push(PageType.Tags())
+      router.push(RoutePaths.Tag.base())
     },
     open: (router: AppRouterInstance) => {
-      router.push(PageType.TagsCreate())
+      router.push(RoutePaths.Tag.create())
     },
   }
 
   const updatePopover = {
     close: (router: AppRouterInstance) => {
-      router.push(PageType.Tags())
+      router.push(RoutePaths.Tag.base())
     },
     open: (router: AppRouterInstance) => {
-      router.push(PageType.Tags())
+      router.push(RoutePaths.Tag.base())
     },
   }
 
@@ -160,8 +128,6 @@ export const useTagService = (): ITagService => {
     createPopover,
     deleteCheckedTags,
     getAll,
-    getDataFn,
-    paginationService: tagPagination,
     removeMany,
     setCheckedTagIds,
     update,

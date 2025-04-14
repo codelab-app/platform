@@ -1,9 +1,12 @@
 'use client'
 
-import type { IAppUpdateFormData } from '@codelab/frontend/abstract/domain'
+import type {
+  IAppModel,
+  IAppUpdateFormData,
+} from '@codelab/frontend/abstract/domain'
 
-import { PageType, UiKey } from '@codelab/frontend/abstract/types'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
@@ -12,26 +15,23 @@ import { AutoFields } from 'uniforms-antd'
 import { useAppService } from '../../services'
 import { updateAppSchema } from './update-app.schema'
 
-export const UpdateAppModal = observer(({ id }: { id: string }) => {
+export const UpdateAppModal = observer<{ app?: IAppModel }>(({ app }) => {
   const router = useRouter()
   const appService = useAppService()
-  const { appDomainService } = useDomainStore()
-  const app = appDomainService.apps.get(id)
 
-  if (!app) {
-    return null
-  }
-
+  // Create model with proper defaults if app doesn't exist
   const model = {
-    id: app.id,
-    name: app.name,
+    id: app?.id,
+    name: app?.name,
   }
 
   const onSubmit = appService.update
-  const closeModal = () => router.push(PageType.AppList())
+  const closeModal = () => router.push(RoutePaths.App.list())
+  const isLoading = !app
 
   return (
     <ModalForm.Modal
+      isLoading={isLoading}
       okText="Update App"
       onCancel={closeModal}
       open={true}
@@ -39,6 +39,7 @@ export const UpdateAppModal = observer(({ id }: { id: string }) => {
     >
       <ModalForm.Form<IAppUpdateFormData>
         errorMessage="Error while updating app"
+        isLoading={isLoading}
         model={model}
         onSubmit={onSubmit}
         onSubmitSuccess={closeModal}

@@ -11,9 +11,6 @@
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "parserOptions": {
         "project": ["apps/sites/tsconfig.json"]
-      },
-      "rules": {
-        "@next/next/no-html-link-for-pages": ["error", "apps/sites/pages"]
       }
     },
     {
@@ -25,9 +22,7 @@
       "rules": {}
     }
   ],
-  "rules": {
-    "@next/next/no-html-link-for-pages": "off"
-  },
+  "rules": {},
   "env": {
     "jest": true
   }

@@ -19,7 +19,6 @@ import {
   Form,
   useAsyncHandler,
 } from '@codelab/frontend-presentation-components-form'
-import { observer } from 'mobx-react-lite'
 import { useMemo } from 'react'
 import { mergeDeep } from 'remeda'
 

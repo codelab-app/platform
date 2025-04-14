@@ -1,6 +1,10 @@
 import type { ITypeRepository } from '@codelab/frontend/abstract/domain'
 import type { IRef, ITypeDto, ITypeRef } from '@codelab/shared/abstract/core'
-import type { IBaseTypeWhere } from '@codelab/shared/infra/gqlgen'
+import type { NextFetchOptions } from '@codelab/shared/abstract/types'
+import type {
+  IBaseTypeOptions,
+  IBaseTypeWhere,
+} from '@codelab/shared/infra/gqlgen'
 
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/typebox'
@@ -12,7 +16,6 @@ import {
   typeMapperRecord,
   updateTypeServerActions,
 } from '@codelab/shared-domain-module/type'
-import { sortBy } from 'remeda'
 
 const { GetBaseTypes, GetDescendants } = findTypeServerActions
 
@@ -22,105 +25,119 @@ const { GetBaseTypes, GetDescendants } = findTypeServerActions
  * The input has optional nested data and we cast the input in the record, which makes it work if only have top level data
  */
 export const typeRepository: ITypeRepository = {
-  add: async (input: ITypeDto) => {
+  add: async (input: ITypeDto, next?: NextFetchOptions) => {
     const createAction = async (type: ITypeKind) =>
       (await createTypeServerActions)[type]
 
     switch (input.__typename) {
       case ITypeKind.ActionType: {
         const data = typeMapperRecord[input.__typename].toCreateInput(input)
-        const createdType = (await (await createAction(input.kind))([data]))[0]
+        const actionCreator = await createAction(input.kind)
+        const createdType = (await actionCreator([data], next))[0]
 
         return Validator.parseDefined(createdType)
       }
 
       case ITypeKind.AppType: {
         const data = typeMapperRecord[input.__typename].toCreateInput(input)
-        const createdType = (await (await createAction(input.kind))([data]))[0]
+        const actionCreator = await createAction(input.kind)
+        const createdType = (await actionCreator([data], next))[0]
 
         return Validator.parseDefined(createdType)
       }
 
       case ITypeKind.ArrayType: {
         const data = typeMapperRecord[input.__typename].toCreateInput(input)
-        const createdType = (await (await createAction(input.kind))([data]))[0]
+        const actionCreator = await createAction(input.kind)
+        const createdType = (await actionCreator([data], next))[0]
 
         return Validator.parseDefined(createdType)
       }
 
       case ITypeKind.CodeMirrorType: {
         const data = typeMapperRecord[input.__typename].toCreateInput(input)
-        const createdType = (await (await createAction(input.kind))([data]))[0]
+        const actionCreator = await createAction(input.kind)
+        const createdType = (await actionCreator([data], next))[0]
 
         return Validator.parseDefined(createdType)
       }
 
       case ITypeKind.ElementType: {
         const data = typeMapperRecord[input.__typename].toCreateInput(input)
-        const createdType = (await (await createAction(input.kind))([data]))[0]
+        const actionCreator = await createAction(input.kind)
+        const createdType = (await actionCreator([data], next))[0]
 
         return Validator.parseDefined(createdType)
       }
 
       case ITypeKind.EnumType: {
         const data = typeMapperRecord[input.__typename].toCreateInput(input)
-        const createdType = (await (await createAction(input.kind))([data]))[0]
+        const actionCreator = await createAction(input.kind)
+        const createdType = (await actionCreator([data], next))[0]
 
         return Validator.parseDefined(createdType)
       }
 
       case ITypeKind.InterfaceType: {
         const data = typeMapperRecord[input.__typename].toCreateInput(input)
-        const createdType = (await (await createAction(input.kind))([data]))[0]
+        const actionCreator = await createAction(input.kind)
+        const createdType = (await actionCreator([data], next))[0]
 
         return Validator.parseDefined(createdType)
       }
 
       case ITypeKind.LambdaType: {
         const data = typeMapperRecord[input.__typename].toCreateInput(input)
-        const createdType = (await (await createAction(input.kind))([data]))[0]
+        const actionCreator = await createAction(input.kind)
+        const createdType = (await actionCreator([data], next))[0]
 
         return Validator.parseDefined(createdType)
       }
 
       case ITypeKind.PageType: {
         const data = typeMapperRecord[input.__typename].toCreateInput(input)
-        const createdType = (await (await createAction(input.kind))([data]))[0]
+        const actionCreator = await createAction(input.kind)
+        const createdType = (await actionCreator([data], next))[0]
 
         return Validator.parseDefined(createdType)
       }
 
       case ITypeKind.PrimitiveType: {
         const data = typeMapperRecord[input.__typename].toCreateInput(input)
-        const createdType = (await (await createAction(input.kind))([data]))[0]
+        const actionCreator = await createAction(input.kind)
+        const createdType = (await actionCreator([data], next))[0]
 
         return Validator.parseDefined(createdType)
       }
 
       case ITypeKind.ReactNodeType: {
         const data = typeMapperRecord[input.__typename].toCreateInput(input)
-        const createdType = (await (await createAction(input.kind))([data]))[0]
+        const actionCreator = await createAction(input.kind)
+        const createdType = (await actionCreator([data], next))[0]
 
         return Validator.parseDefined(createdType)
       }
 
       case ITypeKind.RenderPropType: {
         const data = typeMapperRecord[input.__typename].toCreateInput(input)
-        const createdType = (await (await createAction(input.kind))([data]))[0]
+        const actionCreator = await createAction(input.kind)
+        const createdType = (await actionCreator([data], next))[0]
 
         return Validator.parseDefined(createdType)
       }
 
       case ITypeKind.RichTextType: {
         const data = typeMapperRecord[input.__typename].toCreateInput(input)
-        const createdType = (await (await createAction(input.kind))([data]))[0]
+        const actionCreator = await createAction(input.kind)
+        const createdType = (await actionCreator([data], next))[0]
 
         return Validator.parseDefined(createdType)
       }
 
       case ITypeKind.UnionType: {
         const data = typeMapperRecord[input.__typename].toCreateInput(input)
-        const createdType = (await (await createAction(input.kind))([data]))[0]
+        const actionCreator = await createAction(input.kind)
+        const createdType = (await actionCreator([data], next))[0]
 
         return Validator.parseDefined(createdType)
       }
@@ -130,17 +147,16 @@ export const typeRepository: ITypeRepository = {
     }
   },
 
-  delete: async (types: Array<ITypeRef>) => {
+  delete: async (types: Array<ITypeRef>, next?: NextFetchOptions) => {
     const deleteAction = async (type: ITypeKind) =>
       (await deleteTypeServerActions)[type]
 
     const results = await Promise.all(
-      types.map(
-        async (type) =>
-          await (
-            await deleteAction(ITypeKind[type.__typename])
-          )({ where: { id: type.id } }),
-      ),
+      types.map(async (type) => {
+        const action = await deleteAction(ITypeKind[type.__typename])
+
+        return await action({ where: { id: type.id } }, next)
+      }),
     )
 
     const nodesDeleted = results.reduce(
@@ -151,21 +167,28 @@ export const typeRepository: ITypeRepository = {
     return nodesDeleted
   },
 
-  find: async (where: IBaseTypeWhere) => {
-    const ids = where.id_IN ?? undefined
-    const types = await getAllTypes(ids)
+  find: async (
+    where?: IBaseTypeWhere,
+    options?: IBaseTypeOptions,
+    next?: NextFetchOptions,
+  ) => {
+    const ids = where?.id_IN ?? undefined
+    const types = await getAllTypes(ids, next)
 
     return { aggregate: { count: types.length }, items: types }
   },
 
-  findBaseTypes: async (params) => {
+  findBaseTypes: async (params, next?: NextFetchOptions) => {
     const where = params?.where ?? {}
     const options = params?.options ?? {}
 
-    const { aggregate, iBaseTypes } = await GetBaseTypes({
-      options,
-      where,
-    })
+    const { aggregate, iBaseTypes } = await GetBaseTypes(
+      {
+        options,
+        where,
+      },
+      next,
+    )
 
     return {
       items: iBaseTypes,
@@ -173,10 +196,16 @@ export const typeRepository: ITypeRepository = {
     }
   },
 
-  findDescendants: async (parentIds: Array<string>) => {
-    const { arrayTypes, interfaceTypes, unionTypes } = await GetDescendants({
-      ids: parentIds,
-    })
+  findDescendants: async (
+    parentIds: Array<string>,
+    next?: NextFetchOptions,
+  ) => {
+    const { arrayTypes, interfaceTypes, unionTypes } = await GetDescendants(
+      {
+        ids: parentIds,
+      },
+      next,
+    )
 
     const allDescendantIdsWithoutParents = [
       ...arrayTypes,
@@ -196,24 +225,27 @@ export const typeRepository: ITypeRepository = {
       return []
     }
 
-    return getAllTypes(allDescendantIdsWithoutParents)
+    return getAllTypes(allDescendantIdsWithoutParents, next)
   },
 
-  findOne: async (where: IBaseTypeWhere) => {
-    return (await typeRepository.find(where)).items[0]
+  findOne: async (where: IBaseTypeWhere, next?: NextFetchOptions) => {
+    return (await typeRepository.find(where, undefined, next)).items[0]
   },
 
-  getAll: async (ids?: Array<string>) => {
+  getAll: async (ids?: Array<string>, next?: NextFetchOptions) => {
     // Fetch type fragments
-    const { items: typeFragments } = await typeRepository.find({
-      id_IN: ids,
-    })
+    const { items: typeFragments } = await typeRepository.find(
+      {
+        id_IN: ids,
+      },
+      undefined,
+      next,
+    )
 
-    // Sort and return the result
-    return sortBy(typeFragments, ({ name }) => name.toLowerCase())
+    return typeFragments
   },
 
-  update: async ({ id }: IRef, input: ITypeDto) => {
+  update: async ({ id }: IRef, input: ITypeDto, next?: NextFetchOptions) => {
     Validator.assertsDefined(input.__typename)
 
     const updateAction = async (type: ITypeKind) =>
@@ -224,12 +256,15 @@ export const typeRepository: ITypeRepository = {
         const variables =
           typeMapperRecord[input.__typename].toUpdateInput(input)
 
-        const types = await (
-          await updateAction(ITypeKind[input.__typename])
-        )({
-          update: variables,
-          where: { id },
-        })
+        const action = await updateAction(ITypeKind[input.__typename])
+
+        const types = await action(
+          {
+            update: variables,
+            where: { id },
+          },
+          next,
+        )
 
         return Validator.parseDefined(types[0])
       }
@@ -238,12 +273,15 @@ export const typeRepository: ITypeRepository = {
         const variables =
           typeMapperRecord[input.__typename].toUpdateInput(input)
 
-        const types = await (
-          await updateAction(ITypeKind[input.__typename])
-        )({
-          update: variables,
-          where: { id },
-        })
+        const action = await updateAction(ITypeKind[input.__typename])
+
+        const types = await action(
+          {
+            update: variables,
+            where: { id },
+          },
+          next,
+        )
 
         return Validator.parseDefined(types[0])
       }
@@ -252,12 +290,15 @@ export const typeRepository: ITypeRepository = {
         const variables =
           typeMapperRecord[input.__typename].toUpdateInput(input)
 
-        const types = await (
-          await updateAction(ITypeKind[input.__typename])
-        )({
-          update: variables,
-          where: { id },
-        })
+        const action = await updateAction(ITypeKind[input.__typename])
+
+        const types = await action(
+          {
+            update: variables,
+            where: { id },
+          },
+          next,
+        )
 
         return Validator.parseDefined(types[0])
       }
@@ -266,12 +307,15 @@ export const typeRepository: ITypeRepository = {
         const variables =
           typeMapperRecord[input.__typename].toUpdateInput(input)
 
-        const types = await (
-          await updateAction(ITypeKind[input.__typename])
-        )({
-          update: variables,
-          where: { id },
-        })
+        const action = await updateAction(ITypeKind[input.__typename])
+
+        const types = await action(
+          {
+            update: variables,
+            where: { id },
+          },
+          next,
+        )
 
         return Validator.parseDefined(types[0])
       }
@@ -280,12 +324,15 @@ export const typeRepository: ITypeRepository = {
         const variables =
           typeMapperRecord[input.__typename].toUpdateInput(input)
 
-        const types = await (
-          await updateAction(ITypeKind[input.__typename])
-        )({
-          update: variables,
-          where: { id },
-        })
+        const action = await updateAction(ITypeKind[input.__typename])
+
+        const types = await action(
+          {
+            update: variables,
+            where: { id },
+          },
+          next,
+        )
 
         return Validator.parseDefined(types[0])
       }
@@ -294,12 +341,15 @@ export const typeRepository: ITypeRepository = {
         const variables =
           typeMapperRecord[input.__typename].toUpdateInput(input)
 
-        const types = await (
-          await updateAction(ITypeKind[input.__typename])
-        )({
-          update: variables,
-          where: { id },
-        })
+        const action = await updateAction(ITypeKind[input.__typename])
+
+        const types = await action(
+          {
+            update: variables,
+            where: { id },
+          },
+          next,
+        )
 
         return Validator.parseDefined(types[0])
       }
@@ -308,12 +358,15 @@ export const typeRepository: ITypeRepository = {
         const variables =
           typeMapperRecord[input.__typename].toUpdateInput(input)
 
-        const types = await (
-          await updateAction(ITypeKind[input.__typename])
-        )({
-          update: variables,
-          where: { id },
-        })
+        const action = await updateAction(ITypeKind[input.__typename])
+
+        const types = await action(
+          {
+            update: variables,
+            where: { id },
+          },
+          next,
+        )
 
         return Validator.parseDefined(types[0])
       }
@@ -322,12 +375,15 @@ export const typeRepository: ITypeRepository = {
         const variables =
           typeMapperRecord[input.__typename].toUpdateInput(input)
 
-        const types = await (
-          await updateAction(ITypeKind[input.__typename])
-        )({
-          update: variables,
-          where: { id },
-        })
+        const action = await updateAction(ITypeKind[input.__typename])
+
+        const types = await action(
+          {
+            update: variables,
+            where: { id },
+          },
+          next,
+        )
 
         return Validator.parseDefined(types[0])
       }
@@ -336,12 +392,15 @@ export const typeRepository: ITypeRepository = {
         const variables =
           typeMapperRecord[input.__typename].toUpdateInput(input)
 
-        const types = await (
-          await updateAction(ITypeKind[input.__typename])
-        )({
-          update: variables,
-          where: { id },
-        })
+        const action = await updateAction(ITypeKind[input.__typename])
+
+        const types = await action(
+          {
+            update: variables,
+            where: { id },
+          },
+          next,
+        )
 
         return Validator.parseDefined(types[0])
       }
@@ -350,12 +409,15 @@ export const typeRepository: ITypeRepository = {
         const variables =
           typeMapperRecord[input.__typename].toUpdateInput(input)
 
-        const types = await (
-          await updateAction(ITypeKind[input.__typename])
-        )({
-          update: variables,
-          where: { id },
-        })
+        const action = await updateAction(ITypeKind[input.__typename])
+
+        const types = await action(
+          {
+            update: variables,
+            where: { id },
+          },
+          next,
+        )
 
         return Validator.parseDefined(types[0])
       }
@@ -364,12 +426,15 @@ export const typeRepository: ITypeRepository = {
         const variables =
           typeMapperRecord[input.__typename].toUpdateInput(input)
 
-        const types = await (
-          await updateAction(ITypeKind[input.__typename])
-        )({
-          update: variables,
-          where: { id },
-        })
+        const action = await updateAction(ITypeKind[input.__typename])
+
+        const types = await action(
+          {
+            update: variables,
+            where: { id },
+          },
+          next,
+        )
 
         return Validator.parseDefined(types[0])
       }
@@ -378,12 +443,15 @@ export const typeRepository: ITypeRepository = {
         const variables =
           typeMapperRecord[input.__typename].toUpdateInput(input)
 
-        const types = await (
-          await updateAction(ITypeKind[input.__typename])
-        )({
-          update: variables,
-          where: { id },
-        })
+        const action = await updateAction(ITypeKind[input.__typename])
+
+        const types = await action(
+          {
+            update: variables,
+            where: { id },
+          },
+          next,
+        )
 
         return Validator.parseDefined(types[0])
       }
@@ -392,12 +460,15 @@ export const typeRepository: ITypeRepository = {
         const variables =
           typeMapperRecord[input.__typename].toUpdateInput(input)
 
-        const types = await (
-          await updateAction(ITypeKind[input.__typename])
-        )({
-          update: variables,
-          where: { id },
-        })
+        const action = await updateAction(ITypeKind[input.__typename])
+
+        const types = await action(
+          {
+            update: variables,
+            where: { id },
+          },
+          next,
+        )
 
         return Validator.parseDefined(types[0])
       }
@@ -406,12 +477,15 @@ export const typeRepository: ITypeRepository = {
         const variables =
           typeMapperRecord[input.__typename].toUpdateInput(input)
 
-        const types = await (
-          await updateAction(ITypeKind[input.__typename])
-        )({
-          update: variables,
-          where: { id },
-        })
+        const action = await updateAction(ITypeKind[input.__typename])
+
+        const types = await action(
+          {
+            update: variables,
+            where: { id },
+          },
+          next,
+        )
 
         return Validator.parseDefined(types[0])
       }

@@ -1,9 +1,6 @@
 'use client'
 
-import type {
-  PageContextParams,
-  SubmitController,
-} from '@codelab/frontend/abstract/types'
+import type { SubmitController } from '@codelab/frontend/abstract/types'
 import type { Maybe } from '@codelab/shared/abstract/types'
 
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
@@ -17,7 +14,12 @@ import { useRef } from 'react'
 import { usePageService } from '../../services/page.service'
 import { CreatePageForm } from './CreatePageForm'
 
-export const CreatePagePopover = observer<PageContextParams>(
+interface ICreatePagePopoverProps {
+  appId: string
+  pageId: string
+}
+
+export const CreatePagePopover = observer<ICreatePagePopoverProps>(
   ({ appId, pageId }) => {
     const submitRef = useRef<Maybe<SubmitController>>(undefined)
     const router = useRouter()
@@ -45,7 +47,13 @@ export const CreatePagePopover = observer<PageContextParams>(
         }}
       >
         <CreatePageForm
-          onSubmitSuccess={() => createPopover.close(router, { appId, pageId })}
+          appId={appId}
+          onSubmitSuccess={() =>
+            createPopover.close(router, {
+              appId,
+              pageId,
+            })
+          }
           showFormControl={false}
           submitRef={submitRef}
         />

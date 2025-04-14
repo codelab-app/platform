@@ -7,4 +7,6 @@
  */
 export type ObjectLike = Record<string, any>
 
+export type UnknownObjectLike = Record<string, unknown>
+
 // export type AnyObjectLike = Record<string, any>

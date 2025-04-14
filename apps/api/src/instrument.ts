@@ -1,11 +1,11 @@
-import * as Sentry from '@sentry/nestjs'
+import { init } from '@sentry/nestjs'
 import { nodeProfilingIntegration } from '@sentry/profiling-node'
 import env from 'env-var'
 
 /**
  * https://docs.sentry.io/platforms/javascript/guides/nestjs/
  */
-Sentry.init({
+init({
   dsn: env.get('SENTRY_DSN').asString(),
 
   /**

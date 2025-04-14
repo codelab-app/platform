@@ -1,14 +1,17 @@
 'use client'
 
-import {
-  type IRendererModel,
-  type IRootRenderer,
+import type {
+  IBuilderRoute,
+  IRendererModel,
+  IRootRenderer,
 } from '@codelab/frontend/abstract/application'
+
 import {
   BUILDER_CONTAINER_ID,
   DATA_ELEMENT_ID,
 } from '@codelab/frontend/abstract/domain'
-import { useElementService } from '@codelab/frontend-application-element/services'
+import { ApplicationStoreHydrator } from '@codelab/frontend/infra/context'
+import { RootRenderer } from '@codelab/frontend-application-renderer/use-cases/root-renderer'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import { useRef } from 'react'
@@ -16,32 +19,34 @@ import styled from 'styled-components'
 
 import { BuilderDndContext } from '../../dnd/index'
 import { useBuilderHotkeys } from '../../hooks/useBuilderHotkeys.hook'
+import { useInitializeSearchParams } from '../../hooks/useInitializeSearchParams.hook'
 import { BuilderResizeHandle } from '../base-builder/BuilderResizeHandle'
 import { RenderBlueprint } from './RenderBlueprint'
 
 interface IBuilderProps {
-  RootRenderer: IRootRenderer
+  context: IBuilderRoute
   renderer: IRendererModel
 }
 
 /**
  * Generic builder used for both Component & Element
  */
-export const BaseBuilder = observer<IBuilderProps>(
-  ({ renderer, RootRenderer }) => {
-    const { builderService } = useApplicationStore()
-    const elementService = useElementService()
-    const { selectedNode } = builderService
-    const builderContainerRef = useRef<HTMLDivElement>(null)
-    const renderContainerRef = useRef<HTMLDivElement>(null)
+export const BaseBuilder = observer<IBuilderProps>(({ context, renderer }) => {
+  const { builderService } = useApplicationStore()
+  const { selectedNode } = builderService
+  const builderContainerRef = useRef<HTMLDivElement>(null)
+  const renderContainerRef = useRef<HTMLDivElement>(null)
 
-    useBuilderHotkeys({
-      deleteModal: elementService.deletePopover,
-      selectedNode,
-      setSelectedNode: builderService.setSelectedNode.bind(builderService),
-    })
+  useBuilderHotkeys({
+    context,
+    selectedNode,
+    setSelectedNode: builderService.setSelectedNode.bind(builderService),
+  })
 
-    return (
+  useInitializeSearchParams()
+
+  return (
+    <ApplicationStoreHydrator>
       <BuilderDndContext>
         <StyledBuilderContainer ref={builderContainerRef}>
           <BuilderResizeHandle>
@@ -58,9 +63,9 @@ export const BaseBuilder = observer<IBuilderProps>(
           </BuilderResizeHandle>
         </StyledBuilderContainer>
       </BuilderDndContext>
-    )
-  },
-)
+    </ApplicationStoreHydrator>
+  )
+})
 
 BaseBuilder.displayName = 'BaseBuilder'
 

@@ -1,10 +1,5 @@
-import type { ObjectLike } from '@codelab/shared/abstract/types'
-
-import { ConfigModule } from '@nestjs/config'
 import { Test } from '@nestjs/testing'
-import { LoggerModule } from 'nestjs-pino'
 
-import { loggerConfig } from '../logger.config'
 import { CodelabLoggerModule } from '../logger.module'
 import { PinoLoggerService } from './pino.logger.service'
 

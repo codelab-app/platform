@@ -1,0 +1,38 @@
+query GetPageBuilder($appId: ID!, $pageIds: [ID!]) {
+  actionTypes {
+    ...ActionType
+  }
+  apps(where: { id: $appId }) {
+    ...AppBuilder
+  }
+  atoms {
+    ...AtomBuilder
+  }
+  authGuards {
+    ...AuthGuard
+  }
+  codeMirrorTypes {
+    ...CodeMirrorType
+  }
+  components {
+    ...ComponentBuilder
+  }
+  primitiveTypes {
+    ...PrimitiveType
+  }
+  reactNodeTypes {
+    ...ReactNodeType
+  }
+  redirects(where: { source: { app: { id: $appId } } }) {
+    ...Redirect
+  }
+  renderPropTypes {
+    ...RenderPropType
+  }
+  resources {
+    ...Resource
+  }
+  richTextTypes {
+    ...RichTextType
+  }
+}

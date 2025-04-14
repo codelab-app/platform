@@ -2338,7 +2338,6 @@
         "id": "417cba0d-a781-485d-82d5-cb3672efe555"
       },
       "compositeKey": "417cba0d-a781-485d-82d5-cb3672efe555-Google Fonts",
-      "expanded": false,
       "firstChild": null,
       "id": "562984ba-3c4a-41df-8375-21dbc750915c",
       "name": "Google Fonts",
@@ -2359,7 +2358,8 @@
       "renderIfExpression": null,
       "renderType": {
         "__typename": "Atom",
-        "id": "47bcdf5e-f669-4d11-9815-9309b7322498"
+        "id": "47bcdf5e-f669-4d11-9815-9309b7322498",
+        "name": "HtmlLink"
       },
       "style": null,
       "tailwindClassNames": null

@@ -1,12 +1,13 @@
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { resolveWorkspaceRoot } from '@codelab/backend/shared/util'
 import { Injectable, Scope } from '@nestjs/common'
 import path from 'path'
 
+import { BASE_DATA_PROD_PATH } from './admin-data.config'
+
 export interface IBaseDataPaths {
   baseDataPath?: string | undefined
 }
-
-export const BASE_DATA_PATH = resolveWorkspaceRoot('./data/export-v3')
 
 /**
  * This service holds all the paths for our migration data
@@ -15,6 +16,15 @@ export const BASE_DATA_PATH = resolveWorkspaceRoot('./data/export-v3')
   scope: Scope.TRANSIENT,
 })
 export class MigrationDataService implements IBaseDataPaths {
+  /**
+   * process.cwd() doesn't work since run-commands may set app dir as cwd
+   */
+  constructor(private logger: PinoLoggerService) {
+    this.logger.debug('Using data path', {
+      baseDataPath: this.baseDataPath,
+    })
+  }
+
   get atomsPath() {
     return path.resolve(this.baseDataPath, './admin/atoms')
   }
@@ -34,10 +44,7 @@ export class MigrationDataService implements IBaseDataPaths {
     return path.resolve(this.baseDataPath, './admin/tags/tags.json')
   }
 
-  /**
-   * process.cwd() doesn't work since run-commands may set app dir as cwd
-   */
-  baseDataPath = BASE_DATA_PATH
+  public baseDataPath = BASE_DATA_PROD_PATH
 
   /**
    * Allows override by setting at runtime, base path relative to workspace root

@@ -1,28 +1,22 @@
 import type { IFieldModel } from '@codelab/frontend/abstract/domain'
+import type { IPopover } from '@codelab/frontend/abstract/types'
 import type {
-  BuilderContextParams,
-  IPopover,
-} from '@codelab/frontend/abstract/types'
-import type {
-  ICreateFieldData,
+  IFieldCreateData,
+  IFieldUpdateData,
   IRef,
-  IUpdateFieldData,
 } from '@codelab/shared/abstract/core'
 
 import type { ICrudService } from '../services'
-
-export type UpdatePopoverParamsContext = BuilderContextParams & {
-  fieldId: string
-}
+import type {
+  IFieldCreateRoute,
+  IFieldUpdateRoute,
+} from './field.route.interface'
 
 export interface IFieldService
-  extends ICrudService<IFieldModel, ICreateFieldData, IUpdateFieldData> {
-  createPopover: IPopover<
-    BuilderContextParams & { interfaceId: string },
-    BuilderContextParams
-  >
-  deletePopover: IPopover<UpdatePopoverParamsContext, BuilderContextParams>
-  updatePopover: IPopover<UpdatePopoverParamsContext, BuilderContextParams>
+  extends ICrudService<IFieldModel, IFieldCreateData, IFieldUpdateData> {
+  createPopover: IPopover<IFieldCreateRoute, IFieldCreateRoute>
+  deletePopover: IPopover<IFieldUpdateRoute, IFieldUpdateRoute>
+  updatePopover: IPopover<IFieldUpdateRoute, IFieldUpdateRoute>
   cloneField(field: IFieldModel, apiId: string): Promise<IFieldModel>
   moveFieldAsNextSibling(props: {
     field: IRef

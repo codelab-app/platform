@@ -1,20 +1,28 @@
 import { AuthModule, JwtAuthGuard } from '@codelab/backend/application/auth'
 import { HealthcheckController } from '@codelab/backend/domain/shared/modules'
 import { GraphqlModule } from '@codelab/backend/infra/adapter/graphql'
-import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
+import {
+  CodelabLoggerModule,
+  LoggerMiddleware,
+} from '@codelab/backend/infra/adapter/logger'
 import { QueueModule } from '@codelab/backend/infra/adapter/queue'
 import { WsModule } from '@codelab/backend/infra/adapter/ws'
+import { CommandBusSubscription } from '@codelab/backend/infra/core'
 import {
   GraphQLSchemaModule,
   SchemaService,
 } from '@codelab/backend-infra-adapter/neo4j-schema'
-import { Module } from '@nestjs/common'
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common'
 import { APP_GUARD } from '@nestjs/core'
 import { CqrsModule } from '@nestjs/cqrs'
 import { SentryModule } from '@sentry/nestjs/setup'
 
 import { ApiModule } from './api/api.module'
-import { CommandBusSubscription } from './command-bus-logger.service'
 
 @Module({
   controllers: [HealthcheckController],
@@ -46,7 +54,14 @@ import { CommandBusSubscription } from './command-bus-logger.service'
     },
   ],
 })
-export class RootModule {
+export class RootModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(LoggerMiddleware)
+      // This needs to be `/graphql` since `/api/v1` is added as a `globalPrefix`
+      .exclude({ method: RequestMethod.POST, path: '/graphql' })
+      .forRoutes({ method: RequestMethod.ALL, path: '*' })
+  }
   // configure(consumer: MiddlewareConsumer) {
   //   consumer
   //     .apply(JwtAuthMiddleware)

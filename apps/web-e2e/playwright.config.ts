@@ -2,28 +2,17 @@
 import { workspaceRoot } from '@nx/devkit'
 import { nxE2EPreset } from '@nx/playwright/preset'
 import { defineConfig, devices } from '@playwright/test'
-import * as env from 'env-var'
 
-const apiHost = env.get('NEXT_PUBLIC_API_HOSTNAME').required().asString()
-const apiPort = env.get('NEXT_PUBLIC_API_PORT').required().asString()
-const apiBasePath = env.get('NEXT_PUBLIC_BASE_API_PATH').required().asString()
-const apiUrl = new URL(apiBasePath, `${apiHost}:${apiPort}`).toString()
-const webUrl = env.get('NEXT_PUBLIC_WEB_HOST').required().asString()
-
-export const webBaseApiUrl = new URL(apiBasePath, webUrl).toString()
-export const apiBaseUrl = new URL(apiBasePath, apiUrl).toString()
-
-export const auth0Username = env.get('AUTH0_E2E_USERNAME').required().asString()
-export const auth0Password = env.get('AUTH0_E2E_PASSWORD').required().asString()
+import { apiUrl, ci, storageStateFile, webUrl } from './src/setup/config'
+import { localStorageTestFile } from './src/tools/local-storage.fixture'
 
 /**
  * https://www.checklyhq.com/blog/why-page-goto-is-slowing-down-your-playwright-test/
  */
 
-export const authFile = 'apps/web-e2e/.auth/user.json'
-
 enum Project {
   AuthSetup = 'AuthSetup',
+  LocalStorage = 'LocalStorage',
 }
 
 /**
@@ -31,6 +20,7 @@ enum Project {
  */
 export default defineConfig({
   ...nxE2EPreset(__filename, { testDir: './src' }),
+  globalSetup: require.resolve('./src/setup/global-setup'),
   projects: [
     {
       name: Project.AuthSetup,
@@ -40,12 +30,12 @@ export default defineConfig({
     {
       dependencies: [Project.AuthSetup],
       name: 'chromium',
-      testIgnore: /home\.spec\.ts/,
+      testIgnore: /home\.spec\.ts|local-storage\.spec\.ts/,
       testMatch: /.*\.spec\.ts/,
       use: {
         ...devices['Desktop Chrome'],
         // channel: 'chrome',
-        storageState: authFile,
+        storageState: storageStateFile,
       },
     },
     {
@@ -53,6 +43,14 @@ export default defineConfig({
       testMatch: /home\.spec\.ts/,
       use: {
         ...devices['Desktop Chrome'],
+      },
+    },
+    {
+      name: Project.LocalStorage,
+      testMatch: /local-storage\.spec\.ts/,
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: localStorageTestFile,
       },
     },
     // {
@@ -86,11 +84,14 @@ export default defineConfig({
   ],
 
   // reporter: [['list'], ['html']],
-  reporter: process.env.CI
+  reporter: ci
     ? [
         ['list', { printSteps: true }],
+        // Allows for separate report per machine
         ['html', { open: 'never', outputFolder: '../../tmp/reports/e2e' }],
-        ['junit', { outputFile: '../../tmp/reports/e2e/results.xml' }],
+        ['junit', { outputFile: '../../tmp/reports/e2e/junit/results.xml' }],
+        // Allows for a unified report
+        // ['blob', { outputDir: '../../tmp/reports/e2e/all-blob-reports' }],
       ]
     : [
         ['list', { printSteps: true }],
@@ -101,15 +102,19 @@ export default defineConfig({
   /**
    * Takes long to fail if retrying, and we shouldn't need to rely on retry
    */
-  retries: process.env.CI ? 0 : 0,
+  retries: ci ? 0 : 0,
 
   /**
    * Includes hooks
+   *
+   * Increase to high timeout locally if you need to view console in the popup browser, sometimes there isn't enough time for it to stay open
+   *
+   * On CI better to leave it lower, so it fails fast. Longer specs should be broken into smaller specs, or the timeout added in the spec.
    */
-  timeout: process.env.CI ? 120_000 : 60_000,
+  timeout: ci ? 60_000 : 120_000,
 
   expect: {
-    timeout: process.env.CI ? 75_000 : 45_000,
+    timeout: ci ? 30_000 : 120_000,
   },
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
@@ -118,6 +123,20 @@ export default defineConfig({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
     video: { mode: 'on' },
+    // launchOptions: {
+    //   logger: {
+    //     isEnabled: (name: string) => {
+    //       return true
+    //       // return name === 'api'
+    //     },
+    //     log: (
+    //       name: string,
+    //       severity: 'error' | 'info' | 'verbose' | 'warning',
+    //       message: string,
+    //       args: Array<any>,
+    //     ) => console.log(`${name} ${severity} ${message} ${args.join(' ')}`),
+    //   },
+    // },
   },
 
   /* Run your local dev server before starting the tests */

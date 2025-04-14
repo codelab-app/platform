@@ -1,11 +1,9 @@
 import type { ObjectLike } from '@codelab/shared/abstract/types'
 import type { Static } from '@sinclair/typebox'
 
-import { Typebox } from '@codelab/shared/infra/typebox'
 import { Type } from '@sinclair/typebox'
 
 export const PropDtoSchema = Type.Object({
-  api: Type.Optional(Typebox.RefSchema),
   data: Type.String(),
   id: Type.String(),
 })

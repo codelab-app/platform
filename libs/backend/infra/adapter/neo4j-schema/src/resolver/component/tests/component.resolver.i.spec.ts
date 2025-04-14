@@ -12,10 +12,10 @@ import {
   UnionTypeRepository,
 } from '@codelab/backend/domain/type'
 import { UserRepository } from '@codelab/backend/domain/user'
-import { ITypeKind } from '@codelab/shared/abstract/core'
+import { IConfigPaneTab, ITypeKind } from '@codelab/shared/abstract/core'
 import { AtomType, BreakpointType } from '@codelab/shared/infra/gqlgen'
+import { logger } from '@codelab/shared/infra/logging'
 import { Validator } from '@codelab/shared/infra/typebox'
-import { logger } from '@codelab/shared/utils'
 import { ElementProperties } from '@codelab/shared-domain-module/element'
 import { print } from 'graphql'
 import request from 'supertest'
@@ -68,7 +68,10 @@ describe('ComponentResolvers', () => {
       auth0Id: 'something',
       email: 'something@some.thing',
       id: v4(),
+      name: 'something',
+      picture: '',
       preferences: {
+        activeConfigPaneTab: IConfigPaneTab.Node,
         builderBreakpointType: BreakpointType.Desktop,
         builderWidth: 1000,
         id: v4(),

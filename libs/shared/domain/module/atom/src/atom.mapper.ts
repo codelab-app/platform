@@ -1,14 +1,7 @@
-import type {
-  IAtomDto,
-  IElementRenderTypeKind,
-  IMapper,
-  ITypeKind,
-  IUserDto,
-} from '@codelab/shared/abstract/core'
+import type { IAtomDto, IMapper } from '@codelab/shared/abstract/core'
 import type {
   AtomCreateInput,
   AtomDeleteInput,
-  AtomFragment,
   AtomUpdateInput,
 } from '@codelab/shared/infra/gqlgen'
 
@@ -18,7 +11,6 @@ import {
   connectOwner,
   reconnectNodeIds,
 } from '@codelab/shared/domain/orm'
-import { v4 } from 'uuid'
 
 export const atomMapper: IMapper<
   IAtomDto,

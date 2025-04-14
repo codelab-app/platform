@@ -3,12 +3,10 @@ import { SeoHead } from '../src/home/SeoHead'
 
 const TermsOfService = () => {
   return (
-    <>
-      <SeoHead
-        description="Terms of service for Codelab builder"
-        title="Terms of Service"
-      />
-    </>
+    <SeoHead
+      description="Terms of service for Codelab builder"
+      title="Terms of Service"
+    />
   )
 }
 

@@ -1,9 +1,13 @@
+import type { IPage } from '@codelab/shared/abstract/core'
+
 import { IPageKind } from '@codelab/shared/abstract/core'
-import { atomTypes } from '@codelab/shared/data/test'
+import { E2E_ATOM_TYPES } from '@codelab/shared/data/test'
 import { type APIRequestContext } from '@playwright/test'
 import { v4 } from 'uuid'
 
-import { seedAppData } from '../builder/builder.data'
+import { requestOrThrow } from '../../api'
+import { REQUEST_TIMEOUT } from '../../setup/config'
+import { seedAppData } from '../app/app.data'
 
 export const PAGE_COUNT = 5
 
@@ -12,7 +16,7 @@ const createPageWithAllPossibleAtoms = async (
   pageName: string,
   request: APIRequestContext,
 ) => {
-  const pageResponse = await request.post('/api/v1/page/create', {
+  const page = await requestOrThrow<IPage>(request, 'page/create', {
     data: {
       app: { id: appId },
       id: v4(),
@@ -20,13 +24,22 @@ const createPageWithAllPossibleAtoms = async (
       name: pageName,
       urlPattern: `/${pageName}`,
     },
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+    timeout: REQUEST_TIMEOUT,
   })
 
-  const page = await pageResponse.json()
-  const elements = atomTypes.map((atom) => ({ atom, id: v4(), name: atom }))
+  const elements = E2E_ATOM_TYPES.map((atom) => ({
+    atom,
+    id: v4(),
+    name: atom,
+  }))
+
   const [firstChild, ...restChildren] = elements
 
-  await request.post(`/api/v1/element/${page.id}/create-elements`, {
+  await requestOrThrow(request, `element/${page.id}/create-elements`, {
     data: [
       { ...firstChild, parentElement: { id: page.rootElement.id } },
       ...restChildren.map((child, index) => ({
@@ -34,11 +47,16 @@ const createPageWithAllPossibleAtoms = async (
         prevSibling: { id: elements[index]!.id },
       })),
     ],
+    method: 'POST',
+    timeout: REQUEST_TIMEOUT,
   })
 }
 
 export const seedTestData = async (request: APIRequestContext) => {
-  const app = await seedAppData(request)
+  const app = await seedAppData(request, {
+    atomTypes: E2E_ATOM_TYPES,
+    componentTypes: [],
+  })
 
   for (let i = 0; i < PAGE_COUNT; i++) {
     await createPageWithAllPossibleAtoms(app.id, `Page ${i}`, request)

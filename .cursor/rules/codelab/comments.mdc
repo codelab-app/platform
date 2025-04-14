@@ -1,0 +1,9 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+- Don't remove comments unless asked explicitly
+- Don't remove commented code unless asked
+- When adding comments, you should uppercase the first letter 
+- Add documentation if I use the word `document` something

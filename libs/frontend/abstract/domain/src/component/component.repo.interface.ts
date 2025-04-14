@@ -4,7 +4,6 @@ import type {
   ComponentOptions,
   ComponentWhere,
 } from '@codelab/shared/infra/gqlgen'
-import type { Overwrite } from 'utility-types'
 
 import type { IRepository } from '../shared'
 
@@ -16,14 +15,9 @@ export interface IComponentCreateResults {
   store: IRef
 }
 
-export type IComponentRepository = Overwrite<
-  IRepository<
-    IComponentDto,
-    ComponentFragment,
-    ComponentWhere,
-    ComponentOptions
-  >,
-  {
-    add(dto: IComponentDto): Promise<IComponentCreateResults>
-  }
+export type IComponentRepository = IRepository<
+  IComponentDto,
+  ComponentFragment,
+  ComponentWhere,
+  ComponentOptions
 >

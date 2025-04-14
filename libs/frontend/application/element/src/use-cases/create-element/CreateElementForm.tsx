@@ -4,7 +4,6 @@ import type { IRuntimeModel } from '@codelab/frontend/abstract/application'
 import type { IFormController } from '@codelab/frontend/abstract/types'
 import type { IElementDto } from '@codelab/shared/abstract/core'
 
-import { isAtom } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   SelectActionsField,
@@ -60,20 +59,12 @@ export const CreateElementForm = observer<CreateElementFormProps>((props) => {
   const selectedElementId = selectedNode?.treeViewNodePreview.element?.id
   const elementService = useElementService()
 
-  // tracker.useRenderedCount('CreateElementForm')
-  // tracker.usePropsDiff('CreateElementForm', props)
-  // tracker.useReferenceChange('Service references', [
-  //   { name: 'elementService', value: elementService },
-  //   { name: 'atomDomainService', value: atomDomainService },
-  //   { name: 'elementDomainService', value: elementDomainService },
-  // ])
-
   // If we rely on the parentElement object for state, let's track it too
-  const parentElement = elementDomainService.elements.get(
+  const selectedElement = elementDomainService.elements.get(
     selectedElementId ?? '',
   )
 
-  if (!parentElement) {
+  if (!selectedElement) {
     return null
   }
 
@@ -87,9 +78,9 @@ export const CreateElementForm = observer<CreateElementFormProps>((props) => {
       return Promise.reject()
     }
 
-    if (parentElement.children.length > 0) {
+    if (selectedElement.children.length > 0) {
       data.prevSibling =
-        parentElement.children[parentElement.children.length - 1]
+        selectedElement.children[selectedElement.children.length - 1]
       data.parentElement = null
     }
 
@@ -98,12 +89,14 @@ export const CreateElementForm = observer<CreateElementFormProps>((props) => {
 
   const model = {
     closestContainerNode: {
-      id: parentElement.closestContainerNode.id,
+      id: selectedElement.closestContainerNode.id,
     },
     id: v4(),
-    owner: user.auth0Id,
+    owner: {
+      id: user.id,
+    },
     parentElement: {
-      id: parentElement.id,
+      id: selectedElement.id,
     },
     props: {
       api: { id: v4() },
@@ -116,10 +109,6 @@ export const CreateElementForm = observer<CreateElementFormProps>((props) => {
     },
   }
 
-  const parentAtom = isAtom(parentElement.renderType.current)
-    ? parentElement.renderType.current
-    : undefined
-
   return (
     <Form<ICreateElementDto>
       cssString="position: relative;"
@@ -129,6 +118,7 @@ export const CreateElementForm = observer<CreateElementFormProps>((props) => {
       onSubmitSuccess={onSubmitSuccess}
       schema={createElementSchema}
       submitRef={submitRef}
+      successMessage="Element created successfully"
       uiKey={UiKey.ElementFormCreate}
     >
       <AutoFields
@@ -147,10 +137,14 @@ export const CreateElementForm = observer<CreateElementFormProps>((props) => {
       />
       <AutoField
         component={SelectElementField}
-        help={`only elements from \`${parentElement.closestContainerNode.name}\` are visible in this list`}
+        help={`only elements from \`${selectedElement.closestContainerNode.name}\` are visible in this list`}
         name="parentElement.id"
       />
-      <RenderTypeField name="renderType" parentAtom={parentAtom} />
+      <RenderTypeField
+        name="renderType"
+        parentComponent={selectedElement.closestContainerComponent}
+        parentElement={selectedElement}
+      />
       <SelectActionsField name="preRenderActions" selectedNode={selectedNode} />
       <SelectActionsField
         name="postRenderActions"

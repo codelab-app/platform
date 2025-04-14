@@ -6,7 +6,8 @@ import type {
   IUpdateDomainData,
 } from '@codelab/frontend/abstract/domain'
 
-import { PageType, UiKey } from '@codelab/frontend/abstract/types'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { useErrorNotify } from '@codelab/frontend/infra/context'
 import { checkDomainExists } from '@codelab/frontend-domain-domain/errors'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
@@ -49,7 +50,7 @@ export const UpdateDomainModal = observer<UpdateDomainModalProps>(
     }
 
     const goBack = () => {
-      router.push(PageType.DomainList({ appId: app.id }))
+      router.push(RoutePaths.Domain.list({ appId: app.id }))
     }
 
     return (

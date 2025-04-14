@@ -2,7 +2,6 @@ import type { StorybookConfig } from '@storybook/nextjs'
 import type { Options } from '@swc/core'
 
 import { resolve } from 'path'
-import React from 'react'
 
 const storybookConfig: StorybookConfig = {
   addons: [

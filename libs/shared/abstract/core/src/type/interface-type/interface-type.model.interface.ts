@@ -1,11 +1,13 @@
 import { type Static, Type } from '@sinclair/typebox'
 
-import { FieldSchema } from '../../field'
+import { FieldDtoSchema } from '../../field'
 import { InterfaceTypeDtoSchema } from './interface-type.dto.interface'
 
-export const InterfaceTypeSchema = Type.Object({
-  ...InterfaceTypeDtoSchema().properties,
-  fields: Type.Array(FieldSchema),
-})
+export const InterfaceTypeSchema = Type.Composite([
+  Type.Omit(InterfaceTypeDtoSchema, ['fields']),
+  Type.Object({
+    fields: Type.Array(FieldDtoSchema),
+  }),
+])
 
 export type IInterfaceType = Static<typeof InterfaceTypeSchema>

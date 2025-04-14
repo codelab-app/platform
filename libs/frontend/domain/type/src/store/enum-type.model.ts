@@ -47,19 +47,6 @@ export class EnumType
     }
   }
 
-  @modelAction
-  writeCache(enumTypeDto: Partial<IEnumTypeDto>) {
-    super.writeCache(enumTypeDto)
-
-    this.allowedValues = enumTypeDto.allowedValues
-      ? enumTypeDto.allowedValues.map((allowedValue) =>
-          EnumTypeValue.create(allowedValue),
-        )
-      : this.allowedValues
-
-    return this
-  }
-
   toJsonSchema({
     defaultValues,
     uniformSchema,
@@ -75,5 +62,18 @@ export class EnumType
       // instead, the default value should be "undefined" to allow optional enums
       default: defaultValues ?? undefined,
     }
+  }
+
+  @modelAction
+  writeCache(enumTypeDto: Partial<IEnumTypeDto>) {
+    super.writeCache(enumTypeDto)
+
+    this.allowedValues = enumTypeDto.allowedValues
+      ? enumTypeDto.allowedValues.map((allowedValue) =>
+          EnumTypeValue.create(allowedValue),
+        )
+      : this.allowedValues
+
+    return this
   }
 }

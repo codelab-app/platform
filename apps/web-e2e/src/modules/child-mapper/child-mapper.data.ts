@@ -4,6 +4,7 @@ import type {
   ICreateElementData,
   IPageDto,
   IRef,
+  IUserDto,
 } from '@codelab/shared/abstract/core'
 
 import {
@@ -15,8 +16,9 @@ import { Validator } from '@codelab/shared/infra/typebox'
 import { type APIRequestContext } from '@playwright/test'
 import { v4 } from 'uuid'
 
+import { requestOrThrow } from '../../api'
 import { REQUEST_TIMEOUT } from '../../setup/config'
-import { seedAppData } from '../builder/builder.data'
+import { seedAppData } from '../app/app.data'
 
 export const childMapperComponentName = 'Component Name'
 
@@ -76,39 +78,50 @@ export const providerPageElements = (
 ]
 
 export const seedTestData = async (request: APIRequestContext) => {
-  const app = await seedAppData(request)
+  const app = await seedAppData(request, {
+    atomTypes: [IAtomType.AntDesignTypographyText, IAtomType.AntDesignGridRow],
+    componentTypes: [],
+  })
+
   const page = app.pages?.[0]
 
   if (!page) {
     throw new Error('Missing page')
   }
 
-  const ownerResponse = await request.get('/api/v1/user/me', {
+  const owner = await requestOrThrow<IUserDto>(request, 'user/me', {
+    method: 'GET',
     timeout: REQUEST_TIMEOUT,
   })
 
-  const owner = await ownerResponse.json()
+  await requestOrThrow(
+    request,
+    `element/${page.rootElement.id}/create-elements`,
+    {
+      data: providerPageElements(page),
+      method: 'POST',
+      timeout: REQUEST_TIMEOUT,
+    },
+  )
 
-  await request.post(`/api/v1/element/${page.rootElement.id}/create-elements`, {
-    data: providerPageElements(page),
-    timeout: REQUEST_TIMEOUT,
-  })
-
-  const componentResponse = await request.post(
-    '/api/v1/component/create-component',
+  const componentResponse = await requestOrThrow<IComponentDto>(
+    request,
+    'component/create-component',
     {
       data: childMapperComponent(owner),
+      method: 'POST',
       timeout: REQUEST_TIMEOUT,
     },
   )
 
   const component: IComponentDto = Validator.parse(
     ComponentDtoSchema,
-    await componentResponse.json(),
+    await componentResponse,
   )
 
-  await request.post(
-    `/api/v1/element/${component.rootElement.id}/create-elements`,
+  await requestOrThrow(
+    request,
+    `element/${component.rootElement.id}/create-elements`,
     {
       data: [
         {
@@ -116,6 +129,7 @@ export const seedTestData = async (request: APIRequestContext) => {
           parentElement: component.rootElement,
         },
       ],
+      method: 'POST',
       timeout: REQUEST_TIMEOUT,
     },
   )

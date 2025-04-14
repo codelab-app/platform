@@ -1,5 +1,7 @@
 'use client'
 
+import type { DashboardProps } from '@codelab/frontend/abstract/types'
+
 import {
   configPaneBreakpoints,
   CuiNavigationBar,
@@ -14,8 +16,6 @@ import Layout from 'antd/es/layout'
 import Sider from 'antd/es/layout/Sider'
 import { useMemo } from 'react'
 
-import type { DashboardProps } from './dashboard.types'
-
 import { ProgressBar } from '../../components/progressBar/ProgressBar'
 import { sidebarWidth } from './constants'
 import { defaultNavigationBarItems } from './NavigationBar'
@@ -24,18 +24,16 @@ import { defaultNavigationBarItems } from './NavigationBar'
  * When passing ReactNode as props, React treats it as a new prop on every render of the parent component, even if the content hasn't changed.
  */
 export const Dashboard = ({
-  appId,
   children,
-  componentId,
   configPane,
-  contentStyles,
   header,
   modal,
-  pageId,
+  params = {},
   primarySidebar,
-  primarySidebarKey,
   secondaryPopover,
-}: React.PropsWithChildren<DashboardProps>) => {
+}: DashboardProps) => {
+  const { appId, componentId, pageId } = params
+
   const navigationBarItems = useMemo(
     () =>
       defaultNavigationBarItems({
@@ -54,8 +52,8 @@ export const Dashboard = ({
 
   return (
     <Layout className="h-full">
-      {modal}
-      {header}
+      <>{modal}</>
+      <>{header}</>
       {/*
           Need explicitly set `hasSider` prop to avoid flickering
           see AntD documentation or https://github.com/ant-design/ant-design/issues/8937
@@ -68,7 +66,7 @@ export const Dashboard = ({
           />
         </Sider>
 
-        <Layout style={contentStyles}>
+        <Layout style={{ paddingTop: '0rem' }}>
           <CuiPanelGroup direction="horizontal">
             {primarySidebar && (
               <CuiResizablePanel
@@ -102,7 +100,7 @@ export const Dashboard = ({
             >
               <ProgressBar />
               {/* We want the popover to overlay on top of the main, so we put it inside here */}
-              {secondaryPopover}
+              <>{secondaryPopover}</>
               <div className="size-full p-3">{children}</div>
             </CuiPanel>
 

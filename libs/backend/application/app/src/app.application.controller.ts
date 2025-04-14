@@ -1,14 +1,13 @@
-import type { IApp, IAppAggregateExport } from '@codelab/shared/abstract/core'
+import type {
+  IApp,
+  IAppAggregate,
+  IAtomType,
+  IComponentType,
+} from '@codelab/shared/abstract/core'
 
-import { ImportCypressAtomsCommand } from '@codelab/backend/application/atom'
-import { ImportDataMapperService } from '@codelab/backend/application/data'
-import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { DEMO_JOB, SEED_QUEUE } from '@codelab/backend/infra/adapter/queue'
 import { WsGateway } from '@codelab/backend/infra/adapter/ws'
-import { DatabaseService } from '@codelab/backend-infra-adapter/neo4j-driver'
-import { IJobOutput, IJobQueueResponse } from '@codelab/shared/abstract/infra'
-import { InjectQueue } from '@nestjs/bullmq'
+import { IJobQueueResponse } from '@codelab/shared/abstract/infra'
 import {
   Body,
   ClassSerializerInterceptor,
@@ -16,36 +15,30 @@ import {
   Get,
   Post,
   Request,
-  Res,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 import { FileInterceptor } from '@nestjs/platform-express'
-import { Queue } from 'bullmq'
-import { Express, Request as ExpressRequest, Response } from 'express'
+import { Express, Request as ExpressRequest } from 'express'
 import 'multer'
 
-import {
-  ExportAppCommand,
-  ImportAppCommand,
-  SeedCypressAppCommand,
-} from './use-case'
+import { AppApplicationService } from './services/app.application.service'
+import { ExportAppCommand, SeedAppCommand } from './use-case'
 
 @Controller('app')
 export class AppApplicationController {
   constructor(
     private commandBus: CommandBus,
     private logger: PinoLoggerService,
-    private importDataMapperService: ImportDataMapperService,
-    @InjectQueue(SEED_QUEUE) private seedQueue: Queue,
     private readonly socketGateway: WsGateway,
+    private appApplicationService: AppApplicationService,
   ) {}
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Get('export')
   async exportApp(@Request() req: ExpressRequest) {
-    return this.commandBus.execute<ExportAppCommand, IAppAggregateExport>(
+    return this.commandBus.execute<ExportAppCommand, IAppAggregate>(
       new ExportAppCommand({ id: req.query['id'] as string }),
     )
   }
@@ -54,30 +47,31 @@ export class AppApplicationController {
   @Post('import')
   async importApp(@UploadedFile() file: Express.Multer.File) {
     const json = file.buffer.toString('utf8')
-    const data = JSON.parse(json)
-    const importData = this.importDataMapperService.getAppImportData(data)
+    const app: IAppAggregate = JSON.parse(json)
 
-    return this.commandBus.execute<ImportAppCommand, IApp>(
-      new ImportAppCommand(importData),
-    )
+    return this.appApplicationService.importApp(app)
   }
 
+  /**
+   * Only seed required atom types for the spec to speed up the test
+   */
   @UseInterceptors(ClassSerializerInterceptor)
-  @Post('seed-cypress-app')
+  @Post('seed-e2e-app')
   async seedApp(
-    @Body() { jobId }: { jobId: string },
+    @Body()
+    {
+      atomTypes,
+      componentTypes,
+      jobId,
+    }: {
+      jobId: string
+      atomTypes: Array<IAtomType>
+      componentTypes?: Array<IComponentType>
+    },
   ): Promise<IJobQueueResponse> {
     setTimeout(async () => {
-      await this.commandBus.execute<ImportSystemTypesCommand>(
-        new ImportSystemTypesCommand(),
-      )
-
-      await this.commandBus.execute<ImportCypressAtomsCommand>(
-        new ImportCypressAtomsCommand(),
-      )
-
-      const app = await this.commandBus.execute<SeedCypressAppCommand, IApp>(
-        new SeedCypressAppCommand(),
+      const app = await this.commandBus.execute<SeedAppCommand, IApp>(
+        new SeedAppCommand({ atomTypes, componentTypes }),
       )
 
       this.socketGateway.emitJobComplete({

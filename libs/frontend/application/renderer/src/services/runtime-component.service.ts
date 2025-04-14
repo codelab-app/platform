@@ -64,13 +64,13 @@ export class RuntimeComponentService
     return runtimeComponent
   }
 
+  maybeRuntimeComponent(compositeKey: string) {
+    return this.components.get(compositeKey)
+  }
+
   @modelAction
   remove(runtimeComponent: IRuntimeComponentModel) {
     return this.components.delete(runtimeComponent.compositeKey)
-  }
-
-  maybeRuntimeComponent(compositeKey: string) {
-    return this.components.get(compositeKey)
   }
 
   runtimeComponent(compositeKey: string) {

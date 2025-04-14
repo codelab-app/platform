@@ -8,22 +8,29 @@ import type { IRef } from '@codelab/shared/abstract/core'
 import type { AuthGuardWhere } from '@codelab/shared/infra/gqlgen'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import { PageType } from '@codelab/frontend/abstract/types'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { authGuardRepository } from '@codelab/frontend-domain-auth-guard/repositories'
+import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Validator } from '@codelab/shared/infra/typebox'
+import { useMemo } from 'react'
 
 export const useAuthGuardService = (): IAuthGuardService => {
   const { authGuardDomainService, resourceDomainService } = useDomainStore()
 
   const create = async (data: IAuthGuardCreateFormData) => {
-    const authGuard = await authGuardRepository.add({
-      ...data,
-      config: {
-        data: JSON.stringify(data.config.data),
-        id: data.config.id,
+    const authGuard = await authGuardRepository.add(
+      {
+        ...data,
+        config: {
+          data: JSON.stringify(data.config.data),
+          id: data.config.id,
+        },
       },
-    })
+      {
+        revalidateTags: [CACHE_TAGS.AuthGuard.list()],
+      },
+    )
 
     Validator.assertsDefined(authGuard)
 
@@ -35,7 +42,9 @@ export const useAuthGuardService = (): IAuthGuardService => {
       authGuardDomainService.authGuards.delete(authGuard.id)
     }
 
-    return await authGuardRepository.delete(authGuards)
+    return await authGuardRepository.delete(authGuards, {
+      revalidateTags: [CACHE_TAGS.AuthGuard.list()],
+    })
   }
 
   const getAll = async (where: AuthGuardWhere = {}) => {
@@ -64,6 +73,9 @@ export const useAuthGuardService = (): IAuthGuardService => {
           id: authGuard.config.id,
         },
       },
+      {
+        revalidateTags: [CACHE_TAGS.AuthGuard.list()],
+      },
     )
 
     return authGuard
@@ -71,21 +83,24 @@ export const useAuthGuardService = (): IAuthGuardService => {
 
   const updatePopover = {
     close: (router: AppRouterInstance) => {
-      router.push(PageType.AuthGuards())
+      router.push(RoutePaths.AuthGuard.base())
     },
     open: (router: AppRouterInstance, { id }: IRef) => {
-      router.push(PageType.AuthGuardsUpdate({ id }))
+      router.push(RoutePaths.AuthGuard.update({ id }))
     },
   }
 
-  const createPopover = {
-    close: (router: AppRouterInstance) => {
-      router.push(PageType.AuthGuards())
-    },
-    open: (router: AppRouterInstance) => {
-      router.push(PageType.AuthGuardsCreate())
-    },
-  }
+  const createPopover = useMemo(
+    () => ({
+      close: (router: AppRouterInstance) => {
+        router.push(RoutePaths.AuthGuard.base())
+      },
+      open: (router: AppRouterInstance) => {
+        router.push(RoutePaths.AuthGuard.create())
+      },
+    }),
+    [],
+  )
 
   return {
     create,

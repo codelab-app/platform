@@ -4,13 +4,7 @@ import type { ILoggerService, LogOptions } from '@codelab/shared/infra/logging'
 import type { ConfigType } from '@nestjs/config'
 
 import { Inject, Injectable, LogLevel } from '@nestjs/common'
-import {
-  InjectPinoLogger,
-  Logger,
-  Params,
-  PARAMS_PROVIDER_TOKEN,
-  PinoLogger,
-} from 'nestjs-pino'
+import { Logger, Params, PARAMS_PROVIDER_TOKEN, PinoLogger } from 'nestjs-pino'
 import pino from 'pino'
 import { omit } from 'remeda'
 
@@ -88,13 +82,18 @@ export class PinoLoggerService extends Logger implements ILoggerService {
     const mappedLevel = labelMapping[level]
     const logger = this.logger[mappedLevel].bind(this.logger)
 
-    if (!this.shouldIncludeData(options)) {
+    // Always include data for error and fatal levels
+    if (
+      level === 'error' ||
+      level === 'fatal' ||
+      this.shouldIncludeData(options)
+    ) {
+      logger({ msg: message, ...options })
+    } else {
       logger({
         msg: message,
         ...omit(options, ['data']),
       })
-    } else {
-      logger({ msg: message, ...options })
     }
   }
 

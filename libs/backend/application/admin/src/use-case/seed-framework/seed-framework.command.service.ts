@@ -1,7 +1,8 @@
 import type { ICommandHandler } from '@nestjs/cqrs'
 
-import { SeedCypressAppCommand } from '@codelab/backend/application/app'
+import { SeedAppCommand } from '@codelab/backend/application/app'
 import { SeedAtomsCommand } from '@codelab/backend/application/atom'
+import { ReadAdminDataService } from '@codelab/backend/application/data'
 import { SeedTagsService } from '@codelab/backend/application/tag'
 import {
   SeedEmptyApiCommand,
@@ -44,10 +45,11 @@ export class SeedFrameworkHandler
     private readonly seedTagsService: SeedTagsService,
     protected readonly owner: IOwner,
     private commandBus: CommandBus,
+    private readAdminDataService: ReadAdminDataService,
   ) {}
 
   async execute({ data }: SeedFrameworkCommand) {
-    await this.commandBus.execute(new SeedCypressAppCommand())
+    await this.commandBus.execute(new SeedAppCommand())
 
     await this.seedTags(data.tags)
 

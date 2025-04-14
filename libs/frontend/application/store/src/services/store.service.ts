@@ -1,5 +1,6 @@
 import { type IStoreService } from '@codelab/frontend/abstract/application'
 import { type IStoreModel } from '@codelab/frontend/abstract/domain'
+import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { storeRepository } from '@codelab/frontend-domain-store/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { type IStoreDto } from '@codelab/shared/abstract/core'
@@ -16,7 +17,9 @@ export const useStoreService = (): IStoreService => {
   const create = async (data: IStoreDto) => {
     const store = storeDomainService.hydrate(data)
 
-    return await storeRepository.add(data)
+    return await storeRepository.add(data, {
+      revalidateTags: [CACHE_TAGS.Store.list()],
+    })
   }
 
   const removeMany = async (stores: Array<IStoreModel>) => {
@@ -24,7 +27,9 @@ export const useStoreService = (): IStoreService => {
       storeDomainService.stores.delete(store.id)
     })
 
-    return await storeRepository.delete(stores)
+    return await storeRepository.delete(stores, {
+      revalidateTags: [CACHE_TAGS.Store.list()],
+    })
   }
 
   const getAll = async (where: StoreWhere) => {
@@ -49,7 +54,9 @@ export const useStoreService = (): IStoreService => {
     Validator.assertsDefined(store)
     store.writeCache({ name: data.name })
 
-    return await storeRepository.update({ id: store.id }, data)
+    return await storeRepository.update({ id: store.id }, data, {
+      revalidateTags: [CACHE_TAGS.Store.list()],
+    })
   }
 
   const load = (stores: Array<StoreFragment>) => {
@@ -59,9 +66,7 @@ export const useStoreService = (): IStoreService => {
 
     typeDomainService.hydrateTypes(stores.map((store) => store.api))
 
-    return stores.map((store) =>
-      storeDomainService.hydrate({ ...store, source: null }),
-    )
+    return stores.map((store) => storeDomainService.hydrate(store))
   }
 
   return {

@@ -17,24 +17,26 @@ import { RenderPropTypeDtoSchema } from './render-prop-type/render-prop-type.dto
 import { RichTextTypeDtoSchema } from './rich-text-type'
 import { UnionTypeDtoSchema } from './union-type'
 
-export const TypeDtoSchema = Type.Union(
-  [
-    ActionTypeDtoSchema,
-    AppTypeDtoSchema,
-    ArrayTypeDtoSchema(),
-    CodeMirrorTypeDtoSchema,
-    ElementTypeDtoSchema,
-    EnumTypeDtoSchema,
-    InterfaceTypeDtoSchema(),
-    LambdaTypeDtoSchema,
-    PageTypeDtoSchema,
-    PrimitiveTypeDtoSchema,
-    ReactNodeTypeDtoSchema,
-    RenderPropTypeDtoSchema,
-    RichTextTypeDtoSchema,
-    UnionTypeDtoSchema(),
-  ],
-  { discriminantKey: '__typename', errorMessage: 'Unknown type' },
-)
+export const typeDtoSchemas = [
+  ActionTypeDtoSchema,
+  AppTypeDtoSchema,
+  ArrayTypeDtoSchema,
+  CodeMirrorTypeDtoSchema,
+  ElementTypeDtoSchema,
+  EnumTypeDtoSchema,
+  InterfaceTypeDtoSchema,
+  LambdaTypeDtoSchema,
+  PageTypeDtoSchema,
+  PrimitiveTypeDtoSchema,
+  ReactNodeTypeDtoSchema,
+  RenderPropTypeDtoSchema,
+  RichTextTypeDtoSchema,
+  UnionTypeDtoSchema,
+]
+
+export const TypeDtoSchema = Type.Union(typeDtoSchemas, {
+  discriminantKey: '__typename',
+  errorMessage: 'Unknown type',
+})
 
 export type ITypeDto = Static<typeof TypeDtoSchema>

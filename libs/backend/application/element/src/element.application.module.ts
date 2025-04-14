@@ -8,7 +8,7 @@ import { ElementApplicationController } from './element.application.controller'
 import { ElementApplicationService } from './element.application.service'
 
 /**
- * Created this to seed Cypress data for create element tree, but trying out data seeding through mobx as well
+ * Created this to seed E2e data for create element tree, but trying out data seeding through mobx as well
  */
 @Module({
   controllers: [ElementApplicationController],

@@ -1,5 +1,6 @@
 import type { ITagRepository } from '@codelab/frontend/abstract/domain'
 import type { IRef, ITagDto } from '@codelab/shared/abstract/core'
+import type { NextFetchOptions } from '@codelab/shared/abstract/types'
 
 import { Validator } from '@codelab/shared/infra/typebox'
 import { tagMapper, tagServerActions } from '@codelab/shared-domain-module/tag'
@@ -7,12 +8,15 @@ import { tagMapper, tagServerActions } from '@codelab/shared-domain-module/tag'
 const { CreateTags, DeleteTags, GetTags, UpdateTags } = tagServerActions
 
 export const tagRepository: ITagRepository = {
-  add: async (tag: ITagDto) => {
+  add: async (tag: ITagDto, next?: NextFetchOptions) => {
     const {
       createTags: { tags },
-    } = await CreateTags({
-      input: tagMapper.toCreateInput(tag),
-    })
+    } = await CreateTags(
+      {
+        input: tagMapper.toCreateInput(tag),
+      },
+      next,
+    )
 
     const createdTag = tags[0]
 
@@ -21,34 +25,43 @@ export const tagRepository: ITagRepository = {
     return createdTag
   },
 
-  delete: async (tags) => {
+  delete: async (tags, next?: NextFetchOptions) => {
     const {
       deleteTags: { nodesDeleted },
-    } = await DeleteTags({
-      where: { id_IN: tags.map(({ id }) => id) },
-    })
+    } = await DeleteTags(
+      {
+        where: { id_IN: tags.map(({ id }) => id) },
+      },
+      next,
+    )
 
     return nodesDeleted
   },
 
-  find: async (where, options) => {
-    return await GetTags({
-      options,
-      where: { ...where, parent: undefined },
-    })
+  find: async (where, options, next?: NextFetchOptions) => {
+    return await GetTags(
+      {
+        options,
+        where,
+      },
+      next,
+    )
   },
 
-  findOne: async (where) => {
-    return (await tagRepository.find(where)).items[0]
+  findOne: async (where, next?: NextFetchOptions) => {
+    return (await tagRepository.find(where, undefined, next)).items[0]
   },
 
-  update: async ({ id }: IRef, tag: ITagDto) => {
+  update: async ({ id }: IRef, tag: ITagDto, next?: NextFetchOptions) => {
     const {
       updateTags: { tags },
-    } = await UpdateTags({
-      update: tagMapper.toUpdateInput(tag),
-      where: { id },
-    })
+    } = await UpdateTags(
+      {
+        update: tagMapper.toUpdateInput(tag),
+        where: { id },
+      },
+      next,
+    )
 
     const updatedTag = tags[0]
 

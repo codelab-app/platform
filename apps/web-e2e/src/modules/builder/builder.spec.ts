@@ -1,34 +1,47 @@
-import type { IApp, IAppDto } from '@codelab/shared/abstract/core'
+import type { IAppDto } from '@codelab/shared/abstract/core'
 
+import { IAtomType } from '@codelab/shared/abstract/core'
 import { providerPageId } from '@codelab/shared/data/test'
 import { expect } from '@playwright/test'
 
 import { globalBeforeAll } from '../../setup/before-all'
+import { seedAppData } from '../app/app.data'
 import {
   builderElements,
   elementColA,
   elementColB,
   elementColC,
-  seedAppData,
 } from './builder.data'
 import { test } from './builder.fixture'
 
 let app: IAppDto
 
-test.describe.configure({ mode: 'serial', timeout: 60000 })
+test.describe.configure({ mode: 'serial' })
 
 globalBeforeAll()
 
 test.beforeAll(async ({ request }) => {
-  app = await seedAppData(request)
+  app = await seedAppData(request, {
+    atomTypes: [
+      IAtomType.AntDesignGridRow,
+      IAtomType.AntDesignGridCol,
+      IAtomType.AntDesignTypographyText,
+      IAtomType.AntDesignButton,
+    ],
+    componentTypes: [],
+  })
 })
 
 test.beforeEach(async ({ builderPage: page }, testInfo) => {
   await page.goto(app.id, providerPageId)
-  await page.checkPageHeaderTitle(['Codelab App', 'Pages', 'provider'])
 
   await expect(page.getSpinner()).toBeHidden()
+  await expect(page.getSkeleton()).toBeHidden()
   await expect(page.getFormFieldSpinner()).toHaveCount(0)
+
+  await page.expectGlobalProgressBarToBeHidden()
+
+  await page.checkPageHeaderTitle(['Codelab App', 'Pages', 'provider'])
 })
 
 test('should be able to create element tree', async ({ builderPage: page }) => {

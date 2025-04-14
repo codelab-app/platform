@@ -7,12 +7,10 @@ import type {
 
 import {
   connectNodeId,
-  connectNodeIds,
   disconnectAll,
   reconnectNodeId,
   reconnectNodeIds,
 } from '@codelab/shared/domain/orm'
-import { logger } from '@codelab/shared/utils'
 import { propMapper } from '@codelab/shared-domain-module/prop'
 
 import { ElementProperties } from './element.properties'
@@ -30,7 +28,6 @@ export const elementMapper: IMapper<
       childMapperPropKey,
       closestContainerNode,
       compositeKey,
-      expanded,
       firstChild,
       id,
       name,
@@ -54,7 +51,6 @@ export const elementMapper: IMapper<
       compositeKey:
         compositeKey ??
         ElementProperties.elementCompositeKey({ name }, closestContainerNode),
-      expanded,
       id,
       // We only need to do one way
       // firstChild: connectNodeId(firstChild?.id),
@@ -101,7 +97,6 @@ export const elementMapper: IMapper<
     childMapperPropKey,
     closestContainerNode,
     compositeKey,
-    expanded,
     firstChild,
     name,
     nextSibling,
@@ -118,12 +113,6 @@ export const elementMapper: IMapper<
     style,
     tailwindClassNames,
   }: IElementDto): ElementUpdateInput => {
-    logger.debug('toUpdateInput', {
-      id: name,
-      name,
-      page,
-    })
-
     return {
       childMapperComponent: reconnectNodeId(childMapperComponent?.id),
       childMapperPreviousSibling: reconnectNodeId(
@@ -133,7 +122,6 @@ export const elementMapper: IMapper<
       compositeKey:
         compositeKey ??
         ElementProperties.elementCompositeKey({ name }, closestContainerNode),
-      expanded,
       firstChild: reconnectNodeId(firstChild?.id),
       nextSibling: reconnectNodeId(nextSibling?.id),
       page: reconnectNodeId(page?.id),
@@ -155,14 +143,18 @@ export const elementMapper: IMapper<
       renderIfExpression,
       // We need to disconnect the component if render type changed to atom or empty
       renderType: {
-        Atom:
-          renderType.__typename === 'Atom'
+        Atom: {
+          ...disconnectAll({ omitId: renderType.id }),
+          ...(renderType.__typename === 'Atom'
             ? connectNodeId(renderType.id)
-            : disconnectAll({ omitId: renderType.id }),
-        Component:
-          renderType.__typename === 'Component'
+            : null),
+        },
+        Component: {
+          ...disconnectAll({ omitId: renderType.id }),
+          ...(renderType.__typename === 'Component'
             ? connectNodeId(renderType.id)
-            : disconnectAll({ omitId: renderType.id }),
+            : null),
+        },
       },
       style,
       tailwindClassNames,

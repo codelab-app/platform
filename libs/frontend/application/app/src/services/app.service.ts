@@ -13,11 +13,13 @@ import { domainRepository } from '@codelab/frontend-domain-domain/repositories'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import { pageRepository } from '@codelab/frontend-domain-page/repositories'
 import { PageDomainFactory } from '@codelab/frontend-domain-page/services'
+import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import {
   useDomainStore,
   useUndoManager,
 } from '@codelab/frontend-infra-mobx/context'
 import { Validator } from '@codelab/shared/infra/typebox'
+import { appApi } from '@codelab/shared-domain-module/app'
 import { withAsyncSpanFunc } from '@codelab/shared-infra-sentry'
 
 import { createAppAction } from '../use-cases/create-app'
@@ -61,7 +63,6 @@ export const useAppService = (): IAppService => {
       throw error
     } finally {
       //
-      // await invalidateAppListQuery()
     }
   }
 
@@ -85,14 +86,10 @@ export const useAppService = (): IAppService => {
 
       const elements = pagesDto.flatMap((page) => page.elements)
 
-      // const pages = pagesDto.map((pageDto) =>
-      //   pageDomainService.hydrate(pageDto),
-      // )
-
-      await appRepository.delete([app])
+      await appRepository.delete([app], {
+        revalidateTags: [CACHE_TAGS.App.list()],
+      })
       await elementRepository.delete(elements)
-
-      // await invalidateAppListQuery()
 
       return app
     }
@@ -115,9 +112,9 @@ export const useAppService = (): IAppService => {
   }
 
   const getSelectAppOptions = async () => {
-    await getAll({})
+    const { items: apps } = await appApi().AppList({})
 
-    return appDomainService.appsList.map((app) => ({
+    return apps.map((app) => ({
       label: app.name,
       value: app.id,
     }))
@@ -156,9 +153,13 @@ export const useAppService = (): IAppService => {
 
     app?.writeCache({ name })
 
-    await appRepository.update({ id }, { id, name, owner })
-
-    // await invalidateAppListQuery()
+    await appRepository.update(
+      { id },
+      { id, name, owner },
+      {
+        revalidateTags: [CACHE_TAGS.App.list()],
+      },
+    )
 
     Validator.assertsDefined(app)
 

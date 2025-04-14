@@ -2,42 +2,41 @@ import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-u
 
 import ApiOutlined from '@ant-design/icons/ApiOutlined'
 import DeploymentUnitOutlined from '@ant-design/icons/DeploymentUnitOutlined'
-import TagOutlined from '@ant-design/icons/TagOutlined'
 import UserOutlined from '@ant-design/icons/UserOutlined'
-import { PageType } from '@codelab/frontend/abstract/types'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 
 export const adminMenuItems: Array<NavigationBarItem> = [
   {
     icon: (
       <DeploymentUnitOutlined data-testid="atom-tab-trigger" title="Atoms" />
     ),
-    key: PageType.Atoms(),
+    key: RoutePaths.Atom.base(),
     link: {
-      href: PageType.Atoms(),
+      href: RoutePaths.Atom.base(),
     },
     title: 'Atoms',
   },
   {
     icon: <ApiOutlined title="Types" />,
-    key: PageType.Type(),
+    key: RoutePaths.Type.base(),
     link: {
-      href: PageType.Type(),
+      href: RoutePaths.Type.base(),
     },
     title: 'Types',
   },
-  {
-    icon: <TagOutlined title="Tags" />,
-    key: PageType.Tags(),
-    link: {
-      href: PageType.Tags(),
-    },
-    title: 'Tags',
-  },
+  // {
+  //   icon: <TagOutlined title="Tags" />,
+  //   key: RoutePaths.Tag.base(),
+  //   link: {
+  //     href: RoutePaths.Tag.base(),
+  //   },
+  //   title: 'Tags',
+  // },
   {
     icon: <UserOutlined title="Admin" />,
-    key: PageType.Admin(),
+    key: RoutePaths.Admin.base(),
     link: {
-      href: PageType.Admin(),
+      href: RoutePaths.Admin.base(),
     },
     title: 'Admin',
   },

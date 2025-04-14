@@ -1,8 +1,4 @@
 import type {
-  CrudActionPopoverParams,
-  IActionService,
-} from '@codelab/frontend/abstract/application'
-import type {
   IActionDto,
   ICreateActionData,
   IUpdateActionData,
@@ -10,11 +6,18 @@ import type {
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import {
+  type IActionCreateRoute,
+  type IActionService,
+  type IActionUpdateRoute,
+  IRouteType,
+  RoutePaths,
+} from '@codelab/frontend/abstract/application'
+import {
   type IActionModel,
   type IActionWhere,
 } from '@codelab/frontend/abstract/domain'
-import { PageType, PrimarySidebar } from '@codelab/frontend/abstract/types'
 import { useDomainStoreHydrator } from '@codelab/frontend/infra/context'
+import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { actionRepository } from '@codelab/frontend-domain-store/repositories'
 import {
   useApplicationStore,
@@ -39,7 +42,9 @@ export const useActionService = (): IActionService => {
 
     hydrate({ actionsDto: [action] })
 
-    return await actionRepository.add(action)
+    return await actionRepository.add(action, {
+      revalidateTags: [CACHE_TAGS.Action.list()],
+    })
   }
 
   const removeMany = async (actions: Array<IActionModel>) => {
@@ -58,7 +63,9 @@ export const useActionService = (): IActionService => {
       }
     }
 
-    return await actionRepository.delete(actions)
+    return await actionRepository.delete(actions, {
+      revalidateTags: [CACHE_TAGS.Action.list()],
+    })
   }
 
   const getAll = async (where: IActionWhere) => {
@@ -82,7 +89,9 @@ export const useActionService = (): IActionService => {
 
     hydrate({ actionsDto: [actionDto] })
 
-    await actionRepository.update({ id: action.id }, actionDto)
+    await actionRepository.update({ id: action.id }, actionDto, {
+      revalidateTags: [CACHE_TAGS.Action.list()],
+    })
 
     return action
   }
@@ -124,23 +133,22 @@ export const useActionService = (): IActionService => {
 
     const newAction = actionDomainService.hydrate(newActionDto)
 
-    return await actionRepository.add(newActionDto)
+    return await actionRepository.add(newActionDto, {
+      revalidateTags: [CACHE_TAGS.Action.list()],
+    })
   }
 
   const createPopover = {
     close: (router: AppRouterInstance) => {
       router.back()
     },
-    open: (
-      router: AppRouterInstance,
-      { appId, componentId, pageId, storeId }: CrudActionPopoverParams,
-    ) => {
+    open: (router: AppRouterInstance, context: IActionCreateRoute) => {
       const url =
-        appId && pageId
-          ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
-          : PageType.ComponentBuilder({ componentId })
+        context.type === IRouteType.Page
+          ? RoutePaths.Page.builderAction.create(context)
+          : RoutePaths.Component.builderAction.create(context)
 
-      router.push(`${url}/store/${storeId}/create-action`)
+      router.push(url)
     },
   }
 
@@ -148,16 +156,13 @@ export const useActionService = (): IActionService => {
     close: (router: AppRouterInstance) => {
       router.back()
     },
-    open: (
-      router: AppRouterInstance,
-      { actionId, appId, componentId, pageId }: CrudActionPopoverParams,
-    ) => {
+    open: (router: AppRouterInstance, context: IActionUpdateRoute) => {
       const url =
-        appId && pageId
-          ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
-          : PageType.ComponentBuilder({ componentId })
+        context.type === IRouteType.Page
+          ? RoutePaths.Page.builderAction.update(context)
+          : RoutePaths.Component.builderAction.update(context)
 
-      router.push(`${url}/update-action/${actionId}`)
+      router.push(url)
     },
   }
 
@@ -165,16 +170,13 @@ export const useActionService = (): IActionService => {
     close: (router: AppRouterInstance) => {
       router.back()
     },
-    open: (
-      router: AppRouterInstance,
-      { actionId, appId, componentId, pageId }: CrudActionPopoverParams,
-    ) => {
+    open: (router: AppRouterInstance, context: IActionUpdateRoute) => {
       const url =
-        appId && pageId
-          ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
-          : PageType.ComponentBuilder({ componentId })
+        context.type === IRouteType.Page
+          ? RoutePaths.Page.builderAction.delete(context)
+          : RoutePaths.Component.builderAction.delete(context)
 
-      router.push(`${url}/delete/action/${actionId}`)
+      router.push(url)
     },
   }
 

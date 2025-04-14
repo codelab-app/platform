@@ -1,7 +1,9 @@
-import { PageType, UiKey } from '@codelab/frontend/abstract/types'
-import { test as base, expect } from '@playwright/test'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { UiKey } from '@codelab/frontend/abstract/types'
+import { expect } from '@playwright/test'
 
-import { BasePage } from '../../locators/pages'
+import { BasePage } from '../../setup/core/page'
+import { baseTest } from '../../setup/fixtures/base.fixture'
 
 /**
  * Follow guide https://medium.com/@lucgagan/mastering-playwright-best-practices-for-web-automation-with-the-page-object-model-3541412b03d1
@@ -51,7 +53,7 @@ export class AppListPage extends BasePage {
 
   async gotoAppListUrl() {
     return test.step('gotoAppListUrl', async () => {
-      await this.page.goto(PageType.AppList())
+      await this.page.goto(RoutePaths.App.list())
     })
   }
 
@@ -93,9 +95,9 @@ export class AppListPage extends BasePage {
   private readonly updatedAppName = 'Updated App'
 }
 
-export const test = base.extend<{ appListPage: AppListPage }>({
-  appListPage: async ({ page }, use) => {
-    const appListPage = new AppListPage(page)
+export const test = baseTest.extend<{ appListPage: AppListPage }>({
+  appListPage: async ({ context, page }, use) => {
+    const appListPage = new AppListPage(page, context)
 
     await use(appListPage)
   },

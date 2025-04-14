@@ -1,7 +1,9 @@
-import { PageType, UiKey } from '@codelab/frontend/abstract/types'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
-import { test as base, expect } from '@playwright/test'
+import { expect } from '@playwright/test'
 
+import { baseTest } from '../../setup/fixtures/base.fixture'
 import { BuilderPage } from '../builder/builder.fixture'
 import { COMPONENT_PROP_VALUE } from './component.data'
 
@@ -26,7 +28,9 @@ export class ComponentListPage extends BuilderPage {
         })
         .click()
 
-      await this.waitForProgressBar()
+      await this.expectGlobalProgressBarToBeHidden()
+      await this.expectNotificationSuccess('Field created successfully')
+      await this.waitForPage(new RegExp(/^((?!create-field).)*$/gm))
     })
   }
 
@@ -85,7 +89,7 @@ export class ComponentListPage extends BuilderPage {
       if (appId && pageId) {
         await super.goto(appId, pageId)
       } else {
-        await this.page.goto(PageType.Components())
+        await this.page.goto(RoutePaths.Component.base())
       }
     })
   }
@@ -139,7 +143,7 @@ export class ComponentListPage extends BuilderPage {
         .locator('.ant-form-item-control-input [contenteditable]')
         .type(COMPONENT_PROP_VALUE)
 
-      await this.waitForProgressBar()
+      await this.expectGlobalProgressBarToBeHidden()
     })
   }
 
@@ -148,9 +152,9 @@ export class ComponentListPage extends BuilderPage {
   private readonly componentPropName = 'component_prop'
 }
 
-export const test = base.extend<{ componentListPage: ComponentListPage }>({
-  componentListPage: async ({ page }, use) => {
-    const componentListPage = new ComponentListPage(page)
+export const test = baseTest.extend<{ componentListPage: ComponentListPage }>({
+  componentListPage: async ({ context, page }, use) => {
+    const componentListPage = new ComponentListPage(page, context)
 
     await use(componentListPage)
   },

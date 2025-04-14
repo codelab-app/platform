@@ -1,9 +1,7 @@
 import type { ArgumentsHost } from '@nestjs/common'
-import type { Request } from 'express'
 
 import { Catch, HttpException, Injectable } from '@nestjs/common'
 import { BaseExceptionFilter } from '@nestjs/core'
-import { captureException } from '@sentry/nestjs'
 import { ClientError } from 'graphql-request'
 import { ValidationException } from 'typebox-validators'
 

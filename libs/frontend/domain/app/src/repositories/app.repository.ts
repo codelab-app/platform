@@ -1,24 +1,24 @@
 import type { IAppDto, IRef } from '@codelab/shared/abstract/core'
+import type { NextFetchOptions } from '@codelab/shared/abstract/types'
 import type { AppOptions, AppWhere } from '@codelab/shared/infra/gqlgen'
 
-import {
-  CACHE_TAGS,
-  type IAppRepository,
-} from '@codelab/frontend/abstract/domain'
+import { type IAppRepository } from '@codelab/frontend/abstract/domain'
 import { Validator } from '@codelab/shared/infra/typebox'
-import { appMapper, appServerActions } from '@codelab/shared-domain-module-app'
-import { withTracingMethods } from '@codelab/shared-infra-sentry'
+import { appMapper, appServerActions } from '@codelab/shared-domain-module/app'
 
 const { AppList, AppListPreview, CreateApps, DeleteApps, UpdateApps } =
   appServerActions
 
-export const appRepository: IAppRepository = withTracingMethods('app', {
-  add: async (input: IAppDto) => {
+export const appRepository: IAppRepository = {
+  add: async (input: IAppDto, next?: NextFetchOptions) => {
     const {
       createApps: { apps },
-    } = await CreateApps({
-      input: appMapper.toCreateInput(input),
-    })
+    } = await CreateApps(
+      {
+        input: appMapper.toCreateInput(input),
+      },
+      next,
+    )
 
     const createdApp = apps[0]
 
@@ -27,50 +27,61 @@ export const appRepository: IAppRepository = withTracingMethods('app', {
     return createdApp
   },
 
-  delete: async (refs: Array<IRef>) => {
+  delete: async (refs: Array<IRef>, next?: NextFetchOptions) => {
     const {
       deleteApps: { nodesDeleted },
-    } = await DeleteApps({
-      delete: appMapper.toDeleteInput(),
-      where: {
-        id_IN: refs.map(({ id }) => id),
+    } = await DeleteApps(
+      {
+        delete: appMapper.toDeleteInput(),
+        where: {
+          id_IN: refs.map(({ id }) => id),
+        },
       },
-    })
+      next,
+    )
 
     return nodesDeleted
   },
 
-  find: async (where?: AppWhere, options?: AppOptions) => {
+  find: async (
+    where?: AppWhere,
+    options?: AppOptions,
+    next?: NextFetchOptions,
+  ) => {
     return await AppList(
       {
         options,
         where,
       },
-      { tags: [CACHE_TAGS.APP_LIST] },
+      next,
     )
   },
 
   // FIXME: make a unique where
-  findOne: async (where: AppWhere) => {
-    return (await appRepository.find(where)).items[0]
+  findOne: async (where: AppWhere, next?: NextFetchOptions) => {
+    return (await appRepository.find(where, {}, next)).items[0]
   },
 
-  findPreview: async (where?: AppWhere, options?: AppOptions) => {
+  findPreview: async (
+    where?: AppWhere,
+    options?: AppOptions,
+    next?: NextFetchOptions,
+  ) => {
     return await AppListPreview(
       {
         options,
         where,
       },
-      { tags: [CACHE_TAGS.APP_LIST] },
+      next,
     )
   },
 
-  update: async ({ id }: IRef, input: IAppDto) => {
+  update: async ({ id }: IRef, input: IAppDto, next?: NextFetchOptions) => {
     const {
       updateApps: { apps },
     } = await UpdateApps(
       { update: appMapper.toUpdateInput(input), where: { id } },
-      { revalidateTag: CACHE_TAGS.APP_LIST },
+      next,
     )
 
     const updatedApp = apps[0]
@@ -79,4 +90,4 @@ export const appRepository: IAppRepository = withTracingMethods('app', {
 
     return updatedApp
   },
-})
+}

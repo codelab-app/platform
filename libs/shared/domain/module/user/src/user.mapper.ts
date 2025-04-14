@@ -38,6 +38,8 @@ export const mapClaimsToUserDto = (user?: User): IUserSession => {
     auth0Id: user.sub,
     email: user.email ?? '',
     id: user[JWT_CLAIMS].neo4j_user_id,
+    name: user.name ?? '',
+    picture: user.picture ?? '',
     roles: user[JWT_CLAIMS].roles,
     username: user.nickname ?? '',
   }
@@ -53,6 +55,8 @@ export const userMapper: IMapper<
     auth0Id,
     email,
     id,
+    name,
+    picture,
     preferences,
     roles,
     username,
@@ -61,6 +65,8 @@ export const userMapper: IMapper<
       auth0Id,
       email,
       id,
+      name,
+      picture,
       preferences: {
         create: {
           node: preferenceMapper.toCreateInput(preferences),
@@ -78,6 +84,8 @@ export const userMapper: IMapper<
   toUpdateInput: ({
     auth0Id,
     email,
+    name,
+    picture,
     preferences,
     roles,
     username,
@@ -85,6 +93,8 @@ export const userMapper: IMapper<
     return {
       auth0Id,
       email,
+      name,
+      picture,
       preferences: {
         update: {
           node: preferenceMapper.toUpdateInput(preferences),

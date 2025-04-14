@@ -9,7 +9,7 @@ import type { IPropData } from '../prop/prop.dto.interface'
 import { ElementDtoSchema } from './element.dto.interface'
 
 /**
- * This allows for a shortened object to be specified as input. Good for seeding data in cases where the input is manually specified (such as Cypress)
+ * This allows for a shortened object to be specified as input. Good for seeding data in cases where the input is manually specified (such as E2e)
  */
 export const CreateElementDataSchema = Type.Composite([
   Type.Object({

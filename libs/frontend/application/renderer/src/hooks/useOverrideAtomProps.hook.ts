@@ -3,8 +3,10 @@ import type { IPageModel } from '@codelab/frontend/abstract/domain'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import type { ObjectLike } from '@codelab/shared/abstract/types'
 
-import { RendererType } from '@codelab/frontend/abstract/application'
-import { PageType } from '@codelab/frontend/abstract/types'
+import {
+  RendererType,
+  RoutePaths,
+} from '@codelab/frontend/abstract/application'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { match } from 'path-to-regexp'
 import { isNullish } from 'remeda'
@@ -37,7 +39,7 @@ export const useOverrideAtomProps = (
     )
 
     if (pageId && appId) {
-      const href = PageType.PageDetail({ appId, pageId })
+      const href = RoutePaths.Page.base({ appId, pageId })
       const searchParams = new URLSearchParams(query)
 
       builderOverrideProps['href'] = `${href}?${searchParams}`

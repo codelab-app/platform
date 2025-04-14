@@ -1,7 +1,7 @@
 'use server'
 
-import { CACHE_TAGS } from '@codelab/frontend/abstract/domain'
+import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { revalidateTag } from 'next/cache'
 
 export const invalidateStoreListQuery = async () =>
-  revalidateTag(CACHE_TAGS.STORE_LIST)
+  revalidateTag(CACHE_TAGS.Store.list())

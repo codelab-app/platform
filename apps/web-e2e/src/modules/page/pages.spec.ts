@@ -1,11 +1,11 @@
 import type { IAppDto } from '@codelab/shared/abstract/core'
 
 import { providerPageId } from '@codelab/shared/data/test'
+import { logTimestamp } from '@codelab/shared/infra/logging'
 import { expect } from '@playwright/test'
 
-import { getTimestamp, logTimestamp } from '../../commands'
 import { globalBeforeAll } from '../../setup/before-all'
-import { seedAppData } from '../builder/builder.data'
+import { seedAppData } from '../app/app.data'
 import { test } from './page.fixture'
 
 let app: IAppDto
@@ -15,16 +15,18 @@ test.describe.configure({ mode: 'serial' })
 globalBeforeAll()
 
 test.beforeAll(async ({ request }) => {
-  app = await seedAppData(request)
-
-  console.log('app', app)
+  app = await seedAppData(request, { atomTypes: [], componentTypes: [] })
 })
 
 test.beforeEach(async ({ pageListPage: page }, testInfo) => {
   await page.goto(app.id, providerPageId)
-  await page.checkPageHeaderTitle(['Codelab App', 'Pages', 'provider'])
 
   await expect(page.getSpinner()).toBeHidden()
+  await expect(page.getSkeleton()).toBeHidden()
+
+  await page.expectGlobalProgressBarToBeHidden()
+
+  await page.checkPageHeaderTitle(['Codelab App', 'Pages'])
 })
 
 test('should be able to create page', async ({ pageListPage: page }) => {

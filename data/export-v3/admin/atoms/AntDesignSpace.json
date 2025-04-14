@@ -186,14 +186,14 @@
         "name": "AntDesignSpace Size Union",
         "typesOfUnionType": [
           {
-            "__typename": "PrimitiveType",
-            "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
-            "name": "Number"
-          },
-          {
             "__typename": "EnumType",
             "id": "dcb317bd-3155-4d2d-b670-6d29cff2067a",
             "name": "AntDesignSpace Size Enum"
+          },
+          {
+            "__typename": "PrimitiveType",
+            "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+            "name": "Number"
           }
         ]
       },
@@ -204,14 +204,14 @@
         "name": "AtomChildren Union",
         "typesOfUnionType": [
           {
-            "__typename": "CodeMirrorType",
-            "id": "010c4f5a-434b-4c3e-a0ed-01eb1f78172a",
-            "name": "Typescript Code"
-          },
-          {
             "__typename": "RichTextType",
             "id": "e7558508-3bb7-4f57-8f8c-6ac989911765",
             "name": "RichTextType"
+          },
+          {
+            "__typename": "CodeMirrorType",
+            "id": "010c4f5a-434b-4c3e-a0ed-01eb1f78172a",
+            "name": "Typescript Code"
           }
         ]
       }

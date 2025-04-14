@@ -19,7 +19,7 @@
     "module": "esnext",
     "types": ["node", "worker-loader"],
     "typeRoots": ["types", "node_modules/@types"],
-    "lib": ["es2017", "dom"],
+    "lib": ["es2021", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
@@ -216,6 +216,9 @@
       "@codelab/frontend-application-app/use-cases/app-builder": [
         "libs/frontend/application/app/src/use-cases/app-builder/index.ts"
       ],
+      "@codelab/frontend-application-app/use-cases/app-item": [
+        "libs/frontend/application/app/src/use-cases/app-item/index.ts"
+      ],
       "@codelab/frontend-application-app/use-cases/app-list": [
         "libs/frontend/application/app/src/use-cases/app-list/index.ts"
       ],
@@ -264,17 +267,20 @@
       "@codelab/frontend-application-atom/services": [
         "libs/frontend/application/atom/src/services/index.ts"
       ],
+      "@codelab/frontend-application-atom/use-cases/atom-list": [
+        "libs/frontend/application/atom/src/use-cases/atom-list/index.ts"
+      ],
+      "@codelab/frontend-application-atom/use-cases/atom-list/server": [
+        "libs/frontend/application/atom/src/use-cases/atom-list/server/index.ts"
+      ],
+      "@codelab/frontend-application-atom/use-cases/atom-table": [
+        "libs/frontend/application/atom/src/use-cases/atom-table/index.ts"
+      ],
       "@codelab/frontend-application-atom/use-cases/create-atom": [
         "libs/frontend/application/atom/src/use-cases/create-atom/index.ts"
       ],
       "@codelab/frontend-application-atom/use-cases/delete-atom": [
         "libs/frontend/application/atom/src/use-cases/delete-atom/index.ts"
-      ],
-      "@codelab/frontend-application-atom/use-cases/get-atoms": [
-        "libs/frontend/application/atom/src/use-cases/get-atoms/index.ts"
-      ],
-      "@codelab/frontend-application-atom/use-cases/get-atoms/server": [
-        "libs/frontend/application/atom/src/use-cases/get-atoms/server/index.ts"
       ],
       "@codelab/frontend-application-atom/use-cases/helper": [
         "libs/frontend/application/atom/src/use-cases/helper/index.ts"
@@ -327,14 +333,14 @@
       "@codelab/frontend-application-builder/use-cases/page-builder": [
         "libs/frontend/application/builder/src/use-cases/page-builder/index.ts"
       ],
+      "@codelab/frontend-application-builder/use-cases/page-preview": [
+        "libs/frontend/application/builder/src/use-cases/page-preview/index.ts"
+      ],
       "@codelab/frontend-application-builder/use-cases/resize": [
         "libs/frontend/application/builder/src/use-cases/resize/index.ts"
       ],
       "@codelab/frontend-application-builder/utils": [
         "libs/frontend/application/builder/src/utils/index.ts"
-      ],
-      "@codelab/frontend-application-builder/views": [
-        "libs/frontend/application/builder/src/views/index.ts"
       ],
       "@codelab/frontend-application-component/services": [
         "libs/frontend/application/component/src/services/index.ts"
@@ -420,6 +426,9 @@
       "@codelab/frontend-application-element/validation": [
         "libs/frontend/application/element/src/validation/index.ts"
       ],
+      "@codelab/frontend-application-element/views": [
+        "libs/frontend/application/element/src/views/index.ts"
+      ],
       "@codelab/frontend-application-lambda/use-cases/create-lambda": [
         "libs/frontend/application/lambda/src/use-cases/create-lambda/index.ts"
       ],
@@ -452,6 +461,9 @@
       ],
       "@codelab/frontend-application-page/use-cases/get-pages": [
         "libs/frontend/application/page/src/use-cases/get-pages/index.ts"
+      ],
+      "@codelab/frontend-application-page/use-cases/page-list": [
+        "libs/frontend/application/page/src/use-cases/page-list/index.ts"
       ],
       "@codelab/frontend-application-page/use-cases/update-page": [
         "libs/frontend/application/page/src/use-cases/update-page/index.ts"
@@ -516,6 +528,9 @@
       "@codelab/frontend-application-resource/use-cases/get-resource": [
         "libs/frontend/application/resource/src/use-cases/get-resource/index.ts"
       ],
+      "@codelab/frontend-application-resource/use-cases/resource-list": [
+        "libs/frontend/application/resource/src/use-cases/resource-list/index.ts"
+      ],
       "@codelab/frontend-application-resource/use-cases/update-resource": [
         "libs/frontend/application/resource/src/use-cases/update-resource/index.ts"
       ],
@@ -524,6 +539,9 @@
       ],
       "@codelab/frontend-application-shared-data": [
         "libs/frontend/application/shared/data/src/index.ts"
+      ],
+      "@codelab/frontend-application-shared-store/cache": [
+        "libs/frontend/application/shared/store/src/cache/index.ts"
       ],
       "@codelab/frontend-application-shared-store/loading": [
         "libs/frontend/application/shared/store/src/loading/index.ts"
@@ -558,6 +576,9 @@
       "@codelab/frontend-application-store/use-cases/update-action": [
         "libs/frontend/application/store/src/use-cases/update-action/index.ts"
       ],
+      "@codelab/frontend-application-store/views": [
+        "libs/frontend/application/store/src/views/index.ts"
+      ],
       "@codelab/frontend-application-tag/services": [
         "libs/frontend/application/tag/src/services/index.ts"
       ],
@@ -569,6 +590,9 @@
       ],
       "@codelab/frontend-application-tag/use-cases/get-tags": [
         "libs/frontend/application/tag/src/use-cases/get-tags/index.ts"
+      ],
+      "@codelab/frontend-application-tag/use-cases/tag-table": [
+        "libs/frontend/application/tag/src/use-cases/tag-table/index.ts"
       ],
       "@codelab/frontend-application-tag/use-cases/update-tag": [
         "libs/frontend/application/tag/src/use-cases/update-tag/index.ts"
@@ -603,6 +627,9 @@
       "@codelab/frontend-application-type/use-cases/select-types": [
         "libs/frontend/application/type/src/use-cases/select-types/index.ts"
       ],
+      "@codelab/frontend-application-type/use-cases/type-table": [
+        "libs/frontend/application/type/src/use-cases/type-table/index.ts"
+      ],
       "@codelab/frontend-application-type/use-cases/update-field": [
         "libs/frontend/application/type/src/use-cases/update-field/index.ts"
       ],
@@ -611,6 +638,9 @@
       ],
       "@codelab/frontend-application-type/views": [
         "libs/frontend/application/type/src/views/index.ts"
+      ],
+      "@codelab/frontend-application-user/components": [
+        "libs/frontend/application/user/src/components/index.ts"
       ],
       "@codelab/frontend-application-user/services": [
         "libs/frontend/application/user/src/services/index.ts"
@@ -843,11 +873,14 @@
       "@codelab/frontend-presentation-view/components/conditionalView": [
         "libs/frontend/presentation/view/src/components/conditionalView/index.ts"
       ],
-      "@codelab/frontend-presentation-view/components/errorBoundary": [
-        "libs/frontend/presentation/view/src/components/errorBoundary/index.ts"
+      "@codelab/frontend-presentation-view/components/error": [
+        "libs/frontend/presentation/view/src/components/error/index.ts"
       ],
       "@codelab/frontend-presentation-view/components/key": [
         "libs/frontend/presentation/view/src/components/key/index.ts"
+      ],
+      "@codelab/frontend-presentation-view/components/loader": [
+        "libs/frontend/presentation/view/src/components/loader/index.ts"
       ],
       "@codelab/frontend-presentation-view/components/overlay": [
         "libs/frontend/presentation/view/src/components/overlay/index.ts"
@@ -857,9 +890,6 @@
       ],
       "@codelab/frontend-presentation-view/components/skeleton": [
         "libs/frontend/presentation/view/src/components/skeleton/index.ts"
-      ],
-      "@codelab/frontend-presentation-view/components/spinner": [
-        "libs/frontend/presentation/view/src/components/spinner/index.ts"
       ],
       "@codelab/frontend-presentation-view/components/state": [
         "libs/frontend/presentation/view/src/components/state/index.ts"
@@ -897,6 +927,9 @@
       "@codelab/frontend/infra/action": [
         "libs/frontend/infra/action/src/index.ts"
       ],
+      "@codelab/frontend/infra/connector": [
+        "libs/frontend/infra/connector/src/index.ts"
+      ],
       "@codelab/frontend/infra/context": [
         "libs/frontend/infra/context/src/index.ts"
       ],
@@ -925,14 +958,14 @@
         "libs/frontend/test/application/src/index.ts"
       ],
       "@codelab/frontend/test/data": ["libs/frontend/test/data/src/index.ts"],
-      "@codelab/shared-domain-module-app": [
-        "libs/shared/domain/module/app/src/index.ts"
-      ],
-      "@codelab/shared-domain-module-atom": [
-        "libs/shared/domain/module/atom/src/index.ts"
-      ],
       "@codelab/shared-domain-module/action": [
         "libs/shared/domain/module/action/src/index.ts"
+      ],
+      "@codelab/shared-domain-module/app": [
+        "libs/shared/domain/module/app/src/index.ts"
+      ],
+      "@codelab/shared-domain-module/atom": [
+        "libs/shared/domain/module/atom/src/index.ts"
       ],
       "@codelab/shared-domain-module/auth-guard": [
         "libs/shared/domain/module/auth-guard/src/index.ts"
@@ -978,9 +1011,6 @@
       ],
       "@codelab/shared-infra-auth0/client": [
         "libs/shared/infra/auth0/src/client/index.ts"
-      ],
-      "@codelab/shared-infra-auth0/server": [
-        "libs/shared/infra/auth0/src/server/index.ts"
       ],
       "@codelab/shared-infra-eval": ["libs/shared/infra/eval/src/index.ts"],
       "@codelab/shared-infra-sentry": ["libs/shared/infra/sentry/src/index.ts"],

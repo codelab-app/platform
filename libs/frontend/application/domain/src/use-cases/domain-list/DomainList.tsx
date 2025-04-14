@@ -3,7 +3,7 @@
 import type { IDomainModel } from '@codelab/frontend/abstract/domain'
 
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
-import { ErrorBoundary } from '@codelab/frontend-presentation-view/components/errorBoundary'
+import { ErrorBoundary } from '@codelab/frontend-presentation-view/components/error'
 import {
   padding,
   threeGridCol,

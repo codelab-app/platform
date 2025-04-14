@@ -1,3 +1,5 @@
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
+import { LogClassMethod } from '@codelab/backend/infra/core'
 import { Injectable } from '@nestjs/common'
 
 import { Neo4jService } from './neo4j.service'
@@ -7,7 +9,10 @@ import { Neo4jService } from './neo4j.service'
  */
 @Injectable()
 export class DatabaseService {
-  constructor(private readonly neo4jService: Neo4jService) {}
+  constructor(
+    private readonly neo4jService: Neo4jService,
+    private logger: PinoLoggerService,
+  ) {}
 
   async atomTypes() {
     const query = `
@@ -33,6 +38,7 @@ export class DatabaseService {
    * @param close
    * @returns
    */
+  @LogClassMethod()
   async resetDatabase(close = false) {
     const query = `
       MATCH (n)

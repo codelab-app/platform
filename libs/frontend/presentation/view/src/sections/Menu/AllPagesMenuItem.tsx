@@ -2,10 +2,9 @@ import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-u
 
 import FileOutlined from '@ant-design/icons/FileOutlined'
 import {
-  ExplorerPaneType,
   type PageContextParams,
-  PageType,
-} from '@codelab/frontend/abstract/types'
+  RoutePaths,
+} from '@codelab/frontend/abstract/application'
 
 export const allPagesMenuItem = ({
   appId,
@@ -14,7 +13,7 @@ export const allPagesMenuItem = ({
   const disabledPageListItem = {
     disabled: true,
     icon: <FileOutlined title="Pages" />,
-    key: ExplorerPaneType.PageList,
+    key: 'pages',
     link: undefined,
     title: 'Pages',
   }
@@ -27,7 +26,7 @@ export const allPagesMenuItem = ({
     ...disabledPageListItem,
     disabled: false,
     link: {
-      href: PageType.PageList({
+      href: RoutePaths.Page.list({
         appId,
         pageId,
       }),

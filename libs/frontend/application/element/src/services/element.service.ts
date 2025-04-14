@@ -1,61 +1,72 @@
-import type { IElementService } from '@codelab/frontend/abstract/application'
-import type { BuilderContextParams } from '@codelab/frontend/abstract/types'
 import type { IElementDto } from '@codelab/shared/abstract/core'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
+import {
+  type IBuilderRoute,
+  type IElementService,
+  IRouteType,
+  isRuntimeElement,
+  isRuntimeElementRef,
+  RoutePaths,
+} from '@codelab/frontend/abstract/application'
 import {
   type IElementModel,
   type IMoveElementContext,
   type IUpdateElementData,
 } from '@codelab/frontend/abstract/domain'
-import { PageType, PrimarySidebar } from '@codelab/frontend/abstract/types'
 import { useAtomService } from '@codelab/frontend-application-atom/services'
 import { usePropService } from '@codelab/frontend-application-prop/services'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { logger } from '@codelab/shared/utils'
+import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend-infra-mobx/context'
+import { logger } from '@codelab/shared/infra/logging'
 import { uniqueBy } from 'remeda'
 
 /**
  * Object declaration would create a new object on each usage of hook, causing any usage of service to be re-rendered
  */
 const createPopover = {
-  close: (router: AppRouterInstance) => {
-    router.back()
-  },
-  open: (
-    router: AppRouterInstance,
-    { appId, componentId, pageId }: BuilderContextParams,
-  ) => {
+  close: (router: AppRouterInstance, { params, type }: IBuilderRoute) => {
     const url =
-      appId && pageId
-        ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
-        : PageType.ComponentBuilder({ componentId })
+      type === IRouteType.Page
+        ? RoutePaths.Page.builder(params)
+        : RoutePaths.Component.builder(params)
+
+    router.push(url)
+  },
+  open: (router: AppRouterInstance, { params, type }: IBuilderRoute) => {
+    const url =
+      type === IRouteType.Page
+        ? RoutePaths.Page.builder(params)
+        : RoutePaths.Component.builder(params)
 
     router.push(`${url}/create-element`)
   },
 }
 
 const deletePopover = {
-  close: (router: AppRouterInstance) => {
-    router.back()
+  close: (router: AppRouterInstance, { params, type }: IBuilderRoute) => {
+    const url =
+      type === IRouteType.Page
+        ? RoutePaths.Page.builder(params)
+        : RoutePaths.Component.builder(params)
+
+    router.push(url)
   },
   open: (
     router: AppRouterInstance,
-    {
-      appId,
-      componentId,
-      elementId,
-      pageId,
-    }: BuilderContextParams & { elementId: string },
+    { params, type }: IBuilderRoute<{ elementId: string }>,
   ) => {
     const url =
-      appId && pageId
-        ? PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree)
-        : PageType.ComponentBuilder({ componentId })
+      type === IRouteType.Page
+        ? RoutePaths.Page.builder(params)
+        : RoutePaths.Component.builder(params)
 
-    router.push(`${url}/delete/element/${elementId}`)
+    router.push(`${url}/delete/element/${params.elementId}`)
   },
 }
 
@@ -63,8 +74,13 @@ export const useElementService = (): IElementService => {
   const atomService = useAtomService()
   const typeService = useTypeService()
   const propService = usePropService()
+  const { builderService } = useApplicationStore()
   const { componentDomainService, elementDomainService } = useDomainStore()
+  const selectedNode = builderService.selectedNode
 
+  /**
+   * When we create a new element, the selected node should stay at the parent
+   */
   const create = async (data: IElementDto) => {
     if (data.renderType.__typename === 'Atom') {
       await atomService.loadApi(data.renderType.id)
@@ -76,14 +92,16 @@ export const useElementService = (): IElementService => {
 
     const element = elementDomainService.addTreeNode(data)
 
-    // when new element is inserted into elements tree -
-    // auto-expand parent node, so that new one becomes visible
-    if (element.closestParentElement?.maybeCurrent?.expanded === false) {
-      element.closestParentElement.current.setExpanded(true)
+    /**
+     * We want to keep the selected node expanded, so we can see the children
+     */
+    if (selectedNode && isRuntimeElementRef(selectedNode)) {
+      selectedNode.current.setExpanded(true)
     }
 
-    logger.debug('elementService.create', data)
-    await elementRepository.add(data)
+    await elementRepository.add(data, {
+      revalidateTags: [CACHE_TAGS.Element.list()],
+    })
     await syncModifiedElements()
 
     return element
@@ -101,7 +119,9 @@ export const useElementService = (): IElementService => {
 
     subRootElement.detachFromTree()
 
-    await elementRepository.delete(elementsToDelete)
+    await elementRepository.delete(elementsToDelete, {
+      revalidateTags: [CACHE_TAGS.Element.list()],
+    })
 
     elementsToDelete.reverse().forEach((element) => {
       elementDomainService.elements.delete(element.id)
@@ -134,7 +154,7 @@ export const useElementService = (): IElementService => {
     const oldRenderTypeId = currentElement.renderType.id
 
     if (newRenderTypeId !== oldRenderTypeId) {
-      propService.reset(currentElement.props.toJson)
+      await propService.reset(currentElement.props.toJson)
 
       await atomService.loadApi(newRenderTypeId)
     }
@@ -147,13 +167,11 @@ export const useElementService = (): IElementService => {
   }
 
   const updateElements = async (elements: Array<IElementModel>) => {
-    logger.debug(
-      'updateElements',
-      elements.map((element) => element.toJson),
-    )
     await Promise.all(
       uniqueBy(elements, (element) => element.id).map((element) =>
-        elementRepository.update({ id: element.id }, element.toJson),
+        elementRepository.update({ id: element.id }, element.toJson, {
+          revalidateTags: [CACHE_TAGS.Element.list()],
+        }),
       ),
     )
   }

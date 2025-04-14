@@ -1,2 +1,1 @@
-export * from './PageDetailHeader'
-export * from './PagesPrimarySidebar'
+// This file is intentionally empty after removing connector exports

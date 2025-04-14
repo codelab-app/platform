@@ -17,13 +17,13 @@ import {
 import { createApplicationStore } from './application.store'
 import { createDomainStore } from './domain.store'
 
-export const createRootStore = ({ routerProps, user }: IRootStoreInput) => {
+export const createRootStore = ({ user }: IRootStoreInput) => {
   setGlobalConfig({
     showDuplicateModelNameWarnings: false,
   })
 
   const domainStore = createDomainStore(user)
-  const applicationStore = createApplicationStore(routerProps, domainStore)
+  const applicationStore = createApplicationStore(domainStore)
 
   @model('@codelab/RootStore')
   class RootStore

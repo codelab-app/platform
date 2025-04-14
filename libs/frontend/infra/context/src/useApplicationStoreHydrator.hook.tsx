@@ -1,9 +1,6 @@
 'use client'
 
-import type {
-  SearchParamsProps,
-  UrlPathParams,
-} from '@codelab/frontend/abstract/types'
+import type { NextjsSearchParamsProps } from '@codelab/frontend/abstract/application'
 
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 
@@ -11,18 +8,12 @@ export const useApplicationStoreHydrator = () => {
   const { routerService } = useApplicationStore()
 
   const hydrate = ({
-    pathParams,
     searchParams,
   }: {
-    searchParams?: SearchParamsProps
-    pathParams?: UrlPathParams
+    searchParams?: NextjsSearchParamsProps
   }) => {
     if (searchParams) {
       routerService.setSearchParams(searchParams)
-    }
-
-    if (pathParams) {
-      routerService.setPathParams(pathParams)
     }
   }
 

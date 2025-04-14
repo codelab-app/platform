@@ -17,7 +17,7 @@ import {
   codelabAtoms,
   htmlAtoms,
   reactAtoms,
-} from '@codelab/shared-domain-module-atom'
+} from '@codelab/shared-domain-module/atom'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { createElement } from 'react'

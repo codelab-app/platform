@@ -8,7 +8,6 @@ import {
 import { loadingAtom } from '@codelab/frontend-application-shared-store/loading'
 import { useSetAtom } from 'jotai'
 import pMinDelay from 'p-min-delay'
-import * as R from 'remeda'
 
 import type { OptimisticFormProps } from '../modal/ModalForm.Form'
 
@@ -57,7 +56,6 @@ export const useAsyncHandler = <TData, TResponse>(
 
       // Ensure min delay to prevent flickering
       return pMinDelay(submitPromise, MIN_DELAY).finally(() => {
-        console.debug('Form submission complete')
         setAllLoadingState(false)
       })
     }

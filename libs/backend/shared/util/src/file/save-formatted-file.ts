@@ -3,7 +3,7 @@ import type { ObjectLike } from '@codelab/shared/abstract/types'
 import { prettifyForConsole } from '@codelab/shared/utils'
 import fs from 'fs'
 import { EOL } from 'os'
-import * as path from 'path'
+import { dirname, resolve } from 'path'
 import { format } from 'prettier'
 
 export const saveFormattedFile = (outputFilePath: string, data: ObjectLike) => {
@@ -12,9 +12,9 @@ export const saveFormattedFile = (outputFilePath: string, data: ObjectLike) => {
   }
 
   const json = prettifyForConsole(data)
-  const exportPath = path.resolve('./', outputFilePath)
+  const exportPath = resolve('./', outputFilePath)
 
-  fs.mkdirSync(path.dirname(exportPath), { recursive: true })
+  fs.mkdirSync(dirname(exportPath), { recursive: true })
   fs.writeFileSync(exportPath, json)
   fs.appendFileSync(exportPath, EOL, 'utf8')
 }

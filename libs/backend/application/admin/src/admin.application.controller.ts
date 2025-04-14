@@ -32,7 +32,9 @@ export class AdminController {
 
   @Post('import')
   async import(@Body() { adminDataPath }: IImportDto) {
-    await this.commandBus.execute(new ImportAdminDataCommand(adminDataPath))
+    await this.commandBus.execute(
+      new ImportAdminDataCommand(adminDataPath, { upsert: true }),
+    )
   }
 
   @Post('reset-and-seed-user')
@@ -67,7 +69,7 @@ export class AdminController {
   }
 
   /**
-   * Runs once before all Cypress runs
+   * Runs once before all E2e runs
    */
   @Post('setup-e2e-data')
   async setupE2eData() {

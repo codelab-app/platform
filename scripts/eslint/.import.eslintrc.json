@@ -17,7 +17,7 @@
       },
       "plugins": ["import", "unused-imports"],
       "extends": ["plugin:import/typescript", "plugin:import/recommended"],
-      "files": ["*.ts", "*.tsx", "*.ts", "*.jsx"],
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
         "@typescript-eslint/no-require-imports": "error",
         //
@@ -28,6 +28,7 @@
         // SUPER SLOW!
         "import/no-cycle": "off",
         "import/no-duplicates": "error",
+        "import/no-namespace": "error",
         "no-restricted-imports": [
           "error",
           {
@@ -48,6 +49,12 @@
             ]
           }
         ]
+      }
+    },
+    {
+      "files": ["*.config.js"],
+      "rules": {
+        "@typescript-eslint/no-require-imports": "off"
       }
     }
   ]

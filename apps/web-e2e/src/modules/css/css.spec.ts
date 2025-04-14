@@ -1,9 +1,9 @@
-import { type IApp } from '@codelab/shared/abstract/core'
+import { type IApp, IAtomType } from '@codelab/shared/abstract/core'
 import { providerPageId } from '@codelab/shared/data/test'
 import { expect } from '@playwright/test'
 
 import { globalBeforeAll } from '../../setup/before-all'
-import { seedAppData } from '../builder/builder.data'
+import { seedAppData } from '../app/app.data'
 import {
   backgroundColor1,
   backgroundColor2,
@@ -20,7 +20,10 @@ test.describe.configure({ mode: 'serial' })
 globalBeforeAll()
 
 test.beforeAll(async ({ request }, testInfo) => {
-  app = await seedAppData(request)
+  app = await seedAppData(request, {
+    atomTypes: [IAtomType.AntDesignButton],
+    componentTypes: [],
+  })
 })
 
 test.beforeEach(async ({ builderPage: page }) => {

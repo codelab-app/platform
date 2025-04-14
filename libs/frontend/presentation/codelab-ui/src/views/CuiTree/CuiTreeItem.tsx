@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import type { MouseEvent, ReactNode } from 'react'
 
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import classNames from 'classnames'
@@ -16,10 +16,11 @@ interface CuiTreeItemProps {
   icon?: ReactNode
   primaryTitle?: string
   secondaryTitle?: string
+  selectedKey?: number | string
   tag?: ReactNode
   toolbar?: ReactNode
   variant?: Variant
-  onClick?(): void
+  onClick?(e: MouseEvent<HTMLDivElement>): void
 }
 
 export const CuiTreeItem = ({
@@ -28,6 +29,7 @@ export const CuiTreeItem = ({
   onClick,
   primaryTitle,
   secondaryTitle,
+  selectedKey,
   tag,
   toolbar,
   variant,
@@ -39,6 +41,7 @@ export const CuiTreeItem = ({
         CuiTestId.cuiTreeItem(),
         variantColors[variant ?? 'primary'],
       )}
+      data-selected-key={selectedKey}
       data-testid={CuiTestId.cuiTreeItem()}
       onClick={onClick}
     >

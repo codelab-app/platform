@@ -1,7 +1,3 @@
-variable "CYPRESS_RECORD_KEY" {
-  type = string
-}
-
 variable "SLACK_ACCESS_TOKEN" {
   type = string
 }

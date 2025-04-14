@@ -1,6 +1,9 @@
 'use client'
 
-import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/application'
+import type {
+  IBuilderRoute,
+  IRuntimeComponentModel,
+} from '@codelab/frontend/abstract/application'
 import type { IPropData } from '@codelab/shared/abstract/core'
 
 import { PropsForm } from '@codelab/frontend/presentation/components/interface-form'
@@ -8,19 +11,19 @@ import { AdminPropsPanel } from '@codelab/frontend-application-admin/use-cases/a
 import { usePropService } from '@codelab/frontend-application-prop/services'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
-import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
-import { filterEmptyStrings } from '@codelab/shared/utils'
+import { Spinner } from '@codelab/frontend-presentation-view/components/loader'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { Fragment, useEffect } from 'react'
 import { useAsyncFn } from 'react-use'
 
 export interface UpdateComponentPropsFormProps {
+  context: IBuilderRoute
   runtimeComponent: IRuntimeComponentModel
 }
 
 export const UpdateComponentPropsForm = observer<UpdateComponentPropsFormProps>(
-  ({ runtimeComponent }) => {
+  ({ context, runtimeComponent }) => {
     const typeService = useTypeService()
     const propService = usePropService()
     const component = runtimeComponent.component.current
@@ -35,7 +38,10 @@ export const UpdateComponentPropsForm = observer<UpdateComponentPropsFormProps>(
     }, [api.id, getInterface])
 
     const onSubmit = async (data: IPropData) => {
-      const filteredData = filterEmptyStrings(data)
+      // does not look like we need to remove empty strings/arrays/objects from the properties,
+      // since users should have ability to override property to whatever value they want
+      // const filteredData = filterEmptyStrings(data)
+      const filteredData = data
 
       return propService.update({
         data: JSON.stringify(filteredData),
@@ -65,7 +71,10 @@ export const UpdateComponentPropsForm = observer<UpdateComponentPropsFormProps>(
               />
             </Col>
             <Col span={24}>
-              <AdminPropsPanel interfaceType={interfaceType} />
+              <AdminPropsPanel
+                context={context}
+                interfaceType={interfaceType}
+              />
             </Col>
           </Row>
         )}

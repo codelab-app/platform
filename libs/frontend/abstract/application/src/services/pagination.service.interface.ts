@@ -1,50 +1,23 @@
 import type {
   IAtomModel,
-  IComponentModel,
   ITagModel,
   ITypeModel,
 } from '@codelab/frontend/abstract/domain'
-import type { Ref } from 'mobx-keystone'
 
-import { PageType } from '@codelab/frontend/abstract/types'
+import { RoutePaths } from '../shared'
 
-export type SupportedPaginationModel =
-  | IAtomModel
-  | IComponentModel
-  | ITagModel
-  | ITypeModel
+const atoms = RoutePaths.Atom.base()
+const components = RoutePaths.Component.base()
+const tags = RoutePaths.Tag.base()
+const types = RoutePaths.Type.base()
 
-const atoms = PageType.Atoms()
-const components = PageType.Components()
-const tags = PageType.Tags()
-const types = PageType.Type()
+export type SupportedPaginationModel = IAtomModel | ITagModel | ITypeModel
+export type SupportedPaginationPathname =
+  | `${typeof atoms}`
+  | `${typeof components}`
+  | `${typeof tags}`
+  | `${typeof types}`
 
-export type SupportedPaginationModelPage =
-  | typeof atoms
-  | typeof components
-  | typeof tags
-  | typeof types
-
-export interface IPaginateable<T extends SupportedPaginationModel> {
-  getDataFn: GetDataFn<T>
-  paginationService: IPaginationService<T>
-}
-
-export type GetDataFn<T extends SupportedPaginationModel> = (
-  page: number,
-  pageSize: number,
-  filter: Array<string>,
-  search?: string,
-) => Promise<{ items: Array<T>; totalItems: number }>
-
-export interface IPaginationService<T extends SupportedPaginationModel> {
-  data: Array<T>
-  dataRefs: Map<string, Ref<T>>
-  isLoading: boolean
-  isLoadingBetweenPages: boolean
+export interface IPaginationData {
   totalItems: number
-  totalPages: number
-  getData(): Promise<Array<T>>
-  setIsLoadingBetweenPages(loading: boolean): void
-  setTotalItems(totalPages: number): void
 }

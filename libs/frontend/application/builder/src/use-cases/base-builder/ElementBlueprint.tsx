@@ -97,7 +97,7 @@ export const ElementBlueprint = observer<{
 
   const isSelected = selectedElement?.element.id === element.id
   const isHovered = hoveredElement?.element.id === element.id
-  const [rect, setRect] = useState(getElementRect())
+  const [rect, setRect] = useState(() => getElementRect())
 
   const deps = [
     selectedElement?.style.styleStringWithBreakpoints,
@@ -123,8 +123,14 @@ export const ElementBlueprint = observer<{
 
   useEffect(() => {
     setRect(getElementRect())
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [containerRect, parentRect, ...deps])
+  }, [
+    isSelected,
+    isHovered,
+    containerRect,
+    parentRect,
+    getElementRect,
+    ...deps,
+  ])
 
   const style: CSSProperties = useMemo(
     () => ({
@@ -136,7 +142,7 @@ export const ElementBlueprint = observer<{
       right: `${rect.right}px`,
       top: `${rect.top - parentRect.top}px`,
       width: `${rect.width}px`,
-      zIndex: -9999,
+      zIndex: 9999,
       ...(isSelected ? selectedStyle : {}),
       ...(isHovered ? hoveredStyle : {}),
       ...dropIndicatorStyle,
@@ -166,8 +172,7 @@ export const ElementBlueprint = observer<{
         rect={rect}
       />
     ) : null
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [container, containerRect, element, isSelected, rect])
+  }, [container, containerRect, element, isSelected, rect, getDomElement])
 
   const overlay = useMemo(() => {
     const domElement = getDomElement()
@@ -175,8 +180,7 @@ export const ElementBlueprint = observer<{
     return isHovered && domElement ? (
       <ElementOverlay domElement={domElement} rect={rect} />
     ) : null
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isHovered, rect])
+  }, [isHovered, rect, getDomElement])
 
   return (
     <div id={getBlueprintId(element.id)} ref={setNodeRef} style={style}>

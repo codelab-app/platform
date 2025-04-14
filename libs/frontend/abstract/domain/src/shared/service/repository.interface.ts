@@ -17,9 +17,16 @@ export interface IRepository<
   Option extends { limit?: number | null; offset?: number | null },
 > {
   add(dto: Dto, options?: NextFetchOptions): Promise<IRef>
-  delete(where: Array<IRef>): Promise<number>
-  find(where?: Where, options?: Option): Promise<IFindResults<ModelFragment>>
-  findOne(where: Where): Promise<ModelFragment | undefined>
+  delete(where: Array<IRef>, next?: NextFetchOptions): Promise<number>
+  find(
+    where?: Where,
+    options?: Option,
+    next?: NextFetchOptions,
+  ): Promise<IFindResults<ModelFragment>>
+  findOne(
+    where: Where,
+    next?: NextFetchOptions,
+  ): Promise<ModelFragment | undefined>
   /**
    * Considered using only dto, but for backend sometimes we upsert by name
    */

@@ -9,7 +9,6 @@ export const resourceFactory =
   (dto: Partial<IResourceDto>) => {
     const resource: IResourceDto = {
       config: dto.config ?? {
-        api: { id: v4() },
         data: JSON.stringify({}),
         id: v4(),
       },

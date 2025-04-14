@@ -1,8 +1,10 @@
-import { PageType, UiKey } from '@codelab/frontend/abstract/types'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
-import { test as base, expect } from '@playwright/test'
+import { expect } from '@playwright/test'
 
-import { BasePage } from '../../locators/pages'
+import { BasePage } from '../../setup/core/page'
+import { baseTest } from '../../setup/fixtures/base.fixture'
 
 export class TagListPage extends BasePage {
   async createTag(name: string, parentName?: string) {
@@ -14,7 +16,6 @@ export class TagListPage extends BasePage {
       .getToolbarItem(UiKey.TagToolbarItemCreate)
       .click()
 
-    await this.page.waitForURL('/tags/create*')
     await this.fillAndSubmitTagForm(name, 'Create', {
       form: UiKey.TagFormCreate,
       popover: UiKey.TagPopoverCreate,
@@ -29,8 +30,6 @@ export class TagListPage extends BasePage {
       .getTreeItemByPrimaryTitle(tagName)
       .getToolbarItem(UiKey.TagToolbarItemDelete)
       .click()
-
-    await this.page.waitForURL('/tags/delete/**')
 
     const modal = await this.getModal(UiKey.TagModalDelete)
 
@@ -66,12 +65,11 @@ export class TagListPage extends BasePage {
   }
 
   async goto() {
-    await this.page.goto(PageType.Tags())
+    await this.page.goto(RoutePaths.Tag.base())
   }
 
   async updateTag(oldName: string, newName: string) {
     await this.getTreeTagItem(oldName).click()
-    await this.page.waitForURL('/tags/update/**')
     await this.fillAndSubmitTagForm(newName, 'Update', {
       form: UiKey.TagFormUpdate,
       popover: UiKey.TagPopoverUpdate,
@@ -81,9 +79,9 @@ export class TagListPage extends BasePage {
   }
 }
 
-export const test = base.extend<{ tagListPage: TagListPage }>({
-  tagListPage: async ({ page }, use) => {
-    const tagListPage = new TagListPage(page)
+export const test = baseTest.extend<{ tagListPage: TagListPage }>({
+  tagListPage: async ({ context, page }, use) => {
+    const tagListPage = new TagListPage(page, context)
 
     await use(tagListPage)
   },

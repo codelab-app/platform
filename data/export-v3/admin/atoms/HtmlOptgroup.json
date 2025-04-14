@@ -59,7 +59,11 @@
     "icon": null,
     "id": "b996ebfa-52bf-482e-8353-5439e3c4bdb9",
     "name": "HtmlOptgroup",
-    "requiredParents": [],
+    "requiredParents": [
+      {
+        "id": "9d774c57-10ba-42c2-8084-1be6128a89ae"
+      }
+    ],
     "suggestedChildren": [],
     "tags": [
       {

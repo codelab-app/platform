@@ -16,17 +16,13 @@ import LockFilled from '@ant-design/icons/lib/icons/LockFilled'
 import LoadingOutlined from '@ant-design/icons/LoadingOutlined'
 import SafetyOutlined from '@ant-design/icons/SafetyOutlined'
 import ToolOutlined from '@ant-design/icons/ToolOutlined'
-import {
-  PageType,
-  PrimarySidebar,
-  UiKey,
-} from '@codelab/frontend/abstract/types'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { useRedirectService } from '@codelab/frontend-application-redirect/services'
-import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
@@ -51,20 +47,16 @@ export const PageTreeItem = observer(
     const router = useRouter()
     const { removeMany, updatePopover } = usePageService()
     const redirectService = useRedirectService()
-    const { appId } = useUrlPathParams()
 
     const commonToolbarItems: Array<ToolbarItem> = [
       {
         cuiKey: UiKey.BuilderToolbarItemOpenBuilder,
         icon: <BuildOutlined />,
         onClick: () => {
-          const url = PageType.PageBuilder(
-            {
-              appId,
-              pageId: page.id,
-            },
-            PrimarySidebar.ElementTree,
-          )
+          const url = RoutePaths.Page.builder({
+            appId: app.id,
+            pageId: page.id,
+          })
 
           void router.push(url)
         },
@@ -88,13 +80,13 @@ export const PageTreeItem = observer(
         onClick: () => {
           if (page.redirect) {
             redirectService.updatePopover.open(router, {
-              appId,
+              appId: app.id,
               pageId: page.id,
               redirectId: page.redirect.id,
             })
           } else {
             redirectService.createPopover.open(router, {
-              appId,
+              appId: app.id,
               pageId: page.id,
             })
           }
@@ -110,7 +102,11 @@ export const PageTreeItem = observer(
       {
         cuiKey: UiKey.PageToolbarItemUpdate,
         icon: <EditOutlined />,
-        onClick: () => updatePopover.open(router, { appId, pageId: page.id }),
+        onClick: () =>
+          updatePopover.open(router, {
+            appId: app.id,
+            pageId: page.id,
+          }),
         title: 'Edit',
       },
     ]

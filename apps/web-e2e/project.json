@@ -17,7 +17,9 @@
         "ui": false
       },
       "configurations": {
-        "test": {},
+        "test": {
+          "testFiles": []
+        },
         "ci": {}
       }
     },

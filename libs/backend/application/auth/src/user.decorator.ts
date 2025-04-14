@@ -1,4 +1,4 @@
-import type { Auth0IdToken, IUserSession } from '@codelab/shared/abstract/core'
+import type { IUserSession } from '@codelab/shared/abstract/core'
 import type { ExecutionContext } from '@nestjs/common'
 
 import { User } from '@codelab/backend/domain/user'

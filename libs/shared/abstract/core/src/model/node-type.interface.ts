@@ -8,7 +8,6 @@ export enum INodeType {
    */
   ApiAction = 'ApiAction',
   CodeAction = 'CodeAction',
-
   App = 'App',
   Atom = 'Atom',
   AuthGuard = 'AuthGuard',
@@ -41,7 +40,6 @@ export enum INodeType {
   RenderPropType = 'RenderPropType',
   RichTextType = 'RichTextType',
   UnionType = 'UnionType',
-
   User = 'User',
 }
 

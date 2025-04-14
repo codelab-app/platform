@@ -5,7 +5,7 @@ import type {
   PreferenceWhere,
 } from '@codelab/shared/infra/gqlgen'
 
-import { CACHE_TAGS } from '@codelab/frontend/abstract/domain'
+import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { type IPreferenceDto } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/typebox'
 import { preferenceServerActions } from '@codelab/shared-domain-module/preference'
@@ -24,7 +24,7 @@ export const preferenceQuery = async (
       options,
       where,
     },
-    { tags: [CACHE_TAGS.PREFERENCE] },
+    { tags: [CACHE_TAGS.Preference.all()] },
   )
 
   Validator.assertsDefined(preference)
@@ -33,4 +33,4 @@ export const preferenceQuery = async (
 }
 
 export const invalidateAppListQuery = async () =>
-  revalidateTag(CACHE_TAGS.PREFERENCE)
+  revalidateTag(CACHE_TAGS.Preference.all())

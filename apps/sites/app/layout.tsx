@@ -1,6 +1,6 @@
-import type { ReactNode } from 'react'
+import type { LayoutProps } from '@codelab/frontend/abstract/types'
 
-const RootLayout = ({ children }: { children: ReactNode }) => {
+const RootLayout = ({ children }: LayoutProps) => {
   return <>{children}</>
 }
 

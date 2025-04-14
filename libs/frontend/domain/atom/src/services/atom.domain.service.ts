@@ -23,7 +23,7 @@ import {
   prop,
 } from 'mobx-keystone'
 
-import { Atom, mapEntitySelectOptions } from '../store'
+import { Atom, filterAtoms, mapEntitySelectOptions } from '../store'
 
 @model('@codelab/AtomDomainService')
 export class AtomDomainService
@@ -50,6 +50,29 @@ export class AtomDomainService
 
   @observable
   dynamicComponents: Record<string, IComponentType> = {}
+
+  getRenderTypeOptions(atoms?: Array<SelectOption>) {
+    const fallbackAtoms = this.atomsList.map(mapEntitySelectOptions)
+    const atomOptions = atoms ?? fallbackAtoms
+
+    const optionsWithImage = atomOptions.map(({ label, value }) => {
+      return {
+        __typename: IElementRenderTypeKind.Atom,
+        icon: DeploymentUnitOutlined,
+        label,
+        text: label,
+        value,
+      }
+    })
+
+    return optionsWithImage
+  }
+
+  getSelectOptions(parentAtom?: IAtomModel) {
+    const atomOptions = filterAtoms(this.atomsList, parentAtom)
+
+    return atomOptions.map(mapEntitySelectOptions)
+  }
 
   @modelAction
   hydrate(atomDto: IAtomDto) {
@@ -121,22 +144,5 @@ import { Validator } from '@codelab/shared/infra/typebox'
     this.atoms.set(atom.id, atom)
 
     return atom
-  }
-
-  getRenderTypeOptions(atoms?: Array<SelectOption>) {
-    const fallbackAtoms = this.atomsList.map(mapEntitySelectOptions)
-    const atomOptions = atoms ?? fallbackAtoms
-
-    const optionsWithImage = atomOptions.map(({ label, value }) => {
-      return {
-        __typename: IElementRenderTypeKind.Atom,
-        icon: DeploymentUnitOutlined,
-        label,
-        text: label,
-        value,
-      }
-    })
-
-    return optionsWithImage
   }
 }

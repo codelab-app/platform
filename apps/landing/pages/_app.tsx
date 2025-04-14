@@ -1,5 +1,6 @@
 import type { IAppProps } from '@codelab/frontend/abstract/application'
-import type { CodelabPage } from '@codelab/frontend/abstract/types'
+import type { NextPage } from 'next'
+import type { FunctionComponent, PropsWithChildren } from 'react'
 
 import { Auth0Provider } from '@auth0/nextjs-auth0'
 import { App as AntdApp, ConfigProvider } from 'antd'
@@ -10,6 +11,10 @@ import { Intercom } from '../src/home/Intercom'
 import { useHotjar } from '../src/hooks/useHotjar.hook'
 import '../styles/app.css'
 // import { slickCssFix } from '../src/styles/slick/Slick'
+
+type CodelabPage<P = unknown, IP = P> = NextPage<P, IP> & {
+  Layout?: FunctionComponent<PropsWithChildren<P>>
+}
 
 const App = ({ Component, pageProps }: IAppProps) => {
   const { Layout = ({ children }) => <>{children}</> } =

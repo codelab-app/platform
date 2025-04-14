@@ -14,6 +14,7 @@ import {
 } from '@codelab/backend/domain/type'
 import { UserRepository } from '@codelab/backend/domain/user'
 import {
+  IConfigPaneTab,
   IPageKind,
   IPageKindName,
   ITypeKind,
@@ -75,7 +76,10 @@ describe('PageResolvers', () => {
       auth0Id: 'something',
       email: 'something@some.thing',
       id: v4(),
+      name: 'someusername',
+      picture: '',
       preferences: {
+        activeConfigPaneTab: IConfigPaneTab.Node,
         builderBreakpointType: BreakpointType.Desktop,
         builderWidth: 1000,
         id: v4(),

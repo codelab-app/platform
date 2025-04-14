@@ -10,8 +10,9 @@ import { findOrFail } from '@codelab/shared/utils'
 import { type APIRequestContext } from '@playwright/test'
 import { v4 } from 'uuid'
 
+import { requestOrThrow } from '../../api'
 import { REQUEST_TIMEOUT } from '../../setup/config'
-import { seedAppData } from '../builder/builder.data'
+import { seedAppData } from '../app/app.data'
 
 export const testUrlProps = {
   subtestId: 'second-url-segment',
@@ -95,7 +96,11 @@ export const buildTestPages = (app: IAppDto) => {
 }
 
 export const seedTestData = async (request: APIRequestContext) => {
-  const app = await seedAppData(request)
+  const app = await seedAppData(request, {
+    atomTypes: [IAtomType.NextLink, IAtomType.AntDesignTypographyText],
+    componentTypes: [],
+  })
+
   const pages = buildTestPages(app)
 
   const page: IPage = findOrFail(
@@ -103,21 +108,23 @@ export const seedTestData = async (request: APIRequestContext) => {
     ({ kind }) => kind === IPageKind.Provider,
   )
 
-  const response = await request.post(
-    `/api/v1/element/${page.rootElement.id}/create-elements`,
+  await requestOrThrow(
+    request,
+    `element/${page.rootElement.id}/create-elements`,
     {
       data: [{ ...providerPageLinkElement, parentElement: page.rootElement }],
+      method: 'POST',
       timeout: REQUEST_TIMEOUT,
     },
   )
 
-  const pageResponse = await request.post('/api/v1/page/create', {
+  const staticPage = await requestOrThrow<IPage>(request, 'page/create', {
     data: pages.staticPage,
+    method: 'POST',
+    timeout: REQUEST_TIMEOUT,
   })
 
-  const staticPage = await pageResponse.json()
-
-  await request.post(`/api/v1/element/${staticPage.id}/create-elements`, {
+  await requestOrThrow(request, `element/${staticPage.id}/create-elements`, {
     data: [
       {
         ...staticPageTextElement,
@@ -125,21 +132,25 @@ export const seedTestData = async (request: APIRequestContext) => {
       },
       staticPageLinkElement,
     ],
+    method: 'POST',
+    timeout: REQUEST_TIMEOUT,
   })
 
-  const dynamicPageResponse = await request.post('/api/v1/page/create', {
+  const dynamicPage = await requestOrThrow<IPage>(request, 'page/create', {
     data: pages.dynamicPage,
+    method: 'POST',
+    timeout: REQUEST_TIMEOUT,
   })
 
-  const dynamicPage = await dynamicPageResponse.json()
-
-  await request.post(`/api/v1/element/${dynamicPage.id}/create-elements`, {
+  await requestOrThrow(request, `element/${dynamicPage.id}/create-elements`, {
     data: [
       {
         ...dynamicPageTextElement,
         parentElement: { id: dynamicPage.rootElement.id },
       },
     ],
+    method: 'POST',
+    timeout: REQUEST_TIMEOUT,
   })
 
   return app

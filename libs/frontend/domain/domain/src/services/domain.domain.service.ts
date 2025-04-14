@@ -29,6 +29,10 @@ export class DomainDomainService
     return [...this.domains.values()]
   }
 
+  domain(id: string) {
+    return this.domains.get(id)
+  }
+
   @modelAction
   hydrate = (dto: IDomainDto) => {
     let domain = this.domains.get(dto.id)
@@ -38,9 +42,5 @@ export class DomainDomainService
     this.domains.set(domain.id, domain)
 
     return domain
-  }
-
-  domain(id: string) {
-    return this.domains.get(id)
   }
 }

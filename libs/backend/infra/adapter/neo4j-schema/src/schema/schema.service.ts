@@ -7,7 +7,7 @@ import {
   Neo4jGraphQL,
   Neo4jGraphQLSubscriptionsCDCEngine,
 } from '@neo4j/graphql'
-import { Injectable, OnModuleInit } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 
 import { ResolverService } from '../resolver/resolver.service'
 import { typeDefs } from './type-defs'

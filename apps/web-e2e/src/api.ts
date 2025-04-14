@@ -1,20 +1,16 @@
-import type {
-  IJobOutput,
-  IJobQueueResponse,
-} from '@codelab/shared/abstract/infra'
-import type { ObjectLike } from '@codelab/shared/abstract/types'
+import type { IJobOutput } from '@codelab/shared/abstract/infra'
 import type { APIRequestContext } from '@playwright/test'
 import type { Socket } from 'socket.io-client'
 
 import { env } from '@codelab/shared/config/env'
+import { getTimestamp } from '@codelab/shared/infra/logging'
 import { io } from 'socket.io-client'
-import { v4 } from 'uuid'
 
-import { getTimestamp } from './commands'
 /**
- * Extract the options type from Playwright's APIRequestContext.post method
+ * Extract the options type from Playwright's APIRequestContext methods
  */
-export type ApiRequestOptions = Parameters<APIRequestContext['post']>[1]
+export type ApiRequestPostOptions = Parameters<APIRequestContext['post']>[1]
+export type ApiRequestGetOptions = Parameters<APIRequestContext['get']>[1]
 
 /**
  * Helper function to make API requests that automatically throws on non-OK responses
@@ -22,9 +18,20 @@ export type ApiRequestOptions = Parameters<APIRequestContext['post']>[1]
 export const requestOrThrow = async <T = void>(
   request: APIRequestContext,
   url: string,
-  options: ApiRequestOptions,
+  options:
+    | (ApiRequestGetOptions & { method: 'GET' })
+    | (ApiRequestPostOptions & { method: 'POST' }) = {
+    method: 'POST',
+  },
 ): Promise<T> => {
-  const response = await request.post(url, options)
+  const { method, ...rest } = options
+
+  console.log(`[${getTimestamp()}] Requesting ${url} [${method}]`)
+
+  const response =
+    method === 'GET'
+      ? await request.get(`/api/v1/${url}`, rest)
+      : await request.post(`/api/v1/${url}`, rest)
 
   if (!response.ok()) {
     const text = await response.text()
@@ -33,7 +40,16 @@ export const requestOrThrow = async <T = void>(
     throw new Error(`HTTP error! status: ${response.status()}`)
   }
 
-  return response.json() as Promise<T>
+  const contentType = response.headers()['content-type']
+
+  if (contentType && contentType.includes('application/json')) {
+    return response.json() as Promise<T>
+  } else {
+    console.log('Content-Type not found', contentType)
+  }
+
+  // Return empty response or null for non-JSON responses
+  return Promise.resolve<T>(null as T)
 }
 
 const apiPort = env.get('NEXT_PUBLIC_API_PORT').required().asPortNumber()

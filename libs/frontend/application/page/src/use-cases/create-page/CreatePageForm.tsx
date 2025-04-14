@@ -3,7 +3,6 @@
 import type { IPageCreateFormData } from '@codelab/shared/abstract/core'
 
 import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
-import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { useUser } from '@codelab/frontend-application-user/services'
 import {
   Form,
@@ -17,14 +16,17 @@ import { v4 } from 'uuid'
 import { usePageService } from '../../services'
 import { createPageSchema } from './create-page.schema'
 
-export const CreatePageForm = observer<IFormController>(
-  ({ onSubmitSuccess, showFormControl = true, submitRef }) => {
+type ICreatePageFormProps = IFormController & {
+  appId: string
+}
+
+export const CreatePageForm = observer<ICreatePageFormProps>(
+  ({ appId, onSubmitSuccess, showFormControl = true, submitRef }) => {
     const user = useUser()
-    const app = useCurrentApp()
     const pageService = usePageService()
 
     const model = {
-      app: { id: app?.id },
+      app: { id: appId },
       id: v4(),
       // required for store api
       owner: {

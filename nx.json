@@ -2,21 +2,26 @@
   "defaultBase": "master",
   "useInferencePlugins": true,
   "parallel": 3,
-  "tasksRunnerOptions": {
-    "default": {
-      "options": {
-        "canTrackAnalytics": true,
-        "showUsageWarnings": true
-      }
-    }
-  },
   "defaultProject": "web",
+  "maxCacheSize": "2GB",
+  "nxCloudId": "67fcdb6b7eeb2ddcc348061b",
   "plugins": [
     "@codelab/tsc-check",
     {
       "plugin": "@nx/eslint/plugin",
       "options": {
         "targetName": "eslint:lint"
+      }
+    },
+    {
+      "plugin": "@nx/next/plugin",
+      "options": {
+        "startTargetName": "start",
+        "buildTargetName": "next:build",
+        "devTargetName": "dev",
+        "serveStaticTargetName": "serve-static",
+        "buildDepsTargetName": "build-deps",
+        "watchDepsTargetName": "watch-deps"
       }
     }
   ],
@@ -114,13 +119,17 @@
     },
     "@nx/jest:jest": {
       "cache": true,
+      "defaultConfiguration": "test",
       "inputs": ["default", "^default", "{workspaceRoot}/jest.preset.ts"],
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "parallel": 1,
-        "passWithNoTests": true
+        "passWithNoTests": true,
+        "jestConfig": "{projectRoot}/jest.config.ts",
+        "runInBand": true
       },
       "configurations": {
-        "dev": {
+        "test": {
           "reporters": ["default"]
         },
         "test.unit": {
@@ -173,9 +182,6 @@
     "@nx/vite:test": {
       "cache": true,
       "inputs": ["default", "^default"]
-    },
-    "test": {
-      "cache": true
     },
     "lint": {
       "cache": true

@@ -237,7 +237,11 @@
     "icon": "Grid",
     "id": "e924ef41-c50c-47b5-bb33-5cb9210578e2",
     "name": "AntDesignGridCol",
-    "requiredParents": [],
+    "requiredParents": [
+      {
+        "id": "774d1598-33f8-40b9-8083-d273a0593de8"
+      }
+    ],
     "suggestedChildren": [],
     "tags": [
       {

@@ -14,7 +14,6 @@ import type {
 } from '@codelab/shared/infra/gqlgen'
 import type { Overwrite } from 'utility-types'
 
-import type { IPaginateable } from '../services/pagination.service.interface'
 import type {
   ICrudService,
   IQueryService,
@@ -25,8 +24,7 @@ export interface IComponentService
       ICrudService<IRef, ICreateComponentData, IUpdateComponentData>,
       { create(data: ICreateComponentData): Promise<IComponentModel> }
     >,
-    IQueryService<IComponentModel, ComponentWhere, ComponentOptions>,
-    IPaginateable<IComponentModel> {
+    IQueryService<IComponentModel, ComponentWhere, ComponentOptions> {
   // componentDevelopmentService: IComponentDevelopmentService
   // moved to builder
   // getSelectComponentOptions(): Promise<Array<DefaultOptionType>>

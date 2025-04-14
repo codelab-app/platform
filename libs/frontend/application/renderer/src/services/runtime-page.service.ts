@@ -81,13 +81,13 @@ export class RuntimePageService
     return runtimePage
   }
 
+  maybeRuntimePage(compositeKey: string) {
+    return this.pages.get(compositeKey)
+  }
+
   @modelAction
   remove(runtimePage: IRuntimePageModel) {
     return this.pages.delete(runtimePage.compositeKey)
-  }
-
-  maybeRuntimePage(compositeKey: string) {
-    return this.pages.get(compositeKey)
   }
 
   runtimePage(compositeKey: string) {

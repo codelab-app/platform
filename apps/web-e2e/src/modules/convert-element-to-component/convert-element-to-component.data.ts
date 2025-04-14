@@ -9,8 +9,8 @@ import { IAtomType, IPageKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { findOrFail } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 
-import { REQUEST_TIMEOUT } from '../../setup/config'
-import { seedAppData } from '../builder/builder.data'
+import { requestOrThrow } from '../../api'
+import { seedAppData } from '../app/app.data'
 
 export const componentName = 'Container'
 export const textContent = 'Text Element Content'
@@ -62,27 +62,28 @@ export const providerPageElements = (
 ]
 
 export const seedTestData = async (request: APIRequestContext) => {
-  const app = await seedAppData(request)
+  const app = await seedAppData(request, {
+    atomTypes: [
+      IAtomType.AntDesignGridRow,
+      IAtomType.AntDesignGridCol,
+      IAtomType.AntDesignTypographyText,
+    ],
+    componentTypes: [],
+  })
 
   const page: IPage = findOrFail(
     app.pages,
     ({ kind }) => kind === IPageKind.Provider,
   )
 
-  const response = await request.post(
-    `/api/v1/element/${page.rootElement.id}/create-elements`,
+  await requestOrThrow(
+    request,
+    `element/${page.rootElement.id}/create-elements`,
     {
       data: providerPageElements(page),
-      timeout: REQUEST_TIMEOUT,
+      method: 'POST',
     },
   )
-
-  if (!response.ok()) {
-    const text = await response.text()
-
-    console.error('Server response:', text)
-    throw new Error(`HTTP error! status: ${response.status()}`)
-  }
 
   return app
 }

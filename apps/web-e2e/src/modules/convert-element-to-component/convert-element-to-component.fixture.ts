@@ -1,6 +1,7 @@
-import { PageType } from '@codelab/frontend/abstract/types'
-import { test as base, expect } from '@playwright/test'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { expect } from '@playwright/test'
 
+import { baseTest } from '../../setup/fixtures/base.fixture'
 import { BuilderPage } from '../builder/builder.fixture'
 import {
   componentName,
@@ -48,7 +49,7 @@ export class ConvertElementToComponentPage extends BuilderPage {
 
   async goToComponentBuilderPage() {
     return test.step('goToComponentBuilderPage', async () => {
-      await this.page.goto(PageType.Components())
+      await this.page.goto(RoutePaths.Component.base())
 
       await expect(this.getCard({ name: componentName })).toBeVisible()
 
@@ -61,11 +62,11 @@ export class ConvertElementToComponentPage extends BuilderPage {
   }
 }
 
-export const test = base.extend<{
+export const test = baseTest.extend<{
   builderPage: ConvertElementToComponentPage
 }>({
-  builderPage: async ({ page }, use) => {
-    const builderPage = new ConvertElementToComponentPage(page)
+  builderPage: async ({ context, page }, use) => {
+    const builderPage = new ConvertElementToComponentPage(page, context)
 
     await use(builderPage)
   },

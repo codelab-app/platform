@@ -35,6 +35,9 @@ export class AtomRenderPipe
     const atomType = (atomRenderType.externalSourceType ??
       atomRenderType.type) as IAtomType
 
+    /**
+     * `ReactComponent` only used to check if atom type is valid
+     */
     const [ReactComponent, newProps] = atomFactory({
       atom: atomRenderType,
       props: runtimeElement.runtimeProps.evaluatedProps,
@@ -52,6 +55,8 @@ export class AtomRenderPipe
     if (this.renderer.debugMode) {
       console.info(`AtomRenderPipe: Rendering atom ${atomType}`, {
         element: element.name,
+        evaluatedProps: runtimeElement.runtimeProps.evaluatedProps,
+        props: newProps,
       })
     }
 

@@ -1,18 +1,11 @@
 'use client'
 
-import type {
-  SearchParamsPageProps,
-  SearchParamsProps,
-  UrlPathParams,
-} from '@codelab/frontend/abstract/types'
-import type { ReadonlyURLSearchParams } from 'next/navigation'
+import type { NextjsSearchParamsProps } from '@codelab/frontend/abstract/application'
 
-import { parseSearchParamsPageProps } from '@codelab/frontend-application-shared-store/router'
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
-import { type ReactNode, useState } from 'react'
-import { useCustomCompareEffect } from 'react-use'
-import { isDeepEqual, pipe } from 'remeda'
+import { type ReactNode, useEffect } from 'react'
+
+import { useApplicationStoreHydrator } from './useApplicationStoreHydrator.hook'
 
 interface ApplicationStoreHydratorProps {
   children: ReactNode
@@ -26,43 +19,21 @@ interface ApplicationStoreHydratorProps {
    * In that case we'll need some override to disable loader
    */
   fallback?: ReactNode
-  pathParams?: UrlPathParams
-  searchParams?: SearchParamsPageProps
+  searchParams?: NextjsSearchParamsProps
 }
 
-export const ApplicationStoreHydrator = observer(
-  ({
-    children,
-    fallback,
-    pathParams,
-    searchParams,
-  }: ApplicationStoreHydratorProps) => {
-    const { routerService } = useApplicationStore()
-    const [isHydrated, setIsHydrated] = useState(false)
+export const ApplicationStoreHydrator = observer<ApplicationStoreHydratorProps>(
+  ({ children, searchParams }) => {
+    const hydrate = useApplicationStoreHydrator()
 
-    useCustomCompareEffect(
-      () => {
-        if (searchParams) {
-          const params = parseSearchParamsPageProps(searchParams)
-
-          routerService.setSearchParams(params)
-        }
-
-        if (pathParams) {
-          routerService.setPathParams(pathParams)
-        }
-
-        setIsHydrated(true)
-      },
-      [pathParams, searchParams],
-      isDeepEqual,
-    )
-
-    // Always wait for hydration, regardless of fallback presence
-    if (!isHydrated) {
-      return fallback ? <>{fallback}</> : null
-    }
+    useEffect(() => {
+      if (searchParams) {
+        hydrate({ searchParams })
+      }
+    }, [searchParams])
 
     return <>{children}</>
   },
 )
+
+ApplicationStoreHydrator.displayName = 'ApplicationStoreHydrator'

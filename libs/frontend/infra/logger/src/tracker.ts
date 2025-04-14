@@ -3,12 +3,11 @@
 import type { Nullish, ObjectLike } from '@codelab/shared/abstract/types'
 import type { AnyModel } from 'mobx-keystone'
 
+import { logger } from '@codelab/shared/infra/logging'
 import { diff } from 'deep-object-diff'
 import { getSnapshot, isModel } from 'mobx-keystone'
 import { useEffect, useRef } from 'react'
 import { isDeepEqual } from 'remeda'
-
-import { clientLogger } from './logger'
 
 // Move renderCountMap and prevPropsMap outside the hooks to make them static
 const renderCountMap: Record<string, number> = {}
@@ -29,13 +28,6 @@ const useRenderedCount = (componentName: string) => {
 
   useEffect(() => {
     renderCountMap[name.current] = (renderCountMap[name.current] || 0) + 1
-
-    clientLogger.debug('Component rendered', {
-      context: name.current,
-      data: {
-        renderCount: renderCountMap[name.current],
-      },
-    })
   })
 }
 
@@ -62,7 +54,7 @@ const useReferenceChange = (
     const hasAnyChange = changes.some((change) => change.hasChanged)
 
     if (hasAnyChange) {
-      clientLogger.debug('References changed', {
+      logger.debug('References changed', {
         context,
         data: {
           changes: changes.filter((change) => change.hasChanged),
@@ -94,7 +86,7 @@ const useModelDiff = (
 
     renderCountMap[context] = (renderCountMap[context] || 0) + 1
 
-    clientLogger.debug(`Comparing diff (#${renderCountMap[context]})`, {
+    logger.debug(`Comparing diff (#${renderCountMap[context]})`, {
       context,
       data: {
         // Only include current/previous if there are actual changes
@@ -142,7 +134,7 @@ const usePropsDiff = <T extends ObjectLike>(
         }
       })
 
-      clientLogger.debug('Props changed', {
+      logger.debug('Props changed', {
         context: componentName,
         data: {
           referenceChangedKeys,
@@ -165,9 +157,7 @@ const useEvent = ({
   event: string
   componentName: string
 }) => {
-  clientLogger.debug(
-    `Event '${event}' triggered for component '${componentName}'`,
-  )
+  logger.debug(`Event '${event}' triggered for component '${componentName}'`)
 }
 
 export const tracker = {

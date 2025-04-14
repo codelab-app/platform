@@ -1,38 +1,35 @@
+import type { BuilderContextParams } from '@codelab/frontend/abstract/application'
 import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-ui'
 
 import AppstoreOutlined from '@ant-design/icons/AppstoreOutlined'
 import CloudServerOutlined from '@ant-design/icons/CloudServerOutlined'
 import CodeSandboxOutlined from '@ant-design/icons/CodeSandboxOutlined'
 import SafetyOutlined from '@ant-design/icons/SafetyOutlined'
-import {
-  type BuilderContextParams,
-  PageType,
-  PrimarySidebar,
-} from '@codelab/frontend/abstract/types'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 
 export const appMenuItem: NavigationBarItem = {
   icon: <AppstoreOutlined title="Apps" />,
-  key: PageType.AppList(),
+  key: RoutePaths.App.list(),
   link: {
-    href: PageType.AppList(),
+    href: RoutePaths.App.list(),
   },
   title: 'Apps',
 }
 
 export const resourceMenuItem: NavigationBarItem = {
   icon: <CloudServerOutlined title="Resources" />,
-  key: PageType.Resources(),
+  key: RoutePaths.Resource.base(),
   link: {
-    href: PageType.Resources(),
+    href: RoutePaths.Resource.base(),
   },
   title: 'Resources',
 }
 
 export const authGuardMenuItem: NavigationBarItem = {
   icon: <SafetyOutlined title="Auth Guards" />,
-  key: PageType.AuthGuards(),
+  key: RoutePaths.AuthGuard.base(),
   link: {
-    href: PageType.AuthGuards(),
+    href: RoutePaths.AuthGuard.base(),
   },
   title: 'Auth Guards',
 }
@@ -46,7 +43,7 @@ export const builderComponentsMenuItem = ({
     icon: <CodeSandboxOutlined title="Builder Components" />,
     key: 'components',
     link: {
-      href: PageType.Components(),
+      href: RoutePaths.Component.base(),
     },
     title: 'Builder Components',
   }
@@ -55,10 +52,7 @@ export const builderComponentsMenuItem = ({
     return {
       ...componentsListMenuItem,
       link: {
-        href: PageType.PageBuilder(
-          { appId, pageId },
-          PrimarySidebar.ComponentList,
-        ),
+        href: RoutePaths.Page.builderComponent.list({ appId, pageId }),
       },
     }
   }
@@ -67,7 +61,7 @@ export const builderComponentsMenuItem = ({
     return {
       ...componentsListMenuItem,
       link: {
-        href: PageType.ComponentBuilder({ componentId }),
+        href: RoutePaths.Component.builder({ componentId }),
       },
     }
   }

@@ -35,6 +35,7 @@ export const updateBaseTsconfig = (
    * 1. Go through the directory mapping
    */
   handleProjectNamePatterns(project, (patterns) => {
+    // Add/remove paths
     patterns.forEach((pattern) => {
       generateReferencePathsForLib(tree, project, pattern)
     })

@@ -3,33 +3,16 @@ import type {
   IComponentModel,
 } from '@codelab/frontend/abstract/domain'
 import type { SelectOption } from '@codelab/frontend/abstract/types'
-import type { IComponentDto } from '@codelab/shared/abstract/core'
+import type { IComponentDto, IRef } from '@codelab/shared/abstract/core'
 
 import CodeSandboxOutlined from '@ant-design/icons/CodeSandboxOutlined'
-import {
-  getAtomDomainService,
-  getElementDomainService,
-  getStoreDomainService,
-  getTypeDomainService,
-  getUserDomainService,
-} from '@codelab/frontend/abstract/domain'
 import { mapEntitySelectOptions } from '@codelab/frontend-domain-atom/store'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/typebox'
 import { computed } from 'mobx'
-import {
-  _async,
-  _await,
-  Model,
-  model,
-  modelAction,
-  modelFlow,
-  objectMap,
-  prop,
-} from 'mobx-keystone'
+import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { prop as rProp, sortBy } from 'remeda'
 
-import { componentRepository } from '../repositories'
 import { Component } from '../store'
 
 @model('@codelab/ComponentDomainService')
@@ -49,40 +32,6 @@ export class ComponentDomainService
     return sortBy(this.componentList, rProp('name'))
   }
 
-  @modelFlow
-  getSelectOptions = _async(function* (
-    this: ComponentDomainService,
-    component?: Pick<IComponentModel, 'id' | 'name'>,
-  ) {
-    const components = yield* _await(componentRepository.find())
-
-    components.items.forEach((dto) => {
-      this.hydrate(dto)
-    })
-
-    const filtered = this.sortedComponentsList.filter((comp) => {
-      if (comp.id === component?.id) {
-        return false
-      }
-
-      /**
-       * Prevent circular references
-       */
-      const parentIsDescendant = comp.descendantComponents.some(
-        ({ id }) => id === component?.id,
-      )
-
-      return !component?.id || !parentIsDescendant
-    })
-
-    console.log(filtered)
-
-    return filtered.map((comp) => ({
-      label: comp.name,
-      value: comp.id,
-    }))
-  })
-
   @modelAction
   component(id: string) {
     const component = this.maybeComponent(id)
@@ -92,26 +41,6 @@ export class ComponentDomainService
     }
 
     return component
-  }
-
-  @modelAction
-  hydrate(componentDto: IComponentDto) {
-    let component = this.components.get(componentDto.id)
-
-    if (component) {
-      component.writeCache(componentDto)
-    } else {
-      component = Component.create(componentDto)
-
-      this.components.set(component.id, component)
-    }
-
-    return component
-  }
-
-  @modelAction
-  maybeComponent(id: string) {
-    return this.components.get(id)
   }
 
   findById(id: string) {
@@ -137,28 +66,40 @@ export class ComponentDomainService
     })
   }
 
-  @computed
-  private get atomDomainService() {
-    return getAtomDomainService(this)
+  getSelectOptions(currentComponent?: IRef) {
+    return this.sortedComponentsList
+      .filter((option) => {
+        if (currentComponent?.id) {
+          return (
+            option.id !== currentComponent.id &&
+            !option.descendantComponents
+              .map((component) => component.id)
+              .includes(currentComponent.id)
+          )
+        }
+
+        return true
+      })
+      .map(mapEntitySelectOptions)
   }
 
-  @computed
-  private get elementDomainService() {
-    return getElementDomainService(this)
+  @modelAction
+  hydrate(componentDto: IComponentDto) {
+    let component = this.components.get(componentDto.id)
+
+    if (component) {
+      component.writeCache(componentDto)
+    } else {
+      component = Component.create(componentDto)
+
+      this.components.set(component.id, component)
+    }
+
+    return component
   }
 
-  @computed
-  private get storeDomainService() {
-    return getStoreDomainService(this)
-  }
-
-  @computed
-  private get typeDomainService() {
-    return getTypeDomainService(this)
-  }
-
-  @computed
-  private get userDomainService() {
-    return getUserDomainService(this)
+  @modelAction
+  maybeComponent(id: string) {
+    return this.components.get(id)
   }
 }

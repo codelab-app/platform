@@ -2,22 +2,15 @@ import type { Static } from '@sinclair/typebox'
 
 import { Type } from '@sinclair/typebox'
 
-import { ApiExportSchema, ApiImportSchema } from '../type'
+import { ApiAggregateSchema, omitOwner } from '../type'
 import { AtomSchema } from './atom.model.interface'
 
 /**
  * Aggregate is used to group data together, not 1-to-1 mapping to models
  */
-export const AtomExportSchema = Type.Object({
-  api: ApiExportSchema,
-  atom: Type.Omit(AtomSchema, ['owner']),
+export const AtomAggregateSchema = Type.Object({
+  api: ApiAggregateSchema,
+  atom: omitOwner(AtomSchema),
 })
 
-export type IAtomExport = Static<typeof AtomExportSchema>
-
-export const AtomImportSchema = Type.Object({
-  api: ApiImportSchema,
-  atom: AtomSchema,
-})
-
-export type IAtomImport = Static<typeof AtomImportSchema>
+export type IAtomAggregate = Static<typeof AtomAggregateSchema>

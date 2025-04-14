@@ -32,5 +32,6 @@
   ],
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "typescript.experimental.expandableHover": true,
 }

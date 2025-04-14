@@ -2,12 +2,15 @@ import { type IApp } from '@codelab/shared/abstract/core'
 import { providerPageId } from '@codelab/shared/data/test'
 import { expect } from '@playwright/test'
 
+import { globalBeforeAll } from '../../setup/before-all'
 import { builderElements, pageId, seedTestData } from './state-sharing.data'
 import { test } from './state-sharing.fixture'
 
 let app: IApp
 
 test.describe.configure({ mode: 'serial' })
+
+globalBeforeAll()
 
 test.beforeAll(async ({ request }, testInfo) => {
   app = await seedTestData(request)
@@ -70,8 +73,4 @@ test('should use component state and not use provider state', async ({
   await expect(page.getBuilderRenderContainer()).toContainText(
     'text component state value',
   )
-})
-
-test.afterAll('cleanup created components', async ({ request }) => {
-  await request.post('/api/v1/admin/setup-e2e-data')
 })

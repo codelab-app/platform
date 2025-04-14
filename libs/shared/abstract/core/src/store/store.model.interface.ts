@@ -5,9 +5,12 @@ import { Type } from '@sinclair/typebox'
 
 import { StoreDtoSchema } from './store.dto.interface'
 
-export const StoreSchema = Type.Object({
-  ...StoreDtoSchema.properties,
-  actions: Type.Array(Typebox.RefSchema),
-  api: Typebox.RefSchema,
-})
+export const StoreSchema = Type.Composite([
+  Type.Omit(StoreDtoSchema, ['component', 'page']),
+  Type.Object({
+    actions: Type.Array(Typebox.RefSchema),
+    api: Typebox.RefSchema,
+  }),
+])
+
 export type IStore = Static<typeof StoreSchema>

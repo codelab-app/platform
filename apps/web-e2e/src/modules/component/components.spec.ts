@@ -1,10 +1,9 @@
-import type { IAppDto } from '@codelab/shared/abstract/core'
-
+import { type IAppDto, IAtomType } from '@codelab/shared/abstract/core'
 import { providerPageId } from '@codelab/shared/data/test'
 import { expect } from '@playwright/test'
 
 import { globalBeforeAll } from '../../setup/before-all'
-import { seedAppData } from '../builder/builder.data'
+import { seedAppData } from '../app/app.data'
 import {
   COMPONENT_PROP_VALUE,
   componentInstance,
@@ -20,7 +19,10 @@ test.describe.configure({ mode: 'serial' })
 globalBeforeAll()
 
 test.beforeAll(async ({ request }) => {
-  app = await seedAppData(request)
+  app = await seedAppData(request, {
+    atomTypes: [IAtomType.AntDesignTypographyText],
+    componentTypes: [],
+  })
 })
 
 test.beforeEach(async ({ componentListPage: page }) => {
@@ -61,7 +63,8 @@ test('should be able to create an instance of the component', async ({
 }) => {
   await page.goto(app.id, providerPageId)
 
-  await expect(page.getSpinner()).toBeHidden()
+  await page.expectGlobalProgressBarToBeHidden()
+
   await expect(page.getFormFieldSpinner()).toHaveCount(0)
 
   await page.createElementTree([componentInstance, componentInstanceChild])

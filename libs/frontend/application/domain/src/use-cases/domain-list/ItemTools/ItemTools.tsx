@@ -1,7 +1,7 @@
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import EditOutlined from '@ant-design/icons/EditOutlined'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { type IDomainModel } from '@codelab/frontend/abstract/domain'
-import { PageType } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
@@ -20,14 +20,17 @@ export const ItemTools = observer<ItemToolsProps>(
 
     const onDeleteClick = () =>
       router.push(
-        PageType.DomainDelete({ appId: domain.app.id, domainId: domain.id }),
+        RoutePaths.Domain.delete({
+          appId: domain.app.id,
+          domainId: domain.id,
+        }),
       )
 
     return (
       <Fragment>
         <RefreshDomainButton domain={domain} />
         <Link
-          href={PageType.DomainUpdate({
+          href={RoutePaths.Domain.update({
             appId: domain.app.id,
             domainId: domain.id,
           })}

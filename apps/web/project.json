@@ -38,6 +38,10 @@
         "dev": {
           "buildTarget": "web:build:dev"
         },
+        "local": {
+          "buildTarget": "web:build:dev",
+          "dev": false
+        },
         "test": {
           "buildTarget": "web:build:test",
           "port": 3001

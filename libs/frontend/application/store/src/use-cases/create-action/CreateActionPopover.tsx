@@ -13,42 +13,44 @@ import { useRef } from 'react'
 import { useActionService } from '../../services/action.service'
 import { CreateActionForm } from './CreateActionForm'
 
-export const CreateActionPopover = observer(({ id }: { id: string }) => {
-  const submitRef = useRef<Maybe<SubmitController>>(undefined)
-  const router = useRouter()
-  const { createPopover } = useActionService()
+export const CreateActionPopover = observer(
+  ({ storeId }: { storeId: string }) => {
+    const submitRef = useRef<Maybe<SubmitController>>(undefined)
+    const router = useRouter()
+    const { createPopover } = useActionService()
 
-  return (
-    <CuiSidebarSecondary
-      id={UiKey.ActionPopoverCreate}
-      toolbar={{
-        items: [
-          {
-            cuiKey: UiKey.ActionToolbarItemCreate,
-            icon: <SaveOutlined />,
-            label: 'Create',
-            onClick: () => {
-              submitRef.current?.submit()
+    return (
+      <CuiSidebarSecondary
+        id={UiKey.ActionPopoverCreate}
+        toolbar={{
+          items: [
+            {
+              cuiKey: UiKey.ActionToolbarItemCreate,
+              icon: <SaveOutlined />,
+              label: 'Create',
+              onClick: () => {
+                submitRef.current?.submit()
+              },
+              title: 'Create',
             },
-            title: 'Create',
-          },
-          {
-            cuiKey: UiKey.ActionToolbarItemCreateCancel,
-            icon: <CloseOutlined />,
-            label: 'Cancel',
-            onClick: () => createPopover.close(router),
-            title: 'Cancel',
-          },
-        ],
-        title: 'Create Action toolbar',
-      }}
-    >
-      <CreateActionForm
-        onSubmitSuccess={() => createPopover.close(router)}
-        showFormControl={false}
-        storeId={id}
-        submitRef={submitRef}
-      />
-    </CuiSidebarSecondary>
-  )
-})
+            {
+              cuiKey: UiKey.ActionToolbarItemCreateCancel,
+              icon: <CloseOutlined />,
+              label: 'Cancel',
+              onClick: () => createPopover.close(router),
+              title: 'Cancel',
+            },
+          ],
+          title: 'Create Action toolbar',
+        }}
+      >
+        <CreateActionForm
+          onSubmitSuccess={() => createPopover.close(router)}
+          showFormControl={false}
+          storeId={storeId}
+          submitRef={submitRef}
+        />
+      </CuiSidebarSecondary>
+    )
+  },
+)

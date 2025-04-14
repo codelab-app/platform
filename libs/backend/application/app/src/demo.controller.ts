@@ -1,44 +1,17 @@
-import type { IApp, IAppAggregateExport } from '@codelab/shared/abstract/core'
-
-import { ImportCypressAtomsCommand } from '@codelab/backend/application/atom'
-import { ImportDataMapperService } from '@codelab/backend/application/data'
-import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { DEMO_JOB, SEED_QUEUE } from '@codelab/backend/infra/adapter/queue'
 import { WsGateway } from '@codelab/backend/infra/adapter/ws'
-import { DatabaseService } from '@codelab/backend-infra-adapter/neo4j-driver'
 import { IJobOutput, IJobQueueResponse } from '@codelab/shared/abstract/infra'
-import { InjectQueue } from '@nestjs/bullmq'
-import {
-  Body,
-  ClassSerializerInterceptor,
-  Controller,
-  Get,
-  Post,
-  Request,
-  Res,
-  UploadedFile,
-  UseInterceptors,
-} from '@nestjs/common'
+import { Body, Controller, Post, Request, Res } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
-import { FileInterceptor } from '@nestjs/platform-express'
-import { Queue } from 'bullmq'
-import { Express, Request as ExpressRequest, Response } from 'express'
+import { Request as ExpressRequest, Response } from 'express'
 import 'multer'
-
-import {
-  ExportAppCommand,
-  ImportAppCommand,
-  SeedCypressAppCommand,
-} from './use-case'
 
 @Controller('demo')
 export class DemoController {
   constructor(
     private commandBus: CommandBus,
     private logger: PinoLoggerService,
-    private importDataMapperService: ImportDataMapperService,
-    @InjectQueue(SEED_QUEUE) private seedQueue: Queue,
+    // @InjectQueue(SEED_QUEUE) private seedQueue: Queue,
     private readonly socketGateway: WsGateway,
   ) {}
 
@@ -74,23 +47,23 @@ export class DemoController {
   /**
    * Demonstrates how to use BullMQ queue for processing background jobs
    */
-  @Post('demo-queue')
-  async demoQueue() {
-    this.logger.debug('Adding demo job to queue')
+  // @Post('demo-queue')
+  // async demoQueue() {
+  //   this.logger.debug('Adding demo job to queue')
 
-    // Add a job to the queue
-    const job = await this.seedQueue.add(DEMO_JOB, {
-      data: 'Demo queue job data',
-      timestamp: new Date().toISOString(),
-    })
+  //   // Add a job to the queue
+  //   const job = await this.seedQueue.add(DEMO_JOB, {
+  //     data: 'Demo queue job data',
+  //     timestamp: new Date().toISOString(),
+  //   })
 
-    // Return the job ID and other info
-    return {
-      jobId: job.id,
-      message: 'Job has been added to the queue',
-      status: 'queued',
-    }
-  }
+  //   // Return the job ID and other info
+  //   return {
+  //     jobId: job.id,
+  //     message: 'Job has been added to the queue',
+  //     status: 'queued',
+  //   }
+  // }
 
   /**
    * Fixes

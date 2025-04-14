@@ -9,7 +9,6 @@ import type {
 } from '@codelab/shared/infra/gqlgen'
 
 import {
-  type GetDataFn,
   type IComponentService,
   rendererRef,
   RendererType,
@@ -17,13 +16,13 @@ import {
 import { useDomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { syncModifiedElements } from '@codelab/frontend-application-element/use-cases/delete-element'
-import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
 import { componentRepository } from '@codelab/frontend-domain-component/repositories'
 import {
   componentFactory,
   componentWithoutRootFactory,
 } from '@codelab/frontend-domain-component/services'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
+import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { storeRepository } from '@codelab/frontend-domain-store/repositories'
 import { typeRepository } from '@codelab/frontend-domain-type/repositories'
 import {
@@ -49,11 +48,7 @@ export const useComponentService = (): IComponentService => {
   const hydrate = useDomainStoreHydrator()
   const elementService = useElementService()
   const owner = userDomainService.user
-
-  const {
-    pagination: { componentPagination },
-    rendererService,
-  } = useApplicationStore()
+  const { rendererService } = useApplicationStore()
 
   const create = async (data: ICreateComponentData) => {
     const { component, storeApi } = componentFactory(
@@ -72,7 +67,9 @@ export const useComponentService = (): IComponentService => {
     await typeRepository.add(storeApi)
     await storeRepository.add(component.store)
     await elementRepository.add(component.rootElement)
-    await componentRepository.add(component.component)
+    await componentRepository.add(component.component, {
+      revalidateTags: [CACHE_TAGS.Component.list()],
+    })
 
     return componentDomainService.component(data.id)
   }
@@ -125,7 +122,9 @@ export const useComponentService = (): IComponentService => {
 
       componentDomainService.components.delete(id)
 
-      await componentRepository.delete([component])
+      await componentRepository.delete([component], {
+        revalidateTags: [CACHE_TAGS.Component.list()],
+      })
 
       return component
     }
@@ -167,7 +166,9 @@ export const useComponentService = (): IComponentService => {
   }
 
   const update = async (data: IUpdateComponentData) => {
-    return await componentRepository.update({ id: data.id }, data)
+    return await componentRepository.update({ id: data.id }, data, {
+      revalidateTags: [CACHE_TAGS.Component.list()],
+    })
   }
 
   const previewComponent = (id: string) => {
@@ -182,28 +183,12 @@ export const useComponentService = (): IComponentService => {
     rendererService.setActiveRenderer(rendererRef(renderer))
   }
 
-  const getDataFn: GetDataFn<IComponentModel> = async (
-    page,
-    pageSize,
-    filter,
-    search,
-  ) => {
-    const items = await getAll(graphqlFilterMatches(filter, search), {
-      limit: pageSize,
-      offset: (page - 1) * pageSize,
-    })
-
-    return { items, totalItems: componentPagination.totalItems }
-  }
-
   return {
     create,
     createWithoutRoot,
     getAll,
-    getDataFn,
     getOne,
     importComponent,
-    paginationService: componentPagination,
     previewComponent,
     removeMany,
     update,

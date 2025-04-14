@@ -56,6 +56,8 @@ export interface IElementModel extends IModel<IElementDto, IElementModel> {
    */
   childMapperPropKey?: Nullable<string>
   children: Array<IElementModel>
+  // the closest component that element belongs to
+  closestContainerComponent: Maybe<IComponentModel>
   // the closest container node that element belongs to
   closestContainerNode: IComponentModel | IPageModel
   // closestPage: Nullable<Ref<IPageModel>>
@@ -64,7 +66,6 @@ export interface IElementModel extends IModel<IElementDto, IElementModel> {
   closestSubTreeRootElement: IElementModel
   // This is a computed property, so we can use model instead of ref
   descendantElements: Array<IElementModel>
-  expanded?: Nullish<boolean>
   firstChild?: Nullable<Ref<IElementModel>>
   hooks: Array<IHook>
   id: string

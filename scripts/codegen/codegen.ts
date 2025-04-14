@@ -96,6 +96,7 @@ const config: Types.Config = {
     './': {
       documents: [
         'libs/frontend/**/*.{api,fragment}.graphql',
+        // TODO: remove this when we finailly moved all server actions fto frontend
         'libs/shared/domain/module/**/*.{api,fragment}.graphql',
       ],
       preset: 'near-operation-file',
@@ -114,10 +115,7 @@ const config: Types.Config = {
       ],
     },
     './libs/shared': {
-      documents: [
-        'libs/frontend/**/*.{api,fragment}.graphql',
-        'libs/shared/domain/module/**/*.{api,fragment}.graphql',
-      ],
+      documents: ['libs/frontend/**/*.{api,fragment,client}.graphql'],
       preset: 'near-operation-file',
       presetConfig: {
         baseTypesPath: '~@codelab/shared/infra/gqlgen',

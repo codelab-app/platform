@@ -2,7 +2,8 @@
 
 import type { IAppCreateFormData } from '@codelab/frontend/abstract/domain'
 
-import { PageType, UiKey } from '@codelab/frontend/abstract/types'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { useRouter } from 'next/navigation'
 import { AutoFields } from 'uniforms-antd'
@@ -14,7 +15,7 @@ import { createAppSchema } from './create-app.schema'
 export const CreateAppModal = () => {
   const router = useRouter()
   const appService = useAppService()
-  const closeModal = () => router.push(PageType.AppList())
+  const closeModal = () => router.push(RoutePaths.App.list())
   const model = { id: v4(), name: '' }
 
   return (

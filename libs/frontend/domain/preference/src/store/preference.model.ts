@@ -1,26 +1,24 @@
-import type {
-  IPreferenceModel,
-  IUserModel,
-} from '@codelab/frontend/abstract/domain'
+import type { IPreferenceModel } from '@codelab/frontend/abstract/domain'
 import type {
   IBreakpoint,
   IBreakpointType,
+  IConfigPaneTab,
   IPreferenceDto,
 } from '@codelab/shared/abstract/core'
 import type { PreferenceDeleteInput } from '@codelab/shared/infra/gqlgen'
-import type { Ref } from 'mobx-keystone'
 
-import { userRef } from '@codelab/frontend/abstract/domain'
 import { breakpoints } from '@codelab/shared/config/builder'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
 const create = ({
+  activeConfigPaneTab,
   builderBreakpointType,
   builderWidth,
   id,
 }: IPreferenceDto) => {
   return new Preference({
+    activeConfigPaneTab,
     builderBreakpointType,
     builderWidth,
     id,
@@ -30,6 +28,7 @@ const create = ({
 @model('@codelab/Preference')
 export class Preference
   extends Model({
+    activeConfigPaneTab: prop<IConfigPaneTab>(),
     builderBreakpointType: prop<IBreakpointType>(),
     builderWidth: prop<number>(),
     id: idProp,
@@ -51,6 +50,7 @@ export class Preference
   get toJson() {
     return {
       $modelType: 'serialized' as const,
+      activeConfigPaneTab: this.activeConfigPaneTab,
       builderBreakpointType: this.builderBreakpointType,
       builderWidth: this.builderWidth,
       id: this.id,
@@ -58,7 +58,11 @@ export class Preference
   }
 
   @modelAction
-  writeCache({ builderBreakpointType, builderWidth }: Partial<IPreferenceDto>) {
+  writeCache({
+    activeConfigPaneTab,
+    builderBreakpointType,
+    builderWidth,
+  }: Partial<IPreferenceDto>) {
     this.builderBreakpointType =
       builderBreakpointType ?? this.builderBreakpointType
 
@@ -67,6 +71,8 @@ export class Preference
       !builderWidth && builderBreakpointType
         ? this.builderBreakpoint.default
         : builderWidth ?? this.builderWidth
+
+    this.activeConfigPaneTab = activeConfigPaneTab ?? this.activeConfigPaneTab
 
     return this
   }

@@ -26,7 +26,11 @@
     "icon": null,
     "id": "67b35abd-5fd3-44ad-a7a5-966ff9805f7e",
     "name": "AntDesignLayoutContent",
-    "requiredParents": [],
+    "requiredParents": [
+      {
+        "id": "54aa52b4-d0db-4a4c-9cb6-08bc1dae8612"
+      }
+    ],
     "suggestedChildren": [],
     "tags": [],
     "type": "AntDesignLayoutContent"

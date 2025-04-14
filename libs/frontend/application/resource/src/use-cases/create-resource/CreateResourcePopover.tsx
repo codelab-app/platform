@@ -6,14 +6,13 @@ import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
 import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import { CuiSidebarSecondary } from '@codelab/frontend/presentation/codelab-ui'
-import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import { useRef } from 'react'
 
 import { useResourceService } from '../../services/resource.service'
 import { CreateResourceForm } from './CreateResourceForm'
 
-export const CreateResourcePopover = observer(() => {
+export const CreateResourcePopover = () => {
   const submitRef = useRef<Maybe<SubmitController>>(undefined)
   const { createPopover } = useResourceService()
   const router = useRouter()
@@ -48,4 +47,4 @@ export const CreateResourcePopover = observer(() => {
       />
     </CuiSidebarSecondary>
   )
-})
+}

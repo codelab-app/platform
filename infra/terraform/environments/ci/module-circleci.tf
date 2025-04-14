@@ -21,8 +21,7 @@ module "circleci" {
   auth0_m2m_client_id     = module.auth0.machine_client.id
   auth0_m2m_client_secret = module.auth0.machine_client.client_secret
 
-  circleci_token     = var.CIRCLECI_TOKEN
-  cypress_record_key = var.CYPRESS_RECORD_KEY
+  circleci_token = var.CIRCLECI_TOKEN
 
   slack_access_token           = var.SLACK_ACCESS_TOKEN
   slack_default_channel        = var.SLACK_DEFAULT_CHANNEL

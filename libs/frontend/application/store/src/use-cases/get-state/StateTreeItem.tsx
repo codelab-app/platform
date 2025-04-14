@@ -1,4 +1,8 @@
 import type {
+  IFieldCreateRouteLazy,
+  IFieldUpdateRouteLazy,
+} from '@codelab/frontend/abstract/application'
+import type {
   IFieldNodeData,
   ITreeNode,
 } from '@codelab/frontend/abstract/domain'
@@ -12,44 +16,44 @@ import {
   CuiTreeItem,
   CuiTreeItemToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
 import { useFieldService } from '@codelab/frontend-application-type/services'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { useRouter } from 'next/navigation'
 
+export interface StateTreeItemContext {
+  add: IFieldCreateRouteLazy
+  update: IFieldUpdateRouteLazy
+}
+
 interface StateTreeItemProps {
+  context: StateTreeItemContext
   data: ITreeNode<IFieldNodeData>
 }
 
-export const StateTreeItem = ({ data }: StateTreeItemProps) => {
-  const { appId, componentId, pageId } = useUrlPathParams()
+export const StateTreeItem = ({ context, data }: StateTreeItemProps) => {
   const { fieldDomainService } = useDomainStore()
   const { createPopover, deletePopover, updatePopover } = useFieldService()
   const router = useRouter()
 
   const onEdit = () =>
-    updatePopover.open(router, {
-      appId,
-      componentId,
-      fieldId: data.extraData.node.id,
-      pageId,
-    })
+    updatePopover.open(
+      router,
+      context.update({ fieldId: data.extraData.node.id }),
+    )
 
   const onDelete = () =>
-    deletePopover.open(router, {
-      appId,
-      componentId,
-      fieldId: data.extraData.node.id,
-      pageId,
-    })
+    deletePopover.open(
+      router,
+      context.update({ fieldId: data.extraData.node.id }),
+    )
 
   const onAddField = () => {
-    createPopover.open(router, {
-      appId,
-      componentId,
-      interfaceId: data.extraData.node.type.id,
-      pageId,
-    })
+    createPopover.open(
+      router,
+      context.add({
+        interfaceId: data.extraData.node.type.id,
+      }),
+    )
   }
 
   const toolbarItems: Array<ToolbarItem> = [

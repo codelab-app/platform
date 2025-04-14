@@ -1,4 +1,7 @@
-import type { PageContextParams } from '@codelab/frontend/abstract/types'
+import type {
+  IPageService,
+  PageContextParams,
+} from '@codelab/frontend/abstract/application'
 import type {
   IElementDto,
   IPageCreateFormData,
@@ -7,18 +10,18 @@ import type {
 import type { PageWhere } from '@codelab/shared/infra/gqlgen'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import { type IPageService } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { type IPageModel } from '@codelab/frontend/abstract/domain'
-import { PageType } from '@codelab/frontend/abstract/types'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import { pageRepository } from '@codelab/frontend-domain-page/repositories'
+import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import {
   useApplicationStore,
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/typebox'
-import { pageServerActions } from '@codelab/shared-domain-module/page'
+import { pageApi, pageServerActions } from '@codelab/shared-domain-module/page'
 
 import { createPageAction } from '../use-cases/create-page'
 import { createPageFactory } from '../use-cases/create-page/create-page.factory'
@@ -54,7 +57,9 @@ export const usePageService = (): IPageService => {
   }
 
   const getSelectPageOptions = async (appId?: string) => {
-    const pages = await getAll({ appConnection: { node: { id: appId } } })
+    const { items: pages } = await pageApi().PageList({
+      where: appId ? { appConnection: { node: { id: appId } } } : {},
+    })
 
     return pages.map((page) => ({
       label: page.name,
@@ -84,8 +89,6 @@ export const usePageService = (): IPageService => {
       )
 
     return await createPageAction(page, store, storeApi, rootElement)
-
-    // revalidateTag(CACHE_TAGS.PAGE_LIST)
   }
 
   const removeMany = async (pageModels: Array<IPageModel>) => {
@@ -112,7 +115,9 @@ export const usePageService = (): IPageService => {
 
     await elementRepository.delete(elements)
 
-    return await pageRepository.delete([pageModel])
+    return await pageRepository.delete([pageModel], {
+      revalidateTags: [CACHE_TAGS.Page.list()],
+    })
   }
 
   const update = async (data: IPageUpdateFormData) => {
@@ -129,35 +134,37 @@ export const usePageService = (): IPageService => {
       urlPattern,
     })
 
-    await pageRepository.update({ id: page.id }, page)
+    await pageRepository.update({ id: page.id }, page, {
+      revalidateTags: [CACHE_TAGS.Page.list()],
+    })
 
     return page
   }
 
   const createPopover = {
     close: (router: AppRouterInstance, params: PageContextParams) => {
-      router.push(PageType.PageList(params))
+      router.push(RoutePaths.Page.list(params))
     },
     open: (router: AppRouterInstance, params: PageContextParams) => {
-      router.push(PageType.PageCreate(params))
+      router.push(RoutePaths.Page.create(params))
     },
   }
 
   const updatePopover = {
     close: (router: AppRouterInstance, params: PageContextParams) => {
-      router.push(PageType.PageList(params))
+      router.push(RoutePaths.Page.list(params))
     },
     open: (router: AppRouterInstance, params: PageContextParams) => {
-      router.push(PageType.PageUpdate(params))
+      router.push(RoutePaths.Page.update(params))
     },
   }
 
   const deletePopover = {
     close: (router: AppRouterInstance, params: PageContextParams) => {
-      router.push(PageType.PageList(params))
+      router.push(RoutePaths.Page.list(params))
     },
     open: (router: AppRouterInstance, params: PageContextParams) => {
-      const baseUrl = PageType.PageDelete(params)
+      const baseUrl = RoutePaths.Page.delete(params)
 
       router.push(`${baseUrl}`)
     },

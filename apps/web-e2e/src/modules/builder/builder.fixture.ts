@@ -1,16 +1,13 @@
 import type { ICreateElementSeedData } from '@codelab/shared/abstract/core'
-import type { Locator } from '@playwright/test'
 
-import {
-  PageType,
-  PrimarySidebar,
-  UiKey,
-} from '@codelab/frontend/abstract/types'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
-import { test as base, expect } from '@playwright/test'
+import { expect } from '@playwright/test'
 
-import { BasePage } from '../../locators/pages'
+import { BasePage } from '../../setup/core/page'
+import { baseTest } from '../../setup/fixtures/base.fixture'
 
 /**
  * Follow guide https://medium.com/@lucgagan/mastering-playwright-best-practices-for-web-automation-with-the-page-object-model-3541412b03d1
@@ -87,23 +84,24 @@ export class BuilderPage extends BasePage {
    */
   async createElementTree(elements: Array<ICreateElementSeedData>) {
     return test.step('createElementTree', async () => {
-      const explorerTree = this.getElementsTree()
-      const itemToolbarKey = CuiTestId.cuiTreeItemToolbar()
-
       for (const element of elements) {
-        const { atom, name, propsData } = element
-        const parentElement = explorerTree.getByTitle(element.parentElement)
-        const parentElementToolbar = parentElement.getByTestId(itemToolbarKey)
+        const { atom, name, parentElement, propsData } = element
 
-        await parentElement.click()
-        await expect(parentElement).toHaveClass(/ant-tree-node-selected/)
-        await expect(this.getFormFieldSpinner()).toHaveCount(0)
+        const parentTreeElement =
+          await this.getTree().getTreeItemByPrimaryTitle$(parentElement)
 
-        await parentElementToolbar.getByLabel('plus').click()
+        await parentTreeElement.click()
+        // we hover so the plus icon is visible
+        await parentTreeElement.hover()
 
-        await expect(this.getFormFieldSpinner()).toHaveCount(0)
+        await parentTreeElement.getByLabel('plus').click()
 
-        const form = this.getForm(UiKey.ElementFormCreate)
+        await this.getTree()
+          .getTreeItemByPrimaryTitle(parentElement)
+          .getToolbarItem(UiKey.ElementToolbarItemCreate)
+          .click()
+
+        const form = await this.getForm(UiKey.ElementFormCreate)
 
         await expect(form.getByLabel('Name')).toHaveValue('React Fragment')
 
@@ -121,9 +119,10 @@ export class BuilderPage extends BasePage {
           .getButton({ text: 'Create' })
           .click()
 
-        await this.waitForProgressBar()
+        await this.expectGlobalProgressBarToBeHidden()
+        await this.expectNotificationSuccess('Element created successfully')
+        await this.waitForPage(new RegExp(/^((?!create-element).)*$/gm))
 
-        await expect(this.getDialog()).toBeHidden()
         await expect(this.getTreeElement(name, atom)).toBeVisible()
       }
     })
@@ -138,7 +137,7 @@ export class BuilderPage extends BasePage {
       await this.clickModalConfirmButton()
 
       await expect(this.getGlobalProgressBar()).toBeHidden()
-      await expect(this.getNotification()).toHaveText('Element deleted')
+      await this.expectNotificationSuccess('Element deleted')
       await expect(treeElement).toBeHidden()
     })
   }
@@ -222,9 +221,7 @@ export class BuilderPage extends BasePage {
 
   async goto(appId: string, pageId: string) {
     return test.step('goto', async () => {
-      await this.page.goto(
-        PageType.PageBuilder({ appId, pageId }, PrimarySidebar.ElementTree),
-      )
+      await this.page.goto(RoutePaths.Page.builder({ appId, pageId }))
     })
   }
 
@@ -239,8 +236,6 @@ export class BuilderPage extends BasePage {
       )
 
       await openBuilderButton.click()
-
-      // await this.page.waitForURL(PageType.ComponentBuilder({ componentId: '**' }))
 
       await expect(openBuilderButton).toBeHidden()
       await expect(openPreviewButton).toBeVisible()
@@ -297,12 +292,13 @@ export class BuilderPage extends BasePage {
 
   async updateBuilderElement() {
     return test.step('updateBuilderElement', async () => {
-      const buttonTreeElement = this.getTreeElement('Button', 'AntDesignButton')
-      const updateElementForm = this.getUpdateElementForm()
+      await this.selectTreeElement({ atom: 'AntDesignButton', name: 'Button' })
 
-      await buttonTreeElement.click()
-      await this.fillInputText({ label: 'Name' }, this.updatedButtonName, {
-        locator: updateElementForm,
+      const form = await this.getForm(UiKey.ElementFormUpdate)
+
+      await expect(form.getByLabel('Name')).toHaveValue('Button')
+
+      await form.fillInputText({ label: 'Name' }, this.updatedButtonName, {
         waitForAutosave: true,
       })
     })
@@ -311,9 +307,9 @@ export class BuilderPage extends BasePage {
   private readonly updatedButtonName = 'Button Updated'
 }
 
-export const test = base.extend<{ builderPage: BuilderPage }>({
-  builderPage: async ({ page }, use) => {
-    const builderPage = new BuilderPage(page)
+export const test = baseTest.extend<{ builderPage: BuilderPage }>({
+  builderPage: async ({ context, page }, use) => {
+    const builderPage = new BuilderPage(page, context)
 
     await use(builderPage)
   },

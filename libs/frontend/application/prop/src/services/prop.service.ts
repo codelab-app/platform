@@ -11,28 +11,35 @@ import type {
 
 import { propRepository } from '@codelab/frontend-domain-prop/repositories'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
-import { filterEmptyStrings } from '@codelab/shared/utils'
+import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 
 export const usePropService = (): IPropService => {
   const create = async (props: IPropCreateData) => {
-    await propRepository.add(props)
+    await propRepository.add(props, {
+      revalidateTags: [CACHE_TAGS.Prop.list()],
+    })
 
     return props
   }
 
   const removeMany = async (props: Array<IRef>) => {
-    return await propRepository.delete(props)
+    return await propRepository.delete(props, {
+      revalidateTags: [CACHE_TAGS.Prop.list()],
+    })
   }
 
   const reset = async (props: IPropDto) => {
-    // props.writeCache({ data: '{}' })
-    await update({ ...props, data: '{}' })
-
-    return props
+    // Can't revalidate here since we're calling it in `elementService.update`
+    return await propRepository.update(
+      { id: props.id },
+      { ...props, data: '{}' },
+    )
   }
 
   const update = async (dto: IPropUpdateData) => {
-    await propRepository.update({ id: dto.id }, dto)
+    await propRepository.update({ id: dto.id }, dto, {
+      revalidateTags: [CACHE_TAGS.Prop.list()],
+    })
 
     return dto
   }
@@ -41,7 +48,10 @@ export const usePropService = (): IPropService => {
     props: IPropModel,
     { data, defaultValues, id }: IUpdatePropDataWithDefaultValues,
   ) => {
-    const filteredData = filterEmptyStrings(data) as IPropData
+    // does not look like we need to remove empty strings/arrays/objects from the properties,
+    // since users should have ability to override property to whatever value they want
+    // const filteredData = filterEmptyStrings(data) as IPropData
+    const filteredData = data as IPropData
 
     const mergedWithDefaultValues = mergeProps(
       defaultValues ?? {},

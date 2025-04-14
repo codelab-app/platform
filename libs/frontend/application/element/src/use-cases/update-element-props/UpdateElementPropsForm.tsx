@@ -1,6 +1,9 @@
 'use client'
 
-import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
+import type {
+  IBuilderRoute,
+  IRuntimeElementModel,
+} from '@codelab/frontend/abstract/application'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
@@ -12,7 +15,7 @@ import { usePropService } from '@codelab/frontend-application-prop/services'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
-import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
+import { Spinner } from '@codelab/frontend-presentation-view/components/loader'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { Fragment, useEffect, useMemo, useRef } from 'react'
@@ -21,6 +24,7 @@ import { useAsyncFn } from 'react-use'
 import { useElementService } from '../../services'
 
 export interface UpdateElementPropsFormProps {
+  context: IBuilderRoute
   runtimeElement: IRuntimeElementModel
 }
 
@@ -28,7 +32,7 @@ export interface UpdateElementPropsFormProps {
  * A `element` is associated with either `atom` api or `component` api, we load the API type so the prop form shows up.
  */
 export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
-  ({ runtimeElement }) => {
+  ({ context, runtimeElement }) => {
     const { rendererService } = useApplicationStore()
     const elementService = useElementService()
     const propService = usePropService()
@@ -106,7 +110,10 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
               />
             </Col>
             <Col span={24}>
-              <AdminPropsPanel interfaceType={interfaceType} />
+              <AdminPropsPanel
+                context={context}
+                interfaceType={interfaceType}
+              />
             </Col>
           </Row>
         )}

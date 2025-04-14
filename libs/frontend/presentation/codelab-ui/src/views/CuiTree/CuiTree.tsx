@@ -1,8 +1,5 @@
 'use client'
 
-import type { DirectoryTreeProps } from 'antd/es/tree'
-import type { ReactNode } from 'react'
-
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import { Tree } from 'antd'
 import Empty from 'antd/lib/empty'
@@ -10,7 +7,12 @@ import classNames from 'classnames'
 import { observer, useLocalObservable } from 'mobx-react-lite'
 import { useCallback, useEffect } from 'react'
 
-import type { Variant } from '../../abstract'
+import type {
+  CuiTreeBasicDataNode,
+  CuiTreeProps,
+  WithChildren,
+} from './cui-tree.type'
+import type { FilterOptions } from './store'
 
 import { CuiSearchBar, CuiSkeletonWrapper } from '../../components'
 import styles from './CuiTree.module.css'
@@ -19,61 +21,22 @@ import { CuiTreeStore } from './store'
 
 const { DirectoryTree } = Tree
 
-export interface CuiTreeBasicDataNode {
-  checkable?: boolean
-  /** Set style of TreeNode. This is not recommend if you don't have any force requirement */
-  className?: string
-  disableCheckbox?: boolean
-  disabled?: boolean
-  highlight?: {
-    primaryTitle?: string
-    secondaryTitle?: string
-  }
-  icon?: ReactNode
-  isLeaf?: boolean
-  key: number | string
-  primaryTitle?: string
-  secondaryTitle?: string
-  selectable?: boolean
-  style?: React.CSSProperties
-  switcherIcon?: ReactNode
-  tags?: ReactNode
-  toolbar?: ReactNode
-  variant?: Variant
-}
-
-export type WithChildren<T> = T & {
-  children?: Array<WithChildren<T>>
-}
-
-export interface CuiTreeProps<T extends WithChildren<CuiTreeBasicDataNode>>
-  extends DirectoryTreeProps<T> {
-  draggable?: boolean
-  isLoading?: boolean
-  searchKeyword?: string
-  searcheable?: boolean | { primaryTitle?: boolean; secondaryTitle?: boolean }
-  treeData?: Array<T>
-  onSearchKeywordChange?(keyword: string): void
-}
 export const CuiTree = observer(
   <T extends CuiTreeBasicDataNode = CuiTreeBasicDataNode>(
     props: CuiTreeProps<T>,
   ) => {
     const {
       autoExpandParent,
+      defaultSelectedKeys,
       draggable,
       expandedKeys,
+      filter,
       isLoading = false,
       onExpand,
       onMouseEnter,
       onMouseLeave,
       onSearchKeywordChange,
       onSelect,
-      searcheable = false,
-      /**
-       * Allow redirect back from popover to keep selected node
-       */
-      searchKeyword = '',
       titleRender,
       treeData,
     } = props
@@ -83,7 +46,7 @@ export const CuiTree = observer(
         new CuiTreeStore({
           autoExpandParent,
           expandedKeys,
-          filterOptions: {},
+          filter,
           treeData,
         }),
     )
@@ -101,22 +64,27 @@ export const CuiTree = observer(
 
     const handleSearchKeywordChange = useCallback(
       (keyword: string) => {
-        if (searcheable === false) {
-          return
-        }
-
         onSearchKeywordChange?.(keyword)
         cuiTreeStore.setAutoExpandParent(true)
-        cuiTreeStore.updateFilterOptions(searcheable, keyword)
+
+        // Create an updated filter with the new keyword
+        if (filter) {
+          const updatedFilter: FilterOptions = {
+            ...filter,
+            keyword: keyword,
+          }
+
+          cuiTreeStore.updateFilterOptions(updatedFilter)
+        }
       },
-      [onSearchKeywordChange, cuiTreeStore, searcheable],
+      [onSearchKeywordChange, cuiTreeStore, filter],
     )
 
     useEffect(() => {
       cuiTreeStore.setTreeData(treeData ?? [])
       cuiTreeStore.setExpandedKeys(expandedKeys ?? cuiTreeStore.expandedKeys)
-      cuiTreeStore.updateFilterOptions(searcheable, searchKeyword)
-    }, [treeData, expandedKeys, searcheable, searchKeyword, cuiTreeStore])
+      cuiTreeStore.updateFilterOptions(filter)
+    }, [treeData, expandedKeys, filter, cuiTreeStore])
 
     return (
       <div
@@ -126,10 +94,10 @@ export const CuiTree = observer(
         )}
         data-testid={CuiTestId.cuiTree()}
       >
-        {searcheable && (
+        {filter && (
           <CuiSearchBar
             onKeywordChange={handleSearchKeywordChange}
-            searchKeyword={searchKeyword}
+            searchKeyword={filter.keyword}
           />
         )}
         <div className="overflow-auto">
@@ -141,6 +109,7 @@ export const CuiTree = observer(
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 {...props}
                 autoExpandParent={cuiTreeStore.autoExpandParent}
+                defaultSelectedKeys={defaultSelectedKeys}
                 draggable={
                   draggable
                     ? {
@@ -178,6 +147,7 @@ export const CuiTree = observer(
                       icon={node.icon}
                       primaryTitle={node.primaryTitle}
                       secondaryTitle={node.secondaryTitle}
+                      selectedKey={node.key}
                       tag={node.tags}
                       toolbar={node.toolbar}
                       variant={node.variant}

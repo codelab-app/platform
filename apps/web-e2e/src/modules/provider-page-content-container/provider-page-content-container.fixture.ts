@@ -1,5 +1,7 @@
-import { test as base, expect } from '@playwright/test'
+import { UiKey } from '@codelab/frontend/abstract/types'
+import { expect } from '@playwright/test'
 
+import { baseTest } from '../../setup/fixtures/base.fixture'
 import { BuilderPage } from '../builder/builder.fixture'
 import { pageContentContainerName } from './provider-page-content-container.data'
 
@@ -26,21 +28,21 @@ export class ProviderPageContentContainerPage extends BuilderPage {
   }
 
   async setPageContentContainer() {
-    const pageSettingsTab = this.page.locator('.ant-tabs-tabpane-active')
+    const form = await this.getForm(UiKey.PageFormUpdate)
 
-    await this.fillInputText(
+    await form.fillInputSelect(
       { label: 'Page Content Container' },
       pageContentContainerName,
-      { locator: pageSettingsTab, waitForAutosave: true },
+      { waitForAutosave: true },
     )
   }
 }
 
-export const test = base.extend<{
+export const test = baseTest.extend<{
   builderPage: ProviderPageContentContainerPage
 }>({
-  builderPage: async ({ page }, use) => {
-    const builderPage = new ProviderPageContentContainerPage(page)
+  builderPage: async ({ context, page }, use) => {
+    const builderPage = new ProviderPageContentContainerPage(page, context)
 
     await use(builderPage)
   },

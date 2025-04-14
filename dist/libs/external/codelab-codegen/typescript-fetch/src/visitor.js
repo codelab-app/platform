@@ -60,7 +60,7 @@ class FetchVisitor extends visitor_plugin_common_1.BaseVisitor {
             const operationBody = `${this.config.gqlFn}(client, ${o.name}Document.toString(), variables)`;
             const operationArgs = [`variables: Types.${o.variablesTypes}`].join(', ');
             // server actions must be exported individually
-            return `${pascalCaseName} : (${operationArgs}) => ${operationBody}`;
+            return `${pascalCaseName}: (${operationArgs}) => ${operationBody}`;
         });
         const operations = graphqlOperations.length > 1
             ? `\n\t${graphqlOperations.join(',\n\t')}\n`

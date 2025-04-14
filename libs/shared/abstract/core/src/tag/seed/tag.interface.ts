@@ -18,6 +18,14 @@ import type { IReactCategoryTag } from './react-category-tag.interface'
 //       readonly [K in T]: ReadonlyArray<TagNode<T>>
 //     }
 
+// The prefix of the atom file name
+export enum IAtomCategory {
+  AntDesign = 'AntDesign',
+  Html = 'Html',
+  Next = 'Next',
+  React = 'React',
+}
+
 export type AllTags =
   | IAntdCategoryTag
   | IHtmlCategoryTag

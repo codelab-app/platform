@@ -1,17 +1,20 @@
 'use client'
 
-import type { IRootRenderer } from '@codelab/frontend/abstract/application'
 import type { IPageModel } from '@codelab/frontend/abstract/domain'
 
-import { tracker } from '@codelab/frontend/infra/logger'
+import {
+  type IPageBuilderRoute,
+  type IRootRenderer,
+  IRouteType,
+} from '@codelab/frontend/abstract/application'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
-import { Spinner } from '@codelab/frontend-presentation-view/components/spinner'
+import { Spinner } from '@codelab/frontend-presentation-view/components/loader'
 import { observer } from 'mobx-react-lite'
 
 import { BaseBuilder } from '../base-builder'
 
 export interface IPageBuilderProps {
-  RootRenderer: IRootRenderer
+  context: IPageBuilderRoute
   page?: IPageModel
 }
 
@@ -20,24 +23,28 @@ export interface IPageBuilderProps {
  *
  * Remove observable here, otherwise has loop
  */
-export const PageBuilder = observer(
-  ({ page, RootRenderer }: IPageBuilderProps) => {
-    // tracker.useRenderedCount('PageBuilder')
+export const PageBuilder = observer(({ context, page }: IPageBuilderProps) => {
+  const { rendererService } = useApplicationStore()
 
-    const { rendererService } = useApplicationStore()
+  if (!page) {
+    throw new Error('Missing page model')
+  }
 
-    if (!page) {
-      throw new Error('Missing page model')
-    }
+  const renderer = rendererService.activeRenderer?.maybeCurrent
 
-    const renderer = rendererService.activeRenderer?.maybeCurrent
+  if (!renderer) {
+    return <Spinner />
+  }
 
-    if (!renderer) {
-      return <Spinner />
-    }
-
-    return <BaseBuilder RootRenderer={RootRenderer} renderer={renderer} />
-  },
-)
+  return (
+    <BaseBuilder
+      context={{
+        ...context,
+        type: IRouteType.Page,
+      }}
+      renderer={renderer}
+    />
+  )
+})
 
 PageBuilder.displayName = 'PageBuilder'

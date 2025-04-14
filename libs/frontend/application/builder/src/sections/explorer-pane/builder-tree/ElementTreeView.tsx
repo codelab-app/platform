@@ -1,4 +1,5 @@
 import {
+  type IBuilderRoute,
   type IElementTreeViewDataNode,
   IRuntimeNodeType,
   runtimeComponentRef,
@@ -7,6 +8,7 @@ import {
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import { runInAction } from 'mobx'
 import { observer } from 'mobx-react-lite'
 
 import { useElementTreeDrop } from '../../../hooks'
@@ -20,12 +22,17 @@ import { ElementTreeItemTitle } from './ElementTreeItemTitle'
  * When you think about it, the only dependency a BuilderTree should have is the data. All other services or data is only supporting infrastructure
  */
 export const ElementTreeView = observer<{
-  treeData?: IElementTreeViewDataNode
-}>(({ treeData }) => {
+  treeData: IElementTreeViewDataNode
+  context: IBuilderRoute
+}>(({ context, treeData }) => {
   const { builderService, runtimeElementService } = useApplicationStore()
-  const { syncModifiedElements } = useElementService()
   const selectedNode = builderService.selectedNode?.current
   const { handleDrop, isMoving } = useElementTreeDrop()
+
+  console.log({
+    expandedKeys: runtimeElementService.expandedCompositeKeys,
+    selectedNode: selectedNode?.compositeKey,
+  })
 
   return (
     <CuiTree<IElementTreeViewDataNode>
@@ -36,22 +43,28 @@ export const ElementTreeView = observer<{
         return !data.dragNode.isChildMapperComponentInstance
       }}
       autoExpandParent={false}
+      defaultSelectedKeys={selectedNode ? [selectedNode.compositeKey] : []}
       disabled={isMoving}
       draggable={true}
-      expandedKeys={runtimeElementService.getExpandedCompositeKeys()}
+      expandedKeys={runtimeElementService.expandedCompositeKeys}
       onClick={(event) => {
         event.stopPropagation()
       }}
       onDrop={handleDrop}
-      onExpand={(expandedKeys) => {
-        runtimeElementService.elementsList.forEach((runtimeElement) => {
-          // element will be marked modified automatically
-          runtimeElement.element.current.setExpanded(
-            expandedKeys.includes(runtimeElement.compositeKey),
-          )
-        })
+      onExpand={async (expandedKeys, { expanded, node }) => {
+        const runtimeElement = runtimeElementService.runtimeElement(node.key)
+        // Force the change to be tracked by first getting the current value
+        const currentExpanded = runtimeElement.expanded
 
-        void syncModifiedElements()
+        console.log(
+          'Changing expanded state from',
+          currentExpanded,
+          'to',
+          expanded,
+        )
+
+        // Set the new expanded state
+        runtimeElement.setExpanded(expanded)
       }}
       onMouseEnter={({ event, node }) => {
         // Selectable by default, unless it's not
@@ -85,9 +98,10 @@ export const ElementTreeView = observer<{
             : runtimeElementRef(node.key),
         )
       }}
-      selectedKeys={selectedNode ? [selectedNode.compositeKey] : []}
-      titleRender={(data) => <ElementTreeItemTitle data={data} />}
-      treeData={treeData ? [treeData] : []}
+      titleRender={(data) => (
+        <ElementTreeItemTitle context={context} data={data} />
+      )}
+      treeData={[treeData]}
     />
   )
 })

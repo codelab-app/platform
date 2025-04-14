@@ -1,11 +1,13 @@
 import type { IPageCreateFormData } from '@codelab/shared/abstract/core'
 
-import { PageType, UiKey } from '@codelab/frontend/abstract/types'
-import { IPageCreateSeedData, IPageKind } from '@codelab/shared/abstract/core'
-import { test as base, expect } from '@playwright/test'
+import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { UiKey } from '@codelab/frontend/abstract/types'
+import { IPageKind } from '@codelab/shared/abstract/core'
+import { expect } from '@playwright/test'
 import { v4 } from 'uuid'
 
-import { BasePage } from '../../locators/pages'
+import { BasePage } from '../../setup/core/page'
+import { baseTest } from '../../setup/fixtures/base.fixture'
 import { resourceName } from './auth-guard.data'
 
 export const authGuardPageData: Omit<IPageCreateFormData, 'app'> = {
@@ -104,13 +106,13 @@ export class AuthGuardPage extends BasePage {
 
   async goToAppPageList(appId: string, pageId: string) {
     return test.step('goToAppPageList', async () => {
-      await this.page.goto(PageType.PageList({ appId, pageId }))
+      await this.page.goto(RoutePaths.Page.list({ appId, pageId }))
     })
   }
 
   async goto() {
     return test.step('goto', async () => {
-      await this.page.goto(PageType.AuthGuards())
+      await this.page.goto(RoutePaths.AuthGuard.base())
     })
   }
 
@@ -152,9 +154,9 @@ export class AuthGuardPage extends BasePage {
   }
 }
 
-export const test = base.extend<{ authGuardPage: AuthGuardPage }>({
-  authGuardPage: async ({ page }, use) => {
-    const authGuardPage = new AuthGuardPage(page)
+export const test = baseTest.extend<{ authGuardPage: AuthGuardPage }>({
+  authGuardPage: async ({ context, page }, use) => {
+    const authGuardPage = new AuthGuardPage(page, context)
 
     await use(authGuardPage)
   },

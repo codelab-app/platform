@@ -18,8 +18,4 @@ export const FieldDtoSchema = Type.Object({
 
 export type IFieldDto = Static<typeof FieldDtoSchema>
 
-export const FieldSchema = FieldDtoSchema
-
-export type IField = Static<typeof FieldSchema>
-
 export type IFieldRef = string

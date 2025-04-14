@@ -13,11 +13,6 @@ steps:
       name: 'Restore NVM Cache'
       keys:
         - nvm-cache-{{ checksum ".nvmrc" }}
-  # - restore_cache:
-  #     name: 'Restore NX Cache'
-  #     keys:
-  #       # This is needed for e2e to run, but we add it here for simplicity
-  #       - nx-cache-{{ checksum ".nx/cache/lockfile.hash" }}
   - load-nvm
   - install-pnpm
   - setup-env

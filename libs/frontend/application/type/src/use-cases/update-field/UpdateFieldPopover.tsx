@@ -1,25 +1,30 @@
 'use client'
 
+import type { IFieldUpdateRoute } from '@codelab/frontend/abstract/application'
+import type { IFieldModel } from '@codelab/frontend/abstract/domain'
 import type { Maybe } from '@codelab/shared/abstract/types'
 
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
 import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import { CuiSidebarSecondary } from '@codelab/frontend/presentation/codelab-ui'
-import { useUrlPathParams } from '@codelab/frontend-application-shared-store/router'
-import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import { useRef } from 'react'
 
 import { useFieldService } from '../../services/field.service'
 import { UpdateFieldForm } from './UpdateFieldForm'
 
-export const UpdateFieldPopover = observer<{ id: string }>(({ id }) => {
+export const UpdateFieldPopover = ({
+  context,
+  field,
+}: {
+  field: IFieldModel
+  context: IFieldUpdateRoute
+}) => {
   const router = useRouter()
   const submitRef = useRef<Maybe<SubmitController>>(undefined)
   const { updatePopover } = useFieldService()
-  const params = useUrlPathParams()
-  const closePopover = () => updatePopover.close(router, params)
+  const closePopover = () => updatePopover.close(router, context)
 
   return (
     <CuiSidebarSecondary
@@ -43,11 +48,11 @@ export const UpdateFieldPopover = observer<{ id: string }>(({ id }) => {
       }}
     >
       <UpdateFieldForm
-        id={id}
+        field={field}
         onSubmitSuccess={closePopover}
         showFormControl={false}
         submitRef={submitRef}
       />
     </CuiSidebarSecondary>
   )
-})
+}

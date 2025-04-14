@@ -8,6 +8,7 @@ import type {
   IActionRef,
   IRef,
 } from '@codelab/shared/abstract/core'
+import type { NextFetchOptions } from '@codelab/shared/abstract/types'
 
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/typebox'
@@ -31,14 +32,17 @@ const { GetActions } = actionGetServerActions
  * We can't use type api record approach since we need nested created for here, we need switch case to map the data
  */
 export const actionRepository: IActionRepository = {
-  add: async (action: IActionDto) => {
+  add: async (action: IActionDto, next?: NextFetchOptions) => {
     switch (action.__typename) {
       case IActionKind.ApiAction: {
         const {
           createApiActions: { apiActions },
-        } = await CreateApiActions({
-          input: apiActionMapper.toCreateInput(action),
-        })
+        } = await CreateApiActions(
+          {
+            input: apiActionMapper.toCreateInput(action),
+          },
+          next,
+        )
 
         Validator.assertsDefined(apiActions[0])
 
@@ -48,9 +52,12 @@ export const actionRepository: IActionRepository = {
       case IActionKind.CodeAction: {
         const {
           createCodeActions: { codeActions },
-        } = await CreateCodeActions({
-          input: codeActionMapper.toCreateInput(action),
-        })
+        } = await CreateCodeActions(
+          {
+            input: codeActionMapper.toCreateInput(action),
+          },
+          next,
+        )
 
         Validator.assertsDefined(codeActions[0])
 
@@ -62,7 +69,7 @@ export const actionRepository: IActionRepository = {
     }
   },
 
-  delete: async (actions: Array<IActionRef>) => {
+  delete: async (actions: Array<IActionRef>, next?: NextFetchOptions) => {
     let nodesDeleted = 0
 
     for (const action of actions) {
@@ -70,10 +77,13 @@ export const actionRepository: IActionRepository = {
         case IActionKind.ApiAction: {
           const {
             deleteApiActions: { nodesDeleted: deleted },
-          } = await DeleteApiActions({
-            delete: apiActionMapper.toDeleteInput(action.__typename),
-            where: { id: action.id },
-          })
+          } = await DeleteApiActions(
+            {
+              delete: apiActionMapper.toDeleteInput(action.__typename),
+              where: { id: action.id },
+            },
+            next,
+          )
 
           nodesDeleted += deleted
           break
@@ -82,10 +92,13 @@ export const actionRepository: IActionRepository = {
         case IActionKind.CodeAction: {
           const {
             deleteCodeActions: { nodesDeleted: deleted },
-          } = await DeleteCodeActions({
-            delete: codeActionMapper.toDeleteInput(action.__typename),
-            where: { id: action.id },
-          })
+          } = await DeleteCodeActions(
+            {
+              delete: codeActionMapper.toDeleteInput(action.__typename),
+              where: { id: action.id },
+            },
+            next,
+          )
 
           nodesDeleted += deleted
           break
@@ -96,11 +109,20 @@ export const actionRepository: IActionRepository = {
     return nodesDeleted
   },
 
-  find: async (where: IActionWhere = {}, options?: IActionOptions) => {
-    const { apiActions, codeActions } = await GetActions({
-      apiActionWhere: where,
-      codeActionWhere: where,
-    })
+  find: async (
+    where: IActionWhere = {},
+    options?: IActionOptions,
+    next?: NextFetchOptions,
+  ) => {
+    const { apiActions, codeActions } = await GetActions(
+      {
+        apiActionOptions: options,
+        apiActionWhere: where,
+        codeActionOptions: options,
+        codeActionWhere: where,
+      },
+      next,
+    )
 
     const items = [...apiActions, ...codeActions]
 
@@ -112,21 +134,24 @@ export const actionRepository: IActionRepository = {
     }
   },
 
-  findOne: async (where: IActionWhere) => {
-    const result = await actionRepository.find(where)
+  findOne: async (where: IActionWhere, next?: NextFetchOptions) => {
+    const result = await actionRepository.find(where, undefined, next)
 
     return result.items[0]
   },
 
-  update: async ({ id }: IRef, dto: IActionDto) => {
+  update: async ({ id }: IRef, dto: IActionDto, next?: NextFetchOptions) => {
     switch (dto.__typename) {
       case IActionKind.ApiAction: {
         const {
           updateApiActions: { apiActions },
-        } = await UpdateApiActions({
-          update: apiActionMapper.toUpdateInput(dto),
-          where: { id },
-        })
+        } = await UpdateApiActions(
+          {
+            update: apiActionMapper.toUpdateInput(dto),
+            where: { id },
+          },
+          next,
+        )
 
         Validator.assertsDefined(apiActions[0])
 
@@ -136,10 +161,13 @@ export const actionRepository: IActionRepository = {
       case IActionKind.CodeAction: {
         const {
           updateCodeActions: { codeActions },
-        } = await UpdateCodeActions({
-          update: codeActionMapper.toUpdateInput(dto),
-          where: { id },
-        })
+        } = await UpdateCodeActions(
+          {
+            update: codeActionMapper.toUpdateInput(dto),
+            where: { id },
+          },
+          next,
+        )
 
         Validator.assertsDefined(codeActions[0])
 

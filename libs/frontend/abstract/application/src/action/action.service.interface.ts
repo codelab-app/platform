@@ -2,10 +2,7 @@ import type {
   IActionModel,
   IActionWhere,
 } from '@codelab/frontend/abstract/domain'
-import type {
-  BuilderContextParams,
-  IPopover,
-} from '@codelab/frontend/abstract/types'
+import type { IPopover } from '@codelab/frontend/abstract/types'
 import type {
   ICreateActionData,
   IRef,
@@ -14,17 +11,16 @@ import type {
 import type { ApiActionOptions } from '@codelab/shared/infra/gqlgen'
 
 import type { ICrudService, IQueryService } from '../services'
-
-export type CrudActionPopoverParams = BuilderContextParams & {
-  actionId?: string
-  storeId?: string
-}
+import type {
+  IActionCreateRoute,
+  IActionUpdateRoute,
+} from './action.route.interface'
 
 export interface IActionService
   extends ICrudService<IRef, ICreateActionData, IUpdateActionData>,
     IQueryService<IActionModel, IActionWhere, ApiActionOptions> {
-  createPopover: IPopover<CrudActionPopoverParams>
-  deletePopover: IPopover<CrudActionPopoverParams>
-  updatePopover: IPopover<CrudActionPopoverParams>
+  createPopover: IPopover<IActionCreateRoute>
+  deletePopover: IPopover<IActionUpdateRoute>
+  updatePopover: IPopover<IActionUpdateRoute>
   cloneAction(action: IActionModel, storeId: string): Promise<IRef>
 }

@@ -23,7 +23,6 @@ export const ElementDtoSchema = Type.Object({
    */
   closestContainerNode: Typebox.RefSchema,
   compositeKey: Typebox.Nullish(Type.String()),
-  expanded: Typebox.Nullish(Type.Boolean()),
   firstChild: Typebox.Nullish(Typebox.RefSchema),
   id: Type.String(),
   name: Type.String(),
@@ -38,7 +37,7 @@ export const ElementDtoSchema = Type.Object({
   props: PropDtoSchema,
   renderForEachPropKey: Typebox.Nullish(Type.String()),
   renderIfExpression: Typebox.Nullish(Type.String()),
-  renderType: ElementRenderTypeDtoSchema,
+  renderType: Type.Omit(ElementRenderTypeDtoSchema, ['name']),
   style: Typebox.Nullish(Type.String()),
   tailwindClassNames: Typebox.Nullish(Type.Array(Type.String())),
 })
