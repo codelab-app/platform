@@ -2,35 +2,13 @@
 import { workspaceRoot } from '@nx/devkit'
 import { nxE2EPreset } from '@nx/playwright/preset'
 import { defineConfig, devices } from '@playwright/test'
-import { get } from 'env-var'
 
+import { apiUrl, ci, storageStateFile, webUrl } from './src/setup/config'
 import { localStorageTestFile } from './src/tools/local-storage.fixture'
-
-const apiHost = get('NEXT_PUBLIC_API_HOSTNAME').required().asString()
-const apiPort = get('NEXT_PUBLIC_API_PORT').required().asString()
-const apiBasePath = get('NEXT_PUBLIC_BASE_API_PATH').required().asString()
-const apiUrl = new URL(apiBasePath, `${apiHost}:${apiPort}`).toString()
-const webUrl = get('NEXT_PUBLIC_WEB_HOST').required().asString()
-const ci = get('CI').default('false').asBool()
-
-console.log('ci', ci)
-
-export const webBaseApiUrl = new URL(apiBasePath, webUrl).toString()
-export const apiBaseUrl = new URL(apiBasePath, apiUrl).toString()
-
-export const auth0Username = get('AUTH0_E2E_USERNAME').required().asString()
-export const auth0Password = get('AUTH0_E2E_PASSWORD').required().asString()
 
 /**
  * https://www.checklyhq.com/blog/why-page-goto-is-slowing-down-your-playwright-test/
  */
-
-/**
- * Used by `auth0` to store cookies for authentication, as well as mobx for storing element expanded states
- *
- * We can't use multiple storage states at once, so we need to use a single one https://github.com/microsoft/playwright/issues/14872
- */
-export const storageStateFile = 'apps/web-e2e/.storage/storage-state.json'
 
 enum Project {
   AuthSetup = 'AuthSetup',

@@ -1,10 +1,6 @@
 import test, { expect } from '@playwright/test'
 
-import {
-  auth0Password,
-  auth0Username,
-  storageStateFile,
-} from '../../../playwright.config'
+import { auth0Password, auth0Username, storageStateFile } from '../config'
 
 test('authenticate', async ({ page }) => {
   // navigate to login page

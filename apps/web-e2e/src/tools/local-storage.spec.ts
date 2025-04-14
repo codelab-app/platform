@@ -1,9 +1,8 @@
 import { getEnv } from '@codelab/shared/config/env'
 import { expect } from '@playwright/test'
-import fs from 'fs'
+import { ensureFile } from 'fs-extra'
 import { join } from 'path'
 
-import { storageStateFile } from '../../playwright.config'
 import {
   LocalStoragePage,
   localStorageTestFile,
@@ -107,6 +106,8 @@ test('can load storage from custom JSON fixture file', async ({ browser }) => {
       },
     ],
   }
+
+  await ensureFile(customStorageFile)
 
   // Can use either file path or data
   const customContext = await browser.newContext({

@@ -8,7 +8,6 @@ import {
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import { test as base, expect } from '@playwright/test'
 
-import { storageStateFile } from '../../../playwright.config'
 import { StorageState } from './storage-state'
 
 export interface CuiSelector {

@@ -1,12 +1,22 @@
 import type { UnknownObjectLike } from '@codelab/shared/abstract/types'
 /* eslint-disable @typescript-eslint/no-invalid-void-type */
-import type { BrowserContext } from '@playwright/test'
 
 import { getEnv } from '@codelab/shared/config/env'
 import { test as base } from '@playwright/test'
 import { ensureFile, readFile, writeFile } from 'fs-extra'
 
-import { storageStateFile } from '../../../playwright.config'
+import { storageStateFile } from '../config'
+
+// Default storage state with empty localStorage
+const defaultStorageState = {
+  cookies: [],
+  origins: [
+    {
+      localStorage: [],
+      origin: getEnv().endpoint.webHost,
+    },
+  ],
+}
 
 /**
  * Ensures a file exists and only writes default content if it doesn't exist already
@@ -37,26 +47,11 @@ const ensureWithDefaults = async (
 export const baseTest = base.extend<
   {
     forEachTest: void
-    context: BrowserContext
   },
   {
-    storageFilePath: string
-    forEachWorker: void
+    // forEachWorker: void
   }
 >({
-  /**
-   * Custom context that enables dynamic storage state control during tests.
-   * Supplements config-level storageState by allowing state persistence between
-   * tests and supporting different storage files for different test suites.
-   */
-  context: async ({ browser, storageFilePath }, use) => {
-    // Create a browser context with storage state
-    const context = await browser.newContext({
-      storageState: storageFilePath,
-    })
-
-    await use(context)
-  },
   /**
    * Playwright automatically closes the browser context after each test, but we need to persist storage across tests since playwright treats each test as separate storage
    */
@@ -75,35 +70,14 @@ export const baseTest = base.extend<
     // The `auto` here is what triggers it, not the method name
     { auto: true },
   ],
-  forEachWorker: [
-    async ({ storageFilePath }, use) => {
-      // This code runs before all the tests in the worker/test file
-      console.log(
-        `Resetting localStorage for worker ${base.info().workerIndex}`,
-        storageFilePath,
-      )
-
-      // Default storage state with empty localStorage
-      const storageState = {
-        cookies: [],
-        origins: [
-          {
-            localStorage: [],
-            origin: getEnv().endpoint.webHost,
-          },
-        ],
-      }
-
-      // Ensure file exists and write default content if it doesn't exist already
-      await ensureWithDefaults(storageFilePath, storageState)
-
-      // Execute tests
-      await use()
-
-      // This runs after all tests in the worker
-    },
-    { auto: true, scope: 'worker' },
-  ],
+  // forEachWorker: [
+  //   async ({ browser }, use) => {
+  //     // This code runs for each worker
+  //     await use()
+  //     // This code runs after worker completes
+  //   },
+  //   { auto: true, scope: 'worker' },
+  // ],
   page: async ({ context }, use) => {
     // Create a new page from the browser context, instead of using the default one
     const page = await context.newPage()
@@ -122,12 +96,13 @@ export const baseTest = base.extend<
     // Make sure to pass control back for tests
     await use(page)
   },
+  storageState: [
+    async ({ browser }, use) => {
+      // Ensure file exists and write default content if it doesn't exist already
+      // await ensureWithDefaults(storageStateFile, defaultStorageState)
 
-  // Add configurable storage file path with default value
-  storageFilePath: [
-    async ({ browser }, use, workerInfo) => {
       await use(storageStateFile)
     },
-    { scope: 'worker' },
+    { scope: 'test' },
   ],
 })
