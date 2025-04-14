@@ -5,6 +5,8 @@ import {
   type IBuilderRoute,
   type IElementService,
   IRouteType,
+  isRuntimeElement,
+  isRuntimeElementRef,
   RoutePaths,
 } from '@codelab/frontend/abstract/application'
 import {
@@ -17,7 +19,11 @@ import { usePropService } from '@codelab/frontend-application-prop/services'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend-infra-mobx/context'
+import { logger } from '@codelab/shared/infra/logging'
 import { uniqueBy } from 'remeda'
 
 /**
@@ -68,8 +74,13 @@ export const useElementService = (): IElementService => {
   const atomService = useAtomService()
   const typeService = useTypeService()
   const propService = usePropService()
+  const { builderService } = useApplicationStore()
   const { componentDomainService, elementDomainService } = useDomainStore()
+  const selectedNode = builderService.selectedNode
 
+  /**
+   * When we create a new element, the selected node should stay at the parent
+   */
   const create = async (data: IElementDto) => {
     if (data.renderType.__typename === 'Atom') {
       await atomService.loadApi(data.renderType.id)
@@ -81,10 +92,11 @@ export const useElementService = (): IElementService => {
 
     const element = elementDomainService.addTreeNode(data)
 
-    // when new element is inserted into elements tree -
-    // auto-expand parent node, so that new one becomes visible
-    if (element.closestParentElement?.maybeCurrent?.expanded === false) {
-      element.closestParentElement.current.setExpanded(true)
+    /**
+     * We want to keep the selected node expanded, so we can see the children
+     */
+    if (selectedNode && isRuntimeElementRef(selectedNode)) {
+      selectedNode.current.setExpanded(true)
     }
 
     await elementRepository.add(data, {
@@ -142,16 +154,14 @@ export const useElementService = (): IElementService => {
     const oldRenderTypeId = currentElement.renderType.id
 
     if (newRenderTypeId !== oldRenderTypeId) {
-      propService.reset(currentElement.props.toJson)
+      await propService.reset(currentElement.props.toJson)
 
       await atomService.loadApi(newRenderTypeId)
     }
 
     currentElement.writeCache(newElement)
 
-    await elementRepository.update({ id: currentElement.id }, newElement, {
-      revalidateTags: [],
-    })
+    await elementRepository.update({ id: currentElement.id }, newElement)
 
     return currentElement
   }

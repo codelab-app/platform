@@ -21,5 +21,8 @@ export interface IElementService {
   move(context: IMoveElementContext): Promise<void>
   remove(subRoot: IElementModel): Promise<void>
   syncModifiedElements(): Promise<void>
+  /**
+   * Since used in auto-save form, we must not revalidate cache anywhere in the call tree, otherwise form may re-render
+   */
   update(data: IUpdateElementData): Promise<IElementModel>
 }

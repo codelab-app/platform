@@ -3,8 +3,8 @@ import { UiKey } from '@codelab/frontend/abstract/types'
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import { expect } from '@playwright/test'
 
+import { BasePage } from '../../setup/core/page'
 import { baseTest } from '../../setup/fixtures/base.fixture'
-import { BasePage } from '../../setup/locators/pages'
 
 export class TagListPage extends BasePage {
   async createTag(name: string, parentName?: string) {
@@ -80,8 +80,8 @@ export class TagListPage extends BasePage {
 }
 
 export const test = baseTest.extend<{ tagListPage: TagListPage }>({
-  tagListPage: async ({ page }, use) => {
-    const tagListPage = new TagListPage(page)
+  tagListPage: async ({ context, page }, use) => {
+    const tagListPage = new TagListPage(page, context)
 
     await use(tagListPage)
   },

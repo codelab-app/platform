@@ -3,8 +3,8 @@ import { UiKey } from '@codelab/frontend/abstract/types'
 import { IPageKindName } from '@codelab/shared/abstract/core'
 import { expect } from '@playwright/test'
 
+import { BasePage } from '../../setup/core/page'
 import { baseTest } from '../../setup/fixtures/base.fixture'
-import { BasePage } from '../../setup/locators/pages'
 
 export class PageListPage extends BasePage {
   readonly pageName = 'New Page'
@@ -72,8 +72,8 @@ export class PageListPage extends BasePage {
 }
 
 export const test = baseTest.extend<{ pageListPage: PageListPage }>({
-  pageListPage: async ({ page }, use) => {
-    const pageListPage = new PageListPage(page)
+  pageListPage: async ({ context, page }, use) => {
+    const pageListPage = new PageListPage(page, context)
 
     await use(pageListPage)
   },

@@ -47,14 +47,20 @@ export class ExportAtomHandler
       ...existingAtom,
       __typename: 'Atom' as const,
       api,
+      requiredParents: existingAtom.requiredParents?.sort((a, b) =>
+        a.id.localeCompare(b.id),
+      ),
+      suggestedChildren: existingAtom.suggestedChildren?.sort((a, b) =>
+        a.id.localeCompare(b.id),
+      ),
       tags: existingAtom.tags?.map((tag) => ({ id: tag.id })),
     }
 
-    logger.debug('Export atom api', api)
+    // logger.debug('Export atom api', api)
 
     const results = Validator.parse(AtomAggregateSchema, { api, atom })
 
-    logger.debug('Export atom results', results)
+    // logger.debug('Export atom results', results)
 
     return results
   }

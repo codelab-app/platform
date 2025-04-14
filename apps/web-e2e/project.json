@@ -18,13 +18,7 @@
       },
       "configurations": {
         "test": {
-          "testFiles": [
-            "pages.spec.ts",
-            "resource.spec.ts",
-            "types.spec.ts",
-            "google-fonts.spec.ts",
-            "provider-page-content-container.spec.ts"
-          ]
+          "testFiles": []
         },
         "ci": {}
       }

@@ -43,20 +43,23 @@ export class StateSharingPage extends BuilderPage {
 
   async expandElementsTree() {
     return test.step('expandElementsTree', async () => {
+      await this.page.getByLabel('plus-square').click()
+
       const space = this.getTreeElement(
         spaceElementName,
         IAtomType.AntDesignSpace,
       )
+
+      await expect(space).toBeVisible()
+      await space.hover()
+
+      await this.page.getByLabel('plus-square').click()
 
       const typography = this.getTreeElement(
         typographyElement.name,
         typographyElement.atom,
       )
 
-      await this.page.locator('.ant-tree-switcher_close').click()
-      await expect(space).toBeVisible()
-
-      await this.page.locator('.ant-tree-switcher_close').click()
       await expect(typography).toBeVisible()
     })
   }
@@ -89,8 +92,8 @@ export class StateSharingPage extends BuilderPage {
 }
 
 export const test = baseTest.extend<{ builderPage: StateSharingPage }>({
-  builderPage: async ({ page }, use) => {
-    const builderPage = new StateSharingPage(page)
+  builderPage: async ({ context, page }, use) => {
+    const builderPage = new StateSharingPage(page, context)
 
     await use(builderPage)
   },

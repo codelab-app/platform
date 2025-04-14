@@ -1,6 +1,6 @@
-import { expect, test } from '@playwright/test'
+import test, { expect } from '@playwright/test'
 
-import { auth0Password, auth0Username, authFile } from '../../playwright.config'
+import { auth0Password, auth0Username, storageStateFile } from '../config'
 
 test('authenticate', async ({ page }) => {
   // navigate to login page
@@ -19,5 +19,5 @@ test('authenticate', async ({ page }) => {
   ).toBeVisible()
 
   // End of authentication steps.
-  await page.context().storageState({ path: authFile })
+  await page.context().storageState({ path: storageStateFile })
 })

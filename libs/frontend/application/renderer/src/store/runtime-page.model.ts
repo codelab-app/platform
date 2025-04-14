@@ -22,7 +22,6 @@ import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
  * Create both provider page and regular page recursively
  *
  * on the first call create the provider page and pass
- *
  */
 
 const compositeKey = (page: IPageModel) => `runtime.${page.id}`
@@ -82,6 +81,16 @@ export class RuntimePageModel
     const rootElement = this.page.current.rootElement.current
 
     return this.runtimeElementService.add(rootElement, this, null)
+  }
+
+  @computed
+  get toJson(): IRuntimePageDto {
+    return {
+      childPage: this.childPage ?? undefined,
+      compositeKey: this.compositeKey,
+      page: this.page,
+      runtimeStore: this.runtimeStore,
+    }
   }
 
   @computed

@@ -15,7 +15,7 @@ import type {
   IElementModel,
 } from '@codelab/frontend/abstract/domain'
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
-import type { Ref } from 'mobx-keystone'
+import type { Ref, SnapshotInOf } from 'mobx-keystone'
 import type { ArrayOrSingle } from 'ts-essentials/dist/types'
 
 import {
@@ -32,18 +32,21 @@ import {
   isComponent,
 } from '@codelab/frontend/abstract/domain'
 import { evaluateExpression, hasExpression } from '@codelab/shared-infra-eval'
-import { computed } from 'mobx'
+import { computed, reaction } from 'mobx'
 import {
   detach,
+  getSnapshot,
   idProp,
   Model,
   model,
   modelAction,
+  onSnapshot,
   patchRecorder,
   prop,
 } from 'mobx-keystone'
+import { todo } from 'node:test'
 import { createElement, type ReactElement, type ReactNode } from 'react'
-import { difference, filter, isTruthy } from 'remeda'
+import { difference, filter, isTruthy, pick } from 'remeda'
 
 import { ElementWrapper } from '../components'
 
@@ -68,7 +71,25 @@ const compositeKey = (
   return `${container.compositeKey}.${element.id}${instanceKeyToRoot}${propKey}`
 }
 
-const create = (dto: IRuntimeElementDto) => new RuntimeElementModel(dto)
+const getPropertiesFromLocalStorage = (key: string) => {
+  const storedItem = localStorage.getItem(key)
+
+  const storedSnapshot: SnapshotInOf<IRuntimeElementModel> = storedItem
+    ? JSON.parse(storedItem)
+    : null
+
+  return storedSnapshot
+}
+
+const create = (dto: IRuntimeElementDto) => {
+  const properties = getPropertiesFromLocalStorage(dto.compositeKey)
+
+  console.log('RuntimeElementModel.create', {
+    properties,
+  })
+
+  return new RuntimeElementModel({ ...dto, ...properties })
+}
 
 /**
  * In cases of `childMapper`, the `runtimeElement's` renderType matters. If `component` type, then these children are not rendered nor passed to component to render
@@ -81,6 +102,7 @@ export class RuntimeElementModel
     >(),
     compositeKey: idProp,
     element: prop<Ref<IElementModel>>(),
+    expanded: prop<boolean>(false),
     lastChildMapperChildrenKeys: prop<Array<string>>(() => []),
     parentElementKey: prop<Nullable<string>>(null),
     postRenderActionsDone: prop(false).withSetter(),
@@ -166,6 +188,11 @@ export class RuntimeElementModel
     children.splice(previousSiblingIndex + 1, 0, ...this.childMapperChildren)
 
     return children
+  }
+
+  @computed
+  get closestElement(): IRuntimeElementModel {
+    return this.parentElement || this
   }
 
   @computed
@@ -318,6 +345,20 @@ export class RuntimeElementModel
     )
   }
 
+  @computed
+  get toJson() {
+    return {
+      closestContainerNode: this.closestContainerNode,
+      compositeKey: this.compositeKey,
+      element: this.element,
+      expanded: this.expanded,
+      parentElementKey: this.parentElementKey,
+      propKey: this.propKey,
+      runtimeProps: this.runtimeProps,
+      style: this.style,
+    }
+  }
+
   /**
    * Don't access this unless it's for constructing the tree, this will cause components to re-render
    */
@@ -421,6 +462,7 @@ export class RuntimeElementModel
     }
   }
 
+  @modelAction
   runPostRenderActions() {
     if (this.postRenderActionsDone) {
       return
@@ -434,6 +476,7 @@ export class RuntimeElementModel
     this.setPostRenderActionsDone(true)
   }
 
+  @modelAction
   runPreRenderActions() {
     if (this.preRenderActionsDone) {
       return
@@ -447,6 +490,13 @@ export class RuntimeElementModel
     this.setPreRenderActionsDone(true)
   }
 
+  @modelAction
+  setExpanded(expanded: boolean) {
+    this.expanded = expanded
+    localStorage.setItem(this.compositeKey, JSON.stringify({ expanded }))
+  }
+
+  @modelAction
   private runRenderAction(action: IActionModel) {
     const runner = this.runtimeProps.getActionRunner(action.name)
 

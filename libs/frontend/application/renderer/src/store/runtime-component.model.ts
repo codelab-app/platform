@@ -151,6 +151,17 @@ export class RuntimeComponentModel
   }
 
   @computed
+  get toJson(): IRuntimeComponentDto {
+    return {
+      childMapperIndex: this.childMapperIndex ?? undefined,
+      component: this.component.current,
+      compositeKey: this.compositeKey,
+      isTypedProp: this.isTypedProp ?? undefined,
+      runtimeParent: this.runtimeParent,
+    }
+  }
+
+  @computed
   get treeViewNode(): IElementTreeViewDataNode {
     return {
       ...this.treeViewNodePreview,

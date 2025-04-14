@@ -4,6 +4,13 @@ commands:
     steps:
       - nx/set-shas:
           main-branch-name: master
+      - run:
+          command: |
+            echo "=== Disk space before cache restore ==="
+            df -h
+            echo "=== Directory structure before cache restore ==="
+            ls -la ~/project/.nx/ || echo "No .nx directory yet"
+          name: Check directory structure before cache restore
       - restore_cache:
           keys:
             - nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
@@ -11,7 +18,32 @@ commands:
             - nx-cache-
           name: Restore NX Cache
       - run:
+          command: |
+            echo "=== Directory structure after cache restore ==="
+            ls -la ~/project/.nx/ || echo "No .nx directory"
+            echo "=== Contents of .nx/cache ==="
+            ls -la ~/project/.nx/cache/ || echo "No .nx/cache directory"
+            echo "=== Check for specific hash directory ==="
+            find ~/project/.nx/cache -type d -name "3093047817415218224" || echo "Hash directory not found"
+            echo "=== Create directories if missing ==="
+            mkdir -p ~/project/.nx/cache
+            echo "=== Disk space after cache restore ==="
+            df -h
+          name: Debug NX Cache after restore
+      - run:
+          command: npx nx reset || echo "Failed to reset Nx cache"
+          name: Reset Nx cache to ensure clean state
+      - run:
           command: pnpm nx run-many --target=build --projects=web,api -c ci --nx-bail
+      - run:
+          command: |
+            echo "=== Directory structure after build ==="
+            ls -la ~/project/.nx/cache/ || echo "No .nx/cache directory"
+            echo "=== Directory size ==="
+            du -sh ~/project/.nx/cache/ || echo "Failed to check directory size"
+            echo "=== Next.js cache ==="
+            ls -la ~/project/dist/apps/web/.next/cache || echo "No Next.js cache directory"
+          name: Debug NX Cache after build
       - save_cache:
           key: nx-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "pnpm-lock.yaml" }}
           name: Save NX Cache

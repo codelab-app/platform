@@ -25,11 +25,7 @@ export const ComponentBuilderContainer = ({
           containerNode={component}
           rendererType={RendererType.ComponentBuilder}
         >
-          <ComponentBuilder
-            RootRenderer={RootRenderer}
-            component={component}
-            context={context}
-          />
+          <ComponentBuilder component={component} context={context} />
         </BuilderProvider>
       )}
     </ComponentConnector>

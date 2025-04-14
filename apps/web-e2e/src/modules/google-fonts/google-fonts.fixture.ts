@@ -53,8 +53,8 @@ export class GoogleFontsPage extends CssBuilderPage {
 }
 
 export const test = baseTest.extend<{ builderPage: GoogleFontsPage }>({
-  builderPage: async ({ page }, use) => {
-    const builderPage = new GoogleFontsPage(page)
+  builderPage: async ({ context, page }, use) => {
+    const builderPage = new GoogleFontsPage(page, context)
 
     await use(builderPage)
   },

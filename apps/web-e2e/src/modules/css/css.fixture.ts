@@ -45,8 +45,8 @@ export class CssBuilderPage extends BuilderPage {
 }
 
 export const test = baseTest.extend<{ builderPage: CssBuilderPage }>({
-  builderPage: async ({ page }, use) => {
-    const builderPage = new CssBuilderPage(page)
+  builderPage: async ({ context, page }, use) => {
+    const builderPage = new CssBuilderPage(page, context)
 
     await use(builderPage)
   },

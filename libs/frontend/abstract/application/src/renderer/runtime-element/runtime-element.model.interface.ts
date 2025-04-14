@@ -8,6 +8,7 @@ import type { IBaseRuntimeModel } from '../runtime.model.interface'
 import type { IRuntimeComponentModel } from '../runtime-component'
 import type { IRuntimePageModel } from '../runtime-page'
 import type { IRuntimeElementPropModel } from '../runtime-prop'
+import type { IRuntimeElementDto } from './runtime-element.dto'
 import type { IRuntimeElementStyleModel } from './runtime-element-style.model.interface'
 
 /**
@@ -25,8 +26,16 @@ export interface IRuntimeElementModel extends IBaseRuntimeModel {
    * The runtime model for IElementModel.closestContainerNode
    */
   closestContainerNode: Ref<IRuntimeComponentModel | IRuntimePageModel>
+  /**
+   * Return the parent element or self if no parent element exists, useful for setting expanded state when we want the parent
+   */
+  closestElement: IRuntimeElementModel
   descendantElements: Array<IRuntimeElementModel>
   element: Ref<IElementModel>
+  /**
+   * Whether the element is expanded in the tree view, moved from `ElementModel`
+   */
+  expanded: boolean
   mainTreeElement: IRuntimeElementModel
   parentElement: Maybe<IRuntimeElementModel>
   parentElementKey: Nullable<string>
@@ -49,9 +58,11 @@ export interface IRuntimeElementModel extends IBaseRuntimeModel {
    */
   shouldRender: boolean
   style: IRuntimeElementStyleModel
+  toJson: IRuntimeElementDto
   cleanupChildMapperNodes(newKeys: Array<string>): void
   runPostRenderActions(): void
   runPreRenderActions(): void
+  setExpanded(expanded: boolean): void
   setPostRenderActionsDone(value: boolean): void
   setPreRenderActionsDone(value: boolean): void
 }

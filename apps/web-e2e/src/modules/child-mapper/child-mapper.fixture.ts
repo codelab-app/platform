@@ -109,7 +109,7 @@ export class ChildMapperPage extends BuilderPage {
 
       await expect(row).toBeVisible()
 
-      // for some reason tests are failling unless we click the row before expanding
+      // for some reason tests are failing unless we click the row before expanding
       await row.click()
 
       await this.page.getByLabel('plus-square').click()
@@ -210,8 +210,8 @@ export class ChildMapperPage extends BuilderPage {
 }
 
 export const test = baseTest.extend<{ builderPage: ChildMapperPage }>({
-  builderPage: async ({ page }, use) => {
-    const builderPage = new ChildMapperPage(page)
+  builderPage: async ({ context, page }, use) => {
+    const builderPage = new ChildMapperPage(page, context)
 
     await use(builderPage)
   },

@@ -29,10 +29,11 @@ export const usePropService = (): IPropService => {
   }
 
   const reset = async (props: IPropDto) => {
-    // props.writeCache({ data: '{}' })
-    await update({ ...props, data: '{}' })
-
-    return props
+    // Can't revalidate here since we're calling it in `elementService.update`
+    return await propRepository.update(
+      { id: props.id },
+      { ...props, data: '{}' },
+    )
   }
 
   const update = async (dto: IPropUpdateData) => {

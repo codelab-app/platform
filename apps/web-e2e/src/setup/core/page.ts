@@ -1,4 +1,4 @@
-import type { Locator, Page } from '@playwright/test'
+import type { BrowserContext, Locator, Page } from '@playwright/test'
 
 import {
   getUiDataKey,
@@ -7,6 +7,8 @@ import {
 } from '@codelab/frontend/abstract/types'
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import { test as base, expect } from '@playwright/test'
+
+import { StorageState } from './storage-state'
 
 export interface CuiSelector {
   /**
@@ -29,15 +31,29 @@ export interface CuiSelector {
 
 export class BasePage {
   /**
+   * Wrapper around browser context, used for managing local storage across pages
+   */
+  readonly context: BrowserContext
+
+  /**
    * Use internally for chaining
    * For example in `getTree().getTreeItem()`, `getTree()` will set the locator to be chained in `getTreeItem()`
    */
   locator: Locator | undefined
 
+  /**
+   * Wrapper around page
+   */
   readonly page: Page
 
-  public constructor(page: Page) {
+  /**  * Storage state operations
+   */
+  readonly storageState: StorageState
+
+  public constructor(page: Page, context: BrowserContext) {
     this.page = page
+    this.context = context
+    this.storageState = new StorageState(context)
   }
 
   async checkPageHeaderTitle(items: Array<string>) {

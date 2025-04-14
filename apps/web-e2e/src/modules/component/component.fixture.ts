@@ -153,8 +153,8 @@ export class ComponentListPage extends BuilderPage {
 }
 
 export const test = baseTest.extend<{ componentListPage: ComponentListPage }>({
-  componentListPage: async ({ page }, use) => {
-    const componentListPage = new ComponentListPage(page)
+  componentListPage: async ({ context, page }, use) => {
+    const componentListPage = new ComponentListPage(page, context)
 
     await use(componentListPage)
   },

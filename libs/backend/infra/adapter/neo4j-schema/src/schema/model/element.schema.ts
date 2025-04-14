@@ -46,6 +46,5 @@ export const elementSchema = gql`
       @relationship(type: "ELEMENT_RENDER_TYPE", direction: OUT)
     # Pre-compute to save time during rendering
     closestContainerNode: ContainerNode!
-    expanded: Boolean
   }
 `
