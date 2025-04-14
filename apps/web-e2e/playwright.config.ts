@@ -42,7 +42,7 @@ enum Project {
  */
 export default defineConfig({
   ...nxE2EPreset(__filename, { testDir: './src' }),
-  // globalSetup: require.resolve('./src/setup/global-setup'),
+  globalSetup: require.resolve('./src/setup/global-setup'),
   projects: [
     {
       name: Project.AuthSetup,

@@ -74,4 +74,4 @@ out
 vite.config.*.timestamp*
 .aider*
 
-vitest.config.*.timestamp*
+vitest.config.*.timestamp*.perplexity-key

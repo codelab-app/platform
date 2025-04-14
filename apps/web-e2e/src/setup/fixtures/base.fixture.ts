@@ -1,3 +1,4 @@
+import type { UnknownObjectLike } from '@codelab/shared/abstract/types'
 /* eslint-disable @typescript-eslint/no-invalid-void-type */
 import type { BrowserContext } from '@playwright/test'
 
@@ -6,6 +7,29 @@ import { test as base } from '@playwright/test'
 import { ensureFile, readFile, writeFile } from 'fs-extra'
 
 import { storageStateFile } from '../../../playwright.config'
+
+/**
+ * Ensures a file exists and only writes default content if it doesn't exist already
+ */
+const ensureWithDefaults = async (
+  filePath: string,
+  defaultContent: UnknownObjectLike,
+) => {
+  await ensureFile(filePath)
+
+  try {
+    // Check if file exists and has content
+    const stats = await readFile(filePath, 'utf8')
+
+    if (!stats || stats.trim() === '') {
+      // File is empty, write default content
+      await writeFile(filePath, JSON.stringify(defaultContent, null, 2))
+    }
+  } catch (error) {
+    // File doesn't exist or error reading, write default content
+    await writeFile(filePath, JSON.stringify(defaultContent, null, 2))
+  }
+}
 
 /**
  * You cannot directly apply storageState to an existing Page. Instead, you apply the storage state at the BrowserContext level and then create a new Page in that context
@@ -33,6 +57,9 @@ export const baseTest = base.extend<
 
     await use(context)
   },
+  /**
+   * Playwright automatically closes the browser context after each test, but we need to persist storage across tests since playwright treats each test as separate storage
+   */
   forEachTest: [
     async ({ context, page }, use) => {
       // This code runs before every test.
@@ -41,6 +68,9 @@ export const baseTest = base.extend<
 
       // Store the storage state after each step, so the next step can use it
       await context.storageState({ path: storageStateFile })
+
+      // Close the browser context after each test
+      await context.close()
     },
     // The `auto` here is what triggers it, not the method name
     { auto: true },
@@ -53,9 +83,6 @@ export const baseTest = base.extend<
         storageFilePath,
       )
 
-      // Create directory if it doesn't exist
-      await ensureFile(storageFilePath)
-
       // Default storage state with empty localStorage
       const storageState = {
         cookies: [],
@@ -67,17 +94,8 @@ export const baseTest = base.extend<
         ],
       }
 
-      // Try to read existing storage state
-      const existingData = await readFile(storageFilePath, 'utf8')
-      const parsedData = JSON.parse(existingData)
-
-      // Preserve cookies from existing state
-      if (parsedData && parsedData.cookies) {
-        storageState.cookies = parsedData.cookies
-      }
-
-      // Write the state with preserved cookies and reset localStorage
-      await writeFile(storageFilePath, JSON.stringify(storageState, null, 2))
+      // Ensure file exists and write default content if it doesn't exist already
+      await ensureWithDefaults(storageFilePath, storageState)
 
       // Execute tests
       await use()
