@@ -80,9 +80,9 @@ export const useFieldService = (): IFieldService => {
 
   const moveFieldAsNextSibling = async ({
     field,
-    targetField,
+    targetFieldId,
   }: Parameters<IFieldService['moveFieldAsNextSibling']>[0]) => {
-    const target = fieldDomainService.getField(targetField.id)
+    const target = fieldDomainService.getField(targetFieldId)
 
     if (target?.nextSibling?.getRefId() === field.id) {
       return
@@ -92,7 +92,7 @@ export const useFieldService = (): IFieldService => {
 
     const newConnectedNodeIds = attachFieldAsNextSibling({
       field,
-      targetField,
+      targetFieldId,
     })
 
     await Promise.all(
@@ -104,11 +104,11 @@ export const useFieldService = (): IFieldService => {
 
   const moveFieldAsPrevSibling = async ({
     field,
-    targetField,
+    targetFieldId,
   }: Parameters<IFieldService['moveFieldAsPrevSibling']>[0]) => {
-    const target = fieldDomainService.getField(targetField.id)
+    const target = fieldDomainService.getField(targetFieldId)
 
-    if (target?.nextSibling?.getRefId() === field.id) {
+    if (target?.prevSibling?.getRefId() === field.id) {
       return
     }
 
@@ -116,7 +116,7 @@ export const useFieldService = (): IFieldService => {
 
     const newConnectedNodeIds = attachFieldAsPrevSibling({
       field,
-      targetField,
+      targetFieldId,
     })
 
     await Promise.all(
@@ -156,13 +156,13 @@ export const useFieldService = (): IFieldService => {
 
   const attachFieldAsNextSibling = ({
     field: existingField,
-    targetField: existingTargetField,
+    targetFieldId: existingTargetFieldId,
   }: {
     field: IRef
-    targetField: IRef
+    targetFieldId: string
   }) => {
     const field = getField(existingField.id)
-    const targetField = getField(existingTargetField.id)
+    const targetField = getField(existingTargetFieldId)
     const affectedNodeIds: Array<string> = []
 
     if (targetField.nextSibling) {
@@ -179,13 +179,13 @@ export const useFieldService = (): IFieldService => {
 
   const attachFieldAsPrevSibling = ({
     field: existingField,
-    targetField: existingTargetField,
+    targetFieldId: existingTargetFieldId,
   }: {
     field: IRef
-    targetField: IRef
+    targetFieldId: string
   }) => {
     const field = getField(existingField.id)
-    const targetField = getField(existingTargetField.id)
+    const targetField = getField(existingTargetFieldId)
     const affectedNodeIds: Array<string> = []
 
     if (targetField.prevSibling) {

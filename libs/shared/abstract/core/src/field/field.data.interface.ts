@@ -17,6 +17,7 @@ export interface IFieldCreateData {
   interfaceTypeId: string
   key: string
   name?: Nullish<string>
+  prevSibling?: Nullish<{ id: IFieldRef }>
   validationRules?: Nullish<IValidationRules>
 }
 

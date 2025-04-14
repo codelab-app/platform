@@ -5,6 +5,7 @@ import { showFieldOnDev } from './show-field-on-dev'
 
 export const idSchema = ({
   component,
+  disabled = true,
   help,
   label,
 }: {
@@ -12,13 +13,14 @@ export const idSchema = ({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   component?: React.FunctionComponent<any>
   help?: string
+  disabled?: boolean
 } = {}): PropertiesSchema<IRef> => ({
   id: {
     help,
     type: 'string',
     ...(label ? { label } : {}),
     ...showFieldOnDev(),
-    disabled: true,
+    disabled,
     required: ['id'],
     ...(component
       ? {
@@ -32,6 +34,7 @@ export const idSchema = ({
 
 export const nullableIdSchema = ({
   component,
+  disabled = true,
   help,
   label,
 }: {
@@ -39,13 +42,14 @@ export const nullableIdSchema = ({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   component?: React.FunctionComponent<any>
   help?: string
+  disabled?: boolean
 } = {}): PropertiesSchema<IRef> => ({
   id: {
     help,
     type: 'string',
     ...(label ? { label } : {}),
     ...showFieldOnDev(),
-    disabled: true,
+    disabled,
     ...(component
       ? {
           uniforms: {
