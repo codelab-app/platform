@@ -66,9 +66,9 @@ export const test = baseTest.extend<{
   localStoragePage: LocalStoragePage
   forEachWorker: unknown
 }>({
-  localStoragePage: async ({ browserContext }, use) => {
-    const page = await browserContext.newPage()
-    const localStoragePage = new LocalStoragePage(page, browserContext)
+  localStoragePage: async ({ context }, use) => {
+    const page = await context.newPage()
+    const localStoragePage = new LocalStoragePage(page, context)
 
     await use(localStoragePage)
   },

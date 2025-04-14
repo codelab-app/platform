@@ -61,8 +61,8 @@ export class InAppRoutingPage extends BuilderPage {
 }
 
 export const test = baseTest.extend<{ builderPage: InAppRoutingPage }>({
-  builderPage: async ({ browserContext, page }, use) => {
-    const builderPage = new InAppRoutingPage(page, browserContext)
+  builderPage: async ({ context, page }, use) => {
+    const builderPage = new InAppRoutingPage(page, context)
 
     await use(builderPage)
   },

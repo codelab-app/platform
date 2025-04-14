@@ -155,8 +155,8 @@ export class AuthGuardPage extends BasePage {
 }
 
 export const test = baseTest.extend<{ authGuardPage: AuthGuardPage }>({
-  authGuardPage: async ({ browserContext, page }, use) => {
-    const authGuardPage = new AuthGuardPage(page, browserContext)
+  authGuardPage: async ({ context, page }, use) => {
+    const authGuardPage = new AuthGuardPage(page, context)
 
     await use(authGuardPage)
   },

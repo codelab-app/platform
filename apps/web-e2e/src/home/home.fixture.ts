@@ -10,8 +10,8 @@ export class HomePage extends BasePage {
 }
 
 export const test = baseTest.extend<{ homePage: HomePage }>({
-  homePage: async ({ browserContext, page }, use) => {
-    const homePage = new HomePage(page, browserContext)
+  homePage: async ({ context, page }, use) => {
+    const homePage = new HomePage(page, context)
 
     await use(homePage)
   },

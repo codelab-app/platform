@@ -89,8 +89,8 @@ export class StateSharingPage extends BuilderPage {
 }
 
 export const test = baseTest.extend<{ builderPage: StateSharingPage }>({
-  builderPage: async ({ browserContext, page }, use) => {
-    const builderPage = new StateSharingPage(page, browserContext)
+  builderPage: async ({ context, page }, use) => {
+    const builderPage = new StateSharingPage(page, context)
 
     await use(builderPage)
   },

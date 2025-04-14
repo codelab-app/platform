@@ -234,8 +234,8 @@ export class TypeListPage extends BasePage {
 }
 
 export const test = baseTest.extend<{ typesPage: TypeListPage }>({
-  typesPage: async ({ browserContext, page }, use) => {
-    const typesPage = new TypeListPage(page, browserContext)
+  typesPage: async ({ context, page }, use) => {
+    const typesPage = new TypeListPage(page, context)
 
     await use(typesPage)
   },

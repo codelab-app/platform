@@ -8,8 +8,8 @@ export class ProductionPage extends BasePage {
 }
 
 export const test = baseTest.extend<{ productionPage: ProductionPage }>({
-  productionPage: async ({ browserContext, page }, use) => {
-    const productionPage = new ProductionPage(page, browserContext)
+  productionPage: async ({ context, page }, use) => {
+    const productionPage = new ProductionPage(page, context)
 
     await use(productionPage)
   },

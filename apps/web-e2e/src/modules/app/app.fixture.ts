@@ -96,8 +96,8 @@ export class AppListPage extends BasePage {
 }
 
 export const test = baseTest.extend<{ appListPage: AppListPage }>({
-  appListPage: async ({ browserContext, page }, use) => {
-    const appListPage = new AppListPage(page, browserContext)
+  appListPage: async ({ context, page }, use) => {
+    const appListPage = new AppListPage(page, context)
 
     await use(appListPage)
   },

@@ -210,8 +210,8 @@ export class ChildMapperPage extends BuilderPage {
 }
 
 export const test = baseTest.extend<{ builderPage: ChildMapperPage }>({
-  builderPage: async ({ browserContext, page }, use) => {
-    const builderPage = new ChildMapperPage(page, browserContext)
+  builderPage: async ({ context, page }, use) => {
+    const builderPage = new ChildMapperPage(page, context)
 
     await use(builderPage)
   },

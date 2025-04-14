@@ -66,8 +66,8 @@ export class LoadTestPage extends BuilderPage {
 }
 
 export const test = baseTest.extend<{ builderPage: LoadTestPage }>({
-  builderPage: async ({ browserContext, page }, use) => {
-    const builderPage = new LoadTestPage(page, browserContext)
+  builderPage: async ({ context, page }, use) => {
+    const builderPage = new LoadTestPage(page, context)
 
     await use(builderPage)
   },

@@ -41,11 +41,8 @@ export class ProviderPageContentContainerPage extends BuilderPage {
 export const test = baseTest.extend<{
   builderPage: ProviderPageContentContainerPage
 }>({
-  builderPage: async ({ browserContext, page }, use) => {
-    const builderPage = new ProviderPageContentContainerPage(
-      page,
-      browserContext,
-    )
+  builderPage: async ({ context, page }, use) => {
+    const builderPage = new ProviderPageContentContainerPage(page, context)
 
     await use(builderPage)
   },

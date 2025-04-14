@@ -72,8 +72,8 @@ export class PageListPage extends BasePage {
 }
 
 export const test = baseTest.extend<{ pageListPage: PageListPage }>({
-  pageListPage: async ({ browserContext, page }, use) => {
-    const pageListPage = new PageListPage(page, browserContext)
+  pageListPage: async ({ context, page }, use) => {
+    const pageListPage = new PageListPage(page, context)
 
     await use(pageListPage)
   },

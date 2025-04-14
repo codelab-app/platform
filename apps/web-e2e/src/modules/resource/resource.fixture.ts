@@ -58,8 +58,8 @@ export class ResourcePage extends BasePage {
 }
 
 export const test = baseTest.extend<{ resourcePage: ResourcePage }>({
-  resourcePage: async ({ browserContext, page }, use) => {
-    const resourcePage = new ResourcePage(page, browserContext)
+  resourcePage: async ({ context, page }, use) => {
+    const resourcePage = new ResourcePage(page, context)
 
     await use(resourcePage)
   },

@@ -308,8 +308,8 @@ export class BuilderPage extends BasePage {
 }
 
 export const test = baseTest.extend<{ builderPage: BuilderPage }>({
-  builderPage: async ({ browserContext, page }, use) => {
-    const builderPage = new BuilderPage(page, browserContext)
+  builderPage: async ({ context, page }, use) => {
+    const builderPage = new BuilderPage(page, context)
 
     await use(builderPage)
   },

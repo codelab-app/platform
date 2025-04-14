@@ -80,8 +80,8 @@ export class TagListPage extends BasePage {
 }
 
 export const test = baseTest.extend<{ tagListPage: TagListPage }>({
-  tagListPage: async ({ browserContext, page }, use) => {
-    const tagListPage = new TagListPage(page, browserContext)
+  tagListPage: async ({ context, page }, use) => {
+    const tagListPage = new TagListPage(page, context)
 
     await use(tagListPage)
   },

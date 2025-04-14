@@ -75,8 +75,8 @@ export class AtomPage extends BasePage {
 }
 
 export const test = baseTest.extend<{ atomPage: AtomPage }>({
-  atomPage: async ({ browserContext, page }, use) => {
-    const atomPage = new AtomPage(page, browserContext)
+  atomPage: async ({ context, page }, use) => {
+    const atomPage = new AtomPage(page, context)
 
     await use(atomPage)
   },
