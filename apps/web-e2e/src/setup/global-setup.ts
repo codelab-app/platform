@@ -1,3 +1,5 @@
-export const globalSetup = async () => {
+const globalSetup = async () => {
   console.log('globalSetup')
 }
+
+export default globalSetup
