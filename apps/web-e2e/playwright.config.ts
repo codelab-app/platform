@@ -108,6 +108,8 @@ export default defineConfig({
    * Includes hooks
    *
    * Increase to high timeout locally if you need to view console in the popup browser, sometimes there isn't enough time for it to stay open
+   *
+   * On CI better to leave it lower, so it fails fast. Longer specs should be broken into smaller specs, or the timeout added in the spec.
    */
   timeout: ci ? 60_000 : 120_000,
 

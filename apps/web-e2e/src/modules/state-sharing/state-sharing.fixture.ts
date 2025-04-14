@@ -43,22 +43,23 @@ export class StateSharingPage extends BuilderPage {
 
   async expandElementsTree() {
     return test.step('expandElementsTree', async () => {
+      await this.page.getByLabel('plus-square').click()
+
       const space = this.getTreeElement(
         spaceElementName,
         IAtomType.AntDesignSpace,
       )
+
+      await expect(space).toBeVisible()
+      await space.hover()
+
+      await this.page.getByLabel('plus-square').click()
 
       const typography = this.getTreeElement(
         typographyElement.name,
         typographyElement.atom,
       )
 
-      await this.page.getByLabel('plus-square').click()
-      // await this.page.locator('.ant-tree-switcher_close').click()
-      await expect(space).toBeVisible()
-
-      await this.page.getByLabel('plus-square').click()
-      // await this.page.locator('.ant-tree-switcher_close').click()
       await expect(typography).toBeVisible()
     })
   }
