@@ -4,7 +4,7 @@
   "parallel": 3,
   "defaultProject": "web",
   "maxCacheSize": "2GB",
-  "nxCloudId": "6447bbc53f3148000d2f1c14",
+  "nxCloudId": "67fcdb6b7eeb2ddcc348061b",
   "plugins": [
     "@codelab/tsc-check",
     {
