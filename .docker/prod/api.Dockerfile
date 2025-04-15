@@ -22,7 +22,6 @@ RUN apk update && \
   corepack enable && \
   corepack prepare pnpm@8.15.0 --activate
 
-
 FROM base AS install
 
 # Put this separately for caching
@@ -42,6 +41,7 @@ COPY nx.json .nxignore .eslintrc.json tsconfig.base.json ./
 COPY apps/api ./apps/api
 COPY libs ./libs
 COPY types ./types
+COPY scripts/eslint ./scripts/eslint
 
 WORKDIR /usr/src/codelab
 
