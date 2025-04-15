@@ -683,9 +683,6 @@ importers:
       twind:
         specifier: 0.16.19
         version: 0.16.19(typescript@5.5.4)
-      type-fest:
-        specifier: 4.12.0
-        version: 4.12.0
       typebox-validators:
         specifier: 0.3.5
         version: 0.3.5(@sinclair/typebox@0.34.13)
@@ -1239,6 +1236,9 @@ importers:
       ts-node:
         specifier: 10.9.1
         version: 10.9.1(@swc/core@1.10.11(@swc/helpers@0.5.15))(@types/node@22.13.5)(typescript@5.5.4)
+      type-fest:
+        specifier: 4.12.0
+        version: 4.12.0
       typescript:
         specifier: 5.5.4
         version: 5.5.4

@@ -2,4 +2,5 @@
 export interface EslintGeneratorSchema {
   //
   // name: string
+  migrateToProjectReferences?: boolean
 }
