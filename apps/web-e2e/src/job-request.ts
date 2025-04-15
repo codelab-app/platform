@@ -31,7 +31,7 @@ export const jobQueueRequest = async (
 }
 
 const apiPort = env.get('NEXT_PUBLIC_API_PORT').required().asPortNumber()
-const apiHost = env.get('NEXT_PUBLIC_API_HOSTNAME').required().asPortNumber()
+const apiHost = env.get('NEXT_PUBLIC_API_HOSTNAME').required().asString()
 
 export const jobOutputRequest = async <T>(
   request: APIRequestContext,
