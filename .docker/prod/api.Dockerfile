@@ -38,7 +38,7 @@ RUN pnpm install --frozen-lockfile
 FROM install AS build
 
 # The trailing / is required when copying from multiple sources
-COPY nx.json .nxignore tsconfig.base.json ./
+COPY nx.json .nxignore .eslintrc.json tsconfig.base.json ./
 COPY apps/api ./apps/api
 COPY libs ./libs
 COPY types ./types
