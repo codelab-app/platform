@@ -22,4 +22,9 @@ steps:
         - ~/project/.nx/cache
         # https://github.com/nrwl/nx/issues/5221
         # Next.js requires it's own cache, while nx only requires remote
-        - ~/project/dist/apps/web/.next
+        - ~/project/dist/apps/web/.next/cache
+  - persist_to_workspace:
+      root: ~/
+      paths:
+        - project/dist/apps/web
+        - project/dist/apps/api

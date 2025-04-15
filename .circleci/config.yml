@@ -17,7 +17,12 @@ commands:
           name: Save NX Cache
           paths:
             - ~/project/.nx/cache
-            - ~/project/dist/apps/web/.next
+            - ~/project/dist/apps/web/.next/cache
+      - persist_to_workspace:
+          paths:
+            - project/dist/apps/web
+            - project/dist/apps/api
+          root: ~/
   build-nx-libs:
     description: Build Nx Libs
     steps:
@@ -382,7 +387,7 @@ jobs:
             echo $CIRCLE_NODE_TOTAL;
 
             pnpm nx e2e web-e2e -c ci \
-              --shard=${SHARD}/${CIRCLE_NODE_TOTAL} --verbose
+              --shard=${SHARD}/${CIRCLE_NODE_TOTAL}
           name: Run E2E Tests
           no_output_timeout: 15m
       - run:
@@ -554,6 +559,7 @@ jobs:
     steps:
       - checkout
       - install-terraform
+      - increment-docker-version
       - login-docker
       - persist_to_workspace:
           paths:
@@ -666,6 +672,13 @@ workflows:
               only:
                 - master
           type: approval
+      - setup-infra-workspace:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - hold-deploy
       - tf-plan:
           filters:
             branches:
@@ -684,13 +697,6 @@ workflows:
           requires:
             - tf-plan-ci
           stage: ci
-      - setup-infra-workspace:
-          filters:
-            branches:
-              only:
-                - master
-          requires:
-            - hold-deploy
       - docker-web:
           context:
             - prod

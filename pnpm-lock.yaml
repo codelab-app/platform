@@ -360,8 +360,8 @@ importers:
         specifier: 3.7.1
         version: 3.7.1(@types/react@19.0.12)(antd@5.24.5(date-fns@2.30.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       auth0:
-        specifier: 4.20.0
-        version: 4.20.0
+        specifier: 4.21.0
+        version: 4.21.0
       auto-bind:
         specifier: 5.0.1
         version: 5.0.1
@@ -8360,8 +8360,8 @@ packages:
     resolution: {integrity: sha512-kNOjDqAh7px0XWNI+4QbzoiR/nTkHAWNud2uvnJquD1/x5a7EQZMJT0AczqK0Qn67oY/TTQ1LbUKajZpp3I9tQ==}
     engines: {node: '>=8.0.0'}
 
-  auth0@4.20.0:
-    resolution: {integrity: sha512-KQYgAw2L1Pir/a2SkYL6cz11T1NJLuJ9q7LyMirHiouklMQW+6BBta9WxyU5+tfpCjDJFKUKe/F4wEp0hNX+WA==}
+  auth0@4.21.0:
+    resolution: {integrity: sha512-TQd1PeS7ouujiv1WsigZyeDeO8rDbY+ynKGaqtz0T2CW6Ulc/VnQd5nBrY2eSFjQf8yTC0pPvoxGJRMN66IT5g==}
     engines: {node: '>=18'}
 
   auto-bind@4.0.0:
@@ -26491,7 +26491,7 @@ snapshots:
 
   atomic-sleep@1.0.0: {}
 
-  auth0@4.20.0:
+  auth0@4.21.0:
     dependencies:
       jose: 4.15.9
       undici-types: 6.21.0
