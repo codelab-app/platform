@@ -1,7 +1,7 @@
 {
   "defaultBase": "master",
   "useInferencePlugins": true,
-  "parallel": 3,
+  "parallel": 4,
   "defaultProject": "web",
   "maxCacheSize": "2GB",
   "nxCloudId": "67fcdb6b7eeb2ddcc348061b",
@@ -107,6 +107,10 @@
     "e2e": {
       "inputs": ["default", "^default"],
       "cache": true
+    },
+    "tsc-check": {
+      "cache": true,
+      "inputs": ["default", "^default", "{workspaceRoot}/tsconfig.base.json"]
     },
     "build-storybook": {
       "inputs": [

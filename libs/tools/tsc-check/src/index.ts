@@ -14,7 +14,7 @@ export const createNodesV2: CreateNodesV2<MyPluginOptions> = [
       (configFile, _options, _context) =>
         createNodesInternal(configFile, _options, _context),
       configFiles,
-      options,
+      options ?? {},
       context,
     )
   },

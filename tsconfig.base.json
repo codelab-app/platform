@@ -2,10 +2,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "rootDir": ".",
-    "rootDirs": [
-      "*",
-      "libs"
-    ],
+    "rootDirs": ["*", "libs"],
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
@@ -20,18 +17,9 @@
     "importHelpers": true,
     "target": "es2021",
     "module": "esnext",
-    "types": [
-      "node",
-      "worker-loader"
-    ],
-    "typeRoots": [
-      "types",
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2021",
-      "dom"
-    ],
+    "types": ["node", "worker-loader"],
+    "typeRoots": ["types", "node_modules/@types"],
+    "lib": ["es2021", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
@@ -114,21 +102,15 @@
       "@codelab/backend-application-user": [
         "libs/backend/application/user/src/index.ts"
       ],
-      "@codelab/backend-data-seed": [
-        "libs/backend/data/seed/src/index.ts"
-      ],
+      "@codelab/backend-data-seed": ["libs/backend/data/seed/src/index.ts"],
       "@codelab/backend-domain-action": [
         "libs/backend/domain/action/src/index.ts"
       ],
       "@codelab/backend-domain-admin": [
         "libs/backend/domain/admin/src/index.ts"
       ],
-      "@codelab/backend-domain-app": [
-        "libs/backend/domain/app/src/index.ts"
-      ],
-      "@codelab/backend-domain-atom": [
-        "libs/backend/domain/atom/src/index.ts"
-      ],
+      "@codelab/backend-domain-app": ["libs/backend/domain/app/src/index.ts"],
+      "@codelab/backend-domain-atom": ["libs/backend/domain/atom/src/index.ts"],
       "@codelab/backend-domain-auth-guard": [
         "libs/backend/domain/auth-guard/src/index.ts"
       ],
@@ -141,15 +123,11 @@
       "@codelab/backend-domain-element": [
         "libs/backend/domain/element/src/index.ts"
       ],
-      "@codelab/backend-domain-page": [
-        "libs/backend/domain/page/src/index.ts"
-      ],
+      "@codelab/backend-domain-page": ["libs/backend/domain/page/src/index.ts"],
       "@codelab/backend-domain-preference": [
         "libs/backend/domain/preference/src/index.ts"
       ],
-      "@codelab/backend-domain-prop": [
-        "libs/backend/domain/prop/src/index.ts"
-      ],
+      "@codelab/backend-domain-prop": ["libs/backend/domain/prop/src/index.ts"],
       "@codelab/backend-domain-redirect": [
         "libs/backend/domain/redirect/src/index.ts"
       ],
@@ -168,15 +146,9 @@
       "@codelab/backend-domain-store": [
         "libs/backend/domain/store/src/index.ts"
       ],
-      "@codelab/backend-domain-tag": [
-        "libs/backend/domain/tag/src/index.ts"
-      ],
-      "@codelab/backend-domain-type": [
-        "libs/backend/domain/type/src/index.ts"
-      ],
-      "@codelab/backend-domain-user": [
-        "libs/backend/domain/user/src/index.ts"
-      ],
+      "@codelab/backend-domain-tag": ["libs/backend/domain/tag/src/index.ts"],
+      "@codelab/backend-domain-type": ["libs/backend/domain/type/src/index.ts"],
+      "@codelab/backend-domain-user": ["libs/backend/domain/user/src/index.ts"],
       "@codelab/backend-infra-adapter-auth0": [
         "libs/backend/infra/adapter/auth0/src/index.ts"
       ],
@@ -213,30 +185,16 @@
       "@codelab/backend-infra-adapter-ws": [
         "libs/backend/infra/adapter/ws/src/index.ts"
       ],
-      "@codelab/backend-infra-core": [
-        "libs/backend/infra/core/src/index.ts"
-      ],
+      "@codelab/backend-infra-core": ["libs/backend/infra/core/src/index.ts"],
       "@codelab/backend-shared-errors": [
         "libs/backend/shared/errors/src/index.ts"
       ],
-      "@codelab/backend-shared-eval": [
-        "libs/backend/shared/eval/src/index.ts"
-      ],
-      "@codelab/backend-shared-util": [
-        "libs/backend/shared/util/src/index.ts"
-      ],
-      "@codelab/backend-test-setup": [
-        "libs/backend/test/setup/src/index.ts"
-      ],
-      "@codelab/backend-test-utils": [
-        "libs/backend/test/utils/src/index.ts"
-      ],
-      "@codelab/design-system": [
-        "apps/design-system/src/index.ts"
-      ],
-      "@codelab/eslint-plugin": [
-        "tools/eslint-plugin/src/index.ts"
-      ],
+      "@codelab/backend-shared-eval": ["libs/backend/shared/eval/src/index.ts"],
+      "@codelab/backend-shared-util": ["libs/backend/shared/util/src/index.ts"],
+      "@codelab/backend-test-setup": ["libs/backend/test/setup/src/index.ts"],
+      "@codelab/backend-test-utils": ["libs/backend/test/utils/src/index.ts"],
+      "@codelab/design-system": ["apps/design-system/src/index.ts"],
+      "@codelab/eslint-plugin": ["tools/eslint-plugin/src/index.ts"],
       "@codelab/frontend-application-admin-use-cases-admin-props-panel": [
         "libs/frontend/application/admin/src/use-cases/admin-props-panel/index.ts"
       ],
@@ -1000,9 +958,7 @@
       "@codelab/frontend-test-application": [
         "libs/frontend/test/application/src/index.ts"
       ],
-      "@codelab/frontend-test-data": [
-        "libs/frontend/test/data/src/index.ts"
-      ],
+      "@codelab/frontend-test-data": ["libs/frontend/test/data/src/index.ts"],
       "@codelab/shared-domain-module-action": [
         "libs/shared/domain/module/action/src/index.ts"
       ],
@@ -1057,12 +1013,8 @@
       "@codelab/shared-infra-auth0-client": [
         "libs/shared/infra/auth0/src/client/index.ts"
       ],
-      "@codelab/shared-infra-eval": [
-        "libs/shared/infra/eval/src/index.ts"
-      ],
-      "@codelab/shared-infra-sentry": [
-        "libs/shared/infra/sentry/src/index.ts"
-      ],
+      "@codelab/shared-infra-eval": ["libs/shared/infra/eval/src/index.ts"],
+      "@codelab/shared-infra-sentry": ["libs/shared/infra/sentry/src/index.ts"],
       "@codelab/shared-abstract-core": [
         "libs/shared/abstract/core/src/index.ts"
       ],
@@ -1075,36 +1027,22 @@
       "@codelab/shared-config-builder": [
         "libs/shared/config/builder/src/index.ts"
       ],
-      "@codelab/shared-config-env": [
-        "libs/shared/config/env/src/index.ts"
-      ],
-      "@codelab/shared-data-seed": [
-        "libs/shared/data/seed/src/index.ts"
-      ],
-      "@codelab/shared-data-test": [
-        "libs/shared/data/test/src/index.ts"
-      ],
+      "@codelab/shared-config-env": ["libs/shared/config/env/src/index.ts"],
+      "@codelab/shared-data-seed": ["libs/shared/data/seed/src/index.ts"],
+      "@codelab/shared-data-test": ["libs/shared/data/test/src/index.ts"],
       "@codelab/shared-domain-errors": [
         "libs/shared/domain/errors/src/index.ts"
       ],
-      "@codelab/shared-domain-orm": [
-        "libs/shared/domain/orm/src/index.ts"
-      ],
-      "@codelab/shared-infra-cache": [
-        "libs/shared/infra/cache/src/index.ts"
-      ],
-      "@codelab/shared-infra-fetch": [
-        "libs/shared/infra/fetch/src/index.ts"
-      ],
+      "@codelab/shared-domain-orm": ["libs/shared/domain/orm/src/index.ts"],
+      "@codelab/shared-infra-cache": ["libs/shared/infra/cache/src/index.ts"],
+      "@codelab/shared-infra-fetch": ["libs/shared/infra/fetch/src/index.ts"],
       "@codelab/shared-infra-fetch-server": [
         "libs/shared/infra/fetch-server/src/index.ts"
       ],
       "@codelab/shared-infra-gql-client": [
         "libs/shared/infra/gql-client/src/index.ts"
       ],
-      "@codelab/shared-infra-gqlgen": [
-        "libs/shared/infra/gqlgen/src/index.ts"
-      ],
+      "@codelab/shared-infra-gqlgen": ["libs/shared/infra/gqlgen/src/index.ts"],
       "@codelab/shared-infra-logging": [
         "libs/shared/infra/logging/src/index.ts"
       ],
@@ -1117,38 +1055,16 @@
       "@codelab/shared-infra-validation": [
         "libs/shared/infra/validation/src/index.ts"
       ],
-      "@codelab/shared-utils": [
-        "libs/shared/utils/src/index.ts"
-      ],
-      "@codelab/tools-workspace": [
-        "libs/tools/workspace/src/index.ts"
-      ],
-      "@codelab/tools-eslint-plugin": [
-        "libs/tools/eslint-plugin/src/index.ts"
-      ],
-      "@codelab/tools-tsc-check": [
-        "libs/tools/tsc-check/src/index.ts"
-      ],
-      "@cui/ui-atoms": [
-        "libs/frontend/cui/ui/atoms/src/index.ts"
-      ],
-      "@cui/ui-molecules": [
-        "libs/frontend/cui/ui/molecules/src/index.ts"
-      ],
-      "@cui/ui-organisms": [
-        "libs/frontend/cui/ui/organisms/src/index.ts"
-      ],
-      "@cui/utils": [
-        "libs/frontend/cui/utils/src/index.ts"
-      ]
+      "@codelab/shared-utils": ["libs/shared/utils/src/index.ts"],
+      "@codelab/tools-workspace": ["libs/tools/workspace/src/index.ts"],
+      "@codelab/tools-eslint-plugin": ["libs/tools/eslint-plugin/src/index.ts"],
+      "@codelab/tools-tsc-check": ["libs/tools/tsc-check/src/index.ts"],
+      "@cui/ui-atoms": ["libs/frontend/cui/ui/atoms/src/index.ts"],
+      "@cui/ui-molecules": ["libs/frontend/cui/ui/molecules/src/index.ts"],
+      "@cui/ui-organisms": ["libs/frontend/cui/ui/organisms/src/index.ts"],
+      "@cui/utils": ["libs/frontend/cui/utils/src/index.ts"]
     }
   },
-  "exclude": [
-    "node_modules",
-    "tmp",
-    "dist"
-  ],
-  "include": [
-    "./scripts/jest/setupFilesAfterEnv.ts"
-  ]
+  "exclude": ["node_modules", "tmp", "dist"],
+  "include": ["./scripts/jest/setupFilesAfterEnv.ts"]
 }
