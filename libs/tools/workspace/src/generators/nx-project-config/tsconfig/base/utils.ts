@@ -13,7 +13,10 @@ export const getModuleAlias = (
   project: ProjectConfiguration,
   relativePathFromProjectSourceRoot: string,
 ) => {
-  return `@codelab/${project.name}/${relativePathFromProjectSourceRoot}`
+  // Format as valid package.json name by replacing slashes with hyphens
+  const formattedPath = relativePathFromProjectSourceRoot.replace(/\//g, '-')
+
+  return `@codelab/${project.name}${formattedPath ? `-${formattedPath}` : ''}`
 }
 
 export const appendTsconfigPath = (

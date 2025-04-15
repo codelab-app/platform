@@ -53,7 +53,7 @@ steps:
         echo $CIRCLE_NODE_TOTAL;
 
         pnpm nx e2e web-e2e -c ci \
-          --shard=${SHARD}/${CIRCLE_NODE_TOTAL}
+          --shard=${SHARD}/${CIRCLE_NODE_TOTAL} --verbose
 
   # https://stackoverflow.com/questions/68916222/docker-build-error-cannot-connect-to-the-docker-daemon-at-unix-var-run-docke/68922177#68922177
 

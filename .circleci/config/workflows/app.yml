@@ -13,7 +13,14 @@ jobs:
         branches:
           only:
             - master
-      type: approval
+   - setup-infra-workspace:
+      # resource_class: large
+      filters:
+        branches:
+          only:
+            - master
+      requires:
+        - hold-deploy     type: approval
   # Apply the new tf settings to ci
   - tf-plan:
       name: 'tf-plan-ci'
@@ -33,14 +40,7 @@ jobs:
             - staging
       requires:
         - tf-plan-ci
-  - setup-infra-workspace:
-      # resource_class: large
-      filters:
-        branches:
-          only:
-            - master
-      requires:
-        - hold-deploy
+
   - docker-web:
       # resource_class: large
       filters:
