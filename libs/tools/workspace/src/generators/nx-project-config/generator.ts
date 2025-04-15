@@ -12,6 +12,7 @@ import type { EslintGeneratorSchema } from './schema'
 import { updateTestTargets } from './jest/remove-test-targets'
 import { addProjectTags } from './project-tags/add-project-tags'
 import { updateBaseTsconfig } from './tsconfig/base/tsconfig.base'
+import { migrateProjectReference } from './migrate-project-reference'
 
 /**
  * Go through all projects and update the `lint` setting of `project.json`
@@ -56,6 +57,11 @@ export const nxProjectConfigGenerator = async (
 
     updateBaseTsconfig(tree, projectConfig)
     // updateLibraryTsconfig(tree, projectConfig)
+
+    // Migrate project to use TypeScript project references
+    if (options.migrateToProjectReferences) {
+      await migrateProjectReference(tree, projectConfig)
+    }
 
     updateProjectConfiguration(tree, projectName, projectConfig)
   }

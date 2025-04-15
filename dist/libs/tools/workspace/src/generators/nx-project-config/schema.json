@@ -13,6 +13,12 @@
     //   },
     //   "x-prompt": "What name would you like to use?"
     // }
+    "migrateToProjectReferences": {
+      "type": "boolean",
+      "description": "Migrate projects to use TypeScript project references",
+      "default": false,
+      "x-prompt": "Would you like to migrate to TypeScript project references?"
+    }
   }
   // "required": ["name"]
 }
