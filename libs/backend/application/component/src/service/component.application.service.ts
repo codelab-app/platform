@@ -174,11 +174,28 @@ export class ComponentApplicationService {
   }
 
   /**
-   * Import all components from repo
+   * Empty means import all
    */
-  async importComponentsFromRepo() {
-    const components = this.readAdminDataService.components
+  async saveComponents(components: Array<IComponentAggregate>) {
+    this.logger.log('ComponentApplicationService.saveComponents', {
+      compoenntCount: components.length,
+    })
 
-    return await this.addComponents(components)
+    // First, process all atoms without dependencies in parallel
+    await Promise.all(
+      components.map(async ({ api, component, elements, store }, index) => {
+        await this.typeApplicationService.saveApi(api)
+        await this.storeApplicationService.saveStore(store)
+
+        await Promise.all(
+          elements.map((element) => this.elementRepository.save(element)),
+        )
+
+        await this.componentRepository.save({
+          ...component,
+          owner: this.authDomainService.currentUser,
+        })
+      }),
+    )
   }
 }

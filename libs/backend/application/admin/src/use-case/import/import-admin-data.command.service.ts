@@ -45,7 +45,7 @@ export class ImportAdminDataHandler
 
     await this.importAtoms(options)
 
-    await this.importComponents()
+    await this.importComponents(options)
   }
 
   @LogClassMethod()
@@ -60,8 +60,14 @@ export class ImportAdminDataHandler
   }
 
   @LogClassMethod()
-  private async importComponents() {
-    await this.componentApplicationService.importComponentsFromRepo()
+  private async importComponents({ upsert }: IImportOptions) {
+    const components = this.readAdminDataService.components
+
+    if (upsert) {
+      return await this.componentApplicationService.saveComponents(components)
+    }
+
+    return await this.componentApplicationService.addComponents(components)
   }
 
   @LogClassMethod()

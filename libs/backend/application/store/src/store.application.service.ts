@@ -11,6 +11,7 @@ import {
   StoreRepository,
 } from '@codelab/backend/domain/store'
 import { TypeDomainService } from '@codelab/backend/domain/type'
+import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
@@ -21,6 +22,7 @@ export class StoreApplicationService {
     private typeApplicationService: TypeApplicationService,
     private readonly storeRepository: StoreRepository,
     private readonly actionFactory: ActionFactory,
+    private logger: PinoLoggerService,
   ) {}
 
   async addStores(storesAggregate: Array<IStoreAggregate>) {
@@ -48,5 +50,14 @@ export class StoreApplicationService {
     const store = await this.storeDomainService.create(storeDto)
 
     return store
+  }
+
+  async saveStore({ actions, api, store }: IStoreAggregate) {
+    this.logger.log('Saving store')
+
+    await this.typeApplicationService.saveApi(api)
+    await Promise.all(actions.map((action) => this.actionFactory.save(action)))
+
+    return await this.storeRepository.save(store)
   }
 }

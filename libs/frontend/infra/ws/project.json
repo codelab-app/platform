@@ -1,10 +1,10 @@
 {
-  "name": "frontend-infra-action",
+  "name": "frontend-infra-ws",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/frontend/infra/action/src",
+  "sourceRoot": "libs/frontend/infra/ws/src",
   "projectType": "library",
   "tags": [
-    "projectName:frontend-infra-action",
+    "projectName:frontend-infra-ws",
     "projectType:library",
     "type:concrete",
     "layer:infra",

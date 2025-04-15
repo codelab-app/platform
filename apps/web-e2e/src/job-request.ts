@@ -1,11 +1,13 @@
 import type { IJobQueueResponse } from '@codelab/shared/abstract/infra'
 import type { APIRequestContext } from '@playwright/test'
 
+import { jobSubscription } from '@codelab/frontend/infra/ws'
+import { env } from '@codelab/shared/config/env'
 import { v4 } from 'uuid'
 
 import type { ApiRequestPostOptions } from './api'
 
-import { jobSubscription, requestOrThrow } from './api'
+import { requestOrThrow } from './api'
 
 /**
  * This wrapper method will add `jobId` to the request body and return it
@@ -28,6 +30,9 @@ export const jobQueueRequest = async (
   })
 }
 
+const apiPort = env.get('NEXT_PUBLIC_API_PORT').required().asPortNumber()
+const apiHost = env.get('NEXT_PUBLIC_API_HOSTNAME').required().asPortNumber()
+
 export const jobOutputRequest = async <T>(
   request: APIRequestContext,
   url: string,
@@ -35,5 +40,8 @@ export const jobOutputRequest = async <T>(
 ) => {
   const result = await jobQueueRequest(request, url, options)
 
-  return await jobSubscription<T>(result.jobId)
+  return await jobSubscription<T>(result.jobId, {
+    socketEndpoint: `${apiHost}:${apiPort}`,
+    timeoutMs: 120_000,
+  })
 }

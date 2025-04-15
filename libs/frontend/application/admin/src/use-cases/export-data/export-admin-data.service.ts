@@ -1,19 +1,17 @@
-'use server'
-
 import type { IExportDto } from '@codelab/shared/abstract/core'
 
+import { jobSubscription } from '@codelab/frontend/infra/ws'
 import { getEnv } from '@codelab/shared/config/env'
-import { serverFetchWithAuth } from '@codelab/shared/infra/fetch-server'
 
-export const exportAdminDataService = async ({ adminDataPath }: IExportDto) => {
-  const response = await serverFetchWithAuth(getEnv().endpoint.admin.export, {
-    body: JSON.stringify({ adminDataPath }),
-    headers: { 'Content-Type': 'application/json' },
-    method: 'POST',
+import { queueAdminDataExportAction } from './queue-admin-data-export.action'
+
+export const exportAdminDataService = async (exportDto: IExportDto) => {
+  const jobId = await queueAdminDataExportAction(exportDto)
+
+  const { data } = await jobSubscription<{ data: string }>(jobId, {
+    socketEndpoint: `${getEnv().endpoint.apiHost}`,
   })
 
-  const data = await response.text()
-
   // if "Download" option was not selected during export - server does not return json body
-  return data ? JSON.parse(data) : null
+  return data
 }

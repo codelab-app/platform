@@ -19,7 +19,10 @@ export const ExportAdminDataModal = () => {
   const onClose = () => router.push(RoutePaths.Admin.base())
 
   const onSubmitHandler = async ({ adminDataPath, download }: IExportDto) => {
-    const exportedData = await exportAdminDataService({ adminDataPath })
+    const exportedData = await exportAdminDataService({
+      adminDataPath,
+      download,
+    })
 
     if (download) {
       downloadJsonAsFile('export.json', exportedData)

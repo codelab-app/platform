@@ -1,14 +1,15 @@
-'use server'
+import type { IImportDto } from '@codelab/shared/abstract/core'
 
+import { jobSubscription } from '@codelab/frontend/infra/ws'
 import { getEnv } from '@codelab/shared/config/env'
-import { serverFetchWithAuth } from '@codelab/shared/infra/fetch-server'
 
-export const importAdminDataService = async () => {
-  const result = await serverFetchWithAuth(getEnv().endpoint.admin.import, {
-    body: JSON.stringify({}),
-    headers: { 'Content-Type': 'application/json' },
-    method: 'POST',
+import { queueAdminDataImportAction } from './queue-admin-data-import.action'
+
+export const importAdminDataService = async (data?: IImportDto) => {
+  const jobId = await queueAdminDataImportAction(data)
+
+  return await jobSubscription(jobId, {
+    socketEndpoint: `${getEnv().endpoint.apiHost}`,
+    timeoutMs: 120_000,
   })
-
-  return await result.text()
 }
