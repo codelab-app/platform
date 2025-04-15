@@ -1,8 +1,8 @@
-import * as Types from '@codelab/shared/infra/gqlgen';
+import * as Types from '@codelab/shared-infra-gqlgen';
 
-import type { NextFetchOptions } from '@codelab/shared/abstract/types'
-import { gqlServerRequest } from '@codelab/shared/infra/fetch-server'
-import { GetBaseTypesDocument, GetTypesDocument, GetDescendantsDocument, GetPrimitiveTypesDocument, GetArrayTypesDocument, GetUnionTypesDocument, GetInterfaceTypesDocument, GetElementTypesDocument, GetRenderPropTypesDocument, GetReactNodeTypesDocument, GetRichTextTypesDocument, GetEnumTypesDocument, GetLambdaTypesDocument, GetPageTypesDocument, GetAppTypesDocument, GetActionTypesDocument, GetCodeMirrorTypesDocument } from '@codelab/shared/infra/gqlgen'
+import type { NextFetchOptions } from '@codelab/shared-abstract-types'
+import { gqlServerRequest } from '@codelab/shared-infra-fetch-server'
+import { GetBaseTypesDocument, GetTypesDocument, GetDescendantsDocument, GetPrimitiveTypesDocument, GetArrayTypesDocument, GetUnionTypesDocument, GetInterfaceTypesDocument, GetElementTypesDocument, GetRenderPropTypesDocument, GetReactNodeTypesDocument, GetRichTextTypesDocument, GetEnumTypesDocument, GetLambdaTypesDocument, GetPageTypesDocument, GetAppTypesDocument, GetActionTypesDocument, GetCodeMirrorTypesDocument } from '@codelab/shared-infra-gqlgen'
 
 export const GetBaseTypes = (variables: Types.GetBaseTypesQueryVariables, next?: NextFetchOptions) => gqlServerRequest(GetBaseTypesDocument.toString(), variables, next)
 export const GetTypes = (variables: Types.GetTypesQueryVariables, next?: NextFetchOptions) => gqlServerRequest(GetTypesDocument.toString(), variables, next)

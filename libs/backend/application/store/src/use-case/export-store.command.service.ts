@@ -1,17 +1,17 @@
 import type {
   IApiAggregate,
   IStoreAggregate,
-} from '@codelab/shared/abstract/core'
-import type { StoreWhere } from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-abstract-core'
+import type { StoreWhere } from '@codelab/shared-infra-gqlgen'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
-import { ExportApiCommand } from '@codelab/backend/application/type'
-import { StoreRepository } from '@codelab/backend/domain/store'
+import { ExportApiCommand } from '@codelab/backend-application-type'
+import { StoreRepository } from '@codelab/backend-domain-store'
 import {
   IActionKind,
   StoreAggregateSchema,
-} from '@codelab/shared/abstract/core'
-import { Validator } from '@codelab/shared/infra/typebox'
+} from '@codelab/shared-abstract-core'
+import { Validator } from '@codelab/shared-infra-typebox'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
 export class ExportStoreCommand {

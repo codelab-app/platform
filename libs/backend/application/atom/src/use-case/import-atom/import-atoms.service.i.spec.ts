@@ -1,19 +1,19 @@
 import type { CommandBus } from '@nestjs/cqrs'
 
-import { DataModule } from '@codelab/backend/application/data'
+import { DataModule } from '@codelab/backend-application-data'
 import {
   ImportSystemTypesCommand,
   TypeApplicationModule,
   TypeSeederService,
-} from '@codelab/backend/application/type'
-import { AtomDomainModule, AtomRepository } from '@codelab/backend/domain/atom'
+} from '@codelab/backend-application-type'
+import { AtomDomainModule, AtomRepository } from '@codelab/backend-domain-atom'
 import {
   InterfaceType,
   InterfaceTypeRepository,
   TypeDomainModule,
-} from '@codelab/backend/domain/type'
-import { initUserContext } from '@codelab/backend/test/setup'
-import { IAtomType } from '@codelab/shared/abstract/core'
+} from '@codelab/backend-domain-type'
+import { initUserContext } from '@codelab/backend-test-setup'
+import { IAtomType } from '@codelab/shared-abstract-core'
 
 import { AtomApplicationService } from '../../services/atom.application.service'
 

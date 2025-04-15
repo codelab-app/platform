@@ -1,10 +1,10 @@
 'use server'
 
-import type { IUserSession } from '@codelab/shared/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
+import type { IUserSession } from '@codelab/shared-abstract-core'
+import type { Nullable } from '@codelab/shared-abstract-types'
 
-import { mapClaimsToUserDto } from '@codelab/shared-domain-module/user'
-import { auth0Instance } from '@codelab/shared-infra-auth0/client'
+import { mapClaimsToUserDto } from '@codelab/shared-domain-module-user'
+import { auth0Instance } from '@codelab/shared-infra-auth0-client'
 import { redirect } from 'next/navigation'
 
 export const getServerUser = async (): Promise<IUserSession> => {

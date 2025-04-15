@@ -1,6 +1,6 @@
-import type { ICreateComponentData, IRef } from '@codelab/shared/abstract/core'
+import type { ICreateComponentData, IRef } from '@codelab/shared-abstract-core'
 
-import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
+import { type IFormController, UiKey } from '@codelab/frontend-abstract-types'
 import { Form } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'

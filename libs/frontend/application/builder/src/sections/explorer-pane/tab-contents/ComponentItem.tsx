@@ -5,7 +5,7 @@ import {
   type IAtomModel,
   type IComponentModel,
   isComponent,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 import { Button, Card } from 'antd'
 import Tooltip from 'antd/lib/tooltip'
 import classNames from 'classnames'

@@ -1,6 +1,6 @@
 'use client'
 
-import type { IConfigPaneTab } from '@codelab/shared/abstract/core'
+import type { IConfigPaneTab } from '@codelab/shared-abstract-core'
 
 import CodeOutlined from '@ant-design/icons/CodeOutlined'
 import CodeSandboxOutlined from '@ant-design/icons/CodeSandboxOutlined'
@@ -16,17 +16,17 @@ import {
   isRuntimeComponent,
   isRuntimeElement,
   isRuntimePage,
-} from '@codelab/frontend/abstract/application'
-import { type IElementTree, isAtomRef } from '@codelab/frontend/abstract/domain'
-import { UpdateComponentForm } from '@codelab/frontend-application-component/use-cases/update-component'
-import { UpdateComponentPropsForm } from '@codelab/frontend-application-component/use-cases/update-component-props'
-import { DeleteElementButton } from '@codelab/frontend-application-element/use-cases/delete-element'
-import { MoveElementForm } from '@codelab/frontend-application-element/use-cases/move-element'
-import { UpdateElementForm } from '@codelab/frontend-application-element/use-cases/update-element'
-import { UpdateElementPropsForm } from '@codelab/frontend-application-element/use-cases/update-element-props'
-import { UpdatePageTabForm } from '@codelab/frontend-application-page/use-cases/update-page-tab'
-import { usePreferenceService } from '@codelab/frontend-application-preference/services'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+} from '@codelab/frontend-abstract-application'
+import { type IElementTree, isAtomRef } from '@codelab/frontend-abstract-domain'
+import { UpdateComponentForm } from '@codelab/frontend-application-component-use-cases-update-component'
+import { UpdateComponentPropsForm } from '@codelab/frontend-application-component-use-cases-update-component-props'
+import { DeleteElementButton } from '@codelab/frontend-application-element-use-cases-delete-element'
+import { MoveElementForm } from '@codelab/frontend-application-element-use-cases-move-element'
+import { UpdateElementForm } from '@codelab/frontend-application-element-use-cases-update-element'
+import { UpdateElementPropsForm } from '@codelab/frontend-application-element-use-cases-update-element-props'
+import { UpdatePageTabForm } from '@codelab/frontend-application-page-use-cases-update-page-tab'
+import { usePreferenceService } from '@codelab/frontend-application-preference-services'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import { ElementCssEditor } from '@codelab/frontend-presentation-components-css-editor'
 import { FormContextProvider } from '@codelab/frontend-presentation-components-form'
 import { Tabs, Tooltip } from 'antd'

@@ -1,11 +1,11 @@
-import type { Point } from '@codelab/frontend/shared/utils'
+import type { Point } from '@codelab/frontend-shared-utils'
 import type {
   Active,
   DroppableContainer,
   UniqueIdentifier,
 } from '@dnd-kit/core'
 
-import { Rect } from '@codelab/frontend/shared/utils'
+import { Rect } from '@codelab/frontend-shared-utils'
 import { pathOr, stringToPath } from 'remeda'
 
 import type { WithInternalDropData } from '../hooks/internal-drop-data.interface'

@@ -2,21 +2,21 @@ import type {
   ElementFragment,
   PageFragment,
   PageWhere,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
-import { ExportStoreCommand } from '@codelab/backend/application/store'
+import { ExportStoreCommand } from '@codelab/backend-application-store'
 import {
   PageElementsService,
   PageRepository,
-} from '@codelab/backend/domain/page'
+} from '@codelab/backend-domain-page'
 import {
   ElementExportSchema,
   type IPageAggregate,
   type IStoreAggregate,
-} from '@codelab/shared/abstract/core'
-import { Validator } from '@codelab/shared/infra/typebox'
-import { sortPagesByKindAndName } from '@codelab/shared/utils'
+} from '@codelab/shared-abstract-core'
+import { Validator } from '@codelab/shared-infra-typebox'
+import { sortPagesByKindAndName } from '@codelab/shared-utils'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
 export class ExportPageCommand {

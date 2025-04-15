@@ -30,14 +30,6 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
-  webpack(config) {
-    config.module.rules.push({
-      test: /\.svg$/i,
-      issuer: /\.[jt]sx?$/,
-      use: ['@svgr/webpack'],
-    })
-    return config
-  },
   experimental: {
     // forceSwcTransforms: true,
 
@@ -72,6 +64,7 @@ const nextConfig = {
   // disable to support uniforms
   // http://github.com/vazco/uniforms/issues/1194
   reactStrictMode: false,
+
   /**
    * https://nextjs.org/docs/app/building-your-application/routing/middleware#matching-paths
    */
@@ -100,6 +93,15 @@ const nextConfig = {
     //   },
     // ],
   }),
+
+  webpack(config) {
+    config.module.rules.push({
+      issuer: /\.[jt]sx?$/,
+      test: /\.svg$/i,
+      use: ['@svgr/webpack'],
+    })
+    return config
+  },
 }
 
 export default composePlugins(...plugins)(nextConfig)

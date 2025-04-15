@@ -1,4 +1,4 @@
-import type { IPageTypeDto, ITypeKind } from '@codelab/shared/abstract/core'
+import type { IPageTypeDto, ITypeKind } from '@codelab/shared-abstract-core'
 
 import type { IBaseTypeModel } from './base-type.model.interface'
 

@@ -1,5 +1,5 @@
-import { ITypeKind } from '@codelab/shared/abstract/core'
-import { titleCase } from '@codelab/shared/utils'
+import { ITypeKind } from '@codelab/shared-abstract-core'
+import { titleCase } from '@codelab/shared-utils'
 import { v4 } from 'uuid'
 
 export const createEnumTypeInputForAtomType = (

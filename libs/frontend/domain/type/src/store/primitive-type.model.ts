@@ -1,17 +1,17 @@
-import type { IPrimitiveTypeDto } from '@codelab/shared/abstract/core'
+import type { IPrimitiveTypeDto } from '@codelab/shared-abstract-core'
 
 import {
   type IPrimitiveTypeModel,
   type ITypeTransformContext,
   type JsonSchema,
   userRef,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 import {
   assertIsTypeKind,
   IPrimitiveTypeKind,
   ITypeKind,
-} from '@codelab/shared/abstract/core'
-import { PrimitiveTypeKind } from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-abstract-core'
+import { PrimitiveTypeKind } from '@codelab/shared-infra-gqlgen'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { isBoolean } from 'remeda'
 

@@ -1,10 +1,10 @@
 'use client'
 
-import type { SupportedPaginationPathname } from '@codelab/frontend/abstract/application'
-import type { SearchParamsClientProps } from '@codelab/frontend/abstract/types'
+import type { SupportedPaginationPathname } from '@codelab/frontend-abstract-application'
+import type { SearchParamsClientProps } from '@codelab/frontend-abstract-types'
 
 import SearchOutlined from '@ant-design/icons/SearchOutlined'
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend-abstract-types'
 import { Pagination } from 'antd'
 import { useRouter } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'

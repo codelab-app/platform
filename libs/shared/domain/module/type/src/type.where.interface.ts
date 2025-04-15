@@ -26,7 +26,7 @@ import type {
   RichTextTypeWhere,
   UnionTypeOptions,
   UnionTypeWhere,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
 export type ITypeWhere = ActionTypeWhere &
   AppTypeWhere &

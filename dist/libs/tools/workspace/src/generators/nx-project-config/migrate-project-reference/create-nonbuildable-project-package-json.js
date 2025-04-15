@@ -16,14 +16,14 @@ const createNonbuildableProjectPackageJson = (tree, projectConfig) => {
     console.log(`Creating package.json for ${projectName} (non-buildable library)`);
     // Create the package.json content for non-buildable library
     const packageJson = {
-        name: projectName,
         exports: {
             '.': {
-                types: './src/index.ts',
-                import: './src/index.ts',
                 default: './src/index.ts',
+                import: './src/index.ts',
+                types: './src/index.ts',
             },
         },
+        name: projectName,
     };
     // Write the package.json file
     (0, devkit_1.writeJson)(tree, packageJsonPath, packageJson);

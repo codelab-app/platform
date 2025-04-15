@@ -1,6 +1,6 @@
 'use server'
 
-import { auth0Instance } from '@codelab/shared-infra-auth0/client'
+import { auth0Instance } from '@codelab/shared-infra-auth0-client'
 /**
  * Need to be callback, otherwise import chain will call `auth0-server.provider.ts` which requires Next.js `request` to be present
  *

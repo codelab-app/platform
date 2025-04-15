@@ -1,3 +1,3 @@
-import { AtomsViewHeader } from '@codelab/frontend-application-atom/views'
+import { AtomsViewHeader } from '@codelab/frontend-application-atom-views'
 
 export default AtomsViewHeader

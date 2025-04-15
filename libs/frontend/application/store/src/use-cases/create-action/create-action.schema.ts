@@ -1,4 +1,4 @@
-import type { ICreateActionData } from '@codelab/shared/abstract/core'
+import type { ICreateActionData } from '@codelab/shared-abstract-core'
 import type { JSONSchemaType } from 'ajv'
 
 import {
@@ -10,13 +10,13 @@ import {
   nonEmptyString,
   refMaybeSchema,
   refSchema,
-} from '@codelab/frontend-presentation-components-form/schema'
+} from '@codelab/frontend-presentation-components-form-schema'
 import {
   HttpMethod,
   HttpResponseType,
   IActionKind,
-} from '@codelab/shared/abstract/core'
-import { CodeMirrorLanguage } from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-abstract-core'
+import { CodeMirrorLanguage } from '@codelab/shared-infra-gqlgen'
 import { keys } from 'remeda'
 
 export const createActionSchema: JSONSchemaType<ICreateActionData> = {

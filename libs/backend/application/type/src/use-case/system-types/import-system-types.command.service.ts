@@ -1,8 +1,8 @@
 import type { ICommandHandler } from '@nestjs/cqrs'
 
-import { ReadAdminDataService } from '@codelab/backend/application/data'
-import { TypeDomainService } from '@codelab/backend/domain/type'
-import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
+import { ReadAdminDataService } from '@codelab/backend-application-data'
+import { TypeDomainService } from '@codelab/backend-domain-type'
+import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
 import { CommandHandler } from '@nestjs/cqrs'
 
 export class ImportSystemTypesCommand {}

@@ -1,8 +1,8 @@
-import * as Types from '@codelab/shared/infra/gqlgen';
+import * as Types from '@codelab/shared-infra-gqlgen';
 
-import { gqlRequest } from '@codelab/shared/infra/fetch'
+import { gqlRequest } from '@codelab/shared-infra-fetch'
 import { GraphQLClient } from 'graphql-request'
-import { CreateAppsDocument, UpdateAppsDocument, DeleteAppsDocument, AppListPreviewDocument, AppListDocument, GetAppProductionDocument } from '@codelab/shared/infra/gqlgen'
+import { CreateAppsDocument, UpdateAppsDocument, DeleteAppsDocument, AppListPreviewDocument, AppListDocument, GetAppProductionDocument } from '@codelab/shared-infra-gqlgen'
 
 export const getSdk = (client: GraphQLClient) => ({
 	CreateApps: (variables: Types.CreateAppsMutationVariables) => gqlRequest(client, CreateAppsDocument.toString(), variables),

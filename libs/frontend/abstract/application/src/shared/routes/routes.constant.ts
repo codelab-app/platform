@@ -1,5 +1,5 @@
-import type { SearchParamsClientProps } from '@codelab/frontend/abstract/types'
-import type { IRef } from '@codelab/shared/abstract/core'
+import type { SearchParamsClientProps } from '@codelab/frontend-abstract-types'
+import type { IRef } from '@codelab/shared-abstract-core'
 
 import queryString from 'query-string'
 

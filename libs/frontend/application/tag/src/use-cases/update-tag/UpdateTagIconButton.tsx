@@ -1,6 +1,6 @@
 'use client'
 
-import type { IRef } from '@codelab/shared/abstract/core'
+import type { IRef } from '@codelab/shared-abstract-core'
 import type { CSSProperties } from 'react'
 
 import EditOutlined from '@ant-design/icons/EditOutlined'

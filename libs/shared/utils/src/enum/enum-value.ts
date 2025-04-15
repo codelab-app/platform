@@ -1,4 +1,4 @@
-import type { Callback } from '@codelab/shared/abstract/types'
+import type { Callback } from '@codelab/shared-abstract-types'
 
 /**
  * Usage

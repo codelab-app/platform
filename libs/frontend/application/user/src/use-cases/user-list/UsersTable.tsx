@@ -1,10 +1,10 @@
 'use client'
 
-import type { ObjectLike } from '@codelab/shared/abstract/types'
-import type { UserFragment } from '@codelab/shared/infra/gqlgen'
+import type { ObjectLike } from '@codelab/shared-abstract-types'
+import type { UserFragment } from '@codelab/shared-infra-gqlgen'
 import type { ColumnsType } from 'antd/lib/table'
 
-import { userRepository } from '@codelab/frontend-domain-user/repositories'
+import { userRepository } from '@codelab/frontend-domain-user-repositories'
 import { Button, Table } from 'antd'
 
 interface UserTableProps {

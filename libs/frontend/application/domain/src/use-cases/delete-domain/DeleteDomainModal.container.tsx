@@ -1,6 +1,6 @@
 'use client'
 
-import { DomainConnector } from '@codelab/frontend/infra/connector'
+import { DomainConnector } from '@codelab/frontend-infra-connector'
 
 import { DeleteDomainModal } from './DeleteDomainModal'
 

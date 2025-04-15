@@ -1,14 +1,9 @@
 'use client'
 
-import type { IComponentModel } from '@codelab/frontend/abstract/domain'
+import type { IComponentModel } from '@codelab/frontend-abstract-domain'
 
-import {
-  type IBuilderRoute,
-  type IComponentBuilderRoute,
-  type IRootRenderer,
-  IRouteType,
-} from '@codelab/frontend/abstract/application'
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import { type IComponentBuilderRoute } from '@codelab/frontend-abstract-application'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx-context'
 import { observer } from 'mobx-react-lite'
 
 import { BaseBuilder } from '../base-builder'

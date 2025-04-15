@@ -1,16 +1,16 @@
-import type { IElementDto, INodeType } from '@codelab/shared/abstract/core'
+import type { IElementDto, INodeType } from '@codelab/shared-abstract-core'
 import type {
   ElementFragment,
   ElementOptions,
   ElementWhere,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
-import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { AbstractRepository } from '@codelab/backend/infra/core'
+import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
+import { AbstractRepository } from '@codelab/backend-infra-core'
 import {
   elementApi,
   elementMapper,
-} from '@codelab/shared-domain-module/element'
+} from '@codelab/shared-domain-module-element'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

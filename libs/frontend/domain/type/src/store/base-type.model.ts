@@ -3,8 +3,8 @@ import type {
   ITypeTransformContext,
   IUserModel,
   JsonSchema,
-} from '@codelab/frontend/abstract/domain'
-import type { IBaseTypeDto, ITypeKind } from '@codelab/shared/abstract/core'
+} from '@codelab/frontend-abstract-domain'
+import type { IBaseTypeDto, ITypeKind } from '@codelab/shared-abstract-core'
 import type { Ref } from 'mobx-keystone'
 
 import { computed } from 'mobx'

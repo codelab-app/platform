@@ -1,6 +1,6 @@
 import type { Options } from 'yargs'
 
-import { Stage } from '@codelab/shared/abstract/core'
+import { Stage } from '@codelab/shared-abstract-core'
 
 /**
  * Options used locally

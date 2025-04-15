@@ -1,7 +1,7 @@
-import type { IAtomRendererRecord } from '@codelab/frontend/abstract/domain'
+import type { IAtomRendererRecord } from '@codelab/frontend-abstract-domain'
 
-import { dynamicLoader } from '@codelab/frontend/shared/utils'
-import { IAtomType } from '@codelab/shared/abstract/core'
+import { dynamicLoader } from '@codelab/frontend-shared-utils'
+import { IAtomType } from '@codelab/shared-abstract-core'
 
 export const htmlAtoms: IAtomRendererRecord = {
   [IAtomType.HtmlA]: 'a',
@@ -72,7 +72,7 @@ export const htmlAtoms: IAtomRendererRecord = {
   [IAtomType.HtmlSamp]: 'samp',
   [IAtomType.HtmlScript]: dynamicLoader(() =>
     import(
-      '@codelab/frontend-application-atom/components/custom/codelab-script'
+      '@codelab/frontend-application-atom-components-custom-codelab-script'
     ).then((mod) => mod.CodelabScript),
   ),
   [IAtomType.HtmlSection]: 'section',

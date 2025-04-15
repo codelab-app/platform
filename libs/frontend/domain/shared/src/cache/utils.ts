@@ -3,7 +3,7 @@
  * by sorting object keys before stringifying
  */
 
-import type { EntityType } from '@codelab/frontend/abstract/types'
+import type { EntityType } from '@codelab/frontend-abstract-types'
 
 import type { Option, Where } from './cache-options'
 

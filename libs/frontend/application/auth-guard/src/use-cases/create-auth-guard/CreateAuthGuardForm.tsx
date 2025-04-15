@@ -1,16 +1,16 @@
-import type { IAuthGuardCreateFormData } from '@codelab/frontend/abstract/domain'
+import type { IAuthGuardCreateFormData } from '@codelab/frontend-abstract-domain'
 
-import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
+import { type IFormController, UiKey } from '@codelab/frontend-abstract-types'
 import {
   ResourceFetchConfigField,
   ResourceTestRequest,
-} from '@codelab/frontend-application-resource/components'
-import { useUser } from '@codelab/frontend-application-user/services'
+} from '@codelab/frontend-application-resource-components'
+import { useUser } from '@codelab/frontend-application-user-services'
 import {
   Form,
   FormController,
 } from '@codelab/frontend-presentation-components-form'
-import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
+import { DisplayIf } from '@codelab/frontend-presentation-view-components-conditionalView'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 

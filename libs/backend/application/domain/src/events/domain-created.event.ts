@@ -1,4 +1,4 @@
-import type { DomainCreatedSubscription } from '@codelab/shared-domain-module/domain'
+import type { DomainCreatedSubscription } from '@codelab/shared-domain-module-domain'
 
 export const DOMAIN_CREATED_EVENT = 'domain.created'
 

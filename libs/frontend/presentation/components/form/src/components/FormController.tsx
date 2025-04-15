@@ -1,6 +1,6 @@
 'use client'
 
-import type { formController } from '@codelab/frontend/abstract/types'
+import type { formController } from '@codelab/frontend-abstract-types'
 
 import { Button } from 'antd'
 import styled from 'styled-components'

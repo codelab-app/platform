@@ -1,4 +1,4 @@
-import type { IPropData } from '@codelab/shared/abstract/core'
+import type { IPropData } from '@codelab/shared-abstract-core'
 
 import { filter, isTruthy, mergeDeep, omit } from 'remeda'
 

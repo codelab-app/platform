@@ -1,5 +1,5 @@
-import { execute, graphql } from '@codelab/shared/infra/gqlgen'
-import { slugify } from '@codelab/shared/utils'
+import { execute, graphql } from '@codelab/shared-infra-gqlgen'
+import { slugify } from '@codelab/shared-utils'
 
 export const GetComponentQuery = graphql(`
   query GetComponent($options: ComponentOptions, $where: ComponentWhere) {

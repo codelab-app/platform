@@ -1,4 +1,4 @@
-import { Rectangle } from '@codelab/frontend/shared/utils'
+import { Rectangle } from '@codelab/frontend-shared-utils'
 import { useDndContext } from '@dnd-kit/core'
 import { createPortal } from 'react-dom'
 

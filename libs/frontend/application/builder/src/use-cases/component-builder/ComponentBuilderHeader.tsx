@@ -1,9 +1,9 @@
 'use client'
 
-import type { IComponentModel } from '@codelab/frontend/abstract/domain'
+import type { IComponentModel } from '@codelab/frontend-abstract-domain'
 
-import { RoutePaths } from '@codelab/frontend/abstract/application'
-import { DetailHeader } from '@codelab/frontend-presentation-view/sections'
+import { RoutePaths } from '@codelab/frontend-abstract-application'
+import { DetailHeader } from '@codelab/frontend-presentation-view-sections'
 import { observer } from 'mobx-react-lite'
 import { usePathname, useRouter } from 'next/navigation'
 import { type ReactNode, useCallback } from 'react'

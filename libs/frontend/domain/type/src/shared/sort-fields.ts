@@ -1,4 +1,4 @@
-import { type IFieldModel } from '@codelab/frontend/abstract/domain'
+import { type IFieldModel } from '@codelab/frontend-abstract-domain'
 import { prop, sortBy } from 'remeda'
 
 export const sortFieldsArray = (fields: Array<IFieldModel>) => {

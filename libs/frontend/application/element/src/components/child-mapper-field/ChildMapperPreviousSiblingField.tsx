@@ -1,7 +1,7 @@
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
+import type { IElementModel } from '@codelab/frontend-abstract-domain'
 import type { GuaranteedProps } from 'uniforms'
 
-import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
+import { mapElementOption } from '@codelab/frontend-domain-element-use-cases-element-options'
 import { connectField } from 'uniforms'
 
 import { SelectLinkElement } from '../SelectLinkElement'

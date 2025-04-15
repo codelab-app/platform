@@ -1,4 +1,4 @@
-import { IAtomType } from '@codelab/shared/abstract/core'
+import { IAtomType } from '@codelab/shared-abstract-core'
 
 /**
  * Types we want to seed

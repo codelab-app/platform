@@ -1,13 +1,13 @@
-import type { ICodeMirrorTypeDto } from '@codelab/shared/abstract/core'
-import type { CodeMirrorLanguage } from '@codelab/shared/infra/gqlgen'
+import type { ICodeMirrorTypeDto } from '@codelab/shared-abstract-core'
+import type { CodeMirrorLanguage } from '@codelab/shared-infra-gqlgen'
 
 import {
   type ICodeMirrorTypeModel,
   type ITypeTransformContext,
   type JsonSchema,
   userRef,
-} from '@codelab/frontend/abstract/domain'
-import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+} from '@codelab/frontend-abstract-domain'
+import { assertIsTypeKind, ITypeKind } from '@codelab/shared-abstract-core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 
 import { typedPropSchema } from '../shared/typed-prop-schema'

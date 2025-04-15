@@ -3,22 +3,22 @@
 import type {
   IBuilderRoute,
   IElementTreeViewDataNode,
-} from '@codelab/frontend/abstract/application'
-import type { Nullable } from '@codelab/shared/abstract/types'
+} from '@codelab/frontend-abstract-application'
+import type { Nullable } from '@codelab/shared-abstract-types'
 
-import { RoutePaths } from '@codelab/frontend/abstract/application'
-import { isComponent } from '@codelab/frontend/abstract/domain'
-import { useComponentService } from '@codelab/frontend-application-component/services'
+import { RoutePaths } from '@codelab/frontend-abstract-application'
+import { isComponent } from '@codelab/frontend-abstract-domain'
+import { useComponentService } from '@codelab/frontend-application-component-services'
 import {
   useCloneElementService,
   useElementService,
-} from '@codelab/frontend-application-element/services'
-import { useUser } from '@codelab/frontend-application-user/services'
+} from '@codelab/frontend-application-element-services'
+import { useUser } from '@codelab/frontend-application-user-services'
 import {
   useApplicationStore,
   useDomainStore,
-} from '@codelab/frontend-infra-mobx/context'
-import { Key } from '@codelab/frontend-presentation-view/components/key'
+} from '@codelab/frontend-infra-mobx-context'
+import { Key } from '@codelab/frontend-presentation-view-components-key'
 import { Dropdown } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'

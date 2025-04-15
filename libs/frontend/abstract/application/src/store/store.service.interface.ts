@@ -1,10 +1,10 @@
-import type { IStoreModel } from '@codelab/frontend/abstract/domain'
-import type { IRef, IStoreDto } from '@codelab/shared/abstract/core'
+import type { IStoreModel } from '@codelab/frontend-abstract-domain'
+import type { IRef, IStoreDto } from '@codelab/shared-abstract-core'
 import type {
   StoreFragment,
   StoreOptions,
   StoreWhere,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
 import type { ICrudService, IQueryService } from '../services'
 

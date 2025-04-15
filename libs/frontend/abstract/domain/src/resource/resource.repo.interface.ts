@@ -1,9 +1,9 @@
-import type { IResourceDto } from '@codelab/shared/abstract/core'
+import type { IResourceDto } from '@codelab/shared-abstract-core'
 import type {
   ResourceFragment,
   ResourceOptions,
   ResourceWhere,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
 import type { IRepository } from '../shared'
 

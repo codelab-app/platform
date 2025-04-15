@@ -1,5 +1,5 @@
-import type { IPropService } from '@codelab/frontend/abstract/application'
-import type { IPropModel } from '@codelab/frontend/abstract/domain'
+import type { IPropService } from '@codelab/frontend-abstract-application'
+import type { IPropModel } from '@codelab/frontend-abstract-domain'
 import type {
   IPropCreateData,
   IPropData,
@@ -7,10 +7,10 @@ import type {
   IPropUpdateData,
   IRef,
   IUpdatePropDataWithDefaultValues,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 
-import { propRepository } from '@codelab/frontend-domain-prop/repositories'
-import { mergeProps } from '@codelab/frontend-domain-prop/utils'
+import { propRepository } from '@codelab/frontend-domain-prop-repositories'
+import { mergeProps } from '@codelab/frontend-domain-prop-utils'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 
 export const usePropService = (): IPropService => {

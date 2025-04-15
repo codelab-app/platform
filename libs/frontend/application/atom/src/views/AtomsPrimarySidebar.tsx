@@ -1,19 +1,19 @@
 'use client'
 
-import type { IAtomModel } from '@codelab/frontend/abstract/domain'
-import type { SearchParamsClientProps } from '@codelab/frontend/abstract/types'
+import type { IAtomModel } from '@codelab/frontend-abstract-domain'
+import type { SearchParamsClientProps } from '@codelab/frontend-abstract-types'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import {
   type IAtomCreateRoute,
   type IPaginationData,
   RoutePaths,
-} from '@codelab/frontend/abstract/application'
-import { UiKey } from '@codelab/frontend/abstract/types'
+} from '@codelab/frontend-abstract-application'
+import { UiKey } from '@codelab/frontend-abstract-types'
 import {
   CuiSidebar,
   usePaginationToolbar,
-} from '@codelab/frontend/presentation/codelab-ui'
+} from '@codelab/frontend-presentation-codelab-ui'
 import { useRouter } from 'next/navigation'
 import { useMemo } from 'react'
 

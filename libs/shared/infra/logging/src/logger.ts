@@ -1,8 +1,5 @@
 /* eslint-disable @typescript-eslint/member-ordering */
-import type { ObjectLike } from '@codelab/shared/abstract/types'
-
-import { isCyclic } from '@codelab/shared/utils'
-import { isPlainObject } from 'remeda'
+import type { ObjectLike } from '@codelab/shared-abstract-types'
 
 /**
  * To show the correct source file in browser console, enable ignore list

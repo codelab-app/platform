@@ -1,10 +1,10 @@
 'use server'
 
-import type { IRef } from '@codelab/shared/abstract/core'
-import type { App } from '@codelab/shared/infra/gqlgen'
+import type { IRef } from '@codelab/shared-abstract-core'
+import type { App } from '@codelab/shared-infra-gqlgen'
 
-import { getEnv } from '@codelab/shared/config/env'
-import { serverFetchWithAuth } from '@codelab/shared/infra/fetch-server'
+import { getEnv } from '@codelab/shared-config-env'
+import { serverFetchWithAuth } from '@codelab/shared-infra-fetch-server'
 
 export const exportAppService = async (app: IRef) => {
   const response = await serverFetchWithAuth(

@@ -1,4 +1,4 @@
-import type { ICreateTagData } from '@codelab/shared/abstract/core'
+import type { ICreateTagData } from '@codelab/shared-abstract-core'
 
 import { DisplayIfField } from '@codelab/frontend-presentation-components-form'
 

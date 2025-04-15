@@ -1,4 +1,4 @@
-import { BreakpointSize } from '@codelab/frontend/abstract/types'
+import { BreakpointSize } from '@codelab/frontend-abstract-types'
 import { useWindowSize } from 'react-use'
 
 /* eslint-disable @typescript-eslint/member-ordering */

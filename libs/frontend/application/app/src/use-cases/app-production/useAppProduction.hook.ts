@@ -1,16 +1,16 @@
 import type {
   IAppProductionDto,
   IDomainStore,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 
 import {
   rendererRef,
   RendererType,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 import {
   useApplicationStore,
   useDomainStore,
-} from '@codelab/frontend-infra-mobx/context'
+} from '@codelab/frontend-infra-mobx-context'
 import { useEffect } from 'react'
 import { v4 } from 'uuid'
 

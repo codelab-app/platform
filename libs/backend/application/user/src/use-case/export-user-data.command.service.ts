@@ -1,8 +1,8 @@
 import type { ICommandHandler } from '@nestjs/cqrs'
 
-import { ExportAppCommand } from '@codelab/backend/application/app'
-import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
-import { UserRepository } from '@codelab/backend/domain/user'
+import { ExportAppCommand } from '@codelab/backend-application-app'
+import { AuthDomainService } from '@codelab/backend-domain-shared-auth'
+import { UserRepository } from '@codelab/backend-domain-user'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
 const nameComparator = (a: { name: string }, b: { name: string }) =>

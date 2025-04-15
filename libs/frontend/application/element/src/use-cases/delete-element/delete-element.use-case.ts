@@ -1,10 +1,10 @@
-import type { IBuilderService } from '@codelab/frontend/abstract/application'
+import type { IBuilderService } from '@codelab/frontend-abstract-application'
 
 import {
   type IElementDomainService,
   type IElementModel,
-} from '@codelab/frontend/abstract/domain'
-import { elementRepository } from '@codelab/frontend-domain-element/repositories'
+} from '@codelab/frontend-abstract-domain'
+import { elementRepository } from '@codelab/frontend-domain-element-repositories'
 
 export type AfterElementDelete = () => void
 

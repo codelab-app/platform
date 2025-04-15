@@ -1,6 +1,6 @@
-import type { DashboardLayoutProps } from '@codelab/frontend/abstract/types'
+import type { DashboardLayoutProps } from '@codelab/frontend-abstract-types'
 
-import { DashboardLayout } from '@codelab/frontend-presentation-view/templates'
+import { DashboardLayout } from '@codelab/frontend-presentation-view-templates'
 
 const Layout = ({
   children,

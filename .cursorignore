@@ -17,7 +17,6 @@ dist
 *~
 
 # Build artifacts
-build/
 dist/
 out/
 .next/

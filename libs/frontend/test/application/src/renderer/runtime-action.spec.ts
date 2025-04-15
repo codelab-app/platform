@@ -1,6 +1,6 @@
-import { RendererType } from '@codelab/frontend/abstract/application'
-import { createTestStore } from '@codelab/frontend-infra-mobx/store'
-import { IPageKind } from '@codelab/shared/abstract/core'
+import { RendererType } from '@codelab/frontend-abstract-application'
+import { createTestStore } from '@codelab/frontend-infra-mobx-store'
+import { IPageKind } from '@codelab/shared-abstract-core'
 import { configure } from 'mobx'
 
 describe('Runtime Element props', () => {

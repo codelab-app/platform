@@ -1,5 +1,5 @@
-import type { IUnionTypeModel } from '@codelab/frontend/abstract/domain'
-import type { ITypeModelUniformSchemaBuilder } from '@codelab/frontend/abstract/types'
+import type { IUnionTypeModel } from '@codelab/frontend-abstract-domain'
+import type { ITypeModelUniformSchemaBuilder } from '@codelab/frontend-abstract-types'
 
 import { SelectUnionTypeValue } from '../fields'
 

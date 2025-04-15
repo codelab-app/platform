@@ -1,17 +1,17 @@
 import type {
   IPageAggregate,
   IPageCreateFormData,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 
-import { ElementApplicationService } from '@codelab/backend/application/element'
-import { StoreApplicationService } from '@codelab/backend/application/store'
-import { AppRepository } from '@codelab/backend/domain/app'
-import { ElementRepository } from '@codelab/backend/domain/element'
-import { PageRepository } from '@codelab/backend/domain/page'
-import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
-import { Store, StoreDomainService } from '@codelab/backend/domain/store'
-import { InterfaceType, TypeDomainService } from '@codelab/backend/domain/type'
-import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
+import { ElementApplicationService } from '@codelab/backend-application-element'
+import { StoreApplicationService } from '@codelab/backend-application-store'
+import { AppRepository } from '@codelab/backend-domain-app'
+import { ElementRepository } from '@codelab/backend-domain-element'
+import { PageRepository } from '@codelab/backend-domain-page'
+import { AuthDomainService } from '@codelab/backend-domain-shared-auth'
+import { Store, StoreDomainService } from '@codelab/backend-domain-store'
+import { InterfaceType, TypeDomainService } from '@codelab/backend-domain-type'
+import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
 import { Injectable } from '@nestjs/common'
 import { v4 } from 'uuid'
 

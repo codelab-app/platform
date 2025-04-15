@@ -3,35 +3,35 @@ import type {
   ICloneElementService,
   IComponentService,
   IRuntimeElementModel,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 import type {
   IElementModel,
   IPropModel,
   IStoreModel,
-} from '@codelab/frontend/abstract/domain'
-import type { IElementDto, IPropDto, IRef } from '@codelab/shared/abstract/core'
+} from '@codelab/frontend-abstract-domain'
+import type { IElementDto, IPropDto, IRef } from '@codelab/shared-abstract-core'
 
 import {
   isRuntimeElement,
   runtimeElementRef,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 import {
   useActionService,
   useStoreService,
-} from '@codelab/frontend-application-store/services'
-import { useFieldService } from '@codelab/frontend-application-type/services'
-import { elementRepository } from '@codelab/frontend-domain-element/repositories'
-import { makeAutoIncrementedName } from '@codelab/frontend-domain-element/use-cases/incremented-name'
-import { propRepository } from '@codelab/frontend-domain-prop/repositories'
+} from '@codelab/frontend-application-store-services'
+import { useFieldService } from '@codelab/frontend-application-type-services'
+import { elementRepository } from '@codelab/frontend-domain-element-repositories'
+import { makeAutoIncrementedName } from '@codelab/frontend-domain-element-use-cases-incremented-name'
+import { propRepository } from '@codelab/frontend-domain-prop-repositories'
 import {
   useApplicationStore,
   useDomainStore,
-} from '@codelab/frontend-infra-mobx/context'
+} from '@codelab/frontend-infra-mobx-context'
 import {
   IElementRenderTypeKind,
   ITypeKind,
-} from '@codelab/shared/abstract/core'
-import { mapDeep } from '@codelab/shared/utils'
+} from '@codelab/shared-abstract-core'
+import { mapDeep } from '@codelab/shared-utils'
 import { v4 } from 'uuid'
 
 import { useElementService } from './element.service'

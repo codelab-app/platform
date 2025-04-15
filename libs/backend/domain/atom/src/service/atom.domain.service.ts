@@ -1,6 +1,6 @@
-import type { IElementRenderTypeDto } from '@codelab/shared/abstract/core'
+import type { IElementRenderTypeDto } from '@codelab/shared-abstract-core'
 
-import { IAtomType } from '@codelab/shared/abstract/core'
+import { IAtomType } from '@codelab/shared-abstract-core'
 import { Injectable } from '@nestjs/common'
 
 import { AtomRepository } from '../repository'

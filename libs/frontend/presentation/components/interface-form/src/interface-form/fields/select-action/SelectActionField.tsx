@@ -1,9 +1,9 @@
 'use client'
 
 /* eslint-disable react/jsx-props-no-spreading */
-import type { IRuntimeModel } from '@codelab/frontend/abstract/application'
-import type { IRef } from '@codelab/shared/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
+import type { IRuntimeModel } from '@codelab/frontend-abstract-application'
+import type { IRef } from '@codelab/shared-abstract-core'
+import type { Nullable } from '@codelab/shared-abstract-types'
 import type { GuaranteedProps } from 'uniforms'
 
 import { connectField } from 'uniforms'

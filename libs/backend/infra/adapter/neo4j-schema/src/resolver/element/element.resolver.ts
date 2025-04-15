@@ -1,13 +1,13 @@
 import type {
   Element,
   ElementRenderTypeFragment,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 import type { IResolvers } from '@graphql-tools/utils'
 import type { FactoryProvider } from '@nestjs/common'
 import type { GraphQLRequestContext } from 'graphql-request/build/legacy/helpers/types'
 
-import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { ElementProperties } from '@codelab/shared-domain-module/element'
+import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
+import { ElementProperties } from '@codelab/shared-domain-module-element'
 
 export const ELEMENT_RESOLVER_PROVIDER = 'ELEMENT_RESOLVER_PROVIDER'
 

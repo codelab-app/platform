@@ -1,7 +1,7 @@
 import type {
   IAuthGuardDto,
   IResourceFetchConfig,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 
 export type IAuthGuardCreateFormData = Omit<IAuthGuardDto, 'config'> & {
   config: {

@@ -1,13 +1,13 @@
 'use client'
 
-import type { IBuilderRoute } from '@codelab/frontend/abstract/application'
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
+import type { IBuilderRoute } from '@codelab/frontend-abstract-application'
+import type { IElementModel } from '@codelab/frontend-abstract-domain'
 
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend-abstract-types'
 import {
   useApplicationStore,
   useDomainStore,
-} from '@codelab/frontend-infra-mobx/context'
+} from '@codelab/frontend-infra-mobx-context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'

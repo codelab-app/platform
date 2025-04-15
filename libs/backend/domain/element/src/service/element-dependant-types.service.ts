@@ -1,10 +1,10 @@
-import { TypeFactory } from '@codelab/backend/domain/type'
+import { TypeFactory } from '@codelab/backend-domain-type'
 import {
   getElementDependantTypes,
   Neo4jService,
-} from '@codelab/backend-infra-adapter/neo4j-driver'
-import { ITypeRef } from '@codelab/shared/abstract/core'
-import { Element, TypeFragment } from '@codelab/shared/infra/gqlgen'
+} from '@codelab/backend-infra-adapter-neo4j-driver'
+import { ITypeRef } from '@codelab/shared-abstract-core'
+import { Element, TypeFragment } from '@codelab/shared-infra-gqlgen'
 import { Injectable } from '@nestjs/common'
 
 /**

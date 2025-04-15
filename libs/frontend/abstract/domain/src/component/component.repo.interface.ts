@@ -1,9 +1,9 @@
-import type { IComponentDto, IRef } from '@codelab/shared/abstract/core'
+import type { IComponentDto, IRef } from '@codelab/shared-abstract-core'
 import type {
   ComponentFragment,
   ComponentOptions,
   ComponentWhere,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
 import type { IRepository } from '../shared'
 

@@ -1,7 +1,7 @@
-import type { IAtomRendererRecord } from '@codelab/frontend/abstract/domain'
+import type { IAtomRendererRecord } from '@codelab/frontend-abstract-domain'
 
-import { dynamicLoader } from '@codelab/frontend/shared/utils'
-import { IAtomType } from '@codelab/shared/abstract/core'
+import { dynamicLoader } from '@codelab/frontend-shared-utils'
+import { IAtomType } from '@codelab/shared-abstract-core'
 
 export const antdAtoms: IAtomRendererRecord = {
   [IAtomType.AntDesignAffix]: dynamicLoader(() => import('antd/lib/affix')),
@@ -83,7 +83,7 @@ export const antdAtoms: IAtomRendererRecord = {
   ),
   [IAtomType.AntDesignIcon]: dynamicLoader(() =>
     import(
-      '@codelab/frontend-application-atom/components/ant-design/icon'
+      '@codelab/frontend-application-atom-components-ant-design-icon'
     ).then((mod) => mod.AntdIcon),
   ),
   [IAtomType.AntDesignImage]: dynamicLoader(() => import('antd/lib/image')),

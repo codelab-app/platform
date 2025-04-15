@@ -1,19 +1,19 @@
 import type {
   IDomainStore,
   IPageModel,
-} from '@codelab/frontend/abstract/domain'
-import type { IPopover, SelectOption } from '@codelab/frontend/abstract/types'
+} from '@codelab/frontend-abstract-domain'
+import type { IPopover, SelectOption } from '@codelab/frontend-abstract-types'
 import type {
   IElementDto,
   IPageCreateFormData,
   IPageUpdateFormData,
   IRef,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import type {
   GetRenderedPageQuery,
   PageOptions,
   PageWhere,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
 import type { ICrudService, IQueryService } from '../services'
 import type { PageContextParams } from './page.route.interface'

@@ -1,8 +1,8 @@
 'use client'
 
-import type { IFieldUpdateRoute } from '@codelab/frontend/abstract/application'
+import type { IFieldUpdateRoute } from '@codelab/frontend-abstract-application'
 
-import { FieldConnector } from '@codelab/frontend/infra/connector'
+import { FieldConnector } from '@codelab/frontend-infra-connector'
 
 import { UpdateFieldPopover } from './UpdateFieldPopover'
 

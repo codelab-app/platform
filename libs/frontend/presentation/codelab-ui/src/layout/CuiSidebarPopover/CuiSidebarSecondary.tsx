@@ -2,7 +2,7 @@
 
 import type { PropsWithChildren } from 'react'
 
-import { getUiDataLabel } from '@codelab/frontend/abstract/types'
+import { getUiDataLabel } from '@codelab/frontend-abstract-types'
 
 import type { CuiSidebarPopoverProps } from './CuiSidebarPopover'
 

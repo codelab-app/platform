@@ -1,4 +1,4 @@
-import type { ITypeDtoWithoutOwner } from '@codelab/shared/abstract/core'
+import type { ITypeDtoWithoutOwner } from '@codelab/shared-abstract-core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
 import {
@@ -9,7 +9,7 @@ import {
   RenderPropTypeRepository,
   RichTextTypeRepository,
   UnionTypeRepository,
-} from '@codelab/backend/domain/type'
+} from '@codelab/backend-domain-type'
 import {
   ActionTypeSchema,
   CodeMirrorTypeSchema,
@@ -18,8 +18,8 @@ import {
   RenderPropTypeSchema,
   RichTextTypeSchema,
   UnionTypeSchema,
-} from '@codelab/shared/abstract/core'
-import { SortDirection } from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-abstract-core'
+import { SortDirection } from '@codelab/shared-infra-gqlgen'
 import { CommandHandler } from '@nestjs/cqrs'
 import { Type } from '@sinclair/typebox'
 

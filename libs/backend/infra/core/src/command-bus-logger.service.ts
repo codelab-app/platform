@@ -1,4 +1,4 @@
-import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
+import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
 import { Global, Injectable, OnModuleInit } from '@nestjs/common'
 import { CommandBus, ICommand } from '@nestjs/cqrs'
 

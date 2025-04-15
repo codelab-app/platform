@@ -108,7 +108,7 @@ const config: Types.Config = {
         {
           ['@codelab-codegen/typescript-server-fetch']: {
             gqlFn: 'gqlServerRequest',
-            gqlFnPath: '@codelab/shared/infra/fetch-server',
+            gqlFnPath: '@codelab/shared-infra-fetch-server',
             graphqlPath: '@codelab/shared/infra/gqlgen',
           },
         },
@@ -126,7 +126,7 @@ const config: Types.Config = {
           // this path points to a node_module package, make sure to run `pnpm install` before `pnpm codegen`
           ['@codelab-codegen/typescript-fetch']: {
             gqlFn: 'gqlRequest',
-            gqlFnPath: '@codelab/shared/infra/fetch',
+            gqlFnPath: '@codelab/shared-infra-fetch',
             graphqlPath: '@codelab/shared/infra/gqlgen',
           },
         },

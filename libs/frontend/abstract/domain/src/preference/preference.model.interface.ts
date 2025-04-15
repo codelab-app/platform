@@ -3,7 +3,7 @@ import type {
   IBreakpointType,
   IConfigPaneTab,
   IPreferenceDto,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 
 import type { IModel } from '../shared'
 

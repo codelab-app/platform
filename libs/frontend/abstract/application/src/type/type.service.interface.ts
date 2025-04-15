@@ -3,13 +3,13 @@ import type {
   ITypeCreateFormData,
   ITypeModel,
   ITypeUpdateDto,
-} from '@codelab/frontend/abstract/domain'
-import type { IPopover } from '@codelab/frontend/abstract/types'
+} from '@codelab/frontend-abstract-domain'
+import type { IPopover } from '@codelab/frontend-abstract-types'
 import type {
   IBaseType,
   IBaseTypeOptions,
   IBaseTypeWhere,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
 import type { ICrudService, IQueryService } from '../services'
 import type { ITypeCreateRoute, ITypeUpdateRoute } from './type.route.interface'

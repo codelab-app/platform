@@ -2,11 +2,11 @@
 import type {
   IAtomCreateRoute,
   IPaginationData,
-} from '@codelab/frontend/abstract/application'
-import type { SearchParamsClientProps } from '@codelab/frontend/abstract/types'
-import type { IRef } from '@codelab/shared/abstract/core'
+} from '@codelab/frontend-abstract-application'
+import type { SearchParamsClientProps } from '@codelab/frontend-abstract-types'
+import type { IRef } from '@codelab/shared-abstract-core'
 
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import { observer } from 'mobx-react-lite'
 import { isDefined } from 'remeda'
 

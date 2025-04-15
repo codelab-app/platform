@@ -1,4 +1,4 @@
-import type { IAppSchema } from '@codelab/frontend/abstract/domain'
+import type { IAppSchema } from '@codelab/frontend-abstract-domain'
 import type { PropertiesSchema } from 'ajv/dist/types/json-schema'
 
 import { idSchema } from './id.schema'

@@ -1,14 +1,14 @@
 import type {
   AppCreateInput,
   DomainCreateInput,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 import type { INestApplication } from '@nestjs/common'
 
-import { GraphqlService } from '@codelab/backend/infra/adapter/graphql'
-import { initUserContext } from '@codelab/backend/test/setup'
-import { userDto } from '@codelab/shared/data/test'
-import { connectNodeId } from '@codelab/shared/domain/orm'
-import { graphqlClient } from '@codelab/shared/infra/gql-client'
+import { GraphqlService } from '@codelab/backend-infra-adapter-graphql'
+import { initUserContext } from '@codelab/backend-test-setup'
+import { userDto } from '@codelab/shared-data-test'
+import { connectNodeId } from '@codelab/shared-domain-orm'
+import { graphqlClient } from '@codelab/shared-infra-gql-client'
 import { EventEmitterModule } from '@nestjs/event-emitter'
 import { sleep } from 'radash'
 import { v4 } from 'uuid'

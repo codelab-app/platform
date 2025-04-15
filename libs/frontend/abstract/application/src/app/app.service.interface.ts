@@ -2,9 +2,9 @@ import type {
   IAppCreateFormData,
   IAppModel,
   IAppUpdateFormData,
-} from '@codelab/frontend/abstract/domain'
-import type { IRef } from '@codelab/shared/abstract/core'
-import type { AppOptions, AppWhere } from '@codelab/shared/infra/gqlgen'
+} from '@codelab/frontend-abstract-domain'
+import type { IRef } from '@codelab/shared-abstract-core'
+import type { AppOptions, AppWhere } from '@codelab/shared-infra-gqlgen'
 
 import type { ICrudService, IQueryService } from '../services'
 

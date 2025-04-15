@@ -1,4 +1,4 @@
-import type { LayoutProps } from '@codelab/frontend/abstract/types'
+import type { LayoutProps } from '@codelab/frontend-abstract-types'
 
 const RootLayout = ({ children }: LayoutProps) => {
   return <>{children}</>

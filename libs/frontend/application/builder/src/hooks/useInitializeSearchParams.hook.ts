@@ -1,4 +1,4 @@
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx-context'
 import { useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
 

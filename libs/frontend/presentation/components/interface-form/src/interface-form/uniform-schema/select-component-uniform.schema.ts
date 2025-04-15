@@ -1,8 +1,8 @@
 import type {
   IReactNodeTypeModel,
   IRenderPropTypeModel,
-} from '@codelab/frontend/abstract/domain'
-import type { ITypeModelUniformSchemaBuilder } from '@codelab/frontend/abstract/types'
+} from '@codelab/frontend-abstract-domain'
+import type { ITypeModelUniformSchemaBuilder } from '@codelab/frontend-abstract-types'
 
 import { ToggleExpressionField } from '@codelab/frontend-presentation-components-form'
 

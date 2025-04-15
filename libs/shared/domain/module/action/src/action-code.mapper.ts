@@ -2,14 +2,14 @@ import type {
   CodeActionCreateInput,
   CodeActionDeleteInput,
   CodeActionUpdateInput,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
 import {
   IActionKind,
   type ICodeActionDto,
   type IMapper,
-} from '@codelab/shared/abstract/core'
-import { connectNodeId } from '@codelab/shared/domain/orm'
+} from '@codelab/shared-abstract-core'
+import { connectNodeId } from '@codelab/shared-domain-orm'
 
 export const codeActionMapper: IMapper<
   ICodeActionDto,

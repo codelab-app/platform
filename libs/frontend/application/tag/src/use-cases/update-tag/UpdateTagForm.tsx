@@ -1,16 +1,16 @@
 'use client'
 
-import type { ITagModel } from '@codelab/frontend/abstract/domain'
-import type { IFormController } from '@codelab/frontend/abstract/types'
-import type { IUpdateTagData } from '@codelab/shared/abstract/core'
+import type { ITagModel } from '@codelab/frontend-abstract-domain'
+import type { IFormController } from '@codelab/frontend-abstract-types'
+import type { IUpdateTagData } from '@codelab/shared-abstract-core'
 
-import { UiKey } from '@codelab/frontend/abstract/types'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { UiKey } from '@codelab/frontend-abstract-types'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import {
   Form,
   FormController,
 } from '@codelab/frontend-presentation-components-form'
-import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
+import { DisplayIf } from '@codelab/frontend-presentation-view-components-conditionalView'
 import { observer } from 'mobx-react-lite'
 import { AutoFields, SelectField } from 'uniforms-antd'
 

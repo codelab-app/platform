@@ -1,12 +1,12 @@
-import type { IElementDto, IRef } from '@codelab/shared/abstract/core'
-import type { Element } from '@codelab/shared/infra/gqlgen'
+import type { IElementDto, IRef } from '@codelab/shared-abstract-core'
+import type { Element } from '@codelab/shared-infra-gqlgen'
 import type { DeepPick } from 'ts-essentials'
 
 import {
   removeUuidAndDashPrefix,
   slugify,
   titleCase,
-} from '@codelab/shared/utils'
+} from '@codelab/shared-utils'
 
 interface ElementData {
   compositeKey: never

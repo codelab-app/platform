@@ -1,6 +1,6 @@
-import type { ICreateResourceData } from '@codelab/shared/abstract/core'
+import type { ICreateResourceData } from '@codelab/shared-abstract-core'
 
-import { ResourceRepository } from '@codelab/backend/domain/resource'
+import { ResourceRepository } from '@codelab/backend-domain-resource'
 import { Injectable } from '@nestjs/common'
 import { v4 } from 'uuid'
 

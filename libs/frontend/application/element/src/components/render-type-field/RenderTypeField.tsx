@@ -1,7 +1,7 @@
 'use client'
 
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
-import type { IElementDto, IRef } from '@codelab/shared/abstract/core'
+import type { IElementModel } from '@codelab/frontend-abstract-domain'
+import type { IElementDto, IRef } from '@codelab/shared-abstract-core'
 import type { GuaranteedProps } from 'uniforms'
 
 import CodeSandboxOutlined from '@ant-design/icons/CodeSandboxOutlined'

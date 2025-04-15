@@ -1,10 +1,10 @@
-import type { IAppDto } from '@codelab/shared/abstract/core'
+import type { IAppDto } from '@codelab/shared-abstract-core'
 import type {
   AppFragment,
   AppOptions,
   AppPreviewFragment,
   AppWhere,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
 import type { IFindResults, IRepository } from '../shared'
 

@@ -7,19 +7,19 @@ import {
   updateProjectConfiguration,
 } from '@nx/devkit'
 
-import type { EslintGeneratorSchema } from './schema'
+import type { ProjectConfigGeneratorSchema } from './schema'
 
 import { updateTestTargets } from './jest/remove-test-targets'
+import { migrateProjectReference } from './migrate-project-reference'
 import { addProjectTags } from './project-tags/add-project-tags'
 import { updateBaseTsconfig } from './tsconfig/base/tsconfig.base'
-import { migrateProjectReference } from './migrate-project-reference'
 
 /**
  * Go through all projects and update the `lint` setting of `project.json`
  */
 export const nxProjectConfigGenerator = async (
   tree: Tree,
-  options: EslintGeneratorSchema,
+  options: ProjectConfigGeneratorSchema,
 ) => {
   const projects = getProjects(tree)
   const projectNames = projects.keys()

@@ -1,6 +1,6 @@
 'use client'
 
-import type { IApplicationStore } from '@codelab/frontend/abstract/application'
+import type { IApplicationStore } from '@codelab/frontend-abstract-application'
 
 import { createContext, useContext } from 'react'
 

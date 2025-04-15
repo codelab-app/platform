@@ -1,4 +1,4 @@
-import { EntityType } from '@codelab/frontend/abstract/types'
+import { EntityType } from '@codelab/frontend-abstract-types'
 
 import type { Option, Where } from './cache-options'
 

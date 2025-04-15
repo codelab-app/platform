@@ -1,11 +1,12 @@
+import type { ProjectConfiguration, Tree } from '@nx/devkit'
+
 import {
-  Tree,
-  ProjectConfiguration,
-  readJson,
-  writeJson,
   joinPathFragments,
   normalizePath,
+  readJson,
+  writeJson,
 } from '@nx/devkit'
+
 import { getProjectDependencies } from './get-project-dependencies'
 
 /**
@@ -19,10 +20,12 @@ export const updateProjectTsconfig = async (
     projectConfig.root,
     'tsconfig.json',
   )
+
   const libTsconfigPath = joinPathFragments(
     projectConfig.root,
     'tsconfig.lib.json',
   )
+
   const specTsconfigPath = joinPathFragments(
     projectConfig.root,
     'tsconfig.spec.json',
@@ -33,6 +36,7 @@ export const updateProjectTsconfig = async (
     console.log(
       `Project ${projectConfig.name} doesn't have a tsconfig.json file`,
     )
+
     return
   }
 

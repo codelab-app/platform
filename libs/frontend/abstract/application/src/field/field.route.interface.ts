@@ -3,7 +3,7 @@ import type {
   DistributeUnion,
   SearchParamsClientProps,
   TreeViewClientProps,
-} from '@codelab/frontend/abstract/types'
+} from '@codelab/frontend-abstract-types'
 
 import type { IRouteType } from '../shared'
 

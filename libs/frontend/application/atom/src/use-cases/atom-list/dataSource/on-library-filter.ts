@@ -1,4 +1,4 @@
-import type { IAtomModel } from '@codelab/frontend/abstract/domain'
+import type { IAtomModel } from '@codelab/frontend-abstract-domain'
 
 export const onLibraryFilter = (
   value: boolean | React.Key,

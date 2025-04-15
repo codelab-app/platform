@@ -1,8 +1,8 @@
-import type { PageProps } from '@codelab/frontend/abstract/types'
+import type { PageProps } from '@codelab/frontend-abstract-types'
 import type { Metadata } from 'next'
 
-import { DeleteDomainModalContainer } from '@codelab/frontend-application-domain/use-cases/delete-domain'
-import { parsePageProps } from '@codelab/frontend-application-shared-store/router'
+import { DeleteDomainModalContainer } from '@codelab/frontend-application-domain-use-cases-delete-domain'
+import { parsePageProps } from '@codelab/frontend-application-shared-store-router'
 
 export const metadata: Metadata = {
   title: 'Delete Domain | Codelab',

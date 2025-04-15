@@ -1,12 +1,12 @@
 'use client'
 
-import type { IAppDto } from '@codelab/shared/abstract/core'
+import type { IAppDto } from '@codelab/shared-abstract-core'
 import type { HttpException } from '@nestjs/common'
 
 import {
   useErrorNotify,
   useSuccessNotify,
-} from '@codelab/frontend/infra/context'
+} from '@codelab/frontend-infra-context'
 import { useRouter } from 'next/navigation'
 import { useEffect, useRef } from 'react'
 

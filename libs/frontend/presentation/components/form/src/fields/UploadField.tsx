@@ -2,7 +2,7 @@
 import type { DraggerProps } from 'antd/lib/upload/Dragger'
 import type { FieldProps } from 'uniforms'
 
-import { useErrorNotify } from '@codelab/frontend/infra/context'
+import { useErrorNotify } from '@codelab/frontend-infra-context'
 import Dragger from 'antd/lib/upload/Dragger'
 import { connectField } from 'uniforms'
 import { wrapField } from 'uniforms-antd'

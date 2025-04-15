@@ -1,7 +1,7 @@
-import type { DashboardLayoutProps } from '@codelab/frontend/abstract/types'
+import type { DashboardLayoutProps } from '@codelab/frontend-abstract-types'
 
-import { preloadAppListQuery } from '@codelab/frontend-application-app/use-cases/app-list'
-import { DashboardLayout } from '@codelab/frontend-presentation-view/templates'
+import { preloadAppListQuery } from '@codelab/frontend-application-app-use-cases-app-list'
+import { DashboardLayout } from '@codelab/frontend-presentation-view-templates'
 
 const Layout = ({
   children,

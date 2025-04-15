@@ -1,8 +1,8 @@
-import type { IComponentType } from '@codelab/frontend/abstract/domain'
-import type { IPropData } from '@codelab/shared/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
+import type { IComponentType } from '@codelab/frontend-abstract-domain'
+import type { IPropData } from '@codelab/shared-abstract-core'
+import type { Nullable } from '@codelab/shared-abstract-types'
 
-import { camelCaseToKebabCaseOnlyKeys } from '@codelab/shared/utils'
+import { camelCaseToKebabCaseOnlyKeys } from '@codelab/shared-utils'
 import {
   forwardRef,
   Fragment,

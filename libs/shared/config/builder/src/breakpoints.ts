@@ -1,6 +1,6 @@
-import type { IBreakpoint } from '@codelab/shared/abstract/core'
+import type { IBreakpoint } from '@codelab/shared-abstract-core'
 
-import { IBreakpointType } from '@codelab/shared/abstract/core'
+import { IBreakpointType } from '@codelab/shared-abstract-core'
 
 export const DEFAULT_BUILDER_BREAKPOINT = IBreakpointType.Desktop
 

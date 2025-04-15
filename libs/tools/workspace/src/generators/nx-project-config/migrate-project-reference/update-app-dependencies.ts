@@ -1,11 +1,6 @@
-import {
-  Tree,
-  ProjectConfiguration,
-  getProjects,
-  readJson,
-  writeJson,
-  joinPathFragments,
-} from '@nx/devkit'
+import type { ProjectConfiguration, Tree } from '@nx/devkit'
+
+import { getProjects, joinPathFragments, readJson, writeJson } from '@nx/devkit'
 
 /**
  * Updates the app to include dependencies to libraries
@@ -20,6 +15,7 @@ export const updateAppDependencies = (
   }
 
   const packageJsonPath = joinPathFragments(projectConfig.root, 'package.json')
+
   if (!tree.exists(packageJsonPath)) {
     return
   }

@@ -1,13 +1,13 @@
 'use client'
 
-import type { IDomainModel } from '@codelab/frontend/abstract/domain'
+import type { IDomainModel } from '@codelab/frontend-abstract-domain'
 
-import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
-import { ErrorBoundary } from '@codelab/frontend-presentation-view/components/error'
+import { DisplayIf } from '@codelab/frontend-presentation-view-components-conditionalView'
+import { ErrorBoundary } from '@codelab/frontend-presentation-view-components-error'
 import {
   padding,
   threeGridCol,
-} from '@codelab/frontend-presentation-view/style'
+} from '@codelab/frontend-presentation-view-style'
 import { Col, Empty, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 

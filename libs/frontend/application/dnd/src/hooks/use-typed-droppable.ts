@@ -1,4 +1,4 @@
-import type { AnyData, Maybe } from '@codelab/shared/abstract/types'
+import type { AnyData, Maybe } from '@codelab/shared-abstract-types'
 
 import { useDroppable } from '@dnd-kit/core'
 

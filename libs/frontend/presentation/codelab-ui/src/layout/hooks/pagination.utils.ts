@@ -1,4 +1,4 @@
-import type { NextjsSearchParamsProps } from '@codelab/frontend/abstract/application'
+import type { NextjsSearchParamsProps } from '@codelab/frontend-abstract-application'
 
 /**
  * Creates a URL with the provided params

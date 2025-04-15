@@ -2,18 +2,18 @@ import type {
   IRef,
   IResourceConfigData,
   IRestFetchConfigData,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 
-import { Redirect, RedirectRepository } from '@codelab/backend/domain/redirect'
-import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
-import { initUserContext } from '@codelab/backend/test/setup'
+import { Redirect, RedirectRepository } from '@codelab/backend-domain-redirect'
+import { CodelabLoggerModule } from '@codelab/backend-infra-adapter-logger'
+import { initUserContext } from '@codelab/backend-test-setup'
 import {
   HttpMethod,
   HttpResponseType,
   IRedirectTargetType,
   IResourceType,
-} from '@codelab/shared/abstract/core'
-import { ResourceRestClient } from '@codelab/shared-domain-module/resource'
+} from '@codelab/shared-abstract-core'
+import { ResourceRestClient } from '@codelab/shared-domain-module-resource'
 import { v4 } from 'uuid'
 
 import { RedirectApplicationModule } from './redirect.application.module'

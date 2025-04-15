@@ -1,9 +1,9 @@
 import type {
   ICreateDomainData,
   IDomainModel,
-} from '@codelab/frontend/abstract/domain'
-import type { IRef } from '@codelab/shared/abstract/core'
-import type { DomainOptions, DomainWhere } from '@codelab/shared/infra/gqlgen'
+} from '@codelab/frontend-abstract-domain'
+import type { IRef } from '@codelab/shared-abstract-core'
+import type { DomainOptions, DomainWhere } from '@codelab/shared-infra-gqlgen'
 
 import type { ICrudService, IQueryService } from '../services'
 

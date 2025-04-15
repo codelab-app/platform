@@ -1,7 +1,7 @@
-import type { PageProps } from '@codelab/frontend/abstract/types'
+import type { PageProps } from '@codelab/frontend-abstract-types'
 
-import { CreatePagePopoverContainer } from '@codelab/frontend-application-page/use-cases/create-page'
-import { parsePageProps } from '@codelab/frontend-application-shared-store/router'
+import { CreatePagePopoverContainer } from '@codelab/frontend-application-page-use-cases-create-page'
+import { parsePageProps } from '@codelab/frontend-application-shared-store-router'
 
 const Page = async (props: PageProps<'appId' | 'pageId'>) => {
   const {

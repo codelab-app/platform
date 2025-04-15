@@ -1,7 +1,7 @@
-import { RoutePaths } from '@codelab/frontend/abstract/application'
-import { UiKey } from '@codelab/frontend/abstract/types'
-import { ITypeKind } from '@codelab/shared/abstract/core'
-import { PrimitiveTypeKind } from '@codelab/shared/infra/gqlgen'
+import { RoutePaths } from '@codelab/frontend-abstract-application'
+import { UiKey } from '@codelab/frontend-abstract-types'
+import { ITypeKind } from '@codelab/shared-abstract-core'
+import { PrimitiveTypeKind } from '@codelab/shared-infra-gqlgen'
 
 import { BasePage } from '../../setup/core/page'
 import { baseTest } from '../../setup/fixtures/base.fixture'

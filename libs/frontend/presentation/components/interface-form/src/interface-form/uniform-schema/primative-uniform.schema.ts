@@ -1,11 +1,11 @@
-import type { IPrimitiveTypeModel } from '@codelab/frontend/abstract/domain'
-import type { ITypeModelUniformSchemaBuilder } from '@codelab/frontend/abstract/types'
+import type { IPrimitiveTypeModel } from '@codelab/frontend-abstract-domain'
+import type { ITypeModelUniformSchemaBuilder } from '@codelab/frontend-abstract-types'
 
 import {
   CodeMirrorField,
   ToggleExpressionField,
 } from '@codelab/frontend-presentation-components-form'
-import { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
+import { IPrimitiveTypeKind } from '@codelab/shared-abstract-core'
 
 export const primitiveTypeUniformSchema: ITypeModelUniformSchemaBuilder<
   IPrimitiveTypeModel

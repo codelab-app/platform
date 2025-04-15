@@ -1,10 +1,7 @@
-import {
-  Tree,
-  ProjectConfiguration,
-  writeJson,
-  joinPathFragments,
-} from '@nx/devkit'
+import type { ProjectConfiguration, Tree } from '@nx/devkit'
 import type { PackageJson } from 'type-fest'
+
+import { joinPathFragments, writeJson } from '@nx/devkit'
 
 /**
  * Creates package.json files for non-buildable projects
@@ -15,8 +12,10 @@ export const createNonbuildableProjectPackageJson = (
 ) => {
   // Skip if project already has a package.json
   const packageJsonPath = joinPathFragments(projectConfig.root, 'package.json')
+
   if (tree.exists(packageJsonPath)) {
     console.log(`Project ${projectConfig.name} already has a package.json file`)
+
     return
   }
 
@@ -28,14 +27,14 @@ export const createNonbuildableProjectPackageJson = (
 
   // Create the package.json content for non-buildable library
   const packageJson: Partial<PackageJson> = {
-    name: projectName,
     exports: {
       '.': {
-        types: './src/index.ts',
-        import: './src/index.ts',
         default: './src/index.ts',
+        import: './src/index.ts',
+        types: './src/index.ts',
       },
     },
+    name: projectName,
   }
 
   // Write the package.json file

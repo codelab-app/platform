@@ -1,13 +1,13 @@
-import type { IRendererModel } from '@codelab/frontend/abstract/application'
-import type { IPageModel } from '@codelab/frontend/abstract/domain'
-import type { IPropData } from '@codelab/shared/abstract/core'
-import type { ObjectLike } from '@codelab/shared/abstract/types'
+import type { IRendererModel } from '@codelab/frontend-abstract-application'
+import type { IPageModel } from '@codelab/frontend-abstract-domain'
+import type { IPropData } from '@codelab/shared-abstract-core'
+import type { ObjectLike } from '@codelab/shared-abstract-types'
 
 import {
   RendererType,
   RoutePaths,
-} from '@codelab/frontend/abstract/application'
-import { IAtomType } from '@codelab/shared/abstract/core'
+} from '@codelab/frontend-abstract-application'
+import { IAtomType } from '@codelab/shared-abstract-core'
 import { match } from 'path-to-regexp'
 import { isNullish } from 'remeda'
 

@@ -1,6 +1,6 @@
-import type { IRef, IUserSession } from '@codelab/shared/abstract/core'
+import type { IRef, IUserSession } from '@codelab/shared-abstract-core'
 
-import { RequestContext } from '@codelab/backend/infra/adapter/request-context'
+import { RequestContext } from '@codelab/backend-infra-adapter-request-context'
 import { Injectable } from '@nestjs/common'
 
 export interface AuthenticatedRequest extends Request {

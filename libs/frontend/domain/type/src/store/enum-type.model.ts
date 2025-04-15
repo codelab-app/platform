@@ -1,4 +1,4 @@
-import type { IEnumTypeDto } from '@codelab/shared/abstract/core'
+import type { IEnumTypeDto } from '@codelab/shared-abstract-core'
 
 import {
   type IEnumTypeModel,
@@ -6,8 +6,8 @@ import {
   type ITypeTransformContext,
   type JsonSchema,
   userRef,
-} from '@codelab/frontend/abstract/domain'
-import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+} from '@codelab/frontend-abstract-domain'
+import { assertIsTypeKind, ITypeKind } from '@codelab/shared-abstract-core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 
 import { createBaseType } from './base-type.model'

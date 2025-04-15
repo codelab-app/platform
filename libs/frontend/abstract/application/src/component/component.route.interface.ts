@@ -1,8 +1,8 @@
 import type {
   TreeViewClientProps,
   UrlParams,
-} from '@codelab/frontend/abstract/types'
-import type { ObjectLike } from '@codelab/shared/abstract/types'
+} from '@codelab/frontend-abstract-types'
+import type { ObjectLike } from '@codelab/shared-abstract-types'
 
 import type { IRouteType } from '../shared'
 

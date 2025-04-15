@@ -1,7 +1,7 @@
 import {
   AntDesignApiSchema,
   type IAntDesignApi,
-} from '@codelab/backend/abstract/core'
+} from '@codelab/backend-abstract-core'
 import { Value } from '@sinclair/typebox/value'
 import fs from 'fs'
 import path from 'path'

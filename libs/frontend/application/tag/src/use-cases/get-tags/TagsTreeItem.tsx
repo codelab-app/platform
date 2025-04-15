@@ -1,14 +1,14 @@
 'use client'
 
-import type { ITagNodeData, ITreeNode } from '@codelab/frontend/abstract/domain'
+import type { ITagNodeData, ITreeNode } from '@codelab/frontend-abstract-domain'
 
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
-import { RoutePaths } from '@codelab/frontend/abstract/application'
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { RoutePaths } from '@codelab/frontend-abstract-application'
+import { UiKey } from '@codelab/frontend-abstract-types'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
-} from '@codelab/frontend/presentation/codelab-ui'
+} from '@codelab/frontend-presentation-codelab-ui'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 

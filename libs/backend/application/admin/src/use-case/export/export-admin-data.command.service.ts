@@ -1,16 +1,16 @@
-import type { IBaseDataPaths } from '@codelab/backend/application/data'
+import type { IBaseDataPaths } from '@codelab/backend-application-data'
 import type {
   IAdminExport,
   ITag,
   ITypeDtoWithoutOwner,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
-import { AtomApplicationService } from '@codelab/backend/application/atom'
-import { ComponentApplicationService } from '@codelab/backend/application/component'
-import { WriteAdminDataService } from '@codelab/backend/application/data'
-import { ExportTagsCommand } from '@codelab/backend/application/tag'
-import { ExportSystemTypesCommand } from '@codelab/backend/application/type'
+import { AtomApplicationService } from '@codelab/backend-application-atom'
+import { ComponentApplicationService } from '@codelab/backend-application-component'
+import { WriteAdminDataService } from '@codelab/backend-application-data'
+import { ExportTagsCommand } from '@codelab/backend-application-tag'
+import { ExportSystemTypesCommand } from '@codelab/backend-application-type'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
 export class ExportAdminDataCommand implements IBaseDataPaths {

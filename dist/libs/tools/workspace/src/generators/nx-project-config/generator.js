@@ -3,9 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.nxProjectConfigGenerator = void 0;
 const devkit_1 = require("@nx/devkit");
 const remove_test_targets_1 = require("./jest/remove-test-targets");
+const migrate_project_reference_1 = require("./migrate-project-reference");
 const add_project_tags_1 = require("./project-tags/add-project-tags");
 const tsconfig_base_1 = require("./tsconfig/base/tsconfig.base");
-const migrate_project_reference_1 = require("./migrate-project-reference");
 /**
  * Go through all projects and update the `lint` setting of `project.json`
  */

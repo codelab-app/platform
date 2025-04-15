@@ -2,7 +2,7 @@ import type {
   BaseTypeFragment,
   IBaseType,
   TypeFragment,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 import type { IResolvers } from '@graphql-tools/utils'
 import type { FactoryProvider } from '@nestjs/common'
 import type { GraphQLRequestContext } from 'graphql-request/build/legacy/helpers/types'
@@ -10,7 +10,7 @@ import type { GraphQLRequestContext } from 'graphql-request/build/legacy/helpers
 import {
   getTypeDescendants,
   Neo4jService,
-} from '@codelab/backend-infra-adapter/neo4j-driver'
+} from '@codelab/backend-infra-adapter-neo4j-driver'
 
 export const TYPE_RESOLVER_PROVIDER = 'TYPE_RESOLVER_PROVIDER'
 

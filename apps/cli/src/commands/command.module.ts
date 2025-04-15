@@ -6,7 +6,7 @@ import {
   // SeedService,
   TaskService,
   TerraformService,
-} from '@codelab/backend/infra/adapter/cli'
+} from '@codelab/backend-infra-adapter-cli'
 import { Module } from '@nestjs/common'
 
 import { CommandService } from './command.service'

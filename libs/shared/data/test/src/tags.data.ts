@@ -1,4 +1,4 @@
-import type { ITagDto } from '@codelab/shared/abstract/core'
+import type { ITagDto } from '@codelab/shared-abstract-core'
 
 import { v4 } from 'uuid'
 

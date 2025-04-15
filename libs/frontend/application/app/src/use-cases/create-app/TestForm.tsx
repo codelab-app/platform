@@ -1,6 +1,6 @@
 'use client'
 
-import type { ObjectLike } from '@codelab/shared/abstract/types'
+import type { ObjectLike } from '@codelab/shared-abstract-types'
 import type { JSONSchemaType } from 'ajv'
 
 import Ajv from 'ajv'

@@ -1,8 +1,8 @@
-import type { IFieldDomainService } from '@codelab/frontend/abstract/domain'
-import type { IFieldDto, ITypeRef } from '@codelab/shared/abstract/core'
+import type { IFieldDomainService } from '@codelab/frontend-abstract-domain'
+import type { IFieldDto, ITypeRef } from '@codelab/shared-abstract-core'
 
 import { chance } from '@codelab/frontend-domain-shared'
-import { ITypeKind } from '@codelab/shared/abstract/core'
+import { ITypeKind } from '@codelab/shared-abstract-core'
 import { v4 } from 'uuid'
 
 export const fieldFactory =

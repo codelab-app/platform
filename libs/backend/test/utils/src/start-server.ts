@@ -1,8 +1,8 @@
-import type { endpointConfig } from '@codelab/backend/infra/core'
+import type { endpointConfig } from '@codelab/backend-infra-core'
 import type { INestApplication } from '@nestjs/common'
 import type { ConfigType } from '@nestjs/config'
 
-import { ENDPOINT_CONFIG_KEY } from '@codelab/backend/infra/core'
+import { ENDPOINT_CONFIG_KEY } from '@codelab/backend-infra-core'
 import { ConfigService } from '@nestjs/config'
 import isPortReachable from 'is-port-reachable'
 

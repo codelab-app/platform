@@ -1,8 +1,8 @@
 'use client'
 
-import type { IBuilderRoute } from '@codelab/frontend/abstract/application'
+import type { IBuilderRoute } from '@codelab/frontend-abstract-application'
 
-import { ElementConnector } from '@codelab/frontend/infra/connector'
+import { ElementConnector } from '@codelab/frontend-infra-connector'
 
 import { DeleteElementModal } from './DeleteElementModal'
 

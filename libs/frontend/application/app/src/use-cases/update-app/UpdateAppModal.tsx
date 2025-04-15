@@ -3,10 +3,10 @@
 import type {
   IAppModel,
   IAppUpdateFormData,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 
-import { RoutePaths } from '@codelab/frontend/abstract/application'
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { RoutePaths } from '@codelab/frontend-abstract-application'
+import { UiKey } from '@codelab/frontend-abstract-types'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'

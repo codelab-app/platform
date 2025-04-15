@@ -1,7 +1,7 @@
-import type { IUserDto } from '@codelab/shared/abstract/core'
+import type { IUserDto } from '@codelab/shared-abstract-core'
 import type { APIRequestContext } from '@playwright/test'
 
-import { ResourceType } from '@codelab/shared/infra/gqlgen'
+import { ResourceType } from '@codelab/shared-infra-gqlgen'
 import { v4 } from 'uuid'
 
 import { requestOrThrow } from '../../api'

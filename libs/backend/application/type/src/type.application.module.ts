@@ -1,6 +1,6 @@
-import { DataModule } from '@codelab/backend/application/data'
-import { AuthDomainModule } from '@codelab/backend/domain/shared/auth'
-import { TypeDomainModule } from '@codelab/backend/domain/type'
+import { DataModule } from '@codelab/backend-application-data'
+import { AuthDomainModule } from '@codelab/backend-domain-shared-auth'
+import { TypeDomainModule } from '@codelab/backend-domain-type'
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
 

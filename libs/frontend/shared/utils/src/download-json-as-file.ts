@@ -1,6 +1,6 @@
-import type { ObjectLike } from '@codelab/shared/abstract/types'
+import type { ObjectLike } from '@codelab/shared-abstract-types'
 
-import { prettifyForConsole } from '@codelab/shared/utils'
+import { prettifyForConsole } from '@codelab/shared-utils'
 
 export const downloadJsonAsFile = (fileName: string, content: ObjectLike) => {
   const contentType = 'application/json;charset=utf-8;'

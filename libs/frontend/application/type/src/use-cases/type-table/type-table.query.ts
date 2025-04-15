@@ -1,8 +1,8 @@
-import type { SearchParamsClientProps } from '@codelab/frontend/abstract/types'
+import type { SearchParamsClientProps } from '@codelab/frontend-abstract-types'
 
-import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
+import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store-pagination'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
-import { typeRepository } from '@codelab/frontend-domain-type/repositories'
+import { typeRepository } from '@codelab/frontend-domain-type-repositories'
 import 'server-only'
 
 export const typeTableQuery = async ({

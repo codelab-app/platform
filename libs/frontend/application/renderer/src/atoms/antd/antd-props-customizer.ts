@@ -1,8 +1,8 @@
 import {
   DATA_GRID,
   ROOT_RENDER_CONTAINER_ID,
-} from '@codelab/frontend/abstract/domain'
-import { IAtomType } from '@codelab/shared/abstract/core'
+} from '@codelab/frontend-abstract-domain'
+import { IAtomType } from '@codelab/shared-abstract-core'
 
 import type { AtomCustomizer, AtomCustomizerFn } from '../types'
 

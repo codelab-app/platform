@@ -1,6 +1,6 @@
 'use client'
 
-import { AppsConnector } from '@codelab/frontend/infra/connector'
+import { AppsConnector } from '@codelab/frontend-infra-connector'
 
 import { AppList } from './AppList'
 

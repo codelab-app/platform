@@ -1,6 +1,6 @@
-import type { Nullable } from '@codelab/shared/abstract/types'
+import type { Nullable } from '@codelab/shared-abstract-types'
 
-import { DATA_RUNTIME_ELEMENT_KEY } from '@codelab/frontend/abstract/domain'
+import { DATA_RUNTIME_ELEMENT_KEY } from '@codelab/frontend-abstract-domain'
 
 export const queryByRuntimeElementKey = (
   nodeId: string,

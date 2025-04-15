@@ -1,13 +1,13 @@
-import type { SelectOption } from '@codelab/frontend/abstract/types'
+import type { SelectOption } from '@codelab/frontend-abstract-types'
 import type {
   IElementDto,
   IElementTypeKind,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import type {
   DomainOptions,
   ElementFragment,
   ElementWhere,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
 import type { IRepository } from '../shared'
 import type { IElementTree } from './element-tree.interface.model'

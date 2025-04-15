@@ -1,4 +1,4 @@
-import { useLoading } from '@codelab/frontend-application-shared-store/loading'
+import { useLoading } from '@codelab/frontend-application-shared-store-loading'
 import { useCallback } from 'react'
 
 import { importAppService } from './import-app.service'

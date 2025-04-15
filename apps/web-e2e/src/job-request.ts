@@ -1,4 +1,4 @@
-import type { IJobQueueResponse } from '@codelab/shared/abstract/infra'
+import type { IJobQueueResponse } from '@codelab/shared-abstract-infra'
 import type { APIRequestContext } from '@playwright/test'
 
 import { jobSubscription } from '@codelab/frontend/infra/ws'

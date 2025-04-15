@@ -1,8 +1,8 @@
-import type { PageProps } from '@codelab/frontend/abstract/types'
+import type { PageProps } from '@codelab/frontend-abstract-types'
 import type { Metadata } from 'next'
 
-import { UpdateAuthGuardPopoverContainer } from '@codelab/frontend-application-auth-guard/use-cases/update-auth-guard'
-import { parsePageProps } from '@codelab/frontend-application-shared-store/router'
+import { UpdateAuthGuardPopoverContainer } from '@codelab/frontend-application-auth-guard-use-cases-update-auth-guard'
+import { parsePageProps } from '@codelab/frontend-application-shared-store-router'
 
 export const metadata: Metadata = {
   title: 'Update Auth Guard | Codelab',

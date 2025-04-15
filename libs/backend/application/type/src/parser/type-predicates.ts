@@ -1,5 +1,5 @@
-import type { IAntDesignField, TypeRef } from '@codelab/backend/abstract/core'
-import type { IAtomDto } from '@codelab/shared/abstract/core'
+import type { IAntDesignField, TypeRef } from '@codelab/backend-abstract-core'
+import type { IAtomDto } from '@codelab/shared-abstract-core'
 
 import {
   containsInterfaceTypeRegex,

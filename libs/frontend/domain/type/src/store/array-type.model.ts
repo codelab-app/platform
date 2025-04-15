@@ -3,14 +3,14 @@ import type {
   ITypeModel,
   ITypeTransformContext,
   JsonSchema,
-} from '@codelab/frontend/abstract/domain'
-import type { IArrayTypeDto } from '@codelab/shared/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
+} from '@codelab/frontend-abstract-domain'
+import type { IArrayTypeDto } from '@codelab/shared-abstract-core'
+import type { Nullable } from '@codelab/shared-abstract-types'
 import type { Ref } from 'mobx-keystone'
 
-import { typeRef, userRef } from '@codelab/frontend/abstract/domain'
-import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
-import { connectNodeId } from '@codelab/shared/domain/orm'
+import { typeRef, userRef } from '@codelab/frontend-abstract-domain'
+import { assertIsTypeKind, ITypeKind } from '@codelab/shared-abstract-core'
+import { connectNodeId } from '@codelab/shared-domain-orm'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { mergeDeep } from 'remeda'
 

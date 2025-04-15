@@ -1,9 +1,9 @@
-import type { IUserRepository } from '@codelab/frontend/abstract/domain'
-import type { IUserDto } from '@codelab/shared/abstract/core'
-import type { NextFetchOptions } from '@codelab/shared/abstract/types'
-import type { UserWhere } from '@codelab/shared/infra/gqlgen'
+import type { IUserRepository } from '@codelab/frontend-abstract-domain'
+import type { IUserDto } from '@codelab/shared-abstract-core'
+import type { NextFetchOptions } from '@codelab/shared-abstract-types'
+import type { UserWhere } from '@codelab/shared-infra-gqlgen'
 
-import { userServerActions } from '@codelab/shared-domain-module/user'
+import { userServerActions } from '@codelab/shared-domain-module-user'
 
 const { DeleteUsers, GetUsers } = userServerActions
 

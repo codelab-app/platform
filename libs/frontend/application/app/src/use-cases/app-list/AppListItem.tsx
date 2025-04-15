@@ -1,7 +1,7 @@
-import type { IAppModel } from '@codelab/frontend/abstract/domain'
+import type { IAppModel } from '@codelab/frontend-abstract-domain'
 
-import { RoutePaths } from '@codelab/frontend/abstract/application'
-import { IPageKind } from '@codelab/shared/abstract/core'
+import { RoutePaths } from '@codelab/frontend-abstract-application'
+import { IPageKind } from '@codelab/shared-abstract-core'
 import { Card } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'

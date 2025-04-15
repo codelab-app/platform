@@ -1,7 +1,7 @@
-import type { NotifyOptions } from '@codelab/frontend/shared/utils'
+import type { NotifyOptions } from '@codelab/frontend-shared-utils'
 
-import { notify } from '@codelab/frontend/shared/utils'
-import { NotificationType } from '@codelab/shared/abstract/types'
+import { notify } from '@codelab/frontend-shared-utils'
+import { NotificationType } from '@codelab/shared-abstract-types'
 import { useContext } from 'react'
 
 import { NotificationContext } from './NotificationProvider'

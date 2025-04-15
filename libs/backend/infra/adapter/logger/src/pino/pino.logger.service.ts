@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/member-ordering */
-import type { ObjectLike } from '@codelab/shared/abstract/types'
-import type { ILoggerService, LogOptions } from '@codelab/shared/infra/logging'
+import type { ObjectLike } from '@codelab/shared-abstract-types'
+import type { ILoggerService, LogOptions } from '@codelab/shared-infra-logging'
 import type { ConfigType } from '@nestjs/config'
 
 import { Inject, Injectable, LogLevel } from '@nestjs/common'

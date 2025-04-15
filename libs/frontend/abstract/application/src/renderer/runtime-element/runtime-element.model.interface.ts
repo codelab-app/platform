@@ -1,5 +1,5 @@
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
-import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import type { IElementModel } from '@codelab/frontend-abstract-domain'
+import type { Maybe, Nullable } from '@codelab/shared-abstract-types'
 import type { Ref } from 'mobx-keystone'
 import type { ReactNode } from 'react'
 import type { ArrayOrSingle } from 'ts-essentials/dist/types'

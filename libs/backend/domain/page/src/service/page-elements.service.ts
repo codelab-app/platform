@@ -1,9 +1,9 @@
-import { ElementRepository } from '@codelab/backend/domain/element'
+import { ElementRepository } from '@codelab/backend-domain-element'
 import {
   getPageElements,
   Neo4jService,
-} from '@codelab/backend-infra-adapter/neo4j-driver'
-import { IRef } from '@codelab/shared/abstract/core'
+} from '@codelab/backend-infra-adapter-neo4j-driver'
+import { IRef } from '@codelab/shared-abstract-core'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

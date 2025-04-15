@@ -1,5 +1,5 @@
-import type { IStoreDto } from '@codelab/shared/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
+import type { IStoreDto } from '@codelab/shared-abstract-core'
+import type { Nullable } from '@codelab/shared-abstract-types'
 import type { Ref } from 'mobx-keystone'
 
 import type { IActionModel } from '../action'

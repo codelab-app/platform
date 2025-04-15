@@ -1,4 +1,4 @@
-import type { IAuthGuardDto } from '@codelab/shared/abstract/core'
+import type { IAuthGuardDto } from '@codelab/shared-abstract-core'
 import type { Ref } from 'mobx-keystone'
 
 import type { IPropModel } from '../prop'

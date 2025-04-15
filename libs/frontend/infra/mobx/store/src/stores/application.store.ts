@@ -12,20 +12,20 @@ import {
   runtimeComponentServiceContext,
   runtimeElementServiceContext,
   runtimePageServiceContext,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 import {
   componentDomainServiceContext,
   type IDomainStore,
   userDomainServiceContext,
-} from '@codelab/frontend/abstract/domain'
-import { BuilderService } from '@codelab/frontend-application-builder/services'
+} from '@codelab/frontend-abstract-domain'
+import { BuilderService } from '@codelab/frontend-application-builder-services'
 import {
   RendererService,
   RuntimeComponentService,
   RuntimeElementService,
   RuntimePageService,
-} from '@codelab/frontend-application-renderer/services'
-import { RouterService } from '@codelab/frontend-application-shared-store/router'
+} from '@codelab/frontend-application-renderer-services'
+import { RouterService } from '@codelab/frontend-application-shared-store-router'
 import { Model, model, prop } from 'mobx-keystone'
 
 export const createApplicationStore = (domainStore: IDomainStore) => {

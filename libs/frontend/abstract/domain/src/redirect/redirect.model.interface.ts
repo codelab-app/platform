@@ -1,8 +1,8 @@
 import type {
   IRedirectDto,
   IRedirectTargetType,
-} from '@codelab/shared/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
+} from '@codelab/shared-abstract-core'
+import type { Nullable } from '@codelab/shared-abstract-types'
 import type { Ref } from 'mobx-keystone'
 
 import type { IAuthGuardModel } from '../auth-guard'

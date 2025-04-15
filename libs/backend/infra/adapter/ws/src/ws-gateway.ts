@@ -1,5 +1,5 @@
-import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { IJobOutput } from '@codelab/shared/abstract/infra'
+import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
+import { IJobOutput } from '@codelab/shared-abstract-infra'
 import { Injectable } from '@nestjs/common'
 import {
   OnGatewayConnection,

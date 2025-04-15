@@ -1,7 +1,7 @@
 'use client'
 
-import { getUiDataLabel, UiKey } from '@codelab/frontend/abstract/types'
-import { useLoading } from '@codelab/frontend-application-shared-store/loading'
+import { getUiDataLabel, UiKey } from '@codelab/frontend-abstract-types'
+import { useLoading } from '@codelab/frontend-application-shared-store-loading'
 
 import LinearProgress from './LinearProgress'
 

@@ -1,4 +1,4 @@
-import type { IAppProps } from '@codelab/frontend/abstract/application'
+import type { IAppProps } from '@codelab/frontend-abstract-application'
 import type { NextPage } from 'next'
 import type { FunctionComponent, PropsWithChildren } from 'react'
 

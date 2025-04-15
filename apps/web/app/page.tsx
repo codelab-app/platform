@@ -1,4 +1,4 @@
-import { getMaybeServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
+import { getMaybeServerUser } from '@codelab/frontend-application-user-use-cases-server-user'
 import Button from 'antd/lib/button'
 import Link from 'next/link'
 

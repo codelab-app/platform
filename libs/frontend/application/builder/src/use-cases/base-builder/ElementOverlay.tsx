@@ -1,10 +1,10 @@
-import type { Rect } from '@codelab/frontend/shared/utils'
+import type { Rect } from '@codelab/frontend-shared-utils'
 
 import {
   type ISpacingValues,
   Margins,
   Paddings,
-} from '@codelab/frontend-presentation-view/components/overlay'
+} from '@codelab/frontend-presentation-view-components-overlay'
 import { observer } from 'mobx-react-lite'
 import { useEffect, useState } from 'react'
 

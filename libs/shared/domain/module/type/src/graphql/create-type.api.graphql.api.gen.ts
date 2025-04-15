@@ -1,8 +1,8 @@
-import * as Types from '@codelab/shared/infra/gqlgen';
+import * as Types from '@codelab/shared-infra-gqlgen';
 
-import { gqlRequest } from '@codelab/shared/infra/fetch'
+import { gqlRequest } from '@codelab/shared-infra-fetch'
 import { GraphQLClient } from 'graphql-request'
-import { CreatePrimitiveTypesDocument, CreateArrayTypesDocument, CreateUnionTypesDocument, CreateInterfaceTypesDocument, CreateElementTypesDocument, CreateRenderPropTypesDocument, CreateReactNodeTypesDocument, CreateEnumTypesDocument, CreateLambdaTypesDocument, CreatePageTypesDocument, CreateAppTypesDocument, CreateRichTextTypesDocument, CreateActionTypesDocument, CreateCodeMirrorTypesDocument } from '@codelab/shared/infra/gqlgen'
+import { CreatePrimitiveTypesDocument, CreateArrayTypesDocument, CreateUnionTypesDocument, CreateInterfaceTypesDocument, CreateElementTypesDocument, CreateRenderPropTypesDocument, CreateReactNodeTypesDocument, CreateEnumTypesDocument, CreateLambdaTypesDocument, CreatePageTypesDocument, CreateAppTypesDocument, CreateRichTextTypesDocument, CreateActionTypesDocument, CreateCodeMirrorTypesDocument } from '@codelab/shared-infra-gqlgen'
 
 export const getSdk = (client: GraphQLClient) => ({
 	CreatePrimitiveTypes: (variables: Types.CreatePrimitiveTypesMutationVariables) => gqlRequest(client, CreatePrimitiveTypesDocument.toString(), variables),

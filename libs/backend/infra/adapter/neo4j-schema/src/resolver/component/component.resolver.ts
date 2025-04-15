@@ -2,14 +2,14 @@ import type {
   Component,
   ComponentFragment,
   TypeFragment,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 import type { IFieldResolver, IResolvers } from '@graphql-tools/utils'
 import type { FactoryProvider } from '@nestjs/common'
 import type { GraphQLRequestContext } from 'graphql-request/build/legacy/helpers/types'
 
-import { ComponentElementsService } from '@codelab/backend/domain/component'
-import { ElementDependantTypesService } from '@codelab/backend/domain/element'
-import { ComponentProperties } from '@codelab/shared-domain-module/component'
+import { ComponentElementsService } from '@codelab/backend-domain-component'
+import { ElementDependantTypesService } from '@codelab/backend-domain-element'
+import { ComponentProperties } from '@codelab/shared-domain-module-component'
 
 export const COMPONENT_RESOLVER_PROVIDER = 'COMPONENT_RESOLVER_PROVIDER'
 

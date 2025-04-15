@@ -1,9 +1,9 @@
 import type {
   IInterfaceTypeModel,
   IPropModel,
-} from '@codelab/frontend/abstract/domain'
-import type { IPropData, IPropDto } from '@codelab/shared/abstract/core'
-import type { Nullable, ObjectLike } from '@codelab/shared/abstract/types'
+} from '@codelab/frontend-abstract-domain'
+import type { IPropData, IPropDto } from '@codelab/shared-abstract-core'
+import type { Nullable, ObjectLike } from '@codelab/shared-abstract-types'
 import type { Ref } from 'mobx-keystone'
 
 import { computed } from 'mobx'

@@ -1,15 +1,15 @@
 'use client'
 
-import type { IResourceModel } from '@codelab/frontend/abstract/domain'
-import type { IFormController } from '@codelab/frontend/abstract/types'
-import type { IUpdateResourceData } from '@codelab/shared/abstract/core'
+import type { IResourceModel } from '@codelab/frontend-abstract-domain'
+import type { IFormController } from '@codelab/frontend-abstract-types'
+import type { IUpdateResourceData } from '@codelab/shared-abstract-core'
 
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend-abstract-types'
 import {
   Form,
   FormController,
 } from '@codelab/frontend-presentation-components-form'
-import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
+import { DisplayIf } from '@codelab/frontend-presentation-view-components-conditionalView'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
 

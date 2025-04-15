@@ -1,6 +1,6 @@
 'use client'
 
-import type { NextjsSearchParamsProps } from '@codelab/frontend/abstract/application'
+import type { NextjsSearchParamsProps } from '@codelab/frontend-abstract-application'
 
 import { observer } from 'mobx-react-lite'
 import { type ReactNode, useEffect } from 'react'

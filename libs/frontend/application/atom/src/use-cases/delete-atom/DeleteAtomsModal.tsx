@@ -1,9 +1,9 @@
 'use client'
 
-import { UiKey } from '@codelab/frontend/abstract/types'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { UiKey } from '@codelab/frontend-abstract-types'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
-import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form/schema'
+import { emptyJsonSchema } from '@codelab/frontend-presentation-components-form-schema'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import { AutoFields } from 'uniforms-antd'
