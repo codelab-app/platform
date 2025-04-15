@@ -41,6 +41,7 @@ COPY apps/sites ./apps/sites
 COPY libs ./libs
 COPY types ./types
 COPY scripts/tailwind ./scripts/tailwind
+COPY scripts/eslint ./scripts/eslint
 
 # It's important to remember that for every --build-arg parameter used in the docker build command, there must be a corresponding ARG instruction in the Dockerfile
 ARG NEXT_PUBLIC_WEB_HOST

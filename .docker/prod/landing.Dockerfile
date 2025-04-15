@@ -43,6 +43,7 @@ COPY apps/landing ./apps/landing
 COPY libs ./libs
 COPY types ./types
 COPY scripts/tailwind ./scripts/tailwind
+COPY scripts/eslint ./scripts/eslint
 
 # ARG MAILCHIMP_LIST_ID
 # ARG MAILCHIMP_API_KEY
