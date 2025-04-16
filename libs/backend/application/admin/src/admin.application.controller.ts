@@ -1,6 +1,8 @@
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
+import { WsGateway } from '@codelab/backend/infra/adapter/ws'
 import { DatabaseService } from '@codelab/backend-infra-adapter/neo4j-driver'
 import { type IExportDto, type IImportDto } from '@codelab/shared/abstract/core'
+import { IJobQueueResponse } from '@codelab/shared/abstract/infra'
 import { Body, Controller, Post } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 
@@ -19,22 +21,52 @@ export class AdminController {
     private readonly databaseService: DatabaseService,
     private seederApplicationService: SeederApplicationService,
     protected loggerService: PinoLoggerService,
+    private readonly socketGateway: WsGateway,
   ) {}
 
   @Post('export')
-  async export(@Body() exportDto: IExportDto) {
-    const { adminDataPath } = exportDto
-    const exportCommand = new ExportAdminDataCommand(adminDataPath)
-    const data = await this.commandBus.execute(exportCommand)
+  async export(@Body() exportDto: IExportDto & { jobId: string }) {
+    const { adminDataPath, download, jobId } = exportDto
 
-    return data
+    setTimeout(async () => {
+      const exportCommand = new ExportAdminDataCommand(adminDataPath)
+      const data = await this.commandBus.execute(exportCommand)
+
+      this.socketGateway.emitJobComplete({
+        data: download ? data : null,
+        jobId,
+      })
+
+      return data
+    })
+
+    return {
+      jobId,
+      message: 'Exporting data',
+      status: 'queued',
+    }
   }
 
   @Post('import')
-  async import(@Body() { adminDataPath }: IImportDto) {
-    await this.commandBus.execute(
-      new ImportAdminDataCommand(adminDataPath, { upsert: true }),
-    )
+  async import(
+    @Body() { adminDataPath, jobId }: IImportDto & { jobId: string },
+  ): Promise<IJobQueueResponse> {
+    setTimeout(async () => {
+      await this.commandBus.execute(
+        new ImportAdminDataCommand(adminDataPath, { upsert: true }),
+      )
+
+      this.socketGateway.emitJobComplete({
+        data: { message: 'Data successfully imported' },
+        jobId,
+      })
+    })
+
+    return {
+      jobId,
+      message: 'Importing data',
+      status: 'queued',
+    }
   }
 
   @Post('reset-and-seed-user')

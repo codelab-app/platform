@@ -1,6 +1,6 @@
 'use server'
 
-import type { NextFetchOptions } from '@codelab/shared/abstract/types'
+import { auth0Instance } from '@codelab/shared-infra-auth0/client'
 /**
  * Need to be callback, otherwise import chain will call `auth0-server.provider.ts` which requires Next.js `request` to be present
  *
@@ -17,8 +17,6 @@ export const serverFetchWithAuth = async (
    * This occurs during testing context
    */
 
-  // FIXME: maybe we don't need this import anymore
-  const { auth0Instance } = await import('@codelab/shared-infra-auth0/client')
   const session = await auth0Instance.getSession()
 
   const headers = {

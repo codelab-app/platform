@@ -61,7 +61,7 @@ export class AtomApplicationService {
       ? this.readAdminDataService.getAtomsByTypes(atomTypes)
       : this.readAdminDataService.atoms
 
-    return this.addAtoms(atomsData)
+    return this.saveAtoms(atomsData)
   }
 
   @LogClassMethod()

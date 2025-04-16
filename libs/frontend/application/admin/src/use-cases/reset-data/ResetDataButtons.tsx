@@ -32,6 +32,7 @@ export const ResetDataButtons = () => {
       onConfirm={() => {
         setLoading(true)
 
+        // an error is triggered on logout endpoint (maybe the user info is not available anymore)
         return resetDatabaseService()
           .then(onSuccess)
           .catch(onError)

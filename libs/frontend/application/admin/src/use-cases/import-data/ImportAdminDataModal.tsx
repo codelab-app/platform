@@ -28,7 +28,7 @@ export const ImportAdminDataModal = () => {
       <ModalForm.Form<IImportDto>
         errorMessage="Error while importing data"
         model={importDtoDefault}
-        onSubmit={importAdminDataService}
+        onSubmit={async (data) => await importAdminDataService(data)}
         onSubmitSuccess={onClose}
         schema={ImportDtoSchema}
         successMessage="Data imported successfully"

@@ -7,6 +7,7 @@ import { TypeApplicationModule } from '@codelab/backend/application/type'
 import { UserApplicationModule } from '@codelab/backend/application/user'
 import { SharedDomainModule } from '@codelab/backend/domain/shared/modules'
 import { UserDomainModule } from '@codelab/backend/domain/user'
+import { WsModule } from '@codelab/backend/infra/adapter/ws'
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
 
@@ -19,6 +20,7 @@ import { ImportAdminDataHandler } from './use-case/import/import-admin-data.comm
   controllers: [AdminController],
   exports: [],
   imports: [
+    WsModule,
     /**
      * Domain
      */
