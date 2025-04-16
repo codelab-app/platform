@@ -1,5 +1,5 @@
-import type { ITypeCreateFormData } from '@codelab/frontend/abstract/domain'
-import type { ITypeKind } from '@codelab/shared/abstract/core'
+import type { ITypeCreateFormData } from '@codelab/frontend-abstract-domain'
+import type { ITypeKind } from '@codelab/shared-abstract-core'
 import type { PropsWithChildren } from 'react'
 
 import { DisplayIfField } from '@codelab/frontend-presentation-components-form'

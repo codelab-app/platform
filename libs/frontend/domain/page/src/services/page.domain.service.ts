@@ -1,11 +1,11 @@
 import type {
   IPageDomainService,
   IPageModel,
-} from '@codelab/frontend/abstract/domain'
-import type { IPageDto } from '@codelab/shared/abstract/core'
+} from '@codelab/frontend-abstract-domain'
+import type { IPageDto } from '@codelab/shared-abstract-core'
 import type { ObjectMap } from 'mobx-keystone'
 
-import { Validator } from '@codelab/shared/infra/typebox'
+import { Validator } from '@codelab/shared-infra-typebox'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 

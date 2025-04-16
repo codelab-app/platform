@@ -5,9 +5,9 @@ import {
   type IPageDto,
   IPageKind,
   type IRef,
-} from '@codelab/shared/abstract/core'
-import { slugify } from '@codelab/shared/utils'
-import { Page } from '@codelab/shared-domain-module/page'
+} from '@codelab/shared-abstract-core'
+import { slugify } from '@codelab/shared-utils'
+import { Page } from '@codelab/shared-domain-module-page'
 import { Expose } from 'class-transformer'
 import { v4 } from 'uuid'
 

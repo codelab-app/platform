@@ -2,7 +2,7 @@
  * https://frontend-devops.com/blog/pipe-serverside-props-in-nextjs
  */
 
-import type { ObjectLike } from '@codelab/shared/abstract/types'
+import type { ObjectLike } from '@codelab/shared-abstract-types'
 
 type PipedGetServerSideProps = (arg?: unknown) => unknown | Promise<unknown>
 

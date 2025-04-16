@@ -1,14 +1,9 @@
 'use client'
 
-import type { IAtomCreateRoute } from '@codelab/frontend/abstract/application'
-import type {
-  PaginationClientProps,
-  TreeViewClientProps,
-} from '@codelab/frontend/abstract/types'
+import type { IAtomCreateRoute } from '@codelab/frontend-abstract-application'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { Button } from 'antd'
-import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 
 import { useAtomService } from '../../services'

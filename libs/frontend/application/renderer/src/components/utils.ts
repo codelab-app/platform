@@ -1,8 +1,8 @@
-import type { IPropData } from '@codelab/shared/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
+import type { IPropData } from '@codelab/shared-abstract-core'
+import type { Nullable } from '@codelab/shared-abstract-types'
 
-import { RendererType } from '@codelab/frontend/abstract/application'
-import { IAtomType } from '@codelab/shared/abstract/core'
+import { RendererType } from '@codelab/frontend-abstract-application'
+import { IAtomType } from '@codelab/shared-abstract-core'
 import { tx } from '@twind/core'
 import { isNullish } from 'remeda'
 

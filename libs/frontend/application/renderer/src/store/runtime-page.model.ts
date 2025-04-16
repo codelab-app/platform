@@ -5,16 +5,16 @@ import type {
   IRuntimePageDto,
   IRuntimePageModel,
   IRuntimeStoreModel,
-} from '@codelab/frontend/abstract/application'
-import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
+} from '@codelab/frontend-abstract-application'
+import type { Maybe, Nullable } from '@codelab/shared-abstract-types'
 import type { Ref } from 'mobx-keystone'
 import type { ReactElement } from 'react'
 
 import {
   getRuntimeElementService,
   getRuntimePageService,
-} from '@codelab/frontend/abstract/application'
-import { type IPageModel } from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-application'
+import { type IPageModel } from '@codelab/frontend-abstract-domain'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 

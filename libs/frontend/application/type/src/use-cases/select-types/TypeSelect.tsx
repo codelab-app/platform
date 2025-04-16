@@ -1,6 +1,6 @@
-import type { SelectOption } from '@codelab/frontend/abstract/types'
+import type { SelectOption } from '@codelab/frontend-abstract-types'
 
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import { observer } from 'mobx-react-lite'
 import { useAsyncFn } from 'react-use'
 import { filter, isTruthy, map, pipe, prop, uniqueBy } from 'remeda'

@@ -1,10 +1,10 @@
 'use client'
 
-import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
+import type { ToolbarItem } from '@codelab/frontend-presentation-codelab-ui'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { UiKey } from '@codelab/frontend/abstract/types'
-import { CuiSidebar } from '@codelab/frontend/presentation/codelab-ui'
+import { UiKey } from '@codelab/frontend-abstract-types'
+import { CuiSidebar } from '@codelab/frontend-presentation-codelab-ui'
 import { useRouter } from 'next/navigation'
 
 import { useAuthGuardService } from '../services'

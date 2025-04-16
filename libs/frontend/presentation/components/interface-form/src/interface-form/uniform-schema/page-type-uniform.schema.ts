@@ -1,5 +1,5 @@
-import type { IPageTypeModel } from '@codelab/frontend/abstract/domain'
-import type { ITypeModelUniformSchemaBuilder } from '@codelab/frontend/abstract/types'
+import type { IPageTypeModel } from '@codelab/frontend-abstract-domain'
+import type { ITypeModelUniformSchemaBuilder } from '@codelab/frontend-abstract-types'
 
 import { SelectPage } from '../fields'
 

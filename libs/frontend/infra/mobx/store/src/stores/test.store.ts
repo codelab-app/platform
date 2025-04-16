@@ -2,7 +2,7 @@ import type {
   IApplicationStore,
   IRendererDto,
   IRootStore,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 import type {
   IApiActionDto,
   IAppDto,
@@ -21,13 +21,13 @@ import type {
   IRenderPropTypeDto,
   IRichTextType,
   IStoreDto,
-} from '@codelab/shared/abstract/core'
-import type { PartialExcept } from '@codelab/shared/abstract/types'
+} from '@codelab/shared-abstract-core'
+import type { PartialExcept } from '@codelab/shared-abstract-types'
 
 import {
   rendererRef,
   RendererType,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 import {
   actionDomainServiceContext,
   appDomainServiceContext,
@@ -45,22 +45,21 @@ import {
   tagDomainServiceContext,
   typeDomainServiceContext,
   userDomainServiceContext,
-} from '@codelab/frontend/abstract/domain'
-import { userDto } from '@codelab/frontend/test/data'
-import { rendererFactory } from '@codelab/frontend-application-renderer/test'
+} from '@codelab/frontend-abstract-domain'
+import { rendererFactory } from '@codelab/frontend-application-renderer-test'
 import {
   apiActionFactory,
   codeActionFactory,
-} from '@codelab/frontend-domain-action/test'
-import { appFactory } from '@codelab/frontend-domain-app/test'
-import { atomFactory } from '@codelab/frontend-domain-atom/test'
-import { componentFactory } from '@codelab/frontend-domain-component/test'
-import { elementFactory } from '@codelab/frontend-domain-element/test'
-import { pageFactory } from '@codelab/frontend-domain-page/test'
-import { propFactory } from '@codelab/frontend-domain-prop/test'
-import { resourceFactory } from '@codelab/frontend-domain-resource/test'
-import { Store } from '@codelab/frontend-domain-store/store'
-import { storeFactory } from '@codelab/frontend-domain-store/test'
+} from '@codelab/frontend-domain-action-test'
+import { appFactory } from '@codelab/frontend-domain-app-test'
+import { atomFactory } from '@codelab/frontend-domain-atom-test'
+import { componentFactory } from '@codelab/frontend-domain-component-test'
+import { elementFactory } from '@codelab/frontend-domain-element-test'
+import { pageFactory } from '@codelab/frontend-domain-page-test'
+import { propFactory } from '@codelab/frontend-domain-prop-test'
+import { resourceFactory } from '@codelab/frontend-domain-resource-test'
+import { Store } from '@codelab/frontend-domain-store-store'
+import { storeFactory } from '@codelab/frontend-domain-store-test'
 import {
   codeMirrorTypeFactory,
   fieldFactory,
@@ -69,15 +68,16 @@ import {
   reactNodeTypeFactory,
   renderPropsTypeFactory,
   richTextTypeFactory,
-} from '@codelab/frontend-domain-type/test'
+} from '@codelab/frontend-domain-type-test'
+import { userDto } from '@codelab/frontend-test-data'
 import {
   IAtomType,
   IPageKind,
   IPrimitiveTypeKind,
   ITypeKind,
-} from '@codelab/shared/abstract/core'
-import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
-import { Validator } from '@codelab/shared/infra/typebox'
+} from '@codelab/shared-abstract-core'
+import { ROOT_ELEMENT_NAME } from '@codelab/shared-config-env'
+import { Validator } from '@codelab/shared-infra-typebox'
 import {
   Model,
   model,

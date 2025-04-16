@@ -1,11 +1,11 @@
-import type { IMapper, IStoreDto } from '@codelab/shared/abstract/core'
+import type { IMapper, IStoreDto } from '@codelab/shared-abstract-core'
 import type {
   StoreCreateInput,
   StoreDeleteInput,
   StoreUpdateInput,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
-import { connectNodeId } from '@codelab/shared/domain/orm'
+import { connectNodeId } from '@codelab/shared-domain-orm'
 
 export const storeMapper: IMapper<
   IStoreDto,

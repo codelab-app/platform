@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client'
-import { escapeDotPathKeys } from '@codelab/backend/shared/util'
-import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
+import { escapeDotPathKeys } from '@codelab/backend-shared-util'
+import { JWT_CLAIMS } from '@codelab/shared-abstract-core'
 
 const rolesPath = escapeDotPathKeys(`${JWT_CLAIMS}.roles`)
 

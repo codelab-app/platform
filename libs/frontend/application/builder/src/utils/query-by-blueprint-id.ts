@@ -1,4 +1,4 @@
-import type { Nullable } from '@codelab/shared/abstract/types'
+import type { Nullable } from '@codelab/shared-abstract-types'
 
 import { getBlueprintId } from './get-blueprint-id'
 

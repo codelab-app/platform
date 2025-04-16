@@ -1,14 +1,14 @@
 'use client'
 
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
+import type { IElementModel } from '@codelab/frontend-abstract-domain'
 import type { PopconfirmProps } from 'antd'
 import type { ReactNode } from 'react'
 
-import { getUiDataKey, type UiKey } from '@codelab/frontend/abstract/types'
+import { getUiDataKey, type UiKey } from '@codelab/frontend-abstract-types'
 import {
   useApplicationStore,
   useDomainStore,
-} from '@codelab/frontend-infra-mobx/context'
+} from '@codelab/frontend-infra-mobx-context'
 import { useAsyncHandler } from '@codelab/frontend-presentation-components-form'
 import { Popconfirm } from 'antd'
 import { observer } from 'mobx-react-lite'

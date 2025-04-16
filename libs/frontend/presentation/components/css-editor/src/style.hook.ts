@@ -1,5 +1,5 @@
-import { isRuntimeElement } from '@codelab/frontend/abstract/application'
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import { isRuntimeElement } from '@codelab/frontend-abstract-application'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx-context'
 import { useEffect, useState } from 'react'
 
 import type { CssProperty } from './css'

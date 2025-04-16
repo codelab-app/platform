@@ -2,8 +2,8 @@ import { gql } from '@apollo/client'
 import {
   getTypeReferences,
   isTypeDescendantOf,
-} from '@codelab/backend-infra-adapter/neo4j-driver'
-import { __ElementTypeKind } from '@codelab/shared/abstract/core'
+} from '@codelab/backend-infra-adapter-neo4j-driver'
+import { __ElementTypeKind } from '@codelab/shared-abstract-core'
 
 import { authOwnerOrAdmin } from '../model/user.schema'
 

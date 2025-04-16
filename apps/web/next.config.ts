@@ -1,10 +1,10 @@
+import type { NextConfig } from 'next'
+
 import bundleAnalyzer from '@next/bundle-analyzer'
 import { composePlugins, withNx } from '@nx/next'
-// eslint-disable-next-line import/default
 import env from 'env-var'
 
 const { get } = env
-
 const analyzeBundle = get('ANALYZE_BUNDLE').default('false').asBoolStrict()
 
 const withBundleAnalyzer = bundleAnalyzer({
@@ -23,20 +23,9 @@ const url = get('NEXT_PUBLIC_API_HOSTNAME').required().asString()
 const baseApiPath = get('NEXT_PUBLIC_BASE_API_PATH').required().asString()
 const apiHost = `${url}:${port}${baseApiPath}`
 
-/**
- * @type {import('@nx/next/plugins/with-nx').WithNxOptions}
- **/
-const nextConfig = {
+const nextConfig: NextConfig = {
   compiler: {
     styledComponents: true,
-  },
-  webpack(config) {
-    config.module.rules.push({
-      test: /\.svg$/i,
-      issuer: /\.[jt]sx?$/,
-      use: ['@svgr/webpack'],
-    })
-    return config
   },
   experimental: {
     // forceSwcTransforms: true,
@@ -54,16 +43,6 @@ const nextConfig = {
       dynamic: 30,
       static: 180,
     },
-    // https://github.com/vercel/turborepo/issues/4832#issuecomment-2629459687
-    // turbopack working for dev only not for production
-    turbo: {
-      rules: {
-        '*.svg': {
-          as: '*.js',
-          loaders: ['@svgr/webpack'],
-        },
-      },
-    },
   },
   nx: { svgr: false },
   // productionBrowserSourceMaps: Boolean(process.env.CI),
@@ -72,6 +51,17 @@ const nextConfig = {
   // disable to support uniforms
   // http://github.com/vazco/uniforms/issues/1194
   reactStrictMode: false,
+
+  // https://github.com/vercel/turborepo/issues/4832#issuecomment-2629459687
+  // turbopack working for dev only not for production
+  turbopack: {
+    rules: {
+      '*.svg': {
+        as: '*.js',
+        loaders: ['@svgr/webpack'],
+      },
+    },
+  },
   /**
    * https://nextjs.org/docs/app/building-your-application/routing/middleware#matching-paths
    */
@@ -100,6 +90,16 @@ const nextConfig = {
     //   },
     // ],
   }),
+
+  webpack: (config: any) => {
+    config.module.rules.push({
+      issuer: /\.[jt]sx?$/,
+      test: /\.svg$/i,
+      use: ['@svgr/webpack'],
+    })
+
+    return config
+  },
 }
 
 export default composePlugins(...plugins)(nextConfig)

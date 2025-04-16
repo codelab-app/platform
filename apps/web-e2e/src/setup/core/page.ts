@@ -4,7 +4,7 @@ import {
   getUiDataKey,
   getUiDataLabel,
   UiKey,
-} from '@codelab/frontend/abstract/types'
+} from '@codelab/frontend-abstract-types'
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import { test as base, expect } from '@playwright/test'
 

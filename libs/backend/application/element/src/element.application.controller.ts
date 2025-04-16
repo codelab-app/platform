@@ -1,7 +1,7 @@
 import {
   CreateElementDataSchema,
   type ICreateElementData,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import {
   Body,
   ClassSerializerInterceptor,

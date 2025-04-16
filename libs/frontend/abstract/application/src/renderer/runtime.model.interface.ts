@@ -1,4 +1,4 @@
-import type { Nullable } from '@codelab/shared/abstract/types'
+import type { Nullable } from '@codelab/shared-abstract-types'
 import type { AnyModel, Ref } from 'mobx-keystone'
 import type { ReactElement } from 'react'
 

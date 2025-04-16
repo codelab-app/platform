@@ -1,4 +1,3 @@
-import type { Identity } from '@codelab/shared/abstract/types'
 import type { ReactNode } from 'react'
 
 import type { ParamProps } from './params.props'

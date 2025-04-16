@@ -4,7 +4,7 @@
  * @param data - The data to filter.
  * @returns The filtered data, with empty strings removed.
  */
-import type { IPropData } from '@codelab/shared/abstract/core'
+import type { IPropData } from '@codelab/shared-abstract-core'
 
 import { isArray, isObjectType, pickBy } from 'remeda'
 

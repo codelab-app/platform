@@ -1,16 +1,16 @@
 import type {
   IFieldModel,
   IFieldRepository,
-} from '@codelab/frontend/abstract/domain'
-import type { IFieldDto, IRef } from '@codelab/shared/abstract/core'
-import type { NextFetchOptions } from '@codelab/shared/abstract/types'
-import type { FieldOptions, FieldWhere } from '@codelab/shared/infra/gqlgen'
+} from '@codelab/frontend-abstract-domain'
+import type { IFieldDto, IRef } from '@codelab/shared-abstract-core'
+import type { NextFetchOptions } from '@codelab/shared-abstract-types'
+import type { FieldOptions, FieldWhere } from '@codelab/shared-infra-gqlgen'
 
-import { Validator } from '@codelab/shared/infra/typebox'
 import {
   fieldMapper,
   fieldServerActions,
-} from '@codelab/shared-domain-module/field'
+} from '@codelab/shared-domain-module-field'
+import { Validator } from '@codelab/shared-infra-typebox'
 
 const { CreateFields, DeleteFields, GetFields, UpdateFields } =
   fieldServerActions

@@ -3,12 +3,12 @@ import type {
   ITypeTransformContext,
   IUnionTypeModel,
   JsonSchema,
-} from '@codelab/frontend/abstract/domain'
-import type { IUnionTypeDto } from '@codelab/shared/abstract/core'
+} from '@codelab/frontend-abstract-domain'
+import type { IUnionTypeDto } from '@codelab/shared-abstract-core'
 import type { Ref } from 'mobx-keystone'
 
-import { typeRef, userRef } from '@codelab/frontend/abstract/domain'
-import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+import { typeRef, userRef } from '@codelab/frontend-abstract-domain'
+import { assertIsTypeKind, ITypeKind } from '@codelab/shared-abstract-core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { mergeDeep } from 'remeda'
 

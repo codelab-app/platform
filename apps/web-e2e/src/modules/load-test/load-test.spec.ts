@@ -1,4 +1,4 @@
-import { type IApp } from '@codelab/shared/abstract/core'
+import { type IApp } from '@codelab/shared-abstract-core'
 import { expect } from '@playwright/test'
 
 import { globalBeforeAll } from '../../setup/before-all'

@@ -1,8 +1,8 @@
-import type { IPageDomainService } from '@codelab/frontend/abstract/domain'
-import type { IPageDto } from '@codelab/shared/abstract/core'
+import type { IPageDomainService } from '@codelab/frontend-abstract-domain'
+import type { IPageDto } from '@codelab/shared-abstract-core'
 
 import { chance } from '@codelab/frontend-domain-shared'
-import { IPageKind } from '@codelab/shared/abstract/core'
+import { IPageKind } from '@codelab/shared-abstract-core'
 import { v4 } from 'uuid'
 
 export const pageFactory =

@@ -10,7 +10,7 @@ import {
   type Point,
   Rect,
   Rectangle,
-} from '@codelab/frontend/shared/utils'
+} from '@codelab/frontend-shared-utils'
 
 import type { WithInternalDropData } from '../hooks'
 import type { HierarchicalCollision } from './hierarchical-collision.interface'

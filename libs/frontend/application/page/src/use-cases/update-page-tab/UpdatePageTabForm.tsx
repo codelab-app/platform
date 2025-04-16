@@ -1,9 +1,9 @@
-import type { IPageModel } from '@codelab/frontend/abstract/domain'
-import type { IPageUpdateFormData } from '@codelab/shared/abstract/core'
+import type { IPageModel } from '@codelab/frontend-abstract-domain'
+import type { IPageUpdateFormData } from '@codelab/shared-abstract-core'
 
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend-abstract-types'
 import { Form } from '@codelab/frontend-presentation-components-form'
-import { IPageKind } from '@codelab/shared/abstract/core'
+import { IPageKind } from '@codelab/shared-abstract-core'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
 

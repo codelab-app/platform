@@ -1,7 +1,7 @@
-import type { PageProps } from '@codelab/frontend/abstract/types'
+import type { PageProps } from '@codelab/frontend-abstract-types'
 
-import { PageBuilderHeaderContainer } from '@codelab/frontend-application-builder/use-cases/page-builder'
-import { parsePageProps } from '@codelab/frontend-application-shared-store/router'
+import { PageBuilderHeaderContainer } from '@codelab/frontend-application-builder-use-cases-page-builder'
+import { parsePageProps } from '@codelab/frontend-application-shared-store-router'
 
 const Page = async (props: PageProps<'appId' | 'pageId'>) => {
   const {

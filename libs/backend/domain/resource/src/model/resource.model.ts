@@ -4,10 +4,10 @@ import type {
   IResource,
   IResourceDto,
   IResourceType,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 
-import { Prop } from '@codelab/backend/domain/prop'
-import { IModel } from '@codelab/shared/abstract/core'
+import { Prop } from '@codelab/backend-domain-prop'
+import { IModel } from '@codelab/shared-abstract-core'
 
 export class Resource extends IModel implements IResource {
   config: IProp

@@ -1,7 +1,7 @@
-import type { IActionDto } from '@codelab/shared/abstract/core'
+import type { IActionDto } from '@codelab/shared-abstract-core'
 
-import { PropRepository } from '@codelab/backend/domain/prop'
-import { IActionKind } from '@codelab/shared/abstract/core'
+import { PropRepository } from '@codelab/backend-domain-prop'
+import { IActionKind } from '@codelab/shared-abstract-core'
 import { Injectable } from '@nestjs/common'
 
 import { CodeAction } from '../model/code-action.model'

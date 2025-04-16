@@ -1,6 +1,6 @@
-import type { ITypeUpdateDto } from '@codelab/frontend/abstract/domain'
+import type { ITypeUpdateDto } from '@codelab/frontend-abstract-domain'
 
-import { findTypeServerActions } from '@codelab/shared-domain-module/type'
+import { findTypeServerActions } from '@codelab/shared-domain-module-type'
 
 const getInnerTypeIds = (submitData: ITypeUpdateDto) => [
   ...(submitData.unionTypeIds ?? []),

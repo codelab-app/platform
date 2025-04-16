@@ -74,7 +74,7 @@ export class ServerFetchVisitor extends BaseVisitor<
       .join(', ')
 
     return [
-      "import type { NextFetchOptions } from '@codelab/shared/abstract/types'",
+      "import type { NextFetchOptions } from '@codelab/shared-abstract-types'",
       `import { ${this.config.gqlFn} } from '${this.config.gqlFnPath}'`,
       `import { ${documentImports} } from '${this.config.graphqlPath}'\n`,
     ]

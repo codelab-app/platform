@@ -1,8 +1,8 @@
-import type { IRenderOutput } from '@codelab/frontend/abstract/application'
-import type { IPropData } from '@codelab/shared/abstract/core'
-import type { Nullish } from '@codelab/shared/abstract/types'
+import type { IRenderOutput } from '@codelab/frontend-abstract-application'
+import type { IPropData } from '@codelab/shared-abstract-core'
+import type { Nullish } from '@codelab/shared-abstract-types'
 
-import { mergeProps } from '@codelab/frontend-domain-prop/utils'
+import { mergeProps } from '@codelab/frontend-domain-prop-utils'
 
 // Named factory methods for convenience
 export const RenderOutput = {

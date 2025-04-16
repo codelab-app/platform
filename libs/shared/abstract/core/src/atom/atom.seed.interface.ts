@@ -1,4 +1,4 @@
-import type { FilterRecordKeys } from '@codelab/shared/abstract/types'
+import type { FilterRecordKeys } from '@codelab/shared-abstract-types'
 
 import type { IAtomType } from './atom-type.enum'
 

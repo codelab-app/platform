@@ -10,7 +10,8 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "prod",
       "options": {
-        "outputPath": "dist/apps/landing"
+        "outputPath": "dist/apps/landing",
+        "turbopack": true
       },
       "configurations": {
         "dev": {

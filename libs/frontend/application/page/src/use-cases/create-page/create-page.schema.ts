@@ -7,11 +7,11 @@ import {
   nonEmptyString,
   pageUrlSchema,
   titleCaseValidation,
-} from '@codelab/frontend-presentation-components-form/schema'
+} from '@codelab/frontend-presentation-components-form-schema'
 import {
   type IPageCreateFormData,
   IPageKind,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 
 export const createPageSchema: JSONSchemaType<IPageCreateFormData> = {
   properties: {

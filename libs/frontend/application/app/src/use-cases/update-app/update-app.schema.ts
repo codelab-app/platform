@@ -1,11 +1,11 @@
-import type { IAppUpdateFormData } from '@codelab/frontend/abstract/domain'
+import type { IAppUpdateFormData } from '@codelab/frontend-abstract-domain'
 import type { JSONSchemaType } from 'ajv'
 
 import {
   idSchema,
   nonEmptyString,
   titleCaseValidation,
-} from '@codelab/frontend-presentation-components-form/schema'
+} from '@codelab/frontend-presentation-components-form-schema'
 
 export const updateAppSchema: JSONSchemaType<IAppUpdateFormData> = {
   properties: {

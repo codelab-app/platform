@@ -7,7 +7,7 @@ const path_1 = require("path");
 exports.createNodesV2 = [
     '**/tsconfig.spec.json',
     async (configFiles, options, context) => {
-        return await (0, devkit_1.createNodesFromFiles)((configFile, _options, _context) => createNodesInternal(configFile, _options, _context), configFiles, options, context);
+        return await (0, devkit_1.createNodesFromFiles)((configFile, _options, _context) => createNodesInternal(configFile, _options, _context), configFiles, options ?? {}, context);
     },
 ];
 const createNodesInternal = async (configFilePath, options, context) => {

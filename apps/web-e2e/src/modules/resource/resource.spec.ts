@@ -1,4 +1,4 @@
-import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend-abstract-application'
 import { expect } from '@playwright/test'
 
 import { globalBeforeAll } from '../../setup/before-all'

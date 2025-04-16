@@ -2,11 +2,11 @@ import type {
   DomainCreatedSubscription,
   DomainDeletedSubscription,
   DomainUpdatedSubscription,
-} from '@codelab/shared-domain-module/domain'
+} from '@codelab/shared-domain-module-domain'
 
-import { DigitaloceanService } from '@codelab/backend/infra/adapter/digitalocean'
-import { DnsService } from '@codelab/backend/infra/adapter/dns'
-import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
+import { DigitaloceanService } from '@codelab/backend-infra-adapter-digitalocean'
+import { DnsService } from '@codelab/backend-infra-adapter-dns'
+import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
 import { Injectable } from '@nestjs/common'
 import { OnEvent } from '@nestjs/event-emitter'
 

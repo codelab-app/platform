@@ -1,6 +1,6 @@
 import CaretRightOutlined from '@ant-design/icons/CaretRightOutlined'
-import { ElementStylePseudoClass } from '@codelab/frontend/abstract/application'
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import { ElementStylePseudoClass } from '@codelab/frontend-abstract-application'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx-context'
 import {
   Collapse,
   type CollapseProps,

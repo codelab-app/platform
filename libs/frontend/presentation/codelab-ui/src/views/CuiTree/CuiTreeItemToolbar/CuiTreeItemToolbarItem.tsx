@@ -1,4 +1,4 @@
-import { getUiDataKey } from '@codelab/frontend/abstract/types'
+import { getUiDataKey } from '@codelab/frontend-abstract-types'
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import { Button, Popconfirm, Tooltip } from 'antd'
 

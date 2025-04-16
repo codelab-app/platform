@@ -3,19 +3,19 @@
 import type {
   IAuthGuardModel,
   IAuthGuardUpdateFormData,
-} from '@codelab/frontend/abstract/domain'
-import type { IFormController } from '@codelab/frontend/abstract/types'
+} from '@codelab/frontend-abstract-domain'
+import type { IFormController } from '@codelab/frontend-abstract-types'
 
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend-abstract-types'
 import {
   ResourceFetchConfigField,
   ResourceTestRequest,
-} from '@codelab/frontend-application-resource/components'
+} from '@codelab/frontend-application-resource-components'
 import {
   Form,
   FormController,
 } from '@codelab/frontend-presentation-components-form'
-import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
+import { DisplayIf } from '@codelab/frontend-presentation-view-components-conditionalView'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
 

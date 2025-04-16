@@ -1,4 +1,4 @@
-import type { ObjectLike } from '@codelab/shared/abstract/types'
+import type { ObjectLike } from '@codelab/shared-abstract-types'
 import type { Ref } from 'mobx-keystone'
 
 export function toRefSchema(ref: Ref<ObjectLike>): { id: string }

@@ -1,8 +1,8 @@
-import type { PageProps } from '@codelab/frontend/abstract/types'
+import type { PageProps } from '@codelab/frontend-abstract-types'
 import type { Metadata } from 'next'
 
-import { parsePageProps } from '@codelab/frontend-application-shared-store/router'
-import { DeleteTypeModalContainer } from '@codelab/frontend-application-type/use-cases/delete-type'
+import { parsePageProps } from '@codelab/frontend-application-shared-store-router'
+import { DeleteTypeModalContainer } from '@codelab/frontend-application-type-use-cases-delete-type'
 
 export const metadata: Metadata = {
   title: 'Delete Type | Codelab',

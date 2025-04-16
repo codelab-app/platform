@@ -1,4 +1,4 @@
-import type { ObjectLike } from '@codelab/shared/abstract/types'
+import type { ObjectLike } from '@codelab/shared-abstract-types'
 
 import { Children, cloneElement, isValidElement } from 'react'
 import { useRecoilState } from 'recoil'

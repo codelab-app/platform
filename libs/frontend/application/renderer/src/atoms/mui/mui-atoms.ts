@@ -1,6 +1,6 @@
-// import type { IAtomRendererRecord } from '@codelab/frontend/abstract/domain'
-// import { dynamicLoader } from '@codelab/frontend/shared/utils'
-// import { IAtomType } from '@codelab/shared/abstract/core'
+// import type { IAtomRendererRecord } from '@codelab/frontend-abstract-domain'
+// import { dynamicLoader } from '@codelab/frontend-shared-utils'
+// import { IAtomType } from '@codelab/shared-abstract-core'
 
 // export const muiAtoms: IAtomRendererRecord = {
 //   [IAtomType.MuiAccordion]: dynamicLoader(
@@ -169,7 +169,7 @@
 //   [IAtomType.MuiHidden]: dynamicLoader(() => import('@mui/material/Hidden')),
 //   // dynamic causes jest tests to fail
 //   // Size too large, comment out for now
-//   // [IAtomType.MuiIcon]: import('@codelab/frontend/platform/atoms').then(
+//   // [IAtomType.MuiIcon]: import('@codelab/frontend-application-atom-components-mui-icon').then(
 //   //   (mod) => mod.MuiIcon,
 //   // ) as any,
 //   [IAtomType.MuiIconButton]: dynamicLoader(

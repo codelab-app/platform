@@ -1,8 +1,8 @@
-import type { PageProps } from '@codelab/frontend/abstract/types'
+import type { PageProps } from '@codelab/frontend-abstract-types'
 import type { Metadata } from 'next'
 
-import { parsePageProps } from '@codelab/frontend-application-shared-store/router'
-import { UpdateTypePopoverContainer } from '@codelab/frontend-application-type/use-cases/update-type'
+import { parsePageProps } from '@codelab/frontend-application-shared-store-router'
+import { UpdateTypePopoverContainer } from '@codelab/frontend-application-type-use-cases-update-type'
 
 export const metadata: Metadata = {
   title: 'Update Type | Codelab',

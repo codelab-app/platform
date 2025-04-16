@@ -1,4 +1,4 @@
-import type { SearchParamsClientProps } from '@codelab/frontend/abstract/types'
+import type { SearchParamsClientProps } from '@codelab/frontend-abstract-types'
 
 export interface ITypeCreateRoute {
   searchParams: SearchParamsClientProps

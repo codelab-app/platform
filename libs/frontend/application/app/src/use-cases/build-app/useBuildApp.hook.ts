@@ -1,10 +1,10 @@
-import type { IAppModel } from '@codelab/frontend/abstract/domain'
+import type { IAppModel } from '@codelab/frontend-abstract-domain'
 
 import {
   useErrorNotify,
   useSuccessNotify,
-} from '@codelab/frontend/infra/context'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+} from '@codelab/frontend-infra-context'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import { useState } from 'react'
 
 import { buildAppUseCase } from './build-app.use-case'

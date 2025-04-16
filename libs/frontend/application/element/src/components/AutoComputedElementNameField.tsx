@@ -1,17 +1,17 @@
 'use client'
 
-import type { IElementRenderTypeDto } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
+import type { IElementRenderTypeDto } from '@codelab/shared-abstract-core'
+import type { Maybe } from '@codelab/shared-abstract-types'
 import type { InputProps } from 'antd'
 import type { FieldProps } from 'uniforms'
 
-import { makeAutoIncrementedName } from '@codelab/frontend-domain-element/use-cases/incremented-name'
+import { makeAutoIncrementedName } from '@codelab/frontend-domain-element-use-cases-incremented-name'
 import {
   useApplicationStore,
   useDomainStore,
-} from '@codelab/frontend-infra-mobx/context'
-import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
-import { titleCase } from '@codelab/shared/utils'
+} from '@codelab/frontend-infra-mobx-context'
+import { IElementRenderTypeKind } from '@codelab/shared-abstract-core'
+import { titleCase } from '@codelab/shared-utils'
 import { observer } from 'mobx-react-lite'
 import { useEffect, useRef } from 'react'
 import { connectField, useField } from 'uniforms'

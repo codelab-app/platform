@@ -1,17 +1,17 @@
 import type {
   ITypeCreateFormData,
   ITypeModel,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 import type {
   IArrayTypeDto,
   IInterfaceTypeDto,
   IRef,
   ITypeDto,
   IUnionTypeDto,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 
-import { ITypeKind } from '@codelab/shared/abstract/core'
-import { TypeKind } from '@codelab/shared/infra/gqlgen'
+import { ITypeKind } from '@codelab/shared-abstract-core'
+import { TypeKind } from '@codelab/shared-infra-gqlgen'
 
 import { ActionType } from './action-type.model'
 import { AppType } from './app-type.model'

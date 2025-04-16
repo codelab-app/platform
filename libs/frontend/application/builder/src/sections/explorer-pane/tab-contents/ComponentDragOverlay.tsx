@@ -1,7 +1,7 @@
 import type {
   IAtomModel,
   IComponentModel,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 
 import { ComponentIcon } from './ComponentIcon'
 

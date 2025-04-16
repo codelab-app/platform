@@ -1,8 +1,8 @@
-import type { IJobQueueResponse } from '@codelab/shared/abstract/infra'
+import type { IJobQueueResponse } from '@codelab/shared-abstract-infra'
 import type { APIRequestContext } from '@playwright/test'
 
-import { jobSubscription } from '@codelab/frontend/infra/ws'
-import { env } from '@codelab/shared/config/env'
+import { jobSubscription } from '@codelab/frontend-infra-ws'
+import { env } from '@codelab/shared-config-env'
 import { v4 } from 'uuid'
 
 import type { ApiRequestPostOptions } from './api'

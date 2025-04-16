@@ -1,10 +1,10 @@
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
+import type { IElementModel } from '@codelab/frontend-abstract-domain'
 import type { RefObject } from 'react'
 
 import DragOutlined from '@ant-design/icons/DragOutlined'
-import { BuilderDndAction } from '@codelab/frontend/abstract/application'
-import { DRAG_OVERLAY_ID } from '@codelab/frontend-application-dnd/components'
-import { useTypedDraggable } from '@codelab/frontend-application-dnd/hooks'
+import { BuilderDndAction } from '@codelab/frontend-abstract-application'
+import { DRAG_OVERLAY_ID } from '@codelab/frontend-application-dnd-components'
+import { useTypedDraggable } from '@codelab/frontend-application-dnd-hooks'
 
 const DragButtonContent = () => (
   <div className="flex size-7 items-center justify-center align-middle">

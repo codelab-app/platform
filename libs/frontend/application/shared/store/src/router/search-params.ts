@@ -1,7 +1,7 @@
 import type {
   SearchParamsClientProps,
   SearchParamsServerProps,
-} from '@codelab/frontend/abstract/types'
+} from '@codelab/frontend-abstract-types'
 
 /**
  * Parse the type only, we don't validate the existence of the params since client first pass render may be undefined

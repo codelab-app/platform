@@ -1,3 +1,3 @@
-import { TagsViewHeader } from '@codelab/frontend-application-tag/views'
+import { TagsViewHeader } from '@codelab/frontend-application-tag-views'
 
 export default TagsViewHeader

@@ -1,5 +1,5 @@
-import { SharedDomainModule } from '@codelab/backend/domain/shared/modules'
-import { UserDomainModule } from '@codelab/backend/domain/user'
+import { SharedDomainModule } from '@codelab/backend-domain-shared-modules'
+import { UserDomainModule } from '@codelab/backend-domain-user'
 import { Module } from '@nestjs/common'
 
 import { TypeFactory } from './factory'

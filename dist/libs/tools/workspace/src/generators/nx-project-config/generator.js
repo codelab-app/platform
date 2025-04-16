@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.nxProjectConfigGenerator = void 0;
 const devkit_1 = require("@nx/devkit");
 const remove_test_targets_1 = require("./jest/remove-test-targets");
+const migrate_project_reference_1 = require("./migrate-project-reference");
 const add_project_tags_1 = require("./project-tags/add-project-tags");
 const tsconfig_base_1 = require("./tsconfig/base/tsconfig.base");
 /**
@@ -38,6 +39,10 @@ const nxProjectConfigGenerator = async (tree, options) => {
         (0, remove_test_targets_1.updateTestTargets)(tree, projectConfig);
         (0, tsconfig_base_1.updateBaseTsconfig)(tree, projectConfig);
         // updateLibraryTsconfig(tree, projectConfig)
+        // Migrate project to use TypeScript project references
+        if (options.migrateToProjectReferences) {
+            await (0, migrate_project_reference_1.migrateProjectReference)(tree, projectConfig);
+        }
         (0, devkit_1.updateProjectConfiguration)(tree, projectName, projectConfig);
     }
     await (0, devkit_1.formatFiles)(tree);

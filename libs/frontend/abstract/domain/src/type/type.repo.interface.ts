@@ -1,11 +1,11 @@
-import type { ITypeDto } from '@codelab/shared/abstract/core'
-import type { NextFetchOptions } from '@codelab/shared/abstract/types'
+import type { ITypeDto } from '@codelab/shared-abstract-core'
+import type { NextFetchOptions } from '@codelab/shared-abstract-types'
 import type {
   BaseTypeFragment,
   IBaseTypeOptions,
   IBaseTypeWhere,
   TypeFragment,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
 import type { IRepository } from '../shared'
 

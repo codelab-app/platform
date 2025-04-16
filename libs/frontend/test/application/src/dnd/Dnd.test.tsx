@@ -1,23 +1,23 @@
 /* eslint-disable unicorn/filename-case */
 
-import type { IRendererModel } from '@codelab/frontend/abstract/application'
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
-import type { Point } from '@codelab/frontend/shared/utils'
+import type { IRendererModel } from '@codelab/frontend-abstract-application'
+import type { IElementModel } from '@codelab/frontend-abstract-domain'
+import type { Point } from '@codelab/frontend-shared-utils'
 
-import { runtimeElementRef } from '@codelab/frontend/abstract/application'
-import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/domain'
-import { DROP_INDICATOR_STYLE } from '@codelab/frontend-application-builder/hooks'
-import { RenderBlueprint } from '@codelab/frontend-application-builder/use-cases/base-builder'
-import { queryByBlueprintId } from '@codelab/frontend-application-builder/utils'
+import { runtimeElementRef } from '@codelab/frontend-abstract-application'
+import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend-abstract-domain'
+import { DROP_INDICATOR_STYLE } from '@codelab/frontend-application-builder-hooks'
+import { RenderBlueprint } from '@codelab/frontend-application-builder-use-cases-base-builder'
+import { queryByBlueprintId } from '@codelab/frontend-application-builder-utils'
 import {
   DRAG_OVERLAY_ID,
   DROP_OVERLAY_ID,
-} from '@codelab/frontend-application-dnd/components'
+} from '@codelab/frontend-application-dnd-components'
 import {
   createTestStore,
   Layout,
   RootStoreProvider,
-} from '@codelab/frontend-infra-mobx/store'
+} from '@codelab/frontend-infra-mobx-store'
 import { act, fireEvent, render } from '@testing-library/react'
 import { createRef } from 'react'
 

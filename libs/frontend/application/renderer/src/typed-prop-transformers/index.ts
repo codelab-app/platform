@@ -1,4 +1,4 @@
-import { ITypeKind } from '@codelab/shared/abstract/core'
+import { ITypeKind } from '@codelab/shared-abstract-core'
 import { objectMap } from 'mobx-keystone'
 
 import { ActionTypeTransformer } from './action-type-transformer'

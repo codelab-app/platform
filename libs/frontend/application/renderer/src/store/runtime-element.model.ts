@@ -9,12 +9,12 @@ import type {
   IRuntimeElementStyleModel,
   IRuntimeModel,
   IRuntimePageModel,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 import type {
   IActionModel,
   IElementModel,
-} from '@codelab/frontend/abstract/domain'
-import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
+} from '@codelab/frontend-abstract-domain'
+import type { Maybe, Nullable } from '@codelab/shared-abstract-types'
 import type { Ref, SnapshotInOf } from 'mobx-keystone'
 import type { ArrayOrSingle } from 'ts-essentials/dist/types'
 
@@ -26,27 +26,24 @@ import {
   isRuntimeComponent,
   isRuntimeElement,
   isRuntimePage,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 import {
   getComponentDomainService,
   isComponent,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 import { evaluateExpression, hasExpression } from '@codelab/shared-infra-eval'
-import { computed, reaction } from 'mobx'
+import { computed } from 'mobx'
 import {
   detach,
-  getSnapshot,
   idProp,
   Model,
   model,
   modelAction,
-  onSnapshot,
   patchRecorder,
   prop,
 } from 'mobx-keystone'
-import { todo } from 'node:test'
 import { createElement, type ReactElement, type ReactNode } from 'react'
-import { difference, filter, isTruthy, pick } from 'remeda'
+import { difference, filter, isTruthy } from 'remeda'
 
 import { ElementWrapper } from '../components'
 

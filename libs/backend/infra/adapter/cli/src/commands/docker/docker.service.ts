@@ -1,7 +1,7 @@
 import type { ArgumentsCamelCase, Argv, CommandModule } from 'yargs'
 
-import { execCommand } from '@codelab/backend/infra/adapter/shell'
-import { Stage } from '@codelab/shared/abstract/core'
+import { execCommand } from '@codelab/backend-infra-adapter-shell'
+import { Stage } from '@codelab/shared-abstract-core'
 import { Injectable } from '@nestjs/common'
 
 import type { StageParam } from '../../shared/options'

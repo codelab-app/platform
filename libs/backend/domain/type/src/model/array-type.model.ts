@@ -1,6 +1,6 @@
-import type { IArrayTypeDto, ITypeRef } from '@codelab/shared/abstract/core'
+import type { IArrayTypeDto, ITypeRef } from '@codelab/shared-abstract-core'
 
-import { ITypeKind } from '@codelab/shared/abstract/core'
+import { ITypeKind } from '@codelab/shared-abstract-core'
 
 import { BaseType } from './base-type.model'
 

@@ -1,11 +1,11 @@
-import type { IRuntimeContext } from '@codelab/frontend/abstract/application'
+import type { IRuntimeContext } from '@codelab/frontend-abstract-application'
 import type {
   ITypeModel,
   ITypeTransformContext,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 
 import { createAutoCompleteOptions } from '@codelab/frontend-presentation-components-codemirror'
-import { ITypeKind } from '@codelab/shared/abstract/core'
+import { ITypeKind } from '@codelab/shared-abstract-core'
 
 import { actionTypeUniformSchema } from './action-type-uniform.schema'
 import { appTypeUniformSchema } from './app-type-uniform.schema'

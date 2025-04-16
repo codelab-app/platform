@@ -1,7 +1,7 @@
-import type { IRef } from '@codelab/shared/abstract/core'
+import type { IRef } from '@codelab/shared-abstract-core'
 import type { JSONSchemaType } from 'ajv'
 
-import { idSchema } from '@codelab/frontend-presentation-components-form/schema'
+import { idSchema } from '@codelab/frontend-presentation-components-form-schema'
 
 export interface DeleteElementData {
   element: IRef

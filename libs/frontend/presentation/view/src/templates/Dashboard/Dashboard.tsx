@@ -1,6 +1,6 @@
 'use client'
 
-import type { DashboardProps } from '@codelab/frontend/abstract/types'
+import type { DashboardProps } from '@codelab/frontend-abstract-types'
 
 import {
   configPaneBreakpoints,
@@ -10,8 +10,8 @@ import {
   CuiResizablePanel,
   explorerPaneBreakpoints,
   PaneSection,
-} from '@codelab/frontend/presentation/codelab-ui'
-import { useIsMounted } from '@codelab/frontend/shared/utils'
+} from '@codelab/frontend-presentation-codelab-ui'
+import { useIsMounted } from '@codelab/frontend-shared-utils'
 import Layout from 'antd/es/layout'
 import Sider from 'antd/es/layout/Sider'
 import { useMemo } from 'react'

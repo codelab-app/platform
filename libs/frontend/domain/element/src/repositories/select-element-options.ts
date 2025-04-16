@@ -1,9 +1,9 @@
 import type {
   SelectElementOption,
   SelectElementOptions,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 
-import { IElementTypeKind } from '@codelab/shared/abstract/core'
+import { IElementTypeKind } from '@codelab/shared-abstract-core'
 import { difference } from 'remeda'
 
 import { mapElementOption } from '../use-cases/element-options'

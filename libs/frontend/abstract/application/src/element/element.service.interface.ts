@@ -2,9 +2,9 @@ import type {
   IElementModel,
   IMoveElementContext,
   IUpdateElementData,
-} from '@codelab/frontend/abstract/domain'
-import type { IPopover } from '@codelab/frontend/abstract/types'
-import type { IElementDto } from '@codelab/shared/abstract/core'
+} from '@codelab/frontend-abstract-domain'
+import type { IPopover } from '@codelab/frontend-abstract-types'
+import type { IElementDto } from '@codelab/shared-abstract-core'
 
 import type { IBuilderRoute } from '../builder'
 

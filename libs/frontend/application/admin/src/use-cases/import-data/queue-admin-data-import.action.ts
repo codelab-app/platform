@@ -1,9 +1,9 @@
 'use server'
 
-import type { IImportDto } from '@codelab/shared/abstract/core'
+import type { IImportDto } from '@codelab/shared-abstract-core'
 
-import { getEnv } from '@codelab/shared/config/env'
-import { serverFetchWithAuth } from '@codelab/shared/infra/fetch-server'
+import { getEnv } from '@codelab/shared-config-env'
+import { serverFetchWithAuth } from '@codelab/shared-infra-fetch-server'
 import { v4 } from 'uuid'
 
 export const queueAdminDataImportAction = async (data?: IImportDto) => {

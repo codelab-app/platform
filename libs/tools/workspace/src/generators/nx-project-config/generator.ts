@@ -7,9 +7,10 @@ import {
   updateProjectConfiguration,
 } from '@nx/devkit'
 
-import type { EslintGeneratorSchema } from './schema'
+import type { ProjectConfigGeneratorSchema } from './schema'
 
 import { updateTestTargets } from './jest/remove-test-targets'
+import { migrateProjectReference } from './migrate-project-reference'
 import { addProjectTags } from './project-tags/add-project-tags'
 import { updateBaseTsconfig } from './tsconfig/base/tsconfig.base'
 
@@ -18,7 +19,7 @@ import { updateBaseTsconfig } from './tsconfig/base/tsconfig.base'
  */
 export const nxProjectConfigGenerator = async (
   tree: Tree,
-  options: EslintGeneratorSchema,
+  options: ProjectConfigGeneratorSchema,
 ) => {
   const projects = getProjects(tree)
   const projectNames = projects.keys()
@@ -56,6 +57,11 @@ export const nxProjectConfigGenerator = async (
 
     updateBaseTsconfig(tree, projectConfig)
     // updateLibraryTsconfig(tree, projectConfig)
+
+    // Migrate project to use TypeScript project references
+    if (options.migrateToProjectReferences) {
+      await migrateProjectReference(tree, projectConfig)
+    }
 
     updateProjectConfiguration(tree, projectName, projectConfig)
   }

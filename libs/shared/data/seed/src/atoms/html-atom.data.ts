@@ -1,6 +1,6 @@
-import type { IHtmlAtomRecords } from '@codelab/shared/abstract/core'
+import type { IHtmlAtomRecords } from '@codelab/shared-abstract-core'
 
-import { IAtomType } from '@codelab/shared/abstract/core'
+import { IAtomType } from '@codelab/shared-abstract-core'
 
 export const htmlAtomData: IHtmlAtomRecords = {
   [IAtomType.HtmlA]: {

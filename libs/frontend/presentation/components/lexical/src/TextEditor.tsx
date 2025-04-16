@@ -1,12 +1,12 @@
 /* eslint-disable tailwindcss/no-custom-classname */
 'use client'
 
-import type { Maybe } from '@codelab/shared/abstract/types'
+import type { Maybe } from '@codelab/shared-abstract-types'
 import type { InitialConfigType } from '@lexical/react/LexicalComposer'
 import type { EditorState, LexicalEditor } from 'lexical'
 
-import { mergeProps } from '@codelab/frontend-domain-prop/utils'
-import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
+import { mergeProps } from '@codelab/frontend-domain-prop-utils'
+import { DisplayIf } from '@codelab/frontend-presentation-view-components-conditionalView'
 import { LexicalComposer } from '@lexical/react/LexicalComposer'
 import { ContentEditable } from '@lexical/react/LexicalContentEditable'
 import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary'

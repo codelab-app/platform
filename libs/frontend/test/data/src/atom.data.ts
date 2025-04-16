@@ -1,9 +1,9 @@
-import type { IAtomDto } from '@codelab/shared/abstract/core'
+import type { IAtomDto } from '@codelab/shared-abstract-core'
 
 import {
   IAtomType,
   IElementRenderTypeKind,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import { v4 } from 'uuid'
 
 import { userDto } from './user.data'

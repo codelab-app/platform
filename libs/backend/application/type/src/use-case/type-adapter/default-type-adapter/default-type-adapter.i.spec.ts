@@ -1,13 +1,13 @@
-import type { IUnionTypeDto } from '@codelab/shared/abstract/core'
+import type { IUnionTypeDto } from '@codelab/shared-abstract-core'
 
 import {
   InterfaceTypeRepository,
   PrimitiveTypeRepository,
   TypeDomainModule,
-} from '@codelab/backend/domain/type'
-import { initUserContext } from '@codelab/backend/test/setup'
-import { Neo4jModule } from '@codelab/backend-infra-adapter/neo4j-driver'
-import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+} from '@codelab/backend-domain-type'
+import { Neo4jModule } from '@codelab/backend-infra-adapter-neo4j-driver'
+import { initUserContext } from '@codelab/backend-test-setup'
+import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared-abstract-core'
 
 import { TypeApplicationModule } from '../../../type.application.module'
 import { DefaultTypeAdapterService } from './default-type-adapter.service'

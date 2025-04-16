@@ -1,28 +1,28 @@
 import type { ModuleMetadata } from '@nestjs/common'
 
-import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
+import { AuthDomainService } from '@codelab/backend-domain-shared-auth'
 import {
   HealthcheckController,
   SharedDomainModule,
-} from '@codelab/backend/domain/shared/modules'
-import { UserDomainModule, UserRepository } from '@codelab/backend/domain/user'
-import { GraphqlModule } from '@codelab/backend/infra/adapter/graphql'
-import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
+} from '@codelab/backend-domain-shared-modules'
+import { UserDomainModule, UserRepository } from '@codelab/backend-domain-user'
+import { GraphqlModule } from '@codelab/backend-infra-adapter-graphql'
+import { CodelabLoggerModule } from '@codelab/backend-infra-adapter-logger'
+import {
+  GraphQLSchemaModule,
+  SchemaService,
+} from '@codelab/backend-infra-adapter-neo4j-schema'
 import {
   RequestContextMiddleware,
   RequestContextModule,
-} from '@codelab/backend/infra/adapter/request-context'
-import { endpointConfig } from '@codelab/backend/infra/core'
+} from '@codelab/backend-infra-adapter-request-context'
+import { endpointConfig } from '@codelab/backend-infra-core'
 import {
   initUserServices,
   resetAndSeedDatabase,
   startServer,
-} from '@codelab/backend/test/utils'
-import {
-  GraphQLSchemaModule,
-  SchemaService,
-} from '@codelab/backend-infra-adapter/neo4j-schema'
-import { userDto } from '@codelab/shared/data/test'
+} from '@codelab/backend-test-utils'
+import { userDto } from '@codelab/shared-data-test'
 import { ConfigModule } from '@nestjs/config'
 import { CommandBus, CqrsModule } from '@nestjs/cqrs'
 import { Test, type TestingModule } from '@nestjs/testing'

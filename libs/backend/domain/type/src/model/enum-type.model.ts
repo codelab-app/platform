@@ -3,10 +3,10 @@ import type {
   IEnumTypeDto,
   IEnumTypeValueDto,
   IFieldDto,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 
-import { ITypeKind } from '@codelab/shared/abstract/core'
-import { titleCase } from '@codelab/shared/utils'
+import { ITypeKind } from '@codelab/shared-abstract-core'
+import { titleCase } from '@codelab/shared-utils'
 
 import { BaseType } from './base-type.model'
 

@@ -1,6 +1,6 @@
-import { useNotify } from '@codelab/frontend/infra/context'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { NotificationType } from '@codelab/shared/abstract/types'
+import { useNotify } from '@codelab/frontend-infra-context'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
+import { NotificationType } from '@codelab/shared-abstract-types'
 
 export const useRequiredParentValidator = () => {
   const { atomDomainService, elementDomainService } = useDomainStore()

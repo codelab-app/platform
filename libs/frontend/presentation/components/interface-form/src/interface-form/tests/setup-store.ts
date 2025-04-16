@@ -1,11 +1,11 @@
-import type { ITypeModel } from '@codelab/frontend/abstract/domain'
+import type { ITypeModel } from '@codelab/frontend-abstract-domain'
 
-import { fieldRef, typeRef, userRef } from '@codelab/frontend/abstract/domain'
+import { fieldRef, typeRef, userRef } from '@codelab/frontend-abstract-domain'
 import { createRootDomainStore } from '@codelab/frontend-domain-shared'
 import {
   FieldDomainService,
   TypeDomainService,
-} from '@codelab/frontend-domain-type/services'
+} from '@codelab/frontend-domain-type-services'
 import {
   ActionType,
   AppType,
@@ -21,13 +21,13 @@ import {
   RenderPropType,
   RichTextType,
   UnionType,
-} from '@codelab/frontend-domain-type/store'
-import { ITypeKind } from '@codelab/shared/abstract/core'
+} from '@codelab/frontend-domain-type-store'
+import { ITypeKind } from '@codelab/shared-abstract-core'
 import {
   CodeMirrorLanguage,
   ElementTypeKind,
   PrimitiveTypeKind,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 import { objectMap } from 'mobx-keystone'
 import { v4 } from 'uuid'
 

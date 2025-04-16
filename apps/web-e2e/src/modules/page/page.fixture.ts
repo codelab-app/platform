@@ -1,6 +1,6 @@
-import { RoutePaths } from '@codelab/frontend/abstract/application'
-import { UiKey } from '@codelab/frontend/abstract/types'
-import { IPageKindName } from '@codelab/shared/abstract/core'
+import { RoutePaths } from '@codelab/frontend-abstract-application'
+import { UiKey } from '@codelab/frontend-abstract-types'
+import { IPageKindName } from '@codelab/shared-abstract-core'
 import { expect } from '@playwright/test'
 
 import { BasePage } from '../../setup/core/page'

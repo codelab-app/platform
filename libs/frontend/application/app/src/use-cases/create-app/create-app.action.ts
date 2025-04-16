@@ -1,11 +1,11 @@
 'use server'
 
-import { appRepository } from '@codelab/frontend-domain-app/repositories'
-import { elementRepository } from '@codelab/frontend-domain-element/repositories'
-import { pageRepository } from '@codelab/frontend-domain-page/repositories'
+import { appRepository } from '@codelab/frontend-domain-app-repositories'
+import { elementRepository } from '@codelab/frontend-domain-element-repositories'
+import { pageRepository } from '@codelab/frontend-domain-page-repositories'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
-import { storeRepository } from '@codelab/frontend-domain-store/repositories'
-import { typeRepository } from '@codelab/frontend-domain-type/repositories'
+import { storeRepository } from '@codelab/frontend-domain-store-repositories'
+import { typeRepository } from '@codelab/frontend-domain-type-repositories'
 
 import type { IAppAggregate } from '../../services/app.factory'
 

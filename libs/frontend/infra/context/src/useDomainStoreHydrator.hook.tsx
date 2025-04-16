@@ -1,11 +1,11 @@
 'use client'
 
-import type { IDomainStoreDto } from '@codelab/frontend/abstract/domain'
+import type { IDomainStoreDto } from '@codelab/frontend-abstract-domain'
 
 import {
   useDomainStore,
   useUndoManager,
-} from '@codelab/frontend-infra-mobx/context'
+} from '@codelab/frontend-infra-mobx-context'
 import { runInAction } from 'mobx'
 import { useCallback } from 'react'
 

@@ -1,7 +1,7 @@
-import type { IElementDto } from '@codelab/shared/abstract/core'
+import type { IElementDto } from '@codelab/shared-abstract-core'
 
-import { componentRef, pageRef } from '@codelab/frontend/abstract/domain'
-import { IElementParentContainerKind } from '@codelab/shared/abstract/core'
+import { componentRef, pageRef } from '@codelab/frontend-abstract-domain'
+import { IElementParentContainerKind } from '@codelab/shared-abstract-core'
 
 export const getParentContainer = (
   parentContainer: IElementDto['parentContainer'],

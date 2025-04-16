@@ -1,7 +1,7 @@
-import type { IAuthGuardDomainService } from '@codelab/frontend/abstract/domain'
+import type { IAuthGuardDomainService } from '@codelab/frontend-abstract-domain'
 
 import { chance } from '@codelab/frontend-domain-shared'
-import { type IAuthGuardDto } from '@codelab/shared/abstract/core'
+import { type IAuthGuardDto } from '@codelab/shared-abstract-core'
 import { v4 } from 'uuid'
 
 export const authGuardFactory =

@@ -1,6 +1,6 @@
-import type { IRenderPropTypeDto } from '@codelab/shared/abstract/core'
+import type { IRenderPropTypeDto } from '@codelab/shared-abstract-core'
 
-import { ITypeKind } from '@codelab/shared/abstract/core'
+import { ITypeKind } from '@codelab/shared-abstract-core'
 
 import { BaseType } from './base-type.model'
 

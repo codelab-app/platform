@@ -1,4 +1,4 @@
-import type { IPropDto } from '@codelab/shared/abstract/core'
+import type { IPropDto } from '@codelab/shared-abstract-core'
 
 import { v4 } from 'uuid'
 

@@ -3,8 +3,8 @@ import type {
   IElementRenderTypeDto,
   IPropDto,
   IRef,
-} from '@codelab/shared/abstract/core'
-import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
+} from '@codelab/shared-abstract-core'
+import type { Nullable, Nullish } from '@codelab/shared-abstract-types'
 
 export class Element implements IElementDto {
   childMapperComponent?: Nullish<IRef>

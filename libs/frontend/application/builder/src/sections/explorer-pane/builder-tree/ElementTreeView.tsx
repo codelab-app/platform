@@ -4,11 +4,9 @@ import {
   IRuntimeNodeType,
   runtimeComponentRef,
   runtimeElementRef,
-} from '@codelab/frontend/abstract/application'
-import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
-import { useElementService } from '@codelab/frontend-application-element/services'
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
-import { runInAction } from 'mobx'
+} from '@codelab/frontend-abstract-application'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx-context'
+import { CuiTree } from '@codelab/frontend-presentation-codelab-ui'
 import { observer } from 'mobx-react-lite'
 
 import { useElementTreeDrop } from '../../../hooks'

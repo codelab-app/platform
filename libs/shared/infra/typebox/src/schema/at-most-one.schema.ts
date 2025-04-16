@@ -1,4 +1,4 @@
-import type { Nullish, ObjectLike } from '@codelab/shared/abstract/types'
+import type { Nullish, ObjectLike } from '@codelab/shared-abstract-types'
 import type { TKind } from '@sinclair/typebox'
 
 import { Kind, Type } from '@sinclair/typebox'

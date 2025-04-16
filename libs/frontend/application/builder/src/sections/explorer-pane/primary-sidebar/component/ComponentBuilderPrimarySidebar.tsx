@@ -1,10 +1,7 @@
 'use client'
 
-import type { IComponentBuilderRoute } from '@codelab/frontend/abstract/application'
-import type { IComponentModel } from '@codelab/frontend/abstract/domain'
-import type { TreeViewClientProps } from '@codelab/frontend/abstract/types'
-
-import { IRouteType } from '@codelab/frontend/abstract/application'
+import type { IComponentBuilderRoute } from '@codelab/frontend-abstract-application'
+import type { IComponentModel } from '@codelab/frontend-abstract-domain'
 
 import { BaseBuilderPrimarySidebar } from '../base-builder/BaseBuilderPrimarySidebar'
 

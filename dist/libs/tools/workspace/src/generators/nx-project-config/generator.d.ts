@@ -1,7 +1,7 @@
 import type { Tree } from '@nx/devkit';
-import type { EslintGeneratorSchema } from './schema';
+import type { ProjectConfigGeneratorSchema } from './schema';
 /**
  * Go through all projects and update the `lint` setting of `project.json`
  */
-export declare const nxProjectConfigGenerator: (tree: Tree, options: EslintGeneratorSchema) => Promise<void>;
+export declare const nxProjectConfigGenerator: (tree: Tree, options: ProjectConfigGeneratorSchema) => Promise<void>;
 export default nxProjectConfigGenerator;

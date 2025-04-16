@@ -1,13 +1,13 @@
-import type { IAntDesignField } from '@codelab/backend/abstract/core'
+import type { IAntDesignField } from '@codelab/backend-abstract-core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
 import {
   Field,
   FieldRepository,
   TypeFactory,
-} from '@codelab/backend/domain/type'
-import { type IAtomDto, type IFieldDto } from '@codelab/shared/abstract/core'
-import { titleCase } from '@codelab/shared/utils'
+} from '@codelab/backend-domain-type'
+import { type IAtomDto, type IFieldDto } from '@codelab/shared-abstract-core'
+import { titleCase } from '@codelab/shared-utils'
 import { CommandHandler } from '@nestjs/cqrs'
 import { find } from 'remeda'
 import { v4 } from 'uuid'

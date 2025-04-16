@@ -1,17 +1,17 @@
-import type { IElementDto, IMapper } from '@codelab/shared/abstract/core'
+import type { IElementDto, IMapper } from '@codelab/shared-abstract-core'
 import type {
   ElementCreateInput,
   ElementDeleteInput,
   ElementUpdateInput,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
+import { propMapper } from '@codelab/shared-domain-module-prop'
 import {
   connectNodeId,
   disconnectAll,
   reconnectNodeId,
   reconnectNodeIds,
-} from '@codelab/shared/domain/orm'
-import { propMapper } from '@codelab/shared-domain-module/prop'
+} from '@codelab/shared-domain-orm'
 
 import { ElementProperties } from './element.properties'
 

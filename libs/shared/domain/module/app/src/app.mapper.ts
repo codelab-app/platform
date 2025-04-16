@@ -3,20 +3,20 @@ import type {
   IMapper,
   IPageDto,
   IUserDto,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import type {
   AppCreateInput,
   AppDeleteInput,
   AppUpdateInput,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
 import {
   connectNodeIds,
   connectOwner,
   reconnectNodeIds,
-} from '@codelab/shared/domain/orm'
-import { domainMapper } from '@codelab/shared-domain-module/domain'
-import { pageMapper } from '@codelab/shared-domain-module/page'
+} from '@codelab/shared-domain-orm'
+import { domainMapper } from '@codelab/shared-domain-module-domain'
+import { pageMapper } from '@codelab/shared-domain-module-page'
 
 import { AppProperties } from './app.properties'
 

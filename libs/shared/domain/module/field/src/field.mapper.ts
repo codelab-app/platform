@@ -1,12 +1,12 @@
-import type { IFieldDto, IMapper } from '@codelab/shared/abstract/core'
+import type { IFieldDto, IMapper } from '@codelab/shared-abstract-core'
 import type {
   FieldCreateInput,
   FieldDeleteInput,
   FieldUpdateInput,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
-import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/orm'
-import { encodeJson } from '@codelab/shared/utils'
+import { connectNodeId, reconnectNodeId } from '@codelab/shared-domain-orm'
+import { encodeJson } from '@codelab/shared-utils'
 
 export const fieldMapper: IMapper<
   IFieldDto,

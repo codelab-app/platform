@@ -1,5 +1,5 @@
-import { AuthDomainModule } from '@codelab/backend/domain/shared/auth'
-import { TagDomainModule } from '@codelab/backend/domain/tag'
+import { AuthDomainModule } from '@codelab/backend-domain-shared-auth'
+import { TagDomainModule } from '@codelab/backend-domain-tag'
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
 

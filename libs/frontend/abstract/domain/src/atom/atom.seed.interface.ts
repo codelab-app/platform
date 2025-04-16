@@ -1,4 +1,4 @@
-import type { IAtomType } from '@codelab/shared/abstract/core'
+import type { IAtomType } from '@codelab/shared-abstract-core'
 
 import type { IComponentType } from '../renderer'
 

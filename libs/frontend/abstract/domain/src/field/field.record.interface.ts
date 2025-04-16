@@ -1,5 +1,5 @@
-import type { IRef } from '@codelab/shared/abstract/core'
-import type { Nullish } from '@codelab/shared/abstract/types'
+import type { IRef } from '@codelab/shared-abstract-core'
+import type { Nullish } from '@codelab/shared-abstract-types'
 
 import type { ITypeRecord } from '../type'
 

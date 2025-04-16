@@ -1,4 +1,4 @@
-import type { IActionTypeDto, ITypeKind } from '@codelab/shared/abstract/core'
+import type { IActionTypeDto, ITypeKind } from '@codelab/shared-abstract-core'
 
 import type { IBaseTypeModel } from './base-type.model.interface'
 

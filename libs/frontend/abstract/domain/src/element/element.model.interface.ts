@@ -1,10 +1,10 @@
-import type { IElementDto, IRef } from '@codelab/shared/abstract/core'
+import type { IElementDto, IRef } from '@codelab/shared-abstract-core'
 import type {
   Maybe,
   Nullable,
   Nullish,
   ObjectLike,
-} from '@codelab/shared/abstract/types'
+} from '@codelab/shared-abstract-types'
 import type { Ref } from 'mobx-keystone'
 
 import type { IActionModel } from '../action'

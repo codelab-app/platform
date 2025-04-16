@@ -1,11 +1,11 @@
-import type { IDomainDto, IMapper } from '@codelab/shared/abstract/core'
+import type { IDomainDto, IMapper } from '@codelab/shared-abstract-core'
 import type {
   DomainCreateInput,
   DomainDeleteInput,
   DomainUpdateInput,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
-import { connectNodeId } from '@codelab/shared/domain/orm'
+import { connectNodeId } from '@codelab/shared-domain-orm'
 
 export const domainMapper: IMapper<
   IDomainDto,

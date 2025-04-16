@@ -1,9 +1,9 @@
 'use client'
 
-import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/application'
-import type { IUpdateComponentData } from '@codelab/shared/abstract/core'
+import type { IRuntimeComponentModel } from '@codelab/frontend-abstract-application'
+import type { IUpdateComponentData } from '@codelab/shared-abstract-core'
 
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend-abstract-types'
 import { Form } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 import { useEffect, useState } from 'react'

@@ -1,9 +1,9 @@
-import type { IAtomDto } from '@codelab/shared/abstract/core'
+import type { IAtomDto } from '@codelab/shared-abstract-core'
 import type {
   AtomFragment,
   AtomOptions,
   AtomWhere,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
 import type { IRepository } from '../shared'
 

@@ -4,7 +4,7 @@ import type {
   IEnumTypeValueDto,
   IPrimitiveTypeKind,
   ITypeKind,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 
 /**
  * This keeps the form easier, and reduce the number of type services. However we get less fine-grained data validation with Zod in the backend during import/export.

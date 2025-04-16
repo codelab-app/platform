@@ -1,0 +1,49 @@
+{
+  "tasks": [
+    {
+      "id": "1",
+      "title": "Rename path aliases in tsconfig.base.json to package.json format",
+      "description": "We need to convert multi-slash path aliases (@codelab/xxx/yyy/zzz) to package.json compatible format (@codelab/xxx-yyy-zzz) throughout the project",
+      "status": "done",
+      "priority": "high",
+      "subtasks": [
+        {
+          "id": "1.1",
+          "title": "Create migration script to update tsconfig.base.json",
+          "description": "Create a script that will convert the paths in tsconfig.base.json from multi-slash format to hyphenated format",
+          "status": "done"
+        },
+        {
+          "id": "1.2",
+          "title": "Implement search and replace for imports throughout the codebase",
+          "description": "Update the migration script to also find and replace all import statements that use the old path aliases",
+          "status": "done"
+        },
+        {
+          "id": "1.3",
+          "title": "Run migration script in dry-run mode",
+          "description": "Execute the script with --dry-run flag to preview the changes without applying them",
+          "status": "done"
+        },
+        {
+          "id": "1.4",
+          "title": "Run migration script to apply changes",
+          "description": "Run the script without the dry-run flag to apply the changes to the codebase",
+          "status": "done"
+        },
+        {
+          "id": "1.5",
+          "title": "Update package.json dependencies if needed",
+          "description": "Check if any dependencies in package.json reference the old path aliases and update them",
+          "status": "done"
+        },
+        {
+          "id": "1.6",
+          "title": "Test the project after migration",
+          "description": "Ensure the project builds and runs correctly after the path alias changes",
+          "status": "pending"
+        }
+      ]
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 
 export const useSelectAppOptions = () => {
   const { appDomainService } = useDomainStore()

@@ -1,7 +1,7 @@
-import type { IPropData } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
+import type { IPropData } from '@codelab/shared-abstract-core'
+import type { Maybe } from '@codelab/shared-abstract-types'
 
-import { ITypeKind } from '@codelab/shared/abstract/core'
+import { ITypeKind } from '@codelab/shared-abstract-core'
 import { isPlainObject, isString } from 'remeda'
 
 /**

@@ -1,10 +1,10 @@
-import type { IAdminExport } from '@codelab/shared/abstract/core'
+import type { IAdminExport } from '@codelab/shared-abstract-core'
 
 import {
   formatToPrettifiedJson,
   writeFileSyncWithDirs,
-} from '@codelab/backend/shared/util'
-import { deepSortKeys } from '@codelab/shared/utils'
+} from '@codelab/backend-shared-util'
+import { deepSortKeys } from '@codelab/shared-utils'
 import { Injectable } from '@nestjs/common'
 import path from 'path'
 

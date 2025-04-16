@@ -1,4 +1,4 @@
-import type { IArrayTypeDto, ITypeKind } from '@codelab/shared/abstract/core'
+import type { IArrayTypeDto, ITypeKind } from '@codelab/shared-abstract-core'
 import type { Ref } from 'mobx-keystone'
 
 import type { IBaseTypeModel, ITypeModel } from './base-type.model.interface'

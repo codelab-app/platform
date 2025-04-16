@@ -1,4 +1,4 @@
-import { RedirectDomainModule } from '@codelab/backend/domain/redirect'
+import { RedirectDomainModule } from '@codelab/backend-domain-redirect'
 import { Module } from '@nestjs/common'
 
 import { RedirectController } from './redirect.controller'

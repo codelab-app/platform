@@ -1,5 +1,5 @@
-import { PropDomainModule } from '@codelab/backend/domain/prop'
-import { SharedDomainModule } from '@codelab/backend/domain/shared/modules'
+import { PropDomainModule } from '@codelab/backend-domain-prop'
+import { SharedDomainModule } from '@codelab/backend-domain-shared-modules'
 import { Module } from '@nestjs/common'
 
 import {

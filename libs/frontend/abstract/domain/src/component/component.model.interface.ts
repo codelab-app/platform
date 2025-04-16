@@ -2,8 +2,8 @@ import type {
   IComponentDto,
   IElementRenderTypeKind,
   IRef,
-} from '@codelab/shared/abstract/core'
-import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
+} from '@codelab/shared-abstract-core'
+import type { Nullable, Nullish } from '@codelab/shared-abstract-types'
 import type { Ref } from 'mobx-keystone'
 
 import type { IElementModel, IElementTree } from '../element'

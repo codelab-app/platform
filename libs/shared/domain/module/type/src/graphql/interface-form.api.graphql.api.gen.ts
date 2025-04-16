@@ -1,8 +1,8 @@
-import * as Types from '@codelab/shared/infra/gqlgen';
+import * as Types from '@codelab/shared-infra-gqlgen';
 
-import { gqlRequest } from '@codelab/shared/infra/fetch'
+import { gqlRequest } from '@codelab/shared-infra-fetch'
 import { GraphQLClient } from 'graphql-request'
-import { InterfaceForm_GetAppsDocument, InterfaceForm_GetAtomsDocument, InterfaceForm_GetActionsDocument, InterfaceForm_GetStoresDocument, InterfaceForm_GetResourceDocument, InterfaceForm_GetPagesDocument } from '@codelab/shared/infra/gqlgen'
+import { InterfaceForm_GetAppsDocument, InterfaceForm_GetAtomsDocument, InterfaceForm_GetActionsDocument, InterfaceForm_GetStoresDocument, InterfaceForm_GetResourceDocument, InterfaceForm_GetPagesDocument } from '@codelab/shared-infra-gqlgen'
 
 export const getSdk = (client: GraphQLClient) => ({
 	InterfaceForm_GetApps: (variables: Types.InterfaceForm_GetAppsQueryVariables) => gqlRequest(client, InterfaceForm_GetAppsDocument.toString(), variables),

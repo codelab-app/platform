@@ -1,12 +1,12 @@
-import type { ICreateResourceData } from '@codelab/shared/abstract/core'
+import type { ICreateResourceData } from '@codelab/shared-abstract-core'
 
-import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { type IFormController, UiKey } from '@codelab/frontend-abstract-types'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import {
   Form,
   FormController,
 } from '@codelab/frontend-presentation-components-form'
-import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
+import { DisplayIf } from '@codelab/frontend-presentation-view-components-conditionalView'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'

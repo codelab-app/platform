@@ -1,4 +1,4 @@
-import type { Nullable, ObjectLike } from '@codelab/shared/abstract/types'
+import type { Nullable, ObjectLike } from '@codelab/shared-abstract-types'
 import type { Options } from 'sucrase'
 
 export interface IExpressionTransformer {

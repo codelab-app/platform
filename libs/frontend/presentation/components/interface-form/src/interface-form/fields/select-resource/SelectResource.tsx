@@ -1,6 +1,6 @@
 'use client'
 
-import { useResourceService } from '@codelab/frontend-application-resource/services'
+import { useResourceService } from '@codelab/frontend-application-resource-services'
 import { useAsyncFn } from 'react-use'
 import { SelectField } from 'uniforms-antd'
 

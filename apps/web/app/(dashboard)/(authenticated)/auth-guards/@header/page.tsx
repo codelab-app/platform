@@ -1,3 +1,3 @@
-import { AuthGuardsViewHeader } from '@codelab/frontend-application-auth-guard/views'
+import { AuthGuardsViewHeader } from '@codelab/frontend-application-auth-guard-views'
 
 export default AuthGuardsViewHeader

@@ -1,18 +1,18 @@
 import type { ICommandHandler } from '@nestjs/cqrs'
 
-import { AtomRepository } from '@codelab/backend/domain/atom'
-import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
-import { TagRepository } from '@codelab/backend/domain/tag'
+import { AtomRepository } from '@codelab/backend-domain-atom'
+import { AuthDomainService } from '@codelab/backend-domain-shared-auth'
+import { TagRepository } from '@codelab/backend-domain-tag'
 import {
   InterfaceType,
   InterfaceTypeRepository,
-} from '@codelab/backend/domain/type'
+} from '@codelab/backend-domain-type'
 import {
   type IAtomDto,
   IAtomRecords,
   IAtomType,
   IElementRenderTypeKind,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import { CommandHandler } from '@nestjs/cqrs'
 import { ObjectTyped } from 'object-typed'
 import { v4 } from 'uuid'

@@ -1,7 +1,7 @@
-import type { App } from '@codelab/shared/infra/gqlgen'
+import type { App } from '@codelab/shared-infra-gqlgen'
 import type { IFieldResolver, IResolvers } from '@graphql-tools/utils'
 
-import { AppProperties } from '@codelab/shared-domain-module/app'
+import { AppProperties } from '@codelab/shared-domain-module-app'
 
 /**
  * `_compoundName` contains format `userId-name`, which allows page name to be unique across users.

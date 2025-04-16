@@ -1,16 +1,16 @@
-import type { ITypeCreateFormData } from '@codelab/frontend/abstract/domain'
+import type { ITypeCreateFormData } from '@codelab/frontend-abstract-domain'
 import type { JSONSchemaType } from 'ajv'
 
 import {
   idSchema,
   nonEmptyString,
-} from '@codelab/frontend-presentation-components-form/schema'
+} from '@codelab/frontend-presentation-components-form-schema'
 import {
   IElementTypeKind,
   IPrimitiveTypeKind,
   ITypeKind,
-} from '@codelab/shared/abstract/core'
-import { CodeMirrorLanguage } from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-abstract-core'
+import { CodeMirrorLanguage } from '@codelab/shared-infra-gqlgen'
 
 import { TypeSelect } from '../select-types/TypeSelect'
 

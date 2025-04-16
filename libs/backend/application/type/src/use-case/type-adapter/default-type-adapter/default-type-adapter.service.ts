@@ -1,4 +1,4 @@
-import type { ITypeTransformer } from '@codelab/backend/abstract/types'
+import type { ITypeTransformer } from '@codelab/backend-abstract-types'
 import type {
   IAtomDto,
   IEnumTypeDto,
@@ -6,10 +6,10 @@ import type {
   IInterfaceTypeDto,
   ITypeDto,
   IUnionTypeDto,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 /* eslint-disable @typescript-eslint/member-ordering */
 
-import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
+import { AuthDomainService } from '@codelab/backend-domain-shared-auth'
 import {
   ActionTypeRepository,
   CodeMirrorTypeRepository,
@@ -21,8 +21,8 @@ import {
   RichTextTypeRepository,
   TypeFactory,
   UnionType,
-} from '@codelab/backend/domain/type'
-import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+} from '@codelab/backend-domain-type'
+import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared-abstract-core'
 import { Injectable } from '@nestjs/common'
 import { v4 } from 'uuid'
 

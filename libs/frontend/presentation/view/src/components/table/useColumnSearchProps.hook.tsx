@@ -1,6 +1,6 @@
 'use client'
 
-import type { Maybe } from '@codelab/shared/abstract/types'
+import type { Maybe } from '@codelab/shared-abstract-types'
 import type { InputRef } from 'antd'
 import type { ColumnType } from 'antd/lib/table'
 import type { FilterDropdownProps } from 'antd/lib/table/interface'

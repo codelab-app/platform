@@ -1,4 +1,4 @@
-import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
+import type { IRuntimeElementModel } from '@codelab/frontend-abstract-application'
 import type { GuaranteedProps } from 'uniforms'
 
 import {

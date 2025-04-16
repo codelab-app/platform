@@ -1,4 +1,4 @@
-import type { ObjectLike } from '@codelab/shared/abstract/types'
+import type { ObjectLike } from '@codelab/shared-abstract-types'
 /* eslint-disable @typescript-eslint/member-ordering */
 import type { LoggerService } from '@nestjs/common'
 

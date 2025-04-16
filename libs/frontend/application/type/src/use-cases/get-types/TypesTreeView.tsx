@@ -1,15 +1,15 @@
 'use client'
 
-import type { ITreeViewProps } from '@codelab/frontend/abstract/application'
+import type { ITreeViewProps } from '@codelab/frontend-abstract-application'
 import type {
   ITreeNode,
   ITypeModel,
   ITypeTreeNodeData,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 
-import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { TypeKind } from '@codelab/shared/infra/gqlgen'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
+import { CuiTree } from '@codelab/frontend-presentation-codelab-ui'
+import { TypeKind } from '@codelab/shared-infra-gqlgen'
 
 import { TypesTreeItem } from './TypesTreeItem'
 

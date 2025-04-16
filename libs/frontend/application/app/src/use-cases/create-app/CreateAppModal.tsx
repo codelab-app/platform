@@ -1,9 +1,9 @@
 'use client'
 
-import type { IAppCreateFormData } from '@codelab/frontend/abstract/domain'
+import type { IAppCreateFormData } from '@codelab/frontend-abstract-domain'
 
-import { RoutePaths } from '@codelab/frontend/abstract/application'
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { RoutePaths } from '@codelab/frontend-abstract-application'
+import { UiKey } from '@codelab/frontend-abstract-types'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { useRouter } from 'next/navigation'
 import { AutoFields } from 'uniforms-antd'

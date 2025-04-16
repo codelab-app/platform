@@ -1,5 +1,5 @@
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
-import type { IElementDto } from '@codelab/shared/abstract/core'
+import type { IElementModel } from '@codelab/frontend-abstract-domain'
+import type { IElementDto } from '@codelab/shared-abstract-core'
 
 import {
   TAtLeastOne,
@@ -7,7 +7,7 @@ import {
   TExactlyOne,
   TNone,
   Validator,
-} from '@codelab/shared/infra/typebox'
+} from '@codelab/shared-infra-typebox'
 
 export const validateElement = (element: IElementModel) => {
   const { isRoot, page, parentComponent } = element

@@ -1,9 +1,9 @@
 import type {
   IAtomModel,
   IComponentModel,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 
-import { isComponent } from '@codelab/frontend/abstract/domain'
+import { isComponent } from '@codelab/frontend-abstract-domain'
 
 interface ComponentIconProps {
   component: IAtomModel | IComponentModel

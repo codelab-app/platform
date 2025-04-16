@@ -1,6 +1,6 @@
 import type { Static } from '@sinclair/typebox'
 
-import { Typebox } from '@codelab/shared/infra/typebox'
+import { Typebox } from '@codelab/shared-infra-typebox'
 import { Type } from '@sinclair/typebox'
 
 import { BaseTypeDtoSchema } from '../base-type.dto.interface'

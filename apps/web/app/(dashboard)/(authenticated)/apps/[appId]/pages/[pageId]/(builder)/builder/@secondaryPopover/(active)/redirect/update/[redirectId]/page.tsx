@@ -1,6 +1,6 @@
-import type { PageProps } from '@codelab/frontend/abstract/types'
+import type { PageProps } from '@codelab/frontend-abstract-types'
 
-import { UpdateRedirectPopover } from '@codelab/frontend-application-redirect/use-cases/update-redirect'
+import { UpdateRedirectPopover } from '@codelab/frontend-application-redirect-use-cases-update-redirect'
 
 const UpdateRedirectPopoverPage = async ({
   params,

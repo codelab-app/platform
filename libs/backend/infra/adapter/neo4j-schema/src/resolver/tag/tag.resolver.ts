@@ -1,4 +1,4 @@
-import type { Tag, TagFragment } from '@codelab/shared/infra/gqlgen'
+import type { Tag, TagFragment } from '@codelab/shared-infra-gqlgen'
 import type { IResolvers } from '@graphql-tools/utils'
 import type { FactoryProvider } from '@nestjs/common'
 import type { GraphQLRequestContext } from 'graphql-request/build/legacy/helpers/types'
@@ -7,7 +7,7 @@ import type { Node } from 'neo4j-driver'
 import {
   getTagWithDescendantsById,
   Neo4jService,
-} from '@codelab/backend-infra-adapter/neo4j-driver'
+} from '@codelab/backend-infra-adapter-neo4j-driver'
 
 export const TAG_RESOLVER_PROVIDER = 'TAG_RESOLVER_PROVIDER'
 

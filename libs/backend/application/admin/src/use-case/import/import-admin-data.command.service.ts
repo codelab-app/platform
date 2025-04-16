@@ -1,13 +1,13 @@
-import type { IBaseDataPaths } from '@codelab/backend/application/data'
+import type { IBaseDataPaths } from '@codelab/backend-application-data'
 
-import { IImportOptions } from '@codelab/backend/abstract/types'
-import { AtomApplicationService } from '@codelab/backend/application/atom'
-import { ComponentApplicationService } from '@codelab/backend/application/component'
-import { ReadAdminDataService } from '@codelab/backend/application/data'
-import { ImportTagsCommand } from '@codelab/backend/application/tag'
-import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
-import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { LogClassMethod } from '@codelab/backend/infra/core'
+import { IImportOptions } from '@codelab/backend-abstract-types'
+import { AtomApplicationService } from '@codelab/backend-application-atom'
+import { ComponentApplicationService } from '@codelab/backend-application-component'
+import { ReadAdminDataService } from '@codelab/backend-application-data'
+import { ImportTagsCommand } from '@codelab/backend-application-tag'
+import { ImportSystemTypesCommand } from '@codelab/backend-application-type'
+import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
+import { LogClassMethod } from '@codelab/backend-infra-core'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 
 export class ImportAdminDataCommand implements IBaseDataPaths {

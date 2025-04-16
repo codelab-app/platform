@@ -1,7 +1,7 @@
 import type { Layout, Layouts, ResponsiveProps } from 'react-grid-layout'
 
-import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/domain'
-import { usePropService } from '@codelab/frontend-application-prop/services'
+import { DATA_ELEMENT_ID } from '@codelab/frontend-abstract-domain'
+import { usePropService } from '@codelab/frontend-application-prop-services'
 import { ObjectTyped } from 'object-typed'
 import { Children, isValidElement, memo, useMemo } from 'react'
 import { Responsive, WidthProvider } from 'react-grid-layout'

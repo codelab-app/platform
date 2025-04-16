@@ -1,10 +1,10 @@
 import type {
   IAuthGuardNodeData,
   ITreeNode,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 
-import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
+import { CuiTree } from '@codelab/frontend-presentation-codelab-ui'
 import { observer } from 'mobx-react-lite'
 
 import { AuthGuardsTreeItem } from './AuthGuardsTreeItem'

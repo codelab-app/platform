@@ -3,11 +3,11 @@ import type {
   IAppAggregate,
   IAtomType,
   IComponentType,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 
-import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { WsGateway } from '@codelab/backend/infra/adapter/ws'
-import { IJobQueueResponse } from '@codelab/shared/abstract/infra'
+import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
+import { WsGateway } from '@codelab/backend-infra-adapter-ws'
+import { IJobQueueResponse } from '@codelab/shared-abstract-infra'
 import {
   Body,
   ClassSerializerInterceptor,

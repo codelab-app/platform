@@ -1,6 +1,6 @@
-import type { IFieldDto, IRef } from '@codelab/shared/abstract/core'
+import type { IFieldDto, IRef } from '@codelab/shared-abstract-core'
 
-import { titleCase } from '@codelab/shared/utils'
+import { titleCase } from '@codelab/shared-utils'
 
 export class Field implements IFieldDto {
   /**

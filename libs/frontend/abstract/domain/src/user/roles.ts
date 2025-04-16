@@ -1,7 +1,7 @@
-import type { Auth0IdToken } from '@codelab/shared/abstract/core'
-import type { Nullish } from '@codelab/shared/abstract/types'
+import type { Auth0IdToken } from '@codelab/shared-abstract-core'
+import type { Nullish } from '@codelab/shared-abstract-types'
 
-import { IRole, JWT_CLAIMS } from '@codelab/shared/abstract/core'
+import { IRole, JWT_CLAIMS } from '@codelab/shared-abstract-core'
 
 import type { IUserModel } from './user.model.interface'
 

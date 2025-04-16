@@ -1,4 +1,4 @@
-import type { ITypeRef } from '@codelab/shared/abstract/core'
+import type { ITypeRef } from '@codelab/shared-abstract-core'
 
 export const typeRefs: Array<ITypeRef> = [
   {

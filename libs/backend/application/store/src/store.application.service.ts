@@ -2,16 +2,16 @@ import type {
   IInterfaceTypeDto,
   IStoreAggregate,
   IStoreDto,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 
-import { TypeApplicationService } from '@codelab/backend/application/type'
-import { ActionFactory } from '@codelab/backend/domain/action'
+import { TypeApplicationService } from '@codelab/backend-application-type'
+import { ActionFactory } from '@codelab/backend-domain-action'
 import {
   StoreDomainService,
   StoreRepository,
-} from '@codelab/backend/domain/store'
-import { TypeDomainService } from '@codelab/backend/domain/type'
-import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
+} from '@codelab/backend-domain-store'
+import { TypeDomainService } from '@codelab/backend-domain-type'
+import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

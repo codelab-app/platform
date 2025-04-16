@@ -1,5 +1,5 @@
-import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { WsGateway } from '@codelab/backend/infra/adapter/ws'
+import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
+import { WsGateway } from '@codelab/backend-infra-adapter-ws'
 import { Processor, WorkerHost } from '@nestjs/bullmq'
 import { Injectable } from '@nestjs/common'
 import { Job } from 'bullmq'

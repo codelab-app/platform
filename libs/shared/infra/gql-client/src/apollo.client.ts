@@ -1,7 +1,7 @@
 import { ApolloClient, HttpLink, InMemoryCache, split } from '@apollo/client'
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
 import { getMainDefinition } from '@apollo/client/utilities'
-import { env } from '@codelab/shared/config/env'
+import { env } from '@codelab/shared-config-env'
 import { createClient } from 'graphql-ws'
 import WebSocket from 'ws'
 

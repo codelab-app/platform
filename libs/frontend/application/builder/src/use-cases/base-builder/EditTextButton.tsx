@@ -1,4 +1,4 @@
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
+import type { IElementModel } from '@codelab/frontend-abstract-domain'
 
 import CheckOutlined from '@ant-design/icons/CheckOutlined'
 import EditOutlined from '@ant-design/icons/EditOutlined'

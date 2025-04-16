@@ -1,7 +1,7 @@
 import type {
   IComponentModel,
   IPageModel,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 
 import type { IBuilderService } from '../builder'
 import type { RendererType } from './renderer.model.interface'

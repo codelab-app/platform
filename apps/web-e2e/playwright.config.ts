@@ -107,7 +107,7 @@ export default defineConfig({
   /**
    * Includes hooks
    *
-   * Increase to high timeout locally if you need to view console in the popup browser, sometimes there isn't enough time for it to stay open
+   * Increase to high timeout locally to view console in the popup browser, sometimes there isn't enough time for it to stay open. Locally we can end manually
    *
    * On CI better to leave it lower, so it fails fast. Longer specs should be broken into smaller specs, or the timeout added in the spec.
    */
@@ -142,7 +142,7 @@ export default defineConfig({
   /* Run your local dev server before starting the tests */
   webServer: [
     {
-      command: `nx serve web -c ${process.env.CI ? 'ci' : 'test'}`,
+      command: `nx serve web -c ${process.env.CI ? 'ci' : 'test'} --verbose`,
       cwd: workspaceRoot,
       reuseExistingServer: !process.env.CI,
       stdout: 'pipe',
@@ -150,7 +150,7 @@ export default defineConfig({
       url: webUrl,
     },
     {
-      command: `nx serve api -c ${process.env.CI ? 'ci' : 'test'}`,
+      command: `nx serve api -c ${process.env.CI ? 'ci' : 'test'} --verbose`,
       cwd: workspaceRoot,
       reuseExistingServer: !process.env.CI,
       stdout: 'pipe',

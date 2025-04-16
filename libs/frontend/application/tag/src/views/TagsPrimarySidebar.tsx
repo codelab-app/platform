@@ -1,17 +1,17 @@
 'use client'
 
-import type { IPaginationData } from '@codelab/frontend/abstract/application'
-import type { ITagModel } from '@codelab/frontend/abstract/domain'
-import type { SearchParamsClientProps } from '@codelab/frontend/abstract/types'
+import type { IPaginationData } from '@codelab/frontend-abstract-application'
+import type { ITagModel } from '@codelab/frontend-abstract-domain'
+import type { SearchParamsClientProps } from '@codelab/frontend-abstract-types'
 
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { RoutePaths } from '@codelab/frontend/abstract/application'
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { RoutePaths } from '@codelab/frontend-abstract-application'
+import { UiKey } from '@codelab/frontend-abstract-types'
 import {
   CuiSidebar,
   usePaginationToolbar,
-} from '@codelab/frontend/presentation/codelab-ui'
+} from '@codelab/frontend-presentation-codelab-ui'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import { useMemo } from 'react'

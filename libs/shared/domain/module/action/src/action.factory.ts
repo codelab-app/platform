@@ -3,14 +3,14 @@ import type {
   IApiActionDto,
   ICodeActionDto,
   ICreateActionData,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import type {
   ActionFragment,
   ApiActionFragment,
   CodeActionFragment,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
-import { IActionKind } from '@codelab/shared/abstract/core'
+import { IActionKind } from '@codelab/shared-abstract-core'
 
 export const actionFactory = {
   fromActionFragment(actionFragment: ActionFragment): IActionDto {

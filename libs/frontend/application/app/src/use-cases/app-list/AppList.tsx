@@ -1,12 +1,12 @@
 'use client'
 
-import type { IAppModel } from '@codelab/frontend/abstract/domain'
+import type { IAppModel } from '@codelab/frontend-abstract-domain'
 import type { ReactNode } from 'react'
 
 import {
   padding,
   threeGridCol,
-} from '@codelab/frontend-presentation-view/style'
+} from '@codelab/frontend-presentation-view-style'
 import { Col, Empty, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 
