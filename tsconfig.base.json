@@ -849,6 +849,7 @@
       "@codelab/frontend-domain-user-store": [
         "libs/frontend/domain/user/src/store/index.ts"
       ],
+      "@codelab/frontend-infra-ws": ["libs/frontend/infra/ws/src/index.ts"],
       "@codelab/frontend-infra-action": [
         "libs/frontend/infra/action/src/index.ts"
       ],

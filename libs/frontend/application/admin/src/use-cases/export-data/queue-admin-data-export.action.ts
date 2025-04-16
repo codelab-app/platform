@@ -2,8 +2,8 @@
 
 import type { IExportDto } from '@codelab/shared/abstract/core'
 
-import { getEnv } from '@codelab/shared/config/env'
-import { serverFetchWithAuth } from '@codelab/shared/infra/fetch-server'
+import { getEnv } from '@codelab/shared-config-env'
+import { serverFetchWithAuth } from '@codelab/shared-infra-fetch-server'
 import { v4 } from 'uuid'
 
 export const queueAdminDataExportAction = async ({
