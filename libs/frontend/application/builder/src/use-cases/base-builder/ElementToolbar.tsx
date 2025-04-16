@@ -1,4 +1,4 @@
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
+import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
 import type { Rect } from '@codelab/frontend/shared/utils'
 import type { Nullable } from '@codelab/shared/abstract/types'
 
@@ -38,12 +38,14 @@ const ToolbarButtonGroup = styled.div`
 export const TOOLBAR_HEIGHT = 30
 
 export const BuilderElementToolbar = observer<{
-  element: IElementModel
+  runtimeElement: IRuntimeElementModel
   container: HTMLElement
   domElement: Nullable<HTMLElement>
   containerRect: Rect
   rect: Rect
-}>(({ container, containerRect, domElement, element, rect }) => {
+}>(({ container, containerRect, domElement, rect, runtimeElement }) => {
+  const element = runtimeElement.element.current
+
   useScrollIntoView(domElement, container)
   useScroll()
 
@@ -77,7 +79,7 @@ export const BuilderElementToolbar = observer<{
           <ToolbarButtonGroup>
             <DeleteButton element={element} />
             <DragButton element={element} />
-            <EditTextButton element={element} />
+            <EditTextButton runtimeElement={runtimeElement} />
           </ToolbarButtonGroup>
         )}
         <ToolbarTitle>{element.name}</ToolbarTitle>
