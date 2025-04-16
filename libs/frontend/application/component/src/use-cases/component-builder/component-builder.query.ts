@@ -34,9 +34,6 @@ export const componentBuilderQuery: IComponentBuilderQuery = async ({
     },
   )
 
-  console.log('data', data)
-  console.log('componentId', componentId)
-
   const components = data.components
 
   const currentComponent = components.find(

@@ -81,10 +81,6 @@ const getPropertiesFromLocalStorage = (key: string) => {
 const create = (dto: IRuntimeElementDto) => {
   const properties = getPropertiesFromLocalStorage(dto.compositeKey)
 
-  console.log('RuntimeElementModel.create', {
-    properties,
-  })
-
   return new RuntimeElementModel({ ...dto, ...properties })
 }
 
