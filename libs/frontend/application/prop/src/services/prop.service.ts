@@ -38,7 +38,7 @@ export const usePropService = (): IPropService => {
 
   const update = async (dto: IPropUpdateData) => {
     await propRepository.update({ id: dto.id }, dto, {
-      revalidateTags: [CACHE_TAGS.Prop.list()],
+      revalidateTags: [],
     })
 
     return dto
