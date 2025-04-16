@@ -1,4 +1,4 @@
-import type { IImportDto } from '@codelab/shared/abstract/core'
+import type { IImportDto } from '@codelab/shared-abstract-core'
 
 import { jobSubscription } from '@codelab/frontend-infra-ws'
 import { getEnv } from '@codelab/shared-config-env'

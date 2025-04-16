@@ -1,6 +1,6 @@
 'use server'
 
-import type { IExportDto } from '@codelab/shared/abstract/core'
+import type { IExportDto } from '@codelab/shared-abstract-core'
 
 import { getEnv } from '@codelab/shared-config-env'
 import { serverFetchWithAuth } from '@codelab/shared-infra-fetch-server'
