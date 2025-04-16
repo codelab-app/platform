@@ -32,21 +32,18 @@ import {
   isComponent,
 } from '@codelab/frontend/abstract/domain'
 import { evaluateExpression, hasExpression } from '@codelab/shared-infra-eval'
-import { computed, reaction } from 'mobx'
+import { computed } from 'mobx'
 import {
   detach,
-  getSnapshot,
   idProp,
   Model,
   model,
   modelAction,
-  onSnapshot,
   patchRecorder,
   prop,
 } from 'mobx-keystone'
-import { todo } from 'node:test'
 import { createElement, type ReactElement, type ReactNode } from 'react'
-import { difference, filter, isTruthy, pick } from 'remeda'
+import { difference, filter, isTruthy } from 'remeda'
 
 import { ElementWrapper } from '../components'
 
@@ -83,10 +80,6 @@ const getPropertiesFromLocalStorage = (key: string) => {
 
 const create = (dto: IRuntimeElementDto) => {
   const properties = getPropertiesFromLocalStorage(dto.compositeKey)
-
-  console.log('RuntimeElementModel.create', {
-    properties,
-  })
 
   return new RuntimeElementModel({ ...dto, ...properties })
 }

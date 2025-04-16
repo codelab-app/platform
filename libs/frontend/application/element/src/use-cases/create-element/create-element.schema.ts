@@ -4,6 +4,7 @@ import type { JSONSchemaType } from 'ajv'
 import {
   idSchema,
   nullableIdSchema,
+  showFieldOnDev,
   titleCaseValidation,
 } from '@codelab/frontend-presentation-components-form/schema'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
@@ -94,7 +95,9 @@ export const createElementSchema: JSONSchemaType<ICreateElementDto> = {
           type: 'object',
           properties: {
             id: {
+              disabled: true,
               type: 'string',
+              ...showFieldOnDev(),
             },
           },
           required: ['id'],
