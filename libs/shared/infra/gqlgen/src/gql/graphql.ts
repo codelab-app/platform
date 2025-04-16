@@ -37293,7 +37293,7 @@ export const GetComponentBuilderDocument = new TypedDocumentString(`
   actionTypes {
     ...ActionType
   }
-  atoms(where: {type: ReactFragment}) {
+  atoms {
     ...AtomBuilder
   }
   codeMirrorTypes {
