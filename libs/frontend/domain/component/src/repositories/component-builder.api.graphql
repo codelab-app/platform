@@ -3,7 +3,7 @@ query GetComponentBuilder($componentId: ID!) {
     ...ActionType
   }
   # Need to load all dependent types
-  atoms(where: { type: ReactFragment }) {
+  atoms {
     ...AtomBuilder
   }
   # Load system types
