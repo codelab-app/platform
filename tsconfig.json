@@ -1,0 +1,561 @@
+{
+  "extends": "./tsconfig.base.json",
+  "files": [], // intentionally empty
+  "references": [
+    {
+      "path": "./libs/external/codelab-codegen/codelab-preset"
+    },
+    {
+      "path": "./libs/external/codelab-codegen/typescript-fetch"
+    },
+    {
+      "path": "./libs/external/codelab-codegen/typescript-server-fetch"
+    },
+    {
+      "path": "./libs/backend/abstract/core"
+    },
+    {
+      "path": "./libs/backend/abstract/types"
+    },
+    {
+      "path": "./libs/backend/application/action"
+    },
+    {
+      "path": "./libs/backend/application/admin"
+    },
+    {
+      "path": "./libs/backend/application/app"
+    },
+    {
+      "path": "./libs/backend/application/atom"
+    },
+    {
+      "path": "./libs/backend/application/auth"
+    },
+    {
+      "path": "./libs/backend/application/component"
+    },
+    {
+      "path": "./libs/backend/application/data"
+    },
+    {
+      "path": "./libs/backend/application/domain"
+    },
+    {
+      "path": "./libs/backend/application/element"
+    },
+    {
+      "path": "./libs/backend/application/field"
+    },
+    {
+      "path": "./libs/backend/application/page"
+    },
+    {
+      "path": "./libs/backend/application/prop"
+    },
+    {
+      "path": "./libs/backend/application/redirect"
+    },
+    {
+      "path": "./libs/backend/application/resource"
+    },
+    {
+      "path": "./libs/backend/application/store"
+    },
+    {
+      "path": "./libs/backend/application/tag"
+    },
+    {
+      "path": "./libs/backend/application/type"
+    },
+    {
+      "path": "./libs/backend/application/user"
+    },
+    {
+      "path": "./libs/backend/data/seed"
+    },
+    {
+      "path": "./libs/backend/domain/action"
+    },
+    {
+      "path": "./libs/backend/domain/admin"
+    },
+    {
+      "path": "./libs/backend/domain/app"
+    },
+    {
+      "path": "./libs/backend/domain/atom"
+    },
+    {
+      "path": "./libs/backend/domain/auth-guard"
+    },
+    {
+      "path": "./libs/backend/domain/component"
+    },
+    {
+      "path": "./libs/backend/domain/domain"
+    },
+    {
+      "path": "./libs/backend/domain/element"
+    },
+    {
+      "path": "./libs/backend/domain/page"
+    },
+    {
+      "path": "./libs/backend/domain/preference"
+    },
+    {
+      "path": "./libs/backend/domain/prop"
+    },
+    {
+      "path": "./libs/backend/domain/redirect"
+    },
+    {
+      "path": "./libs/backend/domain/resource"
+    },
+    {
+      "path": "./libs/backend/domain/shared/auth"
+    },
+    {
+      "path": "./libs/backend/domain/shared/modules"
+    },
+    {
+      "path": "./libs/backend/domain/shared/seeder"
+    },
+    {
+      "path": "./libs/backend/domain/store"
+    },
+    {
+      "path": "./libs/backend/domain/tag"
+    },
+    {
+      "path": "./libs/backend/domain/type"
+    },
+    {
+      "path": "./libs/backend/domain/user"
+    },
+    {
+      "path": "./libs/backend/infra/adapter/auth0"
+    },
+    {
+      "path": "./libs/backend/infra/adapter/cli"
+    },
+    {
+      "path": "./libs/backend/infra/adapter/digitalocean"
+    },
+    {
+      "path": "./libs/backend/infra/adapter/dns"
+    },
+    {
+      "path": "./libs/backend/infra/adapter/graphql"
+    },
+    {
+      "path": "./libs/backend/infra/adapter/logger"
+    },
+    {
+      "path": "./libs/backend/infra/adapter/middleware"
+    },
+    {
+      "path": "./libs/backend/infra/adapter/neo4j-driver"
+    },
+    {
+      "path": "./libs/backend/infra/adapter/neo4j-schema"
+    },
+    {
+      "path": "./libs/backend/infra/adapter/queue"
+    },
+    {
+      "path": "./libs/backend/infra/adapter/request-context"
+    },
+    {
+      "path": "./libs/backend/infra/adapter/rest-client"
+    },
+    {
+      "path": "./libs/backend/infra/adapter/shell"
+    },
+    {
+      "path": "./libs/backend/infra/adapter/ws"
+    },
+    {
+      "path": "./libs/backend/infra/core"
+    },
+    {
+      "path": "./libs/backend/shared/errors"
+    },
+    {
+      "path": "./libs/backend/shared/eval"
+    },
+    {
+      "path": "./libs/backend/shared/util"
+    },
+    {
+      "path": "./libs/backend/test/setup"
+    },
+    {
+      "path": "./libs/backend/test/utils"
+    },
+    {
+      "path": "./apps/design-system"
+    },
+    {
+      "path": "./libs/frontend/abstract/application"
+    },
+    {
+      "path": "./libs/frontend/abstract/domain"
+    },
+    {
+      "path": "./libs/frontend/abstract/types"
+    },
+    {
+      "path": "./libs/frontend/application/admin"
+    },
+    {
+      "path": "./libs/frontend/application/app"
+    },
+    {
+      "path": "./libs/frontend/application/atom"
+    },
+    {
+      "path": "./libs/frontend/application/auth-guard"
+    },
+    {
+      "path": "./libs/frontend/application/builder"
+    },
+    {
+      "path": "./libs/frontend/application/component"
+    },
+    {
+      "path": "./libs/frontend/application/dnd"
+    },
+    {
+      "path": "./libs/frontend/application/domain"
+    },
+    {
+      "path": "./libs/frontend/application/element"
+    },
+    {
+      "path": "./libs/frontend/application/lambda"
+    },
+    {
+      "path": "./libs/frontend/application/page"
+    },
+    {
+      "path": "./libs/frontend/application/preference"
+    },
+    {
+      "path": "./libs/frontend/application/prop"
+    },
+    {
+      "path": "./libs/frontend/application/redirect"
+    },
+    {
+      "path": "./libs/frontend/application/renderer"
+    },
+    {
+      "path": "./libs/frontend/application/resource"
+    },
+    {
+      "path": "./libs/frontend/application/shared/data"
+    },
+    {
+      "path": "./libs/frontend/application/shared/store"
+    },
+    {
+      "path": "./libs/frontend/application/store"
+    },
+    {
+      "path": "./libs/frontend/application/tag"
+    },
+    {
+      "path": "./libs/frontend/application/type"
+    },
+    {
+      "path": "./libs/frontend/application/user"
+    },
+    {
+      "path": "./libs/frontend/domain/action"
+    },
+    {
+      "path": "./libs/frontend/domain/app"
+    },
+    {
+      "path": "./libs/frontend/domain/atom"
+    },
+    {
+      "path": "./libs/frontend/domain/auth-guard"
+    },
+    {
+      "path": "./libs/frontend/domain/component"
+    },
+    {
+      "path": "./libs/frontend/domain/domain"
+    },
+    {
+      "path": "./libs/frontend/domain/element"
+    },
+    {
+      "path": "./libs/frontend/domain/page"
+    },
+    {
+      "path": "./libs/frontend/domain/preference"
+    },
+    {
+      "path": "./libs/frontend/domain/prop"
+    },
+    {
+      "path": "./libs/frontend/domain/redirect"
+    },
+    {
+      "path": "./libs/frontend/domain/resource"
+    },
+    {
+      "path": "./libs/frontend/domain/shared"
+    },
+    {
+      "path": "./libs/frontend/domain/store"
+    },
+    {
+      "path": "./libs/frontend/domain/tag"
+    },
+    {
+      "path": "./libs/frontend/domain/type"
+    },
+    {
+      "path": "./libs/frontend/domain/user"
+    },
+    {
+      "path": "./libs/frontend/infra/action"
+    },
+    {
+      "path": "./libs/frontend/infra/connector"
+    },
+    {
+      "path": "./libs/frontend/infra/context"
+    },
+    {
+      "path": "./libs/frontend/infra/gql-client"
+    },
+    {
+      "path": "./libs/frontend/infra/logger"
+    },
+    {
+      "path": "./libs/frontend/infra/mobx/context"
+    },
+    {
+      "path": "./libs/frontend/infra/mobx/store"
+    },
+    {
+      "path": "./libs/frontend/infra/shared"
+    },
+    {
+      "path": "./libs/frontend/presentation/codelab-ui"
+    },
+    {
+      "path": "./libs/frontend/presentation/components/codemirror"
+    },
+    {
+      "path": "./libs/frontend/presentation/components/css-editor"
+    },
+    {
+      "path": "./libs/frontend/presentation/components/fancybox"
+    },
+    {
+      "path": "./libs/frontend/presentation/components/form"
+    },
+    {
+      "path": "./libs/frontend/presentation/components/interface-form"
+    },
+    {
+      "path": "./libs/frontend/presentation/components/lexical"
+    },
+    {
+      "path": "./libs/frontend/presentation/components/reactquill"
+    },
+    {
+      "path": "./libs/frontend/presentation/container"
+    },
+    {
+      "path": "./libs/frontend/presentation/view"
+    },
+    {
+      "path": "./libs/frontend/shared/utils"
+    },
+    {
+      "path": "./libs/frontend/test/application"
+    },
+    {
+      "path": "./libs/frontend/test/data"
+    },
+    {
+      "path": "./libs/shared/abstract/core"
+    },
+    {
+      "path": "./libs/shared/abstract/infra"
+    },
+    {
+      "path": "./libs/shared/abstract/types"
+    },
+    {
+      "path": "./libs/shared/config/builder"
+    },
+    {
+      "path": "./libs/shared/config/env"
+    },
+    {
+      "path": "./libs/shared/data/seed"
+    },
+    {
+      "path": "./libs/shared/data/test"
+    },
+    {
+      "path": "./libs/shared/domain/errors"
+    },
+    {
+      "path": "./libs/shared/domain/module/action"
+    },
+    {
+      "path": "./libs/shared/domain/module/app"
+    },
+    {
+      "path": "./libs/shared/domain/module/atom"
+    },
+    {
+      "path": "./libs/shared/domain/module/auth-guard"
+    },
+    {
+      "path": "./libs/shared/domain/module/component"
+    },
+    {
+      "path": "./libs/shared/domain/module/domain"
+    },
+    {
+      "path": "./libs/shared/domain/module/element"
+    },
+    {
+      "path": "./libs/shared/domain/module/field"
+    },
+    {
+      "path": "./libs/shared/domain/module/page"
+    },
+    {
+      "path": "./libs/shared/domain/module/preference"
+    },
+    {
+      "path": "./libs/shared/domain/module/prop"
+    },
+    {
+      "path": "./libs/shared/domain/module/redirect"
+    },
+    {
+      "path": "./libs/shared/domain/module/resource"
+    },
+    {
+      "path": "./libs/shared/domain/module/store"
+    },
+    {
+      "path": "./libs/shared/domain/module/tag"
+    },
+    {
+      "path": "./libs/shared/domain/module/type"
+    },
+    {
+      "path": "./libs/shared/domain/module/user"
+    },
+    {
+      "path": "./libs/shared/domain/orm"
+    },
+    {
+      "path": "./libs/shared/infra/auth0"
+    },
+    {
+      "path": "./libs/shared/infra/cache"
+    },
+    {
+      "path": "./libs/shared/infra/eval"
+    },
+    {
+      "path": "./libs/shared/infra/fetch"
+    },
+    {
+      "path": "./libs/shared/infra/fetch-server"
+    },
+    {
+      "path": "./libs/shared/infra/gql-client"
+    },
+    {
+      "path": "./libs/shared/infra/gqlgen"
+    },
+    {
+      "path": "./libs/shared/infra/logging"
+    },
+    {
+      "path": "./libs/shared/infra/sentry"
+    },
+    {
+      "path": "./libs/shared/infra/typebox"
+    },
+    {
+      "path": "./libs/shared/infra/validation"
+    },
+    {
+      "path": "./libs/shared/utils"
+    },
+    {
+      "path": "./libs/tools/eslint-plugin"
+    },
+    {
+      "path": "./libs/tools/tsc-check"
+    },
+    {
+      "path": "./libs/tools/workspace"
+    },
+    {
+      "path": "./libs/frontend/cui/ui/atoms"
+    },
+    {
+      "path": "./libs/frontend/cui/ui/molecules"
+    },
+    {
+      "path": "./libs/frontend/cui/ui/organisms"
+    },
+    {
+      "path": "./libs/frontend/cui/utils"
+    },
+    {
+      "path": "./libs/frontend/application/style"
+    },
+    {
+      "path": "./libs/frontend/domain/renderer"
+    },
+    {
+      "path": "./libs/frontend/domain/lambda"
+    },
+    {
+      "path": "./libs/frontend/domain/admin"
+    },
+    {
+      "path": "./libs/frontend/domain/style"
+    },
+    {
+      "path": "./apps/landing"
+    },
+    {
+      "path": "./apps/web-e2e"
+    },
+    {
+      "path": "./apps/sites"
+    },
+    {
+      "path": "./apps/demo"
+    },
+    {
+      "path": "./apps/api"
+    },
+    {
+      "path": "./apps/cli"
+    },
+    {
+      "path": "./apps/web"
+    }
+  ]
+}

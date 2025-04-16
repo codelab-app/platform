@@ -1,4 +1,4 @@
-import { Tree, ProjectConfiguration } from '@nx/devkit';
+import type { ProjectConfiguration, Tree } from '@nx/devkit';
 /**
  * Updates the tsconfig.json files for a project to use project references
  */

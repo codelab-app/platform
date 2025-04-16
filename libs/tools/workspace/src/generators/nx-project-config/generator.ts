@@ -7,22 +7,29 @@ import {
   updateProjectConfiguration,
 } from '@nx/devkit'
 
-import type { EslintGeneratorSchema } from './schema'
+import type { ProjectConfigGeneratorSchema } from './schema'
 
 import { updateTestTargets } from './jest/remove-test-targets'
+import { migrateProjectReference } from './migrate-project-reference'
 import { addProjectTags } from './project-tags/add-project-tags'
 import { updateBaseTsconfig } from './tsconfig/base/tsconfig.base'
-import { migrateProjectReference } from './migrate-project-reference'
+import { createAliasMapping, saveAliasMappingToFile } from './utils/workspace'
 
 /**
- * Go through all projects and update the `lint` setting of `project.json`
+ * Factory function to generate a list of available projects for the x-prompt
+ * @returns An array of project choices for the dropdown
+ * //
  */
 export const nxProjectConfigGenerator = async (
   tree: Tree,
-  options: EslintGeneratorSchema,
+  options: ProjectConfigGeneratorSchema,
 ) => {
   const projects = getProjects(tree)
-  const projectNames = projects.keys()
+
+  // If projectName is specified, only process that project
+  const projectNames = options.projectName
+    ? [options.projectName]
+    : [...projects.keys()]
 
   for (const projectName of projectNames) {
     const projectConfig = readProjectConfiguration(tree, projectName)
@@ -52,15 +59,16 @@ export const nxProjectConfigGenerator = async (
     // checkLintConfig(tree, projectConfig)
 
     // updateJestConfig(tree, projectConfig)
-    addProjectTags(tree, projectConfig)
-    updateTestTargets(tree, projectConfig)
-
-    updateBaseTsconfig(tree, projectConfig)
-    // updateLibraryTsconfig(tree, projectConfig)
 
     // Migrate project to use TypeScript project references
     if (options.migrateToProjectReferences) {
       await migrateProjectReference(tree, projectConfig)
+    } else {
+      addProjectTags(tree, projectConfig)
+      updateTestTargets(tree, projectConfig)
+
+      updateBaseTsconfig(tree, projectConfig)
+      // updateLibraryTsconfig(tree, projectConfig)
     }
 
     updateProjectConfiguration(tree, projectName, projectConfig)

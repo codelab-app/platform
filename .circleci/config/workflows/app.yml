@@ -1,11 +1,11 @@
 jobs:
-  - setup-workspace:
-      resource_class: large
-      max_old_space_size: 6144
-      filters:
-        branches:
-          only:
-            - master
+  # - setup-workspace:
+  #     resource_class: large
+  #     max_old_space_size: 6144
+  #     filters:
+  #       branches:
+  #         only:
+  #           - master
   # Will increment docker tag in tf cloud
   - hold-deploy:
       # resource_class: medium
@@ -14,8 +14,14 @@ jobs:
           only:
             - master
       type: approval
+  - setup-infra-workspace:
+      # resource_class: large
+      filters:
+        branches:
+          only:
+            - master
       requires:
-        - setup-workspace
+        - hold-deploy
   # Apply the new tf settings to ci
   - tf-plan:
       name: 'tf-plan-ci'
@@ -35,14 +41,7 @@ jobs:
             - staging
       requires:
         - tf-plan-ci
-  - setup-infra-workspace:
-      # resource_class: large
-      filters:
-        branches:
-          only:
-            - master
-      requires:
-        - hold-deploy
+
   - docker-web:
       # resource_class: large
       filters:

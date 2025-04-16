@@ -1,4 +1,4 @@
-import { Tree, ProjectConfiguration } from '@nx/devkit';
+import type { ProjectConfiguration, Tree } from '@nx/devkit';
 /**
  * Creates package.json files for non-buildable projects
  */

@@ -12,6 +12,7 @@ jobs:
         branches:
           only:
             - staging
+  # The `ci` stage here is used to update the docker version
   - tf-plan:
       name: 'tf-plan-ci'
       filters:
@@ -74,7 +75,8 @@ jobs:
       context:
         - prod
       requires:
-        - setup-infra-workspace
+        - tf-apply-ci
+  # The `prod` stage here is used to update the infra
   - tf-plan:
       filters:
         branches:

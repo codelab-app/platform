@@ -47,7 +47,7 @@ class ServerFetchVisitor extends visitor_plugin_common_1.BaseVisitor {
             .map((operation) => operation.name)
             .join(', ');
         return [
-            "import type { NextFetchOptions } from '@codelab/shared/abstract/types'",
+            "import type { NextFetchOptions } from '@codelab/shared-abstract-types'",
             `import { ${this.config.gqlFn} } from '${this.config.gqlFnPath}'`,
             `import { ${documentImports} } from '${this.config.graphqlPath}'\n`,
         ];

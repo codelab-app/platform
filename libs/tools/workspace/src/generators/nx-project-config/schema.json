@@ -18,6 +18,12 @@
       "description": "Migrate projects to use TypeScript project references",
       "default": false,
       "x-prompt": "Would you like to migrate to TypeScript project references?"
+    },
+    "projectName": {
+      "type": "string",
+      "description": "Name of the project to update dependencies for (if not specified, all projects will be processed)",
+      "x-prompt": "Which project would you like to update dependencies for?",
+      "x-dropdown": "projects"
     }
   }
   // "required": ["name"]

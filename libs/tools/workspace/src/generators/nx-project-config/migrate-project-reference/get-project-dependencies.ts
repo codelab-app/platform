@@ -1,4 +1,6 @@
-import { Tree, ProjectConfiguration, getProjects } from '@nx/devkit'
+import type { ProjectConfiguration, Tree } from '@nx/devkit'
+
+import { getProjects } from '@nx/devkit'
 
 /**
  * Helper function to get a project's dependencies
@@ -6,10 +8,10 @@ import { Tree, ProjectConfiguration, getProjects } from '@nx/devkit'
 export const getProjectDependencies = async (
   tree: Tree,
   projectConfig: ProjectConfiguration,
-): Promise<string[]> => {
+): Promise<Array<string>> => {
   // Use a simpler approach to find dependencies - just check all projects
   // and add them to the dependencies list if they might be used
-  const dependencies: string[] = []
+  const dependencies: Array<string> = []
   const projects = getProjects(tree)
 
   // We'll assume for now that all libraries could be dependencies

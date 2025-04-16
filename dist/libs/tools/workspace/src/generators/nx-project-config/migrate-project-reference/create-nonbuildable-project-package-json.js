@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createNonbuildableProjectPackageJson = void 0;
 const devkit_1 = require("@nx/devkit");
+const utils_1 = require("./utils");
 /**
  * Creates package.json files for non-buildable projects
  */
@@ -14,14 +15,20 @@ const createNonbuildableProjectPackageJson = (tree, projectConfig) => {
     }
     const projectName = projectConfig.name;
     console.log(`Creating package.json for ${projectName} (non-buildable library)`);
+    if (!projectName) {
+        throw new Error('Project name is required');
+    }
+    // Get the npm package name from the mapping
+    const packageName = (0, utils_1.getPackageJsonNameFromMapping)(tree, projectName);
     // Create the package.json content for non-buildable library
     const packageJson = {
-        name: projectName,
+        name: packageName,
+        // eslint-disable-next-line canonical/sort-keys
         exports: {
             '.': {
-                types: './src/index.ts',
-                import: './src/index.ts',
                 default: './src/index.ts',
+                import: './src/index.ts',
+                types: './src/index.ts',
             },
         },
     };

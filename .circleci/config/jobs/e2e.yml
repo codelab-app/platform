@@ -54,9 +54,7 @@ steps:
 
         pnpm nx e2e web-e2e -c ci \
           --shard=${SHARD}/${CIRCLE_NODE_TOTAL}
-
   # https://stackoverflow.com/questions/68916222/docker-build-error-cannot-connect-to-the-docker-daemon-at-unix-var-run-docke/68922177#68922177
-
   # This needs a separate job
   # - run:
   #     name: 'Merge Playwright Reports'

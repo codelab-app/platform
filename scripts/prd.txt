@@ -1,0 +1,30 @@
+# Product Requirements Document: Package.json Dev Dependencies Update
+
+## Overview
+The project aims to update the dev dependencies in package.json files for libraries under "Front End Application" and "Front End Domain" folders. Each library should have its own imports listed as dev dependencies in its package.json file.
+
+## Requirements
+
+### Core Requirements
+1. Scan all folders under Front End Application and Front End Domain
+2. For each library, analyze its source files to identify imported packages
+3. Update each library's package.json to include these imports as dev dependencies
+4. Only include the main package name (before any slash), not nested portions
+5. Use the "workspace:*" format for all internal dependencies
+
+### Technical Details
+- All dependencies should be added to the "devDependencies" section of package.json
+- For imports like @codelab/frontend-application-element/services, only include @codelab/frontend-application-element
+- External dependencies (non-workspace) should maintain their original version specification
+- If a package.json file doesn't exist for a library, create one with the appropriate structure
+
+### Success Criteria
+- All libraries under Front End Application and Front End Domain have updated package.json files
+- Each package.json correctly lists all imported dependencies
+- No duplicate dependencies are introduced
+- The project continues to build and run successfully after updates
+
+### Implementation Notes
+- Use the example from web/package.json as a reference for formatting
+- This task focuses on dev dependencies only, not regular dependencies
+- The task should be implemented in a way that minimizes manual effort and can potentially be automated

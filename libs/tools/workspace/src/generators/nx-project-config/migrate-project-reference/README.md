@@ -73,7 +73,18 @@ nx g @codelab/tools-workspace:nx-project-config --migrateToProjectReferences=tru
 
 ### For Applications:
 
-Adds all libraries in the workspace as `devDependencies` with `*` as the version.
+Adds all libraries in the workspace as `devDependencies` with `workspace:*` as the version. This is especially important for pnpm workspaces:
+
+```json
+// apps/my-app/package.json
+{
+  "devDependencies": {
+    "@myorg/some-library": "workspace:*"
+  }
+}
+```
+
+The `workspace:*` notation tells pnpm that the project is in the same repository and not an npm package. Using `devDependencies` instead of `dependencies` ensures that the library is not included twice in the production bundle of the application.
 
 ## Post-Migration Steps
 

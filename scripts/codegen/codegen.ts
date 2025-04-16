@@ -101,15 +101,15 @@ const config: Types.Config = {
       ],
       preset: 'near-operation-file',
       presetConfig: {
-        baseTypesPath: '~@codelab/shared/infra/gqlgen',
+        baseTypesPath: '~@codelab/shared-infra-gqlgen',
         extension: '.graphql.web.gen.ts',
       },
       plugins: [
         {
           ['@codelab-codegen/typescript-server-fetch']: {
             gqlFn: 'gqlServerRequest',
-            gqlFnPath: '@codelab/shared/infra/fetch-server',
-            graphqlPath: '@codelab/shared/infra/gqlgen',
+            gqlFnPath: '@codelab/shared-infra-fetch-server',
+            graphqlPath: '@codelab/shared-infra-gqlgen',
           },
         },
       ],
@@ -118,7 +118,7 @@ const config: Types.Config = {
       documents: ['libs/frontend/**/*.{api,fragment,client}.graphql'],
       preset: 'near-operation-file',
       presetConfig: {
-        baseTypesPath: '~@codelab/shared/infra/gqlgen',
+        baseTypesPath: '~@codelab/shared-infra-gqlgen',
         extension: '.graphql.api.gen.ts',
       },
       plugins: [
@@ -126,8 +126,8 @@ const config: Types.Config = {
           // this path points to a node_module package, make sure to run `pnpm install` before `pnpm codegen`
           ['@codelab-codegen/typescript-fetch']: {
             gqlFn: 'gqlRequest',
-            gqlFnPath: '@codelab/shared/infra/fetch',
-            graphqlPath: '@codelab/shared/infra/gqlgen',
+            gqlFnPath: '@codelab/shared-infra-fetch',
+            graphqlPath: '@codelab/shared-infra-gqlgen',
           },
         },
       ],
@@ -137,7 +137,7 @@ const config: Types.Config = {
       preset: 'near-operation-file',
       presetConfig: {
         extension: '.graphql.gen.ts',
-        baseTypesPath: '~@codelab/shared/infra/gqlgen',
+        baseTypesPath: '~@codelab/shared-infra-gqlgen',
         // Uncomment to force export of fragment types
         // importAllFragmentsFrom: '~@codelab/frontend/abstract/core',
       },

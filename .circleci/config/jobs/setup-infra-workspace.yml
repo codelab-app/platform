@@ -6,7 +6,6 @@ steps:
   - increment-docker-version
   # - install-packer
   - login-docker
-  - increment-docker-version
   - persist_to_workspace:
       root: ~/
       # Persists the docker login

@@ -1,0 +1,746 @@
+{
+  "api": {
+    "alias": "@codelab/api",
+    "path": "apps/api"
+  },
+  "cli": {
+    "alias": "@codelab/cli",
+    "path": "apps/cli"
+  },
+  "demo": {
+    "alias": "@codelab/demo",
+    "path": "apps/demo"
+  },
+  "design-system": {
+    "alias": "@codelab/design-system",
+    "path": "apps/design-system"
+  },
+  "landing": {
+    "alias": "@codelab/landing",
+    "path": "apps/landing"
+  },
+  "sites": {
+    "alias": "@codelab/sites",
+    "path": "apps/sites"
+  },
+  "web": {
+    "alias": "@codelab/web",
+    "path": "apps/web"
+  },
+  "web-e2e": {
+    "alias": "@codelab/web-e2e",
+    "path": "apps/web-e2e"
+  },
+  "backend-abstract-core": {
+    "alias": "@codelab/backend-abstract-core",
+    "path": "libs/backend/abstract/core"
+  },
+  "backend-abstract-types": {
+    "alias": "@codelab/backend-abstract-types",
+    "path": "libs/backend/abstract/types"
+  },
+  "backend-application-action": {
+    "alias": "@codelab/backend-application-action",
+    "path": "libs/backend/application/action"
+  },
+  "backend-application-admin": {
+    "alias": "@codelab/backend-application-admin",
+    "path": "libs/backend/application/admin"
+  },
+  "backend-application-app": {
+    "alias": "@codelab/backend-application-app",
+    "path": "libs/backend/application/app"
+  },
+  "backend-application-atom": {
+    "alias": "@codelab/backend-application-atom",
+    "path": "libs/backend/application/atom"
+  },
+  "backend-application-auth": {
+    "alias": "@codelab/backend-application-auth",
+    "path": "libs/backend/application/auth"
+  },
+  "backend-application-component": {
+    "alias": "@codelab/backend-application-component",
+    "path": "libs/backend/application/component"
+  },
+  "backend-application-data": {
+    "alias": "@codelab/backend-application-data",
+    "path": "libs/backend/application/data"
+  },
+  "backend-application-domain": {
+    "alias": "@codelab/backend-application-domain",
+    "path": "libs/backend/application/domain"
+  },
+  "backend-application-element": {
+    "alias": "@codelab/backend-application-element",
+    "path": "libs/backend/application/element"
+  },
+  "backend-application-field": {
+    "alias": "@codelab/backend-application-field",
+    "path": "libs/backend/application/field"
+  },
+  "backend-application-page": {
+    "alias": "@codelab/backend-application-page",
+    "path": "libs/backend/application/page"
+  },
+  "backend-application-prop": {
+    "alias": "@codelab/backend-application-prop",
+    "path": "libs/backend/application/prop"
+  },
+  "backend-application-redirect": {
+    "alias": "@codelab/backend-application-redirect",
+    "path": "libs/backend/application/redirect"
+  },
+  "backend-application-resource": {
+    "alias": "@codelab/backend-application-resource",
+    "path": "libs/backend/application/resource"
+  },
+  "backend-application-store": {
+    "alias": "@codelab/backend-application-store",
+    "path": "libs/backend/application/store"
+  },
+  "backend-application-tag": {
+    "alias": "@codelab/backend-application-tag",
+    "path": "libs/backend/application/tag"
+  },
+  "backend-application-type": {
+    "alias": "@codelab/backend-application-type",
+    "path": "libs/backend/application/type"
+  },
+  "backend-application-user": {
+    "alias": "@codelab/backend-application-user",
+    "path": "libs/backend/application/user"
+  },
+  "backend-data-seed": {
+    "alias": "@codelab/backend-data-seed",
+    "path": "libs/backend/data/seed"
+  },
+  "backend-domain-action": {
+    "alias": "@codelab/backend-domain-action",
+    "path": "libs/backend/domain/action"
+  },
+  "backend-domain-admin": {
+    "alias": "@codelab/backend-domain-admin",
+    "path": "libs/backend/domain/admin"
+  },
+  "backend-domain-app": {
+    "alias": "@codelab/backend-domain-app",
+    "path": "libs/backend/domain/app"
+  },
+  "backend-domain-atom": {
+    "alias": "@codelab/backend-domain-atom",
+    "path": "libs/backend/domain/atom"
+  },
+  "backend-domain-auth-guard": {
+    "alias": "@codelab/backend-domain-auth-guard",
+    "path": "libs/backend/domain/auth-guard"
+  },
+  "backend-domain-component": {
+    "alias": "@codelab/backend-domain-component",
+    "path": "libs/backend/domain/component"
+  },
+  "backend-domain-domain": {
+    "alias": "@codelab/backend-domain-domain",
+    "path": "libs/backend/domain/domain"
+  },
+  "backend-domain-element": {
+    "alias": "@codelab/backend-domain-element",
+    "path": "libs/backend/domain/element"
+  },
+  "backend-domain-page": {
+    "alias": "@codelab/backend-domain-page",
+    "path": "libs/backend/domain/page"
+  },
+  "backend-domain-preference": {
+    "alias": "@codelab/backend-domain-preference",
+    "path": "libs/backend/domain/preference"
+  },
+  "backend-domain-prop": {
+    "alias": "@codelab/backend-domain-prop",
+    "path": "libs/backend/domain/prop"
+  },
+  "backend-domain-redirect": {
+    "alias": "@codelab/backend-domain-redirect",
+    "path": "libs/backend/domain/redirect"
+  },
+  "backend-domain-resource": {
+    "alias": "@codelab/backend-domain-resource",
+    "path": "libs/backend/domain/resource"
+  },
+  "backend-domain-shared-auth": {
+    "alias": "@codelab/backend-domain-shared-auth",
+    "path": "libs/backend/domain/shared/auth"
+  },
+  "backend-domain-shared-modules": {
+    "alias": "@codelab/backend-domain-shared-modules",
+    "path": "libs/backend/domain/shared/modules"
+  },
+  "backend-domain-shared-seeder": {
+    "alias": "@codelab/backend-domain-shared-seeder",
+    "path": "libs/backend/domain/shared/seeder"
+  },
+  "backend-domain-store": {
+    "alias": "@codelab/backend-domain-store",
+    "path": "libs/backend/domain/store"
+  },
+  "backend-domain-tag": {
+    "alias": "@codelab/backend-domain-tag",
+    "path": "libs/backend/domain/tag"
+  },
+  "backend-domain-type": {
+    "alias": "@codelab/backend-domain-type",
+    "path": "libs/backend/domain/type"
+  },
+  "backend-domain-user": {
+    "alias": "@codelab/backend-domain-user",
+    "path": "libs/backend/domain/user"
+  },
+  "backend-infra-adapter-auth0": {
+    "alias": "@codelab/backend-infra-adapter-auth0",
+    "path": "libs/backend/infra/adapter/auth0"
+  },
+  "backend-infra-adapter-cli": {
+    "alias": "@codelab/backend-infra-adapter-cli",
+    "path": "libs/backend/infra/adapter/cli"
+  },
+  "backend-infra-adapter-digitalocean": {
+    "alias": "@codelab/backend-infra-adapter-digitalocean",
+    "path": "libs/backend/infra/adapter/digitalocean"
+  },
+  "backend-infra-adapter-dns": {
+    "alias": "@codelab/backend-infra-adapter-dns",
+    "path": "libs/backend/infra/adapter/dns"
+  },
+  "backend-infra-adapter-graphql": {
+    "alias": "@codelab/backend-infra-adapter-graphql",
+    "path": "libs/backend/infra/adapter/graphql"
+  },
+  "backend-infra-adapter-logger": {
+    "alias": "@codelab/backend-infra-adapter-logger",
+    "path": "libs/backend/infra/adapter/logger"
+  },
+  "backend-infra-adapter-middleware": {
+    "alias": "@codelab/backend-infra-adapter-middleware",
+    "path": "libs/backend/infra/adapter/middleware"
+  },
+  "backend-infra-adapter-neo4j-driver": {
+    "alias": "@codelab/backend-infra-adapter-neo4j-driver",
+    "path": "libs/backend/infra/adapter/neo4j-driver"
+  },
+  "backend-infra-adapter-neo4j-schema": {
+    "alias": "@codelab/backend-infra-adapter-neo4j-schema",
+    "path": "libs/backend/infra/adapter/neo4j-schema"
+  },
+  "backend-infra-adapter-queue": {
+    "alias": "@codelab/backend-infra-adapter-queue",
+    "path": "libs/backend/infra/adapter/queue"
+  },
+  "backend-infra-adapter-request-context": {
+    "alias": "@codelab/backend-infra-adapter-request-context",
+    "path": "libs/backend/infra/adapter/request-context"
+  },
+  "backend-infra-adapter-rest-client": {
+    "alias": "@codelab/backend-infra-adapter-rest-client",
+    "path": "libs/backend/infra/adapter/rest-client"
+  },
+  "backend-infra-adapter-shell": {
+    "alias": "@codelab/backend-infra-adapter-shell",
+    "path": "libs/backend/infra/adapter/shell"
+  },
+  "backend-infra-adapter-ws": {
+    "alias": "@codelab/backend-infra-adapter-ws",
+    "path": "libs/backend/infra/adapter/ws"
+  },
+  "backend-infra-core": {
+    "alias": "@codelab/backend-infra-core",
+    "path": "libs/backend/infra/core"
+  },
+  "backend-shared-errors": {
+    "alias": "@codelab/backend-shared-errors",
+    "path": "libs/backend/shared/errors"
+  },
+  "backend-shared-eval": {
+    "alias": "@codelab/backend-shared-eval",
+    "path": "libs/backend/shared/eval"
+  },
+  "backend-shared-util": {
+    "alias": "@codelab/backend-shared-util",
+    "path": "libs/backend/shared/util"
+  },
+  "backend-test-setup": {
+    "alias": "@codelab/backend-test-setup",
+    "path": "libs/backend/test/setup"
+  },
+  "backend-test-utils": {
+    "alias": "@codelab/backend-test-utils",
+    "path": "libs/backend/test/utils"
+  },
+  "codelab-codegen-codelab-preset": {
+    "alias": "@codelab/codelab-codegen-codelab-preset",
+    "path": "libs/external/codelab-codegen/codelab-preset"
+  },
+  "codelab-codegen-typescript-fetch": {
+    "alias": "@codelab/codelab-codegen-typescript-fetch",
+    "path": "libs/external/codelab-codegen/typescript-fetch"
+  },
+  "codelab-codegen-typescript-server-fetch": {
+    "alias": "@codelab/codelab-codegen-typescript-server-fetch",
+    "path": "libs/external/codelab-codegen/typescript-server-fetch"
+  },
+  "frontend-abstract-application": {
+    "alias": "@codelab/frontend-abstract-application",
+    "path": "libs/frontend/abstract/application"
+  },
+  "frontend-abstract-domain": {
+    "alias": "@codelab/frontend-abstract-domain",
+    "path": "libs/frontend/abstract/domain"
+  },
+  "frontend-abstract-types": {
+    "alias": "@codelab/frontend-abstract-types",
+    "path": "libs/frontend/abstract/types"
+  },
+  "frontend-application-admin": {
+    "alias": "@codelab/frontend-application-admin",
+    "path": "libs/frontend/application/admin"
+  },
+  "frontend-application-app": {
+    "alias": "@codelab/frontend-application-app",
+    "path": "libs/frontend/application/app"
+  },
+  "frontend-application-atom": {
+    "alias": "@codelab/frontend-application-atom",
+    "path": "libs/frontend/application/atom"
+  },
+  "frontend-application-auth-guard": {
+    "alias": "@codelab/frontend-application-auth-guard",
+    "path": "libs/frontend/application/auth-guard"
+  },
+  "frontend-application-builder": {
+    "alias": "@codelab/frontend-application-builder",
+    "path": "libs/frontend/application/builder"
+  },
+  "frontend-application-component": {
+    "alias": "@codelab/frontend-application-component",
+    "path": "libs/frontend/application/component"
+  },
+  "frontend-application-dnd": {
+    "alias": "@codelab/frontend-application-dnd",
+    "path": "libs/frontend/application/dnd"
+  },
+  "frontend-application-domain": {
+    "alias": "@codelab/frontend-application-domain",
+    "path": "libs/frontend/application/domain"
+  },
+  "frontend-application-element": {
+    "alias": "@codelab/frontend-application-element",
+    "path": "libs/frontend/application/element"
+  },
+  "frontend-application-lambda": {
+    "alias": "@codelab/frontend-application-lambda",
+    "path": "libs/frontend/application/lambda"
+  },
+  "frontend-application-page": {
+    "alias": "@codelab/frontend-application-page",
+    "path": "libs/frontend/application/page"
+  },
+  "frontend-application-preference": {
+    "alias": "@codelab/frontend-application-preference",
+    "path": "libs/frontend/application/preference"
+  },
+  "frontend-application-prop": {
+    "alias": "@codelab/frontend-application-prop",
+    "path": "libs/frontend/application/prop"
+  },
+  "frontend-application-redirect": {
+    "alias": "@codelab/frontend-application-redirect",
+    "path": "libs/frontend/application/redirect"
+  },
+  "frontend-application-renderer": {
+    "alias": "@codelab/frontend-application-renderer",
+    "path": "libs/frontend/application/renderer"
+  },
+  "frontend-application-resource": {
+    "alias": "@codelab/frontend-application-resource",
+    "path": "libs/frontend/application/resource"
+  },
+  "frontend-application-shared-data": {
+    "alias": "@codelab/frontend-application-shared-data",
+    "path": "libs/frontend/application/shared/data"
+  },
+  "frontend-application-shared-store": {
+    "alias": "@codelab/frontend-application-shared-store",
+    "path": "libs/frontend/application/shared/store"
+  },
+  "frontend-application-store": {
+    "alias": "@codelab/frontend-application-store",
+    "path": "libs/frontend/application/store"
+  },
+  "frontend-application-style": {
+    "alias": "@codelab/frontend-application-style",
+    "path": "libs/frontend/application/style"
+  },
+  "frontend-application-tag": {
+    "alias": "@codelab/frontend-application-tag",
+    "path": "libs/frontend/application/tag"
+  },
+  "frontend-application-type": {
+    "alias": "@codelab/frontend-application-type",
+    "path": "libs/frontend/application/type"
+  },
+  "frontend-application-user": {
+    "alias": "@codelab/frontend-application-user",
+    "path": "libs/frontend/application/user"
+  },
+  "frontend-cui-ui-atoms": {
+    "alias": "@codelab/frontend-cui-ui-atoms",
+    "path": "libs/frontend/cui/ui/atoms"
+  },
+  "frontend-cui-ui-molecules": {
+    "alias": "@codelab/frontend-cui-ui-molecules",
+    "path": "libs/frontend/cui/ui/molecules"
+  },
+  "frontend-cui-ui-organisms": {
+    "alias": "@codelab/frontend-cui-ui-organisms",
+    "path": "libs/frontend/cui/ui/organisms"
+  },
+  "frontend-cui-utils": {
+    "alias": "@codelab/frontend-cui-utils",
+    "path": "libs/frontend/cui/utils"
+  },
+  "frontend-domain-action": {
+    "alias": "@codelab/frontend-domain-action",
+    "path": "libs/frontend/domain/action"
+  },
+  "frontend-domain-admin": {
+    "alias": "@codelab/frontend-domain-admin",
+    "path": "libs/frontend/domain/admin"
+  },
+  "frontend-domain-app": {
+    "alias": "@codelab/frontend-domain-app",
+    "path": "libs/frontend/domain/app"
+  },
+  "frontend-domain-atom": {
+    "alias": "@codelab/frontend-domain-atom",
+    "path": "libs/frontend/domain/atom"
+  },
+  "frontend-domain-auth-guard": {
+    "alias": "@codelab/frontend-domain-auth-guard",
+    "path": "libs/frontend/domain/auth-guard"
+  },
+  "frontend-domain-component": {
+    "alias": "@codelab/frontend-domain-component",
+    "path": "libs/frontend/domain/component"
+  },
+  "frontend-domain-domain": {
+    "alias": "@codelab/frontend-domain-domain",
+    "path": "libs/frontend/domain/domain"
+  },
+  "frontend-domain-element": {
+    "alias": "@codelab/frontend-domain-element",
+    "path": "libs/frontend/domain/element"
+  },
+  "frontend-domain-lambda": {
+    "alias": "@codelab/frontend-domain-lambda",
+    "path": "libs/frontend/domain/lambda"
+  },
+  "frontend-domain-page": {
+    "alias": "@codelab/frontend-domain-page",
+    "path": "libs/frontend/domain/page"
+  },
+  "frontend-domain-preference": {
+    "alias": "@codelab/frontend-domain-preference",
+    "path": "libs/frontend/domain/preference"
+  },
+  "frontend-domain-prop": {
+    "alias": "@codelab/frontend-domain-prop",
+    "path": "libs/frontend/domain/prop"
+  },
+  "frontend-domain-redirect": {
+    "alias": "@codelab/frontend-domain-redirect",
+    "path": "libs/frontend/domain/redirect"
+  },
+  "frontend-domain-renderer": {
+    "alias": "@codelab/frontend-domain-renderer",
+    "path": "libs/frontend/domain/renderer"
+  },
+  "frontend-domain-resource": {
+    "alias": "@codelab/frontend-domain-resource",
+    "path": "libs/frontend/domain/resource"
+  },
+  "frontend-domain-shared": {
+    "alias": "@codelab/frontend-domain-shared",
+    "path": "libs/frontend/domain/shared"
+  },
+  "frontend-domain-store": {
+    "alias": "@codelab/frontend-domain-store",
+    "path": "libs/frontend/domain/store"
+  },
+  "frontend-domain-style": {
+    "alias": "@codelab/frontend-domain-style",
+    "path": "libs/frontend/domain/style"
+  },
+  "frontend-domain-tag": {
+    "alias": "@codelab/frontend-domain-tag",
+    "path": "libs/frontend/domain/tag"
+  },
+  "frontend-domain-type": {
+    "alias": "@codelab/frontend-domain-type",
+    "path": "libs/frontend/domain/type"
+  },
+  "frontend-domain-user": {
+    "alias": "@codelab/frontend-domain-user",
+    "path": "libs/frontend/domain/user"
+  },
+  "frontend-infra-action": {
+    "alias": "@codelab/frontend-infra-action",
+    "path": "libs/frontend/infra/action"
+  },
+  "frontend-infra-connector": {
+    "alias": "@codelab/frontend-infra-connector",
+    "path": "libs/frontend/infra/connector"
+  },
+  "frontend-infra-context": {
+    "alias": "@codelab/frontend-infra-context",
+    "path": "libs/frontend/infra/context"
+  },
+  "frontend-infra-gql-client": {
+    "alias": "@codelab/frontend-infra-gql-client",
+    "path": "libs/frontend/infra/gql-client"
+  },
+  "frontend-infra-logger": {
+    "alias": "@codelab/frontend-infra-logger",
+    "path": "libs/frontend/infra/logger"
+  },
+  "frontend-infra-mobx-context": {
+    "alias": "@codelab/frontend-infra-mobx-context",
+    "path": "libs/frontend/infra/mobx/context"
+  },
+  "frontend-infra-mobx-store": {
+    "alias": "@codelab/frontend-infra-mobx-store",
+    "path": "libs/frontend/infra/mobx/store"
+  },
+  "frontend-infra-shared": {
+    "alias": "@codelab/frontend-infra-shared",
+    "path": "libs/frontend/infra/shared"
+  },
+  "frontend-presentation-codelab-ui": {
+    "alias": "@codelab/frontend-presentation-codelab-ui",
+    "path": "libs/frontend/presentation/codelab-ui"
+  },
+  "frontend-presentation-components-codemirror": {
+    "alias": "@codelab/frontend-presentation-components-codemirror",
+    "path": "libs/frontend/presentation/components/codemirror"
+  },
+  "frontend-presentation-components-css-editor": {
+    "alias": "@codelab/frontend-presentation-components-css-editor",
+    "path": "libs/frontend/presentation/components/css-editor"
+  },
+  "frontend-presentation-components-fancybox": {
+    "alias": "@codelab/frontend-presentation-components-fancybox",
+    "path": "libs/frontend/presentation/components/fancybox"
+  },
+  "frontend-presentation-components-form": {
+    "alias": "@codelab/frontend-presentation-components-form",
+    "path": "libs/frontend/presentation/components/form"
+  },
+  "frontend-presentation-components-interface-form": {
+    "alias": "@codelab/frontend-presentation-components-interface-form",
+    "path": "libs/frontend/presentation/components/interface-form"
+  },
+  "frontend-presentation-components-lexical": {
+    "alias": "@codelab/frontend-presentation-components-lexical",
+    "path": "libs/frontend/presentation/components/lexical"
+  },
+  "frontend-presentation-components-reactquill": {
+    "alias": "@codelab/frontend-presentation-components-reactquill",
+    "path": "libs/frontend/presentation/components/reactquill"
+  },
+  "frontend-presentation-container": {
+    "alias": "@codelab/frontend-presentation-container",
+    "path": "libs/frontend/presentation/container"
+  },
+  "frontend-presentation-view": {
+    "alias": "@codelab/frontend-presentation-view",
+    "path": "libs/frontend/presentation/view"
+  },
+  "frontend-shared-utils": {
+    "alias": "@codelab/frontend-shared-utils",
+    "path": "libs/frontend/shared/utils"
+  },
+  "frontend-test-application": {
+    "alias": "@codelab/frontend-test-application",
+    "path": "libs/frontend/test/application"
+  },
+  "frontend-test-data": {
+    "alias": "@codelab/frontend-test-data",
+    "path": "libs/frontend/test/data"
+  },
+  "shared-abstract-core": {
+    "alias": "@codelab/shared-abstract-core",
+    "path": "libs/shared/abstract/core"
+  },
+  "shared-abstract-infra": {
+    "alias": "@codelab/shared-abstract-infra",
+    "path": "libs/shared/abstract/infra"
+  },
+  "shared-abstract-types": {
+    "alias": "@codelab/shared-abstract-types",
+    "path": "libs/shared/abstract/types"
+  },
+  "shared-config-builder": {
+    "alias": "@codelab/shared-config-builder",
+    "path": "libs/shared/config/builder"
+  },
+  "shared-config-env": {
+    "alias": "@codelab/shared-config-env",
+    "path": "libs/shared/config/env"
+  },
+  "shared-data-seed": {
+    "alias": "@codelab/shared-data-seed",
+    "path": "libs/shared/data/seed"
+  },
+  "shared-data-test": {
+    "alias": "@codelab/shared-data-test",
+    "path": "libs/shared/data/test"
+  },
+  "shared-domain-errors": {
+    "alias": "@codelab/shared-domain-errors",
+    "path": "libs/shared/domain/errors"
+  },
+  "shared-domain-module-action": {
+    "alias": "@codelab/shared-domain-module-action",
+    "path": "libs/shared/domain/module/action"
+  },
+  "shared-domain-module-app": {
+    "alias": "@codelab/shared-domain-module-app",
+    "path": "libs/shared/domain/module/app"
+  },
+  "shared-domain-module-atom": {
+    "alias": "@codelab/shared-domain-module-atom",
+    "path": "libs/shared/domain/module/atom"
+  },
+  "shared-domain-module-auth-guard": {
+    "alias": "@codelab/shared-domain-module-auth-guard",
+    "path": "libs/shared/domain/module/auth-guard"
+  },
+  "shared-domain-module-component": {
+    "alias": "@codelab/shared-domain-module-component",
+    "path": "libs/shared/domain/module/component"
+  },
+  "shared-domain-module-domain": {
+    "alias": "@codelab/shared-domain-module-domain",
+    "path": "libs/shared/domain/module/domain"
+  },
+  "shared-domain-module-element": {
+    "alias": "@codelab/shared-domain-module-element",
+    "path": "libs/shared/domain/module/element"
+  },
+  "field": {
+    "alias": "@codelab/field",
+    "path": "libs/shared/domain/module/field"
+  },
+  "shared-domain-module-page": {
+    "alias": "@codelab/shared-domain-module-page",
+    "path": "libs/shared/domain/module/page"
+  },
+  "shared-domain-module-preference": {
+    "alias": "@codelab/shared-domain-module-preference",
+    "path": "libs/shared/domain/module/preference"
+  },
+  "shared-domain-module-prop": {
+    "alias": "@codelab/shared-domain-module-prop",
+    "path": "libs/shared/domain/module/prop"
+  },
+  "shared-domain-module-redirect": {
+    "alias": "@codelab/shared-domain-module-redirect",
+    "path": "libs/shared/domain/module/redirect"
+  },
+  "shared-domain-module-resource": {
+    "alias": "@codelab/shared-domain-module-resource",
+    "path": "libs/shared/domain/module/resource"
+  },
+  "shared-domain-module-store": {
+    "alias": "@codelab/shared-domain-module-store",
+    "path": "libs/shared/domain/module/store"
+  },
+  "shared-domain-module-tag": {
+    "alias": "@codelab/shared-domain-module-tag",
+    "path": "libs/shared/domain/module/tag"
+  },
+  "shared-domain-module-type": {
+    "alias": "@codelab/shared-domain-module-type",
+    "path": "libs/shared/domain/module/type"
+  },
+  "shared-domain-module-user": {
+    "alias": "@codelab/shared-domain-module-user",
+    "path": "libs/shared/domain/module/user"
+  },
+  "shared-domain-orm": {
+    "alias": "@codelab/shared-domain-orm",
+    "path": "libs/shared/domain/orm"
+  },
+  "shared-infra-auth0": {
+    "alias": "@codelab/shared-infra-auth0",
+    "path": "libs/shared/infra/auth0"
+  },
+  "shared-infra-cache": {
+    "alias": "@codelab/shared-infra-cache",
+    "path": "libs/shared/infra/cache"
+  },
+  "shared-infra-eval": {
+    "alias": "@codelab/shared-infra-eval",
+    "path": "libs/shared/infra/eval"
+  },
+  "shared-infra-fetch": {
+    "alias": "@codelab/shared-infra-fetch",
+    "path": "libs/shared/infra/fetch"
+  },
+  "shared-infra-fetch-server": {
+    "alias": "@codelab/shared-infra-fetch-server",
+    "path": "libs/shared/infra/fetch-server"
+  },
+  "shared-infra-gql-client": {
+    "alias": "@codelab/shared-infra-gql-client",
+    "path": "libs/shared/infra/gql-client"
+  },
+  "shared-infra-gqlgen": {
+    "alias": "@codelab/shared-infra-gqlgen",
+    "path": "libs/shared/infra/gqlgen"
+  },
+  "shared-infra-logging": {
+    "alias": "@codelab/shared-infra-logging",
+    "path": "libs/shared/infra/logging"
+  },
+  "shared-infra-sentry": {
+    "alias": "@codelab/shared-infra-sentry",
+    "path": "libs/shared/infra/sentry"
+  },
+  "shared-infra-typebox": {
+    "alias": "@codelab/shared-infra-typebox",
+    "path": "libs/shared/infra/typebox"
+  },
+  "shared-infra-validation": {
+    "alias": "@codelab/shared-infra-validation",
+    "path": "libs/shared/infra/validation"
+  },
+  "shared-utils": {
+    "alias": "@codelab/shared-utils",
+    "path": "libs/shared/utils"
+  },
+  "tools-eslint-plugin": {
+    "alias": "@codelab/tools-eslint-plugin",
+    "path": "libs/tools/eslint-plugin"
+  },
+  "tsc-check": {
+    "alias": "@codelab/tsc-check",
+    "path": "libs/tools/tsc-check"
+  },
+  "tools-workspace": {
+    "alias": "@codelab/tools-workspace",
+    "path": "libs/tools/workspace"
+  },
+  "codelab": {
+    "alias": "@codelab/codelab",
+    "path": "."
+  }
+}

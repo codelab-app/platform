@@ -1,7 +1,7 @@
 {
   "defaultBase": "master",
   "useInferencePlugins": true,
-  "parallel": 3,
+  "parallel": 4,
   "defaultProject": "web",
   "maxCacheSize": "2GB",
   "nxCloudId": "67fcdb6b7eeb2ddcc348061b",
@@ -11,6 +11,20 @@
       "plugin": "@nx/eslint/plugin",
       "options": {
         "targetName": "eslint:lint"
+      }
+    },
+    {
+      "plugin": "@nx/js/typescript",
+      "options": {
+        "typecheck": {
+          "targetName": "typecheck"
+        },
+        "build": {
+          "targetName": "build",
+          "configName": "tsconfig.lib.json",
+          "buildDepsName": "build-deps",
+          "watchDepsName": "watch-deps"
+        }
       }
     },
     {
@@ -107,6 +121,10 @@
     "e2e": {
       "inputs": ["default", "^default"],
       "cache": true
+    },
+    "tsc-check": {
+      "cache": true,
+      "inputs": ["default", "^default", "{workspaceRoot}/tsconfig.base.json"]
     },
     "build-storybook": {
       "inputs": [

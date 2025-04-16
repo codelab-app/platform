@@ -1,8 +1,8 @@
-import { Tree, ProjectConfiguration } from '@nx/devkit';
+import type { ProjectConfiguration, Tree } from '@nx/devkit';
 export { createNonbuildableProjectPackageJson } from './create-nonbuildable-project-package-json';
-export { updateProjectTsconfig } from './update-project-tsconfig';
 export { getProjectDependencies } from './get-project-dependencies';
-export { updateAppDependencies } from './update-app-dependencies';
+export { updatePackageDependencies } from './update-app-dependencies';
+export { updateProjectTsconfig } from './update-project-tsconfig';
 /**
  * Migrates a project to use TypeScript project references
  */

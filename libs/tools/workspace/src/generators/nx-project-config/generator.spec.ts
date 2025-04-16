@@ -5,14 +5,14 @@ import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing'
 import { Linter } from '@nx/eslint'
 import { libraryGenerator } from '@nx/react'
 
-import type { EslintGeneratorSchema } from './schema'
+import type { ProjectConfigGeneratorSchema } from './schema'
 
 import { nxProjectConfigGenerator } from './generator'
 
 describe('project.json lint settings', () => {
   let tree: Tree
   const LIB_NAME = 'my-lib'
-  const options: EslintGeneratorSchema = { name: 'test' }
+  const options: ProjectConfigGeneratorSchema = {}
 
   beforeEach(async () => {
     tree = createTreeWithEmptyWorkspace()
