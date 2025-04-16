@@ -7,8 +7,7 @@ import type {
 import { isAdmin } from '@codelab/frontend/abstract/domain'
 import { useFieldService } from '@codelab/frontend-application-type/services'
 import { useUser } from '@codelab/frontend-application-user/services'
-import { Button, Col, Dropdown, Row } from 'antd'
-import { observer } from 'mobx-react-lite'
+import { Button, Col, Dropdown, Popconfirm, Row } from 'antd'
 import { useRouter } from 'next/navigation'
 import { mergeDeep } from 'remeda'
 
@@ -23,7 +22,7 @@ export const AdminPropsPanel = ({
 }: AdminPropsPanelProps) => {
   const user = useUser()
   const router = useRouter()
-  const { createPopover, deletePopover, updatePopover } = useFieldService()
+  const { createPopover, removeMany, updatePopover } = useFieldService()
 
   if (!isAdmin(user)) {
     return null
@@ -31,17 +30,6 @@ export const AdminPropsPanel = ({
 
   const onEdit = (field: IFieldModel) => {
     updatePopover.open(
-      router,
-      mergeDeep(context, {
-        params: {
-          fieldId: field.id,
-        },
-      }),
-    )
-  }
-
-  const onDelete = (field: IFieldModel) => {
-    deletePopover.open(
       router,
       mergeDeep(context, {
         params: {
@@ -64,10 +52,16 @@ export const AdminPropsPanel = ({
   const deleteMenuItems = interfaceType.fields.map((field) => {
     return {
       key: field.key,
-      label: field.name ?? field.key,
-      onClick: () => {
-        onDelete(field)
-      },
+      label: (
+        <Popconfirm
+          onConfirm={async () => {
+            await removeMany([field])
+          }}
+          title={`Are you sure you want to delete ${field.name ?? field.key}?`}
+        >
+          {field.name ?? field.key}
+        </Popconfirm>
+      ),
     }
   })
 

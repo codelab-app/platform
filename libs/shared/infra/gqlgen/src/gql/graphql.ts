@@ -10229,7 +10229,6 @@ export type Element = {
   childMapperPropKey?: Maybe<Scalars['String']['output']>;
   closestContainerNode: ContainerNode;
   compositeKey: Scalars['String']['output'];
-  expanded?: Maybe<Scalars['Boolean']['output']>;
   firstChild?: Maybe<Element>;
   firstChildAggregate?: Maybe<ElementElementFirstChildAggregationSelection>;
   firstChildConnection: ElementFirstChildConnection;
@@ -10950,7 +10949,6 @@ export type ElementCreateInput = {
   childMapperPreviousSibling?: InputMaybe<ElementChildMapperPreviousSiblingFieldInput>;
   childMapperPropKey?: InputMaybe<Scalars['String']['input']>;
   compositeKey: Scalars['String']['input'];
-  expanded?: InputMaybe<Scalars['Boolean']['input']>;
   firstChild?: InputMaybe<ElementFirstChildFieldInput>;
   id: Scalars['ID']['input'];
   nextSibling?: InputMaybe<ElementNextSiblingFieldInput>;
@@ -11107,7 +11105,6 @@ export type ElementEventPayload = {
   __typename?: 'ElementEventPayload';
   childMapperPropKey?: Maybe<Scalars['String']['output']>;
   compositeKey: Scalars['String']['output'];
-  expanded?: Maybe<Scalars['Boolean']['output']>;
   id: Scalars['ID']['output'];
   renderForEachPropKey?: Maybe<Scalars['String']['output']>;
   renderIfExpression?: Maybe<Scalars['String']['output']>;
@@ -12622,7 +12619,6 @@ export type ElementRenderTypeWhere = {
 export type ElementSort = {
   childMapperPropKey?: InputMaybe<SortDirection>;
   compositeKey?: InputMaybe<SortDirection>;
-  expanded?: InputMaybe<SortDirection>;
   id?: InputMaybe<SortDirection>;
   renderForEachPropKey?: InputMaybe<SortDirection>;
   renderIfExpression?: InputMaybe<SortDirection>;
@@ -12649,9 +12645,6 @@ export type ElementSubscriptionWhere = {
   compositeKey_IN?: InputMaybe<Array<Scalars['String']['input']>>;
   compositeKey_MATCHES?: InputMaybe<Scalars['String']['input']>;
   compositeKey_STARTS_WITH?: InputMaybe<Scalars['String']['input']>;
-  /** @deprecated Please use the explicit _EQ version */
-  expanded?: InputMaybe<Scalars['Boolean']['input']>;
-  expanded_EQ?: InputMaybe<Scalars['Boolean']['input']>;
   /** @deprecated Please use the explicit _EQ version */
   id?: InputMaybe<Scalars['ID']['input']>;
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>;
@@ -13358,9 +13351,6 @@ export type ElementUpdateInput = {
   /** @deprecated Please use the explicit _SET field */
   compositeKey?: InputMaybe<Scalars['String']['input']>;
   compositeKey_SET?: InputMaybe<Scalars['String']['input']>;
-  /** @deprecated Please use the explicit _SET field */
-  expanded?: InputMaybe<Scalars['Boolean']['input']>;
-  expanded_SET?: InputMaybe<Scalars['Boolean']['input']>;
   firstChild?: InputMaybe<ElementFirstChildUpdateFieldInput>;
   nextSibling?: InputMaybe<ElementNextSiblingUpdateFieldInput>;
   page?: InputMaybe<ElementPageUpdateFieldInput>;
@@ -13421,9 +13411,6 @@ export type ElementWhere = {
   compositeKey_IN?: InputMaybe<Array<Scalars['String']['input']>>;
   compositeKey_MATCHES?: InputMaybe<Scalars['String']['input']>;
   compositeKey_STARTS_WITH?: InputMaybe<Scalars['String']['input']>;
-  /** @deprecated Please use the explicit _EQ version */
-  expanded?: InputMaybe<Scalars['Boolean']['input']>;
-  expanded_EQ?: InputMaybe<Scalars['Boolean']['input']>;
   firstChild?: InputMaybe<ElementWhere>;
   firstChildAggregate?: InputMaybe<ElementFirstChildAggregateInput>;
   firstChildConnection?: InputMaybe<ElementFirstChildConnectionWhere>;

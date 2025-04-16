@@ -107,7 +107,7 @@ export const ElementBlueprint = observer<{
     element.props.values,
     element.nextSibling?.id,
     element.parentElement?.id,
-    element.isTextContentEditable,
+    runtimeElement.isTextContentEditable,
   ]
 
   const { setNodeRef } = useTypedDroppable({
@@ -168,8 +168,8 @@ export const ElementBlueprint = observer<{
         container={container}
         containerRect={containerRect}
         domElement={getDomElement()}
-        element={element}
         rect={rect}
+        runtimeElement={runtimeElement}
       />
     ) : null
   }, [container, containerRect, element, isSelected, rect, getDomElement])

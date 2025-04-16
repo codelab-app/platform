@@ -5,7 +5,6 @@ import {
   type IBuilderRoute,
   type IElementService,
   IRouteType,
-  isRuntimeElement,
   isRuntimeElementRef,
   RoutePaths,
 } from '@codelab/frontend/abstract/application'
@@ -23,7 +22,6 @@ import {
   useApplicationStore,
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
-import { logger } from '@codelab/shared/infra/logging'
 import { uniqueBy } from 'remeda'
 
 /**
