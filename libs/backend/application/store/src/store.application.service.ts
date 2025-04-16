@@ -12,9 +12,6 @@ import {
 } from '@codelab/backend-domain-store'
 import { TypeDomainService } from '@codelab/backend-domain-type'
 import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
-} from '@codelab/backend-domain-store'
-import { TypeDomainService } from '@codelab/backend-domain-type'
-import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
