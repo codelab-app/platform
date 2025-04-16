@@ -19,6 +19,7 @@ import { useAsyncHandler, usePostSubmit } from './utils'
 export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
   filterDOMProps.register('nullable')
   filterDOMProps.register('isTypedProp')
+  filterDOMProps.register('forbiddenValues')
 
   const Form = <TData, TResponse = unknown>(
     props: React.PropsWithChildren<FormProps<TData, TResponse>>,
