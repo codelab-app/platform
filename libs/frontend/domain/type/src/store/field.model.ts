@@ -19,7 +19,7 @@ import { reconnectNodeId } from '@codelab/shared-domain-orm'
 import { titleCase } from '@codelab/shared-utils'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
-import { isNonNullish } from 'remeda'
+import { isNonNullish, isString } from 'remeda'
 
 const create = ({
   api,
