@@ -23,7 +23,7 @@ const getRelativePathToTsConfigBase = (projectRoot: string): string => {
 /**
  * Updates the tsconfig.json files for a project to use project references
  */
-export const updateProjectTsconfig = async (
+export const updateProjectTsconfig = (
   tree: Tree,
   projectConfig: ProjectConfiguration,
 ) => {

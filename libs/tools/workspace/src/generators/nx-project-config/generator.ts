@@ -63,8 +63,7 @@ export const nxProjectConfigGenerator = async (
 
     // Migrate project to use TypeScript project references
     if (options.migrateToProjectReferences) {
-      await migrateProjectImports(tree, projectConfig)
-      // await migrateProjectReference(tree, projectConfig)
+      await migrateProjectReference(tree, projectConfig)
     } else {
       addProjectTags(tree, projectConfig)
       updateTestTargets(tree, projectConfig)

@@ -6,7 +6,7 @@ import { updateProjectImports } from './project-imports'
 /**
  * Change all the import paths a project uses
  */
-export const migrateProjectImports = async (
+export const migrateProjectImports = (
   tree: Tree,
   projectConfig: ProjectConfiguration,
 ) => {

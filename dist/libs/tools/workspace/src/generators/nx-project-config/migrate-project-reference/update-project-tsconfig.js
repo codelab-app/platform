@@ -13,7 +13,7 @@ const getRelativePathToTsConfigBase = (projectRoot) => {
 /**
  * Updates the tsconfig.json files for a project to use project references
  */
-const updateProjectTsconfig = async (tree, projectConfig) => {
+const updateProjectTsconfig = (tree, projectConfig) => {
     const rootTsconfigPath = (0, devkit_1.joinPathFragments)(projectConfig.root, 'tsconfig.json');
     const libTsconfigPath = (0, devkit_1.joinPathFragments)(projectConfig.root, 'tsconfig.lib.json');
     const specTsconfigPath = (0, devkit_1.joinPathFragments)(projectConfig.root, 'tsconfig.spec.json');
