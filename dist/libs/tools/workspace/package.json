@@ -1,13 +1,11 @@
 {
   "name": "@codelab/tools-workspace",
-  "exports": {
-    ".": {
-      "default": "./src/index.ts",
-      "import": "./src/index.ts",
-      "types": "./src/index.ts"
-    }
+  "version": "0.0.1",
+  "generators": "./generators.json",
+  "executors": "./executors.json",
+  "dependencies": {
+    "@nx/devkit": "19.0.4"
   },
-  "devDependencies": {},
   "types": "./src/index.d.ts",
   "main": "./src/index.js",
   "type": "commonjs"
