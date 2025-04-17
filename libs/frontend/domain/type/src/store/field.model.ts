@@ -19,7 +19,7 @@ import { reconnectNodeId } from '@codelab/shared/domain/orm'
 import { titleCase } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
-import { isNonNullish } from 'remeda'
+import { isNonNullish, isString } from 'remeda'
 
 const create = ({
   api,
@@ -37,8 +37,11 @@ const create = ({
 
   try {
     // `defaultValues` could be a falsy valid value e.g. `false`, 0
+    // skip parse in case of string
     parsedDefaultValues = isNonNullish(parsedDefaultValues)
-      ? JSON.parse(parsedDefaultValues)
+      ? isString(defaultValues)
+        ? defaultValues
+        : JSON.parse(parsedDefaultValues)
       : null
   } catch (err) {
     console.log(`Failed to parse default value for field: ${key}`)
