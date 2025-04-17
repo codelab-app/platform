@@ -11,7 +11,7 @@ import {
 /**
  * Creates package.json files for non-buildable projects
  */
-export const createNonbuildableProjectPackageJson = (
+export const createNonbuildablePackageJson = (
   tree: Tree,
   projectConfig: ProjectConfiguration,
 ) => {

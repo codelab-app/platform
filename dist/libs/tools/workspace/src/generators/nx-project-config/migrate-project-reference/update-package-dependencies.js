@@ -86,4 +86,4 @@ const updatePackageDependencies = (tree, projectConfig) => {
     console.log(`Updated dependencies in ${packageJsonPath}`);
 };
 exports.updatePackageDependencies = updatePackageDependencies;
-//# sourceMappingURL=update-app-dependencies.js.map
+//# sourceMappingURL=update-package-dependencies.js.map

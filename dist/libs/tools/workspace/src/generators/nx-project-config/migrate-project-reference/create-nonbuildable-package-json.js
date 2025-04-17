@@ -1,12 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createNonbuildableProjectPackageJson = void 0;
+exports.createNonbuildablePackageJson = void 0;
 const devkit_1 = require("@nx/devkit");
 const utils_1 = require("./utils");
 /**
  * Creates package.json files for non-buildable projects
  */
-const createNonbuildableProjectPackageJson = (tree, projectConfig) => {
+const createNonbuildablePackageJson = (tree, projectConfig) => {
     // Skip if project already has a package.json
     const packageJsonPath = (0, devkit_1.joinPathFragments)(projectConfig.root, 'package.json');
     if (tree.exists(packageJsonPath)) {
@@ -36,5 +36,5 @@ const createNonbuildableProjectPackageJson = (tree, projectConfig) => {
     (0, devkit_1.writeJson)(tree, packageJsonPath, packageJson);
     console.log(`Created package.json for ${projectName}`);
 };
-exports.createNonbuildableProjectPackageJson = createNonbuildableProjectPackageJson;
-//# sourceMappingURL=create-nonbuildable-project-package-json.js.map
+exports.createNonbuildablePackageJson = createNonbuildablePackageJson;
+//# sourceMappingURL=create-nonbuildable-package-json.js.map

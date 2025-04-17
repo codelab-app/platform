@@ -26,6 +26,7 @@ export interface ProjectPathMapping {
  * Throws an error if the mapping file doesn't exist or if the project is not found in the mapping
  */
 export declare const getPackageJsonNameFromProjectName: (projectName: string) => string;
+export declare const convertToNpmPackageName: (projectName: string) => string;
 /**
  * Gets npm package name from the project mapping
  * Throws an error if the mapping file doesn't exist or if the project is not found in the mapping
