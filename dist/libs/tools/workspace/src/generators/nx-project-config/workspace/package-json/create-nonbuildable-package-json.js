@@ -27,7 +27,7 @@ const createNonbuildablePackageJson = (tree, projectConfig) => {
     const baseImportPaths = (0, paths_1.getBaseImportPaths)(allImports);
     console.log(`Found ${baseImportPaths.length} unique base @codelab dependencies to add.`);
     // Save import data
-    saveImportData(tree, projectConfig.root, allImports, baseImportPaths);
+    // saveImportData(tree, projectConfig.root, allImports, baseImportPaths)
     const relativeExports = (0, relative_exports_1.getRelativeExports)(allImports, baseImportPaths, packageName);
     console.log('Generated Exports Map:', JSON.stringify(relativeExports, null, 2));
     (0, package_exports_1.setPackageJsonExports)(packageJson, relativeExports);

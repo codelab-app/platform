@@ -1444,6 +1444,11 @@
     "path": "libs/frontend/presentation/components/reactquill/src/index.ts",
     "name": "frontend-presentation-components-reactquill"
   },
+  "@codelab/frontend-presentation-view": {
+    "expected": "@codelab/frontend-presentation-view",
+    "path": "libs/frontend/presentation/view/src/index.ts",
+    "name": "frontend-presentation-view"
+  },
   "@codelab/frontend-presentation-view/components/button": {
     "expected": "@codelab/frontend-presentation-view/components/button",
     "path": "libs/frontend/presentation/view/src/components/button/index.ts",
@@ -1637,7 +1642,7 @@
   "@codelab/shared-domain-module/field": {
     "expected": "@codelab/shared-domain-module-field",
     "path": "libs/shared/domain/module/field/src/index.ts",
-    "name": null
+    "name": "shared-domain-module-field"
   },
   "@codelab/shared-domain-module/page": {
     "expected": "@codelab/shared-domain-module-page",
@@ -1684,10 +1689,10 @@
     "path": "libs/shared/domain/module/user/src/index.ts",
     "name": null
   },
-  "@codelab/shared-infra-auth0/client": {
-    "expected": "@codelab/shared-infra-auth0/client",
-    "path": "libs/shared/infra/auth0/src/client/index.ts",
-    "name": null
+  "@codelab/shared-infra-auth0": {
+    "expected": "@codelab/shared-infra-auth0",
+    "path": "libs/shared/infra/auth0/src/index.ts",
+    "name": "shared-infra-auth0"
   },
   "@codelab/shared-infra-eval": {
     "expected": "@codelab/shared-infra-eval",
@@ -2153,5 +2158,10 @@
     "expected": "@codelab/shared-domain-module-user",
     "path": "libs/shared/domain/module/user/src/index.ts",
     "name": "shared-domain-module-user"
+  },
+  "@codelab": {
+    "expected": "@codelab",
+    "path": ".",
+    "name": "codelab"
   }
 }

@@ -1,6 +1,6 @@
 import type { NextRequest, NextResponse } from 'next/server'
 
-import { auth0Instance } from '@codelab/shared-infra-auth0/client'
+import { auth0Instance } from '@codelab/shared-infra-auth0'
 
 export const authMiddleware = async (
   request: NextRequest,

@@ -10,11 +10,15 @@ const path_alias_json_1 = tslib_1.__importDefault(require("./path-alias.json"));
  * @throws Error if project name is not found in the path alias map
  */
 const getPackageNameFromProjectName = (projectName) => {
-    const entry = Object.entries(path_alias_json_1.default).find(([_, value]) => value.name === projectName);
-    if (!entry) {
-        throw new Error(`Project name "${projectName}" not found in path alias map`);
+    const pathAliasMapData = path_alias_json_1.default;
+    for (const [alias, details] of Object.entries(pathAliasMapData)) {
+        if (details.name === projectName) {
+            // Return the expected alias
+            return details.expected;
+        }
     }
-    return entry[0];
+    // If the loop completes without finding a match, throw an error
+    throw new Error(`Project name "${projectName}" not found in path alias map`);
 };
 exports.getPackageNameFromProjectName = getPackageNameFromProjectName;
 //# sourceMappingURL=path-alias.js.map

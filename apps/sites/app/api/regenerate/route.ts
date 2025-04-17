@@ -1,6 +1,6 @@
 import type { NextRequest } from 'next/server'
 
-import { auth0Instance } from '@codelab/shared-infra-auth0/client'
+import { auth0Instance } from '@codelab/shared-infra-auth0'
 import { revalidatePath } from 'next/cache'
 import { NextResponse } from 'next/server'
 

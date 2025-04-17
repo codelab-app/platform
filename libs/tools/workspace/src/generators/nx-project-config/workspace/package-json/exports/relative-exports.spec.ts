@@ -1,5 +1,5 @@
-import data from './data.json'
 import { getRelativeExports } from './relative-exports'
+import data from './test-data.json'
 
 describe('getRelativeExports', () => {
   it('should generate relative exports based on import data', () => {

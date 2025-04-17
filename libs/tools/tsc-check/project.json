@@ -1,5 +1,5 @@
 {
-  "name": "tsc-check",
+  "name": "tools-tsc-check",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/tools/tsc-check/src",
   "projectType": "library",

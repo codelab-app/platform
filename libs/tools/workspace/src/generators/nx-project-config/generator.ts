@@ -38,8 +38,11 @@ export const nxProjectConfigGenerator = async (
     console.log(`Checking for ${projectConfig.name}...`)
     console.log('-----------------')
 
-    if (projectConfig.projectType === 'application') {
-      console.log('Skipping application project:', projectConfig.name)
+    if (
+      projectConfig.projectType === 'application' ||
+      projectConfig.name === 'codelab'
+    ) {
+      console.log('Skipping project:', projectConfig.name)
       continue
     }
 

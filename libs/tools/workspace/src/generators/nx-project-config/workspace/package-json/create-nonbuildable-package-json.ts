@@ -49,7 +49,7 @@ export const createNonbuildablePackageJson = (
   )
 
   // Save import data
-  saveImportData(tree, projectConfig.root, allImports, baseImportPaths)
+  // saveImportData(tree, projectConfig.root, allImports, baseImportPaths)
 
   const relativeExports = getRelativeExports(
     allImports,

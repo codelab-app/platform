@@ -958,9 +958,7 @@
   "@codelab/shared-domain-module/user": [
     "libs/shared/domain/module/user/src/index.ts"
   ],
-  "@codelab/shared-infra-auth0/client": [
-    "libs/shared/infra/auth0/src/client/index.ts"
-  ],
+  "@codelab/shared-infra-auth0": ["libs/shared/infra/auth0/src/index.ts"],
   "@codelab/shared-infra-eval": ["libs/shared/infra/eval/src/index.ts"],
   "@codelab/shared-infra-sentry": ["libs/shared/infra/sentry/src/index.ts"],
   "@codelab/shared/abstract/core": ["libs/shared/abstract/core/src/index.ts"],

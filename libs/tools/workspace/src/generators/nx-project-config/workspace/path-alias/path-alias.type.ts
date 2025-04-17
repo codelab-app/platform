@@ -8,5 +8,7 @@ export type PathAliasMap = Record<
     expected: string
     // This is the path to the project
     path: string
+    // This is the name of the project
+    name: string | null
   }
 >

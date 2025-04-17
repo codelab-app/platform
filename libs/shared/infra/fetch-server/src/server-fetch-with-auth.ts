@@ -18,7 +18,7 @@ export const serverFetchWithAuth = async (
    */
 
   // FIXME: maybe we don't need this import anymore
-  const { auth0Instance } = await import('@codelab/shared-infra-auth0/client')
+  const { auth0Instance } = await import('@codelab/shared-infra-auth0')
   const session = await auth0Instance.getSession()
 
   const headers = {
