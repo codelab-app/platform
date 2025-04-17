@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createNonbuildablePackageJson = void 0;
 const devkit_1 = require("@nx/devkit");
-const utils_1 = require("./utils");
+const package_name_1 = require("../path-alias/package-name");
 /**
  * Creates package.json files for non-buildable projects
  */
@@ -19,7 +19,7 @@ const createNonbuildablePackageJson = (tree, projectConfig) => {
         throw new Error('Project name is required');
     }
     // Get the npm package name from the mapping
-    const packageName = (0, utils_1.getPackageJsonNameFromMapping)(tree, projectName);
+    const packageName = (0, package_name_1.convertToPackageName)(projectName);
     // Create the package.json content for non-buildable library
     const packageJson = {
         name: packageName,
