@@ -31,6 +31,16 @@ export const createNonbuildablePackageJson = (
     throw new Error('Project name is required')
   }
 
+  const packageJsonPath = joinPathFragments(projectConfig.root, 'package.json')
+
+  console.log(`Checking if path exists: ${packageJsonPath}`)
+
+  if (tree.exists(packageJsonPath)) {
+    console.log(`Package.json already exists for ${projectName}`)
+
+    return
+  }
+
   const packageJson: PackageJson = {}
   const packageName = getPackageNameFromProjectName(projectName)
 

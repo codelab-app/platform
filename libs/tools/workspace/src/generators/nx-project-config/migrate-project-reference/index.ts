@@ -25,10 +25,10 @@ export const migrateProjectReference = async (
   createNonbuildablePackageJson(tree, projectConfig)
 
   // Step 3: Update project imports
-  // migrateProjectImports(tree, projectConfig)
+  migrateProjectImports(tree, projectConfig)
 
   // Step 4: Update TypeScript configuration
-  // updateProjectTsconfig(tree, projectConfig)
+  updateProjectTsconfig(tree, projectConfig)
 
   console.log(`Completed migration for ${projectConfig.name}`)
 }

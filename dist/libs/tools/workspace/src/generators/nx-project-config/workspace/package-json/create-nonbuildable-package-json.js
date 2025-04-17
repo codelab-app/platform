@@ -18,6 +18,12 @@ const createNonbuildablePackageJson = (tree, projectConfig) => {
     if (!projectName) {
         throw new Error('Project name is required');
     }
+    const packageJsonPath = (0, devkit_1.joinPathFragments)(projectConfig.root, 'package.json');
+    console.log(`Checking if path exists: ${packageJsonPath}`);
+    if (tree.exists(packageJsonPath)) {
+        console.log(`Package.json already exists for ${projectName}`);
+        return;
+    }
     const packageJson = {};
     const packageName = (0, path_alias_1.getPackageNameFromProjectName)(projectName);
     (0, package_name_1.setPackageJsonName)(packageJson, projectName);
