@@ -14,7 +14,6 @@ import { migrateProjectReference } from './migrate-project-reference'
 import { addProjectTags } from './project-tags/add-project-tags'
 import { updateBaseTsconfig } from './tsconfig/base/tsconfig.base'
 import { createAliasMapping, saveAliasMappingToFile } from './utils/workspace'
-import { migrateProjectImports } from './workspace/imports/migrate-project-imports'
 
 /**
  * Factory function to generate a list of available projects for the x-prompt

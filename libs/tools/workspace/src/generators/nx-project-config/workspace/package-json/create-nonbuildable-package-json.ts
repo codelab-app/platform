@@ -4,7 +4,7 @@ import type { PackageJson } from 'type-fest'
 import { joinPathFragments, readJson, writeJson } from '@nx/devkit'
 
 import { getProjectImports } from '../imports/project-imports'
-import { convertToPackageName } from '../path-alias/package-name'
+import { getPackageNameFromProjectName } from '../path-alias/path-alias'
 import { getRelativeExports } from './exports/relative-exports'
 import { getBaseImportPaths } from './paths'
 import { setDevDependencies } from './setter/package-dev-dependencies'
@@ -29,13 +29,13 @@ export const createNonbuildablePackageJson = (
   }
 
   const packageJson: PackageJson = {}
-  const packageName = convertToPackageName(projectName)
+  const packageName = getPackageNameFromProjectName(projectName)
 
   setPackageJsonName(packageJson, packageName)
 
   // Get transformed imports
   const allImports = getProjectImports(tree, projectConfig).map((importPath) =>
-    convertToPackageName(importPath),
+    getPackageNameFromProjectName(importPath),
   )
 
   console.log(

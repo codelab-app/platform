@@ -2,7 +2,7 @@
   "name": "design-system",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/design-system/src",
-  "projectType": "library",
+  "projectType": "application",
   "tags": [
     "projectName:design-system",
     "projectType:application",

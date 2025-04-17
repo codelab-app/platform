@@ -3,12 +3,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.createNonbuildablePackageJson = void 0;
 const devkit_1 = require("@nx/devkit");
 const project_imports_1 = require("../imports/project-imports");
-const package_name_1 = require("../path-alias/package-name");
+const path_alias_1 = require("../path-alias/path-alias");
 const relative_exports_1 = require("./exports/relative-exports");
 const paths_1 = require("./paths");
 const package_dev_dependencies_1 = require("./setter/package-dev-dependencies");
 const package_exports_1 = require("./setter/package-exports");
-const package_name_2 = require("./setter/package-name");
+const package_name_1 = require("./setter/package-name");
 /**
  * Creates package.json files for non-buildable projects, including dependency analysis
  */
@@ -19,10 +19,10 @@ const createNonbuildablePackageJson = (tree, projectConfig) => {
         throw new Error('Project name is required');
     }
     const packageJson = {};
-    const packageName = (0, package_name_1.convertToPackageName)(projectName);
-    (0, package_name_2.setPackageJsonName)(packageJson, packageName);
+    const packageName = (0, path_alias_1.getPackageNameFromProjectName)(projectName);
+    (0, package_name_1.setPackageJsonName)(packageJson, packageName);
     // Get transformed imports
-    const allImports = (0, project_imports_1.getProjectImports)(tree, projectConfig).map((importPath) => (0, package_name_1.convertToPackageName)(importPath));
+    const allImports = (0, project_imports_1.getProjectImports)(tree, projectConfig).map((importPath) => (0, path_alias_1.getPackageNameFromProjectName)(importPath));
     console.log(`Found ${allImports.length} potential @codelab imports in ${projectName}`);
     const baseImportPaths = (0, paths_1.getBaseImportPaths)(allImports);
     console.log(`Found ${baseImportPaths.length} unique base @codelab dependencies to add.`);
