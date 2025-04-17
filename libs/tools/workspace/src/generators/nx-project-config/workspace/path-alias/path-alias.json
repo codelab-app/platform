@@ -324,6 +324,41 @@
     "path": "tools/eslint-plugin/src/index.ts",
     "name": "eslint-plugin"
   },
+  "@cui/ui-atoms": {
+    "expected": "@cui/ui-atoms",
+    "path": "libs/frontend/cui/ui/atoms/src/index.ts",
+    "name": "frontend-cui-ui-atoms"
+  },
+  "@cui/ui-molecules": {
+    "expected": "@cui/ui-molecules",
+    "path": "libs/frontend/cui/ui/molecules/src/index.ts",
+    "name": "frontend-cui-ui-molecules"
+  },
+  "@cui/ui-organisms": {
+    "expected": "@cui/ui-organisms",
+    "path": "libs/frontend/cui/ui/organisms/src/index.ts",
+    "name": "frontend-cui-ui-organisms"
+  },
+  "@cui/utils": {
+    "expected": "@cui/utils",
+    "path": "libs/frontend/cui/utils/src/index.ts",
+    "name": "frontend-cui-utils"
+  },
+  "@codelab/frontend/abstract/application": {
+    "expected": "@codelab/frontend-abstract-application",
+    "path": "libs/frontend/abstract/application/src/index.ts",
+    "name": "frontend-abstract-application"
+  },
+  "@codelab/frontend/abstract/domain": {
+    "expected": "@codelab/frontend-abstract-domain",
+    "path": "libs/frontend/abstract/domain/src/index.ts",
+    "name": "frontend-abstract-domain"
+  },
+  "@codelab/frontend/abstract/types": {
+    "expected": "@codelab/frontend-abstract-types",
+    "path": "libs/frontend/abstract/types/src/index.ts",
+    "name": "frontend-abstract-types"
+  },
   "@codelab/frontend-application-admin": {
     "expected": "@codelab/frontend-application-admin",
     "path": "libs/frontend/application/admin/src/index.ts",

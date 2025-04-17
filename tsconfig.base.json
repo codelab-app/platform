@@ -5,7 +5,7 @@
     "rootDirs": ["*", "libs"],
     "sourceMap": true,
     "composite": true,
-    "declaration": true, // defaults to true when composite is true
+    "declaration": true,
     "moduleResolution": "nodenext",
     "strict": true,
     "emitDecoratorMetadata": true,

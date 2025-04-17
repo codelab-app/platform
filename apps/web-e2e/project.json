@@ -4,6 +4,7 @@
   "sourceRoot": "apps/web-e2e/src",
   "tags": ["projectName:web-e2e", "projectType:application", "type:concrete"],
   "implicitDependencies": ["web"],
+  "projectType": "application",
   "targets": {
     "e2e": {
       "defaultConfiguration": "test",

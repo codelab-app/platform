@@ -21,6 +21,10 @@ const nxProjectConfigGenerator = async (tree, options) => {
         const projectConfig = (0, devkit_1.readProjectConfiguration)(tree, projectName);
         console.log(`Checking for ${projectConfig.name}...`);
         console.log('-----------------');
+        if (projectConfig.projectType === 'application') {
+            console.log('Skipping application project:', projectConfig.name);
+            continue;
+        }
         /**
          * Modifies projectConfig here
          */

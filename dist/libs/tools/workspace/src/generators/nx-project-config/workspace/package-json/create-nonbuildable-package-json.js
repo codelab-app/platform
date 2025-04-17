@@ -18,9 +18,9 @@ const createNonbuildablePackageJson = (tree, projectConfig) => {
     if (!projectName) {
         throw new Error('Project name is required');
     }
-    // Read existing or create new package.json
     const packageJson = {};
-    (0, package_name_2.setPackageJsonName)(packageJson, projectName);
+    const packageName = (0, package_name_1.convertToPackageName)(projectName);
+    (0, package_name_2.setPackageJsonName)(packageJson, packageName);
     // Get transformed imports
     const allImports = (0, project_imports_1.getProjectImports)(tree, projectConfig).map((importPath) => (0, package_name_1.convertToPackageName)(importPath));
     console.log(`Found ${allImports.length} potential @codelab imports in ${projectName}`);
@@ -28,7 +28,7 @@ const createNonbuildablePackageJson = (tree, projectConfig) => {
     console.log(`Found ${baseImportPaths.length} unique base @codelab dependencies to add.`);
     // Save import data
     saveImportData(tree, projectConfig.root, allImports, baseImportPaths);
-    const relativeExports = (0, relative_exports_1.getRelativeExports)(allImports, baseImportPaths);
+    const relativeExports = (0, relative_exports_1.getRelativeExports)(allImports, baseImportPaths, packageName);
     console.log('Generated Exports Map:', JSON.stringify(relativeExports, null, 2));
     (0, package_exports_1.setPackageJsonExports)(packageJson, relativeExports);
     (0, package_dev_dependencies_1.setDevDependencies)(packageJson, baseImportPaths);
