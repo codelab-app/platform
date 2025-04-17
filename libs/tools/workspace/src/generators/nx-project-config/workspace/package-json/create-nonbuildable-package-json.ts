@@ -1,58 +1,71 @@
 import type { ProjectConfiguration, Tree } from '@nx/devkit'
 import type { PackageJson } from 'type-fest'
 
-import { joinPathFragments, writeJson } from '@nx/devkit'
+import { joinPathFragments, readJson, writeJson } from '@nx/devkit'
 
-import {
-  getPackageJsonNameFromMapping,
-  getPackageJsonNameFromProjectName,
-} from '../../migrate-project-reference/utils'
-import { convertToPackageName } from '../path-alias/package-name'
+import { getProjectImports } from '../imports/project-imports'
+import { getBaseImportPaths, getRelativeExports } from './paths'
+import { setDevDependencies } from './setter/package-dev-dependencies'
+import { setPackageJsonExports } from './setter/package-exports'
+import { setPackageJsonName } from './setter/package-name'
 
 /**
- * Creates package.json files for non-buildable projects
+ * Writes the package.json object to the specified path within the project root.
+ */
+const writeToPackageJson = (
+  tree: Tree,
+  projectRoot: string,
+  packageJson: PackageJson,
+) => {
+  const packageJsonPath = joinPathFragments(projectRoot, 'package.json')
+
+  console.log(`Writing updated package.json to ${packageJsonPath}`)
+  writeJson(tree, packageJsonPath, packageJson)
+}
+
+/**
+ * Creates package.json files for non-buildable projects, including dependency analysis
  */
 export const createNonbuildablePackageJson = (
   tree: Tree,
   projectConfig: ProjectConfiguration,
 ) => {
-  // Skip if project already has a package.json
-  const packageJsonPath = joinPathFragments(projectConfig.root, 'package.json')
-
-  if (tree.exists(packageJsonPath)) {
-    console.log(`Project ${projectConfig.name} already has a package.json file`)
-
-    return
-  }
-
   const projectName = projectConfig.name
 
   console.log(
-    `Creating package.json for ${projectName} (non-buildable library)`,
+    `Creating/Updating package.json for ${projectName} (non-buildable library)`,
   )
 
   if (!projectName) {
     throw new Error('Project name is required')
   }
 
-  // Get the npm package name from the mapping
-  const packageName = convertToPackageName(projectName)
+  // Read existing or create new package.json
+  const packageJson: PackageJson = {}
 
-  // Create the package.json content for non-buildable library
-  const packageJson: Partial<PackageJson> = {
-    name: packageName,
-    // eslint-disable-next-line canonical/sort-keys
-    exports: {
-      '.': {
-        default: './src/index.ts',
-        import: './src/index.ts',
-        types: './src/index.ts',
-      },
-    },
-  }
+  setPackageJsonName(packageJson, projectName)
 
-  // Write the package.json file
-  writeJson(tree, packageJsonPath, packageJson)
+  const allImports = getProjectImports(tree, projectConfig)
 
-  console.log(`Created package.json for ${projectName}`)
+  console.log(
+    `Found ${allImports.length} potential @codelab imports in ${projectName}`,
+  )
+
+  const baseImportPaths = getBaseImportPaths(allImports)
+
+  console.log(
+    `Found ${baseImportPaths.length} unique base @codelab dependencies to add.`,
+  )
+
+  const relativeExports = getRelativeExports(allImports, baseImportPaths)
+
+  console.log(
+    'Generated Exports Map:',
+    JSON.stringify(relativeExports, null, 2),
+  )
+
+  setPackageJsonExports(packageJson, relativeExports)
+  setDevDependencies(packageJson, baseImportPaths)
+
+  writeToPackageJson(tree, projectConfig.root, packageJson)
 }

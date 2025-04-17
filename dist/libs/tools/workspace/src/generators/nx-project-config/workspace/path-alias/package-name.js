@@ -5,17 +5,20 @@ exports.convertToPackageName = void 0;
  * This function is fully tested based on our project test data.
  */
 const convertToPackageName = (projectName) => {
-    // Specific external package pattern
+    console.log(`convertToPackageName input: ${projectName}`);
+    let packageName = projectName;
+    // Specific external package pattern - should return immediately
     if (projectName.startsWith('@codelab-codegen/')) {
-        return projectName;
+        // No change needed, already the correct format
+        console.log(`convertToPackageName output (codegen): ${packageName}`);
+        return packageName;
     }
-    // Keep slashes for any frontend specific sub-paths with more than 2 segments
-    if (projectName.startsWith('@codelab/frontend-')) {
-        // Check if it has more than two segments (e.g., @codelab/frontend-domain-action/services or @codelab/frontend-infra-mobx/context)
-        if (projectName.split('/').length > 2) {
-            return projectName;
-        }
-        // If it's just @codelab/frontend-domain-action (hypothetical), let it fall through
+    // Keep slashes for specific frontend sub-paths with more than 2 segments - should return immediately
+    if (projectName.startsWith('@codelab/frontend-') &&
+        projectName.split('/').length > 2) {
+        // Keep original name with slashes
+        console.log(`convertToPackageName output (frontend multi-segment): ${packageName}`);
+        return packageName;
     }
     // Handle specific backend-infra-adapter pattern (convert last slash to hyphen)
     // Example: @codelab/backend-infra-adapter/neo4j-driver -> @codelab/backend-infra-adapter-neo4j-driver
@@ -23,22 +26,27 @@ const convertToPackageName = (projectName) => {
         const parts = projectName.split('/');
         const prefix = parts.slice(0, 2).join('/');
         const suffix = parts[2];
-        return `${prefix}-${suffix}`;
+        packageName = `${prefix}-${suffix}`;
+        console.log(`convertToPackageName output (backend-infra-adapter): ${packageName}`);
+        // Return immediately after specific conversion
+        return packageName;
     }
-    // Standard @codelab/ paths: convert all slashes after @codelab/ to hyphens
-    // This covers backend, shared, etc. (but not the frontend exceptions handled above)
+    // Standard @codelab/ paths (excluding already handled cases):
+    // convert all remaining slashes after @codelab/ to hyphens
     // Example: @codelab/backend/abstract/core -> @codelab/backend-abstract-core
+    // Example: @codelab/frontend-domain-action -> @codelab/frontend-domain-action (no change if no slash)
     if (projectName.startsWith('@codelab/') && projectName.includes('/')) {
         const withoutPrefix = projectName.replace('@codelab/', '');
-        return `@codelab/${withoutPrefix.replace(/\//g, '-')}`;
+        packageName = `@codelab/${withoutPrefix.replace(/\//g, '-')}`;
     }
-    // Handle simple non-@ paths with a slash
+    // Handle simple non-@ paths with a slash (AFTER @codelab checks)
     // Example: libs/shared -> libs-shared
-    if (projectName.includes('/') && !projectName.startsWith('@')) {
-        return projectName.replace('/', '-');
+    else if (projectName.includes('/') && !projectName.startsWith('@')) {
+        packageName = projectName.replace('/', '-');
     }
-    // Return the original name if no other condition matches (e.g., simple names without slashes)
-    return projectName;
+    // No changes needed for simple names without slashes or already converted paths
+    console.log(`convertToPackageName output (final): ${packageName}`);
+    return packageName;
 };
 exports.convertToPackageName = convertToPackageName;
 //# sourceMappingURL=package-name.js.map

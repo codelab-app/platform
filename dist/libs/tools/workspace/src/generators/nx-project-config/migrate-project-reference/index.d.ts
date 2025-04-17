@@ -1,6 +1,5 @@
 import type { ProjectConfiguration, Tree } from '@nx/devkit';
 export { createNonbuildablePackageJson } from '../workspace/package-json/create-nonbuildable-package-json';
-export { updatePackageDependencies } from '../workspace/package-json/update-package-dependencies';
 export { getProjectDependencies } from './get-project-dependencies';
 export { updateProjectTsconfig } from './update-project-tsconfig';
 /**
