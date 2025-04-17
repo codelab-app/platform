@@ -6,3 +6,4 @@ import type { PathAlias } from './path-alias.type';
  * @throws Error if project name is not found in the path alias map
  */
 export declare const getPackageNameFromProjectName: (projectName: string) => PathAlias;
+export declare const getPackageNameFromOldAlias: (oldAlias: string) => string;

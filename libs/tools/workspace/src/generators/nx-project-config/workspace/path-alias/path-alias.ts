@@ -11,9 +11,7 @@ import pathAliasMap from './path-alias.json'
 export const getPackageNameFromProjectName = (
   projectName: string,
 ): PathAlias => {
-  const pathAliasMapData: PathAliasMap = pathAliasMap
-
-  for (const [alias, details] of Object.entries(pathAliasMapData)) {
+  for (const [alias, details] of Object.entries(pathAliasMap)) {
     if (details.name === projectName) {
       // Return the expected alias
       return details.expected
@@ -21,5 +19,21 @@ export const getPackageNameFromProjectName = (
   }
 
   // If the loop completes without finding a match, throw an error
-  throw new Error(`Project name "${projectName}" not found in path alias map`)
+  console.log(`Project name "${projectName}" not found in path alias map`)
+
+  return projectName
+}
+
+export const getPackageNameFromOldAlias = (oldAlias: string): string => {
+  for (const [alias, details] of Object.entries(pathAliasMap)) {
+    if (alias === oldAlias) {
+      // Return the expected alias
+      return details.expected
+    }
+  }
+
+  // If the loop completes without finding a match, throw an error
+  console.log(`Project name "${oldAlias}" not found in path alias map`)
+
+  return oldAlias
 }

@@ -20,9 +20,10 @@ const createNonbuildablePackageJson = (tree, projectConfig) => {
     }
     const packageJson = {};
     const packageName = (0, path_alias_1.getPackageNameFromProjectName)(projectName);
-    (0, package_name_1.setPackageJsonName)(packageJson, packageName);
+    (0, package_name_1.setPackageJsonName)(packageJson, projectName);
     // Get transformed imports
-    const allImports = (0, project_imports_1.getProjectImports)(tree, projectConfig).map((importPath) => (0, path_alias_1.getPackageNameFromProjectName)(importPath));
+    console.log('Getting project imports');
+    const allImports = (0, project_imports_1.getProjectImports)(tree, projectConfig).map((importPath) => (0, path_alias_1.getPackageNameFromOldAlias)(importPath));
     console.log(`Found ${allImports.length} potential @codelab imports in ${projectName}`);
     const baseImportPaths = (0, paths_1.getBaseImportPaths)(allImports);
     console.log(`Found ${baseImportPaths.length} unique base @codelab dependencies to add.`);
