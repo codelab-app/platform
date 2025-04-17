@@ -6,7 +6,8 @@ import { joinPathFragments, writeJson } from '@nx/devkit'
 import {
   getPackageJsonNameFromMapping,
   getPackageJsonNameFromProjectName,
-} from './utils'
+} from '../../migrate-project-reference/utils'
+import { convertToPackageName } from '../path-alias/package-name'
 
 /**
  * Creates package.json files for non-buildable projects
@@ -35,7 +36,7 @@ export const createNonbuildablePackageJson = (
   }
 
   // Get the npm package name from the mapping
-  const packageName = getPackageJsonNameFromMapping(tree, projectName)
+  const packageName = convertToPackageName(projectName)
 
   // Create the package.json content for non-buildable library
   const packageJson: Partial<PackageJson> = {

@@ -1,4 +1,4 @@
-import { convertToNpmPackageName } from '../utils'
+import { convertToPackageName } from './package-name'
 import pathAliasData from './path-alias.json'
 
 /**
@@ -12,7 +12,7 @@ describe('convertToNpmPackageName', () => {
     Object.entries(pathAliasData).forEach(([pathAlias, data]) => {
       const { expected } = data
 
-      expect(convertToNpmPackageName(pathAlias)).toBe(expected)
+      expect(convertToPackageName(pathAlias)).toBe(expected)
     })
   })
 })

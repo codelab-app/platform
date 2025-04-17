@@ -1,294 +1,367 @@
 {
   "@codelab-codegen/codelab-preset": {
     "expected": "@codelab-codegen/codelab-preset",
-    "path": "libs/external/codelab-codegen/codelab-preset/src/index.ts"
+    "path": "libs/external/codelab-codegen/codelab-preset/src/index.ts",
+    "name": "codelab-codegen-codelab-preset"
   },
   "@codelab-codegen/typescript-fetch": {
     "expected": "@codelab-codegen/typescript-fetch",
-    "path": "libs/external/codelab-codegen/typescript-fetch/src/index.ts"
+    "path": "libs/external/codelab-codegen/typescript-fetch/src/index.ts",
+    "name": "codelab-codegen-typescript-fetch"
   },
   "@codelab-codegen/typescript-server-fetch": {
     "expected": "@codelab-codegen/typescript-server-fetch",
-    "path": "libs/external/codelab-codegen/typescript-server-fetch/src/index.ts"
+    "path": "libs/external/codelab-codegen/typescript-server-fetch/src/index.ts",
+    "name": "codelab-codegen-typescript-server-fetch"
   },
   "@codelab/backend-infra-adapter/neo4j-driver": {
     "expected": "@codelab/backend-infra-adapter-neo4j-driver",
-    "path": "libs/backend/infra/adapter/neo4j-driver/src/index.ts"
+    "path": "libs/backend/infra/adapter/neo4j-driver/src/index.ts",
+    "name": "backend-infra-adapter-neo4j-driver"
   },
   "@codelab/backend-infra-adapter/neo4j-schema": {
     "expected": "@codelab/backend-infra-adapter-neo4j-schema",
-    "path": "libs/backend/infra/adapter/neo4j-schema/src/index.ts"
+    "path": "libs/backend/infra/adapter/neo4j-schema/src/index.ts",
+    "name": "backend-infra-adapter-neo4j-schema"
   },
   "@codelab/backend/abstract/core": {
     "expected": "@codelab/backend-abstract-core",
-    "path": "libs/backend/abstract/core/src/index.ts"
+    "path": "libs/backend/abstract/core/src/index.ts",
+    "name": "backend-abstract-core"
   },
   "@codelab/backend/abstract/types": {
     "expected": "@codelab/backend-abstract-types",
-    "path": "libs/backend/abstract/types/src/index.ts"
+    "path": "libs/backend/abstract/types/src/index.ts",
+    "name": "backend-abstract-types"
   },
   "@codelab/backend/application/action": {
     "expected": "@codelab/backend-application-action",
-    "path": "libs/backend/application/action/src/index.ts"
+    "path": "libs/backend/application/action/src/index.ts",
+    "name": "backend-application-action"
   },
   "@codelab/backend/application/admin": {
     "expected": "@codelab/backend-application-admin",
-    "path": "libs/backend/application/admin/src/index.ts"
+    "path": "libs/backend/application/admin/src/index.ts",
+    "name": "backend-application-admin"
   },
   "@codelab/backend/application/app": {
     "expected": "@codelab/backend-application-app",
-    "path": "libs/backend/application/app/src/index.ts"
+    "path": "libs/backend/application/app/src/index.ts",
+    "name": "backend-application-app"
   },
   "@codelab/backend/application/atom": {
     "expected": "@codelab/backend-application-atom",
-    "path": "libs/backend/application/atom/src/index.ts"
+    "path": "libs/backend/application/atom/src/index.ts",
+    "name": "backend-application-atom"
   },
   "@codelab/backend/application/auth": {
     "expected": "@codelab/backend-application-auth",
-    "path": "libs/backend/application/auth/src/index.ts"
+    "path": "libs/backend/application/auth/src/index.ts",
+    "name": "backend-application-auth"
   },
   "@codelab/backend/application/component": {
     "expected": "@codelab/backend-application-component",
-    "path": "libs/backend/application/component/src/index.ts"
+    "path": "libs/backend/application/component/src/index.ts",
+    "name": "backend-application-component"
   },
   "@codelab/backend/application/data": {
     "expected": "@codelab/backend-application-data",
-    "path": "libs/backend/application/data/src/index.ts"
+    "path": "libs/backend/application/data/src/index.ts",
+    "name": "backend-application-data"
   },
   "@codelab/backend/application/domain": {
     "expected": "@codelab/backend-application-domain",
-    "path": "libs/backend/application/domain/src/index.ts"
+    "path": "libs/backend/application/domain/src/index.ts",
+    "name": "backend-application-domain"
   },
   "@codelab/backend/application/element": {
     "expected": "@codelab/backend-application-element",
-    "path": "libs/backend/application/element/src/index.ts"
+    "path": "libs/backend/application/element/src/index.ts",
+    "name": "backend-application-element"
   },
   "@codelab/backend/application/field": {
     "expected": "@codelab/backend-application-field",
-    "path": "libs/backend/application/field/src/index.ts"
+    "path": "libs/backend/application/field/src/index.ts",
+    "name": "backend-application-field"
   },
   "@codelab/backend/application/page": {
     "expected": "@codelab/backend-application-page",
-    "path": "libs/backend/application/page/src/index.ts"
+    "path": "libs/backend/application/page/src/index.ts",
+    "name": "backend-application-page"
   },
   "@codelab/backend/application/redirect": {
     "expected": "@codelab/backend-application-redirect",
-    "path": "libs/backend/application/redirect/src/index.ts"
+    "path": "libs/backend/application/redirect/src/index.ts",
+    "name": "backend-application-redirect"
   },
   "@codelab/backend/application/resource": {
     "expected": "@codelab/backend-application-resource",
-    "path": "libs/backend/application/resource/src/index.ts"
+    "path": "libs/backend/application/resource/src/index.ts",
+    "name": "backend-application-resource"
   },
   "@codelab/backend/application/store": {
     "expected": "@codelab/backend-application-store",
-    "path": "libs/backend/application/store/src/index.ts"
+    "path": "libs/backend/application/store/src/index.ts",
+    "name": "backend-application-store"
   },
   "@codelab/backend/application/tag": {
     "expected": "@codelab/backend-application-tag",
-    "path": "libs/backend/application/tag/src/index.ts"
+    "path": "libs/backend/application/tag/src/index.ts",
+    "name": "backend-application-tag"
   },
   "@codelab/backend/application/type": {
     "expected": "@codelab/backend-application-type",
-    "path": "libs/backend/application/type/src/index.ts"
+    "path": "libs/backend/application/type/src/index.ts",
+    "name": "backend-application-type"
   },
   "@codelab/backend/application/user": {
     "expected": "@codelab/backend-application-user",
-    "path": "libs/backend/application/user/src/index.ts"
+    "path": "libs/backend/application/user/src/index.ts",
+    "name": "backend-application-user"
   },
   "@codelab/backend/data/seed": {
     "expected": "@codelab/backend-data-seed",
-    "path": "libs/backend/data/seed/src/index.ts"
+    "path": "libs/backend/data/seed/src/index.ts",
+    "name": "backend-data-seed"
   },
   "@codelab/backend/domain/action": {
     "expected": "@codelab/backend-domain-action",
-    "path": "libs/backend/domain/action/src/index.ts"
+    "path": "libs/backend/domain/action/src/index.ts",
+    "name": "backend-domain-action"
   },
   "@codelab/backend/domain/admin": {
     "expected": "@codelab/backend-domain-admin",
-    "path": "libs/backend/domain/admin/src/index.ts"
+    "path": "libs/backend/domain/admin/src/index.ts",
+    "name": "backend-domain-admin"
   },
   "@codelab/backend/domain/app": {
     "expected": "@codelab/backend-domain-app",
-    "path": "libs/backend/domain/app/src/index.ts"
+    "path": "libs/backend/domain/app/src/index.ts",
+    "name": "backend-domain-app"
   },
   "@codelab/backend/domain/atom": {
     "expected": "@codelab/backend-domain-atom",
-    "path": "libs/backend/domain/atom/src/index.ts"
+    "path": "libs/backend/domain/atom/src/index.ts",
+    "name": "backend-domain-atom"
   },
   "@codelab/backend/domain/auth-guard": {
     "expected": "@codelab/backend-domain-auth-guard",
-    "path": "libs/backend/domain/auth-guard/src/index.ts"
+    "path": "libs/backend/domain/auth-guard/src/index.ts",
+    "name": "backend-domain-auth-guard"
   },
   "@codelab/backend/domain/component": {
     "expected": "@codelab/backend-domain-component",
-    "path": "libs/backend/domain/component/src/index.ts"
+    "path": "libs/backend/domain/component/src/index.ts",
+    "name": "backend-domain-component"
   },
   "@codelab/backend/domain/domain": {
     "expected": "@codelab/backend-domain-domain",
-    "path": "libs/backend/domain/domain/src/index.ts"
+    "path": "libs/backend/domain/domain/src/index.ts",
+    "name": "backend-domain-domain"
   },
   "@codelab/backend/domain/element": {
     "expected": "@codelab/backend-domain-element",
-    "path": "libs/backend/domain/element/src/index.ts"
+    "path": "libs/backend/domain/element/src/index.ts",
+    "name": "backend-domain-element"
   },
   "@codelab/backend/domain/page": {
     "expected": "@codelab/backend-domain-page",
-    "path": "libs/backend/domain/page/src/index.ts"
+    "path": "libs/backend/domain/page/src/index.ts",
+    "name": "backend-domain-page"
   },
   "@codelab/backend/domain/preference": {
     "expected": "@codelab/backend-domain-preference",
-    "path": "libs/backend/domain/preference/src/index.ts"
+    "path": "libs/backend/domain/preference/src/index.ts",
+    "name": "backend-domain-preference"
   },
   "@codelab/backend/domain/prop": {
     "expected": "@codelab/backend-domain-prop",
-    "path": "libs/backend/domain/prop/src/index.ts"
+    "path": "libs/backend/domain/prop/src/index.ts",
+    "name": "backend-domain-prop"
   },
   "@codelab/backend/domain/redirect": {
     "expected": "@codelab/backend-domain-redirect",
-    "path": "libs/backend/domain/redirect/src/index.ts"
+    "path": "libs/backend/domain/redirect/src/index.ts",
+    "name": "backend-domain-redirect"
   },
   "@codelab/backend/domain/resource": {
     "expected": "@codelab/backend-domain-resource",
-    "path": "libs/backend/domain/resource/src/index.ts"
+    "path": "libs/backend/domain/resource/src/index.ts",
+    "name": "backend-domain-resource"
   },
   "@codelab/backend/domain/shared/auth": {
     "expected": "@codelab/backend-domain-shared-auth",
-    "path": "libs/backend/domain/shared/auth/src/index.ts"
+    "path": "libs/backend/domain/shared/auth/src/index.ts",
+    "name": "backend-domain-shared-auth"
   },
   "@codelab/backend/domain/shared/modules": {
     "expected": "@codelab/backend-domain-shared-modules",
-    "path": "libs/backend/domain/shared/modules/src/index.ts"
+    "path": "libs/backend/domain/shared/modules/src/index.ts",
+    "name": "backend-domain-shared-modules"
   },
   "@codelab/backend/domain/shared/seeder": {
     "expected": "@codelab/backend-domain-shared-seeder",
-    "path": "libs/backend/domain/shared/seeder/src/index.ts"
+    "path": "libs/backend/domain/shared/seeder/src/index.ts",
+    "name": "backend-domain-shared-seeder"
   },
   "@codelab/backend/domain/store": {
     "expected": "@codelab/backend-domain-store",
-    "path": "libs/backend/domain/store/src/index.ts"
+    "path": "libs/backend/domain/store/src/index.ts",
+    "name": "backend-domain-store"
   },
   "@codelab/backend/domain/tag": {
     "expected": "@codelab/backend-domain-tag",
-    "path": "libs/backend/domain/tag/src/index.ts"
+    "path": "libs/backend/domain/tag/src/index.ts",
+    "name": "backend-domain-tag"
   },
   "@codelab/backend/domain/type": {
     "expected": "@codelab/backend-domain-type",
-    "path": "libs/backend/domain/type/src/index.ts"
+    "path": "libs/backend/domain/type/src/index.ts",
+    "name": "backend-domain-type"
   },
   "@codelab/backend/domain/user": {
     "expected": "@codelab/backend-domain-user",
-    "path": "libs/backend/domain/user/src/index.ts"
+    "path": "libs/backend/domain/user/src/index.ts",
+    "name": "backend-domain-user"
   },
   "@codelab/backend/infra/adapter/auth0": {
     "expected": "@codelab/backend-infra-adapter-auth0",
-    "path": "libs/backend/infra/adapter/auth0/src/index.ts"
+    "path": "libs/backend/infra/adapter/auth0/src/index.ts",
+    "name": "backend-infra-adapter-auth0"
   },
   "@codelab/backend/infra/adapter/cli": {
     "expected": "@codelab/backend-infra-adapter-cli",
-    "path": "libs/backend/infra/adapter/cli/src/index.ts"
+    "path": "libs/backend/infra/adapter/cli/src/index.ts",
+    "name": "backend-infra-adapter-cli"
   },
   "@codelab/backend/infra/adapter/digitalocean": {
     "expected": "@codelab/backend-infra-adapter-digitalocean",
-    "path": "libs/backend/infra/adapter/digitalocean/src/index.ts"
+    "path": "libs/backend/infra/adapter/digitalocean/src/index.ts",
+    "name": "backend-infra-adapter-digitalocean"
   },
   "@codelab/backend/infra/adapter/dns": {
     "expected": "@codelab/backend-infra-adapter-dns",
-    "path": "libs/backend/infra/adapter/dns/src/index.ts"
+    "path": "libs/backend/infra/adapter/dns/src/index.ts",
+    "name": "backend-infra-adapter-dns"
   },
   "@codelab/backend/infra/adapter/graphql": {
     "expected": "@codelab/backend-infra-adapter-graphql",
-    "path": "libs/backend/infra/adapter/graphql/src/index.ts"
+    "path": "libs/backend/infra/adapter/graphql/src/index.ts",
+    "name": "backend-infra-adapter-graphql"
   },
   "@codelab/backend/infra/adapter/logger": {
     "expected": "@codelab/backend-infra-adapter-logger",
-    "path": "libs/backend/infra/adapter/logger/src/index.ts"
+    "path": "libs/backend/infra/adapter/logger/src/index.ts",
+    "name": "backend-infra-adapter-logger"
   },
   "@codelab/backend/infra/adapter/middleware": {
     "expected": "@codelab/backend-infra-adapter-middleware",
-    "path": "libs/backend/infra/adapter/middleware/src/index.ts"
+    "path": "libs/backend/infra/adapter/middleware/src/index.ts",
+    "name": "backend-infra-adapter-middleware"
   },
   "@codelab/backend/infra/adapter/queue": {
     "expected": "@codelab/backend-infra-adapter-queue",
-    "path": "libs/backend/infra/adapter/queue/src/index.ts"
+    "path": "libs/backend/infra/adapter/queue/src/index.ts",
+    "name": "backend-infra-adapter-queue"
   },
   "@codelab/backend/infra/adapter/request-context": {
     "expected": "@codelab/backend-infra-adapter-request-context",
-    "path": "libs/backend/infra/adapter/request-context/src/index.ts"
+    "path": "libs/backend/infra/adapter/request-context/src/index.ts",
+    "name": "backend-infra-adapter-request-context"
   },
   "@codelab/backend/infra/adapter/rest-client": {
     "expected": "@codelab/backend-infra-adapter-rest-client",
-    "path": "libs/backend/infra/adapter/rest-client/src/index.ts"
+    "path": "libs/backend/infra/adapter/rest-client/src/index.ts",
+    "name": "backend-infra-adapter-rest-client"
   },
   "@codelab/backend/infra/adapter/shell": {
     "expected": "@codelab/backend-infra-adapter-shell",
-    "path": "libs/backend/infra/adapter/shell/src/index.ts"
+    "path": "libs/backend/infra/adapter/shell/src/index.ts",
+    "name": "backend-infra-adapter-shell"
   },
   "@codelab/backend/infra/adapter/ws": {
     "expected": "@codelab/backend-infra-adapter-ws",
-    "path": "libs/backend/infra/adapter/ws/src/index.ts"
+    "path": "libs/backend/infra/adapter/ws/src/index.ts",
+    "name": "backend-infra-adapter-ws"
   },
   "@codelab/backend/infra/core": {
     "expected": "@codelab/backend-infra-core",
-    "path": "libs/backend/infra/core/src/index.ts"
+    "path": "libs/backend/infra/core/src/index.ts",
+    "name": "backend-infra-core"
   },
   "@codelab/backend/shared/errors": {
     "expected": "@codelab/backend-shared-errors",
-    "path": "libs/backend/shared/errors/src/index.ts"
+    "path": "libs/backend/shared/errors/src/index.ts",
+    "name": "backend-shared-errors"
   },
   "@codelab/backend/shared/eval": {
     "expected": "@codelab/backend-shared-eval",
-    "path": "libs/backend/shared/eval/src/index.ts"
+    "path": "libs/backend/shared/eval/src/index.ts",
+    "name": "backend-shared-eval"
   },
   "@codelab/backend/shared/util": {
     "expected": "@codelab/backend-shared-util",
-    "path": "libs/backend/shared/util/src/index.ts"
+    "path": "libs/backend/shared/util/src/index.ts",
+    "name": "backend-shared-util"
   },
   "@codelab/backend/test/setup": {
     "expected": "@codelab/backend-test-setup",
-    "path": "libs/backend/test/setup/src/index.ts"
+    "path": "libs/backend/test/setup/src/index.ts",
+    "name": "backend-test-setup"
   },
   "@codelab/backend/test/utils": {
     "expected": "@codelab/backend-test-utils",
-    "path": "libs/backend/test/utils/src/index.ts"
+    "path": "libs/backend/test/utils/src/index.ts",
+    "name": "backend-test-utils"
   },
   "@codelab/design-system": {
     "expected": "@codelab/design-system",
-    "path": "apps/design-system/src/index.ts"
+    "path": "apps/design-system/src/index.ts",
+    "name": "design-system"
   },
   "@codelab/eslint-plugin": {
     "expected": "@codelab/eslint-plugin",
-    "path": "tools/eslint-plugin/src/index.ts"
+    "path": "tools/eslint-plugin/src/index.ts",
+    "name": "eslint-plugin"
   },
   "@codelab/frontend-application-admin/use-cases/admin-props-panel": {
     "expected": "@codelab/frontend-application-admin/use-cases/admin-props-panel",
-    "path": "libs/frontend/application/admin/src/use-cases/admin-props-panel/index.ts"
+    "path": "libs/frontend/application/admin/src/use-cases/admin-props-panel/index.ts",
+    "name": "frontend-application-admin"
   },
   "@codelab/frontend-application-admin/use-cases/export-data": {
     "expected": "@codelab/frontend-application-admin/use-cases/export-data",
-    "path": "libs/frontend/application/admin/src/use-cases/export-data/index.ts"
+    "path": "libs/frontend/application/admin/src/use-cases/export-data/index.ts",
+    "name": "frontend-application-admin"
   },
   "@codelab/frontend-application-admin/use-cases/import-data": {
     "expected": "@codelab/frontend-application-admin/use-cases/import-data",
-    "path": "libs/frontend/application/admin/src/use-cases/import-data/index.ts"
+    "path": "libs/frontend/application/admin/src/use-cases/import-data/index.ts",
+    "name": "frontend-application-admin"
   },
   "@codelab/frontend-application-admin/use-cases/reset-data": {
     "expected": "@codelab/frontend-application-admin/use-cases/reset-data",
-    "path": "libs/frontend/application/admin/src/use-cases/reset-data/index.ts"
+    "path": "libs/frontend/application/admin/src/use-cases/reset-data/index.ts",
+    "name": "frontend-application-admin"
   },
   "@codelab/frontend-application-admin/views": {
     "expected": "@codelab/frontend-application-admin/views",
-    "path": "libs/frontend/application/admin/src/views/index.ts"
+    "path": "libs/frontend/application/admin/src/views/index.ts",
+    "name": "frontend-application-admin"
   },
   "@codelab/frontend-application-app/services": {
     "expected": "@codelab/frontend-application-app/services",
-    "path": "libs/frontend/application/app/src/services/index.ts"
+    "path": "libs/frontend/application/app/src/services/index.ts",
+    "name": "frontend-application-app"
   },
   "@codelab/frontend-application-app/use-cases/app-builder": {
     "expected": "@codelab/frontend-application-app/use-cases/app-builder",
-    "path": "libs/frontend/application/app/src/use-cases/app-builder/index.ts"
+    "path": "libs/frontend/application/app/src/use-cases/app-builder/index.ts",
+    "name": "frontend-application-app"
   },
   "@codelab/frontend-application-app/use-cases/app-item": {
     "expected": "@codelab/frontend-application-app/use-cases/app-item",
-    "path": "libs/frontend/application/app/src/use-cases/app-item/index.ts"
+    "path": "libs/frontend/application/app/src/use-cases/app-item/index.ts",
+    "name": "frontend-application-app"
   }
 }

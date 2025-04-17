@@ -1,14 +1,14 @@
 import type { ProjectConfiguration, Tree } from '@nx/devkit'
 
 // Import the functions from the separate files
-import { createNonbuildablePackageJson } from './create-nonbuildable-package-json'
-import { updatePackageDependencies } from './update-package-dependencies'
+import { createNonbuildablePackageJson } from '../workspace/package-json/create-nonbuildable-package-json'
+import { updatePackageDependencies } from '../workspace/package-json/update-package-dependencies'
 import { updateProjectTsconfig } from './update-project-tsconfig'
 
 // Re-export the functions
-export { createNonbuildablePackageJson } from './create-nonbuildable-package-json'
+export { createNonbuildablePackageJson } from '../workspace/package-json/create-nonbuildable-package-json'
 export { getProjectDependencies } from './get-project-dependencies'
-export { updatePackageDependencies } from './update-package-dependencies'
+export { updatePackageDependencies } from '../workspace/package-json/update-package-dependencies'
 export { updateProjectTsconfig } from './update-project-tsconfig'
 
 /**
@@ -25,11 +25,11 @@ export const migrateProjectReference = async (
   // Step 1: Create package.json for the project (non-buildable only)
   createNonbuildablePackageJson(tree, projectConfig)
 
-  // Step 2: Update TypeScript configuration
-  await updateProjectTsconfig(tree, projectConfig)
-
-  // Step 3: Update app dependencies
+  // Step 2: Update app dependencies
   updatePackageDependencies(tree, projectConfig)
+
+  // Step 3: Update TypeScript configuration
+  await updateProjectTsconfig(tree, projectConfig)
 
   console.log(`Completed migration for ${projectConfig.name}`)
 }
