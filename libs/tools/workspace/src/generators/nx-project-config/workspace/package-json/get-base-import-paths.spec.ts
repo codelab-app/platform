@@ -1,4 +1,4 @@
-import { getBaseImportPaths } from './write-package-json'
+import { getBaseImportPaths } from './paths'
 
 interface TestCase {
   data: Array<[input: string, expected: string]>
