@@ -1,7 +1,7 @@
 {
-  "extends": "./tsconfig.json",
+  "extends": "../../../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "../../../../dist/out-tsc",
+    "outDir": "./out-tsc/lib",
     "types": ["node"],
     "strict": true,
     "noImplicitReturns": true,
@@ -18,5 +18,6 @@
     "**/*.ts",
     "**/*.tsx",
     "../../application/user/src/services/user.service.ts"
-  ]
+  ],
+  "references": []
 }

@@ -9,6 +9,6 @@
     "type:concrete",
     "scope:shared"
   ],
-  "// targets": "to see all targets run: nx show project field --web",
+  "// targets": "to see all targets run: nx show project shared-domain-module-field --web",
   "targets": {}
 }

@@ -1,0 +1,29 @@
+{
+  "name": "@codelab/frontend-presentation-components-css-editor",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./services": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./loading": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+  },
+  "devDependencies": {
+    "@codelab/frontend-abstract-application": "workspace:*",
+    "@codelab/frontend-abstract-domain": "workspace:*",
+    "@codelab/frontend-application-element": "workspace:*",
+    "@codelab/frontend-application-shared-store": "workspace:*",
+    "@codelab/frontend-presentation-components-codemirror": "workspace:*",
+    "@codelab/shared-infra-gqlgen": "workspace:*",
+    "@codelab/frontend-infra-mobx-context": "workspace:*"
+  }
+}

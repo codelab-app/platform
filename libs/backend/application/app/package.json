@@ -1,0 +1,38 @@
+{
+  "name": "@codelab/backend-application-app",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+  },
+  "devDependencies": {
+    "@codelab/shared-abstract-core": "workspace:*",
+    "@codelab/backend-infra-adapter-logger": "workspace:*",
+    "@codelab/backend-infra-adapter-ws": "workspace:*",
+    "@codelab/shared-abstract-infra": "workspace:*",
+    "@codelab/backend-application-atom": "workspace:*",
+    "@codelab/backend-application-component": "workspace:*",
+    "@codelab/backend-application-domain": "workspace:*",
+    "@codelab/backend-application-page": "workspace:*",
+    "@codelab/backend-application-type": "workspace:*",
+    "@codelab/backend-domain-app": "workspace:*",
+    "@codelab/backend-domain-atom": "workspace:*",
+    "@codelab/backend-domain-component": "workspace:*",
+    "@codelab/backend-domain-element": "workspace:*",
+    "@codelab/backend-domain-page": "workspace:*",
+    "@codelab/backend-domain-prop": "workspace:*",
+    "@codelab/backend-domain-resource": "workspace:*",
+    "@codelab/backend-domain-shared-auth": "workspace:*",
+    "@codelab/backend-domain-store": "workspace:*",
+    "@codelab/backend-domain-type": "workspace:*",
+    "@codelab/backend-infra-adapter-neo4j-driver": "workspace:*",
+    "@codelab/backend-domain-domain": "workspace:*",
+    "@codelab/shared-infra-gqlgen": "workspace:*",
+    "@codelab/shared-infra-typebox": "workspace:*",
+    "@codelab/shared-utils": "workspace:*",
+    "@codelab/shared-data-test": "workspace:*",
+    "@codelab/shared-domain-module-page": "workspace:*"
+  }
+}

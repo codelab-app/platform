@@ -1,0 +1,13 @@
+{
+  "name": "@codelab/shared-data-seed",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+  },
+  "devDependencies": {
+    "@codelab/shared-abstract-core": "workspace:*"
+  }
+}

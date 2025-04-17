@@ -1,0 +1,19 @@
+{
+  "name": "@codelab/frontend-presentation-components-codemirror",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+  },
+  "devDependencies": {
+    "@codelab/shared-abstract-core": "workspace:*",
+    "@codelab/shared-abstract-types": "workspace:*",
+    "@codelab/frontend-abstract-application": "workspace:*",
+    "@codelab/frontend-domain-prop": "workspace:*",
+    "@codelab/shared-utils": "workspace:*",
+    "@codelab/frontend-abstract-domain": "workspace:*",
+    "@codelab/shared-infra-eval": "workspace:*"
+  }
+}

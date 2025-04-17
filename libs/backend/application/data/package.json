@@ -1,0 +1,18 @@
+{
+  "name": "@codelab/backend-application-data",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+  },
+  "devDependencies": {
+    "@codelab/backend-domain-shared-auth": "workspace:*",
+    "@codelab/shared-abstract-core": "workspace:*",
+    "@codelab/backend-shared-util": "workspace:*",
+    "@codelab/backend-infra-adapter-logger": "workspace:*",
+    "@codelab/shared-infra-typebox": "workspace:*",
+    "@codelab/shared-utils": "workspace:*"
+  }
+}

@@ -1,7 +1,7 @@
 {
-  "extends": "./tsconfig.json",
+  "extends": "../../../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "../../../../dist/out-tsc",
+    "outDir": "./out-tsc/spec",
     "module": "commonjs",
     "types": ["jest", "node", "cypher"]
   },
@@ -11,5 +11,10 @@
     "src/**/*.spec.ts",
     "src/**/*.d.ts",
     "../../infra/adapter/dns/src/dns.service.i.spec.ts"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.lib.json"
+    }
   ]
 }

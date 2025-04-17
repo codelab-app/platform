@@ -1,0 +1,15 @@
+{
+  "name": "@codelab/shared-abstract-core",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+  },
+  "devDependencies": {
+    "@codelab/shared-infra-typebox": "workspace:*",
+    "@codelab/shared-infra-gqlgen": "workspace:*",
+    "@codelab/shared-abstract-types": "workspace:*"
+  }
+}

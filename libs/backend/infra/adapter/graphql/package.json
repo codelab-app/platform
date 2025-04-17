@@ -1,0 +1,17 @@
+{
+  "name": "@codelab/backend-infra-adapter-graphql",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+  },
+  "devDependencies": {
+    "@codelab/backend-infra-core": "workspace:*",
+    "@codelab/backend-abstract-types": "workspace:*",
+    "@codelab/backend-infra-adapter-request-context": "workspace:*",
+    "@codelab/backend-infra-adapter-neo4j-driver": "workspace:*",
+    "@codelab/backend-infra-adapter-neo4j-schema": "workspace:*"
+  }
+}

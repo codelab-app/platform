@@ -1,7 +1,7 @@
 {
-  "extends": "./tsconfig.json",
+  "extends": "../../../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "../../../../dist/out-tsc",
+    "outDir": "./out-tsc/lib",
     "types": ["node", "styled-components"]
   },
   "files": [
@@ -25,5 +25,6 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "../../domain/type/src/repositories/type.api.ts"
-  ]
+  ],
+  "references": []
 }

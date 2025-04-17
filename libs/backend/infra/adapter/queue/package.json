@@ -1,0 +1,14 @@
+{
+  "name": "@codelab/backend-infra-adapter-queue",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+  },
+  "devDependencies": {
+    "@codelab/backend-infra-adapter-ws": "workspace:*",
+    "@codelab/backend-infra-adapter-logger": "workspace:*"
+  }
+}

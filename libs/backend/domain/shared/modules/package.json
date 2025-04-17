@@ -1,0 +1,14 @@
+{
+  "name": "@codelab/backend-domain-shared-modules",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+  },
+  "devDependencies": {
+    "@codelab/backend-domain-shared-auth": "workspace:*",
+    "@codelab/backend-infra-adapter-neo4j-driver": "workspace:*"
+  }
+}

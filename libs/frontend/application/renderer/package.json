@@ -1,0 +1,58 @@
+{
+  "name": "@codelab/frontend-application-renderer",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./components/ant-design/icon": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./components/custom/grid-layout": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./components/custom/codelab-script": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./components/custom/text-list": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./services": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./loading": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+  },
+  "devDependencies": {
+    "@codelab/frontend-abstract-domain": "workspace:*",
+    "@codelab/frontend-shared-utils": "workspace:*",
+    "@codelab/shared-abstract-core": "workspace:*",
+    "@codelab/frontend-application-atom": "workspace:*",
+    "@codelab/frontend-domain-prop": "workspace:*",
+    "@codelab/frontend-presentation-components-lexical": "workspace:*",
+    "@codelab/frontend-abstract-application": "workspace:*",
+    "@codelab/shared-abstract-types": "workspace:*",
+    "@codelab/frontend-application-prop": "workspace:*",
+    "@codelab/frontend-application-shared-store": "workspace:*",
+    "@codelab/frontend-infra-mobx-context": "workspace:*",
+    "@codelab/frontend-presentation-components-codemirror": "workspace:*",
+    "@codelab/shared-utils": "workspace:*",
+    "@codelab/frontend-application-element": "workspace:*",
+    "@codelab/shared-infra-eval": "workspace:*",
+    "@codelab/shared-config-builder": "workspace:*"
+  }
+}

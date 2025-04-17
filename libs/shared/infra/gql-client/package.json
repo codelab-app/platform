@@ -1,0 +1,13 @@
+{
+  "name": "@codelab/shared-infra-gql-client",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+  },
+  "devDependencies": {
+    "@codelab/shared-config-env": "workspace:*"
+  }
+}

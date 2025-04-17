@@ -1,0 +1,31 @@
+{
+  "name": "@codelab/frontend-presentation-components-form",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./loading": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+  },
+  "devDependencies": {
+    "@codelab/frontend-abstract-types": "workspace:*",
+    "@codelab/frontend-shared-utils": "workspace:*",
+    "@codelab/frontend-application-shared-data": "workspace:*",
+    "@codelab/shared-abstract-types": "workspace:*",
+    "@codelab/frontend-infra-context": "workspace:*",
+    "@codelab/frontend-application-shared-store": "workspace:*",
+    "@codelab/frontend-presentation-components-codemirror": "workspace:*",
+    "@codelab/frontend-presentation-components-reactquill": "workspace:*",
+    "@codelab/frontend-presentation-components-lexical": "workspace:*",
+    "@codelab/shared-abstract-core": "workspace:*",
+    "@codelab/shared-infra-eval": "workspace:*",
+    "@codelab/frontend-abstract-application": "workspace:*",
+    "@codelab/frontend-abstract-domain": "workspace:*",
+    "@codelab/shared-utils": "workspace:*"
+  }
+}

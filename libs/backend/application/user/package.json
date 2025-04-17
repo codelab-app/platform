@@ -1,0 +1,21 @@
+{
+  "name": "@codelab/backend-application-user",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+  },
+  "devDependencies": {
+    "@codelab/backend-application-app": "workspace:*",
+    "@codelab/backend-domain-shared-auth": "workspace:*",
+    "@codelab/backend-domain-user": "workspace:*",
+    "@codelab/shared-abstract-core": "workspace:*",
+    "@codelab/backend-application-auth": "workspace:*",
+    "@codelab/backend-application-atom": "workspace:*",
+    "@codelab/backend-domain-atom": "workspace:*",
+    "@codelab/backend-domain-preference": "workspace:*",
+    "@codelab/backend-domain-type": "workspace:*"
+  }
+}

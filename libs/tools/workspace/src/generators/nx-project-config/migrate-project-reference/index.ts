@@ -3,6 +3,7 @@ import type { ProjectConfiguration, Tree } from '@nx/devkit'
 import { migrateProjectImports } from '../workspace/imports/migrate-project-imports'
 // Import the functions from the separate files
 import { createNonbuildablePackageJson } from '../workspace/package-json/create-nonbuildable-package-json'
+import { updatePackageJson } from '../workspace/package-json/update-package-json'
 import { updateProjectTsconfig } from './update-project-tsconfig'
 
 // Re-export the functions
@@ -23,6 +24,9 @@ export const migrateProjectReference = async (
 
   // Step 1: Create package.json for the project (non-buildable only)
   createNonbuildablePackageJson(tree, projectConfig)
+
+  // Step 2: Update package.json
+  updatePackageJson(tree, projectConfig)
 
   // Step 3: Update project imports
   migrateProjectImports(tree, projectConfig)

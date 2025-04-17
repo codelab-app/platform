@@ -1,0 +1,22 @@
+{
+  "name": "@codelab/backend-test-setup",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+  },
+  "devDependencies": {
+    "@codelab/backend-domain-shared-auth": "workspace:*",
+    "@codelab/backend-domain-shared-modules": "workspace:*",
+    "@codelab/backend-domain-user": "workspace:*",
+    "@codelab/backend-infra-adapter-graphql": "workspace:*",
+    "@codelab/backend-infra-adapter-logger": "workspace:*",
+    "@codelab/backend-infra-adapter-request-context": "workspace:*",
+    "@codelab/backend-infra-core": "workspace:*",
+    "@codelab/backend-test-utils": "workspace:*",
+    "@codelab/backend-infra-adapter-neo4j-schema": "workspace:*",
+    "@codelab/shared-data-test": "workspace:*"
+  }
+}

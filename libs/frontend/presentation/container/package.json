@@ -1,0 +1,15 @@
+{
+  "name": "@codelab/frontend-presentation-container",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+  },
+  "devDependencies": {
+    "@codelab/frontend-abstract-domain": "workspace:*",
+    "@codelab/frontend-abstract-application": "workspace:*",
+    "@codelab/frontend-infra-mobx-context": "workspace:*"
+  }
+}

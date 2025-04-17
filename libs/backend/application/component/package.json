@@ -1,0 +1,27 @@
+{
+  "name": "@codelab/backend-application-component",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+  },
+  "devDependencies": {
+    "@codelab/backend-application-data": "workspace:*",
+    "@codelab/shared-abstract-core": "workspace:*",
+    "@codelab/backend-application-element": "workspace:*",
+    "@codelab/backend-application-store": "workspace:*",
+    "@codelab/backend-application-type": "workspace:*",
+    "@codelab/backend-domain-component": "workspace:*",
+    "@codelab/backend-domain-element": "workspace:*",
+    "@codelab/backend-domain-prop": "workspace:*",
+    "@codelab/backend-domain-shared-auth": "workspace:*",
+    "@codelab/backend-domain-type": "workspace:*",
+    "@codelab/backend-domain-store": "workspace:*",
+    "@codelab/backend-infra-adapter-logger": "workspace:*",
+    "@codelab/shared-domain-module-type": "workspace:*",
+    "@codelab/shared-infra-gqlgen": "workspace:*",
+    "@codelab/shared-infra-typebox": "workspace:*"
+  }
+}

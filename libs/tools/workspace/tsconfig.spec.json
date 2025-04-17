@@ -1,7 +1,7 @@
 {
-  "extends": "./tsconfig.json",
+  "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "../../../dist/out-tsc",
+    "outDir": "./out-tsc/spec",
     "types": ["jest", "node"]
   },
   "include": [
@@ -11,5 +11,10 @@
     "src/**/*.spec.ts",
     "src/**/*.d.ts",
     "**/*.ts"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.lib.json"
+    }
   ]
 }

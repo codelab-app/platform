@@ -1,0 +1,47 @@
+{
+  "name": "@codelab/frontend-application-element",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./services": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./use-cases/admin-props-panel": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+  },
+  "devDependencies": {
+    "@codelab/shared-abstract-core": "workspace:*",
+    "@codelab/shared-abstract-types": "workspace:*",
+    "@codelab/frontend-domain-element": "workspace:*",
+    "@codelab/frontend-infra-mobx-context": "workspace:*",
+    "@codelab/shared-utils": "workspace:*",
+    "@codelab/frontend-presentation-components-interface-form": "workspace:*",
+    "@codelab/frontend-abstract-domain": "workspace:*",
+    "@codelab/frontend-abstract-application": "workspace:*",
+    "@codelab/frontend-presentation-components-form": "workspace:*",
+    "@codelab/frontend-abstract-types": "workspace:*",
+    "@codelab/frontend-application-store": "workspace:*",
+    "@codelab/frontend-application-type": "workspace:*",
+    "@codelab/frontend-domain-prop": "workspace:*",
+    "@codelab/frontend-application-atom": "workspace:*",
+    "@codelab/frontend-application-prop": "workspace:*",
+    "@codelab/frontend-domain-shared": "workspace:*",
+    "@codelab/shared-infra-logging": "workspace:*",
+    "@codelab/frontend-application-user": "workspace:*",
+    "@codelab/frontend-presentation-view": "workspace:*",
+    "@codelab/frontend-presentation-codelab-ui": "workspace:*",
+    "@codelab/frontend-infra-connector": "workspace:*",
+    "@codelab/frontend-presentation-components-codemirror": "workspace:*",
+    "@codelab/shared-infra-gqlgen": "workspace:*",
+    "@codelab/frontend-application-admin": "workspace:*",
+    "@codelab/frontend-infra-context": "workspace:*"
+  }
+}

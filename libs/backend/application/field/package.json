@@ -1,0 +1,11 @@
+{
+  "name": "@codelab/backend-application-field",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+  },
+  "devDependencies": {}
+}

@@ -1,0 +1,15 @@
+{
+  "name": "@codelab/frontend-presentation-codelab-ui",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+  },
+  "devDependencies": {
+    "@codelab/frontend-abstract-types": "workspace:*",
+    "@codelab/frontend-application-shared-data": "workspace:*",
+    "@codelab/frontend-abstract-application": "workspace:*"
+  }
+}

@@ -2,7 +2,6 @@
   "extends": "../../../../tsconfig.base.json",
   "compilerOptions": {
     "jsx": "react-jsx",
-
     "allowJs": true,
     "module": "commonjs",
     "forceConsistentCasingInFileNames": true,

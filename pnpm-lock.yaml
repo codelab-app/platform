@@ -1291,6 +1291,1365 @@ importers:
         specifier: 6.0.1
         version: 6.0.1
 
+  libs/backend/abstract/core: {}
+
+  libs/backend/abstract/types:
+    devDependencies:
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+
+  libs/backend/application/action:
+    devDependencies:
+      '@codelab/backend-domain-action':
+        specifier: workspace:*
+        version: link:../../domain/action
+      '@codelab/backend-infra-adapter-logger':
+        specifier: workspace:*
+        version: link:../../infra/adapter/logger
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-domain-module-action':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/action
+
+  libs/backend/application/admin:
+    devDependencies:
+      '@codelab/backend-abstract-core':
+        specifier: workspace:*
+        version: link:../../abstract/core
+      '@codelab/backend-abstract-types':
+        specifier: workspace:*
+        version: link:../../abstract/types
+      '@codelab/backend-application-app':
+        specifier: workspace:*
+        version: link:../app
+      '@codelab/backend-application-atom':
+        specifier: workspace:*
+        version: link:../atom
+      '@codelab/backend-application-component':
+        specifier: workspace:*
+        version: link:../component
+      '@codelab/backend-application-data':
+        specifier: workspace:*
+        version: link:../data
+      '@codelab/backend-application-store':
+        specifier: workspace:*
+        version: link:../store
+      '@codelab/backend-application-tag':
+        specifier: workspace:*
+        version: link:../tag
+      '@codelab/backend-application-type':
+        specifier: workspace:*
+        version: link:../type
+      '@codelab/backend-application-user':
+        specifier: workspace:*
+        version: link:../user
+      '@codelab/backend-data-seed':
+        specifier: workspace:*
+        version: link:../../data/seed
+      '@codelab/backend-domain-atom':
+        specifier: workspace:*
+        version: link:../../domain/atom
+      '@codelab/backend-domain-shared-auth':
+        specifier: workspace:*
+        version: link:../../domain/shared/auth
+      '@codelab/backend-domain-shared-modules':
+        specifier: workspace:*
+        version: link:../../domain/shared/modules
+      '@codelab/backend-domain-type':
+        specifier: workspace:*
+        version: link:../../domain/type
+      '@codelab/backend-domain-user':
+        specifier: workspace:*
+        version: link:../../domain/user
+      '@codelab/backend-infra-adapter-logger':
+        specifier: workspace:*
+        version: link:../../infra/adapter/logger
+      '@codelab/backend-infra-adapter-neo4j-driver':
+        specifier: workspace:*
+        version: link:../../infra/adapter/neo4j-driver
+      '@codelab/backend-infra-core':
+        specifier: workspace:*
+        version: link:../../infra/core
+      '@codelab/backend-shared-util':
+        specifier: workspace:*
+        version: link:../../shared/util
+      '@codelab/backend-test-setup':
+        specifier: workspace:*
+        version: link:../../test/setup
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-data-seed':
+        specifier: workspace:*
+        version: link:../../../shared/data/seed
+      '@codelab/shared-utils':
+        specifier: workspace:*
+        version: link:../../../shared/utils
+
+  libs/backend/application/app:
+    devDependencies:
+      '@codelab/backend-application-atom':
+        specifier: workspace:*
+        version: link:../atom
+      '@codelab/backend-application-component':
+        specifier: workspace:*
+        version: link:../component
+      '@codelab/backend-application-domain':
+        specifier: workspace:*
+        version: link:../domain
+      '@codelab/backend-application-page':
+        specifier: workspace:*
+        version: link:../page
+      '@codelab/backend-application-type':
+        specifier: workspace:*
+        version: link:../type
+      '@codelab/backend-domain-app':
+        specifier: workspace:*
+        version: link:../../domain/app
+      '@codelab/backend-domain-atom':
+        specifier: workspace:*
+        version: link:../../domain/atom
+      '@codelab/backend-domain-component':
+        specifier: workspace:*
+        version: link:../../domain/component
+      '@codelab/backend-domain-domain':
+        specifier: workspace:*
+        version: link:../../domain/domain
+      '@codelab/backend-domain-element':
+        specifier: workspace:*
+        version: link:../../domain/element
+      '@codelab/backend-domain-page':
+        specifier: workspace:*
+        version: link:../../domain/page
+      '@codelab/backend-domain-prop':
+        specifier: workspace:*
+        version: link:../../domain/prop
+      '@codelab/backend-domain-resource':
+        specifier: workspace:*
+        version: link:../../domain/resource
+      '@codelab/backend-domain-shared-auth':
+        specifier: workspace:*
+        version: link:../../domain/shared/auth
+      '@codelab/backend-domain-store':
+        specifier: workspace:*
+        version: link:../../domain/store
+      '@codelab/backend-domain-type':
+        specifier: workspace:*
+        version: link:../../domain/type
+      '@codelab/backend-infra-adapter-logger':
+        specifier: workspace:*
+        version: link:../../infra/adapter/logger
+      '@codelab/backend-infra-adapter-neo4j-driver':
+        specifier: workspace:*
+        version: link:../../infra/adapter/neo4j-driver
+      '@codelab/backend-infra-adapter-ws':
+        specifier: workspace:*
+        version: link:../../infra/adapter/ws
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-infra':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/infra
+      '@codelab/shared-data-test':
+        specifier: workspace:*
+        version: link:../../../shared/data/test
+      '@codelab/shared-domain-module-page':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/page
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+      '@codelab/shared-infra-typebox':
+        specifier: workspace:*
+        version: link:../../../shared/infra/typebox
+      '@codelab/shared-utils':
+        specifier: workspace:*
+        version: link:../../../shared/utils
+
+  libs/backend/application/atom:
+    devDependencies:
+      '@codelab/backend-application-data':
+        specifier: workspace:*
+        version: link:../data
+      '@codelab/backend-application-type':
+        specifier: workspace:*
+        version: link:../type
+      '@codelab/backend-domain-atom':
+        specifier: workspace:*
+        version: link:../../domain/atom
+      '@codelab/backend-domain-shared-auth':
+        specifier: workspace:*
+        version: link:../../domain/shared/auth
+      '@codelab/backend-domain-tag':
+        specifier: workspace:*
+        version: link:../../domain/tag
+      '@codelab/backend-domain-type':
+        specifier: workspace:*
+        version: link:../../domain/type
+      '@codelab/backend-infra-adapter-logger':
+        specifier: workspace:*
+        version: link:../../infra/adapter/logger
+      '@codelab/backend-infra-core':
+        specifier: workspace:*
+        version: link:../../infra/core
+      '@codelab/backend-test-setup':
+        specifier: workspace:*
+        version: link:../../test/setup
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+      '@codelab/shared-infra-logging':
+        specifier: workspace:*
+        version: link:../../../shared/infra/logging
+      '@codelab/shared-infra-typebox':
+        specifier: workspace:*
+        version: link:../../../shared/infra/typebox
+      '@codelab/shared-utils':
+        specifier: workspace:*
+        version: link:../../../shared/utils
+
+  libs/backend/application/auth:
+    devDependencies:
+      '@codelab/backend-domain-user':
+        specifier: workspace:*
+        version: link:../../domain/user
+      '@codelab/backend-infra-adapter-auth0':
+        specifier: workspace:*
+        version: link:../../infra/adapter/auth0
+      '@codelab/backend-infra-adapter-logger':
+        specifier: workspace:*
+        version: link:../../infra/adapter/logger
+      '@codelab/backend-infra-core':
+        specifier: workspace:*
+        version: link:../../infra/core
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+
+  libs/backend/application/component:
+    devDependencies:
+      '@codelab/backend-application-data':
+        specifier: workspace:*
+        version: link:../data
+      '@codelab/backend-application-element':
+        specifier: workspace:*
+        version: link:../element
+      '@codelab/backend-application-store':
+        specifier: workspace:*
+        version: link:../store
+      '@codelab/backend-application-type':
+        specifier: workspace:*
+        version: link:../type
+      '@codelab/backend-domain-component':
+        specifier: workspace:*
+        version: link:../../domain/component
+      '@codelab/backend-domain-element':
+        specifier: workspace:*
+        version: link:../../domain/element
+      '@codelab/backend-domain-prop':
+        specifier: workspace:*
+        version: link:../../domain/prop
+      '@codelab/backend-domain-shared-auth':
+        specifier: workspace:*
+        version: link:../../domain/shared/auth
+      '@codelab/backend-domain-store':
+        specifier: workspace:*
+        version: link:../../domain/store
+      '@codelab/backend-domain-type':
+        specifier: workspace:*
+        version: link:../../domain/type
+      '@codelab/backend-infra-adapter-logger':
+        specifier: workspace:*
+        version: link:../../infra/adapter/logger
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-domain-module-type':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/type
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+      '@codelab/shared-infra-typebox':
+        specifier: workspace:*
+        version: link:../../../shared/infra/typebox
+
+  libs/backend/application/data:
+    devDependencies:
+      '@codelab/backend-domain-shared-auth':
+        specifier: workspace:*
+        version: link:../../domain/shared/auth
+      '@codelab/backend-infra-adapter-logger':
+        specifier: workspace:*
+        version: link:../../infra/adapter/logger
+      '@codelab/backend-shared-util':
+        specifier: workspace:*
+        version: link:../../shared/util
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-infra-typebox':
+        specifier: workspace:*
+        version: link:../../../shared/infra/typebox
+      '@codelab/shared-utils':
+        specifier: workspace:*
+        version: link:../../../shared/utils
+
+  libs/backend/application/domain:
+    devDependencies:
+      '@codelab/backend-domain-domain':
+        specifier: workspace:*
+        version: link:../../domain/domain
+      '@codelab/backend-infra-adapter-digitalocean':
+        specifier: workspace:*
+        version: link:../../infra/adapter/digitalocean
+      '@codelab/backend-infra-adapter-dns':
+        specifier: workspace:*
+        version: link:../../infra/adapter/dns
+      '@codelab/backend-infra-adapter-graphql':
+        specifier: workspace:*
+        version: link:../../infra/adapter/graphql
+      '@codelab/backend-infra-adapter-logger':
+        specifier: workspace:*
+        version: link:../../infra/adapter/logger
+      '@codelab/backend-test-setup':
+        specifier: workspace:*
+        version: link:../../test/setup
+      '@codelab/shared-data-test':
+        specifier: workspace:*
+        version: link:../../../shared/data/test
+      '@codelab/shared-domain-module-domain':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/domain
+      '@codelab/shared-domain-orm':
+        specifier: workspace:*
+        version: link:../../../shared/domain/orm
+      '@codelab/shared-infra-gql-client':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gql-client
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+
+  libs/backend/application/element:
+    devDependencies:
+      '@codelab/backend-domain-atom':
+        specifier: workspace:*
+        version: link:../../domain/atom
+      '@codelab/backend-domain-component':
+        specifier: workspace:*
+        version: link:../../domain/component
+      '@codelab/backend-domain-element':
+        specifier: workspace:*
+        version: link:../../domain/element
+      '@codelab/backend-domain-prop':
+        specifier: workspace:*
+        version: link:../../domain/prop
+      '@codelab/backend-infra-adapter-logger':
+        specifier: workspace:*
+        version: link:../../infra/adapter/logger
+      '@codelab/backend-infra-core':
+        specifier: workspace:*
+        version: link:../../infra/core
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-config-env':
+        specifier: workspace:*
+        version: link:../../../shared/config/env
+
+  libs/backend/application/field: {}
+
+  libs/backend/application/page:
+    devDependencies:
+      '@codelab/backend-application-element':
+        specifier: workspace:*
+        version: link:../element
+      '@codelab/backend-application-store':
+        specifier: workspace:*
+        version: link:../store
+      '@codelab/backend-domain-app':
+        specifier: workspace:*
+        version: link:../../domain/app
+      '@codelab/backend-domain-atom':
+        specifier: workspace:*
+        version: link:../../domain/atom
+      '@codelab/backend-domain-component':
+        specifier: workspace:*
+        version: link:../../domain/component
+      '@codelab/backend-domain-element':
+        specifier: workspace:*
+        version: link:../../domain/element
+      '@codelab/backend-domain-page':
+        specifier: workspace:*
+        version: link:../../domain/page
+      '@codelab/backend-domain-prop':
+        specifier: workspace:*
+        version: link:../../domain/prop
+      '@codelab/backend-domain-shared-auth':
+        specifier: workspace:*
+        version: link:../../domain/shared/auth
+      '@codelab/backend-domain-store':
+        specifier: workspace:*
+        version: link:../../domain/store
+      '@codelab/backend-domain-type':
+        specifier: workspace:*
+        version: link:../../domain/type
+      '@codelab/backend-infra-adapter-logger':
+        specifier: workspace:*
+        version: link:../../infra/adapter/logger
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-config-env':
+        specifier: workspace:*
+        version: link:../../../shared/config/env
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+      '@codelab/shared-infra-typebox':
+        specifier: workspace:*
+        version: link:../../../shared/infra/typebox
+      '@codelab/shared-utils':
+        specifier: workspace:*
+        version: link:../../../shared/utils
+
+  libs/backend/application/redirect:
+    devDependencies:
+      '@codelab/backend-domain-redirect':
+        specifier: workspace:*
+        version: link:../../domain/redirect
+      '@codelab/backend-infra-adapter-logger':
+        specifier: workspace:*
+        version: link:../../infra/adapter/logger
+      '@codelab/backend-shared-eval':
+        specifier: workspace:*
+        version: link:../../shared/eval
+      '@codelab/backend-test-setup':
+        specifier: workspace:*
+        version: link:../../test/setup
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-domain-module-resource':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/resource
+      '@codelab/shared-infra-eval':
+        specifier: workspace:*
+        version: link:../../../shared/infra/eval
+      '@codelab/shared-utils':
+        specifier: workspace:*
+        version: link:../../../shared/utils
+
+  libs/backend/application/resource:
+    devDependencies:
+      '@codelab/backend-domain-prop':
+        specifier: workspace:*
+        version: link:../../domain/prop
+      '@codelab/backend-domain-resource':
+        specifier: workspace:*
+        version: link:../../domain/resource
+      '@codelab/backend-infra-adapter-logger':
+        specifier: workspace:*
+        version: link:../../infra/adapter/logger
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+
+  libs/backend/application/store:
+    devDependencies:
+      '@codelab/backend-application-type':
+        specifier: workspace:*
+        version: link:../type
+      '@codelab/backend-domain-action':
+        specifier: workspace:*
+        version: link:../../domain/action
+      '@codelab/backend-domain-prop':
+        specifier: workspace:*
+        version: link:../../domain/prop
+      '@codelab/backend-domain-resource':
+        specifier: workspace:*
+        version: link:../../domain/resource
+      '@codelab/backend-domain-shared-modules':
+        specifier: workspace:*
+        version: link:../../domain/shared/modules
+      '@codelab/backend-domain-store':
+        specifier: workspace:*
+        version: link:../../domain/store
+      '@codelab/backend-domain-type':
+        specifier: workspace:*
+        version: link:../../domain/type
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+      '@codelab/shared-infra-typebox':
+        specifier: workspace:*
+        version: link:../../../shared/infra/typebox
+
+  libs/backend/application/tag:
+    devDependencies:
+      '@codelab/backend-data-seed':
+        specifier: workspace:*
+        version: link:../../data/seed
+      '@codelab/backend-domain-shared-auth':
+        specifier: workspace:*
+        version: link:../../domain/shared/auth
+      '@codelab/backend-domain-shared-modules':
+        specifier: workspace:*
+        version: link:../../domain/shared/modules
+      '@codelab/backend-domain-tag':
+        specifier: workspace:*
+        version: link:../../domain/tag
+      '@codelab/backend-infra-adapter-logger':
+        specifier: workspace:*
+        version: link:../../infra/adapter/logger
+      '@codelab/backend-test-setup':
+        specifier: workspace:*
+        version: link:../../test/setup
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-data-test':
+        specifier: workspace:*
+        version: link:../../../shared/data/test
+      '@codelab/shared-domain-module-atom':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/atom
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+
+  libs/backend/application/type:
+    devDependencies:
+      '@codelab/backend-abstract-core':
+        specifier: workspace:*
+        version: link:../../abstract/core
+      '@codelab/backend-abstract-types':
+        specifier: workspace:*
+        version: link:../../abstract/types
+      '@codelab/backend-application-data':
+        specifier: workspace:*
+        version: link:../data
+      '@codelab/backend-domain-shared-auth':
+        specifier: workspace:*
+        version: link:../../domain/shared/auth
+      '@codelab/backend-domain-type':
+        specifier: workspace:*
+        version: link:../../domain/type
+      '@codelab/backend-infra-adapter-logger':
+        specifier: workspace:*
+        version: link:../../infra/adapter/logger
+      '@codelab/backend-infra-adapter-neo4j-driver':
+        specifier: workspace:*
+        version: link:../../infra/adapter/neo4j-driver
+      '@codelab/backend-infra-core':
+        specifier: workspace:*
+        version: link:../../infra/core
+      '@codelab/backend-test-setup':
+        specifier: workspace:*
+        version: link:../../test/setup
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-data-seed':
+        specifier: workspace:*
+        version: link:../../../shared/data/seed
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+      '@codelab/shared-utils':
+        specifier: workspace:*
+        version: link:../../../shared/utils
+
+  libs/backend/application/user:
+    devDependencies:
+      '@codelab/backend-application-app':
+        specifier: workspace:*
+        version: link:../app
+      '@codelab/backend-application-atom':
+        specifier: workspace:*
+        version: link:../atom
+      '@codelab/backend-application-auth':
+        specifier: workspace:*
+        version: link:../auth
+      '@codelab/backend-domain-atom':
+        specifier: workspace:*
+        version: link:../../domain/atom
+      '@codelab/backend-domain-preference':
+        specifier: workspace:*
+        version: link:../../domain/preference
+      '@codelab/backend-domain-shared-auth':
+        specifier: workspace:*
+        version: link:../../domain/shared/auth
+      '@codelab/backend-domain-type':
+        specifier: workspace:*
+        version: link:../../domain/type
+      '@codelab/backend-domain-user':
+        specifier: workspace:*
+        version: link:../../domain/user
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+
+  libs/backend/data/seed:
+    devDependencies:
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+
+  libs/backend/domain/action:
+    devDependencies:
+      '@codelab/backend-domain-prop':
+        specifier: workspace:*
+        version: link:../prop
+      '@codelab/backend-domain-shared-modules':
+        specifier: workspace:*
+        version: link:../shared/modules
+      '@codelab/backend-infra-adapter-logger':
+        specifier: workspace:*
+        version: link:../../infra/adapter/logger
+      '@codelab/backend-infra-core':
+        specifier: workspace:*
+        version: link:../../infra/core
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-domain-module-action':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/action
+      '@codelab/shared-domain-module-store':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/store
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+
+  libs/backend/domain/admin: {}
+
+  libs/backend/domain/app:
+    devDependencies:
+      '@codelab/backend-domain-page':
+        specifier: workspace:*
+        version: link:../page
+      '@codelab/backend-domain-shared-modules':
+        specifier: workspace:*
+        version: link:../shared/modules
+      '@codelab/backend-infra-adapter-logger':
+        specifier: workspace:*
+        version: link:../../infra/adapter/logger
+      '@codelab/backend-infra-core':
+        specifier: workspace:*
+        version: link:../../infra/core
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-domain-module-app':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/app
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+      '@codelab/shared-utils':
+        specifier: workspace:*
+        version: link:../../../shared/utils
+
+  libs/backend/domain/atom:
+    devDependencies:
+      '@codelab/backend-domain-shared-modules':
+        specifier: workspace:*
+        version: link:../shared/modules
+      '@codelab/backend-infra-adapter-logger':
+        specifier: workspace:*
+        version: link:../../infra/adapter/logger
+      '@codelab/backend-infra-core':
+        specifier: workspace:*
+        version: link:../../infra/core
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-domain-module-atom':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/atom
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+
+  libs/backend/domain/auth-guard:
+    devDependencies:
+      '@codelab/backend-domain-prop':
+        specifier: workspace:*
+        version: link:../prop
+      '@codelab/backend-domain-shared-modules':
+        specifier: workspace:*
+        version: link:../shared/modules
+      '@codelab/backend-infra-adapter-logger':
+        specifier: workspace:*
+        version: link:../../infra/adapter/logger
+      '@codelab/backend-infra-core':
+        specifier: workspace:*
+        version: link:../../infra/core
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-domain-module-auth-guard':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/auth-guard
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+
+  libs/backend/domain/component:
+    devDependencies:
+      '@codelab/backend-domain-element':
+        specifier: workspace:*
+        version: link:../element
+      '@codelab/backend-domain-shared-modules':
+        specifier: workspace:*
+        version: link:../shared/modules
+      '@codelab/backend-infra-adapter-logger':
+        specifier: workspace:*
+        version: link:../../infra/adapter/logger
+      '@codelab/backend-infra-adapter-neo4j-driver':
+        specifier: workspace:*
+        version: link:../../infra/adapter/neo4j-driver
+      '@codelab/backend-infra-core':
+        specifier: workspace:*
+        version: link:../../infra/core
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-domain-module-component':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/component
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+
+  libs/backend/domain/domain:
+    devDependencies:
+      '@codelab/backend-domain-shared-modules':
+        specifier: workspace:*
+        version: link:../shared/modules
+      '@codelab/backend-infra-adapter-logger':
+        specifier: workspace:*
+        version: link:../../infra/adapter/logger
+      '@codelab/backend-infra-core':
+        specifier: workspace:*
+        version: link:../../infra/core
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-domain-module-domain':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/domain
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+
+  libs/backend/domain/element:
+    devDependencies:
+      '@codelab/backend-domain-atom':
+        specifier: workspace:*
+        version: link:../atom
+      '@codelab/backend-domain-shared-modules':
+        specifier: workspace:*
+        version: link:../shared/modules
+      '@codelab/backend-domain-type':
+        specifier: workspace:*
+        version: link:../type
+      '@codelab/backend-infra-adapter-logger':
+        specifier: workspace:*
+        version: link:../../infra/adapter/logger
+      '@codelab/backend-infra-adapter-neo4j-driver':
+        specifier: workspace:*
+        version: link:../../infra/adapter/neo4j-driver
+      '@codelab/backend-infra-core':
+        specifier: workspace:*
+        version: link:../../infra/core
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-config-env':
+        specifier: workspace:*
+        version: link:../../../shared/config/env
+      '@codelab/shared-domain-module-element':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/element
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+
+  libs/backend/domain/page:
+    devDependencies:
+      '@codelab/backend-domain-element':
+        specifier: workspace:*
+        version: link:../element
+      '@codelab/backend-domain-shared-auth':
+        specifier: workspace:*
+        version: link:../shared/auth
+      '@codelab/backend-domain-shared-modules':
+        specifier: workspace:*
+        version: link:../shared/modules
+      '@codelab/backend-domain-store':
+        specifier: workspace:*
+        version: link:../store
+      '@codelab/backend-domain-type':
+        specifier: workspace:*
+        version: link:../type
+      '@codelab/backend-infra-adapter-logger':
+        specifier: workspace:*
+        version: link:../../infra/adapter/logger
+      '@codelab/backend-infra-adapter-neo4j-driver':
+        specifier: workspace:*
+        version: link:../../infra/adapter/neo4j-driver
+      '@codelab/backend-infra-core':
+        specifier: workspace:*
+        version: link:../../infra/core
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-domain-module-page':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/page
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+
+  libs/backend/domain/preference:
+    devDependencies:
+      '@codelab/backend-domain-shared-modules':
+        specifier: workspace:*
+        version: link:../shared/modules
+      '@codelab/backend-infra-adapter-logger':
+        specifier: workspace:*
+        version: link:../../infra/adapter/logger
+      '@codelab/backend-infra-core':
+        specifier: workspace:*
+        version: link:../../infra/core
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-domain-module-preference':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/preference
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+
+  libs/backend/domain/prop:
+    devDependencies:
+      '@codelab/backend-domain-shared-modules':
+        specifier: workspace:*
+        version: link:../shared/modules
+      '@codelab/backend-infra-adapter-logger':
+        specifier: workspace:*
+        version: link:../../infra/adapter/logger
+      '@codelab/backend-infra-core':
+        specifier: workspace:*
+        version: link:../../infra/core
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-domain-module-prop':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/prop
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+
+  libs/backend/domain/redirect:
+    devDependencies:
+      '@codelab/backend-domain-shared-modules':
+        specifier: workspace:*
+        version: link:../shared/modules
+      '@codelab/backend-infra-adapter-logger':
+        specifier: workspace:*
+        version: link:../../infra/adapter/logger
+      '@codelab/backend-infra-core':
+        specifier: workspace:*
+        version: link:../../infra/core
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-domain-module-redirect':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/redirect
+      '@codelab/shared-domain-orm':
+        specifier: workspace:*
+        version: link:../../../shared/domain/orm
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+
+  libs/backend/domain/resource:
+    devDependencies:
+      '@codelab/backend-domain-prop':
+        specifier: workspace:*
+        version: link:../prop
+      '@codelab/backend-domain-shared-modules':
+        specifier: workspace:*
+        version: link:../shared/modules
+      '@codelab/backend-infra-adapter-logger':
+        specifier: workspace:*
+        version: link:../../infra/adapter/logger
+      '@codelab/backend-infra-core':
+        specifier: workspace:*
+        version: link:../../infra/core
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-domain-module-resource':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/resource
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+
+  libs/backend/domain/shared/auth:
+    devDependencies:
+      '@codelab/backend-infra-adapter-request-context':
+        specifier: workspace:*
+        version: link:../../../infra/adapter/request-context
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../../shared/abstract/core
+
+  libs/backend/domain/shared/modules:
+    devDependencies:
+      '@codelab/backend-domain-shared-auth':
+        specifier: workspace:*
+        version: link:../auth
+      '@codelab/backend-infra-adapter-neo4j-driver':
+        specifier: workspace:*
+        version: link:../../../infra/adapter/neo4j-driver
+
+  libs/backend/domain/shared/seeder: {}
+
+  libs/backend/domain/store:
+    devDependencies:
+      '@codelab/backend-domain-shared-modules':
+        specifier: workspace:*
+        version: link:../shared/modules
+      '@codelab/backend-domain-type':
+        specifier: workspace:*
+        version: link:../type
+      '@codelab/backend-infra-adapter-logger':
+        specifier: workspace:*
+        version: link:../../infra/adapter/logger
+      '@codelab/backend-infra-core':
+        specifier: workspace:*
+        version: link:../../infra/core
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-domain-module-store':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/store
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+
+  libs/backend/domain/tag:
+    devDependencies:
+      '@codelab/backend-domain-shared-modules':
+        specifier: workspace:*
+        version: link:../shared/modules
+      '@codelab/backend-domain-user':
+        specifier: workspace:*
+        version: link:../user
+      '@codelab/backend-infra-adapter-logger':
+        specifier: workspace:*
+        version: link:../../infra/adapter/logger
+      '@codelab/backend-infra-core':
+        specifier: workspace:*
+        version: link:../../infra/core
+      '@codelab/backend-test-setup':
+        specifier: workspace:*
+        version: link:../../test/setup
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-domain-module-tag':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/tag
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+
+  libs/backend/domain/type:
+    devDependencies:
+      '@codelab/backend-domain-shared-auth':
+        specifier: workspace:*
+        version: link:../shared/auth
+      '@codelab/backend-domain-shared-modules':
+        specifier: workspace:*
+        version: link:../shared/modules
+      '@codelab/backend-domain-user':
+        specifier: workspace:*
+        version: link:../user
+      '@codelab/backend-infra-adapter-logger':
+        specifier: workspace:*
+        version: link:../../infra/adapter/logger
+      '@codelab/backend-infra-adapter-neo4j-driver':
+        specifier: workspace:*
+        version: link:../../infra/adapter/neo4j-driver
+      '@codelab/backend-infra-core':
+        specifier: workspace:*
+        version: link:../../infra/core
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-domain-errors':
+        specifier: workspace:*
+        version: link:../../../shared/domain/errors
+      '@codelab/shared-domain-module-field':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/field
+      '@codelab/shared-domain-module-type':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/type
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+      '@codelab/shared-infra-typebox':
+        specifier: workspace:*
+        version: link:../../../shared/infra/typebox
+      '@codelab/shared-utils':
+        specifier: workspace:*
+        version: link:../../../shared/utils
+
+  libs/backend/domain/user:
+    devDependencies:
+      '@codelab/backend-domain-preference':
+        specifier: workspace:*
+        version: link:../preference
+      '@codelab/backend-domain-shared-auth':
+        specifier: workspace:*
+        version: link:../shared/auth
+      '@codelab/backend-domain-shared-modules':
+        specifier: workspace:*
+        version: link:../shared/modules
+      '@codelab/backend-infra-adapter-logger':
+        specifier: workspace:*
+        version: link:../../infra/adapter/logger
+      '@codelab/backend-infra-core':
+        specifier: workspace:*
+        version: link:../../infra/core
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-domain-module-preference':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/preference
+      '@codelab/shared-domain-module-user':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/user
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+
+  libs/backend/infra/adapter/auth0:
+    devDependencies:
+      '@codelab/shared-config-env':
+        specifier: workspace:*
+        version: link:../../../../shared/config/env
+
+  libs/backend/infra/adapter/cli:
+    devDependencies:
+      '@codelab/backend-application-admin':
+        specifier: workspace:*
+        version: link:../../../application/admin
+      '@codelab/backend-infra-adapter-logger':
+        specifier: workspace:*
+        version: link:../logger
+      '@codelab/backend-infra-adapter-shell':
+        specifier: workspace:*
+        version: link:../shell
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../../shared/abstract/core
+      '@codelab/shared-config-env':
+        specifier: workspace:*
+        version: link:../../../../shared/config/env
+
+  libs/backend/infra/adapter/digitalocean: {}
+
+  libs/backend/infra/adapter/dns:
+    devDependencies:
+      '@codelab/shared-infra-typebox':
+        specifier: workspace:*
+        version: link:../../../../shared/infra/typebox
+
+  libs/backend/infra/adapter/graphql:
+    devDependencies:
+      '@codelab/backend-abstract-types':
+        specifier: workspace:*
+        version: link:../../../abstract/types
+      '@codelab/backend-infra-adapter-neo4j-driver':
+        specifier: workspace:*
+        version: link:../neo4j-driver
+      '@codelab/backend-infra-adapter-neo4j-schema':
+        specifier: workspace:*
+        version: link:../neo4j-schema
+      '@codelab/backend-infra-adapter-request-context':
+        specifier: workspace:*
+        version: link:../request-context
+      '@codelab/backend-infra-core':
+        specifier: workspace:*
+        version: link:../../core
+
+  libs/backend/infra/adapter/logger:
+    devDependencies:
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../../shared/abstract/types
+      '@codelab/shared-infra-logging':
+        specifier: workspace:*
+        version: link:../../../../shared/infra/logging
+
+  libs/backend/infra/adapter/middleware:
+    devDependencies:
+      '@codelab/shared-infra-auth0':
+        specifier: workspace:*
+        version: link:../../../../shared/infra/auth0
+
+  libs/backend/infra/adapter/neo4j-driver:
+    devDependencies:
+      '@codelab/backend-infra-adapter-logger':
+        specifier: workspace:*
+        version: link:../logger
+      '@codelab/backend-infra-core':
+        specifier: workspace:*
+        version: link:../../core
+
+  libs/backend/infra/adapter/neo4j-schema:
+    devDependencies:
+      '@codelab/backend-abstract-types':
+        specifier: workspace:*
+        version: link:../../../abstract/types
+      '@codelab/backend-domain-app':
+        specifier: workspace:*
+        version: link:../../../domain/app
+      '@codelab/backend-domain-atom':
+        specifier: workspace:*
+        version: link:../../../domain/atom
+      '@codelab/backend-domain-component':
+        specifier: workspace:*
+        version: link:../../../domain/component
+      '@codelab/backend-domain-element':
+        specifier: workspace:*
+        version: link:../../../domain/element
+      '@codelab/backend-domain-page':
+        specifier: workspace:*
+        version: link:../../../domain/page
+      '@codelab/backend-domain-prop':
+        specifier: workspace:*
+        version: link:../../../domain/prop
+      '@codelab/backend-domain-store':
+        specifier: workspace:*
+        version: link:../../../domain/store
+      '@codelab/backend-domain-type':
+        specifier: workspace:*
+        version: link:../../../domain/type
+      '@codelab/backend-domain-user':
+        specifier: workspace:*
+        version: link:../../../domain/user
+      '@codelab/backend-infra-adapter-digitalocean':
+        specifier: workspace:*
+        version: link:../digitalocean
+      '@codelab/backend-infra-adapter-dns':
+        specifier: workspace:*
+        version: link:../dns
+      '@codelab/backend-infra-adapter-logger':
+        specifier: workspace:*
+        version: link:../logger
+      '@codelab/backend-infra-adapter-neo4j-driver':
+        specifier: workspace:*
+        version: link:../neo4j-driver
+      '@codelab/backend-infra-core':
+        specifier: workspace:*
+        version: link:../../core
+      '@codelab/backend-shared-util':
+        specifier: workspace:*
+        version: link:../../../shared/util
+      '@codelab/backend-test-utils':
+        specifier: workspace:*
+        version: link:../../../test/utils
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../../shared/abstract/core
+      '@codelab/shared-config-env':
+        specifier: workspace:*
+        version: link:../../../../shared/config/env
+      '@codelab/shared-domain-module-app':
+        specifier: workspace:*
+        version: link:../../../../shared/domain/module/app
+      '@codelab/shared-domain-module-component':
+        specifier: workspace:*
+        version: link:../../../../shared/domain/module/component
+      '@codelab/shared-domain-module-element':
+        specifier: workspace:*
+        version: link:../../../../shared/domain/module/element
+      '@codelab/shared-domain-module-page':
+        specifier: workspace:*
+        version: link:../../../../shared/domain/module/page
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../../shared/infra/gqlgen
+      '@codelab/shared-infra-logging':
+        specifier: workspace:*
+        version: link:../../../../shared/infra/logging
+      '@codelab/shared-infra-typebox':
+        specifier: workspace:*
+        version: link:../../../../shared/infra/typebox
+
+  libs/backend/infra/adapter/queue:
+    devDependencies:
+      '@codelab/backend-infra-adapter-logger':
+        specifier: workspace:*
+        version: link:../logger
+      '@codelab/backend-infra-adapter-ws':
+        specifier: workspace:*
+        version: link:../ws
+
+  libs/backend/infra/adapter/request-context: {}
+
+  libs/backend/infra/adapter/rest-client: {}
+
+  libs/backend/infra/adapter/shell: {}
+
+  libs/backend/infra/adapter/ws:
+    devDependencies:
+      '@codelab/backend-infra-adapter-logger':
+        specifier: workspace:*
+        version: link:../logger
+      '@codelab/shared-abstract-infra':
+        specifier: workspace:*
+        version: link:../../../../shared/abstract/infra
+
+  libs/backend/infra/core:
+    devDependencies:
+      '@codelab/backend-abstract-types':
+        specifier: workspace:*
+        version: link:../../abstract/types
+      '@codelab/backend-infra-adapter-logger':
+        specifier: workspace:*
+        version: link:../adapter/logger
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-domain-errors':
+        specifier: workspace:*
+        version: link:../../../shared/domain/errors
+      '@codelab/shared-infra-typebox':
+        specifier: workspace:*
+        version: link:../../../shared/infra/typebox
+
+  libs/backend/shared/errors: {}
+
+  libs/backend/shared/eval:
+    devDependencies:
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+
+  libs/backend/shared/util:
+    devDependencies:
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-utils':
+        specifier: workspace:*
+        version: link:../../../shared/utils
+
+  libs/backend/test/setup:
+    devDependencies:
+      '@codelab/backend-domain-shared-auth':
+        specifier: workspace:*
+        version: link:../../domain/shared/auth
+      '@codelab/backend-domain-shared-modules':
+        specifier: workspace:*
+        version: link:../../domain/shared/modules
+      '@codelab/backend-domain-user':
+        specifier: workspace:*
+        version: link:../../domain/user
+      '@codelab/backend-infra-adapter-graphql':
+        specifier: workspace:*
+        version: link:../../infra/adapter/graphql
+      '@codelab/backend-infra-adapter-logger':
+        specifier: workspace:*
+        version: link:../../infra/adapter/logger
+      '@codelab/backend-infra-adapter-neo4j-schema':
+        specifier: workspace:*
+        version: link:../../infra/adapter/neo4j-schema
+      '@codelab/backend-infra-adapter-request-context':
+        specifier: workspace:*
+        version: link:../../infra/adapter/request-context
+      '@codelab/backend-infra-core':
+        specifier: workspace:*
+        version: link:../../infra/core
+      '@codelab/backend-test-utils':
+        specifier: workspace:*
+        version: link:../utils
+      '@codelab/shared-data-test':
+        specifier: workspace:*
+        version: link:../../../shared/data/test
+
+  libs/backend/test/utils:
+    devDependencies:
+      '@codelab/backend-domain-shared-auth':
+        specifier: workspace:*
+        version: link:../../domain/shared/auth
+      '@codelab/backend-domain-user':
+        specifier: workspace:*
+        version: link:../../domain/user
+      '@codelab/backend-infra-adapter-neo4j-driver':
+        specifier: workspace:*
+        version: link:../../infra/adapter/neo4j-driver
+      '@codelab/backend-infra-core':
+        specifier: workspace:*
+        version: link:../../infra/core
+      '@codelab/shared-data-test':
+        specifier: workspace:*
+        version: link:../../../shared/data/test
+
   libs/external/codelab-codegen/codelab-preset:
     dependencies:
       '@graphql-codegen/plugin-helpers':
@@ -1383,6 +2742,2647 @@ importers:
       graphql-request:
         specifier: 6.0.0
         version: 6.0.0(encoding@0.1.13)(graphql@16.9.0)
+
+  libs/frontend/abstract/application:
+    devDependencies:
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../domain
+      '@codelab/frontend-abstract-types':
+        specifier: workspace:*
+        version: link:../types
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+
+  libs/frontend/abstract/domain:
+    devDependencies:
+      '@codelab/frontend-abstract-types':
+        specifier: workspace:*
+        version: link:../types
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+      '@codelab/shared-infra-typebox':
+        specifier: workspace:*
+        version: link:../../../shared/infra/typebox
+
+  libs/frontend/abstract/types:
+    devDependencies:
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+
+  libs/frontend/application/admin:
+    devDependencies:
+      '@codelab/frontend-abstract-application':
+        specifier: workspace:*
+        version: link:../../abstract/application
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/frontend-abstract-types':
+        specifier: workspace:*
+        version: link:../../abstract/types
+      '@codelab/frontend-application-type':
+        specifier: workspace:*
+        version: link:../type
+      '@codelab/frontend-application-user':
+        specifier: workspace:*
+        version: link:../user
+      '@codelab/frontend-infra-context':
+        specifier: workspace:*
+        version: link:../../infra/context
+      '@codelab/frontend-presentation-codelab-ui':
+        specifier: workspace:*
+        version: link:../../presentation/codelab-ui
+      '@codelab/frontend-presentation-components-form':
+        specifier: workspace:*
+        version: link:../../presentation/components/form
+      '@codelab/frontend-shared-utils':
+        specifier: workspace:*
+        version: link:../../shared/utils
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-config-env':
+        specifier: workspace:*
+        version: link:../../../shared/config/env
+      '@codelab/shared-infra-fetch-server':
+        specifier: workspace:*
+        version: link:../../../shared/infra/fetch-server
+
+  libs/frontend/application/app:
+    devDependencies:
+      '@codelab/frontend-abstract-application':
+        specifier: workspace:*
+        version: link:../../abstract/application
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/frontend-abstract-types':
+        specifier: workspace:*
+        version: link:../../abstract/types
+      '@codelab/frontend-application-atom':
+        specifier: workspace:*
+        version: link:../atom
+      '@codelab/frontend-application-page':
+        specifier: workspace:*
+        version: link:../page
+      '@codelab/frontend-application-shared-store':
+        specifier: workspace:*
+        version: link:../shared/store
+      '@codelab/frontend-application-user':
+        specifier: workspace:*
+        version: link:../user
+      '@codelab/frontend-domain-app':
+        specifier: workspace:*
+        version: link:../../domain/app
+      '@codelab/frontend-domain-domain':
+        specifier: workspace:*
+        version: link:../../domain/domain
+      '@codelab/frontend-domain-element':
+        specifier: workspace:*
+        version: link:../../domain/element
+      '@codelab/frontend-domain-page':
+        specifier: workspace:*
+        version: link:../../domain/page
+      '@codelab/frontend-domain-shared':
+        specifier: workspace:*
+        version: link:../../domain/shared
+      '@codelab/frontend-domain-store':
+        specifier: workspace:*
+        version: link:../../domain/store
+      '@codelab/frontend-domain-type':
+        specifier: workspace:*
+        version: link:../../domain/type
+      '@codelab/frontend-infra-connector':
+        specifier: workspace:*
+        version: link:../../infra/connector
+      '@codelab/frontend-infra-context':
+        specifier: workspace:*
+        version: link:../../infra/context
+      '@codelab/frontend-infra-mobx-context':
+        specifier: workspace:*
+        version: link:../../infra/mobx/context
+      '@codelab/frontend-presentation-codelab-ui':
+        specifier: workspace:*
+        version: link:../../presentation/codelab-ui
+      '@codelab/frontend-presentation-components-form':
+        specifier: workspace:*
+        version: link:../../presentation/components/form
+      '@codelab/frontend-presentation-view':
+        specifier: workspace:*
+        version: link:../../presentation/view
+      '@codelab/frontend-shared-utils':
+        specifier: workspace:*
+        version: link:../../shared/utils
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-config-env':
+        specifier: workspace:*
+        version: link:../../../shared/config/env
+      '@codelab/shared-domain-module-app':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/app
+      '@codelab/shared-infra-fetch-server':
+        specifier: workspace:*
+        version: link:../../../shared/infra/fetch-server
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+      '@codelab/shared-infra-sentry':
+        specifier: workspace:*
+        version: link:../../../shared/infra/sentry
+      '@codelab/shared-infra-typebox':
+        specifier: workspace:*
+        version: link:../../../shared/infra/typebox
+
+  libs/frontend/application/atom:
+    devDependencies:
+      '@codelab/frontend-abstract-application':
+        specifier: workspace:*
+        version: link:../../abstract/application
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/frontend-abstract-types':
+        specifier: workspace:*
+        version: link:../../abstract/types
+      '@codelab/frontend-application-prop':
+        specifier: workspace:*
+        version: link:../prop
+      '@codelab/frontend-application-shared-store':
+        specifier: workspace:*
+        version: link:../shared/store
+      '@codelab/frontend-application-type':
+        specifier: workspace:*
+        version: link:../type
+      '@codelab/frontend-application-user':
+        specifier: workspace:*
+        version: link:../user
+      '@codelab/frontend-domain-atom':
+        specifier: workspace:*
+        version: link:../../domain/atom
+      '@codelab/frontend-domain-shared':
+        specifier: workspace:*
+        version: link:../../domain/shared
+      '@codelab/frontend-domain-type':
+        specifier: workspace:*
+        version: link:../../domain/type
+      '@codelab/frontend-infra-connector':
+        specifier: workspace:*
+        version: link:../../infra/connector
+      '@codelab/frontend-infra-context':
+        specifier: workspace:*
+        version: link:../../infra/context
+      '@codelab/frontend-infra-mobx-context':
+        specifier: workspace:*
+        version: link:../../infra/mobx/context
+      '@codelab/frontend-presentation-codelab-ui':
+        specifier: workspace:*
+        version: link:../../presentation/codelab-ui
+      '@codelab/frontend-presentation-components-form':
+        specifier: workspace:*
+        version: link:../../presentation/components/form
+      '@codelab/frontend-presentation-view':
+        specifier: workspace:*
+        version: link:../../presentation/view
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+      '@codelab/shared-infra-logging':
+        specifier: workspace:*
+        version: link:../../../shared/infra/logging
+      '@codelab/shared-infra-typebox':
+        specifier: workspace:*
+        version: link:../../../shared/infra/typebox
+
+  libs/frontend/application/auth-guard:
+    devDependencies:
+      '@codelab/frontend-abstract-application':
+        specifier: workspace:*
+        version: link:../../abstract/application
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/frontend-abstract-types':
+        specifier: workspace:*
+        version: link:../../abstract/types
+      '@codelab/frontend-application-resource':
+        specifier: workspace:*
+        version: link:../resource
+      '@codelab/frontend-application-user':
+        specifier: workspace:*
+        version: link:../user
+      '@codelab/frontend-domain-auth-guard':
+        specifier: workspace:*
+        version: link:../../domain/auth-guard
+      '@codelab/frontend-domain-shared':
+        specifier: workspace:*
+        version: link:../../domain/shared
+      '@codelab/frontend-infra-connector':
+        specifier: workspace:*
+        version: link:../../infra/connector
+      '@codelab/frontend-infra-mobx-context':
+        specifier: workspace:*
+        version: link:../../infra/mobx/context
+      '@codelab/frontend-presentation-codelab-ui':
+        specifier: workspace:*
+        version: link:../../presentation/codelab-ui
+      '@codelab/frontend-presentation-components-form':
+        specifier: workspace:*
+        version: link:../../presentation/components/form
+      '@codelab/frontend-presentation-components-interface-form':
+        specifier: workspace:*
+        version: link:../../presentation/components/interface-form
+      '@codelab/frontend-presentation-view':
+        specifier: workspace:*
+        version: link:../../presentation/view
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+      '@codelab/shared-infra-typebox':
+        specifier: workspace:*
+        version: link:../../../shared/infra/typebox
+
+  libs/frontend/application/builder:
+    devDependencies:
+      '@codelab/frontend-abstract-application':
+        specifier: workspace:*
+        version: link:../../abstract/application
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/frontend-abstract-types':
+        specifier: workspace:*
+        version: link:../../abstract/types
+      '@codelab/frontend-application-component':
+        specifier: workspace:*
+        version: link:../component
+      '@codelab/frontend-application-dnd':
+        specifier: workspace:*
+        version: link:../dnd
+      '@codelab/frontend-application-element':
+        specifier: workspace:*
+        version: link:../element
+      '@codelab/frontend-application-page':
+        specifier: workspace:*
+        version: link:../page
+      '@codelab/frontend-application-preference':
+        specifier: workspace:*
+        version: link:../preference
+      '@codelab/frontend-application-prop':
+        specifier: workspace:*
+        version: link:../prop
+      '@codelab/frontend-application-renderer':
+        specifier: workspace:*
+        version: link:../renderer
+      '@codelab/frontend-application-shared-data':
+        specifier: workspace:*
+        version: link:../shared/data
+      '@codelab/frontend-application-store':
+        specifier: workspace:*
+        version: link:../store
+      '@codelab/frontend-application-type':
+        specifier: workspace:*
+        version: link:../type
+      '@codelab/frontend-application-user':
+        specifier: workspace:*
+        version: link:../user
+      '@codelab/frontend-domain-element':
+        specifier: workspace:*
+        version: link:../../domain/element
+      '@codelab/frontend-domain-prop':
+        specifier: workspace:*
+        version: link:../../domain/prop
+      '@codelab/frontend-domain-shared':
+        specifier: workspace:*
+        version: link:../../domain/shared
+      '@codelab/frontend-infra-connector':
+        specifier: workspace:*
+        version: link:../../infra/connector
+      '@codelab/frontend-infra-context':
+        specifier: workspace:*
+        version: link:../../infra/context
+      '@codelab/frontend-infra-mobx-context':
+        specifier: workspace:*
+        version: link:../../infra/mobx/context
+      '@codelab/frontend-presentation-codelab-ui':
+        specifier: workspace:*
+        version: link:../../presentation/codelab-ui
+      '@codelab/frontend-presentation-components-codemirror':
+        specifier: workspace:*
+        version: link:../../presentation/components/codemirror
+      '@codelab/frontend-presentation-components-css-editor':
+        specifier: workspace:*
+        version: link:../../presentation/components/css-editor
+      '@codelab/frontend-presentation-components-form':
+        specifier: workspace:*
+        version: link:../../presentation/components/form
+      '@codelab/frontend-presentation-container':
+        specifier: workspace:*
+        version: link:../../presentation/container
+      '@codelab/frontend-presentation-view':
+        specifier: workspace:*
+        version: link:../../presentation/view
+      '@codelab/frontend-shared-utils':
+        specifier: workspace:*
+        version: link:../../shared/utils
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-infra-eval':
+        specifier: workspace:*
+        version: link:../../../shared/infra/eval
+      '@codelab/shared-infra-fetch':
+        specifier: workspace:*
+        version: link:../../../shared/infra/fetch
+      '@codelab/shared-infra-fetch-server':
+        specifier: workspace:*
+        version: link:../../../shared/infra/fetch-server
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+      '@codelab/shared-utils':
+        specifier: workspace:*
+        version: link:../../../shared/utils
+
+  libs/frontend/application/component:
+    devDependencies:
+      '@codelab/frontend-abstract-application':
+        specifier: workspace:*
+        version: link:../../abstract/application
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/frontend-abstract-types':
+        specifier: workspace:*
+        version: link:../../abstract/types
+      '@codelab/frontend-application-admin':
+        specifier: workspace:*
+        version: link:../admin
+      '@codelab/frontend-application-element':
+        specifier: workspace:*
+        version: link:../element
+      '@codelab/frontend-application-prop':
+        specifier: workspace:*
+        version: link:../prop
+      '@codelab/frontend-application-shared-store':
+        specifier: workspace:*
+        version: link:../shared/store
+      '@codelab/frontend-application-type':
+        specifier: workspace:*
+        version: link:../type
+      '@codelab/frontend-application-user':
+        specifier: workspace:*
+        version: link:../user
+      '@codelab/frontend-domain-component':
+        specifier: workspace:*
+        version: link:../../domain/component
+      '@codelab/frontend-domain-element':
+        specifier: workspace:*
+        version: link:../../domain/element
+      '@codelab/frontend-domain-prop':
+        specifier: workspace:*
+        version: link:../../domain/prop
+      '@codelab/frontend-domain-shared':
+        specifier: workspace:*
+        version: link:../../domain/shared
+      '@codelab/frontend-domain-store':
+        specifier: workspace:*
+        version: link:../../domain/store
+      '@codelab/frontend-domain-type':
+        specifier: workspace:*
+        version: link:../../domain/type
+      '@codelab/frontend-infra-connector':
+        specifier: workspace:*
+        version: link:../../infra/connector
+      '@codelab/frontend-infra-context':
+        specifier: workspace:*
+        version: link:../../infra/context
+      '@codelab/frontend-infra-mobx-context':
+        specifier: workspace:*
+        version: link:../../infra/mobx/context
+      '@codelab/frontend-presentation-codelab-ui':
+        specifier: workspace:*
+        version: link:../../presentation/codelab-ui
+      '@codelab/frontend-presentation-components-form':
+        specifier: workspace:*
+        version: link:../../presentation/components/form
+      '@codelab/frontend-presentation-components-interface-form':
+        specifier: workspace:*
+        version: link:../../presentation/components/interface-form
+      '@codelab/frontend-presentation-view':
+        specifier: workspace:*
+        version: link:../../presentation/view
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-config-env':
+        specifier: workspace:*
+        version: link:../../../shared/config/env
+      '@codelab/shared-domain-module-component':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/component
+      '@codelab/shared-infra-fetch-server':
+        specifier: workspace:*
+        version: link:../../../shared/infra/fetch-server
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+      '@codelab/shared-utils':
+        specifier: workspace:*
+        version: link:../../../shared/utils
+
+  libs/frontend/application/dnd:
+    devDependencies:
+      '@codelab/frontend-shared-utils':
+        specifier: workspace:*
+        version: link:../../shared/utils
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+
+  libs/frontend/application/domain:
+    devDependencies:
+      '@codelab/frontend-abstract-application':
+        specifier: workspace:*
+        version: link:../../abstract/application
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/frontend-abstract-types':
+        specifier: workspace:*
+        version: link:../../abstract/types
+      '@codelab/frontend-application-user':
+        specifier: workspace:*
+        version: link:../user
+      '@codelab/frontend-domain-domain':
+        specifier: workspace:*
+        version: link:../../domain/domain
+      '@codelab/frontend-domain-shared':
+        specifier: workspace:*
+        version: link:../../domain/shared
+      '@codelab/frontend-infra-connector':
+        specifier: workspace:*
+        version: link:../../infra/connector
+      '@codelab/frontend-infra-context':
+        specifier: workspace:*
+        version: link:../../infra/context
+      '@codelab/frontend-infra-mobx-context':
+        specifier: workspace:*
+        version: link:../../infra/mobx/context
+      '@codelab/frontend-presentation-codelab-ui':
+        specifier: workspace:*
+        version: link:../../presentation/codelab-ui
+      '@codelab/frontend-presentation-components-form':
+        specifier: workspace:*
+        version: link:../../presentation/components/form
+      '@codelab/frontend-presentation-view':
+        specifier: workspace:*
+        version: link:../../presentation/view
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+
+  libs/frontend/application/element:
+    devDependencies:
+      '@codelab/frontend-abstract-application':
+        specifier: workspace:*
+        version: link:../../abstract/application
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/frontend-abstract-types':
+        specifier: workspace:*
+        version: link:../../abstract/types
+      '@codelab/frontend-application-admin':
+        specifier: workspace:*
+        version: link:../admin
+      '@codelab/frontend-application-atom':
+        specifier: workspace:*
+        version: link:../atom
+      '@codelab/frontend-application-prop':
+        specifier: workspace:*
+        version: link:../prop
+      '@codelab/frontend-application-store':
+        specifier: workspace:*
+        version: link:../store
+      '@codelab/frontend-application-type':
+        specifier: workspace:*
+        version: link:../type
+      '@codelab/frontend-application-user':
+        specifier: workspace:*
+        version: link:../user
+      '@codelab/frontend-domain-element':
+        specifier: workspace:*
+        version: link:../../domain/element
+      '@codelab/frontend-domain-prop':
+        specifier: workspace:*
+        version: link:../../domain/prop
+      '@codelab/frontend-domain-shared':
+        specifier: workspace:*
+        version: link:../../domain/shared
+      '@codelab/frontend-infra-connector':
+        specifier: workspace:*
+        version: link:../../infra/connector
+      '@codelab/frontend-infra-context':
+        specifier: workspace:*
+        version: link:../../infra/context
+      '@codelab/frontend-infra-mobx-context':
+        specifier: workspace:*
+        version: link:../../infra/mobx/context
+      '@codelab/frontend-presentation-codelab-ui':
+        specifier: workspace:*
+        version: link:../../presentation/codelab-ui
+      '@codelab/frontend-presentation-components-codemirror':
+        specifier: workspace:*
+        version: link:../../presentation/components/codemirror
+      '@codelab/frontend-presentation-components-form':
+        specifier: workspace:*
+        version: link:../../presentation/components/form
+      '@codelab/frontend-presentation-components-interface-form':
+        specifier: workspace:*
+        version: link:../../presentation/components/interface-form
+      '@codelab/frontend-presentation-view':
+        specifier: workspace:*
+        version: link:../../presentation/view
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+      '@codelab/shared-infra-logging':
+        specifier: workspace:*
+        version: link:../../../shared/infra/logging
+      '@codelab/shared-utils':
+        specifier: workspace:*
+        version: link:../../../shared/utils
+
+  libs/frontend/application/lambda:
+    devDependencies:
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/frontend-abstract-types':
+        specifier: workspace:*
+        version: link:../../abstract/types
+      '@codelab/frontend-presentation-codelab-ui':
+        specifier: workspace:*
+        version: link:../../presentation/codelab-ui
+      '@codelab/frontend-presentation-components-form':
+        specifier: workspace:*
+        version: link:../../presentation/components/form
+      '@codelab/frontend-presentation-view':
+        specifier: workspace:*
+        version: link:../../presentation/view
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+
+  libs/frontend/application/page:
+    devDependencies:
+      '@codelab/frontend-abstract-application':
+        specifier: workspace:*
+        version: link:../../abstract/application
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/frontend-abstract-types':
+        specifier: workspace:*
+        version: link:../../abstract/types
+      '@codelab/frontend-application-redirect':
+        specifier: workspace:*
+        version: link:../redirect
+      '@codelab/frontend-application-user':
+        specifier: workspace:*
+        version: link:../user
+      '@codelab/frontend-domain-domain':
+        specifier: workspace:*
+        version: link:../../domain/domain
+      '@codelab/frontend-domain-element':
+        specifier: workspace:*
+        version: link:../../domain/element
+      '@codelab/frontend-domain-page':
+        specifier: workspace:*
+        version: link:../../domain/page
+      '@codelab/frontend-domain-shared':
+        specifier: workspace:*
+        version: link:../../domain/shared
+      '@codelab/frontend-domain-store':
+        specifier: workspace:*
+        version: link:../../domain/store
+      '@codelab/frontend-domain-type':
+        specifier: workspace:*
+        version: link:../../domain/type
+      '@codelab/frontend-infra-connector':
+        specifier: workspace:*
+        version: link:../../infra/connector
+      '@codelab/frontend-infra-context':
+        specifier: workspace:*
+        version: link:../../infra/context
+      '@codelab/frontend-infra-mobx-context':
+        specifier: workspace:*
+        version: link:../../infra/mobx/context
+      '@codelab/frontend-presentation-codelab-ui':
+        specifier: workspace:*
+        version: link:../../presentation/codelab-ui
+      '@codelab/frontend-presentation-components-form':
+        specifier: workspace:*
+        version: link:../../presentation/components/form
+      '@codelab/frontend-presentation-components-interface-form':
+        specifier: workspace:*
+        version: link:../../presentation/components/interface-form
+      '@codelab/frontend-presentation-view':
+        specifier: workspace:*
+        version: link:../../presentation/view
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-config-env':
+        specifier: workspace:*
+        version: link:../../../shared/config/env
+      '@codelab/shared-domain-module-page':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/page
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+      '@codelab/shared-infra-typebox':
+        specifier: workspace:*
+        version: link:../../../shared/infra/typebox
+      '@codelab/shared-utils':
+        specifier: workspace:*
+        version: link:../../../shared/utils
+
+  libs/frontend/application/preference:
+    devDependencies:
+      '@codelab/frontend-abstract-application':
+        specifier: workspace:*
+        version: link:../../abstract/application
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/frontend-domain-preference':
+        specifier: workspace:*
+        version: link:../../domain/preference
+      '@codelab/frontend-infra-mobx-context':
+        specifier: workspace:*
+        version: link:../../infra/mobx/context
+
+  libs/frontend/application/prop:
+    devDependencies:
+      '@codelab/frontend-abstract-application':
+        specifier: workspace:*
+        version: link:../../abstract/application
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/frontend-domain-prop':
+        specifier: workspace:*
+        version: link:../../domain/prop
+      '@codelab/frontend-domain-shared':
+        specifier: workspace:*
+        version: link:../../domain/shared
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+
+  libs/frontend/application/redirect:
+    devDependencies:
+      '@codelab/frontend-abstract-application':
+        specifier: workspace:*
+        version: link:../../abstract/application
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/frontend-abstract-types':
+        specifier: workspace:*
+        version: link:../../abstract/types
+      '@codelab/frontend-domain-redirect':
+        specifier: workspace:*
+        version: link:../../domain/redirect
+      '@codelab/frontend-domain-shared':
+        specifier: workspace:*
+        version: link:../../domain/shared
+      '@codelab/frontend-infra-mobx-context':
+        specifier: workspace:*
+        version: link:../../infra/mobx/context
+      '@codelab/frontend-presentation-codelab-ui':
+        specifier: workspace:*
+        version: link:../../presentation/codelab-ui
+      '@codelab/frontend-presentation-components-form':
+        specifier: workspace:*
+        version: link:../../presentation/components/form
+      '@codelab/frontend-presentation-components-interface-form':
+        specifier: workspace:*
+        version: link:../../presentation/components/interface-form
+      '@codelab/frontend-presentation-view':
+        specifier: workspace:*
+        version: link:../../presentation/view
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+
+  libs/frontend/application/renderer:
+    devDependencies:
+      '@codelab/frontend-abstract-application':
+        specifier: workspace:*
+        version: link:../../abstract/application
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/frontend-application-atom':
+        specifier: workspace:*
+        version: link:../atom
+      '@codelab/frontend-application-element':
+        specifier: workspace:*
+        version: link:../element
+      '@codelab/frontend-application-prop':
+        specifier: workspace:*
+        version: link:../prop
+      '@codelab/frontend-application-shared-store':
+        specifier: workspace:*
+        version: link:../shared/store
+      '@codelab/frontend-domain-prop':
+        specifier: workspace:*
+        version: link:../../domain/prop
+      '@codelab/frontend-infra-mobx-context':
+        specifier: workspace:*
+        version: link:../../infra/mobx/context
+      '@codelab/frontend-presentation-components-codemirror':
+        specifier: workspace:*
+        version: link:../../presentation/components/codemirror
+      '@codelab/frontend-presentation-components-lexical':
+        specifier: workspace:*
+        version: link:../../presentation/components/lexical
+      '@codelab/frontend-shared-utils':
+        specifier: workspace:*
+        version: link:../../shared/utils
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-config-builder':
+        specifier: workspace:*
+        version: link:../../../shared/config/builder
+      '@codelab/shared-infra-eval':
+        specifier: workspace:*
+        version: link:../../../shared/infra/eval
+      '@codelab/shared-utils':
+        specifier: workspace:*
+        version: link:../../../shared/utils
+
+  libs/frontend/application/resource:
+    devDependencies:
+      '@codelab/frontend-abstract-application':
+        specifier: workspace:*
+        version: link:../../abstract/application
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/frontend-abstract-types':
+        specifier: workspace:*
+        version: link:../../abstract/types
+      '@codelab/frontend-application-user':
+        specifier: workspace:*
+        version: link:../user
+      '@codelab/frontend-domain-prop':
+        specifier: workspace:*
+        version: link:../../domain/prop
+      '@codelab/frontend-domain-resource':
+        specifier: workspace:*
+        version: link:../../domain/resource
+      '@codelab/frontend-domain-shared':
+        specifier: workspace:*
+        version: link:../../domain/shared
+      '@codelab/frontend-infra-connector':
+        specifier: workspace:*
+        version: link:../../infra/connector
+      '@codelab/frontend-infra-mobx-context':
+        specifier: workspace:*
+        version: link:../../infra/mobx/context
+      '@codelab/frontend-presentation-codelab-ui':
+        specifier: workspace:*
+        version: link:../../presentation/codelab-ui
+      '@codelab/frontend-presentation-components-codemirror':
+        specifier: workspace:*
+        version: link:../../presentation/components/codemirror
+      '@codelab/frontend-presentation-components-form':
+        specifier: workspace:*
+        version: link:../../presentation/components/form
+      '@codelab/frontend-presentation-view':
+        specifier: workspace:*
+        version: link:../../presentation/view
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-domain-module-resource':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/resource
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+      '@codelab/shared-infra-logging':
+        specifier: workspace:*
+        version: link:../../../shared/infra/logging
+      '@codelab/shared-infra-typebox':
+        specifier: workspace:*
+        version: link:../../../shared/infra/typebox
+
+  libs/frontend/application/shared/data:
+    devDependencies:
+      '@codelab/frontend-abstract-types':
+        specifier: workspace:*
+        version: link:../../../abstract/types
+      '@codelab/shared-utils':
+        specifier: workspace:*
+        version: link:../../../../shared/utils
+
+  libs/frontend/application/shared/store:
+    devDependencies:
+      '@codelab/frontend-abstract-application':
+        specifier: workspace:*
+        version: link:../../../abstract/application
+      '@codelab/frontend-abstract-types':
+        specifier: workspace:*
+        version: link:../../../abstract/types
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../../shared/abstract/types
+      '@codelab/shared-infra-typebox':
+        specifier: workspace:*
+        version: link:../../../../shared/infra/typebox
+
+  libs/frontend/application/store:
+    devDependencies:
+      '@codelab/frontend-abstract-application':
+        specifier: workspace:*
+        version: link:../../abstract/application
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/frontend-abstract-types':
+        specifier: workspace:*
+        version: link:../../abstract/types
+      '@codelab/frontend-application-resource':
+        specifier: workspace:*
+        version: link:../resource
+      '@codelab/frontend-application-type':
+        specifier: workspace:*
+        version: link:../type
+      '@codelab/frontend-domain-shared':
+        specifier: workspace:*
+        version: link:../../domain/shared
+      '@codelab/frontend-domain-store':
+        specifier: workspace:*
+        version: link:../../domain/store
+      '@codelab/frontend-infra-connector':
+        specifier: workspace:*
+        version: link:../../infra/connector
+      '@codelab/frontend-infra-context':
+        specifier: workspace:*
+        version: link:../../infra/context
+      '@codelab/frontend-infra-mobx-context':
+        specifier: workspace:*
+        version: link:../../infra/mobx/context
+      '@codelab/frontend-presentation-codelab-ui':
+        specifier: workspace:*
+        version: link:../../presentation/codelab-ui
+      '@codelab/frontend-presentation-components-form':
+        specifier: workspace:*
+        version: link:../../presentation/components/form
+      '@codelab/frontend-presentation-components-interface-form':
+        specifier: workspace:*
+        version: link:../../presentation/components/interface-form
+      '@codelab/frontend-presentation-view':
+        specifier: workspace:*
+        version: link:../../presentation/view
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-domain-module-action':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/action
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+      '@codelab/shared-infra-typebox':
+        specifier: workspace:*
+        version: link:../../../shared/infra/typebox
+
+  libs/frontend/application/tag:
+    devDependencies:
+      '@codelab/frontend-abstract-application':
+        specifier: workspace:*
+        version: link:../../abstract/application
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/frontend-abstract-types':
+        specifier: workspace:*
+        version: link:../../abstract/types
+      '@codelab/frontend-application-shared-store':
+        specifier: workspace:*
+        version: link:../shared/store
+      '@codelab/frontend-application-user':
+        specifier: workspace:*
+        version: link:../user
+      '@codelab/frontend-domain-shared':
+        specifier: workspace:*
+        version: link:../../domain/shared
+      '@codelab/frontend-domain-tag':
+        specifier: workspace:*
+        version: link:../../domain/tag
+      '@codelab/frontend-infra-connector':
+        specifier: workspace:*
+        version: link:../../infra/connector
+      '@codelab/frontend-infra-mobx-context':
+        specifier: workspace:*
+        version: link:../../infra/mobx/context
+      '@codelab/frontend-presentation-codelab-ui':
+        specifier: workspace:*
+        version: link:../../presentation/codelab-ui
+      '@codelab/frontend-presentation-components-form':
+        specifier: workspace:*
+        version: link:../../presentation/components/form
+      '@codelab/frontend-presentation-view':
+        specifier: workspace:*
+        version: link:../../presentation/view
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+      '@codelab/shared-infra-typebox':
+        specifier: workspace:*
+        version: link:../../../shared/infra/typebox
+
+  libs/frontend/application/type:
+    devDependencies:
+      '@codelab/frontend-abstract-application':
+        specifier: workspace:*
+        version: link:../../abstract/application
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/frontend-abstract-types':
+        specifier: workspace:*
+        version: link:../../abstract/types
+      '@codelab/frontend-application-shared-store':
+        specifier: workspace:*
+        version: link:../shared/store
+      '@codelab/frontend-application-user':
+        specifier: workspace:*
+        version: link:../user
+      '@codelab/frontend-domain-shared':
+        specifier: workspace:*
+        version: link:../../domain/shared
+      '@codelab/frontend-domain-type':
+        specifier: workspace:*
+        version: link:../../domain/type
+      '@codelab/frontend-infra-connector':
+        specifier: workspace:*
+        version: link:../../infra/connector
+      '@codelab/frontend-infra-context':
+        specifier: workspace:*
+        version: link:../../infra/context
+      '@codelab/frontend-infra-mobx-context':
+        specifier: workspace:*
+        version: link:../../infra/mobx/context
+      '@codelab/frontend-presentation-codelab-ui':
+        specifier: workspace:*
+        version: link:../../presentation/codelab-ui
+      '@codelab/frontend-presentation-components-form':
+        specifier: workspace:*
+        version: link:../../presentation/components/form
+      '@codelab/frontend-presentation-components-interface-form':
+        specifier: workspace:*
+        version: link:../../presentation/components/interface-form
+      '@codelab/frontend-presentation-view':
+        specifier: workspace:*
+        version: link:../../presentation/view
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-domain-module-type':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/type
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+      '@codelab/shared-infra-typebox':
+        specifier: workspace:*
+        version: link:../../../shared/infra/typebox
+
+  libs/frontend/application/user:
+    devDependencies:
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/frontend-domain-user':
+        specifier: workspace:*
+        version: link:../../domain/user
+      '@codelab/frontend-infra-mobx-context':
+        specifier: workspace:*
+        version: link:../../infra/mobx/context
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-domain-module-user':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/user
+      '@codelab/shared-infra-auth0':
+        specifier: workspace:*
+        version: link:../../../shared/infra/auth0
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+
+  libs/frontend/cui/ui/atoms: {}
+
+  libs/frontend/cui/ui/molecules: {}
+
+  libs/frontend/cui/ui/organisms: {}
+
+  libs/frontend/cui/utils: {}
+
+  libs/frontend/domain/action:
+    devDependencies:
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/frontend-domain-prop':
+        specifier: workspace:*
+        version: link:../prop
+      '@codelab/frontend-domain-shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-domain-module-action':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/action
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+
+  libs/frontend/domain/app:
+    devDependencies:
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/frontend-domain-atom':
+        specifier: workspace:*
+        version: link:../atom
+      '@codelab/frontend-domain-element':
+        specifier: workspace:*
+        version: link:../element
+      '@codelab/frontend-domain-page':
+        specifier: workspace:*
+        version: link:../page
+      '@codelab/frontend-domain-redirect':
+        specifier: workspace:*
+        version: link:../redirect
+      '@codelab/frontend-domain-shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@codelab/frontend-domain-store':
+        specifier: workspace:*
+        version: link:../store
+      '@codelab/frontend-domain-type':
+        specifier: workspace:*
+        version: link:../type
+      '@codelab/frontend-domain-user':
+        specifier: workspace:*
+        version: link:../user
+      '@codelab/frontend-test-data':
+        specifier: workspace:*
+        version: link:../../test/data
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-domain-module-app':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/app
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+      '@codelab/shared-infra-typebox':
+        specifier: workspace:*
+        version: link:../../../shared/infra/typebox
+      '@codelab/shared-utils':
+        specifier: workspace:*
+        version: link:../../../shared/utils
+
+  libs/frontend/domain/atom:
+    devDependencies:
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/frontend-abstract-types':
+        specifier: workspace:*
+        version: link:../../abstract/types
+      '@codelab/frontend-domain-shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@codelab/frontend-domain-tag':
+        specifier: workspace:*
+        version: link:../tag
+      '@codelab/frontend-shared-utils':
+        specifier: workspace:*
+        version: link:../../shared/utils
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-domain-module-atom':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/atom
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+      '@codelab/shared-infra-typebox':
+        specifier: workspace:*
+        version: link:../../../shared/infra/typebox
+
+  libs/frontend/domain/auth-guard:
+    devDependencies:
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/frontend-domain-prop':
+        specifier: workspace:*
+        version: link:../prop
+      '@codelab/frontend-domain-shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-domain-module-auth-guard':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/auth-guard
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+      '@codelab/shared-infra-typebox':
+        specifier: workspace:*
+        version: link:../../../shared/infra/typebox
+
+  libs/frontend/domain/component:
+    devDependencies:
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/frontend-abstract-types':
+        specifier: workspace:*
+        version: link:../../abstract/types
+      '@codelab/frontend-domain-atom':
+        specifier: workspace:*
+        version: link:../atom
+      '@codelab/frontend-domain-prop':
+        specifier: workspace:*
+        version: link:../prop
+      '@codelab/frontend-domain-shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@codelab/frontend-domain-store':
+        specifier: workspace:*
+        version: link:../store
+      '@codelab/frontend-domain-type':
+        specifier: workspace:*
+        version: link:../type
+      '@codelab/frontend-shared-utils':
+        specifier: workspace:*
+        version: link:../../shared/utils
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-domain-module-component':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/component
+      '@codelab/shared-infra-fetch':
+        specifier: workspace:*
+        version: link:../../../shared/infra/fetch
+      '@codelab/shared-infra-fetch-server':
+        specifier: workspace:*
+        version: link:../../../shared/infra/fetch-server
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+      '@codelab/shared-infra-typebox':
+        specifier: workspace:*
+        version: link:../../../shared/infra/typebox
+      '@codelab/shared-utils':
+        specifier: workspace:*
+        version: link:../../../shared/utils
+
+  libs/frontend/domain/domain:
+    devDependencies:
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/frontend-domain-shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@codelab/frontend-shared-utils':
+        specifier: workspace:*
+        version: link:../../shared/utils
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-domain-module-domain':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/domain
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+      '@codelab/shared-infra-typebox':
+        specifier: workspace:*
+        version: link:../../../shared/infra/typebox
+
+  libs/frontend/domain/element:
+    devDependencies:
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/frontend-domain-prop':
+        specifier: workspace:*
+        version: link:../prop
+      '@codelab/frontend-domain-shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@codelab/frontend-shared-utils':
+        specifier: workspace:*
+        version: link:../../shared/utils
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-domain-module-element':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/element
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+      '@codelab/shared-infra-typebox':
+        specifier: workspace:*
+        version: link:../../../shared/infra/typebox
+      '@codelab/shared-utils':
+        specifier: workspace:*
+        version: link:../../../shared/utils
+
+  libs/frontend/domain/page:
+    devDependencies:
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/frontend-domain-shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@codelab/frontend-domain-store':
+        specifier: workspace:*
+        version: link:../store
+      '@codelab/frontend-domain-type':
+        specifier: workspace:*
+        version: link:../type
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-config-env':
+        specifier: workspace:*
+        version: link:../../../shared/config/env
+      '@codelab/shared-domain-module-page':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/page
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+      '@codelab/shared-infra-typebox':
+        specifier: workspace:*
+        version: link:../../../shared/infra/typebox
+      '@codelab/shared-utils':
+        specifier: workspace:*
+        version: link:../../../shared/utils
+
+  libs/frontend/domain/preference:
+    devDependencies:
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/frontend-domain-shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-config-builder':
+        specifier: workspace:*
+        version: link:../../../shared/config/builder
+      '@codelab/shared-domain-module-preference':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/preference
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+      '@codelab/shared-infra-typebox':
+        specifier: workspace:*
+        version: link:../../../shared/infra/typebox
+
+  libs/frontend/domain/prop:
+    devDependencies:
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-domain-module-prop':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/prop
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+      '@codelab/shared-infra-typebox':
+        specifier: workspace:*
+        version: link:../../../shared/infra/typebox
+
+  libs/frontend/domain/redirect:
+    devDependencies:
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-domain-module-redirect':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/redirect
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+      '@codelab/shared-infra-typebox':
+        specifier: workspace:*
+        version: link:../../../shared/infra/typebox
+
+  libs/frontend/domain/resource:
+    devDependencies:
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/frontend-domain-prop':
+        specifier: workspace:*
+        version: link:../prop
+      '@codelab/frontend-domain-shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-domain-module-resource':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/resource
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+      '@codelab/shared-infra-typebox':
+        specifier: workspace:*
+        version: link:../../../shared/infra/typebox
+
+  libs/frontend/domain/shared:
+    devDependencies:
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/frontend-abstract-types':
+        specifier: workspace:*
+        version: link:../../abstract/types
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+
+  libs/frontend/domain/store:
+    devDependencies:
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/frontend-domain-shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-domain-module-action':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/action
+      '@codelab/shared-domain-module-store':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/store
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+      '@codelab/shared-infra-typebox':
+        specifier: workspace:*
+        version: link:../../../shared/infra/typebox
+
+  libs/frontend/domain/tag:
+    devDependencies:
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-domain-module-tag':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/tag
+      '@codelab/shared-domain-orm':
+        specifier: workspace:*
+        version: link:../../../shared/domain/orm
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+      '@codelab/shared-infra-typebox':
+        specifier: workspace:*
+        version: link:../../../shared/infra/typebox
+
+  libs/frontend/domain/type:
+    devDependencies:
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/frontend-domain-shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-domain-module-field':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/field
+      '@codelab/shared-domain-module-type':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/type
+      '@codelab/shared-domain-orm':
+        specifier: workspace:*
+        version: link:../../../shared/domain/orm
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+      '@codelab/shared-infra-typebox':
+        specifier: workspace:*
+        version: link:../../../shared/infra/typebox
+      '@codelab/shared-utils':
+        specifier: workspace:*
+        version: link:../../../shared/utils
+
+  libs/frontend/domain/user:
+    devDependencies:
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/frontend-domain-preference':
+        specifier: workspace:*
+        version: link:../preference
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-domain-module-user':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/user
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../shared/infra/gqlgen
+
+  libs/frontend/infra/connector:
+    devDependencies:
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/frontend-infra-mobx-context':
+        specifier: workspace:*
+        version: link:../mobx/context
+      '@codelab/frontend-presentation-view':
+        specifier: workspace:*
+        version: link:../../presentation/view
+      '@codelab/frontend-shared-utils':
+        specifier: workspace:*
+        version: link:../../shared/utils
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+
+  libs/frontend/infra/context:
+    devDependencies:
+      '@codelab/frontend-abstract-application':
+        specifier: workspace:*
+        version: link:../../abstract/application
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/frontend-infra-mobx-context':
+        specifier: workspace:*
+        version: link:../mobx/context
+      '@codelab/frontend-shared-utils':
+        specifier: workspace:*
+        version: link:../../shared/utils
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+
+  libs/frontend/infra/logger:
+    devDependencies:
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-infra-logging':
+        specifier: workspace:*
+        version: link:../../../shared/infra/logging
+
+  libs/frontend/infra/mobx/context:
+    devDependencies:
+      '@codelab/frontend-abstract-application':
+        specifier: workspace:*
+        version: link:../../../abstract/application
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../../abstract/domain
+
+  libs/frontend/infra/mobx/store:
+    devDependencies:
+      '@codelab/frontend-abstract-application':
+        specifier: workspace:*
+        version: link:../../../abstract/application
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../../abstract/domain
+      '@codelab/frontend-application-builder':
+        specifier: workspace:*
+        version: link:../../../application/builder
+      '@codelab/frontend-application-renderer':
+        specifier: workspace:*
+        version: link:../../../application/renderer
+      '@codelab/frontend-application-shared-store':
+        specifier: workspace:*
+        version: link:../../../application/shared/store
+      '@codelab/frontend-domain-action':
+        specifier: workspace:*
+        version: link:../../../domain/action
+      '@codelab/frontend-domain-app':
+        specifier: workspace:*
+        version: link:../../../domain/app
+      '@codelab/frontend-domain-atom':
+        specifier: workspace:*
+        version: link:../../../domain/atom
+      '@codelab/frontend-domain-auth-guard':
+        specifier: workspace:*
+        version: link:../../../domain/auth-guard
+      '@codelab/frontend-domain-component':
+        specifier: workspace:*
+        version: link:../../../domain/component
+      '@codelab/frontend-domain-domain':
+        specifier: workspace:*
+        version: link:../../../domain/domain
+      '@codelab/frontend-domain-element':
+        specifier: workspace:*
+        version: link:../../../domain/element
+      '@codelab/frontend-domain-page':
+        specifier: workspace:*
+        version: link:../../../domain/page
+      '@codelab/frontend-domain-prop':
+        specifier: workspace:*
+        version: link:../../../domain/prop
+      '@codelab/frontend-domain-redirect':
+        specifier: workspace:*
+        version: link:../../../domain/redirect
+      '@codelab/frontend-domain-resource':
+        specifier: workspace:*
+        version: link:../../../domain/resource
+      '@codelab/frontend-domain-store':
+        specifier: workspace:*
+        version: link:../../../domain/store
+      '@codelab/frontend-domain-tag':
+        specifier: workspace:*
+        version: link:../../../domain/tag
+      '@codelab/frontend-domain-type':
+        specifier: workspace:*
+        version: link:../../../domain/type
+      '@codelab/frontend-domain-user':
+        specifier: workspace:*
+        version: link:../../../domain/user
+      '@codelab/frontend-infra-mobx-context':
+        specifier: workspace:*
+        version: link:../context
+      '@codelab/frontend-test-data':
+        specifier: workspace:*
+        version: link:../../../test/data
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../../shared/abstract/types
+      '@codelab/shared-config-env':
+        specifier: workspace:*
+        version: link:../../../../shared/config/env
+      '@codelab/shared-infra-typebox':
+        specifier: workspace:*
+        version: link:../../../../shared/infra/typebox
+
+  libs/frontend/presentation/codelab-ui:
+    devDependencies:
+      '@codelab/frontend-abstract-application':
+        specifier: workspace:*
+        version: link:../../abstract/application
+      '@codelab/frontend-abstract-types':
+        specifier: workspace:*
+        version: link:../../abstract/types
+      '@codelab/frontend-application-shared-data':
+        specifier: workspace:*
+        version: link:../../application/shared/data
+
+  libs/frontend/presentation/components/codemirror:
+    devDependencies:
+      '@codelab/frontend-abstract-application':
+        specifier: workspace:*
+        version: link:../../../abstract/application
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../../abstract/domain
+      '@codelab/frontend-domain-prop':
+        specifier: workspace:*
+        version: link:../../../domain/prop
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../../shared/abstract/types
+      '@codelab/shared-infra-eval':
+        specifier: workspace:*
+        version: link:../../../../shared/infra/eval
+      '@codelab/shared-utils':
+        specifier: workspace:*
+        version: link:../../../../shared/utils
+
+  libs/frontend/presentation/components/css-editor:
+    devDependencies:
+      '@codelab/frontend-abstract-application':
+        specifier: workspace:*
+        version: link:../../../abstract/application
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../../abstract/domain
+      '@codelab/frontend-application-element':
+        specifier: workspace:*
+        version: link:../../../application/element
+      '@codelab/frontend-application-shared-store':
+        specifier: workspace:*
+        version: link:../../../application/shared/store
+      '@codelab/frontend-infra-mobx-context':
+        specifier: workspace:*
+        version: link:../../../infra/mobx/context
+      '@codelab/frontend-presentation-components-codemirror':
+        specifier: workspace:*
+        version: link:../codemirror
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../../shared/infra/gqlgen
+
+  libs/frontend/presentation/components/fancybox:
+    devDependencies:
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../../shared/abstract/types
+
+  libs/frontend/presentation/components/form:
+    devDependencies:
+      '@codelab/frontend-abstract-application':
+        specifier: workspace:*
+        version: link:../../../abstract/application
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../../abstract/domain
+      '@codelab/frontend-abstract-types':
+        specifier: workspace:*
+        version: link:../../../abstract/types
+      '@codelab/frontend-application-shared-data':
+        specifier: workspace:*
+        version: link:../../../application/shared/data
+      '@codelab/frontend-application-shared-store':
+        specifier: workspace:*
+        version: link:../../../application/shared/store
+      '@codelab/frontend-infra-context':
+        specifier: workspace:*
+        version: link:../../../infra/context
+      '@codelab/frontend-presentation-components-codemirror':
+        specifier: workspace:*
+        version: link:../codemirror
+      '@codelab/frontend-presentation-components-lexical':
+        specifier: workspace:*
+        version: link:../lexical
+      '@codelab/frontend-presentation-components-reactquill':
+        specifier: workspace:*
+        version: link:../reactquill
+      '@codelab/frontend-shared-utils':
+        specifier: workspace:*
+        version: link:../../../shared/utils
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../../shared/abstract/types
+      '@codelab/shared-infra-eval':
+        specifier: workspace:*
+        version: link:../../../../shared/infra/eval
+      '@codelab/shared-utils':
+        specifier: workspace:*
+        version: link:../../../../shared/utils
+
+  libs/frontend/presentation/components/interface-form:
+    devDependencies:
+      '@codelab/frontend-abstract-application':
+        specifier: workspace:*
+        version: link:../../../abstract/application
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../../abstract/domain
+      '@codelab/frontend-abstract-types':
+        specifier: workspace:*
+        version: link:../../../abstract/types
+      '@codelab/frontend-application-resource':
+        specifier: workspace:*
+        version: link:../../../application/resource
+      '@codelab/frontend-domain-app':
+        specifier: workspace:*
+        version: link:../../../domain/app
+      '@codelab/frontend-domain-auth-guard':
+        specifier: workspace:*
+        version: link:../../../domain/auth-guard
+      '@codelab/frontend-domain-element':
+        specifier: workspace:*
+        version: link:../../../domain/element
+      '@codelab/frontend-domain-page':
+        specifier: workspace:*
+        version: link:../../../domain/page
+      '@codelab/frontend-domain-shared':
+        specifier: workspace:*
+        version: link:../../../domain/shared
+      '@codelab/frontend-domain-type':
+        specifier: workspace:*
+        version: link:../../../domain/type
+      '@codelab/frontend-infra-context':
+        specifier: workspace:*
+        version: link:../../../infra/context
+      '@codelab/frontend-infra-mobx-context':
+        specifier: workspace:*
+        version: link:../../../infra/mobx/context
+      '@codelab/frontend-presentation-components-codemirror':
+        specifier: workspace:*
+        version: link:../codemirror
+      '@codelab/frontend-presentation-components-form':
+        specifier: workspace:*
+        version: link:../form
+      '@codelab/frontend-shared-utils':
+        specifier: workspace:*
+        version: link:../../../shared/utils
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../../shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../../shared/abstract/types
+      '@codelab/shared-data-seed':
+        specifier: workspace:*
+        version: link:../../../../shared/data/seed
+      '@codelab/shared-data-test':
+        specifier: workspace:*
+        version: link:../../../../shared/data/test
+      '@codelab/shared-domain-module-app':
+        specifier: workspace:*
+        version: link:../../../../shared/domain/module/app
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../../shared/infra/gqlgen
+      '@codelab/shared-infra-typebox':
+        specifier: workspace:*
+        version: link:../../../../shared/infra/typebox
+
+  libs/frontend/presentation/components/lexical:
+    devDependencies:
+      '@codelab/frontend-domain-prop':
+        specifier: workspace:*
+        version: link:../../../domain/prop
+      '@codelab/frontend-presentation-view':
+        specifier: workspace:*
+        version: link:../../view
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../../shared/abstract/types
+
+  libs/frontend/presentation/components/reactquill: {}
+
+  libs/frontend/presentation/container:
+    devDependencies:
+      '@codelab/frontend-abstract-application':
+        specifier: workspace:*
+        version: link:../../abstract/application
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/frontend-infra-mobx-context':
+        specifier: workspace:*
+        version: link:../../infra/mobx/context
+
+  libs/frontend/presentation/view:
+    devDependencies:
+      '@codelab/frontend-abstract-application':
+        specifier: workspace:*
+        version: link:../../abstract/application
+      '@codelab/frontend-abstract-types':
+        specifier: workspace:*
+        version: link:../../abstract/types
+      '@codelab/frontend-application-shared-store':
+        specifier: workspace:*
+        version: link:../../application/shared/store
+      '@codelab/frontend-application-user':
+        specifier: workspace:*
+        version: link:../../application/user
+      '@codelab/frontend-presentation-codelab-ui':
+        specifier: workspace:*
+        version: link:../codelab-ui
+      '@codelab/frontend-shared-utils':
+        specifier: workspace:*
+        version: link:../../shared/utils
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+
+  libs/frontend/shared/utils:
+    devDependencies:
+      '@codelab/frontend-abstract-types':
+        specifier: workspace:*
+        version: link:../../abstract/types
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/types
+      '@codelab/shared-config-env':
+        specifier: workspace:*
+        version: link:../../../shared/config/env
+      '@codelab/shared-utils':
+        specifier: workspace:*
+        version: link:../../../shared/utils
+
+  libs/frontend/test/application:
+    devDependencies:
+      '@codelab/frontend-abstract-application':
+        specifier: workspace:*
+        version: link:../../abstract/application
+      '@codelab/frontend-abstract-domain':
+        specifier: workspace:*
+        version: link:../../abstract/domain
+      '@codelab/frontend-application-builder':
+        specifier: workspace:*
+        version: link:../../application/builder
+      '@codelab/frontend-application-dnd':
+        specifier: workspace:*
+        version: link:../../application/dnd
+      '@codelab/frontend-application-renderer':
+        specifier: workspace:*
+        version: link:../../application/renderer
+      '@codelab/frontend-infra-mobx-store':
+        specifier: workspace:*
+        version: link:../../infra/mobx/store
+      '@codelab/frontend-shared-utils':
+        specifier: workspace:*
+        version: link:../../shared/utils
+      '@codelab/frontend-test-data':
+        specifier: workspace:*
+        version: link:../data
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-infra-typebox':
+        specifier: workspace:*
+        version: link:../../../shared/infra/typebox
+
+  libs/frontend/test/data:
+    devDependencies:
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../shared/abstract/core
+      '@codelab/shared-domain-module-preference':
+        specifier: workspace:*
+        version: link:../../../shared/domain/module/preference
+
+  libs/shared/abstract/core:
+    devDependencies:
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../types
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../infra/gqlgen
+      '@codelab/shared-infra-typebox':
+        specifier: workspace:*
+        version: link:../../infra/typebox
+
+  libs/shared/abstract/infra: {}
+
+  libs/shared/abstract/types: {}
+
+  libs/shared/config/builder:
+    devDependencies:
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../abstract/core
+
+  libs/shared/config/env: {}
+
+  libs/shared/data/seed:
+    devDependencies:
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../abstract/core
+
+  libs/shared/data/test:
+    devDependencies:
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../abstract/core
+      '@codelab/shared-config-env':
+        specifier: workspace:*
+        version: link:../../config/env
+      '@codelab/shared-domain-module-preference':
+        specifier: workspace:*
+        version: link:../../domain/module/preference
+
+  libs/shared/domain/errors:
+    devDependencies:
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../abstract/types
+
+  libs/shared/domain/module/action:
+    devDependencies:
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../abstract/core
+      '@codelab/shared-domain-module-prop':
+        specifier: workspace:*
+        version: link:../prop
+      '@codelab/shared-domain-orm':
+        specifier: workspace:*
+        version: link:../../orm
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../infra/gqlgen
+
+  libs/shared/domain/module/app:
+    devDependencies:
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../abstract/types
+      '@codelab/shared-domain-module-domain':
+        specifier: workspace:*
+        version: link:../domain
+      '@codelab/shared-domain-module-page':
+        specifier: workspace:*
+        version: link:../page
+      '@codelab/shared-domain-orm':
+        specifier: workspace:*
+        version: link:../../orm
+      '@codelab/shared-infra-fetch':
+        specifier: workspace:*
+        version: link:../../../infra/fetch
+      '@codelab/shared-infra-fetch-server':
+        specifier: workspace:*
+        version: link:../../../infra/fetch-server
+      '@codelab/shared-infra-gql-client':
+        specifier: workspace:*
+        version: link:../../../infra/gql-client
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../infra/gqlgen
+      '@codelab/shared-utils':
+        specifier: workspace:*
+        version: link:../../../utils
+
+  libs/shared/domain/module/atom:
+    devDependencies:
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../abstract/types
+      '@codelab/shared-domain-orm':
+        specifier: workspace:*
+        version: link:../../orm
+      '@codelab/shared-infra-fetch':
+        specifier: workspace:*
+        version: link:../../../infra/fetch
+      '@codelab/shared-infra-fetch-server':
+        specifier: workspace:*
+        version: link:../../../infra/fetch-server
+      '@codelab/shared-infra-gql-client':
+        specifier: workspace:*
+        version: link:../../../infra/gql-client
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../infra/gqlgen
+
+  libs/shared/domain/module/auth-guard:
+    devDependencies:
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../abstract/types
+      '@codelab/shared-domain-module-prop':
+        specifier: workspace:*
+        version: link:../prop
+      '@codelab/shared-domain-orm':
+        specifier: workspace:*
+        version: link:../../orm
+      '@codelab/shared-infra-fetch':
+        specifier: workspace:*
+        version: link:../../../infra/fetch
+      '@codelab/shared-infra-fetch-server':
+        specifier: workspace:*
+        version: link:../../../infra/fetch-server
+      '@codelab/shared-infra-gql-client':
+        specifier: workspace:*
+        version: link:../../../infra/gql-client
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../infra/gqlgen
+
+  libs/shared/domain/module/component:
+    devDependencies:
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../abstract/types
+      '@codelab/shared-domain-module-prop':
+        specifier: workspace:*
+        version: link:../prop
+      '@codelab/shared-domain-module-store':
+        specifier: workspace:*
+        version: link:../store
+      '@codelab/shared-domain-module-type':
+        specifier: workspace:*
+        version: link:../type
+      '@codelab/shared-domain-orm':
+        specifier: workspace:*
+        version: link:../../orm
+      '@codelab/shared-infra-fetch':
+        specifier: workspace:*
+        version: link:../../../infra/fetch
+      '@codelab/shared-infra-fetch-server':
+        specifier: workspace:*
+        version: link:../../../infra/fetch-server
+      '@codelab/shared-infra-gql-client':
+        specifier: workspace:*
+        version: link:../../../infra/gql-client
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../infra/gqlgen
+      '@codelab/shared-utils':
+        specifier: workspace:*
+        version: link:../../../utils
+
+  libs/shared/domain/module/domain:
+    devDependencies:
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../abstract/types
+      '@codelab/shared-domain-orm':
+        specifier: workspace:*
+        version: link:../../orm
+      '@codelab/shared-infra-fetch':
+        specifier: workspace:*
+        version: link:../../../infra/fetch
+      '@codelab/shared-infra-fetch-server':
+        specifier: workspace:*
+        version: link:../../../infra/fetch-server
+      '@codelab/shared-infra-gql-client':
+        specifier: workspace:*
+        version: link:../../../infra/gql-client
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../infra/gqlgen
+
+  libs/shared/domain/module/element:
+    devDependencies:
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../abstract/types
+      '@codelab/shared-domain-module-prop':
+        specifier: workspace:*
+        version: link:../prop
+      '@codelab/shared-domain-orm':
+        specifier: workspace:*
+        version: link:../../orm
+      '@codelab/shared-infra-fetch':
+        specifier: workspace:*
+        version: link:../../../infra/fetch
+      '@codelab/shared-infra-fetch-server':
+        specifier: workspace:*
+        version: link:../../../infra/fetch-server
+      '@codelab/shared-infra-gql-client':
+        specifier: workspace:*
+        version: link:../../../infra/gql-client
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../infra/gqlgen
+      '@codelab/shared-utils':
+        specifier: workspace:*
+        version: link:../../../utils
+
+  libs/shared/domain/module/field:
+    devDependencies:
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../abstract/types
+      '@codelab/shared-domain-orm':
+        specifier: workspace:*
+        version: link:../../orm
+      '@codelab/shared-infra-fetch':
+        specifier: workspace:*
+        version: link:../../../infra/fetch
+      '@codelab/shared-infra-fetch-server':
+        specifier: workspace:*
+        version: link:../../../infra/fetch-server
+      '@codelab/shared-infra-gql-client':
+        specifier: workspace:*
+        version: link:../../../infra/gql-client
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../infra/gqlgen
+      '@codelab/shared-utils':
+        specifier: workspace:*
+        version: link:../../../utils
+
+  libs/shared/domain/module/page:
+    devDependencies:
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../abstract/types
+      '@codelab/shared-domain-module-store':
+        specifier: workspace:*
+        version: link:../store
+      '@codelab/shared-domain-orm':
+        specifier: workspace:*
+        version: link:../../orm
+      '@codelab/shared-infra-fetch':
+        specifier: workspace:*
+        version: link:../../../infra/fetch
+      '@codelab/shared-infra-fetch-server':
+        specifier: workspace:*
+        version: link:../../../infra/fetch-server
+      '@codelab/shared-infra-gql-client':
+        specifier: workspace:*
+        version: link:../../../infra/gql-client
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../infra/gqlgen
+      '@codelab/shared-utils':
+        specifier: workspace:*
+        version: link:../../../utils
+
+  libs/shared/domain/module/preference:
+    devDependencies:
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../abstract/types
+      '@codelab/shared-config-builder':
+        specifier: workspace:*
+        version: link:../../../config/builder
+      '@codelab/shared-infra-fetch':
+        specifier: workspace:*
+        version: link:../../../infra/fetch
+      '@codelab/shared-infra-fetch-server':
+        specifier: workspace:*
+        version: link:../../../infra/fetch-server
+      '@codelab/shared-infra-gql-client':
+        specifier: workspace:*
+        version: link:../../../infra/gql-client
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../infra/gqlgen
+
+  libs/shared/domain/module/prop:
+    devDependencies:
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../abstract/types
+      '@codelab/shared-infra-fetch':
+        specifier: workspace:*
+        version: link:../../../infra/fetch
+      '@codelab/shared-infra-fetch-server':
+        specifier: workspace:*
+        version: link:../../../infra/fetch-server
+      '@codelab/shared-infra-gql-client':
+        specifier: workspace:*
+        version: link:../../../infra/gql-client
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../infra/gqlgen
+
+  libs/shared/domain/module/redirect:
+    devDependencies:
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../abstract/types
+      '@codelab/shared-domain-orm':
+        specifier: workspace:*
+        version: link:../../orm
+      '@codelab/shared-infra-fetch':
+        specifier: workspace:*
+        version: link:../../../infra/fetch
+      '@codelab/shared-infra-fetch-server':
+        specifier: workspace:*
+        version: link:../../../infra/fetch-server
+      '@codelab/shared-infra-gql-client':
+        specifier: workspace:*
+        version: link:../../../infra/gql-client
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../infra/gqlgen
+
+  libs/shared/domain/module/resource:
+    devDependencies:
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../abstract/types
+      '@codelab/shared-domain-module-prop':
+        specifier: workspace:*
+        version: link:../prop
+      '@codelab/shared-domain-orm':
+        specifier: workspace:*
+        version: link:../../orm
+      '@codelab/shared-infra-fetch':
+        specifier: workspace:*
+        version: link:../../../infra/fetch
+      '@codelab/shared-infra-fetch-server':
+        specifier: workspace:*
+        version: link:../../../infra/fetch-server
+      '@codelab/shared-infra-gql-client':
+        specifier: workspace:*
+        version: link:../../../infra/gql-client
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../infra/gqlgen
+      '@codelab/shared-utils':
+        specifier: workspace:*
+        version: link:../../../utils
+
+  libs/shared/domain/module/store:
+    devDependencies:
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../abstract/types
+      '@codelab/shared-domain-orm':
+        specifier: workspace:*
+        version: link:../../orm
+      '@codelab/shared-infra-fetch':
+        specifier: workspace:*
+        version: link:../../../infra/fetch
+      '@codelab/shared-infra-fetch-server':
+        specifier: workspace:*
+        version: link:../../../infra/fetch-server
+      '@codelab/shared-infra-gql-client':
+        specifier: workspace:*
+        version: link:../../../infra/gql-client
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../infra/gqlgen
+
+  libs/shared/domain/module/tag:
+    devDependencies:
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../abstract/types
+      '@codelab/shared-domain-orm':
+        specifier: workspace:*
+        version: link:../../orm
+      '@codelab/shared-infra-fetch':
+        specifier: workspace:*
+        version: link:../../../infra/fetch
+      '@codelab/shared-infra-fetch-server':
+        specifier: workspace:*
+        version: link:../../../infra/fetch-server
+      '@codelab/shared-infra-gql-client':
+        specifier: workspace:*
+        version: link:../../../infra/gql-client
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../infra/gqlgen
+
+  libs/shared/domain/module/type:
+    devDependencies:
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../abstract/types
+      '@codelab/shared-domain-orm':
+        specifier: workspace:*
+        version: link:../../orm
+      '@codelab/shared-infra-fetch':
+        specifier: workspace:*
+        version: link:../../../infra/fetch
+      '@codelab/shared-infra-fetch-server':
+        specifier: workspace:*
+        version: link:../../../infra/fetch-server
+      '@codelab/shared-infra-gql-client':
+        specifier: workspace:*
+        version: link:../../../infra/gql-client
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../infra/gqlgen
+      '@codelab/shared-utils':
+        specifier: workspace:*
+        version: link:../../../utils
+
+  libs/shared/domain/module/user:
+    devDependencies:
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../../abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../../abstract/types
+      '@codelab/shared-domain-module-preference':
+        specifier: workspace:*
+        version: link:../preference
+      '@codelab/shared-infra-fetch':
+        specifier: workspace:*
+        version: link:../../../infra/fetch
+      '@codelab/shared-infra-fetch-server':
+        specifier: workspace:*
+        version: link:../../../infra/fetch-server
+      '@codelab/shared-infra-gql-client':
+        specifier: workspace:*
+        version: link:../../../infra/gql-client
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../../../infra/gqlgen
+
+  libs/shared/domain/orm:
+    devDependencies:
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../abstract/types
+
+  libs/shared/infra/auth0:
+    devDependencies:
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../abstract/types
+      '@codelab/shared-config-env':
+        specifier: workspace:*
+        version: link:../../config/env
+
+  libs/shared/infra/cache:
+    devDependencies:
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../abstract/types
+
+  libs/shared/infra/eval:
+    devDependencies:
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../../abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../abstract/types
+      '@codelab/shared-utils':
+        specifier: workspace:*
+        version: link:../../utils
+
+  libs/shared/infra/fetch:
+    devDependencies:
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../abstract/types
+
+  libs/shared/infra/fetch-server:
+    devDependencies:
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../abstract/types
+      '@codelab/shared-config-env':
+        specifier: workspace:*
+        version: link:../../config/env
+      '@codelab/shared-infra-auth0':
+        specifier: workspace:*
+        version: link:../auth0
+      '@codelab/shared-infra-logging':
+        specifier: workspace:*
+        version: link:../logging
+
+  libs/shared/infra/gql-client:
+    devDependencies:
+      '@codelab/shared-config-env':
+        specifier: workspace:*
+        version: link:../../config/env
+
+  libs/shared/infra/gqlgen: {}
+
+  libs/shared/infra/logging:
+    devDependencies:
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../abstract/types
+      '@codelab/shared-utils':
+        specifier: workspace:*
+        version: link:../../utils
+
+  libs/shared/infra/sentry: {}
+
+  libs/shared/infra/typebox:
+    devDependencies:
+      '@codelab/shared-abstract-infra':
+        specifier: workspace:*
+        version: link:../../abstract/infra
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../abstract/types
+
+  libs/shared/infra/validation: {}
+
+  libs/shared/utils:
+    devDependencies:
+      '@codelab/shared-abstract-core':
+        specifier: workspace:*
+        version: link:../abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../abstract/types
+      '@codelab/shared-infra-gqlgen':
+        specifier: workspace:*
+        version: link:../infra/gqlgen
 
   libs/tools/eslint-plugin:
     dependencies:

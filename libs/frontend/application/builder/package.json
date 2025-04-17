@@ -1,0 +1,131 @@
+{
+  "name": "@codelab/frontend-application-builder",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./collision-detection": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./components": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./services": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./validation": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./use-cases/update-component": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./use-cases/update-component-props": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./use-cases/delete-element": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./use-cases/move-element": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./use-cases/update-element": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./use-cases/update-element-props": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./use-cases/update-page-tab": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./use-cases/get-actions": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./use-cases/get-state": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./use-cases/import-component": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./use-cases/export-component": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./use-cases/root-renderer": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./hooks": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+  },
+  "devDependencies": {
+    "@codelab/frontend-abstract-application": "workspace:*",
+    "@codelab/shared-abstract-types": "workspace:*",
+    "@codelab/frontend-abstract-domain": "workspace:*",
+    "@codelab/frontend-application-dnd": "workspace:*",
+    "@codelab/frontend-application-element": "workspace:*",
+    "@codelab/frontend-infra-mobx-context": "workspace:*",
+    "@codelab/shared-abstract-core": "workspace:*",
+    "@codelab/frontend-domain-element": "workspace:*",
+    "@codelab/frontend-application-preference": "workspace:*",
+    "@codelab/frontend-infra-context": "workspace:*",
+    "@codelab/frontend-presentation-components-form": "workspace:*",
+    "@codelab/frontend-shared-utils": "workspace:*",
+    "@codelab/frontend-application-prop": "workspace:*",
+    "@codelab/shared-infra-eval": "workspace:*",
+    "@codelab/frontend-application-component": "workspace:*",
+    "@codelab/frontend-application-page": "workspace:*",
+    "@codelab/frontend-presentation-components-css-editor": "workspace:*",
+    "@codelab/frontend-application-shared-data": "workspace:*",
+    "@codelab/frontend-domain-prop": "workspace:*",
+    "@codelab/frontend-presentation-components-codemirror": "workspace:*",
+    "@codelab/frontend-presentation-view": "workspace:*",
+    "@codelab/frontend-application-user": "workspace:*",
+    "@codelab/frontend-abstract-types": "workspace:*",
+    "@codelab/frontend-presentation-codelab-ui": "workspace:*",
+    "@codelab/frontend-application-store": "workspace:*",
+    "@codelab/frontend-application-type": "workspace:*",
+    "@codelab/shared-infra-gqlgen": "workspace:*",
+    "@codelab/frontend-infra-connector": "workspace:*",
+    "@codelab/shared-utils": "workspace:*",
+    "@codelab/frontend-application-renderer": "workspace:*",
+    "@codelab/frontend-presentation-container": "workspace:*",
+    "@codelab/shared-infra-fetch": "workspace:*",
+    "@codelab/shared-infra-fetch-server": "workspace:*",
+    "@codelab/frontend-domain-shared": "workspace:*"
+  }
+}

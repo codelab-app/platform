@@ -1,7 +1,7 @@
 {
-  "extends": "./tsconfig.json",
+  "extends": "../../../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "../../../../dist/out-tsc",
+    "outDir": "./out-tsc/spec",
     "module": "commonjs",
     "types": ["jest", "node"]
   },
@@ -17,5 +17,10 @@
     "src/**/*.spec.jsx",
     "src/**/*.d.ts",
     "../types/src/model-crud.constant.spec.ts"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.lib.json"
+    }
   ]
 }

@@ -1,0 +1,20 @@
+{
+  "name": "@codelab/frontend-domain-resource",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+  },
+  "devDependencies": {
+    "@codelab/shared-abstract-core": "workspace:*",
+    "@codelab/shared-abstract-types": "workspace:*",
+    "@codelab/shared-infra-gqlgen": "workspace:*",
+    "@codelab/frontend-abstract-domain": "workspace:*",
+    "@codelab/shared-infra-typebox": "workspace:*",
+    "@codelab/shared-domain-module-resource": "workspace:*",
+    "@codelab/frontend-domain-prop": "workspace:*",
+    "@codelab/frontend-domain-shared": "workspace:*"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "name": "@codelab/frontend-test-application",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./hooks": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./use-cases/base-builder": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./utils": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./components": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./collision-detection": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./store": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+  },
+  "devDependencies": {
+    "@codelab/frontend-abstract-application": "workspace:*",
+    "@codelab/frontend-abstract-domain": "workspace:*",
+    "@codelab/frontend-shared-utils": "workspace:*",
+    "@codelab/frontend-application-builder": "workspace:*",
+    "@codelab/frontend-application-dnd": "workspace:*",
+    "@codelab/frontend-infra-mobx-store": "workspace:*",
+    "@codelab/shared-abstract-core": "workspace:*",
+    "@codelab/frontend-test-data": "workspace:*",
+    "@codelab/shared-infra-typebox": "workspace:*",
+    "@codelab/frontend-application-renderer": "workspace:*"
+  }
+}

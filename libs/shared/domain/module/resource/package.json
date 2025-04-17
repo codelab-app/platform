@@ -1,0 +1,21 @@
+{
+  "name": "@codelab/shared-domain-module-resource",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+  },
+  "devDependencies": {
+    "@codelab/shared-infra-gqlgen": "workspace:*",
+    "@codelab/shared-infra-fetch": "workspace:*",
+    "@codelab/shared-abstract-types": "workspace:*",
+    "@codelab/shared-infra-fetch-server": "workspace:*",
+    "@codelab/shared-infra-gql-client": "workspace:*",
+    "@codelab/shared-abstract-core": "workspace:*",
+    "@codelab/shared-utils": "workspace:*",
+    "@codelab/shared-domain-orm": "workspace:*",
+    "@codelab/shared-domain-module-prop": "workspace:*"
+  }
+}

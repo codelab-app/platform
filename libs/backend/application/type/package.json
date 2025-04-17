@@ -1,0 +1,26 @@
+{
+  "name": "@codelab/backend-application-type",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+  },
+  "devDependencies": {
+    "@codelab/backend-abstract-core": "workspace:*",
+    "@codelab/shared-abstract-core": "workspace:*",
+    "@codelab/shared-abstract-types": "workspace:*",
+    "@codelab/shared-utils": "workspace:*",
+    "@codelab/backend-domain-type": "workspace:*",
+    "@codelab/backend-application-data": "workspace:*",
+    "@codelab/backend-domain-shared-auth": "workspace:*",
+    "@codelab/backend-infra-adapter-logger": "workspace:*",
+    "@codelab/backend-infra-core": "workspace:*",
+    "@codelab/shared-infra-gqlgen": "workspace:*",
+    "@codelab/shared-data-seed": "workspace:*",
+    "@codelab/backend-test-setup": "workspace:*",
+    "@codelab/backend-infra-adapter-neo4j-driver": "workspace:*",
+    "@codelab/backend-abstract-types": "workspace:*"
+  }
+}

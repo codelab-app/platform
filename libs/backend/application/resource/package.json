@@ -1,0 +1,16 @@
+{
+  "name": "@codelab/backend-application-resource",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+  },
+  "devDependencies": {
+    "@codelab/backend-infra-adapter-logger": "workspace:*",
+    "@codelab/shared-abstract-core": "workspace:*",
+    "@codelab/backend-domain-prop": "workspace:*",
+    "@codelab/backend-domain-resource": "workspace:*"
+  }
+}

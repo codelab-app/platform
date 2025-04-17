@@ -1,0 +1,14 @@
+{
+  "name": "@codelab/shared-infra-logging",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+  },
+  "devDependencies": {
+    "@codelab/shared-abstract-types": "workspace:*",
+    "@codelab/shared-utils": "workspace:*"
+  }
+}

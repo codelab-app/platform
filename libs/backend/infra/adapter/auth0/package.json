@@ -1,0 +1,13 @@
+{
+  "name": "@codelab/backend-infra-adapter-auth0",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+  },
+  "devDependencies": {
+    "@codelab/shared-config-env": "workspace:*"
+  }
+}

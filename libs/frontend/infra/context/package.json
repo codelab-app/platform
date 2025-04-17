@@ -1,0 +1,17 @@
+{
+  "name": "@codelab/frontend-infra-context",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+  },
+  "devDependencies": {
+    "@codelab/frontend-abstract-application": "workspace:*",
+    "@codelab/frontend-abstract-domain": "workspace:*",
+    "@codelab/frontend-infra-mobx-context": "workspace:*",
+    "@codelab/frontend-shared-utils": "workspace:*",
+    "@codelab/shared-abstract-types": "workspace:*"
+  }
+}
