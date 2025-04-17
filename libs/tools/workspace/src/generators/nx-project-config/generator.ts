@@ -14,6 +14,7 @@ import { migrateProjectReference } from './migrate-project-reference'
 import { addProjectTags } from './project-tags/add-project-tags'
 import { updateBaseTsconfig } from './tsconfig/base/tsconfig.base'
 import { createAliasMapping, saveAliasMappingToFile } from './utils/workspace'
+import { migrateProjectImports } from './workspace/imports/migrate-project-imports'
 
 /**
  * Factory function to generate a list of available projects for the x-prompt
@@ -62,7 +63,8 @@ export const nxProjectConfigGenerator = async (
 
     // Migrate project to use TypeScript project references
     if (options.migrateToProjectReferences) {
-      await migrateProjectReference(tree, projectConfig)
+      await migrateProjectImports(tree, projectConfig)
+      // await migrateProjectReference(tree, projectConfig)
     } else {
       addProjectTags(tree, projectConfig)
       updateTestTargets(tree, projectConfig)

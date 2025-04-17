@@ -3,9 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.nxProjectConfigGenerator = void 0;
 const devkit_1 = require("@nx/devkit");
 const remove_test_targets_1 = require("./jest/remove-test-targets");
-const migrate_project_reference_1 = require("./migrate-project-reference");
 const add_project_tags_1 = require("./project-tags/add-project-tags");
 const tsconfig_base_1 = require("./tsconfig/base/tsconfig.base");
+const migrate_project_imports_1 = require("./workspace/imports/migrate-project-imports");
 /**
  * Factory function to generate a list of available projects for the x-prompt
  * @returns An array of project choices for the dropdown
@@ -42,7 +42,8 @@ const nxProjectConfigGenerator = async (tree, options) => {
         // updateJestConfig(tree, projectConfig)
         // Migrate project to use TypeScript project references
         if (options.migrateToProjectReferences) {
-            await (0, migrate_project_reference_1.migrateProjectReference)(tree, projectConfig);
+            await (0, migrate_project_imports_1.migrateProjectImports)(tree, projectConfig);
+            // await migrateProjectReference(tree, projectConfig)
         }
         else {
             (0, add_project_tags_1.addProjectTags)(tree, projectConfig);
