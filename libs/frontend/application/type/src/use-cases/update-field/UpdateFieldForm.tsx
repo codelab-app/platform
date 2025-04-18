@@ -7,6 +7,7 @@ import type { IFieldUpdateData } from '@codelab/shared/abstract/core'
 
 import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
 import {
+  SelectDefaultValue,
   SelectFieldSibling,
   uniformSchemaFactory,
 } from '@codelab/frontend/presentation/components/interface-form'
@@ -18,7 +19,7 @@ import {
 } from '@codelab/frontend-presentation-components-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { PrimitiveTypeKind } from '@codelab/shared/infra/gqlgen'
-import { AutoField, AutoFields } from 'uniforms-antd'
+import { AutoFields } from 'uniforms-antd'
 
 import { useFieldService } from '../../services'
 import {
@@ -78,6 +79,8 @@ export const UpdateFieldForm = ({
         targetFieldId: firstField.id,
       })
     }
+
+    return fieldService.update({ ...input, validationRules })
   }
 
   /**
@@ -183,8 +186,7 @@ export const UpdateFieldForm = ({
           canSetDefaultValue(typeDomainService, model.fieldType)
         }
       >
-        <AutoField name="defaultValues" />
-        {/* <SelectDefaultValue /> */}
+        <SelectDefaultValue />
       </DisplayIfField>
 
       <DisplayIf condition={showFormControl}>
