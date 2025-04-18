@@ -4,7 +4,12 @@
     "module": "commonjs",
     "outDir": "./out-tsc/lib",
     "declaration": true,
-    "types": ["node", "cypher"]
+    "types": ["node", "cypher"],
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noPropertyAccessFromIndexSignature": true
   },
   "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
   "include": ["src/**/*.ts"],

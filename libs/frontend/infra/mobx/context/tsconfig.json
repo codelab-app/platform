@@ -6,14 +6,5 @@
     {
       "path": "./tsconfig.lib.json"
     }
-  ],
-  "compilerOptions": {
-    "jsx": "react-jsx",
-    "emitDecoratorMetadata": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
-  }
+  ]
 }

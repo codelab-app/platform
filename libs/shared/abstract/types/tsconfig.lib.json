@@ -1,7 +1,14 @@
 {
   "extends": "../../../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "./out-tsc/lib"
+    "outDir": "../../../../dist/out-tsc",
+    "module": "commonjs",
+    "declaration": true,
+    "types": ["node"],
+    "strict": true,
+    "noImplicitReturns": true,
+    "exactOptionalPropertyTypes": true,
+    "noFallthroughCasesInSwitch": true
   },
   "exclude": ["**/*.spec.ts"],
   "include": ["**/*.ts"],

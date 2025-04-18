@@ -5,12 +5,5 @@
     "@nx/devkit": "19.0.4",
     "@typescript-eslint/utils": "7.9.0",
     "tslib": "2.3.1"
-  },
-  "exports": {
-    ".": {
-      "default": "./src/index.ts",
-      "import": "./src/index.ts",
-      "types": "./src/index.ts"
-    }
   }
 }

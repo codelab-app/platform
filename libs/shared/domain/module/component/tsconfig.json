@@ -1,12 +1,5 @@
 {
   "extends": "../../../../../tsconfig.base.json",
-  "compilerOptions": {
-    "forceConsistentCasingInFileNames": true,
-    "noImplicitOverride": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "noPropertyAccessFromIndexSignature": true
-  },
   "files": [],
   "include": [],
   "references": [

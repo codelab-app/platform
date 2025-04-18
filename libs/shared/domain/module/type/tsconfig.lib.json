@@ -3,7 +3,13 @@
   "compilerOptions": {
     "outDir": "./out-tsc/lib",
     "declaration": true,
-    "types": ["node"]
+    "types": ["node"],
+    "module": "commonjs",
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noPropertyAccessFromIndexSignature": true
   },
   "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
   "include": ["src/**/*.ts"],

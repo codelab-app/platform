@@ -3,7 +3,14 @@
   "compilerOptions": {
     "outDir": "./out-tsc/lib",
     "declaration": true,
-    "types": ["node"]
+    "types": ["node"],
+    "module": "commonjs",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
   },
   "include": ["src/**/*.ts"],
   "exclude": ["src/**/*.spec.ts", "src/**/*.test.ts"],

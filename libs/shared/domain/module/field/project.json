@@ -4,7 +4,7 @@
   "sourceRoot": "libs/shared/domain/module/field/src",
   "projectType": "library",
   "tags": [
-    "projectName:field",
+    "projectName:shared-domain-module-field",
     "projectType:library",
     "type:concrete",
     "scope:shared"

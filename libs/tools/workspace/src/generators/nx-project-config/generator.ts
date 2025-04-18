@@ -39,7 +39,10 @@ export const nxProjectConfigGenerator = async (
     console.log(`Checking for ${projectConfig.name}...`)
     console.log('-----------------')
 
-    if (projectConfig.name === 'codelab') {
+    if (
+      projectConfig.name === 'codelab' ||
+      projectConfig.sourceRoot?.startsWith('libs/tools')
+    ) {
       console.log('Skipping project:', projectConfig.name)
       continue
     }
@@ -76,7 +79,9 @@ export const nxProjectConfigGenerator = async (
 
       // updateBaseTsconfig(tree, projectConfig)
       // updateLibraryTsconfig(tree, projectConfig)
-      copyLibTsconfigToTsconfig(tree, projectConfig)
+      if (projectConfig.projectType !== 'application') {
+        copyLibTsconfigToTsconfig(tree, projectConfig)
+      }
     }
 
     updateProjectConfiguration(tree, projectName, projectConfig)

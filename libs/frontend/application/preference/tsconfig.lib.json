@@ -6,7 +6,9 @@
     "strict": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "declaration": true
+    "declaration": true,
+    "jsx": "react-jsx",
+    "allowJs": true
   },
   "files": [
     "../../../../node_modules/@nx/react/typings/cssmodule.d.ts",

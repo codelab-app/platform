@@ -3,7 +3,12 @@
   "compilerOptions": {
     "outDir": "./out-tsc/lib",
     "declaration": true,
-    "types": ["node"]
+    "types": ["node"],
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noPropertyAccessFromIndexSignature": true
   },
   "include": ["src/**/*.ts"],
   "references": []

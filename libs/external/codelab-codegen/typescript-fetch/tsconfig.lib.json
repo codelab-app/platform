@@ -4,7 +4,14 @@
     "module": "commonjs",
     "outDir": "./out-tsc/lib",
     "declaration": true,
-    "types": ["node"]
+    "types": ["node"],
+    "forceConsistentCasingInFileNames": true,
+    "strict": false,
+    "strictNullChecks": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
   },
   "exclude": [],
   "include": ["src/**/*.ts"],
