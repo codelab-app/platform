@@ -10,5 +10,23 @@
   "devDependencies": {
     "@codelab/shared-abstract-core": "workspace:*",
     "@codelab/backend-infra-adapter-request-context": "workspace:*"
+  },
+  "nx": {
+    "name": "backend-domain-shared-auth",
+    "projectType": "library",
+    "sourceRoot": "libs/backend/domain/shared/auth/src",
+    "tags": [
+      "projectName:backend-domain-shared-auth",
+      "projectType:library",
+      "type:concrete",
+      "scope:backend",
+      "layer:domain"
+    ],
+    "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
   }
 }

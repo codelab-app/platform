@@ -15,5 +15,33 @@
     "@codelab/shared-infra-gqlgen": "workspace:*",
     "@codelab/shared-domain-module-resource": "workspace:*",
     "@codelab/backend-domain-shared-modules": "workspace:*"
+  },
+  "nx": {
+    "name": "backend-domain-resource",
+    "projectType": "library",
+    "sourceRoot": "libs/backend/domain/resource/src",
+    "tags": [
+      "projectName:backend-domain-resource",
+      "projectType:library",
+      "type:concrete",
+      "scope:backend",
+      "layer:domain"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      },
+      "test": {
+        "executor": "@nx/jest:jest",
+        "outputs": [
+          "{workspaceRoot}/coverage/{projectRoot}"
+        ],
+        "options": {
+          "jestConfig": "libs/backend/domain/resource/jest.config.ts",
+          "runInBand": true
+        }
+      }
+    }
   }
 }

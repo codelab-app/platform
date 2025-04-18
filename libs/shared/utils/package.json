@@ -11,5 +11,32 @@
     "@codelab/shared-abstract-types": "workspace:*",
     "@codelab/shared-abstract-core": "workspace:*",
     "@codelab/shared-infra-gqlgen": "workspace:*"
+  },
+  "nx": {
+    "name": "shared-utils",
+    "projectType": "library",
+    "sourceRoot": "libs/shared/utils/src",
+    "tags": [
+      "projectName:shared-utils",
+      "projectType:library",
+      "type:concrete",
+      "scope:shared"
+    ],
+    "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      },
+      "test": {
+        "executor": "@nx/jest:jest",
+        "outputs": [
+          "{workspaceRoot}/coverage/libs/shared/utils"
+        ],
+        "options": {
+          "jestConfig": "libs/shared/utils/jest.config.ts",
+          "runInBand": true
+        }
+      }
+    }
   }
 }

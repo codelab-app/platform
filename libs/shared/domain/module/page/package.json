@@ -17,5 +17,22 @@
     "@codelab/shared-utils": "workspace:*",
     "@codelab/shared-domain-orm": "workspace:*",
     "@codelab/shared-domain-module-store": "workspace:*"
+  },
+  "nx": {
+    "name": "shared-domain-module-page",
+    "projectType": "library",
+    "sourceRoot": "libs/shared/domain/module/page/src",
+    "tags": [
+      "projectName:shared-domain-module-page",
+      "projectType:library",
+      "type:concrete",
+      "scope:shared"
+    ],
+    "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
   }
 }

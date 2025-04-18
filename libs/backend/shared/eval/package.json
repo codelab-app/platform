@@ -9,5 +9,23 @@
   },
   "devDependencies": {
     "@codelab/shared-abstract-types": "workspace:*"
+  },
+  "nx": {
+    "name": "backend-shared-eval",
+    "projectType": "library",
+    "sourceRoot": "libs/backend/shared/eval/src",
+    "tags": [
+      "projectName:backend-shared-eval",
+      "projectType:library",
+      "type:concrete",
+      "scope:backend",
+      "scope:shared"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
   }
 }

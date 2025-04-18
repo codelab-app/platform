@@ -34,5 +34,34 @@
     "@codelab/frontend-abstract-domain": "workspace:*",
     "@codelab/shared-infra-typebox": "workspace:*",
     "@codelab/shared-domain-module-redirect": "workspace:*"
+  },
+  "nx": {
+    "name": "frontend-domain-redirect",
+    "projectType": "library",
+    "sourceRoot": "libs/frontend/domain/redirect/src",
+    "tags": [
+      "projectName:frontend-domain-redirect",
+      "projectType:library",
+      "type:concrete",
+      "scope:frontend",
+      "layer:domain"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      },
+      "test": {
+        "executor": "@nx/jest:jest",
+        "options": {
+          "jestConfig": "libs/frontend/domain/redirect/jest.config.ts",
+          "passWithNoTests": true,
+          "runInBand": true
+        },
+        "outputs": [
+          "{workspaceRoot}/coverage/libs/frontend/domain/redirect"
+        ]
+      }
+    }
   }
 }

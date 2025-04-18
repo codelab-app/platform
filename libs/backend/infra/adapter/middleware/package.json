@@ -9,5 +9,23 @@
   },
   "devDependencies": {
     "@codelab/shared-infra-auth0": "workspace:*"
+  },
+  "nx": {
+    "name": "backend-infra-adapter-middleware",
+    "projectType": "library",
+    "sourceRoot": "libs/backend/infra/adapter/middleware/src",
+    "tags": [
+      "projectName:backend-infra-adapter-middleware",
+      "projectType:library",
+      "type:concrete",
+      "layer:infra",
+      "scope:backend"
+    ],
+    "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
   }
 }

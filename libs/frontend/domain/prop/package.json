@@ -34,5 +34,33 @@
     "@codelab/shared-infra-gqlgen": "workspace:*",
     "@codelab/shared-infra-typebox": "workspace:*",
     "@codelab/shared-domain-module-prop": "workspace:*"
+  },
+  "nx": {
+    "name": "frontend-domain-prop",
+    "projectType": "library",
+    "sourceRoot": "libs/frontend/domain/prop/src",
+    "tags": [
+      "projectName:frontend-domain-prop",
+      "projectType:library",
+      "type:concrete",
+      "scope:frontend",
+      "layer:domain"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      },
+      "test": {
+        "executor": "@nx/jest:jest",
+        "outputs": [
+          "{workspaceRoot}/coverage/libs/frontend/domain/prop"
+        ],
+        "options": {
+          "jestConfig": "libs/frontend/domain/prop/jest.config.ts",
+          "runInBand": true
+        }
+      }
+    }
   }
 }

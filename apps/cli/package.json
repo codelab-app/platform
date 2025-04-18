@@ -10,5 +10,69 @@
   "devDependencies": {
     "@codelab/backend-infra-adapter-logger": "workspace:*",
     "@codelab/shared-abstract-core": "workspace:*"
+  },
+  "nx": {
+    "name": "cli",
+    "projectType": "application",
+    "sourceRoot": "apps/cli/src",
+    "tags": [
+      "projectName:cli",
+      "projectType:application",
+      "type:concrete"
+    ],
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "build": {
+        "executor": "@nx/webpack:webpack",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "defaultConfiguration": "prod",
+        "options": {
+          "target": "node",
+          "compiler": "tsc",
+          "outputPath": "dist/apps/cli",
+          "main": "apps/cli/src/main.ts",
+          "tsConfig": "apps/cli/tsconfig.app.json",
+          "assets": [
+            "apps/cli/src/assets"
+          ],
+          "webpackConfig": "apps/cli/webpack.config.js"
+        },
+        "configurations": {
+          "dev": {},
+          "ci": {},
+          "prod": {}
+        }
+      },
+      "serve": {
+        "executor": "@nx/js:node",
+        "defaultConfiguration": "dev",
+        "options": {
+          "buildTarget": "cli:build"
+        },
+        "configurations": {
+          "dev": {
+            "buildTarget": "cli:build:dev"
+          },
+          "prod": {
+            "buildTarget": "cli:build:prod"
+          }
+        }
+      },
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      },
+      "test": {
+        "executor": "@nx/jest:jest",
+        "outputs": [
+          "{workspaceRoot}/coverage/{projectRoot}"
+        ],
+        "options": {
+          "jestConfig": "apps/cli/jest.config.ts",
+          "runInBand": true
+        }
+      }
+    }
   }
 }

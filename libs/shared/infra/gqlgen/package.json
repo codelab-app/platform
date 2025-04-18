@@ -7,5 +7,23 @@
       "types": "./src/index.ts"
     }
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "nx": {
+    "name": "shared-infra-gqlgen",
+    "projectType": "library",
+    "sourceRoot": "libs/shared/infra/gqlgen/src",
+    "tags": [
+      "projectName:shared-infra-gqlgen",
+      "projectType:library",
+      "type:abstract",
+      "layer:infra",
+      "scope:shared"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
+  }
 }

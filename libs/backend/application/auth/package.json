@@ -14,5 +14,36 @@
     "@codelab/backend-infra-adapter-logger": "workspace:*",
     "@codelab/shared-abstract-types": "workspace:*",
     "@codelab/shared-abstract-core": "workspace:*"
+  },
+  "nx": {
+    "name": "backend-application-auth",
+    "projectType": "library",
+    "sourceRoot": "libs/backend/application/auth/src",
+    "tags": [
+      "projectName:backend-application-auth",
+      "projectType:library",
+      "type:concrete",
+      "scope:backend",
+      "layer:application"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint",
+        "outputs": [
+          "{options.outputFile}"
+        ]
+      },
+      "test": {
+        "executor": "@nx/jest:jest",
+        "outputs": [
+          "{workspaceRoot}/coverage/{projectRoot}"
+        ],
+        "options": {
+          "jestConfig": "libs/backend/application/auth/jest.config.ts",
+          "runInBand": true
+        }
+      }
+    }
   }
 }

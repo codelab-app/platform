@@ -7,5 +7,26 @@
       "types": "./src/index.ts"
     }
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "nx": {
+    "name": "backend-infra-adapter-rest-client",
+    "projectType": "library",
+    "sourceRoot": "libs/backend/infra/adapter/rest-client/src",
+    "tags": [
+      "projectName:backend-infra-adapter-rest-client",
+      "projectType:library",
+      "type:concrete",
+      "layer:infra",
+      "scope:backend"
+    ],
+    "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint",
+        "outputs": [
+          "{options.outputFile}"
+        ]
+      }
+    }
+  }
 }

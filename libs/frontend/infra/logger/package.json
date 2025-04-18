@@ -10,5 +10,23 @@
   "devDependencies": {
     "@codelab/shared-abstract-types": "workspace:*",
     "@codelab/shared-infra-logging": "workspace:*"
+  },
+  "nx": {
+    "name": "frontend-infra-logger",
+    "projectType": "library",
+    "sourceRoot": "libs/frontend/infra/logger/src",
+    "tags": [
+      "projectName:frontend-infra-logger",
+      "projectType:library",
+      "type:concrete",
+      "layer:infra",
+      "scope:frontend"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
   }
 }

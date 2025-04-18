@@ -13,5 +13,23 @@
     "@codelab/shared-abstract-core": "workspace:*",
     "@codelab/shared-infra-gqlgen": "workspace:*",
     "@codelab/shared-abstract-types": "workspace:*"
+  },
+  "nx": {
+    "name": "frontend-abstract-application",
+    "projectType": "library",
+    "sourceRoot": "libs/frontend/abstract/application/src",
+    "tags": [
+      "projectName:frontend-abstract-application",
+      "projectType:library",
+      "type:abstract",
+      "scope:frontend",
+      "layer:application"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
   }
 }

@@ -16,5 +16,17 @@
     "@codelab/shared-abstract-core": "workspace:*",
     "@codelab/shared-domain-orm": "workspace:*",
     "@codelab/shared-utils": "workspace:*"
+  },
+  "nx": {
+    "name": "shared-domain-module-field",
+    "projectType": "library",
+    "sourceRoot": "libs/shared/domain/module/field/src",
+    "tags": [
+      "projectName:shared-domain-module-field",
+      "projectType:library",
+      "type:concrete",
+      "scope:shared"
+    ],
+    "$schema": "../../../../../node_modules/nx/schemas/project-schema.json"
   }
 }

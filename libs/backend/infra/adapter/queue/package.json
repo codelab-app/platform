@@ -10,5 +10,23 @@
   "devDependencies": {
     "@codelab/backend-infra-adapter-ws": "workspace:*",
     "@codelab/backend-infra-adapter-logger": "workspace:*"
+  },
+  "nx": {
+    "name": "backend-infra-adapter-queue",
+    "projectType": "library",
+    "sourceRoot": "libs/backend/infra/adapter/queue/src",
+    "tags": [
+      "projectName:backend-infra-adapter-queue",
+      "projectType:library",
+      "type:concrete",
+      "layer:infra",
+      "scope:backend"
+    ],
+    "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
   }
 }

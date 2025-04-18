@@ -15,5 +15,22 @@
     "@codelab/shared-infra-gql-client": "workspace:*",
     "@codelab/shared-abstract-core": "workspace:*",
     "@codelab/shared-domain-orm": "workspace:*"
+  },
+  "nx": {
+    "name": "shared-domain-module-redirect",
+    "projectType": "library",
+    "sourceRoot": "libs/shared/domain/module/redirect/src",
+    "tags": [
+      "projectName:shared-domain-module-redirect",
+      "projectType:library",
+      "type:concrete",
+      "scope:shared"
+    ],
+    "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
   }
 }

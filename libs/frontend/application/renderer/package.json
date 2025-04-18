@@ -59,5 +59,33 @@
     "@codelab/frontend-application-element": "workspace:*",
     "@codelab/shared-infra-eval": "workspace:*",
     "@codelab/shared-config-builder": "workspace:*"
+  },
+  "nx": {
+    "name": "frontend-application-renderer",
+    "projectType": "library",
+    "sourceRoot": "libs/frontend/application/renderer/src",
+    "tags": [
+      "projectName:frontend-application-renderer",
+      "projectType:library",
+      "type:concrete",
+      "scope:frontend",
+      "layer:application"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      },
+      "test": {
+        "executor": "@nx/jest:jest",
+        "outputs": [
+          "{workspaceRoot}/coverage/libs/frontend/application/renderer"
+        ],
+        "options": {
+          "jestConfig": "libs/frontend/application/renderer/jest.config.ts",
+          "runInBand": true
+        }
+      }
+    }
   }
 }

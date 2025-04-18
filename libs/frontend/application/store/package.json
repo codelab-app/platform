@@ -67,5 +67,33 @@
     "@codelab/frontend-presentation-codelab-ui": "workspace:*",
     "@codelab/frontend-infra-connector": "workspace:*",
     "@codelab/frontend-application-type": "workspace:*"
+  },
+  "nx": {
+    "name": "frontend-application-store",
+    "projectType": "library",
+    "sourceRoot": "libs/frontend/application/store/src",
+    "tags": [
+      "projectName:frontend-application-store",
+      "projectType:library",
+      "type:concrete",
+      "scope:frontend",
+      "layer:application"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      },
+      "test": {
+        "executor": "@nx/jest:jest",
+        "outputs": [
+          "{workspaceRoot}/coverage/{projectRoot}"
+        ],
+        "options": {
+          "jestConfig": "libs/frontend/application/store/jest.config.ts",
+          "runInBand": true
+        }
+      }
+    }
   }
 }

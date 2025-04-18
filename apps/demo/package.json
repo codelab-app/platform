@@ -9,5 +9,27 @@
   },
   "devDependencies": {
     "@codelab/shared-infra-logging": "workspace:*"
+  },
+  "nx": {
+    "name": "demo",
+    "projectType": "application",
+    "sourceRoot": "apps/demo",
+    "tags": [
+      "projectName:demo",
+      "projectType:application",
+      "type:concrete"
+    ],
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "test": {
+        "executor": "@nx/jest:jest",
+        "outputs": [
+          "{workspaceRoot}/coverage/{projectRoot}"
+        ],
+        "options": {
+          "jestConfig": "apps/demo/jest.config.ts"
+        }
+      }
+    }
   }
 }

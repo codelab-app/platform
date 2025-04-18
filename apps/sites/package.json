@@ -7,5 +7,69 @@
       "types": "./src/index.ts"
     }
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "nx": {
+    "name": "sites",
+    "projectType": "application",
+    "sourceRoot": "apps/sites/src",
+    "tags": [
+      "projectName:sites",
+      "projectType:application",
+      "type:concrete"
+    ],
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "implicitDependencies": [],
+    "generators": {},
+    "targets": {
+      "build": {
+        "executor": "@nx/next:build",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "options": {
+          "outputPath": "dist/apps/sites"
+        },
+        "configurations": {
+          "ci": {},
+          "prod": {},
+          "dev": {
+            "outputPath": "tmp/apps/sites/src"
+          }
+        },
+        "defaultConfiguration": "prod"
+      },
+      "serve": {
+        "executor": "@nx/next:server",
+        "options": {
+          "buildTarget": "sites:build",
+          "dev": true,
+          "port": 3080,
+          "hostname": "0.0.0.0",
+          "maxWorkers": 4,
+          "experimentalHttps": true
+        },
+        "configurations": {
+          "ci": {},
+          "prod": {
+            "buildTarget": "sites:build:prod",
+            "dev": false
+          },
+          "dev": {
+            "buildTarget": "sites:build:dev",
+            "dev": true
+          }
+        },
+        "defaultConfiguration": "dev"
+      },
+      "export": {
+        "executor": "@nx/next:export",
+        "options": {
+          "buildTarget": "sites:build:prod"
+        }
+      },
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
+  }
 }

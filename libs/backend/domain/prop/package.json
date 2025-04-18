@@ -15,5 +15,23 @@
     "@codelab/backend-infra-adapter-logger": "workspace:*",
     "@codelab/backend-infra-core": "workspace:*",
     "@codelab/shared-domain-module-prop": "workspace:*"
+  },
+  "nx": {
+    "name": "backend-domain-prop",
+    "projectType": "library",
+    "sourceRoot": "libs/backend/domain/prop/src",
+    "tags": [
+      "projectName:backend-domain-prop",
+      "projectType:library",
+      "type:concrete",
+      "scope:backend",
+      "layer:domain"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
   }
 }

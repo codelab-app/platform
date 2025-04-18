@@ -19,5 +19,33 @@
     "@codelab/backend-test-setup": "workspace:*",
     "@codelab/shared-data-test": "workspace:*",
     "@codelab/shared-domain-orm": "workspace:*"
+  },
+  "nx": {
+    "name": "backend-application-domain",
+    "projectType": "library",
+    "sourceRoot": "libs/backend/application/domain/src",
+    "tags": [
+      "projectName:backend-application-domain",
+      "projectType:library",
+      "type:concrete",
+      "scope:backend",
+      "layer:application"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      },
+      "test": {
+        "executor": "@nx/jest:jest",
+        "outputs": [
+          "{workspaceRoot}/coverage/{projectRoot}"
+        ],
+        "options": {
+          "jestConfig": "libs/backend/application/domain/jest.config.ts",
+          "runInBand": true
+        }
+      }
+    }
   }
 }

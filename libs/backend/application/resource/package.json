@@ -12,5 +12,23 @@
     "@codelab/shared-abstract-core": "workspace:*",
     "@codelab/backend-domain-prop": "workspace:*",
     "@codelab/backend-domain-resource": "workspace:*"
+  },
+  "nx": {
+    "name": "backend-application-resource",
+    "projectType": "library",
+    "sourceRoot": "libs/backend/application/resource/src",
+    "tags": [
+      "projectName:backend-application-resource",
+      "projectType:library",
+      "type:concrete",
+      "scope:backend",
+      "layer:application"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
   }
 }

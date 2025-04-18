@@ -12,5 +12,22 @@
     "@codelab/shared-infra-gqlgen": "workspace:*",
     "@codelab/shared-domain-orm": "workspace:*",
     "@codelab/shared-domain-module-prop": "workspace:*"
+  },
+  "nx": {
+    "name": "shared-domain-module-action",
+    "projectType": "library",
+    "sourceRoot": "libs/shared/domain/module/action/src",
+    "tags": [
+      "projectName:shared-domain-module-action",
+      "projectType:library",
+      "type:concrete",
+      "scope:shared"
+    ],
+    "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
   }
 }

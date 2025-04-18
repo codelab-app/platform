@@ -9,5 +9,22 @@
   },
   "devDependencies": {
     "@codelab/shared-abstract-core": "workspace:*"
+  },
+  "nx": {
+    "name": "shared-config-builder",
+    "projectType": "library",
+    "sourceRoot": "libs/shared/config/builder/src",
+    "tags": [
+      "projectName:shared-config-builder",
+      "projectType:library",
+      "type:concrete",
+      "scope:shared"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
   }
 }

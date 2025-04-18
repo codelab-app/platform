@@ -29,5 +29,23 @@
     "@codelab/shared-infra-gqlgen": "workspace:*",
     "@codelab/shared-domain-module-user": "workspace:*",
     "@codelab/frontend-domain-preference": "workspace:*"
+  },
+  "nx": {
+    "name": "frontend-domain-user",
+    "projectType": "library",
+    "sourceRoot": "libs/frontend/domain/user/src",
+    "tags": [
+      "projectName:frontend-domain-user",
+      "projectType:library",
+      "type:concrete",
+      "scope:frontend",
+      "layer:domain"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
   }
 }

@@ -16,5 +16,33 @@
     "@codelab/backend-infra-core": "workspace:*",
     "@codelab/shared-domain-module-component": "workspace:*",
     "@codelab/backend-infra-adapter-neo4j-driver": "workspace:*"
+  },
+  "nx": {
+    "name": "backend-domain-component",
+    "projectType": "library",
+    "sourceRoot": "libs/backend/domain/component/src",
+    "tags": [
+      "projectName:backend-domain-component",
+      "projectType:library",
+      "type:concrete",
+      "scope:backend",
+      "layer:domain"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      },
+      "test": {
+        "executor": "@nx/jest:jest",
+        "outputs": [
+          "{workspaceRoot}/coverage/{projectRoot}"
+        ],
+        "options": {
+          "jestConfig": "libs/backend/domain/component/jest.config.ts",
+          "runInBand": true
+        }
+      }
+    }
   }
 }

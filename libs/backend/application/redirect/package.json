@@ -17,5 +17,36 @@
     "@codelab/shared-domain-module-resource": "workspace:*",
     "@codelab/shared-infra-eval": "workspace:*",
     "@codelab/backend-test-setup": "workspace:*"
+  },
+  "nx": {
+    "name": "backend-application-redirect",
+    "projectType": "library",
+    "sourceRoot": "libs/backend/application/redirect/src",
+    "tags": [
+      "projectName:backend-application-redirect",
+      "projectType:library",
+      "type:concrete",
+      "scope:backend",
+      "layer:application"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint",
+        "outputs": [
+          "{options.outputFile}"
+        ]
+      },
+      "test": {
+        "executor": "@nx/jest:jest",
+        "options": {
+          "jestConfig": "libs/backend/application/redirect/jest.config.ts",
+          "runInBand": true
+        },
+        "outputs": [
+          "{workspaceRoot}/coverage/{projectRoot}"
+        ]
+      }
+    }
   }
 }

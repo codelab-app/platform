@@ -7,5 +7,29 @@
       "types": "./src/index.ts"
     }
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "nx": {
+    "name": "shared-infra-sentry",
+    "projectType": "library",
+    "sourceRoot": "libs/shared/infra/sentry/src",
+    "tags": [
+      "projectName:shared-infra-sentry",
+      "projectType:library",
+      "type:concrete",
+      "layer:infra",
+      "scope:shared"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "test": {
+        "executor": "@nx/jest:jest",
+        "outputs": [
+          "{workspaceRoot}/coverage/{projectRoot}"
+        ],
+        "options": {
+          "jestConfig": "libs/shared/infra/sentry/jest.config.ts"
+        }
+      }
+    }
+  }
 }

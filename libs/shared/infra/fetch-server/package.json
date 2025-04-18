@@ -12,5 +12,18 @@
     "@codelab/shared-config-env": "workspace:*",
     "@codelab/shared-infra-logging": "workspace:*",
     "@codelab/shared-infra-auth0": "workspace:*"
+  },
+  "nx": {
+    "name": "shared-infra-fetch-server",
+    "projectType": "library",
+    "sourceRoot": "libs/shared/infra/fetch-server/src",
+    "tags": [
+      "projectName:shared-infra-fetch-server",
+      "projectType:library",
+      "type:concrete",
+      "layer:infra",
+      "scope:shared"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json"
   }
 }

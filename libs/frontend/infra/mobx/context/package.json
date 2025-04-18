@@ -10,5 +10,23 @@
   "devDependencies": {
     "@codelab/frontend-abstract-application": "workspace:*",
     "@codelab/frontend-abstract-domain": "workspace:*"
+  },
+  "nx": {
+    "name": "frontend-infra-mobx-context",
+    "projectType": "library",
+    "sourceRoot": "libs/frontend/infra/mobx/context/src",
+    "tags": [
+      "projectName:frontend-infra-mobx-context",
+      "projectType:library",
+      "type:concrete",
+      "layer:infra",
+      "scope:frontend"
+    ],
+    "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
   }
 }

@@ -34,5 +34,33 @@
     "@codelab/backend-domain-prop": "workspace:*",
     "@codelab/backend-infra-core": "workspace:*",
     "@codelab/backend-test-utils": "workspace:*"
+  },
+  "nx": {
+    "name": "backend-infra-adapter-neo4j-schema",
+    "projectType": "library",
+    "sourceRoot": "libs/backend/infra/adapter/neo4j-schema/src",
+    "tags": [
+      "projectName:backend-infra-adapter-neo4j-schema",
+      "projectType:library",
+      "type:concrete",
+      "layer:infra",
+      "scope:backend"
+    ],
+    "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      },
+      "test": {
+        "executor": "@nx/jest:jest",
+        "outputs": [
+          "{workspaceRoot}/coverage/{projectRoot}"
+        ],
+        "options": {
+          "jestConfig": "libs/backend/infra/adapter/neo4j-schema/jest.config.ts",
+          "runInBand": true
+        }
+      }
+    }
   }
 }

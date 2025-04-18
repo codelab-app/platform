@@ -21,5 +21,33 @@
     "@codelab/shared-domain-module-field": "workspace:*",
     "@codelab/shared-infra-typebox": "workspace:*",
     "@codelab/backend-domain-shared-modules": "workspace:*"
+  },
+  "nx": {
+    "name": "backend-domain-type",
+    "projectType": "library",
+    "sourceRoot": "libs/backend/domain/type/src",
+    "tags": [
+      "projectName:backend-domain-type",
+      "projectType:library",
+      "type:concrete",
+      "scope:backend",
+      "layer:domain"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      },
+      "test": {
+        "executor": "@nx/jest:jest",
+        "outputs": [
+          "{workspaceRoot}/coverage/{projectRoot}"
+        ],
+        "options": {
+          "jestConfig": "libs/backend/domain/type/jest.config.ts",
+          "runInBand": true
+        }
+      }
+    }
   }
 }

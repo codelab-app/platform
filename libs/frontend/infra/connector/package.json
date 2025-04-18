@@ -13,5 +13,18 @@
     "@codelab/frontend-shared-utils": "workspace:*",
     "@codelab/shared-abstract-core": "workspace:*",
     "@codelab/frontend-presentation-view": "workspace:*"
+  },
+  "nx": {
+    "name": "frontend-infra-connector",
+    "projectType": "library",
+    "sourceRoot": "libs/frontend/infra/connector/src",
+    "tags": [
+      "projectName:frontend-infra-connector",
+      "projectType:library",
+      "type:concrete",
+      "layer:infra",
+      "scope:frontend"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json"
   }
 }

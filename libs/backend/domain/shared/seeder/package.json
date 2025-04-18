@@ -7,5 +7,23 @@
       "types": "./src/index.ts"
     }
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "nx": {
+    "name": "backend-domain-shared-seeder",
+    "projectType": "library",
+    "sourceRoot": "libs/backend/domain/shared/seeder/src",
+    "tags": [
+      "projectName:backend-domain-shared-seeder",
+      "projectType:library",
+      "type:concrete",
+      "scope:backend",
+      "layer:domain"
+    ],
+    "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
+  }
 }

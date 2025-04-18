@@ -48,5 +48,52 @@
     "@codelab/frontend-domain-prop": "workspace:*",
     "@codelab/shared-utils": "workspace:*",
     "@codelab/frontend-domain-shared": "workspace:*"
+  },
+  "nx": {
+    "name": "frontend-domain-element",
+    "projectType": "library",
+    "sourceRoot": "libs/frontend/domain/element/src",
+    "tags": [
+      "projectName:frontend-domain-element",
+      "projectType:library",
+      "type:concrete",
+      "scope:frontend",
+      "layer:domain"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      },
+      "test": {
+        "configurations": {
+          "dev": {
+            "reporters": [
+              "default"
+            ]
+          },
+          "test": {
+            "reporters": [
+              "default"
+            ]
+          }
+        },
+        "defaultConfiguration": "dev",
+        "executor": "@nx/jest:jest",
+        "options": {
+          "color": true,
+          "jestConfig": "libs/frontend/domain/element/jest.config.ts",
+          "memoryLimit": 8192,
+          "parallel": 3,
+          "runInBand": true,
+          "testPathPattern": [
+            "[^i].spec.ts"
+          ]
+        },
+        "outputs": [
+          "{workspaceRoot}/coverage/libs/frontend/domain/element"
+        ]
+      }
+    }
   }
 }

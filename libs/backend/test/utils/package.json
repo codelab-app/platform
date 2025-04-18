@@ -13,5 +13,23 @@
     "@codelab/backend-infra-adapter-neo4j-driver": "workspace:*",
     "@codelab/shared-data-test": "workspace:*",
     "@codelab/backend-infra-core": "workspace:*"
+  },
+  "nx": {
+    "name": "backend-test-utils",
+    "projectType": "library",
+    "sourceRoot": "libs/backend/test/utils/src",
+    "tags": [
+      "projectName:backend-test-utils",
+      "projectType:library",
+      "type:concrete",
+      "type:test",
+      "scope:backend"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
   }
 }

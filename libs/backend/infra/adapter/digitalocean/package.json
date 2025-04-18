@@ -7,5 +7,36 @@
       "types": "./src/index.ts"
     }
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "nx": {
+    "name": "backend-infra-adapter-digitalocean",
+    "projectType": "library",
+    "sourceRoot": "libs/backend/infra/adapter/digitalocean/src",
+    "tags": [
+      "projectName:backend-infra-adapter-digitalocean",
+      "projectType:library",
+      "type:concrete",
+      "layer:infra",
+      "scope:backend"
+    ],
+    "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint",
+        "outputs": [
+          "{options.outputFile}"
+        ]
+      },
+      "test": {
+        "executor": "@nx/jest:jest",
+        "outputs": [
+          "{workspaceRoot}/coverage/{projectRoot}"
+        ],
+        "options": {
+          "jestConfig": "libs/backend/infra/adapter/digitalocean/jest.config.ts",
+          "runInBand": true
+        }
+      }
+    }
+  }
 }

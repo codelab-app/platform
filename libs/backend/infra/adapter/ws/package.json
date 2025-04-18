@@ -10,5 +10,29 @@
   "devDependencies": {
     "@codelab/backend-infra-adapter-logger": "workspace:*",
     "@codelab/shared-abstract-infra": "workspace:*"
+  },
+  "nx": {
+    "name": "backend-infra-adapter-ws",
+    "projectType": "library",
+    "sourceRoot": "libs/backend/infra/adapter/ws/src",
+    "tags": [
+      "projectName:backend-infra-adapter-ws",
+      "projectType:library",
+      "type:concrete",
+      "layer:infra",
+      "scope:backend"
+    ],
+    "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "test": {
+        "executor": "@nx/jest:jest",
+        "outputs": [
+          "{workspaceRoot}/coverage/{projectRoot}"
+        ],
+        "options": {
+          "jestConfig": "libs/backend/infra/adapter/ws/jest.config.ts"
+        }
+      }
+    }
   }
 }

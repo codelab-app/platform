@@ -10,6 +10,7 @@ const path_1 = require("path");
  * @param projectConfig - The configuration of the project to migrate.
  */
 const migrateToInferred = async (tree, projectConfig) => {
+    console.log('Migrating to inferred configuration!!!');
     // Ensure project name exists before proceeding
     if (!projectConfig.name) {
         console.warn(`Skipping migration for project with missing name at root: ${projectConfig.root}`);
@@ -21,6 +22,7 @@ const migrateToInferred = async (tree, projectConfig) => {
         return;
     }
     const packageJson = (0, devkit_1.readJson)(tree, packageJsonPath);
+    console.log('packageJson', packageJson);
     packageJson.nx = {
         name: projectConfig.name,
         projectType: projectConfig.projectType,
@@ -37,14 +39,6 @@ const migrateToInferred = async (tree, projectConfig) => {
     else {
         console.warn(`Could not find project.json to delete for ${projectConfig.name} at ${projectJsonPath}`);
     }
-    // Optional removal comments are no longer relevant as project.json is deleted
-    // // Optional: Remove these properties from project.json if desired,
-    // // although Nx inference might make this unnecessary depending on plugin configuration.
-    // // delete projectConfig.name; // Name might still be needed in project.json depending on setup
-    // // delete projectConfig.projectType;
-    // // delete projectConfig.sourceRoot;
-    // // delete projectConfig.tags;
-    // // updateProjectConfiguration(tree, projectConfig.name!, projectConfig); // Be cautious if removing name
     console.log(`Migrated nx configuration to package.json for ${projectConfig.name}`);
 };
 exports.migrateToInferred = migrateToInferred;

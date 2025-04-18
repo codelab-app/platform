@@ -10,5 +10,24 @@
   "devDependencies": {
     "@codelab/frontend-abstract-types": "workspace:*",
     "@codelab/shared-utils": "workspace:*"
+  },
+  "nx": {
+    "name": "frontend-application-shared-data",
+    "projectType": "library",
+    "sourceRoot": "libs/frontend/application/shared/data/src",
+    "tags": [
+      "projectName:frontend-application-shared-data",
+      "type:data",
+      "projectType:library",
+      "type:concrete",
+      "scope:frontend",
+      "layer:application"
+    ],
+    "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
   }
 }

@@ -38,5 +38,23 @@
     "@codelab/frontend-shared-utils": "workspace:*",
     "@codelab/frontend-domain-tag": "workspace:*",
     "@codelab/frontend-domain-shared": "workspace:*"
+  },
+  "nx": {
+    "name": "frontend-domain-atom",
+    "projectType": "library",
+    "sourceRoot": "libs/frontend/domain/atom/src",
+    "tags": [
+      "projectName:frontend-domain-atom",
+      "projectType:library",
+      "type:concrete",
+      "scope:frontend",
+      "layer:domain"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
   }
 }

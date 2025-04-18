@@ -90,5 +90,23 @@
     "@codelab/frontend-application-user": "workspace:*",
     "@codelab/frontend-abstract-application": "workspace:*",
     "@codelab/frontend-shared-utils": "workspace:*"
+  },
+  "nx": {
+    "name": "frontend-presentation-view",
+    "projectType": "library",
+    "sourceRoot": "libs/frontend/presentation/view/src",
+    "tags": [
+      "projectName:frontend-presentation-view",
+      "layer:presentation",
+      "projectType:library",
+      "type:concrete",
+      "scope:frontend"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
   }
 }

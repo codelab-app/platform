@@ -9,5 +9,23 @@
   },
   "devDependencies": {
     "@codelab/shared-config-env": "workspace:*"
+  },
+  "nx": {
+    "name": "shared-infra-gql-client",
+    "projectType": "library",
+    "sourceRoot": "libs/shared/infra/gql-client/src",
+    "tags": [
+      "projectName:shared-infra-gql-client",
+      "projectType:library",
+      "type:concrete",
+      "layer:infra",
+      "scope:shared"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
   }
 }

@@ -10,5 +10,22 @@
   "devDependencies": {
     "@codelab/shared-abstract-core": "workspace:*",
     "@codelab/shared-infra-gqlgen": "workspace:*"
+  },
+  "nx": {
+    "name": "backend-abstract-types",
+    "projectType": "library",
+    "sourceRoot": "libs/backend/abstract/types/src",
+    "tags": [
+      "projectName:backend-abstract-types",
+      "projectType:library",
+      "type:abstract",
+      "scope:backend"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
   }
 }

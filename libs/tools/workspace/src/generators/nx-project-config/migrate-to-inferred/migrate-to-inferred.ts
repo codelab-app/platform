@@ -2,6 +2,7 @@ import type { ProjectConfiguration, Tree } from '@nx/devkit'
 
 import { readJson, writeJson } from '@nx/devkit'
 import { join } from 'path'
+import { sortBy } from 'remeda'
 
 /**
  * Migrates project configuration specifics (name, projectType, sourceRoot, tags)
@@ -12,7 +13,9 @@ import { join } from 'path'
 export const migrateToInferred = async (
   tree: Tree,
   projectConfig: ProjectConfiguration,
-): Promise<void> => {
+) => {
+  console.log('Migrating to inferred configuration!!!')
+
   // Ensure project name exists before proceeding
   if (!projectConfig.name) {
     console.warn(
@@ -34,6 +37,8 @@ export const migrateToInferred = async (
 
   const packageJson = readJson(tree, packageJsonPath)
 
+  console.log('packageJson', packageJson)
+
   packageJson.nx = {
     name: projectConfig.name,
     projectType: projectConfig.projectType,
@@ -54,15 +59,6 @@ export const migrateToInferred = async (
       `Could not find project.json to delete for ${projectConfig.name} at ${projectJsonPath}`,
     )
   }
-
-  // Optional removal comments are no longer relevant as project.json is deleted
-  // // Optional: Remove these properties from project.json if desired,
-  // // although Nx inference might make this unnecessary depending on plugin configuration.
-  // // delete projectConfig.name; // Name might still be needed in project.json depending on setup
-  // // delete projectConfig.projectType;
-  // // delete projectConfig.sourceRoot;
-  // // delete projectConfig.tags;
-  // // updateProjectConfiguration(tree, projectConfig.name!, projectConfig); // Be cautious if removing name
 
   console.log(
     `Migrated nx configuration to package.json for ${projectConfig.name}`,

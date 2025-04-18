@@ -7,5 +7,22 @@
       "types": "./src/index.ts"
     }
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "nx": {
+    "name": "backend-abstract-core",
+    "projectType": "library",
+    "sourceRoot": "libs/backend/abstract/core/src",
+    "tags": [
+      "projectName:backend-abstract-core",
+      "projectType:library",
+      "type:abstract",
+      "scope:backend"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
+  }
 }

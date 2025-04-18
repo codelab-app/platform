@@ -10,5 +10,23 @@
   "devDependencies": {
     "@codelab/shared-abstract-core": "workspace:*",
     "@codelab/shared-domain-module-preference": "workspace:*"
+  },
+  "nx": {
+    "name": "frontend-test-data",
+    "projectType": "library",
+    "sourceRoot": "libs/frontend/test/data/src",
+    "tags": [
+      "projectName:frontend-test-data",
+      "projectType:library",
+      "type:concrete",
+      "type:test",
+      "scope:frontend"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
   }
 }

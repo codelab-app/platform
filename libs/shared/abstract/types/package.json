@@ -7,5 +7,22 @@
       "types": "./src/index.ts"
     }
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "nx": {
+    "name": "shared-abstract-types",
+    "projectType": "library",
+    "sourceRoot": "libs/shared/abstract/types/src",
+    "tags": [
+      "projectName:shared-abstract-types",
+      "projectType:library",
+      "type:abstract",
+      "scope:shared"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
+  }
 }

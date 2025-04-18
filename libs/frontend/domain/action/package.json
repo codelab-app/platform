@@ -30,5 +30,23 @@
     "@codelab/shared-abstract-types": "workspace:*",
     "@codelab/frontend-domain-prop": "workspace:*",
     "@codelab/frontend-domain-shared": "workspace:*"
+  },
+  "nx": {
+    "name": "frontend-domain-action",
+    "projectType": "library",
+    "sourceRoot": "libs/frontend/domain/action/src",
+    "tags": [
+      "projectName:frontend-domain-action",
+      "projectType:library",
+      "type:concrete",
+      "scope:frontend",
+      "layer:domain"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
   }
 }

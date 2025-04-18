@@ -11,5 +11,22 @@
     "@codelab/shared-abstract-core": "workspace:*",
     "@codelab/shared-config-env": "workspace:*",
     "@codelab/shared-domain-module-preference": "workspace:*"
+  },
+  "nx": {
+    "name": "shared-data-test",
+    "projectType": "library",
+    "sourceRoot": "libs/shared/data/test/src",
+    "tags": [
+      "projectName:shared-data-test",
+      "projectType:library",
+      "type:concrete",
+      "scope:shared"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
   }
 }

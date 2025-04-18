@@ -13,5 +13,33 @@
     "@codelab/frontend-infra-mobx-context": "workspace:*",
     "@codelab/frontend-shared-utils": "workspace:*",
     "@codelab/shared-abstract-types": "workspace:*"
+  },
+  "nx": {
+    "name": "frontend-infra-context",
+    "projectType": "library",
+    "sourceRoot": "libs/frontend/infra/context/src",
+    "tags": [
+      "projectName:frontend-infra-context",
+      "projectType:library",
+      "type:concrete",
+      "layer:infra",
+      "scope:frontend"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "test": {
+        "executor": "@nx/jest:jest",
+        "outputs": [
+          "{workspaceRoot}/coverage/{projectRoot}"
+        ],
+        "options": {
+          "jestConfig": "libs/frontend/infra/context/jest.config.ts",
+          "runInBand": true
+        }
+      },
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
   }
 }

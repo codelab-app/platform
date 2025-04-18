@@ -15,5 +15,33 @@
     "@codelab/backend-infra-adapter-logger": "workspace:*",
     "@codelab/backend-infra-core": "workspace:*",
     "@codelab/backend-domain-shared-modules": "workspace:*"
+  },
+  "nx": {
+    "name": "backend-domain-store",
+    "projectType": "library",
+    "sourceRoot": "libs/backend/domain/store/src",
+    "tags": [
+      "projectName:backend-domain-store",
+      "projectType:library",
+      "type:concrete",
+      "scope:backend",
+      "layer:domain"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      },
+      "test": {
+        "executor": "@nx/jest:jest",
+        "outputs": [
+          "{workspaceRoot}/coverage/{projectRoot}"
+        ],
+        "options": {
+          "jestConfig": "libs/backend/domain/store/jest.config.ts",
+          "runInBand": true
+        }
+      }
+    }
   }
 }

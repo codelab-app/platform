@@ -36,5 +36,37 @@
     "@codelab/shared-domain-module-auth-guard": "workspace:*",
     "@codelab/frontend-domain-prop": "workspace:*",
     "@codelab/frontend-domain-shared": "workspace:*"
+  },
+  "nx": {
+    "name": "frontend-domain-auth-guard",
+    "projectType": "library",
+    "sourceRoot": "libs/frontend/domain/auth-guard/src",
+    "tags": [
+      "projectName:frontend-domain-auth-guard",
+      "projectType:library",
+      "type:concrete",
+      "scope:frontend",
+      "layer:domain"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint",
+        "outputs": [
+          "{options.outputFile}"
+        ]
+      },
+      "test": {
+        "executor": "@nx/jest:jest",
+        "options": {
+          "jestConfig": "libs/frontend/domain/auth-guard/jest.config.ts",
+          "passWithNoTests": true,
+          "runInBand": true
+        },
+        "outputs": [
+          "{workspaceRoot}/coverage/libs/frontend/domain/auth-guard"
+        ]
+      }
+    }
   }
 }

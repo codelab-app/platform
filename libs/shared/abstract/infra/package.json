@@ -7,5 +7,17 @@
       "types": "./src/index.ts"
     }
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "nx": {
+    "name": "shared-abstract-infra",
+    "projectType": "library",
+    "sourceRoot": "libs/shared/abstract/infra/src",
+    "tags": [
+      "projectName:shared-abstract-infra",
+      "projectType:library",
+      "type:abstract",
+      "scope:shared"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json"
+  }
 }

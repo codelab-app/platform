@@ -13,5 +13,33 @@
     "@codelab/backend-infra-adapter-request-context": "workspace:*",
     "@codelab/backend-infra-adapter-neo4j-driver": "workspace:*",
     "@codelab/backend-infra-adapter-neo4j-schema": "workspace:*"
+  },
+  "nx": {
+    "name": "backend-infra-adapter-graphql",
+    "projectType": "library",
+    "sourceRoot": "libs/backend/infra/adapter/graphql/src",
+    "tags": [
+      "projectName:backend-infra-adapter-graphql",
+      "projectType:library",
+      "type:concrete",
+      "layer:infra",
+      "scope:backend"
+    ],
+    "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      },
+      "test": {
+        "executor": "@nx/jest:jest",
+        "outputs": [
+          "{workspaceRoot}/coverage/{projectRoot}"
+        ],
+        "options": {
+          "jestConfig": "libs/backend/infra/adapter/graphql/jest.config.ts",
+          "runInBand": true
+        }
+      }
+    }
   }
 }

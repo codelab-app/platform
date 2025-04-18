@@ -10,5 +10,22 @@
   "devDependencies": {
     "@codelab/shared-abstract-core": "workspace:*",
     "@codelab/shared-abstract-types": "workspace:*"
+  },
+  "nx": {
+    "name": "shared-domain-orm",
+    "projectType": "library",
+    "sourceRoot": "libs/shared/domain/orm/src",
+    "tags": [
+      "projectName:shared-domain-orm",
+      "projectType:library",
+      "type:concrete",
+      "scope:shared"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
   }
 }

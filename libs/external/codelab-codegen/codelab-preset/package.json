@@ -25,5 +25,44 @@
       "import": "./src/index.ts",
       "types": "./src/index.ts"
     }
+  },
+  "nx": {
+    "name": "codelab-codegen-codelab-preset",
+    "projectType": "library",
+    "sourceRoot": "libs/external/codelab-codegen/codelab-preset/src",
+    "tags": [
+      "projectName:codelab-codegen-codelab-preset",
+      "projectType:library",
+      "type:concrete"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "release": {
+      "version": {
+        "generatorOptions": {
+          "packageRoot": "dist/{projectRoot}",
+          "currentVersionResolver": "git-tag"
+        }
+      }
+    },
+    "targets": {
+      "build": {
+        "executor": "@nx/js:tsc",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "options": {
+          "outputPath": "dist/libs/external/codelab-codegen/codelab-preset",
+          "tsConfig": "libs/external/codelab-codegen/codelab-preset/tsconfig.lib.json",
+          "packageJson": "libs/external/codelab-codegen/codelab-preset/package.json",
+          "main": "libs/external/codelab-codegen/codelab-preset/src/index.ts",
+          "assets": [
+            "libs/external/codelab-codegen/codelab-preset/*.md"
+          ]
+        }
+      },
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
   }
 }

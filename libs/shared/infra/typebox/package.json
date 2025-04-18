@@ -10,5 +10,32 @@
   "devDependencies": {
     "@codelab/shared-abstract-types": "workspace:*",
     "@codelab/shared-abstract-infra": "workspace:*"
+  },
+  "nx": {
+    "name": "shared-infra-typebox",
+    "projectType": "library",
+    "sourceRoot": "libs/shared/infra/typebox/src",
+    "tags": [
+      "projectName:shared-infra-typebox",
+      "projectType:library",
+      "type:abstract",
+      "layer:infra",
+      "scope:shared"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      },
+      "test": {
+        "executor": "@nx/jest:jest",
+        "outputs": [
+          "{workspaceRoot}/coverage/{projectRoot}"
+        ],
+        "options": {
+          "jestConfig": "libs/shared/infra/typebox/jest.config.ts"
+        }
+      }
+    }
   }
 }

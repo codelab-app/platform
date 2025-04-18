@@ -9,5 +9,22 @@
   },
   "devDependencies": {
     "@codelab/shared-abstract-types": "workspace:*"
+  },
+  "nx": {
+    "name": "shared-domain-errors",
+    "projectType": "library",
+    "sourceRoot": "libs/shared/domain/errors/src",
+    "tags": [
+      "projectName:shared-domain-errors",
+      "projectType:library",
+      "type:concrete",
+      "scope:shared"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
   }
 }

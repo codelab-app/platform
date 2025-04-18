@@ -9,5 +9,23 @@
   },
   "devDependencies": {
     "@codelab/shared-abstract-types": "workspace:*"
+  },
+  "nx": {
+    "name": "shared-infra-cache",
+    "projectType": "library",
+    "sourceRoot": "libs/shared/infra/cache/src",
+    "tags": [
+      "projectName:shared-infra-cache",
+      "projectType:library",
+      "type:concrete",
+      "layer:infra",
+      "scope:shared"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
   }
 }

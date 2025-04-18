@@ -9,5 +9,23 @@
   },
   "devDependencies": {
     "@codelab/shared-abstract-core": "workspace:*"
+  },
+  "nx": {
+    "name": "backend-data-seed",
+    "projectType": "library",
+    "sourceRoot": "libs/backend/data/seed/src",
+    "tags": [
+      "projectName:backend-data-seed",
+      "type:data",
+      "projectType:library",
+      "type:concrete",
+      "scope:backend"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
   }
 }

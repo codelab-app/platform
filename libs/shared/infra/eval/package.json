@@ -11,5 +11,29 @@
     "@codelab/shared-abstract-core": "workspace:*",
     "@codelab/shared-abstract-types": "workspace:*",
     "@codelab/shared-utils": "workspace:*"
+  },
+  "nx": {
+    "name": "shared-infra-eval",
+    "projectType": "library",
+    "sourceRoot": "libs/shared/infra/eval/src",
+    "tags": [
+      "projectName:shared-infra-eval",
+      "projectType:library",
+      "type:concrete",
+      "layer:infra",
+      "scope:shared"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "test": {
+        "executor": "@nx/jest:jest",
+        "outputs": [
+          "{workspaceRoot}/coverage/{projectRoot}"
+        ],
+        "options": {
+          "jestConfig": "libs/shared/infra/eval/jest.config.ts"
+        }
+      }
+    }
   }
 }

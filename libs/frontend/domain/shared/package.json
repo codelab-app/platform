@@ -12,5 +12,33 @@
     "@codelab/shared-infra-gqlgen": "workspace:*",
     "@codelab/frontend-abstract-types": "workspace:*",
     "@codelab/frontend-abstract-domain": "workspace:*"
+  },
+  "nx": {
+    "name": "frontend-domain-shared",
+    "projectType": "library",
+    "sourceRoot": "libs/frontend/domain/shared/src",
+    "tags": [
+      "projectName:frontend-domain-shared",
+      "projectType:library",
+      "type:concrete",
+      "scope:frontend",
+      "layer:domain"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      },
+      "test": {
+        "executor": "@nx/jest:jest",
+        "outputs": [
+          "{workspaceRoot}/coverage/libs/frontend/domain/shared"
+        ],
+        "options": {
+          "jestConfig": "libs/frontend/domain/shared/jest.config.ts",
+          "runInBand": true
+        }
+      }
+    }
   }
 }

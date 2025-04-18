@@ -10,5 +10,23 @@
   "devDependencies": {
     "@codelab/backend-infra-adapter-logger": "workspace:*",
     "@codelab/backend-infra-core": "workspace:*"
+  },
+  "nx": {
+    "name": "backend-infra-adapter-neo4j-driver",
+    "projectType": "library",
+    "sourceRoot": "libs/backend/infra/adapter/neo4j-driver/src",
+    "tags": [
+      "projectName:backend-infra-adapter-neo4j-driver",
+      "projectType:library",
+      "type:concrete",
+      "layer:infra",
+      "scope:backend"
+    ],
+    "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
   }
 }

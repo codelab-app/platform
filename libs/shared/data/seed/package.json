@@ -9,5 +9,32 @@
   },
   "devDependencies": {
     "@codelab/shared-abstract-core": "workspace:*"
+  },
+  "nx": {
+    "name": "shared-data-seed",
+    "projectType": "library",
+    "sourceRoot": "libs/shared/data/seed/src",
+    "tags": [
+      "projectName:shared-data-seed",
+      "projectType:library",
+      "type:concrete",
+      "scope:shared"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      },
+      "test": {
+        "executor": "@nx/jest:jest",
+        "options": {
+          "jestConfig": "libs/shared/data/seed/jest.config.ts",
+          "runInBand": true
+        },
+        "outputs": [
+          "{workspaceRoot}/coverage/{projectRoot}"
+        ]
+      }
+    }
   }
 }

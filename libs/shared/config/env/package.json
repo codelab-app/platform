@@ -7,5 +7,22 @@
       "types": "./src/index.ts"
     }
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "nx": {
+    "name": "shared-config-env",
+    "projectType": "library",
+    "sourceRoot": "libs/shared/config/env/src",
+    "tags": [
+      "projectName:shared-config-env",
+      "projectType:library",
+      "type:concrete",
+      "scope:shared"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
+  }
 }

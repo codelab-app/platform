@@ -11,5 +11,22 @@
     "@codelab/shared-infra-typebox": "workspace:*",
     "@codelab/shared-infra-gqlgen": "workspace:*",
     "@codelab/shared-abstract-types": "workspace:*"
+  },
+  "nx": {
+    "name": "shared-abstract-core",
+    "projectType": "library",
+    "sourceRoot": "libs/shared/abstract/core/src",
+    "tags": [
+      "projectName:shared-abstract-core",
+      "projectType:library",
+      "type:abstract",
+      "scope:shared"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
   }
 }

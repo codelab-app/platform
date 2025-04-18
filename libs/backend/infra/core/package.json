@@ -14,5 +14,33 @@
     "@codelab/shared-domain-errors": "workspace:*",
     "@codelab/shared-infra-typebox": "workspace:*",
     "@codelab/shared-abstract-types": "workspace:*"
+  },
+  "nx": {
+    "name": "backend-infra-core",
+    "projectType": "library",
+    "sourceRoot": "libs/backend/infra/core/src",
+    "tags": [
+      "projectName:backend-infra-core",
+      "projectType:library",
+      "type:concrete",
+      "layer:infra",
+      "scope:backend"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      },
+      "test": {
+        "executor": "@nx/jest:jest",
+        "outputs": [
+          "{workspaceRoot}/coverage/{projectRoot}"
+        ],
+        "options": {
+          "jestConfig": "libs/backend/infra/core/jest.config.ts",
+          "runInBand": true
+        }
+      }
+    }
   }
 }

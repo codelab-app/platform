@@ -36,5 +36,23 @@
     "@codelab/shared-domain-module-store": "workspace:*",
     "@codelab/frontend-domain-shared": "workspace:*",
     "@codelab/shared-infra-gqlgen": "workspace:*"
+  },
+  "nx": {
+    "name": "frontend-domain-store",
+    "projectType": "library",
+    "sourceRoot": "libs/frontend/domain/store/src",
+    "tags": [
+      "projectName:frontend-domain-store",
+      "projectType:library",
+      "type:concrete",
+      "scope:frontend",
+      "layer:domain"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
   }
 }

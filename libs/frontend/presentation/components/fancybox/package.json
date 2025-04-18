@@ -9,5 +9,23 @@
   },
   "devDependencies": {
     "@codelab/shared-abstract-types": "workspace:*"
+  },
+  "nx": {
+    "name": "frontend-presentation-components-fancybox",
+    "projectType": "library",
+    "sourceRoot": "libs/frontend/presentation/components/fancybox/src",
+    "tags": [
+      "projectName:frontend-presentation-components-fancybox",
+      "layer:presentation",
+      "projectType:library",
+      "type:concrete",
+      "scope:frontend"
+    ],
+    "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
   }
 }

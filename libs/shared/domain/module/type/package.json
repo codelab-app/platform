@@ -16,5 +16,32 @@
     "@codelab/shared-infra-gql-client": "workspace:*",
     "@codelab/shared-utils": "workspace:*",
     "@codelab/shared-domain-orm": "workspace:*"
+  },
+  "nx": {
+    "name": "shared-domain-module-type",
+    "projectType": "library",
+    "sourceRoot": "libs/shared/domain/module/type/src",
+    "tags": [
+      "projectName:shared-domain-module-type",
+      "projectType:library",
+      "type:concrete",
+      "scope:shared"
+    ],
+    "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      },
+      "test": {
+        "executor": "@nx/jest:jest",
+        "outputs": [
+          "{workspaceRoot}/coverage/{projectRoot}"
+        ],
+        "options": {
+          "jestConfig": "libs/shared/domain/module/type/jest.config.ts",
+          "runInBand": true
+        }
+      }
+    }
   }
 }

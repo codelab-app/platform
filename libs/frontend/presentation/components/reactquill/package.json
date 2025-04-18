@@ -7,5 +7,23 @@
       "types": "./src/index.ts"
     }
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "nx": {
+    "name": "frontend-presentation-components-reactquill",
+    "projectType": "library",
+    "sourceRoot": "libs/frontend/presentation/components/reactquill/src",
+    "tags": [
+      "projectName:frontend-presentation-components-reactquill",
+      "layer:presentation",
+      "projectType:library",
+      "type:concrete",
+      "scope:frontend"
+    ],
+    "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
+  }
 }

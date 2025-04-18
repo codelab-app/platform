@@ -32,5 +32,33 @@
     "@codelab/backend-abstract-core": "workspace:*",
     "@codelab/backend-shared-util": "workspace:*",
     "@codelab/shared-utils": "workspace:*"
+  },
+  "nx": {
+    "name": "backend-application-admin",
+    "projectType": "library",
+    "sourceRoot": "libs/backend/application/admin/src",
+    "tags": [
+      "projectName:backend-application-admin",
+      "projectType:library",
+      "type:concrete",
+      "scope:backend",
+      "layer:application"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      },
+      "test": {
+        "executor": "@nx/jest:jest",
+        "outputs": [
+          "{workspaceRoot}/coverage/{projectRoot}"
+        ],
+        "options": {
+          "jestConfig": "libs/backend/application/admin/jest.config.ts",
+          "runInBand": true
+        }
+      }
+    }
   }
 }

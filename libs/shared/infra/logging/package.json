@@ -15,5 +15,23 @@
   "devDependencies": {
     "@codelab/shared-abstract-types": "workspace:*",
     "@codelab/shared-utils": "workspace:*"
+  },
+  "nx": {
+    "name": "shared-infra-logging",
+    "projectType": "library",
+    "sourceRoot": "libs/shared/infra/logging/src",
+    "tags": [
+      "projectName:shared-infra-logging",
+      "projectType:library",
+      "type:concrete",
+      "layer:infra",
+      "scope:shared"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      }
+    }
   }
 }

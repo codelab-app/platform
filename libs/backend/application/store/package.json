@@ -18,5 +18,33 @@
     "@codelab/shared-abstract-core": "workspace:*",
     "@codelab/shared-infra-gqlgen": "workspace:*",
     "@codelab/shared-infra-typebox": "workspace:*"
+  },
+  "nx": {
+    "name": "backend-application-store",
+    "projectType": "library",
+    "sourceRoot": "libs/backend/application/store/src",
+    "tags": [
+      "projectName:backend-application-store",
+      "projectType:library",
+      "type:concrete",
+      "scope:backend",
+      "layer:application"
+    ],
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      },
+      "test": {
+        "executor": "@nx/jest:jest",
+        "outputs": [
+          "{workspaceRoot}/coverage/{projectRoot}"
+        ],
+        "options": {
+          "jestConfig": "libs/backend/application/store/jest.config.ts",
+          "runInBand": true
+        }
+      }
+    }
   }
 }
