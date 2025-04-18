@@ -1,5 +1,5 @@
-import type { IActionKind, IApiActionDto } from '@codelab/shared/abstract/core'
-import type { Nullish } from '@codelab/shared/abstract/types'
+import type { IActionKind, IApiActionDto } from '@codelab/shared-abstract-core'
+import type { Nullish } from '@codelab/shared-abstract-types'
 import type { Ref } from 'mobx-keystone'
 
 import type { IPropModel } from '../../prop'

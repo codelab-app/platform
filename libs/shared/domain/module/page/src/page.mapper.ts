@@ -1,12 +1,12 @@
-import type { IMapper, IPageDto } from '@codelab/shared/abstract/core'
+import type { IMapper, IPageDto } from '@codelab/shared-abstract-core'
 import type {
   PageCreateInput,
   PageDeleteInput,
   PageUpdateInput,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
-import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/orm'
-import { storeMapper } from '@codelab/shared-domain-module/store'
+import { connectNodeId, reconnectNodeId } from '@codelab/shared-domain-orm'
+import { storeMapper } from '@codelab/shared-domain-module-store'
 
 import { PageProperties } from './page.properties'
 

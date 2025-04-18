@@ -6,35 +6,40 @@
       "import": "./src/index.ts",
       "types": "./src/index.ts"
     },
-    "./components/ant-design/icon": {
-      "default": "./src/index.ts",
-      "import": "./src/index.ts",
-      "types": "./src/index.ts"
+    "./atoms": {
+      "default": "./src/atoms/index.ts",
+      "import": "./src/atoms/index.ts",
+      "types": "./src/atoms/index.ts"
     },
-    "./components/custom/grid-layout": {
-      "default": "./src/index.ts",
-      "import": "./src/index.ts",
-      "types": "./src/index.ts"
+    "./components": {
+      "default": "./src/components/index.ts",
+      "import": "./src/components/index.ts",
+      "types": "./src/components/index.ts"
     },
-    "./components/custom/codelab-script": {
-      "default": "./src/index.ts",
-      "import": "./src/index.ts",
-      "types": "./src/index.ts"
-    },
-    "./components/custom/text-list": {
-      "default": "./src/index.ts",
-      "import": "./src/index.ts",
-      "types": "./src/index.ts"
+    "./hooks": {
+      "default": "./src/hooks/index.ts",
+      "import": "./src/hooks/index.ts",
+      "types": "./src/hooks/index.ts"
     },
     "./services": {
-      "default": "./src/index.ts",
-      "import": "./src/index.ts",
-      "types": "./src/index.ts"
+      "default": "./src/services/index.ts",
+      "import": "./src/services/index.ts",
+      "types": "./src/services/index.ts"
     },
-    "./loading": {
-      "default": "./src/index.ts",
-      "import": "./src/index.ts",
-      "types": "./src/index.ts"
+    "./store": {
+      "default": "./src/store/index.ts",
+      "import": "./src/store/index.ts",
+      "types": "./src/store/index.ts"
+    },
+    "./test": {
+      "default": "./src/test/index.ts",
+      "import": "./src/test/index.ts",
+      "types": "./src/test/index.ts"
+    },
+    "./use-cases/root-renderer": {
+      "default": "./src/use-cases/root-renderer/index.ts",
+      "import": "./src/use-cases/root-renderer/index.ts",
+      "types": "./src/use-cases/root-renderer/index.ts"
     }
   },
   "devDependencies": {

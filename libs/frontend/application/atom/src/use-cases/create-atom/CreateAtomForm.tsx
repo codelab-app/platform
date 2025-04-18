@@ -1,14 +1,14 @@
 'use client'
 
-import type { ICreateAtomData } from '@codelab/frontend/abstract/domain'
+import type { ICreateAtomData } from '@codelab/frontend-abstract-domain'
 
-import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { type IFormController, UiKey } from '@codelab/frontend-abstract-types'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import {
   DisplayIfField,
   Form,
 } from '@codelab/frontend-presentation-components-form'
-import { IAtomType } from '@codelab/shared/abstract/core'
+import { IAtomType } from '@codelab/shared-abstract-core'
 import { observer } from 'mobx-react-lite'
 import { AutoField, AutoFields, SelectField, TextField } from 'uniforms-antd'
 import { v4 } from 'uuid'

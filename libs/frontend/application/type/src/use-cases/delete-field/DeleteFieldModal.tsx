@@ -1,8 +1,8 @@
 'use client'
 
-import type { IFieldModel } from '@codelab/frontend/abstract/domain'
+import type { IFieldModel } from '@codelab/frontend-abstract-domain'
 
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend-abstract-types'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import {
   emptyJsonSchema,

@@ -6,10 +6,10 @@
       "import": "./src/index.ts",
       "types": "./src/index.ts"
     },
-    "./loading": {
-      "default": "./src/index.ts",
-      "import": "./src/index.ts",
-      "types": "./src/index.ts"
+    "./schema": {
+      "default": "./src/schema/index.ts",
+      "import": "./src/schema/index.ts",
+      "types": "./src/schema/index.ts"
     }
   },
   "devDependencies": {

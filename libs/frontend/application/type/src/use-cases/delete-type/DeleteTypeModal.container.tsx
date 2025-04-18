@@ -1,6 +1,6 @@
 'use client'
 
-import { TypeConnector } from '@codelab/frontend/infra/connector'
+import { TypeConnector } from '@codelab/frontend-infra-connector'
 
 import { DeleteTypeModal } from './DeleteTypeModal'
 

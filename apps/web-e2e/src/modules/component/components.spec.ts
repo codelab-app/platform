@@ -1,4 +1,4 @@
-import { type IAppDto, IAtomType } from '@codelab/shared/abstract/core'
+import { type IAppDto, IAtomType } from '@codelab/shared-abstract-core'
 import { providerPageId } from '@codelab/shared/data/test'
 import { expect } from '@playwright/test'
 

@@ -23,7 +23,7 @@ describe('TypeboxSchemaNaming rule', () => {
       },
       {
         code: `
-          import { Typebox } from '@codelab/shared/abstract/typebox'
+          import { Typebox } from '@codelab/shared-infra-typebox'
       		const User = Typebox.Object({ name: Type.String() })
       	`,
         errors: [
@@ -47,7 +47,7 @@ describe('TypeboxSchemaNaming rule', () => {
       // },
       // {
       //   code: `
-      //     import { Typebox } from '@codelab/shared/abstract/typebox'
+      //     import { Typebox } from '@codelab/shared-infra-typebox'
       // 		const User = () => Typebox.Object({ name: Type.String() })
       // 	`,
       //   errors: [
@@ -76,14 +76,14 @@ describe('TypeboxSchemaNaming rule', () => {
       },
       {
         code: `
-          import { Typebox } from '@codelab/shared/abstract/typebox'
+          import { Typebox } from '@codelab/shared-infra-typebox'
       		const UserSchema = Typebox.Object({ name: Type.String() })
       	`,
         name: 'Typebox + Suffix + Import',
       },
       {
         code: `
-          import { Typebox } from '@codelab/shared/abstract/typebox'
+          import { Typebox } from '@codelab/shared-infra-typebox'
           import { Type } from '@sinclair/typebox'
 
           const test = () => {

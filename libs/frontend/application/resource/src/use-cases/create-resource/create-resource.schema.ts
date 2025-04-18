@@ -1,4 +1,4 @@
-import type { ICreateResourceData } from '@codelab/shared/abstract/core'
+import type { ICreateResourceData } from '@codelab/shared-abstract-core'
 import type { JSONSchemaType } from 'ajv'
 
 import { CodeMirrorField } from '@codelab/frontend-presentation-components-form'
@@ -8,8 +8,8 @@ import {
   refSchema,
   titleCaseValidation,
 } from '@codelab/frontend-presentation-components-form/schema'
-import { IResourceType } from '@codelab/shared/abstract/core'
-import { CodeMirrorLanguage } from '@codelab/shared/infra/gqlgen'
+import { IResourceType } from '@codelab/shared-abstract-core'
+import { CodeMirrorLanguage } from '@codelab/shared-infra-gqlgen'
 
 export const createResourceSchema: JSONSchemaType<ICreateResourceData> = {
   properties: {

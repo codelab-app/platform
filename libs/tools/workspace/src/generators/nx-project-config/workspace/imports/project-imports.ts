@@ -92,6 +92,8 @@ export const updateProjectImports = (
     projectConfig.sourceRoot || joinPathFragments(projectConfig.root, 'src')
 
   if (!tree.exists(sourceRoot)) {
+    console.log(`Source root ${sourceRoot} does not exist`)
+
     return
   }
 
@@ -99,6 +101,8 @@ export const updateProjectImports = (
   visitNotIgnoredFiles(tree, sourceRoot, (filePath) => {
     // Only process TypeScript/JavaScript files
     if (!/\.(ts|tsx|js|jsx)$/.test(filePath)) {
+      console.log(`File ${filePath} is not a TypeScript/JavaScript file`)
+
       return
     }
 
@@ -106,6 +110,8 @@ export const updateProjectImports = (
     const content = tree.read(filePath, 'utf-8')
 
     if (!content) {
+      console.log(`Content for ${filePath} is empty`)
+
       return
     }
 
@@ -124,12 +130,23 @@ export const updateProjectImports = (
 
         const transformedPath = transformFn(importPath)
 
+        console.log(
+          `File: ${filePath} -> Original: "${importPath}", Transformed: "${transformedPath}"`,
+        )
+
         // Replace the import path in the original match
         return match.replace(importPath, transformedPath)
       })
     }
 
-    // Only write the file if changes were made
-    tree.write(filePath, updatedContent)
+    // Log whether content changed
+    if (content !== updatedContent) {
+      console.log(`Updating ${filePath} with new import paths.`)
+      // Only write the file if changes were made
+      tree.write(filePath, updatedContent)
+    } else {
+      // Optional: Log if no changes were made
+      // console.log(`No import changes needed in ${filePath}`);
+    }
   })
 }

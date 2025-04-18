@@ -1,4 +1,4 @@
-import type { IPageModel } from '@codelab/frontend/abstract/domain'
+import type { IPageModel } from '@codelab/frontend-abstract-domain'
 import type { Ref } from 'mobx-keystone'
 
 import type { IRuntimeStoreModel } from '../runtime-store'

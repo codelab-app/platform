@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client'
-import { __AtomType } from '@codelab/shared/abstract/core'
+import { __AtomType } from '@codelab/shared-abstract-core'
 
 import { authOwnerOrAdmin } from './user.schema'
 
@@ -20,7 +20,7 @@ export const atomSchema = gql`
     icon: String
     externalJsSource: String
     externalCssSource: String
-    externalSourceType: String 
+    externalSourceType: String
     requiredParents: [Atom!]!
       @relationship(type: "REQUIRED_PARENTS", direction: OUT)
     suggestedChildren: [Atom!]!

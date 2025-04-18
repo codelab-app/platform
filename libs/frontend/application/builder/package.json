@@ -6,90 +6,55 @@
       "import": "./src/index.ts",
       "types": "./src/index.ts"
     },
-    "./collision-detection": {
-      "default": "./src/index.ts",
-      "import": "./src/index.ts",
-      "types": "./src/index.ts"
-    },
-    "./components": {
-      "default": "./src/index.ts",
-      "import": "./src/index.ts",
-      "types": "./src/index.ts"
-    },
-    "./services": {
-      "default": "./src/index.ts",
-      "import": "./src/index.ts",
-      "types": "./src/index.ts"
-    },
-    "./validation": {
-      "default": "./src/index.ts",
-      "import": "./src/index.ts",
-      "types": "./src/index.ts"
-    },
-    "./use-cases/update-component": {
-      "default": "./src/index.ts",
-      "import": "./src/index.ts",
-      "types": "./src/index.ts"
-    },
-    "./use-cases/update-component-props": {
-      "default": "./src/index.ts",
-      "import": "./src/index.ts",
-      "types": "./src/index.ts"
-    },
-    "./use-cases/delete-element": {
-      "default": "./src/index.ts",
-      "import": "./src/index.ts",
-      "types": "./src/index.ts"
-    },
-    "./use-cases/move-element": {
-      "default": "./src/index.ts",
-      "import": "./src/index.ts",
-      "types": "./src/index.ts"
-    },
-    "./use-cases/update-element": {
-      "default": "./src/index.ts",
-      "import": "./src/index.ts",
-      "types": "./src/index.ts"
-    },
-    "./use-cases/update-element-props": {
-      "default": "./src/index.ts",
-      "import": "./src/index.ts",
-      "types": "./src/index.ts"
-    },
-    "./use-cases/update-page-tab": {
-      "default": "./src/index.ts",
-      "import": "./src/index.ts",
-      "types": "./src/index.ts"
-    },
-    "./use-cases/get-actions": {
-      "default": "./src/index.ts",
-      "import": "./src/index.ts",
-      "types": "./src/index.ts"
-    },
-    "./use-cases/get-state": {
-      "default": "./src/index.ts",
-      "import": "./src/index.ts",
-      "types": "./src/index.ts"
-    },
-    "./use-cases/import-component": {
-      "default": "./src/index.ts",
-      "import": "./src/index.ts",
-      "types": "./src/index.ts"
-    },
-    "./use-cases/export-component": {
-      "default": "./src/index.ts",
-      "import": "./src/index.ts",
-      "types": "./src/index.ts"
-    },
-    "./use-cases/root-renderer": {
-      "default": "./src/index.ts",
-      "import": "./src/index.ts",
-      "types": "./src/index.ts"
+    "./dnd": {
+      "default": "./src/dnd/index.ts",
+      "import": "./src/dnd/index.ts",
+      "types": "./src/dnd/index.ts"
     },
     "./hooks": {
-      "default": "./src/index.ts",
-      "import": "./src/index.ts",
-      "types": "./src/index.ts"
+      "default": "./src/hooks/index.ts",
+      "import": "./src/hooks/index.ts",
+      "types": "./src/hooks/index.ts"
+    },
+    "./sections": {
+      "default": "./src/sections/index.ts",
+      "import": "./src/sections/index.ts",
+      "types": "./src/sections/index.ts"
+    },
+    "./services": {
+      "default": "./src/services/index.ts",
+      "import": "./src/services/index.ts",
+      "types": "./src/services/index.ts"
+    },
+    "./use-cases/base-builder": {
+      "default": "./src/use-cases/base-builder/index.ts",
+      "import": "./src/use-cases/base-builder/index.ts",
+      "types": "./src/use-cases/base-builder/index.ts"
+    },
+    "./use-cases/component-builder": {
+      "default": "./src/use-cases/component-builder/index.ts",
+      "import": "./src/use-cases/component-builder/index.ts",
+      "types": "./src/use-cases/component-builder/index.ts"
+    },
+    "./use-cases/page-builder": {
+      "default": "./src/use-cases/page-builder/index.ts",
+      "import": "./src/use-cases/page-builder/index.ts",
+      "types": "./src/use-cases/page-builder/index.ts"
+    },
+    "./use-cases/page-preview": {
+      "default": "./src/use-cases/page-preview/index.ts",
+      "import": "./src/use-cases/page-preview/index.ts",
+      "types": "./src/use-cases/page-preview/index.ts"
+    },
+    "./use-cases/resize": {
+      "default": "./src/use-cases/resize/index.ts",
+      "import": "./src/use-cases/resize/index.ts",
+      "types": "./src/use-cases/resize/index.ts"
+    },
+    "./utils": {
+      "default": "./src/utils/index.ts",
+      "import": "./src/utils/index.ts",
+      "types": "./src/utils/index.ts"
     }
   },
   "devDependencies": {

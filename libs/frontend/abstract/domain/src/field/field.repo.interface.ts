@@ -1,9 +1,9 @@
-import type { IFieldDto, IRef } from '@codelab/shared/abstract/core'
+import type { IFieldDto, IRef } from '@codelab/shared-abstract-core'
 import type {
   FieldFragment,
   FieldOptions,
   FieldWhere,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
 import type { IRepository } from '../shared'
 import type { IFieldModel } from './field.model.interface'

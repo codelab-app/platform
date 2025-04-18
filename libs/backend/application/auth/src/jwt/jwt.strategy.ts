@@ -1,12 +1,12 @@
 import type { VerifiedCallback, VerifyCallbackWithRequest } from 'passport-jwt'
 
-import { auth0Config } from '@codelab/backend/infra/adapter/auth0'
+import { auth0Config } from '@codelab/backend-infra-adapter-auth0'
 import {
   IRole,
   IUserSession,
   JWT_CLAIMS,
   JwtPayload,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import { CACHE_MANAGER } from '@nestjs/cache-manager'
 import { Inject, Injectable, Logger } from '@nestjs/common'
 import { type ConfigType } from '@nestjs/config'

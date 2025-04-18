@@ -5,7 +5,7 @@ import ImportOutlined from '@ant-design/icons/ImportOutlined'
 import {
   useErrorNotify,
   useSuccessNotify,
-} from '@codelab/frontend/infra/context'
+} from '@codelab/frontend-infra-context'
 import { useLoading } from '@codelab/frontend-application-shared-store/loading'
 import { Button } from 'antd'
 import { useRef } from 'react'

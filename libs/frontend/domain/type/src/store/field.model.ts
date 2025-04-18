@@ -4,19 +4,19 @@ import type {
   ITypeModel,
   ITypeTransformContext,
   JsonSchema,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 import type {
   IFieldDefaultValue,
   IFieldDto,
   IValidationRules,
-} from '@codelab/shared/abstract/core'
-import type { Nullish } from '@codelab/shared/abstract/types'
-import type { FieldUpdateInput } from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-abstract-core'
+import type { Nullish } from '@codelab/shared-abstract-types'
+import type { FieldUpdateInput } from '@codelab/shared-infra-gqlgen'
 import type { Ref } from 'mobx-keystone'
 
-import { fieldRef, typeRef } from '@codelab/frontend/abstract/domain'
-import { reconnectNodeId } from '@codelab/shared/domain/orm'
-import { titleCase } from '@codelab/shared/utils'
+import { fieldRef, typeRef } from '@codelab/frontend-abstract-domain'
+import { reconnectNodeId } from '@codelab/shared-domain-orm'
+import { titleCase } from '@codelab/shared-utils'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { isNonNullish } from 'remeda'

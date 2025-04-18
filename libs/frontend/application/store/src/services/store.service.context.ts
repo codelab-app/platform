@@ -1,4 +1,4 @@
-import type { IStoreService } from '@codelab/frontend/abstract/application'
+import type { IStoreService } from '@codelab/frontend-abstract-application'
 
 import { type AnyModel, createContext } from 'mobx-keystone'
 

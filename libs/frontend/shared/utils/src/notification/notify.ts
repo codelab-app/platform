@@ -1,4 +1,4 @@
-import type { Notification } from '@codelab/shared/abstract/types'
+import type { Notification } from '@codelab/shared-abstract-types'
 import type { NotificationInstance } from 'antd/es/notification/interface'
 
 import { isFunction } from 'remeda'

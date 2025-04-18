@@ -1,23 +1,23 @@
 'use client'
 
-import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
+import type { IRuntimeElementModel } from '@codelab/frontend-abstract-application'
 
 import {
   isAtom,
   type IUpdateBaseElementData,
   type IUpdateElementData,
-} from '@codelab/frontend/abstract/domain'
-import { UiKey } from '@codelab/frontend/abstract/types'
+} from '@codelab/frontend-abstract-domain'
+import { UiKey } from '@codelab/frontend-abstract-types'
 import {
   SelectActionsField,
   SelectComponent,
-} from '@codelab/frontend/presentation/components/interface-form'
+} from '@codelab/frontend-presentation-components-interface-form'
 import { createAutoCompleteOptions } from '@codelab/frontend-presentation-components-codemirror'
 import {
   CodeMirrorField,
   Form,
 } from '@codelab/frontend-presentation-components-form'
-import { CodeMirrorLanguage } from '@codelab/shared/infra/gqlgen'
+import { CodeMirrorLanguage } from '@codelab/shared-infra-gqlgen'
 import { Collapse } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useMemo } from 'react'

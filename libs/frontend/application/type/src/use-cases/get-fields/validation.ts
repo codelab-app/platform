@@ -1,6 +1,6 @@
-import type { ValidationRuleTag } from '@codelab/frontend/abstract/domain'
-import type { IValidationRules } from '@codelab/shared/abstract/core'
-import type { Nullish } from '@codelab/shared/abstract/types'
+import type { ValidationRuleTag } from '@codelab/frontend-abstract-domain'
+import type { IValidationRules } from '@codelab/shared-abstract-core'
+import type { Nullish } from '@codelab/shared-abstract-types'
 
 export const getValidationRuleTagsArray = (
   validationRules: Nullish<IValidationRules>,

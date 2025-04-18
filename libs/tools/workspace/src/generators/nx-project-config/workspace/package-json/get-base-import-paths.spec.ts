@@ -22,7 +22,7 @@ describe('getBaseImportPaths', () => {
         '@codelab/frontend-application-element/services',
         '@codelab/frontend-application-element',
       ],
-      ['@codelab/frontend-infra-mobx/context', '@codelab/frontend-infra-mobx'],
+      ['@codelab/frontend-infra-mobx-context', '@codelab/frontend-infra-mobx'],
       [
         '@codelab/frontend-domain-element/use-cases/incremented-name',
         '@codelab/frontend-domain-element',

@@ -1,4 +1,4 @@
-import type { IPageUpdateFormData } from '@codelab/shared/abstract/core'
+import type { IPageUpdateFormData } from '@codelab/shared-abstract-core'
 import type { JSONSchemaType } from 'ajv'
 
 import {

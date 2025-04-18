@@ -2,16 +2,16 @@ import type {
   ICreateDomainData,
   IDomainModel,
   IUpdateDomainData,
-} from '@codelab/frontend/abstract/domain'
-import type { DomainWhere } from '@codelab/shared/infra/gqlgen'
+} from '@codelab/frontend-abstract-domain'
+import type { DomainWhere } from '@codelab/shared-infra-gqlgen'
 
-import { type IDomainService } from '@codelab/frontend/abstract/application'
+import { type IDomainService } from '@codelab/frontend-abstract-application'
 import {
   domainRepository,
   invalidateDomainListQuery,
 } from '@codelab/frontend-domain-domain/repositories'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 
 export const useDomainService = (): IDomainService => {
   const { domainDomainService } = useDomainStore()

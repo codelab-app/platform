@@ -9,9 +9,9 @@ import type {
   IStoreModel,
   RenderingError,
   RenderingMetadata,
-} from '@codelab/frontend/abstract/domain'
-import type { IElementDto, IRef } from '@codelab/shared/abstract/core'
-import type { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
+} from '@codelab/frontend-abstract-domain'
+import type { IElementDto, IRef } from '@codelab/shared-abstract-core'
+import type { Maybe, Nullable, Nullish } from '@codelab/shared-abstract-types'
 import type { Ref } from 'mobx-keystone'
 
 import {
@@ -23,10 +23,10 @@ import {
   isAtomRef,
   isComponent,
   pageRef,
-} from '@codelab/frontend/abstract/domain'
-import { createValidator, toRefSchema } from '@codelab/frontend/shared/utils'
+} from '@codelab/frontend-abstract-domain'
+import { createValidator, toRefSchema } from '@codelab/frontend-shared-utils'
 import { Prop } from '@codelab/frontend-domain-prop/store'
-import { slugify, titleCase } from '@codelab/shared/utils'
+import { slugify, titleCase } from '@codelab/shared-utils'
 import { computed } from 'mobx'
 import {
   idProp,

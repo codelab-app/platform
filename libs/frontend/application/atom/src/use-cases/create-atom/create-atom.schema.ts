@@ -1,13 +1,13 @@
-import type { ICreateAtomData } from '@codelab/frontend/abstract/domain'
+import type { ICreateAtomData } from '@codelab/frontend-abstract-domain'
 import type { JSONSchemaType } from 'ajv'
 
-import { filterNotHookType } from '@codelab/frontend/abstract/domain'
+import { filterNotHookType } from '@codelab/frontend-abstract-domain'
 import {
   cdnEsmValidation,
   idSchema,
   nonEmptyString,
 } from '@codelab/frontend-presentation-components-form/schema'
-import { IAtomType } from '@codelab/shared/abstract/core'
+import { IAtomType } from '@codelab/shared-abstract-core'
 
 export const createAtomSchema: JSONSchemaType<ICreateAtomData> = {
   properties: {

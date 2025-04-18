@@ -3,9 +3,9 @@ import type {
   IRuntimeElementModel,
   IRuntimeElementService,
   IRuntimePageModel,
-} from '@codelab/frontend/abstract/application'
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
-import type { Nullable } from '@codelab/shared/abstract/types'
+} from '@codelab/frontend-abstract-application'
+import type { IElementModel } from '@codelab/frontend-abstract-domain'
+import type { Nullable } from '@codelab/shared-abstract-types'
 import type { ObjectMap } from 'mobx-keystone'
 
 import {
@@ -14,8 +14,8 @@ import {
   runtimeComponentRef,
   runtimeElementRef,
   runtimePageRef,
-} from '@codelab/frontend/abstract/application'
-import { elementRef } from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-application'
+import { elementRef } from '@codelab/frontend-abstract-domain'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 

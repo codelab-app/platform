@@ -4,8 +4,8 @@ import type {
   IAppModel,
   IPageNodeData,
   ITreeNode,
-} from '@codelab/frontend/abstract/domain'
-import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
+} from '@codelab/frontend-abstract-domain'
+import type { ToolbarItem } from '@codelab/frontend-presentation-codelab-ui'
 
 import BuildOutlined from '@ant-design/icons/BuildOutlined'
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
@@ -16,14 +16,14 @@ import LockFilled from '@ant-design/icons/lib/icons/LockFilled'
 import LoadingOutlined from '@ant-design/icons/LoadingOutlined'
 import SafetyOutlined from '@ant-design/icons/SafetyOutlined'
 import ToolOutlined from '@ant-design/icons/ToolOutlined'
-import { RoutePaths } from '@codelab/frontend/abstract/application'
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { RoutePaths } from '@codelab/frontend-abstract-application'
+import { UiKey } from '@codelab/frontend-abstract-types'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
-} from '@codelab/frontend/presentation/codelab-ui'
+} from '@codelab/frontend-presentation-codelab-ui'
 import { useRedirectService } from '@codelab/frontend-application-redirect/services'
-import { IPageKind } from '@codelab/shared/abstract/core'
+import { IPageKind } from '@codelab/shared-abstract-core'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 

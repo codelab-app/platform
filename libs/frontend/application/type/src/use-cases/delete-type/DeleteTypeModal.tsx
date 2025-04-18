@@ -1,15 +1,15 @@
 'use client'
 
-import type { ITypeModel } from '@codelab/frontend/abstract/domain'
+import type { ITypeModel } from '@codelab/frontend-abstract-domain'
 
-import { RoutePaths } from '@codelab/frontend/abstract/application'
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { RoutePaths } from '@codelab/frontend-abstract-application'
+import { UiKey } from '@codelab/frontend-abstract-types'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import {
   emptyJsonSchema,
   type EmptyJsonSchemaType,
 } from '@codelab/frontend-presentation-components-form/schema'
-import { findTypeServerActions } from '@codelab/shared-domain-module/type'
+import { findTypeServerActions } from '@codelab/shared-domain-module-type'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 

@@ -3,7 +3,7 @@ import type {
   IAtomType,
   IComponentType,
   IPageCreateSeedData,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import type { APIRequestContext } from '@playwright/test'
 
 import { logTimestamp } from '@codelab/shared/infra/logging'

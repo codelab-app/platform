@@ -2,21 +2,21 @@ import type {
   IApiAggregate,
   IComponentAggregate,
   IStoreAggregate,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 
-import { ExportStoreCommand } from '@codelab/backend/application/store'
-import { ExportApiCommand } from '@codelab/backend/application/type'
+import { ExportStoreCommand } from '@codelab/backend-application-store'
+import { ExportApiCommand } from '@codelab/backend-application-type'
 import {
   ComponentElementsService,
   ComponentRepository,
-} from '@codelab/backend/domain/component'
+} from '@codelab/backend-domain-component'
 import {
   ComponentDtoSchema,
   ElementExportSchema,
   ITypeKind,
-} from '@codelab/shared/abstract/core'
-import { ComponentFragment } from '@codelab/shared/infra/gqlgen'
-import { Validator } from '@codelab/shared/infra/typebox'
+} from '@codelab/shared-abstract-core'
+import { ComponentFragment } from '@codelab/shared-infra-gqlgen'
+import { Validator } from '@codelab/shared-infra-typebox'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 import { Type } from '@sinclair/typebox'
 

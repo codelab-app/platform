@@ -1,13 +1,13 @@
 import type {
   IRuntimePageNode,
   ITypedPropTransformer,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 
 import {
   isRuntimeComponent,
   isRuntimeElement,
-} from '@codelab/frontend/abstract/application'
-import { type TypedProp } from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-application'
+import { type TypedProp } from '@codelab/frontend-abstract-domain'
 import { ExtendedModel, model } from 'mobx-keystone'
 
 import { BaseRenderPipe } from '../render-pipes'

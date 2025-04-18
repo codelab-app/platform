@@ -3,18 +3,18 @@ import type {
   IApiActionModel,
   IPropModel,
   IResourceModel,
-} from '@codelab/frontend/abstract/domain'
-import type { IApiActionDto } from '@codelab/shared/abstract/core'
-import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
+} from '@codelab/frontend-abstract-domain'
+import type { IApiActionDto } from '@codelab/shared-abstract-core'
+import type { Nullable, Nullish } from '@codelab/shared-abstract-types'
 import type { Ref } from 'mobx-keystone'
 
 import {
   actionRef,
   resourceRef,
   storeRef,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 import { Prop } from '@codelab/frontend-domain-prop/store'
-import { IActionKind } from '@codelab/shared/abstract/core'
+import { IActionKind } from '@codelab/shared-abstract-core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 
 import { createBaseAction } from './base-action.model'

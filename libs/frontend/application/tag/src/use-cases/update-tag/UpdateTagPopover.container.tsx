@@ -1,6 +1,6 @@
 'use client'
 
-import { TagConnector } from '@codelab/frontend/infra/connector'
+import { TagConnector } from '@codelab/frontend-infra-connector'
 
 import { UpdateTagPopover } from './UpdateTagPopover'
 

@@ -1,13 +1,13 @@
 'use client'
 
-import type { IPageModel } from '@codelab/frontend/abstract/domain'
+import type { IPageModel } from '@codelab/frontend-abstract-domain'
 
 import {
   type IPageBuilderRoute,
   type IRootRenderer,
   IRouteType,
-} from '@codelab/frontend/abstract/application'
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+} from '@codelab/frontend-abstract-application'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx-context'
 import { Spinner } from '@codelab/frontend-presentation-view/components/loader'
 import { observer } from 'mobx-react-lite'
 

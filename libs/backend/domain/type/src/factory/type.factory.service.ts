@@ -1,15 +1,15 @@
-import type { IRef, ITypeDto, ITypeRef } from '@codelab/shared/abstract/core'
+import type { IRef, ITypeDto, ITypeRef } from '@codelab/shared-abstract-core'
 
-import { UserRepository } from '@codelab/backend/domain/user'
-import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
+import { UserRepository } from '@codelab/backend-domain-user'
+import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
 import {
   getTypeDescendants,
   Neo4jService,
-} from '@codelab/backend-infra-adapter/neo4j-driver'
-import { ITypeKind } from '@codelab/shared/abstract/core'
-import { NotFoundError } from '@codelab/shared/domain/errors'
-import { Maybe, TypeFragment } from '@codelab/shared/infra/gqlgen'
-import { TypeCreateMap } from '@codelab/shared-domain-module/type'
+} from '@codelab/backend-infra-adapter-neo4j-driver'
+import { ITypeKind } from '@codelab/shared-abstract-core'
+import { NotFoundError } from '@codelab/shared-domain-errors'
+import { Maybe, TypeFragment } from '@codelab/shared-infra-gqlgen'
+import { TypeCreateMap } from '@codelab/shared-domain-module-type'
 import { Injectable } from '@nestjs/common'
 import { TAnySchema } from '@sinclair/typebox'
 

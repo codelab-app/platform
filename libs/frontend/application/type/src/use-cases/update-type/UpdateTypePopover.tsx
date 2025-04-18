@@ -1,16 +1,16 @@
 'use client'
 
-import type { ITypeUpdateRoute } from '@codelab/frontend/abstract/application'
-import type { ITypeModel } from '@codelab/frontend/abstract/domain'
+import type { ITypeUpdateRoute } from '@codelab/frontend-abstract-application'
+import type { ITypeModel } from '@codelab/frontend-abstract-domain'
 import type {
   SubmitController,
   TreeViewClientProps,
-} from '@codelab/frontend/abstract/types'
-import type { Maybe } from '@codelab/shared/abstract/types'
+} from '@codelab/frontend-abstract-types'
+import type { Maybe } from '@codelab/shared-abstract-types'
 
 import { CloseOutlined, SaveOutlined } from '@ant-design/icons/lib/icons'
-import { UiKey } from '@codelab/frontend/abstract/types'
-import { CuiSidebarSecondary } from '@codelab/frontend/presentation/codelab-ui'
+import { UiKey } from '@codelab/frontend-abstract-types'
+import { CuiSidebarSecondary } from '@codelab/frontend-presentation-codelab-ui'
 import { useRouter } from 'next/navigation'
 import { useRef } from 'react'
 

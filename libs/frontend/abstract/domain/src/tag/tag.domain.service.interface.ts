@@ -1,6 +1,6 @@
-import type { SelectOption } from '@codelab/frontend/abstract/types'
-import type { ITagDto } from '@codelab/shared/abstract/core'
-import type { Maybe, Nullish } from '@codelab/shared/abstract/types'
+import type { SelectOption } from '@codelab/frontend-abstract-types'
+import type { ITagDto } from '@codelab/shared-abstract-core'
+import type { Maybe, Nullish } from '@codelab/shared-abstract-types'
 import type { LabeledValue } from 'antd/lib/select'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 

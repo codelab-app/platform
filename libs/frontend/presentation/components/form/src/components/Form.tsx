@@ -1,12 +1,12 @@
 'use client'
 
-import type { FormProps } from '@codelab/frontend/abstract/types'
+import type { FormProps } from '@codelab/frontend-abstract-types'
 import type { ReactElement } from 'react'
 
 import {
   connectUniformSubmitRef,
   createBridge,
-} from '@codelab/frontend/shared/utils'
+} from '@codelab/frontend-shared-utils'
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import { throttle } from 'radash'
 import { useEffect, useRef, useState } from 'react'

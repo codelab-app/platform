@@ -1,8 +1,8 @@
 import type {
   IComponentModel,
   IPageModel,
-} from '@codelab/frontend/abstract/domain'
-import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
+} from '@codelab/frontend-abstract-domain'
+import type { Maybe, Nullable } from '@codelab/shared-abstract-types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type { ReactElement } from 'react'
 import type { ErrorBoundaryProps } from 'react-error-boundary'

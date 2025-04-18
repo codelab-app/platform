@@ -1,8 +1,8 @@
-import { ComponentDomainModule } from '@codelab/backend/domain/component'
-import { ElementDomainModule } from '@codelab/backend/domain/element'
-import { PageDomainModule } from '@codelab/backend/domain/page'
-import { TypeDomainModule } from '@codelab/backend/domain/type'
-import { Neo4jModule } from '@codelab/backend-infra-adapter/neo4j-driver'
+import { ComponentDomainModule } from '@codelab/backend-domain-component'
+import { ElementDomainModule } from '@codelab/backend-domain-element'
+import { PageDomainModule } from '@codelab/backend-domain-page'
+import { TypeDomainModule } from '@codelab/backend-domain-type'
+import { Neo4jModule } from '@codelab/backend-infra-adapter-neo4j-driver'
 import { Module } from '@nestjs/common'
 
 import { ComponentResolverProvider } from './component'

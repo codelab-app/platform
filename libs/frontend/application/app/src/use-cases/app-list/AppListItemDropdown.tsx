@@ -1,6 +1,6 @@
 'use client'
 
-import type { IAppModel } from '@codelab/frontend/abstract/domain'
+import type { IAppModel } from '@codelab/frontend-abstract-domain'
 import type { MenuProps } from 'antd'
 import type { CSSProperties } from 'react'
 
@@ -10,7 +10,7 @@ import EllipsisOutlined from '@ant-design/icons/EllipsisOutlined'
 import ExportOutlined from '@ant-design/icons/ExportOutlined'
 import GlobalOutlined from '@ant-design/icons/GlobalOutlined'
 import ToolOutlined from '@ant-design/icons/ToolOutlined'
-import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend-abstract-application'
 import { Button, Dropdown } from 'antd'
 import { useRouter } from 'next/navigation'
 

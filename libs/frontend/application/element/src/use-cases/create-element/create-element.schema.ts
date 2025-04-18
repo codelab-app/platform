@@ -1,4 +1,4 @@
-import type { IElementDto } from '@codelab/shared/abstract/core'
+import type { IElementDto } from '@codelab/shared-abstract-core'
 import type { JSONSchemaType } from 'ajv'
 
 import {
@@ -6,7 +6,7 @@ import {
   nullableIdSchema,
   titleCaseValidation,
 } from '@codelab/frontend-presentation-components-form/schema'
-import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
+import { IElementRenderTypeKind } from '@codelab/shared-abstract-core'
 
 export type ICreateElementDto = Pick<
   IElementDto,

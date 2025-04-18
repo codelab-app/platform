@@ -3,8 +3,8 @@ import type {
   IDomainModel,
   IPageModel,
   IUserModel,
-} from '@codelab/frontend/abstract/domain'
-import type { IAppDto } from '@codelab/shared/abstract/core'
+} from '@codelab/frontend-abstract-domain'
+import type { IAppDto } from '@codelab/shared-abstract-core'
 import type { Ref } from 'mobx-keystone'
 
 import {
@@ -13,10 +13,10 @@ import {
   getUserDomainService,
   pageRef,
   userRef,
-} from '@codelab/frontend/abstract/domain'
-import { IPageKind } from '@codelab/shared/abstract/core'
-import { Validator } from '@codelab/shared/infra/typebox'
-import { slugify } from '@codelab/shared/utils'
+} from '@codelab/frontend-abstract-domain'
+import { IPageKind } from '@codelab/shared-abstract-core'
+import { Validator } from '@codelab/shared-infra-typebox'
+import { slugify } from '@codelab/shared-utils'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 

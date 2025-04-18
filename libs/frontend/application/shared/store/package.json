@@ -5,6 +5,31 @@
       "default": "./src/index.ts",
       "import": "./src/index.ts",
       "types": "./src/index.ts"
+    },
+    "./cache": {
+      "default": "./src/cache/index.ts",
+      "import": "./src/cache/index.ts",
+      "types": "./src/cache/index.ts"
+    },
+    "./loading": {
+      "default": "./src/loading/index.ts",
+      "import": "./src/loading/index.ts",
+      "types": "./src/loading/index.ts"
+    },
+    "./pagination": {
+      "default": "./src/pagination/index.ts",
+      "import": "./src/pagination/index.ts",
+      "types": "./src/pagination/index.ts"
+    },
+    "./router": {
+      "default": "./src/router/index.ts",
+      "import": "./src/router/index.ts",
+      "types": "./src/router/index.ts"
+    },
+    "./ui": {
+      "default": "./src/ui/index.ts",
+      "import": "./src/ui/index.ts",
+      "types": "./src/ui/index.ts"
     }
   },
   "devDependencies": {

@@ -36,7 +36,7 @@
               {
                 "name": "antd/lib/select",
                 "importNames": ["DefaultOptionType"],
-                "message": "Please use `SelectOption` from `@codelab/frontend/abstract/types` instead"
+                "message": "Please use `SelectOption` from `@codelab/frontend-abstract-types` instead"
               },
               // {
               //   "name": "change-case-all",

@@ -1,8 +1,8 @@
-import type { IComponent, IUserDto } from '@codelab/shared/abstract/core'
-import type { Component } from '@codelab/shared/infra/gqlgen'
+import type { IComponent, IUserDto } from '@codelab/shared-abstract-core'
+import type { Component } from '@codelab/shared-infra-gqlgen'
 import type { DeepPick } from 'ts-essentials'
 
-import { removeUuidAndDashPrefix, titleCase } from '@codelab/shared/utils'
+import { removeUuidAndDashPrefix, titleCase } from '@codelab/shared-utils'
 
 interface ComponentData {
   compositeKey: never

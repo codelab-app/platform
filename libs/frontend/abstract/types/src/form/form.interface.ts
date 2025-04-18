@@ -2,7 +2,7 @@ import type {
   Callback,
   Maybe,
   ObjectLike,
-} from '@codelab/shared/abstract/types'
+} from '@codelab/shared-abstract-types'
 import type { Completion } from '@codemirror/autocomplete'
 import type { TSchema } from '@sinclair/typebox'
 import type { JSONSchemaType } from 'ajv'

@@ -7,8 +7,8 @@ import {
   storeDomainServiceContext,
   typeDomainServiceContext,
   userDomainServiceContext,
-} from '@codelab/frontend/abstract/domain'
-import { userDto } from '@codelab/frontend/test/data'
+} from '@codelab/frontend-abstract-domain'
+import { userDto } from '@codelab/frontend-test-data'
 import { AtomDomainService } from '@codelab/frontend-domain-atom/services'
 import { ElementDomainService } from '@codelab/frontend-domain-element/services'
 import { PageDomainService } from '@codelab/frontend-domain-page/services'

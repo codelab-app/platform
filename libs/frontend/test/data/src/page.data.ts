@@ -1,4 +1,4 @@
-import { type IPageDto, IPageKind } from '@codelab/shared/abstract/core'
+import { type IPageDto, IPageKind } from '@codelab/shared-abstract-core'
 import { v4 } from 'uuid'
 
 export const pageDto: IPageDto = {

@@ -4,11 +4,11 @@ import type {
   IRendererModel,
   IRenderPipe,
   ITypedPropTransformer,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 import type {
   IComponentModel,
   IPageModel,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 
 import {
@@ -17,12 +17,12 @@ import {
   isRuntimeComponent,
   isRuntimePage,
   RendererType,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 import {
   componentRef,
   isPage,
   pageRef,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 import { computed } from 'mobx'
 import { idProp, Model, model, prop } from 'mobx-keystone'
 

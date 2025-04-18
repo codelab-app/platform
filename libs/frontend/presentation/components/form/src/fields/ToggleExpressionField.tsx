@@ -7,7 +7,7 @@ import type { FieldProps } from 'uniforms'
 import type { ListFieldProps, SelectFieldProps } from 'uniforms-antd'
 
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
-import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
+import { ICodeMirrorLanguage } from '@codelab/shared-abstract-core'
 import { hasExpression } from '@codelab/shared-infra-eval'
 import { Button, Space, Tooltip } from 'antd'
 import { useState } from 'react'

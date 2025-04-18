@@ -1,6 +1,6 @@
 'use server'
 
-import type { NextFetchOptions } from '@codelab/shared/abstract/types'
+import type { NextFetchOptions } from '@codelab/shared-abstract-types'
 /**
  * Need to be callback, otherwise import chain will call `auth0-server.provider.ts` which requires Next.js `request` to be present
  *

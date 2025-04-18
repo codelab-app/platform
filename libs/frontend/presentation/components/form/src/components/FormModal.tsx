@@ -3,8 +3,8 @@
 import type {
   FormModalProps,
   SubmitController,
-} from '@codelab/frontend/abstract/types'
-import type { Maybe, ObjectLike } from '@codelab/shared/abstract/types'
+} from '@codelab/frontend-abstract-types'
+import type { Maybe, ObjectLike } from '@codelab/shared-abstract-types'
 import type { PropsWithChildren } from 'react'
 
 import Modal from 'antd/lib/modal'

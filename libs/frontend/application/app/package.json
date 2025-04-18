@@ -6,30 +6,70 @@
       "import": "./src/index.ts",
       "types": "./src/index.ts"
     },
-    "./use-cases/generate-pages": {
-      "default": "./src/index.ts",
-      "import": "./src/index.ts",
-      "types": "./src/index.ts"
+    "./services": {
+      "default": "./src/services/index.ts",
+      "import": "./src/services/index.ts",
+      "types": "./src/services/index.ts"
     },
-    "./use-cases/atom-list/server": {
-      "default": "./src/index.ts",
-      "import": "./src/index.ts",
-      "types": "./src/index.ts"
+    "./use-cases/app-builder": {
+      "default": "./src/use-cases/app-builder/index.ts",
+      "import": "./src/use-cases/app-builder/index.ts",
+      "types": "./src/use-cases/app-builder/index.ts"
     },
-    "./components": {
-      "default": "./src/index.ts",
-      "import": "./src/index.ts",
-      "types": "./src/index.ts"
+    "./use-cases/app-item": {
+      "default": "./src/use-cases/app-item/index.ts",
+      "import": "./src/use-cases/app-item/index.ts",
+      "types": "./src/use-cases/app-item/index.ts"
     },
-    "./use-cases/server-user": {
-      "default": "./src/index.ts",
-      "import": "./src/index.ts",
-      "types": "./src/index.ts"
+    "./use-cases/app-list": {
+      "default": "./src/use-cases/app-list/index.ts",
+      "import": "./src/use-cases/app-list/index.ts",
+      "types": "./src/use-cases/app-list/index.ts"
     },
-    "./loading": {
-      "default": "./src/index.ts",
-      "import": "./src/index.ts",
-      "types": "./src/index.ts"
+    "./use-cases/app-production": {
+      "default": "./src/use-cases/app-production/index.ts",
+      "import": "./src/use-cases/app-production/index.ts",
+      "types": "./src/use-cases/app-production/index.ts"
+    },
+    "./use-cases/build-app": {
+      "default": "./src/use-cases/build-app/index.ts",
+      "import": "./src/use-cases/build-app/index.ts",
+      "types": "./src/use-cases/build-app/index.ts"
+    },
+    "./use-cases/create-app": {
+      "default": "./src/use-cases/create-app/index.ts",
+      "import": "./src/use-cases/create-app/index.ts",
+      "types": "./src/use-cases/create-app/index.ts"
+    },
+    "./use-cases/delete-app": {
+      "default": "./src/use-cases/delete-app/index.ts",
+      "import": "./src/use-cases/delete-app/index.ts",
+      "types": "./src/use-cases/delete-app/index.ts"
+    },
+    "./use-cases/export-app": {
+      "default": "./src/use-cases/export-app/index.ts",
+      "import": "./src/use-cases/export-app/index.ts",
+      "types": "./src/use-cases/export-app/index.ts"
+    },
+    "./use-cases/import-app": {
+      "default": "./src/use-cases/import-app/index.ts",
+      "import": "./src/use-cases/import-app/index.ts",
+      "types": "./src/use-cases/import-app/index.ts"
+    },
+    "./use-cases/select-app-options": {
+      "default": "./src/use-cases/select-app-options/index.ts",
+      "import": "./src/use-cases/select-app-options/index.ts",
+      "types": "./src/use-cases/select-app-options/index.ts"
+    },
+    "./use-cases/update-app": {
+      "default": "./src/use-cases/update-app/index.ts",
+      "import": "./src/use-cases/update-app/index.ts",
+      "types": "./src/use-cases/update-app/index.ts"
+    },
+    "./views": {
+      "default": "./src/views/index.ts",
+      "import": "./src/views/index.ts",
+      "types": "./src/views/index.ts"
     }
   },
   "devDependencies": {

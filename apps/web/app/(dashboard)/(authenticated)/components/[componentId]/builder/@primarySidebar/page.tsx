@@ -1,6 +1,6 @@
-import type { PageProps } from '@codelab/frontend/abstract/types'
+import type { PageProps } from '@codelab/frontend-abstract-types'
 
-import { IRouteType } from '@codelab/frontend/abstract/application'
+import { IRouteType } from '@codelab/frontend-abstract-application'
 import { ComponentBuilderPrimarySidebarContainer } from '@codelab/frontend-application-builder/sections'
 import { parsePageProps } from '@codelab/frontend-application-shared-store/router'
 

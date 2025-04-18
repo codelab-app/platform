@@ -1,4 +1,4 @@
-import type { IUpdateComponentData } from '@codelab/shared/abstract/core'
+import type { IUpdateComponentData } from '@codelab/shared-abstract-core'
 import type { JSONSchemaType } from 'ajv'
 
 import {

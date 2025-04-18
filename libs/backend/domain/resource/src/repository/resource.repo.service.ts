@@ -1,16 +1,16 @@
-import type { INodeType, IResourceDto } from '@codelab/shared/abstract/core'
+import type { INodeType, IResourceDto } from '@codelab/shared-abstract-core'
 
-import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { AbstractRepository } from '@codelab/backend/infra/core'
+import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
+import { AbstractRepository } from '@codelab/backend-infra-core'
 import {
   ResourceFragment,
   ResourceOptions,
   ResourceWhere,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 import {
   resourceApi,
   resourceMapper,
-} from '@codelab/shared-domain-module/resource'
+} from '@codelab/shared-domain-module-resource'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

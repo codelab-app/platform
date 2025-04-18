@@ -9,12 +9,12 @@ import type {
   IRuntimeElementStyleModel,
   IRuntimeModel,
   IRuntimePageModel,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 import type {
   IActionModel,
   IElementModel,
-} from '@codelab/frontend/abstract/domain'
-import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
+} from '@codelab/frontend-abstract-domain'
+import type { Maybe, Nullable } from '@codelab/shared-abstract-types'
 import type { Ref, SnapshotInOf } from 'mobx-keystone'
 import type { ArrayOrSingle } from 'ts-essentials/dist/types'
 
@@ -26,11 +26,11 @@ import {
   isRuntimeComponent,
   isRuntimeElement,
   isRuntimePage,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 import {
   getComponentDomainService,
   isComponent,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 import { evaluateExpression, hasExpression } from '@codelab/shared-infra-eval'
 import { computed, reaction } from 'mobx'
 import {

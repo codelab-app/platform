@@ -1,12 +1,12 @@
-import type { IMapper, IResourceDto } from '@codelab/shared/abstract/core'
+import type { IMapper, IResourceDto } from '@codelab/shared-abstract-core'
 import type {
   ResourceCreateInput,
   ResourceDeleteInput,
   ResourceUpdateInput,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
-import { connectOwner } from '@codelab/shared/domain/orm'
-import { propMapper } from '@codelab/shared-domain-module/prop'
+import { connectOwner } from '@codelab/shared-domain-orm'
+import { propMapper } from '@codelab/shared-domain-module-prop'
 
 export const resourceMapper: IMapper<
   IResourceDto,

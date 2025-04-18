@@ -1,20 +1,20 @@
-import type { IBuilderRoute } from '@codelab/frontend/abstract/application'
+import type { IBuilderRoute } from '@codelab/frontend-abstract-application'
 import type {
   IActionNodeData,
   ITreeNode,
-} from '@codelab/frontend/abstract/domain'
-import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
+} from '@codelab/frontend-abstract-domain'
+import type { ToolbarItem } from '@codelab/frontend-presentation-codelab-ui'
 
 import ApiOutlined from '@ant-design/icons/ApiOutlined'
 import CodeOutlined from '@ant-design/icons/CodeOutlined'
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import EditOutlined from '@ant-design/icons/EditOutlined'
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend-abstract-types'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
-} from '@codelab/frontend/presentation/codelab-ui'
-import { IActionKind } from '@codelab/shared/abstract/core'
+} from '@codelab/frontend-presentation-codelab-ui'
+import { IActionKind } from '@codelab/shared-abstract-core'
 import { useRouter } from 'next/navigation'
 import { mergeDeep } from 'remeda'
 

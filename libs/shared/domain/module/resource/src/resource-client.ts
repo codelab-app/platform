@@ -4,11 +4,11 @@ import type {
   IResourceConfigData,
   IResourceFetchResponse,
   IRestFetchConfigData,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import type { Axios, AxiosError, AxiosResponse } from 'axios'
 
-import { IResourceType } from '@codelab/shared/abstract/core'
-import { tryParse } from '@codelab/shared/utils'
+import { IResourceType } from '@codelab/shared-abstract-core'
+import { tryParse } from '@codelab/shared-utils'
 import axios from 'axios'
 import { ClientError, GraphQLClient } from 'graphql-request'
 import { isString } from 'remeda'

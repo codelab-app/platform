@@ -11,10 +11,40 @@
       "import": "./src/components/button/index.ts",
       "types": "./src/components/button/index.ts"
     },
+    "./components/conditionalView": {
+      "default": "./src/components/conditionalView/index.ts",
+      "import": "./src/components/conditionalView/index.ts",
+      "types": "./src/components/conditionalView/index.ts"
+    },
+    "./components/error": {
+      "default": "./src/components/error/index.ts",
+      "import": "./src/components/error/index.ts",
+      "types": "./src/components/error/index.ts"
+    },
+    "./components/key": {
+      "default": "./src/components/key/index.ts",
+      "import": "./src/components/key/index.ts",
+      "types": "./src/components/key/index.ts"
+    },
+    "./components/loader": {
+      "default": "./src/components/loader/index.ts",
+      "import": "./src/components/loader/index.ts",
+      "types": "./src/components/loader/index.ts"
+    },
+    "./components/overlay": {
+      "default": "./src/components/overlay/index.ts",
+      "import": "./src/components/overlay/index.ts",
+      "types": "./src/components/overlay/index.ts"
+    },
     "./components/progressBar": {
       "default": "./src/components/progressBar/index.ts",
       "import": "./src/components/progressBar/index.ts",
       "types": "./src/components/progressBar/index.ts"
+    },
+    "./components/skeleton": {
+      "default": "./src/components/skeleton/index.ts",
+      "import": "./src/components/skeleton/index.ts",
+      "types": "./src/components/skeleton/index.ts"
     },
     "./components/state": {
       "default": "./src/components/state/index.ts",
@@ -26,40 +56,10 @@
       "import": "./src/components/table/index.ts",
       "types": "./src/components/table/index.ts"
     },
-    "./components/conditionalView": {
-      "default": "./src/components/conditionalView/index.ts",
-      "import": "./src/components/conditionalView/index.ts",
-      "types": "./src/components/conditionalView/index.ts"
-    },
-    "./components/loader": {
-      "default": "./src/components/loader/index.ts",
-      "import": "./src/components/loader/index.ts",
-      "types": "./src/components/loader/index.ts"
-    },
-    "./components/error": {
-      "default": "./src/components/error/index.ts",
-      "import": "./src/components/error/index.ts",
-      "types": "./src/components/error/index.ts"
-    },
-    "./components/overlay": {
-      "default": "./src/components/overlay/index.ts",
-      "import": "./src/components/overlay/index.ts",
-      "types": "./src/components/overlay/index.ts"
-    },
-    "./components/skeleton": {
-      "default": "./src/components/skeleton/index.ts",
-      "import": "./src/components/skeleton/index.ts",
-      "types": "./src/components/skeleton/index.ts"
-    },
     "./components/upload": {
       "default": "./src/components/upload/index.ts",
       "import": "./src/components/upload/index.ts",
       "types": "./src/components/upload/index.ts"
-    },
-    "./components/key": {
-      "default": "./src/components/key/index.ts",
-      "import": "./src/components/key/index.ts",
-      "types": "./src/components/key/index.ts"
     },
     "./components/wrapIf": {
       "default": "./src/components/wrapIf/index.ts",
@@ -75,6 +75,11 @@
       "default": "./src/style/index.ts",
       "import": "./src/style/index.ts",
       "types": "./src/style/index.ts"
+    },
+    "./templates": {
+      "default": "./src/templates/index.ts",
+      "import": "./src/templates/index.ts",
+      "types": "./src/templates/index.ts"
     }
   },
   "devDependencies": {

@@ -1,8 +1,8 @@
-import { ReadAdminDataService } from '@codelab/backend/application/data'
+import { ReadAdminDataService } from '@codelab/backend-application-data'
 import {
   IComponentAggregate,
   type ICreateComponentData,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import {
   Body,
   ClassSerializerInterceptor,

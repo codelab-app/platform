@@ -68,17 +68,20 @@ exports.getProjectImports = getProjectImports;
 const updateProjectImports = (tree, projectConfig, transformFn) => {
     const sourceRoot = projectConfig.sourceRoot || (0, devkit_1.joinPathFragments)(projectConfig.root, 'src');
     if (!tree.exists(sourceRoot)) {
+        console.log(`Source root ${sourceRoot} does not exist`);
         return;
     }
     // Use visitNotIgnoredFiles to traverse the directory structure efficiently
     (0, devkit_1.visitNotIgnoredFiles)(tree, sourceRoot, (filePath) => {
         // Only process TypeScript/JavaScript files
         if (!/\.(ts|tsx|js|jsx)$/.test(filePath)) {
+            console.log(`File ${filePath} is not a TypeScript/JavaScript file`);
             return;
         }
         // Read file content
         const content = tree.read(filePath, 'utf-8');
         if (!content) {
+            console.log(`Content for ${filePath} is empty`);
             return;
         }
         let updatedContent = content;
@@ -92,12 +95,21 @@ const updateProjectImports = (tree, projectConfig, transformFn) => {
                     return match;
                 }
                 const transformedPath = transformFn(importPath);
+                console.log(`File: ${filePath} -> Original: "${importPath}", Transformed: "${transformedPath}"`);
                 // Replace the import path in the original match
                 return match.replace(importPath, transformedPath);
             });
         }
-        // Only write the file if changes were made
-        tree.write(filePath, updatedContent);
+        // Log whether content changed
+        if (content !== updatedContent) {
+            console.log(`Updating ${filePath} with new import paths.`);
+            // Only write the file if changes were made
+            tree.write(filePath, updatedContent);
+        }
+        else {
+            // Optional: Log if no changes were made
+            // console.log(`No import changes needed in ${filePath}`);
+        }
     });
 };
 exports.updateProjectImports = updateProjectImports;

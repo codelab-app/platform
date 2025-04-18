@@ -1,22 +1,22 @@
-import type { ICreateActionData } from '@codelab/shared/abstract/core'
+import type { ICreateActionData } from '@codelab/shared-abstract-core'
 
-import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
+import { type IFormController, UiKey } from '@codelab/frontend-abstract-types'
 import {
   SelectActionField,
   SelectResource,
-} from '@codelab/frontend/presentation/components/interface-form'
+} from '@codelab/frontend-presentation-components-interface-form'
 import { ResourceFetchConfigField } from '@codelab/frontend-application-resource/components'
 import {
   useApplicationStore,
   useDomainStore,
-} from '@codelab/frontend-infra-mobx/context'
+} from '@codelab/frontend-infra-mobx-context'
 import {
   DisplayIfField,
   Form,
   FormController,
 } from '@codelab/frontend-presentation-components-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
-import { HttpMethod, IActionKind } from '@codelab/shared/abstract/core'
+import { HttpMethod, IActionKind } from '@codelab/shared-abstract-core'
 import { observer } from 'mobx-react-lite'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'

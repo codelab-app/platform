@@ -1,6 +1,6 @@
-import { RoutePaths } from '@codelab/frontend/abstract/application'
-import { UiKey } from '@codelab/frontend/abstract/types'
-import { IResourceType } from '@codelab/shared/abstract/core'
+import { RoutePaths } from '@codelab/frontend-abstract-application'
+import { UiKey } from '@codelab/frontend-abstract-types'
+import { IResourceType } from '@codelab/shared-abstract-core'
 
 import { BasePage } from '../../setup/core/page'
 import { baseTest } from '../../setup/fixtures/base.fixture'

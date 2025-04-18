@@ -2,8 +2,8 @@ import { gql } from '@apollo/client'
 import {
   getTypeReferences,
   isTypeDescendantOf,
-} from '@codelab/backend-infra-adapter/neo4j-driver'
-import { __ElementTypeKind } from '@codelab/shared/abstract/core'
+} from '@codelab/backend-infra-adapter-neo4j-driver'
+import { __ElementTypeKind } from '@codelab/shared-abstract-core'
 
 import { authOwnerOrAdmin } from '../model/user.schema'
 
@@ -115,7 +115,7 @@ export const typeSchema = gql`
   type UnionType implements IBaseType & WithDescendants @node(labels: ["Type", "UnionType"]) ${authOwnerOrAdmin} {
     id: ID!
     kind: TypeKind! @default(value: UnionType)
-    name: String! 
+    name: String!
     owner: User! @relationship(type: "OWNED_BY", direction: OUT)
     fieldRefs: [Field!]! @relationship(type: "FIELD_TYPE", direction: IN)
     descendantTypesIds: [ID!]! @customResolver(requires: "id")
@@ -187,7 +187,7 @@ export const typeSchema = gql`
   type RenderPropType implements IBaseType @node(labels: ["Type", "RenderPropType"]) ${authOwnerOrAdmin} {
     id: ID!
     kind: TypeKind! @default(value: RenderPropType)
-    name: String! 
+    name: String!
     owner: User! @relationship(type: "OWNED_BY", direction: OUT)
     fieldRefs: [Field!]! @relationship(type: "FIELD_TYPE", direction: IN)
   }
@@ -205,7 +205,7 @@ export const typeSchema = gql`
   type ReactNodeType implements IBaseType @node(labels: ["Type", "ReactNodeType"]) ${authOwnerOrAdmin} {
     id: ID!
     kind: TypeKind! @default(value: ReactNodeType)
-    name: String! 
+    name: String!
     owner: User! @relationship(type: "OWNED_BY", direction: OUT)
     fieldRefs: [Field!]! @relationship(type: "FIELD_TYPE", direction: IN)
   }

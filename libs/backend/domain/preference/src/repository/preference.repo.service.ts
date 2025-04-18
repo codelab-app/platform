@@ -1,16 +1,16 @@
-import type { INodeType, IPreferenceDto } from '@codelab/shared/abstract/core'
+import type { INodeType, IPreferenceDto } from '@codelab/shared-abstract-core'
 import type {
   PreferenceOptions,
   PreferenceWhere,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
-import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { AbstractRepository } from '@codelab/backend/infra/core'
-import { PreferenceFragment } from '@codelab/shared/infra/gqlgen'
+import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
+import { AbstractRepository } from '@codelab/backend-infra-core'
+import { PreferenceFragment } from '@codelab/shared-infra-gqlgen'
 import {
   preferenceApi,
   preferenceMapper,
-} from '@codelab/shared-domain-module/preference'
+} from '@codelab/shared-domain-module-preference'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

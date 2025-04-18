@@ -1,17 +1,17 @@
 import type { ICommandHandler } from '@nestjs/cqrs'
 
-import { ExportApiCommand } from '@codelab/backend/application/type'
-import { AtomRepository } from '@codelab/backend/domain/atom'
+import { ExportApiCommand } from '@codelab/backend-application-type'
+import { AtomRepository } from '@codelab/backend-domain-atom'
 import {
   AtomAggregateSchema,
   AtomSchema,
   type IApiAggregate,
   type IAtomAggregate,
   ITypeKind,
-} from '@codelab/shared/abstract/core'
-import { type AtomWhere } from '@codelab/shared/infra/gqlgen'
-import { logger } from '@codelab/shared/infra/logging'
-import { Validator } from '@codelab/shared/infra/typebox'
+} from '@codelab/shared-abstract-core'
+import { type AtomWhere } from '@codelab/shared-infra-gqlgen'
+import { logger } from '@codelab/shared-infra-logging'
+import { Validator } from '@codelab/shared-infra-typebox'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 import { Type } from '@sinclair/typebox'
 

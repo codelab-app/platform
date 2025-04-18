@@ -1,4 +1,4 @@
-import type { Maybe } from '@codelab/shared/abstract/types'
+import type { Maybe } from '@codelab/shared-abstract-types'
 import type { Ref } from 'mobx-keystone'
 
 import type { IElementModel } from './element.model.interface'

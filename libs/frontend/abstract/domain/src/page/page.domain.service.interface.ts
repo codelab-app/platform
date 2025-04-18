@@ -2,7 +2,7 @@ import type {
   IAppDto,
   IElementRenderTypeDto,
   IPageDto,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import type { ObjectMap } from 'mobx-keystone'
 
 import type { IAppModel } from '../app'

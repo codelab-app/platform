@@ -1,17 +1,17 @@
 'use client'
-import type { IFieldModel } from '@codelab/frontend/abstract/domain'
-import type { IFieldUpdateData } from '@codelab/shared/abstract/core'
+import type { IFieldModel } from '@codelab/frontend-abstract-domain'
+import type { IFieldUpdateData } from '@codelab/shared-abstract-core'
 
-import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
-import { uniformSchemaFactory } from '@codelab/frontend/presentation/components/interface-form'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { type IFormController, UiKey } from '@codelab/frontend-abstract-types'
+import { uniformSchemaFactory } from '@codelab/frontend-presentation-components-interface-form'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import {
   DisplayIfField,
   Form,
   FormController,
 } from '@codelab/frontend-presentation-components-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
-import { PrimitiveTypeKind } from '@codelab/shared/infra/gqlgen'
+import { PrimitiveTypeKind } from '@codelab/shared-infra-gqlgen'
 import { AutoField, AutoFields } from 'uniforms-antd'
 
 import { useFieldService } from '../../services'

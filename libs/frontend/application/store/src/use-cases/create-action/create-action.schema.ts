@@ -1,4 +1,4 @@
-import type { ICreateActionData } from '@codelab/shared/abstract/core'
+import type { ICreateActionData } from '@codelab/shared-abstract-core'
 import type { JSONSchemaType } from 'ajv'
 
 import {
@@ -15,8 +15,8 @@ import {
   HttpMethod,
   HttpResponseType,
   IActionKind,
-} from '@codelab/shared/abstract/core'
-import { CodeMirrorLanguage } from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-abstract-core'
+import { CodeMirrorLanguage } from '@codelab/shared-infra-gqlgen'
 import { keys } from 'remeda'
 
 export const createActionSchema: JSONSchemaType<ICreateActionData> = {

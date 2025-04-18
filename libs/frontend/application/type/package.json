@@ -6,15 +6,70 @@
       "import": "./src/index.ts",
       "types": "./src/index.ts"
     },
-    "./pagination": {
-      "default": "./src/index.ts",
-      "import": "./src/index.ts",
-      "types": "./src/index.ts"
+    "./services": {
+      "default": "./src/services/index.ts",
+      "import": "./src/services/index.ts",
+      "types": "./src/services/index.ts"
     },
-    "./components": {
-      "default": "./src/index.ts",
-      "import": "./src/index.ts",
-      "types": "./src/index.ts"
+    "./use-cases/create-field": {
+      "default": "./src/use-cases/create-field/index.ts",
+      "import": "./src/use-cases/create-field/index.ts",
+      "types": "./src/use-cases/create-field/index.ts"
+    },
+    "./use-cases/create-type": {
+      "default": "./src/use-cases/create-type/index.ts",
+      "import": "./src/use-cases/create-type/index.ts",
+      "types": "./src/use-cases/create-type/index.ts"
+    },
+    "./use-cases/delete-field": {
+      "default": "./src/use-cases/delete-field/index.ts",
+      "import": "./src/use-cases/delete-field/index.ts",
+      "types": "./src/use-cases/delete-field/index.ts"
+    },
+    "./use-cases/delete-type": {
+      "default": "./src/use-cases/delete-type/index.ts",
+      "import": "./src/use-cases/delete-type/index.ts",
+      "types": "./src/use-cases/delete-type/index.ts"
+    },
+    "./use-cases/get-fields": {
+      "default": "./src/use-cases/get-fields/index.ts",
+      "import": "./src/use-cases/get-fields/index.ts",
+      "types": "./src/use-cases/get-fields/index.ts"
+    },
+    "./use-cases/get-types": {
+      "default": "./src/use-cases/get-types/index.ts",
+      "import": "./src/use-cases/get-types/index.ts",
+      "types": "./src/use-cases/get-types/index.ts"
+    },
+    "./use-cases/hooks": {
+      "default": "./src/use-cases/hooks/index.ts",
+      "import": "./src/use-cases/hooks/index.ts",
+      "types": "./src/use-cases/hooks/index.ts"
+    },
+    "./use-cases/select-types": {
+      "default": "./src/use-cases/select-types/index.ts",
+      "import": "./src/use-cases/select-types/index.ts",
+      "types": "./src/use-cases/select-types/index.ts"
+    },
+    "./use-cases/type-table": {
+      "default": "./src/use-cases/type-table/index.ts",
+      "import": "./src/use-cases/type-table/index.ts",
+      "types": "./src/use-cases/type-table/index.ts"
+    },
+    "./use-cases/update-field": {
+      "default": "./src/use-cases/update-field/index.ts",
+      "import": "./src/use-cases/update-field/index.ts",
+      "types": "./src/use-cases/update-field/index.ts"
+    },
+    "./use-cases/update-type": {
+      "default": "./src/use-cases/update-type/index.ts",
+      "import": "./src/use-cases/update-type/index.ts",
+      "types": "./src/use-cases/update-type/index.ts"
+    },
+    "./views": {
+      "default": "./src/views/index.ts",
+      "import": "./src/views/index.ts",
+      "types": "./src/views/index.ts"
     }
   },
   "devDependencies": {

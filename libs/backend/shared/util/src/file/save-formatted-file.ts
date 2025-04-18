@@ -1,6 +1,6 @@
-import type { ObjectLike } from '@codelab/shared/abstract/types'
+import type { ObjectLike } from '@codelab/shared-abstract-types'
 
-import { prettifyForConsole } from '@codelab/shared/utils'
+import { prettifyForConsole } from '@codelab/shared-utils'
 import fs from 'fs'
 import { EOL } from 'os'
 import { dirname, resolve } from 'path'

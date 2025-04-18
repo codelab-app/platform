@@ -4,22 +4,22 @@ import type {
   IInterfaceTypeRef,
   ITypeDtoWithoutOwner,
   ITypeRef,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
 import {
   FieldRepository,
   InterfaceTypeRepository,
   TypeFactory,
-} from '@codelab/backend/domain/type'
-import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
+} from '@codelab/backend-domain-type'
+import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
 import {
   FieldExportSchema,
   InterfaceTypeSchema,
   ITypeKind,
   TypeDtoWithoutOwnerSchema,
-} from '@codelab/shared/abstract/core'
-import { SortDirection } from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-abstract-core'
+import { SortDirection } from '@codelab/shared-infra-gqlgen'
 import { CommandHandler } from '@nestjs/cqrs'
 import { Type } from '@sinclair/typebox'
 

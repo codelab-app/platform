@@ -1,7 +1,7 @@
 'use client'
 import type { Completion, CompletionSource } from '@codemirror/autocomplete'
 
-import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
+import { ICodeMirrorLanguage } from '@codelab/shared-abstract-core'
 import { observer } from 'mobx-react-lite'
 import { useAsyncFn, useMount } from 'react-use'
 

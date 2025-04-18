@@ -1,11 +1,11 @@
 import {
   IConfigPaneTab,
   type IPreferenceDto,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import {
   breakpoints,
   DEFAULT_BUILDER_BREAKPOINT,
-} from '@codelab/shared/config/builder'
+} from '@codelab/shared-config-builder'
 import { v4 } from 'uuid'
 
 /**

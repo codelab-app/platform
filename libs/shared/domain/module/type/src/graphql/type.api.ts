@@ -1,15 +1,15 @@
-import type { IRef } from '@codelab/shared/abstract/core'
-import type { NextFetchOptions } from '@codelab/shared/abstract/types'
+import type { IRef } from '@codelab/shared-abstract-core'
+import type { NextFetchOptions } from '@codelab/shared-abstract-types'
 import type {
   CodeMirrorTypeCreateInput,
   ElementTypeCreateInput,
   PrimitiveTypeCreateInput,
   ReactNodeTypeCreateInput,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 import type { ArrayOrSingle } from 'ts-essentials'
 
-import { ITypeKind } from '@codelab/shared/abstract/core'
-import { graphqlClient } from '@codelab/shared/infra/gql-client'
+import { ITypeKind } from '@codelab/shared-abstract-core'
+import { graphqlClient } from '@codelab/shared-infra-gql-client'
 
 import type { ITypeCreateInput, ITypeUpdateVars } from '../type.input.interface'
 import type { ITypeWhere } from '../type.where.interface'

@@ -1,4 +1,4 @@
-import type { IRef, ITagDto } from '@codelab/shared/abstract/core'
+import type { IRef, ITagDto } from '@codelab/shared-abstract-core'
 import type { Ref } from 'mobx-keystone'
 
 import type { ITreeNode } from '../shared'

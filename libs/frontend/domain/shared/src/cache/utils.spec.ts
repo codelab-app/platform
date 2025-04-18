@@ -1,5 +1,5 @@
 /* eslint-disable canonical/sort-keys */
-import { SortDirection } from '@codelab/shared/infra/gqlgen'
+import { SortDirection } from '@codelab/shared-infra-gqlgen'
 
 import type { Option, Where } from './cache-options'
 

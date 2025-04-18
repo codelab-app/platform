@@ -1,6 +1,6 @@
-// import type { IAtomRendererRecord } from '@codelab/frontend/abstract/domain'
-// import { dynamicLoader } from '@codelab/frontend/shared/utils'
-// import { IAtomType } from '@codelab/shared/abstract/core'
+// import type { IAtomRendererRecord } from '@codelab/frontend-abstract-domain'
+// import { dynamicLoader } from '@codelab/frontend-shared-utils'
+// import { IAtomType } from '@codelab/shared-abstract-core'
 
 // export const muiAtoms: IAtomRendererRecord = {
 //   [IAtomType.MuiAccordion]: dynamicLoader(

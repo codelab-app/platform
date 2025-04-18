@@ -1,14 +1,14 @@
-import type { IFieldModel } from '@codelab/frontend/abstract/domain'
+import type { IFieldModel } from '@codelab/frontend-abstract-domain'
 import type {
   IFieldCreateData,
   IFieldUpdateData,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import type { JSONSchemaType } from 'ajv'
 
 import {
   useApplicationStore,
   useDomainStore,
-} from '@codelab/frontend-infra-mobx/context'
+} from '@codelab/frontend-infra-mobx-context'
 import { useMemo } from 'react'
 
 /**

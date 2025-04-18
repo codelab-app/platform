@@ -1,4 +1,4 @@
-import type { IAppDto } from '@codelab/shared/abstract/core'
+import type { IAppDto } from '@codelab/shared-abstract-core'
 
 import { expect } from '@playwright/test'
 import { merge } from 'remeda'

@@ -1,5 +1,5 @@
 import { corsMiddleware } from '@codelab/backend/infra/adapter/middleware'
-// import { RoutePaths } from '@codelab/frontend/abstract/application'
+// import { RoutePaths } from '@codelab/frontend-abstract-application'
 import { auth0Instance } from '@codelab/shared-infra-auth0'
 import {
   type NextFetchEvent,

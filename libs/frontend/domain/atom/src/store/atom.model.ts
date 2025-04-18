@@ -3,21 +3,21 @@ import type {
   IInterfaceTypeModel,
   ITagModel,
   IUserModel,
-} from '@codelab/frontend/abstract/domain'
-import type { IAtomDto, IAtomType } from '@codelab/shared/abstract/core'
+} from '@codelab/frontend-abstract-domain'
+import type { IAtomDto, IAtomType } from '@codelab/shared-abstract-core'
 import type { Ref } from 'mobx-keystone'
 
 import AntDesignOutlined from '@ant-design/icons/AntDesignOutlined'
 import Html5Outlined from '@ant-design/icons/Html5Outlined'
-import { atomRef, typeRef, userRef } from '@codelab/frontend/abstract/domain'
+import { atomRef, typeRef, userRef } from '@codelab/frontend-abstract-domain'
 import { tagRef } from '@codelab/frontend-domain-tag/store'
-import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
+import { IElementRenderTypeKind } from '@codelab/shared-abstract-core'
 import {
   antdAtoms,
   codelabAtoms,
   htmlAtoms,
   reactAtoms,
-} from '@codelab/shared-domain-module/atom'
+} from '@codelab/shared-domain-module-atom'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { createElement } from 'react'

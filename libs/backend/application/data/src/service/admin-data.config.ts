@@ -1,6 +1,6 @@
-import type { IAtomCategory } from '@codelab/shared/abstract/core'
+import type { IAtomCategory } from '@codelab/shared-abstract-core'
 
-import { resolveWorkspaceRoot } from '@codelab/backend/shared/util'
+import { resolveWorkspaceRoot } from '@codelab/backend-shared-util'
 import fs from 'fs'
 import path from 'path'
 

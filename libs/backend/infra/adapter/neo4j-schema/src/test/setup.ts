@@ -1,19 +1,19 @@
-import type { GqlContext } from '@codelab/backend/abstract/types'
+import type { GqlContext } from '@codelab/backend-abstract-types'
 import type { ApolloDriverConfig } from '@nestjs/apollo'
 import type { ModuleMetadata } from '@nestjs/common'
 import type { ConfigType } from '@nestjs/config'
 
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default'
-import { AppRepository } from '@codelab/backend/domain/app'
-import { PropRepository } from '@codelab/backend/domain/prop'
-import { UserRepository } from '@codelab/backend/domain/user'
-import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
-import { endpointConfig } from '@codelab/backend/infra/core'
-import { startServer } from '@codelab/backend/test/utils'
+import { AppRepository } from '@codelab/backend-domain-app'
+import { PropRepository } from '@codelab/backend-domain-prop'
+import { UserRepository } from '@codelab/backend-domain-user'
+import { CodelabLoggerModule } from '@codelab/backend-infra-adapter-logger'
+import { endpointConfig } from '@codelab/backend-infra-core'
+import { startServer } from '@codelab/backend-test-utils'
 import {
   DatabaseService,
   Neo4jModule,
-} from '@codelab/backend-infra-adapter/neo4j-driver'
+} from '@codelab/backend-infra-adapter-neo4j-driver'
 import { ApolloDriver } from '@nestjs/apollo'
 import { ConfigModule } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'

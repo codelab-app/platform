@@ -7,14 +7,14 @@ import type {
   IPropDto,
   IRef,
   IStoreDto,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 
 import { Store } from '@codelab/frontend-domain-store/store'
 import { InterfaceType } from '@codelab/frontend-domain-type/store'
 import {
   IElementRenderTypeKind,
   ITypeKind,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import { v4 } from 'uuid'
 
 const storeFactory = ({ name, owner }: ICreateComponentData) => {

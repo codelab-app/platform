@@ -1,8 +1,8 @@
-import type { IPageBuilderQuery } from '@codelab/frontend/abstract/domain'
-import type { AtomBuilderFragment } from '@codelab/shared/infra/gqlgen'
+import type { IPageBuilderQuery } from '@codelab/frontend-abstract-domain'
+import type { AtomBuilderFragment } from '@codelab/shared-infra-gqlgen'
 
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
-import { ITypeKind } from '@codelab/shared/abstract/core'
+import { ITypeKind } from '@codelab/shared-abstract-core'
 import { uniqueBy } from 'remeda'
 
 import { GetPageBuilder } from './page-builder.api.graphql.web.gen'

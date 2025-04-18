@@ -1,4 +1,4 @@
-import { ActionKind } from '@codelab/shared/infra/gqlgen'
+import { ActionKind } from '@codelab/shared-infra-gqlgen'
 
 export { ActionKind as IActionKind }
 

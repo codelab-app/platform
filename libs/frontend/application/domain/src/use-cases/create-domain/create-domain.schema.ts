@@ -1,4 +1,4 @@
-import type { ICreateDomainData } from '@codelab/frontend/abstract/domain'
+import type { ICreateDomainData } from '@codelab/frontend-abstract-domain'
 import type { JSONSchemaType } from 'ajv'
 
 import {

@@ -1,10 +1,10 @@
-import type { IPropData } from '@codelab/shared/abstract/core'
+import type { IPropData } from '@codelab/shared-abstract-core'
 
 import {
   BUILDER_NONE_CLASS_NAME,
   DATA_ELEMENT_ID,
   DATA_RUNTIME_ELEMENT_KEY,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 
 import type { AtomFactoryInput, AtomFactoryResult } from './types'

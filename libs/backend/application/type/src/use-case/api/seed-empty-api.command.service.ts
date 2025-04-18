@@ -1,9 +1,9 @@
-import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
+import { AuthDomainService } from '@codelab/backend-domain-shared-auth'
 import {
   InterfaceType,
   InterfaceTypeRepository,
-} from '@codelab/backend/domain/type'
-import { type IAtomType } from '@codelab/shared/abstract/core'
+} from '@codelab/backend-domain-type'
+import { type IAtomType } from '@codelab/shared-abstract-core'
 import { CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 
 export class SeedEmptyApiCommand {

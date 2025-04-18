@@ -2,8 +2,8 @@ import type {
   IAtomDto,
   IAtomType,
   IElementRenderTypeKind,
-} from '@codelab/shared/abstract/core'
-import type { Nullish } from '@codelab/shared/abstract/types'
+} from '@codelab/shared-abstract-core'
+import type { Nullish } from '@codelab/shared-abstract-types'
 import type { Ref } from 'mobx-keystone'
 import type { ReactNode } from 'react'
 

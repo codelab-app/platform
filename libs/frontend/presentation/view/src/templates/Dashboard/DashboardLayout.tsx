@@ -2,7 +2,7 @@ import type {
   DashboardLayoutProps,
   DashboardSlots,
   UrlParams,
-} from '@codelab/frontend/abstract/types'
+} from '@codelab/frontend-abstract-types'
 
 import { Dashboard } from './Dashboard'
 

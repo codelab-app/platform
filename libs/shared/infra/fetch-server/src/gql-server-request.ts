@@ -3,11 +3,11 @@
 import type {
   NextFetchOptions,
   ObjectLike,
-} from '@codelab/shared/abstract/types'
+} from '@codelab/shared-abstract-types'
 import type { DocumentTypeDecoration } from '@graphql-typed-document-node/core'
 
-import { getEnv } from '@codelab/shared/config/env'
-import { logger } from '@codelab/shared/infra/logging'
+import { getEnv } from '@codelab/shared-config-env'
+import { logger } from '@codelab/shared-infra-logging'
 import { revalidateTag } from 'next/cache'
 
 import { serverFetchWithAuth } from './server-fetch-with-auth'

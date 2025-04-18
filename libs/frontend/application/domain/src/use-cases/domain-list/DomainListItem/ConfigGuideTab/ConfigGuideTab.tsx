@@ -1,4 +1,4 @@
-import type { IDomainModel } from '@codelab/frontend/abstract/domain'
+import type { IDomainModel } from '@codelab/frontend-abstract-domain'
 
 import { Alert, Tabs } from 'antd'
 import { Fragment } from 'react'

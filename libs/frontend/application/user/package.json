@@ -5,6 +5,26 @@
       "default": "./src/index.ts",
       "import": "./src/index.ts",
       "types": "./src/index.ts"
+    },
+    "./components": {
+      "default": "./src/components/index.ts",
+      "import": "./src/components/index.ts",
+      "types": "./src/components/index.ts"
+    },
+    "./services": {
+      "default": "./src/services/index.ts",
+      "import": "./src/services/index.ts",
+      "types": "./src/services/index.ts"
+    },
+    "./use-cases/server-user": {
+      "default": "./src/use-cases/server-user/index.ts",
+      "import": "./src/use-cases/server-user/index.ts",
+      "types": "./src/use-cases/server-user/index.ts"
+    },
+    "./use-cases/user-list": {
+      "default": "./src/use-cases/user-list/index.ts",
+      "import": "./src/use-cases/user-list/index.ts",
+      "types": "./src/use-cases/user-list/index.ts"
     }
   },
   "devDependencies": {

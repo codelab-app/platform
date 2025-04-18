@@ -1,6 +1,9 @@
 import type { ProjectConfiguration, Tree } from '@nx/devkit'
 
-import { getPackageNameFromProjectName } from '../path-alias/path-alias'
+import {
+  getPackageNameFromOldAlias,
+  getPackageNameFromProjectName,
+} from '../path-alias/path-alias'
 import { updateProjectImports } from './project-imports'
 
 /**
@@ -11,7 +14,7 @@ export const migrateProjectImports = (
   projectConfig: ProjectConfiguration,
 ) => {
   updateProjectImports(tree, projectConfig, (importPath) => {
-    const transformedPath = getPackageNameFromProjectName(importPath)
+    const transformedPath = getPackageNameFromOldAlias(importPath)
 
     return transformedPath
   })

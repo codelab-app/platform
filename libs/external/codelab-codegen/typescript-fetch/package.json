@@ -18,5 +18,12 @@
     "@graphql-codegen/testing": "1.18.0",
     "@graphql-tools/schema": "10.0.4",
     "graphql-request": "6.0.0"
+  },
+  "exports": {
+    ".": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
   }
 }

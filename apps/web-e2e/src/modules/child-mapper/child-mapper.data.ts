@@ -5,14 +5,14 @@ import type {
   IPageDto,
   IRef,
   IUserDto,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 
 import {
   ComponentDtoSchema,
   IAtomType,
   ITypeKind,
-} from '@codelab/shared/abstract/core'
-import { Validator } from '@codelab/shared/infra/typebox'
+} from '@codelab/shared-abstract-core'
+import { Validator } from '@codelab/shared-infra-typebox'
 import { type APIRequestContext } from '@playwright/test'
 import { v4 } from 'uuid'
 

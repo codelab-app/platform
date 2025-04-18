@@ -1,8 +1,8 @@
-import type { IUserDto } from '@codelab/shared/abstract/core'
+import type { IUserDto } from '@codelab/shared-abstract-core'
 
-import { PreferenceRepository } from '@codelab/backend/domain/preference'
-import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
-import { preferenceDefault } from '@codelab/shared-domain-module/preference'
+import { PreferenceRepository } from '@codelab/backend-domain-preference'
+import { AuthDomainService } from '@codelab/backend-domain-shared-auth'
+import { preferenceDefault } from '@codelab/shared-domain-module-preference'
 import { Injectable } from '@nestjs/common'
 
 import { UserRepository } from './user.repo.service'

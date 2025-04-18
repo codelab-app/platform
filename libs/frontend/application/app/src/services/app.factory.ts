@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 
-import type { IAppCreateFormData } from '@codelab/frontend/abstract/domain'
+import type { IAppCreateFormData } from '@codelab/frontend-abstract-domain'
 import type { PageDomainFactory } from '@codelab/frontend-domain-page/services'
 import type {
   IAppDto,
@@ -10,7 +10,7 @@ import type {
   IRef,
   IStoreDto,
   ITypeDto,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 
 export interface IAppAggregate {
   appsDto: Array<IAppDto>

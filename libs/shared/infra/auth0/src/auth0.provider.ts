@@ -1,9 +1,9 @@
 import type { SdkError } from '@auth0/nextjs-auth0/errors'
 import type { SessionData } from '@auth0/nextjs-auth0/types'
-import type { Nullable } from '@codelab/shared/abstract/types'
+import type { Nullable } from '@codelab/shared-abstract-types'
 
 import { Auth0Client } from '@auth0/nextjs-auth0/server'
-import { getEnv } from '@codelab/shared/config/env'
+import { getEnv } from '@codelab/shared-config-env'
 import { get } from 'env-var'
 import { NextResponse } from 'next/server'
 

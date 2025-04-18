@@ -3,14 +3,14 @@
 import type {
   IComponentModel,
   IPageModel,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 
 import {
   rendererRef,
   type RendererType,
   runtimeElementRef,
-} from '@codelab/frontend/abstract/application'
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+} from '@codelab/frontend-abstract-application'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx-context'
 import { observer } from 'mobx-react-lite'
 import { createContext, type ReactNode, useEffect } from 'react'
 import { v4 } from 'uuid'

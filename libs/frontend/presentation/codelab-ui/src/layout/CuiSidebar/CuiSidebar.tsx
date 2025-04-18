@@ -1,6 +1,6 @@
 'use client'
 
-import type { UiKey } from '@codelab/frontend/abstract/types'
+import type { UiKey } from '@codelab/frontend-abstract-types'
 import type { ReactNode } from 'react'
 
 import { useRef } from 'react'

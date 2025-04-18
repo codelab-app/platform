@@ -5,6 +5,21 @@
       "default": "./src/index.ts",
       "import": "./src/index.ts",
       "types": "./src/index.ts"
+    },
+    "./collision-detection": {
+      "default": "./src/collision-detection/index.ts",
+      "import": "./src/collision-detection/index.ts",
+      "types": "./src/collision-detection/index.ts"
+    },
+    "./components": {
+      "default": "./src/components/index.ts",
+      "import": "./src/components/index.ts",
+      "types": "./src/components/index.ts"
+    },
+    "./hooks": {
+      "default": "./src/hooks/index.ts",
+      "import": "./src/hooks/index.ts",
+      "types": "./src/hooks/index.ts"
     }
   },
   "devDependencies": {

@@ -1,18 +1,18 @@
-import type { IEnumTypeDto, INodeType } from '@codelab/shared/abstract/core'
+import type { IEnumTypeDto, INodeType } from '@codelab/shared-abstract-core'
 import type {
   EnumTypeOptions,
   EnumTypeWhere,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
-import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { AbstractRepository } from '@codelab/backend/infra/core'
-import { EnumTypeFragment } from '@codelab/shared/infra/gqlgen'
+import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
+import { AbstractRepository } from '@codelab/backend-infra-core'
+import { EnumTypeFragment } from '@codelab/shared-infra-gqlgen'
 import {
   createTypeApi,
   enumTypeMapper,
   findTypeApi,
   updateTypeApi,
-} from '@codelab/shared-domain-module/type'
+} from '@codelab/shared-domain-module-type'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

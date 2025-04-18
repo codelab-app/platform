@@ -1,10 +1,10 @@
-import type { BuilderDragData } from '@codelab/frontend/abstract/application'
+import type { BuilderDragData } from '@codelab/frontend-abstract-application'
 import type {
   IAtomModel,
   IComponentModel,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 
-import { BuilderDndAction } from '@codelab/frontend/abstract/application'
+import { BuilderDndAction } from '@codelab/frontend-abstract-application'
 import { MakeChildrenDraggable } from '@codelab/frontend-application-dnd/components'
 import { ErrorBoundary } from '@codelab/frontend-presentation-view/components/error'
 import { Space } from 'antd'

@@ -1,13 +1,13 @@
 'use client'
 
-import type { IBuilderRoute } from '@codelab/frontend/abstract/application'
-import type { Maybe } from '@codelab/shared/abstract/types'
+import type { IBuilderRoute } from '@codelab/frontend-abstract-application'
+import type { Maybe } from '@codelab/shared-abstract-types'
 
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
-import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
-import { CuiSidebarSecondary } from '@codelab/frontend/presentation/codelab-ui'
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import { type SubmitController, UiKey } from '@codelab/frontend-abstract-types'
+import { CuiSidebarSecondary } from '@codelab/frontend-presentation-codelab-ui'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx-context'
 import { useRouter } from 'next/navigation'
 import { useRef } from 'react'
 

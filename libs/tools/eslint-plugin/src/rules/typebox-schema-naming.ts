@@ -106,7 +106,7 @@ export const typeboxSchemaNaming = createESLintRule({
         }
 
         if (
-          node.source.value === '@codelab/shared/abstract/typebox' &&
+          node.source.value === '@codelab/shared-infra-typebox' &&
           node.specifiers.some(
             (specifier) =>
               specifier.type === AST_NODE_TYPES.ImportSpecifier &&

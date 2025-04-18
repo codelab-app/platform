@@ -1,5 +1,5 @@
-import { UserDomainModule } from '@codelab/backend/domain/user'
-import { auth0Config } from '@codelab/backend/infra/adapter/auth0'
+import { UserDomainModule } from '@codelab/backend-domain-user'
+import { auth0Config } from '@codelab/backend-infra-adapter-auth0'
 import { CacheModule } from '@nestjs/cache-manager'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'

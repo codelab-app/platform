@@ -1,16 +1,16 @@
 'use client'
 
 import type { ApolloError } from '@apollo/client'
-import type { ICreateDomainData } from '@codelab/frontend/abstract/domain'
+import type { ICreateDomainData } from '@codelab/frontend-abstract-domain'
 
-import { RoutePaths } from '@codelab/frontend/abstract/application'
-import { UiKey } from '@codelab/frontend/abstract/types'
-import { useErrorNotify } from '@codelab/frontend/infra/context'
+import { RoutePaths } from '@codelab/frontend-abstract-application'
+import { UiKey } from '@codelab/frontend-abstract-types'
+import { useErrorNotify } from '@codelab/frontend-infra-context'
 import {
   checkDomainExists,
   DOMAIN_EXISTS_ERROR,
 } from '@codelab/frontend-domain-domain/errors'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'

@@ -1,10 +1,10 @@
 'use client'
 
-import type { IPageModel } from '@codelab/frontend/abstract/domain'
-import type { IFormController } from '@codelab/frontend/abstract/types'
-import type { IPageUpdateFormData } from '@codelab/shared/abstract/core'
+import type { IPageModel } from '@codelab/frontend-abstract-domain'
+import type { IFormController } from '@codelab/frontend-abstract-types'
+import type { IPageUpdateFormData } from '@codelab/shared-abstract-core'
 
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend-abstract-types'
 import {
   Form,
   FormController,

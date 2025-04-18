@@ -14,7 +14,7 @@ import type {
   IStoreDto,
   ITagDto,
   ITypeDto,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 
 import type { IActionModel } from '../../action'
 import type { IAppModel } from '../../app'

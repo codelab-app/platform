@@ -3,9 +3,9 @@
 import type {
   IInterfaceTypeModel,
   ITypeModel,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 import type { SetIsLoading } from '@codelab/frontend-presentation-components-form'
-import type { ObjectLike } from '@codelab/shared/abstract/types'
+import type { ObjectLike } from '@codelab/shared-abstract-types'
 import type { JSONSchemaType } from 'ajv'
 import type { PropsWithChildren } from 'react'
 import type { Assign } from 'utility-types'
@@ -14,7 +14,7 @@ import {
   type FormProps,
   type SubmitRef,
   UiKey,
-} from '@codelab/frontend/abstract/types'
+} from '@codelab/frontend-abstract-types'
 import {
   Form,
   useAsyncHandler,

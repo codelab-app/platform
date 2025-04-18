@@ -1,4 +1,4 @@
-import type { IUpdateTagData } from '@codelab/shared/abstract/core'
+import type { IUpdateTagData } from '@codelab/shared-abstract-core'
 import type { JSONSchemaType } from 'ajv'
 
 import {

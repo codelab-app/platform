@@ -1,9 +1,9 @@
-import type { IRedirectDomainService } from '@codelab/frontend/abstract/domain'
+import type { IRedirectDomainService } from '@codelab/frontend-abstract-domain'
 
 import {
   type IRedirectDto,
   IRedirectTargetType,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import { v4 } from 'uuid'
 
 export const redirectFactory =

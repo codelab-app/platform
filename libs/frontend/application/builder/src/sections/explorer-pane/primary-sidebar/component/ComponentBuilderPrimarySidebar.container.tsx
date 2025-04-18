@@ -1,8 +1,8 @@
 'use client'
 
-import type { IComponentBuilderRoute } from '@codelab/frontend/abstract/application'
+import type { IComponentBuilderRoute } from '@codelab/frontend-abstract-application'
 
-import { ComponentConnector } from '@codelab/frontend/infra/connector'
+import { ComponentConnector } from '@codelab/frontend-infra-connector'
 
 import { ComponentBuilderPrimarySidebar } from './ComponentBuilderPrimarySidebar'
 

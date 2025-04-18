@@ -5,6 +5,36 @@
       "default": "./src/index.ts",
       "import": "./src/index.ts",
       "types": "./src/index.ts"
+    },
+    "./use-cases/create-lambda": {
+      "default": "./src/use-cases/create-lambda/index.ts",
+      "import": "./src/use-cases/create-lambda/index.ts",
+      "types": "./src/use-cases/create-lambda/index.ts"
+    },
+    "./use-cases/delete-lambda": {
+      "default": "./src/use-cases/delete-lambda/index.ts",
+      "import": "./src/use-cases/delete-lambda/index.ts",
+      "types": "./src/use-cases/delete-lambda/index.ts"
+    },
+    "./use-cases/execute-lambda": {
+      "default": "./src/use-cases/execute-lambda/index.ts",
+      "import": "./src/use-cases/execute-lambda/index.ts",
+      "types": "./src/use-cases/execute-lambda/index.ts"
+    },
+    "./use-cases/get-lambdas": {
+      "default": "./src/use-cases/get-lambdas/index.ts",
+      "import": "./src/use-cases/get-lambdas/index.ts",
+      "types": "./src/use-cases/get-lambdas/index.ts"
+    },
+    "./use-cases/update-lambda": {
+      "default": "./src/use-cases/update-lambda/index.ts",
+      "import": "./src/use-cases/update-lambda/index.ts",
+      "types": "./src/use-cases/update-lambda/index.ts"
+    },
+    "./views": {
+      "default": "./src/views/index.ts",
+      "import": "./src/views/index.ts",
+      "types": "./src/views/index.ts"
     }
   },
   "devDependencies": {

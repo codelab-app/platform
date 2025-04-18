@@ -1,4 +1,4 @@
-import type { IAppModel } from '@codelab/frontend/abstract/domain'
+import type { IAppModel } from '@codelab/frontend-abstract-domain'
 
 import { DomainListItem } from './DomainListItem'
 

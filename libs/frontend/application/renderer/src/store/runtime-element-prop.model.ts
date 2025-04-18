@@ -4,7 +4,7 @@ import type {
   IRuntimeElementModel,
   IRuntimeElementPropDto,
   IRuntimeElementPropModel,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 import type { Ref } from 'mobx-keystone'
 import type { ReactNode } from 'react'
 
@@ -12,7 +12,7 @@ import {
   getRendererService,
   getRouterService,
   isRuntimeComponent,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 import {
   DATA_ELEMENT_ID,
   DATA_RUNTIME_ELEMENT_KEY,
@@ -20,10 +20,10 @@ import {
   isAtomRef,
   isComponentRef,
   isTypedProp,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
-import { type IPropData, ITypeKind } from '@codelab/shared/abstract/core'
-import { mapDeep } from '@codelab/shared/utils'
+import { type IPropData, ITypeKind } from '@codelab/shared-abstract-core'
+import { mapDeep } from '@codelab/shared-utils'
 import {
   evaluateExpression,
   evaluateObject,

@@ -3,21 +3,21 @@ import type {
   ElementCssRules,
   IElementStyle,
   IRuntimeElementStyleModel,
-} from '@codelab/frontend/abstract/application'
-import type { Maybe } from '@codelab/shared/abstract/types'
+} from '@codelab/frontend-abstract-application'
+import type { Maybe } from '@codelab/shared-abstract-types'
 import type { Ref } from 'mobx-keystone'
 
 import {
   ElementStylePseudoClass,
   getRendererService,
   RendererType,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 import {
   getUserDomainService,
   type IElementModel,
-} from '@codelab/frontend/abstract/domain'
-import { IBreakpointType } from '@codelab/shared/abstract/core'
-import { breakpoints } from '@codelab/shared/config/builder'
+} from '@codelab/frontend-abstract-domain'
+import { IBreakpointType } from '@codelab/shared-abstract-core'
+import { breakpoints } from '@codelab/shared-config-builder'
 import { computed } from 'mobx'
 import { Model, model, modelAction, prop } from 'mobx-keystone'
 

@@ -3,9 +3,9 @@ import type {
   IPrimitiveTypeKind,
   ITypeDto,
   ITypeKind,
-} from '@codelab/shared/abstract/core'
-import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
-import type { TypeFragment } from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-abstract-core'
+import type { Maybe, Nullable } from '@codelab/shared-abstract-types'
+import type { TypeFragment } from '@codelab/shared-infra-gqlgen'
 import type { ObjectMap } from 'mobx-keystone'
 
 import type { IHydrateable } from '../shared'

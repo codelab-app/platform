@@ -1,6 +1,6 @@
-import type { IAppModel } from '@codelab/frontend/abstract/domain'
+import type { IAppModel } from '@codelab/frontend-abstract-domain'
 
-import { downloadJsonAsFile } from '@codelab/frontend/shared/utils'
+import { downloadJsonAsFile } from '@codelab/frontend-shared-utils'
 import { useLoading } from '@codelab/frontend-application-shared-store/loading'
 import { useAsyncFn } from 'react-use'
 

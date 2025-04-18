@@ -2,9 +2,9 @@ import type {
   IAppModel,
   IPageNodeData,
   ITreeNode,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 
-import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
+import { CuiTree } from '@codelab/frontend-presentation-codelab-ui'
 import { observer } from 'mobx-react-lite'
 
 import { PageTreeItem } from './PageTreeItem'

@@ -1,4 +1,4 @@
-import type { IValidationService } from '@codelab/shared/abstract/infra'
+import type { IValidationService } from '@codelab/shared-abstract-infra'
 
 import { TypeBoxProvider } from '../provider/typebox.provider'
 import {

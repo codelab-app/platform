@@ -1,10 +1,10 @@
 import type {
   IRuntimePageNode,
   ITypedPropTransformer,
-} from '@codelab/frontend/abstract/application'
-import type { TypedProp } from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-application'
+import type { TypedProp } from '@codelab/frontend-abstract-domain'
 
-import { extractTypedPropValue } from '@codelab/frontend/abstract/domain'
+import { extractTypedPropValue } from '@codelab/frontend-abstract-domain'
 import { hasExpression } from '@codelab/shared-infra-eval'
 import { ExtendedModel, model } from 'mobx-keystone'
 

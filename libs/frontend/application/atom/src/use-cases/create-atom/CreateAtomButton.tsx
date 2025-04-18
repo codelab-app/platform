@@ -1,10 +1,10 @@
 'use client'
 
-import type { IAtomCreateRoute } from '@codelab/frontend/abstract/application'
+import type { IAtomCreateRoute } from '@codelab/frontend-abstract-application'
 import type {
   PaginationClientProps,
   TreeViewClientProps,
-} from '@codelab/frontend/abstract/types'
+} from '@codelab/frontend-abstract-types'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { Button } from 'antd'

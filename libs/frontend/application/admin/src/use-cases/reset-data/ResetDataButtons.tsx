@@ -3,7 +3,7 @@
 import {
   useErrorNotify,
   useSuccessNotify,
-} from '@codelab/frontend/infra/context'
+} from '@codelab/frontend-infra-context'
 import { Button, Popconfirm } from 'antd'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'

@@ -21,7 +21,7 @@ const getPackageNameFromProjectName = (projectName) => {
         }
     }
     // If the loop completes without finding a match, throw an error
-    // console.log(`Project name "${projectName}" not found in path alias map`)
+    console.log(`Project name "${projectName}" not found in path alias map`);
     return projectName;
 };
 exports.getPackageNameFromProjectName = getPackageNameFromProjectName;

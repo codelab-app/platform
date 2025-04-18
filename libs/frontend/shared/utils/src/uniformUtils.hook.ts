@@ -1,5 +1,5 @@
-import type { SubmitController } from '@codelab/frontend/abstract/types'
-import type { Maybe, Nullish, ObjectLike } from '@codelab/shared/abstract/types'
+import type { SubmitController } from '@codelab/frontend-abstract-types'
+import type { Maybe, Nullish, ObjectLike } from '@codelab/shared-abstract-types'
 import type { TSchema } from '@sinclair/typebox'
 import type { JSONSchemaType, Schema } from 'ajv'
 import type { MutableRefObject } from 'react'

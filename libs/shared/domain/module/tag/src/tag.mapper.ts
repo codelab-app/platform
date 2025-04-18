@@ -1,16 +1,16 @@
-import type { IMapper, ITagDto } from '@codelab/shared/abstract/core'
+import type { IMapper, ITagDto } from '@codelab/shared-abstract-core'
 import type {
   TagCreateInput,
   TagDeleteInput,
   TagUpdateInput,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
 import {
   connectNodeId,
   connectNodeIds,
   connectOwner,
   reconnectNodeIds,
-} from '@codelab/shared/domain/orm'
+} from '@codelab/shared-domain-orm'
 
 export const tagMapper: IMapper<
   ITagDto,
