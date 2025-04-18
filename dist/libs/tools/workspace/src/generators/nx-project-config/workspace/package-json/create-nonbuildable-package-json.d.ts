@@ -8,3 +8,4 @@ export declare const createNonbuildablePackageJson: (tree: Tree, projectConfig: 
  * Writes the package.json object to the specified path within the project root.
  */
 export declare const writeToPackageJson: (tree: Tree, projectRoot: string, packageJson: PackageJson) => void;
+//# sourceMappingURL=create-nonbuildable-package-json.d.ts.map

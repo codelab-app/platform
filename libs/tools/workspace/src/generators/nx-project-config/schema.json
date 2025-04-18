@@ -19,6 +19,12 @@
       "default": false,
       "x-prompt": "Would you like to migrate to TypeScript project references?"
     },
+    "migrateToInferred": {
+      "type": "boolean",
+      "description": "Migrate projects to use Nx inferred tasks/plugins",
+      "default": false,
+      "x-prompt": "Would you like to migrate to Nx inferred tasks/plugins?"
+    },
     "projectName": {
       "type": "string",
       "description": "Name of the project to update dependencies for (if not specified, all projects will be processed)",

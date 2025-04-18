@@ -1,8 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ProjectConfigGeneratorSchema {
-  //
-  // name: string
-  //
+  migrateToInferred?: boolean
   migrateToProjectReferences?: boolean
   projectName?: string
 }

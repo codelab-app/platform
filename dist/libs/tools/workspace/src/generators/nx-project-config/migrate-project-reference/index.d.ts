@@ -6,3 +6,4 @@ export { updateProjectTsconfig } from './update-project-tsconfig';
  * Migrates a project to use TypeScript project references
  */
 export declare const migrateProjectReference: (tree: Tree, projectConfig: ProjectConfiguration) => Promise<void>;
+//# sourceMappingURL=index.d.ts.map

@@ -11,6 +11,7 @@ import type { ProjectConfigGeneratorSchema } from './schema'
 
 import { updateTestTargets } from './jest/remove-test-targets'
 import { migrateProjectReference } from './migrate-project-reference'
+import { migrateToInferred } from './migrate-to-inferred/migrate-to-inferred'
 import { addProjectTags } from './project-tags/add-project-tags'
 import { updateBaseTsconfig } from './tsconfig/base/tsconfig.base'
 import { copyLibTsconfigToTsconfig } from './tsconfig/copy-options'
@@ -73,6 +74,8 @@ export const nxProjectConfigGenerator = async (
     // Migrate project to use TypeScript project references
     if (options.migrateToProjectReferences) {
       await migrateProjectReference(tree, projectConfig)
+    } else if (options.migrateToInferred) {
+      await migrateToInferred(tree, projectConfig)
     } else {
       addProjectTags(tree, projectConfig)
       updateTestTargets(tree, projectConfig)

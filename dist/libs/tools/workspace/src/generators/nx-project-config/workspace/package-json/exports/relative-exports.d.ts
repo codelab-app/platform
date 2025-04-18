@@ -6,3 +6,4 @@ export declare const getRelativeExports: (packageName: string) => Record<string,
     import: string;
     types: string;
 }>;
+//# sourceMappingURL=relative-exports.d.ts.map

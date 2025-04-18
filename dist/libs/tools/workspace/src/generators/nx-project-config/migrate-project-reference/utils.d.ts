@@ -31,3 +31,4 @@ export declare const getPackageJsonNameFromProjectName: (projectName: string) =>
  * Throws an error if the mapping file doesn't exist or if the project is not found in the mapping
  */
 export declare const getPackageJsonNameFromMapping: (tree: Tree, projectName: string) => string;
+//# sourceMappingURL=utils.d.ts.map

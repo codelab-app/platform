@@ -10,3 +10,4 @@ export declare const setPackageJsonExports: (packageJson: PackageJson, relativeE
     import: string;
     types: string;
 }>) => void;
+//# sourceMappingURL=package-exports.d.ts.map

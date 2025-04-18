@@ -321,16 +321,10 @@
       "path": "./libs/frontend/domain/user"
     },
     {
-      "path": "./libs/frontend/infra/action"
-    },
-    {
       "path": "./libs/frontend/infra/connector"
     },
     {
       "path": "./libs/frontend/infra/context"
-    },
-    {
-      "path": "./libs/frontend/infra/gql-client"
     },
     {
       "path": "./libs/frontend/infra/logger"
@@ -340,9 +334,6 @@
     },
     {
       "path": "./libs/frontend/infra/mobx/store"
-    },
-    {
-      "path": "./libs/frontend/infra/shared"
     },
     {
       "path": "./libs/frontend/presentation/codelab-ui"
@@ -517,42 +508,6 @@
     },
     {
       "path": "./libs/frontend/cui/utils"
-    },
-    {
-      "path": "./libs/frontend/application/style"
-    },
-    {
-      "path": "./libs/frontend/domain/renderer"
-    },
-    {
-      "path": "./libs/frontend/domain/lambda"
-    },
-    {
-      "path": "./libs/frontend/domain/admin"
-    },
-    {
-      "path": "./libs/frontend/domain/style"
-    },
-    {
-      "path": "./apps/landing"
-    },
-    {
-      "path": "./apps/web-e2e"
-    },
-    {
-      "path": "./apps/sites"
-    },
-    {
-      "path": "./apps/demo"
-    },
-    {
-      "path": "./apps/api"
-    },
-    {
-      "path": "./apps/cli"
-    },
-    {
-      "path": "./apps/web"
     }
   ]
 }

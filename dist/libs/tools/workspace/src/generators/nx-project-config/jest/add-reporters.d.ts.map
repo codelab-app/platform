@@ -1,0 +1,1 @@
+{"version":3,"file":"add-reporters.d.ts","sourceRoot":"","sources":["../../../../../../../../libs/tools/workspace/src/generators/nx-project-config/jest/add-reporters.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,oBAAoB,EAAE,MAAM,YAAY,CAAA;AACtD,OAAO,KAAK,EAAE,uBAAuB,EAAE,MAAM,UAAU,CAAA;AAIvD,eAAO,MAAM,wBAAwB,iBACrB,uBAAuB,iBACtB,oBAAoB,SA6BpC,CAAA"}

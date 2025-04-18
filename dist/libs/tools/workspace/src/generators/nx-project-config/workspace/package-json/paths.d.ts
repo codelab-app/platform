@@ -7,3 +7,4 @@
  * @returns An array of unique base import paths.
  */
 export declare const getBaseImportPaths: (imports: Array<string>) => Array<string>;
+//# sourceMappingURL=paths.d.ts.map

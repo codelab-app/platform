@@ -6,3 +6,4 @@ import type { PackageJson } from 'type-fest';
  * @param projectName - The name of the project.
  */
 export declare const setPackageJsonName: (packageJson: Partial<PackageJson>, projectName: string) => void;
+//# sourceMappingURL=package-name.d.ts.map

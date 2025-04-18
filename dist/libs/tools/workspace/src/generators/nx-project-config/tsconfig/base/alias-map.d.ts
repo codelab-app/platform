@@ -15,3 +15,4 @@ export declare const aliasMap: {
     '^frontend-presentation-view': string[];
     '^shared-infra-auth0$': string[];
 };
+//# sourceMappingURL=alias-map.d.ts.map
