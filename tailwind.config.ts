@@ -6,7 +6,7 @@ import shadcnTailwindConfig from './scripts/tailwind/shadcn.tailwind.config'
  */
 const config: Config = {
   content: [],
-  presets: [shadcnTailwindConfig],
+  // presets: [shadcnTailwindConfig],
   plugins: [],
   theme: {
     extend: {

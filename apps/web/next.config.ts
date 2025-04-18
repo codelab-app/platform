@@ -29,6 +29,7 @@ const nextConfig: NextConfig = {
   },
   eslint: { ignoreDuringBuilds: true },
   experimental: {
+    // esmExternals: false,
     serverSourceMaps: false,
     // forceSwcTransforms: true,
     // outputFileTracingRoot: path.join(__dirname, '../../'),
