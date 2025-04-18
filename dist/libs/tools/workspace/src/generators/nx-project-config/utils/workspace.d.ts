@@ -25,4 +25,3 @@ export declare const createAliasMapping: (tree: Tree) => ProjectMapping;
  */
 export declare const saveAliasMappingToFile: (tree: Tree, mapping: ProjectMapping, outputPath?: string) => void;
 export {};
-//# sourceMappingURL=workspace.d.ts.map

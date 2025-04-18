@@ -9,4 +9,3 @@ export declare const sortKeys: (object: object) => object;
 export declare const getModuleAlias: (project: ProjectConfiguration, relativePathFromProjectSourceRoot: string) => string;
 export declare const appendTsconfigPath: (tree: Tree, project: ProjectConfiguration, moduleAlias: string, targetPath: string) => void;
 export declare const removeTsconfigPath: (tree: Tree, moduleAlias: string) => void;
-//# sourceMappingURL=utils.d.ts.map

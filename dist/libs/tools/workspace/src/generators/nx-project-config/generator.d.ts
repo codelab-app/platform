@@ -7,4 +7,3 @@ import type { ProjectConfigGeneratorSchema } from './schema';
  */
 export declare const nxProjectConfigGenerator: (tree: Tree, options: ProjectConfigGeneratorSchema) => Promise<void>;
 export default nxProjectConfigGenerator;
-//# sourceMappingURL=generator.d.ts.map

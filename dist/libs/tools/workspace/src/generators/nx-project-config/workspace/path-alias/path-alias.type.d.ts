@@ -4,4 +4,3 @@ export type PathAliasMap = Record<PathAlias, {
     path: string;
     name: string | null;
 }>;
-//# sourceMappingURL=path-alias.type.d.ts.map

@@ -7,4 +7,3 @@ export declare const addCiLintConfig: (tree: Tree, projectConfig: ProjectConfigu
  * We can put these in nx.js instead
  */
 export declare const removeCiLintConfig: (tree: Tree, projectConfig: ProjectConfiguration) => void;
-//# sourceMappingURL=ci-lint-config.d.ts.map

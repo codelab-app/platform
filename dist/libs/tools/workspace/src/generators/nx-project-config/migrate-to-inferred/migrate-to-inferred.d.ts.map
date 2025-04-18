@@ -1,1 +1,0 @@
-{"version":3,"file":"migrate-to-inferred.d.ts","sourceRoot":"","sources":["../../../../../../../../libs/tools/workspace/src/generators/nx-project-config/migrate-to-inferred/migrate-to-inferred.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,oBAAoB,EAAE,IAAI,EAAE,MAAM,YAAY,CAAA;AAK5D;;;;;GAKG;AACH,eAAO,MAAM,iBAAiB,SACtB,IAAI,iBACK,oBAAoB,KAClC,OAAO,CAAC,IAAI,CAuDd,CAAA"}

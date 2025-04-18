@@ -1,1 +1,0 @@
-{"version":3,"file":"jest-config.d.ts","sourceRoot":"","sources":["../../../../../../../../libs/tools/workspace/src/generators/nx-project-config/jest/jest-config.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,oBAAoB,EAAE,MAAM,YAAY,CAAA;AACtD,OAAO,KAAK,EAAE,uBAAuB,EAAE,MAAM,UAAU,CAAA;AA4CvD;;GAEG;AACH,eAAO,MAAM,UAAU,iBACP,uBAAuB,iBACtB,oBAAoB,SAqBpC,CAAA"}

@@ -8,4 +8,3 @@ export declare const getPathAliasPackageNames: () => string[];
  */
 export declare const getPackageNameFromProjectName: (projectName: string) => PathAlias;
 export declare const getPackageNameFromOldAlias: (oldAlias: string) => string;
-//# sourceMappingURL=path-alias.d.ts.map

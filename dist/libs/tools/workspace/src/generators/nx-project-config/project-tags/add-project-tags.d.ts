@@ -8,4 +8,3 @@ import type { ProjectConfiguration, Tree } from '@nx/devkit';
  *  "projectType": ["application", "library"]
  */
 export declare const addProjectTags: (tree: Tree, projectConfig: ProjectConfiguration) => void;
-//# sourceMappingURL=add-project-tags.d.ts.map

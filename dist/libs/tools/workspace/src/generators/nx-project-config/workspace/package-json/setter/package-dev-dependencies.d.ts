@@ -6,4 +6,3 @@ import type { PackageJson } from 'type-fest';
  * @param baseImportPaths - An array of unique base import paths to add as dependencies.
  */
 export declare const setDevDependencies: (packageJson: PackageJson, baseImportPaths: Array<string>) => void;
-//# sourceMappingURL=package-dev-dependencies.d.ts.map

@@ -1,1 +1,0 @@
-{"version":3,"file":"update-package-json.d.ts","sourceRoot":"","sources":["../../../../../../../../../libs/tools/workspace/src/generators/nx-project-config/workspace/package-json/update-package-json.ts"],"names":[],"mappings":"AAAA,OAAO,EAEL,KAAK,oBAAoB,EAEzB,KAAK,IAAI,EACV,MAAM,YAAY,CAAA;AAKnB,eAAO,MAAM,iBAAiB,SACtB,IAAI,iBACK,oBAAoB,SAwBpC,CAAA"}

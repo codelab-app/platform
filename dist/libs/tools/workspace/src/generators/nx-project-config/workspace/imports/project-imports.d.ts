@@ -7,4 +7,3 @@ export declare const getProjectImports: (tree: Tree, projectConfig: ProjectConfi
  * Update imports in all project files
  */
 export declare const updateProjectImports: (tree: Tree, projectConfig: ProjectConfiguration, transformFn: (importPath: string) => string) => void;
-//# sourceMappingURL=project-imports.d.ts.map
