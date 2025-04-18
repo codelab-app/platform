@@ -43,5 +43,7 @@
     "**/*.test.js",
     "**/*.spec.jsx",
     "**/*.test.jsx"
-  ]
+  ],
+  "files": [],
+  "references": []
 }

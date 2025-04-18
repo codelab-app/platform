@@ -10,7 +10,7 @@ import type {
 import type { APIRequestContext } from '@playwright/test'
 
 import { IAtomType, IPageKind } from '@codelab/shared-abstract-core'
-import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
+import { ROOT_ELEMENT_NAME } from '@codelab/shared-config-env'
 import { v4 } from 'uuid'
 
 import { requestOrThrow } from '../../api'

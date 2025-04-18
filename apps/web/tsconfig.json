@@ -7,7 +7,6 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "incremental": true,
@@ -57,10 +56,11 @@
   ],
   "references": [
     {
-      "path": "./tsconfig.storybook.json"
+      "path": "./tsconfig.lib.json"
     },
     {
       "path": "./tsconfig.spec.json"
     }
-  ]
+  ],
+  "files": []
 }

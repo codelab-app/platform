@@ -17,5 +17,6 @@
     "types": ["node", "cypher"]
   },
   "include": ["webpack.config.js", "src/**/*.ts"],
-  "exclude": ["jest.config.ts"]
+  "exclude": ["jest.config.ts"],
+  "references": []
 }

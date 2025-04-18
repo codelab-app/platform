@@ -2,9 +2,9 @@
   "name": "web-e2e",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/web-e2e/src",
+  "projectType": "application",
   "tags": ["projectName:web-e2e", "projectType:application", "type:concrete"],
   "implicitDependencies": ["web"],
-  "projectType": "application",
   "targets": {
     "e2e": {
       "defaultConfiguration": "test",

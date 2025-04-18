@@ -1,7 +1,7 @@
 {
-  "extends": "./tsconfig.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "../../dist/out-tsc",
+    "outDir": "./out-tsc/spec",
     "module": "commonjs",
     "types": ["jest", "node"],
     "jsx": "react"
@@ -17,5 +17,10 @@
     "**/*.test.jsx",
     "**/*.d.ts"
   ],
-  "exclude": ["node_modules", "src/**/*.spec.ts", "src/**/*.test.ts"]
+  "exclude": ["node_modules", "src/**/*.spec.ts", "src/**/*.test.ts"],
+  "references": [
+    {
+      "path": "./tsconfig.lib.json"
+    }
+  ]
 }

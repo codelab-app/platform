@@ -1,6 +1,6 @@
 import { RoutePaths } from '@codelab/frontend-abstract-application'
 import { UiKey } from '@codelab/frontend-abstract-types'
-import { E2E_ATOM_TYPES } from '@codelab/shared/data/test'
+import { E2E_ATOM_TYPES } from '@codelab/shared-data-test'
 import { expect } from '@playwright/test'
 
 import { baseTest } from '../../setup/fixtures/base.fixture'

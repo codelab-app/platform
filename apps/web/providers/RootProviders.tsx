@@ -8,7 +8,7 @@ import { CuiProvider } from '@codelab/frontend-presentation-codelab-ui'
 import {
   createRootStore,
   RootStoreProvider,
-} from '@codelab/frontend-infra-mobx/store'
+} from '@codelab/frontend-infra-mobx-store'
 import { Provider } from 'jotai'
 import { useMemo } from 'react'
 

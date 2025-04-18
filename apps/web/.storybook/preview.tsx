@@ -5,11 +5,11 @@ import {
   React19Compatibility,
   StyleProviders,
 } from '@codelab/frontend-infra-context'
-import { userDto } from '@codelab/frontend/test/data'
+import { userDto } from '@codelab/frontend-test-data'
 import {
   createRootStore,
   RootStoreProvider,
-} from '@codelab/frontend-infra-mobx/store'
+} from '@codelab/frontend-infra-mobx-store'
 import { JWT_CLAIMS } from '@codelab/shared-abstract-core'
 import { initialize, mswLoader } from 'msw-storybook-addon'
 // eslint-disable-next-line unused-imports/no-unused-imports

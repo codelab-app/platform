@@ -1,9 +1,9 @@
-import type { IJobOutput } from '@codelab/shared/abstract/infra'
+import type { IJobOutput } from '@codelab/shared-abstract-infra'
 import type { APIRequestContext } from '@playwright/test'
 import type { Socket } from 'socket.io-client'
 
-import { env } from '@codelab/shared/config/env'
-import { getTimestamp } from '@codelab/shared/infra/logging'
+import { env } from '@codelab/shared-config-env'
+import { getTimestamp } from '@codelab/shared-infra-logging'
 import { io } from 'socket.io-client'
 
 /**

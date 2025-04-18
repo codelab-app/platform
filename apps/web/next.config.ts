@@ -27,27 +27,27 @@ const nextConfig: NextConfig = {
   compiler: {
     styledComponents: true,
   },
+  eslint: { ignoreDuringBuilds: true },
   experimental: {
     // forceSwcTransforms: true,
-
     // outputFileTracingRoot: path.join(__dirname, '../../'),
     // optimizePackageImports: ['@auth0/nextjs-auth0/edge'],
     // https://nextjs.org/docs/messages/import-esm-externals
     // typedRoutes: true,
-
     // 120s
     // increase timeout for long-running proxy request,
     // e.g. request from admin to seed the db; request to seed database in e2e
-    proxyTimeout: 120_000,
-    staleTimes: {
-      dynamic: 30,
-      static: 180,
-    },
+    // proxyTimeout: 120_000,
+    // staleTimes: {
+    //   dynamic: 30,
+    //   static: 180,
+    // },
+    webpackMemoryOptimizations: true, // ⇠ reduces peak heap
+    webpackBuildWorker: true, // runs webpack in its own worker
   },
   nx: { svgr: false },
-  // productionBrowserSourceMaps: Boolean(process.env.CI),
-  // https://github.com/ant-design/ant-design-examples/blob/main/examples/with-nextjs-app-router-inline-style/next.config.js
-  // productionBrowserSourceMaps: true,
+  // source‑maps add 200‑400 MB
+  productionBrowserSourceMaps: false,
   // disable to support uniforms
   // http://github.com/vazco/uniforms/issues/1194
   reactStrictMode: false,

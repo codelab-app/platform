@@ -1,7 +1,7 @@
 import type { IPage } from '@codelab/shared-abstract-core'
 
 import { IPageKind } from '@codelab/shared-abstract-core'
-import { E2E_ATOM_TYPES } from '@codelab/shared/data/test'
+import { E2E_ATOM_TYPES } from '@codelab/shared-data-test'
 import { type APIRequestContext } from '@playwright/test'
 import { v4 } from 'uuid'
 

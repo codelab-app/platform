@@ -51,9 +51,6 @@
       "path": "./libs/backend/application/page"
     },
     {
-      "path": "./libs/backend/application/prop"
-    },
-    {
       "path": "./libs/backend/application/redirect"
     },
     {

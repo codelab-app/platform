@@ -1,7 +1,7 @@
 import type { ICreateElementSeedData } from '@codelab/shared-abstract-core'
 
 import { IAtomType, ITypeKind } from '@codelab/shared-abstract-core'
-import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
+import { ROOT_ELEMENT_NAME } from '@codelab/shared-config-env'
 
 export const COMPONENT_PROP_VALUE = 'component_prop_value'
 export const COMPONENT_INSTANCE_TEXT = 'component_instance_text'

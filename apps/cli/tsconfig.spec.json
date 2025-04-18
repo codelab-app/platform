@@ -1,9 +1,14 @@
 {
-  "extends": "./tsconfig.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "../../dist/out-tsc",
+    "outDir": "./out-tsc/spec",
     "module": "commonjs",
     "types": ["jest", "node"]
   },
-  "include": ["jest.config.ts"]
+  "include": ["jest.config.ts"],
+  "references": [
+    {
+      "path": "./tsconfig.lib.json"
+    }
+  ]
 }

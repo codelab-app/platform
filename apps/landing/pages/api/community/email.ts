@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-import { getEnv } from '@codelab/shared/config/env'
+import { getEnv } from '@codelab/shared-config-env'
 import { Validator } from '@codelab/shared-infra-typebox'
 import { lists, setConfig } from '@mailchimp/mailchimp_marketing'
 import { Type } from '@sinclair/typebox'

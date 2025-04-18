@@ -1,0 +1,33 @@
+{
+  "name": "api",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+  },
+  "devDependencies": {
+    "@codelab/backend-application-action": "workspace:*",
+    "@codelab/backend-application-admin": "workspace:*",
+    "@codelab/backend-application-app": "workspace:*",
+    "@codelab/backend-application-atom": "workspace:*",
+    "@codelab/backend-application-component": "workspace:*",
+    "@codelab/backend-application-domain": "workspace:*",
+    "@codelab/backend-application-element": "workspace:*",
+    "@codelab/backend-application-field": "workspace:*",
+    "@codelab/backend-application-redirect": "workspace:*",
+    "@codelab/backend-application-resource": "workspace:*",
+    "@codelab/backend-application-tag": "workspace:*",
+    "@codelab/backend-application-user": "workspace:*",
+    "@codelab/backend-infra-adapter-request-context": "workspace:*",
+    "@codelab/backend-infra-core": "workspace:*",
+    "@codelab/backend-infra-adapter-graphql": "workspace:*",
+    "@codelab/backend-infra-adapter-logger": "workspace:*",
+    "@codelab/backend-application-auth": "workspace:*",
+    "@codelab/backend-domain-shared-modules": "workspace:*",
+    "@codelab/backend-infra-adapter-queue": "workspace:*",
+    "@codelab/backend-infra-adapter-ws": "workspace:*",
+    "@codelab/backend-infra-adapter-neo4j-schema": "workspace:*"
+  }
+}

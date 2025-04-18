@@ -13,6 +13,8 @@ import { updateTestTargets } from './jest/remove-test-targets'
 import { migrateProjectReference } from './migrate-project-reference'
 import { addProjectTags } from './project-tags/add-project-tags'
 import { updateBaseTsconfig } from './tsconfig/base/tsconfig.base'
+import { copyLibTsconfigToTsconfig } from './tsconfig/copy-options'
+import { updateLibraryTsconfig } from './tsconfig/lib/tsconfig.lib'
 import { createAliasMapping, saveAliasMappingToFile } from './utils/workspace'
 
 /**
@@ -37,10 +39,7 @@ export const nxProjectConfigGenerator = async (
     console.log(`Checking for ${projectConfig.name}...`)
     console.log('-----------------')
 
-    if (
-      projectConfig.projectType === 'application' ||
-      projectConfig.name === 'codelab'
-    ) {
+    if (projectConfig.name === 'codelab') {
       console.log('Skipping project:', projectConfig.name)
       continue
     }
@@ -75,8 +74,9 @@ export const nxProjectConfigGenerator = async (
       addProjectTags(tree, projectConfig)
       updateTestTargets(tree, projectConfig)
 
-      updateBaseTsconfig(tree, projectConfig)
+      // updateBaseTsconfig(tree, projectConfig)
       // updateLibraryTsconfig(tree, projectConfig)
+      copyLibTsconfigToTsconfig(tree, projectConfig)
     }
 
     updateProjectConfiguration(tree, projectName, projectConfig)

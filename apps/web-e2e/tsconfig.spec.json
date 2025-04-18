@@ -1,4 +1,11 @@
 {
-  // Used by `tsc-check`
-  "extends": "./tsconfig.json"
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/spec"
+  },
+  "references": [
+    {
+      "path": "./tsconfig.lib.json"
+    }
+  ]
 }

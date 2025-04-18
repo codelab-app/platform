@@ -31,5 +31,7 @@
     "../../dist/apps/demo/.next/types/**/*.ts",
     "next-env.d.ts"
   ],
-  "exclude": ["node_modules", "jest.config.ts", "**/*.spec.ts", "**/*.test.ts"]
+  "exclude": ["node_modules", "jest.config.ts", "**/*.spec.ts", "**/*.test.ts"],
+  "files": [],
+  "references": []
 }

@@ -5,7 +5,7 @@ const devkit_1 = require("@nx/devkit");
 const remove_test_targets_1 = require("./jest/remove-test-targets");
 const migrate_project_reference_1 = require("./migrate-project-reference");
 const add_project_tags_1 = require("./project-tags/add-project-tags");
-const tsconfig_base_1 = require("./tsconfig/base/tsconfig.base");
+const copy_options_1 = require("./tsconfig/copy-options");
 /**
  * Factory function to generate a list of available projects for the x-prompt
  * @returns An array of project choices for the dropdown
@@ -21,8 +21,7 @@ const nxProjectConfigGenerator = async (tree, options) => {
         const projectConfig = (0, devkit_1.readProjectConfiguration)(tree, projectName);
         console.log(`Checking for ${projectConfig.name}...`);
         console.log('-----------------');
-        if (projectConfig.projectType === 'application' ||
-            projectConfig.name === 'codelab') {
+        if (projectConfig.name === 'codelab') {
             console.log('Skipping project:', projectConfig.name);
             continue;
         }
@@ -52,8 +51,9 @@ const nxProjectConfigGenerator = async (tree, options) => {
         else {
             (0, add_project_tags_1.addProjectTags)(tree, projectConfig);
             (0, remove_test_targets_1.updateTestTargets)(tree, projectConfig);
-            (0, tsconfig_base_1.updateBaseTsconfig)(tree, projectConfig);
+            // updateBaseTsconfig(tree, projectConfig)
             // updateLibraryTsconfig(tree, projectConfig)
+            (0, copy_options_1.copyLibTsconfigToTsconfig)(tree, projectConfig);
         }
         (0, devkit_1.updateProjectConfiguration)(tree, projectName, projectConfig);
     }

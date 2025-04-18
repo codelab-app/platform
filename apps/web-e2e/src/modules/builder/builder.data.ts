@@ -1,7 +1,7 @@
 import type { ICreateElementSeedData } from '@codelab/shared-abstract-core'
 
 import { IAtomType, ITypeKind } from '@codelab/shared-abstract-core'
-import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
+import { ROOT_ELEMENT_NAME } from '@codelab/shared-config-env'
 
 export const elementRow: ICreateElementSeedData = {
   atom: IAtomType.AntDesignGridRow,

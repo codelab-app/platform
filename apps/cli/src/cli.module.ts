@@ -1,4 +1,4 @@
-import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
+import { CodelabLoggerModule } from '@codelab/backend-infra-adapter-logger'
 import { Stage } from '@codelab/shared-abstract-core'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'

@@ -1,0 +1,24 @@
+{
+  "name": "web-e2e",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+  },
+  "devDependencies": {
+    "@codelab/shared-abstract-infra": "workspace:*",
+    "@codelab/shared-config-env": "workspace:*",
+    "@codelab/shared-infra-logging": "workspace:*",
+    "@codelab/shared-abstract-core": "workspace:*",
+    "@codelab/frontend-abstract-application": "workspace:*",
+    "@codelab/frontend-abstract-types": "workspace:*",
+    "@codelab/shared-infra-gqlgen": "workspace:*",
+    "@codelab/frontend-application-shared-data": "workspace:*",
+    "@codelab/shared-data-test": "workspace:*",
+    "@codelab/shared-infra-typebox": "workspace:*",
+    "@codelab/shared-utils": "workspace:*",
+    "@codelab/shared-abstract-types": "workspace:*"
+  }
+}

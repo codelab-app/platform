@@ -1,17 +1,17 @@
-import { AuthModule, JwtAuthGuard } from '@codelab/backend/application/auth'
-import { HealthcheckController } from '@codelab/backend/domain/shared/modules'
-import { GraphqlModule } from '@codelab/backend/infra/adapter/graphql'
+import { AuthModule, JwtAuthGuard } from '@codelab/backend-application-auth'
+import { HealthcheckController } from '@codelab/backend-domain-shared-modules'
+import { GraphqlModule } from '@codelab/backend-infra-adapter-graphql'
 import {
   CodelabLoggerModule,
   LoggerMiddleware,
-} from '@codelab/backend/infra/adapter/logger'
-import { QueueModule } from '@codelab/backend/infra/adapter/queue'
-import { WsModule } from '@codelab/backend/infra/adapter/ws'
-import { CommandBusSubscription } from '@codelab/backend/infra/core'
+} from '@codelab/backend-infra-adapter-logger'
+import { QueueModule } from '@codelab/backend-infra-adapter-queue'
+import { WsModule } from '@codelab/backend-infra-adapter-ws'
+import { CommandBusSubscription } from '@codelab/backend-infra-core'
 import {
   GraphQLSchemaModule,
   SchemaService,
-} from '@codelab/backend-infra-adapter/neo4j-schema'
+} from '@codelab/backend-infra-adapter-neo4j-schema'
 import {
   MiddlewareConsumer,
   Module,

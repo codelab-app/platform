@@ -15,5 +15,7 @@
     "src/**/*.test.ts",
     "src/**/*.test.js",
     "src/**/*.d.ts"
-  ]
+  ],
+  "files": [],
+  "references": []
 }
