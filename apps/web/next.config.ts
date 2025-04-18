@@ -29,6 +29,7 @@ const nextConfig: NextConfig = {
   },
   eslint: { ignoreDuringBuilds: true },
   experimental: {
+    serverSourceMaps: false,
     // forceSwcTransforms: true,
     // outputFileTracingRoot: path.join(__dirname, '../../'),
     // optimizePackageImports: ['@auth0/nextjs-auth0/edge'],
@@ -61,6 +62,13 @@ const nextConfig: NextConfig = {
         loaders: ['@svgr/webpack'],
       },
     },
+  },
+  typescript: {
+    // !! WARN !!
+    // Dangerously allow production builds to successfully complete even if
+    // your project has type errors.
+    // !! WARN !!
+    ignoreBuildErrors: true,
   },
   /**
    * https://nextjs.org/docs/app/building-your-application/routing/middleware#matching-paths

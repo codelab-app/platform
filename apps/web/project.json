@@ -127,6 +127,29 @@
           "buildTarget": "web:build-storybook:ci"
         }
       }
+    },
+    "build-profile": {
+      "executor": "nx:run-commands",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "command": "export NODE_OPTIONS='--heap-prof' && nx run web:build:{args.configuration}",
+        "outputPath": "dist/apps/web"
+      },
+      "configurations": {
+        "dev": {
+          "command": "export NODE_OPTIONS='--heap-prof' && nx run web:build:dev"
+        },
+        "ci": {
+          "command": "export NODE_OPTIONS='--heap-prof' && nx run web:build:ci"
+        },
+        "test": {
+          "command": "export NODE_OPTIONS='--heap-prof' && nx run web:build:test",
+          "outputPath": "dist/apps/web-test"
+        },
+        "prod": {
+          "command": "export NODE_OPTIONS='--heap-prof' && nx run web:build:prod"
+        }
+      }
     }
   }
 }
