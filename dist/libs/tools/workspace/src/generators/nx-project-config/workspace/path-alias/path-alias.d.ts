@@ -1,4 +1,5 @@
 import type { PathAlias } from './path-alias.type';
+export declare const getPathAliasPackageNames: () => string[];
 /**
  * Gets the package path alias when given a project name
  * @param projectName The name of the project

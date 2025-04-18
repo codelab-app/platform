@@ -1,9 +1,11 @@
 import {
   joinPathFragments,
   type ProjectConfiguration,
+  readJson,
   type Tree,
 } from '@nx/devkit'
 
+import { writeToPackageJson } from './create-nonbuildable-package-json'
 import { setExports } from './exports/set-exports'
 
 export const updatePackageJson = (
@@ -25,4 +27,11 @@ export const updatePackageJson = (
   }
 
   setExports(tree, projectConfig)
+
+  const packageJson = readJson(
+    tree,
+    joinPathFragments(projectConfig.root, 'package.json'),
+  )
+
+  writeToPackageJson(tree, projectConfig.root, packageJson)
 }

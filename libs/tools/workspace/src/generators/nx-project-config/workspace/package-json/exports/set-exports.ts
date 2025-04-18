@@ -3,6 +3,7 @@ import {
   type ProjectConfiguration,
   readJson,
   type Tree,
+  writeJson,
 } from '@nx/devkit'
 
 import { getProjectImports } from '../../imports/project-imports'
@@ -16,6 +17,7 @@ import { getRelativeExports } from './relative-exports'
 
 export const setExports = (tree: Tree, projectConfig: ProjectConfiguration) => {
   const projectName = projectConfig.name
+  const packageJsonPath = joinPathFragments(projectConfig.root, 'package.json')
 
   console.log(`Setting exports for ${projectName}`)
 
@@ -23,23 +25,13 @@ export const setExports = (tree: Tree, projectConfig: ProjectConfiguration) => {
     throw new Error('Project name is required')
   }
 
-  const allImports = getProjectImports(tree, projectConfig).map((importPath) =>
-    getPackageNameFromOldAlias(importPath),
-  )
-
-  const baseImportPaths = getBaseImportPaths(allImports)
   const packageName = getPackageNameFromProjectName(projectName)
+  const relativeExports = getRelativeExports(packageName)
+  const packageJson = readJson(tree, packageJsonPath)
 
-  const relativeExports = getRelativeExports(
-    allImports,
-    baseImportPaths,
-    packageName,
-  )
-
-  const packageJson = readJson(
-    tree,
-    joinPathFragments(projectConfig.root, 'package.json'),
-  )
+  console.log('exports', relativeExports)
 
   setPackageJsonExports(packageJson, relativeExports)
+
+  writeJson(tree, packageJsonPath, packageJson)
 }

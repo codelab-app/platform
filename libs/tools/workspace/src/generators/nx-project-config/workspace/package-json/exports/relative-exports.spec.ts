@@ -1,31 +1,25 @@
 import { getRelativeExports } from './relative-exports'
-import data from './test-data.json'
 
 describe('getRelativeExports', () => {
   it('should generate relative exports based on import data', () => {
-    const {
-      allImports,
-      baseImportPaths,
-      expectedRelativeExports,
-      packageName,
-    } = data
+    const packageName = '@codelab/frontend-application-element'
+    const relativeExportsMap = getRelativeExports(packageName)
+    const relativeExportKeys = Object.keys(relativeExportsMap)
 
-    const relativeExportsMap = getRelativeExports(
-      allImports,
-      baseImportPaths,
-      packageName,
-    )
+    const expected = [
+      '.',
+      './services',
+      './use-cases/create-element',
+      './use-cases/delete-element',
+      './use-cases/hook-description',
+      './use-cases/move-element',
+      './use-cases/update-element',
+      './use-cases/update-element-props',
+      './validation',
+      './views',
+    ]
 
-    // Filter out the main export '.' key before comparing
-    const relativeExportKeys = Object.keys(relativeExportsMap).filter(
-      (key) => key !== '.',
-    )
-
-    console.log('allImports', allImports)
-
-    console.log('Generated Relative Exports:', relativeExportKeys)
-
-    // Add assertions here later if needed
-    expect(expectedRelativeExports).toEqual(relativeExportKeys)
+    // Sort both arrays before comparison to ensure order doesn't matter
+    expect(relativeExportKeys.sort()).toEqual(expected.sort())
   })
 })

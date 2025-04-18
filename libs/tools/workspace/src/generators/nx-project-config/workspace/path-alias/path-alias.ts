@@ -2,6 +2,10 @@ import type { PathAlias, PathAliasMap } from './path-alias.type'
 
 import pathAliasMap from './path-alias.json'
 
+export const getPathAliasPackageNames = () => {
+  return Object.keys(pathAliasMap)
+}
+
 /**
  * Gets the package path alias when given a project name
  * @param projectName The name of the project
@@ -19,7 +23,7 @@ export const getPackageNameFromProjectName = (
   }
 
   // If the loop completes without finding a match, throw an error
-  console.log(`Project name "${projectName}" not found in path alias map`)
+  // console.log(`Project name "${projectName}" not found in path alias map`)
 
   return projectName
 }
@@ -33,7 +37,7 @@ export const getPackageNameFromOldAlias = (oldAlias: string): string => {
   }
 
   // If the loop completes without finding a match, throw an error
-  console.log(`Project name "${oldAlias}" not found in path alias map`)
+  // console.log(`Project name "${oldAlias}" not found in path alias map`)
 
   return oldAlias
 }

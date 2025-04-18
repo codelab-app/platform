@@ -7,19 +7,39 @@
       "types": "./src/index.ts"
     },
     "./services": {
-      "default": "./src/index.ts",
-      "import": "./src/index.ts",
-      "types": "./src/index.ts"
+      "default": "./src/services/index.ts",
+      "import": "./src/services/index.ts",
+      "types": "./src/services/index.ts"
     },
-    "./pagination": {
-      "default": "./src/index.ts",
-      "import": "./src/index.ts",
-      "types": "./src/index.ts"
+    "./use-cases/create-tag": {
+      "default": "./src/use-cases/create-tag/index.ts",
+      "import": "./src/use-cases/create-tag/index.ts",
+      "types": "./src/use-cases/create-tag/index.ts"
     },
-    "./components": {
-      "default": "./src/index.ts",
-      "import": "./src/index.ts",
-      "types": "./src/index.ts"
+    "./use-cases/delete-tags": {
+      "default": "./src/use-cases/delete-tags/index.ts",
+      "import": "./src/use-cases/delete-tags/index.ts",
+      "types": "./src/use-cases/delete-tags/index.ts"
+    },
+    "./use-cases/get-tags": {
+      "default": "./src/use-cases/get-tags/index.ts",
+      "import": "./src/use-cases/get-tags/index.ts",
+      "types": "./src/use-cases/get-tags/index.ts"
+    },
+    "./use-cases/tag-table": {
+      "default": "./src/use-cases/tag-table/index.ts",
+      "import": "./src/use-cases/tag-table/index.ts",
+      "types": "./src/use-cases/tag-table/index.ts"
+    },
+    "./use-cases/update-tag": {
+      "default": "./src/use-cases/update-tag/index.ts",
+      "import": "./src/use-cases/update-tag/index.ts",
+      "types": "./src/use-cases/update-tag/index.ts"
+    },
+    "./views": {
+      "default": "./src/views/index.ts",
+      "import": "./src/views/index.ts",
+      "types": "./src/views/index.ts"
     }
   },
   "devDependencies": {
