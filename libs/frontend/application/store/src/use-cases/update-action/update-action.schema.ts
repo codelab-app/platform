@@ -1,3 +1,5 @@
+'use client'
+
 import type { IUpdateActionData } from '@codelab/shared-abstract-core'
 import type { JSONSchemaType } from 'ajv'
 
