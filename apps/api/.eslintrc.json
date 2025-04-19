@@ -5,7 +5,7 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "parserOptions": {
-        "project": ["apps/api/tsconfig(.*)?.json"]
+        "project": ["apps/api/tsconfig(.*).json"]
       },
       "rules": {}
     },

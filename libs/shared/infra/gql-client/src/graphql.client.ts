@@ -11,6 +11,7 @@ const graphqlUrl = getEnv().endpoint.apiGraphqlUrl
  * sending analytics beacons when a user closes a page). Node's underlying HTTP layer doesn't
  * use this parameter at all.
  */
+
 export const graphqlClient = new GraphQLClient(graphqlUrl.toString(), {
   errorPolicy: 'all',
   // fetch: async (...args) => {

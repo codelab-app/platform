@@ -22,7 +22,8 @@ export const updateLibraryTsconfig = (
        * Is required by legacy decorators
        */
       json.compilerOptions = {
-        module: 'commonjs',
+        // Needed if `moduleResolution` is set to `bundler`
+        module: 'esnext',
         forceConsistentCasingInFileNames: true,
         strict: true,
         noImplicitOverride: true,

@@ -30,12 +30,16 @@
     {
       "plugin": "@nx/next/plugin",
       "options": {
-        "startTargetName": "start",
-        "buildTargetName": "next:build",
+        "buildTargetName": "build",
         "devTargetName": "dev",
-        "serveStaticTargetName": "serve-static",
-        "buildDepsTargetName": "build-deps",
-        "watchDepsTargetName": "watch-deps"
+        "startTargetName": "start",
+        "serveStaticTargetName": "serve-static"
+      }
+    },
+    {
+      "plugin": "@nx/jest/plugin",
+      "options": {
+        "targetName": "test"
       }
     }
   ],

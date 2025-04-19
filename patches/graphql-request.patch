@@ -1,0 +1,14 @@
+diff --git a/package.json b/package.json
+index 4fbb27ea1576de94e107d48e866ab011e1891203..bbc3b49125afccbbd34932d2b132f061db15d173 100644
+--- a/package.json
++++ b/package.json
+@@ -6,6 +6,9 @@
+   "exports": {
+     ".": {
+       "default": "./build/entrypoints/main.js"
++    },
++    "./build/legacy/helpers/types": {
++      "types": "./build/legacy/helpers/types.d.ts"
+     }
+   },
+   "files": [

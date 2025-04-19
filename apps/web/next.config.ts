@@ -1,3 +1,4 @@
+/* eslint-disable no-inline-comments */
 import type { NextConfig } from 'next'
 
 import bundleAnalyzer from '@next/bundle-analyzer'
@@ -27,10 +28,13 @@ const nextConfig: NextConfig = {
   compiler: {
     styledComponents: true,
   },
-  eslint: { ignoreDuringBuilds: true },
+  // eslint: { ignoreDuringBuilds: true },
   experimental: {
+    /**
+     * https://github.com/auth0/nextjs-auth0/issues/1752
+     */
     // esmExternals: false,
-    serverSourceMaps: false,
+    // serverSourceMaps: false,
     // forceSwcTransforms: true,
     // outputFileTracingRoot: path.join(__dirname, '../../'),
     // optimizePackageImports: ['@auth0/nextjs-auth0/edge'],
@@ -44,11 +48,11 @@ const nextConfig: NextConfig = {
     //   dynamic: 30,
     //   static: 180,
     // },
-    webpackMemoryOptimizations: true, // ⇠ reduces peak heap
-    webpackBuildWorker: true, // runs webpack in its own worker
+    // webpackMemoryOptimizations: true, // ⇠ reduces peak heap
+    // webpackBuildWorker: true, // runs webpack in its own worker
   },
   nx: { svgr: false },
-  // source‑maps add 200‑400 MB
+  // source‑maps add 200‑400MB
   productionBrowserSourceMaps: false,
   // disable to support uniforms
   // http://github.com/vazco/uniforms/issues/1194
@@ -69,7 +73,7 @@ const nextConfig: NextConfig = {
     // Dangerously allow production builds to successfully complete even if
     // your project has type errors.
     // !! WARN !!
-    ignoreBuildErrors: true,
+    // ignoreBuildErrors: true,
   },
   /**
    * https://nextjs.org/docs/app/building-your-application/routing/middleware#matching-paths

@@ -8,6 +8,7 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
+    "module": "es2015",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "incremental": true,

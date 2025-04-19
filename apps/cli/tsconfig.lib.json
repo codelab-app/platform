@@ -4,7 +4,6 @@
     "outDir": "../../dist/out-tsc",
     "module": "ESNext",
     "types": ["node", "cypher", "multer"],
-    "moduleResolution": "bundler",
     "target": "es2021",
     "strictNullChecks": true,
     "noImplicitAny": true,

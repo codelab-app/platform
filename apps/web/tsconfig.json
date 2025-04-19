@@ -24,19 +24,21 @@
       "styled-components",
       "uniforms"
     ],
-    "noEmit": true
+    "noEmit": true,
+    "module": "esnext"
   },
   "include": [
-    "**/*.ts",
-    "**/*.tsx",
+    "**/*.graphql",
     "**/*.js",
     "**/*.jsx",
-    "**/*.graphql",
-    "next-env.d.ts",
-    "index.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
     ".next/types/**/*.ts",
+    "index.d.ts",
+    "next-env.d.ts",
+    "next.config.ts",
     "postcss.config.cjs",
-    "next.config.mjs"
+    "../../dist/apps/web/.next/types/**/*.ts"
   ],
   "exclude": [
     "jest.config.ts",
@@ -60,6 +62,5 @@
     {
       "path": "./tsconfig.spec.json"
     }
-  ],
-  "files": []
+  ]
 }
