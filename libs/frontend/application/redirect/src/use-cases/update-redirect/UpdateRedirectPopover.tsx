@@ -1,5 +1,3 @@
-'use client'
-
 import type { PageContextParams } from '@codelab/frontend-abstract-application'
 import type { Maybe } from '@codelab/shared-abstract-types'
 

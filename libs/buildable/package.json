@@ -1,5 +1,5 @@
 {
-  "name": "@codelab/shared-infra-gqlgen",
+  "name": "@demo/buildable",
   "version": "0.0.1",
   "type": "module",
   "main": "./dist/index.js",
@@ -13,17 +13,5 @@
       "import": "./dist/index.js",
       "default": "./dist/index.js"
     }
-  },
-  "devDependencies": {},
-  "nx": {
-    "projectType": "library",
-    "sourceRoot": "libs/shared/infra/gqlgen/src",
-    "tags": [
-      "projectName:shared-infra-gqlgen",
-      "projectType:library",
-      "type:abstract",
-      "layer:infra",
-      "scope:shared"
-    ]
   }
 }

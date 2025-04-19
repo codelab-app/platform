@@ -1,5 +1,3 @@
-'use client'
-
 import type { ICreateActionData } from '@codelab/shared-abstract-core'
 
 import { type IFormController, UiKey } from '@codelab/frontend-abstract-types'

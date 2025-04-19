@@ -1,5 +1,3 @@
-'use client'
-
 import type { Maybe } from '@codelab/shared-abstract-types'
 
 import CloseOutlined from '@ant-design/icons/CloseOutlined'

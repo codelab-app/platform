@@ -1,5 +1,3 @@
-'use client'
-
 import type { IRedirectUpdateFormData } from '@codelab/frontend-abstract-domain'
 import type { JSONSchemaType } from 'ajv'
 

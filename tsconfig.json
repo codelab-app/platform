@@ -1,5 +1,6 @@
 {
   "extends": "./tsconfig.base.json",
+  "compileOnSave": false,
   "files": [], // intentionally empty
   "references": [
     {
