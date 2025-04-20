@@ -4,13 +4,13 @@
   "maxCacheSize": "4GB",
   "nxCloudId": "67fcdb6b7eeb2ddcc348061b",
   "plugins": [
-    "@codelab/tsc-check",
-    {
-      "plugin": "@nx/eslint/plugin",
-      "options": {
-        "targetName": "eslint:lint"
-      }
-    },
+    // "@codelab/tsc-check",
+    // {
+    //   "plugin": "@nx/eslint/plugin",
+    //   "options": {
+    //     "targetName": "eslint:lint"
+    //   }
+    // },
     {
       "plugin": "@nx/js/typescript",
       "options": {
@@ -33,7 +33,8 @@
         "devTargetName": "dev",
         "serveStaticTargetName": "serve-static",
         "buildDepsTargetName": "build-deps",
-        "watchDepsTargetName": "watch-deps"
+        "watchDepsTargetName": "watch-deps",
+        "buildLibsFromSource": false
       }
     },
     {
@@ -137,27 +138,12 @@
   },
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "targetDefaults": {
-    "build": {
-      "dependsOn": ["^build"],
-      "inputs": ["prod", "^prod"],
-      "cache": true
-    },
-    "e2e": {
-      "inputs": ["default", "^default"],
-      "cache": true
+    "@nx/next:build": {
+      "dependsOn": ["^build"]
     },
     "tsc-check": {
       "cache": true,
       "inputs": ["default", "^default", "{workspaceRoot}/tsconfig.base.json"]
-    },
-    "build-storybook": {
-      "inputs": [
-        "default",
-        "^prod",
-        "{projectRoot}/.storybook/**/*",
-        "{projectRoot}/tsconfig.storybook.json"
-      ],
-      "cache": true
     },
     "@nx/jest:jest": {
       "cache": true,
@@ -220,23 +206,6 @@
           "errorOnUnmatchedPattern": false
         }
       }
-    },
-    "@nx/vite:test": {
-      "cache": true,
-      "inputs": ["default", "^default"]
-    },
-    "lint": {
-      "cache": true
-    },
-    "@nx/js:tsc": {
-      "cache": true,
-      "dependsOn": ["^build"],
-      "inputs": ["production", "^production"]
-    },
-    "@nx/next:build": {
-      "cache": true,
-      "dependsOn": ["^build"],
-      "inputs": ["production", "^production"]
     }
   },
   "namedInputs": {

@@ -471,7 +471,6 @@
   },
   "resolutions": {},
   "nx": {
-    "includedScripts": [],
     "tags": [
       "projectName:codelab"
     ]

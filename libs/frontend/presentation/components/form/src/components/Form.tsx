@@ -3,11 +3,11 @@
 import type { FormProps } from '@codelab/frontend-abstract-types'
 import type { ReactElement } from 'react'
 
+import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import {
   connectUniformSubmitRef,
   createBridge,
 } from '@codelab/frontend-shared-utils'
-import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import { throttle } from 'radash'
 import { useEffect, useRef, useState } from 'react'
 import { css } from 'styled-components'
