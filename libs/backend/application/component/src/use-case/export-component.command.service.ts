@@ -48,6 +48,10 @@ export class ExportComponentHandler
       Validator.parse(ElementExportSchema, {
         ...element,
         closestContainerNode: { id: componentId },
+        renderType: {
+          __typename: element.renderType.__typename,
+          id: element.renderType.id,
+        },
       }),
     )
 
