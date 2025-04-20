@@ -184,7 +184,7 @@ export abstract class AbstractRepository<
 
           return results
         } catch (error) {
-          this.loggerService.error('Failed to find items', {
+          this.loggerService.verbose('Failed to find items', {
             context: this.constructor.name,
             data: {
               error,
