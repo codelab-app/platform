@@ -32,7 +32,7 @@ export class PageApplicationService {
   async addPage(pageAggregate: IPageAggregate) {
     const { elements, page, store } = pageAggregate
 
-    await this.storeApplicationService.addStores([store])
+    await this.storeApplicationService.saveStore(store)
 
     for (const element of elements) {
       await this.elementRepository.save(element)
