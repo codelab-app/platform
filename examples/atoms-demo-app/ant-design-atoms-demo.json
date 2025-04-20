@@ -67,7 +67,6 @@
             "id": "7f89323d-9366-449f-a5e8-02d440b2a7b9"
           },
           "compositeKey": "7f89323d-9366-449f-a5e8-02d440b2a7b9-body",
-          "expanded": false,
           "firstChild": null,
           "id": "cbe70237-ba55-4368-ba5e-969cc9eaf853",
           "name": "Body",
@@ -163,7 +162,6 @@
             "id": "223041a7-da75-407c-9b9e-3eaeb94cd847"
           },
           "compositeKey": "223041a7-da75-407c-9b9e-3eaeb94cd847-body",
-          "expanded": true,
           "firstChild": {
             "id": "f1b4fb12-88c0-45e6-af89-9894fd820413"
           },
@@ -199,7 +197,6 @@
             "id": "223041a7-da75-407c-9b9e-3eaeb94cd847"
           },
           "compositeKey": "223041a7-da75-407c-9b9e-3eaeb94cd847-html-div-1-duplicate-duplicate",
-          "expanded": false,
           "firstChild": null,
           "id": "63c18e3c-2e81-49ed-9cb0-a9a9b15e2e74",
           "name": "Html Div 1 Duplicate Duplicate",
@@ -235,7 +232,6 @@
             "id": "223041a7-da75-407c-9b9e-3eaeb94cd847"
           },
           "compositeKey": "223041a7-da75-407c-9b9e-3eaeb94cd847-ant-design-button",
-          "expanded": false,
           "firstChild": null,
           "id": "f2a9e6c9-006c-41e7-b6cf-5de20be13e0c",
           "name": "Ant Design Button",
@@ -269,7 +265,6 @@
             "id": "223041a7-da75-407c-9b9e-3eaeb94cd847"
           },
           "compositeKey": "223041a7-da75-407c-9b9e-3eaeb94cd847-html-div-1",
-          "expanded": false,
           "firstChild": null,
           "id": "72ce041b-2808-4b15-9c04-a1ea4e0e23c3",
           "name": "Html Div 1",
@@ -305,7 +300,6 @@
             "id": "223041a7-da75-407c-9b9e-3eaeb94cd847"
           },
           "compositeKey": "223041a7-da75-407c-9b9e-3eaeb94cd847-html-div",
-          "expanded": true,
           "firstChild": {
             "id": "72ce041b-2808-4b15-9c04-a1ea4e0e23c3"
           },
@@ -341,7 +335,6 @@
             "id": "223041a7-da75-407c-9b9e-3eaeb94cd847"
           },
           "compositeKey": "223041a7-da75-407c-9b9e-3eaeb94cd847-html-div-1-duplicate",
-          "expanded": false,
           "firstChild": null,
           "id": "2eb9999c-54ce-4c00-9876-6fd9b5123914",
           "name": "Html Div 1 Duplicate",
@@ -377,7 +370,6 @@
             "id": "223041a7-da75-407c-9b9e-3eaeb94cd847"
           },
           "compositeKey": "223041a7-da75-407c-9b9e-3eaeb94cd847-ant-design-affix",
-          "expanded": true,
           "firstChild": {
             "id": "f2a9e6c9-006c-41e7-b6cf-5de20be13e0c"
           },
@@ -491,7 +483,6 @@
             "id": "e056fa88-0750-4194-a04c-df5930022a89"
           },
           "compositeKey": "e056fa88-0750-4194-a04c-df5930022a89-ant-design-alert-duplicate-duplicate",
-          "expanded": false,
           "firstChild": null,
           "id": "0cfeb006-7231-4879-8329-6fb93b7df2c5",
           "name": "Ant Design Alert Duplicate Duplicate",
@@ -525,7 +516,6 @@
             "id": "e056fa88-0750-4194-a04c-df5930022a89"
           },
           "compositeKey": "e056fa88-0750-4194-a04c-df5930022a89-ant-design-space",
-          "expanded": true,
           "firstChild": {
             "id": "da177115-9aeb-40df-840b-80f0bf36ac44"
           },
@@ -561,7 +551,6 @@
             "id": "e056fa88-0750-4194-a04c-df5930022a89"
           },
           "compositeKey": "e056fa88-0750-4194-a04c-df5930022a89-ant-design-alert-duplicate-2",
-          "expanded": false,
           "firstChild": null,
           "id": "d2950f27-fe4c-43ce-a357-9a3a4bb592e1",
           "name": "Ant Design Alert Duplicate 2",
@@ -597,7 +586,6 @@
             "id": "e056fa88-0750-4194-a04c-df5930022a89"
           },
           "compositeKey": "e056fa88-0750-4194-a04c-df5930022a89-ant-design-alert-duplicate-2-duplicate",
-          "expanded": false,
           "firstChild": null,
           "id": "26b8ca06-daea-483d-9aae-3ec40108b45b",
           "name": "Ant Design Alert Duplicate 2 Duplicate",
@@ -633,7 +621,6 @@
             "id": "e056fa88-0750-4194-a04c-df5930022a89"
           },
           "compositeKey": "e056fa88-0750-4194-a04c-df5930022a89-ant-design-alert-duplicate-1",
-          "expanded": false,
           "firstChild": null,
           "id": "ab348863-b06f-4f05-9c69-ad3d1b148bd6",
           "name": "Ant Design Alert Duplicate 1",
@@ -669,7 +656,6 @@
             "id": "e056fa88-0750-4194-a04c-df5930022a89"
           },
           "compositeKey": "e056fa88-0750-4194-a04c-df5930022a89-ant-design-space-1",
-          "expanded": true,
           "firstChild": {
             "id": "75eddd36-5c68-46d1-bc52-ee2c7f12a7c2"
           },
@@ -707,7 +693,6 @@
             "id": "e056fa88-0750-4194-a04c-df5930022a89"
           },
           "compositeKey": "e056fa88-0750-4194-a04c-df5930022a89-ant-design-alert-duplicate-3",
-          "expanded": false,
           "firstChild": null,
           "id": "43678356-0bb1-41d6-9388-dd8d576a18b9",
           "name": "Ant Design Alert Duplicate 3",
@@ -743,7 +728,6 @@
             "id": "e056fa88-0750-4194-a04c-df5930022a89"
           },
           "compositeKey": "e056fa88-0750-4194-a04c-df5930022a89-ant-design-alert-8",
-          "expanded": false,
           "firstChild": null,
           "id": "b645f50c-262c-4905-b94f-86e8af0eacb8",
           "name": "Ant Design Alert 8",
@@ -777,7 +761,6 @@
             "id": "e056fa88-0750-4194-a04c-df5930022a89"
           },
           "compositeKey": "e056fa88-0750-4194-a04c-df5930022a89-ant-design-alert",
-          "expanded": false,
           "firstChild": null,
           "id": "75eddd36-5c68-46d1-bc52-ee2c7f12a7c2",
           "name": "Ant Design Alert",
@@ -813,7 +796,6 @@
             "id": "e056fa88-0750-4194-a04c-df5930022a89"
           },
           "compositeKey": "e056fa88-0750-4194-a04c-df5930022a89-ant-design-alert-duplicate",
-          "expanded": true,
           "firstChild": null,
           "id": "90b4a918-ca3b-4aad-a83e-37f2ed014b0c",
           "name": "Ant Design Alert Duplicate",
@@ -849,7 +831,6 @@
             "id": "e056fa88-0750-4194-a04c-df5930022a89"
           },
           "compositeKey": "e056fa88-0750-4194-a04c-df5930022a89-ant-design-alert-duplicate-1-duplicate",
-          "expanded": false,
           "firstChild": null,
           "id": "41b65641-d6b3-436e-a5e9-de72fd03111d",
           "name": "Ant Design Alert Duplicate 1 Duplicate",
@@ -885,7 +866,6 @@
             "id": "e056fa88-0750-4194-a04c-df5930022a89"
           },
           "compositeKey": "e056fa88-0750-4194-a04c-df5930022a89-ant-design-space-1-duplicate",
-          "expanded": true,
           "firstChild": {
             "id": "43678356-0bb1-41d6-9388-dd8d576a18b9"
           },
@@ -921,7 +901,6 @@
             "id": "e056fa88-0750-4194-a04c-df5930022a89"
           },
           "compositeKey": "e056fa88-0750-4194-a04c-df5930022a89-body",
-          "expanded": true,
           "firstChild": {
             "id": "1d8603ad-8617-4353-9607-3334715576c0"
           },
@@ -1097,7 +1076,6 @@
             "id": "ee648a37-3aa8-46aa-ba27-072f9b0e3c81"
           },
           "compositeKey": "ee648a37-3aa8-46aa-ba27-072f9b0e3c81-ant-design-grid-col-1",
-          "expanded": true,
           "firstChild": {
             "id": "8d2968ba-3e0e-4006-b5a4-eea0bcb7aa97"
           },
@@ -1135,7 +1113,6 @@
             "id": "ee648a37-3aa8-46aa-ba27-072f9b0e3c81"
           },
           "compositeKey": "ee648a37-3aa8-46aa-ba27-072f9b0e3c81-html-div-duplicate",
-          "expanded": false,
           "firstChild": null,
           "id": "7f2be908-6d0c-4ffb-bfbb-63eae359c802",
           "name": "Html Div Duplicate",
@@ -1169,7 +1146,6 @@
             "id": "ee648a37-3aa8-46aa-ba27-072f9b0e3c81"
           },
           "compositeKey": "ee648a37-3aa8-46aa-ba27-072f9b0e3c81-html-div-duplicate-1",
-          "expanded": false,
           "firstChild": null,
           "id": "165a6838-e355-45f1-bc2c-1a703723de89",
           "name": "Html Div Duplicate 1",
@@ -1205,7 +1181,6 @@
             "id": "ee648a37-3aa8-46aa-ba27-072f9b0e3c81"
           },
           "compositeKey": "ee648a37-3aa8-46aa-ba27-072f9b0e3c81-body",
-          "expanded": true,
           "firstChild": {
             "id": "c4ccede1-0c3a-4340-a5fb-0da43088e0dd"
           },
@@ -1241,7 +1216,6 @@
             "id": "ee648a37-3aa8-46aa-ba27-072f9b0e3c81"
           },
           "compositeKey": "ee648a37-3aa8-46aa-ba27-072f9b0e3c81-ant-design-grid-col",
-          "expanded": true,
           "firstChild": {
             "id": "5f69c0ab-785c-400c-88be-07b6145377e2"
           },
@@ -1277,7 +1251,6 @@
             "id": "ee648a37-3aa8-46aa-ba27-072f9b0e3c81"
           },
           "compositeKey": "ee648a37-3aa8-46aa-ba27-072f9b0e3c81-ant-design-anchor",
-          "expanded": true,
           "firstChild": null,
           "id": "5f69c0ab-785c-400c-88be-07b6145377e2",
           "name": "Ant Design Anchor",
@@ -1311,7 +1284,6 @@
             "id": "ee648a37-3aa8-46aa-ba27-072f9b0e3c81"
           },
           "compositeKey": "ee648a37-3aa8-46aa-ba27-072f9b0e3c81-ant-design-grid-row",
-          "expanded": true,
           "firstChild": {
             "id": "da1e0b83-0310-49d1-8378-d8ea1720d42e"
           },
@@ -1347,7 +1319,6 @@
             "id": "ee648a37-3aa8-46aa-ba27-072f9b0e3c81"
           },
           "compositeKey": "ee648a37-3aa8-46aa-ba27-072f9b0e3c81-html-div",
-          "expanded": false,
           "firstChild": null,
           "id": "8d2968ba-3e0e-4006-b5a4-eea0bcb7aa97",
           "name": "Html Div",
@@ -1464,7 +1435,6 @@
             "id": "2970a228-c24e-4934-9d50-7441c953e5be"
           },
           "compositeKey": "2970a228-c24e-4934-9d50-7441c953e5be-ant-design-space-1",
-          "expanded": false,
           "firstChild": {
             "id": "6dd112a5-f81a-4fb5-81d7-2292ed9cb1a8"
           },
@@ -1502,7 +1472,6 @@
             "id": "2970a228-c24e-4934-9d50-7441c953e5be"
           },
           "compositeKey": "2970a228-c24e-4934-9d50-7441c953e5be-ant-design-space",
-          "expanded": true,
           "firstChild": {
             "id": "628d8a35-f864-43d8-8423-187ca6fce230"
           },
@@ -1538,7 +1507,6 @@
             "id": "2970a228-c24e-4934-9d50-7441c953e5be"
           },
           "compositeKey": "2970a228-c24e-4934-9d50-7441c953e5be-ant-design-space-3",
-          "expanded": false,
           "firstChild": {
             "id": "fe5fe710-b007-45ad-b33f-4c8d14ab7bfd"
           },
@@ -1576,7 +1544,6 @@
             "id": "2970a228-c24e-4934-9d50-7441c953e5be"
           },
           "compositeKey": "2970a228-c24e-4934-9d50-7441c953e5be-ant-design-auto-complete-4-duplicate",
-          "expanded": false,
           "firstChild": null,
           "id": "96043607-d231-4a60-a42a-e81f153b9e48",
           "name": "Ant Design Auto Complete 4 Duplicate",
@@ -1612,7 +1579,6 @@
             "id": "2970a228-c24e-4934-9d50-7441c953e5be"
           },
           "compositeKey": "2970a228-c24e-4934-9d50-7441c953e5be-ant-design-auto-complete-13",
-          "expanded": false,
           "firstChild": null,
           "id": "0b7ec117-4c81-4456-acdb-e50705e85df5",
           "name": "Ant Design Auto Complete 13",
@@ -1648,7 +1614,6 @@
             "id": "2970a228-c24e-4934-9d50-7441c953e5be"
           },
           "compositeKey": "2970a228-c24e-4934-9d50-7441c953e5be-ant-design-space-2",
-          "expanded": false,
           "firstChild": {
             "id": "38576c03-4078-44b5-a4d3-01cd56e3f04e"
           },
@@ -1686,7 +1651,6 @@
             "id": "2970a228-c24e-4934-9d50-7441c953e5be"
           },
           "compositeKey": "2970a228-c24e-4934-9d50-7441c953e5be-ant-design-auto-complete-7-duplicate",
-          "expanded": false,
           "firstChild": null,
           "id": "d08290fc-a788-41f8-9831-7d38e3f7f2d1",
           "name": "Ant Design Auto Complete 7 Duplicate",
@@ -1722,7 +1686,6 @@
             "id": "2970a228-c24e-4934-9d50-7441c953e5be"
           },
           "compositeKey": "2970a228-c24e-4934-9d50-7441c953e5be-ant-design-auto-complete-7",
-          "expanded": false,
           "firstChild": null,
           "id": "38576c03-4078-44b5-a4d3-01cd56e3f04e",
           "name": "Ant Design Auto Complete 7",
@@ -1758,7 +1721,6 @@
             "id": "2970a228-c24e-4934-9d50-7441c953e5be"
           },
           "compositeKey": "2970a228-c24e-4934-9d50-7441c953e5be-ant-design-auto-complete-4-duplicate-duplicate",
-          "expanded": false,
           "firstChild": null,
           "id": "8dc1df46-8d61-4693-a716-17dd6dbebd11",
           "name": "Ant Design Auto Complete 4 Duplicate Duplicate",
@@ -1792,7 +1754,6 @@
             "id": "2970a228-c24e-4934-9d50-7441c953e5be"
           },
           "compositeKey": "2970a228-c24e-4934-9d50-7441c953e5be-body",
-          "expanded": true,
           "firstChild": {
             "id": "a27b83ba-5da4-4c05-8120-e130de3b1a72"
           },
@@ -1828,7 +1789,6 @@
             "id": "2970a228-c24e-4934-9d50-7441c953e5be"
           },
           "compositeKey": "2970a228-c24e-4934-9d50-7441c953e5be-ant-design-auto-complete-7-duplicate-duplicate",
-          "expanded": false,
           "firstChild": null,
           "id": "5f2dcab3-cdce-4525-8f38-cc5bc2cff327",
           "name": "Ant Design Auto Complete 7 Duplicate Duplicate",
@@ -1862,7 +1822,6 @@
             "id": "2970a228-c24e-4934-9d50-7441c953e5be"
           },
           "compositeKey": "2970a228-c24e-4934-9d50-7441c953e5be-ant-design-auto-complete-14",
-          "expanded": false,
           "firstChild": null,
           "id": "277be786-d523-48c1-b76a-60db3a2a4199",
           "name": "Ant Design Auto Complete 14",
@@ -1896,7 +1855,6 @@
             "id": "2970a228-c24e-4934-9d50-7441c953e5be"
           },
           "compositeKey": "2970a228-c24e-4934-9d50-7441c953e5be-ant-design-auto-complete-4",
-          "expanded": false,
           "firstChild": null,
           "id": "6dd112a5-f81a-4fb5-81d7-2292ed9cb1a8",
           "name": "Ant Design Auto Complete 4",
@@ -1932,7 +1890,6 @@
             "id": "2970a228-c24e-4934-9d50-7441c953e5be"
           },
           "compositeKey": "2970a228-c24e-4934-9d50-7441c953e5be-ant-design-auto-complete-10-duplicate-duplicate",
-          "expanded": true,
           "firstChild": null,
           "id": "d02f581e-2646-422b-9ddd-6e58939aaefc",
           "name": "Ant Design Auto Complete 10 Duplicate Duplicate",
@@ -1966,7 +1923,6 @@
             "id": "2970a228-c24e-4934-9d50-7441c953e5be"
           },
           "compositeKey": "2970a228-c24e-4934-9d50-7441c953e5be-ant-design-auto-complete-10-duplicate",
-          "expanded": false,
           "firstChild": null,
           "id": "0b5d2552-d0d1-45f7-b20e-7626e1a78c61",
           "name": "Ant Design Auto Complete 10 Duplicate",
@@ -2002,7 +1958,6 @@
             "id": "2970a228-c24e-4934-9d50-7441c953e5be"
           },
           "compositeKey": "2970a228-c24e-4934-9d50-7441c953e5be-ant-design-auto-complete-10",
-          "expanded": false,
           "firstChild": null,
           "id": "fe5fe710-b007-45ad-b33f-4c8d14ab7bfd",
           "name": "Ant Design Auto Complete 10",
@@ -2038,7 +1993,6 @@
             "id": "2970a228-c24e-4934-9d50-7441c953e5be"
           },
           "compositeKey": "2970a228-c24e-4934-9d50-7441c953e5be-ant-design-space-4",
-          "expanded": true,
           "firstChild": {
             "id": "277be786-d523-48c1-b76a-60db3a2a4199"
           },
@@ -2182,7 +2136,6 @@
             "id": "72db3b44-b4aa-4606-a264-7189d6e0cd51"
           },
           "compositeKey": "72db3b44-b4aa-4606-a264-7189d6e0cd51-ant-design-space",
-          "expanded": true,
           "firstChild": {
             "id": "b4172516-9bea-4553-be62-6671929f7233"
           },
@@ -2218,7 +2171,6 @@
             "id": "72db3b44-b4aa-4606-a264-7189d6e0cd51"
           },
           "compositeKey": "72db3b44-b4aa-4606-a264-7189d6e0cd51-ant-design-space-1-duplicate-duplicate",
-          "expanded": true,
           "firstChild": {
             "id": "a4ec70e6-900a-431e-af98-0bbbb804399f"
           },
@@ -2254,7 +2206,6 @@
             "id": "72db3b44-b4aa-4606-a264-7189d6e0cd51"
           },
           "compositeKey": "72db3b44-b4aa-4606-a264-7189d6e0cd51-ant-design-avatar-duplicate-duplicate-duplicate-1",
-          "expanded": false,
           "firstChild": null,
           "id": "a45f6c82-0fa7-43cb-b6bc-feeecbeea03a",
           "name": "Ant Design Avatar Duplicate Duplicate Duplicate 1",
@@ -2290,7 +2241,6 @@
             "id": "72db3b44-b4aa-4606-a264-7189d6e0cd51"
           },
           "compositeKey": "72db3b44-b4aa-4606-a264-7189d6e0cd51-ant-design-avatar-duplicate-duplicate-2-duplicate",
-          "expanded": false,
           "firstChild": null,
           "id": "0ed5b956-fb89-4518-8f80-a07a11536d38",
           "name": "Ant Design Avatar Duplicate Duplicate 2 Duplicate",
@@ -2324,7 +2274,6 @@
             "id": "72db3b44-b4aa-4606-a264-7189d6e0cd51"
           },
           "compositeKey": "72db3b44-b4aa-4606-a264-7189d6e0cd51-ant-design-avatar",
-          "expanded": false,
           "firstChild": null,
           "id": "eaf44517-290b-4ee3-84cb-d29380a23430",
           "name": "Ant Design Avatar",
@@ -2360,7 +2309,6 @@
             "id": "72db3b44-b4aa-4606-a264-7189d6e0cd51"
           },
           "compositeKey": "72db3b44-b4aa-4606-a264-7189d6e0cd51-ant-design-space-1",
-          "expanded": false,
           "firstChild": {
             "id": "eaf44517-290b-4ee3-84cb-d29380a23430"
           },
@@ -2398,7 +2346,6 @@
             "id": "72db3b44-b4aa-4606-a264-7189d6e0cd51"
           },
           "compositeKey": "72db3b44-b4aa-4606-a264-7189d6e0cd51-ant-design-avatar-duplicate-duplicate",
-          "expanded": false,
           "firstChild": null,
           "id": "73241cfc-bb6b-48db-a614-562ec266ecc6",
           "name": "Ant Design Avatar Duplicate Duplicate",
@@ -2434,7 +2381,6 @@
             "id": "72db3b44-b4aa-4606-a264-7189d6e0cd51"
           },
           "compositeKey": "72db3b44-b4aa-4606-a264-7189d6e0cd51-ant-design-space-1-duplicate",
-          "expanded": false,
           "firstChild": {
             "id": "abd59bfd-6800-406b-acc1-f12ca1e0df1b"
           },
@@ -2472,7 +2418,6 @@
             "id": "72db3b44-b4aa-4606-a264-7189d6e0cd51"
           },
           "compositeKey": "72db3b44-b4aa-4606-a264-7189d6e0cd51-ant-design-avatar-duplicate-duplicate-2",
-          "expanded": false,
           "firstChild": null,
           "id": "eafa1e83-40e8-462f-89b9-47b184313342",
           "name": "Ant Design Avatar Duplicate Duplicate 2",
@@ -2508,7 +2453,6 @@
             "id": "72db3b44-b4aa-4606-a264-7189d6e0cd51"
           },
           "compositeKey": "72db3b44-b4aa-4606-a264-7189d6e0cd51-ant-design-avatar-duplicate-duplicate-duplicate",
-          "expanded": false,
           "firstChild": null,
           "id": "51703000-6281-4292-bf25-936d3c5b59dd",
           "name": "Ant Design Avatar Duplicate Duplicate Duplicate",
@@ -2542,7 +2486,6 @@
             "id": "72db3b44-b4aa-4606-a264-7189d6e0cd51"
           },
           "compositeKey": "72db3b44-b4aa-4606-a264-7189d6e0cd51-ant-design-avatar-duplicate-3-duplicate",
-          "expanded": false,
           "firstChild": null,
           "id": "a4ec70e6-900a-431e-af98-0bbbb804399f",
           "name": "Ant Design Avatar Duplicate 3 Duplicate",
@@ -2578,7 +2521,6 @@
             "id": "72db3b44-b4aa-4606-a264-7189d6e0cd51"
           },
           "compositeKey": "72db3b44-b4aa-4606-a264-7189d6e0cd51-ant-design-avatar-duplicate-3",
-          "expanded": false,
           "firstChild": null,
           "id": "abd59bfd-6800-406b-acc1-f12ca1e0df1b",
           "name": "Ant Design Avatar Duplicate 3",
@@ -2614,7 +2556,6 @@
             "id": "72db3b44-b4aa-4606-a264-7189d6e0cd51"
           },
           "compositeKey": "72db3b44-b4aa-4606-a264-7189d6e0cd51-body",
-          "expanded": true,
           "firstChild": {
             "id": "0d46da46-f12d-4943-9b29-b70d9a10ef8e"
           },
@@ -2650,7 +2591,6 @@
             "id": "72db3b44-b4aa-4606-a264-7189d6e0cd51"
           },
           "compositeKey": "72db3b44-b4aa-4606-a264-7189d6e0cd51-ant-design-avatar-duplicate",
-          "expanded": false,
           "firstChild": null,
           "id": "0f8e83cf-3fb2-4f6e-a213-c6883626fd46",
           "name": "Ant Design Avatar Duplicate",
@@ -2686,7 +2626,6 @@
             "id": "72db3b44-b4aa-4606-a264-7189d6e0cd51"
           },
           "compositeKey": "72db3b44-b4aa-4606-a264-7189d6e0cd51-ant-design-avatar-duplicate-duplicate-duplicate-duplicate",
-          "expanded": false,
           "firstChild": null,
           "id": "09d0fc52-66f4-481f-a055-02857ccb9052",
           "name": "Ant Design Avatar Duplicate Duplicate Duplicate Duplicate",
@@ -3018,7 +2957,6 @@
             "id": "7c10b033-57ae-4562-8fe1-5d4ba6755415"
           },
           "compositeKey": "7c10b033-57ae-4562-8fe1-5d4ba6755415-ant-design-badge-4",
-          "expanded": false,
           "firstChild": null,
           "id": "e42949ef-c80c-447b-b17a-53464dd95cda",
           "name": "Ant Design Badge 4",
@@ -3052,7 +2990,6 @@
             "id": "7c10b033-57ae-4562-8fe1-5d4ba6755415"
           },
           "compositeKey": "7c10b033-57ae-4562-8fe1-5d4ba6755415-ant-design-badge-duplicate",
-          "expanded": true,
           "firstChild": null,
           "id": "3be3cc4e-58b9-44af-a33f-75efec4f7128",
           "name": "Ant Design Badge Duplicate",
@@ -3088,7 +3025,6 @@
             "id": "7c10b033-57ae-4562-8fe1-5d4ba6755415"
           },
           "compositeKey": "7c10b033-57ae-4562-8fe1-5d4ba6755415-ant-design-space-1",
-          "expanded": true,
           "firstChild": {
             "id": "3be3cc4e-58b9-44af-a33f-75efec4f7128"
           },
@@ -3124,7 +3060,6 @@
             "id": "7c10b033-57ae-4562-8fe1-5d4ba6755415"
           },
           "compositeKey": "7c10b033-57ae-4562-8fe1-5d4ba6755415-ant-design-badge",
-          "expanded": true,
           "firstChild": null,
           "id": "682abe89-060f-4481-9aae-dbe5dba46803",
           "name": "Ant Design Badge",
@@ -3160,7 +3095,6 @@
             "id": "7c10b033-57ae-4562-8fe1-5d4ba6755415"
           },
           "compositeKey": "7c10b033-57ae-4562-8fe1-5d4ba6755415-body",
-          "expanded": true,
           "firstChild": {
             "id": "ae99ebbc-3e04-46cf-941f-5fa35ba7cb4f"
           },
@@ -3196,7 +3130,6 @@
             "id": "7c10b033-57ae-4562-8fe1-5d4ba6755415"
           },
           "compositeKey": "7c10b033-57ae-4562-8fe1-5d4ba6755415-ant-design-space",
-          "expanded": true,
           "firstChild": {
             "id": "13d11198-680d-4339-9c40-ee45412589ad"
           },
@@ -3232,7 +3165,6 @@
             "id": "7c10b033-57ae-4562-8fe1-5d4ba6755415"
           },
           "compositeKey": "7c10b033-57ae-4562-8fe1-5d4ba6755415-ant-design-badge-duplicate-2-duplicate",
-          "expanded": true,
           "firstChild": {
             "id": "9c42ba93-bd40-4418-bcfa-789962d6203b"
           },
@@ -3268,7 +3200,6 @@
             "id": "7c10b033-57ae-4562-8fe1-5d4ba6755415"
           },
           "compositeKey": "7c10b033-57ae-4562-8fe1-5d4ba6755415-ant-design-space-1-duplicate",
-          "expanded": false,
           "firstChild": {
             "id": "458ee535-70c1-42bb-b744-67c46b80a79c"
           },
@@ -3306,7 +3237,6 @@
             "id": "7c10b033-57ae-4562-8fe1-5d4ba6755415"
           },
           "compositeKey": "7c10b033-57ae-4562-8fe1-5d4ba6755415-ant-design-badge-duplicate-2",
-          "expanded": true,
           "firstChild": {
             "id": "f2a75980-9dd9-456c-9abd-267ef3490791"
           },
@@ -3344,7 +3274,6 @@
             "id": "7c10b033-57ae-4562-8fe1-5d4ba6755415"
           },
           "compositeKey": "7c10b033-57ae-4562-8fe1-5d4ba6755415-ant-design-badge-duplicate-duplicate",
-          "expanded": true,
           "firstChild": {
             "id": "0b2e6d7b-3814-4975-9c2b-0c7ec9e219cc"
           },
@@ -3478,7 +3407,6 @@
             "id": "1b11b5ba-5c32-4953-ac6d-1e6cdf67f122"
           },
           "compositeKey": "1b11b5ba-5c32-4953-ac6d-1e6cdf67f122-body",
-          "expanded": true,
           "firstChild": {
             "id": "3ed7b304-234f-4032-9bc4-2b7568fc92f5"
           },
@@ -3514,7 +3442,6 @@
             "id": "1b11b5ba-5c32-4953-ac6d-1e6cdf67f122"
           },
           "compositeKey": "1b11b5ba-5c32-4953-ac6d-1e6cdf67f122-ant-design-space",
-          "expanded": true,
           "firstChild": {
             "id": "393484c3-23e6-4528-8def-564349815aa6"
           },
@@ -3550,7 +3477,6 @@
             "id": "1b11b5ba-5c32-4953-ac6d-1e6cdf67f122"
           },
           "compositeKey": "1b11b5ba-5c32-4953-ac6d-1e6cdf67f122-ant-design-breadcrumb",
-          "expanded": false,
           "firstChild": null,
           "id": "393484c3-23e6-4528-8def-564349815aa6",
           "name": "Ant Design Breadcrumb",
@@ -3586,7 +3512,6 @@
             "id": "1b11b5ba-5c32-4953-ac6d-1e6cdf67f122"
           },
           "compositeKey": "1b11b5ba-5c32-4953-ac6d-1e6cdf67f122-ant-design-breadcrumb-duplicate-1",
-          "expanded": false,
           "firstChild": null,
           "id": "ae563cef-ed9e-4310-92cf-d6d4232f0c79",
           "name": "Ant Design Breadcrumb Duplicate 1",
@@ -3712,7 +3637,6 @@
             "id": "2ccbd72c-d82f-42cf-9184-06bc467ffc80"
           },
           "compositeKey": "2ccbd72c-d82f-42cf-9184-06bc467ffc80-ant-design-button-2",
-          "expanded": false,
           "firstChild": null,
           "id": "f99928d6-65ef-465e-94da-e7aa17aa16ba",
           "name": "Ant Design Button 2",
@@ -3748,7 +3672,6 @@
             "id": "2ccbd72c-d82f-42cf-9184-06bc467ffc80"
           },
           "compositeKey": "2ccbd72c-d82f-42cf-9184-06bc467ffc80-ant-design-button-10",
-          "expanded": false,
           "firstChild": null,
           "id": "eadbdcbc-ff20-41c4-a538-5809e47c31ef",
           "name": "Ant Design Button 10",
@@ -3782,7 +3705,6 @@
             "id": "2ccbd72c-d82f-42cf-9184-06bc467ffc80"
           },
           "compositeKey": "2ccbd72c-d82f-42cf-9184-06bc467ffc80-ant-design-button-9-duplicate",
-          "expanded": false,
           "firstChild": null,
           "id": "28f203e3-c13e-49d2-a52e-375c590b712a",
           "name": "Ant Design Button 9 Duplicate",
@@ -3818,7 +3740,6 @@
             "id": "2ccbd72c-d82f-42cf-9184-06bc467ffc80"
           },
           "compositeKey": "2ccbd72c-d82f-42cf-9184-06bc467ffc80-ant-design-button-3",
-          "expanded": false,
           "firstChild": null,
           "id": "c11bcc6e-1dcc-4b7e-8f91-8bdd6fa26c9d",
           "name": "Ant Design Button 3",
@@ -3852,7 +3773,6 @@
             "id": "2ccbd72c-d82f-42cf-9184-06bc467ffc80"
           },
           "compositeKey": "2ccbd72c-d82f-42cf-9184-06bc467ffc80-body",
-          "expanded": true,
           "firstChild": {
             "id": "455a62e2-91b8-45c4-bfe5-cc85603c0c76"
           },
@@ -3888,7 +3808,6 @@
             "id": "2ccbd72c-d82f-42cf-9184-06bc467ffc80"
           },
           "compositeKey": "2ccbd72c-d82f-42cf-9184-06bc467ffc80-ant-design-button-5-duplicate",
-          "expanded": false,
           "firstChild": null,
           "id": "9cdcdcc0-38c5-43a8-bcb6-40d10cd09c6f",
           "name": "Ant Design Button 5 Duplicate",
@@ -3924,7 +3843,6 @@
             "id": "2ccbd72c-d82f-42cf-9184-06bc467ffc80"
           },
           "compositeKey": "2ccbd72c-d82f-42cf-9184-06bc467ffc80-ant-design-space-4",
-          "expanded": false,
           "firstChild": {
             "id": "14388b9a-c03a-45a4-8b22-aa92df24eaaa"
           },
@@ -3962,7 +3880,6 @@
             "id": "2ccbd72c-d82f-42cf-9184-06bc467ffc80"
           },
           "compositeKey": "2ccbd72c-d82f-42cf-9184-06bc467ffc80-ant-design-button-7-duplicate",
-          "expanded": false,
           "firstChild": null,
           "id": "62cc0790-b5c3-4230-9eb7-57c5617437d4",
           "name": "Ant Design Button 7 Duplicate",
@@ -3998,7 +3915,6 @@
             "id": "2ccbd72c-d82f-42cf-9184-06bc467ffc80"
           },
           "compositeKey": "2ccbd72c-d82f-42cf-9184-06bc467ffc80-ant-design-button-7",
-          "expanded": false,
           "firstChild": null,
           "id": "5392e9cf-a076-43e5-98eb-0ae3aaad40e8",
           "name": "Ant Design Button 7",
@@ -4034,7 +3950,6 @@
             "id": "2ccbd72c-d82f-42cf-9184-06bc467ffc80"
           },
           "compositeKey": "2ccbd72c-d82f-42cf-9184-06bc467ffc80-ant-design-button-6",
-          "expanded": false,
           "firstChild": null,
           "id": "cdaa6cbf-5897-4477-98fa-dfd3d60f959a",
           "name": "Ant Design Button 6",
@@ -4070,7 +3985,6 @@
             "id": "2ccbd72c-d82f-42cf-9184-06bc467ffc80"
           },
           "compositeKey": "2ccbd72c-d82f-42cf-9184-06bc467ffc80-ant-design-space-2-duplicate",
-          "expanded": false,
           "firstChild": {
             "id": "9cdcdcc0-38c5-43a8-bcb6-40d10cd09c6f"
           },
@@ -4108,7 +4022,6 @@
             "id": "2ccbd72c-d82f-42cf-9184-06bc467ffc80"
           },
           "compositeKey": "2ccbd72c-d82f-42cf-9184-06bc467ffc80-ant-design-button-18-duplicate",
-          "expanded": true,
           "firstChild": null,
           "id": "b376e178-f494-47e6-8a3e-f12ea2b5900d",
           "name": "Ant Design Button 18 Duplicate",
@@ -4144,7 +4057,6 @@
             "id": "2ccbd72c-d82f-42cf-9184-06bc467ffc80"
           },
           "compositeKey": "2ccbd72c-d82f-42cf-9184-06bc467ffc80-ant-design-button-4",
-          "expanded": false,
           "firstChild": null,
           "id": "31390836-c65f-40c9-b03f-4f0d2a44aa33",
           "name": "Ant Design Button 4",
@@ -4180,7 +4092,6 @@
             "id": "2ccbd72c-d82f-42cf-9184-06bc467ffc80"
           },
           "compositeKey": "2ccbd72c-d82f-42cf-9184-06bc467ffc80-ant-design-space-4-duplicate",
-          "expanded": false,
           "firstChild": {
             "id": "ac362ee1-649b-42d1-878b-1708ed903159"
           },
@@ -4216,7 +4127,6 @@
             "id": "2ccbd72c-d82f-42cf-9184-06bc467ffc80"
           },
           "compositeKey": "2ccbd72c-d82f-42cf-9184-06bc467ffc80-ant-design-button",
-          "expanded": false,
           "firstChild": null,
           "id": "ba841c7d-cd35-4411-b7d5-dc936516dd23",
           "name": "Ant Design Button",
@@ -4252,7 +4162,6 @@
             "id": "2ccbd72c-d82f-42cf-9184-06bc467ffc80"
           },
           "compositeKey": "2ccbd72c-d82f-42cf-9184-06bc467ffc80-ant-design-button-9",
-          "expanded": false,
           "firstChild": null,
           "id": "305b54e4-b5f5-4a31-8488-1aeee06d8f53",
           "name": "Ant Design Button 9",
@@ -4288,7 +4197,6 @@
             "id": "2ccbd72c-d82f-42cf-9184-06bc467ffc80"
           },
           "compositeKey": "2ccbd72c-d82f-42cf-9184-06bc467ffc80-ant-design-space-2",
-          "expanded": false,
           "firstChild": {
             "id": "065b417d-679e-4409-8239-8fa6de5b5d7d"
           },
@@ -4326,7 +4234,6 @@
             "id": "2ccbd72c-d82f-42cf-9184-06bc467ffc80"
           },
           "compositeKey": "2ccbd72c-d82f-42cf-9184-06bc467ffc80-ant-design-button-8-duplicate",
-          "expanded": false,
           "firstChild": null,
           "id": "77fe2484-cdbb-4dfd-a963-8e30bb597de0",
           "name": "Ant Design Button 8 Duplicate",
@@ -4362,7 +4269,6 @@
             "id": "2ccbd72c-d82f-42cf-9184-06bc467ffc80"
           },
           "compositeKey": "2ccbd72c-d82f-42cf-9184-06bc467ffc80-ant-design-button-8",
-          "expanded": false,
           "firstChild": null,
           "id": "a8fbb0d9-f325-45aa-a365-0fff2039dae5",
           "name": "Ant Design Button 8",
@@ -4398,7 +4304,6 @@
             "id": "2ccbd72c-d82f-42cf-9184-06bc467ffc80"
           },
           "compositeKey": "2ccbd72c-d82f-42cf-9184-06bc467ffc80-ant-design-space-1",
-          "expanded": false,
           "firstChild": {
             "id": "ba841c7d-cd35-4411-b7d5-dc936516dd23"
           },
@@ -4436,7 +4341,6 @@
             "id": "2ccbd72c-d82f-42cf-9184-06bc467ffc80"
           },
           "compositeKey": "2ccbd72c-d82f-42cf-9184-06bc467ffc80-ant-design-button-10-duplicate",
-          "expanded": false,
           "firstChild": null,
           "id": "069747f2-cedc-4345-9222-bcf5087653a8",
           "name": "Ant Design Button 10 Duplicate",
@@ -4470,7 +4374,6 @@
             "id": "2ccbd72c-d82f-42cf-9184-06bc467ffc80"
           },
           "compositeKey": "2ccbd72c-d82f-42cf-9184-06bc467ffc80-ant-design-button-1",
-          "expanded": false,
           "firstChild": null,
           "id": "18a30d65-8c4f-4894-a8d2-8b6bbc93450b",
           "name": "Ant Design Button 1",
@@ -4506,7 +4409,6 @@
             "id": "2ccbd72c-d82f-42cf-9184-06bc467ffc80"
           },
           "compositeKey": "2ccbd72c-d82f-42cf-9184-06bc467ffc80-ant-design-button-5",
-          "expanded": false,
           "firstChild": null,
           "id": "065b417d-679e-4409-8239-8fa6de5b5d7d",
           "name": "Ant Design Button 5",
@@ -4542,7 +4444,6 @@
             "id": "2ccbd72c-d82f-42cf-9184-06bc467ffc80"
           },
           "compositeKey": "2ccbd72c-d82f-42cf-9184-06bc467ffc80-ant-design-space",
-          "expanded": true,
           "firstChild": {
             "id": "12816ccb-ee86-48f1-966c-6f02c5338316"
           },
@@ -4578,7 +4479,6 @@
             "id": "2ccbd72c-d82f-42cf-9184-06bc467ffc80"
           },
           "compositeKey": "2ccbd72c-d82f-42cf-9184-06bc467ffc80-ant-design-button-17-duplicate",
-          "expanded": false,
           "firstChild": null,
           "id": "ac362ee1-649b-42d1-878b-1708ed903159",
           "name": "Ant Design Button 17 Duplicate",
@@ -4614,7 +4514,6 @@
             "id": "2ccbd72c-d82f-42cf-9184-06bc467ffc80"
           },
           "compositeKey": "2ccbd72c-d82f-42cf-9184-06bc467ffc80-ant-design-button-19",
-          "expanded": false,
           "firstChild": null,
           "id": "2a468d89-9feb-457a-b533-825749dd250b",
           "name": "Ant Design Button 19",
@@ -4648,7 +4547,6 @@
             "id": "2ccbd72c-d82f-42cf-9184-06bc467ffc80"
           },
           "compositeKey": "2ccbd72c-d82f-42cf-9184-06bc467ffc80-ant-design-button-19-duplicate",
-          "expanded": true,
           "firstChild": null,
           "id": "11cd1d88-dcd1-4346-a902-f95cb5906de8",
           "name": "Ant Design Button 19 Duplicate",
@@ -4682,7 +4580,6 @@
             "id": "2ccbd72c-d82f-42cf-9184-06bc467ffc80"
           },
           "compositeKey": "2ccbd72c-d82f-42cf-9184-06bc467ffc80-ant-design-button-17",
-          "expanded": false,
           "firstChild": null,
           "id": "14388b9a-c03a-45a4-8b22-aa92df24eaaa",
           "name": "Ant Design Button 17",
@@ -4718,7 +4615,6 @@
             "id": "2ccbd72c-d82f-42cf-9184-06bc467ffc80"
           },
           "compositeKey": "2ccbd72c-d82f-42cf-9184-06bc467ffc80-ant-design-button-18",
-          "expanded": false,
           "firstChild": null,
           "id": "c75b23c7-1f38-426c-b975-f81e3d2b1841",
           "name": "Ant Design Button 18",
@@ -4754,7 +4650,6 @@
             "id": "2ccbd72c-d82f-42cf-9184-06bc467ffc80"
           },
           "compositeKey": "2ccbd72c-d82f-42cf-9184-06bc467ffc80-ant-design-button-6-duplicate",
-          "expanded": false,
           "firstChild": null,
           "id": "0d9f0529-1786-4ae2-932f-ef2e0c339cec",
           "name": "Ant Design Button 6 Duplicate",
@@ -4937,7 +4832,6 @@
             "id": "c68b0af4-ea0a-4a2e-8168-318bd9af4cbe"
           },
           "compositeKey": "c68b0af4-ea0a-4a2e-8168-318bd9af4cbe-body",
-          "expanded": true,
           "firstChild": {
             "id": "c3853be4-e9ff-4f05-b367-6ea109478fd1"
           },
@@ -4973,7 +4867,6 @@
             "id": "c68b0af4-ea0a-4a2e-8168-318bd9af4cbe"
           },
           "compositeKey": "c68b0af4-ea0a-4a2e-8168-318bd9af4cbe-ant-design-calendar",
-          "expanded": false,
           "firstChild": null,
           "id": "4167b44e-f73a-460a-8a0b-db60fedf0af9",
           "name": "Ant Design Calendar",
@@ -5007,7 +4900,6 @@
             "id": "c68b0af4-ea0a-4a2e-8168-318bd9af4cbe"
           },
           "compositeKey": "c68b0af4-ea0a-4a2e-8168-318bd9af4cbe-ant-design-calendar-1",
-          "expanded": false,
           "firstChild": null,
           "id": "34748cbc-3132-403e-ab01-13f14271d6d9",
           "name": "Ant Design Calendar 1",
@@ -5043,7 +4935,6 @@
             "id": "c68b0af4-ea0a-4a2e-8168-318bd9af4cbe"
           },
           "compositeKey": "c68b0af4-ea0a-4a2e-8168-318bd9af4cbe-ant-design-calendar-3",
-          "expanded": false,
           "firstChild": null,
           "id": "906a2cc4-a919-4cc8-b02c-653af4f2a753",
           "name": "Ant Design Calendar 3",
@@ -5077,7 +4968,6 @@
             "id": "c68b0af4-ea0a-4a2e-8168-318bd9af4cbe"
           },
           "compositeKey": "c68b0af4-ea0a-4a2e-8168-318bd9af4cbe-ant-design-calendar-2",
-          "expanded": true,
           "firstChild": null,
           "id": "dc927b30-4fb3-4eed-9821-e2ffa8928d0d",
           "name": "Ant Design Calendar 2",
@@ -5113,7 +5003,6 @@
             "id": "c68b0af4-ea0a-4a2e-8168-318bd9af4cbe"
           },
           "compositeKey": "c68b0af4-ea0a-4a2e-8168-318bd9af4cbe-ant-design-space-1",
-          "expanded": true,
           "firstChild": {
             "id": "dc927b30-4fb3-4eed-9821-e2ffa8928d0d"
           },
@@ -5151,7 +5040,6 @@
             "id": "c68b0af4-ea0a-4a2e-8168-318bd9af4cbe"
           },
           "compositeKey": "c68b0af4-ea0a-4a2e-8168-318bd9af4cbe-ant-design-space-2",
-          "expanded": true,
           "firstChild": {
             "id": "906a2cc4-a919-4cc8-b02c-653af4f2a753"
           },
@@ -5187,7 +5075,6 @@
             "id": "c68b0af4-ea0a-4a2e-8168-318bd9af4cbe"
           },
           "compositeKey": "c68b0af4-ea0a-4a2e-8168-318bd9af4cbe-ant-design-space",
-          "expanded": true,
           "firstChild": {
             "id": "6739f940-bff5-43a1-a80f-9c562fd78e9f"
           },
@@ -5398,7 +5285,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-ant-design-space-1-duplicate",
-          "expanded": true,
           "firstChild": {
             "id": "aab47116-4783-4a1f-931a-e845062cf237"
           },
@@ -5434,7 +5320,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-html-div-duplicate-duplicate-3",
-          "expanded": false,
           "firstChild": {
             "id": "426df79b-44ce-46e8-9bf7-7d24103a10bb"
           },
@@ -5472,7 +5357,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-ant-design-carousel",
-          "expanded": false,
           "firstChild": {
             "id": "6cf4c2ce-acda-4a84-b2ea-25f4c61611f2"
           },
@@ -5510,7 +5394,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-html-h3-duplicate",
-          "expanded": true,
           "firstChild": null,
           "id": "f168d1e8-ba0a-4d76-9f55-888c27776402",
           "name": "Html H3 Duplicate",
@@ -5544,7 +5427,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-html-div-duplicate-duplicate-duplicate-duplicate",
-          "expanded": true,
           "firstChild": {
             "id": "f9d72142-8b56-4b37-9832-116b1d71030b"
           },
@@ -5580,7 +5462,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-html-h3-duplicate-duplicate-1",
-          "expanded": false,
           "firstChild": null,
           "id": "11473a8b-b408-4125-9592-810ccf2e25c6",
           "name": "Html H3 Duplicate Duplicate 1",
@@ -5614,7 +5495,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-html-div-duplicate-2-duplicate",
-          "expanded": true,
           "firstChild": {
             "id": "5d4e9dac-4346-46d6-a0b8-41f15a6c8dd2"
           },
@@ -5652,7 +5532,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-html-h3-duplicate-5",
-          "expanded": true,
           "firstChild": null,
           "id": "95642d6d-2f94-4dc9-940a-763407a31ada",
           "name": "Html H3 Duplicate 5",
@@ -5686,7 +5565,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-html-div-duplicate-2",
-          "expanded": false,
           "firstChild": {
             "id": "930369bd-f8ff-4597-9c61-05c40c5947a8"
           },
@@ -5724,7 +5602,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-html-div-duplicate-duplicate",
-          "expanded": true,
           "firstChild": {
             "id": "94e93612-0699-495d-a7b9-8065ba422c93"
           },
@@ -5760,7 +5637,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-html-div-duplicate-duplicate-1-duplicate-duplicate-1",
-          "expanded": false,
           "firstChild": {
             "id": "8d4b1c25-8a28-4e08-97d5-a16cd7a2a601"
           },
@@ -5798,7 +5674,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-html-div-duplicate-duplicate-duplicate-duplicate-duplicate-1",
-          "expanded": true,
           "firstChild": {
             "id": "023c033c-5bd1-425f-970e-8aa8cf9d6284"
           },
@@ -5834,7 +5709,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-html-h3-duplicate-duplicate-duplicate",
-          "expanded": false,
           "firstChild": null,
           "id": "ff5dbd88-1525-4075-ad9e-f72f7e44b85a",
           "name": "Html H3 Duplicate Duplicate Duplicate",
@@ -5868,7 +5742,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-html-h3",
-          "expanded": true,
           "firstChild": null,
           "id": "defe128f-6524-4bbd-b921-ee844a7e7df8",
           "name": "Html H3",
@@ -5902,7 +5775,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-ant-design-space",
-          "expanded": true,
           "firstChild": {
             "id": "e80c8eb4-1634-4810-b2e3-6b42105f1942"
           },
@@ -5938,7 +5810,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-html-h3-duplicate-duplicate-1-duplicate-duplicate-1",
-          "expanded": false,
           "firstChild": null,
           "id": "8d4b1c25-8a28-4e08-97d5-a16cd7a2a601",
           "name": "Html H3 Duplicate Duplicate 1 Duplicate Duplicate 1",
@@ -5972,7 +5843,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-html-h3-duplicate-duplicate-duplicate-duplicate",
-          "expanded": true,
           "firstChild": null,
           "id": "f9d72142-8b56-4b37-9832-116b1d71030b",
           "name": "Html H3 Duplicate Duplicate Duplicate Duplicate",
@@ -6006,7 +5876,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-html-div-duplicate-duplicate-1",
-          "expanded": false,
           "firstChild": {
             "id": "11473a8b-b408-4125-9592-810ccf2e25c6"
           },
@@ -6044,7 +5913,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-html-div-duplicate",
-          "expanded": false,
           "firstChild": {
             "id": "f168d1e8-ba0a-4d76-9f55-888c27776402"
           },
@@ -6082,7 +5950,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-html-h3-duplicate-2",
-          "expanded": false,
           "firstChild": null,
           "id": "930369bd-f8ff-4597-9c61-05c40c5947a8",
           "name": "Html H3 Duplicate 2",
@@ -6116,7 +5983,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-ant-design-carousel-duplicate",
-          "expanded": false,
           "firstChild": {
             "id": "cf735649-36d3-461d-9af2-2fecd63f101b"
           },
@@ -6152,7 +6018,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-html-div-duplicate-5",
-          "expanded": false,
           "firstChild": {
             "id": "95642d6d-2f94-4dc9-940a-763407a31ada"
           },
@@ -6190,7 +6055,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-html-h3-duplicate-duplicate-duplicate-duplicate-duplicate",
-          "expanded": false,
           "firstChild": null,
           "id": "693a6460-3d67-4882-ae59-319008fc3530",
           "name": "Html H3 Duplicate Duplicate Duplicate Duplicate Duplicate",
@@ -6224,7 +6088,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-html-h3-duplicate-2-duplicate-duplicate-1",
-          "expanded": false,
           "firstChild": null,
           "id": "5d9405b0-f401-4e31-ae5e-56b51830171c",
           "name": "Html H3 Duplicate 2 Duplicate Duplicate 1",
@@ -6258,7 +6121,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-html-h3-duplicate-2-duplicate",
-          "expanded": true,
           "firstChild": null,
           "id": "5d4e9dac-4346-46d6-a0b8-41f15a6c8dd2",
           "name": "Html H3 Duplicate 2 Duplicate",
@@ -6292,7 +6154,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-html-h3-duplicate-2-duplicate-duplicate",
-          "expanded": false,
           "firstChild": null,
           "id": "4ed94c4f-8d4b-4c6e-bf16-ba8801dfccbd",
           "name": "Html H3 Duplicate 2 Duplicate Duplicate",
@@ -6326,7 +6187,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-html-h3-duplicate-duplicate-duplicate-duplicate-duplicate-1",
-          "expanded": true,
           "firstChild": null,
           "id": "023c033c-5bd1-425f-970e-8aa8cf9d6284",
           "name": "Html H3 Duplicate Duplicate Duplicate Duplicate Duplicate 1",
@@ -6360,7 +6220,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-ant-design-carousel-duplicate-1",
-          "expanded": false,
           "firstChild": {
             "id": "1d8c18b2-819c-443a-b643-025911ee8fb0"
           },
@@ -6398,7 +6257,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-ant-design-space-1",
-          "expanded": true,
           "firstChild": {
             "id": "924f115d-825f-4eba-976a-8c3f14fed125"
           },
@@ -6436,7 +6294,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-html-h3-duplicate-duplicate-1-duplicate",
-          "expanded": true,
           "firstChild": null,
           "id": "4cacd7aa-8ebf-4846-a74d-ea2b533ffc35",
           "name": "Html H3 Duplicate Duplicate 1 Duplicate",
@@ -6470,7 +6327,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-ant-design-carousel-duplicate-duplicate-duplicate-1",
-          "expanded": false,
           "firstChild": {
             "id": "a55e7510-7096-486c-a545-f55561581308"
           },
@@ -6508,7 +6364,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-body",
-          "expanded": true,
           "firstChild": {
             "id": "4d25d1b8-292f-4494-a0e3-fb215e5b7640"
           },
@@ -6544,7 +6399,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-html-div-duplicate-duplicate-1-duplicate-duplicate",
-          "expanded": false,
           "firstChild": {
             "id": "478dee60-4cda-44f6-90d5-c6d6c4eab128"
           },
@@ -6582,7 +6436,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-html-h3-duplicate-duplicate-3",
-          "expanded": false,
           "firstChild": null,
           "id": "426df79b-44ce-46e8-9bf7-7d24103a10bb",
           "name": "Html H3 Duplicate Duplicate 3",
@@ -6616,7 +6469,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-html-div-duplicate-duplicate-duplicate",
-          "expanded": false,
           "firstChild": {
             "id": "ff5dbd88-1525-4075-ad9e-f72f7e44b85a"
           },
@@ -6652,7 +6504,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-html-div",
-          "expanded": false,
           "firstChild": {
             "id": "defe128f-6524-4bbd-b921-ee844a7e7df8"
           },
@@ -6690,7 +6541,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-html-h3-duplicate-duplicate",
-          "expanded": true,
           "firstChild": null,
           "id": "94e93612-0699-495d-a7b9-8065ba422c93",
           "name": "Html H3 Duplicate Duplicate",
@@ -6724,7 +6574,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-html-h3-duplicate-duplicate-1-duplicate-duplicate",
-          "expanded": false,
           "firstChild": null,
           "id": "478dee60-4cda-44f6-90d5-c6d6c4eab128",
           "name": "Html H3 Duplicate Duplicate 1 Duplicate Duplicate",
@@ -6758,7 +6607,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-html-h3-duplicate-duplicate-duplicate-1",
-          "expanded": false,
           "firstChild": null,
           "id": "02dec788-3875-4076-af80-544802bc969b",
           "name": "Html H3 Duplicate Duplicate Duplicate 1",
@@ -6792,7 +6640,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-ant-design-carousel-duplicate-duplicate-duplicate",
-          "expanded": false,
           "firstChild": {
             "id": "9ecb52da-f7a3-426e-8f7f-fb98a0c4fb75"
           },
@@ -6828,7 +6675,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-html-div-duplicate-2-duplicate-duplicate-1",
-          "expanded": false,
           "firstChild": {
             "id": "5d9405b0-f401-4e31-ae5e-56b51830171c"
           },
@@ -6866,7 +6712,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-html-div-duplicate-2-duplicate-duplicate",
-          "expanded": false,
           "firstChild": {
             "id": "4ed94c4f-8d4b-4c6e-bf16-ba8801dfccbd"
           },
@@ -6904,7 +6749,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-html-div-duplicate-duplicate-1-duplicate",
-          "expanded": true,
           "firstChild": {
             "id": "4cacd7aa-8ebf-4846-a74d-ea2b533ffc35"
           },
@@ -6942,7 +6786,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-html-div-duplicate-duplicate-duplicate-duplicate-duplicate",
-          "expanded": false,
           "firstChild": {
             "id": "693a6460-3d67-4882-ae59-319008fc3530"
           },
@@ -6978,7 +6821,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-html-div-duplicate-duplicate-duplicate-1",
-          "expanded": false,
           "firstChild": {
             "id": "02dec788-3875-4076-af80-544802bc969b"
           },
@@ -7014,7 +6856,6 @@
             "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
           },
           "compositeKey": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02-ant-design-carousel-duplicate-duplicate",
-          "expanded": false,
           "firstChild": {
             "id": "0ca24f3f-094c-43bf-b704-783b99346098"
           },
@@ -7317,7 +7158,6 @@
             "id": "2c9322d9-93b7-40ff-a26a-e6d9cd9d29bb"
           },
           "compositeKey": "2c9322d9-93b7-40ff-a26a-e6d9cd9d29bb-ant-design-cascader-duplicate-duplicate-1-duplicate",
-          "expanded": false,
           "firstChild": null,
           "id": "7431c504-1044-49dd-8c96-e4ffe45e2f17",
           "name": "Ant Design Cascader Duplicate Duplicate 1 Duplicate",
@@ -7495,7 +7335,6 @@
             "id": "2c9322d9-93b7-40ff-a26a-e6d9cd9d29bb"
           },
           "compositeKey": "2c9322d9-93b7-40ff-a26a-e6d9cd9d29bb-ant-design-space",
-          "expanded": true,
           "firstChild": {
             "id": "5d946bbd-1c86-4f37-a206-66ec8f27e72f"
           },
@@ -7531,7 +7370,6 @@
             "id": "2c9322d9-93b7-40ff-a26a-e6d9cd9d29bb"
           },
           "compositeKey": "2c9322d9-93b7-40ff-a26a-e6d9cd9d29bb-body",
-          "expanded": true,
           "firstChild": {
             "id": "46ec1d46-8b73-4bdc-964c-ac9884b452b2"
           },
@@ -7601,7 +7439,6 @@
             "id": "2c9322d9-93b7-40ff-a26a-e6d9cd9d29bb"
           },
           "compositeKey": "2c9322d9-93b7-40ff-a26a-e6d9cd9d29bb-ant-design-space-1",
-          "expanded": false,
           "firstChild": {
             "id": "9f966e7e-1a73-4795-878c-542170e953e5"
           },
@@ -7639,7 +7476,6 @@
             "id": "2c9322d9-93b7-40ff-a26a-e6d9cd9d29bb"
           },
           "compositeKey": "2c9322d9-93b7-40ff-a26a-e6d9cd9d29bb-ant-design-space-1-duplicate",
-          "expanded": false,
           "firstChild": {
             "id": "455365f4-b1f9-4dd1-9e27-0fe53c72dffa"
           },
@@ -7677,7 +7513,6 @@
             "id": "2c9322d9-93b7-40ff-a26a-e6d9cd9d29bb"
           },
           "compositeKey": "2c9322d9-93b7-40ff-a26a-e6d9cd9d29bb-ant-design-cascader-duplicate-2-duplicate",
-          "expanded": false,
           "firstChild": null,
           "id": "830d3458-7286-4078-9f78-58928a54c5b0",
           "name": "Ant Design Cascader Duplicate 2 Duplicate",
@@ -7713,7 +7548,6 @@
             "id": "2c9322d9-93b7-40ff-a26a-e6d9cd9d29bb"
           },
           "compositeKey": "2c9322d9-93b7-40ff-a26a-e6d9cd9d29bb-ant-design-space-1-duplicate-duplicate",
-          "expanded": true,
           "firstChild": {
             "id": "830d3458-7286-4078-9f78-58928a54c5b0"
           },
@@ -7783,7 +7617,6 @@
             "id": "2c9322d9-93b7-40ff-a26a-e6d9cd9d29bb"
           },
           "compositeKey": "2c9322d9-93b7-40ff-a26a-e6d9cd9d29bb-ant-design-cascader",
-          "expanded": false,
           "firstChild": null,
           "id": "9f966e7e-1a73-4795-878c-542170e953e5",
           "name": "Ant Design Cascader",
