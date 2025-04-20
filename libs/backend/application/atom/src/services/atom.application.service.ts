@@ -94,42 +94,37 @@ export class AtomApplicationService {
       atomCount: atoms.length,
     })
 
-    // First, process all atoms without dependencies in parallel
-    await Promise.all(
-      atoms.map(async ({ api, atom }, index) => {
-        await this.logger.debug(`Saving atom (${index + 1}/${atoms.length})`)
-        await this.typeApplicationService.saveApi(api)
+    const owner = this.authDomainService.currentUser
 
-        /**
-         * Create all atoms but omit `suggestedChildren`, and `requiredParents` since it requires all atoms to be added first
-         */
-        const atomWithoutDependencies = omit(atom, [
-          'suggestedChildren',
-          'requiredParents',
-        ])
+    // First, process all atoms without dependencies, we can't do it in parallel,
+    // since under high load server emmits ECONNRESET error
+    for (const { api, atom } of atoms) {
+      await this.typeApplicationService.saveApi(api)
 
-        await this.atomRepository.save({
-          ...atomWithoutDependencies,
-          owner: this.authDomainService.currentUser,
-        })
-      }),
-    )
+      /**
+       * Create all atoms but omit `suggestedChildren`, and `requiredParents` since it requires all atoms to be added first
+       */
+      const atomWithoutDependencies = omit(atom, [
+        'suggestedChildren',
+        'requiredParents',
+      ])
+
+      await this.atomRepository.save({ ...atomWithoutDependencies, owner })
+    }
 
     const atomsWithDependencies = atoms.filter(
       ({ atom }) =>
         atom.suggestedChildren?.length || atom.requiredParents?.length,
     )
 
-    // Then process atoms with dependencies in parallel as well
+    // Then process atoms with dependencies, here we can do in parallel,
+    // since only few atoms are expected to have dependencies
     await Promise.all(
       atomsWithDependencies.map(async ({ atom }) => {
         /**
          * Here we assign suggestedChildren and requiredParents, since all atoms must be created first
          */
-        await this.atomRepository.save({
-          ...atom,
-          owner: this.authDomainService.currentUser,
-        })
+        await this.atomRepository.update({ ...atom, owner }, { id: atom.id })
       }),
     )
   }
