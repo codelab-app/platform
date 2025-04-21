@@ -80,16 +80,8 @@
           "fields": []
         },
         "store": {
-          "actions": [],
           "api": {
-            "__typename": "InterfaceType",
-            "id": "fa2a5a82-f4fe-4593-a5a0-0f60980bb59c",
-            "kind": "InterfaceType",
-            "name": "Ant Design Atoms Demo(gm.vpolishchuk) provider Store API",
-            "owner": {
-              "id": "6c288416-ea0a-455c-b7d5-459ab55dff11"
-            },
-            "fields": []
+            "id": "fa2a5a82-f4fe-4593-a5a0-0f60980bb59c"
           },
           "id": "bac6af0d-908a-4ad2-baed-09974f8a3ee1",
           "name": "provider Store"
@@ -378,16 +370,8 @@
           "fields": []
         },
         "store": {
-          "actions": [],
           "api": {
-            "__typename": "InterfaceType",
-            "id": "842b97be-b9f1-48bb-a93a-d531e86ac0b6",
-            "kind": "InterfaceType",
-            "name": "Affix Demo Store API",
-            "owner": {
-              "id": "6c288416-ea0a-455c-b7d5-459ab55dff11"
-            },
-            "fields": []
+            "id": "842b97be-b9f1-48bb-a93a-d531e86ac0b6"
           },
           "id": "5fcb2152-9cbf-4878-a9d7-fc9bca7f8eb2",
           "name": "Affix Demo Store"
@@ -907,39 +891,8 @@
           "fields": []
         },
         "store": {
-          "actions": [
-            {
-              "__typename": "CodeAction",
-              "id": "126e43c1-3fd2-4707-994f-1a6780c3d7bf",
-              "name": "onAfterClose",
-              "type": "CodeAction",
-              "store": {
-                "id": "0026913e-1d5a-491d-a170-affd09476060",
-                "name": "Alert Demo Store"
-              },
-              "code": "function run() {\n  alert('onAfterClose');\n}"
-            },
-            {
-              "__typename": "CodeAction",
-              "id": "8f8b4895-8a93-424e-9b6c-01ddf75077fe",
-              "name": "onClose",
-              "type": "CodeAction",
-              "store": {
-                "id": "0026913e-1d5a-491d-a170-affd09476060",
-                "name": "Alert Demo Store"
-              },
-              "code": "function run() {\n  alert('onClose');\n}"
-            }
-          ],
           "api": {
-            "__typename": "InterfaceType",
-            "id": "1b9cf2b6-08f1-477d-a196-a8ad2c55cb40",
-            "kind": "InterfaceType",
-            "name": "Alert Demo Store API",
-            "owner": {
-              "id": "6c288416-ea0a-455c-b7d5-459ab55dff11"
-            },
-            "fields": []
+            "id": "1b9cf2b6-08f1-477d-a196-a8ad2c55cb40"
           },
           "id": "0026913e-1d5a-491d-a170-affd09476060",
           "name": "Alert Demo Store"
@@ -1263,16 +1216,8 @@
           "fields": []
         },
         "store": {
-          "actions": [],
           "api": {
-            "__typename": "InterfaceType",
-            "id": "1b6edd47-79bc-4f31-852b-13a8b3d20827",
-            "kind": "InterfaceType",
-            "name": "Anchor Demo Store API",
-            "owner": {
-              "id": "6c288416-ea0a-455c-b7d5-459ab55dff11"
-            },
-            "fields": []
+            "id": "1b6edd47-79bc-4f31-852b-13a8b3d20827"
           },
           "id": "6ef0b4d6-2c1e-46bc-a63f-b6581d081b8e",
           "name": "Anchor Demo Store"
@@ -1911,16 +1856,8 @@
           "fields": []
         },
         "store": {
-          "actions": [],
           "api": {
-            "__typename": "InterfaceType",
-            "id": "24804ccb-fe59-41ae-8262-085e9efacfac",
-            "kind": "InterfaceType",
-            "name": "Autocomplete Demo Store API",
-            "owner": {
-              "id": "6c288416-ea0a-455c-b7d5-459ab55dff11"
-            },
-            "fields": []
+            "id": "24804ccb-fe59-41ae-8262-085e9efacfac"
           },
           "id": "c7611052-04be-4cef-96fb-0b91251cd451",
           "name": "Autocomplete Demo Store"
@@ -2489,16 +2426,8 @@
           "fields": []
         },
         "store": {
-          "actions": [],
           "api": {
-            "__typename": "InterfaceType",
-            "id": "29bb1fc6-5e30-44d4-878f-f86df77526c4",
-            "kind": "InterfaceType",
-            "name": "Avatar Store API",
-            "owner": {
-              "id": "6c288416-ea0a-455c-b7d5-459ab55dff11"
-            },
-            "fields": []
+            "id": "29bb1fc6-5e30-44d4-878f-f86df77526c4"
           },
           "id": "2b5e1f81-3751-4667-9723-8d84005043db",
           "name": "Avatar Store"
@@ -2577,16 +2506,8 @@
           "fields": []
         },
         "store": {
-          "actions": [],
           "api": {
-            "__typename": "InterfaceType",
-            "id": "1f65b517-813a-4867-bf0b-18df41fa3014",
-            "kind": "InterfaceType",
-            "name": "Backtop Store API",
-            "owner": {
-              "id": "6c288416-ea0a-455c-b7d5-459ab55dff11"
-            },
-            "fields": []
+            "id": "1f65b517-813a-4867-bf0b-18df41fa3014"
           },
           "id": "3e2d168b-44f7-48f3-b820-fd38ba6abfac",
           "name": "Backtop Store"
@@ -3085,16 +3006,8 @@
           "fields": []
         },
         "store": {
-          "actions": [],
           "api": {
-            "__typename": "InterfaceType",
-            "id": "485d5a79-be15-4f22-8d25-f820421a3b81",
-            "kind": "InterfaceType",
-            "name": "Badge Store API",
-            "owner": {
-              "id": "6c288416-ea0a-455c-b7d5-459ab55dff11"
-            },
-            "fields": []
+            "id": "485d5a79-be15-4f22-8d25-f820421a3b81"
           },
           "id": "621da6b5-2960-40b1-a8e7-cabf4686e88b",
           "name": "Badge Store"
@@ -3289,28 +3202,8 @@
           "fields": []
         },
         "store": {
-          "actions": [
-            {
-              "__typename": "CodeAction",
-              "id": "1e900e11-0b94-493f-bb3b-559810279e29",
-              "name": "OnClick",
-              "type": "CodeAction",
-              "store": {
-                "id": "d4f36815-6a78-4fd7-82fe-72ab16640e5c",
-                "name": "Breadcrumb Store"
-              },
-              "code": "function run() {\n    alert('OnClick')\n}"
-            }
-          ],
           "api": {
-            "__typename": "InterfaceType",
-            "id": "33353ccf-8dd7-4112-8d3a-7baaf48bc643",
-            "kind": "InterfaceType",
-            "name": "Breadcrumb Store API",
-            "owner": {
-              "id": "6c288416-ea0a-455c-b7d5-459ab55dff11"
-            },
-            "fields": []
+            "id": "33353ccf-8dd7-4112-8d3a-7baaf48bc643"
           },
           "id": "d4f36815-6a78-4fd7-82fe-72ab16640e5c",
           "name": "Breadcrumb Store"
@@ -4404,16 +4297,8 @@
           "fields": []
         },
         "store": {
-          "actions": [],
           "api": {
-            "__typename": "InterfaceType",
-            "id": "45284f0b-2a53-4e22-8c74-b00727c4f7b1",
-            "kind": "InterfaceType",
-            "name": "Button Store API",
-            "owner": {
-              "id": "6c288416-ea0a-455c-b7d5-459ab55dff11"
-            },
-            "fields": []
+            "id": "45284f0b-2a53-4e22-8c74-b00727c4f7b1"
           },
           "id": "2f01e58d-1847-4409-9f23-0d2e1b479139",
           "name": "Button Store"
@@ -4737,16 +4622,8 @@
           "fields": []
         },
         "store": {
-          "actions": [],
           "api": {
-            "__typename": "InterfaceType",
-            "id": "37c2f788-a3c0-4e83-93e8-93121ec37969",
-            "kind": "InterfaceType",
-            "name": "Calendar Not Done Store API",
-            "owner": {
-              "id": "6c288416-ea0a-455c-b7d5-459ab55dff11"
-            },
-            "fields": []
+            "id": "37c2f788-a3c0-4e83-93e8-93121ec37969"
           },
           "id": "3dbee749-f2eb-41d1-9f51-78903c64b7b3",
           "name": "Calendar Not Done Store"
@@ -4825,16 +4702,8 @@
           "fields": []
         },
         "store": {
-          "actions": [],
           "api": {
-            "__typename": "InterfaceType",
-            "id": "448ca737-69e4-47d8-ae84-9eafe9acb6ed",
-            "kind": "InterfaceType",
-            "name": "Card Not Done Store API",
-            "owner": {
-              "id": "6c288416-ea0a-455c-b7d5-459ab55dff11"
-            },
-            "fields": []
+            "id": "448ca737-69e4-47d8-ae84-9eafe9acb6ed"
           },
           "id": "4b35febe-1627-44c9-9787-7fc33b2015ff",
           "name": "Card Not Done Store"
@@ -6488,16 +6357,8 @@
           "fields": []
         },
         "store": {
-          "actions": [],
           "api": {
-            "__typename": "InterfaceType",
-            "id": "dc1f47e6-8b50-4a67-9494-e571615d2595",
-            "kind": "InterfaceType",
-            "name": "Carousel Store API",
-            "owner": {
-              "id": "6c288416-ea0a-455c-b7d5-459ab55dff11"
-            },
-            "fields": []
+            "id": "dc1f47e6-8b50-4a67-9494-e571615d2595"
           },
           "id": "3988179b-91d3-4142-bf1a-d1f021a8772b",
           "name": "Carousel Store"
@@ -7099,16 +6960,8 @@
           "fields": []
         },
         "store": {
-          "actions": [],
           "api": {
-            "__typename": "InterfaceType",
-            "id": "4e865301-a356-412c-9147-f3f8053b040b",
-            "kind": "InterfaceType",
-            "name": "Cascader Store API",
-            "owner": {
-              "id": "6c288416-ea0a-455c-b7d5-459ab55dff11"
-            },
-            "fields": []
+            "id": "4e865301-a356-412c-9147-f3f8053b040b"
           },
           "id": "7589b426-45c3-4f67-aced-dfec457196a0",
           "name": "Cascader Store"
@@ -7187,16 +7040,8 @@
           "fields": []
         },
         "store": {
-          "actions": [],
           "api": {
-            "__typename": "InterfaceType",
-            "id": "8b5a7b1a-094b-45c3-8107-7693895ef4f7",
-            "kind": "InterfaceType",
-            "name": "Ant Design Atoms Demo(gm.vpolishchuk) 404 Store API",
-            "owner": {
-              "id": "6c288416-ea0a-455c-b7d5-459ab55dff11"
-            },
-            "fields": []
+            "id": "8b5a7b1a-094b-45c3-8107-7693895ef4f7"
           },
           "id": "6c84b8a6-368f-4eb3-8209-ed7a415fd080",
           "name": "404 Store"
@@ -7275,16 +7120,8 @@
           "fields": []
         },
         "store": {
-          "actions": [],
           "api": {
-            "__typename": "InterfaceType",
-            "id": "e66a04b9-09cb-47d0-8b76-cfa0cad8c151",
-            "kind": "InterfaceType",
-            "name": "Ant Design Atoms Demo(gm.vpolishchuk) 500 Store API",
-            "owner": {
-              "id": "6c288416-ea0a-455c-b7d5-459ab55dff11"
-            },
-            "fields": []
+            "id": "e66a04b9-09cb-47d0-8b76-cfa0cad8c151"
           },
           "id": "772cfe83-196f-452d-9552-6de88ead6526",
           "name": "500 Store"
