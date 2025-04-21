@@ -1,58 +1,7 @@
 {
   "app": {
-    "domains": [],
     "id": "2e50ee6c-b19c-4155-a202-991b0e78d56c",
-    "name": "Ant Design Atoms Demo",
-    "pages": [
-      {
-        "id": "7f89323d-9366-449f-a5e8-02d440b2a7b9"
-      },
-      {
-        "id": "223041a7-da75-407c-9b9e-3eaeb94cd847"
-      },
-      {
-        "id": "e056fa88-0750-4194-a04c-df5930022a89"
-      },
-      {
-        "id": "ee648a37-3aa8-46aa-ba27-072f9b0e3c81"
-      },
-      {
-        "id": "2970a228-c24e-4934-9d50-7441c953e5be"
-      },
-      {
-        "id": "72db3b44-b4aa-4606-a264-7189d6e0cd51"
-      },
-      {
-        "id": "22b400cf-a363-4440-8039-16354aebd5b1"
-      },
-      {
-        "id": "7c10b033-57ae-4562-8fe1-5d4ba6755415"
-      },
-      {
-        "id": "1b11b5ba-5c32-4953-ac6d-1e6cdf67f122"
-      },
-      {
-        "id": "2ccbd72c-d82f-42cf-9184-06bc467ffc80"
-      },
-      {
-        "id": "c68b0af4-ea0a-4a2e-8168-318bd9af4cbe"
-      },
-      {
-        "id": "681e0f82-21f0-4217-8c51-2be355800c6b"
-      },
-      {
-        "id": "ab4cf5ac-cfc1-48c2-8577-dc83f032ea02"
-      },
-      {
-        "id": "2c9322d9-93b7-40ff-a26a-e6d9cd9d29bb"
-      },
-      {
-        "id": "5930a10c-1e9a-4e3e-a9cd-433cd544248d"
-      },
-      {
-        "id": "5dd1e05f-fb3f-4260-a779-cf97727e8a2c"
-      }
-    ]
+    "name": "Ant Design Atoms Demo"
   },
   "components": [],
   "domains": [],

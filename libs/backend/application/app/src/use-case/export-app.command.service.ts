@@ -53,7 +53,7 @@ export class ExportAppHandler
     >(new ExportPageCommand({ id_IN: app.pages.map((page) => page.id) }))
 
     return Validator.parse(AppAggregateSchema, {
-      app,
+      app: { id: app.id, name: app.name },
       components: await this.components(pages),
       domains,
       pages,
