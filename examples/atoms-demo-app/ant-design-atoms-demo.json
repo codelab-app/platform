@@ -2761,7 +2761,6 @@
             "id": "22b400cf-a363-4440-8039-16354aebd5b1"
           },
           "compositeKey": "22b400cf-a363-4440-8039-16354aebd5b1-body",
-          "expanded": null,
           "firstChild": null,
           "id": "0e371bfe-6782-4afd-9ec9-4875d44691b6",
           "name": "Body",
@@ -2855,7 +2854,6 @@
             "id": "7c10b033-57ae-4562-8fe1-5d4ba6755415"
           },
           "compositeKey": "7c10b033-57ae-4562-8fe1-5d4ba6755415-ant-design-avatar-duplicate-2",
-          "expanded": null,
           "firstChild": null,
           "id": "f2a75980-9dd9-456c-9abd-267ef3490791",
           "name": "Ant Design Avatar Duplicate 2",
@@ -2889,7 +2887,6 @@
             "id": "7c10b033-57ae-4562-8fe1-5d4ba6755415"
           },
           "compositeKey": "7c10b033-57ae-4562-8fe1-5d4ba6755415-ant-design-avatar-duplicate-duplicate",
-          "expanded": null,
           "firstChild": null,
           "id": "0b2e6d7b-3814-4975-9c2b-0c7ec9e219cc",
           "name": "Ant Design Avatar Duplicate Duplicate",
@@ -2923,7 +2920,6 @@
             "id": "7c10b033-57ae-4562-8fe1-5d4ba6755415"
           },
           "compositeKey": "7c10b033-57ae-4562-8fe1-5d4ba6755415-ant-design-avatar-duplicate-2-duplicate",
-          "expanded": null,
           "firstChild": null,
           "id": "9c42ba93-bd40-4418-bcfa-789962d6203b",
           "name": "Ant Design Avatar Duplicate 2 Duplicate",
@@ -5191,7 +5187,6 @@
             "id": "681e0f82-21f0-4217-8c51-2be355800c6b"
           },
           "compositeKey": "681e0f82-21f0-4217-8c51-2be355800c6b-body",
-          "expanded": null,
           "firstChild": null,
           "id": "baee77df-ef80-41b2-80ee-aa4c4021b46f",
           "name": "Body",
@@ -7088,7 +7083,6 @@
             "id": "2c9322d9-93b7-40ff-a26a-e6d9cd9d29bb"
           },
           "compositeKey": "2c9322d9-93b7-40ff-a26a-e6d9cd9d29bb-ant-design-cascader-duplicate-duplicate-duplicate-duplicate-duplicate",
-          "expanded": null,
           "firstChild": null,
           "id": "3340b51b-b3cc-4868-9f62-14372af79d9c",
           "name": "Ant Design Cascader Duplicate Duplicate Duplicate Duplicate Duplicate",
@@ -7122,7 +7116,6 @@
             "id": "2c9322d9-93b7-40ff-a26a-e6d9cd9d29bb"
           },
           "compositeKey": "2c9322d9-93b7-40ff-a26a-e6d9cd9d29bb-ant-design-cascader-duplicate-duplicate-1",
-          "expanded": null,
           "firstChild": null,
           "id": "e3dd5406-1be9-479c-864f-748c22aebe57",
           "name": "Ant Design Cascader Duplicate Duplicate 1",
@@ -7193,7 +7186,6 @@
             "id": "2c9322d9-93b7-40ff-a26a-e6d9cd9d29bb"
           },
           "compositeKey": "2c9322d9-93b7-40ff-a26a-e6d9cd9d29bb-ant-design-cascader-duplicate-2",
-          "expanded": null,
           "firstChild": null,
           "id": "455365f4-b1f9-4dd1-9e27-0fe53c72dffa",
           "name": "Ant Design Cascader Duplicate 2",
@@ -7229,7 +7221,6 @@
             "id": "2c9322d9-93b7-40ff-a26a-e6d9cd9d29bb"
           },
           "compositeKey": "2c9322d9-93b7-40ff-a26a-e6d9cd9d29bb-ant-design-cascader-duplicate-duplicate",
-          "expanded": null,
           "firstChild": null,
           "id": "3d6f9e1d-22ea-4c9e-beee-6e38d0a9fc50",
           "name": "Ant Design Cascader Duplicate Duplicate",
@@ -7263,7 +7254,6 @@
             "id": "2c9322d9-93b7-40ff-a26a-e6d9cd9d29bb"
           },
           "compositeKey": "2c9322d9-93b7-40ff-a26a-e6d9cd9d29bb-ant-design-cascader-duplicate",
-          "expanded": null,
           "firstChild": null,
           "id": "bd18f151-f450-4022-824f-12d0f443bbd2",
           "name": "Ant Design Cascader Duplicate",
@@ -7299,7 +7289,6 @@
             "id": "2c9322d9-93b7-40ff-a26a-e6d9cd9d29bb"
           },
           "compositeKey": "2c9322d9-93b7-40ff-a26a-e6d9cd9d29bb-ant-design-cascader-duplicate-duplicate-duplicate-duplicate",
-          "expanded": null,
           "firstChild": null,
           "id": "f21e1d79-b372-47d7-ba82-f0aa06cfaf9e",
           "name": "Ant Design Cascader Duplicate Duplicate Duplicate Duplicate",
@@ -7405,7 +7394,6 @@
             "id": "2c9322d9-93b7-40ff-a26a-e6d9cd9d29bb"
           },
           "compositeKey": "2c9322d9-93b7-40ff-a26a-e6d9cd9d29bb-ant-design-cascader-duplicate-1",
-          "expanded": null,
           "firstChild": null,
           "id": "35d3a8c1-8ade-4ef4-9166-27eaa46dca29",
           "name": "Ant Design Cascader Duplicate 1",
@@ -7583,7 +7571,6 @@
             "id": "2c9322d9-93b7-40ff-a26a-e6d9cd9d29bb"
           },
           "compositeKey": "2c9322d9-93b7-40ff-a26a-e6d9cd9d29bb-ant-design-cascader-duplicate-duplicate-duplicate",
-          "expanded": null,
           "firstChild": null,
           "id": "4ff5bf26-5ea4-4fa1-afbe-d9eaaf317ef0",
           "name": "Ant Design Cascader Duplicate Duplicate Duplicate",
@@ -7757,7 +7744,6 @@
             "id": "5930a10c-1e9a-4e3e-a9cd-433cd544248d"
           },
           "compositeKey": "5930a10c-1e9a-4e3e-a9cd-433cd544248d-body",
-          "expanded": null,
           "firstChild": null,
           "id": "937a66e4-f809-4077-a093-b116fee58d1e",
           "name": "Body",
@@ -7851,7 +7837,6 @@
             "id": "5dd1e05f-fb3f-4260-a779-cf97727e8a2c"
           },
           "compositeKey": "5dd1e05f-fb3f-4260-a779-cf97727e8a2c-body",
-          "expanded": null,
           "firstChild": null,
           "id": "2c688153-bedf-4ec1-8c82-ffc595ef4684",
           "name": "Body",
