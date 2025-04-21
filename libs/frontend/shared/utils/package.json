@@ -24,21 +24,6 @@
       "scope:frontend",
       "scope:shared"
     ],
-    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-    "targets": {
-      "lint": {
-        "executor": "@nx/eslint:lint"
-      },
-      "test": {
-        "executor": "@nx/jest:jest",
-        "outputs": [
-          "{workspaceRoot}/coverage/libs/frontend/shared/utils"
-        ],
-        "options": {
-          "jestConfig": "libs/frontend/shared/utils/jest.config.ts",
-          "runInBand": true
-        }
-      }
-    }
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json"
   }
 }

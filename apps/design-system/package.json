@@ -17,41 +17,6 @@
       "projectType:application",
       "type:concrete"
     ],
-    "$schema": "../../node_modules/nx/schemas/project-schema.json",
-    "targets": {
-      "storybook": {
-        "executor": "@nx/storybook:storybook",
-        "options": {
-          "port": 4400,
-          "configDir": "apps/design-system/.storybook"
-        },
-        "configurations": {
-          "ci": {
-            "quiet": true
-          }
-        }
-      },
-      "build-storybook": {
-        "executor": "@nx/storybook:build",
-        "outputs": [
-          "{options.outputDir}"
-        ],
-        "options": {
-          "outputDir": "dist/storybook/design-system",
-          "configDir": "apps/design-system/.storybook"
-        },
-        "configurations": {
-          "ci": {
-            "quiet": true
-          }
-        }
-      },
-      "test-storybook": {
-        "executor": "nx:run-commands",
-        "options": {
-          "command": "test-storybook -c apps/design-system/.storybook --url=http://localhost:4400"
-        }
-      }
-    }
+    "$schema": "../../node_modules/nx/schemas/project-schema.json"
   }
 }

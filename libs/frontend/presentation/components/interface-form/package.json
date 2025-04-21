@@ -42,21 +42,6 @@
       "type:concrete",
       "scope:frontend"
     ],
-    "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
-    "targets": {
-      "test": {
-        "executor": "@nx/jest:jest",
-        "outputs": [
-          "{workspaceRoot}/coverage/{projectRoot}"
-        ],
-        "options": {
-          "jestConfig": "libs/frontend/presentation/components/interface-form/jest.config.ts",
-          "runInBand": true
-        }
-      },
-      "lint": {
-        "executor": "@nx/eslint:lint"
-      }
-    }
+    "$schema": "../../../../../node_modules/nx/schemas/project-schema.json"
   }
 }

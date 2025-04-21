@@ -48,25 +48,6 @@
       "scope:frontend",
       "layer:domain"
     ],
-    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-    "targets": {
-      "lint": {
-        "executor": "@nx/eslint:lint",
-        "outputs": [
-          "{options.outputFile}"
-        ]
-      },
-      "test": {
-        "executor": "@nx/jest:jest",
-        "options": {
-          "jestConfig": "libs/frontend/domain/auth-guard/jest.config.ts",
-          "passWithNoTests": true,
-          "runInBand": true
-        },
-        "outputs": [
-          "{workspaceRoot}/coverage/libs/frontend/domain/auth-guard"
-        ]
-      }
-    }
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json"
   }
 }

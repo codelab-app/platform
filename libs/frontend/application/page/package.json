@@ -90,21 +90,6 @@
       "scope:frontend",
       "layer:application"
     ],
-    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-    "targets": {
-      "lint": {
-        "executor": "@nx/eslint:lint"
-      },
-      "test": {
-        "executor": "@nx/jest:jest",
-        "outputs": [
-          "{workspaceRoot}/coverage/{projectRoot}"
-        ],
-        "options": {
-          "jestConfig": "libs/frontend/application/page/jest.config.ts",
-          "runInBand": true
-        }
-      }
-    }
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json"
   }
 }

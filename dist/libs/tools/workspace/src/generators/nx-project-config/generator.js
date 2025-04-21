@@ -7,6 +7,7 @@ const migrate_project_reference_1 = require("./migrate-project-reference");
 const migrate_to_inferred_1 = require("./migrate-to-inferred/migrate-to-inferred");
 const add_project_tags_1 = require("./project-tags/add-project-tags");
 const copy_options_1 = require("./tsconfig/copy-options");
+const migrate_to_vite_libs_1 = require("./vite-libs/migrate-to-vite-libs");
 /**
  * Factory function to generate a list of available projects for the x-prompt
  * @returns An array of project choices for the dropdown
@@ -26,6 +27,9 @@ const nxProjectConfigGenerator = async (tree, options) => {
             projectConfig.sourceRoot?.startsWith('libs/tools')) {
             console.log('Skipping project:', projectConfig.name);
             continue;
+        }
+        if (projectConfig.sourceRoot?.startsWith('libs/shared/infra')) {
+            await (0, migrate_to_vite_libs_1.migrateToViteLibs)(tree, projectConfig);
         }
         /**
          * Modifies projectConfig here
@@ -62,7 +66,7 @@ const nxProjectConfigGenerator = async (tree, options) => {
                 (0, copy_options_1.copyLibTsconfigToTsconfig)(tree, projectConfig);
             }
         }
-        (0, devkit_1.updateProjectConfiguration)(tree, projectName, projectConfig);
+        // updateProjectConfiguration(tree, projectName, projectConfig)
     }
     await (0, devkit_1.formatFiles)(tree);
 };

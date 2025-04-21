@@ -30,11 +30,6 @@
       "type:test",
       "scope:backend"
     ],
-    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-    "targets": {
-      "lint": {
-        "executor": "@nx/eslint:lint"
-      }
-    }
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json"
   }
 }

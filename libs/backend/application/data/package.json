@@ -26,24 +26,6 @@
       "scope:backend",
       "layer:application"
     ],
-    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-    "targets": {
-      "lint": {
-        "executor": "@nx/eslint:lint",
-        "outputs": [
-          "{options.outputFile}"
-        ]
-      },
-      "test": {
-        "executor": "@nx/jest:jest",
-        "outputs": [
-          "{workspaceRoot}/coverage/{projectRoot}"
-        ],
-        "options": {
-          "jestConfig": "libs/backend/application/data/jest.config.ts",
-          "runInBand": true
-        }
-      }
-    }
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json"
   }
 }

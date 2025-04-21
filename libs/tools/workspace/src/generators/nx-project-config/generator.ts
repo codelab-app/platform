@@ -17,6 +17,7 @@ import { updateBaseTsconfig } from './tsconfig/base/tsconfig.base'
 import { copyLibTsconfigToTsconfig } from './tsconfig/copy-options'
 import { updateLibraryTsconfig } from './tsconfig/lib/tsconfig.lib'
 import { createAliasMapping, saveAliasMappingToFile } from './utils/workspace'
+import { migrateToViteLibs } from './vite-libs/migrate-to-vite-libs'
 
 /**
  * Factory function to generate a list of available projects for the x-prompt
@@ -46,6 +47,10 @@ export const nxProjectConfigGenerator = async (
     ) {
       console.log('Skipping project:', projectConfig.name)
       continue
+    }
+
+    if (projectConfig.sourceRoot?.startsWith('libs/shared/infra')) {
+      await migrateToViteLibs(tree, projectConfig)
     }
 
     /**
@@ -87,7 +92,7 @@ export const nxProjectConfigGenerator = async (
       }
     }
 
-    updateProjectConfiguration(tree, projectName, projectConfig)
+    // updateProjectConfiguration(tree, projectName, projectConfig)
   }
 
   await formatFiles(tree)

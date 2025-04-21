@@ -43,26 +43,6 @@
           "currentVersionResolver": "git-tag"
         }
       }
-    },
-    "targets": {
-      "build": {
-        "executor": "@nx/js:tsc",
-        "outputs": [
-          "{options.outputPath}"
-        ],
-        "options": {
-          "outputPath": "dist/libs/external/codelab-codegen/codelab-preset",
-          "tsConfig": "libs/external/codelab-codegen/codelab-preset/tsconfig.lib.json",
-          "packageJson": "libs/external/codelab-codegen/codelab-preset/package.json",
-          "main": "libs/external/codelab-codegen/codelab-preset/src/index.ts",
-          "assets": [
-            "libs/external/codelab-codegen/codelab-preset/*.md"
-          ]
-        }
-      },
-      "lint": {
-        "executor": "@nx/eslint:lint"
-      }
     }
   }
 }

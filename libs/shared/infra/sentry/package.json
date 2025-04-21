@@ -19,17 +19,6 @@
       "layer:infra",
       "scope:shared"
     ],
-    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-    "targets": {
-      "test": {
-        "executor": "@nx/jest:jest",
-        "outputs": [
-          "{workspaceRoot}/coverage/{projectRoot}"
-        ],
-        "options": {
-          "jestConfig": "libs/shared/infra/sentry/jest.config.ts"
-        }
-      }
-    }
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json"
   }
 }

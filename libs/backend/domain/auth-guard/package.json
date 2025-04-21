@@ -27,31 +27,6 @@
       "scope:backend",
       "layer:domain"
     ],
-    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-    "targets": {
-      "lint": {
-        "executor": "@nx/eslint:lint",
-        "outputs": [
-          "{options.outputFile}"
-        ]
-      },
-      "test": {
-        "configurations": {
-          "ci": {
-            "ci": true,
-            "codeCoverage": true
-          }
-        },
-        "executor": "@nx/jest:jest",
-        "options": {
-          "jestConfig": "libs/backend/domain/auth-guard/jest.config.ts",
-          "passWithNoTests": true,
-          "runInBand": true
-        },
-        "outputs": [
-          "{workspaceRoot}/coverage/{projectRoot}"
-        ]
-      }
-    }
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json"
   }
 }

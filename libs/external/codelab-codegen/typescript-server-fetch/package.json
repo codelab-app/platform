@@ -43,26 +43,6 @@
           "currentVersionResolver": "git-tag"
         }
       }
-    },
-    "targets": {
-      "build": {
-        "executor": "@nx/js:tsc",
-        "outputs": [
-          "{options.outputPath}"
-        ],
-        "options": {
-          "outputPath": "dist/libs/external/codelab-codegen/typescript-server-fetch",
-          "tsConfig": "libs/external/codelab-codegen/typescript-server-fetch/tsconfig.lib.json",
-          "packageJson": "libs/external/codelab-codegen/typescript-server-fetch/package.json",
-          "main": "libs/external/codelab-codegen/typescript-server-fetch/src/index.ts",
-          "assets": [
-            "libs/external/codelab-codegen/typescript-server-fetch/*.md"
-          ]
-        }
-      },
-      "lint": {
-        "executor": "@nx/eslint:lint"
-      }
     }
   }
 }

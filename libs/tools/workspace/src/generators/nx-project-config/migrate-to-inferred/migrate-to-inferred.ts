@@ -22,7 +22,12 @@ export const removeTargetsFromNx = (tree: Tree, packageJsonPath: string) => {
     // Create a new nx object without the targets property
     const { targets, ...restOfNx } = packageJson.nx
 
-    packageJson.nx = restOfNx
+    // If restOfNx is empty after removing targets, delete the entire nx property
+    if (Object.keys(restOfNx).length === 0) {
+      delete packageJson.nx
+    } else {
+      packageJson.nx = restOfNx
+    }
 
     writeJson(tree, packageJsonPath, packageJson)
     console.log(`Removed 'targets' from nx in ${packageJsonPath}`)
@@ -68,38 +73,27 @@ export const migrateToInferred = async (
 
   console.log('packageJson', packageJson)
 
-  // Create or update nx property
-  packageJson.nx = packageJson.nx || {}
-
-  // Ensure essential properties are set (but don't overwrite if they exist)
-  packageJson.nx.name = packageJson.nx.name || projectConfig.name
-  packageJson.nx.projectType =
-    packageJson.nx.projectType || projectConfig.projectType
-  packageJson.nx.sourceRoot =
-    packageJson.nx.sourceRoot || projectConfig.sourceRoot
-  packageJson.nx.tags = packageJson.nx.tags || projectConfig.tags || []
-
-  // Remove targets from nx property if it exists
-  if (packageJson.nx.targets) {
+  // Safely remove the 'targets' property from 'nx' if it exists
+  if (packageJson.nx && packageJson.nx.targets) {
+    // Create a new nx object without the targets property
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { targets, ...restOfNx } = packageJson.nx
 
-    packageJson.nx = restOfNx
+    // If restOfNx is empty after removing targets, delete the entire nx property
+    if (Object.keys(restOfNx).length === 0) {
+      delete packageJson.nx
+    } else {
+      packageJson.nx = restOfNx
+    }
+
     console.log(`Removed 'targets' from nx in ${packageJsonPath}`)
+  } else {
+    console.log(`No 'targets' found in nx property at ${packageJsonPath}`)
   }
+
+  console.log('removed', packageJson)
 
   writeJson(tree, packageJsonPath, packageJson)
-
-  // Delete the original project.json file if it exists
-  const projectJsonPath = join(projectConfig.root, 'project.json')
-
-  if (tree.exists(projectJsonPath)) {
-    tree.delete(projectJsonPath)
-    console.log(`Deleted original project.json for ${projectConfig.name}`)
-  } else {
-    console.log(
-      `No project.json found for ${projectConfig.name} at ${projectJsonPath} (already migrated)`,
-    )
-  }
 
   console.log(
     `Migrated nx configuration to package.json for ${projectConfig.name}`,

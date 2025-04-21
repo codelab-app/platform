@@ -46,21 +46,6 @@
       "scope:frontend",
       "layer:domain"
     ],
-    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-    "targets": {
-      "lint": {
-        "executor": "@nx/eslint:lint"
-      },
-      "test": {
-        "executor": "@nx/jest:jest",
-        "outputs": [
-          "{workspaceRoot}/coverage/libs/frontend/domain/prop"
-        ],
-        "options": {
-          "jestConfig": "libs/frontend/domain/prop/jest.config.ts",
-          "runInBand": true
-        }
-      }
-    }
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json"
   }
 }
