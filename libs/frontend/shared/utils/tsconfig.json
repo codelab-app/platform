@@ -4,6 +4,18 @@
   "include": [],
   "references": [
     {
+      "path": "../../abstract/types"
+    },
+    {
+      "path": "../../../shared/config/env"
+    },
+    {
+      "path": "../../../shared/utils"
+    },
+    {
+      "path": "../../../shared/abstract/types"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

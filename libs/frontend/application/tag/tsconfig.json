@@ -3,6 +3,54 @@
   "include": [],
   "references": [
     {
+      "path": "../shared/store"
+    },
+    {
+      "path": "../../infra/connector"
+    },
+    {
+      "path": "../../presentation/codelab-ui"
+    },
+    {
+      "path": "../../../shared/abstract/types"
+    },
+    {
+      "path": "../../presentation/view"
+    },
+    {
+      "path": "../../presentation/components/form"
+    },
+    {
+      "path": "../user"
+    },
+    {
+      "path": "../../abstract/types"
+    },
+    {
+      "path": "../../../shared/infra/typebox"
+    },
+    {
+      "path": "../../infra/mobx/context"
+    },
+    {
+      "path": "../../domain/tag"
+    },
+    {
+      "path": "../../domain/shared"
+    },
+    {
+      "path": "../../../shared/infra/gqlgen"
+    },
+    {
+      "path": "../../../shared/abstract/core"
+    },
+    {
+      "path": "../../abstract/domain"
+    },
+    {
+      "path": "../../abstract/application"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

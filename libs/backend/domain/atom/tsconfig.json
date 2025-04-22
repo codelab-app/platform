@@ -4,6 +4,24 @@
   "include": [],
   "references": [
     {
+      "path": "../../../shared/domain/module/atom"
+    },
+    {
+      "path": "../../infra/core"
+    },
+    {
+      "path": "../../infra/adapter/logger"
+    },
+    {
+      "path": "../../../shared/infra/gqlgen"
+    },
+    {
+      "path": "../../../shared/abstract/core"
+    },
+    {
+      "path": "../shared/modules"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

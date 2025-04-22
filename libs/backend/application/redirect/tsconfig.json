@@ -4,6 +4,33 @@
   "include": [],
   "references": [
     {
+      "path": "../../test/setup"
+    },
+    {
+      "path": "../../../shared/infra/eval"
+    },
+    {
+      "path": "../../../shared/domain/module/resource"
+    },
+    {
+      "path": "../../../shared/utils"
+    },
+    {
+      "path": "../../../shared/abstract/types"
+    },
+    {
+      "path": "../../../shared/abstract/core"
+    },
+    {
+      "path": "../../shared/eval"
+    },
+    {
+      "path": "../../infra/adapter/logger"
+    },
+    {
+      "path": "../../domain/redirect"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

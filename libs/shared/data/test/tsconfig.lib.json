@@ -14,5 +14,15 @@
   },
   "include": ["src/**/*.ts"],
   "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
-  "references": []
+  "references": [
+    {
+      "path": "../../domain/module/preference/tsconfig.lib.json"
+    },
+    {
+      "path": "../../config/env/tsconfig.lib.json"
+    },
+    {
+      "path": "../../abstract/core/tsconfig.lib.json"
+    }
+  ]
 }

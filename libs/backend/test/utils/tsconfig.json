@@ -4,6 +4,21 @@
   "include": [],
   "references": [
     {
+      "path": "../../infra/core"
+    },
+    {
+      "path": "../../../shared/data/test"
+    },
+    {
+      "path": "../../infra/adapter/neo4j-driver"
+    },
+    {
+      "path": "../../domain/user"
+    },
+    {
+      "path": "../../domain/shared/auth"
+    },
+    {
       "path": "./tsconfig.lib.json"
     }
   ]

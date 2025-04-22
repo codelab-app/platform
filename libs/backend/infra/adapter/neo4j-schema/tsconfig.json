@@ -4,6 +4,84 @@
   "include": [],
   "references": [
     {
+      "path": "../../../test/utils"
+    },
+    {
+      "path": "../../core"
+    },
+    {
+      "path": "../../../domain/prop"
+    },
+    {
+      "path": "../../../abstract/types"
+    },
+    {
+      "path": "../../../shared/util"
+    },
+    {
+      "path": "../digitalocean"
+    },
+    {
+      "path": "../neo4j-driver"
+    },
+    {
+      "path": "../../../../shared/config/env"
+    },
+    {
+      "path": "../../../domain/app"
+    },
+    {
+      "path": "../../../../shared/domain/module/page"
+    },
+    {
+      "path": "../../../domain/page"
+    },
+    {
+      "path": "../logger"
+    },
+    {
+      "path": "../dns"
+    },
+    {
+      "path": "../../../../shared/domain/module/element"
+    },
+    {
+      "path": "../../../../shared/infra/typebox"
+    },
+    {
+      "path": "../../../../shared/infra/logging"
+    },
+    {
+      "path": "../../../../shared/abstract/core"
+    },
+    {
+      "path": "../../../domain/user"
+    },
+    {
+      "path": "../../../domain/type"
+    },
+    {
+      "path": "../../../domain/store"
+    },
+    {
+      "path": "../../../domain/atom"
+    },
+    {
+      "path": "../../../../shared/domain/module/component"
+    },
+    {
+      "path": "../../../domain/element"
+    },
+    {
+      "path": "../../../domain/component"
+    },
+    {
+      "path": "../../../../shared/domain/module/app"
+    },
+    {
+      "path": "../../../../shared/infra/gqlgen"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

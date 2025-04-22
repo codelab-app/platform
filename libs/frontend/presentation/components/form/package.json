@@ -2,14 +2,14 @@
   "name": "@codelab/frontend-presentation-components-form",
   "exports": {
     ".": {
-      "default": "./src/index.ts",
       "import": "./src/index.ts",
-      "types": "./src/index.ts"
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
     },
     "./schema": {
-      "default": "./src/schema/index.ts",
       "import": "./src/schema/index.ts",
-      "types": "./src/schema/index.ts"
+      "types": "./src/schema/index.ts",
+      "default": "./src/schema/index.ts"
     }
   },
   "devDependencies": {

@@ -12,5 +12,13 @@
     "noFallthroughCasesInSwitch": true
   },
   "exclude": ["jest.config.ts"],
-  "include": ["webpack.config.js", "src/**/*.ts"]
+  "include": ["webpack.config.js", "src/**/*.ts"],
+  "references": [
+    {
+      "path": "../../libs/shared/abstract/core/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/backend/infra/adapter/logger/tsconfig.lib.json"
+    }
+  ]
 }

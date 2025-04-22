@@ -4,6 +4,18 @@
   "include": [],
   "references": [
     {
+      "path": "../prop"
+    },
+    {
+      "path": "../../orm"
+    },
+    {
+      "path": "../../../infra/gqlgen"
+    },
+    {
+      "path": "../../../abstract/core"
+    },
+    {
       "path": "./tsconfig.lib.json"
     }
   ]

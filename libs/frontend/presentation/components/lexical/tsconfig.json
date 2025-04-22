@@ -3,6 +3,15 @@
   "include": [],
   "references": [
     {
+      "path": "../../view"
+    },
+    {
+      "path": "../../../domain/prop"
+    },
+    {
+      "path": "../../../../shared/abstract/types"
+    },
+    {
       "path": "./tsconfig.lib.json"
     }
   ],

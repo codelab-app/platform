@@ -4,6 +4,18 @@
   "include": [],
   "references": [
     {
+      "path": "../../../../shared/infra/typebox"
+    },
+    {
+      "path": "../../../../shared/abstract/types"
+    },
+    {
+      "path": "../../../abstract/types"
+    },
+    {
+      "path": "../../../abstract/application"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

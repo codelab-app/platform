@@ -23,5 +23,36 @@
     "jest.config.ts"
   ],
   "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
-  "references": []
+  "references": [
+    {
+      "path": "../../../shared/utils/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/domain/orm/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/domain/module/type/tsconfig.lib.json"
+    },
+    {
+      "path": "../shared/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/domain/module/field/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/infra/typebox/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/infra/gqlgen/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/abstract/types/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/abstract/core/tsconfig.lib.json"
+    },
+    {
+      "path": "../../abstract/domain/tsconfig.lib.json"
+    }
+  ]
 }

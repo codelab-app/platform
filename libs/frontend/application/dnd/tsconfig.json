@@ -3,6 +3,12 @@
   "include": [],
   "references": [
     {
+      "path": "../../../shared/abstract/types"
+    },
+    {
+      "path": "../../shared/utils"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

@@ -3,6 +3,27 @@
   "include": [],
   "references": [
     {
+      "path": "../../../../shared/infra/eval"
+    },
+    {
+      "path": "../../../abstract/domain"
+    },
+    {
+      "path": "../../../../shared/utils"
+    },
+    {
+      "path": "../../../domain/prop"
+    },
+    {
+      "path": "../../../abstract/application"
+    },
+    {
+      "path": "../../../../shared/abstract/types"
+    },
+    {
+      "path": "../../../../shared/abstract/core"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

@@ -4,6 +4,36 @@
   "include": [],
   "references": [
     {
+      "path": "../../../shared/domain/module/atom"
+    },
+    {
+      "path": "../../test/setup"
+    },
+    {
+      "path": "../../infra/adapter/logger"
+    },
+    {
+      "path": "../../domain/shared/modules"
+    },
+    {
+      "path": "../../data/seed"
+    },
+    {
+      "path": "../../../shared/data/test"
+    },
+    {
+      "path": "../../../shared/infra/gqlgen"
+    },
+    {
+      "path": "../../../shared/abstract/core"
+    },
+    {
+      "path": "../../domain/tag"
+    },
+    {
+      "path": "../../domain/shared/auth"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

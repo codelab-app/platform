@@ -4,6 +4,12 @@
   "include": [],
   "references": [
     {
+      "path": "../../../shared/domain/module/preference"
+    },
+    {
+      "path": "../../../shared/abstract/core"
+    },
+    {
       "path": "./tsconfig.lib.json"
     }
   ]

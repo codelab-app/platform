@@ -26,8 +26,7 @@
         "devTargetName": "dev",
         "serveStaticTargetName": "serve-static",
         "buildDepsTargetName": "build-deps",
-        "watchDepsTargetName": "watch-deps",
-        "buildLibsFromSource": false
+        "watchDepsTargetName": "watch-deps"
       }
     },
     {
@@ -131,8 +130,13 @@
   },
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "targetDefaults": {
+    "build": {
+      "dependsOn": ["^build", "^typecheck"]
+    },
     "@nx/next:build": {
-      "dependsOn": ["^build"]
+      "options": {
+        "buildLibsFromSource": false
+      }
     },
     "tsc-check": {
       "cache": true,

@@ -4,6 +4,24 @@
   "include": [],
   "references": [
     {
+      "path": "../preference"
+    },
+    {
+      "path": "../../../shared/domain/module/user"
+    },
+    {
+      "path": "../../../shared/infra/gqlgen"
+    },
+    {
+      "path": "../../../shared/abstract/types"
+    },
+    {
+      "path": "../../../shared/abstract/core"
+    },
+    {
+      "path": "../../abstract/domain"
+    },
+    {
       "path": "./tsconfig.lib.json"
     }
   ]

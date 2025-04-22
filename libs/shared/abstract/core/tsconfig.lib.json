@@ -15,5 +15,15 @@
   },
   "include": ["**/*.ts"],
   "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.test.ts"],
-  "references": []
+  "references": [
+    {
+      "path": "../types/tsconfig.lib.json"
+    },
+    {
+      "path": "../../infra/gqlgen/tsconfig.lib.json"
+    },
+    {
+      "path": "../../infra/typebox/tsconfig.lib.json"
+    }
+  ]
 }

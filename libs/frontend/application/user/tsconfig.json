@@ -3,6 +3,30 @@
   "include": [],
   "references": [
     {
+      "path": "../../../shared/infra/auth0"
+    },
+    {
+      "path": "../../../shared/domain/module/user"
+    },
+    {
+      "path": "../../../shared/abstract/types"
+    },
+    {
+      "path": "../../domain/user"
+    },
+    {
+      "path": "../../../shared/infra/gqlgen"
+    },
+    {
+      "path": "../../../shared/abstract/core"
+    },
+    {
+      "path": "../../infra/mobx/context"
+    },
+    {
+      "path": "../../abstract/domain"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

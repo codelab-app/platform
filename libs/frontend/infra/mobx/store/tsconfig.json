@@ -3,6 +3,84 @@
   "include": [],
   "references": [
     {
+      "path": "../../../../shared/infra/typebox"
+    },
+    {
+      "path": "../../../../shared/config/env"
+    },
+    {
+      "path": "../../../domain/prop"
+    },
+    {
+      "path": "../../../test/data"
+    },
+    {
+      "path": "../../../../shared/abstract/types"
+    },
+    {
+      "path": "../../../domain/user"
+    },
+    {
+      "path": "../../../domain/type"
+    },
+    {
+      "path": "../../../domain/tag"
+    },
+    {
+      "path": "../../../domain/store"
+    },
+    {
+      "path": "../../../domain/resource"
+    },
+    {
+      "path": "../../../domain/redirect"
+    },
+    {
+      "path": "../../../domain/page"
+    },
+    {
+      "path": "../../../domain/element"
+    },
+    {
+      "path": "../../../domain/domain"
+    },
+    {
+      "path": "../../../domain/component"
+    },
+    {
+      "path": "../../../domain/auth-guard"
+    },
+    {
+      "path": "../../../domain/atom"
+    },
+    {
+      "path": "../../../domain/app"
+    },
+    {
+      "path": "../../../domain/action"
+    },
+    {
+      "path": "../../../../shared/abstract/core"
+    },
+    {
+      "path": "../../../application/shared/store"
+    },
+    {
+      "path": "../../../application/renderer"
+    },
+    {
+      "path": "../../../application/builder"
+    },
+    {
+      "path": "../../../abstract/domain"
+    },
+    {
+      "path": "../../../abstract/application"
+    },
+    {
+      "path": "../context"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

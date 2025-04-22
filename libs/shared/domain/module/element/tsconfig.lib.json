@@ -12,5 +12,33 @@
     "noPropertyAccessFromIndexSignature": true
   },
   "include": ["src/**/*.ts"],
-  "references": []
+  "references": [
+    {
+      "path": "../../../infra/gql-client/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../infra/fetch-server/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../abstract/types/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../infra/fetch/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../utils/tsconfig.lib.json"
+    },
+    {
+      "path": "../prop/tsconfig.lib.json"
+    },
+    {
+      "path": "../../orm/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../infra/gqlgen/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../abstract/core/tsconfig.lib.json"
+    }
+  ]
 }

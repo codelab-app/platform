@@ -3,6 +3,93 @@
   "files": [],
   "references": [
     {
+      "path": "../shared/store"
+    },
+    {
+      "path": "../../domain/type"
+    },
+    {
+      "path": "../../domain/store"
+    },
+    {
+      "path": "../../../shared/abstract/types"
+    },
+    {
+      "path": "../../../shared/infra/fetch-server"
+    },
+    {
+      "path": "../../../shared/config/env"
+    },
+    {
+      "path": "../../presentation/components/form"
+    },
+    {
+      "path": "../user"
+    },
+    {
+      "path": "../../abstract/types"
+    },
+    {
+      "path": "../../presentation/codelab-ui"
+    },
+    {
+      "path": "../../presentation/view"
+    },
+    {
+      "path": "../../infra/connector"
+    },
+    {
+      "path": "../atom"
+    },
+    {
+      "path": "../../shared/utils"
+    },
+    {
+      "path": "../../../shared/infra/sentry"
+    },
+    {
+      "path": "../../../shared/domain/module/app"
+    },
+    {
+      "path": "../../../shared/infra/typebox"
+    },
+    {
+      "path": "../../infra/mobx/context"
+    },
+    {
+      "path": "../../domain/shared"
+    },
+    {
+      "path": "../../domain/element"
+    },
+    {
+      "path": "../../domain/domain"
+    },
+    {
+      "path": "../../domain/app"
+    },
+    {
+      "path": "../page"
+    },
+    {
+      "path": "../../infra/context"
+    },
+    {
+      "path": "../../abstract/application"
+    },
+    {
+      "path": "../../../shared/infra/gqlgen"
+    },
+    {
+      "path": "../../../shared/abstract/core"
+    },
+    {
+      "path": "../../domain/page"
+    },
+    {
+      "path": "../../abstract/domain"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

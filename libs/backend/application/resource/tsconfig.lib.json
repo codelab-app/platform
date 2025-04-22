@@ -18,5 +18,18 @@
   },
   "include": ["src/**/*.ts"],
   "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
-  "references": []
+  "references": [
+    {
+      "path": "../../domain/resource/tsconfig.lib.json"
+    },
+    {
+      "path": "../../domain/prop/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/abstract/core/tsconfig.lib.json"
+    },
+    {
+      "path": "../../infra/adapter/logger/tsconfig.lib.json"
+    }
+  ]
 }

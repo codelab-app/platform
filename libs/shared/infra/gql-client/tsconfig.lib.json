@@ -2,10 +2,9 @@
   "extends": "../../../../tsconfig.base.json",
   "type": "module",
   "compilerOptions": {
-    "outDir": "./out-tsc/lib",
+    "outDir": "./dist",
     "declaration": true,
     "moduleResolution": "bundler",
-    "module": "esnext",
     "types": ["node"],
     "forceConsistentCasingInFileNames": true,
     "noImplicitOverride": true,
@@ -14,5 +13,9 @@
     "noPropertyAccessFromIndexSignature": true
   },
   "include": ["src/**/*.ts"],
-  "references": []
+  "references": [
+    {
+      "path": "../../config/env/tsconfig.lib.json"
+    }
+  ]
 }

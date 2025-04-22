@@ -4,6 +4,12 @@
   "include": [],
   "references": [
     {
+      "path": "../../../infra/adapter/request-context"
+    },
+    {
+      "path": "../../../../shared/abstract/core"
+    },
+    {
       "path": "./tsconfig.lib.json"
     }
   ]

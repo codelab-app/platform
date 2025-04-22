@@ -18,5 +18,51 @@
   },
   "include": ["src/**/*.ts"],
   "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
-  "references": []
+  "references": [
+    {
+      "path": "../../../shared/infra/typebox/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/infra/gqlgen/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/domain/module/type/tsconfig.lib.json"
+    },
+    {
+      "path": "../../infra/adapter/logger/tsconfig.lib.json"
+    },
+    {
+      "path": "../../domain/store/tsconfig.lib.json"
+    },
+    {
+      "path": "../../domain/type/tsconfig.lib.json"
+    },
+    {
+      "path": "../../domain/shared/auth/tsconfig.lib.json"
+    },
+    {
+      "path": "../../domain/prop/tsconfig.lib.json"
+    },
+    {
+      "path": "../../domain/element/tsconfig.lib.json"
+    },
+    {
+      "path": "../../domain/component/tsconfig.lib.json"
+    },
+    {
+      "path": "../type/tsconfig.lib.json"
+    },
+    {
+      "path": "../store/tsconfig.lib.json"
+    },
+    {
+      "path": "../element/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/abstract/core/tsconfig.lib.json"
+    },
+    {
+      "path": "../data/tsconfig.lib.json"
+    }
+  ]
 }

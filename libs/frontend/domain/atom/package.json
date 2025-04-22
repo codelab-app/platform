@@ -2,29 +2,29 @@
   "name": "@codelab/frontend-domain-atom",
   "exports": {
     ".": {
-      "default": "./src/index.ts",
       "import": "./src/index.ts",
-      "types": "./src/index.ts"
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
     },
     "./repositories": {
-      "default": "./src/repositories/index.ts",
       "import": "./src/repositories/index.ts",
-      "types": "./src/repositories/index.ts"
+      "types": "./src/repositories/index.ts",
+      "default": "./src/repositories/index.ts"
     },
     "./services": {
-      "default": "./src/services/index.ts",
       "import": "./src/services/index.ts",
-      "types": "./src/services/index.ts"
+      "types": "./src/services/index.ts",
+      "default": "./src/services/index.ts"
     },
     "./store": {
-      "default": "./src/store/index.ts",
       "import": "./src/store/index.ts",
-      "types": "./src/store/index.ts"
+      "types": "./src/store/index.ts",
+      "default": "./src/store/index.ts"
     },
     "./test": {
-      "default": "./src/test/index.ts",
       "import": "./src/test/index.ts",
-      "types": "./src/test/index.ts"
+      "types": "./src/test/index.ts",
+      "default": "./src/test/index.ts"
     }
   },
   "devDependencies": {

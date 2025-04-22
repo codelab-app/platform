@@ -2,54 +2,54 @@
   "name": "@codelab/frontend-application-element",
   "exports": {
     ".": {
-      "default": "./src/index.ts",
       "import": "./src/index.ts",
-      "types": "./src/index.ts"
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
     },
     "./services": {
-      "default": "./src/services/index.ts",
       "import": "./src/services/index.ts",
-      "types": "./src/services/index.ts"
+      "types": "./src/services/index.ts",
+      "default": "./src/services/index.ts"
     },
     "./use-cases/create-element": {
-      "default": "./src/use-cases/create-element/index.ts",
       "import": "./src/use-cases/create-element/index.ts",
-      "types": "./src/use-cases/create-element/index.ts"
+      "types": "./src/use-cases/create-element/index.ts",
+      "default": "./src/use-cases/create-element/index.ts"
     },
     "./use-cases/delete-element": {
-      "default": "./src/use-cases/delete-element/index.ts",
       "import": "./src/use-cases/delete-element/index.ts",
-      "types": "./src/use-cases/delete-element/index.ts"
+      "types": "./src/use-cases/delete-element/index.ts",
+      "default": "./src/use-cases/delete-element/index.ts"
     },
     "./use-cases/hook-description": {
-      "default": "./src/use-cases/hook-description/index.ts",
       "import": "./src/use-cases/hook-description/index.ts",
-      "types": "./src/use-cases/hook-description/index.ts"
+      "types": "./src/use-cases/hook-description/index.ts",
+      "default": "./src/use-cases/hook-description/index.ts"
     },
     "./use-cases/move-element": {
-      "default": "./src/use-cases/move-element/index.ts",
       "import": "./src/use-cases/move-element/index.ts",
-      "types": "./src/use-cases/move-element/index.ts"
+      "types": "./src/use-cases/move-element/index.ts",
+      "default": "./src/use-cases/move-element/index.ts"
     },
     "./use-cases/update-element": {
-      "default": "./src/use-cases/update-element/index.ts",
       "import": "./src/use-cases/update-element/index.ts",
-      "types": "./src/use-cases/update-element/index.ts"
+      "types": "./src/use-cases/update-element/index.ts",
+      "default": "./src/use-cases/update-element/index.ts"
     },
     "./use-cases/update-element-props": {
-      "default": "./src/use-cases/update-element-props/index.ts",
       "import": "./src/use-cases/update-element-props/index.ts",
-      "types": "./src/use-cases/update-element-props/index.ts"
+      "types": "./src/use-cases/update-element-props/index.ts",
+      "default": "./src/use-cases/update-element-props/index.ts"
     },
     "./validation": {
-      "default": "./src/validation/index.ts",
       "import": "./src/validation/index.ts",
-      "types": "./src/validation/index.ts"
+      "types": "./src/validation/index.ts",
+      "default": "./src/validation/index.ts"
     },
     "./views": {
-      "default": "./src/views/index.ts",
       "import": "./src/views/index.ts",
-      "types": "./src/views/index.ts"
+      "types": "./src/views/index.ts",
+      "default": "./src/views/index.ts"
     }
   },
   "devDependencies": {

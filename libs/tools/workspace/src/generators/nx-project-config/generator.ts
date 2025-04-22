@@ -18,6 +18,7 @@ import { copyLibTsconfigToTsconfig } from './tsconfig/copy-options'
 import { updateLibraryTsconfig } from './tsconfig/lib/tsconfig.lib'
 import { createAliasMapping, saveAliasMappingToFile } from './utils/workspace'
 import { migrateToViteLibs } from './vite-libs/migrate-to-vite-libs'
+import { updatePackageJson } from './workspace/package-json/update-package-json'
 
 /**
  * Factory function to generate a list of available projects for the x-prompt
@@ -49,7 +50,10 @@ export const nxProjectConfigGenerator = async (
       continue
     }
 
-    if (projectConfig.sourceRoot?.startsWith('libs/shared/infra')) {
+    /**
+     * The dependency graph for a lib need to all be buildable, we we might as well make everything in libs buildable.
+     */
+    if (projectConfig.sourceRoot?.startsWith('libs')) {
       await migrateToViteLibs(tree, projectConfig)
     }
 
@@ -75,6 +79,7 @@ export const nxProjectConfigGenerator = async (
     // checkLintConfig(tree, projectConfig)
 
     // updateJestConfig(tree, projectConfig)
+    updatePackageJson(tree, projectConfig)
 
     // Migrate project to use TypeScript project references
     if (options.migrateToProjectReferences) {

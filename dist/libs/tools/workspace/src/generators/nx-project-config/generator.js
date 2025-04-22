@@ -8,6 +8,7 @@ const migrate_to_inferred_1 = require("./migrate-to-inferred/migrate-to-inferred
 const add_project_tags_1 = require("./project-tags/add-project-tags");
 const copy_options_1 = require("./tsconfig/copy-options");
 const migrate_to_vite_libs_1 = require("./vite-libs/migrate-to-vite-libs");
+const update_package_json_1 = require("./workspace/package-json/update-package-json");
 /**
  * Factory function to generate a list of available projects for the x-prompt
  * @returns An array of project choices for the dropdown
@@ -28,7 +29,10 @@ const nxProjectConfigGenerator = async (tree, options) => {
             console.log('Skipping project:', projectConfig.name);
             continue;
         }
-        if (projectConfig.sourceRoot?.startsWith('libs/shared/infra')) {
+        /**
+         * The dependency graph for a lib need to all be buildable, we we might as well make everything in libs buildable.
+         */
+        if (projectConfig.sourceRoot?.startsWith('libs')) {
             await (0, migrate_to_vite_libs_1.migrateToViteLibs)(tree, projectConfig);
         }
         /**
@@ -50,6 +54,7 @@ const nxProjectConfigGenerator = async (tree, options) => {
         // removeGraphqlEslintConfig(tree, projectConfig)
         // checkLintConfig(tree, projectConfig)
         // updateJestConfig(tree, projectConfig)
+        (0, update_package_json_1.updatePackageJson)(tree, projectConfig);
         // Migrate project to use TypeScript project references
         if (options.migrateToProjectReferences) {
             await (0, migrate_project_reference_1.migrateProjectReference)(tree, projectConfig);

@@ -509,6 +509,30 @@
     },
     {
       "path": "./libs/frontend/cui/utils"
+    },
+    {
+      "path": "./libs/tools/plugin"
+    },
+    {
+      "path": "./apps/landing"
+    },
+    {
+      "path": "./apps/web-e2e"
+    },
+    {
+      "path": "./apps/sites"
+    },
+    {
+      "path": "./apps/demo"
+    },
+    {
+      "path": "./apps/api"
+    },
+    {
+      "path": "./apps/cli"
+    },
+    {
+      "path": "./apps/web"
     }
   ]
 }

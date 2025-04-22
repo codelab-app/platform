@@ -4,6 +4,36 @@
   "include": [],
   "references": [
     {
+      "path": "../shared"
+    },
+    {
+      "path": "../../../shared/utils"
+    },
+    {
+      "path": "../prop"
+    },
+    {
+      "path": "../../shared/utils"
+    },
+    {
+      "path": "../../../shared/domain/module/element"
+    },
+    {
+      "path": "../../../shared/infra/typebox"
+    },
+    {
+      "path": "../../../shared/infra/gqlgen"
+    },
+    {
+      "path": "../../../shared/abstract/types"
+    },
+    {
+      "path": "../../../shared/abstract/core"
+    },
+    {
+      "path": "../../abstract/domain"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

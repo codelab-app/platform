@@ -3,6 +3,24 @@
   "include": [],
   "references": [
     {
+      "path": "../../abstract/types"
+    },
+    {
+      "path": "../../presentation/codelab-ui"
+    },
+    {
+      "path": "../../presentation/view"
+    },
+    {
+      "path": "../../abstract/domain"
+    },
+    {
+      "path": "../../../shared/abstract/core"
+    },
+    {
+      "path": "../../presentation/components/form"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

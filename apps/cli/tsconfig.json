@@ -4,6 +4,12 @@
   "include": [],
   "references": [
     {
+      "path": "../../libs/shared/abstract/core"
+    },
+    {
+      "path": "../../libs/backend/infra/adapter/logger"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

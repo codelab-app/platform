@@ -2,9 +2,9 @@
   "name": "@codelab/shared-infra-validation",
   "exports": {
     ".": {
-      "default": "./src/index.ts",
       "import": "./src/index.ts",
-      "types": "./src/index.ts"
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
     }
   },
   "devDependencies": {},
@@ -20,5 +20,9 @@
       "scope:shared"
     ],
     "$schema": "../../../../node_modules/nx/schemas/project-schema.json"
-  }
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts"
 }

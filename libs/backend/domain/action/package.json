@@ -2,9 +2,9 @@
   "name": "@codelab/backend-domain-action",
   "exports": {
     ".": {
-      "default": "./src/index.ts",
       "import": "./src/index.ts",
-      "types": "./src/index.ts"
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
     }
   },
   "devDependencies": {

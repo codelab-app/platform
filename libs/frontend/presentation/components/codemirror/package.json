@@ -2,9 +2,9 @@
   "name": "@codelab/frontend-presentation-components-codemirror",
   "exports": {
     ".": {
-      "default": "./src/index.ts",
       "import": "./src/index.ts",
-      "types": "./src/index.ts"
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
     }
   },
   "devDependencies": {

@@ -4,6 +4,30 @@
   "include": [],
   "references": [
     {
+      "path": "../shared"
+    },
+    {
+      "path": "../prop"
+    },
+    {
+      "path": "../../../shared/domain/module/auth-guard"
+    },
+    {
+      "path": "../../../shared/infra/typebox"
+    },
+    {
+      "path": "../../abstract/domain"
+    },
+    {
+      "path": "../../../shared/infra/gqlgen"
+    },
+    {
+      "path": "../../../shared/abstract/types"
+    },
+    {
+      "path": "../../../shared/abstract/core"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

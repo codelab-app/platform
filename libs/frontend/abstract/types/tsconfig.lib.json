@@ -16,5 +16,12 @@
   ],
   "exclude": ["**/*.spec.ts", "**/*.spec.tsx"],
   "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
-  "references": []
+  "references": [
+    {
+      "path": "../../../shared/abstract/core/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/abstract/types/tsconfig.lib.json"
+    }
+  ]
 }

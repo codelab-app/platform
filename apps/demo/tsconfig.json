@@ -32,5 +32,9 @@
   ],
   "exclude": ["node_modules", "jest.config.ts", "**/*.spec.ts", "**/*.test.ts"],
   "files": [],
-  "references": []
+  "references": [
+    {
+      "path": "../../libs/shared/infra/logging"
+    }
+  ]
 }

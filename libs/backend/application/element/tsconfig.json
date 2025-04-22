@@ -4,6 +4,30 @@
   "include": [],
   "references": [
     {
+      "path": "../../../shared/config/env"
+    },
+    {
+      "path": "../../infra/core"
+    },
+    {
+      "path": "../../infra/adapter/logger"
+    },
+    {
+      "path": "../../domain/prop"
+    },
+    {
+      "path": "../../domain/element"
+    },
+    {
+      "path": "../../domain/component"
+    },
+    {
+      "path": "../../domain/atom"
+    },
+    {
+      "path": "../../../shared/abstract/core"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

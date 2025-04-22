@@ -3,6 +3,42 @@
   "include": [],
   "references": [
     {
+      "path": "../../presentation/codelab-ui"
+    },
+    {
+      "path": "../../infra/context"
+    },
+    {
+      "path": "../../../shared/infra/fetch-server"
+    },
+    {
+      "path": "../../../shared/config/env"
+    },
+    {
+      "path": "../../../shared/abstract/core"
+    },
+    {
+      "path": "../../presentation/components/form"
+    },
+    {
+      "path": "../../shared/utils"
+    },
+    {
+      "path": "../../abstract/types"
+    },
+    {
+      "path": "../user"
+    },
+    {
+      "path": "../type"
+    },
+    {
+      "path": "../../abstract/domain"
+    },
+    {
+      "path": "../../abstract/application"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

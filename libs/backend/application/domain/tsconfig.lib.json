@@ -22,5 +22,39 @@
     "../../infra/adapter/dns/src/dns.service.i.spec.ts",
     "../../infra/adapter/dns/src/dns.service.ts"
   ],
-  "references": []
+  "references": [
+    {
+      "path": "../../../shared/domain/orm/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/data/test/tsconfig.lib.json"
+    },
+    {
+      "path": "../../test/setup/tsconfig.lib.json"
+    },
+    {
+      "path": "../../infra/adapter/graphql/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/infra/gqlgen/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/infra/gql-client/tsconfig.lib.json"
+    },
+    {
+      "path": "../../infra/adapter/logger/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/domain/module/domain/tsconfig.lib.json"
+    },
+    {
+      "path": "../../infra/adapter/dns/tsconfig.lib.json"
+    },
+    {
+      "path": "../../infra/adapter/digitalocean/tsconfig.lib.json"
+    },
+    {
+      "path": "../../domain/domain/tsconfig.lib.json"
+    }
+  ]
 }

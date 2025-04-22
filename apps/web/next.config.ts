@@ -1,3 +1,4 @@
+import type { WithNxOptions } from '@nx/next/plugins/with-nx'
 /* eslint-disable no-inline-comments */
 import type { NextConfig } from 'next'
 
@@ -24,7 +25,7 @@ const url = get('NEXT_PUBLIC_API_HOSTNAME').required().asString()
 const baseApiPath = get('NEXT_PUBLIC_BASE_API_PATH').required().asString()
 const apiHost = `${url}:${port}${baseApiPath}`
 
-const nextConfig: NextConfig = {
+const nextConfig: WithNxOptions = {
   compiler: {
     styledComponents: true,
   },

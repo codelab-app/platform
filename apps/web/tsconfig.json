@@ -57,6 +57,123 @@
   ],
   "references": [
     {
+      "path": "../../libs/shared/infra/auth0"
+    },
+    {
+      "path": "../../libs/frontend/cui/utils"
+    },
+    {
+      "path": "../../libs/shared/infra/gql-client"
+    },
+    {
+      "path": "../../libs/shared/domain/module/domain"
+    },
+    {
+      "path": "../../libs/shared/infra/logging"
+    },
+    {
+      "path": "../../libs/backend/infra/adapter/middleware"
+    },
+    {
+      "path": "../../libs/frontend/domain/type"
+    },
+    {
+      "path": "../../libs/frontend/domain/tag"
+    },
+    {
+      "path": "../../libs/frontend/application/tag"
+    },
+    {
+      "path": "../../libs/frontend/domain/resource"
+    },
+    {
+      "path": "../../libs/frontend/application/resource"
+    },
+    {
+      "path": "../../libs/frontend/domain/preference"
+    },
+    {
+      "path": "../../libs/frontend/application/lambda"
+    },
+    {
+      "path": "../../libs/frontend/application/component"
+    },
+    {
+      "path": "../../libs/frontend/domain/auth-guard"
+    },
+    {
+      "path": "../../libs/frontend/application/auth-guard"
+    },
+    {
+      "path": "../../libs/frontend/domain/atom"
+    },
+    {
+      "path": "../../libs/frontend/application/atom"
+    },
+    {
+      "path": "../../libs/frontend/application/redirect"
+    },
+    {
+      "path": "../../libs/frontend/application/page"
+    },
+    {
+      "path": "../../libs/frontend/application/type"
+    },
+    {
+      "path": "../../libs/frontend/application/element"
+    },
+    {
+      "path": "../../libs/frontend/application/store"
+    },
+    {
+      "path": "../../libs/frontend/application/builder"
+    },
+    {
+      "path": "../../libs/frontend/abstract/application"
+    },
+    {
+      "path": "../../libs/frontend/domain/domain"
+    },
+    {
+      "path": "../../libs/frontend/application/domain"
+    },
+    {
+      "path": "../../libs/frontend/presentation/codelab-ui"
+    },
+    {
+      "path": "../../libs/frontend/application/shared/store"
+    },
+    {
+      "path": "../../libs/frontend/abstract/types"
+    },
+    {
+      "path": "../../libs/frontend/application/app"
+    },
+    {
+      "path": "../../libs/frontend/domain/user"
+    },
+    {
+      "path": "../../libs/frontend/application/user"
+    },
+    {
+      "path": "../../libs/frontend/presentation/view"
+    },
+    {
+      "path": "../../libs/frontend/application/admin"
+    },
+    {
+      "path": "../../libs/shared/abstract/core"
+    },
+    {
+      "path": "../../libs/frontend/infra/mobx/store"
+    },
+    {
+      "path": "../../libs/frontend/test/data"
+    },
+    {
+      "path": "../../libs/frontend/infra/context"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

@@ -4,6 +4,30 @@
   "include": [],
   "references": [
     {
+      "path": "../../orm"
+    },
+    {
+      "path": "../../../utils"
+    },
+    {
+      "path": "../../../infra/gql-client"
+    },
+    {
+      "path": "../../../abstract/core"
+    },
+    {
+      "path": "../../../infra/fetch-server"
+    },
+    {
+      "path": "../../../abstract/types"
+    },
+    {
+      "path": "../../../infra/fetch"
+    },
+    {
+      "path": "../../../infra/gqlgen"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

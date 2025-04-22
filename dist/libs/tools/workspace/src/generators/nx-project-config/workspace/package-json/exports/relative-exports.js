@@ -32,9 +32,10 @@ const getRelativeExports = (packageName) => {
             : `./src${relativePathRaw}/index.ts`;
         // Assign the dynamic export structure
         acc[relativePath] = {
-            default: targetPath,
             import: targetPath,
             types: targetPath,
+            // eslint-disable-next-line canonical/sort-keys
+            default: targetPath,
         };
         // Return the accumulator
         return acc;

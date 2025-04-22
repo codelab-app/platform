@@ -32,6 +32,11 @@
             "output": "./src"
           },
           {
+            "glob": "**/*__tmpl__",
+            "input": "./libs/tools/workspace/src",
+            "output": "./src"
+          },
+          {
             "glob": "generators.json",
             "input": "./libs/tools/workspace",
             "output": "."

@@ -3,6 +3,48 @@
   "include": [],
   "references": [
     {
+      "path": "../../../../shared/utils"
+    },
+    {
+      "path": "../../../abstract/domain"
+    },
+    {
+      "path": "../../../abstract/application"
+    },
+    {
+      "path": "../../../../shared/infra/eval"
+    },
+    {
+      "path": "../../../../shared/abstract/core"
+    },
+    {
+      "path": "../lexical"
+    },
+    {
+      "path": "../reactquill"
+    },
+    {
+      "path": "../codemirror"
+    },
+    {
+      "path": "../../../application/shared/store"
+    },
+    {
+      "path": "../../../infra/context"
+    },
+    {
+      "path": "../../../../shared/abstract/types"
+    },
+    {
+      "path": "../../../application/shared/data"
+    },
+    {
+      "path": "../../../shared/utils"
+    },
+    {
+      "path": "../../../abstract/types"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

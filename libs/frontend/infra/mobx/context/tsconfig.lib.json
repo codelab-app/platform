@@ -15,5 +15,12 @@
   },
   "exclude": ["**/*.spec.ts", "**/*.test.ts"],
   "include": ["**/*.ts", "**/*.tsx"],
-  "references": []
+  "references": [
+    {
+      "path": "../../../abstract/domain/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../abstract/application/tsconfig.lib.json"
+    }
+  ]
 }

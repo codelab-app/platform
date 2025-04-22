@@ -16,5 +16,15 @@
   ],
   "exclude": ["**/*.spec.ts", "**/*.spec.tsx"],
   "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
-  "references": []
+  "references": [
+    {
+      "path": "../../infra/mobx/context/tsconfig.lib.json"
+    },
+    {
+      "path": "../../abstract/application/tsconfig.lib.json"
+    },
+    {
+      "path": "../../abstract/domain/tsconfig.lib.json"
+    }
+  ]
 }

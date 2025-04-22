@@ -3,6 +3,9 @@
   "include": [],
   "references": [
     {
+      "path": "../atoms"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

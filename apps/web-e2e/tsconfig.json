@@ -17,5 +17,42 @@
     "src/**/*.d.ts"
   ],
   "files": [],
-  "references": []
+  "references": [
+    {
+      "path": "../../libs/shared/abstract/types"
+    },
+    {
+      "path": "../../libs/shared/utils"
+    },
+    {
+      "path": "../../libs/shared/infra/typebox"
+    },
+    {
+      "path": "../../libs/shared/data/test"
+    },
+    {
+      "path": "../../libs/frontend/application/shared/data"
+    },
+    {
+      "path": "../../libs/shared/infra/gqlgen"
+    },
+    {
+      "path": "../../libs/frontend/abstract/types"
+    },
+    {
+      "path": "../../libs/frontend/abstract/application"
+    },
+    {
+      "path": "../../libs/shared/abstract/core"
+    },
+    {
+      "path": "../../libs/shared/infra/logging"
+    },
+    {
+      "path": "../../libs/shared/config/env"
+    },
+    {
+      "path": "../../libs/shared/abstract/infra"
+    }
+  ]
 }

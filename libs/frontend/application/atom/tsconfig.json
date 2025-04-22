@@ -4,6 +4,69 @@
   "include": [],
   "references": [
     {
+      "path": "../../infra/connector"
+    },
+    {
+      "path": "../../presentation/view"
+    },
+    {
+      "path": "../../presentation/components/form"
+    },
+    {
+      "path": "../../../shared/infra/logging"
+    },
+    {
+      "path": "../shared/store"
+    },
+    {
+      "path": "../user"
+    },
+    {
+      "path": "../../abstract/types"
+    },
+    {
+      "path": "../../presentation/codelab-ui"
+    },
+    {
+      "path": "../../../shared/infra/typebox"
+    },
+    {
+      "path": "../../../shared/abstract/core"
+    },
+    {
+      "path": "../../infra/mobx/context"
+    },
+    {
+      "path": "../../domain/type"
+    },
+    {
+      "path": "../../domain/shared"
+    },
+    {
+      "path": "../../domain/atom"
+    },
+    {
+      "path": "../type"
+    },
+    {
+      "path": "../../infra/context"
+    },
+    {
+      "path": "../../../shared/infra/gqlgen"
+    },
+    {
+      "path": "../../abstract/application"
+    },
+    {
+      "path": "../../../shared/abstract/types"
+    },
+    {
+      "path": "../prop"
+    },
+    {
+      "path": "../../abstract/domain"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

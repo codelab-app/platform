@@ -3,6 +3,81 @@
   "include": [],
   "references": [
     {
+      "path": "../../infra/context"
+    },
+    {
+      "path": "../admin"
+    },
+    {
+      "path": "../../../shared/infra/gqlgen"
+    },
+    {
+      "path": "../../presentation/components/codemirror"
+    },
+    {
+      "path": "../../infra/connector"
+    },
+    {
+      "path": "../../presentation/codelab-ui"
+    },
+    {
+      "path": "../../presentation/view"
+    },
+    {
+      "path": "../user"
+    },
+    {
+      "path": "../../../shared/infra/logging"
+    },
+    {
+      "path": "../../domain/shared"
+    },
+    {
+      "path": "../prop"
+    },
+    {
+      "path": "../atom"
+    },
+    {
+      "path": "../../domain/prop"
+    },
+    {
+      "path": "../type"
+    },
+    {
+      "path": "../store"
+    },
+    {
+      "path": "../../abstract/types"
+    },
+    {
+      "path": "../../presentation/components/form"
+    },
+    {
+      "path": "../../abstract/application"
+    },
+    {
+      "path": "../../abstract/domain"
+    },
+    {
+      "path": "../../presentation/components/interface-form"
+    },
+    {
+      "path": "../../../shared/utils"
+    },
+    {
+      "path": "../../infra/mobx/context"
+    },
+    {
+      "path": "../../domain/element"
+    },
+    {
+      "path": "../../../shared/abstract/types"
+    },
+    {
+      "path": "../../../shared/abstract/core"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

@@ -2,84 +2,84 @@
   "name": "@codelab/frontend-application-atom",
   "exports": {
     ".": {
-      "default": "./src/index.ts",
       "import": "./src/index.ts",
-      "types": "./src/index.ts"
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
     },
     "./components/ant-design/icon": {
-      "default": "./src/components/ant-design/icon/index.ts",
       "import": "./src/components/ant-design/icon/index.ts",
-      "types": "./src/components/ant-design/icon/index.ts"
+      "types": "./src/components/ant-design/icon/index.ts",
+      "default": "./src/components/ant-design/icon/index.ts"
     },
     "./components/custom/codelab-script": {
-      "default": "./src/components/custom/codelab-script/index.ts",
       "import": "./src/components/custom/codelab-script/index.ts",
-      "types": "./src/components/custom/codelab-script/index.ts"
+      "types": "./src/components/custom/codelab-script/index.ts",
+      "default": "./src/components/custom/codelab-script/index.ts"
     },
     "./components/custom/grid-layout": {
-      "default": "./src/components/custom/grid-layout/index.ts",
       "import": "./src/components/custom/grid-layout/index.ts",
-      "types": "./src/components/custom/grid-layout/index.ts"
+      "types": "./src/components/custom/grid-layout/index.ts",
+      "default": "./src/components/custom/grid-layout/index.ts"
     },
     "./components/custom/text-list": {
-      "default": "./src/components/custom/text-list/index.ts",
       "import": "./src/components/custom/text-list/index.ts",
-      "types": "./src/components/custom/text-list/index.ts"
+      "types": "./src/components/custom/text-list/index.ts",
+      "default": "./src/components/custom/text-list/index.ts"
     },
     "./components/mui/icon": {
-      "default": "./src/components/mui/icon/index.ts",
       "import": "./src/components/mui/icon/index.ts",
-      "types": "./src/components/mui/icon/index.ts"
+      "types": "./src/components/mui/icon/index.ts",
+      "default": "./src/components/mui/icon/index.ts"
     },
     "./services": {
-      "default": "./src/services/index.ts",
       "import": "./src/services/index.ts",
-      "types": "./src/services/index.ts"
+      "types": "./src/services/index.ts",
+      "default": "./src/services/index.ts"
     },
     "./use-cases/atom-list": {
-      "default": "./src/use-cases/atom-list/index.ts",
       "import": "./src/use-cases/atom-list/index.ts",
-      "types": "./src/use-cases/atom-list/index.ts"
+      "types": "./src/use-cases/atom-list/index.ts",
+      "default": "./src/use-cases/atom-list/index.ts"
     },
     "./use-cases/atom-list/server": {
-      "default": "./src/use-cases/atom-list/server/index.ts",
       "import": "./src/use-cases/atom-list/server/index.ts",
-      "types": "./src/use-cases/atom-list/server/index.ts"
+      "types": "./src/use-cases/atom-list/server/index.ts",
+      "default": "./src/use-cases/atom-list/server/index.ts"
     },
     "./use-cases/atom-table": {
-      "default": "./src/use-cases/atom-table/index.ts",
       "import": "./src/use-cases/atom-table/index.ts",
-      "types": "./src/use-cases/atom-table/index.ts"
+      "types": "./src/use-cases/atom-table/index.ts",
+      "default": "./src/use-cases/atom-table/index.ts"
     },
     "./use-cases/create-atom": {
-      "default": "./src/use-cases/create-atom/index.ts",
       "import": "./src/use-cases/create-atom/index.ts",
-      "types": "./src/use-cases/create-atom/index.ts"
+      "types": "./src/use-cases/create-atom/index.ts",
+      "default": "./src/use-cases/create-atom/index.ts"
     },
     "./use-cases/delete-atom": {
-      "default": "./src/use-cases/delete-atom/index.ts",
       "import": "./src/use-cases/delete-atom/index.ts",
-      "types": "./src/use-cases/delete-atom/index.ts"
+      "types": "./src/use-cases/delete-atom/index.ts",
+      "default": "./src/use-cases/delete-atom/index.ts"
     },
     "./use-cases/helper": {
-      "default": "./src/use-cases/helper/index.ts",
       "import": "./src/use-cases/helper/index.ts",
-      "types": "./src/use-cases/helper/index.ts"
+      "types": "./src/use-cases/helper/index.ts",
+      "default": "./src/use-cases/helper/index.ts"
     },
     "./use-cases/select-atom": {
-      "default": "./src/use-cases/select-atom/index.ts",
       "import": "./src/use-cases/select-atom/index.ts",
-      "types": "./src/use-cases/select-atom/index.ts"
+      "types": "./src/use-cases/select-atom/index.ts",
+      "default": "./src/use-cases/select-atom/index.ts"
     },
     "./use-cases/update-atom": {
-      "default": "./src/use-cases/update-atom/index.ts",
       "import": "./src/use-cases/update-atom/index.ts",
-      "types": "./src/use-cases/update-atom/index.ts"
+      "types": "./src/use-cases/update-atom/index.ts",
+      "default": "./src/use-cases/update-atom/index.ts"
     },
     "./views": {
-      "default": "./src/views/index.ts",
       "import": "./src/views/index.ts",
-      "types": "./src/views/index.ts"
+      "types": "./src/views/index.ts",
+      "default": "./src/views/index.ts"
     }
   },
   "devDependencies": {

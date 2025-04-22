@@ -3,6 +3,18 @@
   "include": [],
   "references": [
     {
+      "path": "../../abstract/domain"
+    },
+    {
+      "path": "../../abstract/types"
+    },
+    {
+      "path": "../../../shared/infra/gqlgen"
+    },
+    {
+      "path": "../../../shared/abstract/types"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

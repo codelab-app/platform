@@ -18,5 +18,36 @@
   },
   "include": ["src/**/*.ts"],
   "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
-  "references": []
+  "references": [
+    {
+      "path": "../../../shared/data/test/tsconfig.lib.json"
+    },
+    {
+      "path": "../../infra/adapter/neo4j-schema/tsconfig.lib.json"
+    },
+    {
+      "path": "../utils/tsconfig.lib.json"
+    },
+    {
+      "path": "../../infra/core/tsconfig.lib.json"
+    },
+    {
+      "path": "../../infra/adapter/request-context/tsconfig.lib.json"
+    },
+    {
+      "path": "../../infra/adapter/logger/tsconfig.lib.json"
+    },
+    {
+      "path": "../../infra/adapter/graphql/tsconfig.lib.json"
+    },
+    {
+      "path": "../../domain/user/tsconfig.lib.json"
+    },
+    {
+      "path": "../../domain/shared/modules/tsconfig.lib.json"
+    },
+    {
+      "path": "../../domain/shared/auth/tsconfig.lib.json"
+    }
+  ]
 }

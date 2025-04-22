@@ -13,5 +13,12 @@
     "noPropertyAccessFromIndexSignature": true
   },
   "include": ["src/**/*.ts"],
-  "references": []
+  "references": [
+    {
+      "path": "../../../shared/infra/logging/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/abstract/types/tsconfig.lib.json"
+    }
+  ]
 }

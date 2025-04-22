@@ -45,5 +45,27 @@
     "**/*.test.jsx"
   ],
   "files": [],
-  "references": []
+  "references": [
+    {
+      "path": "../../libs/frontend/abstract/types"
+    },
+    {
+      "path": "../../libs/shared/infra/auth0"
+    },
+    {
+      "path": "../../libs/frontend/domain/app"
+    },
+    {
+      "path": "../../libs/frontend/infra/mobx/context"
+    },
+    {
+      "path": "../../libs/frontend/application/renderer"
+    },
+    {
+      "path": "../../libs/frontend/application/app"
+    },
+    {
+      "path": "../../libs/frontend/abstract/domain"
+    }
+  ]
 }

@@ -4,6 +4,9 @@
   "include": [],
   "references": [
     {
+      "path": "../../config/env"
+    },
+    {
       "path": "./tsconfig.lib.json"
     }
   ]

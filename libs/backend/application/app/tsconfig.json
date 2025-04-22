@@ -4,6 +4,84 @@
   "include": [],
   "references": [
     {
+      "path": "../../../shared/domain/module/page"
+    },
+    {
+      "path": "../../../shared/data/test"
+    },
+    {
+      "path": "../../../shared/utils"
+    },
+    {
+      "path": "../../../shared/infra/typebox"
+    },
+    {
+      "path": "../../../shared/infra/gqlgen"
+    },
+    {
+      "path": "../../domain/domain"
+    },
+    {
+      "path": "../../infra/adapter/neo4j-driver"
+    },
+    {
+      "path": "../../domain/type"
+    },
+    {
+      "path": "../../domain/store"
+    },
+    {
+      "path": "../../domain/shared/auth"
+    },
+    {
+      "path": "../../domain/resource"
+    },
+    {
+      "path": "../../domain/prop"
+    },
+    {
+      "path": "../../domain/page"
+    },
+    {
+      "path": "../../domain/element"
+    },
+    {
+      "path": "../../domain/component"
+    },
+    {
+      "path": "../../domain/atom"
+    },
+    {
+      "path": "../../domain/app"
+    },
+    {
+      "path": "../type"
+    },
+    {
+      "path": "../page"
+    },
+    {
+      "path": "../domain"
+    },
+    {
+      "path": "../component"
+    },
+    {
+      "path": "../atom"
+    },
+    {
+      "path": "../../../shared/abstract/infra"
+    },
+    {
+      "path": "../../infra/adapter/ws"
+    },
+    {
+      "path": "../../infra/adapter/logger"
+    },
+    {
+      "path": "../../../shared/abstract/core"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

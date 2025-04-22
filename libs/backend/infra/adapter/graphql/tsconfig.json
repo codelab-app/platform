@@ -4,6 +4,21 @@
   "include": [],
   "references": [
     {
+      "path": "../neo4j-schema"
+    },
+    {
+      "path": "../neo4j-driver"
+    },
+    {
+      "path": "../request-context"
+    },
+    {
+      "path": "../../../abstract/types"
+    },
+    {
+      "path": "../../core"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

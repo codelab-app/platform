@@ -3,6 +3,21 @@
   "include": [],
   "references": [
     {
+      "path": "../../../shared/abstract/types"
+    },
+    {
+      "path": "../../shared/utils"
+    },
+    {
+      "path": "../mobx/context"
+    },
+    {
+      "path": "../../abstract/domain"
+    },
+    {
+      "path": "../../abstract/application"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

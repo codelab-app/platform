@@ -4,6 +4,24 @@
   "include": [],
   "references": [
     {
+      "path": "../../../shared/utils"
+    },
+    {
+      "path": "../../../shared/infra/typebox"
+    },
+    {
+      "path": "../../infra/adapter/logger"
+    },
+    {
+      "path": "../../shared/util"
+    },
+    {
+      "path": "../../../shared/abstract/core"
+    },
+    {
+      "path": "../../domain/shared/auth"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

@@ -4,6 +4,27 @@
   "include": [],
   "references": [
     {
+      "path": "../shared"
+    },
+    {
+      "path": "../prop"
+    },
+    {
+      "path": "../../../shared/abstract/types"
+    },
+    {
+      "path": "../../../shared/domain/module/action"
+    },
+    {
+      "path": "../../../shared/infra/gqlgen"
+    },
+    {
+      "path": "../../../shared/abstract/core"
+    },
+    {
+      "path": "../../abstract/domain"
+    },
+    {
       "path": "./tsconfig.lib.json"
     }
   ]

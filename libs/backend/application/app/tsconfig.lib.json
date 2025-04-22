@@ -18,5 +18,84 @@
   },
   "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
   "include": ["src/**/*.ts"],
-  "references": []
+  "references": [
+    {
+      "path": "../../../shared/domain/module/page/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/data/test/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/utils/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/infra/typebox/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/infra/gqlgen/tsconfig.lib.json"
+    },
+    {
+      "path": "../../domain/domain/tsconfig.lib.json"
+    },
+    {
+      "path": "../../infra/adapter/neo4j-driver/tsconfig.lib.json"
+    },
+    {
+      "path": "../../domain/type/tsconfig.lib.json"
+    },
+    {
+      "path": "../../domain/store/tsconfig.lib.json"
+    },
+    {
+      "path": "../../domain/shared/auth/tsconfig.lib.json"
+    },
+    {
+      "path": "../../domain/resource/tsconfig.lib.json"
+    },
+    {
+      "path": "../../domain/prop/tsconfig.lib.json"
+    },
+    {
+      "path": "../../domain/page/tsconfig.lib.json"
+    },
+    {
+      "path": "../../domain/element/tsconfig.lib.json"
+    },
+    {
+      "path": "../../domain/component/tsconfig.lib.json"
+    },
+    {
+      "path": "../../domain/atom/tsconfig.lib.json"
+    },
+    {
+      "path": "../../domain/app/tsconfig.lib.json"
+    },
+    {
+      "path": "../type/tsconfig.lib.json"
+    },
+    {
+      "path": "../page/tsconfig.lib.json"
+    },
+    {
+      "path": "../domain/tsconfig.lib.json"
+    },
+    {
+      "path": "../component/tsconfig.lib.json"
+    },
+    {
+      "path": "../atom/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/abstract/infra/tsconfig.lib.json"
+    },
+    {
+      "path": "../../infra/adapter/ws/tsconfig.lib.json"
+    },
+    {
+      "path": "../../infra/adapter/logger/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/abstract/core/tsconfig.lib.json"
+    }
+  ]
 }

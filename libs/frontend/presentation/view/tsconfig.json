@@ -4,6 +4,27 @@
   "include": [],
   "references": [
     {
+      "path": "../../shared/utils"
+    },
+    {
+      "path": "../../abstract/application"
+    },
+    {
+      "path": "../../application/user"
+    },
+    {
+      "path": "../codelab-ui"
+    },
+    {
+      "path": "../../application/shared/store"
+    },
+    {
+      "path": "../../../shared/abstract/types"
+    },
+    {
+      "path": "../../abstract/types"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

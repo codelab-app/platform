@@ -4,6 +4,78 @@
   "include": [],
   "references": [
     {
+      "path": "../../../shared/utils"
+    },
+    {
+      "path": "../../shared/util"
+    },
+    {
+      "path": "../../abstract/core"
+    },
+    {
+      "path": "../../infra/core"
+    },
+    {
+      "path": "../../abstract/types"
+    },
+    {
+      "path": "../app"
+    },
+    {
+      "path": "../../../shared/data/seed"
+    },
+    {
+      "path": "../../data/seed"
+    },
+    {
+      "path": "../../test/setup"
+    },
+    {
+      "path": "../../domain/type"
+    },
+    {
+      "path": "../../domain/shared/auth"
+    },
+    {
+      "path": "../../domain/atom"
+    },
+    {
+      "path": "../../domain/user"
+    },
+    {
+      "path": "../../domain/shared/modules"
+    },
+    {
+      "path": "../user"
+    },
+    {
+      "path": "../type"
+    },
+    {
+      "path": "../tag"
+    },
+    {
+      "path": "../store"
+    },
+    {
+      "path": "../data"
+    },
+    {
+      "path": "../component"
+    },
+    {
+      "path": "../atom"
+    },
+    {
+      "path": "../../../shared/abstract/core"
+    },
+    {
+      "path": "../../infra/adapter/neo4j-driver"
+    },
+    {
+      "path": "../../infra/adapter/logger"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

@@ -12,5 +12,9 @@
     "noPropertyAccessFromIndexSignature": true
   },
   "include": ["src/**/*.ts"],
-  "references": []
+  "references": [
+    {
+      "path": "../../abstract/core/tsconfig.lib.json"
+    }
+  ]
 }

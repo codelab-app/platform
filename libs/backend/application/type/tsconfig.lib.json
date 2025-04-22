@@ -18,5 +18,48 @@
   },
   "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
   "include": ["src/**/*.ts"],
-  "references": []
+  "references": [
+    {
+      "path": "../../abstract/types/tsconfig.lib.json"
+    },
+    {
+      "path": "../../infra/adapter/neo4j-driver/tsconfig.lib.json"
+    },
+    {
+      "path": "../../test/setup/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/data/seed/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/infra/gqlgen/tsconfig.lib.json"
+    },
+    {
+      "path": "../../infra/core/tsconfig.lib.json"
+    },
+    {
+      "path": "../../infra/adapter/logger/tsconfig.lib.json"
+    },
+    {
+      "path": "../../domain/shared/auth/tsconfig.lib.json"
+    },
+    {
+      "path": "../data/tsconfig.lib.json"
+    },
+    {
+      "path": "../../domain/type/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/utils/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/abstract/types/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/abstract/core/tsconfig.lib.json"
+    },
+    {
+      "path": "../../abstract/core/tsconfig.lib.json"
+    }
+  ]
 }

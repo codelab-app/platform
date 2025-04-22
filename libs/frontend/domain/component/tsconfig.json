@@ -4,6 +4,54 @@
   "include": [],
   "references": [
     {
+      "path": "../shared"
+    },
+    {
+      "path": "../../../shared/utils"
+    },
+    {
+      "path": "../prop"
+    },
+    {
+      "path": "../../shared/utils"
+    },
+    {
+      "path": "../type"
+    },
+    {
+      "path": "../store"
+    },
+    {
+      "path": "../atom"
+    },
+    {
+      "path": "../../abstract/types"
+    },
+    {
+      "path": "../../../shared/domain/module/component"
+    },
+    {
+      "path": "../../../shared/infra/typebox"
+    },
+    {
+      "path": "../../../shared/abstract/core"
+    },
+    {
+      "path": "../../abstract/domain"
+    },
+    {
+      "path": "../../../shared/infra/fetch-server"
+    },
+    {
+      "path": "../../../shared/abstract/types"
+    },
+    {
+      "path": "../../../shared/infra/fetch"
+    },
+    {
+      "path": "../../../shared/infra/gqlgen"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

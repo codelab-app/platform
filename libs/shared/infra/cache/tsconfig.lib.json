@@ -1,10 +1,10 @@
 {
   "extends": "../../../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "./out-tsc/lib",
+    "outDir": "./dist",
     "declaration": true,
     "types": ["node"],
-    "module": "commonjs",
+
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitOverride": true,
@@ -14,5 +14,9 @@
   },
   "include": ["src/**/*.ts"],
   "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
-  "references": []
+  "references": [
+    {
+      "path": "../../abstract/types/tsconfig.lib.json"
+    }
+  ]
 }

@@ -4,6 +4,12 @@
   "include": [],
   "references": [
     {
+      "path": "../../config/env"
+    },
+    {
+      "path": "../../abstract/types"
+    },
+    {
       "path": "./tsconfig.lib.json"
     }
   ]

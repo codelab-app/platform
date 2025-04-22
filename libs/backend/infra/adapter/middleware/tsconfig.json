@@ -4,6 +4,9 @@
   "include": [],
   "references": [
     {
+      "path": "../../../../shared/infra/auth0"
+    },
+    {
       "path": "./tsconfig.lib.json"
     }
   ]

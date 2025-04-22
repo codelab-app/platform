@@ -4,6 +4,21 @@
   "include": [],
   "references": [
     {
+      "path": "../../../../shared/config/env"
+    },
+    {
+      "path": "../logger"
+    },
+    {
+      "path": "../../../application/admin"
+    },
+    {
+      "path": "../../../../shared/abstract/core"
+    },
+    {
+      "path": "../shell"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

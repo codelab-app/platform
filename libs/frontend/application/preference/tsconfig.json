@@ -4,6 +4,18 @@
   "include": [],
   "references": [
     {
+      "path": "../../infra/mobx/context"
+    },
+    {
+      "path": "../../domain/preference"
+    },
+    {
+      "path": "../../abstract/domain"
+    },
+    {
+      "path": "../../abstract/application"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

@@ -4,6 +4,18 @@
   "include": [],
   "references": [
     {
+      "path": "../../../shared/domain/module/action"
+    },
+    {
+      "path": "../../infra/adapter/logger"
+    },
+    {
+      "path": "../../domain/action"
+    },
+    {
+      "path": "../../../shared/abstract/core"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

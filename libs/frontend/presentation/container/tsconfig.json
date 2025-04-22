@@ -4,6 +4,15 @@
   "include": [],
   "references": [
     {
+      "path": "../../infra/mobx/context"
+    },
+    {
+      "path": "../../abstract/application"
+    },
+    {
+      "path": "../../abstract/domain"
+    },
+    {
       "path": "./tsconfig.lib.json"
     }
   ]

@@ -4,6 +4,51 @@
   "include": [],
   "references": [
     {
+      "path": "../../../shared/utils"
+    },
+    {
+      "path": "../../domain/tag"
+    },
+    {
+      "path": "../../test/setup"
+    },
+    {
+      "path": "../../../shared/infra/typebox"
+    },
+    {
+      "path": "../../../shared/infra/logging"
+    },
+    {
+      "path": "../../../shared/infra/gqlgen"
+    },
+    {
+      "path": "../../../shared/abstract/types"
+    },
+    {
+      "path": "../../infra/core"
+    },
+    {
+      "path": "../../infra/adapter/logger"
+    },
+    {
+      "path": "../../../shared/abstract/core"
+    },
+    {
+      "path": "../../domain/type"
+    },
+    {
+      "path": "../../domain/shared/auth"
+    },
+    {
+      "path": "../../domain/atom"
+    },
+    {
+      "path": "../type"
+    },
+    {
+      "path": "../data"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

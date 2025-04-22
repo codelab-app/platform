@@ -18,5 +18,33 @@
   },
   "include": ["src/**/*.ts"],
   "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
-  "references": []
+  "references": [
+    {
+      "path": "../../domain/type/tsconfig.lib.json"
+    },
+    {
+      "path": "../../domain/preference/tsconfig.lib.json"
+    },
+    {
+      "path": "../../domain/atom/tsconfig.lib.json"
+    },
+    {
+      "path": "../atom/tsconfig.lib.json"
+    },
+    {
+      "path": "../auth/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/abstract/core/tsconfig.lib.json"
+    },
+    {
+      "path": "../../domain/user/tsconfig.lib.json"
+    },
+    {
+      "path": "../../domain/shared/auth/tsconfig.lib.json"
+    },
+    {
+      "path": "../app/tsconfig.lib.json"
+    }
+  ]
 }

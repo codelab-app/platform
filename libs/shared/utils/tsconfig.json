@@ -4,6 +4,15 @@
   "include": [],
   "references": [
     {
+      "path": "../infra/gqlgen"
+    },
+    {
+      "path": "../abstract/core"
+    },
+    {
+      "path": "../abstract/types"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

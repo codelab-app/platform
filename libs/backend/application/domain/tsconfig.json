@@ -4,6 +4,39 @@
   "include": [],
   "references": [
     {
+      "path": "../../../shared/domain/orm"
+    },
+    {
+      "path": "../../../shared/data/test"
+    },
+    {
+      "path": "../../test/setup"
+    },
+    {
+      "path": "../../infra/adapter/graphql"
+    },
+    {
+      "path": "../../../shared/infra/gqlgen"
+    },
+    {
+      "path": "../../../shared/infra/gql-client"
+    },
+    {
+      "path": "../../infra/adapter/logger"
+    },
+    {
+      "path": "../../../shared/domain/module/domain"
+    },
+    {
+      "path": "../../infra/adapter/dns"
+    },
+    {
+      "path": "../../infra/adapter/digitalocean"
+    },
+    {
+      "path": "../../domain/domain"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

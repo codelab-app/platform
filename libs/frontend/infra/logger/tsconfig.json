@@ -4,6 +4,12 @@
   "include": [],
   "references": [
     {
+      "path": "../../../shared/infra/logging"
+    },
+    {
+      "path": "../../../shared/abstract/types"
+    },
+    {
       "path": "./tsconfig.lib.json"
     }
   ]

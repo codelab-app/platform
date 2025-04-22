@@ -25,5 +25,15 @@
     "src/**/*.test.jsx"
   ],
   "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"],
-  "references": []
+  "references": [
+    {
+      "path": "../../view/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../domain/prop/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../../shared/abstract/types/tsconfig.lib.json"
+    }
+  ]
 }

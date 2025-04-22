@@ -2,39 +2,39 @@
   "name": "@codelab/frontend-application-domain",
   "exports": {
     ".": {
-      "default": "./src/index.ts",
       "import": "./src/index.ts",
-      "types": "./src/index.ts"
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
     },
     "./services": {
-      "default": "./src/services/index.ts",
       "import": "./src/services/index.ts",
-      "types": "./src/services/index.ts"
+      "types": "./src/services/index.ts",
+      "default": "./src/services/index.ts"
     },
     "./use-cases/create-domain": {
-      "default": "./src/use-cases/create-domain/index.ts",
       "import": "./src/use-cases/create-domain/index.ts",
-      "types": "./src/use-cases/create-domain/index.ts"
+      "types": "./src/use-cases/create-domain/index.ts",
+      "default": "./src/use-cases/create-domain/index.ts"
     },
     "./use-cases/delete-domain": {
-      "default": "./src/use-cases/delete-domain/index.ts",
       "import": "./src/use-cases/delete-domain/index.ts",
-      "types": "./src/use-cases/delete-domain/index.ts"
+      "types": "./src/use-cases/delete-domain/index.ts",
+      "default": "./src/use-cases/delete-domain/index.ts"
     },
     "./use-cases/domain-list": {
-      "default": "./src/use-cases/domain-list/index.ts",
       "import": "./src/use-cases/domain-list/index.ts",
-      "types": "./src/use-cases/domain-list/index.ts"
+      "types": "./src/use-cases/domain-list/index.ts",
+      "default": "./src/use-cases/domain-list/index.ts"
     },
     "./use-cases/update-domain": {
-      "default": "./src/use-cases/update-domain/index.ts",
       "import": "./src/use-cases/update-domain/index.ts",
-      "types": "./src/use-cases/update-domain/index.ts"
+      "types": "./src/use-cases/update-domain/index.ts",
+      "default": "./src/use-cases/update-domain/index.ts"
     },
     "./views": {
-      "default": "./src/views/index.ts",
       "import": "./src/views/index.ts",
-      "types": "./src/views/index.ts"
+      "types": "./src/views/index.ts",
+      "default": "./src/views/index.ts"
     }
   },
   "devDependencies": {
