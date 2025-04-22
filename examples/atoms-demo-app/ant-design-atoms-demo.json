@@ -854,16 +854,6 @@
       "store": {
         "actions": [
           {
-            "id": "8f8b4895-8a93-424e-9b6c-01ddf75077fe",
-            "name": "onClose",
-            "store": {
-              "id": "0026913e-1d5a-491d-a170-affd09476060"
-            },
-            "type": "CodeAction",
-            "__typename": "CodeAction",
-            "code": "function run() {\n  alert('onClose');\n}"
-          },
-          {
             "id": "126e43c1-3fd2-4707-994f-1a6780c3d7bf",
             "name": "onAfterClose",
             "store": {
@@ -872,6 +862,16 @@
             "type": "CodeAction",
             "__typename": "CodeAction",
             "code": "function run() {\n  alert('onAfterClose');\n}"
+          },
+          {
+            "id": "8f8b4895-8a93-424e-9b6c-01ddf75077fe",
+            "name": "onClose",
+            "store": {
+              "id": "0026913e-1d5a-491d-a170-affd09476060"
+            },
+            "type": "CodeAction",
+            "__typename": "CodeAction",
+            "code": "function run() {\n  alert('onClose');\n}"
           }
         ],
         "api": {
