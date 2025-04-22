@@ -2,64 +2,64 @@
   "name": "@codelab/frontend-application-component",
   "exports": {
     ".": {
-      "import": "./src/index.ts",
-      "types": "./src/index.ts",
-      "default": "./src/index.ts"
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./services": {
-      "import": "./src/services/index.ts",
-      "types": "./src/services/index.ts",
-      "default": "./src/services/index.ts"
+      "import": "./dist/services/index.js",
+      "types": "./dist/services/index.d.ts",
+      "default": "./dist/services/index.js"
     },
     "./use-cases/component-builder": {
-      "import": "./src/use-cases/component-builder/index.ts",
-      "types": "./src/use-cases/component-builder/index.ts",
-      "default": "./src/use-cases/component-builder/index.ts"
+      "import": "./dist/use-cases/component-builder/index.js",
+      "types": "./dist/use-cases/component-builder/index.d.ts",
+      "default": "./dist/use-cases/component-builder/index.js"
     },
     "./use-cases/component-list": {
-      "import": "./src/use-cases/component-list/index.ts",
-      "types": "./src/use-cases/component-list/index.ts",
-      "default": "./src/use-cases/component-list/index.ts"
+      "import": "./dist/use-cases/component-list/index.js",
+      "types": "./dist/use-cases/component-list/index.d.ts",
+      "default": "./dist/use-cases/component-list/index.js"
     },
     "./use-cases/create-component": {
-      "import": "./src/use-cases/create-component/index.ts",
-      "types": "./src/use-cases/create-component/index.ts",
-      "default": "./src/use-cases/create-component/index.ts"
+      "import": "./dist/use-cases/create-component/index.js",
+      "types": "./dist/use-cases/create-component/index.d.ts",
+      "default": "./dist/use-cases/create-component/index.js"
     },
     "./use-cases/delete-component": {
-      "import": "./src/use-cases/delete-component/index.ts",
-      "types": "./src/use-cases/delete-component/index.ts",
-      "default": "./src/use-cases/delete-component/index.ts"
+      "import": "./dist/use-cases/delete-component/index.js",
+      "types": "./dist/use-cases/delete-component/index.d.ts",
+      "default": "./dist/use-cases/delete-component/index.js"
     },
     "./use-cases/export-component": {
-      "import": "./src/use-cases/export-component/index.ts",
-      "types": "./src/use-cases/export-component/index.ts",
-      "default": "./src/use-cases/export-component/index.ts"
+      "import": "./dist/use-cases/export-component/index.js",
+      "types": "./dist/use-cases/export-component/index.d.ts",
+      "default": "./dist/use-cases/export-component/index.js"
     },
     "./use-cases/get-component": {
-      "import": "./src/use-cases/get-component/index.ts",
-      "types": "./src/use-cases/get-component/index.ts",
-      "default": "./src/use-cases/get-component/index.ts"
+      "import": "./dist/use-cases/get-component/index.js",
+      "types": "./dist/use-cases/get-component/index.d.ts",
+      "default": "./dist/use-cases/get-component/index.js"
     },
     "./use-cases/import-component": {
-      "import": "./src/use-cases/import-component/index.ts",
-      "types": "./src/use-cases/import-component/index.ts",
-      "default": "./src/use-cases/import-component/index.ts"
+      "import": "./dist/use-cases/import-component/index.js",
+      "types": "./dist/use-cases/import-component/index.d.ts",
+      "default": "./dist/use-cases/import-component/index.js"
     },
     "./use-cases/update-component": {
-      "import": "./src/use-cases/update-component/index.ts",
-      "types": "./src/use-cases/update-component/index.ts",
-      "default": "./src/use-cases/update-component/index.ts"
+      "import": "./dist/use-cases/update-component/index.js",
+      "types": "./dist/use-cases/update-component/index.d.ts",
+      "default": "./dist/use-cases/update-component/index.js"
     },
     "./use-cases/update-component-props": {
-      "import": "./src/use-cases/update-component-props/index.ts",
-      "types": "./src/use-cases/update-component-props/index.ts",
-      "default": "./src/use-cases/update-component-props/index.ts"
+      "import": "./dist/use-cases/update-component-props/index.js",
+      "types": "./dist/use-cases/update-component-props/index.d.ts",
+      "default": "./dist/use-cases/update-component-props/index.js"
     },
     "./views": {
-      "import": "./src/views/index.ts",
-      "types": "./src/views/index.ts",
-      "default": "./src/views/index.ts"
+      "import": "./dist/views/index.js",
+      "types": "./dist/views/index.d.ts",
+      "default": "./dist/views/index.js"
     }
   },
   "devDependencies": {
@@ -106,8 +106,5 @@
     ],
     "$schema": "../../../../node_modules/nx/schemas/project-schema.json"
   },
-  "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts"
+  "type": "module"
 }

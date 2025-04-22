@@ -2,9 +2,9 @@
   "name": "@codelab/backend-application-page",
   "exports": {
     ".": {
-      "import": "./src/index.ts",
-      "types": "./src/index.ts",
-      "default": "./src/index.ts"
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     }
   },
   "devDependencies": {
@@ -39,8 +39,5 @@
     ],
     "$schema": "../../../../node_modules/nx/schemas/project-schema.json"
   },
-  "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts"
+  "type": "module"
 }

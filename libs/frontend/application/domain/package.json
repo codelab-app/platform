@@ -2,39 +2,39 @@
   "name": "@codelab/frontend-application-domain",
   "exports": {
     ".": {
-      "import": "./src/index.ts",
-      "types": "./src/index.ts",
-      "default": "./src/index.ts"
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./services": {
-      "import": "./src/services/index.ts",
-      "types": "./src/services/index.ts",
-      "default": "./src/services/index.ts"
+      "import": "./dist/services/index.js",
+      "types": "./dist/services/index.d.ts",
+      "default": "./dist/services/index.js"
     },
     "./use-cases/create-domain": {
-      "import": "./src/use-cases/create-domain/index.ts",
-      "types": "./src/use-cases/create-domain/index.ts",
-      "default": "./src/use-cases/create-domain/index.ts"
+      "import": "./dist/use-cases/create-domain/index.js",
+      "types": "./dist/use-cases/create-domain/index.d.ts",
+      "default": "./dist/use-cases/create-domain/index.js"
     },
     "./use-cases/delete-domain": {
-      "import": "./src/use-cases/delete-domain/index.ts",
-      "types": "./src/use-cases/delete-domain/index.ts",
-      "default": "./src/use-cases/delete-domain/index.ts"
+      "import": "./dist/use-cases/delete-domain/index.js",
+      "types": "./dist/use-cases/delete-domain/index.d.ts",
+      "default": "./dist/use-cases/delete-domain/index.js"
     },
     "./use-cases/domain-list": {
-      "import": "./src/use-cases/domain-list/index.ts",
-      "types": "./src/use-cases/domain-list/index.ts",
-      "default": "./src/use-cases/domain-list/index.ts"
+      "import": "./dist/use-cases/domain-list/index.js",
+      "types": "./dist/use-cases/domain-list/index.d.ts",
+      "default": "./dist/use-cases/domain-list/index.js"
     },
     "./use-cases/update-domain": {
-      "import": "./src/use-cases/update-domain/index.ts",
-      "types": "./src/use-cases/update-domain/index.ts",
-      "default": "./src/use-cases/update-domain/index.ts"
+      "import": "./dist/use-cases/update-domain/index.js",
+      "types": "./dist/use-cases/update-domain/index.d.ts",
+      "default": "./dist/use-cases/update-domain/index.js"
     },
     "./views": {
-      "import": "./src/views/index.ts",
-      "types": "./src/views/index.ts",
-      "default": "./src/views/index.ts"
+      "import": "./dist/views/index.js",
+      "types": "./dist/views/index.d.ts",
+      "default": "./dist/views/index.js"
     }
   },
   "devDependencies": {
@@ -65,8 +65,5 @@
     ],
     "$schema": "../../../../node_modules/nx/schemas/project-schema.json"
   },
-  "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts"
+  "type": "module"
 }

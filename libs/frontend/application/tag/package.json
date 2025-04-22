@@ -2,44 +2,44 @@
   "name": "@codelab/frontend-application-tag",
   "exports": {
     ".": {
-      "import": "./src/index.ts",
-      "types": "./src/index.ts",
-      "default": "./src/index.ts"
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./services": {
-      "import": "./src/services/index.ts",
-      "types": "./src/services/index.ts",
-      "default": "./src/services/index.ts"
+      "import": "./dist/services/index.js",
+      "types": "./dist/services/index.d.ts",
+      "default": "./dist/services/index.js"
     },
     "./use-cases/create-tag": {
-      "import": "./src/use-cases/create-tag/index.ts",
-      "types": "./src/use-cases/create-tag/index.ts",
-      "default": "./src/use-cases/create-tag/index.ts"
+      "import": "./dist/use-cases/create-tag/index.js",
+      "types": "./dist/use-cases/create-tag/index.d.ts",
+      "default": "./dist/use-cases/create-tag/index.js"
     },
     "./use-cases/delete-tags": {
-      "import": "./src/use-cases/delete-tags/index.ts",
-      "types": "./src/use-cases/delete-tags/index.ts",
-      "default": "./src/use-cases/delete-tags/index.ts"
+      "import": "./dist/use-cases/delete-tags/index.js",
+      "types": "./dist/use-cases/delete-tags/index.d.ts",
+      "default": "./dist/use-cases/delete-tags/index.js"
     },
     "./use-cases/get-tags": {
-      "import": "./src/use-cases/get-tags/index.ts",
-      "types": "./src/use-cases/get-tags/index.ts",
-      "default": "./src/use-cases/get-tags/index.ts"
+      "import": "./dist/use-cases/get-tags/index.js",
+      "types": "./dist/use-cases/get-tags/index.d.ts",
+      "default": "./dist/use-cases/get-tags/index.js"
     },
     "./use-cases/tag-table": {
-      "import": "./src/use-cases/tag-table/index.ts",
-      "types": "./src/use-cases/tag-table/index.ts",
-      "default": "./src/use-cases/tag-table/index.ts"
+      "import": "./dist/use-cases/tag-table/index.js",
+      "types": "./dist/use-cases/tag-table/index.d.ts",
+      "default": "./dist/use-cases/tag-table/index.js"
     },
     "./use-cases/update-tag": {
-      "import": "./src/use-cases/update-tag/index.ts",
-      "types": "./src/use-cases/update-tag/index.ts",
-      "default": "./src/use-cases/update-tag/index.ts"
+      "import": "./dist/use-cases/update-tag/index.js",
+      "types": "./dist/use-cases/update-tag/index.d.ts",
+      "default": "./dist/use-cases/update-tag/index.js"
     },
     "./views": {
-      "import": "./src/views/index.ts",
-      "types": "./src/views/index.ts",
-      "default": "./src/views/index.ts"
+      "import": "./dist/views/index.js",
+      "types": "./dist/views/index.d.ts",
+      "default": "./dist/views/index.js"
     }
   },
   "devDependencies": {
@@ -73,8 +73,5 @@
     ],
     "$schema": "../../../../node_modules/nx/schemas/project-schema.json"
   },
-  "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts"
+  "type": "module"
 }

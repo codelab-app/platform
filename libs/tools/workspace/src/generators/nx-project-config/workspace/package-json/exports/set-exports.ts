@@ -14,7 +14,6 @@ import {
   getPackageNameFromProjectName,
 } from '../../path-alias/path-alias'
 import { getBaseImportPaths } from '../paths'
-import { setPackageJsonExports } from '../setter/package-exports'
 import { getRelativeExports } from './relative-exports'
 
 type ExportsMap = Record<string, Record<string, string>>
@@ -84,13 +83,29 @@ export const setExports = (tree: Tree, projectConfig: ProjectConfiguration) => {
     throw new Error('Project name is required')
   }
 
-  const packageName = getPackageNameFromProjectName(projectName)
-  const relativeExports = getRelativeExports(packageName)
-  const packageJson = readJson(tree, packageJsonPath)
+  const packageJson: PackageJson = readJson(tree, packageJsonPath)
 
-  console.log('exports', relativeExports)
+  if (!packageJson.name) {
+    throw new Error('Package name is required')
+  }
 
-  setPackageJsonExports(packageJson, relativeExports)
+  const relativeExports = getRelativeExports(packageJson.name)
+
+  console.log('Adding relative exports', relativeExports)
+
+  const exports = {
+    '.': {
+      import: './src/index.js',
+      types: './src/index.d.ts',
+      // eslint-disable-next-line canonical/sort-keys
+      default: './src/index.js',
+    },
+  }
+
+  packageJson.exports = { ...exports, ...relativeExports }
+
+  console.log('Updated package.json exports field.')
+  // sortExports(tree, projectConfig)
 
   writeJson(tree, packageJsonPath, packageJson)
 }

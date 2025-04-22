@@ -2,74 +2,74 @@
   "name": "@codelab/frontend-application-app",
   "exports": {
     ".": {
-      "import": "./src/index.ts",
-      "types": "./src/index.ts",
-      "default": "./src/index.ts"
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./services": {
-      "import": "./src/services/index.ts",
-      "types": "./src/services/index.ts",
-      "default": "./src/services/index.ts"
+      "import": "./dist/services/index.js",
+      "types": "./dist/services/index.d.ts",
+      "default": "./dist/services/index.js"
     },
     "./use-cases/app-builder": {
-      "import": "./src/use-cases/app-builder/index.ts",
-      "types": "./src/use-cases/app-builder/index.ts",
-      "default": "./src/use-cases/app-builder/index.ts"
+      "import": "./dist/use-cases/app-builder/index.js",
+      "types": "./dist/use-cases/app-builder/index.d.ts",
+      "default": "./dist/use-cases/app-builder/index.js"
     },
     "./use-cases/app-item": {
-      "import": "./src/use-cases/app-item/index.ts",
-      "types": "./src/use-cases/app-item/index.ts",
-      "default": "./src/use-cases/app-item/index.ts"
+      "import": "./dist/use-cases/app-item/index.js",
+      "types": "./dist/use-cases/app-item/index.d.ts",
+      "default": "./dist/use-cases/app-item/index.js"
     },
     "./use-cases/app-list": {
-      "import": "./src/use-cases/app-list/index.ts",
-      "types": "./src/use-cases/app-list/index.ts",
-      "default": "./src/use-cases/app-list/index.ts"
+      "import": "./dist/use-cases/app-list/index.js",
+      "types": "./dist/use-cases/app-list/index.d.ts",
+      "default": "./dist/use-cases/app-list/index.js"
     },
     "./use-cases/app-production": {
-      "import": "./src/use-cases/app-production/index.ts",
-      "types": "./src/use-cases/app-production/index.ts",
-      "default": "./src/use-cases/app-production/index.ts"
+      "import": "./dist/use-cases/app-production/index.js",
+      "types": "./dist/use-cases/app-production/index.d.ts",
+      "default": "./dist/use-cases/app-production/index.js"
     },
     "./use-cases/build-app": {
-      "import": "./src/use-cases/build-app/index.ts",
-      "types": "./src/use-cases/build-app/index.ts",
-      "default": "./src/use-cases/build-app/index.ts"
+      "import": "./dist/use-cases/build-app/index.js",
+      "types": "./dist/use-cases/build-app/index.d.ts",
+      "default": "./dist/use-cases/build-app/index.js"
     },
     "./use-cases/create-app": {
-      "import": "./src/use-cases/create-app/index.ts",
-      "types": "./src/use-cases/create-app/index.ts",
-      "default": "./src/use-cases/create-app/index.ts"
+      "import": "./dist/use-cases/create-app/index.js",
+      "types": "./dist/use-cases/create-app/index.d.ts",
+      "default": "./dist/use-cases/create-app/index.js"
     },
     "./use-cases/delete-app": {
-      "import": "./src/use-cases/delete-app/index.ts",
-      "types": "./src/use-cases/delete-app/index.ts",
-      "default": "./src/use-cases/delete-app/index.ts"
+      "import": "./dist/use-cases/delete-app/index.js",
+      "types": "./dist/use-cases/delete-app/index.d.ts",
+      "default": "./dist/use-cases/delete-app/index.js"
     },
     "./use-cases/export-app": {
-      "import": "./src/use-cases/export-app/index.ts",
-      "types": "./src/use-cases/export-app/index.ts",
-      "default": "./src/use-cases/export-app/index.ts"
+      "import": "./dist/use-cases/export-app/index.js",
+      "types": "./dist/use-cases/export-app/index.d.ts",
+      "default": "./dist/use-cases/export-app/index.js"
     },
     "./use-cases/import-app": {
-      "import": "./src/use-cases/import-app/index.ts",
-      "types": "./src/use-cases/import-app/index.ts",
-      "default": "./src/use-cases/import-app/index.ts"
+      "import": "./dist/use-cases/import-app/index.js",
+      "types": "./dist/use-cases/import-app/index.d.ts",
+      "default": "./dist/use-cases/import-app/index.js"
     },
     "./use-cases/select-app-options": {
-      "import": "./src/use-cases/select-app-options/index.ts",
-      "types": "./src/use-cases/select-app-options/index.ts",
-      "default": "./src/use-cases/select-app-options/index.ts"
+      "import": "./dist/use-cases/select-app-options/index.js",
+      "types": "./dist/use-cases/select-app-options/index.d.ts",
+      "default": "./dist/use-cases/select-app-options/index.js"
     },
     "./use-cases/update-app": {
-      "import": "./src/use-cases/update-app/index.ts",
-      "types": "./src/use-cases/update-app/index.ts",
-      "default": "./src/use-cases/update-app/index.ts"
+      "import": "./dist/use-cases/update-app/index.js",
+      "types": "./dist/use-cases/update-app/index.d.ts",
+      "default": "./dist/use-cases/update-app/index.js"
     },
     "./views": {
-      "import": "./src/views/index.ts",
-      "types": "./src/views/index.ts",
-      "default": "./src/views/index.ts"
+      "import": "./dist/views/index.js",
+      "types": "./dist/views/index.d.ts",
+      "default": "./dist/views/index.js"
     }
   },
   "devDependencies": {
@@ -116,8 +116,5 @@
     ],
     "$schema": "../../../../node_modules/nx/schemas/project-schema.json"
   },
-  "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts"
+  "type": "module"
 }

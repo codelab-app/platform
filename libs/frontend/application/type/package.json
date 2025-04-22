@@ -2,74 +2,74 @@
   "name": "@codelab/frontend-application-type",
   "exports": {
     ".": {
-      "import": "./src/index.ts",
-      "types": "./src/index.ts",
-      "default": "./src/index.ts"
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./services": {
-      "import": "./src/services/index.ts",
-      "types": "./src/services/index.ts",
-      "default": "./src/services/index.ts"
+      "import": "./dist/services/index.js",
+      "types": "./dist/services/index.d.ts",
+      "default": "./dist/services/index.js"
     },
     "./use-cases/create-field": {
-      "import": "./src/use-cases/create-field/index.ts",
-      "types": "./src/use-cases/create-field/index.ts",
-      "default": "./src/use-cases/create-field/index.ts"
+      "import": "./dist/use-cases/create-field/index.js",
+      "types": "./dist/use-cases/create-field/index.d.ts",
+      "default": "./dist/use-cases/create-field/index.js"
     },
     "./use-cases/create-type": {
-      "import": "./src/use-cases/create-type/index.ts",
-      "types": "./src/use-cases/create-type/index.ts",
-      "default": "./src/use-cases/create-type/index.ts"
+      "import": "./dist/use-cases/create-type/index.js",
+      "types": "./dist/use-cases/create-type/index.d.ts",
+      "default": "./dist/use-cases/create-type/index.js"
     },
     "./use-cases/delete-field": {
-      "import": "./src/use-cases/delete-field/index.ts",
-      "types": "./src/use-cases/delete-field/index.ts",
-      "default": "./src/use-cases/delete-field/index.ts"
+      "import": "./dist/use-cases/delete-field/index.js",
+      "types": "./dist/use-cases/delete-field/index.d.ts",
+      "default": "./dist/use-cases/delete-field/index.js"
     },
     "./use-cases/delete-type": {
-      "import": "./src/use-cases/delete-type/index.ts",
-      "types": "./src/use-cases/delete-type/index.ts",
-      "default": "./src/use-cases/delete-type/index.ts"
+      "import": "./dist/use-cases/delete-type/index.js",
+      "types": "./dist/use-cases/delete-type/index.d.ts",
+      "default": "./dist/use-cases/delete-type/index.js"
     },
     "./use-cases/get-fields": {
-      "import": "./src/use-cases/get-fields/index.ts",
-      "types": "./src/use-cases/get-fields/index.ts",
-      "default": "./src/use-cases/get-fields/index.ts"
+      "import": "./dist/use-cases/get-fields/index.js",
+      "types": "./dist/use-cases/get-fields/index.d.ts",
+      "default": "./dist/use-cases/get-fields/index.js"
     },
     "./use-cases/get-types": {
-      "import": "./src/use-cases/get-types/index.ts",
-      "types": "./src/use-cases/get-types/index.ts",
-      "default": "./src/use-cases/get-types/index.ts"
+      "import": "./dist/use-cases/get-types/index.js",
+      "types": "./dist/use-cases/get-types/index.d.ts",
+      "default": "./dist/use-cases/get-types/index.js"
     },
     "./use-cases/hooks": {
-      "import": "./src/use-cases/hooks/index.ts",
-      "types": "./src/use-cases/hooks/index.ts",
-      "default": "./src/use-cases/hooks/index.ts"
+      "import": "./dist/use-cases/hooks/index.js",
+      "types": "./dist/use-cases/hooks/index.d.ts",
+      "default": "./dist/use-cases/hooks/index.js"
     },
     "./use-cases/select-types": {
-      "import": "./src/use-cases/select-types/index.ts",
-      "types": "./src/use-cases/select-types/index.ts",
-      "default": "./src/use-cases/select-types/index.ts"
+      "import": "./dist/use-cases/select-types/index.js",
+      "types": "./dist/use-cases/select-types/index.d.ts",
+      "default": "./dist/use-cases/select-types/index.js"
     },
     "./use-cases/type-table": {
-      "import": "./src/use-cases/type-table/index.ts",
-      "types": "./src/use-cases/type-table/index.ts",
-      "default": "./src/use-cases/type-table/index.ts"
+      "import": "./dist/use-cases/type-table/index.js",
+      "types": "./dist/use-cases/type-table/index.d.ts",
+      "default": "./dist/use-cases/type-table/index.js"
     },
     "./use-cases/update-field": {
-      "import": "./src/use-cases/update-field/index.ts",
-      "types": "./src/use-cases/update-field/index.ts",
-      "default": "./src/use-cases/update-field/index.ts"
+      "import": "./dist/use-cases/update-field/index.js",
+      "types": "./dist/use-cases/update-field/index.d.ts",
+      "default": "./dist/use-cases/update-field/index.js"
     },
     "./use-cases/update-type": {
-      "import": "./src/use-cases/update-type/index.ts",
-      "types": "./src/use-cases/update-type/index.ts",
-      "default": "./src/use-cases/update-type/index.ts"
+      "import": "./dist/use-cases/update-type/index.js",
+      "types": "./dist/use-cases/update-type/index.d.ts",
+      "default": "./dist/use-cases/update-type/index.js"
     },
     "./views": {
-      "import": "./src/views/index.ts",
-      "types": "./src/views/index.ts",
-      "default": "./src/views/index.ts"
+      "import": "./dist/views/index.js",
+      "types": "./dist/views/index.d.ts",
+      "default": "./dist/views/index.js"
     }
   },
   "devDependencies": {
@@ -106,8 +106,5 @@
     ],
     "$schema": "../../../../node_modules/nx/schemas/project-schema.json"
   },
-  "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts"
+  "type": "module"
 }

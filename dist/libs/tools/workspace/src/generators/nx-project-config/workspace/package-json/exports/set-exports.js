@@ -2,8 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.setExports = exports.sortExports = void 0;
 const devkit_1 = require("@nx/devkit");
-const path_alias_1 = require("../../path-alias/path-alias");
-const package_exports_1 = require("../setter/package-exports");
 const relative_exports_1 = require("./relative-exports");
 /**
  * Sorts the third level properties in exports to follow the order: import, types, default
@@ -54,11 +52,23 @@ const setExports = (tree, projectConfig) => {
     if (!projectName) {
         throw new Error('Project name is required');
     }
-    const packageName = (0, path_alias_1.getPackageNameFromProjectName)(projectName);
-    const relativeExports = (0, relative_exports_1.getRelativeExports)(packageName);
     const packageJson = (0, devkit_1.readJson)(tree, packageJsonPath);
-    console.log('exports', relativeExports);
-    (0, package_exports_1.setPackageJsonExports)(packageJson, relativeExports);
+    if (!packageJson.name) {
+        throw new Error('Package name is required');
+    }
+    const relativeExports = (0, relative_exports_1.getRelativeExports)(packageJson.name);
+    console.log('Adding relative exports', relativeExports);
+    const exports = {
+        '.': {
+            import: './src/index.js',
+            types: './src/index.d.ts',
+            // eslint-disable-next-line canonical/sort-keys
+            default: './src/index.js',
+        },
+    };
+    packageJson.exports = { ...exports, ...relativeExports };
+    console.log('Updated package.json exports field.');
+    // sortExports(tree, projectConfig)
     (0, devkit_1.writeJson)(tree, packageJsonPath, packageJson);
 };
 exports.setExports = setExports;

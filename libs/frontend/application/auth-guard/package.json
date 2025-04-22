@@ -2,39 +2,39 @@
   "name": "@codelab/frontend-application-auth-guard",
   "exports": {
     ".": {
-      "import": "./src/index.ts",
-      "types": "./src/index.ts",
-      "default": "./src/index.ts"
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./services": {
-      "import": "./src/services/index.ts",
-      "types": "./src/services/index.ts",
-      "default": "./src/services/index.ts"
+      "import": "./dist/services/index.js",
+      "types": "./dist/services/index.d.ts",
+      "default": "./dist/services/index.js"
     },
     "./use-cases/create-auth-guard": {
-      "import": "./src/use-cases/create-auth-guard/index.ts",
-      "types": "./src/use-cases/create-auth-guard/index.ts",
-      "default": "./src/use-cases/create-auth-guard/index.ts"
+      "import": "./dist/use-cases/create-auth-guard/index.js",
+      "types": "./dist/use-cases/create-auth-guard/index.d.ts",
+      "default": "./dist/use-cases/create-auth-guard/index.js"
     },
     "./use-cases/delete-auth-guard": {
-      "import": "./src/use-cases/delete-auth-guard/index.ts",
-      "types": "./src/use-cases/delete-auth-guard/index.ts",
-      "default": "./src/use-cases/delete-auth-guard/index.ts"
+      "import": "./dist/use-cases/delete-auth-guard/index.js",
+      "types": "./dist/use-cases/delete-auth-guard/index.d.ts",
+      "default": "./dist/use-cases/delete-auth-guard/index.js"
     },
     "./use-cases/get-auth-guard": {
-      "import": "./src/use-cases/get-auth-guard/index.ts",
-      "types": "./src/use-cases/get-auth-guard/index.ts",
-      "default": "./src/use-cases/get-auth-guard/index.ts"
+      "import": "./dist/use-cases/get-auth-guard/index.js",
+      "types": "./dist/use-cases/get-auth-guard/index.d.ts",
+      "default": "./dist/use-cases/get-auth-guard/index.js"
     },
     "./use-cases/update-auth-guard": {
-      "import": "./src/use-cases/update-auth-guard/index.ts",
-      "types": "./src/use-cases/update-auth-guard/index.ts",
-      "default": "./src/use-cases/update-auth-guard/index.ts"
+      "import": "./dist/use-cases/update-auth-guard/index.js",
+      "types": "./dist/use-cases/update-auth-guard/index.d.ts",
+      "default": "./dist/use-cases/update-auth-guard/index.js"
     },
     "./views": {
-      "import": "./src/views/index.ts",
-      "types": "./src/views/index.ts",
-      "default": "./src/views/index.ts"
+      "import": "./dist/views/index.js",
+      "types": "./dist/views/index.d.ts",
+      "default": "./dist/views/index.js"
     }
   },
   "devDependencies": {
@@ -69,8 +69,5 @@
     ],
     "$schema": "../../../../node_modules/nx/schemas/project-schema.json"
   },
-  "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts"
+  "type": "module"
 }

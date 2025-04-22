@@ -7,7 +7,6 @@ const path_alias_1 = require("../path-alias/path-alias");
 const relative_exports_1 = require("./exports/relative-exports");
 const paths_1 = require("./paths");
 const package_dev_dependencies_1 = require("./setter/package-dev-dependencies");
-const package_exports_1 = require("./setter/package-exports");
 const package_name_1 = require("./setter/package-name");
 /**
  * Creates package.json files for non-buildable projects, including dependency analysis
@@ -37,7 +36,6 @@ const createNonbuildablePackageJson = (tree, projectConfig) => {
     // saveImportData(tree, projectConfig.root, allImports, baseImportPaths)
     const relativeExports = (0, relative_exports_1.getRelativeExports)(packageName);
     console.log('Generated Exports Map:', JSON.stringify(relativeExports, null, 2));
-    (0, package_exports_1.setPackageJsonExports)(packageJson, relativeExports);
     (0, package_dev_dependencies_1.setDevDependencies)(packageJson, baseImportPaths);
     (0, exports.writeToPackageJson)(tree, projectConfig.root, packageJson);
 };

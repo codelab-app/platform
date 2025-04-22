@@ -6,12 +6,10 @@ const path_alias_1 = require("../../path-alias/path-alias");
  * We look at the entire path list from `path-alias.json` and generate the relative exports with regards to the current package name
  */
 const getRelativeExports = (packageName) => {
-    const packageNames = (0, path_alias_1.getPathAliasPackageNames)();
+    const packageNames = (0, path_alias_1.getProjectReferencePaths)();
     const exports = packageNames.filter((name) => name.startsWith(packageName));
-    console.log('exports', exports);
+    console.log('Getting relative exports for', packageName, exports);
     /**
-     * CURSOR:
-     *
      * Current package name:
      * '@codelab/frontend-application-app'
      *
@@ -37,7 +35,7 @@ const getRelativeExports = (packageName) => {
         // Assign the dynamic export structure
         acc[relativePath] = {
             import: targetPath,
-            types: targetPath,
+            types: targetPath.replace('.js', '.d.ts'),
             // eslint-disable-next-line canonical/sort-keys
             default: targetPath,
         };

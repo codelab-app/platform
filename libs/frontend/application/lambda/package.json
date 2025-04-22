@@ -2,39 +2,39 @@
   "name": "@codelab/frontend-application-lambda",
   "exports": {
     ".": {
-      "import": "./src/index.ts",
-      "types": "./src/index.ts",
-      "default": "./src/index.ts"
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./use-cases/create-lambda": {
-      "import": "./src/use-cases/create-lambda/index.ts",
-      "types": "./src/use-cases/create-lambda/index.ts",
-      "default": "./src/use-cases/create-lambda/index.ts"
+      "import": "./dist/use-cases/create-lambda/index.js",
+      "types": "./dist/use-cases/create-lambda/index.d.ts",
+      "default": "./dist/use-cases/create-lambda/index.js"
     },
     "./use-cases/delete-lambda": {
-      "import": "./src/use-cases/delete-lambda/index.ts",
-      "types": "./src/use-cases/delete-lambda/index.ts",
-      "default": "./src/use-cases/delete-lambda/index.ts"
+      "import": "./dist/use-cases/delete-lambda/index.js",
+      "types": "./dist/use-cases/delete-lambda/index.d.ts",
+      "default": "./dist/use-cases/delete-lambda/index.js"
     },
     "./use-cases/execute-lambda": {
-      "import": "./src/use-cases/execute-lambda/index.ts",
-      "types": "./src/use-cases/execute-lambda/index.ts",
-      "default": "./src/use-cases/execute-lambda/index.ts"
+      "import": "./dist/use-cases/execute-lambda/index.js",
+      "types": "./dist/use-cases/execute-lambda/index.d.ts",
+      "default": "./dist/use-cases/execute-lambda/index.js"
     },
     "./use-cases/get-lambdas": {
-      "import": "./src/use-cases/get-lambdas/index.ts",
-      "types": "./src/use-cases/get-lambdas/index.ts",
-      "default": "./src/use-cases/get-lambdas/index.ts"
+      "import": "./dist/use-cases/get-lambdas/index.js",
+      "types": "./dist/use-cases/get-lambdas/index.d.ts",
+      "default": "./dist/use-cases/get-lambdas/index.js"
     },
     "./use-cases/update-lambda": {
-      "import": "./src/use-cases/update-lambda/index.ts",
-      "types": "./src/use-cases/update-lambda/index.ts",
-      "default": "./src/use-cases/update-lambda/index.ts"
+      "import": "./dist/use-cases/update-lambda/index.js",
+      "types": "./dist/use-cases/update-lambda/index.d.ts",
+      "default": "./dist/use-cases/update-lambda/index.js"
     },
     "./views": {
-      "import": "./src/views/index.ts",
-      "types": "./src/views/index.ts",
-      "default": "./src/views/index.ts"
+      "import": "./dist/views/index.js",
+      "types": "./dist/views/index.d.ts",
+      "default": "./dist/views/index.js"
     }
   },
   "devDependencies": {
@@ -58,8 +58,5 @@
     ],
     "$schema": "../../../../node_modules/nx/schemas/project-schema.json"
   },
-  "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts"
+  "type": "module"
 }

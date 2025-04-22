@@ -2,34 +2,34 @@
   "name": "@codelab/frontend-application-admin",
   "exports": {
     ".": {
-      "import": "./src/index.ts",
-      "types": "./src/index.ts",
-      "default": "./src/index.ts"
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./use-cases/admin-props-panel": {
-      "import": "./src/use-cases/admin-props-panel/index.ts",
-      "types": "./src/use-cases/admin-props-panel/index.ts",
-      "default": "./src/use-cases/admin-props-panel/index.ts"
+      "import": "./dist/use-cases/admin-props-panel/index.js",
+      "types": "./dist/use-cases/admin-props-panel/index.d.ts",
+      "default": "./dist/use-cases/admin-props-panel/index.js"
     },
     "./use-cases/export-data": {
-      "import": "./src/use-cases/export-data/index.ts",
-      "types": "./src/use-cases/export-data/index.ts",
-      "default": "./src/use-cases/export-data/index.ts"
+      "import": "./dist/use-cases/export-data/index.js",
+      "types": "./dist/use-cases/export-data/index.d.ts",
+      "default": "./dist/use-cases/export-data/index.js"
     },
     "./use-cases/import-data": {
-      "import": "./src/use-cases/import-data/index.ts",
-      "types": "./src/use-cases/import-data/index.ts",
-      "default": "./src/use-cases/import-data/index.ts"
+      "import": "./dist/use-cases/import-data/index.js",
+      "types": "./dist/use-cases/import-data/index.d.ts",
+      "default": "./dist/use-cases/import-data/index.js"
     },
     "./use-cases/reset-data": {
-      "import": "./src/use-cases/reset-data/index.ts",
-      "types": "./src/use-cases/reset-data/index.ts",
-      "default": "./src/use-cases/reset-data/index.ts"
+      "import": "./dist/use-cases/reset-data/index.js",
+      "types": "./dist/use-cases/reset-data/index.d.ts",
+      "default": "./dist/use-cases/reset-data/index.js"
     },
     "./views": {
-      "import": "./src/views/index.ts",
-      "types": "./src/views/index.ts",
-      "default": "./src/views/index.ts"
+      "import": "./dist/views/index.js",
+      "types": "./dist/views/index.d.ts",
+      "default": "./dist/views/index.js"
     }
   },
   "devDependencies": {
@@ -59,8 +59,5 @@
     ],
     "$schema": "../../../../node_modules/nx/schemas/project-schema.json"
   },
-  "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts"
+  "type": "module"
 }

@@ -11,7 +11,6 @@ import {
 import { getRelativeExports } from './exports/relative-exports'
 import { getBaseImportPaths } from './paths'
 import { setDevDependencies } from './setter/package-dev-dependencies'
-import { setPackageJsonExports } from './setter/package-exports'
 import { setPackageJsonName } from './setter/package-name'
 
 /**
@@ -73,7 +72,6 @@ export const createNonbuildablePackageJson = (
     JSON.stringify(relativeExports, null, 2),
   )
 
-  setPackageJsonExports(packageJson, relativeExports)
   setDevDependencies(packageJson, baseImportPaths)
 
   writeToPackageJson(tree, projectConfig.root, packageJson)

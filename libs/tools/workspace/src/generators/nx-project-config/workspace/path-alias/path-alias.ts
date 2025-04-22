@@ -2,8 +2,18 @@ import type { PathAlias, PathAliasMap } from './path-alias.type'
 
 import pathAliasMap from './path-alias.json'
 
+/**
+ * Returns the previous alias format
+ */
 export const getPathAliasPackageNames = () => {
   return Object.keys(pathAliasMap)
+}
+
+/**
+ * Returns the refactored paths
+ */
+export const getProjectReferencePaths = () => {
+  return Object.values(pathAliasMap).map((details) => details.expected)
 }
 
 /**

@@ -53,5 +53,12 @@
     "$schema": "../../node_modules/nx/schemas/project-schema.json",
     "implicitDependencies": [],
     "generators": {}
+  },
+  "exports": {
+    ".": {
+      "import": "./src/index.js",
+      "types": "./src/index.d.ts",
+      "default": "./src/index.js"
+    }
   }
 }

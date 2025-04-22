@@ -1,13 +1,16 @@
-import { getPathAliasPackageNames } from '../../path-alias/path-alias'
+import {
+  getPathAliasPackageNames,
+  getProjectReferencePaths,
+} from '../../path-alias/path-alias'
 
 /**
  * We look at the entire path list from `path-alias.json` and generate the relative exports with regards to the current package name
  */
 export const getRelativeExports = (packageName: string) => {
-  const packageNames = getPathAliasPackageNames()
+  const packageNames = getProjectReferencePaths()
   const exports = packageNames.filter((name) => name.startsWith(packageName))
 
-  console.log('exports', exports)
+  console.log('Getting relative exports for', packageName, exports)
 
   // Define the type for the accumulator
   type ExportMap = Record<
@@ -16,8 +19,6 @@ export const getRelativeExports = (packageName: string) => {
   >
 
   /**
-   * CURSOR:
-   *
    * Current package name:
    * '@codelab/frontend-application-app'
    *
@@ -48,7 +49,7 @@ export const getRelativeExports = (packageName: string) => {
     // Assign the dynamic export structure
     acc[relativePath] = {
       import: targetPath,
-      types: targetPath,
+      types: targetPath.replace('.js', '.d.ts'),
       // eslint-disable-next-line canonical/sort-keys
       default: targetPath,
     }

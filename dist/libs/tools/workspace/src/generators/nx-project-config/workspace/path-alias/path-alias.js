@@ -1,12 +1,22 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getPackageNameFromOldAlias = exports.getPackageNameFromProjectName = exports.getPathAliasPackageNames = void 0;
+exports.getPackageNameFromOldAlias = exports.getPackageNameFromProjectName = exports.getProjectReferencePaths = exports.getPathAliasPackageNames = void 0;
 const tslib_1 = require("tslib");
 const path_alias_json_1 = tslib_1.__importDefault(require("./path-alias.json"));
+/**
+ * Returns the previous alias format
+ */
 const getPathAliasPackageNames = () => {
     return Object.keys(path_alias_json_1.default);
 };
 exports.getPathAliasPackageNames = getPathAliasPackageNames;
+/**
+ * Returns the refactored paths
+ */
+const getProjectReferencePaths = () => {
+    return Object.values(path_alias_json_1.default).map((details) => details.expected);
+};
+exports.getProjectReferencePaths = getProjectReferencePaths;
 /**
  * Gets the package path alias when given a project name
  * @param projectName The name of the project

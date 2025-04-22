@@ -2,44 +2,44 @@
   "name": "@codelab/frontend-application-renderer",
   "exports": {
     ".": {
-      "import": "./src/index.ts",
-      "types": "./src/index.ts",
-      "default": "./src/index.ts"
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./atoms": {
-      "import": "./src/atoms/index.ts",
-      "types": "./src/atoms/index.ts",
-      "default": "./src/atoms/index.ts"
+      "import": "./dist/atoms/index.js",
+      "types": "./dist/atoms/index.d.ts",
+      "default": "./dist/atoms/index.js"
     },
     "./components": {
-      "import": "./src/components/index.ts",
-      "types": "./src/components/index.ts",
-      "default": "./src/components/index.ts"
+      "import": "./dist/components/index.js",
+      "types": "./dist/components/index.d.ts",
+      "default": "./dist/components/index.js"
     },
     "./hooks": {
-      "import": "./src/hooks/index.ts",
-      "types": "./src/hooks/index.ts",
-      "default": "./src/hooks/index.ts"
+      "import": "./dist/hooks/index.js",
+      "types": "./dist/hooks/index.d.ts",
+      "default": "./dist/hooks/index.js"
     },
     "./services": {
-      "import": "./src/services/index.ts",
-      "types": "./src/services/index.ts",
-      "default": "./src/services/index.ts"
+      "import": "./dist/services/index.js",
+      "types": "./dist/services/index.d.ts",
+      "default": "./dist/services/index.js"
     },
     "./store": {
-      "import": "./src/store/index.ts",
-      "types": "./src/store/index.ts",
-      "default": "./src/store/index.ts"
+      "import": "./dist/store/index.js",
+      "types": "./dist/store/index.d.ts",
+      "default": "./dist/store/index.js"
     },
     "./test": {
-      "import": "./src/test/index.ts",
-      "types": "./src/test/index.ts",
-      "default": "./src/test/index.ts"
+      "import": "./dist/test/index.js",
+      "types": "./dist/test/index.d.ts",
+      "default": "./dist/test/index.js"
     },
     "./use-cases/root-renderer": {
-      "import": "./src/use-cases/root-renderer/index.ts",
-      "types": "./src/use-cases/root-renderer/index.ts",
-      "default": "./src/use-cases/root-renderer/index.ts"
+      "import": "./dist/use-cases/root-renderer/index.js",
+      "types": "./dist/use-cases/root-renderer/index.d.ts",
+      "default": "./dist/use-cases/root-renderer/index.js"
     }
   },
   "devDependencies": {
@@ -73,8 +73,5 @@
     ],
     "$schema": "../../../../node_modules/nx/schemas/project-schema.json"
   },
-  "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts"
+  "type": "module"
 }

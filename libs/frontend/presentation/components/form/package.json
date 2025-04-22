@@ -2,14 +2,14 @@
   "name": "@codelab/frontend-presentation-components-form",
   "exports": {
     ".": {
-      "import": "./src/index.ts",
-      "types": "./src/index.ts",
-      "default": "./src/index.ts"
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./schema": {
-      "import": "./src/schema/index.ts",
-      "types": "./src/schema/index.ts",
-      "default": "./src/schema/index.ts"
+      "import": "./dist/schema/index.js",
+      "types": "./dist/schema/index.d.ts",
+      "default": "./dist/schema/index.js"
     }
   },
   "devDependencies": {
@@ -41,8 +41,5 @@
     ],
     "$schema": "../../../../../node_modules/nx/schemas/project-schema.json"
   },
-  "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts"
+  "type": "module"
 }
