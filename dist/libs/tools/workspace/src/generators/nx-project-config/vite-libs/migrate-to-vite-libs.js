@@ -16,9 +16,9 @@ const _updatePackageJsonForVite = (tree, projectConfig) => {
     const packageJson = (0, devkit_1.readJson)(tree, packageJsonPath);
     // Add or update the required fields
     packageJson.type = 'module';
-    packageJson.main = './dist/index.js';
-    packageJson.module = './dist/index.js';
-    packageJson.types = './dist/index.d.ts';
+    delete packageJson.main;
+    delete packageJson.module;
+    delete packageJson.types;
     // Write the updated package.json back to the file
     (0, devkit_1.writeJson)(tree, packageJsonPath, packageJson);
     console.log(`Updated package.json at: ${packageJsonPath}`);

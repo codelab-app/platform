@@ -94,7 +94,7 @@ export const updateProjectTsconfig = (
     libTsconfig.compilerOptions = libTsconfig.compilerOptions || {}
 
     // Set outDir to be local to the project
-    libTsconfig.compilerOptions.outDir = './out-tsc/lib'
+    libTsconfig.compilerOptions.outDir = './dist'
 
     // Keep existing references instead of clearing them
     // When references property doesn't exist, initialize it as an empty array

@@ -1,7 +1,7 @@
 {
   "extends": "../../../../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "./out-tsc/lib",
+    "outDir": "./dist",
     "types": ["styled-components", "uniforms"],
     "jsx": "react-jsx",
     "allowJs": false,

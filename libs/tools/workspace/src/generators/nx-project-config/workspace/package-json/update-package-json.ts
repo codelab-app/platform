@@ -26,8 +26,8 @@ export const updatePackageJson = (
     return
   }
 
-  // setExports(tree, projectConfig)
-  sortExports(tree, projectConfig)
+  setExports(tree, projectConfig)
+  // sortExports(tree, projectConfig)
 
   // const packageJson = readJson(
   //   tree,

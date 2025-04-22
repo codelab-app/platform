@@ -133,6 +133,9 @@
     "build": {
       "dependsOn": ["^build", "^typecheck"]
     },
+    "typecheck": {
+      "dependsOn": ["^typecheck"]
+    },
     "@nx/next:build": {
       "options": {
         "buildLibsFromSource": false

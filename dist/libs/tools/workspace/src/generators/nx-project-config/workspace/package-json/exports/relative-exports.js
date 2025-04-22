@@ -27,9 +27,13 @@ const getRelativeExports = (packageName) => {
         // Handle the case where the path is empty (root export)
         const relativePath = relativePathRaw === '' ? '.' : `.${relativePathRaw}`;
         // Determine the target path based on the relative path
+        // const targetPath =
+        //   relativePathRaw === ''
+        //     ? './src/index.ts'
+        //     : `./src${relativePathRaw}/index.ts`
         const targetPath = relativePathRaw === ''
-            ? './src/index.ts'
-            : `./src${relativePathRaw}/index.ts`;
+            ? './dist/index.js'
+            : `./dist${relativePathRaw}/index.js`;
         // Assign the dynamic export structure
         acc[relativePath] = {
             import: targetPath,

@@ -12,8 +12,8 @@ const updatePackageJson = (tree, projectConfig) => {
         console.log(`Package.json not found for ${projectName}`);
         return;
     }
-    // setExports(tree, projectConfig)
-    (0, set_exports_1.sortExports)(tree, projectConfig);
+    (0, set_exports_1.setExports)(tree, projectConfig);
+    // sortExports(tree, projectConfig)
     // const packageJson = readJson(
     //   tree,
     //   joinPathFragments(projectConfig.root, 'package.json'),

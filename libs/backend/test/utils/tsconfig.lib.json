@@ -1,8 +1,7 @@
 {
   "extends": "../../../../tsconfig.base.json",
   "compilerOptions": {
-    "module": "commonjs",
-    "outDir": "./out-tsc/lib",
+    "outDir": "./dist",
     "declaration": true,
     "types": ["node"],
     "forceConsistentCasingInFileNames": true,

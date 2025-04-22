@@ -36,9 +36,9 @@ const _updatePackageJsonForVite = (
 
   // Add or update the required fields
   packageJson.type = 'module'
-  packageJson.main = './dist/index.js'
-  packageJson.module = './dist/index.js'
-  packageJson.types = './dist/index.d.ts'
+  delete packageJson.main
+  delete packageJson.module
+  delete packageJson.types
 
   // Write the updated package.json back to the file
   writeJson(tree, packageJsonPath, packageJson)
