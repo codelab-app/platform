@@ -2383,16 +2383,8 @@
       ]
     },
     "store": {
-      "actions": [],
       "api": {
-        "__typename": "InterfaceType",
-        "fields": [],
-        "id": "369777a3-7afb-4059-be35-71d145fed48d",
-        "kind": "InterfaceType",
-        "name": "Google Fonts Store API",
-        "owner": {
-          "id": "6c288416-ea0a-455c-b7d5-459ab55dff11"
-        }
+        "id": "369777a3-7afb-4059-be35-71d145fed48d"
       },
       "id": "ee6cb6a6-fadd-4e24-85eb-477f33bee868",
       "name": "Google Fonts Store"
