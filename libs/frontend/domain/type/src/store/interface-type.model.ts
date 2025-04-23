@@ -110,6 +110,18 @@ export class InterfaceType
     })
   }
 
+  @computed
+  get toJson() {
+    return {
+      __typename: this.__typename,
+      fields: this.fields.map((field) => field.toJson),
+      id: this.id,
+      kind: this.kind,
+      name: this.name,
+      owner: this.owner.current.toJson,
+    }
+  }
+
   toJsonSchema(context: ITypeTransformContext = {}): JsonSchema {
     const currentDepth = context.depth ?? 0
 
@@ -146,7 +158,8 @@ export class InterfaceType
 
   @modelAction
   writeCache(interfaceTypeDto: IInterfaceTypeDto) {
-    super.writeCache(interfaceTypeDto)
+    this.name = interfaceTypeDto.name ?? this.name
+    this.owner.current = userRef(interfaceTypeDto.owner.id)
 
     this.writeFieldCache(interfaceTypeDto.fields)
 

@@ -5,6 +5,8 @@
 !.env.example
 !.env.test.example
 
+dist/
+
 # compiled output
 # Ignore everything in 'dist'
 /dist/*
@@ -96,4 +98,4 @@ dev-debug.log
 # OS specific
 # Task files
 tasks.json
-tasks/ 
+tasks/

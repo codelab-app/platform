@@ -3461,6 +3461,13 @@ importers:
         version: link:../../../shared/utils
 
   libs/frontend/application/dnd:
+    dependencies:
+      '@dnd-kit/core':
+        specifier: '*'
+        version: 6.3.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@dnd-kit/utilities':
+        specifier: '*'
+        version: 3.2.2(react@19.1.0)
     devDependencies:
       '@codelab/frontend-shared-utils':
         specifier: workspace:*

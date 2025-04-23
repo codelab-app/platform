@@ -1,8 +1,10 @@
+import type { UseDraggableArguments } from '@dnd-kit/core'
+
 import { useDraggable } from '@dnd-kit/core'
 
 export const useTypedDraggable = <T>({
   data,
   ...rest
-}: Parameters<typeof useDraggable>[0] & {
+}: UseDraggableArguments & {
   data?: T
 }) => useDraggable({ data, ...rest })

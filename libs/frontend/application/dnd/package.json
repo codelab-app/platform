@@ -1,11 +1,6 @@
 {
   "name": "@codelab/frontend-application-dnd",
   "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    },
     "./collision-detection": {
       "import": "./dist/collision-detection/index.js",
       "types": "./dist/collision-detection/index.d.ts",
@@ -25,6 +20,10 @@
   "devDependencies": {
     "@codelab/frontend-shared-utils": "workspace:*",
     "@codelab/shared-abstract-types": "workspace:*"
+  },
+  "peerDependencies": {
+    "@dnd-kit/core": "*",
+    "@dnd-kit/utilities": "*"
   },
   "nx": {
     "name": "frontend-application-dnd",
