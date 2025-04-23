@@ -9,7 +9,7 @@ import {
 
 import type { ProjectConfigGeneratorSchema } from './schema'
 
-import { processProjects } from '../utils/process-projects'
+import { processProjects } from '../../utils/process-projects'
 import { updateTestTargets } from './jest/remove-test-targets'
 import { migrateProjectReference } from './migrate-project-reference'
 import { migrateToInferred } from './migrate-to-inferred/migrate-to-inferred'

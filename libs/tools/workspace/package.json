@@ -5,6 +5,11 @@
   "generators": "./generators.json",
   "executors": "./executors.json",
   "dependencies": {
-    "@nx/devkit": "19.0.4"
+    "nx": "*",
+    "@nx/devkit": "*",
+    "ts-morph": "*"
+  },
+  "devDependencies": {
+    "eslint": "*"
   }
 }

@@ -9,8 +9,8 @@ import {
 
 import type { ViteBuildableLibsGeneratorSchema } from './schema'
 
+import { processProjects } from '../../utils/process-projects'
 import { setPackageJsonExports } from '../nx-project-config/workspace/package-json/exports/set-exports'
-import { processProjects } from '../utils/process-projects'
 import { migrateToViteLibs } from './migrate-to-vite-libs'
 
 export const viteBuildableLibsGenerator = async (
