@@ -4,15 +4,7 @@
     "outDir": "./out-tsc/spec",
     "types": ["jest", "node"]
   },
-  "include": [
-    "jest.config.ts",
-    "**/*.json",
-    "src/**/*.test.ts",
-    "src/**/*.spec.ts",
-    "src/**/*.d.ts",
-    "**/*.ts",
-    "src/generators/nx-project-config/vite-libs/files/vite.config.ts__tmpl__"
-  ],
+  "include": ["jest.config.ts", "src/**/*.test.ts", "src/**/*.spec.ts"],
   "references": [
     {
       "path": "./tsconfig.lib.json"

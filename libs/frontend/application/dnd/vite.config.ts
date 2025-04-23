@@ -30,14 +30,9 @@ export default defineConfig(() => ({
     },
     lib: {
       // Could also be a dictionary or array of multiple entry points.
-      entry: {
-        'collision-detection': 'src/collision-detection/index.ts',
-        components: 'src/components/index.ts',
-        hooks: 'src/hooks/index.ts',
-      },
+      entry: 'src/index.ts',
       name: '@codelab/frontend-application-dnd',
-      // fileName cannot be used when using multiple entry points
-      // fileName: 'index',
+      fileName: 'index',
       // Change this to the formats you want to support.
       // Don't forget to update your package.json as well.
       formats: ['es' as const],

@@ -48,7 +48,7 @@ importers:
         version: file:dist/libs/tools/eslint-plugin(eslint@8.57.0)(nx@20.8.0(@swc-node/register@1.10.9(@swc/core@1.10.11(@swc/helpers@0.5.15))(@swc/types@0.1.21)(typescript@5.5.4))(@swc/core@1.10.11(@swc/helpers@0.5.15)))(typescript@5.5.4)
       '@codelab/tools-workspace':
         specifier: file:dist/libs/tools/workspace
-        version: file:dist/libs/tools/workspace(nx@20.8.0(@swc-node/register@1.10.9(@swc/core@1.10.11(@swc/helpers@0.5.15))(@swc/types@0.1.21)(typescript@5.5.4))(@swc/core@1.10.11(@swc/helpers@0.5.15)))
+        version: workspace@file:dist/libs/tools/workspace
       '@codelab/tsc-check':
         specifier: file:dist/libs/tools/tsc-check
         version: file:dist/libs/tools/tsc-check
@@ -5633,6 +5633,9 @@ importers:
 
   libs/tools/plugin:
     dependencies:
+      '@nx/devkit':
+        specifier: 20.8.0
+        version: 20.8.0(nx@20.8.0(@swc-node/register@1.10.9(@swc/core@1.11.21(@swc/helpers@0.5.15))(@swc/types@0.1.21)(typescript@5.8.2))(@swc/core@1.11.21(@swc/helpers@0.5.15)))
       '@swc/helpers':
         specifier: ~0.5.11
         version: 0.5.15
@@ -6754,9 +6757,6 @@ packages:
 
   '@codelab/eslint-plugin@file:dist/libs/tools/eslint-plugin':
     resolution: {directory: dist/libs/tools/eslint-plugin, type: directory}
-
-  '@codelab/tools-workspace@file:dist/libs/tools/workspace':
-    resolution: {directory: dist/libs/tools/workspace, type: directory}
 
   '@codelab/tsc-check@file:dist/libs/tools/tsc-check':
     resolution: {directory: dist/libs/tools/tsc-check, type: directory}
@@ -21173,6 +21173,9 @@ packages:
   wordwrap@1.0.0:
     resolution: {integrity: sha512-gvVzJFlPycKc5dZN4yPkP8w7Dc37BtP1yczEneOb4uq34pXZcvrtRTmWV8W+Ume+XCxKgbjM+nevkyFPMybd4Q==}
 
+  workspace@file:dist/libs/tools/workspace:
+    resolution: {directory: dist/libs/tools/workspace, type: directory}
+
   wrap-ansi@6.2.0:
     resolution: {integrity: sha512-r6lPcBGxZXlIcymEu7InxDMhdW0KDxpLgoFLcguasxCaJ/SOIZwINatK9KY/tf+ZrlywOKU0UDj3ATXUBfxJXA==}
     engines: {node: '>=8'}
@@ -22991,12 +22994,6 @@ snapshots:
       - nx
       - supports-color
       - typescript
-
-  '@codelab/tools-workspace@file:dist/libs/tools/workspace(nx@20.8.0(@swc-node/register@1.10.9(@swc/core@1.10.11(@swc/helpers@0.5.15))(@swc/types@0.1.21)(typescript@5.5.4))(@swc/core@1.10.11(@swc/helpers@0.5.15)))':
-    dependencies:
-      '@nx/devkit': 19.0.4(nx@20.8.0(@swc-node/register@1.10.9(@swc/core@1.10.11(@swc/helpers@0.5.15))(@swc/types@0.1.21)(typescript@5.5.4))(@swc/core@1.10.11(@swc/helpers@0.5.15)))
-    transitivePeerDependencies:
-      - nx
 
   '@codelab/tsc-check@file:dist/libs/tools/tsc-check':
     dependencies:
@@ -26083,6 +26080,18 @@ snapshots:
       ignore: 5.3.2
       minimatch: 9.0.3
       nx: 20.8.0(@swc-node/register@1.10.9(@swc/core@1.10.11(@swc/helpers@0.5.15))(@swc/types@0.1.21)(typescript@5.5.4))(@swc/core@1.10.11(@swc/helpers@0.5.15))
+      semver: 7.7.1
+      tmp: 0.2.3
+      tslib: 2.6.3
+      yargs-parser: 21.1.1
+
+  '@nx/devkit@20.8.0(nx@20.8.0(@swc-node/register@1.10.9(@swc/core@1.11.21(@swc/helpers@0.5.15))(@swc/types@0.1.21)(typescript@5.8.2))(@swc/core@1.11.21(@swc/helpers@0.5.15)))':
+    dependencies:
+      ejs: 3.1.10
+      enquirer: 2.3.6
+      ignore: 5.3.2
+      minimatch: 9.0.3
+      nx: 20.8.0(@swc-node/register@1.10.9(@swc/core@1.11.21(@swc/helpers@0.5.15))(@swc/types@0.1.21)(typescript@5.8.2))(@swc/core@1.11.21(@swc/helpers@0.5.15))
       semver: 7.7.1
       tmp: 0.2.3
       tslib: 2.6.3
@@ -40916,6 +40925,8 @@ snapshots:
   word-wrap@1.2.5: {}
 
   wordwrap@1.0.0: {}
+
+  workspace@file:dist/libs/tools/workspace: {}
 
   wrap-ansi@6.2.0:
     dependencies:

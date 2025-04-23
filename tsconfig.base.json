@@ -20,7 +20,7 @@
     "importHelpers": true,
     "target": "es2021",
     "types": ["node", "worker-loader"],
-    "typeRoots": ["types", "node_modules", "node_modules/@types"],
+    "typeRoots": ["types", "node_modules/@types", "node_modules"],
     "lib": ["es2021", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
@@ -30,7 +30,7 @@
         "name": "@0no-co/graphqlsp",
         "schema": "./schema.graphql"
       }
-    ],
+    ]
   },
   "exclude": ["node_modules", "tmp", "dist"],
   "include": ["./scripts/jest/setupFilesAfterEnv.ts"]
