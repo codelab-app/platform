@@ -1,0 +1,9 @@
+{
+  "generators": {
+    "buildable-vite": {
+      "factory": "./src/buildable-vite/generators",
+      "schema": "./src/buildable-vite/schema.json",
+      "description": "Convert libs to buildable with vite"
+    }
+  }
+}

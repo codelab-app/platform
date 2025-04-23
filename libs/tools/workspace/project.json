@@ -17,7 +17,7 @@
         "test": {}
       },
       "defaultConfiguration": "dev",
-      "executor": "@nx/js:tsc",
+      "executor": "@nx/js:swc",
       "options": {
         "assets": [
           "libs/tools/workspace/*.md",

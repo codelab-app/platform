@@ -6,6 +6,8 @@
   "main": "./src/index.js",
   "types": "./src/index.d.ts",
   "dependencies": {
+    "@nx/devkit": "20.8.0",
     "@swc/helpers": "~0.5.11"
-  }
+  },
+  "generators": "./generators.json"
 }

@@ -4,6 +4,11 @@
       "factory": "./src/generators/nx-project-config/generator",
       "schema": "./src/generators/nx-project-config/schema.json",
       "description": "Update NX project config for each library"
+    },
+    "vite-buildable-libs": {
+      "factory": "./src/generators/vite-buildable-libs/generator",
+      "schema": "./src/generators/vite-buildable-libs/schema.json",
+      "description": "Convert libs to buildable with vite"
     }
   }
 }
