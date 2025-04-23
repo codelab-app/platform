@@ -2,34 +2,34 @@
   "name": "@codelab/frontend-application-shared-store",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
+      "import": "./dist/index.es.js",
       "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+      "default": "./dist/index.es.js"
     },
     "./cache": {
-      "import": "./dist/cache/index.js",
+      "import": "./dist/cache/index.es.js",
       "types": "./dist/cache/index.d.ts",
-      "default": "./dist/cache/index.js"
+      "default": "./dist/cache/index.es.js"
     },
     "./loading": {
-      "import": "./dist/loading/index.js",
+      "import": "./dist/loading/index.es.js",
       "types": "./dist/loading/index.d.ts",
-      "default": "./dist/loading/index.js"
+      "default": "./dist/loading/index.es.js"
     },
     "./pagination": {
-      "import": "./dist/pagination/index.js",
+      "import": "./dist/pagination/index.es.js",
       "types": "./dist/pagination/index.d.ts",
-      "default": "./dist/pagination/index.js"
+      "default": "./dist/pagination/index.es.js"
     },
     "./router": {
-      "import": "./dist/router/index.js",
+      "import": "./dist/router/index.es.js",
       "types": "./dist/router/index.d.ts",
-      "default": "./dist/router/index.js"
+      "default": "./dist/router/index.es.js"
     },
     "./ui": {
-      "import": "./dist/ui/index.js",
+      "import": "./dist/ui/index.es.js",
       "types": "./dist/ui/index.d.ts",
-      "default": "./dist/ui/index.js"
+      "default": "./dist/ui/index.es.js"
     }
   },
   "devDependencies": {

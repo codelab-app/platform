@@ -25,13 +25,12 @@ export default defineConfig(() => ({
     outDir: './dist',
     emptyOutDir: true,
     reportCompressedSize: true,
-    commonjsOptions: {
-      transformMixedEsModules: true,
-    },
+    // commonjsOptions: {
+    //  transformMixedEsModules: true,
+    //},
     lib: {
       // Could also be a dictionary or array of multiple entry points.
       entry: {
-        index: 'src/index.ts',
         dnd: 'src/dnd/index.ts',
         hooks: 'src/hooks/index.ts',
         sections: 'src/sections/index.ts',

@@ -25,14 +25,34 @@ export default defineConfig(() => ({
     outDir: './dist',
     emptyOutDir: true,
     reportCompressedSize: true,
-    commonjsOptions: {
-      transformMixedEsModules: true,
-    },
+    // commonjsOptions: {
+    //  transformMixedEsModules: true,
+    //},
     lib: {
       // Could also be a dictionary or array of multiple entry points.
-      entry: 'src/index.ts',
+      entry: {
+        'components/button': 'src/components/button/index.ts',
+        'components/conditionalView': 'src/components/conditionalView/index.ts',
+        'components/error': 'src/components/error/index.ts',
+        'components/key': 'src/components/key/index.ts',
+        'components/loader': 'src/components/loader/index.ts',
+        'components/overlay': 'src/components/overlay/index.ts',
+        'components/progressBar': 'src/components/progressBar/index.ts',
+        'components/skeleton': 'src/components/skeleton/index.ts',
+        'components/state': 'src/components/state/index.ts',
+        'components/table': 'src/components/table/index.ts',
+        'components/upload': 'src/components/upload/index.ts',
+        'components/wrapIf': 'src/components/wrapIf/index.ts',
+        sections: 'src/sections/index.ts',
+        style: 'src/style/index.ts',
+        templates: 'src/templates/index.ts',
+      },
       name: '@codelab/frontend-presentation-view',
-      fileName: 'index',
+      fileName: (format, entryName) => {
+        return entryName === 'index'
+          ? `index.${format}.js`
+          : `${entryName}/index.${format}.js`
+      },
       // Change this to the formats you want to support.
       // Don't forget to update your package.json as well.
       formats: ['es' as const],

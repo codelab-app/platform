@@ -2,49 +2,49 @@
   "name": "@codelab/frontend-application-resource",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
+      "import": "./dist/index.es.js",
       "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+      "default": "./dist/index.es.js"
     },
     "./components": {
-      "import": "./dist/components/index.js",
+      "import": "./dist/components/index.es.js",
       "types": "./dist/components/index.d.ts",
-      "default": "./dist/components/index.js"
+      "default": "./dist/components/index.es.js"
     },
     "./services": {
-      "import": "./dist/services/index.js",
+      "import": "./dist/services/index.es.js",
       "types": "./dist/services/index.d.ts",
-      "default": "./dist/services/index.js"
+      "default": "./dist/services/index.es.js"
     },
     "./use-cases/create-resource": {
-      "import": "./dist/use-cases/create-resource/index.js",
+      "import": "./dist/use-cases/create-resource/index.es.js",
       "types": "./dist/use-cases/create-resource/index.d.ts",
-      "default": "./dist/use-cases/create-resource/index.js"
+      "default": "./dist/use-cases/create-resource/index.es.js"
     },
     "./use-cases/delete-resource": {
-      "import": "./dist/use-cases/delete-resource/index.js",
+      "import": "./dist/use-cases/delete-resource/index.es.js",
       "types": "./dist/use-cases/delete-resource/index.d.ts",
-      "default": "./dist/use-cases/delete-resource/index.js"
+      "default": "./dist/use-cases/delete-resource/index.es.js"
     },
     "./use-cases/get-resource": {
-      "import": "./dist/use-cases/get-resource/index.js",
+      "import": "./dist/use-cases/get-resource/index.es.js",
       "types": "./dist/use-cases/get-resource/index.d.ts",
-      "default": "./dist/use-cases/get-resource/index.js"
+      "default": "./dist/use-cases/get-resource/index.es.js"
     },
     "./use-cases/resource-list": {
-      "import": "./dist/use-cases/resource-list/index.js",
+      "import": "./dist/use-cases/resource-list/index.es.js",
       "types": "./dist/use-cases/resource-list/index.d.ts",
-      "default": "./dist/use-cases/resource-list/index.js"
+      "default": "./dist/use-cases/resource-list/index.es.js"
     },
     "./use-cases/update-resource": {
-      "import": "./dist/use-cases/update-resource/index.js",
+      "import": "./dist/use-cases/update-resource/index.es.js",
       "types": "./dist/use-cases/update-resource/index.d.ts",
-      "default": "./dist/use-cases/update-resource/index.js"
+      "default": "./dist/use-cases/update-resource/index.es.js"
     },
     "./views": {
-      "import": "./dist/views/index.js",
+      "import": "./dist/views/index.es.js",
       "types": "./dist/views/index.d.ts",
-      "default": "./dist/views/index.js"
+      "default": "./dist/views/index.es.js"
     }
   },
   "devDependencies": {

@@ -16,8 +16,6 @@ import {
 import { getBaseImportPaths } from '../paths'
 import { getRelativeExports } from './relative-exports'
 
-type ExportsMap = Record<string, Record<string, string>>
-
 /**
  * Sorts the third level properties in exports to follow the order: import, types, default
  */
@@ -73,7 +71,10 @@ export const sortExports = (
   writeJson(tree, packageJsonPath, packageJson)
 }
 
-export const setExports = (tree: Tree, projectConfig: ProjectConfiguration) => {
+export const setPackageJsonExports = (
+  tree: Tree,
+  projectConfig: ProjectConfiguration,
+) => {
   const projectName = projectConfig.name
   const packageJsonPath = joinPathFragments(projectConfig.root, 'package.json')
 
@@ -95,10 +96,10 @@ export const setExports = (tree: Tree, projectConfig: ProjectConfiguration) => {
 
   const exports = {
     '.': {
-      import: './src/index.js',
+      import: './src/index.es.js',
       types: './src/index.d.ts',
       // eslint-disable-next-line canonical/sort-keys
-      default: './src/index.js',
+      default: './src/index.es.js',
     },
   }
 

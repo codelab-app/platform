@@ -6,7 +6,7 @@ import {
 } from '@nx/devkit'
 
 import { writeToPackageJson } from './create-nonbuildable-package-json'
-import { setExports, sortExports } from './exports/set-exports'
+import { setPackageJsonExports, sortExports } from './exports/set-exports'
 
 export const updatePackageJson = (
   tree: Tree,
@@ -26,7 +26,7 @@ export const updatePackageJson = (
     return
   }
 
-  setExports(tree, projectConfig)
+  setPackageJsonExports(tree, projectConfig)
   // sortExports(tree, projectConfig)
 
   // const packageJson = readJson(

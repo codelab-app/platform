@@ -25,14 +25,37 @@ export default defineConfig(() => ({
     outDir: './dist',
     emptyOutDir: true,
     reportCompressedSize: true,
-    commonjsOptions: {
-      transformMixedEsModules: true,
-    },
+    // commonjsOptions: {
+    //  transformMixedEsModules: true,
+    //},
     lib: {
       // Could also be a dictionary or array of multiple entry points.
-      entry: 'src/index.ts',
+      entry: {
+        'components/ant-design/icon': 'src/components/ant-design/icon/index.ts',
+        'components/custom/codelab-script':
+          'src/components/custom/codelab-script/index.ts',
+        'components/custom/grid-layout':
+          'src/components/custom/grid-layout/index.ts',
+        'components/custom/text-list':
+          'src/components/custom/text-list/index.ts',
+        'components/mui/icon': 'src/components/mui/icon/index.ts',
+        services: 'src/services/index.ts',
+        'use-cases/atom-list': 'src/use-cases/atom-list/index.ts',
+        'use-cases/atom-list/server': 'src/use-cases/atom-list/server/index.ts',
+        'use-cases/atom-table': 'src/use-cases/atom-table/index.ts',
+        'use-cases/create-atom': 'src/use-cases/create-atom/index.ts',
+        'use-cases/delete-atom': 'src/use-cases/delete-atom/index.ts',
+        'use-cases/helper': 'src/use-cases/helper/index.ts',
+        'use-cases/select-atom': 'src/use-cases/select-atom/index.ts',
+        'use-cases/update-atom': 'src/use-cases/update-atom/index.ts',
+        views: 'src/views/index.ts',
+      },
       name: '@codelab/frontend-application-atom',
-      fileName: 'index',
+      fileName: (format, entryName) => {
+        return entryName === 'index'
+          ? `index.${format}.js`
+          : `${entryName}/index.${format}.js`
+      },
       // Change this to the formats you want to support.
       // Don't forget to update your package.json as well.
       formats: ['es' as const],

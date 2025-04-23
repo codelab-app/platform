@@ -2,14 +2,14 @@
   "name": "@codelab/frontend-presentation-components-form",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
+      "import": "./dist/index.es.js",
       "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+      "default": "./dist/index.es.js"
     },
     "./schema": {
-      "import": "./dist/schema/index.js",
+      "import": "./dist/schema/index.es.js",
       "types": "./dist/schema/index.d.ts",
-      "default": "./dist/schema/index.js"
+      "default": "./dist/schema/index.es.js"
     }
   },
   "devDependencies": {

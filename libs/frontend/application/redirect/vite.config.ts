@@ -25,14 +25,23 @@ export default defineConfig(() => ({
     outDir: './dist',
     emptyOutDir: true,
     reportCompressedSize: true,
-    commonjsOptions: {
-      transformMixedEsModules: true,
-    },
+    // commonjsOptions: {
+    //  transformMixedEsModules: true,
+    //},
     lib: {
       // Could also be a dictionary or array of multiple entry points.
-      entry: 'src/index.ts',
+      entry: {
+        services: 'src/services/index.ts',
+        'use-cases/create-redirect': 'src/use-cases/create-redirect/index.ts',
+        'use-cases/delete-redirect': 'src/use-cases/delete-redirect/index.ts',
+        'use-cases/update-redirect': 'src/use-cases/update-redirect/index.ts',
+      },
       name: '@codelab/frontend-application-redirect',
-      fileName: 'index',
+      fileName: (format, entryName) => {
+        return entryName === 'index'
+          ? `index.${format}.js`
+          : `${entryName}/index.${format}.js`
+      },
       // Change this to the formats you want to support.
       // Don't forget to update your package.json as well.
       formats: ['es' as const],

@@ -25,14 +25,25 @@ export default defineConfig(() => ({
     outDir: './dist',
     emptyOutDir: true,
     reportCompressedSize: true,
-    commonjsOptions: {
-      transformMixedEsModules: true,
-    },
+    // commonjsOptions: {
+    //  transformMixedEsModules: true,
+    //},
     lib: {
       // Could also be a dictionary or array of multiple entry points.
-      entry: 'src/index.ts',
+      entry: {
+        'use-cases/create-lambda': 'src/use-cases/create-lambda/index.ts',
+        'use-cases/delete-lambda': 'src/use-cases/delete-lambda/index.ts',
+        'use-cases/execute-lambda': 'src/use-cases/execute-lambda/index.ts',
+        'use-cases/get-lambdas': 'src/use-cases/get-lambdas/index.ts',
+        'use-cases/update-lambda': 'src/use-cases/update-lambda/index.ts',
+        views: 'src/views/index.ts',
+      },
       name: '@codelab/frontend-application-lambda',
-      fileName: 'index',
+      fileName: (format, entryName) => {
+        return entryName === 'index'
+          ? `index.${format}.js`
+          : `${entryName}/index.${format}.js`
+      },
       // Change this to the formats you want to support.
       // Don't forget to update your package.json as well.
       formats: ['es' as const],

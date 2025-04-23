@@ -43,13 +43,13 @@ export const getRelativeExports = (packageName: string) => {
 
     const targetPath =
       relativePathRaw === ''
-        ? './dist/index.js'
-        : `./dist${relativePathRaw}/index.js`
+        ? './dist/index.es.js'
+        : `./dist${relativePathRaw}/index.es.js`
 
     // Assign the dynamic export structure
     acc[relativePath] = {
       import: targetPath,
-      types: targetPath.replace('.js', '.d.ts'),
+      types: targetPath.replace('.es.js', '.d.ts'),
       // eslint-disable-next-line canonical/sort-keys
       default: targetPath,
     }

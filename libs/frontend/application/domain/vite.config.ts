@@ -25,14 +25,25 @@ export default defineConfig(() => ({
     outDir: './dist',
     emptyOutDir: true,
     reportCompressedSize: true,
-    commonjsOptions: {
-      transformMixedEsModules: true,
-    },
+    // commonjsOptions: {
+    //  transformMixedEsModules: true,
+    //},
     lib: {
       // Could also be a dictionary or array of multiple entry points.
-      entry: 'src/index.ts',
+      entry: {
+        services: 'src/services/index.ts',
+        'use-cases/create-domain': 'src/use-cases/create-domain/index.ts',
+        'use-cases/delete-domain': 'src/use-cases/delete-domain/index.ts',
+        'use-cases/domain-list': 'src/use-cases/domain-list/index.ts',
+        'use-cases/update-domain': 'src/use-cases/update-domain/index.ts',
+        views: 'src/views/index.ts',
+      },
       name: '@codelab/frontend-application-domain',
-      fileName: 'index',
+      fileName: (format, entryName) => {
+        return entryName === 'index'
+          ? `index.${format}.js`
+          : `${entryName}/index.${format}.js`
+      },
       // Change this to the formats you want to support.
       // Don't forget to update your package.json as well.
       formats: ['es' as const],

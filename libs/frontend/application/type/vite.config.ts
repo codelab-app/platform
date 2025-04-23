@@ -25,14 +25,32 @@ export default defineConfig(() => ({
     outDir: './dist',
     emptyOutDir: true,
     reportCompressedSize: true,
-    commonjsOptions: {
-      transformMixedEsModules: true,
-    },
+    // commonjsOptions: {
+    //  transformMixedEsModules: true,
+    //},
     lib: {
       // Could also be a dictionary or array of multiple entry points.
-      entry: 'src/index.ts',
+      entry: {
+        services: 'src/services/index.ts',
+        'use-cases/create-field': 'src/use-cases/create-field/index.ts',
+        'use-cases/create-type': 'src/use-cases/create-type/index.ts',
+        'use-cases/delete-field': 'src/use-cases/delete-field/index.ts',
+        'use-cases/delete-type': 'src/use-cases/delete-type/index.ts',
+        'use-cases/get-fields': 'src/use-cases/get-fields/index.ts',
+        'use-cases/get-types': 'src/use-cases/get-types/index.ts',
+        'use-cases/hooks': 'src/use-cases/hooks/index.ts',
+        'use-cases/select-types': 'src/use-cases/select-types/index.ts',
+        'use-cases/type-table': 'src/use-cases/type-table/index.ts',
+        'use-cases/update-field': 'src/use-cases/update-field/index.ts',
+        'use-cases/update-type': 'src/use-cases/update-type/index.ts',
+        views: 'src/views/index.ts',
+      },
       name: '@codelab/frontend-application-type',
-      fileName: 'index',
+      fileName: (format, entryName) => {
+        return entryName === 'index'
+          ? `index.${format}.js`
+          : `${entryName}/index.${format}.js`
+      },
       // Change this to the formats you want to support.
       // Don't forget to update your package.json as well.
       formats: ['es' as const],

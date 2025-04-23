@@ -4502,6 +4502,13 @@ importers:
         version: link:../../../shared/infra/gqlgen
 
   libs/frontend/domain/store:
+    dependencies:
+      mobx:
+        specifier: '*'
+        version: 6.13.7
+      mobx-keystone:
+        specifier: '*'
+        version: 1.11.4(mobx@6.13.7)
     devDependencies:
       '@codelab/frontend-abstract-domain':
         specifier: workspace:*

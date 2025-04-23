@@ -2,84 +2,84 @@
   "name": "@codelab/frontend-presentation-view",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
+      "import": "./dist/index.es.js",
       "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+      "default": "./dist/index.es.js"
     },
     "./components/button": {
-      "import": "./dist/components/button/index.js",
+      "import": "./dist/components/button/index.es.js",
       "types": "./dist/components/button/index.d.ts",
-      "default": "./dist/components/button/index.js"
+      "default": "./dist/components/button/index.es.js"
     },
     "./components/conditionalView": {
-      "import": "./dist/components/conditionalView/index.js",
+      "import": "./dist/components/conditionalView/index.es.js",
       "types": "./dist/components/conditionalView/index.d.ts",
-      "default": "./dist/components/conditionalView/index.js"
+      "default": "./dist/components/conditionalView/index.es.js"
     },
     "./components/error": {
-      "import": "./dist/components/error/index.js",
+      "import": "./dist/components/error/index.es.js",
       "types": "./dist/components/error/index.d.ts",
-      "default": "./dist/components/error/index.js"
+      "default": "./dist/components/error/index.es.js"
     },
     "./components/key": {
-      "import": "./dist/components/key/index.js",
+      "import": "./dist/components/key/index.es.js",
       "types": "./dist/components/key/index.d.ts",
-      "default": "./dist/components/key/index.js"
+      "default": "./dist/components/key/index.es.js"
     },
     "./components/loader": {
-      "import": "./dist/components/loader/index.js",
+      "import": "./dist/components/loader/index.es.js",
       "types": "./dist/components/loader/index.d.ts",
-      "default": "./dist/components/loader/index.js"
+      "default": "./dist/components/loader/index.es.js"
     },
     "./components/overlay": {
-      "import": "./dist/components/overlay/index.js",
+      "import": "./dist/components/overlay/index.es.js",
       "types": "./dist/components/overlay/index.d.ts",
-      "default": "./dist/components/overlay/index.js"
+      "default": "./dist/components/overlay/index.es.js"
     },
     "./components/progressBar": {
-      "import": "./dist/components/progressBar/index.js",
+      "import": "./dist/components/progressBar/index.es.js",
       "types": "./dist/components/progressBar/index.d.ts",
-      "default": "./dist/components/progressBar/index.js"
+      "default": "./dist/components/progressBar/index.es.js"
     },
     "./components/skeleton": {
-      "import": "./dist/components/skeleton/index.js",
+      "import": "./dist/components/skeleton/index.es.js",
       "types": "./dist/components/skeleton/index.d.ts",
-      "default": "./dist/components/skeleton/index.js"
+      "default": "./dist/components/skeleton/index.es.js"
     },
     "./components/state": {
-      "import": "./dist/components/state/index.js",
+      "import": "./dist/components/state/index.es.js",
       "types": "./dist/components/state/index.d.ts",
-      "default": "./dist/components/state/index.js"
+      "default": "./dist/components/state/index.es.js"
     },
     "./components/table": {
-      "import": "./dist/components/table/index.js",
+      "import": "./dist/components/table/index.es.js",
       "types": "./dist/components/table/index.d.ts",
-      "default": "./dist/components/table/index.js"
+      "default": "./dist/components/table/index.es.js"
     },
     "./components/upload": {
-      "import": "./dist/components/upload/index.js",
+      "import": "./dist/components/upload/index.es.js",
       "types": "./dist/components/upload/index.d.ts",
-      "default": "./dist/components/upload/index.js"
+      "default": "./dist/components/upload/index.es.js"
     },
     "./components/wrapIf": {
-      "import": "./dist/components/wrapIf/index.js",
+      "import": "./dist/components/wrapIf/index.es.js",
       "types": "./dist/components/wrapIf/index.d.ts",
-      "default": "./dist/components/wrapIf/index.js"
+      "default": "./dist/components/wrapIf/index.es.js"
     },
     "./sections": {
-      "import": "./dist/sections/index.js",
+      "import": "./dist/sections/index.es.js",
       "types": "./dist/sections/index.d.ts",
-      "default": "./dist/sections/index.js"
+      "default": "./dist/sections/index.es.js"
     },
     "./style": {
-      "import": "./dist/style/index.js",
+      "import": "./dist/style/index.es.js",
       "types": "./dist/style/index.d.ts",
-      "default": "./dist/style/index.js"
+      "default": "./dist/style/index.es.js"
     },
     "./templates": {
-      "import": "./dist/templates/index.js",
+      "import": "./dist/templates/index.es.js",
       "types": "./dist/templates/index.d.ts",
-      "default": "./dist/templates/index.js"
+      "default": "./dist/templates/index.es.js"
     }
   },
   "devDependencies": {

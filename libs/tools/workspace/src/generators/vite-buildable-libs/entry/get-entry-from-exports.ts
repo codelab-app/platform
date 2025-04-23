@@ -1,13 +1,22 @@
+import type { Tree } from '@nx/devkit'
 import type { PackageJson } from 'type-fest'
+
+import { joinPathFragments } from '@nx/devkit'
 
 /**
  * Converts package.json exports field into Vite entry points configuration
  */
 export const getEntryFromExports = (
+  tree: Tree,
+  projectRoot: string,
   packageJson: PackageJson,
 ): Record<string, string> => {
-  const entry: Record<string, string> = {
-    index: 'src/index.ts',
+  const entry: Record<string, string> = {}
+  const indexPath = joinPathFragments(projectRoot, 'src/index.ts')
+
+  // Check if src/index.ts exists before adding it as the default entry
+  if (tree.exists(indexPath)) {
+    entry['index'] = 'src/index.ts'
   }
 
   // If no exports field exists, or it's not an object, return just the default entry

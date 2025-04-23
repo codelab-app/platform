@@ -2,9 +2,9 @@
   "name": "@codelab/shared-infra-fetch-server",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
+      "import": "./dist/index.es.js",
       "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+      "default": "./dist/index.es.js"
     }
   },
   "devDependencies": {

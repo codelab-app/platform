@@ -2,29 +2,29 @@
   "name": "@codelab/frontend-domain-prop",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
+      "import": "./dist/index.es.js",
       "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+      "default": "./dist/index.es.js"
     },
     "./repositories": {
-      "import": "./dist/repositories/index.js",
+      "import": "./dist/repositories/index.es.js",
       "types": "./dist/repositories/index.d.ts",
-      "default": "./dist/repositories/index.js"
+      "default": "./dist/repositories/index.es.js"
     },
     "./store": {
-      "import": "./dist/store/index.js",
+      "import": "./dist/store/index.es.js",
       "types": "./dist/store/index.d.ts",
-      "default": "./dist/store/index.js"
+      "default": "./dist/store/index.es.js"
     },
     "./test": {
-      "import": "./dist/test/index.js",
+      "import": "./dist/test/index.es.js",
       "types": "./dist/test/index.d.ts",
-      "default": "./dist/test/index.js"
+      "default": "./dist/test/index.es.js"
     },
     "./utils": {
-      "import": "./dist/utils/index.js",
+      "import": "./dist/utils/index.es.js",
       "types": "./dist/utils/index.d.ts",
-      "default": "./dist/utils/index.js"
+      "default": "./dist/utils/index.es.js"
     }
   },
   "devDependencies": {

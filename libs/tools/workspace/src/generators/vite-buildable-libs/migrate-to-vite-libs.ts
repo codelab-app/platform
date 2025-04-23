@@ -106,7 +106,7 @@ export const migrateToViteLibs = async (
   }
 
   // Get library entries from package.json exports
-  const entry = getEntryFromExports(packageJson)
+  const entry = getEntryFromExports(tree, projectConfig.root, packageJson)
 
   const substitutions = {
     // Calculate cacheDir relative to workspace root

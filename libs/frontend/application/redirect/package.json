@@ -2,29 +2,29 @@
   "name": "@codelab/frontend-application-redirect",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
+      "import": "./dist/index.es.js",
       "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+      "default": "./dist/index.es.js"
     },
     "./services": {
-      "import": "./dist/services/index.js",
+      "import": "./dist/services/index.es.js",
       "types": "./dist/services/index.d.ts",
-      "default": "./dist/services/index.js"
+      "default": "./dist/services/index.es.js"
     },
     "./use-cases/create-redirect": {
-      "import": "./dist/use-cases/create-redirect/index.js",
+      "import": "./dist/use-cases/create-redirect/index.es.js",
       "types": "./dist/use-cases/create-redirect/index.d.ts",
-      "default": "./dist/use-cases/create-redirect/index.js"
+      "default": "./dist/use-cases/create-redirect/index.es.js"
     },
     "./use-cases/delete-redirect": {
-      "import": "./dist/use-cases/delete-redirect/index.js",
+      "import": "./dist/use-cases/delete-redirect/index.es.js",
       "types": "./dist/use-cases/delete-redirect/index.d.ts",
-      "default": "./dist/use-cases/delete-redirect/index.js"
+      "default": "./dist/use-cases/delete-redirect/index.es.js"
     },
     "./use-cases/update-redirect": {
-      "import": "./dist/use-cases/update-redirect/index.js",
+      "import": "./dist/use-cases/update-redirect/index.es.js",
       "types": "./dist/use-cases/update-redirect/index.d.ts",
-      "default": "./dist/use-cases/update-redirect/index.js"
+      "default": "./dist/use-cases/update-redirect/index.es.js"
     }
   },
   "devDependencies": {

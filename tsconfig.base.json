@@ -22,8 +22,8 @@
     "types": ["node", "worker-loader"],
     "typeRoots": ["types", "node_modules/@types", "node_modules"],
     "lib": ["es2021", "dom"],
-    "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
+    // "skipLibCheck": true,
+    // "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "plugins": [
       {
