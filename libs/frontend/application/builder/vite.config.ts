@@ -30,9 +30,26 @@ export default defineConfig(() => ({
     },
     lib: {
       // Could also be a dictionary or array of multiple entry points.
-      entry: 'src/index.ts',
+      entry: {
+        index: 'src/index.ts',
+        dnd: 'src/dnd/index.ts',
+        hooks: 'src/hooks/index.ts',
+        sections: 'src/sections/index.ts',
+        services: 'src/services/index.ts',
+        'use-cases/base-builder': 'src/use-cases/base-builder/index.ts',
+        'use-cases/component-builder':
+          'src/use-cases/component-builder/index.ts',
+        'use-cases/page-builder': 'src/use-cases/page-builder/index.ts',
+        'use-cases/page-preview': 'src/use-cases/page-preview/index.ts',
+        'use-cases/resize': 'src/use-cases/resize/index.ts',
+        utils: 'src/utils/index.ts',
+      },
       name: '@codelab/frontend-application-builder',
-      fileName: 'index',
+      fileName: (format, entryName) => {
+        return entryName === 'index'
+          ? `index.${format}.js`
+          : `${entryName}/index.${format}.js`
+      },
       // Change this to the formats you want to support.
       // Don't forget to update your package.json as well.
       formats: ['es' as const],

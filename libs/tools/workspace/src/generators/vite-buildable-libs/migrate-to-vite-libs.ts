@@ -14,7 +14,7 @@ import {
 } from '@nx/devkit'
 import { join } from 'path'
 
-import { getEntryFromExports } from './get-entry-from-exports'
+import { getEntryFromExports } from './entry/get-entry-from-exports'
 
 /**
  * Updates the package.json for a Vite library project.

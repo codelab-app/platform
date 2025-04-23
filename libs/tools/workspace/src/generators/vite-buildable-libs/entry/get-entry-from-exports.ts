@@ -33,30 +33,32 @@ export const getEntryFromExports = (
   }
 
   // Process subpath exports
-  Object.keys(exportsConditions).forEach((exportPath) => {
-    // Skip the root/default export as we've already handled it
-    if (exportPath === './' || exportPath === '.') {
-      return
+  for (const exportPath in exportsConditions) {
+    if (Object.prototype.hasOwnProperty.call(exportsConditions, exportPath)) {
+      // Skip the root/default export as we've already handled it
+      if (exportPath === './' || exportPath === '.') {
+        continue
+      }
+
+      // Remove './' prefix if present
+      const normalizedPath = exportPath.startsWith('./')
+        ? exportPath.substring(2)
+        : exportPath
+
+      // If it's a subpath export with an object value (typical pattern)
+      const exportValue = exportsConditions[exportPath]
+
+      if (
+        normalizedPath &&
+        typeof exportValue === 'object' &&
+        exportValue !== null
+      ) {
+        // Convert dist path to source path
+        // e.g., "./dist/components/index.js" → "src/components/index.ts"
+        entry[normalizedPath] = `src/${normalizedPath}/index.ts`
+      }
     }
-
-    // Remove './' prefix if present
-    const normalizedPath = exportPath.startsWith('./')
-      ? exportPath.substring(2)
-      : exportPath
-
-    // If it's a subpath export with an object value (typical pattern)
-    const exportValue = exportsConditions[exportPath]
-
-    if (
-      normalizedPath &&
-      typeof exportValue === 'object' &&
-      exportValue !== null
-    ) {
-      // Convert dist path to source path
-      // e.g., "./dist/components/index.js" → "src/components/index.ts"
-      entry[normalizedPath] = `src/${normalizedPath}/index.ts`
-    }
-  })
+  }
 
   return entry
 }

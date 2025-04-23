@@ -4,7 +4,9 @@
     "outDir": "./dist",
     "declaration": true,
     "types": ["node"],
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "module": "CommonJS",
+    "moduleResolution": "Node"
   },
   "include": [
     "src/**/*.ts",

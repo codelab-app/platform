@@ -30,7 +30,7 @@ export default defineConfig(() => ({
     },
     lib: {
       // Could also be a dictionary or array of multiple entry points.
-      entry: <%= entry %>,
+      entry: <%- entry %>,
       name: '<%= libName %>',
       fileName: (format, entryName) => {
         return entryName === 'index'
