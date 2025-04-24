@@ -3,47 +3,47 @@
   "exports": {
     ".": {
       "import": "./dist/index.js",
-      "types": "./dist/index.js",
+      "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
     "./services": {
       "import": "./dist/services/index.js",
-      "types": "./dist/services/index.js",
+      "types": "./dist/services/index.d.ts",
       "default": "./dist/services/index.js"
     },
     "./use-cases/action-hooks": {
       "import": "./dist/use-cases/action-hooks/index.js",
-      "types": "./dist/use-cases/action-hooks/index.js",
+      "types": "./dist/use-cases/action-hooks/index.d.ts",
       "default": "./dist/use-cases/action-hooks/index.js"
     },
     "./use-cases/create-action": {
       "import": "./dist/use-cases/create-action/index.js",
-      "types": "./dist/use-cases/create-action/index.js",
+      "types": "./dist/use-cases/create-action/index.d.ts",
       "default": "./dist/use-cases/create-action/index.js"
     },
     "./use-cases/delete-action": {
       "import": "./dist/use-cases/delete-action/index.js",
-      "types": "./dist/use-cases/delete-action/index.js",
+      "types": "./dist/use-cases/delete-action/index.d.ts",
       "default": "./dist/use-cases/delete-action/index.js"
     },
     "./use-cases/get-actions": {
       "import": "./dist/use-cases/get-actions/index.js",
-      "types": "./dist/use-cases/get-actions/index.js",
+      "types": "./dist/use-cases/get-actions/index.d.ts",
       "default": "./dist/use-cases/get-actions/index.js"
     },
     "./use-cases/get-state": {
       "import": "./dist/use-cases/get-state/index.js",
-      "types": "./dist/use-cases/get-state/index.js",
+      "types": "./dist/use-cases/get-state/index.d.ts",
       "default": "./dist/use-cases/get-state/index.js"
     },
     "./use-cases/update-action": {
       "import": "./dist/use-cases/update-action/index.js",
-      "types": "./dist/use-cases/update-action/index.js",
+      "types": "./dist/use-cases/update-action/index.d.ts",
       "default": "./dist/use-cases/update-action/index.js"
     },
     "./views": {
       "import": "./dist/views/index.js",
-      "types": "./dist/views/index.js",
+      "types": "./dist/views/index.d.ts",
       "default": "./dist/views/index.js"
     }
   },

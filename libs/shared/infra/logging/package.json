@@ -3,12 +3,12 @@
   "exports": {
     ".": {
       "import": "./dist/index.js",
-      "types": "./dist/index.js",
+      "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
     "./server": {
       "import": "./dist/server/index.js",
-      "types": "./dist/server/index.js",
+      "types": "./dist/server/index.d.ts",
       "default": "./dist/server/index.js"
     }
   },

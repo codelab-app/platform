@@ -3,42 +3,42 @@
   "exports": {
     ".": {
       "import": "./dist/index.js",
-      "types": "./dist/index.js",
+      "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
     "./atoms": {
       "import": "./dist/atoms/index.js",
-      "types": "./dist/atoms/index.js",
+      "types": "./dist/atoms/index.d.ts",
       "default": "./dist/atoms/index.js"
     },
     "./components": {
       "import": "./dist/components/index.js",
-      "types": "./dist/components/index.js",
+      "types": "./dist/components/index.d.ts",
       "default": "./dist/components/index.js"
     },
     "./hooks": {
       "import": "./dist/hooks/index.js",
-      "types": "./dist/hooks/index.js",
+      "types": "./dist/hooks/index.d.ts",
       "default": "./dist/hooks/index.js"
     },
     "./services": {
       "import": "./dist/services/index.js",
-      "types": "./dist/services/index.js",
+      "types": "./dist/services/index.d.ts",
       "default": "./dist/services/index.js"
     },
     "./store": {
       "import": "./dist/store/index.js",
-      "types": "./dist/store/index.js",
+      "types": "./dist/store/index.d.ts",
       "default": "./dist/store/index.js"
     },
     "./test": {
       "import": "./dist/test/index.js",
-      "types": "./dist/test/index.js",
+      "types": "./dist/test/index.d.ts",
       "default": "./dist/test/index.js"
     },
     "./use-cases/root-renderer": {
       "import": "./dist/use-cases/root-renderer/index.js",
-      "types": "./dist/use-cases/root-renderer/index.js",
+      "types": "./dist/use-cases/root-renderer/index.d.ts",
       "default": "./dist/use-cases/root-renderer/index.js"
     }
   },

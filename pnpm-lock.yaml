@@ -4416,6 +4416,10 @@ importers:
         version: link:../../../shared/infra/typebox
 
   libs/frontend/domain/prop:
+    dependencies:
+      mobx-keystone:
+        specifier: '*'
+        version: 1.11.4(mobx@6.13.7)
     devDependencies:
       '@codelab/frontend-abstract-domain':
         specifier: workspace:*
@@ -4458,6 +4462,10 @@ importers:
         version: link:../../../shared/infra/typebox
 
   libs/frontend/domain/resource:
+    dependencies:
+      mobx-keystone:
+        specifier: '*'
+        version: 1.11.4(mobx@6.13.7)
     devDependencies:
       '@codelab/frontend-abstract-domain':
         specifier: workspace:*
@@ -4483,6 +4491,12 @@ importers:
       '@codelab/shared-infra-typebox':
         specifier: workspace:*
         version: link:../../../shared/infra/typebox
+      '@types/react':
+        specifier: '*'
+        version: 19.0.12
+      react:
+        specifier: '*'
+        version: 19.1.0
 
   libs/frontend/domain/shared:
     devDependencies:

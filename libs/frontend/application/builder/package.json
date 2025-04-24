@@ -3,57 +3,57 @@
   "exports": {
     ".": {
       "import": "./dist/index.js",
-      "types": "./dist/index.js",
+      "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
     "./dnd": {
       "import": "./dist/dnd/index.js",
-      "types": "./dist/dnd/index.js",
+      "types": "./dist/dnd/index.d.ts",
       "default": "./dist/dnd/index.js"
     },
     "./hooks": {
       "import": "./dist/hooks/index.js",
-      "types": "./dist/hooks/index.js",
+      "types": "./dist/hooks/index.d.ts",
       "default": "./dist/hooks/index.js"
     },
     "./sections": {
       "import": "./dist/sections/index.js",
-      "types": "./dist/sections/index.js",
+      "types": "./dist/sections/index.d.ts",
       "default": "./dist/sections/index.js"
     },
     "./services": {
       "import": "./dist/services/index.js",
-      "types": "./dist/services/index.js",
+      "types": "./dist/services/index.d.ts",
       "default": "./dist/services/index.js"
     },
     "./use-cases/base-builder": {
       "import": "./dist/use-cases/base-builder/index.js",
-      "types": "./dist/use-cases/base-builder/index.js",
+      "types": "./dist/use-cases/base-builder/index.d.ts",
       "default": "./dist/use-cases/base-builder/index.js"
     },
     "./use-cases/component-builder": {
       "import": "./dist/use-cases/component-builder/index.js",
-      "types": "./dist/use-cases/component-builder/index.js",
+      "types": "./dist/use-cases/component-builder/index.d.ts",
       "default": "./dist/use-cases/component-builder/index.js"
     },
     "./use-cases/page-builder": {
       "import": "./dist/use-cases/page-builder/index.js",
-      "types": "./dist/use-cases/page-builder/index.js",
+      "types": "./dist/use-cases/page-builder/index.d.ts",
       "default": "./dist/use-cases/page-builder/index.js"
     },
     "./use-cases/page-preview": {
       "import": "./dist/use-cases/page-preview/index.js",
-      "types": "./dist/use-cases/page-preview/index.js",
+      "types": "./dist/use-cases/page-preview/index.d.ts",
       "default": "./dist/use-cases/page-preview/index.js"
     },
     "./use-cases/resize": {
       "import": "./dist/use-cases/resize/index.js",
-      "types": "./dist/use-cases/resize/index.js",
+      "types": "./dist/use-cases/resize/index.d.ts",
       "default": "./dist/use-cases/resize/index.js"
     },
     "./utils": {
       "import": "./dist/utils/index.js",
-      "types": "./dist/utils/index.js",
+      "types": "./dist/utils/index.d.ts",
       "default": "./dist/utils/index.js"
     }
   },

@@ -3,37 +3,37 @@
   "exports": {
     ".": {
       "import": "./dist/index.js",
-      "types": "./dist/index.js",
+      "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
     "./services": {
       "import": "./dist/services/index.js",
-      "types": "./dist/services/index.js",
+      "types": "./dist/services/index.d.ts",
       "default": "./dist/services/index.js"
     },
     "./use-cases/create-auth-guard": {
       "import": "./dist/use-cases/create-auth-guard/index.js",
-      "types": "./dist/use-cases/create-auth-guard/index.js",
+      "types": "./dist/use-cases/create-auth-guard/index.d.ts",
       "default": "./dist/use-cases/create-auth-guard/index.js"
     },
     "./use-cases/delete-auth-guard": {
       "import": "./dist/use-cases/delete-auth-guard/index.js",
-      "types": "./dist/use-cases/delete-auth-guard/index.js",
+      "types": "./dist/use-cases/delete-auth-guard/index.d.ts",
       "default": "./dist/use-cases/delete-auth-guard/index.js"
     },
     "./use-cases/get-auth-guard": {
       "import": "./dist/use-cases/get-auth-guard/index.js",
-      "types": "./dist/use-cases/get-auth-guard/index.js",
+      "types": "./dist/use-cases/get-auth-guard/index.d.ts",
       "default": "./dist/use-cases/get-auth-guard/index.js"
     },
     "./use-cases/update-auth-guard": {
       "import": "./dist/use-cases/update-auth-guard/index.js",
-      "types": "./dist/use-cases/update-auth-guard/index.js",
+      "types": "./dist/use-cases/update-auth-guard/index.d.ts",
       "default": "./dist/use-cases/update-auth-guard/index.js"
     },
     "./views": {
       "import": "./dist/views/index.js",
-      "types": "./dist/views/index.js",
+      "types": "./dist/views/index.d.ts",
       "default": "./dist/views/index.js"
     }
   },

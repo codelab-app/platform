@@ -3,37 +3,37 @@
   "exports": {
     ".": {
       "import": "./dist/index.js",
-      "types": "./dist/index.js",
+      "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
     "./use-cases/create-lambda": {
       "import": "./dist/use-cases/create-lambda/index.js",
-      "types": "./dist/use-cases/create-lambda/index.js",
+      "types": "./dist/use-cases/create-lambda/index.d.ts",
       "default": "./dist/use-cases/create-lambda/index.js"
     },
     "./use-cases/delete-lambda": {
       "import": "./dist/use-cases/delete-lambda/index.js",
-      "types": "./dist/use-cases/delete-lambda/index.js",
+      "types": "./dist/use-cases/delete-lambda/index.d.ts",
       "default": "./dist/use-cases/delete-lambda/index.js"
     },
     "./use-cases/execute-lambda": {
       "import": "./dist/use-cases/execute-lambda/index.js",
-      "types": "./dist/use-cases/execute-lambda/index.js",
+      "types": "./dist/use-cases/execute-lambda/index.d.ts",
       "default": "./dist/use-cases/execute-lambda/index.js"
     },
     "./use-cases/get-lambdas": {
       "import": "./dist/use-cases/get-lambdas/index.js",
-      "types": "./dist/use-cases/get-lambdas/index.js",
+      "types": "./dist/use-cases/get-lambdas/index.d.ts",
       "default": "./dist/use-cases/get-lambdas/index.js"
     },
     "./use-cases/update-lambda": {
       "import": "./dist/use-cases/update-lambda/index.js",
-      "types": "./dist/use-cases/update-lambda/index.js",
+      "types": "./dist/use-cases/update-lambda/index.d.ts",
       "default": "./dist/use-cases/update-lambda/index.js"
     },
     "./views": {
       "import": "./dist/views/index.js",
-      "types": "./dist/views/index.js",
+      "types": "./dist/views/index.d.ts",
       "default": "./dist/views/index.js"
     }
   },

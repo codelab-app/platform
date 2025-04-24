@@ -3,27 +3,27 @@
   "exports": {
     ".": {
       "import": "./dist/index.js",
-      "types": "./dist/index.js",
+      "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
     "./repositories": {
       "import": "./dist/repositories/index.js",
-      "types": "./dist/repositories/index.js",
+      "types": "./dist/repositories/index.d.ts",
       "default": "./dist/repositories/index.js"
     },
     "./store": {
       "import": "./dist/store/index.js",
-      "types": "./dist/store/index.js",
+      "types": "./dist/store/index.d.ts",
       "default": "./dist/store/index.js"
     },
     "./test": {
       "import": "./dist/test/index.js",
-      "types": "./dist/test/index.js",
+      "types": "./dist/test/index.d.ts",
       "default": "./dist/test/index.js"
     },
     "./utils": {
       "import": "./dist/utils/index.js",
-      "types": "./dist/utils/index.js",
+      "types": "./dist/utils/index.d.ts",
       "default": "./dist/utils/index.js"
     }
   },
@@ -34,6 +34,9 @@
     "@codelab/shared-infra-gqlgen": "workspace:*",
     "@codelab/shared-infra-typebox": "workspace:*",
     "@codelab/shared-domain-module-prop": "workspace:*"
+  },
+  "peerDependencies": {
+    "mobx-keystone": "*"
   },
   "nx": {
     "name": "frontend-domain-prop",

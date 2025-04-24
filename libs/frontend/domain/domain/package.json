@@ -3,27 +3,27 @@
   "exports": {
     ".": {
       "import": "./dist/index.js",
-      "types": "./dist/index.js",
+      "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
     "./errors": {
       "import": "./dist/errors/index.js",
-      "types": "./dist/errors/index.js",
+      "types": "./dist/errors/index.d.ts",
       "default": "./dist/errors/index.js"
     },
     "./repositories": {
       "import": "./dist/repositories/index.js",
-      "types": "./dist/repositories/index.js",
+      "types": "./dist/repositories/index.d.ts",
       "default": "./dist/repositories/index.js"
     },
     "./services": {
       "import": "./dist/services/index.js",
-      "types": "./dist/services/index.js",
+      "types": "./dist/services/index.d.ts",
       "default": "./dist/services/index.js"
     },
     "./store": {
       "import": "./dist/store/index.js",
-      "types": "./dist/store/index.js",
+      "types": "./dist/store/index.d.ts",
       "default": "./dist/store/index.js"
     }
   },

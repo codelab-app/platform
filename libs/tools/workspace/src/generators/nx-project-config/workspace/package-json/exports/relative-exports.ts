@@ -63,7 +63,7 @@ export const getRelativeExports = (packageName: string) => {
     // Assign the dynamic export structure
     acc[relativePath] = {
       import: targetPath,
-      types: targetPath.replace('.es.js', '.d.ts'),
+      types: targetPath.replace('.js', '.d.ts'),
       // eslint-disable-next-line canonical/sort-keys
       default: targetPath,
     }

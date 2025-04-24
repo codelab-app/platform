@@ -3,22 +3,22 @@
   "exports": {
     ".": {
       "import": "./dist/index.js",
-      "types": "./dist/index.js",
+      "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
     "./loading": {
       "import": "./dist/loading/index.js",
-      "types": "./dist/loading/index.js",
+      "types": "./dist/loading/index.d.ts",
       "default": "./dist/loading/index.js"
     },
     "./pagination": {
       "import": "./dist/pagination/index.js",
-      "types": "./dist/pagination/index.js",
+      "types": "./dist/pagination/index.d.ts",
       "default": "./dist/pagination/index.js"
     },
     "./router": {
       "import": "./dist/router/index.js",
-      "types": "./dist/router/index.js",
+      "types": "./dist/router/index.d.ts",
       "default": "./dist/router/index.js"
     }
   },

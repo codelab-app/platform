@@ -3,62 +3,62 @@
   "exports": {
     ".": {
       "import": "./dist/index.js",
-      "types": "./dist/index.js",
+      "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
     "./services": {
       "import": "./dist/services/index.js",
-      "types": "./dist/services/index.js",
+      "types": "./dist/services/index.d.ts",
       "default": "./dist/services/index.js"
     },
     "./use-cases/component-builder": {
       "import": "./dist/use-cases/component-builder/index.js",
-      "types": "./dist/use-cases/component-builder/index.js",
+      "types": "./dist/use-cases/component-builder/index.d.ts",
       "default": "./dist/use-cases/component-builder/index.js"
     },
     "./use-cases/component-list": {
       "import": "./dist/use-cases/component-list/index.js",
-      "types": "./dist/use-cases/component-list/index.js",
+      "types": "./dist/use-cases/component-list/index.d.ts",
       "default": "./dist/use-cases/component-list/index.js"
     },
     "./use-cases/create-component": {
       "import": "./dist/use-cases/create-component/index.js",
-      "types": "./dist/use-cases/create-component/index.js",
+      "types": "./dist/use-cases/create-component/index.d.ts",
       "default": "./dist/use-cases/create-component/index.js"
     },
     "./use-cases/delete-component": {
       "import": "./dist/use-cases/delete-component/index.js",
-      "types": "./dist/use-cases/delete-component/index.js",
+      "types": "./dist/use-cases/delete-component/index.d.ts",
       "default": "./dist/use-cases/delete-component/index.js"
     },
     "./use-cases/export-component": {
       "import": "./dist/use-cases/export-component/index.js",
-      "types": "./dist/use-cases/export-component/index.js",
+      "types": "./dist/use-cases/export-component/index.d.ts",
       "default": "./dist/use-cases/export-component/index.js"
     },
     "./use-cases/get-component": {
       "import": "./dist/use-cases/get-component/index.js",
-      "types": "./dist/use-cases/get-component/index.js",
+      "types": "./dist/use-cases/get-component/index.d.ts",
       "default": "./dist/use-cases/get-component/index.js"
     },
     "./use-cases/import-component": {
       "import": "./dist/use-cases/import-component/index.js",
-      "types": "./dist/use-cases/import-component/index.js",
+      "types": "./dist/use-cases/import-component/index.d.ts",
       "default": "./dist/use-cases/import-component/index.js"
     },
     "./use-cases/update-component": {
       "import": "./dist/use-cases/update-component/index.js",
-      "types": "./dist/use-cases/update-component/index.js",
+      "types": "./dist/use-cases/update-component/index.d.ts",
       "default": "./dist/use-cases/update-component/index.js"
     },
     "./use-cases/update-component-props": {
       "import": "./dist/use-cases/update-component-props/index.js",
-      "types": "./dist/use-cases/update-component-props/index.js",
+      "types": "./dist/use-cases/update-component-props/index.d.ts",
       "default": "./dist/use-cases/update-component-props/index.js"
     },
     "./views": {
       "import": "./dist/views/index.js",
-      "types": "./dist/views/index.js",
+      "types": "./dist/views/index.d.ts",
       "default": "./dist/views/index.js"
     }
   },

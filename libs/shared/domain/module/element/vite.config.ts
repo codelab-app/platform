@@ -13,6 +13,9 @@ export default defineConfig(() => ({
     dts({
       entryRoot: 'src',
       tsconfigPath: join(__dirname, 'tsconfig.lib.json'),
+      exclude: ['vite.config.ts'],
+      // This will generate a package.json, not configurable https://github.com/nrwl/nx/discussions/23294
+      // nxViteTsPaths(),
       // Vite itself doesn't generate declaration files, required for proper type checking
       insertTypesEntry: true,
       // Very time intensive
@@ -39,7 +42,7 @@ export default defineConfig(() => ({
       },
       name: '@codelab/shared-domain-module-element',
       fileName: (format, entryName) => {
-        return entryName === 'index' ? `index.js` : `${entryName}/index.js`
+        return entryName === 'index' ? 'index.js' : `${entryName}/index.js`
       },
       // Change this to the formats you want to support.
       // Don't forget to update your package.json as well.
