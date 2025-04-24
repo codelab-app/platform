@@ -2,7 +2,12 @@
   "extends": "../../../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "./dist",
-    "types": ["node", "styled-components"],
+    "types": [
+      "node",
+      "styled-components",
+      "@nx/react/typings/cssmodule.d.ts",
+      "@nx/react/typings/image.d.ts"
+    ],
     "jsx": "react-jsx",
     "strict": true,
     "noImplicitReturns": true,
@@ -11,10 +16,6 @@
     "forceConsistentCasingInFileNames": true,
     "useDefineForClassFields": true
   },
-  "files": [
-    "../../../../node_modules/@nx/react/typings/cssmodule.d.ts",
-    "../../../../node_modules/@nx/react/typings/image.d.ts"
-  ],
   "exclude": [
     "**/*.spec.ts",
     "**/*.test.ts",
@@ -22,7 +23,7 @@
     "**/*.test.tsx",
     "jest.config.ts"
   ],
-  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
+  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx", "vite.config.ts"],
   "references": [
     {
       "path": "../../../shared/utils/tsconfig.lib.json"

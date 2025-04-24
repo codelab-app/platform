@@ -3,17 +3,17 @@
   "compilerOptions": {
     "outDir": "./dist",
     "strict": true,
-    "types": ["node"],
+    "types": [
+      "node",
+      "@nx/react/typings/cssmodule.d.ts",
+      "@nx/react/typings/image.d.ts"
+    ],
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "jsx": "react-jsx",
     "allowJs": true,
     "forceConsistentCasingInFileNames": true
   },
-  "files": [
-    "../../../../node_modules/@nx/react/typings/cssmodule.d.ts",
-    "../../../../node_modules/@nx/react/typings/image.d.ts"
-  ],
   "exclude": [
     "**/*.spec.ts",
     "**/*.test.ts",
@@ -25,7 +25,7 @@
     "**/*.stories.tsx",
     "jest.config.ts"
   ],
-  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
+  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx", "vite.config.ts"],
   "references": [
     {
       "path": "../shared/tsconfig.lib.json"

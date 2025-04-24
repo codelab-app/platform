@@ -11,7 +11,7 @@
     "noFallthroughCasesInSwitch": true,
     "noPropertyAccessFromIndexSignature": true
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "vite.config.ts"],
   "references": [
     {
       "path": "../../../shared/infra/logging/tsconfig.lib.json"

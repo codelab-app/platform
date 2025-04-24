@@ -15,9 +15,26 @@ export const updateLibraryTsconfig = (
 
   // Apply the standardization logic directly
   updateJson(tree, tsconfigLibPath, (json: TsConfigJson) => {
+    // Track which typings were found in files
+    const foundTypings: Record<string, boolean> = {
+      [nxTypingCss]: false,
+      [nxTypingImage]: false,
+    }
+
     // 1. Clean up 'files' array
     if (json.files && Array.isArray(json.files)) {
       const originalLength = json.files.length
+
+      // Check for typings before filtering
+      json.files.forEach((fileEntry: string) => {
+        if (fileEntry.endsWith(nxTypingCss)) {
+          foundTypings[nxTypingCss] = true
+        }
+
+        if (fileEntry.endsWith(nxTypingImage)) {
+          foundTypings[nxTypingImage] = true
+        }
+      })
 
       json.files = json.files.filter(
         (fileEntry: string) =>
@@ -50,9 +67,12 @@ export const updateLibraryTsconfig = (
         return json
       }
 
-      // 3. Add target typings if not present
+      // 3. Add target typings if they were found in files
       for (const typing of targetTypings) {
-        if (!json.compilerOptions.types.includes(typing)) {
+        if (
+          foundTypings[typing] &&
+          !json.compilerOptions.types.includes(typing)
+        ) {
           json.compilerOptions.types.push(typing)
         }
       }

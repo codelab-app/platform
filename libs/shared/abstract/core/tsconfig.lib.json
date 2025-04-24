@@ -12,7 +12,7 @@
     "exactOptionalPropertyTypes": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["**/*.ts"],
+  "include": ["**/*.ts", "vite.config.ts"],
   "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.test.ts"],
   "references": [
     {

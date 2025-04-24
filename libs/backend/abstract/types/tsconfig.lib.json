@@ -16,7 +16,7 @@
     "noImplicitReturns": true
   },
   "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.test.ts"],
-  "include": ["**/*.ts"],
+  "include": ["**/*.ts", "vite.config.ts"],
   "references": [
     {
       "path": "../../../shared/infra/gqlgen/tsconfig.lib.json"

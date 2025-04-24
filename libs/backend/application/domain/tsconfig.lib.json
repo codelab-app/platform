@@ -19,7 +19,8 @@
   "include": [
     "src/**/*.ts",
     "../../infra/adapter/dns/src/dns.service.i.spec.ts",
-    "../../infra/adapter/dns/src/dns.service.ts"
+    "../../infra/adapter/dns/src/dns.service.ts",
+    "vite.config.ts"
   ],
   "references": [
     {

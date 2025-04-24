@@ -15,7 +15,7 @@
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "vite.config.ts"],
   "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
   "references": [
     {

@@ -4,7 +4,6 @@
     "outDir": "./dist",
     "declaration": true,
     "types": ["node"],
-
     "forceConsistentCasingInFileNames": true,
     "noImplicitOverride": true,
     "noImplicitReturns": true,
@@ -12,7 +11,7 @@
     "exactOptionalPropertyTypes": true,
     "noPropertyAccessFromIndexSignature": true
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "vite.config.ts"],
   "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
   "references": [
     {

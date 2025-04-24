@@ -2,14 +2,17 @@
   "extends": "../../../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "./dist",
-    "types": ["node", "@nx/react/typings/image.d.ts"],
+    "types": [
+      "node",
+      "@nx/react/typings/image.d.ts",
+      "@nx/react/typings/cssmodule.d.ts"
+    ],
     "jsx": "react-jsx",
     "allowJs": false,
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
     "strict": true
   },
-  "files": ["../../../../node_modules/@nx/react/typings/cssmodule.d.ts"],
   "exclude": [
     "jest.config.ts",
     "src/**/*.spec.ts",
@@ -21,7 +24,13 @@
     "src/**/*.spec.jsx",
     "src/**/*.test.jsx"
   ],
-  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"],
+  "include": [
+    "src/**/*.js",
+    "src/**/*.jsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "vite.config.ts"
+  ],
   "references": [
     {
       "path": "../../../shared/infra/logging/tsconfig.lib.json"

@@ -16,7 +16,7 @@
     "noImplicitReturns": true
   },
   "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
-  "include": ["src/**/*.ts", "src/**/*.js"],
+  "include": ["src/**/*.ts", "src/**/*.js", "vite.config.ts"],
   "references": [
     {
       "path": "../../../../shared/infra/logging/tsconfig.lib.json"

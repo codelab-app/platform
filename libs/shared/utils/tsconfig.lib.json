@@ -9,7 +9,7 @@
     "noFallthroughCasesInSwitch": true
   },
   "exclude": ["**/*.spec.ts", "**/*.test.ts", "jest.config.ts"],
-  "include": ["**/*.ts"],
+  "include": ["**/*.ts", "vite.config.ts"],
   "references": [
     {
       "path": "../infra/gqlgen/tsconfig.lib.json"

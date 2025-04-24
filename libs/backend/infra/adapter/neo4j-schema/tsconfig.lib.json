@@ -18,7 +18,8 @@
   "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.test.ts"],
   "include": [
     "**/*.ts",
-    "../../../domain/element/src/service/element-descendants.service.ts"
+    "../../../domain/element/src/service/element-descendants.service.ts",
+    "vite.config.ts"
   ],
   "references": [
     {

@@ -13,7 +13,7 @@
     "noFallthroughCasesInSwitch": true
   },
   "exclude": ["**/*.spec.ts", "**/*.test.ts"],
-  "include": ["**/*.ts", "**/*.tsx"],
+  "include": ["**/*.ts", "**/*.tsx", "vite.config.ts"],
   "references": [
     {
       "path": "../../../abstract/domain/tsconfig.lib.json"

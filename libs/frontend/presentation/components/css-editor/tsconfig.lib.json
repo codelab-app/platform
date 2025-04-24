@@ -2,17 +2,17 @@
   "extends": "../../../../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "./dist",
-    "types": ["node"],
+    "types": [
+      "node",
+      "@nx/react/typings/cssmodule.d.ts",
+      "@nx/react/typings/image.d.ts"
+    ],
     "jsx": "react-jsx",
     "allowJs": false,
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
     "strict": true
   },
-  "files": [
-    "../../../../../node_modules/@nx/react/typings/cssmodule.d.ts",
-    "../../../../../node_modules/@nx/react/typings/image.d.ts"
-  ],
   "exclude": [
     "jest.config.ts",
     "src/**/*.spec.ts",
@@ -24,7 +24,13 @@
     "src/**/*.spec.jsx",
     "src/**/*.test.jsx"
   ],
-  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"],
+  "include": [
+    "src/**/*.js",
+    "src/**/*.jsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "vite.config.ts"
+  ],
   "references": [
     {
       "path": "../../../infra/mobx/context/tsconfig.lib.json"

@@ -3,12 +3,12 @@
   "compilerOptions": {
     "outDir": "./dist",
     "jsx": "react-jsx",
-    "strict": true
+    "strict": true,
+    "types": [
+      "@nx/react/typings/cssmodule.d.ts",
+      "@nx/react/typings/image.d.ts"
+    ]
   },
-  "files": [
-    "../../../../node_modules/@nx/react/typings/cssmodule.d.ts",
-    "../../../../node_modules/@nx/react/typings/image.d.ts"
-  ],
   "exclude": [
     "jest.config.ts",
     "src/**/*.spec.ts",

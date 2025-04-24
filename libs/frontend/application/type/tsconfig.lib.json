@@ -2,17 +2,18 @@
   "extends": "../../../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "./dist",
-    "types": ["node", "styled-components"],
+    "types": [
+      "node",
+      "styled-components",
+      "@nx/react/typings/cssmodule.d.ts",
+      "@nx/react/typings/image.d.ts"
+    ],
     "jsx": "react-jsx",
     "allowJs": false,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true
   },
-  "files": [
-    "../../../../node_modules/@nx/react/typings/cssmodule.d.ts",
-    "../../../../node_modules/@nx/react/typings/image.d.ts"
-  ],
   "exclude": [
     "jest.config.ts",
     "src/**/*.spec.ts",
@@ -29,7 +30,8 @@
     "src/**/*.jsx",
     "src/**/*.ts",
     "src/**/*.tsx",
-    "../../domain/type/src/repositories/type.api.ts"
+    "../../domain/type/src/repositories/type.api.ts",
+    "vite.config.ts"
   ],
   "references": [
     {

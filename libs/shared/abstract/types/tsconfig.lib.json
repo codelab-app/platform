@@ -10,6 +10,6 @@
     "noFallthroughCasesInSwitch": true
   },
   "exclude": ["**/*.spec.ts"],
-  "include": ["**/*.ts"],
+  "include": ["**/*.ts", "vite.config.ts"],
   "references": []
 }

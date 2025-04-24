@@ -11,7 +11,7 @@ export default defineConfig(() => ({
     react(),
     dts({
       entryRoot: 'src',
-      tsconfigPath: path.join(__dirname, '<%= tsconfigPath %>'),
+      tsconfigPath: join(__dirname, '<%= tsconfigPath %>'),
     }),
   ],
   // Uncomment this if you are using workers.
