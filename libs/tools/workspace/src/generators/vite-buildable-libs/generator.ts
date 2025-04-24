@@ -12,6 +12,7 @@ import type { ViteBuildableLibsGeneratorSchema } from './schema'
 import { processProjects } from '../../utils/process-projects'
 import { setPackageJsonExports } from '../nx-project-config/workspace/package-json/exports/set-exports'
 import { migrateToViteLibs } from './migrate-to-vite-libs'
+import { updateLibraryTsconfig } from './tsconfig/tsconfig.lib'
 
 export const viteBuildableLibsGenerator = async (
   tree: Tree,
@@ -26,6 +27,8 @@ export const viteBuildableLibsGenerator = async (
        */
       if (projectConfig.sourceRoot?.startsWith('libs')) {
         await migrateToViteLibs(tree, projectConfig)
+
+        await updateLibraryTsconfig(tree, projectConfig)
 
         // Updates the path to use `es.js`
         await setPackageJsonExports(tree, projectConfig)

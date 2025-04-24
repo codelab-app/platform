@@ -87,7 +87,6 @@
     "@codelab/frontend-infra-mobx-context": "workspace:*",
     "@codelab/shared-infra-typebox": "workspace:*",
     "@codelab/shared-domain-module-app": "workspace:*",
-    "@codelab/shared-infra-sentry": "workspace:*",
     "@codelab/frontend-shared-utils": "workspace:*",
     "@codelab/frontend-application-atom": "workspace:*",
     "@codelab/frontend-infra-connector": "workspace:*",

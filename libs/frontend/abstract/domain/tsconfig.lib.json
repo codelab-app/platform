@@ -7,7 +7,6 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "jsx": "react-jsx",
-    "allowJs": true,
     "forceConsistentCasingInFileNames": true
   },
   "files": [

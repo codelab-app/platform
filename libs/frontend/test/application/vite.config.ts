@@ -30,9 +30,7 @@ export default defineConfig(() => ({
     //},
     lib: {
       // Could also be a dictionary or array of multiple entry points.
-      entry: {
-        index: 'src/index.ts',
-      },
+      entry: {},
       name: '@codelab/frontend-test-application',
       fileName: (format, entryName) => {
         return entryName === 'index'

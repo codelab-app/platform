@@ -1,4 +1,3 @@
-/// <reference types='vitest' />
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import dts from 'vite-plugin-dts'
@@ -32,6 +31,7 @@ export default defineConfig(() => ({
       // Could also be a dictionary or array of multiple entry points.
       entry: {
         index: 'src/index.ts',
+        '.-server': 'src/.-server/index.ts',
       },
       name: '@codelab/shared-infra-fetch',
       fileName: (format, entryName) => {

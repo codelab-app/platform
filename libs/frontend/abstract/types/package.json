@@ -1,5 +1,9 @@
 {
   "name": "@codelab/frontend-abstract-types",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
   "exports": {
     ".": {
       "import": "./dist/index.es.js",
@@ -22,6 +26,5 @@
       "scope:frontend"
     ],
     "$schema": "../../../../node_modules/nx/schemas/project-schema.json"
-  },
-  "type": "module"
+  }
 }

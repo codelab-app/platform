@@ -32,10 +32,11 @@ export default defineConfig(() => ({
     lib: {
       // Could also be a dictionary or array of multiple entry points.
       entry: {
-        index: 'src/index.ts',
+        cache: 'src/cache/index.ts',
         loading: 'src/loading/index.ts',
         pagination: 'src/pagination/index.ts',
         router: 'src/router/index.ts',
+        ui: 'src/ui/index.ts',
       },
       name: '@codelab/frontend-application-shared-store',
       fileName: (format, entryName) => {

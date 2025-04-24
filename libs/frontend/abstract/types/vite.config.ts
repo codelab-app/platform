@@ -1,9 +1,9 @@
-import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin'
-import react from '@vitejs/plugin-react'
-import { join } from 'path'
 /// <reference types='vitest' />
 import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
 import dts from 'vite-plugin-dts'
+import * as path from 'path'
+import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin'
 
 export default defineConfig(() => ({
   root: __dirname,
@@ -12,7 +12,7 @@ export default defineConfig(() => ({
     react(),
     dts({
       entryRoot: 'src',
-      tsconfigPath: join(__dirname, 'tsconfig.lib.json'),
+      tsconfigPath: path.join(__dirname, 'tsconfig.lib.json'),
     }),
   ],
   // Uncomment this if you are using workers.
@@ -27,7 +27,7 @@ export default defineConfig(() => ({
     reportCompressedSize: true,
     // commonjsOptions: {
     //  transformMixedEsModules: true,
-    // },
+    //},
     lib: {
       // Could also be a dictionary or array of multiple entry points.
       entry: {

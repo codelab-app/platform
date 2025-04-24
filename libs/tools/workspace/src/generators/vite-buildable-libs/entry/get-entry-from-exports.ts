@@ -14,9 +14,13 @@ export const getEntryFromExports = (
   const entry: Record<string, string> = {}
   const indexPath = joinPathFragments(projectRoot, 'src/index.ts')
 
-  // Check if src/index.ts exists before adding it as the default entry
+  // Check if src/index.ts exists and is not empty before adding it as the default entry
   if (tree.exists(indexPath)) {
-    entry['index'] = 'src/index.ts'
+    const indexContent = tree.read(indexPath, 'utf-8')?.trim()
+
+    if (indexContent && indexContent !== '') {
+      entry['index'] = 'src/index.ts'
+    }
   }
 
   // If no exports field exists, or it's not an object, return just the default entry
@@ -46,6 +50,12 @@ export const getEntryFromExports = (
     if (Object.prototype.hasOwnProperty.call(exportsConditions, exportPath)) {
       // Skip the root/default export as we've already handled it
       if (exportPath === './' || exportPath === '.') {
+        continue
+      }
+
+      // Skip export paths that don't represent subpaths (those with hyphen but not path separator)
+      // Examples: ".-server", ".-utils", etc. which refer to separate libraries
+      if (exportPath.includes('-') && !exportPath.includes('/')) {
         continue
       }
 

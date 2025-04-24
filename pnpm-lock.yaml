@@ -2180,8 +2180,6 @@ importers:
         specifier: workspace:*
         version: link:../../../shared/infra/gqlgen
 
-  libs/backend/domain/admin: {}
-
   libs/backend/domain/app:
     devDependencies:
       '@codelab/backend-domain-page':
@@ -2488,8 +2486,6 @@ importers:
         specifier: workspace:*
         version: link:../../../infra/adapter/neo4j-driver
 
-  libs/backend/domain/shared/seeder: {}
-
   libs/backend/domain/store:
     devDependencies:
       '@codelab/backend-domain-shared-modules':
@@ -2779,8 +2775,6 @@ importers:
 
   libs/backend/infra/adapter/request-context: {}
 
-  libs/backend/infra/adapter/rest-client: {}
-
   libs/backend/infra/adapter/shell: {}
 
   libs/backend/infra/adapter/ws:
@@ -2993,6 +2987,10 @@ importers:
         version: link:../../../shared/infra/gqlgen
 
   libs/frontend/abstract/domain:
+    dependencies:
+      mobx-keystone:
+        specifier: '*'
+        version: 1.11.4(mobx@6.13.7)
     devDependencies:
       '@codelab/frontend-abstract-types':
         specifier: workspace:*
@@ -3141,9 +3139,6 @@ importers:
       '@codelab/shared-infra-gqlgen':
         specifier: workspace:*
         version: link:../../../shared/infra/gqlgen
-      '@codelab/shared-infra-sentry':
-        specifier: workspace:*
-        version: link:../../../shared/infra/sentry
       '@codelab/shared-infra-typebox':
         specifier: workspace:*
         version: link:../../../shared/infra/typebox
@@ -5604,8 +5599,6 @@ importers:
         specifier: workspace:*
         version: link:../../utils
 
-  libs/shared/infra/sentry: {}
-
   libs/shared/infra/typebox:
     devDependencies:
       '@codelab/shared-abstract-infra':
@@ -5614,8 +5607,6 @@ importers:
       '@codelab/shared-abstract-types':
         specifier: workspace:*
         version: link:../../abstract/types
-
-  libs/shared/infra/validation: {}
 
   libs/shared/utils:
     devDependencies:
@@ -23188,6 +23179,7 @@ snapshots:
     dependencies:
       '@nx/devkit': 20.8.0(nx@20.8.0(@swc-node/register@1.10.9(@swc/core@1.10.11(@swc/helpers@0.5.15))(@swc/types@0.1.21)(typescript@5.5.4))(@swc/core@1.10.11(@swc/helpers@0.5.15)))
       nx: 20.8.0(@swc-node/register@1.10.9(@swc/core@1.10.11(@swc/helpers@0.5.15))(@swc/types@0.1.21)(typescript@5.5.4))(@swc/core@1.10.11(@swc/helpers@0.5.15))
+      ts-morph: 19.0.0
     transitivePeerDependencies:
       - '@swc-node/register'
       - '@swc/core'

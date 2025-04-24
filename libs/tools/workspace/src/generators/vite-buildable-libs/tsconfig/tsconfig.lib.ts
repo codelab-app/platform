@@ -58,6 +58,15 @@ export const updateLibraryTsconfig = (
       }
     }
 
+    // 4. Ensure vite.config.ts is included
+    if (!json.include) {
+      json.include = ['vite.config.ts']
+    } else if (!Array.isArray(json.include)) {
+      json.include = ['vite.config.ts']
+    } else if (!json.include.includes('vite.config.ts')) {
+      json.include.push('vite.config.ts')
+    }
+
     return json
   })
 }

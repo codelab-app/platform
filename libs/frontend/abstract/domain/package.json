@@ -14,6 +14,9 @@
     "@codelab/shared-infra-gqlgen": "workspace:*",
     "@codelab/shared-infra-typebox": "workspace:*"
   },
+  "peerDependencies": {
+    "mobx-keystone": "*"
+  },
   "nx": {
     "name": "frontend-abstract-domain",
     "projectType": "library",

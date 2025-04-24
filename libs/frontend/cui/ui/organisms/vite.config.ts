@@ -30,9 +30,7 @@ export default defineConfig(() => ({
     //},
     lib: {
       // Could also be a dictionary or array of multiple entry points.
-      entry: {
-        index: 'src/index.ts',
-      },
+      entry: {},
       name: '@cui/ui-organisms',
       fileName: (format, entryName) => {
         return entryName === 'index'
