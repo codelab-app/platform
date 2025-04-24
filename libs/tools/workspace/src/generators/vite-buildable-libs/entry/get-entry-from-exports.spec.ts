@@ -1,8 +1,13 @@
 /* eslint-disable canonical/sort-keys */
-import { getEntryFromExports } from './get-entry-from-exports'
+import { createTree } from '@nx/devkit/testing'
+
+import {
+  getEntryFromExports,
+  getEntryFromProject,
+} from './get-entry-from-exports'
 
 describe('getEntryFromExports', () => {
-  it('should return default entry when no exports field exists', () => {
+  it('should return empty object when no exports field exists', () => {
     const packageJson = {
       name: 'test-lib',
       version: '1.0.0',
@@ -10,21 +15,17 @@ describe('getEntryFromExports', () => {
 
     const result = getEntryFromExports(packageJson)
 
-    expect(result).toEqual({
-      index: 'src/index.ts',
-    })
+    expect(result).toEqual({})
   })
 
-  it('should return default entry when exports field is empty', () => {
+  it('should return empty object when exports field is empty', () => {
     const packageJson = {
       exports: {},
     }
 
     const result = getEntryFromExports(packageJson)
 
-    expect(result).toEqual({
-      index: 'src/index.ts',
-    })
+    expect(result).toEqual({})
   })
 
   it('should convert subpath exports to entry points', () => {
@@ -52,7 +53,6 @@ describe('getEntryFromExports', () => {
 
     expect(result).toEqual({
       'collision-detection': 'src/collision-detection/index.ts',
-      index: 'src/index.ts',
       components: 'src/components/index.ts',
       hooks: 'src/hooks/index.ts',
     })
@@ -75,7 +75,6 @@ describe('getEntryFromExports', () => {
     const result = getEntryFromExports(packageJson)
 
     expect(result).toEqual({
-      index: 'src/index.ts',
       utils: 'src/utils/index.ts',
     })
   })
@@ -97,7 +96,6 @@ describe('getEntryFromExports', () => {
     const result = getEntryFromExports(packageJson)
 
     expect(result).toEqual({
-      index: 'src/index.ts',
       utils: 'src/utils/index.ts',
     })
   })
@@ -115,7 +113,6 @@ describe('getEntryFromExports', () => {
     const result = getEntryFromExports(packageJson)
 
     expect(result).toEqual({
-      index: 'src/index.ts',
       utils: 'src/utils/index.ts',
     })
   })
@@ -136,7 +133,49 @@ describe('getEntryFromExports', () => {
 
     expect(result).toEqual({
       components: 'src/components/index.ts',
+    })
+  })
+})
+
+describe('getEntryFromProject', () => {
+  it('should add index entry when src/index.ts exists and is not empty', () => {
+    const tree = createTree()
+    const projectRoot = 'libs/test-lib'
+
+    tree.write(`${projectRoot}/src/index.ts`, 'export const test = 1;')
+
+    const packageJson = {
+      name: 'test-lib',
+      version: '1.0.0',
+    }
+
+    const result = getEntryFromProject(tree, projectRoot, packageJson)
+
+    expect(result).toEqual({
       index: 'src/index.ts',
+    })
+  })
+
+  it('should merge index entry with exports from packageJson', () => {
+    const tree = createTree()
+    const projectRoot = 'libs/test-lib'
+
+    tree.write(`${projectRoot}/src/index.ts`, 'export const test = 1;')
+
+    const packageJson = {
+      exports: {
+        './utils': {
+          import: './dist/utils/index.js',
+          types: './dist/utils/index.d.ts',
+        },
+      },
+    }
+
+    const result = getEntryFromProject(tree, projectRoot, packageJson)
+
+    expect(result).toEqual({
+      index: 'src/index.ts',
+      utils: 'src/utils/index.ts',
     })
   })
 })

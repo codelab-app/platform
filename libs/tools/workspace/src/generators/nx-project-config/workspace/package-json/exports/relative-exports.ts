@@ -30,8 +30,22 @@ export const getRelativeExports = (packageName: string) => {
    */
 
   return exports.reduce<ExportMap>((acc, name) => {
-    // Calculate the relative path, ensuring it starts with './'
-    const relativePathRaw = name.replace(packageName, '')
+    /**
+     * Create a regex to match the package name exactly, or followed by a slash
+     *
+     * We can match from @codelab/shared-infra-fetch/server but not @codelab/shared-infra-fetch-server
+     */
+    const packageRegex = new RegExp(`^${packageName}(?:\\/|$)`)
+
+    // Skip if not an exact match or doesn't have a slash after the package name
+    if (!packageRegex.test(name)) {
+      return acc
+    }
+
+    // Extract the path after the package name (will be empty for exact matches)
+    const relativePathRaw =
+      name === packageName ? '' : name.substring(packageName.length)
+
     // Handle the case where the path is empty (root export)
     const relativePath = relativePathRaw === '' ? '.' : `.${relativePathRaw}`
 

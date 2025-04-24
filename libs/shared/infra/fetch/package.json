@@ -5,11 +5,6 @@
       "import": "./dist/index.es.js",
       "types": "./dist/index.d.ts",
       "default": "./dist/index.es.js"
-    },
-    ".-server": {
-      "import": "./dist-server/index.es.js",
-      "types": "./dist-server/index.d.ts",
-      "default": "./dist-server/index.es.js"
     }
   },
   "devDependencies": {

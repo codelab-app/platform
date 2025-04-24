@@ -4,26 +4,14 @@ import type { PackageJson } from 'type-fest'
 import { joinPathFragments } from '@nx/devkit'
 
 /**
- * Converts package.json exports field into Vite entry points configuration
+ * Processes package.json exports field to generate Vite entry points
  */
 export const getEntryFromExports = (
-  tree: Tree,
-  projectRoot: string,
   packageJson: PackageJson,
 ): Record<string, string> => {
   const entry: Record<string, string> = {}
-  const indexPath = joinPathFragments(projectRoot, 'src/index.ts')
 
-  // Check if src/index.ts exists and is not empty before adding it as the default entry
-  if (tree.exists(indexPath)) {
-    const indexContent = tree.read(indexPath, 'utf-8')?.trim()
-
-    if (indexContent && indexContent !== '') {
-      entry['index'] = 'src/index.ts'
-    }
-  }
-
-  // If no exports field exists, or it's not an object, return just the default entry
+  // If no exports field exists, or it's not an object, return empty object
   if (
     !packageJson.exports ||
     typeof packageJson.exports !== 'object' ||
@@ -35,20 +23,10 @@ export const getEntryFromExports = (
   // We've confirmed exports is an object, so cast it
   const exportsConditions = packageJson.exports
 
-  // Handle root export if it exists (typically "./")
-  if (exportsConditions['./'] && typeof exportsConditions['./'] === 'object') {
-    // Root export already covered by index entry, no need to add it again
-  } else if (
-    exportsConditions['.'] &&
-    typeof exportsConditions['.'] === 'object'
-  ) {
-    // Alternative root export format, also covered by index
-  }
-
   // Process subpath exports
   for (const exportPath in exportsConditions) {
     if (Object.prototype.hasOwnProperty.call(exportsConditions, exportPath)) {
-      // Skip the root/default export as we've already handled it
+      // Skip the root/default export
       if (exportPath === './' || exportPath === '.') {
         continue
       }
@@ -80,4 +58,31 @@ export const getEntryFromExports = (
   }
 
   return entry
+}
+
+/**
+ * Converts package.json exports field into Vite entry points configuration
+ */
+export const getEntryFromProject = (
+  tree: Tree,
+  projectRoot: string,
+  packageJson: PackageJson,
+): Record<string, string> => {
+  const entry: Record<string, string> = {}
+  const indexPath = joinPathFragments(projectRoot, 'src/index.ts')
+
+  // Check if src/index.ts exists and is not empty before adding it as the default entry
+  if (tree.exists(indexPath)) {
+    const indexContent = tree.read(indexPath, 'utf-8')?.trim()
+
+    if (indexContent && indexContent !== '') {
+      entry['index'] = 'src/index.ts'
+    }
+  }
+
+  // Get entries from exports field
+  const entriesFromExports = getEntryFromExports(packageJson)
+
+  // Merge entries
+  return { ...entry, ...entriesFromExports }
 }
