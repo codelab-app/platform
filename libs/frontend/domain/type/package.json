@@ -2,29 +2,29 @@
   "name": "@codelab/frontend-domain-type",
   "exports": {
     ".": {
-      "import": "./dist/index.es.js",
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.es.js"
+      "import": "./dist/index.js",
+      "types": "./dist/index.js",
+      "default": "./dist/index.js"
     },
     "./repositories": {
-      "import": "./dist/repositories/index.es.js",
-      "types": "./dist/repositories/index.d.ts",
-      "default": "./dist/repositories/index.es.js"
+      "import": "./dist/repositories/index.js",
+      "types": "./dist/repositories/index.js",
+      "default": "./dist/repositories/index.js"
     },
     "./services": {
-      "import": "./dist/services/index.es.js",
-      "types": "./dist/services/index.d.ts",
-      "default": "./dist/services/index.es.js"
+      "import": "./dist/services/index.js",
+      "types": "./dist/services/index.js",
+      "default": "./dist/services/index.js"
     },
     "./store": {
-      "import": "./dist/store/index.es.js",
-      "types": "./dist/store/index.d.ts",
-      "default": "./dist/store/index.es.js"
+      "import": "./dist/store/index.js",
+      "types": "./dist/store/index.js",
+      "default": "./dist/store/index.js"
     },
     "./test": {
-      "import": "./dist/test/index.es.js",
-      "types": "./dist/test/index.d.ts",
-      "default": "./dist/test/index.es.js"
+      "import": "./dist/test/index.js",
+      "types": "./dist/test/index.js",
+      "default": "./dist/test/index.js"
     }
   },
   "devDependencies": {

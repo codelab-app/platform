@@ -57,8 +57,8 @@ export const getRelativeExports = (packageName: string) => {
 
     const targetPath =
       relativePathRaw === ''
-        ? './dist/index.es.js'
-        : `./dist${relativePathRaw}/index.es.js`
+        ? './dist/index.js'
+        : `./dist${relativePathRaw}/index.js`
 
     // Assign the dynamic export structure
     acc[relativePath] = {

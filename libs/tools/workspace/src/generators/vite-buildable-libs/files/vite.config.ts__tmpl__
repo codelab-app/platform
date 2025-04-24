@@ -12,6 +12,10 @@ export default defineConfig(() => ({
     dts({
       entryRoot: 'src',
       tsconfigPath: join(__dirname, '<%= tsconfigPath %>'),
+      // Vite itself doesn't generate declaration files, required for proper type checking
+      insertTypesEntry: true,
+      // Very time intensive
+      // rollupTypes: true,
     }),
   ],
   // Uncomment this if you are using workers.
@@ -33,8 +37,8 @@ export default defineConfig(() => ({
       name: '<%= libName %>',
       fileName: (format, entryName) => {
         return entryName === 'index'
-          ? `index.${format}.js`
-          : `${entryName}/index.${format}.js`;
+          ? `index.js`
+          : `${entryName}/index.js`;
       },
       // Change this to the formats you want to support.
       // Don't forget to update your package.json as well.

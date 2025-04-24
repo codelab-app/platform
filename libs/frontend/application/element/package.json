@@ -2,54 +2,54 @@
   "name": "@codelab/frontend-application-element",
   "exports": {
     ".": {
-      "import": "./dist/index.es.js",
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.es.js"
+      "import": "./dist/index.js",
+      "types": "./dist/index.js",
+      "default": "./dist/index.js"
     },
     "./services": {
-      "import": "./dist/services/index.es.js",
-      "types": "./dist/services/index.d.ts",
-      "default": "./dist/services/index.es.js"
+      "import": "./dist/services/index.js",
+      "types": "./dist/services/index.js",
+      "default": "./dist/services/index.js"
     },
     "./use-cases/create-element": {
-      "import": "./dist/use-cases/create-element/index.es.js",
-      "types": "./dist/use-cases/create-element/index.d.ts",
-      "default": "./dist/use-cases/create-element/index.es.js"
+      "import": "./dist/use-cases/create-element/index.js",
+      "types": "./dist/use-cases/create-element/index.js",
+      "default": "./dist/use-cases/create-element/index.js"
     },
     "./use-cases/delete-element": {
-      "import": "./dist/use-cases/delete-element/index.es.js",
-      "types": "./dist/use-cases/delete-element/index.d.ts",
-      "default": "./dist/use-cases/delete-element/index.es.js"
+      "import": "./dist/use-cases/delete-element/index.js",
+      "types": "./dist/use-cases/delete-element/index.js",
+      "default": "./dist/use-cases/delete-element/index.js"
     },
     "./use-cases/hook-description": {
-      "import": "./dist/use-cases/hook-description/index.es.js",
-      "types": "./dist/use-cases/hook-description/index.d.ts",
-      "default": "./dist/use-cases/hook-description/index.es.js"
+      "import": "./dist/use-cases/hook-description/index.js",
+      "types": "./dist/use-cases/hook-description/index.js",
+      "default": "./dist/use-cases/hook-description/index.js"
     },
     "./use-cases/move-element": {
-      "import": "./dist/use-cases/move-element/index.es.js",
-      "types": "./dist/use-cases/move-element/index.d.ts",
-      "default": "./dist/use-cases/move-element/index.es.js"
+      "import": "./dist/use-cases/move-element/index.js",
+      "types": "./dist/use-cases/move-element/index.js",
+      "default": "./dist/use-cases/move-element/index.js"
     },
     "./use-cases/update-element": {
-      "import": "./dist/use-cases/update-element/index.es.js",
-      "types": "./dist/use-cases/update-element/index.d.ts",
-      "default": "./dist/use-cases/update-element/index.es.js"
+      "import": "./dist/use-cases/update-element/index.js",
+      "types": "./dist/use-cases/update-element/index.js",
+      "default": "./dist/use-cases/update-element/index.js"
     },
     "./use-cases/update-element-props": {
-      "import": "./dist/use-cases/update-element-props/index.es.js",
-      "types": "./dist/use-cases/update-element-props/index.d.ts",
-      "default": "./dist/use-cases/update-element-props/index.es.js"
+      "import": "./dist/use-cases/update-element-props/index.js",
+      "types": "./dist/use-cases/update-element-props/index.js",
+      "default": "./dist/use-cases/update-element-props/index.js"
     },
     "./validation": {
-      "import": "./dist/validation/index.es.js",
-      "types": "./dist/validation/index.d.ts",
-      "default": "./dist/validation/index.es.js"
+      "import": "./dist/validation/index.js",
+      "types": "./dist/validation/index.js",
+      "default": "./dist/validation/index.js"
     },
     "./views": {
-      "import": "./dist/views/index.es.js",
-      "types": "./dist/views/index.d.ts",
-      "default": "./dist/views/index.es.js"
+      "import": "./dist/views/index.js",
+      "types": "./dist/views/index.js",
+      "default": "./dist/views/index.js"
     }
   },
   "devDependencies": {

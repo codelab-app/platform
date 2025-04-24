@@ -2,34 +2,34 @@
   "name": "@codelab/frontend-application-admin",
   "exports": {
     ".": {
-      "import": "./dist/index.es.js",
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.es.js"
+      "import": "./dist/index.js",
+      "types": "./dist/index.js",
+      "default": "./dist/index.js"
     },
     "./use-cases/admin-props-panel": {
-      "import": "./dist/use-cases/admin-props-panel/index.es.js",
-      "types": "./dist/use-cases/admin-props-panel/index.d.ts",
-      "default": "./dist/use-cases/admin-props-panel/index.es.js"
+      "import": "./dist/use-cases/admin-props-panel/index.js",
+      "types": "./dist/use-cases/admin-props-panel/index.js",
+      "default": "./dist/use-cases/admin-props-panel/index.js"
     },
     "./use-cases/export-data": {
-      "import": "./dist/use-cases/export-data/index.es.js",
-      "types": "./dist/use-cases/export-data/index.d.ts",
-      "default": "./dist/use-cases/export-data/index.es.js"
+      "import": "./dist/use-cases/export-data/index.js",
+      "types": "./dist/use-cases/export-data/index.js",
+      "default": "./dist/use-cases/export-data/index.js"
     },
     "./use-cases/import-data": {
-      "import": "./dist/use-cases/import-data/index.es.js",
-      "types": "./dist/use-cases/import-data/index.d.ts",
-      "default": "./dist/use-cases/import-data/index.es.js"
+      "import": "./dist/use-cases/import-data/index.js",
+      "types": "./dist/use-cases/import-data/index.js",
+      "default": "./dist/use-cases/import-data/index.js"
     },
     "./use-cases/reset-data": {
-      "import": "./dist/use-cases/reset-data/index.es.js",
-      "types": "./dist/use-cases/reset-data/index.d.ts",
-      "default": "./dist/use-cases/reset-data/index.es.js"
+      "import": "./dist/use-cases/reset-data/index.js",
+      "types": "./dist/use-cases/reset-data/index.js",
+      "default": "./dist/use-cases/reset-data/index.js"
     },
     "./views": {
-      "import": "./dist/views/index.es.js",
-      "types": "./dist/views/index.d.ts",
-      "default": "./dist/views/index.es.js"
+      "import": "./dist/views/index.js",
+      "types": "./dist/views/index.js",
+      "default": "./dist/views/index.js"
     }
   },
   "devDependencies": {

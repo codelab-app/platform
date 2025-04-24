@@ -2,14 +2,14 @@
   "name": "@codelab/frontend-application-prop",
   "exports": {
     ".": {
-      "import": "./dist/index.es.js",
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.es.js"
+      "import": "./dist/index.js",
+      "types": "./dist/index.js",
+      "default": "./dist/index.js"
     },
     "./services": {
-      "import": "./dist/services/index.es.js",
-      "types": "./dist/services/index.d.ts",
-      "default": "./dist/services/index.es.js"
+      "import": "./dist/services/index.js",
+      "types": "./dist/services/index.js",
+      "default": "./dist/services/index.js"
     }
   },
   "devDependencies": {

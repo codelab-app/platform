@@ -12,6 +12,10 @@ export default defineConfig(() => ({
     dts({
       entryRoot: 'src',
       tsconfigPath: join(__dirname, 'tsconfig.lib.json'),
+      // Vite itself doesn't generate declaration files, required for proper type checking
+      insertTypesEntry: true,
+      // Very time intensive
+      // rollupTypes: true,
     }),
   ],
   // Uncomment this if you are using workers.
@@ -26,7 +30,7 @@ export default defineConfig(() => ({
     reportCompressedSize: true,
     // commonjsOptions: {
     //  transformMixedEsModules: true,
-    //},
+    // },
     lib: {
       // Could also be a dictionary or array of multiple entry points.
       entry: {
@@ -34,9 +38,7 @@ export default defineConfig(() => ({
       },
       name: '@codelab/backend-test-utils',
       fileName: (format, entryName) => {
-        return entryName === 'index'
-          ? `index.${format}.js`
-          : `${entryName}/index.${format}.js`
+        return entryName === 'index' ? `index.js` : `${entryName}/index.js`
       },
       // Change this to the formats you want to support.
       // Don't forget to update your package.json as well.

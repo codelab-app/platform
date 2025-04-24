@@ -76,9 +76,6 @@
       "path": "./libs/backend/domain/action"
     },
     {
-      "path": "./libs/backend/domain/admin"
-    },
-    {
       "path": "./libs/backend/domain/app"
     },
     {
@@ -116,9 +113,6 @@
     },
     {
       "path": "./libs/backend/domain/shared/modules"
-    },
-    {
-      "path": "./libs/backend/domain/shared/seeder"
     },
     {
       "path": "./libs/backend/domain/store"
@@ -164,9 +158,6 @@
     },
     {
       "path": "./libs/backend/infra/adapter/request-context"
-    },
-    {
-      "path": "./libs/backend/infra/adapter/rest-client"
     },
     {
       "path": "./libs/backend/infra/adapter/shell"
@@ -478,13 +469,7 @@
       "path": "./libs/shared/infra/logging"
     },
     {
-      "path": "./libs/shared/infra/sentry"
-    },
-    {
       "path": "./libs/shared/infra/typebox"
-    },
-    {
-      "path": "./libs/shared/infra/validation"
     },
     {
       "path": "./libs/shared/utils"

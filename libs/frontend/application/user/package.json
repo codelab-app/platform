@@ -2,29 +2,29 @@
   "name": "@codelab/frontend-application-user",
   "exports": {
     ".": {
-      "import": "./dist/index.es.js",
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.es.js"
+      "import": "./dist/index.js",
+      "types": "./dist/index.js",
+      "default": "./dist/index.js"
     },
     "./components": {
-      "import": "./dist/components/index.es.js",
-      "types": "./dist/components/index.d.ts",
-      "default": "./dist/components/index.es.js"
+      "import": "./dist/components/index.js",
+      "types": "./dist/components/index.js",
+      "default": "./dist/components/index.js"
     },
     "./services": {
-      "import": "./dist/services/index.es.js",
-      "types": "./dist/services/index.d.ts",
-      "default": "./dist/services/index.es.js"
+      "import": "./dist/services/index.js",
+      "types": "./dist/services/index.js",
+      "default": "./dist/services/index.js"
     },
     "./use-cases/server-user": {
-      "import": "./dist/use-cases/server-user/index.es.js",
-      "types": "./dist/use-cases/server-user/index.d.ts",
-      "default": "./dist/use-cases/server-user/index.es.js"
+      "import": "./dist/use-cases/server-user/index.js",
+      "types": "./dist/use-cases/server-user/index.js",
+      "default": "./dist/use-cases/server-user/index.js"
     },
     "./use-cases/user-list": {
-      "import": "./dist/use-cases/user-list/index.es.js",
-      "types": "./dist/use-cases/user-list/index.d.ts",
-      "default": "./dist/use-cases/user-list/index.es.js"
+      "import": "./dist/use-cases/user-list/index.js",
+      "types": "./dist/use-cases/user-list/index.js",
+      "default": "./dist/use-cases/user-list/index.js"
     }
   },
   "devDependencies": {

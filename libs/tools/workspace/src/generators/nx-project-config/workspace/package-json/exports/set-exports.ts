@@ -96,10 +96,10 @@ export const setPackageJsonExports = (
 
   const exports = {
     '.': {
-      import: './src/index.es.js',
+      import: './src/index.js',
       types: './src/index.d.ts',
       // eslint-disable-next-line canonical/sort-keys
-      default: './src/index.es.js',
+      default: './src/index.js',
     },
   }
 

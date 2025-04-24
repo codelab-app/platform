@@ -2,24 +2,24 @@
   "name": "@codelab/frontend-application-dnd",
   "exports": {
     ".": {
-      "import": "./dist/index.es.js",
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.es.js"
+      "import": "./dist/index.js",
+      "types": "./dist/index.js",
+      "default": "./dist/index.js"
     },
     "./collision-detection": {
-      "import": "./dist/collision-detection/index.es.js",
-      "types": "./dist/collision-detection/index.d.ts",
-      "default": "./dist/collision-detection/index.es.js"
+      "import": "./dist/collision-detection/index.js",
+      "types": "./dist/collision-detection/index.js",
+      "default": "./dist/collision-detection/index.js"
     },
     "./components": {
-      "import": "./dist/components/index.es.js",
-      "types": "./dist/components/index.d.ts",
-      "default": "./dist/components/index.es.js"
+      "import": "./dist/components/index.js",
+      "types": "./dist/components/index.js",
+      "default": "./dist/components/index.js"
     },
     "./hooks": {
-      "import": "./dist/hooks/index.es.js",
-      "types": "./dist/hooks/index.d.ts",
-      "default": "./dist/hooks/index.es.js"
+      "import": "./dist/hooks/index.js",
+      "types": "./dist/hooks/index.js",
+      "default": "./dist/hooks/index.js"
     }
   },
   "devDependencies": {

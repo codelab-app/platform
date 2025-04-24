@@ -45,9 +45,6 @@
       "path": "../../shared/utils"
     },
     {
-      "path": "../../../shared/infra/sentry"
-    },
-    {
       "path": "../../../shared/domain/module/app"
     },
     {

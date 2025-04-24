@@ -2,10 +2,11 @@
   "compileOnSave": false,
   "compilerOptions": {
     "rootDir": ".",
-    "sourceMap": true,
     "composite": true,
     "incremental": true,
+    "sourceMap": true,
     "declaration": true,
+    // "declarationMap": true,
     "moduleResolution": "bundler",
     "module": "esnext",
     "strict": true,

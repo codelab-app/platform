@@ -2,9 +2,9 @@
   "name": "@codelab/frontend-test-data",
   "exports": {
     ".": {
-      "import": "./dist/index.es.js",
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.es.js"
+      "import": "./dist/index.js",
+      "types": "./dist/index.js",
+      "default": "./dist/index.js"
     }
   },
   "devDependencies": {

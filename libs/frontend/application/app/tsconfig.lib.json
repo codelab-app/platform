@@ -75,9 +75,6 @@
       "path": "../../shared/utils/tsconfig.lib.json"
     },
     {
-      "path": "../../../shared/infra/sentry/tsconfig.lib.json"
-    },
-    {
       "path": "../../../shared/domain/module/app/tsconfig.lib.json"
     },
     {
