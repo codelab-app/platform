@@ -899,11 +899,6 @@
     "path": "libs/frontend/application/shared/data/src/index.ts",
     "name": "frontend-application-shared-data"
   },
-  "@codelab/frontend-application-shared-store/cache": {
-    "expected": "@codelab/frontend-application-shared-store/cache",
-    "path": "libs/frontend/application/shared/store/src/cache/index.ts",
-    "name": null
-  },
   "@codelab/frontend-application-shared-store/loading": {
     "expected": "@codelab/frontend-application-shared-store/loading",
     "path": "libs/frontend/application/shared/store/src/loading/index.ts",
@@ -917,11 +912,6 @@
   "@codelab/frontend-application-shared-store/router": {
     "expected": "@codelab/frontend-application-shared-store/router",
     "path": "libs/frontend/application/shared/store/src/router/index.ts",
-    "name": null
-  },
-  "@codelab/frontend-application-shared-store/ui": {
-    "expected": "@codelab/frontend-application-shared-store/ui",
-    "path": "libs/frontend/application/shared/store/src/ui/index.ts",
     "name": null
   },
   "@codelab/frontend-application-store/services": {

@@ -2,7 +2,6 @@
   "compileOnSave": false,
   "compilerOptions": {
     "rootDir": ".",
-    "rootDirs": ["*", "libs"],
     "sourceMap": true,
     "composite": true,
     "incremental": true,

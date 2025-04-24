@@ -6,11 +6,6 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.es.js"
     },
-    "./cache": {
-      "import": "./dist/cache/index.es.js",
-      "types": "./dist/cache/index.d.ts",
-      "default": "./dist/cache/index.es.js"
-    },
     "./loading": {
       "import": "./dist/loading/index.es.js",
       "types": "./dist/loading/index.d.ts",
@@ -25,11 +20,6 @@
       "import": "./dist/router/index.es.js",
       "types": "./dist/router/index.d.ts",
       "default": "./dist/router/index.es.js"
-    },
-    "./ui": {
-      "import": "./dist/ui/index.es.js",
-      "types": "./dist/ui/index.d.ts",
-      "default": "./dist/ui/index.es.js"
     }
   },
   "devDependencies": {
