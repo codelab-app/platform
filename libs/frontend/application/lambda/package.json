@@ -2,36 +2,43 @@
   "name": "@codelab/frontend-application-lambda",
   "exports": {
     ".": {
+      "development": "./dist/index.ts",
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
     "./use-cases/create-lambda": {
+      "development": "./dist/use-cases/create-lambda/index.ts",
       "import": "./dist/use-cases/create-lambda/index.js",
       "types": "./dist/use-cases/create-lambda/index.d.ts",
       "default": "./dist/use-cases/create-lambda/index.js"
     },
     "./use-cases/delete-lambda": {
+      "development": "./dist/use-cases/delete-lambda/index.ts",
       "import": "./dist/use-cases/delete-lambda/index.js",
       "types": "./dist/use-cases/delete-lambda/index.d.ts",
       "default": "./dist/use-cases/delete-lambda/index.js"
     },
     "./use-cases/execute-lambda": {
+      "development": "./dist/use-cases/execute-lambda/index.ts",
       "import": "./dist/use-cases/execute-lambda/index.js",
       "types": "./dist/use-cases/execute-lambda/index.d.ts",
       "default": "./dist/use-cases/execute-lambda/index.js"
     },
     "./use-cases/get-lambdas": {
+      "development": "./dist/use-cases/get-lambdas/index.ts",
       "import": "./dist/use-cases/get-lambdas/index.js",
       "types": "./dist/use-cases/get-lambdas/index.d.ts",
       "default": "./dist/use-cases/get-lambdas/index.js"
     },
     "./use-cases/update-lambda": {
+      "development": "./dist/use-cases/update-lambda/index.ts",
       "import": "./dist/use-cases/update-lambda/index.js",
       "types": "./dist/use-cases/update-lambda/index.d.ts",
       "default": "./dist/use-cases/update-lambda/index.js"
     },
     "./views": {
+      "development": "./dist/views/index.ts",
       "import": "./dist/views/index.js",
       "types": "./dist/views/index.d.ts",
       "default": "./dist/views/index.js"

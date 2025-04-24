@@ -4,8 +4,8 @@
     "outDir": "./dist",
     "types": ["node"],
     "resolveJsonModule": true,
-    "module": "CommonJS",
-    "moduleResolution": "Node"
+    "module": "node16",
+    "moduleResolution": "node16"
   },
   "include": [
     "src/**/*.ts",

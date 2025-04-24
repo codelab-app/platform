@@ -1,6 +1,7 @@
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin'
 import react from '@vitejs/plugin-react'
 import { join } from 'path'
+import preserveDirectives from 'rollup-preserve-directives'
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 
@@ -10,6 +11,8 @@ export default defineConfig(() => ({
     '../../../../../node_modules/.vite/libs/frontend/presentation/components/form',
   plugins: [
     react(),
+    // Used for keeping `use server` or `use client`
+    preserveDirectives(),
     dts({
       entryRoot: 'src',
       tsconfigPath: join(__dirname, 'tsconfig.lib.json'),

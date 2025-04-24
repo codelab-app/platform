@@ -4578,6 +4578,16 @@ importers:
         version: link:../../../shared/infra/typebox
 
   libs/frontend/domain/type:
+    dependencies:
+      mobx:
+        specifier: '*'
+        version: 6.13.7
+      mobx-keystone:
+        specifier: '*'
+        version: 1.11.4(mobx@6.13.7)
+      remeda:
+        specifier: '*'
+        version: 2.17.4
     devDependencies:
       '@codelab/frontend-abstract-domain':
         specifier: workspace:*
@@ -8631,7 +8641,6 @@ packages:
 
   '@ls-lint/ls-lint@2.0.0':
     resolution: {integrity: sha512-1QEk2tzSH5YBCgP+klCZJvdGHJFNQgJb8qPFpFwQPmvjmZMV0aPE11TZ4qd+BlTcteeCWzs5ewSIOVRx2xT+Lw==}
-    cpu: [x64, arm64, s390x]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -14554,6 +14563,7 @@ packages:
     resolution: {integrity: sha512-mWAZzMUPbCjP1MXUbdHud0GLzAOpeNuQ10J3twrbNAPih4za2rBhfdtm9KPGJ1kPMPOdJs1V4uBfS47owGeKxw==}
     peerDependencies:
       eslint: '>= 5'
+    bundledDependencies: []
 
   eslint-plugin-canonical@4.15.1:
     resolution: {integrity: sha512-xndfaRN9vOb6sd2bd7jKac6oMeDj9ZaKr7uPYt99BGyy4D2gRe4cisIMo4uVUR3CdRSK1fEmH68OeRtmpJ7cpA==}

@@ -2,21 +2,25 @@
   "name": "@codelab/frontend-application-shared-store",
   "exports": {
     ".": {
+      "development": "./dist/index.ts",
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
     "./loading": {
+      "development": "./dist/loading/index.ts",
       "import": "./dist/loading/index.js",
       "types": "./dist/loading/index.d.ts",
       "default": "./dist/loading/index.js"
     },
     "./pagination": {
+      "development": "./dist/pagination/index.ts",
       "import": "./dist/pagination/index.js",
       "types": "./dist/pagination/index.d.ts",
       "default": "./dist/pagination/index.js"
     },
     "./router": {
+      "development": "./dist/router/index.ts",
       "import": "./dist/router/index.js",
       "types": "./dist/router/index.d.ts",
       "default": "./dist/router/index.js"

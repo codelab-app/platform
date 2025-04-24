@@ -12,7 +12,6 @@
     "strict": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-
     "forceConsistentCasingInFileNames": true,
     "useDefineForClassFields": true
   },

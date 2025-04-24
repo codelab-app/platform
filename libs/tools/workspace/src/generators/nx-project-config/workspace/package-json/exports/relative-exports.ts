@@ -1,3 +1,4 @@
+/* eslint-disable canonical/sort-keys */
 import {
   getPathAliasPackageNames,
   getProjectReferencePaths,
@@ -15,7 +16,7 @@ export const getRelativeExports = (packageName: string) => {
   // Define the type for the accumulator
   type ExportMap = Record<
     string,
-    { default: string; import: string; types: string }
+    { default: string; development: string; import: string; types: string }
   >
 
   /**
@@ -62,9 +63,9 @@ export const getRelativeExports = (packageName: string) => {
 
     // Assign the dynamic export structure
     acc[relativePath] = {
+      development: targetPath.replace('.js', '.ts'),
       import: targetPath,
       types: targetPath.replace('.js', '.d.ts'),
-      // eslint-disable-next-line canonical/sort-keys
       default: targetPath,
     }
 

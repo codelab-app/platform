@@ -5,23 +5,28 @@ import type {
   JsonSchema,
 } from '@codelab/frontend-abstract-domain'
 import type { IBaseTypeDto, ITypeKind } from '@codelab/shared-abstract-core'
-import type { Ref } from 'mobx-keystone'
+import type { ModelClassDeclaration, Ref } from 'mobx-keystone'
 
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
+export interface ModelInterface {
+  get toJson(): IBaseTypeDto
+  toJsonSchema(context: ITypeTransformContext): JsonSchema
+  writeCache(dto: Partial<IBaseTypeDto>): IBaseTypeModel<IBaseTypeDto>
+}
+
 export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
+  const ModelProps = Model({
+    __typename: prop(typeKind),
+    id: idProp,
+    kind: prop<T>(() => typeKind),
+    name: prop<string>(),
+    owner: prop<Ref<IUserModel>>(),
+  })
+
   @model(`@codelab/BaseType${typeKind}`)
-  class BaseType
-    extends Model({
-      __typename: prop(typeKind),
-      id: idProp,
-      kind: prop<T>(() => typeKind),
-      name: prop<string>(),
-      owner: prop<Ref<IUserModel>>(),
-    })
-    implements IBaseTypeModel<IBaseTypeDto>
-  {
+  class BaseType extends ModelProps implements IBaseTypeModel<IBaseTypeDto> {
     @computed
     get toJson() {
       return {
@@ -45,5 +50,5 @@ export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
     }
   }
 
-  return BaseType
+  return BaseType as ModelClassDeclaration<typeof ModelProps, ModelInterface>
 }

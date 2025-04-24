@@ -2,26 +2,31 @@
   "name": "@codelab/frontend-application-user",
   "exports": {
     ".": {
+      "development": "./dist/index.ts",
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
     "./components": {
+      "development": "./dist/components/index.ts",
       "import": "./dist/components/index.js",
       "types": "./dist/components/index.d.ts",
       "default": "./dist/components/index.js"
     },
     "./services": {
+      "development": "./dist/services/index.ts",
       "import": "./dist/services/index.js",
       "types": "./dist/services/index.d.ts",
       "default": "./dist/services/index.js"
     },
     "./use-cases/server-user": {
+      "development": "./dist/use-cases/server-user/index.ts",
       "import": "./dist/use-cases/server-user/index.js",
       "types": "./dist/use-cases/server-user/index.d.ts",
       "default": "./dist/use-cases/server-user/index.js"
     },
     "./use-cases/user-list": {
+      "development": "./dist/use-cases/user-list/index.ts",
       "import": "./dist/use-cases/user-list/index.js",
       "types": "./dist/use-cases/user-list/index.d.ts",
       "default": "./dist/use-cases/user-list/index.js"

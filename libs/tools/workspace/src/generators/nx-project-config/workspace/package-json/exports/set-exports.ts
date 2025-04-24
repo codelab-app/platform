@@ -1,3 +1,4 @@
+/* eslint-disable canonical/sort-keys */
 import type { PackageJson } from 'type-fest'
 
 import {
@@ -96,9 +97,9 @@ export const setPackageJsonExports = (
 
   const exports = {
     '.': {
+      development: './src/index.ts',
       import: './src/index.js',
       types: './src/index.d.ts',
-      // eslint-disable-next-line canonical/sort-keys
       default: './src/index.js',
     },
   }

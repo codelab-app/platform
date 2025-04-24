@@ -11,6 +11,7 @@ import type { Ref } from 'mobx-keystone'
 import { typeRef, userRef } from '@codelab/frontend-abstract-domain'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared-abstract-core'
 import { connectNodeId } from '@codelab/shared-domain-orm'
+import { computed } from 'mobx'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { mergeDeep } from 'remeda'
 
@@ -43,7 +44,8 @@ export class ArrayType
 {
   static create = create
 
-  get toJson() {
+  @computed
+  get toJson(): IArrayTypeDto {
     return {
       __typename: this.__typename,
       id: this.id,

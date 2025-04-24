@@ -2,46 +2,55 @@
   "name": "@codelab/frontend-application-store",
   "exports": {
     ".": {
+      "development": "./dist/index.ts",
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
     "./services": {
+      "development": "./dist/services/index.ts",
       "import": "./dist/services/index.js",
       "types": "./dist/services/index.d.ts",
       "default": "./dist/services/index.js"
     },
     "./use-cases/action-hooks": {
+      "development": "./dist/use-cases/action-hooks/index.ts",
       "import": "./dist/use-cases/action-hooks/index.js",
       "types": "./dist/use-cases/action-hooks/index.d.ts",
       "default": "./dist/use-cases/action-hooks/index.js"
     },
     "./use-cases/create-action": {
+      "development": "./dist/use-cases/create-action/index.ts",
       "import": "./dist/use-cases/create-action/index.js",
       "types": "./dist/use-cases/create-action/index.d.ts",
       "default": "./dist/use-cases/create-action/index.js"
     },
     "./use-cases/delete-action": {
+      "development": "./dist/use-cases/delete-action/index.ts",
       "import": "./dist/use-cases/delete-action/index.js",
       "types": "./dist/use-cases/delete-action/index.d.ts",
       "default": "./dist/use-cases/delete-action/index.js"
     },
     "./use-cases/get-actions": {
+      "development": "./dist/use-cases/get-actions/index.ts",
       "import": "./dist/use-cases/get-actions/index.js",
       "types": "./dist/use-cases/get-actions/index.d.ts",
       "default": "./dist/use-cases/get-actions/index.js"
     },
     "./use-cases/get-state": {
+      "development": "./dist/use-cases/get-state/index.ts",
       "import": "./dist/use-cases/get-state/index.js",
       "types": "./dist/use-cases/get-state/index.d.ts",
       "default": "./dist/use-cases/get-state/index.js"
     },
     "./use-cases/update-action": {
+      "development": "./dist/use-cases/update-action/index.ts",
       "import": "./dist/use-cases/update-action/index.js",
       "types": "./dist/use-cases/update-action/index.d.ts",
       "default": "./dist/use-cases/update-action/index.js"
     },
     "./views": {
+      "development": "./dist/views/index.ts",
       "import": "./dist/views/index.js",
       "types": "./dist/views/index.d.ts",
       "default": "./dist/views/index.js"

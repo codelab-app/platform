@@ -2,21 +2,25 @@
   "name": "@codelab/frontend-application-dnd",
   "exports": {
     ".": {
+      "development": "./dist/index.ts",
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
     "./collision-detection": {
+      "development": "./dist/collision-detection/index.ts",
       "import": "./dist/collision-detection/index.js",
       "types": "./dist/collision-detection/index.d.ts",
       "default": "./dist/collision-detection/index.js"
     },
     "./components": {
+      "development": "./dist/components/index.ts",
       "import": "./dist/components/index.js",
       "types": "./dist/components/index.d.ts",
       "default": "./dist/components/index.js"
     },
     "./hooks": {
+      "development": "./dist/hooks/index.ts",
       "import": "./dist/hooks/index.js",
       "types": "./dist/hooks/index.d.ts",
       "default": "./dist/hooks/index.js"
