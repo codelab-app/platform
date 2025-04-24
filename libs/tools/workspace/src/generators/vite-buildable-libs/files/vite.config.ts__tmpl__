@@ -9,6 +9,8 @@ export default defineConfig(() => ({
   cacheDir: '<%= cacheDir %>',
   plugins: [
     react(),
+    // Used for keeping `use server` or `use client`
+    preserveDirectives(),
     dts({
       entryRoot: 'src',
       tsconfigPath: join(__dirname, '<%= tsconfigPath %>'),

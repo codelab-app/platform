@@ -6,7 +6,7 @@
     "incremental": true,
     "sourceMap": true,
     "declaration": true,
-    // "declarationMap": true,
+    "declarationMap": true,
     "moduleResolution": "bundler",
     "module": "esnext",
     "strict": true,

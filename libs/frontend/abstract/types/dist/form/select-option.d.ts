@@ -10,3 +10,4 @@ export interface RenderTypeSelectOption extends SelectOption {
     __typename: IElementRenderTypeKind;
     icon: ForwardRefExoticComponent<AntdIconProps>;
 }
+//# sourceMappingURL=select-option.d.ts.map

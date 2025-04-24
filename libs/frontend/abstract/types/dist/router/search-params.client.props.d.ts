@@ -46,3 +46,4 @@ export interface PaginationClientProps {
      */
     search?: string;
 }
+//# sourceMappingURL=search-params.client.props.d.ts.map

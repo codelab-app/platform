@@ -10,8 +10,7 @@
     "strict": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "jsx": "react-jsx",
-    "allowJs": true
+    "jsx": "react-jsx"
   },
   "exclude": ["**/*.spec.ts", "**/*.spec.tsx", "jest.config.ts"],
   "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx", "vite.config.ts"],

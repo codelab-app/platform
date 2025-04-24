@@ -6,3 +6,4 @@ export declare enum BreakpointSize {
     xl = 1200,
     '2xl' = 1600
 }
+//# sourceMappingURL=breakpoint.d.ts.map

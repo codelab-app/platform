@@ -12,3 +12,4 @@ export interface PaginationServerProps {
     pageSize?: string | undefined;
     search?: string | undefined;
 }
+//# sourceMappingURL=search-params.server.props.d.ts.map

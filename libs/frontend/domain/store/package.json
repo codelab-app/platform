@@ -37,7 +37,7 @@
     "@codelab/frontend-domain-shared": "workspace:*",
     "@codelab/shared-infra-gqlgen": "workspace:*"
   },
-  "peerDependencies": {
+  "dependencies": {
     "mobx": "*",
     "mobx-keystone": "*"
   },

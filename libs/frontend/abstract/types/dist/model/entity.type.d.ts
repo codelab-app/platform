@@ -18,3 +18,4 @@ export declare enum EntityType {
     Type = "Type",
     User = "User"
 }
+//# sourceMappingURL=entity.type.d.ts.map

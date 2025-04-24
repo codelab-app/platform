@@ -21,3 +21,4 @@ export type MergeParam<Route, ExtraParam extends ObjectLike> = Route extends {
 } & MergeRouteParams<Route, ExtraParam>> : never;
 export type DistributeUnion<T, U extends ObjectLike> = T extends unknown ? MergeParam<T, U> : never;
 export {};
+//# sourceMappingURL=merge.d.ts.map

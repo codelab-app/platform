@@ -8,3 +8,4 @@ export type FormModalProps<TData extends ObjectLike> = ModalProps & {
      */
     children(props: SubmitRef): ReactElement<FormProps<TData>>;
 };
+//# sourceMappingURL=modal.d.ts.map

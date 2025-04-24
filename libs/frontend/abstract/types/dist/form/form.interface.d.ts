@@ -72,3 +72,4 @@ export interface IFormController {
 export type ITypeModelUniformSchemaBuilder<IType> = (type: IType, autocomplete?: Array<Completion>) => {
     uniforms: ObjectLike;
 };
+//# sourceMappingURL=form.interface.d.ts.map

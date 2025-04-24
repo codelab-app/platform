@@ -7,3 +7,4 @@ export interface UpdateButtonProps {
     disabled?: boolean;
     id: string;
 }
+//# sourceMappingURL=crud.d.ts.map

@@ -12,7 +12,7 @@
     "strict": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "allowJs": true,
+
     "forceConsistentCasingInFileNames": true,
     "useDefineForClassFields": true
   },

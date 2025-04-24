@@ -74,10 +74,10 @@ export class Store
   }
 
   @computed
-  get toJson() {
+  get toJson(): IStoreDto {
     return {
       actions: this.actions.map((action) => action.toJson),
-      api: { ...this.api, __typename: ITypeKind.InterfaceType as const },
+      api: { ...this.api },
       component: this.component,
       id: this.id,
       name: this.name,

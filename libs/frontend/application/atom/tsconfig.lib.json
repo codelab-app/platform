@@ -11,8 +11,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "declaration": true,
-    "jsx": "react-jsx",
-    "allowJs": true
+    "jsx": "react-jsx"
   },
   "exclude": [
     "jest.config.ts",

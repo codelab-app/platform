@@ -20,3 +20,4 @@ export type ParamProps<ParamKey extends keyof UrlParams = never> = [
         [K in keyof UrlParams as K extends ParamKey ? K : never]: UrlParams[K];
     }>;
 };
+//# sourceMappingURL=params.props.d.ts.map

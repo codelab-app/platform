@@ -28,3 +28,4 @@ export type DashboardProps = Partial<DashboardSlots> & {
     params?: Partial<UrlParams>;
     children: ReactNode;
 };
+//# sourceMappingURL=layout.props.d.ts.map

@@ -19,3 +19,4 @@ export interface UrlParams {
     tagIds: Array<string>;
     typeId: string;
 }
+//# sourceMappingURL=url-params.d.ts.map

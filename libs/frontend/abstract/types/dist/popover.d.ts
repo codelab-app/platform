@@ -12,3 +12,4 @@ export interface IPopover<TOpen = never, TClose = never> {
     ...args: [TClose] extends [never] ? [args?: TClose] : [args: TClose]): void;
     open(router: AppRouterInstance, ...args: [TOpen] extends [never] ? [args?: TOpen] : [args: TOpen]): void;
 }
+//# sourceMappingURL=popover.d.ts.map

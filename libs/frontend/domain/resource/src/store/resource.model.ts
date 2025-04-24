@@ -36,6 +36,7 @@ export class Resource
   }))
   implements IResourceModel
 {
+  // Explicit type annotation prevents TS9005 during declaration emit
   static create = create
 
   @computed
