@@ -76,7 +76,7 @@ export const preset: Types.OutputPreset = {
       {
         config: {},
         documents: [],
-        documentTransforms: options.documentTransforms,
+        // documentTransforms: options.documentTransforms,
         filename: `${options.baseOutputDir}index.ts`,
         pluginMap: { ['add']: addPlugin },
         plugins: [{ ['add']: { content: "export * from './graphql'\n" } }],
@@ -90,7 +90,7 @@ export const preset: Types.OutputPreset = {
           documentMode: DocumentMode.string,
         },
         documents: sources,
-        documentTransforms: options.documentTransforms,
+        // documentTransforms: options.documentTransforms,
         filename: `${options.baseOutputDir}graphql.ts`,
         pluginMap,
         plugins,

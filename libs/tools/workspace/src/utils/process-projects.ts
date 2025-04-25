@@ -33,7 +33,8 @@ export const processProjects = async <
     // Skip special projects
     if (
       projectConfig.name === 'codelab' ||
-      projectConfig.sourceRoot?.startsWith('libs/tools')
+      projectConfig.sourceRoot?.startsWith('libs/tools') ||
+      projectConfig.sourceRoot?.startsWith('libs/external')
     ) {
       console.log('Skipping project:', projectConfig.name)
       continue

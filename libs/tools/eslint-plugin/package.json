@@ -5,5 +5,16 @@
     "@nx/devkit": "19.0.4",
     "@typescript-eslint/utils": "7.9.0",
     "tslib": "2.3.1"
+  },
+  "nx": {
+    "name": "tools-eslint-plugin",
+    "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "libs/tools/eslint-plugin/src",
+    "projectType": "library",
+    "tags": [
+      "projectName:tools-eslint-plugin",
+      "projectType:library",
+      "type:concrete"
+    ]
   }
 }

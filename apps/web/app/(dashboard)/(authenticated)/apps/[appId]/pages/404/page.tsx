@@ -10,5 +10,3 @@ const Error404Page = () => {
 }
 
 export default Error404Page
-
-Error404Page.displayName = 'Page404'
