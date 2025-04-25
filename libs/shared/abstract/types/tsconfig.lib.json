@@ -1,14 +1,15 @@
 {
   "extends": "../../../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "./dist/out-tsc",
+    "outDir": "./dist",
     "rootDir": "./src",
     "declaration": true,
     "types": ["node"],
     "strict": true,
     "noImplicitReturns": true,
     "exactOptionalPropertyTypes": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo"
   },
   "exclude": ["**/*.spec.ts"],
   "include": ["src/**/*.ts"],

@@ -5,7 +5,8 @@ import {
   userRef,
 } from '@codelab/frontend-abstract-domain'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared-abstract-core'
-import { ExtendedModel, model } from 'mobx-keystone'
+import { computed } from 'mobx'
+import { ExtendedModel, model, modelAction } from 'mobx-keystone'
 
 import { createBaseType } from './base-type.model'
 
@@ -26,4 +27,19 @@ export class LambdaType
   implements ILambdaTypeModel
 {
   public static create = create
+
+  @computed
+  get toJson(): ILambdaTypeDto {
+    return {
+      ...super.toJson,
+      __typename: this.__typename,
+    }
+  }
+
+  @modelAction
+  writeCache({ name }: Partial<ILambdaTypeDto>): ILambdaTypeModel {
+    this.name = name ?? this.name
+
+    return this
+  }
 }

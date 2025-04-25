@@ -7,14 +7,14 @@ import {
   userRef,
 } from '@codelab/frontend-abstract-domain'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared-abstract-core'
-import { ExtendedModel, model } from 'mobx-keystone'
+import { computed } from 'mobx'
+import { ExtendedModel, model, modelAction } from 'mobx-keystone'
 
 import { typedPropSchema } from '../shared'
 import { createBaseType } from './base-type.model'
 
 const create = ({ id, kind, name, owner }: IActionTypeDto) => {
   assertIsTypeKind(kind, ITypeKind.ActionType)
-  // const decoded = actionTypeValidation.decode({ id, kind, name })
 
   return new ActionType({ id, kind, name, owner: userRef(owner.id) })
 }
@@ -26,7 +26,22 @@ export class ActionType
 {
   static create = create
 
+  @computed
+  get toJson(): IActionTypeDto {
+    return {
+      ...super.toJson,
+      __typename: this.__typename,
+    }
+  }
+
   toJsonSchema(context: ITypeTransformContext): JsonSchema {
     return typedPropSchema(this, context)
+  }
+
+  @modelAction
+  writeCache({ name }: Partial<IActionTypeDto>): IActionTypeModel {
+    this.name = name ?? this.name
+
+    return this
   }
 }

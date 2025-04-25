@@ -1,4 +1,4 @@
-import type { Static } from '@sinclair/typebox'
+import type { Ref } from 'mobx-keystone'
 
 import { Typebox } from '@codelab/shared-infra-typebox'
 import { Type } from '@sinclair/typebox'
@@ -15,9 +15,13 @@ export const BaseTypeExportSchema = Type.Object({
   name: Type.String(),
 })
 
-export type IBaseTypeDto<T extends `${ITypeKind}` = `${ITypeKind}`> = Static<
-  ReturnType<typeof BaseTypeDtoSchema<T>>
->
+export interface IBaseTypeDto<T extends `${ITypeKind}` = `${ITypeKind}`> {
+  __typename: T
+  id: string
+  kind: ITypeKind
+  name: string
+  owner: { id: string }
+}
 
 /**
  * For GraphQL create, the api takes in an enum

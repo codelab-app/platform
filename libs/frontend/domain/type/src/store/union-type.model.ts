@@ -9,6 +9,7 @@ import type { Ref } from 'mobx-keystone'
 
 import { typeRef, userRef } from '@codelab/frontend-abstract-domain'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared-abstract-core'
+import { computed } from 'mobx'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { mergeDeep } from 'remeda'
 
@@ -38,14 +39,14 @@ export class UnionType
 {
   public static create = create
 
+  @computed
   get toJson() {
     return {
+      ...super.toJson,
       __typename: this.__typename,
-      id: this.id,
-      kind: this.kind,
-      name: this.name,
-      owner: this.owner.current.toJson,
-      typesOfUnionType: this.typesOfUnionType.map((type) => type.current),
+      typesOfUnionType: this.typesOfUnionType.map(
+        (type) => type.current.toJson,
+      ),
     }
   }
 

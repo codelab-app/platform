@@ -8,6 +8,7 @@ import {
   userRef,
 } from '@codelab/frontend-abstract-domain'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared-abstract-core'
+import { computed } from 'mobx'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 
 import { typedPropSchema } from '../shared/typed-prop-schema'
@@ -40,14 +41,12 @@ export class CodeMirrorType
 {
   public static create = create
 
+  @computed
   get toJson() {
     return {
+      ...super.toJson,
       __typename: this.__typename,
-      id: this.id,
-      kind: this.kind,
       language: this.language,
-      name: this.name,
-      owner: this.owner.current.toJson,
     }
   }
 

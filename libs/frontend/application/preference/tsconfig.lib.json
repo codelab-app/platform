@@ -1,7 +1,7 @@
 {
   "extends": "../../../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "./dist/out-tsc",
+    "outDir": "./dist",
     "types": [
       "node",
       "@nx/react/typings/cssmodule.d.ts",
@@ -12,7 +12,8 @@
     "noFallthroughCasesInSwitch": true,
     "declaration": true,
     "jsx": "react-jsx",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo"
   },
   "exclude": [
     "jest.config.ts",
@@ -25,7 +26,7 @@
     "**/*.spec.jsx",
     "**/*.test.jsx"
   ],
-  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "references": [
     {
       "path": "../../infra/mobx/context/tsconfig.lib.json"

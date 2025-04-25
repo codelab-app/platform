@@ -7,7 +7,8 @@ import {
   userRef,
 } from '@codelab/frontend-abstract-domain'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared-abstract-core'
-import { ExtendedModel, model } from 'mobx-keystone'
+import { computed } from 'mobx'
+import { ExtendedModel, model, modelAction } from 'mobx-keystone'
 
 import { typedPropSchema } from '../shared/typed-prop-schema'
 import { createBaseType } from './base-type.model'
@@ -35,7 +36,22 @@ export class ReactNodeType
 {
   public static create = create
 
+  @computed
+  get toJson(): IReactNodeTypeDto {
+    return {
+      ...super.toJson,
+      __typename: this.__typename,
+    }
+  }
+
   toJsonSchema(context: ITypeTransformContext): JsonSchema {
     return typedPropSchema(this, context)
+  }
+
+  @modelAction
+  writeCache({ name }: Partial<IReactNodeTypeDto>): IReactNodeTypeModel {
+    this.name = name ?? this.name
+
+    return this
   }
 }

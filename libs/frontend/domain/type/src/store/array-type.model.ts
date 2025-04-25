@@ -47,12 +47,9 @@ export class ArrayType
   @computed
   get toJson(): IArrayTypeDto {
     return {
+      ...super.toJson,
       __typename: this.__typename,
-      id: this.id,
-      itemType: this.itemType?.maybeCurrent,
-      kind: this.kind,
-      name: this.name,
-      owner: this.owner.current.toJson,
+      itemType: this.itemType?.maybeCurrent?.toJson,
     }
   }
 

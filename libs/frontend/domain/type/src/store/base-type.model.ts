@@ -43,7 +43,7 @@ export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
     }
 
     @modelAction
-    writeCache({ name }: Partial<IBaseTypeDto>) {
+    writeCache({ name }: Partial<IBaseTypeDto>): IBaseTypeModel<IBaseTypeDto> {
       this.name = name ?? this.name
 
       return this

@@ -1,7 +1,7 @@
 {
   "extends": "../../../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "./dist/out-tsc",
+    "outDir": "./dist",
     "strict": true,
     "types": [
       "node",
@@ -12,7 +12,8 @@
     "noFallthroughCasesInSwitch": true,
     "jsx": "react-jsx",
     "forceConsistentCasingInFileNames": true,
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo"
   },
   "exclude": [
     "**/*.spec.ts",
@@ -25,7 +26,7 @@
     "**/*.stories.tsx",
     "jest.config.ts"
   ],
-  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "references": [
     {
       "path": "../shared/tsconfig.lib.json"

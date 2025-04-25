@@ -57,7 +57,8 @@ export const moveFilesInTsConfig = (
     // Ensure compilerOptions is an object before accessing types
     if (typeof json.compilerOptions === 'object') {
       json.compilerOptions.rootDir = './src'
-      json.compilerOptions.outDir = './dist/out-tsc'
+      json.compilerOptions.outDir = './dist'
+      json.compilerOptions.tsBuildInfoFile = './dist/tsconfig.tsbuildinfo'
 
       if (!json.compilerOptions.types) {
         json.compilerOptions.types = []
@@ -81,9 +82,19 @@ export const moveFilesInTsConfig = (
       }
     }
 
-    // 4. Remove vite.config.ts if it exists in include
+    // 4. Update the include array
     if (json.include && Array.isArray(json.include)) {
+      // Remove vite.config.ts if it exists
       json.include = json.include.filter((item) => item !== 'vite.config.ts')
+
+      // Replace "**/*.ts" with "src/**/*.ts"
+      json.include = json.include.map((pattern) => {
+        if (pattern === '**/*.ts') {
+          return 'src/**/*.ts'
+        }
+
+        return pattern
+      })
     }
 
     return json

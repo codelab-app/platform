@@ -8,6 +8,7 @@ import {
   userRef,
 } from '@codelab/frontend-abstract-domain'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared-abstract-core'
+import { computed } from 'mobx'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 
 import { createBaseType } from './base-type.model'
@@ -36,14 +37,12 @@ export class EnumType
 {
   public static create = create
 
+  @computed
   get toJson() {
     return {
+      ...super.toJson,
       __typename: this.__typename,
-      allowedValues: this.allowedValues,
-      id: this.id,
-      kind: this.kind,
-      name: this.name,
-      owner: this.owner.current.toJson,
+      allowedValues: this.allowedValues.map((value) => value),
     }
   }
 

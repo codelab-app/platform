@@ -113,12 +113,9 @@ export class InterfaceType
   @computed
   get toJson() {
     return {
+      ...super.toJson,
       __typename: this.__typename,
       fields: this.fields.map((field) => field.toJson),
-      id: this.id,
-      kind: this.kind,
-      name: this.name,
-      owner: this.owner.current.toJson,
     }
   }
 
@@ -157,9 +154,11 @@ export class InterfaceType
   }
 
   @modelAction
-  writeCache(interfaceTypeDto: IInterfaceTypeDto) {
+  writeCache(interfaceTypeDto: Partial<IInterfaceTypeDto>) {
     this.name = interfaceTypeDto.name ?? this.name
-    this.owner.current = userRef(interfaceTypeDto.owner.id)
+    this.owner = interfaceTypeDto.owner
+      ? userRef(interfaceTypeDto.owner.id)
+      : this.owner
 
     this.writeFieldCache(interfaceTypeDto.fields)
 
