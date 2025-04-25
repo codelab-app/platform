@@ -42,7 +42,6 @@ export default defineConfig(() => ({
       entry: {
         index: 'src/index.ts',
         repositories: 'src/repositories/index.ts',
-        services: 'src/services/index.ts',
         store: 'src/store/index.ts',
       },
       name: '@codelab/frontend-domain-preference',
@@ -55,7 +54,11 @@ export default defineConfig(() => ({
     },
     rollupOptions: {
       // External packages that should not be bundled into your library.
-      external: ['react', 'react-dom', 'react/jsx-runtime'],
+      external: (id) => {
+        // Treat bare module specifiers as external.
+        // Also, treat absolute paths that don't start with the project root as external.
+        return !id.startsWith('.') && !id.startsWith('/')
+      },
     },
   },
 }))

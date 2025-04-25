@@ -43,6 +43,7 @@
     "@codelab/frontend-test-data": "workspace:*",
     "@codelab/frontend-domain-page": "workspace:*",
     "@codelab/shared-utils": "workspace:*",
+    "@codelab/frontend-domain-app": "workspace:*",
     "@codelab/frontend-domain-atom": "workspace:*",
     "@codelab/frontend-domain-element": "workspace:*",
     "@codelab/frontend-domain-redirect": "workspace:*",

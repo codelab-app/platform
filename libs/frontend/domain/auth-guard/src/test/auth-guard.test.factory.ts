@@ -9,12 +9,12 @@ export const authGuardFactory =
   (dto: Partial<IAuthGuardDto>) => {
     const authGuard: IAuthGuardDto = {
       config: dto.config ?? {
-        api: { id: v4() },
         data: JSON.stringify({}),
         id: v4(),
       },
       id: dto.id ?? v4(),
       name: dto.name ?? `${chance.word({ capitalize: true })} Auth Guard`,
+      owner: dto.owner ?? { id: v4() },
       resource: dto.resource ?? { id: v4() },
       responseTransformer: '(response) => response',
     }

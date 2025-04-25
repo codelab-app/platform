@@ -1244,11 +1244,6 @@
     "path": "libs/frontend/domain/preference/src/repositories/index.ts",
     "name": null
   },
-  "@codelab/frontend-domain-preference/services": {
-    "expected": "@codelab/frontend-domain-preference/services",
-    "path": "libs/frontend/domain/preference/src/services/index.ts",
-    "name": null
-  },
   "@codelab/frontend-domain-preference/store": {
     "expected": "@codelab/frontend-domain-preference/store",
     "path": "libs/frontend/domain/preference/src/store/index.ts",

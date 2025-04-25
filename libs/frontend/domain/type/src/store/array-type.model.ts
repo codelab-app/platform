@@ -11,6 +11,7 @@ import type { Ref } from 'mobx-keystone'
 import { typeRef, userRef } from '@codelab/frontend-abstract-domain'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared-abstract-core'
 import { connectNodeId } from '@codelab/shared-domain-orm'
+import { ArrayTypeUpdateInput } from '@codelab/shared-infra-gqlgen'
 import { computed } from 'mobx'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { mergeDeep } from 'remeda'
@@ -75,29 +76,6 @@ export class ArrayType
       ...validationRules?.general,
       default: defaultValues,
     }
-  }
-
-  toUpdateInput() {
-    return mergeDeep({
-      disconnect: this.itemType?.id
-        ? {
-            itemType: {
-              where: {
-                NOT: {
-                  node: {
-                    id: this.itemType.id,
-                  },
-                },
-              },
-            },
-          }
-        : undefined,
-      update: this.itemType?.id
-        ? {
-            itemType: connectNodeId(this.itemType.id),
-          }
-        : undefined,
-    })
   }
 
   @modelAction

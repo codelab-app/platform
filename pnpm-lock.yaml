@@ -4141,6 +4141,9 @@ importers:
       '@codelab/frontend-abstract-domain':
         specifier: workspace:*
         version: link:../../abstract/domain
+      '@codelab/frontend-domain-app':
+        specifier: workspace:*
+        version: 'link:'
       '@codelab/frontend-domain-atom':
         specifier: workspace:*
         version: link:../atom
