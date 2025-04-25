@@ -2,70 +2,34 @@
   "name": "@codelab/frontend-application-page",
   "exports": {
     ".": {
-      "development": "./src/index.ts",
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+      "default": "./src/index.ts"
     },
     "./services": {
-      "development": "./src/services/index.ts",
-      "import": "./dist/services/index.js",
-      "types": "./dist/services/index.d.ts",
-      "default": "./dist/services/index.js"
+      "default": "./src/services/index.ts"
     },
     "./use-cases/create-page": {
-      "development": "./src/use-cases/create-page/index.ts",
-      "import": "./dist/use-cases/create-page/index.js",
-      "types": "./dist/use-cases/create-page/index.d.ts",
-      "default": "./dist/use-cases/create-page/index.js"
-    },
-    "./use-cases/create-page/server": {
-      "development": "./src/use-cases/create-page/server/index.ts",
-      "import": "./dist/use-cases/create-page/server/index.js",
-      "types": "./dist/use-cases/create-page/server/index.d.ts",
-      "default": "./dist/use-cases/create-page/server/index.js"
+      "default": "./src/use-cases/create-page/index.ts"
     },
     "./use-cases/delete-page": {
-      "development": "./src/use-cases/delete-page/index.ts",
-      "import": "./dist/use-cases/delete-page/index.js",
-      "types": "./dist/use-cases/delete-page/index.d.ts",
-      "default": "./dist/use-cases/delete-page/index.js"
+      "default": "./src/use-cases/delete-page/index.ts"
     },
     "./use-cases/generate-pages": {
-      "development": "./src/use-cases/generate-pages/index.ts",
-      "import": "./dist/use-cases/generate-pages/index.js",
-      "types": "./dist/use-cases/generate-pages/index.d.ts",
-      "default": "./dist/use-cases/generate-pages/index.js"
+      "default": "./src/use-cases/generate-pages/index.ts"
     },
     "./use-cases/get-pages": {
-      "development": "./src/use-cases/get-pages/index.ts",
-      "import": "./dist/use-cases/get-pages/index.js",
-      "types": "./dist/use-cases/get-pages/index.d.ts",
-      "default": "./dist/use-cases/get-pages/index.js"
+      "default": "./src/use-cases/get-pages/index.ts"
     },
     "./use-cases/page-list": {
-      "development": "./src/use-cases/page-list/index.ts",
-      "import": "./dist/use-cases/page-list/index.js",
-      "types": "./dist/use-cases/page-list/index.d.ts",
-      "default": "./dist/use-cases/page-list/index.js"
+      "default": "./src/use-cases/page-list/index.ts"
     },
     "./use-cases/update-page": {
-      "development": "./src/use-cases/update-page/index.ts",
-      "import": "./dist/use-cases/update-page/index.js",
-      "types": "./dist/use-cases/update-page/index.d.ts",
-      "default": "./dist/use-cases/update-page/index.js"
+      "default": "./src/use-cases/update-page/index.ts"
     },
     "./use-cases/update-page-tab": {
-      "development": "./src/use-cases/update-page-tab/index.ts",
-      "import": "./dist/use-cases/update-page-tab/index.js",
-      "types": "./dist/use-cases/update-page-tab/index.d.ts",
-      "default": "./dist/use-cases/update-page-tab/index.js"
+      "default": "./src/use-cases/update-page-tab/index.ts"
     },
     "./views": {
-      "development": "./src/views/index.ts",
-      "import": "./dist/views/index.js",
-      "types": "./dist/views/index.d.ts",
-      "default": "./dist/views/index.js"
+      "default": "./src/views/index.ts"
     }
   },
   "devDependencies": {

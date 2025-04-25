@@ -2,64 +2,34 @@
   "name": "@codelab/frontend-application-element",
   "exports": {
     ".": {
-      "development": "./src/index.ts",
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+      "default": "./src/index.ts"
     },
     "./services": {
-      "development": "./src/services/index.ts",
-      "import": "./dist/services/index.js",
-      "types": "./dist/services/index.d.ts",
-      "default": "./dist/services/index.js"
+      "default": "./src/services/index.ts"
     },
     "./use-cases/create-element": {
-      "development": "./src/use-cases/create-element/index.ts",
-      "import": "./dist/use-cases/create-element/index.js",
-      "types": "./dist/use-cases/create-element/index.d.ts",
-      "default": "./dist/use-cases/create-element/index.js"
+      "default": "./src/use-cases/create-element/index.ts"
     },
     "./use-cases/delete-element": {
-      "development": "./src/use-cases/delete-element/index.ts",
-      "import": "./dist/use-cases/delete-element/index.js",
-      "types": "./dist/use-cases/delete-element/index.d.ts",
-      "default": "./dist/use-cases/delete-element/index.js"
+      "default": "./src/use-cases/delete-element/index.ts"
     },
     "./use-cases/hook-description": {
-      "development": "./src/use-cases/hook-description/index.ts",
-      "import": "./dist/use-cases/hook-description/index.js",
-      "types": "./dist/use-cases/hook-description/index.d.ts",
-      "default": "./dist/use-cases/hook-description/index.js"
+      "default": "./src/use-cases/hook-description/index.ts"
     },
     "./use-cases/move-element": {
-      "development": "./src/use-cases/move-element/index.ts",
-      "import": "./dist/use-cases/move-element/index.js",
-      "types": "./dist/use-cases/move-element/index.d.ts",
-      "default": "./dist/use-cases/move-element/index.js"
+      "default": "./src/use-cases/move-element/index.ts"
     },
     "./use-cases/update-element": {
-      "development": "./src/use-cases/update-element/index.ts",
-      "import": "./dist/use-cases/update-element/index.js",
-      "types": "./dist/use-cases/update-element/index.d.ts",
-      "default": "./dist/use-cases/update-element/index.js"
+      "default": "./src/use-cases/update-element/index.ts"
     },
     "./use-cases/update-element-props": {
-      "development": "./src/use-cases/update-element-props/index.ts",
-      "import": "./dist/use-cases/update-element-props/index.js",
-      "types": "./dist/use-cases/update-element-props/index.d.ts",
-      "default": "./dist/use-cases/update-element-props/index.js"
+      "default": "./src/use-cases/update-element-props/index.ts"
     },
     "./validation": {
-      "development": "./src/validation/index.ts",
-      "import": "./dist/validation/index.js",
-      "types": "./dist/validation/index.d.ts",
-      "default": "./dist/validation/index.js"
+      "default": "./src/validation/index.ts"
     },
     "./views": {
-      "development": "./src/views/index.ts",
-      "import": "./dist/views/index.js",
-      "types": "./dist/views/index.d.ts",
-      "default": "./dist/views/index.js"
+      "default": "./src/views/index.ts"
     }
   },
   "devDependencies": {

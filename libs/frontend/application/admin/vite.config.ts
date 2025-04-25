@@ -11,7 +11,7 @@ export default defineConfig(() => ({
   plugins: [
     react(),
     // Used for keeping `use server` or `use client`
-    // preserveDirectives(),
+    preserveDirectives(),
     dts({
       entryRoot: 'src',
       tsconfigPath: join(__dirname, 'tsconfig.lib.json'),

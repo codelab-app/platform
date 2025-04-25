@@ -2,46 +2,25 @@
   "name": "@codelab/frontend-application-auth-guard",
   "exports": {
     ".": {
-      "development": "./src/index.ts",
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+      "default": "./src/index.ts"
     },
     "./services": {
-      "development": "./src/services/index.ts",
-      "import": "./dist/services/index.js",
-      "types": "./dist/services/index.d.ts",
-      "default": "./dist/services/index.js"
+      "default": "./src/services/index.ts"
     },
     "./use-cases/create-auth-guard": {
-      "development": "./src/use-cases/create-auth-guard/index.ts",
-      "import": "./dist/use-cases/create-auth-guard/index.js",
-      "types": "./dist/use-cases/create-auth-guard/index.d.ts",
-      "default": "./dist/use-cases/create-auth-guard/index.js"
+      "default": "./src/use-cases/create-auth-guard/index.ts"
     },
     "./use-cases/delete-auth-guard": {
-      "development": "./src/use-cases/delete-auth-guard/index.ts",
-      "import": "./dist/use-cases/delete-auth-guard/index.js",
-      "types": "./dist/use-cases/delete-auth-guard/index.d.ts",
-      "default": "./dist/use-cases/delete-auth-guard/index.js"
+      "default": "./src/use-cases/delete-auth-guard/index.ts"
     },
     "./use-cases/get-auth-guard": {
-      "development": "./src/use-cases/get-auth-guard/index.ts",
-      "import": "./dist/use-cases/get-auth-guard/index.js",
-      "types": "./dist/use-cases/get-auth-guard/index.d.ts",
-      "default": "./dist/use-cases/get-auth-guard/index.js"
+      "default": "./src/use-cases/get-auth-guard/index.ts"
     },
     "./use-cases/update-auth-guard": {
-      "development": "./src/use-cases/update-auth-guard/index.ts",
-      "import": "./dist/use-cases/update-auth-guard/index.js",
-      "types": "./dist/use-cases/update-auth-guard/index.d.ts",
-      "default": "./dist/use-cases/update-auth-guard/index.js"
+      "default": "./src/use-cases/update-auth-guard/index.ts"
     },
     "./views": {
-      "development": "./src/views/index.ts",
-      "import": "./dist/views/index.js",
-      "types": "./dist/views/index.d.ts",
-      "default": "./dist/views/index.js"
+      "default": "./src/views/index.ts"
     }
   },
   "devDependencies": {

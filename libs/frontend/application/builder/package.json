@@ -2,70 +2,37 @@
   "name": "@codelab/frontend-application-builder",
   "exports": {
     ".": {
-      "development": "./src/index.ts",
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+      "default": "./src/index.ts"
     },
     "./dnd": {
-      "development": "./src/dnd/index.ts",
-      "import": "./dist/dnd/index.js",
-      "types": "./dist/dnd/index.d.ts",
-      "default": "./dist/dnd/index.js"
+      "default": "./src/dnd/index.ts"
     },
     "./hooks": {
-      "development": "./src/hooks/index.ts",
-      "import": "./dist/hooks/index.js",
-      "types": "./dist/hooks/index.d.ts",
-      "default": "./dist/hooks/index.js"
+      "default": "./src/hooks/index.ts"
     },
     "./sections": {
-      "development": "./src/sections/index.ts",
-      "import": "./dist/sections/index.js",
-      "types": "./dist/sections/index.d.ts",
-      "default": "./dist/sections/index.js"
+      "default": "./src/sections/index.ts"
     },
     "./services": {
-      "development": "./src/services/index.ts",
-      "import": "./dist/services/index.js",
-      "types": "./dist/services/index.d.ts",
-      "default": "./dist/services/index.js"
+      "default": "./src/services/index.ts"
     },
     "./use-cases/base-builder": {
-      "development": "./src/use-cases/base-builder/index.ts",
-      "import": "./dist/use-cases/base-builder/index.js",
-      "types": "./dist/use-cases/base-builder/index.d.ts",
-      "default": "./dist/use-cases/base-builder/index.js"
+      "default": "./src/use-cases/base-builder/index.ts"
     },
     "./use-cases/component-builder": {
-      "development": "./src/use-cases/component-builder/index.ts",
-      "import": "./dist/use-cases/component-builder/index.js",
-      "types": "./dist/use-cases/component-builder/index.d.ts",
-      "default": "./dist/use-cases/component-builder/index.js"
+      "default": "./src/use-cases/component-builder/index.ts"
     },
     "./use-cases/page-builder": {
-      "development": "./src/use-cases/page-builder/index.ts",
-      "import": "./dist/use-cases/page-builder/index.js",
-      "types": "./dist/use-cases/page-builder/index.d.ts",
-      "default": "./dist/use-cases/page-builder/index.js"
+      "default": "./src/use-cases/page-builder/index.ts"
     },
     "./use-cases/page-preview": {
-      "development": "./src/use-cases/page-preview/index.ts",
-      "import": "./dist/use-cases/page-preview/index.js",
-      "types": "./dist/use-cases/page-preview/index.d.ts",
-      "default": "./dist/use-cases/page-preview/index.js"
+      "default": "./src/use-cases/page-preview/index.ts"
     },
     "./use-cases/resize": {
-      "development": "./src/use-cases/resize/index.ts",
-      "import": "./dist/use-cases/resize/index.js",
-      "types": "./dist/use-cases/resize/index.d.ts",
-      "default": "./dist/use-cases/resize/index.js"
+      "default": "./src/use-cases/resize/index.ts"
     },
     "./utils": {
-      "development": "./src/utils/index.ts",
-      "import": "./dist/utils/index.js",
-      "types": "./dist/utils/index.d.ts",
-      "default": "./dist/utils/index.js"
+      "default": "./src/utils/index.ts"
     }
   },
   "devDependencies": {

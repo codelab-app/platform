@@ -24,7 +24,8 @@
       "uniforms"
     ],
     "noEmit": false,
-    "module": "esnext"
+    "module": "esnext",
+    "allowJs": true
   },
   "include": [
     "**/*.graphql",

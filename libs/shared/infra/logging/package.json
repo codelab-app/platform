@@ -2,16 +2,10 @@
   "name": "@codelab/shared-infra-logging",
   "exports": {
     ".": {
-      "development": "./src/index.ts",
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+      "default": "./src/index.ts"
     },
     "./server": {
-      "development": "./src/server/index.ts",
-      "import": "./dist/server/index.js",
-      "types": "./dist/server/index.d.ts",
-      "default": "./dist/server/index.js"
+      "default": "./src/server/index.ts"
     }
   },
   "devDependencies": {

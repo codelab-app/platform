@@ -2,52 +2,28 @@
   "name": "@codelab/frontend-application-tag",
   "exports": {
     ".": {
-      "development": "./src/index.ts",
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+      "default": "./src/index.ts"
     },
     "./services": {
-      "development": "./src/services/index.ts",
-      "import": "./dist/services/index.js",
-      "types": "./dist/services/index.d.ts",
-      "default": "./dist/services/index.js"
+      "default": "./src/services/index.ts"
     },
     "./use-cases/create-tag": {
-      "development": "./src/use-cases/create-tag/index.ts",
-      "import": "./dist/use-cases/create-tag/index.js",
-      "types": "./dist/use-cases/create-tag/index.d.ts",
-      "default": "./dist/use-cases/create-tag/index.js"
+      "default": "./src/use-cases/create-tag/index.ts"
     },
     "./use-cases/delete-tags": {
-      "development": "./src/use-cases/delete-tags/index.ts",
-      "import": "./dist/use-cases/delete-tags/index.js",
-      "types": "./dist/use-cases/delete-tags/index.d.ts",
-      "default": "./dist/use-cases/delete-tags/index.js"
+      "default": "./src/use-cases/delete-tags/index.ts"
     },
     "./use-cases/get-tags": {
-      "development": "./src/use-cases/get-tags/index.ts",
-      "import": "./dist/use-cases/get-tags/index.js",
-      "types": "./dist/use-cases/get-tags/index.d.ts",
-      "default": "./dist/use-cases/get-tags/index.js"
+      "default": "./src/use-cases/get-tags/index.ts"
     },
     "./use-cases/tag-table": {
-      "development": "./src/use-cases/tag-table/index.ts",
-      "import": "./dist/use-cases/tag-table/index.js",
-      "types": "./dist/use-cases/tag-table/index.d.ts",
-      "default": "./dist/use-cases/tag-table/index.js"
+      "default": "./src/use-cases/tag-table/index.ts"
     },
     "./use-cases/update-tag": {
-      "development": "./src/use-cases/update-tag/index.ts",
-      "import": "./dist/use-cases/update-tag/index.js",
-      "types": "./dist/use-cases/update-tag/index.d.ts",
-      "default": "./dist/use-cases/update-tag/index.js"
+      "default": "./src/use-cases/update-tag/index.ts"
     },
     "./views": {
-      "development": "./src/views/index.ts",
-      "import": "./dist/views/index.js",
-      "types": "./dist/views/index.d.ts",
-      "default": "./dist/views/index.js"
+      "default": "./src/views/index.ts"
     }
   },
   "devDependencies": {

@@ -2,40 +2,22 @@
   "name": "@codelab/frontend-application-admin",
   "exports": {
     ".": {
-      "development": "./src/index.ts",
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+      "default": "./src/index.ts"
     },
     "./use-cases/admin-props-panel": {
-      "development": "./src/use-cases/admin-props-panel/index.ts",
-      "import": "./dist/use-cases/admin-props-panel/index.js",
-      "types": "./dist/use-cases/admin-props-panel/index.d.ts",
-      "default": "./dist/use-cases/admin-props-panel/index.js"
+      "default": "./src/use-cases/admin-props-panel/index.ts"
     },
     "./use-cases/export-data": {
-      "development": "./src/use-cases/export-data/index.ts",
-      "import": "./dist/use-cases/export-data/index.js",
-      "types": "./dist/use-cases/export-data/index.d.ts",
-      "default": "./dist/use-cases/export-data/index.js"
+      "default": "./src/use-cases/export-data/index.ts"
     },
     "./use-cases/import-data": {
-      "development": "./src/use-cases/import-data/index.ts",
-      "import": "./dist/use-cases/import-data/index.js",
-      "types": "./dist/use-cases/import-data/index.d.ts",
-      "default": "./dist/use-cases/import-data/index.js"
+      "default": "./src/use-cases/import-data/index.ts"
     },
     "./use-cases/reset-data": {
-      "development": "./src/use-cases/reset-data/index.ts",
-      "import": "./dist/use-cases/reset-data/index.js",
-      "types": "./dist/use-cases/reset-data/index.d.ts",
-      "default": "./dist/use-cases/reset-data/index.js"
+      "default": "./src/use-cases/reset-data/index.ts"
     },
     "./views": {
-      "development": "./src/views/index.ts",
-      "import": "./dist/views/index.js",
-      "types": "./dist/views/index.d.ts",
-      "default": "./dist/views/index.js"
+      "default": "./src/views/index.ts"
     }
   },
   "devDependencies": {

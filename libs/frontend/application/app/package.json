@@ -2,88 +2,43 @@
   "name": "@codelab/frontend-application-app",
   "exports": {
     ".": {
-      "development": "./src/index.ts",
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+      "default": "./src/index.ts"
     },
     "./services": {
-      "development": "./src/services/index.ts",
-      "import": "./dist/services/index.js",
-      "types": "./dist/services/index.d.ts",
-      "default": "./dist/services/index.js"
+      "default": "./src/services/index.ts"
     },
     "./use-cases/app-item": {
-      "development": "./src/use-cases/app-item/index.ts",
-      "import": "./dist/use-cases/app-item/index.js",
-      "types": "./dist/use-cases/app-item/index.d.ts",
-      "default": "./dist/use-cases/app-item/index.js"
+      "default": "./src/use-cases/app-item/index.ts"
     },
     "./use-cases/app-list": {
-      "development": "./src/use-cases/app-list/index.ts",
-      "import": "./dist/use-cases/app-list/index.js",
-      "types": "./dist/use-cases/app-list/index.d.ts",
-      "default": "./dist/use-cases/app-list/index.js"
-    },
-    "./use-cases/app-list/server": {
-      "development": "./src/use-cases/app-list/server/index.ts",
-      "import": "./dist/use-cases/app-list/server/index.js",
-      "types": "./dist/use-cases/app-list/server/index.d.ts",
-      "default": "./dist/use-cases/app-list/server/index.js"
+      "default": "./src/use-cases/app-list/index.ts"
     },
     "./use-cases/app-production": {
-      "development": "./src/use-cases/app-production/index.ts",
-      "import": "./dist/use-cases/app-production/index.js",
-      "types": "./dist/use-cases/app-production/index.d.ts",
-      "default": "./dist/use-cases/app-production/index.js"
+      "default": "./src/use-cases/app-production/index.ts"
     },
     "./use-cases/build-app": {
-      "development": "./src/use-cases/build-app/index.ts",
-      "import": "./dist/use-cases/build-app/index.js",
-      "types": "./dist/use-cases/build-app/index.d.ts",
-      "default": "./dist/use-cases/build-app/index.js"
+      "default": "./src/use-cases/build-app/index.ts"
     },
     "./use-cases/create-app": {
-      "development": "./src/use-cases/create-app/index.ts",
-      "import": "./dist/use-cases/create-app/index.js",
-      "types": "./dist/use-cases/create-app/index.d.ts",
-      "default": "./dist/use-cases/create-app/index.js"
+      "default": "./src/use-cases/create-app/index.ts"
     },
     "./use-cases/delete-app": {
-      "development": "./src/use-cases/delete-app/index.ts",
-      "import": "./dist/use-cases/delete-app/index.js",
-      "types": "./dist/use-cases/delete-app/index.d.ts",
-      "default": "./dist/use-cases/delete-app/index.js"
+      "default": "./src/use-cases/delete-app/index.ts"
     },
     "./use-cases/export-app": {
-      "development": "./src/use-cases/export-app/index.ts",
-      "import": "./dist/use-cases/export-app/index.js",
-      "types": "./dist/use-cases/export-app/index.d.ts",
-      "default": "./dist/use-cases/export-app/index.js"
+      "default": "./src/use-cases/export-app/index.ts"
     },
     "./use-cases/import-app": {
-      "development": "./src/use-cases/import-app/index.ts",
-      "import": "./dist/use-cases/import-app/index.js",
-      "types": "./dist/use-cases/import-app/index.d.ts",
-      "default": "./dist/use-cases/import-app/index.js"
+      "default": "./src/use-cases/import-app/index.ts"
     },
     "./use-cases/select-app-options": {
-      "development": "./src/use-cases/select-app-options/index.ts",
-      "import": "./dist/use-cases/select-app-options/index.js",
-      "types": "./dist/use-cases/select-app-options/index.d.ts",
-      "default": "./dist/use-cases/select-app-options/index.js"
+      "default": "./src/use-cases/select-app-options/index.ts"
     },
     "./use-cases/update-app": {
-      "development": "./src/use-cases/update-app/index.ts",
-      "import": "./dist/use-cases/update-app/index.js",
-      "types": "./dist/use-cases/update-app/index.d.ts",
-      "default": "./dist/use-cases/update-app/index.js"
+      "default": "./src/use-cases/update-app/index.ts"
     },
     "./views": {
-      "development": "./src/views/index.ts",
-      "import": "./dist/views/index.js",
-      "types": "./dist/views/index.d.ts",
-      "default": "./dist/views/index.js"
+      "default": "./src/views/index.ts"
     }
   },
   "devDependencies": {

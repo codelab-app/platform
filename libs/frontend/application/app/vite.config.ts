@@ -43,7 +43,6 @@ export default defineConfig(() => ({
         services: 'src/services/index.ts',
         'use-cases/app-item': 'src/use-cases/app-item/index.ts',
         'use-cases/app-list': 'src/use-cases/app-list/index.ts',
-        'use-cases/app-list/server': 'src/use-cases/app-list/server/index.ts',
         'use-cases/app-production': 'src/use-cases/app-production/index.ts',
         'use-cases/build-app': 'src/use-cases/build-app/index.ts',
         'use-cases/create-app': 'src/use-cases/create-app/index.ts',
