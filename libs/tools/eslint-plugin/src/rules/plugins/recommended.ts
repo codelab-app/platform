@@ -4,17 +4,14 @@ export const recommendedConfig: Linter.Config = {
   extends: ['plugin:barrel-files/recommended'],
   overrides: [
     {
-      // Allow top level
-      excludedFiles: ['src/use-cases/index.{ts,tsx}'],
-      files: ['src/*/index.{ts,tsx}'],
-      rules: {
-        'barrel-files/avoid-barrel-files': 'off',
-        'barrel-files/avoid-re-export-all': 'off',
-      },
-    },
-    {
-      // Allow second level for uses-cases
-      files: ['src/use-cases/*/index.{ts,tsx}'],
+      // excludedFiles: ['src/use-cases/index.{ts,tsx}'],
+      files: [
+        // Allow top level
+        'src/*/index.{ts,tsx}',
+        // Allow second level for uses-cases
+        'src/use-cases/*/index.{ts,tsx}',
+        'src/use-cases/*/server/index.{ts,tsx}',
+      ],
       rules: {
         'barrel-files/avoid-barrel-files': 'off',
         'barrel-files/avoid-re-export-all': 'off',

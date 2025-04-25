@@ -5,6 +5,7 @@ import type { NextConfig } from 'next'
 import bundleAnalyzer from '@next/bundle-analyzer'
 import { composePlugins, withNx } from '@nx/next'
 import env from 'env-var'
+import path from 'path'
 
 const { get } = env
 const analyzeBundle = get('ANALYZE_BUNDLE').default('false').asBoolStrict()
@@ -69,7 +70,7 @@ const nextConfig: WithNxOptions = {
     },
   },
   typescript: {
-    tsconfigPath: './tsconfig.lib.json',
+    // tsconfigPath: path.join(__dirname, './tsconfig.lib.json'),
     // !! WARN !!
     // Dangerously allow production builds to successfully complete even if
     // your project has type errors.

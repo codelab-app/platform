@@ -23,8 +23,8 @@ import { IElementRenderTypeKind } from '@codelab/shared-abstract-core'
 import { Validator } from '@codelab/shared-infra-typebox'
 import { pageApi, pageServerActions } from '@codelab/shared-domain-module-page'
 
-import { createPageAction } from '../use-cases/create-page'
 import { createPageFactory } from '../use-cases/create-page/create-page.factory'
+import { createPageAction } from '../use-cases/create-page/server'
 
 const { GetRenderedPage } = pageServerActions
 

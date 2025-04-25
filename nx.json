@@ -1,7 +1,6 @@
 {
   "defaultBase": "master",
-  "parallel": 4,
-  "maxCacheSize": "4GB",
+  "maxCacheSize": "8GB",
   "nxCloudId": "67fcdb6b7eeb2ddcc348061b",
   "plugins": [
     {
@@ -131,7 +130,7 @@
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "targetDefaults": {
     "build": {
-      "dependsOn": ["^build", "^typecheck"]
+      "dependsOn": []
     },
     "typecheck": {
       "dependsOn": ["^typecheck"]
@@ -139,7 +138,8 @@
     "@nx/next:build": {
       "options": {
         "buildLibsFromSource": false
-      }
+      },
+      "dependsOn": []
     },
     "tsc-check": {
       "cache": true,
@@ -209,7 +209,7 @@
     },
     "@nx/js:swc": {
       "cache": true,
-      "dependsOn": ["^build"],
+      "dependsOn": [],
       "inputs": ["production", "^production"]
     }
   },

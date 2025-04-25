@@ -19,6 +19,12 @@
       "types": "./dist/use-cases/create-page/index.d.ts",
       "default": "./dist/use-cases/create-page/index.js"
     },
+    "./use-cases/create-page/server": {
+      "development": "./src/use-cases/create-page/server/index.ts",
+      "import": "./dist/use-cases/create-page/server/index.js",
+      "types": "./dist/use-cases/create-page/server/index.d.ts",
+      "default": "./dist/use-cases/create-page/server/index.js"
+    },
     "./use-cases/delete-page": {
       "development": "./src/use-cases/delete-page/index.ts",
       "import": "./dist/use-cases/delete-page/index.js",

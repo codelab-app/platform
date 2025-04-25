@@ -42,6 +42,8 @@ export default defineConfig(() => ({
       entry: {
         services: 'src/services/index.ts',
         'use-cases/create-page': 'src/use-cases/create-page/index.ts',
+        'use-cases/create-page/server':
+          'src/use-cases/create-page/server/index.ts',
         'use-cases/delete-page': 'src/use-cases/delete-page/index.ts',
         'use-cases/generate-pages': 'src/use-cases/generate-pages/index.ts',
         'use-cases/get-pages': 'src/use-cases/get-pages/index.ts',

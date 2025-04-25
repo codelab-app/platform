@@ -1,5 +1,44 @@
 {
   "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "preserve",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "incremental": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "types": [
+      "node",
+      "worker-loader",
+      "cypher",
+      "styled-components",
+      "uniforms"
+    ],
+    "noEmit": false,
+    "module": "esnext"
+  },
+  "include": [
+    "**/*.graphql",
+    "**/*.js",
+    "**/*.jsx",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "index.d.ts",
+    "next-env.d.ts",
+    "next.config.ts",
+    "postcss.config.cjs",
+    "../../dist/apps/web/.next/types/**/*.ts"
+  ],
   "references": [
     {
       "path": "../../libs/shared/infra/auth0"
@@ -117,9 +156,6 @@
     },
     {
       "path": "../../libs/frontend/infra/context"
-    },
-    {
-      "path": "./tsconfig.lib.json"
     },
     {
       "path": "./tsconfig.spec.json"

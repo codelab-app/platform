@@ -96,11 +96,14 @@ export const setPackageJsonExports = (
   console.log('Adding relative exports', relativeExports)
 
   const exports = {
+    // '.': {
+    //   development: './src/index.ts',
+    //   import: './dist/index.js',
+    //   types: './dist/index.d.ts',
+    //   default: './dist/index.js',
+    // },
     '.': {
-      development: './src/index.ts',
-      import: './src/index.js',
-      types: './src/index.d.ts',
-      default: './src/index.js',
+      default: './src/index.ts',
     },
   }
 

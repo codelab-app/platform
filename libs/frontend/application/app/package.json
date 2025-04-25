@@ -25,6 +25,12 @@
       "types": "./dist/use-cases/app-list/index.d.ts",
       "default": "./dist/use-cases/app-list/index.js"
     },
+    "./use-cases/app-list/server": {
+      "development": "./src/use-cases/app-list/server/index.ts",
+      "import": "./dist/use-cases/app-list/server/index.js",
+      "types": "./dist/use-cases/app-list/server/index.d.ts",
+      "default": "./dist/use-cases/app-list/server/index.js"
+    },
     "./use-cases/app-production": {
       "development": "./src/use-cases/app-production/index.ts",
       "import": "./dist/use-cases/app-production/index.js",

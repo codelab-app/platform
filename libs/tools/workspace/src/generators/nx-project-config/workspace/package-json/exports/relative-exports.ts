@@ -16,7 +16,7 @@ export const getRelativeExports = (packageName: string) => {
   // Define the type for the accumulator
   type ExportMap = Record<
     string,
-    { default: string; development: string; import: string; types: string }
+    { default: string; development?: string; import?: string; types?: string }
   >
 
   /**
@@ -51,21 +51,22 @@ export const getRelativeExports = (packageName: string) => {
     const relativePath = relativePathRaw === '' ? '.' : `.${relativePathRaw}`
 
     // Determine the target path based on the relative path
-    // const targetPath =
-    //   relativePathRaw === ''
-    //     ? './src/index.ts'
-    //     : `./src${relativePathRaw}/index.ts`
-
     const targetPath =
       relativePathRaw === ''
-        ? './dist/index.js'
-        : `./dist${relativePathRaw}/index.js`
+        ? './src/index.ts'
+        : `./src${relativePathRaw}/index.ts`
+
+    // const targetPath =
+    //   relativePathRaw === ''
+    //     ? './dist/index.js'
+    //     : `./dist${relativePathRaw}/index.js`
 
     // Assign the dynamic export structure
     acc[relativePath] = {
-      development: targetPath.replace('dist', 'src').replace('.js', '.ts'),
-      import: targetPath,
-      types: targetPath.replace('.js', '.d.ts'),
+      // development: targetPath.replace('dist', 'src').replace('.js', '.ts'),
+      // import: targetPath,
+      // types: targetPath.replace('.js', '.d.ts'),
+      // default: targetPath,
       default: targetPath,
     }
 

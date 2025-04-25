@@ -7,12 +7,12 @@ import { Panel, PanelGroup } from 'react-resizable-panels'
  *
  * https://www.martin-paucot.fr/blog/how-to-properly-use-third-parties-libraries-with-react-server-components-5ep8
  */
-export const CuiPanel = Panel
+export const CuiPanel: typeof Panel = Panel
 
 CuiPanel.displayName = 'CuiPanel'
 
 export type CuiPanelProps = React.ComponentProps<typeof CuiPanel>
 
-export const CuiPanelGroup = PanelGroup
+export const CuiPanelGroup: typeof PanelGroup = PanelGroup
 
 CuiPanelGroup.displayName = 'CuiPanelGroup'
