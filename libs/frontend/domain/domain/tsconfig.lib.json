@@ -1,7 +1,7 @@
 {
   "extends": "../../../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "./dist",
+    "outDir": "./dist/out-tsc",
     "types": [
       "node",
       "@nx/react/typings/cssmodule.d.ts",
@@ -10,10 +10,11 @@
     "strict": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "rootDir": "./src"
   },
   "exclude": ["**/*.spec.ts", "**/*.spec.tsx", "jest.config.ts"],
-  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx", "vite.config.ts"],
+  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
   "references": [
     {
       "path": "../../../shared/domain/module/domain/tsconfig.lib.json"

@@ -1,7 +1,7 @@
 {
   "extends": "../../../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "./dist",
+    "outDir": "./dist/out-tsc",
     "types": [
       "node",
       "@nx/react/typings/cssmodule.d.ts",
@@ -11,17 +11,11 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "jsx": "react-jsx",
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "rootDir": "./src"
   },
   "exclude": ["**/*.spec.ts", "**/*.spec.tsx", "jest.config.ts"],
-  "include": [
-    "**/*.js",
-    "**/*.jsx",
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.graphql",
-    "vite.config.ts"
-  ],
+  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx", "**/*.graphql"],
   "references": [
     {
       "path": "../shared/tsconfig.lib.json"

@@ -2,31 +2,31 @@
   "name": "@codelab/frontend-domain-domain",
   "exports": {
     ".": {
-      "development": "./dist/index.ts",
+      "development": "./src/index.ts",
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
     "./errors": {
-      "development": "./dist/errors/index.ts",
+      "development": "./src/errors/index.ts",
       "import": "./dist/errors/index.js",
       "types": "./dist/errors/index.d.ts",
       "default": "./dist/errors/index.js"
     },
     "./repositories": {
-      "development": "./dist/repositories/index.ts",
+      "development": "./src/repositories/index.ts",
       "import": "./dist/repositories/index.js",
       "types": "./dist/repositories/index.d.ts",
       "default": "./dist/repositories/index.js"
     },
     "./services": {
-      "development": "./dist/services/index.ts",
+      "development": "./src/services/index.ts",
       "import": "./dist/services/index.js",
       "types": "./dist/services/index.d.ts",
       "default": "./dist/services/index.js"
     },
     "./store": {
-      "development": "./dist/store/index.ts",
+      "development": "./src/store/index.ts",
       "import": "./dist/store/index.js",
       "types": "./dist/store/index.d.ts",
       "default": "./dist/store/index.js"

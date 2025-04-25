@@ -1,7 +1,7 @@
 {
   "extends": "../../../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "./dist",
+    "outDir": "./dist/out-tsc",
     "declaration": true,
     "types": [],
     "forceConsistentCasingInFileNames": true,
@@ -10,9 +10,10 @@
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "exactOptionalPropertyTypes": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "rootDir": "./src"
   },
-  "include": ["**/*.ts", "vite.config.ts"],
+  "include": ["**/*.ts"],
   "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.test.ts"],
   "references": [
     {

@@ -1,15 +1,16 @@
 {
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "./dist",
+    "outDir": "./dist/out-tsc",
     "declaration": true,
     "types": ["node"],
     "strict": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "rootDir": "./src"
   },
   "exclude": ["**/*.spec.ts", "**/*.test.ts", "jest.config.ts"],
-  "include": ["**/*.ts", "vite.config.ts"],
+  "include": ["**/*.ts"],
   "references": [
     {
       "path": "../infra/gqlgen/tsconfig.lib.json"

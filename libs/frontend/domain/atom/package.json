@@ -2,31 +2,31 @@
   "name": "@codelab/frontend-domain-atom",
   "exports": {
     ".": {
-      "development": "./dist/index.ts",
+      "development": "./src/index.ts",
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
     "./repositories": {
-      "development": "./dist/repositories/index.ts",
+      "development": "./src/repositories/index.ts",
       "import": "./dist/repositories/index.js",
       "types": "./dist/repositories/index.d.ts",
       "default": "./dist/repositories/index.js"
     },
     "./services": {
-      "development": "./dist/services/index.ts",
+      "development": "./src/services/index.ts",
       "import": "./dist/services/index.js",
       "types": "./dist/services/index.d.ts",
       "default": "./dist/services/index.js"
     },
     "./store": {
-      "development": "./dist/store/index.ts",
+      "development": "./src/store/index.ts",
       "import": "./dist/store/index.js",
       "types": "./dist/store/index.d.ts",
       "default": "./dist/store/index.js"
     },
     "./test": {
-      "development": "./dist/test/index.ts",
+      "development": "./src/test/index.ts",
       "import": "./dist/test/index.js",
       "types": "./dist/test/index.d.ts",
       "default": "./dist/test/index.js"

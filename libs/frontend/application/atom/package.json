@@ -2,97 +2,97 @@
   "name": "@codelab/frontend-application-atom",
   "exports": {
     ".": {
-      "development": "./dist/index.ts",
+      "development": "./src/index.ts",
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
     "./components/ant-design/icon": {
-      "development": "./dist/components/ant-design/icon/index.ts",
+      "development": "./src/components/ant-design/icon/index.ts",
       "import": "./dist/components/ant-design/icon/index.js",
       "types": "./dist/components/ant-design/icon/index.d.ts",
       "default": "./dist/components/ant-design/icon/index.js"
     },
     "./components/custom/codelab-script": {
-      "development": "./dist/components/custom/codelab-script/index.ts",
+      "development": "./src/components/custom/codelab-script/index.ts",
       "import": "./dist/components/custom/codelab-script/index.js",
       "types": "./dist/components/custom/codelab-script/index.d.ts",
       "default": "./dist/components/custom/codelab-script/index.js"
     },
     "./components/custom/grid-layout": {
-      "development": "./dist/components/custom/grid-layout/index.ts",
+      "development": "./src/components/custom/grid-layout/index.ts",
       "import": "./dist/components/custom/grid-layout/index.js",
       "types": "./dist/components/custom/grid-layout/index.d.ts",
       "default": "./dist/components/custom/grid-layout/index.js"
     },
     "./components/custom/text-list": {
-      "development": "./dist/components/custom/text-list/index.ts",
+      "development": "./src/components/custom/text-list/index.ts",
       "import": "./dist/components/custom/text-list/index.js",
       "types": "./dist/components/custom/text-list/index.d.ts",
       "default": "./dist/components/custom/text-list/index.js"
     },
     "./components/mui/icon": {
-      "development": "./dist/components/mui/icon/index.ts",
+      "development": "./src/components/mui/icon/index.ts",
       "import": "./dist/components/mui/icon/index.js",
       "types": "./dist/components/mui/icon/index.d.ts",
       "default": "./dist/components/mui/icon/index.js"
     },
     "./services": {
-      "development": "./dist/services/index.ts",
+      "development": "./src/services/index.ts",
       "import": "./dist/services/index.js",
       "types": "./dist/services/index.d.ts",
       "default": "./dist/services/index.js"
     },
     "./use-cases/atom-list": {
-      "development": "./dist/use-cases/atom-list/index.ts",
+      "development": "./src/use-cases/atom-list/index.ts",
       "import": "./dist/use-cases/atom-list/index.js",
       "types": "./dist/use-cases/atom-list/index.d.ts",
       "default": "./dist/use-cases/atom-list/index.js"
     },
     "./use-cases/atom-list/server": {
-      "development": "./dist/use-cases/atom-list/server/index.ts",
+      "development": "./src/use-cases/atom-list/server/index.ts",
       "import": "./dist/use-cases/atom-list/server/index.js",
       "types": "./dist/use-cases/atom-list/server/index.d.ts",
       "default": "./dist/use-cases/atom-list/server/index.js"
     },
     "./use-cases/atom-table": {
-      "development": "./dist/use-cases/atom-table/index.ts",
+      "development": "./src/use-cases/atom-table/index.ts",
       "import": "./dist/use-cases/atom-table/index.js",
       "types": "./dist/use-cases/atom-table/index.d.ts",
       "default": "./dist/use-cases/atom-table/index.js"
     },
     "./use-cases/create-atom": {
-      "development": "./dist/use-cases/create-atom/index.ts",
+      "development": "./src/use-cases/create-atom/index.ts",
       "import": "./dist/use-cases/create-atom/index.js",
       "types": "./dist/use-cases/create-atom/index.d.ts",
       "default": "./dist/use-cases/create-atom/index.js"
     },
     "./use-cases/delete-atom": {
-      "development": "./dist/use-cases/delete-atom/index.ts",
+      "development": "./src/use-cases/delete-atom/index.ts",
       "import": "./dist/use-cases/delete-atom/index.js",
       "types": "./dist/use-cases/delete-atom/index.d.ts",
       "default": "./dist/use-cases/delete-atom/index.js"
     },
     "./use-cases/helper": {
-      "development": "./dist/use-cases/helper/index.ts",
+      "development": "./src/use-cases/helper/index.ts",
       "import": "./dist/use-cases/helper/index.js",
       "types": "./dist/use-cases/helper/index.d.ts",
       "default": "./dist/use-cases/helper/index.js"
     },
     "./use-cases/select-atom": {
-      "development": "./dist/use-cases/select-atom/index.ts",
+      "development": "./src/use-cases/select-atom/index.ts",
       "import": "./dist/use-cases/select-atom/index.js",
       "types": "./dist/use-cases/select-atom/index.d.ts",
       "default": "./dist/use-cases/select-atom/index.js"
     },
     "./use-cases/update-atom": {
-      "development": "./dist/use-cases/update-atom/index.ts",
+      "development": "./src/use-cases/update-atom/index.ts",
       "import": "./dist/use-cases/update-atom/index.js",
       "types": "./dist/use-cases/update-atom/index.d.ts",
       "default": "./dist/use-cases/update-atom/index.js"
     },
     "./views": {
-      "development": "./dist/views/index.ts",
+      "development": "./src/views/index.ts",
       "import": "./dist/views/index.js",
       "types": "./dist/views/index.d.ts",
       "default": "./dist/views/index.js"

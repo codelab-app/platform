@@ -1,7 +1,7 @@
 {
   "extends": "../../../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "dist",
+    "outDir": "./dist/out-tsc",
     "types": [
       "node",
       "@nx/react/typings/cssmodule.d.ts",
@@ -9,9 +9,9 @@
     ],
     "jsx": "react-jsx",
     "moduleResolution": "bundler",
-    "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo"
+    "rootDir": "./src"
   },
-  "include": ["src/**/*.ts", "vite.config.ts"],
+  "include": ["src/**/*.ts"],
   "exclude": [
     "out-tsc",
     "dist",

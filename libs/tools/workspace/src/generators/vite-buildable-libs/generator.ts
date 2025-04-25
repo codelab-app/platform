@@ -35,9 +35,6 @@ export const viteBuildableLibsGenerator = async (
       }
     },
   )
-
-  // const filesProjectRoot = joinPathFragments(__dirname, 'files')
-  // generateFiles(tree, filesProjectRoot, options.projectRoot, options)
 }
 
 export default viteBuildableLibsGenerator

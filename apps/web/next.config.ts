@@ -58,7 +58,6 @@ const nextConfig: WithNxOptions = {
   // disable to support uniforms
   // http://github.com/vazco/uniforms/issues/1194
   reactStrictMode: false,
-
   // https://github.com/vercel/turborepo/issues/4832#issuecomment-2629459687
   // turbopack working for dev only not for production
   turbopack: {
@@ -70,6 +69,7 @@ const nextConfig: WithNxOptions = {
     },
   },
   typescript: {
+    tsconfigPath: './tsconfig.lib.json',
     // !! WARN !!
     // Dangerously allow production builds to successfully complete even if
     // your project has type errors.

@@ -16,9 +16,6 @@
       "path": "../../../shared/abstract/core"
     },
     {
-      "path": "../../../frontend/abstract/types"
-    },
-    {
       "path": "../types"
     },
     {

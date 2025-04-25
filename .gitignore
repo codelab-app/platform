@@ -6,7 +6,6 @@
 !.env.test.example
 
 dist/
-!libs/frontend/abstract/types/dist
 
 # compiled output
 # Ignore everything in 'dist'

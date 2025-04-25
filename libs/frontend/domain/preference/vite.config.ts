@@ -42,6 +42,7 @@ export default defineConfig(() => ({
       entry: {
         index: 'src/index.ts',
         repositories: 'src/repositories/index.ts',
+        services: 'src/services/index.ts',
         store: 'src/store/index.ts',
       },
       name: '@codelab/frontend-domain-preference',

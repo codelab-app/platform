@@ -1,7 +1,7 @@
 {
   "extends": "../../../../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "./dist",
+    "outDir": "./dist/out-tsc",
     "declaration": true,
     "types": ["node"],
     "jsx": "react-jsx",
@@ -10,10 +10,11 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "rootDir": "./src"
   },
   "exclude": ["**/*.spec.ts", "**/*.test.ts"],
-  "include": ["**/*.ts", "**/*.tsx", "vite.config.ts"],
+  "include": ["**/*.ts", "**/*.tsx"],
   "references": [
     {
       "path": "../../../abstract/domain/tsconfig.lib.json"

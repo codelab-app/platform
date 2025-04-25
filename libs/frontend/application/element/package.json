@@ -2,61 +2,61 @@
   "name": "@codelab/frontend-application-element",
   "exports": {
     ".": {
-      "development": "./dist/index.ts",
+      "development": "./src/index.ts",
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
     "./services": {
-      "development": "./dist/services/index.ts",
+      "development": "./src/services/index.ts",
       "import": "./dist/services/index.js",
       "types": "./dist/services/index.d.ts",
       "default": "./dist/services/index.js"
     },
     "./use-cases/create-element": {
-      "development": "./dist/use-cases/create-element/index.ts",
+      "development": "./src/use-cases/create-element/index.ts",
       "import": "./dist/use-cases/create-element/index.js",
       "types": "./dist/use-cases/create-element/index.d.ts",
       "default": "./dist/use-cases/create-element/index.js"
     },
     "./use-cases/delete-element": {
-      "development": "./dist/use-cases/delete-element/index.ts",
+      "development": "./src/use-cases/delete-element/index.ts",
       "import": "./dist/use-cases/delete-element/index.js",
       "types": "./dist/use-cases/delete-element/index.d.ts",
       "default": "./dist/use-cases/delete-element/index.js"
     },
     "./use-cases/hook-description": {
-      "development": "./dist/use-cases/hook-description/index.ts",
+      "development": "./src/use-cases/hook-description/index.ts",
       "import": "./dist/use-cases/hook-description/index.js",
       "types": "./dist/use-cases/hook-description/index.d.ts",
       "default": "./dist/use-cases/hook-description/index.js"
     },
     "./use-cases/move-element": {
-      "development": "./dist/use-cases/move-element/index.ts",
+      "development": "./src/use-cases/move-element/index.ts",
       "import": "./dist/use-cases/move-element/index.js",
       "types": "./dist/use-cases/move-element/index.d.ts",
       "default": "./dist/use-cases/move-element/index.js"
     },
     "./use-cases/update-element": {
-      "development": "./dist/use-cases/update-element/index.ts",
+      "development": "./src/use-cases/update-element/index.ts",
       "import": "./dist/use-cases/update-element/index.js",
       "types": "./dist/use-cases/update-element/index.d.ts",
       "default": "./dist/use-cases/update-element/index.js"
     },
     "./use-cases/update-element-props": {
-      "development": "./dist/use-cases/update-element-props/index.ts",
+      "development": "./src/use-cases/update-element-props/index.ts",
       "import": "./dist/use-cases/update-element-props/index.js",
       "types": "./dist/use-cases/update-element-props/index.d.ts",
       "default": "./dist/use-cases/update-element-props/index.js"
     },
     "./validation": {
-      "development": "./dist/validation/index.ts",
+      "development": "./src/validation/index.ts",
       "import": "./dist/validation/index.js",
       "types": "./dist/validation/index.d.ts",
       "default": "./dist/validation/index.js"
     },
     "./views": {
-      "development": "./dist/views/index.ts",
+      "development": "./src/views/index.ts",
       "import": "./dist/views/index.js",
       "types": "./dist/views/index.d.ts",
       "default": "./dist/views/index.js"

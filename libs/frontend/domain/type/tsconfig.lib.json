@@ -1,7 +1,7 @@
 {
   "extends": "../../../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "./dist",
+    "outDir": "./dist/out-tsc",
     "types": [
       "node",
       "styled-components",
@@ -13,7 +13,8 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true,
-    "useDefineForClassFields": true
+    "useDefineForClassFields": true,
+    "rootDir": "./src"
   },
   "exclude": [
     "**/*.spec.ts",
@@ -22,7 +23,7 @@
     "**/*.test.tsx",
     "jest.config.ts"
   ],
-  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx", "vite.config.ts"],
+  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
   "references": [
     {
       "path": "../../../shared/utils/tsconfig.lib.json"

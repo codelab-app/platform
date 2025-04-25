@@ -63,7 +63,7 @@ export const getRelativeExports = (packageName: string) => {
 
     // Assign the dynamic export structure
     acc[relativePath] = {
-      development: targetPath.replace('.js', '.ts'),
+      development: targetPath.replace('dist', 'src').replace('.js', '.ts'),
       import: targetPath,
       types: targetPath.replace('.js', '.d.ts'),
       default: targetPath,

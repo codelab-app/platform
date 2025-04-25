@@ -1,7 +1,7 @@
 {
   "extends": "../../../../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "./dist",
+    "outDir": "./dist/out-tsc",
     "declaration": true,
     "types": ["node"],
     "target": "es2021",
@@ -13,13 +13,13 @@
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
-    "noImplicitReturns": true
+    "noImplicitReturns": true,
+    "rootDir": "./src"
   },
   "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.test.ts"],
   "include": [
     "**/*.ts",
-    "../../../domain/element/src/service/element-descendants.service.ts",
-    "vite.config.ts"
+    "../../../domain/element/src/service/element-descendants.service.ts"
   ],
   "references": [
     {
