@@ -54,7 +54,7 @@ import {
 import { UserDomainService } from '@codelab/frontend-domain-user/services'
 import { Model, model, prop } from 'mobx-keystone'
 
-export const createDomainStore = (user: IUserDto) => {
+export const createDomainStore = (user: IUserDto): IDomainStore => {
   @model('@codelab/DomainStore')
   class DomainStore
     extends Model({

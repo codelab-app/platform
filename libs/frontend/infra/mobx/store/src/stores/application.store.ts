@@ -1,3 +1,5 @@
+import type { ModelClassDeclaration } from 'mobx-keystone'
+
 import {
   builderServiceContext,
   type IApplicationStore,
@@ -28,15 +30,15 @@ import {
 import { RouterService } from '@codelab/frontend-application-shared-store/router'
 import { Model, model, prop } from 'mobx-keystone'
 
-export const createApplicationStore = (domainStore: IDomainStore) => {
+export const createApplicationStore = (
+  domainStore: IDomainStore,
+): IApplicationStore => {
   @model('@codelab/ApplicationIStore')
   class ApplicationStore
     extends Model({
       builderService: prop<IBuilderService>(
         () => new BuilderService({ hoveredNode: null, selectedNode: null }),
       ),
-      // add reference to domain store, so that all the models in ApplicationStore
-      // can access refs from domain store (elements, components, apps, etc)
       rendererService: prop<IRendererService>(() => new RendererService({})),
       routerService: prop<IRouterService>(() => new RouterService({})),
       runtimeComponentService: prop<IRuntimeComponentService>(

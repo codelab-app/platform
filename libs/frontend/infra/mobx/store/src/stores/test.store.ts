@@ -46,7 +46,6 @@ import {
   typeDomainServiceContext,
   userDomainServiceContext,
 } from '@codelab/frontend-abstract-domain'
-import { userDto } from '@codelab/frontend-test-data'
 import { rendererFactory } from '@codelab/frontend-application-renderer/test'
 import {
   apiActionFactory,
@@ -70,6 +69,7 @@ import {
   renderPropsTypeFactory,
   richTextTypeFactory,
 } from '@codelab/frontend-domain-type/test'
+import { userDto } from '@codelab/frontend-test-data'
 import {
   IAtomType,
   IPageKind,
@@ -85,6 +85,7 @@ import {
   prop,
   registerRootStore,
   setGlobalConfig,
+  UndoManager,
   undoMiddleware,
   unregisterRootStore,
 } from 'mobx-keystone'
@@ -98,7 +99,10 @@ export enum Layout {
   Vertical,
 }
 
-export const createTestStore = () => {
+export const createTestStore = (): {
+  rootStore: IRootStore
+  undoManager: UndoManager
+} => {
   setGlobalConfig({
     showDuplicateModelNameWarnings: false,
   })

@@ -11,13 +11,19 @@ import {
   prop,
   registerRootStore,
   setGlobalConfig,
+  UndoManager,
   undoMiddleware,
 } from 'mobx-keystone'
 
 import { createApplicationStore } from './application.store'
 import { createDomainStore } from './domain.store'
 
-export const createRootStore = ({ user }: IRootStoreInput) => {
+export const createRootStore = ({
+  user,
+}: IRootStoreInput): {
+  rootStore: IRootStore
+  undoManager: UndoManager
+} => {
   setGlobalConfig({
     showDuplicateModelNameWarnings: false,
   })
@@ -25,13 +31,13 @@ export const createRootStore = ({ user }: IRootStoreInput) => {
   const domainStore = createDomainStore(user)
   const applicationStore = createApplicationStore(domainStore)
 
+  const ModelProps = {
+    applicationStore: prop<IApplicationStore>(() => applicationStore),
+    domainStore: prop<IDomainStore>(() => domainStore),
+  }
+
   @model('@codelab/RootStore')
-  class RootStore
-    extends Model({
-      applicationStore: prop<IApplicationStore>(() => applicationStore),
-      domainStore: prop<IDomainStore>(() => domainStore),
-    })
-    implements IRootStore {}
+  class RootStore extends Model(ModelProps) implements IRootStore {}
 
   const rootStore = new RootStore({})
 

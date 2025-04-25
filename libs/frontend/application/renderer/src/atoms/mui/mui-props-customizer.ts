@@ -3,7 +3,7 @@ import { IAtomType } from '@codelab/shared-abstract-core'
 
 import type { AtomCustomizer, AtomCustomizerFn } from '../types'
 
-const MuiDisablePortalFn: AtomCustomizerFn = ({ node, props }) => ({
+const MuiDisablePortalFn: AtomCustomizerFn = ({ props }) => ({
   props: {
     ...props,
     // disableEnforceFocus: true,

@@ -48,7 +48,6 @@ export default defineConfig(() => ({
         'use-cases/create-component': 'src/use-cases/create-component/index.ts',
         'use-cases/delete-component': 'src/use-cases/delete-component/index.ts',
         'use-cases/export-component': 'src/use-cases/export-component/index.ts',
-        'use-cases/get-component': 'src/use-cases/get-component/index.ts',
         'use-cases/import-component': 'src/use-cases/import-component/index.ts',
         'use-cases/update-component': 'src/use-cases/update-component/index.ts',
         'use-cases/update-component-props':

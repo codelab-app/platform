@@ -43,12 +43,6 @@
       "types": "./dist/use-cases/export-component/index.d.ts",
       "default": "./dist/use-cases/export-component/index.js"
     },
-    "./use-cases/get-component": {
-      "development": "./src/use-cases/get-component/index.ts",
-      "import": "./dist/use-cases/get-component/index.js",
-      "types": "./dist/use-cases/get-component/index.d.ts",
-      "default": "./dist/use-cases/get-component/index.js"
-    },
     "./use-cases/import-component": {
       "development": "./src/use-cases/import-component/index.ts",
       "import": "./dist/use-cases/import-component/index.js",
