@@ -13,12 +13,6 @@
       "types": "./dist/services/index.d.ts",
       "default": "./dist/services/index.js"
     },
-    "./use-cases/app-builder": {
-      "development": "./src/use-cases/app-builder/index.ts",
-      "import": "./dist/use-cases/app-builder/index.js",
-      "types": "./dist/use-cases/app-builder/index.d.ts",
-      "default": "./dist/use-cases/app-builder/index.js"
-    },
     "./use-cases/app-item": {
       "development": "./src/use-cases/app-item/index.ts",
       "import": "./dist/use-cases/app-item/index.js",

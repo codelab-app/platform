@@ -41,7 +41,6 @@ export default defineConfig(() => ({
       // Could also be a dictionary or array of multiple entry points.
       entry: {
         services: 'src/services/index.ts',
-        'use-cases/app-builder': 'src/use-cases/app-builder/index.ts',
         'use-cases/app-item': 'src/use-cases/app-item/index.ts',
         'use-cases/app-list': 'src/use-cases/app-list/index.ts',
         'use-cases/app-production': 'src/use-cases/app-production/index.ts',

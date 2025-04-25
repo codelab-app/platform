@@ -354,11 +354,6 @@
     "path": "libs/frontend/application/app/src/services/index.ts",
     "name": null
   },
-  "@codelab/frontend-application-app/use-cases/app-builder": {
-    "expected": "@codelab/frontend-application-app/use-cases/app-builder",
-    "path": "libs/frontend/application/app/src/use-cases/app-builder/index.ts",
-    "name": null
-  },
   "@codelab/frontend-application-app/use-cases/app-item": {
     "expected": "@codelab/frontend-application-app/use-cases/app-item",
     "path": "libs/frontend/application/app/src/use-cases/app-item/index.ts",
