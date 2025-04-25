@@ -469,11 +469,6 @@
     "path": "libs/frontend/application/atom/src/use-cases/delete-atom/index.ts",
     "name": null
   },
-  "@codelab/frontend-application-atom/use-cases/helper": {
-    "expected": "@codelab/frontend-application-atom/use-cases/helper",
-    "path": "libs/frontend/application/atom/src/use-cases/helper/index.ts",
-    "name": null
-  },
   "@codelab/frontend-application-atom/use-cases/select-atom": {
     "expected": "@codelab/frontend-application-atom/use-cases/select-atom",
     "path": "libs/frontend/application/atom/src/use-cases/select-atom/index.ts",

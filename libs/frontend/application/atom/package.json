@@ -73,12 +73,6 @@
       "types": "./dist/use-cases/delete-atom/index.d.ts",
       "default": "./dist/use-cases/delete-atom/index.js"
     },
-    "./use-cases/helper": {
-      "development": "./src/use-cases/helper/index.ts",
-      "import": "./dist/use-cases/helper/index.js",
-      "types": "./dist/use-cases/helper/index.d.ts",
-      "default": "./dist/use-cases/helper/index.js"
-    },
     "./use-cases/select-atom": {
       "development": "./src/use-cases/select-atom/index.ts",
       "import": "./dist/use-cases/select-atom/index.js",

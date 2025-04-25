@@ -54,7 +54,6 @@ export default defineConfig(() => ({
         'use-cases/atom-table': 'src/use-cases/atom-table/index.ts',
         'use-cases/create-atom': 'src/use-cases/create-atom/index.ts',
         'use-cases/delete-atom': 'src/use-cases/delete-atom/index.ts',
-        'use-cases/helper': 'src/use-cases/helper/index.ts',
         'use-cases/select-atom': 'src/use-cases/select-atom/index.ts',
         'use-cases/update-atom': 'src/use-cases/update-atom/index.ts',
         views: 'src/views/index.ts',

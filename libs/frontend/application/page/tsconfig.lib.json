@@ -26,13 +26,7 @@
     "src/**/*.spec.jsx",
     "src/**/*.test.jsx"
   ],
-  "include": [
-    "src/**/*.js",
-    "src/**/*.jsx",
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "../builder/src/use-cases/resize/BuilderResizeMenu.tsx"
-  ],
+  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"],
   "references": [
     {
       "path": "../../presentation/components/interface-form/tsconfig.lib.json"
