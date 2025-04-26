@@ -136,10 +136,23 @@
     "typecheck": {
       "dependsOn": ["^typecheck"]
     },
+    // "@nx/vite:build": {
+    //   "cache": true,
+    //   "outputs": ["{options.outputPath}"],
+    //   "dependsOn": ["^build"]
+    // },
     "@nx/next:build": {
+      "cache": true,
       "options": {
-        "buildLibsFromSource": true,
         "postcssConfig": "apps/web/postcss.config.js"
+      },
+      "configurations": {
+        "dev": {
+          "buildLibsFromSource": true
+        },
+        "production": {
+          "buildLibsFromSource": false
+        }
       },
       "dependsOn": []
     },
