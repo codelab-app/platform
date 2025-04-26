@@ -5,4 +5,4 @@ set -x
 # Extract the arguments after "pnpm cli"
 args=${@#pnpm cli}
 
-node dist/apps/cli/main.js $args
+node apps/cli/dist/main.js $args

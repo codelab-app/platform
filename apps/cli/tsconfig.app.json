@@ -13,7 +13,7 @@
     "noFallthroughCasesInSwitch": true
   },
   "exclude": ["jest.config.ts"],
-  "include": ["webpack.config.js", "src/**/*.ts"],
+  "include": ["src/**/*.ts"],
   // Make sure references are not included, and `buildLibsFromSource` is true, this way we don't read libs from dist
   "references": [
     {
