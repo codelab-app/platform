@@ -2,13 +2,12 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "jsx": "preserve",
-
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
-    "module": "es2015",
+    "module": "esnext",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "incremental": true,
@@ -17,7 +16,12 @@
         "name": "next"
       }
     ],
-    "types": ["jest", "node", "styled-components"]
+    "types": [
+      "jest",
+      "node",
+      "styled-components"
+    ],
+    "allowJs": true
   },
   "include": [
     "**/*.ts",
@@ -28,7 +32,12 @@
     "tailwind.config.cjs",
     "next.config.mjs"
   ],
-  "exclude": ["node_modules", "jest.config.ts", "**/*.spec.ts", "**/*.test.ts"],
+  "exclude": [
+    "node_modules",
+    "jest.config.ts",
+    "**/*.spec.ts",
+    "**/*.test.ts"
+  ],
   "files": [],
   "references": [
     {

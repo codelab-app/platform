@@ -229,7 +229,7 @@
     "path": "libs/backend/infra/adapter/auth0/src/index.ts",
     "name": "backend-infra-adapter-auth0"
   },
-  "@codelab/backend/infra/adapter/cli": {
+  "@codelab/backend-infra-adapter-cli": {
     "expected": "@codelab/backend-infra-adapter-cli",
     "path": "libs/backend/infra/adapter/cli/src/index.ts",
     "name": "backend-infra-adapter-cli"

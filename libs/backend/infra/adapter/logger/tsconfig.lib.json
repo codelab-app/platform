@@ -3,6 +3,7 @@
   "compilerOptions": {
     "outDir": "./dist",
     "declaration": true,
+    "composite": true,
     "types": ["node"],
     "target": "es2021",
     "strictNullChecks": true,

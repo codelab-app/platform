@@ -3,8 +3,9 @@
   "files": [],
   "compilerOptions": {
     "esModuleInterop": true,
-    "outDir": "../../dist/out-tsc",
-    "module": "CommonJS",
+    "moduleResolution": "Node16",
+    "outDir": "./dist",
+    "module": "ESNext",
     "sourceMap": true,
     "target": "es2021",
     "experimentalDecorators": true,

@@ -1,9 +1,26 @@
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin'
 import react from '@vitejs/plugin-react'
+import { readFileSync } from 'fs'
 import { join } from 'path'
 import preserveDirectives from 'rollup-preserve-directives'
-import { defineConfig } from 'vite'
+import { defineConfig, Plugin } from 'vite'
 import dts from 'vite-plugin-dts'
+
+const rawFilePlugin = (): Plugin => {
+  return {
+    name: 'vite-plugin-raw-files',
+    transform(code, id) {
+      if (/\.(cypher|cyp)$/.test(id)) {
+        const fileContent = readFileSync(id, 'utf-8')
+
+        return {
+          code: `export default ${JSON.stringify(fileContent)};`,
+          map: null, // Provide source map if needed
+        }
+      }
+    },
+  }
+}
 
 export default defineConfig(() => ({
   root: __dirname,
@@ -12,6 +29,7 @@ export default defineConfig(() => ({
     react(),
     // Used for keeping `use server` or `use client`
     preserveDirectives(),
+    rawFilePlugin(),
     dts({
       entryRoot: 'src',
       tsconfigPath: join(__dirname, '<%= tsconfigPath %>'),
@@ -57,7 +75,9 @@ export default defineConfig(() => ({
         // Also, treat absolute paths that don't start with the project root as external.
         return !id.startsWith('.') && !id.startsWith('/')
       },
-      preserveModules: true,
+      output: {
+        preserveModules: true,
+      }
     },
   },
 }))

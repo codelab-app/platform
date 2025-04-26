@@ -1,20 +1,13 @@
 {
   "name": "cli",
-  "exports": {
-    ".": {
-      "import": "./src/index.js",
-      "types": "./src/index.d.ts",
-      "default": "./src/index.js"
-    }
-  },
   "devDependencies": {
     "@codelab/backend-infra-adapter-logger": "workspace:*",
-    "@codelab/shared-abstract-core": "workspace:*"
+    "@codelab/shared-abstract-core": "workspace:*",
+    "@codelab/backend-infra-adapter-cli": "workspace:*"
   },
   "nx": {
     "name": "cli",
     "projectType": "application",
-    "sourceRoot": "apps/cli/src",
     "tags": [
       "projectName:cli",
       "projectType:application",

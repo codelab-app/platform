@@ -1331,6 +1331,9 @@ importers:
 
   apps/cli:
     devDependencies:
+      '@codelab/backend-infra-adapter-cli':
+        specifier: workspace:*
+        version: link:../../libs/backend/infra/adapter/cli
       '@codelab/backend-infra-adapter-logger':
         specifier: workspace:*
         version: link:../../libs/backend/infra/adapter/logger
@@ -8514,7 +8517,6 @@ packages:
 
   '@ls-lint/ls-lint@2.0.0':
     resolution: {integrity: sha512-1QEk2tzSH5YBCgP+klCZJvdGHJFNQgJb8qPFpFwQPmvjmZMV0aPE11TZ4qd+BlTcteeCWzs5ewSIOVRx2xT+Lw==}
-    cpu: [x64, arm64, s390x]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -14547,6 +14549,7 @@ packages:
     resolution: {integrity: sha512-mWAZzMUPbCjP1MXUbdHud0GLzAOpeNuQ10J3twrbNAPih4za2rBhfdtm9KPGJ1kPMPOdJs1V4uBfS47owGeKxw==}
     peerDependencies:
       eslint: '>= 5'
+    bundledDependencies: []
 
   eslint-plugin-canonical@4.15.1:
     resolution: {integrity: sha512-xndfaRN9vOb6sd2bd7jKac6oMeDj9ZaKr7uPYt99BGyy4D2gRe4cisIMo4uVUR3CdRSK1fEmH68OeRtmpJ7cpA==}
