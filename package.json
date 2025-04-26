@@ -463,7 +463,8 @@
     "vite": "6.2.1",
     "vite-plugin-dts": "^4.5.3",
     "vitest": "^3.1.1",
-    "wait-on": "6.0.1"
+    "wait-on": "6.0.1",
+    "webpack-cli": "^6.0.1"
   },
   "pnpm": {
     "overrides": {},
