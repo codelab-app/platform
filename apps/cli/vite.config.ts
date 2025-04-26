@@ -26,9 +26,8 @@ export default defineConfig(() => ({
   root: __dirname,
   cacheDir: '../../../node_modules/.vite/apps/cli',
   plugins: [
-    react(),
+    // react(),
     // Used for keeping `use server` or `use client`
-    preserveDirectives(),
     rawFilePlugin(),
     dts({
       entryRoot: 'src',
@@ -37,7 +36,7 @@ export default defineConfig(() => ({
       // This will generate a package.json, not configurable https://github.com/nrwl/nx/discussions/23294
       // nxViteTsPaths(),
       // Vite itself doesn't generate declaration files, required for proper type checking
-      insertTypesEntry: true,
+      // insertTypesEntry: true,
       // Very time intensive
       // rollupTypes: true,
     }),
