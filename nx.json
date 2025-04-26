@@ -154,7 +154,7 @@
           "buildLibsFromSource": false
         }
       },
-      "dependsOn": []
+      "dependsOn": ["^build"]
     },
     "tsc-check": {
       "cache": true,
@@ -235,14 +235,6 @@
       "{workspaceRoot}/tslint.json",
       "{workspaceRoot}/nx.json",
       "{workspaceRoot}/tsconfig.base.json"
-    ],
-    "prod": [
-      "default",
-      "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
-      "!{projectRoot}/tsconfig.spec.json",
-      "!{projectRoot}/jest.config.[jt]s",
-      "!{projectRoot}/**/*.stories.@(js|jsx|ts|tsx|mdx)",
-      "!{projectRoot}/.storybook/**/*"
     ],
     "production": [
       "default",
