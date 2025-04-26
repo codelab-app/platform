@@ -2,13 +2,22 @@
   "name": "@codelab/frontend-domain-preference",
   "exports": {
     ".": {
-      "default": "./src/index.ts"
+      "development": "./src/index.ts",
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./repositories": {
-      "default": "./src/repositories/index.ts"
+      "development": "./src/repositories/index.ts",
+      "import": "./dist/repositories/index.js",
+      "types": "./dist/repositories/index.d.ts",
+      "default": "./dist/repositories/index.js"
     },
     "./store": {
-      "default": "./src/store/index.ts"
+      "development": "./src/store/index.ts",
+      "import": "./dist/store/index.js",
+      "types": "./dist/store/index.d.ts",
+      "default": "./dist/store/index.js"
     }
   },
   "devDependencies": {

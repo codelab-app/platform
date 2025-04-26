@@ -2,12 +2,18 @@
   "name": "@codelab/backend-infra-adapter-logger",
   "exports": {
     ".": {
-      "default": "./src/index.ts"
+      "development": "./src/index.ts",
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     }
   },
   "devDependencies": {
     "@codelab/shared-abstract-types": "workspace:*",
     "@codelab/shared-infra-logging": "workspace:*"
+  },
+  "peerDependencies": {
+    "env-var": "*"
   },
   "nx": {
     "name": "backend-infra-adapter-logger",

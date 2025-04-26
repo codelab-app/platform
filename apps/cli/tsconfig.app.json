@@ -2,29 +2,19 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "./dist",
-    "rootDir": "./src",
-    "module": "ESNext",
-    "types": ["node", "cypher", "multer"],
+    "esModuleInterop": true,
+    "moduleResolution": "Node16",
+    "module": "Node16",
+    "sourceMap": true,
     "target": "es2021",
-    "declarationMap": false,
+    "experimentalDecorators": true,
     "strictNullChecks": true,
     "noImplicitAny": true,
     "strictBindCallApply": true,
     "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "types": ["node", "cypher", "multer"]
   },
   "exclude": ["jest.config.ts"],
-  "include": ["src/**/*.ts"],
-  // Make sure references are not included, and `buildLibsFromSource` is true, this way we don't read libs from dist
-  "references": [
-    {
-      "path": "../../libs/backend/infra/adapter/cli/tsconfig.lib.json"
-    },
-    {
-      "path": "../../libs/shared/abstract/core/tsconfig.lib.json"
-    },
-    {
-      "path": "../../libs/backend/infra/adapter/logger/tsconfig.lib.json"
-    }
-  ]
+  "include": ["webpack.config.js", "src/**/*.ts"]
 }

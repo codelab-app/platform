@@ -2669,6 +2669,10 @@ importers:
         version: link:../../core
 
   libs/backend/infra/adapter/logger:
+    dependencies:
+      env-var:
+        specifier: '*'
+        version: 7.4.1
     devDependencies:
       '@codelab/shared-abstract-types':
         specifier: workspace:*

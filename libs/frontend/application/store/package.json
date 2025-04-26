@@ -2,31 +2,58 @@
   "name": "@codelab/frontend-application-store",
   "exports": {
     ".": {
-      "default": "./src/index.ts"
+      "development": "./src/index.ts",
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./services": {
-      "default": "./src/services/index.ts"
+      "development": "./src/services/index.ts",
+      "import": "./dist/services/index.js",
+      "types": "./dist/services/index.d.ts",
+      "default": "./dist/services/index.js"
     },
     "./use-cases/action-hooks": {
-      "default": "./src/use-cases/action-hooks/index.ts"
+      "development": "./src/use-cases/action-hooks/index.ts",
+      "import": "./dist/use-cases/action-hooks/index.js",
+      "types": "./dist/use-cases/action-hooks/index.d.ts",
+      "default": "./dist/use-cases/action-hooks/index.js"
     },
     "./use-cases/create-action": {
-      "default": "./src/use-cases/create-action/index.ts"
+      "development": "./src/use-cases/create-action/index.ts",
+      "import": "./dist/use-cases/create-action/index.js",
+      "types": "./dist/use-cases/create-action/index.d.ts",
+      "default": "./dist/use-cases/create-action/index.js"
     },
     "./use-cases/delete-action": {
-      "default": "./src/use-cases/delete-action/index.ts"
+      "development": "./src/use-cases/delete-action/index.ts",
+      "import": "./dist/use-cases/delete-action/index.js",
+      "types": "./dist/use-cases/delete-action/index.d.ts",
+      "default": "./dist/use-cases/delete-action/index.js"
     },
     "./use-cases/get-actions": {
-      "default": "./src/use-cases/get-actions/index.ts"
+      "development": "./src/use-cases/get-actions/index.ts",
+      "import": "./dist/use-cases/get-actions/index.js",
+      "types": "./dist/use-cases/get-actions/index.d.ts",
+      "default": "./dist/use-cases/get-actions/index.js"
     },
     "./use-cases/get-state": {
-      "default": "./src/use-cases/get-state/index.ts"
+      "development": "./src/use-cases/get-state/index.ts",
+      "import": "./dist/use-cases/get-state/index.js",
+      "types": "./dist/use-cases/get-state/index.d.ts",
+      "default": "./dist/use-cases/get-state/index.js"
     },
     "./use-cases/update-action": {
-      "default": "./src/use-cases/update-action/index.ts"
+      "development": "./src/use-cases/update-action/index.ts",
+      "import": "./dist/use-cases/update-action/index.js",
+      "types": "./dist/use-cases/update-action/index.d.ts",
+      "default": "./dist/use-cases/update-action/index.js"
     },
     "./views": {
-      "default": "./src/views/index.ts"
+      "development": "./src/views/index.ts",
+      "import": "./dist/views/index.js",
+      "types": "./dist/views/index.d.ts",
+      "default": "./dist/views/index.js"
     }
   },
   "devDependencies": {

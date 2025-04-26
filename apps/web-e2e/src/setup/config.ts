@@ -1,22 +1,22 @@
-import { get } from 'env-var'
+import env from 'env-var'
 
 export const REQUEST_TIMEOUT = 120000
 
-const apiHost = get('NEXT_PUBLIC_API_HOSTNAME').required().asString()
-const apiPort = get('NEXT_PUBLIC_API_PORT').required().asString()
-const apiBasePath = get('NEXT_PUBLIC_BASE_API_PATH').required().asString()
+const apiHost = env.get('NEXT_PUBLIC_API_HOSTNAME').required().asString()
+const apiPort = env.get('NEXT_PUBLIC_API_PORT').required().asString()
+const apiBasePath = env.get('NEXT_PUBLIC_BASE_API_PATH').required().asString()
 
 export const apiUrl = new URL(apiBasePath, `${apiHost}:${apiPort}`).toString()
 
-export const webUrl = get('NEXT_PUBLIC_WEB_HOST').required().asString()
+export const webUrl = env.get('NEXT_PUBLIC_WEB_HOST').required().asString()
 
-export const ci = get('CI').default('false').asBool()
+export const ci = env.get('CI').default('false').asBool()
 
 export const webBaseApiUrl = new URL(apiBasePath, webUrl).toString()
 export const apiBaseUrl = new URL(apiBasePath, apiUrl).toString()
 
-export const auth0Username = get('AUTH0_E2E_USERNAME').required().asString()
-export const auth0Password = get('AUTH0_E2E_PASSWORD').required().asString()
+export const auth0Username = env.get('AUTH0_E2E_USERNAME').required().asString()
+export const auth0Password = env.get('AUTH0_E2E_PASSWORD').required().asString()
 
 /**
  * Used by `auth0` to store cookies for authentication, as well as mobx for storing element expanded states

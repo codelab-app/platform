@@ -8,7 +8,7 @@ import {
   type TUnion,
 } from '@sinclair/typebox'
 import { StandardValidator } from 'typebox-validators'
-import { DiscriminatedUnionValidator } from 'typebox-validators/discriminated'
+import { DiscriminatedUnionValidator } from 'typebox-validators/discriminated/index.js'
 
 import { IsUnion } from '../schema/is-union'
 

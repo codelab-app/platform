@@ -2,7 +2,10 @@
   "name": "@codelab/backend-infra-adapter-digitalocean",
   "exports": {
     ".": {
-      "default": "./src/index.ts"
+      "development": "./src/index.ts",
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     }
   },
   "devDependencies": {},

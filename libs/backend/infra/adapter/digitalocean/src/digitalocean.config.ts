@@ -1,7 +1,7 @@
 import { registerAs } from '@nestjs/config'
-import { get } from 'env-var'
+import env from 'env-var'
 
 export const digitaloceanConfig = registerAs('digitalocean', () => ({
-  apiToken: get('DIGITALOCEAN_API_TOKEN').default('').asString(),
-  dropletName: get('DIGITALOCEAN_DROPLET_NAME').required().asString(),
+  apiToken: env.get('DIGITALOCEAN_API_TOKEN').default('').asString(),
+  dropletName: env.get('DIGITALOCEAN_DROPLET_NAME').required().asString(),
 }))

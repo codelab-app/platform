@@ -131,7 +131,7 @@
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "targetDefaults": {
     "build": {
-      "dependsOn": ["^build"]
+      "dependsOn": []
     },
     "typecheck": {
       "dependsOn": ["^typecheck"]
@@ -141,6 +141,13 @@
     //   "outputs": ["{options.outputPath}"],
     //   "dependsOn": ["^build"]
     // },
+    "@nx/vite:build": {
+      "cache": true,
+      "dependsOn": [],
+      "options": {
+        "buildLibsFromSource": false
+      }
+    },
     "@nx/next:build": {
       "cache": true,
       "options": {

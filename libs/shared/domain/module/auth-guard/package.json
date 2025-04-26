@@ -2,7 +2,10 @@
   "name": "@codelab/shared-domain-module-auth-guard",
   "exports": {
     ".": {
-      "default": "./src/index.ts"
+      "development": "./src/index.ts",
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     }
   },
   "devDependencies": {

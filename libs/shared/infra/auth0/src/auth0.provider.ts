@@ -4,7 +4,7 @@ import type { Nullable } from '@codelab/shared-abstract-types'
 
 import { Auth0Client } from '@auth0/nextjs-auth0/server'
 import { getEnv } from '@codelab/shared-config-env'
-import { get } from 'env-var'
+import env from 'env-var'
 import { NextResponse } from 'next/server'
 
 export const auth0Instance = new Auth0Client({
@@ -37,7 +37,7 @@ export const auth0Instance = new Auth0Client({
     /**
      * Only do this in development
      */
-    if (get('SETUP_DEV_AFTER_AUTH0_LOGIN').asBool()) {
+    if (env.get('SETUP_DEV_AFTER_AUTH0_LOGIN').asBool()) {
       /**
        * Cannot call fetchWithAuth since session is not created yet
        */

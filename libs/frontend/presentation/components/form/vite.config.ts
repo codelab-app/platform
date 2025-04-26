@@ -5,6 +5,7 @@ import { join } from 'path'
 import preserveDirectives from 'rollup-preserve-directives'
 import { defineConfig, Plugin } from 'vite'
 import dts from 'vite-plugin-dts'
+import swc from '@vitejs/plugin-react-swc'
 
 const rawFilePlugin = (): Plugin => {
   return {
@@ -31,6 +32,22 @@ export default defineConfig(() => ({
     // Used for keeping `use server` or `use client`
     preserveDirectives(),
     rawFilePlugin(),
+    swc({
+      // Ensure decorators are handled correctly for NestJS
+      jsc: {
+        parser: {
+          syntax: 'typescript',
+          tsx: false, // Set to true if you ever use TSX
+          decorators: true,
+        },
+        transform: {
+          legacyDecorator: true,
+          decoratorMetadata: true,
+        },
+      },
+      // Optional: Specify target environment if needed
+      // target: 'es2021',
+    }),
     dts({
       entryRoot: 'src',
       tsconfigPath: join(__dirname, 'tsconfig.lib.json'),
@@ -38,7 +55,7 @@ export default defineConfig(() => ({
       // This will generate a package.json, not configurable https://github.com/nrwl/nx/discussions/23294
       // nxViteTsPaths(),
       // Vite itself doesn't generate declaration files, required for proper type checking
-      insertTypesEntry: true,
+      // insertTypesEntry: true,
       // Very time intensive
       // rollupTypes: true,
     }),

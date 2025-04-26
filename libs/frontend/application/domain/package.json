@@ -2,25 +2,46 @@
   "name": "@codelab/frontend-application-domain",
   "exports": {
     ".": {
-      "default": "./src/index.ts"
+      "development": "./src/index.ts",
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./services": {
-      "default": "./src/services/index.ts"
+      "development": "./src/services/index.ts",
+      "import": "./dist/services/index.js",
+      "types": "./dist/services/index.d.ts",
+      "default": "./dist/services/index.js"
     },
     "./use-cases/create-domain": {
-      "default": "./src/use-cases/create-domain/index.ts"
+      "development": "./src/use-cases/create-domain/index.ts",
+      "import": "./dist/use-cases/create-domain/index.js",
+      "types": "./dist/use-cases/create-domain/index.d.ts",
+      "default": "./dist/use-cases/create-domain/index.js"
     },
     "./use-cases/delete-domain": {
-      "default": "./src/use-cases/delete-domain/index.ts"
+      "development": "./src/use-cases/delete-domain/index.ts",
+      "import": "./dist/use-cases/delete-domain/index.js",
+      "types": "./dist/use-cases/delete-domain/index.d.ts",
+      "default": "./dist/use-cases/delete-domain/index.js"
     },
     "./use-cases/domain-list": {
-      "default": "./src/use-cases/domain-list/index.ts"
+      "development": "./src/use-cases/domain-list/index.ts",
+      "import": "./dist/use-cases/domain-list/index.js",
+      "types": "./dist/use-cases/domain-list/index.d.ts",
+      "default": "./dist/use-cases/domain-list/index.js"
     },
     "./use-cases/update-domain": {
-      "default": "./src/use-cases/update-domain/index.ts"
+      "development": "./src/use-cases/update-domain/index.ts",
+      "import": "./dist/use-cases/update-domain/index.js",
+      "types": "./dist/use-cases/update-domain/index.d.ts",
+      "default": "./dist/use-cases/update-domain/index.js"
     },
     "./views": {
-      "default": "./src/views/index.ts"
+      "development": "./src/views/index.ts",
+      "import": "./dist/views/index.js",
+      "types": "./dist/views/index.d.ts",
+      "default": "./dist/views/index.js"
     }
   },
   "devDependencies": {

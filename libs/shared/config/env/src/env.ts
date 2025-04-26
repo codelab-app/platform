@@ -1,11 +1,11 @@
-import { from } from 'env-var'
+import envvar from 'env-var'
 
 /**
  * https://github.com/evanshortiss/env-var/issues/162
  *
  * `process.env` access must be static and not dynamic, due to how Next.js compiles envs
  */
-export const env = from({
+export const env = envvar.from({
   AUTH0_CLIENT_ID: process.env['AUTH0_CLIENT_ID'],
   AUTH0_CLIENT_SECRET: process.env['AUTH0_CLIENT_SECRET'],
   AUTH0_DOMAIN: process.env['AUTH0_DOMAIN'],

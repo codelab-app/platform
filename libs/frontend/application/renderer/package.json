@@ -2,28 +2,52 @@
   "name": "@codelab/frontend-application-renderer",
   "exports": {
     ".": {
-      "default": "./src/index.ts"
+      "development": "./src/index.ts",
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./atoms": {
-      "default": "./src/atoms/index.ts"
+      "development": "./src/atoms/index.ts",
+      "import": "./dist/atoms/index.js",
+      "types": "./dist/atoms/index.d.ts",
+      "default": "./dist/atoms/index.js"
     },
     "./components": {
-      "default": "./src/components/index.ts"
+      "development": "./src/components/index.ts",
+      "import": "./dist/components/index.js",
+      "types": "./dist/components/index.d.ts",
+      "default": "./dist/components/index.js"
     },
     "./hooks": {
-      "default": "./src/hooks/index.ts"
+      "development": "./src/hooks/index.ts",
+      "import": "./dist/hooks/index.js",
+      "types": "./dist/hooks/index.d.ts",
+      "default": "./dist/hooks/index.js"
     },
     "./services": {
-      "default": "./src/services/index.ts"
+      "development": "./src/services/index.ts",
+      "import": "./dist/services/index.js",
+      "types": "./dist/services/index.d.ts",
+      "default": "./dist/services/index.js"
     },
     "./store": {
-      "default": "./src/store/index.ts"
+      "development": "./src/store/index.ts",
+      "import": "./dist/store/index.js",
+      "types": "./dist/store/index.d.ts",
+      "default": "./dist/store/index.js"
     },
     "./test": {
-      "default": "./src/test/index.ts"
+      "development": "./src/test/index.ts",
+      "import": "./dist/test/index.js",
+      "types": "./dist/test/index.d.ts",
+      "default": "./dist/test/index.js"
     },
     "./use-cases/root-renderer": {
-      "default": "./src/use-cases/root-renderer/index.ts"
+      "development": "./src/use-cases/root-renderer/index.ts",
+      "import": "./dist/use-cases/root-renderer/index.js",
+      "types": "./dist/use-cases/root-renderer/index.d.ts",
+      "default": "./dist/use-cases/root-renderer/index.js"
     }
   },
   "devDependencies": {
