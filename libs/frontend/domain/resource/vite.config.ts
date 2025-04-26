@@ -61,6 +61,7 @@ export default defineConfig(() => ({
         // Also, treat absolute paths that don't start with the project root as external.
         return !id.startsWith('.') && !id.startsWith('/')
       },
+      preserveModules: true,
     },
   },
 }))

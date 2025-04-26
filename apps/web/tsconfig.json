@@ -29,16 +29,12 @@
   },
   "include": [
     "**/*.graphql",
-    "**/*.js",
-    "**/*.jsx",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts",
     "index.d.ts",
     "next-env.d.ts",
     "next.config.ts",
-    "postcss.config.cjs",
-    "../../dist/apps/web/.next/types/**/*.ts"
+    ".next/types/**/*.ts"
   ],
   "references": [
     {

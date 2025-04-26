@@ -22,9 +22,6 @@
     "./use-cases/export-component": {
       "default": "./src/use-cases/export-component/index.ts"
     },
-    "./use-cases/get-component": {
-      "default": "./src/use-cases/get-component/index.ts"
-    },
     "./use-cases/import-component": {
       "default": "./src/use-cases/import-component/index.ts"
     },

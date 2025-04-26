@@ -18,7 +18,7 @@ import { useMemo } from 'react'
 export const useFieldSchema = (
   schema: JSONSchemaType<IFieldCreateData | IFieldUpdateData>,
   updatedField?: IFieldModel,
-) => {
+): JSONSchemaType<IFieldCreateData | IFieldUpdateData> => {
   const { rendererService } = useApplicationStore()
   const { storeDomainService } = useDomainStore()
 

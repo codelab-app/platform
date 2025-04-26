@@ -1,3 +1,5 @@
+'use client'
+
 import type { PageContextParams } from '@codelab/frontend-abstract-application'
 import type { IRedirectUpdateFormData } from '@codelab/frontend-abstract-domain'
 

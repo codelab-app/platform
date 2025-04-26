@@ -589,11 +589,6 @@
     "path": "libs/frontend/application/component/src/use-cases/export-component/index.ts",
     "name": null
   },
-  "@codelab/frontend-application-component/use-cases/get-component": {
-    "expected": "@codelab/frontend-application-component/use-cases/get-component",
-    "path": "libs/frontend/application/component/src/use-cases/get-component/index.ts",
-    "name": null
-  },
   "@codelab/frontend-application-component/use-cases/import-component": {
     "expected": "@codelab/frontend-application-component/use-cases/import-component",
     "path": "libs/frontend/application/component/src/use-cases/import-component/index.ts",

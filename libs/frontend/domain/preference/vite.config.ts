@@ -42,7 +42,6 @@ export default defineConfig(() => ({
       entry: {
         index: 'src/index.ts',
         repositories: 'src/repositories/index.ts',
-        services: 'src/services/index.ts',
         store: 'src/store/index.ts',
       },
       name: '@codelab/frontend-domain-preference',
@@ -60,6 +59,7 @@ export default defineConfig(() => ({
         // Also, treat absolute paths that don't start with the project root as external.
         return !id.startsWith('.') && !id.startsWith('/')
       },
+      preserveModules: true,
     },
   },
 }))
