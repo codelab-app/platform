@@ -52,6 +52,16 @@ const nextConfig: WithNxOptions = {
     // },
     // webpackMemoryOptimizations: true, // ⇠ reduces peak heap
     // webpackBuildWorker: true, // runs webpack in its own worker
+    // https://github.com/vercel/turborepo/issues/4832#issuecomment-2629459687
+    // turbopack working for dev only not for production
+    turbo: {
+      rules: {
+        '*.svg': {
+          as: '*.js',
+          loaders: ['@svgr/webpack'],
+        },
+      },
+    },
   },
   nx: { svgr: false },
   // source‑maps add 200‑400MB
@@ -59,16 +69,7 @@ const nextConfig: WithNxOptions = {
   // disable to support uniforms
   // http://github.com/vazco/uniforms/issues/1194
   reactStrictMode: false,
-  // https://github.com/vercel/turborepo/issues/4832#issuecomment-2629459687
-  // turbopack working for dev only not for production
-  turbopack: {
-    rules: {
-      '*.svg': {
-        as: '*.js',
-        loaders: ['@svgr/webpack'],
-      },
-    },
-  },
+
   typescript: {
     // tsconfigPath: path.join(__dirname, './tsconfig.lib.json'),
     // !! WARN !!

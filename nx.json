@@ -49,7 +49,7 @@
       "options": {
         "buildTargetName": "build",
         "previewTargetName": "preview",
-        "buildDepsTargetName": "",
+        "buildDepsTargetName": "build-deps",
         "testTargetName": "test",
         "serveTargetName": "serve",
         "serveStaticTargetName": "serve-static"
@@ -130,15 +130,16 @@
   },
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "targetDefaults": {
-    // "build": {
-    //   "dependsOn": ["^build"]
-    // },
+    "build": {
+      "dependsOn": []
+    },
     "typecheck": {
       "dependsOn": ["^typecheck"]
     },
     "@nx/next:build": {
       "options": {
-        "buildLibsFromSource": false
+        "buildLibsFromSource": true,
+        "postcssConfig": "apps/web/postcss.config.js"
       },
       "dependsOn": []
     },
