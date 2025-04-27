@@ -1,3 +1,5 @@
+import type { IAppDto } from '@codelab/shared/abstract/core'
+
 import { jobSubscription } from '@codelab/frontend/infra/ws'
 import { useLoading } from '@codelab/frontend-application-shared-store/loading'
 import { invalidateAppListQuery } from '@codelab/frontend-domain-app/repositories'
@@ -20,7 +22,7 @@ export const useImportApp = () => {
 
         const { jobId } = await queueImportAppAction(formData)
 
-        const { data } = await jobSubscription<{ data: string }>(jobId, {
+        const { data } = await jobSubscription<IAppDto>(jobId, {
           socketEndpoint: `${getEnv().endpoint.apiHost}`,
         })
 
