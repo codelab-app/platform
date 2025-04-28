@@ -16,7 +16,10 @@ import {
   type IStoreAggregate,
 } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/typebox'
-import { sortPagesByKindAndName } from '@codelab/shared/utils'
+import {
+  sortElementsForExport,
+  sortPagesByKindAndName,
+} from '@codelab/shared/utils'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
 export class ExportPageCommand {
@@ -55,8 +58,9 @@ export class ExportPageHandler
 
   private async getPageData(page: PageFragment) {
     const elementDescendants = await this.pageElementsService.getElements(page)
+    const sortedElements = sortElementsForExport(elementDescendants)
 
-    const elements = elementDescendants.map((element: ElementFragment) =>
+    const elements = sortedElements.map((element: ElementFragment) =>
       Validator.parse(ElementExportSchema, {
         ...element,
         closestContainerNode: { id: page.id },

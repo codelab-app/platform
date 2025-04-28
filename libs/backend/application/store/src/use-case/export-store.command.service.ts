@@ -36,12 +36,12 @@ export class ExportStoreHandler
 
     // put actions that are referenced from another action via field successAction or errorAction first
     // so that they are imported before the actions that reference them
-    const actions = store.actions.sort((action) => {
-      if (action.__typename === IActionKind.ApiAction) {
-        return action.successAction || action.errorAction ? 1 : -1
+    const actions = store.actions.sort((action1, action2) => {
+      if (action1.__typename === IActionKind.ApiAction) {
+        return action1.successAction || action1.errorAction ? 1 : -1
       }
 
-      return -1
+      return action1.name.localeCompare(action2.name)
     })
 
     return Validator.parse(StoreAggregateSchema, {

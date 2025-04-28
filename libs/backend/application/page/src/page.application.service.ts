@@ -12,6 +12,7 @@ import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { Store, StoreDomainService } from '@codelab/backend/domain/store'
 import { InterfaceType, TypeDomainService } from '@codelab/backend/domain/type'
 import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
+import { sortElementsForExport } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
 import { v4 } from 'uuid'
 
@@ -31,19 +32,21 @@ export class PageApplicationService {
 
   async addPage(pageAggregate: IPageAggregate) {
     const { elements, page, store } = pageAggregate
+    const sortedElements = sortElementsForExport(elements)
 
-    await this.storeApplicationService.addStores([store])
+    await this.storeApplicationService.saveStore(store)
 
-    for (const element of elements) {
+    for (const element of sortedElements) {
       await this.elementRepository.save(element)
     }
 
     // after all elements are created, we need to update the parent and sibling references.
     // alternatively we can do this with a single smart run: creating elements in the order,
     // so that leaf elements are created first and then going up to the element tree root
-    for (const element of elements) {
-      await this.elementRepository.save(element)
-    }
+    // UPDATE: we started to use smart sorting, so this is not needed anymore
+    // for (const element of elements) {
+    //   await this.elementRepository.save(element)
+    // }
 
     await this.pageRepository.save(page)
   }

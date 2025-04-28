@@ -56,8 +56,8 @@ export class StoreApplicationService {
     this.logger.log('Saving store')
 
     await this.typeApplicationService.saveApi(api)
-    await Promise.all(actions.map((action) => this.actionFactory.save(action)))
+    await this.storeRepository.save(store)
 
-    return await this.storeRepository.save(store)
+    await Promise.all(actions.map((action) => this.actionFactory.save(action)))
   }
 }

@@ -8,7 +8,7 @@ import { PageDtoSchema } from './page.dto.interface'
 
 export const PageAggregateSchema = Type.Object({
   elements: Type.Array(ElementExportSchema),
-  page: PageDtoSchema,
+  page: Type.Omit(PageDtoSchema, ['elements']),
   store: StoreAggregateSchema,
 })
 

@@ -5,7 +5,6 @@ import type {
   IComponentType,
 } from '@codelab/shared/abstract/core'
 
-import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { WsGateway } from '@codelab/backend/infra/adapter/ws'
 import { IJobQueueResponse } from '@codelab/shared/abstract/infra'
 import {
@@ -22,6 +21,7 @@ import { CommandBus } from '@nestjs/cqrs'
 import { FileInterceptor } from '@nestjs/platform-express'
 import { Express, Request as ExpressRequest } from 'express'
 import 'multer'
+import { v4 } from 'uuid'
 
 import { AppApplicationService } from './services/app.application.service'
 import { ExportAppCommand, SeedAppCommand } from './use-case'
@@ -30,7 +30,6 @@ import { ExportAppCommand, SeedAppCommand } from './use-case'
 export class AppApplicationController {
   constructor(
     private commandBus: CommandBus,
-    private logger: PinoLoggerService,
     private readonly socketGateway: WsGateway,
     private appApplicationService: AppApplicationService,
   ) {}
@@ -45,11 +44,24 @@ export class AppApplicationController {
 
   @UseInterceptors(ClassSerializerInterceptor, FileInterceptor('file'))
   @Post('import')
-  async importApp(@UploadedFile() file: Express.Multer.File) {
-    const json = file.buffer.toString('utf8')
-    const app: IAppAggregate = JSON.parse(json)
+  async importApp(
+    @UploadedFile() file: Express.Multer.File,
+  ): Promise<IJobQueueResponse> {
+    const jobId = v4()
 
-    return this.appApplicationService.importApp(app)
+    setTimeout(async () => {
+      const json = file.buffer.toString('utf8')
+      const app: IAppAggregate = JSON.parse(json)
+      const data = await this.appApplicationService.importApp(app)
+
+      this.socketGateway.emitJobComplete({ data, jobId })
+    })
+
+    return {
+      jobId,
+      message: 'Importing app',
+      status: 'queued',
+    }
   }
 
   /**

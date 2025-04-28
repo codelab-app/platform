@@ -1,7 +1,12 @@
+import type { IAppDto } from '@codelab/shared/abstract/core'
+
+import { jobSubscription } from '@codelab/frontend/infra/ws'
 import { useLoading } from '@codelab/frontend-application-shared-store/loading'
+import { invalidateAppListQuery } from '@codelab/frontend-domain-app/repositories'
+import { getEnv } from '@codelab/shared/config/env'
 import { useCallback } from 'react'
 
-import { importAppService } from './import-app.service'
+import { queueImportAppAction } from './import-app.service'
 
 export const useImportApp = () => {
   const { setLoading } = useLoading()
@@ -15,11 +20,15 @@ export const useImportApp = () => {
 
         formData.append('file', appData)
 
-        const importResult = await importAppService(formData)
+        const { jobId } = await queueImportAppAction(formData)
 
-        console.log(importResult)
+        const { data } = await jobSubscription<IAppDto>(jobId, {
+          socketEndpoint: `${getEnv().endpoint.apiHost}`,
+        })
 
-        return importResult
+        await invalidateAppListQuery()
+
+        return data
       } catch (error: unknown) {
         console.log(error)
 
