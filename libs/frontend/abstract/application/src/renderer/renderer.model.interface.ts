@@ -7,7 +7,6 @@ import type { ObjectMap, Ref } from 'mobx-keystone'
 import type { ReactElement } from 'react'
 import type { ErrorBoundaryProps } from 'react-error-boundary'
 
-import type { IExpressionTransformer } from '../builder'
 import type { IRenderOutput, IRenderPipe } from './render.interface'
 import type { IRuntimeComponentModel } from './runtime-component'
 import type { IRuntimeElementModel } from './runtime-element'
@@ -24,7 +23,6 @@ export const enum RendererType {
 export interface IRendererModel {
   containerNode: Ref<IComponentModel> | Ref<IPageModel>
   debugMode: boolean
-  expressionTransformer: IExpressionTransformer
   id: string
   isBuilder: boolean
   render: Nullable<ReactElement<unknown>>
