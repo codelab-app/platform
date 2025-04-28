@@ -2,3 +2,5 @@ packages:
   - 'apps/**/*'
   - 'libs/**/*'
   - '!**/dist/**'
+  # These are linked via dist
+  # - '!libs/tools/**'

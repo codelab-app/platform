@@ -1,7 +1,6 @@
 {
   "name": "codelab",
   "$schema": "node_modules/nx/schemas/project-schema.json",
-  "includedScripts": [],
   "tags": ["projectName:codelab", "type:concrete"],
   "targets": {
     "local-registry": {

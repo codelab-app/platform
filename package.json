@@ -57,7 +57,7 @@
     "@codelab-codegen/codelab-preset": "file:libs/external/codelab-codegen/codelab-preset/dist",
     "@codelab-codegen/typescript-fetch": "file:libs/external/codelab-codegen/typescript-fetch/dist",
     "@codelab-codegen/typescript-server-fetch": "file:libs/external/codelab-codegen/typescript-server-fetch/dist",
-    "@codelab/tools-workspace": "file:dist/libs/tools/workspace",
+    "@codelab/tools-workspace": "workspace:*",
     "@codelab/eslint-plugin": "workspace:*",
     "@codelab/tsc-check": "file:libs/tools/tsc-check/dist",
     "@codemirror/autocomplete": "6.12.0",

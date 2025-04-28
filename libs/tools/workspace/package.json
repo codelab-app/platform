@@ -1,7 +1,14 @@
 {
   "name": "@codelab/tools-workspace",
   "version": "0.0.1",
-  "type": "commonjs",
+  "exports": {
+    ".": {
+      "development": "./src/index.ts",
+      "import": "./dist/src/index.js",
+      "types": "./dist/src/index.d.ts",
+      "default": "./dist/src/index.js"
+    }
+  },
   "generators": "./generators.json",
   "executors": "./executors.json",
   "dependencies": {

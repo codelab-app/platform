@@ -53,7 +53,7 @@
           }
         ],
         "main": "libs/tools/workspace/src/index.ts",
-        "outputPath": "dist/libs/tools/workspace",
+        "outputPath": "libs/tools/workspace/dist",
         "tsConfig": "libs/tools/workspace/tsconfig.lib.json"
       },
       "outputs": ["{options.outputPath}"]

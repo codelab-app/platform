@@ -1,0 +1,14 @@
+{
+  "name": "@codelab/cli",
+  "nx": {
+    "name": "cli",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "apps/cli/src",
+    "projectType": "application",
+    "tags": [
+      "projectName:cli",
+      "projectType:application",
+      "type:concrete"
+    ]
+  }
+}

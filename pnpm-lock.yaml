@@ -47,8 +47,8 @@ importers:
         specifier: workspace:*
         version: link:libs/tools/eslint-plugin
       '@codelab/tools-workspace':
-        specifier: file:dist/libs/tools/workspace
-        version: file:dist/libs/tools/workspace(@swc-node/register@1.10.9(@swc/core@1.10.11(@swc/helpers@0.5.15))(@swc/types@0.1.21)(typescript@5.5.4))(@swc/core@1.10.11(@swc/helpers@0.5.15))
+        specifier: workspace:*
+        version: link:libs/tools/workspace
       '@codelab/tsc-check':
         specifier: file:libs/tools/tsc-check/dist
         version: dist@file:libs/tools/tsc-check/dist
@@ -1329,17 +1329,7 @@ importers:
         specifier: workspace:*
         version: link:../../libs/backend/infra/core
 
-  apps/cli:
-    devDependencies:
-      '@codelab/backend-infra-adapter-cli':
-        specifier: workspace:*
-        version: link:../../libs/backend/infra/adapter/cli
-      '@codelab/backend-infra-adapter-logger':
-        specifier: workspace:*
-        version: link:../../libs/backend/infra/adapter/logger
-      '@codelab/shared-abstract-core':
-        specifier: workspace:*
-        version: link:../../libs/shared/abstract/core
+  apps/cli: {}
 
   apps/demo:
     devDependencies:
@@ -5679,15 +5669,6 @@ importers:
         specifier: 2.3.1
         version: 2.3.1
 
-  libs/tools/plugin:
-    dependencies:
-      '@nx/devkit':
-        specifier: 20.8.0
-        version: 20.8.0(nx@20.8.1(@swc-node/register@1.10.9(@swc/core@1.11.21(@swc/helpers@0.5.15))(@swc/types@0.1.21)(typescript@5.8.2))(@swc/core@1.11.21(@swc/helpers@0.5.15)))
-      '@swc/helpers':
-        specifier: ~0.5.11
-        version: 0.5.15
-
   libs/tools/tsc-check:
     dependencies:
       tslib:
@@ -6762,9 +6743,6 @@ packages:
   '@chromatic-com/storybook@1.7.0':
     resolution: {integrity: sha512-0aAkSaNsHaJL37/r+TIbpKjCouIysvoJno61LzUSs1xW4fpxF7gdr8xwIOONQjEsz2Fa0uFHXmzkFYcH6o8kmA==}
     engines: {node: '>=16.0.0', yarn: '>=1.22.18'}
-
-  '@codelab/tools-workspace@file:dist/libs/tools/workspace':
-    resolution: {directory: dist/libs/tools/workspace, type: directory}
 
   '@codemirror/autocomplete@6.12.0':
     resolution: {integrity: sha512-r4IjdYFthwbCQyvqnSlx0WBHRHi8nBvU+WjJxFUij81qsBfhNudf/XKKmmC2j3m0LaOYUQTf3qiEK1J8lO1sdg==}
@@ -23189,16 +23167,6 @@ snapshots:
       - '@chromatic-com/playwright'
       - react
 
-  '@codelab/tools-workspace@file:dist/libs/tools/workspace(@swc-node/register@1.10.9(@swc/core@1.10.11(@swc/helpers@0.5.15))(@swc/types@0.1.21)(typescript@5.5.4))(@swc/core@1.10.11(@swc/helpers@0.5.15))':
-    dependencies:
-      '@nx/devkit': 20.8.1(nx@20.8.1(@swc-node/register@1.10.9(@swc/core@1.10.11(@swc/helpers@0.5.15))(@swc/types@0.1.21)(typescript@5.5.4))(@swc/core@1.10.11(@swc/helpers@0.5.15)))
-      nx: 20.8.1(@swc-node/register@1.10.9(@swc/core@1.10.11(@swc/helpers@0.5.15))(@swc/types@0.1.21)(typescript@5.5.4))(@swc/core@1.10.11(@swc/helpers@0.5.15))
-      ts-morph: 19.0.0
-    transitivePeerDependencies:
-      - '@swc-node/register'
-      - '@swc/core'
-      - debug
-
   '@codemirror/autocomplete@6.12.0(@codemirror/language@6.10.1)(@codemirror/state@6.4.1)(@codemirror/view@6.24.1)(@lezer/common@1.2.3)':
     dependencies:
       '@codemirror/language': 6.10.1
@@ -26390,18 +26358,6 @@ snapshots:
       ignore: 5.3.2
       minimatch: 9.0.3
       nx: 20.8.0(@swc-node/register@1.10.9(@swc/core@1.11.21(@swc/helpers@0.5.15))(@swc/types@0.1.21)(typescript@5.8.2))(@swc/core@1.11.21(@swc/helpers@0.5.15))
-      semver: 7.7.1
-      tmp: 0.2.3
-      tslib: 2.6.3
-      yargs-parser: 21.1.1
-
-  '@nx/devkit@20.8.0(nx@20.8.1(@swc-node/register@1.10.9(@swc/core@1.11.21(@swc/helpers@0.5.15))(@swc/types@0.1.21)(typescript@5.8.2))(@swc/core@1.11.21(@swc/helpers@0.5.15)))':
-    dependencies:
-      ejs: 3.1.10
-      enquirer: 2.3.6
-      ignore: 5.3.2
-      minimatch: 9.0.3
-      nx: 20.8.1(@swc-node/register@1.10.9(@swc/core@1.11.21(@swc/helpers@0.5.15))(@swc/types@0.1.21)(typescript@5.8.2))(@swc/core@1.11.21(@swc/helpers@0.5.15))
       semver: 7.7.1
       tmp: 0.2.3
       tslib: 2.6.3
