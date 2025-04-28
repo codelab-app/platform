@@ -41,6 +41,7 @@ export const TailwindClassEditor = ({
   )
 
   const handleChange = (values: Array<string>) => {
+    console.log('values', values)
     element.setTailwindClassNames(values)
     setSelectedOptions(values)
   }
