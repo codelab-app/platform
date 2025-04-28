@@ -1,3 +1,5 @@
+'use client'
+
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import type { CustomTagProps } from 'rc-select/lib/BaseSelect'
 
@@ -39,6 +41,7 @@ export const TailwindClassEditor = ({
   )
 
   const handleChange = (values: Array<string>) => {
+    console.log('values', values)
     element.setTailwindClassNames(values)
     setSelectedOptions(values)
   }

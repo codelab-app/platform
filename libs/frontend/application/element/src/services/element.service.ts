@@ -1,3 +1,5 @@
+'use client'
+
 import type { IElementDto } from '@codelab/shared/abstract/core'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
