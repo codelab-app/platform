@@ -35,9 +35,9 @@ export class TypeDomainService {
     })
 
     // Find and return the created interface type
-    const found = await this.interfaceTypeRepository.findOne({
-      where: { id: interfaceType.id },
-    })
+    // const found = await this.interfaceTypeRepository.findOne({
+    //   where: { id: interfaceType.id },
+    // })
 
     return interfaceType
   }

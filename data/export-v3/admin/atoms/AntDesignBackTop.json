@@ -14,7 +14,9 @@
         "id": "5feadb4f-d8cd-4728-86ba-5d877ab68027",
         "key": "duration",
         "name": "Duration",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "099bb04f-28ce-4b0c-8904-865dd3c0702e"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -30,8 +32,12 @@
         "id": "099bb04f-28ce-4b0c-8904-865dd3c0702e",
         "key": "target",
         "name": "Target",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "22f25dff-0d51-4a96-8c40-c64afc5d4c74"
+        },
+        "prevSibling": {
+          "id": "5feadb4f-d8cd-4728-86ba-5d877ab68027"
+        },
         "validationRules": null
       },
       {
@@ -47,7 +53,9 @@
         "key": "visibilityHeight",
         "name": "Visibility Height",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "099bb04f-28ce-4b0c-8904-865dd3c0702e"
+        },
         "validationRules": null
       }
     ],

@@ -14,7 +14,9 @@
         "id": "9e04ac89-c126-4033-8926-5cfea22dd288",
         "key": "media",
         "name": "Media",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "304357a7-e1e9-4f76-bb03-7d4ddcd749a2"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -30,8 +32,12 @@
         "id": "304357a7-e1e9-4f76-bb03-7d4ddcd749a2",
         "key": "sizes",
         "name": "Sizes",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "0e624107-4a31-4471-bff5-466d89ca5bba"
+        },
+        "prevSibling": {
+          "id": "9e04ac89-c126-4033-8926-5cfea22dd288"
+        },
         "validationRules": null
       },
       {
@@ -46,8 +52,12 @@
         "id": "0e624107-4a31-4471-bff5-466d89ca5bba",
         "key": "src",
         "name": "Src",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "f3ba5aeb-c1df-408d-aaec-ff5990426291"
+        },
+        "prevSibling": {
+          "id": "304357a7-e1e9-4f76-bb03-7d4ddcd749a2"
+        },
         "validationRules": null
       },
       {
@@ -62,8 +72,12 @@
         "id": "f3ba5aeb-c1df-408d-aaec-ff5990426291",
         "key": "srcset",
         "name": "Srcset",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "0a524865-cc54-4d43-ae7f-22fe9add2f82"
+        },
+        "prevSibling": {
+          "id": "0e624107-4a31-4471-bff5-466d89ca5bba"
+        },
         "validationRules": null
       },
       {
@@ -79,7 +93,9 @@
         "key": "type",
         "name": "Type",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "f3ba5aeb-c1df-408d-aaec-ff5990426291"
+        },
         "validationRules": null
       }
     ],

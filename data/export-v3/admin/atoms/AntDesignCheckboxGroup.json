@@ -14,7 +14,9 @@
         "id": "feadb4cb-2a26-46d4-bb8a-155ab8e45b64",
         "key": "autoFocus",
         "name": "Auto Focus",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "20e4cb83-af7c-4085-a275-b754060cf9be"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -30,8 +32,12 @@
         "id": "20e4cb83-af7c-4085-a275-b754060cf9be",
         "key": "checked",
         "name": "Checked",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "210272d1-5ff7-44ed-b3e3-f3ed07e1cbc5"
+        },
+        "prevSibling": {
+          "id": "feadb4cb-2a26-46d4-bb8a-155ab8e45b64"
+        },
         "validationRules": null
       },
       {
@@ -46,8 +52,12 @@
         "id": "210272d1-5ff7-44ed-b3e3-f3ed07e1cbc5",
         "key": "defaultChecked",
         "name": "Default Checked",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "c8e37f5d-3578-40ae-81e0-b94036075c99"
+        },
+        "prevSibling": {
+          "id": "20e4cb83-af7c-4085-a275-b754060cf9be"
+        },
         "validationRules": null
       },
       {
@@ -62,8 +72,12 @@
         "id": "c8e37f5d-3578-40ae-81e0-b94036075c99",
         "key": "disabled",
         "name": "Disabled",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "8bbf2c0b-3e6e-482c-b79f-e6c79125fa57"
+        },
+        "prevSibling": {
+          "id": "210272d1-5ff7-44ed-b3e3-f3ed07e1cbc5"
+        },
         "validationRules": null
       },
       {
@@ -78,8 +92,12 @@
         "id": "8bbf2c0b-3e6e-482c-b79f-e6c79125fa57",
         "key": "indeterminate",
         "name": "Indeterminate",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "365773da-fe5b-4713-a876-e8c55a422f5c"
+        },
+        "prevSibling": {
+          "id": "c8e37f5d-3578-40ae-81e0-b94036075c99"
+        },
         "validationRules": null
       },
       {
@@ -95,7 +113,9 @@
         "key": "onChange",
         "name": "On Change",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "8bbf2c0b-3e6e-482c-b79f-e6c79125fa57"
+        },
         "validationRules": null
       }
     ],

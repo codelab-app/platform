@@ -14,7 +14,9 @@
         "id": "9acba60e-4f37-4af0-b308-1d04fb771390",
         "key": "height",
         "name": "Height",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "cdf69c90-d9aa-4a01-a6fe-ec6cb3864e06"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -31,7 +33,9 @@
         "key": "width",
         "name": "Width",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "9acba60e-4f37-4af0-b308-1d04fb771390"
+        },
         "validationRules": null
       }
     ],

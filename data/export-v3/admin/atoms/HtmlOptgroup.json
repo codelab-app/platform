@@ -14,7 +14,9 @@
         "id": "dfcdd018-6951-4911-95ea-32440afeeac4",
         "key": "disabled",
         "name": "Disabled",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "bb30bfba-a361-4458-94a9-48c34c3505ba"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -31,7 +33,9 @@
         "key": "label",
         "name": "Label",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "dfcdd018-6951-4911-95ea-32440afeeac4"
+        },
         "validationRules": null
       }
     ],

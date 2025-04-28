@@ -5,8 +5,8 @@ export const fieldSchema = gql`
     id: ID! @settable(onUpdate: false) #@unique
     key: String!
     name: String
-    nextSibling: Field @relationship(type: "FIELD_NEXT_SIBLING", direction: IN)
-    prevSibling: Field @relationship(type: "FIELD_PREV_SIBLING", direction: OUT)
+    nextSibling: Field @relationship(type: "FIELD_SIBLING", direction: IN)
+    prevSibling: Field @relationship(type: "FIELD_SIBLING", direction: OUT)
     description: String
     validationRules: String
     defaultValues: String

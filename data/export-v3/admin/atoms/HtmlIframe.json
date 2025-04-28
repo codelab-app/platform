@@ -14,7 +14,9 @@
         "id": "d0cf2f24-9541-4736-980c-e47f6d379a47",
         "key": "allow",
         "name": "Allow",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "4684b514-e0e2-44fd-9652-f2283ad0d208"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -30,8 +32,12 @@
         "id": "4684b514-e0e2-44fd-9652-f2283ad0d208",
         "key": "allowfullscreen",
         "name": "Allowfullscreen",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "664703c2-b7da-4d5f-bed6-00ea7841baec"
+        },
+        "prevSibling": {
+          "id": "d0cf2f24-9541-4736-980c-e47f6d379a47"
+        },
         "validationRules": null
       },
       {
@@ -46,8 +52,12 @@
         "id": "664703c2-b7da-4d5f-bed6-00ea7841baec",
         "key": "allowpaymentrequest",
         "name": "Allowpaymentrequest",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "fc65e670-8fa3-4178-82fe-14261eebd942"
+        },
+        "prevSibling": {
+          "id": "4684b514-e0e2-44fd-9652-f2283ad0d208"
+        },
         "validationRules": null
       },
       {
@@ -62,8 +72,12 @@
         "id": "fc65e670-8fa3-4178-82fe-14261eebd942",
         "key": "height",
         "name": "Height",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "53454f4c-75c5-4450-a4d4-66bf4cbd0345"
+        },
+        "prevSibling": {
+          "id": "664703c2-b7da-4d5f-bed6-00ea7841baec"
+        },
         "validationRules": null
       },
       {
@@ -78,8 +92,12 @@
         "id": "53454f4c-75c5-4450-a4d4-66bf4cbd0345",
         "key": "name",
         "name": "Name",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "844d089d-6c12-4663-a229-ec3ea9904785"
+        },
+        "prevSibling": {
+          "id": "fc65e670-8fa3-4178-82fe-14261eebd942"
+        },
         "validationRules": null
       },
       {
@@ -94,8 +112,12 @@
         "id": "844d089d-6c12-4663-a229-ec3ea9904785",
         "key": "referrerpolicy",
         "name": "Referrerpolicy",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "a888712f-4889-4947-aa59-83ff7a7e9caa"
+        },
+        "prevSibling": {
+          "id": "53454f4c-75c5-4450-a4d4-66bf4cbd0345"
+        },
         "validationRules": null
       },
       {
@@ -110,8 +132,12 @@
         "id": "a888712f-4889-4947-aa59-83ff7a7e9caa",
         "key": "sandbox",
         "name": "Sandbox",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "fa6d9cf0-bf4c-4814-9c19-5c41a07228df"
+        },
+        "prevSibling": {
+          "id": "844d089d-6c12-4663-a229-ec3ea9904785"
+        },
         "validationRules": null
       },
       {
@@ -126,8 +152,12 @@
         "id": "fa6d9cf0-bf4c-4814-9c19-5c41a07228df",
         "key": "src",
         "name": "Src",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "9bc22a4a-939f-4b29-ba29-b7a26773b949"
+        },
+        "prevSibling": {
+          "id": "a888712f-4889-4947-aa59-83ff7a7e9caa"
+        },
         "validationRules": null
       },
       {
@@ -142,8 +172,12 @@
         "id": "9bc22a4a-939f-4b29-ba29-b7a26773b949",
         "key": "srcdoc",
         "name": "Srcdoc",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "9d356282-ad63-4feb-8ca0-f72e68e39c2c"
+        },
+        "prevSibling": {
+          "id": "fa6d9cf0-bf4c-4814-9c19-5c41a07228df"
+        },
         "validationRules": null
       },
       {
@@ -159,7 +193,9 @@
         "key": "width",
         "name": "Width",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "9bc22a4a-939f-4b29-ba29-b7a26773b949"
+        },
         "validationRules": null
       }
     ],

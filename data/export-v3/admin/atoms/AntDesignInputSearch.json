@@ -14,7 +14,9 @@
         "id": "64ee05db-9586-4c03-b1af-e1e2643c40d2",
         "key": "allowClear",
         "name": "Allow Clear",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "2ad4fb47-c25d-4071-b4bf-4ad7cdf912d7"
+        },
         "prevSibling": null,
         "validationRules": "{}"
       },
@@ -30,8 +32,12 @@
         "id": "2ad4fb47-c25d-4071-b4bf-4ad7cdf912d7",
         "key": "onSearch",
         "name": "On Search",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "ccdbcddd-8d80-4312-aebf-a75f2e3617b3"
+        },
+        "prevSibling": {
+          "id": "64ee05db-9586-4c03-b1af-e1e2643c40d2"
+        },
         "validationRules": "{\"general\":{\"nullable\":true}}"
       },
       {
@@ -47,7 +53,9 @@
         "key": "placeholder",
         "name": "Placeholder",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "2ad4fb47-c25d-4071-b4bf-4ad7cdf912d7"
+        },
         "validationRules": "{}"
       }
     ],

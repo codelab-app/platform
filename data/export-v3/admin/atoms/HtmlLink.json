@@ -14,7 +14,9 @@
         "id": "b9b4eafa-ae9a-4c76-93ad-8d45df4940f0",
         "key": "crossorigin",
         "name": "Crossorigin",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "23e09a78-6b10-4b2b-8847-fbc7e1fc2a0b"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -30,8 +32,12 @@
         "id": "23e09a78-6b10-4b2b-8847-fbc7e1fc2a0b",
         "key": "href",
         "name": "Href",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "df57332d-8b01-4316-9f99-6c8f83075251"
+        },
+        "prevSibling": {
+          "id": "b9b4eafa-ae9a-4c76-93ad-8d45df4940f0"
+        },
         "validationRules": null
       },
       {
@@ -46,8 +52,12 @@
         "id": "df57332d-8b01-4316-9f99-6c8f83075251",
         "key": "hreflang",
         "name": "Hreflang",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "176b99e5-f8eb-49a4-a388-c08c8038c6fc"
+        },
+        "prevSibling": {
+          "id": "23e09a78-6b10-4b2b-8847-fbc7e1fc2a0b"
+        },
         "validationRules": null
       },
       {
@@ -62,8 +72,12 @@
         "id": "176b99e5-f8eb-49a4-a388-c08c8038c6fc",
         "key": "integrity",
         "name": "Integrity",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "60c8806d-56ff-429a-89ed-2f777031ac28"
+        },
+        "prevSibling": {
+          "id": "df57332d-8b01-4316-9f99-6c8f83075251"
+        },
         "validationRules": null
       },
       {
@@ -78,8 +92,12 @@
         "id": "60c8806d-56ff-429a-89ed-2f777031ac28",
         "key": "media",
         "name": "Media",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "22221951-0725-49d2-b432-8b24e03352ba"
+        },
+        "prevSibling": {
+          "id": "176b99e5-f8eb-49a4-a388-c08c8038c6fc"
+        },
         "validationRules": null
       },
       {
@@ -94,8 +112,12 @@
         "id": "22221951-0725-49d2-b432-8b24e03352ba",
         "key": "referrerpolicy",
         "name": "Referrerpolicy",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "4818c921-ad3a-4eda-bf97-158d9da86d85"
+        },
+        "prevSibling": {
+          "id": "60c8806d-56ff-429a-89ed-2f777031ac28"
+        },
         "validationRules": null
       },
       {
@@ -110,8 +132,12 @@
         "id": "4818c921-ad3a-4eda-bf97-158d9da86d85",
         "key": "rel",
         "name": "Rel",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "80e29df4-e01d-4316-9346-e3f1c21bf806"
+        },
+        "prevSibling": {
+          "id": "22221951-0725-49d2-b432-8b24e03352ba"
+        },
         "validationRules": null
       },
       {
@@ -126,8 +152,12 @@
         "id": "80e29df4-e01d-4316-9346-e3f1c21bf806",
         "key": "sizes",
         "name": "Sizes",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "98a1cc5a-10ae-4907-b825-25c21290d145"
+        },
+        "prevSibling": {
+          "id": "4818c921-ad3a-4eda-bf97-158d9da86d85"
+        },
         "validationRules": null
       },
       {
@@ -143,7 +173,9 @@
         "key": "type",
         "name": "Type",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "80e29df4-e01d-4316-9346-e3f1c21bf806"
+        },
         "validationRules": null
       }
     ],

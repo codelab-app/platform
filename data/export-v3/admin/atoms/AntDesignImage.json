@@ -14,7 +14,9 @@
         "id": "76cbffb8-04d4-4732-9363-24a4e1cbdd57",
         "key": "alt",
         "name": "Alt",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "d2ae040f-74f0-42c3-8570-0c43120cf724"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -30,8 +32,12 @@
         "id": "d2ae040f-74f0-42c3-8570-0c43120cf724",
         "key": "fallback",
         "name": "Fallback",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "18ebe10e-5f66-4fdf-89f5-aba27264ee53"
+        },
+        "prevSibling": {
+          "id": "76cbffb8-04d4-4732-9363-24a4e1cbdd57"
+        },
         "validationRules": null
       },
       {
@@ -46,8 +52,12 @@
         "id": "18ebe10e-5f66-4fdf-89f5-aba27264ee53",
         "key": "height",
         "name": "Height",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "b89711ab-d36f-4def-bdf8-70bc5cc77d19"
+        },
+        "prevSibling": {
+          "id": "d2ae040f-74f0-42c3-8570-0c43120cf724"
+        },
         "validationRules": null
       },
       {
@@ -62,8 +72,12 @@
         "id": "b89711ab-d36f-4def-bdf8-70bc5cc77d19",
         "key": "onError",
         "name": "On Error",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "bdd984aa-75d6-423c-9e87-b66512068177"
+        },
+        "prevSibling": {
+          "id": "18ebe10e-5f66-4fdf-89f5-aba27264ee53"
+        },
         "validationRules": null
       },
       {
@@ -78,8 +92,12 @@
         "id": "bdd984aa-75d6-423c-9e87-b66512068177",
         "key": "placeholder",
         "name": "Placeholder",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "c0d9473e-4883-4175-b51a-59a0250e8697"
+        },
+        "prevSibling": {
+          "id": "b89711ab-d36f-4def-bdf8-70bc5cc77d19"
+        },
         "validationRules": null
       },
       {
@@ -94,8 +112,12 @@
         "id": "c0d9473e-4883-4175-b51a-59a0250e8697",
         "key": "preview",
         "name": "Preview",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "97d4f294-892e-4f42-896a-7f164f2ff8eb"
+        },
+        "prevSibling": {
+          "id": "bdd984aa-75d6-423c-9e87-b66512068177"
+        },
         "validationRules": "{}"
       },
       {
@@ -110,8 +132,12 @@
         "id": "97d4f294-892e-4f42-896a-7f164f2ff8eb",
         "key": "rootClassName",
         "name": "Root Class Name",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "d9a4a9c5-6292-4751-80f4-4a81291b7648"
+        },
+        "prevSibling": {
+          "id": "c0d9473e-4883-4175-b51a-59a0250e8697"
+        },
         "validationRules": null
       },
       {
@@ -126,8 +152,12 @@
         "id": "d9a4a9c5-6292-4751-80f4-4a81291b7648",
         "key": "src",
         "name": "Src",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "be205850-857a-4410-b2a0-434aabf02233"
+        },
+        "prevSibling": {
+          "id": "97d4f294-892e-4f42-896a-7f164f2ff8eb"
+        },
         "validationRules": null
       },
       {
@@ -143,7 +173,9 @@
         "key": "width",
         "name": "Width",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "d9a4a9c5-6292-4751-80f4-4a81291b7648"
+        },
         "validationRules": null
       }
     ],

@@ -14,7 +14,9 @@
         "id": "c53b4070-c374-4739-b668-1c2611237af7",
         "key": "children",
         "name": "Children",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "ef84c17b-fb1b-45c1-93e2-bb6fad79e278"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -31,7 +33,9 @@
         "key": "cite",
         "name": "Cite",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "c53b4070-c374-4739-b668-1c2611237af7"
+        },
         "validationRules": null
       }
     ],

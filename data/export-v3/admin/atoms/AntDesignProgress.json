@@ -14,7 +14,9 @@
         "id": "36e03ae6-d806-451b-b15e-89e82b83ee8e",
         "key": "strokeColor",
         "name": "Stroke Color",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "9e2045ab-3b28-4e70-a730-56d03b77a17c"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -30,8 +32,12 @@
         "id": "9e2045ab-3b28-4e70-a730-56d03b77a17c",
         "key": "strokeWidth",
         "name": "Stroke Width",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "461696aa-60b1-4eb3-acd4-51fd34dc9073"
+        },
+        "prevSibling": {
+          "id": "36e03ae6-d806-451b-b15e-89e82b83ee8e"
+        },
         "validationRules": null
       },
       {
@@ -47,7 +53,9 @@
         "key": "width",
         "name": "Width",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "9e2045ab-3b28-4e70-a730-56d03b77a17c"
+        },
         "validationRules": null
       }
     ],

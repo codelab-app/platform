@@ -14,7 +14,9 @@
         "id": "03295a22-d1d0-43a2-b8de-f6c2c87ab08d",
         "key": "className",
         "name": "Class Name",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "a4ad297c-28a5-489c-9f3c-340b3771dd63"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -31,7 +33,9 @@
         "key": "hasSider",
         "name": "Has Sider",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "03295a22-d1d0-43a2-b8de-f6c2c87ab08d"
+        },
         "validationRules": null
       }
     ],

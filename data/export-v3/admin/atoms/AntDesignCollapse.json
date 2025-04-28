@@ -14,7 +14,9 @@
         "id": "f490c0dd-0449-4c99-ab18-8373707e7b96",
         "key": "accordion",
         "name": "Accordion",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "c258a5d4-4ca4-421c-9a3c-4cb682b08f54"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -30,8 +32,12 @@
         "id": "c258a5d4-4ca4-421c-9a3c-4cb682b08f54",
         "key": "activeKey",
         "name": "Active Key",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "7b522ce9-7f4f-48f3-a2f4-9e7a47595eff"
+        },
+        "prevSibling": {
+          "id": "f490c0dd-0449-4c99-ab18-8373707e7b96"
+        },
         "validationRules": null
       },
       {
@@ -46,8 +52,12 @@
         "id": "7b522ce9-7f4f-48f3-a2f4-9e7a47595eff",
         "key": "bordered",
         "name": "Bordered",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "8a8c57e0-d802-4f08-85cb-e4fcecd06c47"
+        },
+        "prevSibling": {
+          "id": "c258a5d4-4ca4-421c-9a3c-4cb682b08f54"
+        },
         "validationRules": null
       },
       {
@@ -62,8 +72,12 @@
         "id": "8a8c57e0-d802-4f08-85cb-e4fcecd06c47",
         "key": "collapsible",
         "name": "Collapsible",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "1030d34f-5dc0-4ef2-a5fa-dfbc611ae8e7"
+        },
+        "prevSibling": {
+          "id": "7b522ce9-7f4f-48f3-a2f4-9e7a47595eff"
+        },
         "validationRules": null
       },
       {
@@ -78,8 +92,12 @@
         "id": "1030d34f-5dc0-4ef2-a5fa-dfbc611ae8e7",
         "key": "defaultActiveKey",
         "name": "Default Active Key",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "d1b07bf3-c9a8-40b4-ac03-3eeaafdaf205"
+        },
+        "prevSibling": {
+          "id": "8a8c57e0-d802-4f08-85cb-e4fcecd06c47"
+        },
         "validationRules": null
       },
       {
@@ -94,8 +112,12 @@
         "id": "d1b07bf3-c9a8-40b4-ac03-3eeaafdaf205",
         "key": "destroyInactivePanel",
         "name": "Destroy Inactive Panel",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "0bc35352-8d94-4658-adca-e64ae3b046a0"
+        },
+        "prevSibling": {
+          "id": "1030d34f-5dc0-4ef2-a5fa-dfbc611ae8e7"
+        },
         "validationRules": null
       },
       {
@@ -110,8 +132,12 @@
         "id": "0bc35352-8d94-4658-adca-e64ae3b046a0",
         "key": "expandIcon",
         "name": "Expand Icon",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "560fe7ed-6046-4f10-a895-b2c82401eb3d"
+        },
+        "prevSibling": {
+          "id": "d1b07bf3-c9a8-40b4-ac03-3eeaafdaf205"
+        },
         "validationRules": null
       },
       {
@@ -126,8 +152,12 @@
         "id": "560fe7ed-6046-4f10-a895-b2c82401eb3d",
         "key": "expandIconPosition",
         "name": "Expand Icon Position",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "1a93d3e0-f5e4-4445-b426-2d57f131079d"
+        },
+        "prevSibling": {
+          "id": "0bc35352-8d94-4658-adca-e64ae3b046a0"
+        },
         "validationRules": null
       },
       {
@@ -143,7 +173,9 @@
         "key": "ghost",
         "name": "Ghost",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "560fe7ed-6046-4f10-a895-b2c82401eb3d"
+        },
         "validationRules": null
       }
     ],

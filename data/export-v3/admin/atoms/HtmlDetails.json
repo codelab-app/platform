@@ -14,7 +14,9 @@
         "id": "6a366057-0de5-4820-851c-8a1e53364e8e",
         "key": "children",
         "name": "Children",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "452f4cb0-dc8b-42c5-afb4-938178f91d53"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -31,7 +33,9 @@
         "key": "open",
         "name": "Open",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "6a366057-0de5-4820-851c-8a1e53364e8e"
+        },
         "validationRules": null
       }
     ],

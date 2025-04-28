@@ -14,7 +14,9 @@
         "id": "a70e96bf-b37e-4de2-804f-5b897c8502f5",
         "key": "content",
         "name": "Content",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "00513776-b92f-4b00-aa6b-17112b6c0865"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -31,7 +33,9 @@
         "key": "title",
         "name": "Title",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "a70e96bf-b37e-4de2-804f-5b897c8502f5"
+        },
         "validationRules": null
       }
     ],

@@ -1,9 +1,16 @@
 'use client'
-import type { IFieldModel } from '@codelab/frontend/abstract/domain'
+import type {
+  IFieldModel,
+  IInterfaceTypeModel,
+} from '@codelab/frontend/abstract/domain'
 import type { IFieldUpdateData } from '@codelab/shared/abstract/core'
 
 import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
-import { uniformSchemaFactory } from '@codelab/frontend/presentation/components/interface-form'
+import {
+  SelectDefaultValue,
+  SelectFieldSibling,
+  uniformSchemaFactory,
+} from '@codelab/frontend/presentation/components/interface-form'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
   DisplayIfField,
@@ -12,7 +19,7 @@ import {
 } from '@codelab/frontend-presentation-components-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { PrimitiveTypeKind } from '@codelab/shared/infra/gqlgen'
-import { AutoField, AutoFields } from 'uniforms-antd'
+import { AutoFields } from 'uniforms-antd'
 
 import { useFieldService } from '../../services'
 import {
@@ -41,8 +48,9 @@ export const UpdateFieldForm = ({
   const fieldService = useFieldService()
   const { typeDomainService } = useDomainStore()
   const fieldSchema = useFieldSchema(createFieldSchema, field)
+  const type = field.type.current as IInterfaceTypeModel
 
-  const onSubmit = (input: IFieldUpdateData) => {
+  const onSubmit = async (input: IFieldUpdateData) => {
     console.log('onSubmit', input)
 
     const validationRules = filterValidationRules(
@@ -50,10 +58,30 @@ export const UpdateFieldForm = ({
       typeDomainService.primitiveKind(input.fieldType),
     )
 
+    const updatedField = { ...input, validationRules }
+
+    const interfaceType = typeDomainService.type(
+      input.interfaceTypeId,
+    ) as IInterfaceTypeModel
+
+    const firstField = interfaceType.fields.find(
+      ({ prevSibling }) => !prevSibling,
+    )
+
+    if (updatedField.prevSibling?.id) {
+      await fieldService.moveFieldAsNextSibling({
+        field: updatedField,
+        targetFieldId: updatedField.prevSibling.id,
+      })
+    } else if (firstField) {
+      await fieldService.moveFieldAsPrevSibling({
+        field: updatedField,
+        targetFieldId: firstField.id,
+      })
+    }
+
     return fieldService.update({ ...input, validationRules })
   }
-
-  const type = field.type.current
 
   /**
    * Each type has a different way of creating default values based on validation rules
@@ -79,6 +107,7 @@ export const UpdateFieldForm = ({
         interfaceTypeId: field.api.id,
         key: field.key,
         name: field.name,
+        prevSibling: field.prevSibling,
         validationRules: field.validationRules,
       }}
       modelTransform={(mode, model) => {
@@ -108,10 +137,10 @@ export const UpdateFieldForm = ({
       successMessage="Field updated successfully"
       uiKey={UiKey.FieldFormUpdate}
     >
-      <AutoFields
-        fields={['id', 'key', 'name', 'description', 'defaultValues']}
-      />
+      <AutoFields fields={['id', 'key', 'name', 'description']} />
       <TypeSelect label="Type" name="fieldType" />
+      <SelectFieldSibling field={field} name="prevSibling" />
+
       <DisplayIfField<IFieldUpdateData>
         condition={({ model }) =>
           !isBoolean(typeDomainService, model.fieldType) &&
@@ -157,8 +186,7 @@ export const UpdateFieldForm = ({
           canSetDefaultValue(typeDomainService, model.fieldType)
         }
       >
-        <AutoField name="defaultValues" />
-        {/* <SelectDefaultValue /> */}
+        <SelectDefaultValue />
       </DisplayIfField>
 
       <DisplayIf condition={showFormControl}>

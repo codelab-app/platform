@@ -14,7 +14,9 @@
         "id": "b24602cc-cef1-42cf-9135-463f3117234a",
         "key": "avatar",
         "name": "Avatar",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "ffd881a8-752e-4d10-a88e-1f4cfebca4ee"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -30,8 +32,12 @@
         "id": "ffd881a8-752e-4d10-a88e-1f4cfebca4ee",
         "key": "description",
         "name": "Description",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "87d38aa7-1b33-4252-9f91-b11e680e0f13"
+        },
+        "prevSibling": {
+          "id": "b24602cc-cef1-42cf-9135-463f3117234a"
+        },
         "validationRules": null
       },
       {
@@ -47,7 +53,9 @@
         "key": "title",
         "name": "Title",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "ffd881a8-752e-4d10-a88e-1f4cfebca4ee"
+        },
         "validationRules": null
       }
     ],

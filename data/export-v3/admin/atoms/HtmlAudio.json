@@ -14,7 +14,9 @@
         "id": "85b4daa2-a87f-4587-9c26-5c3f8dff34b4",
         "key": "autoplay",
         "name": "Autoplay",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "1c1d77c0-4abd-4f11-ac84-3fbeacc89d20"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -30,8 +32,12 @@
         "id": "1c1d77c0-4abd-4f11-ac84-3fbeacc89d20",
         "key": "controls",
         "name": "Controls",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "2bc9e4d1-8ee2-4107-b354-55252e6e2ed8"
+        },
+        "prevSibling": {
+          "id": "85b4daa2-a87f-4587-9c26-5c3f8dff34b4"
+        },
         "validationRules": null
       },
       {
@@ -46,8 +52,12 @@
         "id": "2bc9e4d1-8ee2-4107-b354-55252e6e2ed8",
         "key": "loop",
         "name": "Loop",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "a5bfa806-5695-495e-a7c5-973bfc6db2ee"
+        },
+        "prevSibling": {
+          "id": "1c1d77c0-4abd-4f11-ac84-3fbeacc89d20"
+        },
         "validationRules": null
       },
       {
@@ -62,8 +72,12 @@
         "id": "a5bfa806-5695-495e-a7c5-973bfc6db2ee",
         "key": "muted",
         "name": "Muted",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "67543a6b-15e8-4982-93e0-9a474adbc3ab"
+        },
+        "prevSibling": {
+          "id": "2bc9e4d1-8ee2-4107-b354-55252e6e2ed8"
+        },
         "validationRules": null
       },
       {
@@ -78,8 +92,12 @@
         "id": "67543a6b-15e8-4982-93e0-9a474adbc3ab",
         "key": "preload",
         "name": "Preload",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "4fcb5eaf-6e5b-448e-82e1-2e52d9e5cb70"
+        },
+        "prevSibling": {
+          "id": "a5bfa806-5695-495e-a7c5-973bfc6db2ee"
+        },
         "validationRules": null
       },
       {
@@ -95,7 +113,9 @@
         "key": "src",
         "name": "Src",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "67543a6b-15e8-4982-93e0-9a474adbc3ab"
+        },
         "validationRules": null
       }
     ],

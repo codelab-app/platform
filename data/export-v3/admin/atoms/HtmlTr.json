@@ -14,7 +14,9 @@
         "id": "6baccaaf-0c19-4178-abae-124e8bf17300",
         "key": "align",
         "name": "Align",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "1c6aa902-0f59-4e65-96b0-4e65da717b5e"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -30,8 +32,12 @@
         "id": "1c6aa902-0f59-4e65-96b0-4e65da717b5e",
         "key": "bgcolor",
         "name": "Bgcolor",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "48847c03-783e-4924-b677-88daa0f11393"
+        },
+        "prevSibling": {
+          "id": "6baccaaf-0c19-4178-abae-124e8bf17300"
+        },
         "validationRules": null
       },
       {
@@ -46,8 +52,12 @@
         "id": "48847c03-783e-4924-b677-88daa0f11393",
         "key": "char",
         "name": "Char",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "def977fa-6038-4df1-98b9-e94f557b685a"
+        },
+        "prevSibling": {
+          "id": "1c6aa902-0f59-4e65-96b0-4e65da717b5e"
+        },
         "validationRules": null
       },
       {
@@ -62,8 +72,12 @@
         "id": "def977fa-6038-4df1-98b9-e94f557b685a",
         "key": "charoff",
         "name": "Charoff",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "1a30ef45-dc2b-475b-a2d2-7a04a8924ed1"
+        },
+        "prevSibling": {
+          "id": "48847c03-783e-4924-b677-88daa0f11393"
+        },
         "validationRules": null
       },
       {
@@ -79,7 +93,9 @@
         "key": "valign",
         "name": "Valign",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "def977fa-6038-4df1-98b9-e94f557b685a"
+        },
         "validationRules": null
       }
     ],

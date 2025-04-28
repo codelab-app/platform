@@ -14,7 +14,9 @@
         "id": "53b97631-f511-4106-82f8-784a728767dd",
         "key": "colon",
         "name": "Colon",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "2752d65b-8110-462c-a1a5-5c255305fdd9"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -30,8 +32,12 @@
         "id": "2752d65b-8110-462c-a1a5-5c255305fdd9",
         "key": "component",
         "name": "Component",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "d689ddf3-52de-47bd-aa84-f404eadf5467"
+        },
+        "prevSibling": {
+          "id": "53b97631-f511-4106-82f8-784a728767dd"
+        },
         "validationRules": null
       },
       {
@@ -46,8 +52,12 @@
         "id": "d689ddf3-52de-47bd-aa84-f404eadf5467",
         "key": "disabled",
         "name": "Disabled",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "6e91bee4-090e-493c-9bb2-5639c7e14644"
+        },
+        "prevSibling": {
+          "id": "2752d65b-8110-462c-a1a5-5c255305fdd9"
+        },
         "validationRules": null
       },
       {
@@ -62,8 +72,12 @@
         "id": "6e91bee4-090e-493c-9bb2-5639c7e14644",
         "key": "labelAlign",
         "name": "Label Align",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "fddef516-ff6a-4cd0-8196-db93c639f028"
+        },
+        "prevSibling": {
+          "id": "d689ddf3-52de-47bd-aa84-f404eadf5467"
+        },
         "validationRules": null
       },
       {
@@ -78,8 +92,12 @@
         "id": "fddef516-ff6a-4cd0-8196-db93c639f028",
         "key": "labelWrap",
         "name": "Label Wrap",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "86a58ae5-1f61-4b8b-8986-7b13e112da37"
+        },
+        "prevSibling": {
+          "id": "6e91bee4-090e-493c-9bb2-5639c7e14644"
+        },
         "validationRules": null
       },
       {
@@ -94,8 +112,12 @@
         "id": "86a58ae5-1f61-4b8b-8986-7b13e112da37",
         "key": "layout",
         "name": "Layout",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "2ff82e8e-b30b-4dc3-aa43-cf2be446724b"
+        },
+        "prevSibling": {
+          "id": "fddef516-ff6a-4cd0-8196-db93c639f028"
+        },
         "validationRules": null
       },
       {
@@ -110,8 +132,12 @@
         "id": "2ff82e8e-b30b-4dc3-aa43-cf2be446724b",
         "key": "name",
         "name": "Name",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "ea4f8c4e-e56f-49cf-9a1c-0c2f076c2561"
+        },
+        "prevSibling": {
+          "id": "86a58ae5-1f61-4b8b-8986-7b13e112da37"
+        },
         "validationRules": null
       },
       {
@@ -126,8 +152,12 @@
         "id": "ea4f8c4e-e56f-49cf-9a1c-0c2f076c2561",
         "key": "onFieldsChange",
         "name": "On Fields Change",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "c8a47f1e-9a77-4160-9df9-804afbd9051b"
+        },
+        "prevSibling": {
+          "id": "2ff82e8e-b30b-4dc3-aa43-cf2be446724b"
+        },
         "validationRules": null
       },
       {
@@ -142,8 +172,12 @@
         "id": "c8a47f1e-9a77-4160-9df9-804afbd9051b",
         "key": "onFinish",
         "name": "On Finish",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "f0df1b50-4ea4-415c-bf3b-a1df8aebf11c"
+        },
+        "prevSibling": {
+          "id": "ea4f8c4e-e56f-49cf-9a1c-0c2f076c2561"
+        },
         "validationRules": null
       },
       {
@@ -158,8 +192,12 @@
         "id": "f0df1b50-4ea4-415c-bf3b-a1df8aebf11c",
         "key": "onFinishFailed",
         "name": "On Finish Failed",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "c74972b3-5ad4-40c9-995c-298acd56c3aa"
+        },
+        "prevSibling": {
+          "id": "c8a47f1e-9a77-4160-9df9-804afbd9051b"
+        },
         "validationRules": null
       },
       {
@@ -174,8 +212,12 @@
         "id": "c74972b3-5ad4-40c9-995c-298acd56c3aa",
         "key": "onValuesChange",
         "name": "On Values Change",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "6c5dc50e-fbfd-4552-a566-57ff40084d58"
+        },
+        "prevSibling": {
+          "id": "f0df1b50-4ea4-415c-bf3b-a1df8aebf11c"
+        },
         "validationRules": null
       },
       {
@@ -190,8 +232,12 @@
         "id": "6c5dc50e-fbfd-4552-a566-57ff40084d58",
         "key": "preserve",
         "name": "Preserve",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "d56558af-ce45-4d3f-b5cc-dbc383358455"
+        },
+        "prevSibling": {
+          "id": "c74972b3-5ad4-40c9-995c-298acd56c3aa"
+        },
         "validationRules": null
       },
       {
@@ -206,8 +252,12 @@
         "id": "d56558af-ce45-4d3f-b5cc-dbc383358455",
         "key": "requiredMark",
         "name": "Required Mark",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "6bdbd4b0-9941-4367-bd87-f43817b8ba0a"
+        },
+        "prevSibling": {
+          "id": "6c5dc50e-fbfd-4552-a566-57ff40084d58"
+        },
         "validationRules": null
       },
       {
@@ -222,8 +272,12 @@
         "id": "6bdbd4b0-9941-4367-bd87-f43817b8ba0a",
         "key": "scrollToFirstError",
         "name": "Scroll To First Error",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "fbf82cac-dbdd-44ab-a629-68c28bd13b13"
+        },
+        "prevSibling": {
+          "id": "d56558af-ce45-4d3f-b5cc-dbc383358455"
+        },
         "validationRules": null
       },
       {
@@ -238,8 +292,12 @@
         "id": "fbf82cac-dbdd-44ab-a629-68c28bd13b13",
         "key": "size",
         "name": "Size",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "0e431954-def5-4a10-a73e-626b3b780e74"
+        },
+        "prevSibling": {
+          "id": "6bdbd4b0-9941-4367-bd87-f43817b8ba0a"
+        },
         "validationRules": null
       },
       {
@@ -255,7 +313,9 @@
         "key": "validateTrigger",
         "name": "Validate Trigger",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "fbf82cac-dbdd-44ab-a629-68c28bd13b13"
+        },
         "validationRules": null
       }
     ],

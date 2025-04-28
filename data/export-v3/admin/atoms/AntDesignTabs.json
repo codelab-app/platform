@@ -14,7 +14,9 @@
         "id": "fbe5cba9-bbf7-4122-b140-48b35f2eef8b",
         "key": "activeKey",
         "name": "Active Key",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "92b4db0d-27dd-47b7-bf50-4d8beaffed04"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -30,8 +32,12 @@
         "id": "92b4db0d-27dd-47b7-bf50-4d8beaffed04",
         "key": "addIcon",
         "name": "Add Icon",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "e6f225e5-6d30-4387-a0a2-d57549a3c207"
+        },
+        "prevSibling": {
+          "id": "fbe5cba9-bbf7-4122-b140-48b35f2eef8b"
+        },
         "validationRules": null
       },
       {
@@ -46,8 +52,12 @@
         "id": "e6f225e5-6d30-4387-a0a2-d57549a3c207",
         "key": "animated",
         "name": "Animated",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "86150cef-f246-46bb-a75f-bdabe62d67d4"
+        },
+        "prevSibling": {
+          "id": "92b4db0d-27dd-47b7-bf50-4d8beaffed04"
+        },
         "validationRules": null
       },
       {
@@ -62,8 +72,12 @@
         "id": "86150cef-f246-46bb-a75f-bdabe62d67d4",
         "key": "centered",
         "name": "Centered",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "0361bc45-74c7-4036-9a85-10e54f7bb61b"
+        },
+        "prevSibling": {
+          "id": "e6f225e5-6d30-4387-a0a2-d57549a3c207"
+        },
         "validationRules": null
       },
       {
@@ -78,8 +92,12 @@
         "id": "0361bc45-74c7-4036-9a85-10e54f7bb61b",
         "key": "defaultActiveKey",
         "name": "Default Active Key",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "b6e18792-f5e5-4b9b-9a79-1c0ecf082aa2"
+        },
+        "prevSibling": {
+          "id": "86150cef-f246-46bb-a75f-bdabe62d67d4"
+        },
         "validationRules": null
       },
       {
@@ -94,8 +112,12 @@
         "id": "b6e18792-f5e5-4b9b-9a79-1c0ecf082aa2",
         "key": "destroyInactiveTabPane",
         "name": "Destroy Inactive Tab Pane",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "7f93c433-c99a-44a3-bd97-0d21921d7db3"
+        },
+        "prevSibling": {
+          "id": "0361bc45-74c7-4036-9a85-10e54f7bb61b"
+        },
         "validationRules": null
       },
       {
@@ -110,8 +132,12 @@
         "id": "7f93c433-c99a-44a3-bd97-0d21921d7db3",
         "key": "hideAdd",
         "name": "Hide Add",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "d629ba9d-77db-418b-8bde-99083931646a"
+        },
+        "prevSibling": {
+          "id": "b6e18792-f5e5-4b9b-9a79-1c0ecf082aa2"
+        },
         "validationRules": null
       },
       {
@@ -126,8 +152,12 @@
         "id": "d629ba9d-77db-418b-8bde-99083931646a",
         "key": "moreIcon",
         "name": "More Icon",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "b6c2c7c3-3b1d-4a4f-a068-5a6a9fd7b94e"
+        },
+        "prevSibling": {
+          "id": "7f93c433-c99a-44a3-bd97-0d21921d7db3"
+        },
         "validationRules": null
       },
       {
@@ -142,8 +172,12 @@
         "id": "b6c2c7c3-3b1d-4a4f-a068-5a6a9fd7b94e",
         "key": "onChange",
         "name": "On Change",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "89f702cc-7017-4301-8066-641b0e25b8bc"
+        },
+        "prevSibling": {
+          "id": "d629ba9d-77db-418b-8bde-99083931646a"
+        },
         "validationRules": null
       },
       {
@@ -158,8 +192,12 @@
         "id": "89f702cc-7017-4301-8066-641b0e25b8bc",
         "key": "onTabClick",
         "name": "On Tab Click",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "b1224100-5d88-4c8f-8c45-bb42068a456d"
+        },
+        "prevSibling": {
+          "id": "b6c2c7c3-3b1d-4a4f-a068-5a6a9fd7b94e"
+        },
         "validationRules": null
       },
       {
@@ -174,8 +212,12 @@
         "id": "b1224100-5d88-4c8f-8c45-bb42068a456d",
         "key": "onTabScroll",
         "name": "On Tab Scroll",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "67c6647d-343f-402f-a79a-61395b9a7a51"
+        },
+        "prevSibling": {
+          "id": "89f702cc-7017-4301-8066-641b0e25b8bc"
+        },
         "validationRules": null
       },
       {
@@ -190,8 +232,12 @@
         "id": "67c6647d-343f-402f-a79a-61395b9a7a51",
         "key": "popupClassName",
         "name": "Popup Class Name",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "e4698093-924b-40be-84aa-f113842da947"
+        },
+        "prevSibling": {
+          "id": "b1224100-5d88-4c8f-8c45-bb42068a456d"
+        },
         "validationRules": null
       },
       {
@@ -206,8 +252,12 @@
         "id": "e4698093-924b-40be-84aa-f113842da947",
         "key": "renderTabBar",
         "name": "Render Tab Bar",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "9a16baff-4a64-4008-9fe0-7bfe435f3f4b"
+        },
+        "prevSibling": {
+          "id": "67c6647d-343f-402f-a79a-61395b9a7a51"
+        },
         "validationRules": null
       },
       {
@@ -222,8 +272,12 @@
         "id": "9a16baff-4a64-4008-9fe0-7bfe435f3f4b",
         "key": "size",
         "name": "Size",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "d22cfade-3bb3-45d2-b8da-7e8b3bc5943f"
+        },
+        "prevSibling": {
+          "id": "e4698093-924b-40be-84aa-f113842da947"
+        },
         "validationRules": null
       },
       {
@@ -238,8 +292,12 @@
         "id": "d22cfade-3bb3-45d2-b8da-7e8b3bc5943f",
         "key": "tabBarExtraContent",
         "name": "Tab Bar Extra Content",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "29d81fc3-ecdd-4e2f-abe3-464c6ef9ecf8"
+        },
+        "prevSibling": {
+          "id": "9a16baff-4a64-4008-9fe0-7bfe435f3f4b"
+        },
         "validationRules": null
       },
       {
@@ -254,8 +312,12 @@
         "id": "29d81fc3-ecdd-4e2f-abe3-464c6ef9ecf8",
         "key": "tabBarGutter",
         "name": "Tab Bar Gutter",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "0c8d7d1a-62e5-4813-8c43-cf4e8b19272c"
+        },
+        "prevSibling": {
+          "id": "d22cfade-3bb3-45d2-b8da-7e8b3bc5943f"
+        },
         "validationRules": null
       },
       {
@@ -270,8 +332,12 @@
         "id": "0c8d7d1a-62e5-4813-8c43-cf4e8b19272c",
         "key": "tabPosition",
         "name": "Tab Position",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "85ea016e-73da-4f11-882f-8ec8beb7a0a7"
+        },
+        "prevSibling": {
+          "id": "29d81fc3-ecdd-4e2f-abe3-464c6ef9ecf8"
+        },
         "validationRules": null
       },
       {
@@ -287,7 +353,9 @@
         "key": "type",
         "name": "Type",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "0c8d7d1a-62e5-4813-8c43-cf4e8b19272c"
+        },
         "validationRules": null
       }
     ],

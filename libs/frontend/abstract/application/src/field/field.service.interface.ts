@@ -20,10 +20,10 @@ export interface IFieldService
   cloneField(field: IFieldModel, apiId: string): Promise<IFieldModel>
   moveFieldAsNextSibling(props: {
     field: IRef
-    targetField: IRef
+    targetFieldId: string
   }): Promise<void>
   moveFieldAsPrevSibling(props: {
     field: IRef
-    targetField: IRef
+    targetFieldId: string
   }): Promise<void>
 }

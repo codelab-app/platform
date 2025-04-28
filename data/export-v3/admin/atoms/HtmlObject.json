@@ -14,7 +14,9 @@
         "id": "8d39163e-9632-495c-a207-c4990e031bc1",
         "key": "data",
         "name": "Data",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "092d399b-28fc-4941-93ae-e055919be65b"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -30,8 +32,12 @@
         "id": "092d399b-28fc-4941-93ae-e055919be65b",
         "key": "form",
         "name": "Form",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "2720da54-9e22-45b9-9e8a-01111d7c7dd8"
+        },
+        "prevSibling": {
+          "id": "8d39163e-9632-495c-a207-c4990e031bc1"
+        },
         "validationRules": null
       },
       {
@@ -46,8 +52,12 @@
         "id": "2720da54-9e22-45b9-9e8a-01111d7c7dd8",
         "key": "height",
         "name": "Height",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "102c7128-ade6-47f4-aa50-f0d0fc75d3ff"
+        },
+        "prevSibling": {
+          "id": "092d399b-28fc-4941-93ae-e055919be65b"
+        },
         "validationRules": null
       },
       {
@@ -62,8 +72,12 @@
         "id": "102c7128-ade6-47f4-aa50-f0d0fc75d3ff",
         "key": "name",
         "name": "Name",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "a0b69ec0-10c9-4fea-a038-1fb1cfed5013"
+        },
+        "prevSibling": {
+          "id": "2720da54-9e22-45b9-9e8a-01111d7c7dd8"
+        },
         "validationRules": null
       },
       {
@@ -78,8 +92,12 @@
         "id": "a0b69ec0-10c9-4fea-a038-1fb1cfed5013",
         "key": "type",
         "name": "Type",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "94683c27-0966-4c67-8f51-2ecf15c0dd8d"
+        },
+        "prevSibling": {
+          "id": "102c7128-ade6-47f4-aa50-f0d0fc75d3ff"
+        },
         "validationRules": null
       },
       {
@@ -94,8 +112,12 @@
         "id": "94683c27-0966-4c67-8f51-2ecf15c0dd8d",
         "key": "usemap",
         "name": "Usemap",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "2413b60b-998b-47b6-88e8-b9aae85b072d"
+        },
+        "prevSibling": {
+          "id": "a0b69ec0-10c9-4fea-a038-1fb1cfed5013"
+        },
         "validationRules": null
       },
       {
@@ -111,7 +133,9 @@
         "key": "width",
         "name": "Width",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "94683c27-0966-4c67-8f51-2ecf15c0dd8d"
+        },
         "validationRules": null
       }
     ],

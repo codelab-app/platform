@@ -14,7 +14,9 @@
         "id": "d75c7d0c-b388-4ccd-917e-986c4759b46f",
         "key": "children",
         "name": "Children",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "4185aff4-668c-4952-9ecb-dd4ca7444179"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -31,7 +33,9 @@
         "key": "value",
         "name": "Value",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "d75c7d0c-b388-4ccd-917e-986c4759b46f"
+        },
         "validationRules": null
       }
     ],

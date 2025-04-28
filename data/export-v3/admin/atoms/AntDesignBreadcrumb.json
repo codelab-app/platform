@@ -14,7 +14,9 @@
         "id": "0e324a05-53ec-4a70-a0b8-bdacd1ca09cf",
         "key": "itemRender",
         "name": "Item Render",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "b92c072a-f1c8-4fc0-801a-fca15eb0cf9d"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -30,8 +32,12 @@
         "id": "b92c072a-f1c8-4fc0-801a-fca15eb0cf9d",
         "key": "items",
         "name": null,
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "c66758f5-47c1-4f92-90be-10130ac6022c"
+        },
+        "prevSibling": {
+          "id": "0e324a05-53ec-4a70-a0b8-bdacd1ca09cf"
+        },
         "validationRules": null
       },
       {
@@ -47,7 +53,9 @@
         "key": "separator",
         "name": "Separator",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "b92c072a-f1c8-4fc0-801a-fca15eb0cf9d"
+        },
         "validationRules": null
       },
       {
@@ -62,7 +70,9 @@
         "id": "11c758f0-9c6d-4361-9df8-6b61c742025b",
         "key": "className",
         "name": "Class Name",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "a5d8e396-0987-4cc7-a091-e933f5af0d48"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -78,24 +88,12 @@
         "id": "a5d8e396-0987-4cc7-a091-e933f5af0d48",
         "key": "href",
         "name": "Href",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "c7fe3eaa-2c22-46ac-b72b-2d6127f00396"
+        "nextSibling": {
+          "id": "f894db32-ccdc-460f-8d74-2f69b049a09d"
         },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f"
+        "prevSibling": {
+          "id": "11c758f0-9c6d-4361-9df8-6b61c742025b"
         },
-        "id": "96a23f61-6652-4167-b252-426e2272cd10",
-        "key": "onClick",
-        "name": "On Click",
-        "nextSibling": null,
-        "prevSibling": null,
         "validationRules": null
       },
       {
@@ -110,9 +108,31 @@
         "id": "f894db32-ccdc-460f-8d74-2f69b049a09d",
         "key": "title",
         "name": null,
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "96a23f61-6652-4167-b252-426e2272cd10"
+        },
+        "prevSibling": {
+          "id": "a5d8e396-0987-4cc7-a091-e933f5af0d48"
+        },
         "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "c7fe3eaa-2c22-46ac-b72b-2d6127f00396"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f"
+        },
+        "id": "96a23f61-6652-4167-b252-426e2272cd10",
+        "key": "onClick",
+        "name": "On Click",
+        "nextSibling": null,
+        "prevSibling": {
+          "id": "f894db32-ccdc-460f-8d74-2f69b049a09d"
+        },
+        "validationRules": null
       }
     ],
     "id": "8562d529-43b0-4927-96d3-56f1264e6a50",
@@ -136,10 +156,10 @@
             "id": "a5d8e396-0987-4cc7-a091-e933f5af0d48"
           },
           {
-            "id": "96a23f61-6652-4167-b252-426e2272cd10"
+            "id": "f894db32-ccdc-460f-8d74-2f69b049a09d"
           },
           {
-            "id": "f894db32-ccdc-460f-8d74-2f69b049a09d"
+            "id": "96a23f61-6652-4167-b252-426e2272cd10"
           }
         ],
         "id": "c7fe3eaa-2c22-46ac-b72b-2d6127f00396",

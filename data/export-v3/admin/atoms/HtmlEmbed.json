@@ -14,7 +14,9 @@
         "id": "a3c813a2-3d47-4b9c-832b-f7236d40ab9e",
         "key": "height",
         "name": "Height",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "3637ff63-91ce-414a-8f2f-38c3b3600d86"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -30,8 +32,12 @@
         "id": "3637ff63-91ce-414a-8f2f-38c3b3600d86",
         "key": "src",
         "name": "Src",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "7aa4a71e-3277-4302-982b-e516b18b7f71"
+        },
+        "prevSibling": {
+          "id": "a3c813a2-3d47-4b9c-832b-f7236d40ab9e"
+        },
         "validationRules": null
       },
       {
@@ -46,8 +52,12 @@
         "id": "7aa4a71e-3277-4302-982b-e516b18b7f71",
         "key": "type",
         "name": "Type",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "f66ebf37-fbd0-491b-bbee-2a63992a817d"
+        },
+        "prevSibling": {
+          "id": "3637ff63-91ce-414a-8f2f-38c3b3600d86"
+        },
         "validationRules": null
       },
       {
@@ -63,7 +73,9 @@
         "key": "width",
         "name": "Width",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "7aa4a71e-3277-4302-982b-e516b18b7f71"
+        },
         "validationRules": null
       }
     ],

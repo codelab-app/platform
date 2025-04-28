@@ -14,7 +14,9 @@
         "id": "e2143f6e-9c6d-4d37-85d3-b377fec6f18a",
         "key": "children",
         "name": "Children",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "507c6a8c-02ff-4073-bc5d-2b2c66d60c9c"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -31,7 +33,9 @@
         "key": "datetime",
         "name": "Datetime",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "e2143f6e-9c6d-4d37-85d3-b377fec6f18a"
+        },
         "validationRules": null
       }
     ],

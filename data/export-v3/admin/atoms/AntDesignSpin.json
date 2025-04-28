@@ -14,7 +14,9 @@
         "id": "675d5c36-d2a4-4b3f-af65-bafac3de335a",
         "key": "indicator",
         "name": "Indicator",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "72d362f7-ee96-4a04-96b4-92946856de1a"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -30,8 +32,12 @@
         "id": "72d362f7-ee96-4a04-96b4-92946856de1a",
         "key": "size",
         "name": "Size",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "76674572-f3f1-4bae-acb6-827dff37d2f0"
+        },
+        "prevSibling": {
+          "id": "675d5c36-d2a4-4b3f-af65-bafac3de335a"
+        },
         "validationRules": null
       },
       {
@@ -46,8 +52,12 @@
         "id": "76674572-f3f1-4bae-acb6-827dff37d2f0",
         "key": "spinning",
         "name": "Spinning",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "1cdd77da-d877-45da-8908-78cf0fe9ef78"
+        },
+        "prevSibling": {
+          "id": "72d362f7-ee96-4a04-96b4-92946856de1a"
+        },
         "validationRules": null
       },
       {
@@ -62,8 +72,12 @@
         "id": "1cdd77da-d877-45da-8908-78cf0fe9ef78",
         "key": "tip",
         "name": "Tip",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "7be6305a-d7eb-4807-a704-edc78cf0986a"
+        },
+        "prevSibling": {
+          "id": "76674572-f3f1-4bae-acb6-827dff37d2f0"
+        },
         "validationRules": null
       },
       {
@@ -79,7 +93,9 @@
         "key": "wrapperClassName",
         "name": "Wrapper Class Name",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "1cdd77da-d877-45da-8908-78cf0fe9ef78"
+        },
         "validationRules": null
       }
     ],

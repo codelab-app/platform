@@ -14,7 +14,9 @@
         "id": "42d4aa95-3c74-4a12-899f-19f1a8b734e6",
         "key": "autoplay",
         "name": "Autoplay",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "182f9fca-780b-4867-85ed-1cae2770de50"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -30,8 +32,12 @@
         "id": "182f9fca-780b-4867-85ed-1cae2770de50",
         "key": "controls",
         "name": "Controls",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "bc8ae731-7e81-4209-8782-5fd956df662e"
+        },
+        "prevSibling": {
+          "id": "42d4aa95-3c74-4a12-899f-19f1a8b734e6"
+        },
         "validationRules": null
       },
       {
@@ -46,8 +52,12 @@
         "id": "bc8ae731-7e81-4209-8782-5fd956df662e",
         "key": "crossorigin",
         "name": "Crossorigin",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "08c0263b-0259-4c3b-aa0c-8b59e97e8198"
+        },
+        "prevSibling": {
+          "id": "182f9fca-780b-4867-85ed-1cae2770de50"
+        },
         "validationRules": null
       },
       {
@@ -62,8 +72,12 @@
         "id": "08c0263b-0259-4c3b-aa0c-8b59e97e8198",
         "key": "height",
         "name": "Height",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "a78e9242-9fa3-47f9-9dc0-84ec42f44b04"
+        },
+        "prevSibling": {
+          "id": "bc8ae731-7e81-4209-8782-5fd956df662e"
+        },
         "validationRules": null
       },
       {
@@ -78,8 +92,12 @@
         "id": "a78e9242-9fa3-47f9-9dc0-84ec42f44b04",
         "key": "loop",
         "name": "Loop",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "7c258021-e6e3-4211-8380-cb24c7441b76"
+        },
+        "prevSibling": {
+          "id": "08c0263b-0259-4c3b-aa0c-8b59e97e8198"
+        },
         "validationRules": null
       },
       {
@@ -94,8 +112,12 @@
         "id": "7c258021-e6e3-4211-8380-cb24c7441b76",
         "key": "muted",
         "name": "Muted",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "f4970aa6-8b62-44b4-89f0-699113335bcf"
+        },
+        "prevSibling": {
+          "id": "a78e9242-9fa3-47f9-9dc0-84ec42f44b04"
+        },
         "validationRules": null
       },
       {
@@ -110,8 +132,12 @@
         "id": "f4970aa6-8b62-44b4-89f0-699113335bcf",
         "key": "poster",
         "name": "Poster",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "f1232711-81f6-40e8-bdcf-d345268978a5"
+        },
+        "prevSibling": {
+          "id": "7c258021-e6e3-4211-8380-cb24c7441b76"
+        },
         "validationRules": null
       },
       {
@@ -126,8 +152,12 @@
         "id": "f1232711-81f6-40e8-bdcf-d345268978a5",
         "key": "preload",
         "name": "Preload",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "8ad293af-11bc-40bf-a736-c79bc3b528c1"
+        },
+        "prevSibling": {
+          "id": "f4970aa6-8b62-44b4-89f0-699113335bcf"
+        },
         "validationRules": null
       },
       {
@@ -142,8 +172,12 @@
         "id": "8ad293af-11bc-40bf-a736-c79bc3b528c1",
         "key": "src",
         "name": "Src",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "40c0aaee-db84-4f39-8fd8-01b86006becf"
+        },
+        "prevSibling": {
+          "id": "f1232711-81f6-40e8-bdcf-d345268978a5"
+        },
         "validationRules": null
       },
       {
@@ -159,7 +193,9 @@
         "key": "width",
         "name": "Width",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "8ad293af-11bc-40bf-a736-c79bc3b528c1"
+        },
         "validationRules": null
       }
     ],

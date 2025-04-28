@@ -14,7 +14,9 @@
         "id": "37f2a117-d7a0-46fc-9759-91411e1d4542",
         "key": "autofocus",
         "name": "Autofocus",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "7715790f-0043-4ecb-b8cc-fd6004b3508c"
+        },
         "prevSibling": null,
         "validationRules": null
       },
@@ -30,8 +32,12 @@
         "id": "7715790f-0043-4ecb-b8cc-fd6004b3508c",
         "key": "disabled",
         "name": "Disabled",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "f1302bb5-02f4-435a-a7f4-52c42a6145e8"
+        },
+        "prevSibling": {
+          "id": "37f2a117-d7a0-46fc-9759-91411e1d4542"
+        },
         "validationRules": null
       },
       {
@@ -46,8 +52,12 @@
         "id": "f1302bb5-02f4-435a-a7f4-52c42a6145e8",
         "key": "form",
         "name": "Form",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "c1487b22-c158-4cc7-b457-e3126bfc2d3a"
+        },
+        "prevSibling": {
+          "id": "7715790f-0043-4ecb-b8cc-fd6004b3508c"
+        },
         "validationRules": null
       },
       {
@@ -62,8 +72,12 @@
         "id": "c1487b22-c158-4cc7-b457-e3126bfc2d3a",
         "key": "multiple",
         "name": "Multiple",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "b9383a50-bd83-4f25-a70e-830ab2dd932b"
+        },
+        "prevSibling": {
+          "id": "f1302bb5-02f4-435a-a7f4-52c42a6145e8"
+        },
         "validationRules": null
       },
       {
@@ -78,8 +92,12 @@
         "id": "b9383a50-bd83-4f25-a70e-830ab2dd932b",
         "key": "name",
         "name": "Name",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "76284952-a014-4c52-8e52-7539ddd7dac8"
+        },
+        "prevSibling": {
+          "id": "c1487b22-c158-4cc7-b457-e3126bfc2d3a"
+        },
         "validationRules": null
       },
       {
@@ -94,8 +112,12 @@
         "id": "76284952-a014-4c52-8e52-7539ddd7dac8",
         "key": "required",
         "name": "Required",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "ea90a53f-cc53-4908-a013-52b78cd63115"
+        },
+        "prevSibling": {
+          "id": "b9383a50-bd83-4f25-a70e-830ab2dd932b"
+        },
         "validationRules": null
       },
       {
@@ -111,7 +133,9 @@
         "key": "size",
         "name": "Size",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "76284952-a014-4c52-8e52-7539ddd7dac8"
+        },
         "validationRules": null
       }
     ],

@@ -14,7 +14,9 @@
         "id": "2170ec7b-480c-4b38-bd14-0fe0fe8e3eb1",
         "key": "children",
         "name": "children",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "4de8bcb3-ad34-4cb6-b13b-eef339d178e0"
+        },
         "prevSibling": null,
         "validationRules": "{}"
       },
@@ -30,8 +32,12 @@
         "id": "4de8bcb3-ad34-4cb6-b13b-eef339d178e0",
         "key": "code",
         "name": "Code",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "118a5992-fb47-4bc5-995e-c8d4e65fe360"
+        },
+        "prevSibling": {
+          "id": "2170ec7b-480c-4b38-bd14-0fe0fe8e3eb1"
+        },
         "validationRules": null
       },
       {
@@ -46,8 +52,12 @@
         "id": "118a5992-fb47-4bc5-995e-c8d4e65fe360",
         "key": "copyable",
         "name": "Copyable",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "6c55f37c-8c90-4475-a46e-53e03641622e"
+        },
+        "prevSibling": {
+          "id": "4de8bcb3-ad34-4cb6-b13b-eef339d178e0"
+        },
         "validationRules": null
       },
       {
@@ -62,8 +72,12 @@
         "id": "6c55f37c-8c90-4475-a46e-53e03641622e",
         "key": "delete",
         "name": "Delete",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "f3d41a3f-ab41-4e70-b243-cb5b23e9885d"
+        },
+        "prevSibling": {
+          "id": "118a5992-fb47-4bc5-995e-c8d4e65fe360"
+        },
         "validationRules": null
       },
       {
@@ -78,8 +92,12 @@
         "id": "f3d41a3f-ab41-4e70-b243-cb5b23e9885d",
         "key": "disabled",
         "name": "Disabled",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "83d2ec73-1975-48e6-a34b-dc7a8ddc2dce"
+        },
+        "prevSibling": {
+          "id": "6c55f37c-8c90-4475-a46e-53e03641622e"
+        },
         "validationRules": null
       },
       {
@@ -94,8 +112,12 @@
         "id": "83d2ec73-1975-48e6-a34b-dc7a8ddc2dce",
         "key": "editable",
         "name": "Editable",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "8bde586f-82f5-4d88-ab91-6b52332e8718"
+        },
+        "prevSibling": {
+          "id": "f3d41a3f-ab41-4e70-b243-cb5b23e9885d"
+        },
         "validationRules": null
       },
       {
@@ -110,8 +132,12 @@
         "id": "8bde586f-82f5-4d88-ab91-6b52332e8718",
         "key": "ellipsis",
         "name": "Ellipsis",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "84a18f5b-8ee2-4038-b4db-9317d38a10a2"
+        },
+        "prevSibling": {
+          "id": "83d2ec73-1975-48e6-a34b-dc7a8ddc2dce"
+        },
         "validationRules": null
       },
       {
@@ -126,8 +152,12 @@
         "id": "84a18f5b-8ee2-4038-b4db-9317d38a10a2",
         "key": "italic",
         "name": "Italic",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "7799cb38-f499-4fa1-a302-3468eda42d7b"
+        },
+        "prevSibling": {
+          "id": "8bde586f-82f5-4d88-ab91-6b52332e8718"
+        },
         "validationRules": null
       },
       {
@@ -142,8 +172,12 @@
         "id": "7799cb38-f499-4fa1-a302-3468eda42d7b",
         "key": "mark",
         "name": "Mark",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "c1c3a9c1-dca1-4bfe-9220-0f6a6c128059"
+        },
+        "prevSibling": {
+          "id": "84a18f5b-8ee2-4038-b4db-9317d38a10a2"
+        },
         "validationRules": null
       },
       {
@@ -158,8 +192,12 @@
         "id": "c1c3a9c1-dca1-4bfe-9220-0f6a6c128059",
         "key": "onClick",
         "name": "On Click",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "e732fdd1-d377-4c38-bd9a-265785f47242"
+        },
+        "prevSibling": {
+          "id": "7799cb38-f499-4fa1-a302-3468eda42d7b"
+        },
         "validationRules": null
       },
       {
@@ -174,8 +212,12 @@
         "id": "e732fdd1-d377-4c38-bd9a-265785f47242",
         "key": "strong",
         "name": "Strong",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "9aa9ea10-c632-42d5-a2a7-83622d9a85b3"
+        },
+        "prevSibling": {
+          "id": "c1c3a9c1-dca1-4bfe-9220-0f6a6c128059"
+        },
         "validationRules": null
       },
       {
@@ -190,8 +232,12 @@
         "id": "9aa9ea10-c632-42d5-a2a7-83622d9a85b3",
         "key": "type",
         "name": "Type",
-        "nextSibling": null,
-        "prevSibling": null,
+        "nextSibling": {
+          "id": "1687f600-d588-4c8a-8de2-d6edba328db4"
+        },
+        "prevSibling": {
+          "id": "e732fdd1-d377-4c38-bd9a-265785f47242"
+        },
         "validationRules": null
       },
       {
@@ -207,7 +253,9 @@
         "key": "underline",
         "name": "Underline",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "9aa9ea10-c632-42d5-a2a7-83622d9a85b3"
+        },
         "validationRules": null
       }
     ],

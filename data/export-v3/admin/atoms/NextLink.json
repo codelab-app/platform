@@ -14,7 +14,9 @@
         "id": "899b874b-f82c-4b37-8550-172c710719d3",
         "key": "children",
         "name": "Children",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "bc728be2-0ad4-4fd2-baeb-d5437091d575"
+        },
         "prevSibling": null,
         "validationRules": "{}"
       },
@@ -31,7 +33,9 @@
         "key": "href",
         "name": "Href",
         "nextSibling": null,
-        "prevSibling": null,
+        "prevSibling": {
+          "id": "899b874b-f82c-4b37-8550-172c710719d3"
+        },
         "validationRules": "{\"general\":{\"nullable\":false}}"
       }
     ],

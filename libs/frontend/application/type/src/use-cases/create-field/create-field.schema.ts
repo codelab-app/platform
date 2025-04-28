@@ -4,6 +4,7 @@ import type { JSONSchemaType } from 'ajv'
 import {
   idSchema,
   nonEmptyString,
+  nullableIdSchema,
 } from '@codelab/frontend-presentation-components-form/schema'
 import {
   GeneralValidationRules,
@@ -51,6 +52,17 @@ export const createFieldSchema: JSONSchemaType<IFieldCreateData> = {
       ...nonEmptyString,
     },
     name: { nullable: true, type: 'string' },
+    prevSibling: {
+      nullable: true,
+      properties: {
+        ...nullableIdSchema({
+          label: 'Prev Sibling',
+          disabled: false,
+        }),
+      },
+      required: [],
+      type: 'object',
+    },
     validationRules: {
       nullable: true,
       properties: {
