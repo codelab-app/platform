@@ -1,6 +1,14 @@
 {
   "name": "@codelab/eslint-plugin",
   "version": "0.0.1",
+  "exports": {
+    ".": {
+      "development": "./src/index.ts",
+      "import": "./dist/src/index.js",
+      "types": "./dist/src/index.d.ts",
+      "default": "./dist/src/index.js"
+    }
+  },
   "dependencies": {
     "@nx/devkit": "19.0.4",
     "@typescript-eslint/utils": "7.9.0",
