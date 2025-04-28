@@ -340,6 +340,7 @@ export class Element
         id: this.renderType.id,
       },
       style: this.style,
+      tailwindClassNames: this.tailwindClassNames,
     }
   }
 
@@ -558,6 +559,7 @@ export class Element
     renderIfExpression,
     renderType,
     style,
+    tailwindClassNames,
   }: Partial<IElementDto>) {
     this.name = name ?? this.name
     this.renderIfExpression = renderIfExpression ?? null
@@ -594,6 +596,7 @@ export class Element
       : this.childMapperPreviousSibling
 
     this.style = style ?? this.style
+    this.tailwindClassNames = tailwindClassNames ?? this.tailwindClassNames
 
     validateElement(this)
 
