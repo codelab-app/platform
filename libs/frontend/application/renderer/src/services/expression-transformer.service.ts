@@ -26,24 +26,26 @@ export class ExpressionTransformer
    */
   context: Nullable<ObjectLike> = null
 
+  @modelFlow
+  init = _async(function* (this: ExpressionTransformer) {
+    if (this.initialized) {
+      return
+    }
+
+    const { transform } = yield* _await(import('sucrase'))
+    const React = yield* _await(import('react'))
+
+    this.context = { atoms: allAtoms, React }
+    this.transform = transform
+    this.initialized = true
+  })
+
   /**
    * We use a private class field instead of a mobx-keystone prop because
    * the transform function from sucrase contains Symbol values which cannot
    * be serialized/stored as props in mobx-keystone models.
    */
   transform: Nullable<IExpressionTransformer['transform']> = null
-
-  @modelFlow
-  init() {
-    return _async(function* (this: ExpressionTransformer) {
-      const { transform } = yield* _await(import('sucrase'))
-      const React = yield* _await(import('react'))
-
-      this.context = { atoms: allAtoms, React }
-      this.transform = transform
-      this.setInitialized(true)
-    }).call(this)
-  }
 
   @modelAction
   transpileAndEvaluateExpression(expression: string) {

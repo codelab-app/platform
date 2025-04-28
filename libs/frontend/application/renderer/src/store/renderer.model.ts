@@ -1,5 +1,4 @@
 import type {
-  IExpressionTransformer,
   IRendererDto,
   IRendererModel,
   IRenderPipe,
@@ -27,7 +26,6 @@ import { computed } from 'mobx'
 import { idProp, Model, model, prop } from 'mobx-keystone'
 
 import { defaultPipes, renderPipeFactory } from '../render-pipes'
-import { ExpressionTransformer } from '../services'
 import { typedPropTransformersFactory } from '../typed-prop-transformers'
 
 /**
@@ -72,9 +70,6 @@ export class Renderer
      * Will log the render output and render pipe info to the console
      */
     debugMode: prop(false).withSetter(),
-    expressionTransformer: prop<IExpressionTransformer>(
-      () => new ExpressionTransformer({}),
-    ),
     id: idProp,
     /**
      * Different types of renderer requires behaviors in some cases.

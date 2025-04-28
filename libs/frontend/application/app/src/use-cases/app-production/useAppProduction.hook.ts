@@ -37,7 +37,7 @@ export const useAppProduction = (appProductionData: IAppProductionDto) => {
     console.debug(renderer)
 
     rendererService.setActiveRenderer(rendererRef(renderer.id))
-    void renderer.expressionTransformer.init()
+    // void renderer.expressionTransformer.init()
   }, [page.id])
 
   return {
