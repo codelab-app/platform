@@ -6,7 +6,6 @@
 /examples/
 /coverage/
 .next
-dist
 
 ## Added from ripper
 
@@ -17,7 +16,7 @@ dist
 *~
 
 # Build artifacts
-dist/
+!dist/
 out/
 .next/
 .nuxt/

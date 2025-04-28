@@ -11,13 +11,17 @@ const withRawCypherFiles = (config, ctx) => {
 }
 
 // Nx plugins for webpack.
-module.exports = composePlugins(withNx(), withRawCypherFiles, (config, { options, context }) => {
-  // Ensure resolve and conditionNames are initialized
-  config.resolve = config.resolve || {}
+module.exports = composePlugins(
+  withNx(),
+  withRawCypherFiles,
+  (config, { context, options }) => {
+    // Ensure resolve and conditionNames are initialized
+    // config.resolve = config.resolve || {}
 
-  // Prepend 'development' condition if in development mode
-  // Keep existing conditions set by Nx or other plugins
-  config.resolve.conditionNames = ['development']
+    // Prepend 'development' condition if in development mode
+    // Keep existing conditions set by Nx or other plugins
+    // config.resolve.conditionNames = ['development']
 
-  return config
-})
+    return config
+  },
+)

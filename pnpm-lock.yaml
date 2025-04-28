@@ -44,8 +44,8 @@ importers:
         specifier: file:libs/external/codelab-codegen/typescript-server-fetch/dist
         version: dist@file:libs/external/codelab-codegen/typescript-server-fetch/dist
       '@codelab/eslint-plugin':
-        specifier: file:libs/tools/eslint-plugin/dist
-        version: dist@file:libs/tools/eslint-plugin/dist
+        specifier: workspace:*
+        version: link:libs/tools/eslint-plugin/dist
       '@codelab/tools-workspace':
         specifier: file:dist/libs/tools/workspace
         version: file:dist/libs/tools/workspace(@swc-node/register@1.10.9(@swc/core@1.10.11(@swc/helpers@0.5.15))(@swc/types@0.1.21)(typescript@5.5.4))(@swc/core@1.10.11(@swc/helpers@0.5.15))
@@ -4116,7 +4116,11 @@ importers:
 
   libs/frontend/cui/ui/atoms: {}
 
-  libs/frontend/cui/ui/molecules: {}
+  libs/frontend/cui/ui/molecules:
+    devDependencies:
+      '@cui/ui-atoms':
+        specifier: workspace:*
+        version: link:../atoms
 
   libs/frontend/cui/ui/organisms: {}
 
@@ -5664,6 +5668,18 @@ importers:
         version: link:../infra/gqlgen
 
   libs/tools/eslint-plugin:
+    dependencies:
+      '@nx/devkit':
+        specifier: 19.0.4
+        version: 19.0.4(nx@20.8.1(@swc-node/register@1.10.9(@swc/core@1.11.21(@swc/helpers@0.5.15))(@swc/types@0.1.21)(typescript@5.8.2))(@swc/core@1.11.21(@swc/helpers@0.5.15)))
+      '@typescript-eslint/utils':
+        specifier: 7.9.0
+        version: 7.9.0(eslint@8.57.0)(typescript@5.8.2)
+      tslib:
+        specifier: 2.3.1
+        version: 2.3.1
+
+  libs/tools/eslint-plugin/dist:
     dependencies:
       '@nx/devkit':
         specifier: 19.0.4
@@ -14135,9 +14151,6 @@ packages:
 
   dist@file:libs/external/codelab-codegen/typescript-server-fetch/dist:
     resolution: {directory: libs/external/codelab-codegen/typescript-server-fetch/dist, type: directory}
-
-  dist@file:libs/tools/eslint-plugin/dist:
-    resolution: {directory: libs/tools/eslint-plugin/dist, type: directory}
 
   dist@file:libs/tools/tsc-check/dist:
     resolution: {directory: libs/tools/tsc-check/dist, type: directory}
@@ -32431,8 +32444,6 @@ snapshots:
   dist@file:libs/external/codelab-codegen/typescript-fetch/dist: {}
 
   dist@file:libs/external/codelab-codegen/typescript-server-fetch/dist: {}
-
-  dist@file:libs/tools/eslint-plugin/dist: {}
 
   dist@file:libs/tools/tsc-check/dist: {}
 

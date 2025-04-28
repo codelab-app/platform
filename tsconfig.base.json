@@ -1,7 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "rootDirs": ["libs", "apps"],
+    "baseUrl": ".",
     "composite": true,
     "incremental": true,
     "sourceMap": true,

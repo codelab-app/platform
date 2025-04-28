@@ -1,7 +1,5 @@
-/* eslint-disable @nx/enforce-module-boundaries */
-import { SeoHead } from 'apps/landing/src/home/SeoHead'
-
 import { HomeTemplate, PricingBody, PricingHeader } from '../../src/home'
+import { SeoHead } from '../../src/home/SeoHead'
 
 const PricingPage = () => {
   return (
