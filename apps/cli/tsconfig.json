@@ -4,19 +4,13 @@
   "include": [],
   "references": [
     {
-      "path": "../../libs/backend/infra/adapter/cli"
-    },
-    {
-      "path": "../../libs/shared/abstract/core"
-    },
-    {
-      "path": "../../libs/backend/infra/adapter/logger"
-    },
-    {
       "path": "./tsconfig.app.json"
     },
     {
       "path": "./tsconfig.spec.json"
     }
-  ]
+  ],
+  "compilerOptions": {
+    "esModuleInterop": true
+  }
 }

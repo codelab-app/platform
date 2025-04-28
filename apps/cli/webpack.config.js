@@ -11,17 +11,8 @@ const withRawCypherFiles = (config, ctx) => {
 }
 
 // Nx plugins for webpack.
-module.exports = composePlugins(
-  withNx(),
-  withRawCypherFiles,
-  (config, { context, options }) => {
-    // Ensure resolve and conditionNames are initialized
-    // config.resolve = config.resolve || {}
-
-    // Prepend 'development' condition if in development mode
-    // Keep existing conditions set by Nx or other plugins
-    // config.resolve.conditionNames = ['development']
-
-    return config
-  },
-)
+module.exports = composePlugins(withNx(), withRawCypherFiles, (config) => {
+  // Update the webpack config as needed here.
+  // e.g. `config.plugins.push(new MyPlugin())`
+  return config
+})

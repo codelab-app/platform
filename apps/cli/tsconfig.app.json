@@ -1,29 +1,17 @@
 {
-  "extends": "../../tsconfig.base.json",
+  "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "./dist",
-    "module": "ESNext",
-    "moduleResolution": "bundler",
+    "outDir": "../../dist/out-tsc",
+    "module": "es2015",
+    "types": ["node", "cypher", "multer"],
     "target": "es2021",
     "strictNullChecks": true,
     "noImplicitAny": true,
+    "declarationMap": false,
     "strictBindCallApply": true,
     "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "declarationMap": false,
-    "types": ["node", "cypher", "multer"]
+    "noFallthroughCasesInSwitch": true
   },
   "exclude": ["jest.config.ts"],
-  "include": ["webpack.config.js", "src/**/*.ts"],
-  "references": [
-    {
-      "path": "../../libs/backend/infra/adapter/cli/tsconfig.lib.json"
-    },
-    {
-      "path": "../../libs/shared/abstract/core/tsconfig.lib.json"
-    },
-    {
-      "path": "../../libs/backend/infra/adapter/logger/tsconfig.lib.json"
-    }
-  ]
+  "include": ["webpack.config.js", "src/**/*.ts"]
 }
