@@ -130,8 +130,7 @@ export const ConfigPaneInspectorTabGroup = observer<{
             icon={
               <SettingOutlined
                 style={
-                  isRuntimeElement(selectedNode) &&
-                  selectedNode.element.current.propsHaveErrors
+                  isRuntimeElement(selectedNode) && selectedNode.propsHaveErrors
                     ? { color: 'red' }
                     : {}
                 }

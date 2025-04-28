@@ -31,7 +31,12 @@ import {
   getComponentDomainService,
   isComponent,
 } from '@codelab/frontend/abstract/domain'
-import { evaluateExpression, hasExpression } from '@codelab/shared-infra-eval'
+import { createValidator } from '@codelab/frontend/shared/utils'
+import {
+  evaluateExpression,
+  evaluateObject,
+  hasExpression,
+} from '@codelab/shared-infra-eval'
 import { computed } from 'mobx'
 import {
   detach,
@@ -242,6 +247,26 @@ export class RuntimeElementModel
   }
 
   @computed
+  get propsHaveErrors() {
+    /**
+     * This is causing error since we haven't loaded the entire api fields type yet
+     */
+    const schema =
+      this.element.current.renderType.current.api.current.toJsonSchema({})
+
+    const validate = createValidator(schema)
+
+    const evaluatedProps = evaluateObject(
+      this.element.current.props.values,
+      this.runtimeProps.runtimeContext,
+    )
+
+    const result = validate(evaluatedProps)
+
+    return result ? result.details.length > 0 : false
+  }
+
+  @computed
   get render(): Nullable<ReactElement<unknown>> {
     if (this.shouldRender === false) {
       return null
@@ -374,7 +399,7 @@ export class RuntimeElementModel
       ? `Error: ${element.renderingMetadata.error.message}`
       : element.ancestorError
       ? 'Something went wrong in a parent element'
-      : element.propsHaveErrors
+      : this.propsHaveErrors
       ? 'Some props are not correctly set'
       : undefined
 
