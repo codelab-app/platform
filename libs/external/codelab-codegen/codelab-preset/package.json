@@ -20,29 +20,21 @@
     "graphql-request": "6.0.0"
   },
   "exports": {
-    "./package.json": "./package.json",
     ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+      "development": "./src/index.ts",
+      "import": "./dist/src/index.js",
+      "types": "./dist/src/index.d.ts",
+      "default": "./dist/src/index.js"
     }
   },
   "nx": {
     "name": "codelab-codegen-codelab-preset",
     "projectType": "library",
-    "sourceRoot": "libs/external/codelab-codegen/codelab-preset/src",
     "tags": [
       "projectName:codelab-codegen-codelab-preset",
       "projectType:library",
       "type:concrete"
     ],
-    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-    "release": {
-      "version": {
-        "generatorOptions": {
-          "packageRoot": "dist/{projectRoot}",
-          "currentVersionResolver": "git-tag"
-        }
-      }
-    }
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json"
   }
 }

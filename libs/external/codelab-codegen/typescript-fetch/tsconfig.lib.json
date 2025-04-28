@@ -10,11 +10,8 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "rootDir": "./src",
-    "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo"
+    "noFallthroughCasesInSwitch": true
   },
   "exclude": [],
-  "include": ["src/**/*.ts"],
-  "references": []
+  "include": ["src/**/*.ts"]
 }

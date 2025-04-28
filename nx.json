@@ -13,8 +13,7 @@
           "targetName": "build",
           "configName": "tsconfig.lib.json",
           "buildDepsName": "build-deps",
-          "watchDepsName": "watch-deps",
-          "outputPath": "{projectRoot}/dist"
+          "watchDepsName": "watch-deps"
         }
       }
     },

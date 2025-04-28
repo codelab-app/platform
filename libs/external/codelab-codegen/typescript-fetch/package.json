@@ -21,13 +21,15 @@
   },
   "exports": {
     ".": {
-      "default": "./src/index.ts"
+      "development": "./src/index.ts",
+      "import": "./dist/src/index.js",
+      "types": "./dist/src/index.d.ts",
+      "default": "./dist/src/index.js"
     }
   },
   "nx": {
     "name": "codelab-codegen-typescript-fetch",
     "projectType": "library",
-    "sourceRoot": "libs/external/codelab-codegen/typescript-fetch/src",
     "tags": [
       "projectName:codelab-codegen-typescript-fetch",
       "projectType:library",

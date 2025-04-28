@@ -35,14 +35,14 @@ importers:
         specifier: 4.4.1
         version: 4.4.1(next@15.2.5(@babel/core@7.26.10)(@playwright/test@1.51.1)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.87.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@codelab-codegen/codelab-preset':
-        specifier: file:libs/external/codelab-codegen/codelab-preset/dist
-        version: dist@file:libs/external/codelab-codegen/codelab-preset/dist
+        specifier: workspace:*
+        version: link:libs/external/codelab-codegen/codelab-preset
       '@codelab-codegen/typescript-fetch':
-        specifier: file:libs/external/codelab-codegen/typescript-fetch/dist
-        version: dist@file:libs/external/codelab-codegen/typescript-fetch/dist
+        specifier: workspace:*
+        version: link:libs/external/codelab-codegen/typescript-fetch
       '@codelab-codegen/typescript-server-fetch':
-        specifier: file:libs/external/codelab-codegen/typescript-server-fetch/dist
-        version: dist@file:libs/external/codelab-codegen/typescript-server-fetch/dist
+        specifier: workspace:*
+        version: link:libs/external/codelab-codegen/typescript-server-fetch
       '@codelab/eslint-plugin':
         specifier: workspace:*
         version: link:libs/tools/eslint-plugin
@@ -14108,15 +14108,6 @@ packages:
   dir-glob@3.0.1:
     resolution: {integrity: sha512-WkrWp9GR4KXfKGYzOLmTuGVi1UWFfws377n9cc55/tb6DuqyF6pcQ5AbiHEshaDpY9v6oaSr2XCDidGmMwdzIA==}
     engines: {node: '>=8'}
-
-  dist@file:libs/external/codelab-codegen/codelab-preset/dist:
-    resolution: {directory: libs/external/codelab-codegen/codelab-preset/dist, type: directory}
-
-  dist@file:libs/external/codelab-codegen/typescript-fetch/dist:
-    resolution: {directory: libs/external/codelab-codegen/typescript-fetch/dist, type: directory}
-
-  dist@file:libs/external/codelab-codegen/typescript-server-fetch/dist:
-    resolution: {directory: libs/external/codelab-codegen/typescript-server-fetch/dist, type: directory}
 
   dist@file:libs/tools/tsc-check/dist:
     resolution: {directory: libs/tools/tsc-check/dist, type: directory}
@@ -32382,12 +32373,6 @@ snapshots:
   dir-glob@3.0.1:
     dependencies:
       path-type: 4.0.0
-
-  dist@file:libs/external/codelab-codegen/codelab-preset/dist: {}
-
-  dist@file:libs/external/codelab-codegen/typescript-fetch/dist: {}
-
-  dist@file:libs/external/codelab-codegen/typescript-server-fetch/dist: {}
 
   dist@file:libs/tools/tsc-check/dist: {}
 

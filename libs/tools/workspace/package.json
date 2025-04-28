@@ -18,5 +18,16 @@
   },
   "devDependencies": {
     "eslint": "*"
+  },
+  "nx": {
+    "name": "tools-workspace",
+    "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+    "projectType": "library",
+    "sourceRoot": "libs/tools/workspace/src",
+    "tags": [
+      "projectName:tools-workspace",
+      "projectType:library",
+      "type:concrete"
+    ]
   }
 }

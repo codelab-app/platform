@@ -496,9 +496,6 @@
       "path": "./libs/frontend/cui/utils"
     },
     {
-      "path": "./libs/tools/plugin"
-    },
-    {
       "path": "./apps/web-e2e"
     },
     {
