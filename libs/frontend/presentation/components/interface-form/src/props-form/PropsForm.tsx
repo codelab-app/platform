@@ -15,7 +15,7 @@ export interface PropsFormProps
   extends SubmitRef,
     Pick<
       FormProps<IPropData>,
-      'onSubmitError' | 'onSubmitSuccess' | 'submitField'
+      'modelTransform' | 'onSubmitError' | 'onSubmitSuccess' | 'submitField'
     > {
   autocomplete?: IRuntimeContext
   autosave?: boolean
@@ -38,6 +38,7 @@ export const PropsForm = observer<PropsFormProps>(
     initialSchema,
     interfaceType,
     model,
+    modelTransform,
     onSubmit,
     onSubmitError,
     onSubmitSuccess,
@@ -57,6 +58,7 @@ export const PropsForm = observer<PropsFormProps>(
           initialSchema={initialSchema}
           interfaceType={interfaceType}
           model={model || {}}
+          modelTransform={modelTransform}
           onSubmit={onSubmit}
           onSubmitError={onSubmitError}
           onSubmitSuccess={onSubmitSuccess}

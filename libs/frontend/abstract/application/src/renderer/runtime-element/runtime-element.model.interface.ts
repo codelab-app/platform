@@ -48,6 +48,7 @@ export interface IRuntimeElementModel extends IBaseRuntimeModel {
    * to generate correct compositeKey for children too
    */
   propKey?: string
+  propsHaveErrors: boolean
   renderChildren: ArrayOrSingle<ReactNode>
   /**
    * Runtime version of IElementModel.prop
