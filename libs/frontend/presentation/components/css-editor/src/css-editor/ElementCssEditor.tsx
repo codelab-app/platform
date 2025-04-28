@@ -10,6 +10,7 @@ import { CodeMirrorLanguage } from '@codelab/shared-infra-gqlgen'
 import { compareArray } from '@codelab/shared-utils'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
+import { throttle } from 'radash'
 import { useCallback, useEffect, useRef } from 'react'
 import { debounce } from 'remeda'
 import styled from 'styled-components'
@@ -44,7 +45,7 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
     const cssChangeHandler = useCallback(
       debounce(
         (value: string) => {
-          runtimeElement.style.setCustomCss(value)
+          element.setStyle(value)
         },
         { waitMs: CSS_AUTOSAVE_TIMEOUT },
       ).call,
@@ -73,17 +74,13 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
       }
     }, [])
 
-    const debouncedUpdateElementStyles = debounce(updateElementStyles, {
-      waitMs: CSS_AUTOSAVE_TIMEOUT,
-    }).call
-
     useEffect(
       /*
        * Make sure the new string is saved when unmounting the component
        * because if the panel is closed too quickly, the autosave won't catch the latest changes
        */
       () => {
-        debouncedUpdateElementStyles()
+        updateElementStyles()
       },
       [
         runtimeElement.element.current.style?.toString(),
