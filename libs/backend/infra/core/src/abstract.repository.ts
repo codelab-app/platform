@@ -6,7 +6,6 @@ import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
 import { NotFoundError } from '@codelab/shared-domain-errors'
 import { Validator } from '@codelab/shared-infra-typebox'
 import { Injectable } from '@nestjs/common'
-import { startSpan } from '@sentry/nestjs'
 import { chunk } from 'remeda'
 
 @Injectable()
@@ -24,119 +23,95 @@ export abstract class AbstractRepository<
    * Array adds complexity, create an optional `addMany` if needed
    */
   public async add(data: Dto): Promise<IDiscriminatedRef<INodeType>> {
-    return startSpan(
-      {
-        name: `Repository: ${this.constructor.name}.add`,
-        op: 'repository.add',
-      },
-      async () => {
-        try {
-          const addItem = async () => {
-            const results = await this._addMany([data])
-            const result = results[0]
+    try {
+      const addItem = async () => {
+        const results = await this._addMany([data])
+        const result = results[0]
 
-            if (!result) {
-              throw new Error('Add failed')
-            }
-
-            return result
-          }
-
-          return await this.loggerService.verboseWithTiming(
-            'Adding item',
-            addItem,
-            {
-              context: this.constructor.name,
-              data: {
-                data,
-              },
-            },
-          )
-        } catch (error) {
-          this.loggerService.error('Failed to add item', {
-            context: this.constructor.name,
-            data: {
-              data,
-              error,
-            },
-          })
-          throw error
+        if (!result) {
+          throw new Error('Add failed')
         }
-      },
-    )
+
+        return result
+      }
+
+      return await this.loggerService.verboseWithTiming(
+        'Adding item',
+        addItem,
+        {
+          context: this.constructor.name,
+          data: {
+            data,
+          },
+        },
+      )
+    } catch (error) {
+      this.loggerService.error('Failed to add item', {
+        context: this.constructor.name,
+        data: {
+          data,
+          error,
+        },
+      })
+      throw error
+    }
   }
 
   public async addMany(
     data: Array<Dto>,
   ): Promise<Array<IDiscriminatedRef<INodeType>>> {
-    return startSpan(
-      {
-        name: `Repository: ${this.constructor.name}.addMany`,
-        op: 'repository.addMany',
-      },
-      async () => {
-        try {
-          const BATCH_SIZE = 3
-          const batches = chunk(data, BATCH_SIZE)
+    try {
+      const BATCH_SIZE = 3
+      const batches = chunk(data, BATCH_SIZE)
 
-          this.loggerService.debug('Processing data in batches', {
-            batchCount: batches.length,
-            batchSize: BATCH_SIZE,
+      this.loggerService.debug('Processing data in batches', {
+        batchCount: batches.length,
+        batchSize: BATCH_SIZE,
+        context: this.constructor.name,
+        totalItems: data.length,
+      })
+
+      // Process each batch and combine results
+      const results: Array<IDiscriminatedRef<INodeType>> = []
+
+      for (const [i, batch] of batches.entries()) {
+        this.loggerService.debug(
+          `Processing batch (${i + 1}/${batches.length})`,
+          {
             context: this.constructor.name,
-            totalItems: data.length,
-          })
+          },
+        )
 
-          // Process each batch and combine results
-          const results: Array<IDiscriminatedRef<INodeType>> = []
+        const batchResults = await this._addMany(batch)
 
-          for (const [i, batch] of batches.entries()) {
-            this.loggerService.debug(
-              `Processing batch (${i + 1}/${batches.length})`,
-              {
-                context: this.constructor.name,
-              },
-            )
+        results.push(...batchResults)
+      }
 
-            const batchResults = await this._addMany(batch)
-
-            results.push(...batchResults)
-          }
-
-          return results
-        } catch (error) {
-          this.loggerService.error('Failed to add items', {
-            context: this.constructor.name,
-            data: {
-              data,
-              error,
-            },
-          })
-          throw error
-        }
-      },
-    )
+      return results
+    } catch (error) {
+      this.loggerService.error('Failed to add items', {
+        context: this.constructor.name,
+        data: {
+          data,
+          error,
+        },
+      })
+      throw error
+    }
   }
 
   async exists(where: Where) {
-    return startSpan(
-      {
-        name: `Repository: ${this.constructor.name}.exists`,
-        op: 'repository.exists',
+    this.loggerService.verbose('Checking if exists', {
+      context: this.constructor.name,
+      data: {
+        where,
       },
-      async () => {
-        this.loggerService.verbose('Checking if exists', {
-          context: this.constructor.name,
-          data: {
-            where,
-          },
-        })
+    })
 
-        const results = await this.findOne({ where })
-        const exists = Boolean(results)
+    const results = await this.findOne({ where })
+    const exists = Boolean(results)
 
-        return exists
-      },
-    )
+    return exists
   }
 
   find(args?: { where?: Where; options?: Options }): Promise<Array<Model>>
@@ -165,37 +140,29 @@ export abstract class AbstractRepository<
     selectionSet?: string
     schema?: T
   } = {}): Promise<Array<Model> | Array<Static<T>>> {
-    return startSpan(
-      {
-        name: `Repository: ${this.constructor.name}.find`,
-        op: 'repository.find',
-      },
-      async () => {
-        try {
-          const results = await this._find({ options, selectionSet, where })
+    try {
+      const results = await this._find({ options, selectionSet, where })
 
-          if (schema) {
-            const data = results.map((result) => {
-              return Validator.parse(schema, result)
-            })
+      if (schema) {
+        const data = results.map((result) => {
+          return Validator.parse(schema, result)
+        })
 
-            return data
-          }
+        return data
+      }
 
-          return results
-        } catch (error) {
-          this.loggerService.error('Failed to find items', {
-            context: this.constructor.name,
-            data: {
-              error,
-              options,
-              where,
-            },
-          })
-          throw error
-        }
-      },
-    )
+      return results
+    } catch (error) {
+      this.loggerService.error('Failed to find items', {
+        context: this.constructor.name,
+        data: {
+          error,
+          options,
+          where,
+        },
+      })
+      throw error
+    }
   }
 
   async findOne(args?: {
@@ -227,41 +194,33 @@ export abstract class AbstractRepository<
     selectionSet?: string
     options: Options
   }): Promise<Model | Static<T> | undefined> {
-    return startSpan(
-      {
-        name: `Repository: ${this.constructor.name}.findOne`,
-        op: 'repository.findOne',
+    this.loggerService.verbose('Finding one', {
+      context: this.constructor.name,
+      data: {
+        where,
       },
-      async () => {
-        this.loggerService.verbose('Finding one', {
-          context: this.constructor.name,
-          data: {
-            where,
-          },
-        })
+    })
 
-        const results = schema
-          ? (await this.find({ schema, where }))[0]
-          : (await this.find({ where }))[0]
+    const results = schema
+      ? (await this.find({ schema, where }))[0]
+      : (await this.find({ where }))[0]
 
-        this.loggerService.verbose('Found result', {
-          context: this.constructor.name,
-          data: {
-            exists: Boolean(results),
-          },
-        })
-
-        if (!results) {
-          return undefined
-        }
-
-        if (schema) {
-          return Validator.parse(schema, results)
-        }
-
-        return results
+    this.loggerService.verbose('Found result', {
+      context: this.constructor.name,
+      data: {
+        exists: Boolean(results),
       },
-    )
+    })
+
+    if (!results) {
+      return undefined
+    }
+
+    if (schema) {
+      return Validator.parse(schema, results)
+    }
+
+    return results
   }
 
   async findOneOrFail(args?: {
@@ -304,45 +263,37 @@ export abstract class AbstractRepository<
    * @param where
    */
   async save(data: Dto, where?: Where): Promise<IDiscriminatedRef<INodeType>> {
-    return startSpan(
-      {
-        name: `Repository: ${this.constructor.name}.save`,
-        op: 'repository.save',
-      },
-      async () => {
-        try {
-          const saveItem = async () => {
-            const computedWhere = this.getWhere(data, where)
+    try {
+      const saveItem = async () => {
+        const computedWhere = this.getWhere(data, where)
 
-            if (await this.exists(computedWhere)) {
-              this.loggerService.verbose('Record exists, updating...', {
-                context: this.constructor.name,
-              })
-
-              return await this.update(data, computedWhere)
-            }
-
-            this.loggerService.verbose('Record does not exist, adding...', {
-              context: this.constructor.name,
-            })
-
-            return await this.add(data)
-          }
-
-          return saveItem()
-        } catch (error) {
-          this.loggerService.error('Failed to save item', {
+        if (await this.exists(computedWhere)) {
+          this.loggerService.verbose('Record exists, updating...', {
             context: this.constructor.name,
-            data: {
-              data,
-              error,
-              where,
-            },
           })
-          throw error
+
+          return await this.update(data, computedWhere)
         }
-      },
-    )
+
+        this.loggerService.verbose('Record does not exist, adding...', {
+          context: this.constructor.name,
+        })
+
+        return await this.add(data)
+      }
+
+      return saveItem()
+    } catch (error) {
+      this.loggerService.error('Failed to save item', {
+        context: this.constructor.name,
+        data: {
+          data,
+          error,
+          where,
+        },
+      })
+      throw error
+    }
   }
 
   /**
@@ -354,45 +305,37 @@ export abstract class AbstractRepository<
     data: Dto,
     where?: Where,
   ): Promise<IDiscriminatedRef<INodeType>> {
-    return startSpan(
-      {
-        name: `Repository: ${this.constructor.name}.update`,
-        op: 'repository.update',
+    this.loggerService.verbose('Updating data', {
+      context: this.constructor.name,
+      data: {
+        data,
+        where,
       },
-      async () => {
-        this.loggerService.verbose('Updating data', {
-          context: this.constructor.name,
-          data: {
-            data,
-            where,
-          },
-        })
+    })
 
-        const computedWhere = this.getWhere(data, where)
-        const existing = await this.findOne({ where: computedWhere })
+    const computedWhere = this.getWhere(data, where)
+    const existing = await this.findOne({ where: computedWhere })
 
-        try {
-          const model = await this._update(data, where, existing)
+    try {
+      const model = await this._update(data, where, existing)
 
-          if (!model) {
-            throw new Error('Model not updated')
-          }
+      if (!model) {
+        throw new Error('Model not updated')
+      }
 
-          return model
-        } catch (error) {
-          this.loggerService.error('Failed to update item', {
-            context: this.constructor.name,
-            data: {
-              data,
-              error,
-              existing,
-              where,
-            },
-          })
-          throw error
-        }
-      },
-    )
+      return model
+    } catch (error) {
+      this.loggerService.error('Failed to update item', {
+        context: this.constructor.name,
+        data: {
+          data,
+          error,
+          existing,
+          where,
+        },
+      })
+      throw error
+    }
   }
 
   protected abstract _addMany(

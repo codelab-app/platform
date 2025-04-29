@@ -117,12 +117,8 @@ const nextConfig: WithNxOptions = {
 
     // Add custom condition names
     // Ensure resolve and conditionNames exist, initializing if necessary
-    // config.resolve = config.resolve || {}
-    // config.resolve.conditionNames = config.resolve.conditionNames || [
-    //   'node',
-    //   'import',
-    //   'require',
-    // ] // Start with defaults if not present
+    config.resolve = config.resolve || {}
+    config.resolve.conditionNames = config.resolve.conditionNames || ['import']
 
     // Add your custom condition(s)
     // if (!config.resolve.conditionNames.includes('development')) {
@@ -130,12 +126,6 @@ const nextConfig: WithNxOptions = {
     // }
 
     // console.log(config.resolve.conditionNames) // Let Next/Webpack handle defaults
-
-    // Enable top-level await
-    config.experiments = {
-      ...config.experiments,
-      topLevelAwait: true,
-    }
 
     return config
   },

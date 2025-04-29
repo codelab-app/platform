@@ -4110,7 +4110,11 @@ importers:
         specifier: workspace:*
         version: link:../../../shared/infra/gqlgen
 
-  libs/frontend/cui/ui/atoms: {}
+  libs/frontend/cui/ui/atoms:
+    devDependencies:
+      '@cui/utils':
+        specifier: workspace:*
+        version: link:../../utils
 
   libs/frontend/cui/ui/molecules:
     devDependencies:

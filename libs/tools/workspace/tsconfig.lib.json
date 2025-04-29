@@ -4,7 +4,7 @@
     "outDir": "./dist",
     "types": ["node"],
     "resolveJsonModule": true,
-    "module": "CommonJS",
+    "module": "commonjs",
     "moduleResolution": "node",
     "customConditions": null
   },

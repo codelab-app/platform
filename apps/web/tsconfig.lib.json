@@ -1,0 +1,123 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
+  "references": [
+    {
+      "path": "../../libs/shared/infra/auth0/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/frontend/cui/utils/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/shared/infra/gql-client/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/shared/domain/module/domain/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/shared/infra/logging/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/backend/infra/adapter/middleware/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/frontend/domain/type/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/frontend/domain/tag/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/frontend/application/tag/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/frontend/domain/resource/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/frontend/application/resource/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/frontend/domain/preference/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/frontend/application/lambda/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/frontend/application/component/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/frontend/domain/auth-guard/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/frontend/application/auth-guard/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/frontend/domain/atom/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/frontend/application/atom/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/frontend/application/redirect/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/frontend/application/page/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/frontend/application/type/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/frontend/application/element/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/frontend/application/store/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/frontend/application/builder/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/frontend/abstract/application/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/frontend/domain/domain/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/frontend/application/domain/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/frontend/presentation/codelab-ui/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/frontend/application/shared/store/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/frontend/abstract/types/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/frontend/application/app/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/frontend/domain/user/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/frontend/application/user/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/frontend/presentation/view/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/frontend/application/admin/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/shared/abstract/core/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/frontend/infra/mobx/store/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/frontend/test/data/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/frontend/infra/context/tsconfig.lib.json"
+    }
+  ]
+}

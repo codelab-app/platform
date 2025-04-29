@@ -1,4 +1,4 @@
-import { Assign } from 'utility-types';
+import type { Assign } from 'utility-types';
 /**
  * These come in as page props, the array query params could be string if there are only 1 key
  *

@@ -95,7 +95,7 @@ export default defineConfig(() => ({
     // },
     lib: {
       // Could also be a dictionary or array of multiple entry points.
-      entry: {},
+      entry: 'src/index.ts',
       name: '@cui/ui-molecules',
       fileName: (format, entryName) => {
         return entryName === 'index' ? 'index.js' : `${entryName}/index.js`

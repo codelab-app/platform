@@ -1,7 +1,7 @@
-import { ReactNode } from 'react';
-import { ParamProps } from './params.props';
-import { SlotProps } from './slot.props';
-import { UrlParams } from './url-params';
+import type { ReactNode } from 'react';
+import type { ParamProps } from './params.props';
+import type { SlotProps } from './slot.props';
+import type { UrlParams } from './url-params';
 /**
  * Non-dashboard layout has no slots, only params
  */

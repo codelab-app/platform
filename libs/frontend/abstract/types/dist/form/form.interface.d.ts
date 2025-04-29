@@ -1,9 +1,9 @@
-import { Callback, Maybe, ObjectLike } from '@codelab/shared-abstract-types';
-import { Completion } from '@codemirror/autocomplete';
-import { TSchema } from '@sinclair/typebox';
-import { JSONSchemaType } from 'ajv';
-import { AutoFormProps, Bridge } from 'uniforms';
-import { UiKey } from '../model';
+import type { Callback, Maybe, ObjectLike } from '@codelab/shared-abstract-types';
+import type { Completion } from '@codemirror/autocomplete';
+import type { TSchema } from '@sinclair/typebox';
+import type { JSONSchemaType } from 'ajv';
+import type { AutoFormProps, Bridge } from 'uniforms';
+import type { UiKey } from '../model';
 export type VoidCallback<TInput> = Callback<TInput, void>;
 export type FormProps<TData, TResponse = unknown> = Partial<Pick<AutoFormProps<TData>, 'autosave' | 'modelTransform' | 'onChange' | 'onChangeModel' | 'submitField'>> & Pick<AutoFormProps<TData>, 'model'> & SubmitRef & {
     /**
