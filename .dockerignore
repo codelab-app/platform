@@ -14,6 +14,7 @@
 !/.npmrc
 !/nx.json
 !/.nxignore
+!/.eslintrc.json
 !/package.json
 !/pnpm-lock.yaml
 !/tsconfig.base.json
@@ -30,3 +31,4 @@
 !/libs/
 !/data/
 !/scripts/tailwind/
+!/scripts/eslint/
