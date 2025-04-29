@@ -2,7 +2,7 @@ import type { BeforeApplicationShutdown } from '@nestjs/common'
 import type { Subscription } from 'zen-observable-ts'
 
 import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
-import { nodeApolloClient } from '@codelab/shared-infra-gql-client'
+import { getNodeApolloClient } from '@codelab/shared-infra-gql-client/server'
 import {
   DomainCreatedDocument,
   DomainCreatedSubscription,
@@ -40,7 +40,7 @@ export class RegisterDomainListener implements BeforeApplicationShutdown {
 
   @OnEvent('server.ready')
   registerCreatedSubscriptions() {
-    const subscription = nodeApolloClient()
+    const subscription = getNodeApolloClient()
       .subscribe<DomainCreatedSubscription>({
         query: DomainCreatedDocument,
       })
@@ -67,7 +67,7 @@ export class RegisterDomainListener implements BeforeApplicationShutdown {
 
   @OnEvent('server.ready')
   registerDeletedSubscriptions() {
-    const subscription = nodeApolloClient()
+    const subscription = getNodeApolloClient()
       .subscribe<DomainDeletedSubscription>({
         query: DomainDeletedDocument,
       })
@@ -94,7 +94,7 @@ export class RegisterDomainListener implements BeforeApplicationShutdown {
 
   @OnEvent('server.ready')
   registerUpdatedSubscriptions() {
-    const subscription = nodeApolloClient()
+    const subscription = getNodeApolloClient()
       .subscribe<DomainUpdatedSubscription>({
         query: DomainUpdatedDocument,
       })

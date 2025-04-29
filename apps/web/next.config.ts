@@ -107,12 +107,35 @@ const nextConfig: WithNxOptions = {
     // ],
   }),
 
-  webpack: (config: any) => {
+  webpack: (config: any, { isServer }: { isServer: boolean }) => {
     config.module.rules.push({
-      issuer: /\.[jt]sx?$/,
-      test: /\.svg$/i,
+      issuer: /\\.[jt]sx?$/,
+      test: /\\.svg$/i,
       use: ['@svgr/webpack'],
     })
+
+    // Add custom condition names
+    // Ensure resolve and conditionNames exist, initializing if necessary
+    config.resolve = config.resolve || {}
+    config.resolve.conditionNames = config.resolve.conditionNames || [
+      'node',
+      'import',
+      'require',
+    ] // Start with defaults if not present
+
+    // Add your custom condition(s)
+    if (!config.resolve.conditionNames.includes('development')) {
+      config.resolve.conditionNames.unshift('development')
+    }
+
+    // Add fallbacks for Node.js core modules that are not available in the browser
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...(config.resolve.fallback || {}),
+        net: false,
+        tls: false,
+      }
+    }
 
     return config
   },

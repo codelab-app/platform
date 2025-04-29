@@ -137,7 +137,7 @@
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "targetDefaults": {
     "build": {
-      "dependsOn": []
+      "dependsOn": ["^build"]
     },
     "typecheck": {
       "dependsOn": ["^typecheck"]
@@ -157,15 +157,14 @@
     "@nx/next:build": {
       "cache": true,
       "options": {
-        "postcssConfig": "apps/web/postcss.config.js"
+        "postcssConfig": "apps/web/postcss.config.js",
+        "buildLibsFromSource": false
       },
       "configurations": {
         "dev": {
           "buildLibsFromSource": true
         },
-        "production": {
-          "buildLibsFromSource": false
-        }
+        "production": {}
       },
       "dependsOn": ["^build"]
     },

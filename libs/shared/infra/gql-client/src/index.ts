@@ -1,2 +1,2 @@
-export * from './apollo.client'
+export * from './browser.client'
 export * from './graphql.client'

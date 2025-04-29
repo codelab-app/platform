@@ -5,18 +5,11 @@ import { env } from '@codelab/shared-config-env'
 import { createClient } from 'graphql-ws'
 import WebSocket from 'ws'
 
-enum Environment {
-  Browser = 'browser',
-  Node = 'node',
-}
-
-interface CreateApolloClientOptions {
-  environment?: Environment
-}
-
-export const createApolloClient = ({
-  environment = Environment.Browser,
-}: CreateApolloClientOptions = {}) => {
+/**
+ * Apollo client for Node.js environments with WebSocket support
+ * This includes the 'ws' package which depends on Node.js modules
+ */
+export const createNodeApolloClient = () => {
   // Move port getter to a function to avoid early evaluation
   const getApiPort = () =>
     env.get('NEXT_PUBLIC_API_PORT').required().asPortNumber()
@@ -28,7 +21,7 @@ export const createApolloClient = ({
   const wsLink = new GraphQLWsLink(
     createClient({
       url: `ws://127.0.0.1:${getApiPort()}/api/v1/graphql`,
-      webSocketImpl: environment === Environment.Node ? WebSocket : undefined,
+      webSocketImpl: WebSocket,
     }),
   )
 
@@ -51,15 +44,13 @@ export const createApolloClient = ({
   })
 }
 
-/**
- * Lazy load so we create the client when the environment is known
- */
-export const nodeApolloClient = () =>
-  createApolloClient({
-    environment: Environment.Node,
-  })
+// Lazy-loaded client instance
+let nodeClient: ApolloClient<any> | null = null
 
-export const browserApolloClient = () =>
-  createApolloClient({
-    environment: Environment.Browser,
-  })
+export const getNodeApolloClient = () => {
+  if (!nodeClient) {
+    nodeClient = createNodeApolloClient()
+  }
+
+  return nodeClient
+}
