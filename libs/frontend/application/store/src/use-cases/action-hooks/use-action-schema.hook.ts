@@ -17,7 +17,7 @@ import { useMemo } from 'react'
 export const useActionSchema = (
   schema: JSONSchemaType<ICreateActionData | IUpdateActionData>,
   options?: { actionId?: string },
-) => {
+): JSONSchemaType<ICreateActionData | IUpdateActionData> => {
   const { rendererService } = useApplicationStore()
   const { actionDomainService } = useDomainStore()
 

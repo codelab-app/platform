@@ -1,7 +1,6 @@
 {
   "extends": "../../../../tsconfig.base.json",
   "compilerOptions": {
-    "module": "commonjs",
     "types": ["jest", "node", "@testing-library/jest-dom"],
     "noPropertyAccessFromIndexSignature": false,
     "outDir": "./out-tsc/spec",

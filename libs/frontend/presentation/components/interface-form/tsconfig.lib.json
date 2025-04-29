@@ -10,7 +10,6 @@
       "@nx/react/typings/image.d.ts"
     ],
     "jsx": "react-jsx",
-    "allowJs": false,
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
     "strict": true,

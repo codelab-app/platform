@@ -6,9 +6,9 @@ import type { IElementTree } from '@codelab/frontend-abstract-domain'
 import type { Nullable } from '@codelab/shared-abstract-types'
 import type { TreeProps } from 'antd/lib/tree'
 
-import { useInfoNotify } from '@codelab/frontend-infra-context'
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { useRequiredParentValidator } from '@codelab/frontend-application-element/validation'
+import { useInfoNotify } from '@codelab/frontend-infra-context'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx-context'
 import { useAsyncHandler } from '@codelab/frontend-presentation-components-form'
 
@@ -22,11 +22,16 @@ export interface UseElementTreeDropProps {
   elementTree: Nullable<IElementTree>
 }
 
+interface UseElementTreeDropReturn {
+  handleDrop: TreeProps<IElementTreeViewDataNode>['onDrop']
+  isMoving: boolean
+}
+
 /**
  * Provides a handler for Antd tree onDrop for moving elements
  * This can be optimized by batching data changes in the API
  */
-export const useElementTreeDrop = () => {
+export const useElementTreeDrop = (): UseElementTreeDropReturn => {
   const elementService = useElementService()
   const { runtimeElementService } = useApplicationStore()
   const { validateParentForMove } = useRequiredParentValidator()

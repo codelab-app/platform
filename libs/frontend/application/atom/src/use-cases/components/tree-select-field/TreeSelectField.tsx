@@ -1,4 +1,5 @@
 import type { TreeSelectProps } from 'antd'
+import type { ComponentType } from 'react'
 import type { FieldProps } from 'uniforms'
 
 import { TreeSelect } from 'antd'
@@ -49,4 +50,6 @@ const TreeSelectComponent = ({
   )
 }
 
-export const TreeSelectField = connectField(TreeSelectComponent)
+export const TreeSelectField: ComponentType<
+  Omit<CustomTreeSelectProps, 'onChange' | 'value'>
+> = connectField(TreeSelectComponent)

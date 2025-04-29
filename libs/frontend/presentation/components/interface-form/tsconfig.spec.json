@@ -2,14 +2,14 @@
   "extends": "../../../../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
-    "module": "commonjs",
     "types": [
       "jest",
       "node",
       "@testing-library/jest-dom",
       "styled-components",
       "uniforms"
-    ]
+    ],
+    "jsx": "react-jsx"
   },
   "include": [
     "jest.mocks.ts",

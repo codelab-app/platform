@@ -5,18 +5,21 @@ import type {
 } from '@codelab/frontend-abstract-domain'
 import type { IActionKind } from '@codelab/shared-abstract-core'
 import type { Maybe } from '@codelab/shared-abstract-types'
-import type { Ref } from 'mobx-keystone'
+import type { ModelClassDeclaration, Ref } from 'mobx-keystone'
 
 import { idProp, Model, prop } from 'mobx-keystone'
 
-export const createBaseAction = <T extends IActionKind>(type: T) =>
-  class
-    extends Model({
-      __typename: prop<T>(() => type),
-      element: prop<Maybe<Ref<IElementModel>>>(),
-      id: idProp,
-      name: prop<string>(),
-      store: prop<Ref<IStoreModel>>(),
-      type: prop<T>(() => type),
-    })
-    implements IBaseAction {}
+export const createBaseAction = <T extends IActionKind>(type: T) => {
+  const ModelProps = Model({
+    __typename: prop<T>(() => type),
+    element: prop<Maybe<Ref<IElementModel>>>(),
+    id: idProp,
+    name: prop<string>(),
+    store: prop<Ref<IStoreModel>>(),
+    type: prop<T>(() => type),
+  })
+
+  class BaseAction extends ModelProps implements IBaseAction {}
+
+  return BaseAction as ModelClassDeclaration<typeof ModelProps, IBaseAction>
+}
