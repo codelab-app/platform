@@ -1,22 +1,25 @@
+import type { Plugin } from 'vite'
+
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin'
-import react from '@vitejs/plugin-react'
+import react from '@vitejs/plugin-react-swc'
 import { readFileSync } from 'fs'
 import { join } from 'path'
 import preserveDirectives from 'rollup-preserve-directives'
-import { defineConfig, Plugin } from 'vite'
+import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
-import swc from '@vitejs/plugin-react-swc'
+import topLevelAwait from 'vite-plugin-top-level-await'
 
 const rawFilePlugin = (): Plugin => {
   return {
     name: 'vite-plugin-raw-files',
-    transform(code, id) {
+    transform: (code, id) => {
       if (/\.(cypher|cyp)$/.test(id)) {
         const fileContent = readFileSync(id, 'utf-8')
 
         return {
           code: `export default ${JSON.stringify(fileContent)};`,
-          map: null, // Provide source map if needed
+          // Provide source map if needed
+          map: null,
         }
       }
     },
@@ -27,26 +30,35 @@ export default defineConfig(() => ({
   root: __dirname,
   cacheDir: '../../../../node_modules/.vite/libs/backend/application/user',
   plugins: [
-    react(),
+    /**
+     * The generated code contains 'async/await' because this module is using "topLevelAwait".
+     * However, your target environment does not appear to support 'async/await'.
+     * As a result, the code may not run as expected or may cause runtime errors
+     *
+     * Tried to use esm & change target but still showing error
+     */
+    // topLevelAwait(),
+    react({
+      devTarget: 'es2022',
+      /** ➊ Let the plugin turn on decorator *parsing* for TS files */
+      tsDecorators: true,
+
+      /** ➋ Patch SWC so it *transforms* them with the legacy rules */
+      useAtYourOwnRisk_mutateSwcOptions: (options) => {
+        options.jsc ??= {}
+
+        // swc plugin may not pick up tsconfig.lib.json
+        options.jsc.target = 'es2022'
+
+        // legacy = the same semantics Babel/TS have used for years
+        options.jsc.transform ??= {}
+        options.jsc.transform.legacyDecorator = true
+        options.jsc.transform.decoratorMetadata = true
+      },
+    }),
     // Used for keeping `use server` or `use client`
     preserveDirectives(),
     rawFilePlugin(),
-    swc({
-      // Ensure decorators are handled correctly for NestJS
-      jsc: {
-        parser: {
-          syntax: 'typescript',
-          tsx: false, // Set to true if you ever use TSX
-          decorators: true,
-        },
-        transform: {
-          legacyDecorator: true,
-          decoratorMetadata: true,
-        },
-      },
-      // Optional: Specify target environment if needed
-      // target: 'es2021',
-    }),
     dts({
       entryRoot: 'src',
       tsconfigPath: join(__dirname, 'tsconfig.lib.json'),
@@ -59,6 +71,15 @@ export default defineConfig(() => ({
       // rollupTypes: true,
     }),
   ],
+  // covers rare css/json transforms
+  esbuild: { target: 'es2022' },
+  // <── dev-server pre-bundle
+  optimizeDeps: {
+    esbuildOptions: {
+      target: 'es2022',
+      supported: { 'top-level-await': true },
+    },
+  },
   // Uncomment this if you are using workers.
   // worker: {
   //  plugins: [ nxViteTsPaths() ],
@@ -96,5 +117,7 @@ export default defineConfig(() => ({
         preserveModules: true,
       },
     },
+    // Add support for top-level await
+    target: 'es2022',
   },
 }))

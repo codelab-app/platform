@@ -62,79 +62,6 @@
       }
     }
   ],
-  "generators": {
-    "@nx/workspace": {
-      "library": {
-        "linter": "eslint"
-      }
-    },
-    "@nx/web": {
-      "application": {
-        "linter": "eslint"
-      }
-    },
-    "@nx/react": {
-      "application": {
-        "style": "css",
-        "linter": "eslint"
-      },
-      "library": {
-        "style": "styled-components",
-        "linter": "eslint",
-        "unitTestRunner": "none",
-        "compiler": "swc",
-        "component": false,
-        "name": "",
-        "directory": "libs/frontend/",
-        "setParserOptionsProject": true,
-        "strict": true,
-        "importPath": "@codelab/frontend/",
-        "tags": "scope:frontend"
-      },
-      "storybook-configuration": {
-        "linter": "eslint"
-      },
-      "component": {
-        "style": "css"
-      }
-    },
-    "@nx/plugin": {
-      "plugin": {
-        "linter": "eslint"
-      }
-    },
-    "@nx/node": {
-      "application": {
-        "linter": "eslint"
-      },
-      "library": {
-        "linter": "eslint",
-        "setParserOptionsProject": true,
-        "strict": true,
-        "tags": "scope:backend"
-      }
-    },
-    "@nx/next": {
-      "application": {
-        "style": "styled-components",
-        "linter": "eslint"
-      }
-    },
-    "@nx/js": {
-      "library": {
-        "unitTestRunner": "none",
-        "bundler": "none",
-        "setParserOptionsProject": true,
-        "linter": "eslint",
-        "strict": true,
-        "importPath": "@codelab/frontend",
-        "tags": "scope:shared",
-        "useProjectJson": true,
-        "skipPackageJson": true
-      }
-    }
-  },
-  "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "targetDefaults": {
     "build": {
       "dependsOn": ["^build"]
@@ -147,6 +74,18 @@
     //   "outputs": ["{options.outputPath}"],
     //   "dependsOn": ["^build"]
     // },
+    "@nx/js:tsc": {
+      "options": {
+        "main": "{projectRoot}/src/index.ts",
+        "outputPath": "{projectRoot}/dist",
+        "tsConfig": "{projectRoot}/tsconfig.lib.json",
+        "assets": [
+          "{projectRoot}/**/files/*__tmpl__",
+          "{projectRoot}/executors.json",
+          "{projectRoot}/generators.json"
+        ]
+      }
+    },
     "@nx/vite:build": {
       "cache": true,
       "dependsOn": [],
@@ -235,6 +174,79 @@
       }
     }
   },
+  "generators": {
+    "@nx/workspace": {
+      "library": {
+        "linter": "eslint"
+      }
+    },
+    "@nx/web": {
+      "application": {
+        "linter": "eslint"
+      }
+    },
+    "@nx/react": {
+      "application": {
+        "style": "css",
+        "linter": "eslint"
+      },
+      "library": {
+        "style": "styled-components",
+        "linter": "eslint",
+        "unitTestRunner": "none",
+        "compiler": "swc",
+        "component": false,
+        "name": "",
+        "directory": "libs/frontend/",
+        "setParserOptionsProject": true,
+        "strict": true,
+        "importPath": "@codelab/frontend/",
+        "tags": "scope:frontend"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      },
+      "component": {
+        "style": "css"
+      }
+    },
+    "@nx/plugin": {
+      "plugin": {
+        "linter": "eslint"
+      }
+    },
+    "@nx/node": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint",
+        "setParserOptionsProject": true,
+        "strict": true,
+        "tags": "scope:backend"
+      }
+    },
+    "@nx/next": {
+      "application": {
+        "style": "styled-components",
+        "linter": "eslint"
+      }
+    },
+    "@nx/js": {
+      "library": {
+        "unitTestRunner": "none",
+        "bundler": "none",
+        "setParserOptionsProject": true,
+        "linter": "eslint",
+        "strict": true,
+        "importPath": "@codelab/frontend",
+        "tags": "scope:shared",
+        "useProjectJson": true,
+        "skipPackageJson": true
+      }
+    }
+  },
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "namedInputs": {
     "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "sharedGlobals": [

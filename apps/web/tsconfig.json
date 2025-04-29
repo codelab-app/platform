@@ -152,9 +152,6 @@
       "path": "../../libs/frontend/test/data"
     },
     {
-      "path": "../../libs/frontend/infra/context"
-    },
-    {
       "path": "./tsconfig.spec.json"
     }
   ]

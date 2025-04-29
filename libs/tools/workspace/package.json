@@ -3,14 +3,14 @@
   "version": "0.0.1",
   "exports": {
     ".": {
-      "development": "./src/index.ts",
       "import": "./dist/src/index.js",
       "types": "./dist/src/index.d.ts",
       "default": "./dist/src/index.js"
-    }
+    },
+    "./package.json": "./package.json"
   },
-  "generators": "./generators.json",
-  "executors": "./executors.json",
+  "generators": "./dist/generators.json",
+  "executors": "./dist/executors.json",
   "dependencies": {
     "nx": "*",
     "@nx/devkit": "*",
@@ -24,6 +24,11 @@
     "$schema": "../../../node_modules/nx/schemas/project-schema.json",
     "projectType": "library",
     "sourceRoot": "libs/tools/workspace/src",
+    "targets": {
+      "build": {
+        "executor": "@nx/js:tsc"
+      }
+    },
     "tags": [
       "projectName:tools-workspace",
       "projectType:library",

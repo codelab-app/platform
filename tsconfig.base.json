@@ -19,10 +19,10 @@
     "noErrorTruncation": true,
     "resolveJsonModule": true,
     "importHelpers": true,
-    "target": "es2021",
+    "target": "es2022",
     "types": ["node", "worker-loader"],
     "typeRoots": ["types", "node_modules/@types", "node_modules"],
-    "lib": ["es2021", "dom"],
+    "lib": ["es2022", "dom", "esnext"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "plugins": [

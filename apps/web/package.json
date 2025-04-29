@@ -1,5 +1,6 @@
 {
   "name": "web",
+  "type": "module",
   "devDependencies": {
     "@codelab/frontend-infra-context": "workspace:*",
     "@codelab/frontend-test-data": "workspace:*",

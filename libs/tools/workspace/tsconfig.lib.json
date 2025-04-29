@@ -4,8 +4,9 @@
     "outDir": "./dist",
     "types": ["node"],
     "resolveJsonModule": true,
-    "module": "node16",
-    "moduleResolution": "node16"
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "customConditions": null
   },
   "include": ["src/**/*.ts", "src/**/*.json", "src/**/*.ts__tmpl__"],
   "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"]

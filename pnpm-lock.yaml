@@ -1253,6 +1253,12 @@ importers:
       vite-plugin-dts:
         specifier: ^4.5.3
         version: 4.5.3(@types/node@22.13.5)(rollup@4.40.0)(typescript@5.5.4)(vite@6.2.1(@types/node@22.13.5)(jiti@2.4.2)(less@4.1.3)(sass-embedded@1.87.0)(sass@1.87.0)(stylus@0.64.0)(terser@5.39.0)(yaml@2.7.1))
+      vite-plugin-swc:
+        specifier: ^0.0.2
+        version: 0.0.2(@swc/core@1.10.11(@swc/helpers@0.5.15))(vite@6.2.1(@types/node@22.13.5)(jiti@2.4.2)(less@4.1.3)(sass-embedded@1.87.0)(sass@1.87.0)(stylus@0.64.0)(terser@5.39.0)(yaml@2.7.1))
+      vite-plugin-top-level-await:
+        specifier: ^1.5.0
+        version: 1.5.0(@swc/helpers@0.5.15)(rollup@4.40.0)(vite@6.2.1(@types/node@22.13.5)(jiti@2.4.2)(less@4.1.3)(sass-embedded@1.87.0)(sass@1.87.0)(stylus@0.64.0)(terser@5.39.0)(yaml@2.7.1))
       vitest:
         specifier: ^3.1.1
         version: 3.1.2(@types/node@22.13.5)(@vitest/ui@3.1.2)(jiti@2.4.2)(jsdom@20.0.3)(less@4.1.3)(msw@2.7.0(@types/node@22.13.5)(typescript@5.5.4))(sass-embedded@1.87.0)(sass@1.87.0)(stylus@0.64.0)(terser@5.39.0)(yaml@2.7.1)
@@ -10564,6 +10570,15 @@ packages:
     engines: {node: '>=14'}
     peerDependencies:
       '@rjsf/utils': ^5.18.x
+
+  '@rollup/plugin-virtual@3.0.2':
+    resolution: {integrity: sha512-10monEYsBp3scM4/ND4LNH5Rxvh3e/cVeL3jWTgZ2SrQ+BmUoQcopVQvnaMcOnykb1VkxUFuDAN+0FnpTFRy2A==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      rollup: ^1.20.0||^2.0.0||^3.0.0||^4.0.0
+    peerDependenciesMeta:
+      rollup:
+        optional: true
 
   '@rollup/pluginutils@5.1.4':
     resolution: {integrity: sha512-USm05zrsFxYLPdWWq+K3STlWiT/3ELn3RcV5hJMghpeAIhxfsUIg6mt12CBJBInWMV4VneoV7SfGv8xIwo2qNQ==}
@@ -21045,6 +21060,10 @@ packages:
     resolution: {integrity: sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==}
     engines: {node: '>= 0.4.0'}
 
+  uuid@10.0.0:
+    resolution: {integrity: sha512-8XkAphELsDnEGrDxUOHB3RGvXz6TeuYSGEZBOjtTtPm2lwhGBjLgOzLHB63IUWfBpNucQjND6d3AOudO+H3RWQ==}
+    hasBin: true
+
   uuid@3.4.0:
     resolution: {integrity: sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==}
     deprecated: Please upgrade  to version 7 or higher.  Older versions may use Math.random() in certain circumstances, which is known to be problematic.  See https://v8.dev/blog/math-random for details.
@@ -21121,6 +21140,17 @@ packages:
     peerDependenciesMeta:
       vite:
         optional: true
+
+  vite-plugin-swc@0.0.2:
+    resolution: {integrity: sha512-8u11xSNvu9IYlLtdCPmAVtbw2caEwPgz+aFiSod6Q4bK4LAHAY4qhiQYPeLq2iGRBRloxDnVOsSQhn9nlwA6YA==}
+    peerDependencies:
+      '@swc/core': ^1.2.98
+      vite: ^2.6.7
+
+  vite-plugin-top-level-await@1.5.0:
+    resolution: {integrity: sha512-r/DtuvHrSqUVk23XpG2cl8gjt1aATMG5cjExXL1BUTcSNab6CzkcPua9BPEc9fuTP5UpwClCxUe3+dNGL0yrgQ==}
+    peerDependencies:
+      vite: '>=2.8'
 
   vite@6.2.1:
     resolution: {integrity: sha512-n2GnqDb6XPhlt9B8olZPrgMD/es/Nd1RdChF6CBD/fHW6pUyUTt2sQW2fPRX5GiD9XEa6+8A6A4f2vT6pSsE7Q==}
@@ -28125,6 +28155,10 @@ snapshots:
       ajv-formats: 2.1.1(ajv@8.12.0)
       lodash: 4.17.21
       lodash-es: 4.17.21
+
+  '@rollup/plugin-virtual@3.0.2(rollup@4.40.0)':
+    optionalDependencies:
+      rollup: 4.40.0
 
   '@rollup/pluginutils@5.1.4(rollup@4.40.0)':
     dependencies:
@@ -40727,6 +40761,8 @@ snapshots:
 
   utils-merge@1.0.1: {}
 
+  uuid@10.0.0: {}
+
   uuid@3.4.0: {}
 
   uuid@8.3.2: {}
@@ -40819,6 +40855,22 @@ snapshots:
       - '@types/node'
       - rollup
       - supports-color
+
+  vite-plugin-swc@0.0.2(@swc/core@1.10.11(@swc/helpers@0.5.15))(vite@6.2.1(@types/node@22.13.5)(jiti@2.4.2)(less@4.1.3)(sass-embedded@1.87.0)(sass@1.87.0)(stylus@0.64.0)(terser@5.39.0)(yaml@2.7.1)):
+    dependencies:
+      '@swc/core': 1.10.11(@swc/helpers@0.5.15)
+      lodash.merge: 4.6.2
+      vite: 6.2.1(@types/node@22.13.5)(jiti@2.4.2)(less@4.1.3)(sass-embedded@1.87.0)(sass@1.87.0)(stylus@0.64.0)(terser@5.39.0)(yaml@2.7.1)
+
+  vite-plugin-top-level-await@1.5.0(@swc/helpers@0.5.15)(rollup@4.40.0)(vite@6.2.1(@types/node@22.13.5)(jiti@2.4.2)(less@4.1.3)(sass-embedded@1.87.0)(sass@1.87.0)(stylus@0.64.0)(terser@5.39.0)(yaml@2.7.1)):
+    dependencies:
+      '@rollup/plugin-virtual': 3.0.2(rollup@4.40.0)
+      '@swc/core': 1.11.21(@swc/helpers@0.5.15)
+      uuid: 10.0.0
+      vite: 6.2.1(@types/node@22.13.5)(jiti@2.4.2)(less@4.1.3)(sass-embedded@1.87.0)(sass@1.87.0)(stylus@0.64.0)(terser@5.39.0)(yaml@2.7.1)
+    transitivePeerDependencies:
+      - '@swc/helpers'
+      - rollup
 
   vite@6.2.1(@types/node@22.13.5)(jiti@2.4.2)(less@4.1.3)(sass-embedded@1.87.0)(sass@1.87.0)(stylus@0.64.0)(terser@5.39.0)(yaml@2.7.1):
     dependencies:
