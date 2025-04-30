@@ -2,7 +2,13 @@
 import type { ProjectConfiguration, Tree } from '@nx/devkit'
 import type { PackageJson, TsConfigJson } from 'type-fest'
 
-import { joinPathFragments, readJson, updateJson, writeJson } from '@nx/devkit'
+import {
+  joinPathFragments,
+  offsetFromRoot,
+  readJson,
+  updateJson,
+  writeJson,
+} from '@nx/devkit'
 
 // Helper function to update the extends path
 const _updateExtendsPath = (
@@ -12,10 +18,9 @@ const _updateExtendsPath = (
 ) => {
   updateJson(tree, tsconfigPath, (json: TsConfigJson) => {
     // Update 'extends' to point to workspace root tsconfig.build.base.json
-    const segmentCount = projectConfig.root.split('/').filter(Boolean).length
-    const relativePath = Array(segmentCount).fill('..').join('/')
+    const relativeToRoot = offsetFromRoot(projectConfig.root)
 
-    json.extends = `${relativePath}/tsconfig.build.base.json`
+    json.extends = `${relativeToRoot}tsconfig.build.base.json`
     console.log(
       `Updated extends in ${tsconfigPath} to point to workspace root tsconfig.build.base.json`,
     )
@@ -35,6 +40,49 @@ const _removeCompilerOptionsModule = (tree: Tree, tsconfigPath: string) => {
         `compilerOptions.module not found or already removed in: ${tsconfigPath}`,
       )
     }
+
+    return json
+  })
+}
+
+// Helper function to update compilerOptions with specific settings
+const _updateCompilerOptions = (
+  tree: Tree,
+  projectConfig: ProjectConfiguration,
+  tsconfigPath: string,
+) => {
+  updateJson(tree, tsconfigPath, (json: TsConfigJson) => {
+    const relativeToRoot = offsetFromRoot(projectConfig.root)
+    const dynamicOutDir = `${relativeToRoot}dist/${projectConfig.root}`
+
+    // Keep only the specified settings
+    json.compilerOptions = {
+      // ───── Why keep outDir *outside* the library root? ─────
+      // • Prevents an infinite "compile → watch → re-compile" loop
+      //   when `tsc --watch` or the IDE file-watcher sees the JS it
+      //   just generated and thinks it's new source.
+      // • Keeps the `src/` tree pristine—no accidental
+      //   `import '../../dist/…'` slips or ESLint globs matching JS.
+      // • Speeds up incremental/IDE scans; the language-service
+      //   ignores thousands of build artefacts sitting elsewhere.
+      outDir: dynamicOutDir,
+
+      // Keeps the original folder structure for declarations and maps
+      rootDir: './src',
+
+      // Emit helpers via `tslib` (smaller bundles & better treeshake)
+      importHelpers: true,
+
+      // Disallow stray JS inside the library's `src/`
+      allowJs: false,
+
+      // Copy existing types if they exist, otherwise initialize
+      types: json.compilerOptions?.types ?? [],
+    }
+
+    console.log(
+      `Updated compilerOptions in ${tsconfigPath} with standardized settings.`,
+    )
 
     return json
   })
@@ -160,7 +208,10 @@ export const updateTsConfigLib = (
   }
 
   // Remove compilerOptions.module using the helper function
-  _removeCompilerOptionsModule(tree, tsconfigPath)
+  // _removeCompilerOptionsModule(tree, tsconfigPath)
+
+  // Update the compilerOptions using the helper function
+  _updateCompilerOptions(tree, projectConfig, tsconfigPath)
 
   // Update the extends path using the helper function
   _updateExtendsPath(tree, projectConfig, tsconfigPath)

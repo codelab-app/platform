@@ -1,19 +1,40 @@
 {
+  // Inherit repo-wide defaults (target, module, paths, strict-mode, …)
   "extends": "./tsconfig.base.json",
+
   "compilerOptions": {
-    "outDir": "./dist",
+    // ---------- 1. Program building ----------
+    "composite": true, // enables project references (.tsbuildinfo is produced)
+    "incremental": true, // rebuilds only what changed
+    "outDir": "./dist", // can be overridden per-package
+
+    // ---------- 2. Declaration output ----------
+    "declaration": true, // emit *.d.ts
+    "declarationMap": true, // …plus *.d.ts.map for editor go-to-def on consumers
+
+    // ---------- 3. Source output ----------
+    "sourceMap": true, // emit *.js.map
+    "removeComments": false, // keep JSDoc & license blocks in JS
+    /* If you need “types only” builds, flip these two:
+       "emitDeclarationOnly": true,
+       "noEmit": false */
+
+    // ---------- 4. Import / emit hygiene ----------
+    "importsNotUsedAsValues": "preserve", // keep type-only imports so bundlers tree-shake correctly
+    "preserveValueImports": true, // don’t rewrite `import type` → `import`
+
+    // ---------- 5. Strictness that matters at build time ----------
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "strictNullChecks": true,
+
+    // ---------- 6. Ambient types required at runtime ----------
     "types": [
       "node",
       "@nx/react/typings/cssmodule.d.ts",
       "@nx/react/typings/image.d.ts"
-    ],
-    "strict": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "jsx": "react-jsx",
-    "forceConsistentCasingInFileNames": true,
-    "strictNullChecks": true,
-    "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true
+    ]
   }
 }
