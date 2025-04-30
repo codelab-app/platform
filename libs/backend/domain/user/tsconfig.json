@@ -2,33 +2,5 @@
   "extends": "../../../../tsconfig.base.json",
   "files": [],
   "include": [],
-  "references": [
-    {
-      "path": "../shared/modules"
-    },
-    {
-      "path": "../../../shared/domain/module/user"
-    },
-    {
-      "path": "../../infra/core"
-    },
-    {
-      "path": "../../infra/adapter/logger"
-    },
-    {
-      "path": "../../../shared/infra/gqlgen"
-    },
-    {
-      "path": "../shared/auth"
-    },
-    {
-      "path": "../preference"
-    },
-    {
-      "path": "../../../shared/domain/module/preference"
-    },
-    {
-      "path": "../../../shared/abstract/core"
-    }
-  ]
+  "references": []
 }

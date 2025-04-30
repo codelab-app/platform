@@ -2,57 +2,5 @@
   "extends": "../../../../tsconfig.base.json",
   "files": [],
   "include": [],
-  "references": [
-    {
-      "path": "../../../shared/config/env"
-    },
-    {
-      "path": "../../domain/atom"
-    },
-    {
-      "path": "../../../shared/utils"
-    },
-    {
-      "path": "../../../shared/infra/typebox"
-    },
-    {
-      "path": "../../../shared/infra/gqlgen"
-    },
-    {
-      "path": "../../infra/adapter/logger"
-    },
-    {
-      "path": "../../domain/type"
-    },
-    {
-      "path": "../../domain/store"
-    },
-    {
-      "path": "../../domain/shared/auth"
-    },
-    {
-      "path": "../../domain/prop"
-    },
-    {
-      "path": "../../domain/page"
-    },
-    {
-      "path": "../../domain/element"
-    },
-    {
-      "path": "../../domain/component"
-    },
-    {
-      "path": "../../domain/app"
-    },
-    {
-      "path": "../store"
-    },
-    {
-      "path": "../element"
-    },
-    {
-      "path": "../../../shared/abstract/core"
-    }
-  ]
+  "references": []
 }

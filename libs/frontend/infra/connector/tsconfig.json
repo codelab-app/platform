@@ -1,22 +1,6 @@
 {
   "files": [],
   "include": [],
-  "references": [
-    {
-      "path": "../../presentation/view"
-    },
-    {
-      "path": "../../../shared/abstract/core"
-    },
-    {
-      "path": "../../shared/utils"
-    },
-    {
-      "path": "../mobx/context"
-    },
-    {
-      "path": "../../abstract/domain"
-    }
-  ],
+  "references": [],
   "extends": "../../../../tsconfig.base.json"
 }

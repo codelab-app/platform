@@ -2,30 +2,5 @@
   "extends": "../../../../tsconfig.base.json",
   "files": [],
   "include": [],
-  "references": [
-    {
-      "path": "../../../shared/domain/module/store"
-    },
-    {
-      "path": "../../../shared/domain/module/action"
-    },
-    {
-      "path": "../../infra/core"
-    },
-    {
-      "path": "../../infra/adapter/logger"
-    },
-    {
-      "path": "../../../shared/infra/gqlgen"
-    },
-    {
-      "path": "../../../shared/abstract/core"
-    },
-    {
-      "path": "../shared/modules"
-    },
-    {
-      "path": "../prop"
-    }
-  ]
+  "references": []
 }

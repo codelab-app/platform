@@ -2,12 +2,5 @@
   "extends": "../../../../../tsconfig.base.json",
   "files": [],
   "include": [],
-  "references": [
-    {
-      "path": "../../../infra/adapter/neo4j-driver"
-    },
-    {
-      "path": "../auth"
-    }
-  ]
+  "references": []
 }

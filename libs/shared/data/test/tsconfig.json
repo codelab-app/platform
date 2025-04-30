@@ -2,15 +2,5 @@
   "extends": "../../../../tsconfig.base.json",
   "files": [],
   "include": [],
-  "references": [
-    {
-      "path": "../../domain/module/preference"
-    },
-    {
-      "path": "../../config/env"
-    },
-    {
-      "path": "../../abstract/core"
-    }
-  ]
+  "references": []
 }

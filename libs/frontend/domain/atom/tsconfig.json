@@ -2,36 +2,5 @@
   "extends": "../../../../tsconfig.base.json",
   "files": [],
   "include": [],
-  "references": [
-    {
-      "path": "../shared"
-    },
-    {
-      "path": "../tag"
-    },
-    {
-      "path": "../../shared/utils"
-    },
-    {
-      "path": "../../abstract/types"
-    },
-    {
-      "path": "../../../shared/domain/module/atom"
-    },
-    {
-      "path": "../../../shared/infra/typebox"
-    },
-    {
-      "path": "../../../shared/infra/gqlgen"
-    },
-    {
-      "path": "../../../shared/abstract/types"
-    },
-    {
-      "path": "../../../shared/abstract/core"
-    },
-    {
-      "path": "../../abstract/domain"
-    }
-  ]
+  "references": []
 }

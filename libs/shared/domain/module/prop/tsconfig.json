@@ -2,24 +2,5 @@
   "extends": "../../../../../tsconfig.base.json",
   "files": [],
   "include": [],
-  "references": [
-    {
-      "path": "../../../abstract/core"
-    },
-    {
-      "path": "../../../infra/gql-client"
-    },
-    {
-      "path": "../../../infra/fetch-server"
-    },
-    {
-      "path": "../../../abstract/types"
-    },
-    {
-      "path": "../../../infra/fetch"
-    },
-    {
-      "path": "../../../infra/gqlgen"
-    }
-  ]
+  "references": []
 }

@@ -2,15 +2,5 @@
   "extends": "../../../tsconfig.base.json",
   "files": [],
   "include": [],
-  "references": [
-    {
-      "path": "../infra/gqlgen"
-    },
-    {
-      "path": "../abstract/core"
-    },
-    {
-      "path": "../abstract/types"
-    }
-  ]
+  "references": []
 }

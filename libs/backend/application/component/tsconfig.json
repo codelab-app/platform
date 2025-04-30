@@ -2,51 +2,5 @@
   "extends": "../../../../tsconfig.base.json",
   "files": [],
   "include": [],
-  "references": [
-    {
-      "path": "../../../shared/infra/typebox"
-    },
-    {
-      "path": "../../../shared/infra/gqlgen"
-    },
-    {
-      "path": "../../../shared/domain/module/type"
-    },
-    {
-      "path": "../../infra/adapter/logger"
-    },
-    {
-      "path": "../../domain/store"
-    },
-    {
-      "path": "../../domain/type"
-    },
-    {
-      "path": "../../domain/shared/auth"
-    },
-    {
-      "path": "../../domain/prop"
-    },
-    {
-      "path": "../../domain/element"
-    },
-    {
-      "path": "../../domain/component"
-    },
-    {
-      "path": "../type"
-    },
-    {
-      "path": "../store"
-    },
-    {
-      "path": "../element"
-    },
-    {
-      "path": "../../../shared/abstract/core"
-    },
-    {
-      "path": "../data"
-    }
-  ]
+  "references": []
 }

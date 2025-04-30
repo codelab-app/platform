@@ -10,7 +10,7 @@ import { formatFiles, getProjects, readProjectConfiguration } from '@nx/devkit'
  * @param callback Function to execute for each project with projectConfig parameter
  * @returns Promise that resolves when all projects are processed
  */
-export const processProjects = async <
+export const processEsLibrary = async <
   T extends { projectName?: string; skipFormatting?: boolean },
 >(
   tree: Tree,

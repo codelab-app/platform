@@ -29,24 +29,5 @@
   ],
   "exclude": ["node_modules", "jest.config.ts", "**/*.spec.ts", "**/*.test.ts"],
   "files": [],
-  "references": [
-    {
-      "path": "../../libs/frontend/presentation/components/fancybox"
-    },
-    {
-      "path": "../../libs/shared/utils"
-    },
-    {
-      "path": "../../libs/shared/config/builder"
-    },
-    {
-      "path": "../../libs/shared/infra/typebox"
-    },
-    {
-      "path": "../../libs/shared/config/env"
-    },
-    {
-      "path": "../../libs/frontend/abstract/application"
-    }
-  ]
+  "references": []
 }

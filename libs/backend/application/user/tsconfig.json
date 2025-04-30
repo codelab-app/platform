@@ -2,33 +2,5 @@
   "extends": "../../../../tsconfig.base.json",
   "files": [],
   "include": [],
-  "references": [
-    {
-      "path": "../../domain/type"
-    },
-    {
-      "path": "../../domain/preference"
-    },
-    {
-      "path": "../../domain/atom"
-    },
-    {
-      "path": "../atom"
-    },
-    {
-      "path": "../auth"
-    },
-    {
-      "path": "../../../shared/abstract/core"
-    },
-    {
-      "path": "../../domain/user"
-    },
-    {
-      "path": "../../domain/shared/auth"
-    },
-    {
-      "path": "../app"
-    }
-  ]
+  "references": []
 }

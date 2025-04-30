@@ -2,15 +2,5 @@
   "extends": "../../../../tsconfig.base.json",
   "files": [],
   "include": [],
-  "references": [
-    {
-      "path": "../../utils"
-    },
-    {
-      "path": "../../abstract/types"
-    },
-    {
-      "path": "../../abstract/core"
-    }
-  ]
+  "references": []
 }

@@ -1,22 +1,6 @@
 {
   "files": [],
   "include": [],
-  "references": [
-    {
-      "path": "../../domain/shared"
-    },
-    {
-      "path": "../../domain/prop"
-    },
-    {
-      "path": "../../../shared/abstract/core"
-    },
-    {
-      "path": "../../abstract/domain"
-    },
-    {
-      "path": "../../abstract/application"
-    }
-  ],
+  "references": [],
   "extends": "../../../../tsconfig.base.json"
 }

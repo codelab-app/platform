@@ -1,37 +1,6 @@
 {
   "files": [],
   "include": [],
-  "references": [
-    {
-      "path": "../../application/renderer"
-    },
-    {
-      "path": "../../../shared/infra/typebox"
-    },
-    {
-      "path": "../data"
-    },
-    {
-      "path": "../../../shared/abstract/core"
-    },
-    {
-      "path": "../../infra/mobx/store"
-    },
-    {
-      "path": "../../application/dnd"
-    },
-    {
-      "path": "../../application/builder"
-    },
-    {
-      "path": "../../shared/utils"
-    },
-    {
-      "path": "../../abstract/domain"
-    },
-    {
-      "path": "../../abstract/application"
-    }
-  ],
+  "references": [],
   "extends": "../../../../tsconfig.base.json"
 }

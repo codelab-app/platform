@@ -2,36 +2,5 @@
   "extends": "../../../../tsconfig.base.json",
   "files": [],
   "include": [],
-  "references": [
-    {
-      "path": "../../../shared/infra/typebox"
-    },
-    {
-      "path": "../../../shared/infra/gqlgen"
-    },
-    {
-      "path": "../../../shared/abstract/core"
-    },
-    {
-      "path": "../../domain/type"
-    },
-    {
-      "path": "../../domain/store"
-    },
-    {
-      "path": "../../domain/shared/modules"
-    },
-    {
-      "path": "../../domain/resource"
-    },
-    {
-      "path": "../../domain/prop"
-    },
-    {
-      "path": "../../domain/action"
-    },
-    {
-      "path": "../type"
-    }
-  ]
+  "references": []
 }

@@ -31,8 +31,8 @@ export const removeCiLintConfig = (
 ) => {
   console.log('Before', projectConfig)
 
-  if (projectConfig.targets?.lint?.configurations) {
-    delete projectConfig.targets.lint.configurations
+  if (projectConfig.targets?.['lint']?.configurations) {
+    delete projectConfig.targets['lint'].configurations
   }
 
   console.log('After', projectConfig)

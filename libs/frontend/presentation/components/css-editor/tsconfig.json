@@ -1,28 +1,6 @@
 {
   "files": [],
   "include": [],
-  "references": [
-    {
-      "path": "../../../infra/mobx/context"
-    },
-    {
-      "path": "../../../../shared/infra/gqlgen"
-    },
-    {
-      "path": "../codemirror"
-    },
-    {
-      "path": "../../../application/shared/store"
-    },
-    {
-      "path": "../../../application/element"
-    },
-    {
-      "path": "../../../abstract/domain"
-    },
-    {
-      "path": "../../../abstract/application"
-    }
-  ],
+  "references": [],
   "extends": "../../../../../tsconfig.base.json"
 }

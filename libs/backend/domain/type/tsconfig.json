@@ -2,45 +2,5 @@
   "extends": "../../../../tsconfig.base.json",
   "files": [],
   "include": [],
-  "references": [
-    {
-      "path": "../shared/modules"
-    },
-    {
-      "path": "../../../shared/infra/typebox"
-    },
-    {
-      "path": "../../../shared/domain/module/field"
-    },
-    {
-      "path": "../shared/auth"
-    },
-    {
-      "path": "../../infra/core"
-    },
-    {
-      "path": "../../../shared/utils"
-    },
-    {
-      "path": "../../../shared/domain/module/type"
-    },
-    {
-      "path": "../../../shared/infra/gqlgen"
-    },
-    {
-      "path": "../../../shared/domain/errors"
-    },
-    {
-      "path": "../../infra/adapter/neo4j-driver"
-    },
-    {
-      "path": "../../infra/adapter/logger"
-    },
-    {
-      "path": "../user"
-    },
-    {
-      "path": "../../../shared/abstract/core"
-    }
-  ]
+  "references": []
 }

@@ -2,12 +2,5 @@
   "extends": "../../../../../tsconfig.base.json",
   "files": [],
   "include": [],
-  "references": [
-    {
-      "path": "../../../abstract/domain"
-    },
-    {
-      "path": "../../../abstract/application"
-    }
-  ]
+  "references": []
 }

@@ -1,13 +1,6 @@
 {
   "files": [],
   "include": [],
-  "references": [
-    {
-      "path": "../../../shared/abstract/types"
-    },
-    {
-      "path": "../../shared/utils"
-    }
-  ],
+  "references": [],
   "extends": "../../../../tsconfig.base.json"
 }

@@ -2,18 +2,5 @@
   "extends": "../../../../tsconfig.base.json",
   "files": [],
   "include": [],
-  "references": [
-    {
-      "path": "../../infra/mobx/context"
-    },
-    {
-      "path": "../../domain/preference"
-    },
-    {
-      "path": "../../abstract/domain"
-    },
-    {
-      "path": "../../abstract/application"
-    }
-  ]
+  "references": []
 }

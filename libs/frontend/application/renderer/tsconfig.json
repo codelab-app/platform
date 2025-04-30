@@ -2,54 +2,5 @@
   "extends": "../../../../tsconfig.base.json",
   "files": [],
   "include": [],
-  "references": [
-    {
-      "path": "../../../shared/config/builder"
-    },
-    {
-      "path": "../../../shared/infra/eval"
-    },
-    {
-      "path": "../element"
-    },
-    {
-      "path": "../../../shared/utils"
-    },
-    {
-      "path": "../../presentation/components/codemirror"
-    },
-    {
-      "path": "../../infra/mobx/context"
-    },
-    {
-      "path": "../shared/store"
-    },
-    {
-      "path": "../prop"
-    },
-    {
-      "path": "../../../shared/abstract/types"
-    },
-    {
-      "path": "../../abstract/application"
-    },
-    {
-      "path": "../../presentation/components/lexical"
-    },
-    {
-      "path": "../../domain/prop"
-    },
-    {
-      "path": "../atom"
-    },
-    {
-      "path": "../../../shared/abstract/core"
-    },
-    {
-      "path": "../../shared/utils"
-    },
-    {
-      "path": "../../abstract/domain"
-    }
-  ]
+  "references": []
 }

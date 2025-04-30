@@ -2,18 +2,5 @@
   "extends": "../../../../tsconfig.base.json",
   "files": [],
   "include": [],
-  "references": [
-    {
-      "path": "../auth0"
-    },
-    {
-      "path": "../logging"
-    },
-    {
-      "path": "../../config/env"
-    },
-    {
-      "path": "../../abstract/types"
-    }
-  ]
+  "references": []
 }

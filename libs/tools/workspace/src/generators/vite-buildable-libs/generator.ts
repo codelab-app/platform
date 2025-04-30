@@ -9,7 +9,7 @@ import {
 
 import type { ViteBuildableLibsGeneratorSchema } from './schema'
 
-import { processProjects } from '../../utils/process-projects'
+import { processEsLibrary } from '../../utils/process-es-lib'
 import { setPackageJsonExports } from '../nx-project-config/workspace/package-json/exports/set-exports'
 import { migrateToViteLibs } from './migrate-to-vite-libs'
 import { moveFilesInTsConfig } from './tsconfig/tsconfig.lib'
@@ -18,7 +18,7 @@ export const viteBuildableLibsGenerator = async (
   tree: Tree,
   options: ViteBuildableLibsGeneratorSchema,
 ) => {
-  await processProjects(
+  await processEsLibrary(
     tree,
     options,
     async (projectConfig: ProjectConfiguration) => {

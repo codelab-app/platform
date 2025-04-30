@@ -17,6 +17,7 @@ import { join } from 'path'
 import { getEntryFromProject } from './entry/get-entry-from-exports'
 import { updatePackageJsonForVite } from './package-json/update-package-json'
 import { updateTsConfig } from './tsconfig/tsconfig'
+import { createTsConfigDev } from './tsconfig/tsconfig.dev'
 import { updateTsConfigLib } from './tsconfig/tsconfig.lib'
 
 export const migrateToViteLibs = async (
@@ -27,6 +28,8 @@ export const migrateToViteLibs = async (
 
   // Update package.json and get package info
   const packageJson = updatePackageJsonForVite(tree, projectConfig)
+
+  createTsConfigDev(tree, projectConfig)
 
   // Update tsconfig.lib.json
   updateTsConfigLib(tree, projectConfig)

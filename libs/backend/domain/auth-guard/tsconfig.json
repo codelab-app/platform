@@ -2,27 +2,5 @@
   "extends": "../../../../tsconfig.base.json",
   "files": [],
   "include": [],
-  "references": [
-    {
-      "path": "../../../shared/domain/module/auth-guard"
-    },
-    {
-      "path": "../../../shared/infra/gqlgen"
-    },
-    {
-      "path": "../../infra/core"
-    },
-    {
-      "path": "../../infra/adapter/logger"
-    },
-    {
-      "path": "../prop"
-    },
-    {
-      "path": "../../../shared/abstract/core"
-    },
-    {
-      "path": "../shared/modules"
-    }
-  ]
+  "references": []
 }

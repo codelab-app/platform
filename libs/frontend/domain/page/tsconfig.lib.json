@@ -5,13 +5,7 @@
     "outDir": "../../../../dist/libs/frontend/domain/page",
     "rootDir": "./src",
     "importHelpers": true,
-    "allowJs": false,
-    "types": [
-      "node",
-      "@nx/react/typings/cssmodule.d.ts",
-      "@nx/react/typings/image.d.ts"
-    ],
-    "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo"
+    "allowJs": false
   },
   "exclude": ["**/*.spec.ts", "**/*.spec.tsx", "jest.config.ts"],
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.graphql"],

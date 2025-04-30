@@ -16,12 +16,14 @@
     "noUncheckedIndexedAccess": true,
     "noErrorTruncation": true,
     "resolveJsonModule": true,
-    "importHelpers": true,
     "target": "es2021",
     "typeRoots": ["types", "node_modules/@types", "node_modules"],
-    "lib": ["es2022", "dom", "esnext"],
+    "lib": ["ES2021", "DOM"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
+    "noEmit": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
     "plugins": [
       {
         "name": "@0no-co/graphqlsp",

@@ -1,58 +1,6 @@
 {
   "files": [],
   "include": [],
-  "references": [
-    {
-      "path": "../../infra/connector"
-    },
-    {
-      "path": "../../presentation/components/interface-form"
-    },
-    {
-      "path": "../../presentation/codelab-ui"
-    },
-    {
-      "path": "../../../shared/abstract/types"
-    },
-    {
-      "path": "../../presentation/view"
-    },
-    {
-      "path": "../../presentation/components/form"
-    },
-    {
-      "path": "../user"
-    },
-    {
-      "path": "../resource"
-    },
-    {
-      "path": "../../abstract/types"
-    },
-    {
-      "path": "../../../shared/infra/typebox"
-    },
-    {
-      "path": "../../infra/mobx/context"
-    },
-    {
-      "path": "../../domain/shared"
-    },
-    {
-      "path": "../../domain/auth-guard"
-    },
-    {
-      "path": "../../../shared/infra/gqlgen"
-    },
-    {
-      "path": "../../../shared/abstract/core"
-    },
-    {
-      "path": "../../abstract/domain"
-    },
-    {
-      "path": "../../abstract/application"
-    }
-  ],
+  "references": [],
   "extends": "../../../../tsconfig.base.json"
 }

@@ -2,45 +2,5 @@
   "extends": "../../../../tsconfig.base.json",
   "files": [],
   "include": [],
-  "references": [
-    {
-      "path": "../user"
-    },
-    {
-      "path": "../../presentation/codelab-ui"
-    },
-    {
-      "path": "../../presentation/view"
-    },
-    {
-      "path": "../../infra/connector"
-    },
-    {
-      "path": "../../presentation/components/form"
-    },
-    {
-      "path": "../../infra/context"
-    },
-    {
-      "path": "../../abstract/types"
-    },
-    {
-      "path": "../../infra/mobx/context"
-    },
-    {
-      "path": "../../domain/shared"
-    },
-    {
-      "path": "../../domain/domain"
-    },
-    {
-      "path": "../../abstract/application"
-    },
-    {
-      "path": "../../../shared/infra/gqlgen"
-    },
-    {
-      "path": "../../abstract/domain"
-    }
-  ]
+  "references": []
 }

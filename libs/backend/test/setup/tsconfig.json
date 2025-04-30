@@ -2,36 +2,5 @@
   "extends": "../../../../tsconfig.base.json",
   "files": [],
   "include": [],
-  "references": [
-    {
-      "path": "../../../shared/data/test"
-    },
-    {
-      "path": "../../infra/adapter/neo4j-schema"
-    },
-    {
-      "path": "../utils"
-    },
-    {
-      "path": "../../infra/core"
-    },
-    {
-      "path": "../../infra/adapter/request-context"
-    },
-    {
-      "path": "../../infra/adapter/logger"
-    },
-    {
-      "path": "../../infra/adapter/graphql"
-    },
-    {
-      "path": "../../domain/user"
-    },
-    {
-      "path": "../../domain/shared/modules"
-    },
-    {
-      "path": "../../domain/shared/auth"
-    }
-  ]
+  "references": []
 }

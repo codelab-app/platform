@@ -9,7 +9,7 @@ import {
 
 import type { ProjectConfigGeneratorSchema } from './schema'
 
-import { processProjects } from '../../utils/process-projects'
+import { processEsLibrary } from '../../utils/process-es-lib'
 import { updateTestTargets } from './jest/remove-test-targets'
 import { migrateProjectReference } from './migrate-project-reference'
 import { migrateToInferred } from './migrate-to-inferred/migrate-to-inferred'
@@ -29,7 +29,7 @@ export const nxProjectConfigGenerator = async (
   tree: Tree,
   options: ProjectConfigGeneratorSchema,
 ) => {
-  await processProjects(tree, options, async (projectConfig) => {
+  await processEsLibrary(tree, options, async (projectConfig) => {
     // Migrate project to use TypeScript project references
     if (options.migrateToProjectReferences) {
       await migrateProjectReference(tree, projectConfig)

@@ -2,9 +2,5 @@
   "extends": "../../../../../tsconfig.base.json",
   "files": [],
   "include": [],
-  "references": [
-    {
-      "path": "../../../../shared/infra/auth0"
-    }
-  ]
+  "references": []
 }
