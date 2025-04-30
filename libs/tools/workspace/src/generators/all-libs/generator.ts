@@ -7,11 +7,11 @@ import {
   readProjectConfiguration,
 } from '@nx/devkit'
 
-import type { ViteBuildableLibsGeneratorSchema } from './schema'
+import type { AllLibsGeneratorSchema } from './schema'
 
 import { processEsLibrary } from '../../utils/process-es-lib'
 import { setPackageJsonExports } from '../nx-project-config/workspace/package-json/exports/set-exports'
-import { processReactLib } from '../react-lib/react-lib'
+import { processReactLib } from '../react-lib/generator'
 import { migrateToViteLibs } from './migrate-to-vite-libs'
 import { moveFilesInTsConfig } from './tsconfig/tsconfig.lib'
 
@@ -20,7 +20,7 @@ import { moveFilesInTsConfig } from './tsconfig/tsconfig.lib'
  */
 export const allLibGenerator = async (
   tree: Tree,
-  options: ViteBuildableLibsGeneratorSchema,
+  options: AllLibsGeneratorSchema,
 ) => {
   await processReactLib(tree, options)
 

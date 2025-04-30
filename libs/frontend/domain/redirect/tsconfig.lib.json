@@ -1,37 +1,27 @@
 {
   "extends": "../../../../tsconfig.build.base.json",
   "compilerOptions": {
+    "jsx": "react-jsx",
     "outDir": "./dist",
     "rootDir": "./src",
     "importHelpers": true,
     "allowJs": false,
     "types": [
-      "node",
       "@nx/react/typings/cssmodule.d.ts",
       "@nx/react/typings/image.d.ts"
-    ],
-    "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo"
+    ]
   },
-  "exclude": ["**/*.spec.ts", "**/*.spec.tsx", "jest.config.ts"],
+  "exclude": [
+    "jest.config.ts",
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts",
+    "src/**/*.spec.tsx",
+    "src/**/*.test.tsx",
+    "**/*.stories.ts",
+    "**/*.stories.js",
+    "**/*.stories.jsx",
+    "**/*.stories.tsx"
+  ],
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "references": [
-    {
-      "path": "../../../shared/domain/module/redirect/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../shared/infra/typebox/tsconfig.lib.json"
-    },
-    {
-      "path": "../../abstract/domain/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../shared/infra/gqlgen/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../shared/abstract/types/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../shared/abstract/core/tsconfig.lib.json"
-    }
-  ]
+  "references": []
 }

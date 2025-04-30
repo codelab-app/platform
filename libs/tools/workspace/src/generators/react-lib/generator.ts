@@ -3,24 +3,22 @@ import type { ProjectConfiguration, Tree } from '@nx/devkit'
 import { generateFiles, joinPathFragments, offsetFromRoot } from '@nx/devkit'
 import { join } from 'path'
 
-export const reactLibGenerator = async (
+import { processLibrary } from '../../utils/process-library'
+import { generateTsconfigFiles } from './tsconfig/tsconfig'
+import { generateViteFiles } from './vite/vite'
+
+const reactLibGenerator = async (
   tree: Tree,
   projectConfig: ProjectConfiguration,
 ) => {
-  const substitutions = {
-    cacheDir: joinPathFragments(
-      offsetFromRoot(projectConfig.root),
-      projectConfig.root,
-    ),
-    offsetFromRoot: offsetFromRoot(projectConfig.root),
-    // Replaces __tmpl__ portion of file
-    tmpl: '',
-  }
-
-  // Path to the template files directory
-  const templateDir = join(__dirname, 'files')
-  // Target directory (project root)
-  const targetDir = projectConfig.root
-
-  generateFiles(tree, templateDir, targetDir, substitutions)
+  generateTsconfigFiles(tree, projectConfig)
+  generateViteFiles(tree, projectConfig)
 }
+
+// Combine the filter logic directly into the HOC call
+export const processReactLib = processLibrary(
+  (projectConfig: ProjectConfiguration): boolean => {
+    return Boolean(projectConfig.sourceRoot?.startsWith('libs/frontend'))
+  },
+  reactLibGenerator,
+)

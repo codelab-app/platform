@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
-  "id": "ViteBuildableLibs",
-  "title": "Vite Buildable Libraries Generator",
+  "id": "allLibraries",
+  "title": "All Libraries Generator",
   "type": "object",
   "properties": {
     "projectName": {
