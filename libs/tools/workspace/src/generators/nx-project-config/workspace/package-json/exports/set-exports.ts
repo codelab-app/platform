@@ -95,19 +95,7 @@ export const setPackageJsonExports = (
 
   console.log('Adding relative exports', relativeExports)
 
-  const exports = {
-    '.': {
-      development: './src/index.ts',
-      import: './dist/index.js',
-      types: './dist/index.d.ts',
-      default: './dist/index.js',
-    },
-    // '.': {
-    //   default: './src/index.ts',
-    // },
-  }
-
-  packageJson.exports = { ...exports, ...relativeExports }
+  packageJson.exports = { ...relativeExports }
 
   console.log('Updated package.json exports field.')
   // sortExports(tree, projectConfig)

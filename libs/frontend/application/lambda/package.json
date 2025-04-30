@@ -1,47 +1,89 @@
 {
   "name": "@codelab/frontend-application-lambda",
   "exports": {
-    ".": {
-      "development": "./src/index.ts",
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    },
     "./use-cases/create-lambda": {
-      "development": "./src/use-cases/create-lambda/index.ts",
-      "import": "./dist/use-cases/create-lambda/index.js",
-      "types": "./dist/use-cases/create-lambda/index.d.ts",
-      "default": "./dist/use-cases/create-lambda/index.js"
+      "development": {
+        "types": "./src/use-cases/create-lambda/index.ts",
+        "import": "./src/use-cases/create-lambda/index.ts",
+        "require": "./src/use-cases/create-lambda/index.ts"
+      },
+      "default": {
+        "types": "./dist/use-cases/create-lambda/index.d.ts",
+        "import": "./dist/use-cases/create-lambda/index.js",
+        "require": "./dist/use-cases/create-lambda/index.js"
+      }
     },
     "./use-cases/delete-lambda": {
-      "development": "./src/use-cases/delete-lambda/index.ts",
-      "import": "./dist/use-cases/delete-lambda/index.js",
-      "types": "./dist/use-cases/delete-lambda/index.d.ts",
-      "default": "./dist/use-cases/delete-lambda/index.js"
+      "development": {
+        "types": "./src/use-cases/delete-lambda/index.ts",
+        "import": "./src/use-cases/delete-lambda/index.ts",
+        "require": "./src/use-cases/delete-lambda/index.ts"
+      },
+      "default": {
+        "types": "./dist/use-cases/delete-lambda/index.d.ts",
+        "import": "./dist/use-cases/delete-lambda/index.js",
+        "require": "./dist/use-cases/delete-lambda/index.js"
+      }
     },
     "./use-cases/execute-lambda": {
-      "development": "./src/use-cases/execute-lambda/index.ts",
-      "import": "./dist/use-cases/execute-lambda/index.js",
-      "types": "./dist/use-cases/execute-lambda/index.d.ts",
-      "default": "./dist/use-cases/execute-lambda/index.js"
+      "development": {
+        "types": "./src/use-cases/execute-lambda/index.ts",
+        "import": "./src/use-cases/execute-lambda/index.ts",
+        "require": "./src/use-cases/execute-lambda/index.ts"
+      },
+      "default": {
+        "types": "./dist/use-cases/execute-lambda/index.d.ts",
+        "import": "./dist/use-cases/execute-lambda/index.js",
+        "require": "./dist/use-cases/execute-lambda/index.js"
+      }
     },
     "./use-cases/get-lambdas": {
-      "development": "./src/use-cases/get-lambdas/index.ts",
-      "import": "./dist/use-cases/get-lambdas/index.js",
-      "types": "./dist/use-cases/get-lambdas/index.d.ts",
-      "default": "./dist/use-cases/get-lambdas/index.js"
+      "development": {
+        "types": "./src/use-cases/get-lambdas/index.ts",
+        "import": "./src/use-cases/get-lambdas/index.ts",
+        "require": "./src/use-cases/get-lambdas/index.ts"
+      },
+      "default": {
+        "types": "./dist/use-cases/get-lambdas/index.d.ts",
+        "import": "./dist/use-cases/get-lambdas/index.js",
+        "require": "./dist/use-cases/get-lambdas/index.js"
+      }
     },
     "./use-cases/update-lambda": {
-      "development": "./src/use-cases/update-lambda/index.ts",
-      "import": "./dist/use-cases/update-lambda/index.js",
-      "types": "./dist/use-cases/update-lambda/index.d.ts",
-      "default": "./dist/use-cases/update-lambda/index.js"
+      "development": {
+        "types": "./src/use-cases/update-lambda/index.ts",
+        "import": "./src/use-cases/update-lambda/index.ts",
+        "require": "./src/use-cases/update-lambda/index.ts"
+      },
+      "default": {
+        "types": "./dist/use-cases/update-lambda/index.d.ts",
+        "import": "./dist/use-cases/update-lambda/index.js",
+        "require": "./dist/use-cases/update-lambda/index.js"
+      }
     },
     "./views": {
-      "development": "./src/views/index.ts",
-      "import": "./dist/views/index.js",
-      "types": "./dist/views/index.d.ts",
-      "default": "./dist/views/index.js"
+      "development": {
+        "types": "./src/views/index.ts",
+        "import": "./src/views/index.ts",
+        "require": "./src/views/index.ts"
+      },
+      "default": {
+        "types": "./dist/views/index.d.ts",
+        "import": "./dist/views/index.js",
+        "require": "./dist/views/index.js"
+      }
+    },
+    ".": {
+      "development": {
+        "types": "./src/index.ts",
+        "import": "./src/index.ts",
+        "require": "./src/index.ts"
+      },
+      "default": {
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js",
+        "require": "./dist/index.js"
+      }
     }
   },
   "devDependencies": {

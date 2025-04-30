@@ -1,4 +1,4 @@
-import type { UrlParams } from './url-params';
+import { UrlParams } from './url-params';
 /**
  * Non-dashboard layout has no slots, only params
  *

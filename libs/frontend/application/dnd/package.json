@@ -1,29 +1,53 @@
 {
   "name": "@codelab/frontend-application-dnd",
   "exports": {
-    ".": {
-      "development": "./src/index.ts",
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    },
     "./collision-detection": {
-      "development": "./src/collision-detection/index.ts",
-      "import": "./dist/collision-detection/index.js",
-      "types": "./dist/collision-detection/index.d.ts",
-      "default": "./dist/collision-detection/index.js"
+      "development": {
+        "types": "./src/collision-detection/index.ts",
+        "import": "./src/collision-detection/index.ts",
+        "require": "./src/collision-detection/index.ts"
+      },
+      "default": {
+        "types": "./dist/collision-detection/index.d.ts",
+        "import": "./dist/collision-detection/index.js",
+        "require": "./dist/collision-detection/index.js"
+      }
     },
     "./components": {
-      "development": "./src/components/index.ts",
-      "import": "./dist/components/index.js",
-      "types": "./dist/components/index.d.ts",
-      "default": "./dist/components/index.js"
+      "development": {
+        "types": "./src/components/index.ts",
+        "import": "./src/components/index.ts",
+        "require": "./src/components/index.ts"
+      },
+      "default": {
+        "types": "./dist/components/index.d.ts",
+        "import": "./dist/components/index.js",
+        "require": "./dist/components/index.js"
+      }
     },
     "./hooks": {
-      "development": "./src/hooks/index.ts",
-      "import": "./dist/hooks/index.js",
-      "types": "./dist/hooks/index.d.ts",
-      "default": "./dist/hooks/index.js"
+      "development": {
+        "types": "./src/hooks/index.ts",
+        "import": "./src/hooks/index.ts",
+        "require": "./src/hooks/index.ts"
+      },
+      "default": {
+        "types": "./dist/hooks/index.d.ts",
+        "import": "./dist/hooks/index.js",
+        "require": "./dist/hooks/index.js"
+      }
+    },
+    ".": {
+      "development": {
+        "types": "./src/index.ts",
+        "import": "./src/index.ts",
+        "require": "./src/index.ts"
+      },
+      "default": {
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js",
+        "require": "./dist/index.js"
+      }
     }
   },
   "devDependencies": {

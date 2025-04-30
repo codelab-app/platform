@@ -1,59 +1,113 @@
 {
   "name": "@codelab/frontend-application-resource",
   "exports": {
-    ".": {
-      "development": "./src/index.ts",
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    },
     "./components": {
-      "development": "./src/components/index.ts",
-      "import": "./dist/components/index.js",
-      "types": "./dist/components/index.d.ts",
-      "default": "./dist/components/index.js"
+      "development": {
+        "types": "./src/components/index.ts",
+        "import": "./src/components/index.ts",
+        "require": "./src/components/index.ts"
+      },
+      "default": {
+        "types": "./dist/components/index.d.ts",
+        "import": "./dist/components/index.js",
+        "require": "./dist/components/index.js"
+      }
     },
     "./services": {
-      "development": "./src/services/index.ts",
-      "import": "./dist/services/index.js",
-      "types": "./dist/services/index.d.ts",
-      "default": "./dist/services/index.js"
+      "development": {
+        "types": "./src/services/index.ts",
+        "import": "./src/services/index.ts",
+        "require": "./src/services/index.ts"
+      },
+      "default": {
+        "types": "./dist/services/index.d.ts",
+        "import": "./dist/services/index.js",
+        "require": "./dist/services/index.js"
+      }
     },
     "./use-cases/create-resource": {
-      "development": "./src/use-cases/create-resource/index.ts",
-      "import": "./dist/use-cases/create-resource/index.js",
-      "types": "./dist/use-cases/create-resource/index.d.ts",
-      "default": "./dist/use-cases/create-resource/index.js"
+      "development": {
+        "types": "./src/use-cases/create-resource/index.ts",
+        "import": "./src/use-cases/create-resource/index.ts",
+        "require": "./src/use-cases/create-resource/index.ts"
+      },
+      "default": {
+        "types": "./dist/use-cases/create-resource/index.d.ts",
+        "import": "./dist/use-cases/create-resource/index.js",
+        "require": "./dist/use-cases/create-resource/index.js"
+      }
     },
     "./use-cases/delete-resource": {
-      "development": "./src/use-cases/delete-resource/index.ts",
-      "import": "./dist/use-cases/delete-resource/index.js",
-      "types": "./dist/use-cases/delete-resource/index.d.ts",
-      "default": "./dist/use-cases/delete-resource/index.js"
+      "development": {
+        "types": "./src/use-cases/delete-resource/index.ts",
+        "import": "./src/use-cases/delete-resource/index.ts",
+        "require": "./src/use-cases/delete-resource/index.ts"
+      },
+      "default": {
+        "types": "./dist/use-cases/delete-resource/index.d.ts",
+        "import": "./dist/use-cases/delete-resource/index.js",
+        "require": "./dist/use-cases/delete-resource/index.js"
+      }
     },
     "./use-cases/get-resource": {
-      "development": "./src/use-cases/get-resource/index.ts",
-      "import": "./dist/use-cases/get-resource/index.js",
-      "types": "./dist/use-cases/get-resource/index.d.ts",
-      "default": "./dist/use-cases/get-resource/index.js"
+      "development": {
+        "types": "./src/use-cases/get-resource/index.ts",
+        "import": "./src/use-cases/get-resource/index.ts",
+        "require": "./src/use-cases/get-resource/index.ts"
+      },
+      "default": {
+        "types": "./dist/use-cases/get-resource/index.d.ts",
+        "import": "./dist/use-cases/get-resource/index.js",
+        "require": "./dist/use-cases/get-resource/index.js"
+      }
     },
     "./use-cases/resource-list": {
-      "development": "./src/use-cases/resource-list/index.ts",
-      "import": "./dist/use-cases/resource-list/index.js",
-      "types": "./dist/use-cases/resource-list/index.d.ts",
-      "default": "./dist/use-cases/resource-list/index.js"
+      "development": {
+        "types": "./src/use-cases/resource-list/index.ts",
+        "import": "./src/use-cases/resource-list/index.ts",
+        "require": "./src/use-cases/resource-list/index.ts"
+      },
+      "default": {
+        "types": "./dist/use-cases/resource-list/index.d.ts",
+        "import": "./dist/use-cases/resource-list/index.js",
+        "require": "./dist/use-cases/resource-list/index.js"
+      }
     },
     "./use-cases/update-resource": {
-      "development": "./src/use-cases/update-resource/index.ts",
-      "import": "./dist/use-cases/update-resource/index.js",
-      "types": "./dist/use-cases/update-resource/index.d.ts",
-      "default": "./dist/use-cases/update-resource/index.js"
+      "development": {
+        "types": "./src/use-cases/update-resource/index.ts",
+        "import": "./src/use-cases/update-resource/index.ts",
+        "require": "./src/use-cases/update-resource/index.ts"
+      },
+      "default": {
+        "types": "./dist/use-cases/update-resource/index.d.ts",
+        "import": "./dist/use-cases/update-resource/index.js",
+        "require": "./dist/use-cases/update-resource/index.js"
+      }
     },
     "./views": {
-      "development": "./src/views/index.ts",
-      "import": "./dist/views/index.js",
-      "types": "./dist/views/index.d.ts",
-      "default": "./dist/views/index.js"
+      "development": {
+        "types": "./src/views/index.ts",
+        "import": "./src/views/index.ts",
+        "require": "./src/views/index.ts"
+      },
+      "default": {
+        "types": "./dist/views/index.d.ts",
+        "import": "./dist/views/index.js",
+        "require": "./dist/views/index.js"
+      }
+    },
+    ".": {
+      "development": {
+        "types": "./src/index.ts",
+        "import": "./src/index.ts",
+        "require": "./src/index.ts"
+      },
+      "default": {
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js",
+        "require": "./dist/index.js"
+      }
     }
   },
   "devDependencies": {

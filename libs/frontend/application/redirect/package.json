@@ -1,35 +1,65 @@
 {
   "name": "@codelab/frontend-application-redirect",
   "exports": {
-    ".": {
-      "development": "./src/index.ts",
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    },
     "./services": {
-      "development": "./src/services/index.ts",
-      "import": "./dist/services/index.js",
-      "types": "./dist/services/index.d.ts",
-      "default": "./dist/services/index.js"
+      "development": {
+        "types": "./src/services/index.ts",
+        "import": "./src/services/index.ts",
+        "require": "./src/services/index.ts"
+      },
+      "default": {
+        "types": "./dist/services/index.d.ts",
+        "import": "./dist/services/index.js",
+        "require": "./dist/services/index.js"
+      }
     },
     "./use-cases/create-redirect": {
-      "development": "./src/use-cases/create-redirect/index.ts",
-      "import": "./dist/use-cases/create-redirect/index.js",
-      "types": "./dist/use-cases/create-redirect/index.d.ts",
-      "default": "./dist/use-cases/create-redirect/index.js"
+      "development": {
+        "types": "./src/use-cases/create-redirect/index.ts",
+        "import": "./src/use-cases/create-redirect/index.ts",
+        "require": "./src/use-cases/create-redirect/index.ts"
+      },
+      "default": {
+        "types": "./dist/use-cases/create-redirect/index.d.ts",
+        "import": "./dist/use-cases/create-redirect/index.js",
+        "require": "./dist/use-cases/create-redirect/index.js"
+      }
     },
     "./use-cases/delete-redirect": {
-      "development": "./src/use-cases/delete-redirect/index.ts",
-      "import": "./dist/use-cases/delete-redirect/index.js",
-      "types": "./dist/use-cases/delete-redirect/index.d.ts",
-      "default": "./dist/use-cases/delete-redirect/index.js"
+      "development": {
+        "types": "./src/use-cases/delete-redirect/index.ts",
+        "import": "./src/use-cases/delete-redirect/index.ts",
+        "require": "./src/use-cases/delete-redirect/index.ts"
+      },
+      "default": {
+        "types": "./dist/use-cases/delete-redirect/index.d.ts",
+        "import": "./dist/use-cases/delete-redirect/index.js",
+        "require": "./dist/use-cases/delete-redirect/index.js"
+      }
     },
     "./use-cases/update-redirect": {
-      "development": "./src/use-cases/update-redirect/index.ts",
-      "import": "./dist/use-cases/update-redirect/index.js",
-      "types": "./dist/use-cases/update-redirect/index.d.ts",
-      "default": "./dist/use-cases/update-redirect/index.js"
+      "development": {
+        "types": "./src/use-cases/update-redirect/index.ts",
+        "import": "./src/use-cases/update-redirect/index.ts",
+        "require": "./src/use-cases/update-redirect/index.ts"
+      },
+      "default": {
+        "types": "./dist/use-cases/update-redirect/index.d.ts",
+        "import": "./dist/use-cases/update-redirect/index.js",
+        "require": "./dist/use-cases/update-redirect/index.js"
+      }
+    },
+    ".": {
+      "development": {
+        "types": "./src/index.ts",
+        "import": "./src/index.ts",
+        "require": "./src/index.ts"
+      },
+      "default": {
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js",
+        "require": "./dist/index.js"
+      }
     }
   },
   "devDependencies": {

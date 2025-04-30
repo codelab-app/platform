@@ -1,4 +1,4 @@
-import type { Identity, ObjectLike } from '@codelab/shared-abstract-types';
+import { Identity, ObjectLike } from '@codelab/shared-abstract-types';
 /**
  * Helper type to compute merged params
  */

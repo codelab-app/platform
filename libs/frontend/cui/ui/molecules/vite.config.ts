@@ -26,6 +26,9 @@ const rawFilePlugin = (): Plugin => {
   }
 }
 
+/**
+ * Vite doesn't read from tsconfig.json to keep it fast since it doesn't need to read file system.
+ */
 export default defineConfig(() => ({
   root: __dirname,
   cacheDir: '../../../../../node_modules/.vite/libs/frontend/cui/ui/molecules',
@@ -95,7 +98,7 @@ export default defineConfig(() => ({
     // },
     lib: {
       // Could also be a dictionary or array of multiple entry points.
-      entry: 'src/index.ts',
+      entry: {},
       name: '@cui/ui-molecules',
       fileName: (format, entryName) => {
         return entryName === 'index' ? 'index.js' : `${entryName}/index.js`

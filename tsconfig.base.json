@@ -7,6 +7,7 @@
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
+    // "traceResolution": true,
     "customConditions": ["development"],
     "moduleResolution": "bundler",
     "module": "esnext",

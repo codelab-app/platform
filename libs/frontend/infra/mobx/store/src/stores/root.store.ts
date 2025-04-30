@@ -8,6 +8,7 @@ import type { IDomainStore } from '@codelab/frontend-abstract-domain'
 import {
   Model,
   model,
+  ModelClassDeclaration,
   prop,
   registerRootStore,
   setGlobalConfig,
@@ -18,12 +19,7 @@ import {
 import { createApplicationStore } from './application.store'
 import { createDomainStore } from './domain.store'
 
-export const createRootStore = ({
-  user,
-}: IRootStoreInput): {
-  rootStore: IRootStore
-  undoManager: UndoManager
-} => {
+export const createRootStore = ({ user }: IRootStoreInput) => {
   setGlobalConfig({
     showDuplicateModelNameWarnings: false,
   })
@@ -31,15 +27,20 @@ export const createRootStore = ({
   const domainStore = createDomainStore(user)
   const applicationStore = createApplicationStore(domainStore)
 
-  const ModelProps = {
+  const ModelProps = Model({
     applicationStore: prop<IApplicationStore>(() => applicationStore),
     domainStore: prop<IDomainStore>(() => domainStore),
-  }
+  })
 
   @model('@codelab/RootStore')
-  class RootStore extends Model(ModelProps) implements IRootStore {}
+  class RootStore extends ModelProps implements IRootStore {}
 
-  const rootStore = new RootStore({})
+  const Store = RootStore as ModelClassDeclaration<
+    typeof ModelProps,
+    IRootStore
+  >
+
+  const rootStore = new Store({})
 
   const undoManager = undoMiddleware(rootStore, undefined, {
     maxUndoLevels: 1,

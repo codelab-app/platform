@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
+  "include": ["**/*.ts", "**/*.tsx"],
   "references": [
     {
       "path": "../../libs/shared/infra/auth0/tsconfig.lib.json"

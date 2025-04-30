@@ -1,4 +1,6 @@
 /* eslint-disable canonical/sort-keys */
+import type { PackageJson } from 'type-fest'
+
 import {
   getPathAliasPackageNames,
   getProjectReferencePaths,
@@ -13,12 +15,6 @@ export const getRelativeExports = (packageName: string) => {
 
   console.log('Getting relative exports for', packageName, exports)
 
-  // Define the type for the accumulator
-  type ExportMap = Record<
-    string,
-    { default: string; development?: string; import?: string; types?: string }
-  >
-
   /**
    * Current package name:
    * '@codelab/frontend-application-app'
@@ -30,7 +26,7 @@ export const getRelativeExports = (packageName: string) => {
    * './src/use-cases/build/index.ts'
    */
 
-  return exports.reduce<ExportMap>((acc, name) => {
+  return exports.reduce<Record<string, PackageJson.Exports>>((acc, name) => {
     /**
      * Create a regex to match the package name exactly, or followed by a slash
      *
@@ -61,12 +57,25 @@ export const getRelativeExports = (packageName: string) => {
         ? './dist/index.js'
         : `./dist${relativePathRaw}/index.js`
 
-    // Assign the dynamic export structure
+    const devPath = targetPath.replace('dist', 'src').replace('.js', '.ts')
+    const prodPathJs = targetPath
+    const prodPathDts = targetPath.replace('.js', '.d.ts')
+
+    const developmentExport: PackageJson.Exports = {
+      types: devPath,
+      import: devPath,
+      require: devPath,
+    }
+
+    const defaultExport: PackageJson.Exports = {
+      types: prodPathDts,
+      import: prodPathJs,
+      require: prodPathJs,
+    }
+
     acc[relativePath] = {
-      development: targetPath.replace('dist', 'src').replace('.js', '.ts'),
-      import: targetPath,
-      types: targetPath.replace('.js', '.d.ts'),
-      default: targetPath,
+      development: developmentExport,
+      default: defaultExport,
     }
 
     // Return the accumulator

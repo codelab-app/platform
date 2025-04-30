@@ -1,35 +1,65 @@
 {
   "name": "@codelab/frontend-domain-prop",
   "exports": {
-    ".": {
-      "development": "./src/index.ts",
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    },
     "./repositories": {
-      "development": "./src/repositories/index.ts",
-      "import": "./dist/repositories/index.js",
-      "types": "./dist/repositories/index.d.ts",
-      "default": "./dist/repositories/index.js"
+      "development": {
+        "types": "./src/repositories/index.ts",
+        "import": "./src/repositories/index.ts",
+        "require": "./src/repositories/index.ts"
+      },
+      "default": {
+        "types": "./dist/repositories/index.d.ts",
+        "import": "./dist/repositories/index.js",
+        "require": "./dist/repositories/index.js"
+      }
     },
     "./store": {
-      "development": "./src/store/index.ts",
-      "import": "./dist/store/index.js",
-      "types": "./dist/store/index.d.ts",
-      "default": "./dist/store/index.js"
+      "development": {
+        "types": "./src/store/index.ts",
+        "import": "./src/store/index.ts",
+        "require": "./src/store/index.ts"
+      },
+      "default": {
+        "types": "./dist/store/index.d.ts",
+        "import": "./dist/store/index.js",
+        "require": "./dist/store/index.js"
+      }
     },
     "./test": {
-      "development": "./src/test/index.ts",
-      "import": "./dist/test/index.js",
-      "types": "./dist/test/index.d.ts",
-      "default": "./dist/test/index.js"
+      "development": {
+        "types": "./src/test/index.ts",
+        "import": "./src/test/index.ts",
+        "require": "./src/test/index.ts"
+      },
+      "default": {
+        "types": "./dist/test/index.d.ts",
+        "import": "./dist/test/index.js",
+        "require": "./dist/test/index.js"
+      }
     },
     "./utils": {
-      "development": "./src/utils/index.ts",
-      "import": "./dist/utils/index.js",
-      "types": "./dist/utils/index.d.ts",
-      "default": "./dist/utils/index.js"
+      "development": {
+        "types": "./src/utils/index.ts",
+        "import": "./src/utils/index.ts",
+        "require": "./src/utils/index.ts"
+      },
+      "default": {
+        "types": "./dist/utils/index.d.ts",
+        "import": "./dist/utils/index.js",
+        "require": "./dist/utils/index.js"
+      }
+    },
+    ".": {
+      "development": {
+        "types": "./src/index.ts",
+        "import": "./src/index.ts",
+        "require": "./src/index.ts"
+      },
+      "default": {
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js",
+        "require": "./dist/index.js"
+      }
     }
   },
   "devDependencies": {

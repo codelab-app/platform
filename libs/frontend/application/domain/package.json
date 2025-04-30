@@ -1,47 +1,89 @@
 {
   "name": "@codelab/frontend-application-domain",
   "exports": {
-    ".": {
-      "development": "./src/index.ts",
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    },
     "./services": {
-      "development": "./src/services/index.ts",
-      "import": "./dist/services/index.js",
-      "types": "./dist/services/index.d.ts",
-      "default": "./dist/services/index.js"
+      "development": {
+        "types": "./src/services/index.ts",
+        "import": "./src/services/index.ts",
+        "require": "./src/services/index.ts"
+      },
+      "default": {
+        "types": "./dist/services/index.d.ts",
+        "import": "./dist/services/index.js",
+        "require": "./dist/services/index.js"
+      }
     },
     "./use-cases/create-domain": {
-      "development": "./src/use-cases/create-domain/index.ts",
-      "import": "./dist/use-cases/create-domain/index.js",
-      "types": "./dist/use-cases/create-domain/index.d.ts",
-      "default": "./dist/use-cases/create-domain/index.js"
+      "development": {
+        "types": "./src/use-cases/create-domain/index.ts",
+        "import": "./src/use-cases/create-domain/index.ts",
+        "require": "./src/use-cases/create-domain/index.ts"
+      },
+      "default": {
+        "types": "./dist/use-cases/create-domain/index.d.ts",
+        "import": "./dist/use-cases/create-domain/index.js",
+        "require": "./dist/use-cases/create-domain/index.js"
+      }
     },
     "./use-cases/delete-domain": {
-      "development": "./src/use-cases/delete-domain/index.ts",
-      "import": "./dist/use-cases/delete-domain/index.js",
-      "types": "./dist/use-cases/delete-domain/index.d.ts",
-      "default": "./dist/use-cases/delete-domain/index.js"
+      "development": {
+        "types": "./src/use-cases/delete-domain/index.ts",
+        "import": "./src/use-cases/delete-domain/index.ts",
+        "require": "./src/use-cases/delete-domain/index.ts"
+      },
+      "default": {
+        "types": "./dist/use-cases/delete-domain/index.d.ts",
+        "import": "./dist/use-cases/delete-domain/index.js",
+        "require": "./dist/use-cases/delete-domain/index.js"
+      }
     },
     "./use-cases/domain-list": {
-      "development": "./src/use-cases/domain-list/index.ts",
-      "import": "./dist/use-cases/domain-list/index.js",
-      "types": "./dist/use-cases/domain-list/index.d.ts",
-      "default": "./dist/use-cases/domain-list/index.js"
+      "development": {
+        "types": "./src/use-cases/domain-list/index.ts",
+        "import": "./src/use-cases/domain-list/index.ts",
+        "require": "./src/use-cases/domain-list/index.ts"
+      },
+      "default": {
+        "types": "./dist/use-cases/domain-list/index.d.ts",
+        "import": "./dist/use-cases/domain-list/index.js",
+        "require": "./dist/use-cases/domain-list/index.js"
+      }
     },
     "./use-cases/update-domain": {
-      "development": "./src/use-cases/update-domain/index.ts",
-      "import": "./dist/use-cases/update-domain/index.js",
-      "types": "./dist/use-cases/update-domain/index.d.ts",
-      "default": "./dist/use-cases/update-domain/index.js"
+      "development": {
+        "types": "./src/use-cases/update-domain/index.ts",
+        "import": "./src/use-cases/update-domain/index.ts",
+        "require": "./src/use-cases/update-domain/index.ts"
+      },
+      "default": {
+        "types": "./dist/use-cases/update-domain/index.d.ts",
+        "import": "./dist/use-cases/update-domain/index.js",
+        "require": "./dist/use-cases/update-domain/index.js"
+      }
     },
     "./views": {
-      "development": "./src/views/index.ts",
-      "import": "./dist/views/index.js",
-      "types": "./dist/views/index.d.ts",
-      "default": "./dist/views/index.js"
+      "development": {
+        "types": "./src/views/index.ts",
+        "import": "./src/views/index.ts",
+        "require": "./src/views/index.ts"
+      },
+      "default": {
+        "types": "./dist/views/index.d.ts",
+        "import": "./dist/views/index.js",
+        "require": "./dist/views/index.js"
+      }
+    },
+    ".": {
+      "development": {
+        "types": "./src/index.ts",
+        "import": "./src/index.ts",
+        "require": "./src/index.ts"
+      },
+      "default": {
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js",
+        "require": "./dist/index.js"
+      }
     }
   },
   "devDependencies": {

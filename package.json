@@ -86,7 +86,7 @@
     "@graphql-codegen/plugin-helpers": "5.1.0",
     "@graphql-codegen/typed-document-node": "5.0.13",
     "@graphql-codegen/typescript-document-nodes": "4.0.13",
-    "@graphql-tools/merge": "8.2.11",
+    "@graphql-tools/merge": "9.0.24",
     "@graphql-tools/utils": "8.12.0",
     "@graphql-typed-document-node/core": "3.2.0",
     "@hookform/resolvers": "3.7.0",

@@ -16,10 +16,9 @@
 *~
 
 # Build artifacts
-!dist/
+dist/
 out/
-!.next/
-.nuxt/
+.next/
 .output/
 .cache/
 .parcel-cache/

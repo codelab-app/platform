@@ -31,7 +31,7 @@ const rawFilePlugin = (): Plugin => {
  */
 export default defineConfig(() => ({
   root: __dirname,
-  cacheDir: '../../../../node_modules/.vite/libs/backend/domain/domain',
+  cacheDir: '../../../../node_modules/.vite/libs/frontend/test/application',
   plugins: [
     /**
      * The generated code contains 'async/await' because this module is using "topLevelAwait".
@@ -98,10 +98,8 @@ export default defineConfig(() => ({
     // },
     lib: {
       // Could also be a dictionary or array of multiple entry points.
-      entry: {
-        index: 'src/index.ts',
-      },
-      name: '@codelab/backend-domain-domain',
+      entry: {},
+      name: '@codelab/frontend-test-application',
       fileName: (format, entryName) => {
         return entryName === 'index' ? 'index.js' : `${entryName}/index.js`
       },

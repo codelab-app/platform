@@ -1,7 +1,7 @@
-import type { AntdIconProps } from '@ant-design/icons/lib/components/AntdIcon';
-import type { IElementRenderTypeKind } from '@codelab/shared-abstract-core';
-import type { DefaultOptionType } from 'antd/lib/select';
-import type { ForwardRefExoticComponent } from 'react';
+import { AntdIconProps } from '@ant-design/icons/lib/components/AntdIcon';
+import { IElementRenderTypeKind } from '@codelab/shared-abstract-core';
+import { DefaultOptionType } from 'antd/lib/select';
+import { ForwardRefExoticComponent } from 'react';
 export interface SelectOption extends DefaultOptionType {
     label: string;
     value: string;

@@ -1,71 +1,137 @@
 {
   "name": "@codelab/frontend-application-builder",
   "exports": {
-    ".": {
-      "development": "./src/index.ts",
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    },
     "./dnd": {
-      "development": "./src/dnd/index.ts",
-      "import": "./dist/dnd/index.js",
-      "types": "./dist/dnd/index.d.ts",
-      "default": "./dist/dnd/index.js"
+      "development": {
+        "types": "./src/dnd/index.ts",
+        "import": "./src/dnd/index.ts",
+        "require": "./src/dnd/index.ts"
+      },
+      "default": {
+        "types": "./dist/dnd/index.d.ts",
+        "import": "./dist/dnd/index.js",
+        "require": "./dist/dnd/index.js"
+      }
     },
     "./hooks": {
-      "development": "./src/hooks/index.ts",
-      "import": "./dist/hooks/index.js",
-      "types": "./dist/hooks/index.d.ts",
-      "default": "./dist/hooks/index.js"
+      "development": {
+        "types": "./src/hooks/index.ts",
+        "import": "./src/hooks/index.ts",
+        "require": "./src/hooks/index.ts"
+      },
+      "default": {
+        "types": "./dist/hooks/index.d.ts",
+        "import": "./dist/hooks/index.js",
+        "require": "./dist/hooks/index.js"
+      }
     },
     "./sections": {
-      "development": "./src/sections/index.ts",
-      "import": "./dist/sections/index.js",
-      "types": "./dist/sections/index.d.ts",
-      "default": "./dist/sections/index.js"
+      "development": {
+        "types": "./src/sections/index.ts",
+        "import": "./src/sections/index.ts",
+        "require": "./src/sections/index.ts"
+      },
+      "default": {
+        "types": "./dist/sections/index.d.ts",
+        "import": "./dist/sections/index.js",
+        "require": "./dist/sections/index.js"
+      }
     },
     "./services": {
-      "development": "./src/services/index.ts",
-      "import": "./dist/services/index.js",
-      "types": "./dist/services/index.d.ts",
-      "default": "./dist/services/index.js"
+      "development": {
+        "types": "./src/services/index.ts",
+        "import": "./src/services/index.ts",
+        "require": "./src/services/index.ts"
+      },
+      "default": {
+        "types": "./dist/services/index.d.ts",
+        "import": "./dist/services/index.js",
+        "require": "./dist/services/index.js"
+      }
     },
     "./use-cases/base-builder": {
-      "development": "./src/use-cases/base-builder/index.ts",
-      "import": "./dist/use-cases/base-builder/index.js",
-      "types": "./dist/use-cases/base-builder/index.d.ts",
-      "default": "./dist/use-cases/base-builder/index.js"
+      "development": {
+        "types": "./src/use-cases/base-builder/index.ts",
+        "import": "./src/use-cases/base-builder/index.ts",
+        "require": "./src/use-cases/base-builder/index.ts"
+      },
+      "default": {
+        "types": "./dist/use-cases/base-builder/index.d.ts",
+        "import": "./dist/use-cases/base-builder/index.js",
+        "require": "./dist/use-cases/base-builder/index.js"
+      }
     },
     "./use-cases/component-builder": {
-      "development": "./src/use-cases/component-builder/index.ts",
-      "import": "./dist/use-cases/component-builder/index.js",
-      "types": "./dist/use-cases/component-builder/index.d.ts",
-      "default": "./dist/use-cases/component-builder/index.js"
+      "development": {
+        "types": "./src/use-cases/component-builder/index.ts",
+        "import": "./src/use-cases/component-builder/index.ts",
+        "require": "./src/use-cases/component-builder/index.ts"
+      },
+      "default": {
+        "types": "./dist/use-cases/component-builder/index.d.ts",
+        "import": "./dist/use-cases/component-builder/index.js",
+        "require": "./dist/use-cases/component-builder/index.js"
+      }
     },
     "./use-cases/page-builder": {
-      "development": "./src/use-cases/page-builder/index.ts",
-      "import": "./dist/use-cases/page-builder/index.js",
-      "types": "./dist/use-cases/page-builder/index.d.ts",
-      "default": "./dist/use-cases/page-builder/index.js"
+      "development": {
+        "types": "./src/use-cases/page-builder/index.ts",
+        "import": "./src/use-cases/page-builder/index.ts",
+        "require": "./src/use-cases/page-builder/index.ts"
+      },
+      "default": {
+        "types": "./dist/use-cases/page-builder/index.d.ts",
+        "import": "./dist/use-cases/page-builder/index.js",
+        "require": "./dist/use-cases/page-builder/index.js"
+      }
     },
     "./use-cases/page-preview": {
-      "development": "./src/use-cases/page-preview/index.ts",
-      "import": "./dist/use-cases/page-preview/index.js",
-      "types": "./dist/use-cases/page-preview/index.d.ts",
-      "default": "./dist/use-cases/page-preview/index.js"
+      "development": {
+        "types": "./src/use-cases/page-preview/index.ts",
+        "import": "./src/use-cases/page-preview/index.ts",
+        "require": "./src/use-cases/page-preview/index.ts"
+      },
+      "default": {
+        "types": "./dist/use-cases/page-preview/index.d.ts",
+        "import": "./dist/use-cases/page-preview/index.js",
+        "require": "./dist/use-cases/page-preview/index.js"
+      }
     },
     "./use-cases/resize": {
-      "development": "./src/use-cases/resize/index.ts",
-      "import": "./dist/use-cases/resize/index.js",
-      "types": "./dist/use-cases/resize/index.d.ts",
-      "default": "./dist/use-cases/resize/index.js"
+      "development": {
+        "types": "./src/use-cases/resize/index.ts",
+        "import": "./src/use-cases/resize/index.ts",
+        "require": "./src/use-cases/resize/index.ts"
+      },
+      "default": {
+        "types": "./dist/use-cases/resize/index.d.ts",
+        "import": "./dist/use-cases/resize/index.js",
+        "require": "./dist/use-cases/resize/index.js"
+      }
     },
     "./utils": {
-      "development": "./src/utils/index.ts",
-      "import": "./dist/utils/index.js",
-      "types": "./dist/utils/index.d.ts",
-      "default": "./dist/utils/index.js"
+      "development": {
+        "types": "./src/utils/index.ts",
+        "import": "./src/utils/index.ts",
+        "require": "./src/utils/index.ts"
+      },
+      "default": {
+        "types": "./dist/utils/index.d.ts",
+        "import": "./dist/utils/index.js",
+        "require": "./dist/utils/index.js"
+      }
+    },
+    ".": {
+      "development": {
+        "types": "./src/index.ts",
+        "import": "./src/index.ts",
+        "require": "./src/index.ts"
+      },
+      "default": {
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js",
+        "require": "./dist/index.js"
+      }
     }
   },
   "devDependencies": {

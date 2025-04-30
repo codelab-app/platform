@@ -1,6 +1,6 @@
-import type { ParamProps } from './params.props';
-import type { SearchParamsClientProps, SearchParamsProps } from './search-params.client.props';
-import type { UrlParams } from './url-params';
+import { ParamProps } from './params.props';
+import { SearchParamsClientProps, SearchParamsProps } from './search-params.client.props';
+import { UrlParams } from './url-params';
 /**
  * Examples below
  */

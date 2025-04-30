@@ -1,29 +1,53 @@
 {
   "name": "@codelab/frontend-domain-action",
   "exports": {
-    ".": {
-      "development": "./src/index.ts",
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    },
     "./services": {
-      "development": "./src/services/index.ts",
-      "import": "./dist/services/index.js",
-      "types": "./dist/services/index.d.ts",
-      "default": "./dist/services/index.js"
+      "development": {
+        "types": "./src/services/index.ts",
+        "import": "./src/services/index.ts",
+        "require": "./src/services/index.ts"
+      },
+      "default": {
+        "types": "./dist/services/index.d.ts",
+        "import": "./dist/services/index.js",
+        "require": "./dist/services/index.js"
+      }
     },
     "./store": {
-      "development": "./src/store/index.ts",
-      "import": "./dist/store/index.js",
-      "types": "./dist/store/index.d.ts",
-      "default": "./dist/store/index.js"
+      "development": {
+        "types": "./src/store/index.ts",
+        "import": "./src/store/index.ts",
+        "require": "./src/store/index.ts"
+      },
+      "default": {
+        "types": "./dist/store/index.d.ts",
+        "import": "./dist/store/index.js",
+        "require": "./dist/store/index.js"
+      }
     },
     "./test": {
-      "development": "./src/test/index.ts",
-      "import": "./dist/test/index.js",
-      "types": "./dist/test/index.d.ts",
-      "default": "./dist/test/index.js"
+      "development": {
+        "types": "./src/test/index.ts",
+        "import": "./src/test/index.ts",
+        "require": "./src/test/index.ts"
+      },
+      "default": {
+        "types": "./dist/test/index.d.ts",
+        "import": "./dist/test/index.js",
+        "require": "./dist/test/index.js"
+      }
+    },
+    ".": {
+      "development": {
+        "types": "./src/index.ts",
+        "import": "./src/index.ts",
+        "require": "./src/index.ts"
+      },
+      "default": {
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js",
+        "require": "./dist/index.js"
+      }
     }
   },
   "devDependencies": {

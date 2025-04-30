@@ -4,11 +4,12 @@
     "emitDecoratorMetadata": true,
     "outDir": ""
   },
-  "files": [
-    "../../node_modules/@nx/react/typings/styled-jsx.d.ts",
-    "../../node_modules/@nx/react/typings/cssmodule.d.ts",
-    "../../node_modules/@nx/react/typings/image.d.ts"
+  "types": [
+    "@nx/react/typings/styled-jsx.d.ts",
+    "@nx/react/typings/cssmodule.d.ts",
+    "@nx/react/typings/image.d.ts"
   ],
+  "files": [],
   "exclude": [
     "src/**/*.spec.ts",
     "src/**/*.test.ts",

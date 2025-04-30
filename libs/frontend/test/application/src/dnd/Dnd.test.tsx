@@ -23,7 +23,7 @@ import { createRef } from 'react'
 
 import { COLLISION_ALGORITHM_SPACING, TestDndContext } from './TestDndContext'
 
-const dragElementOver = async (element: HTMLElement, dropPosiotion: Point) => {
+const dragElementOver = async (element: HTMLElement, dropPosition: Point) => {
   // Simulate mouse events for dragging and dropping
   const mouseDownEvent = new MouseEvent('pointerdown', { bubbles: true })
 
@@ -37,8 +37,8 @@ const dragElementOver = async (element: HTMLElement, dropPosiotion: Point) => {
 
   const mouseMoveEvent = new MouseEvent('pointermove', {
     bubbles: true,
-    clientX: dropPosiotion.x,
-    clientY: dropPosiotion.y,
+    clientX: dropPosition.x,
+    clientY: dropPosition.y,
   })
 
   await act(() => {

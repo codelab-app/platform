@@ -6,7 +6,6 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
     "module": "esnext",
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -16,11 +15,7 @@
         "name": "next"
       }
     ],
-    "types": [
-      "jest",
-      "node",
-      "styled-components"
-    ],
+    "types": ["jest", "node", "styled-components"],
     "allowJs": true
   },
   "include": [
@@ -32,12 +27,7 @@
     "tailwind.config.cjs",
     "next.config.mjs"
   ],
-  "exclude": [
-    "node_modules",
-    "jest.config.ts",
-    "**/*.spec.ts",
-    "**/*.test.ts"
-  ],
+  "exclude": ["node_modules", "jest.config.ts", "**/*.spec.ts", "**/*.test.ts"],
   "files": [],
   "references": [
     {

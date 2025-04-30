@@ -1,4 +1,4 @@
-import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 /**
  * Decouples router from services
  */

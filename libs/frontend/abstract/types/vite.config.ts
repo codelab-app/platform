@@ -26,6 +26,9 @@ const rawFilePlugin = (): Plugin => {
   }
 }
 
+/**
+ * Vite doesn't read from tsconfig.json to keep it fast since it doesn't need to read file system.
+ */
 export default defineConfig(() => ({
   root: __dirname,
   cacheDir: '../../../../node_modules/.vite/libs/frontend/abstract/types',
