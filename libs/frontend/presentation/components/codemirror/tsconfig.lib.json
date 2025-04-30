@@ -2,18 +2,15 @@
   "extends": "../../../../../tsconfig.build.base.json",
   "compilerOptions": {
     "outDir": "./dist",
+    "rootDir": "./src",
+    "importHelpers": true,
+    "allowJs": false,
     "types": [
       "node",
       "styled-components",
       "@nx/react/typings/cssmodule.d.ts",
       "@nx/react/typings/image.d.ts"
     ],
-    "jsx": "react-jsx",
-    "allowJs": false,
-    "esModuleInterop": false,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "rootDir": "./src",
     "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo"
   },
   "exclude": [

@@ -3,15 +3,10 @@
   "type": "module",
   "compilerOptions": {
     "outDir": "./dist",
-    "declaration": true,
-    "moduleResolution": "bundler",
-    "types": ["node"],
-    "forceConsistentCasingInFileNames": true,
-    "noImplicitOverride": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "noPropertyAccessFromIndexSignature": true,
     "rootDir": "./src",
+    "importHelpers": true,
+    "allowJs": false,
+    "types": ["node"],
     "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo"
   },
   "include": ["src/**/*.ts"],

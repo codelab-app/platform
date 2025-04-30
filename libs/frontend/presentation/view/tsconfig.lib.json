@@ -2,6 +2,9 @@
   "extends": "../../../../tsconfig.build.base.json",
   "compilerOptions": {
     "outDir": "./dist",
+    "rootDir": "./src",
+    "importHelpers": true,
+    "allowJs": false,
     "types": [
       "node",
       "worker-loader",
@@ -9,13 +12,6 @@
       "@nx/react/typings/cssmodule.d.ts",
       "@nx/react/typings/image.d.ts"
     ],
-    "jsx": "react-jsx",
-    "jsxImportSource": "react",
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "rootDir": "./src",
     "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo"
   },
   "exclude": ["**/*.spec.ts", "**/*.spec.tsx"],

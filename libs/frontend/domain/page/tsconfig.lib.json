@@ -1,18 +1,16 @@
 {
   "extends": "../../../../tsconfig.build.base.json",
   "compilerOptions": {
-    "outDir": "./dist",
+    // keep build output outside the library root to avoid watch loops
+    "outDir": "../../../../dist/libs/frontend/domain/page",
+    "rootDir": "./src",
+    "importHelpers": true,
+    "allowJs": false,
     "types": [
       "node",
       "@nx/react/typings/cssmodule.d.ts",
       "@nx/react/typings/image.d.ts"
     ],
-    "strict": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "jsx": "react-jsx",
-    "emitDecoratorMetadata": true,
-    "rootDir": "./src",
     "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo"
   },
   "exclude": ["**/*.spec.ts", "**/*.spec.tsx", "jest.config.ts"],

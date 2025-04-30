@@ -2,17 +2,14 @@
   "extends": "../../../../tsconfig.build.base.json",
   "compilerOptions": {
     "outDir": "./dist",
+    "rootDir": "./src",
+    "importHelpers": true,
+    "allowJs": false,
     "types": [
       "node",
       "@nx/react/typings/cssmodule.d.ts",
       "@nx/react/typings/image.d.ts"
     ],
-    "strict": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "jsx": "react-jsx",
-    "forceConsistentCasingInFileNames": true,
-    "rootDir": "./src",
     "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo"
   },
   "exclude": ["jest.config.ts"],

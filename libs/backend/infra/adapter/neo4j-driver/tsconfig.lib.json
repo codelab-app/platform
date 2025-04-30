@@ -2,14 +2,10 @@
   "extends": "../../../../../tsconfig.build.base.json",
   "compilerOptions": {
     "outDir": "./dist",
-    "declaration": true,
-    "types": ["node", "cypher"],
-    "forceConsistentCasingInFileNames": true,
-    "noImplicitOverride": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "noPropertyAccessFromIndexSignature": true,
     "rootDir": "./src",
+    "importHelpers": true,
+    "allowJs": false,
+    "types": ["node", "cypher"],
     "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo"
   },
   "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
