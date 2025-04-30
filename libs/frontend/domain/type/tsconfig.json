@@ -34,9 +34,6 @@
       "path": "../../abstract/domain"
     },
     {
-      "path": "./tsconfig.lib.json"
-    },
-    {
       "path": "./tsconfig.spec.json"
     }
   ]

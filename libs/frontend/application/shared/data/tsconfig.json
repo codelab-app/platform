@@ -7,9 +7,6 @@
     },
     {
       "path": "../../../abstract/types"
-    },
-    {
-      "path": "./tsconfig.lib.json"
     }
   ],
   "extends": "../../../../../tsconfig.base.json"

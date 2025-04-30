@@ -23,9 +23,6 @@
     },
     {
       "path": "../../../infra/gql-client"
-    },
-    {
-      "path": "./tsconfig.lib.json"
     }
   ]
 }

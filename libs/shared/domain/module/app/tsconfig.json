@@ -31,9 +31,6 @@
     },
     {
       "path": "../../../abstract/core"
-    },
-    {
-      "path": "./tsconfig.lib.json"
     }
   ],
   "extends": "../../../../../tsconfig.base.json"

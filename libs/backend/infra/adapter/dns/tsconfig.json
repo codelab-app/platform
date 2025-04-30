@@ -7,9 +7,6 @@
       "path": "../../../../shared/infra/typebox"
     },
     {
-      "path": "./tsconfig.lib.json"
-    },
-    {
       "path": "./tsconfig.spec.json"
     }
   ]

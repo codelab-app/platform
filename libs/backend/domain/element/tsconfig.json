@@ -37,9 +37,6 @@
       "path": "../atom"
     },
     {
-      "path": "./tsconfig.lib.json"
-    },
-    {
       "path": "./tsconfig.spec.json"
     }
   ]

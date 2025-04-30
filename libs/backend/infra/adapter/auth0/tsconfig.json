@@ -7,9 +7,6 @@
       "path": "../../../../shared/config/env"
     },
     {
-      "path": "./tsconfig.lib.json"
-    },
-    {
       "path": "./tsconfig.spec.json"
     }
   ]

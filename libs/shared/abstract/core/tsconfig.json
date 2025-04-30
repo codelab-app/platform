@@ -11,9 +11,6 @@
     },
     {
       "path": "../../infra/typebox"
-    },
-    {
-      "path": "./tsconfig.lib.json"
     }
   ]
 }

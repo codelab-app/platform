@@ -22,9 +22,6 @@
       "path": "../../domain/user"
     },
     {
-      "path": "./tsconfig.lib.json"
-    },
-    {
       "path": "./tsconfig.spec.json"
     }
   ]

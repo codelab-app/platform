@@ -45,9 +45,6 @@
       "path": "../../../abstract/types"
     },
     {
-      "path": "./tsconfig.lib.json"
-    },
-    {
       "path": "./tsconfig.spec.json"
     }
   ],

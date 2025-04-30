@@ -17,9 +17,6 @@
     },
     {
       "path": "../domain"
-    },
-    {
-      "path": "./tsconfig.lib.json"
     }
   ]
 }

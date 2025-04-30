@@ -16,9 +16,6 @@
     },
     {
       "path": "../../abstract/domain"
-    },
-    {
-      "path": "./tsconfig.lib.json"
     }
   ],
   "extends": "../../../../tsconfig.base.json"

@@ -13,9 +13,6 @@
       "path": "../../abstract/core"
     },
     {
-      "path": "./tsconfig.lib.json"
-    },
-    {
       "path": "./tsconfig.spec.json"
     }
   ]

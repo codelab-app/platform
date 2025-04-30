@@ -11,9 +11,6 @@
     },
     {
       "path": "../../abstract/core"
-    },
-    {
-      "path": "./tsconfig.lib.json"
     }
   ]
 }

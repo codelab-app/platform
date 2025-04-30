@@ -10,9 +10,6 @@
       "path": "../../abstract/infra"
     },
     {
-      "path": "./tsconfig.lib.json"
-    },
-    {
       "path": "./tsconfig.spec.json"
     }
   ]

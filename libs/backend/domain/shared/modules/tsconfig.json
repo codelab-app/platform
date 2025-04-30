@@ -8,9 +8,6 @@
     },
     {
       "path": "../auth"
-    },
-    {
-      "path": "./tsconfig.lib.json"
     }
   ]
 }

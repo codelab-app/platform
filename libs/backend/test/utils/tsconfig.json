@@ -17,9 +17,6 @@
     },
     {
       "path": "../../domain/shared/auth"
-    },
-    {
-      "path": "./tsconfig.lib.json"
     }
   ]
 }

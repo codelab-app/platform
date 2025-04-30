@@ -22,9 +22,6 @@
       "path": "../shared/modules"
     },
     {
-      "path": "./tsconfig.lib.json"
-    },
-    {
       "path": "./tsconfig.spec.json"
     }
   ]

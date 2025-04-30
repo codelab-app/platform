@@ -5,9 +5,6 @@
   "references": [
     {
       "path": "../../../shared/abstract/core"
-    },
-    {
-      "path": "./tsconfig.lib.json"
     }
   ]
 }

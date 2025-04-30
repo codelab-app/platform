@@ -6,9 +6,6 @@
       "path": "../atoms"
     },
     {
-      "path": "./tsconfig.lib.json"
-    },
-    {
       "path": "./tsconfig.spec.json"
     }
   ],

@@ -21,9 +21,6 @@
       "path": "../../presentation/components/form"
     },
     {
-      "path": "./tsconfig.lib.json"
-    },
-    {
       "path": "./tsconfig.spec.json"
     }
   ],
