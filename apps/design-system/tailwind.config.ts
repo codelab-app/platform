@@ -1,3 +1,5 @@
+import type { Config } from 'tailwindcss'
+
 import { createGlobPatternsForDependencies } from '@nx/react/tailwind'
 import { join } from 'path'
 
@@ -7,6 +9,10 @@ import rootTailwindConfig from '../../tailwind.config'
 const config: Config = {
   presets: [rootTailwindConfig],
   purge: [
+    join(__dirname, '../../libs/**/*.{js,ts,jsx,tsx}'),
+    ...createGlobPatternsForDependencies(__dirname),
+  ],
+  content: [
     join(__dirname, '../../libs/**/*.{js,ts,jsx,tsx}'),
     ...createGlobPatternsForDependencies(__dirname),
   ],

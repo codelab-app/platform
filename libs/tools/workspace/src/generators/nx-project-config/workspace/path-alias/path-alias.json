@@ -254,7 +254,7 @@
     "path": "libs/backend/infra/adapter/logger/src/index.ts",
     "name": "backend-infra-adapter-logger"
   },
-  "@codelab/backend/infra/adapter/middleware": {
+  "@codelab/backend-infra-adapter-middleware": {
     "expected": "@codelab/backend-infra-adapter-middleware",
     "path": "libs/backend/infra/adapter/middleware/src/index.ts",
     "name": "backend-infra-adapter-middleware"

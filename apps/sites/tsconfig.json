@@ -2,10 +2,17 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "jsx": "preserve",
-
     "emitDecoratorMetadata": false,
-    "lib": ["es2021", "DOM"],
-    "types": ["node", "worker-loader", "cypher", "styled-components"],
+    "lib": [
+      "es2021",
+      "DOM"
+    ],
+    "types": [
+      "node",
+      "worker-loader",
+      "cypher",
+      "styled-components"
+    ],
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": false,
@@ -19,7 +26,8 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "allowJs": true
   },
   "include": [
     "**/*.ts",

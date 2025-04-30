@@ -78,6 +78,7 @@ const nextConfig: WithNxOptions = {
     // your project has type errors.
     // !! WARN !!
     // ignoreBuildErrors: true,
+    tsconfigPath: './tsconfig.lib.json',
   },
   /**
    * https://nextjs.org/docs/app/building-your-application/routing/middleware#matching-paths
@@ -117,8 +118,8 @@ const nextConfig: WithNxOptions = {
 
     // Add custom condition names
     // Ensure resolve and conditionNames exist, initializing if necessary
-    config.resolve = config.resolve || {}
-    config.resolve.conditionNames = config.resolve.conditionNames || ['import']
+    // config.resolve = config.resolve || {}
+    // config.resolve.conditionNames = config.resolve.conditionNames || ['import']
 
     // Add your custom condition(s)
     // if (!config.resolve.conditionNames.includes('development')) {

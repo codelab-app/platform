@@ -1,47 +1,12 @@
 {
   "extends": "../../tsconfig.base.json",
-  "compilerOptions": {
-    "jsx": "preserve",
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "incremental": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
-    "types": [
-      "node",
-      "worker-loader",
-      "cypher",
-      "styled-components",
-      "uniforms"
-    ],
-    "noEmit": false,
-    "module": "esnext",
-    "allowJs": true
-  },
-  "include": [
-    "**/*.graphql",
-    "**/*.ts",
-    "**/*.tsx",
-    "index.d.ts",
-    "next-env.d.ts",
-    "next.config.ts",
-    ".next/types/**/*.ts"
-  ],
+  // https://github.com/vercel/next.js/issues/75699
+  "compilerOptions": {},
+  "files": [],
+  "include": [],
   "references": [
     {
-      "path": "./tsconfig.lib.json"
-    },
-    {
-      "path": "./tsconfig.spec.json"
+      "path": "./tsconfig.dev.json"
     }
   ]
 }
