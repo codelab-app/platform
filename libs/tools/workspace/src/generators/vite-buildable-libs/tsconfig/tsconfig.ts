@@ -73,12 +73,9 @@ export const updateTsConfig = (
     }
   }
 
-  if (!tsconfigJson.compilerOptions) {
-    tsconfigJson.compilerOptions = {}
-  }
-
-  if (tsconfigJson.compilerOptions.noEmit !== true) {
-    tsconfigJson.compilerOptions.noEmit = true
+  // Check if compilerOptions exists and remove it
+  if (tsconfigJson.compilerOptions) {
+    delete tsconfigJson.compilerOptions
     updated = true
   }
 

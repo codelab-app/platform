@@ -1,3 +1,4 @@
+/* eslint-disable canonical/sort-keys */
 import type { ProjectConfiguration, Tree } from '@nx/devkit'
 import type { TsConfigJson } from 'type-fest'
 
@@ -22,29 +23,15 @@ export const createTsConfigDev = (
   const tsconfigLibPath = './tsconfig.lib.json'
 
   const tsconfigDevJson: TsConfigJson = {
+    extends: tsconfigLibPath,
     compilerOptions: {
       // Development specific overrides can go here if needed in the future.
       // For now, primarily inheriting from tsconfig.lib.json.
       // Ensure composite is false or removed if not needed for dev context specifically.
       // It's often true in the base build config (tsconfig.lib.json might inherit it).
     },
-    exclude: [
-      // Exclude test files from the primary dev context if desired
-      '**/*.spec.ts',
-      '**/*.test.ts',
-      '**/*.spec.tsx',
-      '**/*.test.tsx',
-    ],
-    extends: tsconfigLibPath,
-    include: [
-      // Files needed for development context (IDE, dev server)
-      'src/**/*.ts',
-      // Include if JSX/React is used
-      'src/**/*.tsx',
-      // Include Vite config for type checking
-      'vite.config.ts',
-      // Add other dev-specific includes if necessary
-    ],
+    exclude: ['**/*.spec.ts', '**/*.test.ts', '**/*.spec.tsx', '**/*.test.tsx'],
+    include: ['src/**/*.ts', 'src/**/*.tsx', 'vite.config.ts'],
   }
 
   // Remove the file if it exists to ensure a clean state, or update carefully

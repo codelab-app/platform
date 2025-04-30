@@ -1,11 +1,12 @@
 {
   "extends": "../../../../tsconfig.build.base.json",
   "compilerOptions": {
-    // keep build output outside the library root to avoid watch loops
-    "outDir": "../../../../dist/libs/frontend/domain/page",
+    "outDir": "./dist",
     "rootDir": "./src",
     "importHelpers": true,
-    "allowJs": false
+    "allowJs": false,
+    "types": [],
+    "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo"
   },
   "exclude": ["**/*.spec.ts", "**/*.spec.tsx", "jest.config.ts"],
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.graphql"],
