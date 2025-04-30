@@ -11,9 +11,6 @@
     },
     {
       "path": "../abstract/types"
-    },
-    {
-      "path": "./tsconfig.spec.json"
     }
   ]
 }

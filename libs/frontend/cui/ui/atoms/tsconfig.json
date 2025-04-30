@@ -4,9 +4,6 @@
   "references": [
     {
       "path": "../../utils"
-    },
-    {
-      "path": "./tsconfig.spec.json"
     }
   ],
   "extends": "../../../../../tsconfig.base.json"

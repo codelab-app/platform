@@ -35,9 +35,6 @@
     },
     {
       "path": "../../domain/domain"
-    },
-    {
-      "path": "./tsconfig.spec.json"
     }
   ]
 }

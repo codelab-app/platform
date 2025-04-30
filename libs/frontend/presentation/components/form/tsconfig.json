@@ -43,9 +43,6 @@
     },
     {
       "path": "../../../abstract/types"
-    },
-    {
-      "path": "./tsconfig.spec.json"
     }
   ],
   "extends": "../../../../../tsconfig.base.json"

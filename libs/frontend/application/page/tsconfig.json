@@ -77,9 +77,6 @@
     },
     {
       "path": "../../abstract/application"
-    },
-    {
-      "path": "./tsconfig.spec.json"
     }
   ]
 }

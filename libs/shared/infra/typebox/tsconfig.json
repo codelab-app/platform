@@ -8,9 +8,6 @@
     },
     {
       "path": "../../abstract/infra"
-    },
-    {
-      "path": "./tsconfig.spec.json"
     }
   ]
 }

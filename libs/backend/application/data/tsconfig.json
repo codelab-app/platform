@@ -20,9 +20,6 @@
     },
     {
       "path": "../../domain/shared/auth"
-    },
-    {
-      "path": "./tsconfig.spec.json"
     }
   ]
 }

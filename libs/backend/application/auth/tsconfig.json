@@ -20,9 +20,6 @@
     },
     {
       "path": "../../domain/user"
-    },
-    {
-      "path": "./tsconfig.spec.json"
     }
   ]
 }

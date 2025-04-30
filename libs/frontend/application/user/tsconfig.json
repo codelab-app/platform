@@ -25,9 +25,6 @@
     },
     {
       "path": "../../abstract/domain"
-    },
-    {
-      "path": "./tsconfig.spec.json"
     }
   ],
   "extends": "../../../../tsconfig.base.json"

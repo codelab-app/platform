@@ -100,6 +100,7 @@ export default defineConfig(() => ({
     lib: {
       // Could also be a dictionary or array of multiple entry points.
       entry: {
+        index: 'src/index.ts',
         loading: 'src/loading/index.ts',
         pagination: 'src/pagination/index.ts',
         router: 'src/router/index.ts',

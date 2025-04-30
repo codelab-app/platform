@@ -29,9 +29,6 @@
     },
     {
       "path": "../../domain/redirect"
-    },
-    {
-      "path": "./tsconfig.spec.json"
     }
   ]
 }

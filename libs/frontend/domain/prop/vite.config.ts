@@ -99,6 +99,7 @@ export default defineConfig(() => ({
     lib: {
       // Could also be a dictionary or array of multiple entry points.
       entry: {
+        index: 'src/index.ts',
         repositories: 'src/repositories/index.ts',
         store: 'src/store/index.ts',
         test: 'src/test/index.ts',

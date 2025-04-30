@@ -20,9 +20,6 @@
     },
     {
       "path": "../shared/modules"
-    },
-    {
-      "path": "./tsconfig.spec.json"
     }
   ]
 }

@@ -17,9 +17,6 @@
     },
     {
       "path": "../shell"
-    },
-    {
-      "path": "./tsconfig.spec.json"
     }
   ]
 }

@@ -26,9 +26,6 @@
     },
     {
       "path": "../../shared/utils"
-    },
-    {
-      "path": "./tsconfig.spec.json"
     }
   ]
 }

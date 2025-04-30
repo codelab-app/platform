@@ -22,9 +22,6 @@
     },
     {
       "path": "../../../abstract/application"
-    },
-    {
-      "path": "./tsconfig.spec.json"
     }
   ],
   "extends": "../../../../../tsconfig.base.json"

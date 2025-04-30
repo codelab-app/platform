@@ -5,9 +5,6 @@
   "references": [
     {
       "path": "../../../../shared/config/env"
-    },
-    {
-      "path": "./tsconfig.spec.json"
     }
   ]
 }

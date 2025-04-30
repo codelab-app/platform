@@ -71,14 +71,9 @@ export const getEntryFromProject = (
   const entry: Record<string, string> = {}
   const indexPath = joinPathFragments(projectRoot, 'src/index.ts')
 
-  //
-  // Check if src/index.ts exists and is not empty before adding it as the default entry
+  // Check if src/index.ts exists before adding it as the default entry
   if (tree.exists(indexPath)) {
-    const indexContent = tree.read(indexPath, 'utf-8')?.trim()
-
-    if (indexContent && indexContent !== '') {
-      entry['index'] = 'src/index.ts'
-    }
+    entry['index'] = 'src/index.ts'
   }
 
   // Get entries from exports field

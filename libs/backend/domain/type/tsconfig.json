@@ -41,9 +41,6 @@
     },
     {
       "path": "../../../shared/abstract/core"
-    },
-    {
-      "path": "./tsconfig.spec.json"
     }
   ]
 }

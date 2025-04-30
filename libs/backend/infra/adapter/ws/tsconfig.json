@@ -8,9 +8,6 @@
     },
     {
       "path": "../logger"
-    },
-    {
-      "path": "./tsconfig.spec.json"
     }
   ]
 }

@@ -26,9 +26,6 @@
     },
     {
       "path": "../prop"
-    },
-    {
-      "path": "./tsconfig.spec.json"
     }
   ]
 }

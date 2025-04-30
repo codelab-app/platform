@@ -19,9 +19,6 @@
     },
     {
       "path": "../../presentation/components/form"
-    },
-    {
-      "path": "./tsconfig.spec.json"
     }
   ],
   "extends": "../../../../tsconfig.base.json"

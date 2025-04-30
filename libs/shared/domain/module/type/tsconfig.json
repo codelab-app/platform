@@ -26,9 +26,6 @@
     },
     {
       "path": "../../../infra/gqlgen"
-    },
-    {
-      "path": "./tsconfig.spec.json"
     }
   ]
 }
