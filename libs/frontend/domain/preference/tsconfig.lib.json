@@ -5,7 +5,6 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "importHelpers": true,
-    "allowJs": false,
     "types": [
       "@nx/react/typings/cssmodule.d.ts",
       "@nx/react/typings/image.d.ts"
@@ -23,27 +22,5 @@
     "**/*.stories.tsx"
   ],
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "references": [
-    {
-      "path": "../../../shared/config/builder/tsconfig.lib.json"
-    },
-    {
-      "path": "../../abstract/domain/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../shared/domain/module/preference/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../shared/infra/typebox/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../shared/abstract/core/tsconfig.lib.json"
-    },
-    {
-      "path": "../shared/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../shared/infra/gqlgen/tsconfig.lib.json"
-    }
-  ]
+  "references": []
 }

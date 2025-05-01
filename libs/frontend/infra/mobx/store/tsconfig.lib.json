@@ -5,7 +5,6 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "importHelpers": true,
-    "allowJs": false,
     "types": [
       "@nx/react/typings/cssmodule.d.ts",
       "@nx/react/typings/image.d.ts"
@@ -23,84 +22,5 @@
     "**/*.stories.tsx"
   ],
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "references": [
-    {
-      "path": "../../../../shared/infra/typebox/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../../shared/config/env/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../domain/prop/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../test/data/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../../shared/abstract/types/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../domain/user/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../domain/type/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../domain/tag/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../domain/store/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../domain/resource/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../domain/redirect/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../domain/page/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../domain/element/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../domain/domain/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../domain/component/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../domain/auth-guard/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../domain/atom/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../domain/app/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../domain/action/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../../shared/abstract/core/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../application/shared/store/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../application/renderer/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../application/builder/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../abstract/domain/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../abstract/application/tsconfig.lib.json"
-    },
-    {
-      "path": "../context/tsconfig.lib.json"
-    }
-  ]
+  "references": []
 }

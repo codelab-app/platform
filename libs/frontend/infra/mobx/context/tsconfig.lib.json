@@ -5,7 +5,6 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "importHelpers": true,
-    "allowJs": false,
     "types": [
       "@nx/react/typings/cssmodule.d.ts",
       "@nx/react/typings/image.d.ts"
@@ -23,12 +22,5 @@
     "**/*.stories.tsx"
   ],
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "references": [
-    {
-      "path": "../../../abstract/domain/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../abstract/application/tsconfig.lib.json"
-    }
-  ]
+  "references": []
 }

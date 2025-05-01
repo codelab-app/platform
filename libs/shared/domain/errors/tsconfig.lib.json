@@ -1,17 +1,23 @@
 {
   "extends": "../../../../tsconfig.build.base.json",
   "compilerOptions": {
+    "jsx": "react-jsx",
     "outDir": "./dist",
     "rootDir": "./src",
     "importHelpers": true,
-    "allowJs": false,
-    "types": ["node"],
-    "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo"
+    "types": []
   },
-  "include": ["src/**/*.ts"],
-  "references": [
-    {
-      "path": "../../abstract/types/tsconfig.lib.json"
-    }
-  ]
+  "exclude": [
+    "jest.config.ts",
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts",
+    "src/**/*.spec.tsx",
+    "src/**/*.test.tsx",
+    "**/*.stories.ts",
+    "**/*.stories.js",
+    "**/*.stories.jsx",
+    "**/*.stories.tsx"
+  ],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "references": []
 }
