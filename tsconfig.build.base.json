@@ -22,6 +22,8 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
 
+    "noEmit": false,
+
     // ---------- 6. Ambient types required at runtime ----------
     "types": [
       "node",

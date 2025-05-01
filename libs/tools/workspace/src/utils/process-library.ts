@@ -16,6 +16,11 @@ export const processLibrary = <
     tree: Tree,
     projectConfig: ProjectConfiguration,
   ) => Promise<void> | void,
+  // Optional callback to execute if the project should not be processed
+  elseCallback?: (
+    tree: Tree,
+    projectConfig: ProjectConfiguration,
+  ) => Promise<void> | void,
 ) => {
   return async (tree: Tree, options: T): Promise<void> => {
     const projects = getProjects(tree)
@@ -34,6 +39,11 @@ export const processLibrary = <
       // Check if the project should be processed based on the provided logic
       if (!shouldProcessProject(projectConfig)) {
         console.log('Skipping project:', projectConfig.name)
+
+        if (elseCallback) {
+          await Promise.resolve(elseCallback(tree, projectConfig))
+        }
+
         continue
       }
 

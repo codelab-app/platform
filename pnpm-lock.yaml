@@ -49,9 +49,6 @@ importers:
       '@codelab/tools-workspace':
         specifier: workspace:*
         version: link:libs/tools/workspace
-      '@codelab/tsc-check':
-        specifier: file:libs/tools/tsc-check/dist
-        version: dist@file:libs/tools/tsc-check/dist
       '@codemirror/autocomplete':
         specifier: 6.12.0
         version: 6.12.0(@codemirror/language@6.10.1)(@codemirror/state@6.4.1)(@codemirror/view@6.24.1)(@lezer/common@1.2.3)
@@ -14130,9 +14127,6 @@ packages:
   dir-glob@3.0.1:
     resolution: {integrity: sha512-WkrWp9GR4KXfKGYzOLmTuGVi1UWFfws377n9cc55/tb6DuqyF6pcQ5AbiHEshaDpY9v6oaSr2XCDidGmMwdzIA==}
     engines: {node: '>=8'}
-
-  dist@file:libs/tools/tsc-check/dist:
-    resolution: {directory: libs/tools/tsc-check/dist, type: directory}
 
   dlv@1.1.3:
     resolution: {integrity: sha512-+HlytyjlPKnIG8XuRG8WvmBP8xs8P71y+SKKS6ZXWoEgLuePxtDoUEiH7WkdePWrQ5JBpE6aoVqfZfJUQkjXwA==}
@@ -32414,8 +32408,6 @@ snapshots:
   dir-glob@3.0.1:
     dependencies:
       path-type: 4.0.0
-
-  dist@file:libs/tools/tsc-check/dist: {}
 
   dlv@1.1.3: {}
 

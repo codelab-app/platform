@@ -23,5 +23,27 @@
     "**/*.stories.tsx"
   ],
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "references": []
+  "references": [
+    {
+      "path": "../../../infra/mobx/context/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../../shared/infra/gqlgen/tsconfig.lib.json"
+    },
+    {
+      "path": "../codemirror/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../application/shared/store/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../application/element/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../abstract/domain/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../abstract/application/tsconfig.lib.json"
+    }
+  ]
 }

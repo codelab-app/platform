@@ -23,5 +23,36 @@
     "**/*.stories.tsx"
   ],
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "references": []
+  "references": [
+    {
+      "path": "../shared/tsconfig.lib.json"
+    },
+    {
+      "path": "../tag/tsconfig.lib.json"
+    },
+    {
+      "path": "../../shared/utils/tsconfig.lib.json"
+    },
+    {
+      "path": "../../abstract/types/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/domain/module/atom/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/infra/typebox/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/infra/gqlgen/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/abstract/types/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/abstract/core/tsconfig.lib.json"
+    },
+    {
+      "path": "../../abstract/domain/tsconfig.lib.json"
+    }
+  ]
 }

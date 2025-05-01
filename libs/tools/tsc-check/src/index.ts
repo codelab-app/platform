@@ -32,7 +32,9 @@ const createNodesInternal = async (
     existsSync(join(projectRoot, 'project.json')) ||
     existsSync(join(projectRoot, 'package.json'))
 
-  if (!isProject) {
+  const hasSwc = existsSync(join(projectRoot, '.swcrc'))
+
+  if (!isProject || !hasSwc) {
     return {}
   }
 
@@ -40,10 +42,20 @@ const createNodesInternal = async (
     projects: {
       [projectRoot]: {
         targets: {
-          'tsc-check': {
-            cache: true,
-            command: `tsc -p ${configFilePath}`,
+          build: {
+            executor: '@nx/js:swc',
+            options: {
+              assets: [`${projectRoot}/**/*.md`],
+              main: `${projectRoot}/src/index.ts`,
+              outputPath: `dist/${projectRoot}`,
+              tsConfig: `${projectRoot}/tsconfig.lib.json`,
+            },
+            outputs: ['{options.outputPath}'],
           },
+          // 'tsc-check': {
+          //   cache: true,
+          //   command: `tsc -p ${configFilePath}`,
+          // },
         },
       },
     },

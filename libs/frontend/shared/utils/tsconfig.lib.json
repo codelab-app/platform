@@ -23,5 +23,18 @@
     "**/*.stories.tsx"
   ],
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "references": []
+  "references": [
+    {
+      "path": "../../abstract/types/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/config/env/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/utils/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/abstract/types/tsconfig.lib.json"
+    }
+  ]
 }

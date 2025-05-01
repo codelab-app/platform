@@ -60,6 +60,10 @@
         "serveTargetName": "serve",
         "serveStaticTargetName": "serve-static"
       }
+    },
+    // Last one takes precedence
+    {
+      "plugin": "@codelab/tools-workspace/plugin/react"
     }
   ],
   "targetDefaults": {

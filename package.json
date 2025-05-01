@@ -59,7 +59,6 @@
     "@codelab-codegen/typescript-server-fetch": "workspace:*",
     "@codelab/eslint-plugin": "workspace:*",
     "@codelab/tools-workspace": "workspace:*",
-    "@codelab/tsc-check": "file:libs/tools/tsc-check/dist",
     "@codemirror/autocomplete": "6.12.0",
     "@codemirror/commands": "6.3.3",
     "@codemirror/lang-css": "6.2.1",

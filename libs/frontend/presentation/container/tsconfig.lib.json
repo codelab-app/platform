@@ -23,5 +23,15 @@
     "**/*.stories.tsx"
   ],
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "references": []
+  "references": [
+    {
+      "path": "../../infra/mobx/context/tsconfig.lib.json"
+    },
+    {
+      "path": "../../abstract/application/tsconfig.lib.json"
+    },
+    {
+      "path": "../../abstract/domain/tsconfig.lib.json"
+    }
+  ]
 }

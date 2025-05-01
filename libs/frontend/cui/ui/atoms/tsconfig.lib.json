@@ -23,5 +23,9 @@
     "**/*.stories.tsx"
   ],
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "references": []
+  "references": [
+    {
+      "path": "../../utils/tsconfig.lib.json"
+    }
+  ]
 }

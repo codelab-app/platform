@@ -7,7 +7,8 @@
       "types": "./dist/src/index.d.ts",
       "default": "./dist/src/index.js"
     },
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./plugin/react": "./src/plugins/react/index.ts"
   },
   "generators": "./dist/generators.json",
   "executors": "./dist/executors.json",

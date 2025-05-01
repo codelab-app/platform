@@ -23,5 +23,24 @@
     "**/*.stories.tsx"
   ],
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "references": []
+  "references": [
+    {
+      "path": "../../abstract/types/tsconfig.lib.json"
+    },
+    {
+      "path": "../../presentation/codelab-ui/tsconfig.lib.json"
+    },
+    {
+      "path": "../../presentation/view/tsconfig.lib.json"
+    },
+    {
+      "path": "../../abstract/domain/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/abstract/core/tsconfig.lib.json"
+    },
+    {
+      "path": "../../presentation/components/form/tsconfig.lib.json"
+    }
+  ]
 }
