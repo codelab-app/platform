@@ -55,7 +55,7 @@ export const CuiNavigationBar = ({
   return (
     <div
       className={classNames(
-        styles.cuiNavigationBar,
+        styles['cuiNavigationBar'],
         `
           box-border
           flex

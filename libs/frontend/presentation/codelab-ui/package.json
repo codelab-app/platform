@@ -14,10 +14,14 @@
       }
     }
   },
+  "dependencies": {
+    "antd": "*",
+    "remeda": "*"
+  },
   "devDependencies": {
+    "@codelab/frontend-abstract-application": "workspace:*",
     "@codelab/frontend-abstract-types": "workspace:*",
-    "@codelab/frontend-application-shared-data": "workspace:*",
-    "@codelab/frontend-abstract-application": "workspace:*"
+    "@codelab/frontend-application-shared-data": "workspace:*"
   },
   "nx": {
     "name": "frontend-presentation-codelab-ui",

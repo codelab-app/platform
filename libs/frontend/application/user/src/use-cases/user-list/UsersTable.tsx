@@ -46,7 +46,7 @@ export const UsersTable = ({ users }: UserTableProps) => {
       key: 'action',
       render: (text, record) => {
         return (
-          <Button danger onClick={() => onDeleteUser(record.id)}>
+          <Button danger onClick={() => onDeleteUser(record['id'])}>
             Delete
           </Button>
         )

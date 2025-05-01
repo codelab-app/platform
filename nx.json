@@ -24,6 +24,7 @@
       "plugin": "@nx/eslint/plugin",
       "options": {
         "targetName": "lint"
+        // "extensions": ["ts", "tsx", "js", "jsx", "graphql"]
       }
     },
     {
@@ -63,11 +64,11 @@
         "serveTargetName": "serve",
         "serveStaticTargetName": "serve-static"
       }
-    },
-    // Last one takes precedence
-    {
-      "plugin": "@codelab/tools-workspace/plugin/react"
     }
+    // Last one takes precedence
+    // {
+    //   "plugin": "@codelab/tools-workspace/plugin/react"
+    // }
   ],
   "targetDefaults": {
     "build": {
@@ -162,8 +163,12 @@
       }
     },
     "@nx/eslint:lint": {
-      "inputs": ["default", "{workspaceRoot}/.eslintrc.json"],
       "cache": true,
+      "inputs": [
+        "default",
+        "{workspaceRoot}/.eslintrc.json",
+        "{projectRoot}/.eslintrc.json"
+      ],
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["{projectRoot}/**/*.{ts,tsx,js,jsx}"]

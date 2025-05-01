@@ -42,13 +42,13 @@ export const CuiSearchBar = ({
   return (
     <div
       className={classNames(
-        Style.cuiSearchBar,
+        Style['cuiSearchBar'],
         'w-full border-0 border-b border-solid border-gray-300',
       )}
     >
       <Input
         className="border"
-        onChange={(event) => {
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
           handleChange(event.target.value)
         }}
         placeholder="Search"

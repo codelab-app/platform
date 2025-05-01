@@ -21,7 +21,7 @@
     "lib": ["ES2021", "DOM"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "noEmit": true,
+    "noEmit": false,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "plugins": [

@@ -18,7 +18,7 @@ export const CuiSidebarLayout = ({
 }: CuiSidebarLayoutProps) => {
   return (
     <div
-      className={classNames(styles.cuiSidebar, 'h-full flex flex-col')}
+      className={classNames(styles['cuiSidebar'], 'h-full flex flex-col')}
       data-testid={CuiTestId.cuiSidebar(uiKey)}
       ref={popoverAnchorRef}
     >

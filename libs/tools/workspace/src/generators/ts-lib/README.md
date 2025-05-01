@@ -1,1 +1,2 @@
-shared typescript code to be used by both React and Node.js
+- shared typescript code to be used by both React and Node.js
+- cannot set `rootDir` if we're using composite, let it infer

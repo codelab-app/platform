@@ -1,11 +1,8 @@
 {
   "extends": "../../../../../tsconfig.build.base.json",
   "compilerOptions": {
-    "jsx": "react-jsx",
-    "outDir": "./dist/out-tsc",
-    "rootDir": "./src",
-    "importHelpers": true,
-    "types": []
+    "outDir": "./dist",
+    "types": ["node"]
   },
   "exclude": [
     "jest.config.ts",

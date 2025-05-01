@@ -1,15 +1,11 @@
 {
-  "extends": [
-    "plugin:@nx/react",
-    "plugin:@codelab/recommended",
-    "../../../../.eslintrc.json"
-  ],
+  "extends": ["plugin:@nx/react", "../../../../.eslintrc.json"],
   "ignorePatterns": ["!**/*"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "parserOptions": {
-        "project": ["libs/frontend/application/admin/tsconfig.*?.json"]
+        "project": ["libs/frontend/application/admin/tsconfig.eslint.json"]
       },
       "rules": {}
     },

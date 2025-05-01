@@ -4794,6 +4794,13 @@ importers:
         version: link:../../../../shared/infra/typebox
 
   libs/frontend/presentation/codelab-ui:
+    dependencies:
+      antd:
+        specifier: '*'
+        version: 5.24.5(date-fns@2.30.0)(luxon@3.6.1)(moment@2.30.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      remeda:
+        specifier: '*'
+        version: 2.17.4
     devDependencies:
       '@codelab/frontend-abstract-application':
         specifier: workspace:*

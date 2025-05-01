@@ -1,11 +1,11 @@
 {
-  "extends": ["plugin:@nx/react", "../../../../.eslintrc.json"],
+  "extends": ["plugin:@nx/react"],
   "ignorePatterns": ["!**/*"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "parserOptions": {
-        "project": ["libs/frontend/presentation/view/tsconfig.*?.json"]
+        "project": ["libs/frontend/presentation/view/tsconfig.eslint.json"]
       },
       "rules": {
         "react/jsx-props-no-spreading": "off"

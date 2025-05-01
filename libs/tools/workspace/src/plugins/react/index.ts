@@ -60,7 +60,7 @@ const createNodesInternal = async (
             options: {
               assets: [`${projectRoot}/**/*.md`],
               main: `${projectRoot}/src/index.ts`,
-              outputPath: `dist/${projectRoot}`,
+              outputPath: `${projectRoot}/dist`,
               tsConfig: `${projectRoot}/tsconfig.lib.json`,
             },
             outputs: ['{options.outputPath}'],

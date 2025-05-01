@@ -89,7 +89,7 @@ export const CuiTree = observer(
     return (
       <div
         className={classNames(
-          styles.cuiTree,
+          styles['cui-tree'],
           'h-full overflow-hidden flex flex-col',
         )}
         data-testid={CuiTestId.cuiTree()}
