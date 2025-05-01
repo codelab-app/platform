@@ -2,7 +2,7 @@
   "extends": "<%= offsetFromRoot %>tsconfig.build.base.json",
   "compilerOptions": {
     "jsx": "react-jsx",
-    "outDir": "<%= offsetFromRoot %>dist/out-tsc",
+    "outDir": "./dist/out-tsc",
     "rootDir": "./src",
     "importHelpers": true,
     "types": [
