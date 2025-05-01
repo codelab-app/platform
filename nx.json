@@ -2,6 +2,9 @@
   "defaultBase": "master",
   "maxCacheSize": "8GB",
   "nxCloudId": "67fcdb6b7eeb2ddcc348061b",
+  "sync": {
+    "applyChanges": true
+  },
   "plugins": [
     {
       "plugin": "@nx/js/typescript",

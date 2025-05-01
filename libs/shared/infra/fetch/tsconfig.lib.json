@@ -3,6 +3,7 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "outDir": "../../../../dist/out-tsc",
+    "rootDir": "./src",
     "importHelpers": true,
     "types": []
   },
@@ -18,5 +19,9 @@
     "**/*.stories.tsx"
   ],
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "references": []
+  "references": [
+    {
+      "path": "../../abstract/types/tsconfig.lib.json"
+    }
+  ]
 }

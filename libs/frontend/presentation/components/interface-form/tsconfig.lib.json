@@ -3,6 +3,7 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "outDir": "../../../../../dist/out-tsc",
+    "rootDir": "./src",
     "importHelpers": true,
     "types": [
       "@nx/react/typings/cssmodule.d.ts",
@@ -21,5 +22,72 @@
     "**/*.stories.tsx"
   ],
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "references": []
+  "references": [
+    {
+      "path": "../codemirror/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../domain/shared/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../../shared/infra/typebox/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/utils/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../application/resource/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../domain/page/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../domain/element/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../../shared/infra/gqlgen/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../domain/type/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../domain/auth-guard/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../domain/app/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../abstract/application/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../abstract/types/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../../shared/abstract/types/tsconfig.lib.json"
+    },
+    {
+      "path": "../form/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../../shared/domain/module/app/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../../shared/data/test/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../../shared/data/seed/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../infra/mobx/context/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../infra/context/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../abstract/domain/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../../shared/abstract/core/tsconfig.lib.json"
+    }
+  ]
 }

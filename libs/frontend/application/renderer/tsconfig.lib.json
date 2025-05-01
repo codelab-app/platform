@@ -3,6 +3,7 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "outDir": "../../../../dist/out-tsc",
+    "rootDir": "./src",
     "importHelpers": true,
     "types": [
       "@nx/react/typings/cssmodule.d.ts",
@@ -21,5 +22,54 @@
     "**/*.stories.tsx"
   ],
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "references": []
+  "references": [
+    {
+      "path": "../../../shared/config/builder/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/infra/eval/tsconfig.lib.json"
+    },
+    {
+      "path": "../element/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/utils/tsconfig.lib.json"
+    },
+    {
+      "path": "../../presentation/components/codemirror/tsconfig.lib.json"
+    },
+    {
+      "path": "../../infra/mobx/context/tsconfig.lib.json"
+    },
+    {
+      "path": "../shared/store/tsconfig.lib.json"
+    },
+    {
+      "path": "../prop/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/abstract/types/tsconfig.lib.json"
+    },
+    {
+      "path": "../../abstract/application/tsconfig.lib.json"
+    },
+    {
+      "path": "../../presentation/components/lexical/tsconfig.lib.json"
+    },
+    {
+      "path": "../../domain/prop/tsconfig.lib.json"
+    },
+    {
+      "path": "../atom/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../shared/abstract/core/tsconfig.lib.json"
+    },
+    {
+      "path": "../../shared/utils/tsconfig.lib.json"
+    },
+    {
+      "path": "../../abstract/domain/tsconfig.lib.json"
+    }
+  ]
 }

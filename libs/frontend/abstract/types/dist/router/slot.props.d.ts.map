@@ -1,1 +1,0 @@
-{"version":3,"file":"slot.props.d.ts","sourceRoot":"","sources":["../../src/router/slot.props.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,SAAS,EAAE,MAAM,OAAO,CAAA;AAEtC,OAAO,KAAK,EAAE,cAAc,EAAE,MAAM,gBAAgB,CAAA;AAIpD,MAAM,MAAM,SAAS,CAAC,OAAO,SAAS,MAAM,cAAc,GAAG,KAAK,IAAI;KACnE,CAAC,IAAI,OAAO,GAAG,SAAS;CAC1B,CAAA"}
