@@ -12,15 +12,13 @@ export const processLibrary = <
   T extends { projectName?: string; skipFormatting?: boolean },
 >(
   shouldProcessProject: (projectConfig: ProjectConfiguration) => boolean,
-  callback: (
-    tree: Tree,
-    projectConfig: ProjectConfiguration,
-  ) => Promise<void> | void,
+  callback: Array<
+    (tree: Tree, projectConfig: ProjectConfiguration) => Promise<void> | void
+  >,
   // Optional callback to execute if the project should not be processed
-  elseCallback?: (
-    tree: Tree,
-    projectConfig: ProjectConfiguration,
-  ) => Promise<void> | void,
+  elseCallback?: Array<
+    (tree: Tree, projectConfig: ProjectConfiguration) => Promise<void> | void
+  >,
 ) => {
   return async (tree: Tree, options: T): Promise<void> => {
     const projects = getProjects(tree)
@@ -41,14 +39,18 @@ export const processLibrary = <
         console.log('Skipping project:', projectConfig.name)
 
         if (elseCallback) {
-          await Promise.resolve(elseCallback(tree, projectConfig))
+          for (const cb of elseCallback) {
+            await Promise.resolve(cb(tree, projectConfig))
+          }
         }
 
         continue
       }
 
-      // Execute the callback with the project configuration
-      await Promise.resolve(callback(tree, projectConfig))
+      // Execute the callback(s) with the project configuration
+      for (const cb of callback) {
+        await Promise.resolve(cb(tree, projectConfig))
+      }
     }
 
     // Format files unless explicitly skipped

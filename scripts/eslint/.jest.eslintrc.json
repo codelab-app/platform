@@ -1,4 +1,7 @@
 {
+  "env": {
+    "jest/globals": true
+  },
   "overrides": [
     {
       // "plugins": ["plugin:jest/recommended", "plugin:jest/style"],

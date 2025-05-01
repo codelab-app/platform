@@ -23,5 +23,5 @@ export const processTsLib = processLibrary(
   (projectConfig: ProjectConfiguration): boolean => {
     return Boolean(projectConfig.sourceRoot?.startsWith('libs/shared'))
   },
-  tsLibGenerator,
+  [tsLibGenerator],
 )

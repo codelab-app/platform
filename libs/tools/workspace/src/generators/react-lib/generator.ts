@@ -8,6 +8,7 @@ import { generateSwcFiles } from './swc/swc'
 import { generateTsconfigFiles } from './tsconfig/tsconfig'
 import { removeViteFiles } from './vite/remove-vite'
 import { generateViteFiles } from './vite/vite'
+import { eslintLibGenerator } from '../eslint-lib/generator'
 
 /**
  * Use `swc` instead of `vite` since we don't need bundling or dev server
@@ -36,6 +37,6 @@ export const processReactLib = processLibrary(
   (projectConfig: ProjectConfiguration): boolean => {
     return Boolean(projectConfig.sourceRoot?.startsWith('libs/frontend'))
   },
-  reactLibGenerator,
-  notReactLibGenerator,
+  [reactLibGenerator, eslintLibGenerator],
+  [notReactLibGenerator],
 )

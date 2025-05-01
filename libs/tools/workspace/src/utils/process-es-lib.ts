@@ -22,9 +22,8 @@ const shouldProcessEsProject = (
  * @param callback Function to execute for each project with projectConfig parameter
  * @returns Promise that resolves when all projects are processed
  */
-export const processEsLibrary = processLibrary(
-  shouldProcessEsProject,
+export const processEsLibrary = processLibrary(shouldProcessEsProject, [
   async (tree, projectConfig) => {
     //
   },
-)
+])
