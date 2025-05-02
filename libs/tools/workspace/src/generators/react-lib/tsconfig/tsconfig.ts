@@ -12,11 +12,20 @@ export const generateTsconfigFiles = (
     // Replaces __tmpl__ portion of file
     tmpl: '',
   }
-
   // Path to the template files directory
-  const templateDir = join(__dirname, 'files')
+  const reactLibTemplateDir = join(__dirname, 'files')
   // Target directory (project root)
   const targetDir = projectConfig.root
 
-  generateFiles(tree, templateDir, targetDir, substitutions)
+  /**
+   * Generate all these first, then override one of the files
+   */
+  const tsLibTemplateDir = join(
+    __dirname,
+    '../../ts-lib/tsconfig/files',
+    'files',
+  )
+  generateFiles(tree, tsLibTemplateDir, targetDir, substitutions)
+
+  generateFiles(tree, reactLibTemplateDir, targetDir, substitutions)
 }

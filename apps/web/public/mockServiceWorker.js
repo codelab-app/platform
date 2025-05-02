@@ -1,4 +1,3 @@
-/* eslint-disable */
 /* tslint:disable */
 
 /**
@@ -39,44 +38,6 @@ self.addEventListener('message', async function (event) {
   })
 
   switch (event.data) {
-    case 'KEEPALIVE_REQUEST': {
-      sendToClient(client, {
-        type: 'KEEPALIVE_RESPONSE',
-      })
-      break
-    }
-
-    case 'INTEGRITY_CHECK_REQUEST': {
-      sendToClient(client, {
-        type: 'INTEGRITY_CHECK_RESPONSE',
-        payload: {
-          packageVersion: PACKAGE_VERSION,
-          checksum: INTEGRITY_CHECKSUM,
-        },
-      })
-      break
-    }
-
-    case 'MOCK_ACTIVATE': {
-      activeClientIds.add(clientId)
-
-      sendToClient(client, {
-        type: 'MOCKING_ENABLED',
-        payload: {
-          client: {
-            id: client.id,
-            frameType: client.frameType,
-          },
-        },
-      })
-      break
-    }
-
-    case 'MOCK_DEACTIVATE': {
-      activeClientIds.delete(clientId)
-      break
-    }
-
     case 'CLIENT_CLOSED': {
       activeClientIds.delete(clientId)
 
@@ -89,6 +50,44 @@ self.addEventListener('message', async function (event) {
         self.registration.unregister()
       }
 
+      break
+    }
+
+    case 'INTEGRITY_CHECK_REQUEST': {
+      sendToClient(client, {
+        payload: {
+          checksum: INTEGRITY_CHECKSUM,
+          packageVersion: PACKAGE_VERSION,
+        },
+        type: 'INTEGRITY_CHECK_RESPONSE',
+      })
+      break
+    }
+
+    case 'KEEPALIVE_REQUEST': {
+      sendToClient(client, {
+        type: 'KEEPALIVE_RESPONSE',
+      })
+      break
+    }
+
+    case 'MOCK_ACTIVATE': {
+      activeClientIds.add(clientId)
+
+      sendToClient(client, {
+        payload: {
+          client: {
+            frameType: client.frameType,
+            id: client.id,
+          },
+        },
+        type: 'MOCKING_ENABLED',
+      })
+      break
+    }
+
+    case 'MOCK_DEACTIVATE': {
+      activeClientIds.delete(clientId)
       break
     }
   }
@@ -119,70 +118,6 @@ self.addEventListener('fetch', function (event) {
   const requestId = crypto.randomUUID()
   event.respondWith(handleRequest(event, requestId))
 })
-
-async function handleRequest(event, requestId) {
-  const client = await resolveMainClient(event)
-  const response = await getResponse(event, client, requestId)
-
-  // Send back the response clone for the "response:*" life-cycle events.
-  // Ensure MSW is active and ready to handle the message, otherwise
-  // this message will pend indefinitely.
-  if (client && activeClientIds.has(client.id)) {
-    ;(async function () {
-      const responseClone = response.clone()
-
-      sendToClient(
-        client,
-        {
-          type: 'RESPONSE',
-          payload: {
-            requestId,
-            isMockedResponse: IS_MOCKED_RESPONSE in response,
-            type: responseClone.type,
-            status: responseClone.status,
-            statusText: responseClone.statusText,
-            body: responseClone.body,
-            headers: Object.fromEntries(responseClone.headers.entries()),
-          },
-        },
-        [responseClone.body],
-      )
-    })()
-  }
-
-  return response
-}
-
-// Resolve the main client for the given event.
-// Client that issues a request doesn't necessarily equal the client
-// that registered the worker. It's with the latter the worker should
-// communicate with during the response resolving phase.
-async function resolveMainClient(event) {
-  const client = await self.clients.get(event.clientId)
-
-  if (activeClientIds.has(event.clientId)) {
-    return client
-  }
-
-  if (client?.frameType === 'top-level') {
-    return client
-  }
-
-  const allClients = await self.clients.matchAll({
-    type: 'window',
-  })
-
-  return allClients
-    .filter((client) => {
-      // Get only those clients that are currently visible.
-      return client.visibilityState === 'visible'
-    })
-    .find((client) => {
-      // Find the client ID that's recorded in the
-      // set of clients that have registered the worker.
-      return activeClientIds.has(client.id)
-    })
-}
 
 async function getResponse(event, client, requestId) {
   const { request } = event
@@ -234,23 +169,23 @@ async function getResponse(event, client, requestId) {
   const clientMessage = await sendToClient(
     client,
     {
-      type: 'REQUEST',
       payload: {
-        id: requestId,
-        url: request.url,
-        mode: request.mode,
-        method: request.method,
-        headers: Object.fromEntries(request.headers.entries()),
+        body: requestBuffer,
         cache: request.cache,
         credentials: request.credentials,
         destination: request.destination,
+        headers: Object.fromEntries(request.headers.entries()),
+        id: requestId,
         integrity: request.integrity,
+        keepalive: request.keepalive,
+        method: request.method,
+        mode: request.mode,
         redirect: request.redirect,
         referrer: request.referrer,
         referrerPolicy: request.referrerPolicy,
-        body: requestBuffer,
-        keepalive: request.keepalive,
+        url: request.url,
       },
+      type: 'REQUEST',
     },
     [requestBuffer],
   )
@@ -266,6 +201,89 @@ async function getResponse(event, client, requestId) {
   }
 
   return passthrough()
+}
+
+async function handleRequest(event, requestId) {
+  const client = await resolveMainClient(event)
+  const response = await getResponse(event, client, requestId)
+
+  // Send back the response clone for the "response:*" life-cycle events.
+  // Ensure MSW is active and ready to handle the message, otherwise
+  // this message will pend indefinitely.
+  if (client && activeClientIds.has(client.id)) {
+    ;(async function () {
+      const responseClone = response.clone()
+
+      sendToClient(
+        client,
+        {
+          payload: {
+            body: responseClone.body,
+            headers: Object.fromEntries(responseClone.headers.entries()),
+            isMockedResponse: IS_MOCKED_RESPONSE in response,
+            requestId,
+            status: responseClone.status,
+            statusText: responseClone.statusText,
+            type: responseClone.type,
+          },
+          type: 'RESPONSE',
+        },
+        [responseClone.body],
+      )
+    })()
+  }
+
+  return response
+}
+
+// Resolve the main client for the given event.
+// Client that issues a request doesn't necessarily equal the client
+// that registered the worker. It's with the latter the worker should
+// communicate with during the response resolving phase.
+async function resolveMainClient(event) {
+  const client = await self.clients.get(event.clientId)
+
+  if (activeClientIds.has(event.clientId)) {
+    return client
+  }
+
+  if (client?.frameType === 'top-level') {
+    return client
+  }
+
+  const allClients = await self.clients.matchAll({
+    type: 'window',
+  })
+
+  return allClients
+    .filter((client) => {
+      // Get only those clients that are currently visible.
+      return client.visibilityState === 'visible'
+    })
+    .find((client) => {
+      // Find the client ID that's recorded in the
+      // set of clients that have registered the worker.
+      return activeClientIds.has(client.id)
+    })
+}
+
+async function respondWithMock(response) {
+  // Setting response status code to 0 is a no-op.
+  // However, when responding with a "Response.error()", the produced Response
+  // instance will have status code set to 0. Since it's not possible to create
+  // a Response instance with status code 0, handle that use-case separately.
+  if (response.status === 0) {
+    return Response.error()
+  }
+
+  const mockedResponse = new Response(response.body, response)
+
+  Reflect.defineProperty(mockedResponse, IS_MOCKED_RESPONSE, {
+    enumerable: true,
+    value: true,
+  })
+
+  return mockedResponse
 }
 
 function sendToClient(client, message, transferrables = []) {
@@ -285,23 +303,4 @@ function sendToClient(client, message, transferrables = []) {
       [channel.port2].concat(transferrables.filter(Boolean)),
     )
   })
-}
-
-async function respondWithMock(response) {
-  // Setting response status code to 0 is a no-op.
-  // However, when responding with a "Response.error()", the produced Response
-  // instance will have status code set to 0. Since it's not possible to create
-  // a Response instance with status code 0, handle that use-case separately.
-  if (response.status === 0) {
-    return Response.error()
-  }
-
-  const mockedResponse = new Response(response.body, response)
-
-  Reflect.defineProperty(mockedResponse, IS_MOCKED_RESPONSE, {
-    value: true,
-    enumerable: true,
-  })
-
-  return mockedResponse
 }

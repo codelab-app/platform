@@ -27,11 +27,7 @@
     "module": "esnext",
     "allowJs": true
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
+  "include": ["**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "references": [
     {
       "path": "../../libs/shared/infra/auth0/tsconfig.lib.json"

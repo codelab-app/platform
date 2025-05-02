@@ -1,7 +1,7 @@
 import type { LayoutProps } from '@codelab/frontend-abstract-types'
 
-import { DomainStoreHydrator } from '@codelab/frontend-infra-context'
 import { domainRepository } from '@codelab/frontend-domain-domain/repositories'
+import { DomainStoreHydrator } from '@codelab/frontend-infra-context'
 
 const Layout = async ({ children, params }: LayoutProps<'domainId'>) => {
   const { domainId } = await params

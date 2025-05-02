@@ -5,8 +5,7 @@
     "outDir": "./dist",
     "types": [
       "@nx/react/typings/cssmodule.d.ts",
-      "@nx/react/typings/image.d.ts",
-      "styled-components"
+      "@nx/react/typings/image.d.ts"
     ]
   },
   "exclude": [

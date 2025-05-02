@@ -5,14 +5,14 @@ import {
   React19Compatibility,
   StyleProviders,
 } from '@codelab/frontend-infra-context'
-import { userDto } from '@codelab/frontend-test-data'
 import {
   createRootStore,
   RootStoreProvider,
 } from '@codelab/frontend-infra-mobx-store'
+import { userDto } from '@codelab/frontend-test-data'
 import { JWT_CLAIMS } from '@codelab/shared-abstract-core'
 import { initialize, mswLoader } from 'msw-storybook-addon'
-// eslint-disable-next-line unused-imports/no-unused-imports
+import React from 'react'
 import { v4 } from 'uuid'
 
 import '../styles/main.css'
@@ -36,7 +36,6 @@ const preview: Preview = {
       }
 
       const store = createRootStore({
-        routerProps: {},
         user,
       })
 

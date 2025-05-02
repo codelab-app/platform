@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "skipLibCheck": true
+  },
+  "files": ["eslint.config.mjs"],
+  "include": ["scripts/eslint/**/*.mjs"]
+}

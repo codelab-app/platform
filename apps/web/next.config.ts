@@ -1,5 +1,4 @@
 import type { WithNxOptions } from '@nx/next/plugins/with-nx'
-/* eslint-disable no-inline-comments */
 import type { NextConfig } from 'next'
 
 import bundleAnalyzer from '@next/bundle-analyzer'
@@ -71,15 +70,6 @@ const nextConfig: WithNxOptions = {
   // http://github.com/vazco/uniforms/issues/1194
   reactStrictMode: false,
 
-  typescript: {
-    // tsconfigPath: path.join(__dirname, './tsconfig.lib.json'),
-    // !! WARN !!
-    // Dangerously allow production builds to successfully complete even if
-    // your project has type errors.
-    // !! WARN !!
-    // ignoreBuildErrors: true,
-    tsconfigPath: './tsconfig.lib.json',
-  },
   /**
    * https://nextjs.org/docs/app/building-your-application/routing/middleware#matching-paths
    */
@@ -108,6 +98,15 @@ const nextConfig: WithNxOptions = {
     //   },
     // ],
   }),
+  typescript: {
+    // tsconfigPath: path.join(__dirname, './tsconfig.lib.json'),
+    // !! WARN !!
+    // Dangerously allow production builds to successfully complete even if
+    // your project has type errors.
+    // !! WARN !!
+    // ignoreBuildErrors: true,
+    tsconfigPath: './tsconfig.lib.json',
+  },
 
   webpack: (config: any, { isServer }: { isServer: boolean }) => {
     config.module.rules.push({

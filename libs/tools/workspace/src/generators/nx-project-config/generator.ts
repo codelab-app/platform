@@ -9,17 +9,6 @@ import {
 
 import type { ProjectConfigGeneratorSchema } from './schema'
 
-import { processEsLibrary } from '../../utils/process-es-lib'
-import { updateTestTargets } from './jest/remove-test-targets'
-import { migrateProjectReference } from './migrate-project-reference'
-import { migrateToInferred } from './migrate-to-inferred/migrate-to-inferred'
-import { addProjectTags } from './project-tags/add-project-tags'
-import { updateBaseTsconfig } from './tsconfig/base/tsconfig.base'
-import { copyLibTsconfigToTsconfig } from './tsconfig/copy-options'
-import { updateLibraryTsconfig } from './tsconfig/lib/tsconfig.lib'
-import { createAliasMapping, saveAliasMappingToFile } from './utils/workspace'
-import { updatePackageJson } from './workspace/package-json/update-package-json'
-
 /**
  * We want to create
  */

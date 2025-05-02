@@ -5,11 +5,11 @@ import type {
   DomainUpdatedSubscription,
 } from '@codelab/shared-domain-module-domain'
 
-import { getBrowserApolloClient } from '@codelab/shared-infra-gql-client'
 import {
   DomainCreatedDocument,
   DomainUpdatedDocument,
 } from '@codelab/shared-domain-module-domain'
+import { getBrowserApolloClient } from '@codelab/shared-infra-gql-client'
 import { useEffect } from 'react'
 
 /**
@@ -34,8 +34,8 @@ export const Subscriptions = () => {
       // Replace with your actual query documents
       client
         .query({
-          query: DomainCreatedDocument, // Replace with a regular query, not subscription
           fetchPolicy: 'network-only',
+          query: DomainCreatedDocument, // Replace with a regular query, not subscription
         })
         .then((result) => {
           console.log('Polling result:', result)

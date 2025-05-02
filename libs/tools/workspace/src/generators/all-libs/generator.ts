@@ -9,12 +9,16 @@ import {
 
 import type { AllLibsGeneratorSchema } from './schema'
 
-import { processEsLibrary } from '../../utils/process-es-lib'
 import { setPackageJsonExports } from '../nx-project-config/workspace/package-json/exports/set-exports'
-import { processReactLib } from '../react-lib/generator'
-import { processTsLib } from '../ts-lib/generator'
+import { reactLibGenerator } from '../react-lib/generator'
+import { tsLibGenerator } from '../ts-lib/generator'
 import { migrateToViteLibs } from './migrate-to-vite-libs'
 import { moveFilesInTsConfig } from './tsconfig/tsconfig.lib'
+import { nodeLibGenerator } from '../node-lib/generator'
+import { processProjects } from '../../utils/process-projects'
+import { nextAppGenerator } from '../next-app/generator'
+import { nodeAppGenerator } from '../node-app/generator'
+import { tsAppGenerator } from '../ts-app/generator'
 
 /**
  * Process all projects in the workspace
@@ -23,26 +27,16 @@ export const allLibGenerator = async (
   tree: Tree,
   options: AllLibsGeneratorSchema,
 ) => {
-  await processReactLib(tree, options)
-  await processTsLib(tree, options)
-
-  // await processEsLibrary(
-  //   tree,
-  //   options,
-  //   async (projectConfig: ProjectConfiguration) => {
-  //     /**
-  //      * The dependency graph for a lib need to all be buildable, we we might as well make everything in libs buildable.
-  //      */
-  //     if (projectConfig.sourceRoot?.startsWith('libs')) {
-  //       await migrateToViteLibs(tree, projectConfig)
-
-  //       await moveFilesInTsConfig(tree, projectConfig)
-
-  //       // Updates the path to use `es.js`
-  //       await setPackageJsonExports(tree, projectConfig)
-  //     }
-  //   },
-  // )
+  await processProjects(tree, options, [
+    // Apps
+    nextAppGenerator,
+    nodeAppGenerator,
+    tsAppGenerator,
+    // Library
+    reactLibGenerator,
+    tsLibGenerator,
+    nodeLibGenerator,
+  ])
 }
 
 export default allLibGenerator

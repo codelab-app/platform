@@ -1,6 +1,10 @@
 {
   "extends": "./tsconfig.lib.json",
-  "compilerOptions": {},
+  "compilerOptions": {
+    // prevent any JS from being written next to the source
+    "noEmit": true
+  },
   "exclude": ["**/*.spec.ts", "**/*.test.ts", "**/*.spec.tsx", "**/*.test.tsx"],
-  "include": ["src/**/*.ts", "src/**/*.tsx"]
+  // Glob doesn't include directories staring with `.`
+  "include": ["**/*.ts", "**/*.tsx", "eslint.config.mjs", "tailwind.config.ts"]
 }

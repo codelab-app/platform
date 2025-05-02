@@ -23,13 +23,13 @@
     "skipDefaultLibCheck": true,
     "noEmit": false,
     "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
-    "plugins": [
-      {
-        "name": "@0no-co/graphqlsp",
-        "schema": "./schema.graphql"
-      }
-    ]
+    "forceConsistentCasingInFileNames": true
+    // "plugins": [
+    //   {
+    //     "name": "@0no-co/graphqlsp",
+    //     "schema": "./schema.graphql"
+    //   }
+    // ]
   },
   "exclude": ["node_modules", "tmp", "dist"],
   "include": ["./scripts/jest/setupFilesAfterEnv.ts"]

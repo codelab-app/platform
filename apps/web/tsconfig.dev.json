@@ -1,8 +1,15 @@
 {
   "extends": "./tsconfig.lib.json",
   "compilerOptions": {
-    "composite": true
+    "noEmit": true
   },
   "exclude": ["**/*.spec.ts", "**/*.test.ts", "**/*.spec.tsx", "**/*.test.tsx"],
-  "include": ["**/*.ts", "**/*.tsx", "vite.config.ts"]
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    ".storybook/**/*.ts",
+    ".storybook/**/*.tsx",
+    "eslint.config.mjs",
+    "tailwind.config.ts"
+  ]
 }

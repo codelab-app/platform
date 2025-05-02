@@ -48,7 +48,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <html className={fontClasses} lang="en" suppressHydrationWarning>
       <head></head>
-      <body className="min-h-screen bg-background antialiased">
+      <body className="bg-background min-h-screen antialiased">
         <React19Compatibility />
         <StyleProviders>
           <NotificationProvider>{children}</NotificationProvider>
