@@ -6,10 +6,6 @@ export default [
   // Config 1: *.ts, *.tsx
   {
     files: ['**/*.{ts,tsx}'],
-    plugins: {
-      '@nx': nxPlugin,
-      '@typescript-eslint': tsPlugin,
-    },
     rules: {
       ...nxPlugin.configs.typescript.rules, // Start with Nx recommended TS rules
       // Explicit overrides and custom configurations
@@ -159,10 +155,6 @@ export default [
   // Config 2: *.js, *.jsx
   {
     files: ['**/*.{js,jsx}'],
-    plugins: {
-      '@nx': nxPlugin,
-      '@typescript-eslint': tsPlugin,
-    },
     rules: {
       ...nxPlugin.configs.javascript.rules, // Start with Nx recommended JS rules
       // Explicit overrides and configurations for JS files

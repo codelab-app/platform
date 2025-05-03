@@ -2,7 +2,11 @@
   "extends": "./tsconfig.base.json",
   "compileOnSave": false,
   "files": [], // intentionally empty
+  "include": [],
   "references": [
+    {
+      "path": "./tsconfig.dev.json"
+    },
     {
       "path": "./libs/external/codelab-codegen/codelab-preset"
     },
@@ -512,9 +516,6 @@
     },
     {
       "path": "./apps/landing"
-    },
-    {
-      "path": "./apps/demo"
     }
   ]
 }

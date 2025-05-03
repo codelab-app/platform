@@ -1,8 +1,3 @@
-// Main ESLint configuration using flat config format
-// This is the ONLY file that should register plugins
-
-// Import the foundation file and specific configurations
-import { plugins } from './scripts/eslint/base.config.mjs'
 import baseConfig from './scripts/eslint/base.config.mjs'
 import importConfig from './scripts/eslint/import.config.mjs'
 import codelabConfig from './scripts/eslint/codelab.config.mjs'
@@ -13,51 +8,44 @@ import namingConfig from './scripts/eslint/naming.config.mjs'
 import nxRulesConfig from './scripts/eslint/nx.config.mjs'
 import reactConfig from './scripts/eslint/react.config.mjs'
 import sortingConfig from './scripts/eslint/sorting.config.mjs'
-import prettierConfig from './scripts/eslint/prettier.config.mjs'
+import stylisticTs from '@stylistic/eslint-plugin-ts'
+import tseslint from 'typescript-eslint'
+import nx from '@nx/eslint-plugin'
+import eslint from '@eslint/js'
+import pluginImportX from 'eslint-plugin-import-x'
+import unusedImports from './scripts/eslint/recommended/unused.config.mjs'
+import prettierRecommended from 'eslint-plugin-prettier/recommended'
 
-// Register all plugins at the root level, making them available to all configs
-const allPlugins = {
-  // TypeScript & Core Plugins
-  '@typescript-eslint': plugins.typescript,
-  '@stylistic/ts': plugins.stylisticTs,
-
-  // Import Plugins
-  'import-x': plugins.import,
-  'unused-imports': plugins.unusedImports,
-
-  // React & UI Plugins
-  react: plugins.react,
-  tailwindcss: plugins.tailwindcss,
-  'readable-tailwind': plugins.readableTailwind,
-
-  // Testing Plugins
-  jest: plugins.jest,
-  'jest-formatting': plugins.jestFormatting,
-
-  // Code Style Plugins
-  ban: plugins.ban,
-  'sort-destructure-keys': plugins.sortDestructureKeys,
-  'prefer-arrow': plugins.preferArrow,
-}
-
-export default plugins.tseslint.config(
+export default tseslint.config(
   // Global language options and parser configuration
   {
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: 'module',
-      parser: plugins.tsParser,
+      parser: tseslint.parser,
       parserOptions: {
         ecmaFeatures: { jsx: true },
+        project: './tsconfig.lib.json',
+      },
+      globals: {
+        // Add global variables if needed, e.g.:
       },
     },
     // Register all plugins once at the top level
-    plugins: allPlugins,
+    plugins: {
+      // React & UI Plugins
+      // react: plugins.react,
+      // tailwindcss: plugins.tailwindcss,
+      // 'readable-tailwind': plugins.readableTailwind,
+      // // Testing Plugins
+      // jest: plugins.jest,
+      // 'jest-formatting': plugins.jestFormatting,
+      // // Code Style Plugins
+      // ban: plugins.ban,
+      // 'sort-destructure-keys': plugins.sortDestructureKeys,
+      // 'prefer-arrow': plugins.preferArrow,
+    },
   },
-
-  // Base recommended configs - using plugins from the foundation file
-  plugins.js.configs.recommended,
-  ...plugins.tseslint.configs.strict,
 
   // Spread the imported flat config arrays (rules only, no plugin registration)
   ...baseConfig,
@@ -70,12 +58,25 @@ export default plugins.tseslint.config(
   ...codegenConfig,
   ...reactConfig,
   ...importConfig,
-  ...prettierConfig,
+
+  prettierRecommended,
+  ...unusedImports,
+
+  // pluginImportX.flatConfigs.recommended,
+  // pluginImportX.flatConfigs.typescript,
+
+  tseslint.configs.strict,
+
+  // https://typescript-eslint.io/getting-started
+  eslint.configs.recommended,
+  tseslint.configs.recommended,
+
+  // stylisticTs.configs.all,
 
   // Nx plugin recommended configs - using plugins from the foundation file
-  ...plugins.nx.configs['flat/base'],
-  ...plugins.nx.configs['flat/typescript'],
-  ...plugins.nx.configs['flat/javascript'],
+  ...nx.configs['flat/base'],
+  ...nx.configs['flat/typescript'],
+  ...nx.configs['flat/javascript'],
 
   // Global ignores
   {
@@ -83,6 +84,22 @@ export default plugins.tseslint.config(
       '**/dist',
       '**/vite.config.*.timestamp*',
       '**/vitest.config.*.timestamp*',
+      '**/node_modules',
+      '**/data',
+      '**/.next',
+      '**/.cache',
+      '**/coverage',
+      '**/tmp',
+      '**/.nx',
+      '**/.aider*',
+      '**/public',
+      '**/*.png',
+      '**/*.d.ts',
+      '**/*.mp4',
+      '**/*.log',
+      '**/*.gen.ts',
+      '**/jest.config.ts',
+      '**/graphql.ts',
     ],
   },
 

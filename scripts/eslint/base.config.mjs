@@ -1,12 +1,11 @@
 // Foundation file for all ESLint plugins and shared configuration
-// This file imports and exports plugins but DOES NOT register them
-// Plugin registration happens ONLY in eslint.config.mjs
+// This file imports plugins AND registers them within the configuration objects below.
 
 // Core ESLint & TypeScript
 import js from '@eslint/js'
 import tseslint from 'typescript-eslint'
-import tsPlugin from '@typescript-eslint/eslint-plugin'
-import tsParser from '@typescript-eslint/parser'
+// import tsPlugin from '@typescript-eslint/eslint-plugin' // Imported via tseslint.plugin
+// import tsParser from '@typescript-eslint/parser' // Imported via tseslint.parser
 
 // Nx
 import nx from '@nx/eslint-plugin'
@@ -21,8 +20,6 @@ import importPlugin from 'eslint-plugin-import-x'
 import unusedImports from 'eslint-plugin-unused-imports'
 
 // Testing
-import jestPlugin from 'eslint-plugin-jest'
-import jestFormattingPlugin from 'eslint-plugin-jest-formatting'
 
 // Code style
 import banPlugin from 'eslint-plugin-ban'
@@ -30,60 +27,43 @@ import sortDestructureKeysPlugin from 'eslint-plugin-sort-destructure-keys'
 import stylisticTsPlugin from '@stylistic/eslint-plugin-ts'
 import preferArrowPlugin from 'eslint-plugin-prefer-arrow'
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
-
-// Utilities
-import globals from 'globals'
 import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript'
 
-// Export all plugins so other config files can use them without re-importing
-export const plugins = {
-  // Core
-  js,
-  tseslint,
-  typescript: tsPlugin,
-  tsParser,
-
-  // Nx
+// Export necessary utilities if needed by other configs, but not plugins for registration
+export const utils = {
+  createTypeScriptImportResolver,
+  // Export specific plugins IF they are used for configuration presets elsewhere,
+  // but generally, registration happens inline below.
+  js, // Example: js.configs.recommended can be used elsewhere
+  importPlugin, // Example: importPlugin.configs.typescript can be used elsewhere
+  eslintPluginPrettierRecommended, // Needed for recommended config preset
   nx,
-
-  // React & UI
-  react: reactPlugin,
-  tailwindcss: tailwindcssPlugin,
-  readableTailwind: readableTailwindPlugin,
-
-  // Import handling
-  import: importPlugin,
-  unusedImports,
-
-  // Testing
-  jest: jestPlugin,
-  jestFormatting: jestFormattingPlugin,
-
-  // Code style
-  ban: banPlugin,
-  sortDestructureKeys: sortDestructureKeysPlugin,
-  stylisticTs: stylisticTsPlugin,
-  preferArrow: preferArrowPlugin,
-  prettierRecommended: eslintPluginPrettierRecommended,
-
-  // Utilities
-  globals,
-  createTypeScriptImportResolver
+  reactPlugin,
+  tailwindcssPlugin,
+  readableTailwindPlugin,
+  preferArrowPlugin,
 }
 
-// Base configuration - NO PLUGIN REGISTRATION HERE
+// Base configuration - Plugins registered inline
 export default [
+  {
+    plugins: {
+      'sort-destructure-keys': sortDestructureKeysPlugin,
+    },
+  },
   // Config 1: *.ts, *.tsx, *.js, *.jsx
   {
     files: ['**/*.{ts,tsx,js,jsx}'],
-    // No plugins property - plugins are registered only in eslint.config.mjs
+    plugins: {
+      'sort-destructure-keys': sortDestructureKeysPlugin,
+    },
+    // languageOptions: {
+    //   parser: tseslint.parser,
+    //   parserOptions: {
+    //     project: true,
+    //   },
+    // },
     rules: {
-      'ban/ban': [
-        2, // Error level
-        {
-          name: 'useSearchParams', // Banning specific usage
-        },
-      ],
       'prefer-destructuring': [
         'off',
         {
@@ -140,6 +120,9 @@ export default [
   // Config 2: *.js, *.jsx
   {
     files: ['**/*.{js,jsx}'],
+    plugins: {
+      '@typescript-eslint': tseslint.plugin, // Need plugin for the rule below
+    },
     rules: {
       '@typescript-eslint/no-var-requires': 'off', // Allow require in JS files
     },
@@ -164,12 +147,15 @@ export default [
   // Config 5: *.ts, *.tsx (Import plugin and TS specific rules)
   {
     files: ['**/*.{ts,tsx}'],
-    // No plugins property - plugins are registered only in eslint.config.mjs
+    plugins: {
+      'prefer-arrow': preferArrowPlugin,
+      '@typescript-eslint': tseslint.plugin,
+    },
     settings: {
-      ...importPlugin.configs.typescript.settings, // Merge settings from 'plugin:import/typescript'
+      // ...importPlugin.configs.typescript.settings, // Merge settings from 'plugin:import/typescript'
     },
     rules: {
-      ...importPlugin.configs.typescript.rules, // Merge rules from 'plugin:import/typescript'
+      // ...importPlugin.configs.typescript.rules, // Merge rules from 'plugin:import/typescript'
       curly: ['error', 'all'], // Enforce curly braces for all control statements
       'prefer-arrow/prefer-arrow-functions': 'error',
       '@typescript-eslint/no-extraneous-class': [
@@ -197,6 +183,9 @@ export default [
   // Config 6: *.config.ts
   {
     files: ['**/*.config.ts'],
+    plugins: {
+      '@typescript-eslint': tseslint.plugin, // Need plugin for the rule below
+    },
     rules: {
       '@typescript-eslint/no-explicit-any': 'off', // Allow explicit any in config files
     },

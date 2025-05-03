@@ -1,13 +1,13 @@
-import tsPlugin from '@typescript-eslint/eslint-plugin'
+// import tsPlugin from '@typescript-eslint/eslint-plugin'
 // import canonicalPlugin from 'eslint-plugin-canonical'; // Add if canonical rule is used
 
 export default [
   {
     files: ['**/*.{ts,tsx,js,jsx}'], // Adjusted glob pattern
-    plugins: {
-      '@typescript-eslint': tsPlugin,
-      // canonical: canonicalPlugin,
-    },
+    // plugins: {
+    //   '@typescript-eslint': tsPlugin,
+    //   // canonical: canonicalPlugin,
+    // },
     rules: {
       '@typescript-eslint/padding-line-between-statements': [
         'error',
