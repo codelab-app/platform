@@ -1,4 +1,5 @@
 'use client'
+import type { IFieldModel, JsonSchema } from '@codelab/frontend/abstract/domain'
 import type { FieldProps } from 'uniforms'
 
 import {
@@ -29,6 +30,7 @@ type CodeMirrorConnectFieldProps = FieldProps<
   Omit<CodeMirrorEditorProps, 'onReset'>,
   {
     inputRef?: Ref<HTMLDivElement>
+    field: JsonSchema & IFieldModel
   }
 >
 
@@ -53,8 +55,8 @@ export const CodeMirrorField = (mainProps?: Partial<CodeMirrorFieldProps>) => {
          */
 
         // Will show blank if undefined instead of "undefined" string
-        const editorValue = isNonNullish(merged.value ?? merged.field?.default)
-          ? String(merged.value ?? merged.field?.default)
+        const editorValue = isNonNullish(merged.value ?? merged.field.default)
+          ? String(merged.value ?? merged.field.default)
           : undefined
 
         return wrapField(

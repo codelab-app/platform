@@ -11,6 +11,7 @@ import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import { AutoFields } from 'uniforms-antd'
+import { v4 } from 'uuid'
 
 import { useAppService } from '../../services'
 import { updateAppSchema } from './update-app.schema'
@@ -21,8 +22,8 @@ export const UpdateAppModal = observer<{ app?: IAppModel }>(({ app }) => {
 
   // Create model with proper defaults if app doesn't exist
   const model = {
-    id: app?.id,
-    name: app?.name,
+    id: app?.id ?? v4(),
+    name: app?.name ?? '',
   }
 
   const onSubmit = appService.update

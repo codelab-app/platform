@@ -130,7 +130,7 @@ describe('InterfaceForm', () => {
     await userEvent.type(valueField, '123')
 
     // Check the value has been updated
-    expect(valueField).toHaveValue('123')
+    expect(valueField).toHaveValue(123)
 
     // Select String type option
     await userEvent.click(selectUnionTypeElement)

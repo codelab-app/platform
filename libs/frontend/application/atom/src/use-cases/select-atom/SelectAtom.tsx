@@ -28,7 +28,9 @@ export const SelectAtom = observer<SelectAtomProps>(
         label={label}
         name={name}
         onChange={(value) =>
-          fieldProps.onChange(value.map((id: string) => ({ id })))
+          fieldProps.onChange(
+            (value as Array<string>).map((id: string) => ({ id })),
+          )
         }
         optionFilterProp="label"
         optionLabelProp="label"

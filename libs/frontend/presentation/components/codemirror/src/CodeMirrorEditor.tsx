@@ -1,4 +1,5 @@
 'use client'
+import type { JsonSchema } from '@codelab/frontend/abstract/domain'
 import type { Completion, CompletionSource } from '@codemirror/autocomplete'
 
 import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
@@ -14,6 +15,7 @@ export interface CodeMirrorEditorProps extends CodeMirrorInputProps {
   customOptions?: Array<Completion>
   defaultOptions?: Array<Completion>
   defaultSource?: CompletionSource
+  field?: JsonSchema
   language?: ICodeMirrorLanguage
   overrideExtensions?: boolean
 }

@@ -1,10 +1,17 @@
 /* eslint-disable react/jsx-props-no-spreading */
 'use client'
 
+import type { JsonSchema } from '@codelab/frontend/abstract/domain'
+import type { CodeMirrorEditorProps } from '@codelab/frontend-presentation-components-codemirror'
 import type { Completion } from '@codemirror/autocomplete'
 import type { AutoCompleteProps } from 'antd'
 import type { FieldProps } from 'uniforms'
-import type { ListFieldProps, SelectFieldProps } from 'uniforms-antd'
+import type {
+  BoolFieldProps,
+  ListFieldProps,
+  NumFieldProps,
+  SelectFieldProps,
+} from 'uniforms-antd'
 
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
 import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
@@ -31,7 +38,11 @@ interface CodeMirrorFieldProps {
   ): void
 }
 
-type CodeMirrorConnectFieldProps = FieldProps<Value, InnerProps>
+type CodeMirrorConnectFieldProps = FieldProps<
+  Value,
+  InnerProps,
+  { field: JsonSchema }
+>
 
 interface ToggleExpressionFieldProps {
   fieldProps: CodeMirrorConnectFieldProps
@@ -50,18 +61,18 @@ const getBaseControl = (fieldProps: CodeMirrorConnectFieldProps) => {
     ? fullFieldName.substring(fullFieldName.lastIndexOf('.') + 1)
     : null
 
-  const props = { ...fieldProps, label: null, name }
+  const props = { ...fieldProps, label: '', name }
 
   switch (fieldProps.field.type) {
     case 'array':
       return <WrappedListField {...(props as ListFieldProps)} />
     case 'boolean':
-      return <BoolField {...(props as FieldProps<boolean, InnerProps>)} />
+      return <BoolField {...(props as BoolFieldProps)} />
     case 'integer':
     case 'number':
       return (
         <NumField
-          {...(props as FieldProps<number, InnerProps>)}
+          {...(props as NumFieldProps)}
           decimal={fieldProps.field.type === 'number'}
         />
       )
@@ -77,8 +88,8 @@ const ToggleExpression = ({
   mainProps,
 }: ToggleExpressionFieldProps) => {
   // Will show blank if undefined instead of "undefined" string
-  const value = !isNullish(fieldProps.value ?? fieldProps.field?.default)
-    ? String(fieldProps.value ?? fieldProps.field?.default)
+  const value = !isNullish(fieldProps.value ?? fieldProps.field.default)
+    ? String(fieldProps.value ?? fieldProps.field.default)
     : undefined
 
   const isExpression = value && hasExpression(value)
@@ -123,7 +134,7 @@ const ToggleExpression = ({
           customOptions={mainProps.autocomplete || []}
           language={ICodeMirrorLanguage.Javascript}
           title={fieldProps.field.label}
-          {...fieldProps}
+          {...(fieldProps as CodeMirrorEditorProps)}
           value={value}
         />
       ) : (

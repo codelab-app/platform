@@ -1,4 +1,5 @@
 import type { IAuthGuardCreateFormData } from '@codelab/frontend/abstract/domain'
+import type { IResourceFetchConfig } from '@codelab/shared/abstract/core'
 
 import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
 import {
@@ -28,9 +29,12 @@ export const CreateAuthGuardForm = ({
   const authGuardService = useAuthGuardService()
 
   const model = {
-    config: { data: {}, id: v4() },
+    config: { data: {} as IResourceFetchConfig, id: v4() },
     id: v4(),
+    name: '',
     owner: { id: user.id },
+    resource: { id: v4() },
+    responseTransformer: '',
   }
 
   return (

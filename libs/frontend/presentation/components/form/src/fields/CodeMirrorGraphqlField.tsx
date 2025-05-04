@@ -1,5 +1,6 @@
 'use client'
-import type { Context, FieldProps } from 'uniforms'
+import type { JsonSchema } from '@codelab/frontend/abstract/domain'
+import type { Context, FieldProps, UnknownObject } from 'uniforms'
 
 import {
   CodeMirrorEditor,
@@ -18,7 +19,7 @@ import { connectField, useForm } from 'uniforms'
 
 import type { MainPropsOnChange, Value } from './CodeMirrorField'
 
-export interface ICodeMirrorGraphqlProps<T> {
+export interface ICodeMirrorGraphqlProps<T extends UnknownObject> {
   getUrl(context: Context<T>): string
 }
 
@@ -28,15 +29,16 @@ export type CodeMirrorGraphqlProps<T> = Omit<
 > &
   Partial<MainPropsOnChange>
 
-type CodeMirrorGraphqlConnectFieldProps<T> = FieldProps<
+type CodeMirrorGraphqlConnectFieldProps<T extends UnknownObject> = FieldProps<
   Value,
   CodeMirrorGraphqlProps<T> & ICodeMirrorGraphqlProps<T>,
   {
     inputRef?: Ref<HTMLDivElement>
+    field?: JsonSchema
   }
 >
 
-export const CodeMirrorGraphqlField = <T,>(
+export const CodeMirrorGraphqlField = <T extends UnknownObject>(
   mainProps: CodeMirrorGraphqlProps<T>,
 ) => {
   const Component = memo((baseProps: CodeMirrorGraphqlConnectFieldProps<T>) => {

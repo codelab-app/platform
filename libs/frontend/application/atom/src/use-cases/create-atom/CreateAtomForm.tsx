@@ -27,6 +27,8 @@ export const CreateAtomForm = observer<IFormController>(
         errorMessage="Error while creating atom"
         model={{
           id: v4(),
+          name: '',
+          type: IAtomType.ReactFragment,
         }}
         onSubmit={atomService.create}
         onSubmitSuccess={onSubmitSuccess}

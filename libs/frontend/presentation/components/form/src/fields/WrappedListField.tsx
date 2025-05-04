@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 
-import type { ListFieldProps } from 'uniforms-antd'
+import type { ListAddFieldProps, ListFieldProps } from 'uniforms-antd'
 
 import { ListAddField, ListField, wrapField } from 'uniforms-antd'
 
@@ -12,7 +12,10 @@ export const WrappedListField = (props: Omit<ListFieldProps, 'onReset'>) => {
   // To avoid script error when the value is null.
   // Some of the props of ArrayType type may have null as a default value.
   if (!props.value) {
-    return wrapField(props, <ListAddField {...props} label="" />)
+    return wrapField(
+      props,
+      <ListAddField {...(props as ListAddFieldProps)} label="" />,
+    )
   }
 
   return wrapField(props, <ListField {...props} label="" />)

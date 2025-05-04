@@ -41,8 +41,8 @@ export const SelectActionsField = connectField<SelectActionField>(
         mode="multiple"
         {...fieldProps}
         getPopupContainer={(triggerNode) => triggerNode.parentElement}
-        onChange={(value: Array<string>) => {
-          const idFields = value.map((id) => ({ id }))
+        onChange={(value) => {
+          const idFields = (value as Array<string>).map((id) => ({ id }))
 
           fieldProps.onChange(idFields)
         }}
