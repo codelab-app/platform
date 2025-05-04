@@ -52,7 +52,6 @@ export const CreateElementPopover = ({
       <CreateElementForm
         onSubmitSuccess={() => createPopover.close(router, context)}
         selectedNode={selectedNode}
-        showFormControl={false}
         submitRef={submitRef}
       />
     </CuiSidebarSecondary>
