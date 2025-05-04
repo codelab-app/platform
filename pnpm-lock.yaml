@@ -690,14 +690,14 @@ importers:
         specifier: 0.3.5
         version: 0.3.5(@sinclair/typebox@0.34.13)
       uniforms:
-        specifier: 3.10.2
-        version: 3.10.2(react@19.1.0)
+        specifier: 4.0.0
+        version: 4.0.0(react@19.1.0)
       uniforms-antd:
-        specifier: 3.10.2
-        version: 3.10.2(@ant-design/icons@5.6.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(antd@5.24.5(date-fns@2.30.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)
+        specifier: 4.0.0
+        version: 4.0.0(antd@5.24.5(date-fns@2.30.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)(uniforms@4.0.0(react@19.1.0))
       uniforms-bridge-json-schema:
-        specifier: 3.10.2
-        version: 3.10.2(react@19.1.0)
+        specifier: 4.0.0
+        version: 4.0.0(uniforms@4.0.0(react@19.1.0))
       use-custom-compare:
         specifier: 1.4.0
         version: 1.4.0(react@19.1.0)(typescript@5.5.4)
@@ -16271,6 +16271,9 @@ packages:
   tslib@2.6.3:
     resolution: {integrity: sha512-xNvxJEOUiWPGhUuUdQgAJPKOOJfGnIyKySOc09XkKsgdUV/3E2zvwZYdejjmRgPCgcym1juLH3226yA7sEFJKQ==}
 
+  tslib@2.8.0:
+    resolution: {integrity: sha512-jWVzBLplnCmoaTr13V9dYbiQ99wvZRd0vNWaDRg+aVYRcjDF3nDksxFDE/+fkXnKhpnUUkmx5pK/v8mCtLVqZA==}
+
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
 
@@ -16446,18 +16449,20 @@ packages:
     resolution: {integrity: sha512-lRfVq8fE8gz6QMBuDM6a+LO3IAzTi05H6gCVaUpir2E1Rwpo4ZUog45KpNXKC/Mn3Yb9UDuHumeFTo9iV/D9FQ==}
     engines: {node: '>=18'}
 
-  uniforms-antd@3.10.2:
-    resolution: {integrity: sha512-JK/Og9inkcsTbFHqTwMMyLcyj0ivxzncO8G5dK0ecvSYShqakpUsqxEn5cI/8opxoaZDQg510FgfGOLfBG8ddA==}
+  uniforms-antd@4.0.0:
+    resolution: {integrity: sha512-dr1tyUBtKdSJgLu+oDCTer6zhEsHAZvLq8GuDsq4fkqh3MDgOHNEU2SZCTZKA8FejvnJbU+5C/qKdTR8/sXxTA==}
     peerDependencies:
-      '@ant-design/icons': ^4.0.0
-      antd: ^4.0.0
-      react: ^18.0.0 || ^17.0.0 || ^16.8.0
+      antd: ^5.0.0
+      react: ^18.0.0 || ^17.0.0 || ^16.9.0
+      uniforms: 4.0.0
 
-  uniforms-bridge-json-schema@3.10.2:
-    resolution: {integrity: sha512-J2RG0WQrMH39M9124lhopXnbR/ycuLJk9IkA/ix9Dxpk1dQ7EuHLg/CeXTeZTeQiF2KZrKMYXxUswEmFh7kIMQ==}
+  uniforms-bridge-json-schema@4.0.0:
+    resolution: {integrity: sha512-xF+Txo02eofUM8k7KsRV1TSleFpbvWR688jTJBqBDw+6+8NrPTqBsBChPylHi/bZBynYxraXjNJcrKRVOeugOg==}
+    peerDependencies:
+      uniforms: 4.0.0
 
-  uniforms@3.10.2:
-    resolution: {integrity: sha512-5FIqpAqyWDmDhaNkmXOxuz8dJ09jPg0gTpn13O6WiqtCY+nmVtHK4yGSpFU1UIjwBt9KfbRPFFmCAbYlCyV4bw==}
+  uniforms@4.0.0:
+    resolution: {integrity: sha512-2QS/fAi+TNMROgUZrQlOo8sXf3b6qxD4W9gZcTkAIwRN0AN7uf/G6MTqIz9GCmry09xhsk6nD6rOXSjnds9UNA==}
     peerDependencies:
       react: ^18.0.0 || ^17.0.0 || ^16.8.0
 
@@ -35951,6 +35956,8 @@ snapshots:
 
   tslib@2.6.3: {}
 
+  tslib@2.8.0: {}
+
   tslib@2.8.1: {}
 
   tsscmp@1.0.6: {}
@@ -36101,32 +36108,30 @@ snapshots:
 
   unicorn-magic@0.1.0: {}
 
-  uniforms-antd@3.10.2(@ant-design/icons@5.6.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(antd@5.24.5(date-fns@2.30.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0):
+  uniforms-antd@4.0.0(antd@5.24.5(date-fns@2.30.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)(uniforms@4.0.0(react@19.1.0)):
     dependencies:
-      '@ant-design/icons': 5.6.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       antd: 5.24.5(date-fns@2.30.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      classnames: 2.3.2
       invariant: 2.2.4
       lodash: 4.17.21
       react: 19.1.0
-      tslib: 2.3.1
-      uniforms: 3.10.2(react@19.1.0)
+      tslib: 2.8.0
+      uniforms: 4.0.0(react@19.1.0)
       warning: 4.0.3
 
-  uniforms-bridge-json-schema@3.10.2(react@19.1.0):
+  uniforms-bridge-json-schema@4.0.0(uniforms@4.0.0(react@19.1.0)):
     dependencies:
       invariant: 2.2.4
       lodash: 4.17.21
-      tslib: 2.3.1
-      uniforms: 3.10.2(react@19.1.0)
-    transitivePeerDependencies:
-      - react
+      tslib: 2.8.0
+      uniforms: 4.0.0(react@19.1.0)
 
-  uniforms@3.10.2(react@19.1.0):
+  uniforms@4.0.0(react@19.1.0):
     dependencies:
       invariant: 2.2.4
       lodash: 4.17.21
       react: 19.1.0
-      tslib: 2.3.1
+      tslib: 2.8.0
 
   union@0.5.0:
     dependencies:
