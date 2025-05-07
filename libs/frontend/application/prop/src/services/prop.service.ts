@@ -8,6 +8,7 @@ import type {
   IRef,
   IUpdatePropDataWithDefaultValues,
 } from '@codelab/shared/abstract/core'
+import type { NextFetchOptions } from '@codelab/shared/abstract/types'
 
 import { propRepository } from '@codelab/frontend-domain-prop/repositories'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
@@ -36,9 +37,9 @@ export const usePropService = (): IPropService => {
     )
   }
 
-  const update = async (dto: IPropUpdateData) => {
+  const update = async (dto: IPropUpdateData, options?: NextFetchOptions) => {
     await propRepository.update({ id: dto.id }, dto, {
-      revalidateTags: [CACHE_TAGS.Prop.list()],
+      revalidateTags: options?.revalidateTags ?? [CACHE_TAGS.Prop.list()],
     })
 
     return dto
@@ -64,7 +65,10 @@ export const usePropService = (): IPropService => {
       id,
     })
 
-    return await update(props.toJson)
+    // do not revalidate here, we have already updated the cache above.
+    // revalidating will cause pageBuilderQuery to be called again and this will
+    // unmount and mount the entire components tree each time user updates element prop
+    return await update(props.toJson, { revalidateTags: [] })
   }
 
   return {

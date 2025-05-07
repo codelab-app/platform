@@ -6,10 +6,10 @@
         "api": {
           "id": "430aa816-16ae-486e-bf69-b34564dd1c6a"
         },
-        "defaultValues": null,
+        "defaultValues": "[]",
         "description": null,
         "fieldType": {
-          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
+          "id": "3e700862-210b-4681-8299-86403e6c03d4"
         },
         "id": "0faa1dbd-fe23-49e1-b81e-67c98a4fff6b",
         "key": "actions",
@@ -18,7 +18,7 @@
           "id": "7ae1facd-934e-40ea-8404-e7e17957bf46"
         },
         "prevSibling": null,
-        "validationRules": null
+        "validationRules": "{\"general\":{\"nullable\":true}}"
       },
       {
         "api": {
@@ -247,7 +247,7 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
+          "id": "c8850df4-59f6-48f9-af17-e3848f7ff520"
         },
         "id": "572596cc-bda1-4456-bff5-253ce4adb084",
         "key": "tabList",
@@ -258,7 +258,7 @@
         "prevSibling": {
           "id": "e7968206-5b67-410e-944c-e315bc6bee7b"
         },
-        "validationRules": null
+        "validationRules": "{\"general\":{\"nullable\":true}}"
       },
       {
         "api": {
@@ -297,6 +297,38 @@
           "id": "a62100c4-0aa9-43c9-b7c7-4a4e8b230316"
         },
         "validationRules": null
+      },
+      {
+        "api": {
+          "id": "704f98d2-3061-42c7-bb7c-3defa5a8528b"
+        },
+        "defaultValues": "\"tab\"",
+        "description": null,
+        "fieldType": {
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
+        },
+        "id": "8f0152ad-cfd7-4f79-9514-6bcc03f0c8c3",
+        "key": "key",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "704f98d2-3061-42c7-bb7c-3defa5a8528b"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
+        },
+        "id": "1e30ccbc-0ecd-4c20-b029-153a6acafa4e",
+        "key": "tab",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
       }
     ],
     "id": "430aa816-16ae-486e-bf69-b34564dd1c6a",
@@ -329,6 +361,20 @@
         "name": "AntDesignCard Size Enum"
       },
       {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "id": "8f0152ad-cfd7-4f79-9514-6bcc03f0c8c3"
+          },
+          {
+            "id": "1e30ccbc-0ecd-4c20-b029-153a6acafa4e"
+          }
+        ],
+        "id": "704f98d2-3061-42c7-bb7c-3defa5a8528b",
+        "kind": "InterfaceType",
+        "name": "AntDesignCardTabListItem"
+      },
+      {
         "__typename": "UnionType",
         "id": "b24af1b5-6c50-4864-817c-e7f0c4a39374",
         "kind": "UnionType",
@@ -345,6 +391,28 @@
             "name": "Typescript Code"
           }
         ]
+      },
+      {
+        "__typename": "ArrayType",
+        "id": "3e700862-210b-4681-8299-86403e6c03d4",
+        "itemType": {
+          "__typename": "ReactNodeType",
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+          "name": "ReactNodeType"
+        },
+        "kind": "ArrayType",
+        "name": "AntDesignCardActions"
+      },
+      {
+        "__typename": "ArrayType",
+        "id": "c8850df4-59f6-48f9-af17-e3848f7ff520",
+        "itemType": {
+          "__typename": "InterfaceType",
+          "id": "704f98d2-3061-42c7-bb7c-3defa5a8528b",
+          "name": "AntDesignCardTabListItem"
+        },
+        "kind": "ArrayType",
+        "name": "AntDesignCardTabList"
       }
     ]
   },
