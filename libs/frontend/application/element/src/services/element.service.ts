@@ -5,7 +5,6 @@ import {
   type IBuilderRoute,
   type IElementService,
   IRouteType,
-  isRuntimeElement,
   isRuntimeElementRef,
   RoutePaths,
 } from '@codelab/frontend/abstract/application'
@@ -23,7 +22,6 @@ import {
   useApplicationStore,
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
-import { logger } from '@codelab/shared/infra/logging'
 import { uniqueBy } from 'remeda'
 
 /**
@@ -156,7 +154,15 @@ export const useElementService = (): IElementService => {
     if (newRenderTypeId !== oldRenderTypeId) {
       await propService.reset(currentElement.props.toJson)
 
-      await atomService.loadApi(newRenderTypeId)
+      if (newElement.renderType.__typename === 'Atom') {
+        await atomService.loadApi(newElement.renderType.id)
+      } else {
+        const component = componentDomainService.component(
+          newElement.renderType.id,
+        )
+
+        await typeService.getInterface(component.api.id)
+      }
     }
 
     currentElement.writeCache(newElement)
