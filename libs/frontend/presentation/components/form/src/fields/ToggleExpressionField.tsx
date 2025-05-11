@@ -52,7 +52,11 @@ const getBaseControl = (fieldProps: CodeMirrorConnectFieldProps) => {
 
   const props = { ...fieldProps, label: null, name }
 
-  switch (fieldProps.field.type) {
+  const fieldType = Array.isArray(fieldProps.field.type)
+    ? fieldProps.field.type[0]
+    : fieldProps.field.type
+
+  switch (fieldType) {
     case 'array':
       return <WrappedListField {...(props as ListFieldProps)} />
     case 'boolean':
