@@ -84,7 +84,10 @@ export class PrimitiveType
     return {
       ...rulesSchema,
       ...(uniformSchema?.(this) ?? {}),
-      type: primitives[this.primitiveKind],
+      type:
+        this.primitiveKind === IPrimitiveTypeKind.String
+          ? primitives[this.primitiveKind]
+          : [primitives[this.primitiveKind], 'string'],
     }
   }
 
