@@ -12,6 +12,8 @@ import { Alert } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { forwardRef, useMemo } from 'react'
 
+import { useSetStateOnRender } from '../../hooks/useSetStateOnRender.hook'
+
 //  https://github.com/ant-design/ant-design/issues/52213
 const ErrorBoundary = Alert.ErrorBoundary as JSXElementConstructor<{
   children: ReactNode
@@ -60,6 +62,9 @@ const RootRendererComponent = forwardRef<
     }),
     [preference.builderWidth],
   )
+
+  // because `renderer.render` has side effects we need to wrap it in a useEffect
+  const rendered = useSetStateOnRender(() => renderer.render)
 
   return (
     <ErrorBoundary>

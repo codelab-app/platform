@@ -12,7 +12,7 @@ import { Fragment, useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 
 import { getAtom } from '../atoms'
-import { useSelectionHandlers } from '../hooks'
+import { useSelectionHandlers, useSetStateOnRender } from '../hooks'
 import { useOverrideAtomProps } from '../hooks/useOverrideAtomProps.hook'
 import { StyledComponent } from './StyledComponent'
 
