@@ -11,7 +11,7 @@ import { Fragment, useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 
 import { getAtom } from '../atoms'
-import { useSelectionHandlers } from '../hooks'
+import { useSelectionHandlers, useSetStateOnRender } from '../hooks'
 import { useOverrideAtomProps } from '../hooks/useOverrideAtomProps.hook'
 import { StyledComponent } from './StyledComponent'
 import { generateTailwindClasses } from './utils'
@@ -78,9 +78,12 @@ export const ElementWrapper = observer<ElementWrapperProps>(
      *  - children prop value
      */
 
-    const children =
-      runtimeElement.renderChildren ??
-      runtimeElement.runtimeProps.renderedChildrenProp
+    // because `renderer.render` has side effects we need to wrap it in a useEffect
+    const children = useSetStateOnRender(
+      () =>
+        runtimeElement.renderChildren ??
+        runtimeElement.runtimeProps.renderedChildrenProp,
+    )
 
     return (
       <ErrorBoundary
