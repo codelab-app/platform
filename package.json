@@ -267,7 +267,7 @@
     "typebox-validators": "0.3.5",
     "uniforms": "3.10.2",
     "uniforms-antd": "3.10.2",
-    "uniforms-bridge-json-schema": "3.10.2",
+    "uniforms-bridge-json-schema": "4.0.0",
     "use-custom-compare": "1.4.0",
     "use-resize-observer": "9.1.0",
     "uuid": "8.3.2",
