@@ -40,7 +40,7 @@ export const createRedirectSchema: JSONSchemaType<IRedirectCreateFormData> = {
     },
     targetType: {
       type: 'string',
-      enum: Object.values(IRedirectTargetType),
+      allowedValues: Object.values(IRedirectTargetType),
     },
     targetPage: {
       type: 'object',
