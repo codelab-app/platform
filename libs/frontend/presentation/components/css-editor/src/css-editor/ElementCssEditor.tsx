@@ -45,7 +45,7 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
     const cssChangeHandler = useCallback(
       debounce(
         (value: string) => {
-          element.setStyle(value)
+          runtimeElement.style.setCustomCss(value)
         },
         { waitMs: CSS_AUTOSAVE_TIMEOUT },
       ).call,
@@ -65,13 +65,6 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
 
       // do not send request if value was not changed
       if (oldStyle !== styleString || !sameTailwindClassNames) {
-        console.log(
-          'Saving element styles',
-          oldStyle,
-          styleString,
-          oldTailwindClassNames,
-          tailwindClassNames,
-        )
         lastStateRef.current = styleString
         lastTailwindClassNames.current = tailwindClassNames
         setLoading(true)
