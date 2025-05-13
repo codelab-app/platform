@@ -19,7 +19,7 @@ import { reconnectNodeId } from '@codelab/shared-domain-orm'
 import { titleCase } from '@codelab/shared-utils'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
-import { isNonNullish, isString } from 'remeda'
+import { isNonNullish } from 'remeda'
 
 const create = ({
   api,
@@ -40,6 +40,8 @@ const create = ({
     parsedDefaultValues = isNonNullish(defaultValues)
       ? JSON.parse(defaultValues)
       : null
+
+    console.log('defaultValues', parsedDefaultValues)
   } catch (err) {
     parsedDefaultValues = defaultValues
   }
