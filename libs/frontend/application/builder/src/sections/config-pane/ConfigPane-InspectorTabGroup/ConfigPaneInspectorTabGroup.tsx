@@ -225,11 +225,11 @@ export const ConfigPaneInspectorTabGroup = observer<{
     <FormContextProvider value={{ elementTree, selectedNode }}>
       <TabGroup>
         <Tabs
-          defaultActiveKey={preference.activeConfigPaneTab}
+          activeKey={preference.activeConfigPaneTab}
           destroyInactiveTabPane
           items={tabItems}
           onChange={(activeKey) =>
-            update({
+            void update({
               activeConfigPaneTab: activeKey as IConfigPaneTab,
               id: preference.id,
             })
