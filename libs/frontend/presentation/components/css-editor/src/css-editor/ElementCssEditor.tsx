@@ -45,7 +45,7 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
     const cssChangeHandler = useCallback(
       debounce(
         (value: string) => {
-          element.setStyle(value)
+          runtimeElement.style.setCustomCss(value)
         },
         { waitMs: CSS_AUTOSAVE_TIMEOUT },
       ).call,
