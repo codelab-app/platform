@@ -226,7 +226,7 @@ export const ConfigPaneInspectorTabGroup = observer<{
       <TabGroup>
         <Tabs
           activeKey={preference.activeConfigPaneTab}
-          destroyInactiveTabPane
+          // destroyInactiveTabPane
           items={tabItems}
           onChange={(activeKey) =>
             void update({

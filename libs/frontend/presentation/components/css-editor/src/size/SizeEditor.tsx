@@ -1,3 +1,5 @@
+'use client'
+
 import BarcodeOutlined from '@ant-design/icons/BarcodeOutlined'
 import EyeInvisibleOutlined from '@ant-design/icons/EyeInvisibleOutlined'
 import EyeOutlined from '@ant-design/icons/EyeOutlined'

@@ -40,8 +40,6 @@ const create = ({
     parsedDefaultValues = isNonNullish(parsedDefaultValues)
       ? JSON.parse(parsedDefaultValues)
       : null
-
-    console.log('defaultValues', parsedDefaultValues)
   } catch (err) {
     console.log(`Failed to parse default value for field: ${key}`)
   }

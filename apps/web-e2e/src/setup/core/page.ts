@@ -110,6 +110,7 @@ export class BasePage {
    */
   async expectNotificationSuccess(message: string) {
     await expect(this.getNotification()).toHaveText(message)
+    await this.page.locator('.ant-notification-close').click()
   }
 
   async fillInputMultiSelect(

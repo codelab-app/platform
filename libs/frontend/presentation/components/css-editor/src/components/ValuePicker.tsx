@@ -1,3 +1,5 @@
+'use client'
+
 import type { SizeType } from 'antd/lib/config-provider/SizeContext'
 import type { ReactNode } from 'react'
 

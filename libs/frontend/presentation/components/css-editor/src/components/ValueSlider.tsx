@@ -1,3 +1,5 @@
+'use client'
+
 import { Slider } from 'antd'
 
 import { CssUnit } from '../utils'
