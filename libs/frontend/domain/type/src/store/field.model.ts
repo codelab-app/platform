@@ -40,8 +40,6 @@ const create = ({
     parsedDefaultValues = isNonNullish(defaultValues)
       ? JSON.parse(defaultValues)
       : null
-
-    console.log('defaultValues', parsedDefaultValues)
   } catch (err) {
     parsedDefaultValues = defaultValues
   }
