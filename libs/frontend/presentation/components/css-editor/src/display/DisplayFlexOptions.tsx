@@ -1,3 +1,5 @@
+'use client'
+
 import { Col, Divider, Row } from 'antd'
 
 import { SegmentedSelect, ValuePicker } from '../components'

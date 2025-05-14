@@ -1,3 +1,5 @@
+'use client'
+
 import UndoOutlined from '@ant-design/icons/UndoOutlined'
 import { Button, Col, Row } from 'antd'
 import clsx from 'clsx'

@@ -1,3 +1,5 @@
+'use client'
+
 import type { PropsWithChildren } from 'react'
 
 import UndoOutlined from '@ant-design/icons/UndoOutlined'
