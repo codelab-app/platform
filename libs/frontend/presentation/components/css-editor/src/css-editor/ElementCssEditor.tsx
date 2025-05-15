@@ -10,7 +10,6 @@ import { CodeMirrorLanguage } from '@codelab/shared/infra/gqlgen'
 import { compareArray } from '@codelab/shared/utils'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { throttle } from 'radash'
 import { useCallback, useEffect, useRef } from 'react'
 import { debounce } from 'remeda'
 import styled from 'styled-components'
@@ -74,12 +73,9 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
       }
     }, [])
 
-    const debouncedUpdateElementStyles = throttle(
-      {
-        interval: CSS_AUTOSAVE_TIMEOUT,
-      },
-      updateElementStyles,
-    )
+    const debouncedUpdateElementStyles = debounce(updateElementStyles, {
+      waitMs: CSS_AUTOSAVE_TIMEOUT,
+    }).call
 
     useEffect(
       /*
