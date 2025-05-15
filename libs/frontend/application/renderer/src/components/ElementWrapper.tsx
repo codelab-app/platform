@@ -6,12 +6,13 @@ import type { IAtomType } from '@codelab/shared/abstract/core'
 import { type IComponentType } from '@codelab/frontend/abstract/domain'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { runInAction } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import { Fragment, useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 
 import { getAtom } from '../atoms'
-import { useSelectionHandlers, useSetStateOnRender } from '../hooks'
+import { useSelectionHandlers } from '../hooks'
 import { useOverrideAtomProps } from '../hooks/useOverrideAtomProps.hook'
 import { StyledComponent } from './StyledComponent'
 import { generateTailwindClasses } from './utils'
@@ -79,7 +80,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
      */
 
     // because `renderer.render` has side effects we need to wrap it in a useEffect
-    const children = useSetStateOnRender(
+    const children = runInAction(
       () =>
         runtimeElement.renderChildren ??
         runtimeElement.runtimeProps.renderedChildrenProp,

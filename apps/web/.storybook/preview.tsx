@@ -16,7 +16,7 @@ import { initialize, mswLoader } from 'msw-storybook-addon'
 import { v4 } from 'uuid'
 
 import '../styles/main.css'
-import twindConfig from '../twind.config'
+// import twindConfig from '../twind.config'
 
 /*
  * Initializes MSW
@@ -43,7 +43,7 @@ const preview: Preview = {
       return (
         <RootStoreProvider value={store}>
           <React19Compatibility />
-          <StyleProviders twindConfig={twindConfig}>
+          <StyleProviders>
             <NotificationProvider>
               <Story />
             </NotificationProvider>

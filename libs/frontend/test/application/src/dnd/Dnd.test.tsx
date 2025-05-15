@@ -86,10 +86,14 @@ const renderDragAndDropElements = async (
           id={ROOT_RENDER_CONTAINER_ID}
           ref={renderContainerRef}
           style={{
+            height: '200px',
+
             left: '0px',
+
+            right: '200px',
             // added as a workaround for jsdom not supporting getBoundingClientRect
             top: '0px',
-            width: '300px',
+            width: '200px',
           }}
         >
           {renderer.render}
@@ -393,7 +397,7 @@ describe('Dnd', () => {
             afterFirst: {
               dragCoordinate: {
                 x: 0,
-                y: 202,
+                y: 200,
               },
               positionName: 'bellow',
             },
@@ -445,6 +449,8 @@ describe('Dnd', () => {
                 draggableElement,
                 droppableElement,
               )
+
+            console.log(draggableElementDOM.style, droppableElementDOM.style)
 
             // Trigger the drag operation.
             await dragElementOver(

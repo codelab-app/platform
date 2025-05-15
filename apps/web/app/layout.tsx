@@ -9,7 +9,7 @@ import { cn } from '@cui/utils'
 import { setGlobalConfig } from 'mobx-keystone'
 import { Inter, Montserrat, Nunito } from 'next/font/google'
 
-import twindConfig from '../twind.config'
+// import twindConfig from '../twind.config'
 
 setGlobalConfig({
   showDuplicateModelNameWarnings: process.env.NODE_ENV === 'production',
@@ -50,7 +50,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
       <head></head>
       <body className="min-h-screen bg-background antialiased">
         <React19Compatibility />
-        <StyleProviders twindConfig={twindConfig}>
+        <StyleProviders>
           <NotificationProvider>{children}</NotificationProvider>
         </StyleProviders>
       </body>

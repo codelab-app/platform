@@ -9,10 +9,9 @@ import {
 import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/domain'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Alert } from 'antd'
+import { runInAction } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import { forwardRef, useMemo } from 'react'
-
-import { useSetStateOnRender } from '../../hooks/useSetStateOnRender.hook'
 
 //  https://github.com/ant-design/ant-design/issues/52213
 const ErrorBoundary = Alert.ErrorBoundary as JSXElementConstructor<{
@@ -64,7 +63,7 @@ const RootRendererComponent = forwardRef<
   )
 
   // because `renderer.render` has side effects we need to wrap it in a useEffect
-  const rendered = useSetStateOnRender(() => renderer.render)
+  const rendered = runInAction(() => renderer.render)
 
   return (
     <ErrorBoundary>
