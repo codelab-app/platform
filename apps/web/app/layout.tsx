@@ -50,7 +50,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
       <head></head>
       <body className="min-h-screen bg-background antialiased">
         <React19Compatibility />
-        <StyleProviders twindConfig={twindConfig}>
+        <StyleProviders>
           <NotificationProvider>{children}</NotificationProvider>
         </StyleProviders>
       </body>
