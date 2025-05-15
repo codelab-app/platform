@@ -53,7 +53,7 @@ export const createAuthGuardSchema: JSONSchemaType<IAuthGuardCreateFormData> = {
               },
             },
             method: {
-              enum: keys(HttpMethod) as Array<HttpMethod>,
+              allowedValues: keys(HttpMethod) as Array<HttpMethod>,
               showSearch: true,
               type: 'string',
             },
@@ -74,7 +74,7 @@ export const createAuthGuardSchema: JSONSchemaType<IAuthGuardCreateFormData> = {
               },
             },
             responseType: {
-              enum: Object.values(HttpResponseType),
+              allowedValues: Object.values(HttpResponseType),
               showSearch: true,
               type: 'string',
             },

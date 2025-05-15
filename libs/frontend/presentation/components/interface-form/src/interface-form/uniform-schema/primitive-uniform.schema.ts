@@ -33,5 +33,8 @@ export const primitiveTypeUniformSchema: ITypeModelUniformSchemaBuilder<
             },
           }),
         },
+        if: { type: 'string' },
+        then: { pattern: '^\\{\\{.*\\}\\}$' },
+        errorMessage: `Must be of type ${type.primitiveKind}, or an expression that evaluates to ${type.primitiveKind}`,
       }
 }
