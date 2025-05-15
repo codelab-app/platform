@@ -10,10 +10,11 @@ import {
 } from '@codelab/frontend-presentation-components-form'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
-import { AutoField, AutoFields, SelectField, TextField } from 'uniforms-antd'
+import { AutoFields, SelectField, TextField } from 'uniforms-antd'
 import { v4 } from 'uuid'
 
 import { useAtomService } from '../../services'
+import { SelectAtom } from '../select-atom'
 import { createAtomSchema } from './create-atom.schema'
 
 export const CreateAtomForm = observer<IFormController>(
@@ -38,6 +39,7 @@ export const CreateAtomForm = observer<IFormController>(
           omitFields={[
             'tags',
             'requiredParents',
+            'suggestedChildren',
             'externalCssSource',
             'externalJsSource',
             'externalSourceType',
@@ -52,7 +54,7 @@ export const CreateAtomForm = observer<IFormController>(
           <TextField name="externalJsSource" required />
           <TextField name="externalSourceType" required />
         </DisplayIfField>
-        <AutoField name="requiredParents" />
+        <SelectAtom label="Required Parents" name="requiredParents" />
         <SelectField
           label="Connect Tag"
           mode="multiple"
