@@ -1,10 +1,14 @@
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
+import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
 
 import CheckOutlined from '@ant-design/icons/CheckOutlined'
 import EditOutlined from '@ant-design/icons/EditOutlined'
 
-export const EditTextButton = ({ element }: { element: IElementModel }) => {
-  if (element.children.length !== 0) {
+export const EditTextButton = ({
+  runtimeElement,
+}: {
+  runtimeElement: IRuntimeElementModel
+}) => {
+  if (runtimeElement.element.current.children.length !== 0) {
     return null
   }
 
@@ -16,7 +20,9 @@ export const EditTextButton = ({ element }: { element: IElementModel }) => {
       `}
       onClick={(event) => {
         event.stopPropagation()
-        element.setIsTextContentEditable(!element.isTextContentEditable)
+        runtimeElement.setIsTextContentEditable(
+          !runtimeElement.isTextContentEditable,
+        )
       }}
     >
       <div
@@ -27,7 +33,11 @@ export const EditTextButton = ({ element }: { element: IElementModel }) => {
         `}
         style={{ backgroundColor: '#375583', color: 'white' }}
       >
-        {element.isTextContentEditable ? <CheckOutlined /> : <EditOutlined />}
+        {runtimeElement.isTextContentEditable ? (
+          <CheckOutlined />
+        ) : (
+          <EditOutlined />
+        )}
       </div>
     </div>
   )

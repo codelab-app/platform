@@ -6,9 +6,7 @@ import {
   runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
-import { useElementService } from '@codelab/frontend-application-element/services'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
-import { runInAction } from 'mobx'
 import { observer } from 'mobx-react-lite'
 
 import { useElementTreeDrop } from '../../../hooks'
@@ -28,11 +26,6 @@ export const ElementTreeView = observer<{
   const { builderService, runtimeElementService } = useApplicationStore()
   const selectedNode = builderService.selectedNode?.current
   const { handleDrop, isMoving } = useElementTreeDrop()
-
-  console.log({
-    expandedKeys: runtimeElementService.expandedCompositeKeys,
-    selectedNode: selectedNode?.compositeKey,
-  })
 
   return (
     <CuiTree<IElementTreeViewDataNode>

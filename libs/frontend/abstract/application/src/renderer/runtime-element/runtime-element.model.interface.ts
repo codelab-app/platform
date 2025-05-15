@@ -36,6 +36,7 @@ export interface IRuntimeElementModel extends IBaseRuntimeModel {
    * Whether the element is expanded in the tree view, moved from `ElementModel`
    */
   expanded: boolean
+  isTextContentEditable: boolean
   mainTreeElement: IRuntimeElementModel
   parentElement: Maybe<IRuntimeElementModel>
   parentElementKey: Nullable<string>
@@ -47,6 +48,7 @@ export interface IRuntimeElementModel extends IBaseRuntimeModel {
    * to generate correct compositeKey for children too
    */
   propKey?: string
+  propsHaveErrors: boolean
   renderChildren: ArrayOrSingle<ReactNode>
   /**
    * Runtime version of IElementModel.prop
@@ -63,6 +65,7 @@ export interface IRuntimeElementModel extends IBaseRuntimeModel {
   runPostRenderActions(): void
   runPreRenderActions(): void
   setExpanded(expanded: boolean): void
+  setIsTextContentEditable(editable: boolean): void
   setPostRenderActionsDone(value: boolean): void
   setPreRenderActionsDone(value: boolean): void
 }

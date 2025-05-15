@@ -75,3 +75,6 @@ vite.config.*.timestamp*
 .aider*
 
 vitest.config.*.timestamp*.perplexity-key
+
+.cursor/rules/nx-rules.mdc
+.github/instructions/nx.instructions.md

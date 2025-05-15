@@ -49,6 +49,7 @@ export const InterfaceForm = <TData, TResponse>({
   initialSchema,
   interfaceType,
   model,
+  modelTransform,
   onChange,
   onSubmit,
   onSubmitError,
@@ -77,6 +78,7 @@ export const InterfaceForm = <TData, TResponse>({
     <Form
       autosave={autosave}
       model={model}
+      modelTransform={modelTransform}
       onChange={onChange}
       onSubmit={asyncHandler(onSubmit)}
       onSubmitError={onSubmitError}

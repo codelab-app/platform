@@ -157,7 +157,7 @@ export const elementMapper: IMapper<
         },
       },
       style,
-      tailwindClassNames,
+      // tailwindClassNames,
     }
   },
 }

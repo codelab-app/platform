@@ -34,7 +34,7 @@ export class ReactNodeTypeTransformer
     key: string,
     runtimeNode: IRuntimePageNode,
   ) {
-    const { expressionTransformer } = this.renderer
+    const { expressionTransformer } = this.rendererService
     const propValue = extractTypedPropValue(prop)
 
     if (!propValue) {
@@ -42,7 +42,7 @@ export class ReactNodeTypeTransformer
     }
 
     // propValue is a custom JS component
-    if (hasExpression(prop.value) && expressionTransformer.initialized) {
+    if (hasExpression(prop.value)) {
       const transpiledValue =
         expressionTransformer.transpileAndEvaluateExpression(propValue)
 

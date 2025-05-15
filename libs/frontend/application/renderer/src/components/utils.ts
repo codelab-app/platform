@@ -1,3 +1,5 @@
+'use client'
+
 import type { IPropData } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 

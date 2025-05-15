@@ -32,7 +32,7 @@ export const CreateComponentForm = observer<IFormController & { owner: IRef }>(
         submitRef={submitRef}
         uiKey={UiKey.ComponentFormCreate}
       >
-        <AutoFields omitFields={['api']} />
+        <AutoFields omitFields={['api', 'owner']} />
       </Form>
     )
   },

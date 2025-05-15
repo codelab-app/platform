@@ -14,7 +14,7 @@ import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 import { Spinner } from '@codelab/frontend-presentation-view/components/loader'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { Fragment, useEffect } from 'react'
+import { Fragment, useEffect, useMemo } from 'react'
 import { useAsyncFn } from 'react-use'
 
 export interface UpdateComponentPropsFormProps {
@@ -37,23 +37,19 @@ export const UpdateComponentPropsForm = observer<UpdateComponentPropsFormProps>(
       void getInterface()
     }, [api.id, getInterface])
 
-    const onSubmit = async (data: IPropData) => {
-      // does not look like we need to remove empty strings/arrays/objects from the properties,
-      // since users should have ability to override property to whatever value they want
-      // const filteredData = filterEmptyStrings(data)
-      const filteredData = data
-
-      return propService.update({
-        data: JSON.stringify(filteredData),
+    const onSubmit = async (data: IPropData) =>
+      propService.updateWithDefaultValuesApplied(component.props, {
+        data,
+        defaultValues: component.api.current.defaultValues,
         id: component.props.id,
       })
-    }
 
     // We only set the `defaultValues` as an initial value, not as `defaultValue` in the schema
     // so that the value of `defaultValues` wont show when the field is cleared
-    const propsModel = mergeProps(
-      component.api.current.defaultValues,
-      component.props.values,
+    const propsModel = useMemo(
+      () =>
+        mergeProps(component.api.current.defaultValues, component.props.values),
+      [],
     )
 
     return (

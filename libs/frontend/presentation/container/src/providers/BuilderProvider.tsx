@@ -12,7 +12,8 @@ import {
 } from '@codelab/frontend/abstract/application'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
-import { createContext, type ReactNode, useEffect } from 'react'
+import { createContext, type ReactNode } from 'react'
+import { useAsync } from 'react-use'
 import { v4 } from 'uuid'
 
 interface BuilderContextProps {
@@ -40,7 +41,9 @@ export const BuilderProvider = observer(
     /**
      * Defer side effect to lifecycle method, to prevent https://github.com/codelab-app/platform/issues/3463
      */
-    useEffect(() => {
+    const { loading } = useAsync(async () => {
+      await rendererService.expressionTransformer.init()
+
       const renderer = rendererService.hydrate({
         containerNode,
         id: v4(),
@@ -71,14 +74,14 @@ export const BuilderProvider = observer(
       if (!builderService.selectedNode) {
         builderService.setSelectedNode(runtimeElementRef(runtimeRootElement))
       }
-
-      void renderer.expressionTransformer.init()
     }, [rendererType, containerNode.id])
 
     return (
-      <BuilderContext.Provider value={{ containerNode, rendererType }}>
-        {children}
-      </BuilderContext.Provider>
+      !loading && (
+        <BuilderContext.Provider value={{ containerNode, rendererType }}>
+          {children}
+        </BuilderContext.Provider>
+      )
     )
   },
 )

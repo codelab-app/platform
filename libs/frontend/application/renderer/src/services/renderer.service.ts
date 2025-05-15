@@ -1,4 +1,5 @@
 import type {
+  IExpressionTransformer,
   IRendererDto,
   IRendererModel,
   IRendererService,
@@ -14,6 +15,7 @@ import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 
 import { Renderer } from '../store/renderer.model'
+import { ExpressionTransformer } from './expression-transformer.service'
 
 @model('@codelab/RendererService')
 export class RendererService
@@ -21,6 +23,9 @@ export class RendererService
     activeRenderer: prop<Nullable<Ref<IRendererModel>>>(
       () => null,
     ).withSetter(),
+    expressionTransformer: prop<IExpressionTransformer>(
+      () => new ExpressionTransformer({}),
+    ),
     /**
      * These are renderers for the public, they are keyed by containerId
      */

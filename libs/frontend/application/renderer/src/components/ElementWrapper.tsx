@@ -6,6 +6,7 @@ import type { IAtomType } from '@codelab/shared/abstract/core'
 import { type IComponentType } from '@codelab/frontend/abstract/domain'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { runInAction } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import { Fragment, useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
@@ -78,9 +79,12 @@ export const ElementWrapper = observer<ElementWrapperProps>(
      *  - children prop value
      */
 
-    const children =
-      runtimeElement.renderChildren ??
-      runtimeElement.runtimeProps.renderedChildrenProp
+    // because `renderer.render` has side effects we need to wrap it in a useEffect
+    const children = runInAction(
+      () =>
+        runtimeElement.renderChildren ??
+        runtimeElement.runtimeProps.renderedChildrenProp,
+    )
 
     return (
       <ErrorBoundary

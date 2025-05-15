@@ -1,3 +1,5 @@
+'use client'
+
 import { Col, Row, Select } from 'antd'
 
 import { ResetLabel } from './ResetLabel'

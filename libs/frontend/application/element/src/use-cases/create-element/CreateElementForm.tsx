@@ -132,9 +132,11 @@ export const CreateElementForm = observer<CreateElementFormProps>((props) => {
           'postRenderActions',
           'renderType',
           'name',
+          'props',
           'tailwindClassNames',
         ]}
       />
+      <AutoField name="props.data" />
       <AutoField
         component={SelectElementField}
         help={`only elements from \`${selectedElement.closestContainerNode.name}\` are visible in this list`}

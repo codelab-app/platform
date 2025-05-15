@@ -42,12 +42,6 @@ export const UpdateElementForm = observer(
     const elementService = useElementService()
 
     const onSubmit = async (data: IUpdateElementData) => {
-      console.log({
-        childMapperComponent: data.childMapperComponent,
-        childMapperPreviousSibling: data.childMapperPreviousSibling,
-        childMapperPropKey: data.childMapperPropKey,
-      })
-
       return elementService.update(data)
     }
 

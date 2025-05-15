@@ -31,22 +31,24 @@ import {
   getComponentDomainService,
   isComponent,
 } from '@codelab/frontend/abstract/domain'
-import { evaluateExpression, hasExpression } from '@codelab/shared-infra-eval'
-import { computed, reaction } from 'mobx'
+import { createValidator } from '@codelab/frontend/shared/utils'
+import {
+  evaluateExpression,
+  evaluateObject,
+  hasExpression,
+} from '@codelab/shared-infra-eval'
+import { computed } from 'mobx'
 import {
   detach,
-  getSnapshot,
   idProp,
   Model,
   model,
   modelAction,
-  onSnapshot,
   patchRecorder,
   prop,
 } from 'mobx-keystone'
-import { todo } from 'node:test'
 import { createElement, type ReactElement, type ReactNode } from 'react'
-import { difference, filter, isTruthy, pick } from 'remeda'
+import { difference, filter, isTruthy } from 'remeda'
 
 import { ElementWrapper } from '../components'
 
@@ -84,10 +86,6 @@ const getPropertiesFromLocalStorage = (key: string) => {
 const create = (dto: IRuntimeElementDto) => {
   const properties = getPropertiesFromLocalStorage(dto.compositeKey)
 
-  console.log('RuntimeElementModel.create', {
-    properties,
-  })
-
   return new RuntimeElementModel({ ...dto, ...properties })
 }
 
@@ -103,6 +101,7 @@ export class RuntimeElementModel
     compositeKey: idProp,
     element: prop<Ref<IElementModel>>(),
     expanded: prop<boolean>(false),
+    isTextContentEditable: prop<boolean>(false).withSetter(),
     lastChildMapperChildrenKeys: prop<Array<string>>(() => []),
     parentElementKey: prop<Nullable<string>>(null),
     postRenderActionsDone: prop(false).withSetter(),
@@ -248,6 +247,26 @@ export class RuntimeElementModel
   }
 
   @computed
+  get propsHaveErrors() {
+    /**
+     * This is causing error since we haven't loaded the entire api fields type yet
+     */
+    const schema =
+      this.element.current.renderType.current.api.current.toJsonSchema({})
+
+    const validate = createValidator(schema)
+
+    const evaluatedProps = evaluateObject(
+      this.element.current.props.values,
+      this.runtimeProps.runtimeContext,
+    )
+
+    const result = validate(evaluatedProps)
+
+    return result ? result.details.length > 0 : false
+  }
+
+  @computed
   get render(): Nullable<ReactElement<unknown>> {
     if (this.shouldRender === false) {
       return null
@@ -380,7 +399,7 @@ export class RuntimeElementModel
       ? `Error: ${element.renderingMetadata.error.message}`
       : element.ancestorError
       ? 'Something went wrong in a parent element'
-      : element.propsHaveErrors
+      : this.propsHaveErrors
       ? 'Some props are not correctly set'
       : undefined
 
