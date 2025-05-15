@@ -43,7 +43,7 @@ const preview: Preview = {
       return (
         <RootStoreProvider value={store}>
           <React19Compatibility />
-          <StyleProviders twindConfig={twindConfig}>
+          <StyleProviders>
             <NotificationProvider>
               <Story />
             </NotificationProvider>
