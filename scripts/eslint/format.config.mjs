@@ -1,15 +1,20 @@
+import stylistic from '@stylistic/eslint-plugin'
 // import tsPlugin from '@typescript-eslint/eslint-plugin'
 // import canonicalPlugin from 'eslint-plugin-canonical'; // Add if canonical rule is used
 
+/**
+ * ESLint configuration for code formatting rules.
+ */
 export default [
   {
-    files: ['**/*.{ts,tsx,js,jsx}'], // Adjusted glob pattern
-    // plugins: {
-    //   '@typescript-eslint': tsPlugin,
-    //   // canonical: canonicalPlugin,
-    // },
+    files: ['*.ts', '*.tsx', '*.js', '*.jsx'],
+    plugins: {
+      '@stylistic': stylistic,
+      // '@typescript-eslint': tsPlugin,
+      // // canonical: canonicalPlugin,
+    },
     rules: {
-      '@typescript-eslint/padding-line-between-statements': [
+      '@stylistic/padding-line-between-statements': [
         'error',
         {
           blankLine: 'always',
@@ -78,7 +83,7 @@ export default [
         },
       ],
       'no-inline-comments': 'error',
-      // 'canonical/export-specifier-newline': 'off', // Ensure canonical plugin is imported if used
+      'canonical/export-specifier-newline': 'off',
     },
   },
 ]

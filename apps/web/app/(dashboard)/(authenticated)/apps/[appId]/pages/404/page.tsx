@@ -5,8 +5,8 @@ export const metadata: Metadata = {
   title: 'Page Not Found',
 }
 
-const Error404Page = () => {
+const NotFoundPage = () => {
   return <h1>404 - Page not found</h1>
 }
 
-export default Error404Page
+export default NotFoundPage

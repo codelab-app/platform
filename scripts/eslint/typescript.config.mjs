@@ -26,29 +26,29 @@ import banPlugin from 'eslint-plugin-ban'
 import sortDestructureKeysPlugin from 'eslint-plugin-sort-destructure-keys'
 import stylisticTsPlugin from '@stylistic/eslint-plugin-ts'
 import preferArrowPlugin from 'eslint-plugin-prefer-arrow'
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript'
 
-// Export necessary utilities if needed by other configs, but not plugins for registration
-export const utils = {
-  createTypeScriptImportResolver,
-  // Export specific plugins IF they are used for configuration presets elsewhere,
-  // but generally, registration happens inline below.
-  js, // Example: js.configs.recommended can be used elsewhere
-  importPlugin, // Example: importPlugin.configs.typescript can be used elsewhere
-  eslintPluginPrettierRecommended, // Needed for recommended config preset
-  nx,
-  reactPlugin,
-  tailwindcssPlugin,
-  readableTailwindPlugin,
-  preferArrowPlugin,
-}
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 // Base configuration - Plugins registered inline
-export default [
+export default tseslint.config(
+  tseslint.configs.strictTypeChecked, // Intentionally commented out for now
+  /**
+   * Later config takes precedence, used by `strictTypeChecked`
+   */
   {
-    plugins: {
-      'sort-destructure-keys': sortDestructureKeysPlugin,
+    languageOptions: {
+      ecmaVersion: 2022,
+      // sourceType: 'module',
+      parser: tseslint.parser,
+      parserOptions: {
+        // New in TS-ESLint 8: keeps a cache of Programs instead of re-building
+        // projectService: {
+        //   allowDefaultProject: ['*.js'],
+        // },
+        projectService: true,
+      },
     },
   },
   // Config 1: *.ts, *.tsx, *.js, *.jsx
@@ -56,13 +56,8 @@ export default [
     files: ['**/*.{ts,tsx,js,jsx}'],
     plugins: {
       'sort-destructure-keys': sortDestructureKeysPlugin,
+      '@typescript-eslint': tseslint.plugin, // Ensure TS plugin is registered
     },
-    // languageOptions: {
-    //   parser: tseslint.parser,
-    //   parserOptions: {
-    //     project: true,
-    //   },
-    // },
     rules: {
       'prefer-destructuring': [
         'off',
@@ -98,8 +93,8 @@ export default [
         },
       ],
       '@stylistic/ts/quotes': ['error', 'single', { avoidEscape: true }],
-      'no-dupe-class-members': 'off',
-      'no-unused-vars': 'off', // Base rule off, TS version handles it
+      'no-dupe-class-members': 'off', // Base rule off, TS version handles it (likely in strictTypeChecked)
+      'no-unused-vars': 'off', // Base rule off, TS version handles it (likely in strictTypeChecked)
       '@typescript-eslint/no-unused-vars': 'off',
       'sort-destructure-keys/sort-destructure-keys': [
         'error',
@@ -118,15 +113,22 @@ export default [
   },
 
   // Config 2: *.js, *.jsx
-  {
-    files: ['**/*.{js,jsx}'],
-    plugins: {
-      '@typescript-eslint': tseslint.plugin, // Need plugin for the rule below
-    },
-    rules: {
-      '@typescript-eslint/no-var-requires': 'off', // Allow require in JS files
-    },
-  },
+  // {
+  //   files: ['**/*.{js,jsx}'],
+  //   languageOptions: {
+  //     parser: tseslint.parser,
+  //     parserOptions: {
+  //       projectService: true, // Ensure service context is active here
+  //       project: './tsconfig.dev.json', // Explicitly use dev tsconfig
+  //     },
+  //   },
+  //   plugins: {
+  //     '@typescript-eslint': tseslint.plugin, // Need plugin for the rule below
+  //   },
+  //   rules: {
+  //     '@typescript-eslint/no-var-requires': 'off', // Allow require in JS files
+  //   },
+  // },
 
   // Config 3: *.schema.ts, *.schema.interface.ts
   {
@@ -149,7 +151,7 @@ export default [
     files: ['**/*.{ts,tsx}'],
     plugins: {
       'prefer-arrow': preferArrowPlugin,
-      '@typescript-eslint': tseslint.plugin,
+      '@typescript-eslint': tseslint.plugin, // Ensure TS plugin is available here too
     },
     settings: {
       // ...importPlugin.configs.typescript.settings, // Merge settings from 'plugin:import/typescript'
@@ -158,6 +160,37 @@ export default [
       // ...importPlugin.configs.typescript.rules, // Merge rules from 'plugin:import/typescript'
       curly: ['error', 'all'], // Enforce curly braces for all control statements
       'prefer-arrow/prefer-arrow-functions': 'error',
+
+      // Rules previously in the global config, now explicitly in TS/TSX scope
+      // These were identified as good candidates to be TS/TSX specific.
+      // If strictTypeChecked already covers them adequately, some might be redundant,
+      // but explicit definition here ensures they are applied as intended for these files.
+      '@typescript-eslint/no-empty-object-type': 'error',
+      '@typescript-eslint/no-unsafe-function-type': 'error',
+      '@typescript-eslint/no-wrapper-object-types': 'error',
+      '@typescript-eslint/no-restricted-types': [
+        'error',
+        {
+          types: {
+            'null | undefined': {
+              message: 'Use Nullish<> instead',
+              fixWith: 'Nullish<>',
+            },
+            'Record<string, any>': {
+              message: 'Use ObjectLike instead',
+              fixWith: 'ObjectLike',
+            },
+            'Record<string, unknown>': {
+              message: 'Use UnknownObjectLike instead',
+              fixWith: 'UnknownObjectLike',
+            },
+            object: {
+              message: 'Use {} or ObjectLike instead',
+              fixWith: 'ObjectLike',
+            },
+          },
+        },
+      ],
       '@typescript-eslint/no-extraneous-class': [
         'off',
         { allowWithDecorator: true }, // Allow classes used only as decorators
@@ -190,4 +223,4 @@ export default [
       '@typescript-eslint/no-explicit-any': 'off', // Allow explicit any in config files
     },
   },
-]
+)

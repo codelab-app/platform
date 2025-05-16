@@ -1,7 +1,6 @@
 {
   "extends": "../../tsconfig.base.json",
   // https://github.com/vercel/next.js/issues/75699
-  "compilerOptions": {},
   "files": [],
   "include": [],
   "references": [

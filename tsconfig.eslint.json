@@ -1,0 +1,25 @@
+{
+  // Extend the base config to inherit compiler options
+  "extends": "./tsconfig.base.json",
+  "include": [
+    // Include all source files from apps and libs
+    "apps/**/*",
+    "libs/**/*",
+    // Include necessary config files
+    "eslint.config.mjs",
+    "scripts/**/*.mjs", // Include all .mjs files in scripts/
+    "*.config.js", // Include root level .js configs
+    "*.config.mjs", // Include root level .mjs configs
+    "*.config.ts" // Include root level .ts configs
+    // Add any other necessary config files or patterns
+  ],
+  "exclude": [
+    // Exclude standard build/output/node_modules folders
+    "node_modules",
+    "tmp",
+    "dist",
+    ".nx",
+    // Exclude specific files if necessary, e.g., generated types
+    "**/*.d.ts"
+  ]
+}

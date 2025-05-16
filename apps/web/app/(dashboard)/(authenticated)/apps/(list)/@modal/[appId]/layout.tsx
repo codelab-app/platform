@@ -5,7 +5,7 @@ import { preloadAppItemQuery } from '@codelab/frontend-application-app/use-cases
 const Layout = async ({ children, params }: LayoutProps<'appId'>) => {
   const { appId } = await params
 
-  void preloadAppItemQuery(appId)
+  preloadAppItemQuery(appId)
 
   return <>{children}</>
 }

@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: 'Export Admin Data | Codelab',
 }
 
-const Page = async () => {
+const Page = () => {
   return <ExportAdminDataModal />
 }
 

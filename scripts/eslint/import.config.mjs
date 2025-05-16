@@ -1,92 +1,110 @@
-import { createNodeResolver } from 'eslint-plugin-import-x'
-import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript'
-import tseslint from 'typescript-eslint'
-import importPlugin from 'eslint-plugin-import'
+// eslint.config.ts – Flat-Config version of the previous JSON override
 
-export default [
-  importPlugin.flatConfigs.recommended,
+import tseslint from 'typescript-eslint' // TS-ESLint plugin + parser
+import importPlugin from 'eslint-plugin-import' // import/* rules
+import unusedImports from 'eslint-plugin-unused-imports' // unused-imports/* rules
+
+const tsProjects = ['tsconfig.base.json', '(apps|libs)/*/tsconfig.lib.json']
+
+export default /** @type {import('eslint').FlatConfig[]} */ [
   {
-    files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
-    // Mimic extends: ["plugin:import/typescript", "plugin:import/recommended"]
-    // Spread recommended and typescript rules directly
-    // Apply settings from the original JSON config
+    files: ['**/*.{ts,tsx,js,jsx}'],
+
+    //
+    // Register plugins (each key only once)
+    //
+    plugins: {
+      '@typescript-eslint': tseslint.plugin,
+      import: importPlugin,
+      'unused-imports': unusedImports,
+    },
+
+    //
+    // Parser & parserOptions
+    //
     languageOptions: {
-      ecmaVersion: 'latest',
-      sourceType: 'module',
       parser: tseslint.parser,
       parserOptions: {
-        ecmaFeatures: { jsx: true },
+        projectService: true,
+        project: tsProjects,
       },
     },
-    // No plugins property - plugins are registered only in eslint.config.mjs
+
+    //
+    // import/* resolver & parser settings
+    //
     settings: {
+      'import/parsers': {
+        '@typescript-eslint/parser': ['.ts', '.tsx'],
+      },
       'import/resolver': {
+        //
+        // Use the TS resolver
+        //
         typescript: {
+          // always try to resolve types under `<root>@types`
+          // even when no source code is present (e.g. `@types/unist`)
           alwaysTryTypes: true,
-          project: ['(apps|libs)/**/tsconfig.lib.json'],
+          project: tsProjects,
+        },
+        //
+        // Fallback to the Node resolver
+        //
+        node: {
+          project: tsProjects,
         },
       },
-      // 'import-x/parsers': {
-      //   '@typescript-eslint/parser': ['.ts', '.tsx'],
-      // },
-      // 'import-x/resolver-next': [
-      //   createTypeScriptImportResolver({
-      //     alwaysTryTypes: true,
-      //     project: ['(apps|libs)/**/tsconfig.lib.json'],
-      //     // conditionNames: ['development'],
-      //   }),
-      //   // createNodeResolver({
-      //   //   node: {
-      //   //     project: ['tsconfig.base.json', '(apps|libs)/*/tsconfig.lib.json'],
-      //   //   },
-      //   // }),
-      // ],
     },
-    // rules: {
-    //   // Rules from plugin:import/recommended and plugin:import/typescript
-    //   // Updated to reference pluginImportX configs
-    //   ...pluginImportX.configs.recommended.rules,
-    //   ...pluginImportX.configs.typescript.rules,
 
-    //   // Original rules from .import.eslintrc.json
-    //   // Kept 'import/' prefix for now, may need adjustment to 'import-x/'
-    //   'import-x/newline-after-import': 'error',
-    //   'import-x/first': 'error',
-    //   'import-x/no-cycle': 'off', // Kept as off
-    //   'import-x/no-duplicates': 'error',
-    //   'import-x/no-namespace': 'error',
-    //   'no-restricted-imports': [
-    //     'error',
-    //     {
-    //       paths: [
-    //         {
-    //           name: 'antd/lib/select',
-    //           importNames: ['DefaultOptionType'],
-    //           message:
-    //             'Please use `SelectOption` from `@codelab/frontend-abstract-types` instead',
-    //         },
-    //         // {
-    //         //   "name": "change-case-all",
-    //         //   "message": "Use string transformation from `@codelab/shared/utils`"
-    //         // },
-    //         {
-    //           name: 'slugify',
-    //           message: 'Use string transformation from `@codelab/shared/utils`',
-    //         },
-    //       ],
-    //     },
-    //   ],
+    //
+    // Rules
+    //
+    rules: {
+      '@typescript-eslint/no-require-imports': 'error',
 
-    //   // Existing rule from .import.config.mjs
-    //   'unused-imports/no-unused-imports': process.env.CI ? 'error' : 'off',
-    // },
+      //
+      // Custom import rules
+      //
+      'import/newline-after-import': 'error',
+      'import/first': 'error',
+
+      // SUPER SLOW!
+      'import/no-cycle': 'off',
+
+      'import/no-duplicates': 'error',
+      'import/no-namespace': 'error',
+
+      'no-restricted-imports': [
+        'error',
+        {
+          paths: [
+            {
+              name: 'antd/lib/select',
+              importNames: ['DefaultOptionType'],
+              message:
+                'Please use `SelectOption` from `@codelab/frontend/abstract/types` instead',
+            },
+            // {
+            //   name: 'change-case-all',
+            //   message: 'Use string transformation from `@codelab/shared/utils`'
+            // },
+            {
+              name: 'slugify',
+              message: 'Use string transformation from `@codelab/shared/utils`',
+            },
+          ],
+        },
+      ],
+    },
   },
+
+  //
   // Override for *.config.js files
+  //
   {
     files: ['*.config.js'],
     rules: {
-      // Note: Depending on your TS setup, this might need to be handled differently
-      // '/@typescript-eslint/no-require-imports': 'off', // Requires TS plugin setup
+      '@typescript-eslint/no-require-imports': 'off',
     },
   },
 ]

@@ -1,109 +1,59 @@
-import baseConfig from './scripts/eslint/base.config.mjs'
+import typescriptConfig from './scripts/eslint/typescript.config.mjs'
+import canonical from './scripts/eslint/recommended/canonical.mjs'
+import prettierConfig from './scripts/eslint/prettier.eslint.mjs'
+import nxConfig from './scripts/eslint/nx.config.mjs'
 import importConfig from './scripts/eslint/import.config.mjs'
-import codelabConfig from './scripts/eslint/codelab.config.mjs'
-import codegenConfig from './scripts/eslint/codegen.config.mjs'
-import globalsConfig from './scripts/eslint/globals.config.mjs'
-import jestConfig from './scripts/eslint/jest.config.mjs'
+import jestEslintConfig from './scripts/eslint/jest.eslint.config.mjs'
+import globalsEslintConfig from './scripts/eslint/globals.eslint.config.mjs'
+import formatConfig from './scripts/eslint/format.config.mjs'
 import namingConfig from './scripts/eslint/naming.config.mjs'
-import nxRulesConfig from './scripts/eslint/nx.config.mjs'
-import reactConfig from './scripts/eslint/react.config.mjs'
+import codelabConfig from './scripts/eslint/codelab.config.mjs'
 import sortingConfig from './scripts/eslint/sorting.config.mjs'
-import stylisticTs from '@stylistic/eslint-plugin-ts'
-import tseslint from 'typescript-eslint'
-import nx from '@nx/eslint-plugin'
-import eslint from '@eslint/js'
-import pluginImportX from 'eslint-plugin-import-x'
-import unusedImports from './scripts/eslint/recommended/unused.config.mjs'
-import prettierRecommended from 'eslint-plugin-prettier/recommended'
+import codegenConfig from './scripts/eslint/codegen.config.mjs'
+import reactConfig from './scripts/eslint/react.config.mjs'
+import baseEslintConfig from './scripts/eslint/base.eslint.config.mjs'
+import tailwindConfig from './scripts/eslint/recommended/tailwind.config.mjs'
 
-export default tseslint.config(
-  // Global language options and parser configuration
-  {
-    languageOptions: {
-      ecmaVersion: 2022,
-      sourceType: 'module',
-      parser: tseslint.parser,
-      parserOptions: {
-        ecmaFeatures: { jsx: true },
-        project: './tsconfig.lib.json',
-      },
-      globals: {
-        // Add global variables if needed, e.g.:
-      },
-    },
-    // Register all plugins once at the top level
-    plugins: {
-      // React & UI Plugins
-      // react: plugins.react,
-      // tailwindcss: plugins.tailwindcss,
-      // 'readable-tailwind': plugins.readableTailwind,
-      // // Testing Plugins
-      // jest: plugins.jest,
-      // 'jest-formatting': plugins.jestFormatting,
-      // // Code Style Plugins
-      // ban: plugins.ban,
-      // 'sort-destructure-keys': plugins.sortDestructureKeys,
-      // 'prefer-arrow': plugins.preferArrow,
-    },
-  },
-
-  // Spread the imported flat config arrays (rules only, no plugin registration)
-  ...baseConfig,
-  ...globalsConfig,
-  ...nxRulesConfig,
-  ...jestConfig,
+export default [
+  ...typescriptConfig,
+  ...canonical,
+  ...prettierConfig,
+  ...nxConfig,
+  ...importConfig,
+  ...jestEslintConfig,
+  ...globalsEslintConfig,
+  ...formatConfig,
   ...namingConfig,
   ...codelabConfig,
   ...sortingConfig,
   ...codegenConfig,
   ...reactConfig,
-  ...importConfig,
-
-  prettierRecommended,
-  ...unusedImports,
-
-  // pluginImportX.flatConfigs.recommended,
-  // pluginImportX.flatConfigs.typescript,
-
-  tseslint.configs.strict,
-
-  // https://typescript-eslint.io/getting-started
-  eslint.configs.recommended,
-  tseslint.configs.recommended,
-
-  // stylisticTs.configs.all,
-
-  // Nx plugin recommended configs - using plugins from the foundation file
-  ...nx.configs['flat/base'],
-  ...nx.configs['flat/typescript'],
-  ...nx.configs['flat/javascript'],
-
-  // Global ignores
+  ...tailwindConfig,
+  ...baseEslintConfig,
   {
     ignores: [
       '**/dist',
       '**/vite.config.*.timestamp*',
       '**/vitest.config.*.timestamp*',
-      '**/node_modules',
-      '**/data',
-      '**/.next',
-      '**/.cache',
-      '**/coverage',
-      '**/tmp',
-      '**/.nx',
-      '**/.aider*',
-      '**/public',
-      '**/*.png',
-      '**/*.d.ts',
-      '**/*.mp4',
-      '**/*.log',
+      'node_modules',
+      'dist',
+      '/data',
+      '.next',
+      '.cache',
+      '/coverage',
+      '/tmp',
+      '/.nx',
+      '.aider*',
+      'public',
+      '*.png',
+      '*.d.ts',
+      '*.mp4',
+      '*.log',
       '**/*.gen.ts',
-      '**/jest.config.ts',
-      '**/graphql.ts',
+      'jest.config.ts',
+      'graphql.ts',
     ],
   },
-
-  // Original module boundary rule (kept separate for clarity)
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
     rules: {
@@ -111,8 +61,7 @@ export default tseslint.config(
         'error',
         {
           enforceBuildableLibDependency: true,
-          // Allow config files explicitly
-          allow: ['^.*/eslint.*\\.config\\.[cm]?js$'],
+          allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?js$'],
           depConstraints: [
             {
               sourceTag: '*',
@@ -123,4 +72,18 @@ export default tseslint.config(
       ],
     },
   },
-)
+  {
+    files: [
+      '**/*.ts',
+      '**/*.tsx',
+      '**/*.cts',
+      '**/*.mts',
+      '**/*.js',
+      '**/*.jsx',
+      '**/*.cjs',
+      '**/*.mjs',
+    ],
+    // Override or add rules here
+    rules: {},
+  },
+]

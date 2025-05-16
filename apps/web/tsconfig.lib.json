@@ -24,10 +24,10 @@
       "uniforms"
     ],
     "noEmit": false,
-    "module": "esnext",
-    "allowJs": true
+    "module": "esnext"
   },
   "include": ["**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["public/*.js", "*.config.js"],
   "references": [
     {
       "path": "../../libs/shared/infra/auth0/tsconfig.lib.json"

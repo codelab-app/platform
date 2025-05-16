@@ -161,30 +161,31 @@
           "runInBand": true
         }
       }
+    },
+    "@nx/eslint:lint": {
+      "cache": true,
+      "inputs": [
+        "default",
+        "{projectRoot}/.eslint.config.mjs",
+        "{workspaceRoot}/eslint.config.mjs",
+        "{workspaceRoot}/scripts/eslint/**/*.mjs"
+      ]
+      // "outputs": ["{options.outputFile}"],
+      // "options": {
+      //   "lintFilePatterns": ["{projectRoot}/**/*.{ts,tsx,js,jsx}"]
+      // },
+      // "configurations": {
+      //   "ci": {
+      //     "format": "junit",
+      //     "outputFile": "tmp/reports/lint/{projectName}.xml",
+      //     "quiet": true
+      //   },
+      //   "codegen": {
+      //     "lintFilePatterns": ["{projectRoot}/**/*.gen.{ts,tsx}"],
+      //     "errorOnUnmatchedPattern": false
+      //   }
+      // }
     }
-    // "@nx/eslint:lint": {
-    //   "cache": true,
-    //   "inputs": [
-    //     "default",
-    //     "{workspaceRoot}/.eslintrc.json",
-    //     "{projectRoot}/.eslintrc.json"
-    //   ],
-    //   "outputs": ["{options.outputFile}"],
-    //   "options": {
-    //     "lintFilePatterns": ["{projectRoot}/**/*.{ts,tsx,js,jsx}"]
-    //   },
-    //   "configurations": {
-    //     "ci": {
-    //       "format": "junit",
-    //       "outputFile": "tmp/reports/lint/{projectName}.xml",
-    //       "quiet": true
-    //     },
-    //     "codegen": {
-    //       "lintFilePatterns": ["{projectRoot}/**/*.gen.{ts,tsx}"],
-    //       "errorOnUnmatchedPattern": false
-    //     }
-    //   }
-    // }
   },
   "generators": {
     "@nx/workspace": {

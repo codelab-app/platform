@@ -1,15 +1,15 @@
 {
   "extends": "./tsconfig.lib.json",
   "compilerOptions": {
-    "noEmit": true
+    "noEmit": true,
+    "allowJs": true
   },
   "exclude": ["**/*.spec.ts", "**/*.test.ts", "**/*.spec.tsx", "**/*.test.tsx"],
   "include": [
     "**/*.ts",
     "**/*.tsx",
+    "**/*.js",
     ".storybook/**/*.ts",
-    ".storybook/**/*.tsx",
-    "eslint.config.mjs",
-    "tailwind.config.ts"
+    ".storybook/**/*.tsx"
   ]
 }

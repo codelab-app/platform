@@ -1,5 +1,6 @@
-import eslintPluginReadableTailwind from 'eslint-plugin-readable-tailwind'
 import tailwind from 'eslint-plugin-tailwindcss'
+import pluginReadableTailwind from 'eslint-plugin-readable-tailwind'
+import pluginTailwindcss from 'eslint-plugin-tailwindcss'
 
 export default [
   ...tailwind.configs['flat/recommended'],
@@ -13,13 +14,17 @@ export default [
       },
     },
     plugins: {
-      'readable-tailwind': eslintPluginReadableTailwind,
+      tailwindcss: pluginTailwindcss,
+      'readable-tailwind': pluginReadableTailwind,
     },
     rules: {
+      ...(pluginTailwindcss.configs.recommended?.rules || {}),
+      ...(pluginReadableTailwind.configs.error?.rules || {}),
+      'tailwindcss/classnames-order': 'off',
       // enable all recommended rules to warn
-      ...eslintPluginReadableTailwind.configs.warning.rules,
+      ...pluginReadableTailwind.configs.warning.rules,
       // enable all recommended rules to error
-      ...eslintPluginReadableTailwind.configs.error.rules,
+      ...pluginReadableTailwind.configs.error.rules,
 
       // or configure rules individually
       'readable-tailwind/multiline': ['warn', { printWidth: 100 }],
