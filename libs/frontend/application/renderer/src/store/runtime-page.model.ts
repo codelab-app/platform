@@ -12,6 +12,7 @@ import type { Ref } from 'mobx-keystone'
 import {
   getRuntimeElementService,
   getRuntimePageService,
+  runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
 import { type IPageModel } from '@codelab/frontend/abstract/domain'
 import { computed } from 'mobx'
