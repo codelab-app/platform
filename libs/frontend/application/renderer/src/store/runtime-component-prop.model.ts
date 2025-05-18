@@ -84,7 +84,9 @@ export class RuntimeComponentPropModel
     const children = createElement(
       Fragment,
       {},
-      this.runtimeComponent.current.children.map((child) => child.rendered),
+      this.runtimeComponent.current.children.map(
+        (child) => child.current.rendered,
+      ),
     )
 
     return mergeProps(
