@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="19" failures="0" errors="0" time="2.917">
+  <testsuite name="Runtime Element props" errors="0" failures="0" skipped="18" timestamp="2025-05-18T15:07:46" time="2.657" tests="19">
+    <testcase classname="frontend-test-application &gt; runtime-element-props.spec.ts" name="Runtime Element props › RuntimeProps.props &gt; should contain system props" time="0">
+      <skipped/>
+    </testcase>
+    <testcase classname="frontend-test-application &gt; runtime-element-props.spec.ts" name="Runtime Element props › RuntimeProps.props &gt; should contain element props" time="0">
+      <skipped/>
+    </testcase>
+    <testcase classname="frontend-test-application &gt; runtime-element-props.spec.ts" name="Runtime Element props › RuntimeProps.props &gt; should contain default props" time="0">
+      <skipped/>
+    </testcase>
+    <testcase classname="frontend-test-application &gt; runtime-element-props.spec.ts" name="Runtime Element props › RuntimeProps.evaluatedProps &gt; should evaluate state field expression with state in Provider" time="0">
+      <skipped/>
+    </testcase>
+    <testcase classname="frontend-test-application &gt; runtime-element-props.spec.ts" name="Runtime Element props › RuntimeProps.evaluatedProps &gt; should evaluate state field expression with rootState in Regular" time="0">
+      <skipped/>
+    </testcase>
+    <testcase classname="frontend-test-application &gt; runtime-element-props.spec.ts" name="Runtime Element props › RuntimeProps.evaluatedProps &gt; should evaluate action expression with actions in Provider" time="0">
+      <skipped/>
+    </testcase>
+    <testcase classname="frontend-test-application &gt; runtime-element-props.spec.ts" name="Runtime Element props › RuntimeProps.evaluatedProps &gt; should evaluate action expression with rootActions in Regular" time="0">
+      <skipped/>
+    </testcase>
+    <testcase classname="frontend-test-application &gt; runtime-element-props.spec.ts" name="Runtime Element props › RuntimeProps.evaluatedProps &gt; should bind actions with context in Provider page" time="0">
+      <skipped/>
+    </testcase>
+    <testcase classname="frontend-test-application &gt; runtime-element-props.spec.ts" name="Runtime Element props › RuntimeProps.evaluatedProps &gt; should bind rootActions with context in Regular page" time="0">
+      <skipped/>
+    </testcase>
+    <testcase classname="frontend-test-application &gt; runtime-element-props.spec.ts" name="Runtime Element props › RuntimeProps.evaluatedProps &gt; should bind successAction with context" time="0">
+      <skipped/>
+    </testcase>
+    <testcase classname="frontend-test-application &gt; runtime-element-props.spec.ts" name="Runtime Element props › RuntimeProps.evaluatedProps &gt; should bind errorAction with context" time="0">
+      <skipped/>
+    </testcase>
+    <testcase classname="frontend-test-application &gt; runtime-element-props.spec.ts" name="Runtime Element props › RuntimeProps.evaluatedProps &gt; should pass response as args to successAction" time="0">
+      <skipped/>
+    </testcase>
+    <testcase classname="frontend-test-application &gt; runtime-element-props.spec.ts" name="Runtime Element props › RuntimeProps.evaluatedProps &gt; should pass response as args to errorAction" time="0">
+      <skipped/>
+    </testcase>
+    <testcase classname="frontend-test-application &gt; runtime-element-props.spec.ts" name="Runtime Element props › RuntimeProps.evaluatedProps &gt; should evaluate ref expression with refs in Provider" time="0">
+      <skipped/>
+    </testcase>
+    <testcase classname="frontend-test-application &gt; runtime-element-props.spec.ts" name="Runtime Element props › RuntimeProps.evaluatedProps &gt; should evaluate ref expression with rootRefs in Regular" time="0">
+      <skipped/>
+    </testcase>
+    <testcase classname="frontend-test-application &gt; runtime-element-props.spec.ts" name="Runtime Element props › RuntimeProps.evaluatedProps &gt; should re-evaluate prop expression with state when state is changed via root action in Provider" time="0">
+      <skipped/>
+    </testcase>
+    <testcase classname="frontend-test-application &gt; runtime-element-props.spec.ts" name="Runtime Element props › RuntimeProps.evaluatedProps &gt; should re-evaluate prop expression with rootState when state is changed via root action in Regular" time="0">
+      <skipped/>
+    </testcase>
+    <testcase classname="frontend-test-application &gt; runtime-element-props.spec.ts" name="Runtime Element props › RuntimeProps.evaluatedProps &gt; should evaluate component expression" time="0.064">
+    </testcase>
+    <testcase classname="frontend-test-application &gt; runtime-element-props.spec.ts" name="Runtime Element props › RuntimeProps.evaluatedProps &gt; should evaluate url props expression" time="0">
+      <skipped/>
+    </testcase>
+  </testsuite>
+</testsuites>
