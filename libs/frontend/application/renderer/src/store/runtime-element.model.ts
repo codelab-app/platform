@@ -26,6 +26,7 @@ import {
   isRuntimeComponent,
   isRuntimeElement,
   isRuntimePage,
+  runtimeModelRef,
 } from '@codelab/frontend/abstract/application'
 import {
   getComponentDomainService,
@@ -95,6 +96,7 @@ const create = (dto: IRuntimeElementDto) => {
 @model('@codelab/RuntimeElement')
 export class RuntimeElementModel
   extends Model({
+    children: prop<Array<Ref<IRuntimeModel>>>(() => []).withSetter(),
     closestContainerNode: prop<
       Ref<IRuntimeComponentModel> | Ref<IRuntimePageModel>
     >(),
@@ -151,45 +153,6 @@ export class RuntimeElementModel
   }
 
   @computed
-  get children() {
-    const container = this.closestContainerNode.current
-    const element = this.element.current
-
-    const children: Array<IRuntimeModel> = this.component
-      ? [
-          // put component as a child instead of instance element children
-          this.runtimeComponentService.add(this.component, this, this.propKey),
-        ]
-      : element.children.map((child) =>
-          this.runtimeElementService.add(child, container, this, this.propKey),
-        )
-
-    /**
-     * Attach regular page to runtime element tree
-     */
-
-    if (isRuntimePage(container)) {
-      const page = container.page.current
-      const shouldAttachPage = page.pageContentContainer?.id === this.element.id
-
-      if (container.childPage?.current && shouldAttachPage) {
-        children.push(container.childPage.current)
-      }
-    }
-
-    const previousSibling = element.childMapperPreviousSibling
-
-    const previousSiblingIndex = children.findIndex((child) => {
-      return isRuntimeElement(child) && child.element.id === previousSibling?.id
-    })
-
-    // if no previous sibling, previousSiblingIndex will be -1 and we will insert at the beginning
-    children.splice(previousSiblingIndex + 1, 0, ...this.childMapperChildren)
-
-    return children
-  }
-
-  @computed
   get closestElement(): IRuntimeElementModel {
     return this.parentElement || this
   }
@@ -209,6 +172,7 @@ export class RuntimeElementModel
   @computed
   get descendantElements() {
     return this.children
+      .map((child) => child.current)
       .flatMap((child) =>
         isRuntimeElement(child) ? child.descendantElements : child.elements,
       )
@@ -267,7 +231,12 @@ export class RuntimeElementModel
   }
 
   @computed
-  get render(): Nullable<ReactElement<unknown>> {
+  get renderService() {
+    return getRendererService(this)
+  }
+
+  @computed
+  get rendered(): Nullable<ReactElement<unknown>> {
     if (this.shouldRender === false) {
       return null
     }
@@ -302,9 +271,9 @@ export class RuntimeElementModel
    * Renders the elements children
    */
   @computed
-  get renderChildren(): ArrayOrSingle<ReactNode> {
+  get renderedChildren(): ArrayOrSingle<ReactNode> {
     const rendered = filter(
-      this.children.map((child) => child.render),
+      this.children.map((child) => child.current.rendered),
       isTruthy,
     )
 
@@ -317,11 +286,6 @@ export class RuntimeElementModel
      * Ant Design doesn't handle array children well in some cases, like Forms
      */
     return rendered.length === 1 ? rendered[0] : rendered
-  }
-
-  @computed
-  get renderService() {
-    return getRendererService(this)
   }
 
   @computed
@@ -403,15 +367,17 @@ export class RuntimeElementModel
       ? 'Some props are not correctly set'
       : undefined
 
-    const children = this.children.flatMap((child) =>
-      // if element is instance of component we render the element's children instead of component
-      isRuntimeComponent(child) && !child.isChildMapperComponentInstance
-        ? child.children.map(
-            // if element is instance of component we render the element's children instead of component
-            (instanceChild) => instanceChild.treeViewNode,
-          )
-        : [child.treeViewNode],
-    )
+    const children = this.children
+      .map((child) => child.current)
+      .flatMap((child) =>
+        // if element is instance of component we render the element's children instead of component
+        isRuntimeComponent(child) && !child.isChildMapperComponentInstance
+          ? child.children.map(
+              // if element is instance of component we render the element's children instead of component
+              (instanceChild) => instanceChild.treeViewNode,
+            )
+          : [child.treeViewNode],
+      )
 
     return {
       ...this.treeViewNodePreview,
@@ -457,9 +423,48 @@ export class RuntimeElementModel
   }
 
   @modelAction
+  createChildren() {
+    const container = this.closestContainerNode.current
+    const element = this.element.current
+
+    const children: Array<IRuntimeModel> = this.component
+      ? [
+          // put component as a child instead of instance element children
+          this.runtimeComponentService.add(this.component, this, this.propKey),
+        ]
+      : element.children.map((child) =>
+          this.runtimeElementService.add(child, container, this, this.propKey),
+        )
+
+    /**
+     * Attach regular page to runtime element tree
+     */
+
+    if (isRuntimePage(container)) {
+      const page = container.page.current
+      const shouldAttachPage = page.pageContentContainer?.id === this.element.id
+
+      if (container.childPage?.current && shouldAttachPage) {
+        children.push(container.childPage.current)
+      }
+    }
+
+    const previousSibling = element.childMapperPreviousSibling
+
+    const previousSiblingIndex = children.findIndex((child) => {
+      return isRuntimeElement(child) && child.element.id === previousSibling?.id
+    })
+
+    // if no previous sibling, previousSiblingIndex will be -1 and we will insert at the beginning
+    children.splice(previousSiblingIndex + 1, 0, ...this.childMapperChildren)
+
+    this.setChildren(children.map((child) => runtimeModelRef(child)))
+  }
+
+  @modelAction
   detach(): void {
     this.children.forEach((child) => {
-      child.detach()
+      child.current.detach()
     })
     this.runtimeElementService.remove(this)
   }
@@ -479,6 +484,12 @@ export class RuntimeElementModel
     return () => {
       recorder.dispose()
     }
+  }
+
+  @modelAction
+  render(): void {
+    this.createChildren()
+    this.children.map((child) => child.current.render())
   }
 
   @modelAction

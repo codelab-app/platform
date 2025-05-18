@@ -134,7 +134,7 @@ export class BuilderService
     }
 
     const parent = selectedNode.parentElement
-    const siblings = parent?.children || []
+    const siblings = parent?.children.map((child) => child.current) || []
     const index = siblings.indexOf(selectedNode)
     const newSelectedNode = index > 0 ? siblings[index - 1] : parent
 

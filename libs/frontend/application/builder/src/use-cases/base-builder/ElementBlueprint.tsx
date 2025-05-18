@@ -103,7 +103,7 @@ export const ElementBlueprint = observer<{
     selectedElement?.style.styleStringWithBreakpoints,
     selectedElement?.element.current.tailwindClassNames,
     // adding or removing any element should trigger a re-render
-    element.closestContainerNode.elements.length,
+    element.closestParentElement?.current,
     element.props.values,
     element.nextSibling?.id,
     element.parentElement?.id,
@@ -187,6 +187,7 @@ export const ElementBlueprint = observer<{
       {toolbar}
       {overlay}
       {runtimeElement.children
+        .map((child) => child.current)
         .filter((child) => isRuntimeElement(child))
         .map((child) => (
           <ElementBlueprint

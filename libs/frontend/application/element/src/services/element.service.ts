@@ -115,7 +115,7 @@ export const useElementService = (): IElementService => {
       ...subRootElement.descendantElements,
     ]
 
-    // builderService.selectPreviousElementOnDelete()
+    builderService.selectPreviousElementOnDelete()
 
     subRootElement.detachFromTree()
 

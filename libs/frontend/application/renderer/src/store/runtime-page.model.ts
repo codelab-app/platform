@@ -13,6 +13,7 @@ import type { ReactElement } from 'react'
 import {
   getRuntimeElementService,
   getRuntimePageService,
+  runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
 import { type IPageModel } from '@codelab/frontend/abstract/domain'
 import { computed } from 'mobx'
@@ -38,6 +39,9 @@ export class RuntimePageModel
     childPage: prop<Maybe<Ref<IRuntimePageModel>>>(),
     compositeKey: idProp,
     page: prop<Ref<IPageModel>>(),
+    runtimeRootElement: prop<Nullable<Ref<IRuntimeElementModel>>>(
+      () => null,
+    ).withSetter(),
     runtimeStore: prop<IRuntimeStoreModel>(),
   })
   implements IRuntimePageModel
@@ -58,12 +62,12 @@ export class RuntimePageModel
 
   @computed
   get mainTreeElement(): Maybe<IRuntimeElementModel> {
-    return this.childPage?.current.runtimeRootElement
+    return this.childPage?.current.runtimeRootElement?.current
   }
 
   @computed
-  get render(): Nullable<ReactElement<unknown>> {
-    return this.runtimeRootElement.render
+  get rendered(): Nullable<ReactElement<unknown>> {
+    return this.runtimeRootElement?.current.rendered ?? null
   }
 
   @computed
@@ -74,13 +78,6 @@ export class RuntimePageModel
   @computed
   get runtimePageService() {
     return getRuntimePageService(this)
-  }
-
-  @computed
-  get runtimeRootElement(): IRuntimeElementModel {
-    const rootElement = this.page.current.rootElement.current
-
-    return this.runtimeElementService.add(rootElement, this, null)
   }
 
   @computed
@@ -95,17 +92,30 @@ export class RuntimePageModel
 
   @computed
   get treeViewNode(): IElementTreeViewDataNode {
-    return this.runtimeRootElement.treeViewNode
+    return this.runtimeRootElement?.current.treeViewNode
   }
 
   @computed
   get treeViewNodePreview(): IElementTreeViewDataNodePreview {
-    return this.runtimeRootElement.treeViewNodePreview
+    return this.runtimeRootElement?.current.treeViewNodePreview
   }
 
   @modelAction
   detach(): void {
-    this.runtimeRootElement.detach()
+    this.runtimeRootElement?.current.detach()
     this.runtimePageService.remove(this)
+  }
+
+  @modelAction
+  render(): void {
+    const runtimeRootElement = this.runtimeElementService.add(
+      this.page.current.rootElement.current,
+      this,
+      null,
+    )
+
+    runtimeRootElement.render()
+
+    this.setRuntimeRootElement(runtimeElementRef(runtimeRootElement))
   }
 }
