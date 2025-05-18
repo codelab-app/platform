@@ -50,7 +50,7 @@ export const BaseBuilderPrimarySidebar = observer<BuilderPrimarySidebarProps>(
     const runtimeProviderStore = runtimeStore?.runtimeProviderStore?.current
 
     const antdTree =
-      runtimeContainerNode?.runtimeRootElement?.current.treeViewNode
+      runtimeContainerNode?.runtimeRootElement.current.treeViewNode
 
     const sidebarViews: Array<CuiSidebarView> = [
       {
