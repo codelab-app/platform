@@ -76,6 +76,8 @@ const renderDragAndDropElements = async (
   const { builderService, runtimeElementService } = testStore.applicationStore
   const renderContainerRef = createRef<HTMLDivElement>()
 
+  renderer.render()
+
   render(
     <RootStoreProvider value={storeContext}>
       <TestDndContext
@@ -96,7 +98,7 @@ const renderDragAndDropElements = async (
             width: '200px',
           }}
         >
-          {renderer.render}
+          {renderer.rendered}
         </div>
         <RenderBlueprint
           renderContainerRef={renderContainerRef}

@@ -77,6 +77,7 @@ const create = (dto: IRuntimeComponentDto) =>
 export class RuntimeComponentModel
   extends Model({
     childMapperIndex: prop<Maybe<number>>().withSetter(),
+    children: prop<Array<IRuntimeElementModel>>(() => []).withSetter(),
     component: prop<Ref<IComponentModel>>(),
     compositeKey: idProp,
     isTypedProp: prop<Maybe<boolean>>(false),
@@ -90,27 +91,6 @@ export class RuntimeComponentModel
   static compositeKey = compositeKey
 
   static create = create
-
-  @computed
-  get children() {
-    if (!this.runtimeParent || this.isChildMapperComponentInstance) {
-      return []
-    }
-
-    const instanceElement = this.runtimeParent.current
-    /**
-     * These render only linked elements, not child mappers which are virtually linked via props
-     */
-    const instanceElementChildren = instanceElement.element.current.children
-
-    return instanceElementChildren.map((child) =>
-      this.runtimeElementService.add(
-        child,
-        instanceElement.compositeKey,
-        instanceElement.propKey,
-      ),
-    )
-  }
 
   @computed
   get elements(): Array<IRuntimeElementModel> {
@@ -187,6 +167,29 @@ export class RuntimeComponentModel
   }
 
   @modelAction
+  createChildren() {
+    if (!this.runtimeParent || this.isChildMapperComponentInstance) {
+      return []
+    }
+
+    const instanceElement = this.runtimeParent.current
+    /**
+     * These render only linked elements, not child mappers which are virtually linked via props
+     */
+    const instanceElementChildren = instanceElement.element.current.children
+
+    return this.setChildren(
+      instanceElementChildren.map((child) =>
+        this.runtimeElementService.add(
+          child,
+          instanceElement.compositeKey,
+          instanceElement.propKey,
+        ),
+      ),
+    )
+  }
+
+  @modelAction
   detach(): void {
     this.children.forEach((child) => {
       child.detach()
@@ -198,5 +201,6 @@ export class RuntimeComponentModel
   @modelAction
   render() {
     this.runtimeRootElement.current.render()
+    this.createChildren()
   }
 }

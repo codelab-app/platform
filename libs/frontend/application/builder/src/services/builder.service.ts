@@ -76,7 +76,7 @@ export class BuilderService
     }
 
     if (isRuntimeElement(selectedNode)) {
-      const elementTree = selectedNode.closestContainerNode.current
+      const elementTree = selectedNode.closestContainerNode
 
       return elementTree
     }
