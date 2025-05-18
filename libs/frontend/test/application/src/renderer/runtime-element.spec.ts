@@ -65,15 +65,18 @@ describe('Runtime Element', () => {
   })
 
   it('should add element runtime child', () => {
-    const { rootElement, runtimePage, runtimeRootElement } =
+    const { renderer, rootElement, runtimePage, runtimeRootElement } =
       testStore.setupRuntimeElement()
 
     const childElement = testStore.addElement({
       name: 'child-element',
       parentElement: rootElement,
+      renderType: testStore.getAtomByType(IAtomType.HtmlDiv),
     })
 
     rootElement.writeCache({ firstChild: childElement })
+
+    renderer.render()
 
     const runtimeChildElement = runtimeRootElement.current.children[0]?.current
 

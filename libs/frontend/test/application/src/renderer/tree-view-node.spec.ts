@@ -67,6 +67,8 @@ describe('TreeViewNode', () => {
 
     childElement.attachAsFirstChild(rootElement)
 
+    renderer.render()
+
     const runtimeChildElement =
       runtimePage?.runtimeRootElement.current.children[0]
 
@@ -93,6 +95,8 @@ describe('TreeViewNode', () => {
     })
 
     childElement.attachAsFirstChild(rootElement)
+
+    renderer.render()
 
     expect(runtimePage?.runtimeRootElement.current.treeViewNode).toMatchObject({
       rootKey: runtimePage?.compositeKey,
@@ -138,6 +142,7 @@ describe('TreeViewNode', () => {
     })
 
     instanceElement.attachAsFirstChild(rootElement)
+    renderer.render()
 
     const node = renderer.runtimeContainerNode?.treeViewNode.children[0]
 
@@ -169,6 +174,7 @@ describe('TreeViewNode', () => {
     })
 
     instanceElement.attachAsFirstChild(rootElement)
+    renderer.render()
 
     const node = renderer.runtimeContainerNode?.treeViewNode.children[0]
 
@@ -223,6 +229,8 @@ describe('TreeViewNode', () => {
     instanceElement.attachAsFirstChild(rootElement)
     instanceElementChild.attachAsFirstChild(instanceElement)
 
+    renderer.render()
+
     const rootElementTreeNode = renderer.runtimeContainerNode?.treeViewNode
     const instanceTreeNodeChild = rootElementTreeNode?.children[0]?.children[0]
 
@@ -233,7 +241,7 @@ describe('TreeViewNode', () => {
   })
 
   it('should show child mapper components', () => {
-    const { page, runtimePage } = testStore.setupPage(
+    const { page, renderer, runtimePage } = testStore.setupPage(
       RendererType.PageBuilder,
       IPageKind.Regular,
     )
@@ -256,6 +264,8 @@ describe('TreeViewNode', () => {
         id: v4(),
       },
     })
+
+    renderer.render()
 
     const node = runtimePage?.treeViewNode
 

@@ -84,7 +84,7 @@ describe('Runtime Component props', () => {
     })
 
     it('should resolve child mapper prop', () => {
-      const { rootElement, runtimeRootElement } =
+      const { renderer, rootElement, runtimeRootElement } =
         testStore.setupRuntimeElement()
 
       const component = testStore.addComponent({})
@@ -97,6 +97,8 @@ describe('Runtime Component props', () => {
       })
 
       rootElement.props.set(propKey, propsValue)
+
+      renderer.render()
 
       const runtimeChildren = runtimeRootElement.current.children.map(
         (childComponent) => childComponent.current,

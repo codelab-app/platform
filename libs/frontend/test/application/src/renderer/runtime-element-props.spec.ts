@@ -438,7 +438,7 @@ describe('Runtime Element props', () => {
     )
 
     it('should evaluate component expression', () => {
-      const { runtimeRootElement } = testStore.setupRuntimeElement()
+      const { renderer, runtimeRootElement } = testStore.setupRuntimeElement()
       const propKey = 'propKey'
       const propValue = 'propValue'
 
@@ -455,6 +455,8 @@ describe('Runtime Element props', () => {
       runtimeRootElement.current.element.current.writeCache({
         renderType: component,
       })
+
+      renderer.render()
 
       const runtimeComponent = runtimeRootElement.current.children[0]
         ?.current as IRuntimeComponentModel
