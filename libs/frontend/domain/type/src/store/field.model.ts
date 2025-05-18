@@ -42,7 +42,6 @@ const create = ({
       : null
   } catch (err) {
     parsedDefaultValues = defaultValues
-    console.log(`Failed to parse default value for field: ${key}`)
   }
 
   return new Field({
