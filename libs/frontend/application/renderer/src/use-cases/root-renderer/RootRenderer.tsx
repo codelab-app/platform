@@ -9,7 +9,6 @@ import {
 import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/domain'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Alert } from 'antd'
-import { runInAction } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import { forwardRef, useMemo } from 'react'
 
@@ -62,13 +61,10 @@ const RootRendererComponent = forwardRef<
     [preference.builderWidth],
   )
 
-  // because `renderer.render` has side effects we need to wrap it in a useEffect
-  const rendered = runInAction(() => renderer.render)
-
   return (
     <ErrorBoundary>
       <div id={ROOT_RENDER_CONTAINER_ID} ref={ref} style={containerStyle}>
-        {rendered}
+        {renderer.rendered}
       </div>
     </ErrorBoundary>
   )

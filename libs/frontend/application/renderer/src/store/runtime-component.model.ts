@@ -21,6 +21,7 @@ import {
   getRuntimeElementService,
   IRuntimeNodeType,
   runtimeComponentRef,
+  runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
 import {
   componentRef,
@@ -80,6 +81,9 @@ export class RuntimeComponentModel
     isTypedProp: prop<Maybe<boolean>>(false),
     runtimeParent: prop<Maybe<Ref<IRuntimeElementModel>>>(),
     runtimeProps: prop<IRuntimeComponentPropModel>(),
+    runtimeRootElement: prop<Nullable<Ref<IRuntimeElementModel>>>(
+      () => null,
+    ).withSetter(),
     runtimeStore: prop<IRuntimeStoreModel>(),
   })
   implements IRuntimeComponentModel
@@ -129,8 +133,8 @@ export class RuntimeComponentModel
   }
 
   @computed
-  get render(): Nullable<ReactElement<unknown>> {
-    return this.runtimeRootElement.render
+  get rendered(): Nullable<ReactElement<unknown>> {
+    return this.runtimeRootElement?.current.rendered ?? null
   }
 
   @computed
@@ -141,13 +145,6 @@ export class RuntimeComponentModel
   @computed
   get runtimeElementService() {
     return getRuntimeElementService(this)
-  }
-
-  @computed
-  get runtimeRootElement(): IRuntimeElementModel {
-    const rootElement = this.component.current.rootElement.current
-
-    return this.runtimeElementService.add(rootElement, this, null)
   }
 
   @computed
@@ -168,7 +165,7 @@ export class RuntimeComponentModel
       // hide children for child mapper instances
       children: this.isChildMapperComponentInstance
         ? []
-        : [this.runtimeRootElement.treeViewNode],
+        : [this.runtimeRootElement!.current.treeViewNode],
       component: { id: this.component.current.id },
       isChildMapperComponentInstance: this.isChildMapperComponentInstance,
       primaryTitle: this.isChildMapperComponentInstance
@@ -195,7 +192,20 @@ export class RuntimeComponentModel
     this.children.forEach((child) => {
       child.detach()
     })
-    this.runtimeRootElement.detach()
+    this.runtimeRootElement?.current.detach()
     this.runtimeComponentService.remove(this)
+  }
+
+  @modelAction
+  render() {
+    const runtimeRootElement = this.runtimeElementService.add(
+      this.component.current.rootElement.current,
+      this,
+      null,
+    )
+
+    runtimeRootElement.render()
+
+    this.setRuntimeRootElement(runtimeElementRef(runtimeRootElement))
   }
 }

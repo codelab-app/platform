@@ -53,7 +53,7 @@ export const RenderBlueprint = observer<{
         container={renderContainerRef.current}
         containerRect={containerRect}
         parentRect={containerRect}
-        runtimeElement={runtimeRootElement}
+        runtimeElement={runtimeRootElement.current}
       />
     </div>,
     renderContainerRef.current,

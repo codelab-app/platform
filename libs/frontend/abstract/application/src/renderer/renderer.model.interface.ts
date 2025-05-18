@@ -25,14 +25,17 @@ export interface IRendererModel {
   debugMode: boolean
   id: string
   isBuilder: boolean
-  render: Nullable<ReactElement<unknown>>
   renderPipe: IRenderPipe
+  rendered: Nullable<ReactElement<unknown>>
   rendererType: RendererType
   runtimeComponent?: IRuntimeComponentModel
   runtimeContainerNode: Maybe<IRuntimeComponentModel> | Maybe<IRuntimePageModel>
   runtimePage?: IRuntimePageModel
-  runtimeRootContainerNode: IRuntimeComponentModel | IRuntimePageModel
+  runtimeRootContainerNode: Nullable<
+    Ref<IRuntimeComponentModel> | Ref<IRuntimePageModel>
+  >
   typedPropTransformers: ObjectMap<ITypedPropTransformer>
+  render(): void
 }
 
 export interface ElementWrapperProps {

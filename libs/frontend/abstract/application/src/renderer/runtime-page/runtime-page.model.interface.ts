@@ -1,5 +1,5 @@
 import type { IPageModel } from '@codelab/frontend/abstract/domain'
-import type { Maybe } from '@codelab/shared/abstract/types'
+import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 
 import type { IBaseRuntimeModel } from '../runtime.model.interface'
@@ -24,7 +24,7 @@ export interface IRuntimePageModel extends IBaseRuntimeModel {
    * Page domain model
    */
   page: Ref<IPageModel>
-  runtimeRootElement: IRuntimeElementModel
+  runtimeRootElement: Nullable<Ref<IRuntimeElementModel>>
   /**
    * Returns DTO representation of the runtime page
    */

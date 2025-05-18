@@ -4,7 +4,10 @@ import type { Ref } from 'mobx-keystone'
 import type { ReactNode } from 'react'
 import type { ArrayOrSingle } from 'ts-essentials/dist/types'
 
-import type { IBaseRuntimeModel } from '../runtime.model.interface'
+import type {
+  IBaseRuntimeModel,
+  IRuntimeModel,
+} from '../runtime.model.interface'
 import type { IRuntimeComponentModel } from '../runtime-component'
 import type { IRuntimePageModel } from '../runtime-page'
 import type { IRuntimeElementPropModel } from '../runtime-prop'
@@ -16,12 +19,7 @@ import type { IRuntimeElementStyleModel } from './runtime-element-style.model.in
  * it reflects the same structure
  */
 export interface IRuntimeElementModel extends IBaseRuntimeModel {
-  /**
-   * Runtime children
-   */
-  children: Array<
-    IRuntimeComponentModel | IRuntimeElementModel | IRuntimePageModel
-  >
+  children: Array<Ref<IRuntimeModel>>
   /**
    * The runtime model for IElementModel.closestContainerNode
    */
@@ -49,7 +47,7 @@ export interface IRuntimeElementModel extends IBaseRuntimeModel {
    */
   propKey?: string
   propsHaveErrors: boolean
-  renderChildren: ArrayOrSingle<ReactNode>
+  renderedChildren: ArrayOrSingle<ReactNode>
   /**
    * Runtime version of IElementModel.prop
    * serves props transformations and evaluation
@@ -62,6 +60,7 @@ export interface IRuntimeElementModel extends IBaseRuntimeModel {
   style: IRuntimeElementStyleModel
   toJson: IRuntimeElementDto
   cleanupChildMapperNodes(newKeys: Array<string>): void
+  createChildren(): void
   runPostRenderActions(): void
   runPreRenderActions(): void
   setExpanded(expanded: boolean): void

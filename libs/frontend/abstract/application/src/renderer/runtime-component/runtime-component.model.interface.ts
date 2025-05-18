@@ -1,5 +1,5 @@
 import type { IComponentModel } from '@codelab/frontend/abstract/domain'
-import type { Maybe } from '@codelab/shared/abstract/types'
+import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 
 import type { IBaseRuntimeModel } from '../runtime.model.interface'
@@ -39,7 +39,7 @@ export interface IRuntimeComponentModel extends IBaseRuntimeModel {
    */
   runtimeParent?: Ref<IRuntimeElementModel>
   runtimeProps: IRuntimeComponentPropModel
-  runtimeRootElement: IRuntimeElementModel
+  runtimeRootElement: Nullable<Ref<IRuntimeElementModel>>
   toJson: IRuntimeComponentDto
   setChildMapperIndex(index: number): void
 }

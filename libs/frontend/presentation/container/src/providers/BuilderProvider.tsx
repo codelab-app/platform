@@ -50,6 +50,8 @@ export const BuilderProvider = observer(
         rendererType,
       })
 
+      renderer.render()
+
       // tracker.useEvent({
       //   componentName: 'BuilderProvider',
       //   event: 'Set active renderer',
@@ -57,9 +59,10 @@ export const BuilderProvider = observer(
       rendererService.setActiveRenderer(rendererRef(renderer.id))
 
       const runtimeContainer =
-        renderer.runtimeContainerNode ?? renderer.runtimeRootContainerNode
+        renderer.runtimeContainerNode ??
+        renderer.runtimeRootContainerNode?.current
 
-      const runtimeRootElement = runtimeContainer.runtimeRootElement
+      const runtimeRootElement = runtimeContainer?.runtimeRootElement?.current
 
       // tracker.useEvent({
       //   componentName: 'BuilderProvider',
@@ -71,7 +74,7 @@ export const BuilderProvider = observer(
        *
        * Turns out some issue with server action will re-run the component, which is re-running this component
        */
-      if (!builderService.selectedNode) {
+      if (!builderService.selectedNode && runtimeRootElement) {
         builderService.setSelectedNode(runtimeElementRef(runtimeRootElement))
       }
     }, [rendererType, containerNode.id])
