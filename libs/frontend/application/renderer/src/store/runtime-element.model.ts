@@ -104,40 +104,6 @@ export class RuntimeElementModel
   static create = create
 
   @computed
-  get childMapperChildren() {
-    const childMapperComponent = this.element.current.childMapperComponent
-
-    // when renderType is component we don't create child mapper
-    if (
-      isComponent(this.element.current.renderType.current) ||
-      !childMapperComponent
-    ) {
-      return []
-    }
-
-    const props = this.runtimeProps.evaluatedChildMapperProps || []
-    const component = childMapperComponent.current
-    const childMapperChildren = []
-
-    for (let index = 0; index < props.length; index++) {
-      const runtimeComponent = this.runtimeComponentService.add(
-        component,
-        this,
-        this.propKey,
-        index,
-      )
-
-      childMapperChildren.push(runtimeComponent)
-    }
-
-    const newKeys = childMapperChildren.map((child) => child.compositeKey)
-
-    this.cleanupChildMapperNodes(newKeys)
-
-    return childMapperChildren
-  }
-
-  @computed
   get closestContainerNode(): IRuntimeComponentModel | IRuntimePageModel {
     return (this.parentElement?.closestContainerNode ??
       this.runtimePageService.pages.get(this.parentCompositeKey) ??
@@ -371,7 +337,7 @@ export class RuntimeElementModel
         isRuntimeComponent(child) && !child.isChildMapperComponentInstance
           ? child.children.map(
               // if element is instance of component we render the element's children instead of component
-              (instanceChild) => instanceChild.treeViewNode,
+              (instanceChild) => instanceChild.current.treeViewNode,
             )
           : [child.treeViewNode],
       )
@@ -420,6 +386,40 @@ export class RuntimeElementModel
   }
 
   @modelAction
+  createChildMapperChildren() {
+    const childMapperComponent = this.element.current.childMapperComponent
+
+    // when renderType is component we don't create child mapper
+    if (
+      isComponent(this.element.current.renderType.current) ||
+      !childMapperComponent
+    ) {
+      return []
+    }
+
+    const props = this.runtimeProps.evaluatedChildMapperProps || []
+    const component = childMapperComponent.current
+    const childMapperChildren = []
+
+    for (let index = 0; index < props.length; index++) {
+      const runtimeComponent = this.runtimeComponentService.add(
+        component,
+        this,
+        this.propKey,
+        index,
+      )
+
+      childMapperChildren.push(runtimeComponent)
+    }
+
+    const newKeys = childMapperChildren.map((child) => child.compositeKey)
+
+    this.cleanupChildMapperNodes(newKeys)
+
+    return childMapperChildren
+  }
+
+  @modelAction
   createChildren() {
     const container = this.closestContainerNode
     const element = this.element.current
@@ -457,7 +457,11 @@ export class RuntimeElementModel
     })
 
     // if no previous sibling, previousSiblingIndex will be -1 and we will insert at the beginning
-    children.splice(previousSiblingIndex + 1, 0, ...this.childMapperChildren)
+    children.splice(
+      previousSiblingIndex + 1,
+      0,
+      ...this.createChildMapperChildren(),
+    )
 
     this.setChildren(children.map((child) => runtimeModelRef(child)))
   }

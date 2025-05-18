@@ -60,13 +60,14 @@ export const BuilderProvider = observer(
         rendererType,
       })
 
+      rendererService.setActiveRenderer(rendererRef(renderer.id))
+
       renderer.render()
 
       // tracker.useEvent({
       //   componentName: 'BuilderProvider',
       //   event: 'Set active renderer',
       // })
-      rendererService.setActiveRenderer(rendererRef(renderer.id))
 
       const runtimeContainer =
         renderer.runtimeContainerNode ??

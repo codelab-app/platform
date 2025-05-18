@@ -332,6 +332,8 @@ export const createTestStore = () => {
         rendererType: RendererType.Preview,
       })
 
+      renderer.render()
+
       const runtimeComponent = renderer.runtimeComponent
 
       return { component, renderer, runtimeComponent }
@@ -524,6 +526,7 @@ export const createTestStore = () => {
         rootElement: testRootStore.addElement({
           closestContainerNode: { id: componentId },
           parentComponent: { id: componentId },
+          renderType: this.getAtomByType(IAtomType.ReactFragment),
         }),
         // Mock this here
         store: testRootStore.addStore({}),
@@ -536,7 +539,9 @@ export const createTestStore = () => {
         },
       })
 
-      const rendered = renderer.render
+      renderer.render()
+
+      const rendered = renderer.rendered
 
       return {
         component,

@@ -20,7 +20,7 @@ export interface IRuntimeComponentModel extends IBaseRuntimeModel {
   /**
    * Children of the instance element which will be added as componentProp.children prop
    */
-  children: Array<IRuntimeElementModel>
+  children: Array<Ref<IRuntimeElementModel>>
   /**
    * Exposed for external use by other models and to preserve structure
    */
