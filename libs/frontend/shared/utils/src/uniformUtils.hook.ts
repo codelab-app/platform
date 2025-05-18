@@ -4,6 +4,7 @@ import type { TSchema } from '@sinclair/typebox'
 import type { JSONSchemaType, Schema } from 'ajv'
 import type { MutableRefObject } from 'react'
 
+import { evaluateObject } from '@codelab/shared-infra-eval'
 import Ajv from 'ajv'
 import addFormats from 'ajv-formats'
 import addKeywords from 'ajv-keywords'
@@ -98,7 +99,19 @@ export const createValidator = (schema: Schema) => {
   const validator = ajv.compile(schema)
 
   return (model: ObjectLike) => {
-    validator(model)
+    const evaluatedModel = evaluateObject(model, {
+      actions: {},
+      componentProps: {},
+      props: {},
+      refs: {},
+      rootActions: {},
+      rootRefs: {},
+      rootState: {},
+      state: {},
+      url: {},
+    })
+
+    validator(evaluatedModel)
 
     return validator.errors?.length ? { details: validator.errors } : null
   }
