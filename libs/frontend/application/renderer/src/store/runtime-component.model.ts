@@ -77,7 +77,7 @@ const create = (dto: IRuntimeComponentDto) =>
 export class RuntimeComponentModel
   extends Model({
     childMapperIndex: prop<Maybe<number>>().withSetter(),
-    children: prop<Array<IRuntimeElementModel>>(() => []).withSetter(),
+    children: prop<Array<Ref<IRuntimeElementModel>>>(() => []).withSetter(),
     component: prop<Ref<IComponentModel>>(),
     compositeKey: idProp,
     isTypedProp: prop<Maybe<boolean>>(false),
@@ -178,21 +178,23 @@ export class RuntimeComponentModel
      */
     const instanceElementChildren = instanceElement.element.current.children
 
-    return this.setChildren(
-      instanceElementChildren.map((child) =>
-        this.runtimeElementService.add(
-          child,
-          instanceElement.compositeKey,
-          instanceElement.propKey,
-        ),
-      ),
-    )
+    const elements = instanceElementChildren.map((child) => {
+      const element = this.runtimeElementService.add(
+        child,
+        instanceElement.compositeKey,
+        instanceElement.propKey,
+      )
+
+      return runtimeElementRef(element)
+    })
+
+    return this.setChildren(elements)
   }
 
   @modelAction
   detach(): void {
     this.children.forEach((child) => {
-      child.detach()
+      child.current.detach()
     })
     this.runtimeRootElement.current.detach()
     this.runtimeComponentService.remove(this)
@@ -200,7 +202,8 @@ export class RuntimeComponentModel
 
   @modelAction
   render() {
-    this.runtimeRootElement.current.render()
     this.createChildren()
+    this.children.map((child) => child.current.render())
+    this.runtimeRootElement.current.render()
   }
 }

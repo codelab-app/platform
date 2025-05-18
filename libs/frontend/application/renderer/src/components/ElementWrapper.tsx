@@ -14,7 +14,6 @@ import { getAtom } from '../atoms'
 import { useSelectionHandlers } from '../hooks'
 import { useOverrideAtomProps } from '../hooks/useOverrideAtomProps.hook'
 import { StyledComponent } from './StyledComponent'
-import { generateTailwindClasses } from './utils'
 
 /**
  * An observer element wrapper - this makes sure that each element is self-contained and observes only the data it needs
@@ -46,10 +45,11 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       : Fragment
 
     const tailwindClassNames = {
-      className: generateTailwindClasses(
-        runtimeElement.element.current.tailwindClassNames,
-        renderer.rendererType,
-      ),
+      // TODO: fix tailwind support
+      // className: generateTailwindClasses(
+      //   runtimeElement.element.current.tailwindClassNames,
+      //   renderer.rendererType,
+      // ),
     }
 
     const selectionHandlers = useSelectionHandlers(
