@@ -31,9 +31,7 @@ export interface IRendererModel {
   runtimeComponent?: IRuntimeComponentModel
   runtimeContainerNode: Maybe<IRuntimeComponentModel> | Maybe<IRuntimePageModel>
   runtimePage?: IRuntimePageModel
-  runtimeRootContainerNode: Nullable<
-    Ref<IRuntimeComponentModel> | Ref<IRuntimePageModel>
-  >
+  runtimeRootContainerNode: Ref<IRuntimeComponentModel> | Ref<IRuntimePageModel>
   typedPropTransformers: ObjectMap<ITypedPropTransformer>
   render(): void
 }

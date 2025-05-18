@@ -67,6 +67,7 @@ const create = (dto: IRuntimeComponentDto) =>
     runtimeProps: RuntimeComponentPropModel.create({
       runtimeComponent: runtimeComponentRef(dto.compositeKey),
     }),
+    runtimeRootElement: runtimeElementRef(dto.runtimeRootElement),
     runtimeStore: RuntimeStoreModel.create({
       store: storeRef(dto.component.store.current),
     }),
@@ -81,9 +82,7 @@ export class RuntimeComponentModel
     isTypedProp: prop<Maybe<boolean>>(false),
     runtimeParent: prop<Maybe<Ref<IRuntimeElementModel>>>(),
     runtimeProps: prop<IRuntimeComponentPropModel>(),
-    runtimeRootElement: prop<Nullable<Ref<IRuntimeElementModel>>>(
-      () => null,
-    ).withSetter(),
+    runtimeRootElement: prop<Ref<IRuntimeElementModel>>().withSetter(),
     runtimeStore: prop<IRuntimeStoreModel>(),
   })
   implements IRuntimeComponentModel
@@ -107,8 +106,7 @@ export class RuntimeComponentModel
     return instanceElementChildren.map((child) =>
       this.runtimeElementService.add(
         child,
-        instanceElement.closestContainerNode.current,
-        instanceElement,
+        instanceElement.compositeKey,
         instanceElement.propKey,
       ),
     )
@@ -118,7 +116,7 @@ export class RuntimeComponentModel
   get elements(): Array<IRuntimeElementModel> {
     return this.runtimeElementService.elementsList.filter(
       (element) =>
-        element.closestContainerNode.current.compositeKey === this.compositeKey,
+        element.closestContainerNode.compositeKey === this.compositeKey,
     )
   }
 
@@ -134,7 +132,7 @@ export class RuntimeComponentModel
 
   @computed
   get rendered(): Nullable<ReactElement<unknown>> {
-    return this.runtimeRootElement?.current.rendered ?? null
+    return this.runtimeRootElement.current.rendered ?? null
   }
 
   @computed
@@ -155,6 +153,7 @@ export class RuntimeComponentModel
       compositeKey: this.compositeKey,
       isTypedProp: this.isTypedProp ?? undefined,
       runtimeParent: this.runtimeParent,
+      runtimeRootElement: this.runtimeRootElement.current,
     }
   }
 
@@ -192,20 +191,12 @@ export class RuntimeComponentModel
     this.children.forEach((child) => {
       child.detach()
     })
-    this.runtimeRootElement?.current.detach()
+    this.runtimeRootElement.current.detach()
     this.runtimeComponentService.remove(this)
   }
 
   @modelAction
   render() {
-    const runtimeRootElement = this.runtimeElementService.add(
-      this.component.current.rootElement.current,
-      this,
-      null,
-    )
-
-    runtimeRootElement.render()
-
-    this.setRuntimeRootElement(runtimeElementRef(runtimeRootElement))
+    this.runtimeRootElement.current.render()
   }
 }
