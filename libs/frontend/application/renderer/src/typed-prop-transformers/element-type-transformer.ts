@@ -56,6 +56,8 @@ export class ElementTypeTransformer
       key,
     )
 
-    return runtimeElement.render
+    runtimeElement.render()
+
+    return runtimeElement.rendered
   }
 }
