@@ -211,5 +211,7 @@ export class RuntimeComponentModel
     this.children.map((child) => child.current.render())
     this.runtimeRootElement.current.render()
     this.createChildren()
+    this.children.map((child) => child.current.render())
+    this.runtimeRootElement.current.render()
   }
 }
