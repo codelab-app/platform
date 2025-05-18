@@ -13,7 +13,7 @@ import { Button, Space, Tooltip } from 'antd'
 import { useState } from 'react'
 import { isNullish } from 'remeda'
 import { connectField } from 'uniforms'
-import { BoolField, NumField, SelectField } from 'uniforms-antd'
+import { BoolField, ErrorField, NumField, SelectField } from 'uniforms-antd'
 
 import { WrappedListField } from './WrappedListField'
 
@@ -133,6 +133,11 @@ const ToggleExpression = ({
       ) : (
         BaseControl
       )}
+      <ErrorField
+        error={fieldProps.error}
+        errorMessage={fieldProps.errorMessage}
+        name=""
+      />
     </div>
   )
 }
