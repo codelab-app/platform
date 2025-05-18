@@ -33,11 +33,11 @@ describe('Runtime Element props', () => {
       const { rootElement, runtimeRootElement } =
         testStore.setupRuntimeElement()
 
-      const runtimeProps = runtimeRootElement.runtimeProps
+      const runtimeProps = runtimeRootElement.current.runtimeProps
 
       expect(runtimeProps.props).toMatchObject({
         [DATA_ELEMENT_ID]: rootElement.id,
-        key: runtimeRootElement.compositeKey,
+        key: runtimeRootElement.current.compositeKey,
         ref: expect.any(Function),
       })
     })
@@ -46,7 +46,7 @@ describe('Runtime Element props', () => {
       const { rootElement, runtimeRootElement } =
         testStore.setupRuntimeElement()
 
-      const runtimeProps = runtimeRootElement.runtimeProps
+      const runtimeProps = runtimeRootElement.current.runtimeProps
 
       rootElement.props.set('randomProp', 'RandomPropValue')
 
@@ -59,7 +59,7 @@ describe('Runtime Element props', () => {
       const { rootElement, runtimeRootElement } =
         testStore.setupRuntimeElement()
 
-      const runtimeProps = runtimeRootElement.runtimeProps
+      const runtimeProps = runtimeRootElement.current.runtimeProps
       const atom = rootElement.renderType.current
       const fieldKey = 'fieldKey'
       const fieldDefaultValue = '"field-value"'
@@ -90,7 +90,7 @@ describe('Runtime Element props', () => {
         const { page, rootElement, runtimeRootElement } =
           testStore.setupRuntimeElement(RendererType.PageBuilder, pageKind)
 
-        const runtimeProps = runtimeRootElement.runtimeProps
+        const runtimeProps = runtimeRootElement.current.runtimeProps
         const fieldKey = 'fieldKey'
         const fieldDefaultValue = 'some-value'
         const propKey = 'propKey'
@@ -131,7 +131,7 @@ describe('Runtime Element props', () => {
         const { page, rootElement, runtimeRootElement } =
           testStore.setupRuntimeElement(RendererType.Preview, pageKind)
 
-        const runtimeProps = runtimeRootElement.runtimeProps
+        const runtimeProps = runtimeRootElement.current.runtimeProps
         const actionName = 'sum'
         const propKey = 'propKey'
 
@@ -166,7 +166,7 @@ describe('Runtime Element props', () => {
       const { page, rootElement, runtimeRootElement } =
         testStore.setupRuntimeElement(RendererType.Preview, pageKind)
 
-      const runtimeProps = runtimeRootElement.runtimeProps
+      const runtimeProps = runtimeRootElement.current.runtimeProps
       const actionName = 'sum'
       const propKey = 'propKey'
 
@@ -206,7 +206,7 @@ describe('Runtime Element props', () => {
         const { rootElement, runtimeRootElement } =
           testStore.setupRuntimeElement()
 
-        const runtimeProps = runtimeRootElement.runtimeProps
+        const runtimeProps = runtimeRootElement.current.runtimeProps
         const apiActionName = 'apiAction'
         const codeActionName = 'codeAction'
         const propKey = 'propKey'
@@ -277,7 +277,7 @@ describe('Runtime Element props', () => {
         const { rootElement, runtimeRootElement } =
           testStore.setupRuntimeElement()
 
-        const runtimeProps = runtimeRootElement.runtimeProps
+        const runtimeProps = runtimeRootElement.current.runtimeProps
 
         const response =
           actionField === 'successAction'
@@ -335,7 +335,7 @@ describe('Runtime Element props', () => {
         const { page, rendered, rootElement, runtimeRootElement } =
           testStore.setupRuntimeElement(RendererType.Preview, pageKind)
 
-        const runtimeProps = runtimeRootElement.runtimeProps
+        const runtimeProps = runtimeRootElement.current.runtimeProps
         const propKey = 'propKey'
         const providerRootElement = page.providerPage?.rootElement.current
 
@@ -373,7 +373,7 @@ describe('Runtime Element props', () => {
             createElement(
               RootStoreProvider,
               { value: storeContext },
-              rendererService.activeRenderer?.current.render,
+              rendererService.activeRenderer?.current.rendered,
             ),
           )
         })
@@ -397,7 +397,7 @@ describe('Runtime Element props', () => {
         const { page, rootElement, runtimeRootElement } =
           testStore.setupRuntimeElement(RendererType.Preview, pageKind)
 
-        const runtimeProps = runtimeRootElement.runtimeProps
+        const runtimeProps = runtimeRootElement.current.runtimeProps
         const actionName = 'rootAction'
         const propKey = 'propKey'
         const rootStateName = 'rootStateName'
@@ -452,14 +452,14 @@ describe('Runtime Element props', () => {
         `{{componentProps.${propKey}}}`,
       )
 
-      runtimeRootElement.element.current.writeCache({
+      runtimeRootElement.current.element.current.writeCache({
         renderType: component,
       })
 
-      const runtimeComponent = runtimeRootElement
-        .children[0] as IRuntimeComponentModel
+      const runtimeComponent = runtimeRootElement.current.children[0]
+        ?.current as IRuntimeComponentModel
 
-      const { runtimeProps } = runtimeComponent.runtimeRootElement
+      const { runtimeProps } = runtimeComponent.runtimeRootElement.current
       const { evaluatedProps } = runtimeProps
 
       expect(evaluatedProps).toMatchObject({ [propKey]: propValue })
@@ -478,7 +478,9 @@ describe('Runtime Element props', () => {
 
       rootElement.props.set(urlKey, `{{urlProps.${urlKey}}}`)
 
-      expect(runtimeRootElement.runtimeProps.evaluatedProps).toMatchObject({
+      expect(
+        runtimeRootElement.current.runtimeProps.evaluatedProps,
+      ).toMatchObject({
         [urlKey]: urlPropValue,
       })
     })

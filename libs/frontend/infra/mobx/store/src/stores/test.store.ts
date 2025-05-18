@@ -493,10 +493,12 @@ export const createTestStore = () => {
         rendererType,
       })
 
+      renderer.render()
+
       return {
         app,
         page,
-        rendered: renderer.render,
+        rendered: renderer.rendered,
         renderer,
         runtimePage:
           pageKind === IPageKind.Regular

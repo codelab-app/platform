@@ -71,10 +71,10 @@ describe('Runtime Component props', () => {
   describe('RuntimeProps.instanceElementProps', () => {
     it('should resolve instance element props', () => {
       const { runtimeRootElement } = testStore.setupRuntimeComponent()
-      const runtimeProps = runtimeRootElement?.runtimeProps
+      const runtimeProps = runtimeRootElement?.current.runtimeProps
 
-      const runtimeComponent = runtimeRootElement
-        ?.children[0] as IRuntimeComponentModel
+      const runtimeComponent = runtimeRootElement?.current.children[0]
+        ?.current as IRuntimeComponentModel
 
       const componentRuntimeProps = runtimeComponent.runtimeProps
 
@@ -98,8 +98,9 @@ describe('Runtime Component props', () => {
 
       rootElement.props.set(propKey, propsValue)
 
-      const runtimeChildren =
-        runtimeRootElement.children as Array<IRuntimeComponentModel>
+      const runtimeChildren = runtimeRootElement.current.children.map(
+        (childComponent) => childComponent.current,
+      ) as Array<IRuntimeComponentModel>
 
       expect(runtimeChildren[0]?.runtimeProps?.childMapperProp).toBe(
         propsValue[0],
