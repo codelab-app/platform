@@ -24,12 +24,12 @@ export const stringTypeExpectedSchema = {
 }
 
 export const intTypeExpectedSchema = {
-  type: ['integer', 'string'],
+  type: 'integer',
 }
 
 export const booleanTypeExpectedSchema = {
   default: false,
-  type: ['boolean', 'string'],
+  type: 'boolean',
 }
 
 export const appTypeExpectedSchema = {
@@ -120,7 +120,7 @@ export const interfaceWithRequiredDefaultFieldValuesExpectedSchema = {
       ...intTypeExpectedSchema,
       label: 'Int field',
       nullable: false,
-      type: ['integer', 'string'],
+      type: 'integer',
     },
     stringField: {
       ...stringTypeExpectedSchema,
