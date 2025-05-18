@@ -19,5 +19,6 @@ export const arrayTypeUniformSchema: ITypeModelUniformSchemaBuilder<
         },
       }),
     },
+    errorMessage: `Must be of type Array<${type.itemType?.current.name}>, or an expression that evaluates to Array<${type.itemType?.current.name}>`,
   }
 }
