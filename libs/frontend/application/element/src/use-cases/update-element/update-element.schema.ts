@@ -72,12 +72,14 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
       required: [],
       type: 'object',
     },
+    // childMapperPropKey is a string property in database, but at runtime it always has to evaluate to an array
     childMapperPropKey: {
       label: 'Prop Key',
       nullable: true,
-      type: 'string',
+      type: 'array',
+      items: [{ type: 'object' }],
       help: 'The key used to get the data from state e.g. `state.products`, `rootState.products`. Data source needs to be an array',
-    },
+    } as JSONSchemaType<IUpdateBaseElementData>['childMapperPropKey'],
     renderForEachPropKey: {
       label: 'Render for each',
       nullable: true,
