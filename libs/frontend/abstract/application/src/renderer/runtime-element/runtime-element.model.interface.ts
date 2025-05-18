@@ -1,5 +1,5 @@
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
-import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { ReactNode } from 'react'
 import type { ArrayOrSingle } from 'ts-essentials/dist/types'
@@ -23,7 +23,7 @@ export interface IRuntimeElementModel extends IBaseRuntimeModel {
   /**
    * The runtime model for IElementModel.closestContainerNode
    */
-  closestContainerNode: Ref<IRuntimeComponentModel | IRuntimePageModel>
+  closestContainerNode: IRuntimeComponentModel | IRuntimePageModel
   /**
    * Return the parent element or self if no parent element exists, useful for setting expanded state when we want the parent
    */
@@ -36,8 +36,8 @@ export interface IRuntimeElementModel extends IBaseRuntimeModel {
   expanded: boolean
   isTextContentEditable: boolean
   mainTreeElement: IRuntimeElementModel
+  parentCompositeKey: string
   parentElement: Maybe<IRuntimeElementModel>
-  parentElementKey: Nullable<string>
   pathFromRoot: Array<IRuntimeElementModel>
   postRenderActionsDone: boolean
   preRenderActionsDone: boolean

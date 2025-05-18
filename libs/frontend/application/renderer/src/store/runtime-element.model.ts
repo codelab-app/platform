@@ -22,6 +22,7 @@ import {
   getRendererService,
   getRuntimeComponentService,
   getRuntimeElementService,
+  getRuntimePageService,
   IRuntimeNodeType,
   isRuntimeComponent,
   isRuntimeElement,
@@ -55,23 +56,10 @@ import { ElementWrapper } from '../components'
 
 const compositeKey = (
   element: IElementModel,
-  container: IRuntimeComponentModel | IRuntimePageModel,
-  propKey = '',
+  parentCompositeKey: string,
+  propkey?: string,
 ) => {
-  /**
-   * sub trees of components may repeat which but they will never have the same root (instanceElement)
-   * therefor use it to create a unique key
-   */
-
-  let instanceKeyToRoot = ''
-  let parentNode = element.closestContainerNode
-
-  while (isComponent(parentNode) && parentNode.instanceElement?.id) {
-    instanceKeyToRoot += parentNode.instanceElement.id
-    parentNode = parentNode.instanceElement.current.closestContainerNode
-  }
-
-  return `${container.compositeKey}.${element.id}${instanceKeyToRoot}${propKey}`
+  return `${parentCompositeKey}.${element.id}${propkey}`
 }
 
 const getPropertiesFromLocalStorage = (key: string) => {
@@ -97,15 +85,12 @@ const create = (dto: IRuntimeElementDto) => {
 export class RuntimeElementModel
   extends Model({
     children: prop<Array<Ref<IRuntimeModel>>>(() => []).withSetter(),
-    closestContainerNode: prop<
-      Ref<IRuntimeComponentModel> | Ref<IRuntimePageModel>
-    >(),
     compositeKey: idProp,
     element: prop<Ref<IElementModel>>(),
     expanded: prop<boolean>(false),
     isTextContentEditable: prop<boolean>(false).withSetter(),
     lastChildMapperChildrenKeys: prop<Array<string>>(() => []),
-    parentElementKey: prop<Nullable<string>>(null),
+    parentCompositeKey: prop<string>(),
     postRenderActionsDone: prop(false).withSetter(),
     preRenderActionsDone: prop(false).withSetter(),
     propKey: prop<Maybe<string>>(),
@@ -153,6 +138,13 @@ export class RuntimeElementModel
   }
 
   @computed
+  get closestContainerNode(): IRuntimeComponentModel | IRuntimePageModel {
+    return (this.parentElement?.closestContainerNode ??
+      this.runtimePageService.pages.get(this.parentCompositeKey) ??
+      this.runtimeComponentService.components.get(this.parentCompositeKey))!
+  }
+
+  @computed
   get closestElement(): IRuntimeElementModel {
     return this.parentElement || this
   }
@@ -182,7 +174,7 @@ export class RuntimeElementModel
   @computed
   get mainTreeElement(): IRuntimeElementModel {
     const treeRoot = this.renderer.runtimeContainerNode
-    const closestContainerNode = this.closestContainerNode.current
+    const closestContainerNode = this.closestContainerNode
 
     // element belongs to main tree
     if (treeRoot?.compositeKey === closestContainerNode.compositeKey) {
@@ -198,8 +190,8 @@ export class RuntimeElementModel
 
   @computed
   get parentElement() {
-    return this.parentElementKey
-      ? this.runtimeElementService.elements.get(this.parentElementKey)
+    return this.parentCompositeKey
+      ? this.runtimeElementService.elements.get(this.parentCompositeKey)
       : undefined
   }
 
@@ -310,8 +302,13 @@ export class RuntimeElementModel
   }
 
   @computed
+  get runtimePageService() {
+    return getRuntimePageService(this)
+  }
+
+  @computed
   get runtimeStore() {
-    return this.closestContainerNode.current.runtimeStore
+    return this.closestContainerNode.runtimeStore
   }
 
   @computed
@@ -335,7 +332,7 @@ export class RuntimeElementModel
       compositeKey: this.compositeKey,
       element: this.element,
       expanded: this.expanded,
-      parentElementKey: this.parentElementKey,
+      parentCompositeKey: this.parentCompositeKey,
       propKey: this.propKey,
       runtimeProps: this.runtimeProps,
       style: this.style,
@@ -386,7 +383,7 @@ export class RuntimeElementModel
       componentMeta,
       errorMessage,
       primaryTitle,
-      rootKey: this.closestContainerNode.current.compositeKey,
+      rootKey: this.closestContainerNode.compositeKey,
       secondaryTitle,
       title: `${primaryTitle} (${secondaryTitle})`,
       type: IRuntimeNodeType.Element,
@@ -424,7 +421,7 @@ export class RuntimeElementModel
 
   @modelAction
   createChildren() {
-    const container = this.closestContainerNode.current
+    const container = this.closestContainerNode
     const element = this.element.current
 
     const children: Array<IRuntimeModel> = this.component
@@ -433,7 +430,11 @@ export class RuntimeElementModel
           this.runtimeComponentService.add(this.component, this, this.propKey),
         ]
       : element.children.map((child) =>
-          this.runtimeElementService.add(child, container, this, this.propKey),
+          this.runtimeElementService.add(
+            child,
+            this.compositeKey,
+            this.propKey,
+          ),
         )
 
     /**

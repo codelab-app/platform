@@ -10,7 +10,10 @@ import type { IRendererDto } from './renderer.dto.interface'
 import type { IRendererModel } from './renderer.model.interface'
 
 export interface IRendererService
-  extends IHydrateable<IRendererDto, IRendererModel> {
+  extends IHydrateable<
+    Omit<IRendererDto, 'runtimeRootContainerNode'>,
+    IRendererModel
+  > {
   activeElementTree: Maybe<IElementTree>
   activeRenderer: Nullable<Ref<IRendererModel>>
   expressionTransformer: IExpressionTransformer

@@ -10,7 +10,9 @@ import type { Ref } from 'mobx-keystone'
 import {
   getRuntimeComponentService,
   getRuntimeElementService,
+  getRuntimePageService,
 } from '@codelab/frontend/abstract/application'
+import { isPage } from '@codelab/frontend/abstract/domain'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 
@@ -51,12 +53,23 @@ export class RendererService
     return getRuntimeElementService(this)
   }
 
+  @computed
+  get runtimePageService() {
+    return getRuntimePageService(this)
+  }
+
   @modelAction
   hydrate = (rendererDto: IRendererDto) => {
     let renderer = this.renderers.get(rendererDto.id)
 
     if (!renderer) {
-      renderer = Renderer.create(rendererDto)
+      renderer = Renderer.create({
+        ...rendererDto,
+        containerNode: rendererDto.containerNode,
+        runtimeRootContainerNode: isPage(rendererDto.containerNode)
+          ? this.runtimePageService.add(rendererDto.containerNode)
+          : this.runtimeComponentService.add(rendererDto.containerNode),
+      })
 
       this.renderers.set(rendererDto.id, renderer)
     } else {

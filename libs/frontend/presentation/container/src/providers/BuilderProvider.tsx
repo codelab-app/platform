@@ -12,7 +12,7 @@ import {
 } from '@codelab/frontend/abstract/application'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
-import { createContext, type ReactNode } from 'react'
+import { createContext, type ReactNode, useEffect } from 'react'
 import { useAsync } from 'react-use'
 import { v4 } from 'uuid'
 
@@ -41,8 +41,18 @@ export const BuilderProvider = observer(
     /**
      * Defer side effect to lifecycle method, to prevent https://github.com/codelab-app/platform/issues/3463
      */
-    const { loading } = useAsync(async () => {
+    const { error, loading, value } = useAsync(async () => {
       await rendererService.expressionTransformer.init()
+    }, [])
+
+    useEffect(() => {
+      if (loading) {
+        return
+      }
+
+      if (error) {
+        throw new Error(error.message)
+      }
 
       const renderer = rendererService.hydrate({
         containerNode,
@@ -60,9 +70,9 @@ export const BuilderProvider = observer(
 
       const runtimeContainer =
         renderer.runtimeContainerNode ??
-        renderer.runtimeRootContainerNode?.current
+        renderer.runtimeRootContainerNode.current
 
-      const runtimeRootElement = runtimeContainer?.runtimeRootElement?.current
+      const runtimeRootElement = runtimeContainer.runtimeRootElement.current
 
       // tracker.useEvent({
       //   componentName: 'BuilderProvider',
@@ -74,10 +84,10 @@ export const BuilderProvider = observer(
        *
        * Turns out some issue with server action will re-run the component, which is re-running this component
        */
-      if (!builderService.selectedNode && runtimeRootElement) {
+      if (!builderService.selectedNode) {
         builderService.setSelectedNode(runtimeElementRef(runtimeRootElement))
       }
-    }, [rendererType, containerNode.id])
+    }, [rendererType, containerNode, loading, error])
 
     return (
       !loading && (
