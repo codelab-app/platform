@@ -74,6 +74,8 @@ export class ReactNodeTypeTransformer
       true,
     )
 
-    return runtimeComponent.render
+    runtimeComponent.render()
+
+    return runtimeComponent.rendered
   }
 }

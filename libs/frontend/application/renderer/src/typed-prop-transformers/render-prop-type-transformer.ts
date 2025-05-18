@@ -93,7 +93,9 @@ export class RenderPropTypeTransformer
         }),
       )
 
-      return runtimeComponent.render
+      runtimeComponent.render()
+
+      return runtimeComponent.rendered
     }
   }
 }
