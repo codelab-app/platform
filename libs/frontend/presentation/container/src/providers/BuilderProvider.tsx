@@ -1,15 +1,14 @@
 'use client'
 
-import type {
-  IComponentModel,
-  IPageModel,
-} from '@codelab/frontend/abstract/domain'
-
 import {
   rendererRef,
   type RendererType,
   runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
+import {
+  type IComponentModel,
+  type IPageModel,
+} from '@codelab/frontend/abstract/domain'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import { createContext, type ReactNode, useEffect } from 'react'
