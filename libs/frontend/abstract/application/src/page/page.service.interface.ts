@@ -32,4 +32,5 @@ export interface IPageService
   getRenderedPage(pageId: string): Promise<GetRenderedPageQuery>
   getSelectPageOptions(appId?: string): Promise<Array<SelectOption>>
   loadElements(elements: Array<IElementDto>): void
+  removeAndNavigate(page: IPageModel): Promise<void>
 }

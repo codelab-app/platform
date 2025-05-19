@@ -16,7 +16,7 @@ export interface IRendererDto {
   /**
    * Must not use container id
    */
-  id: string
+  id?: string
   rendererType: RendererType
   runtimeRootContainerNode: IRuntimeComponentModel | IRuntimePageModel
   setSelectedNode?: IBuilderService['setSelectedNode']

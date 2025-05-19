@@ -33,6 +33,11 @@ import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { defaultPipes, renderPipeFactory } from '../render-pipes'
 import { typedPropTransformersFactory } from '../typed-prop-transformers'
 
+const compositeKey = (
+  page: IComponentModel | IPageModel,
+  rendererType: RendererType,
+) => `${page.id}-${rendererType}`
+
 /**
  * Handles the logic of rendering treeElements. Takes in an optional appTree
  *
@@ -55,7 +60,7 @@ const create = ({
   rendererType,
   runtimeRootContainerNode,
 }: IRendererDto) => {
-  return new Renderer({
+  return new RendererModel({
     containerNode: isPage(containerNode)
       ? pageRef(containerNode)
       : componentRef(containerNode),
@@ -74,7 +79,7 @@ const create = ({
 }
 
 @model('@codelab/Renderer')
-export class Renderer
+export class RendererModel
   extends Model({
     /**
      * The tree that's being rendered, we assume that this is properly constructed
@@ -106,6 +111,8 @@ export class Renderer
   })
   implements IRendererModel
 {
+  static compositeKey = compositeKey
+
   static create = create
 
   @computed
