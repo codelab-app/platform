@@ -22,7 +22,7 @@ export const RenderBlueprint = observer<{
 }>(({ renderContainerRef, renderer }) => {
   const [containerRect, setContainerRect] = useState(new Rect())
   const runtimeRootContainerNode = renderer.runtimeContainerNode
-  const runtimeRootElement = runtimeRootContainerNode?.runtimeRootElement
+  const runtimeRootElement = runtimeRootContainerNode.runtimeRootElement
   const { userDomainService } = useDomainStore()
   const window = useWindowSize()
   const isPreview = renderer.rendererType === RendererType.Preview
@@ -38,12 +38,7 @@ export const RenderBlueprint = observer<{
     window.width,
   ])
 
-  if (
-    isServer ||
-    !renderContainerRef.current ||
-    !runtimeRootElement ||
-    isPreview
-  ) {
+  if (isServer || !renderContainerRef.current || isPreview) {
     return null
   }
 
