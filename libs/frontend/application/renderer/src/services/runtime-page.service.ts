@@ -73,7 +73,6 @@ export class RuntimePageService
 
     this.pages.set(runtimePage.compositeKey, runtimePage)
 
-    console.log(providerPage, runtimePage)
     providerPage?.setChildPage(runtimePageRef(runtimePage))
 
     return providerPage ?? runtimePage
