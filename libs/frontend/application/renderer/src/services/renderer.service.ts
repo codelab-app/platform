@@ -16,7 +16,7 @@ import { isPage } from '@codelab/frontend/abstract/domain'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 
-import { Renderer } from '../store/renderer.model'
+import { RendererModel } from '../store/renderer.model'
 import { ExpressionTransformer } from './expression-transformer.service'
 
 @model('@codelab/RendererService')
@@ -60,18 +60,25 @@ export class RendererService
 
   @modelAction
   hydrate = (rendererDto: IRendererDto) => {
-    let renderer = this.renderers.get(rendererDto.id)
+    // renderer should use a composite key so we don't a new one on every render
+    const compositeKey = RendererModel.compositeKey(
+      rendererDto.containerNode,
+      rendererDto.rendererType,
+    )
+
+    let renderer = this.renderers.get(compositeKey)
 
     if (!renderer) {
-      renderer = Renderer.create({
+      renderer = RendererModel.create({
         ...rendererDto,
         containerNode: rendererDto.containerNode,
+        id: compositeKey,
         runtimeRootContainerNode: isPage(rendererDto.containerNode)
           ? this.runtimePageService.add(rendererDto.containerNode)
           : this.runtimeComponentService.add(rendererDto.containerNode),
       })
 
-      this.renderers.set(rendererDto.id, renderer)
+      this.renderers.set(compositeKey, renderer)
     } else {
       // existing renderer may change type when switching between builder and preview modes
       renderer.rendererType = rendererDto.rendererType
