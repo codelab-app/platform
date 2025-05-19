@@ -33,10 +33,10 @@ import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { defaultPipes, renderPipeFactory } from '../render-pipes'
 import { typedPropTransformersFactory } from '../typed-prop-transformers'
 
-const compositeKey = (
-  page: IComponentModel | IPageModel,
-  rendererType: RendererType,
-) => `${page.id}-${rendererType}`
+// we need to be able to determine renderer by the container node
+// we don't use container node directly because it causes issues with mobx-keystone refs
+const compositeKey = (page: IComponentModel | IPageModel) =>
+  `renderer.${page.id}`
 
 /**
  * Handles the logic of rendering treeElements. Takes in an optional appTree

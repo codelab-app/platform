@@ -61,11 +61,7 @@ export class RendererService
   @modelAction
   hydrate = (rendererDto: IRendererDto) => {
     // renderer should use a composite key so we don't a new one on every render
-    const compositeKey = RendererModel.compositeKey(
-      rendererDto.containerNode,
-      rendererDto.rendererType,
-    )
-
+    const compositeKey = RendererModel.compositeKey(rendererDto.containerNode)
     let renderer = this.renderers.get(compositeKey)
 
     if (!renderer) {
