@@ -52,13 +52,20 @@ export const BuilderElementToolbar = observer<{
   const toolbarStyle: CSSProperties = useMemo(() => {
     // align toolbar top if there is enough screen space,
     // otherwise align toolbar under the element
-    const isToolbarVisible = rect.top - containerRect.top > TOOLBAR_HEIGHT
-    const styleName = isToolbarVisible ? 'bottom' : 'top'
+
+    const hasSpaceAbove = rect.top - containerRect.top > TOOLBAR_HEIGHT
+    const hasSpaceBelow = containerRect.bottom - rect.bottom > TOOLBAR_HEIGHT
+
+    const toolbarPosition = hasSpaceAbove
+      ? { top: -TOOLBAR_HEIGHT }
+      : hasSpaceBelow
+      ? { bottom: -TOOLBAR_HEIGHT }
+      : { bottom: 0 }
 
     return {
       alignItems: 'center',
       backgroundColor: '#43669A',
-      borderRadius: isToolbarVisible ? '12px 12px 12px 0' : '0 12px 12px 12px',
+      borderRadius: hasSpaceBelow ? '0 12px 12px 12px' : '12px 12px 12px 0',
       color: 'rgb(255, 255, 255)',
       display: 'flex',
       fontSize: '0.8rem',
@@ -68,7 +75,7 @@ export const BuilderElementToolbar = observer<{
       padding: '0.1rem 0.3rem 0.1rem 0.3rem',
       pointerEvents: 'auto',
       position: 'absolute',
-      [styleName]: '100%',
+      ...toolbarPosition,
     }
   }, [containerRect.top, rect.top])
 
