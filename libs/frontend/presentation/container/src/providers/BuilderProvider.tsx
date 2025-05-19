@@ -39,7 +39,7 @@ export const BuilderProvider = observer(
     /**
      * Defer side effect to lifecycle method, to prevent https://github.com/codelab-app/platform/issues/3463
      */
-    const { error, loading, value } = useAsync(async () => {
+    const { error, loading } = useAsync(async () => {
       await rendererService.expressionTransformer.init()
     }, [])
 
