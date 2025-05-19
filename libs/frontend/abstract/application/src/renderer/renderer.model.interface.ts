@@ -2,7 +2,7 @@ import type {
   IComponentModel,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
-import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type { ReactElement } from 'react'
 import type { ErrorBoundaryProps } from 'react-error-boundary'
@@ -29,7 +29,7 @@ export interface IRendererModel {
   rendered: Nullable<ReactElement<unknown>>
   rendererType: RendererType
   runtimeComponent?: IRuntimeComponentModel
-  runtimeContainerNode: Maybe<IRuntimeComponentModel> | Maybe<IRuntimePageModel>
+  runtimeContainerNode: IRuntimeComponentModel | IRuntimePageModel
   runtimePage?: IRuntimePageModel
   runtimeRootContainerNode: Ref<IRuntimeComponentModel> | Ref<IRuntimePageModel>
   typedPropTransformers: ObjectMap<ITypedPropTransformer>

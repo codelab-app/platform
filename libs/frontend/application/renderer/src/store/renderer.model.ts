@@ -26,6 +26,7 @@ import {
   isPage,
   pageRef,
 } from '@codelab/frontend/abstract/domain'
+import { Validator } from '@codelab/shared/infra/typebox'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
@@ -137,11 +138,14 @@ export class Renderer
 
   @computed
   get runtimeContainerNode() {
-    return (
+    const node =
       this.runtimePage?.childPage?.current ??
       this.runtimePage ??
       this.runtimeComponent
-    )
+
+    Validator.assertsDefined(node)
+
+    return node
   }
 
   @computed

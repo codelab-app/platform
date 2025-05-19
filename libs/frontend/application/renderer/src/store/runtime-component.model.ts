@@ -144,7 +144,7 @@ export class RuntimeComponentModel
       // hide children for child mapper instances
       children: this.isChildMapperComponentInstance
         ? []
-        : [this.runtimeRootElement!.current.treeViewNode],
+        : [this.runtimeRootElement.current.treeViewNode],
       component: { id: this.component.current.id },
       isChildMapperComponentInstance: this.isChildMapperComponentInstance,
       primaryTitle: this.isChildMapperComponentInstance

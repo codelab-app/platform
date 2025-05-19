@@ -143,7 +143,7 @@ export class RuntimeElementModel
     const closestContainerNode = this.closestContainerNode
 
     // element belongs to main tree
-    if (treeRoot?.compositeKey === closestContainerNode.compositeKey) {
+    if (treeRoot.compositeKey === closestContainerNode.compositeKey) {
       return this
     }
 
@@ -440,7 +440,6 @@ export class RuntimeElementModel
     /**
      * Attach regular page to runtime element tree
      */
-
     if (isRuntimePage(container)) {
       const page = container.page.current
       const shouldAttachPage = page.pageContentContainer?.id === this.element.id

@@ -40,8 +40,8 @@ export class RuntimePageService
   }
 
   @modelAction
-  add(page: IPageModel): IRuntimePageModel {
-    const compositeKey = RuntimePageModel.compositeKey(page)
+  add(page: IPageModel, childPage?: IPageModel): IRuntimePageModel {
+    const compositeKey = RuntimePageModel.compositeKey(page, childPage)
     const foundPage = this.pages.get(compositeKey)
 
     if (foundPage) {
@@ -49,16 +49,8 @@ export class RuntimePageService
     }
 
     const providerPage = page.providerPage
-      ? this.add(page.providerPage)
+      ? this.add(page.providerPage, page)
       : undefined
-
-    const runtimeStore = RuntimeStoreModel.create({
-      id: v4(),
-      runtimeProviderStore: providerPage
-        ? runtimeStoreRef(providerPage.runtimeStore)
-        : undefined,
-      store: storeRef(page.store.id),
-    })
 
     const runtimeRootElement = this.runtimeElementService.add(
       page.rootElement.current,
@@ -67,7 +59,7 @@ export class RuntimePageService
     )
 
     const runtimePage = RuntimePageModel.create({
-      compositeKey: RuntimePageModel.compositeKey(page),
+      compositeKey,
       page: pageRef(page.id),
       runtimeRootElement: runtimeElementRef(runtimeRootElement),
       runtimeStore: RuntimeStoreModel.create({
@@ -81,6 +73,7 @@ export class RuntimePageService
 
     this.pages.set(runtimePage.compositeKey, runtimePage)
 
+    console.log(providerPage, runtimePage)
     providerPage?.setChildPage(runtimePageRef(runtimePage))
 
     return providerPage ?? runtimePage

@@ -14,7 +14,6 @@ import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import { createContext, type ReactNode, useEffect } from 'react'
 import { useAsync } from 'react-use'
-import { v4 } from 'uuid'
 
 interface BuilderContextProps {
   containerNode: IComponentModel | IPageModel
@@ -56,7 +55,7 @@ export const BuilderProvider = observer(
 
       const renderer = rendererService.hydrate({
         containerNode,
-        id: v4(),
+        id: `${containerNode.id}${rendererType}`,
         rendererType,
       })
 
@@ -69,11 +68,8 @@ export const BuilderProvider = observer(
       //   event: 'Set active renderer',
       // })
 
-      const runtimeContainer =
-        renderer.runtimeContainerNode ??
-        renderer.runtimeRootContainerNode.current
-
-      const runtimeRootElement = runtimeContainer.runtimeRootElement.current
+      const { runtimeContainerNode } = renderer
+      const runtimeRootElement = runtimeContainerNode.runtimeRootElement.current
 
       // tracker.useEvent({
       //   componentName: 'BuilderProvider',
@@ -88,7 +84,7 @@ export const BuilderProvider = observer(
       if (!builderService.selectedNode) {
         builderService.setSelectedNode(runtimeElementRef(runtimeRootElement))
       }
-    }, [rendererType, containerNode, loading, error])
+    }, [rendererType, containerNode.id, loading, error])
 
     return (
       !loading && (
