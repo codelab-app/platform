@@ -55,6 +55,9 @@ export const BuilderProvider = observer(
 
       const renderer = rendererService.hydrate({
         containerNode,
+        // we want id to be related to containerNode, so that we can use it to find the renderer
+        // we can't use containerNode.id only because it causes ref reslove issues
+        // besides we want to create a diffrerent renderer for each rendererType
         id: `${containerNode.id}${rendererType}`,
         rendererType,
       })
