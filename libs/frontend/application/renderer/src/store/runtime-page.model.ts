@@ -24,7 +24,8 @@ import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
  * on the first call create the provider page and pass
  */
 
-const compositeKey = (page: IPageModel) => `runtime.${page.id}`
+const compositeKey = (page: IPageModel, childPage?: IPageModel) =>
+  `runtime.${page.id}${childPage ? `.${childPage.id}` : ''}`
 
 const create = (dto: IRuntimePageDto): IRuntimePageModel =>
   new RuntimePageModel(dto)
@@ -100,6 +101,7 @@ export class RuntimePageModel
 
   @modelAction
   render(): void {
+    this.childPage?.current.render()
     this.runtimeRootElement.current.render()
   }
 }

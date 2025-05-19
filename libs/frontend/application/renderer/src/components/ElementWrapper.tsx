@@ -6,6 +6,7 @@ import type { IAtomType } from '@codelab/shared/abstract/core'
 import { type IComponentType } from '@codelab/frontend/abstract/domain'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { getSnapshot } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import { Fragment, useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
@@ -34,6 +35,10 @@ export const ElementWrapper = observer<ElementWrapperProps>(
     }, [])
 
     const { atomDomainService } = useDomainStore()
+
+    useEffect(() => {
+      runtimeElement.render()
+    }, [getSnapshot(runtimeElement.element.current)])
 
     const getReactComponent = (atomType: IAtomType) =>
       atomDomainService.dynamicComponents[atomType] ||

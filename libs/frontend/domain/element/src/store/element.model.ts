@@ -24,7 +24,7 @@ import {
   isComponent,
   pageRef,
 } from '@codelab/frontend/abstract/domain'
-import { toRefSchema } from '@codelab/frontend/shared/utils'
+import { toRefSchema, upsertRef } from '@codelab/frontend/shared/utils'
 import { Prop } from '@codelab/frontend-domain-prop/store'
 import { slugify, titleCase } from '@codelab/shared/utils'
 import { computed } from 'mobx'
@@ -588,12 +588,18 @@ export class Element
     this.postRenderActions = postRenderActions
       ? postRenderActions.map((action) => actionRef(action.id))
       : this.postRenderActions
-    this.childMapperComponent = childMapperComponent?.id
-      ? componentRef(childMapperComponent.id)
-      : this.childMapperComponent
-    this.childMapperPreviousSibling = childMapperPreviousSibling?.id
-      ? elementRef(childMapperPreviousSibling.id)
-      : this.childMapperPreviousSibling
+
+    this.childMapperComponent = upsertRef(
+      childMapperComponent,
+      componentRef,
+      this.childMapperComponent,
+    )
+
+    this.childMapperPreviousSibling = upsertRef(
+      childMapperPreviousSibling,
+      elementRef,
+      this.childMapperPreviousSibling,
+    )
 
     this.style = style ?? this.style
     this.tailwindClassNames = tailwindClassNames ?? this.tailwindClassNames
