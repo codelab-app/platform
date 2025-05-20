@@ -45,6 +45,7 @@ export interface IRuntimeComponentPropModel extends IBaseRuntimeProps {
   customProps?: IPropModel
   instanceElementProps?: IPropData
 
+  renderTypedProps(): void
   setCustomProps(props: IPropModel): void
 }
 
