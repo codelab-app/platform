@@ -8,11 +8,13 @@ import type { Nullable } from '@codelab/shared/abstract/types'
 
 import { RoutePaths } from '@codelab/frontend/abstract/application'
 import { isComponent } from '@codelab/frontend/abstract/domain'
+import { UiKey } from '@codelab/frontend/abstract/types'
 import { useComponentService } from '@codelab/frontend-application-component/services'
 import {
   useCloneElementService,
   useElementService,
 } from '@codelab/frontend-application-element/services'
+import { DeleteElementPopconfirm } from '@codelab/frontend-application-element/use-cases/delete-element'
 import { useUser } from '@codelab/frontend-application-user/services'
 import {
   useApplicationStore,
@@ -142,14 +144,17 @@ export const ElementContextMenu = observer<
       hide: element.isRoot,
       key: 'delete',
       label: (
-        <>
+        <DeleteElementPopconfirm
+          element={element}
+          placement="leftBottom"
+          uiKey={UiKey.ElementPopconfirmOverlayDelete}
+        >
           <span>Delete `{element.name}` </span>{' '}
           <span>
             <Key>del</Key> <Key>{'\u232B'}</Key>
           </span>
-        </>
+        </DeleteElementPopconfirm>
       ),
-      onClick: onDelete,
     },
   ]
 
