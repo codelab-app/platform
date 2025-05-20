@@ -202,6 +202,7 @@ export class RuntimeComponentModel
 
   @modelAction
   render() {
+    this.runtimeProps.renderTypedProps()
     this.createChildren()
     this.children.map((child) => child.current.render())
     this.runtimeRootElement.current.render()
