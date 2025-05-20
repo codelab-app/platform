@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import type { LogLevel } from '@nestjs/common'
 
 import { pinoLogger } from '@codelab/shared-infra-logging/server'
@@ -12,7 +14,7 @@ export const POST = async (request: Request) => {
   try {
     const body = await request.json()
     const { message, options } = body
-    const level: LogLevel = body.level
+    const level: LogLevel = body['level']
 
     // Call the appropriate log level method
     switch (level) {

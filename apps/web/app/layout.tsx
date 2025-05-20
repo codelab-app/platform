@@ -38,7 +38,7 @@ const fontClasses = cn(inter.variable, montserrat.variable, nunito.variable)
 //   title: 'Codelab',
 // }
 
-const RootLayout = async ({ children }: { children: React.ReactNode }) => {
+const RootLayout = ({ children }: { children: React.ReactNode }) => {
   // void setupFileLogs()
 
   // logger.log('RootLayout rendered')
@@ -48,7 +48,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <html className={fontClasses} lang="en" suppressHydrationWarning>
       <head></head>
-      <body className="bg-background min-h-screen antialiased">
+      <body className="min-h-screen antialiased">
         <React19Compatibility />
         <StyleProviders>
           <NotificationProvider>{children}</NotificationProvider>

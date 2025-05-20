@@ -1,5 +1,6 @@
 import type { WithNxOptions } from '@nx/next/plugins/with-nx'
 import type { NextConfig } from 'next'
+import type webpack from 'webpack'
 
 import bundleAnalyzer from '@next/bundle-analyzer'
 import { composePlugins, withNx } from '@nx/next'
@@ -73,31 +74,32 @@ const nextConfig: WithNxOptions = {
   /**
    * https://nextjs.org/docs/app/building-your-application/routing/middleware#matching-paths
    */
-  rewrites: async () => ({
-    afterFiles: [],
-    // We only need middleware to set the session
-    /**
-     * https://github.com/vercel/next.js/issues/36251
-     */
-    beforeFiles: [
-      {
-        destination: `${apiHost}/graphql`,
-        source: `${baseApiPath}/graphql`,
-      },
-      {
-        destination: `${apiHost}/:path*`,
-        source: `${baseApiPath}/:path*`,
-      },
-    ],
-    fallback: [],
-    // beforeFiles: [
-    //   // This prevents CORS issue with frontend sending traces to Jaeger, can't add response headers to
-    //   {
-    //     destination: 'http://127.0.0.1:4318/:path*',
-    //     source: '/api/otel/:path*',
-    //   },
-    // ],
-  }),
+  rewrites: () =>
+    Promise.resolve({
+      afterFiles: [],
+      // We only need middleware to set the session
+      /**
+       * https://github.com/vercel/next.js/issues/36251
+       */
+      beforeFiles: [
+        {
+          destination: `${apiHost}/graphql`,
+          source: `${baseApiPath}/graphql`,
+        },
+        {
+          destination: `${apiHost}/:path*`,
+          source: `${baseApiPath}/:path*`,
+        },
+      ],
+      fallback: [],
+      // beforeFiles: [
+      //   // This prevents CORS issue with frontend sending traces to Jaeger, can't add response headers to
+      //   {
+      //     destination: 'http://127.0.0.1:4318/:path*',
+      //     source: '/api/otel/:path*',
+      //   },
+      // ],
+    }),
   typescript: {
     // tsconfigPath: path.join(__dirname, './tsconfig.lib.json'),
     // !! WARN !!
@@ -108,8 +110,11 @@ const nextConfig: WithNxOptions = {
     tsconfigPath: './tsconfig.lib.json',
   },
 
-  webpack: (config: any, { isServer }: { isServer: boolean }) => {
-    config.module.rules.push({
+  webpack: (
+    config: webpack.Configuration,
+    { isServer }: { isServer: boolean },
+  ) => {
+    config.module?.rules?.push({
       issuer: /\\.[jt]sx?$/,
       test: /\\.svg$/i,
       use: ['@svgr/webpack'],

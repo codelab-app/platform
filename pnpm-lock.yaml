@@ -1481,6 +1481,9 @@ importers:
       '@codelab/shared-abstract-core':
         specifier: workspace:*
         version: link:../../libs/shared/abstract/core
+      '@codelab/shared-abstract-types':
+        specifier: workspace:*
+        version: link:../../libs/shared/abstract/types
       '@codelab/shared-domain-module-domain':
         specifier: workspace:*
         version: link:../../libs/shared/domain/module/domain
@@ -8519,7 +8522,6 @@ packages:
 
   '@ls-lint/ls-lint@2.0.0':
     resolution: {integrity: sha512-1QEk2tzSH5YBCgP+klCZJvdGHJFNQgJb8qPFpFwQPmvjmZMV0aPE11TZ4qd+BlTcteeCWzs5ewSIOVRx2xT+Lw==}
-    cpu: [x64, arm64, s390x]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -14725,6 +14727,7 @@ packages:
     resolution: {integrity: sha512-/baBXDqkfW8x0UlqfYAfRCkmVWiH8qFZ4uhT6yLVBLssiypDTbe78W6lNBse7huBFv1ipR5PG9evkxEnIXDxjA==}
     peerDependencies:
       eslint: '>= 5'
+    bundledDependencies: []
 
   eslint-plugin-canonical@5.1.3:
     resolution: {integrity: sha512-+KjRXVuRC0kXd+eL1B/ZCFOd13fRAeg/IxFjPMZ5YHmf7oeNqITYPWB2PyEnhSK7IOFVBtFExeMy+CMEeXxqYQ==}

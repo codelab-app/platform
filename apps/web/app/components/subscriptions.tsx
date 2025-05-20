@@ -40,7 +40,7 @@ export const Subscriptions = () => {
         .then((result) => {
           console.log('Polling result:', result)
         })
-        .catch((error) => {
+        .catch((error: unknown) => {
           console.error('Polling error:', error)
         })
     }, 5000) // Poll every 5 seconds

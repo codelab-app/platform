@@ -6,6 +6,7 @@
     "@codelab/frontend-test-data": "workspace:*",
     "@codelab/frontend-infra-mobx-store": "workspace:*",
     "@codelab/shared-abstract-core": "workspace:*",
+    "@codelab/shared-abstract-types": "workspace:*",
     "@codelab/frontend-application-admin": "workspace:*",
     "@codelab/frontend-presentation-view": "workspace:*",
     "@codelab/frontend-application-user": "workspace:*",

@@ -9,6 +9,8 @@
     "**/*.ts",
     "**/*.tsx",
     "**/*.js",
+    "*.mjs",
+    "*.cjs",
     ".storybook/**/*.ts",
     ".storybook/**/*.tsx"
   ]

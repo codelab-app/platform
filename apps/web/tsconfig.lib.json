@@ -27,7 +27,7 @@
     "module": "esnext"
   },
   "include": ["**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["public/*.js", "*.config.js"],
+  "exclude": ["public/*.js"],
   "references": [
     {
       "path": "../../libs/shared/infra/auth0/tsconfig.lib.json"

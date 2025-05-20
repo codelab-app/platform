@@ -40,37 +40,9 @@ export default [
           object: true,
         },
       ],
-      '@typescript-eslint/no-restricted-types': [
-        'error',
-        {
-          types: {
-            'null | undefined': {
-              message: 'use Nullish instead',
-              fixWith: 'Nullish<>',
-            },
-            'Record<string, any>': {
-              message: 'use ObjectLike instead',
-              fixWith: 'ObjectLike',
-            },
-            'Record<string, unknown>': {
-              message: 'use UnknownObjectLike instead',
-              fixWith: 'UnknownObjectLike',
-            },
-            Object: {
-              message: 'Use {} or ObjectLike instead',
-              fixWith: 'ObjectLike',
-            },
-            object: {
-              message: 'Use {} or ObjectLike instead',
-              fixWith: 'ObjectLike',
-            },
-          },
-        },
-      ],
       '@stylistic/ts/quotes': ['error', 'single', { avoidEscape: true }],
       'no-dupe-class-members': 'off',
       'no-unused-vars': 'off',
-      '@typescript-eslint/no-unused-vars': 'off',
       'sort-destructure-keys/sort-destructure-keys': [
         'error',
         { caseSensitive: false },
@@ -102,7 +74,7 @@ export default [
       '@typescript-eslint': tsPlugin,
     },
     rules: {
-      '@typescript-eslint/no-var-requires': 'off',
+      // Removed @typescript-eslint rules - moved to typescript.config.mjs
     },
   },
   // Override 3: Schema file specific rules
@@ -137,38 +109,10 @@ export default [
       ...(importPlugin.configs.typescript?.rules || {}),
       curly: ['error', 'all'],
       'prefer-arrow/prefer-arrow-functions': 'error',
-      '@typescript-eslint/no-extraneous-class': [
-        'off',
-        { allowWithDecorator: true },
-      ],
-      '@typescript-eslint/method-signature-style': ['error', 'method'],
-      '@typescript-eslint/no-floating-promises': 'error',
-      '@typescript-eslint/consistent-type-definitions': 'error',
-      '@typescript-eslint/consistent-type-assertions': 'error',
-      '@typescript-eslint/consistent-type-imports': 'error',
-      '@typescript-eslint/no-explicit-any': 'error',
-      '@typescript-eslint/no-unnecessary-condition': 'error',
-      '@typescript-eslint/no-shadow': 'error',
-      '@typescript-eslint/array-type': [
-        'error',
-        {
-          default: 'generic',
-        },
-      ],
-      '@typescript-eslint/no-dynamic-delete': 'error',
+      // Removed all @typescript-eslint rules - moved to typescript.config.mjs
     },
     settings: {
       ...(importPlugin.configs.typescript?.settings || {}),
-    },
-  },
-  // Override 7: Config file specific rules (GraphQL part was commented out)
-  {
-    files: ['*.config.ts'],
-    plugins: {
-      '@typescript-eslint': tsPlugin,
-    },
-    rules: {
-      '@typescript-eslint/no-explicit-any': 'off',
     },
   },
 ]

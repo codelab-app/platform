@@ -33,7 +33,7 @@ import { fileURLToPath } from 'node:url'
 
 // Base configuration - Plugins registered inline
 export default tseslint.config(
-  tseslint.configs.strictTypeChecked, // Intentionally commented out for now
+  tseslint.configs.strictTypeChecked,
   /**
    * Later config takes precedence, used by `strictTypeChecked`
    */
@@ -66,9 +66,10 @@ export default tseslint.config(
           object: true,
         },
       ],
-      '@typescript-eslint/no-empty-object-type': 'error',
-      '@typescript-eslint/no-unsafe-function-type': 'error',
-      '@typescript-eslint/no-wrapper-object-types': 'error',
+      '@stylistic/ts/quotes': ['error', 'single', { avoidEscape: true }],
+      'no-dupe-class-members': 'off', // Base rule off, TS version handles it (likely in strictTypeChecked)
+      'no-unused-vars': 'off', // Base rule off, TS version handles it (likely in strictTypeChecked)
+      '@typescript-eslint/no-unused-vars': 'off',
       '@typescript-eslint/no-restricted-types': [
         'error',
         {
@@ -85,6 +86,10 @@ export default tseslint.config(
               message: 'Use UnknownObjectLike instead',
               fixWith: 'UnknownObjectLike',
             },
+            Object: {
+              message: 'Use {} or ObjectLike instead',
+              fixWith: 'ObjectLike',
+            },
             object: {
               message: 'Use {} or ObjectLike instead',
               fixWith: 'ObjectLike',
@@ -92,10 +97,6 @@ export default tseslint.config(
           },
         },
       ],
-      '@stylistic/ts/quotes': ['error', 'single', { avoidEscape: true }],
-      'no-dupe-class-members': 'off', // Base rule off, TS version handles it (likely in strictTypeChecked)
-      'no-unused-vars': 'off', // Base rule off, TS version handles it (likely in strictTypeChecked)
-      '@typescript-eslint/no-unused-vars': 'off',
       'sort-destructure-keys/sort-destructure-keys': [
         'error',
         { caseSensitive: false },
@@ -113,22 +114,22 @@ export default tseslint.config(
   },
 
   // Config 2: *.js, *.jsx
-  // {
-  //   files: ['**/*.{js,jsx}'],
-  //   languageOptions: {
-  //     parser: tseslint.parser,
-  //     parserOptions: {
-  //       projectService: true, // Ensure service context is active here
-  //       project: './tsconfig.dev.json', // Explicitly use dev tsconfig
-  //     },
-  //   },
-  //   plugins: {
-  //     '@typescript-eslint': tseslint.plugin, // Need plugin for the rule below
-  //   },
-  //   rules: {
-  //     '@typescript-eslint/no-var-requires': 'off', // Allow require in JS files
-  //   },
-  // },
+  {
+    files: ['**/*.{js,jsx}'],
+    languageOptions: {
+      parser: tseslint.parser,
+      parserOptions: {
+        projectService: true, // Ensure service context is active here
+        project: './tsconfig.dev.json', // Explicitly use dev tsconfig
+      },
+    },
+    plugins: {
+      '@typescript-eslint': tseslint.plugin, // Need plugin for the rule below
+    },
+    rules: {
+      '@typescript-eslint/no-var-requires': 'off', // Allow require in JS files
+    },
+  },
 
   // Config 3: *.schema.ts, *.schema.interface.ts
   {
@@ -165,37 +166,12 @@ export default tseslint.config(
       // These were identified as good candidates to be TS/TSX specific.
       // If strictTypeChecked already covers them adequately, some might be redundant,
       // but explicit definition here ensures they are applied as intended for these files.
-      '@typescript-eslint/no-empty-object-type': 'error',
-      '@typescript-eslint/no-unsafe-function-type': 'error',
-      '@typescript-eslint/no-wrapper-object-types': 'error',
-      '@typescript-eslint/no-restricted-types': [
-        'error',
-        {
-          types: {
-            'null | undefined': {
-              message: 'Use Nullish<> instead',
-              fixWith: 'Nullish<>',
-            },
-            'Record<string, any>': {
-              message: 'Use ObjectLike instead',
-              fixWith: 'ObjectLike',
-            },
-            'Record<string, unknown>': {
-              message: 'Use UnknownObjectLike instead',
-              fixWith: 'UnknownObjectLike',
-            },
-            object: {
-              message: 'Use {} or ObjectLike instead',
-              fixWith: 'ObjectLike',
-            },
-          },
-        },
-      ],
       '@typescript-eslint/no-extraneous-class': [
         'off',
         { allowWithDecorator: true }, // Allow classes used only as decorators
       ],
-      '@typescript-eslint/method-signature-style': ['error', 'method'], // Prefer method syntax for signatures
+      '@typescript-eslint/method-signature-style': ['error', 'method'],
+      '@typescript-eslint/no-unnecessary-type-arguments': 'off',
       '@typescript-eslint/no-floating-promises': 'error',
       '@typescript-eslint/consistent-type-definitions': 'error',
       '@typescript-eslint/consistent-type-assertions': 'error',
@@ -206,21 +182,30 @@ export default tseslint.config(
       '@typescript-eslint/array-type': [
         'error',
         {
-          default: 'generic', // Prefer T[] over Array<T>
+          default: 'generic',
         },
       ],
       '@typescript-eslint/no-dynamic-delete': 'error',
+      '@typescript-eslint/no-unnecessary-type-arguments': 'off',
     },
   },
 
   // Config 6: *.config.ts
   {
-    files: ['**/*.config.ts'],
+    files: [
+      '**/*.config.ts',
+      '**/*.config.js',
+      '**/*.config.cjs',
+      '**/*.config.mjs',
+    ],
     plugins: {
       '@typescript-eslint': tseslint.plugin, // Need plugin for the rule below
     },
     rules: {
-      '@typescript-eslint/no-explicit-any': 'off', // Allow explicit any in config files
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/no-unsafe-call': 'off',
     },
   },
 )

@@ -9,7 +9,12 @@ const NotFound = () => {
   return (
     <Result
       extra={
-        <Button onClick={() => router.push('/apps')} type="primary">
+        <Button
+          onClick={() => {
+            router.push('/apps')
+          }}
+          type="primary"
+        >
           Back Home
         </Button>
       }
