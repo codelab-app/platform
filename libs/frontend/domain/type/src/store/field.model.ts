@@ -70,7 +70,7 @@ export class Field
     name: prop<Nullish<string>>(),
     nextSibling: prop<Nullish<Ref<IFieldModel>>>(null).withSetter(),
     prevSibling: prop<Nullish<Ref<IFieldModel>>>(null).withSetter(),
-    type: prop<Ref<ITypeModel>>(),
+    type: prop<Ref<ITypeModel>>().withSetter(),
     validationRules: prop<Nullish<IValidationRules>>(),
   }))
   implements IFieldModel
