@@ -34,7 +34,6 @@ import {
   canSetDefaultValue,
   createFieldSchema,
   filterValidationRules,
-  isBoolean,
   isFloat,
   isInteger,
   isPrimitive,
@@ -196,14 +195,9 @@ export const UpdateFieldForm = ({
           )
         }
       >
-        <AutoFields fields={['id', 'key', 'name', 'description']} />
-        <TypeSelect label="Type" name="fieldType" />
-        <SelectFieldSibling field={field} name="prevSibling" />
-
         <DisplayIfField<IFieldUpdateData>
           condition={({ model }) =>
-            !isBoolean(typeDomainService, model.fieldType) &&
-            canSetDefaultValue(typeDomainService, model.fieldType)
+            isString(typeDomainService, model.fieldType)
           }
         >
           <AutoFields fields={['validationRules.general']} />
