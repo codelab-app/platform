@@ -44,9 +44,12 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       runtimeElement.render()
     }, [elementSnapshot])
 
+    /**
+     * re-render on element change
+     */
     useEffect(() => {
       runtimeElement.render()
-    }, [getSnapshot(runtimeElement.element.current)])
+    }, [elemnetSnapshot])
 
     const getReactComponent = (atomType: IAtomType) =>
       atomDomainService.dynamicComponents[atomType] ||
