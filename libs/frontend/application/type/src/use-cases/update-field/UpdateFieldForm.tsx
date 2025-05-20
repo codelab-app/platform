@@ -201,6 +201,10 @@ export const UpdateFieldForm = ({
           )
         }
       >
+        <AutoFields fields={['id', 'key', 'name', 'description']} />
+        <TypeSelect label="Type" name="fieldType" />
+        <SelectFieldSibling field={field} name="prevSibling" />
+
         <DisplayIfField<IFieldUpdateData>
           condition={({ model }) =>
             !isBoolean(typeDomainService, model.fieldType) &&
@@ -242,6 +246,7 @@ export const UpdateFieldForm = ({
             />
           </DisplayIfField>
         </DisplayIfField>
+
         <DisplayIfField<IFieldUpdateData>
           condition={({ model }) =>
             canSetDefaultValue(typeDomainService, model.fieldType)
