@@ -26,7 +26,9 @@ describe('TypedPropTransformers', () => {
       primitiveKind: IPrimitiveTypeKind.Integer,
     })
 
-    const { rootElement, runtimeRootElement } = testStore.setupRuntimeElement()
+    const { renderer, rootElement, runtimeRootElement } =
+      testStore.setupRuntimeElement()
+
     const propKey = 'propKey'
     const propValue = 'propValue'
 
@@ -36,6 +38,8 @@ describe('TypedPropTransformers', () => {
       value: propValue,
     })
 
+    renderer.render()
+
     expect(
       runtimeRootElement.current.runtimeProps.evaluatedProps,
     ).toMatchObject({
@@ -44,7 +48,9 @@ describe('TypedPropTransformers', () => {
   })
 
   it('should render props when kind is ReactNodeType', () => {
-    const { rootElement, runtimeRootElement } = testStore.setupRuntimeElement()
+    const { renderer, rootElement, runtimeRootElement } =
+      testStore.setupRuntimeElement()
+
     const propKey = 'someNode'
     const reactNodeType = testStore.addReactNodeType({})
     const component = testStore.addComponent({})
@@ -55,6 +61,8 @@ describe('TypedPropTransformers', () => {
       value: component.id,
     })
 
+    renderer.render()
+
     const renderedProp =
       runtimeRootElement.current.runtimeProps.evaluatedProps[propKey]
 
@@ -62,7 +70,9 @@ describe('TypedPropTransformers', () => {
   })
 
   it('should render props when kind is RenderPropsType', () => {
-    const { rootElement, runtimeRootElement } = testStore.setupRuntimeElement()
+    const { renderer, rootElement, runtimeRootElement } =
+      testStore.setupRuntimeElement()
+
     const propKey = 'someNode'
     const renderPropsType = testStore.addRenderPropsType({})
     const component = testStore.addComponent({})
@@ -72,6 +82,8 @@ describe('TypedPropTransformers', () => {
       type: renderPropsType.id,
       value: component.id,
     })
+
+    renderer.render()
 
     expect(
       runtimeRootElement.current.runtimeProps.evaluatedProps,
@@ -86,7 +98,9 @@ describe('TypedPropTransformers', () => {
   })
 
   it('should pass props to render props component', async () => {
-    const { rootElement, runtimeRootElement } = testStore.setupRuntimeElement()
+    const { renderer, rootElement, runtimeRootElement } =
+      testStore.setupRuntimeElement()
+
     const propKey = 'someNode'
     const textPropKey = 'text'
     const textPropValue = 'some text value'
@@ -126,6 +140,8 @@ describe('TypedPropTransformers', () => {
       type: renderPropsType.id,
       value: component.id,
     })
+
+    renderer.render()
 
     const renderedProp =
       runtimeRootElement.current.runtimeProps.evaluatedProps[propKey]
