@@ -14,7 +14,6 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
-import type { ReactElement } from 'react'
 
 import {
   getRuntimeComponentService,
@@ -30,8 +29,10 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
+import { createElement, type ReactElement } from 'react'
 import { isNonNullish } from 'remeda'
 
+import { ContainerNodeWrapper } from '../components'
 import { RuntimeComponentPropModel } from './runtime-component-prop.model'
 import { RuntimeStoreModel } from './runtime-store.model'
 
@@ -112,7 +113,10 @@ export class RuntimeComponentModel
 
   @computed
   get rendered(): Nullable<ReactElement<unknown>> {
-    return this.runtimeRootElement.current.rendered ?? null
+    return createElement(ContainerNodeWrapper, {
+      children: this.runtimeRootElement.current.rendered,
+      runtimeContainerNode: this,
+    })
   }
 
   @computed
@@ -168,7 +172,7 @@ export class RuntimeComponentModel
 
   @modelAction
   createChildren() {
-    if (!this.runtimeParent || this.isChildMapperComponentInstance) {
+    if (!this.runtimeParent?.current || this.isChildMapperComponentInstance) {
       return []
     }
 
