@@ -6,10 +6,12 @@ import type {
   JsonSchema,
 } from '@codelab/frontend/abstract/domain'
 import type {
+  IFieldCreateData,
   IFieldUpdateData,
   IValidationRules,
 } from '@codelab/shared/abstract/core'
 import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
+import type { Context } from 'uniforms'
 
 import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
 import {
@@ -22,6 +24,7 @@ import {
   DisplayIfField,
   Form,
   FormController,
+  PreloadField,
 } from '@codelab/frontend-presentation-components-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { PrimitiveTypeKind } from '@codelab/shared/infra/gqlgen'
@@ -180,57 +183,73 @@ export const UpdateFieldForm = ({
       <TypeSelect label="Type" name="fieldType" />
       <SelectFieldSibling field={field} name="prevSibling" />
 
-      <DisplayIfField<IFieldUpdateData>
-        condition={({ model }) =>
-          !isBoolean(typeDomainService, model.fieldType) &&
-          canSetDefaultValue(typeDomainService, model.fieldType)
-        }
-      >
-        <AutoFields fields={['validationRules.general']} />
-      </DisplayIfField>
-      <DisplayIfField<IFieldUpdateData>
-        condition={({ model }) =>
-          isPrimitive(typeDomainService, model.fieldType)
-        }
+      <PreloadField
+        preload={async ({ model }: Context<IFieldCreateData>) => {
+          if (
+            model.fieldType &&
+            !typeDomainService.types.has(model.fieldType)
+          ) {
+            await typeService.getAll([model.fieldType])
+          }
+        }}
       >
         <DisplayIfField<IFieldUpdateData>
           condition={({ model }) =>
-            isString(typeDomainService, model.fieldType)
+            !isBoolean(typeDomainService, model.fieldType) &&
+            canSetDefaultValue(typeDomainService, model.fieldType)
           }
         >
-          <AutoFields
-            fields={[`validationRules.${PrimitiveTypeKind.String}`]}
-          />
+          <AutoFields fields={['validationRules.general']} />
         </DisplayIfField>
         <DisplayIfField<IFieldUpdateData>
           condition={({ model }) =>
-            isInteger(typeDomainService, model.fieldType)
+            isPrimitive(typeDomainService, model.fieldType)
           }
         >
-          <AutoFields
-            fields={[`validationRules.${PrimitiveTypeKind.Integer}`]}
-          />
+          <DisplayIfField<IFieldUpdateData>
+            condition={({ model }) =>
+              isString(typeDomainService, model.fieldType)
+            }
+          >
+            <AutoFields
+              fields={[`validationRules.${PrimitiveTypeKind.String}`]}
+            />
+          </DisplayIfField>
+          <DisplayIfField<IFieldUpdateData>
+            condition={({ model }) =>
+              isInteger(typeDomainService, model.fieldType)
+            }
+          >
+            <AutoFields
+              fields={[`validationRules.${PrimitiveTypeKind.Integer}`]}
+            />
+          </DisplayIfField>
+          <DisplayIfField<IFieldUpdateData>
+            condition={({ model }) =>
+              isFloat(typeDomainService, model.fieldType)
+            }
+          >
+            <AutoFields
+              fields={[`validationRules.${PrimitiveTypeKind.Number}`]}
+            />
+          </DisplayIfField>
         </DisplayIfField>
+
         <DisplayIfField<IFieldUpdateData>
-          condition={({ model }) => isFloat(typeDomainService, model.fieldType)}
+          condition={({ model }) =>
+            canSetDefaultValue(typeDomainService, model.fieldType)
+          }
         >
-          <AutoFields
-            fields={[`validationRules.${PrimitiveTypeKind.Number}`]}
-          />
+          <SelectDefaultValue />
         </DisplayIfField>
-      </DisplayIfField>
 
-      <DisplayIfField<IFieldUpdateData>
-        condition={({ model }) =>
-          canSetDefaultValue(typeDomainService, model.fieldType)
-        }
-      >
-        <SelectDefaultValue />
-      </DisplayIfField>
-
-      <DisplayIf condition={showFormControl}>
-        <FormController onCancel={onSubmitSuccess} submitLabel="Update Field" />
-      </DisplayIf>
+        <DisplayIf condition={showFormControl}>
+          <FormController
+            onCancel={onSubmitSuccess}
+            submitLabel="Update Field"
+          />
+        </DisplayIf>
+      </PreloadField>
     </Form>
   )
 }

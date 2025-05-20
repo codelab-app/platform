@@ -49,11 +49,6 @@ export const TypeSelect = observer<TypeSelectProps>(({ label, name }) => {
       label={label}
       loading={loading}
       name={name}
-      onChange={async (value) => {
-        // loadType in case it is not alerady loaded
-        await typeService.getAll([value])
-        fieldProps.onChange(value)
-      }}
       onDropdownVisibleChange={async (open) => {
         if (open && !data.length) {
           await getTypes()
