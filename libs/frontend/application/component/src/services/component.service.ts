@@ -166,7 +166,11 @@ export const useComponentService = (): IComponentService => {
   }
 
   const update = async (data: IUpdateComponentData) => {
-    return await componentRepository.update({ id: data.id }, data, {
+    const component = componentDomainService.component(data.id)
+
+    component.writeCache(data)
+
+    return await componentRepository.update({ id: data.id }, component.toJson, {
       revalidateTags: [CACHE_TAGS.Component.list()],
     })
   }
