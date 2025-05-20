@@ -6,6 +6,7 @@ import type {
   JsonSchema,
 } from '@codelab/frontend-abstract-domain'
 import type {
+  IFieldCreateData,
   IFieldUpdateData,
   IValidationRules,
 } from '@codelab/shared-abstract-core'
@@ -17,6 +18,7 @@ import {
   DisplayIfField,
   Form,
   FormController,
+  PreloadField,
 } from '@codelab/frontend-presentation-components-form'
 import {
   SelectDefaultValue,
@@ -34,6 +36,7 @@ import {
   canSetDefaultValue,
   createFieldSchema,
   filterValidationRules,
+  isBoolean,
   isFloat,
   isInteger,
   isPrimitive,
@@ -202,7 +205,8 @@ export const UpdateFieldForm = ({
       >
         <DisplayIfField<IFieldUpdateData>
           condition={({ model }) =>
-            isString(typeDomainService, model.fieldType)
+            !isBoolean(typeDomainService, model.fieldType) &&
+            canSetDefaultValue(typeDomainService, model.fieldType)
           }
         >
           <AutoFields fields={['validationRules.general']} />
