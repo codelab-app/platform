@@ -59,4 +59,5 @@ export interface IRuntimeElementPropModel extends IBaseRuntimeProps {
   renderedChildrenProp: ReactNode
   // eslint-disable-next-line @typescript-eslint/ban-types
   getActionRunner(actionName: string): Function
+  renderTypedProps(): void
 }
