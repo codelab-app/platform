@@ -6,7 +6,6 @@ import type {
   JsonSchema,
 } from '@codelab/frontend-abstract-domain'
 import type {
-  IFieldCreateData,
   IFieldUpdateData,
   IValidationRules,
 } from '@codelab/shared-abstract-core'
@@ -18,7 +17,6 @@ import {
   DisplayIfField,
   Form,
   FormController,
-  PreloadField,
 } from '@codelab/frontend-presentation-components-form'
 import {
   SelectDefaultValue,
@@ -244,7 +242,6 @@ export const UpdateFieldForm = ({
             />
           </DisplayIfField>
         </DisplayIfField>
-
         <DisplayIfField<IFieldUpdateData>
           condition={({ model }) =>
             canSetDefaultValue(typeDomainService, model.fieldType)
