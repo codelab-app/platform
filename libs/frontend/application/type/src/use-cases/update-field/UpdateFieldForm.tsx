@@ -6,12 +6,10 @@ import type {
   JsonSchema,
 } from '@codelab/frontend/abstract/domain'
 import type {
-  IFieldCreateData,
   IFieldUpdateData,
   IValidationRules,
 } from '@codelab/shared/abstract/core'
 import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
-import type { Context } from 'uniforms'
 
 import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
 import {
@@ -24,7 +22,6 @@ import {
   DisplayIfField,
   Form,
   FormController,
-  PreloadField,
 } from '@codelab/frontend-presentation-components-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { PrimitiveTypeKind } from '@codelab/shared/infra/gqlgen'
@@ -240,7 +237,6 @@ export const UpdateFieldForm = ({
             />
           </DisplayIfField>
         </DisplayIfField>
-
         <DisplayIfField<IFieldUpdateData>
           condition={({ model }) =>
             canSetDefaultValue(typeDomainService, model.fieldType)
