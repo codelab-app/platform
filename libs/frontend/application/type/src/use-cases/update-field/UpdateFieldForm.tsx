@@ -100,20 +100,22 @@ export const UpdateFieldForm = ({
       input.interfaceTypeId,
     ) as IInterfaceTypeModel
 
-    const firstField = interfaceType.fields.find(
-      ({ prevSibling }) => !prevSibling,
-    )
-
     if (updatedField.prevSibling?.id) {
       await fieldService.moveFieldAsNextSibling({
         field: updatedField,
         targetFieldId: updatedField.prevSibling.id,
       })
-    } else if (firstField) {
-      await fieldService.moveFieldAsPrevSibling({
-        field: updatedField,
-        targetFieldId: firstField.id,
-      })
+    } else {
+      const firstField = interfaceType.fields.find(
+        ({ id, prevSibling }) => id !== updatedField.id && !prevSibling,
+      )
+
+      if (firstField) {
+        await fieldService.moveFieldAsPrevSibling({
+          field: updatedField,
+          targetFieldId: firstField.id,
+        })
+      }
     }
 
     return fieldService.update({ ...input, validationRules })
@@ -182,7 +184,7 @@ export const UpdateFieldForm = ({
     >
       <AutoFields fields={['id', 'key', 'name', 'description']} />
       <TypeSelect label="Type" name="fieldType" />
-      <SelectFieldSibling field={field} name="prevSibling" />
+      <SelectFieldSibling field={field} name="prevSibling.id" />
 
       <DisplayIfField<IFieldUpdateData>
         condition={({ model }) =>

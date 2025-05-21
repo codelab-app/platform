@@ -13,7 +13,7 @@ export type SelectFieldSiblingProps = GuaranteedProps<{ id: string }> & {
 }
 
 export const SelectFieldSibling = connectField(
-  ({ field, ...props }: SelectFieldSiblingProps) => {
+  ({ field, name, ...props }: SelectFieldSiblingProps) => {
     const { fieldDomainService } = useDomainStore()
 
     const options = [...fieldDomainService.fields.values()]
@@ -30,7 +30,7 @@ export const SelectFieldSibling = connectField(
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...props}
         getPopupContainer={(triggerNode) => triggerNode.parentElement}
-        name="id"
+        name={name}
         onChange={(value) =>
           props.onChange((value ? { id: value } : null) as IRef)
         }
