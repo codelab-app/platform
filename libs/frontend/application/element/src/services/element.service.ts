@@ -176,6 +176,41 @@ export const useElementService = (): IElementService => {
     )
   }
 
+  const removeMany = async (subRootElements: Array<IElementModel>) => {
+    const deletedElements = await Promise.all(
+      subRootElements.map((subRootElement) => remove(subRootElement)),
+    )
+
+    return deletedElements.reduce((count, current) => current + count)
+  }
+
+  const remove = async (subRootElement: IElementModel) => {
+    const elementsToDelete = [
+      subRootElement,
+      ...subRootElement.descendantElements,
+    ]
+
+    builderService.selectPreviousElementOnDelete()
+
+    subRootElement.detachFromTree()
+
+    /**
+     * delete props
+     */
+    const deletedElementsCount = await elementRepository.delete(
+      elementsToDelete,
+    )
+
+    elementsToDelete.reverse().forEach((element) => {
+      // this.removeClones(element.id)
+      elementDomainService.elements.delete(element.id)
+    })
+
+    await syncModifiedElements()
+
+    return deletedElementsCount
+  }
+
   /**
    * If we don't memoize the return object, it will be recreated on each render, causing the calling component to re-render
    */
@@ -185,7 +220,8 @@ export const useElementService = (): IElementService => {
     deletePopover,
     loadDependantTypes,
     move,
-    remove: deleteElement,
+    remove,
+    removeMany,
     syncModifiedElements,
     update,
   }
