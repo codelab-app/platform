@@ -30,40 +30,47 @@ export const filterValidationRules = (
 export const isPrimitive: FieldCondition = (typeDomainService, fieldType) =>
   Boolean(
     fieldType &&
+      typeDomainService.types.has(fieldType) &&
       typeDomainService.type(fieldType).kind === ITypeKind.PrimitiveType,
   )
 
 export const isString: FieldCondition = (typeDomainService, fieldType) =>
   Boolean(
     fieldType &&
+      typeDomainService.types.has(fieldType) &&
       typeDomainService.primitiveKind(fieldType) === IPrimitiveTypeKind.String,
   )
 
 export const isInteger: FieldCondition = (typeDomainService, fieldType) =>
   Boolean(
     fieldType &&
+      typeDomainService.types.has(fieldType) &&
       typeDomainService.primitiveKind(fieldType) === IPrimitiveTypeKind.Integer,
   )
 
 export const canSetDefaultValue: FieldCondition = (
   typeDomainService,
   fieldType,
-) =>
-  Boolean(
+) => {
+  return Boolean(
     fieldType &&
+      typeDomainService.types.has(fieldType) &&
       typeDomainService.type(fieldType).kind !== ITypeKind.InterfaceType &&
       typeDomainService.type(fieldType).kind !== ITypeKind.ReactNodeType &&
       typeDomainService.type(fieldType).kind !== ITypeKind.ActionType,
   )
+}
 
 export const isFloat: FieldCondition = (typeDomainService, fieldType) =>
   Boolean(
     fieldType &&
+      typeDomainService.types.has(fieldType) &&
       typeDomainService.primitiveKind(fieldType) === IPrimitiveTypeKind.Number,
   )
 
 export const isBoolean: FieldCondition = (typeDomainService, fieldType) =>
   Boolean(
     fieldType &&
+      typeDomainService.types.has(fieldType) &&
       typeDomainService.primitiveKind(fieldType) === IPrimitiveTypeKind.Boolean,
   )

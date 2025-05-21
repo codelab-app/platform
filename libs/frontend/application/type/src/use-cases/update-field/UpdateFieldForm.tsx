@@ -6,12 +6,10 @@ import type {
   JsonSchema,
 } from '@codelab/frontend/abstract/domain'
 import type {
-  IFieldCreateData,
   IFieldUpdateData,
   IValidationRules,
 } from '@codelab/shared/abstract/core'
 import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
-import type { Context } from 'uniforms'
 
 import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
 import {
@@ -24,7 +22,6 @@ import {
   DisplayIfField,
   Form,
   FormController,
-  PreloadField,
 } from '@codelab/frontend-presentation-components-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { PrimitiveTypeKind } from '@codelab/shared/infra/gqlgen'
@@ -73,15 +70,23 @@ export const UpdateFieldForm = ({
   const [defaultValuesSchema, setDefaultValuesSchema] =
     useState<Nullable<JsonSchema>>(null)
 
-  const { loading } = useAsync(async () => {
-    if (!typeDomainService.types.has(field.type.id)) {
-      await typeService.getAll([field.type.id])
+  const { loading } = useAsync(
+    async () => onFieldTypeChange(field.type.id, field.validationRules),
+    [],
+  )
+
+  const onFieldTypeChange = async (
+    fieldType: string,
+    validationRules: Nullish<IValidationRules>,
+  ) => {
+    if (!typeDomainService.types.has(fieldType)) {
+      await typeService.getAll([fieldType])
     }
 
-    setDefaultValuesSchema(
-      getDefaultValuesSchema(field.type.current, field.validationRules),
-    )
-  }, [])
+    const type = typeDomainService.type(fieldType)
+
+    setDefaultValuesSchema(getDefaultValuesSchema(type, validationRules))
+  }
 
   const onSubmit = async (input: IFieldUpdateData) => {
     const validationRules = filterValidationRules(
@@ -165,11 +170,7 @@ export const UpdateFieldForm = ({
       }}
       onChangeModel={(model) => {
         if (model.fieldType) {
-          const newFieldType = typeDomainService.type(model.fieldType)
-
-          setDefaultValuesSchema(
-            getDefaultValuesSchema(newFieldType, model.validationRules),
-          )
+          void onFieldTypeChange(model.fieldType, model.validationRules)
         }
       }}
       onSubmit={onSubmit}
@@ -183,15 +184,12 @@ export const UpdateFieldForm = ({
       <TypeSelect label="Type" name="fieldType" />
       <SelectFieldSibling field={field} name="prevSibling" />
 
-      <PreloadField
-        preload={async ({ model }: Context<IFieldCreateData>) => {
-          if (
-            model.fieldType &&
-            !typeDomainService.types.has(model.fieldType)
-          ) {
-            await typeService.getAll([model.fieldType])
-          }
-        }}
+      <DisplayIfField<IFieldUpdateData>
+        condition={({ model }) =>
+          Boolean(
+            model.fieldType && typeDomainService.types.has(model.fieldType),
+          )
+        }
       >
         <DisplayIfField<IFieldUpdateData>
           condition={({ model }) =>
@@ -234,7 +232,6 @@ export const UpdateFieldForm = ({
             />
           </DisplayIfField>
         </DisplayIfField>
-
         <DisplayIfField<IFieldUpdateData>
           condition={({ model }) =>
             canSetDefaultValue(typeDomainService, model.fieldType)
@@ -242,14 +239,13 @@ export const UpdateFieldForm = ({
         >
           <SelectDefaultValue />
         </DisplayIfField>
-
         <DisplayIf condition={showFormControl}>
           <FormController
             onCancel={onSubmitSuccess}
             submitLabel="Update Field"
           />
         </DisplayIf>
-      </PreloadField>
+      </DisplayIfField>
     </Form>
   )
 }
