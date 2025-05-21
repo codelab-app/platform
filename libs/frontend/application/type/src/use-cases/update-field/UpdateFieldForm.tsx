@@ -184,7 +184,7 @@ export const UpdateFieldForm = ({
     >
       <AutoFields fields={['id', 'key', 'name', 'description']} />
       <TypeSelect label="Type" name="fieldType" />
-      <SelectFieldSibling field={field} name="prevSibling.id" />
+      <SelectFieldSibling field={field} name="prevSibling" />
 
       <DisplayIfField<IFieldUpdateData>
         condition={({ model }) =>

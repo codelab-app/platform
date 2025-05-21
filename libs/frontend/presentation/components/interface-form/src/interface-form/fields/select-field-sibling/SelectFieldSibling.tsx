@@ -34,6 +34,7 @@ export const SelectFieldSibling = connectField(
         onChange={(value) =>
           props.onChange((value ? { id: value } : null) as IRef)
         }
+        optionFilterProp="label"
         options={options}
         value={props.value?.id}
       />
