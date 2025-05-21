@@ -96,7 +96,8 @@ export const useElementService = (): IElementService => {
      * We want to keep the selected node expanded, so we can see the children
      */
     if (selectedNode && isRuntimeElementRef(selectedNode)) {
-      selectedNode.current.setExpanded(true)
+      // references fails to resolve when called by convertElementToComponent
+      selectedNode.maybeCurrent?.setExpanded(true)
     }
 
     await elementRepository.add(data, {

@@ -73,8 +73,6 @@ export const ConfigPaneInspectorTabGroup = observer<{
   const { update } = usePreferenceService()
   const preference = userDomainService.preference
 
-  console.log(selectedNode.compositeKey)
-
   // Nested components render too many times if we don't memo
   const tabItems = useMemo(
     () => [
