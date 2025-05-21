@@ -10,7 +10,7 @@ import { Popconfirm } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
 
-import { useElementService } from '../../services/clone-element.service'
+import { useElementService } from '../../services/element.service'
 
 interface DeleteElementPopconfirmProps extends Partial<PopconfirmProps> {
   children: ReactNode
