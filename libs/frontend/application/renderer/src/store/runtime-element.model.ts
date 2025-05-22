@@ -111,13 +111,6 @@ export class RuntimeElementModel
   }
 
   @computed
-  get closestContainerNode(): IRuntimeComponentModel | IRuntimePageModel {
-    return (this.parentElement?.closestContainerNode ??
-      this.runtimePageService.pages.get(this.parentCompositeKey) ??
-      this.runtimeComponentService.components.get(this.parentCompositeKey))!
-  }
-
-  @computed
   get closestElement(): IRuntimeElementModel {
     return this.parentElement || this
   }
