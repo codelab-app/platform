@@ -67,6 +67,9 @@ export const UpdateFieldForm = ({
   const { typeDomainService } = useDomainStore()
   const fieldSchema = useFieldSchema(createFieldSchema, field)
 
+  /**
+   * Previously schema didn't change if user changed the field type, now it changes via React state
+   */
   const [defaultValuesSchema, setDefaultValuesSchema] =
     useState<Nullable<JsonSchema>>(null)
 
