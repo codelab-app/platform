@@ -1,58 +1,13 @@
-import tseslint from 'typescript-eslint'
+import js from '@eslint/js'
+import { fixupConfigRules } from '@eslint/compat'
+import nx from '@nx/eslint-plugin'
 import baseConfig from '../../eslint.config.mjs'
-import nextPlugin from '@next/eslint-plugin-next'
-import reactPlugin from 'eslint-plugin-react'
-import hooksPlugin from 'eslint-plugin-react-hooks'
+import nextConfig from '../../scripts/eslint/next.config.mjs'
 
-export default tseslint.config(
+export default [
   ...baseConfig,
-  // Base TypeScript recommended rules
-  ...tseslint.configs.recommended,
-  // Next.js recommended and core web vitals configurations
+  ...nextConfig,
   {
-    plugins: {
-      '@next/next': nextPlugin,
-      react: reactPlugin,
-      'react-hooks': hooksPlugin,
-    },
-    rules: {
-      ...reactPlugin.configs.recommended.rules,
-      ...reactPlugin.configs['jsx-runtime'].rules,
-      ...hooksPlugin.configs.recommended.rules,
-      ...nextPlugin.configs.recommended.rules,
-      ...nextPlugin.configs['core-web-vitals'].rules,
-      // Example: rule override specific to Next.js
-      '@next/next/no-html-link-for-pages': 'off',
-      // You might need to configure the React version setting if not detected automatically
-      // 'react/react-in-jsx-scope': 'off', // Not needed with new JSX transform
-    },
-    settings: {
-      react: {
-        version: 'detect',
-      },
-    },
-    // Ensure TS/TSX files are parsed correctly
-    languageOptions: {
-      parserOptions: {
-        ecmaFeatures: { jsx: true },
-      },
-    },
+    ignores: ['.next/**/*'],
   },
-  // Optional: Add ignores if needed
-  {
-    ignores: [
-      '.next/**',
-      'dist/**',
-      'node_modules/**',
-      // Add other ignored paths here
-    ],
-  },
-  // Specific overrides for JS/JSX files if necessary (e.g., disable TS-only rules)
-  {
-    files: ['**/*.js', '**/*.jsx'],
-    ...tseslint.configs.disableTypeChecked,
-    rules: {
-      // Add JS/JSX specific rule overrides here
-    },
-  },
-)
+]

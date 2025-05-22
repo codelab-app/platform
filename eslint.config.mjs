@@ -1,18 +1,18 @@
-import typescriptConfig from './scripts/eslint/typescript.config.mjs'
-import canonical from './scripts/eslint/recommended/canonical.mjs'
+import typescriptConfig from './scripts/eslint/typescript.eslint.mjs'
+import canonical from './scripts/eslint/recommended/canonical.eslint.mjs'
 import prettierConfig from './scripts/eslint/prettier.eslint.mjs'
-import nxConfig from './scripts/eslint/nx.config.mjs'
-import importConfig from './scripts/eslint/import.config.mjs'
-import jestEslintConfig from './scripts/eslint/jest.eslint.config.mjs'
+import nxConfig from './scripts/eslint/nx.eslint.mjs'
+import importConfig from './scripts/eslint/import.eslint.mjs'
+import jestEslintConfig from './scripts/eslint/jest.eslint.mjs'
 import globalsEslintConfig from './scripts/eslint/globals.eslint.config.mjs'
-import formatConfig from './scripts/eslint/format.config.mjs'
-import namingConfig from './scripts/eslint/naming.config.mjs'
-import codelabConfig from './scripts/eslint/codelab.config.mjs'
-import sortingConfig from './scripts/eslint/sorting.config.mjs'
-import codegenConfig from './scripts/eslint/codegen.config.mjs'
-import reactConfig from './scripts/eslint/react.config.mjs'
-import baseEslintConfig from './scripts/eslint/base.eslint.config.mjs'
-import tailwindConfig from './scripts/eslint/recommended/tailwind.config.mjs'
+import formatConfig from './scripts/eslint/format.eslint.mjs'
+import namingConfig from './scripts/eslint/naming.eslint.mjs'
+import codelabConfig from './scripts/eslint/codelab.eslint.mjs'
+import sortingConfig from './scripts/eslint/sorting.eslint.mjs'
+import codegenConfig from './scripts/eslint/codegen.eslint.mjs'
+import reactConfig from './scripts/eslint/react.eslint.mjs'
+import baseConfig from './scripts/eslint/base.eslint.mjs'
+import tailwindConfig from './scripts/eslint/recommended/tailwind.eslint.mjs'
 
 export default [
   ...typescriptConfig,
@@ -29,7 +29,7 @@ export default [
   ...codegenConfig,
   ...reactConfig,
   ...tailwindConfig,
-  ...baseEslintConfig,
+  ...baseConfig,
   {
     ignores: [
       '**/dist',

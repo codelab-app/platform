@@ -12,6 +12,7 @@
     "*.mjs",
     "*.cjs",
     ".storybook/**/*.ts",
-    ".storybook/**/*.tsx"
+    ".storybook/**/*.tsx",
+    "../../scripts/eslint/next.config.mjs"
   ]
 }
