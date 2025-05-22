@@ -59,7 +59,7 @@ const compositeKey = (
   parentCompositeKey: string,
   propkey?: string,
 ) => {
-  return `${parentCompositeKey}.${element.id}${propkey}`
+  return `${parentCompositeKey}.${element.id}${propkey ? `-${propkey}` : ''}`
 }
 
 const getPropertiesFromLocalStorage = (key: string) => {
