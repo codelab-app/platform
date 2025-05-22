@@ -1,3 +1,5 @@
+'use client'
+
 import type { IElementDto } from '@codelab/shared/abstract/core'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
@@ -5,7 +7,6 @@ import {
   type IBuilderRoute,
   type IElementService,
   IRouteType,
-  isRuntimeElement,
   isRuntimeElementRef,
   RoutePaths,
 } from '@codelab/frontend/abstract/application'
@@ -23,7 +24,6 @@ import {
   useApplicationStore,
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
-import { logger } from '@codelab/shared/infra/logging'
 import { uniqueBy } from 'remeda'
 
 /**
@@ -115,7 +115,7 @@ export const useElementService = (): IElementService => {
       ...subRootElement.descendantElements,
     ]
 
-    // builderService.selectPreviousElementOnDelete()
+    builderService.selectPreviousElementOnDelete()
 
     subRootElement.detachFromTree()
 

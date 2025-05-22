@@ -1,10 +1,5 @@
 'use client'
 
-import type {
-  IAppModel,
-  IPageNodeData,
-  ITreeNode,
-} from '@codelab/frontend/abstract/domain'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 
 import BuildOutlined from '@ant-design/icons/BuildOutlined'
@@ -17,12 +12,18 @@ import LoadingOutlined from '@ant-design/icons/LoadingOutlined'
 import SafetyOutlined from '@ant-design/icons/SafetyOutlined'
 import ToolOutlined from '@ant-design/icons/ToolOutlined'
 import { RoutePaths } from '@codelab/frontend/abstract/application'
+import {
+  type IAppModel,
+  type IPageNodeData,
+  type ITreeNode,
+} from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { useRedirectService } from '@codelab/frontend-application-redirect/services'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
@@ -45,7 +46,8 @@ export const PageTreeItem = observer(
   }: PageTreeItemProps) => {
     const { isRegenerating, regenerate } = useRegeneratePages()
     const router = useRouter()
-    const { removeMany, updatePopover } = usePageService()
+    const { rendererService } = useApplicationStore()
+    const { removeAndNavigate, removeMany, updatePopover } = usePageService()
     const redirectService = useRedirectService()
 
     const commonToolbarItems: Array<ToolbarItem> = [
@@ -69,7 +71,16 @@ export const PageTreeItem = observer(
         confirmText: `Are you sure you want to delete "${page.name}"?`,
         cuiKey: UiKey.PageToolbarItemDelete,
         icon: <DeleteOutlined />,
-        onClick: () => removeMany([page]),
+        onClick: () => {
+          const activeRenderer = rendererService.activeRenderer?.current
+          const currentPage = activeRenderer?.containerNode.current
+
+          if (currentPage?.id === page.id) {
+            void removeAndNavigate(page)
+          } else {
+            void removeMany([page])
+          }
+        },
         title: 'Delete',
       },
       {

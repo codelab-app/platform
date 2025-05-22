@@ -100,7 +100,6 @@ export const BuilderResizeMenu = observer(() => {
     <div className="flex h-full flex-row items-center justify-center">
       <Menu
         className="flex justify-center"
-        defaultSelectedKeys={[preference.builderBreakpointType]}
         items={menuItems
           .filter((item) => !item.hide)
           .map((item) => ({
@@ -109,6 +108,7 @@ export const BuilderResizeMenu = observer(() => {
           }))}
         mode="horizontal"
         selectable={false}
+        selectedKeys={[preference.builderBreakpointType]}
         style={{
           blockSize: '100%',
         }}

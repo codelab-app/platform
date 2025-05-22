@@ -51,7 +51,7 @@ export class RuntimeElementPropsModel
 
   @computed
   get closestRuntimeContainerNode() {
-    return this.runtimeElement.current.closestContainerNode.current
+    return this.runtimeElement.current.closestContainerNode
   }
 
   @computed

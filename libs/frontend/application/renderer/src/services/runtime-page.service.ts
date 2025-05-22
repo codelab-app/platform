@@ -6,6 +6,8 @@ import type { IPageModel } from '@codelab/frontend/abstract/domain'
 import type { ObjectMap } from 'mobx-keystone'
 
 import {
+  getRuntimeElementService,
+  runtimeElementRef,
   runtimePageRef,
   runtimeStoreRef,
 } from '@codelab/frontend/abstract/application'
@@ -32,53 +34,48 @@ export class RuntimePageService
     return [...this.pages.values()]
   }
 
-  @modelAction
-  add(page: IPageModel): IRuntimePageModel {
-    const compositeKey = page.providerPage
-      ? RuntimePageModel.compositeKeyForProvider(page, page.providerPage)
-      : RuntimePageModel.compositeKey(page)
+  @computed
+  get runtimeElementService() {
+    return getRuntimeElementService(this)
+  }
 
+  @modelAction
+  add(page: IPageModel, childPage?: IPageModel): IRuntimePageModel {
+    const compositeKey = RuntimePageModel.compositeKey(page, childPage)
     const foundPage = this.pages.get(compositeKey)
 
     if (foundPage) {
       return foundPage
     }
 
-    const runtimeStore = RuntimeStoreModel.create({
-      id: v4(),
-      store: storeRef(
-        page.providerPage ? page.providerPage.store.id : page.store.id,
-      ),
-    })
-
-    const childPage = page.providerPage
-      ? RuntimePageModel.create({
-          compositeKey: RuntimePageModel.compositeKey(page),
-          page: pageRef(page.id),
-          runtimeStore: RuntimeStoreModel.create({
-            id: v4(),
-            runtimeProviderStore: runtimeStoreRef(runtimeStore.id),
-            store: storeRef(page.store.id),
-          }),
-        })
+    const providerPage = page.providerPage
+      ? this.add(page.providerPage, page)
       : undefined
 
-    if (childPage) {
-      this.pages.set(childPage.compositeKey, childPage)
-    }
+    const runtimeRootElement = this.runtimeElementService.add(
+      page.rootElement.current,
+      compositeKey,
+      undefined,
+    )
 
     const runtimePage = RuntimePageModel.create({
-      childPage: childPage ? runtimePageRef(childPage) : undefined,
-      compositeKey: page.providerPage
-        ? RuntimePageModel.compositeKeyForProvider(page, page.providerPage)
-        : RuntimePageModel.compositeKey(page),
-      page: pageRef(page.providerPage ? page.providerPage : page),
-      runtimeStore,
+      compositeKey,
+      page: pageRef(page.id),
+      runtimeRootElement: runtimeElementRef(runtimeRootElement),
+      runtimeStore: RuntimeStoreModel.create({
+        id: v4(),
+        runtimeProviderStore: providerPage?.runtimeStore
+          ? runtimeStoreRef(providerPage.runtimeStore.id)
+          : undefined,
+        store: storeRef(page.store.id),
+      }),
     })
 
     this.pages.set(runtimePage.compositeKey, runtimePage)
 
-    return runtimePage
+    providerPage?.setChildPage(runtimePageRef(runtimePage))
+
+    return providerPage ?? runtimePage
   }
 
   maybeRuntimePage(compositeKey: string) {

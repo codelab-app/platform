@@ -7,7 +7,7 @@
 
 # compiled output
 # Ignore everything in 'dist'
-/dist/*
+dist
 
 # Don't ignore 'libs' within 'dist'
 !/dist/libs/
@@ -75,3 +75,6 @@ vite.config.*.timestamp*
 .aider*
 
 vitest.config.*.timestamp*.perplexity-key
+
+.cursor/rules/nx-rules.mdc
+.github/instructions/nx.instructions.md

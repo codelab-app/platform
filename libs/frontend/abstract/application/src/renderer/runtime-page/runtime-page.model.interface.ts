@@ -24,9 +24,10 @@ export interface IRuntimePageModel extends IBaseRuntimeModel {
    * Page domain model
    */
   page: Ref<IPageModel>
-  runtimeRootElement: IRuntimeElementModel
+  runtimeRootElement: Ref<IRuntimeElementModel>
   /**
    * Returns DTO representation of the runtime page
    */
   toJson: IRuntimePageDto
+  setChildPage(childPage: Ref<IRuntimePageModel>): void
 }

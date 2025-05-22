@@ -1,3 +1,5 @@
+'use client'
+
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import type { CustomTagProps } from 'rc-select/lib/BaseSelect'
 

@@ -10,6 +10,7 @@ import type {
   IStoreModel,
 } from '@codelab/frontend/abstract/domain'
 import type { IElementDto, IPropDto, IRef } from '@codelab/shared/abstract/core'
+import type { Ref } from 'mobx-keystone'
 
 import {
   isRuntimeElement,
@@ -150,13 +151,14 @@ export const useCloneElementService = ({
     const createdElement = await elementService.create(instanceElement)
 
     const runtimeCreatedElement = runtimeParentElement?.children.find(
-      (child): child is IRuntimeElementModel =>
-        isRuntimeElement(child) && child.element.id === createdElement.id,
+      (child): child is Ref<IRuntimeElementModel> =>
+        isRuntimeElement(child.current) &&
+        child.current.element.id === createdElement.id,
     )
 
     if (runtimeCreatedElement) {
       builderService.setSelectedNode(
-        runtimeElementRef(runtimeCreatedElement.compositeKey),
+        runtimeElementRef(runtimeCreatedElement.current.compositeKey),
       )
     }
 

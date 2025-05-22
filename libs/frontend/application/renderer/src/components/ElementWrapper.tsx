@@ -6,6 +6,7 @@ import type { IAtomType } from '@codelab/shared/abstract/core'
 import { type IComponentType } from '@codelab/frontend/abstract/domain'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { getSnapshot } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import { Fragment, useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
@@ -14,7 +15,6 @@ import { getAtom } from '../atoms'
 import { useSelectionHandlers } from '../hooks'
 import { useOverrideAtomProps } from '../hooks/useOverrideAtomProps.hook'
 import { StyledComponent } from './StyledComponent'
-import { generateTailwindClasses } from './utils'
 
 /**
  * An observer element wrapper - this makes sure that each element is self-contained and observes only the data it needs
@@ -36,6 +36,10 @@ export const ElementWrapper = observer<ElementWrapperProps>(
 
     const { atomDomainService } = useDomainStore()
 
+    useEffect(() => {
+      runtimeElement.render()
+    }, [getSnapshot(runtimeElement.element.current)])
+
     const getReactComponent = (atomType: IAtomType) =>
       atomDomainService.dynamicComponents[atomType] ||
       getAtom(atomType) ||
@@ -46,10 +50,11 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       : Fragment
 
     const tailwindClassNames = {
-      className: generateTailwindClasses(
-        runtimeElement.element.current.tailwindClassNames,
-        renderer.rendererType,
-      ),
+      // TODO: fix tailwind support
+      // className: generateTailwindClasses(
+      //   runtimeElement.element.current.tailwindClassNames,
+      //   renderer.rendererType,
+      // ),
     }
 
     const selectionHandlers = useSelectionHandlers(
@@ -79,7 +84,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
      */
 
     const children =
-      runtimeElement.renderChildren ??
+      runtimeElement.renderedChildren ??
       runtimeElement.runtimeProps.renderedChildrenProp
 
     return (

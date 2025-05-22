@@ -1,3 +1,5 @@
+'use client'
+
 import CaretRightOutlined from '@ant-design/icons/CaretRightOutlined'
 import { ElementStylePseudoClass } from '@codelab/frontend/abstract/application'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'

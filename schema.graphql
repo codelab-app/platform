@@ -8613,7 +8613,6 @@ type Element {
   childMapperPropKey: String
   closestContainerNode: ContainerNode!
   compositeKey: String!
-  expanded: Boolean
   firstChild(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), limit: Int, offset: Int, options: ElementOptions @deprecated(reason: "Query options argument is deprecated, please use pagination arguments like limit, offset and sort instead."), sort: [ElementSort!], where: ElementWhere): Element
   firstChildAggregate(directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), where: ElementWhere): ElementElementFirstChildAggregationSelection
   firstChildConnection(after: String, directed: Boolean = true @deprecated(reason: "The directed argument is deprecated, and the direction of the field will be configured in the GraphQL server"), first: Int, sort: [ElementFirstChildConnectionSort!], where: ElementFirstChildConnectionWhere): ElementFirstChildConnection!
@@ -9002,7 +9001,6 @@ input ElementCreateInput {
   childMapperPreviousSibling: ElementChildMapperPreviousSiblingFieldInput
   childMapperPropKey: String
   compositeKey: String!
-  expanded: Boolean
   firstChild: ElementFirstChildFieldInput
   id: ID!
   nextSibling: ElementNextSiblingFieldInput
@@ -9140,7 +9138,6 @@ type ElementElementPrevSiblingNodeAggregateSelection {
 type ElementEventPayload {
   childMapperPropKey: String
   compositeKey: String!
-  expanded: Boolean
   id: ID!
   renderForEachPropKey: String
   renderIfExpression: String
@@ -10534,7 +10531,6 @@ Fields to sort Elements by. The order in which sorts are applied is not guarante
 input ElementSort {
   childMapperPropKey: SortDirection
   compositeKey: SortDirection
-  expanded: SortDirection
   id: SortDirection
   renderForEachPropKey: SortDirection
   renderIfExpression: SortDirection
@@ -10559,8 +10555,6 @@ input ElementSubscriptionWhere {
   compositeKey_IN: [String!]
   compositeKey_MATCHES: String
   compositeKey_STARTS_WITH: String
-  expanded: Boolean @deprecated(reason: "Please use the explicit _EQ version")
-  expanded_EQ: Boolean
   id: ID @deprecated(reason: "Please use the explicit _EQ version")
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -11126,8 +11120,6 @@ input ElementUpdateInput {
   childMapperPropKey_SET: String
   compositeKey: String @deprecated(reason: "Please use the explicit _SET field")
   compositeKey_SET: String
-  expanded: Boolean @deprecated(reason: "Please use the explicit _SET field")
-  expanded_SET: Boolean
   firstChild: ElementFirstChildUpdateFieldInput
   nextSibling: ElementNextSiblingUpdateFieldInput
   page: ElementPageUpdateFieldInput
@@ -11181,8 +11173,6 @@ input ElementWhere {
   compositeKey_IN: [String!]
   compositeKey_MATCHES: String
   compositeKey_STARTS_WITH: String
-  expanded: Boolean @deprecated(reason: "Please use the explicit _EQ version")
-  expanded_EQ: Boolean
   firstChild: ElementWhere
   firstChildAggregate: ElementFirstChildAggregateInput
   firstChildConnection: ElementFirstChildConnectionWhere

@@ -70,7 +70,6 @@ export interface IElementModel extends IModel<IElementDto, IElementModel> {
   hooks: Array<IHook>
   id: string
   isRoot: boolean
-  isTextContentEditable: boolean
   label: string
   name: string
   nextSibling?: Nullable<Ref<IElementModel>>
@@ -84,7 +83,6 @@ export interface IElementModel extends IModel<IElementDto, IElementModel> {
   preRenderActions?: Array<Ref<IActionModel>>
   prevSibling?: Nullable<Ref<IElementModel>>
   props: IPropModel
-  propsHaveErrors: boolean
   // store attached to the provider page
   providerStore?: IStoreModel
   renderForEachPropKey: Nullable<string>
@@ -114,9 +112,7 @@ export interface IElementModel extends IModel<IElementDto, IElementModel> {
   attachAsNextSibling(sibling: IElementModel): void
   attachAsPrevSibling(sibling: IElementModel): void
   detachFromTree(): IElementModel
-  setExpanded(expanded: boolean): void
   setFirstChild(firstChild: Ref<IElementModel>): void
-  setIsTextContentEditable(value: boolean): void
   setName(name: string): void
   setNextSibling(nextSibling: Ref<IElementModel>): void
   setOrderInParent(order: number | null): void

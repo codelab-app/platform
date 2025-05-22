@@ -9,4 +9,5 @@ export interface IRuntimeComponentDto {
   compositeKey: string
   isTypedProp?: boolean
   runtimeParent?: Ref<IRuntimeElementModel>
+  runtimeRootElement: IRuntimeElementModel
 }

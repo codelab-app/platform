@@ -1,9 +1,9 @@
-query GetComponentBuilder($componentId: ID!) {
+query GetComponentBuilder {
   actionTypes {
     ...ActionType
   }
   # Need to load all dependent types
-  atoms(where: { type: ReactFragment }) {
+  atoms {
     ...AtomBuilder
   }
   # Load system types
@@ -11,7 +11,8 @@ query GetComponentBuilder($componentId: ID!) {
   codeMirrorTypes {
     ...CodeMirrorType
   }
-  components(where: { id: $componentId }) {
+  # Need to load all dependent components
+  components {
     ...ComponentBuilder
   }
   primitiveTypes {

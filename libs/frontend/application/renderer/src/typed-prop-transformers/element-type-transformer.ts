@@ -37,10 +37,8 @@ export class ElementTypeTransformer
     runtimeNode: IRuntimePageNode,
   ) {
     const closestContainerNode = isRuntimeElement(runtimeNode)
-      ? runtimeNode.closestContainerNode.current
+      ? runtimeNode.closestContainerNode
       : runtimeNode
-
-    const parentElement = isRuntimeElement(runtimeNode) ? runtimeNode : null
 
     const elements = isRuntimeComponent(closestContainerNode)
       ? closestContainerNode.component.current.elements
@@ -54,11 +52,12 @@ export class ElementTypeTransformer
 
     const runtimeElement = this.runtimeElementService.add(
       targetElement,
-      closestContainerNode,
-      parentElement,
+      runtimeNode.compositeKey,
       key,
     )
 
-    return runtimeElement.render
+    runtimeElement.render()
+
+    return runtimeElement.rendered
   }
 }

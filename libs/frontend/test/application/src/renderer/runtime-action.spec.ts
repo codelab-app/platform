@@ -25,8 +25,8 @@ describe('Runtime Element props', () => {
       )
 
       const runtimeRootElement = runtimePage?.runtimeRootElement
-      const runtimeProps = runtimeRootElement?.runtimeProps
-      const element = runtimeRootElement?.element.current
+      const runtimeProps = runtimeRootElement?.current.runtimeProps
+      const element = runtimeRootElement?.current.element.current
       const actionName = 'fetchSomething'
       const stateKey = 'stateKey'
       const stateValue = 'default value'

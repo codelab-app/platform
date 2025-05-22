@@ -1,3 +1,5 @@
+'use client'
+
 import { Col, Divider } from 'antd'
 
 import { SegmentedSelect } from '../components'

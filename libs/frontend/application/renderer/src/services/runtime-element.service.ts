@@ -1,19 +1,13 @@
 import type {
-  IRuntimeComponentModel,
   IRuntimeElementModel,
   IRuntimeElementService,
-  IRuntimePageModel,
 } from '@codelab/frontend/abstract/application'
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
-import type { Nullable } from '@codelab/shared/abstract/types'
 import type { ObjectMap } from 'mobx-keystone'
 
 import {
   ElementStylePseudoClass,
-  isRuntimePage,
-  runtimeComponentRef,
   runtimeElementRef,
-  runtimePageRef,
 } from '@codelab/frontend/abstract/application'
 import { elementRef } from '@codelab/frontend/abstract/domain'
 import { computed } from 'mobx'
@@ -51,12 +45,7 @@ export class RuntimeElementService
   }
 
   @modelAction
-  add(
-    element: IElementModel,
-    closestContainerNode: IRuntimeComponentModel | IRuntimePageModel,
-    parentElement: Nullable<IRuntimeElementModel>,
-    propKey?: string,
-  ) {
+  add(element: IElementModel, parentCompositeKey: string, propkey?: string) {
     /**
      * id must be unique across the whole trees.
      * to achieve that we use a composite key
@@ -64,8 +53,8 @@ export class RuntimeElementService
      */
     const compositeKey = RuntimeElementModel.compositeKey(
       element,
-      closestContainerNode,
-      propKey,
+      parentCompositeKey,
+      propkey,
     )
 
     const foundElement = this.elements.get(compositeKey)
@@ -75,14 +64,10 @@ export class RuntimeElementService
     }
 
     const runtimeElement = RuntimeElementModel.create({
-      closestContainerNode: isRuntimePage(closestContainerNode)
-        ? runtimePageRef(closestContainerNode.compositeKey)
-        : runtimeComponentRef(closestContainerNode.compositeKey),
       compositeKey,
       element: elementRef(element),
       expanded: false,
-      parentElementKey: parentElement ? parentElement.compositeKey : null,
-      propKey,
+      parentCompositeKey,
       runtimeProps: RuntimeElementPropsModel.create({
         runtimeElement: runtimeElementRef(compositeKey),
       }),

@@ -36,7 +36,9 @@ describe('TypedPropTransformers', () => {
       value: propValue,
     })
 
-    expect(runtimeRootElement.runtimeProps.evaluatedProps).toMatchObject({
+    expect(
+      runtimeRootElement.current.runtimeProps.evaluatedProps,
+    ).toMatchObject({
       [propKey]: propValue,
     })
   })
@@ -53,7 +55,8 @@ describe('TypedPropTransformers', () => {
       value: component.id,
     })
 
-    const renderedProp = runtimeRootElement.runtimeProps.evaluatedProps[propKey]
+    const renderedProp =
+      runtimeRootElement.current.runtimeProps.evaluatedProps[propKey]
 
     expect(isValidElement(renderedProp)).toBeTruthy()
   })
@@ -70,11 +73,14 @@ describe('TypedPropTransformers', () => {
       value: component.id,
     })
 
-    expect(runtimeRootElement.runtimeProps.evaluatedProps).toMatchObject({
+    expect(
+      runtimeRootElement.current.runtimeProps.evaluatedProps,
+    ).toMatchObject({
       [propKey]: expect.any(Function),
     })
 
-    const renderedProp = runtimeRootElement.runtimeProps.evaluatedProps[propKey]
+    const renderedProp =
+      runtimeRootElement.current.runtimeProps.evaluatedProps[propKey]
 
     expect(isValidElement(renderedProp())).toBeTruthy()
   })
@@ -121,7 +127,8 @@ describe('TypedPropTransformers', () => {
       value: component.id,
     })
 
-    const renderedProp = runtimeRootElement.runtimeProps.evaluatedProps[propKey]
+    const renderedProp =
+      runtimeRootElement.current.runtimeProps.evaluatedProps[propKey]
 
     render(
       createElement(

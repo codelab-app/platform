@@ -21,7 +21,7 @@ export const RichTextEditorWrapper = observer<{
   const { typeDomainService } = useDomainStore()
   const propService = usePropService()
   const element = runtimeElement.element.current
-  const editable = element.isTextContentEditable
+  const editable = runtimeElement.isTextContentEditable
   const runtimeChildren = runtimeElement.runtimeProps.evaluatedProps['children']
 
   const elementChildren = useMemo(
@@ -93,7 +93,7 @@ export const CodeMirrorEditorWrapper = observer<{
   const { typeDomainService } = useDomainStore()
   const propService = usePropService()
   const element = runtimeElement.element.current
-  const editable = element.isTextContentEditable
+  const editable = runtimeElement.isTextContentEditable
 
   const codeMirrorType = typeDomainService.typesList.find(
     (type) => type.kind === ITypeKind.CodeMirrorType,

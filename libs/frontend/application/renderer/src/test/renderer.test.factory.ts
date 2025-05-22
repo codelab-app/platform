@@ -9,7 +9,7 @@ import { v4 } from 'uuid'
 
 export const rendererFactory =
   (rendererService: IRendererService) => (dto: Partial<IRendererDto>) => {
-    const renderer: IRendererDto = {
+    const renderer: Omit<IRendererDto, 'runtimeRootContainerNode'> = {
       containerNode: (dto.containerNode ?? {
         id: v4(),
       }) as IPageModel,

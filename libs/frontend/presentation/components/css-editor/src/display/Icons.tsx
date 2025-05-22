@@ -1,3 +1,5 @@
+'use client'
+
 import { Display, FlexAlignItems, FlexJustifyItems, GridAlign } from '../css'
 
 // TODO: revisit icon sizes

@@ -27,7 +27,7 @@ export const useActionSchema = (
 
   return useMemo(() => {
     const renderer = rendererService.activeRenderer?.current
-    const runtimeStore = renderer?.runtimeContainerNode?.runtimeStore
+    const runtimeStore = renderer?.runtimeContainerNode.runtimeStore
 
     const forbiddenValues = Object.keys(runtimeStore?.state ?? {}).filter(
       (fieldName) => fieldName !== action?.name,

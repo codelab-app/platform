@@ -64,7 +64,7 @@ const RootRendererComponent = forwardRef<
   return (
     <ErrorBoundary>
       <div id={ROOT_RENDER_CONTAINER_ID} ref={ref} style={containerStyle}>
-        {renderer.render}
+        {renderer.rendered}
       </div>
     </ErrorBoundary>
   )

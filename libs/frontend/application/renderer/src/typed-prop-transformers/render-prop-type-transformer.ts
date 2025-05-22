@@ -51,14 +51,14 @@ export class RenderPropTypeTransformer
     key: string,
     runtimeNode: IRuntimePageNode,
   ) {
-    const { expressionTransformer } = this.renderer
+    const { expressionTransformer } = this.rendererService
     const propValue = extractTypedPropValue(prop)
 
     if (!propValue) {
       return ''
     }
 
-    if (hasExpression(propValue) && expressionTransformer.initialized) {
+    if (hasExpression(propValue)) {
       return expressionTransformer.transpileAndEvaluateExpression(propValue)
     }
 
@@ -93,7 +93,9 @@ export class RenderPropTypeTransformer
         }),
       )
 
-      return runtimeComponent.render
+      runtimeComponent.render()
+
+      return runtimeComponent.rendered
     }
   }
 }

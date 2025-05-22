@@ -22,6 +22,7 @@ import {
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { Validator } from '@codelab/shared/infra/typebox'
 import { pageApi, pageServerActions } from '@codelab/shared-domain-module/page'
+import { useRouter } from 'next/navigation'
 
 import { createPageAction } from '../use-cases/create-page'
 import { createPageFactory } from '../use-cases/create-page/create-page.factory'
@@ -37,6 +38,7 @@ export const usePageService = (): IPageService => {
     userDomainService,
   } = useDomainStore()
 
+  const { push } = useRouter()
   const { rendererService } = useApplicationStore()
   const owner = userDomainService.user
 
@@ -120,6 +122,22 @@ export const usePageService = (): IPageService => {
     })
   }
 
+  const removeAndNavigate = async (pageModel: IPageModel) => {
+    const { items: pages } = await pageRepository.find({ id: pageModel.id })
+    const elements = pages.flatMap((page) => page.elements)
+
+    await elementRepository.delete(elements)
+
+    await pageRepository.delete([pageModel])
+
+    push(
+      RoutePaths.Page.list({
+        appId: pageModel.app.id,
+        pageId: pageModel.providerPage!.id,
+      }),
+    )
+  }
+
   const update = async (data: IPageUpdateFormData) => {
     const app = appDomainService.apps.get(data.app.id)
     const page = app?.page(data.id)
@@ -180,6 +198,7 @@ export const usePageService = (): IPageService => {
     getRenderedPage,
     getSelectPageOptions,
     loadElements,
+    removeAndNavigate,
     removeMany,
     update,
     updatePopover,

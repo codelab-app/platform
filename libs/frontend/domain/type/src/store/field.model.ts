@@ -37,11 +37,11 @@ const create = ({
 
   try {
     // `defaultValues` could be a falsy valid value e.g. `false`, 0
-    parsedDefaultValues = isNonNullish(parsedDefaultValues)
-      ? JSON.parse(parsedDefaultValues)
+    parsedDefaultValues = isNonNullish(defaultValues)
+      ? JSON.parse(defaultValues)
       : null
   } catch (err) {
-    console.log(`Failed to parse default value for field: ${key}`)
+    parsedDefaultValues = defaultValues
   }
 
   return new Field({
