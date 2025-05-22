@@ -1,9 +1,13 @@
 'use client'
 
+import type { IInterfaceTypeModel } from '@codelab/frontend/abstract/domain'
 import type { IFieldCreateData } from '@codelab/shared/abstract/core'
 
 import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
-import { SelectDefaultValue } from '@codelab/frontend/presentation/components/interface-form'
+import {
+  SelectDefaultValue,
+  SelectFieldSibling,
+} from '@codelab/frontend/presentation/components/interface-form'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
   DisplayIfField,
@@ -39,6 +43,9 @@ export const CreateFieldForm = observer<CreateFieldFormProps>(
     const fieldService = useFieldService()
     const { typeDomainService } = useDomainStore()
     const fieldSchema = useFieldSchema(createFieldSchema)
+
+    const interfaceType =
+      typeDomainService.type<IInterfaceTypeModel>(interfaceId)
 
     const onSubmit = (input: IFieldCreateData) => {
       const validationRules = filterValidationRules(
@@ -89,9 +96,14 @@ export const CreateFieldForm = observer<CreateFieldFormProps>(
             'validationRules',
             'interfaceTypeId',
             'defaultValues',
+            'prevSibling',
           ]}
         />
         <TypeSelect label="Type" name="fieldType" />
+        <SelectFieldSibling
+          name="prevSibling"
+          siblings={interfaceType.fields}
+        />
         <DisplayIfField<IFieldCreateData>
           condition={({ model }) =>
             !isBoolean(typeDomainService, model.fieldType) &&
