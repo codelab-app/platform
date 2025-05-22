@@ -60,7 +60,6 @@ export const createFieldSchema: JSONSchemaType<IFieldCreateData> = {
           disabled: false,
         }),
       },
-      label: '',
       required: [],
       type: 'object',
     },
@@ -69,6 +68,7 @@ export const createFieldSchema: JSONSchemaType<IFieldCreateData> = {
       properties: {
         general: {
           nullable: true,
+          label: '',
           properties: {
             [GeneralValidationRules.Nullable]: {
               default: false,
@@ -80,6 +80,7 @@ export const createFieldSchema: JSONSchemaType<IFieldCreateData> = {
         },
         [PrimitiveTypeKind.String]: {
           nullable: true,
+          label: '',
           properties: {
             [StringValidationRules.MinLength]: {
               nullable: true,
@@ -95,6 +96,7 @@ export const createFieldSchema: JSONSchemaType<IFieldCreateData> = {
         },
         [PrimitiveTypeKind.Number]: {
           nullable: true,
+          label: '',
           properties: {
             [NumberValidationRules.Minimum]: {
               nullable: true,
@@ -121,6 +123,7 @@ export const createFieldSchema: JSONSchemaType<IFieldCreateData> = {
         },
         [PrimitiveTypeKind.Integer]: {
           nullable: true,
+          label: '',
           properties: {
             [NumberValidationRules.Minimum]: {
               nullable: true,
