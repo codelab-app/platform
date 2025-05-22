@@ -162,7 +162,7 @@ export class BuilderPage extends BasePage {
   async deleteElementFromUpdateForm(element: ICreateElementSeedData) {
     return test.step('deleteElementFromUpdateForm', async () => {
       await this.selectTreeElement(element)
-
+      await expect(this.getSpinner()).toBeHidden()
       await this.getConfigPane()
         .locator(this.page.getByRole('button', { name: 'Delete' }))
         .click()
