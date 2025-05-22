@@ -32,6 +32,7 @@ import {
   isPrimitive,
   isString,
 } from './field-utils'
+import { IInterfaceTypeModel } from '@codelab/frontend-abstract-domain'
 
 interface CreateFieldFormProps extends IFormController {
   interfaceId: string
@@ -43,6 +44,9 @@ export const CreateFieldForm = observer<CreateFieldFormProps>(
     const { typeDomainService } = useDomainStore()
     const fieldSchema = useFieldSchema(createFieldSchema)
     const fieldModel = { id: v4(), interfaceTypeId: interfaceId }
+
+    const interfaceType =
+      typeDomainService.type<IInterfaceTypeModel>(interfaceId)
 
     const onSubmit = (input: IFieldCreateData) => {
       const validationRules = filterValidationRules(
