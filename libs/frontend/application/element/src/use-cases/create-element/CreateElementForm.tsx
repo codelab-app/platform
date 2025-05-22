@@ -11,13 +11,8 @@ import {
 } from '@codelab/frontend/presentation/components/interface-form'
 import { useUser } from '@codelab/frontend-application-user/services'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import {
-  Form,
-  FormController,
-} from '@codelab/frontend-presentation-components-form'
-import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
+import { Form } from '@codelab/frontend-presentation-components-form'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
-import { Divider } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
@@ -33,7 +28,6 @@ import { createElementSchema } from './create-element.schema'
 interface CreateElementFormProps extends IFormController {
   // Prevent builder circular dep
   selectedNode?: IRuntimeModel
-  showFormControl?: boolean
 }
 
 /**
@@ -43,13 +37,7 @@ interface CreateElementFormProps extends IFormController {
  */
 export const CreateElementForm = observer<CreateElementFormProps>((props) => {
   // Destructure to pass into tracker hooks
-  const {
-    onSubmitSuccess,
-    selectedNode,
-    showFormControl = true,
-    submitRef,
-  } = props
-
+  const { onSubmitSuccess, selectedNode, submitRef } = props
   const { atomDomainService, elementDomainService } = useDomainStore()
   const user = useUser()
   const { validateParentForCreate } = useRequiredParentValidator()
@@ -99,7 +87,6 @@ export const CreateElementForm = observer<CreateElementFormProps>((props) => {
       id: selectedElement.id,
     },
     props: {
-      api: { id: v4() },
       data: '{}',
       id: v4(),
     },
@@ -150,11 +137,7 @@ export const CreateElementForm = observer<CreateElementFormProps>((props) => {
         name="postRenderActions"
         selectedNode={selectedNode}
       />
-      <Divider />
       <AutoComputedElementNameField label="Name" name="name" />
-      <DisplayIf condition={showFormControl}>
-        <FormController submitLabel="Create Element" />
-      </DisplayIf>
     </Form>
   )
 })

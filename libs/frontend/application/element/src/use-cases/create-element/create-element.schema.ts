@@ -90,16 +90,6 @@ export const createElementSchema: JSONSchemaType<ICreateElementDto> = {
       label: '',
       properties: {
         ...idSchema(),
-        api: {
-          type: 'object',
-          properties: {
-            id: {
-              type: 'string',
-            },
-          },
-          required: ['id'],
-          nullable: true,
-        },
         data: {
           label: 'Props Data',
           type: 'string',
