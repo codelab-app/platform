@@ -74,8 +74,6 @@ export const SelectDefaultValue = () => {
     [type?.id, isRequired],
   )
 
-  console.log(schema)
-
   let defaultValues = context.model.defaultValues
   const currentFieldType = useRef(fieldType.value)
 
