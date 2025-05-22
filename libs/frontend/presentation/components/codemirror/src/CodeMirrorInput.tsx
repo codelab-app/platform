@@ -20,6 +20,7 @@ export interface CodeMirrorInputProps
   className?: string
   cssString?: string
   expandable?: boolean
+  required?: boolean
   singleLine?: boolean
   title?: Nullish<string>
   value?: string
@@ -63,6 +64,7 @@ export const CodeMirrorInput = ({
           EditorView.contentAttributes.of({
             'aria-label': title ?? '',
             id: props.id ?? '',
+            required: props.required,
           }),
         ],
         onChange: (_value: string, view: ViewUpdate) => {

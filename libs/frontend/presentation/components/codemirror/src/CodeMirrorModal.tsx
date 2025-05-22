@@ -6,7 +6,7 @@ import AntdModal from 'antd/lib/modal'
 import { useEffect, useRef, useState } from 'react'
 
 type ISetupFactory = (
-  editorRef: React.MutableRefObject<HTMLDivElement | null>,
+  editorRef: React.RefObject<HTMLDivElement | null>,
   overWriteOpts?: UseCodeMirror,
 ) => UseCodeMirror
 
