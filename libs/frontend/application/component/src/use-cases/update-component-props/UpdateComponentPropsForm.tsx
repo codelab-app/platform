@@ -14,8 +14,8 @@ import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 import { Spinner } from '@codelab/frontend-presentation-view/components/loader'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { Fragment, useEffect, useMemo } from 'react'
-import { useAsyncFn } from 'react-use'
+import { Fragment, useMemo } from 'react'
+import { useAsync } from 'react-use'
 
 export interface UpdateComponentPropsFormProps {
   context: IBuilderRoute
@@ -29,13 +29,10 @@ export const UpdateComponentPropsForm = observer<UpdateComponentPropsFormProps>(
     const component = runtimeComponent.component.current
     const api = component.api.current
 
-    const [{ loading, value: interfaceType }, getInterface] = useAsyncFn(() =>
-      typeService.getInterface(api.id),
+    const { loading, value: interfaceType } = useAsync(
+      async () => typeService.getInterface(api.id),
+      [api.id],
     )
-
-    useEffect(() => {
-      void getInterface()
-    }, [api.id, getInterface])
 
     const onSubmit = async (data: IPropData) =>
       propService.updateWithDefaultValuesApplied(component.props, {
