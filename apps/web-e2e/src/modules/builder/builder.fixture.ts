@@ -138,6 +138,8 @@ export class BuilderPage extends BasePage {
 
       await expect(this.getGlobalProgressBar()).toBeHidden()
       await this.expectNotificationSuccess('Element deleted')
+      await this.waitForPage(new RegExp(/^((?!delete\/element).)*$/gm))
+
       await expect(treeElement).toBeHidden()
     })
   }
