@@ -33,6 +33,7 @@ import {
   getComponentDomainService,
   isComponent,
 } from '@codelab/frontend/abstract/domain'
+import { createValidator } from '@codelab/frontend/shared/utils'
 import {
   evaluateExpression,
   evaluateObject,
@@ -52,7 +53,6 @@ import { createElement, type ReactElement, type ReactNode } from 'react'
 import { difference, filter, isTruthy } from 'remeda'
 
 import { ElementWrapper } from '../components'
-import { createValidator } from '@codelab/frontend/shared/utils'
 
 const compositeKey = (
   element: IElementModel,
