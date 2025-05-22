@@ -9,7 +9,10 @@ import { UiKey } from '@codelab/frontend/abstract/types'
 import { typeRepository } from '@codelab/frontend-domain-type/repositories'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { Form } from '@codelab/frontend-presentation-components-form'
-import { ITypeKind } from '@codelab/shared/abstract/core'
+import {
+  GeneralValidationRules,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
 import { PrimitiveTypeKind } from '@codelab/shared/infra/gqlgen'
 import { useMemo, useRef } from 'react'
 import { useAsyncFn, useMount } from 'react-use'
@@ -17,7 +20,7 @@ import { isNullish } from 'remeda'
 import { useField } from 'uniforms'
 import { AutoFields } from 'uniforms-antd'
 
-import { uniformSchemaFactory as uniformSchema } from '../../uniform-schema'
+import { uniformSchemaFactory } from '../../uniform-schema'
 
 export const SelectDefaultValue = () => {
   const { typeDomainService } = useDomainStore()
@@ -34,6 +37,11 @@ export const SelectDefaultValue = () => {
 
   const [fieldType, context] = useField<{ value?: string }>('fieldType', {})
 
+  const [nullabel] = useField<{ value?: boolean }>(
+    `validationRules.general.${GeneralValidationRules.Nullable}`,
+    {},
+  )
+
   const [validationRules] = useField<{ value?: IValidationRules }>(
     'validationRules',
     {},
@@ -45,9 +53,11 @@ export const SelectDefaultValue = () => {
 
   // Typecasting just for conditional check if field type is primitive
   const primitiveKind = (type as Maybe<IPrimitiveTypeModel>)?.primitiveKind
+
   // This prevents a nullable boolean when switching from another type to boolean
   // Cant move this yet to ajv schema since fieldType is id and cannot determine primitive kind
-  const isRequired = primitiveKind === PrimitiveTypeKind.Boolean
+  const isRequired =
+    primitiveKind === PrimitiveTypeKind.Boolean || !nullabel.value
 
   const schema = useMemo(
     () => ({
@@ -55,7 +65,7 @@ export const SelectDefaultValue = () => {
       properties: type
         ? {
             defaultValues: type.toJsonSchema({
-              uniformSchema,
+              uniformSchema: uniformSchemaFactory,
               validationRules: validationRules.value,
             }),
           }
@@ -66,6 +76,8 @@ export const SelectDefaultValue = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [type?.id, isRequired],
   )
+
+  console.log(schema)
 
   let defaultValues = context.model.defaultValues
   const currentFieldType = useRef(fieldType.value)

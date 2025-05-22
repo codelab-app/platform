@@ -9,7 +9,7 @@ import type { ListFieldProps, SelectFieldProps } from 'uniforms-antd'
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
 import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
 import { hasExpression } from '@codelab/shared-infra-eval'
-import { Button, Space, Tooltip } from 'antd'
+import { Button, Form, Tooltip } from 'antd'
 import { useState } from 'react'
 import { isNullish } from 'remeda'
 import { connectField } from 'uniforms'
@@ -31,7 +31,9 @@ interface CodeMirrorFieldProps {
   ): void
 }
 
-type CodeMirrorConnectFieldProps = FieldProps<Value, InnerProps>
+type CodeMirrorConnectFieldProps = FieldProps<Value, InnerProps> & {
+  required?: boolean
+}
 
 interface ToggleExpressionFieldProps {
   fieldProps: CodeMirrorConnectFieldProps
@@ -102,33 +104,39 @@ const ToggleExpression = ({
     ? 'Set static value'
     : 'Set expression'
 
-  return (
-    <div className="ant-form-item">
-      <Space className="mb-1 w-full justify-between">
-        <label htmlFor={fieldProps.id}>{fieldProps.label ?? ''}</label>
+  console.log(fieldProps, mainProps)
 
+  return (
+    <div className="relative w-full">
+      <div style={{ position: 'absolute', right: 0, top: '-2px' }}>
         <Tooltip placement="left" title={toggleButtonTooltip}>
           <Button onClick={toggleControlClick} type={toggleButtonType}>
             JS
           </Button>
         </Tooltip>
-      </Space>
-
-      {showExpressionEditor ? (
-        <CodeMirrorEditor
-          cssString={`
+      </div>
+      <Form.Item
+        htmlFor={fieldProps.id}
+        label={fieldProps.label ? `${fieldProps.label} :` : ''}
+        name={fieldProps.name}
+        required={fieldProps.required}
+      >
+        {showExpressionEditor ? (
+          <CodeMirrorEditor
+            cssString={`
             display: block;
             margin-bottom: 12px;
           `}
-          customOptions={mainProps.autocomplete || []}
-          language={ICodeMirrorLanguage.Javascript}
-          title={fieldProps.field.label}
-          {...fieldProps}
-          value={value}
-        />
-      ) : (
-        BaseControl
-      )}
+            customOptions={mainProps.autocomplete || []}
+            language={ICodeMirrorLanguage.Javascript}
+            title={fieldProps.field.label}
+            {...fieldProps}
+            value={value}
+          />
+        ) : (
+          BaseControl
+        )}
+      </Form.Item>
     </div>
   )
 }
