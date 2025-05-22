@@ -4,10 +4,7 @@ import type { IBuilderRoute } from '@codelab/frontend/abstract/application'
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
 
 import { UiKey } from '@codelab/frontend/abstract/types'
-import {
-  useApplicationStore,
-  useDomainStore,
-} from '@codelab/frontend-infra-mobx/context'
+import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
@@ -17,13 +14,11 @@ import type { DeleteElementData } from './delete-element.schema'
 
 import { useElementService } from '../../services'
 import { deleteElementSchema } from './delete-element.schema'
-import { deleteElementUseCase } from './delete-element.use-case'
 
 export const DeleteElementModal = observer<{
   element: IElementModel
   context: IBuilderRoute
 }>(({ context, element }) => {
-  const { builderService } = useApplicationStore()
   const router = useRouter()
   const elementService = useElementService()
   const { elementDomainService } = useDomainStore()
@@ -33,9 +28,7 @@ export const DeleteElementModal = observer<{
   const onSubmit = (data: DeleteElementData) => {
     const targetElement = elementDomainService.element(data.element.id)
 
-    return deleteElementUseCase(targetElement, elementDomainService, () =>
-      builderService.selectPreviousElementOnDelete(),
-    )
+    return elementService.remove(targetElement)
   }
 
   return (
