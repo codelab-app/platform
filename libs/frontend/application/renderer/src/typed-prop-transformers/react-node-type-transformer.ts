@@ -1,9 +1,10 @@
-import type {
-  IRuntimePageNode,
-  ITypedPropTransformer,
-} from '@codelab/frontend/abstract/application'
 import type { TypedProp } from '@codelab/frontend/abstract/domain'
 
+import {
+  type IRuntimePageNode,
+  isRuntimeElement,
+  type ITypedPropTransformer,
+} from '@codelab/frontend/abstract/application'
 import { extractTypedPropValue } from '@codelab/frontend/abstract/domain'
 import { hasExpression } from '@codelab/shared-infra-eval'
 import { ExtendedModel, model } from 'mobx-keystone'
@@ -66,9 +67,13 @@ export class ReactNodeTypeTransformer
       return fallback
     }
 
+    const runtimeParent = isRuntimeElement(runtimeNode)
+      ? runtimeNode
+      : undefined
+
     const runtimeComponent = this.runtimeComponentService.add(
       component,
-      runtimeNode,
+      runtimeParent,
       key,
       undefined,
       true,

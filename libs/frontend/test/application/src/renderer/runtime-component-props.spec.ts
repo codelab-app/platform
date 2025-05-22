@@ -57,10 +57,14 @@ describe('Runtime Component props', () => {
   describe('RuntimeProps.evaluatedProps', () => {
     // expressions are evaluated with empty context
     it('should evaluate basic state field expression', () => {
-      const { component, runtimeComponent } = testStore.setupComponent()
+      const { component, renderer, runtimeComponent } =
+        testStore.setupComponent()
+
       const fieldKey = 'fieldKey'
 
       component.props.set(fieldKey, '{{10 - 2}}')
+
+      renderer.render()
 
       const runtimeProps = runtimeComponent?.runtimeProps
 

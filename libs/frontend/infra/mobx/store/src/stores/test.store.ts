@@ -520,6 +520,9 @@ export const createTestStore = () => {
       const component = componentFactory(
         this.domainStore.componentDomainService,
       )({
+        api: testRootStore.addInterfaceType({
+          name: 'ComponentApi',
+        }),
         id: componentId,
         name: 'Component',
         owner: { id: componentId },

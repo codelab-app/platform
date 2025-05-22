@@ -32,7 +32,7 @@ export const pageBuilderMenuItem = ({
       ...disabledBuilderMenuItem,
       disabled: false,
       link: {
-        href: RoutePaths.Component.builder({ componentId }),
+        href: RoutePaths.Component.list({ componentId }),
       },
     }
   }

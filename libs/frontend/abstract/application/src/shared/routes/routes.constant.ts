@@ -132,6 +132,8 @@ export const RoutePaths = {
     create: () => '/components/create',
     delete: ({ id }: IRef) => `/components/delete/${id}`,
     export: () => '/api/export/component',
+    list: ({ componentId }: { componentId: string }) =>
+      `/components/${componentId}/builder/components`,
     preview: ({ componentId }: { componentId: string }) =>
       `/components/${componentId}`,
   },

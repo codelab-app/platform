@@ -60,6 +60,7 @@ export const createFieldSchema: JSONSchemaType<IFieldCreateData> = {
           disabled: false,
         }),
       },
+      label: '',
       required: [],
       type: 'object',
     },

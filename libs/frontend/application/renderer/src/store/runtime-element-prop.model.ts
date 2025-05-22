@@ -29,7 +29,7 @@ import {
   evaluateObject,
   hasExpression,
 } from '@codelab/shared-infra-eval'
-import { computed } from 'mobx'
+import { computed, observable, set } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { createElement } from 'react'
 import { mergeDeep, pathOr, stringToPath } from 'remeda'
@@ -210,34 +210,6 @@ export class RuntimeElementPropsModel
     })
   }
 
-  /**
-   * Applies all the type transformers to the props
-   */
-  @computed
-  get renderedTypedProps() {
-    return mapDeep(this.props, (value, key) => {
-      if (!isTypedProp(value)) {
-        return value
-      }
-
-      if (!value.value) {
-        return undefined
-      }
-
-      const transformer = this.renderer.typedPropTransformers.get(value.kind)
-
-      if (!transformer) {
-        return value.value
-      }
-
-      return transformer.transform(
-        value,
-        key.toString(),
-        this.runtimeElement.current,
-      )
-    })
-  }
-
   @computed
   get renderer() {
     const activeRenderer = this.rendererService.activeRenderer?.current
@@ -288,6 +260,8 @@ export class RuntimeElementPropsModel
     return this.routerService.searchParams
   }
 
+  renderedTypedProps: IPropData = observable.object<IPropData>({})
+
   @modelAction
   getActionRunner(actionName: string) {
     return (
@@ -297,6 +271,36 @@ export class RuntimeElementPropsModel
         console.log(`No Runner found for ${actionName} `)
       })
     )
+  }
+
+  /**
+   * Applies all the type transformers to the props
+   */
+  @modelAction
+  renderTypedProps() {
+    const renderedProps = mapDeep(this.props, (value, key) => {
+      if (!isTypedProp(value)) {
+        return value
+      }
+
+      if (!value.value) {
+        return undefined
+      }
+
+      const transformer = this.renderer.typedPropTransformers.get(value.kind)
+
+      if (!transformer) {
+        return value.value
+      }
+
+      return transformer.transform(
+        value,
+        key.toString(),
+        this.runtimeElement.current,
+      )
+    })
+
+    set(this.renderedTypedProps, renderedProps)
   }
 
   private transformRuntimeActions(

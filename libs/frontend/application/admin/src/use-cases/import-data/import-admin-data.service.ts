@@ -10,6 +10,7 @@ export const importAdminDataService = async (data?: IImportDto) => {
 
   return await jobSubscription(jobId, {
     socketEndpoint: `${getEnv().endpoint.apiHost}`,
-    timeoutMs: 120_000,
+    // it takes around 300_000 ms to import admin data we add a 100_000 just in case
+    timeoutMs: 400_000,
   })
 }

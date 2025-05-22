@@ -87,7 +87,7 @@ describe('Runtime Element props', () => {
       'should evaluate state field expression with %s in %s',
       (stateKey, pageKind) => {
         // set renderType to builder for state to update when changing field default values
-        const { page, rootElement, runtimeRootElement } =
+        const { page, renderer, rootElement, runtimeRootElement } =
           testStore.setupRuntimeElement(RendererType.PageBuilder, pageKind)
 
         const runtimeProps = runtimeRootElement.current.runtimeProps
@@ -107,6 +107,8 @@ describe('Runtime Element props', () => {
         storeApi.writeCache({ fields: [field] })
 
         rootElement.props.set(propKey, `{{${stateKey}.${fieldKey}}}`)
+
+        renderer.render()
 
         expect(runtimeProps.evaluatedProps).toMatchObject({
           [propKey]: fieldDefaultValue,
@@ -128,7 +130,7 @@ describe('Runtime Element props', () => {
       (actionsKey, pageKind) => {
         const isProviderPage = pageKind === IPageKind.Provider
 
-        const { page, rootElement, runtimeRootElement } =
+        const { page, renderer, rootElement, runtimeRootElement } =
           testStore.setupRuntimeElement(RendererType.Preview, pageKind)
 
         const runtimeProps = runtimeRootElement.current.runtimeProps
@@ -149,6 +151,8 @@ describe('Runtime Element props', () => {
 
         rootElement.props.set(propKey, `{{${actionsKey}.${actionName}}}`)
 
+        renderer.render()
+
         expect(runtimeProps.evaluatedProps).toMatchObject({
           [propKey]: expect.any(Function),
         })
@@ -163,7 +167,7 @@ describe('Runtime Element props', () => {
       ['actions', IPageKind.Provider],
       ['rootActions', IPageKind.Regular],
     ])('should bind %s with context in %s page', (actionsKey, pageKind) => {
-      const { page, rootElement, runtimeRootElement } =
+      const { page, renderer, rootElement, runtimeRootElement } =
         testStore.setupRuntimeElement(RendererType.Preview, pageKind)
 
       const runtimeProps = runtimeRootElement.current.runtimeProps
@@ -187,6 +191,7 @@ describe('Runtime Element props', () => {
       })
 
       rootElement.props.set(propKey, `{{${actionsKey}.${actionName}}}`)
+      renderer.render()
 
       const actionRunner = runtimeProps.getActionRunner(actionName)
 
@@ -203,7 +208,7 @@ describe('Runtime Element props', () => {
     it.each([['successAction'], ['errorAction']])(
       'should bind %s with context',
       async (actionField) => {
-        const { rootElement, runtimeRootElement } =
+        const { renderer, rootElement, runtimeRootElement } =
           testStore.setupRuntimeElement()
 
         const runtimeProps = runtimeRootElement.current.runtimeProps
@@ -254,6 +259,8 @@ describe('Runtime Element props', () => {
         })
 
         rootElement.props.set(propKey, `{{actions.${apiActionName}}}`)
+
+        renderer.render()
 
         const actionRunner = runtimeProps.getActionRunner(apiActionName)
 
@@ -394,7 +401,7 @@ describe('Runtime Element props', () => {
       (stateKey, pageKind) => {
         const isProviderPage = pageKind === IPageKind.Provider
 
-        const { page, rootElement, runtimeRootElement } =
+        const { page, renderer, rootElement, runtimeRootElement } =
           testStore.setupRuntimeElement(RendererType.Preview, pageKind)
 
         const runtimeProps = runtimeRootElement.current.runtimeProps
@@ -422,6 +429,8 @@ describe('Runtime Element props', () => {
         })
 
         rootElement.props.set(propKey, `{{${stateKey}.${rootStateName}}}`)
+
+        renderer.render()
 
         expect(runtimeProps.evaluatedProps).toMatchObject({
           [propKey]: 'default value',
@@ -479,6 +488,8 @@ describe('Runtime Element props', () => {
         testStore.setupRuntimeElement()
 
       rootElement.props.set(urlKey, `{{urlProps.${urlKey}}}`)
+
+      renderer.render()
 
       expect(
         runtimeRootElement.current.runtimeProps.evaluatedProps,

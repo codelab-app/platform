@@ -33,14 +33,16 @@ export const UpdateComponentForm = observer<{
     name: component.name,
   }
 
-  const onSubmit = (componentData: IUpdateComponentData) =>
-    componentService.update(componentData)
+  const onSubmit = async (componentData: IUpdateComponentData) => {
+    console.log('componentData', componentData)
+    await componentService.update(componentData)
+  }
 
   return (
     <div key={key}>
       <Form<IUpdateComponentData>
         autosave
-        errorMessage="Error while creating component"
+        errorMessage="Error while updating component"
         model={model}
         onSubmit={onSubmit}
         schema={updateComponentSchema}

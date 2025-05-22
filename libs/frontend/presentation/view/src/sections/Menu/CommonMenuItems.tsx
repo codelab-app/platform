@@ -61,7 +61,7 @@ export const builderComponentsMenuItem = ({
     return {
       ...componentsListMenuItem,
       link: {
-        href: RoutePaths.Component.builder({ componentId }),
+        href: RoutePaths.Component.list({ componentId }),
       },
     }
   }

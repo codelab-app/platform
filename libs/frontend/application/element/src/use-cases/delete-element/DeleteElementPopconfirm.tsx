@@ -5,16 +5,12 @@ import type { PopconfirmProps } from 'antd'
 import type { ReactNode } from 'react'
 
 import { getUiDataKey, type UiKey } from '@codelab/frontend/abstract/types'
-import {
-  useApplicationStore,
-  useDomainStore,
-} from '@codelab/frontend-infra-mobx/context'
 import { useAsyncHandler } from '@codelab/frontend-presentation-components-form'
 import { Popconfirm } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
 
-import { deleteElementUseCase } from './delete-element.use-case'
+import { useElementService } from '../../services/element.service'
 
 interface DeleteElementPopconfirmProps extends Partial<PopconfirmProps> {
   children: ReactNode
@@ -29,15 +25,12 @@ interface DeleteElementPopconfirmProps extends Partial<PopconfirmProps> {
 
 export const DeleteElementPopconfirm = observer<DeleteElementPopconfirmProps>(
   ({ children, element, placement, uiKey }) => {
-    const { elementDomainService } = useDomainStore()
-    const { builderService } = useApplicationStore()
+    const elemnetService = useElementService()
     const [open, setOpen] = useState(false)
     const asyncHandler = useAsyncHandler()
 
     const onConfirm = async () => {
-      await deleteElementUseCase(element, elementDomainService, () =>
-        builderService.selectPreviousElementOnDelete(),
-      )
+      await elemnetService.remove(element)
       setOpen(false)
     }
 
