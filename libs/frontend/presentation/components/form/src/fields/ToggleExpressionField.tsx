@@ -8,7 +8,7 @@ import type { ListFieldProps, SelectFieldProps } from 'uniforms-antd'
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
 import { ICodeMirrorLanguage } from '@codelab/shared-abstract-core'
 import { hasExpression } from '@codelab/shared-infra-eval'
-import { Button, Form, Tooltip } from 'antd'
+import { Button, Space, Tooltip } from 'antd'
 import { useState } from 'react'
 import { isNullish } from 'remeda'
 import { connectField } from 'uniforms'
@@ -103,26 +103,21 @@ const ToggleExpression = ({
     ? 'Set static value'
     : 'Set expression'
 
-  console.log(fieldProps, mainProps)
-
   return (
-    <div className="relative w-full">
-      <div style={{ position: 'absolute', right: 0, top: '-2px' }}>
+    <div className="ant-form-item">
+      <Space className="mb-1 w-full justify-between">
+        <label htmlFor={fieldProps.id}>{fieldProps.label ?? ''}</label>
+
         <Tooltip placement="left" title={toggleButtonTooltip}>
           <Button onClick={toggleControlClick} type={toggleButtonType}>
             JS
           </Button>
         </Tooltip>
-      </div>
-      <Form.Item
-        htmlFor={fieldProps.id}
-        label={fieldProps.label ? `${fieldProps.label} :` : ''}
-        name={fieldProps.name}
-        required={fieldProps.required}
-      >
-        {showExpressionEditor ? (
-          <CodeMirrorEditor
-            cssString={`
+      </Space>
+
+      {showExpressionEditor ? (
+        <CodeMirrorEditor
+          cssString={`
             display: block;
             margin-bottom: 12px;
           `}
