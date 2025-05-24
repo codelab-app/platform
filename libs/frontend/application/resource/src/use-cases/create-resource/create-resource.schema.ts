@@ -37,7 +37,7 @@ export const createResourceSchema: JSONSchemaType<ICreateResourceData> = {
       ...titleCaseValidation,
     },
     type: {
-      enum: Object.values(IResourceType),
+      allowedValues: Object.values(IResourceType),
       showSearch: true,
       type: 'string',
     },
