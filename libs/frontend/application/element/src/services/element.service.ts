@@ -76,17 +76,21 @@ export const useElementService = (): IElementService => {
   const { componentDomainService, elementDomainService } = useDomainStore()
   const selectedNode = builderService.selectedNode
 
+  const loadElementRenderTypeApi = async (element: IUpdateElementData) => {
+    if (element.renderType.__typename === 'Atom') {
+      await atomService.loadApi(element.renderType.id)
+    } else {
+      const component = componentDomainService.component(element.renderType.id)
+
+      await typeService.getInterface(component.api.id)
+    }
+  }
+
   /**
    * When we create a new element, the selected node should stay at the parent
    */
   const create = async (data: IElementDto) => {
-    if (data.renderType.__typename === 'Atom') {
-      await atomService.loadApi(data.renderType.id)
-    } else {
-      const component = componentDomainService.component(data.renderType.id)
-
-      await typeService.getInterface(component.api.id)
-    }
+    await loadElementRenderTypeApi(data)
 
     const element = elementDomainService.addTreeNode(data)
 
@@ -153,16 +157,7 @@ export const useElementService = (): IElementService => {
 
     if (newRenderTypeId !== oldRenderTypeId) {
       await propService.reset(currentElement.props.toJson)
-
-      if (newElement.renderType.__typename === 'Atom') {
-        await atomService.loadApi(newElement.renderType.id)
-      } else {
-        const component = componentDomainService.component(
-          newElement.renderType.id,
-        )
-
-        await typeService.getInterface(component.api.id)
-      }
+      await loadElementRenderTypeApi(newElement)
     }
 
     currentElement.writeCache(newElement)
