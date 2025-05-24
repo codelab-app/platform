@@ -16,6 +16,7 @@ import { useTypeService } from '@codelab/frontend-application-type/services'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { Spinner } from '@codelab/frontend-presentation-view/components/loader'
+import { evaluateObject } from '@codelab/shared-infra-eval'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { Fragment, useEffect, useMemo, useRef } from 'react'
@@ -104,6 +105,16 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
                 interfaceType={interfaceType}
                 key={runtimeElement.compositeKey}
                 model={propsModel}
+                modelTransform={(mode, model) => {
+                  if (mode === 'validate') {
+                    return evaluateObject(
+                      model,
+                      runtimeElement.runtimeProps.runtimeContext,
+                    )
+                  }
+
+                  return model
+                }}
                 onSubmit={onSubmit}
                 submitField={Fragment}
                 submitRef={submitRef}

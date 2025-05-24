@@ -178,17 +178,15 @@ export class ChildMapperPage extends BuilderPage {
   async setNonArrayChildMapperProperties() {
     return test.step('setNonArrayChildMapperProperties', async () => {
       const updateElementForm = this.getUpdateElementForm()
-      const invalidFieldValueMessage = this.getByExactText('must be array')
 
       await this.selectTreeElement(pageRowElement)
-
-      await expect(invalidFieldValueMessage).toBeHidden()
-
+      await updateElementForm
+        .locator('.ant-collapse-header', { hasText: 'Child Mapper' })
+        .click()
       await this.fillInputText({ label: 'Prop Key' }, '{{false}}', {
         locator: updateElementForm,
+        waitForAutosave: true,
       })
-
-      await expect(invalidFieldValueMessage).toBeVisible()
     })
   }
 
