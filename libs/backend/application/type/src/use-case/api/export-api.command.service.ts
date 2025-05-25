@@ -20,6 +20,7 @@ import {
   TypeDtoWithoutOwnerSchema,
 } from '@codelab/shared/abstract/core'
 import { SortDirection } from '@codelab/shared/infra/gqlgen'
+import { sortFieldsForExport } from '@codelab/shared/utils'
 import { CommandHandler } from '@nestjs/cqrs'
 import { Type } from '@sinclair/typebox'
 
@@ -107,8 +108,7 @@ export class ExportApiHandler
       /**
        * These holds the refs of types only
        */
-      // fields: [...dependentFields, ...fields],
-      fields: [...fields, ...dependentFields],
+      fields: sortFieldsForExport([...fields, ...dependentFields]),
       /**
        * This holds the full types from fields
        */

@@ -44,6 +44,24 @@
         "api": {
           "id": "c071bfa1-1011-404d-b34b-613193953c4e"
         },
+        "defaultValues": "[]",
+        "description": null,
+        "fieldType": {
+          "id": "4158c89e-7841-4941-afb2-db3cb325f918"
+        },
+        "id": "8f78b7dd-15a9-41bd-a79d-6b4d428dc824",
+        "key": "options",
+        "name": "Options",
+        "nextSibling": null,
+        "prevSibling": {
+          "id": "b2a084c9-e8a9-4e78-80eb-997a169e4440"
+        },
+        "validationRules": "{\"general\":{\"nullable\":false}}"
+      },
+      {
+        "api": {
+          "id": "c071bfa1-1011-404d-b34b-613193953c4e"
+        },
         "defaultValues": "false",
         "description": null,
         "fieldType": {
@@ -135,24 +153,6 @@
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": "{}"
-      },
-      {
-        "api": {
-          "id": "c071bfa1-1011-404d-b34b-613193953c4e"
-        },
-        "defaultValues": "[]",
-        "description": null,
-        "fieldType": {
-          "id": "4158c89e-7841-4941-afb2-db3cb325f918"
-        },
-        "id": "8f78b7dd-15a9-41bd-a79d-6b4d428dc824",
-        "key": "options",
-        "name": "Options",
-        "nextSibling": null,
-        "prevSibling": {
-          "id": "b2a084c9-e8a9-4e78-80eb-997a169e4440"
-        },
-        "validationRules": "{\"general\":{\"nullable\":false}}"
       },
       {
         "api": {
