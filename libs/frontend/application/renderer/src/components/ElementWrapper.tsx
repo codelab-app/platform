@@ -35,10 +35,14 @@ export const ElementWrapper = observer<ElementWrapperProps>(
     }, [])
 
     const { atomDomainService } = useDomainStore()
+    const elemnetSnapshot = getSnapshot(runtimeElement.element.current)
 
+    /**
+     * re-render on element change
+     */
     useEffect(() => {
       runtimeElement.render()
-    }, [getSnapshot(runtimeElement.element.current)])
+    }, [elemnetSnapshot])
 
     const getReactComponent = (atomType: IAtomType) =>
       atomDomainService.dynamicComponents[atomType] ||
