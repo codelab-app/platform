@@ -1,4 +1,8 @@
-import type { IAtomModel } from '@codelab/frontend/abstract/domain'
+import type {
+  IAtomModel,
+  IComponentModel,
+  IPageModel,
+} from '@codelab/frontend/abstract/domain'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 
@@ -9,6 +13,7 @@ export interface IBuilderService {
    * Computed from selectedNode, the selected node may or may not be a component, and there may be no selected node
    */
   activeComponent: Nullable<IRuntimeComponentModel>
+  activeContainer: Nullable<Ref<IComponentModel | IPageModel>>
   componentTagNames: Array<string>
   componentsGroupedByCategory: Record<string, Array<IAtomModel>>
   hoveredNode: Nullable<Ref<IRuntimeModel>>

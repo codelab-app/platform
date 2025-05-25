@@ -6,9 +6,7 @@ import {
   runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
-import { useElementService } from '@codelab/frontend-application-element/services'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
-import { runInAction } from 'mobx'
 import { observer } from 'mobx-react-lite'
 
 import { useElementTreeDrop } from '../../../hooks'
@@ -43,7 +41,6 @@ export const ElementTreeView = observer<{
         return !data.dragNode.isChildMapperComponentInstance
       }}
       autoExpandParent={false}
-      defaultSelectedKeys={selectedNode ? [selectedNode.compositeKey] : []}
       disabled={isMoving}
       draggable={true}
       expandedKeys={runtimeElementService.expandedCompositeKeys}
@@ -98,6 +95,7 @@ export const ElementTreeView = observer<{
             : runtimeElementRef(node.key),
         )
       }}
+      selectedKeys={selectedNode ? [selectedNode.compositeKey] : []}
       titleRender={(data) => (
         <ElementTreeItemTitle context={context} data={data} />
       )}

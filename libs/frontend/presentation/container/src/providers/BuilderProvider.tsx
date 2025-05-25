@@ -68,7 +68,10 @@ export const BuilderProvider = observer(
        *
        * Turns out some issue with server action will re-run the component, which is re-running this component
        */
-      if (!builderService.selectedNode) {
+      if (
+        !builderService.selectedNode ||
+        builderService.activeContainer?.current.id !== containerNode.id
+      ) {
         builderService.setSelectedNode(runtimeElementRef(runtimeRootElement))
       }
 
