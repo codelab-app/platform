@@ -47,6 +47,7 @@ export const fieldMapper: IMapper<
     description,
     key,
     name,
+    nextSibling,
     prevSibling,
     validationRules,
   }: IFieldDto): FieldUpdateInput => {
@@ -56,6 +57,9 @@ export const fieldMapper: IMapper<
       // fieldType: reconnectNodeId(fieldType.id),
       key,
       name,
+      nextSibling: nextSibling?.id
+        ? reconnectNodeId(nextSibling.id)
+        : undefined,
       prevSibling: prevSibling?.id
         ? reconnectNodeId(prevSibling.id)
         : undefined,

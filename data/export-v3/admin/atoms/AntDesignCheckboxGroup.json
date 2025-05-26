@@ -6,99 +6,39 @@
         "api": {
           "id": "9d54e06b-0083-45a5-ab39-ccc378200f19"
         },
-        "defaultValues": null,
+        "defaultValues": "[]",
         "description": null,
         "fieldType": {
-          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+          "id": "c7f934cc-874a-4f31-a41a-07e20246b96d"
         },
-        "id": "feadb4cb-2a26-46d4-bb8a-155ab8e45b64",
-        "key": "autoFocus",
-        "name": "Auto Focus",
+        "id": "6e2ec2f9-42d2-4a3b-92b4-8ddd5d72189a",
+        "key": "options",
+        "name": "Options",
         "nextSibling": {
-          "id": "20e4cb83-af7c-4085-a275-b754060cf9be"
+          "id": "d567cfb5-3a8e-42e2-8e6e-fcbb61e8ef1f"
         },
         "prevSibling": null,
-        "validationRules": null
+        "validationRules": "{}"
       },
       {
         "api": {
           "id": "9d54e06b-0083-45a5-ab39-ccc378200f19"
         },
-        "defaultValues": null,
+        "defaultValues": "[]",
         "description": null,
         "fieldType": {
-          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+          "id": "ed5db9bc-e4e4-40c1-8f87-1af84a611dd6"
         },
-        "id": "20e4cb83-af7c-4085-a275-b754060cf9be",
-        "key": "checked",
-        "name": "Checked",
-        "nextSibling": {
-          "id": "210272d1-5ff7-44ed-b3e3-f3ed07e1cbc5"
-        },
-        "prevSibling": {
-          "id": "feadb4cb-2a26-46d4-bb8a-155ab8e45b64"
-        },
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "9d54e06b-0083-45a5-ab39-ccc378200f19"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
-        },
-        "id": "210272d1-5ff7-44ed-b3e3-f3ed07e1cbc5",
-        "key": "defaultChecked",
-        "name": "Default Checked",
-        "nextSibling": {
-          "id": "c8e37f5d-3578-40ae-81e0-b94036075c99"
-        },
-        "prevSibling": {
-          "id": "20e4cb83-af7c-4085-a275-b754060cf9be"
-        },
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "9d54e06b-0083-45a5-ab39-ccc378200f19"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
-        },
-        "id": "c8e37f5d-3578-40ae-81e0-b94036075c99",
-        "key": "disabled",
-        "name": "Disabled",
-        "nextSibling": {
-          "id": "8bbf2c0b-3e6e-482c-b79f-e6c79125fa57"
-        },
-        "prevSibling": {
-          "id": "210272d1-5ff7-44ed-b3e3-f3ed07e1cbc5"
-        },
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "9d54e06b-0083-45a5-ab39-ccc378200f19"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
-        },
-        "id": "8bbf2c0b-3e6e-482c-b79f-e6c79125fa57",
-        "key": "indeterminate",
-        "name": "Indeterminate",
+        "id": "d567cfb5-3a8e-42e2-8e6e-fcbb61e8ef1f",
+        "key": "value",
+        "name": "Value",
         "nextSibling": {
           "id": "365773da-fe5b-4713-a876-e8c55a422f5c"
         },
         "prevSibling": {
-          "id": "c8e37f5d-3578-40ae-81e0-b94036075c99"
+          "id": "6e2ec2f9-42d2-4a3b-92b4-8ddd5d72189a"
         },
-        "validationRules": null
+        "validationRules": "{\"general\":{\"nullable\":true}}"
       },
       {
         "api": {
@@ -112,11 +52,51 @@
         "id": "365773da-fe5b-4713-a876-e8c55a422f5c",
         "key": "onChange",
         "name": "On Change",
+        "nextSibling": {
+          "id": "03307b64-caed-453f-9da8-10073720d258"
+        },
+        "prevSibling": {
+          "id": "d567cfb5-3a8e-42e2-8e6e-fcbb61e8ef1f"
+        },
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "9d54e06b-0083-45a5-ab39-ccc378200f19"
+        },
+        "defaultValues": "false",
+        "description": null,
+        "fieldType": {
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+        },
+        "id": "03307b64-caed-453f-9da8-10073720d258",
+        "key": "disabled",
+        "name": "Disabled",
+        "nextSibling": {
+          "id": "abfe271d-6035-4e7d-bc10-60a3eae2faa1"
+        },
+        "prevSibling": {
+          "id": "365773da-fe5b-4713-a876-e8c55a422f5c"
+        },
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "9d54e06b-0083-45a5-ab39-ccc378200f19"
+        },
+        "defaultValues": "[]",
+        "description": null,
+        "fieldType": {
+          "id": "404850b6-092c-44a3-ad46-b440dd01cb5f"
+        },
+        "id": "abfe271d-6035-4e7d-bc10-60a3eae2faa1",
+        "key": "defaultValue",
+        "name": "Default Value",
         "nextSibling": null,
         "prevSibling": {
-          "id": "8bbf2c0b-3e6e-482c-b79f-e6c79125fa57"
+          "id": "03307b64-caed-453f-9da8-10073720d258"
         },
-        "validationRules": null
+        "validationRules": "{\"general\":{\"nullable\":true}}"
       }
     ],
     "id": "9d54e06b-0083-45a5-ab39-ccc378200f19",
@@ -129,6 +109,39 @@
         "id": "9d54e06b-0083-45a5-ab39-ccc378200f19",
         "kind": "InterfaceType",
         "name": "AntDesignCheckboxGroup API"
+      },
+      {
+        "__typename": "ArrayType",
+        "id": "404850b6-092c-44a3-ad46-b440dd01cb5f",
+        "itemType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "name": "String"
+        },
+        "kind": "ArrayType",
+        "name": "AntDesignCheckbox DefaultValue Array"
+      },
+      {
+        "__typename": "ArrayType",
+        "id": "ed5db9bc-e4e4-40c1-8f87-1af84a611dd6",
+        "itemType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "name": "String"
+        },
+        "kind": "ArrayType",
+        "name": "AntDesignCheckbox Value Array"
+      },
+      {
+        "__typename": "ArrayType",
+        "id": "c7f934cc-874a-4f31-a41a-07e20246b96d",
+        "itemType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "name": "String"
+        },
+        "kind": "ArrayType",
+        "name": "AntDesignCheckboxGroup Options Array"
       }
     ]
   },

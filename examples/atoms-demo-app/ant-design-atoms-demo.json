@@ -6400,6 +6400,331 @@
           "childMapperPreviousSibling": null,
           "childMapperPropKey": null,
           "closestContainerNode": {
+            "id": "2c320273-ba25-4584-9485-9058e137e02b"
+          },
+          "compositeKey": "2c320273-ba25-4584-9485-9058e137e02b-body",
+          "firstChild": {
+            "id": "1cdcb5fd-c29a-44e5-9510-c4ac0d980ce5"
+          },
+          "id": "bd205070-0785-4617-a7ad-a67f18865c38",
+          "name": "Body",
+          "nextSibling": null,
+          "page": {
+            "id": "2c320273-ba25-4584-9485-9058e137e02b"
+          },
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": null,
+          "props": {
+            "data": "{\"children\":{\"kind\":\"RichTextType\",\"type\":\"e7558508-3bb7-4f57-8f8c-6ac989911765\"}}",
+            "id": "15de96b9-0b5a-4a54-b4af-bf462d19d577"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "4a9dd961-501b-4246-8770-48fee5dc5852"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "2c320273-ba25-4584-9485-9058e137e02b"
+          },
+          "compositeKey": "2c320273-ba25-4584-9485-9058e137e02b-checkbox-1",
+          "firstChild": null,
+          "id": "1cdcb5fd-c29a-44e5-9510-c4ac0d980ce5",
+          "name": "Checkbox 1",
+          "nextSibling": {
+            "id": "16f365db-3a6e-4137-ae21-0b5f14bc31fb"
+          },
+          "page": null,
+          "parentComponent": null,
+          "parentElement": {
+            "id": "bd205070-0785-4617-a7ad-a67f18865c38"
+          },
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": null,
+          "props": {
+            "data": "{\"autoFocus\":false,\"onChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"children\":{\"kind\":\"CodeMirrorType\",\"type\":\"010c4f5a-434b-4c3e-a0ed-01eb1f78172a\",\"value\":\"Default\"},\"disabled\":false,\"indeterminate\":false}",
+            "id": "3acb91aa-49ce-4483-b057-acfe2e5cf9c3"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "d96072b3-3a11-46b2-9fd2-3691a3cf8f7b"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "2c320273-ba25-4584-9485-9058e137e02b"
+          },
+          "compositeKey": "2c320273-ba25-4584-9485-9058e137e02b-checkbox-2",
+          "firstChild": null,
+          "id": "16f365db-3a6e-4137-ae21-0b5f14bc31fb",
+          "name": "Checkbox 2",
+          "nextSibling": {
+            "id": "c4b002ff-630b-453f-8457-627ed6bc533d"
+          },
+          "page": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": {
+            "id": "1cdcb5fd-c29a-44e5-9510-c4ac0d980ce5"
+          },
+          "props": {
+            "data": "{\"children\":{\"kind\":\"CodeMirrorType\",\"type\":\"010c4f5a-434b-4c3e-a0ed-01eb1f78172a\",\"value\":\"Disabled\"},\"disabled\":true,\"indeterminate\":false,\"autoFocus\":false,\"onChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"}}",
+            "id": "01459aff-7ba1-43b9-aa54-d0a7a82cac89"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "d96072b3-3a11-46b2-9fd2-3691a3cf8f7b"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "2c320273-ba25-4584-9485-9058e137e02b"
+          },
+          "compositeKey": "2c320273-ba25-4584-9485-9058e137e02b-checkbox-3",
+          "firstChild": null,
+          "id": "c4b002ff-630b-453f-8457-627ed6bc533d",
+          "name": "Checkbox 3",
+          "nextSibling": {
+            "id": "85d754b0-3c15-49f1-a8e3-70cf4d462c47"
+          },
+          "page": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": {
+            "id": "16f365db-3a6e-4137-ae21-0b5f14bc31fb"
+          },
+          "props": {
+            "data": "{\"autoFocus\":false,\"onChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"children\":{\"kind\":\"CodeMirrorType\",\"type\":\"010c4f5a-434b-4c3e-a0ed-01eb1f78172a\",\"value\":\"Intermediate\"},\"disabled\":false,\"indeterminate\":true}",
+            "id": "ba6e7c9f-6a97-400d-aee8-14b5ddc5c5ed"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "d96072b3-3a11-46b2-9fd2-3691a3cf8f7b"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "2c320273-ba25-4584-9485-9058e137e02b"
+          },
+          "compositeKey": "2c320273-ba25-4584-9485-9058e137e02b-checkbox-4",
+          "firstChild": null,
+          "id": "85d754b0-3c15-49f1-a8e3-70cf4d462c47",
+          "name": "Checkbox 4",
+          "nextSibling": {
+            "id": "cab406c2-a510-4e4e-a515-d7f0d8539256"
+          },
+          "page": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": {
+            "id": "c4b002ff-630b-453f-8457-627ed6bc533d"
+          },
+          "props": {
+            "data": "{\"children\":{\"kind\":\"CodeMirrorType\",\"type\":\"010c4f5a-434b-4c3e-a0ed-01eb1f78172a\",\"value\":\"Checked\"},\"disabled\":false,\"indeterminate\":false,\"checked\":true,\"defaultChecked\":false,\"autoFocus\":false,\"onChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"}}",
+            "id": "03e9eab0-a86a-4b6b-aecb-449e20dbb0ba"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "d96072b3-3a11-46b2-9fd2-3691a3cf8f7b"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "2c320273-ba25-4584-9485-9058e137e02b"
+          },
+          "compositeKey": "2c320273-ba25-4584-9485-9058e137e02b-space",
+          "firstChild": {
+            "id": "4ac0f4e9-eb71-49e4-ac01-abd7a5191bef"
+          },
+          "id": "cab406c2-a510-4e4e-a515-d7f0d8539256",
+          "name": "Space",
+          "nextSibling": null,
+          "page": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": {
+            "id": "85d754b0-3c15-49f1-a8e3-70cf4d462c47"
+          },
+          "props": {
+            "data": "{\"children\":{\"kind\":\"RichTextType\",\"type\":\"e7558508-3bb7-4f57-8f8c-6ac989911765\"},\"direction\":\"vertical\",\"size\":{\"kind\":\"EnumType\",\"type\":\"dcb317bd-3155-4d2d-b670-6d29cff2067a\",\"value\":\"large\"},\"split\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"wrap\":false}",
+            "id": "9a0d664e-aded-4522-96a8-fcaa0c8b1d5e"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "94785b15-1bfa-468c-ad8a-3063e0ca4891"
+          },
+          "style": "{\"Desktop\":{\"guiString\":{\"none\":\"{\\\"display\\\":\\\"block\\\",\\\"margin-top\\\":\\\"40px\\\"}\"}}}",
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "2c320273-ba25-4584-9485-9058e137e02b"
+          },
+          "compositeKey": "2c320273-ba25-4584-9485-9058e137e02b-checkbox-5",
+          "firstChild": null,
+          "id": "4ac0f4e9-eb71-49e4-ac01-abd7a5191bef",
+          "name": "Checkbox 5",
+          "nextSibling": {
+            "id": "e3947221-58bc-45a7-97cf-e9eae71a1502"
+          },
+          "page": null,
+          "parentComponent": null,
+          "parentElement": {
+            "id": "cab406c2-a510-4e4e-a515-d7f0d8539256"
+          },
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": null,
+          "props": {
+            "data": "{\"children\":{\"kind\":\"CodeMirrorType\",\"type\":\"010c4f5a-434b-4c3e-a0ed-01eb1f78172a\",\"value\":\"Checkbox Group Select All\"},\"disabled\":false,\"indeterminate\":false,\"checked\":false,\"defaultChecked\":false,\"autoFocus\":false,\"onChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"}}",
+            "id": "f8e11009-822f-4ddb-a94c-77bbdb000b6c"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "d96072b3-3a11-46b2-9fd2-3691a3cf8f7b"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "2c320273-ba25-4584-9485-9058e137e02b"
+          },
+          "compositeKey": "2c320273-ba25-4584-9485-9058e137e02b-checkbox-group",
+          "firstChild": null,
+          "id": "e3947221-58bc-45a7-97cf-e9eae71a1502",
+          "name": "Checkbox Group",
+          "nextSibling": null,
+          "page": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": {
+            "id": "4ac0f4e9-eb71-49e4-ac01-abd7a5191bef"
+          },
+          "props": {
+            "data": "{\"options\":[\"Option 1\",\"Option 2\",\"Option 3\"],\"value\":[],\"onChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"disabled\":false,\"defaultValue\":[]}",
+            "id": "a87844bd-2cf8-42da-839f-8fab27533303"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "4f4eb1f9-3c13-41ca-ae2a-97ee6422858b"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        }
+      ],
+      "page": {
+        "app": {
+          "id": "2e50ee6c-b19c-4155-a202-991b0e78d56c"
+        },
+        "id": "2c320273-ba25-4584-9485-9058e137e02b",
+        "kind": "Regular",
+        "name": "Checkboxes Groups Not Done Yet",
+        "pageContentContainer": null,
+        "redirect": null,
+        "rootElement": {
+          "id": "bd205070-0785-4617-a7ad-a67f18865c38"
+        },
+        "store": {
+          "id": "d03eb916-9819-402e-baca-e4e4d0f8aa70"
+        },
+        "urlPattern": "/checkboxes"
+      },
+      "store": {
+        "actions": [],
+        "api": {
+          "types": [
+            {
+              "__typename": "InterfaceType",
+              "id": "d572c259-aab1-46a5-9b5a-fbee7456d710",
+              "kind": "InterfaceType",
+              "name": "Checkboxes Store API",
+              "fields": []
+            }
+          ],
+          "__typename": "InterfaceType",
+          "id": "d572c259-aab1-46a5-9b5a-fbee7456d710",
+          "kind": "InterfaceType",
+          "name": "Checkboxes Store API",
+          "fields": []
+        },
+        "store": {
+          "api": {
+            "id": "d572c259-aab1-46a5-9b5a-fbee7456d710"
+          },
+          "id": "d03eb916-9819-402e-baca-e4e4d0f8aa70",
+          "name": "Checkboxes Store"
+        }
+      }
+    },
+    {
+      "elements": [
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
             "id": "5930a10c-1e9a-4e3e-a9cd-433cd544248d"
           },
           "compositeKey": "5930a10c-1e9a-4e3e-a9cd-433cd544248d-body",
