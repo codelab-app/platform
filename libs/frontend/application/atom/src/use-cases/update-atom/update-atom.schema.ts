@@ -49,7 +49,7 @@ export const updateAtomSchema: JSONSchemaType<IUpdateAtomData> = {
     //   },
     // },
     type: {
-      enum: Object.values(IAtomType).filter(filterNotHookType),
+      allowedValues: Object.values(IAtomType).filter(filterNotHookType),
       showSearch: true,
       type: 'string',
     },

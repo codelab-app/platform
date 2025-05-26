@@ -33,5 +33,6 @@ export const primitiveTypeUniformSchema: ITypeModelUniformSchemaBuilder<
             },
           }),
         },
+        errorMessage: `Must be of type ${type.primitiveKind}, or an expression that evaluates to ${type.primitiveKind}`,
       }
 }

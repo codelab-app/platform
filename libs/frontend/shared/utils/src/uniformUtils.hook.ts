@@ -107,5 +107,8 @@ export const createValidator = (schema: Schema) => {
 export const createBridge = <T extends ObjectLike>(
   schema: JSONSchemaType<T> | TSchema,
 ) => {
-  return new JSONSchemaBridge(schema, createValidator(schema))
+  const validator = createValidator(schema)
+  const bridge = new JSONSchemaBridge({ schema, validator })
+
+  return bridge
 }

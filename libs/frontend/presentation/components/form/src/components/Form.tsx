@@ -12,7 +12,7 @@ import { throttle } from 'radash'
 import { useEffect, useRef, useState } from 'react'
 import { css } from 'styled-components'
 import { Bridge, filterDOMProps } from 'uniforms'
-import { AutoForm, ErrorsField } from 'uniforms-antd'
+import { AutoForm } from 'uniforms-antd'
 
 import { useAsyncHandler, usePostSubmit } from './utils'
 
@@ -76,7 +76,7 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
           autosave={autosave}
           autosaveDelay={500}
           data-testid={CuiTestId.cuiForm(uiKey)}
-          errorsField={() => <ErrorsField />}
+          errorsField={() => null}
           model={autosave ? modelRef.current : model}
           modelTransform={modelTransform}
           onChange={onChange}
