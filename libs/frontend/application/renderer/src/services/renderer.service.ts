@@ -1,4 +1,5 @@
 import type {
+  IExpressionTransformer,
   IRendererDto,
   IRendererModel,
   IRendererService,
@@ -9,11 +10,14 @@ import type { Ref } from 'mobx-keystone'
 import {
   getRuntimeComponentService,
   getRuntimeElementService,
+  getRuntimePageService,
 } from '@codelab/frontend/abstract/application'
+import { isPage } from '@codelab/frontend/abstract/domain'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 
-import { Renderer } from '../store/renderer.model'
+import { RendererModel } from '../store/renderer.model'
+import { ExpressionTransformer } from './expression-transformer.service'
 
 @model('@codelab/RendererService')
 export class RendererService
@@ -21,6 +25,9 @@ export class RendererService
     activeRenderer: prop<Nullable<Ref<IRendererModel>>>(
       () => null,
     ).withSetter(),
+    expressionTransformer: prop<IExpressionTransformer>(
+      () => new ExpressionTransformer({}),
+    ),
     /**
      * These are renderers for the public, they are keyed by containerId
      */
@@ -46,14 +53,28 @@ export class RendererService
     return getRuntimeElementService(this)
   }
 
+  @computed
+  get runtimePageService() {
+    return getRuntimePageService(this)
+  }
+
   @modelAction
   hydrate = (rendererDto: IRendererDto) => {
-    let renderer = this.renderers.get(rendererDto.id)
+    // renderer should use a composite key so we don't a new one on every render
+    const compositeKey = RendererModel.compositeKey(rendererDto.containerNode)
+    let renderer = this.renderers.get(compositeKey)
 
     if (!renderer) {
-      renderer = Renderer.create(rendererDto)
+      renderer = RendererModel.create({
+        ...rendererDto,
+        containerNode: rendererDto.containerNode,
+        id: compositeKey,
+        runtimeRootContainerNode: isPage(rendererDto.containerNode)
+          ? this.runtimePageService.add(rendererDto.containerNode)
+          : this.runtimeComponentService.add(rendererDto.containerNode),
+      })
 
-      this.renderers.set(rendererDto.id, renderer)
+      this.renderers.set(compositeKey, renderer)
     } else {
       // existing renderer may change type when switching between builder and preview modes
       renderer.rendererType = rendererDto.rendererType

@@ -15,7 +15,6 @@ import {
 } from '@codelab/frontend/abstract/application'
 import { useDomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { useElementService } from '@codelab/frontend-application-element/services'
-import { syncModifiedElements } from '@codelab/frontend-application-element/use-cases/delete-element'
 import { componentRepository } from '@codelab/frontend-domain-component/repositories'
 import {
   componentFactory,
@@ -38,12 +37,8 @@ import { v4 } from 'uuid'
 import { componentBuilderQuery } from '../use-cases/component-builder'
 
 export const useComponentService = (): IComponentService => {
-  const {
-    atomDomainService,
-    componentDomainService,
-    elementDomainService,
-    userDomainService,
-  } = useDomainStore()
+  const { atomDomainService, componentDomainService, userDomainService } =
+    useDomainStore()
 
   const hydrate = useDomainStoreHydrator()
   const elementService = useElementService()
@@ -93,7 +88,7 @@ export const useComponentService = (): IComponentService => {
 
     rootElement.attachAsComponentRoot(component.component)
 
-    await syncModifiedElements(elementDomainService)
+    await elementService.syncModifiedElements()
     await typeRepository.add(component.api)
     await typeRepository.add(storeApi)
     await storeRepository.add(component.store)
@@ -166,7 +161,11 @@ export const useComponentService = (): IComponentService => {
   }
 
   const update = async (data: IUpdateComponentData) => {
-    return await componentRepository.update({ id: data.id }, data, {
+    const component = componentDomainService.component(data.id)
+
+    component.writeCache(data)
+
+    return await componentRepository.update({ id: data.id }, component.toJson, {
       revalidateTags: [CACHE_TAGS.Component.list()],
     })
   }

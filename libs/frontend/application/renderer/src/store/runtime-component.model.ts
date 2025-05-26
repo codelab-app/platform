@@ -14,13 +14,13 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
-import type { ReactElement } from 'react'
 
 import {
   getRuntimeComponentService,
   getRuntimeElementService,
   IRuntimeNodeType,
   runtimeComponentRef,
+  runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
 import {
   componentRef,
@@ -29,8 +29,10 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
+import { createElement, type ReactElement } from 'react'
 import { isNonNullish } from 'remeda'
 
+import { ContainerNodeWrapper } from '../components'
 import { RuntimeComponentPropModel } from './runtime-component-prop.model'
 import { RuntimeStoreModel } from './runtime-store.model'
 
@@ -66,6 +68,7 @@ const create = (dto: IRuntimeComponentDto) =>
     runtimeProps: RuntimeComponentPropModel.create({
       runtimeComponent: runtimeComponentRef(dto.compositeKey),
     }),
+    runtimeRootElement: runtimeElementRef(dto.runtimeRootElement),
     runtimeStore: RuntimeStoreModel.create({
       store: storeRef(dto.component.store.current),
     }),
@@ -75,11 +78,13 @@ const create = (dto: IRuntimeComponentDto) =>
 export class RuntimeComponentModel
   extends Model({
     childMapperIndex: prop<Maybe<number>>().withSetter(),
+    children: prop<Array<Ref<IRuntimeElementModel>>>(() => []).withSetter(),
     component: prop<Ref<IComponentModel>>(),
     compositeKey: idProp,
     isTypedProp: prop<Maybe<boolean>>(false),
     runtimeParent: prop<Maybe<Ref<IRuntimeElementModel>>>(),
     runtimeProps: prop<IRuntimeComponentPropModel>(),
+    runtimeRootElement: prop<Ref<IRuntimeElementModel>>().withSetter(),
     runtimeStore: prop<IRuntimeStoreModel>(),
   })
   implements IRuntimeComponentModel
@@ -89,32 +94,10 @@ export class RuntimeComponentModel
   static create = create
 
   @computed
-  get children() {
-    if (!this.runtimeParent || this.isChildMapperComponentInstance) {
-      return []
-    }
-
-    const instanceElement = this.runtimeParent.current
-    /**
-     * These render only linked elements, not child mappers which are virtually linked via props
-     */
-    const instanceElementChildren = instanceElement.element.current.children
-
-    return instanceElementChildren.map((child) =>
-      this.runtimeElementService.add(
-        child,
-        instanceElement.closestContainerNode.current,
-        instanceElement,
-        instanceElement.propKey,
-      ),
-    )
-  }
-
-  @computed
   get elements(): Array<IRuntimeElementModel> {
     return this.runtimeElementService.elementsList.filter(
       (element) =>
-        element.closestContainerNode.current.compositeKey === this.compositeKey,
+        element.closestContainerNode.compositeKey === this.compositeKey,
     )
   }
 
@@ -129,8 +112,11 @@ export class RuntimeComponentModel
   }
 
   @computed
-  get render(): Nullable<ReactElement<unknown>> {
-    return this.runtimeRootElement.render
+  get rendered(): Nullable<ReactElement<unknown>> {
+    return createElement(ContainerNodeWrapper, {
+      children: this.runtimeRootElement.current.rendered,
+      runtimeContainerNode: this,
+    })
   }
 
   @computed
@@ -144,13 +130,6 @@ export class RuntimeComponentModel
   }
 
   @computed
-  get runtimeRootElement(): IRuntimeElementModel {
-    const rootElement = this.component.current.rootElement.current
-
-    return this.runtimeElementService.add(rootElement, this, null)
-  }
-
-  @computed
   get toJson(): IRuntimeComponentDto {
     return {
       childMapperIndex: this.childMapperIndex ?? undefined,
@@ -158,6 +137,7 @@ export class RuntimeComponentModel
       compositeKey: this.compositeKey,
       isTypedProp: this.isTypedProp ?? undefined,
       runtimeParent: this.runtimeParent,
+      runtimeRootElement: this.runtimeRootElement.current,
     }
   }
 
@@ -168,7 +148,7 @@ export class RuntimeComponentModel
       // hide children for child mapper instances
       children: this.isChildMapperComponentInstance
         ? []
-        : [this.runtimeRootElement.treeViewNode],
+        : [this.runtimeRootElement.current.treeViewNode],
       component: { id: this.component.current.id },
       isChildMapperComponentInstance: this.isChildMapperComponentInstance,
       primaryTitle: this.isChildMapperComponentInstance
@@ -191,11 +171,44 @@ export class RuntimeComponentModel
   }
 
   @modelAction
+  createChildren() {
+    if (!this.runtimeParent?.current || this.isChildMapperComponentInstance) {
+      return []
+    }
+
+    const instanceElement = this.runtimeParent.current
+    /**
+     * These render only linked elements, not child mappers which are virtually linked via props
+     */
+    const instanceElementChildren = instanceElement.element.current.children
+
+    const elements = instanceElementChildren.map((child) => {
+      const element = this.runtimeElementService.add(
+        child,
+        instanceElement.compositeKey,
+        instanceElement.propKey,
+      )
+
+      return runtimeElementRef(element)
+    })
+
+    return this.setChildren(elements)
+  }
+
+  @modelAction
   detach(): void {
     this.children.forEach((child) => {
-      child.detach()
+      child.current.detach()
     })
-    this.runtimeRootElement.detach()
+    this.runtimeRootElement.current.detach()
     this.runtimeComponentService.remove(this)
+  }
+
+  @modelAction
+  render() {
+    this.runtimeProps.renderTypedProps()
+    this.createChildren()
+    this.children.map((child) => child.current.render())
+    this.runtimeRootElement.current.render()
   }
 }

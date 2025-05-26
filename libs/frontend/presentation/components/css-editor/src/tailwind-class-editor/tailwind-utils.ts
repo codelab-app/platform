@@ -1,3 +1,5 @@
+'use client'
+
 import { tailwindClasses, tailwindColors } from './tailwind-classes'
 
 export const getValidTailwindClasses = (prefix: string): Array<string> => {

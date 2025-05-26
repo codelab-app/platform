@@ -2,6 +2,7 @@ import type { IComponentModel } from '@codelab/frontend/abstract/domain'
 import type { ObjectMap } from 'mobx-keystone'
 
 import {
+  getRuntimeElementService,
   type IRuntimeComponentModel,
   type IRuntimeComponentService,
   type IRuntimeModel,
@@ -28,6 +29,11 @@ export class RuntimeComponentService
     return [...this.components.values()]
   }
 
+  @computed
+  get runtimeElementService() {
+    return getRuntimeElementService(this)
+  }
+
   @modelAction
   add(
     component: IComponentModel,
@@ -49,6 +55,11 @@ export class RuntimeComponentService
       return foundComponent
     }
 
+    const runtimeRootElement = this.runtimeElementService.add(
+      component.rootElement.current,
+      compositeKey,
+    )
+
     const runtimeComponent = RuntimeComponentModel.create({
       childMapperIndex,
       component,
@@ -57,6 +68,7 @@ export class RuntimeComponentService
       runtimeParent: parent
         ? runtimeElementRef(parent.compositeKey)
         : undefined,
+      runtimeRootElement,
     })
 
     this.components.set(runtimeComponent.compositeKey, runtimeComponent)

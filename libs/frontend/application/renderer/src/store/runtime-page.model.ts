@@ -8,7 +8,6 @@ import type {
 } from '@codelab/frontend/abstract/application'
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
-import type { ReactElement } from 'react'
 
 import {
   getRuntimeElementService,
@@ -17,6 +16,9 @@ import {
 import { type IPageModel } from '@codelab/frontend/abstract/domain'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
+import { createElement, type ReactElement } from 'react'
+
+import { ContainerNodeWrapper } from '../components'
 
 /**
  * Create both provider page and regular page recursively
@@ -24,10 +26,8 @@ import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
  * on the first call create the provider page and pass
  */
 
-const compositeKey = (page: IPageModel) => `runtime.${page.id}`
-
-const compositeKeyForProvider = (page: IPageModel, provider: IPageModel) =>
-  `runtime.${page.id}.${provider.id}`
+const compositeKey = (page: IPageModel, childPage?: IPageModel) =>
+  `runtime.${page.id}${childPage ? `.${childPage.id}` : ''}`
 
 const create = (dto: IRuntimePageDto): IRuntimePageModel =>
   new RuntimePageModel(dto)
@@ -35,16 +35,15 @@ const create = (dto: IRuntimePageDto): IRuntimePageModel =>
 @model('@codelab/RuntimePage')
 export class RuntimePageModel
   extends Model({
-    childPage: prop<Maybe<Ref<IRuntimePageModel>>>(),
+    childPage: prop<Maybe<Ref<IRuntimePageModel>>>().withSetter(),
     compositeKey: idProp,
     page: prop<Ref<IPageModel>>(),
+    runtimeRootElement: prop<Ref<IRuntimeElementModel>>().withSetter(),
     runtimeStore: prop<IRuntimeStoreModel>(),
   })
   implements IRuntimePageModel
 {
   static compositeKey = compositeKey
-
-  static compositeKeyForProvider = compositeKeyForProvider
 
   static create = create
 
@@ -52,18 +51,21 @@ export class RuntimePageModel
   get elements(): Array<IRuntimeElementModel> {
     return this.runtimeElementService.elementsList.filter(
       (element) =>
-        element.closestContainerNode.current.compositeKey === this.compositeKey,
+        element.closestContainerNode.compositeKey === this.compositeKey,
     )
   }
 
   @computed
   get mainTreeElement(): Maybe<IRuntimeElementModel> {
-    return this.childPage?.current.runtimeRootElement
+    return this.childPage?.current.runtimeRootElement.current
   }
 
   @computed
-  get render(): Nullable<ReactElement<unknown>> {
-    return this.runtimeRootElement.render
+  get rendered(): Nullable<ReactElement<unknown>> {
+    return createElement(ContainerNodeWrapper, {
+      children: this.runtimeRootElement.current.rendered,
+      runtimeContainerNode: this,
+    })
   }
 
   @computed
@@ -77,35 +79,34 @@ export class RuntimePageModel
   }
 
   @computed
-  get runtimeRootElement(): IRuntimeElementModel {
-    const rootElement = this.page.current.rootElement.current
-
-    return this.runtimeElementService.add(rootElement, this, null)
-  }
-
-  @computed
   get toJson(): IRuntimePageDto {
     return {
-      childPage: this.childPage ?? undefined,
       compositeKey: this.compositeKey,
       page: this.page,
+      runtimeRootElement: this.runtimeRootElement,
       runtimeStore: this.runtimeStore,
     }
   }
 
   @computed
   get treeViewNode(): IElementTreeViewDataNode {
-    return this.runtimeRootElement.treeViewNode
+    return this.runtimeRootElement.current.treeViewNode
   }
 
   @computed
   get treeViewNodePreview(): IElementTreeViewDataNodePreview {
-    return this.runtimeRootElement.treeViewNodePreview
+    return this.runtimeRootElement.current.treeViewNodePreview
   }
 
   @modelAction
   detach(): void {
-    this.runtimeRootElement.detach()
+    this.runtimeRootElement.current.detach()
     this.runtimePageService.remove(this)
+  }
+
+  @modelAction
+  render(): void {
+    this.childPage?.current.render()
+    this.runtimeRootElement.current.render()
   }
 }

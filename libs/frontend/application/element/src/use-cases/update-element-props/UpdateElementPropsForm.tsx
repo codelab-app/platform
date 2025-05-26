@@ -14,14 +14,12 @@ import { AdminPropsPanel } from '@codelab/frontend-application-admin/use-cases/a
 import { usePropService } from '@codelab/frontend-application-prop/services'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { Spinner } from '@codelab/frontend-presentation-view/components/loader'
+import { evaluateObject } from '@codelab/shared-infra-eval'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { Fragment, useEffect, useMemo, useRef } from 'react'
-import { useAsyncFn } from 'react-use'
-
-import { useElementService } from '../../services'
+import { useAsync } from 'react-use'
 
 export interface UpdateElementPropsFormProps {
   context: IBuilderRoute
@@ -33,30 +31,19 @@ export interface UpdateElementPropsFormProps {
  */
 export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
   ({ context, runtimeElement }) => {
-    const { rendererService } = useApplicationStore()
-    const elementService = useElementService()
     const propService = usePropService()
     const typeService = useTypeService()
     const currentElement = runtimeElement.element.current
     const apiId = currentElement.renderType.current.api.id
 
-    const [{ loading, value: interfaceType }, getInterface] = useAsyncFn(
-      async () => {
-        const rootElement =
-          rendererService.activeElementTree?.rootElement.current
+    const { loading, value: interfaceType } = useAsync(async () => {
+      // const rootElement = rendererService.activeElementTree?.rootElement.current
+      // await loadAllTypesForElements(componentService, typeService, roots)
+      // if (rootElement) {
+      //   await elementService.loadDependantTypes(rootElement)
+      // }
 
-        // await loadAllTypesForElements(componentService, typeService, roots)
-
-        if (rootElement) {
-          await elementService.loadDependantTypes(rootElement)
-        }
-
-        return typeService.getInterface(apiId)
-      },
-    )
-
-    useEffect(() => {
-      void getInterface()
+      return typeService.getInterface(apiId)
     }, [apiId])
 
     const onSubmit = (data: IPropData) => {
@@ -104,6 +91,16 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
                 interfaceType={interfaceType}
                 key={runtimeElement.compositeKey}
                 model={propsModel}
+                modelTransform={(mode, model) => {
+                  if (mode === 'validate') {
+                    return evaluateObject(
+                      model,
+                      runtimeElement.runtimeProps.runtimeContext,
+                    )
+                  }
+
+                  return model
+                }}
                 onSubmit={onSubmit}
                 submitField={Fragment}
                 submitRef={submitRef}

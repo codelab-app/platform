@@ -1,9 +1,10 @@
-import type {
-  IRuntimePageNode,
-  ITypedPropTransformer,
-} from '@codelab/frontend/abstract/application'
 import type { TypedProp } from '@codelab/frontend/abstract/domain'
 
+import {
+  type IRuntimePageNode,
+  isRuntimeElement,
+  type ITypedPropTransformer,
+} from '@codelab/frontend/abstract/application'
 import { extractTypedPropValue } from '@codelab/frontend/abstract/domain'
 import { hasExpression } from '@codelab/shared-infra-eval'
 import { ExtendedModel, model } from 'mobx-keystone'
@@ -34,7 +35,7 @@ export class ReactNodeTypeTransformer
     key: string,
     runtimeNode: IRuntimePageNode,
   ) {
-    const { expressionTransformer } = this.renderer
+    const { expressionTransformer } = this.rendererService
     const propValue = extractTypedPropValue(prop)
 
     if (!propValue) {
@@ -42,7 +43,7 @@ export class ReactNodeTypeTransformer
     }
 
     // propValue is a custom JS component
-    if (hasExpression(prop.value) && expressionTransformer.initialized) {
+    if (hasExpression(prop.value)) {
       const transpiledValue =
         expressionTransformer.transpileAndEvaluateExpression(propValue)
 
@@ -66,14 +67,20 @@ export class ReactNodeTypeTransformer
       return fallback
     }
 
+    const runtimeParent = isRuntimeElement(runtimeNode)
+      ? runtimeNode
+      : undefined
+
     const runtimeComponent = this.runtimeComponentService.add(
       component,
-      runtimeNode,
+      runtimeParent,
       key,
       undefined,
       true,
     )
 
-    return runtimeComponent.render
+    runtimeComponent.render()
+
+    return runtimeComponent.rendered
   }
 }

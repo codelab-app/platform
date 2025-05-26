@@ -5,6 +5,8 @@ import type {
 
 import type { IBuilderService } from '../builder'
 import type { RendererType } from './renderer.model.interface'
+import type { IRuntimeComponentModel } from './runtime-component'
+import type { IRuntimePageModel } from './runtime-page'
 
 export interface IRendererDto {
   /**
@@ -14,7 +16,8 @@ export interface IRendererDto {
   /**
    * Must not use container id
    */
-  id: string
+  id?: string
   rendererType: RendererType
+  runtimeRootContainerNode: IRuntimeComponentModel | IRuntimePageModel
   setSelectedNode?: IBuilderService['setSelectedNode']
 }

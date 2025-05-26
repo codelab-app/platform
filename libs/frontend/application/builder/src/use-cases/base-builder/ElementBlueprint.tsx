@@ -103,11 +103,11 @@ export const ElementBlueprint = observer<{
     selectedElement?.style.styleStringWithBreakpoints,
     selectedElement?.element.current.tailwindClassNames,
     // adding or removing any element should trigger a re-render
-    element.closestContainerNode.elements.length,
+    element.closestParentElement?.current,
     element.props.values,
     element.nextSibling?.id,
     element.parentElement?.id,
-    element.isTextContentEditable,
+    runtimeElement.isTextContentEditable,
   ]
 
   const { setNodeRef } = useTypedDroppable({
@@ -168,8 +168,8 @@ export const ElementBlueprint = observer<{
         container={container}
         containerRect={containerRect}
         domElement={getDomElement()}
-        element={element}
         rect={rect}
+        runtimeElement={runtimeElement}
       />
     ) : null
   }, [container, containerRect, element, isSelected, rect, getDomElement])
@@ -187,6 +187,7 @@ export const ElementBlueprint = observer<{
       {toolbar}
       {overlay}
       {runtimeElement.children
+        .map((child) => child.current)
         .filter((child) => isRuntimeElement(child))
         .map((child) => (
           <ElementBlueprint

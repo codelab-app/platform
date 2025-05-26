@@ -26,16 +26,16 @@ describe('TreeViewNode', () => {
     const rootElement = page.rootElement
     const runtimeRootElement = runtimePage?.runtimeRootElement
 
-    expect(renderer.runtimeContainerNode?.treeViewNode).toMatchObject({
+    expect(renderer.runtimeContainerNode.treeViewNode).toMatchObject({
       element: { id: rootElement.id },
-      key: runtimeRootElement?.compositeKey,
+      key: runtimeRootElement?.current.compositeKey,
     })
   })
 
   it('should contain component as the first node', () => {
     const { component, renderer, runtimeComponent } = testStore.setupComponent()
 
-    expect(renderer.runtimeContainerNode?.treeViewNode).toMatchObject({
+    expect(renderer.runtimeContainerNode.treeViewNode).toMatchObject({
       component: { id: component.id },
       key: runtimeComponent?.compositeKey,
     })
@@ -45,10 +45,10 @@ describe('TreeViewNode', () => {
     const { component, renderer, runtimeComponent } = testStore.setupComponent()
 
     expect(
-      renderer.runtimeContainerNode?.treeViewNode.children[0],
+      renderer.runtimeContainerNode.treeViewNode.children[0],
     ).toMatchObject({
       element: { id: component.rootElement.id },
-      key: runtimeComponent?.runtimeRootElement.compositeKey,
+      key: runtimeComponent?.runtimeRootElement.current.compositeKey,
     })
   })
 
@@ -67,12 +67,16 @@ describe('TreeViewNode', () => {
 
     childElement.attachAsFirstChild(rootElement)
 
-    const runtimeChildElement = runtimePage?.runtimeRootElement.children[0]
-    const node = renderer.runtimeContainerNode?.treeViewNode.children[0]
+    renderer.render()
+
+    const runtimeChildElement =
+      runtimePage?.runtimeRootElement.current.children[0]
+
+    const node = renderer.runtimeContainerNode.treeViewNode.children[0]
 
     expect(node).toMatchObject({
       element: { id: childElement.id },
-      key: runtimeChildElement?.compositeKey,
+      key: runtimeChildElement?.current.compositeKey,
       type: IRuntimeNodeType.Element,
     })
   })
@@ -92,12 +96,14 @@ describe('TreeViewNode', () => {
 
     childElement.attachAsFirstChild(rootElement)
 
-    expect(runtimePage?.runtimeRootElement.treeViewNode).toMatchObject({
+    renderer.render()
+
+    expect(runtimePage?.runtimeRootElement.current.treeViewNode).toMatchObject({
       rootKey: runtimePage?.compositeKey,
     })
 
     expect(
-      renderer.runtimeContainerNode?.treeViewNode.children[0],
+      renderer.runtimeContainerNode.treeViewNode.children[0],
     ).toMatchObject({ rootKey: runtimePage?.compositeKey })
   })
 
@@ -109,7 +115,7 @@ describe('TreeViewNode', () => {
 
     const rootElement = page.rootElement.current
 
-    expect(renderer.runtimeContainerNode?.treeViewNode).toMatchObject({
+    expect(renderer.runtimeContainerNode.treeViewNode).toMatchObject({
       atomMeta: rootElement.atomName,
       componentMeta: undefined,
       element: { id: rootElement.id },
@@ -136,8 +142,9 @@ describe('TreeViewNode', () => {
     })
 
     instanceElement.attachAsFirstChild(rootElement)
+    renderer.render()
 
-    const node = renderer.runtimeContainerNode?.treeViewNode.children[0]
+    const node = renderer.runtimeContainerNode.treeViewNode.children[0]
 
     expect(node).toMatchObject({
       atomMeta: undefined,
@@ -167,8 +174,9 @@ describe('TreeViewNode', () => {
     })
 
     instanceElement.attachAsFirstChild(rootElement)
+    renderer.render()
 
-    const node = renderer.runtimeContainerNode?.treeViewNode.children[0]
+    const node = renderer.runtimeContainerNode.treeViewNode.children[0]
 
     expect(node).toMatchObject({
       children: [],
@@ -221,8 +229,10 @@ describe('TreeViewNode', () => {
     instanceElement.attachAsFirstChild(rootElement)
     instanceElementChild.attachAsFirstChild(instanceElement)
 
-    const rootElementTreeNode = renderer.runtimeContainerNode?.treeViewNode
-    const instanceTreeNodeChild = rootElementTreeNode?.children[0]?.children[0]
+    renderer.render()
+
+    const rootElementTreeNode = renderer.runtimeContainerNode.treeViewNode
+    const instanceTreeNodeChild = rootElementTreeNode.children[0]?.children[0]
 
     expect(instanceTreeNodeChild).toMatchObject({
       element: { id: instanceElementChild.id },
@@ -231,7 +241,7 @@ describe('TreeViewNode', () => {
   })
 
   it('should show child mapper components', () => {
-    const { page, runtimePage } = testStore.setupPage(
+    const { page, renderer, runtimePage } = testStore.setupPage(
       RendererType.PageBuilder,
       IPageKind.Regular,
     )
@@ -254,6 +264,8 @@ describe('TreeViewNode', () => {
         id: v4(),
       },
     })
+
+    renderer.render()
 
     const node = runtimePage?.treeViewNode
 

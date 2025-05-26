@@ -20,7 +20,7 @@ export interface IRuntimeComponentModel extends IBaseRuntimeModel {
   /**
    * Children of the instance element which will be added as componentProp.children prop
    */
-  children: Array<IRuntimeElementModel>
+  children: Array<Ref<IRuntimeElementModel>>
   /**
    * Exposed for external use by other models and to preserve structure
    */
@@ -39,7 +39,7 @@ export interface IRuntimeComponentModel extends IBaseRuntimeModel {
    */
   runtimeParent?: Ref<IRuntimeElementModel>
   runtimeProps: IRuntimeComponentPropModel
-  runtimeRootElement: IRuntimeElementModel
+  runtimeRootElement: Ref<IRuntimeElementModel>
   toJson: IRuntimeComponentDto
   setChildMapperIndex(index: number): void
 }

@@ -24,7 +24,7 @@ import {
   isComponent,
   pageRef,
 } from '@codelab/frontend/abstract/domain'
-import { createValidator, toRefSchema } from '@codelab/frontend/shared/utils'
+import { toRefSchema, upsertRef } from '@codelab/frontend/shared/utils'
 import { Prop } from '@codelab/frontend-domain-prop/store'
 import { slugify, titleCase } from '@codelab/shared/utils'
 import { computed } from 'mobx'
@@ -73,7 +73,6 @@ const create = (element: IElementDto): IElementModel => {
     childMapperPropKey,
     firstChild: firstChild?.id ? elementRef(firstChild.id) : undefined,
     id,
-    isTextContentEditable: false,
     name,
     nextSibling: nextSibling?.id ? elementRef(nextSibling.id) : undefined,
     page: page ? pageRef(page.id) : null,
@@ -102,11 +101,9 @@ export class Element
     childMapperPreviousSibling:
       prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
     childMapperPropKey: prop<Nullable<string>>(null).withSetter(),
-    expanded: prop<Nullish<boolean>>(false).withSetter(),
     firstChild: prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
     hooks: prop<Array<IHook>>(() => []),
     id: idProp.withSetter(),
-    isTextContentEditable: prop<boolean>(false).withSetter(),
     name: prop<string>().withSetter(),
     nextSibling: prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
     orderInParent: prop<Nullable<number>>(null).withSetter(),
@@ -296,18 +293,6 @@ export class Element
   }
 
   @computed
-  get propsHaveErrors() {
-    /**
-     * This is causing error since we haven't loaded the entire api fields type yet
-     */
-    const schema = this.renderType.current.api.current.toJsonSchema({})
-    const validate = createValidator(schema)
-    const result = validate(this.props.values)
-
-    return result ? result.details.length > 0 : false
-  }
-
-  @computed
   get slug(): string {
     return slugify(this.name)
   }
@@ -355,6 +340,7 @@ export class Element
         id: this.renderType.id,
       },
       style: this.style,
+      tailwindClassNames: this.tailwindClassNames,
     }
   }
 
@@ -573,6 +559,7 @@ export class Element
     renderIfExpression,
     renderType,
     style,
+    tailwindClassNames,
   }: Partial<IElementDto>) {
     this.name = name ?? this.name
     this.renderIfExpression = renderIfExpression ?? null
@@ -601,14 +588,21 @@ export class Element
     this.postRenderActions = postRenderActions
       ? postRenderActions.map((action) => actionRef(action.id))
       : this.postRenderActions
-    this.childMapperComponent = childMapperComponent?.id
-      ? componentRef(childMapperComponent.id)
-      : this.childMapperComponent
-    this.childMapperPreviousSibling = childMapperPreviousSibling?.id
-      ? elementRef(childMapperPreviousSibling.id)
-      : this.childMapperPreviousSibling
+
+    this.childMapperComponent = upsertRef(
+      childMapperComponent,
+      componentRef,
+      this.childMapperComponent,
+    )
+
+    this.childMapperPreviousSibling = upsertRef(
+      childMapperPreviousSibling,
+      elementRef,
+      this.childMapperPreviousSibling,
+    )
 
     this.style = style ?? this.style
+    this.tailwindClassNames = tailwindClassNames ?? this.tailwindClassNames
 
     validateElement(this)
 

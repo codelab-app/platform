@@ -26,7 +26,9 @@ describe('TypedPropTransformers', () => {
       primitiveKind: IPrimitiveTypeKind.Integer,
     })
 
-    const { rootElement, runtimeRootElement } = testStore.setupRuntimeElement()
+    const { renderer, rootElement, runtimeRootElement } =
+      testStore.setupRuntimeElement()
+
     const propKey = 'propKey'
     const propValue = 'propValue'
 
@@ -36,13 +38,19 @@ describe('TypedPropTransformers', () => {
       value: propValue,
     })
 
-    expect(runtimeRootElement.runtimeProps.evaluatedProps).toMatchObject({
+    renderer.render()
+
+    expect(
+      runtimeRootElement.current.runtimeProps.evaluatedProps,
+    ).toMatchObject({
       [propKey]: propValue,
     })
   })
 
   it('should render props when kind is ReactNodeType', () => {
-    const { rootElement, runtimeRootElement } = testStore.setupRuntimeElement()
+    const { renderer, rootElement, runtimeRootElement } =
+      testStore.setupRuntimeElement()
+
     const propKey = 'someNode'
     const reactNodeType = testStore.addReactNodeType({})
     const component = testStore.addComponent({})
@@ -53,13 +61,18 @@ describe('TypedPropTransformers', () => {
       value: component.id,
     })
 
-    const renderedProp = runtimeRootElement.runtimeProps.evaluatedProps[propKey]
+    renderer.render()
+
+    const renderedProp =
+      runtimeRootElement.current.runtimeProps.evaluatedProps[propKey]
 
     expect(isValidElement(renderedProp)).toBeTruthy()
   })
 
   it('should render props when kind is RenderPropsType', () => {
-    const { rootElement, runtimeRootElement } = testStore.setupRuntimeElement()
+    const { renderer, rootElement, runtimeRootElement } =
+      testStore.setupRuntimeElement()
+
     const propKey = 'someNode'
     const renderPropsType = testStore.addRenderPropsType({})
     const component = testStore.addComponent({})
@@ -70,17 +83,24 @@ describe('TypedPropTransformers', () => {
       value: component.id,
     })
 
-    expect(runtimeRootElement.runtimeProps.evaluatedProps).toMatchObject({
+    renderer.render()
+
+    expect(
+      runtimeRootElement.current.runtimeProps.evaluatedProps,
+    ).toMatchObject({
       [propKey]: expect.any(Function),
     })
 
-    const renderedProp = runtimeRootElement.runtimeProps.evaluatedProps[propKey]
+    const renderedProp =
+      runtimeRootElement.current.runtimeProps.evaluatedProps[propKey]
 
     expect(isValidElement(renderedProp())).toBeTruthy()
   })
 
   it('should pass props to render props component', async () => {
-    const { rootElement, runtimeRootElement } = testStore.setupRuntimeElement()
+    const { renderer, rootElement, runtimeRootElement } =
+      testStore.setupRuntimeElement()
+
     const propKey = 'someNode'
     const textPropKey = 'text'
     const textPropValue = 'some text value'
@@ -121,7 +141,10 @@ describe('TypedPropTransformers', () => {
       value: component.id,
     })
 
-    const renderedProp = runtimeRootElement.runtimeProps.evaluatedProps[propKey]
+    renderer.render()
+
+    const renderedProp =
+      runtimeRootElement.current.runtimeProps.evaluatedProps[propKey]
 
     render(
       createElement(

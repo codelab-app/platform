@@ -57,10 +57,14 @@ describe('Runtime Component props', () => {
   describe('RuntimeProps.evaluatedProps', () => {
     // expressions are evaluated with empty context
     it('should evaluate basic state field expression', () => {
-      const { component, runtimeComponent } = testStore.setupComponent()
+      const { component, renderer, runtimeComponent } =
+        testStore.setupComponent()
+
       const fieldKey = 'fieldKey'
 
       component.props.set(fieldKey, '{{10 - 2}}')
+
+      renderer.render()
 
       const runtimeProps = runtimeComponent?.runtimeProps
 
@@ -71,10 +75,10 @@ describe('Runtime Component props', () => {
   describe('RuntimeProps.instanceElementProps', () => {
     it('should resolve instance element props', () => {
       const { runtimeRootElement } = testStore.setupRuntimeComponent()
-      const runtimeProps = runtimeRootElement?.runtimeProps
+      const runtimeProps = runtimeRootElement?.current.runtimeProps
 
-      const runtimeComponent = runtimeRootElement
-        ?.children[0] as IRuntimeComponentModel
+      const runtimeComponent = runtimeRootElement?.current.children[0]
+        ?.current as IRuntimeComponentModel
 
       const componentRuntimeProps = runtimeComponent.runtimeProps
 
@@ -84,7 +88,7 @@ describe('Runtime Component props', () => {
     })
 
     it('should resolve child mapper prop', () => {
-      const { rootElement, runtimeRootElement } =
+      const { renderer, rootElement, runtimeRootElement } =
         testStore.setupRuntimeElement()
 
       const component = testStore.addComponent({})
@@ -98,8 +102,11 @@ describe('Runtime Component props', () => {
 
       rootElement.props.set(propKey, propsValue)
 
-      const runtimeChildren =
-        runtimeRootElement.children as Array<IRuntimeComponentModel>
+      renderer.render()
+
+      const runtimeChildren = runtimeRootElement.current.children.map(
+        (childComponent) => childComponent.current,
+      ) as Array<IRuntimeComponentModel>
 
       expect(runtimeChildren[0]?.runtimeProps?.childMapperProp).toBe(
         propsValue[0],

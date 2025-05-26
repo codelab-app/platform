@@ -17,8 +17,8 @@ import {
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 import { mapDeep } from '@codelab/shared/utils'
 import { evaluateObject } from '@codelab/shared-infra-eval'
-import { computed } from 'mobx'
-import { idProp, Model, model, prop } from 'mobx-keystone'
+import { computed, observable, set } from 'mobx'
+import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { createElement, Fragment } from 'react'
 
 const create = (dto: IRuntimeComponentPropDto) =>
@@ -84,7 +84,9 @@ export class RuntimeComponentPropModel
     const children = createElement(
       Fragment,
       {},
-      this.runtimeComponent.current.children.map((child) => child.render),
+      this.runtimeComponent.current.children.map(
+        (child) => child.current.rendered,
+      ),
     )
 
     return mergeProps(
@@ -97,34 +99,6 @@ export class RuntimeComponentPropModel
         key: this.runtimeComponent.current.compositeKey,
       },
     )
-  }
-
-  /**
-   * Applies all the type transformers to the props
-   */
-  @computed
-  get renderedTypedProps() {
-    return mapDeep(this.props, (value, key) => {
-      if (!isTypedProp(value)) {
-        return value
-      }
-
-      if (!value.value) {
-        return undefined
-      }
-
-      const transformer = this.renderer.typedPropTransformers.get(value.kind)
-
-      if (!transformer) {
-        return value.value
-      }
-
-      return transformer.transform(
-        value,
-        key.toString(),
-        this.runtimeComponent.current,
-      )
-    })
   }
 
   @computed
@@ -160,5 +134,37 @@ export class RuntimeComponentPropModel
   @computed
   get runtimeStore() {
     return this.runtimeComponent.current.runtimeStore
+  }
+
+  renderedTypedProps: IPropData = observable.object<IPropData>({})
+
+  /**
+   * Applies all the type transformers to the props
+   */
+  @modelAction
+  renderTypedProps() {
+    const renderedProps = mapDeep(this.props, (value, key) => {
+      if (!isTypedProp(value)) {
+        return value
+      }
+
+      if (!value.value) {
+        return undefined
+      }
+
+      const transformer = this.renderer.typedPropTransformers.get(value.kind)
+
+      if (!transformer) {
+        return value.value
+      }
+
+      return transformer.transform(
+        value,
+        key.toString(),
+        this.runtimeComponent.current,
+      )
+    })
+
+    set(this.renderedTypedProps, renderedProps)
   }
 }

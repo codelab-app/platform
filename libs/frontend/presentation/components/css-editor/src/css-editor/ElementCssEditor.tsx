@@ -7,6 +7,7 @@ import { useElementService } from '@codelab/frontend-application-element/service
 import { useLoading } from '@codelab/frontend-application-shared-store/loading'
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
 import { CodeMirrorLanguage } from '@codelab/shared/infra/gqlgen'
+import { compareArray } from '@codelab/shared/utils'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useCallback, useEffect, useRef } from 'react'
@@ -36,11 +37,9 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
   ({ runtimeElement }) => {
     const { setLoading } = useLoading()
     const elementService = useElementService()
-    const lastStateRef = useRef(runtimeElement.style.toString())
-
-    const lastTailwindClassNames = useRef(
-      runtimeElement.element.current.tailwindClassNames,
-    )
+    const element = runtimeElement.element.current
+    const lastStateRef = useRef(element.style?.toString())
+    const lastTailwindClassNames = useRef(element.tailwindClassNames)
 
     const cssChangeHandler = useCallback(
       debounce(
@@ -52,36 +51,27 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
       [runtimeElement],
     )
 
-    const updateElementStyles = useCallback(
-      // TODO: Make this ito IElementDto
-      (updatedElement: IRuntimeElementModel) => {
-        const oldStyle = lastStateRef.current
-        const oldTailwindClassNames = lastTailwindClassNames.current
-        const { element, style } = updatedElement
-        const tailwindClassNames = element.current.tailwindClassNames
-        const styleString = style.toString()
+    const updateElementStyles = useCallback(() => {
+      const oldStyle = lastStateRef.current
+      const oldTailwindClassNames = lastTailwindClassNames.current
+      const tailwindClassNames = element.tailwindClassNames
+      const styleString = element.style?.toString()
 
-        // do not send request if value was not changed
-        if (
-          oldStyle !== styleString ||
-          oldTailwindClassNames !== tailwindClassNames
-        ) {
-          lastStateRef.current = styleString
-          lastTailwindClassNames.current = tailwindClassNames
+      const sameTailwindClassNames = compareArray<string>(
+        oldTailwindClassNames ?? [],
+        tailwindClassNames ?? [],
+      )
 
-          setLoading(true)
-
-          void elementService
-            .update({
-              ...element.current.toJson,
-              style: styleString,
-              tailwindClassNames,
-            })
-            .finally(() => setLoading(false))
-        }
-      },
-      [elementService],
-    )
+      // do not send request if value was not changed
+      if (oldStyle !== styleString || !sameTailwindClassNames) {
+        lastStateRef.current = styleString
+        lastTailwindClassNames.current = tailwindClassNames
+        setLoading(true)
+        void elementService
+          .update(element.toJson)
+          .finally(() => setLoading(false))
+      }
+    }, [])
 
     const debouncedUpdateElementStyles = debounce(updateElementStyles, {
       waitMs: CSS_AUTOSAVE_TIMEOUT,
@@ -93,10 +83,10 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
        * because if the panel is closed too quickly, the autosave won't catch the latest changes
        */
       () => {
-        debouncedUpdateElementStyles(runtimeElement)
+        debouncedUpdateElementStyles()
       },
       [
-        runtimeElement.style.toString(),
+        runtimeElement.element.current.style?.toString(),
         runtimeElement.element.current.tailwindClassNames,
       ],
     )

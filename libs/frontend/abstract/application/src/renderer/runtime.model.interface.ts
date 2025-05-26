@@ -30,7 +30,7 @@ export type IRuntimeModelRef =
  */
 export interface IBaseRuntimeModel extends AnyModel {
   compositeKey: string
-  render: Nullable<ReactElement<unknown>>
+  rendered: Nullable<ReactElement<unknown>>
   /**
    * access runtimeStore via computed values
    */
@@ -46,4 +46,5 @@ export interface IBaseRuntimeModel extends AnyModel {
    */
   treeViewNodePreview: IElementTreeViewDataNodePreview
   detach(): void
+  render(): void
 }

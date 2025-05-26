@@ -1,19 +1,18 @@
 'use client'
 
-import type {
-  IComponentModel,
-  IPageModel,
-} from '@codelab/frontend/abstract/domain'
-
 import {
   rendererRef,
   type RendererType,
   runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
+import {
+  type IComponentModel,
+  type IPageModel,
+} from '@codelab/frontend/abstract/domain'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { observer } from 'mobx-react-lite'
 import { createContext, type ReactNode, useEffect } from 'react'
-import { v4 } from 'uuid'
+import { useAsync } from 'react-use'
 
 interface BuilderContextProps {
   containerNode: IComponentModel | IPageModel
@@ -40,23 +39,35 @@ export const BuilderProvider = observer(
     /**
      * Defer side effect to lifecycle method, to prevent https://github.com/codelab-app/platform/issues/3463
      */
+    const { error, loading } = useAsync(async () => {
+      await rendererService.expressionTransformer.init()
+    }, [])
+
     useEffect(() => {
+      if (loading) {
+        return
+      }
+
+      if (error) {
+        throw new Error(error.message)
+      }
+
       const renderer = rendererService.hydrate({
         containerNode,
-        id: v4(),
         rendererType,
       })
+
+      rendererService.setActiveRenderer(rendererRef(renderer))
+
+      renderer.render()
 
       // tracker.useEvent({
       //   componentName: 'BuilderProvider',
       //   event: 'Set active renderer',
       // })
-      rendererService.setActiveRenderer(rendererRef(renderer.id))
 
-      const runtimeContainer =
-        renderer.runtimeContainerNode ?? renderer.runtimeRootContainerNode
-
-      const runtimeRootElement = runtimeContainer.runtimeRootElement
+      const { runtimeContainerNode } = renderer
+      const runtimeRootElement = runtimeContainerNode.runtimeRootElement.current
 
       // tracker.useEvent({
       //   componentName: 'BuilderProvider',
@@ -71,14 +82,14 @@ export const BuilderProvider = observer(
       if (!builderService.selectedNode) {
         builderService.setSelectedNode(runtimeElementRef(runtimeRootElement))
       }
-
-      void renderer.expressionTransformer.init()
-    }, [rendererType, containerNode.id])
+    }, [rendererType, containerNode.id, loading, error])
 
     return (
-      <BuilderContext.Provider value={{ containerNode, rendererType }}>
-        {children}
-      </BuilderContext.Provider>
+      !loading && (
+        <BuilderContext.Provider value={{ containerNode, rendererType }}>
+          {children}
+        </BuilderContext.Provider>
+      )
     )
   },
 )

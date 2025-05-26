@@ -1,3 +1,5 @@
+'use client'
+
 import { Reset } from './Reset'
 
 interface ResetLabelProps {

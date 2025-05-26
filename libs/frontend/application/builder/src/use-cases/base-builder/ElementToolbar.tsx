@@ -1,4 +1,4 @@
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
+import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
 import type { Rect } from '@codelab/frontend/shared/utils'
 import type { Nullable } from '@codelab/shared/abstract/types'
 
@@ -38,25 +38,34 @@ const ToolbarButtonGroup = styled.div`
 export const TOOLBAR_HEIGHT = 30
 
 export const BuilderElementToolbar = observer<{
-  element: IElementModel
+  runtimeElement: IRuntimeElementModel
   container: HTMLElement
   domElement: Nullable<HTMLElement>
   containerRect: Rect
   rect: Rect
-}>(({ container, containerRect, domElement, element, rect }) => {
+}>(({ container, containerRect, domElement, rect, runtimeElement }) => {
+  const element = runtimeElement.element.current
+
   useScrollIntoView(domElement, container)
   useScroll()
 
   const toolbarStyle: CSSProperties = useMemo(() => {
     // align toolbar top if there is enough screen space,
     // otherwise align toolbar under the element
-    const isToolbarVisible = rect.top - containerRect.top > TOOLBAR_HEIGHT
-    const styleName = isToolbarVisible ? 'bottom' : 'top'
+
+    const hasSpaceAbove = rect.top - containerRect.top > TOOLBAR_HEIGHT
+    const hasSpaceBelow = containerRect.bottom - rect.bottom > TOOLBAR_HEIGHT
+
+    const toolbarPosition = hasSpaceAbove
+      ? { top: -TOOLBAR_HEIGHT }
+      : hasSpaceBelow
+      ? { bottom: -TOOLBAR_HEIGHT }
+      : { bottom: 0 }
 
     return {
       alignItems: 'center',
       backgroundColor: '#43669A',
-      borderRadius: isToolbarVisible ? '12px 12px 12px 0' : '0 12px 12px 12px',
+      borderRadius: hasSpaceBelow ? '0 12px 12px 12px' : '12px 12px 12px 0',
       color: 'rgb(255, 255, 255)',
       display: 'flex',
       fontSize: '0.8rem',
@@ -66,7 +75,7 @@ export const BuilderElementToolbar = observer<{
       padding: '0.1rem 0.3rem 0.1rem 0.3rem',
       pointerEvents: 'auto',
       position: 'absolute',
-      [styleName]: '100%',
+      ...toolbarPosition,
     }
   }, [containerRect.top, rect.top])
 
@@ -77,7 +86,7 @@ export const BuilderElementToolbar = observer<{
           <ToolbarButtonGroup>
             <DeleteButton element={element} />
             <DragButton element={element} />
-            <EditTextButton element={element} />
+            <EditTextButton runtimeElement={runtimeElement} />
           </ToolbarButtonGroup>
         )}
         <ToolbarTitle>{element.name}</ToolbarTitle>

@@ -1,3 +1,5 @@
+'use client'
+
 import type { SegmentedLabeledOption, SegmentedValue } from 'antd/lib/segmented'
 
 import { Col, Row, Segmented } from 'antd'

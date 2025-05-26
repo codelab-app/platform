@@ -1,3 +1,5 @@
+'use client'
+
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import DashOutlined from '@ant-design/icons/DashOutlined'
 import MinusOutlined from '@ant-design/icons/MinusOutlined'

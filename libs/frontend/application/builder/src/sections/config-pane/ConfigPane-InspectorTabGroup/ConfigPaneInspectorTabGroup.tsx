@@ -1,7 +1,5 @@
 'use client'
 
-import type { IConfigPaneTab } from '@codelab/shared/abstract/core'
-
 import CodeOutlined from '@ant-design/icons/CodeOutlined'
 import CodeSandboxOutlined from '@ant-design/icons/CodeSandboxOutlined'
 import FileOutlined from '@ant-design/icons/FileOutlined'
@@ -29,6 +27,7 @@ import { usePreferenceService } from '@codelab/frontend-application-preference/s
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { ElementCssEditor } from '@codelab/frontend-presentation-components-css-editor'
 import { FormContextProvider } from '@codelab/frontend-presentation-components-form'
+import { IConfigPaneTab } from '@codelab/shared/abstract/core'
 import { Tabs, Tooltip } from 'antd'
 import classNames from 'classnames'
 import { observer } from 'mobx-react-lite'
@@ -37,7 +36,7 @@ import { isNullish } from 'remeda'
 
 import { PropsInspectorTab } from '../PropsInspectorTab'
 import { TabGroup } from './ConfigPaneInspectorTabGroupStyle'
-import { TAB_NAMES } from './data'
+import { getTabTitle } from './data'
 
 interface TooltipIconProps {
   icon: ReactNode
@@ -99,9 +98,12 @@ export const ConfigPaneInspectorTabGroup = observer<{
         ) : (
           'Child Mapper Component Props cannot be edited'
         ),
-        key: TAB_NAMES.Node,
+        key: IConfigPaneTab.Node,
         label: (
-          <TooltipIcon icon={<NodeIndexOutlined />} title={TAB_NAMES.Node} />
+          <TooltipIcon
+            icon={<NodeIndexOutlined />}
+            title={getTabTitle(IConfigPaneTab.Node)}
+          />
         ),
       },
       {
@@ -122,20 +124,19 @@ export const ConfigPaneInspectorTabGroup = observer<{
             )}
           </div>
         ),
-        key: TAB_NAMES.Props,
+        key: IConfigPaneTab.Props,
         label: (
           <TooltipIcon
             icon={
               <SettingOutlined
                 style={
-                  isRuntimeElement(selectedNode) &&
-                  selectedNode.element.current.propsHaveErrors
+                  isRuntimeElement(selectedNode) && selectedNode.propsHaveErrors
                     ? { color: 'red' }
                     : {}
                 }
               />
             }
-            title={TAB_NAMES.Props}
+            title={getTabTitle(IConfigPaneTab.Props)}
           />
         ),
       },
@@ -150,9 +151,12 @@ export const ConfigPaneInspectorTabGroup = observer<{
           ) : (
             'Add an atom to this page element to edit its CSS'
           ),
-        key: TAB_NAMES.CSS,
+        key: IConfigPaneTab.Css,
         label: (
-          <TooltipIcon icon={<FormatPainterOutlined />} title={TAB_NAMES.CSS} />
+          <TooltipIcon
+            icon={<FormatPainterOutlined />}
+            title={getTabTitle(IConfigPaneTab.Css)}
+          />
         ),
       },
       {
@@ -162,11 +166,11 @@ export const ConfigPaneInspectorTabGroup = observer<{
             runtimeNode={selectedNode}
           />
         ),
-        key: TAB_NAMES.PropsInspector,
+        key: IConfigPaneTab.PropsInspector,
         label: (
           <TooltipIcon
             icon={<CodeOutlined />}
-            title={TAB_NAMES.PropsInspector}
+            title={getTabTitle(IConfigPaneTab.PropsInspector)}
           />
         ),
       },
@@ -179,9 +183,12 @@ export const ConfigPaneInspectorTabGroup = observer<{
                   page={activeRenderer.runtimePage.page.current}
                 />
               ),
-              key: TAB_NAMES.Page,
+              key: IConfigPaneTab.Page,
               label: (
-                <TooltipIcon icon={<FileOutlined />} title={TAB_NAMES.Page} />
+                <TooltipIcon
+                  icon={<FileOutlined />}
+                  title={getTabTitle(IConfigPaneTab.Page)}
+                />
               ),
             },
           ]
@@ -200,11 +207,11 @@ export const ConfigPaneInspectorTabGroup = observer<{
                   />
                 </>
               ),
-              key: TAB_NAMES.Component,
+              key: IConfigPaneTab.Component,
               label: (
                 <TooltipIcon
                   icon={<CodeSandboxOutlined />}
-                  title={TAB_NAMES.Component}
+                  title={getTabTitle(IConfigPaneTab.Component)}
                 />
               ),
             },
@@ -218,11 +225,11 @@ export const ConfigPaneInspectorTabGroup = observer<{
     <FormContextProvider value={{ elementTree, selectedNode }}>
       <TabGroup>
         <Tabs
-          defaultActiveKey={preference.activeConfigPaneTab}
-          destroyInactiveTabPane
+          activeKey={preference.activeConfigPaneTab}
+          // destroyInactiveTabPane
           items={tabItems}
           onChange={(activeKey) =>
-            update({
+            void update({
               activeConfigPaneTab: activeKey as IConfigPaneTab,
               id: preference.id,
             })

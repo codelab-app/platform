@@ -26,10 +26,10 @@ describe('Runtime Element', () => {
       testStore.setupRuntimeElement()
 
     // Test the creation of element node
-    expect(runtimeRootElement.element.id).toBe(rootElement.id)
+    expect(runtimeRootElement.current.element.id).toBe(rootElement.id)
 
     // Test the creation of link with container node
-    expect(runtimeRootElement.closestContainerNode.current.compositeKey).toBe(
+    expect(runtimeRootElement.current.closestContainerNode.compositeKey).toBe(
       runtimePage?.compositeKey,
     )
   })
@@ -57,7 +57,7 @@ describe('Runtime Element', () => {
       createElement(
         RootStoreProvider,
         { value: storeContext },
-        renderer.render,
+        renderer.rendered,
       ),
     )
 
@@ -65,20 +65,26 @@ describe('Runtime Element', () => {
   })
 
   it('should add element runtime child', () => {
-    const { rootElement, runtimePage, runtimeRootElement } =
+    const { renderer, rootElement, runtimePage, runtimeRootElement } =
       testStore.setupRuntimeElement()
 
     const childElement = testStore.addElement({
       name: 'child-element',
       parentElement: rootElement,
+      renderType: testStore.getAtomByType(IAtomType.HtmlDiv),
     })
 
     rootElement.writeCache({ firstChild: childElement })
 
-    const runtimeChildElement = runtimeRootElement.children[0]
+    renderer.render()
+
+    const runtimeChildElement = runtimeRootElement.current.children[0]?.current
 
     const childCompositeKey = runtimePage
-      ? RuntimeElementModel.compositeKey(childElement, runtimePage)
+      ? RuntimeElementModel.compositeKey(
+          childElement,
+          runtimePage.runtimeRootElement.current.compositeKey,
+        )
       : undefined
 
     expect(runtimeChildElement?.compositeKey).toBe(childCompositeKey)
@@ -107,12 +113,12 @@ describe('Runtime Element', () => {
       const runtimeRootElement = runtimePage?.runtimeRootElement
       const runtimeProviderRootElement = runtimeProviderPage?.runtimeRootElement
 
-      expect(runtimeRootElement?.closestContainerNode.id).toBe(
-        runtimePage?.compositeKey,
-      )
+      expect(
+        runtimeRootElement?.current.closestContainerNode.compositeKey,
+      ).toBe(runtimePage?.compositeKey)
 
       expect(
-        runtimeProviderRootElement?.closestContainerNode.current.compositeKey,
+        runtimeProviderRootElement?.current.closestContainerNode.compositeKey,
       ).toBe(runtimeProviderPage?.compositeKey)
     },
   )
@@ -189,11 +195,15 @@ describe('Runtime Element', () => {
 
       expect(runtimeStore?.state[stateFieldKey]).toBe('default value')
 
-      const reactElement = testStore.addRenderer({
+      const renderer2 = testStore.addRenderer({
         containerNode: renderer.containerNode.current,
         id: renderer.id,
         rendererType: RendererType.Preview,
-      }).render
+      })
+
+      renderer2.render()
+
+      const reactElement = renderer.rendered
 
       render(
         createElement(RootStoreProvider, { value: storeContext }, reactElement),

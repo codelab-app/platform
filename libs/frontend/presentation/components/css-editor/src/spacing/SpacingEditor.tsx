@@ -1,3 +1,5 @@
+'use client'
+
 import { Popover } from 'antd'
 import clsx from 'clsx'
 

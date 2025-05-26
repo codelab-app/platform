@@ -1,3 +1,5 @@
+'use client'
+
 import type { IElementDto } from '@codelab/shared/abstract/core'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
@@ -5,7 +7,6 @@ import {
   type IBuilderRoute,
   type IElementService,
   IRouteType,
-  isRuntimeElement,
   isRuntimeElementRef,
   RoutePaths,
 } from '@codelab/frontend/abstract/application'
@@ -23,7 +24,6 @@ import {
   useApplicationStore,
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
-import { logger } from '@codelab/shared/infra/logging'
 import { uniqueBy } from 'remeda'
 
 /**
@@ -96,7 +96,8 @@ export const useElementService = (): IElementService => {
      * We want to keep the selected node expanded, so we can see the children
      */
     if (selectedNode && isRuntimeElementRef(selectedNode)) {
-      selectedNode.current.setExpanded(true)
+      // references fails to resolve when called by convertElementToComponent
+      selectedNode.maybeCurrent?.setExpanded(true)
     }
 
     await elementRepository.add(data, {
@@ -115,7 +116,7 @@ export const useElementService = (): IElementService => {
       ...subRootElement.descendantElements,
     ]
 
-    // builderService.selectPreviousElementOnDelete()
+    builderService.selectPreviousElementOnDelete()
 
     subRootElement.detachFromTree()
 
@@ -176,6 +177,41 @@ export const useElementService = (): IElementService => {
     )
   }
 
+  const removeMany = async (subRootElements: Array<IElementModel>) => {
+    const deletedElements = await Promise.all(
+      subRootElements.map((subRootElement) => remove(subRootElement)),
+    )
+
+    return deletedElements.reduce((count, current) => current + count)
+  }
+
+  const remove = async (subRootElement: IElementModel) => {
+    const elementsToDelete = [
+      subRootElement,
+      ...subRootElement.descendantElements,
+    ]
+
+    builderService.selectPreviousElementOnDelete()
+
+    subRootElement.detachFromTree()
+
+    /**
+     * delete props
+     */
+    const deletedElementsCount = await elementRepository.delete(
+      elementsToDelete,
+    )
+
+    elementsToDelete.reverse().forEach((element) => {
+      // this.removeClones(element.id)
+      elementDomainService.elements.delete(element.id)
+    })
+
+    await syncModifiedElements()
+
+    return deletedElementsCount
+  }
+
   /**
    * If we don't memoize the return object, it will be recreated on each render, causing the calling component to re-render
    */
@@ -185,7 +221,8 @@ export const useElementService = (): IElementService => {
     deletePopover,
     loadDependantTypes,
     move,
-    remove: deleteElement,
+    remove,
+    removeMany,
     syncModifiedElements,
     update,
   }

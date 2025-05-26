@@ -13,9 +13,7 @@ export const componentBuilderQuery: IComponentBuilderQuery = async ({
   componentId,
 }: IComponentBuilderArgs) => {
   const data = await GetComponentBuilder(
-    {
-      componentId,
-    },
+    {},
     {
       // Include all the cache tags that are used in the component builder
       tags: [
@@ -33,9 +31,6 @@ export const componentBuilderQuery: IComponentBuilderQuery = async ({
       ],
     },
   )
-
-  console.log('data', data)
-  console.log('componentId', componentId)
 
   const components = data.components
 

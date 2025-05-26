@@ -1,11 +1,12 @@
-import type {
-  IRuntimePageNode,
-  ITypedPropTransformer,
-} from '@codelab/frontend/abstract/application'
 import type { IFieldModel, TypedProp } from '@codelab/frontend/abstract/domain'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import type { ObjectLike } from '@codelab/shared/abstract/types'
 
+import {
+  type IRuntimePageNode,
+  isRuntimeElement,
+  type ITypedPropTransformer,
+} from '@codelab/frontend/abstract/application'
 import { extractTypedPropValue } from '@codelab/frontend/abstract/domain'
 import { Prop } from '@codelab/frontend-domain-prop/store'
 import { hasExpression } from '@codelab/shared-infra-eval'
@@ -51,14 +52,14 @@ export class RenderPropTypeTransformer
     key: string,
     runtimeNode: IRuntimePageNode,
   ) {
-    const { expressionTransformer } = this.renderer
+    const { expressionTransformer } = this.rendererService
     const propValue = extractTypedPropValue(prop)
 
     if (!propValue) {
       return ''
     }
 
-    if (hasExpression(propValue) && expressionTransformer.initialized) {
+    if (hasExpression(propValue)) {
       return expressionTransformer.transpileAndEvaluateExpression(propValue)
     }
 
@@ -78,9 +79,13 @@ export class RenderPropTypeTransformer
       // match props to fields by order first to first and so on.
       const props = matchPropsToFields(fields, renderPropArgs)
 
+      const runtimeParent = isRuntimeElement(runtimeNode)
+        ? runtimeNode
+        : undefined
+
       const runtimeComponent = this.runtimeComponentService.add(
         component,
-        runtimeNode,
+        runtimeParent,
         key,
         undefined,
         true,
@@ -93,7 +98,9 @@ export class RenderPropTypeTransformer
         }),
       )
 
-      return runtimeComponent.render
+      runtimeComponent.render()
+
+      return runtimeComponent.rendered
     }
   }
 }

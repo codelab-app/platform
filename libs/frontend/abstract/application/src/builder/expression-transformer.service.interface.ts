@@ -3,7 +3,6 @@ import type { Options } from 'sucrase'
 
 export interface IExpressionTransformer {
   context: Nullable<ObjectLike>
-  initialized: boolean
   transform: Nullable<
     (code: string, options: Options) => { code: string | null }
   >
