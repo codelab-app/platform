@@ -36,7 +36,6 @@ export const ElementTreeView = observer<{
         return !data.dragNode.isChildMapperComponentInstance
       }}
       autoExpandParent={false}
-      defaultSelectedKeys={selectedNode ? [selectedNode.compositeKey] : []}
       disabled={isMoving}
       draggable={true}
       expandedKeys={runtimeElementService.expandedCompositeKeys}
@@ -82,6 +81,7 @@ export const ElementTreeView = observer<{
             : runtimeElementRef(node.key),
         )
       }}
+      selectedKeys={selectedNode ? [selectedNode.compositeKey] : []}
       titleRender={(data) => (
         <ElementTreeItemTitle context={context} data={data} />
       )}
