@@ -73,13 +73,17 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
       }
     }, [])
 
+    const debouncedUpdateElementStyles = debounce(updateElementStyles, {
+      waitMs: CSS_AUTOSAVE_TIMEOUT,
+    }).call
+
     useEffect(
       /*
        * Make sure the new string is saved when unmounting the component
        * because if the panel is closed too quickly, the autosave won't catch the latest changes
        */
       () => {
-        updateElementStyles()
+        debouncedUpdateElementStyles()
       },
       [
         runtimeElement.element.current.style?.toString(),
