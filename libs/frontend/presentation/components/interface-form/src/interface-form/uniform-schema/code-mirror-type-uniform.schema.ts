@@ -8,7 +8,7 @@ export const codeMirrorTypeUniformSchema: ITypeModelUniformSchemaBuilder<
 > = (type, autocomplete) => {
   return {
     uniforms: {
-      component: CodeMirrorField({} as TextFieldProps),
+      component: CodeMirrorField,
     },
   }
 }
