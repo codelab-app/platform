@@ -2,13 +2,11 @@
 
 import type { Nullish } from '@codelab/shared-abstract-types'
 import type { ReactCodeMirrorProps } from '@uiw/react-codemirror'
-import type { ReactNode } from 'react'
 
 import ExpandAltOutlined from '@ant-design/icons/ExpandAltOutlined'
 import { closeCompletion, startCompletion } from '@codemirror/autocomplete'
 import { EditorView, type ViewUpdate } from '@codemirror/view'
 import { useCodeMirror } from '@uiw/react-codemirror'
-import { isString } from 'antd/lib/button'
 import { Fragment, useEffect, useRef, useState } from 'react'
 import { merge } from 'remeda'
 
@@ -24,7 +22,7 @@ export interface CodeMirrorInputProps
   expandable?: boolean
   required?: boolean
   singleLine?: boolean
-  title?: ReactNode
+  title?: Nullish<string>
   value?: string
   onChange(value: string): void
   onSave?(value: string): void
@@ -64,7 +62,7 @@ export const CodeMirrorInput = ({
         container: editorRef.current,
         extensions: [
           EditorView.contentAttributes.of({
-            'aria-label': isString(title) ? title : '',
+            'aria-label': title ? title : '',
             id: props.id ?? '',
             required: String(props.required),
           }),
