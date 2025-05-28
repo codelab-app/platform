@@ -22,7 +22,7 @@ export const SelectResource = ({ name }: SelectResourcesProps) => {
       getPopupContainer={(triggerNode) => triggerNode.parentElement}
       label="Resource"
       name={name}
-      onDropdownVisibleChange={async (open) => {
+      onOpenChange={async (open) => {
         if (open && !selectResourceOptions) {
           await getSelectResourceOptions()
         }

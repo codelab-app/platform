@@ -80,6 +80,7 @@ export const CreateElementForm = observer<CreateElementFormProps>((props) => {
       id: selectedElement.closestContainerNode.id,
     },
     id: v4(),
+    name: '',
     owner: {
       id: user.id,
     },

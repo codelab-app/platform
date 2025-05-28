@@ -3,10 +3,10 @@
 import type { IRef } from '@codelab/shared-abstract-core'
 
 import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
-import { connectField, type GuaranteedProps } from 'uniforms'
-import { SelectField } from 'uniforms-antd'
+import { connectField } from 'uniforms'
+import { SelectField, SelectFieldProps } from 'uniforms-antd'
 
-export type SelectComponentProps = GuaranteedProps<string> & {
+export type SelectComponentProps = SelectFieldProps & {
   parentComponent?: IRef
 }
 
@@ -25,9 +25,7 @@ export const SelectComponent = connectField(
       <SelectField
         {...props}
         name=""
-        optionFilterProp="label"
         options={componentDomainService.getSelectOptions(parentComponent)}
-        showSearch
       />
     )
   },

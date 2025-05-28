@@ -1,9 +1,14 @@
 'use client'
 
 import type { Completion } from '@codemirror/autocomplete'
+import type { JSONSchemaType } from 'ajv'
 import type { AutoCompleteProps } from 'antd'
 import type { FieldProps } from 'uniforms'
-import type { ListFieldProps, SelectFieldProps } from 'uniforms-antd'
+import type {
+  ListFieldProps,
+  NumFieldProps,
+  SelectFieldProps,
+} from 'uniforms-antd'
 
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
 import { ICodeMirrorLanguage } from '@codelab/shared-abstract-core'
@@ -30,8 +35,12 @@ interface CodeMirrorFieldProps {
   ): void
 }
 
-type CodeMirrorConnectFieldProps = FieldProps<Value, InnerProps> & {
+type CodeMirrorConnectFieldProps = Omit<
+  FieldProps<Value, InnerProps>,
+  'field'
+> & {
   required?: boolean
+  field: JSONSchemaType<Value>
 }
 
 interface ToggleExpressionFieldProps {
@@ -62,7 +71,7 @@ const getBaseControl = (fieldProps: CodeMirrorConnectFieldProps) => {
     case 'number':
       return (
         <NumField
-          {...(props as FieldProps<number, InnerProps>)}
+          {...(props as NumFieldProps)}
           decimal={fieldProps.field.type === 'number'}
         />
       )
@@ -78,8 +87,8 @@ const ToggleExpression = ({
   mainProps,
 }: ToggleExpressionFieldProps) => {
   // Will show blank if undefined instead of "undefined" string
-  const value = !isNullish(fieldProps.value ?? fieldProps.field?.default)
-    ? String(fieldProps.value ?? fieldProps.field?.default)
+  const value = !isNullish(fieldProps.value ?? fieldProps.field.default)
+    ? String(fieldProps.value ?? fieldProps.field.default)
     : undefined
 
   const isExpression = value && hasExpression(value)
@@ -117,14 +126,15 @@ const ToggleExpression = ({
 
       {showExpressionEditor ? (
         <CodeMirrorEditor
+          {...fieldProps}
           cssString={`
             display: block;
             margin-bottom: 12px;
           `}
           customOptions={mainProps.autocomplete || []}
           language={ICodeMirrorLanguage.Javascript}
+          placeholder=""
           title={fieldProps.field.label}
-          {...fieldProps}
           value={value}
         />
       ) : (

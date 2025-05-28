@@ -49,7 +49,7 @@ export const TypeSelect = observer<TypeSelectProps>(({ label, name }) => {
       label={label}
       loading={loading}
       name={name}
-      onDropdownVisibleChange={async (open) => {
+      onOpenChange={async (open) => {
         if (open && !data.length) {
           await getTypes()
         }

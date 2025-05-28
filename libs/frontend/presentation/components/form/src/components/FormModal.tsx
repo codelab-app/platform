@@ -6,11 +6,12 @@ import type {
 } from '@codelab/frontend-abstract-types'
 import type { Maybe, ObjectLike } from '@codelab/shared-abstract-types'
 import type { PropsWithChildren } from 'react'
+import type { UnknownObject } from 'uniforms'
 
 import Modal from 'antd/lib/modal'
 import { useRef } from 'react'
 
-export const FormModal = <TData extends ObjectLike>({
+export const FormModal = <TData extends UnknownObject>({
   children,
   okButtonProps,
   okText,
@@ -24,7 +25,7 @@ export const FormModal = <TData extends ObjectLike>({
   return (
     <Modal
       // This is needed, because otherwise form values persist even after closing the modal
-      destroyOnClose
+      destroyOnHidden
       okButtonProps={{
         htmlType: 'submit',
         // Pass down any button props we get from the modalProps prop

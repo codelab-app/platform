@@ -86,13 +86,13 @@ export const TailwindClassEditor = ({
         defaultValue={element.tailwindClassNames ?? []}
         mode="multiple"
         onChange={handleChange}
-        onDropdownVisibleChange={() => {
-          element.setTailwindClassNames(selectedOptions)
-        }}
         onKeyUp={(event: React.KeyboardEvent<HTMLDivElement>) => {
           if (event.key !== 'Enter' && event.key !== 'Escape') {
             previewClassName()
           }
+        }}
+        onOpenChange={() => {
+          element.setTailwindClassNames(selectedOptions)
         }}
         onSearch={handleSearch}
         placeholder="Please select"

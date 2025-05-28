@@ -1,6 +1,6 @@
 'use client'
 
-import type { TypedProp } from '@codelab/frontend-abstract-domain'
+import type { JsonSchema, TypedProp } from '@codelab/frontend-abstract-domain'
 import type { JSONSchemaType } from 'ajv'
 import type { HTMLFieldProps } from 'uniforms'
 import type { SelectFieldProps } from 'uniforms-antd'
@@ -15,7 +15,9 @@ import { AutoField, SelectField } from 'uniforms-antd'
 export type SelectUnionTypeValueProps = HTMLFieldProps<
   TypedProp,
   SelectFieldProps
->
+> & {
+  field: JsonSchema
+}
 
 export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
   const { name } = props
@@ -75,7 +77,7 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
           name={typeFieldName}
           onChange={(newType) => {
             context.onChange(fieldProps.name, {
-              kind: typeToKind[newType],
+              kind: typeToKind[newType as string],
               type: newType,
               value: undefined,
             })

@@ -7,7 +7,7 @@ import { useField } from 'uniforms'
 import { SelectField } from 'uniforms-antd'
 
 export type SelectAtomProps = Pick<
-  UniformSelectFieldProps,
+  SelectFieldProps,
   'error' | 'label' | 'name'
 > & {
   /**

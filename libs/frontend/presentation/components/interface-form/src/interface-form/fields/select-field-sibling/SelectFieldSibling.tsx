@@ -8,7 +8,7 @@ import type { GuaranteedProps } from 'uniforms'
 import { connectField } from 'uniforms'
 import { SelectField } from 'uniforms-antd'
 
-export type SelectFieldSiblingProps = GuaranteedProps<{ id: string }> & {
+export type SelectFieldSiblingProps = SelectFieldProps & {
   siblings: Array<IFieldModel<ITypeModel>>
 }
 
@@ -28,12 +28,7 @@ export const SelectFieldSibling = connectField(
     return (
       <SelectField
         {...props}
-        getPopupContainer={(triggerNode) => triggerNode.parentElement}
         name="id"
-        onChange={(value) =>
-          props.onChange((value ? { id: value } : null) as IRef)
-        }
-        optionFilterProp="label"
         options={options}
         // null value is allowed, meaning it is the first field
         required={false}

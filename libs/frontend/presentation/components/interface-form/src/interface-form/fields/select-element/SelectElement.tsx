@@ -1,7 +1,6 @@
 'use client'
 
 import type { SelectElementOption } from '@codelab/frontend-abstract-domain'
-import type { UniformSelectFieldProps } from '@codelab/shared-abstract-types'
 import type { SelectFieldProps } from 'uniforms-antd/cjs/SelectField'
 
 import { getSelectElementOptions } from '@codelab/frontend-domain-element/repositories'
@@ -11,7 +10,7 @@ import { useFormContext } from '@codelab/frontend-presentation-components-form'
 import { IElementTypeKind } from '@codelab/shared-abstract-core'
 import { SelectField } from 'uniforms-antd'
 
-export type SelectElementProps = UniformSelectFieldProps & {
+export type SelectElementProps = SelectFieldProps & {
   elementOptions?: Array<SelectElementOption>
   disableWhenOneOpt?: boolean
   kind: IElementTypeKind
@@ -53,38 +52,34 @@ export const SelectElement = ({
   )
 }
 
-export type SelectElementComponentProps = Omit<SelectElementProps, 'kind'>
-
-export const SelectChildElement = (props: SelectElementComponentProps) => (
-  <SelectElement kind={IElementTypeKind.ChildrenOnly} {...props} />
+export const SelectChildElement = (props: SelectElementProps) => (
+  <SelectElement {...props} kind={IElementTypeKind.ChildrenOnly} />
 )
 
-export const SelectExcludeDescendantsElements = (
-  props: SelectElementComponentProps,
-) => (
+export const SelectExcludeDescendantsElements = (props: SelectElementProps) => (
   <SelectElement
-    kind={IElementTypeKind.ExcludeDescendantsElements}
     {...props}
+    kind={IElementTypeKind.ExcludeDescendantsElements}
   />
 )
 
-export const SelectDescendantElement = (props: SelectElementComponentProps) => {
-  return <SelectElement kind={IElementTypeKind.DescendantsOnly} {...props} />
+export const SelectDescendantElement = (props: SelectElementProps) => {
+  return <SelectElement {...props} kind={IElementTypeKind.DescendantsOnly} />
 }
 
 /**
  * Moved the `elementOptions` to the `SelectElement` component, so that it won't cause form to re-render
  */
-export const SelectElementField = (props: SelectElementComponentProps) => {
+export const SelectElementField = (props: SelectElementProps) => {
   const { rendererService } = useApplicationStore()
   const treeElements = rendererService.activeElementTree?.elements
   const elementOptions = treeElements?.map(mapElementOption)
 
   return (
     <SelectElement
-      kind={IElementTypeKind.AllElements}
       {...props}
       elementOptions={elementOptions}
+      kind={IElementTypeKind.AllElements}
     />
   )
 }
