@@ -16,7 +16,8 @@ export const CreateAppModal = () => {
   const router = useRouter()
   const appService = useAppService()
   const closeModal = () => router.push(RoutePaths.App.list())
-  const model = { id: v4(), name: '' }
+  // we don't pass empty string for name because it is considered valid for required validator
+  const model = { id: v4() } as IAppCreateFormData
 
   return (
     <ModalForm.Modal

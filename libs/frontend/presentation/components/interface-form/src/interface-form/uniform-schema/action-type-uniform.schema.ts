@@ -3,7 +3,7 @@ import type { ITypeModelUniformSchemaBuilder } from '@codelab/frontend-abstract-
 
 import { ToggleExpressionField } from '@codelab/frontend-presentation-components-form'
 
-import { SelectAction } from '../fields'
+import { SelectActionField } from '../fields'
 
 const ACTION_TEMPLATE = `{{
   function(event) {
@@ -19,12 +19,7 @@ export const actionTypeUniformSchema: ITypeModelUniformSchemaBuilder<
     component: ToggleExpressionField({
       autocomplete: autocomplete,
       getBaseControl: (fieldProps) =>
-        SelectAction({
-          ...fieldProps,
-          label: null,
-          name: '',
-          value: fieldProps.value as string,
-        }),
+        SelectActionField(fieldProps as SelectFieldProps) as React.ReactNode,
       onToggle: (showExpression, { field, onChange }, lastValue) => {
         if (showExpression) {
           onChange(lastValue ?? ACTION_TEMPLATE)

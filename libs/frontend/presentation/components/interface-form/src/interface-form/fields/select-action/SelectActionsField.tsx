@@ -11,7 +11,7 @@ import { useFormContext } from '@codelab/frontend-presentation-components-form'
 import { connectField } from 'uniforms'
 import { SelectField } from 'uniforms-antd'
 
-type SelectActionField = GuaranteedProps<Nullable<Array<IRef>>> & {
+type SelectActionField = SelectFieldProps & {
   selectedNode?: Nullable<IRuntimeModel>
   updatedAction?: IRef
 }
@@ -36,22 +36,7 @@ export const SelectActionsField = connectField<SelectActionField>(
         )
       : []
 
-    return (
-      <SelectField
-        mode="multiple"
-        {...fieldProps}
-        getPopupContainer={(triggerNode) => triggerNode.parentElement}
-        onChange={(value: Array<string>) => {
-          const idFields = value.map((id) => ({ id }))
-
-          fieldProps.onChange(idFields)
-        }}
-        optionFilterProp="label"
-        options={selectActionOptions}
-        showSearch
-        value={fieldProps.value?.map((ref) => ref.id)}
-      />
-    )
+    return <SelectField {...fieldProps} options={selectActionOptions} />
   },
   { kind: 'leaf' },
 )
