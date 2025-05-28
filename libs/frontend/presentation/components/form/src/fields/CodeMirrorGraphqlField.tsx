@@ -1,5 +1,6 @@
 'use client'
-import type { Context, UnknownObject } from 'uniforms'
+import type { ObjectLike } from '@codelab/shared/abstract/types'
+import type { Context } from 'uniforms'
 import type { TextFieldProps } from 'uniforms-antd'
 
 import {
@@ -16,7 +17,7 @@ import { useAsyncFn, useMount } from 'react-use'
 import { connectField, useForm } from 'uniforms'
 
 export type ICodeMirrorGraphqlProps = TextFieldProps & {
-  getUrl<T extends UnknownObject>(context: Context<T>): string
+  getUrl<T extends ObjectLike>(context: Context<T>): string
 }
 
 export const CodeMirrorGraphqlField = connectField<ICodeMirrorGraphqlProps>(
