@@ -29,7 +29,7 @@ export const createValidator = (schema: Schema) => {
   }
 }
 
-export const createBridge = <T extends UnknownObject>(
+export const createBridge = <T extends ObjectLike>(
   schema: JSONSchemaType<T> | TSchema,
 ) => {
   const validator = createValidator(schema)

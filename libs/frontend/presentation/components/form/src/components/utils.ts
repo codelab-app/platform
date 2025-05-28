@@ -1,6 +1,6 @@
 import type { SubmitRef } from '@codelab/frontend-abstract-types'
+import { ObjectLike } from '@codelab/shared-abstract-types'
 import type { MouseEvent } from 'react'
-import type { UnknownObject } from 'uniforms'
 
 import { loadingAtom } from '@codelab/frontend-application-shared-services/loading'
 import {
@@ -15,7 +15,7 @@ import type { OptimisticFormProps } from '../modal/ModalForm.Form'
 export type SetIsLoading = (isLoading: boolean) => void
 
 type OnSubmitOptimistic<
-  TData extends UnknownObject,
+  TData extends ObjectLike,
   TResponse,
 > = OptimisticFormProps<TData, TResponse>['onSubmitOptimistic']
 
@@ -24,7 +24,7 @@ const MIN_DELAY = 400
 /**
  * Handles loading state and optimistic submit for async functions
  */
-export const useAsyncHandler = <TData extends UnknownObject, TResponse>(
+export const useAsyncHandler = <TData extends ObjectLike, TResponse>(
   /**
    * Additional loaders, we moved the built-in global loading here
    */
@@ -83,12 +83,12 @@ export const handleSubmitRefModalOk = (
   }
 }
 
-type PostSubmitProps<TData extends UnknownObject, TResponse> = Pick<
+type PostSubmitProps<TData extends ObjectLike, TResponse> = Pick<
   OptimisticFormProps<TData, TResponse>,
   'errorMessage' | 'onSubmitError' | 'onSubmitSuccess' | 'successMessage'
 >
 
-export const usePostSubmit = <TData extends UnknownObject, TResponse>({
+export const usePostSubmit = <TData extends ObjectLike, TResponse>({
   errorMessage = 'Error submitting form',
   onSubmitError = () => {
     return Promise.reject()

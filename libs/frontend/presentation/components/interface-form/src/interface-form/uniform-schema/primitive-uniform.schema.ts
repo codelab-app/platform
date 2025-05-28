@@ -13,7 +13,8 @@ export const primitiveTypeUniformSchema: ITypeModelUniformSchemaBuilder<
   return type.primitiveKind === IPrimitiveTypeKind.String
     ? {
         uniforms: {
-          component: CodeMirrorField({ customOptions: autocomplete, name: '' }),
+          component: CodeMirrorField,
+          customOptions: autocomplete,
         },
       }
     : {

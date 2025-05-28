@@ -6,12 +6,11 @@ import type {
 } from '@codelab/frontend-abstract-types'
 import type { Maybe, ObjectLike } from '@codelab/shared-abstract-types'
 import type { PropsWithChildren } from 'react'
-import type { UnknownObject } from 'uniforms'
 
 import Modal from 'antd/lib/modal'
 import { useRef } from 'react'
 
-export const FormModal = <TData extends UnknownObject>({
+export const FormModal = <TData extends ObjectLike>({
   children,
   okButtonProps,
   okText,

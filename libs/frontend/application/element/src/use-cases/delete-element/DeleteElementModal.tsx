@@ -23,7 +23,7 @@ export const DeleteElementModal = observer<{
   const elementService = useElementService()
   const { elementDomainService } = useDomainStore()
   const closeModal = () => elementService.deletePopover.close(router, context)
-  const model = { element: { id: element.id } }
+  const model: DeleteElementData = { element: { id: element.id } }
 
   const onSubmit = (data: DeleteElementData) => {
     const targetElement = elementDomainService.element(data.element.id)
