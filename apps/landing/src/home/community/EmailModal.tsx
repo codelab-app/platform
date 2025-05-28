@@ -15,7 +15,7 @@ export const EmailModal = ({ onCancel, onOk, open }: EmailModalProps) => {
 
   return (
     <Modal
-      destroyOnClose
+      destroyOnHidden
       footer={null}
       onCancel={onCancel}
       open={open}

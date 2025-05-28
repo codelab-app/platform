@@ -19,7 +19,7 @@ export const SelectAuthGuard = observer<SelectAuthGuardsProps>(({ name }) => {
       error={state.error}
       getPopupContainer={(triggerNode) => triggerNode.parentElement}
       name={name}
-      onDropdownVisibleChange={async (open) => {
+      onOpenChange={async (open) => {
         if (open && !state.loading && !state.value) {
           await getSelectAuthGuardOptions()
         }

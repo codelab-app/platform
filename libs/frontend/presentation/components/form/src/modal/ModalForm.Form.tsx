@@ -1,8 +1,8 @@
 'use client'
 
 import type { FormProps } from '@codelab/frontend/abstract/types'
-import type { ObjectLike } from '@codelab/shared/abstract/types'
 import type { ReactElement } from 'react'
+import type { UnknownObject } from 'uniforms'
 
 import {
   connectUniformSubmitRef,
@@ -16,12 +16,15 @@ import { AutoForm } from 'uniforms-antd'
 import { useAsyncHandler, usePostSubmit } from '../components/utils'
 import { ModalFormContext } from './modal-form.context'
 
-export type OptimisticFormProps<TData, TResponse> = React.PropsWithChildren<
+export type OptimisticFormProps<
+  TData extends UnknownObject,
+  TResponse,
+> = React.PropsWithChildren<
   // Only standalone form should have `uiKey`
   Omit<FormProps<TData, TResponse>, 'submitRef' | 'uiKey'>
 >
 
-export const Form = <TData extends ObjectLike, TResponse = unknown>(
+export const Form = <TData extends UnknownObject, TResponse = unknown>(
   props: OptimisticFormProps<TData, TResponse>,
 ): ReactElement<unknown> => {
   const {

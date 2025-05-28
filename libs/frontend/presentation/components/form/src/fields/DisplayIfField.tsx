@@ -1,14 +1,14 @@
 'use client'
 
-import type { Context } from 'uniforms'
+import type { Context, UnknownObject } from 'uniforms'
 
 import { useForm } from 'uniforms'
 
-export interface DisplayIfFieldProps<T> {
+export interface DisplayIfFieldProps<T extends UnknownObject> {
   condition(context: Context<T>): boolean
 }
 
-export const DisplayIfField = <T,>({
+export const DisplayIfField = <T extends UnknownObject>({
   children,
   condition,
 }: React.PropsWithChildren<DisplayIfFieldProps<T>>) => {
