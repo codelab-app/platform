@@ -4,14 +4,14 @@
 import type { IRuntimeModel } from '@codelab/frontend/abstract/application'
 import type { IRef } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import type { GuaranteedProps } from 'uniforms'
+import type { SelectFieldProps } from 'uniforms-antd'
 
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { useFormContext } from '@codelab/frontend-presentation-components-form'
 import { connectField } from 'uniforms'
 import { SelectField } from 'uniforms-antd'
 
-type SelectActionField = GuaranteedProps<Nullable<Array<IRef>>> & {
+type SelectActionField = SelectFieldProps & {
   selectedNode?: Nullable<IRuntimeModel>
   updatedAction?: IRef
 }
@@ -36,22 +36,7 @@ export const SelectActionsField = connectField<SelectActionField>(
         )
       : []
 
-    return (
-      <SelectField
-        mode="multiple"
-        {...fieldProps}
-        getPopupContainer={(triggerNode) => triggerNode.parentElement}
-        onChange={(value: Array<string>) => {
-          const idFields = value.map((id) => ({ id }))
-
-          fieldProps.onChange(idFields)
-        }}
-        optionFilterProp="label"
-        options={selectActionOptions}
-        showSearch
-        value={fieldProps.value?.map((ref) => ref.id)}
-      />
-    )
+    return <SelectField {...fieldProps} options={selectActionOptions} />
   },
   { kind: 'leaf' },
 )
