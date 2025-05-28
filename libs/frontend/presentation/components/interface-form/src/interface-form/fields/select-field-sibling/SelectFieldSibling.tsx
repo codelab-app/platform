@@ -1,20 +1,19 @@
 'use client'
 
 import type { IFieldModel, ITypeModel } from '@codelab/frontend/abstract/domain'
-import type { IRef } from '@codelab/shared/abstract/core'
-import type { GuaranteedProps } from 'uniforms'
+import type { SelectFieldProps } from 'uniforms-antd'
 
 import { connectField } from 'uniforms'
 import { SelectField } from 'uniforms-antd'
 
-export type SelectFieldSiblingProps = GuaranteedProps<{ id: string }> & {
+export type SelectFieldSiblingProps = SelectFieldProps & {
   siblings: Array<IFieldModel<ITypeModel>>
 }
 
 export const SelectFieldSibling = connectField(
   ({ name, siblings, ...props }: SelectFieldSiblingProps) => {
-    const options = siblings.map(({ id, name: fieldName }) => ({
-      label: fieldName,
+    const options = siblings.map(({ id, key, name: fieldName }) => ({
+      label: fieldName ?? key,
       value: id,
     }))
 
@@ -22,15 +21,8 @@ export const SelectFieldSibling = connectField(
       <SelectField
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...props}
-        getPopupContainer={(triggerNode) => triggerNode.parentElement}
         name="id"
-        onChange={(value) =>
-          props.onChange((value ? { id: value } : null) as IRef)
-        }
-        optionFilterProp="label"
         options={options}
-        showSearch
-        value={props.value?.id}
       />
     )
   },
