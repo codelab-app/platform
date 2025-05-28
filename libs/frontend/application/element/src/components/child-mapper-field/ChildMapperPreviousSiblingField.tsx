@@ -6,7 +6,7 @@ import { connectField } from 'uniforms'
 
 import { SelectLinkElement } from '../SelectLinkElement'
 
-type ChildMapperPreviousSiblingFieldProps = GuaranteedProps<unknown> & {
+type ChildMapperPreviousSiblingFieldProps = SelectFieldProps & {
   element: IElementModel
 }
 

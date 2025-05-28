@@ -21,9 +21,7 @@ import { CodeMirrorLanguage } from '@codelab/shared-infra-gqlgen'
 import { Collapse } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useMemo } from 'react'
-import { isDeepEqual } from 'remeda'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { useCustomCompareMemo } from 'use-custom-compare'
 
 import { AutoComputedElementNameField } from '../../components/AutoComputedElementNameField'
 import { ChildMapperPreviousSiblingField } from '../../components/child-mapper-field/ChildMapperPreviousSiblingField'
@@ -73,17 +71,17 @@ export const UpdateElementForm = observer(
     const runtimeProps = runtimeElement.runtimeProps
     const customOptions = createAutoCompleteOptions(runtimeProps.runtimeContext)
 
-    const codeMirrorField = useCustomCompareMemo(
-      CodeMirrorField,
-      [customOptions],
-      isDeepEqual,
-    )
+    // const codeMirrorField = useCustomCompareMemo(
+    //   CodeMirrorField,
+    //   [customOptions],
+    //   isDeepEqual,
+    // )
 
     const collapseItems = [
       {
         children: (
           <AutoField
-            component={codeMirrorField}
+            component={CodeMirrorField}
             customOptions={customOptions}
             language={CodeMirrorLanguage.Javascript}
             name="renderIfExpression"

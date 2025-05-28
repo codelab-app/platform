@@ -2,6 +2,7 @@
 
 import type { FormProps } from '@codelab/frontend-abstract-types'
 import type { ReactElement } from 'react'
+import type { UnknownObject } from 'uniforms'
 
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import {
@@ -22,7 +23,7 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
   filterDOMProps.register('forbiddenValues')
   filterDOMProps.register('decimal')
 
-  const Form = <TData, TResponse = unknown>(
+  const Form = <TData extends UnknownObject, TResponse = unknown>(
     props: React.PropsWithChildren<FormProps<TData, TResponse>>,
   ): ReactElement<unknown> => {
     const {
@@ -44,11 +45,11 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
     } = props
 
     const [bridge, setBridge] = useState(
-      schema instanceof Bridge ? schema : createBridge(schema),
+      schema instanceof Bridge ? schema : createBridge<TData>(schema),
     )
 
     useEffect(() => {
-      setBridge(schema instanceof Bridge ? schema : createBridge(schema))
+      setBridge(schema instanceof Bridge ? schema : createBridge<TData>(schema))
     }, [schema])
 
     const modelRef = useRef(model)

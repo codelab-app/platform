@@ -16,7 +16,14 @@ export const createAppSchema: JSONSchemaType<IAppCreateFormData> = {
       ...titleCaseValidation,
     },
   },
-  required: ['name'],
+  errors: {
+    name: {
+      required: 'App name is required',
+      minLength: 'App name must have at least 1 character',
+      pattern: 'App name must be in title case with no extra spaces',
+    },
+  },
+  required: ['name', 'id'],
   title: 'Create App Input',
   type: 'object',
 } as const

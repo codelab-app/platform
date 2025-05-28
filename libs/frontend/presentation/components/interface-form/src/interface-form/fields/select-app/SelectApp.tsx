@@ -7,7 +7,7 @@ import { appRepository } from '@codelab/frontend-domain-app/repositories'
 import { useAsyncFn } from 'react-use'
 import { SelectField } from 'uniforms-antd'
 
-export const SelectApp = ({ error, name }: UniformSelectFieldProps) => {
+export const SelectApp = ({ error, name }: SelectFieldProps) => {
   const [{ error: queryError, loading, value: options }, loadOptions] =
     useAsyncFn<() => Promise<Array<SelectOption> | undefined>>(
       () =>
@@ -26,7 +26,7 @@ export const SelectApp = ({ error, name }: UniformSelectFieldProps) => {
       getPopupContainer={(triggerNode) => triggerNode.parentElement}
       loading={loading}
       name={name}
-      onDropdownVisibleChange={async (open) => {
+      onOpenChange={async (open) => {
         if (open) {
           await loadOptions()
         }
