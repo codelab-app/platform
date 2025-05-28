@@ -6,8 +6,9 @@ import { DisplayIfField } from '@codelab/frontend-presentation-components-form'
 import { IResourceType } from '@codelab/shared-abstract-core'
 import { observer } from 'mobx-react-lite'
 import { AutoField } from 'uniforms-antd'
+import { ObjectLike } from '@codelab/shared-abstract-types'
 
-interface WithResourceRef {
+interface WithResourceRef extends ObjectLike {
   resource: IRef
 }
 
@@ -15,7 +16,7 @@ export const ResourceFetchConfigField = observer(() => {
   const { resourceDomainService } = useDomainStore()
 
   const getResource = (context: Context<WithResourceRef>) => {
-    const resourceId = context.model.resource?.id
+    const resourceId = context.model.resource.id
 
     return resourceId ? resourceDomainService.resources.get(resourceId) : null
   }
