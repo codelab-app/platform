@@ -1,6 +1,5 @@
 import type { ICodeMirrorTypeModel } from '@codelab/frontend/abstract/domain'
 import type { ITypeModelUniformSchemaBuilder } from '@codelab/frontend/abstract/types'
-import type { TextFieldProps } from 'uniforms-antd'
 
 import { CodeMirrorField } from '@codelab/frontend-presentation-components-form'
 
@@ -9,7 +8,7 @@ export const codeMirrorTypeUniformSchema: ITypeModelUniformSchemaBuilder<
 > = (type, autocomplete) => {
   return {
     uniforms: {
-      component: CodeMirrorField({} as TextFieldProps),
+      component: CodeMirrorField,
     },
   }
 }
