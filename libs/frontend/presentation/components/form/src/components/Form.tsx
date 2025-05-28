@@ -2,7 +2,6 @@
 
 import type { FormProps } from '@codelab/frontend-abstract-types'
 import type { ReactElement } from 'react'
-import type { UnknownObject } from 'uniforms'
 
 import { CuiTestId } from '@codelab/frontend-application-shared-data'
 import {
@@ -23,7 +22,7 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
   filterDOMProps.register('forbiddenValues')
   filterDOMProps.register('decimal')
 
-  const Form = <TData extends UnknownObject, TResponse = unknown>(
+  const Form = <TData extends ObjectLike, TResponse = unknown>(
     props: React.PropsWithChildren<FormProps<TData, TResponse>>,
   ): ReactElement<unknown> => {
     const {

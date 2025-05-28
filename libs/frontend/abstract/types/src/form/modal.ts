@@ -1,11 +1,10 @@
 import type { ObjectLike } from '@codelab/shared-abstract-types'
 import type { ModalProps } from 'antd/lib/modal'
 import type { ReactElement } from 'react'
-import type { UnknownObject } from 'uniforms'
 
 import type { FormProps, SubmitRef } from './form.interface'
 
-export type FormModalProps<TData extends UnknownObject> = ModalProps & {
+export type FormModalProps<TData extends ObjectLike> = ModalProps & {
   /**
    * SubmitRef is created inside modal, and passed down to form
    */
