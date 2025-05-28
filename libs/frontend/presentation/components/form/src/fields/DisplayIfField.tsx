@@ -1,14 +1,15 @@
 'use client'
 
-import type { Context, UnknownObject } from 'uniforms'
+import type { ObjectLike } from '@codelab/shared/abstract/types'
+import type { Context } from 'uniforms'
 
 import { useForm } from 'uniforms'
 
-export interface DisplayIfFieldProps<T extends UnknownObject> {
+export interface DisplayIfFieldProps<T extends ObjectLike> {
   condition(context: Context<T>): boolean
 }
 
-export const DisplayIfField = <T extends UnknownObject>({
+export const DisplayIfField = <T extends ObjectLike>({
   children,
   condition,
 }: React.PropsWithChildren<DisplayIfFieldProps<T>>) => {

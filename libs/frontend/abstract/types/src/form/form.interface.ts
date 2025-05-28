@@ -6,16 +6,13 @@ import type {
 import type { Completion } from '@codemirror/autocomplete'
 import type { TSchema } from '@sinclair/typebox'
 import type { JSONSchemaType } from 'ajv'
-import type { AutoFormProps, Bridge, UnknownObject } from 'uniforms'
+import type { AutoFormProps, Bridge } from 'uniforms'
 
 import type { UiKey } from '../model'
 
 export type VoidCallback<TInput> = Callback<TInput, void>
 
-export type FormProps<
-  TData extends UnknownObject,
-  TResponse = unknown,
-> = Partial<
+export type FormProps<TData extends ObjectLike, TResponse = unknown> = Partial<
   Pick<
     AutoFormProps<TData>,
     'autosave' | 'modelTransform' | 'onChange' | 'onChangeModel' | 'submitField'

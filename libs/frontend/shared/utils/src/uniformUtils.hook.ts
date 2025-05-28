@@ -3,7 +3,6 @@ import type { Maybe, Nullish, ObjectLike } from '@codelab/shared-abstract-types'
 import type { TSchema } from '@sinclair/typebox'
 import type { JSONSchemaType, Schema } from 'ajv'
 import type { RefObject } from 'react'
-import type { UnknownObject } from 'uniforms'
 
 import JSONSchemaBridge from 'uniforms-bridge-json-schema'
 
@@ -31,7 +30,7 @@ export const createValidator = (schema: Schema) => {
   }
 }
 
-export const createBridge = <T extends UnknownObject>(
+export const createBridge = <T extends ObjectLike>(
   schema: JSONSchemaType<T> | TSchema,
 ) => {
   const validator = createValidator(schema)
