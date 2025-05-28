@@ -1,4 +1,4 @@
-import type { UnknownObject } from 'uniforms'
+import type { ObjectLike } from '@codelab/shared/abstract/types'
 
 import type { IRef } from '../model'
 import type { IResourceFetchConfig } from '../resource'
@@ -7,7 +7,7 @@ import type { IActionKind } from './action-kind.enum'
 /**
  * Base
  */
-export interface IBaseActionCreateFormData extends UnknownObject {
+export interface IBaseActionCreateFormData extends ObjectLike {
   id: string
   name: string
   store: IRef

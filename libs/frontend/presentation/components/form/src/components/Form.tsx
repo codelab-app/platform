@@ -1,8 +1,8 @@
 'use client'
 
 import type { FormProps } from '@codelab/frontend/abstract/types'
+import type { ObjectLike } from '@codelab/shared/abstract/types'
 import type { ReactElement } from 'react'
-import type { UnknownObject } from 'uniforms'
 
 import {
   connectUniformSubmitRef,
@@ -23,7 +23,7 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
   filterDOMProps.register('forbiddenValues')
   filterDOMProps.register('decimal')
 
-  const Form = <TData extends UnknownObject, TResponse = unknown>(
+  const Form = <TData extends ObjectLike, TResponse = unknown>(
     props: React.PropsWithChildren<FormProps<TData, TResponse>>,
   ): ReactElement<unknown> => {
     const {
