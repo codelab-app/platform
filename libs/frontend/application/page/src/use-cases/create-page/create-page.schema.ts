@@ -1,17 +1,23 @@
 import type { JSONSchemaType } from 'ajv'
 
 import {
+  minLengthMsg,
+  requiredMsg,
+  titleCasePatternMsg,
+} from '@codelab/frontend/shared/utils'
+import {
   appSchema,
   hideField,
   idSchema,
   nonEmptyString,
-  pageUrlSchema,
   titleCaseValidation,
 } from '@codelab/frontend-presentation-components-form/schema'
 import {
   type IPageCreateFormData,
   IPageKind,
 } from '@codelab/shared-abstract-core'
+
+import { UrlPatternField } from '../../components'
 
 export const createPageSchema: JSONSchemaType<IPageCreateFormData> = {
   properties: {
@@ -27,9 +33,27 @@ export const createPageSchema: JSONSchemaType<IPageCreateFormData> = {
       ...nonEmptyString,
       ...titleCaseValidation,
     },
-    ...pageUrlSchema,
+    urlPattern: {
+      label: 'Deployed Page URL',
+      help: 'Use / for "Home" page',
+      uniforms: {
+        component: UrlPatternField,
+      },
+      ...nonEmptyString,
+    },
   },
-  required: ['name'],
+  errors: {
+    name: {
+      required: requiredMsg('Page name'),
+      minLength: minLengthMsg('Page name', 1),
+      pattern: titleCasePatternMsg('Page name'),
+    },
+    urlPattern: {
+      required: requiredMsg('Url Pattern'),
+      minLength: minLengthMsg('Url Pattern', 1),
+    },
+  },
+  required: ['name', 'app', 'urlPattern'],
   title: 'Create Page Input',
   type: 'object',
 } as const
