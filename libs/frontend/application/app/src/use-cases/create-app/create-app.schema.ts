@@ -2,6 +2,11 @@ import type { IAppCreateFormData } from '@codelab/frontend-abstract-domain'
 import type { JSONSchemaType } from 'ajv'
 
 import {
+  minLengthMsg,
+  requiredMsg,
+  titleCasePatternMsg,
+} from '@codelab/frontend/shared/utils'
+import {
   idSchema,
   nonEmptyString,
   titleCaseValidation,
@@ -18,9 +23,9 @@ export const createAppSchema: JSONSchemaType<IAppCreateFormData> = {
   },
   errors: {
     name: {
-      required: 'App name is required',
-      minLength: 'App name must have at least 1 character',
-      pattern: 'App name must be in title case with no extra spaces',
+      required: requiredMsg('App name'),
+      minLength: minLengthMsg('App name', 1),
+      pattern: titleCasePatternMsg('App name'),
     },
   },
   required: ['name', 'id'],
