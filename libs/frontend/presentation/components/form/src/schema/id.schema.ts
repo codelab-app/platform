@@ -21,7 +21,6 @@ export const idSchema = ({
     ...(label ? { label } : {}),
     ...showFieldOnDev(),
     disabled,
-    required: ['id'],
     ...(component
       ? {
           uniforms: {
