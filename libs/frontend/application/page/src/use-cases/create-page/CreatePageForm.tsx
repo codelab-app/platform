@@ -9,6 +9,10 @@ import {
   FormController,
 } from '@codelab/frontend-presentation-components-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
+import {
+  type IPageCreateFormData,
+  IPageKind,
+} from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
@@ -22,17 +26,13 @@ type ICreatePageFormProps = IFormController & {
 
 export const CreatePageForm = observer<ICreatePageFormProps>(
   ({ appId, onSubmitSuccess, showFormControl = true, submitRef }) => {
-    const user = useUser()
     const pageService = usePageService()
 
     const model = {
       app: { id: appId },
       id: v4(),
-      // required for store api
-      owner: {
-        auth0Id: user.auth0Id,
-      },
-    }
+      kind: IPageKind.Regular,
+    } as IPageCreateFormData
 
     const closeForm = () => null
 
@@ -54,7 +54,7 @@ export const CreatePageForm = observer<ICreatePageFormProps>(
         submitRef={submitRef}
         uiKey={UiKey.PageFormCreate}
       >
-        <AutoFields />
+        <AutoFields omitFields={['app']} />
         <DisplayIf condition={showFormControl}>
           <FormController onCancel={closeForm} submitLabel="Create Page" />
         </DisplayIf>
