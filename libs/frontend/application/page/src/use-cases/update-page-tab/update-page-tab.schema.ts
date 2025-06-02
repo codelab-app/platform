@@ -33,7 +33,7 @@ export const schema = (kind: IPageKind): JSONSchemaType<IPageUpdateFormData> =>
       urlPattern: {
         type: 'string',
         label: 'Deployed Page URL',
-        help: 'Use / for "Home" page',
+        extra: 'Use / for "Home" page',
         uniforms: {
           component: UrlPatternField,
         },
