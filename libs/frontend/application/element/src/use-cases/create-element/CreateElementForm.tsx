@@ -115,7 +115,6 @@ export const CreateElementForm = observer<CreateElementFormProps>((props) => {
           'parentElement',
           'style',
           'propsData',
-          'prevSibling',
           'preRenderActions',
           'postRenderActions',
           'renderType',
@@ -127,7 +126,7 @@ export const CreateElementForm = observer<CreateElementFormProps>((props) => {
       <AutoField name="props.data" />
       <AutoField
         component={SelectElementField}
-        help={`only elements from \`${selectedElement.closestContainerNode.name}\` are visible in this list`}
+        extra={`only elements from \`${selectedElement.closestContainerNode.name}\` are visible in this list`}
         name="parentElement.id"
       />
       <RenderTypeField

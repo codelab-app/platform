@@ -2,7 +2,13 @@ import type { IUpdateBaseElementData } from '@codelab/frontend-abstract-domain'
 import type { JSONSchemaType } from 'ajv'
 
 import {
+  minLengthMsg,
+  requiredMsg,
+  titleCasePatternMsg,
+} from '@codelab/frontend/shared/utils'
+import {
   idSchema,
+  nonEmptyString,
   titleCaseValidation,
 } from '@codelab/frontend-presentation-components-form/schema'
 import { IElementRenderTypeKind } from '@codelab/shared-abstract-core'
@@ -12,7 +18,7 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
     ...idSchema(),
     name: {
       autoFocus: true,
-      type: 'string',
+      ...nonEmptyString,
       ...titleCaseValidation,
     },
     tailwindClassNames: {
@@ -139,7 +145,14 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
     //   type: 'object',
     // },
   },
-  required: ['renderType'],
+  errors: {
+    name: {
+      required: requiredMsg('Element name'),
+      minLength: minLengthMsg('Element name', 1),
+      pattern: titleCasePatternMsg('Element name'),
+    },
+  },
+  required: ['name', 'renderType'],
   title: 'Update Element Input',
   type: 'object',
 } as const
