@@ -35,7 +35,8 @@ export const createPageSchema: JSONSchemaType<IPageCreateFormData> = {
     },
     urlPattern: {
       label: 'Deployed Page URL',
-      help: 'Use / for "Home" page',
+      // error messages are displayed as help so we need to use extra instead
+      extra: 'Use / for "Home" page',
       uniforms: {
         component: UrlPatternField,
       },
