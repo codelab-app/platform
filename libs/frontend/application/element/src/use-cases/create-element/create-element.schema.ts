@@ -2,8 +2,13 @@ import type { IElementDto } from '@codelab/shared-abstract-core'
 import type { JSONSchemaType } from 'ajv'
 
 import {
+  minLengthMsg,
+  requiredMsg,
+  titleCasePatternMsg,
+} from '@codelab/frontend/shared/utils'
+import {
   idSchema,
-  nullableIdSchema,
+  nonEmptyString,
   showFieldOnDev,
   titleCaseValidation,
 } from '@codelab/frontend-presentation-components-form/schema'
@@ -16,7 +21,6 @@ export type ICreateElementDto = Pick<
   | 'parentElement'
   | 'postRenderActions'
   | 'preRenderActions'
-  | 'prevSibling'
   | 'props'
   | 'renderType'
   | 'style'
@@ -27,7 +31,7 @@ export const createElementSchema: JSONSchemaType<ICreateElementDto> = {
   properties: {
     ...idSchema(),
     name: {
-      type: 'string',
+      ...nonEmptyString,
       ...titleCaseValidation,
     },
     style: {
@@ -77,16 +81,6 @@ export const createElementSchema: JSONSchemaType<ICreateElementDto> = {
         required: [],
       },
     },
-    prevSibling: {
-      nullable: true,
-      properties: {
-        ...nullableIdSchema({
-          label: 'Prev Sibling',
-        }),
-      },
-      required: [],
-      type: 'object',
-    },
     props: {
       label: '',
       properties: {
@@ -106,6 +100,7 @@ export const createElementSchema: JSONSchemaType<ICreateElementDto> = {
         data: {
           label: 'Props Data',
           type: 'string',
+          // TODO: add json validation
         },
       },
       type: 'object',
@@ -141,6 +136,13 @@ export const createElementSchema: JSONSchemaType<ICreateElementDto> = {
           type: 'object',
         },
       ],
+    },
+  },
+  errors: {
+    name: {
+      required: requiredMsg('Element name'),
+      minLength: minLengthMsg('Element name', 1),
+      pattern: titleCasePatternMsg('Element name'),
     },
   },
   required: ['name', 'id'],
