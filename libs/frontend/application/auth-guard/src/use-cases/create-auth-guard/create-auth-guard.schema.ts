@@ -110,7 +110,7 @@ export const createAuthGuardSchema: JSONSchemaType<IAuthGuardCreateFormData> = {
     responseTransformer: {
       type: 'string',
       default: '// return response.Authenticated',
-      help: 'Use "response" object to return a boolean',
+      extra: 'Use "response" object to return a boolean',
       uniforms: {
         component: CodeMirrorField,
         language: CodeMirrorLanguage.Typescript,
