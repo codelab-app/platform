@@ -497,5 +497,23 @@ describe('Runtime Element props', () => {
         [urlKey]: urlPropValue,
       })
     })
+
+    it('should handle expression evaluation errors gracefully', () => {
+      const { renderer, rootElement, runtimeRootElement } =
+        testStore.setupRuntimeElement()
+
+      const propKey = 'errorProp'
+      const invalidExpression = '{{undefined.nonExistent}}'
+
+      rootElement.props.set(propKey, invalidExpression)
+      renderer.render()
+
+      // Should return the original expression string when evaluation fails
+      expect(
+        runtimeRootElement.current.runtimeProps.evaluatedProps,
+      ).toMatchObject({
+        [propKey]: invalidExpression,
+      })
+    })
   })
 })

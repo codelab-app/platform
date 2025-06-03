@@ -69,6 +69,37 @@ describe('TypedPropTransformers', () => {
     expect(isValidElement(renderedProp)).toBeTruthy()
   })
 
+  it('should render expression props when kind is ReactNodeType', async () => {
+    const { renderer, rootElement, runtimeRootElement } =
+      testStore.setupRuntimeElement()
+
+    const { rendererService } = testStore.applicationStore
+    const expressionTransformer = rendererService.expressionTransformer
+
+    await expressionTransformer.init()
+
+    const propKey = 'someNode'
+    const content = 'Expression node content'
+    const reactNodeType = testStore.addReactNodeType({})
+
+    rootElement.props.set(propKey, {
+      kind: reactNodeType.kind,
+      type: reactNodeType.id,
+      value: `{{<span>${content}</span>}}`,
+    })
+
+    renderer.render()
+
+    const renderedProp =
+      runtimeRootElement.current.runtimeProps.evaluatedProps[propKey]
+
+    expect(isValidElement(renderedProp)).toBeTruthy()
+
+    render(renderedProp)
+
+    expect(await screen.findByText(content)).toBeInTheDocument()
+  })
+
   it('should render props when kind is RenderPropsType', () => {
     const { renderer, rootElement, runtimeRootElement } =
       testStore.setupRuntimeElement()
@@ -95,6 +126,43 @@ describe('TypedPropTransformers', () => {
       runtimeRootElement.current.runtimeProps.evaluatedProps[propKey]
 
     expect(isValidElement(renderedProp())).toBeTruthy()
+  })
+
+  it('should render expression props when kind is RenderPropsType', async () => {
+    const { renderer, rootElement, runtimeRootElement } =
+      testStore.setupRuntimeElement()
+
+    const { rendererService } = testStore.applicationStore
+    const expressionTransformer = rendererService.expressionTransformer
+
+    await expressionTransformer.init()
+
+    const propKey = 'someNode'
+    const content = 'Expression node content'
+    const renderPropsType = testStore.addRenderPropsType({})
+
+    rootElement.props.set(propKey, {
+      kind: renderPropsType.kind,
+      type: renderPropsType.id,
+      value: `{{function Render() { return <span>${content}</span> }}}`,
+    })
+
+    renderer.render()
+
+    expect(
+      runtimeRootElement.current.runtimeProps.evaluatedProps,
+    ).toMatchObject({
+      [propKey]: expect.any(Function),
+    })
+
+    const renderedProp =
+      runtimeRootElement.current.runtimeProps.evaluatedProps[propKey]
+
+    expect(isValidElement(renderedProp())).toBeTruthy()
+
+    render(createElement(renderedProp))
+
+    expect(await screen.findByText(content)).toBeInTheDocument()
   })
 
   it('should pass props to render props component', async () => {
