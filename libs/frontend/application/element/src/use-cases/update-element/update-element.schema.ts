@@ -57,12 +57,12 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
     childMapperComponent: {
       nullable: true,
       properties: {
-        id: {
-          label: 'Child Mapper Component',
-          type: 'string',
+        ...idSchema({
+          disabled: false,
+          label: 'Component',
           extra:
             'The component to render based on the length of the data source',
-        },
+        }),
       },
       required: [],
       type: 'object',
@@ -71,6 +71,7 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
       nullable: true,
       properties: {
         ...idSchema({
+          disabled: false,
           label: 'Render next to',
           extra: 'Component instances will be rendered next to this element',
         }),

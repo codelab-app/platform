@@ -23,7 +23,6 @@ export const validateElementDto = (element: IElementDto) => {
   const { nextSibling, page, parentComponent, parentElement, prevSibling } =
     element
 
-  console.log(nextSibling, page, parentComponent, parentElement, prevSibling)
   /**
    * If we don't have any containers, we must have have element connection
    */

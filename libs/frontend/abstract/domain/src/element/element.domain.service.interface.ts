@@ -18,6 +18,10 @@ export interface IElementDomainService
   modifiedElements: Array<IElementModel>
   addTreeNode(elementDto: IElementDto): IElementModel
   element(id: string): IElementModel
+  getSelectOptions(
+    element: IElementModel,
+    kind: IElementTypeKind,
+  ): Array<SelectOption>
   logElementTreeState(): void
   maybeElement(id: Maybe<string>): Maybe<IElementModel>
   move(context: IMoveElementContext): void
