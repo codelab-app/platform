@@ -26,7 +26,7 @@ export const selectComponentUniformSchema: ITypeModelUniformSchemaBuilder<
     component: ToggleExpressionField({
       autocomplete,
       getBaseControl: ({ value, ...fieldProps }) =>
-        SelectComponent(fieldProps as SelectFieldProps) as React.ReactNode,
+        SelectComponentField(fieldProps as SelectFieldProps) as React.ReactNode,
       onToggle: (showExpression, { field, onChange }, lastValue) => {
         if (showExpression) {
           onChange(lastValue ?? COMPONENT_TEMPLATE)

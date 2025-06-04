@@ -32,15 +32,11 @@ export const UrlPatternField = (props: TextFieldProps) => {
     }
 
     setUrlFromName()
-  }, [nameField.value])
+  }, [nameField.value, autoGenerate])
 
   const onAutoGenerateChange = useCallback((value: boolean) => {
     setAutoGenerate(value)
     setStoredAutoGenerate(model.id, value)
-
-    if (value) {
-      setUrlFromName()
-    }
   }, [])
 
   return (

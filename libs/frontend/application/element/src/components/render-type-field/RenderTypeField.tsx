@@ -71,7 +71,7 @@ export const RenderTypeField = connectField(
 
     return (
       <StyledFormField
-        help={error}
+        extra={error}
         htmlFor={id}
         label={label}
         required={true}

@@ -3,12 +3,16 @@ import type {
   IElementModel,
   IMoveElementContext,
 } from '@codelab/frontend-abstract-domain'
-import type { IElementDto } from '@codelab/shared-abstract-core'
+import {
+  IElementDto,
+  IElementTypeKind,
+} from '@codelab/shared-abstract-core'
 
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 
 import { Element } from '../store'
+import { mapElementOption } from '../use-cases/element-options'
 import { validateElementDto } from './element.validate'
 import { validateMoveElement } from './move-element.validation'
 
@@ -53,6 +57,24 @@ export class ElementDomainService
     }
 
     return element
+  }
+
+  @modelAction
+  getSelectOptions(element: IElementModel, kind: IElementTypeKind) {
+    switch (kind) {
+      case IElementTypeKind.AllElements:
+        return element.closestContainerNode.elements.map(mapElementOption)
+      case IElementTypeKind.ChildrenOnly:
+        return element.children.map(mapElementOption)
+      case IElementTypeKind.DescendantsOnly:
+        return element.descendantElements
+          .filter((el) => !element.children.includes(el))
+          .map(mapElementOption)
+      case IElementTypeKind.ExcludeDescendantsElements:
+        return element.closestContainerNode.elements.filter(
+          (el) => !element.descendantElements.includes(el),
+        )
+    }
   }
 
   /**
