@@ -127,10 +127,6 @@ const ToggleExpression = ({
       {showExpressionEditor ? (
         <CodeMirrorEditor
           {...fieldProps}
-          cssString={`
-            display: block;
-            margin-bottom: 12px;
-          `}
           customOptions={mainProps.autocomplete || []}
           language={ICodeMirrorLanguage.Javascript}
           placeholder=""

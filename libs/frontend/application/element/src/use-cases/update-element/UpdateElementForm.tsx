@@ -21,11 +21,10 @@ import { CodeMirrorLanguage } from '@codelab/shared-infra-gqlgen'
 import { Collapse } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useMemo } from 'react'
-import { AutoField, AutoFields } from 'uniforms-antd'
+import { AutoField, AutoFields, SelectField } from 'uniforms-antd'
 
 import { AutoComputedElementNameField } from '../../components/AutoComputedElementNameField'
-import { ChildMapperPreviousSiblingField } from '../../components/child-mapper-field/ChildMapperPreviousSiblingField'
-import { ChildMapperPropKeyField } from '../../components/child-mapper-field/ChildMapperPropKeyField'
+import { PropKeyField } from '../../components/PropKeyField'
 import { RenderTypeField } from '../../components/render-type-field'
 import { useElementService } from '../../services'
 import { updateElementSchema } from './update-element.schema'
@@ -38,6 +37,7 @@ export interface UpdateElementFormProps {
 export const UpdateElementForm = observer(
   ({ runtimeElement }: UpdateElementFormProps) => {
     const elementService = useElementService()
+    const { componentDomainService, elementDomainService } = useDomainStore()
 
     const onSubmit = async (data: IUpdateElementData) => {
       return elementService.update(data)
@@ -107,18 +107,25 @@ export const UpdateElementForm = observer(
         children: (
           // We don't want a composite field since there is no top level name to nest under
           <>
-            <SelectComponent
-              label="Component"
+            <AutoField
+              component={SelectField}
               name="childMapperComponent.id"
-              parentComponent={element.closestContainerComponent}
+              options={componentDomainService.getSelectOptions(
+                element.closestContainerComponent,
+              )}
             />
-            <ChildMapperPropKeyField
+            <AutoField
+              component={PropKeyField}
               name="childMapperPropKey"
               runtimeElement={runtimeElement}
             />
-            <ChildMapperPreviousSiblingField
-              element={element}
-              name="childMapperPreviousSibling"
+            <AutoField
+              component={SelectField}
+              name="childMapperPreviousSibling.id"
+              options={elementDomainService.getSelectOptions(
+                element,
+                IElementTypeKind.ChildrenOnly,
+              )}
             />
           </>
         ),
