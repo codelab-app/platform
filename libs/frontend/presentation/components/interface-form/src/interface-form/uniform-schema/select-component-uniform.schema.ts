@@ -7,7 +7,7 @@ import type { SelectFieldProps } from 'uniforms-antd'
 
 import { ToggleExpressionField } from '@codelab/frontend-presentation-components-form'
 
-import { SelectComponent } from '../fields'
+import { SelectComponentField } from '../fields'
 
 const COMPONENT_TEMPLATE = `{{
   function render() {
@@ -26,7 +26,7 @@ export const selectComponentUniformSchema: ITypeModelUniformSchemaBuilder<
     component: ToggleExpressionField({
       autocomplete,
       getBaseControl: ({ value, ...fieldProps }) =>
-        SelectComponent(fieldProps as SelectFieldProps) as React.ReactNode,
+        SelectComponentField(fieldProps as SelectFieldProps) as React.ReactNode,
       onToggle: (showExpression, { field, onChange }, lastValue) => {
         if (showExpression) {
           onChange(lastValue ?? COMPONENT_TEMPLATE)
