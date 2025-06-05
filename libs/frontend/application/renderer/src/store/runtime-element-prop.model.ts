@@ -260,7 +260,13 @@ export class RuntimeElementPropsModel
     return this.routerService.searchParams
   }
 
-  renderedTypedProps: IPropData = observable.object<IPropData>({})
+  renderedTypedProps: IPropData = observable.object<IPropData>(
+    {},
+    {},
+    // do not observe the nested data, this will wrap properties in proxis,
+    // and when passing to React.createElement it will case script errors
+    { deep: false },
+  )
 
   @modelAction
   getActionRunner(actionName: string) {

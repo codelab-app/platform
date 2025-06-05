@@ -136,7 +136,13 @@ export class RuntimeComponentPropModel
     return this.runtimeComponent.current.runtimeStore
   }
 
-  renderedTypedProps: IPropData = observable.object<IPropData>({})
+  renderedTypedProps: IPropData = observable.object<IPropData>(
+    {},
+    {},
+    // do not observe the nested data, this will wrap properties in proxis,
+    // and when passing to React.createElement it will case script errors
+    { deep: false },
+  )
 
   /**
    * Applies all the type transformers to the props
