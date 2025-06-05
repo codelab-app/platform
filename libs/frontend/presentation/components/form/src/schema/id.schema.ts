@@ -6,22 +6,21 @@ import { showFieldOnDev } from './show-field-on-dev'
 export const idSchema = ({
   component,
   disabled = true,
-  help,
+  extra,
   label,
 }: {
   label?: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   component?: React.FunctionComponent<any>
-  help?: string
+  extra?: string
   disabled?: boolean
 } = {}): PropertiesSchema<IRef> => ({
   id: {
-    help,
+    extra,
     type: 'string',
     ...(label ? { label } : {}),
     ...showFieldOnDev(),
     disabled,
-    required: ['id'],
     ...(component
       ? {
           uniforms: {
