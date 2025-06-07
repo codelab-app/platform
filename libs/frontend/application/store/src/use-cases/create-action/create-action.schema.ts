@@ -111,7 +111,7 @@ export const createActionSchema: JSONSchemaType<ICreateActionData> = {
       label: 'Success Action',
     }),
     type: {
-      enum: Object.values(IActionKind),
+      allowedValues: Object.values(IActionKind),
       type: 'string',
     },
   },

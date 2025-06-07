@@ -153,7 +153,7 @@
         "key": "expandIconPosition",
         "name": "Expand Icon Position",
         "nextSibling": {
-          "id": "1a93d3e0-f5e4-4445-b426-2d57f131079d"
+          "id": "8feefb4b-3ec5-4841-92aa-05789ce5b3d0"
         },
         "prevSibling": {
           "id": "0bc35352-8d94-4658-adca-e64ae3b046a0"
@@ -167,16 +167,152 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f"
         },
-        "id": "1a93d3e0-f5e4-4445-b426-2d57f131079d",
-        "key": "ghost",
-        "name": "Ghost",
-        "nextSibling": null,
+        "id": "8feefb4b-3ec5-4841-92aa-05789ce5b3d0",
+        "key": "onChange",
+        "name": null,
+        "nextSibling": {
+          "id": "7552b070-9445-4c29-9dec-59610fee5e79"
+        },
         "prevSibling": {
           "id": "560fe7ed-6046-4f10-a895-b2c82401eb3d"
         },
-        "validationRules": null
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3"
+        },
+        "defaultValues": "[]",
+        "description": null,
+        "fieldType": {
+          "id": "ab4a5cb1-cd68-414c-955f-a60f707e0bac"
+        },
+        "id": "7552b070-9445-4c29-9dec-59610fee5e79",
+        "key": "items",
+        "name": "Items",
+        "nextSibling": {
+          "id": "32bd2170-9d25-4ecf-9a9d-cdc2a3601b95"
+        },
+        "prevSibling": {
+          "id": "8feefb4b-3ec5-4841-92aa-05789ce5b3d0"
+        },
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3"
+        },
+        "defaultValues": "\"middle\"",
+        "description": null,
+        "fieldType": {
+          "id": "f01ba9a9-badb-4fd9-8cd1-b887dce916da"
+        },
+        "id": "32bd2170-9d25-4ecf-9a9d-cdc2a3601b95",
+        "key": "size",
+        "name": "Size",
+        "nextSibling": null,
+        "prevSibling": {
+          "id": "7552b070-9445-4c29-9dec-59610fee5e79"
+        },
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "643364f8-0ac7-4884-81c7-02caa4f98192"
+        },
+        "defaultValues": "\"Title of the panel\"",
+        "description": null,
+        "fieldType": {
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
+        },
+        "id": "c81fa471-ba3b-4746-b752-c22e010dcc4b",
+        "key": "label",
+        "name": "Label",
+        "nextSibling": {
+          "id": "63560b14-49c7-4d8a-a8e8-cc7c97277028"
+        },
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "643364f8-0ac7-4884-81c7-02caa4f98192"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
+        },
+        "id": "63560b14-49c7-4d8a-a8e8-cc7c97277028",
+        "key": "children",
+        "name": "Children",
+        "nextSibling": {
+          "id": "a74bf29c-ccaa-4830-bd64-95de0eeda0d7"
+        },
+        "prevSibling": {
+          "id": "c81fa471-ba3b-4746-b752-c22e010dcc4b"
+        },
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "643364f8-0ac7-4884-81c7-02caa4f98192"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
+        },
+        "id": "a74bf29c-ccaa-4830-bd64-95de0eeda0d7",
+        "key": "extra",
+        "name": "Extra",
+        "nextSibling": {
+          "id": "60d7e9ba-ad0a-46aa-a123-15079b981a5c"
+        },
+        "prevSibling": {
+          "id": "63560b14-49c7-4d8a-a8e8-cc7c97277028"
+        },
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "643364f8-0ac7-4884-81c7-02caa4f98192"
+        },
+        "defaultValues": "true",
+        "description": null,
+        "fieldType": {
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+        },
+        "id": "60d7e9ba-ad0a-46aa-a123-15079b981a5c",
+        "key": "showArrow",
+        "name": "Show Arrow",
+        "nextSibling": {
+          "id": "58340643-4fc7-4e16-9d2c-2470de945fb6"
+        },
+        "prevSibling": {
+          "id": "a74bf29c-ccaa-4830-bd64-95de0eeda0d7"
+        },
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "643364f8-0ac7-4884-81c7-02caa4f98192"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
+        },
+        "id": "58340643-4fc7-4e16-9d2c-2470de945fb6",
+        "key": "key",
+        "name": "Key",
+        "nextSibling": null,
+        "prevSibling": {
+          "id": "60d7e9ba-ad0a-46aa-a123-15079b981a5c"
+        },
+        "validationRules": "{}"
       }
     ],
     "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3",
@@ -271,6 +407,63 @@
         "id": "deff6330-e2ed-4233-8678-88743e834641",
         "kind": "EnumType",
         "name": "AntDesignCollapse Expand Icon Position Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "06a44adf-e65d-495d-87b5-f628adefc53a",
+            "key": "Large",
+            "value": "large"
+          },
+          {
+            "id": "59002b47-f1dd-4bdd-8daf-bc2a16bd6e54",
+            "key": "Middle",
+            "value": "middle"
+          },
+          {
+            "id": "29756981-63a1-4c88-9792-772b07cb4445",
+            "key": "Small",
+            "value": "small"
+          }
+        ],
+        "id": "f01ba9a9-badb-4fd9-8cd1-b887dce916da",
+        "kind": "EnumType",
+        "name": "AntDesignCollapse Size"
+      },
+      {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "id": "c81fa471-ba3b-4746-b752-c22e010dcc4b"
+          },
+          {
+            "id": "63560b14-49c7-4d8a-a8e8-cc7c97277028"
+          },
+          {
+            "id": "a74bf29c-ccaa-4830-bd64-95de0eeda0d7"
+          },
+          {
+            "id": "60d7e9ba-ad0a-46aa-a123-15079b981a5c"
+          },
+          {
+            "id": "58340643-4fc7-4e16-9d2c-2470de945fb6"
+          }
+        ],
+        "id": "643364f8-0ac7-4884-81c7-02caa4f98192",
+        "kind": "InterfaceType",
+        "name": "AntDesignCollapse Item"
+      },
+      {
+        "__typename": "ArrayType",
+        "id": "ab4a5cb1-cd68-414c-955f-a60f707e0bac",
+        "itemType": {
+          "__typename": "InterfaceType",
+          "id": "643364f8-0ac7-4884-81c7-02caa4f98192",
+          "name": "AntDesignCollapse Item"
+        },
+        "kind": "ArrayType",
+        "name": "AntDesignCollapse Items"
       }
     ]
   },
