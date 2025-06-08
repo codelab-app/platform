@@ -20,8 +20,8 @@ export const SelectFieldSibling = connectField(
       .filter(({ api, id }) => {
         return field.api.id === api.id && field.id !== id
       })
-      .map(({ id, name: fieldName }) => ({
-        label: fieldName,
+      .map(({ id, key, name: fieldName }) => ({
+        label: fieldName || key,
         value: id,
       }))
 
@@ -36,6 +36,8 @@ export const SelectFieldSibling = connectField(
         }
         optionFilterProp="label"
         options={options}
+        // null value is allowed, meaning it is the first field
+        required={false}
         value={props.value?.id}
       />
     )
