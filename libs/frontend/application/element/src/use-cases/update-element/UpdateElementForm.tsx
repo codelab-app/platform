@@ -4,11 +4,11 @@ import type { IRuntimeElementModel } from '@codelab/frontend/abstract/applicatio
 
 import {
   isAtom,
+  isPage,
   type IUpdateBaseElementData,
   type IUpdateElementData,
 } from '@codelab/frontend/abstract/domain'
 import { UiKey } from '@codelab/frontend/abstract/types'
-import { SelectActionsField } from '@codelab/frontend/presentation/components/interface-form'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import { createAutoCompleteOptions } from '@codelab/frontend-presentation-components-codemirror'
 import {
@@ -20,10 +20,9 @@ import { CodeMirrorLanguage } from '@codelab/shared/infra/gqlgen'
 import { Collapse } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useMemo } from 'react'
-import { AutoField, AutoFields, SelectField } from 'uniforms-antd'
+import { AutoField, AutoFields } from 'uniforms-antd'
 
 import { AutoComputedElementNameField } from '../../components/AutoComputedElementNameField'
-import { PropKeyField } from '../../components/PropKeyField'
 import { RenderTypeField } from '../../components/render-type-field'
 import { useElementService } from '../../services'
 import { updateElementSchema } from './update-element.schema'
@@ -36,7 +35,12 @@ export interface UpdateElementFormProps {
 export const UpdateElementForm = observer(
   ({ runtimeElement }: UpdateElementFormProps) => {
     const elementService = useElementService()
-    const { componentDomainService, elementDomainService } = useDomainStore()
+
+    const {
+      actionDomainService,
+      componentDomainService,
+      elementDomainService,
+    } = useDomainStore()
 
     const onSubmit = async (data: IUpdateElementData) => {
       return elementService.update(data)
@@ -45,6 +49,11 @@ export const UpdateElementForm = observer(
     const expandedFields: Array<string> = ['childMapper']
     // `getSnapshot` is immutable and doesn't work
     const element = runtimeElement.element.current
+    const store = element.store.current
+
+    const providerStore = isPage(element.closestContainerNode)
+      ? element.closestContainerNode.providerPage?.store.current
+      : undefined
 
     if (element.renderType.id) {
       expandedFields.push('renderer')
@@ -92,8 +101,20 @@ export const UpdateElementForm = observer(
       {
         children: (
           <>
-            <SelectActionsField name="preRenderActions" />
-            <SelectActionsField name="postRenderActions" />
+            <AutoField
+              name="preRenderActions"
+              options={actionDomainService.getSelectActionOptions(
+                store,
+                providerStore,
+              )}
+            />
+            <AutoField
+              name="postRenderActions"
+              options={actionDomainService.getSelectActionOptions(
+                store,
+                providerStore,
+              )}
+            />
           </>
         ),
         key: 'actions',
@@ -107,19 +128,16 @@ export const UpdateElementForm = observer(
           // We don't want a composite field since there is no top level name to nest under
           <>
             <AutoField
-              component={SelectField}
               name="childMapperComponent.id"
               options={componentDomainService.getSelectOptions(
                 element.closestContainerComponent,
               )}
             />
             <AutoField
-              component={PropKeyField}
               name="childMapperPropKey"
               runtimeElement={runtimeElement}
             />
             <AutoField
-              component={SelectField}
               name="childMapperPreviousSibling.id"
               options={elementDomainService.getSelectOptions(
                 element,

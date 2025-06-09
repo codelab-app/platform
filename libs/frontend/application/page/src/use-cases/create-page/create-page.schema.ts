@@ -1,3 +1,5 @@
+'use client'
+
 import type { JSONSchemaType } from 'ajv'
 
 import {
