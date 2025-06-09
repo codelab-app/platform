@@ -21,6 +21,7 @@ export interface IElementDomainService
   getSelectOptions(
     element: IElementModel,
     kind: IElementTypeKind,
+    exclude?: Array<string>,
   ): Array<SelectOption>
   logElementTreeState(): void
   maybeElement(id: Maybe<string>): Maybe<IElementModel>
