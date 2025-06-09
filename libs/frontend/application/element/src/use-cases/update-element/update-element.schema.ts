@@ -2,16 +2,18 @@ import type { IUpdateBaseElementData } from '@codelab/frontend-abstract-domain'
 import type { JSONSchemaType } from 'ajv'
 
 import {
-  minLengthMsg,
-  requiredMsg,
-  titleCasePatternMsg,
-} from '@codelab/frontend/shared/utils'
-import {
   idSchema,
   nonEmptyString,
   titleCaseValidation,
 } from '@codelab/frontend-presentation-components-form/schema'
 import { IElementRenderTypeKind } from '@codelab/shared-abstract-core'
+import { SelectField } from 'uniforms-antd'
+import {
+  minLengthMsg,
+  requiredMsg,
+  titleCasePatternMsg,
+} from '@codelab/frontend-shared-utils'
+import { PropKeyField } from '../../components/PropKeyField'
 
 export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
   properties: {
@@ -35,6 +37,7 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
         type: 'object',
         properties: {
           ...idSchema({
+            component: SelectField,
             label: 'Post Render action',
           }),
         },
@@ -48,6 +51,7 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
         type: 'object',
         properties: {
           ...idSchema({
+            component: SelectField,
             label: 'Pre Render action',
           }),
         },
@@ -60,6 +64,7 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
         ...idSchema({
           disabled: false,
           label: 'Component',
+          component: SelectField,
           extra:
             'The component to render based on the length of the data source',
         }),
@@ -72,6 +77,7 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
       properties: {
         ...idSchema({
           disabled: false,
+          component: SelectField,
           label: 'Render next to',
           extra: 'Component instances will be rendered next to this element',
         }),
@@ -84,6 +90,9 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
       label: 'Prop Key',
       nullable: true,
       type: 'string',
+      uniforms: {
+        component: PropKeyField,
+      },
       extra:
         'The key used to get the data from state e.g. `state.products`, `rootState.products`. Data source needs to be an array',
     },
