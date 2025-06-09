@@ -30,6 +30,11 @@ export class ElementDomainService
   implements IElementDomainService
 {
   @computed
+  get atomDomainService() {
+    return getAtomDomainService(this)
+  }
+
+  @computed
   get modifiedElements() {
     return [...this.elements.values()].filter((element) => element._modified)
   }
@@ -60,20 +65,34 @@ export class ElementDomainService
   }
 
   @modelAction
-  getSelectOptions(element: IElementModel, kind: IElementTypeKind) {
+  getSelectOptions(
+    element: IElementModel,
+    kind: IElementTypeKind,
+    exclude?: Array<string>,
+  ) {
     switch (kind) {
       case IElementTypeKind.AllElements:
-        return element.closestContainerNode.elements.map(mapElementOption)
+        return element.closestContainerNode.elements
+          .filter((el) => !exclude?.includes(el.id))
+          .map(mapElementOption)
       case IElementTypeKind.ChildrenOnly:
-        return element.children.map(mapElementOption)
+        return element.children
+          .filter((el) => !exclude?.includes(el.id))
+          .map(mapElementOption)
       case IElementTypeKind.DescendantsOnly:
         return element.descendantElements
-          .filter((el) => !element.children.includes(el))
+          .filter(
+            (el) => !element.children.includes(el) && !exclude?.includes(el.id),
+          )
           .map(mapElementOption)
       case IElementTypeKind.ExcludeDescendantsElements:
-        return element.closestContainerNode.elements.filter(
-          (el) => !element.descendantElements.includes(el),
-        )
+        return element.closestContainerNode.elements
+          .filter(
+            (el) =>
+              !element.descendantElements.includes(el) &&
+              !exclude?.includes(el.id),
+          )
+          .map(mapElementOption)
     }
   }
 

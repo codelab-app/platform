@@ -1,3 +1,5 @@
+'use client'
+
 import type { IAppUpdateFormData } from '@codelab/frontend-abstract-domain'
 import type { JSONSchemaType } from 'ajv'
 

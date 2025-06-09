@@ -1,3 +1,5 @@
+'use client'
+
 import type { IElementDto } from '@codelab/shared-abstract-core'
 import type { JSONSchemaType } from 'ajv'
 
@@ -13,6 +15,7 @@ import {
   titleCaseValidation,
 } from '@codelab/frontend-presentation-components-form/schema'
 import { IElementRenderTypeKind } from '@codelab/shared-abstract-core'
+import { SelectField } from 'uniforms-antd'
 
 export type ICreateElementDto = Pick<
   IElementDto,
@@ -49,6 +52,8 @@ export const createElementSchema: JSONSchemaType<ICreateElementDto> = {
       nullable: true,
       properties: {
         ...idSchema({
+          component: SelectField,
+          disabled: false,
           label: 'Parent element',
         }),
       },
@@ -62,6 +67,8 @@ export const createElementSchema: JSONSchemaType<ICreateElementDto> = {
         type: 'object',
         properties: {
           ...idSchema({
+            disabled: false,
+            component: SelectField,
             label: 'Post Render action',
           }),
         },
@@ -75,6 +82,8 @@ export const createElementSchema: JSONSchemaType<ICreateElementDto> = {
         type: 'object',
         properties: {
           ...idSchema({
+            disabled: false,
+            component: SelectField,
             label: 'Pre Render action',
           }),
         },
