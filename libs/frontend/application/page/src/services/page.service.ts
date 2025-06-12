@@ -83,12 +83,11 @@ export const usePageService = (): IPageService => {
   }
 
   const create = async (data: IPageCreateFormData) => {
-    const { page, rootElement, rootElementProps, store, storeApi } =
-      createPageFactory(
-        data,
-        atomDomainService.defaultRenderType.toJson,
-        owner.toJson,
-      )
+    const { page, rootElement, store, storeApi } = createPageFactory(
+      data,
+      atomDomainService.defaultRenderType.toJson,
+      owner.toJson,
+    )
 
     return await createPageAction(page, store, storeApi, rootElement)
   }

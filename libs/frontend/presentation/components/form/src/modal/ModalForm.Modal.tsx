@@ -68,7 +68,7 @@ export const Modal = ({
         }}
         className={className}
         data-testid={getUiDataKey(uiKey)}
-        destroyOnClose
+        destroyOnHidden
         okButtonProps={{
           // Pass down any button props we get from the modalProps prop
           ...okButtonProps,

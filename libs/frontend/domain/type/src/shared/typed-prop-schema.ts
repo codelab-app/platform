@@ -1,9 +1,9 @@
-import type {
-  ITypeModel,
-  ITypeTransformContext,
-  JsonSchema,
+import {
+  type ITypeModel,
+  type ITypeTransformContext,
+  type JsonSchema,
+  PropKind,
 } from '@codelab/frontend/abstract/domain'
-
 import { HiddenField } from 'uniforms-antd'
 
 export const typedPropSchema = (
@@ -25,6 +25,11 @@ export const typedPropSchema = (
         enum: [kind],
         type: 'string',
         uniforms: { component: HiddenField },
+      },
+      propKind: {
+        default: PropKind.TypedProp,
+        enum: [PropKind.TypedProp],
+        type: 'string',
       },
       type: {
         default: id,

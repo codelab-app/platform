@@ -12,7 +12,9 @@ import type { Ref } from 'mobx-keystone'
 import { getRendererService } from '@codelab/frontend/abstract/application'
 import {
   DATA_COMPONENT_ID,
+  isPropObject,
   isTypedProp,
+  mapUnionTypePropToTypedProp,
 } from '@codelab/frontend/abstract/domain'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 import { mapDeep } from '@codelab/shared/utils'
@@ -150,22 +152,26 @@ export class RuntimeComponentPropModel
   @modelAction
   renderTypedProps() {
     const renderedProps = mapDeep(this.props, (value, key) => {
-      if (!isTypedProp(value)) {
+      if (!isPropObject(value)) {
         return value
       }
 
-      if (!value.value) {
+      const propObject = isTypedProp(value)
+        ? value
+        : mapUnionTypePropToTypedProp(value)
+
+      if (!propObject.value) {
         return undefined
       }
 
       const transformer = this.renderer.typedPropTransformers.get(value.kind)
 
       if (!transformer) {
-        return value.value
+        return propObject.value
       }
 
       return transformer.transform(
-        value,
+        propObject,
         key.toString(),
         this.runtimeComponent.current,
       )

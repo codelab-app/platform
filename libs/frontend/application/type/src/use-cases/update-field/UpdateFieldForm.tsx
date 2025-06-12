@@ -150,7 +150,9 @@ export const UpdateFieldForm = ({
         interfaceTypeId: field.api.id,
         key: field.key,
         name: field.name,
-        prevSibling: field.prevSibling,
+        prevSibling: field.prevSibling?.id
+          ? { id: field.prevSibling.id }
+          : null,
         validationRules: field.validationRules,
       }}
       modelTransform={(mode, model) => {
@@ -174,6 +176,8 @@ export const UpdateFieldForm = ({
         return model
       }}
       onChangeModel={(model) => {
+        console.log(model)
+
         if (model.fieldType) {
           void onFieldTypeChange(model.fieldType, model.validationRules)
         }
@@ -185,9 +189,15 @@ export const UpdateFieldForm = ({
       successMessage="Field updated successfully"
       uiKey={UiKey.FieldFormUpdate}
     >
-      <AutoFields fields={['id', 'key', 'name', 'description']} />
+      <AutoFields
+        fields={['id', 'key', 'name', 'description']}
+        omitFields={['prevSibling']}
+      />
       <TypeSelect label="Type" name="fieldType" />
-      <SelectFieldSibling field={field} name="prevSibling" />
+      <SelectFieldSibling
+        name="prevSibling"
+        siblings={field.api.current.fields}
+      />
 
       <DisplayIfField<IFieldUpdateData>
         condition={({ model }) =>
