@@ -160,7 +160,7 @@ export class Field
       ...this.type.current.toJsonSchema({
         ...context,
         defaultValues: this.defaultValues,
-        fieldName: this.name || titleCase(this.key),
+        fieldName: this.key,
         uniformSchema: context.uniformSchema,
         validationRules: this.validationRules,
       }),

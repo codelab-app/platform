@@ -26,6 +26,11 @@ export const typedPropSchema = (
         type: 'string',
         uniforms: { component: HiddenField },
       },
+      propKind: {
+        default: PropKind.TypedProp,
+        enum: [PropKind.TypedProp],
+        type: 'string',
+      },
       type: {
         default: id,
         enum: [id],

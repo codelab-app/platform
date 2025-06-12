@@ -7,13 +7,14 @@ import type {
 import type { IUnionTypeDto } from '@codelab/shared-abstract-core'
 import type { Ref } from 'mobx-keystone'
 
-import { typeRef, userRef } from '@codelab/frontend-abstract-domain'
+import { PropKind, typeRef, userRef } from '@codelab/frontend-abstract-domain'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared-abstract-core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
-import { mergeDeep } from 'remeda'
+import { HiddenField, SelectField } from 'uniforms-antd'
 
 import { typedPropSchema } from '../shared'
 import { createBaseType } from './base-type.model'
+import { titleCase } from '@codelab/shared-utils'
 
 const create = ({ id, kind, name, owner, typesOfUnionType }: IUnionTypeDto) => {
   assertIsTypeKind(kind, ITypeKind.UnionType)
@@ -50,24 +51,61 @@ export class UnionType
   }
 
   toJsonSchema(context: ITypeTransformContext): JsonSchema {
-    return {
-      oneOf: this.typesOfUnionType.map((innerType) => {
-        const typeSchema = innerType.current.toJsonSchema(context)
+    const uniformSchema = context.uniformSchema?.(this)
 
-        return typeSchema.isTypedProp
+    const valueSchemas = this.typesOfUnionType
+      .map((type) => {
+        const typedSchema = typedPropSchema(type.current, context)
+        const valueSchema = typedSchema.properties?.value
+
+        return valueSchema && valueSchema.uniforms
           ? {
-              ...typedPropSchema(innerType.current, context),
-              typeName: innerType.current.name,
-            }
-          : mergeDeep(
-              {
-                ...typedPropSchema(innerType.current, {}),
-                typeName: innerType.current.name,
+              [type.current.kind]: {
+                ...(valueSchema as JsonSchema),
+                label: '',
               },
-              { properties: { value: typeSchema } },
-            )
-      }),
-      ...(context.uniformSchema?.(this) ?? {}),
+            }
+          : null
+      })
+      .reduce((all, current) => ({ ...all, ...current }), {})
+
+    const firstType = this.typesOfUnionType[0]?.current
+
+    if (!firstType) {
+      throw new Error('UnionType must have at least one type')
+    }
+
+    return {
+      label: titleCase(context.fieldName ? context.fieldName : this.name),
+      properties: {
+        kind: {
+          enum: this.typesOfUnionType.map((type) => type.current.kind),
+          type: 'string',
+          uniforms: { component: HiddenField },
+        },
+        propKind: {
+          default: PropKind.UnionTypeProp,
+          enum: [PropKind.UnionTypeProp],
+          type: 'string',
+          uniforms: { component: HiddenField },
+        },
+        type: {
+          label: '',
+          type: 'string',
+          uniforms: {
+            component: SelectField,
+            options: this.typesOfUnionType.map((type) => ({
+              label: type.current.name,
+              value: type.current.id,
+            })),
+          },
+        },
+
+        ...valueSchemas,
+      },
+      required: ['kind', 'type'],
+      type: 'object',
+      ...uniformSchema,
     }
   }
 

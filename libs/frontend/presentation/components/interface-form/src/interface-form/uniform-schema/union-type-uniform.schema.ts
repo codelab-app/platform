@@ -1,14 +1,15 @@
 import type { IUnionTypeModel } from '@codelab/frontend-abstract-domain'
 import type { ITypeModelUniformSchemaBuilder } from '@codelab/frontend-abstract-types'
 
-import { SelectUnionTypeValue } from '../fields'
+import { UnionTypeField } from '../fields'
 
 export const unionTypeUniformSchema: ITypeModelUniformSchemaBuilder<
   IUnionTypeModel
 > = (type, autocomplete) => {
   return {
     uniforms: {
-      component: SelectUnionTypeValue,
+      component: UnionTypeField,
+      unionType: type,
     },
   }
 }
