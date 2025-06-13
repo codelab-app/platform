@@ -102,7 +102,7 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
             schema={valueSchema}
             uiKey={UiKey.FieldFormSelectUnionTypeValue}
           >
-            <AutoField data-testid={valueFieldName} name="value" />
+            <AutoField data-testid={valueFieldName} label="" name="value" />
           </Form>
         </div>
       </div>
