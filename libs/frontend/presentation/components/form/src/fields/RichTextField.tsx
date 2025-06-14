@@ -1,6 +1,6 @@
 'use client'
 import type { EditorState, LexicalEditor } from 'lexical'
-import type { HTMLFieldProps } from 'uniforms'
+import type { FieldProps } from 'uniforms'
 
 import {
   TextEditor,
@@ -8,16 +8,13 @@ import {
 } from '@codelab/frontend-presentation-components-lexical'
 import { $generateHtmlFromNodes } from '@lexical/html'
 import { connectField } from 'uniforms'
+import { wrapField } from 'uniforms-antd'
 
-type RichTextConnectFieldProps = HTMLFieldProps<string, TextEditorProps>
+type RichTextConnectFieldProps = FieldProps<string, TextEditorProps>
 
 export const RichTextField = connectField<RichTextConnectFieldProps>(
   (props) => {
-    const onChange = (
-      state: EditorState,
-      editor: LexicalEditor,
-      tags: Set<string>,
-    ) => {
+    const onChange = (state: EditorState, editor: LexicalEditor) => {
       state.read(() => {
         props.onChange($generateHtmlFromNodes(editor))
       })
@@ -28,8 +25,9 @@ export const RichTextField = connectField<RichTextConnectFieldProps>(
       namespace: props.name,
     }
 
-    return (
-      <TextEditor config={config} onChange={onChange} value={props.value} />
+    return wrapField(
+      props,
+      <TextEditor config={config} onChange={onChange} value={props.value} />,
     )
   },
   { kind: 'leaf' },

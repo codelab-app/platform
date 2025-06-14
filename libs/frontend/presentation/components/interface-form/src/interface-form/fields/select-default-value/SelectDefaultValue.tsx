@@ -45,9 +45,12 @@ export const SelectDefaultValue = () => {
 
   // Typecasting just for conditional check if field type is primitive
   const primitiveKind = (type as Maybe<IPrimitiveTypeModel>)?.primitiveKind
+
   // This prevents a nullable boolean when switching from another type to boolean
   // Cant move this yet to ajv schema since fieldType is id and cannot determine primitive kind
-  const isRequired = primitiveKind === PrimitiveTypeKind.Boolean
+  const isRequired =
+    primitiveKind === PrimitiveTypeKind.Boolean ||
+    validationRules.value?.general?.nullable === false
 
   const schema = useMemo(
     () => ({
@@ -55,6 +58,7 @@ export const SelectDefaultValue = () => {
       properties: type
         ? {
             defaultValues: type.toJsonSchema({
+              fieldName: 'Default Values',
               uniformSchema,
               validationRules: validationRules.value,
             }),
