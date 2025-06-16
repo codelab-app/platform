@@ -79,6 +79,7 @@ export class UnionType
       label: titleCase(context.fieldName ? context.fieldName : this.name),
       properties: {
         kind: {
+          default: firstType.kind,
           enum: this.typesOfUnionType.map((type) => type.current.kind),
           type: 'string',
           uniforms: { component: HiddenField },
@@ -90,6 +91,7 @@ export class UnionType
           uniforms: { component: HiddenField },
         },
         type: {
+          default: firstType.id,
           label: '',
           type: 'string',
           uniforms: {
@@ -105,6 +107,7 @@ export class UnionType
       },
       required: ['kind', 'type'],
       type: 'object',
+      ...context.validationRules,
       ...uniformSchema,
     }
   }
