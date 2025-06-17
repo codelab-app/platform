@@ -13,7 +13,6 @@ import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
 
 import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
 import {
-  SelectDefaultValue,
   SelectFieldSibling,
   uniformSchemaFactory,
 } from '@codelab/frontend/presentation/components/interface-form'
@@ -21,9 +20,7 @@ import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
   DisplayIfField,
   Form,
-  FormController,
 } from '@codelab/frontend-presentation-components-form'
-import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { PrimitiveTypeKind } from '@codelab/shared/infra/gqlgen'
 import { useMemo, useState } from 'react'
 import { useAsync } from 'react-use'
@@ -94,13 +91,13 @@ export const UpdateFieldForm = ({
   const onSubmit = async (input: IFieldUpdateData) => {
     const validationRules = filterValidationRules(
       input.validationRules,
-      typeDomainService.primitiveKind(input.fieldType),
+      typeDomainService.primitiveKind(input.fieldType.id),
     )
 
     const updatedField = { ...input, validationRules }
 
     const interfaceType = typeDomainService.type(
-      input.interfaceTypeId,
+      input.api.id,
     ) as IInterfaceTypeModel
 
     if (updatedField.prevSibling?.id) {
@@ -143,11 +140,10 @@ export const UpdateFieldForm = ({
     <Form<IFieldUpdateData>
       errorMessage="Error while updating field"
       model={{
-        defaultValues: field.defaultValues,
+        api: field.api,
         description: field.description,
-        fieldType: field.type.id,
+        fieldType: field.type,
         id: field.id,
-        interfaceTypeId: field.api.id,
         key: field.key,
         name: field.name,
         prevSibling: field.prevSibling?.id
@@ -160,7 +156,7 @@ export const UpdateFieldForm = ({
         // where we don't set a default value like ReactNodeType, InterfaceType
         if (
           mode === 'form' &&
-          model.fieldType &&
+          model.fieldType.id &&
           !canSetDefaultValue(typeDomainService, model.fieldType)
         ) {
           return {
@@ -178,8 +174,8 @@ export const UpdateFieldForm = ({
       onChangeModel={(model) => {
         console.log(model)
 
-        if (model.fieldType) {
-          void onFieldTypeChange(model.fieldType, model.validationRules)
+        if (model.fieldType.id) {
+          void onFieldTypeChange(model.fieldType.id, model.validationRules)
         }
       }}
       onSubmit={onSubmit}
@@ -202,7 +198,8 @@ export const UpdateFieldForm = ({
       <DisplayIfField<IFieldUpdateData>
         condition={({ model }) =>
           Boolean(
-            model.fieldType && typeDomainService.types.has(model.fieldType),
+            model.fieldType.id &&
+              typeDomainService.types.has(model.fieldType.id),
           )
         }
       >
@@ -247,19 +244,6 @@ export const UpdateFieldForm = ({
             />
           </DisplayIfField>
         </DisplayIfField>
-        <DisplayIfField<IFieldUpdateData>
-          condition={({ model }) =>
-            canSetDefaultValue(typeDomainService, model.fieldType)
-          }
-        >
-          <SelectDefaultValue />
-        </DisplayIfField>
-        <DisplayIf condition={showFormControl}>
-          <FormController
-            onCancel={onSubmitSuccess}
-            submitLabel="Update Field"
-          />
-        </DisplayIf>
       </DisplayIfField>
     </Form>
   )

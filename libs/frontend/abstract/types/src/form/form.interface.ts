@@ -23,6 +23,7 @@ export type FormProps<TData extends ObjectLike, TResponse = unknown> = Partial<
     /**
      * For testing
      */
+    disabled?: boolean
     uiKey: UiKey
     cssString?: string
     /**
