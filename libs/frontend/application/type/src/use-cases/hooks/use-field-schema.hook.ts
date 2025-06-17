@@ -1,6 +1,6 @@
 import type { IFieldModel } from '@codelab/frontend-abstract-domain'
 import type {
-  IFieldCreateData,
+  IFieldCreateFormData,
   IFieldUpdateData,
 } from '@codelab/shared-abstract-core'
 import type { JSONSchemaType } from 'ajv'
@@ -16,7 +16,7 @@ import { useMemo } from 'react'
  * @returns create/update field schema with validation rules against duplicated action and state names
  */
 export const useFieldSchema = (
-  schema: JSONSchemaType<IFieldCreateData | IFieldUpdateData>,
+  schema: JSONSchemaType<IFieldCreateFormData | IFieldUpdateData>,
   updatedField?: IFieldModel,
 ) => {
   const { rendererService } = useApplicationStore()
