@@ -295,6 +295,12 @@ const UiDataRecord = {
   [UiKey.FieldToolbarItemCreate]: {
     label: 'Create Field Toolbar Item',
   },
+  [UiKey.FieldToolbarItemCreateNext]: {
+    label: 'Create Field Toolbar Item Next',
+  },
+  [UiKey.FieldToolbarItemCreateBack]: {
+    label: 'Create Field Toolbar Item Back',
+  },
   [UiKey.FieldToolbarItemCreateCancel]: {
     label: 'Cancel Create Field Toolbar Item',
   },

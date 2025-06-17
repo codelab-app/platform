@@ -12,7 +12,7 @@ import type { UiKey } from '../model'
 
 export type VoidCallback<TInput> = Callback<TInput, void>
 
-export type FormProps<TData, TResponse = unknown> = Partial<
+export type FormProps<TData extends ObjectLike, TResponse = unknown> = Partial<
   Pick<
     AutoFormProps<TData>,
     'autosave' | 'modelTransform' | 'onChange' | 'onChangeModel' | 'submitField'
@@ -23,6 +23,7 @@ export type FormProps<TData, TResponse = unknown> = Partial<
     /**
      * For testing
      */
+    disabled?: boolean
     uiKey: UiKey
     cssString?: string
     /**

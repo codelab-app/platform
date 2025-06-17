@@ -7,7 +7,6 @@ import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
 import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
 import { CuiSidebarSecondary } from '@codelab/frontend/presentation/codelab-ui'
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
 import { useRouter } from 'next/navigation'
 import { useRef } from 'react'
 
@@ -22,11 +21,6 @@ export const CreateElementPopover = ({
   const router = useRouter()
   const submitRef = useRef<Maybe<SubmitController>>(undefined)
   const { createPopover } = useElementService()
-  const { builderService } = useApplicationStore()
-  /**
-   * Maybe current is a code smell, since we are using parallel routes, the selected node may not be set yet, since init builder is what sets it.
-   */
-  const selectedNode = builderService.selectedNode?.maybeCurrent
 
   return (
     <CuiSidebarSecondary
@@ -51,7 +45,6 @@ export const CreateElementPopover = ({
     >
       <CreateElementForm
         onSubmitSuccess={() => createPopover.close(router, context)}
-        selectedNode={selectedNode}
         submitRef={submitRef}
       />
     </CuiSidebarSecondary>

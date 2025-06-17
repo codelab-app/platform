@@ -34,6 +34,14 @@ export class TypeDomainService
   implements ITypeDomainService
 {
   @computed
+  get options() {
+    return this.typesList.map((type) => ({
+      label: type.name,
+      value: type.id,
+    }))
+  }
+
+  @computed
   get typesList() {
     // loading sub types messes up the order of the next page
     // we need to sort here to make sure the types on the

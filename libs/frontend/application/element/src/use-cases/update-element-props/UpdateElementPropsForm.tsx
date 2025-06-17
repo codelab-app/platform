@@ -64,12 +64,13 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     const propsModel = useMemo(
       () =>
         mergeProps(
+          interfaceType?.defaultValues ?? {},
           isComponent(currentElement.renderType.current)
             ? currentElement.renderType.current.props.values
             : {},
           currentElement.props.values,
         ),
-      [currentElement.id],
+      [currentElement.id, interfaceType],
     )
 
     const submitRef = useRef<Maybe<SubmitController>>(undefined)

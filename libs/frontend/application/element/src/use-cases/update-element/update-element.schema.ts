@@ -1,18 +1,29 @@
+'use client'
+
 import type { IUpdateBaseElementData } from '@codelab/frontend/abstract/domain'
 import type { JSONSchemaType } from 'ajv'
 
 import {
+  minLengthMsg,
+  requiredMsg,
+  titleCasePatternMsg,
+} from '@codelab/frontend/shared/utils'
+import {
   idSchema,
+  nonEmptyString,
   titleCaseValidation,
 } from '@codelab/frontend-presentation-components-form/schema'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
+import { SelectField } from 'uniforms-antd'
+
+import { PropKeyField } from '../../components/PropKeyField'
 
 export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
   properties: {
     ...idSchema(),
     name: {
       autoFocus: true,
-      type: 'string',
+      ...nonEmptyString,
       ...titleCaseValidation,
     },
     tailwindClassNames: {
@@ -29,6 +40,7 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
         type: 'object',
         properties: {
           ...idSchema({
+            component: SelectField,
             label: 'Post Render action',
           }),
         },
@@ -42,6 +54,7 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
         type: 'object',
         properties: {
           ...idSchema({
+            component: SelectField,
             label: 'Pre Render action',
           }),
         },
@@ -51,11 +64,13 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
     childMapperComponent: {
       nullable: true,
       properties: {
-        id: {
-          label: 'Child Mapper Component',
-          type: 'string',
-          help: 'The component to render based on the length of the data source',
-        },
+        ...idSchema({
+          disabled: false,
+          label: 'Component',
+          component: SelectField,
+          extra:
+            'The component to render based on the length of the data source',
+        }),
       },
       required: [],
       type: 'object',
@@ -64,10 +79,12 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
       nullable: true,
       properties: {
         ...idSchema({
+          disabled: false,
+          component: SelectField,
           label: 'Render next to',
-          help: 'Component instances will be rendered next to this element',
+          extra: 'Component instances will be rendered next to this element',
         }),
-        // help: 'testing testing testing',
+        // extra: 'testing testing testing',
       },
       required: [],
       type: 'object',
@@ -76,7 +93,11 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
       label: 'Prop Key',
       nullable: true,
       type: 'string',
-      help: 'The key used to get the data from state e.g. `state.products`, `rootState.products`. Data source needs to be an array',
+      uniforms: {
+        component: PropKeyField,
+      },
+      extra:
+        'The key used to get the data from state e.g. `state.products`, `rootState.products`. Data source needs to be an array',
     },
     renderForEachPropKey: {
       label: 'Render for each',
@@ -137,7 +158,14 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
     //   type: 'object',
     // },
   },
-  required: ['renderType'],
+  errors: {
+    name: {
+      required: requiredMsg('Element name'),
+      minLength: minLengthMsg('Element name', 1),
+      pattern: titleCasePatternMsg('Element name'),
+    },
+  },
+  required: ['name', 'renderType'],
   title: 'Update Element Input',
   type: 'object',
 } as const

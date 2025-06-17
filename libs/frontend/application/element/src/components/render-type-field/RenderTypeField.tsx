@@ -71,14 +71,13 @@ export const RenderTypeField = connectField(
 
     return (
       <StyledFormField
-        help={error}
+        extra={error}
         htmlFor={id}
         label={label}
         required={true}
         validateStatus={error ? 'error' : undefined}
       >
         <StyledSelect
-          dropdownStyle={{ width: '100%' }}
           getPopupContainer={(triggerNode) => triggerNode.closest('form')}
           id={id}
           onChange={(newId) => {
@@ -90,7 +89,7 @@ export const RenderTypeField = connectField(
 
             onChange({ __typename, id: newId as string })
           }}
-          onDropdownVisibleChange={(open) => {
+          onOpenChange={(open) => {
             !menuState.skipClose && setMenuState({ ...menuState, open })
           }}
           open={menuState.open}
@@ -105,6 +104,7 @@ export const RenderTypeField = connectField(
           placement="bottomRight"
           showSearch
           style={{ borderBottomRightRadius: 0, borderTopRightRadius: 0 }}
+          styles={{ popup: { root: { width: '100%' } } }}
           value={value?.id}
         />
         <StyledButton
