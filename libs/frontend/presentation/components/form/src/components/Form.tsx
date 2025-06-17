@@ -29,6 +29,7 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
       autosave = false,
       children,
       cssString,
+      disabled,
       model,
       modelTransform,
       onChange,
@@ -76,6 +77,7 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
           autosave={autosave}
           autosaveDelay={500}
           data-testid={CuiTestId.cuiForm(uiKey)}
+          disabled={disabled}
           errorsField={() => null}
           model={autosave ? modelRef.current : model}
           modelTransform={modelTransform}

@@ -1,67 +1,56 @@
-import type { IFieldCreateData } from '@codelab/shared-abstract-core'
+'use client'
+
 import type { JSONSchemaType } from 'ajv'
 
 import {
   idSchema,
   nonEmptyString,
-  nullableIdSchema,
 } from '@codelab/frontend-presentation-components-form/schema'
 import {
   GeneralValidationRules,
+  type IFieldCreateFormData,
   NumberValidationRules,
   StringValidationRules,
 } from '@codelab/shared-abstract-core'
 import { PrimitiveTypeKind } from '@codelab/shared-infra-gqlgen'
+import { HiddenField, SelectField } from 'uniforms-antd'
 
-export const createFieldSchema: JSONSchemaType<IFieldCreateData> = {
-  if: {
-    properties: {
-      validationRules: {
-        properties: {
-          general: {
-            properties: {
-              // Using enum, we can check if it matches the current value in the form
-              [GeneralValidationRules.Nullable]: { const: false },
-            },
-          },
-        },
-      },
-    },
-  },
+export const createFieldSchema: JSONSchemaType<
+  Omit<IFieldCreateFormData, 'defaultValues'>
+> = {
   properties: {
     ...idSchema(),
-    defaultValues: {
-      // by using ref, this can support array or object type that
-      // has items or properties of any possible default value type
-      $ref: 'customTypes#/definitions/fieldDefaultValuesOrNullableFieldDefaultValues',
-    },
-    description: { nullable: true, type: 'string' },
-    /**
-     * TODO: Refactor to match interface
-     * Could somehow modify the form so we can accept an object of TypeRef, then the interface would match up better
-     */
-    fieldType: { type: 'string' },
-    interfaceTypeId: {
+    description: {
+      nullable: true,
       type: 'string',
-      uniforms: {
-        component: () => null,
+    },
+    fieldType: {
+      type: 'object',
+      properties: {
+        ...idSchema({
+          component: SelectField,
+          disabled: false,
+          label: 'Field Type',
+        }),
       },
+      required: ['id'],
+    },
+    api: {
+      type: 'object',
+      properties: {
+        ...idSchema({
+          component: HiddenField,
+        }),
+      },
+      required: ['id'],
     },
     key: {
       autoFocus: true,
       ...nonEmptyString,
     },
-    name: { nullable: true, type: 'string' },
-    prevSibling: {
+    name: {
       nullable: true,
-      properties: {
-        ...nullableIdSchema({
-          label: 'Prev Sibling',
-          disabled: false,
-        }),
-      },
-      required: [],
-      type: 'object',
+      type: 'string',
     },
     validationRules: {
       nullable: true,
@@ -153,15 +142,7 @@ export const createFieldSchema: JSONSchemaType<IFieldCreateData> = {
     },
   },
   // This is overridden if the field is not nullable, which will require a value for `defaultValues`
-  required: ['id', 'key', 'fieldType'],
-  then: {
-    required: ['id', 'key', 'fieldType'],
-    properties: {
-      defaultValues: {
-        $ref: 'customTypes#/definitions/fieldDefaultValues',
-      },
-    },
-  },
+  required: ['id', 'key', 'fieldType', 'api'],
   title: 'Create Field Input',
   type: 'object',
 }
