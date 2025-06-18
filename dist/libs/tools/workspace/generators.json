@@ -4,6 +4,11 @@
       "factory": "./src/generators/nx-project-config/generator",
       "schema": "./src/generators/nx-project-config/schema.json",
       "description": "Update NX project config for each library"
+    },
+    "migrate-project-reference": {
+      "factory": "./src/generators/migrate-project-reference/generator",
+      "schema": "./src/generators/migrate-project-reference/schema.json",
+      "description": "Migrate a project to use TypeScript project references"
     }
   }
 }
