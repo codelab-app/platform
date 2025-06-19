@@ -1,6 +1,6 @@
 import type { PackageJson } from 'type-fest'
 
-import { getPackageNameFromProjectName } from '../../path-alias/path-alias'
+import { getPackageNameFromProjectName } from '../../../../rename-npm-name/path-alias/path-alias'
 
 /**
  * Sets the name property in a package.json object based on the project name.
