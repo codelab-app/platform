@@ -56,7 +56,7 @@ export const getPackageJsonNameFromMapping = (
   // Find the entry where the project name matches
   for (const [key, value] of Object.entries(aliasMap)) {
     if (key === projectName) {
-      return value.alias
+      return (value as { alias: string }).alias
     }
   }
 
