@@ -30,7 +30,7 @@ export const parseImports = (content: string, filePath: string): string[] => {
         node.expression.text === 'require' && 
         node.arguments.length > 0) {
       const arg = node.arguments[0]
-      if (ts.isStringLiteral(arg)) {
+      if (arg && ts.isStringLiteral(arg)) {
         imports.push(arg.text)
       }
     }
@@ -41,7 +41,7 @@ export const parseImports = (content: string, filePath: string): string[] => {
         node.expression.kind === ts.SyntaxKind.ImportKeyword &&
         node.arguments.length > 0) {
       const arg = node.arguments[0]
-      if (ts.isStringLiteral(arg)) {
+      if (arg && ts.isStringLiteral(arg)) {
         imports.push(arg.text)
       }
     }
