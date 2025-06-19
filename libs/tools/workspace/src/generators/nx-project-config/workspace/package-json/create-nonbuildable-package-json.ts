@@ -3,11 +3,11 @@ import type { PackageJson } from 'type-fest'
 
 import { joinPathFragments, readJson, writeJson } from '@nx/devkit'
 
-import { getProjectImports } from '../imports/project-imports'
+import { getProjectImports } from '../../../rename-npm-name/imports/project-imports'
 import {
   getPackageNameFromOldAlias,
   getPackageNameFromProjectName,
-} from '../path-alias/path-alias'
+} from '../../../rename-npm-name/path-alias/path-alias'
 import { getRelativeExports } from './exports/relative-exports'
 import { getBaseImportPaths } from './paths'
 import { setDevDependencies } from './setter/package-dev-dependencies'

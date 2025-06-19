@@ -9,12 +9,6 @@ import {
   writeJson,
 } from '@nx/devkit'
 
-import { getProjectImports } from '../../imports/project-imports'
-import {
-  getPackageNameFromOldAlias,
-  getPackageNameFromProjectName,
-} from '../../path-alias/path-alias'
-import { getBaseImportPaths } from '../paths'
 import { getRelativeExports } from './relative-exports'
 
 /**
