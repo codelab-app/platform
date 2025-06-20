@@ -68,6 +68,46 @@ describe('getPackageNameFromOldAlias', () => {
     // Should return as-is since it won't match the lowercase version in the map
     expect(result).toBe(upperCaseAlias)
   })
+
+  it('should preserve subpaths for base packages in the map', () => {
+    // Test that subpaths are preserved when the base path exists in the map
+    const testCases = [
+      {
+        oldAlias: '@codelab/shared-infra-auth0/client',
+        expected: '@codelab/shared-infra-auth0/client'
+      },
+      {
+        oldAlias: '@codelab/shared-infra-auth0/server',
+        expected: '@codelab/shared-infra-auth0/server'
+      },
+      {
+        oldAlias: '@codelab/shared-infra-auth0/types',
+        expected: '@codelab/shared-infra-auth0/types'
+      }
+    ]
+
+    testCases.forEach(({ oldAlias, expected }) => {
+      expect(getPackageNameFromOldAlias(oldAlias)).toBe(expected)
+    })
+  })
+
+  it('should transform unknown paths with slashes to hyphens', () => {
+    // Test that paths not in the map get transformed
+    const testCases = [
+      {
+        oldAlias: '@codelab/some/unknown/path',
+        expected: '@codelab/some-unknown-path'
+      },
+      {
+        oldAlias: '@codelab/another/nested/module',
+        expected: '@codelab/another-nested-module'
+      }
+    ]
+
+    testCases.forEach(({ oldAlias, expected }) => {
+      expect(getPackageNameFromOldAlias(oldAlias)).toBe(expected)
+    })
+  })
 })
 
 describe('getPackageNameFromProjectName', () => {

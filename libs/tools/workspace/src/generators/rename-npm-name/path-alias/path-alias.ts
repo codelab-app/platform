@@ -32,7 +32,7 @@ export const getPackageNameFromProjectName = (
 }
 
 export const getPackageNameFromOldAlias = (oldAlias: string): string => {
-  // First check if it's in the map
+  // First check if it's an exact match in the map
   for (const [alias, details] of Object.entries(pathAliasMap)) {
     if (alias === oldAlias) {
       // Return the expected alias
@@ -40,7 +40,32 @@ export const getPackageNameFromOldAlias = (oldAlias: string): string => {
     }
   }
 
-  // If not in map, check if it matches the pattern @codelab/xxx/yyy/zzz
+  // Check if it's a subpath of a mapped base path
+  // For example: @codelab/shared-infra-auth0/client where @codelab/shared-infra-auth0 is the base
+  // We need to find the longest matching base path to handle nested packages correctly
+  let longestMatch = ''
+  let matchedDetails: typeof pathAliasMap[string] | null = null
+  
+  for (const [alias, details] of Object.entries(pathAliasMap)) {
+    // Skip the root workspace entry "@codelab" when checking for subpaths
+    // We only want to match actual package paths like "@codelab/shared-infra-auth0"
+    if (alias === '@codelab') {
+      continue
+    }
+    
+    if (oldAlias.startsWith(alias + '/') && alias.length > longestMatch.length) {
+      longestMatch = alias
+      matchedDetails = details
+    }
+  }
+  
+  if (matchedDetails && longestMatch) {
+    // It's a subpath of a known base path, preserve the subpath part
+    const subpath = oldAlias.substring(longestMatch.length)
+    return matchedDetails.expected + subpath
+  }
+
+  // If not in map or a subpath of a mapped path, check if it matches the pattern @codelab/xxx/yyy/zzz
   // and transform it to @codelab/xxx-yyy-zzz
   const pattern = /^@codelab\/(.+)$/
   const match = oldAlias.match(pattern)

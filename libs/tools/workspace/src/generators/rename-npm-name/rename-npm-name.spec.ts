@@ -307,4 +307,49 @@ export { mapped, unmapped, external }`
     // Non-@codelab imports should remain unchanged
     expect(updatedFile).toContain('@external/package')
   })
+
+  it('should update tsconfig.base.json paths correctly preserving subpaths', async () => {
+    // Create a tsconfig.base.json with various path types
+    const tsconfigContent = {
+      compilerOptions: {
+        paths: {
+          // Direct package mapping (should stay the same)
+          '@codelab/shared-infra-auth0': ['libs/shared/infra/auth0/src/index.ts'],
+          // Subpath mapping (should preserve the /client, /server parts)
+          '@codelab/shared-infra-auth0/client': ['libs/shared/infra/auth0/src/client/index.ts'],
+          '@codelab/shared-infra-auth0/server': ['libs/shared/infra/auth0/src/server/index.ts'],
+          // Path that needs transformation
+          '@codelab/backend/infra/adapter/auth0': ['libs/backend/infra/adapter/auth0/src/index.ts'],
+          // Unknown path with slashes (should be transformed)
+          '@codelab/some/unknown/path': ['libs/some/unknown/path/src/index.ts']
+        }
+      }
+    }
+
+    tree.write('tsconfig.base.json', JSON.stringify(tsconfigContent, null, 2))
+
+    // Run the generator
+    await renameNpmNameGenerator(tree)
+
+    // Read the updated tsconfig
+    const updatedTsconfig = JSON.parse(tree.read('tsconfig.base.json', 'utf-8')!)
+    const paths = updatedTsconfig.compilerOptions.paths
+
+    // Direct mappings should stay the same
+    expect(paths['@codelab/shared-infra-auth0']).toEqual(['libs/shared/infra/auth0/src/index.ts'])
+
+    // Subpaths should be preserved
+    expect(paths['@codelab/shared-infra-auth0/client']).toEqual(['libs/shared/infra/auth0/src/client/index.ts'])
+    expect(paths['@codelab/shared-infra-auth0/server']).toEqual(['libs/shared/infra/auth0/src/server/index.ts'])
+
+    // Known paths that need transformation
+    expect(paths['@codelab/backend-infra-adapter-auth0']).toEqual(['libs/backend/infra/adapter/auth0/src/index.ts'])
+
+    // Unknown paths should be transformed
+    expect(paths['@codelab/some-unknown-path']).toEqual(['libs/some/unknown/path/src/index.ts'])
+
+    // Original paths with slashes should not exist
+    expect(paths['@codelab/some/unknown/path']).toBeUndefined()
+    expect(paths['@codelab/backend/infra/adapter/auth0']).toBeUndefined()
+  })
 })
