@@ -32,6 +32,7 @@ export const getPackageNameFromProjectName = (
 }
 
 export const getPackageNameFromOldAlias = (oldAlias: string): string => {
+  // First check if it's in the map
   for (const [alias, details] of Object.entries(pathAliasMap)) {
     if (alias === oldAlias) {
       // Return the expected alias
@@ -39,8 +40,17 @@ export const getPackageNameFromOldAlias = (oldAlias: string): string => {
     }
   }
 
-  // If the loop completes without finding a match, throw an error
-  // console.log(`Project name "${oldAlias}" not found in path alias map`)
+  // If not in map, check if it matches the pattern @codelab/xxx/yyy/zzz
+  // and transform it to @codelab/xxx-yyy-zzz
+  const pattern = /^@codelab\/(.+)$/
+  const match = oldAlias.match(pattern)
+  
+  if (match && match[1] && match[1].includes('/')) {
+    // Replace all slashes with hyphens in the package name part
+    const transformedName = match[1].replace(/\//g, '-')
+    return `@codelab/${transformedName}`
+  }
 
+  // Return as-is if no transformation needed
   return oldAlias
 }

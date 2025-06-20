@@ -1,7 +1,6 @@
 import type { ProjectConfiguration, Tree } from '@nx/devkit'
 
 import { joinPathFragments, visitNotIgnoredFiles } from '@nx/devkit'
-import pathAliasMap from '../path-alias/path-alias.json'
 import { parseImports } from './parse-imports'
 
 /**
@@ -12,16 +11,16 @@ export const getProjectImports = (
   projectConfig: ProjectConfiguration,
 ): string[] => {
   const allImports: string[] = []
-  const sourceRoot =
-    projectConfig.sourceRoot || joinPathFragments(projectConfig.root, 'src')
+  // Use project root instead of sourceRoot to catch all files in the project
+  const projectRoot = projectConfig.root
 
-  if (!tree.exists(sourceRoot)) {
-    console.log(`Source root ${sourceRoot} does not exist`)
+  if (!tree.exists(projectRoot)) {
+    console.log(`Project root ${projectRoot} does not exist`)
     return allImports
   }
 
   // Use visitNotIgnoredFiles to traverse the directory structure efficiently
-  visitNotIgnoredFiles(tree, sourceRoot, (filePath) => {
+  visitNotIgnoredFiles(tree, projectRoot, (filePath) => {
     // Only process TypeScript/JavaScript files
     if (!/\.(ts|tsx|js|jsx)$/.test(filePath)) {
       return
@@ -36,12 +35,8 @@ export const getProjectImports = (
     // Parse imports from the file using AST
     const imports = parseImports(content, filePath)
     
-    // Collect imports that are in the path alias map
-    imports.forEach(importPath => {
-      if (importPath in pathAliasMap) {
-        allImports.push(importPath)
-      }
-    })
+    // Collect all imports
+    allImports.push(...imports)
   })
 
   // Return unique imports
@@ -56,16 +51,18 @@ export const updateProjectImports = (
   projectConfig: ProjectConfiguration,
   transformFn: (importPath: string) => string,
 ): void => {
-  const sourceRoot =
-    projectConfig.sourceRoot || joinPathFragments(projectConfig.root, 'src')
+  // Use project root instead of sourceRoot to catch all files in the project
+  const projectRoot = projectConfig.root
 
-  if (!tree.exists(sourceRoot)) {
-    console.log(`Source root ${sourceRoot} does not exist`)
+  if (!tree.exists(projectRoot)) {
+    console.log(`Project root ${projectRoot} does not exist`)
     return
   }
 
+  console.log(`  Scanning project root: ${projectRoot}`)
+
   // Use visitNotIgnoredFiles to traverse the directory structure efficiently
-  visitNotIgnoredFiles(tree, sourceRoot, (filePath) => {
+  visitNotIgnoredFiles(tree, projectRoot, (filePath) => {
     // Only process TypeScript/JavaScript files
     if (!/\.(ts|tsx|js|jsx)$/.test(filePath)) {
       return
@@ -83,11 +80,9 @@ export const updateProjectImports = (
     // Check if any imports need to be transformed
     const transformations: Record<string, string> = {}
     imports.forEach(importPath => {
-      if (importPath in pathAliasMap) {
-        const newPath = transformFn(importPath)
-        if (newPath !== importPath) {
-          transformations[importPath] = newPath
-        }
+      const newPath = transformFn(importPath)
+      if (newPath !== importPath) {
+        transformations[importPath] = newPath
       }
     })
 

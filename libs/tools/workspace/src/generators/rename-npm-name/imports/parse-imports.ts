@@ -23,6 +23,13 @@ export const parseImports = (content: string, filePath: string): string[] => {
       }
     }
     
+    // Handle ES6 exports: export ... from 'path'
+    if (ts.isExportDeclaration(node) && node.moduleSpecifier) {
+      if (ts.isStringLiteral(node.moduleSpecifier)) {
+        imports.push(node.moduleSpecifier.text)
+      }
+    }
+    
     // Handle require calls: require('path')
     if (ts.isCallExpression(node) && 
         node.expression && 
