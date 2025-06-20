@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  '@graphql-codegen/plugin-helpers': 5.1.0
+
 importers:
 
   .:
@@ -3118,16 +3121,6 @@ packages:
   '@graphql-codegen/near-operation-file-preset@3.0.0':
     resolution: {integrity: sha512-HRPaa7OsIAHQBFeGiTUVdjFcxzgvAs7uxSqcLEJgDpCr9cffpwnlgWP3gK79KnTiHsRkyb55U1K4YyrL00g1Cw==}
     engines: {node: '>= 16.0.0'}
-    peerDependencies:
-      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
-
-  '@graphql-codegen/plugin-helpers@2.7.2':
-    resolution: {integrity: sha512-kln2AZ12uii6U59OQXdjLk5nOlh1pHis1R98cDZGFnfaiAbX9V3fxcZ1MMJkB7qFUymTALzyjZoXXdyVmPMfRg==}
-    peerDependencies:
-      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
-
-  '@graphql-codegen/plugin-helpers@3.1.2':
-    resolution: {integrity: sha512-emOQiHyIliVOIjKVKdsI5MXj312zmRDwmHpyUTZMjfpvxq/UVAHUJIVdVf+lnjjrI+LXBTgMlTWTgHQfmICxjg==}
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
 
@@ -18582,7 +18575,7 @@ snapshots:
 
   '@codelab-codegen/codelab-preset@file:dist/libs/external/codelab-codegen/codelab-preset(encoding@0.1.13)(graphql-request@7.1.2(graphql@16.9.0))(graphql-tag@2.12.6(graphql@16.9.0))(graphql@16.9.0)':
     dependencies:
-      '@graphql-codegen/plugin-helpers': 3.1.2(graphql@16.9.0)
+      '@graphql-codegen/plugin-helpers': 5.1.0(graphql@16.9.0)
       '@graphql-codegen/visitor-plugin-common': 2.13.1(encoding@0.1.13)(graphql@16.9.0)
       auto-bind: 4.0.0
       graphql: 16.9.0
@@ -18595,7 +18588,7 @@ snapshots:
 
   '@codelab-codegen/typescript-fetch@file:dist/libs/external/codelab-codegen/typescript-fetch(encoding@0.1.13)(graphql-request@7.1.2(graphql@16.9.0))(graphql-tag@2.12.6(graphql@16.9.0))(graphql@16.9.0)':
     dependencies:
-      '@graphql-codegen/plugin-helpers': 3.1.2(graphql@16.9.0)
+      '@graphql-codegen/plugin-helpers': 5.1.0(graphql@16.9.0)
       '@graphql-codegen/visitor-plugin-common': 2.13.1(encoding@0.1.13)(graphql@16.9.0)
       auto-bind: 4.0.0
       graphql: 16.9.0
@@ -18608,7 +18601,7 @@ snapshots:
 
   '@codelab-codegen/typescript-server-fetch@file:dist/libs/external/codelab-codegen/typescript-server-fetch(encoding@0.1.13)(graphql-request@7.1.2(graphql@16.9.0))(graphql-tag@2.12.6(graphql@16.9.0))(graphql@16.9.0)':
     dependencies:
-      '@graphql-codegen/plugin-helpers': 3.1.2(graphql@16.9.0)
+      '@graphql-codegen/plugin-helpers': 5.1.0(graphql@16.9.0)
       '@graphql-codegen/visitor-plugin-common': 2.13.1(encoding@0.1.13)(graphql@16.9.0)
       auto-bind: 4.0.0
       graphql: 16.9.0
@@ -19311,7 +19304,7 @@ snapshots:
 
   '@graphql-codegen/add@3.2.3(graphql@16.9.0)':
     dependencies:
-      '@graphql-codegen/plugin-helpers': 3.1.2(graphql@16.9.0)
+      '@graphql-codegen/plugin-helpers': 5.1.0(graphql@16.9.0)
       graphql: 16.9.0
       tslib: 2.4.1
 
@@ -19417,7 +19410,7 @@ snapshots:
   '@graphql-codegen/near-operation-file-preset@3.0.0(encoding@0.1.13)(graphql@16.9.0)':
     dependencies:
       '@graphql-codegen/add': 3.2.3(graphql@16.9.0)
-      '@graphql-codegen/plugin-helpers': 3.1.2(graphql@16.9.0)
+      '@graphql-codegen/plugin-helpers': 5.1.0(graphql@16.9.0)
       '@graphql-codegen/visitor-plugin-common': 2.13.1(encoding@0.1.13)(graphql@16.9.0)
       '@graphql-tools/utils': 10.7.2(graphql@16.9.0)
       graphql: 16.9.0
@@ -19426,26 +19419,6 @@ snapshots:
     transitivePeerDependencies:
       - encoding
       - supports-color
-
-  '@graphql-codegen/plugin-helpers@2.7.2(graphql@16.9.0)':
-    dependencies:
-      '@graphql-tools/utils': 8.12.0(graphql@16.9.0)
-      change-case-all: 1.0.14
-      common-tags: 1.8.2
-      graphql: 16.9.0
-      import-from: 4.0.0
-      lodash: 4.17.21
-      tslib: 2.4.1
-
-  '@graphql-codegen/plugin-helpers@3.1.2(graphql@16.9.0)':
-    dependencies:
-      '@graphql-tools/utils': 9.2.1(graphql@16.9.0)
-      change-case-all: 1.0.15
-      common-tags: 1.8.2
-      graphql: 16.9.0
-      import-from: 4.0.0
-      lodash: 4.17.21
-      tslib: 2.4.1
 
   '@graphql-codegen/plugin-helpers@5.1.0(graphql@16.9.0)':
     dependencies:
@@ -19491,7 +19464,7 @@ snapshots:
 
   '@graphql-codegen/typescript-graphql-request@6.2.0(encoding@0.1.13)(graphql-request@7.1.2(graphql@16.9.0))(graphql-tag@2.12.6(graphql@16.9.0))(graphql@16.9.0)':
     dependencies:
-      '@graphql-codegen/plugin-helpers': 3.1.2(graphql@16.9.0)
+      '@graphql-codegen/plugin-helpers': 5.1.0(graphql@16.9.0)
       '@graphql-codegen/visitor-plugin-common': 2.13.1(encoding@0.1.13)(graphql@16.9.0)
       auto-bind: 4.0.0
       graphql: 16.9.0
@@ -19530,7 +19503,7 @@ snapshots:
 
   '@graphql-codegen/visitor-plugin-common@2.13.1(encoding@0.1.13)(graphql@16.9.0)':
     dependencies:
-      '@graphql-codegen/plugin-helpers': 2.7.2(graphql@16.9.0)
+      '@graphql-codegen/plugin-helpers': 5.1.0(graphql@16.9.0)
       '@graphql-tools/optimize': 1.4.0(graphql@16.9.0)
       '@graphql-tools/relay-operation-optimizer': 6.5.18(encoding@0.1.13)(graphql@16.9.0)
       '@graphql-tools/utils': 8.12.0(graphql@16.9.0)

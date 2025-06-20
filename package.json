@@ -456,9 +456,10 @@
     "wait-on": "6.0.1"
   },
   "pnpm": {
-    "overrides": {}
+    "overrides": {
+      "@graphql-codegen/plugin-helpers": "5.1.0"
+    }
   },
-  "resolutions": {},
   "nx": {
     "includedScripts": [],
     "tags": [
