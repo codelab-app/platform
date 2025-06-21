@@ -7,7 +7,7 @@ import { libraryGenerator } from '@nx/react'
 
 import type { EslintGeneratorSchema } from './schema'
 
-import { nxProjectConfigGenerator } from './generator'
+import { nxProjectConfigGenerator } from './nx-project-config'
 
 describe('project.json lint settings', () => {
   let tree: Tree
