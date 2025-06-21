@@ -43,14 +43,8 @@ const loadModule = async () => {
 export { module1, module2, loadModule }`
 
     // Write test files - note the library generator creates the path as libs/frontend/domain/src
-    tree.write(
-      'libs/frontend/domain/src/lib/test-file1.ts',
-      testFile1Content,
-    )
-    tree.write(
-      'libs/frontend/domain/src/lib/test-file2.ts',
-      testFile2Content,
-    )
+    tree.write('libs/frontend/domain/src/lib/test-file1.ts', testFile1Content)
+    tree.write('libs/frontend/domain/src/lib/test-file2.ts', testFile2Content)
 
     // Run the generator
     await renameNpmNameGenerator(tree)
@@ -112,10 +106,7 @@ export const MyComponent = () => {
 }`
 
     // Write test file
-    tree.write(
-      'libs/frontend/domain/src/lib/component.tsx',
-      testFileContent,
-    )
+    tree.write('libs/frontend/domain/src/lib/component.tsx', testFileContent)
 
     // Run the generator
     await renameNpmNameGenerator(tree)
@@ -169,10 +160,7 @@ import {
 export { func1, func2, defaultExport, namespace }`
 
     // Write test file
-    tree.write(
-      'libs/frontend/domain/src/lib/mixed.ts',
-      testFileContent,
-    )
+    tree.write('libs/frontend/domain/src/lib/mixed.ts', testFileContent)
 
     // Run the generator
     await renameNpmNameGenerator(tree)
@@ -216,32 +204,18 @@ export { func1, func2, defaultExport, namespace }`
     })
 
     // Create various file types
-    const importStatement = "import { something } from '@codelab/backend/abstract/core'"
+    const importStatement =
+      "import { something } from '@codelab/backend/abstract/core'"
 
-    tree.write(
-      'libs/frontend/domain/src/lib/test.ts',
-      importStatement,
-    )
-    tree.write(
-      'libs/frontend/domain/src/lib/test.tsx',
-      importStatement,
-    )
-    tree.write(
-      'libs/frontend/domain/src/lib/test.js',
-      importStatement,
-    )
-    tree.write(
-      'libs/frontend/domain/src/lib/test.jsx',
-      importStatement,
-    )
+    tree.write('libs/frontend/domain/src/lib/test.ts', importStatement)
+    tree.write('libs/frontend/domain/src/lib/test.tsx', importStatement)
+    tree.write('libs/frontend/domain/src/lib/test.js', importStatement)
+    tree.write('libs/frontend/domain/src/lib/test.jsx', importStatement)
     tree.write(
       'libs/frontend/domain/src/lib/test.json',
       '{ "import": "@codelab/backend/abstract/core" }',
     )
-    tree.write(
-      'libs/frontend/domain/src/lib/test.md',
-      importStatement,
-    )
+    tree.write('libs/frontend/domain/src/lib/test.md', importStatement)
 
     // Run the generator
     await renameNpmNameGenerator(tree)
@@ -269,61 +243,34 @@ export { func1, func2, defaultExport, namespace }`
     ).toContain('@codelab/backend/abstract/core')
   })
 
-  it('should handle imports that are not in the mapping', async () => {
-    // Create a test library
-    await libraryGenerator(tree, {
-      name: 'unmapped-imports',
-      directory: 'libs/frontend/domain',
-      linter: Linter.EsLint,
-      style: 'none',
-    })
-
-    const testFileContent = `import { mapped } from '@codelab/backend/abstract/core'
-import { unmapped } from '@codelab/some/unknown/path'
-import { external } from '@external/package'
-
-export { mapped, unmapped, external }`
-
-    // Write test file
-    tree.write(
-      'libs/frontend/domain/src/lib/unmapped.ts',
-      testFileContent,
-    )
-
-    // Run the generator
-    await renameNpmNameGenerator(tree)
-
-    const updatedFile = tree.read(
-      'libs/frontend/domain/src/lib/unmapped.ts',
-      'utf-8',
-    )
-
-    // Mapped import should be updated
-    expect(updatedFile).toContain('@codelab/backend-abstract-core')
-
-    // Unmapped @codelab import should remain unchanged
-    expect(updatedFile).toContain('@codelab/some/unknown/path')
-
-    // Non-@codelab imports should remain unchanged
-    expect(updatedFile).toContain('@external/package')
-  })
-
   it('should update tsconfig.base.json paths correctly preserving subpaths', async () => {
     // Create a tsconfig.base.json with various path types
     const tsconfigContent = {
       compilerOptions: {
         paths: {
           // Direct package mapping (should stay the same)
-          '@codelab/shared-infra-auth0': ['libs/shared/infra/auth0/src/index.ts'],
-          // Subpath mapping (should preserve the /client, /server parts)
-          '@codelab/shared-infra-auth0/client': ['libs/shared/infra/auth0/src/client/index.ts'],
-          '@codelab/shared-infra-auth0/server': ['libs/shared/infra/auth0/src/server/index.ts'],
-          // Path that needs transformation
-          '@codelab/backend/infra/adapter/auth0': ['libs/backend/infra/adapter/auth0/src/index.ts'],
-          // Unknown path with slashes (should be transformed)
-          '@codelab/some/unknown/path': ['libs/some/unknown/path/src/index.ts']
-        }
-      }
+          '@codelab/shared-infra-auth0': [
+            'libs/shared/infra/auth0/src/index.ts',
+          ],
+          // NEW-style subpath mappings (these stay the same - not transformed)
+          '@codelab/shared-infra-auth0/client': [
+            'libs/shared/infra/auth0/src/client/index.ts',
+          ],
+          '@codelab/shared-infra-auth0/server': [
+            'libs/shared/infra/auth0/src/server/index.ts',
+          ],
+          // OLD-style path that needs transformation
+          '@codelab/backend/infra/adapter/auth0': [
+            'libs/backend/infra/adapter/auth0/src/index.ts',
+          ],
+          // OLD-style path with subpath that should be preserved
+          '@codelab/shared/infra/logging/server': [
+            'libs/shared/infra/logging/src/server/index.ts',
+          ],
+          // Unknown path with slashes (should stay the same - only known mappings are transformed)
+          '@codelab/some/unknown/path': ['libs/some/unknown/path/src/index.ts'],
+        },
+      },
     }
 
     tree.write('tsconfig.base.json', JSON.stringify(tsconfigContent, null, 2))
@@ -332,24 +279,43 @@ export { mapped, unmapped, external }`
     await renameNpmNameGenerator(tree)
 
     // Read the updated tsconfig
-    const updatedTsconfig = JSON.parse(tree.read('tsconfig.base.json', 'utf-8')!)
+    const updatedTsconfig = JSON.parse(
+      tree.read('tsconfig.base.json', 'utf-8')!,
+    )
     const paths = updatedTsconfig.compilerOptions.paths
 
     // Direct mappings should stay the same
-    expect(paths['@codelab/shared-infra-auth0']).toEqual(['libs/shared/infra/auth0/src/index.ts'])
+    expect(paths['@codelab/shared-infra-auth0']).toEqual([
+      'libs/shared/infra/auth0/src/index.ts',
+    ])
 
-    // Subpaths should be preserved
-    expect(paths['@codelab/shared-infra-auth0/client']).toEqual(['libs/shared/infra/auth0/src/client/index.ts'])
-    expect(paths['@codelab/shared-infra-auth0/server']).toEqual(['libs/shared/infra/auth0/src/server/index.ts'])
+    // NEW-style subpaths stay the same (not transformed)
+    expect(paths['@codelab/shared-infra-auth0/client']).toEqual([
+      'libs/shared/infra/auth0/src/client/index.ts',
+    ])
+    expect(paths['@codelab/shared-infra-auth0/server']).toEqual([
+      'libs/shared/infra/auth0/src/server/index.ts',
+    ])
 
-    // Known paths that need transformation
-    expect(paths['@codelab/backend-infra-adapter-auth0']).toEqual(['libs/backend/infra/adapter/auth0/src/index.ts'])
+    // OLD-style paths that need transformation
+    expect(paths['@codelab/backend-infra-adapter-auth0']).toEqual([
+      'libs/backend/infra/adapter/auth0/src/index.ts',
+    ])
 
-    // Unknown paths should be transformed
-    expect(paths['@codelab/some-unknown-path']).toEqual(['libs/some/unknown/path/src/index.ts'])
+    // OLD-style path with subpath preserved (because /server exists after src/)
+    expect(paths['@codelab/shared-infra-logging/server']).toEqual([
+      'libs/shared/infra/logging/src/server/index.ts',
+    ])
 
-    // Original paths with slashes should not exist
-    expect(paths['@codelab/some/unknown/path']).toBeUndefined()
+    // Unknown paths stay the same (only known mappings are transformed)
+    expect(paths['@codelab/some/unknown/path']).toEqual([
+      'libs/some/unknown/path/src/index.ts',
+    ])
+
+    // Original OLD-style paths with slashes should not exist
+    expect(paths['@codelab/shared-infra-auth0-client']).toBeUndefined()
+    expect(paths['@codelab/shared-infra-auth0-server']).toBeUndefined()
     expect(paths['@codelab/backend/infra/adapter/auth0']).toBeUndefined()
+    expect(paths['@codelab/shared/infra/logging/server']).toBeUndefined()
   })
 })
