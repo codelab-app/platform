@@ -5,13 +5,13 @@ import {
   CodelabLoggerModule,
   LoggerMiddleware,
 } from '@codelab/backend-infra-adapter-logger'
-import { QueueModule } from '@codelab/backend-infra-adapter-queue'
-import { WsModule } from '@codelab/backend-infra-adapter-ws'
-import { CommandBusSubscription } from '@codelab/backend-infra-core'
 import {
   GraphQLSchemaModule,
   SchemaService,
 } from '@codelab/backend-infra-adapter-neo4j-schema'
+import { QueueModule } from '@codelab/backend-infra-adapter-queue'
+import { WsModule } from '@codelab/backend-infra-adapter-ws'
+import { CommandBusSubscription } from '@codelab/backend-infra-core'
 import {
   MiddlewareConsumer,
   Module,

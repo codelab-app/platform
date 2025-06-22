@@ -6,12 +6,12 @@ import type {
 } from '@codelab/shared-infra-gqlgen'
 
 import { type IAuthGuardRepository } from '@codelab/frontend-abstract-domain'
-import { Validator } from '@codelab/shared-infra-typebox'
 import {
   authGuardApi,
   authGuardMapper,
   authGuardServerActions,
 } from '@codelab/shared-domain-module-auth-guard'
+import { Validator } from '@codelab/shared-infra-typebox'
 
 const { CreateAuthGuards, DeleteAuthGuards, GetAuthGuards, UpdateAuthGuard } =
   authGuardServerActions

@@ -15,8 +15,8 @@ import {
   isTypedProp,
 } from '@codelab/frontend-abstract-domain'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
-import { mapDeep } from '@codelab/shared-utils'
 import { evaluateObject } from '@codelab/shared-infra-eval'
+import { mapDeep } from '@codelab/shared-utils'
 import { computed, observable, set } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { createElement, Fragment } from 'react'

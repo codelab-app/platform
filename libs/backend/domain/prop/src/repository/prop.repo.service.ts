@@ -3,8 +3,8 @@ import type { PropOptions, PropWhere } from '@codelab/shared-infra-gqlgen'
 
 import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
 import { AbstractRepository } from '@codelab/backend-infra-core'
-import { PropFragment } from '@codelab/shared-infra-gqlgen'
 import { propApi, propMapper } from '@codelab/shared-domain-module-prop'
+import { PropFragment } from '@codelab/shared-infra-gqlgen'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

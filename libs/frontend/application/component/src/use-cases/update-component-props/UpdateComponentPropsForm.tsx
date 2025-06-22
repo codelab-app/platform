@@ -6,11 +6,11 @@ import type {
 } from '@codelab/frontend-abstract-application'
 import type { IPropData } from '@codelab/shared-abstract-core'
 
-import { PropsForm } from '@codelab/frontend-presentation-components-interface-form'
 import { AdminPropsPanel } from '@codelab/frontend-application-admin/use-cases/admin-props-panel'
 import { usePropService } from '@codelab/frontend-application-prop/services'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
+import { PropsForm } from '@codelab/frontend-presentation-components-interface-form'
 import { Spinner } from '@codelab/frontend-presentation-view/components/loader'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'

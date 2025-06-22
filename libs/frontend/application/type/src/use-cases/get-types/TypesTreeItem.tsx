@@ -10,11 +10,11 @@ import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { IRouteType } from '@codelab/frontend-abstract-application'
 import { UiKey } from '@codelab/frontend-abstract-types'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
 } from '@codelab/frontend-presentation-codelab-ui'
-import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import { ITypeKind } from '@codelab/shared-abstract-core'
 import { useRouter } from 'next/navigation'
 

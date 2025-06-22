@@ -1,12 +1,12 @@
 import type { IPageUpdateFormData } from '@codelab/shared-abstract-core'
 import type { JSONSchemaType } from 'ajv'
 
-import { getSelectElementComponent } from '@codelab/frontend-presentation-components-interface-form'
 import {
   appSchema,
   idSchema,
   pageUrlSchema,
 } from '@codelab/frontend-presentation-components-form/schema'
+import { getSelectElementComponent } from '@codelab/frontend-presentation-components-interface-form'
 import { IPageKind } from '@codelab/shared-abstract-core'
 import { ElementTypeKind } from '@codelab/shared-infra-gqlgen'
 

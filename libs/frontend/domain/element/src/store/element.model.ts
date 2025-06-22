@@ -24,8 +24,8 @@ import {
   isComponent,
   pageRef,
 } from '@codelab/frontend-abstract-domain'
-import { toRefSchema, upsertRef } from '@codelab/frontend-shared-utils'
 import { Prop } from '@codelab/frontend-domain-prop/store'
+import { toRefSchema, upsertRef } from '@codelab/frontend-shared-utils'
 import { slugify, titleCase } from '@codelab/shared-utils'
 import { computed } from 'mobx'
 import {

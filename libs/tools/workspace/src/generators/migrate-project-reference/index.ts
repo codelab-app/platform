@@ -1,9 +1,9 @@
 import type { ProjectConfiguration, Tree } from '@nx/devkit'
 
-// Import the functions from the separate files
-import { updateProjectTsconfig } from './update-project-tsconfig'
 import { createNonbuildablePackageJson } from '../nx-project-config/workspace/package-json/create-nonbuildable-package-json'
 import { updatePackageJson } from '../nx-project-config/workspace/package-json/update-package-json'
+// Import the functions from the separate files
+import { updateProjectTsconfig } from './update-project-tsconfig'
 
 // Re-export the functions
 export { getProjectDependencies } from './get-project-dependencies'

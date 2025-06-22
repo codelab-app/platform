@@ -2,7 +2,6 @@ import type { BeforeApplicationShutdown } from '@nestjs/common'
 import type { Subscription } from 'zen-observable-ts'
 
 import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
-import { nodeApolloClient } from '@codelab/shared-infra-gql-client'
 import {
   DomainCreatedDocument,
   DomainCreatedSubscription,
@@ -11,6 +10,7 @@ import {
   DomainUpdatedDocument,
   DomainUpdatedSubscription,
 } from '@codelab/shared-domain-module-domain'
+import { nodeApolloClient } from '@codelab/shared-infra-gql-client'
 import { Injectable } from '@nestjs/common'
 import { EventEmitter2, OnEvent } from '@nestjs/event-emitter'
 

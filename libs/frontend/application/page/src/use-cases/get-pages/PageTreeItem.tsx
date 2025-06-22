@@ -18,12 +18,12 @@ import {
   type ITreeNode,
 } from '@codelab/frontend-abstract-domain'
 import { UiKey } from '@codelab/frontend-abstract-types'
+import { useRedirectService } from '@codelab/frontend-application-redirect/services'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx-context'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
 } from '@codelab/frontend-presentation-codelab-ui'
-import { useRedirectService } from '@codelab/frontend-application-redirect/services'
-import { useApplicationStore } from '@codelab/frontend-infra-mobx-context'
 import { IPageKind } from '@codelab/shared-abstract-core'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'

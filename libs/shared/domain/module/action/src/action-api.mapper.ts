@@ -5,8 +5,8 @@ import type {
   ApiActionUpdateInput,
 } from '@codelab/shared-infra-gqlgen'
 
-import { connectNodeId, disconnectAll } from '@codelab/shared-domain-orm'
 import { propMapper } from '@codelab/shared-domain-module-prop'
+import { connectNodeId, disconnectAll } from '@codelab/shared-domain-orm'
 
 export const apiActionMapper: IMapper<
   IApiActionDto,

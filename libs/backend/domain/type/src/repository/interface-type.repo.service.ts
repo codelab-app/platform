@@ -10,19 +10,19 @@ import type {
 import type { Static, TAnySchema } from '@sinclair/typebox'
 
 import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
-import { AbstractRepository } from '@codelab/backend-infra-core'
 import {
   getDependentTypes,
   Neo4jService,
 } from '@codelab/backend-infra-adapter-neo4j-driver'
-import { InterfaceTypeFragment } from '@codelab/shared-infra-gqlgen'
-import { Validator } from '@codelab/shared-infra-typebox'
+import { AbstractRepository } from '@codelab/backend-infra-core'
 import {
   createTypeApi,
   findTypeApi,
   interfaceTypeMapper,
   updateTypeApi,
 } from '@codelab/shared-domain-module-type'
+import { InterfaceTypeFragment } from '@codelab/shared-infra-gqlgen'
+import { Validator } from '@codelab/shared-infra-typebox'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

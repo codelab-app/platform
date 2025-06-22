@@ -1,11 +1,11 @@
 import type { IElementDto } from '@codelab/shared-abstract-core'
 
+import { createTestStore } from '@codelab/frontend-infra-mobx-store'
 import {
   atomReactFragmentDto,
   elementDto,
   pageDto,
 } from '@codelab/frontend-test-data'
-import { createTestStore } from '@codelab/frontend-infra-mobx-store'
 import { v4 } from 'uuid'
 
 describe('Create element', () => {

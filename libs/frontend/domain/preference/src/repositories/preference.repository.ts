@@ -8,11 +8,11 @@ import type {
   PreferenceWhere,
 } from '@codelab/shared-infra-gqlgen'
 
-import { Validator } from '@codelab/shared-infra-typebox'
 import {
   preferenceMapper,
   preferenceServerActions,
 } from '@codelab/shared-domain-module-preference'
+import { Validator } from '@codelab/shared-infra-typebox'
 
 import { Preference } from '../store/preference.model'
 

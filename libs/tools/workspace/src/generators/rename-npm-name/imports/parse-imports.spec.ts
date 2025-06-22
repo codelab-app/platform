@@ -3,32 +3,37 @@ import { parseImports } from './parse-imports'
 describe('parseImports', () => {
   describe('ES6 imports', () => {
     it('should parse default imports', () => {
-      const content = `import React from 'react'`
+      const content = "import React from 'react'"
       const imports = parseImports(content, 'test.ts')
+
       expect(imports).toEqual(['react'])
     })
 
     it('should parse named imports', () => {
-      const content = `import { useState, useEffect } from 'react'`
+      const content = "import { useState, useEffect } from 'react'"
       const imports = parseImports(content, 'test.ts')
+
       expect(imports).toEqual(['react'])
     })
 
     it('should parse namespace imports', () => {
-      const content = `import * as utils from '../utils'`
+      const content = "import * as utils from '../utils'"
       const imports = parseImports(content, 'test.ts')
+
       expect(imports).toEqual(['../utils'])
     })
 
     it('should parse type imports', () => {
-      const content = `import type { SomeType } from '@codelab/shared/types'`
+      const content = "import type { SomeType } from '@codelab/shared/types'"
       const imports = parseImports(content, 'test.ts')
+
       expect(imports).toEqual(['@codelab/shared/types'])
     })
 
     it('should parse side effect imports', () => {
-      const content = `import './styles.css'`
+      const content = "import './styles.css'"
       const imports = parseImports(content, 'test.ts')
+
       expect(imports).toEqual(['./styles.css'])
     })
 
@@ -37,27 +42,32 @@ describe('parseImports', () => {
 import React from 'react'
 import axios from "axios"
 `
+
       const imports = parseImports(content, 'test.ts')
+
       expect(imports).toEqual(['react', 'axios'])
     })
   })
 
   describe('CommonJS requires', () => {
     it('should parse basic require calls', () => {
-      const content = `const path = require('path')`
+      const content = "const path = require('path')"
       const imports = parseImports(content, 'test.js')
+
       expect(imports).toEqual(['path'])
     })
 
     it('should parse destructured require calls', () => {
-      const content = `const { readFile, writeFile } = require('fs')`
+      const content = "const { readFile, writeFile } = require('fs')"
       const imports = parseImports(content, 'test.js')
+
       expect(imports).toEqual(['fs'])
     })
 
     it('should parse require calls with double quotes', () => {
-      const content = `const lodash = require("lodash")`
+      const content = 'const lodash = require("lodash")'
       const imports = parseImports(content, 'test.js')
+
       expect(imports).toEqual(['lodash'])
     })
 
@@ -67,7 +77,9 @@ import axios from "axios"
 const str = "require('also-not-real')"
 const real = require('real-package')
 `
+
       const imports = parseImports(content, 'test.js')
+
       expect(imports).toEqual(['real-package'])
     })
   })
@@ -80,7 +92,9 @@ const loadModule = async () => {
   return module
 }
 `
+
       const imports = parseImports(content, 'test.ts')
+
       expect(imports).toEqual(['@codelab/frontend/module'])
     })
 
@@ -90,7 +104,9 @@ import('./lazy-module').then(module => {
   console.log(module)
 })
 `
+
       const imports = parseImports(content, 'test.ts')
+
       expect(imports).toEqual(['./lazy-module'])
     })
 
@@ -100,7 +116,9 @@ if (condition) {
   import('../conditional')
 }
 `
+
       const imports = parseImports(content, 'test.ts')
+
       expect(imports).toEqual(['../conditional'])
     })
   })
@@ -113,7 +131,9 @@ import { Component } from 'react'
 const fs = require('fs')
 import('./dynamic').then(m => m.default)
 `
+
       const imports = parseImports(content, 'test.ts')
+
       expect(imports).toEqual(['react', 'fs', './dynamic'])
     })
   })
@@ -121,6 +141,7 @@ import('./dynamic').then(m => m.default)
   describe('Edge cases', () => {
     it('should handle empty content', () => {
       const imports = parseImports('', 'test.ts')
+
       expect(imports).toEqual([])
     })
 
@@ -132,7 +153,9 @@ function doSomething() {
 }
 export default doSomething
 `
+
       const imports = parseImports(content, 'test.ts')
+
       expect(imports).toEqual([])
     })
 
@@ -142,7 +165,9 @@ import React from 'react'
 import { useState } from 'react'
 const React2 = require('react')
 `
+
       const imports = parseImports(content, 'test.ts')
+
       expect(imports).toEqual(['react'])
     })
 
@@ -154,13 +179,16 @@ import {
   useCallback
 } from 'react'
 `
+
       const imports = parseImports(content, 'test.ts')
+
       expect(imports).toEqual(['react'])
     })
 
     it('should handle imports with trailing commas', () => {
-      const content = `import { a, b, c, } from 'package'`
+      const content = "import { a, b, c, } from 'package'"
       const imports = parseImports(content, 'test.ts')
+
       expect(imports).toEqual(['package'])
     })
 
@@ -169,7 +197,9 @@ import {
 import test from '@scope/package-name'
 import another from '@codelab/shared/utils'
 `
+
       const imports = parseImports(content, 'test.ts')
+
       expect(imports).toEqual(['@scope/package-name', '@codelab/shared/utils'])
     })
 
@@ -180,12 +210,14 @@ import b from '../parent'
 import c from '../../grandparent'
 import d from './nested/deep/file'
 `
+
       const imports = parseImports(content, 'test.ts')
+
       expect(imports).toEqual([
         './sibling',
         '../parent',
         '../../grandparent',
-        './nested/deep/file'
+        './nested/deep/file',
       ])
     })
 
@@ -195,11 +227,13 @@ import json from './data.json'
 import styles from './styles.module.css'
 import component from './component.jsx'
 `
+
       const imports = parseImports(content, 'test.ts')
+
       expect(imports).toEqual([
         './data.json',
         './styles.module.css',
-        './component.jsx'
+        './component.jsx',
       ])
     })
 
@@ -208,7 +242,9 @@ import component from './component.jsx'
 import Worker from './worker.js?worker'
 import url from './asset.png?url'
 `
+
       const imports = parseImports(content, 'test.ts')
+
       expect(imports).toEqual(['./worker.js?worker', './asset.png?url'])
     })
   })
@@ -219,7 +255,9 @@ import url from './asset.png?url'
 import { } from 'empty-import'
 import normal from 'valid-import'
 `
+
       const imports = parseImports(content, 'test.ts')
+
       expect(imports).toContain('valid-import')
       expect(imports).toContain('empty-import')
     })
@@ -230,7 +268,9 @@ import valid from 'valid-import'
 const x = // syntax error - incomplete
 import another from 'another-import'
 `
+
       const imports = parseImports(content, 'test.ts')
+
       // TypeScript parser is resilient and can still parse imports
       expect(imports).toContain('valid-import')
       expect(imports).toContain('another-import')

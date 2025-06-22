@@ -8,8 +8,8 @@ import {
 } from '@codelab/backend-infra-adapter-neo4j-driver'
 import { ITypeKind } from '@codelab/shared-abstract-core'
 import { NotFoundError } from '@codelab/shared-domain-errors'
-import { Maybe, TypeFragment } from '@codelab/shared-infra-gqlgen'
 import { TypeCreateMap } from '@codelab/shared-domain-module-type'
+import { Maybe, TypeFragment } from '@codelab/shared-infra-gqlgen'
 import { Injectable } from '@nestjs/common'
 import { TAnySchema } from '@sinclair/typebox'
 

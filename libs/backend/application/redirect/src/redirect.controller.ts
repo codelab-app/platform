@@ -8,9 +8,9 @@ import {
   type IResourceFetchConfig,
 } from '@codelab/shared-abstract-core'
 import { ObjectLike } from '@codelab/shared-abstract-types'
-import { tryParse } from '@codelab/shared-utils'
 import { getResourceClient } from '@codelab/shared-domain-module-resource'
 import { evaluateObject } from '@codelab/shared-infra-eval'
+import { tryParse } from '@codelab/shared-utils'
 import { Body, Controller, Post } from '@nestjs/common'
 
 @Controller()

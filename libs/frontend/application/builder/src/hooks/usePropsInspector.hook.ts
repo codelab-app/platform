@@ -15,9 +15,9 @@ import {
   type IPageNodeRef,
   isElementRef,
 } from '@codelab/frontend-abstract-domain'
+import { usePropService } from '@codelab/frontend-application-prop/services'
 import { useNotify, useSuccessNotify } from '@codelab/frontend-infra-context'
 import { createValidator } from '@codelab/frontend-shared-utils'
-import { usePropService } from '@codelab/frontend-application-prop/services'
 import { NotificationType, type Nullable } from '@codelab/shared-abstract-types'
 import { evaluateObject } from '@codelab/shared-infra-eval'
 import { useState } from 'react'

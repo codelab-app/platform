@@ -11,13 +11,13 @@ import type {
 import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
 import { AbstractRepository } from '@codelab/backend-infra-core'
 import { IActionKind } from '@codelab/shared-abstract-core'
-import { ApiActionFragment } from '@codelab/shared-infra-gqlgen'
 import { apiActionMapper } from '@codelab/shared-domain-module-action'
 import {
   actionCreateApi,
   actionFindApi,
   actionUpdateApi,
 } from '@codelab/shared-domain-module-store'
+import { ApiActionFragment } from '@codelab/shared-infra-gqlgen'
 import { Injectable } from '@nestjs/common'
 
 const { CreateApiActions } = actionCreateApi()

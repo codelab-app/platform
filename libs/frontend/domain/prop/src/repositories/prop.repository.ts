@@ -3,11 +3,11 @@ import type { IPropDto, IRef } from '@codelab/shared-abstract-core'
 import type { NextFetchOptions } from '@codelab/shared-abstract-types'
 import type { PropOptions, PropWhere } from '@codelab/shared-infra-gqlgen'
 
-import { Validator } from '@codelab/shared-infra-typebox'
 import {
   propMapper,
   propServerActions,
 } from '@codelab/shared-domain-module-prop'
+import { Validator } from '@codelab/shared-infra-typebox'
 
 const { CreateProps, DeleteProps, GetProps, UpdateProps } = propServerActions
 

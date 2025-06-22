@@ -13,8 +13,8 @@ import { RoutePaths } from '@codelab/frontend-abstract-application'
 import { resourceRepository } from '@codelab/frontend-domain-resource/repositories'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
-import { Validator } from '@codelab/shared-infra-typebox'
 import { resourceApi } from '@codelab/shared-domain-module-resource'
+import { Validator } from '@codelab/shared-infra-typebox'
 import { v4 } from 'uuid'
 
 export const useResourceService = (): IResourceService => {

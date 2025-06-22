@@ -4,12 +4,12 @@ import type {
   ITreeNode,
 } from '@codelab/frontend-abstract-domain'
 
+import { useTypeService } from '@codelab/frontend-application-type/services'
 import {
   CuiEmpty,
   CuiSkeletonWrapper,
   CuiTree,
 } from '@codelab/frontend-presentation-codelab-ui'
-import { useTypeService } from '@codelab/frontend-application-type/services'
 import { observer } from 'mobx-react-lite'
 import { useAsyncFn, useMount } from 'react-use'
 

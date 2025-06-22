@@ -1,10 +1,6 @@
 import type { ICreateActionData } from '@codelab/shared-abstract-core'
 
 import { type IFormController, UiKey } from '@codelab/frontend-abstract-types'
-import {
-  SelectActionField,
-  SelectResource,
-} from '@codelab/frontend-presentation-components-interface-form'
 import { ResourceFetchConfigField } from '@codelab/frontend-application-resource/components'
 import {
   useApplicationStore,
@@ -15,6 +11,10 @@ import {
   Form,
   FormController,
 } from '@codelab/frontend-presentation-components-form'
+import {
+  SelectActionField,
+  SelectResource,
+} from '@codelab/frontend-presentation-components-interface-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { HttpMethod, IActionKind } from '@codelab/shared-abstract-core'
 import { observer } from 'mobx-react-lite'

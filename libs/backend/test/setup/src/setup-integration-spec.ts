@@ -9,6 +9,10 @@ import { UserDomainModule, UserRepository } from '@codelab/backend-domain-user'
 import { GraphqlModule } from '@codelab/backend-infra-adapter-graphql'
 import { CodelabLoggerModule } from '@codelab/backend-infra-adapter-logger'
 import {
+  GraphQLSchemaModule,
+  SchemaService,
+} from '@codelab/backend-infra-adapter-neo4j-schema'
+import {
   RequestContextMiddleware,
   RequestContextModule,
 } from '@codelab/backend-infra-adapter-request-context'
@@ -18,10 +22,6 @@ import {
   resetAndSeedDatabase,
   startServer,
 } from '@codelab/backend-test-utils'
-import {
-  GraphQLSchemaModule,
-  SchemaService,
-} from '@codelab/backend-infra-adapter-neo4j-schema'
 import { userDto } from '@codelab/shared-data-test'
 import { ConfigModule } from '@nestjs/config'
 import { CommandBus, CqrsModule } from '@nestjs/cqrs'

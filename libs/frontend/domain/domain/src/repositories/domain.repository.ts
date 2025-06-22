@@ -6,11 +6,11 @@ import {
   type IDomainModel,
   type IDomainRepository,
 } from '@codelab/frontend-abstract-domain'
-import { Validator } from '@codelab/shared-infra-typebox'
 import {
   domainMapper,
   domainServerActions,
 } from '@codelab/shared-domain-module-domain'
+import { Validator } from '@codelab/shared-infra-typebox'
 
 const { CreateDomains, DeleteDomains, DomainList, UpdateDomains } =
   domainServerActions

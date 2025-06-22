@@ -6,9 +6,9 @@ import type { IElementTree } from '@codelab/frontend-abstract-domain'
 import type { Nullable } from '@codelab/shared-abstract-types'
 import type { TreeProps } from 'antd/lib/tree'
 
-import { useInfoNotify } from '@codelab/frontend-infra-context'
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { useRequiredParentValidator } from '@codelab/frontend-application-element/validation'
+import { useInfoNotify } from '@codelab/frontend-infra-context'
 import { useApplicationStore } from '@codelab/frontend-infra-mobx-context'
 import { useAsyncHandler } from '@codelab/frontend-presentation-components-form'
 

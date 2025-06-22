@@ -3,8 +3,8 @@ import type { TagOptions, TagWhere } from '@codelab/shared-infra-gqlgen'
 
 import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
 import { AbstractRepository } from '@codelab/backend-infra-core'
-import { TagFragment } from '@codelab/shared-infra-gqlgen'
 import { tagApi, tagMapper } from '@codelab/shared-domain-module-tag'
+import { TagFragment } from '@codelab/shared-infra-gqlgen'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

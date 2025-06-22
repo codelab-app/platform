@@ -13,7 +13,6 @@ import {
   rendererRef,
   RendererType,
 } from '@codelab/frontend-abstract-application'
-import { useDomainStoreHydrator } from '@codelab/frontend-infra-context'
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { componentRepository } from '@codelab/frontend-domain-component/repositories'
 import {
@@ -24,6 +23,7 @@ import { elementRepository } from '@codelab/frontend-domain-element/repositories
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { storeRepository } from '@codelab/frontend-domain-store/repositories'
 import { typeRepository } from '@codelab/frontend-domain-type/repositories'
+import { useDomainStoreHydrator } from '@codelab/frontend-infra-context'
 import {
   useApplicationStore,
   useDomainStore,

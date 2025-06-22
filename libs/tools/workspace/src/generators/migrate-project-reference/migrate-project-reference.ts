@@ -1,8 +1,9 @@
 import type { Tree } from '@nx/devkit'
 
+import type { MigrateProjectReferenceGeneratorSchema } from './schema'
+
 import { processAllProjects } from '../utils/process-all-projects'
 import { migrateProjectReference } from './index'
-import type { MigrateProjectReferenceGeneratorSchema } from './schema'
 
 /**
  * Generator to migrate all projects to use TypeScript project references
@@ -13,7 +14,7 @@ export const migrateProjectReferenceGenerator = async (
 ) => {
   console.log('Starting migration for all projects in the workspace...')
 
-  await processAllProjects(tree, async (tree, _projectName, projectConfig) => {
+  await processAllProjects(tree, async (_, _projectName, projectConfig) => {
     await migrateProjectReference(tree, projectConfig)
   })
 

@@ -8,8 +8,8 @@ import type {
 
 import { RoutePaths } from '@codelab/frontend-abstract-application'
 import { UiKey } from '@codelab/frontend-abstract-types'
-import { useErrorNotify } from '@codelab/frontend-infra-context'
 import { checkDomainExists } from '@codelab/frontend-domain-domain/errors'
+import { useErrorNotify } from '@codelab/frontend-infra-context'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'

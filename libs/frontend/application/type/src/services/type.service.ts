@@ -18,12 +18,12 @@ import { typeRepository } from '@codelab/frontend-domain-type/repositories'
 import { TypeFactory } from '@codelab/frontend-domain-type/store'
 import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import { ITypeKind } from '@codelab/shared-abstract-core'
-import { TypeKind } from '@codelab/shared-infra-gqlgen'
-import { Validator } from '@codelab/shared-infra-typebox'
 import {
   findTypeApi,
   findTypeServerActions,
 } from '@codelab/shared-domain-module-type'
+import { TypeKind } from '@codelab/shared-infra-gqlgen'
+import { Validator } from '@codelab/shared-infra-typebox'
 import { prop, sortBy } from 'remeda'
 
 const { GetTypeReferences } = findTypeServerActions

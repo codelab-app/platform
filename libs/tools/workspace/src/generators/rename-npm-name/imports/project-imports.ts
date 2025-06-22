@@ -1,6 +1,7 @@
 import type { ProjectConfiguration, Tree } from '@nx/devkit'
 
 import { joinPathFragments, visitNotIgnoredFiles } from '@nx/devkit'
+
 import { parseImports } from './parse-imports'
 
 /**
@@ -9,13 +10,14 @@ import { parseImports } from './parse-imports'
 export const getProjectImports = (
   tree: Tree,
   projectConfig: ProjectConfiguration,
-): string[] => {
-  const allImports: string[] = []
+): Array<string> => {
+  const allImports: Array<string> = []
   // Use project root instead of sourceRoot to catch all files in the project
   const projectRoot = projectConfig.root
 
   if (!tree.exists(projectRoot)) {
     console.log(`Project root ${projectRoot} does not exist`)
+
     return allImports
   }
 
@@ -28,13 +30,14 @@ export const getProjectImports = (
 
     // Read file content
     const content = tree.read(filePath, 'utf-8')
+
     if (!content) {
       return
     }
 
     // Parse imports from the file using AST
     const imports = parseImports(content, filePath)
-    
+
     // Collect all imports
     allImports.push(...imports)
   })
@@ -56,6 +59,7 @@ export const updateProjectImports = (
 
   if (!tree.exists(projectRoot)) {
     console.log(`Project root ${projectRoot} does not exist`)
+
     return
   }
 
@@ -70,17 +74,19 @@ export const updateProjectImports = (
 
     // Read file content
     const content = tree.read(filePath, 'utf-8')
+
     if (!content) {
       return
     }
 
     // Parse imports from the file using AST
     const imports = parseImports(content, filePath)
-    
     // Check if any imports need to be transformed
     const transformations: Record<string, string> = {}
-    imports.forEach(importPath => {
+
+    imports.forEach((importPath) => {
       const newPath = transformFn(importPath)
+
       if (newPath !== importPath) {
         transformations[importPath] = newPath
       }
@@ -93,16 +99,15 @@ export const updateProjectImports = (
 
     // Apply transformations using simple string replacement
     let updatedContent = content
+
     Object.entries(transformations).forEach(([oldPath, newPath]) => {
       // Replace all occurrences of the old path with the new path
       // This works because import paths are always in quotes
-      const searchStrings = [
-        `'${oldPath}'`,
-        `"${oldPath}"`,
-      ]
-      
-      searchStrings.forEach(searchString => {
+      const searchStrings = [`'${oldPath}'`, `"${oldPath}"`]
+
+      searchStrings.forEach((searchString) => {
         const replacement = searchString.replace(oldPath, newPath)
+
         if (updatedContent.includes(searchString)) {
           updatedContent = updatedContent.replaceAll(searchString, replacement)
           console.log(

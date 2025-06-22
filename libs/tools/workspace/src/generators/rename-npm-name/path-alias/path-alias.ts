@@ -42,6 +42,7 @@ export const getPackageNameFromOldAlias = (oldAlias: string): string => {
     if (oldAlias.startsWith(alias)) {
       // Extract the subpath (everything after the base alias)
       const subpath = oldAlias.slice(alias.length)
+
       // Return the expected alias + any subpath
       return details.expected + subpath
     }

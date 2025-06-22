@@ -1,11 +1,11 @@
 import { atomRef, type IElementModel } from '@codelab/frontend-abstract-domain'
+import { createTestStore } from '@codelab/frontend-infra-mobx-store'
 import {
   atomReactFragmentDto,
   elementDto,
   pageDto,
   userDto,
 } from '@codelab/frontend-test-data'
-import { createTestStore } from '@codelab/frontend-infra-mobx-store'
 import { type IElementDto, ITypeKind } from '@codelab/shared-abstract-core'
 import { Validator } from '@codelab/shared-infra-typebox'
 import { isRefOfType } from 'mobx-keystone'

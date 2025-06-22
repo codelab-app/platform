@@ -1,7 +1,8 @@
 import type { Tree } from '@nx/devkit'
+
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing'
-import { libraryGenerator } from '@nx/react'
 import { Linter } from '@nx/eslint'
+import { libraryGenerator } from '@nx/react'
 
 import renameNpmNameGenerator from './rename-npm-name'
 
@@ -15,9 +16,9 @@ describe('rename-npm-name generator', () => {
   it('should migrate import paths in TypeScript files', async () => {
     // Create a test library - the libraryGenerator creates it at the root with the full name
     await libraryGenerator(tree, {
-      name: 'test-lib',
       directory: 'libs/frontend/domain',
       linter: Linter.EsLint,
+      name: 'test-lib',
       style: 'none',
     })
 
@@ -54,6 +55,7 @@ export { module1, module2, loadModule }`
       'libs/frontend/domain/src/lib/test-file1.ts',
       'utf-8',
     )
+
     const updatedFile2 = tree.read(
       'libs/frontend/domain/src/lib/test-file2.ts',
       'utf-8',
@@ -92,9 +94,9 @@ export { module1, module2, loadModule }`
   it('should handle files with no @codelab imports', async () => {
     // Create a test library
     await libraryGenerator(tree, {
-      name: 'no-codelab-imports',
       directory: 'libs/frontend/domain',
       linter: Linter.EsLint,
+      name: 'no-codelab-imports',
       style: 'none',
     })
 
@@ -132,9 +134,9 @@ export const MyComponent = () => {
   it('should handle mixed import formats in the same file', async () => {
     // Create a test library
     await libraryGenerator(tree, {
-      name: 'mixed-imports',
       directory: 'libs/frontend/domain',
       linter: Linter.EsLint,
+      name: 'mixed-imports',
       style: 'none',
     })
 
@@ -197,9 +199,9 @@ export { func1, func2, defaultExport, namespace }`
   it('should only process TypeScript and JavaScript files', async () => {
     // Create a test library
     await libraryGenerator(tree, {
-      name: 'file-types',
       directory: 'libs/frontend/domain',
       linter: Linter.EsLint,
+      name: 'file-types',
       style: 'none',
     })
 
@@ -248,24 +250,28 @@ export { func1, func2, defaultExport, namespace }`
     const tsconfigContent = {
       compilerOptions: {
         paths: {
-          // Direct package mapping (should stay the same)
-          '@codelab/shared-infra-auth0': [
-            'libs/shared/infra/auth0/src/index.ts',
-          ],
-          // NEW-style subpath mappings (these stay the same - not transformed)
-          '@codelab/shared-infra-auth0/client': [
-            'libs/shared/infra/auth0/src/client/index.ts',
-          ],
-          '@codelab/shared-infra-auth0/server': [
-            'libs/shared/infra/auth0/src/server/index.ts',
-          ],
           // OLD-style path that needs transformation
           '@codelab/backend/infra/adapter/auth0': [
             'libs/backend/infra/adapter/auth0/src/index.ts',
           ],
+
           // OLD-style path with subpath that should be preserved
           '@codelab/shared/infra/logging/server': [
             'libs/shared/infra/logging/src/server/index.ts',
+          ],
+
+          // Direct package mapping (should stay the same)
+          '@codelab/shared-infra-auth0': [
+            'libs/shared/infra/auth0/src/index.ts',
+          ],
+
+          // NEW-style subpath mappings (these stay the same - not transformed)
+          '@codelab/shared-infra-auth0/client': [
+            'libs/shared/infra/auth0/src/client/index.ts',
+          ],
+
+          '@codelab/shared-infra-auth0/server': [
+            'libs/shared/infra/auth0/src/server/index.ts',
           ],
           // Unknown path with slashes (should stay the same - only known mappings are transformed)
           '@codelab/some/unknown/path': ['libs/some/unknown/path/src/index.ts'],
@@ -282,6 +288,7 @@ export { func1, func2, defaultExport, namespace }`
     const updatedTsconfig = JSON.parse(
       tree.read('tsconfig.base.json', 'utf-8')!,
     )
+
     const paths = updatedTsconfig.compilerOptions.paths
 
     // Direct mappings should stay the same

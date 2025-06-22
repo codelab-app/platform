@@ -20,8 +20,8 @@ import {
   useDomainStore,
 } from '@codelab/frontend-infra-mobx-context'
 import { IElementRenderTypeKind } from '@codelab/shared-abstract-core'
-import { Validator } from '@codelab/shared-infra-typebox'
 import { pageApi, pageServerActions } from '@codelab/shared-domain-module-page'
+import { Validator } from '@codelab/shared-infra-typebox'
 import { useRouter } from 'next/navigation'
 
 import { createPageAction } from '../use-cases/create-page'

@@ -1,7 +1,7 @@
 import type { LayoutProps } from '@codelab/frontend-abstract-types'
 
-import { DomainStoreHydrator } from '@codelab/frontend-infra-context'
 import { fieldRepository } from '@codelab/frontend-domain-type/repositories'
+import { DomainStoreHydrator } from '@codelab/frontend-infra-context'
 
 /**
  * Used by popover so we don't need a server component, can be used by page directly

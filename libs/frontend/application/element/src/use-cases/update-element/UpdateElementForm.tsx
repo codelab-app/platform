@@ -8,15 +8,15 @@ import {
   type IUpdateElementData,
 } from '@codelab/frontend-abstract-domain'
 import { UiKey } from '@codelab/frontend-abstract-types'
-import {
-  SelectActionsField,
-  SelectComponent,
-} from '@codelab/frontend-presentation-components-interface-form'
 import { createAutoCompleteOptions } from '@codelab/frontend-presentation-components-codemirror'
 import {
   CodeMirrorField,
   Form,
 } from '@codelab/frontend-presentation-components-form'
+import {
+  SelectActionsField,
+  SelectComponent,
+} from '@codelab/frontend-presentation-components-interface-form'
 import { CodeMirrorLanguage } from '@codelab/shared-infra-gqlgen'
 import { Collapse } from 'antd'
 import { observer } from 'mobx-react-lite'

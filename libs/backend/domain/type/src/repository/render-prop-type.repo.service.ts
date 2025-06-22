@@ -9,13 +9,13 @@ import type {
 
 import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
 import { AbstractRepository } from '@codelab/backend-infra-core'
-import { RenderPropTypeFragment } from '@codelab/shared-infra-gqlgen'
 import {
   createTypeApi,
   findTypeApi,
   renderPropTypeMapper,
   updateTypeApi,
 } from '@codelab/shared-domain-module-type'
+import { RenderPropTypeFragment } from '@codelab/shared-infra-gqlgen'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

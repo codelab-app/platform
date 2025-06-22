@@ -9,11 +9,11 @@ import {
   type IResourceModel,
   type IResourceRepository,
 } from '@codelab/frontend-abstract-domain'
-import { Validator } from '@codelab/shared-infra-typebox'
 import {
   resourceMapper,
   resourceServerActions,
 } from '@codelab/shared-domain-module-resource'
+import { Validator } from '@codelab/shared-infra-typebox'
 
 const { CreateResources, DeleteResources, ResourceList, UpdateResources } =
   resourceServerActions

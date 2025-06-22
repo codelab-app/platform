@@ -6,8 +6,8 @@ import {
   type IRendererModel,
   RendererType,
 } from '@codelab/frontend-abstract-application'
-import { Rect } from '@codelab/frontend-shared-utils'
 import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
+import { Rect } from '@codelab/frontend-shared-utils'
 import { isServer } from '@codelab/shared-utils'
 import { observer } from 'mobx-react-lite'
 import { useEffect, useState } from 'react'

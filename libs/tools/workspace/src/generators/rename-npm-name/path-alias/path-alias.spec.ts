@@ -8,30 +8,31 @@ describe('getPackageNameFromOldAlias', () => {
     const result = getPackageNameFromOldAlias(
       '@codelab/backend-infra-adapter/neo4j-driver',
     )
+
     expect(result).toBe('@codelab/backend-infra-adapter-neo4j-driver')
   })
 
   it('should return the expected package name for multiple old aliases', () => {
     const testCases = [
       {
-        oldAlias: '@codelab/backend-infra-adapter/neo4j-schema',
         expected: '@codelab/backend-infra-adapter-neo4j-schema',
+        oldAlias: '@codelab/backend-infra-adapter/neo4j-schema',
       },
       {
-        oldAlias: '@codelab/backend/infra/adapter/auth0',
         expected: '@codelab/backend-infra-adapter-auth0',
+        oldAlias: '@codelab/backend/infra/adapter/auth0',
       },
       {
-        oldAlias: '@codelab/backend/infra/adapter/digitalocean',
         expected: '@codelab/backend-infra-adapter-digitalocean',
+        oldAlias: '@codelab/backend/infra/adapter/digitalocean',
       },
       {
-        oldAlias: '@codelab/backend/abstract/core',
         expected: '@codelab/backend-abstract-core',
+        oldAlias: '@codelab/backend/abstract/core',
       },
     ]
 
-    testCases.forEach(({ oldAlias, expected }) => {
+    testCases.forEach(({ expected, oldAlias }) => {
       expect(getPackageNameFromOldAlias(oldAlias)).toBe(expected)
     })
   })
@@ -40,6 +41,7 @@ describe('getPackageNameFromOldAlias', () => {
     // Since @codelab exists in the map, any @codelab/xxx will match and preserve the subpath
     const unknownAlias = '@codelab/xyz123'
     const result = getPackageNameFromOldAlias(unknownAlias)
+
     // @codelab maps to @codelab, so @codelab/xyz123 returns @codelab/xyz123
     expect(result).toBe(unknownAlias)
   })
@@ -47,6 +49,7 @@ describe('getPackageNameFromOldAlias', () => {
   it('should return non-@codelab aliases as-is if not found in the map', () => {
     const unknownAlias = '@other-scope/unknown-package'
     const result = getPackageNameFromOldAlias(unknownAlias)
+
     expect(result).toBe(unknownAlias)
   })
 
@@ -78,6 +81,7 @@ describe('getPackageNameFromOldAlias', () => {
     // The function should be case sensitive since package names are case sensitive
     const upperCaseAlias = '@CODELAB/backend-infra-adapter/neo4j-driver'
     const result = getPackageNameFromOldAlias(upperCaseAlias)
+
     // Should return as-is since it won't match the lowercase version in the map
     expect(result).toBe(upperCaseAlias)
   })
@@ -87,12 +91,12 @@ describe('getPackageNameFromOldAlias', () => {
     // These are OLD-style paths that should be transformed but preserve subpaths
     const testCases = [
       {
+        expected: '@codelab/shared-infra-logging/server',
         oldAlias: '@codelab/shared/infra/logging/server',
-        expected: '@codelab/shared-infra-logging/server', // Preserved because path is .../src/server/index.ts
       },
     ]
 
-    testCases.forEach(({ oldAlias, expected }) => {
+    testCases.forEach(({ expected, oldAlias }) => {
       expect(getPackageNameFromOldAlias(oldAlias)).toBe(expected)
     })
   })
@@ -101,13 +105,13 @@ describe('getPackageNameFromOldAlias', () => {
     // Test specific cases mentioned by the user
     const testCases = [
       {
+        expected: '@codelab/backend-infra-adapter-auth0',
         // This is an old-style path that should be transformed
         oldAlias: '@codelab/backend/infra/adapter/auth0',
-        expected: '@codelab/backend-infra-adapter-auth0',
       },
     ]
 
-    testCases.forEach(({ oldAlias, expected }) => {
+    testCases.forEach(({ expected, oldAlias }) => {
       expect(getPackageNameFromOldAlias(oldAlias)).toBe(expected)
     })
   })
@@ -116,12 +120,12 @@ describe('getPackageNameFromOldAlias', () => {
     // Test that new-style paths with subpaths that don't exist in the map remain unchanged
     const testCases = [
       {
-        oldAlias: '@codelab/frontend-application-app/use-cases/app-builder',
         expected: '@codelab/frontend-application-app/use-cases/app-builder',
+        oldAlias: '@codelab/frontend-application-app/use-cases/app-builder',
       },
     ]
 
-    testCases.forEach(({ oldAlias, expected }) => {
+    testCases.forEach(({ expected, oldAlias }) => {
       expect(getPackageNameFromOldAlias(oldAlias)).toBe(expected)
     })
   })
@@ -130,20 +134,20 @@ describe('getPackageNameFromOldAlias', () => {
     // Test that subpaths are preserved when a base alias is found
     const testCases = [
       {
-        oldAlias: '@codelab/backend/infra/adapter/auth0/client',
         expected: '@codelab/backend-infra-adapter-auth0/client',
+        oldAlias: '@codelab/backend/infra/adapter/auth0/client',
       },
       {
-        oldAlias: '@codelab/backend/abstract/core/services/logger',
         expected: '@codelab/backend-abstract-core/services/logger',
+        oldAlias: '@codelab/backend/abstract/core/services/logger',
       },
       {
-        oldAlias: '@codelab/frontend/abstract/application/services/router',
         expected: '@codelab/frontend-abstract-application/services/router',
+        oldAlias: '@codelab/frontend/abstract/application/services/router',
       },
     ]
 
-    testCases.forEach(({ oldAlias, expected }) => {
+    testCases.forEach(({ expected, oldAlias }) => {
       expect(getPackageNameFromOldAlias(oldAlias)).toBe(expected)
     })
   })
@@ -154,34 +158,35 @@ describe('getPackageNameFromProjectName', () => {
     const result = getPackageNameFromProjectName(
       'backend-infra-adapter-neo4j-driver',
     )
+
     expect(result).toBe('@codelab/backend-infra-adapter-neo4j-driver')
   })
 
   it('should return the expected package names for multiple project names', () => {
     const testCases = [
       {
-        projectName: 'codelab-codegen-codelab-preset',
         expected: '@codelab-codegen/codelab-preset',
+        projectName: 'codelab-codegen-codelab-preset',
       },
       {
-        projectName: 'codelab-codegen-typescript-fetch',
         expected: '@codelab-codegen/typescript-fetch',
+        projectName: 'codelab-codegen-typescript-fetch',
       },
       {
-        projectName: 'backend-abstract-core',
         expected: '@codelab/backend-abstract-core',
+        projectName: 'backend-abstract-core',
       },
       {
-        projectName: 'backend-application-action',
         expected: '@codelab/backend-application-action',
+        projectName: 'backend-application-action',
       },
       {
-        projectName: 'frontend-application-admin',
         expected: '@codelab/frontend-application-admin',
+        projectName: 'frontend-application-admin',
       },
     ]
 
-    testCases.forEach(({ projectName, expected }) => {
+    testCases.forEach(({ expected, projectName }) => {
       expect(getPackageNameFromProjectName(projectName)).toBe(expected)
     })
   })
@@ -190,6 +195,7 @@ describe('getPackageNameFromProjectName', () => {
     // Based on the implementation, it returns the projectName when not found
     const unknownProject = 'unknown-project-name'
     const result = getPackageNameFromProjectName(unknownProject)
+
     expect(result).toBe(unknownProject)
   })
 
@@ -204,6 +210,7 @@ describe('getPackageNameFromProjectName', () => {
 
     // Very long project name
     const longProjectName = 'very-long-project-name-that-does-not-exist-in-map'
+
     expect(getPackageNameFromProjectName(longProjectName)).toBe(longProjectName)
   })
 
@@ -211,6 +218,7 @@ describe('getPackageNameFromProjectName', () => {
     // The function should be case sensitive since project names are case sensitive
     const upperCaseProject = 'BACKEND-INFRA-ADAPTER-NEO4J-DRIVER'
     const result = getPackageNameFromProjectName(upperCaseProject)
+
     // Should return as-is since it won't match the lowercase version in the map
     expect(result).toBe(upperCaseProject)
   })
@@ -220,6 +228,7 @@ describe('getPackageNameFromProjectName', () => {
     // For example, 'backend-abstract' should not match 'backend-abstract-core'
     const partialProjectName = 'backend-abstract'
     const result = getPackageNameFromProjectName(partialProjectName)
+
     // Should return as-is since it's not an exact match
     expect(result).toBe(partialProjectName)
   })

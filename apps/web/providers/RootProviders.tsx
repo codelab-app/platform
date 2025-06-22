@@ -4,11 +4,11 @@ import type { IUserDto } from '@codelab/shared-abstract-core'
 import type { PropsWithChildren } from 'react'
 
 import { Auth0Provider } from '@auth0/nextjs-auth0'
-import { CuiProvider } from '@codelab/frontend-presentation-codelab-ui'
 import {
   createRootStore,
   RootStoreProvider,
 } from '@codelab/frontend-infra-mobx-store'
+import { CuiProvider } from '@codelab/frontend-presentation-codelab-ui'
 import { Provider } from 'jotai'
 import { useMemo } from 'react'
 

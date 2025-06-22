@@ -5,8 +5,8 @@ import type {
   AuthGuardUpdateInput,
 } from '@codelab/shared-infra-gqlgen'
 
-import { connectNodeId, connectOwner } from '@codelab/shared-domain-orm'
 import { propMapper } from '@codelab/shared-domain-module-prop'
+import { connectNodeId, connectOwner } from '@codelab/shared-domain-orm'
 
 export const authGuardMapper: IMapper<
   IAuthGuardDto,

@@ -20,9 +20,9 @@ import {
   ITypeKind,
 } from '@codelab/shared-abstract-core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared-config-env'
+import { ElementProperties } from '@codelab/shared-domain-module-element'
 import { AtomType, BreakpointType } from '@codelab/shared-infra-gqlgen'
 import { Validator } from '@codelab/shared-infra-typebox'
-import { ElementProperties } from '@codelab/shared-domain-module-element'
 import { print } from 'graphql'
 import request from 'supertest'
 import { v4 } from 'uuid'

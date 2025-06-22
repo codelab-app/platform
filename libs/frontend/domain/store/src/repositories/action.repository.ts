@@ -11,7 +11,6 @@ import type {
 import type { NextFetchOptions } from '@codelab/shared-abstract-types'
 
 import { IActionKind } from '@codelab/shared-abstract-core'
-import { Validator } from '@codelab/shared-infra-typebox'
 import {
   apiActionMapper,
   codeActionMapper,
@@ -22,6 +21,7 @@ import {
   actionGetServerActions,
   actionUpdateServerActions,
 } from '@codelab/shared-domain-module-store'
+import { Validator } from '@codelab/shared-infra-typebox'
 
 const { CreateApiActions, CreateCodeActions } = actionCreateServerActions
 const { UpdateApiActions, UpdateCodeActions } = actionUpdateServerActions

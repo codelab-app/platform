@@ -6,11 +6,11 @@ import type {
   ComponentWhere,
 } from '@codelab/shared-infra-gqlgen'
 
-import { Validator } from '@codelab/shared-infra-typebox'
 import {
   componentMapper,
   componentServerActions,
 } from '@codelab/shared-domain-module-component'
+import { Validator } from '@codelab/shared-infra-typebox'
 
 const { ComponentList, CreateComponents, DeleteComponents, UpdateComponents } =
   componentServerActions

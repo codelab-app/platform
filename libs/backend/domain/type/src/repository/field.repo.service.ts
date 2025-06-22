@@ -3,8 +3,8 @@ import type { FieldOptions, FieldWhere } from '@codelab/shared-infra-gqlgen'
 
 import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
 import { AbstractRepository } from '@codelab/backend-infra-core'
-import { FieldFragment } from '@codelab/shared-infra-gqlgen'
 import { fieldApi, fieldMapper } from '@codelab/shared-domain-module-field'
+import { FieldFragment } from '@codelab/shared-infra-gqlgen'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

@@ -6,11 +6,11 @@ import type {
 } from '@codelab/shared-infra-gqlgen'
 
 import { type IRedirectRepository } from '@codelab/frontend-abstract-domain'
-import { Validator } from '@codelab/shared-infra-typebox'
 import {
   redirectMapper,
   redirectServerActions,
 } from '@codelab/shared-domain-module-redirect'
+import { Validator } from '@codelab/shared-infra-typebox'
 
 const {
   CreateRedirects,

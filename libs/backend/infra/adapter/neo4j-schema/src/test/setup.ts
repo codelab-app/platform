@@ -8,12 +8,12 @@ import { AppRepository } from '@codelab/backend-domain-app'
 import { PropRepository } from '@codelab/backend-domain-prop'
 import { UserRepository } from '@codelab/backend-domain-user'
 import { CodelabLoggerModule } from '@codelab/backend-infra-adapter-logger'
-import { endpointConfig } from '@codelab/backend-infra-core'
-import { startServer } from '@codelab/backend-test-utils'
 import {
   DatabaseService,
   Neo4jModule,
 } from '@codelab/backend-infra-adapter-neo4j-driver'
+import { endpointConfig } from '@codelab/backend-infra-core'
+import { startServer } from '@codelab/backend-test-utils'
 import { ApolloDriver } from '@nestjs/apollo'
 import { ConfigModule } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'

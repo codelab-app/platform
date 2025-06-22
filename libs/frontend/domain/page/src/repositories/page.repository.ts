@@ -3,11 +3,11 @@ import type { NextFetchOptions } from '@codelab/shared-abstract-types'
 import type { PageOptions, PageWhere } from '@codelab/shared-infra-gqlgen'
 
 import { type IPageRepository } from '@codelab/frontend-abstract-domain'
-import { Validator } from '@codelab/shared-infra-typebox'
 import {
   pageMapper,
   pageServerActions,
 } from '@codelab/shared-domain-module-page'
+import { Validator } from '@codelab/shared-infra-typebox'
 
 const { CreatePages, DeletePages, PageList, UpdatePages } = pageServerActions
 

@@ -5,6 +5,7 @@ import {
   type IRedirectDto,
   IRedirectTargetType,
 } from '@codelab/shared-abstract-core'
+import { redirectApi } from '@codelab/shared-domain-module-redirect'
 import {
   connectNodeId,
   disconnectAll,
@@ -15,7 +16,6 @@ import {
   type RedirectWhere,
 } from '@codelab/shared-infra-gqlgen'
 import { RedirectFragment } from '@codelab/shared-infra-gqlgen'
-import { redirectApi } from '@codelab/shared-domain-module-redirect'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

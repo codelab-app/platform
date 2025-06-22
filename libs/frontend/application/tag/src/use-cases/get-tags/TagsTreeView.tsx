@@ -9,9 +9,9 @@ import type {
 import type { TreeProps } from 'antd'
 
 import { type CheckedKeys } from '@codelab/frontend-abstract-types'
-import { CuiTree } from '@codelab/frontend-presentation-codelab-ui'
 import { tagRef } from '@codelab/frontend-domain-tag/store'
 import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
+import { CuiTree } from '@codelab/frontend-presentation-codelab-ui'
 import { observer } from 'mobx-react-lite'
 
 import { useTagService } from '../../services'

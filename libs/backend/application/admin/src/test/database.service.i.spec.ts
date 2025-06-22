@@ -5,11 +5,11 @@ import {
   TypeApplicationModule,
 } from '@codelab/backend-application-type'
 import { InterfaceTypeRepository } from '@codelab/backend-domain-type'
-import { initUserContext } from '@codelab/backend-test-setup'
 import {
   DatabaseService,
   Neo4jModule,
 } from '@codelab/backend-infra-adapter-neo4j-driver'
+import { initUserContext } from '@codelab/backend-test-setup'
 import { CommandBus } from '@nestjs/cqrs'
 
 jest.setTimeout(90000)

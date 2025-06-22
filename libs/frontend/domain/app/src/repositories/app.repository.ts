@@ -3,8 +3,8 @@ import type { NextFetchOptions } from '@codelab/shared-abstract-types'
 import type { AppOptions, AppWhere } from '@codelab/shared-infra-gqlgen'
 
 import { type IAppRepository } from '@codelab/frontend-abstract-domain'
-import { Validator } from '@codelab/shared-infra-typebox'
 import { appMapper, appServerActions } from '@codelab/shared-domain-module-app'
+import { Validator } from '@codelab/shared-infra-typebox'
 
 const { AppList, AppListPreview, CreateApps, DeleteApps, UpdateApps } =
   appServerActions

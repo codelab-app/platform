@@ -1,2 +1,2 @@
-export * from './project-imports'
 export * from './parse-imports'
+export * from './project-imports'

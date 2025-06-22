@@ -6,15 +6,15 @@ import type {
 } from '@codelab/shared-infra-gqlgen'
 
 import { ITypeKind } from '@codelab/shared-abstract-core'
+import { propMapper } from '@codelab/shared-domain-module-prop'
+import { storeMapper } from '@codelab/shared-domain-module-store'
+import { interfaceTypeMapper } from '@codelab/shared-domain-module-type'
 import {
   connectNodeId,
   connectOwner,
   reconnectNodeId,
 } from '@codelab/shared-domain-orm'
 import { slugify } from '@codelab/shared-utils'
-import { propMapper } from '@codelab/shared-domain-module-prop'
-import { storeMapper } from '@codelab/shared-domain-module-store'
-import { interfaceTypeMapper } from '@codelab/shared-domain-module-type'
 
 export const componentMapper: IMapper<
   IComponentDto,

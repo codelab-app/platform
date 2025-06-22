@@ -1,11 +1,11 @@
 import type { IRedirectCreateFormData } from '@codelab/frontend-abstract-domain'
 import type { JSONSchemaType } from 'ajv'
 
+import { idSchema } from '@codelab/frontend-presentation-components-form/schema'
 import {
   SelectAuthGuard,
   SelectPage,
 } from '@codelab/frontend-presentation-components-interface-form'
-import { idSchema } from '@codelab/frontend-presentation-components-form/schema'
 import { IRedirectTargetType } from '@codelab/shared-abstract-core'
 
 export const createRedirectSchema: JSONSchemaType<IRedirectCreateFormData> = {

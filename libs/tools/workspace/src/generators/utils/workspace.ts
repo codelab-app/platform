@@ -1,5 +1,7 @@
 import type { Tree } from '@nx/devkit'
+
 import { getProjects } from '@nx/devkit'
+
 import { getPackageJsonNameFromProjectName } from '../migrate-project-reference/utils'
 
 export interface ProjectMapping {

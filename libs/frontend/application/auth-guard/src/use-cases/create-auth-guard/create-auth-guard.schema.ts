@@ -3,7 +3,6 @@
 import type { JSONSchemaType } from 'ajv'
 
 import { type IAuthGuardCreateFormData } from '@codelab/frontend-abstract-domain'
-import { SelectResource } from '@codelab/frontend-presentation-components-interface-form'
 import {
   CodeMirrorField,
   CodeMirrorGraphqlField,
@@ -14,6 +13,7 @@ import {
   ownerSchema,
   titleCaseValidation,
 } from '@codelab/frontend-presentation-components-form/schema'
+import { SelectResource } from '@codelab/frontend-presentation-components-interface-form'
 import { HttpMethod, HttpResponseType } from '@codelab/shared-abstract-core'
 import { CodeMirrorLanguage } from '@codelab/shared-infra-gqlgen'
 import { keys } from 'remeda'

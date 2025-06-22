@@ -7,7 +7,6 @@ import type {
 } from '@codelab/shared-infra-gqlgen'
 
 import { ITypeKind } from '@codelab/shared-abstract-core'
-import { Validator } from '@codelab/shared-infra-typebox'
 import {
   createTypeServerActions,
   deleteTypeServerActions,
@@ -16,6 +15,7 @@ import {
   typeMapperRecord,
   updateTypeServerActions,
 } from '@codelab/shared-domain-module-type'
+import { Validator } from '@codelab/shared-infra-typebox'
 
 const { GetBaseTypes, GetDescendants } = findTypeServerActions
 

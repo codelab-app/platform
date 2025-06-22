@@ -3,11 +3,11 @@ import type { NextFetchOptions } from '@codelab/shared-abstract-types'
 import type { StoreOptions, StoreWhere } from '@codelab/shared-infra-gqlgen'
 
 import { type IStoreRepository } from '@codelab/frontend-abstract-domain'
-import { Validator } from '@codelab/shared-infra-typebox'
 import {
   storeMapper,
   storeServerActions,
 } from '@codelab/shared-domain-module-store'
+import { Validator } from '@codelab/shared-infra-typebox'
 
 const { CreateStores, DeleteStores, GetStores, UpdateStores } =
   storeServerActions

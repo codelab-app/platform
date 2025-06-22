@@ -5,13 +5,13 @@ import type {
   ElementUpdateInput,
 } from '@codelab/shared-infra-gqlgen'
 
+import { propMapper } from '@codelab/shared-domain-module-prop'
 import {
   connectNodeId,
   disconnectAll,
   reconnectNodeId,
   reconnectNodeIds,
 } from '@codelab/shared-domain-orm'
-import { propMapper } from '@codelab/shared-domain-module-prop'
 
 import { ElementProperties } from './element.properties'
 

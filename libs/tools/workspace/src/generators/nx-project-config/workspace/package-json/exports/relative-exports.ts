@@ -8,6 +8,7 @@ import { getProjectReferencePaths } from '../../../../rename-npm-name/path-alias
  */
 export const getRelativeExports = (packageName: string) => {
   const packageNames = getProjectReferencePaths()
+
   const exports = packageNames.filter((name: string) =>
     name.startsWith(packageName),
   )

@@ -1,5 +1,7 @@
 import type { Tree } from '@nx/devkit'
+
 import { visitNotIgnoredFiles } from '@nx/devkit'
+
 import { parseImports } from './parse-imports'
 
 /**
@@ -7,9 +9,9 @@ import { parseImports } from './parse-imports'
  */
 export const updateProjectImports = (
   tree: Tree,
-  sourceRoot: string
-): Record<string, string[]> => {
-  const fileImports: Record<string, string[]> = {}
+  sourceRoot: string,
+): Record<string, Array<string>> => {
+  const fileImports: Record<string, Array<string>> = {}
 
   if (!tree.exists(sourceRoot)) {
     return fileImports
@@ -24,13 +26,15 @@ export const updateProjectImports = (
 
     // Read file content
     const content = tree.read(filePath, 'utf-8')
+
     if (content) {
       const imports = parseImports(content, filePath)
+
       if (imports.length > 0) {
         fileImports[filePath] = imports
       }
     }
   })
-  
+
   return fileImports
 }
