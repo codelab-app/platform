@@ -51,7 +51,6 @@ export const CreateFieldPopover = ({ context }: CreateFieldPopoverProps) => {
       <CreateFieldForm
         interfaceId={interfaceId}
         onSubmitSuccess={closePopover}
-        showFormControl={false}
         submitRef={submitRef}
       />
     </CuiSidebarSecondary>

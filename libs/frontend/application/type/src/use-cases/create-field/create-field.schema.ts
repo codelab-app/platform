@@ -14,33 +14,18 @@ import {
 import { PrimitiveTypeKind } from '@codelab/shared/infra/gqlgen'
 
 export const createFieldSchema: JSONSchemaType<IFieldCreateData> = {
-  if: {
-    properties: {
-      validationRules: {
-        properties: {
-          general: {
-            properties: {
-              // Using enum, we can check if it matches the current value in the form
-              [GeneralValidationRules.Nullable]: { const: false },
-            },
-          },
-        },
-      },
-    },
-  },
   properties: {
     ...idSchema(),
     defaultValues: {
-      // by using ref, this can support array or object type that
-      // has items or properties of any possible default value type
-      $ref: 'customTypes#/definitions/fieldDefaultValuesOrNullableFieldDefaultValues',
+      type: 'string',
+      nullable: true,
     },
     description: { nullable: true, type: 'string' },
     /**
      * TODO: Refactor to match interface
      * Could somehow modify the form so we can accept an object of TypeRef, then the interface would match up better
      */
-    fieldType: { type: 'string' },
+    fieldType: { ...nonEmptyString },
     interfaceTypeId: {
       type: 'string',
       uniforms: {
@@ -60,7 +45,6 @@ export const createFieldSchema: JSONSchemaType<IFieldCreateData> = {
           disabled: false,
         }),
       },
-      label: '',
       required: [],
       type: 'object',
     },
@@ -72,7 +56,7 @@ export const createFieldSchema: JSONSchemaType<IFieldCreateData> = {
           label: '',
           properties: {
             [GeneralValidationRules.Nullable]: {
-              default: false,
+              default: true,
               nullable: true,
               type: 'boolean',
             },
@@ -153,16 +137,7 @@ export const createFieldSchema: JSONSchemaType<IFieldCreateData> = {
       type: 'object',
     },
   },
-  // This is overridden if the field is not nullable, which will require a value for `defaultValues`
   required: ['id', 'key', 'fieldType'],
-  then: {
-    required: ['id', 'key', 'fieldType'],
-    properties: {
-      defaultValues: {
-        $ref: 'customTypes#/definitions/fieldDefaultValues',
-      },
-    },
-  },
   title: 'Create Field Input',
   type: 'object',
 }

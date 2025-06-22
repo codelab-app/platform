@@ -50,7 +50,6 @@ export const UpdateFieldPopover = ({
       <UpdateFieldForm
         field={field}
         onSubmitSuccess={closePopover}
-        showFormControl={false}
         submitRef={submitRef}
       />
     </CuiSidebarSecondary>

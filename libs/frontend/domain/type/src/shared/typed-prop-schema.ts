@@ -19,6 +19,7 @@ export const typedPropSchema = (
   const required = validationRules?.general?.nullable === false
 
   return {
+    default: { kind: kind, type: id, value: null },
     isTypedProp: true,
     properties: {
       kind: {

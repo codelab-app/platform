@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable tailwindcss/no-custom-classname */
 'use client'
 
 import type { Completion } from '@codemirror/autocomplete'
@@ -9,11 +10,11 @@ import type { ListFieldProps, SelectFieldProps } from 'uniforms-antd'
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
 import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
 import { hasExpression } from '@codelab/shared-infra-eval'
-import { Button, Space, Tooltip } from 'antd'
+import { Button, Form, Tooltip } from 'antd'
 import { useState } from 'react'
 import { isNullish } from 'remeda'
 import { connectField } from 'uniforms'
-import { BoolField, ErrorField, NumField, SelectField } from 'uniforms-antd'
+import { BoolField, NumField, SelectField } from 'uniforms-antd'
 
 import { WrappedListField } from './WrappedListField'
 
@@ -77,8 +78,10 @@ const ToggleExpression = ({
   mainProps,
 }: ToggleExpressionFieldProps) => {
   // Will show blank if undefined instead of "undefined" string
-  const value = !isNullish(fieldProps.value ?? fieldProps.field?.default)
-    ? String(fieldProps.value ?? fieldProps.field?.default)
+  const { field, label } = fieldProps
+
+  const value = !isNullish(fieldProps.value ?? field?.default)
+    ? String(fieldProps.value ?? field?.default)
     : undefined
 
   const isExpression = value && hasExpression(value)
@@ -103,16 +106,27 @@ const ToggleExpression = ({
     : 'Set expression'
 
   return (
-    <div className="ant-form-item">
-      <Space className="mb-1 w-full justify-between">
-        <label htmlFor={fieldProps.id}>{fieldProps.label ?? ''}</label>
+    <Form.Item style={{ marginBottom: 0 }}>
+      <div
+        className={`ant-form-item-label mb-1 flex w-full ${
+          label ? 'justify-between' : 'justify-end'
+        }`}
+      >
+        {label && (
+          <label
+            className={field.nullable === false ? 'ant-form-item-required' : ''}
+            htmlFor={fieldProps.id}
+          >
+            <span>{label}</span>
+          </label>
+        )}
 
         <Tooltip placement="left" title={toggleButtonTooltip}>
           <Button onClick={toggleControlClick} type={toggleButtonType}>
             JS
           </Button>
         </Tooltip>
-      </Space>
+      </div>
 
       {showExpressionEditor ? (
         <CodeMirrorEditor
@@ -129,12 +143,7 @@ const ToggleExpression = ({
       ) : (
         BaseControl
       )}
-      <ErrorField
-        error={fieldProps.error}
-        errorMessage={fieldProps.errorMessage}
-        name=""
-      />
-    </div>
+    </Form.Item>
   )
 }
 
