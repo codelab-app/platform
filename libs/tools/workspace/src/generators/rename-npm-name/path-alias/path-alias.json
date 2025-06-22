@@ -1724,12 +1724,12 @@
     "path": "libs/shared/infra/cache/src/index.ts",
     "name": "shared-infra-cache"
   },
-  "@codelab/shared/infra/fetch": {
+  "@codelab/shared-infra-fetch": {
     "expected": "@codelab/shared-infra-fetch",
     "path": "libs/shared/infra/fetch/src/index.ts",
     "name": "shared-infra-fetch"
   },
-  "@codelab/shared/infra/fetch-server": {
+  "@codelab/shared-infra-fetch-server": {
     "expected": "@codelab/shared-infra-fetch-server",
     "path": "libs/shared/infra/fetch-server/src/index.ts",
     "name": "shared-infra-fetch-server"
