@@ -16,7 +16,7 @@ const config: Types.Config = {
     // Uncomment to run ESLint fix after code generation
     // afterAllFileWrite: ['pnpm eslint --fix'],
     afterAllFileWrite: [
-      //  'pnpm prettier --write',
+      'pnpm prettier --write',
       (...files) => {
         /**
          * Can't remove these from codegen when using custom plugin, so we remove them here
@@ -101,7 +101,7 @@ const config: Types.Config = {
       ],
       preset: 'near-operation-file',
       presetConfig: {
-        baseTypesPath: '~@codelab/shared/infra/gqlgen',
+        baseTypesPath: '~@codelab/shared-infra-gqlgen',
         extension: '.graphql.web.gen.ts',
       },
       plugins: [
@@ -109,7 +109,7 @@ const config: Types.Config = {
           ['@codelab-codegen/typescript-server-fetch']: {
             gqlFn: 'gqlServerRequest',
             gqlFnPath: '@codelab/shared-infra-fetch-server',
-            graphqlPath: '@codelab/shared/infra/gqlgen',
+            graphqlPath: '@codelab/shared-infra-gqlgen',
           },
         },
       ],
@@ -118,7 +118,7 @@ const config: Types.Config = {
       documents: ['libs/frontend/**/*.{api,fragment,client}.graphql'],
       preset: 'near-operation-file',
       presetConfig: {
-        baseTypesPath: '~@codelab/shared/infra/gqlgen',
+        baseTypesPath: '~@codelab/shared-infra-gqlgen',
         extension: '.graphql.api.gen.ts',
       },
       plugins: [
@@ -127,7 +127,7 @@ const config: Types.Config = {
           ['@codelab-codegen/typescript-fetch']: {
             gqlFn: 'gqlRequest',
             gqlFnPath: '@codelab/shared-infra-fetch',
-            graphqlPath: '@codelab/shared/infra/gqlgen',
+            graphqlPath: '@codelab/shared-infra-gqlgen',
           },
         },
       ],
@@ -137,7 +137,7 @@ const config: Types.Config = {
       preset: 'near-operation-file',
       presetConfig: {
         extension: '.graphql.gen.ts',
-        baseTypesPath: '~@codelab/shared/infra/gqlgen',
+        baseTypesPath: '~@codelab/shared-infra-gqlgen',
         // Uncomment to force export of fragment types
         // importAllFragmentsFrom: '~@codelab/frontend/abstract/core',
       },
