@@ -132,9 +132,7 @@
         "id": "ef9e4db2-2d8f-4fa4-b217-df021a87a6f3",
         "key": "showNow",
         "name": "Show Now",
-        "nextSibling": {
-          "id": "8a3dfc9f-8678-4d22-baf0-1c8ee473b9b4"
-        },
+        "nextSibling": null,
         "prevSibling": {
           "id": "15ff97b9-299d-473a-abd9-6f051cf49591"
         },
@@ -144,21 +142,49 @@
         "api": {
           "id": "6141188c-5930-47c6-8405-e8e72b37c121"
         },
-        "defaultValues": null,
+        "defaultValues": "\"year\"",
         "description": null,
         "fieldType": {
-          "id": "77e7ef1e-2677-4ebc-b810-cadaf2a8df2b"
+          "id": "a9a2b9de-d59b-4b25-b877-6c743930def5"
         },
-        "id": "8a3dfc9f-8678-4d22-baf0-1c8ee473b9b4",
+        "id": "2deb0f60-5962-4ba7-a1c0-f282f35b4fb0",
+        "key": "mode",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":false}}"
+      },
+      {
+        "api": {
+          "id": "6141188c-5930-47c6-8405-e8e72b37c121"
+        },
+        "defaultValues": "\"Select Date\"",
+        "description": null,
+        "fieldType": {
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
+        },
+        "id": "e16588b3-6b20-495a-94a2-10853c0804d5",
+        "key": "placeholder",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "6141188c-5930-47c6-8405-e8e72b37c121"
+        },
+        "defaultValues": "false",
+        "description": null,
+        "fieldType": {
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+        },
+        "id": "7fd23e20-d7e8-40c2-9796-e7e57e8c7139",
         "key": "showTime",
-        "name": "Show Time",
-        "nextSibling": {
-          "id": "dec9340a-d38d-43cf-835e-543c44a00ab5"
-        },
-        "prevSibling": {
-          "id": "ef9e4db2-2d8f-4fa4-b217-df021a87a6f3"
-        },
-        "validationRules": null
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
       },
       {
         "api": {
@@ -173,9 +199,7 @@
         "key": "showToday",
         "name": "Show Today",
         "nextSibling": null,
-        "prevSibling": {
-          "id": "8a3dfc9f-8678-4d22-baf0-1c8ee473b9b4"
-        },
+        "prevSibling": null,
         "validationRules": null
       }
     ],
@@ -222,19 +246,34 @@
         "__typename": "EnumType",
         "allowedValues": [
           {
-            "id": "5c3fe13a-a194-4b7e-8625-12e993967a2b",
-            "key": "boolean",
-            "value": "boolean"
+            "id": "496a1734-3bfc-4dc0-8ecc-3a28a4bda800",
+            "key": "Date",
+            "value": "date"
           },
           {
-            "id": "722e0c4c-f44e-4b42-8cae-4eacd4e16311",
-            "key": "object",
-            "value": "object"
+            "id": "353e0f5c-9dcd-4b0b-a7ba-c699643a4e49",
+            "key": "Decade",
+            "value": "decade"
+          },
+          {
+            "id": "cd0b3436-5225-4c79-9568-4304b9809407",
+            "key": "Month",
+            "value": "month"
+          },
+          {
+            "id": "c6bb4525-9ece-495c-b433-20179d127619",
+            "key": "Time",
+            "value": "time"
+          },
+          {
+            "id": "bc9af2a4-fe1b-4ead-9c6e-18f221621df1",
+            "key": "Year",
+            "value": "year"
           }
         ],
-        "id": "77e7ef1e-2677-4ebc-b810-cadaf2a8df2b",
+        "id": "a9a2b9de-d59b-4b25-b877-6c743930def5",
         "kind": "EnumType",
-        "name": "AntDesignDatePicker Show Time Enum"
+        "name": "AntDesingDatePicker Mode"
       }
     ]
   },

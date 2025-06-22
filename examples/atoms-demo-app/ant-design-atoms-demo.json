@@ -6878,7 +6878,9 @@
             "id": "245fccda-e72a-4c96-bdcc-874af912d07c"
           },
           "compositeKey": "245fccda-e72a-4c96-bdcc-874af912d07c-body",
-          "firstChild": null,
+          "firstChild": {
+            "id": "07953495-5883-46db-98e8-64142c392ffc"
+          },
           "id": "05d9fea9-fc6c-42d9-a197-41304d78d439",
           "name": "Body",
           "nextSibling": null,
@@ -6891,14 +6893,187 @@
           "preRenderActions": [],
           "prevSibling": null,
           "props": {
-            "data": "{}",
+            "data": "{\"children\":{\"kind\":\"RichTextType\",\"type\":\"e7558508-3bb7-4f57-8f8c-6ac989911765\"},\"size\":{\"kind\":\"EnumType\",\"type\":\"dcb317bd-3155-4d2d-b670-6d29cff2067a\"},\"split\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}",
             "id": "bc938407-e31b-417a-b69c-e289f80e3d50"
           },
           "renderForEachPropKey": null,
           "renderIfExpression": null,
           "renderType": {
             "__typename": "Atom",
-            "id": "4a9dd961-501b-4246-8770-48fee5dc5852"
+            "id": "94785b15-1bfa-468c-ad8a-3063e0ca4891"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "245fccda-e72a-4c96-bdcc-874af912d07c"
+          },
+          "compositeKey": "245fccda-e72a-4c96-bdcc-874af912d07c-date-picker-1",
+          "firstChild": null,
+          "id": "07953495-5883-46db-98e8-64142c392ffc",
+          "name": "Date Picker 1",
+          "nextSibling": {
+            "id": "26d0f506-0625-456a-aa62-0b03401d805f"
+          },
+          "page": null,
+          "parentComponent": null,
+          "parentElement": {
+            "id": "05d9fea9-fc6c-42d9-a197-41304d78d439"
+          },
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": null,
+          "props": {
+            "data": "{\"mode\":\"decade\",\"disabledTime\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onOk\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onPanelChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"renderExtraFooter\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"placeholder\":\"Select Decade\"}",
+            "id": "9f0c5854-8c4e-4a6d-8a5c-d39d5a79e8d8"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "63c904ec-bf4c-45b5-b3bd-41f660c735f4"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "245fccda-e72a-4c96-bdcc-874af912d07c"
+          },
+          "compositeKey": "245fccda-e72a-4c96-bdcc-874af912d07c-date-picker-2",
+          "firstChild": null,
+          "id": "26d0f506-0625-456a-aa62-0b03401d805f",
+          "name": "Date Picker 2",
+          "nextSibling": {
+            "id": "5caa5796-423a-4977-845f-6957ffc5a459"
+          },
+          "page": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": {
+            "id": "07953495-5883-46db-98e8-64142c392ffc"
+          },
+          "props": {
+            "data": "{\"mode\":\"year\",\"disabledTime\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onOk\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onPanelChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"renderExtraFooter\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"placeholder\":\"Select Year\"}",
+            "id": "90701bcf-1057-46ec-92d0-dd9cb3391c16"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "63c904ec-bf4c-45b5-b3bd-41f660c735f4"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "245fccda-e72a-4c96-bdcc-874af912d07c"
+          },
+          "compositeKey": "245fccda-e72a-4c96-bdcc-874af912d07c-date-picker-3",
+          "firstChild": null,
+          "id": "5caa5796-423a-4977-845f-6957ffc5a459",
+          "name": "Date Picker 3",
+          "nextSibling": {
+            "id": "e94c1f5b-3870-4ddc-bdab-c44c32a15e28"
+          },
+          "page": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": {
+            "id": "26d0f506-0625-456a-aa62-0b03401d805f"
+          },
+          "props": {
+            "data": "{\"mode\":\"month\",\"disabledTime\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onOk\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onPanelChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"renderExtraFooter\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"placeholder\":\"Select Month\"}",
+            "id": "76b4d34a-c767-4818-92e1-02a7e5beadc7"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "63c904ec-bf4c-45b5-b3bd-41f660c735f4"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "245fccda-e72a-4c96-bdcc-874af912d07c"
+          },
+          "compositeKey": "245fccda-e72a-4c96-bdcc-874af912d07c-date-picker-4",
+          "firstChild": null,
+          "id": "e94c1f5b-3870-4ddc-bdab-c44c32a15e28",
+          "name": "Date Picker 4",
+          "nextSibling": {
+            "id": "ab915c94-bc6d-4c6f-a899-02eca7e8d451"
+          },
+          "page": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": {
+            "id": "5caa5796-423a-4977-845f-6957ffc5a459"
+          },
+          "props": {
+            "data": "{\"mode\":\"date\",\"disabledTime\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onOk\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onPanelChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"renderExtraFooter\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}",
+            "id": "8b13e351-ad5e-41eb-b0a4-71369a72799c"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "63c904ec-bf4c-45b5-b3bd-41f660c735f4"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "245fccda-e72a-4c96-bdcc-874af912d07c"
+          },
+          "compositeKey": "245fccda-e72a-4c96-bdcc-874af912d07c-date-picker-5",
+          "firstChild": null,
+          "id": "ab915c94-bc6d-4c6f-a899-02eca7e8d451",
+          "name": "Date Picker 5",
+          "nextSibling": null,
+          "page": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": {
+            "id": "e94c1f5b-3870-4ddc-bdab-c44c32a15e28"
+          },
+          "props": {
+            "data": "{\"mode\":\"time\",\"disabledTime\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onOk\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onPanelChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"renderExtraFooter\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"showTime\":true,\"placeholder\":\"Select Time\"}",
+            "id": "7df1515d-8818-4c93-9096-b984306ec744"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "63c904ec-bf4c-45b5-b3bd-41f660c735f4"
           },
           "style": null,
           "tailwindClassNames": null
