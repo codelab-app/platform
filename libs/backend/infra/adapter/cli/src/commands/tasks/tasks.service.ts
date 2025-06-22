@@ -28,10 +28,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
 
   describe = 'Run tasks'
 
-  constructor(
-    private lazyModuleLoader: LazyModuleLoader,
-    private readonly logger: PinoLoggerService,
-  ) {
+  constructor(private readonly logger: PinoLoggerService) {
     this.builder = this.builder.bind(this)
   }
 

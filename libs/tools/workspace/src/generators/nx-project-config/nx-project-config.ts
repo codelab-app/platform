@@ -54,7 +54,7 @@ export const nxProjectConfigGenerator = async (
     addProjectTags(tree, projectConfig)
     updateTestTargets(tree, projectConfig)
 
-    updateBaseTsconfig(tree, projectConfig)
+    // updateBaseTsconfig(tree, projectConfig)
     // updateLibraryTsconfig(tree, projectConfig)
 
     updateProjectConfiguration(tree, projectName, projectConfig)
