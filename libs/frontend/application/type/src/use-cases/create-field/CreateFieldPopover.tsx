@@ -13,15 +13,10 @@ import { useRef, useState } from 'react'
 import { useFieldService } from '../../services/field.service'
 import { CreateFieldForm } from './CreateFieldForm'
 import { FieldDefaultValueForm } from './FieldDefaultValueForm'
-import { IFieldCreateData } from '@codelab/shared-abstract-core'
+import { FieldFormStep, IFieldCreateData } from '@codelab/shared-abstract-core'
 
 interface CreateFieldPopoverProps {
   context: IFieldCreateRoute
-}
-
-enum FieldFormStep {
-  CreateFieldFormStep = 'CreateFieldFormStep',
-  DefaultValueFormStep = 'DefaultValueFormStep',
 }
 
 export const CreateFieldPopover = ({ context }: CreateFieldPopoverProps) => {
