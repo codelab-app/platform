@@ -128,7 +128,9 @@ export enum UiKey {
   FieldToolbarItemCreateNext = 'FieldToolbarItemCreateNext',
   FieldToolbarItemDelete = 'FieldToolbarItemDelete',
   FieldToolbarItemUpdate = 'FieldToolbarItemUpdate',
+  FieldToolbarItemUpdateBack = 'FieldToolbarItemUpdateBack',
   FieldToolbarItemUpdateCancel = 'FieldToolbarItemUpdateCancel',
+  FieldToolbarItemUpdateNext = 'FieldToolbarItemUpdateNext',
 
   /**
    * Form
