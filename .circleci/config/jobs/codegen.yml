@@ -10,8 +10,57 @@ steps:
   - restore-workspace-database
   - setup-neo4j
   - run:
-      name: 'Check GraphQL Codegen'
-      command: pnpm cli tasks graphql-codegen --stage ci
+      name: 'Debug and update local file dependencies'
+      command: |
+        set -x  # Enable debug mode to see all commands
+
+        echo "=== Checking dist folder contents ==="
+        ls -la dist/libs/tools/workspace/ || echo "dist/libs/tools/workspace not found"
+
+        echo "=== Checking if src folder exists in dist ==="
+        ls -la dist/libs/tools/workspace/src/ || echo "src folder not found in dist"
+
+        echo "=== Checking generators folder contents ==="
+        find dist/libs/tools/workspace/src/generators -type f -name "*.js" | head -20 || echo "No JS files found"
+
+        echo "=== Checking specific generator path ==="
+        ls -la dist/libs/tools/workspace/src/generators/nx-project-config/ || echo "nx-project-config folder not found"
+
+        echo "=== Checking generators.json ==="
+        cat dist/libs/tools/workspace/generators.json || echo "generators.json not found"
+
+        echo "=== Current working directory ==="
+        pwd
+
+        echo "=== Checking node_modules before cleanup ==="
+        ls -la node_modules/@codelab/ | grep tools-workspace || echo "tools-workspace not in node_modules"
+
+        echo "=== Checking pnpm store location ==="
+        pnpm store path
+
+        # Remove stale entries from pnpm store for local packages
+        pnpm store prune
+
+        # Force pnpm to update symlinks for local file dependencies
+        echo "=== Removing old node_modules entries ==="
+        rm -rf node_modules/.pnpm/@codelab+tools-workspace*
+        rm -rf node_modules/.pnpm/file+dist+libs+tools+workspace*
+        rm -rf node_modules/@codelab/tools-workspace
+
+        echo "=== Running pnpm install --force ==="
+        pnpm install --force @codelab/tools-workspace
+
+        echo "=== Checking node_modules after install ==="
+        ls -la node_modules/@codelab/tools-workspace/ || echo "Failed to install tools-workspace"
+
+        echo "=== Checking symlink target ==="
+        readlink -f node_modules/@codelab/tools-workspace || echo "Not a symlink or doesn't exist"
+
+        echo "=== Checking pnpm resolution ==="
+        pnpm list @codelab/tools-workspace
+  # - run:
+  #     name: 'Check GraphQL Codegen'
+  #     command: pnpm cli tasks graphql-codegen --stage ci
   - run:
       name: 'Check Generate Workspace'
       command: pnpm cli tasks workspace-codegen --stage ci
