@@ -1,29 +1,16 @@
 'use client'
-import type {
-  IFieldModel,
-  IInterfaceTypeModel,
-  ITypeModel,
-  JsonSchema,
-} from '@codelab/frontend-abstract-domain'
-import type {
-  IFieldUpdateData,
-  IValidationRules,
-} from '@codelab/shared-abstract-core'
-import type { Nullable, Nullish } from '@codelab/shared-abstract-types'
+
+import type { IFieldModel } from '@codelab/frontend-abstract-domain'
 
 import {
   DisplayIfField,
   Form,
 } from '@codelab/frontend-presentation-components-form'
-import { useMemo, useState } from 'react'
-import { useAsync } from 'react-use'
-import { AutoFields } from 'uniforms-antd'
+import { AutoField, AutoFields } from 'uniforms-antd'
 
-import { useFieldService, useTypeService } from '../../services'
 import {
   canSetDefaultValue,
   createFieldSchema,
-  filterValidationRules,
   isBoolean,
   isFloat,
   isInteger,
@@ -31,110 +18,31 @@ import {
   isString,
 } from '../create-field'
 import { useFieldSchema } from '../hooks'
-import { TypeSelect } from '../select-types'
 import { IFormController, UiKey } from '@codelab/frontend-abstract-types'
-import { SelectFieldSibling, uniformSchemaFactory } from '@codelab/frontend-presentation-components-interface-form'
 import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import { PrimitiveTypeKind } from '@codelab/shared-infra-gqlgen'
+import { IFieldUpdateFormData } from '@codelab/shared-abstract-core'
+import { titleCase } from '@codelab/shared-utils'
 
 export interface UpdateFieldFormProps extends IFormController {
+  disabled?: boolean
   field: IFieldModel
+  onSubmit(data: IFieldUpdateFormData): void
 }
 
-const getDefaultValuesSchema = (
-  type: ITypeModel,
-  validationRules: Nullish<IValidationRules>,
-) =>
-  type.toJsonSchema({
-    uniformSchema: uniformSchemaFactory,
-    validationRules,
-  })
-
 export const UpdateFieldForm = ({
+  disabled,
   field,
+  onSubmit,
   onSubmitSuccess,
-  showFormControl = true,
   submitRef,
 }: UpdateFieldFormProps) => {
-  const fieldService = useFieldService()
-  const typeService = useTypeService()
   const { typeDomainService } = useDomainStore()
   const fieldSchema = useFieldSchema(createFieldSchema, field)
 
-  /**
-   * Previously schema didn't change if user changed the field type, now it changes via React state
-   */
-  const [defaultValuesSchema, setDefaultValuesSchema] =
-    useState<Nullable<JsonSchema>>(null)
-
-  const { loading } = useAsync(
-    async () => onFieldTypeChange(field.type.id, field.validationRules),
-    [],
-  )
-
-  const onFieldTypeChange = async (
-    fieldType: string,
-    validationRules: Nullish<IValidationRules>,
-  ) => {
-    if (!typeDomainService.types.has(fieldType)) {
-      await typeService.getAll([fieldType])
-    }
-
-    const type = typeDomainService.type(fieldType)
-
-    setDefaultValuesSchema(getDefaultValuesSchema(type, validationRules))
-  }
-
-  const onSubmit = async (input: IFieldUpdateData) => {
-    const validationRules = filterValidationRules(
-      input.validationRules,
-      typeDomainService.primitiveKind(input.fieldType.id),
-    )
-
-    const updatedField = { ...input, validationRules }
-
-    const interfaceType = typeDomainService.type(
-      input.api.id,
-    ) as IInterfaceTypeModel
-
-    if (updatedField.prevSibling?.id) {
-      await fieldService.moveFieldAsNextSibling({
-        field: updatedField,
-        targetFieldId: updatedField.prevSibling.id,
-      })
-    } else {
-      const firstField = interfaceType.fields.find(
-        ({ id, prevSibling }) => id !== updatedField.id && !prevSibling,
-      )
-
-      if (firstField) {
-        await fieldService.moveFieldAsPrevSibling({
-          field: updatedField,
-          targetFieldId: firstField.id,
-        })
-      }
-    }
-
-    return fieldService.update({ ...input, validationRules })
-  }
-
-  const schema = useMemo(
-    () => ({
-      ...fieldSchema,
-      properties: {
-        ...fieldSchema.properties,
-        defaultValues: defaultValuesSchema,
-      },
-    }),
-    [defaultValuesSchema],
-  )
-
-  if (loading) {
-    return null
-  }
-
   return (
-    <Form<IFieldUpdateData>
+    <Form<IFieldUpdateFormData>
+      disabled={disabled}
       errorMessage="Error while updating field"
       model={{
         api: field.api,
@@ -148,51 +56,39 @@ export const UpdateFieldForm = ({
           : null,
         validationRules: field.validationRules,
       }}
-      modelTransform={(mode, model) => {
-        // This automatically sets the `defaultValue` to be nullable for types
-        // where we don't set a default value like ReactNodeType, InterfaceType
-        if (
-          mode === 'form' &&
-          model.fieldType.id &&
-          !canSetDefaultValue(typeDomainService, model.fieldType)
-        ) {
-          return {
-            ...model,
-            validationRules: {
-              general: {
-                nullable: true,
-              },
-            },
-          }
-        }
-
-        return model
+      onSubmit={async (data) => {
+        onSubmit(data ?? field.toJson)
       }}
-      onChangeModel={(model) => {
-        console.log(model)
-
-        if (model.fieldType.id) {
-          void onFieldTypeChange(model.fieldType.id, model.validationRules)
-        }
-      }}
-      onSubmit={onSubmit}
       onSubmitSuccess={onSubmitSuccess}
-      schema={schema}
+      schema={fieldSchema}
       submitRef={submitRef}
       successMessage="Field updated successfully"
       uiKey={UiKey.FieldFormUpdate}
     >
       <AutoFields
-        fields={['id', 'key', 'name', 'description']}
-        omitFields={['prevSibling']}
+        omitFields={['prevSibling', 'validationRules', 'fieldType']}
       />
-      <TypeSelect label="Type" name="fieldType" />
-      <SelectFieldSibling
-        name="prevSibling"
-        siblings={field.api.current.fields}
+      <AutoField
+        disabled={disabled}
+        name="fieldType.id"
+        optionFilterProp="label"
+        options={typeDomainService.options}
+        showSearch
       />
 
-      <DisplayIfField<IFieldUpdateData>
+      <AutoField
+        name="prevSibling.id"
+        optionFilterProp="label"
+        options={field.api.current.fields
+          .filter((sibling) => sibling.id !== field.id)
+          .map((sibling) => ({
+            label: sibling.name ?? titleCase(sibling.key),
+            value: sibling.id,
+          }))}
+        showSearch
+      />
+
+      <DisplayIfField<IFieldUpdateFormData>
         condition={({ model }) =>
           Boolean(
             model.fieldType.id &&
@@ -200,7 +96,7 @@ export const UpdateFieldForm = ({
           )
         }
       >
-        <DisplayIfField<IFieldUpdateData>
+        <DisplayIfField<IFieldUpdateFormData>
           condition={({ model }) =>
             !isBoolean(typeDomainService, model.fieldType) &&
             canSetDefaultValue(typeDomainService, model.fieldType)
@@ -208,12 +104,12 @@ export const UpdateFieldForm = ({
         >
           <AutoFields fields={['validationRules.general']} />
         </DisplayIfField>
-        <DisplayIfField<IFieldUpdateData>
+        <DisplayIfField<IFieldUpdateFormData>
           condition={({ model }) =>
             isPrimitive(typeDomainService, model.fieldType)
           }
         >
-          <DisplayIfField<IFieldUpdateData>
+          <DisplayIfField<IFieldUpdateFormData>
             condition={({ model }) =>
               isString(typeDomainService, model.fieldType)
             }
@@ -222,7 +118,7 @@ export const UpdateFieldForm = ({
               fields={[`validationRules.${PrimitiveTypeKind.String}`]}
             />
           </DisplayIfField>
-          <DisplayIfField<IFieldUpdateData>
+          <DisplayIfField<IFieldUpdateFormData>
             condition={({ model }) =>
               isInteger(typeDomainService, model.fieldType)
             }
@@ -231,7 +127,7 @@ export const UpdateFieldForm = ({
               fields={[`validationRules.${PrimitiveTypeKind.Integer}`]}
             />
           </DisplayIfField>
-          <DisplayIfField<IFieldUpdateData>
+          <DisplayIfField<IFieldUpdateFormData>
             condition={({ model }) =>
               isFloat(typeDomainService, model.fieldType)
             }
