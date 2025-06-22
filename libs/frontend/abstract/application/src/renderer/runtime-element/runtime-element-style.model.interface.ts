@@ -1,5 +1,5 @@
-import type { IBreakpointType } from '@codelab/shared/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
+import type { IBreakpointType } from '@codelab/shared-abstract-core'
+import type { Nullable } from '@codelab/shared-abstract-types'
 
 export enum ElementStylePseudoClass {
   Focus = 'focus',

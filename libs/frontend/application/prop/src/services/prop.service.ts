@@ -1,5 +1,5 @@
-import type { IPropService } from '@codelab/frontend/abstract/application'
-import type { IPropModel } from '@codelab/frontend/abstract/domain'
+import type { IPropService } from '@codelab/frontend-abstract-application'
+import type { IPropModel } from '@codelab/frontend-abstract-domain'
 import type {
   IPropCreateData,
   IPropData,
@@ -7,8 +7,8 @@ import type {
   IPropUpdateData,
   IRef,
   IUpdatePropDataWithDefaultValues,
-} from '@codelab/shared/abstract/core'
-import type { NextFetchOptions } from '@codelab/shared/abstract/types'
+} from '@codelab/shared-abstract-core'
+import type { NextFetchOptions } from '@codelab/shared-abstract-types'
 
 import { propRepository } from '@codelab/frontend-domain-prop/repositories'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'

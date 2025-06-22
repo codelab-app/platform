@@ -1,4 +1,4 @@
-import type { IRedirectUpdateFormData } from '@codelab/frontend/abstract/domain'
+import type { IRedirectUpdateFormData } from '@codelab/frontend-abstract-domain'
 import type { JSONSchemaType } from 'ajv'
 
 import { createRedirectSchema } from '../create-redirect'

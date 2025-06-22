@@ -2,9 +2,9 @@ import {
   appDto,
   atomReactFragmentDto,
   userDto,
-} from '@codelab/frontend/test/data'
+} from '@codelab/frontend-test-data'
 import { PageDomainFactory } from '@codelab/frontend-domain-page/services'
-import { IPageKindName } from '@codelab/shared/abstract/core'
+import { IPageKindName } from '@codelab/shared-abstract-core'
 import { unregisterRootStore } from 'mobx-keystone'
 
 import { rootDomainStore } from '../test/root.test.store'

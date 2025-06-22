@@ -1,12 +1,12 @@
-import type { IRichTextTypeDto } from '@codelab/shared/abstract/core'
+import type { IRichTextTypeDto } from '@codelab/shared-abstract-core'
 
 import {
   type IRichTextTypeModel,
   type ITypeTransformContext,
   type JsonSchema,
   userRef,
-} from '@codelab/frontend/abstract/domain'
-import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+} from '@codelab/frontend-abstract-domain'
+import { assertIsTypeKind, ITypeKind } from '@codelab/shared-abstract-core'
 import { ExtendedModel, model } from 'mobx-keystone'
 
 import { typedPropSchema } from '../shared/typed-prop-schema'

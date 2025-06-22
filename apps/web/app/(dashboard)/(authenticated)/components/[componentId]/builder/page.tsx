@@ -1,7 +1,7 @@
-import type { PageProps } from '@codelab/frontend/abstract/types'
+import type { PageProps } from '@codelab/frontend-abstract-types'
 import type { Metadata } from 'next'
 
-import { IRouteType } from '@codelab/frontend/abstract/application'
+import { IRouteType } from '@codelab/frontend-abstract-application'
 import { ComponentBuilderContainer } from '@codelab/frontend-application-builder/use-cases/component-builder'
 import { parsePageProps } from '@codelab/frontend-application-shared-store/router'
 

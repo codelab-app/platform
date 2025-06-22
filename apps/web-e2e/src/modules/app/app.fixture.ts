@@ -1,5 +1,5 @@
-import { RoutePaths } from '@codelab/frontend/abstract/application'
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { RoutePaths } from '@codelab/frontend-abstract-application'
+import { UiKey } from '@codelab/frontend-abstract-types'
 import { expect } from '@playwright/test'
 
 import { BasePage } from '../../setup/core/page'

@@ -3,13 +3,13 @@
 import type {
   IBuilderRoute,
   IRuntimeElementModel,
-} from '@codelab/frontend/abstract/application'
-import type { SubmitController } from '@codelab/frontend/abstract/types'
-import type { IPropData } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
+} from '@codelab/frontend-abstract-application'
+import type { SubmitController } from '@codelab/frontend-abstract-types'
+import type { IPropData } from '@codelab/shared-abstract-core'
+import type { Maybe } from '@codelab/shared-abstract-types'
 
-import { isComponent } from '@codelab/frontend/abstract/domain'
-import { PropsForm } from '@codelab/frontend/presentation/components/interface-form'
+import { isComponent } from '@codelab/frontend-abstract-domain'
+import { PropsForm } from '@codelab/frontend-presentation-components-interface-form'
 import { AdminPropsPanel } from '@codelab/frontend-application-admin/use-cases/admin-props-panel'
 import { usePropService } from '@codelab/frontend-application-prop/services'
 import { useTypeService } from '@codelab/frontend-application-type/services'

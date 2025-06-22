@@ -1,6 +1,6 @@
 'use client'
 
-import type { IAppModel } from '@codelab/frontend/abstract/domain'
+import type { IAppModel } from '@codelab/frontend-abstract-domain'
 
 import { Card, Skeleton } from 'antd'
 import { v4 } from 'uuid'

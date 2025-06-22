@@ -1,4 +1,4 @@
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend-abstract-types'
 import { expect } from '@playwright/test'
 
 import { baseTest } from '../../setup/fixtures/base.fixture'

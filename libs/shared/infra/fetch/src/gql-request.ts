@@ -1,4 +1,4 @@
-import type { ObjectLike } from '@codelab/shared/abstract/types'
+import type { ObjectLike } from '@codelab/shared-abstract-types'
 import type { DocumentTypeDecoration } from '@graphql-typed-document-node/core'
 import type { GraphQLClient } from 'graphql-request'
 

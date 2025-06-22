@@ -2,7 +2,7 @@ import type {
   IAtomModel,
   ITagModel,
   ITypeModel,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 
 import { RoutePaths } from '../shared'
 

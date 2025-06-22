@@ -3,12 +3,12 @@
 import type {
   PreferenceOptions,
   PreferenceWhere,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
-import { type IPreferenceDto } from '@codelab/shared/abstract/core'
-import { Validator } from '@codelab/shared/infra/typebox'
-import { preferenceServerActions } from '@codelab/shared-domain-module/preference'
+import { type IPreferenceDto } from '@codelab/shared-abstract-core'
+import { Validator } from '@codelab/shared-infra-typebox'
+import { preferenceServerActions } from '@codelab/shared-domain-module-preference'
 import { revalidateTag } from 'next/cache'
 
 const { GetPreferences } = preferenceServerActions

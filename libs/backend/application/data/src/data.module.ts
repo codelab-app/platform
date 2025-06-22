@@ -1,4 +1,4 @@
-import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
+import { AuthDomainService } from '@codelab/backend-domain-shared-auth'
 import { Module } from '@nestjs/common'
 
 import {

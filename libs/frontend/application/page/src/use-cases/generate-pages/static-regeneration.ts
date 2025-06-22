@@ -1,11 +1,11 @@
-import type { IAppModel } from '@codelab/frontend/abstract/domain'
+import type { IAppModel } from '@codelab/frontend-abstract-domain'
 
 import {
   useErrorNotify,
   useSuccessNotify,
-} from '@codelab/frontend/infra/context'
+} from '@codelab/frontend-infra-context'
 import { domainRepository } from '@codelab/frontend-domain-domain/repositories'
-import { getEnv } from '@codelab/shared/config/env'
+import { getEnv } from '@codelab/shared-config-env'
 import { useState } from 'react'
 
 // makes a call to the api backend where session is checked

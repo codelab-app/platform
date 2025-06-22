@@ -1,15 +1,15 @@
 'use client'
 
-import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
-import type { MoveData } from '@codelab/frontend/abstract/domain'
+import type { IRuntimeElementModel } from '@codelab/frontend-abstract-application'
+import type { MoveData } from '@codelab/frontend-abstract-domain'
 
-import { UiKey } from '@codelab/frontend/abstract/types'
-import { SelectExcludeDescendantsElements } from '@codelab/frontend/presentation/components/interface-form'
+import { UiKey } from '@codelab/frontend-abstract-types'
+import { SelectExcludeDescendantsElements } from '@codelab/frontend-presentation-components-interface-form'
 import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
 import {
   useApplicationStore,
   useDomainStore,
-} from '@codelab/frontend-infra-mobx/context'
+} from '@codelab/frontend-infra-mobx-context'
 import { observer } from 'mobx-react-lite'
 import { useEffect, useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'

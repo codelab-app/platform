@@ -14,7 +14,7 @@ import type {
   IRichTextTypeDto,
   ITypeKind,
   IUnionTypeDto,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import type {
   ActionTypeConnectInput,
   ActionTypeCreateInput,
@@ -115,7 +115,7 @@ import type {
   UpdateRenderPropTypesMutationVariables,
   UpdateRichTextTypesMutationVariables,
   UpdateUnionTypesMutationVariables,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
 export interface ITypeUpdateArgs {
   connect?: ITypeConnectInput

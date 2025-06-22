@@ -1,4 +1,4 @@
-import type { ICreateTagData } from '@codelab/shared/abstract/core'
+import type { ICreateTagData } from '@codelab/shared-abstract-core'
 import type { JSONSchemaType } from 'ajv'
 
 import {

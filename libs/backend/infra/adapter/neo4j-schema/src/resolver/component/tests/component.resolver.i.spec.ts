@@ -1,22 +1,22 @@
 import type { INestApplication } from '@nestjs/common'
 
-import { AtomRepository } from '@codelab/backend/domain/atom'
-import { ComponentRepository } from '@codelab/backend/domain/component'
-import { ElementRepository } from '@codelab/backend/domain/element'
-import { StoreRepository } from '@codelab/backend/domain/store'
+import { AtomRepository } from '@codelab/backend-domain-atom'
+import { ComponentRepository } from '@codelab/backend-domain-component'
+import { ElementRepository } from '@codelab/backend-domain-element'
+import { StoreRepository } from '@codelab/backend-domain-store'
 import {
   ArrayTypeRepository,
   EnumTypeRepository,
   FieldRepository,
   InterfaceTypeRepository,
   UnionTypeRepository,
-} from '@codelab/backend/domain/type'
-import { UserRepository } from '@codelab/backend/domain/user'
-import { IConfigPaneTab, ITypeKind } from '@codelab/shared/abstract/core'
-import { AtomType, BreakpointType } from '@codelab/shared/infra/gqlgen'
-import { logger } from '@codelab/shared/infra/logging'
-import { Validator } from '@codelab/shared/infra/typebox'
-import { ElementProperties } from '@codelab/shared-domain-module/element'
+} from '@codelab/backend-domain-type'
+import { UserRepository } from '@codelab/backend-domain-user'
+import { IConfigPaneTab, ITypeKind } from '@codelab/shared-abstract-core'
+import { AtomType, BreakpointType } from '@codelab/shared-infra-gqlgen'
+import { logger } from '@codelab/shared-infra-logging'
+import { Validator } from '@codelab/shared-infra-typebox'
+import { ElementProperties } from '@codelab/shared-domain-module-element'
 import { print } from 'graphql'
 import request from 'supertest'
 import { v4 } from 'uuid'

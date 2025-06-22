@@ -1,10 +1,10 @@
 'use client'
 
-import type { IComponentBuilderRoute } from '@codelab/frontend/abstract/application'
+import type { IComponentBuilderRoute } from '@codelab/frontend-abstract-application'
 
-import { RendererType } from '@codelab/frontend/abstract/application'
-import { ComponentConnector } from '@codelab/frontend/infra/connector'
-import { BuilderProvider } from '@codelab/frontend/presentation/container'
+import { RendererType } from '@codelab/frontend-abstract-application'
+import { ComponentConnector } from '@codelab/frontend-infra-connector'
+import { BuilderProvider } from '@codelab/frontend-presentation-container'
 
 import { ComponentBuilder } from './ComponentBuilder'
 

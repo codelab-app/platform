@@ -1,18 +1,18 @@
-import type { IAuthGuardService } from '@codelab/frontend/abstract/application'
+import type { IAuthGuardService } from '@codelab/frontend-abstract-application'
 import type {
   IAuthGuardCreateFormData,
   IAuthGuardModel,
   IAuthGuardUpdateFormData,
-} from '@codelab/frontend/abstract/domain'
-import type { IRef } from '@codelab/shared/abstract/core'
-import type { AuthGuardWhere } from '@codelab/shared/infra/gqlgen'
+} from '@codelab/frontend-abstract-domain'
+import type { IRef } from '@codelab/shared-abstract-core'
+import type { AuthGuardWhere } from '@codelab/shared-infra-gqlgen'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend-abstract-application'
 import { authGuardRepository } from '@codelab/frontend-domain-auth-guard/repositories'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { Validator } from '@codelab/shared/infra/typebox'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
+import { Validator } from '@codelab/shared-infra-typebox'
 import { useMemo } from 'react'
 
 export const useAuthGuardService = (): IAuthGuardService => {

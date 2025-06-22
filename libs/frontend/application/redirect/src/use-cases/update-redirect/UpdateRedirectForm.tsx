@@ -1,15 +1,15 @@
-import type { PageContextParams } from '@codelab/frontend/abstract/application'
-import type { IRedirectUpdateFormData } from '@codelab/frontend/abstract/domain'
+import type { PageContextParams } from '@codelab/frontend-abstract-application'
+import type { IRedirectUpdateFormData } from '@codelab/frontend-abstract-domain'
 
-import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { type IFormController, UiKey } from '@codelab/frontend-abstract-types'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import {
   DisplayIfField,
   Form,
   FormController,
 } from '@codelab/frontend-presentation-components-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
-import { IRedirectTargetType } from '@codelab/shared/abstract/core'
+import { IRedirectTargetType } from '@codelab/shared-abstract-core'
 import { observer } from 'mobx-react-lite'
 import { AutoField, AutoFields } from 'uniforms-antd'
 

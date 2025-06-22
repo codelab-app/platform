@@ -1,6 +1,6 @@
 'use client'
 
-import type { IAppModel } from '@codelab/frontend/abstract/domain'
+import type { IAppModel } from '@codelab/frontend-abstract-domain'
 import type { ReactNode } from 'react'
 
 import {

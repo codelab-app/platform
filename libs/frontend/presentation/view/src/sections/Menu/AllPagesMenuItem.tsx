@@ -1,10 +1,10 @@
-import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-ui'
+import type { NavigationBarItem } from '@codelab/frontend-presentation-codelab-ui'
 
 import FileOutlined from '@ant-design/icons/FileOutlined'
 import {
   type PageContextParams,
   RoutePaths,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 
 export const allPagesMenuItem = ({
   appId,

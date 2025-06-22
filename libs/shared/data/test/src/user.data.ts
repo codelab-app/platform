@@ -2,8 +2,8 @@ import {
   type Auth0IdToken,
   type IUserDto,
   JWT_CLAIMS,
-} from '@codelab/shared/abstract/core'
-import { preferenceDefault } from '@codelab/shared-domain-module/preference'
+} from '@codelab/shared-abstract-core'
+import { preferenceDefault } from '@codelab/shared-domain-module-preference'
 import { v4 } from 'uuid'
 
 export const adminUser: Auth0IdToken = {

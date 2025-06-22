@@ -1,8 +1,8 @@
 'use client'
 
-import type { IPageCreateFormData } from '@codelab/shared/abstract/core'
+import type { IPageCreateFormData } from '@codelab/shared-abstract-core'
 
-import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
+import { type IFormController, UiKey } from '@codelab/frontend-abstract-types'
 import { useUser } from '@codelab/frontend-application-user/services'
 import {
   Form,

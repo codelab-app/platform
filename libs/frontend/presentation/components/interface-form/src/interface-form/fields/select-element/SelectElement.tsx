@@ -1,15 +1,15 @@
 'use client'
 
 /* eslint-disable react/jsx-props-no-spreading */
-import type { SelectElementOption } from '@codelab/frontend/abstract/domain'
-import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
+import type { SelectElementOption } from '@codelab/frontend-abstract-domain'
+import type { UniformSelectFieldProps } from '@codelab/shared-abstract-types'
 import type { SelectFieldProps } from 'uniforms-antd/cjs/SelectField'
 
 import { getSelectElementOptions } from '@codelab/frontend-domain-element/repositories'
 import { mapElementOption } from '@codelab/frontend-domain-element/use-cases/element-options'
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx-context'
 import { useFormContext } from '@codelab/frontend-presentation-components-form'
-import { IElementTypeKind } from '@codelab/shared/abstract/core'
+import { IElementTypeKind } from '@codelab/shared-abstract-core'
 import { SelectField } from 'uniforms-antd'
 
 export type SelectElementProps = UniformSelectFieldProps & {

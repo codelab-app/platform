@@ -4,11 +4,11 @@ import type { ApolloError } from '@apollo/client'
 import type {
   IDomainModel,
   IUpdateDomainData,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 
-import { RoutePaths } from '@codelab/frontend/abstract/application'
-import { UiKey } from '@codelab/frontend/abstract/types'
-import { useErrorNotify } from '@codelab/frontend/infra/context'
+import { RoutePaths } from '@codelab/frontend-abstract-application'
+import { UiKey } from '@codelab/frontend-abstract-types'
+import { useErrorNotify } from '@codelab/frontend-infra-context'
 import { checkDomainExists } from '@codelab/frontend-domain-domain/errors'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'

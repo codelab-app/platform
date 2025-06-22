@@ -1,8 +1,8 @@
 'use client'
 
-import type { ITypeUpdateRoute } from '@codelab/frontend/abstract/application'
+import type { ITypeUpdateRoute } from '@codelab/frontend-abstract-application'
 
-import { TypeConnector } from '@codelab/frontend/infra/connector'
+import { TypeConnector } from '@codelab/frontend-infra-connector'
 
 import { UpdateTypePopover } from './UpdateTypePopover'
 

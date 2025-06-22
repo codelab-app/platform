@@ -1,4 +1,4 @@
-import type { IAuthGuardUpdateFormData } from '@codelab/frontend/abstract/domain'
+import type { IAuthGuardUpdateFormData } from '@codelab/frontend-abstract-domain'
 import type { JSONSchemaType } from 'ajv'
 
 import { createAuthGuardSchema } from '../create-auth-guard'

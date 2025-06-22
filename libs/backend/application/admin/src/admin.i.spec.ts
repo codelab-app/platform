@@ -1,18 +1,18 @@
-import { DataModule } from '@codelab/backend/application/data'
+import { DataModule } from '@codelab/backend-application-data'
 import {
   ImportSystemTypesHandler,
   TypeApplicationModule,
-} from '@codelab/backend/application/type'
-import { AtomRepository } from '@codelab/backend/domain/atom'
-import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
+} from '@codelab/backend-application-type'
+import { AtomRepository } from '@codelab/backend-domain-atom'
+import { AuthDomainService } from '@codelab/backend-domain-shared-auth'
 import {
   InterfaceTypeRepository,
   TypeDomainModule,
-} from '@codelab/backend/domain/type'
-import { UserRepository } from '@codelab/backend/domain/user'
-import { initUserContext } from '@codelab/backend/test/setup'
-import { Neo4jModule } from '@codelab/backend-infra-adapter/neo4j-driver'
-import { IAtomType } from '@codelab/shared/abstract/core'
+} from '@codelab/backend-domain-type'
+import { UserRepository } from '@codelab/backend-domain-user'
+import { initUserContext } from '@codelab/backend-test-setup'
+import { Neo4jModule } from '@codelab/backend-infra-adapter-neo4j-driver'
+import { IAtomType } from '@codelab/shared-abstract-core'
 
 import { AdminApplicationModule } from './admin.application.module'
 import { SeederApplicationService } from './use-case'

@@ -1,6 +1,6 @@
 'use client'
-import type { IAppModel } from '@codelab/frontend/abstract/domain'
-import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
+import type { IAppModel } from '@codelab/frontend-abstract-domain'
+import type { UniformSelectFieldProps } from '@codelab/shared-abstract-types'
 
 import { getSelectPageOptions } from '@codelab/frontend-domain-page/repositories'
 import { useAsyncFn } from 'react-use'

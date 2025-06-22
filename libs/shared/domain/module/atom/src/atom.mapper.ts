@@ -1,16 +1,16 @@
-import type { IAtomDto, IMapper } from '@codelab/shared/abstract/core'
+import type { IAtomDto, IMapper } from '@codelab/shared-abstract-core'
 import type {
   AtomCreateInput,
   AtomDeleteInput,
   AtomUpdateInput,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
 import {
   connectNodeId,
   connectNodeIds,
   connectOwner,
   reconnectNodeIds,
-} from '@codelab/shared/domain/orm'
+} from '@codelab/shared-domain-orm'
 
 export const atomMapper: IMapper<
   IAtomDto,

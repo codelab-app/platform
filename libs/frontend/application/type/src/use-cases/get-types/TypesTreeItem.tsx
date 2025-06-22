@@ -1,21 +1,21 @@
 import type {
   ITreeNode,
   ITypeTreeNodeData,
-} from '@codelab/frontend/abstract/domain'
-import type { SearchParamsClientProps } from '@codelab/frontend/abstract/types'
-import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
+} from '@codelab/frontend-abstract-domain'
+import type { SearchParamsClientProps } from '@codelab/frontend-abstract-types'
+import type { ToolbarItem } from '@codelab/frontend-presentation-codelab-ui'
 import type { SyntheticEvent } from 'react'
 
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { IRouteType } from '@codelab/frontend/abstract/application'
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { IRouteType } from '@codelab/frontend-abstract-application'
+import { UiKey } from '@codelab/frontend-abstract-types'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
-} from '@codelab/frontend/presentation/codelab-ui'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { ITypeKind } from '@codelab/shared/abstract/core'
+} from '@codelab/frontend-presentation-codelab-ui'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
+import { ITypeKind } from '@codelab/shared-abstract-core'
 import { useRouter } from 'next/navigation'
 
 import { useFieldService } from '../../services/field.service'

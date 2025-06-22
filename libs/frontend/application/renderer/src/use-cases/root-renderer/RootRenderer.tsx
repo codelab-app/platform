@@ -5,9 +5,9 @@ import type { JSXElementConstructor, ReactNode } from 'react'
 import {
   type IRendererModel,
   type IRootRenderer,
-} from '@codelab/frontend/abstract/application'
-import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/domain'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+} from '@codelab/frontend-abstract-application'
+import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend-abstract-domain'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import { Alert } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { forwardRef, useMemo } from 'react'

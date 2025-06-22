@@ -1,10 +1,10 @@
-import type { IRef, ITypeDto } from '@codelab/shared/abstract/core'
+import type { IRef, ITypeDto } from '@codelab/shared-abstract-core'
 
 import {
   ICodeMirrorLanguage,
   IPrimitiveTypeKind,
   ITypeKind,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import { v4 } from 'uuid'
 
 /**

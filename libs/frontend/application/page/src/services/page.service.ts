@@ -1,27 +1,27 @@
 import type {
   IPageService,
   PageContextParams,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 import type {
   IElementDto,
   IPageCreateFormData,
   IPageUpdateFormData,
-} from '@codelab/shared/abstract/core'
-import type { PageWhere } from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-abstract-core'
+import type { PageWhere } from '@codelab/shared-infra-gqlgen'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import { RoutePaths } from '@codelab/frontend/abstract/application'
-import { type IPageModel } from '@codelab/frontend/abstract/domain'
+import { RoutePaths } from '@codelab/frontend-abstract-application'
+import { type IPageModel } from '@codelab/frontend-abstract-domain'
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import { pageRepository } from '@codelab/frontend-domain-page/repositories'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import {
   useApplicationStore,
   useDomainStore,
-} from '@codelab/frontend-infra-mobx/context'
-import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
-import { Validator } from '@codelab/shared/infra/typebox'
-import { pageApi, pageServerActions } from '@codelab/shared-domain-module/page'
+} from '@codelab/frontend-infra-mobx-context'
+import { IElementRenderTypeKind } from '@codelab/shared-abstract-core'
+import { Validator } from '@codelab/shared-infra-typebox'
+import { pageApi, pageServerActions } from '@codelab/shared-domain-module-page'
 import { useRouter } from 'next/navigation'
 
 import { createPageAction } from '../use-cases/create-page'

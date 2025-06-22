@@ -1,4 +1,4 @@
-import type { IUpdateDomainData } from '@codelab/frontend/abstract/domain'
+import type { IUpdateDomainData } from '@codelab/frontend-abstract-domain'
 import type { JSONSchemaType } from 'ajv'
 
 import {

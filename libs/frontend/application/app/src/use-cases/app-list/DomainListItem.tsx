@@ -1,4 +1,4 @@
-import type { IDomainDto } from '@codelab/shared/abstract/core'
+import type { IDomainDto } from '@codelab/shared-abstract-core'
 
 import CheckCircleOutlined from '@ant-design/icons/CheckCircleOutlined'
 import CloseCircleOutlined from '@ant-design/icons/CloseCircleOutlined'

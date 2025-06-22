@@ -1,5 +1,5 @@
-import type { IExpressionTransformer } from '@codelab/frontend/abstract/application'
-import type { Nullable, ObjectLike } from '@codelab/shared/abstract/types'
+import type { IExpressionTransformer } from '@codelab/frontend-abstract-application'
+import type { Nullable, ObjectLike } from '@codelab/shared-abstract-types'
 
 import { stripExpression } from '@codelab/shared-infra-eval'
 import {

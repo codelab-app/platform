@@ -1,13 +1,13 @@
 'use client'
 
-import type { FormProps } from '@codelab/frontend/abstract/types'
-import type { ObjectLike } from '@codelab/shared/abstract/types'
+import type { FormProps } from '@codelab/frontend-abstract-types'
+import type { ObjectLike } from '@codelab/shared-abstract-types'
 import type { ReactElement } from 'react'
 
 import {
   connectUniformSubmitRef,
   createBridge,
-} from '@codelab/frontend/shared/utils'
+} from '@codelab/frontend-shared-utils'
 import { Skeleton, Space } from 'antd'
 import { useContext, useEffect, useState } from 'react'
 import { Bridge } from 'uniforms'

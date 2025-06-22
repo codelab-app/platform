@@ -1,16 +1,16 @@
-import type { IComponentRepository } from '@codelab/frontend/abstract/domain'
-import type { IComponentDto, IRef } from '@codelab/shared/abstract/core'
-import type { NextFetchOptions } from '@codelab/shared/abstract/types'
+import type { IComponentRepository } from '@codelab/frontend-abstract-domain'
+import type { IComponentDto, IRef } from '@codelab/shared-abstract-core'
+import type { NextFetchOptions } from '@codelab/shared-abstract-types'
 import type {
   ComponentOptions,
   ComponentWhere,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
-import { Validator } from '@codelab/shared/infra/typebox'
+import { Validator } from '@codelab/shared-infra-typebox'
 import {
   componentMapper,
   componentServerActions,
-} from '@codelab/shared-domain-module/component'
+} from '@codelab/shared-domain-module-component'
 
 const { ComponentList, CreateComponents, DeleteComponents, UpdateComponents } =
   componentServerActions

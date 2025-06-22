@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/member-ordering */
-import type { ObjectLike } from '@codelab/shared/abstract/types'
+import type { ObjectLike } from '@codelab/shared-abstract-types'
 
-import { isCyclic } from '@codelab/shared/utils'
+import { isCyclic } from '@codelab/shared-utils'
 import { isPlainObject } from 'remeda'
 
 /**

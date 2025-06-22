@@ -2,13 +2,13 @@ import type {
   IAuthGuardModel,
   IPageModel,
   IRedirectModel,
-} from '@codelab/frontend/abstract/domain'
-import type { IRedirectDto } from '@codelab/shared/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
+} from '@codelab/frontend-abstract-domain'
+import type { IRedirectDto } from '@codelab/shared-abstract-core'
+import type { Nullable } from '@codelab/shared-abstract-types'
 import type { Ref } from 'mobx-keystone'
 
-import { authGuardRef, pageRef } from '@codelab/frontend/abstract/domain'
-import { IRedirectTargetType } from '@codelab/shared/abstract/core'
+import { authGuardRef, pageRef } from '@codelab/frontend-abstract-domain'
+import { IRedirectTargetType } from '@codelab/shared-abstract-core'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 

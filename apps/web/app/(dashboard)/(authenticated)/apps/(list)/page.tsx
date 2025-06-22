@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
+import { DomainStoreHydrator } from '@codelab/frontend-infra-context'
 import {
   AppListContainer,
   appListQuery,

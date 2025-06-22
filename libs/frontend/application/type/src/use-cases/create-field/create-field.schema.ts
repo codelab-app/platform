@@ -1,4 +1,4 @@
-import type { IFieldCreateData } from '@codelab/shared/abstract/core'
+import type { IFieldCreateData } from '@codelab/shared-abstract-core'
 import type { JSONSchemaType } from 'ajv'
 
 import {
@@ -10,8 +10,8 @@ import {
   GeneralValidationRules,
   NumberValidationRules,
   StringValidationRules,
-} from '@codelab/shared/abstract/core'
-import { PrimitiveTypeKind } from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-abstract-core'
+import { PrimitiveTypeKind } from '@codelab/shared-infra-gqlgen'
 
 export const createFieldSchema: JSONSchemaType<IFieldCreateData> = {
   if: {

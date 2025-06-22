@@ -2,9 +2,9 @@ import type {
   IResourceModel,
   IResourceNodeData,
   ITreeNode,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 
-import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
+import { CuiTree } from '@codelab/frontend-presentation-codelab-ui'
 
 import { ResourcesTreeItem } from './ResourcesTreeItem'
 

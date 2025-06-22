@@ -1,17 +1,17 @@
-import { ReadAdminDataService } from '@codelab/backend/application/data'
-import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
+import { ReadAdminDataService } from '@codelab/backend-application-data'
+import { AuthDomainService } from '@codelab/backend-domain-shared-auth'
 import {
   FieldRepository,
   InterfaceType,
   InterfaceTypeRepository,
   TypeFactory,
-} from '@codelab/backend/domain/type'
-import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { LogClassMethod } from '@codelab/backend/infra/core'
+} from '@codelab/backend-domain-type'
+import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
+import { LogClassMethod } from '@codelab/backend-infra-core'
 import {
   type IApiAggregate,
   type IAtomType,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import { Injectable } from '@nestjs/common'
 import { uniqueBy } from 'remeda'
 

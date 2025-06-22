@@ -1,4 +1,4 @@
-import type { IComponentModel } from '@codelab/frontend/abstract/domain'
+import type { IComponentModel } from '@codelab/frontend-abstract-domain'
 import type { ObjectMap } from 'mobx-keystone'
 
 import {
@@ -6,8 +6,8 @@ import {
   type IRuntimeComponentModel,
   type IRuntimeComponentService,
   type IRuntimeModel,
-} from '@codelab/frontend/abstract/application'
-import { runtimeElementRef } from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
+import { runtimeElementRef } from '@codelab/frontend-abstract-application'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 

@@ -1,5 +1,5 @@
-import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { resolveWorkspaceRoot } from '@codelab/backend/shared/util'
+import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
+import { resolveWorkspaceRoot } from '@codelab/backend-shared-util'
 import { Injectable, Scope } from '@nestjs/common'
 import path from 'path'
 

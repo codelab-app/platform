@@ -1,10 +1,10 @@
-import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
+import type { ToolbarItem } from '@codelab/frontend-presentation-codelab-ui'
 
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend-abstract-types'
 import {
   CuiHeader,
   CuiHeaderToolbar,
-} from '@codelab/frontend/presentation/codelab-ui'
+} from '@codelab/frontend-presentation-codelab-ui'
 
 import { CreateLambdaButton } from '../use-cases/create-lambda'
 

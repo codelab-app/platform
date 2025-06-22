@@ -1,10 +1,10 @@
-import type { IRouteType } from '@codelab/frontend/abstract/application'
+import type { IRouteType } from '@codelab/frontend-abstract-application'
 import type {
   PageProps,
   SearchParamsClientProps,
   SearchParamsServerProps,
   UrlParams,
-} from '@codelab/frontend/abstract/types'
+} from '@codelab/frontend-abstract-types'
 
 import { parseSearchParams } from './search-params'
 

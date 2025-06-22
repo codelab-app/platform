@@ -1,12 +1,12 @@
-import type { endpointConfig } from '@codelab/backend/infra/core'
+import type { endpointConfig } from '@codelab/backend-infra-core'
 import type { ConfigType } from '@nestjs/config'
 
-import { GraphqlService } from '@codelab/backend/infra/adapter/graphql'
+import { GraphqlService } from '@codelab/backend-infra-adapter-graphql'
 import {
   loggerConfig,
   PinoLoggerService,
-} from '@codelab/backend/infra/adapter/logger'
-import { ENDPOINT_CONFIG_KEY } from '@codelab/backend/infra/core'
+} from '@codelab/backend-infra-adapter-logger'
+import { ENDPOINT_CONFIG_KEY } from '@codelab/backend-infra-core'
 import { Logger } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { HttpAdapterHost, NestFactory } from '@nestjs/core'

@@ -1,9 +1,9 @@
 'use client'
 
-import type { RootStoreProviderProps } from '@codelab/frontend-infra-mobx/context'
+import type { RootStoreProviderProps } from '@codelab/frontend-infra-mobx-context'
 import type { PropsWithChildren } from 'react'
 
-import { RootStoreContext } from '@codelab/frontend-infra-mobx/context'
+import { RootStoreContext } from '@codelab/frontend-infra-mobx-context'
 
 import { ApplicationStoreProvider } from './ApplicationStoreProvider'
 import { DomainStoreProvider } from './DomainStoreProvider'

@@ -1,4 +1,4 @@
-import type { IDomainDto } from '@codelab/shared/abstract/core'
+import type { IDomainDto } from '@codelab/shared-abstract-core'
 import type { ObjectMap } from 'mobx-keystone'
 
 import type { IHydrateable } from '../shared'

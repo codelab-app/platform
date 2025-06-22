@@ -1,6 +1,6 @@
-import type { LayoutProps } from '@codelab/frontend/abstract/types'
+import type { LayoutProps } from '@codelab/frontend-abstract-types'
 
-import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
+import { DomainStoreHydrator } from '@codelab/frontend-infra-context'
 import { pageBuilderQuery } from '@codelab/frontend-application-builder/use-cases/page-builder'
 
 /**

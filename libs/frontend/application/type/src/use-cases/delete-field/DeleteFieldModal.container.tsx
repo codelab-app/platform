@@ -1,6 +1,6 @@
-import type { IRef } from '@codelab/shared/abstract/core'
+import type { IRef } from '@codelab/shared-abstract-core'
 
-import { FieldConnector } from '@codelab/frontend/infra/connector'
+import { FieldConnector } from '@codelab/frontend-infra-connector'
 
 import { DeleteFieldModal } from './DeleteFieldModal'
 

@@ -1,4 +1,4 @@
-import type { PageProps } from '@codelab/frontend/abstract/types'
+import type { PageProps } from '@codelab/frontend-abstract-types'
 import type { Metadata } from 'next'
 
 import { DeleteComponentModalContainer } from '@codelab/frontend-application-component/use-cases/delete-component'

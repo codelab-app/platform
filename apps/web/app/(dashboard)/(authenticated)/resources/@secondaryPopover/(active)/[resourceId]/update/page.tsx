@@ -1,4 +1,4 @@
-import type { PageProps } from '@codelab/frontend/abstract/types'
+import type { PageProps } from '@codelab/frontend-abstract-types'
 import type { Metadata } from 'next'
 
 import { UpdateResourcePopoverContainer } from '@codelab/frontend-application-resource/use-cases/update-resource'

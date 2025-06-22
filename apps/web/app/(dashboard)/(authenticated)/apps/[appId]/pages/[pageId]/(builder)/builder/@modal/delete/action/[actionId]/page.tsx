@@ -1,4 +1,4 @@
-import type { PageProps } from '@codelab/frontend/abstract/types'
+import type { PageProps } from '@codelab/frontend-abstract-types'
 
 import { parsePageProps } from '@codelab/frontend-application-shared-store/router'
 import { DeleteActionModalContainer } from '@codelab/frontend-application-store/use-cases/delete-action'

@@ -1,6 +1,6 @@
 import type { GraphQLClientResponse } from 'graphql-request/build/legacy/helpers/types'
 
-import { getEnv } from '@codelab/shared/config/env'
+import { getEnv } from '@codelab/shared-config-env'
 import { GraphQLClient } from 'graphql-request'
 
 const graphqlUrl = getEnv().endpoint.apiGraphqlUrl

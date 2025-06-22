@@ -1,13 +1,13 @@
 'use client'
 
-import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
+import type { IRuntimeElementModel } from '@codelab/frontend-abstract-application'
 
-import { CSS_AUTOSAVE_TIMEOUT } from '@codelab/frontend/abstract/domain'
+import { CSS_AUTOSAVE_TIMEOUT } from '@codelab/frontend-abstract-domain'
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { useLoading } from '@codelab/frontend-application-shared-store/loading'
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
-import { CodeMirrorLanguage } from '@codelab/shared/infra/gqlgen'
-import { compareArray } from '@codelab/shared/utils'
+import { CodeMirrorLanguage } from '@codelab/shared-infra-gqlgen'
+import { compareArray } from '@codelab/shared-utils'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useCallback, useEffect, useRef } from 'react'

@@ -2,7 +2,7 @@
 
 import type { ReactNode } from 'react'
 
-import { ComponentConnector } from '@codelab/frontend/infra/connector'
+import { ComponentConnector } from '@codelab/frontend-infra-connector'
 
 import { ComponentBuilderHeader } from './ComponentBuilderHeader'
 

@@ -6,7 +6,7 @@ import {
   type IRuntimeComponentModel,
   type IRuntimePageModel,
   isRuntimePage,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 import { getSnapshot } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import { useEffect } from 'react'

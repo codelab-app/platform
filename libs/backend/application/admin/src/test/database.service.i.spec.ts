@@ -1,15 +1,15 @@
-import { AppApplicationModule } from '@codelab/backend/application/app'
-import { AtomApplicationModule } from '@codelab/backend/application/atom'
+import { AppApplicationModule } from '@codelab/backend-application-app'
+import { AtomApplicationModule } from '@codelab/backend-application-atom'
 import {
   ImportSystemTypesCommand,
   TypeApplicationModule,
-} from '@codelab/backend/application/type'
-import { InterfaceTypeRepository } from '@codelab/backend/domain/type'
-import { initUserContext } from '@codelab/backend/test/setup'
+} from '@codelab/backend-application-type'
+import { InterfaceTypeRepository } from '@codelab/backend-domain-type'
+import { initUserContext } from '@codelab/backend-test-setup'
 import {
   DatabaseService,
   Neo4jModule,
-} from '@codelab/backend-infra-adapter/neo4j-driver'
+} from '@codelab/backend-infra-adapter-neo4j-driver'
 import { CommandBus } from '@nestjs/cqrs'
 
 jest.setTimeout(90000)

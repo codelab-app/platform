@@ -1,5 +1,5 @@
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
-import type { Maybe } from '@codelab/shared/abstract/types'
+import type { IElementModel } from '@codelab/frontend-abstract-domain'
+import type { Maybe } from '@codelab/shared-abstract-types'
 import type { ObjectMap } from 'mobx-keystone'
 
 import type { IRuntimeElementModel } from './runtime-element.model.interface'

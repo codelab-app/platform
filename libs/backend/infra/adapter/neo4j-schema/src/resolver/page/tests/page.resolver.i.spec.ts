@@ -1,28 +1,28 @@
 import type { INestApplication } from '@nestjs/common'
 
-import { AppRepository } from '@codelab/backend/domain/app'
-import { AtomRepository } from '@codelab/backend/domain/atom'
-import { ElementRepository } from '@codelab/backend/domain/element'
-import { PageRepository } from '@codelab/backend/domain/page'
-import { StoreRepository } from '@codelab/backend/domain/store'
+import { AppRepository } from '@codelab/backend-domain-app'
+import { AtomRepository } from '@codelab/backend-domain-atom'
+import { ElementRepository } from '@codelab/backend-domain-element'
+import { PageRepository } from '@codelab/backend-domain-page'
+import { StoreRepository } from '@codelab/backend-domain-store'
 import {
   ArrayTypeRepository,
   EnumTypeRepository,
   FieldRepository,
   InterfaceTypeRepository,
   UnionTypeRepository,
-} from '@codelab/backend/domain/type'
-import { UserRepository } from '@codelab/backend/domain/user'
+} from '@codelab/backend-domain-type'
+import { UserRepository } from '@codelab/backend-domain-user'
 import {
   IConfigPaneTab,
   IPageKind,
   IPageKindName,
   ITypeKind,
-} from '@codelab/shared/abstract/core'
-import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
-import { AtomType, BreakpointType } from '@codelab/shared/infra/gqlgen'
-import { Validator } from '@codelab/shared/infra/typebox'
-import { ElementProperties } from '@codelab/shared-domain-module/element'
+} from '@codelab/shared-abstract-core'
+import { ROOT_ELEMENT_NAME } from '@codelab/shared-config-env'
+import { AtomType, BreakpointType } from '@codelab/shared-infra-gqlgen'
+import { Validator } from '@codelab/shared-infra-typebox'
+import { ElementProperties } from '@codelab/shared-domain-module-element'
 import { print } from 'graphql'
 import request from 'supertest'
 import { v4 } from 'uuid'

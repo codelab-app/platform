@@ -1,10 +1,10 @@
-import type { IDomainDto, INodeType } from '@codelab/shared/abstract/core'
-import type { DomainOptions, DomainWhere } from '@codelab/shared/infra/gqlgen'
+import type { IDomainDto, INodeType } from '@codelab/shared-abstract-core'
+import type { DomainOptions, DomainWhere } from '@codelab/shared-infra-gqlgen'
 
-import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { AbstractRepository } from '@codelab/backend/infra/core'
-import { DomainFragment } from '@codelab/shared/infra/gqlgen'
-import { domainApi, domainMapper } from '@codelab/shared-domain-module/domain'
+import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
+import { AbstractRepository } from '@codelab/backend-infra-core'
+import { DomainFragment } from '@codelab/shared-infra-gqlgen'
+import { domainApi, domainMapper } from '@codelab/shared-domain-module-domain'
 import { Injectable } from '@nestjs/common'
 
 const { CreateDomains, DomainList, UpdateDomains } = domainApi()

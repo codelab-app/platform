@@ -2,8 +2,8 @@ import type {
   IApplicationStore,
   IRootStore,
   IRootStoreInput,
-} from '@codelab/frontend/abstract/application'
-import type { IDomainStore } from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-application'
+import type { IDomainStore } from '@codelab/frontend-abstract-domain'
 
 import {
   Model,

@@ -1,4 +1,4 @@
-import { TypeFactory } from '@codelab/backend/domain/type'
+import { TypeFactory } from '@codelab/backend-domain-type'
 import { CommandHandler } from '@nestjs/cqrs'
 
 export class SeedE2eTypesCommand {}

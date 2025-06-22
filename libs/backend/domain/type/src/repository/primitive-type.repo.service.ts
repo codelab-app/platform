@@ -1,23 +1,23 @@
 import type {
   INodeType,
   IPrimitiveTypeDto,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import type {
   IBaseTypeWhere,
   PrimitiveTypeOptions,
   PrimitiveTypeWhere,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
-import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
-import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { AbstractRepository } from '@codelab/backend/infra/core'
-import { PrimitiveTypeFragment } from '@codelab/shared/infra/gqlgen'
+import { AuthDomainService } from '@codelab/backend-domain-shared-auth'
+import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
+import { AbstractRepository } from '@codelab/backend-infra-core'
+import { PrimitiveTypeFragment } from '@codelab/shared-infra-gqlgen'
 import {
   createTypeApi,
   findTypeApi,
   primitiveTypeMapper,
   updateTypeApi,
-} from '@codelab/shared-domain-module/type'
+} from '@codelab/shared-domain-module-type'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

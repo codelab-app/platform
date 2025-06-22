@@ -1,6 +1,6 @@
-import type { PageProps } from '@codelab/frontend/abstract/types'
+import type { PageProps } from '@codelab/frontend-abstract-types'
 
-import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
+import { DomainStoreHydrator } from '@codelab/frontend-infra-context'
 import { atomTableQuery } from '@codelab/frontend-application-atom/use-cases/atom-table'
 import { AtomsPrimarySidebarContainer } from '@codelab/frontend-application-atom/views'
 import { parsePageProps } from '@codelab/frontend-application-shared-store/router'

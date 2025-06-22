@@ -1,10 +1,10 @@
 'use client'
 
-import type { IFieldModel, ITypeModel } from '@codelab/frontend/abstract/domain'
-import type { IRef } from '@codelab/shared/abstract/core'
+import type { IFieldModel, ITypeModel } from '@codelab/frontend-abstract-domain'
+import type { IRef } from '@codelab/shared-abstract-core'
 import type { GuaranteedProps } from 'uniforms'
 
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import { connectField } from 'uniforms'
 import { SelectField } from 'uniforms-antd'
 

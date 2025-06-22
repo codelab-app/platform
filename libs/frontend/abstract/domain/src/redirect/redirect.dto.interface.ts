@@ -1,4 +1,4 @@
-import type { IRedirectDto } from '@codelab/shared/abstract/core'
+import type { IRedirectDto } from '@codelab/shared-abstract-core'
 
 export type IRedirectCreateFormData = IRedirectDto
 

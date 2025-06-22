@@ -1,8 +1,8 @@
 'use client'
 
-import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
+import type { IRuntimeElementModel } from '@codelab/frontend-abstract-application'
 
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend-abstract-types'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 

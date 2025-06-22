@@ -1,5 +1,5 @@
-import { DigitaloceanModule } from '@codelab/backend/infra/adapter/digitalocean'
-import { Neo4jModule } from '@codelab/backend-infra-adapter/neo4j-driver'
+import { DigitaloceanModule } from '@codelab/backend-infra-adapter-digitalocean'
+import { Neo4jModule } from '@codelab/backend-infra-adapter-neo4j-driver'
 import {
   BeforeApplicationShutdown,
   Module,

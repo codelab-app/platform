@@ -1,8 +1,8 @@
 import type {
   RenderTypeSelectOption,
   SelectOption,
-} from '@codelab/frontend/abstract/types'
-import type { IComponentDto, IRef } from '@codelab/shared/abstract/core'
+} from '@codelab/frontend-abstract-types'
+import type { IComponentDto, IRef } from '@codelab/shared-abstract-core'
 import type { ObjectMap } from 'mobx-keystone'
 
 import type { IHydrateable } from '../shared'

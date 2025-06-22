@@ -1,9 +1,9 @@
-import type { IElementDomainService } from '@codelab/frontend/abstract/domain'
-import type { IElementDto } from '@codelab/shared/abstract/core'
+import type { IElementDomainService } from '@codelab/frontend-abstract-domain'
+import type { IElementDto } from '@codelab/shared-abstract-core'
 
 import { propFactory } from '@codelab/frontend-domain-prop/test'
 import { chance } from '@codelab/frontend-domain-shared'
-import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
+import { IElementRenderTypeKind } from '@codelab/shared-abstract-core'
 import { v4 } from 'uuid'
 
 export const elementFactory =

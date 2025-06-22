@@ -3,15 +3,15 @@ import type {
   IMapper,
   IUserDto,
   IUserSession,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import type {
   UserCreateInput,
   UserDeleteInput,
   UserUpdateInput,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
-import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
-import { preferenceMapper } from '@codelab/shared-domain-module/preference'
+import { JWT_CLAIMS } from '@codelab/shared-abstract-core'
+import { preferenceMapper } from '@codelab/shared-domain-module-preference'
 
 // export const mapAuth0IdTokenToUserDto = (
 //   auth0IdToken?: Auth0IdToken,

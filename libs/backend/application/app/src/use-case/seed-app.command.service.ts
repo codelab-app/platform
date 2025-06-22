@@ -1,21 +1,21 @@
-import type { InterfaceType } from '@codelab/backend/domain/type'
-import type { IAppDto, IComponentType } from '@codelab/shared/abstract/core'
+import type { InterfaceType } from '@codelab/backend-domain-type'
+import type { IAppDto, IComponentType } from '@codelab/shared-abstract-core'
 
-import { AtomApplicationService } from '@codelab/backend/application/atom'
-import { ComponentApplicationService } from '@codelab/backend/application/component'
-import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
-import { AppRepository } from '@codelab/backend/domain/app'
-import { AtomRepository } from '@codelab/backend/domain/atom'
-import { Element, ElementRepository } from '@codelab/backend/domain/element'
-import { PageRepository } from '@codelab/backend/domain/page'
-import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
-import { Store, StoreRepository } from '@codelab/backend/domain/store'
-import { InterfaceTypeRepository } from '@codelab/backend/domain/type'
+import { AtomApplicationService } from '@codelab/backend-application-atom'
+import { ComponentApplicationService } from '@codelab/backend-application-component'
+import { ImportSystemTypesCommand } from '@codelab/backend-application-type'
+import { AppRepository } from '@codelab/backend-domain-app'
+import { AtomRepository } from '@codelab/backend-domain-atom'
+import { Element, ElementRepository } from '@codelab/backend-domain-element'
+import { PageRepository } from '@codelab/backend-domain-page'
+import { AuthDomainService } from '@codelab/backend-domain-shared-auth'
+import { Store, StoreRepository } from '@codelab/backend-domain-store'
+import { InterfaceTypeRepository } from '@codelab/backend-domain-type'
 import {
   IAtomType,
   IElementRenderTypeKind,
   IPageKindName,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import {
   appData,
   internalServerErrorElementData,
@@ -27,8 +27,8 @@ import {
   providerElementData,
   providerPageData,
   providerPageId,
-} from '@codelab/shared/data/test'
-import { Page } from '@codelab/shared-domain-module/page'
+} from '@codelab/shared-data-test'
+import { Page } from '@codelab/shared-domain-module-page'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 
 export class SeedAppCommand {

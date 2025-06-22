@@ -3,19 +3,19 @@ import type {
   IRuntimeActionModel,
   IRuntimeContext,
   IRuntimeStoreModel,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 import type {
   IActionModel,
   IApiActionModel,
   ICodeActionModel,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 import type {
   IPropData,
   IResourceFetchConfig,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import type { Ref } from 'mobx-keystone'
 
-import { IActionKind } from '@codelab/shared/abstract/core'
+import { IActionKind } from '@codelab/shared-abstract-core'
 import { evaluateObject } from '@codelab/shared-infra-eval'
 import { computed } from 'mobx'
 import { idProp, Model, model, prop } from 'mobx-keystone'

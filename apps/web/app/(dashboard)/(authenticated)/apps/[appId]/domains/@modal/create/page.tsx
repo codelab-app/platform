@@ -1,4 +1,4 @@
-import type { PageProps } from '@codelab/frontend/abstract/types'
+import type { PageProps } from '@codelab/frontend-abstract-types'
 import type { Metadata } from 'next'
 
 import { CreateDomainModal } from '@codelab/frontend-application-domain/use-cases/create-domain'

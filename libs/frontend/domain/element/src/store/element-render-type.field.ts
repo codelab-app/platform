@@ -1,11 +1,11 @@
-import type { IElementDto } from '@codelab/shared/abstract/core'
+import type { IElementDto } from '@codelab/shared-abstract-core'
 
 import {
   atomRef,
   componentRef,
   type IElementRenderTypeModel,
-} from '@codelab/frontend/abstract/domain'
-import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
+} from '@codelab/frontend-abstract-domain'
+import { IElementRenderTypeKind } from '@codelab/shared-abstract-core'
 
 export const getRenderType = (
   renderType: IElementDto['renderType'],

@@ -3,10 +3,10 @@ import type {
   ICreateElementData,
   IPage,
   IPageCreateFormData,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 
-import { IAtomType, IPageKind, ITypeKind } from '@codelab/shared/abstract/core'
-import { findOrFail } from '@codelab/shared/utils'
+import { IAtomType, IPageKind, ITypeKind } from '@codelab/shared-abstract-core'
+import { findOrFail } from '@codelab/shared-utils'
 import { type APIRequestContext } from '@playwright/test'
 import { v4 } from 'uuid'
 

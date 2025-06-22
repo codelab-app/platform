@@ -69,7 +69,7 @@ import type {
   UpdateRenderPropTypesMutationVariables,
   UpdateRichTextTypesMutationVariables,
   UpdateUnionTypesMutationVariables,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
 /**
  * Put all functions in same file so it's easier for LLM to refactor
@@ -92,8 +92,8 @@ import {
   type IRichTextTypeDto,
   ITypeKind,
   type IUnionTypeDto,
-} from '@codelab/shared/abstract/core'
-import { connectNodeId, connectOwner } from '@codelab/shared/domain/orm'
+} from '@codelab/shared-abstract-core'
+import { connectNodeId, connectOwner } from '@codelab/shared-domain-orm'
 
 import {
   connectTypesOfUnionType,

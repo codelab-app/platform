@@ -1,8 +1,8 @@
 import type {
   IStoreDomainService,
   IStoreModel,
-} from '@codelab/frontend/abstract/domain'
-import type { IStoreDto } from '@codelab/shared/abstract/core'
+} from '@codelab/frontend-abstract-domain'
+import type { IStoreDto } from '@codelab/shared-abstract-core'
 
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'

@@ -2,28 +2,28 @@ import type {
   ITypeCreateRoute,
   ITypeService,
   ITypeUpdateRoute,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 import type {
   IInterfaceTypeModel,
   ITypeCreateFormData,
   ITypeModel,
   ITypeUpdateDto,
-} from '@codelab/frontend/abstract/domain'
-import type { Maybe } from '@codelab/shared/abstract/types'
+} from '@codelab/frontend-abstract-domain'
+import type { Maybe } from '@codelab/shared-abstract-types'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend-abstract-application'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { typeRepository } from '@codelab/frontend-domain-type/repositories'
 import { TypeFactory } from '@codelab/frontend-domain-type/store'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { ITypeKind } from '@codelab/shared/abstract/core'
-import { TypeKind } from '@codelab/shared/infra/gqlgen'
-import { Validator } from '@codelab/shared/infra/typebox'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
+import { ITypeKind } from '@codelab/shared-abstract-core'
+import { TypeKind } from '@codelab/shared-infra-gqlgen'
+import { Validator } from '@codelab/shared-infra-typebox'
 import {
   findTypeApi,
   findTypeServerActions,
-} from '@codelab/shared-domain-module/type'
+} from '@codelab/shared-domain-module-type'
 import { prop, sortBy } from 'remeda'
 
 const { GetTypeReferences } = findTypeServerActions

@@ -1,6 +1,6 @@
 'use client'
 
-import type { IPropData } from '@codelab/shared/abstract/core'
+import type { IPropData } from '@codelab/shared-abstract-core'
 
 import { modelTypeKey } from 'mobx-keystone'
 import { Component } from 'react'

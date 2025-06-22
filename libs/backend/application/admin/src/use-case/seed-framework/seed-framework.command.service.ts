@@ -1,13 +1,13 @@
 import type { ICommandHandler } from '@nestjs/cqrs'
 
-import { SeedAppCommand } from '@codelab/backend/application/app'
-import { SeedAtomsCommand } from '@codelab/backend/application/atom'
-import { ReadAdminDataService } from '@codelab/backend/application/data'
-import { SeedTagsService } from '@codelab/backend/application/tag'
+import { SeedAppCommand } from '@codelab/backend-application-app'
+import { SeedAtomsCommand } from '@codelab/backend-application-atom'
+import { ReadAdminDataService } from '@codelab/backend-application-data'
+import { SeedTagsService } from '@codelab/backend-application-tag'
 import {
   SeedEmptyApiCommand,
   TypeSeederService,
-} from '@codelab/backend/application/type'
+} from '@codelab/backend-application-type'
 import {
   type IAtomDto,
   IAtomRecords,
@@ -15,7 +15,7 @@ import {
   type IFieldDto,
   type IOwner,
   TagNode,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 import { ObjectTyped } from 'object-typed'
 

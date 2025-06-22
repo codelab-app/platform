@@ -4,23 +4,23 @@ import type {
   IElementExport,
   IPageAggregate,
   IRef,
-} from '@codelab/shared/abstract/core'
-import type { AppWhere } from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-abstract-core'
+import type { AppWhere } from '@codelab/shared-infra-gqlgen'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
-import { ExportComponentCommand } from '@codelab/backend/application/component'
-import { ExportPageCommand } from '@codelab/backend/application/page'
-import { AppRepository } from '@codelab/backend/domain/app'
-import { ComponentRepository } from '@codelab/backend/domain/component'
-import { DomainRepository } from '@codelab/backend/domain/domain'
-import { ResourceRepository } from '@codelab/backend/domain/resource'
+import { ExportComponentCommand } from '@codelab/backend-application-component'
+import { ExportPageCommand } from '@codelab/backend-application-page'
+import { AppRepository } from '@codelab/backend-domain-app'
+import { ComponentRepository } from '@codelab/backend-domain-component'
+import { DomainRepository } from '@codelab/backend-domain-domain'
+import { ResourceRepository } from '@codelab/backend-domain-resource'
 import {
   AppAggregateSchema,
   IActionKind,
   IElementRenderTypeKind,
-} from '@codelab/shared/abstract/core'
-import { Validator } from '@codelab/shared/infra/typebox'
-import { uuidRegex } from '@codelab/shared/utils'
+} from '@codelab/shared-abstract-core'
+import { Validator } from '@codelab/shared-infra-typebox'
+import { uuidRegex } from '@codelab/shared-utils'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 import { unique } from 'radash'
 

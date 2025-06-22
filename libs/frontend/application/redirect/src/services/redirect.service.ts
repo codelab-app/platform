@@ -1,19 +1,19 @@
 import type {
   IRedirectService,
   PageContextParams,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 import type {
   IRedirectCreateFormData,
   IRedirectUpdateFormData,
-} from '@codelab/frontend/abstract/domain'
-import type { IRef } from '@codelab/shared/abstract/core'
-import type { RedirectWhere } from '@codelab/shared/infra/gqlgen'
+} from '@codelab/frontend-abstract-domain'
+import type { IRef } from '@codelab/shared-abstract-core'
+import type { RedirectWhere } from '@codelab/shared-infra-gqlgen'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend-abstract-application'
 import { redirectRepository } from '@codelab/frontend-domain-redirect/repositories'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 
 export const useRedirectService = (): IRedirectService => {
   const { redirectDomainService } = useDomainStore()

@@ -1,4 +1,4 @@
-import { IResourceType } from '@codelab/shared/abstract/core'
+import { IResourceType } from '@codelab/shared-abstract-core'
 
 import GraphQlPlusSvg from './add-graphql.svg'
 import RestPlusSvg from './add-rest.svg'

@@ -5,16 +5,16 @@ import type {
   IInterfaceTypeDto,
   IPageDto,
   ITypeDto,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { type IInterfaceTypeModel } from '@codelab/frontend/abstract/domain'
-import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { IPageKind, ITypeKind } from '@codelab/shared/abstract/core'
-import { systemTypesData } from '@codelab/shared/data/seed'
-import { userDto } from '@codelab/shared/data/test'
-import { App } from '@codelab/shared-domain-module/app'
+import { type IInterfaceTypeModel } from '@codelab/frontend-abstract-domain'
+import { DomainStoreHydrator } from '@codelab/frontend-infra-context'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
+import { IPageKind, ITypeKind } from '@codelab/shared-abstract-core'
+import { systemTypesData } from '@codelab/shared-data-seed'
+import { userDto } from '@codelab/shared-data-test'
+import { App } from '@codelab/shared-domain-module-app'
 import { graphql, HttpResponse } from 'msw'
 import { ErrorBoundary } from 'react-error-boundary'
 import { v4 } from 'uuid'

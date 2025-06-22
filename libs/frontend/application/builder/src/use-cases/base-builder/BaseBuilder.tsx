@@ -4,15 +4,15 @@ import type {
   IBuilderRoute,
   IRendererModel,
   IRootRenderer,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 
 import {
   BUILDER_CONTAINER_ID,
   DATA_ELEMENT_ID,
-} from '@codelab/frontend/abstract/domain'
-import { ApplicationStoreHydrator } from '@codelab/frontend/infra/context'
+} from '@codelab/frontend-abstract-domain'
+import { ApplicationStoreHydrator } from '@codelab/frontend-infra-context'
 import { RootRenderer } from '@codelab/frontend-application-renderer/use-cases/root-renderer'
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx-context'
 import { observer } from 'mobx-react-lite'
 import { useRef } from 'react'
 import styled from 'styled-components'

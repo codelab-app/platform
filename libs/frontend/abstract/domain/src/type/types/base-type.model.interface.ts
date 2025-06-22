@@ -4,12 +4,12 @@ import type {
   IPropData,
   ITypeKind,
   IValidationRules,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import type {
   Nullable,
   Nullish,
   ObjectLike,
-} from '@codelab/shared/abstract/types'
+} from '@codelab/shared-abstract-types'
 import type { JSONSchema7, JSONSchema7Definition } from 'json-schema'
 import type { Ref } from 'mobx-keystone'
 

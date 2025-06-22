@@ -1,8 +1,8 @@
 import {
   createTestStore,
   RootStoreProvider,
-} from '@codelab/frontend-infra-mobx/store'
-import { IAtomType, IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
+} from '@codelab/frontend-infra-mobx-store'
+import { IAtomType, IPrimitiveTypeKind } from '@codelab/shared-abstract-core'
 import { screen } from '@testing-library/dom'
 import { render } from '@testing-library/react'
 import { createElement, isValidElement } from 'react'

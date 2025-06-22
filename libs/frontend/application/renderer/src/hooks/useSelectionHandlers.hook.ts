@@ -1,10 +1,10 @@
-import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
+import type { IRuntimeElementModel } from '@codelab/frontend-abstract-application'
 
 import {
   RendererType,
   runtimeElementRef,
-} from '@codelab/frontend/abstract/application'
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+} from '@codelab/frontend-abstract-application'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx-context'
 import { type MouseEvent, useCallback } from 'react'
 
 /**

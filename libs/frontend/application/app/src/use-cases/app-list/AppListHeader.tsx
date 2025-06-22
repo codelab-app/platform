@@ -1,16 +1,16 @@
 'use client'
 
-import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
+import type { ToolbarItem } from '@codelab/frontend-presentation-codelab-ui'
 
 import ImportOutlined from '@ant-design/icons/ImportOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { RoutePaths } from '@codelab/frontend/abstract/application'
-import { getUiDataLabel, UiKey } from '@codelab/frontend/abstract/types'
+import { RoutePaths } from '@codelab/frontend-abstract-application'
+import { getUiDataLabel, UiKey } from '@codelab/frontend-abstract-types'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,
   CuiHeaderToolbar,
-} from '@codelab/frontend/presentation/codelab-ui'
+} from '@codelab/frontend-presentation-codelab-ui'
 import { UserProfileMenu } from '@codelab/frontend-application-user/components'
 import { Image } from 'antd'
 import { useRouter } from 'next/navigation'

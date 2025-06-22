@@ -1,8 +1,8 @@
-import type { ISchemaService } from '@codelab/backend/abstract/types'
+import type { ISchemaService } from '@codelab/backend-abstract-types'
 import type { GraphQLSchema } from 'graphql'
 
-import { Neo4jService } from '@codelab/backend-infra-adapter/neo4j-driver'
-import { getEnv } from '@codelab/shared/config/env'
+import { Neo4jService } from '@codelab/backend-infra-adapter-neo4j-driver'
+import { getEnv } from '@codelab/shared-config-env'
 import {
   Neo4jGraphQL,
   Neo4jGraphQLSubscriptionsCDCEngine,

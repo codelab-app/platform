@@ -3,16 +3,16 @@ import type {
   IRendererDto,
   IRendererModel,
   IRendererService,
-} from '@codelab/frontend/abstract/application'
-import type { Nullable } from '@codelab/shared/abstract/types'
+} from '@codelab/frontend-abstract-application'
+import type { Nullable } from '@codelab/shared-abstract-types'
 import type { Ref } from 'mobx-keystone'
 
 import {
   getRuntimeComponentService,
   getRuntimeElementService,
   getRuntimePageService,
-} from '@codelab/frontend/abstract/application'
-import { isPage } from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-application'
+import { isPage } from '@codelab/frontend-abstract-domain'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 

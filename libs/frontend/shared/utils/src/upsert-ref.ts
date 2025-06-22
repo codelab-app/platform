@@ -1,4 +1,4 @@
-import type { Nullish } from '@codelab/shared/abstract/types'
+import type { Nullish } from '@codelab/shared-abstract-types'
 
 export const upsertRef = <T>(
   value: Nullish<{ id: Nullish<string> }>,

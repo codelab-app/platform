@@ -1,4 +1,4 @@
-import type { IAppDto, IRef } from '@codelab/shared/abstract/core'
+import type { IAppDto, IRef } from '@codelab/shared-abstract-core'
 import type { Ref } from 'mobx-keystone'
 
 import type { IDomainModel } from '../domain'
