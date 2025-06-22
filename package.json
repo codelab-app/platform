@@ -140,7 +140,6 @@
     "@sentry/nestjs": "8.54.0",
     "@sentry/nextjs": "8.54.0",
     "@sentry/profiling-node": "8.54.0",
-    "@shopify/network": "3.3.0",
     "@sinclair/typebox": "0.34.13",
     "@sotaproject/strikethrough": "1.0.1",
     "@supabase/supabase-js": "2.1.1",
