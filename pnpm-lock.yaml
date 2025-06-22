@@ -159,7 +159,7 @@ importers:
         specifier: 13.0.2
         version: 13.0.2(@apollo/server@4.11.2(encoding@0.1.13)(graphql@16.9.0))(@apollo/subgraph@2.9.3(graphql@16.9.0))(@nestjs/common@11.0.7(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(@nestjs/core@11.0.7)(@nestjs/graphql@13.0.2(@apollo/subgraph@2.9.3(graphql@16.9.0))(@nestjs/common@11.0.7(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(@nestjs/core@11.0.7)(class-transformer@0.5.1)(class-validator@0.14.0)(graphql@16.9.0)(reflect-metadata@0.1.13)(ts-morph@19.0.0))(graphql@16.9.0)
       '@nestjs/bullmq':
-        specifier: ^11.0.2
+        specifier: 11.0.2
         version: 11.0.2(@nestjs/common@11.0.7(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.0))(@nestjs/core@11.0.7)(bullmq@5.41.7)
       '@nestjs/cache-manager':
         specifier: ^3.0.0

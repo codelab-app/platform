@@ -92,7 +92,7 @@
     "@mailchimp/mailchimp_marketing": "3.0.80",
     "@neo4j/graphql": "6.3.1",
     "@nestjs/apollo": "13.0.2",
-    "@nestjs/bullmq": "^11.0.2",
+    "@nestjs/bullmq": "11.0.2",
     "@nestjs/cache-manager": "^3.0.0",
     "@nestjs/common": "11.0.7",
     "@nestjs/config": "4.0.0",
