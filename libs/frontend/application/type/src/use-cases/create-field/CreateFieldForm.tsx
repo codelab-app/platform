@@ -3,7 +3,10 @@
 import type { IFieldCreateData } from '@codelab/shared/abstract/core'
 
 import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
-import { SelectDefaultValue } from '@codelab/frontend/presentation/components/interface-form'
+import {
+  SelectDefaultValue,
+  SelectFieldSibling,
+} from '@codelab/frontend/presentation/components/interface-form'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
   DisplayIfField,
@@ -39,6 +42,7 @@ export const CreateFieldForm = observer<CreateFieldFormProps>(
     const fieldService = useFieldService()
     const { typeDomainService } = useDomainStore()
     const fieldSchema = useFieldSchema(createFieldSchema)
+    const fieldModel = { id: v4(), interfaceTypeId: interfaceId }
 
     const onSubmit = (input: IFieldCreateData) => {
       const validationRules = filterValidationRules(
@@ -52,10 +56,7 @@ export const CreateFieldForm = observer<CreateFieldFormProps>(
     return (
       <Form<IFieldCreateData>
         errorMessage="Error while creating field"
-        model={{
-          id: v4(),
-          interfaceTypeId: interfaceId,
-        }}
+        model={fieldModel}
         modelTransform={(mode, model) => {
           // This automatically sets the `defaultValue` to be nullable for types
           // where we dont set a default value like ReactNodeType, InterfaceType
@@ -89,9 +90,18 @@ export const CreateFieldForm = observer<CreateFieldFormProps>(
             'validationRules',
             'interfaceTypeId',
             'defaultValues',
+            'prevSibling',
           ]}
         />
         <TypeSelect label="Type" name="fieldType" />
+        <SelectFieldSibling
+          field={{
+            ...fieldModel,
+            api: { id: fieldModel.interfaceTypeId },
+          }}
+          label="Prev Sibling"
+          name="prevSibling"
+        />
         <DisplayIfField<IFieldCreateData>
           condition={({ model }) =>
             !isBoolean(typeDomainService, model.fieldType) &&
