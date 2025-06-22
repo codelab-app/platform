@@ -3,23 +3,21 @@
 import type { IFieldCreateData } from '@codelab/shared/abstract/core'
 
 import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
-import { SelectDefaultValue } from '@codelab/frontend/presentation/components/interface-form'
+import { SelectFieldSibling } from '@codelab/frontend/presentation/components/interface-form'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
 import {
   DisplayIfField,
   Form,
-  FormController,
 } from '@codelab/frontend-presentation-components-form'
-import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { PrimitiveTypeKind } from '@codelab/shared/infra/gqlgen'
 import { observer } from 'mobx-react-lite'
-import { AutoFields } from 'uniforms-antd'
+import { useState } from 'react'
+import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 
 import { useFieldService } from '../../services'
-import { useFieldSchema } from '../hooks'
+import { useFieldFormSchema } from '../hooks'
 import { TypeSelect } from '../select-types'
-import { createFieldSchema } from './create-field.schema'
 import {
   canSetDefaultValue,
   filterValidationRules,
@@ -35,10 +33,18 @@ interface CreateFieldFormProps extends IFormController {
 }
 
 export const CreateFieldForm = observer<CreateFieldFormProps>(
-  ({ interfaceId, onSubmitSuccess, showFormControl = true, submitRef }) => {
+  ({ interfaceId, onSubmitSuccess, submitRef }) => {
     const fieldService = useFieldService()
     const { typeDomainService } = useDomainStore()
-    const fieldSchema = useFieldSchema(createFieldSchema)
+
+    const [fieldModel, setFieldModel] = useState<IFieldCreateData>({
+      fieldType: '',
+      id: v4(),
+      interfaceTypeId: interfaceId,
+      key: '',
+    })
+
+    const schema = useFieldFormSchema(fieldModel)
 
     const onSubmit = (input: IFieldCreateData) => {
       const validationRules = filterValidationRules(
@@ -52,46 +58,23 @@ export const CreateFieldForm = observer<CreateFieldFormProps>(
     return (
       <Form<IFieldCreateData>
         errorMessage="Error while creating field"
-        model={{
-          id: v4(),
-          interfaceTypeId: interfaceId,
-        }}
-        modelTransform={(mode, model) => {
-          // This automatically sets the `defaultValue` to be nullable for types
-          // where we dont set a default value like ReactNodeType, InterfaceType
-          if (
-            mode === 'form' &&
-            model.fieldType &&
-            !canSetDefaultValue(typeDomainService, model.fieldType)
-          ) {
-            return {
-              ...model,
-              validationRules: {
-                general: {
-                  nullable: true,
-                },
-              },
-            }
-          }
-
-          return model
+        model={fieldModel}
+        onChangeModel={(model) => {
+          setFieldModel({ ...fieldModel, ...model })
         }}
         onSubmit={onSubmit}
         onSubmitSuccess={onSubmitSuccess}
-        schema={fieldSchema}
+        schema={schema}
         submitRef={submitRef}
         successMessage="Field created successfully"
         uiKey={UiKey.FieldFormCreate}
       >
-        <AutoFields
-          omitFields={[
-            'fieldType',
-            'validationRules',
-            'interfaceTypeId',
-            'defaultValues',
-          ]}
-        />
+        <AutoFields fields={['id', 'key', 'name', 'description']} />
         <TypeSelect label="Type" name="fieldType" />
+        <SelectFieldSibling
+          field={{ ...fieldModel, api: { id: fieldModel.interfaceTypeId } }}
+          name="prevSibling"
+        />
         <DisplayIfField<IFieldCreateData>
           condition={({ model }) =>
             !isBoolean(typeDomainService, model.fieldType) &&
@@ -138,12 +121,8 @@ export const CreateFieldForm = observer<CreateFieldFormProps>(
             canSetDefaultValue(typeDomainService, model.fieldType)
           }
         >
-          <SelectDefaultValue />
+          <AutoField name="defaultValues" />
         </DisplayIfField>
-
-        <DisplayIf condition={showFormControl}>
-          <FormController submitLabel="Create Field" />
-        </DisplayIf>
       </Form>
     )
   },

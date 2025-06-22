@@ -16,8 +16,10 @@ export const typedPropSchema = (
   }: ITypeTransformContext,
 ): JsonSchema => {
   const { id, kind } = type
+  const required = validationRules?.general?.nullable === false
 
   return {
+    default: { kind: kind, type: id, value: null },
     isTypedProp: true,
     properties: {
       kind: {
@@ -40,7 +42,7 @@ export const typedPropSchema = (
     ...validationRules?.general,
     ...(defaultValues ? { default: defaultValues } : {}),
     label: '',
-    required: ['type', 'kind'],
+    required: required ? ['type', 'kind', 'value'] : ['type', 'kind'],
     type: 'object',
   }
 }

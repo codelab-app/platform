@@ -56,7 +56,6 @@ export const canSetDefaultValue: FieldCondition = (
     fieldType &&
       typeDomainService.types.has(fieldType) &&
       typeDomainService.type(fieldType).kind !== ITypeKind.InterfaceType &&
-      typeDomainService.type(fieldType).kind !== ITypeKind.ReactNodeType &&
       typeDomainService.type(fieldType).kind !== ITypeKind.ActionType,
   )
 }

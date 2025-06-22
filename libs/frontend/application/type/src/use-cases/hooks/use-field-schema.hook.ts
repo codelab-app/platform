@@ -5,11 +5,16 @@ import type {
 } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 
+import { uniformSchemaFactory } from '@codelab/frontend/presentation/components/interface-form'
 import {
   useApplicationStore,
   useDomainStore,
 } from '@codelab/frontend-infra-mobx/context'
 import { useMemo } from 'react'
+import { useAsync } from 'react-use'
+
+import { useTypeService } from '../../services/field.service'
+import { createFieldSchema } from '../create-field'
 
 /**
  * @param schema
@@ -42,4 +47,46 @@ export const useFieldSchema = (
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [schema, updatedField, storeDomainService.storesList])
+}
+
+export const useFieldFormSchema = (
+  model: IFieldCreateData,
+): JSONSchemaType<IFieldCreateData | IFieldUpdateData> => {
+  const { typeDomainService } = useDomainStore()
+  const typeService = useTypeService()
+  const fieldSchema = useFieldSchema(createFieldSchema)
+
+  const { value: fieldTypeModel } = useAsync(async () => {
+    if (!model.fieldType) {
+      return null
+    }
+
+    return typeDomainService.types.has(model.fieldType)
+      ? typeDomainService.type(model.fieldType)
+      : await typeService.getOne(model.fieldType)
+  }, [model.fieldType])
+
+  const schema = useMemo(() => {
+    return {
+      ...fieldSchema,
+      properties: {
+        ...fieldSchema.properties,
+        ...(fieldTypeModel
+          ? {
+              defaultValues: fieldTypeModel.toJsonSchema({
+                fieldName: 'Default Value',
+                uniformSchema: uniformSchemaFactory,
+                validationRules: model.validationRules,
+              }),
+            }
+          : null),
+      },
+      required:
+        model.validationRules?.general?.nullable === false
+          ? ['id', 'key', 'fieldType', 'defaultValues']
+          : ['id', 'key', 'fieldType'],
+    }
+  }, [fieldTypeModel, model.validationRules])
+
+  return schema as JSONSchemaType<IFieldCreateData | IFieldUpdateData>
 }
