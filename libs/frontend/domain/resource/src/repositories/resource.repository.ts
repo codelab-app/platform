@@ -1,19 +1,19 @@
-import type { IRef, IResourceDto } from '@codelab/shared/abstract/core'
-import type { NextFetchOptions } from '@codelab/shared/abstract/types'
+import type { IRef, IResourceDto } from '@codelab/shared-abstract-core'
+import type { NextFetchOptions } from '@codelab/shared-abstract-types'
 import type {
   ResourceOptions,
   ResourceWhere,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
 import {
   type IResourceModel,
   type IResourceRepository,
-} from '@codelab/frontend/abstract/domain'
-import { Validator } from '@codelab/shared/infra/typebox'
+} from '@codelab/frontend-abstract-domain'
+import { Validator } from '@codelab/shared-infra-typebox'
 import {
   resourceMapper,
   resourceServerActions,
-} from '@codelab/shared-domain-module/resource'
+} from '@codelab/shared-domain-module-resource'
 
 const { CreateResources, DeleteResources, ResourceList, UpdateResources } =
   resourceServerActions

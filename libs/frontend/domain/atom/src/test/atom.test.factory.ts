@@ -1,11 +1,11 @@
-import type { IAtomDomainService } from '@codelab/frontend/abstract/domain'
-import type { IAtomDto } from '@codelab/shared/abstract/core'
+import type { IAtomDomainService } from '@codelab/frontend-abstract-domain'
+import type { IAtomDto } from '@codelab/shared-abstract-core'
 
 import { chance } from '@codelab/frontend-domain-shared'
 import {
   IAtomType,
   IElementRenderTypeKind,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import { v4 } from 'uuid'
 
 export const atomFactory =

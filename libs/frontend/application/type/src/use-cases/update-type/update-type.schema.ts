@@ -1,6 +1,6 @@
 'use client'
 
-import type { ITypeUpdateDto } from '@codelab/frontend/abstract/domain'
+import type { ITypeUpdateDto } from '@codelab/frontend-abstract-domain'
 import type { JSONSchemaType } from 'ajv'
 
 import {
@@ -13,7 +13,7 @@ import {
   IElementTypeKind,
   IPrimitiveTypeKind,
   ITypeKind,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 
 import { TypeSelect } from '../select-types/TypeSelect'
 

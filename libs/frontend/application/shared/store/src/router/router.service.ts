@@ -1,10 +1,10 @@
 import type {
   IRouterService,
   NextjsSearchParamsProps,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 
-import { ObjectLike } from '@codelab/shared/abstract/types'
-import { Validator } from '@codelab/shared/infra/typebox'
+import { ObjectLike } from '@codelab/shared-abstract-types'
+import { Validator } from '@codelab/shared-infra-typebox'
 import { computed } from 'mobx'
 import { Model, model, prop } from 'mobx-keystone'
 

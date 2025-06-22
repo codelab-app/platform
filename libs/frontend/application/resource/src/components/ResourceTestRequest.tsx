@@ -1,15 +1,15 @@
 'use client'
 
-import type { ObjectLike } from '@codelab/shared/abstract/types'
+import type { ObjectLike } from '@codelab/shared-abstract-types'
 
 import { propSafeStringify } from '@codelab/frontend-domain-prop/utils'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import {
   ICodeMirrorLanguage,
   type IResourceFetchConfig,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react'

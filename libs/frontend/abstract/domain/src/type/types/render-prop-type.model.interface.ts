@@ -1,7 +1,7 @@
 import type {
   IRenderPropTypeDto,
   ITypeKind,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 
 import type { IBaseTypeModel } from './base-type.model.interface'
 

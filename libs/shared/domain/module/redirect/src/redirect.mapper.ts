@@ -2,18 +2,18 @@ import type {
   RedirectCreateInput,
   RedirectDeleteInput,
   RedirectUpdateInput,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
 import {
   type IMapper,
   type IRedirectDto,
   IRedirectTargetType,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import {
   connectNodeId,
   disconnectAll,
   reconnectNodeId,
-} from '@codelab/shared/domain/orm'
+} from '@codelab/shared-domain-orm'
 
 export const redirectMapper: IMapper<
   IRedirectDto,

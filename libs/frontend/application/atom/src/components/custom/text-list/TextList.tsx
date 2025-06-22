@@ -1,4 +1,4 @@
-import type { ObjectLike } from '@codelab/shared/abstract/types'
+import type { ObjectLike } from '@codelab/shared-abstract-types'
 import type { ListProps } from 'antd/lib/list'
 
 import List from 'antd/lib/list'

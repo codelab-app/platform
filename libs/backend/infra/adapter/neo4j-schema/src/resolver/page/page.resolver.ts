@@ -1,11 +1,11 @@
-import type { Page, TypeFragment } from '@codelab/shared/infra/gqlgen'
+import type { Page, TypeFragment } from '@codelab/shared-infra-gqlgen'
 import type { IFieldResolver, IResolvers } from '@graphql-tools/utils'
 import type { FactoryProvider } from '@nestjs/common'
 import type { GraphQLRequestContext } from 'graphql-request/build/legacy/helpers/types'
 
-import { ElementDependantTypesService } from '@codelab/backend/domain/element'
-import { PageElementsService } from '@codelab/backend/domain/page'
-import { PageProperties } from '@codelab/shared-domain-module/page'
+import { ElementDependantTypesService } from '@codelab/backend-domain-element'
+import { PageElementsService } from '@codelab/backend-domain-page'
+import { PageProperties } from '@codelab/shared-domain-module-page'
 
 export const PAGE_RESOLVER_PROVIDER = 'PAGE_RESOLVER_PROVIDER'
 

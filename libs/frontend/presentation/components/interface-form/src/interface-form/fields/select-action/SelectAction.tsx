@@ -1,14 +1,14 @@
 'use client'
 
 /* eslint-disable react/jsx-props-no-spreading */
-import type { IRuntimeModel } from '@codelab/frontend/abstract/application'
-import type { IRef } from '@codelab/shared/abstract/core'
+import type { IRuntimeModel } from '@codelab/frontend-abstract-application'
+import type { IRef } from '@codelab/shared-abstract-core'
 import type {
   Nullable,
   UniformSelectFieldProps,
-} from '@codelab/shared/abstract/types'
+} from '@codelab/shared-abstract-types'
 
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import { useFormContext } from '@codelab/frontend-presentation-components-form'
 import { SelectField } from 'uniforms-antd'
 

@@ -2,10 +2,10 @@
 import type {
   IPaginationData,
   ITypeCreateRoute,
-} from '@codelab/frontend/abstract/application'
-import type { TypeFragment } from '@codelab/shared/infra/gqlgen'
+} from '@codelab/frontend-abstract-application'
+import type { TypeFragment } from '@codelab/shared-infra-gqlgen'
 
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import { observer } from 'mobx-react-lite'
 import { isDefined } from 'remeda'
 

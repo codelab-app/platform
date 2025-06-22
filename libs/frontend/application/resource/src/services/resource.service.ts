@@ -1,20 +1,20 @@
-import type { IResourceService } from '@codelab/frontend/abstract/application'
-import type { IResourceModel } from '@codelab/frontend/abstract/domain'
+import type { IResourceService } from '@codelab/frontend-abstract-application'
+import type { IResourceModel } from '@codelab/frontend-abstract-domain'
 import type {
   ICreateResourceData,
   IPropDto,
   IResourceDto,
   IUpdateResourceData,
-} from '@codelab/shared/abstract/core'
-import type { ResourceWhere } from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-abstract-core'
+import type { ResourceWhere } from '@codelab/shared-infra-gqlgen'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend-abstract-application'
 import { resourceRepository } from '@codelab/frontend-domain-resource/repositories'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { Validator } from '@codelab/shared/infra/typebox'
-import { resourceApi } from '@codelab/shared-domain-module/resource'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
+import { Validator } from '@codelab/shared-infra-typebox'
+import { resourceApi } from '@codelab/shared-domain-module-resource'
 import { v4 } from 'uuid'
 
 export const useResourceService = (): IResourceService => {

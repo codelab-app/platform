@@ -1,7 +1,7 @@
 import type {
   UnionTypeTypesOfUnionTypeCreateInput,
   UnionTypeTypesOfUnionTypeUpdateInput,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
 import {
   connectTypesOfUnionType,

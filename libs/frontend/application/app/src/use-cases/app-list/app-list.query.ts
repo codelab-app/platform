@@ -1,4 +1,4 @@
-import { waitForTimeout } from '@codelab/frontend/shared/utils'
+import { waitForTimeout } from '@codelab/frontend-shared-utils'
 import { defaultAtomQuery } from '@codelab/frontend-application-atom/use-cases/atom-list/server'
 import { getServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
 import { appRepository } from '@codelab/frontend-domain-app/repositories'

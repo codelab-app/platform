@@ -1,10 +1,10 @@
 'use client'
 
-import type { IRuntimeContext } from '@codelab/frontend/abstract/application'
-import type { IInterfaceTypeModel } from '@codelab/frontend/abstract/domain'
-import type { FormProps, SubmitRef } from '@codelab/frontend/abstract/types'
-import type { IPropData } from '@codelab/shared/abstract/core'
-import type { ObjectLike } from '@codelab/shared/abstract/types'
+import type { IRuntimeContext } from '@codelab/frontend-abstract-application'
+import type { IInterfaceTypeModel } from '@codelab/frontend-abstract-domain'
+import type { FormProps, SubmitRef } from '@codelab/frontend-abstract-types'
+import type { IPropData } from '@codelab/shared-abstract-core'
+import type { ObjectLike } from '@codelab/shared-abstract-types'
 
 import { type SetIsLoading } from '@codelab/frontend-presentation-components-form'
 import { observer } from 'mobx-react-lite'

@@ -1,16 +1,16 @@
-import type { IResourceModel } from '@codelab/frontend/abstract/domain'
-import type { IPopover, SelectOption } from '@codelab/frontend/abstract/types'
+import type { IResourceModel } from '@codelab/frontend-abstract-domain'
+import type { IPopover, SelectOption } from '@codelab/frontend-abstract-types'
 import type {
   ICreateResourceData,
   IRef,
   IResourceDto,
   IResourceType,
   IUpdateResourceData,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import type {
   ResourceOptions,
   ResourceWhere,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
 import type { ICrudService, IQueryService } from '../services'
 

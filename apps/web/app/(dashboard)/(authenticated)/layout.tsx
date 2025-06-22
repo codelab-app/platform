@@ -1,4 +1,4 @@
-import type { LayoutProps } from '@codelab/frontend/abstract/types'
+import type { LayoutProps } from '@codelab/frontend-abstract-types'
 
 import { getServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
 import { preferenceQuery } from '@codelab/frontend-domain-preference/repositories'

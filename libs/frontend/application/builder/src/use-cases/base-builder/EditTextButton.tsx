@@ -1,4 +1,4 @@
-import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
+import type { IRuntimeElementModel } from '@codelab/frontend-abstract-application'
 
 import CheckOutlined from '@ant-design/icons/CheckOutlined'
 import EditOutlined from '@ant-design/icons/EditOutlined'

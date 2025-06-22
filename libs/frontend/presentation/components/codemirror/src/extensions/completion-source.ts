@@ -7,7 +7,7 @@ import type {
 import {
   LAST_WORD_AFTER_DOT_REGEX,
   WORD_BEFORE_DOT_REGEX,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 import {
   EXP_PATH_TEMPLATE_START_OPEN_REGEX,
   EXP_PATH_TEMPLATE_START_REGEX,

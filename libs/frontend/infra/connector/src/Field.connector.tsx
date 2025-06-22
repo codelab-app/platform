@@ -1,9 +1,9 @@
 'use client'
 
-import type { IAppModel, IFieldModel } from '@codelab/frontend/abstract/domain'
+import type { IAppModel, IFieldModel } from '@codelab/frontend-abstract-domain'
 import type { ReactNode } from 'react'
 
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import { Spinner } from 'libs/frontend/presentation/view/src/components/loader'
 import { observer } from 'mobx-react-lite'
 

@@ -1,4 +1,4 @@
-import type { UiKey } from '@codelab/frontend/abstract/types'
+import type { UiKey } from '@codelab/frontend-abstract-types'
 
 export interface ToolbarItem {
   ariaLabel?: string

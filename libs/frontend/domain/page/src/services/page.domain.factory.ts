@@ -1,4 +1,4 @@
-import type { IPageDomainFactory } from '@codelab/frontend/abstract/domain'
+import type { IPageDomainFactory } from '@codelab/frontend-abstract-domain'
 import type {
   IAppDto,
   IElementDto,
@@ -7,7 +7,7 @@ import type {
   IPageCreateFormData,
   IStoreDto,
   IUserDto,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 
 import { Store } from '@codelab/frontend-domain-store/store'
 import { InterfaceType } from '@codelab/frontend-domain-type/store'
@@ -15,8 +15,8 @@ import {
   IPageKind,
   IPageKindName,
   ITypeKind,
-} from '@codelab/shared/abstract/core'
-import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
+} from '@codelab/shared-abstract-core'
+import { ROOT_ELEMENT_NAME } from '@codelab/shared-config-env'
 import { v4 } from 'uuid'
 
 type IAppNode = Pick<IAppDto, 'id' | 'name'>

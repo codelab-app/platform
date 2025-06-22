@@ -1,21 +1,21 @@
-import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { AbstractRepository } from '@codelab/backend/infra/core'
+import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
+import { AbstractRepository } from '@codelab/backend-infra-core'
 import {
   type INodeType,
   type IRedirectDto,
   IRedirectTargetType,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import {
   connectNodeId,
   disconnectAll,
   reconnectNodeId,
-} from '@codelab/shared/domain/orm'
+} from '@codelab/shared-domain-orm'
 import {
   type RedirectOptions,
   type RedirectWhere,
-} from '@codelab/shared/infra/gqlgen'
-import { RedirectFragment } from '@codelab/shared/infra/gqlgen'
-import { redirectApi } from '@codelab/shared-domain-module/redirect'
+} from '@codelab/shared-infra-gqlgen'
+import { RedirectFragment } from '@codelab/shared-infra-gqlgen'
+import { redirectApi } from '@codelab/shared-domain-module-redirect'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

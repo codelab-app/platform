@@ -1,6 +1,6 @@
-import type { LayoutProps } from '@codelab/frontend/abstract/types'
+import type { LayoutProps } from '@codelab/frontend-abstract-types'
 
-import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
+import { DomainStoreHydrator } from '@codelab/frontend-infra-context'
 import { tagRepository } from '@codelab/frontend-domain-tag/repositories'
 
 const Layout = async ({ children, params }: LayoutProps<'tagIds'>) => {

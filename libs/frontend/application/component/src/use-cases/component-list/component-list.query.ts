@@ -2,7 +2,7 @@
 
 import { getServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
-import { componentServerActions } from '@codelab/shared-domain-module/component'
+import { componentServerActions } from '@codelab/shared-domain-module-component'
 import { revalidateTag } from 'next/cache'
 
 const { ComponentList } = componentServerActions

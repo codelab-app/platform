@@ -1,14 +1,14 @@
 import type {
   ITypeDomainService,
   ITypeModel,
-} from '@codelab/frontend/abstract/domain'
-import type { IInterfaceTypeDto, ITypeDto } from '@codelab/shared/abstract/core'
+} from '@codelab/frontend-abstract-domain'
+import type { IInterfaceTypeDto, ITypeDto } from '@codelab/shared-abstract-core'
 
-import { getFieldDomainService } from '@codelab/frontend/abstract/domain'
-import { ITypeKind } from '@codelab/shared/abstract/core'
-import { Maybe } from '@codelab/shared/abstract/types'
-import { type TypeFragment, TypeKind } from '@codelab/shared/infra/gqlgen'
-import { Validator } from '@codelab/shared/infra/typebox'
+import { getFieldDomainService } from '@codelab/frontend-abstract-domain'
+import { ITypeKind } from '@codelab/shared-abstract-core'
+import { Maybe } from '@codelab/shared-abstract-types'
+import { type TypeFragment, TypeKind } from '@codelab/shared-infra-gqlgen'
+import { Validator } from '@codelab/shared-infra-typebox'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop, Ref } from 'mobx-keystone'
 import { isDefined } from 'remeda'

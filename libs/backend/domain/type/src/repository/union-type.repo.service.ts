@@ -2,22 +2,22 @@ import type {
   INodeType,
   ITypeRef,
   IUnionTypeDto,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import type {
   UnionTypeOptions,
   UnionTypeWhere,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
-import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { AbstractRepository } from '@codelab/backend/infra/core'
-import { ITypeKind } from '@codelab/shared/abstract/core'
-import { UnionTypeFragment } from '@codelab/shared/infra/gqlgen'
+import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
+import { AbstractRepository } from '@codelab/backend-infra-core'
+import { ITypeKind } from '@codelab/shared-abstract-core'
+import { UnionTypeFragment } from '@codelab/shared-infra-gqlgen'
 import {
   createTypeApi,
   findTypeApi,
   unionTypeMapper,
   updateTypeApi,
-} from '@codelab/shared-domain-module/type'
+} from '@codelab/shared-domain-module-type'
 import { Injectable } from '@nestjs/common'
 
 const filterTypeIds = (

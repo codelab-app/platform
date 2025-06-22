@@ -5,9 +5,9 @@ import type {
   IInterfaceTypeRef,
   IRef,
   IStoreDto,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 
-import { ITypeKind } from '@codelab/shared/abstract/core'
+import { ITypeKind } from '@codelab/shared-abstract-core'
 import { v4 } from 'uuid'
 
 export const storeApiData = (): IInterfaceTypeDto => ({

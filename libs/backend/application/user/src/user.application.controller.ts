@@ -1,6 +1,6 @@
-import { CurrentUser } from '@codelab/backend/application/auth'
-import { UserDomainService, UserRepository } from '@codelab/backend/domain/user'
-import { type IUserDto, IUserSession } from '@codelab/shared/abstract/core'
+import { CurrentUser } from '@codelab/backend-application-auth'
+import { UserDomainService, UserRepository } from '@codelab/backend-domain-user'
+import { type IUserDto, IUserSession } from '@codelab/shared-abstract-core'
 import { Controller, Get, Post } from '@nestjs/common'
 import { startSpan } from '@sentry/nestjs'
 

@@ -1,8 +1,8 @@
 'use client'
 
-import type { IRuntimeModel } from '@codelab/frontend/abstract/application'
-import type { IElementTree } from '@codelab/frontend/abstract/domain'
-import type { Maybe } from '@codelab/shared/abstract/types'
+import type { IRuntimeModel } from '@codelab/frontend-abstract-application'
+import type { IElementTree } from '@codelab/frontend-abstract-domain'
+import type { Maybe } from '@codelab/shared-abstract-types'
 
 import { createContext, useContext } from 'react'
 

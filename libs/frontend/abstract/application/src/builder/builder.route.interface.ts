@@ -1,8 +1,8 @@
-import type { TreeViewClientProps } from '@codelab/frontend/abstract/types'
+import type { TreeViewClientProps } from '@codelab/frontend-abstract-types'
 import type {
   ObjectLike,
   UnknownObjectLike,
-} from '@codelab/shared/abstract/types'
+} from '@codelab/shared-abstract-types'
 
 import type {
   ComponentContextParams,

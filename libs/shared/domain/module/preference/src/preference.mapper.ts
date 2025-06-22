@@ -1,9 +1,9 @@
-import type { IMapper, IPreferenceDto } from '@codelab/shared/abstract/core'
+import type { IMapper, IPreferenceDto } from '@codelab/shared-abstract-core'
 import type {
   PreferenceCreateInput,
   PreferenceDeleteInput,
   PreferenceUpdateInput,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
 export const preferenceMapper: IMapper<
   IPreferenceDto,

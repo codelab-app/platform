@@ -2,7 +2,7 @@ import type {
   IAtomDto,
   IFieldDto,
   IUnionTypeDto,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import type {
   ActionTypeFragment,
   CodeMirrorTypeFragment,
@@ -11,7 +11,7 @@ import type {
   ReactNodeTypeFragment,
   RenderPropTypeFragment,
   RichTextTypeFragment,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
 /**
  * Allows transformation of any framework types to the core types

@@ -1,4 +1,4 @@
-import type { IResourceDto } from '@codelab/shared/abstract/core'
+import type { IResourceDto } from '@codelab/shared-abstract-core'
 import type { ObjectMap } from 'mobx-keystone'
 
 import type { IHydrateable } from '../shared'

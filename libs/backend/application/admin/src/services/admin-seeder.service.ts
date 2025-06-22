@@ -1,11 +1,11 @@
-import type { IAtomDto } from '@codelab/shared/abstract/core'
+import type { IAtomDto } from '@codelab/shared-abstract-core'
 
 import {
   ExtractAntDesignFieldsCommand,
   ExtractHtmlFieldsCommand,
-} from '@codelab/backend/application/type'
-import { antdTagTree, htmlTagTree } from '@codelab/backend/data/seed'
-import { antdAtomData, htmlAtomData } from '@codelab/shared/data/seed'
+} from '@codelab/backend-application-type'
+import { antdTagTree, htmlTagTree } from '@codelab/backend-data-seed'
+import { antdAtomData, htmlAtomData } from '@codelab/shared-data-seed'
 import { Injectable } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 

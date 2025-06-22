@@ -1,12 +1,12 @@
 import {
   BASE_DATA_PROD_PATH,
   getAtomsFromFiles,
-} from '@codelab/backend/application/data'
-import { CommandBusSubscription } from '@codelab/backend/infra/core'
-import { deleteFilesSync } from '@codelab/backend/shared/util'
-import { initUserContext } from '@codelab/backend/test/setup'
-import { IAtomCategory, IAtomType } from '@codelab/shared/abstract/core'
-import { isSubset } from '@codelab/shared/utils'
+} from '@codelab/backend-application-data'
+import { CommandBusSubscription } from '@codelab/backend-infra-core'
+import { deleteFilesSync } from '@codelab/backend-shared-util'
+import { initUserContext } from '@codelab/backend-test-setup'
+import { IAtomCategory, IAtomType } from '@codelab/shared-abstract-core'
+import { isSubset } from '@codelab/shared-utils'
 import { CommandBus } from '@nestjs/cqrs'
 import { copy, ensureDir, readdirSync, readFileSync, rmSync } from 'fs-extra'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment

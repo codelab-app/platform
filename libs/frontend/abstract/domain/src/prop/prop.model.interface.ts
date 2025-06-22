@@ -1,5 +1,5 @@
-import type { IPropData, IPropDto } from '@codelab/shared/abstract/core'
-import type { Nullable, ObjectLike } from '@codelab/shared/abstract/types'
+import type { IPropData, IPropDto } from '@codelab/shared-abstract-core'
+import type { Nullable, ObjectLike } from '@codelab/shared-abstract-types'
 import type { Frozen, Ref } from 'mobx-keystone'
 import type { ArrayOrSingle } from 'ts-essentials/dist/types'
 

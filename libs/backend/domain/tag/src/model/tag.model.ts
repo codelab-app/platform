@@ -1,4 +1,4 @@
-import type { IRef, ITagDto } from '@codelab/shared/abstract/core'
+import type { IRef, ITagDto } from '@codelab/shared-abstract-core'
 
 export class Tag implements ITagDto {
   children: Array<IRef>

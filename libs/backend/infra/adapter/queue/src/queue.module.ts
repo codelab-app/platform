@@ -1,4 +1,4 @@
-import { WsModule } from '@codelab/backend/infra/adapter/ws'
+import { WsModule } from '@codelab/backend-infra-adapter-ws'
 import { BullModule } from '@nestjs/bullmq'
 import { Module } from '@nestjs/common'
 

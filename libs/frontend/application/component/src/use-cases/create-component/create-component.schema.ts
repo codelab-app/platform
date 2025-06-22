@@ -1,4 +1,4 @@
-import type { ICreateComponentData } from '@codelab/shared/abstract/core'
+import type { ICreateComponentData } from '@codelab/shared-abstract-core'
 import type { JSONSchemaType } from 'ajv'
 
 import {

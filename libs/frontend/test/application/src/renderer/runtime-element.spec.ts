@@ -1,10 +1,10 @@
-import { RendererType } from '@codelab/frontend/abstract/application'
+import { RendererType } from '@codelab/frontend-abstract-application'
 import { RuntimeElementModel } from '@codelab/frontend-application-renderer/store'
 import {
   createTestStore,
   RootStoreProvider,
-} from '@codelab/frontend-infra-mobx/store'
-import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
+} from '@codelab/frontend-infra-mobx-store'
+import { IAtomType, IPageKind } from '@codelab/shared-abstract-core'
 import { render, screen } from '@testing-library/react'
 import { createElement } from 'react'
 

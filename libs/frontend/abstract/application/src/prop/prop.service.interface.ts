@@ -1,11 +1,11 @@
-import type { IPropModel } from '@codelab/frontend/abstract/domain'
+import type { IPropModel } from '@codelab/frontend-abstract-domain'
 import type {
   IPropCreateData,
   IPropDto,
   IPropUpdateData,
   IRef,
   IUpdatePropDataWithDefaultValues,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 
 import type { ICrudService } from '../services'
 

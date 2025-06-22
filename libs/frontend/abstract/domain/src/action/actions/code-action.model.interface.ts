@@ -1,4 +1,4 @@
-import type { IActionKind, ICodeActionDto } from '@codelab/shared/abstract/core'
+import type { IActionKind, ICodeActionDto } from '@codelab/shared-abstract-core'
 import type { Ref } from 'mobx-keystone'
 
 import type { IModel } from '../../shared'

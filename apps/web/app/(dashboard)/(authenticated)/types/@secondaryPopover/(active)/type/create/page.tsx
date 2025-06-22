@@ -1,4 +1,4 @@
-import type { PageProps } from '@codelab/frontend/abstract/types'
+import type { PageProps } from '@codelab/frontend-abstract-types'
 
 import { parsePageProps } from '@codelab/frontend-application-shared-store/router'
 import { CreateTypePopover } from '@codelab/frontend-application-type/use-cases/create-type'

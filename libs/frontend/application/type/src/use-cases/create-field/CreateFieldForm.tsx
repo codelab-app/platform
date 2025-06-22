@@ -1,20 +1,20 @@
 'use client'
 
-import type { IFieldCreateData } from '@codelab/shared/abstract/core'
+import type { IFieldCreateData } from '@codelab/shared-abstract-core'
 
-import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
+import { type IFormController, UiKey } from '@codelab/frontend-abstract-types'
 import {
   SelectDefaultValue,
   SelectFieldSibling,
-} from '@codelab/frontend/presentation/components/interface-form'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+} from '@codelab/frontend-presentation-components-interface-form'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import {
   DisplayIfField,
   Form,
   FormController,
 } from '@codelab/frontend-presentation-components-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
-import { PrimitiveTypeKind } from '@codelab/shared/infra/gqlgen'
+import { PrimitiveTypeKind } from '@codelab/shared-infra-gqlgen'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'

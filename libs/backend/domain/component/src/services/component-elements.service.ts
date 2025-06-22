@@ -1,10 +1,10 @@
-import type { ComponentFragment } from '@codelab/shared/infra/gqlgen'
+import type { ComponentFragment } from '@codelab/shared-infra-gqlgen'
 
-import { ElementRepository } from '@codelab/backend/domain/element'
+import { ElementRepository } from '@codelab/backend-domain-element'
 import {
   getComponentElements,
   Neo4jService,
-} from '@codelab/backend-infra-adapter/neo4j-driver'
+} from '@codelab/backend-infra-adapter-neo4j-driver'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

@@ -1,16 +1,16 @@
 import type {
   IElementModel,
   IElementRepository,
-} from '@codelab/frontend/abstract/domain'
-import type { IElementDto } from '@codelab/shared/abstract/core'
-import type { NextFetchOptions } from '@codelab/shared/abstract/types'
-import type { ElementOptions, ElementWhere } from '@codelab/shared/infra/gqlgen'
+} from '@codelab/frontend-abstract-domain'
+import type { IElementDto } from '@codelab/shared-abstract-core'
+import type { NextFetchOptions } from '@codelab/shared-abstract-types'
+import type { ElementOptions, ElementWhere } from '@codelab/shared-infra-gqlgen'
 
-import { Validator } from '@codelab/shared/infra/typebox'
+import { Validator } from '@codelab/shared-infra-typebox'
 import {
   elementMapper,
   elementServerActions,
-} from '@codelab/shared-domain-module/element'
+} from '@codelab/shared-domain-module-element'
 
 const { CreateElements, DeleteElements, ElementList, UpdateElements } =
   elementServerActions

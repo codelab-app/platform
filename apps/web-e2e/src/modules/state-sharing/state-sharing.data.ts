@@ -6,11 +6,11 @@ import type {
   IPageCreateFormData,
   IRef,
   IUserDto,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import type { APIRequestContext } from '@playwright/test'
 
-import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
-import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
+import { IAtomType, IPageKind } from '@codelab/shared-abstract-core'
+import { ROOT_ELEMENT_NAME } from '@codelab/shared-config-env'
 import { v4 } from 'uuid'
 
 import { requestOrThrow } from '../../api'

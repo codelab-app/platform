@@ -1,8 +1,8 @@
-import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
-import type { Rect } from '@codelab/frontend/shared/utils'
-import type { Nullable } from '@codelab/shared/abstract/types'
+import type { IRuntimeElementModel } from '@codelab/frontend-abstract-application'
+import type { Rect } from '@codelab/frontend-shared-utils'
+import type { Nullable } from '@codelab/shared-abstract-types'
 
-import { useScroll, useScrollIntoView } from '@codelab/frontend/shared/utils'
+import { useScroll, useScrollIntoView } from '@codelab/frontend-shared-utils'
 import { observer } from 'mobx-react-lite'
 import { type CSSProperties, useMemo } from 'react'
 import styled from 'styled-components'

@@ -1,6 +1,6 @@
 import type { Settings } from 'react-slick'
 
-import { initials } from '@codelab/shared/utils'
+import { initials } from '@codelab/shared-utils'
 import { faQuoteLeft, faStar } from '@fortawesome/pro-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Avatar, Card, Divider, Typography } from 'antd'

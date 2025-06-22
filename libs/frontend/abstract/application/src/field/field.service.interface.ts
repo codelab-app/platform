@@ -1,10 +1,10 @@
-import type { IFieldModel } from '@codelab/frontend/abstract/domain'
-import type { IPopover } from '@codelab/frontend/abstract/types'
+import type { IFieldModel } from '@codelab/frontend-abstract-domain'
+import type { IPopover } from '@codelab/frontend-abstract-types'
 import type {
   IFieldCreateData,
   IFieldUpdateData,
   IRef,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 
 import type { ICrudService } from '../services'
 import type {

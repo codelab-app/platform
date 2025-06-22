@@ -1,6 +1,6 @@
-import type { IPageDto, IRef } from '@codelab/shared/abstract/core'
+import type { IPageDto, IRef } from '@codelab/shared-abstract-core'
 
-import { IPageKind, IPageKindName } from '@codelab/shared/abstract/core'
+import { IPageKind, IPageKindName } from '@codelab/shared-abstract-core'
 
 export const providerPageId = 'b91c9256-da3e-4e16-b113-d0f2a173394b'
 export const notFoundPageId = '5bdbfb31-b9da-447b-a508-585aeecb33f2'

@@ -1,15 +1,15 @@
 import type {
   IRuntimeElementModel,
   IRuntimeElementService,
-} from '@codelab/frontend/abstract/application'
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-application'
+import type { IElementModel } from '@codelab/frontend-abstract-domain'
 import type { ObjectMap } from 'mobx-keystone'
 
 import {
   ElementStylePseudoClass,
   runtimeElementRef,
-} from '@codelab/frontend/abstract/application'
-import { elementRef } from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-application'
+import { elementRef } from '@codelab/frontend-abstract-domain'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 

@@ -1,17 +1,17 @@
-import type { ITagService } from '@codelab/frontend/abstract/application'
-import type { ITagModel } from '@codelab/frontend/abstract/domain'
+import type { ITagService } from '@codelab/frontend-abstract-application'
+import type { ITagModel } from '@codelab/frontend-abstract-domain'
 import type {
   ICreateTagData,
   IUpdateTagData,
-} from '@codelab/shared/abstract/core'
-import type { TagOptions, TagWhere } from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-abstract-core'
+import type { TagOptions, TagWhere } from '@codelab/shared-infra-gqlgen'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend-abstract-application'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { tagRepository } from '@codelab/frontend-domain-tag/repositories'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { Validator } from '@codelab/shared/infra/typebox'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
+import { Validator } from '@codelab/shared-infra-typebox'
 import { atom, useAtom } from 'jotai'
 
 const checkedTagsAtom = atom<Array<string>>([])

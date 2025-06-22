@@ -3,7 +3,7 @@
 import {
   DomainStoreContext,
   type DomainStoreProviderProps,
-} from '@codelab/frontend-infra-mobx/context'
+} from '@codelab/frontend-infra-mobx-context'
 import { type PropsWithChildren } from 'react'
 
 export const DomainStoreProvider: React.FC<

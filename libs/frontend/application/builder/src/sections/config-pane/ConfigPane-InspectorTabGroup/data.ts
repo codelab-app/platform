@@ -1,4 +1,4 @@
-import { IConfigPaneTab } from '@codelab/shared/abstract/core'
+import { IConfigPaneTab } from '@codelab/shared-abstract-core'
 
 const tabTitles: { [key in IConfigPaneTab]: string } = {
   [IConfigPaneTab.Component]: 'Component',

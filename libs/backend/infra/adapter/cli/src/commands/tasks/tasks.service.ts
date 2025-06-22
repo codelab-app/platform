@@ -1,11 +1,11 @@
 import type { Argv, CommandModule } from 'yargs'
 
-import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
+import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
 import {
   execCommand,
   globalHandler,
-} from '@codelab/backend/infra/adapter/shell'
-import { Stage } from '@codelab/shared/abstract/core'
+} from '@codelab/backend-infra-adapter-shell'
+import { Stage } from '@codelab/shared-abstract-core'
 import { Injectable } from '@nestjs/common'
 import { LazyModuleLoader } from '@nestjs/core'
 import { spawn } from 'child_process'

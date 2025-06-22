@@ -5,11 +5,11 @@ import type {
   IRuntimeComponentModel,
   IRuntimePageModel,
   ITypedPropTransformer,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 import type {
   IComponentModel,
   IPageModel,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 
 import {
@@ -20,13 +20,13 @@ import {
   RendererType,
   runtimeComponentRef,
   runtimePageRef,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 import {
   componentRef,
   isPage,
   pageRef,
-} from '@codelab/frontend/abstract/domain'
-import { Validator } from '@codelab/shared/infra/typebox'
+} from '@codelab/frontend-abstract-domain'
+import { Validator } from '@codelab/shared-infra-typebox'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 

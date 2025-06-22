@@ -1,4 +1,4 @@
-import type { IElementDto } from '@codelab/shared/abstract/core'
+import type { IElementDto } from '@codelab/shared-abstract-core'
 
 import { v4 } from 'uuid'
 

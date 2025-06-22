@@ -1,4 +1,4 @@
-import type { IUserDto } from '@codelab/shared/abstract/core'
+import type { IUserDto } from '@codelab/shared-abstract-core'
 
 import {
   type IActionDomainService,
@@ -17,7 +17,7 @@ import {
   type ITagDomainService,
   type ITypeDomainService,
   type IUserDomainService,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 import {
   actionDomainServiceContext,
   appDomainServiceContext,
@@ -34,7 +34,7 @@ import {
   tagDomainServiceContext,
   typeDomainServiceContext,
   userDomainServiceContext,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 import { ActionDomainService } from '@codelab/frontend-domain-action/services'
 import { AppDomainService } from '@codelab/frontend-domain-app/services'
 import { AtomDomainService } from '@codelab/frontend-domain-atom/services'

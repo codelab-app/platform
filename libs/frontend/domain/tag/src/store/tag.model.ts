@@ -3,23 +3,23 @@ import type {
   ITagNodeData,
   ITreeNode,
   IUserModel,
-} from '@codelab/frontend/abstract/domain'
-import type { ITagDto } from '@codelab/shared/abstract/core'
+} from '@codelab/frontend-abstract-domain'
+import type { ITagDto } from '@codelab/shared-abstract-core'
 import type {
   TagCreateInput,
   TagUpdateInput,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 import type { Ref } from 'mobx-keystone'
 
 import {
   getUserDomainService,
   userRef,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 import {
   connectNodeId,
   connectOwner,
   reconnectNodeId,
-} from '@codelab/shared/domain/orm'
+} from '@codelab/shared-domain-orm'
 import { computed } from 'mobx'
 import {
   detach,

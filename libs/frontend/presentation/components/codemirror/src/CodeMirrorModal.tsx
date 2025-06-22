@@ -1,4 +1,4 @@
-import type { Nullish } from '@codelab/shared/abstract/types'
+import type { Nullish } from '@codelab/shared-abstract-types'
 import type { UseCodeMirror } from '@uiw/react-codemirror'
 
 import { useCodeMirror } from '@uiw/react-codemirror'

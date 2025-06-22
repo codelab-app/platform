@@ -1,5 +1,5 @@
-import { getUiDataKey, type UiKey } from '@codelab/frontend/abstract/types'
-import { kebabCase } from '@codelab/shared/utils'
+import { getUiDataKey, type UiKey } from '@codelab/frontend-abstract-types'
+import { kebabCase } from '@codelab/shared-utils'
 
 /**
  * These are unique testid selector used for e2e testing

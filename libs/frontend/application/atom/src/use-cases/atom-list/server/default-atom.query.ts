@@ -1,6 +1,6 @@
 import { getServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
 import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
-import { AtomType } from '@codelab/shared/infra/gqlgen'
+import { AtomType } from '@codelab/shared-infra-gqlgen'
 import { cache } from 'react'
 import 'server-only'
 

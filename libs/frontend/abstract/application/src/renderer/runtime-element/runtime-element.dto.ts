@@ -1,4 +1,4 @@
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
+import type { IElementModel } from '@codelab/frontend-abstract-domain'
 import type { Ref } from 'mobx-keystone'
 
 import type { IRuntimeElementPropModel } from '../runtime-prop'

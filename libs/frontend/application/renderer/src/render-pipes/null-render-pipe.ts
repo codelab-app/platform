@@ -2,7 +2,7 @@ import type {
   IRenderOutput,
   IRenderPipe,
   IRuntimeElementModel,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 
 import { ExtendedModel, model } from 'mobx-keystone'
 

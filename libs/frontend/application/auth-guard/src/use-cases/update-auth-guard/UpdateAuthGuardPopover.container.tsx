@@ -1,8 +1,8 @@
 'use client'
 
-import type { IRef } from '@codelab/shared/abstract/core'
+import type { IRef } from '@codelab/shared-abstract-core'
 
-import { AuthGuardConnector } from '@codelab/frontend/infra/connector'
+import { AuthGuardConnector } from '@codelab/frontend-infra-connector'
 
 import { UpdateAuthGuardPopover } from './UpdateAuthGuardPopover'
 

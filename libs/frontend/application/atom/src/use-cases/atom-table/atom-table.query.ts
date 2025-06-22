@@ -1,9 +1,9 @@
-import type { SearchParamsClientProps } from '@codelab/frontend/abstract/types'
+import type { SearchParamsClientProps } from '@codelab/frontend-abstract-types'
 
 import { graphqlFilterMatches } from '@codelab/frontend-application-shared-store/pagination'
 import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
-import { logTimestampMs } from '@codelab/shared/infra/logging'
+import { logTimestampMs } from '@codelab/shared-infra-logging'
 import 'server-only'
 
 export const atomTableQuery = async ({

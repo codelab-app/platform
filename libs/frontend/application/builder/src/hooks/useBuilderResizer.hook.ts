@@ -1,7 +1,7 @@
 import type { PointerEvent } from 'react'
 
 import { usePreferenceService } from '@codelab/frontend-application-preference/services'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import { useState } from 'react'
 
 export type ResizeHandlerSide = 'after' | 'before'

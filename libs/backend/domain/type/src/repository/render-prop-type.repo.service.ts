@@ -1,21 +1,21 @@
 import type {
   INodeType,
   IRenderPropTypeDto,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import type {
   RenderPropTypeOptions,
   RenderPropTypeWhere,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
-import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { AbstractRepository } from '@codelab/backend/infra/core'
-import { RenderPropTypeFragment } from '@codelab/shared/infra/gqlgen'
+import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
+import { AbstractRepository } from '@codelab/backend-infra-core'
+import { RenderPropTypeFragment } from '@codelab/shared-infra-gqlgen'
 import {
   createTypeApi,
   findTypeApi,
   renderPropTypeMapper,
   updateTypeApi,
-} from '@codelab/shared-domain-module/type'
+} from '@codelab/shared-domain-module-type'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

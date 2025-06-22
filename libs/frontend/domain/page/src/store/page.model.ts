@@ -4,9 +4,9 @@ import type {
   IPageModel,
   IRedirectModel,
   IStoreModel,
-} from '@codelab/frontend/abstract/domain'
-import type { IPageDto } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
+} from '@codelab/frontend-abstract-domain'
+import type { IPageDto } from '@codelab/shared-abstract-core'
+import type { Maybe } from '@codelab/shared-abstract-types'
 import type { Ref } from 'mobx-keystone'
 
 import {
@@ -16,9 +16,9 @@ import {
   getUserDomainService,
   redirectRef,
   storeRef,
-} from '@codelab/frontend/abstract/domain'
-import { IPageKind } from '@codelab/shared/abstract/core'
-import { slugify } from '@codelab/shared/utils'
+} from '@codelab/frontend-abstract-domain'
+import { IPageKind } from '@codelab/shared-abstract-core'
+import { slugify } from '@codelab/shared-utils'
 import { computed } from 'mobx'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 

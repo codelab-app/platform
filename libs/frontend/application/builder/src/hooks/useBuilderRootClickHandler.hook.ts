@@ -4,7 +4,7 @@ import {
   BUILDER_CONTAINER_ID,
   DATASET_COMPONENT_ID,
   DATASET_ELEMENT_ID,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 
 export const useBuilderRootClickHandler = () => {
   const handleContainerClick: MouseEventHandler<HTMLDivElement> = (event) => {

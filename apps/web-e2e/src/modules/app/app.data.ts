@@ -3,10 +3,10 @@ import type {
   IAtomType,
   IComponentType,
   IPageCreateSeedData,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import type { APIRequestContext } from '@playwright/test'
 
-import { logTimestamp } from '@codelab/shared/infra/logging'
+import { logTimestamp } from '@codelab/shared-infra-logging'
 
 import { jobOutputRequest } from '../../job-request'
 import { REQUEST_TIMEOUT } from '../../setup/config'

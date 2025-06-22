@@ -6,7 +6,7 @@ import {
   getUiDataKey,
   getUiDataLabel,
   type UiKey,
-} from '@codelab/frontend/abstract/types'
+} from '@codelab/frontend-abstract-types'
 import { observer } from 'mobx-react-lite'
 
 import type { CuiSidebarToolbarProps } from '../../views'

@@ -2,10 +2,10 @@ import type {
   ITagDto,
   TagNode,
   TagNodeData,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 
-import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
-import { TagRepository } from '@codelab/backend/domain/tag'
+import { AuthDomainService } from '@codelab/backend-domain-shared-auth'
+import { TagRepository } from '@codelab/backend-domain-tag'
 import { Injectable } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 import { uniqueBy } from 'remeda'

@@ -1,12 +1,12 @@
-import type { IActionDomainService } from '@codelab/frontend/abstract/domain'
+import type { IActionDomainService } from '@codelab/frontend-abstract-domain'
 import type {
   IApiActionDto,
   ICodeActionDto,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 
 import { propFactory } from '@codelab/frontend-domain-prop/test'
 import { chance } from '@codelab/frontend-domain-shared'
-import { IActionKind } from '@codelab/shared/abstract/core'
+import { IActionKind } from '@codelab/shared-abstract-core'
 import { v4 } from 'uuid'
 
 export const codeActionFactory =

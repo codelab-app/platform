@@ -1,7 +1,7 @@
-import { UserDomainModule, UserRepository } from '@codelab/backend/domain/user'
-import { initUserContext } from '@codelab/backend/test/setup'
-import { IConfigPaneTab } from '@codelab/shared/abstract/core'
-import { BreakpointType } from '@codelab/shared/infra/gqlgen'
+import { UserDomainModule, UserRepository } from '@codelab/backend-domain-user'
+import { initUserContext } from '@codelab/backend-test-setup'
+import { IConfigPaneTab } from '@codelab/shared-abstract-core'
+import { BreakpointType } from '@codelab/shared-infra-gqlgen'
 import { v4 } from 'uuid'
 
 import { Tag } from '../model'

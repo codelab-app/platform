@@ -1,7 +1,7 @@
-import type { IAppDto } from '@codelab/shared/abstract/core'
+import type { IAppDto } from '@codelab/shared-abstract-core'
 
-import { providerPageId } from '@codelab/shared/data/test'
-import { logTimestamp } from '@codelab/shared/infra/logging'
+import { providerPageId } from '@codelab/shared-data-test'
+import { logTimestamp } from '@codelab/shared-infra-logging'
 import { expect } from '@playwright/test'
 
 import { globalBeforeAll } from '../../setup/before-all'

@@ -1,7 +1,7 @@
-import type { IJobOutput } from '@codelab/shared/abstract/infra'
+import type { IJobOutput } from '@codelab/shared-abstract-infra'
 import type { Socket } from 'socket.io-client'
 
-import { getTimestamp } from '@codelab/shared/infra/logging'
+import { getTimestamp } from '@codelab/shared-infra-logging'
 import { io } from 'socket.io-client'
 
 /**

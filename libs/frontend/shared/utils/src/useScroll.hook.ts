@@ -1,13 +1,13 @@
 'use client'
 
-import type { Nullable } from '@codelab/shared/abstract/types'
+import type { Nullable } from '@codelab/shared-abstract-types'
 /**
  * useScroll React custom hook
  * Usage:
  *    const { scrollX, scrollY, scrollDirection } = useScroll();
  * Original Source: https://gist.github.com/joshuacerbito/ea318a6a7ca4336e9fadb9ae5bbb87f4
  */
-import { isServer } from '@codelab/shared/utils'
+import { isServer } from '@codelab/shared-utils'
 import { useEffect, useState } from 'react'
 
 import type { Rect } from './geometry'

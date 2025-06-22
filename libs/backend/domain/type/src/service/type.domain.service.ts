@@ -2,7 +2,7 @@ import {
   IInterfaceTypeDto,
   ITypeDto,
   ITypeKind,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import { Injectable } from '@nestjs/common'
 
 import { TypeFactory } from '../factory'

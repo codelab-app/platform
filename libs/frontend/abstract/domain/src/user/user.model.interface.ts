@@ -1,4 +1,4 @@
-import type { IRole, IUserDto } from '@codelab/shared/abstract/core'
+import type { IRole, IUserDto } from '@codelab/shared-abstract-core'
 
 import type { IPreferenceModel } from '../preference'
 import type { IModel } from '../shared'

@@ -1,16 +1,16 @@
-import type { IRedirectDto, IRef } from '@codelab/shared/abstract/core'
-import type { NextFetchOptions } from '@codelab/shared/abstract/types'
+import type { IRedirectDto, IRef } from '@codelab/shared-abstract-core'
+import type { NextFetchOptions } from '@codelab/shared-abstract-types'
 import type {
   RedirectOptions,
   RedirectWhere,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
-import { type IRedirectRepository } from '@codelab/frontend/abstract/domain'
-import { Validator } from '@codelab/shared/infra/typebox'
+import { type IRedirectRepository } from '@codelab/frontend-abstract-domain'
+import { Validator } from '@codelab/shared-infra-typebox'
 import {
   redirectMapper,
   redirectServerActions,
-} from '@codelab/shared-domain-module/redirect'
+} from '@codelab/shared-domain-module-redirect'
 
 const {
   CreateRedirects,

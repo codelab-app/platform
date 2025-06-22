@@ -1,5 +1,5 @@
-import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { LogClassMethod } from '@codelab/backend/infra/core'
+import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
+import { LogClassMethod } from '@codelab/backend-infra-core'
 import { Injectable } from '@nestjs/common'
 
 import { Neo4jService } from './neo4j.service'

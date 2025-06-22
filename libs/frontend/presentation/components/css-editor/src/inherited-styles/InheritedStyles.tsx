@@ -3,7 +3,7 @@
 import type {
   ElementCssRules,
   IRuntimeElementModel,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 
 import { Card, Typography } from 'antd'
 import { observer } from 'mobx-react-lite'

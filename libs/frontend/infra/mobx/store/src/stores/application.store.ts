@@ -12,12 +12,12 @@ import {
   runtimeComponentServiceContext,
   runtimeElementServiceContext,
   runtimePageServiceContext,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 import {
   componentDomainServiceContext,
   type IDomainStore,
   userDomainServiceContext,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 import { BuilderService } from '@codelab/frontend-application-builder/services'
 import {
   RendererService,

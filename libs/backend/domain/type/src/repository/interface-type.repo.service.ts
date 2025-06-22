@@ -2,27 +2,27 @@ import type {
   IInterfaceTypeDto,
   INodeType,
   ITypeRef,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import type {
   InterfaceTypeOptions,
   InterfaceTypeWhere,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 import type { Static, TAnySchema } from '@sinclair/typebox'
 
-import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { AbstractRepository } from '@codelab/backend/infra/core'
+import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
+import { AbstractRepository } from '@codelab/backend-infra-core'
 import {
   getDependentTypes,
   Neo4jService,
-} from '@codelab/backend-infra-adapter/neo4j-driver'
-import { InterfaceTypeFragment } from '@codelab/shared/infra/gqlgen'
-import { Validator } from '@codelab/shared/infra/typebox'
+} from '@codelab/backend-infra-adapter-neo4j-driver'
+import { InterfaceTypeFragment } from '@codelab/shared-infra-gqlgen'
+import { Validator } from '@codelab/shared-infra-typebox'
 import {
   createTypeApi,
   findTypeApi,
   interfaceTypeMapper,
   updateTypeApi,
-} from '@codelab/shared-domain-module/type'
+} from '@codelab/shared-domain-module-type'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

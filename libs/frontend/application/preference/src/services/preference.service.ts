@@ -1,8 +1,8 @@
-import type { IPreferenceService } from '@codelab/frontend/abstract/application'
-import type { IUpdatePreferenceData } from '@codelab/frontend/abstract/domain'
+import type { IPreferenceService } from '@codelab/frontend-abstract-application'
+import type { IUpdatePreferenceData } from '@codelab/frontend-abstract-domain'
 
 import { preferenceRepository } from '@codelab/frontend-domain-preference/repositories'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 
 export const usePreferenceService = (): IPreferenceService => {
   const { userDomainService } = useDomainStore()

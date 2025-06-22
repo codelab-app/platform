@@ -2,26 +2,26 @@ import type {
   IActionOptions,
   IActionRepository,
   IActionWhere,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 import type {
   IActionDto,
   IActionRef,
   IRef,
-} from '@codelab/shared/abstract/core'
-import type { NextFetchOptions } from '@codelab/shared/abstract/types'
+} from '@codelab/shared-abstract-core'
+import type { NextFetchOptions } from '@codelab/shared-abstract-types'
 
-import { IActionKind } from '@codelab/shared/abstract/core'
-import { Validator } from '@codelab/shared/infra/typebox'
+import { IActionKind } from '@codelab/shared-abstract-core'
+import { Validator } from '@codelab/shared-infra-typebox'
 import {
   apiActionMapper,
   codeActionMapper,
-} from '@codelab/shared-domain-module/action'
+} from '@codelab/shared-domain-module-action'
 import {
   actionCreateServerActions,
   actionDeleteServerActions,
   actionGetServerActions,
   actionUpdateServerActions,
-} from '@codelab/shared-domain-module/store'
+} from '@codelab/shared-domain-module-store'
 
 const { CreateApiActions, CreateCodeActions } = actionCreateServerActions
 const { UpdateApiActions, UpdateCodeActions } = actionUpdateServerActions

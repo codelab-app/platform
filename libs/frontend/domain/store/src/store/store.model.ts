@@ -3,9 +3,9 @@ import type {
   IInterfaceTypeModel,
   IPageModel,
   IStoreModel,
-} from '@codelab/frontend/abstract/domain'
-import type { IStoreDto } from '@codelab/shared/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
+} from '@codelab/frontend-abstract-domain'
+import type { IStoreDto } from '@codelab/shared-abstract-core'
+import type { Nullable } from '@codelab/shared-abstract-types'
 import type { Ref } from 'mobx-keystone'
 
 import {
@@ -13,9 +13,9 @@ import {
   getActionDomainService,
   pageRef,
   typeRef,
-} from '@codelab/frontend/abstract/domain'
-import { ITypeKind } from '@codelab/shared/abstract/core'
-import { createStoreName } from '@codelab/shared-domain-module/store'
+} from '@codelab/frontend-abstract-domain'
+import { ITypeKind } from '@codelab/shared-abstract-core'
+import { createStoreName } from '@codelab/shared-domain-module-store'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 

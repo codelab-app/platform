@@ -1,4 +1,4 @@
-import type { Identity } from '@codelab/shared/abstract/types'
+import type { Identity } from '@codelab/shared-abstract-types'
 
 import type { UrlParams } from './url-params'
 

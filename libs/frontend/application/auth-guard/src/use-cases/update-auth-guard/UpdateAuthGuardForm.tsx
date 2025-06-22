@@ -3,10 +3,10 @@
 import type {
   IAuthGuardModel,
   IAuthGuardUpdateFormData,
-} from '@codelab/frontend/abstract/domain'
-import type { IFormController } from '@codelab/frontend/abstract/types'
+} from '@codelab/frontend-abstract-domain'
+import type { IFormController } from '@codelab/frontend-abstract-types'
 
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend-abstract-types'
 import {
   ResourceFetchConfigField,
   ResourceTestRequest,

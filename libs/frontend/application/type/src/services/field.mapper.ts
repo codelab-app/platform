@@ -1,5 +1,5 @@
-import type { IFieldModel } from '@codelab/frontend/abstract/domain'
-import type { IFieldCreateData, IFieldDto } from '@codelab/shared/abstract/core'
+import type { IFieldModel } from '@codelab/frontend-abstract-domain'
+import type { IFieldCreateData, IFieldDto } from '@codelab/shared-abstract-core'
 
 import { isDefined } from 'remeda'
 

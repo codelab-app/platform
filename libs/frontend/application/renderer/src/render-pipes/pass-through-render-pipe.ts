@@ -2,10 +2,10 @@ import type {
   IRenderOutput,
   IRenderPipe,
   IRuntimeElementModel,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 
-import { isAtom } from '@codelab/frontend/abstract/domain'
-import { IAtomType } from '@codelab/shared/abstract/core'
+import { isAtom } from '@codelab/frontend-abstract-domain'
+import { IAtomType } from '@codelab/shared-abstract-core'
 import { ExtendedModel, model } from 'mobx-keystone'
 
 import { RenderOutput } from './render-output'
