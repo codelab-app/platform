@@ -15,9 +15,6 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { configureNestJsTypebox } from 'nestjs-typebox'
 
 import { AllExceptionsFilter } from './exceptions/all-exceptions.filter'
-// Instrument add this first
-// Need to make sure "module": "CommonJS", "ESNext" is processed in two phases
-import './instrument'
 import { RootModule } from './root.module'
 
 configureNestJsTypebox({

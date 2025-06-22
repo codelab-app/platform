@@ -6,8 +6,11 @@ import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
 import { NotFoundError } from '@codelab/shared-domain-errors'
 import { Validator } from '@codelab/shared-infra-typebox'
 import { Injectable } from '@nestjs/common'
-import { startSpan } from '@sentry/nestjs'
 import { chunk } from 'remeda'
+
+const startSpan = async <T>(options: any, callback: () => Promise<T>): Promise<T> => {
+  return callback()
+}
 
 @Injectable()
 export abstract class AbstractRepository<

@@ -8,22 +8,6 @@ import { ValidationException } from 'typebox-validators'
 @Injectable()
 @Catch()
 export class AllExceptionsFilter extends BaseExceptionFilter {
-  // constructor(
-  //   applicationRef: HttpServer,
-  //   private readonly logger: PinoLoggerService,
-  // ) {
-  //   super(applicationRef)
-  // }
-
-  /**
-   * Adding this decorator will capture all exceptions and log them to Sentry, by default only uncaught are captured
-   *
-   * We capture manually below
-   */
-  // @SentryExceptionCaptured()
-  /**
-   * This will catch all uncaught exceptions and log them to Sentry
-   */
   catch(exception: unknown, host: ArgumentsHost) {
     console.log('Exception class:', exception?.constructor?.name)
 
@@ -44,9 +28,6 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
 
       console.log(exception.toString())
 
-      // Log to both Sentry and file
-      // this.logger.logToSentry(logData)
-      // this.logger.logToFile(exception, 'tmp/logs/validation-errors.log')
 
       // Create an HTTP exception with validation error details
       const httpException = new HttpException(
@@ -58,13 +39,6 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
         400,
       )
 
-      // console.log(JSON.stringify(exception, null, 2))
-      // console.log(JSON.stringify(logData, null, 2))
-
-      // captureException(exception.toString(), {
-      //   // Not working, move to breadcrumb
-      //   // extra: logData,
-      // })
 
       // Rethrow the exception to stop the application
       throw exception

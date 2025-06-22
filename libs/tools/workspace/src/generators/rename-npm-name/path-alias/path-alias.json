@@ -1669,11 +1669,6 @@
     "path": "libs/shared/infra/eval/src/index.ts",
     "name": "shared-infra-eval"
   },
-  "@codelab/shared-infra-sentry": {
-    "expected": "@codelab/shared-infra-sentry",
-    "path": "libs/shared/infra/sentry/src/index.ts",
-    "name": "shared-infra-sentry"
-  },
   "@codelab/shared/abstract/core": {
     "expected": "@codelab/shared-abstract-core",
     "path": "libs/shared/abstract/core/src/index.ts",

@@ -20,14 +20,12 @@ import {
 } from '@nestjs/common'
 import { APP_GUARD } from '@nestjs/core'
 import { CqrsModule } from '@nestjs/cqrs'
-import { SentryModule } from '@sentry/nestjs/setup'
 
 import { ApiModule } from './api/api.module'
 
 @Module({
   controllers: [HealthcheckController],
   imports: [
-    SentryModule.forRoot(),
     GraphqlModule.forRootAsync({
       imports: [GraphQLSchemaModule],
       inject: [SchemaService],

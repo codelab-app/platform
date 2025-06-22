@@ -68,8 +68,6 @@ Thumbs.db
 # Next.js
 .next
 out
-# Sentry Config File
-.env.sentry-build-plugin
 
 vite.config.*.timestamp*
 .aider*

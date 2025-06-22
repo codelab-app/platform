@@ -51,9 +51,6 @@ export const loggerConfig = registerAs('LOGGER_CONFIG', () => {
         .default('info')
         .asEnum(['verbose', 'debug', 'info', 'warn', 'error', 'fatal'])
     },
-    get sentryDsn() {
-      return get('SENTRY_DSN').required().asString()
-    },
     get enableDataForContext() {
       return get('API_LOG_ENABLE_DATA_FOR_CONTEXT')
         .default('')
