@@ -16,7 +16,8 @@ const config: Types.Config = {
     // Uncomment to run ESLint fix after code generation
     // afterAllFileWrite: ['pnpm eslint --fix'],
     afterAllFileWrite: [
-      'pnpm prettier --write',
+      // Doesn't seem to work
+      // 'pnpm prettier --write',
       (...files) => {
         /**
          * Can't remove these from codegen when using custom plugin, so we remove them here
