@@ -8,6 +8,7 @@ import type { DocumentTypeDecoration } from '@graphql-typed-document-node/core'
 
 import { getEnv } from '@codelab/shared-config-env'
 import { logger } from '@codelab/shared-infra-logging'
+import { cookies } from 'next/headers'
 import { revalidateTag } from 'next/cache'
 
 import { serverFetchWithAuth } from './server-fetch-with-auth'
@@ -24,15 +25,36 @@ export const gqlServerRequest = async <TResult, TVariables extends ObjectLike>(
    */
   next?: NextFetchOptions,
 ) => {
+  // Get cookies from the request
+  const cookieStore = await cookies()
+  const serviceId = cookieStore.get('x-service-id')?.value
+  const requestId = cookieStore.get('x-request-id')?.value
+
+  // Build headers including cookie values
+  const headers: Record<string, string> = {
+    Accept: 'application/graphql-response+json',
+    'Content-Type': 'application/json',
+  }
+
+  if (serviceId) {
+    headers['x-service-id'] = serviceId
+  }
+  if (requestId) {
+    headers['x-request-id'] = requestId
+  }
+
+  // Extract operation name from the query string
+  const queryString = document.toString()
+  const operationNameMatch = queryString.match(/(?:query|mutation|subscription)\s+(\w+)/)
+  const operationName = operationNameMatch ? operationNameMatch[1] : undefined
+
   const response = await serverFetchWithAuth(getEnv().endpoint.webGraphqlUrl, {
     body: JSON.stringify({
-      query: document,
+      query: queryString,
       variables,
+      operationName,
     }),
-    headers: {
-      Accept: 'application/graphql-response+json',
-      'Content-Type': 'application/json',
-    },
+    headers,
     method: 'POST',
   }).then((res) => {
     if (next?.revalidateTags) {

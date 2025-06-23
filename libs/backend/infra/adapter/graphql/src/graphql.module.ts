@@ -19,6 +19,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter'
 import { GraphQLModule } from '@nestjs/graphql'
 
 import { GraphqlService } from './graphql.service'
+import { serviceTrackingPlugin } from './service-tracking-plugin'
 
 /**
  * GraphQL request is not triggering the global guard
@@ -87,6 +88,7 @@ export class GraphqlModule {
               playground: false,
               plugins: [
                 ApolloServerPluginLandingPageLocalDefault(),
+                serviceTrackingPlugin,
                 // hiveApollo({
                 //   debug: true,
                 //   enabled: true,

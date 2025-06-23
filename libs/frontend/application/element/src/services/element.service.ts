@@ -26,6 +26,8 @@ import {
 } from '@codelab/frontend-infra-mobx-context'
 import { uniqueBy } from 'remeda'
 
+import { withServiceTracking } from './service-tracking'
+
 /**
  * Object declaration would create a new object on each usage of hook, causing any usage of service to be re-rendered
  */
@@ -92,24 +94,32 @@ export const useElementService = (): IElementService => {
    * When we create a new element, the selected node should stay at the parent
    */
   const create = async (data: IElementDto) => {
-    await loadElementRenderTypeApi(data)
+    return withServiceTracking(
+      { 
+        serviceName: 'element.service',
+        methodName: 'create'
+      },
+      async () => {
+        await loadElementRenderTypeApi(data)
 
-    const element = elementDomainService.addTreeNode(data)
+        const element = elementDomainService.addTreeNode(data)
 
-    /**
-     * We want to keep the selected node expanded, so we can see the children
-     */
-    if (selectedNode && isRuntimeElementRef(selectedNode)) {
-      // references fails to resolve when called by convertElementToComponent
-      selectedNode.maybeCurrent?.setExpanded(true)
-    }
+        /**
+         * We want to keep the selected node expanded, so we can see the children
+         */
+        if (selectedNode && isRuntimeElementRef(selectedNode)) {
+          // references fails to resolve when called by convertElementToComponent
+          selectedNode.maybeCurrent?.setExpanded(true)
+        }
 
-    await elementRepository.add(data, {
-      revalidateTags: [CACHE_TAGS.Element.list()],
-    })
-    await syncModifiedElements()
+        await elementRepository.add(data, {
+          revalidateTags: [CACHE_TAGS.Element.list()],
+        })
+        await syncModifiedElements()
 
-    return element
+        return element
+      }
+    )
   }
 
   const deleteElement = async (subRootElement: IElementModel) => {
