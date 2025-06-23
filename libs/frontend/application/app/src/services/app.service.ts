@@ -19,7 +19,6 @@ import {
   useUndoManager,
 } from '@codelab/frontend-infra-mobx-context'
 import { appApi } from '@codelab/shared-domain-module-app'
-import { withAsyncSpanFunc } from '@codelab/shared-infra-sentry'
 import { Validator } from '@codelab/shared-infra-typebox'
 
 import { createAppAction } from '../use-cases/create-app'
@@ -183,11 +182,11 @@ export const useAppService = (): IAppService => {
   }
 
   return {
-    create: withAsyncSpanFunc({ name: 'AppCreate' }, create),
+    create,
     getAll,
     getOne,
     regeneratePages: regeneratePagesForApp,
-    removeMany: withAsyncSpanFunc({ name: 'AppRemoveMany' }, removeMany),
+    removeMany,
     update,
   }
 }
