@@ -1,13 +1,13 @@
 'use client'
-import type { ITypeCreateFormData } from '@codelab/frontend/abstract/domain'
+import type { ITypeCreateFormData } from '@codelab/frontend-abstract-domain'
 
-import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
+import { type IFormController, UiKey } from '@codelab/frontend-abstract-types'
 import {
   Form,
   FormController,
 } from '@codelab/frontend-presentation-components-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
-import { ITypeKind } from '@codelab/shared/abstract/core'
+import { ITypeKind } from '@codelab/shared-abstract-core'
 import { AutoField, AutoFields, SelectField } from 'uniforms-antd'
 import { v4 } from 'uuid'
 

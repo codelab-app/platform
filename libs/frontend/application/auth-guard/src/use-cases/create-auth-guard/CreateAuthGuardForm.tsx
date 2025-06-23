@@ -1,6 +1,6 @@
-import type { IAuthGuardCreateFormData } from '@codelab/frontend/abstract/domain'
+import type { IAuthGuardCreateFormData } from '@codelab/frontend-abstract-domain'
 
-import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
+import { type IFormController, UiKey } from '@codelab/frontend-abstract-types'
 import {
   ResourceFetchConfigField,
   ResourceTestRequest,

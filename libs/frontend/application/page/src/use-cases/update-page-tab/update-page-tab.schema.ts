@@ -1,14 +1,14 @@
-import type { IPageUpdateFormData } from '@codelab/shared/abstract/core'
+import type { IPageUpdateFormData } from '@codelab/shared-abstract-core'
 import type { JSONSchemaType } from 'ajv'
 
-import { getSelectElementComponent } from '@codelab/frontend/presentation/components/interface-form'
 import {
   appSchema,
   idSchema,
   pageUrlSchema,
 } from '@codelab/frontend-presentation-components-form/schema'
-import { IPageKind } from '@codelab/shared/abstract/core'
-import { ElementTypeKind } from '@codelab/shared/infra/gqlgen'
+import { getSelectElementComponent } from '@codelab/frontend-presentation-components-interface-form'
+import { IPageKind } from '@codelab/shared-abstract-core'
+import { ElementTypeKind } from '@codelab/shared-infra-gqlgen'
 
 // pageContentContainer is not required in interface, but is required for _app page
 export const schema = (kind: IPageKind): JSONSchemaType<IPageUpdateFormData> =>

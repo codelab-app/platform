@@ -1,12 +1,12 @@
-import type { SelectOption } from '@codelab/frontend/abstract/types'
-import type { IRef } from '@codelab/shared/abstract/core'
+import type { SelectOption } from '@codelab/frontend-abstract-types'
+import type { IRef } from '@codelab/shared-abstract-core'
 
 import {
   type IAtomModel,
   type IElementModel,
   isAtom,
-} from '@codelab/frontend/abstract/domain'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+} from '@codelab/frontend-abstract-domain'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 
 export const useLoadOptions = ({
   parentComponent,

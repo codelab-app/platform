@@ -1,11 +1,11 @@
-import type { IInterfaceTypeDto, ITypeRef } from '@codelab/shared/abstract/core'
+import type { IInterfaceTypeDto, ITypeRef } from '@codelab/shared-abstract-core'
 import type {
   UnionTypeTypesOfUnionTypeCreateInput,
   UnionTypeTypesOfUnionTypeUpdateInput,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
-import { ITypeKind } from '@codelab/shared/abstract/core'
-import { titleCase } from '@codelab/shared/utils'
+import { ITypeKind } from '@codelab/shared-abstract-core'
+import { titleCase } from '@codelab/shared-utils'
 
 export const interfaceTypeDtoFactory = (
   dto: Pick<IInterfaceTypeDto, 'id' | 'name' | 'owner'>,

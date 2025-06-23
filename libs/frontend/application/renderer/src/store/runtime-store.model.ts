@@ -1,6 +1,6 @@
-import type { IStoreModel } from '@codelab/frontend/abstract/domain'
-import type { IPropData, IRef } from '@codelab/shared/abstract/core'
-import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import type { IStoreModel } from '@codelab/frontend-abstract-domain'
+import type { IPropData, IRef } from '@codelab/shared-abstract-core'
+import type { Maybe, Nullable } from '@codelab/shared-abstract-types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 
 import {
@@ -9,8 +9,8 @@ import {
   type IRuntimeStoreDto,
   type IRuntimeStoreModel,
   runtimeStoreRef,
-} from '@codelab/frontend/abstract/application'
-import { actionRef, isAtomRef } from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-application'
+import { actionRef, isAtomRef } from '@codelab/frontend-abstract-domain'
 import { propSafeStringify } from '@codelab/frontend-domain-prop/utils'
 import { computed, observable, reaction, set } from 'mobx'
 import {

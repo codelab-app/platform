@@ -1,6 +1,6 @@
 'use client'
 
-import type { IRootStore } from '@codelab/frontend/abstract/application'
+import type { IRootStore } from '@codelab/frontend-abstract-application'
 import type { UndoManager } from 'mobx-keystone'
 
 import { createContext, useContext } from 'react'

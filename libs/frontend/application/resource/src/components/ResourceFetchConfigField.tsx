@@ -1,9 +1,9 @@
-import type { IRef } from '@codelab/shared/abstract/core'
+import type { IRef } from '@codelab/shared-abstract-core'
 import type { Context } from 'uniforms'
 
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import { DisplayIfField } from '@codelab/frontend-presentation-components-form'
-import { IResourceType } from '@codelab/shared/abstract/core'
+import { IResourceType } from '@codelab/shared-abstract-core'
 import { observer } from 'mobx-react-lite'
 import { AutoField } from 'uniforms-antd'
 

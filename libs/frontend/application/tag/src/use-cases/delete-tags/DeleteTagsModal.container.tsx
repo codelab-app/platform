@@ -1,6 +1,6 @@
 'use client'
 
-import { TagsConnector } from '@codelab/frontend/infra/connector'
+import { TagsConnector } from '@codelab/frontend-infra-connector'
 
 import { DeleteTagsModal } from './DeleteTagsModal'
 

@@ -1,13 +1,13 @@
-import type { IRole, IUserDto } from '@codelab/shared/abstract/core'
+import type { IRole, IUserDto } from '@codelab/shared-abstract-core'
 import type {
   UserCreateInput,
   UserUpdateInput,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
 import {
   IPreferenceModel,
   type IUserModel,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 import { Preference } from '@codelab/frontend-domain-preference/store'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'

@@ -1,7 +1,7 @@
-import type { IAtomRendererRecord } from '@codelab/frontend/abstract/domain'
+import type { IAtomRendererRecord } from '@codelab/frontend-abstract-domain'
 
-import { dynamicLoader } from '@codelab/frontend/shared/utils'
-import { IAtomType } from '@codelab/shared/abstract/core'
+import { dynamicLoader } from '@codelab/frontend-shared-utils'
+import { IAtomType } from '@codelab/shared-abstract-core'
 
 // Nextjs components
 export const nextAtoms: IAtomRendererRecord = {

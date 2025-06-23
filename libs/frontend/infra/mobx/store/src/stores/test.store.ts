@@ -2,7 +2,7 @@ import type {
   IApplicationStore,
   IRendererDto,
   IRootStore,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 import type {
   IApiActionDto,
   IAppDto,
@@ -21,13 +21,13 @@ import type {
   IRenderPropTypeDto,
   IRichTextType,
   IStoreDto,
-} from '@codelab/shared/abstract/core'
-import type { PartialExcept } from '@codelab/shared/abstract/types'
+} from '@codelab/shared-abstract-core'
+import type { PartialExcept } from '@codelab/shared-abstract-types'
 
 import {
   rendererRef,
   RendererType,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 import {
   actionDomainServiceContext,
   appDomainServiceContext,
@@ -45,8 +45,7 @@ import {
   tagDomainServiceContext,
   typeDomainServiceContext,
   userDomainServiceContext,
-} from '@codelab/frontend/abstract/domain'
-import { userDto } from '@codelab/frontend/test/data'
+} from '@codelab/frontend-abstract-domain'
 import { rendererFactory } from '@codelab/frontend-application-renderer/test'
 import {
   apiActionFactory,
@@ -70,14 +69,15 @@ import {
   renderPropsTypeFactory,
   richTextTypeFactory,
 } from '@codelab/frontend-domain-type/test'
+import { userDto } from '@codelab/frontend-test-data'
 import {
   IAtomType,
   IPageKind,
   IPrimitiveTypeKind,
   ITypeKind,
-} from '@codelab/shared/abstract/core'
-import { ROOT_ELEMENT_NAME } from '@codelab/shared/config/env'
-import { Validator } from '@codelab/shared/infra/typebox'
+} from '@codelab/shared-abstract-core'
+import { ROOT_ELEMENT_NAME } from '@codelab/shared-config-env'
+import { Validator } from '@codelab/shared-infra-typebox'
 import {
   Model,
   model,

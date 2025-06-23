@@ -1,18 +1,18 @@
 'use client'
 
-import type { IRuntimeModel } from '@codelab/frontend/abstract/application'
-import type { IFormController } from '@codelab/frontend/abstract/types'
-import type { IElementDto } from '@codelab/shared/abstract/core'
+import type { IRuntimeModel } from '@codelab/frontend-abstract-application'
+import type { IFormController } from '@codelab/frontend-abstract-types'
+import type { IElementDto } from '@codelab/shared-abstract-core'
 
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend-abstract-types'
+import { useUser } from '@codelab/frontend-application-user/services'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
+import { Form } from '@codelab/frontend-presentation-components-form'
 import {
   SelectActionsField,
   SelectElementField,
-} from '@codelab/frontend/presentation/components/interface-form'
-import { useUser } from '@codelab/frontend-application-user/services'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { Form } from '@codelab/frontend-presentation-components-form'
-import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
+} from '@codelab/frontend-presentation-components-interface-form'
+import { IElementRenderTypeKind } from '@codelab/shared-abstract-core'
 import { observer } from 'mobx-react-lite'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'

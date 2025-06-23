@@ -1,8 +1,8 @@
 import type {
   IBuilderService,
   IRuntimeModel,
-} from '@codelab/frontend/abstract/application'
-import type { Nullable } from '@codelab/shared/abstract/types'
+} from '@codelab/frontend-abstract-application'
+import type { Nullable } from '@codelab/shared-abstract-types'
 import type { Ref } from 'mobx-keystone'
 
 import {
@@ -11,12 +11,12 @@ import {
   isRuntimeElement,
   isRuntimePage,
   runtimeElementRef,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 import {
   getAtomDomainService,
   getTagDomainService,
-} from '@codelab/frontend/abstract/domain'
-import { isNonNullable } from '@codelab/shared/utils'
+} from '@codelab/frontend-abstract-domain'
+import { isNonNullable } from '@codelab/shared-utils'
 import { computed } from 'mobx'
 import { Model, model, modelAction, prop } from 'mobx-keystone'
 import { groupBy } from 'remeda'

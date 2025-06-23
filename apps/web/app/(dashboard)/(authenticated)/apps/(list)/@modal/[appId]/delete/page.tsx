@@ -1,10 +1,10 @@
-import type { PageProps } from '@codelab/frontend/abstract/types'
+import type { PageProps } from '@codelab/frontend-abstract-types'
 import type { Metadata } from 'next'
 
-import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { appItemQuery } from '@codelab/frontend-application-app/use-cases/app-item'
 import { DeleteAppModalContainer } from '@codelab/frontend-application-app/use-cases/delete-app'
 import { parsePageProps } from '@codelab/frontend-application-shared-store/router'
+import { DomainStoreHydrator } from '@codelab/frontend-infra-context'
 
 export const metadata: Metadata = {
   title: 'Delete App | Codelab',

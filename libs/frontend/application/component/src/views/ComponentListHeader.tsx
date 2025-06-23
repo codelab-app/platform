@@ -1,8 +1,8 @@
+import { UserProfileMenu } from '@codelab/frontend-application-user/components'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,
-} from '@codelab/frontend/presentation/codelab-ui'
-import { UserProfileMenu } from '@codelab/frontend-application-user/components'
+} from '@codelab/frontend-presentation-codelab-ui'
 import { Image } from 'antd'
 
 export const ComponentListHeader = () => {

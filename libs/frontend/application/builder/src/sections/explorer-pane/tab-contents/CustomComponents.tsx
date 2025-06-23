@@ -1,12 +1,12 @@
 'use client'
 
-import type { IComponentModel } from '@codelab/frontend/abstract/domain'
+import type { IComponentModel } from '@codelab/frontend-abstract-domain'
 
-import { RoutePaths } from '@codelab/frontend/abstract/application'
-import { downloadJsonAsFile } from '@codelab/frontend/shared/utils'
+import { RoutePaths } from '@codelab/frontend-abstract-application'
 import { exportComponentService } from '@codelab/frontend-application-component/use-cases/export-component'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { slugify } from '@codelab/shared/utils'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
+import { downloadJsonAsFile } from '@codelab/frontend-shared-utils'
+import { slugify } from '@codelab/shared-utils'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import { useAsyncFn } from 'react-use'

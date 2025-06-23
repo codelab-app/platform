@@ -1,8 +1,8 @@
-import * as Types from '@codelab/shared/infra/gqlgen';
+import * as Types from '@codelab/shared-infra-gqlgen';
 
-import type { NextFetchOptions } from '@codelab/shared/abstract/types'
-import { gqlServerRequest } from '@codelab/shared/infra/fetch-server'
-import { CreateRedirectsDocument, DeleteRedirectsDocument, UpdateRedirectsDocument, GetRedirectsDocument, GetRedirectsPreviewDocument } from '@codelab/shared/infra/gqlgen'
+import type { NextFetchOptions } from '@codelab/shared-abstract-types'
+import { gqlServerRequest } from '@codelab/shared-infra-fetch-server'
+import { CreateRedirectsDocument, DeleteRedirectsDocument, UpdateRedirectsDocument, GetRedirectsDocument, GetRedirectsPreviewDocument } from '@codelab/shared-infra-gqlgen'
 
 export const CreateRedirects = (variables: Types.CreateRedirectsMutationVariables, next?: NextFetchOptions) => gqlServerRequest(CreateRedirectsDocument.toString(), variables, next)
 export const DeleteRedirects = (variables: Types.DeleteRedirectsMutationVariables, next?: NextFetchOptions) => gqlServerRequest(DeleteRedirectsDocument.toString(), variables, next)

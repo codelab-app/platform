@@ -1,8 +1,8 @@
-import * as Types from '@codelab/shared/infra/gqlgen';
+import * as Types from '@codelab/shared-infra-gqlgen';
 
-import type { NextFetchOptions } from '@codelab/shared/abstract/types'
-import { gqlServerRequest } from '@codelab/shared/infra/fetch-server'
-import { CreatePrimitiveTypesDocument, CreateArrayTypesDocument, CreateUnionTypesDocument, CreateInterfaceTypesDocument, CreateElementTypesDocument, CreateRenderPropTypesDocument, CreateReactNodeTypesDocument, CreateEnumTypesDocument, CreateLambdaTypesDocument, CreatePageTypesDocument, CreateAppTypesDocument, CreateRichTextTypesDocument, CreateActionTypesDocument, CreateCodeMirrorTypesDocument } from '@codelab/shared/infra/gqlgen'
+import type { NextFetchOptions } from '@codelab/shared-abstract-types'
+import { gqlServerRequest } from '@codelab/shared-infra-fetch-server'
+import { CreatePrimitiveTypesDocument, CreateArrayTypesDocument, CreateUnionTypesDocument, CreateInterfaceTypesDocument, CreateElementTypesDocument, CreateRenderPropTypesDocument, CreateReactNodeTypesDocument, CreateEnumTypesDocument, CreateLambdaTypesDocument, CreatePageTypesDocument, CreateAppTypesDocument, CreateRichTextTypesDocument, CreateActionTypesDocument, CreateCodeMirrorTypesDocument } from '@codelab/shared-infra-gqlgen'
 
 export const CreatePrimitiveTypes = (variables: Types.CreatePrimitiveTypesMutationVariables, next?: NextFetchOptions) => gqlServerRequest(CreatePrimitiveTypesDocument.toString(), variables, next)
 export const CreateArrayTypes = (variables: Types.CreateArrayTypesMutationVariables, next?: NextFetchOptions) => gqlServerRequest(CreateArrayTypesDocument.toString(), variables, next)

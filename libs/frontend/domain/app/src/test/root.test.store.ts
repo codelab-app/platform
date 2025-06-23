@@ -7,8 +7,7 @@ import {
   storeDomainServiceContext,
   typeDomainServiceContext,
   userDomainServiceContext,
-} from '@codelab/frontend/abstract/domain'
-import { userDto } from '@codelab/frontend/test/data'
+} from '@codelab/frontend-abstract-domain'
 import { AtomDomainService } from '@codelab/frontend-domain-atom/services'
 import { ElementDomainService } from '@codelab/frontend-domain-element/services'
 import { PageDomainService } from '@codelab/frontend-domain-page/services'
@@ -17,6 +16,7 @@ import { createRootDomainStore } from '@codelab/frontend-domain-shared'
 import { StoreDomainService } from '@codelab/frontend-domain-store/services'
 import { TypeDomainService } from '@codelab/frontend-domain-type/services'
 import { UserDomainService } from '@codelab/frontend-domain-user/services'
+import { userDto } from '@codelab/frontend-test-data'
 
 import { AppDomainService } from '../services/app.domain.service'
 

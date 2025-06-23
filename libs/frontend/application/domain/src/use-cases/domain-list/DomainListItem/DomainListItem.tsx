@@ -1,6 +1,6 @@
 'use client'
 
-import type { IDomainModel } from '@codelab/frontend/abstract/domain'
+import type { IDomainModel } from '@codelab/frontend-abstract-domain'
 
 import LinkOutlined from '@ant-design/icons/LinkOutlined'
 import { Card } from 'antd'

@@ -1,7 +1,7 @@
-import type { IExportDto } from '@codelab/shared/abstract/core'
+import type { IExportDto } from '@codelab/shared-abstract-core'
 
-import { jobSubscription } from '@codelab/frontend/infra/ws'
-import { getEnv } from '@codelab/shared/config/env'
+import { jobSubscription } from '@codelab/frontend-infra-ws'
+import { getEnv } from '@codelab/shared-config-env'
 
 import { queueAdminDataExportAction } from './queue-admin-data-export.action'
 

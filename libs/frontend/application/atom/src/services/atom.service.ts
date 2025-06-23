@@ -1,23 +1,23 @@
 'use client'
 
-import type { IAtomService } from '@codelab/frontend/abstract/application'
-import type { AtomOptions, AtomWhere } from '@codelab/shared/infra/gqlgen'
+import type { IAtomService } from '@codelab/frontend-abstract-application'
+import type { AtomOptions, AtomWhere } from '@codelab/shared-infra-gqlgen'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend-abstract-application'
 import {
   type IAtomModel,
   type ICreateAtomData,
   type IUpdateAtomData,
-} from '@codelab/frontend/abstract/domain'
-import { useDomainStoreHydrator } from '@codelab/frontend/infra/context'
+} from '@codelab/frontend-abstract-domain'
 import { useTypeService } from '@codelab/frontend-application-type/services'
 import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { typeRepository } from '@codelab/frontend-domain-type/repositories'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { type IRef, ITypeKind } from '@codelab/shared/abstract/core'
-import { Validator } from '@codelab/shared/infra/typebox'
+import { useDomainStoreHydrator } from '@codelab/frontend-infra-context'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
+import { type IRef, ITypeKind } from '@codelab/shared-abstract-core'
+import { Validator } from '@codelab/shared-infra-typebox'
 import queryString from 'query-string'
 import { isEmpty } from 'remeda'
 import { v4 } from 'uuid'

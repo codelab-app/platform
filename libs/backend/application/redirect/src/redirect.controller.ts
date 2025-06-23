@@ -1,16 +1,16 @@
-import { RedirectRepository } from '@codelab/backend/domain/redirect'
-import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { safeEval } from '@codelab/backend/shared/eval'
+import { RedirectRepository } from '@codelab/backend-domain-redirect'
+import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
+import { safeEval } from '@codelab/backend-shared-eval'
 import {
   type ICanActivate,
   IPageKind,
   IRedirectTargetType,
   type IResourceFetchConfig,
-} from '@codelab/shared/abstract/core'
-import { ObjectLike } from '@codelab/shared/abstract/types'
-import { tryParse } from '@codelab/shared/utils'
-import { getResourceClient } from '@codelab/shared-domain-module/resource'
+} from '@codelab/shared-abstract-core'
+import { ObjectLike } from '@codelab/shared-abstract-types'
+import { getResourceClient } from '@codelab/shared-domain-module-resource'
 import { evaluateObject } from '@codelab/shared-infra-eval'
+import { tryParse } from '@codelab/shared-utils'
 import { Body, Controller, Post } from '@nestjs/common'
 
 @Controller()

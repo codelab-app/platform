@@ -1,7 +1,7 @@
-import type { IAppDomainService } from '@codelab/frontend/abstract/domain'
+import type { IAppDomainService } from '@codelab/frontend-abstract-domain'
 
 import { chance } from '@codelab/frontend-domain-shared'
-import { type IAppDto } from '@codelab/shared/abstract/core'
+import { type IAppDto } from '@codelab/shared-abstract-core'
 import { v4 } from 'uuid'
 
 export const appFactory =

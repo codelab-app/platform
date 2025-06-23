@@ -1,7 +1,7 @@
-import type { IUserSession } from '@codelab/shared/abstract/core'
+import type { IUserSession } from '@codelab/shared-abstract-core'
 import type { ExecutionContext } from '@nestjs/common'
 
-import { User } from '@codelab/backend/domain/user'
+import { User } from '@codelab/backend-domain-user'
 import { createParamDecorator } from '@nestjs/common'
 import { GqlExecutionContext } from '@nestjs/graphql'
 

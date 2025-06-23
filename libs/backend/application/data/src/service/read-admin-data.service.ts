@@ -7,16 +7,16 @@ import type {
   ITagExport,
   ITypeDto,
   ITypeDtoWithoutOwner,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 
-import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
+import { AuthDomainService } from '@codelab/backend-domain-shared-auth'
 import {
   AtomAggregateSchema,
   TagExportSchema,
   TypeDtoSchema,
-} from '@codelab/shared/abstract/core'
-import { Validator } from '@codelab/shared/infra/typebox'
-import { titleCase } from '@codelab/shared/utils'
+} from '@codelab/shared-abstract-core'
+import { Validator } from '@codelab/shared-infra-typebox'
+import { titleCase } from '@codelab/shared-utils'
 import { Injectable, Scope } from '@nestjs/common'
 import fs from 'fs'
 import path from 'path'

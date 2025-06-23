@@ -4,7 +4,6 @@ exports.nxProjectConfigGenerator = void 0;
 const devkit_1 = require("@nx/devkit");
 const remove_test_targets_1 = require("./jest/remove-test-targets");
 const add_project_tags_1 = require("./project-tags/add-project-tags");
-const tsconfig_base_1 = require("./tsconfig/base/tsconfig.base");
 /**
  * Go through all projects and update the `lint` setting of `project.json`
  */
@@ -36,7 +35,7 @@ const nxProjectConfigGenerator = async (tree, options) => {
         // updateJestConfig(tree, projectConfig)
         (0, add_project_tags_1.addProjectTags)(tree, projectConfig);
         (0, remove_test_targets_1.updateTestTargets)(tree, projectConfig);
-        (0, tsconfig_base_1.updateBaseTsconfig)(tree, projectConfig);
+        // updateBaseTsconfig(tree, projectConfig)
         // updateLibraryTsconfig(tree, projectConfig)
         (0, devkit_1.updateProjectConfiguration)(tree, projectName, projectConfig);
     }
@@ -44,4 +43,4 @@ const nxProjectConfigGenerator = async (tree, options) => {
 };
 exports.nxProjectConfigGenerator = nxProjectConfigGenerator;
 exports.default = exports.nxProjectConfigGenerator;
-//# sourceMappingURL=generator.js.map
+//# sourceMappingURL=nx-project-config.js.map

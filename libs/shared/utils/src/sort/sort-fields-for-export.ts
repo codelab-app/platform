@@ -1,4 +1,4 @@
-import type { IFieldDto } from '@codelab/shared/abstract/core'
+import type { IFieldDto } from '@codelab/shared-abstract-core'
 
 /**
  * Sorts an array of fields based on their sibling relationships (prevSibling and nextSibling).

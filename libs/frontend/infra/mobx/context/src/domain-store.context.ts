@@ -1,6 +1,6 @@
 'use client'
 
-import type { IDomainStore } from '@codelab/frontend/abstract/domain'
+import type { IDomainStore } from '@codelab/frontend-abstract-domain'
 
 import { createContext, useContext } from 'react'
 

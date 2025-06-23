@@ -1,8 +1,8 @@
-import type { IAntDesignField } from '@codelab/backend/abstract/core'
-import type { ITypeDto } from '@codelab/shared/abstract/core'
-import type { DistributivePick } from '@codelab/shared/abstract/types'
+import type { IAntDesignField } from '@codelab/backend-abstract-core'
+import type { ITypeDto } from '@codelab/shared-abstract-core'
+import type { DistributivePick } from '@codelab/shared-abstract-types'
 
-import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared-abstract-core'
 
 import {
   isActionType,

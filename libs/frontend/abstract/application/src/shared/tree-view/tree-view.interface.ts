@@ -1,4 +1,4 @@
-import type { SearchParamsClientProps } from '@codelab/frontend/abstract/types'
+import type { SearchParamsClientProps } from '@codelab/frontend-abstract-types'
 
 import type { SupportedPaginationModel } from '../../services'
 

@@ -1,8 +1,8 @@
 import type {
   RenderTypeSelectOption,
   SelectOption,
-} from '@codelab/frontend/abstract/types'
-import type { IAtomDto } from '@codelab/shared/abstract/core'
+} from '@codelab/frontend-abstract-types'
+import type { IAtomDto } from '@codelab/shared-abstract-core'
 import type { ArraySet, ObjectMap } from 'mobx-keystone'
 
 import type { IComponentType } from '../renderer'

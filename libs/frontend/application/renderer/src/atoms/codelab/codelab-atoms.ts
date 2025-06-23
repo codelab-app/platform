@@ -1,8 +1,8 @@
-import type { IAtomRendererRecord } from '@codelab/frontend/abstract/domain'
+import type { IAtomRendererRecord } from '@codelab/frontend-abstract-domain'
 
-import { dynamicLoader } from '@codelab/frontend/shared/utils'
 import { TextEditor } from '@codelab/frontend-presentation-components-lexical'
-import { IAtomType } from '@codelab/shared/abstract/core'
+import { dynamicLoader } from '@codelab/frontend-shared-utils'
+import { IAtomType } from '@codelab/shared-abstract-core'
 
 // Custom atom components
 // Note: some of those are obsolete and replaced by hooks (or mobx platform when implemented)

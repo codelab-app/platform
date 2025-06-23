@@ -1,8 +1,8 @@
-import * as Types from '@codelab/shared/infra/gqlgen';
+import * as Types from '@codelab/shared-infra-gqlgen';
 
-import type { NextFetchOptions } from '@codelab/shared/abstract/types'
-import { gqlServerRequest } from '@codelab/shared/infra/fetch-server'
-import { CreateAppsDocument, UpdateAppsDocument, DeleteAppsDocument, AppListPreviewDocument, AppListDocument, GetAppProductionDocument } from '@codelab/shared/infra/gqlgen'
+import type { NextFetchOptions } from '@codelab/shared-abstract-types'
+import { gqlServerRequest } from '@codelab/shared-infra-fetch-server'
+import { CreateAppsDocument, UpdateAppsDocument, DeleteAppsDocument, AppListPreviewDocument, AppListDocument, GetAppProductionDocument } from '@codelab/shared-infra-gqlgen'
 
 export const CreateApps = (variables: Types.CreateAppsMutationVariables, next?: NextFetchOptions) => gqlServerRequest(CreateAppsDocument.toString(), variables, next)
 export const UpdateApps = (variables: Types.UpdateAppsMutationVariables, next?: NextFetchOptions) => gqlServerRequest(UpdateAppsDocument.toString(), variables, next)

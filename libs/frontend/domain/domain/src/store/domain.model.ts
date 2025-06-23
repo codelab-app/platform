@@ -1,10 +1,10 @@
-import type { IDomainModel } from '@codelab/frontend/abstract/domain'
-import type { IDomainDto, IRef } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
+import type { IDomainModel } from '@codelab/frontend-abstract-domain'
+import type { IDomainDto, IRef } from '@codelab/shared-abstract-core'
+import type { Maybe } from '@codelab/shared-abstract-types'
 import type {
   DomainDeleteInput,
   ProductionDomainConfig,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'

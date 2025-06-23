@@ -1,9 +1,9 @@
-import type { IAppDto } from '@codelab/shared/abstract/core'
+import type { IAppDto } from '@codelab/shared-abstract-core'
 
 import {
   type IAppDomainService,
   type IAppModel,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 

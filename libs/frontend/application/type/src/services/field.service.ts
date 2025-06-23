@@ -1,8 +1,8 @@
 import type {
   IFieldModel,
   IInterfaceTypeModel,
-} from '@codelab/frontend/abstract/domain'
-import type { IFieldCreateData, IRef } from '@codelab/shared/abstract/core'
+} from '@codelab/frontend-abstract-domain'
+import type { IFieldCreateData, IRef } from '@codelab/shared-abstract-core'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import {
@@ -11,11 +11,11 @@ import {
   type IFieldUpdateRoute,
   IRouteType,
   RoutePaths,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { fieldRepository } from '@codelab/frontend-domain-type/repositories'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { Validator } from '@codelab/shared/infra/typebox'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
+import { Validator } from '@codelab/shared-infra-typebox'
 import { filter, isTruthy, unique } from 'remeda'
 import { v4 } from 'uuid'
 

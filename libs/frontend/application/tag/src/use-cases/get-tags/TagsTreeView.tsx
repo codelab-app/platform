@@ -1,17 +1,17 @@
 'use client'
 
-import type { ITreeViewProps } from '@codelab/frontend/abstract/application'
+import type { ITreeViewProps } from '@codelab/frontend-abstract-application'
 import type {
   ITagModel,
   ITagNodeData,
   ITreeNode,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 import type { TreeProps } from 'antd'
 
-import { type CheckedKeys } from '@codelab/frontend/abstract/types'
-import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
+import { type CheckedKeys } from '@codelab/frontend-abstract-types'
 import { tagRef } from '@codelab/frontend-domain-tag/store'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
+import { CuiTree } from '@codelab/frontend-presentation-codelab-ui'
 import { observer } from 'mobx-react-lite'
 
 import { useTagService } from '../../services'

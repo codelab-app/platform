@@ -1,10 +1,10 @@
 'use client'
 
-import type { IAppModel } from '@codelab/frontend/abstract/domain'
+import type { IAppModel } from '@codelab/frontend-abstract-domain'
 
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { UiKey } from '@codelab/frontend/abstract/types'
-import { CuiSidebar } from '@codelab/frontend/presentation/codelab-ui'
+import { UiKey } from '@codelab/frontend-abstract-types'
+import { CuiSidebar } from '@codelab/frontend-presentation-codelab-ui'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 

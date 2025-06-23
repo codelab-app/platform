@@ -1,4 +1,4 @@
-import { IAtomType } from '@codelab/shared/abstract/core'
+import { IAtomType } from '@codelab/shared-abstract-core'
 import { ObjectTyped } from 'object-typed'
 
 const getAtomTypes = (prefix: string) =>

@@ -1,4 +1,4 @@
-import type { IRenderPipe } from '@codelab/frontend/abstract/application'
+import type { IRenderPipe } from '@codelab/frontend-abstract-application'
 
 import type { PassThroughRenderPipe } from './pass-through-render-pipe'
 

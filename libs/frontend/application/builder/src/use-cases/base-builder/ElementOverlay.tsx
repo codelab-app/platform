@@ -1,4 +1,4 @@
-import type { Rect } from '@codelab/frontend/shared/utils'
+import type { Rect } from '@codelab/frontend-shared-utils'
 
 import {
   type ISpacingValues,

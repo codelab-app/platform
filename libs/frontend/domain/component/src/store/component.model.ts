@@ -5,9 +5,9 @@ import type {
   IPropModel,
   IStoreModel,
   IUserModel,
-} from '@codelab/frontend/abstract/domain'
-import type { IComponentDto, IRef } from '@codelab/shared/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
+} from '@codelab/frontend-abstract-domain'
+import type { IComponentDto, IRef } from '@codelab/shared-abstract-core'
+import type { Nullable } from '@codelab/shared-abstract-types'
 import type { Ref } from 'mobx-keystone'
 
 import {
@@ -17,11 +17,11 @@ import {
   storeRef,
   typeRef,
   userRef,
-} from '@codelab/frontend/abstract/domain'
-import { toRefSchema } from '@codelab/frontend/shared/utils'
+} from '@codelab/frontend-abstract-domain'
 import { Prop } from '@codelab/frontend-domain-prop/store'
-import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
-import { slugify } from '@codelab/shared/utils'
+import { toRefSchema } from '@codelab/frontend-shared-utils'
+import { IElementRenderTypeKind } from '@codelab/shared-abstract-core'
+import { slugify } from '@codelab/shared-utils'
 import { computed } from 'mobx'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 

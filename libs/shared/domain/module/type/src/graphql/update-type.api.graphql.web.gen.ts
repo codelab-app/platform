@@ -1,8 +1,8 @@
-import * as Types from '@codelab/shared/infra/gqlgen';
+import * as Types from '@codelab/shared-infra-gqlgen';
 
-import type { NextFetchOptions } from '@codelab/shared/abstract/types'
-import { gqlServerRequest } from '@codelab/shared/infra/fetch-server'
-import { UpdatePrimitiveTypesDocument, UpdateArrayTypesDocument, UpdateUnionTypesDocument, UpdateInterfaceTypesDocument, UpdateReactNodeTypesDocument, UpdateElementTypesDocument, UpdateRenderPropTypesDocument, UpdateEnumTypesDocument, UpdateLambdaTypesDocument, UpdatePageTypesDocument, UpdateAppTypesDocument, UpdateRichTextTypesDocument, UpdateActionTypesDocument, UpdateCodeMirrorTypesDocument } from '@codelab/shared/infra/gqlgen'
+import type { NextFetchOptions } from '@codelab/shared-abstract-types'
+import { gqlServerRequest } from '@codelab/shared-infra-fetch-server'
+import { UpdatePrimitiveTypesDocument, UpdateArrayTypesDocument, UpdateUnionTypesDocument, UpdateInterfaceTypesDocument, UpdateReactNodeTypesDocument, UpdateElementTypesDocument, UpdateRenderPropTypesDocument, UpdateEnumTypesDocument, UpdateLambdaTypesDocument, UpdatePageTypesDocument, UpdateAppTypesDocument, UpdateRichTextTypesDocument, UpdateActionTypesDocument, UpdateCodeMirrorTypesDocument } from '@codelab/shared-infra-gqlgen'
 
 export const UpdatePrimitiveTypes = (variables: Types.UpdatePrimitiveTypesMutationVariables, next?: NextFetchOptions) => gqlServerRequest(UpdatePrimitiveTypesDocument.toString(), variables, next)
 export const UpdateArrayTypes = (variables: Types.UpdateArrayTypesMutationVariables, next?: NextFetchOptions) => gqlServerRequest(UpdateArrayTypesDocument.toString(), variables, next)

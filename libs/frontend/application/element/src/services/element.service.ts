@@ -1,6 +1,6 @@
 'use client'
 
-import type { IElementDto } from '@codelab/shared/abstract/core'
+import type { IElementDto } from '@codelab/shared-abstract-core'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import {
@@ -9,12 +9,12 @@ import {
   IRouteType,
   isRuntimeElementRef,
   RoutePaths,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 import {
   type IElementModel,
   type IMoveElementContext,
   type IUpdateElementData,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 import { useAtomService } from '@codelab/frontend-application-atom/services'
 import { usePropService } from '@codelab/frontend-application-prop/services'
 import { useTypeService } from '@codelab/frontend-application-type/services'
@@ -23,7 +23,7 @@ import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import {
   useApplicationStore,
   useDomainStore,
-} from '@codelab/frontend-infra-mobx/context'
+} from '@codelab/frontend-infra-mobx-context'
 import { uniqueBy } from 'remeda'
 
 /**

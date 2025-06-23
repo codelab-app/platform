@@ -1,6 +1,6 @@
 'use client'
 
-import { ResourceConnector } from '@codelab/frontend/infra/connector'
+import { ResourceConnector } from '@codelab/frontend-infra-connector'
 
 import { UpdateResourcePopover } from './UpdateResourcePopover'
 

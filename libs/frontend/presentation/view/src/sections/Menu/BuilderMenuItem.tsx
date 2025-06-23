@@ -1,8 +1,8 @@
-import type { BuilderContextParams } from '@codelab/frontend/abstract/application'
-import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-ui'
+import type { BuilderContextParams } from '@codelab/frontend-abstract-application'
+import type { NavigationBarItem } from '@codelab/frontend-presentation-codelab-ui'
 
 import BuildOutlined from '@ant-design/icons/BuildOutlined'
-import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { RoutePaths } from '@codelab/frontend-abstract-application'
 
 export const pageBuilderMenuItem = ({
   appId,

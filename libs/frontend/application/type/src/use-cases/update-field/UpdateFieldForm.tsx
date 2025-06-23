@@ -4,27 +4,27 @@ import type {
   IInterfaceTypeModel,
   ITypeModel,
   JsonSchema,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 import type {
   IFieldUpdateData,
   IValidationRules,
-} from '@codelab/shared/abstract/core'
-import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
+} from '@codelab/shared-abstract-core'
+import type { Nullable, Nullish } from '@codelab/shared-abstract-types'
 
-import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
-import {
-  SelectDefaultValue,
-  SelectFieldSibling,
-  uniformSchemaFactory,
-} from '@codelab/frontend/presentation/components/interface-form'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { type IFormController, UiKey } from '@codelab/frontend-abstract-types'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import {
   DisplayIfField,
   Form,
   FormController,
 } from '@codelab/frontend-presentation-components-form'
+import {
+  SelectDefaultValue,
+  SelectFieldSibling,
+  uniformSchemaFactory,
+} from '@codelab/frontend-presentation-components-interface-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
-import { PrimitiveTypeKind } from '@codelab/shared/infra/gqlgen'
+import { PrimitiveTypeKind } from '@codelab/shared-infra-gqlgen'
 import { useMemo, useState } from 'react'
 import { useAsync } from 'react-use'
 import { AutoFields } from 'uniforms-antd'

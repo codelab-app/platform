@@ -1,7 +1,7 @@
-import type { IResourceDomainService } from '@codelab/frontend/abstract/domain'
+import type { IResourceDomainService } from '@codelab/frontend-abstract-domain'
 
 import { chance } from '@codelab/frontend-domain-shared'
-import { type IResourceDto, IResourceType } from '@codelab/shared/abstract/core'
+import { type IResourceDto, IResourceType } from '@codelab/shared-abstract-core'
 import { v4 } from 'uuid'
 
 export const resourceFactory =

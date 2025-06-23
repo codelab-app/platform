@@ -1,10 +1,10 @@
-import type { PageProps } from '@codelab/frontend/abstract/types'
+import type { PageProps } from '@codelab/frontend-abstract-types'
 import type { Metadata } from 'next'
 
-import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { appItemQuery } from '@codelab/frontend-application-app/use-cases/app-item'
 import { UpdateAppModalContainer } from '@codelab/frontend-application-app/use-cases/update-app'
 import { parsePageProps } from '@codelab/frontend-application-shared-store/router'
+import { DomainStoreHydrator } from '@codelab/frontend-infra-context'
 
 export const metadata: Metadata = {
   title: 'Update App | Codelab',

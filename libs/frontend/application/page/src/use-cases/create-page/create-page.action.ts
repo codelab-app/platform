@@ -5,7 +5,7 @@ import type {
   IInterfaceTypeDto,
   IPageDto,
   IStoreDto,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 
 import { elementRepository } from '@codelab/frontend-domain-element/repositories'
 import { pageRepository } from '@codelab/frontend-domain-page/repositories'

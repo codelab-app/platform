@@ -1,6 +1,6 @@
 'use client'
 
-import type { Nullish } from '@codelab/shared/abstract/types'
+import type { Nullish } from '@codelab/shared-abstract-types'
 import type { ReactCodeMirrorProps } from '@uiw/react-codemirror'
 
 import ExpandAltOutlined from '@ant-design/icons/ExpandAltOutlined'

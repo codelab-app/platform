@@ -3,13 +3,13 @@
 import type {
   DomainCreatedSubscription,
   DomainUpdatedSubscription,
-} from '@codelab/shared-domain-module/domain'
+} from '@codelab/shared-domain-module-domain'
 
-import { browserApolloClient } from '@codelab/shared/infra/gql-client'
 import {
   DomainCreatedDocument,
   DomainUpdatedDocument,
-} from '@codelab/shared-domain-module/domain'
+} from '@codelab/shared-domain-module-domain'
+import { browserApolloClient } from '@codelab/shared-infra-gql-client'
 import { useEffect } from 'react'
 
 export const Subscriptions = () => {

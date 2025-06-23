@@ -1,18 +1,18 @@
 import type {
   IPreferenceModel,
   IPreferenceRepository,
-} from '@codelab/frontend/abstract/domain'
-import type { IPreferenceDto, IRef } from '@codelab/shared/abstract/core'
+} from '@codelab/frontend-abstract-domain'
+import type { IPreferenceDto, IRef } from '@codelab/shared-abstract-core'
 import type {
   PreferenceOptions,
   PreferenceWhere,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
-import { Validator } from '@codelab/shared/infra/typebox'
 import {
   preferenceMapper,
   preferenceServerActions,
-} from '@codelab/shared-domain-module/preference'
+} from '@codelab/shared-domain-module-preference'
+import { Validator } from '@codelab/shared-infra-typebox'
 
 import { Preference } from '../store/preference.model'
 

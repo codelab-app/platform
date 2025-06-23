@@ -1,3 +1,3 @@
-jest.mock('@codelab/shared/infra/fetch-server', () => ({
+jest.mock('@codelab/shared-infra-fetch-server', () => ({
   gqlServerRequest: () => null,
 }))

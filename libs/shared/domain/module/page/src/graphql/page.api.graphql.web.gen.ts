@@ -1,8 +1,8 @@
-import * as Types from '@codelab/shared/infra/gqlgen';
+import * as Types from '@codelab/shared-infra-gqlgen';
 
-import type { NextFetchOptions } from '@codelab/shared/abstract/types'
-import { gqlServerRequest } from '@codelab/shared/infra/fetch-server'
-import { CreatePagesDocument, DeletePagesDocument, UpdatePagesDocument, PageListDocument, GetRenderedPageDocument } from '@codelab/shared/infra/gqlgen'
+import type { NextFetchOptions } from '@codelab/shared-abstract-types'
+import { gqlServerRequest } from '@codelab/shared-infra-fetch-server'
+import { CreatePagesDocument, DeletePagesDocument, UpdatePagesDocument, PageListDocument, GetRenderedPageDocument } from '@codelab/shared-infra-gqlgen'
 
 export const CreatePages = (variables: Types.CreatePagesMutationVariables, next?: NextFetchOptions) => gqlServerRequest(CreatePagesDocument.toString(), variables, next)
 export const DeletePages = (variables: Types.DeletePagesMutationVariables, next?: NextFetchOptions) => gqlServerRequest(DeletePagesDocument.toString(), variables, next)

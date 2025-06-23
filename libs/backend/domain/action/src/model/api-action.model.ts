@@ -3,9 +3,9 @@ import type {
   IApiActionDto,
   IPropDto,
   IRef,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 
-import { IActionKind } from '@codelab/shared/abstract/core'
+import { IActionKind } from '@codelab/shared-abstract-core'
 
 export class ApiAction implements IApiActionDto {
   __typename: `${IActionKind.ApiAction}` = `${IActionKind.ApiAction}`

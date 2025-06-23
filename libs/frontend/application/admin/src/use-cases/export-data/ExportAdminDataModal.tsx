@@ -1,14 +1,14 @@
 'use client'
 
-import { RoutePaths } from '@codelab/frontend/abstract/application'
-import { UiKey } from '@codelab/frontend/abstract/types'
-import { downloadJsonAsFile } from '@codelab/frontend/shared/utils'
+import { RoutePaths } from '@codelab/frontend-abstract-application'
+import { UiKey } from '@codelab/frontend-abstract-types'
 import { ModalForm } from '@codelab/frontend-presentation-components-form'
+import { downloadJsonAsFile } from '@codelab/frontend-shared-utils'
 import {
   exportDtoDefault,
   ExportDtoSchema,
   type IExportDto,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import { useRouter } from 'next/navigation'
 import { AutoFields } from 'uniforms-antd'
 

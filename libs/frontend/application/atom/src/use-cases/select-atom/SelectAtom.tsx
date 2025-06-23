@@ -1,7 +1,7 @@
-import type { IAtomModel } from '@codelab/frontend/abstract/domain'
-import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
+import type { IAtomModel } from '@codelab/frontend-abstract-domain'
+import type { UniformSelectFieldProps } from '@codelab/shared-abstract-types'
 
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import { observer } from 'mobx-react-lite'
 import { useField } from 'uniforms'
 import { SelectField } from 'uniforms-antd'

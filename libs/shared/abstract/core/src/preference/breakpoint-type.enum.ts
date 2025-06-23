@@ -3,6 +3,6 @@
  *
  * We don't set a role for regular users
  */
-import { BreakpointType } from '@codelab/shared/infra/gqlgen'
+import { BreakpointType } from '@codelab/shared-infra-gqlgen'
 
 export { BreakpointType as IBreakpointType }

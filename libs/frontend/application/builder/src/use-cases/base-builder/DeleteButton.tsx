@@ -1,7 +1,7 @@
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
+import type { IElementModel } from '@codelab/frontend-abstract-domain'
 
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend-abstract-types'
 import { DeleteElementPopconfirm } from '@codelab/frontend-application-element/use-cases/delete-element'
 
 export const DeleteButton = ({ element }: { element: IElementModel }) => {

@@ -1,18 +1,18 @@
-import type { INodeType, IRichTextTypeDto } from '@codelab/shared/abstract/core'
+import type { INodeType, IRichTextTypeDto } from '@codelab/shared-abstract-core'
 import type {
   RichTextTypeOptions,
   RichTextTypeWhere,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
-import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { AbstractRepository } from '@codelab/backend/infra/core'
-import { RichTextTypeFragment } from '@codelab/shared/infra/gqlgen'
+import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
+import { AbstractRepository } from '@codelab/backend-infra-core'
 import {
   createTypeApi,
   findTypeApi,
   richTextTypeMapper,
   updateTypeApi,
-} from '@codelab/shared-domain-module/type'
+} from '@codelab/shared-domain-module-type'
+import { RichTextTypeFragment } from '@codelab/shared-infra-gqlgen'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

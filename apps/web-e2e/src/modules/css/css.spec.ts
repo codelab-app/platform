@@ -1,5 +1,5 @@
-import { type IApp, IAtomType } from '@codelab/shared/abstract/core'
-import { providerPageId } from '@codelab/shared/data/test'
+import { type IApp, IAtomType } from '@codelab/shared-abstract-core'
+import { providerPageId } from '@codelab/shared-data-test'
 import { expect } from '@playwright/test'
 
 import { globalBeforeAll } from '../../setup/before-all'

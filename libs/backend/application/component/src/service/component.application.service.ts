@@ -5,23 +5,23 @@ import type {
   ICreateComponentData,
   IInterfaceTypeDto,
   IStoreDto,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 
-import { ReadAdminDataService } from '@codelab/backend/application/data'
-import { ElementApplicationService } from '@codelab/backend/application/element'
-import { StoreApplicationService } from '@codelab/backend/application/store'
-import { TypeApplicationService } from '@codelab/backend/application/type'
-import { ComponentRepository } from '@codelab/backend/domain/component'
-import { ElementRepository } from '@codelab/backend/domain/element'
-import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
-import { Store } from '@codelab/backend/domain/store'
+import { ReadAdminDataService } from '@codelab/backend-application-data'
+import { ElementApplicationService } from '@codelab/backend-application-element'
+import { StoreApplicationService } from '@codelab/backend-application-store'
+import { TypeApplicationService } from '@codelab/backend-application-type'
+import { ComponentRepository } from '@codelab/backend-domain-component'
+import { ElementRepository } from '@codelab/backend-domain-element'
+import { AuthDomainService } from '@codelab/backend-domain-shared-auth'
+import { Store } from '@codelab/backend-domain-store'
 import {
   InterfaceType,
   InterfaceTypeRepository,
-} from '@codelab/backend/domain/type'
-import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { IElementRenderTypeKind, IRole } from '@codelab/shared/abstract/core'
-import { interfaceTypeDtoFactory } from '@codelab/shared-domain-module/type'
+} from '@codelab/backend-domain-type'
+import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
+import { IElementRenderTypeKind, IRole } from '@codelab/shared-abstract-core'
+import { interfaceTypeDtoFactory } from '@codelab/shared-domain-module-type'
 import { Injectable } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 import { v4 } from 'uuid'

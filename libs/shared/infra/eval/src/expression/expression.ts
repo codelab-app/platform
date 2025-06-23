@@ -1,7 +1,7 @@
-import type { IPropData } from '@codelab/shared/abstract/core'
-import type { ObjectLike } from '@codelab/shared/abstract/types'
+import type { IPropData } from '@codelab/shared-abstract-core'
+import type { ObjectLike } from '@codelab/shared-abstract-types'
 
-import { mapDeep } from '@codelab/shared/utils'
+import { mapDeep } from '@codelab/shared-utils'
 import { isString, keys } from 'remeda'
 
 import {

@@ -1,8 +1,8 @@
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
+import type { IElementModel } from '@codelab/frontend-abstract-domain'
 import type { HierarchicalCollision } from '@codelab/frontend-application-dnd/collision-detection'
 import type React from 'react'
 
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import { useDndContext } from '@dnd-kit/core'
 
 export const DROP_INDICATOR_STYLE = '5px solid #439A56'

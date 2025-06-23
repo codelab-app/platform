@@ -1,14 +1,14 @@
 'use client'
 
-import type { IAtomUpdateRoute } from '@codelab/frontend/abstract/application'
-import type { IAtomModel } from '@codelab/frontend/abstract/domain'
-import type { Maybe } from '@codelab/shared/abstract/types'
+import type { IAtomUpdateRoute } from '@codelab/frontend-abstract-application'
+import type { IAtomModel } from '@codelab/frontend-abstract-domain'
+import type { Maybe } from '@codelab/shared-abstract-types'
 import type { MutableRefObject } from 'react'
 
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
-import { type SubmitController, UiKey } from '@codelab/frontend/abstract/types'
-import { CuiSidebarSecondary } from '@codelab/frontend/presentation/codelab-ui'
+import { type SubmitController, UiKey } from '@codelab/frontend-abstract-types'
+import { CuiSidebarSecondary } from '@codelab/frontend-presentation-codelab-ui'
 import { useRouter } from 'next/navigation'
 
 import { useAtomService } from '../../services'

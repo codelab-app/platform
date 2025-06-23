@@ -133,7 +133,7 @@ commands:
           paths:
             - ~/.pnpm-store
       - save_cache:
-          key: node-modules-cache-{{ checksum "pnpm-lock.yaml" }}
+          key: node-modules-cache-{{ checksum "pnpm-lock.yaml" }}-{{ checksum "dist/libs/tools/workspace/package.json" }}
           name: Save node_modules Cache
           paths:
             - ~/project/node_modules
@@ -211,6 +211,7 @@ commands:
           at: ~/
       - restore_cache:
           keys:
+            - node-modules-cache-{{ checksum "pnpm-lock.yaml" }}-{{ checksum "dist/libs/tools/workspace/package.json" }}
             - node-modules-cache-{{ checksum "pnpm-lock.yaml" }}
             - node-modules-cache-
           name: Restore node_modules Cache
@@ -229,7 +230,8 @@ commands:
           at: ~/
       - restore_cache:
           keys:
-            - node-modules-cache-{{ checksum "pnpm-lock.yaml" }}
+            - node-modules-cache-{{ checksum "pnpm-lock.yaml" }}-{{ checksum "dist/libs/tools/workspace/package.json" }}
+            - node-modules-cache-{{ checksum "pnpm-lock.yaml" }}-
             - node-modules-cache-
           name: Restore node_modules Cache
       - restore_cache:

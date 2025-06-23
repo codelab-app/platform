@@ -1,5 +1,5 @@
-import type { IPageModel } from '@codelab/frontend/abstract/domain'
-import type { Maybe } from '@codelab/shared/abstract/types'
+import type { IPageModel } from '@codelab/frontend-abstract-domain'
+import type { Maybe } from '@codelab/shared-abstract-types'
 import type { ObjectMap } from 'mobx-keystone'
 
 import type { IRuntimePageModel } from './runtime-page.model.interface'

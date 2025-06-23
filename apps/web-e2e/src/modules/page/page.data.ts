@@ -1,4 +1,4 @@
-import type { IPage, IPageCreateFormData } from '@codelab/shared/abstract/core'
+import type { IPage, IPageCreateFormData } from '@codelab/shared-abstract-core'
 import type { APIRequestContext } from '@playwright/test'
 
 import { requestOrThrow } from '../../api'

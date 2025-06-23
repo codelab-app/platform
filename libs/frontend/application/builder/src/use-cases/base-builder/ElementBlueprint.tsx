@@ -1,12 +1,12 @@
 'use client'
 
-import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
+import type { IRuntimeElementModel } from '@codelab/frontend-abstract-application'
 import type { CSSProperties } from 'react'
 
-import { isRuntimeElement } from '@codelab/frontend/abstract/application'
-import { Rect } from '@codelab/frontend/shared/utils'
+import { isRuntimeElement } from '@codelab/frontend-abstract-application'
 import { useTypedDroppable } from '@codelab/frontend-application-dnd/hooks'
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx-context'
+import { Rect } from '@codelab/frontend-shared-utils'
 import { observer } from 'mobx-react-lite'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 

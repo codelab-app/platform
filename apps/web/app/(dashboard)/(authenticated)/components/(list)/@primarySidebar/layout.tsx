@@ -1,8 +1,8 @@
-import type { LayoutProps } from '@codelab/frontend/abstract/types'
+import type { LayoutProps } from '@codelab/frontend-abstract-types'
 
-import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { componentListQuery } from '@codelab/frontend-application-component/use-cases/component-list'
 import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
+import { DomainStoreHydrator } from '@codelab/frontend-infra-context'
 
 const Layout = async ({ children }: LayoutProps) => {
   const [{ items: components }, { items: atoms }] = await Promise.all([

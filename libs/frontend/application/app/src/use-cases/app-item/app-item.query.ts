@@ -1,8 +1,8 @@
-import type { IDomainStoreDto } from '@codelab/frontend/abstract/domain'
+import type { IDomainStoreDto } from '@codelab/frontend-abstract-domain'
 
-import { waitForTimeout } from '@codelab/frontend/shared/utils'
 import { defaultAtomQuery } from '@codelab/frontend-application-atom/use-cases/atom-list/server'
 import { appRepository } from '@codelab/frontend-domain-app/repositories'
+import { waitForTimeout } from '@codelab/frontend-shared-utils'
 import { cache } from 'react'
 import 'server-only'
 

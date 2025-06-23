@@ -2,7 +2,7 @@ import {
   type IBuilderRoute,
   type IBuilderService,
   isRuntimeElementRef,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { useRouter } from 'next/navigation'
 import { useHotkeys } from 'react-hotkeys-hook'

@@ -1,13 +1,13 @@
-import type { IAtomRepository } from '@codelab/frontend/abstract/domain'
-import type { IAtomDto, IRef } from '@codelab/shared/abstract/core'
-import type { NextFetchOptions } from '@codelab/shared/abstract/types'
-import type { AtomOptions, AtomWhere } from '@codelab/shared/infra/gqlgen'
+import type { IAtomRepository } from '@codelab/frontend-abstract-domain'
+import type { IAtomDto, IRef } from '@codelab/shared-abstract-core'
+import type { NextFetchOptions } from '@codelab/shared-abstract-types'
+import type { AtomOptions, AtomWhere } from '@codelab/shared-infra-gqlgen'
 
-import { Validator } from '@codelab/shared/infra/typebox'
 import {
   atomMapper,
   atomServerActions,
-} from '@codelab/shared-domain-module/atom'
+} from '@codelab/shared-domain-module-atom'
+import { Validator } from '@codelab/shared-infra-typebox'
 
 const { AtomList, CreateAtoms, DeleteAtoms, UpdateAtoms } = atomServerActions
 

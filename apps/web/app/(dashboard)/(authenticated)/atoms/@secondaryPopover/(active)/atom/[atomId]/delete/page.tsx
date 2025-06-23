@@ -1,10 +1,10 @@
-import type { PageProps } from '@codelab/frontend/abstract/types'
+import type { PageProps } from '@codelab/frontend-abstract-types'
 import type { Metadata } from 'next'
 
-import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { DeleteAtomsModal } from '@codelab/frontend-application-atom/use-cases/delete-atom'
 import { parsePageProps } from '@codelab/frontend-application-shared-store/router'
 import { atomRepository } from '@codelab/frontend-domain-atom/repositories'
+import { DomainStoreHydrator } from '@codelab/frontend-infra-context'
 
 export const metadata: Metadata = {
   title: 'Delete Atom | Codelab',

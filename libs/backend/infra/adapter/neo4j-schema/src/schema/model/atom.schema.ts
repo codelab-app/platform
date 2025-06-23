@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client'
-import { __AtomType } from '@codelab/shared/abstract/core'
+import { __AtomType } from '@codelab/shared-abstract-core'
 
 import { authOwnerOrAdmin } from './user.schema'
 

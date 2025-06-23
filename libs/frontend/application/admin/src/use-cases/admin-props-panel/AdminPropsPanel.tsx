@@ -1,10 +1,10 @@
-import type { IBuilderRoute } from '@codelab/frontend/abstract/application'
+import type { IBuilderRoute } from '@codelab/frontend-abstract-application'
 import type {
   IFieldModel,
   IInterfaceTypeModel,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 
-import { isAdmin } from '@codelab/frontend/abstract/domain'
+import { isAdmin } from '@codelab/frontend-abstract-domain'
 import { useFieldService } from '@codelab/frontend-application-type/services'
 import { useUser } from '@codelab/frontend-application-user/services'
 import { Button, Col, Dropdown, Popconfirm, Row } from 'antd'

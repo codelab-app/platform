@@ -1,6 +1,6 @@
 {
   "name": "@codelab/tools-workspace",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "commonjs",
   "generators": "./generators.json",
   "executors": "./executors.json",

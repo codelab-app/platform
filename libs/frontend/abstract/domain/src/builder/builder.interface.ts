@@ -1,4 +1,4 @@
-import { type IRef } from '@codelab/shared/abstract/core'
+import { type IRef } from '@codelab/shared-abstract-core'
 
 export interface MoveData {
   parentElement: IRef

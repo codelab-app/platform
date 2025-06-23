@@ -1,5 +1,5 @@
-import type { IElementDto } from '@codelab/shared/abstract/core'
-import type { ElementFragment } from '@codelab/shared/infra/gqlgen'
+import type { IElementDto } from '@codelab/shared-abstract-core'
+import type { ElementFragment } from '@codelab/shared-infra-gqlgen'
 
 /**
  * Sorts an array of page elements in a pre-order traversal sequence that preserves parent-child and sibling relationships.

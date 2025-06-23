@@ -1,8 +1,8 @@
 'use client'
 
-import type { PageContextParams } from '@codelab/frontend/abstract/application'
+import type { PageContextParams } from '@codelab/frontend-abstract-application'
 
-import { AppConnector, PageConnector } from '@codelab/frontend/infra/connector'
+import { AppConnector, PageConnector } from '@codelab/frontend-infra-connector'
 
 import { BuilderResizeMenu } from '../resize'
 import { PageBuilderHeader } from './PageBuilderHeader'

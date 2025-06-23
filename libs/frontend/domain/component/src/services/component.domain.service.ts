@@ -1,14 +1,14 @@
 import type {
   IComponentDomainService,
   IComponentModel,
-} from '@codelab/frontend/abstract/domain'
-import type { SelectOption } from '@codelab/frontend/abstract/types'
-import type { IComponentDto, IRef } from '@codelab/shared/abstract/core'
+} from '@codelab/frontend-abstract-domain'
+import type { SelectOption } from '@codelab/frontend-abstract-types'
+import type { IComponentDto, IRef } from '@codelab/shared-abstract-core'
 
 import CodeSandboxOutlined from '@ant-design/icons/CodeSandboxOutlined'
 import { mapEntitySelectOptions } from '@codelab/frontend-domain-atom/store'
-import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
-import { Validator } from '@codelab/shared/infra/typebox'
+import { IElementRenderTypeKind } from '@codelab/shared-abstract-core'
+import { Validator } from '@codelab/shared-infra-typebox'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { prop as rProp, sortBy } from 'remeda'

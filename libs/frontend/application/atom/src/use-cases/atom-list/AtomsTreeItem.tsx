@@ -1,19 +1,19 @@
-import type { IAtomUpdateRoute } from '@codelab/frontend/abstract/application'
+import type { IAtomUpdateRoute } from '@codelab/frontend-abstract-application'
 import type {
   IAtomTreeNodeData,
   ITreeNode,
-} from '@codelab/frontend/abstract/domain'
-import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
+} from '@codelab/frontend-abstract-domain'
+import type { ToolbarItem } from '@codelab/frontend-presentation-codelab-ui'
 import type { SyntheticEvent } from 'react'
 
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { RoutePaths } from '@codelab/frontend/abstract/application'
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { RoutePaths } from '@codelab/frontend-abstract-application'
+import { UiKey } from '@codelab/frontend-abstract-types'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
-} from '@codelab/frontend/presentation/codelab-ui'
+} from '@codelab/frontend-presentation-codelab-ui'
 import { useRouter } from 'next/navigation'
 
 import { useAtomService } from '../../services'

@@ -1,7 +1,7 @@
-import type { ICreateResourceData } from '@codelab/shared/abstract/core'
+import type { ICreateResourceData } from '@codelab/shared-abstract-core'
 
-import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { type IFormController, UiKey } from '@codelab/frontend-abstract-types'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import {
   Form,
   FormController,

@@ -1,13 +1,12 @@
-import type { ITypeRepository } from '@codelab/frontend/abstract/domain'
-import type { IRef, ITypeDto, ITypeRef } from '@codelab/shared/abstract/core'
-import type { NextFetchOptions } from '@codelab/shared/abstract/types'
+import type { ITypeRepository } from '@codelab/frontend-abstract-domain'
+import type { IRef, ITypeDto, ITypeRef } from '@codelab/shared-abstract-core'
+import type { NextFetchOptions } from '@codelab/shared-abstract-types'
 import type {
   IBaseTypeOptions,
   IBaseTypeWhere,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
-import { ITypeKind } from '@codelab/shared/abstract/core'
-import { Validator } from '@codelab/shared/infra/typebox'
+import { ITypeKind } from '@codelab/shared-abstract-core'
 import {
   createTypeServerActions,
   deleteTypeServerActions,
@@ -15,7 +14,8 @@ import {
   getAllTypes,
   typeMapperRecord,
   updateTypeServerActions,
-} from '@codelab/shared-domain-module/type'
+} from '@codelab/shared-domain-module-type'
+import { Validator } from '@codelab/shared-infra-typebox'
 
 const { GetBaseTypes, GetDescendants } = findTypeServerActions
 

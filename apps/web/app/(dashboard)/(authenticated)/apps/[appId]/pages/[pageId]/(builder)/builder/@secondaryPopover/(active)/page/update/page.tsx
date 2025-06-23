@@ -1,4 +1,4 @@
-import type { PageProps } from '@codelab/frontend/abstract/types'
+import type { PageProps } from '@codelab/frontend-abstract-types'
 
 import { UpdatePagePopoverContainer } from '@codelab/frontend-application-page/use-cases/update-page'
 

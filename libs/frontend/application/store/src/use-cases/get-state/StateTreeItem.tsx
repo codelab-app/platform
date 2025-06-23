@@ -1,23 +1,23 @@
 import type {
   IFieldCreateRouteLazy,
   IFieldUpdateRouteLazy,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 import type {
   IFieldNodeData,
   ITreeNode,
-} from '@codelab/frontend/abstract/domain'
-import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
+} from '@codelab/frontend-abstract-domain'
+import type { ToolbarItem } from '@codelab/frontend-presentation-codelab-ui'
 
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import EditOutlined from '@ant-design/icons/EditOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend-abstract-types'
+import { useFieldService } from '@codelab/frontend-application-type/services'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
-} from '@codelab/frontend/presentation/codelab-ui'
-import { useFieldService } from '@codelab/frontend-application-type/services'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+} from '@codelab/frontend-presentation-codelab-ui'
 import { useRouter } from 'next/navigation'
 
 export interface StateTreeItemContext {

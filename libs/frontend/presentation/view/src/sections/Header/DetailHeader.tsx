@@ -1,14 +1,14 @@
 import EyeOutlined from '@ant-design/icons/EyeOutlined'
 import ToolOutlined from '@ant-design/icons/lib/icons/ToolOutlined'
-import { UiKey } from '@codelab/frontend/abstract/types'
+import { UiKey } from '@codelab/frontend-abstract-types'
+import { UserProfileMenu } from '@codelab/frontend-application-user/components'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,
   CuiHeaderToolbar,
   type HeaderBreadcrumbItem,
   type ToolbarItem,
-} from '@codelab/frontend/presentation/codelab-ui'
-import { UserProfileMenu } from '@codelab/frontend-application-user/components'
+} from '@codelab/frontend-presentation-codelab-ui'
 import { Image } from 'antd'
 import { type ReactNode } from 'react'
 

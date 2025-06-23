@@ -1,6 +1,6 @@
 'use client'
 
-import type { IDomainStoreDto } from '@codelab/frontend/abstract/domain'
+import type { IDomainStoreDto } from '@codelab/frontend-abstract-domain'
 import type { ReactNode } from 'react'
 
 import { observer } from 'mobx-react-lite'

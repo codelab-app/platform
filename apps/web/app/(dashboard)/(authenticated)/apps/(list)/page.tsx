@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
 
-import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import {
   AppListContainer,
   appListQuery,
 } from '@codelab/frontend-application-app/use-cases/app-list'
+import { DomainStoreHydrator } from '@codelab/frontend-infra-context'
 
 export const metadata: Metadata = {
   // description: '...',

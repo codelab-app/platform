@@ -1,10 +1,10 @@
-import type { SelectOption } from '@codelab/frontend/abstract/types'
-import type { IAuthGuardDto } from '@codelab/shared/abstract/core'
+import type { SelectOption } from '@codelab/frontend-abstract-types'
+import type { IAuthGuardDto } from '@codelab/shared-abstract-core'
 import type {
   AuthGuardFragment,
   AuthGuardOptions,
   AuthGuardWhere,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
 import type { IRepository } from '../shared'
 

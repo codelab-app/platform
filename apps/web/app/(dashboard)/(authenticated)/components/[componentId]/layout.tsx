@@ -1,7 +1,7 @@
-import type { LayoutProps } from '@codelab/frontend/abstract/types'
+import type { LayoutProps } from '@codelab/frontend-abstract-types'
 
-import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { componentBuilderQuery } from '@codelab/frontend-application-component/use-cases/component-builder'
+import { DomainStoreHydrator } from '@codelab/frontend-infra-context'
 
 /**
  * The `componentBuilderQuery` is shared between `preview` and `builder`, so can be cached in layout.

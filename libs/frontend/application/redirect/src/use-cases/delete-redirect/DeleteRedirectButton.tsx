@@ -1,10 +1,10 @@
 'use client'
 
-import type { PageContextParams } from '@codelab/frontend/abstract/application'
-import type { IRef } from '@codelab/shared/abstract/core'
+import type { PageContextParams } from '@codelab/frontend-abstract-application'
+import type { IRef } from '@codelab/shared-abstract-core'
 
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
-import { getUiDataKey, UiKey } from '@codelab/frontend/abstract/types'
+import { getUiDataKey, UiKey } from '@codelab/frontend-abstract-types'
 import { Button, Popconfirm } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'

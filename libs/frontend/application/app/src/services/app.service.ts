@@ -2,11 +2,10 @@ import type {
   IAppCreateFormData,
   IAppModel,
   IAppUpdateFormData,
-} from '@codelab/frontend/abstract/domain'
-import type { AppWhere } from '@codelab/shared/infra/gqlgen'
+} from '@codelab/frontend-abstract-domain'
+import type { AppWhere } from '@codelab/shared-infra-gqlgen'
 
-import { type IAppService } from '@codelab/frontend/abstract/application'
-import { useDomainStoreHydrator } from '@codelab/frontend/infra/context'
+import { type IAppService } from '@codelab/frontend-abstract-application'
 import { regeneratePages } from '@codelab/frontend-application-page/use-cases/generate-pages'
 import { appRepository } from '@codelab/frontend-domain-app/repositories'
 import { domainRepository } from '@codelab/frontend-domain-domain/repositories'
@@ -14,13 +13,14 @@ import { elementRepository } from '@codelab/frontend-domain-element/repositories
 import { pageRepository } from '@codelab/frontend-domain-page/repositories'
 import { PageDomainFactory } from '@codelab/frontend-domain-page/services'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
+import { useDomainStoreHydrator } from '@codelab/frontend-infra-context'
 import {
   useDomainStore,
   useUndoManager,
-} from '@codelab/frontend-infra-mobx/context'
-import { Validator } from '@codelab/shared/infra/typebox'
-import { appApi } from '@codelab/shared-domain-module/app'
+} from '@codelab/frontend-infra-mobx-context'
+import { appApi } from '@codelab/shared-domain-module-app'
 import { withAsyncSpanFunc } from '@codelab/shared-infra-sentry'
+import { Validator } from '@codelab/shared-infra-typebox'
 
 import { createAppAction } from '../use-cases/create-app'
 import { AppFactory } from './app.factory'

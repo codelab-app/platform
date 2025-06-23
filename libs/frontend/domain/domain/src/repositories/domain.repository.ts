@@ -1,16 +1,16 @@
-import type { IDomainDto, IRef } from '@codelab/shared/abstract/core'
-import type { NextFetchOptions } from '@codelab/shared/abstract/types'
-import type { DomainOptions, DomainWhere } from '@codelab/shared/infra/gqlgen'
+import type { IDomainDto, IRef } from '@codelab/shared-abstract-core'
+import type { NextFetchOptions } from '@codelab/shared-abstract-types'
+import type { DomainOptions, DomainWhere } from '@codelab/shared-infra-gqlgen'
 
 import {
   type IDomainModel,
   type IDomainRepository,
-} from '@codelab/frontend/abstract/domain'
-import { Validator } from '@codelab/shared/infra/typebox'
+} from '@codelab/frontend-abstract-domain'
 import {
   domainMapper,
   domainServerActions,
-} from '@codelab/shared-domain-module/domain'
+} from '@codelab/shared-domain-module-domain'
+import { Validator } from '@codelab/shared-infra-typebox'
 
 const { CreateDomains, DeleteDomains, DomainList, UpdateDomains } =
   domainServerActions

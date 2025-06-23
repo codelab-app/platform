@@ -4,11 +4,11 @@ import type {
   IPage,
   IPageCreateFormData,
   IPageDto,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import type { APIRequestContext } from '@playwright/test'
 
-import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
-import { findOrFail } from '@codelab/shared/utils'
+import { IAtomType, IPageKind } from '@codelab/shared-abstract-core'
+import { findOrFail } from '@codelab/shared-utils'
 import { v4 } from 'uuid'
 
 import { requestOrThrow } from '../../api'

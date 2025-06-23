@@ -1,9 +1,9 @@
-import type { PageProps } from '@codelab/frontend/abstract/types'
+import type { PageProps } from '@codelab/frontend-abstract-types'
 
-import { DomainStoreHydrator } from '@codelab/frontend/infra/context'
 import { parsePageProps } from '@codelab/frontend-application-shared-store/router'
 import { typeTableQuery } from '@codelab/frontend-application-type/use-cases/type-table'
 import { TypesPrimarySidebarContainer } from '@codelab/frontend-application-type/views'
+import { DomainStoreHydrator } from '@codelab/frontend-infra-context'
 
 const Page = async (
   props: PageProps<'typeId', 'filter' | 'page' | 'pageSize'>,

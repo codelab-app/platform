@@ -1,11 +1,11 @@
 import type { Argv, CommandModule } from 'yargs'
 
-import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
+import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
 import {
   execCommand,
   globalHandler,
-} from '@codelab/backend/infra/adapter/shell'
-import { Stage } from '@codelab/shared/abstract/core'
+} from '@codelab/backend-infra-adapter-shell'
+import { Stage } from '@codelab/shared-abstract-core'
 import { Injectable } from '@nestjs/common'
 import { LazyModuleLoader } from '@nestjs/core'
 import { spawn } from 'child_process'
@@ -28,10 +28,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
 
   describe = 'Run tasks'
 
-  constructor(
-    private lazyModuleLoader: LazyModuleLoader,
-    private readonly logger: PinoLoggerService,
-  ) {
+  constructor(private readonly logger: PinoLoggerService) {
     this.builder = this.builder.bind(this)
   }
 

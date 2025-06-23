@@ -3,12 +3,12 @@
 import type {
   IRuntimeComponentModel,
   IRuntimeElementModel,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 
-import { isRuntimeComponent } from '@codelab/frontend/abstract/application'
+import { isRuntimeComponent } from '@codelab/frontend-abstract-application'
 import { propSafeStringify } from '@codelab/frontend-domain-prop/utils'
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
-import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
+import { ICodeMirrorLanguage } from '@codelab/shared-abstract-core'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react'

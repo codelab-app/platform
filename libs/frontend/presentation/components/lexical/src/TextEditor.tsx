@@ -1,7 +1,7 @@
 /* eslint-disable tailwindcss/no-custom-classname */
 'use client'
 
-import type { Maybe } from '@codelab/shared/abstract/types'
+import type { Maybe } from '@codelab/shared-abstract-types'
 import type { InitialConfigType } from '@lexical/react/LexicalComposer'
 import type { EditorState, LexicalEditor } from 'lexical'
 

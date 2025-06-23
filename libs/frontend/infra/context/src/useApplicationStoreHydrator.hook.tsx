@@ -1,8 +1,8 @@
 'use client'
 
-import type { NextjsSearchParamsProps } from '@codelab/frontend/abstract/application'
+import type { NextjsSearchParamsProps } from '@codelab/frontend-abstract-application'
 
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx-context'
 
 export const useApplicationStoreHydrator = () => {
   const { routerService } = useApplicationStore()

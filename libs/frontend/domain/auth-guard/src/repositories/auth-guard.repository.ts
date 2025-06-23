@@ -1,17 +1,17 @@
-import type { IAuthGuardDto, IRef } from '@codelab/shared/abstract/core'
-import type { NextFetchOptions } from '@codelab/shared/abstract/types'
+import type { IAuthGuardDto, IRef } from '@codelab/shared-abstract-core'
+import type { NextFetchOptions } from '@codelab/shared-abstract-types'
 import type {
   AuthGuardOptions,
   AuthGuardWhere,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
-import { type IAuthGuardRepository } from '@codelab/frontend/abstract/domain'
-import { Validator } from '@codelab/shared/infra/typebox'
+import { type IAuthGuardRepository } from '@codelab/frontend-abstract-domain'
 import {
   authGuardApi,
   authGuardMapper,
   authGuardServerActions,
-} from '@codelab/shared-domain-module/auth-guard'
+} from '@codelab/shared-domain-module-auth-guard'
+import { Validator } from '@codelab/shared-infra-typebox'
 
 const { CreateAuthGuards, DeleteAuthGuards, GetAuthGuards, UpdateAuthGuard } =
   authGuardServerActions

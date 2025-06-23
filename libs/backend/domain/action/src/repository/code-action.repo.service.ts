@@ -1,18 +1,18 @@
-import type { ICodeActionDto, INodeType } from '@codelab/shared/abstract/core'
+import type { ICodeActionDto, INodeType } from '@codelab/shared-abstract-core'
 import type {
   CodeActionOptions,
   CodeActionWhere,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
-import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
-import { AbstractRepository } from '@codelab/backend/infra/core'
-import { CodeActionFragment } from '@codelab/shared/infra/gqlgen'
-import { codeActionMapper } from '@codelab/shared-domain-module/action'
+import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
+import { AbstractRepository } from '@codelab/backend-infra-core'
+import { codeActionMapper } from '@codelab/shared-domain-module-action'
 import {
   actionCreateApi,
   actionFindApi,
   actionUpdateApi,
-} from '@codelab/shared-domain-module/store'
+} from '@codelab/shared-domain-module-store'
+import { CodeActionFragment } from '@codelab/shared-infra-gqlgen'
 import { Injectable } from '@nestjs/common'
 
 const { CreateCodeActions } = actionCreateApi()

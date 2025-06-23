@@ -3,22 +3,22 @@
 import type {
   IRuntimeComponentModel,
   IRuntimeElementModel,
-} from '@codelab/frontend/abstract/application'
-import type { IPropData } from '@codelab/shared/abstract/core'
+} from '@codelab/frontend-abstract-application'
+import type { IPropData } from '@codelab/shared-abstract-core'
 
 import {
   isRuntimeComponent,
   isRuntimeElement,
   isRuntimePage,
-} from '@codelab/frontend/abstract/application'
+} from '@codelab/frontend-abstract-application'
 import {
   type IPageNodeRef,
   isElementRef,
-} from '@codelab/frontend/abstract/domain'
-import { useNotify, useSuccessNotify } from '@codelab/frontend/infra/context'
-import { createValidator } from '@codelab/frontend/shared/utils'
+} from '@codelab/frontend-abstract-domain'
 import { usePropService } from '@codelab/frontend-application-prop/services'
-import { NotificationType, type Nullable } from '@codelab/shared/abstract/types'
+import { useNotify, useSuccessNotify } from '@codelab/frontend-infra-context'
+import { createValidator } from '@codelab/frontend-shared-utils'
+import { NotificationType, type Nullable } from '@codelab/shared-abstract-types'
 import { evaluateObject } from '@codelab/shared-infra-eval'
 import { useState } from 'react'
 

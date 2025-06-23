@@ -1,9 +1,9 @@
 'use client'
 
-import type { IBuilderRoute } from '@codelab/frontend/abstract/application'
+import type { IBuilderRoute } from '@codelab/frontend-abstract-application'
 
-import { isRuntimePage } from '@codelab/frontend/abstract/application'
-import { useApplicationStore } from '@codelab/frontend-infra-mobx/context'
+import { isRuntimePage } from '@codelab/frontend-abstract-application'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx-context'
 import { observer } from 'mobx-react-lite'
 
 import { ConfigPaneInspectorTabGroup } from './ConfigPaneInspectorTabGroup'

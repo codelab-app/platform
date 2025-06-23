@@ -3,10 +3,10 @@ import type {
   IAppAggregate,
   IAtomType,
   IComponentType,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 
-import { WsGateway } from '@codelab/backend/infra/adapter/ws'
-import { IJobQueueResponse } from '@codelab/shared/abstract/infra'
+import { WsGateway } from '@codelab/backend-infra-adapter-ws'
+import { IJobQueueResponse } from '@codelab/shared-abstract-infra'
 import {
   Body,
   ClassSerializerInterceptor,

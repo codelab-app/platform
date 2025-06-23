@@ -1,4 +1,4 @@
-import type { ObjectLike } from '@codelab/shared/abstract/types'
+import type { ObjectLike } from '@codelab/shared-abstract-types'
 
 import type { NextjsSearchParamsProps } from './nextjs.interface'
 

@@ -1,8 +1,8 @@
 import type { ICommandHandler } from '@nestjs/cqrs'
 
-import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
-import { Tag, TagRepository } from '@codelab/backend/domain/tag'
-import { createTagsData } from '@codelab/shared/data/test'
+import { AuthDomainService } from '@codelab/backend-domain-shared-auth'
+import { Tag, TagRepository } from '@codelab/backend-domain-tag'
+import { createTagsData } from '@codelab/shared-data-test'
 import { CommandHandler } from '@nestjs/cqrs'
 
 export class SeedE2eTagsCommand {}

@@ -1,10 +1,10 @@
-import type { IRuntimeContext } from '@codelab/frontend/abstract/application'
-import type { IPropData } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
+import type { IRuntimeContext } from '@codelab/frontend-abstract-application'
+import type { IPropData } from '@codelab/shared-abstract-core'
+import type { Maybe } from '@codelab/shared-abstract-types'
 import type { Completion } from '@codemirror/autocomplete'
 
 import { propSafeStringify } from '@codelab/frontend-domain-prop/utils'
-import { isCyclic, isDomElement } from '@codelab/shared/utils'
+import { isCyclic, isDomElement } from '@codelab/shared-utils'
 import { capitalize, isArray, isObjectType } from 'remeda'
 
 const getOptions = (

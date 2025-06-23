@@ -3,7 +3,7 @@ import type {
   ApiActionWhere,
   CodeActionOptions,
   CodeActionWhere,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
 export type IActionWhere = ApiActionWhere & CodeActionWhere
 

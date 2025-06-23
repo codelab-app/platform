@@ -1,10 +1,10 @@
 'use client'
 
-import type { ICreateTagData } from '@codelab/shared/abstract/core'
+import type { ICreateTagData } from '@codelab/shared-abstract-core'
 
-import { type IFormController, UiKey } from '@codelab/frontend/abstract/types'
+import { type IFormController, UiKey } from '@codelab/frontend-abstract-types'
 import { useUser } from '@codelab/frontend-application-user/services'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import {
   Form,
   FormController,

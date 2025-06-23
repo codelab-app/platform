@@ -3,7 +3,7 @@ import type {
   IResourceClient,
   IResourceDto,
   IResourceType,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 
 import type { IPropModel } from '../prop'
 import type { IModel } from '../shared/models/model.interface'

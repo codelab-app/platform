@@ -1,19 +1,18 @@
 import type {
   IComponentModel,
   IElementModel,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 import type {
   ComponentBuilderFragment,
   ComponentOptions,
   ComponentWhere,
-} from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-infra-gqlgen'
 
 import {
   type IComponentService,
   rendererRef,
   RendererType,
-} from '@codelab/frontend/abstract/application'
-import { useDomainStoreHydrator } from '@codelab/frontend/infra/context'
+} from '@codelab/frontend-abstract-application'
 import { useElementService } from '@codelab/frontend-application-element/services'
 import { componentRepository } from '@codelab/frontend-domain-component/repositories'
 import {
@@ -24,14 +23,15 @@ import { elementRepository } from '@codelab/frontend-domain-element/repositories
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { storeRepository } from '@codelab/frontend-domain-store/repositories'
 import { typeRepository } from '@codelab/frontend-domain-type/repositories'
+import { useDomainStoreHydrator } from '@codelab/frontend-infra-context'
 import {
   useApplicationStore,
   useDomainStore,
-} from '@codelab/frontend-infra-mobx/context'
+} from '@codelab/frontend-infra-mobx-context'
 import {
   type ICreateComponentData,
   type IUpdateComponentData,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import { v4 } from 'uuid'
 
 import { componentBuilderQuery } from '../use-cases/component-builder'

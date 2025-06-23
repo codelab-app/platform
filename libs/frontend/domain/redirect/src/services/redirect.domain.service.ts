@@ -1,8 +1,8 @@
 import type {
   IRedirectDomainService,
   IRedirectModel,
-} from '@codelab/frontend/abstract/domain'
-import type { IRedirectDto } from '@codelab/shared/abstract/core'
+} from '@codelab/frontend-abstract-domain'
+import type { IRedirectDto } from '@codelab/shared-abstract-core'
 
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 

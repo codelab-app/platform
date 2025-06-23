@@ -1,11 +1,11 @@
-import type { SubmitRef } from '@codelab/frontend/abstract/types'
+import type { SubmitRef } from '@codelab/frontend-abstract-types'
 import type { MouseEvent } from 'react'
 
+import { loadingAtom } from '@codelab/frontend-application-shared-store/loading'
 import {
   useErrorNotify,
   useSuccessNotify,
-} from '@codelab/frontend/infra/context'
-import { loadingAtom } from '@codelab/frontend-application-shared-store/loading'
+} from '@codelab/frontend-infra-context'
 import { useSetAtom } from 'jotai'
 import pMinDelay from 'p-min-delay'
 

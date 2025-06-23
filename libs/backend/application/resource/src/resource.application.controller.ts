@@ -1,8 +1,8 @@
-import { PinoLoggerService } from '@codelab/backend/infra/adapter/logger'
+import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
 import {
   CreateResourceDataSchema,
   type ICreateResourceData,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import {
   Body,
   ClassSerializerInterceptor,

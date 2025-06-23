@@ -2,7 +2,7 @@ import type {
   ITypeModel,
   ITypeTransformContext,
   JsonSchema,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend-abstract-domain'
 
 import { HiddenField } from 'uniforms-antd'
 

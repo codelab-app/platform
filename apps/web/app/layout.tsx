@@ -4,7 +4,7 @@ import {
   NotificationProvider,
   React19Compatibility,
   StyleProviders,
-} from '@codelab/frontend/infra/context'
+} from '@codelab/frontend-infra-context'
 import { cn } from '@cui/utils'
 import { setGlobalConfig } from 'mobx-keystone'
 import { Inter, Montserrat, Nunito } from 'next/font/google'

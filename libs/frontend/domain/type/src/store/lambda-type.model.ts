@@ -1,10 +1,10 @@
-import type { ILambdaTypeDto } from '@codelab/shared/abstract/core'
+import type { ILambdaTypeDto } from '@codelab/shared-abstract-core'
 
 import {
   type ILambdaTypeModel,
   userRef,
-} from '@codelab/frontend/abstract/domain'
-import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+} from '@codelab/frontend-abstract-domain'
+import { assertIsTypeKind, ITypeKind } from '@codelab/shared-abstract-core'
 import { ExtendedModel, model } from 'mobx-keystone'
 
 import { createBaseType } from './base-type.model'
