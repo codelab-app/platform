@@ -47,6 +47,8 @@ const nextConfig = {
 
     // https://nextjs.org/docs/app/guides/memory-usage#webpack-build-worker
     webpackBuildWorker: true,
+    // https://nextjs.org/docs/app/guides/memory-usage#try-experimentalwebpackmemoryoptimizations
+    webpackMemoryOptimizations: true,
   },
   nx: { svgr: false },
 
