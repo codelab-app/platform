@@ -38,7 +38,8 @@
     "prepare": "husky",
     "knip": "knip",
     "aider": "node scripts/aider/run.js",
-    "nx:clean-cache": "rimraf .nx/cache && mkdir -p .nx/cache"
+    "nx:clean-cache": "rimraf .nx/cache && mkdir -p .nx/cache",
+    "browser-tools": "npx @agentdeskai/browser-tools-server@1.2.0"
   },
   "private": true,
   "dependencies": {
