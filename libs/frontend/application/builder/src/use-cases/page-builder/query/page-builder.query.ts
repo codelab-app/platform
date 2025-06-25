@@ -6,6 +6,7 @@ import { ITypeKind } from '@codelab/shared-abstract-core'
 import { uniqueBy } from 'remeda'
 
 import { GetPageBuilder } from './page-builder.api.graphql.web.gen'
+import { v4 } from 'uuid'
 
 export const pageBuilderQuery: IPageBuilderQuery = async ({
   appId,
@@ -38,6 +39,10 @@ export const pageBuilderQuery: IPageBuilderQuery = async ({
         CACHE_TAGS.Tag.list(),
         CACHE_TAGS.Type.list(),
       ],
+      tracing: {
+        operationId: 'page-builder-query',
+        requestId: v4(),
+      },
     },
   )
 

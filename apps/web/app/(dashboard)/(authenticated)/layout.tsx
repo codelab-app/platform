@@ -7,7 +7,15 @@ import { RootProviders } from '../../../providers/RootProviders'
 
 const Layout = async ({ children }: LayoutProps) => {
   const user = await getServerUser()
-  const preferences = await preferenceQuery({ owner: { id: user.id } })
+  const preferences = await preferenceQuery(
+    { owner: { id: user.id } },
+    {},
+    {
+      attributes: {
+        'service.component': 'dashboard-authenticated-layout',
+      },
+    },
+  )
 
   return (
     <RootProviders user={{ ...user, preferences }}>{children}</RootProviders>

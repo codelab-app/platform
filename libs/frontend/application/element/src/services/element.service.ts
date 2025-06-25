@@ -4,6 +4,7 @@ import type { IElementDto } from '@codelab/shared-abstract-core'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import {
+  ElementService,
   type IBuilderRoute,
   type IElementService,
   IRouteType,
@@ -25,8 +26,7 @@ import {
   useDomainStore,
 } from '@codelab/frontend-infra-mobx-context'
 import { uniqueBy } from 'remeda'
-
-import { withServiceTracking } from './service-tracking'
+import { v4 as uuidv4 } from 'uuid'
 
 /**
  * Object declaration would create a new object on each usage of hook, causing any usage of service to be re-rendered
@@ -94,32 +94,28 @@ export const useElementService = (): IElementService => {
    * When we create a new element, the selected node should stay at the parent
    */
   const create = async (data: IElementDto) => {
-    return withServiceTracking(
-      { 
-        serviceName: 'element.service',
-        methodName: 'create'
+    await loadElementRenderTypeApi(data)
+
+    const element = elementDomainService.addTreeNode(data)
+
+    /**
+     * We want to keep the selected node expanded, so we can see the children
+     */
+    if (selectedNode && isRuntimeElementRef(selectedNode)) {
+      // references fails to resolve when called by convertElementToComponent
+      selectedNode.maybeCurrent?.setExpanded(true)
+    }
+
+    await elementRepository.add(data, {
+      revalidateTags: [CACHE_TAGS.Element.list()],
+      tracing: {
+        operationId: ElementService.CreateElement,
+        requestId: uuidv4(),
       },
-      async () => {
-        await loadElementRenderTypeApi(data)
+    })
+    await syncModifiedElements()
 
-        const element = elementDomainService.addTreeNode(data)
-
-        /**
-         * We want to keep the selected node expanded, so we can see the children
-         */
-        if (selectedNode && isRuntimeElementRef(selectedNode)) {
-          // references fails to resolve when called by convertElementToComponent
-          selectedNode.maybeCurrent?.setExpanded(true)
-        }
-
-        await elementRepository.add(data, {
-          revalidateTags: [CACHE_TAGS.Element.list()],
-        })
-        await syncModifiedElements()
-
-        return element
-      }
-    )
+    return element
   }
 
   const deleteElement = async (subRootElement: IElementModel) => {
@@ -136,6 +132,10 @@ export const useElementService = (): IElementService => {
 
     await elementRepository.delete(elementsToDelete, {
       revalidateTags: [CACHE_TAGS.Element.list()],
+      tracing: {
+        operationId: ElementService.DeleteElement,
+        requestId: uuidv4(),
+      },
     })
 
     elementsToDelete.reverse().forEach((element) => {
@@ -175,7 +175,12 @@ export const useElementService = (): IElementService => {
 
     currentElement.writeCache(newElement)
 
-    await elementRepository.update({ id: currentElement.id }, newElement)
+    await elementRepository.update({ id: currentElement.id }, newElement, {
+      tracing: {
+        operationId: ElementService.UpdateElement,
+        requestId: uuidv4(),
+      },
+    })
 
     return currentElement
   }
@@ -185,6 +190,10 @@ export const useElementService = (): IElementService => {
       uniqueBy(elements, (element) => element.id).map((element) =>
         elementRepository.update({ id: element.id }, element.toJson, {
           revalidateTags: [CACHE_TAGS.Element.list()],
+          tracing: {
+            operationId: ElementService.UpdateElementsBatch,
+            requestId: uuidv4(),
+          },
         }),
       ),
     )
@@ -213,6 +222,12 @@ export const useElementService = (): IElementService => {
      */
     const deletedElementsCount = await elementRepository.delete(
       elementsToDelete,
+      {
+        tracing: {
+          operationId: ElementService.RemoveElements,
+          requestId: uuidv4(),
+        },
+      },
     )
 
     elementsToDelete.reverse().forEach((element) => {
@@ -231,6 +246,7 @@ export const useElementService = (): IElementService => {
   return {
     create,
     createPopover,
+    deleteElement,
     deletePopover,
     loadDependantTypes,
     move,

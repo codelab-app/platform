@@ -27,3 +27,11 @@ export interface IElementService
    */
   update(data: IUpdateElementData): Promise<IElementModel>
 }
+
+export enum ElementService {
+  CreateElement = 'create-element',
+  DeleteElement = 'delete-element',
+  UpdateElement = 'update-element',
+  UpdateElementsBatch = 'update-elements-batch',
+  RemoveElements = 'remove-elements',
+}

@@ -195,6 +195,9 @@
       ],
       "@codelab/design-system": ["apps/design-system/src/index.ts"],
       "@codelab/eslint-plugin": ["tools/eslint-plugin/src/index.ts"],
+      "@codelab/shared-infra-tracing": [
+        "libs/shared/infra/tracing/src/index.ts"
+      ],
       "@codelab/frontend-abstract-application": [
         "libs/frontend/abstract/application/src/index.ts"
       ],
