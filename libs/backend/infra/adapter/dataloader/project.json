@@ -5,17 +5,6 @@
   "projectType": "library",
   "tags": ["scope:backend"],
   "targets": {
-    "build": {
-      "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/libs/backend/infra/adapter/dataloader",
-        "tsConfig": "libs/backend/infra/adapter/dataloader/tsconfig.lib.json",
-        "packageJson": "libs/backend/infra/adapter/dataloader/package.json",
-        "main": "libs/backend/infra/adapter/dataloader/src/index.ts",
-        "assets": ["libs/backend/infra/adapter/dataloader/*.md"]
-      }
-    },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],

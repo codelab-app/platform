@@ -18,7 +18,10 @@ import { ConfigModule, type ConfigType } from '@nestjs/config'
 import { EventEmitterModule } from '@nestjs/event-emitter'
 import { GraphQLModule } from '@nestjs/graphql'
 
-import { DataLoaderModule, DataLoaderService } from './dataloader'
+import {
+  DataLoaderModule,
+  DataLoaderService,
+} from '@codelab/backend-infra-adapter-dataloader'
 import { GraphqlService } from './graphql.service'
 import { serviceTrackingPlugin } from './service-tracking-plugin'
 

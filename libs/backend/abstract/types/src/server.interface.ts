@@ -1,4 +1,4 @@
-import type { IDataLoaders } from '@codelab/backend-infra-adapter-graphql'
+import type { IDataLoaders } from '@codelab/backend-infra-adapter-dataloader'
 import type { Auth0IdToken } from '@codelab/shared-abstract-core'
 import type { IncomingMessage } from 'http'
 import type { NextApiRequest as OriginalNextApiRequest } from 'next'
@@ -9,8 +9,8 @@ export interface GraphQLRequestContext {
 }
 
 export interface GqlContext {
-  req?: IncomingMessage
   loaders: IDataLoaders
+  req?: IncomingMessage
   res: Response
   token?: string
 }

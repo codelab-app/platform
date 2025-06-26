@@ -13,6 +13,10 @@ import { PropRepository } from '@codelab/backend-domain-prop'
 import { StoreDomainModule } from '@codelab/backend-domain-store'
 import { TypeDomainModule } from '@codelab/backend-domain-type'
 import { UserRepository } from '@codelab/backend-domain-user'
+import {
+  DataLoaderModule,
+  DataLoaderService,
+} from '@codelab/backend-infra-adapter-dataloader'
 import { CodelabLoggerModule } from '@codelab/backend-infra-adapter-logger'
 import {
   DatabaseService,
@@ -25,10 +29,6 @@ import { ConfigModule } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'
 import { AuthGuard } from '@nestjs/passport'
 import { Test, type TestingModule } from '@nestjs/testing'
-import {
-  DataLoaderModule,
-  DataLoaderService,
-} from '@codelab/backend-infra-adapter-graphql'
 
 import { SchemaService } from '../schema'
 import { GraphQLSchemaModule } from '../schema/graphql-schema.module'
@@ -54,7 +54,7 @@ export const nestNeo4jGraphqlModule =
         context: (context: GqlContext) => {
           // Create new DataLoader instances for each request
           const loaders = dataLoaderService.getLoaders()
-          
+
           return {
             ...context,
             jwt: {
