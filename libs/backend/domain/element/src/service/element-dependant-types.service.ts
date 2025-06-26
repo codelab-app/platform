@@ -1,7 +1,7 @@
 import { TypeFactory } from '@codelab/backend-domain-type'
 import {
   getElementDependantTypes,
-  getElementsDependantTypes,
+  getElementsDependantTypesBatch,
   Neo4jService,
 } from '@codelab/backend-infra-adapter-neo4j-driver'
 import { ITypeRef } from '@codelab/shared-abstract-core'
@@ -53,7 +53,7 @@ export class ElementDependantTypesService {
     elementIds: ReadonlyArray<string>,
   ): Promise<Map<string, Array<TypeFragment>>> {
     return this.neo4jService.withReadTransaction(async (txn) => {
-      const { records } = await txn.run(getElementsDependantTypes, {
+      const { records } = await txn.run(getElementsDependantTypesBatch, {
         ids: [...elementIds],
       })
 

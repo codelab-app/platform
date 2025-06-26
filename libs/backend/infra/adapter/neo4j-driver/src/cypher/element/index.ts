@@ -1,4 +1,4 @@
 import getElementDependantTypes from './getElementDependantTypes.cypher'
-import getElementsDependantTypes from './getElementsDependantTypes.cypher'
+import getElementsDependantTypesBatch from './getElementsDependantTypesBatch.cypher'
 
-export { getElementDependantTypes, getElementsDependantTypes }
+export { getElementDependantTypes, getElementsDependantTypesBatch }
