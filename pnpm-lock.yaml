@@ -401,6 +401,9 @@ importers:
       cross-fetch:
         specifier: 3.1.4
         version: 3.1.4
+      dataloader:
+        specifier: ^2.2.3
+        version: 2.2.3
       deep-object-diff:
         specifier: 1.1.9
         version: 1.1.9

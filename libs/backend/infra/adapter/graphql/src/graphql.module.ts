@@ -18,6 +18,7 @@ import { ConfigModule, type ConfigType } from '@nestjs/config'
 import { EventEmitterModule } from '@nestjs/event-emitter'
 import { GraphQLModule } from '@nestjs/graphql'
 
+import { DataLoaderModule, DataLoaderService } from './dataloader'
 import { GraphqlService } from './graphql.service'
 import { serviceTrackingPlugin } from './service-tracking-plugin'
 
@@ -49,6 +50,7 @@ export class GraphqlModule {
         GraphQLSchemaModule,
         EventEmitterModule.forRoot(),
         RequestContextModule,
+        DataLoaderModule,
         ConfigModule.forRoot({
           ignoreEnvVars: true,
           isGlobal: true,
@@ -56,10 +58,11 @@ export class GraphqlModule {
         }),
         GraphQLModule.forRootAsync<ApolloDriverConfig>({
           driver: ApolloDriver,
-          imports: [...imports],
-          inject: [endpointConfig.KEY, ...inject],
+          imports: [...imports, DataLoaderModule],
+          inject: [endpointConfig.KEY, DataLoaderService, ...inject],
           useFactory: async (
             endpoint: ConfigType<typeof endpointConfig>,
+            dataLoaderService: DataLoaderService,
             schemaService: ISchemaService,
           ) => {
             return {
@@ -70,7 +73,10 @@ export class GraphqlModule {
                 // https://neo4j.com/docs/graphql/current/migration/4.0.0/authorization
                 const token = req?.headers['authorization']
 
-                return { req, res, token } as GqlContext
+                // Create new DataLoader instances for each request
+                const loaders = dataLoaderService.getLoaders()
+
+                return { req, res, token, loaders } as GqlContext
               },
               cors: true,
               debug: true,
