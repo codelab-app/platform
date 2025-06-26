@@ -137,6 +137,86 @@
           "id": "11f5fa01-bca3-4814-95e7-18a781c2f6d6"
         },
         "validationRules": null
+      },
+      {
+        "api": {
+          "id": "131e499e-02c7-46a8-8d09-3ee894dc32e3"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "022f20b7-525c-47e3-b575-e029df2345c7"
+        },
+        "id": "c3026fb2-3cbc-4dcc-be1d-2221c80c0a15",
+        "key": "items",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "62aef719-d2d2-480e-87bb-18894206ead1"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
+        },
+        "id": "fbbf25cf-125d-46aa-96c3-ded3a9a874a7",
+        "key": "key",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "62aef719-d2d2-480e-87bb-18894206ead1"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
+        },
+        "id": "8899ae5b-ae81-4965-89c1-7adfde8f7093",
+        "key": "label",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "62aef719-d2d2-480e-87bb-18894206ead1"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
+        },
+        "id": "23688b5b-153f-4e51-950b-03e040416448",
+        "key": "children",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "62aef719-d2d2-480e-87bb-18894206ead1"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885"
+        },
+        "id": "30ad6a8f-3a3d-4824-b059-de47b88ad96a",
+        "key": "span",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
       }
     ],
     "id": "131e499e-02c7-46a8-8d09-3ee894dc32e3",
@@ -190,6 +270,37 @@
         "id": "78605498-854f-413e-9d5e-1125c5798ae6",
         "kind": "EnumType",
         "name": "AntDesignDescriptions Size Enum"
+      },
+      {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "id": "fbbf25cf-125d-46aa-96c3-ded3a9a874a7"
+          },
+          {
+            "id": "8899ae5b-ae81-4965-89c1-7adfde8f7093"
+          },
+          {
+            "id": "23688b5b-153f-4e51-950b-03e040416448"
+          },
+          {
+            "id": "30ad6a8f-3a3d-4824-b059-de47b88ad96a"
+          }
+        ],
+        "id": "62aef719-d2d2-480e-87bb-18894206ead1",
+        "kind": "InterfaceType",
+        "name": "AntDesignDescriptions Item"
+      },
+      {
+        "__typename": "ArrayType",
+        "id": "022f20b7-525c-47e3-b575-e029df2345c7",
+        "itemType": {
+          "__typename": "InterfaceType",
+          "id": "62aef719-d2d2-480e-87bb-18894206ead1",
+          "name": "AntDesignDescriptions Item"
+        },
+        "kind": "ArrayType",
+        "name": "AntDesignDescriptions Items"
       }
     ]
   },
