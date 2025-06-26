@@ -1,5 +1,5 @@
 {
-  "name": "tracing",
+  "name": "shared-infra-tracing",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shared/infra/tracing/src",
   "projectType": "library",
@@ -10,6 +10,6 @@
     "layer:infra",
     "scope:shared"
   ],
-  "// targets": "to see all targets run: nx show project tracing --web",
+  "// targets": "to see all targets run: nx show project shared-infra-tracing --web",
   "targets": {}
 }

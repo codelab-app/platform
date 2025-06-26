@@ -3,7 +3,13 @@
   "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/backend/infra/adapter/dataloader/src",
   "projectType": "library",
-  "tags": ["scope:backend"],
+  "tags": [
+    "projectName:backend-infra-adapter-dataloader",
+    "projectType:library",
+    "type:concrete",
+    "layer:infra",
+    "scope:backend"
+  ],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint"
