@@ -225,3 +225,9 @@ When creating documentation for complex implementations that span multiple files
 - ALWAYS prefer editing an existing file to creating a new one
 - NEVER proactively create documentation files (*.md) or README files in the main codebase
 - Use `.claude/documentation/` for complex implementation summaries when needed
+
+## Git Commit Messages
+
+- Don't add "Co-Authored-By: Claude <noreply@anthropic.com>" to commit messages
+- Don't add "🤖 Generated with [Claude Code](https://claude.ai/code)" to commit messages
+- Keep commit messages clean and focused on the changes made

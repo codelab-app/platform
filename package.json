@@ -15,6 +15,7 @@
     ]
   },
   "scripts": {
+    "dev": "nx run-many --target=serve --projects=api,web --parallel",
     "e2e": "nx e2e-ui web-e2e -c test",
     "e2e:web": "nx serve web -c test",
     "e2e:api": "nx serve api -c test",
