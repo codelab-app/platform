@@ -1,3 +1,4 @@
+import type { GqlContext } from '@codelab/backend-abstract-types'
 import type {
   Component,
   ComponentFragment,
@@ -5,41 +6,39 @@ import type {
 } from '@codelab/shared-infra-gqlgen'
 import type { IFieldResolver, IResolvers } from '@graphql-tools/utils'
 import type { FactoryProvider } from '@nestjs/common'
-import type { GraphQLRequestContext } from 'graphql-request/build/legacy/helpers/types'
 
 import { ComponentElementsService } from '@codelab/backend-domain-component'
-import { ElementDependantTypesService } from '@codelab/backend-domain-element'
 import { ComponentProperties } from '@codelab/shared-domain-module-component'
 
 export const COMPONENT_RESOLVER_PROVIDER = 'COMPONENT_RESOLVER_PROVIDER'
 
 export const ComponentResolverProvider: FactoryProvider<
-  Promise<IResolvers<GraphQLRequestContext, unknown>>
+  Promise<IResolvers<GqlContext, unknown>>
 > = {
-  inject: [ComponentElementsService, ElementDependantTypesService],
+  inject: [ComponentElementsService],
   provide: COMPONENT_RESOLVER_PROVIDER,
-  useFactory: async (
-    componentElementsService: ComponentElementsService,
-    elementDependantTypesService: ElementDependantTypesService,
-  ) => {
-    const name: IFieldResolver<Component, unknown> =
+  useFactory: async (componentElementsService: ComponentElementsService) => {
+    const name: IFieldResolver<Component, GqlContext> =
       ComponentProperties.componentNameFromCompositeKey
 
-    const slug: IFieldResolver<Component, unknown> = (component) => {
+    const slug: IFieldResolver<Component, GqlContext> = (component) => {
       return ComponentProperties.componentSlugFromCompositeKey(component)
     }
 
-    const elements: IFieldResolver<ComponentFragment, unknown> = async (
+    const elements: IFieldResolver<ComponentFragment, GqlContext> = async (
       parent,
     ) => componentElementsService.getElements(parent)
 
     const dependantTypes: IFieldResolver<
       Component,
-      unknown,
+      GqlContext,
       unknown,
       Promise<Array<TypeFragment>>
-    > = (component) =>
-      elementDependantTypesService.getDependantTypes(component.rootElement)
+    > = (component, _args, context) => {
+      return context.loaders.elementDependantTypesLoader.load(
+        component.rootElement.id,
+      )
+    }
 
     return {
       Component: {

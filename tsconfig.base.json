@@ -146,6 +146,9 @@
       "@codelab/backend-infra-adapter-auth0": [
         "libs/backend/infra/adapter/auth0/src/index.ts"
       ],
+      "@codelab/backend-infra-adapter-dataloader": [
+        "libs/backend/infra/adapter/dataloader/src/index.ts"
+      ],
       "@codelab/backend-infra-adapter-digitalocean": [
         "libs/backend/infra/adapter/digitalocean/src/index.ts"
       ],
@@ -1046,6 +1049,9 @@
         "libs/shared/infra/logging/src/server/index.ts"
       ],
       "@codelab/shared-infra-sentry": ["libs/shared/infra/sentry/src/index.ts"],
+      "@codelab/shared-infra-tracing": [
+        "libs/shared/infra/tracing/src/index.ts"
+      ],
       "@codelab/shared-infra-typebox": [
         "libs/shared/infra/typebox/src/index.ts"
       ],

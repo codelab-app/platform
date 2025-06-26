@@ -208,3 +208,26 @@ libs/
 4. Docker for containerized services
 
 When working with this codebase, prioritize understanding the domain models and business logic before making changes. The visual builder's complexity requires careful consideration of the element tree structure and type system.
+
+## Documentation Guidelines
+
+When creating documentation for complex implementations that span multiple files:
+- Save documentation summaries in `.claude/documentation/` directory
+- Use descriptive filenames like `feature-name-implementation.md`
+- This keeps implementation docs separate from the main codebase
+- Only create these when the implementation is complex or non-obvious
+- Examples: multi-file refactors, new architectural patterns, debugging solutions
+
+## Important Reminders
+
+- Do what has been asked; nothing more, nothing less
+- NEVER create files unless they're absolutely necessary for achieving your goal
+- ALWAYS prefer editing an existing file to creating a new one
+- NEVER proactively create documentation files (*.md) or README files in the main codebase
+- Use `.claude/documentation/` for complex implementation summaries when needed
+
+## Git Commit Messages
+
+- Don't add "Co-Authored-By: Claude <noreply@anthropic.com>" to commit messages
+- Don't add "🤖 Generated with [Claude Code](https://claude.ai/code)" to commit messages
+- Keep commit messages clean and focused on the changes made

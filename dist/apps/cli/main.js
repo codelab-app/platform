@@ -1189,8 +1189,7 @@ var Tasks;
 })(Tasks || (Tasks = {}));
 
 ;// ../../libs/backend/infra/adapter/cli/src/commands/tasks/tasks.service.ts
-var tasks_service_a, tasks_service_b;
-
+var tasks_service_a;
 
 
 
@@ -1206,13 +1205,7 @@ var tasks_service_a, tasks_service_b;
 
 
 let TaskService = class TaskService {
-    constructor(lazyModuleLoader, logger) {
-        Object.defineProperty(this, "lazyModuleLoader", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: lazyModuleLoader
-        });
+    constructor(logger) {
         Object.defineProperty(this, "logger", {
             enumerable: true,
             configurable: true,
@@ -1436,7 +1429,7 @@ let TaskService = class TaskService {
 };
 TaskService = (0,external_tslib_namespaceObject.__decorate)([
     (0,common_namespaceObject.Injectable)(),
-    (0,external_tslib_namespaceObject.__metadata)("design:paramtypes", [typeof (tasks_service_a = typeof core_namespaceObject.LazyModuleLoader !== "undefined" && core_namespaceObject.LazyModuleLoader) === "function" ? tasks_service_a : Object, typeof (tasks_service_b = typeof PinoLoggerService !== "undefined" && PinoLoggerService) === "function" ? tasks_service_b : Object])
+    (0,external_tslib_namespaceObject.__metadata)("design:paramtypes", [typeof (tasks_service_a = typeof PinoLoggerService !== "undefined" && PinoLoggerService) === "function" ? tasks_service_a : Object])
 ], TaskService);
 
 

@@ -5,8 +5,18 @@ import type { ConfigType } from '@nestjs/config'
 
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default'
 import { AppRepository } from '@codelab/backend-domain-app'
+import { AtomDomainModule } from '@codelab/backend-domain-atom'
+import { ComponentDomainModule } from '@codelab/backend-domain-component'
+import { ElementDomainModule } from '@codelab/backend-domain-element'
+import { PageDomainModule } from '@codelab/backend-domain-page'
 import { PropRepository } from '@codelab/backend-domain-prop'
+import { StoreDomainModule } from '@codelab/backend-domain-store'
+import { TypeDomainModule } from '@codelab/backend-domain-type'
 import { UserRepository } from '@codelab/backend-domain-user'
+import {
+  DataLoaderModule,
+  DataLoaderService,
+} from '@codelab/backend-infra-adapter-dataloader'
 import { CodelabLoggerModule } from '@codelab/backend-infra-adapter-logger'
 import {
   DatabaseService,
@@ -28,24 +38,30 @@ export const nestNeo4jGraphqlModule =
     driver: ApolloDriver,
     imports: [
       GraphQLSchemaModule,
+      DataLoaderModule,
       ConfigModule.forRoot({
         ignoreEnvVars: true,
         load: [endpointConfig],
       }),
     ],
-    inject: [SchemaService, endpointConfig.KEY],
+    inject: [SchemaService, endpointConfig.KEY, DataLoaderService],
     useFactory: async (
       schemaService: SchemaService,
       endpoint: ConfigType<typeof endpointConfig>,
+      dataLoaderService: DataLoaderService,
     ) => {
       return {
         context: (context: GqlContext) => {
+          // Create new DataLoader instances for each request
+          const loaders = dataLoaderService.getLoaders()
+
           return {
             ...context,
             jwt: {
               // Add roles that would satisfy your @authorization rules
               roles: ['Admin'],
             },
+            loaders,
           }
         },
         cors: true,
@@ -69,6 +85,10 @@ export const setupTestingContext = async (metadata: ModuleMetadata = {}) => {
       ConfigModule,
       CodelabLoggerModule,
       Neo4jModule,
+      DataLoaderModule,
+      // The following domain modules are needed for repository access in tests
+      AtomDomainModule,
+      StoreDomainModule,
       ...(metadata.imports ?? []),
     ],
     providers: [

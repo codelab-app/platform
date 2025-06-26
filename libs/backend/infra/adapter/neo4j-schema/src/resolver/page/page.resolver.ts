@@ -1,33 +1,31 @@
+import type { GqlContext } from '@codelab/backend-abstract-types'
 import type { Page, TypeFragment } from '@codelab/shared-infra-gqlgen'
 import type { IFieldResolver, IResolvers } from '@graphql-tools/utils'
 import type { FactoryProvider } from '@nestjs/common'
-import type { GraphQLRequestContext } from 'graphql-request/build/legacy/helpers/types'
 
-import { ElementDependantTypesService } from '@codelab/backend-domain-element'
-import { PageElementsService } from '@codelab/backend-domain-page'
 import { PageProperties } from '@codelab/shared-domain-module-page'
 
 export const PAGE_RESOLVER_PROVIDER = 'PAGE_RESOLVER_PROVIDER'
 
 export const PageResolverProvider: FactoryProvider<
-  Promise<IResolvers<GraphQLRequestContext, unknown>>
+  Promise<IResolvers<GqlContext, unknown>>
 > = {
-  inject: [PageElementsService, ElementDependantTypesService],
+  inject: [],
   provide: PAGE_RESOLVER_PROVIDER,
-  useFactory: async (
-    pageElementsService: PageElementsService,
-    elementDependantTypesService: ElementDependantTypesService,
-  ) => {
-    const elements: IFieldResolver<Page, unknown> = (page) =>
-      pageElementsService.getElements(page)
+  useFactory: async () => {
+    const elements: IFieldResolver<Page, GqlContext> = (page, _args, context) =>
+      context.loaders.pageElementsLoader.load(page.id)
 
     const dependantTypes: IFieldResolver<
       Page,
-      unknown,
+      GqlContext,
       unknown,
       Promise<Array<TypeFragment>>
-    > = (page) =>
-      elementDependantTypesService.getDependantTypes(page.rootElement)
+    > = (page, _args, context) => {
+      return context.loaders.elementDependantTypesLoader.load(
+        page.rootElement.id,
+      )
+    }
 
     return {
       Mutation: {},

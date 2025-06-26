@@ -1,3 +1,4 @@
+// Operation: GetElementDependantTypes
 // First find the starting element and all its descendants
 MATCH (element:Element {id: $id})
 CALL apoc.path.subgraphNodes(element, {

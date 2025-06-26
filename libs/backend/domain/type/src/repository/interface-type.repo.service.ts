@@ -59,7 +59,7 @@ export class InterfaceTypeRepository extends AbstractRepository<
       }
 
       return types
-    })
+    }, 'GetDependentTypes')
   }
 
   /**

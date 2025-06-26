@@ -28,6 +28,6 @@ export class ComponentElementsService {
       return this.elementRepository.find({
         where: { id_IN: elements },
       })
-    })
+    }, 'GetComponentElements')
   }
 }

@@ -8,6 +8,10 @@ import type { DynamicModule, ModuleMetadata } from '@nestjs/common'
 import type { GraphQLFormattedError } from 'graphql'
 
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default'
+import {
+  DataLoaderModule,
+  DataLoaderService,
+} from '@codelab/backend-infra-adapter-dataloader'
 import { neo4jConfig } from '@codelab/backend-infra-adapter-neo4j-driver'
 import { GraphQLSchemaModule } from '@codelab/backend-infra-adapter-neo4j-schema'
 import { RequestContextModule } from '@codelab/backend-infra-adapter-request-context'
@@ -19,6 +23,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter'
 import { GraphQLModule } from '@nestjs/graphql'
 
 import { GraphqlService } from './graphql.service'
+import { serviceTrackingPlugin } from './service-tracking-plugin'
 
 /**
  * GraphQL request is not triggering the global guard
@@ -48,6 +53,7 @@ export class GraphqlModule {
         GraphQLSchemaModule,
         EventEmitterModule.forRoot(),
         RequestContextModule,
+        DataLoaderModule,
         ConfigModule.forRoot({
           ignoreEnvVars: true,
           isGlobal: true,
@@ -55,10 +61,11 @@ export class GraphqlModule {
         }),
         GraphQLModule.forRootAsync<ApolloDriverConfig>({
           driver: ApolloDriver,
-          imports: [...imports],
-          inject: [endpointConfig.KEY, ...inject],
+          imports: [...imports, DataLoaderModule],
+          inject: [endpointConfig.KEY, DataLoaderService, ...inject],
           useFactory: async (
             endpoint: ConfigType<typeof endpointConfig>,
+            dataLoaderService: DataLoaderService,
             schemaService: ISchemaService,
           ) => {
             return {
@@ -68,8 +75,10 @@ export class GraphqlModule {
                 // @authentication/@authorization in neo4j schema files, see migration guide:
                 // https://neo4j.com/docs/graphql/current/migration/4.0.0/authorization
                 const token = req?.headers['authorization']
+                // Create new DataLoader instances for each request
+                const loaders = dataLoaderService.getLoaders()
 
-                return { req, res, token } as GqlContext
+                return { loaders, req, res, token } as GqlContext
               },
               cors: true,
               debug: true,
@@ -87,6 +96,7 @@ export class GraphqlModule {
               playground: false,
               plugins: [
                 ApolloServerPluginLandingPageLocalDefault(),
+                serviceTrackingPlugin,
                 // hiveApollo({
                 //   debug: true,
                 //   enabled: true,
