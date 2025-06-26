@@ -6,9 +6,13 @@ import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import {
   type IBuilderRoute,
   type IElementTreeViewDataNode,
+  IRuntimeNodeType,
+  runtimeComponentRef,
+  runtimeElementRef,
 } from '@codelab/frontend-abstract-application'
 import { UiKey } from '@codelab/frontend-abstract-types'
 import { useElementService } from '@codelab/frontend-application-element/services'
+import { useApplicationStore } from '@codelab/frontend-infra-mobx-context'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
@@ -23,12 +27,19 @@ const Toolbar = observer<{
 }>(({ context, treeNode }) => {
   const router = useRouter()
   const { createPopover } = useElementService()
+  const { builderService } = useApplicationStore()
 
   if (!treeNode.element) {
     return
   }
 
   const onClick = () => {
+    builderService.setSelectedNode(
+      treeNode.type === IRuntimeNodeType.Component
+        ? runtimeComponentRef(treeNode.key)
+        : runtimeElementRef(treeNode.key),
+    )
+
     createPopover.open(router, context)
   }
 
