@@ -1,3 +1,4 @@
+// Operation: GetElementsDependantTypesBatch
 // Batch version - Find dependant types for multiple elements
 // Takes an array of element IDs and returns dependant types for each
 UNWIND $ids AS elementId
@@ -45,9 +46,10 @@ WITH elementId, type,
       __typename: head([label IN labels(unionChild) WHERE label <> 'Type']),
       id: unionChild.id,
       kind: unionChild.kind,
-      name: unionChild.name
+      name: unionChild.name,
+      owner: [(unionChild)-[:OWNED_BY]->(owner:User) | {id: owner.id}][0]
     }]
-  END AS typesOfUnion,
+  END AS typesOfUnionType,
   
   // Get array item type
   CASE WHEN type:ArrayType THEN
@@ -55,27 +57,52 @@ WITH elementId, type,
       __typename: head([label IN labels(itemType) WHERE label <> 'Type']),
       id: itemType.id,
       kind: itemType.kind,
-      name: itemType.name
+      name: itemType.name,
+      owner: [(itemType)-[:OWNED_BY]->(owner:User) | {id: owner.id}][0]
     }][0]
   END AS itemType,
+  
+  // Get enum allowed values
+  CASE WHEN type:EnumType THEN
+    [(type)-[:ALLOWED_VALUE]->(enumValue:EnumTypeValue) | {
+      id: enumValue.id,
+      key: enumValue.key,
+      value: enumValue.value
+    }]
+  END AS allowedValues,
   
   // Get interface fields
   CASE WHEN type:InterfaceType THEN
     [(type)-[:INTERFACE_FIELD]->(field:Field) | {
+      __typename: 'Field',
       id: field.id,
       key: field.key,
       name: field.name,
       description: field.description,
       validationRules: field.validationRules,
       defaultValues: field.defaultValues,
+      api: {
+        __typename: 'InterfaceType',
+        id: type.id,
+        kind: type.kind,
+        name: type.name,
+        owner: [(type)-[:OWNED_BY]->(owner:User) | {id: owner.id}][0]
+      },
       fieldType: [(field)-[:FIELD_TYPE]->(fieldType) | {
         __typename: head([label IN labels(fieldType) WHERE label <> 'Type']),
         id: fieldType.id,
         kind: fieldType.kind,
-        name: fieldType.name
-      }][0]
+        name: fieldType.name,
+        owner: [(fieldType)-[:OWNED_BY]->(owner:User) | {id: owner.id}][0]
+      }][0],
+      nextSibling: [(field)-[:FIELD_NEXT_SIBLING]->(next:Field) | {id: next.id}][0],
+      prevSibling: [(field)-[:FIELD_PREV_SIBLING]->(prev:Field) | {id: prev.id}][0]
     }]
   END AS fields
+
+// Get owner information for each type
+WITH elementId, type, itemType, typesOfUnionType, allowedValues, fields,
+  [(type)-[:OWNED_BY]->(owner:User) | {id: owner.id}][0] AS owner
 
 // Return the complete type information with all Cypher-computed properties
 RETURN elementId, COLLECT(DISTINCT 
@@ -85,11 +112,12 @@ RETURN elementId, COLLECT(DISTINCT
     .id,
     .kind,
     .name,
+    owner: owner,
     primitiveKind: CASE WHEN type:PrimitiveType THEN type.primitiveKind END,
     language: CASE WHEN type:CodeMirrorType THEN type.language END,
-    allowedValues: CASE WHEN type:EnumType THEN type.allowedValues END,
+    allowedValues: allowedValues,
     itemType: itemType,
-    typesOfUnion: typesOfUnion,
+    typesOfUnionType: typesOfUnionType,
     fields: fields
   }
 ) AS types
