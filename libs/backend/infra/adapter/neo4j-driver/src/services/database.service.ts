@@ -26,7 +26,7 @@ export class DatabaseService {
       DETACH DELETE n
     `
 
-    return await this.neo4jService.withReadTransaction((txn) => txn.run(query))
+    return await this.neo4jService.withReadTransaction((txn) => txn.run(query), 'AtomTypes')
   }
 
   /**
@@ -47,6 +47,7 @@ export class DatabaseService {
 
     return this.neo4jService.withWriteTransaction(
       (txn) => txn.run(query),
+      'ResetDatabase',
       close,
     )
   }
@@ -60,6 +61,7 @@ export class DatabaseService {
 
     return this.neo4jService.withWriteTransaction(
       (txn) => txn.run(query),
+      'ResetDatabaseExceptUser',
       close,
     )
   }
@@ -101,6 +103,7 @@ export class DatabaseService {
 
     return await this.neo4jService.withWriteTransaction(
       (txn) => txn.run(query),
+      'ResetUserData',
       close,
     )
   }

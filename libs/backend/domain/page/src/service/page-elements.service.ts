@@ -27,6 +27,6 @@ export class PageElementsService {
       return this.elementRepository.find({
         where: { id_IN: elements },
       })
-    })
+    }, 'GetPageElements')
   }
 }

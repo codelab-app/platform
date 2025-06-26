@@ -41,7 +41,7 @@ export class ElementDependantTypesService {
       }
 
       return types
-    })
+    }, 'GetElementDependantTypes')
   }
 
   /**
@@ -76,6 +76,6 @@ export class ElementDependantTypesService {
       }
 
       return resultMap
-    })
+    }, 'GetElementsDependantTypesBatch')
   }
 }

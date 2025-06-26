@@ -25,7 +25,7 @@ export const descendants =
       const nodes = records[0]?.get(0) || []
 
       return nodes.map((node: Node) => node.properties)
-    })
+    }, 'GetTagDescendants')
   }
 
 export const TagResolverProvider: FactoryProvider<

@@ -5,6 +5,7 @@ import { Inject, Injectable } from '@nestjs/common'
 import neo4j from 'neo4j-driver'
 
 import { neo4jConfig } from '../neo4j.config'
+import { wrapTransactionWithTracking } from './cypher-tracking.interceptor'
 
 type ManagedTransactionWork<T> = (tx: ManagedTransaction) => Promise<T> | T
 
@@ -35,12 +36,19 @@ export class Neo4jService {
 
   async withReadTransaction<T>(
     readTransaction: ManagedTransactionWork<T>,
+    operationName = 'UNKNOWN_READ_TRANSACTION',
     close = false,
   ) {
     const session = this.driver.session()
 
+    // Wrap transaction with tracking if not in test environment
+    const wrappedTransaction =
+      process.env.NODE_ENV === 'test'
+        ? readTransaction
+        : wrapTransactionWithTracking(readTransaction, operationName)
+
     return session
-      .executeRead((txn: ManagedTransaction) => readTransaction(txn))
+      .executeRead((txn: ManagedTransaction) => wrappedTransaction(txn))
       .catch((error: Error) => {
         console.error(error)
         throw error
@@ -59,12 +67,19 @@ export class Neo4jService {
 
   async withWriteTransaction<T>(
     writeTransaction: ManagedTransactionWork<T>,
+    operationName = 'UNKNOWN_WRITE_TRANSACTION',
     close = false,
   ) {
     const session = this.driver.session()
 
+    // Wrap transaction with tracking if not in test environment
+    const wrappedTransaction =
+      process.env.NODE_ENV === 'test'
+        ? writeTransaction
+        : wrapTransactionWithTracking(writeTransaction, operationName)
+
     return session
-      .executeWrite((txn: ManagedTransaction) => writeTransaction(txn))
+      .executeWrite((txn: ManagedTransaction) => wrappedTransaction(txn))
       .catch((error: Error) => {
         console.error(error)
         throw error
