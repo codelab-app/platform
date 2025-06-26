@@ -3,7 +3,6 @@ import type { Page, TypeFragment } from '@codelab/shared-infra-gqlgen'
 import type { IFieldResolver, IResolvers } from '@graphql-tools/utils'
 import type { FactoryProvider } from '@nestjs/common'
 
-import { PageElementsService } from '@codelab/backend-domain-page'
 import { PageProperties } from '@codelab/shared-domain-module-page'
 
 export const PAGE_RESOLVER_PROVIDER = 'PAGE_RESOLVER_PROVIDER'
@@ -11,11 +10,11 @@ export const PAGE_RESOLVER_PROVIDER = 'PAGE_RESOLVER_PROVIDER'
 export const PageResolverProvider: FactoryProvider<
   Promise<IResolvers<GqlContext, unknown>>
 > = {
-  inject: [PageElementsService],
+  inject: [],
   provide: PAGE_RESOLVER_PROVIDER,
-  useFactory: async (pageElementsService: PageElementsService) => {
-    const elements: IFieldResolver<Page, GqlContext> = (page) =>
-      pageElementsService.getElements(page)
+  useFactory: async () => {
+    const elements: IFieldResolver<Page, GqlContext> = (page, _args, context) =>
+      context.loaders.pageElementsLoader.load(page.id)
 
     const dependantTypes: IFieldResolver<
       Page,
