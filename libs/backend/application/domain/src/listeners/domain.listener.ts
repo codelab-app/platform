@@ -17,9 +17,7 @@ import {
 
 @Injectable()
 export class DomainListener {
-  constructor(
-    private readonly logger: PinoLoggerService,
-  ) {}
+  constructor(private readonly logger: PinoLoggerService) {}
 
   @OnEvent(DOMAIN_CREATED_EVENT)
   async domainCreated(event: DomainCreatedEvent) {

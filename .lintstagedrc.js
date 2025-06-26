@@ -7,7 +7,7 @@ module.exports = {
     `
 
     const cmds = [
-      `cross-env eslint --color ${stagedFiles} ${rules} --fix --quiet`,
+      `cross-env ESLINT_USE_FLAT_CONFIG=false eslint --color ${stagedFiles} ${rules} --fix --quiet`,
     ]
 
     console.info(`Running: ${cmds}`)

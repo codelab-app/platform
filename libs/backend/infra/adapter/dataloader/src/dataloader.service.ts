@@ -1,3 +1,4 @@
+import type { IDataLoaders } from '@codelab/backend-abstract-types'
 import type {
   ElementFragment,
   TypeFragment,
@@ -7,8 +8,6 @@ import { ElementDependantTypesService } from '@codelab/backend-domain-element'
 import { PageElementsService } from '@codelab/backend-domain-page'
 import { Injectable } from '@nestjs/common'
 import DataLoader from 'dataloader'
-
-import type { IDataLoaders } from './dataloader.interface'
 
 @Injectable()
 export class DataLoaderService {

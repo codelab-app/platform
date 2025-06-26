@@ -1,22 +1,16 @@
-import type {
-  ManagedTransaction,
-  QueryResult,
-  QueryStatistics,
-} from 'neo4j-driver'
+import type { ManagedTransaction, QueryResult } from 'neo4j-driver'
 
 interface CypherQueryInfo {
-  query: string
   operationName?: string
-  startTime: number
   params?: unknown
+  query: string
+  startTime: number
 }
 
 /**
  * Wraps a Neo4j transaction to track and log Cypher queries
  */
 export class CypherTrackingTransaction {
-  private queries: Array<CypherQueryInfo> = []
-
   constructor(
     private readonly transaction: ManagedTransaction,
     private readonly operationName: string,
@@ -79,6 +73,8 @@ export class CypherTrackingTransaction {
       }
     }
   }
+
+  private queries: Array<CypherQueryInfo> = []
 }
 
 /**

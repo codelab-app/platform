@@ -8,6 +8,10 @@ import type { DynamicModule, ModuleMetadata } from '@nestjs/common'
 import type { GraphQLFormattedError } from 'graphql'
 
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default'
+import {
+  DataLoaderModule,
+  DataLoaderService,
+} from '@codelab/backend-infra-adapter-dataloader'
 import { neo4jConfig } from '@codelab/backend-infra-adapter-neo4j-driver'
 import { GraphQLSchemaModule } from '@codelab/backend-infra-adapter-neo4j-schema'
 import { RequestContextModule } from '@codelab/backend-infra-adapter-request-context'
@@ -18,10 +22,6 @@ import { ConfigModule, type ConfigType } from '@nestjs/config'
 import { EventEmitterModule } from '@nestjs/event-emitter'
 import { GraphQLModule } from '@nestjs/graphql'
 
-import {
-  DataLoaderModule,
-  DataLoaderService,
-} from '@codelab/backend-infra-adapter-dataloader'
 import { GraphqlService } from './graphql.service'
 import { serviceTrackingPlugin } from './service-tracking-plugin'
 

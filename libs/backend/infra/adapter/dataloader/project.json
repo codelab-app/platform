@@ -1,10 +1,13 @@
 {
-  "name": "dataloader",
+  "name": "backend-infra-adapter-dataloader",
   "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/backend/infra/adapter/dataloader/src",
   "projectType": "library",
   "tags": ["scope:backend"],
   "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
