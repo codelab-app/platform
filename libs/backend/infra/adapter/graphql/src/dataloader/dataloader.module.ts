@@ -5,8 +5,8 @@ import { Module } from '@nestjs/common'
 import { DataLoaderService } from './dataloader.service'
 
 @Module({
+  exports: [DataLoaderService],
   imports: [ElementDomainModule, PageDomainModule],
   providers: [DataLoaderService],
-  exports: [DataLoaderService],
 })
 export class DataLoaderModule {}

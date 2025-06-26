@@ -246,7 +246,6 @@ export const useElementService = (): IElementService => {
   return {
     create,
     createPopover,
-    deleteElement,
     deletePopover,
     loadDependantTypes,
     move,

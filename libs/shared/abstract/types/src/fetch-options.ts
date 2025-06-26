@@ -8,6 +8,10 @@ export interface NextFetchRequestConfig {
 
 export interface NextTracingOptions {
   /**
+   * Additional prefix for the operation ID.
+   */
+  attributes?: Record<string, string>
+  /**
    * Static identifier for the GraphQL operation type (e.g., 'create-element').
    * Same operation always has the same ID.
    */
@@ -16,10 +20,6 @@ export interface NextTracingOptions {
    * Dynamic UUID generated per request for tracing individual operations.
    */
   requestId?: string
-  /**
-   * Additional prefix for the operation ID.
-   */
-  attributes?: Record<string, string>
 }
 
 /**

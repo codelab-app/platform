@@ -72,11 +72,10 @@ export class GraphqlModule {
                 // @authentication/@authorization in neo4j schema files, see migration guide:
                 // https://neo4j.com/docs/graphql/current/migration/4.0.0/authorization
                 const token = req?.headers['authorization']
-
                 // Create new DataLoader instances for each request
                 const loaders = dataLoaderService.getLoaders()
 
-                return { req, res, token, loaders } as GqlContext
+                return { loaders, req, res, token } as GqlContext
               },
               cors: true,
               debug: true,

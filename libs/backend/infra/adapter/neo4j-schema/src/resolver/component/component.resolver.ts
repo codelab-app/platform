@@ -17,9 +17,7 @@ export const ComponentResolverProvider: FactoryProvider<
 > = {
   inject: [ComponentElementsService],
   provide: COMPONENT_RESOLVER_PROVIDER,
-  useFactory: async (
-    componentElementsService: ComponentElementsService,
-  ) => {
+  useFactory: async (componentElementsService: ComponentElementsService) => {
     const name: IFieldResolver<Component, GqlContext> =
       ComponentProperties.componentNameFromCompositeKey
 

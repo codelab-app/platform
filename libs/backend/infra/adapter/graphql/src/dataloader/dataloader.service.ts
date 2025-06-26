@@ -1,10 +1,14 @@
-import type { IDataLoaders } from './dataloader.interface'
-import type { ElementFragment, TypeFragment } from '@codelab/shared-infra-gqlgen'
+import type {
+  ElementFragment,
+  TypeFragment,
+} from '@codelab/shared-infra-gqlgen'
 
 import { ElementDependantTypesService } from '@codelab/backend-domain-element'
 import { PageElementsService } from '@codelab/backend-domain-page'
 import { Injectable } from '@nestjs/common'
 import DataLoader from 'dataloader'
+
+import type { IDataLoaders } from './dataloader.interface'
 
 @Injectable()
 export class DataLoaderService {
@@ -37,15 +41,17 @@ export class DataLoaderService {
           return elementIds.map((id) => resultMap.get(id) || [])
         } catch (error) {
           console.error('Error fetching dependant types batch:', error)
+
           // Return empty arrays for all elements on error
           return elementIds.map(() => [])
         }
       },
       {
-        // Enable caching for the duration of the request
-        cache: true,
         // Batch scheduling function (default uses process.nextTick)
         batchScheduleFn: (callback) => process.nextTick(callback),
+
+        // Enable caching for the duration of the request
+        cache: true,
       },
     )
   }
@@ -66,17 +72,18 @@ export class DataLoaderService {
           return pageIds.map((id) => resultMap.get(id) || [])
         } catch (error) {
           console.error('Error fetching page elements batch:', error)
+
           // Return empty arrays for all pages on error
           return pageIds.map(() => [])
         }
       },
       {
-        // Enable caching for the duration of the request
-        cache: true,
         // Batch scheduling function (default uses process.nextTick)
         batchScheduleFn: (callback) => process.nextTick(callback),
+
+        // Enable caching for the duration of the request
+        cache: true,
       },
     )
   }
-
 }

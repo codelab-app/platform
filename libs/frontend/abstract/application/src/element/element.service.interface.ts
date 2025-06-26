@@ -31,7 +31,7 @@ export interface IElementService
 export enum ElementService {
   CreateElement = 'create-element',
   DeleteElement = 'delete-element',
+  RemoveElements = 'remove-elements',
   UpdateElement = 'update-element',
   UpdateElementsBatch = 'update-elements-batch',
-  RemoveElements = 'remove-elements',
 }

@@ -26,7 +26,10 @@ export class DatabaseService {
       DETACH DELETE n
     `
 
-    return await this.neo4jService.withReadTransaction((txn) => txn.run(query), 'AtomTypes')
+    return await this.neo4jService.withReadTransaction(
+      (txn) => txn.run(query),
+      'AtomTypes',
+    )
   }
 
   /**

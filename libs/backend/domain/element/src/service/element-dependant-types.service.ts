@@ -59,11 +59,11 @@ export class ElementDependantTypesService {
 
       // Build result map directly from Neo4j data
       const resultMap = new Map<string, Array<TypeFragment>>()
-      
+
       for (const record of records) {
         const elementId = record.get('elementId') as string
         const types = record.get('types') as Array<TypeFragment>
-        
+
         // Cypher query already returns data in the correct format
         resultMap.set(elementId, types)
       }

@@ -7,6 +7,7 @@ import { RootProviders } from '../../../providers/RootProviders'
 
 const Layout = async ({ children }: LayoutProps) => {
   const user = await getServerUser()
+
   const preferences = await preferenceQuery(
     { owner: { id: user.id } },
     {},

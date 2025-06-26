@@ -1,7 +1,8 @@
 import type { Auth0IdToken } from '@codelab/shared-abstract-core'
 import type { IncomingMessage } from 'http'
 import type { NextApiRequest as OriginalNextApiRequest } from 'next'
-import type { IDataLoaders } from '@codelab/backend-infra-adapter-graphql'
+
+import type { IDataLoaders } from './dataloader.interface'
 
 export interface GraphQLRequestContext {
   req: NextApiRequest
@@ -10,9 +11,9 @@ export interface GraphQLRequestContext {
 
 export interface GqlContext {
   req?: IncomingMessage
+  loaders: IDataLoaders
   res: Response
   token?: string
-  loaders: IDataLoaders
 }
 
 interface NextApiRequest extends OriginalNextApiRequest {

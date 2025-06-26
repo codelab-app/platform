@@ -46,23 +46,26 @@ export class PageElementsService {
 
       // Build result map
       const resultMap = new Map<string, Array<ElementFragment>>()
-      const pageElementIds = new Map<string, string[]>()
-      
+      const pageElementIds = new Map<string, Array<string>>()
+
       // First, collect all element IDs per page
       for (const record of records) {
         const pageId = record.get('pageId') as string
-        const elementIds = record.get('elementIds') as string[]
+        const elementIds = record.get('elementIds') as Array<string>
+
         pageElementIds.set(pageId, elementIds)
       }
 
       // Then, fetch all elements in a single query
       const allElementIds = Array.from(pageElementIds.values()).flat()
+
       const allElements = await this.elementRepository.find({
         where: { id_IN: allElementIds },
       })
 
       // Create a map of element ID to element for quick lookup
       const elementMap = new Map<string, ElementFragment>()
+
       for (const element of allElements) {
         elementMap.set(element.id, element)
       }
@@ -71,7 +74,10 @@ export class PageElementsService {
       for (const [pageId, elementIds] of pageElementIds) {
         const elements = elementIds
           .map((id) => elementMap.get(id))
-          .filter((element): element is ElementFragment => element !== undefined)
+          .filter(
+            (element): element is ElementFragment => element !== undefined,
+          )
+
         resultMap.set(pageId, elements)
       }
 

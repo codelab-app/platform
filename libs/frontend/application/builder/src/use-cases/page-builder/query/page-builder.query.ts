@@ -4,9 +4,9 @@ import type { AtomBuilderFragment } from '@codelab/shared-infra-gqlgen'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
 import { ITypeKind } from '@codelab/shared-abstract-core'
 import { uniqueBy } from 'remeda'
+import { v4 } from 'uuid'
 
 import { GetPageBuilder } from './page-builder.api.graphql.web.gen'
-import { v4 } from 'uuid'
 
 export const pageBuilderQuery: IPageBuilderQuery = async ({
   appId,

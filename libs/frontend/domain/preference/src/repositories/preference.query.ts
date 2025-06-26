@@ -1,5 +1,6 @@
 'use server'
 
+import type { NextTracingOptions } from '@codelab/shared-abstract-types'
 import type {
   PreferenceOptions,
   PreferenceWhere,
@@ -11,7 +12,6 @@ import { preferenceServerActions } from '@codelab/shared-domain-module-preferenc
 import { Validator } from '@codelab/shared-infra-typebox'
 import { revalidateTag } from 'next/cache'
 import { v4 } from 'uuid'
-import { NextTracingOptions } from '@codelab/shared-abstract-types'
 
 const { GetPreferences } = preferenceServerActions
 
@@ -30,9 +30,9 @@ export const preferenceQuery = async (
     {
       tags: [CACHE_TAGS.Preference.all()],
       tracing: {
+        attributes: tracing?.attributes,
         operationId: 'preference-query',
         requestId: v4(),
-        attributes: tracing?.attributes,
       },
     },
   )

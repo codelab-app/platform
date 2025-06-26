@@ -19,6 +19,10 @@ import { ConfigModule } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'
 import { AuthGuard } from '@nestjs/passport'
 import { Test, type TestingModule } from '@nestjs/testing'
+import {
+  DataLoaderModule,
+  DataLoaderService,
+} from '@codelab/backend-infra-adapter-graphql'
 
 import { SchemaService } from '../schema'
 import { GraphQLSchemaModule } from '../schema/graphql-schema.module'
@@ -28,24 +32,30 @@ export const nestNeo4jGraphqlModule =
     driver: ApolloDriver,
     imports: [
       GraphQLSchemaModule,
+      DataLoaderModule,
       ConfigModule.forRoot({
         ignoreEnvVars: true,
         load: [endpointConfig],
       }),
     ],
-    inject: [SchemaService, endpointConfig.KEY],
+    inject: [SchemaService, endpointConfig.KEY, DataLoaderService],
     useFactory: async (
       schemaService: SchemaService,
       endpoint: ConfigType<typeof endpointConfig>,
+      dataLoaderService: DataLoaderService,
     ) => {
       return {
         context: (context: GqlContext) => {
+          // Create new DataLoader instances for each request
+          const loaders = dataLoaderService.getLoaders()
+          
           return {
             ...context,
             jwt: {
               // Add roles that would satisfy your @authorization rules
               roles: ['Admin'],
             },
+            loaders,
           }
         },
         cors: true,
@@ -69,6 +79,7 @@ export const setupTestingContext = async (metadata: ModuleMetadata = {}) => {
       ConfigModule,
       CodelabLoggerModule,
       Neo4jModule,
+      DataLoaderModule,
       ...(metadata.imports ?? []),
     ],
     providers: [
