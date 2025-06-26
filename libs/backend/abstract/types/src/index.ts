@@ -1,5 +1,4 @@
 export * from './cache.interface'
-export * from './dataloader.interface'
 export * from './digitalocean.interface'
 export * from './import.interface'
 export * from './repository.interface'

@@ -5,7 +5,13 @@ import type { ConfigType } from '@nestjs/config'
 
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default'
 import { AppRepository } from '@codelab/backend-domain-app'
+import { AtomDomainModule } from '@codelab/backend-domain-atom'
+import { ComponentDomainModule } from '@codelab/backend-domain-component'
+import { ElementDomainModule } from '@codelab/backend-domain-element'
+import { PageDomainModule } from '@codelab/backend-domain-page'
 import { PropRepository } from '@codelab/backend-domain-prop'
+import { StoreDomainModule } from '@codelab/backend-domain-store'
+import { TypeDomainModule } from '@codelab/backend-domain-type'
 import { UserRepository } from '@codelab/backend-domain-user'
 import { CodelabLoggerModule } from '@codelab/backend-infra-adapter-logger'
 import {
@@ -80,6 +86,9 @@ export const setupTestingContext = async (metadata: ModuleMetadata = {}) => {
       CodelabLoggerModule,
       Neo4jModule,
       DataLoaderModule,
+      // The following domain modules are needed for repository access in tests
+      AtomDomainModule,
+      StoreDomainModule,
       ...(metadata.imports ?? []),
     ],
     providers: [
