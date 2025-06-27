@@ -226,6 +226,26 @@ When creating documentation for complex implementations that span multiple files
 - NEVER proactively create documentation files (*.md) or README files in the main codebase
 - Use `.claude/documentation/` for complex implementation summaries when needed
 
+## Git Workflow
+
+### Branch Naming Convention
+
+All branches must follow this format: `<type>/<issue-number>-<short-description>`
+
+Allowed types:
+- `feat/` - New features or enhancements
+- `fix/` - Bug fixes
+- `refactor/` - Code refactoring without changing functionality
+- `test/` - Adding or updating tests
+
+Examples:
+- `feat/3736-debug-env-service-tracking`
+- `fix/3742-login-validation-error`
+- `refactor/3755-simplify-repository-pattern`
+- `test/3761-add-user-service-tests`
+
+See `.claude/documentation/git-branch-naming-convention.md` for detailed guidelines.
+
 ## Git Commit Messages
 
 - Don't add "Co-Authored-By: Claude <noreply@anthropic.com>" to commit messages

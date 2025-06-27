@@ -7,12 +7,16 @@ const path_1 = require("path");
 exports.createNodesV2 = [
     '**/tsconfig.spec.json',
     async (configFiles, options, context) => {
-        return await (0, devkit_1.createNodesFromFiles)((configFile, _options, _context) => createNodesInternal(configFile, _options, _context), configFiles, options, context);
+        return await (0, devkit_1.createNodesFromFiles)((configFile, _options, _context) => createNodesInternal(configFile, _options, _context), configFiles, options ?? {}, context);
     },
 ];
 const createNodesInternal = async (configFilePath, options, context) => {
     const projectConfiguration = (0, devkit_1.readJsonFile)(configFilePath);
     const projectRoot = (0, path_1.dirname)(configFilePath);
+    // Skip root project
+    if (projectRoot === '.') {
+        return {};
+    }
     const isProject = (0, fs_1.existsSync)((0, path_1.join)(projectRoot, 'project.json')) ||
         (0, fs_1.existsSync)((0, path_1.join)(projectRoot, 'package.json'));
     if (!isProject) {
