@@ -54,8 +54,8 @@ export const loggerConfig = registerAs('LOGGER_CONFIG', () => {
     get sentryDsn() {
       return get('SENTRY_DSN').required().asString()
     },
-    get namespaces() {
-      return get('API_LOG_NAMESPACES').default('').asString()
+    get debug() {
+      return get('DEBUG').default('').asString()
     },
   }
 })

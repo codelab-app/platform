@@ -102,11 +102,10 @@ export class ExportApisHandler
       } else if (this.isUnionType(type)) {
         // Sort union type members
         type.typesOfUnionType.sort((a, b) => {
-          if (!a.name || !b.name) {
-            throw new Error('Union type has no name')
-          }
+          const aName = a.name || ''
+          const bName = b.name || ''
 
-          return a.name.localeCompare(b.name)
+          return aName.localeCompare(bName)
         })
       }
     })
@@ -131,15 +130,11 @@ export class ExportApisHandler
       // Sort types properly
       const sortedDependentTypes = this.sortAndPrepareTypes(apiDependentTypes)
 
-      // Filter dependent fields for this API
-      const apiDependentInterfaceIds = new Set(
-        sortedDependentTypes
-          .filter((type) => this.isInterfaceType(type))
-          .map(({ id }) => id),
-      )
-
+      // Filter dependent fields for this API's dependent interfaces
       const apiDependentFields = allDependentFields.filter((field) =>
-        apiDependentInterfaceIds.has(field.api.id),
+        sortedDependentTypes.some(
+          (type) => this.isInterfaceType(type) && type.id === field.api.id,
+        ),
       )
 
       return {
@@ -176,7 +171,6 @@ export class ExportApisHandler
     const allFieldIds = apis.flatMap((api) => api.fields.map(({ id }) => id))
 
     const allApiFields = await this.fieldRepository.find({
-      options: ExportApisHandler.SORT_OPTIONS,
       schema: FieldExportSchema,
       where: { id_IN: allFieldIds },
     })
@@ -211,7 +205,6 @@ export class ExportApisHandler
 
     return dependentInterfaceIds.length
       ? await this.fieldRepository.find({
-          options: ExportApisHandler.SORT_OPTIONS,
           schema: FieldExportSchema,
           where: {
             api: {
@@ -253,18 +246,15 @@ export class ExportApisHandler
   ): Promise<Array<ITypeDtoWithoutOwner>> {
     const dependentTypes: Array<ITypeDtoWithoutOwner> = []
 
-    // Since TypeFactory doesn't support batch operations anyway,
-    // we can simplify by fetching directly
+    // TypeFactory doesn't support batch operations, fetch one by one
     for (const typeRef of dependentTypesIds) {
-      if (Object.values(ITypeKind).includes(typeRef.__typename as ITypeKind)) {
-        const type = await this.typeFactory.findOne(
-          typeRef,
-          TypeDtoWithoutOwnerSchema,
-        )
+      const type = await this.typeFactory.findOne(
+        typeRef,
+        TypeDtoWithoutOwnerSchema,
+      )
 
-        if (type) {
-          dependentTypes.push(type as ITypeDtoWithoutOwner)
-        }
+      if (type) {
+        dependentTypes.push(type)
       }
     }
 
