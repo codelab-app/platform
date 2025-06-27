@@ -71,7 +71,6 @@ export class GraphqlModule {
             { optional: true, token: GraphQLTrackingService },
             ...inject,
           ],
-          providers: [GraphQLTrackingService],
           useFactory: async (
             endpoint: ConfigType<typeof endpointConfig>,
             dataLoaderService: DataLoaderService,
@@ -106,14 +105,14 @@ export class GraphqlModule {
               playground: false,
               plugins: [
                 ApolloServerPluginLandingPageLocalDefault(),
-                trackingService ? trackingService.createPlugin() : undefined,
+                ...(trackingService ? [trackingService.createPlugin()] : []),
                 // hiveApollo({
                 //   debug: true,
                 //   enabled: true,
                 //   token: '',
                 //   usage: true,
                 // }),
-              ].filter(Boolean),
+              ],
               schema: await schemaService.createSchema(),
               subscriptions: {
                 'graphql-ws': true,
