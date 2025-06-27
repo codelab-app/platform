@@ -12,6 +12,7 @@ import {
   DataLoaderModule,
   DataLoaderService,
 } from '@codelab/backend-infra-adapter-dataloader'
+import { CodelabLoggerModule } from '@codelab/backend-infra-adapter-logger'
 import { neo4jConfig } from '@codelab/backend-infra-adapter-neo4j-driver'
 import { GraphQLSchemaModule } from '@codelab/backend-infra-adapter-neo4j-schema'
 import { RequestContextModule } from '@codelab/backend-infra-adapter-request-context'
@@ -23,7 +24,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter'
 import { GraphQLModule } from '@nestjs/graphql'
 
 import { GraphqlService } from './graphql.service'
-import { serviceTrackingPlugin } from './service-tracking-plugin'
+import { GraphQLTrackingService } from './graphql-tracking.service'
 
 /**
  * GraphQL request is not triggering the global guard
@@ -54,6 +55,7 @@ export class GraphqlModule {
         EventEmitterModule.forRoot(),
         RequestContextModule,
         DataLoaderModule,
+        CodelabLoggerModule,
         ConfigModule.forRoot({
           ignoreEnvVars: true,
           isGlobal: true,
@@ -62,10 +64,16 @@ export class GraphqlModule {
         GraphQLModule.forRootAsync<ApolloDriverConfig>({
           driver: ApolloDriver,
           imports: [...imports, DataLoaderModule],
-          inject: [endpointConfig.KEY, DataLoaderService, ...inject],
+          inject: [
+            endpointConfig.KEY,
+            DataLoaderService,
+            GraphQLTrackingService,
+            ...inject,
+          ],
           useFactory: async (
             endpoint: ConfigType<typeof endpointConfig>,
             dataLoaderService: DataLoaderService,
+            trackingService: GraphQLTrackingService,
             schemaService: ISchemaService,
           ) => {
             return {
@@ -96,7 +104,7 @@ export class GraphqlModule {
               playground: false,
               plugins: [
                 ApolloServerPluginLandingPageLocalDefault(),
-                serviceTrackingPlugin,
+                trackingService.createPlugin(),
                 // hiveApollo({
                 //   debug: true,
                 //   enabled: true,
@@ -113,7 +121,7 @@ export class GraphqlModule {
         }),
       ],
       module: GraphqlModule,
-      providers: [GraphqlService],
+      providers: [GraphqlService, GraphQLTrackingService],
     }
   }
 }

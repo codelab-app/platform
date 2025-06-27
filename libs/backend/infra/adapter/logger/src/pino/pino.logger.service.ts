@@ -9,12 +9,15 @@ import pino from 'pino'
 import { omit } from 'remeda'
 
 import { labelMapping, loggerConfig } from '../logger.config'
+import { isNamespaceEnabled, parseNamespaces } from '../logger.constants'
 
 /**
  * Don't use super, but rather from `logger`
  */
 @Injectable()
 export class PinoLoggerService extends Logger implements ILoggerService {
+  private readonly enabledNamespaces: Array<string>
+
   constructor(
     protected override logger: PinoLogger,
     @Inject(PARAMS_PROVIDER_TOKEN) params: Params,
@@ -24,6 +27,7 @@ export class PinoLoggerService extends Logger implements ILoggerService {
     super(logger, {
       ...params,
     })
+    this.enabledNamespaces = parseNamespaces(this.config.namespaces)
   }
 
   private async executeWithTiming<T>(
@@ -32,10 +36,17 @@ export class PinoLoggerService extends Logger implements ILoggerService {
     options?: LogOptions,
     level: LogLevel = 'debug',
   ): Promise<T> {
+    const context = options?.context ?? undefined
+    const isEnabled = this.isLoggingEnabled(context)
+
+    // If logging is disabled, just execute the function
+    if (!isEnabled) {
+      return await fn()
+    }
+
     const startTime = Date.now()
     const result = await fn()
     const durationSecs = ((Date.now() - startTime) / 1000).toFixed(2)
-    const context = options?.context ?? undefined
     const data = options?.data ?? {}
 
     // Pass data and context as separate properties in LogOptions
@@ -66,12 +77,29 @@ export class PinoLoggerService extends Logger implements ILoggerService {
     return this.executeWithTiming(message, fn, options, 'verbose')
   }
 
-  private shouldIncludeData(options?: LogOptions) {
-    const context = options?.context ?? ''
+  private isLoggingEnabled(context?: string): boolean {
+    // If no namespaces configured, logging is disabled
+    if (!this.enabledNamespaces.length) {
+      return false
+    }
 
-    return this.config.enableDataForContext.some((pattern) => {
-      return new RegExp(pattern).test(context)
-    })
+    // If no context provided, check if wildcard is enabled
+    if (!context) {
+      return isNamespaceEnabled('*', this.enabledNamespaces)
+    }
+
+    // Check if the specific context is enabled
+    return isNamespaceEnabled(context, this.enabledNamespaces)
+  }
+
+  private shouldIncludeData(level: LogLevel): boolean {
+    // Include data for verbose, debug, error, and fatal levels
+    return (
+      level === 'verbose' ||
+      level === 'debug' ||
+      level === 'error' ||
+      level === 'fatal'
+    )
   }
 
   private logWithOptions(
@@ -79,15 +107,16 @@ export class PinoLoggerService extends Logger implements ILoggerService {
     message: string,
     options: LogOptions = {},
   ): void {
+    // Check if logging is enabled for this context
+    if (!this.isLoggingEnabled(options.context)) {
+      return
+    }
+
     const mappedLevel = labelMapping[level]
     const logger = this.logger[mappedLevel].bind(this.logger)
 
-    // Always include data for error and fatal levels
-    if (
-      level === 'error' ||
-      level === 'fatal' ||
-      this.shouldIncludeData(options)
-    ) {
+    // Include data based on log level
+    if (this.shouldIncludeData(level)) {
       logger({ msg: message, ...options })
     } else {
       logger({

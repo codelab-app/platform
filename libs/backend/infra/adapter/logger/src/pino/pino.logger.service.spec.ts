@@ -1,67 +1,147 @@
-import { Test } from '@nestjs/testing'
+import type { ConfigType } from '@nestjs/config'
 
-import { CodelabLoggerModule } from '../logger.module'
+import { Test } from '@nestjs/testing'
+import { PARAMS_PROVIDER_TOKEN, PinoLogger } from 'nestjs-pino'
+
+import { loggerConfig } from '../logger.config'
 import { PinoLoggerService } from './pino.logger.service'
 
 describe('PinoLoggerService', () => {
   let loggerService: PinoLoggerService
+  let mockPinoLogger: jest.Mocked<PinoLogger>
 
   beforeEach(async () => {
+    mockPinoLogger = {
+      debug: jest.fn(),
+      error: jest.fn(),
+      fatal: jest.fn(),
+      info: jest.fn(),
+      trace: jest.fn(),
+      warn: jest.fn(),
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } as any
+
     const module = await Test.createTestingModule({
-      imports: [CodelabLoggerModule],
+      providers: [
+        PinoLoggerService,
+        {
+          provide: PinoLogger,
+          useValue: mockPinoLogger,
+        },
+        {
+          provide: PARAMS_PROVIDER_TOKEN,
+          useValue: {},
+        },
+        {
+          provide: loggerConfig.KEY,
+          useValue: {
+            level: 'debug',
+            namespaces: 'repository:*,service:auth,-repository:debug',
+            sentryDsn: 'test-dsn',
+          } as ConfigType<typeof loggerConfig>,
+        },
+      ],
     }).compile()
 
     loggerService = module.get<PinoLoggerService>(PinoLoggerService)
   })
 
-  describe('logging output', () => {
-    it('should log simple messages', () => {
-      loggerService.debug('Some message', {
-        context: 'wtf',
-        data: { foo: 'bar' },
-      })
-      // loggerService.debug(
-      //   {
-      //     requestData: { foo: 'bar' },
-      //     /* your extra fields go here */
-      //     userId: '123',
-      //   },
-      //   'some message',
-      // )
-
-      // We might want to spy on the actual pino logger methods
-      // or check the log output in a more integration-test way
+  describe('namespace filtering', () => {
+    afterEach(() => {
+      jest.clearAllMocks()
     })
 
-    // it('should include context in output', () => {
-    //   loggerService.log('test message', { context: 'TestContext' })
+    it('should log when namespace is enabled', () => {
+      loggerService.debug('Test message', { context: 'repository:app' })
 
-    //   expect(pinoLogger.setContext).toHaveBeenCalledWith('TestContext')
-    //   expect(pinoLogger.info).toHaveBeenCalledWith('test message')
-    // })
+      expect(mockPinoLogger.debug).toHaveBeenCalledWith({
+        context: 'repository:app',
+        msg: 'Test message',
+      })
+    })
 
-    // it('should include data in output for enabled context', () => {
-    //   const testData = { foo: 'bar' }
+    it('should not log when namespace is disabled', () => {
+      loggerService.debug('Test message', { context: 'repository:debug' })
 
-    //   loggerService.log('test message', {
-    //     context: 'data-context',
-    //     data: testData,
-    //   })
+      expect(mockPinoLogger.debug).not.toHaveBeenCalled()
+    })
 
-    //   expect(pinoLogger.setContext).toHaveBeenCalledWith('data-context')
-    //   expect(pinoLogger.info).toHaveBeenCalledWith('test message', testData)
-    // })
+    it('should log when namespace matches wildcard', () => {
+      loggerService.debug('Test message', { context: 'service:auth' })
 
-    // it('should format error messages appropriately', () => {
-    //   const error = new Error('test error')
+      expect(mockPinoLogger.debug).toHaveBeenCalledWith({
+        context: 'service:auth',
+        msg: 'Test message',
+      })
+    })
 
-    //   loggerService.error('error occurred', {
-    //     context: 'error-context',
-    //     data: error as ObjectLike,
-    //   })
+    it('should not log when namespace does not match any pattern', () => {
+      loggerService.debug('Test message', { context: 'command:create' })
 
-    //   expect(pinoLogger.setContext).toHaveBeenCalledWith('error-context')
-    //   expect(pinoLogger.error).toHaveBeenCalledWith('error occurred', error)
-    // })
+      expect(mockPinoLogger.debug).not.toHaveBeenCalled()
+    })
+
+    it('should not log when no context is provided and wildcard is not enabled', () => {
+      loggerService.debug('Test message')
+
+      expect(mockPinoLogger.debug).not.toHaveBeenCalled()
+    })
+  })
+
+  describe('data inclusion', () => {
+    afterEach(() => {
+      jest.clearAllMocks()
+    })
+
+    it('should include data for verbose level', () => {
+      loggerService.verbose('Test message', {
+        context: 'repository:app',
+        data: { test: 'value' },
+      })
+
+      expect(mockPinoLogger.trace).toHaveBeenCalledWith({
+        context: 'repository:app',
+        data: { test: 'value' },
+        msg: 'Test message',
+      })
+    })
+
+    it('should include data for debug level', () => {
+      loggerService.debug('Test message', {
+        context: 'repository:app',
+        data: { test: 'value' },
+      })
+
+      expect(mockPinoLogger.debug).toHaveBeenCalledWith({
+        context: 'repository:app',
+        data: { test: 'value' },
+        msg: 'Test message',
+      })
+    })
+
+    it('should exclude data for info level', () => {
+      loggerService.log('Test message', {
+        context: 'repository:app',
+        data: { test: 'value' },
+      })
+
+      expect(mockPinoLogger.info).toHaveBeenCalledWith({
+        context: 'repository:app',
+        msg: 'Test message',
+      })
+    })
+
+    it('should include data for error level', () => {
+      loggerService.error('Test message', {
+        context: 'repository:app',
+        data: { test: 'value' },
+      })
+
+      expect(mockPinoLogger.error).toHaveBeenCalledWith({
+        context: 'repository:app',
+        data: { test: 'value' },
+        msg: 'Test message',
+      })
+    })
   })
 })
