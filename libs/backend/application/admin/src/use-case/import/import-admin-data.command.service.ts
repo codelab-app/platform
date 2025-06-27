@@ -30,6 +30,7 @@ export class ImportAdminDataHandler
     private readonly componentApplicationService: ComponentApplicationService,
   ) {}
 
+  @LogClassMethod()
   async execute({ baseDataPath, options }: ImportAdminDataCommand) {
     if (baseDataPath) {
       this.readAdminDataService.migrationDataService.basePaths = baseDataPath

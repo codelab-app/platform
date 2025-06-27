@@ -5,7 +5,7 @@ MATCH (this:Type {id: $id})
 -[:ARRAY_ITEM_TYPE|
   INTERFACE_FIELD|
   FIELD_TYPE|
-  UNION_TYPE_CHILD*1..10]->(type)
+  UNION_TYPE_CHILD*1..10]->(type:Type)
 
 WHERE
   NOT type.id = $id
