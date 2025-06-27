@@ -5,7 +5,7 @@ import { Inject, Injectable } from '@nestjs/common'
 import neo4j from 'neo4j-driver'
 
 import { neo4jConfig } from '../neo4j.config'
-import { wrapTransactionWithTracking } from './cypher-tracking.interceptor'
+import { Neo4jTrackingService } from './neo4j-tracking.service'
 
 type ManagedTransactionWork<T> = (tx: ManagedTransaction) => Promise<T> | T
 
@@ -16,6 +16,7 @@ export class Neo4jService {
   constructor(
     @Inject(neo4jConfig.KEY)
     private readonly config: ConfigType<typeof neo4jConfig>,
+    private readonly trackingService: Neo4jTrackingService,
   ) {
     const password = this.config.password
     const uri = this.config.uri.toString()
@@ -36,16 +37,15 @@ export class Neo4jService {
 
   async withReadTransaction<T>(
     readTransaction: ManagedTransactionWork<T>,
-    operationName = 'UNKNOWN_READ_TRANSACTION',
+    operationName: string,
     close = false,
   ) {
     const session = this.driver.session()
 
-    // Wrap transaction with tracking if not in test environment
-    const wrappedTransaction =
-      process.env.NODE_ENV === 'test'
-        ? readTransaction
-        : wrapTransactionWithTracking(readTransaction, operationName)
+    const wrappedTransaction = this.trackingService.wrapTransaction(
+      readTransaction,
+      operationName,
+    )
 
     return session
       .executeRead((txn: ManagedTransaction) => wrappedTransaction(txn))
@@ -67,16 +67,15 @@ export class Neo4jService {
 
   async withWriteTransaction<T>(
     writeTransaction: ManagedTransactionWork<T>,
-    operationName = 'UNKNOWN_WRITE_TRANSACTION',
+    operationName: string,
     close = false,
   ) {
     const session = this.driver.session()
 
-    // Wrap transaction with tracking if not in test environment
-    const wrappedTransaction =
-      process.env.NODE_ENV === 'test'
-        ? writeTransaction
-        : wrapTransactionWithTracking(writeTransaction, operationName)
+    const wrappedTransaction = this.trackingService.wrapTransaction(
+      writeTransaction,
+      operationName,
+    )
 
     return session
       .executeWrite((txn: ManagedTransaction) => wrappedTransaction(txn))
