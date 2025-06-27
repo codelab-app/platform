@@ -14,7 +14,7 @@ export const createNodesV2: CreateNodesV2<MyPluginOptions> = [
       (configFile, _options, _context) =>
         createNodesInternal(configFile, _options, _context),
       configFiles,
-      options,
+      options ?? {},
       context,
     )
   },
@@ -27,6 +27,11 @@ const createNodesInternal = async (
 ) => {
   const projectConfiguration = readJsonFile(configFilePath)
   const projectRoot = dirname(configFilePath)
+
+  // Skip root project
+  if (projectRoot === '.') {
+    return {}
+  }
 
   const isProject =
     existsSync(join(projectRoot, 'project.json')) ||
