@@ -1,1 +1,2 @@
+npx validate-branch-name
 pnpm cli tasks lint --stage=test
