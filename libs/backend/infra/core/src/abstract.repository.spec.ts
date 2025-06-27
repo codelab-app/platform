@@ -3,12 +3,25 @@ import { Test } from '@nestjs/testing'
 
 import { AbstractRepository } from './abstract.repository'
 
+// Mock types that satisfy IRef constraint
+interface MockDto {
+  id: string
+}
+
+interface MockModel {
+  id: string
+}
+
+interface MockWhere {
+  id?: string | null
+}
+
 // Mock implementation for testing
 class TestRepository extends AbstractRepository<
   'Test',
-  unknown,
-  unknown,
-  unknown,
+  MockDto,
+  MockModel,
+  MockWhere,
   unknown
 > {
   protected _addMany = jest.fn()
@@ -20,9 +33,9 @@ class TestRepository extends AbstractRepository<
 
 class UserAuthRepository extends AbstractRepository<
   'UserAuth',
-  unknown,
-  unknown,
-  unknown,
+  MockDto,
+  MockModel,
+  MockWhere,
   unknown
 > {
   protected _addMany = jest.fn()

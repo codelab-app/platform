@@ -45,6 +45,7 @@ export class GraphqlModule {
     inject: Array<any>
   }): DynamicModule {
     return {
+      exports: [GraphqlService, GraphQLTrackingService],
       imports: [
         // DevtoolsModule.register({
         //   http: process.env.NODE_ENV !== 'production',
@@ -63,17 +64,18 @@ export class GraphqlModule {
         }),
         GraphQLModule.forRootAsync<ApolloDriverConfig>({
           driver: ApolloDriver,
-          imports: [...imports, DataLoaderModule],
+          imports: [...imports, DataLoaderModule, CodelabLoggerModule],
           inject: [
             endpointConfig.KEY,
             DataLoaderService,
-            GraphQLTrackingService,
+            { optional: true, token: GraphQLTrackingService },
             ...inject,
           ],
+          providers: [GraphQLTrackingService],
           useFactory: async (
             endpoint: ConfigType<typeof endpointConfig>,
             dataLoaderService: DataLoaderService,
-            trackingService: GraphQLTrackingService,
+            trackingService: GraphQLTrackingService | null,
             schemaService: ISchemaService,
           ) => {
             return {
@@ -104,14 +106,14 @@ export class GraphqlModule {
               playground: false,
               plugins: [
                 ApolloServerPluginLandingPageLocalDefault(),
-                trackingService.createPlugin(),
+                trackingService ? trackingService.createPlugin() : undefined,
                 // hiveApollo({
                 //   debug: true,
                 //   enabled: true,
                 //   token: '',
                 //   usage: true,
                 // }),
-              ],
+              ].filter(Boolean),
               schema: await schemaService.createSchema(),
               subscriptions: {
                 'graphql-ws': true,
