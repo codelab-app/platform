@@ -34,7 +34,9 @@ export class ExportComponentHandler
     private commandBus: CommandBus,
   ) {}
 
-  async execute({ componentId }: ExportComponentCommand) {
+  async execute({
+    componentId,
+  }: ExportComponentCommand): Promise<IComponentAggregate> {
     const component = await this.componentRepository.findOneOrFail({
       schema: Type.Omit(ComponentDtoSchema, ['owner']),
       where: { id: componentId },
@@ -60,7 +62,7 @@ export class ExportComponentHandler
       IStoreAggregate
     >(new ExportStoreCommand({ id: component.store.id }))
 
-    const [api] = await this.commandBus.execute<
+    const apis = await this.commandBus.execute<
       ExportApisCommand,
       Array<IApiAggregate>
     >(
@@ -71,6 +73,12 @@ export class ExportComponentHandler
         },
       ]),
     )
+
+    const api = apis[0]
+
+    if (!api) {
+      throw new Error(`API not found for component ${componentId}`)
+    }
 
     return {
       api,
