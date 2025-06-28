@@ -124,6 +124,18 @@ libs/
 
 ## Development Guidelines
 
+### Code Style and Conventions
+
+@import .claude/documentation/file-conventions.md
+
+Key conventions:
+
+- File naming: PascalCase for components, kebab-case for services
+- Class member ordering: [@typescript-eslint/member-ordering](https://typescript-eslint.io/rules/member-ordering/)
+- Named exports only (no default exports)
+- Use `import type` for type imports
+- Arrow functions preferred over function declarations
+
 ### Project Structure Rules
 
 1. Code is organized in an Nx monorepo with clear boundaries
@@ -131,6 +143,8 @@ libs/
 3. Shared code goes in `libs/shared/`
 4. Each domain has parallel modules across application/domain layers
 5. Main web app routes are in `apps/web/app/(dashboard)/(authenticated)/`
+
+@import .claude/documentation/nx-library-naming-conventions.md
 
 ### Directory Conventions
 
@@ -212,6 +226,7 @@ When working with this codebase, prioritize understanding the domain models and 
 ## Documentation Guidelines
 
 When creating documentation for complex implementations that span multiple files:
+
 - Save documentation summaries in `.claude/documentation/` directory
 - Use descriptive filenames like `feature-name-implementation.md`
 - This keeps implementation docs separate from the main codebase
@@ -223,7 +238,7 @@ When creating documentation for complex implementations that span multiple files
 - Do what has been asked; nothing more, nothing less
 - NEVER create files unless they're absolutely necessary for achieving your goal
 - ALWAYS prefer editing an existing file to creating a new one
-- NEVER proactively create documentation files (*.md) or README files in the main codebase
+- NEVER proactively create documentation files (\*.md) or README files in the main codebase
 - Use `.claude/documentation/` for complex implementation summaries when needed
 
 ## Git Workflow

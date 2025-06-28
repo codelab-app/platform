@@ -5,7 +5,7 @@ import type {
 } from '@codelab/shared-abstract-core'
 
 import { ExportStoreCommand } from '@codelab/backend-application-store'
-import { ExportApiCommand } from '@codelab/backend-application-type'
+import { ExportApisCommand } from '@codelab/backend-application-type'
 import {
   ComponentElementsService,
   ComponentRepository,
@@ -60,11 +60,16 @@ export class ExportComponentHandler
       IStoreAggregate
     >(new ExportStoreCommand({ id: component.store.id }))
 
-    const api = await this.commandBus.execute<ExportApiCommand, IApiAggregate>(
-      new ExportApiCommand({
-        __typename: ITypeKind.InterfaceType,
-        id: component.api.id,
-      }),
+    const [api] = await this.commandBus.execute<
+      ExportApisCommand,
+      Array<IApiAggregate>
+    >(
+      new ExportApisCommand([
+        {
+          __typename: ITypeKind.InterfaceType,
+          id: component.api.id,
+        },
+      ]),
     )
 
     return {
