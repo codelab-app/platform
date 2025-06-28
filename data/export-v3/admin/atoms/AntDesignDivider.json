@@ -9,16 +9,16 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "id": "b24af1b5-6c50-4864-817c-e7f0c4a39374"
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
         },
-        "id": "4260c2c3-ef13-49b9-a73f-37b5a2b85872",
+        "id": "1e39b887-b9ca-4457-a03c-0240852486ee",
         "key": "children",
-        "name": "Children",
+        "name": null,
         "nextSibling": {
           "id": "90e8e3ad-3cae-4411-ace6-138efd99a437"
         },
         "prevSibling": null,
-        "validationRules": null
+        "validationRules": "{}"
       },
       {
         "api": {
@@ -32,31 +32,11 @@
         "id": "90e8e3ad-3cae-4411-ace6-138efd99a437",
         "key": "className",
         "name": "Class Name",
-        "nextSibling": {
-          "id": "0a55df84-e083-4f51-b637-c06026f0c676"
-        },
-        "prevSibling": {
-          "id": "4260c2c3-ef13-49b9-a73f-37b5a2b85872"
-        },
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "ca29d4c1-1eb7-4420-9e01-639190728309"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
-        },
-        "id": "0a55df84-e083-4f51-b637-c06026f0c676",
-        "key": "dashed",
-        "name": "Dashed",
-        "nextSibling": {
+        "nextSibling": { 
           "id": "f0763fef-2e51-410d-b0a8-b64501211374"
         },
         "prevSibling": {
-          "id": "90e8e3ad-3cae-4411-ace6-138efd99a437"
+          "id": "1e39b887-b9ca-4457-a03c-0240852486ee"
         },
         "validationRules": null
       },
@@ -73,30 +53,10 @@
         "key": "orientation",
         "name": "Orientation",
         "nextSibling": {
-          "id": "38fec1a0-8a8a-4841-aca7-a8bd87a9e670"
-        },
-        "prevSibling": {
-          "id": "0a55df84-e083-4f51-b637-c06026f0c676"
-        },
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "ca29d4c1-1eb7-4420-9e01-639190728309"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "id": "b7f87583-958d-4cdc-912e-f3863ab491a6"
-        },
-        "id": "38fec1a0-8a8a-4841-aca7-a8bd87a9e670",
-        "key": "orientationMargin",
-        "name": "Orientation Margin",
-        "nextSibling": {
           "id": "5106e40c-0a01-4db6-85e5-808f92b66ee7"
         },
         "prevSibling": {
-          "id": "f0763fef-2e51-410d-b0a8-b64501211374"
+          "id": "90e8e3ad-3cae-4411-ace6-138efd99a437"
         },
         "validationRules": null
       },
@@ -116,7 +76,7 @@
           "id": "79363079-76f6-4dee-9413-44dcdf911444"
         },
         "prevSibling": {
-          "id": "38fec1a0-8a8a-4841-aca7-a8bd87a9e670"
+          "id": "f0763fef-2e51-410d-b0a8-b64501211374"
         },
         "validationRules": null
       },
@@ -132,11 +92,51 @@
         "id": "79363079-76f6-4dee-9413-44dcdf911444",
         "key": "type",
         "name": "Type",
-        "nextSibling": null,
+        "nextSibling": {
+          "id": "6ee8768e-43e8-4646-8993-e102be6963d5"
+        },
         "prevSibling": {
           "id": "5106e40c-0a01-4db6-85e5-808f92b66ee7"
         },
         "validationRules": null
+      },
+      {
+        "api": {
+          "id": "ca29d4c1-1eb7-4420-9e01-639190728309"
+        },
+        "defaultValues": "\"middle\"",
+        "description": null,
+        "fieldType": {
+          "id": "d3bc112e-bccb-4930-b8ad-df87b9e9b168"
+        },
+        "id": "6ee8768e-43e8-4646-8993-e102be6963d5",
+        "key": "size",
+        "name": null,
+        "nextSibling": {
+          "id": "4f675bb2-4926-425b-9dff-ba50cc22ef9a"
+        },
+        "prevSibling": {
+          "id": "79363079-76f6-4dee-9413-44dcdf911444"
+        },
+        "validationRules": "{\"general\":{\"nullable\":false}}"
+      },
+      {
+        "api": {
+          "id": "ca29d4c1-1eb7-4420-9e01-639190728309"
+        },
+        "defaultValues": "\"solid\"",
+        "description": null,
+        "fieldType": {
+          "id": "13a5fc6d-0d4f-4fb6-8112-c692a98d1fcb"
+        },
+        "id": "4f675bb2-4926-425b-9dff-ba50cc22ef9a",
+        "key": "variant",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": {
+          "id": "6ee8768e-43e8-4646-8993-e102be6963d5"
+        },
+        "validationRules": "{\"general\":{\"nullable\":false}}"
       }
     ],
     "id": "ca29d4c1-1eb7-4420-9e01-639190728309",
@@ -177,19 +177,24 @@
         "__typename": "EnumType",
         "allowedValues": [
           {
-            "id": "1f9e2199-e796-4842-9071-c70170001d8e",
-            "key": "number",
-            "value": "number"
+            "id": "13815c4f-6df4-4e3d-bcaa-532b1ef48bbd",
+            "key": "Large",
+            "value": "large"
           },
           {
-            "id": "9c351355-989f-45f8-8e14-8df25ac6614b",
-            "key": "string",
-            "value": "string"
+            "id": "ae72a817-4f19-45d1-848d-54575d9c05c6",
+            "key": "Middle",
+            "value": "middle"
+          },
+          {
+            "id": "a29cd892-0fc3-4c09-bbc9-77b9d26ca6bd",
+            "key": "Small",
+            "value": "small"
           }
         ],
-        "id": "b7f87583-958d-4cdc-912e-f3863ab491a6",
+        "id": "d3bc112e-bccb-4930-b8ad-df87b9e9b168",
         "kind": "EnumType",
-        "name": "AntDesignDivider Orientation Margin Enum"
+        "name": "AntDesignDivider Size"
       },
       {
         "__typename": "EnumType",
@@ -210,22 +215,27 @@
         "name": "AntDesignDivider Type Enum"
       },
       {
-        "__typename": "UnionType",
-        "id": "b24af1b5-6c50-4864-817c-e7f0c4a39374",
-        "kind": "UnionType",
-        "name": "AtomChildren Union",
-        "typesOfUnionType": [
+        "__typename": "EnumType",
+        "allowedValues": [
           {
-            "__typename": "RichTextType",
-            "id": "e7558508-3bb7-4f57-8f8c-6ac989911765",
-            "name": "RichTextType"
+            "id": "f289d821-88ae-4458-9ca0-391185234f15",
+            "key": "Dashed",
+            "value": "dashed"
           },
           {
-            "__typename": "CodeMirrorType",
-            "id": "010c4f5a-434b-4c3e-a0ed-01eb1f78172a",
-            "name": "Typescript Code"
+            "id": "b9b5ed3e-920a-4615-86e8-ca2c3bbe5a71",
+            "key": "Dotted",
+            "value": "dotted"
+          },
+          {
+            "id": "be6ce6a2-51a1-49c9-bdb4-39de753ebcfb",
+            "key": "Solid",
+            "value": "solid"
           }
-        ]
+        ],
+        "id": "13a5fc6d-0d4f-4fb6-8112-c692a98d1fcb",
+        "kind": "EnumType",
+        "name": "AntDesignDivider Variant"
       }
     ]
   },

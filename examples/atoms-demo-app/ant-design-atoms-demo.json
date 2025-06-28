@@ -7315,6 +7315,471 @@
           "childMapperPreviousSibling": null,
           "childMapperPropKey": null,
           "closestContainerNode": {
+            "id": "36d8e350-48d7-4385-8d24-f0ec08691f5d"
+          },
+          "compositeKey": "36d8e350-48d7-4385-8d24-f0ec08691f5d-body",
+          "firstChild": {
+            "id": "d5acade7-c03a-4b45-84de-3a46e2a89251"
+          },
+          "id": "cb06bd1a-3b32-4daf-9282-4f144a3488c3",
+          "name": "Body",
+          "nextSibling": null,
+          "page": {
+            "id": "36d8e350-48d7-4385-8d24-f0ec08691f5d"
+          },
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": null,
+          "props": {
+            "data": "{\"children\":{\"kind\":\"RichTextType\",\"type\":\"e7558508-3bb7-4f57-8f8c-6ac989911765\"}}",
+            "id": "8ec51423-4c5f-4e1a-a734-2ad9ef519f13"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "4a9dd961-501b-4246-8770-48fee5dc5852"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "36d8e350-48d7-4385-8d24-f0ec08691f5d"
+          },
+          "compositeKey": "36d8e350-48d7-4385-8d24-f0ec08691f5d-divider-1",
+          "firstChild": null,
+          "id": "d5acade7-c03a-4b45-84de-3a46e2a89251",
+          "name": "Divider 1",
+          "nextSibling": {
+            "id": "c5aa99e1-a03b-4c51-a337-747581ab675c"
+          },
+          "page": null,
+          "parentComponent": null,
+          "parentElement": {
+            "id": "cb06bd1a-3b32-4daf-9282-4f144a3488c3"
+          },
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": null,
+          "props": {
+            "data": "{\"children\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}",
+            "id": "a033e1f7-bac0-42a1-b7b6-db8b75ac0613"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "7738ad04-4acb-453b-b76d-f819404b383d"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "36d8e350-48d7-4385-8d24-f0ec08691f5d"
+          },
+          "compositeKey": "36d8e350-48d7-4385-8d24-f0ec08691f5d-divider-2",
+          "firstChild": {
+            "id": "236674be-9b92-44dc-8cb5-815b3ef34e61"
+          },
+          "id": "c5aa99e1-a03b-4c51-a337-747581ab675c",
+          "name": "Divider 2",
+          "nextSibling": {
+            "id": "e5592e6e-6c6d-442c-8efc-78490f8e166b"
+          },
+          "page": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": {
+            "id": "d5acade7-c03a-4b45-84de-3a46e2a89251"
+          },
+          "props": {
+            "data": "{\"children\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"orientation\":\"left\"}",
+            "id": "ef512cd2-b525-4f19-8c8d-f97ca741d3fc"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "7738ad04-4acb-453b-b76d-f819404b383d"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "36d8e350-48d7-4385-8d24-f0ec08691f5d"
+          },
+          "compositeKey": "36d8e350-48d7-4385-8d24-f0ec08691f5d-span-1",
+          "firstChild": null,
+          "id": "236674be-9b92-44dc-8cb5-815b3ef34e61",
+          "name": "Span 1",
+          "nextSibling": null,
+          "page": null,
+          "parentComponent": null,
+          "parentElement": {
+            "id": "c5aa99e1-a03b-4c51-a337-747581ab675c"
+          },
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": null,
+          "props": {
+            "data": "{\"children\":{\"kind\":\"CodeMirrorType\",\"type\":\"010c4f5a-434b-4c3e-a0ed-01eb1f78172a\",\"value\":\"Text Left\"}}",
+            "id": "cf9fc7e5-3e08-46c5-9c1d-c7c2565af938"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "262559c5-3658-4ab7-baba-b34e2d8987ee"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "36d8e350-48d7-4385-8d24-f0ec08691f5d"
+          },
+          "compositeKey": "36d8e350-48d7-4385-8d24-f0ec08691f5d-divider-3",
+          "firstChild": {
+            "id": "4bdd6dd8-a4d3-4a09-94ca-35ea5b79f018"
+          },
+          "id": "e5592e6e-6c6d-442c-8efc-78490f8e166b",
+          "name": "Divider 3",
+          "nextSibling": {
+            "id": "eb375a24-3fca-436d-8fc1-68ad3e74db7f"
+          },
+          "page": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": {
+            "id": "c5aa99e1-a03b-4c51-a337-747581ab675c"
+          },
+          "props": {
+            "data": "{\"children\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"orientation\":\"center\"}",
+            "id": "1e84ef78-e362-407b-b9cb-a9014c913da9"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "7738ad04-4acb-453b-b76d-f819404b383d"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "36d8e350-48d7-4385-8d24-f0ec08691f5d"
+          },
+          "compositeKey": "36d8e350-48d7-4385-8d24-f0ec08691f5d-span-2",
+          "firstChild": null,
+          "id": "4bdd6dd8-a4d3-4a09-94ca-35ea5b79f018",
+          "name": "Span 2",
+          "nextSibling": null,
+          "page": null,
+          "parentComponent": null,
+          "parentElement": {
+            "id": "e5592e6e-6c6d-442c-8efc-78490f8e166b"
+          },
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": null,
+          "props": {
+            "data": "{\"children\":{\"kind\":\"CodeMirrorType\",\"type\":\"010c4f5a-434b-4c3e-a0ed-01eb1f78172a\",\"value\":\"Text Center\"}}",
+            "id": "a160066c-bebc-4363-9006-2d31d9b8f966"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "262559c5-3658-4ab7-baba-b34e2d8987ee"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "36d8e350-48d7-4385-8d24-f0ec08691f5d"
+          },
+          "compositeKey": "36d8e350-48d7-4385-8d24-f0ec08691f5d-divider-4",
+          "firstChild": {
+            "id": "8946c66e-7d0f-4147-b860-8b7543b68c2c"
+          },
+          "id": "eb375a24-3fca-436d-8fc1-68ad3e74db7f",
+          "name": "Divider 4",
+          "nextSibling": {
+            "id": "866288d7-a525-465d-b7cf-0ea2254ebfb9"
+          },
+          "page": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": {
+            "id": "e5592e6e-6c6d-442c-8efc-78490f8e166b"
+          },
+          "props": {
+            "data": "{\"children\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"dashed\":false,\"orientation\":\"right\"}",
+            "id": "1d4b8742-496d-49cf-813b-5eda0bd08df7"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "7738ad04-4acb-453b-b76d-f819404b383d"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "36d8e350-48d7-4385-8d24-f0ec08691f5d"
+          },
+          "compositeKey": "36d8e350-48d7-4385-8d24-f0ec08691f5d-span-3",
+          "firstChild": null,
+          "id": "8946c66e-7d0f-4147-b860-8b7543b68c2c",
+          "name": "Span 3",
+          "nextSibling": null,
+          "page": null,
+          "parentComponent": null,
+          "parentElement": {
+            "id": "eb375a24-3fca-436d-8fc1-68ad3e74db7f"
+          },
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": null,
+          "props": {
+            "data": "{\"children\":{\"kind\":\"CodeMirrorType\",\"type\":\"010c4f5a-434b-4c3e-a0ed-01eb1f78172a\",\"value\":\"Text Right\"}}",
+            "id": "e8f2d67d-31a7-4b00-8a08-d3a4df62ad31"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "262559c5-3658-4ab7-baba-b34e2d8987ee"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "36d8e350-48d7-4385-8d24-f0ec08691f5d"
+          },
+          "compositeKey": "36d8e350-48d7-4385-8d24-f0ec08691f5d-divider-5",
+          "firstChild": {
+            "id": "513f2ced-07c8-420a-a5f1-280caa861935"
+          },
+          "id": "866288d7-a525-465d-b7cf-0ea2254ebfb9",
+          "name": "Divider 5",
+          "nextSibling": {
+            "id": "280af1f3-0299-4e18-9d87-d7cc5cb84825"
+          },
+          "page": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": {
+            "id": "eb375a24-3fca-436d-8fc1-68ad3e74db7f"
+          },
+          "props": {
+            "data": "{\"children\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"variant\":\"dashed\",\"type\":\"horizontal\",\"size\":\"middle\",\"orientation\":\"center\",\"dashed\":false}",
+            "id": "a99804bf-0958-4bc1-a222-103f775462ca"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "7738ad04-4acb-453b-b76d-f819404b383d"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "36d8e350-48d7-4385-8d24-f0ec08691f5d"
+          },
+          "compositeKey": "36d8e350-48d7-4385-8d24-f0ec08691f5d-span-4",
+          "firstChild": null,
+          "id": "513f2ced-07c8-420a-a5f1-280caa861935",
+          "name": "Span 4",
+          "nextSibling": null,
+          "page": null,
+          "parentComponent": null,
+          "parentElement": {
+            "id": "866288d7-a525-465d-b7cf-0ea2254ebfb9"
+          },
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": null,
+          "props": {
+            "data": "{\"children\":{\"kind\":\"CodeMirrorType\",\"type\":\"010c4f5a-434b-4c3e-a0ed-01eb1f78172a\",\"value\":\"Dashed\"}}",
+            "id": "9e3aa529-4db6-4ef1-8839-5c255b147dab"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "262559c5-3658-4ab7-baba-b34e2d8987ee"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "36d8e350-48d7-4385-8d24-f0ec08691f5d"
+          },
+          "compositeKey": "36d8e350-48d7-4385-8d24-f0ec08691f5d-divider-6",
+          "firstChild": {
+            "id": "57564eb9-4a1b-410d-86c0-07da8ed414d1"
+          },
+          "id": "280af1f3-0299-4e18-9d87-d7cc5cb84825",
+          "name": "Divider 6",
+          "nextSibling": null,
+          "page": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": {
+            "id": "866288d7-a525-465d-b7cf-0ea2254ebfb9"
+          },
+          "props": {
+            "data": "{\"children\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"variant\":\"dotted\",\"type\":\"horizontal\",\"size\":\"middle\",\"orientation\":\"center\",\"dashed\":false}",
+            "id": "b14505fd-a525-47ef-b9fa-3d9599fbf242"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "7738ad04-4acb-453b-b76d-f819404b383d"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "36d8e350-48d7-4385-8d24-f0ec08691f5d"
+          },
+          "compositeKey": "36d8e350-48d7-4385-8d24-f0ec08691f5d-span-5",
+          "firstChild": null,
+          "id": "57564eb9-4a1b-410d-86c0-07da8ed414d1",
+          "name": "Span 5",
+          "nextSibling": null,
+          "page": null,
+          "parentComponent": null,
+          "parentElement": {
+            "id": "280af1f3-0299-4e18-9d87-d7cc5cb84825"
+          },
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": null,
+          "props": {
+            "data": "{\"children\":{\"kind\":\"CodeMirrorType\",\"type\":\"010c4f5a-434b-4c3e-a0ed-01eb1f78172a\",\"value\":\"Dotted\"}}",
+            "id": "02827e3c-b05c-4aa0-a45f-748db640539c"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "262559c5-3658-4ab7-baba-b34e2d8987ee"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        }
+      ],
+      "page": {
+        "app": {
+          "id": "2e50ee6c-b19c-4155-a202-991b0e78d56c"
+        },
+        "id": "36d8e350-48d7-4385-8d24-f0ec08691f5d",
+        "kind": "Regular",
+        "name": "Divider",
+        "pageContentContainer": null,
+        "redirect": null,
+        "rootElement": {
+          "id": "cb06bd1a-3b32-4daf-9282-4f144a3488c3"
+        },
+        "store": {
+          "id": "2057c9a1-893c-4dd4-a3b9-d693722249d5"
+        },
+        "urlPattern": "/divider"
+      },
+      "store": {
+        "actions": [],
+        "api": {
+          "types": [
+            {
+              "__typename": "InterfaceType",
+              "id": "0e3258b1-0cfe-4a90-9a1b-07440ef26ec4",
+              "kind": "InterfaceType",
+              "name": "Divider Store API",
+              "fields": []
+            }
+          ],
+          "__typename": "InterfaceType",
+          "id": "0e3258b1-0cfe-4a90-9a1b-07440ef26ec4",
+          "kind": "InterfaceType",
+          "name": "Divider Store API",
+          "fields": []
+        },
+        "store": {
+          "api": {
+            "id": "0e3258b1-0cfe-4a90-9a1b-07440ef26ec4"
+          },
+          "id": "2057c9a1-893c-4dd4-a3b9-d693722249d5",
+          "name": "Divider Store"
+        }
+      }
+    },
+    {
+      "elements": [
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
             "id": "5930a10c-1e9a-4e3e-a9cd-433cd544248d"
           },
           "compositeKey": "5930a10c-1e9a-4e3e-a9cd-433cd544248d-body",

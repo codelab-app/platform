@@ -201,6 +201,15 @@ export class RuntimeElementPropsModel
       isTypedProp(childrenProp) &&
       childrenProp.kind === ITypeKind.CodeMirrorType
 
+    const isRichTextType =
+      childrenProp &&
+      isTypedProp(childrenProp) &&
+      childrenProp.kind === ITypeKind.RichTextType
+
+    if (!isCodeMirrorType && !isRichTextType) {
+      return null
+    }
+
     const Wrapper = isCodeMirrorType
       ? CodeMirrorEditorWrapper
       : RichTextEditorWrapper
