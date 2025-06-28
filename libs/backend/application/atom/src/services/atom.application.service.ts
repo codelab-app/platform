@@ -1,4 +1,8 @@
-import type { IAtomAggregate, IAtomType } from '@codelab/shared-abstract-core'
+import type {
+  IAtomAggregate,
+  IAtomDto,
+  IAtomType,
+} from '@codelab/shared-abstract-core'
 
 import { ReadAdminDataService } from '@codelab/backend-application-data'
 import { TypeApplicationService } from '@codelab/backend-application-type'
@@ -7,12 +11,11 @@ import { AuthDomainService } from '@codelab/backend-domain-shared-auth'
 import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
 import { LogClassMethod } from '@codelab/backend-infra-core'
 import { EntitySchema } from '@codelab/shared-abstract-types'
-import { SortDirection } from '@codelab/shared-infra-gqlgen'
 import { Injectable } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 import { omit } from 'remeda'
 
-import { ExportAtomCommand } from '../use-case'
+import { ExportAtomsCommand } from '../use-case'
 
 @Injectable()
 export class AtomApplicationService {
@@ -67,25 +70,9 @@ export class AtomApplicationService {
   @LogClassMethod()
   async exportAtomsForAdmin(): Promise<Array<IAtomAggregate>> {
     /**
-     * Get all atoms first
+     * Use batch export command to fetch all atoms in one operation
      */
-    const atomIds = await this.atomRepository.find({
-      options: {
-        sort: [{ name: SortDirection.Asc }],
-      },
-      schema: EntitySchema,
-      selectionSet: '{ id }',
-    })
-
-    const exportedAtoms = []
-
-    for (const { id } of atomIds) {
-      exportedAtoms.push(
-        await this.commandBus.execute(new ExportAtomCommand({ id })),
-      )
-    }
-
-    return exportedAtoms
+    return await this.commandBus.execute(new ExportAtomsCommand())
   }
 
   @LogClassMethod()

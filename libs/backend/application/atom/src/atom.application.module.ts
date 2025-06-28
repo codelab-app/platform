@@ -7,7 +7,7 @@ import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
 
 import { AtomApplicationService } from './services/atom.application.service'
-import { ExportAtomHandler } from './use-case'
+import { ExportAtomsHandler } from './use-case'
 
 @Module({
   controllers: [],
@@ -20,6 +20,6 @@ import { ExportAtomHandler } from './use-case'
     DataModule,
     AuthDomainModule,
   ],
-  providers: [ExportAtomHandler, AtomApplicationService],
+  providers: [ExportAtomsHandler, AtomApplicationService],
 })
 export class AtomApplicationModule {}
