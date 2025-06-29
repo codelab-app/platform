@@ -55,5 +55,17 @@ export const UsersTable = ({ users }: UserTableProps) => {
     },
   ]
 
-  return <Table columns={columns} dataSource={users} rowKey="id" />
+  return (
+    <Table
+      columns={columns}
+      dataSource={users}
+      pagination={{
+        pageSize: 10,
+        responsive: true,
+        showSizeChanger: true,
+      }}
+      rowKey="id"
+      scroll={{ x: 'max-content' }}
+    />
+  )
 }

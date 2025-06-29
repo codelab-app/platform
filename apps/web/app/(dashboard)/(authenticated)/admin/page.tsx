@@ -8,6 +8,11 @@ import { userRepository } from '@codelab/frontend-domain-user/repositories'
 import { ContentSection } from '@codelab/frontend-presentation-view/sections'
 import { Space } from 'antd'
 
+import {
+  GitHubIssuesTable,
+  GitHubSyncButton,
+} from '../../../../components/openmemory'
+
 export const metadata: Metadata = {
   title: 'Admin | Codelab',
 }
@@ -22,8 +27,10 @@ const AdminView = async () => {
           <ExportAdminDataButton />
           <ImportAdminDataButton />
           <ResetDataButtons />
+          <GitHubSyncButton />
         </Space>
         <UsersTable users={users} />
+        <GitHubIssuesTable />
       </Space>
     </ContentSection>
   )

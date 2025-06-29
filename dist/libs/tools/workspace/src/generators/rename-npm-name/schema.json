@@ -1,9 +1,0 @@
-{
-  "$schema": "http://json-schema.org/schema",
-  "$id": "RenameNpmName",
-  "title": "Rename NPM package names",
-  "description": "Rename NPM package names across the workspace by migrating import paths",
-  "type": "object",
-  "properties": {},
-  "required": []
-}
