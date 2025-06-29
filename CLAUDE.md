@@ -248,12 +248,14 @@ When creating documentation for complex implementations that span multiple files
 All branches must follow this format: `<type>/<issue-number>-<short-description>`
 
 Allowed types:
+
 - `feat/` - New features or enhancements
 - `fix/` - Bug fixes
 - `refactor/` - Code refactoring without changing functionality
 - `test/` - Adding or updating tests
 
 Examples:
+
 - `feat/3736-debug-env-service-tracking`
 - `fix/3742-login-validation-error`
 - `refactor/3755-simplify-repository-pattern`
