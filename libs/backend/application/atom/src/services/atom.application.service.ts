@@ -1,8 +1,4 @@
-import type {
-  IAtomAggregate,
-  IAtomDto,
-  IAtomType,
-} from '@codelab/shared-abstract-core'
+import type { IAtomAggregate, IAtomType } from '@codelab/shared-abstract-core'
 
 import { ReadAdminDataService } from '@codelab/backend-application-data'
 import { TypeApplicationService } from '@codelab/backend-application-type'
@@ -10,7 +6,6 @@ import { AtomRepository } from '@codelab/backend-domain-atom'
 import { AuthDomainService } from '@codelab/backend-domain-shared-auth'
 import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
 import { LogClassMethod } from '@codelab/backend-infra-core'
-import { EntitySchema } from '@codelab/shared-abstract-types'
 import { Injectable } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 import { omit } from 'remeda'
@@ -84,7 +79,7 @@ export class AtomApplicationService {
     const owner = this.authDomainService.currentUser
 
     // First, process all atoms without dependencies, we can't do it in parallel,
-    // since under high load server emmits ECONNRESET error
+    // since under high load server emits ECONNRESET error
     for (const { api, atom } of atoms) {
       await this.typeApplicationService.saveApi(api)
 

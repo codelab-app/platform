@@ -171,6 +171,7 @@ export class ExportApisHandler
     const allFieldIds = apis.flatMap((api) => api.fields.map(({ id }) => id))
 
     const allApiFields = await this.fieldRepository.find({
+      options: ExportApisHandler.SORT_OPTIONS,
       schema: FieldExportSchema,
       where: { id_IN: allFieldIds },
     })
@@ -205,6 +206,7 @@ export class ExportApisHandler
 
     return dependentInterfaceIds.length
       ? await this.fieldRepository.find({
+          options: ExportApisHandler.SORT_OPTIONS,
           schema: FieldExportSchema,
           where: {
             api: {
