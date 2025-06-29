@@ -1,7 +1,0 @@
-{
-  "$schema": "http://json-schema.org/schema",
-  "$id": "MigrateProjectReference",
-  "title": "Migrate All Projects to TypeScript Project References",
-  "type": "object",
-  "properties": {}
-}
