@@ -20,20 +20,15 @@ export class ImportTagsHandler
   async execute({ tags }: ImportTagsCommand) {
     /**
      * Omit parent and children since they need to be created first
-     * Can use Promise.all here since we're not creating any relationships
      */
-    await Promise.all(
-      tags.map(async (tag) => {
-        const { children, descendants, parent, ...createTagData } = tag
+    for (const tag of tags) {
+      const { children, descendants, parent, ...createTagData } = tag
 
-        return this.tagRepository.save(createTagData)
-      }),
-    )
+      await this.tagRepository.save(createTagData)
+    }
 
     /**
-     * Set parent and children after all tags are created
-     * Must be sequential since tags have parent/children relationships
-     * that could cause Neo4j deadlocks if updated in parallel
+     * set parent and children after all tags are created
      */
     for (const tag of tags) {
       const { descendants, ...updateTagData } = tag
