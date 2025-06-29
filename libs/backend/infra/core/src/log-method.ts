@@ -15,7 +15,16 @@ export const LogClassMethod =
 
     // Replace original method with wrapper
     descriptor.value = async function (
-      this: { logger?: { debug(message: string, context?: ObjectLike): void } },
+      this: {
+        logger?: {
+          debugWithTiming<R>(
+            message: string,
+            fn: () => Promise<R>,
+            options?: ObjectLike,
+          ): Promise<R>
+          debug(message: string, options?: ObjectLike): void
+        }
+      },
       ...args: Parameters<T>
     ) {
       // "this" refers to the class instance
@@ -28,17 +37,15 @@ export const LogClassMethod =
         )
       }
 
-      // Log method call
-      this.logger.debug(`${className}.${propertyKey}()`)
-
       // Call the original method
       if (!originalMethod) {
         throw new Error(`Method ${propertyKey} not found`)
       }
 
-      const result = await originalMethod.apply(this, args)
-
-      return result
+      // If logger has debugWithTiming, use it for automatic timing
+      return this.logger.debugWithTiming(`${className}.${propertyKey}()`, () =>
+        originalMethod.apply(this, args),
+      )
     } as T
 
     return descriptor
