@@ -46,26 +46,33 @@ const createNodesInternal = async (
   const tsconfigSpecPath = join(projectRoot, 'tsconfig.spec.json')
   const hasTsconfig = existsSync(tsconfigPath)
   const hasTsconfigSpec = existsSync(tsconfigSpecPath)
-  // Build command based on which files exist
-  let command: string
+  // Create targets based on which files exist
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/ban-types
+  const targets: Record<string, any> = {}
 
-  if (hasTsconfig && hasTsconfigSpec) {
-    command = `tsc -p ${tsconfigPath} && tsc -p ${tsconfigSpecPath}`
-  } else if (hasTsconfig) {
-    command = `tsc -p ${tsconfigPath}`
-  } else {
-    command = `tsc -p ${tsconfigSpecPath}`
+  if (hasTsconfig) {
+    targets['tsc-check'] = {
+      cache: true,
+      command: `tsc -p ${tsconfigPath}`,
+    }
+  }
+
+  if (hasTsconfigSpec) {
+    targets['tsc-check:spec'] = {
+      cache: true,
+      command: `tsc -p ${tsconfigSpecPath}`,
+    }
+  }
+
+  // Only return if we have at least one target
+  if (Object.keys(targets).length === 0) {
+    return {}
   }
 
   return {
     projects: {
       [projectRoot]: {
-        targets: {
-          'tsc-check': {
-            cache: true,
-            command,
-          },
-        },
+        targets,
       },
     },
   }
