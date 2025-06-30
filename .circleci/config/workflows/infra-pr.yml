@@ -12,12 +12,14 @@ jobs:
         branches:
           only:
             - staging
+            - feat/3292-production-urls
   - tf-plan:
       name: 'tf-plan-ci'
       filters:
         branches:
           only:
             - staging
+            - feat/3292-production-urls
       stage: ci
       requires:
         - setup-infra-workspace
@@ -27,6 +29,7 @@ jobs:
         branches:
           only:
             - staging
+            - feat/3292-production-urls
       stage: ci
       requires:
         - tf-plan-ci
@@ -44,6 +47,7 @@ jobs:
         branches:
           only:
             - staging
+            - feat/3292-production-urls
       context:
         - prod
       requires:
@@ -53,6 +57,7 @@ jobs:
         branches:
           only:
             - staging
+            - feat/3292-production-urls
       context:
         - prod
       requires:
@@ -62,6 +67,7 @@ jobs:
         branches:
           only:
             - staging
+            - feat/3292-production-urls
       context:
         - prod
       requires:
@@ -71,6 +77,7 @@ jobs:
         branches:
           only:
             - staging
+            - feat/3292-production-urls
       context:
         - prod
       requires:
@@ -80,6 +87,7 @@ jobs:
         branches:
           only:
             - staging
+            - feat/3292-production-urls
       stage: prod
       requires:
         - docker-web
@@ -91,6 +99,7 @@ jobs:
         branches:
           only:
             - staging
+            - feat/3292-production-urls
       type: approval
       requires:
         - tf-plan
@@ -99,6 +108,7 @@ jobs:
         branches:
           only:
             - staging
+            - feat/3292-production-urls
       stage: prod
       requires:
         - hold-apply
