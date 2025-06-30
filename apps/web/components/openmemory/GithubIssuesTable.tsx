@@ -54,7 +54,7 @@ export const GitHubIssuesTable = () => {
   const [pageSize, setPageSize] = useState(20)
   const [syncingIssues, setSyncingIssues] = useState<Set<number>>(new Set())
   const [searchTerm, setSearchTerm] = useState('')
-  const [selectedRowKeys, setSelectedRowKeys] = useState<Array<number>>([])
+  const [selectedRowKeys, setSelectedRowKeys] = useState<Array<string>>([])
   const [isBulkSyncing, setIsBulkSyncing] = useState(false)
 
   const [currentRepo, setCurrentRepo] = useState<{
@@ -256,7 +256,9 @@ export const GitHubIssuesTable = () => {
       render: (_, record: GitHubIssue) => (
         <Button
           disabled={record.synced}
-          loading={syncingIssues.has(record.id)}
+          loading={syncingIssues.has(
+            typeof record.id === 'string' ? parseInt(record.id, 10) : record.id,
+          )}
           onClick={() => syncIssueToMem0(record)}
           size="small"
           type="primary"
@@ -442,7 +444,7 @@ export const GitHubIssuesTable = () => {
 
     try {
       const selectedIssues = issues.filter((issue) =>
-        selectedRowKeys.includes(Number(issue.id)),
+        selectedRowKeys.includes(String(issue.id)),
       )
 
       const unsyncedIssues = selectedIssues.filter((issue) => !issue.synced)
@@ -590,7 +592,7 @@ export const GitHubIssuesTable = () => {
             disabled: record.synced,
           }),
           onChange: (newSelectedRowKeys) => {
-            setSelectedRowKeys(newSelectedRowKeys as Array<number>)
+            setSelectedRowKeys(newSelectedRowKeys as Array<string>)
           },
           selectedRowKeys,
         }}

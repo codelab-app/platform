@@ -26,9 +26,11 @@ export interface GitHubDiscussion {
   body: string | null
   createdAt: string
   id: string
-  labels: Array<{
-    name: string
-  }>
+  labels: {
+    nodes: Array<{
+      name: string
+    }>
+  }
   number: number
   title: string
   updatedAt: string

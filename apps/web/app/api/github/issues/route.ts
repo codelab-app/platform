@@ -42,7 +42,7 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
     // Check sync status if mem0ApiKey is provided
     let issuesWithSync = issues
 
-    if (mem0ApiKey) {
+    if (mem0ApiKey && session.user.email) {
       const mem0Client = createMem0Client(mem0ApiKey)
       const mem0Service = new Mem0Service(mem0Client)
 

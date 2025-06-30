@@ -12,7 +12,7 @@ export class Mem0Client {
   }
 
   async add(
-    messages: Array<{ content: string; role: string }>,
+    messages: Array<{ content: string; role: 'assistant' | 'user' }>,
     options: {
       metadata?: UnknownObjectLike
       userId: string
@@ -29,9 +29,9 @@ export class Mem0Client {
     limit?: number
     userId: string
   }) {
-    return this.client.search({
-      ...params,
-      user_id: params.userId,
+    return this.client.search(params.userId, {
+      filters: params.filters,
+      limit: params.limit,
     })
   }
 

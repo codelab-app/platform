@@ -74,7 +74,7 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
             closedAt: null,
             createdAt: discussion.createdAt,
             id: discussion.id,
-            labels: discussion.labels,
+            labels: discussion.labels.nodes,
             nodeType: 'discussion' as const,
             number: discussion.number,
             repositoryUrl: discussion.url,

@@ -27,7 +27,7 @@ const validator = () => {
   return null
 }
 
-const bridge = new JSONSchemaBridge(schema, validator)
+const bridge = new JSONSchemaBridge({ schema, validator })
 
 const CustomSelectField = (props: any) => {
   const [fieldProps] = useField(

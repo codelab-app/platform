@@ -44,7 +44,7 @@ export class GitHubService {
     let hasNextPage = true
 
     while (hasNextPage && discussions.length < limit) {
-      const response = await this.client.graphql<{
+      const graphqlResponse = await this.client.graphql<{
         repository: {
           discussions: {
             nodes: Array<GitHubDiscussion>
@@ -61,11 +61,17 @@ export class GitHubService {
         repo,
       })
 
-      const { nodes, pageInfo } = response.repository.discussions
+      const discussionsData: {
+        nodes: Array<GitHubDiscussion>
+        pageInfo: {
+          hasNextPage: boolean
+          endCursor: string
+        }
+      } = graphqlResponse.repository.discussions
 
-      discussions.push(...nodes)
-      hasNextPage = pageInfo.hasNextPage
-      cursor = pageInfo.endCursor
+      discussions.push(...discussionsData.nodes)
+      hasNextPage = discussionsData.pageInfo.hasNextPage
+      cursor = discussionsData.pageInfo.endCursor
 
       if (discussions.length >= limit) {
         break
@@ -79,7 +85,7 @@ export class GitHubService {
       createdAt: discussion.createdAt,
       htmlUrl: discussion.url,
       id: discussion.id,
-      labels: discussion.labels.nodes || [],
+      labels: discussion.labels.nodes,
       nodeType: 'discussion' as const,
       number: discussion.number,
       state: 'open',
@@ -119,7 +125,7 @@ export class GitHubService {
         .slice(0, limit - issues.length)
         .map((issue) => ({
           assignees: issue.assignees || [],
-          body: issue.body,
+          body: issue.body ?? null,
           closedAt: issue.closed_at,
           createdAt: issue.created_at,
           id: issue.id,
@@ -208,17 +214,7 @@ export class GitHubService {
       return null
     }
 
-    return {
-      author: discussion.author,
-      body: discussion.body,
-      createdAt: discussion.createdAt,
-      id: discussion.id,
-      labels: discussion.labels.nodes || [],
-      number: discussion.number,
-      title: discussion.title,
-      updatedAt: discussion.updatedAt,
-      url: discussion.url,
-    }
+    return discussion
   }
 
   async fetchSingleIssue(
@@ -234,7 +230,7 @@ export class GitHubService {
 
     return {
       assignees: issue.assignees || [],
-      body: issue.body,
+      body: issue.body ?? null,
       closedAt: issue.closed_at,
       createdAt: issue.created_at,
       id: issue.id,
