@@ -33,6 +33,11 @@
             "input": "./libs/tools/tsc-check",
             "glob": "executors.json",
             "output": "."
+          },
+          {
+            "input": "./libs/tools/tsc-check",
+            "glob": "tsconfig.json",
+            "output": "."
           }
         ]
       }
