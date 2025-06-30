@@ -43,7 +43,6 @@ pnpm e2e           # Run E2E tests
 
 # Linting and type checking
 pnpm lint          # Run ESLint on all projects
-pnpm nx run-many --target=tsc-check  # Type checking
 
 # Code generation
 pnpm codegen       # Generate GraphQL types and schemas
@@ -61,6 +60,9 @@ pnpm nx <target> <project>
 # Examples
 pnpm nx serve web           # Start web development server
 pnpm nx test backend-domain-app  # Run tests for specific library
+
+# When linting always use subagent so we don't block the main thread
+# This way we can run this task in parallel in the background
 pnpm nx lint frontend-application-admin  # Lint specific project
 
 # Run tasks across multiple projects
@@ -178,7 +180,7 @@ See `.claude/documentation/git-branch-naming-convention.md` for detailed guideli
 - Don't add "🤖 Generated with [Claude Code](https://claude.ai/code)" to commit messages
 - Keep commit messages clean and focused on the changes made
 
-## Claude finetuning
+## Claude fine-tuning
 
 - Be brutally honest, don't be a yes man.
 - If I am wrong, point it out bluntly.
@@ -191,6 +193,16 @@ See `.claude/documentation/git-branch-naming-convention.md` for detailed guideli
 - Review any found memories about user preferences, past discussions, and project context
 - Only after checking memory, formulate your response incorporating the found context
 - When new important information is shared, use `mcp__openmemory__add-memory` to store it
+- Keep in mind Github discussions should have the most weight, followed by Notion documnetation wiki, then followed by Github issues
+
+## Documentation
+
+When I say read documentation it's regarding @import .claude/documentation
+
+### OpenMemory Sync Documentation
+
+For the data structure and implementation details of syncing various sources (GitHub, Notion) to OpenMemory:
+@import .claude/documentation/openmemory-sync-documentation.md
 
 ## GitHub Issue Context
 
