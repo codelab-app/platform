@@ -1,0 +1,13 @@
+{
+  "name": "shared-infra-github",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/infra/github/src",
+  "projectType": "library",
+  "tags": ["scope:shared", "layer:infra", "projectType:library"],
+  "// targets": "to see all targets run: nx show project shared-infra-github --web",
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

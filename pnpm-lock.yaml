@@ -200,6 +200,9 @@ importers:
       '@next/bundle-analyzer':
         specifier: 15.2.4
         version: 15.2.4
+      '@octokit/graphql':
+        specifier: ^9.0.1
+        version: 9.0.1
       '@octokit/rest':
         specifier: ^22.0.0
         version: 22.0.0

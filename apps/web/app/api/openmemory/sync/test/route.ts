@@ -6,13 +6,13 @@ export const GET = async (request: NextRequest): Promise<NextResponse> => {
   const baseUrl = request.nextUrl.origin
 
   return NextResponse.json({
-    message: 'GitHub Sync Test Endpoint',
+    message: 'OpenMemory Sync Test Endpoint',
     usage: {
-      description: 'Use this to test the GitHub sync API',
+      description: 'Use this to test the OpenMemory sync API',
       example: {
         body: {
+          issueNumber: 123,
           limit: 10,
-          mem0ApiKey: 'your_mem0_api_key',
           owner: 'your-github-username',
           repo: 'your-repo-name',
         },
@@ -20,9 +20,9 @@ export const GET = async (request: NextRequest): Promise<NextResponse> => {
           'Content-Type': 'application/json',
         },
         method: 'POST',
-        url: `${baseUrl}/api/github/openmemory-sync`,
+        url: `${baseUrl}/api/openmemory/sync`,
       },
-      note: 'Make sure you are authenticated with Auth0 before making the request',
+      note: 'Make sure you are authenticated with Auth0 and have OPENMEMORY_API_KEY set in environment variables',
     },
   })
 }
