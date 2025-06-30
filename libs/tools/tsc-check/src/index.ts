@@ -53,14 +53,14 @@ const createNodesInternal = async (
   if (hasTsconfig) {
     targets['tsc-check'] = {
       cache: true,
-      command: `tsc -p ${tsconfigPath} --noEmit`,
+      command: `tsc -p ${tsconfigPath} --noEmit --tsBuildInfoFile /dev/null`,
     }
   }
 
   if (hasTsconfigSpec) {
     targets['tsc-check:spec'] = {
       cache: true,
-      command: `tsc -p ${tsconfigSpecPath} --noEmit`,
+      command: `tsc -p ${tsconfigSpecPath} --noEmit --tsBuildInfoFile /dev/null`,
     }
   }
 
