@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../../../libs/tools/eslint-plugin/src/index.ts"],"names":[],"mappings":";;AAAA,2EAAoE;AACpE,6EAAuE;AACvE,6DAA+D;AAC/D,yEAAmE;AAEnE;;GAEG;AACH,MAAM,CAAC,OAAO,GAAG;IACf,OAAO,EAAE;QACP,WAAW,EAAE,+BAAiB;KAC/B;IACD,KAAK,EAAE;QACL,wBAAwB,EAAE,4CAAmB;QAC7C,yBAAyB,EAAE,+CAAqB;QAChD,uBAAuB,EAAE,2CAAmB;KAC7C;CACF,CAAA"}
