@@ -102,6 +102,8 @@ Key conventions:
 
 @import .claude/documentation/nx-library-naming-conventions.md
 
+@import .claude/documentation/nx-workspace-library-build-process.md
+
 ### Directory Conventions
 
 - Each module follows the pattern: `{layer}/{domain}/{service-type}/`
