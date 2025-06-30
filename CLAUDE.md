@@ -222,3 +222,4 @@ For the data structure and implementation details of syncing various sources (Gi
 - When I say "update issue" or "create issue regarding this", I'm referring to GitHub issues
 - Use the `mcp__github__` tools to interact with GitHub issues
 - Default to the current repository unless specified otherwise
+- **IMPORTANT**: Only create GitHub issues for repositories under the `codelab-app` organization. Never create issues for any other organization or personal repositories
