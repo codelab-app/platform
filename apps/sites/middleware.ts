@@ -17,11 +17,45 @@ export const config = {
 }
 
 const middleware = async (request: NextRequest) => {
-  const hostname = request.headers.get('host')
+  const hostname = request.headers.get('host') || ''
   const url = request.nextUrl
   const domain = url.searchParams.get('domain')
   const pageUrl = `/${url.searchParams.get('page')}`
   const authorization = request.cookies.get('authorization')
+
+  // Check if this is a preview subdomain
+  const previewMatch = hostname.match(
+    /^([a-zA-Z0-9-]+)\.preview\.codelab\.app$/,
+  )
+
+  if (previewMatch) {
+    // Extract app ID from subdomain
+    const appId = previewMatch[1]
+
+    console.log('Preview request for app:', appId)
+
+    // Rewrite to preview route with app ID
+    url.pathname = `/preview/${appId}${url.pathname}`
+
+    return NextResponse.rewrite(url)
+  }
+
+  // Check if this is a staging subdomain (alternative to preview)
+  const stagingMatch = hostname.match(
+    /^([a-zA-Z0-9-]+)\.staging\.codelab\.app$/,
+  )
+
+  if (stagingMatch) {
+    // Extract app ID from subdomain
+    const appId = stagingMatch[1]
+
+    console.log('Staging request for app:', appId)
+
+    // Rewrite to preview route with app ID (using same handler)
+    url.pathname = `/preview/${appId}${url.pathname}`
+
+    return NextResponse.rewrite(url)
+  }
 
   // if (domain && pageUrl) {
   //   const endpoint = getEnv().endpoint.canActivateUrl
@@ -42,6 +76,7 @@ const middleware = async (request: NextRequest) => {
   //   }
   // }
 
+  // Default behavior for custom domains
   console.log('Redirecting...', url.toString())
   url.pathname = `/${hostname}${url.pathname}`
 

@@ -29,8 +29,6 @@
     "test.integration": "nx run-many --all --target=test -c test.integration --parallel=1",
     "lint": "nx run-many --all --target=lint --parallel=5",
     "format": "npx prettier --write \"./**/*.{graphql,yaml,json,css}\" && terraform -chdir=infra/terraform fmt --recursive",
-    "nx": "scripts/nx/nx.sh",
-    "claude": "scripts/claude/claude.sh",
     "update": "nx migrate @nx/workspace",
     "dep-graph": "nx dep-graph --watch",
     "help": "nx help",

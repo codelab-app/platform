@@ -151,6 +151,12 @@ pnpm nx run-many --target=test --parallel=3
 - When new important information is shared, use `mcp__openmemory__add-memory` to store it
 - Keep in mind Github discussions should have the most weight, followed by Notion documnetation wiki, then followed by Github issues
 
+## Research and Information Lookup
+
+- When researching or looking up information, prefer using Perplexity MCP (`mcp__perplexity__`) over web search
+- Perplexity provides faster, more summarized results ideal for quick research
+- Use web search when you need more accurate or comprehensive information from specific sources
+
 ## Documentation
 
 When I say read documentation it's regarding @import .claude/documentation
@@ -166,3 +172,9 @@ For the data structure and implementation details of syncing various sources (Gi
 - Use the `mcp__github__` tools to interact with GitHub issues
 - Default to the current repository unless specified otherwise
 - **IMPORTANT**: Only create GitHub issues for repositories under the `codelab-app` organization. Never create issues for any other organization or personal repositories
+
+## Claude Code Custom Commands
+
+- Custom slash commands for Claude Code should be stored in `.claude/commands/` directory
+- Each command should be a markdown file with the command name as the filename (e.g., `commit.md` for `/commit`)
+- Commands should include usage instructions, implementation steps, and any relevant notes
