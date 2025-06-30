@@ -44,6 +44,10 @@ pnpm e2e           # Run E2E tests
 # Linting and type checking
 pnpm lint          # Run ESLint on all projects
 
+# Type checking individual projects
+pnpm nx run <project-name>:tsc-check      # Check TypeScript types for source files
+pnpm nx run <project-name>:tsc-check:spec # Check TypeScript types for test files
+
 # Code generation
 pnpm codegen       # Generate GraphQL types and schemas
 
@@ -151,6 +155,13 @@ When creating documentation for complex implementations that span multiple files
 - ALWAYS prefer editing an existing file to creating a new one
 - NEVER proactively create documentation files (\*.md) or README files in the main codebase
 - Use `.claude/documentation/` for complex implementation summaries when needed
+
+### Type Checking After Changes
+
+- **ALWAYS** run type checking after modifying TypeScript files
+- For source file changes: `pnpm nx run <project-name>:tsc-check`
+- For test file changes (*.spec.ts): `pnpm nx run <project-name>:tsc-check:spec`
+- This ensures type safety and catches errors early
 
 ## Git Workflow
 

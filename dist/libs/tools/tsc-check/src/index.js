@@ -27,26 +27,29 @@ const createNodesInternal = async (configFilePath, options, context) => {
     const tsconfigSpecPath = (0, path_1.join)(projectRoot, 'tsconfig.spec.json');
     const hasTsconfig = (0, fs_1.existsSync)(tsconfigPath);
     const hasTsconfigSpec = (0, fs_1.existsSync)(tsconfigSpecPath);
-    // Build command based on which files exist
-    let command;
-    if (hasTsconfig && hasTsconfigSpec) {
-        command = `tsc -p ${tsconfigPath} && tsc -p ${tsconfigSpecPath}`;
+    // Create targets based on which files exist
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/ban-types
+    const targets = {};
+    if (hasTsconfig) {
+        targets['tsc-check'] = {
+            cache: true,
+            command: `tsc -p ${tsconfigPath}`,
+        };
     }
-    else if (hasTsconfig) {
-        command = `tsc -p ${tsconfigPath}`;
+    if (hasTsconfigSpec) {
+        targets['tsc-check:spec'] = {
+            cache: true,
+            command: `tsc -p ${tsconfigSpecPath}`,
+        };
     }
-    else {
-        command = `tsc -p ${tsconfigSpecPath}`;
+    // Only return if we have at least one target
+    if (Object.keys(targets).length === 0) {
+        return {};
     }
     return {
         projects: {
             [projectRoot]: {
-                targets: {
-                    'tsc-check': {
-                        cache: true,
-                        command,
-                    },
-                },
+                targets,
             },
         },
     };
