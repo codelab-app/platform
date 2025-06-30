@@ -1038,6 +1038,7 @@
       "@codelab/shared-infra-fetch-server": [
         "libs/shared/infra/fetch-server/src/index.ts"
       ],
+      "@codelab/shared-infra-github": ["libs/shared/infra/github/src/index.ts"],
       "@codelab/shared-infra-gql-client": [
         "libs/shared/infra/gql-client/src/index.ts"
       ],
@@ -1048,6 +1049,7 @@
       "@codelab/shared-infra-logging/server": [
         "libs/shared/infra/logging/src/server/index.ts"
       ],
+      "@codelab/shared-infra-mem0": ["libs/shared/infra/mem0/src/index.ts"],
       "@codelab/shared-infra-sentry": ["libs/shared/infra/sentry/src/index.ts"],
       "@codelab/shared-infra-tracing": [
         "libs/shared/infra/tracing/src/index.ts"

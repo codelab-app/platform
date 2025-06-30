@@ -73,7 +73,30 @@ export class SchemaService implements ISchemaService {
         typeDefs,
       })
 
+      // Temporarily suppress Neo4j GraphQL deprecation warnings
+      // These warnings are about @relationship on non-list elements and @node directive
+      const originalWarn = console.warn
+
+      console.warn = (...args: Array<unknown>) => {
+        const message = args[0]?.toString() || ''
+
+        if (
+          message.includes('@relationship directive on a non-list element') ||
+          message.includes(
+            'marking all types representing Neo4j nodes with the @node directive',
+          )
+        ) {
+          // Suppress these specific warnings
+          return
+        }
+
+        originalWarn.apply(console, args)
+      }
+
       const schema = await neo4jGraphQL.getSchema()
+
+      // Restore original console.warn
+      console.warn = originalWarn
 
       await neo4jGraphQL.checkNeo4jCompat({
         driver: this.neo4jService.driver,

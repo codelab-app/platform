@@ -7,7 +7,7 @@ import { CqrsModule } from '@nestjs/cqrs'
 import { TypeApplicationService, TypeSeederService } from './service'
 import { TypeApplicationController } from './type.application.controller'
 import { SeedE2eTypesHandler, SeedSystemTypesHandler } from './use-case'
-import { ExportApiHandler } from './use-case/api/export-api.command.service'
+import { ExportApisHandler } from './use-case/api/export-apis.command.service'
 import { ExportSystemTypesHandler } from './use-case/system-types/export-system-types.command.service'
 import { ImportSystemTypesHandler } from './use-case/system-types/import-system-types.command.service'
 
@@ -18,7 +18,7 @@ import { ImportSystemTypesHandler } from './use-case/system-types/import-system-
   providers: [
     SeedE2eTypesHandler,
     TypeApplicationService,
-    ExportApiHandler,
+    ExportApisHandler,
     ExportSystemTypesHandler,
     ImportSystemTypesHandler,
     TypeSeederService,

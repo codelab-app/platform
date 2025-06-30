@@ -27,7 +27,7 @@ export class PinoLoggerService extends Logger implements ILoggerService {
     super(logger, {
       ...params,
     })
-    this.enabledNamespaces = parseNamespaces(this.config.namespaces)
+    this.enabledNamespaces = parseNamespaces(this.config.debug)
   }
 
   private async executeWithTiming<T>(
@@ -77,15 +77,31 @@ export class PinoLoggerService extends Logger implements ILoggerService {
     return this.executeWithTiming(message, fn, options, 'verbose')
   }
 
+  /**
+   * Determines if logging is enabled based on context and configured namespaces.
+   *
+   * Behavior:
+   * - If no namespaces are configured (DEBUG env var is empty), all logs without context are shown
+   * - If namespaces are configured:
+   *   - Logs without context are always shown (no filtering applied)
+   *   - Logs with context are filtered based on enabled namespaces
+   *
+   * This allows decorators like @LogClassMethod that don't pass context to always log,
+   * while still filtering logs that explicitly set a context.
+   *
+   * @param context - Optional context to check against enabled namespaces
+   * @returns true if logging should proceed, false if it should be filtered out
+   */
   private isLoggingEnabled(context?: string): boolean {
-    // If no namespaces configured, logging is disabled
-    if (!this.enabledNamespaces.length) {
-      return false
+    // If no context provided, always allow logging
+    // This ensures decorators like @LogClassMethod work without modification
+    if (!context) {
+      return true
     }
 
-    // If no context provided, check if wildcard is enabled
-    if (!context) {
-      return isNamespaceEnabled('*', this.enabledNamespaces)
+    // If no namespaces configured, disable all logs with context
+    if (!this.enabledNamespaces.length) {
+      return false
     }
 
     // Check if the specific context is enabled

@@ -1,4 +1,5 @@
-import { ApolloClient, HttpLink, InMemoryCache, split } from '@apollo/client'
+import { ApolloClient, InMemoryCache, split } from '@apollo/client'
+import { BatchHttpLink } from '@apollo/client/link/batch-http'
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
 import { getMainDefinition } from '@apollo/client/utilities'
 import { env } from '@codelab/shared-config-env'
@@ -21,7 +22,13 @@ export const createApolloClient = ({
   const getApiPort = () =>
     env.get('NEXT_PUBLIC_API_PORT').required().asPortNumber()
 
-  const httpLink = new HttpLink({
+  // Maximum number of operations to batch
+  // Wait up to 20ms to batch operations
+  // Debounce batching to wait for more operations
+  const httpLink = new BatchHttpLink({
+    batchDebounce: true,
+    batchInterval: 20,
+    batchMax: 10,
     uri: `http://127.0.0.1:${getApiPort()}/api/v1/graphql`,
   })
 

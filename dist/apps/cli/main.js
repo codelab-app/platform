@@ -97,12 +97,8 @@ const loggerConfig = (0,config_namespaceObject.registerAs)('LOGGER_CONFIG', () =
         get sentryDsn() {
             return (0,external_env_var_namespaceObject.get)('SENTRY_DSN').required().asString();
         },
-        get enableDataForContext() {
-            return (0,external_env_var_namespaceObject.get)('API_LOG_ENABLE_DATA_FOR_CONTEXT')
-                .default('')
-                .asString()
-                .split(',')
-                .filter(Boolean);
+        get debug() {
+            return (0,external_env_var_namespaceObject.get)('DEBUG').default('').asString();
         },
     };
 });
@@ -120,8 +116,128 @@ NestjsLoggerService = (0,external_tslib_namespaceObject.__decorate)([
 ;// external "pino"
 const external_pino_namespaceObject = require("pino");
 var external_pino_default = /*#__PURE__*/__webpack_require__.n(external_pino_namespaceObject);
+;// ../../libs/backend/infra/adapter/logger/src/logger.constants.ts
+/**
+ * Allowed logging namespace modules for the backend
+ */
+const LOGGING_MODULES = {
+    COMMAND: 'command',
+    GRAPHQL: 'graphql',
+    NEO4J: 'neo4j',
+    REPOSITORY: 'repository',
+    SERVICE: 'service',
+};
+/**
+ * Log levels that include the data field
+ */
+const DATA_INCLUSIVE_LEVELS = [
+    'verbose',
+    'debug',
+    'error',
+    'fatal',
+];
+/**
+ * Common namespace patterns
+ */
+const NAMESPACE_PATTERNS = {
+    ALL: '*',
+    EXCLUSION_PREFIX: '-',
+    SEPARATOR: ':',
+    WILDCARD: '*',
+};
+/**
+ * Example namespace configurations
+ */
+const NAMESPACE_EXAMPLES = {
+    ALL_COMMAND: `${LOGGING_MODULES.COMMAND}:*`,
+    // Module-level patterns
+    ALL_GRAPHQL: `${LOGGING_MODULES.GRAPHQL}:*`,
+    ALL_NEO4J: `${LOGGING_MODULES.NEO4J}:*`,
+    ALL_REPOSITORY: `${LOGGING_MODULES.REPOSITORY}:*`,
+    ALL_SERVICE: `${LOGGING_MODULES.SERVICE}:*`,
+    COMMAND_CREATE: `${LOGGING_MODULES.COMMAND}:create`,
+    GRAPHQL_RESOLVER: `${LOGGING_MODULES.GRAPHQL}:resolver`,
+    // Specific patterns
+    NEO4J_QUERY: `${LOGGING_MODULES.NEO4J}:query`,
+    // Exclusion patterns
+    NO_DEPRECATION: `-${LOGGING_MODULES.NEO4J}:deprecation`,
+    REPOSITORY_USER: `${LOGGING_MODULES.REPOSITORY}:user`,
+    SERVICE_AUTH: `${LOGGING_MODULES.SERVICE}:auth`,
+};
+/**
+ * Validates if a namespace follows the expected pattern
+ */
+const isValidNamespace = (namespace) => {
+    if (!namespace || namespace.trim() === '') {
+        return false;
+    }
+    // Remove exclusion prefix if present
+    const cleanNamespace = namespace.startsWith(NAMESPACE_PATTERNS.EXCLUSION_PREFIX)
+        ? namespace.substring(1)
+        : namespace;
+    // Check if it's a wildcard
+    if (cleanNamespace === NAMESPACE_PATTERNS.ALL) {
+        return true;
+    }
+    // Check if it starts with a valid module
+    const parts = cleanNamespace.split(NAMESPACE_PATTERNS.SEPARATOR);
+    const module = parts[0];
+    return Object.values(LOGGING_MODULES).includes(module);
+};
+/**
+ * Parse namespace patterns from environment variable
+ */
+const parseNamespaces = (namespaceString) => {
+    if (!namespaceString) {
+        return [];
+    }
+    return namespaceString
+        .split(',')
+        .map((ns) => ns.trim())
+        .filter((ns) => ns.length > 0);
+};
+/**
+ * Check if a namespace is enabled based on patterns
+ */
+const isNamespaceEnabled = (namespace, patterns) => {
+    if (!patterns.length) {
+        return false;
+    }
+    let isEnabled = false;
+    for (const pattern of patterns) {
+        // Handle exclusion patterns
+        if (pattern.startsWith(NAMESPACE_PATTERNS.EXCLUSION_PREFIX)) {
+            const excludePattern = pattern.substring(1);
+            if (matchesPattern(namespace, excludePattern)) {
+                return false;
+            }
+        }
+        else if (matchesPattern(namespace, pattern)) {
+            isEnabled = true;
+        }
+    }
+    return isEnabled;
+};
+/**
+ * Check if a namespace matches a pattern (with wildcard support)
+ */
+const matchesPattern = (namespace, pattern) => {
+    // Direct match
+    if (namespace === pattern || pattern === NAMESPACE_PATTERNS.ALL) {
+        return true;
+    }
+    // Convert pattern to regex
+    const regexPattern = pattern
+        .split(NAMESPACE_PATTERNS.WILDCARD)
+        .map((part) => part.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+        .join('.*');
+    const regex = new RegExp(`^${regexPattern}$`);
+    return regex.test(namespace);
+};
+
 ;// ../../libs/backend/infra/adapter/logger/src/pino/pino.logger.service.ts
 var _a, _b;
+
 
 
 
@@ -148,12 +264,24 @@ let PinoLoggerService = class PinoLoggerService extends external_nestjs_pino_nam
             writable: true,
             value: config
         });
+        Object.defineProperty(this, "enabledNamespaces", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: void 0
+        });
+        this.enabledNamespaces = parseNamespaces(this.config.debug);
     }
     async executeWithTiming(message, fn, options, level = 'debug') {
+        const context = options?.context ?? undefined;
+        const isEnabled = this.isLoggingEnabled(context);
+        // If logging is disabled, just execute the function
+        if (!isEnabled) {
+            return await fn();
+        }
         const startTime = Date.now();
         const result = await fn();
         const durationSecs = ((Date.now() - startTime) / 1000).toFixed(2);
-        const context = options?.context ?? undefined;
         const data = options?.data ?? {};
         // Pass data and context as separate properties in LogOptions
         this[level](message, {
@@ -171,19 +299,50 @@ let PinoLoggerService = class PinoLoggerService extends external_nestjs_pino_nam
     async verboseWithTiming(message, fn, options) {
         return this.executeWithTiming(message, fn, options, 'verbose');
     }
-    shouldIncludeData(options) {
-        const context = options?.context ?? '';
-        return this.config.enableDataForContext.some((pattern) => {
-            return new RegExp(pattern).test(context);
-        });
+    /**
+     * Determines if logging is enabled based on context and configured namespaces.
+     *
+     * Behavior:
+     * - If no namespaces are configured (DEBUG env var is empty), all logs without context are shown
+     * - If namespaces are configured:
+     *   - Logs without context are always shown (no filtering applied)
+     *   - Logs with context are filtered based on enabled namespaces
+     *
+     * This allows decorators like @LogClassMethod that don't pass context to always log,
+     * while still filtering logs that explicitly set a context.
+     *
+     * @param context - Optional context to check against enabled namespaces
+     * @returns true if logging should proceed, false if it should be filtered out
+     */
+    isLoggingEnabled(context) {
+        // If no context provided, always allow logging
+        // This ensures decorators like @LogClassMethod work without modification
+        if (!context) {
+            return true;
+        }
+        // If no namespaces configured, disable all logs with context
+        if (!this.enabledNamespaces.length) {
+            return false;
+        }
+        // Check if the specific context is enabled
+        return isNamespaceEnabled(context, this.enabledNamespaces);
+    }
+    shouldIncludeData(level) {
+        // Include data for verbose, debug, error, and fatal levels
+        return (level === 'verbose' ||
+            level === 'debug' ||
+            level === 'error' ||
+            level === 'fatal');
     }
     logWithOptions(level, message, options = {}) {
+        // Check if logging is enabled for this context
+        if (!this.isLoggingEnabled(options.context)) {
+            return;
+        }
         const mappedLevel = labelMapping[level];
         const logger = this.logger[mappedLevel].bind(this.logger);
-        // Always include data for error and fatal levels
-        if (level === 'error' ||
-            level === 'fatal' ||
-            this.shouldIncludeData(options)) {
+        // Include data based on log level
+        if (this.shouldIncludeData(level)) {
             logger({ msg: message, ...options });
         }
         else {
@@ -1361,6 +1520,11 @@ let TaskService = class TaskService {
         }))
             .command(Tasks.WorkspaceCodegen, 'Generate workspace', (argv) => argv, globalHandler(async ({ stage }) => {
             if (stage === Stage.CI) {
+                this.logger.log('Running Circleci pack', {
+                    context: 'TaskService',
+                    data: { stage },
+                });
+                execCommand('pnpm cpack');
                 this.logger.log('Generating workspace', {
                     context: 'TaskService',
                     data: { stage },
@@ -1388,7 +1552,6 @@ let TaskService = class TaskService {
                     data: { stage },
                 });
                 execCommand('pnpm cross-env TIMING=1 lint-staged');
-                execCommand('pnpm ls-lint');
             }
             if (stage === Stage.CI) {
                 this.logger.log('Running lint', {
@@ -1402,8 +1565,8 @@ let TaskService = class TaskService {
                 // )
                 // https://github.com/nrwl/nx/discussions/8769
                 execCommand('pnpm prettier --check "./**/*.{graphql,yaml,json}"');
-                execCommand('pnpm ls-lint');
             }
+            execCommand('pnpm ls-lint');
         }))
             .command(`${Tasks.Commitlint} [edit]`, 'Commitlint projects', (argv) => argv, globalHandler(({ edit, stage }) => {
             if (stage === Stage.Test) {

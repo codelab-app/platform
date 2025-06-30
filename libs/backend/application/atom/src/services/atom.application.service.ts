@@ -6,13 +6,11 @@ import { AtomRepository } from '@codelab/backend-domain-atom'
 import { AuthDomainService } from '@codelab/backend-domain-shared-auth'
 import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
 import { LogClassMethod } from '@codelab/backend-infra-core'
-import { EntitySchema } from '@codelab/shared-abstract-types'
-import { SortDirection } from '@codelab/shared-infra-gqlgen'
 import { Injectable } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 import { omit } from 'remeda'
 
-import { ExportAtomCommand } from '../use-case'
+import { ExportAtomsCommand } from '../use-case'
 
 @Injectable()
 export class AtomApplicationService {
@@ -67,25 +65,9 @@ export class AtomApplicationService {
   @LogClassMethod()
   async exportAtomsForAdmin(): Promise<Array<IAtomAggregate>> {
     /**
-     * Get all atoms first
+     * Use batch export command to fetch all atoms in one operation
      */
-    const atomIds = await this.atomRepository.find({
-      options: {
-        sort: [{ name: SortDirection.Asc }],
-      },
-      schema: EntitySchema,
-      selectionSet: '{ id }',
-    })
-
-    const exportedAtoms = []
-
-    for (const { id } of atomIds) {
-      exportedAtoms.push(
-        await this.commandBus.execute(new ExportAtomCommand({ id })),
-      )
-    }
-
-    return exportedAtoms
+    return await this.commandBus.execute(new ExportAtomsCommand())
   }
 
   @LogClassMethod()
@@ -96,29 +78,38 @@ export class AtomApplicationService {
 
     const owner = this.authDomainService.currentUser
 
-    // First, process all atoms without dependencies, we can't do it in parallel,
-    // since under high load server emmits ECONNRESET error
-    for (const { api, atom } of atoms) {
+    // Process all atoms in parallel, but keep API and atom saves atomic per atom
+    // This ensures fields maintain their order within each API
+    const atomSavePromises = atoms.map(async ({ api, atom }) => {
+      // Save API first (includes types and fields in correct order)
       await this.typeApplicationService.saveApi(api)
 
       /**
-       * Create all atoms but omit `suggestedChildren`, and `requiredParents` since it requires all atoms to be added first
+       * Create atom but omit `suggestedChildren`, and `requiredParents` since it requires all atoms to be added first
        */
       const atomWithoutDependencies = omit(atom, [
         'suggestedChildren',
         'requiredParents',
       ])
 
-      await this.atomRepository.save({ ...atomWithoutDependencies, owner })
-    }
+      // Then save the atom
+      await this.atomRepository.save({
+        ...atomWithoutDependencies,
+        owner,
+      })
+    })
+
+    // Wait for all atom+API pairs to be saved
+    // The HTTP requests will still be batched by BatchHttpLink
+    await Promise.all(atomSavePromises)
 
     const atomsWithDependencies = atoms.filter(
       ({ atom }) =>
         atom.suggestedChildren?.length || atom.requiredParents?.length,
     )
 
-    // Then process atoms with dependencies, here we can do in parallel,
-    // since only few atoms are expected to have dependencies
+    // Then process atoms with dependencies in parallel
+    // These updates will also be batched by BatchHttpLink
     await Promise.all(
       atomsWithDependencies.map(async ({ atom }) => {
         /**

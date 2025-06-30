@@ -43,7 +43,10 @@ pnpm e2e           # Run E2E tests
 
 # Linting and type checking
 pnpm lint          # Run ESLint on all projects
-pnpm nx run-many --target=tsc-check  # Type checking
+
+# Type checking individual projects
+pnpm nx run <project-name>:tsc-check      # Check TypeScript types for source files
+pnpm nx run <project-name>:tsc-check:spec # Check TypeScript types for test files
 
 # Code generation
 pnpm codegen       # Generate GraphQL types and schemas
@@ -61,6 +64,9 @@ pnpm nx <target> <project>
 # Examples
 pnpm nx serve web           # Start web development server
 pnpm nx test backend-domain-app  # Run tests for specific library
+
+# When linting always use subagent so we don't block the main thread
+# This way we can run this task in parallel in the background
 pnpm nx lint frontend-application-admin  # Lint specific project
 
 # Run tasks across multiple projects
@@ -68,61 +74,23 @@ pnpm nx run-many --target=build --all
 pnpm nx run-many --target=test --parallel=3
 ```
 
-## Architecture Overview
+## Architecture & Domain Knowledge
 
-### Repository Structure
-
-```
-apps/
-├── web/          # Main web application (Next.js)
-├── api/          # Backend API (NestJS + GraphQL)
-├── sites/        # Multi-tenant site hosting
-├── landing/      # Marketing landing page
-├── cli/          # Custom CLI tools
-└── web-e2e/      # E2E test suite
-
-libs/
-├── frontend/     # Frontend libraries
-│   ├── application/     # Use cases and application services
-│   ├── domain/         # Business logic and domain models
-│   ├── presentation/   # UI components and views
-│   └── infra/         # Infrastructure (state, API clients)
-├── backend/      # Backend libraries
-│   ├── application/    # Application services
-│   ├── domain/        # Domain models and business logic
-│   └── infra/         # Infrastructure adapters
-├── shared/       # Code shared between frontend/backend
-└── tools/        # Development tools and utilities
-```
-
-### Frontend Architecture
-
-- **Clean Architecture** with Domain-Driven Design
-- **State Management**: MobX + MobX-Keystone for reactive domain models
-- **UI Components**: Atomic Design pattern (Atoms → Molecules → Organisms)
-- **Data Layer**: GraphQL with Apollo Client (HTTP + WebSocket)
-- **Routing**: Next.js App Router with custom MobX router service
-
-### Backend Architecture
-
-- **Domain Entities**: User, App, Page, Element, Atom, Component, Store, Action, Resource
-- **GraphQL API**: Apollo Server with Neo4j integration
-- **Database**: Neo4j graph database with @neo4j/graphql
-- **Authentication**: Auth0 integration
-- **Type System**: Sophisticated type system for visual builder components
-
-### Key Domain Concepts
-
-- **App**: Web applications created by users
-- **Page**: Individual pages within an app
-- **Element**: UI building blocks forming tree structures
-- **Atom**: Reusable UI components (HTML, React components)
-- **Component**: Custom user-created components
-- **Store**: Application state and data management
-- **Action**: API calls and custom JavaScript code execution
-- **Resource**: External data sources and APIs
+@import .claude/documentation/codelab-domain-knowledge.md
 
 ## Development Guidelines
+
+### Code Style and Conventions
+
+@import .claude/documentation/file-conventions.md
+
+Key conventions:
+
+- File naming: PascalCase for components, kebab-case for services
+- Class member ordering: [@typescript-eslint/member-ordering](https://typescript-eslint.io/rules/member-ordering/)
+- Named exports only (no default exports)
+- Use `import type` for type imports
+- Arrow functions preferred over function declarations
 
 ### Project Structure Rules
 
@@ -131,6 +99,8 @@ libs/
 3. Shared code goes in `libs/shared/`
 4. Each domain has parallel modules across application/domain layers
 5. Main web app routes are in `apps/web/app/(dashboard)/(authenticated)/`
+
+@import .claude/documentation/nx-library-naming-conventions.md
 
 ### Directory Conventions
 
@@ -161,45 +131,6 @@ libs/
 - Separate HTTP (queries/mutations) from WebSocket (subscriptions)
 - Follow operation naming conventions
 
-## Common Workflows
-
-### Adding a New Feature
-
-1. Create domain models in `libs/{layer}/domain/{feature}/`
-2. Implement application services in `libs/{layer}/application/{feature}/`
-3. Add UI components in `libs/frontend/presentation/`
-4. Wire up with MobX stores and context providers
-5. Add routes in `apps/web/app/(dashboard)/(authenticated)/`
-
-### Database Changes
-
-1. Update Neo4j schema and constraints
-2. Run `pnpm codegen` to regenerate GraphQL types
-3. Update domain models and repositories
-4. Run integration tests with Neo4j
-
-### Running Tests
-
-- Unit tests run in isolation with mocked dependencies
-- Integration tests require Neo4j database
-- E2E tests run against full application stack
-- Use `pnpm test.unit` for fast feedback loop
-
-### CI/CD Pipeline
-
-- CircleCI runs on pull requests
-- Tests: lint → unit → integration → E2E
-- Builds: apps → Docker images → deployment
-- Terraform manages infrastructure as code
-
-## Important Files
-
-- `nx.json`: Nx workspace configuration and build targets
-- `package.json`: Dependencies and npm scripts
-- `tsconfig.base.json`: TypeScript configuration with path mappings
-- `schema.graphql`: GraphQL schema definition
-- `.circleci/config.yml`: CI/CD pipeline configuration
-
 ## Environment Setup
 
 1. Node.js 22.14.0+ (use `.nvmrc`)
@@ -207,11 +138,10 @@ libs/
 3. Neo4j database for local development
 4. Docker for containerized services
 
-When working with this codebase, prioritize understanding the domain models and business logic before making changes. The visual builder's complexity requires careful consideration of the element tree structure and type system.
-
 ## Documentation Guidelines
 
 When creating documentation for complex implementations that span multiple files:
+
 - Save documentation summaries in `.claude/documentation/` directory
 - Use descriptive filenames like `feature-name-implementation.md`
 - This keeps implementation docs separate from the main codebase
@@ -223,8 +153,15 @@ When creating documentation for complex implementations that span multiple files
 - Do what has been asked; nothing more, nothing less
 - NEVER create files unless they're absolutely necessary for achieving your goal
 - ALWAYS prefer editing an existing file to creating a new one
-- NEVER proactively create documentation files (*.md) or README files in the main codebase
+- NEVER proactively create documentation files (\*.md) or README files in the main codebase
 - Use `.claude/documentation/` for complex implementation summaries when needed
+
+### Type Checking After Changes
+
+- **ALWAYS** run type checking after modifying TypeScript files
+- For source file changes: `pnpm nx run <project-name>:tsc-check`
+- For test file changes (*.spec.ts): `pnpm nx run <project-name>:tsc-check:spec`
+- This ensures type safety and catches errors early
 
 ## Git Workflow
 
@@ -233,12 +170,14 @@ When creating documentation for complex implementations that span multiple files
 All branches must follow this format: `<type>/<issue-number>-<short-description>`
 
 Allowed types:
+
 - `feat/` - New features or enhancements
 - `fix/` - Bug fixes
 - `refactor/` - Code refactoring without changing functionality
 - `test/` - Adding or updating tests
 
 Examples:
+
 - `feat/3736-debug-env-service-tracking`
 - `fix/3742-login-validation-error`
 - `refactor/3755-simplify-repository-pattern`
@@ -251,3 +190,33 @@ See `.claude/documentation/git-branch-naming-convention.md` for detailed guideli
 - Don't add "Co-Authored-By: Claude <noreply@anthropic.com>" to commit messages
 - Don't add "🤖 Generated with [Claude Code](https://claude.ai/code)" to commit messages
 - Keep commit messages clean and focused on the changes made
+
+## Claude fine-tuning
+
+- Be brutally honest, don't be a yes man.
+- If I am wrong, point it out bluntly.
+- I need honest feedback on my code.
+
+## OpenMemory Integration
+
+- **ALWAYS** search OpenMemory first before responding to any query
+- Use `mcp__openmemory__search-memories` tool with the user's query to check for relevant stored information
+- Review any found memories about user preferences, past discussions, and project context
+- Only after checking memory, formulate your response incorporating the found context
+- When new important information is shared, use `mcp__openmemory__add-memory` to store it
+- Keep in mind Github discussions should have the most weight, followed by Notion documnetation wiki, then followed by Github issues
+
+## Documentation
+
+When I say read documentation it's regarding @import .claude/documentation
+
+### OpenMemory Sync Documentation
+
+For the data structure and implementation details of syncing various sources (GitHub, Notion) to OpenMemory:
+@import .claude/documentation/openmemory-sync-documentation.md
+
+## GitHub Issue Context
+
+- When I say "update issue" or "create issue regarding this", I'm referring to GitHub issues
+- Use the `mcp__github__` tools to interact with GitHub issues
+- Default to the current repository unless specified otherwise

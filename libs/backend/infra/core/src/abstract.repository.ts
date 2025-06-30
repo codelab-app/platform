@@ -36,16 +36,12 @@ export abstract class AbstractRepository<
         return result
       }
 
-      return await this.loggerService.verboseWithTiming(
-        'Adding item',
-        addItem,
-        {
-          context: this.getNamespace('add'),
-          data: {
-            data,
-          },
+      return await this.loggerService.debugWithTiming('Adding item', addItem, {
+        context: this.getNamespace('add'),
+        data: {
+          data,
         },
-      )
+      })
     } catch (error) {
       this.loggerService.error('Failed to add item', {
         context: this.getNamespace('add'),
@@ -62,7 +58,7 @@ export abstract class AbstractRepository<
     data: Array<Dto>,
   ): Promise<Array<IDiscriminatedRef<INodeType>>> {
     try {
-      const BATCH_SIZE = 3
+      const BATCH_SIZE = 10
       const batches = chunk(data, BATCH_SIZE)
 
       this.loggerService.debug('Processing data in batches', {
