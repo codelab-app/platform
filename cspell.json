@@ -1,0 +1,13 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "words": ["openmemory", "webberwang", "parseable"],
+  "ignorePaths": [
+    "node_modules",
+    "dist",
+    "pnpm-lock.yaml",
+    ".git",
+    "*.min.js",
+    "coverage"
+  ]
+}
