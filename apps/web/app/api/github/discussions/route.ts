@@ -50,7 +50,7 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
         discussions,
         owner,
         repo,
-        session.user.email,
+        session.user.email || 'unknown@user.com',
       )
     }
 
