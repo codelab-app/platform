@@ -59,6 +59,7 @@ describe('AbstractRepository', () => {
           provide: PinoLoggerService,
           useValue: {
             debug: jest.fn(),
+            debugWithTiming: jest.fn().mockImplementation((_, fn) => fn()),
             error: jest.fn(),
             verbose: jest.fn(),
             verboseWithTiming: jest.fn().mockImplementation((_, fn) => fn()),
@@ -119,7 +120,7 @@ describe('AbstractRepository', () => {
 
       await repository.add(testData)
 
-      expect(loggerService.verboseWithTiming).toHaveBeenCalledWith(
+      expect(loggerService.debugWithTiming).toHaveBeenCalledWith(
         'Adding item',
         expect.any(Function),
         expect.objectContaining({

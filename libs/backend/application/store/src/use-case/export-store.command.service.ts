@@ -5,7 +5,7 @@ import type {
 import type { StoreWhere } from '@codelab/shared-infra-gqlgen'
 import type { ICommandHandler } from '@nestjs/cqrs'
 
-import { ExportApiCommand } from '@codelab/backend-application-type'
+import { ExportApisCommand } from '@codelab/backend-application-type'
 import { StoreRepository } from '@codelab/backend-domain-store'
 import {
   IActionKind,
@@ -30,9 +30,10 @@ export class ExportStoreHandler
   async execute({ where }: ExportStoreCommand) {
     const store = await this.storeRepository.findOneOrFail({ where })
 
-    const api = await this.commandBus.execute<ExportApiCommand, IApiAggregate>(
-      new ExportApiCommand(store.api),
-    )
+    const [api] = await this.commandBus.execute<
+      ExportApisCommand,
+      Array<IApiAggregate>
+    >(new ExportApisCommand([store.api]))
 
     // put actions that are referenced from another action via field successAction or errorAction first
     // so that they are imported before the actions that reference them

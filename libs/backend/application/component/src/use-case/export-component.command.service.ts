@@ -5,7 +5,7 @@ import type {
 } from '@codelab/shared-abstract-core'
 
 import { ExportStoreCommand } from '@codelab/backend-application-store'
-import { ExportApiCommand } from '@codelab/backend-application-type'
+import { ExportApisCommand } from '@codelab/backend-application-type'
 import {
   ComponentElementsService,
   ComponentRepository,
@@ -34,7 +34,9 @@ export class ExportComponentHandler
     private commandBus: CommandBus,
   ) {}
 
-  async execute({ componentId }: ExportComponentCommand) {
+  async execute({
+    componentId,
+  }: ExportComponentCommand): Promise<IComponentAggregate> {
     const component = await this.componentRepository.findOneOrFail({
       schema: Type.Omit(ComponentDtoSchema, ['owner']),
       where: { id: componentId },
@@ -60,12 +62,23 @@ export class ExportComponentHandler
       IStoreAggregate
     >(new ExportStoreCommand({ id: component.store.id }))
 
-    const api = await this.commandBus.execute<ExportApiCommand, IApiAggregate>(
-      new ExportApiCommand({
-        __typename: ITypeKind.InterfaceType,
-        id: component.api.id,
-      }),
+    const apis = await this.commandBus.execute<
+      ExportApisCommand,
+      Array<IApiAggregate>
+    >(
+      new ExportApisCommand([
+        {
+          __typename: ITypeKind.InterfaceType,
+          id: component.api.id,
+        },
+      ]),
     )
+
+    const api = apis[0]
+
+    if (!api) {
+      throw new Error(`API not found for component ${componentId}`)
+    }
 
     return {
       api,

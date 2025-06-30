@@ -84,7 +84,9 @@ export class TypeApplicationService {
     const { fields, types } = api
 
     /**
-     * Cannot save in parallel due to dependencies
+     * Save types sequentially due to type dependencies
+     * (e.g., ArrayType references element type, UnionType contains member types)
+     * Parallel processing would cause errors when dependent types aren't created yet
      */
     for (const type of types) {
       await this.typeFactory.save({
@@ -93,6 +95,12 @@ export class TypeApplicationService {
       })
     }
 
+    /**
+     * Save fields sequentially to avoid Neo4j deadlocks and race conditions
+     * Fields have bidirectional sibling relationships (prevSibling/nextSibling)
+     * that cause conflicts when multiple fields update relationships to the same nodes
+     * in parallel. Sequential processing ensures consistent relationship updates.
+     */
     for (const field of fields) {
       await this.fieldRepository.save(field)
     }

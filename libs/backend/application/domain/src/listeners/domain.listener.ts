@@ -1,27 +1,30 @@
+import type {
+  DomainCreatedSubscription,
+  DomainDeletedSubscription,
+  DomainUpdatedSubscription,
+} from '@codelab/shared-domain-module-domain'
+
+import { DigitaloceanService } from '@codelab/backend-infra-adapter-digitalocean'
+import { DnsService } from '@codelab/backend-infra-adapter-dns'
 import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
 import { Injectable } from '@nestjs/common'
 import { OnEvent } from '@nestjs/event-emitter'
 
-import {
-  DOMAIN_CREATED_EVENT,
-  DomainCreatedEvent,
-} from '../events/domain-created.event'
-import {
-  DOMAIN_DELETED_EVENT,
-  DomainDeletedEvent,
-} from '../events/domain-deleted.event'
-import {
-  DOMAIN_UPDATED_EVENT,
-  DomainUpdatedEvent,
-} from '../events/domain-updated.event'
+import { DOMAIN_CREATED_EVENT } from '../events/domain-created.event'
+import { DOMAIN_DELETED_EVENT } from '../events/domain-deleted.event'
+import { DOMAIN_UPDATED_EVENT } from '../events/domain-updated.event'
 
 @Injectable()
 export class DomainListener {
-  constructor(private readonly logger: PinoLoggerService) {}
+  constructor(
+    private dnsService: DnsService,
+    private digitaloceanService: DigitaloceanService,
+    private readonly logger: PinoLoggerService,
+  ) {}
 
   @OnEvent(DOMAIN_CREATED_EVENT)
-  async domainCreated(event: DomainCreatedEvent) {
-    const domain = event.subscription.domainCreated.createdDomain
+  async domainCreated(subscription: DomainCreatedSubscription) {
+    const domain = subscription.domainCreated.createdDomain
 
     this.logger.log('domainCreated', {
       context: 'DomainListener',
@@ -47,17 +50,17 @@ export class DomainListener {
   }
 
   @OnEvent(DOMAIN_DELETED_EVENT)
-  async domainDeleted(event: DomainDeletedEvent) {
+  async domainDeleted(subscription: DomainDeletedSubscription) {
     this.logger.log('domainDeleted', {
       context: 'DomainListener',
       data: {
-        domain: event.subscription.domainDeleted.deletedDomain.name,
+        domain: subscription.domainDeleted.deletedDomain.name,
       },
     })
   }
 
   @OnEvent(DOMAIN_UPDATED_EVENT)
-  async domainUpdated(_event: DomainUpdatedEvent) {
+  async domainUpdated(subscription: DomainUpdatedSubscription) {
     // this.logger.log('domainUpdated', {
     //   context: 'DomainListener',
     //   data: {

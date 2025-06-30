@@ -23,6 +23,14 @@ export class Neo4jService {
     const username = this.config.user
 
     this.driver = neo4j.driver(uri, neo4j.auth.basic(username, password), {
+      notificationFilter: {
+        disabledCategories: [
+          neo4j.notificationFilterDisabledCategory.DEPRECATION,
+        ],
+        // optional: ignore everything below WARNING as well
+        // minimumSeverityLevel:
+        //   neo4j.notificationFilterMinimumSeverityLevel.WARNING,
+      },
       // logging: {
       //   level: 'debug',
       //   logger: (level, message) => {
