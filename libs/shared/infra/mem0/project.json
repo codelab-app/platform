@@ -1,0 +1,13 @@
+{
+  "name": "shared-infra-mem0",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/infra/mem0/src",
+  "projectType": "library",
+  "tags": ["scope:shared", "layer:infra", "projectType:library"],
+  "// targets": "to see all targets run: nx show project shared-infra-mem0 --web",
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

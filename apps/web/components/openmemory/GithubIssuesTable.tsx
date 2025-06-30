@@ -14,15 +14,21 @@ import {
   Table,
   Tag,
 } from 'antd'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 const { Search } = Input
+const CACHE_KEY = 'github_issues_cache'
+const LAST_REPO_KEY = 'github_last_repo'
+const CACHE_DURATION = 5 * 60 * 1000
 
 interface GitHubIssue {
   createdAt: string
   htmlUrl: string
-  id: number
+  id: number | string
+  nodeType: 'discussion' | 'issue'
   number: number
+  owner?: string
+  repo?: string
   state: string
   synced: boolean
   title: string
@@ -33,6 +39,13 @@ interface FetchIssuesFormValues {
   repo: string
 }
 
+interface CachedData {
+  issues: Array<GitHubIssue>
+  owner: string
+  repo: string
+  timestamp: number
+}
+
 export const GitHubIssuesTable = () => {
   const [issues, setIssues] = useState<Array<GitHubIssue>>([])
   const [isLoading, setIsLoading] = useState(false)
@@ -41,6 +54,8 @@ export const GitHubIssuesTable = () => {
   const [pageSize, setPageSize] = useState(20)
   const [syncingIssues, setSyncingIssues] = useState<Set<number>>(new Set())
   const [searchTerm, setSearchTerm] = useState('')
+  const [selectedRowKeys, setSelectedRowKeys] = useState<Array<number>>([])
+  const [isBulkSyncing, setIsBulkSyncing] = useState(false)
 
   const [currentRepo, setCurrentRepo] = useState<{
     owner: string
@@ -48,6 +63,99 @@ export const GitHubIssuesTable = () => {
   } | null>(null)
 
   const [form] = Form.useForm<FetchIssuesFormValues>()
+
+  // Load cached data on mount
+  useEffect(() => {
+    // Try to load cached data
+    const cachedData = getCachedData()
+
+    if (cachedData) {
+      // Ensure cached issues have owner, repo, and nodeType fields
+      const issuesWithRepo = cachedData.issues.map((issue) => ({
+        ...issue,
+        nodeType: issue.nodeType,
+        owner: issue.owner || cachedData.owner,
+        repo: issue.repo || cachedData.repo,
+      }))
+
+      setIssues(issuesWithRepo)
+      setCurrentRepo({ owner: cachedData.owner, repo: cachedData.repo })
+      form.setFieldsValue({ owner: cachedData.owner, repo: cachedData.repo })
+    } else {
+      // No cached data, try to load last used repo
+      const lastRepo = getLastRepo()
+
+      if (lastRepo) {
+        form.setFieldsValue(lastRepo)
+      }
+    }
+  }, [form])
+
+  // Cache helper functions
+  const getCachedData = (): CachedData | null => {
+    try {
+      const cached = localStorage.getItem(CACHE_KEY)
+
+      if (!cached) {
+        return null
+      }
+
+      const data: CachedData = JSON.parse(cached)
+      const now = Date.now()
+
+      // Check if cache is still valid
+      if (now - data.timestamp > CACHE_DURATION) {
+        localStorage.removeItem(CACHE_KEY)
+
+        return null
+      }
+
+      return data
+    } catch (error) {
+      console.error('Error reading cache:', error)
+
+      return null
+    }
+  }
+
+  const setCachedData = (
+    owner: string,
+    repo: string,
+    issuesData: Array<GitHubIssue>,
+  ) => {
+    try {
+      const cacheData: CachedData = {
+        issues: issuesData,
+        owner,
+        repo,
+        timestamp: Date.now(),
+      }
+
+      localStorage.setItem(CACHE_KEY, JSON.stringify(cacheData))
+    } catch (error) {
+      console.error('Error setting cache:', error)
+    }
+  }
+
+  const getLastRepo = (): { owner: string; repo: string } | null => {
+    try {
+      const lastRepo = localStorage.getItem(LAST_REPO_KEY)
+
+      return lastRepo ? JSON.parse(lastRepo) : null
+    } catch (error) {
+      console.error('Error reading last repo:', error)
+
+      return null
+    }
+  }
+
+  const setLastRepo = (owner: string, repo: string) => {
+    try {
+      localStorage.setItem(LAST_REPO_KEY, JSON.stringify({ owner, repo }))
+    } catch (error) {
+      console.error('Error saving last repo:', error)
+    }
+  }
 
   const filteredIssues = useMemo(() => {
     if (!searchTerm) {
@@ -83,6 +191,17 @@ export const GitHubIssuesTable = () => {
 
   const columns: ColumnsType<GitHubIssue> = [
     {
+      dataIndex: 'nodeType',
+      key: 'nodeType',
+      render: (type: string) => (
+        <Tag color={type === 'issue' ? 'blue' : 'purple'}>
+          {(type || 'issue').toUpperCase()}
+        </Tag>
+      ),
+      title: 'Type',
+      width: 100,
+    },
+    {
       dataIndex: 'number',
       key: 'number',
       render: (number: number, record: GitHubIssue) => (
@@ -91,8 +210,8 @@ export const GitHubIssuesTable = () => {
         </a>
       ),
       sorter: (a, b) => a.number - b.number,
-      title: 'Issue #',
-      width: 100,
+      title: '#',
+      width: 80,
     },
     {
       dataIndex: 'title',
@@ -154,30 +273,70 @@ export const GitHubIssuesTable = () => {
     setIsLoading(true)
 
     try {
-      const response = await fetch('/api/github/openmemory-sync/issues', {
-        body: JSON.stringify(values),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        method: 'POST',
-      })
+      // Fetch both issues and discussions in parallel
+      const [issuesResponse, discussionsResponse] = await Promise.all([
+        fetch('/api/github/issues', {
+          body: JSON.stringify(values),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          method: 'POST',
+        }),
+        fetch('/api/github/discussions', {
+          body: JSON.stringify(values),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          method: 'POST',
+        }),
+      ])
 
-      const data = await response.json()
+      const [issuesData, discussionsData] = await Promise.all([
+        issuesResponse.json(),
+        discussionsResponse.json(),
+      ])
 
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to fetch issues')
+      if (!issuesResponse.ok) {
+        throw new Error(issuesData.error || 'Failed to fetch issues')
       }
 
-      setIssues(data.issues)
+      if (!discussionsResponse.ok) {
+        throw new Error(discussionsData.error || 'Failed to fetch discussions')
+      }
+
+      // Combine issues and discussions, adding owner and repo to each
+      const allItems = [
+        ...issuesData.issues.map((issue: GitHubIssue) => ({
+          ...issue,
+          owner: values.owner,
+          repo: values.repo,
+        })),
+        ...discussionsData.discussions.map((discussion: GitHubIssue) => ({
+          ...discussion,
+          owner: values.owner,
+          repo: values.repo,
+        })),
+      ].sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+      )
+
+      setIssues(allItems)
       setCurrentRepo({ owner: values.owner, repo: values.repo })
+
+      // Cache the data
+      setCachedData(values.owner, values.repo, allItems)
+      setLastRepo(values.owner, values.repo)
+
       setIsModalOpen(false)
       form.resetFields()
-      void message.success(`Fetched ${data.issues.length} issues`)
+      setSelectedRowKeys([])
+      void message.success(
+        `Fetched ${issuesData.issues.length} issues and ${discussionsData.discussions.length} discussions`,
+      )
     } catch (error) {
       void message.error(
-        error instanceof Error
-          ? error.message
-          : 'Failed to fetch GitHub issues',
+        error instanceof Error ? error.message : 'Failed to fetch GitHub data',
       )
     } finally {
       setIsLoading(false)
@@ -207,21 +366,28 @@ export const GitHubIssuesTable = () => {
   }
 
   const syncIssueToMem0 = async (issue: GitHubIssue) => {
-    if (!currentRepo) {
-      void message.error('Repository information not available')
+    // Use issue's owner/repo if available, otherwise fall back to currentRepo
+    const owner = issue.owner || currentRepo?.owner
+    const repo = issue.repo || currentRepo?.repo
+
+    if (!owner || !repo) {
+      void message.error(
+        'Repository information not available. Please reload the issues.',
+      )
 
       return
     }
 
-    setSyncingIssues((prev) => new Set(prev).add(issue.id))
+    setSyncingIssues((prev) => new Set(prev).add(Number(issue.id)))
 
     try {
-      const response = await fetch('/api/github/openmemory-sync', {
+      const response = await fetch('/api/openmemory/sync', {
         body: JSON.stringify({
           issueId: issue.id,
           issueNumber: issue.number,
-          owner: currentRepo.owner,
-          repo: currentRepo.repo,
+          nodeType: issue.nodeType,
+          owner,
+          repo,
         }),
         headers: {
           'Content-Type': 'application/json',
@@ -236,9 +402,18 @@ export const GitHubIssuesTable = () => {
       }
 
       // Update the issue's synced status in the local state
-      setIssues((prevIssues) =>
-        prevIssues.map((i) => (i.id === issue.id ? { ...i, synced: true } : i)),
-      )
+      setIssues((prevIssues) => {
+        const updatedIssues = prevIssues.map((i) =>
+          i.id === issue.id ? { ...i, synced: true } : i,
+        )
+
+        // Update cache with synced status
+        if (currentRepo) {
+          setCachedData(currentRepo.owner, currentRepo.repo, updatedIssues)
+        }
+
+        return updatedIssues
+      })
 
       void message.success(`Issue #${issue.number} synced successfully`)
     } catch (error) {
@@ -249,10 +424,77 @@ export const GitHubIssuesTable = () => {
       setSyncingIssues((prev) => {
         const newSet = new Set(prev)
 
-        newSet.delete(issue.id)
+        newSet.delete(Number(issue.id))
 
         return newSet
       })
+    }
+  }
+
+  const syncSelectedIssues = async () => {
+    if (selectedRowKeys.length === 0) {
+      void message.warning('Please select issues to sync')
+
+      return
+    }
+
+    setIsBulkSyncing(true)
+
+    try {
+      const selectedIssues = issues.filter((issue) =>
+        selectedRowKeys.includes(Number(issue.id)),
+      )
+
+      const unsyncedIssues = selectedIssues.filter((issue) => !issue.synced)
+
+      if (unsyncedIssues.length === 0) {
+        void message.info('All selected issues are already synced')
+
+        return
+      }
+
+      let successCount = 0
+      let errorCount = 0
+      // Sync issues in parallel with a limit
+      const batchSize = 5
+
+      for (let i = 0; i < unsyncedIssues.length; i += batchSize) {
+        const batch = unsyncedIssues.slice(i, i + batchSize)
+
+        const promises = batch.map(async (issue) => {
+          try {
+            await syncIssueToMem0(issue)
+            successCount++
+          } catch (error) {
+            errorCount++
+            console.error(`Failed to sync issue #${issue.number}:`, error)
+          }
+        })
+
+        await Promise.all(promises)
+      }
+
+      if (successCount > 0) {
+        void message.success(
+          `Successfully synced ${successCount} issue${
+            successCount > 1 ? 's' : ''
+          }`,
+        )
+      }
+
+      if (errorCount > 0) {
+        void message.error(
+          `Failed to sync ${errorCount} issue${errorCount > 1 ? 's' : ''}`,
+        )
+      }
+
+      // Clear selection after sync
+      setSelectedRowKeys([])
+    } catch (error) {
+      void message.error('Failed to sync selected issues')
+      console.error('Bulk sync error:', error)
+    } finally {
+      setIsBulkSyncing(false)
     }
   }
 
@@ -272,7 +514,7 @@ export const GitHubIssuesTable = () => {
       >
         <div style={{ alignItems: 'center', display: 'flex', gap: 8 }}>
           <Button onClick={() => setIsModalOpen(true)} type="primary">
-            Load GitHub Issues
+            Load GitHub Data
           </Button>
           {currentRepo && (
             <>
@@ -283,6 +525,16 @@ export const GitHubIssuesTable = () => {
               >
                 Refresh Status
               </Button>
+              {selectedRowKeys.length > 0 && (
+                <Button
+                  loading={isBulkSyncing}
+                  onClick={syncSelectedIssues}
+                  type="primary"
+                >
+                  Sync {selectedRowKeys.length} Selected Issue
+                  {selectedRowKeys.length > 1 ? 's' : ''}
+                </Button>
+              )}
               <span style={{ marginLeft: 8 }}>
                 Repository: {currentRepo.owner}/{currentRepo.repo}
               </span>
@@ -332,7 +584,16 @@ export const GitHubIssuesTable = () => {
           pageSize: pageSize,
           position: ['none'],
         }}
-        rowKey="id"
+        rowKey={(record) => String(record.id)}
+        rowSelection={{
+          getCheckboxProps: (record) => ({
+            disabled: record.synced,
+          }),
+          onChange: (newSelectedRowKeys) => {
+            setSelectedRowKeys(newSelectedRowKeys as Array<number>)
+          },
+          selectedRowKeys,
+        }}
         scroll={{ x: 'max-content' }}
         title={renderTableTitle}
       />
@@ -341,7 +602,7 @@ export const GitHubIssuesTable = () => {
         footer={null}
         onCancel={() => setIsModalOpen(false)}
         open={isModalOpen}
-        title="Load GitHub Issues"
+        title="Load GitHub Issues & Discussions"
         width={500}
       >
         <Form
