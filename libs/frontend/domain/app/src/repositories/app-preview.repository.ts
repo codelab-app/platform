@@ -10,17 +10,17 @@ import { uniqueBy } from 'remeda'
 const { AppList } = appServerActions
 
 export interface IAppPreviewArgs {
-  appId: string
+  appSlug: string
   pageUrlPattern: string
 }
 
 export const appPreviewRepository = async ({
-  appId,
+  appSlug,
   pageUrlPattern,
 }: IAppPreviewArgs): Promise<IAppProductionDto> => {
-  // Fetch app by ID with all necessary relations
+  // Fetch app by slug with all necessary relations
   const data = await AppList({
-    where: { id: appId },
+    where: { slug: appSlug },
   })
 
   const app = data.apps[0]

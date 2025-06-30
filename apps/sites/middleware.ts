@@ -25,31 +25,26 @@ const middleware = async (request: NextRequest) => {
   const pageUrl = `/${url.searchParams.get('page')}`
   const authorization = request.cookies.get('authorization')
 
-  // if (domain && pageUrl) {
-  //   const endpoint = getEnv().endpoint.canActivateUrl
+  // Check if this is a subdomain that should be handled as preview
+  // This includes *.codelab.test and *.preview.codelab.app
+  const isPreviewDomain = hostname.match(
+    /^([a-zA-Z0-9-]+)\.(codelab\.test|preview\.codelab\.app|staging\.codelab\.app)$/,
+  )
 
-  //   const response = await fetch(endpoint, {
-  //     body: JSON.stringify({
-  //       authorization: authorization?.value,
-  //       domain,
-  //       pageUrl,
-  //     }),
-  //     headers: { 'Content-Type': 'application/json' },
+  if (isPreviewDomain) {
+    // Extract app ID from subdomain
+    const appId = isPreviewDomain[1]
 
-  //     method: 'POST',
-  //   }).then((res) => res.json())
+    console.log('Preview domain detected:', hostname, 'App ID:', appId)
+    // Route to preview path with just the app ID
+    url.pathname = `/preview/${appId}${url.pathname}`
+  } else {
+    console.log('Production domain:', hostname)
+    // Route to production path with full domain
+    url.pathname = `/production/${hostname}${url.pathname}`
+  }
 
-  //   if (!response.canActivate && response.redirectUrl) {
-  //     return NextResponse.redirect(response.redirectUrl)
-  //   }
-  // }
-
-  console.log('Redirecting...', url.toString())
-  console.log('Hostname:', hostname)
-
-  url.pathname = `/${hostname}${url.pathname}`
-
-  console.log('Pathname', url.pathname)
+  console.log('Rewriting to:', url.pathname)
 
   return NextResponse.rewrite(url)
 }
