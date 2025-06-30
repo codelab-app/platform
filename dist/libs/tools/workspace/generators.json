@@ -1,0 +1,19 @@
+{
+  "generators": {
+    "nx-project-config": {
+      "factory": "./src/generators/nx-project-config/nx-project-config",
+      "schema": "./src/generators/nx-project-config/schema.json",
+      "description": "Update NX project config for each library"
+    },
+    "migrate-project-reference": {
+      "factory": "./src/generators/migrate-project-reference/migrate-project-reference",
+      "schema": "./src/generators/migrate-project-reference/schema.json",
+      "description": "Migrate a project to use TypeScript project references"
+    },
+    "rename-npm-name": {
+      "factory": "./src/generators/rename-npm-name/rename-npm-name",
+      "schema": "./src/generators/rename-npm-name/schema.json",
+      "description": "Rename NPM package names across the workspace"
+    }
+  }
+}
