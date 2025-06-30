@@ -5,6 +5,8 @@ resource "digitalocean_certificate" "codelab_app" {
   domains = [
     "codelab.app",
     "*.codelab.app",
+    "*.preview.codelab.app",
+    "*.staging.codelab.app",
   ]
 
   # Required https://registry.terraform.io/providers/digitalocean/digitalocean/latest/docs/resources/loadbalancer

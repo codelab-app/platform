@@ -17,7 +17,9 @@ export const config = {
 }
 
 const middleware = async (request: NextRequest) => {
-  const hostname = request.headers.get('host')
+  const fullHost = request.headers.get('host') || ''
+  // Remove port number if present (e.g., "demo.preview.codelab.app:3000" -> "demo.preview.codelab.app")
+  const hostname = fullHost.split(':')[0]
   const url = request.nextUrl
   const domain = url.searchParams.get('domain')
   const pageUrl = `/${url.searchParams.get('page')}`
@@ -43,7 +45,11 @@ const middleware = async (request: NextRequest) => {
   // }
 
   console.log('Redirecting...', url.toString())
+  console.log('Hostname:', hostname)
+
   url.pathname = `/${hostname}${url.pathname}`
+
+  console.log('Pathname', url.pathname)
 
   return NextResponse.rewrite(url)
 }

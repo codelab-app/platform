@@ -916,13 +916,11 @@ workflows:
             branches:
               only:
                 - staging
-                - feat/3292-production-urls
       - tf-plan:
           filters:
             branches:
               only:
                 - staging
-                - feat/3292-production-urls
           name: tf-plan-ci
           requires:
             - setup-infra-workspace
@@ -932,7 +930,6 @@ workflows:
             branches:
               only:
                 - staging
-                - feat/3292-production-urls
           name: tf-apply-ci
           requires:
             - tf-plan-ci
@@ -944,7 +941,6 @@ workflows:
             branches:
               only:
                 - staging
-                - feat/3292-production-urls
           requires:
             - tf-apply-ci
       - docker-api:
@@ -954,7 +950,6 @@ workflows:
             branches:
               only:
                 - staging
-                - feat/3292-production-urls
           requires:
             - tf-apply-ci
       - docker-sites:
@@ -964,7 +959,6 @@ workflows:
             branches:
               only:
                 - staging
-                - feat/3292-production-urls
           requires:
             - tf-apply-ci
       - docker-landing:
@@ -974,7 +968,6 @@ workflows:
             branches:
               only:
                 - staging
-                - feat/3292-production-urls
           requires:
             - setup-infra-workspace
       - tf-plan:
@@ -982,7 +975,6 @@ workflows:
             branches:
               only:
                 - staging
-                - feat/3292-production-urls
           requires:
             - docker-web
             - docker-api
@@ -994,7 +986,6 @@ workflows:
             branches:
               only:
                 - staging
-                - feat/3292-production-urls
           requires:
             - tf-plan
           type: approval
@@ -1003,7 +994,6 @@ workflows:
             branches:
               only:
                 - staging
-                - feat/3292-production-urls
           requires:
             - hold-apply
           stage: prod
