@@ -82,56 +82,26 @@ pnpm nx run-many --target=test --parallel=3
 
 ### Code Style and Conventions
 
-@import .claude/documentation/file-conventions.md
+@import .claude/documentation/convention/file-conventions.md
+@import .claude/documentation/convention/code-style-conventions.md
 
-Key conventions:
+### Project Structure
 
-- File naming: PascalCase for components, kebab-case for services
-- Class member ordering: [@typescript-eslint/member-ordering](https://typescript-eslint.io/rules/member-ordering/)
-- Named exports only (no default exports)
-- Use `import type` for type imports
-- Arrow functions preferred over function declarations
-
-### Project Structure Rules
-
-1. Code is organized in an Nx monorepo with clear boundaries
-2. Frontend code lives in `libs/frontend/`, backend in `libs/backend/`
-3. Shared code goes in `libs/shared/`
-4. Each domain has parallel modules across application/domain layers
-5. Main web app routes are in `apps/web/app/(dashboard)/(authenticated)/`
-
-@import .claude/documentation/nx-library-naming-conventions.md
-
+@import .claude/documentation/convention/project-structure-conventions.md
+@import .claude/documentation/convention/nx-library-naming-conventions.md
 @import .claude/documentation/nx-workspace-library-build-process.md
 
-### Directory Conventions
+### State Management
 
-- Each module follows the pattern: `{layer}/{domain}/{service-type}/`
-- Use barrel exports (`index.ts`) for clean public APIs
-- Separate concerns: `/models`, `/services`, `/repositories`, `/use-cases`
-- Test files use `.spec.ts` (unit) or `.i.spec.ts` (integration)
+@import .claude/documentation/convention/state-management-conventions.md
 
-### State Management Patterns
+### Styling
 
-- Use MobX stores for reactive state management
-- Domain stores contain business logic
-- Application stores handle UI state
-- Context providers inject dependencies
-- Separate data fetching from presentation
+@import .claude/documentation/convention/styling-conventions.md
 
-### Styling Conventions
+### GraphQL
 
-- Use Tailwind CSS for utility-first styling
-- Styled-components for component-specific styles
-- Follow Atomic Design for component organization
-- Use CVA (Class Variance Authority) for type-safe variants
-
-### GraphQL Patterns
-
-- Generate types from schema: `pnpm codegen`
-- Use fragments for modular queries
-- Separate HTTP (queries/mutations) from WebSocket (subscriptions)
-- Follow operation naming conventions
+@import .claude/documentation/convention/graphql-conventions.md
 
 ## Environment Setup
 
@@ -142,13 +112,7 @@ Key conventions:
 
 ## Documentation Guidelines
 
-When creating documentation for complex implementations that span multiple files:
-
-- Save documentation summaries in `.claude/documentation/` directory
-- Use descriptive filenames like `feature-name-implementation.md`
-- This keeps implementation docs separate from the main codebase
-- Only create these when the implementation is complex or non-obvious
-- Examples: multi-file refactors, new architectural patterns, debugging solutions
+@import .claude/documentation/convention/documentation-conventions.md
 
 ## Important Reminders
 
@@ -158,43 +122,19 @@ When creating documentation for complex implementations that span multiple files
 - NEVER proactively create documentation files (\*.md) or README files in the main codebase
 - Use `.claude/documentation/` for complex implementation summaries when needed
 
-### Type Checking After Changes
+### Type Checking
 
-- **ALWAYS** run type checking after modifying TypeScript files
-- For source file changes: `pnpm nx run <project-name>:tsc-check`
-- For test file changes (*.spec.ts): `pnpm nx run <project-name>:tsc-check:spec`
-- This ensures type safety and catches errors early
+@import .claude/documentation/convention/type-checking-conventions.md
 
 ## Git Workflow
 
-### Branch Naming Convention
+### Branch Naming
 
-All branches must follow this format: `<type>/<issue-number>-<short-description>`
+@import .claude/documentation/convention/git-branch-naming-convention.md
 
-Allowed types:
+### Commit Messages
 
-- `feat/` - New features or enhancements
-- `fix/` - Bug fixes
-- `refactor/` - Code refactoring without changing functionality
-- `test/` - Adding or updating tests
-
-Examples:
-
-- `feat/3736-debug-env-service-tracking`
-- `fix/3742-login-validation-error`
-- `refactor/3755-simplify-repository-pattern`
-- `test/3761-add-user-service-tests`
-
-See `.claude/documentation/git-branch-naming-convention.md` for detailed guidelines.
-
-## Git Commit Messages
-
-- Don't add "Co-Authored-By: Claude <noreply@anthropic.com>" to commit messages
-- Don't add "🤖 Generated with [Claude Code](https://claude.ai/code)" to commit messages
-- Keep commit messages clean and focused on the changes made
-- The project uses Commitizen with a custom configuration (see `.cz-config.js`)
-- To close issues in commit messages, use the footer section with format: `CLOSES: #123`
-- The commitizen config supports various commit types (feat, fix, docs, etc.) and scope selection
+@import .claude/documentation/convention/git-commit-conventions.md
 
 ## Claude fine-tuning
 

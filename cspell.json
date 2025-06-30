@@ -1,7 +1,7 @@
 {
   "version": "0.2",
   "language": "en",
-  "words": ["openmemory", "webberwang", "parseable"],
+  "words": ["openmemory", "webberwang", "parseable", "modelcontextprotocol"],
   "ignorePaths": [
     "node_modules",
     "dist",
