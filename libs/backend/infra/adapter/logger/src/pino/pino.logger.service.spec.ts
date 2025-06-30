@@ -83,10 +83,12 @@ describe('PinoLoggerService', () => {
       expect(mockPinoLogger.debug).not.toHaveBeenCalled()
     })
 
-    it('should not log when no context is provided and wildcard is not enabled', () => {
+    it('should always log when no context is provided', () => {
       loggerService.debug('Test message')
 
-      expect(mockPinoLogger.debug).not.toHaveBeenCalled()
+      expect(mockPinoLogger.debug).toHaveBeenCalledWith({
+        msg: 'Test message',
+      })
     })
   })
 

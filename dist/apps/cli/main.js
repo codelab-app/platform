@@ -1520,6 +1520,11 @@ let TaskService = class TaskService {
         }))
             .command(Tasks.WorkspaceCodegen, 'Generate workspace', (argv) => argv, globalHandler(async ({ stage }) => {
             if (stage === Stage.CI) {
+                this.logger.log('Running Circleci pack', {
+                    context: 'TaskService',
+                    data: { stage },
+                });
+                execCommand('pnpm cpack');
                 this.logger.log('Generating workspace', {
                     context: 'TaskService',
                     data: { stage },
@@ -1547,7 +1552,6 @@ let TaskService = class TaskService {
                     data: { stage },
                 });
                 execCommand('pnpm cross-env TIMING=1 lint-staged');
-                execCommand('pnpm ls-lint');
             }
             if (stage === Stage.CI) {
                 this.logger.log('Running lint', {
@@ -1561,8 +1565,8 @@ let TaskService = class TaskService {
                 // )
                 // https://github.com/nrwl/nx/discussions/8769
                 execCommand('pnpm prettier --check "./**/*.{graphql,yaml,json}"');
-                execCommand('pnpm ls-lint');
             }
+            execCommand('pnpm ls-lint');
         }))
             .command(`${Tasks.Commitlint} [edit]`, 'Commitlint projects', (argv) => argv, globalHandler(({ edit, stage }) => {
             if (stage === Stage.Test) {
