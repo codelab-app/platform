@@ -10,4 +10,4 @@ steps:
   - restore-workspace
   - run:
       name: 'Run tsc Check'
-      command: pnpm nx run-many --target=tsc-check
+      command: pnpm nx run-many --target=tsc-check --target=tsc-check:spec
