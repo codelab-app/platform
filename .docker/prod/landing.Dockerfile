@@ -37,12 +37,13 @@ RUN pnpm install --frozen-lockfile
 FROM install AS build
 
 # The trailing / is required when copying from multiple sources
-COPY nx.json .nxignore tsconfig.base.json postcss.config.cjs tailwind.config.ts ./
+COPY nx.json .nxignore .eslintrc.json tsconfig.base.json postcss.config.cjs tailwind.config.ts ./
 # Required for yarn workspaces
 COPY apps/landing ./apps/landing
 COPY libs ./libs
 COPY types ./types
 COPY scripts/tailwind ./scripts/tailwind
+COPY scripts/eslint ./scripts/eslint
 
 # ARG MAILCHIMP_LIST_ID
 # ARG MAILCHIMP_API_KEY
