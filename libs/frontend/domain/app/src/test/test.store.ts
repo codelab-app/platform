@@ -20,6 +20,7 @@ import { TypeDomainService } from '@codelab/frontend-domain-type/services'
 import { UserDomainService } from '@codelab/frontend-domain-user/services'
 import { User } from '@codelab/frontend-domain-user/store'
 import { userDto } from '@codelab/frontend-test-data'
+import { registerRootStore } from 'mobx-keystone'
 
 import { AppDomainService } from '../services/app.domain.service'
 
@@ -60,6 +61,8 @@ export const createTestDomainStore = () => {
       }),
     },
   }) as ITestDomainStore
+
+  registerRootStore(store)
 
   return store
 }

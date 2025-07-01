@@ -1,7 +1,7 @@
 import { RendererType } from '@codelab/frontend-abstract-application'
 import { RuntimeElementModel } from '@codelab/frontend-application-renderer/store'
 import {
-  createTestRootStore,
+  createTestStore,
   RootStoreProvider,
 } from '@codelab/frontend-infra-mobx-store'
 import { IAtomType, IPageKind } from '@codelab/shared-abstract-core'
@@ -9,11 +9,11 @@ import { render, screen } from '@testing-library/react'
 import { createElement } from 'react'
 
 describe('Runtime Element', () => {
-  let storeContext: ReturnType<typeof createTestRootStore>
-  let testStore: ReturnType<typeof createTestRootStore>['rootStore']
+  let storeContext: ReturnType<typeof createTestStore>
+  let testStore: ReturnType<typeof createTestStore>['rootStore']
 
   beforeEach(() => {
-    storeContext = createTestRootStore()
+    storeContext = createTestStore()
     testStore = storeContext.rootStore
   })
 

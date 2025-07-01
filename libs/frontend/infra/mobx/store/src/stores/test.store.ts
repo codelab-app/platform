@@ -77,6 +77,7 @@ import {
   ITypeKind,
 } from '@codelab/shared-abstract-core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared-config-env'
+import { userDto } from '@codelab/shared-data-test'
 import { Validator } from '@codelab/shared-infra-typebox'
 import {
   Model,
@@ -101,7 +102,7 @@ export enum Layout {
 /**
  * This test store imports all the domain services and application services, so it can only be used in the special test lib to avoid circular dependencies.
  */
-export const createTestRootStore = () => {
+export const createTestStore = () => {
   setGlobalConfig({
     showDuplicateModelNameWarnings: false,
   })
@@ -308,8 +309,8 @@ export const createTestRootStore = () => {
     }
 
     @modelAction
-    setUser(userDto: IUserDto) {
-      this.domainStore.userDomainService.setCurrentUser(userDto)
+    setUser(dto: IUserDto) {
+      this.domainStore.userDomainService.setCurrentUser(dto)
     }
 
     @modelAction
@@ -663,6 +664,9 @@ export const createTestRootStore = () => {
   }
 
   const testRootStore = new TestRootStore({})
+
+  testRootStore.setUser(userDto)
+
   const undoManager = undoMiddleware(testRootStore)
 
   registerRootStore(testRootStore)

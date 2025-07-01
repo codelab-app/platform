@@ -2,15 +2,15 @@ import {
   IRuntimeNodeType,
   RendererType,
 } from '@codelab/frontend-abstract-application'
-import { createTestRootStore } from '@codelab/frontend-infra-mobx-store'
+import { createTestStore } from '@codelab/frontend-infra-mobx-store'
 import { IAtomType, IPageKind } from '@codelab/shared-abstract-core'
 import { v4 } from 'uuid'
 
 describe('TreeViewNode', () => {
-  let testStore: ReturnType<typeof createTestRootStore>['rootStore']
+  let testStore: ReturnType<typeof createTestStore>['rootStore']
 
   beforeEach(() => {
-    testStore = createTestRootStore().rootStore
+    testStore = createTestStore().rootStore
   })
 
   afterEach(() => {

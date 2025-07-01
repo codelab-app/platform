@@ -13,7 +13,7 @@ import type {
   IUserDomainService,
 } from '@codelab/frontend-abstract-domain'
 
-import { Model, model, prop, registerRootStore } from 'mobx-keystone'
+import { Model, model, prop } from 'mobx-keystone'
 
 /**
  * Create a factory for the application store structure, but only pass in interface for the props.
@@ -39,6 +39,7 @@ export const applicationStoreFactory = ({
         undefined,
       ),
       runtimePageService: prop<IRuntimePageService | undefined>(undefined),
+      userDomainService: prop<IUserDomainService | undefined>(undefined),
     })
     implements Partial<IApplicationStore>
   {
@@ -49,6 +50,11 @@ export const applicationStoreFactory = ({
     protected override onInit() {
       this.builderService &&
         context.builderServiceContext?.set(this, this.builderService)
+      this.componentDomainService &&
+        context.componentDomainServiceContext?.set(
+          this,
+          this.componentDomainService,
+        )
       this.rendererService &&
         context.rendererServiceContext?.set(this, this.rendererService)
       this.routerService &&
@@ -65,6 +71,8 @@ export const applicationStoreFactory = ({
         )
       this.runtimePageService &&
         context.runtimePageServiceContext?.set(this, this.runtimePageService)
+      this.userDomainService &&
+        context.userDomainServiceContext?.set(this, this.userDomainService)
     }
   }
 

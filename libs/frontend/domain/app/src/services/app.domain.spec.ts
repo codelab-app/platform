@@ -11,7 +11,8 @@ import { createTestDomainStore } from '../test/test.store'
 
 describe('App domain', () => {
   const pageFactory = new PageDomainFactory(userDto)
-  const { appDomainService, atomDomainService } = createTestDomainStore()
+  const testStore = createTestDomainStore()
+  const { appDomainService, atomDomainService } = testStore
 
   it('can add an app', async () => {
     const reactFragment = atomDomainService.hydrate(atomReactFragmentDto)
@@ -44,6 +45,6 @@ describe('App domain', () => {
   })
 
   afterAll(() => {
-    unregisterRootStore(createTestDomainStore)
+    unregisterRootStore(testStore)
   })
 })

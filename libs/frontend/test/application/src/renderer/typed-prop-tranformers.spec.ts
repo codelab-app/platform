@@ -1,5 +1,5 @@
 import {
-  createTestRootStore,
+  createTestStore,
   RootStoreProvider,
 } from '@codelab/frontend-infra-mobx-store'
 import { IAtomType, IPrimitiveTypeKind } from '@codelab/shared-abstract-core'
@@ -8,11 +8,11 @@ import { render } from '@testing-library/react'
 import { createElement, isValidElement } from 'react'
 
 describe('TypedPropTransformers', () => {
-  let storeContext: ReturnType<typeof createTestRootStore>
-  let testStore: ReturnType<typeof createTestRootStore>['rootStore']
+  let storeContext: ReturnType<typeof createTestStore>
+  let testStore: ReturnType<typeof createTestStore>['rootStore']
 
   beforeEach(() => {
-    storeContext = createTestRootStore()
+    storeContext = createTestStore()
     testStore = storeContext.rootStore
   })
 
