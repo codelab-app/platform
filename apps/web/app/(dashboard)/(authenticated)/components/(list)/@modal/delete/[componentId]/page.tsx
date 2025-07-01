@@ -2,7 +2,7 @@ import type { PageProps } from '@codelab/frontend-abstract-types'
 import type { Metadata } from 'next'
 
 import { DeleteComponentModalContainer } from '@codelab/frontend-application-component/use-cases/delete-component'
-import { parsePageProps } from '@codelab/frontend-application-shared-store/router'
+import { parsePageProps } from '@codelab/frontend-application-shared-services/router'
 
 export const metadata: Metadata = {
   title: 'Delete Component | Codelab',

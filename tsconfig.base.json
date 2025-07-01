@@ -559,16 +559,13 @@
         "libs/frontend/application/shared/store/src/index.ts"
       ],
       "@codelab/frontend-application-shared-services/loading": [
-        "libs/frontend/application/shared/store/src/loading/index.ts"
+        "libs/frontend/application/shared/services/src/loading/index.ts"
       ],
-      "@codelab/frontend-application-shared-store/pagination": [
-        "libs/frontend/application/shared/store/src/pagination/index.ts"
+      "@codelab/frontend-application-shared-services/pagination": [
+        "libs/frontend/application/shared/services/src/pagination/index.ts"
       ],
-      "@codelab/frontend-application-shared-store/router": [
-        "libs/frontend/application/shared/store/src/router/index.ts"
-      ],
-      "@codelab/frontend-application-shared-store/ui": [
-        "libs/frontend/application/shared/store/src/ui/index.ts"
+      "@codelab/frontend-application-shared-services/router": [
+        "libs/frontend/application/shared/services/src/router/index.ts"
       ],
       "@codelab/frontend-application-store/services": [
         "libs/frontend/application/store/src/services/index.ts"

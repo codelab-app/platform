@@ -1,3 +1,5 @@
+import type { IDomainStore } from '@codelab/frontend-abstract-domain'
+
 import {
   appDomainServiceContext,
   atomDomainServiceContext,
@@ -20,7 +22,19 @@ import { userDto } from '@codelab/frontend-test-data'
 
 import { AppDomainService } from '../services/app.domain.service'
 
-export const testDomainStore = () => {
+type ITestDomainStore = Pick<
+  IDomainStore,
+  | 'appDomainService'
+  | 'atomDomainService'
+  | 'elementDomainService'
+  | 'pageDomainService'
+  | 'redirectDomainService'
+  | 'storeDomainService'
+  | 'typeDomainService'
+  | 'userDomainService'
+>
+
+export const createTestDomainStore = () => {
   const store = domainStoreFactory({
     context: {
       appDomainServiceContext,
@@ -42,7 +56,7 @@ export const testDomainStore = () => {
       typeDomainService: new TypeDomainService({}),
       userDomainService: new UserDomainService({}),
     },
-  })
+  }) as ITestDomainStore
 
   return store
 }

@@ -25,7 +25,7 @@ export const createRootStore = () => {
   })
 
   const domainStore = createDomainStore()
-  const applicationStore = createApplicationStore(domainStore)
+  const applicationStore = createApplicationStore()
 
   @model('@codelab/RootStore')
   class RootStore
@@ -37,9 +37,7 @@ export const createRootStore = () => {
   {
     @modelAction
     setUser(userDto: IUserDto) {
-      const user = User.create(userDto)
-
-      this.domainStore.userDomainService.setUser(user)
+      this.domainStore.userDomainService.setCurrentUser(userDto)
     }
   }
 

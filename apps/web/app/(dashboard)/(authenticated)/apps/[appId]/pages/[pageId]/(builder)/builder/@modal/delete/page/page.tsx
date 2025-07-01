@@ -1,7 +1,7 @@
 import type { PageProps } from '@codelab/frontend-abstract-types'
 
 import { DeletePageModalContainer } from '@codelab/frontend-application-page/use-cases/delete-page'
-import { parsePageProps } from '@codelab/frontend-application-shared-store/router'
+import { parsePageProps } from '@codelab/frontend-application-shared-services/router'
 
 const Page = async (props: PageProps<'appId' | 'pageId'>) => {
   const {

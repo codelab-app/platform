@@ -1,7 +1,7 @@
 import type { PageProps } from '@codelab/frontend-abstract-types'
 import type { Metadata } from 'next'
 
-import { parsePageProps } from '@codelab/frontend-application-shared-store/router'
+import { parsePageProps } from '@codelab/frontend-application-shared-services/router'
 import { UpdateTagPopoverContainer } from '@codelab/frontend-application-tag/use-cases/update-tag'
 
 export const metadata: Metadata = {

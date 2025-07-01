@@ -889,13 +889,13 @@
     "path": "libs/frontend/application/shared/store/src/loading/index.ts",
     "name": null
   },
-  "@codelab/frontend-application-shared-store/pagination": {
-    "expected": "@codelab/frontend-application-shared-store/pagination",
+  "@codelab/frontend-application-shared-services/pagination": {
+    "expected": "@codelab/frontend-application-shared-services/pagination",
     "path": "libs/frontend/application/shared/store/src/pagination/index.ts",
     "name": null
   },
-  "@codelab/frontend-application-shared-store/router": {
-    "expected": "@codelab/frontend-application-shared-store/router",
+  "@codelab/frontend-application-shared-services/router": {
+    "expected": "@codelab/frontend-application-shared-services/router",
     "path": "libs/frontend/application/shared/store/src/router/index.ts",
     "name": null
   },

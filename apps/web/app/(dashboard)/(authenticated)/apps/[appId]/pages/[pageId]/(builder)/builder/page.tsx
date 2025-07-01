@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 
 import { IRouteType } from '@codelab/frontend-abstract-application'
 import { PageBuilderContainer } from '@codelab/frontend-application-builder/use-cases/page-builder'
-import { parsePageProps } from '@codelab/frontend-application-shared-store/router'
+import { parsePageProps } from '@codelab/frontend-application-shared-services/router'
 
 export const metadata: Metadata = {
   title: 'App Builder | Codelab',

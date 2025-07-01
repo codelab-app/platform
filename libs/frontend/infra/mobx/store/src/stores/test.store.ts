@@ -21,6 +21,7 @@ import type {
   IRenderPropTypeDto,
   IRichTextType,
   IStoreDto,
+  IUserDto,
 } from '@codelab/shared-abstract-core'
 import type { PartialExcept } from '@codelab/shared-abstract-types'
 
@@ -103,7 +104,7 @@ export const createTestStore = () => {
   })
 
   const domainStore = createDomainStore()
-  const applicationStore = createApplicationStore(domainStore)
+  const applicationStore = createApplicationStore()
 
   @model('@codelab/TestRootStore')
   class TestRootStore
@@ -301,6 +302,11 @@ export const createTestStore = () => {
           type.kind === ITypeKind.PrimitiveType &&
           type.primitiveKind === IPrimitiveTypeKind.String,
       )
+    }
+
+    @modelAction
+    setUser(userDto: IUserDto) {
+      this.domainStore.userDomainService.setCurrentUser(userDto)
     }
 
     @modelAction

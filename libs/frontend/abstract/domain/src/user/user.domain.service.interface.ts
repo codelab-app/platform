@@ -7,10 +7,9 @@ import type { IUserModel } from './user.model.interface'
 
 export interface IUserDomainService {
   currentUser: IUserModel
-  preference: Nullable<IPreferenceModel>
+  preference: IPreferenceModel
   user: Nullable<IUserModel>
   users: ObjectMap<IUserModel>
   usersList: Array<IUserModel>
-
   setCurrentUser(userDto: IUserDto): void
 }

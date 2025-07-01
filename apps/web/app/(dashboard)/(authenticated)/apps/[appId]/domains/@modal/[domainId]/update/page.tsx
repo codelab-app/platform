@@ -2,7 +2,7 @@ import type { PageProps } from '@codelab/frontend-abstract-types'
 import type { Metadata } from 'next'
 
 import { UpdateDomainModalContainer } from '@codelab/frontend-application-domain/use-cases/update-domain'
-import { parsePageProps } from '@codelab/frontend-application-shared-store/router'
+import { parsePageProps } from '@codelab/frontend-application-shared-services/router'
 
 export const metadata: Metadata = {
   title: 'Update Domain | Codelab',

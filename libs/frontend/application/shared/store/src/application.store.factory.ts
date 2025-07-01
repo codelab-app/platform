@@ -39,7 +39,6 @@ export const applicationStoreFactory = ({
         undefined,
       ),
       runtimePageService: prop<IRuntimePageService | undefined>(undefined),
-      userDomainService: prop<IUserDomainService | undefined>(undefined),
     })
     implements Partial<IApplicationStore>
   {
@@ -66,13 +65,6 @@ export const applicationStoreFactory = ({
         )
       this.runtimePageService &&
         context.runtimePageServiceContext?.set(this, this.runtimePageService)
-      this.userDomainService &&
-        context.userDomainServiceContext?.set(this, this.userDomainService)
-      this.componentDomainService &&
-        context.componentDomainServiceContext?.set(
-          this,
-          this.componentDomainService,
-        )
 
       registerRootStore(this)
     }

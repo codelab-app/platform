@@ -6,6 +6,7 @@ import type {
   IComponentDomainService,
   IDomainDomainService,
   IDomainStore,
+  IDomainStoreDto,
   IDomainStoreFactoryDto,
   IElementDomainService,
   IFieldDomainService,
@@ -114,3 +115,6 @@ export const domainStoreFactory = ({
 
   return new DomainStore(store)
 }
+
+// Alias for backward compatibility
+export const createRootDomainStore = domainStoreFactory
