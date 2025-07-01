@@ -7,7 +7,7 @@ import type { IResourceFetchConfig } from '@codelab/shared-abstract-core'
 import { RendererType } from '@codelab/frontend-abstract-application'
 import { DATA_ELEMENT_ID } from '@codelab/frontend-abstract-domain'
 import {
-  createTestStore,
+  createTestRootStore,
   RootStoreProvider,
 } from '@codelab/frontend-infra-mobx-store'
 import { IAtomType, IPageKind } from '@codelab/shared-abstract-core'
@@ -15,13 +15,13 @@ import { act, render } from '@testing-library/react'
 import { configure } from 'mobx'
 import { createElement } from 'react'
 
-let storeContext: ReturnType<typeof createTestStore>
-let testStore: ReturnType<typeof createTestStore>['rootStore']
+let rootStore: ReturnType<typeof createTestRootStore>
+let testStore: ReturnType<typeof createTestRootStore>['rootStore']
 
 describe('Runtime Element props', () => {
   beforeEach(() => {
-    storeContext = createTestStore()
-    testStore = storeContext.rootStore
+    rootStore = createTestRootStore()
+    testStore = rootStore.rootStore
   })
 
   afterAll(() => {
@@ -354,7 +354,7 @@ describe('Runtime Element props', () => {
 
         await act(async () => {
           render(
-            createElement(RootStoreProvider, { value: storeContext }, rendered),
+            createElement(RootStoreProvider, { value: rootStore }, rendered),
           )
         })
 
@@ -379,7 +379,7 @@ describe('Runtime Element props', () => {
           render(
             createElement(
               RootStoreProvider,
-              { value: storeContext },
+              { value: rootStore },
               rendererService.activeRenderer?.current.rendered,
             ),
           )

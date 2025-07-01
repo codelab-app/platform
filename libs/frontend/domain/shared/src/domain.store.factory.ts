@@ -108,13 +108,8 @@ export const domainStoreFactory = ({
         context.typeDomainServiceContext?.set(this, this.typeDomainService)
       this.userDomainService &&
         context.userDomainServiceContext?.set(this, this.userDomainService)
-
-      registerRootStore(this)
     }
   }
 
   return new DomainStore(store)
 }
-
-// Alias for backward compatibility
-export const createRootDomainStore = domainStoreFactory

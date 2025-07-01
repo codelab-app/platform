@@ -1,6 +1,6 @@
 import type { IElementDto } from '@codelab/shared-abstract-core'
 
-import { createTestStore } from '@codelab/frontend-infra-mobx-store'
+import { createTestRootStore } from '@codelab/frontend-infra-mobx-store'
 import {
   atomReactFragmentDto,
   elementDto,
@@ -9,7 +9,7 @@ import {
 import { v4 } from 'uuid'
 
 describe('Create element', () => {
-  const { rootStore } = createTestStore()
+  const { rootStore } = createTestRootStore()
   const { elementDomainService, pageDomainService } = rootStore.domainStore
 
   const rootElementDto: IElementDto = {

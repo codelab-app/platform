@@ -18,6 +18,7 @@ import { domainStoreFactory } from '@codelab/frontend-domain-shared'
 import { StoreDomainService } from '@codelab/frontend-domain-store/services'
 import { TypeDomainService } from '@codelab/frontend-domain-type/services'
 import { UserDomainService } from '@codelab/frontend-domain-user/services'
+import { User } from '@codelab/frontend-domain-user/store'
 import { userDto } from '@codelab/frontend-test-data'
 
 import { AppDomainService } from '../services/app.domain.service'
@@ -54,7 +55,9 @@ export const createTestDomainStore = () => {
       redirectDomainService: new RedirectDomainService({}),
       storeDomainService: new StoreDomainService({}),
       typeDomainService: new TypeDomainService({}),
-      userDomainService: new UserDomainService({}),
+      userDomainService: new UserDomainService({
+        user: User.create(userDto),
+      }),
     },
   }) as ITestDomainStore
 

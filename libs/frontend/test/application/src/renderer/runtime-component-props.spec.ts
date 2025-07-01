@@ -1,12 +1,12 @@
 import { type IRuntimeComponentModel } from '@codelab/frontend-abstract-application'
 import { DATA_COMPONENT_ID } from '@codelab/frontend-abstract-domain'
-import { createTestStore } from '@codelab/frontend-infra-mobx-store'
+import { createTestRootStore } from '@codelab/frontend-infra-mobx-store'
 
 describe('Runtime Component props', () => {
-  let testStore: ReturnType<typeof createTestStore>['rootStore']
+  let testStore: ReturnType<typeof createTestRootStore>['rootStore']
 
   beforeEach(() => {
-    testStore = createTestStore().rootStore
+    testStore = createTestRootStore().rootStore
   })
 
   afterEach(() => {

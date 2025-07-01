@@ -9,7 +9,5 @@ export interface IUserDomainService {
   currentUser: IUserModel
   preference: IPreferenceModel
   user: Nullable<IUserModel>
-  users: ObjectMap<IUserModel>
-  usersList: Array<IUserModel>
   setCurrentUser(userDto: IUserDto): void
 }

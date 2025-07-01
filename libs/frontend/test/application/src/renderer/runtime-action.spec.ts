@@ -1,13 +1,13 @@
 import { RendererType } from '@codelab/frontend-abstract-application'
-import { createTestStore } from '@codelab/frontend-infra-mobx-store'
+import { createTestRootStore } from '@codelab/frontend-infra-mobx-store'
 import { IPageKind } from '@codelab/shared-abstract-core'
 import { configure } from 'mobx'
 
 describe('Runtime Element props', () => {
-  let testStore: ReturnType<typeof createTestStore>['rootStore']
+  let testStore: ReturnType<typeof createTestRootStore>['rootStore']
 
   beforeEach(() => {
-    testStore = createTestStore().rootStore
+    testStore = createTestRootStore().rootStore
   })
 
   afterEach(() => {

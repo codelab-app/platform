@@ -98,7 +98,10 @@ export enum Layout {
   Vertical,
 }
 
-export const createTestStore = () => {
+/**
+ * This test store imports all the domain services and application services, so it can only be used in the special test lib to avoid circular dependencies.
+ */
+export const createTestRootStore = () => {
   setGlobalConfig({
     showDuplicateModelNameWarnings: false,
   })

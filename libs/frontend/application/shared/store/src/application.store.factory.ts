@@ -65,8 +65,6 @@ export const applicationStoreFactory = ({
         )
       this.runtimePageService &&
         context.runtimePageServiceContext?.set(this, this.runtimePageService)
-
-      registerRootStore(this)
     }
   }
 

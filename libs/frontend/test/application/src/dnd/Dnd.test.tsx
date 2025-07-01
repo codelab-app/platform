@@ -14,7 +14,7 @@ import {
   DROP_OVERLAY_ID,
 } from '@codelab/frontend-application-dnd/components'
 import {
-  createTestStore,
+  createTestRootStore,
   Layout,
   RootStoreProvider,
 } from '@codelab/frontend-infra-mobx-store'
@@ -65,8 +65,8 @@ const dragDropElement = async (element: HTMLElement, dropPosiotion: Point) => {
 }
 
 const renderDragAndDropElements = async (
-  storeContext: ReturnType<typeof createTestStore>,
-  testStore: ReturnType<typeof createTestStore>['rootStore'],
+  storeContext: ReturnType<typeof createTestRootStore>,
+  testStore: ReturnType<typeof createTestRootStore>['rootStore'],
   renderer: IRendererModel,
   dragTarget: jest.Func,
   dargStart: jest.Func,
@@ -139,8 +139,8 @@ const renderDragAndDropElements = async (
 }
 
 describe('Dnd', () => {
-  let storeContext: ReturnType<typeof createTestStore>
-  let testStore: ReturnType<typeof createTestStore>['rootStore']
+  let storeContext: ReturnType<typeof createTestRootStore>
+  let testStore: ReturnType<typeof createTestRootStore>['rootStore']
 
   beforeAll(() => {
     /**
@@ -173,7 +173,7 @@ describe('Dnd', () => {
   })
 
   beforeEach(() => {
-    storeContext = createTestStore()
+    storeContext = createTestRootStore()
     testStore = storeContext.rootStore
   })
 

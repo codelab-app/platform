@@ -1,5 +1,5 @@
 import { atomRef, type IElementModel } from '@codelab/frontend-abstract-domain'
-import { createTestStore } from '@codelab/frontend-infra-mobx-store'
+import { createTestRootStore } from '@codelab/frontend-infra-mobx-store'
 import {
   atomReactFragmentDto,
   elementDto,
@@ -13,7 +13,7 @@ import { v4 } from 'uuid'
 
 describe('Element domain', () => {
   const rootElementDto = { ...elementDto, name: 'Root Element' }
-  const { rootStore } = createTestStore()
+  const { rootStore } = createTestRootStore()
 
   const {
     atomDomainService,
