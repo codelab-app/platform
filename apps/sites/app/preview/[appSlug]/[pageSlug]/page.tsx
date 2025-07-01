@@ -15,7 +15,33 @@ const PreviewPage = async ({
 
     return <ClientProductionPage dto={dto} />
   } catch (error) {
-    return <div>App or page not found</div>
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+    console.error(`Preview error for ${appSlug}/${pageSlug}:`, errorMessage)
+    
+    if (errorMessage === 'App not found') {
+      return (
+        <div>
+          <h1>App Not Found</h1>
+          <p>The app "{appSlug}" does not exist.</p>
+        </div>
+      )
+    }
+    
+    if (errorMessage === 'Page not found') {
+      return (
+        <div>
+          <h1>Page Not Found</h1>
+          <p>The page "/{pageSlug}" does not exist in app "{appSlug}".</p>
+        </div>
+      )
+    }
+    
+    return (
+      <div>
+        <h1>Error</h1>
+        <p>{errorMessage}</p>
+      </div>
+    )
   }
 }
 

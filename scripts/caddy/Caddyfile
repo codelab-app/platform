@@ -1,35 +1,19 @@
 codelab.test {
-    reverse_proxy https://127.0.0.1:3080 {
-        transport http {
-            tls_insecure_skip_verify
-        }
-    }
+    reverse_proxy http://127.0.0.1:3080
     tls internal
 }
 
 *.codelab.test {
-    reverse_proxy https://127.0.0.1:3080 {
-        transport http {
-            tls_insecure_skip_verify
-        }
-    }
+    reverse_proxy http://127.0.0.1:3080
     tls internal
 }
 
 codelab.dev {
-    reverse_proxy https://127.0.0.1:3080 {
-        transport http {
-            tls_insecure_skip_verify
-        }
-    }
+    reverse_proxy http://127.0.0.1:3080
     tls internal
 }
 
 *.codelab.dev {
-    reverse_proxy https://127.0.0.1:3080 {
-        transport http {
-            tls_insecure_skip_verify
-        }
-    }
+    reverse_proxy http://127.0.0.1:3080
     tls internal
 }

@@ -141,6 +141,7 @@ pnpm nx run-many --target=test --parallel=3
 - Be brutally honest, don't be a yes man.
 - If I am wrong, point it out bluntly.
 - I need honest feedback on my code.
+- When creating tasks, DO NOT automatically test them at the end unless explicitly asked to test.
 
 ## OpenMemory Integration
 
@@ -153,9 +154,10 @@ pnpm nx run-many --target=test --parallel=3
 
 ## Research and Information Lookup
 
-- When researching or looking up information, prefer using Perplexity MCP (`mcp__perplexity__`) over web search
-- Perplexity provides faster, more summarized results ideal for quick research
-- Use web search when you need more accurate or comprehensive information from specific sources
+- **ALWAYS** use Perplexity MCP (`mcp__perplexity__`) whenever you have any question that requires external information
+- Use perplexity mcp instead of web search always!
+- Perplexity provides faster, more summarized results ideal for answering questions
+- Only use web search as a fallback if Perplexity is unavailable or fails
 
 ## Documentation
 

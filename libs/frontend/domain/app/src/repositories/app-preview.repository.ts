@@ -18,16 +18,19 @@ export const appPreviewRepository = async ({
   appSlug,
   pageUrlPattern,
 }: IAppPreviewArgs): Promise<IAppProductionDto> => {
-  // Fetch app by slug with all necessary relations
-  const data = await AppList({
-    where: { slug: appSlug },
-  })
+  console.log('Fetching app with slug:', appSlug)
+  
+  try {
+    // Fetch app by slug with all necessary relations
+    const data = await AppList({
+      where: { slug: appSlug },
+    })
 
-  const app = data.apps[0]
+    const app = data.apps[0]
 
-  if (!app) {
-    throw new Error('App not found')
-  }
+    if (!app) {
+      throw new Error('App not found')
+    }
 
   const pages = app.pages
 
@@ -69,17 +72,24 @@ export const appPreviewRepository = async ({
     (atom) => atom.id,
   )
 
-  return {
-    actions,
-    app,
-    appName: app.name,
-    atoms,
-    components: [],
-    elements,
-    fields: [],
-    pageName: loadedPage.name,
-    pages,
-    props,
-    stores,
+    return {
+      actions,
+      app,
+      appName: app.name,
+      atoms,
+      components: [],
+      elements,
+      fields: [],
+      pageName: loadedPage.name,
+      pages,
+      props,
+      stores,
+    }
+  } catch (error) {
+    console.error('Error in appPreviewRepository:', error)
+    if (error instanceof Error && error.message.includes('fetch failed')) {
+      throw new Error(`Network error: Unable to connect to API. Please check if the API server is running.`)
+    }
+    throw error
   }
 }
