@@ -7,7 +7,7 @@ steps:
   - restore_cache:
       name: 'Restore node_modules Cache'
       keys:
-        - node-modules-cache-{{ checksum "pnpm-lock.yaml" }}-{{ checksum "dist/libs/tools/workspace/package.json" }}
+        - node-modules-cache-{{ checksum "pnpm-lock.yaml" }}-{{ checksum "dist/**/package.json" }}
         - node-modules-cache-{{ checksum "pnpm-lock.yaml" }}
         - node-modules-cache-
   - restore_cache:
