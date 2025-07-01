@@ -5,9 +5,9 @@ import type { IPreferenceModel } from '../preference'
 import type { IUserModel } from './user.model.interface'
 
 export interface IUserDomainService {
-  preference: IPreferenceModel
-  user: IUserModel
+  preference: Nullable<IPreferenceModel>
+  user: Nullable<IUserModel>
   users: ObjectMap<IUserModel>
   usersList: Array<IUserModel>
-  setUser(user: Nullable<IUserModel>): void
+  setUser(user: IUserModel): void
 }

@@ -1,5 +1,3 @@
-import type { IUserDto } from '@codelab/shared-abstract-core'
-
 import {
   type IActionDomainService,
   type IAppDomainService,
@@ -54,7 +52,7 @@ import {
 import { UserDomainService } from '@codelab/frontend-domain-user/services'
 import { Model, model, prop } from 'mobx-keystone'
 
-export const createDomainStore = (user: IUserDto) => {
+export const createDomainStore = () => {
   @model('@codelab/DomainStore')
   class DomainStore
     extends Model({
@@ -96,8 +94,8 @@ export const createDomainStore = (user: IUserDto) => {
       typeDomainService: prop<ITypeDomainService>(
         () => new TypeDomainService({}),
       ),
-      userDomainService: prop<IUserDomainService>(() =>
-        UserDomainService.fromDto(user),
+      userDomainService: prop<IUserDomainService>(
+        () => new UserDomainService({}),
       ),
     })
     implements IDomainStore
