@@ -555,9 +555,6 @@
       "@codelab/frontend-application-shared-services": [
         "libs/frontend/application/shared/services/src/cache/index.ts"
       ],
-      "@codelab/frontend-application-shared-store": [
-        "libs/frontend/application/shared/store/src/index.ts"
-      ],
       "@codelab/frontend-application-shared-services/loading": [
         "libs/frontend/application/shared/services/src/loading/index.ts"
       ],
@@ -566,6 +563,9 @@
       ],
       "@codelab/frontend-application-shared-services/router": [
         "libs/frontend/application/shared/services/src/router/index.ts"
+      ],
+      "@codelab/frontend-application-shared-store": [
+        "libs/frontend/application/shared/store/src/index.ts"
       ],
       "@codelab/frontend-application-store/services": [
         "libs/frontend/application/store/src/services/index.ts"
