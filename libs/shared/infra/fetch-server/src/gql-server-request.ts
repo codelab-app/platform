@@ -31,9 +31,11 @@ export const gqlServerRequest = async <TResult, TVariables extends ObjectLike>(
   next?: NextFetchOptions,
 ) => {
   // Build headers including logging values from options
+  // Include custom headers if provided
   const headers: Record<string, string> = {
     Accept: 'application/graphql-response+json',
     'Content-Type': 'application/json',
+    ...next?.headers,
   }
 
   if (next?.tracing?.operationId) {

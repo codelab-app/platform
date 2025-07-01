@@ -28,4 +28,5 @@ export interface NextTracingOptions {
 export type NextFetchOptions = NextFetchRequestConfig & {
   revalidateTags?: Array<string>
   tracing?: NextTracingOptions
+  headers?: Record<string, string>
 }

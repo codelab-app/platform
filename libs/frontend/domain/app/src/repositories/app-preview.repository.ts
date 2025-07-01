@@ -2,13 +2,13 @@ import type { IAppProductionDto } from '@codelab/frontend-abstract-domain'
 import type { AtomProductionFragment } from '@codelab/shared-infra-gqlgen'
 
 import { appServerActions } from '@codelab/shared-domain-module-app'
-import { auth0Service } from '@codelab/shared-infra-auth0/server'
+import { getM2MToken } from '@codelab/shared-infra-auth0/server'
 import { uniqueBy } from 'remeda'
 
 // For preview we have appId from the subdomain and pageUrlPattern from the URL path
 // We need to fetch the app by ID instead of domain
 
-const { AppList } = appServerActions
+const { GetAppPreview } = appServerActions
 
 export interface IAppPreviewArgs {
   appId: string
@@ -23,13 +23,11 @@ export const appPreviewRepository = async ({
 
   try {
     // Get M2M token for authentication
-    const token = await auth0Service.getM2MToken()
+    const token = await getM2MToken()
 
     // Fetch app by ID with all necessary relations
-    const data = await AppList(
-      {
-        where: { id: appId },
-      },
+    const data = await GetAppPreview(
+      { appId, pageUrlPattern },
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -37,30 +35,18 @@ export const appPreviewRepository = async ({
       },
     )
 
-    const app = data.items[0]
+    const app = data.apps[0]
 
     if (!app) {
-      throw new Error('App not found')
+      throw new Error('Missing app')
     }
 
     const pages = app.pages
-
-    // Find the page by URL pattern, handling root page variations
-    const loadedPage = pages.find((page) => {
-      // Handle root page - both empty string and '/' should match
-      if (
-        pageUrlPattern === '/' &&
-        (page.urlPattern === '/' || page.urlPattern === '')
-      ) {
-        return true
-      }
-
-      // For non-root pages, match the URL exactly
-      return page.urlPattern === pageUrlPattern
-    })
+    // provider page is also loaded therefore we need to find the current one
+    const loadedPage = pages.find((page) => page.urlPattern === pageUrlPattern)
 
     if (!loadedPage) {
-      throw new Error('Page not found')
+      throw new Error('Missing page')
     }
 
     // Transform elements to include required references
@@ -76,13 +62,18 @@ export const appPreviewRepository = async ({
     const stores = pages.flatMap((page) => page.store)
     const actions = stores.flatMap((store) => store.actions)
 
-    // Extract atoms from elements, filtering for Atom type
     const atoms = uniqueBy(
-      elements
-        .flatMap((element) => element.renderType)
-        .filter(
-          (item): item is AtomProductionFragment => item.__typename === 'Atom',
-        ),
+      [
+        // Load all the atoms used by elements
+        ...elements
+          .flatMap((element) => element.renderType)
+          .filter(
+            (item): item is AtomProductionFragment => item.__typename === 'Atom',
+          ),
+        // Also load the default atoms, here is just type `ReactFragment`
+        ...data.atoms,
+      ],
+      // Filter by id in case `ReactFragment` already exists
       (atom) => atom.id,
     )
 

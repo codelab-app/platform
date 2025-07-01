@@ -76,32 +76,32 @@ pnpm nx run-many --target=test --parallel=3
 
 ## Architecture & Domain Knowledge
 
-@import .claude/documentation/codelab-domain-knowledge.md
+*Fetch from: `.claude/documentation/codelab-domain-knowledge.md`*
 
 ## Development Guidelines
 
 ### Code Style and Conventions
 
-@import .claude/documentation/convention/file-conventions.md
-@import .claude/documentation/convention/code-style-conventions.md
+*Fetch from: `.claude/documentation/convention/file-conventions.md`*  
+*Fetch from: `.claude/documentation/convention/code-style-conventions.md`*
 
 ### Project Structure
 
-@import .claude/documentation/convention/project-structure-conventions.md
-@import .claude/documentation/convention/nx-library-naming-conventions.md
-@import .claude/documentation/nx-workspace-library-build-process.md
+*Fetch from: `.claude/documentation/convention/project-structure-conventions.md`*  
+*Fetch from: `.claude/documentation/convention/nx-library-naming-conventions.md`*  
+*Fetch from: `.claude/documentation/nx-workspace-library-build-process.md`*
 
 ### State Management
 
-@import .claude/documentation/convention/state-management-conventions.md
+*Fetch from: `.claude/documentation/convention/state-management-conventions.md`*
 
 ### Styling
 
-@import .claude/documentation/convention/styling-conventions.md
+*Fetch from: `.claude/documentation/convention/styling-conventions.md`*
 
 ### GraphQL
 
-@import .claude/documentation/convention/graphql-conventions.md
+*Fetch from: `.claude/documentation/convention/graphql-conventions.md`*
 
 ## Environment Setup
 
@@ -112,7 +112,7 @@ pnpm nx run-many --target=test --parallel=3
 
 ## Documentation Guidelines
 
-@import .claude/documentation/convention/documentation-conventions.md
+*Fetch from: `.claude/documentation/convention/documentation-conventions.md`*
 
 ## Important Reminders
 
@@ -124,17 +124,17 @@ pnpm nx run-many --target=test --parallel=3
 
 ### Type Checking
 
-@import .claude/documentation/convention/type-checking-conventions.md
+*Fetch from: `.claude/documentation/convention/type-checking-conventions.md`*
 
 ## Git Workflow
 
 ### Branch Naming
 
-@import .claude/documentation/convention/git-branch-naming-convention.md
+*Fetch from: `.claude/documentation/convention/git-branch-naming-convention.md`*
 
 ### Commit Messages
 
-@import .claude/documentation/convention/git-commit-conventions.md
+*Fetch from: `.claude/documentation/convention/git-commit-conventions.md`*
 
 ## Claude fine-tuning
 
@@ -142,6 +142,7 @@ pnpm nx run-many --target=test --parallel=3
 - If I am wrong, point it out bluntly.
 - I need honest feedback on my code.
 - When creating tasks, DO NOT automatically test them at the end unless explicitly asked to test.
+- When creating tasks, DO NOT automatically lint them in an extra step
 
 ## OpenMemory Integration
 
@@ -161,12 +162,12 @@ pnpm nx run-many --target=test --parallel=3
 
 ## Documentation
 
-When I say read documentation it's regarding @import .claude/documentation
+When I say read documentation it's regarding: *Fetch from: `.claude/documentation`*
 
 ### OpenMemory Sync Documentation
 
 For the data structure and implementation details of syncing various sources (GitHub, Notion) to OpenMemory:
-@import .claude/documentation/openmemory-sync-documentation.md
+*Fetch from: `.claude/documentation/openmemory-sync-documentation.md`*
 
 ## GitHub Issue Context
 

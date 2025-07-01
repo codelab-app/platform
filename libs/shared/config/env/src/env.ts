@@ -11,6 +11,8 @@ export const env = from({
   AUTH0_DOMAIN: process.env['AUTH0_DOMAIN'],
   AUTH0_E2E_PASSWORD: process.env['AUTH0_E2E_PASSWORD'],
   AUTH0_E2E_USERNAME: process.env['AUTH0_E2E_USERNAME'],
+  AUTH0_M2M_CLIENT_ID: process.env['AUTH0_M2M_CLIENT_ID'],
+  AUTH0_M2M_CLIENT_SECRET: process.env['AUTH0_M2M_CLIENT_SECRET'],
   AUTH0_SECRET: process.env['AUTH0_SECRET'],
   AUTH0_SESSION_AUTO_SAVE: process.env['AUTH0_SESSION_AUTO_SAVE'],
   CI: process.env['CI'],

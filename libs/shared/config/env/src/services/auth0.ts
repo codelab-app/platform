@@ -14,6 +14,8 @@ export interface IAuth0EnvVars {
   issuerBaseUrl: string
   secret: string
   sessionAutoSave: boolean
+  m2mClientId: string
+  m2mClientSecret: string
 }
 
 /* *
@@ -37,6 +39,10 @@ export class Auth0EnvVars implements IAuth0EnvVars {
   private _secret?: string
 
   private _sessionAutoSave?: boolean
+
+  private _m2mClientId?: string
+
+  private _m2mClientSecret?: string
 
   constructor(private readonly endpoint: IEndpointEnvVars) {}
 
@@ -97,5 +103,19 @@ export class Auth0EnvVars implements IAuth0EnvVars {
     const auth0baseUrl = this.endpoint.webHost
 
     return auth0baseUrl
+  }
+
+  get m2mClientId(): string {
+    return (this._m2mClientId ??= env
+      .get('AUTH0_M2M_CLIENT_ID')
+      .required()
+      .asString())
+  }
+
+  get m2mClientSecret(): string {
+    return (this._m2mClientSecret ??= env
+      .get('AUTH0_M2M_CLIENT_SECRET')
+      .required()
+      .asString())
   }
 }

@@ -55,3 +55,16 @@ query GetAppProduction($domain: String!, $pageUrlPattern: String!) {
     ...Resource
   }
 }
+
+query GetAppPreview($appId: ID!, $pageUrlPattern: String!) {
+  apps(where: { id: $appId }) {
+    ...AppProduction
+  }
+  # Need to load all dependent types
+  atoms(where: { type: ReactFragment }) {
+    ...AtomProduction
+  }
+  resources {
+    ...Resource
+  }
+}
