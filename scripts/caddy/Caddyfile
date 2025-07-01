@@ -1,19 +1,7 @@
-codelab.test {
+http://codelab.test {
     reverse_proxy http://127.0.0.1:3080
-    tls internal
 }
 
-*.codelab.test {
+http://*.codelab.test {
     reverse_proxy http://127.0.0.1:3080
-    tls internal
-}
-
-codelab.dev {
-    reverse_proxy http://127.0.0.1:3080
-    tls internal
-}
-
-*.codelab.dev {
-    reverse_proxy http://127.0.0.1:3080
-    tls internal
 }

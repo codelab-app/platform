@@ -25,6 +25,14 @@ export const serverFetchWithAuth = async (
     headers.set('Authorization', `Bearer ${session.tokenSet.accessToken}`)
   }
 
+  console.log('Fetching with auth', endpoint, {
+    ...init,
+    headers: {
+      Authorization: headers.get('Authorization'),
+      'Content-Type': headers.get('Content-Type'),
+    },
+  })
+
   const response = await fetch(endpoint, {
     ...init,
     headers,

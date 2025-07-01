@@ -65,8 +65,6 @@ pnpm nx <target> <project>
 pnpm nx serve web           # Start web development server
 pnpm nx test backend-domain-app  # Run tests for specific library
 
-# When linting always use subagent so we don't block the main thread
-# This way we can run this task in parallel in the background
 pnpm nx lint frontend-application-admin  # Lint specific project
 
 # Run tasks across multiple projects
@@ -76,32 +74,32 @@ pnpm nx run-many --target=test --parallel=3
 
 ## Architecture & Domain Knowledge
 
-*Fetch from: `.claude/documentation/codelab-domain-knowledge.md`*
+_Fetch from: `.claude/documentation/codelab-domain-knowledge.md`_
 
 ## Development Guidelines
 
 ### Code Style and Conventions
 
-*Fetch from: `.claude/documentation/convention/file-conventions.md`*  
-*Fetch from: `.claude/documentation/convention/code-style-conventions.md`*
+_Fetch from: `.claude/documentation/convention/file-conventions.md`_
+_Fetch from: `.claude/documentation/convention/code-style-conventions.md`_
 
 ### Project Structure
 
-*Fetch from: `.claude/documentation/convention/project-structure-conventions.md`*  
-*Fetch from: `.claude/documentation/convention/nx-library-naming-conventions.md`*  
-*Fetch from: `.claude/documentation/nx-workspace-library-build-process.md`*
+_Fetch from: `.claude/documentation/convention/project-structure-conventions.md`_
+_Fetch from: `.claude/documentation/convention/nx-library-naming-conventions.md`_
+_Fetch from: `.claude/documentation/nx-workspace-library-build-process.md`_
 
 ### State Management
 
-*Fetch from: `.claude/documentation/convention/state-management-conventions.md`*
+_Fetch from: `.claude/documentation/convention/state-management-conventions.md`_
 
 ### Styling
 
-*Fetch from: `.claude/documentation/convention/styling-conventions.md`*
+_Fetch from: `.claude/documentation/convention/styling-conventions.md`_
 
 ### GraphQL
 
-*Fetch from: `.claude/documentation/convention/graphql-conventions.md`*
+_Fetch from: `.claude/documentation/convention/graphql-conventions.md`_
 
 ## Environment Setup
 
@@ -112,7 +110,7 @@ pnpm nx run-many --target=test --parallel=3
 
 ## Documentation Guidelines
 
-*Fetch from: `.claude/documentation/convention/documentation-conventions.md`*
+_Fetch from: `.claude/documentation/convention/documentation-conventions.md`_
 
 ## Important Reminders
 
@@ -124,17 +122,17 @@ pnpm nx run-many --target=test --parallel=3
 
 ### Type Checking
 
-*Fetch from: `.claude/documentation/convention/type-checking-conventions.md`*
+_Fetch from: `.claude/documentation/convention/type-checking-conventions.md`_
 
 ## Git Workflow
 
 ### Branch Naming
 
-*Fetch from: `.claude/documentation/convention/git-branch-naming-convention.md`*
+_Fetch from: `.claude/documentation/convention/git-branch-naming-convention.md`_
 
 ### Commit Messages
 
-*Fetch from: `.claude/documentation/convention/git-commit-conventions.md`*
+_Fetch from: `.claude/documentation/convention/git-commit-conventions.md`_
 
 ## Claude fine-tuning
 
@@ -146,7 +144,7 @@ pnpm nx run-many --target=test --parallel=3
 
 ## OpenMemory Integration
 
-- **ALWAYS** search OpenMemory first before responding to any query
+- Search OpenMemory first before responding to any query
 - Use `mcp__openmemory__search-memories` tool with the user's query to check for relevant stored information
 - Review any found memories about user preferences, past discussions, and project context
 - Only after checking memory, formulate your response incorporating the found context
@@ -155,19 +153,19 @@ pnpm nx run-many --target=test --parallel=3
 
 ## Research and Information Lookup
 
-- **ALWAYS** use Perplexity MCP (`mcp__perplexity__`) whenever you have any question that requires external information
-- Use perplexity mcp instead of web search always!
+- Use Perplexity MCP (`mcp__perplexity__`) whenever you have any question that requires external information
+- Use perplexity mcp instead of web search
 - Perplexity provides faster, more summarized results ideal for answering questions
 - Only use web search as a fallback if Perplexity is unavailable or fails
 
 ## Documentation
 
-When I say read documentation it's regarding: *Fetch from: `.claude/documentation`*
+When I say read documentation it's regarding: _Fetch from: `.claude/documentation`_
 
 ### OpenMemory Sync Documentation
 
 For the data structure and implementation details of syncing various sources (GitHub, Notion) to OpenMemory:
-*Fetch from: `.claude/documentation/openmemory-sync-documentation.md`*
+_Fetch from: `.claude/documentation/openmemory-sync-documentation.md`_
 
 ## GitHub Issue Context
 

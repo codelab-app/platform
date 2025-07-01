@@ -25,9 +25,9 @@ let tokenCache: M2MTokenCache | null = null
  */
 export const getM2MToken = async (): Promise<string> => {
   // Check if we have a valid cached token
-  if (tokenCache && tokenCache.expiresAt > Date.now()) {
-    return tokenCache.token
-  }
+  // if (tokenCache && tokenCache.expiresAt > Date.now()) {
+  //   return tokenCache.token
+  // }
 
   const env = getEnv()
   const domain = env.auth0.domain
@@ -68,6 +68,8 @@ export const getM2MToken = async (): Promise<string> => {
     }
 
     const data: M2MTokenResponse = await response.json()
+
+    console.log('Token reponse data', data)
 
     // Cache the token with a buffer of 5 minutes before expiry
     tokenCache = {

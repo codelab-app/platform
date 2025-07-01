@@ -1,5 +1,7 @@
 import type { NextRequest } from 'next/server'
 
+import { corsMiddleware } from '@codelab/backend/infra/adapter/middleware'
+import { getEnv } from '@codelab/shared-config-env'
 import { NextResponse } from 'next/server'
 
 export const config = {
@@ -12,11 +14,13 @@ export const config = {
      * 4. /examples (inside /public)
      * 5. all root files inside /public (e.g. /favicon.ico)
      */
-    '/((?!api|_next|fonts|examples|[\\w-]+\\.\\w+).*)',
+    '/((?!_next|fonts|examples|[\\w-]+\\.\\w+).*)',
   ],
 }
 
 const middleware = async (request: NextRequest) => {
+  const response = NextResponse.next()
+  const { pathname, search } = request.nextUrl
   const fullHost = request.headers.get('host') || ''
   // Remove port number if present (e.g., "demo.preview.codelab.app:3000" -> "demo.preview.codelab.app")
   const hostname = fullHost.split(':')[0]
@@ -27,9 +31,31 @@ const middleware = async (request: NextRequest) => {
 
   // Check if this is a subdomain that should be handled as preview
   // This includes *.codelab.test and *.preview.codelab.app
-  const isPreviewDomain = hostname.match(
+  const isPreviewDomain = hostname?.match(
     /^([a-zA-Z0-9-]+)\.(codelab\.test|preview\.codelab\.app|staging\.codelab\.app)$/,
   )
+
+  console.log('Next url:', request.nextUrl.toString())
+
+  /**
+   * For querying the backend, we want to attach tokens from Auth0 session
+   */
+  if (request.nextUrl.pathname.startsWith('/api/v1')) {
+    void corsMiddleware(request, response)
+
+    // Rewrite to backend API - replace /api/v1 with the API host
+    const {
+      endpoint: { apiHost, baseApiPath },
+    } = getEnv()
+
+    console.log('apiHost:', apiHost)
+    console.log('baseApiPath:', baseApiPath)
+
+    const targetUrl = new URL(`${apiHost}${pathname}${search}`)
+    const headers = new Headers(request.headers)
+
+    return NextResponse.rewrite(targetUrl, { headers })
+  }
 
   if (isPreviewDomain) {
     // Extract app ID from subdomain
