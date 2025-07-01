@@ -5,21 +5,9 @@ import type {
   IUserModel,
 } from '@codelab/frontend-abstract-domain'
 import type { ITagDto } from '@codelab/shared-abstract-core'
-import type {
-  TagCreateInput,
-  TagUpdateInput,
-} from '@codelab/shared-infra-gqlgen'
 import type { Ref } from 'mobx-keystone'
 
-import {
-  getUserDomainService,
-  userRef,
-} from '@codelab/frontend-abstract-domain'
-import {
-  connectNodeId,
-  connectOwner,
-  reconnectNodeId,
-} from '@codelab/shared-domain-orm'
+import { userRef } from '@codelab/frontend-abstract-domain'
 import { computed } from 'mobx'
 import {
   detach,
@@ -101,24 +89,6 @@ export class Tag
     }
   }
 
-  toCreateInput(): TagCreateInput {
-    return {
-      // children: connectNodeIds(this.children.map((tag) => tag.current.id)),
-      id: this.id,
-      name: this.name,
-      owner: connectOwner(this.userDomainService.user),
-      parent: connectNodeId(this.parent?.current.id),
-    }
-  }
-
-  toUpdateInput(): TagUpdateInput {
-    return {
-      // children: reconnectNodeIds(this.children.map((tag) => tag.current.id)),
-      name: this.name,
-      parent: reconnectNodeId(this.parent?.current.id),
-    }
-  }
-
   @modelAction
   writeCache({ children, descendants, name, parent }: Partial<ITagDto>) {
     this.name = name ?? this.name
@@ -129,11 +99,6 @@ export class Tag
     this.parent = parent ? tagRef(parent.id) : undefined
 
     return this
-  }
-
-  @computed
-  private get userDomainService() {
-    return getUserDomainService(this)
   }
 }
 
