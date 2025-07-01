@@ -2,6 +2,7 @@ import type { IAppProductionDto } from '@codelab/frontend-abstract-domain'
 import type { AtomProductionFragment } from '@codelab/shared-infra-gqlgen'
 
 import { appServerActions } from '@codelab/shared-domain-module-app'
+import { auth0Service } from '@codelab/shared-infra-auth0/server'
 import { uniqueBy } from 'remeda'
 
 // For preview we have appId from the subdomain and pageUrlPattern from the URL path
@@ -21,10 +22,20 @@ export const appPreviewRepository = async ({
   console.log('Fetching app with ID:', appId)
 
   try {
+    // Get M2M token for authentication
+    const token = await auth0Service.getM2MToken()
+
     // Fetch app by ID with all necessary relations
-    const data = await AppList({
-      where: { id: appId },
-    })
+    const data = await AppList(
+      {
+        where: { id: appId },
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    )
 
     const app = data.items[0]
 
