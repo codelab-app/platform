@@ -10,67 +10,70 @@ import { uniqueBy } from 'remeda'
 const { AppList } = appServerActions
 
 export interface IAppPreviewArgs {
-  appSlug: string
+  appId: string
   pageUrlPattern: string
 }
 
 export const appPreviewRepository = async ({
-  appSlug,
+  appId,
   pageUrlPattern,
 }: IAppPreviewArgs): Promise<IAppProductionDto> => {
-  console.log('Fetching app with slug:', appSlug)
-  
+  console.log('Fetching app with ID:', appId)
+
   try {
-    // Fetch app by slug with all necessary relations
+    // Fetch app by ID with all necessary relations
     const data = await AppList({
-      where: { slug: appSlug },
+      where: { id: appId },
     })
 
-    const app = data.apps[0]
+    const app = data.items[0]
 
     if (!app) {
       throw new Error('App not found')
     }
 
-  const pages = app.pages
+    const pages = app.pages
 
-  // Find the page by URL pattern, handling root page variations
-  const loadedPage = pages.find((page) => {
-    // Handle root page - both empty string and '/' should match
-    if (pageUrlPattern === '/' && (page.url === '/' || page.url === '')) {
-      return true
+    // Find the page by URL pattern, handling root page variations
+    const loadedPage = pages.find((page) => {
+      // Handle root page - both empty string and '/' should match
+      if (
+        pageUrlPattern === '/' &&
+        (page.urlPattern === '/' || page.urlPattern === '')
+      ) {
+        return true
+      }
+
+      // For non-root pages, match the URL exactly
+      return page.urlPattern === pageUrlPattern
+    })
+
+    if (!loadedPage) {
+      throw new Error('Page not found')
     }
 
-    // For non-root pages, match the URL exactly
-    return page.url === pageUrlPattern
-  })
+    // Transform elements to include required references
+    const elements = pages.flatMap((page) =>
+      page.elements.map((element) => ({
+        ...element,
+        closestContainerNode: { id: page.id },
+        page: { id: page.id },
+      })),
+    )
 
-  if (!loadedPage) {
-    throw new Error('Page not found')
-  }
+    const props = elements.flatMap((element) => element.props)
+    const stores = pages.flatMap((page) => page.store)
+    const actions = stores.flatMap((store) => store.actions)
 
-  // Transform elements to include required references
-  const elements = pages.flatMap((page) =>
-    page.elements.map((element) => ({
-      ...element,
-      closestContainerNode: { id: page.id },
-      page: { id: page.id },
-    })),
-  )
-
-  const props = elements.flatMap((element) => element.props)
-  const stores = pages.flatMap((page) => page.store)
-  const actions = stores.flatMap((store) => store.actions)
-
-  // Extract atoms from elements, filtering for Atom type
-  const atoms = uniqueBy(
-    elements
-      .flatMap((element) => element.renderType)
-      .filter(
-        (item): item is AtomProductionFragment => item.__typename === 'Atom',
-      ),
-    (atom) => atom.id,
-  )
+    // Extract atoms from elements, filtering for Atom type
+    const atoms = uniqueBy(
+      elements
+        .flatMap((element) => element.renderType)
+        .filter(
+          (item): item is AtomProductionFragment => item.__typename === 'Atom',
+        ),
+      (atom) => atom.id,
+    )
 
     return {
       actions,
@@ -87,9 +90,13 @@ export const appPreviewRepository = async ({
     }
   } catch (error) {
     console.error('Error in appPreviewRepository:', error)
+
     if (error instanceof Error && error.message.includes('fetch failed')) {
-      throw new Error(`Network error: Unable to connect to API. Please check if the API server is running.`)
+      throw new Error(
+        'Network error: Unable to connect to API. Please check if the API server is running.',
+      )
     }
+
     throw error
   }
 }

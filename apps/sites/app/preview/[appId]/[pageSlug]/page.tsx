@@ -5,37 +5,41 @@ import { ClientProductionPage } from '../../../production/[domainSlug]/[pageSlug
 const PreviewPage = async ({
   params,
 }: {
-  params: Promise<{ appSlug: string; pageSlug: string }>
+  params: Promise<{ appId: string; pageSlug: string }>
 }) => {
-  const { appSlug, pageSlug } = await params
+  const { appId, pageSlug } = await params
   const pageUrlPattern = pageSlug ? `/${pageSlug}` : '/'
 
   try {
-    const dto = await appPreviewRepository({ appSlug, pageUrlPattern })
+    const dto = await appPreviewRepository({ appId, pageUrlPattern })
 
     return <ClientProductionPage dto={dto} />
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
-    console.error(`Preview error for ${appSlug}/${pageSlug}:`, errorMessage)
-    
+    const errorMessage =
+      error instanceof Error ? error.message : 'Unknown error'
+
+    console.error(`Preview error for ${appId}/${pageSlug}:`, errorMessage)
+
     if (errorMessage === 'App not found') {
       return (
         <div>
           <h1>App Not Found</h1>
-          <p>The app "{appSlug}" does not exist.</p>
+          <p>The app with ID "{appId}" does not exist.</p>
         </div>
       )
     }
-    
+
     if (errorMessage === 'Page not found') {
       return (
         <div>
           <h1>Page Not Found</h1>
-          <p>The page "/{pageSlug}" does not exist in app "{appSlug}".</p>
+          <p>
+            The page "/{pageSlug}" does not exist in app "{appId}".
+          </p>
         </div>
       )
     }
-    
+
     return (
       <div>
         <h1>Error</h1>
