@@ -4,10 +4,13 @@ steps:
   # Attach `dist` folder
   - attach_workspace:
       at: ~/
+  - run:
+      name: 'Generate dist libs checksum for cache key'
+      command: ~/project/scripts/circleci/generate-dist-checksum.sh
   - restore_cache:
       name: 'Restore node_modules Cache'
       keys:
-        - node-modules-cache-{{ checksum "pnpm-lock.yaml" }}-{{ checksum ".circleci/dist-libs-checksum.txt" }}
+        - node-modules-cache-{{ checksum "pnpm-lock.yaml" }}-{{ checksum "/tmp/dist-libs-checksum.txt" }}
         - node-modules-cache-{{ checksum "pnpm-lock.yaml" }}-
         - node-modules-cache-
   - restore_cache:

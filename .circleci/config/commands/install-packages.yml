@@ -30,7 +30,7 @@ steps:
       # Include dist/libs package.json files in cache key because pnpm uses symlinks for file: protocol dependencies.
       # When dist files change but pnpm-lock.yaml doesn't, the cached node_modules would have stale symlinks
       # pointing to old dist content. This ensures fresh symlinks when workspace packages are updated.
-      key: node-modules-cache-{{ checksum "pnpm-lock.yaml" }}-{{ checksum ".circleci/dist-libs-checksum.txt" }}
+      key: node-modules-cache-{{ checksum "pnpm-lock.yaml" }}-{{ checksum "/tmp/dist-libs-checksum.txt" }}
       paths:
         - ~/project/node_modules
   # node_modules cache needs to be checked for cache reset before we can save, otherwise nx cache grows too much. This step happens after build
