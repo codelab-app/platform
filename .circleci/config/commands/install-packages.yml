@@ -22,12 +22,15 @@ steps:
       key: pnpm-cache-{{ checksum "pnpm-lock.yaml" }}
       paths:
         - ~/.pnpm-store
+  - run:
+      name: 'Generate dist libs checksum for cache key'
+      command: ~/project/scripts/circleci/generate-dist-checksum.sh
   - save_cache:
       name: 'Save node_modules Cache'
-      # Include tools-workspace package.json in cache key because pnpm uses symlinks for file: protocol dependencies.
+      # Include dist/libs package.json files in cache key because pnpm uses symlinks for file: protocol dependencies.
       # When dist files change but pnpm-lock.yaml doesn't, the cached node_modules would have stale symlinks
-      # pointing to old dist content. This ensures fresh symlinks when tools-workspace is updated.
-      key: node-modules-cache-{{ checksum "pnpm-lock.yaml" }}-{{ checksum "dist/**/package.json" }}
+      # pointing to old dist content. This ensures fresh symlinks when workspace packages are updated.
+      key: node-modules-cache-{{ checksum "pnpm-lock.yaml" }}-{{ checksum ".circleci/dist-libs-checksum.txt" }}
       paths:
         - ~/project/node_modules
   # node_modules cache needs to be checked for cache reset before we can save, otherwise nx cache grows too much. This step happens after build

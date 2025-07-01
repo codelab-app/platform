@@ -7,6 +7,9 @@
 !.env.example
 !.env.test.example
 
+# CircleCI generated files
+.circleci/dist-libs-checksum.txt
+
 # compiled output
 # Ignore everything in 'dist'
 dist
