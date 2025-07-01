@@ -132,6 +132,9 @@ commands:
           name: Save pnpm Cache
           paths:
             - ~/.pnpm-store
+      - run:
+          command: ~/project/scripts/circleci/generate-dist-checksum.sh
+          name: Generate dist libs checksum for cache key
       - save_cache:
           key: node-modules-cache-{{ checksum "pnpm-lock.yaml" }}-{{ checksum ".circleci/dist-libs-checksum.txt" }}
           name: Save node_modules Cache
@@ -209,6 +212,9 @@ commands:
       - checkout
       - attach_workspace:
           at: ~/
+      - run:
+          command: ~/project/scripts/circleci/generate-dist-checksum.sh
+          name: Generate dist libs checksum for cache key
       - restore_cache:
           keys:
             - node-modules-cache-{{ checksum "pnpm-lock.yaml" }}-{{ checksum ".circleci/dist-libs-checksum.txt" }}
