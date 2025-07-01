@@ -8,7 +8,7 @@ module "circleci" {
 
   debug                           = var.DEBUG
   api_log_level                   = var.API_LOG_LEVEL
-  api_log_enable_data_for_context = var.API_LOG_ENABLE_DATA_FOR_CONTEXT
+  debug = var.DEBUG
 
   auth0_domain       = var.AUTH0_DOMAIN
   auth0_e2e_username = var.AUTH0_E2E_USERNAME
