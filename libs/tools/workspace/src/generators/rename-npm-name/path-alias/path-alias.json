@@ -884,8 +884,8 @@
     "path": "libs/frontend/application/shared/data/src/index.ts",
     "name": "frontend-application-shared-data"
   },
-  "@codelab/frontend-application-shared-store/loading": {
-    "expected": "@codelab/frontend-application-shared-store/loading",
+  "@codelab/frontend-application-shared-services/loading": {
+    "expected": "@codelab/frontend-application-shared-services/loading",
     "path": "libs/frontend/application/shared/store/src/loading/index.ts",
     "name": null
   },

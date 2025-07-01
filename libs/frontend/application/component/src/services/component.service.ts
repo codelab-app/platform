@@ -42,7 +42,7 @@ export const useComponentService = (): IComponentService => {
 
   const hydrate = useDomainStoreHydrator()
   const elementService = useElementService()
-  const owner = userDomainService.user
+  const owner = userDomainService.currentUser
   const { rendererService } = useApplicationStore()
 
   const create = async (data: ICreateComponentData) => {

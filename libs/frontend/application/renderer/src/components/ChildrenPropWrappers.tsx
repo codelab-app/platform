@@ -4,7 +4,7 @@ import type { EditorState, LexicalEditor } from 'lexical'
 
 import { type IRuntimeElementModel } from '@codelab/frontend-abstract-application'
 import { usePropService } from '@codelab/frontend-application-prop/services'
-import { useLoading } from '@codelab/frontend-application-shared-store/loading'
+import { useLoading } from '@codelab/frontend-application-shared-services/loading'
 import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
 import { TextEditor } from '@codelab/frontend-presentation-components-lexical'

@@ -69,7 +69,6 @@ import {
   renderPropsTypeFactory,
   richTextTypeFactory,
 } from '@codelab/frontend-domain-type/test'
-import { userDto } from '@codelab/frontend-test-data'
 import {
   IAtomType,
   IPageKind,
@@ -103,7 +102,7 @@ export const createTestStore = () => {
     showDuplicateModelNameWarnings: false,
   })
 
-  const domainStore = createDomainStore(userDto)
+  const domainStore = createDomainStore()
   const applicationStore = createApplicationStore(domainStore)
 
   @model('@codelab/TestRootStore')

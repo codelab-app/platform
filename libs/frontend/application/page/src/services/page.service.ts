@@ -40,7 +40,7 @@ export const usePageService = (): IPageService => {
 
   const { push } = useRouter()
   const { rendererService } = useApplicationStore()
-  const owner = userDomainService.user
+  const owner = userDomainService.currentUser
 
   const getAll = async (where: PageWhere) => {
     const { items: pages } = await pageRepository.find(where)

@@ -1,11 +1,13 @@
 {
-  "extends": ["../../../../../.eslintrc.json"],
+  "extends": ["plugin:@nx/react", "../../../../../.eslintrc.json"],
   "ignorePatterns": ["!**/*"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "parserOptions": {
-        "project": ["libs/frontend/application/shared/store/tsconfig.*?.json"]
+        "project": [
+          "libs/frontend/application/shared/services/tsconfig.*?.json"
+        ]
       },
       "rules": {}
     },

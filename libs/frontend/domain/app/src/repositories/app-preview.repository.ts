@@ -68,7 +68,8 @@ export const appPreviewRepository = async ({
         ...elements
           .flatMap((element) => element.renderType)
           .filter(
-            (item): item is AtomProductionFragment => item.__typename === 'Atom',
+            (item): item is AtomProductionFragment =>
+              item.__typename === 'Atom',
           ),
         // Also load the default atoms, here is just type `ReactFragment`
         ...data.atoms,

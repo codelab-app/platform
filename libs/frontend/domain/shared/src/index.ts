@@ -1,3 +1,3 @@
 export * from './cache'
 export * from './chance'
-export * from './root.domain.store'
+export * from './domain.store.factory'

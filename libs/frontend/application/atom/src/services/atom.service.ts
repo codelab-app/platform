@@ -24,7 +24,7 @@ import { v4 } from 'uuid'
 
 export const useAtomService = (): IAtomService => {
   const { atomDomainService, userDomainService } = useDomainStore()
-  const user = userDomainService.user
+  const user = userDomainService.currentUser
   const owner = { id: user.id }
   const typeService = useTypeService()
   const hydrate = useDomainStoreHydrator()

@@ -18,7 +18,7 @@ export const CreateResourceForm = observer<IFormController>(
   ({ onSubmitSuccess, showFormControl = true, submitRef }) => {
     const resourceService = useResourceService()
     const { userDomainService } = useDomainStore()
-    const user = userDomainService.user
+    const user = userDomainService.currentUser
     const owner = { id: user.id }
     const model = { config: {}, id: v4(), owner }
     const onSubmit = (data: ICreateResourceData) => resourceService.create(data)

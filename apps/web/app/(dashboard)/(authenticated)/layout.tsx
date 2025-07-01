@@ -6,10 +6,10 @@ import { preferenceQuery } from '@codelab/frontend-domain-preference/repositorie
 import { RootProviders } from '../../../providers/RootProviders'
 
 const Layout = async ({ children }: LayoutProps) => {
-  const user = await getServerUser()
+  const serverUser = await getServerUser()
 
   const preferences = await preferenceQuery(
-    { owner: { id: user.id } },
+    { owner: { id: serverUser.id } },
     {},
     {
       attributes: {
@@ -18,9 +18,9 @@ const Layout = async ({ children }: LayoutProps) => {
     },
   )
 
-  return (
-    <RootProviders user={{ ...user, preferences }}>{children}</RootProviders>
-  )
+  const user = { ...serverUser, preferences }
+
+  return <RootProviders user={user}>{children}</RootProviders>
 }
 
 Layout.displayName = 'AuthenticatedLayout'

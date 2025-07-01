@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'frontend-application-shared-store',
+  displayName: 'frontend-application-shared-services',
   preset: '../../../../../jest.preset.js',
   transform: {
     '^.+.[tj]sx?$': [
@@ -18,7 +18,7 @@ export default {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory:
-    '../../../../../coverage/libs/frontend/application/shared/store',
+    '../../../../../coverage/libs/frontend/application/shared/services',
   reporters: [
     'default',
     [

@@ -29,10 +29,6 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
-  experimental: {
-    // https://nextjs.org/docs/messages/import-esm-externals
-    esmExternals: 'loose',
-  },
   async headers() {
     return [
       {

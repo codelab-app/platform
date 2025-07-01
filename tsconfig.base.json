@@ -552,10 +552,13 @@
       "@codelab/frontend-application-shared-data": [
         "libs/frontend/application/shared/data/src/index.ts"
       ],
-      "@codelab/frontend-application-shared-store/cache": [
-        "libs/frontend/application/shared/store/src/cache/index.ts"
+      "@codelab/frontend-application-shared-services": [
+        "libs/frontend/application/shared/services/src/cache/index.ts"
       ],
-      "@codelab/frontend-application-shared-store/loading": [
+      "@codelab/frontend-application-shared-store": [
+        "libs/frontend/application/shared/store/src/index.ts"
+      ],
+      "@codelab/frontend-application-shared-services/loading": [
         "libs/frontend/application/shared/store/src/loading/index.ts"
       ],
       "@codelab/frontend-application-shared-store/pagination": [

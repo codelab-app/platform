@@ -141,6 +141,7 @@ _Fetch from: `.claude/documentation/convention/git-commit-conventions.md`_
 - I need honest feedback on my code.
 - When creating tasks, DO NOT automatically test them at the end unless explicitly asked to test.
 - When creating tasks, DO NOT automatically lint them in an extra step
+- When analysing codebase always use parallel tasks with subagents to speed things up
 
 ## OpenMemory Integration
 

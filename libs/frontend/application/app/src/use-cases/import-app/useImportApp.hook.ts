@@ -1,6 +1,6 @@
 import type { IAppDto } from '@codelab/shared-abstract-core'
 
-import { useLoading } from '@codelab/frontend-application-shared-store/loading'
+import { useLoading } from '@codelab/frontend-application-shared-services/loading'
 import { invalidateAppListQuery } from '@codelab/frontend-domain-app/repositories'
 import { jobSubscription } from '@codelab/frontend-infra-ws'
 import { getEnv } from '@codelab/shared-config-env'

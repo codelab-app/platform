@@ -623,6 +623,8 @@ const env = (0,external_env_var_namespaceObject.from)({
     AUTH0_DOMAIN: process.env['AUTH0_DOMAIN'],
     AUTH0_E2E_PASSWORD: process.env['AUTH0_E2E_PASSWORD'],
     AUTH0_E2E_USERNAME: process.env['AUTH0_E2E_USERNAME'],
+    AUTH0_M2M_CLIENT_ID: process.env['AUTH0_M2M_CLIENT_ID'],
+    AUTH0_M2M_CLIENT_SECRET: process.env['AUTH0_M2M_CLIENT_SECRET'],
     AUTH0_SECRET: process.env['AUTH0_SECRET'],
     AUTH0_SESSION_AUTO_SAVE: process.env['AUTH0_SESSION_AUTO_SAVE'],
     CI: process.env['CI'],
@@ -712,6 +714,18 @@ class Auth0EnvVars {
             writable: true,
             value: void 0
         });
+        Object.defineProperty(this, "_m2mClientId", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: void 0
+        });
+        Object.defineProperty(this, "_m2mClientSecret", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: void 0
+        });
     }
     get audience() {
         return (this._audience ??= new URL('api/v2/', this.issuerBaseUrl).toString());
@@ -756,6 +770,18 @@ class Auth0EnvVars {
     get baseUrl() {
         const auth0baseUrl = this.endpoint.webHost;
         return auth0baseUrl;
+    }
+    get m2mClientId() {
+        return (this._m2mClientId ??= env
+            .get('AUTH0_M2M_CLIENT_ID')
+            .required()
+            .asString());
+    }
+    get m2mClientSecret() {
+        return (this._m2mClientSecret ??= env
+            .get('AUTH0_M2M_CLIENT_SECRET')
+            .required()
+            .asString());
     }
 }
 
