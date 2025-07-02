@@ -5,7 +5,6 @@ import type {
 import type { IDomainStore } from '@codelab/frontend-abstract-domain'
 import type { IUserDto } from '@codelab/shared-abstract-core'
 
-import { User } from '@codelab/frontend-domain-user/store'
 import {
   Model,
   model,
@@ -25,7 +24,7 @@ export const createRootStore = () => {
   })
 
   const domainStore = createDomainStore()
-  const applicationStore = createApplicationStore()
+  const applicationStore = createApplicationStore(domainStore)
 
   @model('@codelab/RootStore')
   class RootStore

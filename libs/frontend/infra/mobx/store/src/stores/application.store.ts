@@ -1,3 +1,5 @@
+import type { IDomainStore } from '@codelab/frontend-abstract-domain'
+
 import {
   builderServiceContext,
   rendererServiceContext,
@@ -6,10 +8,6 @@ import {
   runtimeElementServiceContext,
   runtimePageServiceContext,
 } from '@codelab/frontend-abstract-application'
-import {
-  componentDomainServiceContext,
-  userDomainServiceContext,
-} from '@codelab/frontend-abstract-domain'
 import { BuilderService } from '@codelab/frontend-application-builder/services'
 import {
   RendererService,
@@ -20,30 +18,31 @@ import {
 import { RouterService } from '@codelab/frontend-application-shared-services/router'
 import { applicationStoreFactory } from '@codelab/frontend-application-shared-store'
 
-export const createApplicationStore = () => {
-  const store = applicationStoreFactory({
-    context: {
-      builderServiceContext,
-      componentDomainServiceContext,
-      rendererServiceContext,
-      routerServiceContext,
-      runtimeComponentServiceContext,
-      runtimeElementServiceContext,
-      runtimePageServiceContext,
-      userDomainServiceContext,
+export const createApplicationStore = (domainStore: IDomainStore) => {
+  const store = applicationStoreFactory(
+    {
+      context: {
+        builderServiceContext,
+        rendererServiceContext,
+        routerServiceContext,
+        runtimeComponentServiceContext,
+        runtimeElementServiceContext,
+        runtimePageServiceContext,
+      },
+      store: {
+        builderService: new BuilderService({
+          hoveredNode: null,
+          selectedNode: null,
+        }),
+        rendererService: new RendererService({}),
+        routerService: new RouterService({}),
+        runtimeComponentService: new RuntimeComponentService({}),
+        runtimeElementService: new RuntimeElementService({}),
+        runtimePageService: new RuntimePageService({}),
+      },
     },
-    store: {
-      builderService: new BuilderService({
-        hoveredNode: null,
-        selectedNode: null,
-      }),
-      rendererService: new RendererService({}),
-      routerService: new RouterService({}),
-      runtimeComponentService: new RuntimeComponentService({}),
-      runtimeElementService: new RuntimeElementService({}),
-      runtimePageService: new RuntimePageService({}),
-    },
-  })
+    domainStore,
+  )
 
   return store
 }

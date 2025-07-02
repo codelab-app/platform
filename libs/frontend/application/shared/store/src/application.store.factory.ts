@@ -8,71 +8,58 @@ import type {
   IRuntimeElementService,
   IRuntimePageService,
 } from '@codelab/frontend-abstract-application'
-import type {
-  IComponentDomainService,
-  IUserDomainService,
-} from '@codelab/frontend-abstract-domain'
 
+import {
+  componentDomainServiceContext,
+  IDomainStore,
+  userDomainServiceContext,
+} from '@codelab/frontend-abstract-domain'
 import { Model, model, prop } from 'mobx-keystone'
 
 /**
  * Create a factory for the application store structure, but only pass in interface for the props.
  * This way we don't get circular dependencies.
  */
-export const applicationStoreFactory = ({
-  context,
-  store,
-}: IApplicationStoreFactoryDto) => {
+export const applicationStoreFactory = (
+  { context, store }: IApplicationStoreFactoryDto,
+  domainStore: IDomainStore,
+) => {
   @model('@codelab/ApplicationStore')
   class ApplicationStore
     extends Model({
-      builderService: prop<IBuilderService | undefined>(undefined),
-      componentDomainService: prop<IComponentDomainService | undefined>(
-        undefined,
-      ),
-      rendererService: prop<IRendererService | undefined>(undefined),
-      routerService: prop<IRouterService | undefined>(undefined),
-      runtimeComponentService: prop<IRuntimeComponentService | undefined>(
-        undefined,
-      ),
-      runtimeElementService: prop<IRuntimeElementService | undefined>(
-        undefined,
-      ),
-      runtimePageService: prop<IRuntimePageService | undefined>(undefined),
-      userDomainService: prop<IUserDomainService | undefined>(undefined),
+      builderService: prop<IBuilderService>(),
+      rendererService: prop<IRendererService>(),
+      routerService: prop<IRouterService>(),
+      runtimeComponentService: prop<IRuntimeComponentService>(),
+      runtimeElementService: prop<IRuntimeElementService>(),
+      runtimePageService: prop<IRuntimePageService>(),
     })
-    implements Partial<IApplicationStore>
+    implements IApplicationStore
   {
     clear() {
       //
     }
 
     protected override onInit() {
-      this.builderService &&
-        context.builderServiceContext?.set(this, this.builderService)
-      this.componentDomainService &&
-        context.componentDomainServiceContext?.set(
-          this,
-          this.componentDomainService,
-        )
-      this.rendererService &&
-        context.rendererServiceContext?.set(this, this.rendererService)
-      this.routerService &&
-        context.routerServiceContext?.set(this, this.routerService)
-      this.runtimeComponentService &&
-        context.runtimeComponentServiceContext?.set(
-          this,
-          this.runtimeComponentService,
-        )
-      this.runtimeElementService &&
-        context.runtimeElementServiceContext?.set(
-          this,
-          this.runtimeElementService,
-        )
-      this.runtimePageService &&
-        context.runtimePageServiceContext?.set(this, this.runtimePageService)
-      this.userDomainService &&
-        context.userDomainServiceContext?.set(this, this.userDomainService)
+      context.builderServiceContext.set(this, this.builderService)
+      context.rendererServiceContext.set(this, this.rendererService)
+      context.routerServiceContext.set(this, this.routerService)
+      context.runtimeComponentServiceContext.set(
+        this,
+        this.runtimeComponentService,
+      )
+      context.runtimeElementServiceContext.set(this, this.runtimeElementService)
+      context.runtimePageServiceContext.set(this, this.runtimePageService)
+
+      /**
+       * Need to use existing context on the store
+       */
+      userDomainServiceContext.set(this, domainStore.userDomainService)
+
+      componentDomainServiceContext.set(
+        this,
+        domainStore.componentDomainService,
+      )
     }
   }
 

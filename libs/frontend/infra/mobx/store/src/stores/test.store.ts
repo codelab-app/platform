@@ -108,7 +108,7 @@ export const createTestStore = () => {
   })
 
   const domainStore = createDomainStore()
-  const applicationStore = createApplicationStore()
+  const applicationStore = createApplicationStore(domainStore)
 
   @model('@codelab/TestRootStore')
   class TestRootStore
