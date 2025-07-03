@@ -52,7 +52,7 @@ export const applicationStoreFactory = (
       context.runtimePageServiceContext.set(this, this.runtimePageService)
 
       /**
-       * Need to use existing context on the store
+       * Provides context to self and children. TODO: Perhaps can move all context to root store
        */
       userDomainServiceContext.set(this, domainStore.userDomainService)
 

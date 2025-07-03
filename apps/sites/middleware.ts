@@ -64,15 +64,13 @@ const middleware = async (request: NextRequest) => {
     console.log('Preview domain detected:', hostname, 'App ID:', appId)
     // Route to preview path with just the app ID
     url.pathname = `/preview/${appId}${url.pathname}`
-  } else {
-    console.log('Production domain:', hostname)
-    // Route to production path with full domain
-    url.pathname = `/production/${hostname}${url.pathname}`
+    console.log('Rewriting to:', url.pathname)
+
+    return NextResponse.rewrite(url)
   }
 
-  console.log('Rewriting to:', url.pathname)
-
-  return NextResponse.rewrite(url)
+  // For all other domains (including 127.0.0.1), don't rewrite
+  return NextResponse.next()
 }
 
 export default middleware
