@@ -18,11 +18,6 @@ const plugins = enableInstrumentation
   ? [withNx, withBundleAnalyzer]
   : [withNx, withBundleAnalyzer]
 
-const port = get('NEXT_PUBLIC_API_PORT').required().asString()
-const url = get('NEXT_PUBLIC_API_HOSTNAME').required().asString()
-const baseApiPath = get('NEXT_PUBLIC_BASE_API_PATH').required().asString()
-const apiHost = `${url}:${port}${baseApiPath}`
-
 /**
  * @type {import('@nx/next/plugins/with-nx').WithNxOptions}
  **/
@@ -58,35 +53,6 @@ const nextConfig = {
   // disable to support uniforms
   // http://github.com/vazco/uniforms/issues/1194
   reactStrictMode: false,
-
-  /**
-   * https://nextjs.org/docs/app/building-your-application/routing/middleware#matching-paths
-   */
-  rewrites: async () => ({
-    afterFiles: [],
-    // We only need middleware to set the session
-    /**
-     * https://github.com/vercel/next.js/issues/36251
-     */
-    beforeFiles: [
-      {
-        destination: `${apiHost}/graphql`,
-        source: `${baseApiPath}/graphql`,
-      },
-      {
-        destination: `${apiHost}/:path*`,
-        source: `${baseApiPath}/:path*`,
-      },
-    ],
-    fallback: [],
-    // beforeFiles: [
-    //   // This prevents CORS issue with frontend sending traces to Jaeger, can't add response headers to
-    //   {
-    //     destination: 'http://127.0.0.1:4318/:path*',
-    //     source: '/api/otel/:path*',
-    //   },
-    // ],
-  }),
 
   // https://github.com/vercel/turborepo/issues/4832#issuecomment-2629459687
   // turbopack working for dev only not for production

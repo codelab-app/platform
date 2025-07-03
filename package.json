@@ -15,7 +15,10 @@
     ]
   },
   "scripts": {
-    "dev": "nx run-many --target=serve --projects=api,web --parallel",
+    "serve": "NX_TUI=true nx run-many --target=serve --projects=api,web --parallel",
+    "serve:sites": "NX_TUI=true nx run-many --target=serve --projects=api,web,sites --parallel",
+    "serve:test": "NX_TUI=false nx run-many --target=serve --projects=api,web --parallel -c test",
+    "caddy": "caddy run --config scripts/caddy/Caddyfile",
     "e2e": "nx e2e-ui web-e2e -c test",
     "e2e:web": "nx serve web -c test",
     "e2e:api": "nx serve api -c test",
@@ -29,8 +32,6 @@
     "test.integration": "nx run-many --all --target=test -c test.integration --parallel=1",
     "lint": "nx run-many --all --target=lint --parallel=5",
     "format": "npx prettier --write \"./**/*.{graphql,yaml,json,css}\" && terraform -chdir=infra/terraform fmt --recursive",
-    "nx": "scripts/nx/nx.sh",
-    "claude": "scripts/claude/claude.sh",
     "update": "nx migrate @nx/workspace",
     "dep-graph": "nx dep-graph --watch",
     "help": "nx help",
@@ -45,8 +46,8 @@
   },
   "private": true,
   "validate-branch-name": {
-    "pattern": "^(feat|fix|refactor|test)\\/[0-9]+-[a-z0-9-]+$|^(master|main|dev|nx-upgrade)$|^(stag|prod)-(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$",
-    "errorMsg": "Branch name must follow pattern: <type>/<issue-number>-<description>\n\nAllowed types: feat, fix, refactor, test\nExample: feat/3736-debug-env-service-tracking\n\nAlso allowed: master, main, dev, nx-upgrade, or release tags (stag-x.x.x, prod-x.x.x)"
+    "pattern": "^(feat|fix|refactor|test)\\/[0-9]+-[a-z0-9-]+$|^(master|main|dev|staging|nx-upgrade)$|^(stag|prod)-(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$",
+    "errorMsg": "Branch name must follow pattern: <type>/<issue-number>-<description>\n\nAllowed types: feat, fix, refactor, test\nExample: feat/3736-debug-env-service-tracking\n\nAlso allowed: master, main, dev, staging, nx-upgrade, or release tags (stag-x.x.x, prod-x.x.x)"
   },
   "dependencies": {
     "@ant-design/cssinjs": "1.23.0",
@@ -97,6 +98,7 @@
     "@lexical/react": "0.17.1",
     "@lexical/utils": "0.17.1",
     "@mailchimp/mailchimp_marketing": "3.0.80",
+    "@mjackson/headers": "^0.11.1",
     "@neo4j/graphql": "6.3.1",
     "@nestjs/apollo": "13.0.2",
     "@nestjs/bullmq": "11.0.2",

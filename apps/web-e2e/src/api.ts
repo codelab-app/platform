@@ -36,6 +36,11 @@ export const requestOrThrow = async <T = void>(
     throw new Error(`HTTP error! status: ${response.status()}`)
   }
 
+  // Handle 204 No Content specifically
+  if (response.status() === 204) {
+    return Promise.resolve<T>(null as T)
+  }
+
   const contentType = response.headers()['content-type']
 
   if (contentType && contentType.includes('application/json')) {

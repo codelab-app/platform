@@ -21,6 +21,7 @@ import type {
   IRenderPropTypeDto,
   IRichTextType,
   IStoreDto,
+  IUserDto,
 } from '@codelab/shared-abstract-core'
 import type { PartialExcept } from '@codelab/shared-abstract-types'
 
@@ -69,7 +70,6 @@ import {
   renderPropsTypeFactory,
   richTextTypeFactory,
 } from '@codelab/frontend-domain-type/test'
-import { userDto } from '@codelab/frontend-test-data'
 import {
   IAtomType,
   IPageKind,
@@ -77,6 +77,7 @@ import {
   ITypeKind,
 } from '@codelab/shared-abstract-core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared-config-env'
+import { userDto } from '@codelab/shared-data-test'
 import { Validator } from '@codelab/shared-infra-typebox'
 import {
   Model,
@@ -98,12 +99,15 @@ export enum Layout {
   Vertical,
 }
 
+/**
+ * This test store imports all the domain services and application services, so it can only be used in the special test lib to avoid circular dependencies.
+ */
 export const createTestStore = () => {
   setGlobalConfig({
     showDuplicateModelNameWarnings: false,
   })
 
-  const domainStore = createDomainStore(userDto)
+  const domainStore = createDomainStore()
   const applicationStore = createApplicationStore(domainStore)
 
   @model('@codelab/TestRootStore')
@@ -302,6 +306,11 @@ export const createTestStore = () => {
           type.kind === ITypeKind.PrimitiveType &&
           type.primitiveKind === IPrimitiveTypeKind.String,
       )
+    }
+
+    @modelAction
+    setUser(dto: IUserDto) {
+      this.domainStore.userDomainService.setCurrentUser(dto)
     }
 
     @modelAction
@@ -655,6 +664,9 @@ export const createTestStore = () => {
   }
 
   const testRootStore = new TestRootStore({})
+
+  testRootStore.setUser(userDto)
+
   const undoManager = undoMiddleware(testRootStore)
 
   registerRootStore(testRootStore)

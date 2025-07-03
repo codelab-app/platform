@@ -33,8 +33,12 @@ export const useAppService = (): IAppService => {
   } = useDomainStore()
 
   const undoManager = useUndoManager()
-  const pageFactory = new PageDomainFactory(userDomainService.user.toJson)
-  const user = userDomainService.user.toJson
+
+  const pageFactory = new PageDomainFactory(
+    userDomainService.currentUser.toJson,
+  )
+
+  const user = userDomainService.currentUser.toJson
   const owner = user
   const appFactory = new AppFactory(pageFactory)
   const hydrate = useDomainStoreHydrator()

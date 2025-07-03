@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 
 import { IRouteType } from '@codelab/frontend-abstract-application'
 import { ComponentPreviewBuilderContainer } from '@codelab/frontend-application-builder/use-cases/component-builder'
-import { parsePageProps } from '@codelab/frontend-application-shared-store/router'
+import { parsePageProps } from '@codelab/frontend-application-shared-services/router'
 
 export const metadata: Metadata = {
   title: 'Component Preview | Codelab',

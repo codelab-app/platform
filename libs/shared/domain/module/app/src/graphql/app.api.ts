@@ -6,6 +6,7 @@ import {
   AppListPreview,
   CreateApps,
   DeleteApps,
+  GetAppPreview,
   GetAppProduction,
   UpdateApps,
 } from './app.api.graphql.web.gen'
@@ -17,6 +18,7 @@ export const appServerActions = {
   AppListPreview,
   CreateApps,
   DeleteApps,
+  GetAppPreview,
   GetAppProduction,
   UpdateApps,
 }

@@ -1,7 +1,7 @@
 import type { SubmitRef } from '@codelab/frontend-abstract-types'
 import type { MouseEvent } from 'react'
 
-import { loadingAtom } from '@codelab/frontend-application-shared-store/loading'
+import { loadingAtom } from '@codelab/frontend-application-shared-services/loading'
 import {
   useErrorNotify,
   useSuccessNotify,

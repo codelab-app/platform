@@ -1,29 +1,37 @@
 'use server'
 
 import { auth0Instance } from '@codelab/shared-infra-auth0/client'
-/**
- * Need to be callback, otherwise import chain will call `auth0-server.provider.ts` which requires Next.js `request` to be present
- *
- * This occurs during testing context
- */
+import Headers from '@mjackson/headers'
 
+/**
+ * Server fetch with authentication.
+ * If Authorization header is provided in init.headers, it will be used as-is.
+ * Otherwise, it will get the user session token.
+ */
 export const serverFetchWithAuth = async (
   endpoint: string,
   init: RequestInit,
 ) => {
-  /**
-   * Need to be callback, otherwise import chain will call `auth0-server.provider.ts` which requires Next.js `request` to be present
-   *
-   * This occurs during testing context
-   */
+  const headers = new Headers(init.headers)
 
-  const session = await auth0Instance.getSession()
+  // If no Authorization header provided, get it from user session
+  if (!headers.get('Authorization')) {
+    const session = await auth0Instance.getSession()
 
-  const headers = {
-    ...init.headers,
-    Authorization: `Bearer ${session?.tokenSet.accessToken}`,
-    // 'X-ID-TOKEN': session?.user['idToken'] ?? '',
+    if (!session?.tokenSet.accessToken) {
+      throw new Error('No user session found')
+    }
+
+    headers.set('Authorization', `Bearer ${session.tokenSet.accessToken}`)
   }
+
+  // console.log('Fetching with auth', endpoint, {
+  //   ...init,
+  //   headers: {
+  //     Authorization: headers.get('Authorization'),
+  //     'Content-Type': headers.get('Content-Type'),
+  //   },
+  // })
 
   const response = await fetch(endpoint, {
     ...init,

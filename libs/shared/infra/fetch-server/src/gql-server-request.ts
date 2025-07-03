@@ -31,17 +31,21 @@ export const gqlServerRequest = async <TResult, TVariables extends ObjectLike>(
   next?: NextFetchOptions,
 ) => {
   // Build headers including logging values from options
+  // Include custom headers if provided
   const headers: Record<string, string> = {
     Accept: 'application/graphql-response+json',
     'Content-Type': 'application/json',
+    ...next?.headers,
   }
 
   if (next?.tracing?.operationId) {
     headers[TRACING_HEADERS.OPERATION_ID] = next.tracing.operationId
   }
+
   if (next?.tracing?.requestId) {
     headers[TRACING_HEADERS.REQUEST_ID] = next.tracing.requestId
   }
+
   if (next?.tracing?.attributes?.['service.component']) {
     headers[TRACING_HEADERS.SERVICE_COMPONENT] =
       next.tracing.attributes['service.component']
@@ -49,16 +53,18 @@ export const gqlServerRequest = async <TResult, TVariables extends ObjectLike>(
 
   // Extract operation name from the query string
   const queryString = document.toString()
+
   const operationNameMatch = queryString.match(
     /(?:query|mutation|subscription)\s+(\w+)/,
   )
+
   const operationName = operationNameMatch ? operationNameMatch[1] : undefined
 
   const response = await serverFetchWithAuth(getEnv().endpoint.webGraphqlUrl, {
     body: JSON.stringify({
+      operationName,
       query: queryString,
       variables,
-      operationName,
     }),
     headers,
     method: 'POST',

@@ -23,7 +23,8 @@
       "cypher",
       "styled-components",
       "uniforms"
-    ]
+    ],
+    "noEmit": true
   },
   "include": [
     "**/*.ts",

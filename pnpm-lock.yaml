@@ -152,6 +152,9 @@ importers:
       '@mailchimp/mailchimp_marketing':
         specifier: 3.0.80
         version: 3.0.80
+      '@mjackson/headers':
+        specifier: ^0.11.1
+        version: 0.11.1
       '@neo4j/graphql':
         specifier: 6.3.1
         version: 6.3.1(graphql@16.9.0)(neo4j-driver@5.28.1)
@@ -4083,6 +4086,9 @@ packages:
     resolution: {integrity: sha512-lsBFADWVH1RRnAdSof49ZwmI+mBiaWdha9yYj87JMjp/o3d6SDvaEFpk+phDjRxAS+uVFvWD7HXk8ezhTXxRJA==}
     peerDependencies:
       zod: '>= 3'
+
+  '@mjackson/headers@0.11.1':
+    resolution: {integrity: sha512-uXXhd4rtDdDwkqAuGef1nuafkCa1NlTmEc1Jzc0NL4YiA1yON1NFXuqJ3hOuKvNKQwkiDwdD+JJlKVyz4dunFA==}
 
   '@module-federation/bridge-react-webpack-plugin@0.10.0':
     resolution: {integrity: sha512-wvqsjqqVXNI36Q98zFFK4saBFH3M+kJC9c/UZfGIWC86kBVRgWDOKphP4nF+cpjJsFEexoGCNefUswqsx14Y1Q==}
@@ -21823,6 +21829,8 @@ snapshots:
     dependencies:
       zod: 3.23.8
       zod-to-json-schema: 3.24.6(zod@3.23.8)
+
+  '@mjackson/headers@0.11.1': {}
 
   '@module-federation/bridge-react-webpack-plugin@0.10.0':
     dependencies:

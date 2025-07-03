@@ -16,13 +16,13 @@ export const RootProviders = ({
   children,
   user,
 }: PropsWithChildren<{ user: IUserDto }>) => {
-  const rootStore = useMemo(
-    () =>
-      createRootStore({
-        user,
-      }),
-    [user.id],
-  )
+  const rootStore = useMemo(() => {
+    const store = createRootStore()
+
+    store.rootStore.setUser(user)
+
+    return store
+  }, [user.id])
 
   return (
     <Auth0Provider>

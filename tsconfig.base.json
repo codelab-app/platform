@@ -552,20 +552,20 @@
       "@codelab/frontend-application-shared-data": [
         "libs/frontend/application/shared/data/src/index.ts"
       ],
-      "@codelab/frontend-application-shared-store/cache": [
-        "libs/frontend/application/shared/store/src/cache/index.ts"
+      "@codelab/frontend-application-shared-services": [
+        "libs/frontend/application/shared/services/src/cache/index.ts"
       ],
-      "@codelab/frontend-application-shared-store/loading": [
-        "libs/frontend/application/shared/store/src/loading/index.ts"
+      "@codelab/frontend-application-shared-services/loading": [
+        "libs/frontend/application/shared/services/src/loading/index.ts"
       ],
-      "@codelab/frontend-application-shared-store/pagination": [
-        "libs/frontend/application/shared/store/src/pagination/index.ts"
+      "@codelab/frontend-application-shared-services/pagination": [
+        "libs/frontend/application/shared/services/src/pagination/index.ts"
       ],
-      "@codelab/frontend-application-shared-store/router": [
-        "libs/frontend/application/shared/store/src/router/index.ts"
+      "@codelab/frontend-application-shared-services/router": [
+        "libs/frontend/application/shared/services/src/router/index.ts"
       ],
-      "@codelab/frontend-application-shared-store/ui": [
-        "libs/frontend/application/shared/store/src/ui/index.ts"
+      "@codelab/frontend-application-shared-store": [
+        "libs/frontend/application/shared/store/src/index.ts"
       ],
       "@codelab/frontend-application-store/services": [
         "libs/frontend/application/store/src/services/index.ts"
@@ -1031,6 +1031,9 @@
       "@codelab/shared-domain-orm": ["libs/shared/domain/orm/src/index.ts"],
       "@codelab/shared-infra-auth0/client": [
         "libs/shared/infra/auth0/src/client/index.ts"
+      ],
+      "@codelab/shared-infra-auth0/server": [
+        "libs/shared/infra/auth0/src/server/index.ts"
       ],
       "@codelab/shared-infra-cache": ["libs/shared/infra/cache/src/index.ts"],
       "@codelab/shared-infra-eval": ["libs/shared/infra/eval/src/index.ts"],

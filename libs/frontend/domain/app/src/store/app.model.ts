@@ -7,13 +7,7 @@ import type {
 import type { IAppDto } from '@codelab/shared-abstract-core'
 import type { Ref } from 'mobx-keystone'
 
-import {
-  domainRef,
-  getPageDomainService,
-  getUserDomainService,
-  pageRef,
-  userRef,
-} from '@codelab/frontend-abstract-domain'
+import { domainRef, pageRef, userRef } from '@codelab/frontend-abstract-domain'
 import { IPageKind } from '@codelab/shared-abstract-core'
 import { Validator } from '@codelab/shared-infra-typebox'
 import { slugify } from '@codelab/shared-utils'
@@ -103,15 +97,5 @@ export class App
     this.pages = pages ? pages.map((page) => pageRef(page.id)) : this.pages
 
     return this
-  }
-
-  @computed
-  private get pageDomainService() {
-    return getPageDomainService(this)
-  }
-
-  @computed
-  private get userDomainService() {
-    return getUserDomainService(this)
   }
 }

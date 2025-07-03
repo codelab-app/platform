@@ -1,7 +1,7 @@
 import type { PageProps } from '@codelab/frontend-abstract-types'
 
 import { CreateAtomPopover } from '@codelab/frontend-application-atom/use-cases/create-atom'
-import { parsePageProps } from '@codelab/frontend-application-shared-store/router'
+import { parsePageProps } from '@codelab/frontend-application-shared-services/router'
 
 const Page = async (
   props: PageProps<

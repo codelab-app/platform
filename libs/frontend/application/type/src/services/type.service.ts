@@ -30,7 +30,7 @@ const { GetTypeReferences } = findTypeServerActions
 
 export const useTypeService = (): ITypeService => {
   const { typeDomainService, userDomainService } = useDomainStore()
-  const user = userDomainService.user
+  const user = userDomainService.currentUser
   const owner = { id: user.id }
 
   const create = async (data: ITypeCreateFormData) => {

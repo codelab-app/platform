@@ -1,5 +1,6 @@
 import { corsMiddleware } from '@codelab/backend/infra/adapter/middleware'
 // import { RoutePaths } from '@codelab/frontend/abstract/application'
+import { getEnv } from '@codelab/shared-config-env'
 import { auth0Instance } from '@codelab/shared-infra-auth0/client'
 import {
   type NextFetchEvent,
@@ -28,7 +29,7 @@ const middleware: NextMiddleware = async (
   event: NextFetchEvent,
 ) => {
   const response = NextResponse.next()
-  const pathname = request.nextUrl.pathname
+  const { pathname, search } = request.nextUrl
   const authResponse = await auth0Instance.middleware(request)
 
   // authentication routes — let the middleware handle it
@@ -82,14 +83,23 @@ const middleware: NextMiddleware = async (
   if (request.nextUrl.pathname.startsWith('/api/v1')) {
     void corsMiddleware(request, response)
 
+    // Rewrite to backend API
+    const {
+      endpoint: { apiHost },
+    } = getEnv()
+
+    // Keep the full path including /api/v1
+    const targetUrl = new URL(`${pathname}${search}`, apiHost)
+    const headers = new Headers(request.headers)
+
     if (session) {
       const accessToken = session.tokenSet.accessToken
 
-      response.headers.set('Authorization', `Bearer ${accessToken}`)
-      // response.headers.set('X-ID-TOKEN', session.user.idToken)
+      headers.set('Authorization', `Bearer ${accessToken}`)
+      // headers.set('X-ID-TOKEN', session.user.idToken)
     }
 
-    return response
+    return NextResponse.rewrite(targetUrl, { headers })
   }
 
   return response
@@ -99,7 +109,16 @@ export default middleware
 
 export const config = {
   /**
+   * Match all paths to ensure middleware runs for API routes
    * Use conditional matching instead https://nextjs.org/docs/app/building-your-application/routing/middleware#conditional-statements
    */
-  // matcher: ['/apps/:path*'],
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     */
+    '/((?!_next/static|_next/image|favicon.ico).*)',
+  ],
 }

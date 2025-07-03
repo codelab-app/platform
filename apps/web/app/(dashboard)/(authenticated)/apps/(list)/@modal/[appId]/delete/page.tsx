@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 
 import { appItemQuery } from '@codelab/frontend-application-app/use-cases/app-item'
 import { DeleteAppModalContainer } from '@codelab/frontend-application-app/use-cases/delete-app'
-import { parsePageProps } from '@codelab/frontend-application-shared-store/router'
+import { parsePageProps } from '@codelab/frontend-application-shared-services/router'
 import { DomainStoreHydrator } from '@codelab/frontend-infra-context'
 
 export const metadata: Metadata = {

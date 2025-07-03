@@ -32,7 +32,7 @@ export const CreateDomainModal = observer<CreateDomainModalProps>(
 
     const model = {
       app: { id: appId },
-      auth0Id: userDomainService.user.auth0Id,
+      auth0Id: userDomainService.currentUser.auth0Id,
       id: v4(),
     }
 

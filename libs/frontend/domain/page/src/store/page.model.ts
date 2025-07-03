@@ -13,7 +13,6 @@ import {
   appRef,
   elementRef,
   ElementTree,
-  getUserDomainService,
   redirectRef,
   storeRef,
 } from '@codelab/frontend-abstract-domain'
@@ -126,10 +125,5 @@ export class Page
     this.urlPattern = urlPattern ?? ''
 
     return this
-  }
-
-  @computed
-  private get userDomainService() {
-    return getUserDomainService(this)
   }
 }

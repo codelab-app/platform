@@ -18,7 +18,7 @@ export const CreateComponentPopover = () => {
   const router = useRouter()
   const closePopover = () => router.push(RoutePaths.Component.base())
   const { userDomainService } = useDomainStore()
-  const owner = userDomainService.user
+  const owner = userDomainService.currentUser
 
   return (
     <CuiSidebarSecondary

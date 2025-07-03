@@ -1,13 +1,14 @@
 import type {
   IApplicationStore,
   IRootStore,
-  IRootStoreInput,
 } from '@codelab/frontend-abstract-application'
 import type { IDomainStore } from '@codelab/frontend-abstract-domain'
+import type { IUserDto } from '@codelab/shared-abstract-core'
 
 import {
   Model,
   model,
+  modelAction,
   prop,
   registerRootStore,
   setGlobalConfig,
@@ -17,12 +18,12 @@ import {
 import { createApplicationStore } from './application.store'
 import { createDomainStore } from './domain.store'
 
-export const createRootStore = ({ user }: IRootStoreInput) => {
+export const createRootStore = () => {
   setGlobalConfig({
     showDuplicateModelNameWarnings: false,
   })
 
-  const domainStore = createDomainStore(user)
+  const domainStore = createDomainStore()
   const applicationStore = createApplicationStore(domainStore)
 
   @model('@codelab/RootStore')
@@ -31,7 +32,13 @@ export const createRootStore = ({ user }: IRootStoreInput) => {
       applicationStore: prop<IApplicationStore>(() => applicationStore),
       domainStore: prop<IDomainStore>(() => domainStore),
     })
-    implements IRootStore {}
+    implements IRootStore
+  {
+    @modelAction
+    setUser(userDto: IUserDto) {
+      this.domainStore.userDomainService.setCurrentUser(userDto)
+    }
+  }
 
   const rootStore = new RootStore({})
 

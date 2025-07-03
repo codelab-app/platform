@@ -2,7 +2,7 @@ import type { HttpException } from '@nestjs/common'
 import type { ChangeEvent } from 'react'
 
 import ImportOutlined from '@ant-design/icons/ImportOutlined'
-import { useLoading } from '@codelab/frontend-application-shared-store/loading'
+import { useLoading } from '@codelab/frontend-application-shared-services/loading'
 import {
   useErrorNotify,
   useSuccessNotify,

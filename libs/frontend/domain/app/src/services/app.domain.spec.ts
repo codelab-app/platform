@@ -7,11 +7,12 @@ import {
 import { IPageKindName } from '@codelab/shared-abstract-core'
 import { unregisterRootStore } from 'mobx-keystone'
 
-import { rootDomainStore } from '../test/root.test.store'
+import { createTestDomainStore } from '../test/test.store'
 
 describe('App domain', () => {
   const pageFactory = new PageDomainFactory(userDto)
-  const { appDomainService, atomDomainService } = rootDomainStore
+  const testStore = createTestDomainStore()
+  const { appDomainService, atomDomainService } = testStore
 
   it('can add an app', async () => {
     const reactFragment = atomDomainService.hydrate(atomReactFragmentDto)
@@ -44,6 +45,6 @@ describe('App domain', () => {
   })
 
   afterAll(() => {
-    unregisterRootStore(rootDomainStore)
+    unregisterRootStore(testStore)
   })
 })

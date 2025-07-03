@@ -1,7 +1,7 @@
 import type { ITypeModel } from '@codelab/frontend-abstract-domain'
 
 import { fieldRef, typeRef, userRef } from '@codelab/frontend-abstract-domain'
-import { createRootDomainStore } from '@codelab/frontend-domain-shared'
+import { domainStoreFactory } from '@codelab/frontend-domain-shared'
 import {
   FieldDomainService,
   TypeDomainService,
@@ -237,7 +237,7 @@ export const interfaceWithRequiredAndDefaultFieldValues = new InterfaceType({
   owner: userRef(ownerId),
 })
 
-export const rootDomainStore = createRootDomainStore({
+export const domainStore = domainStoreFactory({
   context: {},
   store: {
     fieldDomainService: new FieldDomainService({

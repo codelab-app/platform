@@ -1,4 +1,5 @@
 export * from './abstract.repository'
 export * from './command-bus-logger.service'
+export * from './empty-response.interceptor'
 export * from './endpoint.config'
 export * from './log-method'

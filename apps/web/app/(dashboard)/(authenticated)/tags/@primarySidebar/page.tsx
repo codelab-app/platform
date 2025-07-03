@@ -1,6 +1,6 @@
 import type { PageProps } from '@codelab/frontend-abstract-types'
 
-import { parsePageProps } from '@codelab/frontend-application-shared-store/router'
+import { parsePageProps } from '@codelab/frontend-application-shared-services/router'
 import { tagTableQuery } from '@codelab/frontend-application-tag/use-cases/tag-table'
 import { TagsPrimarySidebarContainer } from '@codelab/frontend-application-tag/views'
 import { DomainStoreHydrator } from '@codelab/frontend-infra-context'

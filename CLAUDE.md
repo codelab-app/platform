@@ -65,8 +65,6 @@ pnpm nx <target> <project>
 pnpm nx serve web           # Start web development server
 pnpm nx test backend-domain-app  # Run tests for specific library
 
-# When linting always use subagent so we don't block the main thread
-# This way we can run this task in parallel in the background
 pnpm nx lint frontend-application-admin  # Lint specific project
 
 # Run tasks across multiple projects
@@ -76,62 +74,32 @@ pnpm nx run-many --target=test --parallel=3
 
 ## Architecture & Domain Knowledge
 
-@import .claude/documentation/codelab-domain-knowledge.md
+_Fetch from: `.claude/documentation/codelab-domain-knowledge.md`_
 
 ## Development Guidelines
 
 ### Code Style and Conventions
 
-@import .claude/documentation/file-conventions.md
+_Fetch from: `.claude/documentation/convention/file-conventions.md`_
+_Fetch from: `.claude/documentation/convention/code-style-conventions.md`_
 
-Key conventions:
+### Project Structure
 
-- File naming: PascalCase for components, kebab-case for services
-- Class member ordering: [@typescript-eslint/member-ordering](https://typescript-eslint.io/rules/member-ordering/)
-- Named exports only (no default exports)
-- Use `import type` for type imports
-- Arrow functions preferred over function declarations
+_Fetch from: `.claude/documentation/convention/project-structure-conventions.md`_
+_Fetch from: `.claude/documentation/convention/nx-library-naming-conventions.md`_
+_Fetch from: `.claude/documentation/nx-workspace-library-build-process.md`_
 
-### Project Structure Rules
+### State Management
 
-1. Code is organized in an Nx monorepo with clear boundaries
-2. Frontend code lives in `libs/frontend/`, backend in `libs/backend/`
-3. Shared code goes in `libs/shared/`
-4. Each domain has parallel modules across application/domain layers
-5. Main web app routes are in `apps/web/app/(dashboard)/(authenticated)/`
+_Fetch from: `.claude/documentation/convention/state-management-conventions.md`_
 
-@import .claude/documentation/nx-library-naming-conventions.md
+### Styling
 
-@import .claude/documentation/nx-workspace-library-build-process.md
+_Fetch from: `.claude/documentation/convention/styling-conventions.md`_
 
-### Directory Conventions
+### GraphQL
 
-- Each module follows the pattern: `{layer}/{domain}/{service-type}/`
-- Use barrel exports (`index.ts`) for clean public APIs
-- Separate concerns: `/models`, `/services`, `/repositories`, `/use-cases`
-- Test files use `.spec.ts` (unit) or `.i.spec.ts` (integration)
-
-### State Management Patterns
-
-- Use MobX stores for reactive state management
-- Domain stores contain business logic
-- Application stores handle UI state
-- Context providers inject dependencies
-- Separate data fetching from presentation
-
-### Styling Conventions
-
-- Use Tailwind CSS for utility-first styling
-- Styled-components for component-specific styles
-- Follow Atomic Design for component organization
-- Use CVA (Class Variance Authority) for type-safe variants
-
-### GraphQL Patterns
-
-- Generate types from schema: `pnpm codegen`
-- Use fragments for modular queries
-- Separate HTTP (queries/mutations) from WebSocket (subscriptions)
-- Follow operation naming conventions
+_Fetch from: `.claude/documentation/convention/graphql-conventions.md`_
 
 ## Environment Setup
 
@@ -142,13 +110,7 @@ Key conventions:
 
 ## Documentation Guidelines
 
-When creating documentation for complex implementations that span multiple files:
-
-- Save documentation summaries in `.claude/documentation/` directory
-- Use descriptive filenames like `feature-name-implementation.md`
-- This keeps implementation docs separate from the main codebase
-- Only create these when the implementation is complex or non-obvious
-- Examples: multi-file refactors, new architectural patterns, debugging solutions
+_Fetch from: `.claude/documentation/convention/documentation-conventions.md`_
 
 ## Important Reminders
 
@@ -158,67 +120,53 @@ When creating documentation for complex implementations that span multiple files
 - NEVER proactively create documentation files (\*.md) or README files in the main codebase
 - Use `.claude/documentation/` for complex implementation summaries when needed
 
-### Type Checking After Changes
+### Type Checking
 
-- **ALWAYS** run type checking after modifying TypeScript files
-- For source file changes: `pnpm nx run <project-name>:tsc-check`
-- For test file changes (*.spec.ts): `pnpm nx run <project-name>:tsc-check:spec`
-- This ensures type safety and catches errors early
+_Fetch from: `.claude/documentation/convention/type-checking-conventions.md`_
 
 ## Git Workflow
 
-### Branch Naming Convention
+### Branch Naming
 
-All branches must follow this format: `<type>/<issue-number>-<short-description>`
+_Fetch from: `.claude/documentation/convention/git-branch-naming-convention.md`_
 
-Allowed types:
+### Commit Messages
 
-- `feat/` - New features or enhancements
-- `fix/` - Bug fixes
-- `refactor/` - Code refactoring without changing functionality
-- `test/` - Adding or updating tests
-
-Examples:
-
-- `feat/3736-debug-env-service-tracking`
-- `fix/3742-login-validation-error`
-- `refactor/3755-simplify-repository-pattern`
-- `test/3761-add-user-service-tests`
-
-See `.claude/documentation/git-branch-naming-convention.md` for detailed guidelines.
-
-## Git Commit Messages
-
-- Don't add "Co-Authored-By: Claude <noreply@anthropic.com>" to commit messages
-- Don't add "🤖 Generated with [Claude Code](https://claude.ai/code)" to commit messages
-- Keep commit messages clean and focused on the changes made
-- The project uses Commitizen with a custom configuration (see `.cz-config.js`)
-- To close issues in commit messages, use the footer section with format: `CLOSES: #123`
-- The commitizen config supports various commit types (feat, fix, docs, etc.) and scope selection
+_Fetch from: `.claude/documentation/convention/git-commit-conventions.md`_
 
 ## Claude fine-tuning
 
 - Be brutally honest, don't be a yes man.
 - If I am wrong, point it out bluntly.
 - I need honest feedback on my code.
+- When creating tasks, DO NOT automatically test them at the end unless explicitly asked to test.
+- When creating tasks, DO NOT automatically lint them in an extra step
+- When analysing codebase always use parallel tasks with subagents to speed things up
 
 ## OpenMemory Integration
 
-- **ALWAYS** search OpenMemory first before responding to any query
+- Search OpenMemory first before responding to any query
 - Use `mcp__openmemory__search-memories` tool with the user's query to check for relevant stored information
 - Review any found memories about user preferences, past discussions, and project context
 - Only after checking memory, formulate your response incorporating the found context
 - When new important information is shared, use `mcp__openmemory__add-memory` to store it
 - Keep in mind Github discussions should have the most weight, followed by Notion documnetation wiki, then followed by Github issues
 
+## Research and Information Lookup
+
+- Use Perplexity MCP (`mcp__perplexity__`) whenever you have any question that requires external information
+- Use perplexity mcp instead of web search
+- Perplexity provides faster, more summarized results ideal for answering questions
+- Only use web search as a fallback if Perplexity is unavailable or fails
+
 ## Documentation
 
-When I say read documentation it's regarding @import .claude/documentation
+When I say read documentation it's regarding: _Fetch from: `.claude/documentation`_
 
 ### OpenMemory Sync Documentation
 
 For the data structure and implementation details of syncing various sources (GitHub, Notion) to OpenMemory:
-@import .claude/documentation/openmemory-sync-documentation.md
+_Fetch from: `.claude/documentation/openmemory-sync-documentation.md`_
 
 ## GitHub Issue Context
 
@@ -226,3 +174,9 @@ For the data structure and implementation details of syncing various sources (Gi
 - Use the `mcp__github__` tools to interact with GitHub issues
 - Default to the current repository unless specified otherwise
 - **IMPORTANT**: Only create GitHub issues for repositories under the `codelab-app` organization. Never create issues for any other organization or personal repositories
+
+## Claude Code Custom Commands
+
+- Custom slash commands for Claude Code should be stored in `.claude/commands/` directory
+- Each command should be a markdown file with the command name as the filename (e.g., `commit.md` for `/commit`)
+- Commands should include usage instructions, implementation steps, and any relevant notes

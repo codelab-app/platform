@@ -10,17 +10,6 @@
     "scope:frontend",
     "layer:application"
   ],
-  "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "libs/frontend/application/shared/store/jest.config.ts",
-        "runInBand": true
-      }
-    }
-  }
+  "// targets": "to see all targets run: nx show project frontend-application-shared-store --web",
+  "targets": {}
 }

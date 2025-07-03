@@ -52,7 +52,7 @@ export const useCloneElementService = ({
   const elementService = useElementService()
   const fieldService = useFieldService()
   const storeService = useStoreService()
-  const owner = userDomainService.user
+  const owner = userDomainService.currentUser
 
   const cloneElement = async (
     targetElement: IElementModel,

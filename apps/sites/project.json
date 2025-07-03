@@ -7,6 +7,11 @@
   "implicitDependencies": [],
   "generators": {},
   "targets": {
+    "defaultConfiguration": {
+      "0": "d",
+      "1": "e",
+      "2": "v"
+    },
     "build": {
       "executor": "@nx/next:build",
       "outputs": ["{options.outputPath}"],
@@ -19,8 +24,7 @@
         "dev": {
           "outputPath": "tmp/apps/sites/src"
         }
-      },
-      "defaultConfiguration": "prod"
+      }
     },
     "serve": {
       "executor": "@nx/next:server",
@@ -29,14 +33,14 @@
         "dev": true,
         "port": 3080,
         "hostname": "0.0.0.0",
-        "maxWorkers": 4,
-        "experimentalHttps": true
+        "maxWorkers": 4
       },
       "configurations": {
         "ci": {},
         "prod": {
           "buildTarget": "sites:build:prod",
-          "dev": false
+          "dev": false,
+          "experimentalHttps": true
         },
         "dev": {
           "buildTarget": "sites:build:dev",
