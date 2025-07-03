@@ -1,0 +1,630 @@
+{
+  "app": {
+    "id": "d0f13822-e4bf-48fe-b98d-de0f1249658e",
+    "name": "Ai Chat"
+  },
+  "components": [],
+  "domains": [],
+  "pages": [
+    {
+      "elements": [
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "7449f629-a55b-40d9-b0ed-55381f62e5ef"
+          },
+          "compositeKey": "7449f629-a55b-40d9-b0ed-55381f62e5ef-body",
+          "firstChild": {
+            "id": "33b613d9-870d-4ef9-a896-f42464690561"
+          },
+          "id": "09fc3f65-caaf-43ca-8b62-f2a0c07bf1c1",
+          "name": "Body",
+          "nextSibling": null,
+          "page": {
+            "id": "7449f629-a55b-40d9-b0ed-55381f62e5ef"
+          },
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": null,
+          "props": {
+            "data": "{\"children\":{\"kind\":\"RichTextType\",\"type\":\"e7558508-3bb7-4f57-8f8c-6ac989911765\"}}",
+            "id": "c229af4c-d92b-4411-91ae-2ce10a5ff519"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "1bb6993d-8f45-4098-90bc-5d09a414c10e"
+          },
+          "style": "{\"Desktop\":{\"guiString\":{\"none\":\"{\\\"width\\\":\\\"100%\\\",\\\"height\\\":\\\"100%\\\",\\\"min-height\\\":\\\"250px\\\",\\\"background-color\\\":\\\"#181818\\\"}\"}}}",
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "7449f629-a55b-40d9-b0ed-55381f62e5ef"
+          },
+          "compositeKey": "7449f629-a55b-40d9-b0ed-55381f62e5ef-html-script",
+          "firstChild": null,
+          "id": "33b613d9-870d-4ef9-a896-f42464690561",
+          "name": "Html Script",
+          "nextSibling": {
+            "id": "db7ff7fb-57ce-4dfd-9e94-6f2d4f88d241"
+          },
+          "page": null,
+          "parentComponent": null,
+          "parentElement": {
+            "id": "09fc3f65-caaf-43ca-8b62-f2a0c07bf1c1"
+          },
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": null,
+          "props": {
+            "data": "{\"onError\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onLoad\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"{{\\n  function(event) {\\ndebugger\\n    const projectUrl = 'https://cvzgeciqvfgwhqaiymsq.supabase.co';\\n    const publicKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN2emdlY2lxdmZnd2hxYWl5bXNxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTExODI3ODUsImV4cCI6MjA2Njc1ODc4NX0.eggQIX_GEaRFfRSH9fetv2JANgfYxh607XJ-OdvtfUU';\\n    const { createClient } = window?.supabase ?? {};\\n    const supabaseClient = createClient(projectUrl, publicKey);\\n\\n    state.supabaseClient = supabaseClient;\\n    rootState.supabaseClient = supabaseClient;\\n    window.supabaseClient = supabaseClient;\\n\\n    console.warn('state', state, 'rootState', rootState);\\n  }\\n}}\"},\"src\":\"https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2\"}",
+            "id": "315bd949-c177-4a37-9519-1c3d342eef13"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "679463cd-20a7-4d78-a82b-b20a62ecd6d6"
+          },
+          "style": "{\"Desktop\":{\"guiString\":{\"none\":\"{\\\"width\\\":\\\"100%\\\",\\\"height\\\":\\\"100%\\\"}\"}}}",
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "7449f629-a55b-40d9-b0ed-55381f62e5ef"
+          },
+          "compositeKey": "7449f629-a55b-40d9-b0ed-55381f62e5ef-ant-design-spin",
+          "firstChild": null,
+          "id": "db7ff7fb-57ce-4dfd-9e94-6f2d4f88d241",
+          "name": "Ant Design Spin",
+          "nextSibling": null,
+          "page": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": {
+            "id": "33b613d9-870d-4ef9-a896-f42464690561"
+          },
+          "props": {
+            "data": "{\"indicator\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"tip\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}",
+            "id": "1fc5b2ed-7876-4737-990e-713336e51fc9"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": "{{state.supabaseClient ?? rootState.supabaseClient}}",
+          "renderType": {
+            "__typename": "Atom",
+            "id": "12d10c47-53ac-42c1-8531-5e3fac2f1260"
+          },
+          "style": "{\"Desktop\":{\"guiString\":{\"none\":\"{\\\"width\\\":\\\"100%\\\",\\\"height\\\":\\\"100%\\\",\\\"text-align\\\":\\\"center\\\",\\\"color\\\":\\\"#cf2828\\\"}\"}}}",
+          "tailwindClassNames": null
+        }
+      ],
+      "page": {
+        "app": {
+          "id": "d0f13822-e4bf-48fe-b98d-de0f1249658e"
+        },
+        "id": "7449f629-a55b-40d9-b0ed-55381f62e5ef",
+        "kind": "Provider",
+        "name": "provider",
+        "pageContentContainer": {
+          "id": "09fc3f65-caaf-43ca-8b62-f2a0c07bf1c1"
+        },
+        "redirect": null,
+        "rootElement": {
+          "id": "09fc3f65-caaf-43ca-8b62-f2a0c07bf1c1"
+        },
+        "store": {
+          "id": "cbe4bba8-1b78-4244-904f-0b178102cf8e"
+        },
+        "urlPattern": "/provider"
+      },
+      "store": {
+        "actions": [],
+        "api": {
+          "types": [
+            {
+              "__typename": "InterfaceType",
+              "id": "ac347c36-f636-4ccf-9e7c-41112face00c",
+              "kind": "InterfaceType",
+              "name": "Ai Chat(gm.vpolishchuk) provider Store API",
+              "fields": []
+            }
+          ],
+          "__typename": "InterfaceType",
+          "id": "ac347c36-f636-4ccf-9e7c-41112face00c",
+          "kind": "InterfaceType",
+          "name": "Ai Chat(gm.vpolishchuk) provider Store API",
+          "fields": [
+            {
+              "api": {
+                "id": "ac347c36-f636-4ccf-9e7c-41112face00c"
+              },
+              "defaultValues": null,
+              "description": null,
+              "fieldType": {
+                "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
+              },
+              "id": "5cd1d66e-b7fe-4074-9a0e-b73fb80b23fe",
+              "key": "supabaseClient",
+              "name": null,
+              "nextSibling": null,
+              "prevSibling": null,
+              "validationRules": "{}"
+            }
+          ]
+        },
+        "store": {
+          "api": {
+            "id": "ac347c36-f636-4ccf-9e7c-41112face00c"
+          },
+          "id": "cbe4bba8-1b78-4244-904f-0b178102cf8e",
+          "name": "provider Store"
+        }
+      }
+    },
+    {
+      "elements": [
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "51bdd6aa-dad3-4eb3-8bbb-3fb269855676"
+          },
+          "compositeKey": "51bdd6aa-dad3-4eb3-8bbb-3fb269855676-body",
+          "firstChild": {
+            "id": "571ab4b6-06fa-4c84-8eeb-95bf38eb9b1d"
+          },
+          "id": "8d442d2e-cd96-4f9d-8ae6-6bcf9701cc80",
+          "name": "Body",
+          "nextSibling": null,
+          "page": {
+            "id": "51bdd6aa-dad3-4eb3-8bbb-3fb269855676"
+          },
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": null,
+          "props": {
+            "data": "{\"children\":{\"kind\":\"RichTextType\",\"type\":\"e7558508-3bb7-4f57-8f8c-6ac989911765\"},\"direction\":\"vertical\",\"size\":{\"kind\":\"EnumType\",\"type\":\"dcb317bd-3155-4d2d-b670-6d29cff2067a\"},\"split\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}",
+            "id": "1dabdf7a-2d2f-4195-9e7d-9d443d38d291"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "94785b15-1bfa-468c-ad8a-3063e0ca4891"
+          },
+          "style": "{\"Desktop\":{\"guiString\":{\"none\":\"{\\\"width\\\":\\\"100%\\\",\\\"height\\\":\\\"100%\\\"}\"},\"cssString\":\"\"}}",
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "51bdd6aa-dad3-4eb3-8bbb-3fb269855676"
+          },
+          "compositeKey": "51bdd6aa-dad3-4eb3-8bbb-3fb269855676-chat-container",
+          "firstChild": {
+            "id": "ad2b8042-9af4-4f9c-8a44-37c1101b79d7"
+          },
+          "id": "571ab4b6-06fa-4c84-8eeb-95bf38eb9b1d",
+          "name": "Chat Container",
+          "nextSibling": null,
+          "page": null,
+          "parentComponent": null,
+          "parentElement": {
+            "id": "8d442d2e-cd96-4f9d-8ae6-6bcf9701cc80"
+          },
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": null,
+          "props": {
+            "data": "{\"children\":{\"kind\":\"RichTextType\",\"type\":\"e7558508-3bb7-4f57-8f8c-6ac989911765\"},\"direction\":\"vertical\",\"size\":{\"kind\":\"EnumType\",\"type\":\"dcb317bd-3155-4d2d-b670-6d29cff2067a\"},\"split\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}",
+            "id": "109b77a7-c286-4bfa-987c-091a249c2351"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "94785b15-1bfa-468c-ad8a-3063e0ca4891"
+          },
+          "style": "{\"Desktop\":{\"guiString\":{\"none\":\"{\\\"width\\\":\\\"100%\\\",\\\"height\\\":\\\"100%\\\",\\\"padding-top\\\":\\\"20px\\\",\\\"padding-right\\\":\\\"20px\\\",\\\"padding-bottom\\\":\\\"20px\\\",\\\"padding-left\\\":\\\"20px\\\"}\"}}}",
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "51bdd6aa-dad3-4eb3-8bbb-3fb269855676"
+          },
+          "compositeKey": "51bdd6aa-dad3-4eb3-8bbb-3fb269855676-conversation-container",
+          "firstChild": {
+            "id": "3a73f6c2-4d87-460d-9dff-ac235f84c2f5"
+          },
+          "id": "ad2b8042-9af4-4f9c-8a44-37c1101b79d7",
+          "name": "Conversation Container",
+          "nextSibling": {
+            "id": "0f881f19-edf7-4385-a907-357b1915e1e5"
+          },
+          "page": null,
+          "parentComponent": null,
+          "parentElement": {
+            "id": "571ab4b6-06fa-4c84-8eeb-95bf38eb9b1d"
+          },
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": null,
+          "props": {
+            "data": "{}",
+            "id": "13a7856a-a264-42c7-b6b3-dba5a8447e43"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "94785b15-1bfa-468c-ad8a-3063e0ca4891"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "51bdd6aa-dad3-4eb3-8bbb-3fb269855676"
+          },
+          "compositeKey": "51bdd6aa-dad3-4eb3-8bbb-3fb269855676-empty-chat-title",
+          "firstChild": null,
+          "id": "3a73f6c2-4d87-460d-9dff-ac235f84c2f5",
+          "name": "Empty Chat Title",
+          "nextSibling": null,
+          "page": null,
+          "parentComponent": null,
+          "parentElement": {
+            "id": "ad2b8042-9af4-4f9c-8a44-37c1101b79d7"
+          },
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": null,
+          "props": {
+            "data": "{}",
+            "id": "c707fd21-5229-46fb-a303-4888750364c8"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "51bdd6aa-dad3-4eb3-8bbb-3fb269855676"
+          },
+          "compositeKey": "51bdd6aa-dad3-4eb3-8bbb-3fb269855676-controls-container",
+          "firstChild": {
+            "id": "00dee8c5-c736-49af-a79f-fa0e8c2876af"
+          },
+          "id": "0f881f19-edf7-4385-a907-357b1915e1e5",
+          "name": "Controls Container",
+          "nextSibling": null,
+          "page": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": {
+            "id": "ad2b8042-9af4-4f9c-8a44-37c1101b79d7"
+          },
+          "props": {
+            "data": "{}",
+            "id": "eb66fb03-1920-4556-b9e0-7b1f1771ac69"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "94785b15-1bfa-468c-ad8a-3063e0ca4891"
+          },
+          "style": "{\"Desktop\":{\"guiString\":{\"none\":\"{\\\"width\\\":\\\"100%\\\",\\\"display\\\":\\\"flex\\\",\\\"justify-content\\\":\\\"space-between\\\",\\\"background-color\\\":\\\"#303030\\\",\\\"border-top-left-radius\\\":\\\"16px\\\",\\\"border-top-right-radius\\\":\\\"16px\\\",\\\"border-bottom-left-radius\\\":\\\"16px\\\",\\\"border-bottom-right-radius\\\":\\\"16px\\\",\\\"border-radius\\\":\\\"16px\\\"}\"},\"cssString\":\"input::placeholder {\\n  color: #afafaf;\\n}\"}}",
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "51bdd6aa-dad3-4eb3-8bbb-3fb269855676"
+          },
+          "compositeKey": "51bdd6aa-dad3-4eb3-8bbb-3fb269855676-prompt-field",
+          "firstChild": null,
+          "id": "00dee8c5-c736-49af-a79f-fa0e8c2876af",
+          "name": "Prompt Field",
+          "nextSibling": {
+            "id": "f5a09e3a-b5e5-4f1a-a127-0c5775a2f0bd"
+          },
+          "page": null,
+          "parentComponent": null,
+          "parentElement": {
+            "id": "0f881f19-edf7-4385-a907-357b1915e1e5"
+          },
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": null,
+          "props": {
+            "data": "{\"addonAfter\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"addonBefore\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"onChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onPressEnter\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"prefix\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"suffix\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"variant\":\"borderless\"}",
+            "id": "48b7b66a-cf18-42aa-ad03-13f24d38d655"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "8d669da3-4198-494a-8018-851f6a802bf2"
+          },
+          "style": "{\"Desktop\":{\"guiString\":{\"none\":\"{\\\"color\\\":\\\"#ffffff\\\"}\"},\"cssString\":\"\"}}",
+          "tailwindClassNames": null
+        },
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "51bdd6aa-dad3-4eb3-8bbb-3fb269855676"
+          },
+          "compositeKey": "51bdd6aa-dad3-4eb3-8bbb-3fb269855676-send-button",
+          "firstChild": null,
+          "id": "f5a09e3a-b5e5-4f1a-a127-0c5775a2f0bd",
+          "name": "Send Button",
+          "nextSibling": null,
+          "page": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": {
+            "id": "00dee8c5-c736-49af-a79f-fa0e8c2876af"
+          },
+          "props": {
+            "data": "{\"children\":{\"kind\":\"RichTextType\",\"type\":\"e7558508-3bb7-4f57-8f8c-6ac989911765\",\"value\":\"<p class=\\\"editor-paragraph\\\" dir=\\\"ltr\\\"><span style=\\\"white-space: pre-wrap;\\\">Send</span></p>\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"type\":\"text\",\"variant\":\"dashed\"}",
+            "id": "e60febac-973a-47df-b805-4e83a8bfa16a"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "0ba04937-91e3-4d3a-bfc3-ee0ce268faa6"
+          },
+          "style": "{\"Desktop\":{\"guiString\":{\"none\":\"{\\\"color\\\":\\\"#afafaf\\\"}\"},\"cssString\":\"* { color: #afafaf; }\"}}",
+          "tailwindClassNames": null
+        }
+      ],
+      "page": {
+        "app": {
+          "id": "d0f13822-e4bf-48fe-b98d-de0f1249658e"
+        },
+        "id": "51bdd6aa-dad3-4eb3-8bbb-3fb269855676",
+        "kind": "Regular",
+        "name": "Chat",
+        "pageContentContainer": null,
+        "redirect": null,
+        "rootElement": {
+          "id": "8d442d2e-cd96-4f9d-8ae6-6bcf9701cc80"
+        },
+        "store": {
+          "id": "4473e893-7e5f-4fc5-bc1e-92cfd66d0e7c"
+        },
+        "urlPattern": "/chat"
+      },
+      "store": {
+        "actions": [],
+        "api": {
+          "types": [
+            {
+              "__typename": "InterfaceType",
+              "id": "492633bc-f47a-4839-adbb-53a126bb8dce",
+              "kind": "InterfaceType",
+              "name": "Chat Store API",
+              "fields": []
+            }
+          ],
+          "__typename": "InterfaceType",
+          "id": "492633bc-f47a-4839-adbb-53a126bb8dce",
+          "kind": "InterfaceType",
+          "name": "Chat Store API",
+          "fields": []
+        },
+        "store": {
+          "api": {
+            "id": "492633bc-f47a-4839-adbb-53a126bb8dce"
+          },
+          "id": "4473e893-7e5f-4fc5-bc1e-92cfd66d0e7c",
+          "name": "Chat Store"
+        }
+      }
+    },
+    {
+      "elements": [
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "b50da6d4-b83f-4421-9d7d-0b93ffb03cda"
+          },
+          "compositeKey": "b50da6d4-b83f-4421-9d7d-0b93ffb03cda-body",
+          "firstChild": null,
+          "id": "f534204e-10e8-49b5-949d-783c84f824eb",
+          "name": "Body",
+          "nextSibling": null,
+          "page": {
+            "id": "b50da6d4-b83f-4421-9d7d-0b93ffb03cda"
+          },
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": null,
+          "props": {
+            "data": "{}",
+            "id": "ab949f42-a9e0-4ceb-90a7-afa74e02f20b"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "4a9dd961-501b-4246-8770-48fee5dc5852"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        }
+      ],
+      "page": {
+        "app": {
+          "id": "d0f13822-e4bf-48fe-b98d-de0f1249658e"
+        },
+        "id": "b50da6d4-b83f-4421-9d7d-0b93ffb03cda",
+        "kind": "NotFound",
+        "name": "404",
+        "pageContentContainer": null,
+        "redirect": null,
+        "rootElement": {
+          "id": "f534204e-10e8-49b5-949d-783c84f824eb"
+        },
+        "store": {
+          "id": "40ac7a64-d904-4a7e-96f3-fa703aa1c87d"
+        },
+        "urlPattern": "/404"
+      },
+      "store": {
+        "actions": [],
+        "api": {
+          "types": [
+            {
+              "__typename": "InterfaceType",
+              "id": "42d11ef8-57bb-4c64-9d86-b2866e1c25e7",
+              "kind": "InterfaceType",
+              "name": "Ai Chat(gm.vpolishchuk) 404 Store API",
+              "fields": []
+            }
+          ],
+          "__typename": "InterfaceType",
+          "id": "42d11ef8-57bb-4c64-9d86-b2866e1c25e7",
+          "kind": "InterfaceType",
+          "name": "Ai Chat(gm.vpolishchuk) 404 Store API",
+          "fields": []
+        },
+        "store": {
+          "api": {
+            "id": "42d11ef8-57bb-4c64-9d86-b2866e1c25e7"
+          },
+          "id": "40ac7a64-d904-4a7e-96f3-fa703aa1c87d",
+          "name": "404 Store"
+        }
+      }
+    },
+    {
+      "elements": [
+        {
+          "childMapperComponent": null,
+          "childMapperPreviousSibling": null,
+          "childMapperPropKey": null,
+          "closestContainerNode": {
+            "id": "f01e419d-9a98-460d-96b6-21cfe66f2689"
+          },
+          "compositeKey": "f01e419d-9a98-460d-96b6-21cfe66f2689-body",
+          "firstChild": null,
+          "id": "4dea68b5-461e-4cba-8a71-147a713c7ac7",
+          "name": "Body",
+          "nextSibling": null,
+          "page": {
+            "id": "f01e419d-9a98-460d-96b6-21cfe66f2689"
+          },
+          "parentComponent": null,
+          "parentElement": null,
+          "postRenderActions": [],
+          "preRenderActions": [],
+          "prevSibling": null,
+          "props": {
+            "data": "{}",
+            "id": "1cc66c91-8292-4885-8e54-0f863fa487d7"
+          },
+          "renderForEachPropKey": null,
+          "renderIfExpression": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "4a9dd961-501b-4246-8770-48fee5dc5852"
+          },
+          "style": null,
+          "tailwindClassNames": null
+        }
+      ],
+      "page": {
+        "app": {
+          "id": "d0f13822-e4bf-48fe-b98d-de0f1249658e"
+        },
+        "id": "f01e419d-9a98-460d-96b6-21cfe66f2689",
+        "kind": "InternalServerError",
+        "name": "500",
+        "pageContentContainer": null,
+        "redirect": null,
+        "rootElement": {
+          "id": "4dea68b5-461e-4cba-8a71-147a713c7ac7"
+        },
+        "store": {
+          "id": "4a9a1b22-edfc-4631-923e-1bc73beea71b"
+        },
+        "urlPattern": "/500"
+      },
+      "store": {
+        "actions": [],
+        "api": {
+          "types": [
+            {
+              "__typename": "InterfaceType",
+              "id": "55334b25-5b68-4a3b-9d56-68e75474c16d",
+              "kind": "InterfaceType",
+              "name": "Ai Chat(gm.vpolishchuk) 500 Store API",
+              "fields": []
+            }
+          ],
+          "__typename": "InterfaceType",
+          "id": "55334b25-5b68-4a3b-9d56-68e75474c16d",
+          "kind": "InterfaceType",
+          "name": "Ai Chat(gm.vpolishchuk) 500 Store API",
+          "fields": []
+        },
+        "store": {
+          "api": {
+            "id": "55334b25-5b68-4a3b-9d56-68e75474c16d"
+          },
+          "id": "4a9a1b22-edfc-4631-923e-1bc73beea71b",
+          "name": "500 Store"
+        }
+      }
+    }
+  ],
+  "resources": []
+}
