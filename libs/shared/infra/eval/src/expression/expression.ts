@@ -78,7 +78,7 @@ export const evaluateExpression = <IContext extends ObjectLike>(
       ...contextKeys.map((key) => context[key as keyof IContext]),
     )
   } catch (error) {
-    console.log(error)
+    console.warn('Error evaluating expression', error)
 
     return expression
   }
