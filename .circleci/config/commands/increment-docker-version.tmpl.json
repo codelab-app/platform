@@ -1,9 +1,0 @@
-{
-  "data": {
-    "type": "vars",
-    "attributes": {
-      "key": "DOCKER_TAG_VERSION",
-      "value": "${DOCKER_VERSION}"
-    }
-  }
-}

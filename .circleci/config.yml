@@ -79,10 +79,6 @@ commands:
       - run:
           command: |
             pnpm jest --clearCache
-  increment-docker-version:
-    description: Increment Docker Version
-    steps:
-      - run: ~/project/.circleci/config/commands/increment-docker-version.sh
   install-cypher-shell:
     steps:
       - run:
@@ -602,9 +598,8 @@ jobs:
     steps:
       - checkout
       - install-terraform
-      - increment-docker-version
+      - setup-env
       - login-docker
-      - increment-docker-version
       - persist_to_workspace:
           paths:
             - .docker/config.json
