@@ -920,11 +920,15 @@ workflows:
             branches:
               only:
                 - staging
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
       - tf-plan:
           filters:
             branches:
               only:
                 - staging
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
           name: tf-plan-ci
           requires:
             - setup-infra-workspace
@@ -934,6 +938,8 @@ workflows:
             branches:
               only:
                 - staging
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
           name: tf-apply-ci
           requires:
             - tf-plan-ci
@@ -945,6 +951,8 @@ workflows:
             branches:
               only:
                 - staging
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
           requires:
             - tf-apply-ci
       - docker-api:
@@ -954,6 +962,8 @@ workflows:
             branches:
               only:
                 - staging
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
           requires:
             - tf-apply-ci
       - docker-sites:
@@ -963,6 +973,8 @@ workflows:
             branches:
               only:
                 - staging
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
           requires:
             - tf-apply-ci
       - docker-landing:
@@ -972,6 +984,8 @@ workflows:
             branches:
               only:
                 - staging
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
           requires:
             - setup-infra-workspace
       - tf-plan:
@@ -979,6 +993,8 @@ workflows:
             branches:
               only:
                 - staging
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
           requires:
             - docker-web
             - docker-api
@@ -990,6 +1006,8 @@ workflows:
             branches:
               only:
                 - staging
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
           requires:
             - tf-plan
           type: approval
@@ -998,6 +1016,8 @@ workflows:
             branches:
               only:
                 - staging
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
           requires:
             - hold-apply
           stage: prod
