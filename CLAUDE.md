@@ -132,6 +132,8 @@ _Fetch from: `.claude/documentation/convention/git-branch-naming-convention.md`_
 
 ### Commit Messages
 
+Never add Generated with [Claude Code](https://claude.ai/code)
+
 _Fetch from: `.claude/documentation/convention/git-commit-conventions.md`_
 
 ## Claude fine-tuning

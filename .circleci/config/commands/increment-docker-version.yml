@@ -1,3 +1,0 @@
-description: 'Increment Docker Version'
-steps:
-  - run: ~/project/.circleci/config/commands/increment-docker-version.sh

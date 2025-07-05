@@ -453,6 +453,7 @@
     "nx": "21.2.1",
     "pino-pretty": "13.0.0",
     "postcss": "8.4.45",
+    "semver": "^7.7.2",
     "swc-loader": "0.2.6",
     "tailwindcss": "3.4.10",
     "ts-essentials": "9.1.2",

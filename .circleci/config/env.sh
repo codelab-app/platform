@@ -47,6 +47,12 @@ else
   echo "export SLACK_PARAM_MENTIONS=\<@${SLACK_WEBBER}\>" >> $BASH_ENV
 fi
 
+#
+# Docker tag version from git tags
+#
+VERSION_TAG=$(git tag --points-at HEAD | grep -E "^[0-9]+\.[0-9]+\.[0-9]+$" | head -1)
+eval "$(node ./scripts/validate-semver.js "$VERSION_TAG")"
+
 # Done
 source $BASH_ENV
 

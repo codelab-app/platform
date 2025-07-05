@@ -79,10 +79,6 @@ commands:
       - run:
           command: |
             pnpm jest --clearCache
-  increment-docker-version:
-    description: Increment Docker Version
-    steps:
-      - run: ~/project/.circleci/config/commands/increment-docker-version.sh
   install-cypher-shell:
     steps:
       - run:
@@ -602,9 +598,8 @@ jobs:
     steps:
       - checkout
       - install-terraform
-      - increment-docker-version
+      - setup-env
       - login-docker
-      - increment-docker-version
       - persist_to_workspace:
           paths:
             - .docker/config.json
@@ -1003,6 +998,84 @@ workflows:
             branches:
               only:
                 - staging
+          requires:
+            - hold-apply
+          stage: prod
+  infra-pr-tag:
+    jobs:
+      - setup-infra-workspace:
+          filters:
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
+      - tf-plan:
+          filters:
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
+          name: tf-plan-ci
+          requires:
+            - setup-infra-workspace
+          stage: ci
+      - tf-apply:
+          filters:
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
+          name: tf-apply-ci
+          requires:
+            - tf-plan-ci
+          stage: ci
+      - docker-web:
+          context:
+            - prod
+          filters:
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
+          requires:
+            - tf-apply-ci
+      - docker-api:
+          context:
+            - prod
+          filters:
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
+          requires:
+            - tf-apply-ci
+      - docker-sites:
+          context:
+            - prod
+          filters:
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
+          requires:
+            - tf-apply-ci
+      - docker-landing:
+          context:
+            - prod
+          filters:
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
+          requires:
+            - setup-infra-workspace
+      - tf-plan:
+          filters:
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
+          requires:
+            - docker-web
+            - docker-api
+            - docker-sites
+            - docker-landing
+          stage: prod
+      - hold-apply:
+          filters:
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
+          requires:
+            - tf-plan
+          type: approval
+      - tf-apply:
+          filters:
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
           requires:
             - hold-apply
           stage: prod
