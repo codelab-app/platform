@@ -946,7 +946,7 @@ workflows:
               only:
                 - staging
           requires:
-            - tf-apply-ci
+            - setup-infra-workspace
       - docker-api:
           context:
             - prod
@@ -955,7 +955,7 @@ workflows:
               only:
                 - staging
           requires:
-            - tf-apply-ci
+            - setup-infra-workspace
       - docker-sites:
           context:
             - prod
@@ -964,7 +964,7 @@ workflows:
               only:
                 - staging
           requires:
-            - tf-apply-ci
+            - setup-infra-workspace
       - docker-landing:
           context:
             - prod
@@ -1005,10 +1005,14 @@ workflows:
     jobs:
       - setup-infra-workspace:
           filters:
+            branches:
+              ignore: /.*/
             tags:
               only: /^[0-9]+\.[0-9]+\.[0-9]+$/
       - tf-plan:
           filters:
+            branches:
+              ignore: /.*/
             tags:
               only: /^[0-9]+\.[0-9]+\.[0-9]+$/
           name: tf-plan-ci
@@ -1017,6 +1021,8 @@ workflows:
           stage: ci
       - tf-apply:
           filters:
+            branches:
+              ignore: /.*/
             tags:
               only: /^[0-9]+\.[0-9]+\.[0-9]+$/
           name: tf-apply-ci
@@ -1027,36 +1033,46 @@ workflows:
           context:
             - prod
           filters:
+            branches:
+              ignore: /.*/
             tags:
               only: /^[0-9]+\.[0-9]+\.[0-9]+$/
           requires:
-            - tf-apply-ci
+            - setup-infra-workspace
       - docker-api:
           context:
             - prod
           filters:
+            branches:
+              ignore: /.*/
             tags:
               only: /^[0-9]+\.[0-9]+\.[0-9]+$/
           requires:
-            - tf-apply-ci
+            - setup-infra-workspace
       - docker-sites:
           context:
             - prod
           filters:
+            branches:
+              ignore: /.*/
             tags:
               only: /^[0-9]+\.[0-9]+\.[0-9]+$/
           requires:
-            - tf-apply-ci
+            - setup-infra-workspace
       - docker-landing:
           context:
             - prod
           filters:
+            branches:
+              ignore: /.*/
             tags:
               only: /^[0-9]+\.[0-9]+\.[0-9]+$/
           requires:
             - setup-infra-workspace
       - tf-plan:
           filters:
+            branches:
+              ignore: /.*/
             tags:
               only: /^[0-9]+\.[0-9]+\.[0-9]+$/
           requires:
@@ -1067,6 +1083,8 @@ workflows:
           stage: prod
       - hold-apply:
           filters:
+            branches:
+              ignore: /.*/
             tags:
               only: /^[0-9]+\.[0-9]+\.[0-9]+$/
           requires:
@@ -1074,6 +1092,8 @@ workflows:
           type: approval
       - tf-apply:
           filters:
+            branches:
+              ignore: /.*/
             tags:
               only: /^[0-9]+\.[0-9]+\.[0-9]+$/
           requires:
