@@ -55,7 +55,7 @@ if [ -n "$VERSION_TAG" ]; then
   echo "Found version tag: $VERSION_TAG"
   
   # Validate semantic version format
-  if ~/project/scripts/validate-git-tag.sh --validate-only "$VERSION_TAG"; then
+  if ./scripts/validate-git-tag.sh --validate-only "$VERSION_TAG"; then
     echo "✓ Version '$VERSION_TAG' is valid"
     echo "export DOCKER_TAG_VERSION=$VERSION_TAG" >> $BASH_ENV
     echo "export TF_VAR_DOCKER_TAG_VERSION=$VERSION_TAG" >> $BASH_ENV
