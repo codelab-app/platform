@@ -51,23 +51,7 @@ fi
 # Docker tag version from git tags
 #
 VERSION_TAG=$(git tag --points-at HEAD | grep -E "^[0-9]+\.[0-9]+\.[0-9]+$" | head -1)
-if [ -n "$VERSION_TAG" ]; then
-  echo "Found version tag: $VERSION_TAG"
-  
-  # Validate semantic version format
-  if ./scripts/validate-git-tag.sh --validate-only "$VERSION_TAG"; then
-    echo "✓ Version '$VERSION_TAG' is valid"
-    echo "export DOCKER_TAG_VERSION=$VERSION_TAG" >> $BASH_ENV
-    echo "export TF_VAR_DOCKER_TAG_VERSION=$VERSION_TAG" >> $BASH_ENV
-  else
-    echo "Error: Version '$VERSION_TAG' is not a valid semantic version"
-    exit 1
-  fi
-else
-  echo "No version tag found on current commit - using 'latest'"
-  echo "export DOCKER_TAG_VERSION=latest" >> $BASH_ENV
-  echo "export TF_VAR_DOCKER_TAG_VERSION=latest" >> $BASH_ENV
-fi
+eval "$(node ./scripts/validate-semver.js "$VERSION_TAG")"
 
 # Done
 source $BASH_ENV
