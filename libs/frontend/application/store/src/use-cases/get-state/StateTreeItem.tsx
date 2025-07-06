@@ -32,7 +32,7 @@ interface StateTreeItemProps {
 
 export const StateTreeItem = ({ context, data }: StateTreeItemProps) => {
   const { fieldDomainService } = useDomainStore()
-  const { createPopover, deletePopover, updatePopover } = useFieldService()
+  const { createPopover, removeMany, updatePopover } = useFieldService()
   const router = useRouter()
 
   const onEdit = () =>
@@ -41,11 +41,7 @@ export const StateTreeItem = ({ context, data }: StateTreeItemProps) => {
       context.update({ fieldId: data.extraData.node.id }),
     )
 
-  const onDelete = () =>
-    deletePopover.open(
-      router,
-      context.update({ fieldId: data.extraData.node.id }),
-    )
+  const onDelete = () => removeMany([data.extraData.node])
 
   const onAddField = () => {
     createPopover.open(
@@ -64,6 +60,7 @@ export const StateTreeItem = ({ context, data }: StateTreeItemProps) => {
       title: 'Edit field',
     },
     {
+      confirmText: `Are you sure you want to delete "${data.primaryTitle}"?`,
       cuiKey: UiKey.FieldToolbarItemDelete,
       icon: <DeleteOutlined />,
       onClick: onDelete,
