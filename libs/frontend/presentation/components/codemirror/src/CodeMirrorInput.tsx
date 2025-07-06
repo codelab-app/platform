@@ -64,6 +64,7 @@ export const CodeMirrorInput = ({
             'aria-label': title ?? '',
             id: props.id ?? '',
           }),
+          ...(props.extensions || []),
         ],
         onChange: (_value: string, view: ViewUpdate) => {
           onChange(_value)
