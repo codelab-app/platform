@@ -1,4 +1,4 @@
-import { appProductionRepository } from '@codelab/frontend-domain-app/repositories'
+import { pagePreviewQuery } from '@codelab/frontend-application-app/use-cases/page-preview'
 
 import { ClientProductionPage } from './component'
 
@@ -9,7 +9,7 @@ const ProductionPage = async ({
 }) => {
   const { domainSlug, pageSlug } = await params
   const pageUrlPattern = pageSlug ? `/${pageSlug}` : '/'
-  const dto = await appProductionRepository({ domainSlug, pageUrlPattern })
+  const dto = await pagePreviewQuery({ domainSlug, pageUrlPattern })
 
   return <ClientProductionPage dto={dto} />
 }

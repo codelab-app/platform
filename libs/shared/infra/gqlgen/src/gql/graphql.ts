@@ -31934,6 +31934,22 @@ export type OwnerFragment = { __typename?: 'User', id: string };
 
 export type UserFragment = { __typename?: 'User', auth0Id: string, email: string, id: string, roles?: Array<Role> | null, username: string, name: string, picture: string, apps: Array<{ __typename?: 'App', id: string }>, preferences: { __typename?: 'Preference', id: string, builderBreakpointType: BreakpointType, builderWidth: number, activeConfigPaneTab: ConfigPaneTab, owner: { __typename?: 'User', id: string } } };
 
+export type GetPagePreviewQueryVariables = Exact<{
+  appId: Scalars['ID']['input'];
+  pageUrlPattern: Scalars['String']['input'];
+}>;
+
+
+export type GetPagePreviewQuery = { __typename?: 'Query', apps: Array<{ __typename?: 'App', id: string, name: string, slug: string, owner: { __typename?: 'User', id: string }, pages: Array<{ __typename?: 'Page', id: string, kind: PageKind, name: string, slug: string, urlPattern: string, app: { __typename?: 'App', id: string }, elements: Array<{ __typename: 'Element', childMapperPropKey?: string | null, id: string, name: string, renderForEachPropKey?: string | null, renderIfExpression?: string | null, style?: string | null, tailwindClassNames?: Array<string> | null, childMapperComponent?: { __typename?: 'Component', id: string, name: string } | null, childMapperPreviousSibling?: { __typename?: 'Element', id: string } | null, firstChild?: { __typename?: 'Element', id: string } | null, nextSibling?: { __typename?: 'Element', id: string } | null, page?: { __typename?: 'Page', id: string } | null, parentComponent?: { __typename?: 'Component', id: string } | null, parentElement?: { __typename?: 'Element', id: string } | null, postRenderActions: Array<{ __typename?: 'ApiAction', id: string, type: ActionKind } | { __typename?: 'CodeAction', id: string, type: ActionKind }>, preRenderActions: Array<{ __typename?: 'ApiAction', id: string, type: ActionKind } | { __typename?: 'CodeAction', id: string, type: ActionKind }>, prevSibling?: { __typename?: 'Element', id: string } | null, props: { __typename?: 'Prop', data: string, id: string }, renderType: { __typename: 'Atom', externalCssSource?: string | null, externalJsSource?: string | null, externalSourceType?: string | null, icon?: string | null, id: string, name: string, type: AtomType, requiredParents: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, suggestedChildren: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }> } | { __typename: 'Component', id: string } }>, pageContentContainer?: { __typename?: 'Element', id: string } | null, redirect?: { __typename?: 'Redirect', id: string } | null, rootElement: { __typename?: 'Element', id: string }, store: { __typename?: 'Store', id: string, name: string, actions: Array<{ __typename: 'ApiAction', id: string, name: string, type: ActionKind, config: { __typename?: 'Prop', data: string, id: string }, errorAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, resource: { __typename?: 'Resource', id: string, name: string, type: ResourceType, config: { __typename?: 'Prop', data: string, id: string }, owner: { __typename?: 'User', id: string } }, successAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', code: string, id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } }>, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } } } }> }>, atoms: Array<{ __typename: 'Atom', externalCssSource?: string | null, externalJsSource?: string | null, externalSourceType?: string | null, icon?: string | null, id: string, name: string, type: AtomType, requiredParents: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, suggestedChildren: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }> }>, resources: Array<{ __typename?: 'Resource', id: string, name: string, type: ResourceType, config: { __typename?: 'Prop', data: string, id: string }, owner: { __typename?: 'User', id: string } }> };
+
+export type GetPageProductionQueryVariables = Exact<{
+  domain: Scalars['String']['input'];
+  pageUrlPattern: Scalars['String']['input'];
+}>;
+
+
+export type GetPageProductionQuery = { __typename?: 'Query', apps: Array<{ __typename?: 'App', id: string, name: string, slug: string, owner: { __typename?: 'User', id: string }, pages: Array<{ __typename?: 'Page', id: string, kind: PageKind, name: string, slug: string, urlPattern: string, app: { __typename?: 'App', id: string }, elements: Array<{ __typename: 'Element', childMapperPropKey?: string | null, id: string, name: string, renderForEachPropKey?: string | null, renderIfExpression?: string | null, style?: string | null, tailwindClassNames?: Array<string> | null, childMapperComponent?: { __typename?: 'Component', id: string, name: string } | null, childMapperPreviousSibling?: { __typename?: 'Element', id: string } | null, firstChild?: { __typename?: 'Element', id: string } | null, nextSibling?: { __typename?: 'Element', id: string } | null, page?: { __typename?: 'Page', id: string } | null, parentComponent?: { __typename?: 'Component', id: string } | null, parentElement?: { __typename?: 'Element', id: string } | null, postRenderActions: Array<{ __typename?: 'ApiAction', id: string, type: ActionKind } | { __typename?: 'CodeAction', id: string, type: ActionKind }>, preRenderActions: Array<{ __typename?: 'ApiAction', id: string, type: ActionKind } | { __typename?: 'CodeAction', id: string, type: ActionKind }>, prevSibling?: { __typename?: 'Element', id: string } | null, props: { __typename?: 'Prop', data: string, id: string }, renderType: { __typename: 'Atom', externalCssSource?: string | null, externalJsSource?: string | null, externalSourceType?: string | null, icon?: string | null, id: string, name: string, type: AtomType, requiredParents: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, suggestedChildren: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }> } | { __typename: 'Component', id: string } }>, pageContentContainer?: { __typename?: 'Element', id: string } | null, redirect?: { __typename?: 'Redirect', id: string } | null, rootElement: { __typename?: 'Element', id: string }, store: { __typename?: 'Store', id: string, name: string, actions: Array<{ __typename: 'ApiAction', id: string, name: string, type: ActionKind, config: { __typename?: 'Prop', data: string, id: string }, errorAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, resource: { __typename?: 'Resource', id: string, name: string, type: ResourceType, config: { __typename?: 'Prop', data: string, id: string }, owner: { __typename?: 'User', id: string } }, successAction?: { __typename: 'ApiAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } } | null, store: { __typename?: 'Store', id: string, name: string } } | { __typename: 'CodeAction', code: string, id: string, name: string, type: ActionKind, store: { __typename?: 'Store', id: string, name: string } }>, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, fields: Array<{ __typename: 'Field', defaultValues?: string | null, description?: string | null, id: string, key: string, name?: string | null, validationRules?: string | null, api: { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, fieldType: { __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }, nextSibling?: { __typename?: 'Field', id: string } | null, prevSibling?: { __typename?: 'Field', id: string } | null }>, owner: { __typename?: 'User', id: string } } } }> }>, atoms: Array<{ __typename: 'Atom', externalCssSource?: string | null, externalJsSource?: string | null, externalSourceType?: string | null, icon?: string | null, id: string, name: string, type: AtomType, requiredParents: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }>, suggestedChildren: Array<{ __typename?: 'Atom', id: string, name: string, type: AtomType }> }>, resources: Array<{ __typename?: 'Resource', id: string, name: string, type: ResourceType, config: { __typename?: 'Prop', data: string, id: string }, owner: { __typename?: 'User', id: string } }> };
+
 export type GetPageBuilderQueryVariables = Exact<{
   appId: Scalars['ID']['input'];
   pageIds?: InputMaybe<Array<Scalars['ID']['input']> | Scalars['ID']['input']>;
@@ -36866,6 +36882,474 @@ export const UserFragmentDoc = new TypedDocumentString(`
     id
   }
 }`, {"fragmentName":"User"}) as unknown as TypedDocumentString<UserFragment, unknown>;
+export const GetPagePreviewDocument = new TypedDocumentString(`
+    query GetPagePreview($appId: ID!, $pageUrlPattern: String!) {
+  apps(where: {id: $appId}) {
+    ...AppProduction
+  }
+  atoms(where: {type: ReactFragment}) {
+    ...AtomProduction
+  }
+  resources {
+    ...Resource
+  }
+}
+    fragment BaseAction on BaseAction {
+  __typename
+  id
+  name
+  type
+  store {
+    id
+    name
+  }
+}
+fragment Action on BaseAction {
+  ...BaseAction
+  ... on CodeAction {
+    ...CodeAction
+  }
+  ... on ApiAction {
+    ...ApiAction
+  }
+}
+fragment ApiAction on ApiAction {
+  ...BaseAction
+  config {
+    data
+    id
+  }
+  errorAction {
+    ...BaseAction
+  }
+  resource {
+    ...Resource
+  }
+  successAction {
+    ...BaseAction
+  }
+}
+fragment CodeAction on CodeAction {
+  ...BaseAction
+  code
+}
+fragment AppProduction on App {
+  id
+  name
+  owner {
+    ...Owner
+  }
+  pages(where: {OR: [{urlPattern: $pageUrlPattern}, {kind: Provider}]}) {
+    ...PageProduction
+  }
+  slug
+}
+fragment AtomProduction on Atom {
+  __typename
+  externalCssSource
+  externalJsSource
+  externalSourceType
+  icon
+  id
+  name
+  requiredParents {
+    id
+    name
+    type
+  }
+  suggestedChildren {
+    id
+    name
+    type
+  }
+  type
+}
+fragment ElementRenderTypeProduction on ElementRenderType {
+  ... on Atom {
+    __typename
+    ...AtomProduction
+  }
+  ... on Component {
+    __typename
+    id
+  }
+}
+fragment ElementProduction on Element {
+  __typename
+  childMapperComponent {
+    id
+    name
+  }
+  childMapperPreviousSibling {
+    id
+  }
+  childMapperPropKey
+  firstChild {
+    id
+  }
+  id
+  name
+  nextSibling {
+    id
+  }
+  page {
+    id
+  }
+  parentComponent {
+    id
+  }
+  parentElement {
+    id
+  }
+  postRenderActions {
+    id
+    type
+  }
+  preRenderActions {
+    id
+    type
+  }
+  prevSibling {
+    id
+  }
+  props {
+    ...Prop
+  }
+  renderForEachPropKey
+  renderIfExpression
+  renderType {
+    ...ElementRenderTypeProduction
+  }
+  style
+  tailwindClassNames
+}
+fragment PageProduction on Page {
+  app {
+    id
+  }
+  elements {
+    ...ElementProduction
+  }
+  id
+  kind
+  name
+  pageContentContainer {
+    id
+  }
+  redirect {
+    id
+  }
+  rootElement {
+    id
+  }
+  slug
+  store {
+    ...Store
+  }
+  urlPattern
+}
+fragment Prop on Prop {
+  data
+  id
+}
+fragment Resource on Resource {
+  config {
+    ...Prop
+  }
+  id
+  name
+  type
+  owner {
+    id
+  }
+}
+fragment Store on Store {
+  actions {
+    ...Action
+  }
+  api {
+    ...InterfaceType
+  }
+  id
+  name
+}
+fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+  owner {
+    id
+  }
+}
+fragment Field on Field {
+  __typename
+  api {
+    ... on InterfaceType {
+      ...BaseType
+    }
+  }
+  defaultValues
+  description
+  fieldType {
+    ... on IBaseType {
+      ...BaseType
+    }
+  }
+  id
+  key
+  name
+  nextSibling {
+    id
+  }
+  prevSibling {
+    id
+  }
+  validationRules
+}
+fragment InterfaceType on InterfaceType {
+  ...BaseType
+  fields {
+    ...Field
+  }
+}
+fragment Owner on User {
+  id
+}`) as unknown as TypedDocumentString<GetPagePreviewQuery, GetPagePreviewQueryVariables>;
+export const GetPageProductionDocument = new TypedDocumentString(`
+    query GetPageProduction($domain: String!, $pageUrlPattern: String!) {
+  apps(where: {domains_SOME: {name_IN: [$domain]}}) {
+    ...AppProduction
+  }
+  atoms(where: {type: ReactFragment}) {
+    ...AtomProduction
+  }
+  resources {
+    ...Resource
+  }
+}
+    fragment BaseAction on BaseAction {
+  __typename
+  id
+  name
+  type
+  store {
+    id
+    name
+  }
+}
+fragment Action on BaseAction {
+  ...BaseAction
+  ... on CodeAction {
+    ...CodeAction
+  }
+  ... on ApiAction {
+    ...ApiAction
+  }
+}
+fragment ApiAction on ApiAction {
+  ...BaseAction
+  config {
+    data
+    id
+  }
+  errorAction {
+    ...BaseAction
+  }
+  resource {
+    ...Resource
+  }
+  successAction {
+    ...BaseAction
+  }
+}
+fragment CodeAction on CodeAction {
+  ...BaseAction
+  code
+}
+fragment AppProduction on App {
+  id
+  name
+  owner {
+    ...Owner
+  }
+  pages(where: {OR: [{urlPattern: $pageUrlPattern}, {kind: Provider}]}) {
+    ...PageProduction
+  }
+  slug
+}
+fragment AtomProduction on Atom {
+  __typename
+  externalCssSource
+  externalJsSource
+  externalSourceType
+  icon
+  id
+  name
+  requiredParents {
+    id
+    name
+    type
+  }
+  suggestedChildren {
+    id
+    name
+    type
+  }
+  type
+}
+fragment ElementRenderTypeProduction on ElementRenderType {
+  ... on Atom {
+    __typename
+    ...AtomProduction
+  }
+  ... on Component {
+    __typename
+    id
+  }
+}
+fragment ElementProduction on Element {
+  __typename
+  childMapperComponent {
+    id
+    name
+  }
+  childMapperPreviousSibling {
+    id
+  }
+  childMapperPropKey
+  firstChild {
+    id
+  }
+  id
+  name
+  nextSibling {
+    id
+  }
+  page {
+    id
+  }
+  parentComponent {
+    id
+  }
+  parentElement {
+    id
+  }
+  postRenderActions {
+    id
+    type
+  }
+  preRenderActions {
+    id
+    type
+  }
+  prevSibling {
+    id
+  }
+  props {
+    ...Prop
+  }
+  renderForEachPropKey
+  renderIfExpression
+  renderType {
+    ...ElementRenderTypeProduction
+  }
+  style
+  tailwindClassNames
+}
+fragment PageProduction on Page {
+  app {
+    id
+  }
+  elements {
+    ...ElementProduction
+  }
+  id
+  kind
+  name
+  pageContentContainer {
+    id
+  }
+  redirect {
+    id
+  }
+  rootElement {
+    id
+  }
+  slug
+  store {
+    ...Store
+  }
+  urlPattern
+}
+fragment Prop on Prop {
+  data
+  id
+}
+fragment Resource on Resource {
+  config {
+    ...Prop
+  }
+  id
+  name
+  type
+  owner {
+    id
+  }
+}
+fragment Store on Store {
+  actions {
+    ...Action
+  }
+  api {
+    ...InterfaceType
+  }
+  id
+  name
+}
+fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+  owner {
+    id
+  }
+}
+fragment Field on Field {
+  __typename
+  api {
+    ... on InterfaceType {
+      ...BaseType
+    }
+  }
+  defaultValues
+  description
+  fieldType {
+    ... on IBaseType {
+      ...BaseType
+    }
+  }
+  id
+  key
+  name
+  nextSibling {
+    id
+  }
+  prevSibling {
+    id
+  }
+  validationRules
+}
+fragment InterfaceType on InterfaceType {
+  ...BaseType
+  fields {
+    ...Field
+  }
+}
+fragment Owner on User {
+  id
+}`) as unknown as TypedDocumentString<GetPageProductionQuery, GetPageProductionQueryVariables>;
 export const GetPageBuilderDocument = new TypedDocumentString(`
     query GetPageBuilder($appId: ID!, $pageIds: [ID!]) {
   actionTypes {

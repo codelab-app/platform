@@ -18,6 +18,7 @@
     "serve": "NX_TUI=true nx run-many --target=serve --projects=api,web --parallel",
     "serve:sites": "NX_TUI=true nx run-many --target=serve --projects=api,web,sites --parallel",
     "serve:test": "NX_TUI=false nx run-many --target=serve --projects=api,web --parallel -c test",
+    "serve:sites:test": "NX_TUI=true nx run-many --target=serve --projects=api,web,sites --parallel -c test",
     "caddy": "caddy run --config scripts/caddy/Caddyfile",
     "e2e": "nx e2e-ui web-e2e -c test",
     "e2e:web": "nx serve web -c test",
