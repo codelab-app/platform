@@ -914,11 +914,6 @@
     "path": "libs/frontend/application/store/src/use-cases/create-action/index.ts",
     "name": null
   },
-  "@codelab/frontend-application-store/use-cases/delete-action": {
-    "expected": "@codelab/frontend-application-store/use-cases/delete-action",
-    "path": "libs/frontend/application/store/src/use-cases/delete-action/index.ts",
-    "name": null
-  },
   "@codelab/frontend-application-store/use-cases/get-actions": {
     "expected": "@codelab/frontend-application-store/use-cases/get-actions",
     "path": "libs/frontend/application/store/src/use-cases/get-actions/index.ts",

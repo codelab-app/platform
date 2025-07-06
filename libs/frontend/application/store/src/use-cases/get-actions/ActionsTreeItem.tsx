@@ -26,12 +26,13 @@ interface ActionsTreeItemProps {
 }
 
 export const ActionsTreeItem = ({ context, data }: ActionsTreeItemProps) => {
-  const { deletePopover, updatePopover } = useActionService()
+  const { removeMany, updatePopover } = useActionService()
   const router = useRouter()
   const actionId = data.extraData.node.id
+  const action = data.extraData.node
 
   const onDelete = () => {
-    deletePopover.open(router, mergeDeep(context, { params: { actionId } }))
+    return removeMany([action])
   }
 
   const onEdit = () => {
@@ -46,6 +47,7 @@ export const ActionsTreeItem = ({ context, data }: ActionsTreeItemProps) => {
       title: 'Update Action',
     },
     {
+      confirmText: `Are you sure you want to delete "${action.name}"?`,
       cuiKey: UiKey.ActionToolbarItemDelete,
       icon: <DeleteOutlined />,
       onClick: onDelete,
