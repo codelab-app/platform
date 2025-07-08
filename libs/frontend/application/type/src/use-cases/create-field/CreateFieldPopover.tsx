@@ -98,8 +98,8 @@ export const CreateFieldPopover = ({ context }: CreateFieldPopoverProps) => {
       {formStep === FieldFormStep.DefaultValueFormStep && formState && (
         <FieldDefaultValueForm
           fieldType={formState.fieldType}
-          onSubmit={async (data) => {
-            await fieldService.create({
+          onSubmit={(data) => {
+            fieldService.create({
               ...formState,
               defaultValues: data.defaultValues,
             })

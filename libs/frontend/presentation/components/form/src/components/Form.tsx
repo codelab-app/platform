@@ -21,6 +21,7 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
   filterDOMProps.register('isTypedProp')
   filterDOMProps.register('forbiddenValues')
   filterDOMProps.register('decimal')
+  filterDOMProps.register('defaultExpression')
 
   const Form = <TData extends ObjectLike, TResponse = unknown>(
     props: React.PropsWithChildren<FormProps<TData, TResponse>>,

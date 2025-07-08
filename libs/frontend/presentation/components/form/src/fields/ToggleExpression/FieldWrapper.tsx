@@ -1,3 +1,5 @@
+import type { ObjectLike } from '@codelab/shared/abstract/types'
+import type { FormItemProps } from 'antd'
 import type { Override } from 'uniforms'
 
 import QuestionCircleOutlined from '@ant-design/icons/QuestionCircleOutlined'
@@ -5,6 +7,24 @@ import { Button, Flex } from 'antd'
 import { Form } from 'antd/lib'
 import Tooltip from 'antd/lib/tooltip'
 import styled from 'styled-components'
+
+export interface ToggleProps {
+  isExpression: boolean
+  toggle(): void
+}
+
+export type WrapperProps = Override<
+  FormItemProps,
+  {
+    error?: unknown
+    errorMessage?: string
+    info?: string
+    showInlineError?: boolean
+    wrapperStyle?: ObjectLike
+  }
+>
+
+export interface FieldWrapperProps extends WrapperProps, ToggleProps {}
 
 const StyledFormItem = styled(Form.Item)`
   .ant-form-item-label {
@@ -22,19 +42,6 @@ const StyledFormItem = styled(Form.Item)`
     }
   }
 `
-
-export type FieldWrapperProps = Override<
-  FormItemProps,
-  {
-    error?: unknown
-    errorMessage?: string
-    info?: string
-    showInlineError?: boolean
-    wrapperStyle?: ObjectLike
-    isExpression: boolean
-    toggle(): void
-  }
->
 
 export const FieldWrapper = ({
   children,
