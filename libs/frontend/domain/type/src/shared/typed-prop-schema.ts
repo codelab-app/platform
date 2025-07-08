@@ -1,8 +1,11 @@
-import type {
-  ITypeModel,
-  ITypeTransformContext,
-  JsonSchema,
+import {
+  PropKind,
+  type ITypeModel,
+  type ITypeTransformContext,
+  type JsonSchema,
 } from '@codelab/frontend-abstract-domain'
+import { GeneralValidationRules } from '@codelab/shared-abstract-core'
+import { titleCase } from '@codelab/shared-utils'
 
 import { HiddenField } from 'uniforms-antd'
 
@@ -30,6 +33,7 @@ export const typedPropSchema = (
         default: PropKind.TypedProp,
         enum: [PropKind.TypedProp],
         type: 'string',
+        uniforms: { component: HiddenField },
       },
       type: {
         default: id,
@@ -38,14 +42,16 @@ export const typedPropSchema = (
         uniforms: { component: HiddenField },
       },
       value: {
-        label: fieldName ?? '',
+        label: fieldName ? titleCase(fieldName) : '',
         ...(uniformSchema?.(type) ?? {}),
+        type: 'string',
       },
     },
-    ...validationRules?.general,
     ...(defaultValues ? { default: defaultValues } : {}),
     label: '',
-    required: ['type', 'kind'],
+    required: validationRules?.general?.[GeneralValidationRules.Nullable]
+      ? ['type', 'kind']
+      : ['type', 'kind', 'value'],
     type: 'object',
   }
 }

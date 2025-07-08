@@ -13,6 +13,7 @@ import type {
 } from '../runtime.model.interface'
 import type { IRuntimeElementStyleModel } from './runtime-element-style.model.interface'
 import type { IRuntimeElementDto } from './runtime-element.dto'
+import { Completion } from '@codemirror/autocomplete'
 
 /**
  * This model is the runtime model for IElementModel
@@ -46,6 +47,7 @@ export interface IRuntimeElementModel extends IBaseRuntimeModel {
    * to generate correct compositeKey for children too
    */
   propKey?: string
+  propKeyAutoCompleteOptions: Array<Completion>
   propsHaveErrors: boolean
   renderedChildren: ArrayOrSingle<ReactNode>
   /**

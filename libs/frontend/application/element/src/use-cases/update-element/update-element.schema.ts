@@ -13,7 +13,7 @@ import {
   requiredMsg,
   titleCasePatternMsg,
 } from '@codelab/frontend-shared-utils'
-import { PropKeyField } from '../../components/PropKeyField'
+import { ExpressionAutoCompleteField } from '@codelab/frontend-presentation-components-form'
 
 export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
   properties: {
@@ -91,7 +91,7 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
       nullable: true,
       type: 'string',
       uniforms: {
-        component: PropKeyField,
+        component: ExpressionAutoCompleteField,
       },
       extra:
         'The key used to get the data from state e.g. `state.products`, `rootState.products`. Data source needs to be an array',

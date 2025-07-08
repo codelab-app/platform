@@ -470,6 +470,9 @@ importers:
       input-otp:
         specifier: 1.2.4
         version: 1.2.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      invariant:
+        specifier: ^2.2.4
+        version: 2.2.4
       isolated-vm:
         specifier: 5.0.4
         version: 5.0.4
@@ -966,6 +969,9 @@ importers:
       '@types/glob':
         specifier: 8.1.0
         version: 8.1.0
+      '@types/invariant':
+        specifier: ^2.2.37
+        version: 2.2.37
       '@types/jest':
         specifier: 29.5.12
         version: 29.5.12
@@ -7404,6 +7410,9 @@ packages:
 
   '@types/http-proxy@1.17.15':
     resolution: {integrity: sha512-25g5atgiVNTIv0LBDTg1H74Hvayx0ajtJPLLcYE3whFv75J0pWNtOBzaXJQgDTmrX1bx5U9YC2w/n65BN1HwRQ==}
+
+  '@types/invariant@2.2.37':
+    resolution: {integrity: sha512-IwpIMieE55oGWiXkQPSBY1nw1nFs6bsKXTFskNY8sdS17K24vyEBRQZEwlRS7ZmXCWnJcQtbxWzly+cODWGs2A==}
 
   '@types/istanbul-lib-coverage@2.0.6':
     resolution: {integrity: sha512-2QF/t/auWm0lsy8XtKVPG19v3sSOQlJe/YHZgfjb/KBBHOGSV+J2q/S671rcq9uTBrLAXmZpqJiaQbMT+zNU1w==}
@@ -26672,6 +26681,8 @@ snapshots:
   '@types/http-proxy@1.17.15':
     dependencies:
       '@types/node': 22.13.5
+
+  '@types/invariant@2.2.37': {}
 
   '@types/istanbul-lib-coverage@2.0.6': {}
 

@@ -12,21 +12,14 @@ import type { JSONSchemaType } from 'ajv'
 
 import { UiKey } from '@codelab/frontend/abstract/types'
 import { uniformSchemaFactory } from '@codelab/frontend/presentation/components/interface-form'
-import {
-  maxLengthMsg,
-  minLengthMsg,
-  pattrenMsg,
-  requiredMsg,
-} from '@codelab/frontend/shared/utils'
 import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
-import { Form } from '@codelab/frontend-presentation-components-form'
 import {
-  GeneralValidationRules,
-  StringValidationRules,
-} from '@codelab/shared/abstract/core'
+  ExpressionAutoField,
+  Form,
+} from '@codelab/frontend-presentation-components-form'
+import { GeneralValidationRules } from '@codelab/shared/abstract/core'
 import { PrimitiveTypeKind } from '@codelab/shared/infra/gqlgen'
 import { useMemo } from 'react'
-import { AutoFields } from 'uniforms-antd'
 
 interface FieldDefaultValueFormProps extends IFormController {
   fieldType: IRef
@@ -49,28 +42,32 @@ export const FieldDefaultValueForm = ({
   // This prevents a nullable boolean when switching from another type to boolean
   // Cant move this yet to ajv schema since fieldType is id and cannot determine primitive kind
   const isRequired = primitiveKind === PrimitiveTypeKind.Boolean || !nullabel
-  const minLength = validationRules?.String?.[StringValidationRules.MinLength]
-  const maxLength = validationRules?.String?.[StringValidationRules.MaxLength]
-  const pattren = validationRules?.String?.[StringValidationRules.Pattern]
+  // const minLength = validationRules?.String?.[StringValidationRules.MinLength]
+  // const maxLength = validationRules?.String?.[StringValidationRules.MaxLength]
+  // const pattren = validationRules?.String?.[StringValidationRules.Pattern]
+  // errors: {
+  //   defaultValues: {
+  //     value: {
+  //       maxLength: maxLengthMsg('Default Value', maxLength ?? 9999),
+  //       minLength: minLengthMsg('Default Value', minLength ?? 0),
+  //       pattren: pattren ? pattrenMsg('Default Value', pattren) : undefined,
+  //       required: isRequired ? requiredMsg('Default Value') : undefined,
+  //     },
+  //   },
+  // },
 
+  // @ts-expect-error maybe we can solve this using union
   const schema: JSONSchemaType<IFieldDefaultValueFormData> = useMemo(
     () => ({
-      errors: {
-        defaultValues: {
-          maxLength: maxLengthMsg('Default Values', maxLength ?? 9999),
-          minLength: minLengthMsg('Default Values', minLength ?? 0),
-          pattren: pattren ? pattrenMsg('Default Values', pattren) : undefined,
-          required: isRequired ? requiredMsg('Default Values') : undefined,
-        },
-      },
       label: '',
       properties: {
         defaultValues: type.toJsonSchema({
+          fieldName: 'defaultValues',
           uniformSchema: uniformSchemaFactory,
           validationRules: validationRules,
         }),
       },
-      required: isRequired ? ['defaultValues'] : [],
+      required: ['defaultValues'],
       type: 'object',
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -88,7 +85,7 @@ export const FieldDefaultValueForm = ({
       successMessage="Field created successfully"
       uiKey={UiKey.FieldFormSelectDefaultValue}
     >
-      <AutoFields />
+      <ExpressionAutoField name="defaultValues" />
     </Form>
   )
 }
