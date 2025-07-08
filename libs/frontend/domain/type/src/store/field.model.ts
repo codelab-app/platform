@@ -155,12 +155,12 @@ export class Field
   // TODO: figure out how to use context
   toJsonSchema(context: ITypeTransformContext): JsonSchema {
     return {
-      ...(this.description ? { help: this.description } : {}),
+      ...(this.description ? { extra: this.description } : {}),
       label: this.name || titleCase(this.key),
       ...this.type.current.toJsonSchema({
         ...context,
         defaultValues: this.defaultValues,
-        fieldName: this.name || titleCase(this.key),
+        fieldName: this.key,
         uniformSchema: context.uniformSchema,
         validationRules: this.validationRules,
       }),

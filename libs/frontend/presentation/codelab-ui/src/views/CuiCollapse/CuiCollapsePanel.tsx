@@ -1,5 +1,7 @@
 'use client'
 
+import type { UiKey } from '@codelab/frontend/abstract/types'
+
 import { Fragment, useState } from 'react'
 
 import type { CuiSidebarToolbarProps } from '../CuiSidebarToolbar'
@@ -18,27 +20,51 @@ export interface CuiCollapsePanelItemsProps {
 interface CuiCollapsePanelProps {
   defaultActivePanels?: Array<string>
   items: Array<CuiCollapsePanelItemsProps>
+  uiKey: UiKey
+}
+
+const getLocalStorageKey = (uiKey: UiKey) => `${uiKey}-active-panels`
+
+const getDefaultActivePanels = (items: Array<string>) =>
+  items.reduce(
+    (acc, panelKey) => ({
+      ...acc,
+      [panelKey]: true,
+    }),
+    {},
+  )
+
+const getStoredActivePanels = (uiKey: UiKey) => {
+  const storedActivePanels = localStorage.getItem(getLocalStorageKey(uiKey))
+
+  return storedActivePanels ? JSON.parse(storedActivePanels) : undefined
+}
+
+const storeActivePanels = (
+  uiKey: UiKey,
+  activePanels: Record<string, boolean>,
+) => {
+  localStorage.setItem(getLocalStorageKey(uiKey), JSON.stringify(activePanels))
 }
 
 export const CuiCollapsePanel = ({
   defaultActivePanels,
   items,
+  uiKey,
 }: CuiCollapsePanelProps) => {
   const [activePanels, setActivePanels] = useState<Record<string, boolean>>(
-    defaultActivePanels?.reduce(
-      (acc, panelKey) => ({
-        ...acc,
-        [panelKey]: true,
-      }),
-      {},
-    ) || {},
+    getStoredActivePanels(uiKey) ||
+      getDefaultActivePanels(defaultActivePanels ?? []),
   )
 
   const updateActivePanel = (key: string, expanded: boolean) => {
-    setActivePanels({
+    const active = {
       ...activePanels,
       [key]: expanded,
-    })
+    }
+
+    setActivePanels(active)
+    storeActivePanels(uiKey, active)
   }
 
   return (

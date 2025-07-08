@@ -24,7 +24,7 @@ export const FormModal = <TData extends ObjectLike>({
   return (
     <Modal
       // This is needed, because otherwise form values persist even after closing the modal
-      destroyOnClose
+      destroyOnHidden
       okButtonProps={{
         htmlType: 'submit',
         // Pass down any button props we get from the modalProps prop

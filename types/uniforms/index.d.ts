@@ -6,5 +6,6 @@ declare module 'uniforms' {
     isTypedProp: boolean
     forbiddenValues: Array<string>
     decimal: boolean
+    defaultExpression: string
   }
 }

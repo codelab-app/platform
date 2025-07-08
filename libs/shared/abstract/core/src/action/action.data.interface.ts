@@ -1,3 +1,5 @@
+import type { ObjectLike } from '@codelab/shared/abstract/types'
+
 import type { IRef } from '../model'
 import type { IResourceFetchConfig } from '../resource'
 import type { IActionKind } from './action-kind.enum'
@@ -5,7 +7,7 @@ import type { IActionKind } from './action-kind.enum'
 /**
  * Base
  */
-export interface IBaseActionCreateFormData {
+export interface IBaseActionCreateFormData extends ObjectLike {
   id: string
   name: string
   store: IRef

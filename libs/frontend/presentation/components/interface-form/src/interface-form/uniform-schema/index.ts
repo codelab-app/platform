@@ -17,7 +17,7 @@ import { lambdaTypeUniformSchema } from './lambda-type-uniform.schema'
 import { pageTypeUniformSchema } from './page-type-uniform.schema'
 import { primitiveTypeUniformSchema } from './primitive-uniform.schema'
 import { richTextTypeUniformSchema } from './rich-text-type-uniform.schema'
-import { selectComponentUniformSchema } from './select-component-uniform.schema'
+import { componentUniformSchema } from './select-component-uniform.schema'
 import { unionTypeUniformSchema } from './union-type-uniform.schema'
 
 export type InterfaceFormContext = ITypeTransformContext & {
@@ -53,9 +53,9 @@ export const uniformSchemaFactory = (
     case ITypeKind.PrimitiveType:
       return primitiveTypeUniformSchema(type, autocomplete)
     case ITypeKind.ReactNodeType:
-      return selectComponentUniformSchema(type, autocomplete)
+      return componentUniformSchema(type, autocomplete)
     case ITypeKind.RenderPropType:
-      return selectComponentUniformSchema(type, autocomplete)
+      return componentUniformSchema(type, autocomplete)
     case ITypeKind.RichTextType:
       return richTextTypeUniformSchema(type, autocomplete)
     case ITypeKind.UnionType:

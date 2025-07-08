@@ -1,5 +1,5 @@
 import type { ITypeDomainService } from '@codelab/frontend-abstract-domain'
-import type { IValidationRules } from '@codelab/shared-abstract-core'
+import type { IRef, IValidationRules } from '@codelab/shared-abstract-core'
 import type { Maybe, Nullish } from '@codelab/shared-abstract-types'
 
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared-abstract-core'
@@ -7,7 +7,7 @@ import { pick } from 'remeda'
 
 type FieldCondition = (
   typeDomainService: ITypeDomainService,
-  fieldTypeId: Maybe<string>,
+  fieldType: Maybe<IRef>,
 ) => boolean
 
 export const filterValidationRules = (
@@ -29,23 +29,25 @@ export const filterValidationRules = (
 
 export const isPrimitive: FieldCondition = (typeDomainService, fieldType) =>
   Boolean(
-    fieldType &&
-      typeDomainService.types.has(fieldType) &&
-      typeDomainService.type(fieldType).kind === ITypeKind.PrimitiveType,
+    fieldType?.id &&
+      typeDomainService.types.has(fieldType.id) &&
+      typeDomainService.type(fieldType.id).kind === ITypeKind.PrimitiveType,
   )
 
 export const isString: FieldCondition = (typeDomainService, fieldType) =>
   Boolean(
-    fieldType &&
-      typeDomainService.types.has(fieldType) &&
-      typeDomainService.primitiveKind(fieldType) === IPrimitiveTypeKind.String,
+    fieldType?.id &&
+      typeDomainService.types.has(fieldType.id) &&
+      typeDomainService.primitiveKind(fieldType.id) ===
+        IPrimitiveTypeKind.String,
   )
 
 export const isInteger: FieldCondition = (typeDomainService, fieldType) =>
   Boolean(
-    fieldType &&
-      typeDomainService.types.has(fieldType) &&
-      typeDomainService.primitiveKind(fieldType) === IPrimitiveTypeKind.Integer,
+    fieldType?.id &&
+      typeDomainService.types.has(fieldType.id) &&
+      typeDomainService.primitiveKind(fieldType.id) ===
+        IPrimitiveTypeKind.Integer,
   )
 
 export const canSetDefaultValue: FieldCondition = (
@@ -53,24 +55,26 @@ export const canSetDefaultValue: FieldCondition = (
   fieldType,
 ) => {
   return Boolean(
-    fieldType &&
-      typeDomainService.types.has(fieldType) &&
-      typeDomainService.type(fieldType).kind !== ITypeKind.InterfaceType &&
-      typeDomainService.type(fieldType).kind !== ITypeKind.ReactNodeType &&
-      typeDomainService.type(fieldType).kind !== ITypeKind.ActionType,
+    fieldType?.id &&
+      typeDomainService.types.has(fieldType.id) &&
+      typeDomainService.type(fieldType.id).kind !== ITypeKind.InterfaceType &&
+      typeDomainService.type(fieldType.id).kind !== ITypeKind.ReactNodeType &&
+      typeDomainService.type(fieldType.id).kind !== ITypeKind.ActionType,
   )
 }
 
 export const isFloat: FieldCondition = (typeDomainService, fieldType) =>
   Boolean(
-    fieldType &&
-      typeDomainService.types.has(fieldType) &&
-      typeDomainService.primitiveKind(fieldType) === IPrimitiveTypeKind.Number,
+    fieldType?.id &&
+      typeDomainService.types.has(fieldType.id) &&
+      typeDomainService.primitiveKind(fieldType.id) ===
+        IPrimitiveTypeKind.Number,
   )
 
 export const isBoolean: FieldCondition = (typeDomainService, fieldType) =>
   Boolean(
-    fieldType &&
-      typeDomainService.types.has(fieldType) &&
-      typeDomainService.primitiveKind(fieldType) === IPrimitiveTypeKind.Boolean,
+    fieldType?.id &&
+      typeDomainService.types.has(fieldType.id) &&
+      typeDomainService.primitiveKind(fieldType.id) ===
+        IPrimitiveTypeKind.Boolean,
   )

@@ -21,14 +21,16 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
   filterDOMProps.register('isTypedProp')
   filterDOMProps.register('forbiddenValues')
   filterDOMProps.register('decimal')
+  filterDOMProps.register('defaultExpression')
 
-  const Form = <TData, TResponse = unknown>(
+  const Form = <TData extends ObjectLike, TResponse = unknown>(
     props: React.PropsWithChildren<FormProps<TData, TResponse>>,
   ): ReactElement<unknown> => {
     const {
       autosave = false,
       children,
       cssString,
+      disabled,
       model,
       modelTransform,
       onChange,
@@ -44,11 +46,11 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
     } = props
 
     const [bridge, setBridge] = useState(
-      schema instanceof Bridge ? schema : createBridge(schema),
+      schema instanceof Bridge ? schema : createBridge<TData>(schema),
     )
 
     useEffect(() => {
-      setBridge(schema instanceof Bridge ? schema : createBridge(schema))
+      setBridge(schema instanceof Bridge ? schema : createBridge<TData>(schema))
     }, [schema])
 
     const modelRef = useRef(model)
@@ -76,6 +78,7 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
           autosave={autosave}
           autosaveDelay={500}
           data-testid={CuiTestId.cuiForm(uiKey)}
+          disabled={disabled}
           errorsField={() => null}
           model={autosave ? modelRef.current : model}
           modelTransform={modelTransform}

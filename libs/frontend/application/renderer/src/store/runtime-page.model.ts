@@ -12,8 +12,8 @@ import type { Ref } from 'mobx-keystone'
 import {
   getRuntimeElementService,
   getRuntimePageService,
-} from '@codelab/frontend-abstract-application'
-import { type IPageModel } from '@codelab/frontend-abstract-domain'
+} from '@codelab/frontend/abstract/application'
+import { type IPageModel } from '@codelab/frontend/abstract/domain'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { createElement, type ReactElement } from 'react'
