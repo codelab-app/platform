@@ -5,11 +5,10 @@ import {
   appSchema,
   idSchema,
 } from '@codelab/frontend-presentation-components-form/schema'
-import { getSelectElementComponent } from '@codelab/frontend-presentation-components-interface-form'
 import { IPageKind } from '@codelab/shared-abstract-core'
-import { ElementTypeKind } from '@codelab/shared-infra-gqlgen'
 
 import { UrlPatternField } from '../../components'
+import { SelectField } from 'uniforms-antd'
 
 // pageContentContainer is not required in interface, but is required for _app page
 export const schema = (kind: IPageKind): JSONSchemaType<IPageUpdateFormData> =>
@@ -24,7 +23,8 @@ export const schema = (kind: IPageKind): JSONSchemaType<IPageUpdateFormData> =>
         properties: {
           ...idSchema({
             label: 'Page Content Container',
-            component: getSelectElementComponent(ElementTypeKind.AllElements),
+            component: SelectField,
+            // TODO: pass elements as options
           }),
         },
         required: ['id'],

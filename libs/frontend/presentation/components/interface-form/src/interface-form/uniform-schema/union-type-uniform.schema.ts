@@ -1,7 +1,7 @@
 import type { IUnionTypeModel } from '@codelab/frontend-abstract-domain'
 import type { ITypeModelUniformSchemaBuilder } from '@codelab/frontend-abstract-types'
 
-import { UnionTypeField } from '../fields'
+import { UnionTypeField } from '@codelab/frontend-presentation-components-form'
 
 export const unionTypeUniformSchema: ITypeModelUniformSchemaBuilder<
   IUnionTypeModel

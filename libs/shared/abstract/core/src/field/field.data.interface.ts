@@ -19,7 +19,7 @@ export interface IFieldCreateFormData
 }
 
 export interface IFieldDefaultValueFormData {
-  defaultValues?: Nullish<IValidationRules>
+  defaultValues?: Nullish<unknown>
 }
 
 export type IFieldUpdateFormData = IFieldCreateFormData &

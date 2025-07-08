@@ -53,6 +53,8 @@ import { difference, filter, isTruthy } from 'remeda'
 
 import { ElementWrapper } from '../components'
 import { createValidator } from '@codelab/frontend-shared-utils'
+import { createAutoCompleteOptions } from '@codelab/frontend-presentation-components-codemirror'
+import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 
 const compositeKey = (
   element: IElementModel,
@@ -166,6 +168,13 @@ export class RuntimeElementModel
     return this.parentElement
       ? [...this.parentElement.pathFromRoot, this]
       : [this]
+  }
+
+  @computed
+  get propKeyAutoCompleteOptions() {
+    return createAutoCompleteOptions(this.runtimeProps.runtimeContext)
+      .map(({ label }) => ({ label, value: label }))
+      .sort()
   }
 
   @computed

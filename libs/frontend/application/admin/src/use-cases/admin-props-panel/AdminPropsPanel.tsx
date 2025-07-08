@@ -59,7 +59,10 @@ export const AdminPropsPanel = ({
           }}
           title={`Are you sure you want to delete ${field.name ?? field.key}?`}
         >
-          {field.name ?? field.key}
+          {/* https://github.com/ant-design/ant-design/issues/45972 */}
+          <div onClick={(event) => event.stopPropagation()}>
+            {field.name ?? field.key}
+          </div>
         </Popconfirm>
       ),
     }

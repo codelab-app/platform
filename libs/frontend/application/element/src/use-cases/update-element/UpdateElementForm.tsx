@@ -137,7 +137,7 @@ export const UpdateElementForm = observer(
             />
             <AutoField
               name="childMapperPropKey"
-              runtimeElement={runtimeElement}
+              options={runtimeElement.propKeyAutoCompleteOptions}
             />
             <AutoField
               name="childMapperPreviousSibling.id"
