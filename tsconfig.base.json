@@ -252,6 +252,9 @@
       "@codelab/frontend-application-app/use-cases/import-app": [
         "libs/frontend/application/app/src/use-cases/import-app/index.ts"
       ],
+      "@codelab/frontend-application-app/use-cases/page-preview": [
+        "libs/frontend/application/app/src/use-cases/page-preview/index.ts"
+      ],
       "@codelab/frontend-application-app/use-cases/select-app-options": [
         "libs/frontend/application/app/src/use-cases/select-app-options/index.ts"
       ],
