@@ -19,9 +19,8 @@ export const reconnectNodeIds = (ids: Array<string> | undefined) => {
     return []
   }
 
-  const connects = ids.map((id) => ({
-    ...connectNodeIds([id]),
-  }))
+  const { connect } = connectNodeIds(ids)
+  const { disconnect } = disconnectManyAll({ omitIds: ids })
 
-  return [disconnectManyAll({ omitIds: ids }), ...connects]
+  return [{ connect, disconnect }]
 }
