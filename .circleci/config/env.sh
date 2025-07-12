@@ -1,9 +1,26 @@
 #!/bin/bash
 
+# Disable exit on error to handle commands that might return non-zero
+set +e
+
 #
 # Git settings
 #
-echo "export GIT_COMMIT_MSG=$(git log --format=format:\"%s\" -n 1 ${CIRCLE_SHA1})" >> $BASH_ENV
+echo "[env.sh] Setting up git commit message..."
+echo "[env.sh] CIRCLE_SHA1: ${CIRCLE_SHA1:-not set}"
+if [ -n "$CIRCLE_SHA1" ]; then
+  GIT_MSG=$(git log --format=format:"%s" -n 1 "$CIRCLE_SHA1" 2>&1) || {
+    echo "[env.sh] ERROR: Failed to get commit message for $CIRCLE_SHA1"
+    echo "[env.sh] Error: $GIT_MSG"
+    # Use HEAD as fallback
+    GIT_MSG=$(git log --format=format:"%s" -n 1 HEAD 2>&1) || GIT_MSG="Unknown commit"
+  }
+else
+  echo "[env.sh] CIRCLE_SHA1 not set, using HEAD"
+  GIT_MSG=$(git log --format=format:"%s" -n 1 HEAD 2>&1) || GIT_MSG="Unknown commit"
+fi
+echo "export GIT_COMMIT_MSG=\"$GIT_MSG\"" >> $BASH_ENV
+echo "[env.sh] Git commit message: $GIT_MSG"
 
 #
 # Global environments
@@ -51,7 +68,22 @@ fi
 # Docker tag version from git tags
 #
 echo "[env.sh] Checking for git tags..."
-VERSION_TAG=$(git tag --points-at HEAD | grep -E "^[0-9]+\.[0-9]+\.[0-9]+$" | head -1)
+# Check if we're in a git repository
+if ! git rev-parse --git-dir > /dev/null 2>&1; then
+  echo "[env.sh] ERROR: Not in a git repository"
+  echo "[env.sh] Current directory: $(pwd)"
+  exit 1
+fi
+
+# Get current HEAD SHA
+echo "[env.sh] Current HEAD: $(git rev-parse HEAD 2>&1 || echo 'Failed to get HEAD')"
+
+# List all tags for debugging
+echo "[env.sh] All tags pointing to HEAD:"
+git tag --points-at HEAD 2>&1 || echo "[env.sh] Failed to get tags"
+
+# Get semantic version tags
+VERSION_TAG=$(git tag --points-at HEAD 2>/dev/null | grep -E "^[0-9]+\.[0-9]+\.[0-9]+$" | head -1 || true)
 echo "[env.sh] Version tag found: '${VERSION_TAG:-none}'"
 
 # Check if npx is available
