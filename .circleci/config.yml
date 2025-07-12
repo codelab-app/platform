@@ -242,7 +242,6 @@ commands:
           keys:
             - nvm-cache-{{ checksum ".nvmrc" }}
           name: Restore NVM Cache
-      - load-nvm
       - install-pnpm
       - install-cypher-shell
       - setup-env
