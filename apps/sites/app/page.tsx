@@ -5,6 +5,9 @@ import { PageLayout } from '../components'
 
 const { AppListPreview } = appServerActions
 
+// Force dynamic rendering to avoid build-time data fetching
+export const dynamic = 'force-dynamic'
+
 const Page = async () => {
   // Get M2M token for authentication
   const token = await getM2MToken()

@@ -24,6 +24,7 @@
       }
     },
     "serve": {
+      "defaultConfiguration": "dev",
       "executor": "@nx/next:server",
       "options": {
         "buildTarget": "sites:build",
@@ -45,10 +46,9 @@
         },
         "test": {
           "buildTarget": "sites:build:test",
-          "dev": true
+          "dev": false
         }
-      },
-      "defaultConfiguration": "dev"
+      }
     },
     "export": {
       "executor": "@nx/next:export",
