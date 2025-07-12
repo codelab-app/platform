@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 // Validate semantic version and output bash exports
-const semver = require('semver');
+// This script runs in CI before node_modules are installed, so it can't use external packages
 
 const version = process.argv[2];
 
@@ -15,7 +15,11 @@ if (!version || version.trim() === '') {
   process.exit(0);
 }
 
-if (semver.valid(version)) {
+// Simple semantic version validation without the semver package
+// Matches: MAJOR.MINOR.PATCH (e.g., 1.2.3)
+const semverRegex = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/;
+
+if (semverRegex.test(version)) {
   console.error(`[validate-semver.js] ✓ Version '${version}' is valid`);
   console.log(`echo "export DOCKER_TAG_VERSION=${version}" >> $BASH_ENV`);
   console.log(`echo "export TF_VAR_DOCKER_TAG_VERSION=${version}" >> $BASH_ENV`);

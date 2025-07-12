@@ -86,18 +86,6 @@ git tag --points-at HEAD 2>&1 || echo "[env.sh] Failed to get tags"
 VERSION_TAG=$(git tag --points-at HEAD 2>/dev/null | grep -E "^[0-9]+\.[0-9]+\.[0-9]+$" | head -1 || true)
 echo "[env.sh] Version tag found: '${VERSION_TAG:-none}'"
 
-# Check if npx is available
-echo "[env.sh] Checking for npx..."
-if ! command -v npx &> /dev/null; then
-  echo "[env.sh] ERROR: npx not found in PATH"
-  echo "[env.sh] PATH: $PATH"
-  echo "[env.sh] which npm: $(which npm 2>&1 || echo 'npm not found')"
-  echo "[env.sh] which node: $(which node 2>&1 || echo 'node not found')"
-  exit 1
-else
-  echo "[env.sh] npx found at: $(which npx)"
-fi
-
 # Check if validate-semver.js exists
 if [ ! -f "./scripts/validate-semver.js" ]; then
   echo "[env.sh] ERROR: validate-semver.js not found at ./scripts/validate-semver.js"
@@ -109,38 +97,7 @@ fi
 
 echo "[env.sh] Running validate-semver.js..."
 
-# Debug npm/npx environment
-echo "[env.sh] Debugging npm/npx environment..."
-echo "[env.sh] npm registry: $(npm config get registry)"
-echo "[env.sh] npm cache: $(npm config get cache)"
-echo "[env.sh] HOME: $HOME"
-echo "[env.sh] USER: $USER"
-echo "[env.sh] npm cache contents:"
-ls -la $(npm config get cache) 2>&1 | head -10 || echo "[env.sh] Cannot list npm cache"
-
-# Test npm install directly
-echo "[env.sh] Testing npm install semver..."
-npm install --no-save --verbose semver 2>&1 | tail -20
-
-# Test npx with more debugging
-echo "[env.sh] Testing npx with verbose output..."
-npx --yes --loglevel=verbose --package=semver@7 -- node -e "console.log('semver loaded')" 2>&1 | tail -20
-
-# Check if node_modules exists
-if [ -d "./node_modules" ]; then
-  echo "[env.sh] node_modules directory exists"
-  if [ -d "./node_modules/semver" ]; then
-    echo "[env.sh] semver package found in node_modules"
-  else
-    echo "[env.sh] WARNING: semver package not found in node_modules"
-  fi
-else
-  echo "[env.sh] WARNING: node_modules directory not found"
-fi
-
-# For now, use the fallback approach
-echo "[env.sh] Using fallback approach without semver package..."
-# Just run with node directly
+# Run validate-semver.js directly with node
 SEMVER_CMD="node ./scripts/validate-semver.js \"$VERSION_TAG\""
 echo "[env.sh] Command: $SEMVER_CMD"
 
