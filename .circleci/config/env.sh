@@ -108,12 +108,24 @@ if [ ! -f "./scripts/validate-semver.js" ]; then
 fi
 
 echo "[env.sh] Running validate-semver.js..."
-SEMVER_CMD="npx --yes -p semver node ./scripts/validate-semver.js \"$VERSION_TAG\""
+
+# First try with npx
+SEMVER_CMD="npx --yes --package=semver@7 -- node ./scripts/validate-semver.js \"$VERSION_TAG\""
 echo "[env.sh] Command: $SEMVER_CMD"
 
 # Run the command and capture both stdout and stderr
 SEMVER_OUTPUT=$(eval "$SEMVER_CMD" 2>&1)
 SEMVER_EXIT_CODE=$?
+
+# If npx fails, try installing semver locally
+if [ $SEMVER_EXIT_CODE -ne 0 ] && [[ "$SEMVER_OUTPUT" == *"Cannot find module 'semver'"* ]]; then
+  echo "[env.sh] npx failed to provide semver, trying local install..."
+  npm install --no-save --silent semver 2>&1 || true
+  
+  # Try again with just node
+  SEMVER_OUTPUT=$(node ./scripts/validate-semver.js "$VERSION_TAG" 2>&1)
+  SEMVER_EXIT_CODE=$?
+fi
 
 if [ $SEMVER_EXIT_CODE -ne 0 ]; then
   echo "[env.sh] ERROR: validate-semver.js failed with exit code: $SEMVER_EXIT_CODE"
