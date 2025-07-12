@@ -3,7 +3,6 @@ resource_class: large
 steps:
   - checkout
   - install-nvm
-  - load-nvm
   - install-terraform
   - setup-env
   - login-docker

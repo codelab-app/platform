@@ -221,7 +221,6 @@ commands:
           keys:
             - nvm-cache-{{ checksum ".nvmrc" }}
           name: Restore NVM Cache
-      - load-nvm
       - install-pnpm
       - setup-env
   restore-workspace-database:
@@ -598,7 +597,6 @@ jobs:
     steps:
       - checkout
       - install-nvm
-      - load-nvm
       - install-terraform
       - setup-env
       - login-docker
@@ -619,7 +617,6 @@ jobs:
     steps:
       - checkout
       - install-nvm
-      - load-nvm
       - setup-env
       - install-pnpm
       - install-packages
