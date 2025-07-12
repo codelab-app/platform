@@ -8,8 +8,7 @@ import {
 } from '@codelab/frontend-presentation-components-codemirror'
 import { autocompletion, closeBrackets } from '@codemirror/autocomplete'
 import { history } from '@codemirror/commands'
-import { bracketMatching, syntaxHighlighting } from '@codemirror/language'
-import { oneDark, oneDarkHighlightStyle } from '@codemirror/theme-one-dark'
+import { bracketMatching } from '@codemirror/language'
 import { lineNumbers } from '@codemirror/view'
 import { Form, Spin } from 'antd'
 import { memo, type Ref } from 'react'
@@ -53,8 +52,6 @@ export const CodeMirrorGraphqlField = <T,>(
       history(),
       autocompletion(),
       lineNumbers(),
-      oneDark,
-      syntaxHighlighting(oneDarkHighlightStyle),
       state.value ?? [],
     ]
 
