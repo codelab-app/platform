@@ -109,35 +109,44 @@ fi
 
 echo "[env.sh] Running validate-semver.js..."
 
-# Debug npx environment
-echo "[env.sh] NPM config:"
-npm config list || echo "[env.sh] Failed to get npm config"
-echo "[env.sh] NPM cache dir: $(npm config get cache 2>/dev/null || echo 'unknown')"
-echo "[env.sh] NPM prefix: $(npm config get prefix 2>/dev/null || echo 'unknown')"
+# Debug npm/npx environment
+echo "[env.sh] Debugging npm/npx environment..."
+echo "[env.sh] npm registry: $(npm config get registry)"
+echo "[env.sh] npm cache: $(npm config get cache)"
+echo "[env.sh] HOME: $HOME"
+echo "[env.sh] USER: $USER"
+echo "[env.sh] npm cache contents:"
+ls -la $(npm config get cache) 2>&1 | head -10 || echo "[env.sh] Cannot list npm cache"
 
-# First try with npx
-SEMVER_CMD="npx --yes --package=semver@7 -- node ./scripts/validate-semver.js \"$VERSION_TAG\""
+# Test npm install directly
+echo "[env.sh] Testing npm install semver..."
+npm install --no-save --verbose semver 2>&1 | tail -20
+
+# Test npx with more debugging
+echo "[env.sh] Testing npx with verbose output..."
+npx --yes --loglevel=verbose --package=semver@7 -- node -e "console.log('semver loaded')" 2>&1 | tail -20
+
+# Check if node_modules exists
+if [ -d "./node_modules" ]; then
+  echo "[env.sh] node_modules directory exists"
+  if [ -d "./node_modules/semver" ]; then
+    echo "[env.sh] semver package found in node_modules"
+  else
+    echo "[env.sh] WARNING: semver package not found in node_modules"
+  fi
+else
+  echo "[env.sh] WARNING: node_modules directory not found"
+fi
+
+# For now, use the fallback approach
+echo "[env.sh] Using fallback approach without semver package..."
+# Just run with node directly
+SEMVER_CMD="node ./scripts/validate-semver.js \"$VERSION_TAG\""
 echo "[env.sh] Command: $SEMVER_CMD"
-
-# Try running npx with verbose to see what's happening
-echo "[env.sh] Testing npx package installation..."
-npx --yes --package=semver@7 -- node -e "console.log('semver version:', require('semver/package.json').version)" 2>&1 || {
-  echo "[env.sh] npx test failed"
-}
 
 # Run the command and capture both stdout and stderr
 SEMVER_OUTPUT=$(eval "$SEMVER_CMD" 2>&1)
 SEMVER_EXIT_CODE=$?
-
-# If npx fails, try installing semver locally
-if [ $SEMVER_EXIT_CODE -ne 0 ] && [[ "$SEMVER_OUTPUT" == *"Cannot find module 'semver'"* ]]; then
-  echo "[env.sh] npx failed to provide semver, trying local install..."
-  npm install --no-save --silent semver 2>&1 || true
-  
-  # Try again with just node
-  SEMVER_OUTPUT=$(node ./scripts/validate-semver.js "$VERSION_TAG" 2>&1)
-  SEMVER_EXIT_CODE=$?
-fi
 
 if [ $SEMVER_EXIT_CODE -ne 0 ]; then
   echo "[env.sh] ERROR: validate-semver.js failed with exit code: $SEMVER_EXIT_CODE"
