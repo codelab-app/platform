@@ -15,6 +15,9 @@ interface CreateApolloClientOptions {
   environment?: Environment
 }
 
+/**
+ * Only used here because of subscriptions support, otherwise we use fetch
+ */
 export const createApolloClient = ({
   environment = Environment.Browser,
 }: CreateApolloClientOptions = {}) => {

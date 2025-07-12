@@ -42,6 +42,14 @@
         ]
       }
     },
+    "tsc-check": {
+      "cache": true,
+      "command": "tsc -p libs/tools/tsc-check/tsconfig.json --noEmit --incremental --tsBuildInfoFile /dev/null"
+    },
+    "tsc-check:spec": {
+      "cache": true,
+      "command": "tsc -p libs/tools/tsc-check/tsconfig.spec.json --noEmit --incremental --tsBuildInfoFile /dev/null"
+    },
     "lint": {
       "executor": "@nx/eslint:lint"
     },

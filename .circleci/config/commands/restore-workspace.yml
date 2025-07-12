@@ -17,6 +17,5 @@ steps:
       name: 'Restore NVM Cache'
       keys:
         - nvm-cache-{{ checksum ".nvmrc" }}
-  - load-nvm
   - install-pnpm
   - setup-env

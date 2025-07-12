@@ -5,7 +5,7 @@ resource "auth0_client" "machine_client" {
   cross_origin_auth = true
 
   web_origins     = [var.next_public_web_host]
-  allowed_origins = [var.next_public_web_host]
+  allowed_origins = terraform.workspace == "test" ? [var.next_public_web_host, local.test_url] : [var.next_public_web_host]
 }
 
 data "auth0_client" "machine_client" {

@@ -21,7 +21,6 @@ import {
   ITypeKind,
   TypeDtoWithoutOwnerSchema,
 } from '@codelab/shared-abstract-core'
-import { SortDirection } from '@codelab/shared-infra-gqlgen'
 import { sortFieldsForExport } from '@codelab/shared-utils'
 import { CommandHandler } from '@nestjs/cqrs'
 import { Type } from '@sinclair/typebox'
@@ -83,7 +82,8 @@ export class ExportApisHandler
 
   // Constants for consistent configuration
   private static readonly SORT_OPTIONS = {
-    sort: [{ key: SortDirection.Asc }],
+    // Don't sort fields - let sortFieldsForExport handle the ordering
+    sort: [],
   }
 
   private static readonly TYPE_ORDER = [

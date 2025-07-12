@@ -1,4 +1,4 @@
-# This runs on staging only for testing
+# This runs on staging branch only (no tags)
 jobs:
   # - setup-workspace:
   #     resource_class: large
@@ -47,7 +47,7 @@ jobs:
       context:
         - prod
       requires:
-        - tf-apply-ci
+        - setup-infra-workspace
   - docker-api:
       filters:
         branches:
@@ -56,7 +56,7 @@ jobs:
       context:
         - prod
       requires:
-        - tf-apply-ci
+        - setup-infra-workspace
   - docker-sites:
       filters:
         branches:
@@ -65,7 +65,7 @@ jobs:
       context:
         - prod
       requires:
-        - tf-apply-ci
+        - setup-infra-workspace
   - docker-landing:
       filters:
         branches:

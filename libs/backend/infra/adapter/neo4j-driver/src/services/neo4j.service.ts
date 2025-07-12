@@ -31,12 +31,33 @@ export class Neo4jService {
         // minimumSeverityLevel:
         //   neo4j.notificationFilterMinimumSeverityLevel.WARNING,
       },
+      // Connection pool configuration to handle high concurrency
+      maxConnectionPoolSize: 200, // Increase from default 100
+      connectionAcquisitionTimeout: 120000, // 2 minutes (from default 60s)
+      maxTransactionRetryTime: 60000, // 1 minute (from default 30s)
+      connectionTimeout: 30000, // 30 seconds
       // logging: {
       //   level: 'debug',
       //   logger: (level, message) => {
+      //     console.log(`[Neo4j ${level}]`, message)
       //   },
       // },
     })
+    
+    // Log server connectivity info periodically (for debugging in non-production)
+    if (process.env.NODE_ENV !== 'production') {
+      setInterval(async () => {
+        try {
+          const serverInfo = await this.driver.getServerInfo()
+          console.log('[Neo4j Connection Pool]', {
+            serverAddress: serverInfo.address,
+            protocolVersion: serverInfo.protocolVersion,
+          })
+        } catch (error) {
+          // Ignore errors in monitoring
+        }
+      }, 60000) // Log every minute
+    }
   }
 
   async close(): Promise<void> {

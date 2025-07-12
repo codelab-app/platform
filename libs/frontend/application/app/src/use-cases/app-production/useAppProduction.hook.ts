@@ -11,7 +11,7 @@ import {
   useApplicationStore,
   useDomainStore,
 } from '@codelab/frontend-infra-mobx-context'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { v4 } from 'uuid'
 
 /**
@@ -21,13 +21,24 @@ export const useAppProduction = (appProductionData: IAppProductionDto) => {
   const { rendererService } = useApplicationStore()
   const domainStore = useDomainStore()
   const { appName, pageName } = appProductionData
+  const isHydratedRef = useRef(false)
 
   console.debug('useAppProduction', { appName, pageName })
 
-  const app = hydrateAppProductionData(appProductionData, domainStore)
-  const page = app.pageByName(pageName)
+  // Hydrate data synchronously but only once
+  if (!isHydratedRef.current) {
+    isHydratedRef.current = true
+    hydrateAppProductionData(appProductionData, domainStore)
+  }
+
+  const app = domainStore.appDomainService.app(appProductionData.app.id)
+  const page = app?.pageByName(pageName)
 
   useEffect(() => {
+    if (!page) {
+      return
+    }
+
     const renderer = rendererService.hydrate({
       containerNode: page,
       id: v4(),
@@ -38,7 +49,7 @@ export const useAppProduction = (appProductionData: IAppProductionDto) => {
 
     rendererService.setActiveRenderer(rendererRef(renderer.id))
     void rendererService.expressionTransformer.init()
-  }, [page.id])
+  }, [page, rendererService])
 
   return {
     app,

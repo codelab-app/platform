@@ -124,6 +124,44 @@ _Fetch from: `.claude/documentation/convention/documentation-conventions.md`_
 
 _Fetch from: `.claude/documentation/convention/type-checking-conventions.md`_
 
+### Linting
+
+#### TypeScript Class Member Ordering
+
+The codebase enforces strict member ordering for TypeScript classes via `@typescript-eslint/member-ordering`:
+
+1. **Public static fields and methods** (grouped together)
+2. **Getters** (`get` accessors)
+3. **Public fields**
+4. **Public methods**
+5. **Protected members** (fields, getters, setters, methods - grouped together)
+6. **Private static methods**
+7. **Private static fields**
+8. **Private fields and methods** (grouped together)
+9. **Private getters**
+10. **Private setters**
+
+Within each group, members are ordered alphabetically.
+
+**Important**: Constructor should be placed after field declarations but before other methods.
+
+#### Ant Design Icon Imports
+
+Icons from Ant Design must be imported individually from their specific paths:
+```typescript
+// ❌ Wrong
+import { EyeOutlined } from '@ant-design/icons'
+
+// ✅ Correct
+import EyeOutlined from '@ant-design/icons/lib/icons/EyeOutlined'
+```
+
+#### Other Linting Rules
+
+- No inline comments are allowed (use separate line comments)
+- React components in arrays must have `key` props
+- Import `UnknownObjectLike` from `@codelab/shared/abstract/types` instead of using `Record<string, unknown>`
+
 ## Git Workflow
 
 ### Branch Naming
@@ -131,6 +169,8 @@ _Fetch from: `.claude/documentation/convention/type-checking-conventions.md`_
 _Fetch from: `.claude/documentation/convention/git-branch-naming-convention.md`_
 
 ### Commit Messages
+
+Never add Generated with [Claude Code](https://claude.ai/code)
 
 _Fetch from: `.claude/documentation/convention/git-commit-conventions.md`_
 
@@ -141,7 +181,7 @@ _Fetch from: `.claude/documentation/convention/git-commit-conventions.md`_
 - I need honest feedback on my code.
 - When creating tasks, DO NOT automatically test them at the end unless explicitly asked to test.
 - When creating tasks, DO NOT automatically lint them in an extra step
-- When analysing codebase always use parallel tasks with subagents to speed things up
+- When analyzing codebase always use parallel tasks with subagents to speed things up
 
 ## OpenMemory Integration
 
