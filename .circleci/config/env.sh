@@ -109,9 +109,21 @@ fi
 
 echo "[env.sh] Running validate-semver.js..."
 
+# Debug npx environment
+echo "[env.sh] NPM config:"
+npm config list || echo "[env.sh] Failed to get npm config"
+echo "[env.sh] NPM cache dir: $(npm config get cache 2>/dev/null || echo 'unknown')"
+echo "[env.sh] NPM prefix: $(npm config get prefix 2>/dev/null || echo 'unknown')"
+
 # First try with npx
 SEMVER_CMD="npx --yes --package=semver@7 -- node ./scripts/validate-semver.js \"$VERSION_TAG\""
 echo "[env.sh] Command: $SEMVER_CMD"
+
+# Try running npx with verbose to see what's happening
+echo "[env.sh] Testing npx package installation..."
+npx --yes --package=semver@7 -- node -e "console.log('semver version:', require('semver/package.json').version)" 2>&1 || {
+  echo "[env.sh] npx test failed"
+}
 
 # Run the command and capture both stdout and stderr
 SEMVER_OUTPUT=$(eval "$SEMVER_CMD" 2>&1)
