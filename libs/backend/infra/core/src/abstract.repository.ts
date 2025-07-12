@@ -7,7 +7,6 @@ import { NotFoundError } from '@codelab/shared-domain-errors'
 import { Validator } from '@codelab/shared-infra-typebox'
 import { kebabCase } from '@codelab/shared-utils'
 import { Injectable } from '@nestjs/common'
-import { chunk } from 'remeda'
 
 @Injectable()
 export abstract class AbstractRepository<
@@ -58,39 +57,26 @@ export abstract class AbstractRepository<
     data: Array<Dto>,
   ): Promise<Array<IDiscriminatedRef<INodeType>>> {
     try {
-      const BATCH_SIZE = 10
-      const batches = chunk(data, BATCH_SIZE)
-
-      this.loggerService.debug('Processing data in batches', {
-        batchCount: batches.length,
-        batchSize: BATCH_SIZE,
-        context: this.getNamespace('addMany'),
-        totalItems: data.length,
-      })
-
-      // Process each batch and combine results
-      const results: Array<IDiscriminatedRef<INodeType>> = []
-
-      for (const [i, batch] of batches.entries()) {
-        this.loggerService.debug(
-          `Processing batch (${i + 1}/${batches.length})`,
-          {
-            context: this.getNamespace('addMany'),
-          },
-        )
-
-        const batchResults = await this._addMany(batch)
-
-        results.push(...batchResults)
+      const addManyItems = async () => {
+        return await this._addMany(data)
       }
 
-      return results
+      return await this.loggerService.debugWithTiming(
+        'Adding multiple items',
+        addManyItems,
+        {
+          context: this.getNamespace('addMany'),
+          data: {
+            itemCount: data.length,
+          },
+        },
+      )
     } catch (error) {
-      this.loggerService.error('Failed to add items', {
+      this.loggerService.error('Failed to add multiple items', {
         context: this.getNamespace('addMany'),
         data: {
-          data,
           error,
+          itemCount: data.length,
         },
       })
       throw error
@@ -98,17 +84,48 @@ export abstract class AbstractRepository<
   }
 
   async exists(where: Where) {
-    this.loggerService.verbose('Checking if exists', {
-      context: this.getNamespace('exists'),
+    const startTime = Date.now()
+    const namespace = this.getNamespace('exists')
+    
+    this.loggerService.debug('Checking if exists - START', {
+      context: namespace,
       data: {
         where,
+        whereKeys: Object.keys(where || {}),
+        timestamp: new Date().toISOString(),
       },
     })
 
-    const results = await this.findOne({ where })
-    const exists = Boolean(results)
+    try {
+      // This triggers _find through findOne
+      const results = await this.findOne({ where })
+      const exists = Boolean(results)
+      const duration = Date.now() - startTime
 
-    return exists
+      this.loggerService.debug('Checking if exists - COMPLETE', {
+        context: namespace,
+        data: {
+          exists,
+          duration,
+          where,
+        },
+      })
+
+      return exists
+    } catch (error) {
+      const duration = Date.now() - startTime
+      
+      this.loggerService.error('Checking if exists - FAILED', {
+        context: namespace,
+        data: {
+          duration,
+          error,
+          where,
+        },
+      })
+      
+      throw error
+    }
   }
 
   find(args?: { where?: Where; options?: Options }): Promise<Array<Model>>
@@ -137,8 +154,34 @@ export abstract class AbstractRepository<
     selectionSet?: string
     schema?: T
   } = {}): Promise<Array<Model> | Array<Static<T>>> {
+    const startTime = Date.now()
+    const namespace = this.getNamespace('find')
+    
+    this.loggerService.debug('Find operation - START', {
+      context: namespace,
+      data: {
+        hasSchema: Boolean(schema),
+        hasSelectionSet: Boolean(selectionSet),
+        options,
+        timestamp: new Date().toISOString(),
+        where,
+        whereKeys: Object.keys(where || {}),
+      },
+    })
+
     try {
+      // This calls the abstract _find method implemented by subclasses
       const results = await this._find({ options, selectionSet, where })
+      const duration = Date.now() - startTime
+
+      this.loggerService.debug('Find operation - COMPLETE', {
+        context: namespace,
+        data: {
+          duration,
+          resultCount: results.length,
+          where,
+        },
+      })
 
       if (schema) {
         const data = results.map((result) => {
@@ -150,10 +193,15 @@ export abstract class AbstractRepository<
 
       return results
     } catch (error) {
-      this.loggerService.verbose('Failed to find items', {
-        context: this.getNamespace('find'),
+      const duration = Date.now() - startTime
+      
+      this.loggerService.error('Find operation - FAILED', {
+        context: namespace,
         data: {
+          duration,
           error,
+          errorMessage: error instanceof Error ? error.message : String(error),
+          errorStack: error instanceof Error ? error.stack : undefined,
           options,
           where,
         },
@@ -191,33 +239,62 @@ export abstract class AbstractRepository<
     selectionSet?: string
     options: Options
   }): Promise<Model | Static<T> | undefined> {
-    this.loggerService.verbose('Finding one', {
-      context: this.getNamespace('findOne'),
+    const startTime = Date.now()
+    const namespace = this.getNamespace('findOne')
+    const callStack = new Error().stack
+    
+    this.loggerService.debug('FindOne operation - START', {
+      context: namespace,
       data: {
+        callStack: callStack?.split('\n').slice(2, 5).join(' <- '),
+        hasSchema: Boolean(schema),
+        timestamp: new Date().toISOString(),
         where,
+        whereKeys: Object.keys(where || {}),
       },
     })
 
-    const results = schema
-      ? (await this.find({ schema, where }))[0]
-      : (await this.find({ where }))[0]
+    try {
+      // This triggers find() which then calls _find()
+      const results = schema
+        ? (await this.find({ schema, where }))[0]
+        : (await this.find({ where }))[0]
 
-    this.loggerService.verbose('Found result', {
-      context: this.getNamespace('findOne'),
-      data: {
-        exists: Boolean(results),
-      },
-    })
+      const duration = Date.now() - startTime
 
-    if (!results) {
-      return undefined
+      this.loggerService.debug('FindOne operation - COMPLETE', {
+        context: namespace,
+        data: {
+          duration,
+          found: Boolean(results),
+          where,
+        },
+      })
+
+      if (!results) {
+        return undefined
+      }
+
+      if (schema) {
+        return Validator.parse(schema, results)
+      }
+
+      return results
+    } catch (error) {
+      const duration = Date.now() - startTime
+      
+      this.loggerService.error('FindOne operation - FAILED', {
+        context: namespace,
+        data: {
+          duration,
+          error,
+          errorMessage: error instanceof Error ? error.message : String(error),
+          where,
+        },
+      })
+      
+      throw error
     }
-
-    if (schema) {
-      return Validator.parse(schema, results)
-    }
-
-    return results
   }
 
   async findOneOrFail(args?: {
@@ -260,28 +337,85 @@ export abstract class AbstractRepository<
    * @param where
    */
   async save(data: Dto, where?: Where): Promise<IDiscriminatedRef<INodeType>> {
+    const startTime = Date.now()
+    const namespace = this.getNamespace('save')
+    
     try {
       const computedWhere = this.getWhere(data, where)
-
-      if (await this.exists(computedWhere)) {
-        this.loggerService.verbose('Record exists, updating...', {
-          context: this.getNamespace('save'),
-        })
-
-        return await this.update(data, computedWhere)
-      }
-
-      this.loggerService.verbose('Record does not exist, adding...', {
-        context: this.getNamespace('save'),
+      
+      this.loggerService.debug('Save operation - START', {
+        context: namespace,
+        data: {
+          computedWhere,
+          dataId: data.id,
+          timestamp: new Date().toISOString(),
+          where,
+        },
       })
 
-      return await this.add(data)
+      // This calls exists() which triggers findOne() -> find() -> _find()
+      const existsCheckStart = Date.now()
+      const recordExists = await this.exists(computedWhere)
+      const existsCheckDuration = Date.now() - existsCheckStart
+      
+      this.loggerService.debug('Save operation - EXISTS CHECK COMPLETE', {
+        context: namespace,
+        data: {
+          existsCheckDuration,
+          recordExists,
+        },
+      })
+
+      if (recordExists) {
+        this.loggerService.debug('Record exists, updating...', {
+          context: namespace,
+          data: {
+            computedWhere,
+          },
+        })
+
+        const result = await this.update(data, computedWhere)
+        const totalDuration = Date.now() - startTime
+        
+        this.loggerService.debug('Save operation - UPDATE COMPLETE', {
+          context: namespace,
+          data: {
+            totalDuration,
+          },
+        })
+        
+        return result
+      }
+
+      this.loggerService.debug('Record does not exist, adding...', {
+        context: namespace,
+        data: {
+          dataId: data.id,
+        },
+      })
+
+      const result = await this.add(data)
+      const totalDuration = Date.now() - startTime
+      
+      this.loggerService.debug('Save operation - ADD COMPLETE', {
+        context: namespace,
+        data: {
+          totalDuration,
+        },
+      })
+      
+      return result
     } catch (error) {
-      this.loggerService.error('Failed to save item', {
-        context: this.getNamespace('save'),
+      const duration = Date.now() - startTime
+      
+      this.loggerService.error('Save operation - FAILED', {
+        context: namespace,
         data: {
           data,
+          duration,
           error,
+          errorMessage: error instanceof Error ? error.message : String(error),
+          errorStack: error instanceof Error ? error.stack : undefined,
           where,
         },
       })
@@ -298,32 +432,65 @@ export abstract class AbstractRepository<
     data: Dto,
     where?: Where,
   ): Promise<IDiscriminatedRef<INodeType>> {
-    this.loggerService.verbose('Updating data', {
-      context: this.getNamespace('update'),
+    const startTime = Date.now()
+    const namespace = this.getNamespace('update')
+    
+    this.loggerService.debug('Update operation - START', {
+      context: namespace,
       data: {
-        data,
+        dataId: data.id,
+        timestamp: new Date().toISOString(),
         where,
       },
     })
 
     const computedWhere = this.getWhere(data, where)
-    const existing = await this.findOne({ where: computedWhere })
-
+    
     try {
+      // This triggers findOne() -> find() -> _find()
+      const findStart = Date.now()
+      const existing = await this.findOne({ where: computedWhere })
+      const findDuration = Date.now() - findStart
+      
+      this.loggerService.debug('Update operation - FIND EXISTING COMPLETE', {
+        context: namespace,
+        data: {
+          existingFound: Boolean(existing),
+          findDuration,
+        },
+      })
+
+      const updateStart = Date.now()
       const model = await this._update(data, where, existing)
+      const updateDuration = Date.now() - updateStart
 
       if (!model) {
         throw new Error('Model not updated')
       }
 
+      const totalDuration = Date.now() - startTime
+      
+      this.loggerService.debug('Update operation - COMPLETE', {
+        context: namespace,
+        data: {
+          totalDuration,
+          updateDuration,
+        },
+      })
+
       return model
     } catch (error) {
-      this.loggerService.error('Failed to update item', {
-        context: this.getNamespace('update'),
+      const duration = Date.now() - startTime
+      
+      this.loggerService.error('Update operation - FAILED', {
+        context: namespace,
         data: {
+          computedWhere,
           data,
+          duration,
           error,
-          existing,
+          errorMessage: error instanceof Error ? error.message : String(error),
+          errorStack: error instanceof Error ? error.stack : undefined,
           where,
         },
       })

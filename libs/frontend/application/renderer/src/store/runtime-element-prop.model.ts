@@ -172,8 +172,9 @@ export class RuntimeElementPropsModel
 
   @computed
   get renderedChildrenProp(): ReactNode {
+    // Use maybeCurrent to avoid TypeRef errors in production where API types aren't loaded
     const atomApi = isAtom(this.element.renderType.current)
-      ? this.element.renderType.current.api.current
+      ? this.element.renderType.current.api.maybeCurrent
       : undefined
 
     const childrenField = atomApi?.fields.find(

@@ -270,6 +270,12 @@ let PinoLoggerService = class PinoLoggerService extends external_nestjs_pino_nam
             writable: true,
             value: void 0
         });
+        Object.defineProperty(this, "operationCounter", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: 0
+        });
         this.enabledNamespaces = parseNamespaces(this.config.debug);
     }
     async executeWithTiming(message, fn, options, level = 'debug') {
@@ -281,15 +287,30 @@ let PinoLoggerService = class PinoLoggerService extends external_nestjs_pino_nam
         }
         const startTime = Date.now();
         const result = await fn();
-        const durationSecs = ((Date.now() - startTime) / 1000).toFixed(2);
+        const endTime = Date.now();
+        const durationMs = endTime - startTime;
+        const durationSecs = (durationMs / 1000).toFixed(2);
         const data = options?.data ?? {};
+        // Format start time for display
+        const startTimeFormatted = new Date(startTime).toLocaleTimeString('en-US', {
+            hour12: true,
+            hour: 'numeric',
+            minute: '2-digit',
+            second: '2-digit',
+            fractionalSecondDigits: 3,
+        });
         // Pass data and context as separate properties in LogOptions
-        this[level](message, {
+        this[level](`${message} (started at ${startTimeFormatted}, took ${durationSecs}s)`, {
             context,
             data: {
                 ...data,
             },
             durationSecs,
+            timing: {
+                startedAt: new Date(startTime).toISOString(),
+                completedAt: new Date(endTime).toISOString(),
+                durationMs,
+            },
         });
         return result;
     }

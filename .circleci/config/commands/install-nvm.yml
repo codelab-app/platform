@@ -15,7 +15,12 @@ steps:
   - run:
       name: 'Set Node Version'
       command: |
+        source $BASH_ENV
         nvm install 22.14.0
         nvm alias default 22.14.0
         node -v
         which node
+        npm -v
+        which npm
+        npx -v
+        which npx

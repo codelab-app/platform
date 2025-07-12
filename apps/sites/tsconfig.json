@@ -22,16 +22,17 @@
     ]
   },
   "include": [
-    "**/*.ts",
-    "**/*.tsx",
     "**/*.graphql",
-    "next-env.d.ts",
-    "index.d.ts",
     "**/*.js",
     "**/*.jsx",
-    ".next/types/**/*.ts",
+    "**/*.ts",
+    "**/*.tsx",
     "../../dist/apps/sites/.next/types/**/*.ts",
-    "postcss.config.cjs"
+    ".next/types/**/*.ts",
+    "index.d.ts",
+    "next-env.d.ts",
+    "postcss.config.cjs",
+    "../../dist/apps/sites-test/.next/types/**/*.ts"
   ],
   "exclude": [
     "jest.config.ts",

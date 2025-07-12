@@ -17,6 +17,7 @@ import { isNamespaceEnabled, parseNamespaces } from '../logger.constants'
 @Injectable()
 export class PinoLoggerService extends Logger implements ILoggerService {
   private readonly enabledNamespaces: Array<string>
+  private operationCounter = 0
 
   constructor(
     protected override logger: PinoLogger,
@@ -46,16 +47,32 @@ export class PinoLoggerService extends Logger implements ILoggerService {
 
     const startTime = Date.now()
     const result = await fn()
-    const durationSecs = ((Date.now() - startTime) / 1000).toFixed(2)
+    const endTime = Date.now()
+    const durationMs = endTime - startTime
+    const durationSecs = (durationMs / 1000).toFixed(2)
     const data = options?.data ?? {}
 
+    // Format start time for display
+    const startTimeFormatted = new Date(startTime).toLocaleTimeString('en-US', {
+      hour12: true,
+      hour: 'numeric',
+      minute: '2-digit',
+      second: '2-digit',
+      fractionalSecondDigits: 3,
+    })
+
     // Pass data and context as separate properties in LogOptions
-    this[level](message, {
+    this[level](`${message} (started at ${startTimeFormatted}, took ${durationSecs}s)`, {
       context,
       data: {
         ...data,
       },
       durationSecs,
+      timing: {
+        startedAt: new Date(startTime).toISOString(),
+        completedAt: new Date(endTime).toISOString(),
+        durationMs,
+      },
     })
 
     return result

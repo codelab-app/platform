@@ -3,7 +3,6 @@
 import type {
   IBuilderRoute,
   IRendererModel,
-  IRootRenderer,
 } from '@codelab/frontend-abstract-application'
 
 import {
@@ -12,9 +11,12 @@ import {
 } from '@codelab/frontend-abstract-domain'
 import { RootRenderer } from '@codelab/frontend-application-renderer/use-cases/root-renderer'
 import { ApplicationStoreHydrator } from '@codelab/frontend-infra-context'
-import { useApplicationStore } from '@codelab/frontend-infra-mobx-context'
+import {
+  useApplicationStore,
+  useDomainStore,
+} from '@codelab/frontend-infra-mobx-context'
 import { observer } from 'mobx-react-lite'
-import { useRef } from 'react'
+import { useMemo, useRef } from 'react'
 import styled from 'styled-components'
 
 import { BuilderDndContext } from '../../dnd/index'
@@ -33,9 +35,24 @@ interface IBuilderProps {
  */
 export const BaseBuilder = observer<IBuilderProps>(({ context, renderer }) => {
   const { builderService } = useApplicationStore()
+  const { userDomainService } = useDomainStore()
+  const preference = userDomainService.preference
   const { selectedNode } = builderService
   const builderContainerRef = useRef<HTMLDivElement>(null)
   const renderContainerRef = useRef<HTMLDivElement>(null)
+
+  const containerStyle = useMemo(
+    () => ({
+      /**
+       * This sets `container-name` https://developer.mozilla.org/en-US/docs/Web/CSS/container-name, allows for `@container` CSS rules
+       */
+      container: 'root / inline-size',
+      minHeight: '100%',
+      transform: 'translateX(0)',
+      width: `${preference.builderWidth}px`,
+    }),
+    [preference.builderWidth],
+  )
 
   useBuilderHotkeys({
     context,
@@ -54,7 +71,11 @@ export const BaseBuilder = observer<IBuilderProps>(({ context, renderer }) => {
               id={BUILDER_CONTAINER_ID}
               key={renderer.id}
             >
-              <RootRenderer ref={renderContainerRef} renderer={renderer} />
+              <RootRenderer
+                containerStyle={containerStyle}
+                ref={renderContainerRef}
+                renderer={renderer}
+              />
               <RenderBlueprint
                 renderContainerRef={renderContainerRef}
                 renderer={renderer}
