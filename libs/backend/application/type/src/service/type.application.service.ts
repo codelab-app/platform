@@ -82,6 +82,13 @@ export class TypeApplicationService {
   @LogClassMethod()
   async saveApi(api: IApiAggregate) {
     const { fields, types } = api
+    
+    // Log what we're actually saving
+    this.logger.debug('saveApi called with:', {
+      typesCount: types?.length ?? 0,
+      fieldsCount: fields?.length ?? 0,
+      typeNames: types?.map(t => t.name) ?? [],
+    })
 
     /**
      * Save types sequentially due to type dependencies

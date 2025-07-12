@@ -13,7 +13,7 @@ export const endpointConfig = registerAs(ENDPOINT_CONFIG_KEY, () => {
       return `${this.apiHostname}:${this.apiPort}`
     },
     get apiHostname() {
-      return get('NEXT_PUBLIC_API_HOSTNAME').required().asPortNumber()
+      return get('NEXT_PUBLIC_API_HOSTNAME').required().asString()
     },
     get apiPort() {
       return get('NEXT_PUBLIC_API_PORT').required().asPortNumber()
