@@ -597,6 +597,7 @@ jobs:
     resource_class: large
     steps:
       - checkout
+      - install-nvm
       - install-terraform
       - setup-env
       - login-docker
@@ -616,8 +617,8 @@ jobs:
     resource_class: << parameters.resource_class >>
     steps:
       - checkout
-      - setup-env
       - install-nvm
+      - setup-env
       - install-pnpm
       - install-packages
   tf-apply:
