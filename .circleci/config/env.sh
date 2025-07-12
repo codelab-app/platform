@@ -1,15 +1,5 @@
 #!/bin/bash
 
-# Disable exit on error temporarily to see all output
-set +e
-
-# Add debug output
-echo "[env.sh] Starting script execution"
-echo "[env.sh] BASH_ENV: $BASH_ENV"
-echo "[env.sh] CIRCLE_SHA1: $CIRCLE_SHA1"
-echo "[env.sh] Current directory: $(pwd)"
-echo "[env.sh] Shell options: $-"
-
 #
 # Git settings
 #
@@ -60,27 +50,9 @@ fi
 #
 # Docker tag version from git tags
 #
-echo "[env.sh] Checking for git tags..."
 VERSION_TAG=$(git tag --points-at HEAD | grep -E "^[0-9]+\.[0-9]+\.[0-9]+$" | head -1)
-echo "[env.sh] VERSION_TAG: '$VERSION_TAG'"
-
-echo "[env.sh] Running validate-semver.js..."
-
-# Load nvm if available
-if [ -s "$HOME/.nvm/nvm.sh" ]; then
-  echo "[env.sh] Loading nvm..."
-  export NVM_DIR="$HOME/.nvm"
-  source "$NVM_DIR/nvm.sh"
-fi
-
-# Use npx with semver package
 eval "$(npx --yes -p semver node ./scripts/validate-semver.js "$VERSION_TAG")" || true
 
 # Done
-echo "[env.sh] Sourcing BASH_ENV..."
-source $BASH_ENV || {
-  EXIT_CODE=$?
-  echo "[env.sh] Failed to source BASH_ENV with exit code: $EXIT_CODE"
-  exit $EXIT_CODE
-}
+source $BASH_ENV
 

@@ -598,6 +598,7 @@ jobs:
     steps:
       - checkout
       - install-nvm
+      - load-nvm
       - install-terraform
       - setup-env
       - login-docker
@@ -618,6 +619,7 @@ jobs:
     steps:
       - checkout
       - install-nvm
+      - load-nvm
       - setup-env
       - install-pnpm
       - install-packages
