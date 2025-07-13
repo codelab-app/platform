@@ -86,13 +86,13 @@ export abstract class AbstractRepository<
   async exists(where: Where) {
     const startTime = Date.now()
     const namespace = this.getNamespace('exists')
-    
+
     this.loggerService.debug('Checking if exists - START', {
       context: namespace,
       data: {
-        where,
-        whereKeys: Object.keys(where || {}),
         timestamp: new Date().toISOString(),
+        where,
+        whereKeys: Object.keys(where),
       },
     })
 
@@ -105,8 +105,8 @@ export abstract class AbstractRepository<
       this.loggerService.debug('Checking if exists - COMPLETE', {
         context: namespace,
         data: {
-          exists,
           duration,
+          exists,
           where,
         },
       })
@@ -114,7 +114,7 @@ export abstract class AbstractRepository<
       return exists
     } catch (error) {
       const duration = Date.now() - startTime
-      
+
       this.loggerService.error('Checking if exists - FAILED', {
         context: namespace,
         data: {
@@ -123,7 +123,7 @@ export abstract class AbstractRepository<
           where,
         },
       })
-      
+
       throw error
     }
   }
@@ -156,7 +156,7 @@ export abstract class AbstractRepository<
   } = {}): Promise<Array<Model> | Array<Static<T>>> {
     const startTime = Date.now()
     const namespace = this.getNamespace('find')
-    
+
     this.loggerService.debug('Find operation - START', {
       context: namespace,
       data: {
@@ -165,7 +165,7 @@ export abstract class AbstractRepository<
         options,
         timestamp: new Date().toISOString(),
         where,
-        whereKeys: Object.keys(where || {}),
+        whereKeys: Object.keys(where),
       },
     })
 
@@ -194,7 +194,7 @@ export abstract class AbstractRepository<
       return results
     } catch (error) {
       const duration = Date.now() - startTime
-      
+
       this.loggerService.error('Find operation - FAILED', {
         context: namespace,
         data: {
@@ -242,7 +242,7 @@ export abstract class AbstractRepository<
     const startTime = Date.now()
     const namespace = this.getNamespace('findOne')
     const callStack = new Error().stack
-    
+
     this.loggerService.debug('FindOne operation - START', {
       context: namespace,
       data: {
@@ -250,7 +250,7 @@ export abstract class AbstractRepository<
         hasSchema: Boolean(schema),
         timestamp: new Date().toISOString(),
         where,
-        whereKeys: Object.keys(where || {}),
+        whereKeys: Object.keys(where),
       },
     })
 
@@ -282,7 +282,7 @@ export abstract class AbstractRepository<
       return results
     } catch (error) {
       const duration = Date.now() - startTime
-      
+
       this.loggerService.error('FindOne operation - FAILED', {
         context: namespace,
         data: {
@@ -292,7 +292,7 @@ export abstract class AbstractRepository<
           where,
         },
       })
-      
+
       throw error
     }
   }
@@ -339,10 +339,10 @@ export abstract class AbstractRepository<
   async save(data: Dto, where?: Where): Promise<IDiscriminatedRef<INodeType>> {
     const startTime = Date.now()
     const namespace = this.getNamespace('save')
-    
+
     try {
       const computedWhere = this.getWhere(data, where)
-      
+
       this.loggerService.debug('Save operation - START', {
         context: namespace,
         data: {
@@ -357,7 +357,7 @@ export abstract class AbstractRepository<
       const existsCheckStart = Date.now()
       const recordExists = await this.exists(computedWhere)
       const existsCheckDuration = Date.now() - existsCheckStart
-      
+
       this.loggerService.debug('Save operation - EXISTS CHECK COMPLETE', {
         context: namespace,
         data: {
@@ -376,14 +376,14 @@ export abstract class AbstractRepository<
 
         const result = await this.update(data, computedWhere)
         const totalDuration = Date.now() - startTime
-        
+
         this.loggerService.debug('Save operation - UPDATE COMPLETE', {
           context: namespace,
           data: {
             totalDuration,
           },
         })
-        
+
         return result
       }
 
@@ -396,18 +396,18 @@ export abstract class AbstractRepository<
 
       const result = await this.add(data)
       const totalDuration = Date.now() - startTime
-      
+
       this.loggerService.debug('Save operation - ADD COMPLETE', {
         context: namespace,
         data: {
           totalDuration,
         },
       })
-      
+
       return result
     } catch (error) {
       const duration = Date.now() - startTime
-      
+
       this.loggerService.error('Save operation - FAILED', {
         context: namespace,
         data: {
@@ -434,7 +434,7 @@ export abstract class AbstractRepository<
   ): Promise<IDiscriminatedRef<INodeType>> {
     const startTime = Date.now()
     const namespace = this.getNamespace('update')
-    
+
     this.loggerService.debug('Update operation - START', {
       context: namespace,
       data: {
@@ -445,13 +445,13 @@ export abstract class AbstractRepository<
     })
 
     const computedWhere = this.getWhere(data, where)
-    
+
     try {
       // This triggers findOne() -> find() -> _find()
       const findStart = Date.now()
       const existing = await this.findOne({ where: computedWhere })
       const findDuration = Date.now() - findStart
-      
+
       this.loggerService.debug('Update operation - FIND EXISTING COMPLETE', {
         context: namespace,
         data: {
@@ -469,7 +469,7 @@ export abstract class AbstractRepository<
       }
 
       const totalDuration = Date.now() - startTime
-      
+
       this.loggerService.debug('Update operation - COMPLETE', {
         context: namespace,
         data: {
@@ -481,7 +481,7 @@ export abstract class AbstractRepository<
       return model
     } catch (error) {
       const duration = Date.now() - startTime
-      
+
       this.loggerService.error('Update operation - FAILED', {
         context: namespace,
         data: {

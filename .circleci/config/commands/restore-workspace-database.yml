@@ -1,6 +1,7 @@
 description: 'Restore Workspace'
 steps:
   - checkout
+  - setup-env
   # Attach `dist` folder
   - attach_workspace:
       at: ~/
@@ -19,4 +20,3 @@ steps:
         - nvm-cache-{{ checksum ".nvmrc" }}
   - install-pnpm
   - install-cypher-shell
-  - setup-env

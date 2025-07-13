@@ -148,6 +148,7 @@ Within each group, members are ordered alphabetically.
 #### Ant Design Icon Imports
 
 Icons from Ant Design must be imported individually from their specific paths:
+
 ```typescript
 // ❌ Wrong
 import { EyeOutlined } from '@ant-design/icons'
@@ -158,7 +159,7 @@ import EyeOutlined from '@ant-design/icons/lib/icons/EyeOutlined'
 
 #### Other Linting Rules
 
-- No inline comments are allowed (use separate line comments)
+- No inline comments are allowed (use separate line comments, put before the code)
 - React components in arrays must have `key` props
 - Import `UnknownObjectLike` from `@codelab/shared/abstract/types` instead of using `Record<string, unknown>`
 

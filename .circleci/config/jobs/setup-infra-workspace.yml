@@ -2,9 +2,9 @@ executor: docker-node
 resource_class: large
 steps:
   - checkout
+  - setup-env
   - install-nvm
   - install-terraform
-  - setup-env
   - login-docker
 
   - persist_to_workspace:

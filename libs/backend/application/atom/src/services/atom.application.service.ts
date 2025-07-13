@@ -73,7 +73,7 @@ export class AtomApplicationService {
   @LogClassMethod()
   async saveAtoms(atoms: Array<IAtomAggregate>) {
     const owner = this.authDomainService.currentUser
-    
+
     this.logger.log('Processing atoms', {
       totalAtoms: atoms.length,
     })
@@ -99,16 +99,17 @@ export class AtomApplicationService {
             owner,
           })
         } catch (error) {
-          const errorMessage = error instanceof Error ? error.message : String(error)
-          
+          const errorMessage =
+            error instanceof Error ? error.message : String(error)
+
           this.logger.error('Failed to save atom', {
             atomName: atom.name,
             error: errorMessage,
           })
-          
+
           throw error
         }
-      })
+      }),
     )
 
     const atomsWithDependencies = atoms.filter(
@@ -120,7 +121,7 @@ export class AtomApplicationService {
       this.logger.log('Processing atoms with dependencies', {
         count: atomsWithDependencies.length,
       })
-      
+
       // Process all dependency updates in parallel - batching is handled at the fetch level
       await Promise.all(
         atomsWithDependencies.map(async ({ atom }) => {

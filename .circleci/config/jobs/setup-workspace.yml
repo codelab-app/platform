@@ -14,7 +14,7 @@ environment:
 
 steps:
   - checkout
-  - install-nvm
   - setup-env
+  - install-nvm
   - install-pnpm
   - install-packages

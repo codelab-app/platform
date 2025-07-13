@@ -23,6 +23,18 @@ export class Neo4jService {
     const username = this.config.user
 
     this.driver = neo4j.driver(uri, neo4j.auth.basic(username, password), {
+      // Increase from default 100
+      connectionAcquisitionTimeout: 120000,
+
+      // 1 minute (from default 30s)
+      connectionTimeout: 30000,
+
+      // Connection pool configuration to handle high concurrency
+      maxConnectionPoolSize: 200,
+
+      // 2 minutes (from default 60s)
+      maxTransactionRetryTime: 60000,
+
       notificationFilter: {
         disabledCategories: [
           neo4j.notificationFilterDisabledCategory.DEPRECATION,
@@ -30,12 +42,8 @@ export class Neo4jService {
         // optional: ignore everything below WARNING as well
         // minimumSeverityLevel:
         //   neo4j.notificationFilterMinimumSeverityLevel.WARNING,
+      // 30 seconds
       },
-      // Connection pool configuration to handle high concurrency
-      maxConnectionPoolSize: 200, // Increase from default 100
-      connectionAcquisitionTimeout: 120000, // 2 minutes (from default 60s)
-      maxTransactionRetryTime: 60000, // 1 minute (from default 30s)
-      connectionTimeout: 30000, // 30 seconds
       // logging: {
       //   level: 'debug',
       //   logger: (level, message) => {
@@ -43,20 +51,22 @@ export class Neo4jService {
       //   },
       // },
     })
-    
+
     // Log server connectivity info periodically (for debugging in non-production)
     if (process.env.NODE_ENV !== 'production') {
       setInterval(async () => {
         try {
           const serverInfo = await this.driver.getServerInfo()
+
           console.log('[Neo4j Connection Pool]', {
-            serverAddress: serverInfo.address,
             protocolVersion: serverInfo.protocolVersion,
+            serverAddress: serverInfo.address,
           })
         } catch (error) {
           // Ignore errors in monitoring
         }
-      }, 60000) // Log every minute
+      // Log every minute
+      }, 60000)
     }
   }
 

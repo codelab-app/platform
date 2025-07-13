@@ -1,1 +1,1 @@
-export * from './page-preview.query'
+export { pagePreviewQuery } from './page-preview.query'
