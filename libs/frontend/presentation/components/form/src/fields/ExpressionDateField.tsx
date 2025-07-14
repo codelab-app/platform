@@ -1,3 +1,5 @@
+'use client'
+
 import type { DateFieldProps } from 'uniforms-antd'
 
 import DatePicker from 'antd/lib/date-picker'

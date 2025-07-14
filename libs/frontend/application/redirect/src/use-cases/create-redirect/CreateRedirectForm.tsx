@@ -23,7 +23,7 @@ export const CreateRedirectForm = observer<
   const model = {
     id: v4(),
     source: { id: pageId },
-  }
+  } as IRedirectCreateFormData
 
   return (
     <Form<IRedirectCreateFormData>

@@ -1,24 +1,28 @@
 'use client'
 
-import type { IPrimitiveTypeModel } from '@codelab/frontend/abstract/domain'
-import type { IFormController } from '@codelab/frontend/abstract/types'
+import type { IRuntimeContext } from '@codelab/frontend-abstract-application'
+import type {
+  IPrimitiveTypeModel,
+  ITypeModel,
+} from '@codelab/frontend-abstract-domain'
+import type { IFormController } from '@codelab/frontend-abstract-types'
 import type {
   IFieldDefaultValueFormData,
   IRef,
   IValidationRules,
-} from '@codelab/shared/abstract/core'
-import type { Maybe, Nullish, ObjectLike } from '@codelab/shared/abstract/types'
+} from '@codelab/shared-abstract-core'
+import type { Maybe, Nullish, ObjectLike } from '@codelab/shared-abstract-types'
 import type { JSONSchemaType } from 'ajv'
 
-import { UiKey } from '@codelab/frontend/abstract/types'
-import { uniformSchemaFactory } from '@codelab/frontend/presentation/components/interface-form'
-import { useDomainStore } from '@codelab/frontend-infra-mobx/context'
+import { UiKey } from '@codelab/frontend-abstract-types'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import {
   ExpressionAutoField,
   Form,
 } from '@codelab/frontend-presentation-components-form'
-import { GeneralValidationRules } from '@codelab/shared/abstract/core'
-import { PrimitiveTypeKind } from '@codelab/shared/infra/gqlgen'
+import { uniformSchemaFactory } from '@codelab/frontend-presentation-components-interface-form'
+import { GeneralValidationRules } from '@codelab/shared-abstract-core'
+import { PrimitiveTypeKind } from '@codelab/shared-infra-gqlgen'
 import { useMemo } from 'react'
 
 interface FieldDefaultValueFormProps extends IFormController {
@@ -32,6 +36,8 @@ export const FieldDefaultValueForm = ({
   fieldType,
   model,
   onSubmit,
+  onSubmitSuccess,
+  submitRef,
   validationRules,
 }: FieldDefaultValueFormProps) => {
   const { typeDomainService } = useDomainStore()
@@ -56,6 +62,9 @@ export const FieldDefaultValueForm = ({
   //   },
   // },
 
+  const uniforms = (typeToTransform: ITypeModel) =>
+    uniformSchemaFactory(typeToTransform, {} as IRuntimeContext)
+
   // @ts-expect-error maybe we can solve this using union
   const schema: JSONSchemaType<IFieldDefaultValueFormData> = useMemo(
     () => ({
@@ -63,7 +72,7 @@ export const FieldDefaultValueForm = ({
       properties: {
         defaultValues: type.toJsonSchema({
           fieldName: 'defaultValues',
-          uniformSchema: uniformSchemaFactory,
+          uniformSchema: uniforms,
           validationRules: validationRules,
         }),
       },

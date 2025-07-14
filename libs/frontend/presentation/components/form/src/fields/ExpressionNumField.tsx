@@ -1,3 +1,5 @@
+'use client'
+
 import type { NumFieldProps } from 'uniforms-antd'
 
 import InputNumber from 'antd/lib/input-number'

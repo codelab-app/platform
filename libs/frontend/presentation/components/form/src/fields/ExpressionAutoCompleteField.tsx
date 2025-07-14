@@ -1,3 +1,5 @@
+'use client'
+
 import type { AutoCompleteProps } from 'antd/lib/auto-complete'
 
 import AutoComplete from 'antd/lib/auto-complete'

@@ -2,19 +2,20 @@
 
 import type { IFieldUpdateRoute } from '@codelab/frontend-abstract-application'
 import type { IFieldModel } from '@codelab/frontend-abstract-domain'
+import type { IFieldUpdateData } from '@codelab/shared-abstract-core'
 import type { Maybe } from '@codelab/shared-abstract-types'
 
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
 import { type SubmitController, UiKey } from '@codelab/frontend-abstract-types'
 import { CuiSidebarSecondary } from '@codelab/frontend-presentation-codelab-ui'
+import { FieldFormStep } from '@codelab/shared-abstract-core'
 import { useRouter } from 'next/navigation'
 import { useRef, useState } from 'react'
 
 import { useFieldService } from '../../services/field.service'
 import { FieldDefaultValueForm } from '../create-field/FieldDefaultValueForm'
 import { UpdateFieldForm } from './UpdateFieldForm'
-import { FieldFormStep, IFieldUpdateData } from '@codelab/shared-abstract-core'
 
 export const UpdateFieldPopover = ({
   context,
@@ -103,6 +104,7 @@ export const UpdateFieldPopover = ({
             })
             closePopover()
           }}
+          submitRef={defaultValueFormSubmitRef}
           validationRules={formState.validationRules}
         />
       )}

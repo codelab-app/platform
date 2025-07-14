@@ -1,3 +1,5 @@
+'use client'
+
 import type { Maybe, ObjectLike } from '@codelab/shared-abstract-types'
 import type { FieldProps } from 'uniforms'
 

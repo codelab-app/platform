@@ -1,19 +1,20 @@
 'use client'
 
 import type { IFieldCreateRoute } from '@codelab/frontend-abstract-application'
+import type { IFieldCreateData } from '@codelab/shared-abstract-core'
 import type { Maybe } from '@codelab/shared-abstract-types'
 
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
 import { type SubmitController, UiKey } from '@codelab/frontend-abstract-types'
 import { CuiSidebarSecondary } from '@codelab/frontend-presentation-codelab-ui'
+import { FieldFormStep } from '@codelab/shared-abstract-core'
 import { useRouter } from 'next/navigation'
 import { useRef, useState } from 'react'
 
 import { useFieldService } from '../../services/field.service'
 import { CreateFieldForm } from './CreateFieldForm'
 import { FieldDefaultValueForm } from './FieldDefaultValueForm'
-import { FieldFormStep, IFieldCreateData } from '@codelab/shared-abstract-core'
 
 interface CreateFieldPopoverProps {
   context: IFieldCreateRoute
@@ -98,13 +99,14 @@ export const CreateFieldPopover = ({ context }: CreateFieldPopoverProps) => {
       {formStep === FieldFormStep.DefaultValueFormStep && formState && (
         <FieldDefaultValueForm
           fieldType={formState.fieldType}
-          onSubmit={(data) => {
-            fieldService.create({
+          onSubmit={async (data) => {
+            await fieldService.create({
               ...formState,
               defaultValues: data.defaultValues,
             })
             closePopover()
           }}
+          submitRef={defaultValueFormSubmitRef}
           validationRules={formState.validationRules}
         />
       )}

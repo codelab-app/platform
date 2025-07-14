@@ -1,3 +1,5 @@
+'use client'
+
 import type { TextFieldProps } from 'uniforms-antd'
 
 import Input from 'antd/lib/input'

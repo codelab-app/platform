@@ -41,7 +41,7 @@ export const UpdateRedirectForm = observer<UpdateRedirectFormProps>(
       targetPage: redirect?.targetPage,
       targetType: redirect?.targetType,
       targetUrl: redirect?.targetUrl,
-    }
+    } as IRedirectUpdateFormData
 
     return (
       <>

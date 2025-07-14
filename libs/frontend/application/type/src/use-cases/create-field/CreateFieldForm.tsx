@@ -14,7 +14,6 @@ import { useMemo } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 
-import { useFieldSchema } from '../hooks'
 import { createFieldSchema } from './create-field.schema'
 import {
   filterValidationRules,
@@ -34,7 +33,6 @@ interface CreateFieldFormProps extends IFormController {
 export const CreateFieldForm = observer<CreateFieldFormProps>(
   ({ disabled, interfaceId, onSubmit, onSubmitSuccess, submitRef }) => {
     const { typeDomainService } = useDomainStore()
-    const fieldSchema = useFieldSchema(createFieldSchema)
     const fieldModel = { id: v4(), interfaceTypeId: interfaceId }
 
     const formModel = useMemo(
@@ -45,6 +43,8 @@ export const CreateFieldForm = observer<CreateFieldFormProps>(
         } as IFieldCreateFormData),
       [],
     )
+
+    // TODO: add forbidden key names
 
     return (
       <Form<IFieldCreateFormData>
@@ -59,7 +59,7 @@ export const CreateFieldForm = observer<CreateFieldFormProps>(
           onSubmit({ ...input, validationRules })
         }}
         onSubmitSuccess={onSubmitSuccess}
-        schema={fieldSchema}
+        schema={createFieldSchema}
         submitRef={submitRef}
         uiKey={UiKey.FieldFormCreate}
       >

@@ -1,6 +1,6 @@
 'use client'
 
-import type { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
+import type { ICodeMirrorLanguage } from '@codelab/shared-abstract-core'
 import type { Completion } from '@codemirror/autocomplete'
 
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'

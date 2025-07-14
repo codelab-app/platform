@@ -1,4 +1,8 @@
-import type { IElementDto } from '@codelab/shared-abstract-core'
+import type { SelectOption } from '@codelab/frontend-abstract-types'
+import type {
+  IElementDto,
+  IElementTypeKind,
+} from '@codelab/shared-abstract-core'
 import type { Maybe } from '@codelab/shared-abstract-types'
 import type { ObjectMap } from 'mobx-keystone'
 

@@ -1,28 +1,28 @@
 'use client'
 
 import type { IFieldModel } from '@codelab/frontend-abstract-domain'
+import type { IFormController } from '@codelab/frontend-abstract-types'
+import type { IFieldUpdateFormData } from '@codelab/shared-abstract-core'
 
+import { UiKey } from '@codelab/frontend-abstract-types'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import {
   DisplayIfField,
   Form,
 } from '@codelab/frontend-presentation-components-form'
+import { PrimitiveTypeKind } from '@codelab/shared-infra-gqlgen'
+import { titleCase } from '@codelab/shared-utils'
 import { AutoField, AutoFields } from 'uniforms-antd'
 
 import {
   canSetDefaultValue,
-  createFieldSchema,
   isBoolean,
   isFloat,
   isInteger,
   isPrimitive,
   isString,
 } from '../create-field'
-import { useFieldSchema } from '../hooks'
-import { IFormController, UiKey } from '@codelab/frontend-abstract-types'
-import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
-import { PrimitiveTypeKind } from '@codelab/shared-infra-gqlgen'
-import { IFieldUpdateFormData } from '@codelab/shared-abstract-core'
-import { titleCase } from '@codelab/shared-utils'
+import { updateFieldSchema } from './update-field.schema'
 
 export interface UpdateFieldFormProps extends IFormController {
   disabled?: boolean
@@ -38,7 +38,8 @@ export const UpdateFieldForm = ({
   submitRef,
 }: UpdateFieldFormProps) => {
   const { typeDomainService } = useDomainStore()
-  const fieldSchema = useFieldSchema(createFieldSchema, field)
+
+  // TODO: add forbidden key names
 
   return (
     <Form<IFieldUpdateFormData>
@@ -60,7 +61,7 @@ export const UpdateFieldForm = ({
         onSubmit(data ?? field.toJson)
       }}
       onSubmitSuccess={onSubmitSuccess}
-      schema={fieldSchema}
+      schema={updateFieldSchema}
       submitRef={submitRef}
       successMessage="Field updated successfully"
       uiKey={UiKey.FieldFormUpdate}

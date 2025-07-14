@@ -54,8 +54,13 @@ export const CreateActionForm = observer<CreateActionFormProps>(
         id: v4(),
       },
       id: v4(),
+      name: '',
+      resource: {
+        id: v4(),
+      },
       store: storeDomainService.stores.get(storeId),
-    }
+      type: IActionKind.CodeAction,
+    } as ICreateActionData
 
     return (
       <Form<ICreateActionData>

@@ -31,7 +31,7 @@ export const CreateAuthGuardForm = ({
     config: { data: {}, id: v4() },
     id: v4(),
     owner: { id: user.id },
-  }
+  } as IAuthGuardCreateFormData
 
   return (
     <Form<IAuthGuardCreateFormData>

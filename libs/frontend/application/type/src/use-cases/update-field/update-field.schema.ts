@@ -1,6 +1,6 @@
 'use client'
 
-import type { IFieldUpdateFormData } from '@codelab/shared/abstract/core'
+import type { IFieldUpdateFormData } from '@codelab/shared-abstract-core'
 import type { JSONSchemaType } from 'ajv'
 
 import {
@@ -11,18 +11,28 @@ import {
   GeneralValidationRules,
   NumberValidationRules,
   StringValidationRules,
-} from '@codelab/shared/abstract/core'
-import { PrimitiveTypeKind } from '@codelab/shared/infra/gqlgen'
+} from '@codelab/shared-abstract-core'
+import { PrimitiveTypeKind } from '@codelab/shared-infra-gqlgen'
 import { HiddenField, SelectField } from 'uniforms-antd'
 
-export const updateFieldSchema: JSONSchemaType<
-  Omit<IFieldUpdateFormData, 'defaultValues'>
-> = {
+export const updateFieldSchema: JSONSchemaType<IFieldUpdateFormData> = {
   properties: {
     ...idSchema(),
     description: {
       nullable: true,
       type: 'string',
+    },
+    prevSibling: {
+      type: 'object',
+      nullable: true,
+      properties: {
+        ...idSchema({
+          component: SelectField,
+          disabled: false,
+          label: 'Previous Sibling',
+        }),
+      },
+      required: ['id'],
     },
     fieldType: {
       type: 'object',
@@ -31,17 +41,6 @@ export const updateFieldSchema: JSONSchemaType<
           component: SelectField,
           disabled: false,
           label: 'Field Type',
-        }),
-      },
-      required: ['id'],
-    },
-    prevSibling: {
-      type: 'object',
-      properties: {
-        ...idSchema({
-          component: SelectField,
-          disabled: false,
-          label: 'Previous Sibling',
         }),
       },
       required: ['id'],

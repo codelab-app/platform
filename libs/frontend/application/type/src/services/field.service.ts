@@ -2,7 +2,11 @@ import type {
   IFieldModel,
   IInterfaceTypeModel,
 } from '@codelab/frontend-abstract-domain'
-import type { IFieldCreateData, IRef } from '@codelab/shared-abstract-core'
+import type {
+  IFieldCreateData,
+  IFieldCreateFormData,
+  IRef,
+} from '@codelab/shared-abstract-core'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import {

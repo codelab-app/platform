@@ -13,10 +13,10 @@ import {
   ownerSchema,
   titleCaseValidation,
 } from '@codelab/frontend-presentation-components-form/schema'
-import { SelectResource } from '@codelab/frontend-presentation-components-interface-form'
 import { HttpMethod, HttpResponseType } from '@codelab/shared-abstract-core'
 import { CodeMirrorLanguage } from '@codelab/shared-infra-gqlgen'
 import { keys } from 'remeda'
+import { SelectField } from 'uniforms-antd'
 
 export const createAuthGuardSchema: JSONSchemaType<IAuthGuardCreateFormData> = {
   properties: {
@@ -100,7 +100,7 @@ export const createAuthGuardSchema: JSONSchemaType<IAuthGuardCreateFormData> = {
           type: 'string',
           label: '',
           uniforms: {
-            component: SelectResource,
+            component: SelectField,
           },
         },
       },

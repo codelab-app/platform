@@ -1,5 +1,6 @@
 'use client'
-import type { ObjectLike } from '@codelab/shared/abstract/types'
+
+import type { ObjectLike } from '@codelab/shared-abstract-types'
 import type { Context } from 'uniforms'
 import type { TextFieldProps } from 'uniforms-antd'
 

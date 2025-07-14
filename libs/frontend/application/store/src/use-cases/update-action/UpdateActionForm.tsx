@@ -56,10 +56,12 @@ export const UpdateActionForm = observer<UpdateActionFormProps>(
             code: actionToUpdate?.code,
           }
 
+    // TODO: fix typing
+
     return (
       <Form<IUpdateActionData>
         errorMessage="Error while updating action"
-        model={model}
+        model={model as unknown as IUpdateActionData}
         onSubmit={actionService.update}
         onSubmitSuccess={onSubmitSuccess}
         schema={actionSchema}

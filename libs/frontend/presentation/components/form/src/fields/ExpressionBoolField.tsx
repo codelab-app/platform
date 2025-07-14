@@ -1,3 +1,5 @@
+'use client'
+
 import type { BoolFieldProps } from 'uniforms-antd'
 
 import Checkbox from 'antd/lib/checkbox'
