@@ -1,14 +1,14 @@
 'use client'
 
-import type { ITypeKind } from '@codelab/shared/abstract/core'
-import type { ObjectLike } from '@codelab/shared/abstract/types'
+import type {
+  IUnionTypeModel,
+  TypedProp,
+} from '@codelab/frontend-abstract-domain'
+import type { ITypeKind } from '@codelab/shared-abstract-core'
+import type { ObjectLike } from '@codelab/shared-abstract-types'
 import type { GuaranteedProps } from 'uniforms'
 
-import {
-  type IUnionTypeModel,
-  PropKind,
-  type TypedProp,
-} from '@codelab/frontend/abstract/domain'
+import { PropKind } from '@codelab/frontend-abstract-domain'
 import { Form } from 'antd'
 import { joinName, useField } from 'uniforms'
 import { AutoField } from 'uniforms-antd'

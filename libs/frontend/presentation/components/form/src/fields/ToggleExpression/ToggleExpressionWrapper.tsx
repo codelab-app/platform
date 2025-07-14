@@ -1,8 +1,8 @@
-import type { Maybe, ObjectLike } from '@codelab/shared/abstract/types'
+import type { Maybe, ObjectLike } from '@codelab/shared-abstract-types'
 import type { FieldProps } from 'uniforms'
 
 import { CodeMirrorEditor } from '@codelab/frontend-presentation-components-codemirror'
-import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
+import { ICodeMirrorLanguage } from '@codelab/shared-abstract-core'
 import { hasExpression } from '@codelab/shared-infra-eval'
 import { useEffect, useState } from 'react'
 

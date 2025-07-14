@@ -1,7 +1,7 @@
-import type { IPageCreateFormData } from '@codelab/shared/abstract/core'
+import type { IPageCreateFormData } from '@codelab/shared-abstract-core'
 import type { TextFieldProps } from 'uniforms-antd'
 
-import { slugify } from '@codelab/shared/utils'
+import { slugify } from '@codelab/shared-utils'
 import { Switch, Tooltip } from 'antd'
 import { useCallback, useEffect, useState } from 'react'
 import { useField, useForm } from 'uniforms'
