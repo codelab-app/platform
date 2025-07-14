@@ -10,7 +10,7 @@ import { type SubmitController, UiKey } from '@codelab/frontend-abstract-types'
 import { CuiSidebarSecondary } from '@codelab/frontend-presentation-codelab-ui'
 import { FieldFormStep } from '@codelab/shared-abstract-core'
 import { useRouter } from 'next/navigation'
-import { useRef, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 
 import { useFieldService } from '../../services/field.service'
 import { CreateFieldForm } from './CreateFieldForm'
@@ -38,41 +38,41 @@ export const CreateFieldPopover = ({ context }: CreateFieldPopoverProps) => {
   const { createPopover } = useFieldService()
   const closePopover = () => createPopover.close(router, context)
 
-  const createFieldFormToolbar =
-    formStep === FieldFormStep.CreateFieldFormStep
-      ? [
-          {
-            cuiKey: UiKey.FieldToolbarItemCreateNext,
-            icon: <SaveOutlined />,
-            label: 'Next',
-            onClick: () => createFieldFormSubmitRef.current?.submit(),
-          },
-          {
-            cuiKey: UiKey.FieldToolbarItemCreateCancel,
-            icon: <CloseOutlined />,
-            label: 'Cancel',
-            onClick: closePopover,
-          },
-        ]
-      : []
+  const createFieldFormToolbar = useMemo(
+    () => [
+      {
+        cuiKey: UiKey.FieldToolbarItemCreateNext,
+        icon: <SaveOutlined />,
+        label: 'Next',
+        onClick: () => createFieldFormSubmitRef.current?.submit(),
+      },
+      {
+        cuiKey: UiKey.FieldToolbarItemCreateCancel,
+        icon: <CloseOutlined />,
+        label: 'Cancel',
+        onClick: closePopover,
+      },
+    ],
+    [],
+  )
 
-  const defaultValueFormToolbar =
-    formStep === FieldFormStep.DefaultValueFormStep
-      ? [
-          {
-            cuiKey: UiKey.FieldToolbarItemCreate,
-            icon: <SaveOutlined />,
-            label: 'Create',
-            onClick: () => defaultValueFormSubmitRef.current?.submit(),
-          },
-          {
-            cuiKey: UiKey.FieldToolbarItemCreateBack,
-            icon: <CloseOutlined />,
-            label: 'Back',
-            onClick: () => setFormStep(FieldFormStep.CreateFieldFormStep),
-          },
-        ]
-      : []
+  const defaultValueFormToolbar = useMemo(
+    () => [
+      {
+        cuiKey: UiKey.FieldToolbarItemCreate,
+        icon: <SaveOutlined />,
+        label: 'Create',
+        onClick: () => defaultValueFormSubmitRef.current?.submit(),
+      },
+      {
+        cuiKey: UiKey.FieldToolbarItemCreateBack,
+        icon: <CloseOutlined />,
+        label: 'Back',
+        onClick: () => setFormStep(FieldFormStep.CreateFieldFormStep),
+      },
+    ],
+    [],
+  )
 
   return (
     <CuiSidebarSecondary
@@ -92,7 +92,6 @@ export const CreateFieldPopover = ({ context }: CreateFieldPopoverProps) => {
           setFormState(data)
           setFormStep(FieldFormStep.DefaultValueFormStep)
         }}
-        onSubmitSuccess={() => null}
         submitRef={createFieldFormSubmitRef}
       />
 

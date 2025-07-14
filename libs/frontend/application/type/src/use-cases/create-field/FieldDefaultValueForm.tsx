@@ -63,7 +63,18 @@ export const FieldDefaultValueForm = ({
   // },
 
   const uniforms = (typeToTransform: ITypeModel) =>
-    uniformSchemaFactory(typeToTransform, {} as IRuntimeContext)
+    uniformSchemaFactory(typeToTransform, {
+      actions: {},
+      args: {},
+      componentProps: {},
+      props: {},
+      refs: {},
+      rootActions: {},
+      rootRefs: {},
+      rootState: {},
+      state: {},
+      urlProps: {},
+    } as IRuntimeContext)
 
   // @ts-expect-error maybe we can solve this using union
   const schema: JSONSchemaType<IFieldDefaultValueFormData> = useMemo(
