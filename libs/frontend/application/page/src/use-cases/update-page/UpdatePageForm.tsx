@@ -30,7 +30,7 @@ export const UpdatePageForm = observer<UpdatePageFormProps>(
     const closeForm = () =>
       pageService.updatePopover.close(router, { appId, pageId: page.id })
 
-    const model: Partial<IPageUpdateFormData> = {
+    const model = {
       app: page.app,
       id: page.id,
       name: page.name,

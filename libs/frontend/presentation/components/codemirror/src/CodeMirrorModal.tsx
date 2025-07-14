@@ -1,18 +1,19 @@
 import type { Nullish } from '@codelab/shared-abstract-types'
 import type { UseCodeMirror } from '@uiw/react-codemirror'
+import type { ReactNode } from 'react'
 
 import { useCodeMirror } from '@uiw/react-codemirror'
 import AntdModal from 'antd/lib/modal'
 import { useEffect, useRef, useState } from 'react'
 
 type ISetupFactory = (
-  editorRef: React.MutableRefObject<HTMLDivElement | null>,
+  editorRef: React.RefObject<HTMLDivElement | null>,
   overWriteOpts?: UseCodeMirror,
 ) => UseCodeMirror
 
 export interface CodeMirrorModalProps {
   setupFactory: ISetupFactory
-  title?: Nullish<string>
+  title?: ReactNode
   value?: string
   visible: boolean
 

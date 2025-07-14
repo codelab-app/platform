@@ -123,10 +123,14 @@ export enum UiKey {
   FieldPopoverCreate = 'FieldPopoverCreate',
   FieldPopoverUpdate = 'FieldPopoverUpdate',
   FieldToolbarItemCreate = 'FieldToolbarItemCreate',
+  FieldToolbarItemCreateBack = 'FieldToolbarItemCreateBack',
   FieldToolbarItemCreateCancel = 'FieldToolbarItemCreateCancel',
+  FieldToolbarItemCreateNext = 'FieldToolbarItemCreateNext',
   FieldToolbarItemDelete = 'FieldToolbarItemDelete',
   FieldToolbarItemUpdate = 'FieldToolbarItemUpdate',
+  FieldToolbarItemUpdateBack = 'FieldToolbarItemUpdateBack',
   FieldToolbarItemUpdateCancel = 'FieldToolbarItemUpdateCancel',
+  FieldToolbarItemUpdateNext = 'FieldToolbarItemUpdateNext',
 
   /**
    * Form

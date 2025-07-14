@@ -1,3 +1,4 @@
+'use client'
 /* eslint-disable react/jsx-props-no-spreading */
 
 import type { ListFieldProps } from 'uniforms-antd'

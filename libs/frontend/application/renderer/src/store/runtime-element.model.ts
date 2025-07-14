@@ -33,7 +33,6 @@ import {
   getComponentDomainService,
   isComponent,
 } from '@codelab/frontend-abstract-domain'
-import { createValidator } from '@codelab/frontend-shared-utils'
 import {
   evaluateExpression,
   evaluateObject,
@@ -53,6 +52,9 @@ import { createElement, type ReactElement, type ReactNode } from 'react'
 import { difference, filter, isTruthy } from 'remeda'
 
 import { ElementWrapper } from '../components'
+import { createValidator } from '@codelab/frontend-shared-utils'
+import { createAutoCompleteOptions } from '@codelab/frontend-presentation-components-codemirror'
+import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 
 const compositeKey = (
   element: IElementModel,
@@ -169,6 +171,13 @@ export class RuntimeElementModel
   }
 
   @computed
+  get propKeyAutoCompleteOptions() {
+    return createAutoCompleteOptions(this.runtimeProps.runtimeContext)
+      .map(({ label }) => ({ label, value: label }))
+      .sort()
+  }
+
+  @computed
   get propsHaveErrors() {
     /**
      * This is causing error since we haven't loaded the entire api fields type yet
@@ -178,8 +187,16 @@ export class RuntimeElementModel
 
     const validate = createValidator(schema)
 
-    const evaluatedProps = evaluateObject(
+    const elementProps = mergeProps(
+      this.element.current.renderType.current.api.current.defaultValues,
+      isComponent(this.element.current.renderType.current)
+        ? this.element.current.renderType.current.props.values
+        : {},
       this.element.current.props.values,
+    )
+
+    const evaluatedProps = evaluateObject(
+      elementProps,
       this.runtimeProps.runtimeContext,
     )
 

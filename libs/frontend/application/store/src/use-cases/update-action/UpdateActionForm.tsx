@@ -10,10 +10,6 @@ import {
   Form,
   FormController,
 } from '@codelab/frontend-presentation-components-form'
-import {
-  SelectActionField,
-  SelectResource,
-} from '@codelab/frontend-presentation-components-interface-form'
 import { DisplayIf } from '@codelab/frontend-presentation-view/components/conditionalView'
 import { IActionKind } from '@codelab/shared-abstract-core'
 import { observer } from 'mobx-react-lite'
@@ -60,10 +56,12 @@ export const UpdateActionForm = observer<UpdateActionFormProps>(
             code: actionToUpdate?.code,
           }
 
+    // TODO: fix typing
+
     return (
       <Form<IUpdateActionData>
         errorMessage="Error while updating action"
-        model={model}
+        model={model as unknown as IUpdateActionData}
         onSubmit={actionService.update}
         onSubmitSuccess={onSubmitSuccess}
         schema={actionSchema}
@@ -77,9 +75,9 @@ export const UpdateActionForm = observer<UpdateActionFormProps>(
         </DisplayIf>
 
         <DisplayIf condition={actionToUpdate?.type === IActionKind.ApiAction}>
-          <SelectResource name="resource.id" />
-          <SelectActionField name="successAction" selectedNode={selectedNode} />
-          <SelectActionField name="errorAction" selectedNode={selectedNode} />
+          <AutoField name="resource.id" />
+          <AutoField name="successAction" options={[]} />
+          <AutoField name="errorAction" options={[]} />
           <ResourceFetchConfigField />
         </DisplayIf>
 

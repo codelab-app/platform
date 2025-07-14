@@ -47,7 +47,7 @@ const createValidator = <T,>(_schema: JSONSchemaType<T>) => {
 }
 
 const schemaValidator = createValidator(schema)
-const bridge = new JSONSchemaBridge(schema, schemaValidator)
+const bridge = new JSONSchemaBridge({ schema, validator: schemaValidator })
 
 export const GuestFormBasic = () => {
   return <AutoForm onSubmit={console.log} schema={bridge} />

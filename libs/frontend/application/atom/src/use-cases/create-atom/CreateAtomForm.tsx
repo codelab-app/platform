@@ -10,11 +10,10 @@ import {
 } from '@codelab/frontend-presentation-components-form'
 import { IAtomType } from '@codelab/shared-abstract-core'
 import { observer } from 'mobx-react-lite'
-import { AutoFields, SelectField, TextField } from 'uniforms-antd'
+import { AutoField, AutoFields, SelectField, TextField } from 'uniforms-antd'
 import { v4 } from 'uuid'
 
 import { useAtomService } from '../../services'
-import { SelectAtom } from '../select-atom'
 import { createAtomSchema } from './create-atom.schema'
 
 export const CreateAtomForm = observer<IFormController>(
@@ -26,9 +25,11 @@ export const CreateAtomForm = observer<IFormController>(
     return (
       <Form<ICreateAtomData>
         errorMessage="Error while creating atom"
-        model={{
-          id: v4(),
-        }}
+        model={
+          {
+            id: v4(),
+          } as ICreateAtomData
+        }
         onSubmit={atomService.create}
         onSubmitSuccess={onSubmitSuccess}
         schema={createAtomSchema}
@@ -54,7 +55,7 @@ export const CreateAtomForm = observer<IFormController>(
           <TextField name="externalJsSource" required />
           <TextField name="externalSourceType" required />
         </DisplayIfField>
-        <SelectAtom label="Required Parents" name="requiredParents" />
+        <AutoField label="Required Parents" name="requiredParents" />
         <SelectField
           label="Connect Tag"
           mode="multiple"

@@ -5,6 +5,7 @@ import type {
   IAuthGuardUpdateFormData,
 } from '@codelab/frontend-abstract-domain'
 import type { IFormController } from '@codelab/frontend-abstract-types'
+import type { IResourceFetchConfig } from '@codelab/shared-abstract-core'
 
 import { UiKey } from '@codelab/frontend-abstract-types'
 import {
@@ -32,14 +33,14 @@ export const UpdateAuthGuardForm = observer<UpdateAuthGuardFormProps>(
 
     const model = {
       config: {
-        data: authGuard.config.values,
+        data: authGuard.config.values as IResourceFetchConfig,
         id: authGuard.config.id,
       },
       id: authGuard.id,
       name: authGuard.name,
       resource: authGuard.resource,
       responseTransformer: authGuard.responseTransformer,
-    }
+    } as IAuthGuardUpdateFormData
 
     return (
       <Form<IAuthGuardUpdateFormData>

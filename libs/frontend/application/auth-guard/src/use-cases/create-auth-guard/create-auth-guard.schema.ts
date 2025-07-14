@@ -13,10 +13,10 @@ import {
   ownerSchema,
   titleCaseValidation,
 } from '@codelab/frontend-presentation-components-form/schema'
-import { SelectResource } from '@codelab/frontend-presentation-components-interface-form'
 import { HttpMethod, HttpResponseType } from '@codelab/shared-abstract-core'
 import { CodeMirrorLanguage } from '@codelab/shared-infra-gqlgen'
 import { keys } from 'remeda'
+import { SelectField } from 'uniforms-antd'
 
 export const createAuthGuardSchema: JSONSchemaType<IAuthGuardCreateFormData> = {
   properties: {
@@ -38,18 +38,16 @@ export const createAuthGuardSchema: JSONSchemaType<IAuthGuardCreateFormData> = {
               nullable: true,
               type: 'string',
               uniforms: {
-                component: CodeMirrorField({
-                  language: CodeMirrorLanguage.Json,
-                }),
+                component: CodeMirrorField,
+                language: CodeMirrorLanguage.Json,
               },
             },
             headers: {
               nullable: true,
               type: 'string',
               uniforms: {
-                component: CodeMirrorField({
-                  language: CodeMirrorLanguage.Json,
-                }),
+                component: CodeMirrorField,
+                language: CodeMirrorLanguage.Json,
               },
             },
             method: {
@@ -61,16 +59,16 @@ export const createAuthGuardSchema: JSONSchemaType<IAuthGuardCreateFormData> = {
               // nullable: true,
               type: 'string',
               uniforms: {
-                component: CodeMirrorGraphqlField({}),
+                component: CodeMirrorGraphqlField,
+                language: CodeMirrorLanguage.Typescript,
               },
             },
             queryParams: {
               nullable: true,
               type: 'string',
               uniforms: {
-                component: CodeMirrorField({
-                  language: CodeMirrorLanguage.Json,
-                }),
+                component: CodeMirrorField,
+                language: CodeMirrorLanguage.Json,
               },
             },
             responseType: {
@@ -85,9 +83,8 @@ export const createAuthGuardSchema: JSONSchemaType<IAuthGuardCreateFormData> = {
               nullable: true,
               type: 'string',
               uniforms: {
-                component: CodeMirrorField({
-                  language: CodeMirrorLanguage.Json,
-                }),
+                component: CodeMirrorField,
+                language: CodeMirrorLanguage.Json,
               },
             },
           },
@@ -103,7 +100,7 @@ export const createAuthGuardSchema: JSONSchemaType<IAuthGuardCreateFormData> = {
           type: 'string',
           label: '',
           uniforms: {
-            component: SelectResource,
+            component: SelectField,
           },
         },
       },
@@ -113,11 +110,10 @@ export const createAuthGuardSchema: JSONSchemaType<IAuthGuardCreateFormData> = {
     responseTransformer: {
       type: 'string',
       default: '// return response.Authenticated',
-      help: 'Use "response" object to return a boolean',
+      extra: 'Use "response" object to return a boolean',
       uniforms: {
-        component: CodeMirrorField({
-          language: CodeMirrorLanguage.Typescript,
-        }),
+        component: CodeMirrorField,
+        language: CodeMirrorLanguage.Typescript,
       },
     },
   },

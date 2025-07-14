@@ -2,7 +2,11 @@ import type {
   IFieldModel,
   IInterfaceTypeModel,
 } from '@codelab/frontend-abstract-domain'
-import type { IFieldCreateData, IRef } from '@codelab/shared-abstract-core'
+import type {
+  IFieldCreateData,
+  IFieldCreateFormData,
+  IRef,
+} from '@codelab/shared-abstract-core'
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import {
@@ -48,7 +52,7 @@ export const useFieldService = (): IFieldService => {
   }
 
   const create = async (createFieldData: IFieldCreateData) => {
-    await typeService.getOne(createFieldData.fieldType)
+    await typeService.getOne(createFieldData.fieldType.id)
 
     const fieldDto = fieldMapper.mapDataToDto(createFieldData)
     const field = fieldDomainService.hydrate(fieldDto)
@@ -128,7 +132,7 @@ export const useFieldService = (): IFieldService => {
     return
   }
 
-  const update = async (updateFieldData: IFieldCreateData) => {
+  const update = async (updateFieldData: IFieldCreateFormData) => {
     const field = fieldDomainService.getField(updateFieldData.id)
 
     Validator.assertsDefined(field)
