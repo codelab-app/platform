@@ -576,9 +576,6 @@
       "@codelab/frontend-application-store/use-cases/create-action": [
         "libs/frontend/application/store/src/use-cases/create-action/index.ts"
       ],
-      "@codelab/frontend-application-store/use-cases/delete-action": [
-        "libs/frontend/application/store/src/use-cases/delete-action/index.ts"
-      ],
       "@codelab/frontend-application-store/use-cases/get-actions": [
         "libs/frontend/application/store/src/use-cases/get-actions/index.ts"
       ],
