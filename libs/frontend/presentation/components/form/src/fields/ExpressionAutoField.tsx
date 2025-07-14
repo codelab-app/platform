@@ -1,3 +1,5 @@
+'use client'
+
 import invariant from 'invariant'
 import { createAutoField } from 'uniforms'
 

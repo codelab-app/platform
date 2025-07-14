@@ -1,3 +1,6 @@
+'use client'
+
+import type { ObjectLike } from '@codelab/shared-abstract-types'
 import type { NestFieldProps } from 'uniforms-antd'
 
 import { connectField, filterDOMProps } from 'uniforms'

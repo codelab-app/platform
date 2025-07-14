@@ -1,3 +1,5 @@
+'use client'
+
 import type { RadioFieldProps } from 'uniforms-antd'
 
 import Radio from 'antd/lib/radio'

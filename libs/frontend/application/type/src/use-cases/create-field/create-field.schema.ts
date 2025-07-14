@@ -15,9 +15,7 @@ import {
 import { PrimitiveTypeKind } from '@codelab/shared-infra-gqlgen'
 import { HiddenField, SelectField } from 'uniforms-antd'
 
-export const createFieldSchema: JSONSchemaType<
-  Omit<IFieldCreateFormData, 'defaultValues'>
-> = {
+export const createFieldSchema: JSONSchemaType<IFieldCreateFormData> = {
   properties: {
     ...idSchema(),
     description: {

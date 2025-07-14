@@ -1,4 +1,4 @@
-import type { SelectOption } from '@codelab/frontend/abstract/types'
+import type { SelectOption } from '@codelab/frontend-abstract-types'
 import type {
   IInterfaceTypeDto,
   IPrimitiveTypeKind,

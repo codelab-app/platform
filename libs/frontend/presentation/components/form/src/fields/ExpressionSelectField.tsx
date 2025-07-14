@@ -1,3 +1,5 @@
+'use client'
+
 import type { SelectFieldProps } from 'uniforms-antd'
 
 import Select from 'antd/lib/select'

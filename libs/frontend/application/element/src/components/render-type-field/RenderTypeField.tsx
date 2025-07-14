@@ -7,6 +7,7 @@ import type { GuaranteedProps } from 'uniforms'
 import CodeSandboxOutlined from '@ant-design/icons/CodeSandboxOutlined'
 import DeploymentUnitOutlined from '@ant-design/icons/DeploymentUnitOutlined'
 import { Button, Form, Select } from 'antd'
+import { isString } from 'radash'
 import { useState } from 'react'
 import styled from 'styled-components'
 import { connectField } from 'uniforms'
@@ -71,7 +72,7 @@ export const RenderTypeField = connectField(
 
     return (
       <StyledFormField
-        extra={error}
+        extra={isString(error) ? error : undefined}
         htmlFor={id}
         label={label}
         required={true}

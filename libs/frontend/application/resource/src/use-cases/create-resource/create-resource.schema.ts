@@ -20,9 +20,8 @@ export const createResourceSchema: JSONSchemaType<ICreateResourceData> = {
         headers: {
           type: 'string',
           uniforms: {
-            component: CodeMirrorField({
-              language: CodeMirrorLanguage.Json,
-            }),
+            component: CodeMirrorField,
+            language: CodeMirrorLanguage.Json,
           },
           nullable: true,
         },

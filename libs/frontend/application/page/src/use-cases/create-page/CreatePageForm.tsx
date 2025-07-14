@@ -1,9 +1,6 @@
 'use client'
 
-import type { IPageCreateFormData } from '@codelab/shared-abstract-core'
-
 import { type IFormController, UiKey } from '@codelab/frontend-abstract-types'
-import { useUser } from '@codelab/frontend-application-user/services'
 import {
   Form,
   FormController,
@@ -12,7 +9,7 @@ import { DisplayIf } from '@codelab/frontend-presentation-view/components/condit
 import {
   type IPageCreateFormData,
   IPageKind,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared-abstract-core'
 import { observer } from 'mobx-react-lite'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'

@@ -1,13 +1,10 @@
-import type {
-  IElementDomainService,
-  IElementModel,
-  IMoveElementContext,
-} from '@codelab/frontend-abstract-domain'
 import {
-  IElementDto,
-  IElementTypeKind,
-} from '@codelab/shared-abstract-core'
-
+  getAtomDomainService,
+  type IElementDomainService,
+  type IElementModel,
+  type IMoveElementContext,
+} from '@codelab/frontend-abstract-domain'
+import { IElementDto, IElementTypeKind } from '@codelab/shared-abstract-core'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 

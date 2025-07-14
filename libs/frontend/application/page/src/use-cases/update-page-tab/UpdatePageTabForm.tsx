@@ -31,11 +31,11 @@ export const UpdatePageTabForm = observer<{ page: IPageModel }>(({ page }) => {
     pageContentContainer: pageContentContainer?.maybeCurrent?.id
       ? { id: pageContentContainer.maybeCurrent.id }
       : null,
-    url: page.urlPattern,
-  }
+    urlPattern: page.urlPattern,
+  } as IPageUpdateFormData
 
   return (
-    <Form
+    <Form<IPageUpdateFormData>
       autosave={true}
       model={model}
       onSubmit={onSubmit}

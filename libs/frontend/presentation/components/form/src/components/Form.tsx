@@ -1,6 +1,7 @@
 'use client'
 
 import type { FormProps } from '@codelab/frontend-abstract-types'
+import type { ObjectLike } from '@codelab/shared-abstract-types'
 import type { ReactElement } from 'react'
 
 import { CuiTestId } from '@codelab/frontend-application-shared-data'

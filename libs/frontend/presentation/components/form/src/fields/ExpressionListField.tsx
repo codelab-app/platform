@@ -1,4 +1,6 @@
-import type { ObjectLike } from '@codelab/shared/abstract/types'
+'use client'
+
+import type { ObjectLike } from '@codelab/shared-abstract-types'
 import type { ReactElement } from 'react'
 import type { ListFieldProps } from 'uniforms-antd'
 

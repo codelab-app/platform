@@ -4,15 +4,15 @@ import type { IAppCreateFormData } from '@codelab/frontend-abstract-domain'
 import type { JSONSchemaType } from 'ajv'
 
 import {
-  minLengthMsg,
-  requiredMsg,
-  titleCasePatternMsg,
-} from '@codelab/frontend/shared/utils'
-import {
   idSchema,
   nonEmptyString,
   titleCaseValidation,
 } from '@codelab/frontend-presentation-components-form/schema'
+import {
+  minLengthMsg,
+  requiredMsg,
+  titleCasePatternMsg,
+} from '@codelab/frontend-shared-utils'
 
 export const createAppSchema: JSONSchemaType<IAppCreateFormData> = {
   properties: {

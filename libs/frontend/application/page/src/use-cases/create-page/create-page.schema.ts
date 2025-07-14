@@ -3,17 +3,17 @@
 import type { JSONSchemaType } from 'ajv'
 
 import {
-  minLengthMsg,
-  requiredMsg,
-  titleCasePatternMsg,
-} from '@codelab/frontend/shared/utils'
-import {
   appSchema,
   hideField,
   idSchema,
   nonEmptyString,
   titleCaseValidation,
 } from '@codelab/frontend-presentation-components-form/schema'
+import {
+  minLengthMsg,
+  requiredMsg,
+  titleCasePatternMsg,
+} from '@codelab/frontend-shared-utils'
 import {
   type IPageCreateFormData,
   IPageKind,

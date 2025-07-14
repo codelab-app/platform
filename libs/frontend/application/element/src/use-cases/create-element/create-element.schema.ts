@@ -4,16 +4,16 @@ import type { IElementDto } from '@codelab/shared-abstract-core'
 import type { JSONSchemaType } from 'ajv'
 
 import {
-  minLengthMsg,
-  requiredMsg,
-  titleCasePatternMsg,
-} from '@codelab/frontend/shared/utils'
-import {
   idSchema,
   nonEmptyString,
   showFieldOnDev,
   titleCaseValidation,
 } from '@codelab/frontend-presentation-components-form/schema'
+import {
+  minLengthMsg,
+  requiredMsg,
+  titleCasePatternMsg,
+} from '@codelab/frontend-shared-utils'
 import { IElementRenderTypeKind } from '@codelab/shared-abstract-core'
 import { SelectField } from 'uniforms-antd'
 
