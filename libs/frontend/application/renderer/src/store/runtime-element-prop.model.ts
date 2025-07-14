@@ -21,6 +21,7 @@ import {
   isComponentRef,
   isPropObject,
   isTypedProp,
+  mapUnionTypePropToTypedProp,
 } from '@codelab/frontend-abstract-domain'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 import { type IPropData, ITypeKind } from '@codelab/shared-abstract-core'

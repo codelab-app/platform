@@ -9,15 +9,13 @@ import {
   type IUpdateElementData,
 } from '@codelab/frontend-abstract-domain'
 import { UiKey } from '@codelab/frontend-abstract-types'
+import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import { createAutoCompleteOptions } from '@codelab/frontend-presentation-components-codemirror'
 import {
   CodeMirrorField,
   Form,
 } from '@codelab/frontend-presentation-components-form'
-import {
-  SelectActionsField,
-  SelectComponent,
-} from '@codelab/frontend-presentation-components-interface-form'
+import { IElementTypeKind } from '@codelab/shared-abstract-core'
 import { CodeMirrorLanguage } from '@codelab/shared-infra-gqlgen'
 import { Collapse } from 'antd'
 import { observer } from 'mobx-react-lite'
