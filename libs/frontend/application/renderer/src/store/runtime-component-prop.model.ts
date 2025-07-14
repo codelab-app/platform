@@ -14,6 +14,7 @@ import {
   DATA_COMPONENT_ID,
   isPropObject,
   isTypedProp,
+  mapUnionTypePropToTypedProp,
 } from '@codelab/frontend-abstract-domain'
 import { mergeProps } from '@codelab/frontend-domain-prop/utils'
 import { evaluateObject } from '@codelab/shared-infra-eval'
