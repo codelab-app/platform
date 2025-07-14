@@ -22,6 +22,7 @@ import {
   isPrimitive,
   isString,
 } from '../create-field'
+import { useForbiddenValues } from '../hooks'
 import { updateFieldSchema } from './update-field.schema'
 
 export interface UpdateFieldFormProps extends IFormController {
@@ -38,8 +39,7 @@ export const UpdateFieldForm = ({
   submitRef,
 }: UpdateFieldFormProps) => {
   const { typeDomainService } = useDomainStore()
-
-  // TODO: add forbidden key names
+  const forbiddenValues = useForbiddenValues(field)
 
   return (
     <Form<IFieldUpdateFormData>
@@ -67,8 +67,10 @@ export const UpdateFieldForm = ({
       uiKey={UiKey.FieldFormUpdate}
     >
       <AutoFields
-        omitFields={['prevSibling', 'validationRules', 'fieldType']}
+        omitFields={['key', 'prevSibling', 'validationRules', 'fieldType']}
       />
+      <AutoField forbiddenValues={forbiddenValues} name="key" />
+
       <AutoField
         disabled={disabled}
         name="fieldType.id"
