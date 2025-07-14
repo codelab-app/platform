@@ -1,6 +1,6 @@
 import type { IRef } from '@codelab/shared-abstract-core'
 
-import { whereNode, whereNodeId } from './where'
+import { whereNode } from './where'
 
 /**
  * The default way to connect is assumed to be by id's
@@ -9,7 +9,15 @@ export const connectNodeId = (id: string | null | undefined) =>
   connectNode('id', id)
 
 export const connectNodeIds = (ids: Array<string> | undefined = []) => ({
-  connect: ids.map((id) => whereNodeId(id)),
+  connect: [
+    {
+      where: {
+        node: {
+          id_IN: ids,
+        },
+      },
+    },
+  ],
 })
 
 export const connectNode = (key: string, value: string | null | undefined) =>

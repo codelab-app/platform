@@ -18,8 +18,8 @@ export const actionSchema = gql`
     name: String!
     type: ActionKind! @settable(onUpdate: false)
     store: Store! @declareRelationship
-    preRenderElement: Element @declareRelationship
-    postRenderElement: Element @declareRelationship
+    preRenderElement: [Element!]! @declareRelationship
+    postRenderElement: [Element!]! @declareRelationship
   }
 
   type CodeAction implements BaseAction @node {
@@ -27,9 +27,9 @@ export const actionSchema = gql`
     name: String!
     type: ActionKind! @default(value: CodeAction)
     store: Store! @relationship(type: "STORE_ACTION", direction: IN)
-    preRenderElement: Element
+    preRenderElement: [Element!]!
       @relationship(type: "PRE_RENDER_ELEMENT_ACTION", direction: IN)
-    postRenderElement: Element
+    postRenderElement: [Element!]!
       @relationship(type: "POST_RENDER_ELEMENT_ACTION", direction: IN)
     """
     Code to run when action is triggered
@@ -42,9 +42,9 @@ export const actionSchema = gql`
     name: String!
     type: ActionKind! @default(value: ApiAction)
     store: Store! @relationship(type: "STORE_ACTION", direction: IN)
-    preRenderElement: Element
+    preRenderElement: [Element!]!
       @relationship(type: "PRE_RENDER_ELEMENT_ACTION", direction: IN)
-    postRenderElement: Element
+    postRenderElement: [Element!]!
       @relationship(type: "POST_RENDER_ELEMENT_ACTION", direction: IN)
     """
     Response handlers
