@@ -1240,7 +1240,7 @@ importers:
         specifier: 3.4.10
         version: 3.4.10(ts-node@10.9.1(@swc/core@1.10.11(@swc/helpers@0.5.15))(@types/node@22.13.5)(typescript@5.5.4))
       traverse:
-        specifier: ^0.6.11
+        specifier: 0.6.11
         version: 0.6.11
       ts-essentials:
         specifier: 9.1.2
