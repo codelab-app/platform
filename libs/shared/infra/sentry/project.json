@@ -17,6 +17,9 @@
       "options": {
         "jestConfig": "libs/shared/infra/sentry/jest.config.ts"
       }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
     }
   }
 }

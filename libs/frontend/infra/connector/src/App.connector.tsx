@@ -3,8 +3,8 @@
 import type { IAppModel } from '@codelab/frontend-abstract-domain'
 import type { ReactNode } from 'react'
 
-import { SUSPENSE_TIMEOUT } from '@codelab/frontend-shared-utils'
 import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
+import { SUSPENSE_TIMEOUT } from '@codelab/frontend-shared-utils'
 import { observer } from 'mobx-react-lite'
 import { useEffect, useState } from 'react'
 

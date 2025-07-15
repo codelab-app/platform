@@ -17,6 +17,9 @@
       "options": {
         "jestConfig": "libs/backend/infra/adapter/ws/jest.config.ts"
       }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
     }
   }
 }

@@ -42,7 +42,7 @@ export class Neo4jService {
         // optional: ignore everything below WARNING as well
         // minimumSeverityLevel:
         //   neo4j.notificationFilterMinimumSeverityLevel.WARNING,
-      // 30 seconds
+        // 30 seconds
       },
       // logging: {
       //   level: 'debug',
@@ -65,7 +65,7 @@ export class Neo4jService {
         } catch (error) {
           // Ignore errors in monitoring
         }
-      // Log every minute
+        // Log every minute
       }, 60000)
     }
   }

@@ -18,6 +18,9 @@
       "options": {
         "jestConfig": "libs/shared/infra/fetch-server/jest.config.ts"
       }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
     }
   }
 }

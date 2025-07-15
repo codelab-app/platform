@@ -65,7 +65,7 @@ if (process.env.NODE_ENV !== 'production') {
         https: httpsStats,
       })
     }
-  // Log every 30 seconds
+    // Log every 30 seconds
   }, 30000)
 }
 

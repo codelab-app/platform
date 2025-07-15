@@ -10,5 +10,9 @@
     "scope:shared"
   ],
   "// targets": "to see all targets run: nx show project field --web",
-  "targets": {}
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
 }
