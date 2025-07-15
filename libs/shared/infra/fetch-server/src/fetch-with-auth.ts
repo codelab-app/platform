@@ -1,18 +1,19 @@
-'use server'
-
 import { auth0Instance } from '@codelab/shared-infra-auth0/client'
-import Headers from '@mjackson/headers'
+
+import { batchFetch } from './batch-fetch'
 
 /**
- * Server fetch with authentication.
- * If Authorization header is provided in init.headers, it will be used as-is.
+ * Client-side fetch with authentication.
+ * If Authorization header is provided in options.headers, it will be used as-is.
  * Otherwise, it will get the user session token.
+ *
+ * GraphQL requests are automatically batched within a 20ms window.
  */
 export const serverFetchWithAuth = async (
   endpoint: string,
-  init: RequestInit,
-) => {
-  const headers = new Headers(init.headers)
+  options: RequestInit = {},
+): Promise<Response> => {
+  const headers = new Headers(options.headers)
 
   // If no Authorization header provided, get it from user session
   if (!headers.get('Authorization')) {
@@ -25,16 +26,8 @@ export const serverFetchWithAuth = async (
     headers.set('Authorization', `Bearer ${session.tokenSet.accessToken}`)
   }
 
-  // console.log('Fetching with auth', endpoint, {
-  //   ...init,
-  //   headers: {
-  //     Authorization: headers.get('Authorization'),
-  //     'Content-Type': headers.get('Content-Type'),
-  //   },
-  // })
-
-  const response = await fetch(endpoint, {
-    ...init,
+  const response = await batchFetch(endpoint, {
+    ...options,
     headers,
   })
 

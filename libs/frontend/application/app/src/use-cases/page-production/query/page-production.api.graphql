@@ -1,0 +1,12 @@
+query GetPageProduction($domain: String!, $pageUrlPattern: String!) {
+  apps(where: { domains_SOME: { name_IN: [$domain] } }) {
+    ...AppProduction
+  }
+  # Need to load all dependent types
+  atoms(where: { type: ReactFragment }) {
+    ...AtomProduction
+  }
+  resources {
+    ...Resource
+  }
+}

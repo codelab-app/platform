@@ -11,7 +11,7 @@ import { logger } from '@codelab/shared-infra-logging'
 import { TRACING_HEADERS } from '@codelab/shared-infra-tracing'
 import { revalidateTag } from 'next/cache'
 
-import { serverFetchWithAuth } from './server-fetch-with-auth'
+import { serverFetchWithAuth } from './fetch-with-auth'
 
 /**
  * Server-side GraphQL request function that handles authentication and logging.

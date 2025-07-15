@@ -4,18 +4,17 @@ import type {
 } from '@codelab/frontend-abstract-domain'
 import type { AtomProductionFragment } from '@codelab/shared-infra-gqlgen'
 
-import { appServerActions } from '@codelab/shared-domain-module-app'
 import { uniqueBy } from 'remeda'
 
-//  In production we have domain and pageUrlPattern we filter app by domain and page by url
+import { GetPageProduction } from './page-preview.api.graphql.web.gen'
 
-const { GetAppProduction } = appServerActions
+// In production we have domain and pageUrlPattern we filter app by domain and page by url
 
-export const appProductionRepository = async ({
+export const pagePreviewQuery = async ({
   domainSlug,
   pageUrlPattern,
 }: IAppProductionArgs): Promise<IAppProductionDto> => {
-  const data = await GetAppProduction({
+  const data = await GetPageProduction({
     domain: domainSlug,
     pageUrlPattern,
   })

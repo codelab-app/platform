@@ -1,16 +1,15 @@
 'use client'
 
+import type {
+  IRootRenderer,
+  IRootRendererProps,
+} from '@codelab/frontend-abstract-application'
 import type { JSXElementConstructor, ReactNode } from 'react'
 
-import {
-  type IRendererModel,
-  type IRootRenderer,
-} from '@codelab/frontend-abstract-application'
 import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend-abstract-domain'
-import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import { Alert } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { forwardRef, useMemo } from 'react'
+import { forwardRef } from 'react'
 
 //  https://github.com/ant-design/ant-design/issues/52213
 const ErrorBoundary = Alert.ErrorBoundary as JSXElementConstructor<{
@@ -41,34 +40,21 @@ const ErrorBoundary = Alert.ErrorBoundary as JSXElementConstructor<{
  * Hooks and prop map bindings are currently not implemented, since they might be replaced by platform-level mobx.
  */
 
-const RootRendererComponent = forwardRef<
-  HTMLDivElement,
-  { renderer: IRendererModel }
->(({ renderer }, ref) => {
-  const { userDomainService } = useDomainStore()
-  const preference = userDomainService.preference
-
-  const containerStyle = useMemo(
-    () => ({
-      /**
-       * This sets `container-name` https://developer.mozilla.org/en-US/docs/Web/CSS/container-name, allows for `@container` CSS rules
-       */
-      container: 'root / inline-size',
-      minHeight: '100%',
-      transform: 'translatex(0)',
-      width: `${preference.builderWidth}px`,
-    }),
-    [preference.builderWidth],
-  )
-
-  return (
-    <ErrorBoundary>
-      <div id={ROOT_RENDER_CONTAINER_ID} ref={ref} style={containerStyle}>
-        {renderer.rendered}
-      </div>
-    </ErrorBoundary>
-  )
-})
+const RootRendererComponent = forwardRef<HTMLDivElement, IRootRendererProps>(
+  ({ containerStyle, renderer }, ref) => {
+    return (
+      <ErrorBoundary>
+        <div
+          id={ROOT_RENDER_CONTAINER_ID}
+          ref={ref}
+          style={containerStyle || undefined}
+        >
+          {renderer.rendered}
+        </div>
+      </ErrorBoundary>
+    )
+  },
+)
 
 RootRendererComponent.displayName = 'RootRendererComponent'
 

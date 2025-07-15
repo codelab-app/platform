@@ -7,12 +7,8 @@
   "implicitDependencies": [],
   "generators": {},
   "targets": {
-    "defaultConfiguration": {
-      "0": "d",
-      "1": "e",
-      "2": "v"
-    },
     "build": {
+      "defaultConfiguration": "dev",
       "executor": "@nx/next:build",
       "outputs": ["{options.outputPath}"],
       "options": {
@@ -21,12 +17,14 @@
       "configurations": {
         "ci": {},
         "prod": {},
-        "dev": {
-          "outputPath": "tmp/apps/sites/src"
+        "dev": {},
+        "test": {
+          "outputPath": "dist/apps/sites-test"
         }
       }
     },
     "serve": {
+      "defaultConfiguration": "dev",
       "executor": "@nx/next:server",
       "options": {
         "buildTarget": "sites:build",
@@ -45,9 +43,12 @@
         "dev": {
           "buildTarget": "sites:build:dev",
           "dev": true
+        },
+        "test": {
+          "buildTarget": "sites:build:test",
+          "dev": false
         }
-      },
-      "defaultConfiguration": "dev"
+      }
     },
     "export": {
       "executor": "@nx/next:export",
