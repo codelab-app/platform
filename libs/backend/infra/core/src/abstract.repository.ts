@@ -92,7 +92,7 @@ export abstract class AbstractRepository<
       data: {
         timestamp: new Date().toISOString(),
         where,
-        whereKeys: Object.keys(where || {}),
+        whereKeys: Object.keys(where),
       },
     })
 
@@ -165,7 +165,7 @@ export abstract class AbstractRepository<
         options,
         timestamp: new Date().toISOString(),
         where,
-        whereKeys: Object.keys(where || {}),
+        whereKeys: Object.keys(where),
       },
     })
 
@@ -250,7 +250,7 @@ export abstract class AbstractRepository<
         hasSchema: Boolean(schema),
         timestamp: new Date().toISOString(),
         where,
-        whereKeys: Object.keys(where || {}),
+        whereKeys: Object.keys(where),
       },
     })
 

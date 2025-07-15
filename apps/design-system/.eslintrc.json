@@ -10,6 +10,7 @@
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "parserOptions": {
         "project": [
+          "apps/design-system/tsconfig.json",
           "apps/design-system/tsconfig.*?.json",
           "apps/design-system/tsconfig.storybook.json"
         ]

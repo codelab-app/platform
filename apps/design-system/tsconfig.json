@@ -7,7 +7,7 @@
     "strict": true
   },
   "files": [],
-  "include": [],
+  "include": ["*.js", "*.ts"],
   "references": [
     {
       "path": "./tsconfig.lib.json"
