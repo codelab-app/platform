@@ -52,7 +52,7 @@ fi
 #
 VERSION_TAG=$(git tag --points-at HEAD | grep -E "^[0-9]+\.[0-9]+\.[0-9]+$" | head -1)
 
-eval "$(npx --yes -p semver node ./scripts/validate-semver.js "$VERSION_TAG")"
+eval "$(node ./scripts/validate-semver.js "$VERSION_TAG")"
 
 # Done
 source $BASH_ENV
