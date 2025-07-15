@@ -1,7 +1,7 @@
 {
   "app": {
     "id": "d0f13822-e4bf-48fe-b98d-de0f1249658e",
-    "name": "Ai Chat"
+    "name": "Ai Trip Planner"
   },
   "components": [],
   "domains": [],
@@ -40,7 +40,7 @@
             "__typename": "Atom",
             "id": "1bb6993d-8f45-4098-90bc-5d09a414c10e"
           },
-          "style": "{\"Desktop\":{\"guiString\":{\"none\":\"{\\\"width\\\":\\\"100%\\\",\\\"height\\\":\\\"100%\\\",\\\"min-height\\\":\\\"250px\\\",\\\"background-color\\\":\\\"#181818\\\"}\"}}}",
+          "style": "{\"Desktop\":{\"guiString\":{\"none\":\"{\\\"width\\\":\\\"100%\\\",\\\"height\\\":\\\"100%\\\",\\\"min-height\\\":\\\"100%\\\",\\\"background-color\\\":\\\"#181818\\\",\\\"position\\\":\\\"fixed\\\"}\"}}}",
           "tailwindClassNames": null
         },
         {
@@ -66,7 +66,7 @@
           "preRenderActions": [],
           "prevSibling": null,
           "props": {
-            "data": "{\"onError\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onLoad\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"{{\\n  function(event) {\\ndebugger\\n    const projectUrl = 'https://cvzgeciqvfgwhqaiymsq.supabase.co';\\n    const publicKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN2emdlY2lxdmZnd2hxYWl5bXNxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTExODI3ODUsImV4cCI6MjA2Njc1ODc4NX0.eggQIX_GEaRFfRSH9fetv2JANgfYxh607XJ-OdvtfUU';\\n    const { createClient } = window?.supabase ?? {};\\n    const supabaseClient = createClient(projectUrl, publicKey);\\n\\n    state.supabaseClient = supabaseClient;\\n    rootState.supabaseClient = supabaseClient;\\n    window.supabaseClient = supabaseClient;\\n\\n    console.warn('state', state, 'rootState', rootState);\\n  }\\n}}\"},\"src\":\"https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2\"}",
+            "data": "{\"onError\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onLoad\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"18753772-3da6-4a48-928c-6b6a19b79764\"},\"src\":\"https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2\"}",
             "id": "315bd949-c177-4a37-9519-1c3d342eef13"
           },
           "renderForEachPropKey": null,
@@ -103,7 +103,7 @@
             "id": "1fc5b2ed-7876-4737-990e-713336e51fc9"
           },
           "renderForEachPropKey": null,
-          "renderIfExpression": "{{state.supabaseClient ?? rootState.supabaseClient}}",
+          "renderIfExpression": "{{false && Boolean(state?.supabaseClient || rootState?.supabaseClient)}}",
           "renderType": {
             "__typename": "Atom",
             "id": "12d10c47-53ac-42c1-8531-5e3fac2f1260"
@@ -132,7 +132,18 @@
         "urlPattern": "/provider"
       },
       "store": {
-        "actions": [],
+        "actions": [
+          {
+            "id": "18753772-3da6-4a48-928c-6b6a19b79764",
+            "name": "initializeSupabase",
+            "store": {
+              "id": "cbe4bba8-1b78-4244-904f-0b178102cf8e"
+            },
+            "type": "CodeAction",
+            "__typename": "CodeAction",
+            "code": "function(event) {\n  const projectUrl = 'https://cvzgeciqvfgwhqaiymsq.supabase.co';\n  const publicKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN2emdlY2lxdmZnd2hxYWl5bXNxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTExODI3ODUsImV4cCI6MjA2Njc1ODc4NX0.eggQIX_GEaRFfRSH9fetv2JANgfYxh607XJ-OdvtfUU';\n  const { createClient } = window?.supabase ?? {};\n  const supabaseClient = createClient(projectUrl, publicKey);\n\n  state.supabaseClient = supabaseClient;\n  rootState.supabaseClient = supabaseClient;\n}"
+          }
+        ],
         "api": {
           "types": [
             {
@@ -272,7 +283,7 @@
           "preRenderActions": [],
           "prevSibling": null,
           "props": {
-            "data": "{}",
+            "data": "{\"children\":{\"kind\":\"RichTextType\",\"type\":\"e7558508-3bb7-4f57-8f8c-6ac989911765\"},\"direction\":\"vertical\",\"size\":{\"kind\":\"EnumType\",\"type\":\"dcb317bd-3155-4d2d-b670-6d29cff2067a\",\"value\":\"middle\"},\"split\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}",
             "id": "13a7856a-a264-42c7-b6b3-dba5a8447e43"
           },
           "renderForEachPropKey": null,
@@ -281,7 +292,7 @@
             "__typename": "Atom",
             "id": "94785b15-1bfa-468c-ad8a-3063e0ca4891"
           },
-          "style": null,
+          "style": "{\"Desktop\":{\"guiString\":{\"none\":\"{\\\"width\\\":\\\"100%\\\"}\"},\"cssString\":\"* {\\n  color: white;\\n}\"}}",
           "tailwindClassNames": null
         },
         {
@@ -340,7 +351,7 @@
             "id": "ad2b8042-9af4-4f9c-8a44-37c1101b79d7"
           },
           "props": {
-            "data": "{}",
+            "data": "{\"children\":{\"kind\":\"RichTextType\",\"type\":\"e7558508-3bb7-4f57-8f8c-6ac989911765\"},\"size\":{\"kind\":\"EnumType\",\"type\":\"dcb317bd-3155-4d2d-b670-6d29cff2067a\"},\"split\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}",
             "id": "eb66fb03-1920-4556-b9e0-7b1f1771ac69"
           },
           "renderForEachPropKey": null,
@@ -349,7 +360,7 @@
             "__typename": "Atom",
             "id": "94785b15-1bfa-468c-ad8a-3063e0ca4891"
           },
-          "style": "{\"Desktop\":{\"guiString\":{\"none\":\"{\\\"width\\\":\\\"100%\\\",\\\"display\\\":\\\"flex\\\",\\\"justify-content\\\":\\\"space-between\\\",\\\"background-color\\\":\\\"#303030\\\",\\\"border-top-left-radius\\\":\\\"16px\\\",\\\"border-top-right-radius\\\":\\\"16px\\\",\\\"border-bottom-left-radius\\\":\\\"16px\\\",\\\"border-bottom-right-radius\\\":\\\"16px\\\",\\\"border-radius\\\":\\\"16px\\\"}\"},\"cssString\":\"input::placeholder {\\n  color: #afafaf;\\n}\"}}",
+          "style": "{\"Desktop\":{\"guiString\":{\"none\":\"{\\\"width\\\":\\\"100%\\\",\\\"display\\\":\\\"flex\\\",\\\"justify-content\\\":\\\"space-between\\\",\\\"background-color\\\":\\\"#303030\\\",\\\"border-top-left-radius\\\":\\\"16px\\\",\\\"border-top-right-radius\\\":\\\"16px\\\",\\\"border-bottom-left-radius\\\":\\\"16px\\\",\\\"border-bottom-right-radius\\\":\\\"16px\\\",\\\"border-radius\\\":\\\"16px\\\",\\\"padding-top\\\":\\\"4px\\\",\\\"padding-right\\\":\\\"4px\\\",\\\"padding-bottom\\\":\\\"4px\\\",\\\"padding-left\\\":\\\"4px\\\"}\"},\"cssString\":\"input::placeholder, textarea::placeholder {\\n  color: #afafaf;\\n}\\n\\n.ant-space-item:first-child {\\n  flex-grow: 1 !important;\\n}\"}}",
           "tailwindClassNames": null
         },
         {
@@ -375,14 +386,14 @@
           "preRenderActions": [],
           "prevSibling": null,
           "props": {
-            "data": "{\"addonAfter\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"addonBefore\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"onChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onPressEnter\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"prefix\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"suffix\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"variant\":\"borderless\"}",
+            "data": "{\"autoSize\":true,\"onPressEnter\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"placeholder\":\"Ask anything\",\"addonAfter\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"addonBefore\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"onChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"prefix\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"suffix\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"variant\":\"borderless\"}",
             "id": "48b7b66a-cf18-42aa-ad03-13f24d38d655"
           },
           "renderForEachPropKey": null,
           "renderIfExpression": null,
           "renderType": {
             "__typename": "Atom",
-            "id": "8d669da3-4198-494a-8018-851f6a802bf2"
+            "id": "70396f5e-0187-48d5-b165-590814af7d51"
           },
           "style": "{\"Desktop\":{\"guiString\":{\"none\":\"{\\\"color\\\":\\\"#ffffff\\\"}\"},\"cssString\":\"\"}}",
           "tailwindClassNames": null
@@ -408,7 +419,7 @@
             "id": "00dee8c5-c736-49af-a79f-fa0e8c2876af"
           },
           "props": {
-            "data": "{\"children\":{\"kind\":\"RichTextType\",\"type\":\"e7558508-3bb7-4f57-8f8c-6ac989911765\",\"value\":\"<p class=\\\"editor-paragraph\\\" dir=\\\"ltr\\\"><span style=\\\"white-space: pre-wrap;\\\">Send</span></p>\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"type\":\"text\",\"variant\":\"dashed\"}",
+            "data": "{\"children\":{\"kind\":\"RichTextType\",\"type\":\"e7558508-3bb7-4f57-8f8c-6ac989911765\",\"value\":\"<p class=\\\"editor-paragraph\\\" dir=\\\"ltr\\\"><span style=\\\"white-space: pre-wrap;\\\">Send</span></p>\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"{{\\n  async function(event) {\\n    debugger\\n  \\n    const { error } = await rootState\\n      .supabaseClient\\n      .from('messages')\\n      .insert({ content: 'Test' });\\n  \\n    if (error) {\\n      alert(error);\\n    }\\n  }\\n}}\"},\"type\":\"text\",\"variant\":\"dashed\"}",
             "id": "e60febac-973a-47df-b805-4e83a8bfa16a"
           },
           "renderForEachPropKey": null,
@@ -427,7 +438,7 @@
         },
         "id": "51bdd6aa-dad3-4eb3-8bbb-3fb269855676",
         "kind": "Regular",
-        "name": "Chat",
+        "name": "Home",
         "pageContentContainer": null,
         "redirect": null,
         "rootElement": {
@@ -436,10 +447,21 @@
         "store": {
           "id": "4473e893-7e5f-4fc5-bc1e-92cfd66d0e7c"
         },
-        "urlPattern": "/chat"
+        "urlPattern": "/home"
       },
       "store": {
-        "actions": [],
+        "actions": [
+          {
+            "id": "8fbe4167-d622-4aa1-8d1f-c72c11792cf6",
+            "name": "LoadMessagesFromSupabase",
+            "store": {
+              "id": "4473e893-7e5f-4fc5-bc1e-92cfd66d0e7c"
+            },
+            "type": "CodeAction",
+            "__typename": "CodeAction",
+            "code": "async function run() {\n  debugger;\n  const { data, error } = await rootState.supabaseClient\n    .from('messages')\n    .select();\n\n  debugger;\n  state.messages = data;\n}"
+          }
+        ],
         "api": {
           "types": [
             {
@@ -454,7 +476,24 @@
           "id": "492633bc-f47a-4839-adbb-53a126bb8dce",
           "kind": "InterfaceType",
           "name": "Chat Store API",
-          "fields": []
+          "fields": [
+            {
+              "api": {
+                "id": "492633bc-f47a-4839-adbb-53a126bb8dce"
+              },
+              "defaultValues": "[]",
+              "description": null,
+              "fieldType": {
+                "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
+              },
+              "id": "a9d6079f-ba53-4569-8abb-129a8b04c99e",
+              "key": "messages",
+              "name": "",
+              "nextSibling": null,
+              "prevSibling": null,
+              "validationRules": "{\"general\":{\"nullable\":false}}"
+            }
+          ]
         },
         "store": {
           "api": {
