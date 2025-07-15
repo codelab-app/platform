@@ -165,7 +165,7 @@ export abstract class AbstractRepository<
         options,
         timestamp: new Date().toISOString(),
         where,
-        whereKeys: Object.keys(where),
+        whereKeys: where ? Object.keys(where) : [],
       },
     })
 
