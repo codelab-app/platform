@@ -7,6 +7,10 @@ import type {
 import type { DocumentTypeDecoration } from '@graphql-typed-document-node/core'
 
 import { getEnv } from '@codelab/shared-config-env'
+import {
+  executeWithArrayBatching,
+  needsArrayBatching,
+} from '@codelab/shared-infra-fetch'
 import { logger } from '@codelab/shared-infra-logging'
 import { TRACING_HEADERS } from '@codelab/shared-infra-tracing'
 import { revalidateTag } from 'next/cache'
@@ -59,7 +63,50 @@ export const gqlServerRequest = async <TResult, TVariables extends ObjectLike>(
   )
 
   const operationName = operationNameMatch ? operationNameMatch[1] : undefined
+  // Check if this mutation needs array batching
+  const batchConfig = needsArrayBatching(operationName, variables)
 
+  if (batchConfig && operationName) {
+    // Execute with array batching
+    return executeWithArrayBatching(
+      document,
+      variables,
+      operationName,
+      batchConfig,
+      async (doc, vars, opts) => {
+        const response = await serverFetchWithAuth(
+          getEnv().endpoint.webGraphqlUrl,
+          {
+            body: JSON.stringify({
+              operationName,
+              query: doc.toString(),
+              variables: vars,
+            }),
+            headers,
+            method: 'POST',
+          },
+        ).then((res) => {
+          if (opts?.revalidateTags) {
+            opts.revalidateTags.forEach((tag) => revalidateTag(tag))
+          }
+
+          return res
+        })
+
+        const { data, errors } = await response.json()
+
+        if (errors && errors.length) {
+          logger.debug(doc, vars, errors)
+          throw new Error(errors[0]?.message)
+        }
+
+        return data as TResult
+      },
+      next,
+    )
+  }
+
+  // Normal execution without batching
   const response = await serverFetchWithAuth(getEnv().endpoint.webGraphqlUrl, {
     body: JSON.stringify({
       operationName,

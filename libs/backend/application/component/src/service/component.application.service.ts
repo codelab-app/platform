@@ -47,6 +47,7 @@ export class ComponentApplicationService {
    * Empty means import all
    */
   async addComponents(componentsData: Array<IComponentAggregate>) {
+    const startTime = Date.now()
     const apis = componentsData.flatMap(({ api }) => api)
     const components = componentsData.flatMap(({ component }) => component)
 
@@ -55,19 +56,54 @@ export class ComponentApplicationService {
     )
 
     const stores = componentsData.flatMap(({ store }) => store)
+    const totalFields = apis.reduce((sum, api) => sum + api.fields.length, 0)
 
-    this.logger.log('Import components', {
+    this.logger.log('ComponentApplicationService.addComponents started', {
+      apisCount: apis.length,
+      componentNames: components.map((comp) => comp.name),
       componentsCount: componentsData.length,
       context: 'ImportComponentsHandler',
+      elementsCount: elements.length,
+      storesCount: stores.length,
+      totalFields,
     })
 
+    const apisStartTime = Date.now()
+
     await this.typeApplicationService.addApis(apis)
+    this.logger.log('APIs added', {
+      apisCount: apis.length,
+      duration: Date.now() - apisStartTime,
+      totalFields,
+    })
+
+    const storesStartTime = Date.now()
 
     await this.storeApplicationService.addStores(stores)
+    this.logger.log('Stores added', {
+      duration: Date.now() - storesStartTime,
+      storesCount: stores.length,
+    })
 
-    for (const element of elements) {
+    const elementsStartTime = Date.now()
+
+    for (const [index, element] of elements.entries()) {
       await this.elementRepository.add(element)
+
+      if (index % 10 === 0) {
+        this.logger.log('Elements progress', {
+          processed: index + 1,
+          total: elements.length,
+        })
+      }
     }
+
+    this.logger.log('Elements added', {
+      duration: Date.now() - elementsStartTime,
+      elementsCount: elements.length,
+    })
+
+    const componentsStartTime = Date.now()
 
     await this.componentRepository.addMany(
       components.map((component) => ({
@@ -75,6 +111,14 @@ export class ComponentApplicationService {
         owner: this.authDomainService.currentUser,
       })),
     )
+    this.logger.log('Components added to repository', {
+      componentsCount: components.length,
+      duration: Date.now() - componentsStartTime,
+    })
+
+    this.logger.log('ComponentApplicationService.addComponents completed', {
+      totalDuration: Date.now() - startTime,
+    })
   }
 
   /**

@@ -43,15 +43,39 @@ export class DatabaseService {
    */
   @LogClassMethod()
   async resetDatabase(close = false) {
-    const query = `
-      MATCH (n)
-      DETACH DELETE n
-    `
+    // First count the nodes to be deleted
+    const countQuery = 'MATCH (n) RETURN count(n) as nodeCount'
 
-    return this.neo4jService.withWriteTransaction(
-      (txn) => txn.run(query),
-      'ResetDatabase',
-      close,
+    const countResult = await this.neo4jService.withReadTransaction(
+      (txn) => txn.run(countQuery),
+      'CountNodesBeforeReset',
+    )
+
+    const nodeCount = countResult.records[0]?.get('nodeCount').toNumber() || 0
+
+    return await this.logger.debugWithTiming(
+      'DatabaseService.resetDatabase',
+      async () => {
+        const query = `
+          MATCH (n)
+          DETACH DELETE n
+        `
+
+        const result = await this.neo4jService.withWriteTransaction(
+          (txn) => txn.run(query),
+          'ResetDatabase',
+          close,
+        )
+
+        return result
+      },
+      {
+        context: 'service:database',
+        data: {
+          close,
+          nodeCount,
+        },
+      },
     )
   }
 

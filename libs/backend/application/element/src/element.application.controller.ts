@@ -58,10 +58,36 @@ export class ElementApplicationController {
     @Body()
     createElementsData: Array<ICreateElementData>,
   ) {
-    for (const createElementData of createElementsData) {
+    const batchId = Math.random().toString(36).substring(7)
+
+    console.log('ElementApplicationController.createElements started', {
+      batchId,
+      closestContainerId,
+      elementCount: createElementsData.length,
+    })
+
+    const startTime = Date.now()
+
+    for (const [index, createElementData] of createElementsData.entries()) {
+      const elementStartTime = Date.now()
+
       await this.elementApplicationService.createElement(createElementData, {
         id: closestContainerId,
       })
+
+      console.log('Batch element created', {
+        batchId,
+        duration: Date.now() - elementStartTime,
+        elementId: createElementData.id,
+        index,
+        totalElements: createElementsData.length,
+      })
     }
+
+    console.log('ElementApplicationController.createElements completed', {
+      batchId,
+      elementCount: createElementsData.length,
+      totalDuration: Date.now() - startTime,
+    })
   }
 }

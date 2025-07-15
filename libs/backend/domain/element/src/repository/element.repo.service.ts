@@ -29,11 +29,29 @@ export class ElementRepository extends AbstractRepository<
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
   protected async _addMany(elements: Array<IElementDto>) {
+    const startTime = Date.now()
+
+    this.loggerService.log(
+      'ElementRepository._addMany starting GraphQL mutation',
+      {
+        elementCount: elements.length,
+        elementIds: elements.map((element) => element.id),
+      },
+    )
+
     const {
       createElements: { elements: createdElements },
     } = await elementApi().CreateElements({
       input: elements.map((element) => elementMapper.toCreateInput(element)),
     })
+
+    this.loggerService.log(
+      'ElementRepository._addMany GraphQL mutation completed',
+      {
+        createdCount: createdElements.length,
+        duration: Date.now() - startTime,
+      },
+    )
 
     return createdElements
   }

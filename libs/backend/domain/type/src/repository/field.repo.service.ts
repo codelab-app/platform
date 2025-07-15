@@ -20,13 +20,37 @@ export class FieldRepository extends AbstractRepository<
   }
 
   protected async _addMany(fields: Array<IFieldDto>) {
-    const {
-      createFields: { fields: createdFields },
-    } = await fieldApi().CreateFields({
-      input: fields.map((field) => fieldMapper.toCreateInput(field)),
-    })
+    try {
+      return await this.loggerService.debugWithTiming(
+        'FieldRepository._addMany',
+        async () => {
+          const {
+            createFields: { fields: createdFields },
+          } = await fieldApi().CreateFields({
+            input: fields.map((field) => fieldMapper.toCreateInput(field)),
+          })
 
-    return createdFields
+          return createdFields
+        },
+        {
+          context: 'repository:field',
+          data: {
+            fieldCount: fields.length,
+            fieldIds: fields.map((field) => field.id),
+            fieldNames: fields.map((field) => field.key),
+          },
+        },
+      )
+    } catch (error) {
+      this.loggerService.error('FieldRepository._addMany failed', {
+        context: 'repository:field',
+        data: {
+          error: error instanceof Error ? error.message : 'Unknown error',
+          fieldCount: fields.length,
+        },
+      })
+      throw error
+    }
   }
 
   protected async _find({

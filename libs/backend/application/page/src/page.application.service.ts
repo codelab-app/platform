@@ -52,16 +52,43 @@ export class PageApplicationService {
   }
 
   async createPage(createPageDto: IPageCreateFormData) {
+    const requestId = v4()
+    const startTime = Date.now()
+
+    this.loggerService.log('PageApplicationService.createPage started', {
+      appId: createPageDto.app.id,
+      pageId: createPageDto.id,
+      pageName: createPageDto.name,
+      requestId,
+    })
+
     const owner = this.authDomainService.currentUser
+    const appStartTime = Date.now()
 
     const app = await this.appRepository.findOneOrFail({
       where: { id: createPageDto.app.id },
     })
 
+    this.loggerService.log('App lookup completed', {
+      appName: app.name,
+      duration: Date.now() - appStartTime,
+      requestId,
+    })
+
+    const rootElementStartTime = Date.now()
+
     const rootElement =
       await this.elementApplicationService.createPageRootElement({
         id: createPageDto.id,
       })
+
+    this.loggerService.log('Root element created', {
+      duration: Date.now() - rootElementStartTime,
+      requestId,
+      rootElementId: rootElement.id,
+    })
+
+    const apiStartTime = Date.now()
 
     const api = await this.typeDomainService.createInterface({
       id: v4(),
@@ -71,18 +98,47 @@ export class PageApplicationService {
       owner,
     })
 
+    this.loggerService.log('API interface created', {
+      apiId: api.id,
+      apiName: api.name,
+      duration: Date.now() - apiStartTime,
+      requestId,
+    })
+
+    const storeStartTime = Date.now()
+
     const store = await this.storeDomainService.create({
       api,
       id: v4(),
       name: Store.createName({ name: createPageDto.name }),
     })
 
-    this.loggerService.debug('Create page ')
+    this.loggerService.log('Store created', {
+      duration: Date.now() - storeStartTime,
+      requestId,
+      storeId: store.id,
+      storeName: store.name,
+    })
 
-    return this.pageRepository.add({
+    const pageStartTime = Date.now()
+
+    const page = await this.pageRepository.add({
       ...createPageDto,
       rootElement,
       store,
     })
+
+    this.loggerService.log('Page created', {
+      duration: Date.now() - pageStartTime,
+      pageId: page.id,
+      requestId,
+    })
+
+    this.loggerService.log('PageApplicationService.createPage completed', {
+      requestId,
+      totalDuration: Date.now() - startTime,
+    })
+
+    return page
   }
 }
