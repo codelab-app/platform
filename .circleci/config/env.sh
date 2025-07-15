@@ -49,7 +49,7 @@ fi
 #
 # Docker tag version from git tags
 #
-VERSION_TAG=$(git tag --points-at HEAD | grep -E "^[0-9]+\.[0-9]+\.[0-9]+$" | head -1)
+VERSION_TAG=$(git tag --points-at HEAD | grep -E "^[0-9]+\.[0-9]+\.[0-9]+$" | head -1 || true)
 
 eval "$(node ./scripts/validate-semver.js "$VERSION_TAG")"
 
