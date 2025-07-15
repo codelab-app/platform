@@ -293,11 +293,11 @@ let PinoLoggerService = class PinoLoggerService extends external_nestjs_pino_nam
         const data = options?.data ?? {};
         // Format start time for display
         const startTimeFormatted = new Date(startTime).toLocaleTimeString('en-US', {
-            hour12: true,
+            fractionalSecondDigits: 3,
             hour: 'numeric',
+            hour12: true,
             minute: '2-digit',
             second: '2-digit',
-            fractionalSecondDigits: 3,
         });
         // Pass data and context as separate properties in LogOptions
         this[level](`${message} (started at ${startTimeFormatted}, took ${durationSecs}s)`, {
@@ -307,9 +307,9 @@ let PinoLoggerService = class PinoLoggerService extends external_nestjs_pino_nam
             },
             durationSecs,
             timing: {
-                startedAt: new Date(startTime).toISOString(),
                 completedAt: new Date(endTime).toISOString(),
                 durationMs,
+                startedAt: new Date(startTime).toISOString(),
             },
         });
         return result;

@@ -211,6 +211,7 @@ commands:
     description: Restore Workspace
     steps:
       - checkout
+      - setup-env
       - attach_workspace:
           at: ~/
       - run:
@@ -227,11 +228,11 @@ commands:
             - nvm-cache-{{ checksum ".nvmrc" }}
           name: Restore NVM Cache
       - install-pnpm
-      - setup-env
   restore-workspace-database:
     description: Restore Workspace
     steps:
       - checkout
+      - setup-env
       - attach_workspace:
           at: ~/
       - run:
@@ -249,7 +250,6 @@ commands:
           name: Restore NVM Cache
       - install-pnpm
       - install-cypher-shell
-      - setup-env
   restore-workspace-infra:
     description: Restore Infra Workspace
     steps:
@@ -600,9 +600,9 @@ jobs:
     resource_class: large
     steps:
       - checkout
+      - setup-env
       - install-nvm
       - install-terraform
-      - setup-env
       - login-docker
       - persist_to_workspace:
           paths:
@@ -620,8 +620,8 @@ jobs:
     resource_class: << parameters.resource_class >>
     steps:
       - checkout
-      - install-nvm
       - setup-env
+      - install-nvm
       - install-pnpm
       - install-packages
   tf-apply:
