@@ -5,8 +5,8 @@ jest.mock('@codelab/shared-infra-fetch', () => ({
 }))
 
 jest.mock('@codelab/shared-infra-fetch-server', () => ({
-  gqlServerRequest: () => null,
   fetchWithAuth: () => null,
+  gqlServerRequest: () => null,
 }))
 
 jest.mock('next/cache', () => ({

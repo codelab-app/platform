@@ -10,7 +10,6 @@
     "layer:infra",
     "scope:shared"
   ],
-  "// targets": "to see all targets run: nx show project shared-infra-fetch-server --web",
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",

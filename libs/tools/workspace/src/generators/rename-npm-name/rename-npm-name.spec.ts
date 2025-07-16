@@ -310,7 +310,7 @@ export { func1, func2, defaultExport, namespace }`
     ])
 
     // OLD-style path with subpath preserved (because /server exists after src/)
-    expect(paths['@codelab/shared-infra-logging/server']).toEqual([
+    expect(paths['@codelab/shared-infra-logger/server']).toEqual([
       'libs/shared/infra/logging/src/server/index.ts',
     ])
 

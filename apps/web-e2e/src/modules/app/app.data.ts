@@ -6,7 +6,7 @@ import type {
 } from '@codelab/shared-abstract-core'
 import type { APIRequestContext } from '@playwright/test'
 
-import { logTimestamp } from '@codelab/shared-infra-logging'
+import { logTimestamp } from '@codelab/shared-infra-logger'
 
 import { jobOutputRequest } from '../../job-request'
 import { REQUEST_TIMEOUT } from '../../setup/config'

@@ -1,32 +1,22 @@
 import type { UnknownObjectLike } from '@codelab/shared/abstract/types'
 
+import {
+  isLevelEnabled,
+  isNamespaceEnabled as checkNamespaceEnabled,
+  LOG_LEVELS,
+  parseNamespaceConfig,
+  shouldIncludeData,
+  type LogContext,
+  type LoggerConfig,
+  type LogLevel,
+} from '@codelab/shared-infra-logger'
+
 /**
  * Browser-compatible logger service that mirrors the backend Pino logger's
  * namespace filtering and level control functionality.
  */
 
-export type LogLevel = 'debug' | 'error' | 'fatal' | 'info' | 'verbose' | 'warn'
-
-export interface LogContext {
-  [key: string]: unknown
-  context?: string
-  data?: UnknownObjectLike
-}
-
-export interface BrowserLoggerConfig {
-  format: 'compact' | 'json' | 'pretty'
-  level: LogLevel
-  namespaces: string
-}
-
-const LOG_LEVELS: Record<LogLevel, number> = {
-  debug: 1,
-  error: 4,
-  fatal: 5,
-  info: 2,
-  verbose: 0,
-  warn: 3,
-}
+export type BrowserLoggerConfig = LoggerConfig
 
 export class BrowserLoggerService {
   constructor(config?: Partial<BrowserLoggerConfig>) {
@@ -38,7 +28,7 @@ export class BrowserLoggerService {
         process.env.NEXT_PUBLIC_LOG_LEVEL ||
         'info') as LogLevel,
       namespaces:
-        config?.namespaces || process.env.NEXT_PUBLIC_LOG_NAMESPACES || '',
+        config?.namespaces || process.env.NEXT_PUBLIC_DEBUG || '',
     }
 
     this.parseNamespaces()
@@ -147,7 +137,7 @@ export class BrowserLoggerService {
   }
 
   private isLevelEnabled(level: LogLevel): boolean {
-    return LOG_LEVELS[level] >= LOG_LEVELS[this.config.level]
+    return isLevelEnabled(level, this.config.level)
   }
 
   private isNamespaceEnabled(namespace: string): boolean {
@@ -158,19 +148,13 @@ export class BrowserLoggerService {
       return false
     }
 
-    for (const pattern of this.disabledNamespaces) {
-      if (this.matchesPattern(namespace, pattern)) {
-        return false
-      }
-    }
+    // Convert Set to Array for the shared function
+    const patterns = [
+      ...Array.from(this.enabledNamespaces),
+      ...Array.from(this.disabledNamespaces).map(ns => `-${ns}`),
+    ]
 
-    for (const pattern of this.enabledNamespaces) {
-      if (this.matchesPattern(namespace, pattern)) {
-        return true
-      }
-    }
-
-    return false
+    return checkNamespaceEnabled(namespace, patterns)
   }
 
   private log(level: LogLevel, message: string, context?: LogContext): void {
@@ -194,50 +178,15 @@ export class BrowserLoggerService {
     }
   }
 
-  private matchesPattern(namespace: string, pattern: string): boolean {
-    if (pattern === '*') {
-      return true
-    }
-
-    const regexPattern = pattern
-      .replace(/[.+?^${}()|[\]\\]/g, '\\$&')
-      .replace(/\*/g, '.*')
-
-    const regex = new RegExp(`^${regexPattern}$`)
-
-    return regex.test(namespace)
-  }
 
   private parseNamespaces(): void {
-    if (!this.config.namespaces) {
-      return
-    }
-
-    const namespaces = this.config.namespaces.split(',').map((ns) => ns.trim())
-
-    for (const namespace of namespaces) {
-      if (namespace.startsWith('-')) {
-        this.disabledNamespaces.add(namespace.substring(1))
-      } else {
-        this.enabledNamespaces.add(namespace)
-      }
-    }
+    const { enabled, disabled } = parseNamespaceConfig(this.config.namespaces)
+    this.enabledNamespaces = enabled
+    this.disabledNamespaces = disabled
   }
 
   private shouldIncludeData(level: LogLevel): boolean {
-    switch (level) {
-      case 'debug':
-      case 'verbose':
-        return true
-      case 'error':
-      case 'fatal':
-        return true
-      case 'info':
-      case 'warn':
-        return false
-      default:
-        return false
-    }
+    return shouldIncludeData(level)
   }
 }
 

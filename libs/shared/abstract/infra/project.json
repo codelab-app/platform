@@ -9,7 +9,6 @@
     "type:abstract",
     "scope:shared"
   ],
-  "// targets": "to see all targets run: nx show project shared-abstract-infra --web",
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint"

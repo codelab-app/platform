@@ -1048,11 +1048,11 @@
         "libs/shared/infra/gql-client/src/index.ts"
       ],
       "@codelab/shared-infra-gqlgen": ["libs/shared/infra/gqlgen/src/index.ts"],
-      "@codelab/shared-infra-logging": [
-        "libs/shared/infra/logging/src/index.ts"
+      "@codelab/shared-infra-logger": [
+        "libs/shared/infra/logger/src/index.ts"
       ],
-      "@codelab/shared-infra-logging/server": [
-        "libs/shared/infra/logging/src/server/index.ts"
+      "@codelab/shared-infra-logger/server": [
+        "libs/shared/infra/logger/src/server/index.ts"
       ],
       "@codelab/shared-infra-sentry": ["libs/shared/infra/sentry/src/index.ts"],
       "@codelab/shared-infra-tracing": [

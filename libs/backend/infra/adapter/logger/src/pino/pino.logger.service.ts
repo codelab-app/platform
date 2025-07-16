@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 import type { ObjectLike } from '@codelab/shared-abstract-types'
-import type { ILoggerService, LogOptions } from '@codelab/shared-infra-logging'
+import type { ILoggerService, LogLevel, LogOptions } from '@codelab/shared-infra-logger'
 import type { ConfigType } from '@nestjs/config'
 
-import { Inject, Injectable, LogLevel } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
+import { shouldIncludeData } from '@codelab/shared-infra-logger'
 import { Logger, Params, PARAMS_PROVIDER_TOKEN, PinoLogger } from 'nestjs-pino'
 import pino from 'pino'
 import { omit } from 'remeda'
@@ -63,7 +64,8 @@ export class PinoLoggerService extends Logger implements ILoggerService {
     })
 
     // Pass data and context as separate properties in LogOptions
-    this[level](
+    this.logWithOptions(
+      level,
       `${message} (started at ${startTimeFormatted}, took ${durationSecs}s)`,
       {
         context,
@@ -130,17 +132,11 @@ export class PinoLoggerService extends Logger implements ILoggerService {
   }
 
   private shouldIncludeData(level: LogLevel): boolean {
-    // Include data for verbose, debug, error, and fatal levels
-    return (
-      level === 'verbose' ||
-      level === 'debug' ||
-      level === 'error' ||
-      level === 'fatal'
-    )
+    return shouldIncludeData(level)
   }
 
   private logWithOptions(
-    level: LogLevel,
+    level: LogLevel | 'log',
     message: string,
     options: LogOptions = {},
   ): void {
@@ -149,11 +145,13 @@ export class PinoLoggerService extends Logger implements ILoggerService {
       return
     }
 
-    const mappedLevel = labelMapping[level]
+    // Map 'log' to 'info' for our LogLevel type
+    const normalizedLevel: LogLevel = level === 'log' ? 'info' : level
+    const mappedLevel = labelMapping[level as keyof typeof labelMapping]
     const logger = this.logger[mappedLevel].bind(this.logger)
 
     // Include data based on log level
-    if (this.shouldIncludeData(level)) {
+    if (this.shouldIncludeData(normalizedLevel)) {
       logger({ msg: message, ...options })
     } else {
       logger({

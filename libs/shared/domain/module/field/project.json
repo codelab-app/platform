@@ -9,7 +9,6 @@
     "type:concrete",
     "scope:shared"
   ],
-  "// targets": "to see all targets run: nx show project field --web",
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint"

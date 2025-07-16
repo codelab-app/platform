@@ -1,6 +1,6 @@
 import type { APIRequestContext } from '@playwright/test'
 
-import { getTimestamp } from '@codelab/shared-infra-logging'
+import { getTimestamp } from '@codelab/shared-infra-logger'
 
 /**
  * Extract the options type from Playwright's APIRequestContext methods

@@ -4,7 +4,7 @@ import type {
 } from '@codelab/shared-abstract-types'
 import type { DocumentTypeDecoration } from '@graphql-typed-document-node/core'
 
-import { logger } from '@codelab/shared-infra-logging'
+import { logger } from '@codelab/shared-infra-logger'
 import pMap from 'p-map'
 import { chunk, clone } from 'remeda'
 import traverse from 'traverse'

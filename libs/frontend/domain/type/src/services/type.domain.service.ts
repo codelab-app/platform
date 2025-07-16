@@ -5,6 +5,7 @@ import type {
 import type { IInterfaceTypeDto, ITypeDto } from '@codelab/shared-abstract-core'
 
 import { getFieldDomainService } from '@codelab/frontend-abstract-domain'
+import { createBrowserLogger } from '@codelab/frontend/infra/logger'
 import { ITypeKind } from '@codelab/shared-abstract-core'
 import { Maybe } from '@codelab/shared-abstract-types'
 import { type TypeFragment, TypeKind } from '@codelab/shared-infra-gqlgen'
@@ -14,6 +15,8 @@ import { Model, model, modelAction, objectMap, prop, Ref } from 'mobx-keystone'
 import { isDefined } from 'remeda'
 
 import { InterfaceType, TypeFactory } from '../store'
+
+const logger = createBrowserLogger('service:type')
 
 @model('@codelab/TypeDomainService')
 export class TypeDomainService
@@ -82,25 +85,26 @@ export class TypeDomainService
 
   @modelAction
   hydrateTypes(types: Array<TypeFragment>) {
-    console.debug(
-      'TypeDomainService.hydrateTypes() called with',
-      types.length,
-      'types',
-    )
-    console.debug(
-      'Type details:',
-      types.map((type) => ({
-        __typename: type.__typename,
-        id: type.id,
-        kind: type.kind,
-        name: type.name,
-      })),
-    )
+    logger.debug('hydrateTypes() called', {
+      data: { typesCount: types.length },
+    })
+    logger.debug('Type details', {
+      data: {
+        types: types.map((type) => ({
+          __typename: type.__typename,
+          id: type.id,
+          kind: type.kind,
+          name: type.name,
+        })),
+      },
+    })
 
     types
       .map((fragment) => TypeFactory.create(fragment))
       .forEach((type) => {
-        console.debug('Hydrating type:', type.id, type.name, type.kind)
+        logger.debug('Hydrating type', {
+          data: { id: type.id, name: type.name, kind: type.kind },
+        })
         this.types.set(type.id, type)
       })
 
@@ -111,21 +115,19 @@ export class TypeDomainService
       (fragment) => fragment.__typename === TypeKind.InterfaceType,
     )
 
-    console.debug(
-      'Found',
-      interfaceFragments.length,
-      'interface types to process fields for',
-    )
+    logger.debug('Processing interface type fields', {
+      data: { interfaceCount: interfaceFragments.length },
+    })
 
     interfaceFragments
       .flatMap((fragment) => fragment.fields)
       .forEach((field) => {
-        console.debug(
-          'Hydrating field:',
-          field.name,
-          'with type:',
-          field.fieldType.id,
-        )
+        logger.debug('Hydrating field', {
+          data: {
+            fieldName: field.name,
+            fieldTypeId: field.fieldType.id,
+          },
+        })
         this.fieldDomainService.hydrate(field)
       })
 
@@ -133,7 +135,9 @@ export class TypeDomainService
       .map((type) => this.types.get(type.id))
       .filter(isDefined)
 
-    console.debug('Returning', result.length, 'hydrated types')
+    logger.debug('Hydration complete', {
+      data: { hydratedCount: result.length },
+    })
 
     return result
   }

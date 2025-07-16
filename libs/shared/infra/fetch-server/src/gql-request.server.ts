@@ -11,7 +11,7 @@ import {
   batchArrayMutations,
   extractOperationInfo,
 } from '@codelab/shared-infra-fetch'
-import { logger } from '@codelab/shared-infra-logging'
+import { logger } from '@codelab/shared-infra-logger'
 import { revalidateTag } from 'next/cache'
 
 import { buildRequestHeaders } from './build-request-headers'
