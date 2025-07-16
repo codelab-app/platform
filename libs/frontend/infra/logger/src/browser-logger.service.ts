@@ -1,14 +1,13 @@
-import type { UnknownObjectLike } from '@codelab/shared/abstract/types'
+import type { UnknownObjectLike } from '@codelab/shared-abstract-types'
 
 import {
-  isLevelEnabled,
   isNamespaceEnabled as checkNamespaceEnabled,
-  LOG_LEVELS,
-  parseNamespaceConfig,
-  shouldIncludeData,
+  isLevelEnabled,
   type LogContext,
   type LoggerConfig,
   type LogLevel,
+  parseNamespaceConfig,
+  shouldIncludeData,
 } from '@codelab/shared-infra-logger'
 
 /**
@@ -27,8 +26,7 @@ export class BrowserLoggerService {
       level: (config?.level ||
         process.env.NEXT_PUBLIC_LOG_LEVEL ||
         'info') as LogLevel,
-      namespaces:
-        config?.namespaces || process.env.NEXT_PUBLIC_DEBUG || '',
+      namespaces: config?.namespaces || process.env.NEXT_PUBLIC_DEBUG || '',
     }
 
     this.parseNamespaces()
@@ -151,7 +149,7 @@ export class BrowserLoggerService {
     // Convert Set to Array for the shared function
     const patterns = [
       ...Array.from(this.enabledNamespaces),
-      ...Array.from(this.disabledNamespaces).map(ns => `-${ns}`),
+      ...Array.from(this.disabledNamespaces).map((ns) => `-${ns}`),
     ]
 
     return checkNamespaceEnabled(namespace, patterns)
@@ -178,9 +176,9 @@ export class BrowserLoggerService {
     }
   }
 
-
   private parseNamespaces(): void {
-    const { enabled, disabled } = parseNamespaceConfig(this.config.namespaces)
+    const { disabled, enabled } = parseNamespaceConfig(this.config.namespaces)
+
     this.enabledNamespaces = enabled
     this.disabledNamespaces = disabled
   }
