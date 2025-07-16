@@ -21,7 +21,7 @@ model_list:
 
 # LiteLLM Settings
 litellm_settings:
-  drop_params: false # Log all parameters to see max_tokens
+  drop_params: true # Drop unsupported params to avoid errors
   request_timeout: 30
   num_retries: 3
   fallbacks: []
