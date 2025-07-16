@@ -5,7 +5,7 @@ import type {
 import type { IInterfaceTypeDto, ITypeDto } from '@codelab/shared-abstract-core'
 
 import { getFieldDomainService } from '@codelab/frontend-abstract-domain'
-import { createBrowserLogger } from '@codelab/frontend/infra/logger'
+import { createBrowserLogger } from '@codelab/frontend-infra-logger'
 import { ITypeKind } from '@codelab/shared-abstract-core'
 import { Maybe } from '@codelab/shared-abstract-types'
 import { type TypeFragment, TypeKind } from '@codelab/shared-infra-gqlgen'
@@ -103,7 +103,7 @@ export class TypeDomainService
       .map((fragment) => TypeFactory.create(fragment))
       .forEach((type) => {
         logger.debug('Hydrating type', {
-          data: { id: type.id, name: type.name, kind: type.kind },
+          data: { id: type.id, kind: type.kind, name: type.name },
         })
         this.types.set(type.id, type)
       })
