@@ -6,9 +6,20 @@ module.exports = {
       --rule 'unused-imports/no-unused-imports-ts: 2'
     `
 
+    // Note: lint-staged runs commands outside of Nx project context, which means:
+    // - Project-specific ESLint configurations may not be properly resolved
+    // - Nx project graph information is not available
+    // - This can lead to false positives or missing project-specific rules
+    
+    // Using --cache to improve performance by caching results between runs
+    // Cache limitations: May not catch errors involving cross-file dependencies
+    // or TypeScript type information changes between cached runs
     const cmds = [
-      `cross-env ESLINT_USE_FLAT_CONFIG=false eslint --color ${stagedFiles} ${rules} --fix --quiet`,
+      `cross-env ESLINT_USE_FLAT_CONFIG=false eslint --cache --color ${stagedFiles} ${rules} --fix --quiet`,
     ]
+    
+    // TODO: Consider batching large file lists to avoid command line length limits
+    // and improve performance when many files are staged
 
     console.info(`Running: ${cmds}`)
 

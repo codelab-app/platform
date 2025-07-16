@@ -54,6 +54,7 @@ node_modules/
 
 # misc
 .sass-cache
+.eslintcache
 connect.lock
 coverage/
 /typings
