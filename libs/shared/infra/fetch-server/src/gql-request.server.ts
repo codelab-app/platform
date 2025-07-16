@@ -10,12 +10,12 @@ import { getEnv } from '@codelab/shared-config-env'
 import {
   batchArrayMutations,
   extractOperationInfo,
-  fetchWithAuth,
 } from '@codelab/shared-infra-fetch'
 import { logger } from '@codelab/shared-infra-logging'
 import { revalidateTag } from 'next/cache'
 
 import { buildRequestHeaders } from './build-request-headers'
+import { fetchWithAuth } from './fetch-with-auth.server'
 
 /**
  * Server-side GraphQL request function that handles authentication and logging.

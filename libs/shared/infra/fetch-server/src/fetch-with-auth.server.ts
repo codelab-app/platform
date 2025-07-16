@@ -1,9 +1,8 @@
 import { auth0Instance } from '@codelab/shared-infra-auth0/client'
-
-import { batchFetch } from './request-batching'
+import { batchFetch } from '@codelab/shared-infra-fetch'
 
 /**
- * Client-side fetch with authentication.
+ * Server-side fetch with authentication.
  * If Authorization header is provided in options.headers, it will be used as-is.
  * Otherwise, it will get the user session token.
  *

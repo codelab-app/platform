@@ -157,7 +157,7 @@ export const batchArrayMutations = async <
       )
 
       // Log the IDs returned in this batch result
-      traverse(result as ObjectLike).forEach(function (
+      traverse(result).forEach(function (
         this: traverse.TraverseContext,
         value: unknown,
       ) {

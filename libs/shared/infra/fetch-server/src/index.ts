@@ -1,2 +1,3 @@
+export { fetchWithAuth } from './fetch-with-auth.server'
 export { gqlServerRequest } from './gql-request.server'
-export { fetchWithAuth, resetBatchFetcher } from '@codelab/shared-infra-fetch'
+export { resetBatchFetcher } from '@codelab/shared-infra-fetch'
