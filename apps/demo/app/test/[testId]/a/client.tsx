@@ -1,6 +1,6 @@
 'use client'
 
-import { logTimestampMs } from '@codelab/shared-infra-logging'
+import { logTimestampMs } from '@codelab/shared-infra-logger'
 import Link from 'next/link'
 
 interface ClientComponentProps {

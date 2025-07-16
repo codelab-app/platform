@@ -37,8 +37,16 @@ export class ElementApplicationService {
 
   @LogClassMethod()
   async createElement(element: ICreateElementData, closestContainerNode: IRef) {
-    console.log('element', element)
-    console.log('closestContainerNode', closestContainerNode)
+    const startTime = Date.now()
+    const caller = new Error().stack?.split('\n')[2]?.trim() || 'unknown'
+
+    this.logger.log('ElementApplicationService.createElement started', {
+      caller,
+      closestContainerNode,
+      element,
+      elementId: element.id,
+      elementName: element.name,
+    })
 
     // const props = await this.propDomainService.createProp(element.propsData)
     const props = {
@@ -47,35 +55,87 @@ export class ElementApplicationService {
     }
 
     let renderType: IElementRenderTypeDto
+    const renderTypeStartTime = Date.now()
 
     if (element.atom) {
+      this.logger.log('Looking up atom render type', {
+        atomName: element.atom,
+        elementId: element.id,
+      })
       renderType = await this.atomDomainService.getRenderTypeByName(
         element.atom,
       )
     } else if (element.component) {
+      this.logger.log('Looking up component render type', {
+        componentKey: element.component,
+        elementId: element.id,
+      })
       renderType = await this.componentRepository.findOneOrFail({
         where: { compositeKey: element.component },
       })
     } else {
+      this.logger.log('Using default render type', {
+        elementId: element.id,
+      })
       renderType = await this.atomDomainService.defaultRenderType()
     }
 
-    return await this.elementRepository.add({
+    this.logger.log('Render type lookup completed', {
+      duration: Date.now() - renderTypeStartTime,
+      elementId: element.id,
+      renderTypeId: renderType.id,
+    })
+
+    const addStartTime = Date.now()
+
+    const createdElement = await this.elementRepository.add({
       ...element,
       closestContainerNode: { id: closestContainerNode.id },
       parentElement: element.parentElement,
       props,
       renderType,
     })
+
+    this.logger.log('Element added to repository', {
+      duration: Date.now() - addStartTime,
+      elementId: createdElement.id,
+    })
+
+    this.logger.log('ElementApplicationService.createElement completed', {
+      elementId: createdElement.id,
+      totalDuration: Date.now() - startTime,
+    })
+
+    return createdElement
   }
 
   async createElementTree(
     elements: Array<ICreateElementData>,
     parentElement: IRef,
   ) {
-    for (const element of elements) {
+    const startTime = Date.now()
+
+    this.logger.log('ElementApplicationService.createElementTree started', {
+      elementCount: elements.length,
+      parentElementId: parentElement.id,
+    })
+
+    for (const [index, element] of elements.entries()) {
+      const elementStartTime = Date.now()
+
       await this.createElement(element, parentElement)
+      this.logger.log('Tree element created', {
+        duration: Date.now() - elementStartTime,
+        elementId: element.id,
+        index,
+        totalElements: elements.length,
+      })
     }
+
+    this.logger.log('ElementApplicationService.createElementTree completed', {
+      elementCount: elements.length,
+      totalDuration: Date.now() - startTime,
+    })
   }
 
   async createPageRootElement(closestContainerNode: IRef) {

@@ -17,6 +17,9 @@
       "options": {
         "jestConfig": "libs/shared/infra/eval/jest.config.ts"
       }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
     }
   }
 }

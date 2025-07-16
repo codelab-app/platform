@@ -413,6 +413,12 @@ importers:
       deep-object-diff:
         specifier: 1.1.9
         version: 1.1.9
+      deepmerge:
+        specifier: ^4.3.1
+        version: 4.3.1
+      deepmerge-ts:
+        specifier: ^7.1.5
+        version: 7.1.5
       diff:
         specifier: 5.1.0
         version: 5.1.0
@@ -521,9 +527,15 @@ importers:
       node-fetch:
         specifier: ^3.3.2
         version: 3.3.2
+      object-scan:
+        specifier: ^20.0.1
+        version: 20.0.1
       object-typed:
         specifier: 1.0.0
         version: 1.0.0
+      p-map:
+        specifier: ^7.0.3
+        version: 7.0.3
       p-min-delay:
         specifier: 4.0.2
         version: 4.0.2
@@ -927,6 +939,9 @@ importers:
       '@types/cookie':
         specifier: 0.5.1
         version: 0.5.1
+      '@types/deepmerge':
+        specifier: ^2.2.3
+        version: 2.2.3
       '@types/diff':
         specifier: 5.0.3
         version: 5.0.3
@@ -1005,6 +1020,9 @@ importers:
       '@types/supertest':
         specifier: 2.0.16
         version: 2.0.16
+      '@types/traverse':
+        specifier: ^0.6.37
+        version: 0.6.37
       '@types/uuid':
         specifier: 8.3.4
         version: 8.3.4
@@ -1209,12 +1227,18 @@ importers:
       postcss:
         specifier: 8.4.45
         version: 8.4.45
+      semver:
+        specifier: ^7.7.2
+        version: 7.7.2
       swc-loader:
         specifier: 0.2.6
         version: 0.2.6(@swc/core@1.10.11(@swc/helpers@0.5.15))(webpack@5.99.5(@swc/core@1.10.11(@swc/helpers@0.5.15))(esbuild@0.25.0))
       tailwindcss:
         specifier: 3.4.10
         version: 3.4.10(ts-node@10.9.1(@swc/core@1.10.11(@swc/helpers@0.5.15))(@types/node@22.13.5)(typescript@5.5.4))
+      traverse:
+        specifier: 0.6.11
+        version: 0.6.11
       ts-essentials:
         specifier: 9.1.2
         version: 9.1.2(typescript@5.5.4)
@@ -7196,6 +7220,10 @@ packages:
   '@types/cors@2.8.17':
     resolution: {integrity: sha512-8CGDvrBj1zgo2qE+oS3pOCyYNqCPryMWY2bGfwA0dcfopWGgxs+78df0Rs3rc9THP4JkOhLsAa+15VdpAqkcUA==}
 
+  '@types/deepmerge@2.2.3':
+    resolution: {integrity: sha512-ct4srnukH/SHdVPyJIFV73YJIt9PTYTaqQbjrCvRrbc9LxHdGcJb132SuWwnDTPyx5UjCVS/I00wj0i5IXfqSA==}
+    deprecated: This is a stub types definition. deepmerge provides its own type definitions, so you do not need this installed.
+
   '@types/diff@5.0.3':
     resolution: {integrity: sha512-amrLbRqTU9bXMCc6uX0sWpxsQzRIo9z6MJPkH1pkez/qOxuqSZVuryJAWoBRq94CeG8JxY+VK4Le9HtjQR5T9A==}
 
@@ -7452,6 +7480,9 @@ packages:
 
   '@types/tough-cookie@4.0.5':
     resolution: {integrity: sha512-/Ad8+nIOV7Rl++6f1BdKxFSMgmoqEoYbHRpPcx3JEfv8VRsQe9Z4mCXeJBzxs7mbHY/XOZZuXlRNfhpVPbs6ZA==}
+
+  '@types/traverse@0.6.37':
+    resolution: {integrity: sha512-c90MVeDiUI1FhOZ6rLQ3kDWr50YE8+paDpM+5zbHjbmsqEp2DlMYkqnZnwbK9oI+NvDe8yRajup4jFwnVX6xsA==}
 
   '@types/triple-beam@1.3.5':
     resolution: {integrity: sha512-6WaYesThRMCl19iryMYP7/x2OVgCtbIVflDGFpWnb9irXI3UjYE4AzmYuiUKY1AJstGijoY+MgUszMgRxIYTYw==}
@@ -9733,6 +9764,10 @@ packages:
 
   deep-object-diff@1.1.9:
     resolution: {integrity: sha512-Rn+RuwkmkDwCi2/oXOFS9Gsr5lJZu/yTGpK7wAaAIE75CC+LCGEZHpY6VQJa/RoJcrmaA/docWJZvYohlNkWPA==}
+
+  deepmerge-ts@7.1.5:
+    resolution: {integrity: sha512-HOJkrhaYsweh+W+e74Yn7YStZOilkoPb6fycpwNLKzSPtruFs48nYis0zy5yJz1+ktUhHxoRDJ27RQAWLIJVJw==}
+    engines: {node: '>=16.0.0'}
 
   deepmerge@4.3.1:
     resolution: {integrity: sha512-3sUqbMEc77XqpdNO7FRyRog+eW3ph+GYCbj+rK+uYyRMuwsVy0rMiVtPn+QJlKFvWP/1PYpapqYn0Me2knFn+A==}
@@ -13637,6 +13672,10 @@ packages:
     resolution: {integrity: sha512-NuAESUOUMrlIXOfHKzD6bpPu3tYt3xvjNdRIQ+FeT0lNb4K8WR70CaDxhuNguS2XG+GjkyMwOzsN5ZktImfhLA==}
     engines: {node: '>= 0.4'}
 
+  object-scan@20.0.1:
+    resolution: {integrity: sha512-1NSDBcdyVAxoWSZAsiXi5oyUWjWAy11YBVeK3U/KRbZCvmfWYWt4A+pfTWD7caOzcyStMyhHlb0c9QNnydxNCA==}
+    engines: {node: '>= 20'}
+
   object-treeify@1.1.33:
     resolution: {integrity: sha512-EFVjAYfzWqWsBMRHPMAXLCDIJnpMhdWAqR7xG6M6a2cs6PMFpl/+Z20w9zDW4vkxOFfddegBKq9Rehd0bxWE7A==}
     engines: {node: '>= 10'}
@@ -13810,6 +13849,10 @@ packages:
   p-map@5.5.0:
     resolution: {integrity: sha512-VFqfGDHlx87K66yZrNdI4YGtD70IRyd+zSvgks6mzHPRNkoKy+9EKP4SFC77/vTTQYmRmti7dvqC+m5jBrBAcg==}
     engines: {node: '>=12'}
+
+  p-map@7.0.3:
+    resolution: {integrity: sha512-VkndIv2fIB99swvQoA65bm+fsmt6UNdGeIB0oxBs+WhAhdh08QA04JXpI7rbB9r08/nkbysKoya9rtDERYOYMA==}
+    engines: {node: '>=18'}
 
   p-min-delay@4.0.2:
     resolution: {integrity: sha512-7hJcTq/MGF5pNHbQ2akrpPy1N43YYlB4RPECDSbPRn4xP/dsgP0I6ls7NvSUQ5k88o+CyATMOrQiZ/PK4aQR9w==}
@@ -15715,11 +15758,6 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
-  semver@7.7.1:
-    resolution: {integrity: sha512-hlq8tAfn0m/61p4BVRcPzIGr6LKiMwo4VM6dGi6pt4qcRkmNzTcWq6eCEjEh+qXjkMDvPlOFFSGwQjoEa6gyMA==}
-    engines: {node: '>=10'}
-    hasBin: true
-
   semver@7.7.2:
     resolution: {integrity: sha512-RF0Fw+rO5AMf9MAyaRXI4AV0Ulj5lMHqVxxdSgiVbixSCXoEmmX/jk0CuJw4+3SqroYO9VoUh+HcuJivvtJemA==}
     engines: {node: '>=10'}
@@ -16625,6 +16663,10 @@ packages:
     resolution: {integrity: sha512-l7FvfAHlcmulp8kr+flpQZmVwtu7nfRV7NZujtN0OqES8EL4O4e0qqzL0DC5gAvx/ZC/9lk6rhcUwYvkBnBnYA==}
     engines: {node: '>=12'}
 
+  traverse@0.6.11:
+    resolution: {integrity: sha512-vxXDZg8/+p3gblxB6BhhG5yWVn1kGRlaL8O78UDXc3wRnPizB5g83dcvWV1jpDMIPnjZjOFuxlMmE82XJ4407w==}
+    engines: {node: '>= 0.4'}
+
   tree-dump@1.0.2:
     resolution: {integrity: sha512-dpev9ABuLWdEubk+cIaI9cHwRNNDjkBBLXTwI4UCUFdQ5xXKqNXoK4FEciw/vxf+NQ7Cb7sGUyeUtORvHIdRXQ==}
     engines: {node: '>=10.0'}
@@ -16876,6 +16918,10 @@ packages:
 
   typedarray-to-buffer@3.1.5:
     resolution: {integrity: sha512-zdu8XMNEDepKKR+XYOXAVPtWui0ly0NtohUscw+UmaHiAWT8hrV1rr//H6V+0DvJ3OQ19S979M0laLfX8rm82Q==}
+
+  typedarray.prototype.slice@1.0.5:
+    resolution: {integrity: sha512-q7QNVDGTdl702bVFiI5eY4l/HkgCM6at9KhcFbgUAzezHFbOVy4+0O/lCjsABEQwbZPravVfBIiBVGo89yzHFg==}
+    engines: {node: '>= 0.4'}
 
   typedarray@0.0.6:
     resolution: {integrity: sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==}
@@ -19617,7 +19663,7 @@ snapshots:
   '@commitlint/is-ignored@19.7.1':
     dependencies:
       '@commitlint/types': 19.5.0
-      semver: 7.7.1
+      semver: 7.7.2
 
   '@commitlint/lint@19.7.1':
     dependencies:
@@ -22299,7 +22345,7 @@ snapshots:
       jose: 5.9.6
       neo4j-driver: 5.28.1
       pluralize: 8.0.0
-      semver: 7.7.1
+      semver: 7.7.2
       typescript-memoize: 1.1.1
     transitivePeerDependencies:
       - supports-color
@@ -22631,7 +22677,7 @@ snapshots:
       '@nx/js': 21.2.1(@babel/traverse@7.27.7)(@swc-node/register@1.10.9(@swc/core@1.10.11(@swc/helpers@0.5.15))(@swc/types@0.1.17)(typescript@5.5.4))(@swc/core@1.10.11(@swc/helpers@0.5.15))(nx@21.2.1(@swc-node/register@1.10.9(@swc/core@1.10.11(@swc/helpers@0.5.15))(@swc/types@0.1.17)(typescript@5.5.4))(@swc/core@1.10.11(@swc/helpers@0.5.15)))
       '@phenomnomnominal/tsquery': 5.0.1(typescript@5.5.4)
       detect-port: 1.6.1
-      semver: 7.7.1
+      semver: 7.7.2
       tree-kill: 1.2.2
       tslib: 2.3.1
     transitivePeerDependencies:
@@ -22654,7 +22700,7 @@ snapshots:
       ignore: 5.3.2
       minimatch: 9.0.3
       nx: 21.2.1(@swc-node/register@1.10.9(@swc/core@1.10.11(@swc/helpers@0.5.15))(@swc/types@0.1.17)(typescript@5.5.4))(@swc/core@1.10.11(@swc/helpers@0.5.15))
-      semver: 7.7.1
+      semver: 7.7.2
       tmp: 0.2.3
       tslib: 2.3.1
       yargs-parser: 21.1.1
@@ -22666,7 +22712,7 @@ snapshots:
       ignore: 5.3.2
       minimatch: 9.0.3
       nx: 21.2.1(@swc-node/register@1.10.9(@swc/core@1.10.11(@swc/helpers@0.5.15))(@swc/types@0.1.17)(typescript@5.5.4))(@swc/core@1.10.11(@swc/helpers@0.5.15))
-      semver: 7.7.1
+      semver: 7.7.2
       tmp: 0.2.3
       tslib: 2.3.1
       yargs-parser: 21.1.1
@@ -22682,7 +22728,7 @@ snapshots:
       confusing-browser-globals: 1.0.11
       globals: 15.14.0
       jsonc-eslint-parser: 2.4.0
-      semver: 7.7.1
+      semver: 7.7.2
       tslib: 2.3.1
     optionalDependencies:
       eslint-config-prettier: 10.1.2(eslint@8.57.0)
@@ -22702,7 +22748,7 @@ snapshots:
       '@nx/devkit': 21.2.1(nx@21.2.1(@swc-node/register@1.10.9(@swc/core@1.10.11(@swc/helpers@0.5.15))(@swc/types@0.1.17)(typescript@5.5.4))(@swc/core@1.10.11(@swc/helpers@0.5.15)))
       '@nx/js': 21.2.1(@babel/traverse@7.27.7)(@swc-node/register@1.10.9(@swc/core@1.10.11(@swc/helpers@0.5.15))(@swc/types@0.1.17)(typescript@5.5.4))(@swc/core@1.10.11(@swc/helpers@0.5.15))(nx@21.2.1(@swc-node/register@1.10.9(@swc/core@1.10.11(@swc/helpers@0.5.15))(@swc/types@0.1.17)(typescript@5.5.4))(@swc/core@1.10.11(@swc/helpers@0.5.15)))
       eslint: 8.57.0
-      semver: 7.7.1
+      semver: 7.7.2
       tslib: 2.3.1
       typescript: 5.8.3
     optionalDependencies:
@@ -22730,7 +22776,7 @@ snapshots:
       minimatch: 9.0.3
       picocolors: 1.1.1
       resolve.exports: 2.0.3
-      semver: 7.7.1
+      semver: 7.7.2
       tslib: 2.3.1
       yargs-parser: 21.1.1
     transitivePeerDependencies:
@@ -22774,7 +22820,7 @@ snapshots:
       ora: 5.3.0
       picocolors: 1.1.1
       picomatch: 4.0.2
-      semver: 7.7.1
+      semver: 7.7.2
       source-map-support: 0.5.19
       tinyglobby: 0.2.12
       tslib: 2.3.1
@@ -22860,7 +22906,7 @@ snapshots:
       file-loader: 6.2.0(webpack@5.99.5(@swc/core@1.10.11(@swc/helpers@0.5.15))(esbuild@0.25.0))
       ignore: 5.3.2
       next: 15.3.4(@babel/core@7.26.7)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.1)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.85.1)
-      semver: 7.7.1
+      semver: 7.7.2
       tslib: 2.3.1
       webpack-merge: 5.10.0
     transitivePeerDependencies:
@@ -23009,7 +23055,7 @@ snapshots:
       http-proxy-middleware: 3.0.3
       minimatch: 9.0.3
       picocolors: 1.1.1
-      semver: 7.7.1
+      semver: 7.7.2
       tslib: 2.3.1
     transitivePeerDependencies:
       - '@babel/traverse'
@@ -23041,7 +23087,7 @@ snapshots:
       '@nx/eslint': 21.2.1(@babel/traverse@7.27.7)(@swc-node/register@1.10.9(@swc/core@1.10.11(@swc/helpers@0.5.15))(@swc/types@0.1.17)(typescript@5.5.4))(@swc/core@1.10.11(@swc/helpers@0.5.15))(@zkochan/js-yaml@0.0.7)(eslint@8.57.0)(nx@21.2.1(@swc-node/register@1.10.9(@swc/core@1.10.11(@swc/helpers@0.5.15))(@swc/types@0.1.17)(typescript@5.5.4))(@swc/core@1.10.11(@swc/helpers@0.5.15)))
       '@nx/js': 21.2.1(@babel/traverse@7.27.7)(@swc-node/register@1.10.9(@swc/core@1.10.11(@swc/helpers@0.5.15))(@swc/types@0.1.17)(typescript@5.5.4))(@swc/core@1.10.11(@swc/helpers@0.5.15))(nx@21.2.1(@swc-node/register@1.10.9(@swc/core@1.10.11(@swc/helpers@0.5.15))(@swc/types@0.1.17)(typescript@5.5.4))(@swc/core@1.10.11(@swc/helpers@0.5.15)))
       '@phenomnomnominal/tsquery': 5.0.1(typescript@5.5.4)
-      semver: 7.7.1
+      semver: 7.7.2
       storybook: 9.0.9(@testing-library/dom@10.4.0)(prettier@2.8.8)
       tslib: 2.3.1
     transitivePeerDependencies:
@@ -23066,7 +23112,7 @@ snapshots:
       ajv: 8.17.1
       enquirer: 2.3.6
       picomatch: 4.0.2
-      semver: 7.7.1
+      semver: 7.7.2
       tsconfig-paths: 4.2.0
       vite: 6.2.1(@types/node@22.13.5)(jiti@2.4.2)(less@4.1.3)(sass-embedded@1.85.1)(sass@1.85.1)(stylus@0.64.0)(terser@5.38.0)(yaml@2.8.0)
       vitest: 2.1.9(@types/node@22.13.5)(jsdom@20.0.3)(less@4.1.3)(msw@2.7.0(@types/node@22.13.5)(typescript@5.5.4))(sass@1.85.1)(stylus@0.64.0)(terser@5.38.0)
@@ -23233,7 +23279,7 @@ snapshots:
       inquirer: 8.2.6
       lodash.throttle: 4.1.1
       log-chopper: 1.0.2
-      semver: 7.7.1
+      semver: 7.7.2
       tar-fs: 2.1.2
     transitivePeerDependencies:
       - '@swc/core'
@@ -23414,7 +23460,7 @@ snapshots:
       '@opentelemetry/instrumentation': 0.57.1(@opentelemetry/api@1.9.0)
       '@opentelemetry/semantic-conventions': 1.28.0
       forwarded-parse: 2.1.2
-      semver: 7.7.1
+      semver: 7.7.2
     transitivePeerDependencies:
       - supports-color
 
@@ -23559,7 +23605,7 @@ snapshots:
       '@types/shimmer': 1.2.0
       import-in-the-middle: 1.12.0
       require-in-the-middle: 7.5.0
-      semver: 7.7.1
+      semver: 7.7.2
       shimmer: 1.2.1
     transitivePeerDependencies:
       - supports-color
@@ -25225,7 +25271,7 @@ snapshots:
       react-refresh: 0.14.2
       resolve-url-loader: 5.0.0
       sass-loader: 14.2.1(@rspack/core@1.3.15(@swc/helpers@0.5.15))(sass-embedded@1.85.1)(sass@1.85.1)(webpack@5.99.5(@swc/core@1.10.11(@swc/helpers@0.5.15))(esbuild@0.25.0))
-      semver: 7.7.1
+      semver: 7.7.2
       storybook: 9.0.9(@testing-library/dom@10.4.0)(prettier@2.8.8)
       style-loader: 3.3.4(webpack@5.99.5(@swc/core@1.10.11(@swc/helpers@0.5.15))(esbuild@0.25.0))
       styled-jsx: 5.1.6(@babel/core@7.26.7)(babel-plugin-macros@3.1.0)(react@19.1.0)
@@ -25263,7 +25309,7 @@ snapshots:
       react-docgen: 7.1.1
       react-dom: 19.1.0(react@19.1.0)
       resolve: 1.22.10
-      semver: 7.7.1
+      semver: 7.7.2
       storybook: 9.0.9(@testing-library/dom@10.4.0)(prettier@2.8.8)
       tsconfig-paths: 4.2.0
       webpack: 5.99.5(@swc/core@1.10.11(@swc/helpers@0.5.15))(esbuild@0.25.0)
@@ -25558,7 +25604,7 @@ snapshots:
       fast-glob: 3.3.3
       minimatch: 9.0.4
       piscina: 4.8.0
-      semver: 7.7.1
+      semver: 7.7.2
       slash: 3.0.0
       source-map: 0.7.4
     optionalDependencies:
@@ -25817,6 +25863,10 @@ snapshots:
   '@types/cors@2.8.17':
     dependencies:
       '@types/node': 22.13.5
+
+  '@types/deepmerge@2.2.3':
+    dependencies:
+      deepmerge: 4.3.1
 
   '@types/diff@5.0.3': {}
 
@@ -26120,6 +26170,8 @@ snapshots:
 
   '@types/tough-cookie@4.0.5': {}
 
+  '@types/traverse@0.6.37': {}
+
   '@types/triple-beam@1.3.5': {}
 
   '@types/unist@2.0.11': {}
@@ -26268,7 +26320,7 @@ snapshots:
       debug: 4.4.0(supports-color@8.1.1)
       globby: 11.1.0
       is-glob: 4.0.3
-      semver: 7.7.1
+      semver: 7.7.2
       tsutils: 3.21.0(typescript@5.5.4)
     optionalDependencies:
       typescript: 5.5.4
@@ -26283,7 +26335,7 @@ snapshots:
       globby: 11.1.0
       is-glob: 4.0.3
       minimatch: 9.0.3
-      semver: 7.7.1
+      semver: 7.7.2
       ts-api-utils: 1.4.3(typescript@5.5.4)
     optionalDependencies:
       typescript: 5.5.4
@@ -26298,7 +26350,7 @@ snapshots:
       globby: 11.1.0
       is-glob: 4.0.3
       minimatch: 9.0.4
-      semver: 7.7.1
+      semver: 7.7.2
       ts-api-utils: 1.4.3(typescript@5.5.4)
     optionalDependencies:
       typescript: 5.5.4
@@ -26313,7 +26365,7 @@ snapshots:
       globby: 11.1.0
       is-glob: 4.0.3
       minimatch: 9.0.4
-      semver: 7.7.1
+      semver: 7.7.2
       ts-api-utils: 1.4.3(typescript@5.5.4)
     optionalDependencies:
       typescript: 5.5.4
@@ -26328,7 +26380,7 @@ snapshots:
       fast-glob: 3.3.3
       is-glob: 4.0.3
       minimatch: 9.0.4
-      semver: 7.7.1
+      semver: 7.7.2
       ts-api-utils: 2.0.1(typescript@5.5.4)
       typescript: 5.5.4
     transitivePeerDependencies:
@@ -26344,7 +26396,7 @@ snapshots:
       '@typescript-eslint/typescript-estree': 5.62.0(typescript@5.5.4)
       eslint: 8.57.0
       eslint-scope: 5.1.1
-      semver: 7.7.1
+      semver: 7.7.2
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -26358,7 +26410,7 @@ snapshots:
       '@typescript-eslint/types': 6.21.0
       '@typescript-eslint/typescript-estree': 6.21.0(typescript@5.5.4)
       eslint: 8.57.0
-      semver: 7.7.1
+      semver: 7.7.2
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -27534,7 +27586,7 @@ snapshots:
   bin-version-check@5.1.0:
     dependencies:
       bin-version: 6.0.0
-      semver: 7.7.1
+      semver: 7.7.2
       semver-truncate: 3.0.0
 
   bin-version@6.0.0:
@@ -27723,7 +27775,7 @@ snapshots:
       ioredis: 5.5.0
       msgpackr: 1.11.2
       node-abort-controller: 3.1.1
-      semver: 7.7.1
+      semver: 7.7.2
       tslib: 2.3.1
       uuid: 9.0.1
     transitivePeerDependencies:
@@ -28570,7 +28622,7 @@ snapshots:
       postcss-modules-scope: 3.2.1(postcss@8.4.45)
       postcss-modules-values: 4.0.0(postcss@8.4.45)
       postcss-value-parser: 4.2.0
-      semver: 7.7.1
+      semver: 7.7.2
     optionalDependencies:
       '@rspack/core': 1.3.15(@swc/helpers@0.5.15)
       webpack: 5.99.5(@swc/core@1.10.11(@swc/helpers@0.5.15))(esbuild@0.25.0)
@@ -28854,6 +28906,8 @@ snapshots:
   deep-is@0.1.4: {}
 
   deep-object-diff@1.1.9: {}
+
+  deepmerge-ts@7.1.5: {}
 
   deepmerge@4.3.1: {}
 
@@ -29746,7 +29800,7 @@ snapshots:
       read-pkg-up: 7.0.1
       regexp-tree: 0.1.27
       regjsparser: 0.10.0
-      semver: 7.7.1
+      semver: 7.7.2
       strip-indent: 3.0.0
 
   eslint-plugin-unused-imports@3.2.0(@typescript-eslint/eslint-plugin@7.17.0(@typescript-eslint/parser@7.17.0(eslint@8.57.0)(typescript@5.5.4))(eslint@8.57.0)(typescript@5.5.4))(eslint@8.57.0):
@@ -30344,7 +30398,7 @@ snapshots:
       minimatch: 3.1.2
       node-abort-controller: 3.1.1
       schema-utils: 3.3.0
-      semver: 7.7.1
+      semver: 7.7.2
       tapable: 2.2.1
       typescript: 5.5.4
       webpack: 5.99.5(@swc/core@1.10.11(@swc/helpers@0.5.15))(esbuild@0.25.0)
@@ -30361,7 +30415,7 @@ snapshots:
       minimatch: 3.1.2
       node-abort-controller: 3.1.1
       schema-utils: 3.3.0
-      semver: 7.7.1
+      semver: 7.7.2
       tapable: 2.2.1
       typescript: 5.5.4
       webpack: 5.99.5(@swc/core@1.10.11(@swc/helpers@0.5.15))(esbuild@0.25.0)
@@ -30378,7 +30432,7 @@ snapshots:
       minimatch: 3.1.2
       node-abort-controller: 3.1.1
       schema-utils: 3.3.0
-      semver: 7.7.1
+      semver: 7.7.2
       tapable: 2.2.1
       typescript: 5.7.3
       webpack: 5.97.1(@swc/core@1.10.11(@swc/helpers@0.5.15))(esbuild@0.25.0)
@@ -31716,7 +31770,7 @@ snapshots:
       '@babel/parser': 7.26.7
       '@istanbuljs/schema': 0.1.3
       istanbul-lib-coverage: 3.2.2
-      semver: 7.7.1
+      semver: 7.7.2
     transitivePeerDependencies:
       - supports-color
 
@@ -32379,7 +32433,7 @@ snapshots:
       jest-util: 29.7.0
       natural-compare: 1.4.0
       pretty-format: 29.7.0
-      semver: 7.7.1
+      semver: 7.7.2
     transitivePeerDependencies:
       - supports-color
 
@@ -32657,7 +32711,7 @@ snapshots:
       acorn: 8.14.0
       eslint-visitor-keys: 3.4.3
       espree: 9.6.1
-      semver: 7.7.1
+      semver: 7.7.2
 
   jsonc-parser@3.2.0: {}
 
@@ -32686,7 +32740,7 @@ snapshots:
       lodash.isstring: 4.0.1
       lodash.once: 4.1.1
       ms: 2.1.3
-      semver: 7.7.1
+      semver: 7.7.2
 
   jsx-ast-utils@3.3.5:
     dependencies:
@@ -33121,7 +33175,7 @@ snapshots:
 
   make-dir@4.0.0:
     dependencies:
-      semver: 7.7.1
+      semver: 7.7.2
 
   make-error@1.3.6: {}
 
@@ -33633,7 +33687,7 @@ snapshots:
 
   node-abi@3.74.0:
     dependencies:
-      semver: 7.7.1
+      semver: 7.7.2
 
   node-abort-controller@3.1.1: {}
 
@@ -33744,7 +33798,7 @@ snapshots:
     dependencies:
       hosted-git-info: 4.1.0
       is-core-module: 2.16.1
-      semver: 7.7.1
+      semver: 7.7.2
       validate-npm-package-license: 3.0.4
 
   normalize-path@2.1.1:
@@ -33761,7 +33815,7 @@ snapshots:
     dependencies:
       hosted-git-info: 7.0.2
       proc-log: 3.0.0
-      semver: 7.7.1
+      semver: 7.7.2
       validate-npm-package-name: 5.0.1
 
   npm-run-path@4.0.1:
@@ -33811,7 +33865,7 @@ snapshots:
       open: 8.4.2
       ora: 5.3.0
       resolve.exports: 2.0.3
-      semver: 7.7.1
+      semver: 7.7.2
       string-width: 4.2.3
       tar-stream: 2.2.0
       tmp: 0.2.3
@@ -33887,6 +33941,8 @@ snapshots:
       define-properties: 1.2.1
 
   object-keys@1.1.1: {}
+
+  object-scan@20.0.1: {}
 
   object-treeify@1.1.33: {}
 
@@ -34117,6 +34173,8 @@ snapshots:
   p-map@5.5.0:
     dependencies:
       aggregate-error: 4.0.1
+
+  p-map@7.0.3: {}
 
   p-min-delay@4.0.2:
     dependencies:
@@ -34533,7 +34591,7 @@ snapshots:
       cosmiconfig: 7.1.0
       klona: 2.0.6
       postcss: 8.4.45
-      semver: 7.7.1
+      semver: 7.7.2
       webpack: 5.99.5(@swc/core@1.10.11(@swc/helpers@0.5.15))(esbuild@0.25.0)
 
   postcss-loader@8.1.1(@rspack/core@1.3.15(@swc/helpers@0.5.15))(postcss@8.4.45)(typescript@5.5.4)(webpack@5.99.5(@swc/core@1.10.11(@swc/helpers@0.5.15))(esbuild@0.25.0)):
@@ -34541,7 +34599,7 @@ snapshots:
       cosmiconfig: 9.0.0(typescript@5.5.4)
       jiti: 1.21.7
       postcss: 8.4.45
-      semver: 7.7.1
+      semver: 7.7.2
     optionalDependencies:
       '@rspack/core': 1.3.15(@swc/helpers@0.5.15)
       webpack: 5.99.5(@swc/core@1.10.11(@swc/helpers@0.5.15))(esbuild@0.25.0)
@@ -36217,8 +36275,6 @@ snapshots:
 
   semver@7.6.3: {}
 
-  semver@7.7.1: {}
-
   semver@7.7.2: {}
 
   send@0.18.0:
@@ -36777,7 +36833,7 @@ snapshots:
       esbuild: 0.25.0
       esbuild-register: 3.6.0(esbuild@0.25.0)
       recast: 0.23.9
-      semver: 7.7.1
+      semver: 7.7.2
       ws: 8.18.0
     optionalDependencies:
       prettier: 2.8.8
@@ -37081,7 +37137,7 @@ snapshots:
       methods: 1.1.2
       mime: 2.6.0
       qs: 6.14.0
-      semver: 7.7.1
+      semver: 7.7.2
     transitivePeerDependencies:
       - supports-color
 
@@ -37392,6 +37448,12 @@ snapshots:
     dependencies:
       punycode: 2.3.1
 
+  traverse@0.6.11:
+    dependencies:
+      gopd: 1.2.0
+      typedarray.prototype.slice: 1.0.5
+      which-typed-array: 1.1.18
+
   tree-dump@1.0.2(tslib@2.3.1):
     dependencies:
       tslib: 2.3.1
@@ -37434,7 +37496,7 @@ snapshots:
       json5: 2.2.3
       lodash.memoize: 4.1.2
       make-error: 1.3.6
-      semver: 7.7.1
+      semver: 7.7.2
       typescript: 5.5.4
       yargs-parser: 21.1.1
     optionalDependencies:
@@ -37449,7 +37511,7 @@ snapshots:
       chalk: 4.1.2
       enhanced-resolve: 5.18.1
       micromatch: 4.0.8
-      semver: 7.7.1
+      semver: 7.7.2
       source-map: 0.7.4
       typescript: 5.5.4
       webpack: 5.99.5(@swc/core@1.10.11(@swc/helpers@0.5.15))(esbuild@0.25.0)
@@ -37629,6 +37691,17 @@ snapshots:
   typedarray-to-buffer@3.1.5:
     dependencies:
       is-typedarray: 1.0.0
+
+  typedarray.prototype.slice@1.0.5:
+    dependencies:
+      call-bind: 1.0.8
+      define-properties: 1.2.1
+      es-abstract: 1.23.9
+      es-errors: 1.3.0
+      get-proto: 1.0.1
+      math-intrinsics: 1.1.0
+      typed-array-buffer: 1.0.3
+      typed-array-byte-offset: 1.0.4
 
   typedarray@0.0.6: {}
 

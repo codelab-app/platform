@@ -79,10 +79,6 @@ commands:
       - run:
           command: |
             pnpm jest --clearCache
-  increment-docker-version:
-    description: Increment Docker Version
-    steps:
-      - run: ~/project/.circleci/config/commands/increment-docker-version.sh
   install-cypher-shell:
     steps:
       - run:
@@ -112,10 +108,15 @@ commands:
             - ~/.nvm
       - run:
           command: |
+            source $BASH_ENV
             nvm install 22.14.0
             nvm alias default 22.14.0
             node -v
             which node
+            npm -v
+            which npm
+            npx -v
+            which npx
           name: Set Node Version
   install-packages:
     steps:
@@ -210,6 +211,7 @@ commands:
     description: Restore Workspace
     steps:
       - checkout
+      - setup-env
       - attach_workspace:
           at: ~/
       - run:
@@ -225,13 +227,12 @@ commands:
           keys:
             - nvm-cache-{{ checksum ".nvmrc" }}
           name: Restore NVM Cache
-      - load-nvm
       - install-pnpm
-      - setup-env
   restore-workspace-database:
     description: Restore Workspace
     steps:
       - checkout
+      - setup-env
       - attach_workspace:
           at: ~/
       - run:
@@ -247,10 +248,8 @@ commands:
           keys:
             - nvm-cache-{{ checksum ".nvmrc" }}
           name: Restore NVM Cache
-      - load-nvm
       - install-pnpm
       - install-cypher-shell
-      - setup-env
   restore-workspace-infra:
     description: Restore Infra Workspace
     steps:
@@ -601,10 +600,10 @@ jobs:
     resource_class: large
     steps:
       - checkout
+      - setup-env
+      - install-nvm
       - install-terraform
-      - increment-docker-version
       - login-docker
-      - increment-docker-version
       - persist_to_workspace:
           paths:
             - .docker/config.json
@@ -951,7 +950,7 @@ workflows:
               only:
                 - staging
           requires:
-            - tf-apply-ci
+            - setup-infra-workspace
       - docker-api:
           context:
             - prod
@@ -960,7 +959,7 @@ workflows:
               only:
                 - staging
           requires:
-            - tf-apply-ci
+            - setup-infra-workspace
       - docker-sites:
           context:
             - prod
@@ -969,7 +968,7 @@ workflows:
               only:
                 - staging
           requires:
-            - tf-apply-ci
+            - setup-infra-workspace
       - docker-landing:
           context:
             - prod
@@ -1003,6 +1002,104 @@ workflows:
             branches:
               only:
                 - staging
+          requires:
+            - hold-apply
+          stage: prod
+  infra-pr-tag:
+    jobs:
+      - setup-infra-workspace:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
+      - tf-plan:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
+          name: tf-plan-ci
+          requires:
+            - setup-infra-workspace
+          stage: ci
+      - tf-apply:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
+          name: tf-apply-ci
+          requires:
+            - tf-plan-ci
+          stage: ci
+      - docker-web:
+          context:
+            - prod
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
+          requires:
+            - setup-infra-workspace
+      - docker-api:
+          context:
+            - prod
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
+          requires:
+            - setup-infra-workspace
+      - docker-sites:
+          context:
+            - prod
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
+          requires:
+            - setup-infra-workspace
+      - docker-landing:
+          context:
+            - prod
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
+          requires:
+            - setup-infra-workspace
+      - tf-plan:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
+          requires:
+            - docker-web
+            - docker-api
+            - docker-sites
+            - docker-landing
+          stage: prod
+      - hold-apply:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
+          requires:
+            - tf-plan
+          type: approval
+      - tf-apply:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
           requires:
             - hold-apply
           stage: prod

@@ -39,6 +39,9 @@
       "options": {
         "command": "test-storybook -c apps/design-system/.storybook --url=http://localhost:4400"
       }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
     }
   }
 }

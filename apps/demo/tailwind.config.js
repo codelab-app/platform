@@ -16,8 +16,8 @@ module.exports = {
     '!./{src,pages,components,app}/**/*.{stories,spec}.{ts,tsx,js,jsx,html}',
     //     ...createGlobPatternsForDependencies(__dirname)
   ],
+  plugins: [],
   theme: {
     extend: {},
   },
-  plugins: [],
 }

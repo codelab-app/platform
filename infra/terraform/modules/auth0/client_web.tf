@@ -1,3 +1,7 @@
+locals {
+  test_url = "http://codelab.test"
+}
+
 resource "auth0_client" "web_client" {
   name = "Codelab Web Client"
   # description         = var.app_description
@@ -10,7 +14,7 @@ resource "auth0_client" "web_client" {
   ]
   allowed_logout_urls = [var.next_public_web_host]
   web_origins         = [var.next_public_web_host]
-  allowed_origins     = [var.next_public_web_host]
+  allowed_origins     = terraform.workspace == "test" ? [var.next_public_web_host, local.test_url] : [var.next_public_web_host]
   grant_types         = ["authorization_code", "implicit", "password", "refresh_token"]
 
   cross_origin_auth = true

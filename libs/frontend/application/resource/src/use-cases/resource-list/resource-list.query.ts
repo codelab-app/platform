@@ -1,7 +1,7 @@
 import { getServerUser } from '@codelab/frontend-application-user/use-cases/server-user'
 import { resourceRepository } from '@codelab/frontend-domain-resource/repositories'
 import { CACHE_TAGS } from '@codelab/frontend-domain-shared'
-import { logTimestampMs } from '@codelab/shared-infra-logging'
+import { logTimestampMs } from '@codelab/shared-infra-logger'
 import 'server-only'
 
 export const resourceListQuery = async () => {

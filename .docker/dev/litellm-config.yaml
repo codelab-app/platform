@@ -1,0 +1,51 @@
+# LiteLLM Proxy Configuration
+# Production-ready configuration for local development
+# Update all keys for production use
+
+# To use with Claude code, update these for your OS
+#
+# export ANTHROPIC_AUTH_TOKEN="sk-1234"
+# export ANTHROPIC_BASE_URL="http://localhost:4100"
+# export ANTHROPIC_MODEL="groq-kimi-k2"
+
+model_list:
+  # Groq Models
+  - model_name: groq-kimi-k2
+    litellm_params:
+      model: groq/moonshotai/kimi-k2-instruct
+      api_key: os.environ/GROQ_API_KEY
+      rpm: 30
+      tpm: 7000
+      max_tokens: 16384
+      max_completion_tokens: 16384
+
+# LiteLLM Settings
+litellm_settings:
+  drop_params: true # Drop unsupported params to avoid errors
+  request_timeout: 30
+  num_retries: 3
+  fallbacks: []
+  success_callback: []
+  failure_callback: []
+  stream: true # Enable streaming support
+  stream_timeout: 30 # Timeout for streaming responses
+
+# Router Settings
+router_settings:
+  routing_strategy: simple-shuffle
+  num_retries: 3
+  timeout: 30
+  max_retries: 3
+
+# General Settings
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY
+  alerting: []
+  database_url: null # Use in-memory for dev
+  database_connection_pool_limit: 10
+  database_connection_timeout: 60
+  spend_logs: true
+
+# Logging
+logging:
+  - 'litellm'

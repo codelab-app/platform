@@ -1739,14 +1739,14 @@
     "path": "libs/shared/infra/gqlgen/src/index.ts",
     "name": "shared-infra-gqlgen"
   },
-  "@codelab/shared/infra/logging": {
-    "expected": "@codelab/shared-infra-logging",
-    "path": "libs/shared/infra/logging/src/index.ts",
-    "name": "shared-infra-logging"
+  "@codelab/shared/infra/logger": {
+    "expected": "@codelab/shared-infra-logger",
+    "path": "libs/shared/infra/logger/src/index.ts",
+    "name": "shared-infra-logger"
   },
-  "@codelab/shared/infra/logging/server": {
-    "expected": "@codelab/shared-infra-logging/server",
-    "path": "libs/shared/infra/logging/src/server/index.ts",
+  "@codelab/shared/infra/logger/server": {
+    "expected": "@codelab/shared-infra-logger/server",
+    "path": "libs/shared/infra/logger/src/server/index.ts",
     "name": null
   },
   "@codelab/shared/infra/typebox": {

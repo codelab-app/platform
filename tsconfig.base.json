@@ -252,6 +252,9 @@
       "@codelab/frontend-application-app/use-cases/import-app": [
         "libs/frontend/application/app/src/use-cases/import-app/index.ts"
       ],
+      "@codelab/frontend-application-app/use-cases/page-preview": [
+        "libs/frontend/application/app/src/use-cases/page-preview/index.ts"
+      ],
       "@codelab/frontend-application-app/use-cases/select-app-options": [
         "libs/frontend/application/app/src/use-cases/select-app-options/index.ts"
       ],
@@ -1042,11 +1045,9 @@
         "libs/shared/infra/gql-client/src/index.ts"
       ],
       "@codelab/shared-infra-gqlgen": ["libs/shared/infra/gqlgen/src/index.ts"],
-      "@codelab/shared-infra-logging": [
-        "libs/shared/infra/logging/src/index.ts"
-      ],
-      "@codelab/shared-infra-logging/server": [
-        "libs/shared/infra/logging/src/server/index.ts"
+      "@codelab/shared-infra-logger": ["libs/shared/infra/logger/src/index.ts"],
+      "@codelab/shared-infra-logger/server": [
+        "libs/shared/infra/logger/src/server/index.ts"
       ],
       "@codelab/shared-infra-sentry": ["libs/shared/infra/sentry/src/index.ts"],
       "@codelab/shared-infra-tracing": [

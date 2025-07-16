@@ -79,6 +79,7 @@ export class GraphqlModule {
           ) => {
             return {
               // bodyParserConfig: false,
+              allowBatchedHttpRequests: true,
               context: async ({ req, res }: GqlContext) => {
                 // starting from neo4j/graphql v5 - token is required in order to allow
                 // @authentication/@authorization in neo4j schema files, see migration guide:

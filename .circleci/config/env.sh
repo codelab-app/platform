@@ -34,7 +34,6 @@ echo "export NEO4J_USER=neo4j" >> $BASH_ENV
 #
 # Slack settings
 #
-
 if [ "$CIRCLE_USERNAME" == "$GITHUB_VLADSLAV" ]; then
   echo "export SLACK_PARAM_MENTIONS=\<@${SLACK_VLADSLAV}\>" >> $BASH_ENV
 elif [ "$CIRCLE_USERNAME" == "$GITHUB_ASSIM" ]; then
@@ -47,6 +46,13 @@ else
   echo "export SLACK_PARAM_MENTIONS=\<@${SLACK_WEBBER}\>" >> $BASH_ENV
 fi
 
+#
+# Docker tag version from git tags
+#
+# Note: || true prevents script failure when grep finds no matches (returns exit code 1)
+VERSION_TAG=$(git tag --points-at HEAD | grep -E "^[0-9]+\.[0-9]+\.[0-9]+$" | head -1 || true)
+
+eval "$(node ./scripts/validate-semver.js "$VERSION_TAG")"
+
 # Done
 source $BASH_ENV
-

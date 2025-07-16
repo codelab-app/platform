@@ -1,10 +1,10 @@
 {
-  "name": "shared-infra-logging",
+  "name": "shared-infra-logger",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/shared/infra/logging/src",
+  "sourceRoot": "libs/shared/infra/logger/src",
   "projectType": "library",
   "tags": [
-    "projectName:shared-infra-logging",
+    "projectName:shared-infra-logger",
     "projectType:library",
     "type:concrete",
     "layer:infra",

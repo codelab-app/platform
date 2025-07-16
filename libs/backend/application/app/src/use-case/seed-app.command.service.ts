@@ -11,6 +11,7 @@ import { PageRepository } from '@codelab/backend-domain-page'
 import { AuthDomainService } from '@codelab/backend-domain-shared-auth'
 import { Store, StoreRepository } from '@codelab/backend-domain-store'
 import { InterfaceTypeRepository } from '@codelab/backend-domain-type'
+import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
 import {
   IAtomType,
   IElementRenderTypeKind,
@@ -64,6 +65,7 @@ export class SeedAppHandler
     private authDomainService: AuthDomainService,
     private readonly componentApplicationService: ComponentApplicationService,
     private readonly atomApplicationService: AtomApplicationService,
+    private logger: PinoLoggerService,
   ) {}
 
   async execute({ data }: SeedAppCommand) {

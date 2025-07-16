@@ -171,11 +171,19 @@ export class RuntimeElementModel
   @computed
   get propsHaveErrors() {
     /**
-     * This is causing error since we haven't loaded the entire api fields type yet
+     * This causes TypeRef resolution errors in production since we don't load atom API types.
+     * Even though this getter is only used in builder UI (ConfigPaneInspectorTabGroup),
+     * MobX initializes all computed properties which triggers the TypeRef access.
+     * We must guard against missing API types in production mode.
      */
-    const schema =
-      this.element.current.renderType.current.api.current.toJsonSchema({})
+    const api = this.element.current.renderType.current.api.maybeCurrent
 
+    // If API types aren't loaded (production mode), skip validation
+    if (!api) {
+      return false
+    }
+
+    const schema = api.toJsonSchema({})
     const validate = createValidator(schema)
 
     const evaluatedProps = evaluateObject(

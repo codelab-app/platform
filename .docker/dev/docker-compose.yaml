@@ -147,6 +147,24 @@ services:
   #     - '6379:6379'
   #   restart: unless-stopped
 
+  # LiteLLM Proxy Server - LLM Gateway
+  litellm:
+    container_name: litellm
+    image: ghcr.io/berriai/litellm:main-latest
+    restart: unless-stopped
+    ports:
+      - '4100:4100' # LiteLLM proxy server port
+    environment:
+      - LITELLM_MASTER_KEY=sk-1234 # Change this in production
+      - LITELLM_SALT_KEY=sk-1234 # Change this in production
+      - GROQ_API_KEY=${GROQ_API_KEY}
+    volumes:
+      - ./litellm-config.yaml:/app/config.yaml
+    command:
+      ['--config', '/app/config.yaml', '--port', '4100', '--host', '0.0.0.0']
+    # depends_on:
+    #   - redis  # Uncomment if using Redis for rate limiting
+
 volumes:
   codelab-neo4j:
     name: codelab-neo4j

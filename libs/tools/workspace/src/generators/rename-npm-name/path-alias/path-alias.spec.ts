@@ -91,8 +91,8 @@ describe('getPackageNameFromOldAlias', () => {
     // These are OLD-style paths that should be transformed but preserve subpaths
     const testCases = [
       {
-        expected: '@codelab/shared-infra-logging/server',
-        oldAlias: '@codelab/shared/infra/logging/server',
+        expected: '@codelab/shared-infra-logger/server',
+        oldAlias: '@codelab/shared/infra/logger/server',
       },
     ]
 

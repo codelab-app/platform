@@ -256,8 +256,8 @@ export { func1, func2, defaultExport, namespace }`
           ],
 
           // OLD-style path with subpath that should be preserved
-          '@codelab/shared/infra/logging/server': [
-            'libs/shared/infra/logging/src/server/index.ts',
+          '@codelab/shared/infra/logger/server': [
+            'libs/shared/infra/logger/src/server/index.ts',
           ],
 
           // Direct package mapping (should stay the same)
@@ -310,8 +310,8 @@ export { func1, func2, defaultExport, namespace }`
     ])
 
     // OLD-style path with subpath preserved (because /server exists after src/)
-    expect(paths['@codelab/shared-infra-logging/server']).toEqual([
-      'libs/shared/infra/logging/src/server/index.ts',
+    expect(paths['@codelab/shared-infra-logger/server']).toEqual([
+      'libs/shared/infra/logger/src/server/index.ts',
     ])
 
     // Unknown paths stay the same (only known mappings are transformed)
@@ -323,6 +323,6 @@ export { func1, func2, defaultExport, namespace }`
     expect(paths['@codelab/shared-infra-auth0-client']).toBeUndefined()
     expect(paths['@codelab/shared-infra-auth0-server']).toBeUndefined()
     expect(paths['@codelab/backend/infra/adapter/auth0']).toBeUndefined()
-    expect(paths['@codelab/shared/infra/logging/server']).toBeUndefined()
+    expect(paths['@codelab/shared/infra/logger/server']).toBeUndefined()
   })
 })

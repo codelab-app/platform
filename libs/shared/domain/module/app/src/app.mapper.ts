@@ -1,22 +1,17 @@
-import type {
-  IAppDto,
-  IMapper,
-  IPageDto,
-  IUserDto,
-} from '@codelab/shared-abstract-core'
+import type { IAppDto, IMapper } from '@codelab/shared-abstract-core'
 import type {
   AppCreateInput,
   AppDeleteInput,
   AppUpdateInput,
 } from '@codelab/shared-infra-gqlgen'
 
+import { domainMapper } from '@codelab/shared-domain-module-domain'
+import { pageMapper } from '@codelab/shared-domain-module-page'
 import {
   connectNodeIds,
   connectOwner,
   reconnectNodeIds,
 } from '@codelab/shared-domain-orm'
-import { domainMapper } from '@codelab/shared-domain-module-domain'
-import { pageMapper } from '@codelab/shared-domain-module-page'
 
 import { AppProperties } from './app.properties'
 

@@ -19,59 +19,6 @@ Codelab is a visual web application builder platform that allows users to create
 - **Infrastructure**: Docker + DigitalOcean + Terraform
 - **CI/CD**: CircleCI + pnpm as package manager
 
-## Development Commands
-
-### Common Development Tasks
-
-```bash
-# Install dependencies
-pnpm install
-
-# Start development servers
-pnpm e2e:web        # Start web app in test mode
-pnpm e2e:api        # Start API in test mode
-
-# Build applications
-pnpm build          # Build all applications
-pnpm nx build web   # Build specific app
-pnpm nx build api   # Build API app
-
-# Testing
-pnpm test.unit      # Run unit tests (parallel)
-pnpm test.integration  # Run integration tests (sequential)
-pnpm e2e           # Run E2E tests
-
-# Linting and type checking
-pnpm lint          # Run ESLint on all projects
-
-# Type checking individual projects
-pnpm nx run <project-name>:tsc-check      # Check TypeScript types for source files
-pnpm nx run <project-name>:tsc-check:spec # Check TypeScript types for test files
-
-# Code generation
-pnpm codegen       # Generate GraphQL types and schemas
-
-# CLI utilities
-pnpm cli           # Access custom CLI tools
-```
-
-### Nx Commands
-
-```bash
-# Run specific project tasks
-pnpm nx <target> <project>
-
-# Examples
-pnpm nx serve web           # Start web development server
-pnpm nx test backend-domain-app  # Run tests for specific library
-
-pnpm nx lint frontend-application-admin  # Lint specific project
-
-# Run tasks across multiple projects
-pnpm nx run-many --target=build --all
-pnpm nx run-many --target=test --parallel=3
-```
-
 ## Architecture & Domain Knowledge
 
 _Fetch from: `.claude/documentation/codelab-domain-knowledge.md`_
@@ -112,17 +59,59 @@ _Fetch from: `.claude/documentation/convention/graphql-conventions.md`_
 
 _Fetch from: `.claude/documentation/convention/documentation-conventions.md`_
 
-## Important Reminders
+## Prompting
 
 - Do what has been asked; nothing more, nothing less
 - NEVER create files unless they're absolutely necessary for achieving your goal
 - ALWAYS prefer editing an existing file to creating a new one
 - NEVER proactively create documentation files (\*.md) or README files in the main codebase
 - Use `.claude/documentation/` for complex implementation summaries when needed
+- Prefer simpler and shorter code rather than optimized code that handles more cases. Don'n automatically add use cases to my original task.
 
 ### Type Checking
 
 _Fetch from: `.claude/documentation/convention/type-checking-conventions.md`_
+
+### Linting
+
+#### TypeScript Class Member Ordering
+
+The codebase enforces strict member ordering for TypeScript classes via `@typescript-eslint/member-ordering`:
+
+1. **Public static fields and methods** (grouped together)
+2. **Getters** (`get` accessors)
+3. **Public fields**
+4. **Public methods**
+5. **Protected members** (fields, getters, setters, methods - grouped together)
+6. **Private static methods**
+7. **Private static fields**
+8. **Private fields and methods** (grouped together)
+9. **Private getters**
+10. **Private setters**
+
+Within each group, members are ordered alphabetically.
+
+**Important**: Constructor should be placed after field declarations but before other methods.
+
+#### Ant Design Icon Imports
+
+Icons from Ant Design must be imported individually from their specific paths:
+
+```typescript
+// ❌ Wrong
+import { EyeOutlined } from '@ant-design/icons'
+
+// ✅ Correct
+import EyeOutlined from '@ant-design/icons/lib/icons/EyeOutlined'
+```
+
+#### Other Linting Rules
+
+- No inline comments are allowed (use separate line comments, put before the code)
+- Don't remove comment simply for the lint error
+- Use multi line comment style if more than 1 line
+- React components in arrays must have `key` props
+- Import `UnknownObjectLike` from `@codelab/shared-abstract-types` instead of using `Record<string, unknown>`
 
 ## Git Workflow
 
@@ -131,6 +120,8 @@ _Fetch from: `.claude/documentation/convention/type-checking-conventions.md`_
 _Fetch from: `.claude/documentation/convention/git-branch-naming-convention.md`_
 
 ### Commit Messages
+
+Never add Generated with [Claude Code](https://claude.ai/code)
 
 _Fetch from: `.claude/documentation/convention/git-commit-conventions.md`_
 
@@ -141,7 +132,7 @@ _Fetch from: `.claude/documentation/convention/git-commit-conventions.md`_
 - I need honest feedback on my code.
 - When creating tasks, DO NOT automatically test them at the end unless explicitly asked to test.
 - When creating tasks, DO NOT automatically lint them in an extra step
-- When analysing codebase always use parallel tasks with subagents to speed things up
+- When analyzing codebase always use parallel tasks with subagents to speed things up
 
 ## OpenMemory Integration
 

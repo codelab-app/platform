@@ -1,31 +1,51 @@
 import type { IFieldDto } from '@codelab/shared-abstract-core'
 
 /**
- * Sorts an array of fields based on their sibling relationships (prevSibling and nextSibling).
- * The function creates a linked list-like structure where fields are connected through their
- * prevSibling and nextSibling properties, and returns them in the correct order.
+ * Sorts fields by their sibling relationships (prevSibling/nextSibling) using functional recursion.
+ *
+ * Algorithm:
+ * 1. Build a lookup map for O(1) field access by id
+ * 2. Identify starting fields (those without prevSibling)
+ * 3. For each starting field, recursively traverse the linked list via nextSibling
+ * 4. Use array spreading to build chains without mutation
+ * 5. flatMap combines all chains into the final ordered array
+ *
+ * Example traversal for A→B→C chain:
+ * - collectLinkedList(A) calls traverse(A)
+ * - traverse(A) returns [A, ...traverse(B)]
+ * - traverse(B) returns [B, ...traverse(C)]
+ * - traverse(C) returns [C] (base case)
+ * - Final: [A, B, C] through recursive array spreading
  *
  * @template T - Type that extends IFieldDto
- * @param fields - Array of fields to be sorted
- * @returns Array of fields sorted according to their sibling relationships
+ * @param fields - Array of fields with sibling relationships
+ * @returns Fields in correct sibling order, maintaining chain integrity
  */
 export const sortFieldsForExport = <T extends IFieldDto>(
   fields: Array<T>,
 ): Array<T> => {
+  // Build lookup map for O(1) field access by id
   const fieldsMap = new Map(fields.map((field) => [field.id, field]))
-  const firstFields = fields.filter((field) => !field.prevSibling)
-  const sortedFields: Array<T> = []
 
-  for (const firstField of firstFields) {
-    let nextField: T | undefined = firstField
+  /**
+   * Builds a single linked list chain starting from a given field.
+   * Uses recursion with array spreading to avoid mutation.
+   */
+  const collectLinkedList = (startField: T): Array<T> => {
+    /**
+     * Recursively traverses the sibling chain using nextSibling references.
+     * Each call returns an array segment that gets spread into the parent array.
+     */
+    const traverse = (field: T): Array<T> => [
+      field,
+      ...(field.nextSibling && fieldsMap.has(field.nextSibling.id)
+        ? traverse(fieldsMap.get(field.nextSibling.id)!)
+        : []),
+    ]
 
-    while (nextField) {
-      sortedFields.push(nextField)
-      nextField = nextField.nextSibling
-        ? fieldsMap.get(nextField.nextSibling.id)
-        : undefined
-    }
+    return traverse(startField)
   }
 
-  return sortedFields
+  // Get all starting fields (no prevSibling), then build and flatten all chains
+  return fields.filter((field) => !field.prevSibling).flatMap(collectLinkedList)
 }

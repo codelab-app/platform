@@ -48,41 +48,164 @@ const config_namespaceObject = require("@nestjs/config");
 const external_nestjs_pino_namespaceObject = require("nestjs-pino");
 ;// external "remeda"
 const external_remeda_namespaceObject = require("remeda");
+;// ../../libs/shared/infra/logger/src/logger-types.ts
+/**
+ * Log level priority mapping
+ * Lower numbers = higher verbosity
+ */
+const LOG_LEVELS = {
+    debug: 1,
+    error: 4,
+    fatal: 5,
+    info: 2,
+    verbose: 0,
+    warn: 3,
+};
+/**
+ * Check if a log level is enabled based on configured threshold
+ */
+const isLevelEnabled = (currentLevel, configuredLevel) => {
+    return LOG_LEVELS[currentLevel] >= LOG_LEVELS[configuredLevel];
+};
+/**
+ * Log levels that should include the data field
+ */
+const DATA_INCLUSIVE_LEVELS = [
+    'verbose',
+    'debug',
+    'error',
+    'fatal',
+];
+/**
+ * Check if data should be included for a given log level
+ */
+const shouldIncludeData = (level) => {
+    return DATA_INCLUSIVE_LEVELS.includes(level);
+};
+
+;// ../../libs/shared/infra/logger/src/namespace-validation.ts
+/**
+ * Shared namespace validation utilities for logger configuration
+ */
+const NAMESPACE_PATTERNS = {
+    ALL: '*',
+    EXCLUSION_PREFIX: '-',
+    SEPARATOR: ':',
+    WILDCARD: '*',
+};
+/**
+ * Parse namespace patterns from string (e.g., "service:*,component:*,-component:debug")
+ */
+const parseNamespaces = (namespaceString) => {
+    if (!namespaceString) {
+        return [];
+    }
+    return namespaceString
+        .split(',')
+        .map((ns) => ns.trim())
+        .filter((ns) => ns.length > 0);
+};
+/**
+ * Check if a namespace matches a pattern (with wildcard support)
+ */
+const matchesPattern = (namespace, pattern) => {
+    // Direct match
+    if (namespace === pattern || pattern === NAMESPACE_PATTERNS.ALL) {
+        return true;
+    }
+    // Convert pattern to regex
+    const regexPattern = pattern
+        .split(NAMESPACE_PATTERNS.WILDCARD)
+        .map((part) => part.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+        .join('.*');
+    const regex = new RegExp(`^${regexPattern}$`);
+    return regex.test(namespace);
+};
+/**
+ * Check if a namespace is enabled based on patterns
+ */
+const isNamespaceEnabled = (namespace, patterns) => {
+    if (!patterns.length) {
+        return false;
+    }
+    let isEnabled = false;
+    for (const pattern of patterns) {
+        // Handle exclusion patterns
+        if (pattern.startsWith(NAMESPACE_PATTERNS.EXCLUSION_PREFIX)) {
+            const excludePattern = pattern.substring(1);
+            if (matchesPattern(namespace, excludePattern)) {
+                return false;
+            }
+        }
+        else if (matchesPattern(namespace, pattern)) {
+            isEnabled = true;
+        }
+    }
+    return isEnabled;
+};
+/**
+ * Parse and separate enabled/disabled namespaces
+ */
+const parseNamespaceConfig = (namespaceString) => {
+    const enabled = new Set();
+    const disabled = new Set();
+    if (!namespaceString) {
+        return { enabled, disabled };
+    }
+    const namespaces = parseNamespaces(namespaceString);
+    for (const namespace of namespaces) {
+        if (namespace.startsWith(NAMESPACE_PATTERNS.EXCLUSION_PREFIX)) {
+            disabled.add(namespace.substring(1));
+        }
+        else {
+            enabled.add(namespace);
+        }
+    }
+    return { enabled, disabled };
+};
+
 ;// external "env-var"
 const external_env_var_namespaceObject = require("env-var");
 ;// ../../libs/backend/infra/adapter/logger/src/logger.config.ts
 
 
+
 // https://github.com/pinojs/pino/blob/main/docs/api.md#loggerlevels-object
-// Extends `LevelMapping`, but use nestjs values
+// Map shared LOG_LEVELS to Pino's numeric scale (multiplied by 10)
 const levelMapping = {
-    values: {
-        verbose: 10,
-        debug: 20,
-        info: 30,
-        warn: 40,
-        error: 50,
-        fatal: 60,
-    },
-    labels: {
-        10: 'verbose',
-        20: 'debug',
-        30: 'info',
-        40: 'warn',
-        50: 'error',
-        60: 'fatal',
-    },
+    values: Object.fromEntries(Object.entries(LOG_LEVELS).map(([level, priority]) => [
+        level,
+        priority * 10,
+    ])),
+    labels: Object.fromEntries(Object.entries(LOG_LEVELS).map(([level, priority]) => [
+        priority * 10,
+        level,
+    ])),
 };
 /**
- * Map from nestjs log levels to pino log levels
+ * Map from nestjs/our log levels to pino log levels
+ * Note: NestJS uses 'log' but we use 'info'
  */
 const labelMapping = {
     verbose: 'trace',
     debug: 'debug',
-    log: 'info',
+    info: 'info',
+    log: 'info', // Map NestJS 'log' to 'info'
     warn: 'warn',
     error: 'error',
     fatal: 'fatal',
+};
+/**
+ * Validates API_DEBUG environment variable
+ * Uses shared validation logic
+ */
+const validateApiDebug = (value) => {
+    if (!value) {
+        return value; // Empty is valid
+    }
+    // Just parse to validate format - actual namespace validation happens at runtime
+    parseNamespaces(value);
+    return value;
 };
 const loggerConfig = (0,config_namespaceObject.registerAs)('LOGGER_CONFIG', () => {
     return {
@@ -98,7 +221,15 @@ const loggerConfig = (0,config_namespaceObject.registerAs)('LOGGER_CONFIG', () =
             return (0,external_env_var_namespaceObject.get)('SENTRY_DSN').required().asString();
         },
         get debug() {
-            return (0,external_env_var_namespaceObject.get)('DEBUG').default('').asString();
+            const value = (0,external_env_var_namespaceObject.get)('API_DEBUG').default('').asString();
+            // Validate the value
+            try {
+                validateApiDebug(value);
+            }
+            catch (error) {
+                throw new Error(`Invalid API_DEBUG value: ${error instanceof Error ? error.message : String(error)}`);
+            }
+            return value;
         },
     };
 });
@@ -117,6 +248,8 @@ NestjsLoggerService = (0,external_tslib_namespaceObject.__decorate)([
 const external_pino_namespaceObject = require("pino");
 var external_pino_default = /*#__PURE__*/__webpack_require__.n(external_pino_namespaceObject);
 ;// ../../libs/backend/infra/adapter/logger/src/logger.constants.ts
+
+
 /**
  * Allowed logging namespace modules for the backend
  */
@@ -126,24 +259,6 @@ const LOGGING_MODULES = {
     NEO4J: 'neo4j',
     REPOSITORY: 'repository',
     SERVICE: 'service',
-};
-/**
- * Log levels that include the data field
- */
-const DATA_INCLUSIVE_LEVELS = [
-    'verbose',
-    'debug',
-    'error',
-    'fatal',
-];
-/**
- * Common namespace patterns
- */
-const NAMESPACE_PATTERNS = {
-    ALL: '*',
-    EXCLUSION_PREFIX: '-',
-    SEPARATOR: ':',
-    WILDCARD: '*',
 };
 /**
  * Example namespace configurations
@@ -179,6 +294,10 @@ const isValidNamespace = (namespace) => {
     if (cleanNamespace === NAMESPACE_PATTERNS.ALL) {
         return true;
     }
+    // Special case for @neo4j/graphql namespaces
+    if (cleanNamespace.startsWith('@neo4j/graphql')) {
+        return true;
+    }
     // Check if it starts with a valid module
     const parts = cleanNamespace.split(NAMESPACE_PATTERNS.SEPARATOR);
     const module = parts[0];
@@ -186,57 +305,22 @@ const isValidNamespace = (namespace) => {
 };
 /**
  * Parse namespace patterns from environment variable
+ * Delegates to shared implementation
  */
-const parseNamespaces = (namespaceString) => {
-    if (!namespaceString) {
-        return [];
-    }
-    return namespaceString
-        .split(',')
-        .map((ns) => ns.trim())
-        .filter((ns) => ns.length > 0);
+const logger_constants_parseNamespaces = (namespaceString) => {
+    return parseNamespaces(namespaceString);
 };
 /**
  * Check if a namespace is enabled based on patterns
+ * Delegates to shared implementation
  */
-const isNamespaceEnabled = (namespace, patterns) => {
-    if (!patterns.length) {
-        return false;
-    }
-    let isEnabled = false;
-    for (const pattern of patterns) {
-        // Handle exclusion patterns
-        if (pattern.startsWith(NAMESPACE_PATTERNS.EXCLUSION_PREFIX)) {
-            const excludePattern = pattern.substring(1);
-            if (matchesPattern(namespace, excludePattern)) {
-                return false;
-            }
-        }
-        else if (matchesPattern(namespace, pattern)) {
-            isEnabled = true;
-        }
-    }
-    return isEnabled;
-};
-/**
- * Check if a namespace matches a pattern (with wildcard support)
- */
-const matchesPattern = (namespace, pattern) => {
-    // Direct match
-    if (namespace === pattern || pattern === NAMESPACE_PATTERNS.ALL) {
-        return true;
-    }
-    // Convert pattern to regex
-    const regexPattern = pattern
-        .split(NAMESPACE_PATTERNS.WILDCARD)
-        .map((part) => part.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
-        .join('.*');
-    const regex = new RegExp(`^${regexPattern}$`);
-    return regex.test(namespace);
+const logger_constants_isNamespaceEnabled = (namespace, patterns) => {
+    return isNamespaceEnabled(namespace, patterns);
 };
 
 ;// ../../libs/backend/infra/adapter/logger/src/pino/pino.logger.service.ts
 var _a, _b;
+
 
 
 
@@ -270,7 +354,13 @@ let PinoLoggerService = class PinoLoggerService extends external_nestjs_pino_nam
             writable: true,
             value: void 0
         });
-        this.enabledNamespaces = parseNamespaces(this.config.debug);
+        Object.defineProperty(this, "operationCounter", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: 0
+        });
+        this.enabledNamespaces = logger_constants_parseNamespaces(this.config.debug);
     }
     async executeWithTiming(message, fn, options, level = 'debug') {
         const context = options?.context ?? undefined;
@@ -281,15 +371,30 @@ let PinoLoggerService = class PinoLoggerService extends external_nestjs_pino_nam
         }
         const startTime = Date.now();
         const result = await fn();
-        const durationSecs = ((Date.now() - startTime) / 1000).toFixed(2);
+        const endTime = Date.now();
+        const durationMs = endTime - startTime;
+        const durationSecs = (durationMs / 1000).toFixed(2);
         const data = options?.data ?? {};
+        // Format start time for display
+        const startTimeFormatted = new Date(startTime).toLocaleTimeString('en-US', {
+            fractionalSecondDigits: 3,
+            hour: 'numeric',
+            hour12: true,
+            minute: '2-digit',
+            second: '2-digit',
+        });
         // Pass data and context as separate properties in LogOptions
-        this[level](message, {
+        this.logWithOptions(level, `${message} (started at ${startTimeFormatted}, took ${durationSecs}s)`, {
             context,
             data: {
                 ...data,
             },
             durationSecs,
+            timing: {
+                completedAt: new Date(endTime).toISOString(),
+                durationMs,
+                startedAt: new Date(startTime).toISOString(),
+            },
         });
         return result;
     }
@@ -325,24 +430,22 @@ let PinoLoggerService = class PinoLoggerService extends external_nestjs_pino_nam
             return false;
         }
         // Check if the specific context is enabled
-        return isNamespaceEnabled(context, this.enabledNamespaces);
+        return logger_constants_isNamespaceEnabled(context, this.enabledNamespaces);
     }
     shouldIncludeData(level) {
-        // Include data for verbose, debug, error, and fatal levels
-        return (level === 'verbose' ||
-            level === 'debug' ||
-            level === 'error' ||
-            level === 'fatal');
+        return shouldIncludeData(level);
     }
     logWithOptions(level, message, options = {}) {
         // Check if logging is enabled for this context
         if (!this.isLoggingEnabled(options.context)) {
             return;
         }
+        // Map 'log' to 'info' for our LogLevel type
+        const normalizedLevel = level === 'log' ? 'info' : level;
         const mappedLevel = labelMapping[level];
         const logger = this.logger[mappedLevel].bind(this.logger);
         // Include data based on log level
-        if (this.shouldIncludeData(level)) {
+        if (this.shouldIncludeData(normalizedLevel)) {
             logger({ msg: message, ...options });
         }
         else {

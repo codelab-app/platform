@@ -72,51 +72,65 @@ export class AtomApplicationService {
 
   @LogClassMethod()
   async saveAtoms(atoms: Array<IAtomAggregate>) {
-    this.logger.log('Saving atoms', {
-      atomCount: atoms.length,
-    })
-
     const owner = this.authDomainService.currentUser
 
-    // Process all atoms in parallel, but keep API and atom saves atomic per atom
-    // This ensures fields maintain their order within each API
-    const atomSavePromises = atoms.map(async ({ api, atom }) => {
-      // Save API first (includes types and fields in correct order)
-      await this.typeApplicationService.saveApi(api)
-
-      /**
-       * Create atom but omit `suggestedChildren`, and `requiredParents` since it requires all atoms to be added first
-       */
-      const atomWithoutDependencies = omit(atom, [
-        'suggestedChildren',
-        'requiredParents',
-      ])
-
-      // Then save the atom
-      await this.atomRepository.save({
-        ...atomWithoutDependencies,
-        owner,
-      })
+    this.logger.log('Processing atoms', {
+      totalAtoms: atoms.length,
     })
 
-    // Wait for all atom+API pairs to be saved
-    // The HTTP requests will still be batched by BatchHttpLink
-    await Promise.all(atomSavePromises)
+    // Process all atoms in parallel - batching is handled at the fetch level
+    await Promise.all(
+      atoms.map(async ({ api, atom }) => {
+        try {
+          // Save API first (includes types and fields in correct order)
+          await this.typeApplicationService.saveApi(api)
+
+          /**
+           * Create atom but omit `suggestedChildren`, and `requiredParents` since it requires all atoms to be added first
+           */
+          const atomWithoutDependencies = omit(atom, [
+            'suggestedChildren',
+            'requiredParents',
+          ])
+
+          // Then save the atom
+          await this.atomRepository.save({
+            ...atomWithoutDependencies,
+            owner,
+          })
+        } catch (error) {
+          const errorMessage =
+            error instanceof Error ? error.message : String(error)
+
+          this.logger.error('Failed to save atom', {
+            atomName: atom.name,
+            error: errorMessage,
+          })
+
+          throw error
+        }
+      }),
+    )
 
     const atomsWithDependencies = atoms.filter(
       ({ atom }) =>
         atom.suggestedChildren?.length || atom.requiredParents?.length,
     )
 
-    // Then process atoms with dependencies in parallel
-    // These updates will also be batched by BatchHttpLink
-    await Promise.all(
-      atomsWithDependencies.map(async ({ atom }) => {
-        /**
-         * Here we assign suggestedChildren and requiredParents, since all atoms must be created first
-         */
-        await this.atomRepository.update({ ...atom, owner }, { id: atom.id })
-      }),
-    )
+    if (atomsWithDependencies.length > 0) {
+      this.logger.log('Processing atoms with dependencies', {
+        count: atomsWithDependencies.length,
+      })
+
+      // Process all dependency updates in parallel - batching is handled at the fetch level
+      await Promise.all(
+        atomsWithDependencies.map(async ({ atom }) => {
+          /**
+           * Here we assign suggestedChildren and requiredParents, since all atoms must be created first
+           */
+          await this.atomRepository.update({ ...atom, owner }, { id: atom.id })
+        }),
+      )
+    }
   }
 }

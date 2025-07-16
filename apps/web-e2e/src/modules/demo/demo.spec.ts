@@ -1,4 +1,4 @@
-import { getTimestamp } from '@codelab/shared-infra-logging'
+import { getTimestamp } from '@codelab/shared-infra-logger'
 import { expect } from '@playwright/test'
 
 import { globalBeforeAll } from '../../setup/before-all'

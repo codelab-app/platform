@@ -1,9 +1,14 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 import type { ObjectLike } from '@codelab/shared-abstract-types'
-import type { ILoggerService, LogOptions } from '@codelab/shared-infra-logging'
+import type {
+  ILoggerService,
+  LogLevel,
+  LogOptions,
+} from '@codelab/shared-infra-logger'
 import type { ConfigType } from '@nestjs/config'
 
-import { Inject, Injectable, LogLevel } from '@nestjs/common'
+import { shouldIncludeData } from '@codelab/shared-infra-logger'
+import { Inject, Injectable } from '@nestjs/common'
 import { Logger, Params, PARAMS_PROVIDER_TOKEN, PinoLogger } from 'nestjs-pino'
 import pino from 'pino'
 import { omit } from 'remeda'
@@ -17,6 +22,8 @@ import { isNamespaceEnabled, parseNamespaces } from '../logger.constants'
 @Injectable()
 export class PinoLoggerService extends Logger implements ILoggerService {
   private readonly enabledNamespaces: Array<string>
+
+  private operationCounter = 0
 
   constructor(
     protected override logger: PinoLogger,
@@ -46,17 +53,37 @@ export class PinoLoggerService extends Logger implements ILoggerService {
 
     const startTime = Date.now()
     const result = await fn()
-    const durationSecs = ((Date.now() - startTime) / 1000).toFixed(2)
+    const endTime = Date.now()
+    const durationMs = endTime - startTime
+    const durationSecs = (durationMs / 1000).toFixed(2)
     const data = options?.data ?? {}
 
-    // Pass data and context as separate properties in LogOptions
-    this[level](message, {
-      context,
-      data: {
-        ...data,
-      },
-      durationSecs,
+    // Format start time for display
+    const startTimeFormatted = new Date(startTime).toLocaleTimeString('en-US', {
+      fractionalSecondDigits: 3,
+      hour: 'numeric',
+      hour12: true,
+      minute: '2-digit',
+      second: '2-digit',
     })
+
+    // Pass data and context as separate properties in LogOptions
+    this.logWithOptions(
+      level,
+      `${message} (started at ${startTimeFormatted}, took ${durationSecs}s)`,
+      {
+        context,
+        data: {
+          ...data,
+        },
+        durationSecs,
+        timing: {
+          completedAt: new Date(endTime).toISOString(),
+          durationMs,
+          startedAt: new Date(startTime).toISOString(),
+        },
+      },
+    )
 
     return result
   }
@@ -109,17 +136,11 @@ export class PinoLoggerService extends Logger implements ILoggerService {
   }
 
   private shouldIncludeData(level: LogLevel): boolean {
-    // Include data for verbose, debug, error, and fatal levels
-    return (
-      level === 'verbose' ||
-      level === 'debug' ||
-      level === 'error' ||
-      level === 'fatal'
-    )
+    return shouldIncludeData(level)
   }
 
   private logWithOptions(
-    level: LogLevel,
+    level: 'log' | LogLevel,
     message: string,
     options: LogOptions = {},
   ): void {
@@ -128,11 +149,13 @@ export class PinoLoggerService extends Logger implements ILoggerService {
       return
     }
 
-    const mappedLevel = labelMapping[level]
+    // Map 'log' to 'info' for our LogLevel type
+    const normalizedLevel: LogLevel = level === 'log' ? 'info' : level
+    const mappedLevel = labelMapping[level as keyof typeof labelMapping]
     const logger = this.logger[mappedLevel].bind(this.logger)
 
     // Include data based on log level
-    if (this.shouldIncludeData(level)) {
+    if (this.shouldIncludeData(normalizedLevel)) {
       logger({ msg: message, ...options })
     } else {
       logger({

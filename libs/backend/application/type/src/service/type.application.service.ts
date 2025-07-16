@@ -60,12 +60,20 @@ export class TypeApplicationService {
       })
     }
 
-    this.logger.log('Adding interface fields', {
-      context: 'TypeApplicationService',
-      count: apiFields.length,
-    })
-
-    await this.fieldRepository.addMany(apiFields)
+    await this.logger.debugWithTiming(
+      'Adding interface fields',
+      async () => {
+        await this.fieldRepository.addMany(apiFields)
+      },
+      {
+        context: 'service:type',
+        data: {
+          fieldCount: apiFields.length,
+          fieldIds: apiFields.map((field) => field.id),
+          fieldKeys: apiFields.map((field) => field.key),
+        },
+      },
+    )
   }
 
   @LogClassMethod()
@@ -82,6 +90,13 @@ export class TypeApplicationService {
   @LogClassMethod()
   async saveApi(api: IApiAggregate) {
     const { fields, types } = api
+
+    // Log what we're actually saving
+    this.logger.debug('saveApi called with:', {
+      fieldsCount: fields.length,
+      typeNames: types.map((type) => type.name),
+      typesCount: types.length,
+    })
 
     /**
      * Save types sequentially due to type dependencies

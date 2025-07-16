@@ -151,6 +151,8 @@ export const getAllTypes = async (
   ids?: Array<string>,
   next?: NextFetchOptions,
 ) => {
+  console.log('[getAllTypes] Fetching types with IDs:', ids)
+
   const {
     actionTypes,
     appTypes,
@@ -167,6 +169,24 @@ export const getAllTypes = async (
     richTextTypes,
     unionTypes,
   } = await GetTypes({ ids }, next)
+
+  console.log(
+    '[getAllTypes] Received enumTypes:',
+    enumTypes.map((enumType) => ({ id: enumType.id, name: enumType.name })),
+  )
+  console.log(
+    '[getAllTypes] Looking for EnumType with ID: 49e58eff-f5e9-449d-87ae-bebbb490cfcc',
+  )
+
+  const targetEnum = enumTypes.find(
+    (enumType) => enumType.id === '49e58eff-f5e9-449d-87ae-bebbb490cfcc',
+  )
+
+  if (targetEnum) {
+    console.log('[getAllTypes] Found target EnumType:', targetEnum)
+  } else {
+    console.log('[getAllTypes] Target EnumType NOT FOUND in response')
+  }
 
   return [
     ...primitiveTypes,
