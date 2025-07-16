@@ -8,14 +8,14 @@ import type { DocumentTypeDecoration } from '@graphql-typed-document-node/core'
 
 import { getEnv } from '@codelab/shared-config-env'
 import {
-  executeWithArrayBatching,
-  needsArrayBatching,
+  batchArrayMutations,
+  extractOperationInfo,
+  fetchWithAuth,
 } from '@codelab/shared-infra-fetch'
 import { logger } from '@codelab/shared-infra-logging'
-import { TRACING_HEADERS } from '@codelab/shared-infra-tracing'
 import { revalidateTag } from 'next/cache'
 
-import { serverFetchWithAuth } from './fetch-with-auth'
+import { buildRequestHeaders } from './build-request-headers'
 
 /**
  * Server-side GraphQL request function that handles authentication and logging.
@@ -35,101 +35,43 @@ export const gqlServerRequest = async <TResult, TVariables extends ObjectLike>(
   next?: NextFetchOptions,
 ) => {
   // Build headers including logging values from options
-  // Include custom headers if provided
-  const headers: Record<string, string> = {
-    Accept: 'application/graphql-response+json',
-    'Content-Type': 'application/json',
-    ...next?.headers,
-  }
+  const headers = buildRequestHeaders(next)
 
-  if (next?.tracing?.operationId) {
-    headers[TRACING_HEADERS.OPERATION_ID] = next.tracing.operationId
-  }
+  // Define the execute request function
+  const executeRequest = async (
+    doc: DocumentTypeDecoration<TResult, TVariables>,
+    vars: TVariables,
+    opts?: NextFetchOptions,
+  ): Promise<TResult> => {
+    // Extract operation name for this specific request (may differ in batch scenarios)
+    const { operationName } = extractOperationInfo(doc)
 
-  if (next?.tracing?.requestId) {
-    headers[TRACING_HEADERS.REQUEST_ID] = next.tracing.requestId
-  }
+    const response = await fetchWithAuth(getEnv().endpoint.webGraphqlUrl, {
+      body: JSON.stringify({
+        operationName,
+        query: doc.toString(),
+        variables: vars,
+      }),
+      headers,
+      method: 'POST',
+    }).then((res: Response) => {
+      if (opts?.revalidateTags) {
+        opts.revalidateTags.forEach((tag) => revalidateTag(tag))
+      }
 
-  if (next?.tracing?.attributes?.['service.component']) {
-    headers[TRACING_HEADERS.SERVICE_COMPONENT] =
-      next.tracing.attributes['service.component']
-  }
+      return res
+    })
 
-  // Extract operation name from the query string
-  const queryString = document.toString()
+    const { data, errors } = await response.json()
 
-  const operationNameMatch = queryString.match(
-    /(?:query|mutation|subscription)\s+(\w+)/,
-  )
-
-  const operationName = operationNameMatch ? operationNameMatch[1] : undefined
-  // Check if this mutation needs array batching
-  const batchConfig = needsArrayBatching(operationName, variables)
-
-  if (batchConfig && operationName) {
-    // Execute with array batching
-    return executeWithArrayBatching(
-      document,
-      variables,
-      operationName,
-      batchConfig,
-      async (doc, vars, opts) => {
-        const response = await serverFetchWithAuth(
-          getEnv().endpoint.webGraphqlUrl,
-          {
-            body: JSON.stringify({
-              operationName,
-              query: doc.toString(),
-              variables: vars,
-            }),
-            headers,
-            method: 'POST',
-          },
-        ).then((res) => {
-          if (opts?.revalidateTags) {
-            opts.revalidateTags.forEach((tag) => revalidateTag(tag))
-          }
-
-          return res
-        })
-
-        const { data, errors } = await response.json()
-
-        if (errors && errors.length) {
-          logger.debug(doc, vars, errors)
-          throw new Error(errors[0]?.message)
-        }
-
-        return data as TResult
-      },
-      next,
-    )
-  }
-
-  // Normal execution without batching
-  const response = await serverFetchWithAuth(getEnv().endpoint.webGraphqlUrl, {
-    body: JSON.stringify({
-      operationName,
-      query: queryString,
-      variables,
-    }),
-    headers,
-    method: 'POST',
-  }).then((res) => {
-    if (next?.revalidateTags) {
-      next.revalidateTags.forEach((tag) => revalidateTag(tag))
+    if (errors && errors.length) {
+      logger.debug(doc, vars, errors)
+      throw new Error(errors[0]?.message)
     }
 
-    return res
-  })
-
-  const { data, errors } = await response.json()
-
-  if (errors && errors.length) {
-    logger.debug(document, variables, errors)
-
-    throw new Error(errors[0]?.message)
+    return data as TResult
   }
 
-  return data as TResult
+  // batchArrayMutations will check if batching is needed and handle it accordingly
+  return batchArrayMutations(document, variables, executeRequest, next)
 }

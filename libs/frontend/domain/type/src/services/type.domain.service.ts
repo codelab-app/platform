@@ -82,21 +82,32 @@ export class TypeDomainService
 
   @modelAction
   hydrateTypes(types: Array<TypeFragment>) {
-    // console.debug('TypeService.loadTypes()', types)
+    console.debug('TypeDomainService.hydrateTypes() called with', types.length, 'types')
+    console.debug('Type details:', types.map(t => ({ id: t.id, kind: t.kind, name: t.name, __typename: t.__typename })))
 
     types
       .map((fragment) => TypeFactory.create(fragment))
-      .forEach((type) => this.types.set(type.id, type))
+      .forEach((type) => {
+        console.debug('Hydrating type:', type.id, type.name, type.kind)
+        this.types.set(type.id, type)
+      })
 
     /**
      * Fields must be hydrated after the interface type
      */
-    types
-      .filter((fragment) => fragment.__typename === TypeKind.InterfaceType)
+    const interfaceFragments = types.filter((fragment) => fragment.__typename === TypeKind.InterfaceType)
+    console.debug('Found', interfaceFragments.length, 'interface types to process fields for')
+    
+    interfaceFragments
       .flatMap((fragment) => fragment.fields)
-      .forEach((field) => this.fieldDomainService.hydrate(field))
+      .forEach((field) => {
+        console.debug('Hydrating field:', field.name, 'with type:', field.fieldType?.id)
+        this.fieldDomainService.hydrate(field)
+      })
 
-    return types.map((type) => this.types.get(type.id)).filter(isDefined)
+    const result = types.map((type) => this.types.get(type.id)).filter(isDefined)
+    console.debug('Returning', result.length, 'hydrated types')
+    return result
   }
 
   @modelAction

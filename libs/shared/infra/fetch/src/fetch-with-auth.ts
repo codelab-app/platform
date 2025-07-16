@@ -1,6 +1,6 @@
 import { auth0Instance } from '@codelab/shared-infra-auth0/client'
 
-import { batchFetch } from './batch-fetch'
+import { batchFetch } from './request-batching'
 
 /**
  * Client-side fetch with authentication.
@@ -9,7 +9,7 @@ import { batchFetch } from './batch-fetch'
  *
  * GraphQL requests are automatically batched within a 20ms window.
  */
-export const serverFetchWithAuth = async (
+export const fetchWithAuth = async (
   endpoint: string,
   options: RequestInit = {},
 ): Promise<Response> => {

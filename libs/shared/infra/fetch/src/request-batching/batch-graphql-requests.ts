@@ -1,32 +1,7 @@
-interface BatchRequest {
-  init: RequestInit
-  url: string
-  reject(error: Error): void
-  resolve(value: Response): void
-}
-
-interface BatchFetchConfig {
-  /**
-   * Time to wait for collecting requests (ms)
-   * @default 20
-   */
-  batchInterval?: number
-
-  /**
-   * Optional logger for debugging
-   */
-  logger?: {
-    debug(message: string, context: unknown): void
-    error(message: string, context: unknown): void
-    info(message: string, context: unknown): void
-  }
-
-  /**
-   * Maximum requests per batch
-   * @default 10
-   */
-  maxBatchSize?: number
-}
+import type {
+  BatchFetchConfig,
+  BatchRequest,
+} from './batch-graphql-requests.interface'
 
 /**
  * Generic batch fetcher that batches multiple fetch requests within a time window
@@ -231,7 +206,35 @@ export const configureBatchFetcher = (config: BatchFetchConfig) => {
 }
 
 /**
- * Get or create the batch fetcher instance
+ * Batches multiple GraphQL requests into a single HTTP request for improved performance.
+ *
+ * This function implements request-level batching, which is different from array batching.
+ * It collects multiple GraphQL operations made within a short time window (default 20ms)
+ * and sends them as a single HTTP request to the GraphQL endpoint.
+ *
+ * How it works:
+ * 1. When a GraphQL request is made, it's added to a queue instead of being sent immediately
+ * 2. A timer is set for the batch interval (20ms by default)
+ * 3. Any additional requests within that window are added to the same batch
+ * 4. When the timer expires or max batch size is reached, all requests are sent together
+ * 5. The server responds with an array of results, which are distributed back to callers
+ *
+ * Benefits:
+ * - Reduces HTTP overhead by combining multiple requests
+ * - Improves performance for applications that make many GraphQL requests
+ * - Particularly useful for component-based UIs where each component might fetch its own data
+ * - Transparent to the caller - each request still gets its individual response
+ *
+ * Example scenario:
+ * If 5 components each make a GraphQL query on page load, instead of 5 HTTP requests,
+ * this will combine them into 1 HTTP request with 5 GraphQL operations.
+ *
+ * Note: Only GraphQL requests to the same endpoint can be batched together.
+ * Non-GraphQL requests pass through without batching.
+ *
+ * @param url - The URL to fetch from (must be the same for all batched requests)
+ * @param init - Standard fetch RequestInit options
+ * @returns Promise that resolves to a Response object for this specific request
  */
 export const batchFetch = (
   url: string,

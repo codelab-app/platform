@@ -1,10 +1,10 @@
 'use server'
 
 import { getEnv } from '@codelab/shared-config-env'
-import { serverFetchWithAuth } from '@codelab/shared-infra-fetch-server'
+import { fetchWithAuth } from '@codelab/shared-infra-fetch-server'
 
 export const resetDatabaseService = async () => {
-  const response = await serverFetchWithAuth(
+  const response = await fetchWithAuth(
     getEnv().endpoint.admin.resetDatabase,
     {
       body: JSON.stringify({}),
