@@ -1048,9 +1048,7 @@
         "libs/shared/infra/gql-client/src/index.ts"
       ],
       "@codelab/shared-infra-gqlgen": ["libs/shared/infra/gqlgen/src/index.ts"],
-      "@codelab/shared-infra-logger": [
-        "libs/shared/infra/logger/src/index.ts"
-      ],
+      "@codelab/shared-infra-logger": ["libs/shared/infra/logger/src/index.ts"],
       "@codelab/shared-infra-logger/server": [
         "libs/shared/infra/logger/src/server/index.ts"
       ],

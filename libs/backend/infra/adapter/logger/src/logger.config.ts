@@ -1,7 +1,7 @@
 import type { LogLevel } from '@nestjs/common'
 
-import { registerAs } from '@nestjs/config'
 import { LOG_LEVELS, parseNamespaces } from '@codelab/shared-infra-logger'
+import { registerAs } from '@nestjs/config'
 import { get } from 'env-var'
 
 // https://github.com/pinojs/pino/blob/main/docs/api.md#loggerlevels-object
@@ -29,7 +29,8 @@ export const labelMapping = {
   verbose: 'trace',
   debug: 'debug',
   info: 'info',
-  log: 'info', // Map NestJS 'log' to 'info'
+  // Map NestJS 'log' to 'info'
+  log: 'info',
   warn: 'warn',
   error: 'error',
   fatal: 'fatal',
@@ -46,12 +47,13 @@ export interface ContextFilterConfig {
  */
 const validateApiDebug = (value: string): string => {
   if (!value) {
-    return value // Empty is valid
+    // Empty is valid
+    return value
   }
 
   // Just parse to validate format - actual namespace validation happens at runtime
   parseNamespaces(value)
-  
+
   return value
 }
 
@@ -70,12 +72,18 @@ export const loggerConfig = registerAs('LOGGER_CONFIG', () => {
     },
     get debug() {
       const value = get('API_DEBUG').default('').asString()
+
       // Validate the value
       try {
         validateApiDebug(value)
       } catch (error) {
-        throw new Error(`Invalid API_DEBUG value: ${error instanceof Error ? error.message : String(error)}`)
+        throw new Error(
+          `Invalid API_DEBUG value: ${
+            error instanceof Error ? error.message : String(error)
+          }`,
+        )
       }
+
       return value
     },
   }

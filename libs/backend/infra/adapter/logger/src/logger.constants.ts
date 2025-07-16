@@ -1,7 +1,7 @@
 import {
   DATA_INCLUSIVE_LEVELS,
-  isNamespaceEnabled as sharedIsNamespaceEnabled,
   NAMESPACE_PATTERNS,
+  isNamespaceEnabled as sharedIsNamespaceEnabled,
   parseNamespaces as sharedParseNamespaces,
 } from '@codelab/shared-infra-logger'
 
@@ -20,7 +20,6 @@ export const LOGGING_MODULES = {
 
 export type LoggingModule =
   (typeof LOGGING_MODULES)[keyof typeof LOGGING_MODULES]
-
 
 /**
  * Example namespace configurations

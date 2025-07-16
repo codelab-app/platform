@@ -108,6 +108,7 @@ import EyeOutlined from '@ant-design/icons/lib/icons/EyeOutlined'
 #### Other Linting Rules
 
 - No inline comments are allowed (use separate line comments, put before the code)
+- Don't remove comment simply for the lint error
 - Use multi line comment style if more than 1 line
 - React components in arrays must have `key` props
 - Import `UnknownObjectLike` from `@codelab/shared-abstract-types` instead of using `Record<string, unknown>`

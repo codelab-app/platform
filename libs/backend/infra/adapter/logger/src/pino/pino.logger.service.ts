@@ -1,10 +1,14 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 import type { ObjectLike } from '@codelab/shared-abstract-types'
-import type { ILoggerService, LogLevel, LogOptions } from '@codelab/shared-infra-logger'
+import type {
+  ILoggerService,
+  LogLevel,
+  LogOptions,
+} from '@codelab/shared-infra-logger'
 import type { ConfigType } from '@nestjs/config'
 
-import { Inject, Injectable } from '@nestjs/common'
 import { shouldIncludeData } from '@codelab/shared-infra-logger'
+import { Inject, Injectable } from '@nestjs/common'
 import { Logger, Params, PARAMS_PROVIDER_TOKEN, PinoLogger } from 'nestjs-pino'
 import pino from 'pino'
 import { omit } from 'remeda'
@@ -136,7 +140,7 @@ export class PinoLoggerService extends Logger implements ILoggerService {
   }
 
   private logWithOptions(
-    level: LogLevel | 'log',
+    level: 'log' | LogLevel,
     message: string,
     options: LogOptions = {},
   ): void {

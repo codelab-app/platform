@@ -85,7 +85,7 @@ export const parseNamespaceConfig = (
   const disabled = new Set<string>()
 
   if (!namespaceString) {
-    return { enabled, disabled }
+    return { disabled, enabled }
   }
 
   const namespaces = parseNamespaces(namespaceString)
@@ -98,5 +98,5 @@ export const parseNamespaceConfig = (
     }
   }
 
-  return { enabled, disabled }
+  return { disabled, enabled }
 }
