@@ -92,7 +92,7 @@ describe('getPackageNameFromOldAlias', () => {
     const testCases = [
       {
         expected: '@codelab/shared-infra-logger/server',
-        oldAlias: '@codelab/shared/infra/logging/server',
+        oldAlias: '@codelab/shared/infra/logger/server',
       },
     ]
 
