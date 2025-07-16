@@ -27,7 +27,8 @@ module.exports = {
   },
   '**/*.{json,graphql,yml,yaml}': (files) => {
     const stagedFiles = files.join(' ')
-    const cmd = `prettier --config .prettierrc --write ${stagedFiles}`
+    // Using --cache to improve performance by caching formatting results
+    const cmd = `prettier --config .prettierrc --cache --write ${stagedFiles}`
 
     console.info(`Running: ${cmd}`)
 
