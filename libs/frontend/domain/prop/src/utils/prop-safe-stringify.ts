@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/no-restricted-types */
 import type { IPropData } from '@codelab/shared-abstract-core'
 
 import { isValidElement } from 'react'

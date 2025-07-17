@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
-
 import type { Assign } from 'utility-types'
 /**
  * Identity type that forces TypeScript to compute object types, but only works for hovering the newly assigned type. If we hover source type it becomes more complicated.
@@ -17,20 +15,20 @@ import type { Assign } from 'utility-types'
  */
 export type Identity<T> = { [K in keyof T]: T[K] } & {}
 
-interface Name {
-  name: string
-}
-
 interface Age {
   age: number
+}
+
+type IdentityPerson = Identity<Person>
+
+interface Name {
+  name: string
 }
 
 /**
  * This shows as `type Person = Name & Age`
  */
 type Person = Name & Age
-
-type IdentityPerson = Identity<Person>
 
 const foo = Date.now()
 

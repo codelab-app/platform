@@ -5,22 +5,6 @@ import type { ReactNode } from 'react'
 import type { IRuntimeComponentModel } from '../runtime-component'
 import type { IRuntimePageModel } from '../runtime-page'
 
-export interface IRuntimeContext {
-  actions: IPropData
-  args?: Array<unknown>
-  componentProps?: IPropData
-  props: IPropData
-  refs: IPropData
-  rootActions: IPropData
-  rootRefs: IPropData
-  /**
-   * Provider state from the provider page's store. The data here is passed to elements & components
-   */
-  rootState: IPropData
-  state: IPropData
-  urlProps: IPropData
-}
-
 export interface IBaseRuntimeProps {
   /**
    * Final output after rendering typedProps
@@ -49,6 +33,22 @@ export interface IRuntimeComponentPropModel extends IBaseRuntimeProps {
   setCustomProps(props: IPropModel): void
 }
 
+export interface IRuntimeContext {
+  actions: IPropData
+  args?: Array<unknown>
+  componentProps?: IPropData
+  props: IPropData
+  refs: IPropData
+  rootActions: IPropData
+  rootRefs: IPropData
+  /**
+   * Provider state from the provider page's store. The data here is passed to elements & components
+   */
+  rootState: IPropData
+  state: IPropData
+  urlProps: IPropData
+}
+
 export interface IRuntimeElementPropModel extends IBaseRuntimeProps {
   closestRuntimeContainerNode: IRuntimeComponentModel | IRuntimePageModel
   /**
@@ -58,7 +58,7 @@ export interface IRuntimeElementPropModel extends IBaseRuntimeProps {
   // same as runtimeContext but props are empty
   evaluationContext: IRuntimeContext
   renderedChildrenProp: ReactNode
-  // eslint-disable-next-line @typescript-eslint/ban-types
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
   getActionRunner(actionName: string): Function
   renderTypedProps(): void
 }

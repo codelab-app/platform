@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
 import type {
   DistributeUnion,
   SearchParamsClientProps,
@@ -6,6 +5,27 @@ import type {
 } from '@codelab/frontend-abstract-types'
 
 import type { IRouteType } from '../shared'
+
+/**
+ * `CreateFieldPopover` can be used in 4 places
+ * Utility type to add interfaceId to params of a route
+ */
+export type IFieldCreateRoute = DistributeUnion<
+  IFieldRoute,
+  { interfaceId: string }
+>
+
+export type IFieldCreateRouteLazy = ({
+  interfaceId,
+}: {
+  interfaceId: string
+}) => IFieldCreateRoute
+
+export type IFieldCreateRouteLazyContext = ({
+  interfaceId,
+}: {
+  interfaceId: string
+}) => IFieldCreateRoute
 
 /**
  * Base routes
@@ -32,28 +52,6 @@ export type IFieldRoute =
       type: IRouteType.Type
       searchParams: SearchParamsClientProps
     }
-
-/**
- * `CreateFieldPopover` can be used in 4 places
- * Utility type to add interfaceId to params of a route
- */
-
-export type IFieldCreateRoute = DistributeUnion<
-  IFieldRoute,
-  { interfaceId: string }
->
-
-export type IFieldCreateRouteLazy = ({
-  interfaceId,
-}: {
-  interfaceId: string
-}) => IFieldCreateRoute
-
-export type IFieldCreateRouteLazyContext = ({
-  interfaceId,
-}: {
-  interfaceId: string
-}) => IFieldCreateRoute
 
 export type IFieldUpdateRoute =
   | {
