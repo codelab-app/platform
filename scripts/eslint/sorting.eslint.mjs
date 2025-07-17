@@ -18,6 +18,7 @@ export default [
       // Specific overrides for perfectionist
       'perfectionist/sort-interfaces': 'off',
       'perfectionist/sort-intersection-types': 'off',
+      'perfectionist/sort-modules': 'off',
       'perfectionist/sort-object-types': 'off',
       'perfectionist/sort-classes': 'off', // Handled by @typescript-eslint/member-ordering
       'perfectionist/sort-jsx-props': 'off',
