@@ -13,6 +13,11 @@ export default tseslint.config(
   },
   ...baseConfig,
   ...nextConfig,
+  // Disable type checking for JavaScript files and jest.config.ts
+  {
+    files: ['**/*.js', '**/*.jsx', '**/*.mjs', '**/*.cjs', 'jest.config.ts'],
+    ...tseslint.configs.disableTypeChecked,
+  },
   // Enable type checking for TypeScript files in this app
   {
     files: ['**/*.ts', '**/*.tsx'],
@@ -22,10 +27,5 @@ export default tseslint.config(
         tsconfigRootDir: __dirname,
       },
     },
-  },
-  // Disable type checking for JavaScript files
-  {
-    files: ['**/*.js', '**/*.jsx', '**/*.mjs', '**/*.cjs'],
-    ...tseslint.configs.disableTypeChecked,
   },
 )

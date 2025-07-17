@@ -39,21 +39,20 @@ export default /** @type {import('eslint').FlatConfig[]} */ [
         '@typescript-eslint/parser': ['.ts', '.tsx'],
       },
       'import/resolver': {
-        // TODO: Re-enable after migrating all library eslint configs
-        // //
-        // // Use the TS resolver
-        // //
-        // typescript: {
-        //   // always try to resolve types under `<root>@types`
-        //   // even when no source code is present (e.g. `@types/unist`)
-        //   alwaysTryTypes: true,
-        //   project: tsProjects,
-        // },
+        //
+        // Use the TS resolver
+        //
+        typescript: {
+          // always try to resolve types under `<root>@types`
+          // even when no source code is present (e.g. `@types/unist`)
+          alwaysTryTypes: true,
+          project: tsProjects,
+        },
         //
         // Fallback to the Node resolver
         //
         node: {
-          // project: tsProjects,
+          project: tsProjects,
         },
       },
     },
@@ -67,6 +66,8 @@ export default /** @type {import('eslint').FlatConfig[]} */ [
       //
       // Custom import rules
       //
+      'import/no-unresolved': 'error',
+      'import/named': 'error',
       'import/newline-after-import': 'error',
       'import/first': 'error',
 

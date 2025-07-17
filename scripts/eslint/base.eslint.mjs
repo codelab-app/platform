@@ -2,10 +2,9 @@ import banPlugin from 'eslint-plugin-ban'
 import perfectionistPlugin from 'eslint-plugin-perfectionist'
 import tsPlugin from '@typescript-eslint/eslint-plugin'
 import sortDestructureKeysPlugin from 'eslint-plugin-sort-destructure-keys'
-import canonicalPlugin from 'eslint-plugin-canonical'
 import prettierPlugin from 'eslint-plugin-prettier'
 import preferArrowPlugin from 'eslint-plugin-prefer-arrow'
-import importPlugin from 'eslint-plugin-import'
+import importPlugin from 'eslint-plugin-import-x'
 import unicornPlugin from 'eslint-plugin-unicorn'
 import stylistic from '@stylistic/eslint-plugin'
 
@@ -21,7 +20,6 @@ export default [
       perfectionist: perfectionistPlugin,
       '@typescript-eslint': tsPlugin,
       'sort-destructure-keys': sortDestructureKeysPlugin,
-      canonical: canonicalPlugin,
       prettier: prettierPlugin,
       '@stylistic': stylistic,
     },
@@ -47,9 +45,6 @@ export default [
         'error',
         { caseSensitive: false },
       ],
-      'canonical/destructuring-property-newline': 'off',
-      'canonical/import-specifier-newline': 'off',
-      'canonical/id-match': 'off',
       'id-length': [
         'error',
         {
@@ -75,16 +70,6 @@ export default [
     },
     rules: {
       // Removed @typescript-eslint rules - moved to typescript.config.mjs
-    },
-  },
-  // Override 3: Schema file specific rules
-  {
-    files: ['*.schema.ts', '*.schema.interface.ts'],
-    plugins: {
-      canonical: canonicalPlugin,
-    },
-    rules: {
-      'canonical/sort-keys': 'off',
     },
   },
   // Override 4: Pages/App specific rules

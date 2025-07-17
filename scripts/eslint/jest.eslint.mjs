@@ -20,9 +20,8 @@ export default [
       ...pluginJestFormatting.configs.strict.rules,
 
       // Custom rules for Jest files from your original config
-      // TODO: Re-enable when import plugin is configured
-      // 'import/no-unresolved': 'error',
-      // 'import/named': 'error',
+      'import/no-unresolved': 'error',
+      'import/named': 'error',
     },
   },
 ]

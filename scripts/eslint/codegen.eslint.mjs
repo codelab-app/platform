@@ -15,7 +15,7 @@ export default [
       // 'prefer-arrow': preferArrowPlugin, // If the rule is indeed from this plugin and it needs registration
     },
     rules: {
-      'unused-imports/no-unused-imports-ts': 'error',
+      'unused-imports/no-unused-imports': 'error',
       'func-style': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/member-ordering': 'off',

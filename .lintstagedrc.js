@@ -3,7 +3,7 @@ module.exports = {
     const stagedFiles = files.join(' ')
 
     const rules = `
-      --rule 'unused-imports/no-unused-imports-ts: 2'
+      --rule 'unused-imports/no-unused-imports: 2'
     `
 
     // Note: lint-staged runs commands outside of Nx project context, which means:

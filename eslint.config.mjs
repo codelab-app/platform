@@ -19,8 +19,7 @@ export default [
   ...canonical,
   ...prettierConfig,
   ...nxConfig,
-  // TODO: Re-enable after fixing performance issues
-  // ...importConfig,
+  ...importConfig,
   ...jestEslintConfig,
   ...globalsEslintConfig,
   ...formatConfig,
