@@ -30,6 +30,7 @@
   "eslint.validate": [
     "json"
   ],
+  "eslint.experimental.useFlatConfig": true,
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },

@@ -28,7 +28,7 @@ export const useBuildApp = () => {
       setIsRegenerating(true)
 
       const domains = domainDomainService.domainsList.filter(
-        (_domain) => _domain.app.id === app.id,
+        (domain) => domain.app.id === app.id,
       )
 
       // if (!domains.length) {

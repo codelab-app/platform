@@ -1,4 +1,4 @@
-import type { Preview } from '@storybook/react'
+import type { Preview } from '@storybook/nextjs'
 
 import {
   NotificationProvider,
@@ -9,10 +9,8 @@ import {
   createRootStore,
   RootStoreProvider,
 } from '@codelab/frontend-infra-mobx-store'
-import { userDto } from '@codelab/frontend-test-data'
-import { JWT_CLAIMS } from '@codelab/shared-abstract-core'
 import { initialize, mswLoader } from 'msw-storybook-addon'
-import { v4 } from 'uuid'
+import React from 'react'
 
 import '../styles/main.css'
 // import twindConfig from '../twind.config'
@@ -27,17 +25,16 @@ initialize()
 const preview: Preview = {
   decorators: [
     (Story) => {
-      const user = {
-        ...userDto,
-        [JWT_CLAIMS]: {
-          neo4j_user_id: v4(),
-          roles: [],
-        },
-      }
+      const store = createRootStore()
 
-      const store = createRootStore({
-        user,
-      })
+      // Set user after store creation if needed
+      // const user = {
+      //   ...userDto,
+      //   [JWT_CLAIMS]: {
+      //     neo4j_user_id: v4(),
+      //     roles: [],
+      //   },
+      // }
 
       return (
         <RootStoreProvider value={store}>

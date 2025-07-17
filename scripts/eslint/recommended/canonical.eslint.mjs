@@ -8,7 +8,7 @@ export default [
       'canonical/import-specifier-newline': 'off',
       'canonical/id-match': [
         'error',
-        '(^[A-Za-z]+(?:[A-Z][a-z]*)*\\d*$)|(^[A-Z]+(_[A-Z]+)*(_\\d$)*$)|(^(_|\\$)$)|(^auth0Instance$)|(^React19Compatibility$)|(^Auth0Provider$)',
+        '(^[A-Za-z]+(?:[A-Z][a-z]*)*\\d*$)|(^[A-Z]+(_[A-Z]+)*(_\\d$)*$)|(^(_|\\$)$)|(^[aA]uth0[A-Za-z]*$)|(^[rR]eact19[A-Za-z]*$)|(^__typename$)',
       ],
     },
   },

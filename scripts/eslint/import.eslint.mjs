@@ -4,9 +4,10 @@ import tseslint from 'typescript-eslint' // TS-ESLint plugin + parser
 import importPlugin from 'eslint-plugin-import-x' // import/* rules
 import unusedImports from 'eslint-plugin-unused-imports' // unused-imports/* rules
 
-const tsProjects = ['tsconfig.base.json', '(apps|libs)/*/tsconfig.lib.json']
-
 export default /** @type {import('eslint').FlatConfig[]} */ [
+  // Use the pre-configured TypeScript config from import-x
+  importPlugin.flatConfigs.recommended,
+  importPlugin.flatConfigs.typescript,
   {
     files: ['**/*.{ts,tsx,js,jsx}'],
 
@@ -35,26 +36,17 @@ export default /** @type {import('eslint').FlatConfig[]} */ [
     // import/* resolver & parser settings
     //
     settings: {
-      'import/parsers': {
+      'import-x/parsers': {
         '@typescript-eslint/parser': ['.ts', '.tsx'],
       },
-      'import/resolver': {
-        //
-        // Use the TS resolver
-        //
+      'import-x/resolver': {
         typescript: {
-          // always try to resolve types under `<root>@types`
-          // even when no source code is present (e.g. `@types/unist`)
+          // Enable TypeScript resolver
           alwaysTryTypes: true,
-          project: tsProjects,
-        },
-        //
-        // Fallback to the Node resolver
-        //
-        node: {
-          project: tsProjects,
         },
       },
+      'import-x/extensions': ['.js', '.jsx', '.ts', '.tsx'],
+      'import-x/external-module-folders': ['node_modules', 'node_modules/@types'],
     },
 
     //
