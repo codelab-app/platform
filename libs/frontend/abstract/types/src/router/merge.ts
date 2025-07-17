@@ -1,9 +1,14 @@
 import type { Identity, ObjectLike } from '@codelab/shared-abstract-types'
 
-// Helper type to distribute over union
-export type DistributeUnion<T, U extends ObjectLike> = T extends unknown
-  ? MergeParam<T, U>
-  : never
+/**
+ * Helper type to compute merged params
+ */
+// eslint-disable-next-line @typescript-eslint/no-wrapper-object-types
+type MergeRouteParams<Route, ExtraParams extends object> = Route extends {
+  params: infer P
+}
+  ? Identity<{ params: Identity<P & ExtraParams> }>
+  : Identity<{ params: ExtraParams }>
 
 /**
  * Utility type to add param object to all route types
@@ -15,12 +20,7 @@ export type MergeParam<Route, ExtraParam extends ObjectLike> = Route extends {
   ? Identity<{ type: T; searchParams: S } & MergeRouteParams<Route, ExtraParam>>
   : never
 
-/**
- * Helper type to compute merged params
- */
-
-type MergeRouteParams<Route, ExtraParams extends ObjectLike> = Route extends {
-  params: infer P
-}
-  ? Identity<{ params: Identity<P & ExtraParams> }>
-  : Identity<{ params: ExtraParams }>
+// Helper type to distribute over union
+export type DistributeUnion<T, U extends ObjectLike> = T extends unknown
+  ? MergeParam<T, U>
+  : never

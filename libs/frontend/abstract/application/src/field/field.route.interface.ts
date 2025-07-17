@@ -7,27 +7,6 @@ import type {
 import type { IRouteType } from '../shared'
 
 /**
- * `CreateFieldPopover` can be used in 4 places
- * Utility type to add interfaceId to params of a route
- */
-export type IFieldCreateRoute = DistributeUnion<
-  IFieldRoute,
-  { interfaceId: string }
->
-
-export type IFieldCreateRouteLazy = ({
-  interfaceId,
-}: {
-  interfaceId: string
-}) => IFieldCreateRoute
-
-export type IFieldCreateRouteLazyContext = ({
-  interfaceId,
-}: {
-  interfaceId: string
-}) => IFieldCreateRoute
-
-/**
  * Base routes
  */
 export type IFieldRoute =
@@ -52,6 +31,28 @@ export type IFieldRoute =
       type: IRouteType.Type
       searchParams: SearchParamsClientProps
     }
+
+/**
+ * `CreateFieldPopover` can be used in 4 places
+ * Utility type to add interfaceId to params of a route
+ */
+
+export type IFieldCreateRoute = DistributeUnion<
+  IFieldRoute,
+  { interfaceId: string }
+>
+
+export type IFieldCreateRouteLazy = ({
+  interfaceId,
+}: {
+  interfaceId: string
+}) => IFieldCreateRoute
+
+export type IFieldCreateRouteLazyContext = ({
+  interfaceId,
+}: {
+  interfaceId: string
+}) => IFieldCreateRoute
 
 export type IFieldUpdateRoute =
   | {
