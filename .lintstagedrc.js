@@ -15,7 +15,7 @@ module.exports = {
     // Cache limitations: May not catch errors involving cross-file dependencies
     // or TypeScript type information changes between cached runs
     const cmds = [
-      `cross-env ESLINT_USE_FLAT_CONFIG=false eslint --cache --color ${stagedFiles} ${rules} --fix --quiet`,
+      `cross-env ESLINT_USE_FLAT_CONFIG=true eslint --cache --color ${stagedFiles} ${rules} --fix --quiet`,
     ]
     
     // TODO: Consider batching large file lists to avoid command line length limits
