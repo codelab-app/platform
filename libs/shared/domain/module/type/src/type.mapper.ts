@@ -2,73 +2,48 @@ import type {
   ActionTypeCreateInput,
   ActionTypeDeleteInput,
   ActionTypeUpdateInput,
-  ActionTypeWhere,
   AppTypeCreateInput,
   AppTypeDeleteInput,
   AppTypeUpdateInput,
-  AppTypeWhere,
   ArrayTypeCreateInput,
   ArrayTypeDeleteInput,
   ArrayTypeUpdateInput,
-  ArrayTypeWhere,
   CodeMirrorTypeCreateInput,
   CodeMirrorTypeDeleteInput,
   CodeMirrorTypeUpdateInput,
-  CodeMirrorTypeWhere,
   ElementTypeCreateInput,
   ElementTypeDeleteInput,
   ElementTypeUpdateInput,
-  ElementTypeWhere,
   EnumTypeCreateInput,
   EnumTypeDeleteInput,
   EnumTypeUpdateInput,
-  EnumTypeWhere,
   InterfaceTypeCreateInput,
   InterfaceTypeDeleteInput,
   InterfaceTypeUpdateInput,
-  InterfaceTypeWhere,
   LambdaTypeCreateInput,
   LambdaTypeDeleteInput,
   LambdaTypeUpdateInput,
-  LambdaTypeWhere,
   PageTypeCreateInput,
   PageTypeDeleteInput,
   PageTypeUpdateInput,
-  PageTypeWhere,
   PrimitiveTypeCreateInput,
   PrimitiveTypeDeleteInput,
   PrimitiveTypeUpdateInput,
-  PrimitiveTypeWhere,
   ReactNodeTypeCreateInput,
   ReactNodeTypeDeleteInput,
   ReactNodeTypeUpdateInput,
-  ReactNodeTypeWhere,
   RenderPropTypeCreateInput,
   RenderPropTypeDeleteInput,
   RenderPropTypeUpdateInput,
-  RenderPropTypeWhere,
   RichTextTypeCreateInput,
   RichTextTypeDeleteInput,
   RichTextTypeUpdateInput,
-  RichTextTypeWhere,
   UnionTypeCreateInput,
   UnionTypeDeleteInput,
   UnionTypeUpdateInput,
-  UnionTypeWhere,
-  UpdateActionTypesMutationVariables,
-  UpdateAppTypesMutationVariables,
-  UpdateArrayTypesMutationVariables,
-  UpdateCodeMirrorTypesMutationVariables,
-  UpdateElementTypesMutationVariables,
-  UpdateEnumTypesMutationVariables,
-  UpdateInterfaceTypesMutationVariables,
-  UpdateLambdaTypesMutationVariables,
-  UpdatePageTypesMutationVariables,
-  UpdatePrimitiveTypesMutationVariables,
-  UpdateReactNodeTypesMutationVariables,
-  UpdateRenderPropTypesMutationVariables,
-  UpdateRichTextTypesMutationVariables,
-  UpdateUnionTypesMutationVariables,
+  UnknownTypeCreateInput,
+  UnknownTypeDeleteInput,
+  UnknownTypeUpdateInput,
 } from '@codelab/shared-infra-gqlgen'
 
 /**
@@ -91,6 +66,7 @@ import {
   type IRichTextTypeDto,
   ITypeKind,
   type IUnionTypeDto,
+  type IUnknownTypeDto,
 } from '@codelab/shared-abstract-core'
 import { connectNodeId, connectOwner } from '@codelab/shared-domain-orm'
 
@@ -115,6 +91,24 @@ export const actionTypeMapper: IMapper<
   toCreateInput: createOrUpdateActionType,
   toDeleteInput: () => ({}),
   toUpdateInput: createOrUpdateActionType,
+}
+
+const createOrUpdateAnyType = (dto: IUnknownTypeDto) => ({
+  id: dto.id,
+  kind: dto.kind,
+  name: dto.name,
+  owner: connectOwner(dto.owner),
+})
+
+export const unknownTypeMapper: IMapper<
+  IUnknownTypeDto,
+  UnknownTypeCreateInput,
+  UnknownTypeUpdateInput,
+  UnknownTypeDeleteInput
+> = {
+  toCreateInput: createOrUpdateAnyType,
+  toDeleteInput: () => ({}),
+  toUpdateInput: createOrUpdateAnyType,
 }
 
 const createOrUpdateAppType = (dto: IAppTypeDto) => ({
@@ -402,6 +396,7 @@ export const unionTypeMapper: IMapper<
  */
 export const typeMapperRecord = {
   [ITypeKind.ActionType]: actionTypeMapper,
+  [ITypeKind.UnknownType]: unknownTypeMapper,
   [ITypeKind.AppType]: appTypeMapper,
   [ITypeKind.ArrayType]: arrayTypeMapper,
   [ITypeKind.CodeMirrorType]: codeMirrorTypeMapper,

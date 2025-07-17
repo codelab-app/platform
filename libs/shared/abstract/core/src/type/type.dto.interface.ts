@@ -16,6 +16,7 @@ import { ReactNodeTypeDtoSchema } from './react-node-type'
 import { RenderPropTypeDtoSchema } from './render-prop-type/render-prop-type.dto.interface'
 import { RichTextTypeDtoSchema } from './rich-text-type'
 import { UnionTypeDtoSchema } from './union-type'
+import { UnknownTypeDtoSchema } from './unknown-type/unknown-type.dto.interface'
 
 export const typeDtoSchemas = [
   ActionTypeDtoSchema,
@@ -32,6 +33,7 @@ export const typeDtoSchemas = [
   RenderPropTypeDtoSchema,
   RichTextTypeDtoSchema,
   UnionTypeDtoSchema,
+  UnknownTypeDtoSchema,
 ]
 
 export const TypeDtoSchema = Type.Union(typeDtoSchemas, {

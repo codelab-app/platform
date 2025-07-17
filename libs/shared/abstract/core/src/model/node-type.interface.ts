@@ -40,6 +40,7 @@ export enum INodeType {
   RenderPropType = 'RenderPropType',
   RichTextType = 'RichTextType',
   UnionType = 'UnionType',
+  UnknownType = 'UnknownType',
   User = 'User',
 }
 

@@ -9,6 +9,7 @@ import {
   RenderPropTypeRepository,
   RichTextTypeRepository,
   UnionTypeRepository,
+  UnknownTypeRepository,
 } from '@codelab/backend-domain-type'
 import {
   ActionTypeSchema,
@@ -18,6 +19,7 @@ import {
   RenderPropTypeSchema,
   RichTextTypeSchema,
   UnionTypeSchema,
+  UnknownTypeSchema,
 } from '@codelab/shared-abstract-core'
 import { SortDirection } from '@codelab/shared-infra-gqlgen'
 import { CommandHandler } from '@nestjs/cqrs'
@@ -53,6 +55,7 @@ export class ExportSystemTypesHandler
     private actionTypeRepository: ActionTypeRepository,
     private codeMirrorTypeRepository: CodeMirrorTypeRepository,
     private unionTypeRepository: UnionTypeRepository,
+    private unknownTypeRepository: UnknownTypeRepository,
   ) {}
 
   async execute() {
@@ -131,6 +134,13 @@ export class ExportSystemTypesHandler
       },
     })
 
+    const unknownTypes = await this.unknownTypeRepository.find({
+      options: {
+        sort: [{ name: SortDirection.Asc }],
+      },
+      schema: Type.Omit(UnknownTypeSchema, ['owner']),
+    })
+
     /**
      * Here we create the interface dependency tree order
      *
@@ -144,6 +154,7 @@ export class ExportSystemTypesHandler
       ...richTextTypes,
       ...codeMirrorTypes,
       ...unionTypes,
+      ...unknownTypes,
     ]
   }
 }

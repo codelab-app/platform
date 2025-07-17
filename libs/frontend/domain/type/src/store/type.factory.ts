@@ -27,6 +27,7 @@ import { ReactNodeType } from './react-node-type.model'
 import { RenderPropType } from './render-prop-type.model'
 import { RichTextType } from './rich-text-type.model'
 import { UnionType } from './union-type.model'
+import { UnknownType } from './unknown-type.model'
 
 export class TypeFactory {
   static create(typeDto: ITypeDto): ITypeModel {
@@ -66,6 +67,9 @@ export class TypeFactory {
 
       case ITypeKind.RichTextType:
         return RichTextType.create(typeDto)
+
+      case ITypeKind.UnknownType:
+        return UnknownType.create(typeDto)
 
       case TypeKind.InterfaceType:
         return InterfaceType.create(typeDto)
