@@ -1,53 +1,31 @@
-import globals from 'globals'
+import baseConfig from '../../eslint.config.mjs'
+import nextConfig from '../../scripts/eslint/next.config.mjs'
+import tseslint from 'typescript-eslint'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import js from '@eslint/js'
-import { FlatCompat } from '@eslint/eslintrc'
-import rootConfig from '../../eslint.config.mjs'
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-})
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-export default [
-  // Import root config
-  ...rootConfig,
-  // Project-specific ignores
+export default tseslint.config(
+  // Ignores must come first to prevent scanning these directories
   {
-    ignores: ['storybook-static/**', 'jest.config.ts'],
+    ignores: ['**/.next/**', '**/node_modules/**', '**/dist/**', '.next', 'node_modules', 'dist', 'jest.config.ts'],
   },
-  // Extend Nx React TypeScript and Next.js configs
-  ...compat.extends(
-    'plugin:@nx/react-typescript',
-    'next',
-    'next/core-web-vitals',
-  ),
-  // Project-specific configuration
+  ...baseConfig,
+  ...nextConfig,
+  // Enable type checking for TypeScript files in this app
   {
-    files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
+    files: ['**/*.ts', '**/*.tsx'],
     languageOptions: {
-      globals: {
-        ...globals.jest,
-      },
       parserOptions: {
-        project: ['./tsconfig.json', './tsconfig.*.json'],
+        project: ['./tsconfig.json', './tsconfig.storybook.json', './tsconfig.spec.json'],
         tsconfigRootDir: __dirname,
       },
     },
-    rules: {
-      '@next/next/no-html-link-for-pages': 'off',
-      'jsx-a11y/anchor-is-valid': 'off',
-      'react/jsx-no-useless-fragment': 'off',
-    },
   },
-  // Disable import/named for Sentry config files
+  // Disable type checking for JavaScript files
   {
-    files: ['**/sentry.*.config.js'],
-    rules: {
-      'import/named': 'off',
-    },
+    files: ['**/*.js', '**/*.jsx', '**/*.mjs', '**/*.cjs'],
+    ...tseslint.configs.disableTypeChecked,
   },
-]
+)

@@ -46,7 +46,7 @@ _Fetch from: `.claude/documentation/convention/styling-conventions.md`_
 
 ### GraphQL
 
-_Fetch from: `.claude/documentation/convention/graphql-conventions.md`_
+Load when needed: `Read .claude/documentation/convention/graphql-conventions.md`
 
 ## Environment Setup
 
@@ -57,7 +57,7 @@ _Fetch from: `.claude/documentation/convention/graphql-conventions.md`_
 
 ## Documentation Guidelines
 
-_Fetch from: `.claude/documentation/convention/documentation-conventions.md`_
+Load when needed: `Read .claude/documentation/convention/documentation-conventions.md`
 
 ## Prompting
 
@@ -70,7 +70,7 @@ _Fetch from: `.claude/documentation/convention/documentation-conventions.md`_
 
 ### Type Checking
 
-_Fetch from: `.claude/documentation/convention/type-checking-conventions.md`_
+Load when needed: `Read .claude/documentation/convention/type-checking-conventions.md`
 
 ### Linting
 
@@ -117,13 +117,13 @@ import EyeOutlined from '@ant-design/icons/lib/icons/EyeOutlined'
 
 ### Branch Naming
 
-_Fetch from: `.claude/documentation/convention/git-branch-naming-convention.md`_
+Load when needed: `Read .claude/documentation/convention/git-branch-naming-convention.md`
 
 ### Commit Messages
 
 Never add Generated with [Claude Code](https://claude.ai/code)
 
-_Fetch from: `.claude/documentation/convention/git-commit-conventions.md`_
+Load when needed: `Read .claude/documentation/convention/git-commit-conventions.md`
 
 ## Claude fine-tuning
 
@@ -152,12 +152,12 @@ _Fetch from: `.claude/documentation/convention/git-commit-conventions.md`_
 
 ## Documentation
 
-When I say read documentation it's regarding: _Fetch from: `.claude/documentation`_
+When I say read documentation it's regarding: Use the CLI tool to read from `.claude/documentation` directory
 
 ### OpenMemory Sync Documentation
 
 For the data structure and implementation details of syncing various sources (GitHub, Notion) to OpenMemory:
-_Fetch from: `.claude/documentation/openmemory-sync-documentation.md`_
+Load when needed: `Read .claude/documentation/openmemory-sync-documentation.md`
 
 ## GitHub Issue Context
 

@@ -10,9 +10,11 @@ import {
   RootStoreProvider,
 } from '@codelab/frontend-infra-mobx-store'
 import { userDto } from '@codelab/frontend-test-data'
-import { JWT_CLAIMS } from '@codelab/shared-abstract-core'
+import {
+  JWT_CLAIMS,
+} from '@codelab/shared-abstract-core'
 import { initialize, mswLoader } from 'msw-storybook-addon'
-// eslint-disable-next-line unused-imports/no-unused-imports
+// eslint-disable-next-line unused-imports/no-unused-vars
 import { v4 } from 'uuid'
 
 import '../styles/main.css'

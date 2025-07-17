@@ -1,115 +1,59 @@
-import { FlatCompat } from '@eslint/eslintrc'
-import js from '@eslint/js'
-import nx from '@nx/eslint-plugin'
-import path from 'path'
-import { fileURLToPath } from 'url'
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-})
+import typescriptConfig from './scripts/eslint/typescript.eslint.mjs'
+import canonical from './scripts/eslint/recommended/canonical.eslint.mjs'
+import prettierConfig from './scripts/eslint/prettier.eslint.mjs'
+import nxConfig from './scripts/eslint/nx.eslint.mjs'
+import importConfig from './scripts/eslint/import.eslint.mjs'
+import jestEslintConfig from './scripts/eslint/jest.eslint.mjs'
+import globalsEslintConfig from './scripts/eslint/globals.eslint.mjs'
+import formatConfig from './scripts/eslint/format.eslint.mjs'
+import namingConfig from './scripts/eslint/naming.eslint.mjs'
+import codelabConfig from './scripts/eslint/codelab.eslint.mjs'
+import sortingConfig from './scripts/eslint/sorting.eslint.mjs'
+import codegenConfig from './scripts/eslint/codegen.eslint.mjs'
+import reactConfig from './scripts/eslint/react.eslint.mjs'
+import baseConfig from './scripts/eslint/base.eslint.mjs'
+import tailwindConfig from './scripts/eslint/recommended/tailwind.eslint.mjs'
 
 export default [
-  // Global ignores
+  ...typescriptConfig,
+  ...canonical,
+  ...prettierConfig,
+  ...nxConfig,
+  // TODO: Re-enable after fixing performance issues
+  // ...importConfig,
+  ...jestEslintConfig,
+  ...globalsEslintConfig,
+  ...formatConfig,
+  ...namingConfig,
+  ...codelabConfig,
+  ...sortingConfig,
+  ...codegenConfig,
+  ...reactConfig,
+  ...tailwindConfig,
+  ...baseConfig,
   {
     ignores: [
-      '**/node_modules',
       '**/dist',
-      'data/**',
-      '**/.next',
-      '**/.cache',
-      '**/coverage',
-      '**/tmp',
-      '**/.nx',
+      '**/vite.config.*.timestamp*',
+      '**/vitest.config.*.timestamp*',
+      'node_modules',
+      'dist',
+      '/data',
+      '.next',
+      '.cache',
+      '/coverage',
+      '/tmp',
+      '/.nx',
       '.aider*',
-      'public/**',
-      '**/*.png',
-      '**/*.d.ts',
-      '**/*.mp4',
-      '**/*.log',
+      'public',
+      '*.png',
+      '*.d.ts',
+      '*.mp4',
+      '*.log',
       '**/*.gen.ts',
-      '**/jest.config.ts',
-      '**/graphql.ts',
-      '**/storybook-static',
-      '**/generated',
-      '**/.turbo',
-      '.lintstagedrc.js',
-      '**/*.config.js',
+      'jest.config.ts',
+      'graphql.ts',
     ],
-  },
-  // Base JS config
-  js.configs.recommended,
-  // Convert existing configs using compat
-  ...compat.config({
-    root: true,
-    parser: '@typescript-eslint/parser',
-    parserOptions: {
-      ecmaFeatures: {
-        jsx: true,
-      },
-      ecmaVersion: 'latest',
-      sourceType: 'module',
-      project: ['tsconfig.base.json', 'apps/*/tsconfig.json', 'libs/*/tsconfig.json'],
-      tsconfigRootDir: __dirname,
-    },
-    env: {
-      browser: true,
-      'jest/globals': true,
-    },
-    globals: {
-      JQuery: 'readonly',
-      JQueryStatic: 'readonly',
-    },
-    plugins: [
-      'prefer-arrow',
-      'canonical',
-      'sort-destructure-keys',
-      'unicorn',
-      '@stylistic/ts',
-      'ban',
-    ],
-    extends: [
-      'plugin:canonical/recommended',
-      'plugin:@typescript-eslint/strict',
-      'eslint:recommended',
-      './scripts/eslint/.prettier.eslintrc.json',
-      './scripts/eslint/.nx.eslintrc.json',
-      './scripts/eslint/.import.eslintrc.js',
-      './scripts/eslint/.import.eslintrc.json',
-      './scripts/eslint/.jest.eslintrc.json',
-      './scripts/eslint/.globals.eslintrc.json',
-      './scripts/eslint/.format.eslintrc.json',
-      './scripts/eslint/.naming.eslintrc.json',
-      './scripts/eslint/.codelab.eslintrc.json',
-      './scripts/eslint/.sorting.eslintrc.json',
-      './scripts/eslint/.codegen.eslintrc.json',
-      './scripts/eslint/.react.eslintrc.json',
-      './scripts/eslint/.base.eslintrc.json',
-    ],
-    settings: {
-      tailwindcss: {
-        config: './tailwind.config.ts',
-      },
-      react: {
-        version: 'detect',
-      },
-    },
-    overrides: [
-      {
-        files: '*.json',
-        parser: 'jsonc-eslint-parser',
-        rules: {},
-      },
-    ],
-  }),
-  // Nx plugin config
-  {
-    plugins: {
-      '@nx': nx,
-    },
   },
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
@@ -118,7 +62,7 @@ export default [
         'error',
         {
           enforceBuildableLibDependency: true,
-          allow: [],
+          allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?js$'],
           depConstraints: [
             {
               sourceTag: '*',
@@ -128,5 +72,19 @@ export default [
         },
       ],
     },
+  },
+  {
+    files: [
+      '**/*.ts',
+      '**/*.tsx',
+      '**/*.cts',
+      '**/*.mts',
+      '**/*.js',
+      '**/*.jsx',
+      '**/*.cjs',
+      '**/*.mjs',
+    ],
+    // Override or add rules here
+    rules: {},
   },
 ]

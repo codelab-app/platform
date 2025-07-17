@@ -7,7 +7,11 @@ import {
 } from '@codelab/frontend-infra-context'
 import { cn } from '@cui/utils'
 import { setGlobalConfig } from 'mobx-keystone'
-import { Inter, Montserrat, Nunito } from 'next/font/google'
+import {
+  Inter,
+  Montserrat,
+  Nunito,
+} from 'next/font/google'
 
 // import twindConfig from '../twind.config'
 
