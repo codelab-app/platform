@@ -52,6 +52,12 @@
     "name": "RichTextType"
   },
   {
+    "__typename": "UnknownType",
+    "id": "f9a12d48-8b7e-4c3a-9f2d-5e6a7b8c9d0e",
+    "kind": "UnknownType",
+    "name": "UnknownType"
+  },
+  {
     "__typename": "CodeMirrorType",
     "id": "b2e640a0-8ae2-477a-9ba0-67c81e538a54",
     "kind": "CodeMirrorType",

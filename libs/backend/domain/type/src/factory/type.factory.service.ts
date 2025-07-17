@@ -1,4 +1,7 @@
 import type { IRef, ITypeDto, ITypeRef } from '@codelab/shared-abstract-core'
+import type { TypeCreateMap } from '@codelab/shared-domain-module-type'
+import type { Maybe, TypeFragment } from '@codelab/shared-infra-gqlgen'
+import type { TAnySchema } from '@sinclair/typebox'
 
 import { UserRepository } from '@codelab/backend-domain-user'
 import { PinoLoggerService } from '@codelab/backend-infra-adapter-logger'
@@ -8,10 +11,7 @@ import {
 } from '@codelab/backend-infra-adapter-neo4j-driver'
 import { ITypeKind } from '@codelab/shared-abstract-core'
 import { NotFoundError } from '@codelab/shared-domain-errors'
-import { TypeCreateMap } from '@codelab/shared-domain-module-type'
-import { Maybe, TypeFragment } from '@codelab/shared-infra-gqlgen'
 import { Injectable } from '@nestjs/common'
-import { TAnySchema } from '@sinclair/typebox'
 
 import {
   ActionType,
@@ -23,6 +23,7 @@ import {
   RenderPropType,
   RichTextType,
   UnionType,
+  UnknownType,
 } from '../model'
 import { ArrayType } from '../model/array-type.model'
 import {
@@ -36,6 +37,7 @@ import {
   RenderPropTypeRepository,
   RichTextTypeRepository,
   UnionTypeRepository,
+  UnknownTypeRepository,
 } from '../repository'
 
 /**
@@ -53,6 +55,7 @@ export class TypeFactory {
     private readonly renderPropTypeRepository: RenderPropTypeRepository,
     private readonly richTextTypeRepository: RichTextTypeRepository,
     private readonly actionTypeRepository: ActionTypeRepository,
+    private readonly unknownTypeRepository: UnknownTypeRepository,
     private readonly unionTypeRepository: UnionTypeRepository,
     private readonly arrayTypeRepository: ArrayTypeRepository,
     private readonly codeMirrorRepository: CodeMirrorTypeRepository,
@@ -131,6 +134,12 @@ export class TypeFactory {
         const unionType = new UnionType(type)
 
         return await this.unionTypeRepository.add(unionType)
+      }
+
+      case ITypeKind.UnknownType: {
+        const unknownType = new UnknownType(type)
+
+        return await this.unknownTypeRepository.add(unknownType)
       }
 
       default: {
@@ -341,6 +350,12 @@ export class TypeFactory {
         const unionType = new UnionType(type)
 
         return await this.unionTypeRepository.save(unionType, where)
+      }
+
+      case ITypeKind.UnknownType: {
+        const unknownType = new UnknownType(type)
+
+        return await this.unknownTypeRepository.save(unknownType, where)
       }
 
       default: {

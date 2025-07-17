@@ -15,6 +15,7 @@ import {
   RenderPropTypeRepository,
   RichTextTypeRepository,
   UnionTypeRepository,
+  UnknownTypeRepository,
 } from './repository'
 import { TypeDomainService } from './service'
 
@@ -30,6 +31,7 @@ const typeRepositories = [
   RenderPropTypeRepository,
   RichTextTypeRepository,
   UnionTypeRepository,
+  UnknownTypeRepository,
 ]
 
 @Module({

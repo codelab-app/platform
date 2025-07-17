@@ -27,6 +27,7 @@ export const typeSchema = gql`
     AppType
     ActionType
     RichTextType
+    UnknownType
   }
 
   type TypeReference {
@@ -290,6 +291,17 @@ export const typeSchema = gql`
     id: ID!
     kind: TypeKind! @default(value: ActionType)
     name: String! # @unique
+    owner: User! @relationship(type: "OWNED_BY", direction: OUT)
+    fieldRefs: [Field!]! @relationship(type: "FIELD_TYPE", direction: IN)
+  }
+
+  """
+  Represents a type that can accept any value, similar to TypeScript's any type
+  """
+  type UnknownType implements IBaseType @node(labels: ["Type", "UnknownType"]) ${authOwnerOrAdmin} {
+    id: ID!
+    kind: TypeKind! @default(value: UnknownType)
+    name: String!
     owner: User! @relationship(type: "OWNED_BY", direction: OUT)
     fieldRefs: [Field!]! @relationship(type: "FIELD_TYPE", direction: IN)
   }

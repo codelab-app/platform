@@ -14,6 +14,7 @@ import type {
   IRichTextTypeDto,
   ITypeKind,
   IUnionTypeDto,
+  IUnknownTypeDto,
 } from '@codelab/shared-abstract-core'
 import type {
   ActionTypeConnectInput,
@@ -101,6 +102,7 @@ import type {
   UnionTypeDisconnectInput,
   UnionTypeUpdateInput,
   UnionTypeWhere,
+  UnknownTypeWhere,
   UpdateActionTypesMutationVariables,
   UpdateAppTypesMutationVariables,
   UpdateArrayTypesMutationVariables,
@@ -284,4 +286,5 @@ export interface TypeCreateMap {
     where: RichTextTypeWhere
   }
   [ITypeKind.UnionType]: { dto: IUnionTypeDto; where: UnionTypeWhere }
+  [ITypeKind.UnknownType]: { dto: IUnknownTypeDto; where: UnknownTypeWhere }
 }

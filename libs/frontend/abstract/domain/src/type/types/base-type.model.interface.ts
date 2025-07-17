@@ -32,6 +32,7 @@ import type { IReactNodeTypeModel } from './react-node-type.model.interface'
 import type { IRenderPropTypeModel } from './render-prop-type.model.interface'
 import type { IRichTextTypeModel } from './rich-text-type.model.interface'
 import type { IUnionTypeModel } from './union-type.model.interface'
+import type { IUnknownTypeModel } from './unknown-type.model.interface'
 
 export interface JsonSchema extends JSONSchema7 {
   autocomplete?: IPropData
@@ -88,3 +89,4 @@ export type ITypeModel =
   | IRenderPropTypeModel
   | IRichTextTypeModel
   | IUnionTypeModel
+  | IUnknownTypeModel

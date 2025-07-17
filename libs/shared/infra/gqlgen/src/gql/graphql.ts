@@ -9899,6 +9899,12 @@ export type CreateUnionTypesMutationResponse = {
   unionTypes: Array<UnionType>;
 };
 
+export type CreateUnknownTypesMutationResponse = {
+  __typename?: 'CreateUnknownTypesMutationResponse';
+  info: CreateInfo;
+  unknownTypes: Array<UnknownType>;
+};
+
 export type CreateUsersMutationResponse = {
   __typename?: 'CreateUsersMutationResponse';
   info: CreateInfo;
@@ -18455,6 +18461,7 @@ export type Mutation = {
   createTags: CreateTagsMutationResponse;
   createTypeReferences: CreateTypeReferencesMutationResponse;
   createUnionTypes: CreateUnionTypesMutationResponse;
+  createUnknownTypes: CreateUnknownTypesMutationResponse;
   createUsers: CreateUsersMutationResponse;
   deleteActionTypes: DeleteInfo;
   deleteApiActions: DeleteInfo;
@@ -18523,6 +18530,7 @@ export type Mutation = {
   updateTags: UpdateTagsMutationResponse;
   updateTypeReferences: UpdateTypeReferencesMutationResponse;
   updateUnionTypes: UpdateUnionTypesMutationResponse;
+  updateUnknownTypes: UpdateUnknownTypesMutationResponse;
   updateUsers: UpdateUsersMutationResponse;
 };
 
@@ -18689,6 +18697,11 @@ export type MutationCreateTypeReferencesArgs = {
 
 export type MutationCreateUnionTypesArgs = {
   input: Array<UnionTypeCreateInput>;
+};
+
+
+export type MutationCreateUnknownTypesArgs = {
+  input: Array<UnknownTypeCreateInput>;
 };
 
 
@@ -19094,6 +19107,12 @@ export type MutationUpdateTypeReferencesArgs = {
 export type MutationUpdateUnionTypesArgs = {
   update?: InputMaybe<UnionTypeUpdateInput>;
   where?: InputMaybe<UnionTypeWhere>;
+};
+
+
+export type MutationUpdateUnknownTypesArgs = {
+  update?: InputMaybe<UnknownTypeUpdateInput>;
+  where?: InputMaybe<UnknownTypeWhere>;
 };
 
 
@@ -22093,6 +22112,9 @@ export type Query = {
   unionTypes: Array<UnionType>;
   unionTypesAggregate: UnionTypeAggregateSelection;
   unionTypesConnection: UnionTypesConnection;
+  unknownTypes: Array<UnknownType>;
+  unknownTypesAggregate: UnknownTypeAggregateSelection;
+  unknownTypesConnection: UnknownTypesConnection;
   users: Array<User>;
   usersAggregate: UserAggregateSelection;
   usersConnection: UsersConnection;
@@ -22902,6 +22924,15 @@ export type QueryUnionTypesArgs = {
   options?: InputMaybe<UnionTypeOptions>;
   sort?: InputMaybe<Array<UnionTypeSort>>;
   where?: InputMaybe<UnionTypeWhere>;
+};
+
+
+export type QueryUnknownTypesArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  options?: InputMaybe<UnknownTypeOptions>;
+  sort?: InputMaybe<Array<UnknownTypeSort>>;
+  where?: InputMaybe<UnknownTypeWhere>;
 };
 
 
@@ -28139,6 +28170,7 @@ export type TagsConnection = {
 
 export enum TypeKind {
   ActionType = 'ActionType',
+  UnknownType = 'UnknownType',
   AppType = 'AppType',
   ArrayType = 'ArrayType',
   CodeMirrorType = 'CodeMirrorType',
@@ -28300,6 +28332,94 @@ export type UnionType = IBaseType & WithDescendants & {
   typesOfUnionTypeConnection: UnionTypeTypesOfUnionTypeConnection;
 };
 
+/** Represents an unknown or any type */
+export type UnknownType = IBaseType & {
+  __typename?: 'UnknownType';
+  fieldRefs: Array<Field>;
+  fieldRefsAggregate?: Maybe<UnknownTypeFieldFieldRefsAggregationSelection>;
+  fieldRefsConnection: IBaseTypeFieldRefsConnection;
+  id: Scalars['ID']['output'];
+  kind: TypeKind;
+  name: Scalars['String']['output'];
+  owner: User;
+  ownerAggregate?: Maybe<UnknownTypeUserOwnerAggregationSelection>;
+  ownerConnection: IBaseTypeOwnerConnection;
+};
+
+
+/** Represents an unknown or any type */
+export type UnknownTypeFieldRefsArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  options?: InputMaybe<FieldOptions>;
+  sort?: InputMaybe<Array<FieldSort>>;
+  where?: InputMaybe<FieldWhere>;
+};
+
+
+/** Represents an unknown or any type */
+export type UnknownTypeFieldRefsAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<FieldWhere>;
+};
+
+
+/** Represents an unknown or any type */
+export type UnknownTypeFieldRefsConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Array<IBaseTypeFieldRefsConnectionSort>>;
+  where?: InputMaybe<IBaseTypeFieldRefsConnectionWhere>;
+};
+
+
+/** Represents an unknown or any type */
+export type UnknownTypeOwnerAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<UserWhere>;
+};
+
+
+/** Represents an unknown or any type */
+export type UnknownTypeOwnerConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Array<IBaseTypeOwnerConnectionSort>>;
+  where?: InputMaybe<IBaseTypeOwnerConnectionWhere>;
+};
+
+export type UnknownTypeFieldFieldRefsAggregationSelection = {
+  __typename?: 'UnknownTypeFieldFieldRefsAggregationSelection';
+  count: Scalars['Int']['output'];
+  node?: Maybe<UnknownTypeFieldFieldRefsNodeAggregateSelection>;
+};
+
+export type UnknownTypeFieldFieldRefsNodeAggregateSelection = {
+  __typename?: 'UnknownTypeFieldFieldRefsNodeAggregateSelection';
+  defaultValues: StringAggregateSelection;
+  description: StringAggregateSelection;
+  id: IdAggregateSelection;
+  key: StringAggregateSelection;
+  name: StringAggregateSelection;
+  validationRules: StringAggregateSelection;
+};
+
+export type UnknownTypeUserOwnerAggregationSelection = {
+  __typename?: 'UnknownTypeUserOwnerAggregationSelection';
+  count: Scalars['Int']['output'];
+  node?: Maybe<UnknownTypeUserOwnerNodeAggregateSelection>;
+};
+
+export type UnknownTypeUserOwnerNodeAggregateSelection = {
+  __typename?: 'UnknownTypeUserOwnerNodeAggregateSelection';
+  auth0Id: StringAggregateSelection;
+  email: StringAggregateSelection;
+  id: IdAggregateSelection;
+  username: StringAggregateSelection;
+};
 
 /** Allows picking one of a set of types */
 export type UnionTypeFieldRefsArgs = {
@@ -28383,6 +28503,14 @@ export type UnionTypeAggregateSelection = {
   name: StringAggregateSelection;
 };
 
+export type UnknownTypeAggregateSelection = {
+  __typename?: 'UnknownTypeAggregateSelection';
+  count: Scalars['Int']['output'];
+  /** @deprecated aggregation of ID fields are deprecated and will be removed */
+  id: IdAggregateSelection;
+  name: StringAggregateSelection;
+};
+
 export type UnionTypeConnectInput = {
   fieldRefs?: InputMaybe<Array<UnionTypeFieldRefsConnectFieldInput>>;
   owner?: InputMaybe<UnionTypeOwnerConnectFieldInput>;
@@ -28402,11 +28530,24 @@ export type UnionTypeCreateInput = {
   typesOfUnionType?: InputMaybe<UnionTypeTypesOfUnionTypeCreateInput>;
 };
 
+export type UnknownTypeCreateInput = {
+  fieldRefs?: InputMaybe<UnknownTypeFieldRefsFieldInput>;
+  id: Scalars['ID']['input'];
+  kind?: TypeKind;
+  name: Scalars['String']['input'];
+  owner?: InputMaybe<UnknownTypeOwnerFieldInput>;
+};
+
 export type UnionTypeCreatedEvent = {
   __typename?: 'UnionTypeCreatedEvent';
   createdUnionType: UnionTypeEventPayload;
   event: EventType;
   timestamp: Scalars['Float']['output'];
+};
+
+export type UnknownTypeDeleteInput = {
+  fieldRefs?: InputMaybe<Array<IBaseTypeFieldRefsDeleteFieldInput>>;
+  owner?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>;
 };
 
 export type UnionTypeDeleteInput = {
@@ -28428,10 +28569,30 @@ export type UnionTypeDisconnectInput = {
   typesOfUnionType?: InputMaybe<UnionTypeTypesOfUnionTypeDisconnectInput>;
 };
 
+export type UnknownTypeConnectInput = {
+  fieldRefs?: InputMaybe<Array<UnknownTypeFieldRefsConnectFieldInput>>;
+  owner?: InputMaybe<UnknownTypeOwnerConnectFieldInput>;
+};
+
+export type UnknownTypeConnectWhere = {
+  node: UnknownTypeWhere;
+};
+
+export type UnknownTypeDisconnectInput = {
+  fieldRefs?: InputMaybe<Array<IBaseTypeFieldRefsDisconnectFieldInput>>;
+  owner?: InputMaybe<IBaseTypeOwnerDisconnectFieldInput>;
+};
+
 export type UnionTypeEdge = {
   __typename?: 'UnionTypeEdge';
   cursor: Scalars['String']['output'];
   node: UnionType;
+};
+
+export type UnknownTypeEdge = {
+  __typename?: 'UnknownTypeEdge';
+  cursor: Scalars['String']['output'];
+  node: UnknownType;
 };
 
 export type UnionTypeEventPayload = {
@@ -28472,6 +28633,20 @@ export type UnionTypeFieldRefsAggregateInput = {
   node?: InputMaybe<UnionTypeFieldRefsNodeAggregationWhereInput>;
 };
 
+export type UnknownTypeFieldRefsAggregateInput = {
+  AND?: InputMaybe<Array<UnknownTypeFieldRefsAggregateInput>>;
+  NOT?: InputMaybe<UnknownTypeFieldRefsAggregateInput>;
+  OR?: InputMaybe<Array<UnknownTypeFieldRefsAggregateInput>>;
+  /** @deprecated Please use the explicit _EQ version */
+  count?: InputMaybe<Scalars['Int']['input']>;
+  count_EQ?: InputMaybe<Scalars['Int']['input']>;
+  count_GT?: InputMaybe<Scalars['Int']['input']>;
+  count_GTE?: InputMaybe<Scalars['Int']['input']>;
+  count_LT?: InputMaybe<Scalars['Int']['input']>;
+  count_LTE?: InputMaybe<Scalars['Int']['input']>;
+  node?: InputMaybe<UnionTypeFieldRefsNodeAggregationWhereInput>;
+};
+
 export type UnionTypeFieldRefsConnectFieldInput = {
   connect?: InputMaybe<Array<FieldConnectInput>>;
   /**
@@ -28486,9 +28661,28 @@ export type UnionTypeFieldRefsCreateFieldInput = {
   node: FieldCreateInput;
 };
 
+export type UnknownTypeFieldRefsConnectFieldInput = {
+  connect?: InputMaybe<Array<FieldConnectInput>>;
+  /**
+   * Whether or not to overwrite any matching relationship with the new properties.
+   * @deprecated The overwrite argument is deprecated and will be removed
+   */
+  overwrite?: Scalars['Boolean']['input'];
+  where?: InputMaybe<FieldConnectWhere>;
+};
+
+export type UnknownTypeFieldRefsCreateFieldInput = {
+  node: FieldCreateInput;
+};
+
 export type UnionTypeFieldRefsFieldInput = {
   connect?: InputMaybe<Array<UnionTypeFieldRefsConnectFieldInput>>;
   create?: InputMaybe<Array<UnionTypeFieldRefsCreateFieldInput>>;
+};
+
+export type UnknownTypeFieldRefsFieldInput = {
+  connect?: InputMaybe<Array<UnknownTypeFieldRefsConnectFieldInput>>;
+  create?: InputMaybe<Array<UnknownTypeFieldRefsCreateFieldInput>>;
 };
 
 export type UnionTypeFieldRefsNodeAggregationWhereInput = {
@@ -28596,12 +28790,25 @@ export type UnionTypeFieldRefsUpdateConnectionInput = {
   node?: InputMaybe<FieldUpdateInput>;
 };
 
+export type UnknownTypeFieldRefsUpdateConnectionInput = {
+  node?: InputMaybe<FieldUpdateInput>;
+};
+
 export type UnionTypeFieldRefsUpdateFieldInput = {
   connect?: InputMaybe<Array<UnionTypeFieldRefsConnectFieldInput>>;
   create?: InputMaybe<Array<UnionTypeFieldRefsCreateFieldInput>>;
   delete?: InputMaybe<Array<IBaseTypeFieldRefsDeleteFieldInput>>;
   disconnect?: InputMaybe<Array<IBaseTypeFieldRefsDisconnectFieldInput>>;
   update?: InputMaybe<UnionTypeFieldRefsUpdateConnectionInput>;
+  where?: InputMaybe<IBaseTypeFieldRefsConnectionWhere>;
+};
+
+export type UnknownTypeFieldRefsUpdateFieldInput = {
+  connect?: InputMaybe<Array<UnknownTypeFieldRefsConnectFieldInput>>;
+  create?: InputMaybe<Array<UnknownTypeFieldRefsCreateFieldInput>>;
+  delete?: InputMaybe<Array<IBaseTypeFieldRefsDeleteFieldInput>>;
+  disconnect?: InputMaybe<Array<IBaseTypeFieldRefsDisconnectFieldInput>>;
+  update?: InputMaybe<UnknownTypeFieldRefsUpdateConnectionInput>;
   where?: InputMaybe<IBaseTypeFieldRefsConnectionWhere>;
 };
 
@@ -28612,10 +28819,31 @@ export type UnionTypeOptions = {
   sort?: InputMaybe<Array<UnionTypeSort>>;
 };
 
+export type UnknownTypeOptions = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  /** Specify one or more UnknownTypeSort objects to sort UnknownTypes by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<UnknownTypeSort>>;
+};
+
 export type UnionTypeOwnerAggregateInput = {
   AND?: InputMaybe<Array<UnionTypeOwnerAggregateInput>>;
   NOT?: InputMaybe<UnionTypeOwnerAggregateInput>;
   OR?: InputMaybe<Array<UnionTypeOwnerAggregateInput>>;
+  /** @deprecated Please use the explicit _EQ version */
+  count?: InputMaybe<Scalars['Int']['input']>;
+  count_EQ?: InputMaybe<Scalars['Int']['input']>;
+  count_GT?: InputMaybe<Scalars['Int']['input']>;
+  count_GTE?: InputMaybe<Scalars['Int']['input']>;
+  count_LT?: InputMaybe<Scalars['Int']['input']>;
+  count_LTE?: InputMaybe<Scalars['Int']['input']>;
+  node?: InputMaybe<UnionTypeOwnerNodeAggregationWhereInput>;
+};
+
+export type UnknownTypeOwnerAggregateInput = {
+  AND?: InputMaybe<Array<UnknownTypeOwnerAggregateInput>>;
+  NOT?: InputMaybe<UnknownTypeOwnerAggregateInput>;
+  OR?: InputMaybe<Array<UnknownTypeOwnerAggregateInput>>;
   /** @deprecated Please use the explicit _EQ version */
   count?: InputMaybe<Scalars['Int']['input']>;
   count_EQ?: InputMaybe<Scalars['Int']['input']>;
@@ -28640,9 +28868,28 @@ export type UnionTypeOwnerCreateFieldInput = {
   node: UserCreateInput;
 };
 
+export type UnknownTypeOwnerConnectFieldInput = {
+  connect?: InputMaybe<UserConnectInput>;
+  /**
+   * Whether or not to overwrite any matching relationship with the new properties.
+   * @deprecated The overwrite argument is deprecated and will be removed
+   */
+  overwrite?: Scalars['Boolean']['input'];
+  where?: InputMaybe<UserConnectWhere>;
+};
+
+export type UnknownTypeOwnerCreateFieldInput = {
+  node: UserCreateInput;
+};
+
 export type UnionTypeOwnerFieldInput = {
   connect?: InputMaybe<UnionTypeOwnerConnectFieldInput>;
   create?: InputMaybe<UnionTypeOwnerCreateFieldInput>;
+};
+
+export type UnknownTypeOwnerFieldInput = {
+  connect?: InputMaybe<UnknownTypeOwnerConnectFieldInput>;
+  create?: InputMaybe<UnknownTypeOwnerCreateFieldInput>;
 };
 
 export type UnionTypeOwnerNodeAggregationWhereInput = {
@@ -28750,6 +28997,10 @@ export type UnionTypeOwnerUpdateConnectionInput = {
   node?: InputMaybe<UserUpdateInput>;
 };
 
+export type UnknownTypeOwnerUpdateConnectionInput = {
+  node?: InputMaybe<UserUpdateInput>;
+};
+
 export type UnionTypeOwnerUpdateFieldInput = {
   connect?: InputMaybe<UnionTypeOwnerConnectFieldInput>;
   create?: InputMaybe<UnionTypeOwnerCreateFieldInput>;
@@ -28759,8 +29010,24 @@ export type UnionTypeOwnerUpdateFieldInput = {
   where?: InputMaybe<IBaseTypeOwnerConnectionWhere>;
 };
 
+export type UnknownTypeOwnerUpdateFieldInput = {
+  connect?: InputMaybe<UnknownTypeOwnerConnectFieldInput>;
+  create?: InputMaybe<UnknownTypeOwnerCreateFieldInput>;
+  delete?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>;
+  disconnect?: InputMaybe<IBaseTypeOwnerDisconnectFieldInput>;
+  update?: InputMaybe<UnknownTypeOwnerUpdateConnectionInput>;
+  where?: InputMaybe<IBaseTypeOwnerConnectionWhere>;
+};
+
 /** Fields to sort UnionTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one UnionTypeSort object. */
 export type UnionTypeSort = {
+  id?: InputMaybe<SortDirection>;
+  kind?: InputMaybe<SortDirection>;
+  name?: InputMaybe<SortDirection>;
+};
+
+/** Fields to sort UnknownTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one UnknownTypeSort object. */
+export type UnknownTypeSort = {
   id?: InputMaybe<SortDirection>;
   kind?: InputMaybe<SortDirection>;
   name?: InputMaybe<SortDirection>;
@@ -28982,6 +29249,7 @@ export type UnionTypeTypesOfUnionTypeConnectInput = {
   RenderPropType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeRenderPropTypeConnectFieldInput>>;
   RichTextType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeRichTextTypeConnectFieldInput>>;
   UnionType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUnionTypeConnectFieldInput>>;
+  UnknownType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUnknownTypeConnectFieldInput>>;
 };
 
 export type UnionTypeTypesOfUnionTypeConnection = {
@@ -29023,6 +29291,7 @@ export type UnionTypeTypesOfUnionTypeCreateInput = {
   RenderPropType?: InputMaybe<UnionTypeTypesOfUnionTypeRenderPropTypeFieldInput>;
   RichTextType?: InputMaybe<UnionTypeTypesOfUnionTypeRichTextTypeFieldInput>;
   UnionType?: InputMaybe<UnionTypeTypesOfUnionTypeUnionTypeFieldInput>;
+  UnknownType?: InputMaybe<UnionTypeTypesOfUnionTypeUnknownTypeFieldInput>;
 };
 
 export type UnionTypeTypesOfUnionTypeDeleteInput = {
@@ -29040,6 +29309,7 @@ export type UnionTypeTypesOfUnionTypeDeleteInput = {
   RenderPropType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeRenderPropTypeDeleteFieldInput>>;
   RichTextType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeRichTextTypeDeleteFieldInput>>;
   UnionType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUnionTypeDeleteFieldInput>>;
+  UnknownType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUnknownTypeDeleteFieldInput>>;
 };
 
 export type UnionTypeTypesOfUnionTypeDisconnectInput = {
@@ -29057,6 +29327,7 @@ export type UnionTypeTypesOfUnionTypeDisconnectInput = {
   RenderPropType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeRenderPropTypeDisconnectFieldInput>>;
   RichTextType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeRichTextTypeDisconnectFieldInput>>;
   UnionType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUnionTypeDisconnectFieldInput>>;
+  UnknownType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUnknownTypeDisconnectFieldInput>>;
 };
 
 export type UnionTypeTypesOfUnionTypeElementTypeConnectFieldInput = {
@@ -29505,6 +29776,50 @@ export type UnionTypeTypesOfUnionTypeUnionTypeUpdateFieldInput = {
   where?: InputMaybe<UnionTypeTypesOfUnionTypeUnionTypeConnectionWhere>;
 };
 
+export type UnionTypeTypesOfUnionTypeUnknownTypeConnectFieldInput = {
+  connect?: InputMaybe<Array<UnknownTypeConnectInput>>;
+  where?: InputMaybe<UnknownTypeConnectWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeUnknownTypeConnectionWhere = {
+  AND?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUnknownTypeConnectionWhere>>;
+  NOT?: InputMaybe<UnionTypeTypesOfUnionTypeUnknownTypeConnectionWhere>;
+  OR?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUnknownTypeConnectionWhere>>;
+  node?: InputMaybe<UnknownTypeWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeUnknownTypeCreateFieldInput = {
+  node: UnknownTypeCreateInput;
+};
+
+export type UnionTypeTypesOfUnionTypeUnknownTypeDeleteFieldInput = {
+  delete?: InputMaybe<UnknownTypeDeleteInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeUnknownTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeUnknownTypeDisconnectFieldInput = {
+  disconnect?: InputMaybe<UnknownTypeDisconnectInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeUnknownTypeConnectionWhere>;
+};
+
+export type UnionTypeTypesOfUnionTypeUnknownTypeFieldInput = {
+  connect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUnknownTypeConnectFieldInput>>;
+  create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUnknownTypeCreateFieldInput>>;
+};
+
+export type UnionTypeTypesOfUnionTypeUnknownTypeUpdateConnectionInput = {
+  node?: InputMaybe<UnknownTypeUpdateInput>;
+};
+
+export type UnionTypeTypesOfUnionTypeUnknownTypeUpdateFieldInput = {
+  connect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUnknownTypeConnectFieldInput>>;
+  create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUnknownTypeCreateFieldInput>>;
+  delete?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUnknownTypeDeleteFieldInput>>;
+  disconnect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUnknownTypeDisconnectFieldInput>>;
+  update?: InputMaybe<UnionTypeTypesOfUnionTypeUnknownTypeUpdateConnectionInput>;
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeUnknownTypeConnectionWhere>;
+};
+
 export type UnionTypeTypesOfUnionTypeUpdateInput = {
   ActionType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeActionTypeUpdateFieldInput>>;
   AppType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeAppTypeUpdateFieldInput>>;
@@ -29520,6 +29835,7 @@ export type UnionTypeTypesOfUnionTypeUpdateInput = {
   RenderPropType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeRenderPropTypeUpdateFieldInput>>;
   RichTextType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeRichTextTypeUpdateFieldInput>>;
   UnionType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUnionTypeUpdateFieldInput>>;
+  UnknownType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeUnknownTypeUpdateFieldInput>>;
 };
 
 export type UnionTypeUpdateInput = {
@@ -29533,8 +29849,22 @@ export type UnionTypeUpdateInput = {
   /** @deprecated Please use the explicit _SET field */
   name?: InputMaybe<Scalars['String']['input']>;
   name_SET?: InputMaybe<Scalars['String']['input']>;
-  owner?: InputMaybe<UnionTypeOwnerUpdateFieldInput>;
+  owner?: InputMaybe<UnknownTypeOwnerUpdateFieldInput>;
   typesOfUnionType?: InputMaybe<UnionTypeTypesOfUnionTypeUpdateInput>;
+};
+
+export type UnknownTypeUpdateInput = {
+  fieldRefs?: InputMaybe<Array<UnknownTypeFieldRefsUpdateFieldInput>>;
+  /** @deprecated Please use the explicit _SET field */
+  id?: InputMaybe<Scalars['ID']['input']>;
+  id_SET?: InputMaybe<Scalars['ID']['input']>;
+  /** @deprecated Please use the explicit _SET field */
+  kind?: InputMaybe<TypeKind>;
+  kind_SET?: InputMaybe<TypeKind>;
+  /** @deprecated Please use the explicit _SET field */
+  name?: InputMaybe<Scalars['String']['input']>;
+  name_SET?: InputMaybe<Scalars['String']['input']>;
+  owner?: InputMaybe<UnknownTypeOwnerUpdateFieldInput>;
 };
 
 export type UnionTypeUpdatedEvent = {
@@ -29623,9 +29953,61 @@ export type UnionTypeWhere = {
   typesOfUnionType_SOME?: InputMaybe<AnyTypeWhere>;
 };
 
+export type UnknownTypeWhere = {
+  AND?: InputMaybe<Array<UnknownTypeWhere>>;
+  NOT?: InputMaybe<UnknownTypeWhere>;
+  OR?: InputMaybe<Array<UnknownTypeWhere>>;
+  fieldRefsAggregate?: InputMaybe<UnknownTypeFieldRefsAggregateInput>;
+  /** Return UnknownTypes where all of the related IBaseTypeFieldRefsConnections match this filter */
+  fieldRefsConnection_ALL?: InputMaybe<IBaseTypeFieldRefsConnectionWhere>;
+  /** Return UnknownTypes where none of the related IBaseTypeFieldRefsConnections match this filter */
+  fieldRefsConnection_NONE?: InputMaybe<IBaseTypeFieldRefsConnectionWhere>;
+  /** Return UnknownTypes where one of the related IBaseTypeFieldRefsConnections match this filter */
+  fieldRefsConnection_SINGLE?: InputMaybe<IBaseTypeFieldRefsConnectionWhere>;
+  /** Return UnknownTypes where some of the related IBaseTypeFieldRefsConnections match this filter */
+  fieldRefsConnection_SOME?: InputMaybe<IBaseTypeFieldRefsConnectionWhere>;
+  /** Return UnknownTypes where all of the related Fields match this filter */
+  fieldRefs_ALL?: InputMaybe<FieldWhere>;
+  /** Return UnknownTypes where none of the related Fields match this filter */
+  fieldRefs_NONE?: InputMaybe<FieldWhere>;
+  /** Return UnknownTypes where one of the related Fields match this filter */
+  fieldRefs_SINGLE?: InputMaybe<FieldWhere>;
+  /** Return UnknownTypes where some of the related Fields match this filter */
+  fieldRefs_SOME?: InputMaybe<FieldWhere>;
+  /** @deprecated Please use the explicit _EQ version */
+  id?: InputMaybe<Scalars['ID']['input']>;
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>;
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>;
+  id_EQ?: InputMaybe<Scalars['ID']['input']>;
+  id_IN?: InputMaybe<Array<Scalars['ID']['input']>>;
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>;
+  /** @deprecated Please use the explicit _EQ version */
+  kind?: InputMaybe<TypeKind>;
+  kind_EQ?: InputMaybe<TypeKind>;
+  kind_IN?: InputMaybe<Array<TypeKind>>;
+  /** @deprecated Please use the explicit _EQ version */
+  name?: InputMaybe<Scalars['String']['input']>;
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>;
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>;
+  name_EQ?: InputMaybe<Scalars['String']['input']>;
+  name_IN?: InputMaybe<Array<Scalars['String']['input']>>;
+  name_MATCHES?: InputMaybe<Scalars['String']['input']>;
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>;
+  owner?: InputMaybe<UserWhere>;
+  ownerAggregate?: InputMaybe<UnknownTypeOwnerAggregateInput>;
+  ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>;
+};
+
 export type UnionTypesConnection = {
   __typename?: 'UnionTypesConnection';
   edges: Array<UnionTypeEdge>;
+  pageInfo: PageInfo;
+  totalCount: Scalars['Int']['output'];
+};
+
+export type UnknownTypesConnection = {
+  __typename?: 'UnknownTypesConnection';
+  edges: Array<UnknownTypeEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
 };
@@ -29835,6 +30217,12 @@ export type UpdateUnionTypesMutationResponse = {
   __typename?: 'UpdateUnionTypesMutationResponse';
   info: UpdateInfo;
   unionTypes: Array<UnionType>;
+};
+
+export type UpdateUnknownTypesMutationResponse = {
+  __typename?: 'UpdateUnknownTypesMutationResponse';
+  info: UpdateInfo;
+  unknownTypes: Array<UnknownType>;
 };
 
 export type UpdateUsersMutationResponse = {
@@ -31929,6 +32317,8 @@ export type TypeFragment = Type_ActionType_Fragment | Type_AppType_Fragment | Ty
 
 export type UnionTypeFragment = { __typename: 'UnionType', id: string, kind: TypeKind, name: string, typesOfUnionType: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } };
 
+export type UnknownTypeFragment = { __typename: 'UnknownType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } };
+
 export type OwnerFragment = { __typename?: 'User', id: string };
 
 export type UserFragment = { __typename?: 'User', auth0Id: string, email: string, id: string, roles?: Array<Role> | null, username: string, name: string, picture: string, apps: Array<{ __typename?: 'App', id: string }>, preferences: { __typename?: 'Preference', id: string, builderBreakpointType: BreakpointType, builderWidth: number, activeConfigPaneTab: ConfigPaneTab, owner: { __typename?: 'User', id: string } } };
@@ -32522,6 +32912,13 @@ export type CreateUnionTypesMutationVariables = Exact<{
 
 export type CreateUnionTypesMutation = { __typename?: 'Mutation', types: { __typename?: 'CreateUnionTypesMutationResponse', types: Array<{ __typename: 'UnionType', id: string }> } };
 
+export type CreateUnknownTypesMutationVariables = Exact<{
+  input: Array<UnknownTypeCreateInput> | UnknownTypeCreateInput;
+}>;
+
+
+export type CreateUnknownTypesMutation = { __typename?: 'Mutation', types: { __typename?: 'CreateUnknownTypesMutationResponse', types: Array<{ __typename: 'UnknownType', id: string }> } };
+
 export type CreateInterfaceTypesMutationVariables = Exact<{
   input: Array<InterfaceTypeCreateInput> | InterfaceTypeCreateInput;
 }>;
@@ -32757,6 +33154,14 @@ export type GetUnionTypesQueryVariables = Exact<{
 
 export type GetUnionTypesQuery = { __typename?: 'Query', types: Array<{ __typename: 'UnionType', id: string, kind: TypeKind, name: string, typesOfUnionType: Array<{ __typename: 'ActionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'AppType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ArrayType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'CodeMirrorType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ElementType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'EnumType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'InterfaceType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'LambdaType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PageType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'PrimitiveType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'ReactNodeType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RenderPropType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'RichTextType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } } | { __typename: 'UnionType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }>, owner: { __typename?: 'User', id: string } }> };
 
+export type GetUnknownTypesQueryVariables = Exact<{
+  options?: InputMaybe<UnknownTypeOptions>;
+  where?: InputMaybe<UnknownTypeWhere>;
+}>;
+
+
+export type GetUnknownTypesQuery = { __typename?: 'Query', types: Array<{ __typename: 'UnknownType', id: string, kind: TypeKind, name: string, owner: { __typename?: 'User', id: string } }> };
+
 export type GetInterfaceTypesQueryVariables = Exact<{
   options?: InputMaybe<InterfaceTypeOptions>;
   where?: InputMaybe<InterfaceTypeWhere>;
@@ -32930,6 +33335,14 @@ export type UpdateUnionTypesMutationVariables = Exact<{
 
 
 export type UpdateUnionTypesMutation = { __typename?: 'Mutation', types: { __typename?: 'UpdateUnionTypesMutationResponse', types: Array<{ __typename: 'UnionType', id: string }> } };
+
+export type UpdateUnknownTypesMutationVariables = Exact<{
+  update?: InputMaybe<UnknownTypeUpdateInput>;
+  where?: InputMaybe<UnknownTypeWhere>;
+}>;
+
+
+export type UpdateUnknownTypesMutation = { __typename?: 'Mutation', types: { __typename?: 'UpdateUnknownTypesMutationResponse', types: Array<{ __typename: 'UnknownType', id: string }> } };
 
 export type UpdateInterfaceTypesMutationVariables = Exact<{
   update?: InputMaybe<InterfaceTypeUpdateInput>;
@@ -33984,9 +34397,23 @@ export const UnionTypeFragmentDoc = new TypedDocumentString(`
     id
   }
 }`, {"fragmentName":"UnionType"}) as unknown as TypedDocumentString<UnionTypeFragment, unknown>;
+export const UnknownTypeFragmentDoc = new TypedDocumentString(`
+    fragment UnknownType on UnknownType {
+  ...BaseType
+}
+    fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+  owner {
+    id
+  }
+}`, {"fragmentName":"UnknownType"}) as unknown as TypedDocumentString<UnknownTypeFragment, unknown>;
 export const TypeFragmentDoc = new TypedDocumentString(`
     fragment Type on IBaseType {
   ...ActionType
+  ...UnknownType
   ...AppType
   ...ArrayType
   ...CodeMirrorType
@@ -34002,6 +34429,9 @@ export const TypeFragmentDoc = new TypedDocumentString(`
   ...UnionType
 }
     fragment ActionType on ActionType {
+  ...BaseType
+}
+fragment AnyType on AnyType {
   ...BaseType
 }
 fragment AppType on AppType {
@@ -41111,6 +41541,16 @@ export const CreateCodeMirrorTypesDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<CreateCodeMirrorTypesMutation, CreateCodeMirrorTypesMutationVariables>;
+export const CreateUnknownTypesDocument = new TypedDocumentString(`
+    mutation CreateUnknownTypes($input: [UnknownTypeCreateInput!]!) {
+  types: createUnknownTypes(input: $input) {
+    types: unknownTypes {
+      __typename
+      id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<CreateUnknownTypesMutation, CreateUnknownTypesMutationVariables>;
 export const DeletePrimitiveTypesDocument = new TypedDocumentString(`
     mutation DeletePrimitiveTypes($delete: PrimitiveTypeDeleteInput, $where: PrimitiveTypeWhere) {
   deletePrimitiveTypes(delete: $delete, where: $where) {
@@ -41784,6 +42224,132 @@ fragment UnionType on UnionType {
     }
   }
 }`) as unknown as TypedDocumentString<GetUnionTypesQuery, GetUnionTypesQueryVariables>;
+export const GetUnknownTypesDocument = new TypedDocumentString(`
+    query GetUnknownTypes($options: UnknownTypeOptions, $where: UnknownTypeWhere) {
+  types: unknownTypes(options: $options, where: $where) {
+    ...Type
+  }
+}
+    fragment ActionType on ActionType {
+  ...BaseType
+}
+fragment AppType on AppType {
+  ...BaseType
+}
+fragment ArrayType on ArrayType {
+  ...BaseType
+  itemType {
+    ... on IBaseType {
+      ...BaseType
+    }
+  }
+}
+fragment BaseType on IBaseType {
+  __typename
+  id
+  kind
+  name
+  owner {
+    id
+  }
+}
+fragment CodeMirrorType on CodeMirrorType {
+  ...BaseType
+  language
+}
+fragment ElementType on ElementType {
+  ...BaseType
+  elementKind
+}
+fragment EnumTypeValue on EnumTypeValue {
+  id
+  key
+  value
+}
+fragment EnumType on EnumType {
+  ...BaseType
+  allowedValues {
+    ...EnumTypeValue
+  }
+}
+fragment Field on Field {
+  __typename
+  api {
+    ... on InterfaceType {
+      ...BaseType
+    }
+  }
+  defaultValues
+  description
+  fieldType {
+    ... on IBaseType {
+      ...BaseType
+    }
+  }
+  id
+  key
+  name
+  nextSibling {
+    id
+  }
+  prevSibling {
+    id
+  }
+  validationRules
+}
+fragment InterfaceType on InterfaceType {
+  ...BaseType
+  fields {
+    ...Field
+  }
+}
+fragment LambdaType on LambdaType {
+  ...BaseType
+}
+fragment PageType on PageType {
+  ...BaseType
+}
+fragment PrimitiveType on PrimitiveType {
+  ...BaseType
+  primitiveKind
+}
+fragment ReactNodeType on ReactNodeType {
+  ...BaseType
+}
+fragment RenderPropType on RenderPropType {
+  ...BaseType
+}
+fragment RichTextType on RichTextType {
+  ...BaseType
+}
+fragment Type on IBaseType {
+  ...ActionType
+  ...AppType
+  ...ArrayType
+  ...CodeMirrorType
+  ...ElementType
+  ...EnumType
+  ...InterfaceType
+  ...LambdaType
+  ...PageType
+  ...PrimitiveType
+  ...ReactNodeType
+  ...RenderPropType
+  ...RichTextType
+  ...UnionType
+  ...UnknownType
+}
+fragment UnionType on UnionType {
+  ...BaseType
+  typesOfUnionType {
+    ... on IBaseType {
+      ...BaseType
+    }
+  }
+}
+fragment UnknownType on UnknownType {
+  ...BaseType
+}`) as unknown as TypedDocumentString<GetUnknownTypesQuery, GetUnknownTypesQueryVariables>;
 export const GetInterfaceTypesDocument = new TypedDocumentString(`
     query GetInterfaceTypes($options: InterfaceTypeOptions, $where: InterfaceTypeWhere) {
   types: interfaceTypes(options: $options, where: $where) {
@@ -43017,6 +43583,16 @@ export const UpdateUnionTypesDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<UpdateUnionTypesMutation, UpdateUnionTypesMutationVariables>;
+export const UpdateUnknownTypesDocument = new TypedDocumentString(`
+    mutation UpdateUnknownTypes($update: UnknownTypeUpdateInput, $where: UnknownTypeWhere) {
+  types: updateUnknownTypes(update: $update, where: $where) {
+    types: unknownTypes {
+      __typename
+      id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<UpdateUnknownTypesMutation, UpdateUnknownTypesMutationVariables>;
 export const UpdateInterfaceTypesDocument = new TypedDocumentString(`
     mutation UpdateInterfaceTypes($update: InterfaceTypeUpdateInput, $where: InterfaceTypeWhere) {
   types: updateInterfaceTypes(update: $update, where: $where) {
