@@ -1,4 +1,4 @@
-/* eslint-disable canonical/sort-keys */
+/* eslint-disable perfectionist/sort-objects */
 import type { PackageJson } from 'type-fest'
 
 import {

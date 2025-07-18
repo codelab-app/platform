@@ -1,4 +1,4 @@
-/* eslint-disable canonical/sort-keys */
+/* eslint-disable perfectionist/sort-objects */
 
 import type { ResponsiveBreakpoints } from './useBreakpoints.hook'
 

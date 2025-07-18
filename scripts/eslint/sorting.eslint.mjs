@@ -90,7 +90,7 @@ export default [
     files: ['**/*.schema.ts', '**/*.config.ts'],
     rules: {
       // Disable sorting for specific file types where order might matter
-      'canonical/sort-keys': 'off',
+      'perfectionist/sort-objects': 'off',
     },
   },
 ]
