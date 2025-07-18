@@ -8,7 +8,8 @@ import { initUserContext } from '@codelab/backend-test-setup'
 import { IAtomCategory, IAtomType } from '@codelab/shared-abstract-core'
 import { isSubset } from '@codelab/shared-utils'
 import { CommandBus } from '@nestjs/cqrs'
-import { copy, ensureDir, readdirSync, readFileSync, rmSync } from 'fs-extra'
+import { readdirSync, readFileSync, rmSync } from 'fs'
+import { copy, ensureDir } from 'fs-extra'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 import gitChangedFiles from 'git-changed-files'

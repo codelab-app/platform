@@ -14,7 +14,7 @@ import stylistic from '@stylistic/eslint-plugin'
 export default [
   // Override 1: General rules for TS/JS files
   {
-    files: ['*.ts', '*.tsx', '*.js', '*.jsx'],
+    files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
     plugins: {
       ban: banPlugin,
       perfectionist: perfectionistPlugin,
@@ -64,7 +64,7 @@ export default [
   },
   // Override 2: JS/JSX specific rules
   {
-    files: ['*.js', '*.jsx'],
+    files: ['**/*.js', '**/*.jsx'],
     plugins: {
       '@typescript-eslint': tsPlugin,
     },
@@ -84,7 +84,7 @@ export default [
   },
   // Override 5: TS/TSX specific rules with import plugin
   {
-    files: ['*.ts', '*.tsx'],
+    files: ['**/*.ts', '**/*.tsx'],
     plugins: {
       'prefer-arrow': preferArrowPlugin,
       '@typescript-eslint': tsPlugin,

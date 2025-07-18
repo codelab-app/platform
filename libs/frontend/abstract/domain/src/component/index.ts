@@ -1,6 +1,6 @@
+export * from './component-builder.service.interface'
 export * from './component.domain.service.context'
 export * from './component.domain.service.interface'
 export * from './component.model.interface'
 export * from './component.ref'
 export * from './component.repo.interface'
-export * from './component-builder.service.interface'

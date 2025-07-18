@@ -23,8 +23,7 @@ export class ElementApplicationController {
   /**
    * Need 2 versions since some we need the returned ID as parent
    */
-  @Post(':closestContainerId/create-element')
-  @UseInterceptors(ClassSerializerInterceptor)
+  @ApiResponse({ status: 200 })
   @HttpEndpoint({
     method: 'POST',
     validate: {
@@ -41,7 +40,8 @@ export class ElementApplicationController {
       ],
     },
   })
-  @ApiResponse({ status: 200 })
+  @Post(':closestContainerId/create-element')
+  @UseInterceptors(ClassSerializerInterceptor)
   async createElement(
     @Param('closestContainerId') closestContainerId: string,
     @Body()

@@ -18,5 +18,8 @@ export default tseslint.config(
         tsconfigRootDir: dirname,
       },
     },
+    rules: {
+      'react/jsx-props-no-spreading': 'off',
+    },
   },
 )

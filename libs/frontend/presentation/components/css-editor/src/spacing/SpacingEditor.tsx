@@ -102,8 +102,7 @@ export const SpacingEditor = () => {
           classes.paddingContainer,
           `
             grid w-full justify-center
-            self-center justify-self-center bg-gray-200
-            p-1
+            place-self-center bg-gray-200 p-1
           `,
         )}
       >

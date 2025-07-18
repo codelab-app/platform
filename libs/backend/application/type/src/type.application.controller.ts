@@ -12,8 +12,8 @@ import { SeedE2eTypesCommand } from './use-case'
 export class TypeApplicationController {
   constructor(private commandBus: CommandBus) {}
 
-  @UseInterceptors(ClassSerializerInterceptor)
   @Post('seed-e2e-type')
+  @UseInterceptors(ClassSerializerInterceptor)
   seedApp() {
     return this.commandBus.execute<SeedE2eTypesCommand>(
       new SeedE2eTypesCommand(),

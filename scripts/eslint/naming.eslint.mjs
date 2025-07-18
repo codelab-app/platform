@@ -9,11 +9,14 @@ export default [
   {
     // This block had empty rules in the original config.
     // It can be a base or placeholder for future general naming rules.
-    files: ['*.ts', '*.tsx', '*.js', '*.jsx'],
+    files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
+    plugins: {
+      unicorn: pluginUnicorn,
+    },
     rules: {},
   },
   {
-    files: ['*.tsx'],
+    files: ['**/*.tsx'],
     plugins: {
       react: pluginReact,
       unicorn: pluginUnicorn,
@@ -36,7 +39,7 @@ export default [
     },
   },
   {
-    files: ['*.hook.tsx?'], // Matches *.hook.ts and *.hook.tsx
+    files: ['**/*.hook.ts', '**/*.hook.tsx'],
     plugins: {
       unicorn: pluginUnicorn,
     },
@@ -50,7 +53,7 @@ export default [
     },
   },
   {
-    files: ['*.ts'],
+    files: ['**/*.ts'],
     plugins: {
       unicorn: pluginUnicorn,
       '@typescript-eslint': tsPlugin,

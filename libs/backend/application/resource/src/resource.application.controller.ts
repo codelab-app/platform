@@ -22,8 +22,7 @@ export class ResourceApplicationController {
     private loggerService: PinoLoggerService,
   ) {}
 
-  @Post('create-resource')
-  @UseInterceptors(ClassSerializerInterceptor)
+  @ApiResponse({ status: 200 })
   @HttpEndpoint({
     method: 'POST',
     validate: {
@@ -35,7 +34,8 @@ export class ResourceApplicationController {
       ],
     },
   })
-  @ApiResponse({ status: 200 })
+  @Post('create-resource')
+  @UseInterceptors(ClassSerializerInterceptor)
   async createResource(@Body() createResourceData: ICreateResourceData) {
     this.loggerService.log(`${this.constructor.name}.createResource()`, {
       data: createResourceData,

@@ -1,3 +1,5 @@
+import pluginBan from 'eslint-plugin-ban'
+
 export default [
   {
     plugins: { ban: pluginBan },
