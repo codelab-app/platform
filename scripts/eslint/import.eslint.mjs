@@ -16,7 +16,7 @@ export default /** @type {import('eslint').FlatConfig[]} */ [
     //
     plugins: {
       '@typescript-eslint': tseslint.plugin,
-      import: importPlugin,
+      'import-x': importPlugin,
       'unused-imports': unusedImports,
     },
 
@@ -46,7 +46,10 @@ export default /** @type {import('eslint').FlatConfig[]} */ [
         },
       },
       'import-x/extensions': ['.js', '.jsx', '.ts', '.tsx'],
-      'import-x/external-module-folders': ['node_modules', 'node_modules/@types'],
+      'import-x/external-module-folders': [
+        'node_modules',
+        'node_modules/@types',
+      ],
     },
 
     //
@@ -56,16 +59,16 @@ export default /** @type {import('eslint').FlatConfig[]} */ [
       //
       // Custom import rules
       //
-      'import/no-unresolved': 'error',
-      'import/named': 'error',
-      'import/newline-after-import': 'error',
-      'import/first': 'error',
+      'import-x/no-unresolved': 'error',
+      'import-x/named': 'error',
+      'import-x/newline-after-import': 'error',
+      'import-x/first': 'error',
 
       // SUPER SLOW!
-      'import/no-cycle': 'off',
+      'import-x/no-cycle': 'off',
 
-      'import/no-duplicates': 'error',
-      'import/no-namespace': 'error',
+      'import-x/no-duplicates': 'error',
+      'import-x/no-namespace': 'error',
 
       'no-restricted-imports': [
         'error',

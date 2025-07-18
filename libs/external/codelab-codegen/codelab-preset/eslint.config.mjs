@@ -17,7 +17,7 @@ export default tseslint.config(
       },
     },
     rules: {
-      'import/no-namespace': 'off',
+      'import-x/no-namespace': 'off',
     },
   },
 )

@@ -88,7 +88,7 @@ export default [
     plugins: {
       'prefer-arrow': preferArrowPlugin,
       '@typescript-eslint': tsPlugin,
-      import: importPlugin,
+      'import-x': importPlugin,
     },
     rules: {
       ...(importPlugin.configs.typescript?.rules || {}),

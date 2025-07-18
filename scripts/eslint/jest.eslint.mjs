@@ -20,8 +20,8 @@ export default [
       ...pluginJestFormatting.configs.strict.rules,
 
       // Custom rules for Jest files from your original config
-      'import/no-unresolved': 'error',
-      'import/named': 'error',
+      'import-x/no-unresolved': 'error',
+      'import-x/named': 'error',
     },
   },
 ]
