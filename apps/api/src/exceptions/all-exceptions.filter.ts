@@ -5,8 +5,8 @@ import { BaseExceptionFilter } from '@nestjs/core'
 import { ClientError } from 'graphql-request'
 import { ValidationException } from 'typebox-validators'
 
-@Injectable()
 @Catch()
+@Injectable()
 export class AllExceptionsFilter extends BaseExceptionFilter {
   // constructor(
   //   applicationRef: HttpServer,

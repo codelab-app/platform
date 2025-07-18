@@ -54,7 +54,6 @@ export const OnInitPlugin = ({
 
   useEffect(() => {
     editor.setEditable(Boolean(config.editable))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editor, config.editable])
 
   return config.editable ? (

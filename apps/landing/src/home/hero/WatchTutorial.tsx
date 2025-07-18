@@ -22,11 +22,7 @@ export const WatchTutorial = () => {
     >
       <Image className="mt-8" preview={false} src="/banner-screenshot.png" />
       <div
-        className={`
-          watch-content absolute z-10
-          flex justify-center bg-white
-          text-2xl
-        `}
+        className="watch-content absolute z-10 flex justify-center bg-white text-2xl"
         css={`
           width: 640px;
           height: 80px;

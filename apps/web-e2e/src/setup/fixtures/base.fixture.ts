@@ -1,5 +1,4 @@
 import type { UnknownObjectLike } from '@codelab/shared-abstract-types'
-/* eslint-disable @typescript-eslint/no-invalid-void-type */
 
 import { getEnv } from '@codelab/shared-config-env'
 import { test as base } from '@playwright/test'

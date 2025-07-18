@@ -30,8 +30,8 @@ const Slider = forwardRef<
         block size-4 rounded-full
         border border-primary/50 bg-background
         shadow transition-colors
-        disabled:pointer-events-none disabled:opacity-50
         focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring
+        disabled:pointer-events-none disabled:opacity-50
       `}
     />
   </SliderPrimitive.Root>

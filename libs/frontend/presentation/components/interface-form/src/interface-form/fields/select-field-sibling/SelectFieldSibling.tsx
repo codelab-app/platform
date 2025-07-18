@@ -27,7 +27,6 @@ export const SelectFieldSibling = connectField(
 
     return (
       <SelectField
-        // eslint-disable-next-line react/jsx-props-no-spreading
         {...props}
         getPopupContainer={(triggerNode) => triggerNode.parentElement}
         name={name}

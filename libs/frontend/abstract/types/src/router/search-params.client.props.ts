@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-object-type */
 import type { Identity } from '@codelab/shared-abstract-types'
 import type { Assign } from 'utility-types'
 

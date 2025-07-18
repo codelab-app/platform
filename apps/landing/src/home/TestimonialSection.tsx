@@ -26,7 +26,12 @@ export const TestimonialItem = ({
   return (
     <>
       <div className="h-8" />
-      <Card className="mx-2 max-w-[600px] rounded-lg bg-transparent p-2 sm:p-4">
+      <Card
+        className={`
+          mx-2 max-w-[600px] rounded-lg bg-transparent p-2
+          sm:p-4
+        `}
+      >
         <div className="flex justify-center">
           <span className="relative -mt-20 flex bg-slate-700 p-4">
             <FontAwesomeIcon
@@ -40,7 +45,10 @@ export const TestimonialItem = ({
         {Array(5)
           .fill(
             <FontAwesomeIcon
-              className="pr-1.5 [&_path]:fill-yellow-400"
+              className={`
+                pr-1.5
+                [&_path]:fill-yellow-400
+              `}
               icon={faStar}
               size="lg"
             />,
@@ -51,14 +59,17 @@ export const TestimonialItem = ({
         <div
           className={`
             mt-3 min-h-[120px]
-            2xl:min-h-[140px]
-            lg:min-h-[144px]
             md:min-h-[200px]
+            lg:min-h-[144px]
             xl:min-h-[170px]
+            2xl:min-h-[140px]
           `}
         >
           <Text
-            className="text-sm text-slate-300 sm:text-base"
+            className={`
+              text-sm text-slate-300
+              sm:text-base
+            `}
             italic
           >{`"${review}"`}</Text>
         </div>
@@ -68,8 +79,7 @@ export const TestimonialItem = ({
           className={`
             text-slate-300
             [&_.ant-card-meta-description]:text-slate-400
-            [&_.ant-card-meta-title]:!mb-0
-            [&_.ant-card-meta-title]:text-neutral-300
+            [&_.ant-card-meta-title]:!mb-0 [&_.ant-card-meta-title]:text-neutral-300
           `}
           description={role}
           title={stakeholder}
@@ -109,7 +119,12 @@ const testimonialItems = [
 export const TestimonialSection = () => {
   const settings: Settings = {
     appendDots: (dots) => (
-      <div className={`${styles['slick-dots']} ${styles['slick-thumb']}`}>
+      <div
+        className={`
+          ${styles['slick-dots']}
+          ${styles['slick-thumb']}
+        `}
+      >
         {dots}
       </div>
     ),
@@ -142,21 +157,31 @@ export const TestimonialSection = () => {
   }
 
   return (
-    <div className="px-8 py-12 sm:pb-20">
+    <div
+      className={`
+        px-8 py-12
+        sm:pb-20
+      `}
+    >
       <h1
         className={`
-          mt-4 text-center text-xl
-          !font-extrabold !text-white
-          lg:text-4xl
-          md:mt-28
+          mt-4 text-center text-xl !font-extrabold !text-white
           sm:mt-14 sm:text-3xl
+          md:mt-28
+          lg:text-4xl
           xl:!text-5xl
         `}
         // level={2}
       >
         Loved by startups
       </h1>
-      <Slider {...settings} className="z-10 my-2 mt-8 pb-0 sm:my-8 sm:pb-8">
+      <Slider
+        {...settings}
+        className={`
+          z-10 my-2 mt-8 pb-0
+          sm:my-8 sm:pb-8
+        `}
+      >
         {testimonialItems.map((item, index) => (
           <TestimonialItem
             key={index}

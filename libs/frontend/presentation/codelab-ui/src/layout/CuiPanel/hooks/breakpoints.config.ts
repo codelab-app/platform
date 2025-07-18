@@ -1,8 +1,5 @@
-/* eslint-disable perfectionist/sort-objects */
-
 import type { ResponsiveBreakpoints } from './useBreakpoints.hook'
 
-/* eslint-disable perfectionist/sort-objects */
 export const explorerPaneBreakpoints: ResponsiveBreakpoints = {
   default: {
     default: 30,

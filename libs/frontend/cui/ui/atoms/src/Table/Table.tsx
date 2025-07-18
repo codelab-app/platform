@@ -62,8 +62,8 @@ const TableRow = forwardRef<
     className={cn(
       `
         border-b transition-colors
-        data-[state=selected]:bg-muted
         hover:bg-muted/50
+        data-[state=selected]:bg-muted
       `,
       className,
     )}

@@ -1,6 +1,7 @@
 // React rules configuration - using plugins from the foundation file
 // NO PLUGIN REGISTRATION HERE - plugins are registered only in eslint.config.mjs
 import reactPlugin from 'eslint-plugin-react'
+import * as reactHooksPlugin from 'eslint-plugin-react-hooks'
 
 export default [
   // Config 1: *.tsx, *.jsx (React & Tailwind CSS)
@@ -11,10 +12,12 @@ export default [
     files: ['**/*.{tsx,jsx}'],
     plugins: {
       react: reactPlugin,
+      'react-hooks': reactHooksPlugin,
     },
     rules: {
       ...(reactPlugin.configs.recommended?.rules || {}),
       ...(reactPlugin.configs['jsx-runtime']?.rules || {}),
+      ...reactHooksPlugin.configs.recommended.rules,
       'readable-tailwind/multiline': [
         'error',
         {

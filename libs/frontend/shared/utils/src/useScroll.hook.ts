@@ -1,6 +1,7 @@
 'use client'
 
 import type { Nullable } from '@codelab/shared-abstract-types'
+
 /**
  * useScroll React custom hook
  * Usage:

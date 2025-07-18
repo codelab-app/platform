@@ -1,5 +1,4 @@
 import typescriptConfig from './scripts/eslint/typescript.eslint.mjs'
-import canonical from './scripts/eslint/recommended/canonical.eslint.mjs'
 import prettierConfig from './scripts/eslint/prettier.eslint.mjs'
 import nxConfig from './scripts/eslint/nx.eslint.mjs'
 import importConfig from './scripts/eslint/import.eslint.mjs'
@@ -16,7 +15,6 @@ import tailwindConfig from './scripts/eslint/recommended/tailwind.eslint.mjs'
 
 export default [
   ...typescriptConfig,
-  ...canonical,
   ...prettierConfig,
   ...nxConfig,
   ...importConfig,

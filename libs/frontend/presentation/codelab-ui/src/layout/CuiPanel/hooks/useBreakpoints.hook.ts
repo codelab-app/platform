@@ -16,7 +16,7 @@ export interface ResponsiveBreakpoints {
   md?: Breakpoint
   lg?: Breakpoint
   xl?: Breakpoint
-  // eslint-disable-next-line @typescript-eslint/naming-convention
+
   '2xl'?: Breakpoint
 }
 

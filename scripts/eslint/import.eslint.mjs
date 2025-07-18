@@ -53,8 +53,6 @@ export default /** @type {import('eslint').FlatConfig[]} */ [
     // Rules
     //
     rules: {
-      '@typescript-eslint/no-require-imports': 'error',
-
       //
       // Custom import rules
       //
@@ -90,6 +88,16 @@ export default /** @type {import('eslint').FlatConfig[]} */ [
           ],
         },
       ],
+    },
+  },
+
+  //
+  // TypeScript-specific rules
+  //
+  {
+    files: ['**/*.{ts,tsx}'],
+    rules: {
+      '@typescript-eslint/no-require-imports': 'error',
     },
   },
 

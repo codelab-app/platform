@@ -60,15 +60,25 @@ const featureItems = [
 
 export const BestPractices = () => {
   return (
-    <section className="m-auto w-11/12 pb-0 md:pb-14 xl:container">
-      <div className="m-auto mt-8 py-4 sm:py-0">
+    <section
+      className={`
+        m-auto w-11/12 pb-0
+        xl:container
+        md:pb-14
+      `}
+    >
+      <div
+        className={`
+          m-auto mt-8 py-4
+          sm:py-0
+        `}
+      >
         <Title
           className={`
-            mt-4 text-center !text-lg
-            !font-extrabold !text-violet-600
-            lg:!text-4xl
-            md:mt-28 md:!text-3xl
+            mt-4 text-center !text-lg !font-extrabold !text-violet-600
             sm:mt-14 sm:!text-2xl
+            md:mt-28 md:!text-3xl
+            lg:!text-4xl
             xl:!text-5xl
           `}
           level={2}
@@ -77,10 +87,9 @@ export const BestPractices = () => {
         </Title>
         <div
           className={`
-            mb-11 px-4 text-center
-            text-sm text-black
-            md:text-lg
+            mb-11 px-4 text-center text-sm text-black
             sm:px-0 sm:text-base
+            md:text-lg
           `}
         >
           Re-use your knowledge of coding and apply them as you would with code.
@@ -89,15 +98,17 @@ export const BestPractices = () => {
         </div>
         <Row
           className={`
-            m-auto w-11/12 justify-center
-            pl-0
-            2xl:pl-0
+            m-auto w-11/12 justify-center pl-0
             md:container md:pl-8
+            2xl:pl-0
           `}
         >
           {featureItems.map((items, index) => (
             <Col
-              className="mb-8 mr-0 md:mr-8"
+              className={`
+                mb-8 mr-0
+                md:mr-8
+              `}
               key={index}
               lg={11}
               span={24}

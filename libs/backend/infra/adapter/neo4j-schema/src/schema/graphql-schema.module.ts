@@ -15,7 +15,7 @@ import { SchemaService } from './schema.service'
   providers: [SchemaService],
 })
 export class GraphQLSchemaModule
-  implements OnModuleDestroy, BeforeApplicationShutdown
+  implements BeforeApplicationShutdown, OnModuleDestroy
 {
   constructor(private schemaService: SchemaService) {}
 

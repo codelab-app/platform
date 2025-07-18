@@ -16,5 +16,8 @@ export default tseslint.config(
         tsconfigRootDir: dirname,
       },
     },
+    rules: {
+      'import/no-namespace': 'off',
+    },
   },
 )

@@ -1,6 +1,5 @@
 import stylistic from '@stylistic/eslint-plugin'
 // import tsPlugin from '@typescript-eslint/eslint-plugin'
-// import canonicalPlugin from 'eslint-plugin-canonical'; // Add if canonical rule is used
 
 /**
  * ESLint configuration for code formatting rules.
@@ -11,7 +10,6 @@ export default [
     plugins: {
       '@stylistic': stylistic,
       // '@typescript-eslint': tsPlugin,
-      // // canonical: canonicalPlugin,
     },
     rules: {
       '@stylistic/padding-line-between-statements': [
@@ -83,7 +81,6 @@ export default [
         },
       ],
       'no-inline-comments': 'error',
-      'canonical/export-specifier-newline': 'off',
     },
   },
 ]

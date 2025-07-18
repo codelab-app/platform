@@ -67,7 +67,6 @@ export class ExpressionTransformer
         transforms: ['jsx'],
       })
 
-      // eslint-disable-next-line no-new-func
       return new Function('return ' + (code ?? '')).call(this.context)
     } catch (error) {
       // Do not log expected error when an expression with props or state

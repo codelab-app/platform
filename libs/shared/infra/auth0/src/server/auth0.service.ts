@@ -3,11 +3,10 @@
 import { getEnv } from '@codelab/shared-config-env'
 
 interface M2MTokenResponse {
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   access_token: string
-  // eslint-disable-next-line @typescript-eslint/naming-convention
+
   expires_in: number
-  // eslint-disable-next-line @typescript-eslint/naming-convention
+
   token_type: string
 }
 
@@ -48,11 +47,11 @@ export const getM2MToken = async (): Promise<string> => {
     const response = await fetch(tokenUrl, {
       body: JSON.stringify({
         audience,
-        // eslint-disable-next-line @typescript-eslint/naming-convention
+
         client_id: clientId,
-        // eslint-disable-next-line @typescript-eslint/naming-convention
+
         client_secret: clientSecret,
-        // eslint-disable-next-line @typescript-eslint/naming-convention
+
         grant_type: 'client_credentials',
       }),
       headers: {

@@ -1,24 +1,33 @@
 export const TutorialsHeader = () => {
   return (
-    <section className="m-auto w-11/12 xl:container">
+    <section
+      className={`
+        m-auto w-11/12
+        xl:container
+      `}
+    >
       <div
         className={`
-          m-auto mt-5 w-11/12
-          pb-7
-          md:mt-20
-          sm:mt-10 sm:pb-14
+          m-auto mt-5 w-11/12 pb-7
           xl:container
+          sm:mt-10 sm:pb-14
+          md:mt-20
         `}
       >
-        <h1 className="text-center text-2xl md:text-5xl sm:text-3xl">
+        <h1
+          className={`
+            text-center text-2xl
+            sm:text-3xl
+            md:text-5xl
+          `}
+        >
           Learn To Build
         </h1>
         <p
           className={`
-            m-auto w-full px-8
-            text-center text-base text-slate-500
-            md:px-0 md:text-xl
+            m-auto w-full px-8 text-center text-base text-slate-500
             sm:text-lg
+            md:px-0 md:text-xl
             xl:w-3/5
           `}
         >

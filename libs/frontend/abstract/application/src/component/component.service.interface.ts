@@ -20,11 +20,11 @@ import type {
 } from '../services/query.service.interface'
 
 export interface IComponentService
-  extends Overwrite<
+  extends IQueryService<IComponentModel, ComponentWhere, ComponentOptions>,
+    Overwrite<
       ICrudService<IRef, ICreateComponentData, IUpdateComponentData>,
       { create(data: ICreateComponentData): Promise<IComponentModel> }
-    >,
-    IQueryService<IComponentModel, ComponentWhere, ComponentOptions> {
+    > {
   // componentDevelopmentService: IComponentDevelopmentService
   // moved to builder
   // getSelectComponentOptions(): Promise<Array<DefaultOptionType>>

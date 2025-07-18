@@ -1,19 +1,19 @@
 import type { IElementModel } from '@codelab/frontend-abstract-domain'
 import type { HierarchicalCollision } from '@codelab/frontend-application-dnd/collision-detection'
-import type React from 'react'
+import type { CSSProperties } from 'react'
 
 import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import { useDndContext } from '@dnd-kit/core'
 
 export const DROP_INDICATOR_STYLE = '5px solid #439A56'
 
-const afterStyle: React.CSSProperties = {
+const afterStyle: CSSProperties = {
   borderLeft: DROP_INDICATOR_STYLE,
   borderTop: DROP_INDICATOR_STYLE,
   boxSizing: 'border-box',
 }
 
-const beforeStyle: React.CSSProperties = {
+const beforeStyle: CSSProperties = {
   borderBottom: DROP_INDICATOR_STYLE,
   borderRight: DROP_INDICATOR_STYLE,
   boxSizing: 'border-box',

@@ -48,11 +48,11 @@ const navigationMenuTriggerStyle = cva(
     rounded-md bg-background px-4
     py-2 text-sm font-medium
     transition-colors
+    hover:bg-accent hover:text-accent-foreground
+    focus:bg-accent focus:text-accent-foreground focus:outline-none
+    disabled:pointer-events-none disabled:opacity-50
     data-[active]:bg-accent/50
     data-[state=open]:bg-accent/50
-    disabled:pointer-events-none disabled:opacity-50
-    focus:bg-accent focus:text-accent-foreground focus:outline-none
-    hover:bg-accent hover:text-accent-foreground
   `,
 )
 
@@ -118,8 +118,8 @@ const NavigationMenuViewport = forwardRef<
           h-[var(--radix-navigation-menu-viewport-height)] w-full
           overflow-hidden rounded-md border
           bg-popover text-popover-foreground shadow
-          data-[state=closed]:animate-out data-[state=closed]:zoom-out-95
           data-[state=open]:animate-in data-[state=open]:zoom-in-90
+          data-[state=closed]:animate-out data-[state=closed]:zoom-out-95
           md:w-[var(--radix-navigation-menu-viewport-width)]
         `,
         className,
@@ -143,8 +143,8 @@ const NavigationMenuIndicator = forwardRef<
         top-full z-[1] flex
         h-1.5 items-end justify-center
         overflow-hidden
-        data-[state=hidden]:animate-out data-[state=hidden]:fade-out
         data-[state=visible]:animate-in data-[state=visible]:fade-in
+        data-[state=hidden]:animate-out data-[state=hidden]:fade-out
       `,
       className,
     )}

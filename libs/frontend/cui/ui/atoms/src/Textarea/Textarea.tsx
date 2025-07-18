@@ -13,10 +13,10 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
             rounded-md border border-input
             bg-transparent px-3 py-2
             text-sm shadow-sm
-            disabled:cursor-not-allowed disabled:opacity-50
+            placeholder:text-muted-foreground
             focus-visible:outline-none focus-visible:ring-1
             focus-visible:ring-ring
-            placeholder:text-muted-foreground
+            disabled:cursor-not-allowed disabled:opacity-50
           `,
           className,
         )}
