@@ -15,7 +15,11 @@ export const BuilderDemo = () => {
       children: (
         <Row>
           <Col
-            className="mb-6 mr-0 border-2 border-solid border-black md:mr-10 lg:mb-0"
+            className={`
+              mb-6 mr-0 border-2 border-solid border-black
+              md:mr-10
+              lg:mb-0
+            `}
             lg={8}
             span={24}
             xl={6}
@@ -54,13 +58,19 @@ export const BuilderDemo = () => {
   ]
 
   return (
-    <Row className="flex w-full flex-col-reverse md:container xl:flex-row">
+    <Row
+      className={`
+        flex w-full flex-col-reverse
+        md:container
+        xl:flex-row
+      `}
+    >
       <Col
         className={`
           z-20 mt-20 px-0
-          lg:mt-60 lg:px-0
-          md:z-0 md:px-12
           sm:mt-40
+          md:z-0 md:px-12
+          lg:mt-60 lg:px-0
           xl:mt-0
         `}
         md={24}
@@ -80,20 +90,19 @@ export const BuilderDemo = () => {
           <div
             className={`
               relative m-0 w-full
-              lg:m-auto
-              md:w-3/5
               sm:w-full
+              md:w-3/5
+              lg:m-auto
               xl:m-0 xl:w-full
             `}
           >
             <img
               alt="/Browser/Safari (Big Sur)"
               className={`
-                absolute z-10 max-h-80
-                w-full rounded-xl border
-                border-solid border-gray-200 object-contain
-                md:max-h-fit
+                absolute z-10 max-h-80 w-full rounded-xl border border-solid border-gray-200
+                object-contain
                 sm:max-h-[520px]
+                md:max-h-fit
               `}
               src="/Browser/Safari (Big Sur) - Light.png"
             />

@@ -12,10 +12,10 @@ import { Kind, type OperationDefinitionNode } from 'graphql'
 import type { FetchPluginRawConfig } from './index'
 
 interface Operation {
-  node: OperationDefinitionNode
   name: string
-  type: string
+  node: OperationDefinitionNode
   resultType: string
+  type: string
   variablesTypes: string
 }
 export interface FetchVisitorConfig extends ParsedConfig {
@@ -28,8 +28,6 @@ export class FetchVisitor extends BaseVisitor<
   FetchPluginRawConfig,
   FetchVisitorConfig
 > {
-  private _operations: Array<Operation> = []
-
   constructor(
     documents: Array<Types.DocumentFile>,
     rawConfig: FetchPluginRawConfig,
@@ -41,7 +39,7 @@ export class FetchVisitor extends BaseVisitor<
     })
 
     this._operations = documents
-      .flatMap((v) => v.document?.definitions)
+      .flatMap((doc) => doc.document?.definitions)
       .filter((de) => de?.kind === Kind.OPERATION_DEFINITION)
       .map((node) => {
         const name = this.convertName(node)
@@ -64,6 +62,33 @@ export class FetchVisitor extends BaseVisitor<
 
     autoBind(this)
   }
+  public get content(): string {
+    const graphqlOperations = this._operations.map((operation) => {
+      const operationName = operation.node.name?.value
+
+      if (!operationName) {
+        throw new Error('Missing operation name')
+      }
+
+      const pascalCaseName =
+        operationName.charAt(0).toUpperCase() + operationName.slice(1)
+
+      const operationBody = `${this.config.gqlFn}(client, ${operation.name}Document.toString(), variables)`
+      const operationArgs = [
+        `variables: Types.${operation.variablesTypes}`,
+      ].join(', ')
+
+      // server actions must be exported individually
+      return `${pascalCaseName}: (${operationArgs}) => ${operationBody}`
+    })
+
+    const operations =
+      graphqlOperations.length > 1
+        ? `\n\t${graphqlOperations.join(',\n\t')}\n`
+        : graphqlOperations[0]
+
+    return `export const getSdk = (client: GraphQLClient) => ({${operations}})\n`
+  }
 
   getImports() {
     const documentImports = this._operations
@@ -77,29 +102,5 @@ export class FetchVisitor extends BaseVisitor<
     ]
   }
 
-  public get content(): string {
-    const graphqlOperations = this._operations.map((o) => {
-      const operationName = o.node.name?.value
-
-      if (!operationName) {
-        throw new Error('Missing operation name')
-      }
-
-      const pascalCaseName =
-        operationName.charAt(0).toUpperCase() + operationName.slice(1)
-
-      const operationBody = `${this.config.gqlFn}(client, ${o.name}Document.toString(), variables)`
-      const operationArgs = [`variables: Types.${o.variablesTypes}`].join(', ')
-
-      // server actions must be exported individually
-      return `${pascalCaseName}: (${operationArgs}) => ${operationBody}`
-    })
-
-    const operations =
-      graphqlOperations.length > 1
-        ? `\n\t${graphqlOperations.join(',\n\t')}\n`
-        : graphqlOperations[0]
-
-    return `export const getSdk = (client: GraphQLClient) => ({${operations}})\n`
-  }
+  private _operations: Array<Operation> = []
 }

@@ -13,7 +13,7 @@ interface FormData {
   workExperience: number
 }
 
-const schema: JSONSchemaType<FormData> = {
+const testSchema: JSONSchemaType<FormData> = {
   properties: {
     firstName: { type: 'string' },
     lastName: { type: 'string' },
@@ -36,8 +36,8 @@ const ajv = new Ajv({
   useDefaults: true,
 })
 
-const createValidator = <T,>(_schema: JSONSchemaType<T>) => {
-  const validator = ajv.compile(_schema)
+const createValidator = <T,>(schema: JSONSchemaType<T>) => {
+  const validator = ajv.compile(schema)
 
   return (model: ObjectLike) => {
     validator(model)
@@ -46,8 +46,11 @@ const createValidator = <T,>(_schema: JSONSchemaType<T>) => {
   }
 }
 
-const schemaValidator = createValidator(schema)
-const bridge = new JSONSchemaBridge(schema, schemaValidator)
+const schemaValidator = createValidator(testSchema)
+const bridge = new JSONSchemaBridge({
+  schema: testSchema,
+  validator: schemaValidator,
+})
 
 export const GuestFormBasic = () => {
   return <AutoForm onSubmit={console.log} schema={bridge} />

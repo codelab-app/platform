@@ -8,7 +8,6 @@ export const setSubmitControllerRef =
       return
     }
 
-    // eslint-disable-next-line no-param-reassign
     submitButtonRef.current = submitButton
       ? {
           submit: () => {

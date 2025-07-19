@@ -4,15 +4,15 @@ import type { Ref } from 'mobx-keystone'
 import type { ReactNode } from 'react'
 import type { ArrayOrSingle } from 'ts-essentials/dist/types'
 
+import type { IRuntimeComponentModel } from '../runtime-component'
+import type { IRuntimePageModel } from '../runtime-page'
+import type { IRuntimeElementPropModel } from '../runtime-prop'
 import type {
   IBaseRuntimeModel,
   IRuntimeModel,
 } from '../runtime.model.interface'
-import type { IRuntimeComponentModel } from '../runtime-component'
-import type { IRuntimePageModel } from '../runtime-page'
-import type { IRuntimeElementPropModel } from '../runtime-prop'
-import type { IRuntimeElementDto } from './runtime-element.dto'
 import type { IRuntimeElementStyleModel } from './runtime-element-style.model.interface'
+import type { IRuntimeElementDto } from './runtime-element.dto'
 
 /**
  * This model is the runtime model for IElementModel

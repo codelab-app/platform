@@ -8,7 +8,7 @@ import type { IRedirectModel } from '../redirect'
 import type { IModel } from '../shared'
 import type { IStoreModel } from '../store'
 
-export interface IPageModel extends IModel<IPageDto, IPageModel>, IElementTree {
+export interface IPageModel extends IElementTree, IModel<IPageDto, IPageModel> {
   app: Ref<IAppModel>
   elements: Array<IElementModel>
   /**

@@ -23,8 +23,8 @@ export interface ICreatePageUseCase {
 }
 
 export interface IPageService
-  extends IQueryService<IPageModel, PageWhere, PageOptions>,
-    ICrudService<IRef, IPageCreateFormData, IPageUpdateFormData> {
+  extends ICrudService<IRef, IPageCreateFormData, IPageUpdateFormData>,
+    IQueryService<IPageModel, PageWhere, PageOptions> {
   createPopover: IPopover<PageContextParams, PageContextParams>
   deletePopover: IPopover<PageContextParams, PageContextParams>
   updatePopover: IPopover<PageContextParams, PageContextParams>

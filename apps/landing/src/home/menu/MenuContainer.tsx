@@ -21,8 +21,20 @@ export const CodelabMenuContainer = ({ children }: PropsWithChildren) => {
       }}
       top={0}
     >
-      <div className={`z-50 m-0 bg-white p-0 ${showStickyHeader && 'shadow'}`}>
-        <div className="mx-auto xl:container">{children}</div>
+      <div
+        className={`
+          z-50 m-0 bg-white p-0
+          ${showStickyHeader && 'shadow'}
+        `}
+      >
+        <div
+          className={`
+            mx-auto
+            xl:container
+          `}
+        >
+          {children}
+        </div>
       </div>
     </Sticky>
   )

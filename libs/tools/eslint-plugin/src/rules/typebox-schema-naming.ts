@@ -99,6 +99,7 @@ export const typeboxSchemaNaming = createESLintRule({
           node.specifiers.some(
             (specifier) =>
               specifier.type === AST_NODE_TYPES.ImportSpecifier &&
+              specifier.imported.type === AST_NODE_TYPES.Identifier &&
               specifier.imported.name === TYPE_IMPORT_NAME,
           )
         ) {
@@ -110,6 +111,7 @@ export const typeboxSchemaNaming = createESLintRule({
           node.specifiers.some(
             (specifier) =>
               specifier.type === AST_NODE_TYPES.ImportSpecifier &&
+              specifier.imported.type === AST_NODE_TYPES.Identifier &&
               specifier.imported.name === TYPEBOX_IMPORT_NAME,
           )
         ) {
@@ -152,7 +154,6 @@ export const typeboxSchemaNaming = createESLintRule({
   meta: {
     docs: {
       description: 'enforce specific naming for Typebox schema assignments',
-      recommended: 'strict',
     },
     messages: {
       suffixWithSchema: 'Must suffix a typebox type with schema',

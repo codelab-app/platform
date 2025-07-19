@@ -7,7 +7,7 @@ const path_1 = require("path");
 exports.createNodesV2 = [
     '**/tsconfig{.spec,}.json',
     async (configFiles, options, context) => {
-        return await (0, devkit_1.createNodesFromFiles)((configFile, _options, _context) => createNodesInternal(configFile, _options, _context), configFiles, options ?? {}, context);
+        return await (0, devkit_1.createNodesFromFiles)((configFile, nodeOptions, nodeContext) => createNodesInternal(configFile, nodeOptions, nodeContext), configFiles, options ?? {}, context);
     },
 ];
 const createNodesInternal = async (configFilePath, options, context) => {
@@ -28,7 +28,7 @@ const createNodesInternal = async (configFilePath, options, context) => {
     const hasTsconfig = (0, fs_1.existsSync)(tsconfigPath);
     const hasTsconfigSpec = (0, fs_1.existsSync)(tsconfigSpecPath);
     // Create targets based on which files exist
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/ban-types
+    // eslint-disable-next-line @typescript-eslint/no-restricted-types, @typescript-eslint/no-explicit-any
     const targets = {};
     if (hasTsconfig) {
         targets['tsc-check'] = {

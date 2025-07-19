@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import type { IRole } from './role.enum'
 
 /**
@@ -8,6 +7,7 @@ export interface CodelabApiClaims {
   /**
    * Possibly undefined on `dev`
    */
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   neo4j_user_id: string
   /* *
    * When it comes from the Auth0 endpoint, the session data is encoded as string, not enum
@@ -23,8 +23,11 @@ export const JWT_CLAIMS = 'https://api.codelab.app/jwt/claims'
 export interface Auth0IdToken {
   [JWT_CLAIMS]: CodelabApiClaims
   email: string
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   email_verified: boolean
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   family_name: string
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   given_name: string
   locale: string
   name: string
@@ -32,6 +35,7 @@ export interface Auth0IdToken {
   picture: string
   sid: string
   sub: string
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   updated_at: string
 }
 

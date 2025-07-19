@@ -1,2 +1,2 @@
-export * from './pino.logger.service'
 export * from './pino-transport'
+export * from './pino.logger.service'

@@ -1,4 +1,4 @@
-/* eslint-disable canonical/sort-keys */
+/* eslint-disable perfectionist/sort-objects */
 import { SortDirection } from '@codelab/shared-infra-gqlgen'
 
 import type { Option, Where } from './cache-options'

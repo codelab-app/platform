@@ -2,8 +2,8 @@ import type { Static } from '@sinclair/typebox'
 
 import { Type } from '@sinclair/typebox'
 
-import { ResourceDtoSchema } from './resource.dto.interface'
 import { ResourceConfigDataSchema } from './resource-config'
+import { ResourceDtoSchema } from './resource.dto.interface'
 
 export const CreateResourceDataSchema = Type.Object({
   ...ResourceDtoSchema.properties,

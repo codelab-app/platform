@@ -1,4 +1,4 @@
-/* eslint-disable canonical/sort-keys */
+/* eslint-disable perfectionist/sort-objects */
 import type { ProjectConfiguration, Tree } from '@nx/devkit'
 
 import { updateJson } from '@nx/devkit'

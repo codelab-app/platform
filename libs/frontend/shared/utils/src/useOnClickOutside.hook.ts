@@ -12,7 +12,6 @@ export const useOnClickOutside = (
   deps: DependencyList,
 ) => {
   // Ensure that the handler won't change each render
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handlerCb = useCallback(handler, deps)
 
   useEffect(() => {

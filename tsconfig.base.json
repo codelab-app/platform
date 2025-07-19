@@ -375,9 +375,6 @@
       "@codelab/frontend-application-component/use-cases/export-component": [
         "libs/frontend/application/component/src/use-cases/export-component/index.ts"
       ],
-      "@codelab/frontend-application-component/use-cases/get-component": [
-        "libs/frontend/application/component/src/use-cases/get-component/index.ts"
-      ],
       "@codelab/frontend-application-component/use-cases/import-component": [
         "libs/frontend/application/component/src/use-cases/import-component/index.ts"
       ],

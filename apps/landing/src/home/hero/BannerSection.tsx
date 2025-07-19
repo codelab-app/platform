@@ -29,17 +29,26 @@ export const BannerSection = () => {
 
   return (
     <>
-      <section className="m-auto w-full md:container">
-        <div className="m-auto mt-0 w-11/12 py-6 md:container md:mt-12 md:py-10">
+      <section
+        className={`
+          m-auto w-full
+          md:container
+        `}
+      >
+        <div
+          className={`
+            m-auto mt-0 w-11/12 py-6
+            md:container md:mt-12 md:py-10
+          `}
+        >
           <Row className="justify-center">
             <Col className="flex flex-col items-center">
               <h1
                 className={`
-                  mb-0 text-center text-xl
-                  font-bold leading-snug
-                  lg:text-5xl
-                  md:text-4xl
+                  mb-0 text-center text-xl font-bold leading-snug
                   sm:text-3xl
+                  md:text-4xl
+                  lg:text-5xl
                   xl:!text-6xl
                 `}
               >
@@ -48,28 +57,45 @@ export const BannerSection = () => {
                   <AnimatedDiv style={props}>{words[index]}</AnimatedDiv>
                 </span>
                 <br />
-                <p className="mb-1 mt-0 md:mt-3">
+                <p
+                  className={`
+                    mb-1 mt-0
+                    md:mt-3
+                  `}
+                >
                   Without Template Limitations
                 </p>
               </h1>
               <p
                 className={`
-                  mb-3 mt-0 w-full
-                  px-2 text-center text-sm
-                  font-light leading-5
-                  lg:px-0 lg:text-xl
+                  mb-3 mt-0 w-full px-2 text-center text-sm font-light leading-5
+                  sm:px-12 sm:py-4 sm:text-base sm:leading-7
                   md:mt-4 md:text-lg
-                  sm:px-12 sm:py-4 sm:text-base
-                  sm:leading-7
+                  lg:px-0 lg:text-xl
                   xl:w-3/4 xl:text-2xl
                 `}
               >
-                <span className="mb-0 md:mb-10">
+                <span
+                  className={`
+                    mb-0
+                    md:mb-10
+                  `}
+                >
                   Nest components to construct the DOM tree as you would in
                   code.&nbsp;
                 </span>
-                <br className="hidden md:block" />
-                <span className="mb-1 hidden md:block"></span>
+                <br
+                  className={`
+                    hidden
+                    md:block
+                  `}
+                />
+                <span
+                  className={`
+                    mb-1 hidden
+                    md:block
+                  `}
+                ></span>
                 <span className="mt-0">
                   Configure props provided by UI frameworks so you can save
                   time.
@@ -77,7 +103,10 @@ export const BannerSection = () => {
               </p>
               <Space
                 align="center"
-                className="mb-6 w-full justify-center md:mb-0"
+                className={`
+                  mb-6 w-full justify-center
+                  md:mb-0
+                `}
                 size="large"
               >
                 <Fancybox
@@ -88,16 +117,19 @@ export const BannerSection = () => {
                 >
                   <Button
                     className={`
-                      h-10 w-36 rounded-lg
-                      text-sm
-                      md:h-14
+                      h-10 w-36 rounded-lg text-sm
                       sm:h-12 sm:w-48 sm:text-lg
+                      md:h-14
                     `}
                     data-fancybox="gallery"
                     data-src="https://www.youtube.com/watch?v=OrmhGmr0iTA"
                     icon={
                       <FontAwesomeIcon
-                        className="mr-2 text-sm md:text-xl sm:text-lg"
+                        className={`
+                          mr-2 text-sm
+                          sm:text-lg
+                          md:text-xl
+                        `}
                         icon={faArrowRight}
                       />
                     }
@@ -109,15 +141,18 @@ export const BannerSection = () => {
                 </Fancybox>
                 <Button
                   className={`
-                    h-10 w-36 rounded-lg
-                    text-sm
-                    md:h-14
+                    h-10 w-36 rounded-lg text-sm
                     sm:h-12 sm:w-48 sm:text-lg
+                    md:h-14
                   `}
                   ghost
                   icon={
                     <FontAwesomeIcon
-                      className="mr-2 text-sm md:text-xl sm:text-lg"
+                      className={`
+                        mr-2 text-sm
+                        sm:text-lg
+                        md:text-xl
+                      `}
                       icon={faArrowRight}
                     />
                   }
@@ -131,7 +166,12 @@ export const BannerSection = () => {
             {/* <WatchTutorial /> */}
           </Row>
         </div>
-        <div className="m-auto w-9/12 md:container md:w-11/12">
+        <div
+          className={`
+            m-auto w-9/12
+            md:container md:w-11/12
+          `}
+        >
           <BuilderDemo />
         </div>
       </section>

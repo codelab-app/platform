@@ -70,7 +70,10 @@ export const MenuMobile = () => {
       <SpaceEvenly>
         <Logo />
         <button
-          className="border-0 bg-white hover:cursor-pointer"
+          className={`
+            border-0 bg-white
+            hover:cursor-pointer
+          `}
           onClick={toggleMenu}
         >
           <FontAwesomeIcon className="text-xl" icon={faBars} />
@@ -89,11 +92,16 @@ export const MenuMobile = () => {
           </div>
           <ul className="flex flex-col p-0 pt-4">
             {menuItems.map((items, index) => (
-              <li className="hidden pt-8 text-base laptop:flex" key={index}>
+              <li
+                className={`
+                  laptop:flex
+                  hidden pt-8 text-base
+                `}
+                key={index}
+              >
                 <Link
                   className={`
-                    flex items-center font-display
-                    font-normal text-black
+                    flex items-center font-display font-normal text-black
                     hover:text-primary
                   `}
                   href={items.href}

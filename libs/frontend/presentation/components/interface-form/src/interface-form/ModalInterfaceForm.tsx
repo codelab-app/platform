@@ -12,7 +12,6 @@ export const ModalInterfaceForm = (props: ModalInterfaceFormProps) => {
 
   return (
     <InterfaceForm
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
       setIsLoading={setIsLoading}
       submitRef={submitRef}

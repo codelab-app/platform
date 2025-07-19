@@ -1,5 +1,6 @@
 import type { SearchParamsClientProps } from '@codelab/frontend-abstract-types'
 import type { IRef } from '@codelab/shared-abstract-core'
+import type { ObjectLike } from '@codelab/shared-abstract-types'
 
 import queryString from 'query-string'
 
@@ -13,8 +14,7 @@ import type { ExtractRouteContextParams, IRouteType } from './route.interface'
 /**
  * Adds query parameters to a URL path if they exist
  */
-// eslint-disable-next-line @typescript-eslint/ban-types
-export const addSearchParams = <T extends object>(
+export const addSearchParams = <T extends ObjectLike>(
   basePath: string,
   searchParams: T | undefined,
 ) => {

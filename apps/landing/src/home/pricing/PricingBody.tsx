@@ -77,14 +77,18 @@ const pricingItems = [
 
 export const PricingBody = () => {
   return (
-    <section className="m-auto w-11/12 pb-14 xl:container">
+    <section
+      className={`
+        m-auto w-11/12 pb-14
+        xl:container
+      `}
+    >
       <Row
         className={`
-          m-auto flex w-4/5
-          justify-evenly
-          2xl:w-11/12
-          md:w-full
+          m-auto flex w-4/5 justify-evenly
           sm:w-[65%]
+          md:w-full
+          2xl:w-11/12
         `}
       >
         {pricingItems.map((items, index) => (
@@ -109,12 +113,7 @@ export const PricingBody = () => {
               >
                 {items.title}
               </p>
-              <div
-                className={`
-                  mb-6 flex h-fit
-                  items-end justify-center font-extrabold
-                `}
-              >
+              <div className="mb-6 flex h-fit items-end justify-center font-extrabold">
                 <h1
                   className={classNames(
                     items.titleColor,
@@ -145,22 +144,35 @@ export const PricingBody = () => {
                 )}
                 // ghost
               >
-                <a className="text-base font-bold text-black lg:text-xl">
+                <a
+                  className={`
+                    text-base font-bold text-black
+                    lg:text-xl
+                  `}
+                >
                   {items.type}
                 </a>
               </Button>
               <p
                 className={`
-                  mb-2 mt-4 min-h-[25px]
-                  text-center text-base text-violet-400
-                  md:text-lg
+                  mb-2 mt-4 min-h-[25px] text-center text-base text-violet-400
                   sm:mb-4 sm:mt-6
+                  md:text-lg
                 `}
               >
                 {items.benefit ? items.benefit : ''}
               </p>
             </div>
-            <div className="px-0 2xl:px-4 lg:px-4 md:px-0 sm:px-4 xl:px-0">
+            <div
+              className={`
+                px-0
+                sm:px-4
+                md:px-0
+                lg:px-4
+                xl:px-0
+                2xl:px-4
+              `}
+            >
               <ul className="list-none p-0">
                 {items.description.map((list, descriptionIndex) => (
                   <li className="flex" key={descriptionIndex}>

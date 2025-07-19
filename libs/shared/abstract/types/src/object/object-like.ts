@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/ban-types */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-restricted-types, @typescript-eslint/no-explicit-any */
+
 /**
  * https://github.com/microsoft/TypeScript/issues/50087#issuecomment-1199411533
  *
@@ -8,5 +8,3 @@
 export type ObjectLike = Record<string, any>
 
 export type UnknownObjectLike = Record<string, unknown>
-
-// export type AnyObjectLike = Record<string, any>

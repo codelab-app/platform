@@ -1,4 +1,3 @@
-/* eslint-disable canonical/sort-keys */
 import { deepSortKeys } from './deep-sort'
 
 describe('deepSortKeys', () => {

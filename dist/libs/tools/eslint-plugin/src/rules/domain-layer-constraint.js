@@ -71,7 +71,6 @@ exports.domainLayerConstraint = (0, exports.createESLintRule)({
     meta: {
         docs: {
             description: 'Disallow .graphql files in project paths including "domain"',
-            recommended: 'strict',
         },
         messages: {
             endpointGraphqlConstraint: '`.endpoints.graphql` can only belong in the application layer',

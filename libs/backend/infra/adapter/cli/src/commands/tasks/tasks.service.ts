@@ -9,7 +9,6 @@ import { Stage } from '@codelab/shared-abstract-core'
 import { Injectable } from '@nestjs/common'
 import { LazyModuleLoader } from '@nestjs/core'
 import { spawn } from 'child_process'
-
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 import gitChangedFiles from 'git-changed-files'

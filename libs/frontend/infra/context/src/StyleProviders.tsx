@@ -2,10 +2,9 @@
 
 import type { PropsWithChildren } from 'react'
 
-import { App, ConfigProvider } from 'antd'
-
 // import { AntdRegistry } from './AntdRegistry'
 import { AntdRegistry } from '@ant-design/nextjs-registry'
+import { App, ConfigProvider } from 'antd'
 // import { useTwindConfig } from '@codelab/frontend/shared/utils'
 
 import { StyledComponentsRegistry } from './StyledComponentsRegistry'

@@ -8,8 +8,8 @@ export interface ServerFetchVisitorConfig extends ParsedConfig {
     graphqlPath: string;
 }
 export declare class ServerFetchVisitor extends BaseVisitor<ServerFetchPluginRawConfig, ServerFetchVisitorConfig> {
+    get content(): string;
+    getImports(): string[];
     private _operations;
     constructor(documents: Array<Types.DocumentFile>, rawConfig: ServerFetchPluginRawConfig);
-    getImports(): string[];
-    get content(): string;
 }

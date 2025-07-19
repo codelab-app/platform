@@ -1,4 +1,4 @@
-/* eslint-disable canonical/sort-keys */
+/* eslint-disable perfectionist/sort-objects */
 import type { PrettyOptions } from 'pino-pretty'
 
 import pretty from 'pino-pretty'

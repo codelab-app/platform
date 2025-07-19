@@ -1,6 +1,5 @@
 import bundleAnalyzer from '@next/bundle-analyzer'
 import { composePlugins, withNx } from '@nx/next'
-// eslint-disable-next-line import/default
 import env from 'env-var'
 
 const { get } = env

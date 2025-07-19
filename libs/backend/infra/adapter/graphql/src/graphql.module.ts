@@ -23,8 +23,8 @@ import { ConfigModule, type ConfigType } from '@nestjs/config'
 import { EventEmitterModule } from '@nestjs/event-emitter'
 import { GraphQLModule } from '@nestjs/graphql'
 
-import { GraphqlService } from './graphql.service'
 import { GraphQLTrackingService } from './graphql-tracking.service'
+import { GraphqlService } from './graphql.service'
 
 /**
  * GraphQL request is not triggering the global guard

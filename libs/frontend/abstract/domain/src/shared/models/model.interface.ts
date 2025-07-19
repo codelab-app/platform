@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
 import type { IRef } from '@codelab/shared-abstract-core'
 import type { AnyModel } from 'mobx-keystone'
 

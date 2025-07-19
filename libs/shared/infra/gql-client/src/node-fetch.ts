@@ -1,8 +1,8 @@
 import type { RequestInit as NodeRequestInit } from 'node-fetch'
 
+import fetch from 'node-fetch'
 import http from 'node:http'
 import https from 'node:https'
-import fetch from 'node-fetch'
 
 /**
  * Use custom keep-alive agents to reduce 'socket hang up' errors

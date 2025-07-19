@@ -75,11 +75,13 @@ exports.typeboxSchemaNaming = (0, exports.createESLintRule)({
             ImportDeclaration: (node) => {
                 if (node.source.value === '@sinclair/typebox' &&
                     node.specifiers.some((specifier) => specifier.type === utils_1.AST_NODE_TYPES.ImportSpecifier &&
+                        specifier.imported.type === utils_1.AST_NODE_TYPES.Identifier &&
                         specifier.imported.name === TYPE_IMPORT_NAME)) {
                     isTypeImported = true;
                 }
                 if (node.source.value === '@codelab/shared/abstract/typebox' &&
                     node.specifiers.some((specifier) => specifier.type === utils_1.AST_NODE_TYPES.ImportSpecifier &&
+                        specifier.imported.type === utils_1.AST_NODE_TYPES.Identifier &&
                         specifier.imported.name === TYPEBOX_IMPORT_NAME)) {
                     isTypeboxImported = true;
                 }
@@ -115,7 +117,6 @@ exports.typeboxSchemaNaming = (0, exports.createESLintRule)({
     meta: {
         docs: {
             description: 'enforce specific naming for Typebox schema assignments',
-            recommended: 'strict',
         },
         messages: {
             suffixWithSchema: 'Must suffix a typebox type with schema',

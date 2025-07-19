@@ -12,11 +12,11 @@ import { observer } from 'mobx-react-lite'
 import { InterfaceForm } from '../interface-form'
 
 export interface PropsFormProps
-  extends SubmitRef,
-    Pick<
+  extends Pick<
       FormProps<IPropData>,
       'modelTransform' | 'onSubmitError' | 'onSubmitSuccess' | 'submitField'
-    > {
+    >,
+    SubmitRef {
   autocomplete?: IRuntimeContext
   autosave?: boolean
   cssString?: string

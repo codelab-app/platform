@@ -3,7 +3,7 @@ module.exports = {
     const stagedFiles = files.join(' ')
 
     const rules = `
-      --rule 'unused-imports/no-unused-imports-ts: 2'
+      --rule 'unused-imports/no-unused-imports: 2'
     `
 
     // Note: lint-staged runs commands outside of Nx project context, which means:
@@ -15,7 +15,7 @@ module.exports = {
     // Cache limitations: May not catch errors involving cross-file dependencies
     // or TypeScript type information changes between cached runs
     const cmds = [
-      `cross-env ESLINT_USE_FLAT_CONFIG=false eslint --cache --color ${stagedFiles} ${rules} --fix --quiet`,
+      `cross-env ESLINT_USE_FLAT_CONFIG=true eslint --cache --color ${stagedFiles} ${rules} --fix --quiet`,
     ]
     
     // TODO: Consider batching large file lists to avoid command line length limits

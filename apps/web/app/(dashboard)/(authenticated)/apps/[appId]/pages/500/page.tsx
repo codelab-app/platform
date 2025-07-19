@@ -5,10 +5,10 @@ export const metadata: Metadata = {
   title: 'Internal Server Error',
 }
 
-const Error500Page = () => {
+const ErrorServerPage = () => {
   return <h1>500 - Internal Server Error</h1>
 }
 
-export default Error500Page
+export default ErrorServerPage
 
-Error500Page.displayName = 'Page500'
+ErrorServerPage.displayName = 'Page500'

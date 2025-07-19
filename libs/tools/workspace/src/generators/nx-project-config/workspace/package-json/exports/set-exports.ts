@@ -1,4 +1,3 @@
-/* eslint-disable canonical/sort-keys */
 import type { PackageJson } from 'type-fest'
 
 import {

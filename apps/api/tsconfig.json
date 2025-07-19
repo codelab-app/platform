@@ -14,7 +14,7 @@
     "strictBindCallApply": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "types": ["node", "cypher"]
+    "types": ["node", "cypher", "jquery"]
   },
   "include": ["webpack.config.js", "src/**/*.ts"],
   "exclude": ["jest.config.ts"]

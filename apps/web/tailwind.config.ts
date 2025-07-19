@@ -1,6 +1,7 @@
 import type { Config } from 'tailwindcss'
 
 import path from 'path'
+
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import rootTailwindConfig from '../../tailwind.config'
 
@@ -8,7 +9,6 @@ const resolveWorkspaceAbsolutePath = (pattern: string) =>
   path.resolve(__dirname, '../../', pattern)
 
 const config: Config = {
-  presets: [rootTailwindConfig],
   content: [
     resolveWorkspaceAbsolutePath(
       '{components,app}/**/*!(*.stories|*.spec).{ts,tsx,html}',
@@ -23,6 +23,7 @@ const config: Config = {
       'libs/frontend/**/src/**/*!(*.stories|*.spec).{tsx,ts,jsx,js,html}',
     ),
   ],
+  presets: [rootTailwindConfig],
 }
 
 export default config

@@ -11,8 +11,8 @@ import {
   WalkTreeMode,
 } from 'mobx-keystone'
 
-import type { IElementModel } from '../element.model.interface'
 import type { IElementTree } from '../element-tree.interface.model'
+import type { IElementModel } from '../element.model.interface'
 
 /**
  * ElementTree is a mobx store that holds the tree of elements.

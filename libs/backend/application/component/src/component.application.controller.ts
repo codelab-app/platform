@@ -28,8 +28,8 @@ export class ComponentApplicationController {
     private readonly readAdminDataService: ReadAdminDataService,
   ) {}
 
-  @UseInterceptors(ClassSerializerInterceptor)
   @Post('create-component')
+  @UseInterceptors(ClassSerializerInterceptor)
   async createComponent(@Body() createComponentData: ICreateComponentData) {
     const component = await this.componentApplicationService.createComponent(
       createComponentData,
@@ -40,16 +40,16 @@ export class ComponentApplicationController {
     return component
   }
 
-  @UseInterceptors(ClassSerializerInterceptor)
   @Get('export')
+  @UseInterceptors(ClassSerializerInterceptor)
   async exportComponent(@Request() req: ExpressRequest) {
     return await this.commandBus.execute(
       new ExportComponentCommand(req.query['id'] as string),
     )
   }
 
-  @UseInterceptors(ClassSerializerInterceptor, FileInterceptor('file'))
   @Post('import')
+  @UseInterceptors(ClassSerializerInterceptor, FileInterceptor('file'))
   async importComponent(@UploadedFile() file: Express.Multer.File) {
     const json = file.buffer.toString('utf8')
     const component: IComponentAggregate = JSON.parse(json)

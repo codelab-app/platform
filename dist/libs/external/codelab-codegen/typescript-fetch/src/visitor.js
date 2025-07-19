@@ -20,7 +20,7 @@ class FetchVisitor extends visitor_plugin_common_1.BaseVisitor {
             value: []
         });
         this._operations = documents
-            .flatMap((v) => v.document?.definitions)
+            .flatMap((doc) => doc.document?.definitions)
             .filter((de) => de?.kind === graphql_1.Kind.OPERATION_DEFINITION)
             .map((node) => {
             const name = this.convertName(node);
@@ -40,6 +40,25 @@ class FetchVisitor extends visitor_plugin_common_1.BaseVisitor {
         });
         (0, auto_bind_1.default)(this);
     }
+    get content() {
+        const graphqlOperations = this._operations.map((operation) => {
+            const operationName = operation.node.name?.value;
+            if (!operationName) {
+                throw new Error('Missing operation name');
+            }
+            const pascalCaseName = operationName.charAt(0).toUpperCase() + operationName.slice(1);
+            const operationBody = `${this.config.gqlFn}(client, ${operation.name}Document.toString(), variables)`;
+            const operationArgs = [
+                `variables: Types.${operation.variablesTypes}`,
+            ].join(', ');
+            // server actions must be exported individually
+            return `${pascalCaseName}: (${operationArgs}) => ${operationBody}`;
+        });
+        const operations = graphqlOperations.length > 1
+            ? `\n\t${graphqlOperations.join(',\n\t')}\n`
+            : graphqlOperations[0];
+        return `export const getSdk = (client: GraphQLClient) => ({${operations}})\n`;
+    }
     getImports() {
         const documentImports = this._operations
             .map((operation) => `${operation.name}Document`)
@@ -49,23 +68,6 @@ class FetchVisitor extends visitor_plugin_common_1.BaseVisitor {
             "import { GraphQLClient } from 'graphql-request'",
             `import { ${documentImports} } from '${this.config.graphqlPath}'\n`,
         ];
-    }
-    get content() {
-        const graphqlOperations = this._operations.map((o) => {
-            const operationName = o.node.name?.value;
-            if (!operationName) {
-                throw new Error('Missing operation name');
-            }
-            const pascalCaseName = operationName.charAt(0).toUpperCase() + operationName.slice(1);
-            const operationBody = `${this.config.gqlFn}(client, ${o.name}Document.toString(), variables)`;
-            const operationArgs = [`variables: Types.${o.variablesTypes}`].join(', ');
-            // server actions must be exported individually
-            return `${pascalCaseName}: (${operationArgs}) => ${operationBody}`;
-        });
-        const operations = graphqlOperations.length > 1
-            ? `\n\t${graphqlOperations.join(',\n\t')}\n`
-            : graphqlOperations[0];
-        return `export const getSdk = (client: GraphQLClient) => ({${operations}})\n`;
     }
 }
 exports.FetchVisitor = FetchVisitor;
