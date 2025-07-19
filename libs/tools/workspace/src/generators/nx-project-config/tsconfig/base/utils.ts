@@ -1,3 +1,5 @@
+import type { ObjectLike } from '@codelab/shared-abstract-types'
+
 import { type ProjectConfiguration, type Tree, updateJson } from '@nx/devkit'
 
 export const sortKeys = (object: ObjectLike): ObjectLike =>
