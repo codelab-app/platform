@@ -23,8 +23,7 @@ const getComponentApiData = async (
   })
 
   return await componentPage.evaluate((name) => {
-    // jQuery types are available through @types/jquery
-    /// <reference types="jquery" />
+    // jQuery is available in the browser context
     const apiTables = Array.from($('table.component-api-table'))
 
     return apiTables.map((table) => {
@@ -76,8 +75,7 @@ export const scrapeAntDesignData = async () => {
   })
 
   const components = await overviewPage.evaluate(() => {
-    // jQuery types are available through @types/jquery
-    /// <reference types="jquery" />
+    // jQuery is available in the browser context
     const sidebarLinks = Array.from(
       $('section.main-menu-inner .ant-menu-item a'),
     )
