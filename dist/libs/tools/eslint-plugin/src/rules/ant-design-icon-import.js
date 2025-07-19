@@ -21,7 +21,6 @@ exports.antDesignIconImport = (0, exports.createESLintRule)({
     meta: {
         docs: {
             description: 'Disallow import of icons from barrel',
-            recommended: 'strict',
         },
         messages: {
             iconImportPath: 'Must import individual icons',

@@ -20,6 +20,10 @@ export default tseslint.config(
     },
     rules: {
       'react/jsx-props-no-spreading': 'off',
+      'import-x/no-namespace': 'off',
+      'import-x/default': 'off',
+      'import-x/no-named-as-default-member': 'off',
+      'tailwindcss/no-custom-classname': 'off',
     },
   },
 )

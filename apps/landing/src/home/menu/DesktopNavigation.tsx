@@ -57,6 +57,7 @@ export const MenuDesktop = () => {
               `}
             >
               <Link
+                // eslint-disable-next-line tailwindcss/no-custom-classname
                 className="btn-primary flex items-center"
                 href="/auth/login"
               >

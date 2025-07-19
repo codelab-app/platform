@@ -1,3 +1,4 @@
+/* eslint-disable tailwindcss/no-custom-classname */
 import type { IconDefinition } from '@fortawesome/pro-light-svg-icons'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

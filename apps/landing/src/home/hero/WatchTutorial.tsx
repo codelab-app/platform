@@ -1,3 +1,4 @@
+/* eslint-disable tailwindcss/no-custom-classname */
 import PlayCircleOutlined from '@ant-design/icons/PlayCircleOutlined'
 import { Image } from 'antd'
 

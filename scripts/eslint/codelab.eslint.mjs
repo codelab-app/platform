@@ -7,7 +7,7 @@ import codelabPlugin from '@codelab/eslint-plugin'
  */
 export default [
   {
-    files: ['*.ts', '*.tsx'],
+    files: ['**/*.ts', '**/*.tsx'],
     plugins: {
       '@codelab': codelabPlugin, // Register the custom plugin
     },

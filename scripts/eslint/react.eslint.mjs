@@ -12,12 +12,10 @@ export default [
     files: ['**/*.{tsx,jsx}'],
     plugins: {
       react: reactPlugin,
-      'react-hooks': reactHooksPlugin,
     },
     rules: {
       ...(reactPlugin.configs.recommended?.rules || {}),
       ...(reactPlugin.configs['jsx-runtime']?.rules || {}),
-      ...reactHooksPlugin.configs.recommended.rules,
       'readable-tailwind/multiline': [
         'error',
         {
@@ -57,7 +55,17 @@ export default [
       },
     },
   },
-  // Config 2: *.stories.jsx, *.stories.tsx (Storybook Specific Overrides)
+  // Config 2: React hooks rules for components and hook files
+  {
+    files: ['**/*.{tsx,jsx}', '**/*.hook.{ts,tsx,js,jsx}'],
+    plugins: {
+      'react-hooks': reactHooksPlugin,
+    },
+    rules: {
+      ...reactHooksPlugin.configs.recommended.rules,
+    },
+  },
+  // Config 3: *.stories.jsx, *.stories.tsx (Storybook Specific Overrides)
   {
     files: ['**/*.stories.{jsx,tsx}'],
     // No plugins property - plugins are registered only in eslint.config.mjs

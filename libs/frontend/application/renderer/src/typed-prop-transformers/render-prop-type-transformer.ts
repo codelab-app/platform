@@ -36,9 +36,7 @@ const matchPropsToFields = (
 ): IPropData =>
   props.reduce(
     (acc, val, index) =>
-      fields[index]?.key
-        ? { ...acc, [fields[index]?.key as string]: val }
-        : acc,
+      fields[index]?.key ? { ...acc, [fields[index].key as string]: val } : acc,
     {},
   )
 

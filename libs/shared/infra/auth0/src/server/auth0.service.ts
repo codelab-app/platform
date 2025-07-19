@@ -3,10 +3,13 @@
 import { getEnv } from '@codelab/shared-config-env'
 
 interface M2MTokenResponse {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   access_token: string
 
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   expires_in: number
 
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   token_type: string
 }
 
