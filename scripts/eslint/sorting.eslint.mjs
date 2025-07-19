@@ -93,4 +93,14 @@ export default [
       'perfectionist/sort-objects': 'off',
     },
   },
+  // Config 3: NestJS Controllers (Disable member ordering to preserve decorator order)
+  {
+    files: ['**/*.controller.ts'],
+    rules: {
+      // NestJS requires specific decorator ordering for proper route registration
+      '@typescript-eslint/member-ordering': 'off',
+      'perfectionist/sort-classes': 'off',
+      'perfectionist/sort-decorators': 'off',
+    },
+  },
 ]
