@@ -98,7 +98,7 @@
     "@lexical/react": "0.17.1",
     "@lexical/utils": "0.17.1",
     "@mailchimp/mailchimp_marketing": "3.0.80",
-    "@mjackson/headers": "^0.11.1",
+    "@mjackson/headers": "0.11.1",
     "@neo4j/graphql": "6.3.1",
     "@nestjs/apollo": "13.0.2",
     "@nestjs/bullmq": "11.0.2",

@@ -150,7 +150,7 @@ importers:
         specifier: 3.0.80
         version: 3.0.80
       '@mjackson/headers':
-        specifier: ^0.11.1
+        specifier: 0.11.1
         version: 0.11.1
       '@neo4j/graphql':
         specifier: 6.3.1
