@@ -4,6 +4,11 @@
   "type": "commonjs",
   "generators": "./generators.json",
   "executors": "./executors.json",
+  "files": [
+    "src",
+    "generators.json",
+    "executors.json"
+  ],
   "dependencies": {
     "@nx/devkit": "19.0.4"
   },
