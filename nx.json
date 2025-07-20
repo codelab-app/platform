@@ -114,7 +114,7 @@
       "cache": true,
       "defaultConfiguration": "test",
       "inputs": ["default", "^default", "{workspaceRoot}/jest.preset.ts"],
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": ["{workspaceRoot}/coverage/{projectName}"],
       "options": {
         "parallel": 1,
         "passWithNoTests": true,

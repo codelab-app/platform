@@ -422,6 +422,7 @@
     "eslint": "9.31.0",
     "eslint-config-next": "15.4.1",
     "eslint-config-prettier": "10.1.5",
+    "eslint-formatter-junit": "^8.40.0",
     "eslint-import-resolver-node": "0.3.9",
     "eslint-import-resolver-typescript": "4.4.4",
     "eslint-plugin-ban": "2.0.0",
