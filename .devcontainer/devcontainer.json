@@ -1,0 +1,96 @@
+{
+  "name": "Codelab Platform",
+  "dockerComposeFile": [
+    "../.docker/dev/docker-compose.yaml",
+    "docker-compose.yml"
+  ],
+  "service": "app",
+  "workspaceFolder": "/workspace",
+
+  // Features to add to the dev container
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true,
+      "configureZshAsDefaultShell": true,
+      "installOhMyZsh": true,
+      "upgradePackages": true,
+      "username": "vscode",
+      "userUid": "1000",
+      "userGid": "1000"
+    },
+    "ghcr.io/devcontainers/features/node:1": {
+      "nodeGypDependencies": true,
+      "version": "22",
+      "nvmVersion": "latest"
+    },
+    "ghcr.io/devcontainers/features/git:1": {
+      "ppa": true,
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "moby": true,
+      "dockerDashComposeVersion": "v2"
+    }
+  },
+
+  // Configure tool-specific properties
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "terminal.integrated.profiles.linux": {
+          "zsh": {
+            "path": "/bin/zsh"
+          }
+        }
+      },
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "nrwl.angular-console",
+        "firsttris.vscode-jest-runner",
+        "ms-playwright.playwright",
+        "styled-components.vscode-styled-components",
+        "bradlc.vscode-tailwindcss",
+        "GraphQL.vscode-graphql",
+        "GraphQL.vscode-graphql-syntax",
+        "ms-azuretools.vscode-docker",
+        "hashicorp.terraform",
+        "ms-vscode.vscode-typescript-next",
+        "GitHub.copilot",
+        "GitHub.copilot-chat"
+      ]
+    }
+  },
+
+  // Port forwarding
+  "forwardPorts": [
+    3000, // Next.js web app
+    4000, // NestJS API
+    7474, // Neo4j Browser
+    7687, // Neo4j Bolt
+    7475, // Neo4j Test Browser
+    7688, // Neo4j Test Bolt
+    16686, // Jaeger UI
+    4100 // LiteLLM
+  ],
+
+  // Use 'postCreateCommand' to run commands after the container is created
+  "postCreateCommand": ".devcontainer/post-create.sh",
+
+  // Environment variables
+  "containerEnv": {
+    "NODE_ENV": "development",
+    "PNPM_HOME": "/home/vscode/.local/share/pnpm",
+    "PATH": "${PATH}:/home/vscode/.local/share/pnpm"
+  },
+
+  // Mount points
+  "mounts": [
+    "source=${localWorkspaceFolder}/.env,target=/workspace/.env,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached,readonly"
+  ],
+
+  // Run as non-root user
+  "remoteUser": "vscode"
+}
