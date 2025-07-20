@@ -71,7 +71,6 @@ jobs:
             - staging
       requires:
         - setup-workspace
-        - build-nx-libs
   - unit:
       resource_class: large
       filters:

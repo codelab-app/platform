@@ -15,12 +15,7 @@
       "executor": "@nx/eslint:lint"
     },
     "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "libs/frontend/presentation/components/codemirror/jest.config.ts",
-        "runInBand": true
-      }
+      "executor": "@nx/jest:jest"
     }
   }
 }

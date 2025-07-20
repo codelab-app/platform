@@ -1,12 +1,15 @@
-import { TSESLint } from '@typescript-eslint/utils'
+import tsParser from '@typescript-eslint/parser'
+import { RuleTester } from '@typescript-eslint/rule-tester'
 
 import { typeboxSchemaNaming } from './typebox-schema-naming'
 
-const ruleTester = new TSESLint.RuleTester({
-  parser: require.resolve('@typescript-eslint/parser'),
-  parserOptions: {
-    ecmaVersion: 2020,
-    sourceType: 'module',
+const ruleTester = new RuleTester({
+  languageOptions: {
+    parser: tsParser,
+    parserOptions: {
+      ecmaVersion: 2020,
+      sourceType: 'module',
+    },
   },
 })
 

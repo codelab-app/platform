@@ -16,19 +16,7 @@
       "outputs": ["{options.outputFile}"]
     },
     "test": {
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
-        }
-      },
-      "executor": "@nx/jest:jest",
-      "options": {
-        "jestConfig": "libs/frontend/application/redirect/jest.config.ts",
-        "passWithNoTests": true,
-        "runInBand": true
-      },
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
+      "executor": "@nx/jest:jest"
     }
   }
 }

@@ -18,12 +18,7 @@
       }
     },
     "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/app"],
-      "options": {
-        "jestConfig": "libs/frontend/domain/app/jest.config.ts",
-        "runInBand": true
-      }
+      "executor": "@nx/jest:jest"
     }
   }
 }

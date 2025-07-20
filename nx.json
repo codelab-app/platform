@@ -141,14 +141,14 @@
         "test.integration": {
           "reporters": ["default"],
           "color": true,
-          "testPathPattern": ["i.spec.ts"],
+          "testPathPatterns": ["i\\.spec\\.ts$"],
           "runInBand": true
         },
         "ci.integration": {
           "ci": true,
           "codeCoverage": false,
           "color": true,
-          "testPathPattern": ["i.spec.ts"],
+          "testPathPatterns": ["i\\.spec\\.ts$"],
           "runInBand": true
         }
       }

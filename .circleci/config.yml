@@ -871,7 +871,6 @@ workflows:
                 - staging
           requires:
             - setup-workspace
-            - build-nx-libs
           resource_class: medium
       - unit:
           filters:

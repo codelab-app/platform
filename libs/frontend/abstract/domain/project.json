@@ -15,12 +15,7 @@
       "executor": "@nx/eslint:lint"
     },
     "test": {
-      "executor": "@nx/jest:jest",
-      "options": {
-        "jestConfig": "libs/frontend/abstract/domain/jest.config.ts",
-        "runInBand": true
-      },
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
+      "executor": "@nx/jest:jest"
     }
   }
 }
