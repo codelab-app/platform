@@ -3,7 +3,7 @@
   "compilerOptions": {
     "outDir": "../../../../dist/out-tsc",
     "module": "commonjs",
-    "types": ["jest", "node", "cypher"]
+    "types": ["jest", "node", "cypher", "jquery"]
   },
   "include": [
     "jest.config.ts",

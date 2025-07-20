@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
-
 import type { Assign } from 'utility-types'
 /**
  * Identity type that forces TypeScript to compute object types, but only works for hovering the newly assigned type. If we hover source type it becomes more complicated.

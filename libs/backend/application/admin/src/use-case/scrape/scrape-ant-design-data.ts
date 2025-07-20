@@ -2,11 +2,8 @@ import type { IAntDesignApi } from '@codelab/backend-abstract-core'
 import type { Browser } from 'puppeteer'
 
 import { saveFormattedFile } from '@codelab/backend-shared-util'
-import 'jquery'
 import path from 'path'
 import puppeteer from 'puppeteer'
-
-declare const $: JQueryStatic
 
 const BASE_URL = 'https://ant.design/components/'
 const outputDirectory = './data/antd-v5'
@@ -22,10 +19,11 @@ const getComponentApiData = async (
 
   // Inject jQuery into the page
   await componentPage.addScriptTag({
-    path: 'node_modules/jquery/dist/jquery.min.js',
+    path: require.resolve('jquery/dist/jquery.min.js'),
   })
 
   return await componentPage.evaluate((name) => {
+    // jQuery is available in the browser context
     const apiTables = Array.from($('table.component-api-table'))
 
     return apiTables.map((table) => {
@@ -69,7 +67,7 @@ export const scrapeAntDesignData = async () => {
 
   // Inject jQuery into the page
   await overviewPage.addScriptTag({
-    path: 'node_modules/jquery/dist/jquery.min.js',
+    path: require.resolve('jquery/dist/jquery.min.js'),
   })
 
   overviewPage.on('console', (msg) => {
@@ -77,6 +75,7 @@ export const scrapeAntDesignData = async () => {
   })
 
   const components = await overviewPage.evaluate(() => {
+    // jQuery is available in the browser context
     const sidebarLinks = Array.from(
       $('section.main-menu-inner .ant-menu-item a'),
     )

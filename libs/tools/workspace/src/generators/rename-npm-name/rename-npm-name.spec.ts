@@ -255,11 +255,6 @@ export { func1, func2, defaultExport, namespace }`
             'libs/backend/infra/adapter/auth0/src/index.ts',
           ],
 
-          // OLD-style path with subpath that should be preserved
-          '@codelab/shared/infra/logger/server': [
-            'libs/shared/infra/logger/src/server/index.ts',
-          ],
-
           // Direct package mapping (should stay the same)
           '@codelab/shared-infra-auth0': [
             'libs/shared/infra/auth0/src/index.ts',
@@ -272,6 +267,11 @@ export { func1, func2, defaultExport, namespace }`
 
           '@codelab/shared-infra-auth0/server': [
             'libs/shared/infra/auth0/src/server/index.ts',
+          ],
+
+          // OLD-style path with subpath that should be preserved
+          '@codelab/shared/infra/logger/server': [
+            'libs/shared/infra/logger/src/server/index.ts',
           ],
           // Unknown path with slashes (should stay the same - only known mappings are transformed)
           '@codelab/some/unknown/path': ['libs/some/unknown/path/src/index.ts'],

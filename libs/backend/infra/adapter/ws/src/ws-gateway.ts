@@ -9,11 +9,11 @@ import {
 } from '@nestjs/websockets'
 import { Server, Socket } from 'socket.io'
 
+@Injectable()
 @WebSocketGateway({
   // Enable CORS for browser clients
   cors: true,
 })
-@Injectable()
 export class WsGateway implements OnGatewayConnection, OnGatewayDisconnect {
   constructor(private readonly logger: PinoLoggerService) {}
 

@@ -74,7 +74,6 @@ export const evaluateExpression = <IContext extends ObjectLike>(
     const code = `return ${stripExpression(expression)}`
     const contextKeys = (keys(context) as Array<string>).sort()
 
-    // eslint-disable-next-line no-new-func
     return new Function(...contextKeys, code)(
       ...contextKeys.map((key) => context[key as keyof IContext]),
     )

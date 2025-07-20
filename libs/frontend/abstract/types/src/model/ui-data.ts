@@ -238,12 +238,6 @@ const UiDataRecord = {
   [UiKey.ElementFormCreate]: {
     label: 'Create Element Form',
   },
-  [UiKey.ElementPopconfirmFormDelete]: {
-    label: 'Delete Element Popconfirm Form',
-  },
-  [UiKey.ElementPopconfirmOverlayDelete]: {
-    label: 'Delete Element Popconfirm Overlay',
-  },
   [UiKey.ElementFormMove]: {
     label: 'Move Element Form',
   },
@@ -252,6 +246,12 @@ const UiDataRecord = {
   },
   [UiKey.ElementModalDelete]: {
     label: 'Delete Element Modal',
+  },
+  [UiKey.ElementPopconfirmFormDelete]: {
+    label: 'Delete Element Popconfirm Form',
+  },
+  [UiKey.ElementPopconfirmOverlayDelete]: {
+    label: 'Delete Element Popconfirm Overlay',
   },
   [UiKey.ElementPopoverCreate]: {
     label: 'Create Element',
@@ -352,14 +352,14 @@ const UiDataRecord = {
   [UiKey.PageToolbarItemUpdateCancel]: {
     label: 'Cancel Update Page Toolbar Item',
   },
+  [UiKey.PaginationControl]: {
+    label: 'Pagination Control Toolbar Item',
+  },
   /**
    * Pagination
    */
   [UiKey.PaginationToolbarItemSearch]: {
     label: 'Search Pagination Toolbar Item',
-  },
-  [UiKey.PaginationControl]: {
-    label: 'Pagination Control Toolbar Item',
   },
   /**
    * ProgressBar
@@ -379,11 +379,11 @@ const UiDataRecord = {
   [UiKey.RedirectModalDelete]: {
     label: 'Delete Redirect Modal',
   },
-  [UiKey.RedirectPopoverCreate]: {
-    label: 'Create Redirect',
-  },
   [UiKey.RedirectPopconfirmDelete]: {
     label: 'Delete Redirect Popconfirm',
+  },
+  [UiKey.RedirectPopoverCreate]: {
+    label: 'Create Redirect',
   },
   [UiKey.RedirectPopoverUpdate]: {
     label: 'Update Redirect',

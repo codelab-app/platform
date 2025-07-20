@@ -3,8 +3,8 @@ import type { Identity, ObjectLike } from '@codelab/shared-abstract-types'
 /**
  * Helper type to compute merged params
  */
-// eslint-disable-next-line @typescript-eslint/ban-types
-type MergeRouteParams<Route, ExtraParams extends object> = Route extends {
+
+type MergeRouteParams<Route, ExtraParams extends ObjectLike> = Route extends {
   params: infer P
 }
   ? Identity<{ params: Identity<P & ExtraParams> }>

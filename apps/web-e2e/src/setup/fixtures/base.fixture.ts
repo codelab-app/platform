@@ -1,5 +1,4 @@
 import type { UnknownObjectLike } from '@codelab/shared-abstract-types'
-/* eslint-disable @typescript-eslint/no-invalid-void-type */
 
 import { getEnv } from '@codelab/shared-config-env'
 import { test as base } from '@playwright/test'
@@ -44,14 +43,9 @@ const ensureWithDefaults = async (
 /**
  * You cannot directly apply storageState to an existing Page. Instead, you apply the storage state at the BrowserContext level and then create a new Page in that context
  */
-export const baseTest = base.extend<
-  {
-    forEachTest: void
-  },
-  {
-    // forEachWorker: void
-  }
->({
+export const baseTest = base.extend<{
+  forEachTest: void
+}>({
   /**
    * Playwright automatically closes the browser context after each test, but we need to persist storage across tests since playwright treats each test as separate storage
    */

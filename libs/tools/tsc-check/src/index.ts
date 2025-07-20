@@ -4,15 +4,14 @@ import { createNodesFromFiles, readJsonFile } from '@nx/devkit'
 import { existsSync } from 'fs'
 import { dirname, join } from 'path'
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface MyPluginOptions {}
+export type MyPluginOptions = unknown
 
 export const createNodesV2: CreateNodesV2<MyPluginOptions> = [
   '**/tsconfig{.spec,}.json',
   async (configFiles, options, context) => {
     return await createNodesFromFiles(
-      (configFile, _options, _context) =>
-        createNodesInternal(configFile, _options, _context),
+      (configFile, nodeOptions, nodeContext) =>
+        createNodesInternal(configFile, nodeOptions, nodeContext),
       configFiles,
       options ?? {},
       context,
@@ -47,7 +46,7 @@ const createNodesInternal = async (
   const hasTsconfig = existsSync(tsconfigPath)
   const hasTsconfigSpec = existsSync(tsconfigSpecPath)
   // Create targets based on which files exist
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/ban-types
+  // eslint-disable-next-line @typescript-eslint/no-restricted-types, @typescript-eslint/no-explicit-any
   const targets: Record<string, any> = {}
 
   if (hasTsconfig) {

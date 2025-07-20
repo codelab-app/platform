@@ -1,5 +1,3 @@
-/* eslint-disable unicorn/filename-case */
-
 import type { IRendererModel } from '@codelab/frontend-abstract-application'
 import type { IElementModel } from '@codelab/frontend-abstract-domain'
 import type { Point } from '@codelab/frontend-shared-utils'

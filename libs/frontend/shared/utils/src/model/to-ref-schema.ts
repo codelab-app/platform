@@ -5,7 +5,7 @@ export function toRefSchema(ref: Ref<ObjectLike>): { id: string }
 export function toRefSchema(ref: Ref<ObjectLike> | null): { id: string } | null
 
 // For overloading
-// eslint-disable-next-line prefer-arrow/prefer-arrow-functions, func-style
+// eslint-disable-next-line prefer-arrow/prefer-arrow-functions
 export function toRefSchema(
   ref: Ref<ObjectLike> | null,
 ): { id: string } | null {

@@ -1,7 +1,6 @@
 {
   "defaultBase": "master",
   "useInferencePlugins": true,
-  "parallel": 3,
   "defaultProject": "web",
   "maxCacheSize": "2GB",
   "nxCloudId": "67fcdb6b7eeb2ddcc348061b",
@@ -115,7 +114,7 @@
       "cache": true,
       "defaultConfiguration": "test",
       "inputs": ["default", "^default", "{workspaceRoot}/jest.preset.ts"],
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": ["{workspaceRoot}/coverage/{projectName}"],
       "options": {
         "parallel": 1,
         "passWithNoTests": true,
@@ -142,14 +141,14 @@
         "test.integration": {
           "reporters": ["default"],
           "color": true,
-          "testPathPattern": ["i.spec.ts"],
+          "testPathPatterns": ["i\\.spec\\.ts$"],
           "runInBand": true
         },
         "ci.integration": {
           "ci": true,
           "codeCoverage": false,
           "color": true,
-          "testPathPattern": ["i.spec.ts"],
+          "testPathPatterns": ["i\\.spec\\.ts$"],
           "runInBand": true
         }
       }

@@ -12,24 +12,33 @@ export const MenuDesktop = () => {
       <menu className="m-0 h-[67px] w-full bg-white p-0">
         <ul
           className={`
-            flex h-full flex-row
-            items-center p-0
-            2xl:px-8
-            md:px-6
             tablet:justify-between
+            flex h-full flex-row items-center p-0
+            md:px-6
+            2xl:px-8
           `}
         >
           <li className="flex justify-start p-2">
             <Logo />
           </li>
           {/* Used to push other items to the end */}
-          <li className="hidden grow laptop:flex"></li>
+          <li
+            className={`
+              laptop:flex
+              hidden grow
+            `}
+          ></li>
           {menuItems.map((items, index) => (
-            <li className="mr-4 hidden p-2 text-base laptop:flex" key={index}>
+            <li
+              className={`
+                laptop:flex
+                mr-4 hidden p-2 text-base
+              `}
+              key={index}
+            >
               <Link
                 className={`
-                  flex items-center font-display
-                  font-normal text-black
+                  flex items-center font-display font-normal text-black
                   hover:text-primary
                 `}
                 href={items.href}
@@ -41,8 +50,14 @@ export const MenuDesktop = () => {
           {/* eslint-disable-next-line
           @typescript-eslint/no-unnecessary-condition */}
           {user ? (
-            <li className="hidden p-2 laptop:flex">
+            <li
+              className={`
+                laptop:flex
+                hidden p-2
+              `}
+            >
               <Link
+                // eslint-disable-next-line tailwindcss/no-custom-classname
                 className="btn-primary flex items-center"
                 href="/auth/login"
               >
@@ -51,14 +66,19 @@ export const MenuDesktop = () => {
             </li>
           ) : (
             <>
-              <li className="p-2 laptop:flex laptop:w-auto tablet:w-8">
+              <li
+                className={`
+                  laptop:flex laptop:w-auto
+                  tablet:w-8
+                  p-2
+                `}
+              >
                 {/* <Link href="/auth/login" legacyBehavior> */}
                 <Button className="mr-2 rounded-lg" ghost type="primary">
                   <Link
                     className={`
-                      hidden items-center text-base
-                      font-semibold
                       laptop:flex
+                      hidden items-center text-base font-semibold
                     `}
                     href="/auth/login"
                   >
@@ -67,14 +87,18 @@ export const MenuDesktop = () => {
                 </Button>
                 {/* </Link> */}
               </li>
-              <li className="hidden p-2 laptop:flex">
+              <li
+                className={`
+                  laptop:flex
+                  hidden p-2
+                `}
+              >
                 {/* <Link href="/auth/logout" legacyBehavior> */}
                 <Button className="rounded-lg" type="primary">
                   <Link
                     className={`
-                      hidden items-center text-base
-                      font-semibold
                       laptop:flex
+                      hidden items-center text-base font-semibold
                     `}
                     href="/auth/logout"
                   >

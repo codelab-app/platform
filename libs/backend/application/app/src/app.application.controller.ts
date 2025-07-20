@@ -34,16 +34,16 @@ export class AppApplicationController {
     private appApplicationService: AppApplicationService,
   ) {}
 
-  @UseInterceptors(ClassSerializerInterceptor)
   @Get('export')
+  @UseInterceptors(ClassSerializerInterceptor)
   async exportApp(@Request() req: ExpressRequest) {
     return this.commandBus.execute<ExportAppCommand, IAppAggregate>(
       new ExportAppCommand({ id: req.query['id'] as string }),
     )
   }
 
-  @UseInterceptors(ClassSerializerInterceptor, FileInterceptor('file'))
   @Post('import')
+  @UseInterceptors(ClassSerializerInterceptor, FileInterceptor('file'))
   async importApp(
     @UploadedFile() file: Express.Multer.File,
   ): Promise<IJobQueueResponse> {
@@ -67,8 +67,8 @@ export class AppApplicationController {
   /**
    * Only seed required atom types for the spec to speed up the test
    */
-  @UseInterceptors(ClassSerializerInterceptor)
   @Post('seed-e2e-app')
+  @UseInterceptors(ClassSerializerInterceptor)
   async seedApp(
     @Body()
     {

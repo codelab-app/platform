@@ -16,12 +16,7 @@
       "outputs": ["{options.outputFile}"]
     },
     "test": {
-      "executor": "@nx/jest:jest",
-      "options": {
-        "jestConfig": "libs/backend/application/redirect/jest.config.ts",
-        "runInBand": true
-      },
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
+      "executor": "@nx/jest:jest"
     }
   }
 }

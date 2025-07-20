@@ -13,7 +13,6 @@ export const WrapIf = <T,>({
   wrapperProps,
 }: PropsWithChildren<WrapIfProps<T>>) => {
   if (condition) {
-    // eslint-disable-next-line react/react-in-jsx-scope
     return <Wrapper {...wrapperProps}>{children}</Wrapper>
   }
 

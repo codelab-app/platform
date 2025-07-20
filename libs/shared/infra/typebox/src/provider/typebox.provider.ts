@@ -35,13 +35,15 @@ export class TypeBoxProvider {
   }
 
   tSchema(kind: TKind): TSchema {
-    const pair = this.config.schemaKindMap.find(([_kind]) => _kind === kind)
+    const pair = this.config.schemaKindMap.find(
+      ([schemaKind]) => schemaKind === kind,
+    )
 
     if (!pair) {
       console.error('Failed to find schema for kind:', kind)
       console.error(
         'Available schemas:',
-        this.config.schemaKindMap.map(([_kind]) => _kind),
+        this.config.schemaKindMap.map(([schemaKind]) => schemaKind),
       )
       throw new Error('Schema not found')
     }

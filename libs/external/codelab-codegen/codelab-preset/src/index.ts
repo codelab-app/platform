@@ -13,8 +13,12 @@ import { Kind } from 'graphql'
 
 export const preset: Types.OutputPreset = {
   buildGeneratesSection: (options) => {
+    if (!options.schemaAst) {
+      throw new Error('Schema AST is required')
+    }
+
     const visitor = new ClientSideBaseVisitor(
-      options.schemaAst!,
+      options.schemaAst,
       [],
       options.config,
       options.config,
@@ -105,18 +109,18 @@ export const preset: Types.OutputPreset = {
 }
 
 interface Deferred<T = void> {
-  resolve(value: T): void
-  reject(value: unknown): void
   promise: Promise<T>
+  reject(value: unknown): void
+  resolve(value: T): void
 }
 
 const createDeferred = <T = void>(): Deferred<T> => {
-  const d = {} as Deferred<T>
+  const deferred = {} as Deferred<T>
 
-  d.promise = new Promise<T>((resolve, reject) => {
-    d.resolve = resolve
-    d.reject = reject
+  deferred.promise = new Promise<T>((resolve, reject) => {
+    deferred.resolve = resolve
+    deferred.reject = reject
   })
 
-  return d
+  return deferred
 }

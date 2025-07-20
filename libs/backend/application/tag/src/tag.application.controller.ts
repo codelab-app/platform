@@ -12,8 +12,8 @@ import { SeedE2eTagsCommand } from './use-case'
 export class TagApplicationController {
   constructor(private commandBus: CommandBus) {}
 
-  @UseInterceptors(ClassSerializerInterceptor)
   @Post('seed-e2e-tag')
+  @UseInterceptors(ClassSerializerInterceptor)
   seedApp() {
     return this.commandBus.execute(new SeedE2eTagsCommand())
   }

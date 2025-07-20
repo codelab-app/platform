@@ -85,7 +85,6 @@ export const domainLayerConstraint = createESLintRule({
     docs: {
       description:
         'Disallow .graphql files in project paths including "domain"',
-      recommended: 'strict',
     },
     messages: {
       endpointGraphqlConstraint:

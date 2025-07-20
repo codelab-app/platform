@@ -1,6 +1,5 @@
 'use client'
 
-/* eslint-disable react/jsx-props-no-spreading */
 import type { SelectElementOption } from '@codelab/frontend-abstract-domain'
 import type { UniformSelectFieldProps } from '@codelab/shared-abstract-types'
 import type { SelectFieldProps } from 'uniforms-antd/cjs/SelectField'

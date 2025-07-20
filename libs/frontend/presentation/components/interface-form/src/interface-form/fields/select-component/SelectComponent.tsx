@@ -2,7 +2,6 @@
 
 import type { IRef } from '@codelab/shared-abstract-core'
 
-/* eslint-disable react/jsx-props-no-spreading */
 import { useDomainStore } from '@codelab/frontend-infra-mobx-context'
 import { connectField, type GuaranteedProps } from 'uniforms'
 import { SelectField } from 'uniforms-antd'

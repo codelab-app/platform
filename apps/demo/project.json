@@ -6,11 +6,7 @@
   "tags": ["projectName:demo", "projectType:application", "type:concrete"],
   "targets": {
     "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "apps/demo/jest.config.ts"
-      }
+      "executor": "@nx/jest:jest"
     },
     "lint": {
       "executor": "@nx/eslint:lint"

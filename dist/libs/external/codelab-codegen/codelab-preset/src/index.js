@@ -10,6 +10,9 @@ const visitor_plugin_common_1 = require("@graphql-codegen/visitor-plugin-common"
 const graphql_1 = require("graphql");
 exports.preset = {
     buildGeneratesSection: (options) => {
+        if (!options.schemaAst) {
+            throw new Error('Schema AST is required');
+        }
         const visitor = new visitor_plugin_common_1.ClientSideBaseVisitor(options.schemaAst, [], options.config, options.config);
         const sourcesWithOperations = options.documents.map((source) => {
             const { document } = source;
@@ -84,11 +87,11 @@ exports.preset = {
     ],
 };
 const createDeferred = () => {
-    const d = {};
-    d.promise = new Promise((resolve, reject) => {
-        d.resolve = resolve;
-        d.reject = reject;
+    const deferred = {};
+    deferred.promise = new Promise((resolve, reject) => {
+        deferred.resolve = resolve;
+        deferred.reject = reject;
     });
-    return d;
+    return deferred;
 };
 //# sourceMappingURL=index.js.map

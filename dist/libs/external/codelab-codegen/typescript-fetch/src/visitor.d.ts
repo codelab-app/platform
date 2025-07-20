@@ -8,8 +8,8 @@ export interface FetchVisitorConfig extends ParsedConfig {
     graphqlPath: string;
 }
 export declare class FetchVisitor extends BaseVisitor<FetchPluginRawConfig, FetchVisitorConfig> {
-    private _operations;
     constructor(documents: Array<Types.DocumentFile>, rawConfig: FetchPluginRawConfig);
-    getImports(): string[];
     get content(): string;
+    getImports(): string[];
+    private _operations;
 }

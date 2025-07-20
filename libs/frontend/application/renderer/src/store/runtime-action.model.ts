@@ -49,7 +49,6 @@ export class RuntimeActionModel
 
     const resource = action.resource.current
 
-    // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
     return async function (...args: Array<IPropData>) {
       const overrideConfig = args[1] ?? {}
       const config = mergeDeep(action.config.values, overrideConfig)
@@ -80,7 +79,6 @@ export class RuntimeActionModel
   @computed
   get codeRunner() {
     try {
-      // eslint-disable-next-line no-new-func
       return new Function(
         `return function run(...args) {
           const actions = this.actions;

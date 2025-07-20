@@ -15,25 +15,7 @@
       "executor": "@nx/eslint:lint"
     },
     "test": {
-      "configurations": {
-        "dev": {
-          "reporters": ["default"]
-        },
-        "test": {
-          "reporters": ["default"]
-        }
-      },
-      "defaultConfiguration": "dev",
-      "executor": "@nx/jest:jest",
-      "options": {
-        "color": true,
-        "jestConfig": "libs/frontend/domain/element/jest.config.ts",
-        "memoryLimit": 8192,
-        "parallel": 3,
-        "runInBand": true,
-        "testPathPattern": ["[^i].spec.ts"]
-      },
-      "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/element"]
+      "executor": "@nx/jest:jest"
     }
   }
 }

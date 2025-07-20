@@ -108,14 +108,14 @@ describe('Runtime Component props', () => {
         (childComponent) => childComponent.current,
       ) as Array<IRuntimeComponentModel>
 
-      expect(runtimeChildren[0]?.runtimeProps?.childMapperProp).toBe(
+      expect(runtimeChildren[0]?.runtimeProps.childMapperProp).toBe(
         propsValue[0],
       )
-      expect(runtimeChildren[1]?.runtimeProps?.childMapperProp).toBe(
+      expect(runtimeChildren[1]?.runtimeProps.childMapperProp).toBe(
         propsValue[1],
       )
-      expect(runtimeChildren[1]?.runtimeProps?.childMapperProp).toBe(
-        propsValue[1],
+      expect(runtimeChildren[2]?.runtimeProps.childMapperProp).toBe(
+        propsValue[2],
       )
     })
   })

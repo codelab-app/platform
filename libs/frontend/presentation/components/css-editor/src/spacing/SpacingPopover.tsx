@@ -40,7 +40,7 @@ export const SpacingPopover = ({
               'flex cursor-pointer items-center justify-center bg-gray-100 p-2',
               {
                 'bg-sky-100': String(currentValue) === val || unit === val,
-                // eslint-disable-next-line @typescript-eslint/naming-convention
+
                 'row-span-2': idx === 0,
               },
             )}

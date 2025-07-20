@@ -8,7 +8,6 @@ export const ApplicationStoreContext = createContext<IApplicationStore | null>(
   null,
 )
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ApplicationStoreProviderProps {
   value: IApplicationStore
 }

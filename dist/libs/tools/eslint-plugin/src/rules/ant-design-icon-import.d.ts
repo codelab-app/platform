@@ -1,3 +1,3 @@
 import { ESLintUtils } from '@typescript-eslint/utils';
-export declare const createESLintRule: <Options extends readonly unknown[], MessageIds extends string>({ name, meta, ...rule }: Readonly<ESLintUtils.RuleWithMetaAndName<Options, MessageIds>>) => ESLintUtils.RuleModule<MessageIds, Options>;
-export declare const antDesignIconImport: ESLintUtils.RuleModule<"iconImportPath", [], ESLintUtils.RuleListener>;
+export declare const createESLintRule: <Options extends readonly unknown[], MessageIds extends string>({ meta, name, ...rule }: Readonly<ESLintUtils.RuleWithMetaAndName<Options, MessageIds, unknown>>) => ESLintUtils.RuleModule<MessageIds, Options, unknown, ESLintUtils.RuleListener>;
+export declare const antDesignIconImport: ESLintUtils.RuleModule<"iconImportPath", [], unknown, ESLintUtils.RuleListener>;

@@ -66,22 +66,7 @@
       "executor": "@nx/eslint:lint"
     },
     "test": {
-      "executor": "@nx/jest:jest",
-      "options": {
-        "jestConfig": "apps/web/jest.config.ts",
-        "runInBand": true
-      },
-      "configurations": {
-        "test": {
-          "testPathPattern": ["i.spec.ts"],
-          "runInBand": true
-        },
-        "ci": {
-          "testPathPattern": ["i.spec.ts"],
-          "runInBand": true
-        }
-      },
-      "outputs": ["{workspaceRoot}/coverage/apps/web"]
+      "executor": "@nx/jest:jest"
     },
     "storybook": {
       "executor": "@nx/storybook:storybook",

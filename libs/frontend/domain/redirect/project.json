@@ -15,13 +15,7 @@
       "executor": "@nx/eslint:lint"
     },
     "test": {
-      "executor": "@nx/jest:jest",
-      "options": {
-        "jestConfig": "libs/frontend/domain/redirect/jest.config.ts",
-        "passWithNoTests": true,
-        "runInBand": true
-      },
-      "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/redirect"]
+      "executor": "@nx/jest:jest"
     }
   }
 }

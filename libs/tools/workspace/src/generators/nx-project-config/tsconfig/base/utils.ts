@@ -1,6 +1,10 @@
 import { type ProjectConfiguration, type Tree, updateJson } from '@nx/devkit'
 
-export const sortKeys = (object: object): object =>
+// Local type definition to avoid cross-library dependency issues
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
+type ObjectLike = Record<string, unknown>
+
+export const sortKeys = (object: ObjectLike): ObjectLike =>
   Object.fromEntries(Object.entries(object).sort())
 
 /**

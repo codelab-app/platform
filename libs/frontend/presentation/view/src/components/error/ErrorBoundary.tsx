@@ -11,10 +11,7 @@ interface ErrorState {
   hasError: boolean
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface ErrorBoundaryProps {
-  //
-}
+type ErrorBoundaryProps = unknown
 
 export class ErrorBoundary extends Component<
   PropsWithChildren<ErrorBoundaryProps>,
