@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  app:
+    image: mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm
+    volumes:
+      - ..:/workspace:cached
+    command: sleep infinity
+    environment:
+      - NODE_ENV=development
+      - DATABASE_HOSTNAME=neo4j
+      - DATABASE_PORT=7687
+      - DATABASE_NEO4J_USERNAME=neo4j
+      - DATABASE_NEO4J_PASSWORD=password
+    depends_on:
+      - neo4j
+      - neo4j-test
+    networks:
+      - codelab-network
+
+networks:
+  codelab-network:
+    driver: bridge
