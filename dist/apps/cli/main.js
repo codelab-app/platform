@@ -1392,7 +1392,11 @@ let TerraformService = class TerraformService {
             .command('init', 'terraform init', (argv) => argv, ({ stage }) => {
             // Use `tfswitch` to change to specific versions
             // Symlinks are no longer needed - modules now use explicit variable passing
-            execCommand(`export TF_WORKSPACE=${stage}; terraform -chdir=infra/terraform/environments/${stage} init --upgrade;`);
+            execCommand(`export TF_WORKSPACE=${stage}; terraform -chdir=infra/terraform/environments/${stage} init`);
+        })
+            .command('upgrade', 'terraform init --upgrade', (argv) => argv, ({ stage }) => {
+            // Upgrade providers to latest versions
+            execCommand(`export TF_WORKSPACE=${stage}; terraform -chdir=infra/terraform/environments/${stage} init --upgrade`);
         })
             .command('plan', 'terraform plan', (argv) => argv, ({ stage }) => {
             execCommand(`export TF_WORKSPACE=${stage}; terraform -chdir=infra/terraform/environments/${stage} plan`);
