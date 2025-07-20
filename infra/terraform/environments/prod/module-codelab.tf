@@ -1,3 +1,4 @@
+# Core infrastructure module for prod environment
 module "codelab" {
   source = "../../modules/codelab"
 

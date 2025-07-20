@@ -1,1 +1,0 @@
-../auth0/shared/vars-web-client.tf

@@ -1,3 +1,5 @@
+# CircleCI module for CI environment
+
 module "circleci" {
   source = "../../modules/circleci"
 
@@ -14,10 +16,10 @@ module "circleci" {
   auth0_e2e_password = var.AUTH0_E2E_PASSWORD
   auth0_secret       = var.AUTH0_SECRET
 
-  auth0_web_client_id     = module.auth0.web_client.id
+  auth0_web_client_id     = module.auth0.web_client.client_id
   auth0_web_client_secret = module.auth0.web_client.client_secret
 
-  auth0_m2m_client_id     = module.auth0.machine_client.id
+  auth0_m2m_client_id     = module.auth0.machine_client.client_id
   auth0_m2m_client_secret = module.auth0.machine_client.client_secret
 
   circleci_token = var.CIRCLECI_TOKEN

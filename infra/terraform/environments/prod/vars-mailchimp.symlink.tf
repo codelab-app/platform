@@ -1,1 +1,0 @@
-../shared/vars-mailchimp.tf

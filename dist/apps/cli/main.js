@@ -1359,6 +1359,13 @@ const getAutoApproveOptions = () => ({
 
 
 
+/**
+ * Terraform CLI service for managing infrastructure
+ *
+ * Note: As of the symlink refactoring (issue #3773), modules no longer use
+ * symlinks for variable sharing. All modules now accept explicit inputs
+ * and use the shared-config module pattern.
+ */
 let TerraformService = class TerraformService {
     constructor() {
         Object.defineProperty(this, "command", {
@@ -1384,8 +1391,7 @@ let TerraformService = class TerraformService {
             .middleware([loadStageMiddleware])
             .command('init', 'terraform init', (argv) => argv, ({ stage }) => {
             // Use `tfswitch` to change to specific versions
-            execCommand(`cd infra/terraform/environments/${stage} && ./symlink.sh`);
-            execCommand('cd infra/terraform/modules && ./symlink.sh');
+            // Symlinks are no longer needed - modules now use explicit variable passing
             execCommand(`export TF_WORKSPACE=${stage}; terraform -chdir=infra/terraform/environments/${stage} init --upgrade;`);
         })
             .command('plan', 'terraform plan', (argv) => argv, ({ stage }) => {

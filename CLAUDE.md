@@ -67,6 +67,7 @@ Load when needed: `Read .claude/documentation/convention/documentation-conventio
 - NEVER proactively create documentation files (\*.md) or README files in the main codebase
 - Use `.claude/documentation/` for complex implementation summaries when needed
 - Prefer simpler and shorter code rather than optimized code that handles more cases. Don'n automatically add use cases to my original task.
+- Always write summary to some .md file to the projectRoot of the nx lib or app, there should be existing md already. You can keep progress of tasks and software architecture design here.
 
 ### Type Checking
 

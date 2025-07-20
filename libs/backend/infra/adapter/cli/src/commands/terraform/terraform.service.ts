@@ -9,6 +9,14 @@ import type { StageParam } from '../../shared/options'
 import { loadStageMiddleware } from '../../shared/middleware'
 import { getAutoApproveOptions, getStageOptions } from '../../shared/options'
 
+/**
+ * Terraform CLI service for managing infrastructure
+ *
+ * Note: As of the symlink refactoring (issue #3773), modules no longer use
+ * symlinks for variable sharing. All modules now accept explicit inputs
+ * and use the shared-config module pattern.
+ */
+
 @Injectable()
 export class TerraformService implements CommandModule<unknown, unknown> {
   command = 'terraform'
@@ -33,13 +41,20 @@ export class TerraformService implements CommandModule<unknown, unknown> {
           (argv) => argv,
           ({ stage }) => {
             // Use `tfswitch` to change to specific versions
+            // Symlinks are no longer needed - modules now use explicit variable passing
             execCommand(
-              `cd infra/terraform/environments/${stage} && ./symlink.sh`,
+              `export TF_WORKSPACE=${stage}; terraform -chdir=infra/terraform/environments/${stage} init`,
             )
-            execCommand('cd infra/terraform/modules && ./symlink.sh')
-
+          },
+        )
+        .command<StageParam>(
+          'upgrade',
+          'terraform init --upgrade',
+          (argv) => argv,
+          ({ stage }) => {
+            // Upgrade providers to latest versions
             execCommand(
-              `export TF_WORKSPACE=${stage}; terraform -chdir=infra/terraform/environments/${stage} init --upgrade;`,
+              `export TF_WORKSPACE=${stage}; terraform -chdir=infra/terraform/environments/${stage} init --upgrade`,
             )
           },
         )

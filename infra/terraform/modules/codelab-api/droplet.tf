@@ -28,7 +28,3 @@ locals {
   api_protocol = local.enable_ssl ? "https" : "http"
   # local_port   = local.enable_ssl ? 443 : 80
 }
-
-output "codelab_api_hostname" {
-  value = "${local.api_protocol}://${digitalocean_droplet.codelab_api.ipv4_address_private}"
-}
